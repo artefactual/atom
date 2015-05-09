@@ -372,6 +372,7 @@ mapping:
         _i18nFields: [title]
         dynamic: strict
         properties:
+          id: { type: integer, index: not_analyzed }
           slug: { type: string, index: not_analyzed }
     _foreign_types:
       repository: repository

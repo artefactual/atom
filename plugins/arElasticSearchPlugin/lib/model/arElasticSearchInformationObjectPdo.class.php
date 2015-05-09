@@ -1265,6 +1265,7 @@ class arElasticSearchInformationObjectPdo
         array('fields' => array('title'))
       );
 
+      $serialized['partOf']['id'] = $collectionRootId;
       $serialized['partOf']['sourceCulture'] = $rootSourceCulture;
       $serialized['partOf']['slug'] = $rootSlug;
       $serialized['partOf']['i18n'] = $i18nFields;

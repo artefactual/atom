@@ -79,6 +79,10 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         array('type'   => 'term',
               'field'  => 'names.id',
               'filter' => 'hideDrafts',
+              'size'   => 10),
+      'collection' =>
+        array('type'   => 'term',
+              'field'  => 'partOf.id',
               'size'   => 10));
 
   protected function populateFacet($name, $ids)
@@ -127,6 +131,17 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         $criteria->add(QubitActor::ID, array_keys($ids), Criteria::IN);
 
         foreach (QubitActor::get($criteria) as $item)
+        {
+          $this->types[$item->id] = $item->__toString();
+        }
+
+        break;
+
+      case 'collection':
+        $criteria = new Criteria;
+        $criteria->add(QubitInformationObject::ID, array_keys($ids), Criteria::IN);
+
+        foreach (QubitInformationObject::get($criteria) as $item)
         {
           $this->types[$item->id] = $item->__toString();
         }

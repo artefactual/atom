@@ -31,6 +31,13 @@
         'filters' => $filters)) ?>
 
       <?php echo get_partial('search/facet', array(
+        'target' => '#facet-collection',
+        'label' => __('Part of'),
+        'facet' => 'collection',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+
+      <?php echo get_partial('search/facet', array(
         'target' => '#facet-repository',
         'label' => sfConfig::get('app_ui_label_repository'),
         'facet' => 'repos',
