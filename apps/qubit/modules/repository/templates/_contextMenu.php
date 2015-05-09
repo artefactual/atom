@@ -4,4 +4,6 @@
   <?php include_component('repository', 'uploadLimit', array('resource' => $resource)) ?>
 <?php endif; ?>
 
-<?php include_component('repository', 'holdings', array('resource' => $resource)) ?>
+<?php if ($resource->getRawValue() instanceof QubitRepository): ?>
+  <?php include_component('repository', 'holdings', array('resource' => $resource)) ?>
+<?php endif; ?>
