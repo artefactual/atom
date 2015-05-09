@@ -75,6 +75,13 @@
       'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
+      'target' => '#facet-collection',
+      'label' => __('Part of'),
+      'facet' => 'collection',
+      'pager' => $pager,
+      'filters' => $filters)) ?>
+
+    <?php echo get_partial('search/facet', array(
       'target' => '#facet-levelOfDescription',
       'label' => __('Level of description'),
       'facet' => 'levels',
