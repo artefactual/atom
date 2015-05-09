@@ -181,7 +181,7 @@ class sfImageMagickAdapter
     $imgData = @getimagesize($image);
     if (!$imgData)
     {
-      $extract = $this->getExtract();
+      $extract = $this->getExtract($image);
       exec($this->magickCommands['identify'].' '.escapeshellarg($image).$extract, $stdout, $retval);
       if ($retval === 1)
       {
@@ -225,7 +225,6 @@ class sfImageMagickAdapter
   public function save($thumbnail, $thumbDest, $targetMime = null)
   {
     $command = '';
-
     $width  = $this->sourceWidth;
     $height = $this->sourceHeight;
     $x = $y = 0;
@@ -349,13 +348,12 @@ class sfImageMagickAdapter
     }
 
     // extract images such as pages from a pdf doc
-    $extract = $this->getExtract();
+    $extract = $this->getExtract($this->image);
 
     $output = (is_null($thumbDest))?'-':$thumbDest;
     $output = (($mime = array_search($targetMime, $this->mimeMap))?$mime.':':'').$output;
 
     $cmd = $this->magickCommands['convert'].' '.$command.' '.escapeshellarg($this->image).$extract.' '.escapeshellarg($output);
-
     (is_null($thumbDest))?passthru($cmd):exec($cmd);
   }
 
@@ -377,17 +375,53 @@ class sfImageMagickAdapter
     return $this->sourceMime;
   }
 
-  private function getExtract()
+  /**
+   * If failure, this method returns 0.
+   */
+  private function getCount($image)
+  {
+    $command = $this->magickCommands['identify'].' -format %n '.escapeshellarg($image);
+    exec($command, $stdout, $retval);
+    if ($retval === 1)
+    {
+      throw new Exception('Image could not be identified.');
+    }
+
+    return intval(@$stdout[0]);
+  }
+
+  private function getExtract($image, array $options = array())
   {
     $extract = '';
-    if (isset($this->options['extract']) && is_int($this->options['extract']))
+    if (empty($this->options['extract']) && !is_int($this->options['extract']))
     {
-      if ($this->options['extract'] > 0)
-      {
-        $this->options['extract']--;
-      }
-      $extract = '['.escapeshellarg($this->options['extract']).'] ';
+      return $extract;
     }
+
+    // Make sure that we are no trying to extract a page that is out of the
+    // range. If so, we'll extract the last page of the document.
+    try
+    {
+      $count = $this->getCount($image);
+      if ($count > 0 && $count < $this->options['extract'])
+      {
+        $this->options['extract'] = $count;
+      }
+    }
+    catch (Exception $e)
+    {
+      // It defaults to the first page
+      $this->options['extract'] = 0;
+    }
+
+    // ImageMagick's initial element index is zero
+    $n = $this->options['extract'];
+    if ($n > 0)
+    {
+      $n--;
+    }
+
+    $extract = '['.escapeshellarg($n).'] ';
 
     return $extract;
   }

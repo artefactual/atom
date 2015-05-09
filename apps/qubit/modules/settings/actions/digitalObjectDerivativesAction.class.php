@@ -60,6 +60,7 @@ class SettingsDigitalObjectDerivativesAction extends DefaultEditAction
         }
         $this->settingPdfPageNumber->setValue($field->getValue(), array('culture' => 'en'));
         $this->settingPdfPageNumber->save();
+
         break;
     }
   }
