@@ -119,6 +119,12 @@ class InformationObjectIndexAction extends sfAction
       $this->getResponse()->addStylesheet('print-preview', 'last');
     }
 
+    if (!empty($scopeAndContent = $this->resource->getScopeAndContent(array('cultureFallback' => true))))
+    {
+      $this->getContext()->getConfiguration()->loadHelpers(array('Text'));
+      $this->response->addMeta('description', truncate_text($scopeAndContent, 150));
+    }
+
     // Only show link to view/download master copy of digital object if the
     // user has readMaster permissions OR it's a text object (to allow reading)
     $this->digitalObjectLink = null;
