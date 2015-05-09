@@ -14,6 +14,7 @@
         <tr><td><?php echo link_to(__('Security'), array('module' => 'settings', 'action' => 'security')) ?></td></tr>
         <tr><td><?php echo link_to(__('Permissions'), array('module' => 'settings', 'action' => 'permissions')) ?></td></tr>
         <tr><td><?php echo link_to(__('Inventory'), array('module' => 'settings', 'action' => 'inventory')) ?></td></tr>
+        <tr><td><?php echo link_to(__('Digital object derivatives'), array('module' => 'settings', 'action' => 'digitalObjectDerivatives')) ?></td></tr>
       </tbody>
     </table>
 </div>
