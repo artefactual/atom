@@ -65,7 +65,6 @@ class csvInformationObjectExport extends QubitFlatfileExport
     if ($this->resource->parentId != QubitInformationObject::ROOT_ID)
     {
       $this->setColumn('parentId', $this->resource->parentId);
-      $this->setColumn('qubitParentSlug', $this->resource->parent->slug);
     }
 
     // Set repository column and resposible institution identifier
