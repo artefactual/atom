@@ -2409,10 +2409,21 @@ class QubitDigitalObject extends BaseDigitalObject
       return false;
     }
 
+    $page = 1;
+    // I avoid sfConfig as it's not always available (CLI context)
+    if ($mimeType === 'application/pdf' &&
+      null !== $setting = QubitSetting::getByName('digital_object_derivatives_pdf_page_number'))
+    {
+      if (0 !== $p = intval($setting->getValue(array('sourceCulture' => true))))
+      {
+        $page = $p;
+      }
+    }
+
     // Create a thumbnail
     try
     {
-      $newImage = new sfThumbnail($width, $height, true, false, 75, $adapter, array('extract' => 1));
+      $newImage = new sfThumbnail($width, $height, true, false, 75, $adapter, array('extract' => $page));
       $newImage->loadFile($originalImageName);
     }
     catch (Exception $e)

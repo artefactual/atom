@@ -107,6 +107,8 @@ class SettingsInventoryAction extends DefaultEditAction
           $this->settingLevels->save();
         }
 
+        QubitCache::getInstance()->removePattern('settings:i18n:*');
+
         $this->redirect(array('module' => 'settings', 'action' => 'inventory'));
       }
     }
