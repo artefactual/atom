@@ -190,20 +190,8 @@
     <scopecontent encodinganalog="<?php echo $ead->getMetadataParameter('scopecontent') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></scopecontent><?php endif; ?>
   <?php if (0 < strlen($value = $resource->getArrangement(array('cultureFallback' => true)))): ?>
     <arrangement encodinganalog="<?php echo $ead->getMetadataParameter('arrangement') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></arrangement><?php endif; ?>
-  <?php
-  $materialtypes = $resource->getMaterialTypes();
-  $genres = $resource->getTermRelations(QubitTaxonomy::GENRE_ID);
-  $subjects = $resource->getSubjectAccessPoints();
-  $names = $resource->getNameAccessPoints();
-  $places = $resource->getPlaceAccessPoints();
-  $place_events = $resource->getPlaceAccessPoints(array('events' => true));
 
-  if ((0 < count($materialtypes)) ||
-     (0 < count($genres)) ||
-     (0 < count($subjects)) ||
-     (0 < count($names)) ||
-     (0 < count($places)) ||
-     (0 < count($resource->getActors()))): ?>
+  <?php if ($ead->getControlAccessFields($resource, $materialTypes, $genres, $subjects, $names, $places, $placeEvents)): ?>
     <controlaccess>
       <?php foreach ($resource->getActorEvents() as $event): ?>
         <?php if ($event->getType()->getRole() != 'Creator'): ?>
@@ -231,7 +219,7 @@
           <name role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></name>
         <?php endif; ?>
       <?php endforeach; ?>
-      <?php foreach ($materialtypes as $materialtype): ?>
+      <?php foreach ($materialTypes as $materialtype): ?>
         <genreform source="rad" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('materialType'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($materialtype->getTerm()))) ?></genreform>
       <?php endforeach; ?>
       <?php foreach ($genres as $genre): ?>
@@ -243,7 +231,7 @@
       <?php foreach ($places as $place): ?>
         <geogname><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
       <?php endforeach; ?>
-      <?php foreach ($place_events as $place): ?>
+      <?php foreach ($placeEvents as $place): ?>
         <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('geog'.$place->getObject()->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('geogDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_place"><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
       <?php endforeach; ?>
     </controlaccess>
@@ -312,145 +300,131 @@
         <arrangement encodinganalog="<?php echo $ead->getMetadataParameter('arrangement') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></arrangement>
       <?php endif; ?>
 
-      <?php
+      <?php if ($ead->getControlAccessFields($descendant, $materialTypes, $genres, $subjects, $names, $places, $placeEvents)): ?>
 
-        $materialtypes = $descendant->getMaterialTypes();
-        $genres = $descendant->getTermRelations(QubitTaxonomy::GENRE_ID);
-        $subjects = $descendant->getSubjectAccessPoints();
-        $names = $descendant->getNameAccessPoints();
-        $places = $descendant->getPlaceAccessPoints();
-        $place_events = $descendant->getPlaceAccessPoints(array('events' => true));
+        <controlaccess>
 
-        if ((0 < count($materialtypes)) ||
-            (0 < count($genres)) ||
-            (0 < count($subjects)) ||
-            (0 < count($names)) ||
-            (0 < count($places)) ||
-            (0 < count($descendant->getActors()))): ?>
+          <?php foreach ($descendant->getActorEvents() as $event): ?>
+            <?php if ($event->getType()->getRole() != 'Creator'): ?>
 
-          <controlaccess>
-
-            <?php foreach ($descendant->getActorEvents() as $event): ?>
-              <?php if ($event->getType()->getRole() != 'Creator'): ?>
-
-                <?php if ($event->getActor()->getEntityTypeId() == QubitTerm::PERSON_ID): ?>
-                  <persname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('name'.$event->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('nameDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </persname>
-                <?php elseif ($event->getActor()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
-                  <famname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('name'.$event->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('nameDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </famname>
-                <?php elseif ($event->getActor()->getEntityTypeId() == QubitTerm::CORPORATE_BODY_ID): ?>
-                  <corpname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('name'.$event->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('nameDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </corpname>
-                <?php else: ?>
-                  <name role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('name'.$event->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('nameDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </name>
-                <?php endif; ?>
-
-              <?php endif; ?>
-            <?php endforeach; ?>
-
-            <?php foreach ($names as $name): ?>
-              <?php if ($name->getObject()->getEntityTypeId() == QubitTerm::PERSON_ID): ?>
-                <persname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></persname>
-              <?php elseif ($name->getObject()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
-                <famname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></famname>
-              <?php elseif ($name->getObject()->getEntityTypeId() == QubitTerm::CORPORATE_BODY_ID): ?>
-                <corpname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></corpname>
+              <?php if ($event->getActor()->getEntityTypeId() == QubitTerm::PERSON_ID): ?>
+                <persname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('name'.$event->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('nameDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </persname>
+              <?php elseif ($event->getActor()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
+                <famname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('name'.$event->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('nameDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </famname>
+              <?php elseif ($event->getActor()->getEntityTypeId() == QubitTerm::CORPORATE_BODY_ID): ?>
+                <corpname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('name'.$event->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('nameDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </corpname>
               <?php else: ?>
-                <name role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></name>
+                <name role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('name'.$event->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('nameDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </name>
               <?php endif; ?>
-            <?php endforeach; ?>
 
-            <?php foreach ($materialtypes as $materialtype): ?>
-              <genreform source="rad" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('materialType'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($materialtype->getTerm())) ?></genreform>
-            <?php endforeach; ?>
-
-            <?php foreach ($genres as $genre): ?>
-              <genreform <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($genre->getTerm()))) ?></genreform>
-            <?php endforeach; ?>
-
-            <?php foreach ($subjects as $subject): ?>
-              <subject><?php echo escape_dc(esc_specialchars($subject->getTerm())) ?></subject>
-            <?php endforeach; ?>
-
-            <?php foreach ($places as $place): ?>
-              <geogname><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
-            <?php endforeach; ?>
-
-            <?php foreach ($place_events as $place): ?>
-              <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('geog'.$place->getObject()->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('geogDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_place"><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
-            <?php endforeach; ?>
-
-          </controlaccess>
-
-        <?php endif; ?>
-
-        <?php if (0 < strlen($value = $descendant->getPhysicalCharacteristics(array('cultureFallback' => true)))): ?>
-          <phystech encodinganalog="<?php echo $ead->getMetadataParameter('phystech') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></phystech>
-        <?php endif; ?>
-
-        <?php if (0 < strlen($value = $descendant->getAppraisal(array('cultureFallback' => true)))): ?>
-          <appraisal <?php if (0 < strlen($encoding = $ead->getMetadataParameter('appraisal'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($value)) ?></p></appraisal>
-        <?php endif; ?>
-
-        <?php if (0 < strlen($value = $descendant->getAcquisition(array('cultureFallback' => true)))): ?>
-          <acqinfo encodinganalog="<?php echo $ead->getMetadataParameter('acqinfo') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></acqinfo>
-        <?php endif; ?>
-
-        <?php if (0 < strlen($value = $descendant->getAccruals(array('cultureFallback' => true)))): ?>
-          <accruals encodinganalog="<?php echo $ead->getMetadataParameter('accruals') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></accruals>
-        <?php endif; ?>
-
-        <?php if (0 < strlen($value = $descendant->getArchivalHistory(array('cultureFallback' => true)))): ?>
-          <custodhist encodinganalog="<?php echo $ead->getMetadataParameter('custodhist') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></custodhist>
-        <?php endif; ?>
-
-        <?php if (0 < strlen($value = $descendant->getRevisionHistory(array('cultureFallback' => true)))): ?>
-          <processinfo><date><?php echo escape_dc(esc_specialchars($value)) ?></date></processinfo>
-        <?php endif; ?>
-
-        <?php if (0 < count($archivistsNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)))): ?>
-          <?php foreach ($archivistsNotes as $note): ?>
-            <processinfo><p><?php echo escape_dc(esc_specialchars($note)) ?></p></processinfo>
-          <?php endforeach; ?>
-        <?php endif; ?>
-
-        <?php if (0 < strlen($value = $descendant->getLocationOfOriginals(array('cultureFallback' => true)))): ?>
-          <originalsloc encodinganalog="<?php echo $ead->getMetadataParameter('originalsloc') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></originalsloc>
-        <?php endif; ?>
-
-        <?php if (0 < strlen($value = $descendant->getLocationOfCopies(array('cultureFallback' => true)))): ?>
-          <altformavail encodinganalog="<?php echo $ead->getMetadataParameter('altformavail') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></altformavail>
-        <?php endif; ?>
-
-        <?php if (0 < strlen($value = $descendant->getRelatedUnitsOfDescription(array('cultureFallback' => true)))): ?>
-          <relatedmaterial encodinganalog="<?php echo $ead->getMetadataParameter('relatedmaterial') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></relatedmaterial>
-        <?php endif; ?>
-
-        <?php if (0 < strlen($value = $descendant->getAccessConditions(array('cultureFallback' => true)))): ?>
-          <accessrestrict encodinganalog="<?php echo $ead->getMetadataParameter('accessrestrict') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></accessrestrict>
-        <?php endif; ?>
-
-        <?php if (0 < strlen($value = $descendant->getReproductionConditions(array('cultureFallback' => true)))): ?>
-          <userestrict encodinganalog="<?php echo $ead->getMetadataParameter('userestrict') ?>"><p><?php echo escape_dc(esc_specialchars($value))  ?></p></userestrict>
-        <?php endif; ?>
-
-        <?php if (0 < strlen($value = $descendant->getFindingAids(array('cultureFallback' => true)))): ?>
-          <otherfindaid encodinganalog="<?php echo $ead->getMetadataParameter('otherfindaid') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></otherfindaid>
-        <?php endif; ?>
-
-        <?php if (0 < count($publicationNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)))): ?>
-          <?php foreach ($publicationNotes as $note): ?>
-            <bibliography <?php if (0 < strlen($encoding = $ead->getMetadataParameter('bibliography'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></bibliography>
-          <?php endforeach; ?>
-        <?php endif; ?>
-
-        <?php foreach($radNotes as $name => $xmlType): ?>
-            <?php $noteTypeId = array_search($name, $termData['radNoteTypes']); ?>
-
-            <?php if (0 < count($notes = $descendant->getNotesByType(array('noteTypeId' => $noteTypeId)))): ?>
-              <?php foreach ($notes as $note): ?>
-                <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></odd>
-              <?php endforeach; ?>
             <?php endif; ?>
+          <?php endforeach; ?>
+
+          <?php foreach ($names as $name): ?>
+            <?php if ($name->getObject()->getEntityTypeId() == QubitTerm::PERSON_ID): ?>
+              <persname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></persname>
+            <?php elseif ($name->getObject()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
+              <famname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></famname>
+            <?php elseif ($name->getObject()->getEntityTypeId() == QubitTerm::CORPORATE_BODY_ID): ?>
+              <corpname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></corpname>
+            <?php else: ?>
+              <name role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></name>
+            <?php endif; ?>
+          <?php endforeach; ?>
+
+          <?php foreach ($materialTypes as $materialtype): ?>
+            <genreform source="rad" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('materialType'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($materialtype->getTerm())) ?></genreform>
+          <?php endforeach; ?>
+
+          <?php foreach ($genres as $genre): ?>
+            <genreform <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($genre->getTerm()))) ?></genreform>
+          <?php endforeach; ?>
+
+          <?php foreach ($subjects as $subject): ?>
+            <subject><?php echo escape_dc(esc_specialchars($subject->getTerm())) ?></subject>
+          <?php endforeach; ?>
+
+          <?php foreach ($places as $place): ?>
+            <geogname><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
+          <?php endforeach; ?>
+
+          <?php foreach ($placeEvents as $place): ?>
+            <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('geog'.$place->getObject()->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('geogDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_place"><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
+          <?php endforeach; ?>
+
+        </controlaccess>
+
+      <?php endif; ?>
+
+      <?php if (0 < strlen($value = $descendant->getPhysicalCharacteristics(array('cultureFallback' => true)))): ?>
+        <phystech encodinganalog="<?php echo $ead->getMetadataParameter('phystech') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></phystech>
+      <?php endif; ?>
+
+      <?php if (0 < strlen($value = $descendant->getAppraisal(array('cultureFallback' => true)))): ?>
+        <appraisal <?php if (0 < strlen($encoding = $ead->getMetadataParameter('appraisal'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($value)) ?></p></appraisal>
+      <?php endif; ?>
+
+      <?php if (0 < strlen($value = $descendant->getAcquisition(array('cultureFallback' => true)))): ?>
+        <acqinfo encodinganalog="<?php echo $ead->getMetadataParameter('acqinfo') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></acqinfo>
+      <?php endif; ?>
+
+      <?php if (0 < strlen($value = $descendant->getAccruals(array('cultureFallback' => true)))): ?>
+        <accruals encodinganalog="<?php echo $ead->getMetadataParameter('accruals') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></accruals>
+      <?php endif; ?>
+
+      <?php if (0 < strlen($value = $descendant->getArchivalHistory(array('cultureFallback' => true)))): ?>
+        <custodhist encodinganalog="<?php echo $ead->getMetadataParameter('custodhist') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></custodhist>
+      <?php endif; ?>
+
+      <?php if (0 < strlen($value = $descendant->getRevisionHistory(array('cultureFallback' => true)))): ?>
+        <processinfo><date><?php echo escape_dc(esc_specialchars($value)) ?></date></processinfo>
+      <?php endif; ?>
+
+      <?php if (0 < count($archivistsNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)))): ?>
+        <?php foreach ($archivistsNotes as $note): ?>
+          <processinfo><p><?php echo escape_dc(esc_specialchars($note)) ?></p></processinfo>
         <?php endforeach; ?>
+      <?php endif; ?>
+
+      <?php if (0 < strlen($value = $descendant->getLocationOfOriginals(array('cultureFallback' => true)))): ?>
+        <originalsloc encodinganalog="<?php echo $ead->getMetadataParameter('originalsloc') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></originalsloc>
+      <?php endif; ?>
+
+      <?php if (0 < strlen($value = $descendant->getLocationOfCopies(array('cultureFallback' => true)))): ?>
+        <altformavail encodinganalog="<?php echo $ead->getMetadataParameter('altformavail') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></altformavail>
+      <?php endif; ?>
+
+      <?php if (0 < strlen($value = $descendant->getRelatedUnitsOfDescription(array('cultureFallback' => true)))): ?>
+        <relatedmaterial encodinganalog="<?php echo $ead->getMetadataParameter('relatedmaterial') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></relatedmaterial>
+      <?php endif; ?>
+
+      <?php if (0 < strlen($value = $descendant->getAccessConditions(array('cultureFallback' => true)))): ?>
+        <accessrestrict encodinganalog="<?php echo $ead->getMetadataParameter('accessrestrict') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></accessrestrict>
+      <?php endif; ?>
+
+      <?php if (0 < strlen($value = $descendant->getReproductionConditions(array('cultureFallback' => true)))): ?>
+        <userestrict encodinganalog="<?php echo $ead->getMetadataParameter('userestrict') ?>"><p><?php echo escape_dc(esc_specialchars($value))  ?></p></userestrict>
+      <?php endif; ?>
+
+      <?php if (0 < strlen($value = $descendant->getFindingAids(array('cultureFallback' => true)))): ?>
+        <otherfindaid encodinganalog="<?php echo $ead->getMetadataParameter('otherfindaid') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></otherfindaid>
+      <?php endif; ?>
+
+      <?php if (0 < count($publicationNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)))): ?>
+        <?php foreach ($publicationNotes as $note): ?>
+          <bibliography <?php if (0 < strlen($encoding = $ead->getMetadataParameter('bibliography'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></bibliography>
+        <?php endforeach; ?>
+      <?php endif; ?>
+
+      <?php foreach($radNotes as $name => $xmlType): ?>
+          <?php $noteTypeId = array_search($name, $termData['radNoteTypes']); ?>
+
+          <?php if (0 < count($notes = $descendant->getNotesByType(array('noteTypeId' => $noteTypeId)))): ?>
+            <?php foreach ($notes as $note): ?>
+              <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></odd>
+            <?php endforeach; ?>
+          <?php endif; ?>
+      <?php endforeach; ?>
 
       <?php if ($descendant->rgt == $descendant->lft + 1): ?>
         </c>
