@@ -369,4 +369,36 @@ class sfEadPlugin
 
     return $renderedLOD;
   }
+
+  /*
+   * Get various <controlaccess> fields from specified information object.
+   * @return  bool  True if there are controlaccess fields present, false if not
+   */
+  public function getControlAccessFields($io, &$materialTypes, &$genres, &$subjects, &$names, &$places, &$placeEvents)
+  {
+    $materialTypes = $io->getMaterialTypes();
+    $genres = $io->getTermRelations(QubitTaxonomy::GENRE_ID);
+    $subjects = $io->getSubjectAccessPoints();
+    $names = $io->getNameAccessPoints();
+    $places = $io->getPlaceAccessPoints();
+    $placeEvents = $io->getPlaceAccessPoints(array('events' => true));
+
+    // Special case: we don't add actors from creation events to <controlaccess>, to
+    // prevent duplication during round tripping (AtoM will get the creator from <origination>).
+    // So we need to take this into account for our return value when indicating if there are any
+    // <controlaccess> fields or not.
+
+    $hasNonCreationActorEvents = false;
+    foreach ($io->getActorEvents() as $event)
+    {
+      if ($event->getType()->getRole() != 'Creator')
+      {
+        $hasNonCreationActorEvents = true;
+        break;
+      }
+    }
+
+    return count($materialTypes) || count($genres) || count($subjects) ||
+           count($names) || count($places) || $hasNonCreationActorEvents;
+  }
 }
