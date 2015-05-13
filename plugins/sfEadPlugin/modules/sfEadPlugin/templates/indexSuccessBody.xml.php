@@ -252,7 +252,7 @@
     <custodhist encodinganalog="<?php echo $ead->getMetadataParameter('custodhist') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></custodhist>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getRevisionHistory(array('cultureFallback' => true)))): ?>
-    <processinfo><date><?php echo escape_dc(esc_specialchars($value)) ?></date></processinfo>
+    <processinfo><p><date><?php echo escape_dc(esc_specialchars($value)) ?></date></p></processinfo>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getLocationOfOriginals(array('cultureFallback' => true)))): ?>
     <originalsloc encodinganalog="<?php echo $ead->getMetadataParameter('originalsloc') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></originalsloc>
@@ -377,7 +377,7 @@
       <?php endif; ?>
 
       <?php if (0 < strlen($value = $descendant->getRevisionHistory(array('cultureFallback' => true)))): ?>
-        <processinfo><date><?php echo escape_dc(esc_specialchars($value)) ?></date></processinfo>
+        <processinfo><p><date><?php echo escape_dc(esc_specialchars($value)) ?></date><p></processinfo>
       <?php endif; ?>
 
       <?php if (0 < count($archivistsNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)))): ?>
