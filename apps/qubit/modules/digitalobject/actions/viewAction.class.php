@@ -47,10 +47,26 @@ class DigitalObjectViewAction extends sfAction
       $this->forward404();
     }
 
-    $this->getResponse()->setContentType($this->resource->mimeType);
-    $this->getResponse()->setHttpHeader('X-Accel-Redirect', '/private' . $this->resource->getFullPath());
+    $this->setResponseHeaders();
 
     return sfView::HEADER_ONLY;
+  }
+
+  protected function setResponseHeaders()
+  {
+    $this->response->setContentType($this->resource->mimeType);
+
+    // Using X-Accel-Redirect (Nginx) unless ATOM_XSENDFILE is set
+    if (false === filter_var($_SERVER['ATOM_XSENDFILE'], FILTER_VALIDATE_BOOLEAN))
+    {
+      $this->response->setHttpHeader('X-Accel-Redirect', '/private'.$this->resource->getFullPath());
+    }
+    else
+    {
+      $this->response->setHttpHeader('X-Sendfile', sprintf('%s/%s',
+        sfConfig::get('sf_root_dir'),
+        $this->resource->getFullPath()));
+    }
   }
 
   private function getInfoObjAndAction()
