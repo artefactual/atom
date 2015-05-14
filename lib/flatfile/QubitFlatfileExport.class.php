@@ -350,7 +350,7 @@ class QubitFlatfileExport
       $appRoot = dirname(__FILE__) .'/../..';
       require_once(realpath($appRoot .'/lib/helper/QubitHelper.php'));
 
-      clear_class_caches();
+      Qubit::clearClassCaches();
     }
 
     $this->prepareRowFromResource();
