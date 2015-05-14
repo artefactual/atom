@@ -256,4 +256,20 @@ class Qubit
 
     return $error ? false : $dest;
   }
+
+  /**
+   * Clear Qubit's class-specific, in-memory caches
+   *
+   * @return void
+   */
+  public static function clearClassCaches()
+  {
+    foreach (get_declared_classes() as $c)
+    {
+      if (strpos($c, 'Qubit') === 0 && method_exists($c, 'clearCache'))
+      {
+        $c::clearCache();
+      }
+    }
+  }
 }
