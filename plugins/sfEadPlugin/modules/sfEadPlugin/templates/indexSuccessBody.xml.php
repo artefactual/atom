@@ -84,14 +84,14 @@
   </profiledesc>
 </eadheader>
 
-<?php // TODO: <frontmatter></frontmatter> ?>
-
 <archdesc <?php echo $ead->renderLOD($resource, $eadLevels) ?> relatedencoding="<?php echo $ead->getMetadataParameter('relatedencoding') ?>">
   <?php
 
   $resourceVar = 'resource';
   $counter = 0;
   $counterVar = 'counter';
+  $creators = $$resourceVar->getCreators();
+  $events = $$resourceVar->getActorEvents(array('eventTypeId' => QubitTerm::CREATION_ID));
 
   include('indexSuccessBodyDidElement.xml.php');
   include('indexSuccessBodyBioghistElement.xml.php');
@@ -288,6 +288,9 @@
 
       <?php
         $resourceVar = 'descendant';
+        $creators = $$resourceVar->getCreators();
+        $events = $$resourceVar->getActorEvents(array('eventTypeId' => QubitTerm::CREATION_ID));
+
         include('indexSuccessBodyDidElement.xml.php');
         include('indexSuccessBodyBioghistElement.xml.php');
       ?>
