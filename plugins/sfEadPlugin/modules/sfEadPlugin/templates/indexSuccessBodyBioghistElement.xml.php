@@ -9,7 +9,7 @@
           <note><p><?php echo escape_dc(esc_specialchars($value)) ?></p></note>
         <?php endif; ?>
         <?php if ($creator->datesOfExistence): ?>
-          <date type="existence"><?php echo escape_dc(esc_specialchars($creator->datesOfExistence)) ?></date>
+          <note><p><date type="existence"><?php echo escape_dc(esc_specialchars($creator->datesOfExistence)) ?></date></p></note>
         <?php endif; ?>
       </bioghist>
     <?php endif; ?>
