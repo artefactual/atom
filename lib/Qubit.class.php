@@ -272,4 +272,17 @@ class Qubit
       }
     }
   }
+
+  /**
+   * Format poorly formatted XML strings
+   */
+  public static function tidyXml($xml)
+  {
+    $dom = new DOMDocument;
+    $dom->preserveWhiteSpace = false;
+    $dom->formatOutput = true;
+    $dom->loadXML($xml);
+
+    return $dom->saveXML();
+  }
 }

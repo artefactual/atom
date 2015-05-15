@@ -66,7 +66,7 @@ class eacExportTask extends exportBulkBaseTask
 
           try
           {
-            $xml = $this->tidyXml($rawXml);
+            $xml = Qubit::tidyXml($rawXml);
           }
           catch (Exception $e)
           {
