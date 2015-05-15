@@ -139,25 +139,6 @@ abstract class exportBulkBaseTask extends sfBaseTask
     return $output;
   }
 
-  protected function tidyXml($rawXml)
-  {
-    $xml = simplexml_load_string($rawXml);
-
-    if (empty($xml))
-    {
-      throw new sfException('Invalid XML');
-    }
-    else {
-      $dom = new DOMDocument("1.0");
-      $dom->preserveWhiteSpace = false;
-      $dom->formatOutput = true;
-      $dom->loadXML($xml->asXML());
-      $cleanXml = $dom->saveXML();
-    }
-
-    return $cleanXml;
-  }
-
   protected function generateSortableFilename($objectId, $formatAbbreviation)
   {
     // Pad ID with zeros so filenames can be sorted in creation order for imports
