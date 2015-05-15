@@ -159,7 +159,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
         $choices = array();
         if (isset($this->request->f) && strlen($this->request->f) > 0)
         {
-          $params = $this->context->routing->parse(Qubit::pathInfo($this->request->f));
+          $params = sfContext::getInstance()->routing->parse(Qubit::pathInfo($this->request->f));
           $fonds = $params['_sf_route']->resource;
 
           if ($fonds instanceof QubitInformationObject)
@@ -183,7 +183,12 @@ class SearchAdvancedAction extends DefaultBrowseAction
       return;
     }
 
-    switch ($field->getName())
+    return $this->fieldCriteria($field->getName(), $value);
+  }
+
+  static function fieldCriteria($name, $value)
+  {
+    switch ($name)
     {
       case 'c':
         // Get unknown copyright status term
@@ -212,13 +217,13 @@ class SearchAdvancedAction extends DefaultBrowseAction
           $queryBool->addShould($query);
           $queryBool->addShould($filteredQuery);
 
-          $this->queryBool->addMust($queryBool);
+          return $queryBool;
         }
         else
         {
           $query = new \Elastica\Query\Term;
           $query->setTerm('copyrightStatusId', $value);
-          $this->queryBool->addMust($query);
+          return $query;
         }
 
         break;
@@ -226,40 +231,40 @@ class SearchAdvancedAction extends DefaultBrowseAction
       case 'h':
         $query = new \Elastica\Query\Term;
         $query->setTerm('hasDigitalObject', $value);
-        $this->queryBool->addMust($query);
+        return $query;
 
         break;
 
       case 'l':
         $query = new \Elastica\Query\Term;
         $query->setTerm('levelOfDescriptionId', $value);
-        $this->queryBool->addMust($query);
+        return $query;
 
         break;
 
       case 'm':
         $query = new \Elastica\Query\Term;
         $query->setTerm('materialTypeId', $value);
-        $this->queryBool->addMust($query);
+        return $query;
 
         break;
 
       case 't':
         $query = new \Elastica\Query\Term;
         $query->setTerm('digitalObject.mediaTypeId', $value);
-        $this->queryBool->addMust($query);
+        return $query;
 
         break;
 
       case 'r':
         $query = new \Elastica\Query\Term;
         $query->setTerm('repository.id', $value);
-        $this->queryBool->addMust($query);
+        return $query;
 
         break;
 
       case 'f':
-        $params = $this->context->routing->parse(Qubit::pathInfo($value));
+        $params = sfContext::getInstance()->routing->parse(Qubit::pathInfo($value));
         $fonds = $params['_sf_route']->resource;
 
         if ($fonds instanceof QubitInformationObject)
@@ -274,7 +279,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
           $querySelf->setFieldQuery('slug', $fonds->slug);
           $query->addShould($querySelf);
 
-          $this->queryBool->addMust($query);
+          return $query;
         }
 
         break;
@@ -295,6 +300,26 @@ class SearchAdvancedAction extends DefaultBrowseAction
       $field = $this->request->getParameter('sf'.$count, '_all');
       $operator = $this->request->getParameter('so'.$count, 'or');
 
+      $queryField = $this->queryField($field, $query, $this->template);
+
+      $this->addToQueryBool($queryBool, $operator, $queryField);
+
+      $this->criterias[] = array(
+        'query' => $query,
+        'field' => $field,
+        'operator' => $operator);
+    }
+
+    if (0 == count($queryBool->getParams()))
+    {
+      return;
+    }
+
+    return $queryBool;
+  }
+
+  static function queryField($field, $query, $archivalStandard)
+  {
       switch ($field)
       {
         case 'identifier':
@@ -329,9 +354,9 @@ class SearchAdvancedAction extends DefaultBrowseAction
           ProjectConfiguration::getActive()->loadHelpers(array('Asset', 'Qubit'));
 
           // Check archival history visibility
-          if (($this->template == 'rad' && check_field_visibility('app_element_visibility_rad_archival_history'))
-            || ($this->template == 'isad' && check_field_visibility('app_element_visibility_isad_archival_history'))
-            || ($this->template != 'isad' && $this->template != 'rad'))
+          if (($archivalStandard == 'rad' && check_field_visibility('app_element_visibility_rad_archival_history'))
+            || ($archivalStandard == 'isad' && check_field_visibility('app_element_visibility_isad_archival_history'))
+            || ($archivalStandard != 'isad' && $$archivalStandard != 'rad'))
           {
             $queryField = new \Elastica\Query\QueryString($query);
             $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.archivalHistory'));
@@ -393,6 +418,11 @@ class SearchAdvancedAction extends DefaultBrowseAction
           break;
       }
 
+    return $queryField;
+  }
+
+  static function addToQueryBool(&$queryBool, $operator, $queryField)
+  {
       switch ($operator)
       {
         case 'not':
@@ -418,19 +448,6 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
           break;
       }
-
-      $this->criterias[] = array(
-        'query' => $query,
-        'field' => $field,
-        'operator' => $operator);
-    }
-
-    if (0 == count($queryBool->getParams()))
-    {
-      return;
-    }
-
-    return $queryBool;
   }
 
   public function execute($request)
@@ -468,7 +485,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
     // Bulding a \Elastica\Query\Bool object from the search criterias
     if (null !== $criterias = $this->parseQuery())
     {
-      $this->queryBool->addMust($criterias);
+      $this->search->queryBool->addMust($criterias);
     }
 
     // Process sidebar filters (as sfForm fields)
@@ -476,28 +493,32 @@ class SearchAdvancedAction extends DefaultBrowseAction
     {
       if (isset($this->request[$field->getName()]))
       {
-        $this->processField($field);
+        // Bulding a \Elastica\Query\Bool object from the search criterias
+        if (null !== $criterias = $this->processField($field))
+        {
+          $this->search->queryBool->addMust($criterias);
+        }
       }
     }
 
     // Stop execution if zero results
-    if (1 > count($this->queryBool->getParams()))
+    if (1 > count($this->search->queryBool->getParams()))
     {
       return;
     }
 
-    $this->query->setQuery($this->queryBool);
+    $this->search->query->setQuery($this->search->queryBool);
 
     // Filter drafts
-    QubitAclSearch::filterDrafts($this->filterBool);
+    QubitAclSearch::filterDrafts($this->search->filterBool);
 
     // Set filter
-    if (0 < count($this->filterBool->toArray()))
+    if (0 < count($this->search->filterBool->toArray()))
     {
-      $this->query->setFilter($this->filterBool);
+      $this->search->query->setFilter($this->search->filterBool);
     }
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->query);
 
     // Page results
     $this->pager = new QubitSearchPager($resultSet);

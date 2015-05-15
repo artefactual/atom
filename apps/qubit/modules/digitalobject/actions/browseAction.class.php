@@ -62,45 +62,45 @@ class DigitalObjectBrowseAction extends DefaultBrowseAction
     parent::execute($request);
 
     // Create query object
-    $this->queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => true)));
+    $this->search->queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => true)));
 
     if (isset($this->getRoute()->resource))
     {
       $this->resource = $this->getRoute()->resource;
-      $this->queryBool->addMust(new \Elastica\Query\Term(array('ancestors' => $this->resource->id)));
+      $this->search->queryBool->addMust(new \Elastica\Query\Term(array('ancestors' => $this->resource->id)));
     }
 
     // Sorting
     switch ($request->sort)
     {
       case 'lastUpdated':
-        $this->query->setSort(array('updatedAt' => 'desc'));
+        $this->search->query->setSort(array('updatedAt' => 'desc'));
 
         break;
 
       case 'identifier':
-        $this->query->setSort(array('identifier' => 'asc'));
+        $this->search->query->setSort(array('identifier' => 'asc'));
 
         break;
 
       case 'alphabetic':
       default:
         $field = sprintf('i18n.%s.title.untouched', $this->context->user->getCulture());
-        $this->query->setSort(array($field => 'asc'));
+        $this->search->query->setSort(array($field => 'asc'));
     }
 
-    $this->query->setQuery($this->queryBool);
+    $this->search->query->setQuery($this->search->queryBool);
 
     // Filter drafts
-    QubitAclSearch::filterDrafts($this->filterBool);
+    QubitAclSearch::filterDrafts($this->search->filterBool);
 
     // Set filter
-    if (0 < count($this->filterBool->toArray()))
+    if (0 < count($this->search->filterBool->toArray()))
     {
-      $this->query->setFilter($this->filterBool);
+      $this->search->query->setFilter($this->search->filterBool);
     }
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->query);
 
     // Pager results
     $this->pager = new QubitSearchPager($resultSet);

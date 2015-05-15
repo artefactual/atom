@@ -68,7 +68,7 @@ class ActorBrowseAction extends DefaultBrowseAction
 
     if (1 === preg_match('/^[\s\t\r\n]*$/', $request->subquery))
     {
-      $this->queryBool->addMust(new \Elastica\Query\MatchAll());
+      $this->search->queryBool->addMust(new \Elastica\Query\MatchAll());
     }
     else
     {
@@ -76,39 +76,39 @@ class ActorBrowseAction extends DefaultBrowseAction
       $queryText->setDefaultOperator('OR');
       $queryText->setDefaultField('_all');
 
-      $this->queryBool->addMust($queryText);
+      $this->search->queryBool->addMust($queryText);
     }
 
-    $this->query = QubitAclSearch::filterByResource($this->query, QubitActor::getById(QubitActor::ROOT_ID));
+    $this->search->query = QubitAclSearch::filterByResource($this->search->query, QubitActor::getById(QubitActor::ROOT_ID));
 
     switch ($request->sort)
     {
       // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
         $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->selectedCulture);
-        $this->query->setSort(array($field => 'asc'));
+        $this->search->query->setSort(array($field => 'asc'));
 
         break;
 
       case 'identifier':
-        $this->query->setSort(array('descriptionIdentifier' => 'asc'));
+        $this->search->query->setSort(array('descriptionIdentifier' => 'asc'));
 
         break;
 
       case 'lastUpdated':
       default:
-        $this->query->setSort(array('updatedAt' => 'desc'));
+        $this->search->query->setSort(array('updatedAt' => 'desc'));
     }
 
-    $this->query->setQuery($this->queryBool);
+    $this->search->query->setQuery($this->search->queryBool);
 
     // Set filter
-    if (0 < count($this->filterBool->toArray()))
+    if (0 < count($this->search->filterBool->toArray()))
     {
-      $this->query->setFilter($this->filterBool);
+      $this->search->query->setFilter($this->filterBool);
     }
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($this->query);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($this->search->query);
 
     $this->pager = new QubitSearchPager($resultSet);
     $this->pager->setPage($request->page ? $request->page : 1);
