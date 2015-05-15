@@ -7,5 +7,7 @@ all:
       - arGenerateFindingAidJob
     acl:
       - arInheritRightsJob
+    search_csv_export:
+      - arSearchResultExportCsvJob
     sword:
       - qtSwordPluginWorker
