@@ -69,6 +69,12 @@
           <?php echo __('Print') ?>
         </a>
       </li>
+      <li>
+        <a href="<?php echo url_for(array_merge($sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('module' => 'search', 'action' => 'exportCsv'))) ?>">
+           <i class="icon-upload-alt"></i>
+           <?php echo __('Export CSV') ?>
+        </a>
+      </li>
     </ul>
   </section>
 <?php end_slot() ?>
