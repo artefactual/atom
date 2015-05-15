@@ -188,4 +188,26 @@
     <?php endif; ?>
   <?php endif; ?>
 
+  <?php if (0 < count($creators)): ?>
+    <?php foreach($events as $date): ?>
+      <?php $creator = QubitActor::getById($date->actorId); ?>
+
+      <origination encodinganalog="<?php echo $ead->getMetadataParameter('origination') ?>">
+        <?php if ($type = $creator->getEntityTypeId()): ?>
+          <?php if (QubitTerm::PERSON_ID == $type): ?>
+            <persname><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></persname>
+          <?php endif; ?>
+          <?php if (QubitTerm::FAMILY_ID == $type): ?>
+            <famname><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></famname>
+          <?php endif; ?>
+          <?php if (QubitTerm::CORPORATE_BODY_ID == $type): ?>
+            <corpname><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></corpname>
+          <?php endif; ?>
+        <?php else: ?>
+          <name><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></name>
+        <?php endif; ?>
+      </origination>
+    <?php endforeach; ?>
+  <?php endif; ?>
+
 </did>
