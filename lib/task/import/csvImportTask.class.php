@@ -1136,7 +1136,7 @@ function setupEventDateData(&$self, &$eventData, $index)
       as $statusVar => $eventProperty
     )
     {
-      if (isset($self->rowStatusVars[$statusVar][$index]))
+      if (!empty($self->rowStatusVars[$statusVar][$index]))
       {
         $eventData[$eventProperty] = $self->rowStatusVars[$statusVar][$index] .'-00-00';
       }
@@ -1151,7 +1151,7 @@ function setupEventDateData(&$self, &$eventData, $index)
       as $statusVar => $eventProperty
     )
     {
-      if (isset($self->rowStatusVars[$statusVar][$index]))
+      if (!empty($self->rowStatusVars[$statusVar][$index]))
       {
         if ($eventProperty == 'typeId')
         {

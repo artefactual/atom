@@ -44,7 +44,7 @@ class eacExportTask extends exportBulkBaseTask
 
     $conn = $this->getDatabaseConnection();
 
-    $this->includeClassesAndHelpers();
+    $this->includeXmlExportClassesAndHelpers();
 
     // Get descriptions matching optional specification
     $rows = $conn->query($this->informationObjectQuerySql($options), PDO::FETCH_ASSOC);
@@ -56,7 +56,7 @@ class eacExportTask extends exportBulkBaseTask
 
       foreach ($informationObject->getActors() as $resource)
       {
-        $filename = $this->generateSortableFilename($resource->id, 'eac');
+        $filename = $this->generateSortableFilename($resource->id, 'xml', 'eac');
         $filePath = sprintf('%s/%s', $arguments['path'], $filename);
 
         // Only export actor the first time it's encountered in a description

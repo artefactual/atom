@@ -24,11 +24,11 @@
  * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
-class exportBulkTask extends exportBulkBaseTask
+class csvExportInformationObjectsTask extends exportBulkBaseTask
 {
-  protected $namespace        = 'export';
-  protected $name             = 'bulk';
-  protected $briefDescription = 'Bulk export multiple XML files at once';
+  protected $namespace        = 'csv';
+  protected $name             = 'export';
+  protected $briefDescription = 'Export descriptions as CSV file(s)';
 
   /**
    * @see sfTask
@@ -37,7 +37,10 @@ class exportBulkTask extends exportBulkBaseTask
   {
     $this->addCommonArgumentsAndOptions();
     $this->addOptions(array(
-      new sfCommandOption('format', null, sfCommandOption::PARAMETER_OPTIONAL, 'XML format ("ead" or "mods")', 'ead')
+      new sfCommandOption('standard', null, sfCommandOption::PARAMETER_OPTIONAL, 'Description format ("isad" or "rad")', 'isad')
+    ));
+    $this->addOptions(array(
+      new sfCommandOption('rows-per-file', null, sfCommandOption::PARAMETER_OPTIONAL, 'Rows per file (disregarded if writing to a file, not a directory)', false)
     ));
   }
 
@@ -46,15 +49,11 @@ class exportBulkTask extends exportBulkBaseTask
    */
   public function execute($arguments = array(), $options = array())
   {
-    $options['format'] = $this->normalizeExportFormat(
-      $options['format'],
-      array('ead', 'mods')
+    // Make sure standard is lower case
+    $options['standard'] = $this->normalizeExportFormat(
+      $options['standard'],
+      array('isad', 'rad')
     );
-
-    if (!isset($options['single-id']))
-    {
-      $this->checkPathIsWritable($arguments['path']);
-    }
 
     $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);
     $sf_context = sfContext::createInstance($configuration);
@@ -67,7 +66,14 @@ class exportBulkTask extends exportBulkBaseTask
     $conn = $this->getDatabaseConnection();
     $rows = $conn->query($this->informationObjectQuerySql($options), PDO::FETCH_ASSOC);
 
-    $this->includeXmlExportClassesAndHelpers();
+    print 'Exporting as '. strtoupper($options['standard']) .".\n";
+
+    // Instantiate CSV writer
+    $writer = new csvInformationObjectExport(
+      $arguments['path'],
+      $options['standard'],
+      $options['rows-per-file']
+    );
 
     foreach ($rows as $row)
     {
@@ -80,29 +86,7 @@ class exportBulkTask extends exportBulkBaseTask
         continue;
       }
 
-      try
-      {
-        $rawXml = $this->captureResourceExportTemplateOutput($resource, $options['format'], $options);
-        $xml = $this->tidyXml($rawXml);
-      }
-      catch (Exception $e)
-      {
-        throw new sfException('Invalid XML generated for object '. $row['id'] .'.');
-      }
-
-      if (isset($options['single-id']))
-      {
-        // If we're just exporting the one record, the given path
-        // is actually the full path+filename.
-        $filePath = $arguments['path'];
-      }
-      else
-      {
-        $filename = $this->generateSortableFilename($row['id'], 'xml', $options['format']);
-        $filePath = sprintf('%s/%s', $arguments['path'], $filename);
-      }
-
-      file_put_contents($filePath, $xml);
+      $writer->exportResource($resource);
 
       $this->indicateProgress($options['items-until-update']);
 
