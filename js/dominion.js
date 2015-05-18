@@ -235,6 +235,8 @@
         }
 
         this.$menu.on('mouseenter', 'li', $.proxy(this.mouseenter, this));
+        this.$menu.on('mouseleave', 'li', $.proxy(this.mouseleave, this));
+        this.$menu.on('click', 'li', $.proxy(this.click, this));
 
         this.$realm.on('change', 'input[type=radio]', $.proxy(this.changeRealm, this));
 
@@ -368,9 +370,51 @@
         return this;
       },
 
-    next: function (e) { },
-    prev: function (e) { },
-    select: function (e) { },
+    next: function (e)
+      {
+        var $items = this.$menu.find('li');
+        var $active = this.$menu.find('li.active:first');
+
+        if ($active.length)
+        {
+          $active.removeClass('active');
+          $items.eq($items.index($active) + 1).addClass('active');
+        }
+        else
+        {
+          $items.first().addClass('active');
+        }
+      },
+
+    prev: function (e)
+      {
+        var $items = this.$menu.find('li');
+        var $active = this.$menu.find('li.active:first');
+
+        if ($active.length)
+        {
+          $active.removeClass('active');
+          $items.eq($items.index($active) - 1).addClass('active');
+        }
+        else
+        {
+          $items.last().addClass('active');
+        }
+      },
+
+    select: function (e)
+      {
+        var $active = this.$menu.find('li.active:first');
+
+        if ($active.length)
+        {
+          $(location).attr('href', $active.find('a').attr('href'));
+        }
+        else
+        {
+          this.$form.submit();
+        }
+      },
 
     keyup: function (e)
       {
@@ -378,14 +422,6 @@
         {
           case 40: // Down arrow
           case 38: // Up arrow
-            break;
-
-          case 9: // Tab
-            if (!this.shown)
-            {
-              return;
-            }
-            this.select();
             break;
 
           case 27: // Escape
@@ -424,14 +460,13 @@
 
         switch (e.keyCode)
         {
-          case 9: // Tab
           case 27: // Escape
             e.preventDefault();
             break;
 
-          case 13:
+          case 13: // Enter
             e.preventDefault();
-            $(e.target).closest('form').get(0).submit();
+            this.select();
             break;
 
           case 38: // Up arrow
@@ -482,8 +517,18 @@
 
     mouseenter: function (e)
       {
-        this.$menu.find('active').removeClass('active');
         $(e.currentTarget).addClass('active');
+      },
+
+    mouseleave: function (e)
+      {
+        $(e.currentTarget).removeClass('active');
+      },
+
+    click: function (e)
+      {
+        e.preventDefault();
+        $(location).attr('href', $(e.currentTarget).find('a').attr('href'));
       }
   };
 
