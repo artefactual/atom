@@ -23,6 +23,12 @@ class InformationObjectTreeViewComponent extends sfComponent
   {
     $this->resource = $request->getAttribute('sf_route')->resource;
 
+    $this->treeviewType = sfConfig::get('app_treeview_type', 'sidebar');
+    if ($this->treeviewType != 'sidebar')
+    {
+      return sfView::SUCCESS;
+    }
+
     // We don't want to support sorting when sorting by other than lft
     $this->sortable = 'none' == sfConfig::get('app_sort_treeview_informationobject') && QubitAcl::check($this->resource, 'update');
 
