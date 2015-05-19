@@ -95,13 +95,10 @@ class InformationObjectIndexAction extends sfAction
   {
     $this->resource = $this->getRoute()->resource;
 
-    // specified here instead of view.yml so plugins calling
+    // Specified here instead of view.yml so plugins calling
     // calling inheriting and calling parent::execute also
     // automatically load the file(s)
-    $this->getResponse()->addJavascript('deleteBasisRight.js');
-
-    // placed here rather than adding it five times to
-    // sf{Dc,Mods,Rad,Isad,Dacs}Plugin's view.yml files
+    $this->getResponse()->addJavascript('deleteBasisRight.js', 'last');
     $this->getResponse()->addStylesheet('fullWidthTreeView', 'last');
     $this->getResponse()->addStylesheet('/vendor/jstree/themes/default/style', 'last');
     $this->getResponse()->addJavascript('fullWidthTreeView', 'last');
