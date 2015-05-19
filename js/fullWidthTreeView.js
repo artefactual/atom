@@ -13,56 +13,16 @@
 
   "use strict";
 
-  $(init);
+  $(loadTreeView);
 
-  var treeview_open = false;
   var url = '/informationobject/fullWidthTreeView';
   var html =  "<div id=\"fullwidth-treeview-row\">" + 
                "<div id=\"fullwidth-treeview\">" +
                "</div>" +
               "</div>";
-  var loader = null;
-
-  // Toggles between disabling Holdings tab
-  function toggleTreeviewMenu()
-  {
-    // Get the treeview/holdings tab
-    var holdings_tab = $("#treeview-menu li a[data-toggle='#treeview']").parent();
-
-    // Activate the search tab
-    $("#treeview-menu li a[data-toggle='#treeview-search']").click();
-
-    // Disable the holdings tab
-    holdings_tab.find('a').addClass('disabled');
-    holdings_tab.addClass('disabled');
-  }
-
-  function init()
-  {
-    $('#treeview-btn-area i').tooltip({placement: "top"});
-
-    loadTreeView();
-  }
 
   function loadTreeView()
   {
-    treeview_open = !treeview_open
-
-    // Closing fullwidth view?
-    if (treeview_open == false)
-    {
-      // Refresh the page
-      loader.toggle();
-      window.location.reload();
-
-      return false;
-    }
-
-    $(this).toggleClass('active');
-
-    // Track and toggle state
-    toggleTreeviewMenu();
-
     $('#main-column h1').after($(html));
     $('#fullwidth-treeview-row').animate({height: '100px'}, 500);
 
@@ -104,8 +64,7 @@
         },
         'Collection': {
           'icon': 'fa fa-archive'
-        },
-
+        }
       }
 
       // Initialize jstree
@@ -127,18 +86,11 @@
         active_node.scrollIntoView(true);
         $('body')[0].scrollIntoView(true);
       }
-
-      // Hide loader
-      loader = $('#fullwidth-treeview-loading');
-      loader.toggle();
     });
 
     // Bind click events to nodes to load the informationobject's page and insert the current page
     $("#fullwidth-treeview").bind("select_node.jstree", function(evt, data)
     {
-      // Set icon to spinner
-      loader.toggle();
-
       // Open node if possible
       data.instance.open_node(data.node);
 
@@ -163,9 +115,6 @@
 
         // Update the url, TODO save the state
         History.pushState(null, $('#main-column h1').first().text(), url);
-
-        // Remove loading icon
-        loader.toggle();
       });
     });
 
