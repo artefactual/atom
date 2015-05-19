@@ -100,6 +100,14 @@ class InformationObjectIndexAction extends sfAction
     // automatically load the file(s)
     $this->getResponse()->addJavascript('deleteBasisRight.js');
 
+    // placed here rather than adding it five times to
+    // sf{Dc,Mods,Rad,Isad,Dacs}Plugin's view.yml files
+    $this->getResponse()->addStylesheet('fullWidthTreeView', 'last');
+    $this->getResponse()->addStylesheet('/vendor/jstree/themes/default/style', 'last');
+    $this->getResponse()->addJavascript('fullWidthTreeView', 'last');
+    $this->getResponse()->addJavascript('/vendor/jstree/jstree.min.js', 'last');
+    $this->getResponse()->addJavascript('history.js', 'last');
+
     // Check that this isn't the root
     if (!isset($this->resource->parent))
     {
