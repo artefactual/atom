@@ -176,15 +176,24 @@ h1 {
 
   &#search-realm {
     background-color: @white;
-    padding: 5px 10px 0px 0;
+
+    div {
+      padding: 5px;
+
+      &.active {
+        background-color: @grayLighter;
+      }
+    }
+
     label {
       margin-left: 6px;
+      margin-bottom: 0;
       .text-overflow();
       input[type=radio] {
         background-color: @white !important;
         display: inline !important;
         width: auto !important;
-        margin: -4px 4px 0 4px;
+        padding: -4px 4px 0 4px;
       }
     }
   }
@@ -224,7 +233,7 @@ h1 {
   label {
     input {
       display: inline;
-      margin: 0 4px;
+      margin-bottom: 5px;
     }
   }
 

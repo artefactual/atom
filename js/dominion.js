@@ -238,6 +238,8 @@
         this.$menu.on('mouseleave', 'li', $.proxy(this.mouseleave, this));
         this.$menu.on('click', 'li', $.proxy(this.click, this));
 
+        this.$realm.on('mouseenter', 'div', $.proxy(this.mouseenter, this));
+        this.$realm.on('mouseleave', 'div', $.proxy(this.mouseleave, this));
         this.$realm.on('change', 'input[type=radio]', $.proxy(this.changeRealm, this));
 
         // Validate form
@@ -370,45 +372,68 @@
         return this;
       },
 
-    next: function (e)
+    move: function (direction)
       {
-        var $items = this.$menu.find('li');
-        var $active = this.$menu.find('li.active:first');
+        // Determine what dropdown is being displayed
+        // and move through the items
+        if (this.$menu.css('display') == 'block')
+        {
+          var $items = this.$menu.find('li');
+          var $active = this.$menu.find('li.active:first');
+        }
+        else
+        {
+          var $items = this.$realm.find('div');
+          var $active = this.$realm.find('div.active:first');
+        }
 
         if ($active.length)
         {
           $active.removeClass('active');
-          $items.eq($items.index($active) + 1).addClass('active');
+
+          var pos = $items.index($active) + direction;
+          if (pos >= 0)
+          {
+            $items.eq(pos).addClass('active');
+          }
         }
         else
         {
-          $items.first().addClass('active');
-        }
-      },
-
-    prev: function (e)
-      {
-        var $items = this.$menu.find('li');
-        var $active = this.$menu.find('li.active:first');
-
-        if ($active.length)
-        {
-          $active.removeClass('active');
-          $items.eq($items.index($active) - 1).addClass('active');
-        }
-        else
-        {
-          $items.last().addClass('active');
+          if (direction < 0)
+          {
+            $items.last().addClass('active');
+          }
+          else
+          {
+            $items.first().addClass('active');
+          }
         }
       },
 
     select: function (e)
       {
-        var $active = this.$menu.find('li.active:first');
+        // Determine what dropdown is being displayed
+        // and interact with the active element or submit the form
+        if (this.$menu.css('display') == 'block')
+        {
+          var $active = this.$menu.find('li.active:first');
+        }
+        else
+        {
+          var $active = this.$realm.find('div.active:first');
+        }
 
         if ($active.length)
         {
-          $(location).attr('href', $active.find('a').attr('href'));
+          var $radio = $active.find('input[type=radio]');
+          if ($radio.length)
+          {
+            $radio.click();
+          }
+          else
+          {
+            $(location).attr('href', $active.find('a').attr('href'));
+          }
         }
         else
         {
@@ -448,16 +473,6 @@
 
     keypress: function (e)
       {
-        if (13 == e.keyCode && !e.target.value.length)
-        {
-          e.preventDefault();
-          e.stopPropagation();
-
-          return;
-        }
-
-        // if (!this.shown) return;
-
         switch (e.keyCode)
         {
           case 27: // Escape
@@ -471,12 +486,12 @@
 
           case 38: // Up arrow
             e.preventDefault();
-            this.prev();
+            this.move(-1);
             break;
 
           case 40: // Down arrow
             e.preventDefault();
-            this.next();
+            this.move(1);
             break;
         }
 
