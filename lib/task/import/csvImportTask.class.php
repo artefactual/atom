@@ -470,11 +470,15 @@ EOF;
         }
 
         // add alternative identifiers
-        setAlternativeIdentifiers(
-          $self->object,
-          $self->rowStatusVars['alternativeIdentifiers'],
-          $self->rowStatusVars['alternativeIdentifierLabels']
-        );
+        if (array_key_exists('alternativeIdentifiers', $self->rowStatusVars) &&
+            array_key_exists('alternativeIdentifierLabels', $self->rowStatusVars))
+        {
+          setAlternativeIdentifiers(
+            $self->object,
+            $self->rowStatusVars['alternativeIdentifiers'],
+            $self->rowStatusVars['alternativeIdentifierLabels']
+          );
+        }
 
         // set description status
         if (isset($self->rowStatusVars['descriptionStatus']) && 0 < strlen($self->rowStatusVars['descriptionStatus']))
@@ -1033,7 +1037,7 @@ EOF;
             $do = new QubitDigitalObject;
             $do->importFromURI($uri);
             $do->object = $self->object;
-            $do->save($conn);
+            $do->save();
           }
           catch (Exception $e)
           {
