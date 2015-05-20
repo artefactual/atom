@@ -26,7 +26,9 @@ class sfThemePluginIndexAction extends sfAction
     $this->form->setWidgets(array(
       'toggleDescription' => new sfWidgetFormInputCheckbox,
       'toggleLogo' => new sfWidgetFormInputCheckbox,
-      'toggleTitle' => new sfWidgetFormInputCheckbox));
+      'toggleTitle' => new sfWidgetFormInputCheckbox,
+      'toggleLanguageMenu' => new sfWidgetFormInputCheckbox,
+      'toggleIoSlider' => new sfWidgetFormInputCheckbox));
 
     $criteria = new Criteria;
     $criteria->add(QubitSetting::NAME, 'toggleDescription');
@@ -55,12 +57,32 @@ class sfThemePluginIndexAction extends sfAction
       $this->form->setDefault('toggleTitle', $toggleTitleSetting->__get('value', array('sourceCulture' => true)));
     }
 
+    $criteria = new Criteria;
+    $criteria->add(QubitSetting::NAME, 'toggleLanguageMenu');
+    if (1 == count($toggleLanguageMenuQuery = QubitSetting::get($criteria)))
+    {
+      $toggleLanguageMenuSetting = $toggleLanguageMenuQuery[0];
+
+      $this->form->setDefault('toggleLanguageMenu', $toggleLanguageMenuSetting->__get('value', array('sourceCulture' => true)));
+    }
+
+    $criteria = new Criteria;
+    $criteria->add(QubitSetting::NAME, 'toggleIoSlider');
+    if (1 == count($toggleIoSliderQuery = QubitSetting::get($criteria)))
+    {
+      $toggleIoSliderSetting = $toggleIoSliderQuery[0];
+
+      $this->form->setDefault('toggleIoSlider', $toggleIoSliderSetting->__get('value', array('sourceCulture' => true)));
+    }
+
     if ($request->isMethod('post'))
     {
       $this->form->setValidators(array(
         'toggleDescription' => new sfValidatorBoolean,
         'toggleLogo' => new sfValidatorBoolean,
-        'toggleTitle' => new sfValidatorBoolean));
+        'toggleTitle' => new sfValidatorBoolean,
+        'toggleLanguageMenu' => new sfValidatorBoolean,
+        'toggleIoSlider' => new sfValidatorBoolean));
 
       $this->form->bind($request->getPostParameters());
 
@@ -92,6 +114,24 @@ class sfThemePluginIndexAction extends sfAction
 
         $toggleTitleSetting->__set('value', $this->form->getValue('toggleTitle'), array('sourceCulture' => true));
         $toggleTitleSetting->save();
+
+        if (1 != count($toggleLanguageMenuQuery))
+        {
+          $toggleLanguageMenuSetting = new QubitSetting;
+          $toggleLanguageMenuSetting->name = 'toggleLanguageMenu';
+        }
+
+        $toggleLanguageMenuSetting->__set('value', $this->form->getValue('toggleLanguageMenu'), array('sourceCulture' => true));
+        $toggleLanguageMenuSetting->save();
+
+        if (1 != count($toggleIoSliderQuery))
+        {
+          $toggleIoSliderSetting = new QubitSetting;
+          $toggleIoSliderSetting->name = 'toggleIoSlider';
+        }
+
+        $toggleIoSliderSetting->__set('value', $this->form->getValue('toggleIoSlider'), array('sourceCulture' => true));
+        $toggleIoSliderSetting->save();
 
         QubitCache::getInstance()->removePattern('settings:i18n:*');
 
