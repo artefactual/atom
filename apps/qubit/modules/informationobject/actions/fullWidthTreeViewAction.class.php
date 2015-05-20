@@ -48,6 +48,13 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
 
     array_walk($data, function(&$data) use ($_this)
     {
+      // Overwrite source culture title if the current culture title is populated
+      if ($this->getUser()->getCulture() != $data['source_culture']
+        && !empty($data['current_title']))
+      {
+        $data['text'] = $data['current_title'];
+      }
+
       $data['a_attr']['title'] = $data['text'];
       $data['text'] = ((int) $data['status_id'] == QubitTerm::PUBLICATION_STATUS_DRAFT_ID ? '('.$data['status'].') ' : '') . "<u>{$data['type']}</u> {$data['text']}";
 
@@ -66,7 +73,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
       }
 
       // Not used currently
-      unset($data['identifier'], $data['status'], $data['status_id']);
+      unset($data['identifier'], $data['status'], $data['status_id'], $data['source_culture'], $data['current_title']);
 
       $data['a_attr']['href'] = $_this->generateUrl('slug', array('slug' => @$data['slug']));
       unset($data['slug']);
@@ -80,21 +87,25 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
 
   protected function getItemIds($item, $drafts = true)
   {
+    $i18n = sfContext::getInstance()->i18n;
+    $untitled = $i18n->__('Untitled');
+
     $draftsSql = ($drafts) ? "AND status.status_id <> " . QubitTerm::PUBLICATION_STATUS_DRAFT_ID : "" ;
 
-    $sql = "SELECT node.id,
-        i18n.title as text, IFNULL(node.identifier, '') as identifier,
+    $sql = "SELECT node.id, node.source_culture,
+        IFNULL(source_i18n.title, '<i>$untitled</i>') as text, IFNULL(node.identifier, '') as identifier,
         node.parent_id as parent, slug.slug, IFNULL(term_type.name, '') as type,
-        status_term.name as status, status_id
+        status_term.name as status, status_id, current_i18n.title as current_title
         FROM
           (information_object AS parent,
           information_object AS node,
-          information_object_i18n as i18n,
+          information_object_i18n as source_i18n,
           slug, status, term_i18n as status_term)
           LEFT JOIN term_i18n AS term_type ON (node.level_of_description_id = term_type.id AND term_type.culture = :culture)
+          LEFT JOIN information_object_i18n AS current_i18n ON (node.id = current_i18n.id AND current_i18n.culture = :culture)
         WHERE node.lft BETWEEN parent.lft AND parent.rgt
-          AND node.id = i18n.id
-          AND i18n.culture = :culture
+          AND source_i18n.id = node.id
+          AND source_i18n.culture = node.source_culture
           AND status.object_id = node.id
           AND node.id = slug.object_id
           AND parent.id = :id
