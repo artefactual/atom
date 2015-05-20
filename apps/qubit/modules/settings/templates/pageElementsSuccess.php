@@ -41,6 +41,14 @@
             <td><?php echo $defaultPageElementsForm->toggleDescription->label('Description')->renderLabel() ?></td>
             <td><?php echo $defaultPageElementsForm->toggleDescription ?></td>
           </tr>
+          <tr>
+            <td><?php echo $defaultPageElementsForm->toggleLanguageMenu->label('Language menu')->renderLabel() ?></td>
+            <td><?php echo $defaultPageElementsForm->toggleLanguageMenu ?></td>
+          </tr>
+          <tr>
+            <td><?php echo $defaultPageElementsForm->toggleIoSlider->label('Digital object carousel')->renderLabel() ?></td>
+            <td><?php echo $defaultPageElementsForm->toggleIoSlider ?></td>
+          </tr>
         </tbody>
       </table>
 
