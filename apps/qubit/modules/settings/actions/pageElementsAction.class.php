@@ -35,7 +35,9 @@ class SettingsPageElementsAction extends sfAction
     $this->defaultPageElementsForm->setWidgets(array(
       'toggleDescription' => new sfWidgetFormInputCheckbox,
       'toggleLogo' => new sfWidgetFormInputCheckbox,
-      'toggleTitle' => new sfWidgetFormInputCheckbox));
+      'toggleTitle' => new sfWidgetFormInputCheckbox,
+      'toggleLanguageMenu' => new sfWidgetFormInputCheckbox,
+      'toggleIoSlider' => new sfWidgetFormInputCheckbox));
 
     $criteria = new Criteria;
     $criteria->add(QubitSetting::NAME, 'toggleDescription');
@@ -62,6 +64,24 @@ class SettingsPageElementsAction extends sfAction
       $toggleTitleSetting = $toggleTitleQuery[0];
 
       $this->defaultPageElementsForm->setDefault('toggleTitle', $toggleTitleSetting->__get('value', array('sourceCulture' => true)));
+    }
+
+    $criteria = new Criteria;
+    $criteria->add(QubitSetting::NAME, 'toggleLanguageMenu');
+    if (1 == count($toggleLanguageMenuQuery = QubitSetting::get($criteria)))
+    {
+      $toggleLanguageMenuSetting = $toggleLanguageMenuQuery[0];
+
+      $this->defaultPageElementsForm->setDefault('toggleLanguageMenu', $toggleLanguageMenuSetting->__get('value', array('sourceCulture' => true)));
+    }
+
+    $criteria = new Criteria;
+    $criteria->add(QubitSetting::NAME, 'toggleIoSlider');
+    if (1 == count($toggleIoSliderQuery = QubitSetting::get($criteria)))
+    {
+      $toggleIoSliderSetting = $toggleIoSliderQuery[0];
+
+      $this->defaultPageElementsForm->setDefault('toggleIoSlider', $toggleIoSliderSetting->__get('value', array('sourceCulture' => true)));
     }
   }
 }

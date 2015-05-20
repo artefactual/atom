@@ -28,6 +28,11 @@ class DigitalObjectImageflowComponent extends sfComponent
 {
   public function execute($request)
   {
+    if (!sfConfig::get('app_toggleIoSlider'))
+    {
+      return sfView::NONE;
+    }
+
     $this->thumbnails = array();
 
     // Set limit (null for no limit)
