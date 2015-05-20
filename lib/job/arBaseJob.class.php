@@ -35,6 +35,7 @@ class arBaseJob extends Net_Gearman_Job_Common
    * If any of the required paramareters is missing the job will fail.
    */
   private $requiredParameters = array('id', 'name');
+  protected $downloadFileExtension = null; // Child class should set if creating user downloads
 
   public function run($parameters)
   {
@@ -54,6 +55,7 @@ class arBaseJob extends Net_Gearman_Job_Common
     // Net_Gearman_Job_Exception to avoid breaking the worker
     try
     {
+      $this->createJobsDownloadsDirectory();
       $this->runJob($parameters);
     }
     catch (Exception $e)
@@ -130,6 +132,73 @@ class arBaseJob extends Net_Gearman_Job_Common
   private function formatLogMsg($message)
   {
     return sprintf('Job %d "%s": %s', $this->job->id, $this->job->name, $message);
+  }
+
+  /**
+   * Return the job's download file path (or null if job doesn't create
+   * a download).
+   *
+   * @return string  file path
+   */
+  public function getDownloadFilePath()
+  {
+    $downloadFilePath = null;
+
+    if (!is_null($this->downloadFileExtension))
+    {
+      $downloadFilePath = $this->getJobsDownloadDirectory() . DIRECTORY_SEPARATOR . $this->getJobDownloadFilename();
+    }
+
+    return $downloadFilePath;
+  }
+
+  /**
+   * Return the job's download file's relative path (or null if job doesn't
+   * create a download).
+   *
+   * @return string  file path
+   */
+  public function getDownloadRelativeFilePath()
+  {
+    $downloadRelativeFilePath = null;
+
+    if (!is_null($this->downloadFileExtension))
+    {
+      $relativeBaseDir = 'downloads' . DIRECTORY_SEPARATOR . 'jobs';
+      $downloadRelativeFilePath = $relativeBaseDir . DIRECTORY_SEPARATOR . $this->getJobDownloadFilename();
+    }
+
+    return $downloadRelativeFilePath;
+  }
+
+  /**
+   * Get the jobs download directory, a subdirectory of main AtoM downloads directory
+   *
+   * @return string  directory path
+   */
+  private function getJobsDownloadDirectory()
+  {
+    $downloadsPath = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR . 'downloads';
+    return $downloadsPath . DIRECTORY_SEPARATOR . 'jobs';
+  }
+
+  private function getJobDownloadFilename()
+  {
+    return $this->job->id .'.'. $this->downloadFileExtension;
+  }
+
+  /**
+   * Create jobs download directory, a subdirectory of main AtoM downloads
+   * directory, if it doesn't already exist.
+   *
+   * @return void
+   */
+  private function createJobsDownloadsDirectory()
+  {
+    if (!is_null($this->downloadFileExtension) && !is_dir($this->getJobsDownloadDirectory()))
+    {
+      mkdir($this->getJobsDownloadDirectory(), 0755, true);
+    }
   }
 
   /**
