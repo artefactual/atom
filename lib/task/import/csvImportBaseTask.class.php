@@ -251,7 +251,8 @@ abstract class csvImportBaseTask extends sfBaseTask
     // create events, if any
     if (count($createEvents))
     {
-      if ($import->rowStatusVars['culture'] != $import->object->sourceCulture)
+      if (array_key_exists('culture', $import->rowStatusVars) &&
+          $import->rowStatusVars['culture'] != $import->object->sourceCulture)
       {
         // Add i18n data to existing event
         $sql = "SELECT id FROM event WHERE object_id = ? and type_id = ?;";
