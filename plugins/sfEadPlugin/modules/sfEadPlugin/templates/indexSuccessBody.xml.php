@@ -380,7 +380,7 @@
       <?php endif; ?>
 
       <?php if (0 < strlen($value = $descendant->getRevisionHistory(array('cultureFallback' => true)))): ?>
-        <processinfo><p><date><?php echo escape_dc(esc_specialchars($value)) ?></date><p></processinfo>
+        <processinfo><p><date><?php echo escape_dc(esc_specialchars($value)) ?></date></p></processinfo>
       <?php endif; ?>
 
       <?php if (0 < count($archivistsNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)))): ?>
