@@ -36,7 +36,7 @@ default:
     /vendor/yui/menu/menu-min:
     /vendor/modernizr:
     /vendor/jquery-ui:
-    /vendor/jquery.ui.resizable.js:
+    /vendor/jquery.ui.resizable.min.js:
     /vendor/jquery.expander.js:
     /vendor/jquery.masonry.js:
     /vendor/jquery.imagesloaded.js:
