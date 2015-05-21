@@ -93,7 +93,7 @@
 
   <?php if (0 < strlen($value = $$resourceVar->getExtentAndMedium(array('cultureFallback' => true)))): ?>
     <physdesc <?php if (0 < strlen($encoding = $ead->getMetadataParameter('extent'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>>
-        <?php echo $value ?>
+        <?php echo escape_dc(esc_specialchars($value)) ?>
     </physdesc>
   <?php endif; ?>
 

@@ -46,15 +46,8 @@ class arMigration0123
     if (null !== $term = QubitTerm::getOne($criteria))
     {
       // Get all RAD General notes
-      $criteria = new Criteria;
-      $criteria->add(QubitNote::TYPE_ID, $term->id);
-
-      foreach (QubitNote::get($criteria) as $note)
-      {
-        // Change type to global General note
-        $note->typeId = QubitTerm::GENERAL_NOTE_ID;
-        $note->save();
-      }
+      QubitPdo::prepareAndExecute('UPDATE note SET type_id=? WHERE type_id=?',
+                                  array(QubitTerm::GENERAL_NOTE_ID, $term->id));
 
       // Remove RAD General note term
       $term->delete();
