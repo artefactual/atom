@@ -84,6 +84,7 @@ class SitemapWriter
   {
     $this->file = $baseDir.DIRECTORY_SEPARATOR.'sitemap.xml';
     $this->indent = $indent;
+    $this->baseUrl = $baseUrl;
     $this->compress = $compress;
 
     $this->loadConfiguration();
