@@ -3,12 +3,19 @@
 <div class="row-fluid">
   <div class="span12">
 
-    <h1 class="multiline">
-      <?php echo render_title($resource) ?>
-      <span class="sub"><?php echo __('Inventory list') ?></span>
-    </h1>
-
-    <?php echo get_partial('informationobject/printPreviewBar', array('resource' => $resource)) ?>
+    <div class="row-fluid">
+      <div class="span6">
+        <h1 class="multiline">
+          <?php echo render_title($resource) ?>
+          <span class="sub">
+            <?php echo __('Inventory list') ?>
+          </span>
+        </h1>
+      </div>
+      <div class="span6 h1-side">
+        <?php echo link_to(__('Return to archival description &raquo;'), array($resource, 'module' => 'informationobject'), array('class' => 'btn')) ?>
+      </div>
+    </div>
 
     <?php if (QubitInformationObject::ROOT_ID != $resource->parentId): ?>
       <?php echo include_partial('default/breadcrumb', array('resource' => $resource, 'objects' => $resource->getAncestors()->andSelf()->orderBy('lft'))) ?>
