@@ -31,28 +31,44 @@ class arSearchResultExportCsvJob extends arBaseJob
    * @see arBaseJob::$requiredParameters
    */
   protected $extraRequiredParameters = array('params');  // search params
+  protected $downloadFileExtension = 'zip';
 
   protected $searchParams;      // key/value array of search terms
-  protected $archivalStandard;  // examples: "rad", "isad"
   protected $search;            // arElasticSearchPluginQuery instance
+
+  protected $archivalStandard;  // which CSV export configuration to use: either "rad" or "isad"
 
   public function runJob($parameters)
   {
     $this->searchParams = $parameters['params'];
-    $this->archivalStandard = QubitSetting::getByNameAndScope('informationobject', 'default_template');
     $this->search = new arElasticSearchPluginQuery();
-
     $this->addCriteriaBasedOnSearchParameters();
 
-    $exportPath = tempnam(sys_get_temp_dir(), 'search_export_') .'.csv';
+    $this->archivalStandard = QubitSetting::getByNameAndScope('informationobject', 'default_template');
 
-    print 'Exporting to '. $exportPath ."...\n";
+    // Create temp directory in which CSV export files will be written
+    $tempPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'search_export_'. $this->job->id;
+    mkdir($tempPath);
 
-    $itemsExported = $this->exportResults($exportPath);
+    // Export CSV to temp directory
+    $this->info('Starting export to '. $tempPath .'.');
+    $itemsExported = $this->exportResults($tempPath);
+    $this->info('Exported '. $itemsExported .' descriptions.');
 
-    print 'Exported '. $itemsExported ." descriptions.\n";
+    // Compress CSV export files as a ZIP archive
+    $this->info('Creating ZIP file '. $this->getDownloadFilePath() .'.');
+    $success = $this->createZipForDownload($tempPath);
 
+    if (!$success)
+    {
+      $this->error('Failed to create ZIP file.');
+      return false;
+    }
+
+    // Mark job as complete and set download path
+    $this->info('Export and archiving complete.');
     $this->job->setStatusCompleted();
+    $this->job->downloadPath = $this->getDownloadRelativeFilePath();
     $this->job->save();
 
     return true;
@@ -154,9 +170,11 @@ class arSearchResultExportCsvJob extends arBaseJob
   {
     $itemsExported = 0;
 
+    // Exporter will create a new file each 10,000 rows
     $writer = new csvInformationObjectExport(
       $path,
-      $this->archivalStandard
+      $this->archivalStandard,
+      10000
     );
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->query);
@@ -167,11 +185,37 @@ class arSearchResultExportCsvJob extends arBaseJob
 
       $writer->exportResource($resource);
 
-      print '.';
+      // Log progress every 1000 rows
+      if ($itemsExported && ($itemsExported % 1000 == 0))
+      {
+        $this->info($itemsExported .' items exported.');
+      }
 
       $itemsExported++;
     }
 
     return $itemsExported;
+  }
+
+  protected function createZipForDownload($path)
+  {
+    $zip = new ZipArchive();
+
+    $success = $zip->open($this->getDownloadFilePath(), ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+    if ($success)
+    {
+      foreach(scandir($path) as $file)
+      {
+        if (!is_dir($file))
+        {
+          $zip->addFile($path . DIRECTORY_SEPARATOR . $file, $file);
+        }
+      }
+
+      $zip->close();
+    }
+
+    return $success;
   }
 }
