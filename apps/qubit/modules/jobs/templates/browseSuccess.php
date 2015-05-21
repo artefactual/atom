@@ -59,6 +59,10 @@
           <?php foreach ($job->getNotes() as $note): ?>
             <p><?php echo $note->__toString() ?></p>
           <?php endforeach; ?>
+          <?php if (isset($job->downloadPath)): ?>
+            <?php echo link_to(__('Download'), public_path($job->downloadPath), array('class' => 'download')) ?>
+            (<?php echo hr_filesize(filesize($job->downloadPath)) ?>)
+          <?php endif; ?>
         </td>
 
         <!-- User who created the job -->

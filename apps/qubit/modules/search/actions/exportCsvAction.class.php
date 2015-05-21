@@ -19,7 +19,7 @@
 
 class SearchExportCsvAction extends sfAction
 {
-  // export an object w/relations as an XML document with selected schema
+  // export CSV represetation of descriptions occurring in search results
   public function execute($request)
   {
     if (sfContext::getInstance()->user->isAuthenticated())
@@ -28,6 +28,12 @@ class SearchExportCsvAction extends sfAction
         'params' => $request->getParameterHolder()->getAll()
       );
       QubitJob::runJob('arSearchResultExportCsvJob', $params);
+
+      // let user know export has started
+      sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
+      $jobManageUrl = url_for(array('module' => 'jobs', 'action' => 'browse'));
+      $message = 'Job initiated. Check <a href="'. $jobManageUrl . '">job management</a> page to download the results when it has completed.';
+      $this->getUser()->setFlash('notice', $message);
     }
 
     $this->redirect($request->getHttpHeader('referer'));
