@@ -19,7 +19,7 @@
   var html =  "<div id=\"fullwidth-treeview-row\">" + 
                "<div id=\"fullwidth-treeview\">" +
                "</div>" +
-              "</div>";
+               "</div>";
 
   function loadTreeView()
   {
@@ -33,37 +33,37 @@
       data.plugins = ['types'];
       data.types = {
         'default': {
-          'icon': 'fa fa-folder-o'
+          'icon': 'icon-folder-close-alt'
         },
 
         // Item, File
         'Item': {
-          'icon': 'fa fa-file-text-o'
+          'icon': 'icon-file-text-alt'
         },
         'File': {
-          'icon': 'fa fa-file-text-o'
+          'icon': 'icon-file-text-alt'
         },
 
         // Series, Subseries, Subfonds
         'Series': {
-          'icon': 'fa fa-folder-o'
+          'icon': 'icon-folder-close-alt'
         },
         'Subseries': {
-          'icon': 'fa fa-folder-o'
+          'icon': 'icon-folder-close-alt'
         },
         'subfonds': {
-          'icon': 'fa fa-folder-o'
+          'icon': 'icon-folder-close-alt'
         },
         'Sous-fonds': {
-          'icon': 'fa fa-folder-o'
+          'icon': 'icon-folder-close-alt'
         },
         
         // Fonds, Collection
         'Fonds': {
-          'icon': 'fa fa-archive'
+          'icon': 'icon-archive'
         },
         'Collection': {
-          'icon': 'fa fa-archive'
+          'icon': 'icon-archive'
         }
       }
 
@@ -114,7 +114,7 @@
         Drupal.attachBehaviors(document)
 
         // Update the url, TODO save the state
-        History.pushState(null, $('#main-column h1').first().text(), url);
+        window.history.pushState(null, null, url);
       });
     });
 

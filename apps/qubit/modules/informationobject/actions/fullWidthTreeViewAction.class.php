@@ -28,7 +28,6 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
 {
   public function execute($request)
   {
-    $start_time = microtime(TRUE);
     $data = array();
 
     $this->setTemplate(false);
@@ -69,7 +68,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
       if ($data['parent'] == '1')
       {
         $data['parent'] = '#';
-        $data['icon'] = 'fa fa-archive';
+        $data['icon'] = 'icon-archive';
       }
 
       // Not used currently
@@ -80,9 +79,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
 
     });
 
-    $end_time = microtime(TRUE);
-
-    return $this->renderText(json_encode(array('core' => array('data' => $data), 'time' => ($end_time - $start_time))));
+    return $this->renderText(json_encode(array('core' => array('data' => $data))));
   }
 
   protected function getItemIds($item, $drafts = true)

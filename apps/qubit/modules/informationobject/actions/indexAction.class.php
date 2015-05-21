@@ -117,10 +117,9 @@ class InformationObjectIndexAction extends sfAction
     if (sfConfig::get('app_treeview_type', 'sidebar') == 'fullWidth')
     {
       $this->getResponse()->addStylesheet('fullWidthTreeView', 'last');
-      $this->getResponse()->addStylesheet('/vendor/jstree/themes/default/style', 'last');
+      $this->getResponse()->addStylesheet('/vendor/jstree/themes/default/style.min.css', 'last');
       $this->getResponse()->addJavascript('fullWidthTreeView', 'last');
       $this->getResponse()->addJavascript('/vendor/jstree/jstree.min.js', 'last');
-      $this->getResponse()->addJavascript('history.js', 'last');
     }
 
     if ('print' == $request->getGetParameter('media', 'screen'))

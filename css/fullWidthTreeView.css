@@ -11,7 +11,7 @@
 }
 
 #fullwidth-treeview-row {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   border: 1px solid #ddd;
   clear: both;
 }
@@ -32,6 +32,7 @@
   background-color: #eee;
   bottom: -11px;
   left: -1px;
+  margin: -1px;
 }
 
 .fullwidth-treeview-toggle.active {
