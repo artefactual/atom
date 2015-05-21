@@ -76,7 +76,6 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
 
       $data['a_attr']['href'] = $_this->generateUrl('slug', array('slug' => @$data['slug']));
       unset($data['slug']);
-
     });
 
     return $this->renderText(json_encode(array('core' => array('data' => $data))));
