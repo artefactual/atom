@@ -28,10 +28,10 @@ class QubitFlatfileExport
 {
   protected $configurationLoaded = false;  // has the configuuration been loaded?
 
-  protected $columnNames     = array();    // ordered header column names
-  protected $standardColumns = array();    // flatfile columns that are object properties
-  protected $columnMap       = array();    // flatfile columns that map to object properties
-  protected $propertyMap     = array();    // flatfile columns that map to Qubit properties
+  public $columnNames     = array();       // ordered header column names
+  public $standardColumns = array();       // flatfile columns that are object properties
+  public $columnMap       = array();       // flatfile columns that map to object properties
+  public $propertyMap     = array();       // flatfile columns that map to Qubit properties
 
   protected $resource;                     // current resource being exported
   protected $row;                          // current row being prepared for export
@@ -85,19 +85,19 @@ class QubitFlatfileExport
    *
    * This only needs to be called once per export
    *
-   * @param object $resource  object being exported
+   * @param string $resourceClass  class name
    *
    * @return void
    */
-  protected function loadResourceSpecificConfiguration(&$resource)
+  public function loadResourceSpecificConfiguration($resourceClass)
   {
     // Load type-specific base export configuration
-    $resourceTypeBaseConfigFile = get_class($resource) .'.yml';
+    $resourceTypeBaseConfigFile = $resourceClass .'.yml';
     $config = $this->loadResourceConfigFile($resourceTypeBaseConfigFile, 'base');
 
     // Load archival standard-specific export configuration for type
     // (this can augment and/or override the base configuration)
-    $resourceTypeStandardConfigFile = get_class($resource) .'-'. $this->standard .'.yml';
+    $resourceTypeStandardConfigFile = $resourceClass .'-'. $this->standard .'.yml';
     $standardConfig = $this->loadResourceConfigFile($resourceTypeStandardConfigFile, 'archival standard');
 
     // Allow standard-specific export configuration to override base config
@@ -310,7 +310,7 @@ class QubitFlatfileExport
   {
     if (!$this->configurationLoaded)
     {
-      $this->loadResourceSpecificConfiguration($resource);
+      $this->loadResourceSpecificConfiguration(get_class($resource));
     }
 
     $this->resource = $resource;
