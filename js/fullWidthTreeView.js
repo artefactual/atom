@@ -69,15 +69,7 @@
 
       // Initialize jstree
       $('#fullwidth-treeview').jstree(data);
-      $('#fullwidth-treeview-row').resizable({ 
-        handles: "s"
-      }).animate({height: '200px'}, 500);
-
-      // Hack for options like delay and container not working with selector option
-      jQuery.fn['tooltip'].defaults.container = '#fullwidth-treeview';
-      jQuery.fn['tooltip'].defaults.delay = 300;
-      jQuery.fn['tooltip'].defaults.placement = 'top';
-      jQuery('#fullwidth-treeview').tooltip({selector: 'a.jstree-anchor'});
+      $('#fullwidth-treeview-row').resizable({handles: 's'}).animate({height: '200px'}, 500);
 
       // Scroll to active node
       var active_node = null;
@@ -116,6 +108,11 @@
         // Update the url, TODO save the state
         window.history.pushState(null, null, url);
       });
+    });
+
+    $("#fullwidth-treeview").bind("hover_node.jstree", function (e, data)
+    {
+      $('a.jstree-anchor').tooltip({delay: 250});
     });
 
     // TODO restore window.history states
