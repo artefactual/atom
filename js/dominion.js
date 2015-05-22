@@ -235,7 +235,11 @@
         }
 
         this.$menu.on('mouseenter', 'li', $.proxy(this.mouseenter, this));
+        this.$menu.on('mouseleave', 'li', $.proxy(this.mouseleave, this));
+        this.$menu.on('click', 'li', $.proxy(this.click, this));
 
+        this.$realm.on('mouseenter', 'div', $.proxy(this.mouseenter, this));
+        this.$realm.on('mouseleave', 'div', $.proxy(this.mouseleave, this));
         this.$realm.on('change', 'input[type=radio]', $.proxy(this.changeRealm, this));
 
         // Validate form
@@ -368,9 +372,74 @@
         return this;
       },
 
-    next: function (e) { },
-    prev: function (e) { },
-    select: function (e) { },
+    move: function (direction)
+      {
+        // Determine what dropdown is being displayed
+        // and move through the items
+        if (this.$menu.css('display') == 'block')
+        {
+          var $items = this.$menu.find('li');
+          var $active = this.$menu.find('li.active:first');
+        }
+        else
+        {
+          var $items = this.$realm.find('div');
+          var $active = this.$realm.find('div.active:first');
+        }
+
+        if ($active.length)
+        {
+          $active.removeClass('active');
+
+          var pos = $items.index($active) + direction;
+          if (pos >= 0)
+          {
+            $items.eq(pos).addClass('active');
+          }
+        }
+        else
+        {
+          if (direction < 0)
+          {
+            $items.last().addClass('active');
+          }
+          else
+          {
+            $items.first().addClass('active');
+          }
+        }
+      },
+
+    select: function (e)
+      {
+        // Determine what dropdown is being displayed
+        // and interact with the active element or submit the form
+        if (this.$menu.css('display') == 'block')
+        {
+          var $active = this.$menu.find('li.active:first');
+        }
+        else
+        {
+          var $active = this.$realm.find('div.active:first');
+        }
+
+        if ($active.length)
+        {
+          var $radio = $active.find('input[type=radio]');
+          if ($radio.length)
+          {
+            $radio.click();
+          }
+          else
+          {
+            $(location).attr('href', $active.find('a').attr('href'));
+          }
+        }
+        else
+        {
+          this.$form.submit();
+        }
+      },
 
     keyup: function (e)
       {
@@ -378,14 +447,6 @@
         {
           case 40: // Down arrow
           case 38: // Up arrow
-            break;
-
-          case 9: // Tab
-            if (!this.shown)
-            {
-              return;
-            }
-            this.select();
             break;
 
           case 27: // Escape
@@ -412,36 +473,25 @@
 
     keypress: function (e)
       {
-        if (13 == e.keyCode && !e.target.value.length)
-        {
-          e.preventDefault();
-          e.stopPropagation();
-
-          return;
-        }
-
-        // if (!this.shown) return;
-
         switch (e.keyCode)
         {
-          case 9: // Tab
           case 27: // Escape
             e.preventDefault();
             break;
 
-          case 13:
+          case 13: // Enter
             e.preventDefault();
-            $(e.target).closest('form').get(0).submit();
+            this.select();
             break;
 
           case 38: // Up arrow
             e.preventDefault();
-            this.prev();
+            this.move(-1);
             break;
 
           case 40: // Down arrow
             e.preventDefault();
-            this.next();
+            this.move(1);
             break;
         }
 
@@ -482,8 +532,18 @@
 
     mouseenter: function (e)
       {
-        this.$menu.find('active').removeClass('active');
         $(e.currentTarget).addClass('active');
+      },
+
+    mouseleave: function (e)
+      {
+        $(e.currentTarget).removeClass('active');
+      },
+
+    click: function (e)
+      {
+        e.preventDefault();
+        $(location).attr('href', $(e.currentTarget).find('a').attr('href'));
       }
   };
 
