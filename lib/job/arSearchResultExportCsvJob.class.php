@@ -177,6 +177,12 @@ class arSearchResultExportCsvJob extends arBaseJob
       10000
     );
 
+    // Force loading of information object configuration, then modify writer
+    // configuration
+    $writer->loadResourceSpecificConfiguration('QubitInformationObject');
+    array_unshift($writer->columnNames, 'referenceCode');
+    array_unshift($writer->standardColumns, 'referenceCode');
+
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->query);
 
     foreach ($resultSet as $hit)
