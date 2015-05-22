@@ -13,8 +13,9 @@
   </li>
 </ul>
 
-<?php if ($treeviewType == 'sidebar'): ?>
-  <div id="treeview" data-current-id="<?php echo $resource->id ?>" data-sortable="<?php echo $sortable ? 'true' : 'false' ?>">
+<div id="treeview" data-current-id="<?php echo $resource->id ?>" data-sortable="<?php echo $sortable ? 'true' : 'false' ?>">
+
+  <?php if ($treeviewType == 'sidebar'): ?>
 
     <ul class="unstyled">
 
@@ -102,8 +103,9 @@
 
     </ul>
 
-  </div>
-<?php endif; ?>
+  <?php endif; ?>
+
+</div>
 
 <div id="treeview-search" <?php echo ($treeviewType != 'sidebar') ? 'class="force-show"' : '' ?>>
 
