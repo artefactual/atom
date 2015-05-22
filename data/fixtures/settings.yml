@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 126
+    value: 127
   milestone:
     name: milestone
     editable: 0
@@ -828,3 +828,10 @@ QubitSetting:
     name: digital_object_derivatives_pdf_page_number
     value:
       en: 1
+  Qubit_Settings_treeviewType:
+    name: treeview_type
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: cc

@@ -47,6 +47,7 @@ class SettingsGlobalForm extends sfForm
       'accession_counter' => new sfWidgetFormInput,
       'separator_character' => new sfWidgetFormInput(array(), array('maxlength' => 1)),
       'inherit_code_informationobject' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
+      'treeview_type' => new sfWidgetFormSelectRadio(array('choices'=>array('sidebar'=>'Sidebar', 'fullWidth'=>'Full width')), array('class'=>'radio')),
       'sort_treeview_informationobject' => new sfWidgetFormSelectRadio(array('choices'=>array('none'=>'manual', 'title'=>'title', 'identifierTitle'=> 'identifier - title')), array('class'=>'radio')),
       'sort_browser_user' => new sfWidgetFormSelectRadio(array('choices'=>array('alphabetic'=>'alphabetic', 'lastUpdated'=> 'last updated', 'identifier' => 'identifier')), array('class'=>'radio')),
       'sort_browser_anonymous' => new sfWidgetFormSelectRadio(array('choices'=>array('alphabetic'=>'alphabetic', 'lastUpdated'=> 'last updated', 'identifier' => 'identifier')), array('class'=>'radio')),
@@ -70,6 +71,7 @@ class SettingsGlobalForm extends sfForm
       'accession_counter' => $i18n->__('Accession counter'),
       'separator_character' => $i18n->__('Reference code separator'),
       'inherit_code_informationobject' => $i18n->__('Inherit reference code (information object)'),
+      'treeview_type' => $i18n->__('Treeview type'),
       'sort_treeview_informationobject' => $i18n->__('Sort treeview (information object)'),
       'sort_browser_user' => $i18n->__('Sort browser (users)'),
       'sort_browser_anonymous' => $i18n->__('Sort browser (anonymous)'),
@@ -139,6 +141,7 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['separator_character'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['accession_counter'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['inherit_code_informationobject'] = new sfValidatorInteger(array('required' => false));
+    $this->validatorSchema['treeview_type'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['sort_treeview_informationobject'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['sort_browser_user'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['sort_browser_anonymous'] = new sfValidatorString(array('required' => false));
