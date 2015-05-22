@@ -42,6 +42,10 @@ class JobsDeleteAction extends sfAction
     {
       if ($job->statusId != QubitTerm::JOB_STATUS_IN_PROGRESS_ID)
       {
+        if (isset($job->downloadPath))
+        {
+          unlink($job->downloadPath);
+        }
         $job->delete();
       }
     }

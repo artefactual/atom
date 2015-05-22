@@ -176,7 +176,7 @@ class arBaseJob extends Net_Gearman_Job_Common
    *
    * @return string  directory path
    */
-  private function getJobsDownloadDirectory()
+  public function getJobsDownloadDirectory()
   {
     $downloadsPath = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR . 'downloads';
     return $downloadsPath . DIRECTORY_SEPARATOR . 'jobs';

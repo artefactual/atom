@@ -59,7 +59,7 @@ class arSearchResultExportCsvJob extends arBaseJob
     $this->info('Creating ZIP file '. $this->getDownloadFilePath() .'.');
     $success = $this->createZipForDownload($tempPath);
 
-    if (!$success)
+    if ($success !== true)
     {
       $this->error('Failed to create ZIP file.');
       return false;
@@ -199,11 +199,16 @@ class arSearchResultExportCsvJob extends arBaseJob
 
   protected function createZipForDownload($path)
   {
+    if (!is_writable($this->getJobsDownloadDirectory()))
+    {
+      return false;
+    }
+
     $zip = new ZipArchive();
 
     $success = $zip->open($this->getDownloadFilePath(), ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
-    if ($success)
+    if ($success == true)
     {
       foreach(scandir($path) as $file)
       {
