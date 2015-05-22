@@ -95,11 +95,6 @@ class InformationObjectIndexAction extends sfAction
   {
     $this->resource = $this->getRoute()->resource;
 
-    // specified here instead of view.yml so plugins calling
-    // calling inheriting and calling parent::execute also
-    // automatically load the file(s)
-    $this->getResponse()->addJavascript('deleteBasisRight.js');
-
     // Check that this isn't the root
     if (!isset($this->resource->parent))
     {
@@ -113,6 +108,19 @@ class InformationObjectIndexAction extends sfAction
     }
 
     $this->dispatcher->notify(new sfEvent($this, 'access_log.view', array('object' => $this->resource)));
+
+    // Specified here instead of view.yml so plugins calling
+    // calling inheriting and calling parent::execute also
+    // automatically load the file(s)
+    $this->getResponse()->addJavascript('deleteBasisRight.js', 'last');
+
+    if (sfConfig::get('app_treeview_type', 'sidebar') == 'fullWidth')
+    {
+      $this->getResponse()->addStylesheet('fullWidthTreeView', 'last');
+      $this->getResponse()->addStylesheet('/vendor/jstree/themes/default/style.min.css', 'last');
+      $this->getResponse()->addJavascript('fullWidthTreeView', 'last');
+      $this->getResponse()->addJavascript('/vendor/jstree/jstree.min.js', 'last');
+    }
 
     if ('print' == $request->getGetParameter('media', 'screen'))
     {

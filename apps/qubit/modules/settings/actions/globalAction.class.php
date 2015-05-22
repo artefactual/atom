@@ -78,6 +78,7 @@ class SettingsGlobalAction extends sfAction
     $accessionCounter = QubitSetting::getByName('accession_counter');
     $separatorCharacter = QubitSetting::getByName('separator_character');
     $inheritCodeInformationObject = QubitSetting::getByName('inherit_code_informationobject');
+    $treeviewType = QubitSetting::getByName('treeview_type');
     $sortTreeviewInformationObject = QubitSetting::getByName('sort_treeview_informationobject');
     $sortBrowserUser = QubitSetting::getByName('sort_browser_user');
     $sortBrowserAnonymous = QubitSetting::getByName('sort_browser_anonymous');
@@ -99,6 +100,7 @@ class SettingsGlobalAction extends sfAction
       'accession_counter' => (isset($accessionCounter)) ? intval($accessionCounter->getValue(array('sourceCulture'=>true))) : 1,
       'separator_character' => (isset($separatorCharacter)) ? $separatorCharacter->getValue(array('sourceCulture'=>true)) : null,
       'inherit_code_informationobject' => (isset($inheritCodeInformationObject)) ? intval($inheritCodeInformationObject->getValue(array('sourceCulture'=>true))) : 1,
+      'treeview_type' => (isset($treeviewType)) ? $treeviewType->getValue(array('sourceCulture'=>true)) : 'sidebar',
       'sort_treeview_informationobject' => (isset($sortTreeviewInformationObject)) ? $sortTreeviewInformationObject->getValue(array('sourceCulture'=>true)) : 0,
       'sort_browser_user' => (isset($sortBrowserUser)) ? $sortBrowserUser->getValue(array('sourceCulture'=>true)) : 0,
       'sort_browser_anonymous' => (isset($sortBrowserAnonymous)) ? $sortBrowserAnonymous->getValue(array('sourceCulture'=>true)) : 0,
@@ -195,6 +197,16 @@ class SettingsGlobalAction extends sfAction
 
        // Force sourceCulture update to prevent discrepency in settings between cultures
       $setting->setValue($inheritCodeInformationObjectValue, array('sourceCulture'=>true));
+      $setting->save();
+    }
+
+    // Treeview type
+    if (null !== $treeviewType = $thisForm->getValue('treeview_type'))
+    {
+      $setting = QubitSetting::getByName('treeview_type');
+
+       // Force sourceCulture update to prevent discrepency in settings between cultures
+      $setting->setValue($treeviewType, array('sourceCulture'=>true));
       $setting->save();
     }
 
