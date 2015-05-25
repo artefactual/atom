@@ -46,6 +46,12 @@
           <?php endif; ?>
 
           <?php echo ucfirst($job->getStatusString()) ?>
+
+          <?php if ($job->getObjectModule() && $job->getObjectSlug()): ?>
+            <a href="<?php echo url_for(array('module' => $job->getObjectModule(),
+                    'slug' => $job->getObjectSlug())) ?>" class="icon-share-alt"></a>
+
+          <?php endif; ?>
         </td>
 
         <!-- Job notes -->
