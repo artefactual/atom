@@ -2329,7 +2329,7 @@ class QubitDigitalObject extends BaseDigitalObject
   {
     if ($usageId == QubitTerm::REFERENCE_ID)
     {
-      $maxwidth = (sfConfig::get('app_reference_image_maxwidth')) ? sfConfig::get('app_reference_image_maxwidth') : 480;
+      $maxwidth = (QubitSetting::getByName('reference_image_maxwidth')) ? intval((string)QubitSetting::getByName('reference_image_maxwidth')) : 480;
       $maxheight = null;
     }
     else if ($usageId == QubitTerm::THUMBNAIL_ID)
@@ -2361,7 +2361,7 @@ class QubitDigitalObject extends BaseDigitalObject
     {
       case QubitTerm::REFERENCE_ID:
         // Backwards compatiblity - if maxwidth Qubit setting doesn't exist
-        if (!$maxwidth = sfConfig::get('app_reference_image_maxwidth'))
+        if (!$maxwidth = intval((string)QubitSetting::getByName('reference_image_maxwidth')))
         {
           $maxwidth = 480;
         }
@@ -2372,7 +2372,7 @@ class QubitDigitalObject extends BaseDigitalObject
         $maxheight = 1024;
         break;
       case QubitTerm::COMPOUND_ID:
-        if (!$maxwidth = sfConfig::get('app_reference_image_maxwidth'))
+        if (!$maxwidth = intval((string)QubitSetting::getByName('reference_image_maxwidth')))
         {
           $maxwidth = 480;
         }
