@@ -59,6 +59,8 @@ class QubitXmlImport
       $this->errors = array_merge((array) $this->errors, $xmlerrors);
     }
 
+    $this->stripComments($importDOM);
+
     // Add local XML catalog for EAD DTD and DC and MODS XSD validations
     putenv('XML_CATALOG_FILES='.sfConfig::get('sf_data_dir').DIRECTORY_SEPARATOR.'xml'.DIRECTORY_SEPARATOR.'catalog.xml');
 
@@ -849,6 +851,20 @@ class QubitXmlImport
   private function removeDefaultNamespace($xml)
   {
     return preg_replace('/(<ead.*?)xmlns="[^"]*"\s+(.*?>)/', '${1}${2}', $xml, 1);
+  }
+
+  /**
+   * Remove all XML comments from the document.
+   */
+  private function stripComments($doc)
+  {
+    $xp = new DOMXPath($doc);
+    $nodes = $xp->query('//comment()');
+
+    for ($i = 0; $i < $nodes->length; $i++)
+    {
+      $nodes->item($i)->parentNode->removeChild($nodes->item($i));
+    }
   }
 
   /**
