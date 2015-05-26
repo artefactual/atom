@@ -66,7 +66,6 @@ columnNames:
   - subjectAccessPoints
   - placeAccessPoints
   - nameAccessPoints
-  - nameAccessPointHistories
   - descriptionIdentifier
   - institutionIdentifier
   - rules
@@ -83,12 +82,6 @@ columnNames:
   - physicalObjectType
   - alternativeIdentifiers
   - alternativeIdentifierLabels
-  - eventDates
-  - eventTypes
-  - eventStartDates
-  - eventEndDates
-  - eventDescriptions
-  - eventPlaces
   - culture
 
 # Columns that map to information object properties

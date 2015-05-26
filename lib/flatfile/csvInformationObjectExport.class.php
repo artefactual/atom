@@ -79,7 +79,6 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $this->setPhysicalObjectColumns();
     $this->setAccessionNumberColumn();
     $this->setCreationColumns();
-    $this->setEventColumns();
 
     // Set level of description
     $this->setColumn(
@@ -113,7 +112,6 @@ class csvInformationObjectExport extends QubitFlatfileExport
     // Set name access point columns
     $nameAccessPointData = $this->getNameAccessPointData();
     $this->setColumn('nameAccessPoints', $nameAccessPointData['names']);
-    $this->setColumn('nameAccessPointHistories', $nameAccessPointData['histories']);
 
     // Set place access point columns
     $placeAccessPointData = $this->getPlaceAccessPoints();
@@ -266,40 +264,6 @@ class csvInformationObjectExport extends QubitFlatfileExport
   }
 
   /*
-   * Set event-related columns
-   *
-   * @return void
-   */
-  protected function setEventColumns()
-  {
-    $types        = array();
-    $dates        = array();
-    $startDates   = array();
-    $endDates     = array();
-    $descriptions = array();
-    $places       = array();
-
-    $events = $this->resource->getDates();
-
-    foreach($events as $event)
-    {
-      $types[]        = $event->typeId;
-      $dates[]        = $event->date;
-      $startDates[]   = $event->startDate;
-      $endDates[]     = $event->endDate;
-      $descriptions[] = $event->description;
-      $places[]       = $event->getPlace()->name;
-    }
-
-    $this->setColumn('eventTypes', $types);
-    $this->setColumn('eventDates', $dates);
-    $this->setColumn('eventStartDates', $startDates);
-    $this->setColumn('eventEndDates', $endDates);
-    $this->setColumn('eventDescriptions', $descriptions);
-    $this->setColumn('eventPlaces', $places);
-  }
-
-  /*
    * Set note-related columns
    *
    * @return void
@@ -338,14 +302,12 @@ class csvInformationObjectExport extends QubitFlatfileExport
   {
     $accessPoints = $this->resource->getNameAccessPoints();
 
-    $data              = array();
-    $data['names']     = array();
-    $data['histories'] = array();
+    $data          = array();
+    $data['names'] = array();
 
     foreach($accessPoints as $accessPoint)
     {
       $data['names'][]     = $accessPoint->object->authorizedFormOfName;
-      $data['histories'][] = $accessPoint->object->history;
     }
 
     return $data;
@@ -361,7 +323,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
 
     $accessPoints = $this->resource->getPlaceAccessPoints();
 
-    $data = array();
+    $data          = array();
     $data['names'] = array();
 
     foreach($accessPoints as $accessPoint)
