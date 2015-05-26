@@ -44,6 +44,9 @@ class arSearchResultExportCsvJob extends arBaseJob
     $this->search = new arElasticSearchPluginQuery();
     $this->addCriteriaBasedOnSearchParameters();
 
+    // Sort by ID so parents can import properly from resulting export file
+    $this->search->query->setSort(array('lft' => 'asc'));
+
     $this->archivalStandard = QubitSetting::getByNameAndScope('informationobject', 'default_template');
 
     // Create temp directory in which CSV export files will be written

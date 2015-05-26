@@ -1038,6 +1038,7 @@ class arElasticSearchInformationObjectPdo
     $serialized['referenceCode'] = $this->getReferenceCode();
     $serialized['levelOfDescriptionId'] = $this->level_of_description_id;
     $serialized['publicationStatusId'] = $this->publication_status_id;
+    $serialized['lft'] = $this->lft;
 
     // Alternative identifiers
     $alternativeIdentifiers = $this->getAlternativeIdentifiers();
