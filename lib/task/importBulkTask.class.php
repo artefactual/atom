@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class importBulkTask extends sfBaseTask
+class importBulkTask extends arBaseTask
 {
   protected function configure()
   {
@@ -46,9 +46,9 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
-    $timer = new QubitTimer; // overall timing
+    parent::execute($arguments, $options);
 
-    sfContext::createInstance($this->configuration);
+    $timer = new QubitTimer; // overall timing
 
     if (empty($arguments['folder']) || !file_exists($arguments['folder']))
     {
