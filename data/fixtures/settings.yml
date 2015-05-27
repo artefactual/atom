@@ -832,7 +832,7 @@ QubitSetting:
   Qubit_Settings_defaultRepositoryBrowseView:
     name: default_repository_browse_view
     value: card
-  Qubit_Settings_defaultRepositoryBrowseView:
+  Qubit_Settings_digitalObjectDerivativesPdfPageNumber:
     name: digital_object_derivatives_pdf_page_number
     value:
       en: 1
@@ -842,4 +842,4 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      en: cc
+      en: sidebar

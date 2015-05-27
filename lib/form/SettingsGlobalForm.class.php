@@ -47,7 +47,7 @@ class SettingsGlobalForm extends sfForm
       'accession_counter' => new sfWidgetFormInput,
       'separator_character' => new sfWidgetFormInput(array(), array('maxlength' => 1)),
       'inherit_code_informationobject' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
-      'treeview_type' => new sfWidgetFormSelectRadio(array('choices'=>array('sidebar'=>'Sidebar', 'fullWidth'=>'Full width')), array('class'=>'radio')),
+      'treeview_type' => new sfWidgetFormSelectRadio(array('choices'=>array('sidebar' => $i18n->__('Sidebar'), 'fullWidth' => $i18n->__('Full width'))), array('class' => 'radio')),
       'sort_treeview_informationobject' => new sfWidgetFormSelectRadio(array('choices'=>array('none'=>'manual', 'title'=>'title', 'identifierTitle'=> 'identifier - title')), array('class'=>'radio')),
       'sort_browser_user' => new sfWidgetFormSelectRadio(array('choices'=>array('alphabetic'=>'alphabetic', 'lastUpdated'=> 'last updated', 'identifier' => 'identifier')), array('class'=>'radio')),
       'sort_browser_anonymous' => new sfWidgetFormSelectRadio(array('choices'=>array('alphabetic'=>'alphabetic', 'lastUpdated'=> 'last updated', 'identifier' => 'identifier')), array('class'=>'radio')),
