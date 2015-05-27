@@ -98,6 +98,9 @@ class csvInformationObjectExport extends QubitFlatfileExport
       $this->descriptionStatusTerms[$this->resource->descriptionStatusId]
     );
 
+    // Set digital object public URL
+    $this->setColumn('digitalObjectURI', $this->resource->getDigitalObjectPublicUrl());
+
     // Set publication status
     $this->setColumn('publicationStatus', $this->resource->getPublicationStatus());
   }

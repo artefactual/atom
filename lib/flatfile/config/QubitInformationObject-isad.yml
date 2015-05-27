@@ -32,6 +32,7 @@ columnNames:
   - locationOfCopies
   - relatedUnitsOfDescription
   - publicationNote
+  - digitalObjectURI
   - generalNote
   - subjectAccessPoints
   - placeAccessPoints

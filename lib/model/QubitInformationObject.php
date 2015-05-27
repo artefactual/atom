@@ -1236,6 +1236,40 @@ class QubitInformationObject extends BaseInformationObject
     return QubitPdo::fetchColumn($sql);
   }
 
+  /**
+   * Get the digital object's public URL
+   *
+   * @return string  digital object URL or null
+   */
+  public function getDigitalObjectPublicUrl()
+  {
+    require_once(dirname(__FILE__).'/../../vendor/symfony/lib/helper/UrlHelper.php');
+
+    // Set digital object URL
+    $do = $this->digitalObjects[0];
+
+    if (isset($do))
+    {
+      $path = $do->getFullPath();
+
+      // if path is external, it's absolute so return it
+      if (QubitTerm::EXTERNAL_URI_ID == $do->usageId)
+      {
+        return $path;
+      } else
+      {
+        if (QubitAcl::check($this, 'readMaster'))
+        {
+          return public_path($path, true);
+        }
+        elseif (null !== $do->reference && QubitAcl::check($this, 'readReference'))
+        {
+          return public_path($do->reference->getFullPath(), true);
+        }
+      }
+    }
+  }
+
   /****************
    Import methods
   *****************/

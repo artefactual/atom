@@ -115,7 +115,7 @@
 
   <?php if (isset($resource->digitalObjects[0])): ?>
     <location>
-      <url usage="primary display"><?php echo esc_specialchars($mods->digitalAssetUrl) ?></url>
+      <url usage="primary display"><?php echo esc_specialchars($resource->getDigitalObjectPublicUrl()) ?></url>
     </location>
   <?php endif; ?>
 

@@ -121,31 +121,6 @@ class sfModsPlugin implements ArrayAccess
 
         return $this->baseUrl() .'/index.php/'. $this->resource->slug;
 
-      case 'digitalAssetUrl':
-
-        $do = $this->resource->digitalObjects[0];
-
-        if (isset($do))
-        {
-          $path = $do->getFullPath();
-
-          // if path is external, it's absolute so return it
-          if (QubitTerm::EXTERNAL_URI_ID == $do->usageId)
-          {
-            return $path;
-          } else
-          {
-            if (QubitAcl::check($this->resource, 'readMaster'))
-            {
-              return $this->baseUrl() . $path;
-            }
-            elseif (null !== $do->reference && QubitAcl::check($this->resource, 'readReference'))
-            {
-              return $this->baseUrl() . $do->reference->getFullPath();
-            }
-          }
-        }
-
       case 'name':
         $name = array();
         foreach ($this->resource->getActorEvents() as $item)
