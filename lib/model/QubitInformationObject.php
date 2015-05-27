@@ -1777,6 +1777,37 @@ class QubitInformationObject extends BaseInformationObject
   }
 
   /**
+   * Import creator data from an <origination> tag in EAD2002
+   *
+   * @param $node  DOMNode  EAD origination DOM node
+   */
+  public function importOriginationEadData($node)
+  {
+    $entityTypes = array(
+      'persname' => QubitTerm::PERSON_ID,
+      'corpname' => QubitTerm::CORPORATE_BODY_ID,
+      'famname'  => QubitTerm::FAMILY_ID,
+      'name'     => null
+    );
+
+    foreach ($entityTypes as $type => $typeId)
+    {
+      $nameNodes = $node->getElementsByTagName($type);
+
+      if ($nameNodes->length)
+      {
+        foreach ($nameNodes as $n)
+        {
+          $this->setActorByName(
+            $n->nodeValue,
+            array('entity_type_id' => $typeId, 'event_type_id' => QubitTerm::CREATION_ID)
+          );
+        }
+      }
+    }
+  }
+
+  /**
    * Import creation-related data from an <bioghist> tag in EAD2002
    *
    * @param $biogHistNode  DOMNode  EAD bioghist DOM node
@@ -1845,18 +1876,18 @@ class QubitInformationObject extends BaseInformationObject
   {
     foreach ($chronlistNodeList as $chronlistNode)
     {
-      // get chronitem elements in chronlist element
+      // Get chronitem elements in chronlist element
       $chronitemNodeList = $chronlistNode->getElementsByTagName('chronitem');
       foreach ($chronitemNodeList as $chronitemNode)
       {
-        // get creation date element contents
+        // Get creation date element contents
         $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation']");
         foreach ($dateNodeList as $dateNode)
         {
           $date = $dateNode->nodeValue;
         }
 
-        // get creation start and end date from "normal" attribute
+        // Get creation start and end date from "normal" attribute
         $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation']/@normal");
         foreach ($dateNodeList as $dateNormalAttr)
         {
@@ -1870,14 +1901,14 @@ class QubitInformationObject extends BaseInformationObject
           }
         }
 
-        // get dates of existence element contents
+        // Get dates of existence element contents
         $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/date[@type='existence']");
         foreach ($dateNodeList as $dateNode)
         {
           $datesValue = $dateNode->nodeValue;
         }
 
-        // get creation end date element contents
+        // Get creation end date element contents
         $history = '';
         $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, '/xml/chronitem/eventgrp/event/note[not(@type="eventNote")]/p');
         foreach ($dateNodeList as $noteNode)
