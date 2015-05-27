@@ -18,8 +18,7 @@
  */
 
 /*
- * Add display_standard_id column to information object and information object
- * templates taxonomy and terms
+ * Add thematic area and geographic subregion taxonomies
  *
  * @package    AccesstoMemory
  * @subpackage migration
