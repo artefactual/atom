@@ -32,6 +32,7 @@ class digitalObjectRegenDerivativesTask extends sfBaseTask
       new sfCommandOption('force', 'f', sfCommandOption::PARAMETER_NONE, 'No confirmation message', null),
       new sfCommandOption('only-externals', 'o', sfCommandOption::PARAMETER_NONE, 'Only external objects', null),
       new sfCommandOption('json', 'j', sfCommandOption::PARAMETER_OPTIONAL, 'Limit regenerating derivatives to IDs in a JSON file', null),
+      new sfCommandOption('skip-to', null, sfCommandOption::PARAMETER_OPTIONAL, 'Skip regenerating derivatives until a certain filename is encountered', null),
     ));
 
     $this->namespace = 'digitalobject';
@@ -45,6 +46,7 @@ EOF;
   protected function execute($arguments = array(), $options = array())
   {
     $timer = new QubitTimer;
+    $skip = true;
 
     sfContext::createInstance($this->configuration);
     $databaseManager = new sfDatabaseManager($this->configuration);
@@ -126,6 +128,19 @@ EOF;
       if (null == $do)
       {
         continue;
+      }
+
+      if ($options['skip-to'])
+      {
+        if ($do->name != $options['skip-to'] && $skip)
+        {
+          $this->logSection('digital object', "Skipping ".$do->name);
+          continue;
+        }
+        else
+        {
+          $skip = false;
+        }
       }
 
       $this->logSection('digital object', sprintf('Regenerating derivatives for %s... (%ss)',
