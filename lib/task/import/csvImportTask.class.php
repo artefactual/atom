@@ -401,6 +401,7 @@ EOF;
         'placeAccessPointHistories' => '|', // not yet implemented
         'subjectAccessPoints'  => '|',
         'subjectAccessPointScopes' => '|', // not yet implemented
+        'genreAccessPoints'    => '|',
 
         'eventActors'          => '|',
         'eventTypes'           => '|',
@@ -657,6 +658,7 @@ EOF;
         $accessPointColumns = array(
           'subjectAccessPoints' => QubitTaxonomy::SUBJECT_ID,
           'placeAccessPoints'   => QubitTaxonomy::PLACE_ID,
+          'genreAccessPoints'   => QubitTaxonomy::GENRE_ID
         );
 
         foreach ($accessPointColumns as $columnName => $taxonomyId)

@@ -123,6 +123,9 @@ class csvInformationObjectExport extends QubitFlatfileExport
     // Set subject access point columns
     $subjectAccessPointData = $this->getSubjectAccessPoints();
     $this->setColumn('subjectAccessPoints', $subjectAccessPointData['names']);
+
+    $genreAccessPointData = $this->getGenreAccessPointData();
+    $this->setColumn('genreAccessPoints', $genreAccessPointData['names']);
   }
 
   /*
@@ -353,6 +356,26 @@ class csvInformationObjectExport extends QubitFlatfileExport
     foreach($accessPoints as $accessPoint)
     {
       $data['names'][] = $accessPoint->term->name;
+    }
+
+    return $data;
+  }
+
+  /*
+   * Get genre access point data
+   *
+   * @return void
+   */
+  protected function getGenreAccessPointData()
+  {
+    $accessPoints = $this->resource->getGenreAccessPoints();
+
+    $data          = array();
+    $data['names'] = array();
+
+    foreach($accessPoints as $accessPoint)
+    {
+      $data['names'][]     = $accessPoint->term->name;
     }
 
     return $data;

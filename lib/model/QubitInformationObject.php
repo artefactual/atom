@@ -875,6 +875,11 @@ class QubitInformationObject extends BaseInformationObject
     return $this->getTermRelations(QubitTaxonomy::SUBJECT_ID);
   }
 
+  public function getGenreAccessPoints()
+  {
+    return $this->getTermRelations(QubitTaxonomy::GENRE_ID);
+  }
+
   public function getPlaceAccessPoints(array $options = array('events' => false))
   {
     $criteria = new Criteria;
