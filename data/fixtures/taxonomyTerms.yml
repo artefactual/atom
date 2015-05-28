@@ -5669,6 +5669,24 @@ QubitTerm:
     source_culture: en
     name:
       en: 'Transcriptions'
+  QubitTerm_signatures_note:
+    taxonomy_id: QubitTaxonomy_21
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: 'Signatures note'
+  QubitTerm_cast_note:
+    taxonomy_id: QubitTaxonomy_21
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: 'Cast note'
+  QubitTerm_credits_note:
+    taxonomy_id: QubitTaxonomy_21
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: 'Credits note'
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111

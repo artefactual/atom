@@ -122,21 +122,6 @@ EOF;
       'Language note'
     );
 
-    QubitFlatfileImport::createOrFetchTerm(
-      QubitTaxonomy::RAD_NOTE_ID,
-      'Cast note'
-    );
-
-    QubitFlatfileImport::createOrFetchTerm(
-      QubitTaxonomy::RAD_NOTE_ID,
-      'Credits note'
-    );
-
-    QubitFlatfileImport::createOrFetchTerm(
-      QubitTaxonomy::RAD_NOTE_ID,
-      'Signatures note'
-    );
-
     // Load taxonomies into variables to avoid use of magic numbers
     $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
       QubitTaxonomy::DESCRIPTION_STATUS_ID       => 'descriptionStatusTypes',
