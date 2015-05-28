@@ -316,9 +316,6 @@ EOF;
         'radNoteConservation' => array(
           'typeId' => array_search('Conservation', $termData['radNoteTypes'])
         ),
-        'radNoteGeneral' => array(
-          'typeId' => array_search('General note', $termData['radNoteTypes'])
-        ),
         'radNotePhysicalDescription' => array(
           'typeId' => array_search('Physical description', $termData['radNoteTypes'])
         ),

@@ -61,7 +61,6 @@ columnNames:
   - radNotePhysicalDescription
   - radNotePublishersSeries
   - radNoteRights
-  - radNoteGeneral
   - radStandardNumber
   - subjectAccessPoints
   - placeAccessPoints
@@ -77,6 +76,7 @@ columnNames:
   - sources
   - publicationStatus
   - digitalObjectURI
+  - generalNote
   - appraisal
   - physicalObjectName
   - physicalObjectLocation
