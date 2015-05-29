@@ -78,7 +78,8 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $this->setAlternativeIdentifierColumns();
     $this->setPhysicalObjectColumns();
     $this->setAccessionNumberColumn();
-    $this->setCreationColumns();
+#    $this->setCreationColumns();
+    $this->setEventColumns();
 
     // Set level of description
     $this->setColumn(
@@ -233,6 +234,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
    *
    * @return void
    */
+/*
   protected function setCreationColumns()
   {
     $creationEvents = array();
@@ -267,6 +269,41 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $this->setColumn('creationDatesStart', $creationEvents['creationStartDates']);
     $this->setColumn('creationDatesEnd', $creationEvents['creationEndDates']);
     $this->setColumn('creationDatesType', $creationEvents['creationDateTypes']);
+  }
+*/
+
+  /*
+   * Set event-related columns
+   *
+   * @return void
+   */
+  protected function setEventColumns()
+  {
+    $types        = array();
+    $dates        = array();
+    $startDates   = array();
+    $endDates     = array();
+    $descriptions = array();
+    $places       = array();
+
+    $events = $this->resource->getDates();
+
+    foreach($events as $event)
+    {
+      $types[]        = $event->typeId;
+      $dates[]        = $event->date;
+      $startDates[]   = $event->startDate;
+      $endDates[]     = $event->endDate;
+      $descriptions[] = $event->description;
+      $places[]       = $event->getPlace()->name;
+    }
+
+    $this->setColumn('eventTypes', $types);
+    $this->setColumn('eventDates', $dates);
+    $this->setColumn('eventStartDates', $startDates);
+    $this->setColumn('eventEndDates', $endDates);
+    $this->setColumn('eventDescriptions', $descriptions);
+    $this->setColumn('eventPlaces', $places);
   }
 
   /*
