@@ -58,12 +58,6 @@
     </div>
   <?php endif; ?>
 
-  <?php if ($sf_user->hasFlash('notice')): ?>
-    <div class="messages">
-      <div><?php echo $sf_user->getFlash('notice', ESC_RAW) ?></div>
-    </div>
-  <?php endif; ?>
-
   <h1><?php echo __('Advanced search') ?></h1>
 <?php end_slot() ?>
 
@@ -87,6 +81,12 @@
     </ul>
   </section>
 <?php end_slot() ?>
+
+<?php if ($sf_user->hasFlash('notice')): ?>
+  <div class="messages">
+    <div><?php echo $sf_user->getFlash('notice', ESC_RAW) ?></div>
+  </div>
+<?php endif; ?>
 
 <?php echo get_partial('search/searchFields', array('criterias' => $criterias, 'template' => $template)) ?>
 

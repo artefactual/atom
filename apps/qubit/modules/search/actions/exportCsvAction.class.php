@@ -32,7 +32,7 @@ class SearchExportCsvAction extends sfAction
       // let user know export has started
       sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
       $jobManageUrl = url_for(array('module' => 'jobs', 'action' => 'browse'));
-      $message = 'Job initiated. Check <a href="'. $jobManageUrl . '">job management</a> page to download the results when it has completed.';
+      $message = '<strong>Job initiated.</strong> Check <a href="'. $jobManageUrl . '">job management</a> page to download the results when it has completed.';
       $this->getUser()->setFlash('notice', $message);
     }
 
