@@ -117,7 +117,7 @@ class arElasticSearchPluginQuery
         {
           case 'hideDrafts':
             QubitAclSearch::filterDrafts($filter);
-          break;
+            break;
         }
       }
 
@@ -153,12 +153,10 @@ class arElasticSearchPluginQuery
     // Add facet selections as search criteria
     foreach ($params as $param => $value)
     {
-      if (
-        'languages' == $param
+      if ('languages' == $param
         || !array_key_exists($param, $this->facets)
         || ('repos' == $param && (!ctype_digit($value)
-        || null === QubitRepository::getById($value)))
-      )
+        || null === QubitRepository::getById($value))))
       {
         continue;
       }

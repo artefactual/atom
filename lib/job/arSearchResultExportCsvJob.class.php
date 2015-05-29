@@ -93,10 +93,8 @@ class arSearchResultExportCsvJob extends arBaseJob
     // Add criteria fo secondary search fields
     foreach (SearchAdvancedAction::$NAMES as $name)
     {
-      if (
-        !empty($this->searchParams[$name])
-        && (null !== $criterias = SearchAdvancedAction::fieldCriteria($name, $this->searchParams[$name]))
-      )
+      if (!empty($this->searchParams[$name])
+        && (null !== $criterias = SearchAdvancedAction::fieldCriteria($name, $this->searchParams[$name])))
       {
         $this->search->queryBool->addMust($criterias);
       }
@@ -132,9 +130,9 @@ class arSearchResultExportCsvJob extends arBaseJob
   {
     $queryBool = new \Elastica\Query\Bool();
 
-    $count = -1;
+    $count = 0;
 
-    while (null !== $query = $this->searchParams['sq'.++$count])
+    while (null !== $query = $this->searchParams['sq' . $count])
     {
       if (empty($query)) continue;
 
@@ -152,6 +150,8 @@ class arSearchResultExportCsvJob extends arBaseJob
 
       $queryField = SearchAdvancedAction::queryField($field, $query, $this->archivalStandard);
       SearchAdvancedAction::addToQueryBool($queryBool, $operator, $queryField);
+
+      $count++;
     }
 
     if (0 == count($queryBool->getParams()))
@@ -174,11 +174,7 @@ class arSearchResultExportCsvJob extends arBaseJob
     $itemsExported = 0;
 
     // Exporter will create a new file each 10,000 rows
-    $writer = new csvInformationObjectExport(
-      $path,
-      $this->archivalStandard,
-      10000
-    );
+    $writer = new csvInformationObjectExport($path, $this->archivalStandard, 10000);
 
     // Force loading of information object configuration, then modify writer
     // configuration

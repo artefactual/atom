@@ -177,8 +177,8 @@ class DefaultBrowseAction extends sfAction
       $request->sort = $this->sortSetting;
     }
 
-    $indexType = (property_exists($this, 'INDEX_TYPE')) ? $this::INDEX_TYPE : null;
-    $facets = (property_exists($this, 'FACETS')) ? $this::$FACETS : null;
+    $indexType = property_exists($this, 'INDEX_TYPE') ? $this::INDEX_TYPE : null;
+    $facets    = property_exists($this, 'FACETS') ? $this::$FACETS : null;
 
     $this->search = new arElasticSearchPluginQuery(
       $indexType,
