@@ -238,6 +238,31 @@ information_object:
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $generalNoteTypeId)"]
 
+    dacs_alphanumeric_designation_note:
+      XPath:  "odd[@type='dacsAlphanumericDesignation']"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $dacsAlphaNumericaDesignationsNoteTypeId)"]
+
+    dacs_citation_note:
+      XPath:  "odd[@type='dacsCitation']"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $dacsCitationNoteTypeId)"]
+
+    dacs_conservation_note:
+      XPath:  "odd[@type='dacsConservation']"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $dacsConservationNoteTypeId)"]
+
+    dacs_processing_information_note:
+      XPath:  "odd[@type='dacsProcessingInformation']"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $dacsProcessingInformationNoteTypeId)"]
+
+    dacs_variant_title_information_note:
+      XPath:  "odd[@type='dacsVariantTitleInformation']"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $dacsVariantTitleInformationNoteTypeId)"]
+
     dates:
       XPath:  "did/unitdate"
       Method: setDates

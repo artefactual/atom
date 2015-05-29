@@ -170,11 +170,11 @@
   }
 
   $dacsSpecializedNotes = array(
-    'Conservation'       => 'conservation',
-    'Citation'                => 'citation',
-    'Alpha-numeric designations' => 'alphanumericDesignation',
-    'Variant title information'               => 'variantTitleInformation',
-    'Processing information'      => 'processingInformation'
+    'Conservation'       => 'dacsConservation',
+    'Citation'                => 'dacsCitation',
+    'Alphanumeric designations' => 'dacsAlphanumericDesignation',
+    'Variant title information'               => 'dacsVariantTitleInformation',
+    'Processing information'      => 'dacsProcessingInformation'
   );
 
   foreach ($dacsSpecializedNotes as $name => $xmlType)

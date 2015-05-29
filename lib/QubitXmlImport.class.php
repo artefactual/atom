@@ -615,7 +615,8 @@ class QubitXmlImport
               $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
                 QubitTaxonomy::NOTE_TYPE_ID                => 'noteTypes',
                 QubitTaxonomy::RAD_NOTE_ID                 => 'radNoteTypes',
-                QubitTaxonomy::RAD_TITLE_NOTE_ID           => 'titleNoteTypes'
+                QubitTaxonomy::RAD_TITLE_NOTE_ID           => 'titleNoteTypes',
+                QubitTaxonomy::DACS_NOTE_ID               => 'dacsSpecializedNotesTypes'
               ));
 
               $titleVariationNoteTypeId            = array_search('Variations in title', $termData['titleNoteTypes']);
@@ -633,6 +634,12 @@ class QubitXmlImport
               $rightsNoteTypeId                    = array_search("Rights", $termData['radNoteTypes']);
               $materialNoteTypeId                  = array_search("Accompanying material", $termData['radNoteTypes']);
               $generalNoteTypeId                   = array_search("General note", $termData['radNoteTypes']);
+
+              $dacsAlphaNumericaDesignationsNoteTypeId  = array_search('Alphanumeric designations', $termData['dacsSpecializedNotesTypes']);
+              $dacsCitationNoteTypeId            = array_search("Citation", $termData['dacsSpecializedNotesTypes']);
+              $dacsConservationNoteTypeId        = array_search("Conservation", $termData['dacsSpecializedNotesTypes']);
+              $dacsProcessingInformationNoteTypeId   = array_search("Processing information", $termData['dacsSpecializedNotesTypes']);
+              $dacsVariantTitleInformationNoteTypeId   = array_search("Variant title information", $termData['dacsSpecializedNotesTypes']);
 
               // invoke the object and method defined in the schema map
               $obj = call_user_func_array(array( & $currentObject, $methodMap['Method']), $parameters);
