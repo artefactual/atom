@@ -188,15 +188,19 @@ class arSearchResultExportCsvJob extends arBaseJob
     {
       $resource = QubitInformationObject::getById($hit->getId());
 
-      $writer->exportResource($resource);
-
-      // Log progress every 1000 rows
-      if ($itemsExported && ($itemsExported % 1000 == 0))
+      // If ElasticSearch document is stale (corresponding MySQL data deleted), ignore
+      if (!$resource !== null)
       {
-        $this->info($itemsExported .' items exported.');
-      }
+        $writer->exportResource($resource);
 
-      $itemsExported++;
+        // Log progress every 1000 rows
+        if ($itemsExported && ($itemsExported % 1000 == 0))
+        {
+          $this->info($itemsExported .' items exported.');
+        }
+
+        $itemsExported++;
+      }
     }
 
     return $itemsExported;
