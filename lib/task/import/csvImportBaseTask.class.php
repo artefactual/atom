@@ -24,7 +24,7 @@
  * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
-abstract class csvImportBaseTask extends sfBaseTask
+abstract class csvImportBaseTask extends arBaseTask
 {
   /**
    * @see sfTask
