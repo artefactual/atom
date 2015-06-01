@@ -6,11 +6,6 @@
       <?php if (0 < strlen($value = $resource->getTitle(array('cultureFallback' => true)))): ?>
         <titleproper encodinganalog="<?php echo $ead->getMetadataParameter('titleproper') ?>"><?php echo escape_dc(esc_specialchars($value)) ?></titleproper>
       <?php endif; ?>
-      <?php if (0 < count($archivistsNotes = $resource->getNotesByType(array('noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)))): ?>
-        <?php foreach ($archivistsNotes as $note): ?>
-          <author encodinganalog="<?php echo $ead->getMetadataParameter('author') ?>"><?php echo escape_dc(esc_specialchars($note)) ?></author>
-        <?php endforeach; ?>
-      <?php endif; ?>
     </titlestmt>
     <?php
       // TODO: find out if we need this element as it's not imported by our EAD importer
@@ -256,9 +251,23 @@
   <?php if (0 < strlen($value = $resource->getArchivalHistory(array('cultureFallback' => true)))): ?>
     <custodhist encodinganalog="<?php echo $ead->getMetadataParameter('custodhist') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></custodhist>
   <?php endif; ?>
-  <?php if (0 < strlen($value = $resource->getRevisionHistory(array('cultureFallback' => true)))): ?>
-    <processinfo><p><date><?php echo escape_dc(esc_specialchars($value)) ?></date></p></processinfo>
+
+  <?php $archivistsNotes = $resource->getNotesByType(array('noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)) ?>
+  <?php if (0 < strlen($value = $resource->getRevisionHistory(array('cultureFallback' => true))) || 0 < count($archivistsNotes)): ?>
+
+    <processinfo>
+      <?php if ($value): ?>
+        <p><date><?php echo escape_dc(esc_specialchars($value)) ?></date></p>
+      <?php endif; ?>
+
+      <?php if (0 < count($archivistsNotes)): ?>
+        <?php foreach ($archivistsNotes as $note): ?>
+          <p><?php echo escape_dc(esc_specialchars($note)) ?></p>
+        <?php endforeach; ?>
+      <?php endif; ?>
+    </processinfo>
   <?php endif; ?>
+
   <?php if (0 < strlen($value = $resource->getLocationOfOriginals(array('cultureFallback' => true)))): ?>
     <originalsloc encodinganalog="<?php echo $ead->getMetadataParameter('originalsloc') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></originalsloc>
   <?php endif; ?>

@@ -431,8 +431,8 @@ information_object:
       Parameters: ["$options = array('note' => 'Preferred citation: ' . $nodeValue, 'noteTypeId' => QubitTerm::GENERAL_NOTE_ID)"]
 
     processinfo:
-      XPath:  "processinfo"
-      Method: importEadNote # Manually parsed, see case 'processinfo' in QubitXmlImport.class.php
+      XPath:  "processinfo/p[not(date)]"
+      Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)"]
 
     archivistnote:
