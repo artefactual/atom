@@ -80,8 +80,7 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
-    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
-    $sf_context = sfContext::createInstance($configuration);
+    parent::execute($arguments, $options);
 
     $this->validateOptions($options);
 
