@@ -456,46 +456,6 @@ class QubitXmlImport
 
             break;
 
-          case 'processinfo':
-            foreach ($nodeList2 as $item)
-            {
-              if (($childNode = $importDOM->xpath->query('p/date', $item)) !== null)
-              {
-                $currentObject->revisionHistory = $childNode->item(0)->nodeValue;
-              }
-
-              if (($childNode = $importDOM->xpath->query('p', $item)) !== null)
-              {
-                $note = '';
-
-                foreach ($childNode as $pNode)
-                {
-                  // A <p> node inside <processinfo> with no other children,
-                  // this is part of an archivist's note.
-                  if ($pNode->childNodes->length === 1 && $pNode->firstChild->nodeType === XML_TEXT_NODE)
-                  {
-                    // If this isn't our first <p> in the note, add newlines
-                    // to simulate paragraph.
-                    if (strlen($note) > 0)
-                    {
-                      $note .= "\n\n";
-                    }
-
-                    $note .= $pNode->nodeValue;
-                  }
-                }
-
-                if (strlen($note) > 0)
-                {
-                  $currentObject->importEadNote(array('note' => $note, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID));
-                }
-              }
-
-              // TODO: Add more child node processing, for <note> <head> etc.
-            }
-
-            break;
-
           case 'flocat':
           case 'digital_object':
             $resources = array();
