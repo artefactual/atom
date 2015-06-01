@@ -78,7 +78,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $this->setAlternativeIdentifierColumns();
     $this->setPhysicalObjectColumns();
     $this->setAccessionNumberColumn();
-#    $this->setCreationColumns();
+    $this->setCreationColumns();
     $this->setEventColumns();
 
     // Set level of description
@@ -234,20 +234,18 @@ class csvInformationObjectExport extends QubitFlatfileExport
    *
    * @return void
    */
-/*
   protected function setCreationColumns()
   {
     $creationEvents = array();
 
     foreach ($this->resource->getCreationEvents() as $event)
     {
-      $creationEvents['creators'][]           = $event->actor->authorizedFormOfName;
-      $creationEvents['creatorHistories'][]   = $event->actor->history;
-      $creationEvents['creationDates'][]      = $event->date;
-      $creationEvents['creationDateNotes'][]  = $event->description;
-      $creationEvents['creationStartDates'][] = $event->startDate;
-      $creationEvents['creationEndDates'][]   = $event->endDate;
-      $creationEvents['creationDateTypes'][]  = $this->eventTypeTerms[$event->typeId];
+      // If creator's not linked to a date range, add
+      if (!$event->date && !$event->startDate && !$event->endDate and !$event->description and !$event->getPlace()->name)
+      {
+        $creationEvents['creators'][] = $event->actor->authorizedFormOfName;
+        $creationEvents['creatorHistories'][]   = $event->actor->history;
+      }
     }
 
     // Convert null values to the string 'NULL'. We use this to ensure we have the same number of values across
@@ -264,13 +262,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
 
     $this->setColumn('creators', $creationEvents['creators']);
     $this->setColumn('creatorHistories', $creationEvents['creatorHistories']);
-    $this->setColumn('creationDates', $creationEvents['creationDates']);
-    $this->setColumn('creationDateNotes', $creationEvents['creationDateNotes']);
-    $this->setColumn('creationDatesStart', $creationEvents['creationStartDates']);
-    $this->setColumn('creationDatesEnd', $creationEvents['creationEndDates']);
-    $this->setColumn('creationDatesType', $creationEvents['creationDateTypes']);
   }
-*/
 
   /*
    * Set event-related columns
@@ -279,23 +271,27 @@ class csvInformationObjectExport extends QubitFlatfileExport
    */
   protected function setEventColumns()
   {
-    $types        = array();
-    $dates        = array();
-    $startDates   = array();
-    $endDates     = array();
-    $descriptions = array();
-    $places       = array();
+    $types          = array();
+    $dates          = array();
+    $startDates     = array();
+    $endDates       = array();
+    $descriptions   = array();
+    $actors         = array();
+    $actorHistories = array();
+    $places         = array();
 
     $events = $this->resource->getDates();
 
     foreach($events as $event)
     {
-      $types[]        = $event->typeId;
-      $dates[]        = $event->date;
-      $startDates[]   = $event->startDate;
-      $endDates[]     = $event->endDate;
-      $descriptions[] = $event->description;
-      $places[]       = $event->getPlace()->name;
+      $types[]          = $this->eventTypeTerms[$event->typeId];
+      $dates[]          = $event->date;
+      $startDates[]     = $event->startDate;
+      $endDates[]       = $event->endDate;
+      $descriptions[]   = $event->description;
+      $actors[]         = $event->actor->authorizedFormOfName ? $event->actor->authorizedFormOfName : 'NULL';
+      $actorHistories[] = $event->actor->history;
+      $places[]         = $event->getPlace()->name;
     }
 
     $this->setColumn('eventTypes', $types);
@@ -303,6 +299,8 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $this->setColumn('eventStartDates', $startDates);
     $this->setColumn('eventEndDates', $endDates);
     $this->setColumn('eventDescriptions', $descriptions);
+    $this->setColumn('eventActors', $actors);
+    $this->setColumn('eventActorHistories', $actorHistories);
     $this->setColumn('eventPlaces', $places);
   }
 

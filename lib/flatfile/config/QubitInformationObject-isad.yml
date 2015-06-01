@@ -7,11 +7,6 @@ columnNames:
   - title
   - creators
   - creatorHistories
-  - creationDates
-  - creationDateNotes
-  - creationDatesType
-  - creationDatesStart
-  - creationDatesEnd
   - levelOfDescription
   - extentAndMedium
   - repository
@@ -53,4 +48,12 @@ columnNames:
   - physicalObjectType
   - alternativeIdentifiers
   - alternativeIdentifierLabels
+  - eventDates
+  - eventTypes
+  - eventStartDates
+  - eventEndDates
+  - eventDescriptions
+  - eventActors
+  - eventActorHistories
+  - eventPlaces
   - culture

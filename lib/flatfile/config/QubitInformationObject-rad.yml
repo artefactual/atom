@@ -24,13 +24,6 @@ columnNames:
   - radStatementOfCoordinates
   - radStatementOfScaleArchitectural
   - radIssuingJurisdiction
-  - creators
-  - creatorHistories
-  - creationDates
-  - creationDateNotes
-  - creationDatesType
-  - creationDatesStart
-  - creationDatesEnd
   - extentAndMedium
   - radTitleProperOfPublishersSeries
   - radParallelTitlesOfPublishersSeries
@@ -84,6 +77,14 @@ columnNames:
   - physicalObjectType
   - alternativeIdentifiers
   - alternativeIdentifierLabels
+  - eventDates
+  - eventTypes
+  - eventStartDates
+  - eventEndDates
+  - eventDescriptions
+  - eventActors
+  - eventActorHistories
+  - eventPlaces 
   - culture
 
 # Columns that map to information object properties

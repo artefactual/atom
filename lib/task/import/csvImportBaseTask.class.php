@@ -107,16 +107,16 @@ abstract class csvImportBaseTask extends arBaseTask
       {
         // initialize data that'll be used to create the event
         $eventData = array(
-          'actorName' => $actor
+          'actorName' => ($actor != 'NULL') ? $actor : null
         );
 
         // define whether each event-related column's values go directly
-        // into an event property or put into a varibale for further
+        // into an event property or put into a variable for further
         // processing
         $eventColumns = array(
           'eventTypes' => array(
             'variable'      => 'eventType',
-            'requiredError' => 'You have populated the eventActors column but not the eventTypes column.'
+            'requiredError' => 'You have not populated the eventTypes column.'
           ),
           'eventPlaces'        => array('variable' => 'place'),
           'eventDates'         => array('property' => 'date'),
@@ -184,10 +184,7 @@ abstract class csvImportBaseTask extends arBaseTask
   {
     // copy legacy column data, if present, for backwards compatibility
     $legacyColumns = array(
-      'creatorDates'      => 'creationDates',
-      'creatorDatesStart' => 'creationDatesStart',
-      'creatorDatesEnd'   => 'creationDatesEnd',
-      'creatorDateNotes'  => 'creationDateNotes'
+      'creatorDates' => 'creationDates'
     );
 
     foreach ($legacyColumns as $legacyColumn => $newColumn)
@@ -255,21 +252,6 @@ abstract class csvImportBaseTask extends arBaseTask
     // create events, if any
     if (count($createEvents))
     {
-      if ($import->rowStatusVars['culture'] != $import->object->sourceCulture)
-      {
-        // Add i18n data to existing event
-        $sql = "SELECT id FROM event WHERE object_id = ? and type_id = ?;";
-        $stmt = QubitFlatfileImport::sqlQuery($sql, array(
-          $import->object->id,
-          QubitTerm::CREATION_ID));
-
-        $i = 0;
-        while ($eventId = $stmt->fetchColumn())
-        {
-          $createEvents[$i++]['eventId'] = $eventId;
-        }
-      }
-
       foreach ($createEvents as $eventData)
       {
         $event = $import->createOrUpdateEvent(QubitTerm::CREATION_ID, $eventData);
