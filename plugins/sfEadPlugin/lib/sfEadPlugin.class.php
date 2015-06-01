@@ -401,4 +401,22 @@ class sfEadPlugin
     return count($materialTypes) || count($genres) || count($subjects) ||
            count($names) || count($places) || $hasNonCreationActorEvents;
   }
+
+  public function escapePhysDesc($value)
+  {
+    $xml = new DOMDocument;
+    $xml->loadXML('<xml>'.$value.'</xml>');
+
+    $xp = new DOMXPath($xml);
+
+    $nodes = $xp->query('//*[text()]');
+
+    foreach ($nodes as $node)
+    {
+      if (1||$node->nodeType == XML_TEXT_NODE)
+      {
+        printf('%s: %s<br/>', $node->nodeName, $node->nodeValue);
+      }
+    }
+  }
 }
