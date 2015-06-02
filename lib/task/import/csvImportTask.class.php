@@ -389,6 +389,7 @@ EOF;
         'genreAccessPoints'    => '|',
 
         'eventActors'          => '|',
+        'eventActorHistories'  => '|',
         'eventTypes'           => '|',
         'eventPlaces'          => '|',
         'eventDates'           => '|',

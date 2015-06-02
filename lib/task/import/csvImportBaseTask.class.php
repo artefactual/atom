@@ -118,11 +118,12 @@ abstract class csvImportBaseTask extends arBaseTask
             'variable'      => 'eventType',
             'requiredError' => 'You have not populated the eventTypes column.'
           ),
-          'eventPlaces'        => array('variable' => 'place'),
-          'eventDates'         => array('property' => 'date'),
-          'eventStartDates'    => array('property' => 'startDate'),
-          'eventEndDates'      => array('property' => 'endDate'),
-          'eventDescriptions'  => array('property' => 'description')
+          'eventPlaces'         => array('variable' => 'place'),
+          'eventDates'          => array('property' => 'date'),
+          'eventStartDates'     => array('property' => 'startDate'),
+          'eventEndDates'       => array('property' => 'endDate'),
+          'eventDescriptions'   => array('property' => 'description'),
+          'eventActorHistories' => array('property' => 'actorHistory')
         );
 
         // handle each of the event-related columns
