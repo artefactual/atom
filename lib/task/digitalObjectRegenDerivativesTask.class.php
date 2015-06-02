@@ -152,7 +152,7 @@ EOF;
       if ($options['index'])
       {
         // Update index
-        QubitSearch::updateInformationObject($do->informationObject);
+        $do->save();
       }
 
       // Destroy out-of-scope objects
@@ -161,14 +161,11 @@ EOF;
     }
 
     // Warn user to manually update search index
-    if ($options['index'])
+    if (!$options['index'])
     {
-      // Commit batch
-      QubitSearch::getInstance()->getEngine()->commit();
+      $this->logSection('digital object', 'Please update the search index manually to reflect any changes');
     }
-    else
-    {
-      $this->logSection('Done!', 'Please update the search index manually to reflect any changes');
-    }
+
+    $this->logSection('digital object', 'Done!');
   }
 }
