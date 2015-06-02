@@ -7,7 +7,7 @@
 <div class="page">
 
   <div>
-    <?php echo $sf_data->getRaw('content') ?>
+    <?php echo render_value($sf_data->getRaw('content')) ?>
   </div>
 
 </div>
