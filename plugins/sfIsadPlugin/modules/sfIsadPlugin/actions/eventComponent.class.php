@@ -111,7 +111,8 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
     }
 
     // Delete the old events if they don't appear in the table (removed by multiRow.js)
-    foreach ($this->resource->events as $item)
+    // Check date events as they are the only ones added in this table
+    foreach ($this->resource->getDates() as $item)
     {
       if (isset($item->id) && false === array_search($item->id, $finalEventIds))
       {
