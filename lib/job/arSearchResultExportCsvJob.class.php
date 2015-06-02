@@ -47,7 +47,15 @@ class arSearchResultExportCsvJob extends arBaseJob
     // Sort by ID so parents can import properly from resulting export file
     $this->search->query->setSort(array('lft' => 'asc'));
 
-    $this->archivalStandard = QubitSetting::getByNameAndScope('informationobject', 'default_template');
+    // If not using RAD, default to ISAD CSV export format
+    if (QubitSetting::getByNameAndScope('informationobject', 'default_template') == 'rad')
+    {
+      $this->archivalStandard = 'rad';
+    }
+    else
+    {
+      $this->archivalStandard = 'isad';
+    }
 
     // Create temp directory in which CSV export files will be written
     $tempPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'search_export_'. $this->job->id;
