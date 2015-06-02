@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class digitalObjectRegenDerivativesTask extends sfBaseTask
+class digitalObjectRegenDerivativesTask extends arBaseTask
 {
   protected function configure()
   {
@@ -44,9 +44,10 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
+    parent::execute($arguments, $options);
+
     $timer = new QubitTimer;
 
-    sfContext::createInstance($this->configuration);
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
