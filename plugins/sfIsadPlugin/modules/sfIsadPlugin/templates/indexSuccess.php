@@ -296,9 +296,7 @@
 
   <div class="section" id="rightsArea">
 
-    <?php if (QubitAcl::check($resource, 'update')): ?>
-      <h2><?php echo __('Rights area') ?> </h2>
-    <?php endif; ?>
+    <h2><?php echo __('Rights area') ?> </h2>
 
     <?php echo get_component('right', 'relatedRights', array('resource' => $resource)) ?>
 
