@@ -44,6 +44,11 @@ class arSearchResultExportCsvJob extends arBaseJob
     $this->search = new arElasticSearchPluginQuery();
     $this->addCriteriaBasedOnSearchParameters();
 
+    // Don't show *any* draft info objects
+    $filter = new \Elastica\Filter\Term();
+    $filter->setTerm('publicationStatusId', QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
+    $this->search->query->setFilter($filter);
+
     // Sort by ID so parents can import properly from resulting export file
     $this->search->query->setSort(array('lft' => 'asc'));
 
