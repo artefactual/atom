@@ -50,5 +50,6 @@ class sfEadPluginIndexAction extends InformationObjectIndexAction
 
     // Set array with valid EAD level values (see ead.dtd line 2220)
     $this->eadLevels = array('class', 'collection', 'file', 'fonds', 'item', 'otherlevel', 'recordgrp', 'series', 'subfonds', 'subgrp', 'subseries');
+    $this->options = array('current-level-only' => false);
   }
 }

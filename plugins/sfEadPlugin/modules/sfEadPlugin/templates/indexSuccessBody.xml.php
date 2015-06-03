@@ -292,7 +292,7 @@
     <?php endforeach; ?>
   <?php endif; ?>
 
-  <?php if (!$options['current-level-only']): ?>
+  <?php if (!array_key_exists('current-level-only', $options) || !$options['current-level-only']): ?>
   <dsc type="combined">
 
     <?php $nestedRgt = array() ?>
