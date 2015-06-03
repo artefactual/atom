@@ -1,3 +1,4 @@
+<?php error_reporting(E_ALL) ?>
 <?php decorate_with('layout_3col') ?>
 
 <?php slot('sidebar') ?>
@@ -60,11 +61,9 @@
     <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Identity area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'identityArea', 'title' => __('Edit identity area'))) ?>
   <?php endif; ?>
 
-  <?php echo render_show(__('Reference code'), render_value($isad->referenceCode)) ?>
+  <?php echo render_show(__('Reference code'), render_value($isad->referenceCode), array('fieldLabel' => 'Reference code')) ?>
 
-  <div class="title">
-    <?php echo render_show(__('Title'), render_value($resource->getTitle(array('cultureFallback' => true)))) ?>
-  </div>
+  <?php echo render_show(__('Title'), render_value($resource->getTitle(array('cultureFallback' => true))), array('fieldLabel' => 'title')) ?>
 
   <div class="field">
     <h3><?php echo __('Date(s)') ?></h3>
@@ -79,13 +78,9 @@
     </div>
   </div>
 
-  <div class="levelOfDescription">
-    <?php echo render_show(__('Level of description'), render_value($resource->levelOfDescription)) ?>
-  </div>
+  <?php echo render_show(__('Level of description'), render_value($resource->levelOfDescription), array('fieldLabel' => 'levelOfDescription')) ?>
 
-  <div class="extentAndMedium">
-    <?php echo render_show(__('Extent and medium'), render_value($resource->getCleanExtentAndMedium(array('cultureFallback' => true)))) ?>
-  </div>
+  <?php echo render_show(__('Extent and medium'), render_value($resource->getCleanExtentAndMedium(array('cultureFallback' => true))), array('fieldLabel' => 'extentAndMedium')) ?>
 </section> <!-- /section#identityArea -->
 
 <section id="contextArea">
@@ -116,15 +111,11 @@
   </div>
 
   <?php if (check_field_visibility('app_element_visibility_isad_archival_history')): ?>
-    <div class="archivalHistory">
-      <?php echo render_show(__('Archival history'), render_value($resource->getArchivalHistory(array('cultureFallback' => true)))) ?>
-    </div>
+    <?php echo render_show(__('Archival history'), render_value($resource->getArchivalHistory(array('cultureFallback' => true))), array('fieldLabel' => 'archivalHistory')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_immediate_source')): ?>
-    <div class="immediateSourceOfAcquisitionOrTransfer">
-      <?php echo render_show(__('Immediate source of acquisition or transfer'), render_value($resource->getAcquisition(array('cultureFallback' => true)))) ?>
-    </div>
+      <?php echo render_show(__('Immediate source of acquisition or transfer'), render_value($resource->getAcquisition(array('cultureFallback' => true))), array('fieldLabel' => 'immediateSourceOfAcquisitionOrTransfer')) ?>
   <?php endif; ?>
 
 </section> <!-- /section#contextArea -->
@@ -135,23 +126,15 @@
     <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Content and structure area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'contentAndStructureArea', 'title' => __('Edit content and structure area'))) ?>
   <?php endif; ?>
 
-  <div class="scopeAndContent">
-    <?php echo render_show(__('Scope and content'), render_value($resource->getScopeAndContent(array('cultureFallback' => true)))) ?>
-  </div>
+  <?php echo render_show(__('Scope and content'), render_value($resource->getScopeAndContent(array('cultureFallback' => true))), array('fieldLabel' => 'scopeAndContent')) ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_appraisal_destruction')): ?>
-    <div class="appraisalDestructionAndScheduling">
-      <?php echo render_show(__('Appraisal, destruction and scheduling'), render_value($resource->getAppraisal(array('cultureFallback' => true)))) ?>
-    </div>
+    <?php echo render_show(__('Appraisal, destruction and scheduling'), render_value($resource->getAppraisal(array('cultureFallback' => true))), array('fieldLabel' => 'appraisalDestructionAndScheduling')) ?>
   <?php endif; ?>
 
-  <div class="accruals">
-    <?php echo render_show(__('Accruals'), render_value($resource->getAccruals(array('cultureFallback' => true)))) ?>
-  </div>
+  <?php echo render_show(__('Accruals'), render_value($resource->getAccruals(array('cultureFallback' => true))), array('fieldLabel' => 'accruals')) ?>
 
-  <div class="systemOfArrangement">
-    <?php echo render_show(__('System of arrangement'), render_value($resource->getArrangement(array('cultureFallback' => true)))) ?>
-  </div>
+  <?php echo render_show(__('System of arrangement'), render_value($resource->getArrangement(array('cultureFallback' => true))), array('fieldLabel' => 'systemOfArrangement')) ?>
 </section> <!-- /section#contentAndStructureArea -->
 
 <section id="conditionsOfAccessAndUseArea">
@@ -160,13 +143,9 @@
     <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Conditions of access and use area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'conditionsOfAccessAndUseArea', 'title' => __('Edit conditions of access and use area'))) ?>
   <?php endif; ?>
 
-  <div class="conditionsGoverningAccess">
-    <?php echo render_show(__('Conditions governing access'), render_value($resource->getAccessConditions(array('cultureFallback' => true)))) ?>
-  </div>
+  <?php echo render_show(__('Conditions governing access'), render_value($resource->getAccessConditions(array('cultureFallback' => true))), array('fieldLabel' => 'conditionsGoverningAccess')) ?>
 
-  <div class="conditionsGoverningReproduction">
-    <?php echo render_show(__('Conditions governing reproduction'), render_value($resource->getReproductionConditions(array('cultureFallback' => true)))) ?>
-  </div>
+  <?php echo render_show(__('Conditions governing reproduction'), render_value($resource->getReproductionConditions(array('cultureFallback' => true))), array('fieldLabel' => 'conditionsGoverningReproduction')) ?>
 
   <div class="field">
     <h3><?php echo __('Language of material') ?></h3>
@@ -190,19 +169,13 @@
     </div>
   </div>
 
-  <div class="languageAndScriptNotes">
-    <?php echo render_show(__('Language and script notes'), render_value($isad->languageNotes)) ?>
-  </div>
+  <?php echo render_show(__('Language and script notes'), render_value($isad->languageNotes), array('fieldLabel' => 'languageAndScriptNotes')) ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_physical_condition')): ?>
-    <div class="physicalCharacteristics">
-      <?php echo render_show(__('Physical characteristics and technical requirements'), render_value($resource->getPhysicalCharacteristics(array('cultureFallback' => true)))) ?>
-    </div>
+    <?php echo render_show(__('Physical characteristics and technical requirements'), render_value($resource->getPhysicalCharacteristics(array('cultureFallback' => true))), array('fieldLabel' => 'physicalCharacteristics')) ?>
   <?php endif; ?>
 
-  <div class="findingAids">
-    <?php echo render_show(__('Finding aids'), render_value($resource->getFindingAids(array('cultureFallback' => true)))) ?>
-  </div>
+  <?php echo render_show(__('Finding aids'), render_value($resource->getFindingAids(array('cultureFallback' => true))), array('fieldLabel' => 'findingAids')) ?>
 </section> <!-- /section#conditionsOfAccessAndUseArea -->
 
 <section id="alliedMaterialsArea">
@@ -211,27 +184,19 @@
     <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Allied materials area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'alliedMaterialsArea', 'title' => __('Edit alied materials area'))) ?>
   <?php endif; ?>
 
-  <div class="existenceAndLocationOfOriginals">
-    <?php echo render_show(__('Existence and location of originals'), render_value($resource->getLocationOfOriginals(array('cultureFallback' => true)))) ?>
-  </div>
+  <?php echo render_show(__('Existence and location of originals'), render_value($resource->getLocationOfOriginals(array('cultureFallback' => true))), array('fieldLabel' => 'existenceAndLocationOfOriginals')) ?>
 
-  <div class="existenceAndLocationOfCopies">
-    <?php echo render_show(__('Existence and location of copies'), render_value($resource->getLocationOfCopies(array('cultureFallback' => true)))) ?>
-  </div>
+  <?php echo render_show(__('Existence and location of copies'), render_value($resource->getLocationOfCopies(array('cultureFallback' => true))), array('fieldLabel' => 'existenceAndLocationOfCopies')) ?>
 
-  <div class="relatedUnitsOfDescription">
-    <?php echo render_show(__('Related units of description'), render_value($resource->getRelatedUnitsOfDescription(array('cultureFallback' => true)))) ?>
-  </div>
+  <?php echo render_show(__('Related units of description'), render_value($resource->getRelatedUnitsOfDescription(array('cultureFallback' => true))), array('fieldLabel' => 'relatedUnitsOfDescription')) ?>
 
   <div class="relatedMaterialDescriptions">
     <?php echo get_partial('informationobject/relatedMaterialDescriptions', array('resource' => $resource, 'template' => 'isad')) ?>
   </div>
 
-  <div class="publicationNotes">
-    <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)) as $item): ?>
-      <?php echo render_show(__('Publication note'), render_value($item->getContent(array('cultureFallback' => true)))) ?>
-    <?php endforeach; ?>
-  </div>
+  <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)) as $item): ?>
+    <?php echo render_show(__('Publication note'), render_value($item->getContent(array('cultureFallback' => true))), array('fieldLabel' => 'publicationNote')) ?>
+  <?php endforeach; ?>
 </section> <!-- /section#alliedMaterialsArea -->
 
 <section id="notesArea">
@@ -241,11 +206,9 @@
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_notes')): ?>
-    <div class="generalNotes">
-      <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)) as $item): ?>
-        <?php echo render_show(__('Note'), render_value($item->getContent(array('cultureFallback' => true)))) ?>
-      <?php endforeach; ?>
-    </div>
+    <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)) as $item): ?>
+      <?php echo render_show(__('Note'), render_value($item->getContent(array('cultureFallback' => true))), array('fieldLabel' => 'generalNote')) ?>
+    <?php endforeach; ?>
   <?php endif; ?>
 
   <div class="alternativeIdentifiers">
@@ -279,39 +242,27 @@
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_control_description_identifier')): ?>
-    <div class="descriptionIdentifier">
-      <?php echo render_show(__('Description identifier'), render_value($resource->getDescriptionIdentifier(array('cultureFallback' => true)))) ?>
-    </div>
+    <?php echo render_show(__('Description identifier'), render_value($resource->getDescriptionIdentifier(array('cultureFallback' => true))), array('fieldLabel' => 'descriptionIdentifier')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_control_institution_identifier')): ?>
-    <div class="institutionIdentifier">
-      <?php echo render_show(__('Institution identifier'), render_value($resource->getInstitutionResponsibleIdentifier(array('cultureFallback' => true)))) ?>
-    </div>
+    <?php echo render_show(__('Institution identifier'), render_value($resource->getInstitutionResponsibleIdentifier(array('cultureFallback' => true))), array('fieldLabel' => 'institutionIdentifier')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_control_rules_conventions')): ?>
-    <div class="rulesAndOrConventionsUsed">
-      <?php echo render_show(__('Rules and/or conventions used'), render_value($resource->getRules(array('cultureFallback' => true)))) ?>
-    </div>
+    <?php echo render_show(__('Rules and/or conventions used'), render_value($resource->getRules(array('cultureFallback' => true))), array('fieldLabel' => 'rulesAndOrConventionsUsed')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_control_status')): ?>
-    <div class="descriptionStatus">
-      <?php echo render_show(__('Status'), render_value($resource->descriptionStatus)) ?>
-    </div>
+      <?php echo render_show(__('Status'), render_value($resource->descriptionStatus), array('fieldLabel' => 'descriptionStatus')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_control_level_of_detail')): ?>
-    <div class="levelOfDetail">
-      <?php echo render_show(__('Level of detail'), render_value($resource->descriptionDetail)) ?>
-    </div>
+    <?php echo render_show(__('Level of detail'), render_value($resource->descriptionDetail), array('fieldLabel' => 'levelOfDetail')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_control_dates')): ?>
-    <div class="datesOfCreationRevisionDeletion">
-      <?php echo render_show(__('Dates of creation revision deletion'), render_value($resource->getRevisionHistory(array('cultureFallback' => true)))) ?>
-    </div>
+    <?php echo render_show(__('Dates of creation revision deletion'), render_value($resource->getRevisionHistory(array('cultureFallback' => true))), array('fieldLabel' => 'datesOfCreationRevisionDeletion')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_control_languages')): ?>
@@ -341,17 +292,13 @@
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_control_sources')): ?>
-    <div class="sources">
-      <?php echo render_show(__('Sources'), render_value($resource->getSources(array('cultureFallback' => true)))) ?>
-    </div>
+    <?php echo render_show(__('Sources'), render_value($resource->getSources(array('cultureFallback' => true))), array('fieldLabel' => 'sources')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_control_archivists_notes')): ?>
-    <div class="archivistNotes">
-      <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)) as $item): ?>
-        <?php echo render_show(__('Archivist\'s note'), render_value($item->getContent(array('cultureFallback' => true)))) ?>
-      <?php endforeach; ?>
-    </div>
+    <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)) as $item): ?>
+      <?php echo render_show(__('Archivist\'s note'), render_value($item->getContent(array('cultureFallback' => true))), array('fieldLabel' => 'archivistNote')) ?>
+    <?php endforeach; ?>
   <?php endif; ?>
 
 </section> <!-- /section#descriptionControlArea -->
