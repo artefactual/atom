@@ -89,17 +89,22 @@ div;
   return $field;
 }
 
-function render_show($label, $value)
+function render_show($label, $value, $options = array())
 {
-  return <<<return
+  // Optional labels in the div class containing this field, to help with data mining.
+  $fieldLabel = isset($options['fieldLabel']) ? ' class="'.$options['fieldLabel'].'"' : '';
+
+  $result = <<<contents
 <div class="field">
   <h3>$label</h3>
-  <div>
+  <div%s>
     $value
   </div>
 </div>
 
-return;
+contents;
+
+  return sprintf($result, $fieldLabel);
 }
 
 function render_show_repository($label, $resource)

@@ -5,14 +5,18 @@
       <h3><?php echo __('Name of creator') ?></h3>
       <div>
 
-        <?php if (0 < count($resource->getCreators())): ?>
-          <?php echo link_to(render_title($item), array($item)) ?>
-        <?php else: ?>
-          <?php echo link_to(render_title($item), array($item), array('title' => __('Inherited from %1%', array('%1%' => $ancestor)))) ?>
-        <?php endif; ?>
+        <div class="creator">
+          <?php if (0 < count($resource->getCreators())): ?>
+            <?php echo link_to(render_title($item), array($item)) ?>
+          <?php else: ?>
+            <?php echo link_to(render_title($item), array($item), array('title' => __('Inherited from %1%', array('%1%' => $ancestor)))) ?>
+          <?php endif; ?>
+        </div>
 
         <?php if (isset($item->datesOfExistence)): ?>
-          (<?php echo $item->getDatesOfExistence(array('cultureFallback' => true)) ?>)
+          <div class="datesOfExistence">
+            (<?php echo $item->getDatesOfExistence(array('cultureFallback' => true)) ?>)
+          </div>
         <?php endif; ?>
 
         <?php if (0 < count($resource->getCreators())): ?>
@@ -23,7 +27,7 @@
               <?php $history_kind = __('Biographical history'); ?>
             <?php endif; ?>
             <h3><?php echo $history_kind; ?></h3>
-            <div>
+            <div class="history">
               <?php echo render_value($item->getHistory(array('cultureFallback' => true))) ?>
             </div>
           </div>
