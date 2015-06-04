@@ -78,7 +78,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $this->setAlternativeIdentifierColumns();
     $this->setPhysicalObjectColumns();
     $this->setAccessionNumberColumn();
-    $this->setCreationColumns();
+    $this->setCreatorColumns();
     $this->setEventColumns();
 
     // Set level of description
@@ -125,6 +125,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $subjectAccessPointData = $this->getSubjectAccessPoints();
     $this->setColumn('subjectAccessPoints', $subjectAccessPointData['names']);
 
+    // Set genre access point columns
     $genreAccessPointData = $this->getGenreAccessPointData();
     $this->setColumn('genreAccessPoints', $genreAccessPointData['names']);
   }
@@ -234,7 +235,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
    *
    * @return void
    */
-  protected function setCreationColumns()
+  protected function setCreatorColumns()
   {
     $creationEvents = array();
 
@@ -250,10 +251,6 @@ class csvInformationObjectExport extends QubitFlatfileExport
 
     // Convert null values to the string 'NULL'. We use this to ensure we have the same number of values across
     // multiple piped fields that correspond to each other.
-    //
-    // e.g.: If we have 3 dates but only the first and last ones have notes, we'll get this:
-    //       column 'creationDates':     2005|2006|2007
-    //       column 'creationDateNotes': hello|NULL|world
 
     foreach ($creationEvents as &$eventField)
     {

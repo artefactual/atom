@@ -120,13 +120,6 @@ EOF;
       'arrayColumns' => array(
         'creators'             => '|',
         'creatorHistories'       => '|',
-        'creationDates'      => '|',
-        'creationDatesStart' => '|',
-        'creationDatesEnd'   => '|',
-        'creationDatesType'  => '|',
-        'creatorDates'      => '|', // These 3 columns are for backwards compatibility
-        'creatorDatesStart' => '|',
-        'creatorDatesEnd'   => '|',
         'eventActors'          => '|',
         'eventTypes'           => '|',
         'eventPlaces'          => '|',
@@ -217,7 +210,7 @@ EOF;
           csvImportBaseTask::importEvents($self);
 
           // add creation events
-          csvImportBaseTask::importCreationEvents($self);
+          csvImportBaseTask::importCreators($self);
 
           // add creators
           if (

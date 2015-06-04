@@ -371,10 +371,6 @@ EOF;
         'accessionNumber'      => '|',
         'creators'             => '|',
         'creatorHistories'       => '|',
-        'creationDates'      => '|',
-        'creationDateNotes'  => '|',
-        'creationDatesStart' => '|',
-        'creationDatesEnd'   => '|',
         'creatorDates'      => '|', // These 4 columns are for backwards compatibility
         'creatorDatesStart' => '|',
         'creatorDatesEnd'   => '|',
@@ -925,7 +921,7 @@ EOF;
         parent::importEvents($self);
 
         // add creation events
-        parent::importCreationEvents($self);
+        parent::importCreators($self);
 
         // This will import only a single digital object;
         // if both a URI and path are provided, the former is preferred.
@@ -1022,52 +1018,6 @@ EOF;
 function array_search_case_insensitive($search, $array)
 {
   return array_search(strtolower($search), array_map('strtolower', $array));
-}
-
-/**
- * Parse creation event data.
- *
- * Note: if the string 'NULL' is encountered as a value, ignore it. This is a special value
- *       for lining up piped fields across multiple columns when they are related.
- */
-function setupEventDateData(&$self, &$eventData, $index)
-{
-  // add dates if specified
-  if (isset($self->rowStatusVars['creationDates'][$index]) ||
-      isset($self->rowStatusVars['creationDatesStart'][$index]))
-  {
-    // Start and end date
-    foreach (array('creationDatesEnd' => 'endDate', 'creationDatesStart' => 'startDate') as $statusVar => $eventProperty)
-    {
-      if (!empty($self->rowStatusVars[$statusVar][$index]) && $self->rowStatusVars[$statusVar][$index] !== 'NULL')
-      {
-        $eventData[$eventProperty] = $self->rowStatusVars[$statusVar][$index] .'-00-00';
-      }
-    }
-
-    $otherDateInfo = array(
-      'creationDateNotes' => 'description',
-      'creationDates'     => 'date',
-      'creationDatesType' => 'typeId'
-    );
-
-    // Other date info
-    foreach ($otherDateInfo  as $statusVar => $eventProperty)
-    {
-      if (!empty($self->rowStatusVars[$statusVar][$index]) && $self->rowStatusVars[$statusVar][$index] !== 'NULL')
-      {
-        if ($eventProperty == 'typeId')
-        {
-          $eventType = $self->rowStatusVars[$statusVar][$index];
-          $eventData[$eventProperty] = (strtolower($eventType) == 'accumulation') ? QubitTerm::ACCUMULATION_ID : QubitTerm::CREATION_ID;
-        }
-        else
-        {
-          $eventData[$eventProperty] = $self->rowStatusVars[$statusVar][$index];
-        }
-      }
-    }
-  }
 }
 
 function getIdCorrespondingToSlug($slug)

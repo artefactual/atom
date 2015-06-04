@@ -181,24 +181,8 @@ abstract class csvImportBaseTask extends arBaseTask
   /**
    * Import creation events
    */
-  static function importCreationEvents(&$import)
+  static function importCreators(&$import)
   {
-    // copy legacy column data, if present, for backwards compatibility
-    $legacyColumns = array(
-      'creatorDates' => 'creationDates'
-    );
-
-    foreach ($legacyColumns as $legacyColumn => $newColumn)
-    {
-      if (
-        isset($import->rowStatusVars[$legacyColumn])
-        && !isset($import->rowStatusVars[$newColumn])
-      )
-      {
-        $import->rowStatusVars[$newColumn] = $import->rowStatusVars[$legacyColumn];
-      }
-    }
-
     // add creators and creation events
     $createEvents = array();
     if (isset($import->rowStatusVars['creators']) && count($import->rowStatusVars['creators']))
@@ -213,8 +197,6 @@ abstract class csvImportBaseTask extends arBaseTask
           $eventData['actorName'] = $creator;
         }
 
-        setupEventDateData($import, $eventData, $index);
-
         // Add creator history if specified
         if (isset($import->rowStatusVars['creatorHistories'][$index]) &&
             $import->rowStatusVars['creatorHistories'][$index] !== 'NULL')
@@ -226,27 +208,6 @@ abstract class csvImportBaseTask extends arBaseTask
         {
           array_push($createEvents, $eventData);
         }
-      }
-    }
-    else if (isset($import->rowStatusVars['creationDatesStart']) ||
-             isset($import->rowStatusVars['creationDatesEnd']))
-    {
-      foreach ($import->rowStatusVars['creationDatesStart'] as $index => $date)
-      {
-        $eventData = array();
-        setupEventDateData($import, $eventData, $index);
-
-        array_push($createEvents, $eventData);
-      }
-    }
-    else if (isset($import->rowStatusVars['creationDates']))
-    {
-      foreach ($import->rowStatusVars['creationDates'] as $index => $date)
-      {
-        $eventData = array();
-        setupEventDateData($import, $eventData, $index);
-
-        array_push($createEvents, $eventData);
       }
     }
 
