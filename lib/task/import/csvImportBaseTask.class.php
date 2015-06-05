@@ -138,6 +138,9 @@ abstract class csvImportBaseTask extends arBaseTask
                 ? $import->rowStatusVars[$column][$index]
                 : $import->rowStatusVars[$column][0];
 
+            // 'NULL' is synonymous with blank
+            $value = ($value == 'NULL') ? '' : $value;
+
             // allow column value(s) to set event property
             if (isset($definition['property']))
             {
