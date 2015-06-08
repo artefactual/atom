@@ -15,7 +15,7 @@ include(dirname(__FILE__) .'/lib/QubitCsvTransformFactory.class.php');
 
 $addColumns = array(
   'parentId',
-  'radNoteGeneral'
+  'generalNote'
 );
 
 $renameColumns = array(
@@ -29,7 +29,7 @@ $transformLogic = function(&$self)
   $self->amalgamateColumns(array(
     'NOTES',
     'More:' => 'MORE NOTES'
-  ), 'radNoteGeneral');
+  ), 'generalNote');
 };
 
 $parentKeyLogic = function(&$self) {

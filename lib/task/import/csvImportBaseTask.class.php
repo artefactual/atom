@@ -107,22 +107,23 @@ abstract class csvImportBaseTask extends arBaseTask
       {
         // initialize data that'll be used to create the event
         $eventData = array(
-          'actorName' => $actor
+          'actorName' => ($actor != 'NULL') ? $actor : null
         );
 
         // define whether each event-related column's values go directly
-        // into an event property or put into a varibale for further
+        // into an event property or put into a variable for further
         // processing
         $eventColumns = array(
           'eventTypes' => array(
             'variable'      => 'eventType',
-            'requiredError' => 'You have populated the eventActors column but not the eventTypes column.'
+            'requiredError' => 'You have not populated the eventTypes column.'
           ),
-          'eventPlaces'        => array('variable' => 'place'),
-          'eventDates'         => array('property' => 'date'),
-          'eventStartDates'    => array('property' => 'startDate'),
-          'eventEndDates'      => array('property' => 'endDate'),
-          'eventDescriptions'  => array('property' => 'description')
+          'eventPlaces'         => array('variable' => 'place'),
+          'eventDates'          => array('property' => 'date'),
+          'eventStartDates'     => array('property' => 'startDate'),
+          'eventEndDates'       => array('property' => 'endDate'),
+          'eventDescriptions'   => array('property' => 'description'),
+          'eventActorHistories' => array('property' => 'actorHistory')
         );
 
         // handle each of the event-related columns
@@ -136,6 +137,9 @@ abstract class csvImportBaseTask extends arBaseTask
               = (count($import->rowStatusVars['eventActors']) == count($import->rowStatusVars[$column]))
                 ? $import->rowStatusVars[$column][$index]
                 : $import->rowStatusVars[$column][0];
+
+            // 'NULL' is synonymous with blank
+            $value = ($value == 'NULL') ? '' : $value;
 
             // allow column value(s) to set event property
             if (isset($definition['property']))
@@ -180,27 +184,8 @@ abstract class csvImportBaseTask extends arBaseTask
   /**
    * Import creation events
    */
-  static function importCreationEvents(&$import)
+  static function importCreators(&$import)
   {
-    // copy legacy column data, if present, for backwards compatibility
-    $legacyColumns = array(
-      'creatorDates'      => 'creationDates',
-      'creatorDatesStart' => 'creationDatesStart',
-      'creatorDatesEnd'   => 'creationDatesEnd',
-      'creatorDateNotes'  => 'creationDateNotes'
-    );
-
-    foreach ($legacyColumns as $legacyColumn => $newColumn)
-    {
-      if (
-        isset($import->rowStatusVars[$legacyColumn])
-        && !isset($import->rowStatusVars[$newColumn])
-      )
-      {
-        $import->rowStatusVars[$newColumn] = $import->rowStatusVars[$legacyColumn];
-      }
-    }
-
     // add creators and creation events
     $createEvents = array();
     if (isset($import->rowStatusVars['creators']) && count($import->rowStatusVars['creators']))
@@ -215,8 +200,6 @@ abstract class csvImportBaseTask extends arBaseTask
           $eventData['actorName'] = $creator;
         }
 
-        setupEventDateData($import, $eventData, $index);
-
         // Add creator history if specified
         if (isset($import->rowStatusVars['creatorHistories'][$index]) &&
             $import->rowStatusVars['creatorHistories'][$index] !== 'NULL')
@@ -230,46 +213,10 @@ abstract class csvImportBaseTask extends arBaseTask
         }
       }
     }
-    else if (isset($import->rowStatusVars['creationDatesStart']) ||
-             isset($import->rowStatusVars['creationDatesEnd']))
-    {
-      foreach ($import->rowStatusVars['creationDatesStart'] as $index => $date)
-      {
-        $eventData = array();
-        setupEventDateData($import, $eventData, $index);
-
-        array_push($createEvents, $eventData);
-      }
-    }
-    else if (isset($import->rowStatusVars['creationDates']))
-    {
-      foreach ($import->rowStatusVars['creationDates'] as $index => $date)
-      {
-        $eventData = array();
-        setupEventDateData($import, $eventData, $index);
-
-        array_push($createEvents, $eventData);
-      }
-    }
 
     // create events, if any
     if (count($createEvents))
     {
-      if ($import->rowStatusVars['culture'] != $import->object->sourceCulture)
-      {
-        // Add i18n data to existing event
-        $sql = "SELECT id FROM event WHERE object_id = ? and type_id = ?;";
-        $stmt = QubitFlatfileImport::sqlQuery($sql, array(
-          $import->object->id,
-          QubitTerm::CREATION_ID));
-
-        $i = 0;
-        while ($eventId = $stmt->fetchColumn())
-        {
-          $createEvents[$i++]['eventId'] = $eventId;
-        }
-      }
-
       foreach ($createEvents as $eventData)
       {
         $event = $import->createOrUpdateEvent(QubitTerm::CREATION_ID, $eventData);

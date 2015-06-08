@@ -78,7 +78,8 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $this->setAlternativeIdentifierColumns();
     $this->setPhysicalObjectColumns();
     $this->setAccessionNumberColumn();
-    $this->setCreationColumns();
+    $this->setCreatorColumns();
+    $this->setEventColumns();
 
     // Set level of description
     $this->setColumn(
@@ -97,6 +98,9 @@ class csvInformationObjectExport extends QubitFlatfileExport
       'descriptionStatus',
       $this->descriptionStatusTerms[$this->resource->descriptionStatusId]
     );
+
+    // Set digital object public URL
+    $this->setColumn('digitalObjectURI', $this->resource->getDigitalObjectPublicUrl());
 
     // Set publication status
     $this->setColumn('publicationStatus', $this->resource->getPublicationStatus());
@@ -120,6 +124,10 @@ class csvInformationObjectExport extends QubitFlatfileExport
     // Set subject access point columns
     $subjectAccessPointData = $this->getSubjectAccessPoints();
     $this->setColumn('subjectAccessPoints', $subjectAccessPointData['names']);
+
+    // Set genre access point columns
+    $genreAccessPointData = $this->getGenreAccessPointData();
+    $this->setColumn('genreAccessPoints', $genreAccessPointData['names']);
   }
 
   /*
@@ -227,27 +235,22 @@ class csvInformationObjectExport extends QubitFlatfileExport
    *
    * @return void
    */
-  protected function setCreationColumns()
+  protected function setCreatorColumns()
   {
     $creationEvents = array();
 
     foreach ($this->resource->getCreationEvents() as $event)
     {
-      $creationEvents['creators'][]           = $event->actor->authorizedFormOfName;
-      $creationEvents['creatorHistories'][]   = $event->actor->history;
-      $creationEvents['creationDates'][]      = $event->date;
-      $creationEvents['creationDateNotes'][]  = $event->description;
-      $creationEvents['creationStartDates'][] = $event->startDate;
-      $creationEvents['creationEndDates'][]   = $event->endDate;
-      $creationEvents['creationDateTypes'][]  = $this->eventTypeTerms[$event->typeId];
+      // If creator's not linked to a date range, add
+      if (!$event->date && !$event->startDate && !$event->endDate and !$event->description and !$event->getPlace()->name)
+      {
+        $creationEvents['creators'][] = $event->actor->authorizedFormOfName;
+        $creationEvents['creatorHistories'][]   = $event->actor->history;
+      }
     }
 
     // Convert null values to the string 'NULL'. We use this to ensure we have the same number of values across
     // multiple piped fields that correspond to each other.
-    //
-    // e.g.: If we have 3 dates but only the first and last ones have notes, we'll get this:
-    //       column 'creationDates':     2005|2006|2007
-    //       column 'creationDateNotes': hello|NULL|world
 
     foreach ($creationEvents as &$eventField)
     {
@@ -256,11 +259,46 @@ class csvInformationObjectExport extends QubitFlatfileExport
 
     $this->setColumn('creators', $creationEvents['creators']);
     $this->setColumn('creatorHistories', $creationEvents['creatorHistories']);
-    $this->setColumn('creationDates', $creationEvents['creationDates']);
-    $this->setColumn('creationDateNotes', $creationEvents['creationDateNotes']);
-    $this->setColumn('creationDatesStart', $creationEvents['creationStartDates']);
-    $this->setColumn('creationDatesEnd', $creationEvents['creationEndDates']);
-    $this->setColumn('creationDatesType', $creationEvents['creationDateTypes']);
+  }
+
+  /*
+   * Set event-related columns
+   *
+   * @return void
+   */
+  protected function setEventColumns()
+  {
+    $types          = array();
+    $dates          = array();
+    $startDates     = array();
+    $endDates       = array();
+    $descriptions   = array();
+    $actors         = array();
+    $actorHistories = array();
+    $places         = array();
+
+    $events = $this->resource->getDates();
+
+    foreach($events as $event)
+    {
+      $types[]          = $this->eventTypeTerms[$event->typeId];
+      $dates[]          = $event->date;
+      $startDates[]     = $event->startDate;
+      $endDates[]       = $event->endDate;
+      $descriptions[]   = $event->description;
+      $actors[]         = $event->actor->authorizedFormOfName ? $event->actor->authorizedFormOfName : 'NULL';
+      $actorHistories[] = $event->actor->history;
+      $places[]         = $event->getPlace()->name;
+    }
+
+    $this->setColumn('eventTypes', $types);
+    $this->setColumn('eventDates', $dates);
+    $this->setColumn('eventStartDates', $startDates);
+    $this->setColumn('eventEndDates', $endDates);
+    $this->setColumn('eventDescriptions', $descriptions);
+    $this->setColumn('eventActors', $actors);
+    $this->setColumn('eventActorHistories', $actorHistories);
+    $this->setColumn('eventPlaces', $places);
   }
 
   /*
@@ -350,6 +388,26 @@ class csvInformationObjectExport extends QubitFlatfileExport
     foreach($accessPoints as $accessPoint)
     {
       $data['names'][] = $accessPoint->term->name;
+    }
+
+    return $data;
+  }
+
+  /*
+   * Get genre access point data
+   *
+   * @return void
+   */
+  protected function getGenreAccessPointData()
+  {
+    $accessPoints = $this->resource->getGenreAccessPoints();
+
+    $data          = array();
+    $data['names'] = array();
+
+    foreach($accessPoints as $accessPoint)
+    {
+      $data['names'][]     = $accessPoint->term->name;
     }
 
     return $data;

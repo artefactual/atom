@@ -24,13 +24,6 @@ columnNames:
   - radStatementOfCoordinates
   - radStatementOfScaleArchitectural
   - radIssuingJurisdiction
-  - creators
-  - creatorHistories
-  - creationDates
-  - creationDateNotes
-  - creationDatesType
-  - creationDatesStart
-  - creationDatesEnd
   - extentAndMedium
   - radTitleProperOfPublishersSeries
   - radParallelTitlesOfPublishersSeries
@@ -61,11 +54,11 @@ columnNames:
   - radNotePhysicalDescription
   - radNotePublishersSeries
   - radNoteRights
-  - radNoteGeneral
   - radStandardNumber
   - subjectAccessPoints
   - placeAccessPoints
   - nameAccessPoints
+  - genreAccessPoints
   - descriptionIdentifier
   - institutionIdentifier
   - rules
@@ -76,12 +69,22 @@ columnNames:
   - scriptOfDescription
   - sources
   - publicationStatus
+  - digitalObjectURI
+  - generalNote
   - appraisal
   - physicalObjectName
   - physicalObjectLocation
   - physicalObjectType
   - alternativeIdentifiers
   - alternativeIdentifierLabels
+  - eventDates
+  - eventTypes
+  - eventStartDates
+  - eventEndDates
+  - eventDescriptions
+  - eventActors
+  - eventActorHistories
+  - eventPlaces 
   - culture
 
 # Columns that map to information object properties

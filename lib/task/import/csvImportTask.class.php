@@ -122,21 +122,6 @@ EOF;
       'Language note'
     );
 
-    QubitFlatfileImport::createOrFetchTerm(
-      QubitTaxonomy::RAD_NOTE_ID,
-      'Cast note'
-    );
-
-    QubitFlatfileImport::createOrFetchTerm(
-      QubitTaxonomy::RAD_NOTE_ID,
-      'Credits note'
-    );
-
-    QubitFlatfileImport::createOrFetchTerm(
-      QubitTaxonomy::RAD_NOTE_ID,
-      'Signatures note'
-    );
-
     // Load taxonomies into variables to avoid use of magic numbers
     $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
       QubitTaxonomy::DESCRIPTION_STATUS_ID       => 'descriptionStatusTypes',
@@ -316,9 +301,6 @@ EOF;
         'radNoteConservation' => array(
           'typeId' => array_search('Conservation', $termData['radNoteTypes'])
         ),
-        'radNoteGeneral' => array(
-          'typeId' => array_search('General note', $termData['radNoteTypes'])
-        ),
         'radNotePhysicalDescription' => array(
           'typeId' => array_search('Physical description', $termData['radNoteTypes'])
         ),
@@ -389,10 +371,6 @@ EOF;
         'accessionNumber'      => '|',
         'creators'             => '|',
         'creatorHistories'       => '|',
-        'creationDates'      => '|',
-        'creationDateNotes'  => '|',
-        'creationDatesStart' => '|',
-        'creationDatesEnd'   => '|',
         'creatorDates'      => '|', // These 4 columns are for backwards compatibility
         'creatorDatesStart' => '|',
         'creatorDatesEnd'   => '|',
@@ -404,8 +382,10 @@ EOF;
         'placeAccessPointHistories' => '|', // not yet implemented
         'subjectAccessPoints'  => '|',
         'subjectAccessPointScopes' => '|', // not yet implemented
+        'genreAccessPoints'    => '|',
 
         'eventActors'          => '|',
+        'eventActorHistories'  => '|',
         'eventTypes'           => '|',
         'eventPlaces'          => '|',
         'eventDates'           => '|',
@@ -660,6 +640,7 @@ EOF;
         $accessPointColumns = array(
           'subjectAccessPoints' => QubitTaxonomy::SUBJECT_ID,
           'placeAccessPoints'   => QubitTaxonomy::PLACE_ID,
+          'genreAccessPoints'   => QubitTaxonomy::GENRE_ID
         );
 
         foreach ($accessPointColumns as $columnName => $taxonomyId)
@@ -937,90 +918,10 @@ EOF;
         }
 
         // add ad-hoc events
-        if (isset($self->rowStatusVars['eventActors']))
-        {
-          foreach ($self->rowStatusVars['eventActors'] as $index => $actor)
-          {
-            // initialize data that'll be used to create the event
-            $eventData = array(
-              'actorName' => $actor
-            );
-
-            // define whether each event-related column's values go directly
-            // into an event property or put into a varibale for further
-            // processing
-            $eventColumns = array(
-              'eventTypes' => array(
-                'variable'      => 'eventType',
-                'requiredError' => 'You have populated the eventActors column but not the eventTypes column.'
-              ),
-              'eventPlaces'        => array('variable' => 'place'),
-              'eventDates'         => array('property' => 'date'),
-              'eventStartDates'    => array('property' => 'startDate'),
-              'eventEndDates'      => array('property' => 'endDate'),
-              'eventDescriptions'  => array('property' => 'description')
-            );
-
-            // handle each of the event-related columns
-            $eventType = false;
-            $place     = false;
-            foreach ($eventColumns as $column => $definition)
-            {
-              if (isset($self->rowStatusVars[$column]))
-              {
-                $value
-                  = (count($self->rowStatusVars['eventActors']) == count($self->rowStatusVars[$column]))
-                    ? $self->rowStatusVars[$column][$index]
-                    : $self->rowStatusVars[$column][0];
-
-                // allow column value(s) to set event property
-                if (isset($definition['property']))
-                {
-                  $eventData[($definition['property'])] = $value;
-                }
-
-                // allow column values(s) to set variable
-                if (isset($definition['variable']))
-                {
-                  $$definition['variable'] = $value;
-                }
-              }
-              else if (isset($definition['requiredError']))
-              {
-                throw new sfException('You have populated the eventActors column but not the eventTypes column.');
-              }
-            }
-
-            // if an event type has been specified, attempt to create the event
-            if ($eventType)
-            {
-              // do lookup of type ID
-              $typeTerm = $self->createOrFetchTerm(QubitTaxonomy::EVENT_TYPE_ID, $eventType);
-              $eventTypeId = $typeTerm->id;
-
-              // create event
-              $event = $self->createOrUpdateEvent($eventTypeId, $eventData);
-
-              // create a place term if specified
-              if ($place)
-              {
-                // create place
-                $placeTerm = $self->createTerm(QubitTaxonomy::PLACE_ID, $place);
-                $self->createObjectTermRelation($event->id, $placeTerm->id);
-              }
-            }
-            else
-            {
-              throw new sfException('eventTypes column need to be populated.');
-            }
-          }
-        }
-
-        // add ad-hoc events
         parent::importEvents($self);
 
         // add creation events
-        parent::importCreationEvents($self);
+        parent::importCreators($self);
 
         // This will import only a single digital object;
         // if both a URI and path are provided, the former is preferred.
@@ -1117,52 +1018,6 @@ EOF;
 function array_search_case_insensitive($search, $array)
 {
   return array_search(strtolower($search), array_map('strtolower', $array));
-}
-
-/**
- * Parse creation event data.
- *
- * Note: if the string 'NULL' is encountered as a value, ignore it. This is a special value
- *       for lining up piped fields across multiple columns when they are related.
- */
-function setupEventDateData(&$self, &$eventData, $index)
-{
-  // add dates if specified
-  if (isset($self->rowStatusVars['creationDates'][$index]) ||
-      isset($self->rowStatusVars['creationDatesStart'][$index]))
-  {
-    // Start and end date
-    foreach (array('creationDatesEnd' => 'endDate', 'creationDatesStart' => 'startDate') as $statusVar => $eventProperty)
-    {
-      if (!empty($self->rowStatusVars[$statusVar][$index]) && $self->rowStatusVars[$statusVar][$index] !== 'NULL')
-      {
-        $eventData[$eventProperty] = $self->rowStatusVars[$statusVar][$index] .'-00-00';
-      }
-    }
-
-    $otherDateInfo = array(
-      'creationDateNotes' => 'description',
-      'creationDates'     => 'date',
-      'creationDatesType' => 'typeId'
-    );
-
-    // Other date info
-    foreach ($otherDateInfo  as $statusVar => $eventProperty)
-    {
-      if (!empty($self->rowStatusVars[$statusVar][$index]) && $self->rowStatusVars[$statusVar][$index] !== 'NULL')
-      {
-        if ($eventProperty == 'typeId')
-        {
-          $eventType = $self->rowStatusVars[$statusVar][$index];
-          $eventData[$eventProperty] = (strtolower($eventType) == 'accumulation') ? QubitTerm::ACCUMULATION_ID : QubitTerm::CREATION_ID;
-        }
-        else
-        {
-          $eventData[$eventProperty] = $self->rowStatusVars[$statusVar][$index];
-        }
-      }
-    }
-  }
 }
 
 function getIdCorrespondingToSlug($slug)
