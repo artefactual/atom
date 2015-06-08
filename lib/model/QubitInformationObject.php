@@ -1248,7 +1248,7 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function getDigitalObjectPublicUrl()
   {
-    require_once(dirname(__FILE__).'/../../vendor/symfony/lib/helper/UrlHelper.php');
+    sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
 
     // Set digital object URL
     $do = $this->digitalObjects[0];
@@ -1261,7 +1261,8 @@ class QubitInformationObject extends BaseInformationObject
       if (QubitTerm::EXTERNAL_URI_ID == $do->usageId)
       {
         return $path;
-      } else
+      }
+      else
       {
         if (QubitAcl::check($this, 'readMaster'))
         {
