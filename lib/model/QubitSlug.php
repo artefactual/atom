@@ -19,26 +19,26 @@
 
 class QubitSlug extends BaseSlug
 {
-  public static function random()
+  public static function random($length = 12)
   {
-    $slug = null;
+    $separator = sfConfig::get('app_separator_character', '-');
 
-    $alphabet = '0123456789abcdefghijklmnopqrstuvwxyz';
+    // Adapted from http://stackoverflow.com/questions/5615490/random-code-generator/5615957#5615957
+    $alphabet = '23456789abcdefghkmnpqrstwxyz';
+    $alphabet_size = strlen($alphabet);
 
-    // Probability of generating a collision can be found using this formula
-    // http://en.wikipedia.org/wiki/Birthday_paradox#Cast_as_a_collision_problem
-    //
-    // Force max random value of 2^31-1 (32-bit signed integer max).
-    //
-    // With 2^31 possible values, the probability of collision is >50% when we
-    // reach approx. 50,000 records
-    $rand = mt_rand(0, pow(2, 31)-1);
+    $block_length = 4;
+    $num_blocks = $length / $block_length;
 
-    // Convert $rand to base36 hash
-    while (36 < $rand)
-    {
-      $slug .= $alphabet[$rand % 36];
-      $rand /= 36;
+    $slug = '';
+    for ($i = 0; $i < $num_blocks; $i++) {
+      for ($j = 0; $j < $block_length; $j++) {
+        $slug .= $alphabet[mt_rand(0, $alphabet_size - 1)];
+      }
+
+      if ($i != $num_blocks - 1) {
+        $slug .= $separator;
+      }
     }
 
     return $slug;
