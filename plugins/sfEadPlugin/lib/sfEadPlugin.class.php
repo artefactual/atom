@@ -177,7 +177,7 @@ class sfEadPlugin
       return $this->siteBaseUrl .'/'. ltrim($do->getFullPath(), '/');
     }
 
-    return public_path($do->getFullPath(), true);
+    return $this->siteBaseUrl .'/'. $do->getFullPath();
   }
 
   public function renderEadId()
