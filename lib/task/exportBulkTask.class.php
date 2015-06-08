@@ -106,7 +106,10 @@ class exportBulkTask extends exportBulkBaseTask
 
       $this->indicateProgress($options['items-until-update']);
 
-      $itemsExported++;
+      if ($itemsExported++ % 1000 == 0)
+      {
+        Qubit::clearClassCaches();
+      }
     }
 
     print "\nExport complete (". $itemsExported ." descriptions exported).\n";
