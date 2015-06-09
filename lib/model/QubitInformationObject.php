@@ -1248,8 +1248,6 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function getDigitalObjectPublicUrl()
   {
-    sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
-
     // Set digital object URL
     $do = $this->digitalObjects[0];
 
@@ -1266,11 +1264,11 @@ class QubitInformationObject extends BaseInformationObject
       {
         if (QubitAcl::check($this, 'readMaster'))
         {
-          return public_path($path, true);
+          return QubitSetting::getByName('siteBaseUrl') .'/'. $path;
         }
         elseif (null !== $do->reference && QubitAcl::check($this, 'readReference'))
         {
-          return public_path($do->reference->getFullPath(), true);
+          return QubitSetting::getByName('siteBaseUrl') .'/'. $do->reference->getFullPath();
         }
       }
     }

@@ -321,19 +321,29 @@ function link_to_unless()
  */
 function public_path($path, $absolute = false)
 {
-  $root = '';
+  $request = sfContext::getInstance()->getRequest();
+  $root = $request->getRelativeUrlRoot();
 
   if ($absolute)
   {
-    $root = QubitSetting::getByName('siteBaseUrl');
+    $source = 'http';
+    if ($request->isSecure())
+    {
+      $source .= 's';
+    }
+    $source .='://'.$request->getHost().$root;
+  }
+  else
+  {
+    $source = $root;
   }
   
   if (substr($path, 0, 1) != '/')
   {
-    $path = '/' . $path;
+    $path = '/'.$path;
   }
 
-  return $root . $path;
+  return $source.$path;
 }
 
 /**
