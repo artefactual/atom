@@ -202,7 +202,7 @@ class arSearchResultExportCsvJob extends arBaseJob
       $resource = QubitInformationObject::getById($hit->getId());
 
       // If ElasticSearch document is stale (corresponding MySQL data deleted), ignore
-      if (!$resource !== null)
+      if ($resource !== null)
       {
         $writer->exportResource($resource);
 
