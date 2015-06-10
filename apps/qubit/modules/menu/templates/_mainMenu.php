@@ -4,7 +4,7 @@
 
     <div id="<?php echo $menu->getName() ?>-menu" data-toggle="tooltip" data-title="<?php echo $menu->getLabel(array('cultureFallback' => true)) ?>">
 
-      <a class="top-item" data-toggle="dropdown" data-target="#"><?php echo $menu->getLabel(array('cultureFallback' => true)) ?></a>
+      <a class="top-item" data-toggle="dropdown" data-target="#" href="#"><?php echo $menu->getLabel(array('cultureFallback' => true)) ?></a>
 
       <div class="top-dropdown-container">
 

@@ -2,7 +2,7 @@
 
   <div id="user-menu">
 
-    <a class="top-item top-dropdown" data-toggle="dropdown" data-target="#" ><?php echo __('Log in') ?></a>
+    <a class="top-item top-dropdown" data-toggle="dropdown" data-target="#" href="#"><?php echo __('Log in') ?></a>
 
     <div class="top-dropdown-container">
 
