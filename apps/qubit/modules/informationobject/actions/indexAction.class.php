@@ -127,7 +127,8 @@ class InformationObjectIndexAction extends sfAction
       $this->getResponse()->addStylesheet('print-preview', 'last');
     }
 
-    if (!empty($scopeAndContent = $this->resource->getScopeAndContent(array('cultureFallback' => true))))
+    $scopeAndContent = $this->resource->getScopeAndContent(array('cultureFallback' => true));
+    if (!empty($scopeAndContent))
     {
       $this->getContext()->getConfiguration()->loadHelpers(array('Text'));
       $this->response->addMeta('description', truncate_text($scopeAndContent, 150));
