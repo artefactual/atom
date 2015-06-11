@@ -169,11 +169,16 @@ abstract class exportBulkBaseTask extends sfBaseTask
 
     if (isset($options['single-id']))
     {
-      $query .= ' AND i.id=' . $options['single-id'] . ' LIMIT 1';
+      $query .= ' AND i.id=' . $options['single-id'];
     }
 
     // Order by place in hierarchy so parents are exported before children
     $query .= ' ORDER BY i.lft';
+
+    if (isset($options['single-id']))
+    {
+      $query .= ' LIMIT 1';
+    }
 
     return $query;
   }
