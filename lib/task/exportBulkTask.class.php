@@ -68,8 +68,12 @@ class exportBulkTask extends exportBulkBaseTask
 
       try
       {
+        $errLevel = error_reporting(E_ALL); // Print warnings/notices here too, as they are often important.
+
         $rawXml = $this->captureResourceExportTemplateOutput($resource, $options['format'], $options);
         $xml = Qubit::tidyXml($rawXml);
+
+        error_reporting($errLevel);
       }
       catch (Exception $e)
       {

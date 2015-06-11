@@ -210,13 +210,13 @@
       <?php endforeach; ?>
       <?php foreach ($names as $name): ?>
         <?php if ($name->getObject()->getEntityTypeId() == QubitTerm::PERSON_ID): ?>
-          <persname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></persname>
+          <persname role="subject"><?php echo escape_dc(esc_specialchars((string)$name->getObject())) ?></persname>
         <?php elseif ($name->getObject()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
-          <famname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></famname>
+          <famname role="subject"><?php echo escape_dc(esc_specialchars((string)$name->getObject())) ?></famname>
         <?php elseif ($name->getObject()->getEntityTypeId() == QubitTerm::CORPORATE_BODY_ID): ?>
           <corpname role="subject"><?php echo escape_dc(esc_specialchars((string)$name->getObject())) ?></corpname>
         <?php else: ?>
-          <name role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></name>
+          <name role="subject"><?php echo escape_dc(esc_specialchars((string)$name->getObject())) ?></name>
         <?php endif; ?>
       <?php endforeach; ?>
       <?php foreach ($materialTypes as $materialtype): ?>
@@ -339,13 +339,13 @@
 
           <?php foreach ($names as $name): ?>
             <?php if ($name->getObject()->getEntityTypeId() == QubitTerm::PERSON_ID): ?>
-              <persname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></persname>
+              <persname role="subject"><?php echo escape_dc(esc_specialchars((string)$name->getObject())) ?></persname>
             <?php elseif ($name->getObject()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
-              <famname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></famname>
+              <famname role="subject"><?php echo escape_dc(esc_specialchars((string)$name->getObject())) ?></famname>
             <?php elseif ($name->getObject()->getEntityTypeId() == QubitTerm::CORPORATE_BODY_ID): ?>
-              <corpname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></corpname>
+              <corpname role="subject"><?php echo escape_dc(esc_specialchars((string)$name->getObject())) ?></corpname>
             <?php else: ?>
-              <name role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></name>
+              <name role="subject"><?php echo escape_dc(esc_specialchars((string)$name->getObject())) ?></name>
             <?php endif; ?>
           <?php endforeach; ?>
 
