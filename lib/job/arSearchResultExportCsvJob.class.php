@@ -147,22 +147,23 @@ class arSearchResultExportCsvJob extends arBaseJob
 
     while (null !== $query = $this->searchParams['sq' . $count])
     {
-      if (empty($query)) continue;
-
-      $field = $this->searchParams['sf'.$count];
-      if (empty($field))
+      if (!empty($query))
       {
-        $field = '_all';
-      }
+        $field = $this->searchParams['sf'.$count];
+        if (empty($field))
+        {
+          $field = '_all';
+        }
 
-      $operator = $this->searchParams['so'.$count];
-      if (empty($operator))
-      {
-        $operator = 'or';
-      }
+        $operator = $this->searchParams['so'.$count];
+        if (empty($operator))
+        {
+          $operator = 'or';
+        }
 
-      $queryField = SearchAdvancedAction::queryField($field, $query, $this->archivalStandard);
-      SearchAdvancedAction::addToQueryBool($queryBool, $operator, $queryField);
+        $queryField = SearchAdvancedAction::queryField($field, $query, $this->archivalStandard);
+        SearchAdvancedAction::addToQueryBool($queryBool, $operator, $queryField);
+      }
 
       $count++;
     }
