@@ -784,15 +784,24 @@
   $(function ()
     {
       var s = $("#sidebar > .settings-menu");
+      if (!s.length)
+      {
+        return;
+      }
+
       var pos = s.position();
-      $(window).scroll(function() {
-        var windowpos = $(window).scrollTop();
-        if (windowpos >= pos.top) {
-          s.addClass("stick");
-        } else {
-          s.removeClass("stick");
-        }
-      });
+      $(window).scroll(function()
+        {
+          var windowpos = $(window).scrollTop();
+          if (windowpos >= pos.top)
+          {
+            s.addClass("stick");
+          }
+          else
+          {
+            s.removeClass("stick");
+          }
+        });
     });
 
 })(window.jQuery);
