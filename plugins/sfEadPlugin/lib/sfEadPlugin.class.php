@@ -401,4 +401,12 @@ class sfEadPlugin
     return count($materialTypes) || count($genres) || count($subjects) ||
            count($names) || count($places) || $hasNonCreationActorEvents;
   }
+
+  public function getPublicationDate()
+  {
+    // Create formated publication date
+    // todo: use 'published at' date, see issue#902
+    $date = strtotime($this->resource->getCreatedAt());
+    return date('Y', $date).'-'.date('m', $date).'-'.date('d', $date);
+  }
 }

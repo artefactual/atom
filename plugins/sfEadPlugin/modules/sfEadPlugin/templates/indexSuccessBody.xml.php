@@ -48,7 +48,7 @@
             <?php endif; ?>
           </address>
         <?php endif; ?>
-        <date normal="<?php echo $publicationDate ?>" encodinganalog="<?php echo $ead->getMetadataParameter('date') ?>"><?php echo escape_dc(esc_specialchars($publicationDate)) ?></date>
+        <date normal="<?php echo $ead->getPublicationDate() ?>" encodinganalog="<?php echo $ead->getMetadataParameter('date') ?>"><?php echo escape_dc(esc_specialchars($ead->getPublicationDate())) ?></date>
       </publicationstmt>
     <?php endif; ?>
   </filedesc>

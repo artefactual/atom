@@ -36,11 +36,6 @@ class sfEadPluginIndexAction extends InformationObjectIndexAction
 
     $this->ead = new sfEadPlugin($this->resource);
 
-    // Create formated publication date
-    // todo: use 'published at' date, see issue#902
-    $date = strtotime($this->resource->getCreatedAt());
-    $this->publicationDate = date('Y', $date).'-'.date('m', $date).'-'.date('d', $date);
-
     // Determine language(s) used in the export
     $this->exportLanguage = sfContext::getInstance()->user->getCulture();
     $this->sourceLanguage = $this->resource->getSourceCulture();
