@@ -1987,23 +1987,6 @@ class QubitInformationObject extends BaseInformationObject
   }
 
   /**
-   * Import all the elements from <physdesc> tag as XML
-   *
-   * @param $physDescNode  DOMNode  EAD physdesc DOM node
-   */
-  public function importPhysDescEadData($physDescNode)
-  {
-    $extentAndMedium = '';
-    foreach ($physDescNode->childNodes as $node)
-    {
-      $extentAndMedium .= $node->ownerDocument->saveXML($node);
-    }
-
-    // Trim final result
-    $this->extentAndMedium = trim($extentAndMedium);
-  }
-
-  /**
    * Import actor history from on <bioghist> tag in EAD2002
    *
    * @param $history string actor history

@@ -270,8 +270,7 @@ information_object:
 
     physdesc:
       XPath:  "did/physdesc"
-      Method: importPhysDescEadData
-      Parameters: ["$domNode2"]
+      Method: setExtentAndMedium
 
     abstract:
       XPath:   "did/abstract"
