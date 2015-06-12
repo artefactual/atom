@@ -232,7 +232,7 @@
         <geogname><?php echo escape_dc(esc_specialchars((string)$place->getTerm())) ?></geogname>
       <?php endforeach; ?>
       <?php foreach ($placeEvents as $place): ?>
-        <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('geog'.$place->getObject()->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('geogDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_place"><?php echo escape_dc(esc_specialchars((string)$place->getTerm())) ?></geogname>
+        <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('geog'.$place->getObject()->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('geogDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $place->id ?>_place"><?php echo escape_dc(esc_specialchars((string)$place->getTerm())) ?></geogname>
       <?php endforeach; ?>
     </controlaccess>
   <?php endif; ?>
@@ -366,7 +366,7 @@
           <?php endforeach; ?>
 
           <?php foreach ($placeEvents as $place): ?>
-            <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('geog'.$place->getObject()->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('geogDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_place"><?php echo escape_dc(esc_specialchars((string)$place->getTerm())) ?></geogname>
+            <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('geog'.$place->getObject()->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('geogDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $place->id ?>_place"><?php echo escape_dc(esc_specialchars((string)$place->getTerm())) ?></geogname>
           <?php endforeach; ?>
 
         </controlaccess>
