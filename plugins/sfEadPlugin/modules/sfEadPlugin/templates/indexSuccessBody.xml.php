@@ -98,20 +98,20 @@
   ?>
 
   <?php if ($resource->getPublicationStatus()): ?>
-    <odd type="publicationStatus"><p><?php echo $resource->getPublicationStatus() ?></p></odd>
+    <odd type="publicationStatus"><p><?php echo escape_dc(esc_specialchars($resource->getPublicationStatus())) ?></p></odd>
   <?php endif; ?>
   <?php if ($resource->descriptionDetailId): ?>
-    <odd type="levelOfDetail"><p><?php echo QubitTerm::getById($resource->descriptionDetailId) ?></p></odd>
+    <odd type="levelOfDetail"><p><?php echo escape_dc(esc_specialchars((string)QubitTerm::getById($resource->descriptionDetailId))) ?></p></odd>
   <?php endif; ?>
   <?php $descriptionStatus = ($resource->descriptionStatusId) ? QubitTerm::getById($resource->descriptionStatusId) : ''; ?>
   <?php if ($descriptionStatus): ?>
-    <odd type="statusDescription"><p><?php echo $descriptionStatus ?></p></odd>
+    <odd type="statusDescription"><p><?php echo escape_dc(esc_specialchars((string)$descriptionStatus)) ?></p></odd>
   <?php endif; ?>
   <?php if ($resource->descriptionIdentifier): ?>
-    <odd type="descriptionIdentifier"><p><?php echo $resource->descriptionIdentifier ?></p></odd>
+    <odd type="descriptionIdentifier"><p><?php echo escape_dc(esc_specialchars($resource->descriptionIdentifier)) ?></p></odd>
   <?php endif; ?>
   <?php if ($resource->institutionResponsibleIdentifier): ?>
-    <odd type="institutionIdentifier"><p><?php echo $resource->institutionResponsibleIdentifier ?></p></odd>
+    <odd type="institutionIdentifier"><p><?php echo escape_dc(esc_specialchars($resource->institutionResponsibleIdentifier)) ?></p></odd>
   <?php endif; ?>
 
   <?php
@@ -138,7 +138,7 @@
 
     if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => $noteTypeId)))):
       foreach ($notes as $note): ?>
-        <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></odd>
+        <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note->getContent(array('cultureFallback' => true)))) ?></p></odd>
       <?php endforeach;
     endif;
   }
@@ -159,7 +159,7 @@
 
     if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => $noteTypeId)))):
       foreach ($notes as $note): ?>
-        <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars((string)$note)) ?></p></odd>
+        <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note->getContent(array('cultureFallback' => true)))) ?></p></odd>
       <?php endforeach;
     endif;
   }
@@ -178,7 +178,7 @@
 
     if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => $noteTypeId)))):
       foreach ($notes as $note): ?>
-        <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></odd>
+        <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note->getContent(array('cultureFallback' => true)))) ?></p></odd>
       <?php endforeach;
     endif;
   } ?>
@@ -220,19 +220,19 @@
         <?php endif; ?>
       <?php endforeach; ?>
       <?php foreach ($materialTypes as $materialtype): ?>
-        <genreform source="rad" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('materialType'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($materialtype->getTerm()))) ?></genreform>
+        <genreform source="rad" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('materialType'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars((string)$materialtype->getTerm()))) ?></genreform>
       <?php endforeach; ?>
       <?php foreach ($genres as $genre): ?>
-        <genreform><?php echo escape_dc(escape_dc(esc_specialchars($genre->getTerm()))) ?></genreform>
+        <genreform><?php echo escape_dc(esc_specialchars((string)$genre->getTerm())) ?></genreform>
       <?php endforeach; ?>
       <?php foreach ($subjects as $subject): ?>
-        <subject<?php if ($subject->getTerm()->code):?> authfilenumber="<?php echo $subject->getTerm()->code ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($subject->getTerm())) ?></subject>
+        <subject<?php if ($subject->getTerm()->code):?> authfilenumber="<?php echo $subject->getTerm()->code ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars((string)$subject->getTerm())) ?></subject>
       <?php endforeach; ?>
       <?php foreach ($places as $place): ?>
-        <geogname><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
+        <geogname><?php echo escape_dc(esc_specialchars((string)$place->getTerm())) ?></geogname>
       <?php endforeach; ?>
       <?php foreach ($placeEvents as $place): ?>
-        <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('geog'.$place->getObject()->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('geogDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_place"><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
+        <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('geog'.$place->getObject()->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('geogDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_place"><?php echo escape_dc(esc_specialchars((string)$place->getTerm())) ?></geogname>
       <?php endforeach; ?>
     </controlaccess>
   <?php endif; ?>
@@ -262,7 +262,7 @@
 
       <?php if (0 < count($archivistsNotes)): ?>
         <?php foreach ($archivistsNotes as $note): ?>
-          <p><?php echo escape_dc(esc_specialchars($note)) ?></p>
+          <p><?php echo escape_dc(esc_specialchars($note->getContent(array('cultureFallback' => true)))) ?></p>
         <?php endforeach; ?>
       <?php endif; ?>
     </processinfo>
@@ -288,7 +288,7 @@
   <?php endif; ?>
   <?php if (0 < count($publicationNotes = $resource->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)))): ?>
     <?php foreach ($publicationNotes as $note): ?>
-      <bibliography <?php if (0 < strlen($encoding = $ead->getMetadataParameter('bibliography'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></bibliography>
+      <bibliography <?php if (0 < strlen($encoding = $ead->getMetadataParameter('bibliography'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note->getContent(array('cultureFallback' => true)))) ?></p></bibliography>
     <?php endforeach; ?>
   <?php endif; ?>
 
@@ -350,23 +350,23 @@
           <?php endforeach; ?>
 
           <?php foreach ($materialTypes as $materialtype): ?>
-            <genreform source="rad" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('materialType'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($materialtype->getTerm())) ?></genreform>
+            <genreform source="rad" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('materialType'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars((string)$materialtype->getTerm())) ?></genreform>
           <?php endforeach; ?>
 
           <?php foreach ($genres as $genre): ?>
-            <genreform <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($genre->getTerm()))) ?></genreform>
+            <genreform <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars((string)$genre->getTerm()))) ?></genreform>
           <?php endforeach; ?>
 
           <?php foreach ($subjects as $subject): ?>
-            <subject><?php echo escape_dc(esc_specialchars($subject->getTerm())) ?></subject>
+            <subject><?php echo escape_dc(esc_specialchars((string)$subject->getTerm())) ?></subject>
           <?php endforeach; ?>
 
           <?php foreach ($places as $place): ?>
-            <geogname><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
+            <geogname><?php echo escape_dc(esc_specialchars((string)$place->getTerm())) ?></geogname>
           <?php endforeach; ?>
 
           <?php foreach ($placeEvents as $place): ?>
-            <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('geog'.$place->getObject()->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('geogDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_place"><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
+            <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('geog'.$place->getObject()->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('geogDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_place"><?php echo escape_dc(esc_specialchars((string)$place->getTerm())) ?></geogname>
           <?php endforeach; ?>
 
         </controlaccess>
@@ -399,7 +399,7 @@
 
       <?php if (0 < count($archivistsNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)))): ?>
         <?php foreach ($archivistsNotes as $note): ?>
-          <processinfo><p><?php echo escape_dc(esc_specialchars($note)) ?></p></processinfo>
+          <processinfo><p><?php echo escape_dc(esc_specialchars($note->getContent(array('cultureFallback' => true)))) ?></p></processinfo>
         <?php endforeach; ?>
       <?php endif; ?>
 
@@ -429,7 +429,7 @@
 
       <?php if (0 < count($publicationNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)))): ?>
         <?php foreach ($publicationNotes as $note): ?>
-          <bibliography <?php if (0 < strlen($encoding = $ead->getMetadataParameter('bibliography'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note->content)) ?></p></bibliography>
+          <bibliography <?php if (0 < strlen($encoding = $ead->getMetadataParameter('bibliography'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note->getContent(array('cultureFallback' => true)))) ?></p></bibliography>
         <?php endforeach; ?>
       <?php endif; ?>
 
@@ -438,7 +438,7 @@
 
           <?php if (0 < count($notes = $descendant->getNotesByType(array('noteTypeId' => $noteTypeId)))): ?>
             <?php foreach ($notes as $note): ?>
-              <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note->content)) ?></p></odd>
+              <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note->getContent(array('cultureFallback' => true)))) ?></p></odd>
             <?php endforeach; ?>
           <?php endif; ?>
       <?php endforeach; ?>
