@@ -213,6 +213,7 @@ class sfEadPlugin
 
     $encodinganalog = $this->getMetadataParameter('eadid');
     $sanitizedIdentifier = esc_specialchars($this->resource->identifier);
+    $identifier = esc_specialchars($identifier);
 
     return "<eadid identifier=\"$identifier\"$countryCode$mainAgencyCode url=\"$url\" encodinganalog=\"$encodinganalog\">{$sanitizedIdentifier}</eadid>";
   }
