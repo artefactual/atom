@@ -29,7 +29,7 @@
 <?php end_slot() ?>
 
 <div class="page">
-  <?php echo $sf_data->getRaw('content') ?>
+  <?php echo render_value($sf_data->getRaw('content')) ?>
 </div>
 
 <?php if (SecurityCheck::hasPermission($sf_user, array('module' => 'staticpage', 'action' => 'update'))): ?>

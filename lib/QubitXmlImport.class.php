@@ -59,6 +59,8 @@ class QubitXmlImport
       $this->errors = array_merge((array) $this->errors, $xmlerrors);
     }
 
+    $this->stripComments($importDOM);
+
     // Add local XML catalog for EAD DTD and DC and MODS XSD validations
     putenv('XML_CATALOG_FILES='.sfConfig::get('sf_data_dir').DIRECTORY_SEPARATOR.'xml'.DIRECTORY_SEPARATOR.'catalog.xml');
 
@@ -454,46 +456,6 @@ class QubitXmlImport
 
             break;
 
-          case 'processinfo':
-            foreach ($nodeList2 as $item)
-            {
-              if (($childNode = $importDOM->xpath->query('p/date', $item)) !== null)
-              {
-                $currentObject->revisionHistory = $childNode->item(0)->nodeValue;
-              }
-
-              if (($childNode = $importDOM->xpath->query('p', $item)) !== null)
-              {
-                $note = '';
-
-                foreach ($childNode as $pNode)
-                {
-                  // A <p> node inside <processinfo> with no other children,
-                  // this is part of an archivist's note.
-                  if ($pNode->childNodes->length === 1 && $pNode->firstChild->nodeType === XML_TEXT_NODE)
-                  {
-                    // If this isn't our first <p> in the note, add newlines
-                    // to simulate paragraph.
-                    if (strlen($note) > 0)
-                    {
-                      $note .= "\n\n";
-                    }
-
-                    $note .= $pNode->nodeValue;
-                  }
-                }
-
-                if (strlen($note) > 0)
-                {
-                  $currentObject->importEadNote(array('note' => $note, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID));
-                }
-              }
-
-              // TODO: Add more child node processing, for <note> <head> etc.
-            }
-
-            break;
-
           case 'flocat':
           case 'digital_object':
             $resources = array();
@@ -613,7 +575,8 @@ class QubitXmlImport
               $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
                 QubitTaxonomy::NOTE_TYPE_ID                => 'noteTypes',
                 QubitTaxonomy::RAD_NOTE_ID                 => 'radNoteTypes',
-                QubitTaxonomy::RAD_TITLE_NOTE_ID           => 'titleNoteTypes'
+                QubitTaxonomy::RAD_TITLE_NOTE_ID           => 'titleNoteTypes',
+                QubitTaxonomy::DACS_NOTE_ID               => 'dacsSpecializedNotesTypes'
               ));
 
               $titleVariationNoteTypeId            = array_search('Variations in title', $termData['titleNoteTypes']);
@@ -631,6 +594,12 @@ class QubitXmlImport
               $rightsNoteTypeId                    = array_search("Rights", $termData['radNoteTypes']);
               $materialNoteTypeId                  = array_search("Accompanying material", $termData['radNoteTypes']);
               $generalNoteTypeId                   = array_search("General note", $termData['radNoteTypes']);
+
+              $dacsAlphaNumericaDesignationsNoteTypeId  = array_search('Alphanumeric designations', $termData['dacsSpecializedNotesTypes']);
+              $dacsCitationNoteTypeId            = array_search("Citation", $termData['dacsSpecializedNotesTypes']);
+              $dacsConservationNoteTypeId        = array_search("Conservation", $termData['dacsSpecializedNotesTypes']);
+              $dacsProcessingInformationNoteTypeId   = array_search("Processing information", $termData['dacsSpecializedNotesTypes']);
+              $dacsVariantTitleInformationNoteTypeId   = array_search("Variant title information", $termData['dacsSpecializedNotesTypes']);
 
               // invoke the object and method defined in the schema map
               $obj = call_user_func_array(array( & $currentObject, $methodMap['Method']), $parameters);
@@ -849,6 +818,20 @@ class QubitXmlImport
   private function removeDefaultNamespace($xml)
   {
     return preg_replace('/(<ead.*?)xmlns="[^"]*"\s+(.*?>)/', '${1}${2}', $xml, 1);
+  }
+
+  /**
+   * Remove all XML comments from the document.
+   */
+  private function stripComments($doc)
+  {
+    $xp = new DOMXPath($doc);
+    $nodes = $xp->query('//comment()');
+
+    for ($i = 0; $i < $nodes->length; $i++)
+    {
+      $nodes->item($i)->parentNode->removeChild($nodes->item($i));
+    }
   }
 
   /**

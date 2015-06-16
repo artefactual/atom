@@ -13,6 +13,13 @@
     $element.find('input:text, input:password, input:file, select').val('');
     $element.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
     $element.find('select').prop('selectedIndex', 0);
+    $element.find('input:text.form-autocomplete').each(function()
+      {
+        // Autocomplete fields add the value in a sibling hidden input
+        // with the autocomplete id as the name
+        var id = $(this).attr('id');
+        $(this).siblings('input:hidden[name="' + id + '"]').val('');
+      });
   }
 
   /****
@@ -837,15 +844,24 @@
   $(function ()
     {
       var s = $("#sidebar > .settings-menu");
+      if (!s.length)
+      {
+        return;
+      }
+
       var pos = s.position();
-      $(window).scroll(function() {
-        var windowpos = $(window).scrollTop();
-        if (windowpos >= pos.top) {
-          s.addClass("stick");
-        } else {
-          s.removeClass("stick");
-        }
-      });
+      $(window).scroll(function()
+        {
+          var windowpos = $(window).scrollTop();
+          if (windowpos >= pos.top)
+          {
+            s.addClass("stick");
+          }
+          else
+          {
+            s.removeClass("stick");
+          }
+        });
     });
 
 })(window.jQuery);

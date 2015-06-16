@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class digitalObjectRegenDerivativesTask extends sfBaseTask
+class digitalObjectRegenDerivativesTask extends arBaseTask
 {
   protected function configure()
   {
@@ -45,10 +45,11 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
+    parent::execute($arguments, $options);
+
     $timer = new QubitTimer;
     $skip = true;
 
-    sfContext::createInstance($this->configuration);
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
@@ -166,7 +167,7 @@ EOF;
       if ($options['index'])
       {
         // Update index
-        QubitSearch::updateInformationObject($do->informationObject);
+        $do->save();
       }
 
       // Destroy out-of-scope objects
@@ -175,14 +176,11 @@ EOF;
     }
 
     // Warn user to manually update search index
-    if ($options['index'])
+    if (!$options['index'])
     {
-      // Commit batch
-      QubitSearch::getInstance()->getEngine()->commit();
+      $this->logSection('digital object', 'Please update the search index manually to reflect any changes');
     }
-    else
-    {
-      $this->logSection('Done!', 'Please update the search index manually to reflect any changes');
-    }
+
+    $this->logSection('digital object', 'Done!');
   }
 }

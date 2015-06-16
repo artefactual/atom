@@ -62,25 +62,10 @@ information_object:
       XPath:   "(did/repository[not(*)] | did/repository/corpname | did/repository/name)[1]"
       Method:  setRepositoryByName
 
-    creator:
-      XPath:  "(did/origination/name|origination/name)"
-      Method:  setActorByName
-      Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID)"]
-
-    creator_person:
-      XPath:   "(did/origination/persname|origination/persname)"
-      Method:  setActorByName
-      Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID, 'entity_type_id' => QubitTerm::PERSON_ID)"]
-
-    creator_corporate_body:
-      XPath:   "(did/origination/corpname|origination/corpname)"
-      Method:  setActorByName
-      Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID, 'entity_type_id' => QubitTerm::CORPORATE_BODY_ID)"]
-
-    creator_family:
-      XPath:   "(did/origination/famname|origination/famname)"
-      Method:  setActorByName
-      Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID, 'entity_type_id' => QubitTerm::FAMILY_ID)"]
+    origination:
+      XPath:  "(did/origination|origination)"
+      Method:  importOriginationEadData
+      Parameters: [$domNode2]
 
     alternate_title:
       XPath: "did/unittitle[@type='parallel']"
@@ -253,6 +238,31 @@ information_object:
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $generalNoteTypeId)"]
 
+    dacs_alphanumeric_designation_note:
+      XPath:  "odd[@type='dacsAlphanumericDesignation']"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $dacsAlphaNumericaDesignationsNoteTypeId)"]
+
+    dacs_citation_note:
+      XPath:  "odd[@type='dacsCitation']"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $dacsCitationNoteTypeId)"]
+
+    dacs_conservation_note:
+      XPath:  "odd[@type='dacsConservation']"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $dacsConservationNoteTypeId)"]
+
+    dacs_processing_information_note:
+      XPath:  "odd[@type='dacsProcessingInformation']"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $dacsProcessingInformationNoteTypeId)"]
+
+    dacs_variant_title_information_note:
+      XPath:  "odd[@type='dacsVariantTitleInformation']"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $dacsVariantTitleInformationNoteTypeId)"]
+
     dates:
       XPath:  "did/unitdate"
       Method: setDates
@@ -260,8 +270,7 @@ information_object:
 
     physdesc:
       XPath:  "did/physdesc"
-      Method: importPhysDescEadData
-      Parameters: ["$domNode2"]
+      Method: setExtentAndMedium
 
     abstract:
       XPath:   "did/abstract"
@@ -421,8 +430,8 @@ information_object:
       Parameters: ["$options = array('note' => 'Preferred citation: ' . $nodeValue, 'noteTypeId' => QubitTerm::GENERAL_NOTE_ID)"]
 
     processinfo:
-      XPath:  "processinfo"
-      Method: importEadNote # Manually parsed, see case 'processinfo' in QubitXmlImport.class.php
+      XPath:  "processinfo/p[not(date)]"
+      Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)"]
 
     archivistnote:

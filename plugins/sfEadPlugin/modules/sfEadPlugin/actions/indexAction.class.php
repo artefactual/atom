@@ -36,11 +36,6 @@ class sfEadPluginIndexAction extends InformationObjectIndexAction
 
     $this->ead = new sfEadPlugin($this->resource);
 
-    // Create formated publication date
-    // todo: use 'published at' date, see issue#902
-    $date = strtotime($this->resource->getCreatedAt());
-    $this->publicationDate = date('Y', $date).'-'.date('m', $date).'-'.date('d', $date);
-
     // Determine language(s) used in the export
     $this->exportLanguage = sfContext::getInstance()->user->getCulture();
     $this->sourceLanguage = $this->resource->getSourceCulture();
@@ -50,5 +45,6 @@ class sfEadPluginIndexAction extends InformationObjectIndexAction
 
     // Set array with valid EAD level values (see ead.dtd line 2220)
     $this->eadLevels = array('class', 'collection', 'file', 'fonds', 'item', 'otherlevel', 'recordgrp', 'series', 'subfonds', 'subgrp', 'subseries');
+    $this->options = array('current-level-only' => false);
   }
 }

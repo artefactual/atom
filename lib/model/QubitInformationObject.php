@@ -1815,6 +1815,37 @@ class QubitInformationObject extends BaseInformationObject
   }
 
   /**
+   * Import creator data from an <origination> tag in EAD2002
+   *
+   * @param $node  DOMNode  EAD origination DOM node
+   */
+  public function importOriginationEadData($node)
+  {
+    $entityTypes = array(
+      'persname' => QubitTerm::PERSON_ID,
+      'corpname' => QubitTerm::CORPORATE_BODY_ID,
+      'famname'  => QubitTerm::FAMILY_ID,
+      'name'     => null
+    );
+
+    foreach ($entityTypes as $type => $typeId)
+    {
+      $nameNodes = $node->getElementsByTagName($type);
+
+      if ($nameNodes->length)
+      {
+        foreach ($nameNodes as $n)
+        {
+          $this->setActorByName(
+            $n->nodeValue,
+            array('entity_type_id' => $typeId, 'event_type_id' => QubitTerm::CREATION_ID)
+          );
+        }
+      }
+    }
+  }
+
+  /**
    * Import creation-related data from an <bioghist> tag in EAD2002
    *
    * @param $biogHistNode  DOMNode  EAD bioghist DOM node
@@ -1822,177 +1853,175 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function importBioghistEadData($biogHistNode, $key)
   {
-    // get chronlist element in bioghist element
-    $chronlistNodeList = $biogHistNode->getElementsByTagName('chronlist');
-    if ($chronlistNodeList->length)
+    // Support legacy versions of AtoM that employed chronlist tags inside bioghist
+    $chronNodeList = $biogHistNode->getElementsByTagName('chronlist');
+    if ($chronNodeList->length)
     {
-      foreach($chronlistNodeList as $chronlistNode)
+      $this->parseChronlist($chronNodeList);
+      return;
+    }
+
+    // Obtain creators (we can't use criteria because they're not saved yet)
+    $creators = array();
+    foreach ($this->events as $existingEvent)
+    {
+      if ($existingEvent->typeId == QubitTerm::CREATION_ID && isset($existingEvent->actor))
       {
-        // get chronitem elements in chronlist element
-        $chronitemNodeList = $chronlistNode->getElementsByTagName('chronitem');
-        foreach($chronitemNodeList as $chronitemNode)
-        {
-          // get creation date element contents
-          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation']");
-          foreach($dateNodeList as $dateNode) {
-            $date = $dateNode->nodeValue;
-          }
-
-          // get creation start and end date from "normal" attribute
-          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation']/@normal");
-          foreach($dateNodeList as $dateNormalAttr) {
-            $normalizedDates = sfEadPlugin::parseEadDenormalizedDateData($dateNormalAttr->value);
-
-            $date_start = $normalizedDates['start'];
-
-            if ($normalizedDates['end'])
-            {
-              $date_end = $normalizedDates['end'];
-            }
-          }
-
-          // get dates of existence element contents
-          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/date[@type='existence']");
-          foreach($dateNodeList as $dateNode) {
-            $datesValue = $dateNode->nodeValue;
-          }
-
-          // get creation end date element contents
-          $history = '';
-          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, '/xml/chronitem/eventgrp/event/note[not(@type="eventNote")]/p');
-          foreach($dateNodeList as $noteNode) {
-            $history = $noteNode->nodeValue;
-          }
-
-          $possibleNameFields = array(
-            'name'     => QubitTerm::PERSON_ID,
-            'persname' => QubitTerm::PERSON_ID,
-            'famname'  => QubitTerm::FAMILY_ID,
-            'corpname' => QubitTerm::CORPORATE_BODY_ID
-          );
-
-          $typeId = QubitTerm::PERSON_ID;
-          $name   = '';
-          foreach($possibleNameFields as $fieldName => $fieldTypeId)
-          {
-            $fieldValue = '';
-            $nameNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/origination/". $fieldName);
-            foreach($nameNodeList as $nameNode) {
-              $fieldValue = $nameNode->nodeValue;
-            }
-            if ($fieldValue != '')
-            {
-              $name             = $fieldValue;
-              $typeId           = $fieldTypeId;
-              $datesOfExistence = $datesValue;
-            }
-          }
-
-          $eventNote = '';
-          $eventNoteList = QubitXmlImport::queryDomNode($chronitemNode, '/xml/chronitem/eventgrp/event/note[@type="eventNote"]/p');
-          foreach($eventNoteList as $eventNoteNode) {
-            $eventNote = $eventNoteNode->nodeValue;
-          }
-
-          $eventSpec = array(
-            'event_type_id' => QubitTerm::CREATION_ID,
-            'entity_type_id' => $typeId,
-            'history'       => $history
-          );
-
-          if ($date)
-          {
-            $eventSpec['dates'] = $date;
-          }
-
-          if ($datesOfExistence)
-          {
-            $eventSpec['dates_of_existence'] = $datesOfExistence;
-          }
-
-          if ($date_start)
-          {
-            $eventSpec['date_start'] = $date_start;
-          }
-
-          if ($date_end)
-          {
-            $eventSpec['date_end'] = $date_end;
-          }
-
-          if (0 < strlen($eventNote))
-          {
-            $eventSpec['event_note'] = $eventNote;
-          }
-
-          $this->setActorByName($name, $eventSpec);
-        }
+        $creators[] = $existingEvent->actor;
       }
     }
 
-    // If there isn't a chronlist node, add the bioghist to creators (by order)
-    else
+    // Add bioghist
+    if (strlen($history = QubitXmlImport::normalizeNodeValue($biogHistNode)) > 0)
     {
-      // Obtain creators (we can't use criteria because they're not saved yet)
-      $creators = array();
-      foreach ($this->events as $existingEvent)
+      // Options:
+      // 1. If there isn't an actor in the current position:
+      //   - Create new 'Untitled' actor with bioghist value as history and new event
+      // 2. If the actor in the current position doesn't have history:
+      //   - Add bioghist value to the actor's history
+      // 3. If the actor in the current position has history and it's different to the bioghist value:
+      //   - Create new 'Untitled' actor with bioghist value as history and new event
+      // 4. If the actor in the current position has history and it's equal to the bioghist value:
+      //   - Do nothing
+      if (!isset($creators[$key]) ||
+        (isset($creators[$key]->history) && $creators[$key]->history !== $history))
       {
-        if ($existingEvent->typeId == QubitTerm::CREATION_ID && isset($existingEvent->actor))
-        {
-          $creators[] = $existingEvent->actor;
-        }
+        $actor = new QubitActor;
+        $actor->parentId = QubitActor::ROOT_ID;
+        $actor->setHistory($history);
+        $actor->save();
+
+        $event = new QubitEvent;
+        $event->setActorId($actor->id);
+        $event->setTypeId(QubitTerm::CREATION_ID);
+
+        $this->events[] = $event;
       }
-
-      // Add bioghist
-      if (strlen($history = QubitXmlImport::normalizeNodeValue($biogHistNode)) > 0)
+      else if (!isset($creators[$key]->history))
       {
-        // Options:
-        // 1. If there isn't an actor in the current position:
-        //   - Create new 'Untitled' actor with bioghist value as history and new event
-        // 2. If the actor in the current position doesn't have history:
-        //   - Add bioghist value to the actor's history
-        // 3. If the actor in the current position has history and it's different to the bioghist value:
-        //   - Create new 'Untitled' actor with bioghist value as history and new event
-        // 4. If the actor in the current position has history and it's equal to the bioghist value:
-        //   - Do nothing
-        if (!isset($creators[$key]) ||
-          (isset($creators[$key]->history) && $creators[$key]->history !== $history))
-        {
-          $actor = new QubitActor;
-          $actor->parentId = QubitActor::ROOT_ID;
-          $actor->setHistory($history);
-          $actor->save();
-
-          $event = new QubitEvent;
-          $event->setActorId($actor->id);
-          $event->setTypeId(QubitTerm::CREATION_ID);
-
-          $this->events[] = $event;
-        }
-        else if (!isset($creators[$key]->history))
-        {
-          $creators[$key]->history = $history;
-          $creators[$key]->save();
-        }
+        $creators[$key]->history = $history;
+        $creators[$key]->save();
       }
     }
   }
 
   /**
-   * Import all the elements from <physdesc> tag as XML
+   * Parse chronlist tags from within a bioghist tag.
    *
-   * @param $physDescNode  DOMNode  EAD physdesc DOM node
+   * @param DOMNodeList $chronlistNodeList  A node list containing the chronlist tag and its children.
    */
-  public function importPhysDescEadData($physDescNode)
+  private function parseChronlist($chronlistNodeList)
   {
-    $extentAndMedium = '';
-    foreach ($physDescNode->childNodes as $node)
+    foreach ($chronlistNodeList as $chronlistNode)
     {
-      $extentAndMedium .= $node->ownerDocument->saveXML($node);
-    }
+      // Get chronitem elements in chronlist element
+      $chronitemNodeList = $chronlistNode->getElementsByTagName('chronitem');
+      foreach ($chronitemNodeList as $chronitemNode)
+      {
+        // Get creation date element contents
+        $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation']");
+        foreach ($dateNodeList as $dateNode)
+        {
+          $date = $dateNode->nodeValue;
+        }
 
-    // Trim final result
-    $this->extentAndMedium = trim($extentAndMedium);
+        // Get creation start and end date from "normal" attribute
+        $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation']/@normal");
+        foreach ($dateNodeList as $dateNormalAttr)
+        {
+          $normalizedDates = sfEadPlugin::parseEadDenormalizedDateData($dateNormalAttr->value);
+
+          $date_start = $normalizedDates['start'];
+
+          if ($normalizedDates['end'])
+          {
+            $date_end = $normalizedDates['end'];
+          }
+        }
+
+        // Get dates of existence element contents
+        $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/date[@type='existence']");
+        foreach ($dateNodeList as $dateNode)
+        {
+          $datesValue = $dateNode->nodeValue;
+        }
+
+        // Get creation end date element contents
+        $history = '';
+        $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, '/xml/chronitem/eventgrp/event/note[not(@type="eventNote")]/p');
+        foreach ($dateNodeList as $noteNode)
+        {
+          $history = $noteNode->nodeValue;
+        }
+
+        $possibleNameFields = array(
+          'name'     => QubitTerm::PERSON_ID,
+          'persname' => QubitTerm::PERSON_ID,
+          'famname'  => QubitTerm::FAMILY_ID,
+          'corpname' => QubitTerm::CORPORATE_BODY_ID
+        );
+
+        $typeId = QubitTerm::PERSON_ID;
+        $name   = '';
+
+        foreach ($possibleNameFields as $fieldName => $fieldTypeId)
+        {
+          $fieldValue = '';
+          $nameNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/origination/". $fieldName);
+          foreach ($nameNodeList as $nameNode)
+          {
+            $fieldValue = $nameNode->nodeValue;
+          }
+
+          if ($fieldValue != '')
+          {
+            $name             = $fieldValue;
+            $typeId           = $fieldTypeId;
+            $datesOfExistence = $datesValue;
+          }
+        }
+
+        $eventNote = '';
+        $eventNoteList = QubitXmlImport::queryDomNode($chronitemNode, '/xml/chronitem/eventgrp/event/note[@type="eventNote"]/p');
+        foreach ($eventNoteList as $eventNoteNode)
+        {
+          $eventNote = $eventNoteNode->nodeValue;
+        }
+
+        $eventSpec = array(
+          'event_type_id' => QubitTerm::CREATION_ID,
+          'entity_type_id' => $typeId,
+          'history'       => $history
+        );
+
+        if ($date)
+        {
+          $eventSpec['dates'] = $date;
+        }
+
+        if ($datesOfExistence)
+        {
+          $eventSpec['dates_of_existence'] = $datesOfExistence;
+        }
+
+        if ($date_start)
+        {
+          $eventSpec['date_start'] = $date_start;
+        }
+
+        if ($date_end)
+        {
+          $eventSpec['date_end'] = $date_end;
+        }
+
+        if (0 < strlen($eventNote))
+        {
+          $eventSpec['event_note'] = $eventNote;
+        }
+
+        $this->setActorByName($name, $eventSpec);
+      }
+    }
   }
 
   /**

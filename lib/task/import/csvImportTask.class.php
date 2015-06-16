@@ -449,11 +449,15 @@ EOF;
         }
 
         // add alternative identifiers
-        setAlternativeIdentifiers(
-          $self->object,
-          $self->rowStatusVars['alternativeIdentifiers'],
-          $self->rowStatusVars['alternativeIdentifierLabels']
-        );
+        if (array_key_exists('alternativeIdentifiers', $self->rowStatusVars) &&
+            array_key_exists('alternativeIdentifierLabels', $self->rowStatusVars))
+        {
+          setAlternativeIdentifiers(
+            $self->object,
+            $self->rowStatusVars['alternativeIdentifiers'],
+            $self->rowStatusVars['alternativeIdentifierLabels']
+          );
+        }
 
         // set description status
         if (isset($self->rowStatusVars['descriptionStatus']) && 0 < strlen($self->rowStatusVars['descriptionStatus']))
@@ -928,30 +932,23 @@ EOF;
         if ($uri = $self->rowStatusVars['digitalObjectURI'])
         {
           // importFromURI can raise an exception if the download hits a timeout
-          try
-          {
-            $do = new QubitDigitalObject;
-            $do->importFromURI($uri);
-            $do->object = $self->object;
-            $do->save($conn);
-          }
-          catch (Exception $e)
-          {
-            $self->logError($e->getMessage());
-          }
+          $do = new QubitDigitalObject;
+          $do->importFromURI($uri);
+          $do->informationObject = $self->object;
+          $do->save();
         }
         else if ($path = $self->rowStatusVars['digitalObjectPath'])
         {
           if (false === $content = file_get_contents($path))
           {
-            $this->logError("Unable to read file: ".$path);
+            $this->log("Unable to read file: ".$path);
           }
           else
           {
             $do = new QubitDigitalObject;
             $do->assets[] = new QubitAsset($path, $content);
             $do->usageId = QubitTerm::MASTER_ID;
-            $do->object = $self->object;
+            $do->informationObject = $self->object;
             $do->save($conn);
           }
         }
