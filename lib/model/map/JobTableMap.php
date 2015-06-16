@@ -38,6 +38,7 @@ class JobTableMap extends TableMap {
 		// columns
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'object', 'ID', true, null, null);
 		$this->addColumn('NAME', 'name', 'VARCHAR', false, 255, null);
+		$this->addColumn('DOWNLOAD_PATH', 'downloadPath', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('STATUS_ID', 'statusId', 'INTEGER', true, null, null);
 		$this->addColumn('COMPLETED_AT', 'completedAt', 'TIMESTAMP', false, null, null);
 		$this->addForeignKey('USER_ID', 'userId', 'INTEGER', 'user', 'ID', false, null, null);

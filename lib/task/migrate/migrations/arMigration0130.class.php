@@ -17,10 +17,30 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class TermBrowseTermAction extends sfAction
+/*
+ * Add setting for default repository browse view
+ *
+ * @package    AccesstoMemory
+ * @subpackage migration
+ */
+class arMigration0130
 {
-  public function execute($request)
+  const
+    VERSION = 130, // The new database version
+    MIN_MILESTONE = 2; // The minimum milestone required
+
+  /**
+   * Upgrade
+   *
+   * @return bool True if the upgrade succeeded, False otherwise
+   */
+  public function up($configuration)
   {
-    $this->forward('term','index');
+    // Add extra column, information_object.display_standard_id
+    QubitMigrate::addColumn(
+      QubitJob::TABLE_NAME,
+      'download_path TEXT');
+
+    return true;
   }
 }

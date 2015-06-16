@@ -159,7 +159,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
     if (1 === preg_match('/^[\s\t\r\n]*$/', $request->subquery))
     {
-      $this->queryBool->addMust(new \Elastica\Query\MatchAll());
+      $this->search->queryBool->addMust(new \Elastica\Query\MatchAll());
     }
     else
     {
@@ -167,7 +167,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       $queryText->setDefaultOperator('AND');
       $queryText->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.title'));
 
-      $this->queryBool->addMust($queryText);
+      $this->search->queryBool->addMust($queryText);
     }
 
     // Filter by dates
@@ -189,7 +189,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       $queryRange = new \Elastica\Query\Range;
       $queryRange->addField('dates.startDate', $rangeFilterOptions);
 
-      $this->queryBool->addMust($queryRange);
+      $this->search->queryBool->addMust($queryRange);
     }
 
     if (isset($request->collection) && ctype_digit($request->collection))
@@ -201,7 +201,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         return;
       }
 
-      $this->queryBool->addMust(new \Elastica\Query\Term(array('ancestors' => $request->collection)));
+      $this->search->queryBool->addMust(new \Elastica\Query\Term(array('ancestors' => $request->collection)));
     }
 
     if (isset($request->repos) && ctype_digit($request->repos))
@@ -224,40 +224,40 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
     if (isset($request->onlyMedia))
     {
-      $this->queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => true)));
+      $this->search->queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => true)));
     }
 
     // Sort
     switch ($request->sort)
     {
       case 'identifier':
-        $this->query->addSort(array('referenceCode.untouched' => 'asc'));
+        $this->search->query->addSort(array('referenceCode.untouched' => 'asc'));
 
       // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
         $field = sprintf('i18n.%s.title.untouched', $this->selectedCulture);
-        $this->query->addSort(array($field => 'asc'));
+        $this->search->query->addSort(array($field => 'asc'));
 
         break;
 
       case 'lastUpdated':
       default:
-        $this->query->setSort(array('updatedAt' => 'desc'));
+        $this->search->query->setSort(array('updatedAt' => 'desc'));
     }
 
-    $this->query->setQuery($this->queryBool);
+    $this->search->query->setQuery($this->search->queryBool);
 
     // Filter drafts
-    QubitAclSearch::filterDrafts($this->filterBool);
+    QubitAclSearch::filterDrafts($this->search->filterBool);
 
     // Set filter
-    if (0 < count($this->filterBool->toArray()))
+    if (0 < count($this->search->filterBool->toArray()))
     {
-      $this->query->setFilter($this->filterBool);
+      $this->search->query->setFilter($this->search->filterBool);
     }
 
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->query);
 
     // Page results
     $this->pager = new QubitSearchPager($resultSet);

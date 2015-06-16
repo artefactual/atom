@@ -146,6 +146,7 @@ CREATE TABLE `job`
 (
 	`id` INTEGER  NOT NULL,
 	`name` VARCHAR(255),
+	`download_path` TEXT,
 	`status_id` INTEGER  NOT NULL,
 	`completed_at` DATETIME,
 	`user_id` INTEGER,

@@ -57,6 +57,7 @@
       <?php echo link_to('Close', array_diff($sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('media' => 'print'))) ?>
     </div>
   <?php endif; ?>
+
   <h1><?php echo __('Advanced search') ?></h1>
 <?php end_slot() ?>
 
@@ -69,9 +70,23 @@
           <?php echo __('Print') ?>
         </a>
       </li>
+      <?php if (isset($pager) && $pager->hasResults() && $sf_user->isAuthenticated()): ?>
+      <li>
+        <a href="<?php echo url_for(array_merge($sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('module' => 'search', 'action' => 'exportCsv'))) ?>">
+           <i class="icon-upload-alt"></i>
+           <?php echo __('Export CSV') ?>
+        </a>
+      </li>
+      <?php endif; ?>
     </ul>
   </section>
 <?php end_slot() ?>
+
+<?php if ($sf_user->hasFlash('notice')): ?>
+  <div class="messages">
+    <div><?php echo $sf_user->getFlash('notice', ESC_RAW) ?></div>
+  </div>
+<?php endif; ?>
 
 <?php echo get_partial('search/searchFields', array('criterias' => $criterias, 'template' => $template)) ?>
 

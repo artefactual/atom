@@ -76,10 +76,15 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $this->setNoteColumns();
     $this->setRadGeneralMaterialDesignationColumn();
     $this->setAlternativeIdentifierColumns();
-    $this->setPhysicalObjectColumns();
     $this->setAccessionNumberColumn();
     $this->setCreatorColumns();
     $this->setEventColumns();
+
+    // Set physical object columns if CLI being used or user has permission
+    if (check_field_visibility('app_element_visibility_physical_storage'))
+    {
+      $this->setPhysicalObjectColumns();
+    }
 
     // Set level of description
     $this->setColumn(
