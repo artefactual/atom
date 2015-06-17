@@ -77,6 +77,7 @@ class csvExportInformationObjectsTask extends exportBulkBaseTask
 
     foreach ($rows as $row)
     {
+      $sf_context->getUser()->setCulture($row['culture']);
       $resource = QubitInformationObject::getById($row['id']);
 
       // Don't export draft descriptions with public option
