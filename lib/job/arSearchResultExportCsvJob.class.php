@@ -47,6 +47,9 @@ class arSearchResultExportCsvJob extends arBaseJob
     // Sort by ID so parents can import properly from resulting export file
     $this->search->query->setSort(array('lft' => 'asc'));
 
+    // Increase limit from default
+    $this->search->query->setLimit(1000000000);
+
     // If not using RAD, default to ISAD CSV export format
     if (QubitSetting::getByNameAndScope('informationobject', 'default_template') == 'rad')
     {
