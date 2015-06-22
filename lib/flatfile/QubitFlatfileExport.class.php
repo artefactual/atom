@@ -60,7 +60,7 @@ class QubitFlatfileExport
    *
    * @return void
    */
-  public function __construct($destinationPath, $standard, $rowsPerFile = false)
+  public function __construct($destinationPath, $standard = null, $rowsPerFile = false)
   {
     $this->path     = $destinationPath;
     $this->standard = $standard;
@@ -97,11 +97,15 @@ class QubitFlatfileExport
 
     // Load archival standard-specific export configuration for type
     // (this can augment and/or override the base configuration)
-    $resourceTypeStandardConfigFile = $resourceClass .'-'. $this->standard .'.yml';
-    $standardConfig = $this->loadResourceConfigFile($resourceTypeStandardConfigFile, 'archival standard');
+    if ($this->standard)
+    {
+      $resourceTypeStandardConfigFile = $resourceClass .'-'. $this->standard .'.yml';
+      $standardConfig = $this->loadResourceConfigFile($resourceTypeStandardConfigFile, 'archival standard');
 
-    // Allow standard-specific export configuration to override base config
-    $this->overrideConfigData($config, $standardConfig);
+      // Allow standard-specific export configuration to override base config
+      $this->overrideConfigData($config, $standardConfig);
+    }
+
 
     $this->columnNames     = $config['columnNames'];
     $this->standardColumns = $config['direct'];
@@ -402,7 +406,7 @@ class QubitFlatfileExport
   }
 
   /**
-   * Append row data to file 
+   * Append row data to file
    *
    * @param string $filePath  path to file
    * @param array $row  array of each column's values
