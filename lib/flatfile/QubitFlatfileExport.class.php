@@ -107,9 +107,9 @@ class QubitFlatfileExport
     }
 
     $this->columnNames     = $config['columnNames'];
-    $this->standardColumns = $config['direct'];
-    $this->columnMap       = $config['map'];
-    $this->propertyMap     = $config['property'];
+    $this->standardColumns = isset($config['direct']) ? $config['direct'] : array();
+    $this->columnMap       = isset($config['map']) ? $config['map'] : array();
+    $this->propertyMap     = isset($config['property']) ? $config['property'] : array();
 
     $this->cacheTaxonomies($config['cacheTaxonomies']);
 
