@@ -55,6 +55,8 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
+    parent::execute($arguments, $options);
+
     $writer = new csvRepositoryExport($arguments['filename']);
 
     foreach ($this->getRepositories() as $r)
@@ -71,5 +73,4 @@ EOF;
 
     return QubitRepository::get($criteria);
   }
-
 }

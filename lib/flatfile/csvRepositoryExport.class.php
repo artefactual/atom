@@ -27,21 +27,42 @@
 class csvRepositoryExport extends QubitFlatfileExport
 {
   /*
-   * Information object-specific property setting based on configuration data
-   *
-   * @return void
-   */
-  protected function config(&$config)
-  {
-  }
-
-  /*
    * Information object-specific column setting before CSV row write
    *
    * @return void
    */
   protected function modifyRowBeforeExport()
   {
+    $this->setColumn('thematicAreas', $this->getRelatedTermNames(QubitTaxonomy::THEMATIC_AREA_ID));
+    $this->setColumn('geographicSubregions', $this->getRelatedTermNames(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID));
+    $this->setColumn('scripts', $this->getScripts());
   }
 
+  private function getRelatedTermNames($taxonomyId)
+  {
+    $results = array();
+
+    foreach ($this->resource->getTermRelations($taxonomyId) as $r)
+    {
+      if ($r->term->name)
+      {
+        $results[] = $r->term->name;
+      }
+    }
+
+    return $results;
+  }
+
+  private function getScripts()
+  {
+
+    $results = array();
+
+    foreach ($this->resource->script as $code)
+    {
+      $results[] = format_script($code);
+    }
+
+    return $results;
+  }
 }

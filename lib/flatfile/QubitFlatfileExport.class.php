@@ -357,10 +357,6 @@ class QubitFlatfileExport
     // Clear Qubit object cache periodically
     if (($this->rowsExported % $this->rowsPerFile) == 0)
     {
-      // Clear in-memory object caches
-      $appRoot = dirname(__FILE__) .'/../..';
-      require_once(realpath($appRoot .'/lib/helper/QubitHelper.php'));
-
       Qubit::clearClassCaches();
     }
 
