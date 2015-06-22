@@ -60,7 +60,7 @@ class QubitFlatfileExport
    *
    * @return void
    */
-  public function __construct($destinationPath, $standard, $rowsPerFile = false)
+  public function __construct($destinationPath, $standard = null, $rowsPerFile = false)
   {
     $this->path     = $destinationPath;
     $this->standard = $standard;
