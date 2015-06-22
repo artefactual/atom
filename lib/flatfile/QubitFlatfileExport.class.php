@@ -106,7 +106,6 @@ class QubitFlatfileExport
       $this->overrideConfigData($config, $standardConfig);
     }
 
-
     $this->columnNames     = $config['columnNames'];
     $this->standardColumns = $config['direct'];
     $this->columnMap       = $config['map'];
@@ -146,7 +145,7 @@ class QubitFlatfileExport
 
     if (gettype($config) != 'array')
     {
-      throw new sfException('Missing/malformed resource '. $roleDescription .' config: '. $resourceTypeConfigFilePath);
+      throw new sfException('Missing/malformed resource '. $roleDescription .' config: '. $configFilePath);
     }
 
     return $config;
