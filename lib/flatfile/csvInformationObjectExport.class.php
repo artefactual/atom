@@ -160,7 +160,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
     {
       $materials = array();
 
-      foreach($relations as $relation)
+      foreach ($relations as $relation)
       {
         $materials[] = $relation->term->name;
       }
@@ -181,7 +181,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $alternativeIdentifiers      = array();
     $alternativeIdentifierLabels = array();
 
-    foreach($properties as $property)
+    foreach ($properties as $property)
     {
       $alternativeIdentifierLabels[] = $property->name;
       $alternativeIdentifiers[] = $property->value;
@@ -204,7 +204,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $physicalObjectLocations = array();
     $physicalObjectTypes     = array();
 
-    foreach($physicalObjects as $physicalObject)
+    foreach ($physicalObjects as $physicalObject)
     {
       $physicalObjectNames[]     = $physicalObject->name;
       $physicalObjectLocations[] = $physicalObject->location;
@@ -249,8 +249,11 @@ class csvInformationObjectExport extends QubitFlatfileExport
       // If creator's not linked to a date range, add
       if (!$event->date && !$event->startDate && !$event->endDate and !$event->description and !$event->getPlace()->name)
       {
-        $creationEvents['creators'][] = $event->actor->authorizedFormOfName;
-        $creationEvents['creatorHistories'][]   = $event->actor->history;
+        if ($event->actor->authorizedFormOfName)
+        {
+          $creationEvents['creators'][] = $event->actor->authorizedFormOfName;
+          $creationEvents['creatorHistories'][] = $event->actor->history;
+        }
       }
     }
 
@@ -284,7 +287,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
 
     $events = $this->resource->getDates();
 
-    foreach($events as $event)
+    foreach ($events as $event)
     {
       $types[]          = $this->eventTypeTerms[$event->typeId];
       $dates[]          = $event->date;
@@ -313,7 +316,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
    */
   protected function setNoteColumnsUsingMap($map, $typeIds)
   {
-    foreach($map as $column => $typeName)
+    foreach ($map as $column => $typeName)
     {
       $typeId = array_search($typeName, $typeIds);
 
@@ -348,9 +351,12 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $data          = array();
     $data['names'] = array();
 
-    foreach($accessPoints as $accessPoint)
+    foreach ($accessPoints as $accessPoint)
     {
-      $data['names'][]     = $accessPoint->object->authorizedFormOfName;
+      if ($accessPoint->object->authorizedFormOfName)
+      {
+        $data['names'][] = $accessPoint->object->authorizedFormOfName;
+      }
     }
 
     return $data;
@@ -369,9 +375,12 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $data          = array();
     $data['names'] = array();
 
-    foreach($accessPoints as $accessPoint)
+    foreach ($accessPoints as $accessPoint)
     {
-      $data['names'][] = $accessPoint->term->name;
+      if ($accessPoint->term->name)
+      {
+        $data['names'][] = $accessPoint->term->name;
+      }
     }
 
     return $data;
@@ -390,9 +399,12 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $data = array();
     $data['names'] = array();
 
-    foreach($accessPoints as $accessPoint)
+    foreach ($accessPoints as $accessPoint)
     {
-      $data['names'][] = $accessPoint->term->name;
+      if ($accessPoint->term->name)
+      {
+        $data['names'][] = $accessPoint->term->name;
+      }
     }
 
     return $data;
@@ -410,9 +422,12 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $data          = array();
     $data['names'] = array();
 
-    foreach($accessPoints as $accessPoint)
+    foreach ($accessPoints as $accessPoint)
     {
-      $data['names'][]     = $accessPoint->term->name;
+      if ($accessPoint->term->name)
+      {
+        $data['names'][] = $accessPoint->term->name;
+      }
     }
 
     return $data;
