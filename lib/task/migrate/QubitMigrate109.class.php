@@ -510,7 +510,7 @@ class QubitMigrate109 extends QubitMigrate
       {
         foreach ($this->data[$className] as $key2 => $row2)
         {
-          if (!isset($row2['source_standard']) && false === strpos(@$row2['id'], 'ROOT_ID') && !in_array(@$row2['id'], array(QubitInformationObject::ROOT_ID, QubitActor::ROOT_ID, QubitRepository::ROOT_ID)))
+          if (!isset($row2['source_standard']) && false === strpos(@$row2['id'], 'ROOT_ID') && !in_array(@$row2['id'], array(QubitInformationObject::ROOT_ID, QubitActor::ROOT_ID)))
           {
             $this->data[$className][$key2]['source_standard'] = $standard;
           }
