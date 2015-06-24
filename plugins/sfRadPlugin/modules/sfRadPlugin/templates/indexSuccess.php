@@ -349,7 +349,7 @@
   <?php if (check_field_visibility('app_element_visibility_rad_control_language')): ?>
     <div class="field">
       <h3><?php echo __('Language of description') ?></h3>
-      <div class="languageOfDescription">>
+      <div class="languageOfDescription">
         <ul>
           <?php foreach ($resource->languageOfDescription as $code): ?>
             <li><?php echo format_language($code) ?></li>
