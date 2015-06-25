@@ -86,7 +86,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
     return $databaseManager->getDatabase('propel')->getConnection();
   }
 
-  protected function includeXmlExportClassesAndHelpers()
+  public static function includeXmlExportClassesAndHelpers()
   {
     $appRoot = dirname(__FILE__) .'/../../..';
 
@@ -98,7 +98,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
     include($appRoot .'/lib/helper/QubitHelper.php');
   }
 
-  protected function captureResourceExportTemplateOutput($resource, $format, $options)
+  public static function captureResourceExportTemplateOutput($resource, $format, $options)
   {
     $pluginName = 'sf'. ucfirst($format) .'Plugin';
     $template = sprintf('plugins/%s/modules/%s/templates/indexSuccess.xml.php', $pluginName, $pluginName);
@@ -151,7 +151,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
     }
   }
 
-  protected function informationObjectQuerySql($options)
+  public static function informationObjectQuerySql($options)
   {
     // EAD data nests children, so we only have to get top-level items
     $whereClause = ($options['format'] == 'ead' || $options['current-level-only'])
