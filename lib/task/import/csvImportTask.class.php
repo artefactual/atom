@@ -439,12 +439,11 @@ EOF;
           'scriptOfDescription'
         );
 
-        foreach ($languageProperties as $serializeProperty)
+        foreach ($languageProperties as $languageProperty)
         {
-          if (isset($self->rowStatusVars[$serializeProperty]) && 0 < strlen($self->rowStatusVars[$serializeProperty]))
+          if (isset($self->rowStatusVars[$languageProperty]) && 0 < strlen($self->rowStatusVars[$languageProperty]))
           {
-            $data = explode('|', $self->rowStatusVars[$serializeProperty]);
-            $self->object->addProperty($serializeProperty, serialize($data));
+            $self->object->{$languageProperty} = explode('|', $self->rowStatusVars[$languageProperty]);
           }
         }
 
