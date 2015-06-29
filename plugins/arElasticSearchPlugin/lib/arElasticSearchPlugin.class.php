@@ -111,7 +111,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
       try
       {
         $this->index->addDocuments($this->batchDocs);
-        $this->index->flush();
       }
       catch (Exception $e)
       {
@@ -329,17 +328,15 @@ class arElasticSearchPlugin extends QubitSearchEngine
       if (count($this->batchDocs) >= $this->batchSize)
       {
         $this->index->addDocuments($this->batchDocs);
-
-        $this->index->flush();
-
         $this->batchDocs = array();
       }
     }
     else
     {
       $this->index->getType($type)->addDocument($document);
-      $this->index->flush();
     }
+
+    $this->index->refresh();
   }
 
   /**
