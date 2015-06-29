@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2014-09-17T11:52:58Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2015-06-29T15:05:47Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -278,10 +278,6 @@
         <source>Accruals</source>
         <target>Ingressos adicionais</target>
       </trans-unit>
-      <trans-unit id="937">
-        <source>Other notes</source>
-        <target>Outras notas</target>
-      </trans-unit>
       <trans-unit id="938">
         <source>Standard number area</source>
         <target>Área de número normalizado</target>
@@ -413,10 +409,6 @@
       <trans-unit id="979">
         <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
         <target>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</target>
-      </trans-unit>
-      <trans-unit id="980">
-        <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Enter an unambiguous code used to uniquely identify the description.&lt;br/&gt;&lt;strong&gt;Level:&lt;/strong&gt; Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target>&lt;strong&gt;Identificador:&lt;/strong&gt;Digite um código unívoco usado para identificar a descrição.&lt;br/&gt;&lt;strong&gt;Nível:&lt;/strong&gt; Selecione um nível de descrição a partir da lista de opções. Veja RAD 1.0A para as regras e convenções sobre a seleção de níveis de descrição.&lt;br/&gt;&lt;strong&gt;Título:&lt;/strong&gt; Digite o título próprio, seja transcrito ou atribuido. (RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="981">
         <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
@@ -603,10 +595,6 @@ elaboração da descrição.</target>
         <source>Rights area</source>
         <target>Zona de direitos</target>
       </trans-unit>
-      <trans-unit id="1031">
-        <source>Edit rights area</source>
-        <target>Editar zona de direitos</target>
-      </trans-unit>
       <trans-unit id="1032">
         <source>Accession area</source>
         <target>Zona da incorporação</target>
@@ -621,54 +609,74 @@ elaboração da descrição.</target>
       </trans-unit>
       <trans-unit id="1037">
         <source>Edition statement - This is a mandatory element for published items if there are multiple editions.</source>
-        <target/>
+        <target>Declaração de edição - Este é um elemento obrigatório para itens publicados se houver várias edições.</target>
       </trans-unit>
       <trans-unit id="1038">
         <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
-        <target/>
+        <target>"Utilize esta área apenas no nível de descrição do item para registar informações relacionadas com itens existentes em duas ou mais versões em cópias simples ou múltiplas." (RAD 1.2A1) "Transcreve a menção da edição relacionada com o item a ser descrito" (RAD 1.2B1). "Se no Item em causa é necessário fazer uma menção à edição, mas contém alterações significativas remanescentes de outras edições, deve ser fornecida entre parênteses e na língua respetiva, uma breve explicação." (RAD 1.2B3)</target>
       </trans-unit>
       <trans-unit id="1039">
         <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>"Observe quaisquer alfabetos distintos ou sistemas de símbolos empregados." (RAD 1.8.B14) Selecione o script a partir do menu drop-down; insira as primeiras letras para restringir as escolhas.</target>
       </trans-unit>
       <trans-unit id="1041">
         <source>How to access to this content?</source>
-        <target/>
+        <target>Como aceder a este conteúdo?</target>
       </trans-unit>
       <trans-unit id="1042">
         <source>Contact the archivist at %1%</source>
-        <target/>
+        <target>Contacte o arquivista em %1%</target>
       </trans-unit>
       <trans-unit id="1043">
         <source>Show details</source>
-        <target/>
+        <target>Mostrar detalhes</target>
       </trans-unit>
       <trans-unit id="1044">
         <source>Close</source>
-        <target/>
+        <target>Fechar</target>
       </trans-unit>
       <trans-unit id="1045">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
-        <target/>
+        <target>"Registe o idioma ou idiomas da unidade que está sendo descrita, a menos que seja observado noutros lugares ou sejam evidentes a partir de outros elementos da descrição. Observe também quaisquer alfabetos distintos ou sistemas de símbolos utilizados." (RAD 1.8B14). Não duplique informação adicionada através do drop-down, nos campos de idioma ou script.</target>
       </trans-unit>
       <trans-unit id="1046">
         <source>For terms governing use and reproduction, "Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c). For terms governing publication, "Give information on legal or donor restrictions that may affect publication of the material." (RAD 1.8B16d)</source>
-        <target/>
+        <target>Para os termos que regem o uso e reprodução, "Fornecer informações sobre restrições legais ou de doadores que podem afetar o uso ou reprodução do material." (RAD 1.8B16c). Para os termos que regem a publicação, "Fornecer informações sobre restrições legais ou de doadores que podem afetar a publicação do material." (RAD 1.8B16d)</target>
       </trans-unit>
       <trans-unit id="1047">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target/>
+        <target>Registe citações para quaisquer fontes externas usadas na descrição arquivística (tais como Âmbito e Conteúdo, História Custodial ou Campos de notas). </target>
       </trans-unit>
       <trans-unit id="1048">
         <source>Associated materials</source>
-        <target/>
+        <target>Materiais associados</target>
       </trans-unit>
       <trans-unit id="1049">
         <source>Related materials</source>
-        <target/>
+        <target>Materiais relacionados</target>
       </trans-unit>
       <trans-unit id="1050">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target>Para criar uma relação entre esta descrição e outra existente no AtoM, comece por escrever o nome da descrição relacionada e selecione-a na lista de menu quando surgir. Várias relações podem ser criadas.</target>
+      </trans-unit>
+      <trans-unit id="1051">
+        <source>Administrative history / Biographical sketch</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1052">
+        <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1053">
+        <source>Genre access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1054">
+        <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1055">
+        <source>General note</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="eu" datatype="plaintext" original="messages" date="2015-06-29T14:57:14Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Password strength:</source>
+        <target>Pasahitzaren sendotasuna:</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>To make your password stronger:</source>
+        <target>Zure pasahitza sendotzeko:</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Make it at least six characters</source>
+        <target>Jarri gutxienez sei karaktere</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Add lowercase letters</source>
+        <target>Minuskulak gehitu</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Add uppercase letters</source>
+        <target>Letra larriak gehitu</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Add numbers</source>
+        <target>Zenbakiak gehitu</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Add punctuation</source>
+        <target>Puntuazioa gehitu</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Make it different from your username</source>
+        <target>Ez dadila zure erabiltzaile izenaren berdina izan</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Yes</source>
+        <target>Bai</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>No</source>
+        <target>Ez</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Passwords match:</source>
+        <target>Pasahitza bat dator:</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

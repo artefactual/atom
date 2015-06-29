@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2014-09-17T11:57:35Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2015-06-29T14:59:41Z" product-name="messages">
     <body>
       <trans-unit id="44">
         <source>Reference code</source>
@@ -278,10 +278,6 @@
         <source>Accruals</source>
         <target>追加資料</target>
       </trans-unit>
-      <trans-unit id="869">
-        <source>Other notes</source>
-        <target>他の注記</target>
-      </trans-unit>
       <trans-unit id="870">
         <source>Standard number area</source>
         <target>標準番号エリア</target>
@@ -413,10 +409,6 @@
       <trans-unit id="911">
         <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
         <target>ドロップダウンメニューから記述のレベルを選択してください。レベルを選択する際にはRAD1.0Aのルールと規則を参照してください。</target>
-      </trans-unit>
-      <trans-unit id="912">
-        <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Enter an unambiguous code used to uniquely identify the description.&lt;br/&gt;&lt;strong&gt;Level:&lt;/strong&gt; Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target>&lt;strong&gt;識別子：&lt;/strong&gt; 独自に記述を識別するために使われる一義的なコードを入力してください。&lt;br/&gt;&lt;strong&gt;階層：&lt;/strong&gt; ドロップダウンメニューから記述階層を選んでください。階層記述の選択にあたっての、 ルールや慣習に関する「RAD 1.0A」を参照してください。&lt;br/&gt;&lt;strong&gt;タイトル：&lt;/strong&gt; 転写したものか与えられたもので、本来のタイトルを入力してください。(RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="913">
         <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
@@ -604,10 +596,6 @@
         <source>Rights area</source>
         <target>権利のエリア</target>
       </trans-unit>
-      <trans-unit id="963">
-        <source>Edit rights area</source>
-        <target>権利のエリアを編集する</target>
-      </trans-unit>
       <trans-unit id="964">
         <source>Accession area</source>
         <target>受入資料エリア</target>
@@ -670,6 +658,26 @@
       </trans-unit>
       <trans-unit id="982">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="983">
+        <source>Administrative history / Biographical sketch</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="984">
+        <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="985">
+        <source>Genre access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="986">
+        <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="987">
+        <source>General note</source>
         <target/>
       </trans-unit>
     </body>

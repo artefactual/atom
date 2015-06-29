@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2013-08-22T17:11:04Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2015-06-29T14:58:30Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -142,10 +142,6 @@
         <source>Rights area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="861">
-        <source>Edit rights area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="862">
         <source>Accession area</source>
         <target/>
@@ -160,22 +156,6 @@
       </trans-unit>
       <trans-unit id="865">
         <source>Elements area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="866">
-        <source>How to access to this content?</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="867">
-        <source>Contact the archivist at %1%</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="868">
-        <source>Show details</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="869">
-        <source>Close</source>
         <target/>
       </trans-unit>
       <trans-unit id="870">

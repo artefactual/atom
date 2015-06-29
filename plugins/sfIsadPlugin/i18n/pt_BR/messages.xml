@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2014-09-19T13:20:17Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2015-06-29T15:02:17Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -306,10 +306,6 @@
         <source>End</source>
         <target>Final</target>
       </trans-unit>
-      <trans-unit id="970">
-        <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Provide a specific local reference code, control number, or other unique identifier.&lt;br/&gt;&lt;strong&gt;Level of description:&lt;/strong&gt; Record the level of this unit of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
-        <target>&lt;strong&gt;Identificador:&lt;/strong&gt; Fornecer um código de referência específico local, número de controle, ou outro identificador único.&lt;br/&gt;&lt;strong&gt;Nível da descrição:&lt;/strong&gt; Registe o nível da unidade a ser descrita.&lt;br/&gt;&lt;strong&gt;Título:&lt;/strong&gt; Fornecer um título formal ou um título conciso fornecido de acordo com as regras de descrição multinível e convenções nacionais.</target>
-      </trans-unit>
       <trans-unit id="973">
         <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
         <target>Registar o nome da organização que detem a custódia do material de arquivo. Pesquisar a lista de entidades arquívisticas digitando alguns caracteres ou, alternativamente, digitar o novo nome para criar uma nova entrada.</target>
@@ -425,10 +421,6 @@ elaboração da descrição. (ISAD 3.7.2)</target>
         <source>Rights area</source>
         <target>Zona de direitos</target>
       </trans-unit>
-      <trans-unit id="1012">
-        <source>Edit rights area</source>
-        <target>Editar zona de direitos</target>
-      </trans-unit>
       <trans-unit id="1013">
         <source>Accession area</source>
         <target>Área de acesso</target>
@@ -440,6 +432,22 @@ elaboração da descrição. (ISAD 3.7.2)</target>
       <trans-unit id="1016">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
         <target>Registre as citações usadas de qualquer fonte externa para a descrição arquivística (como os de Escopo e Contéudo, Arquivo Histórico, ou Campos de notas).</target>
+      </trans-unit>
+      <trans-unit id="1017">
+        <source>Administrative / Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1018">
+        <source>Administrative history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1019">
+        <source>Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1020">
+        <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

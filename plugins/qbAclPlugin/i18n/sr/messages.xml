@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2015-06-29T14:57:15Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Group %1%</source>
+        <target>Група %1%</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Main area</source>
+        <target>Главно подручје</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Cancel</source>
+        <target>Поништи</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Save</source>
+        <target>Сачувај</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Create</source>
+        <target>Створи</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>All %1%</source>
+        <target>Сви %1%</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>%1%: %2%</source>
+        <target>%1%: %2%</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>All privileges</source>
+        <target>Све привилегије</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Permissions for all %1%</source>
+        <target>Дозволе за све %1%</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Action</source>
+        <target>Акција</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Permission</source>
+        <target>Дозвола</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Grant</source>
+        <target>Дозвола</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Deny</source>
+        <target>Забрани</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Inherit</source>
+        <target>Наследити</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Permissions by taxonomy</source>
+        <target>Дозволе по таксономији</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Permissions</source>
+        <target>Дозволе</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Taxonomy name</source>
+        <target>Назив таксономије</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Add permissions by taxonomy</source>
+        <target>Додај дозволе таксономије</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Add taxonomy</source>
+        <target>Додај таксономију</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Add %1%</source>
+        <target>Додај %1%</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>%1% name</source>
+        <target>%1% име</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Edit %1% permissions of %2%</source>
+        <target>Уреди %1% дозволе за %2%</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Add permissions by %1%</source>
+        <target>Додај дозволе за %1%</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>List groups</source>
+        <target>Листа група</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Group</source>
+        <target>Група</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Members</source>
+        <target>Чланови</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Add new</source>
+        <target>Додај нови/у/о</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Group details</source>
+        <target>Детаљи о групи</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Name</source>
+        <target>Назив/Име</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Description</source>
+        <target>Опис</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Translate</source>
+        <target>Преведи</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Are you sure you want to delete %1%?</source>
+        <target>Да ли сигурни да желите да обришете %1%?</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Delete</source>
+        <target>Обриши</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Edit %1% permissions</source>
+        <target>Уреди %1% дозволе</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Edit permissions</source>
+        <target>Уреди дозволе</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Taxonomy: %1%</source>
+        <target>Таксономија: %1%</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Permissions by %1%</source>
+        <target>Дозволе %1%</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Edit</source>
+        <target>Уреди</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

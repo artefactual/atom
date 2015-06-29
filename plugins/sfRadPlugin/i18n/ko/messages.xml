@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2014-09-17T12:00:05Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2015-06-29T14:58:02Z" product-name="messages">
     <body>
       <trans-unit id="44">
         <source>Reference code</source>
-        <target/>
+        <target>참조코드</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Level of description</source>
@@ -48,23 +48,23 @@
       </trans-unit>
       <trans-unit id="408">
         <source>Administrative history</source>
-        <target/>
+        <target>행정 연혁</target>
       </trans-unit>
       <trans-unit id="435">
         <source>Title proper of publisher's series</source>
-        <target/>
+        <target>출판자 시리즈의 본 제목</target>
       </trans-unit>
       <trans-unit id="437">
         <source>Other title information of publisher's series</source>
-        <target/>
+        <target>출판자 시리즈의 다른 제목 정보</target>
       </trans-unit>
       <trans-unit id="438">
         <source>Statement of responsibility relating to publisher's series</source>
-        <target/>
+        <target>출판자 시리즈에 관한 책임사항</target>
       </trans-unit>
       <trans-unit id="439">
         <source>Numbering within publisher's series</source>
-        <target/>
+        <target>출판자의 시리즈 내에서 번호 부여</target>
       </trans-unit>
       <trans-unit id="638">
         <source>Edit authority record</source>
@@ -72,71 +72,71 @@
       </trans-unit>
       <trans-unit id="709">
         <source>Title proper</source>
-        <target/>
+        <target>본제목</target>
       </trans-unit>
       <trans-unit id="710">
         <source>General material designation</source>
-        <target/>
+        <target>일반 자료 지정</target>
       </trans-unit>
       <trans-unit id="711">
         <source>Parallel title</source>
-        <target/>
+        <target>대등 표제</target>
       </trans-unit>
       <trans-unit id="712">
         <source>Other title information</source>
-        <target/>
+        <target>그 외 제목 정보</target>
       </trans-unit>
       <trans-unit id="716">
         <source>Edition statement</source>
-        <target/>
+        <target>판사항</target>
       </trans-unit>
       <trans-unit id="717">
         <source>Statement of scale (cartographic)</source>
-        <target/>
+        <target>범위 사항(지도제작)</target>
       </trans-unit>
       <trans-unit id="718">
         <source>Statement of projection (cartographic)</source>
-        <target/>
+        <target>투영 사항 (지도제작상의)</target>
       </trans-unit>
       <trans-unit id="719">
         <source>Statement of coordinates (cartographic)</source>
-        <target/>
+        <target>좌표 사항(지도제작상의)</target>
       </trans-unit>
       <trans-unit id="720">
         <source>Statement of scale (architectural)</source>
-        <target/>
+        <target>범위사항(건축학적인)</target>
       </trans-unit>
       <trans-unit id="721">
         <source>Issuing jurisdiction and denomination (philatelic)</source>
-        <target/>
+        <target>주제 관할과 액면가 (우표)</target>
       </trans-unit>
       <trans-unit id="722">
         <source>Physical description</source>
-        <target/>
+        <target>물리적 기술</target>
       </trans-unit>
       <trans-unit id="724">
         <source>Custodial history</source>
-        <target/>
+        <target>보관 이력</target>
       </trans-unit>
       <trans-unit id="725">
         <source>Physical condition</source>
-        <target/>
+        <target>물리적 상태</target>
       </trans-unit>
       <trans-unit id="726">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>수집의 직접적 출처</target>
       </trans-unit>
       <trans-unit id="727">
         <source>Availability of other formats</source>
-        <target/>
+        <target>다른 포맷의 이용가능성</target>
       </trans-unit>
       <trans-unit id="728">
         <source>Restrictions on access</source>
-        <target/>
+        <target>접근에 대한 제한</target>
       </trans-unit>
       <trans-unit id="729">
         <source>Terms governing use, reproduction, and publication</source>
-        <target/>
+        <target>이용, 재생산 및 출판 관리 용어</target>
       </trans-unit>
       <trans-unit id="732">
         <source>Rules or conventions</source>
@@ -148,195 +148,191 @@
       </trans-unit>
       <trans-unit id="828">
         <source>Level of description - This is a mandatory element.</source>
-        <target/>
+        <target>기술 계층 - 이는 필수 요소입니다. </target>
       </trans-unit>
       <trans-unit id="829">
         <source>Title - This is a mandatory element.</source>
-        <target/>
+        <target>제목 - 이 항목은 필수 요소입니다. </target>
       </trans-unit>
       <trans-unit id="835">
         <source>This archival description requires at least one date.</source>
-        <target/>
+        <target>이 기록물 기술에는 최소한 한 개이상의 날짜 정보가 필요합니다. </target>
       </trans-unit>
       <trans-unit id="836">
         <source>Physical description - This is a mandatory element.</source>
-        <target/>
+        <target>물리적 기술 - 이 항목은 필수 요소입니다.</target>
       </trans-unit>
       <trans-unit id="837">
         <source>Scope and content - This is a mandatory element.</source>
-        <target/>
+        <target>범위와 내용 - 이 항목은 필수 요소입니다.</target>
       </trans-unit>
       <trans-unit id="841">
         <source>Title and statement of responsibility area</source>
-        <target/>
+        <target>제목과 책임 영역 기술</target>
       </trans-unit>
       <trans-unit id="842">
         <source>Edit title and statement of responsibility area</source>
-        <target/>
+        <target>제목과 책임 영역 편집</target>
       </trans-unit>
       <trans-unit id="843">
         <source>Title statements of responsibility</source>
-        <target/>
+        <target>책임 영역 제목</target>
       </trans-unit>
       <trans-unit id="844">
         <source>Title notes</source>
-        <target/>
+        <target>본 주기(노트)</target>
       </trans-unit>
       <trans-unit id="845">
         <source>Edition area</source>
-        <target/>
+        <target>판 영역</target>
       </trans-unit>
       <trans-unit id="846">
         <source>Edit edition area</source>
-        <target/>
+        <target>판 영역 편집</target>
       </trans-unit>
       <trans-unit id="847">
         <source>Edition statement of responsibility</source>
-        <target/>
+        <target>판사항의 책임사항</target>
       </trans-unit>
       <trans-unit id="848">
         <source>Class of material specific details area</source>
-        <target/>
+        <target>자료의 특정한 부분</target>
       </trans-unit>
       <trans-unit id="849">
         <source>Edit class of material specific details area</source>
-        <target/>
+        <target>자료의 특정한 부분 편집</target>
       </trans-unit>
       <trans-unit id="850">
         <source>Dates of creation area</source>
-        <target/>
+        <target>영역 생산 일자</target>
       </trans-unit>
       <trans-unit id="851">
         <source>Edit dates of creation area</source>
-        <target/>
+        <target>생성 일자 영역 편집하기</target>
       </trans-unit>
       <trans-unit id="852">
         <source>Physical description area</source>
-        <target/>
+        <target>물리적 기술 영역</target>
       </trans-unit>
       <trans-unit id="853">
         <source>Edit physical description area</source>
-        <target/>
+        <target>물리적 기술 영역 편집하기</target>
       </trans-unit>
       <trans-unit id="854">
         <source>Publisher's series area</source>
-        <target/>
+        <target>출판자 시리즈 영역</target>
       </trans-unit>
       <trans-unit id="855">
         <source>Edit publisher's series area</source>
-        <target/>
+        <target>출판자 시리즈 영역 편집</target>
       </trans-unit>
       <trans-unit id="856">
         <source>Parallel titles of publisher's series</source>
-        <target/>
+        <target>출판자 시리즈의 대등 표제</target>
       </trans-unit>
       <trans-unit id="857">
         <source>Note on publisher's series</source>
-        <target/>
+        <target>출판자 시리즈 주기</target>
       </trans-unit>
       <trans-unit id="858">
         <source>Archival description area</source>
-        <target/>
+        <target>기록물 기술 영역</target>
       </trans-unit>
       <trans-unit id="859">
         <source>Edit archival description area</source>
-        <target/>
+        <target>기록물 기술 영역 편집하기</target>
       </trans-unit>
       <trans-unit id="860">
         <source>Scope and content</source>
-        <target/>
+        <target>범위와 내용</target>
       </trans-unit>
       <trans-unit id="861">
         <source>Notes area</source>
-        <target/>
+        <target>주기사항</target>
       </trans-unit>
       <trans-unit id="862">
         <source>Edit notes area</source>
-        <target/>
+        <target>주기사항 영역 편집하기</target>
       </trans-unit>
       <trans-unit id="863">
         <source>Arrangement</source>
-        <target/>
+        <target>정리</target>
       </trans-unit>
       <trans-unit id="864">
         <source>Language of material</source>
-        <target/>
+        <target>기록물의 언어</target>
       </trans-unit>
       <trans-unit id="865">
         <source>Script of material</source>
-        <target/>
+        <target>자료 규약</target>
       </trans-unit>
       <trans-unit id="866">
         <source>Location of originals</source>
-        <target/>
+        <target>원본 소장 위치</target>
       </trans-unit>
       <trans-unit id="867">
         <source>Finding aids</source>
-        <target/>
+        <target>검색도구</target>
       </trans-unit>
       <trans-unit id="868">
         <source>Accruals</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="869">
-        <source>Other notes</source>
-        <target/>
+        <target>추가 이관</target>
       </trans-unit>
       <trans-unit id="870">
         <source>Standard number area</source>
-        <target/>
+        <target>표준 번호 영역</target>
       </trans-unit>
       <trans-unit id="871">
         <source>Edit standard number area</source>
-        <target/>
+        <target>표준 번호 영역 편집하기 </target>
       </trans-unit>
       <trans-unit id="872">
         <source>Standard number</source>
-        <target/>
+        <target>표준 번호</target>
       </trans-unit>
       <trans-unit id="873">
         <source>Access points</source>
-        <target/>
+        <target>접근점</target>
       </trans-unit>
       <trans-unit id="874">
         <source>Edit access points</source>
-        <target/>
+        <target>접근점 편집</target>
       </trans-unit>
       <trans-unit id="875">
         <source>Edit control area</source>
-        <target/>
+        <target>제어 영역 편집하기</target>
       </trans-unit>
       <trans-unit id="877">
         <source>Language of description</source>
-        <target/>
+        <target>기술 언어</target>
       </trans-unit>
       <trans-unit id="878">
         <source>Script of description</source>
-        <target/>
+        <target>기술 규약</target>
       </trans-unit>
       <trans-unit id="880">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>중복된 기록입니다.'%1%'</target>
       </trans-unit>
       <trans-unit id="881">
         <source>Statement of responsibility</source>
-        <target/>
+        <target>책임사항</target>
       </trans-unit>
       <trans-unit id="883">
         <source>Parallel title of publisher's series</source>
-        <target/>
+        <target>출판자 시리즈의 대등표제</target>
       </trans-unit>
       <trans-unit id="884">
         <source>Biographical sketch</source>
-        <target/>
+        <target>개인 약전</target>
       </trans-unit>
       <trans-unit id="887">
         <source>Add new archival description</source>
-        <target/>
+        <target>기록물 기술정보 추가</target>
       </trans-unit>
       <trans-unit id="888">
         <source>Untitled</source>
-        <target/>
+        <target>제목없음</target>
       </trans-unit>
       <trans-unit id="889">
         <source>Edit %1%</source>
@@ -344,215 +340,211 @@
       </trans-unit>
       <trans-unit id="890">
         <source>"Give the date(s) of creation of the unit being described either as a single date, or range of dates (for inclusive dates and/or predominant dates). Always give the inclusive dates. When providing predominant dates, specify them as such, preceded by the word predominant..." (RAD 1.4B2) Record probable and uncertain dates in square brackets, using the conventions described in 1.4B5.</source>
-        <target/>
+        <target>"날짜 또는 생산 일자의 범위나 (생산시기나 혹은 분명한 생산 날짜를 포함한)  혹은 생산일 중 하나를 생산일(들)에 기입하시오.  반드시 생산시기를 기입해야 합니다. 주요 활동 시기를 기입할때는 날짜 앞에 '주요 활동시기'라는 말을 넣어 구체적으로 명시하시오..."(RAD 1.4B2) 1.4B5 기술 표준규정에 따라 하되 추측 가능하거나 불확실한 날짜의 경우 꺾쇠괄호를 사용하여 기술하시오.</target>
       </trans-unit>
       <trans-unit id="891">
         <source>"Make notes on dates and any details pertaining to the dates of creation, publication, or distribution, of the unit being described that are not included in the Date(s) of creation, including publication, distribution, etc., area and that are considered to be important." (RAD 1.8B8) "Make notes on the date(s) of accumulation or collection of the unit being described." (RAD 1.8B8a)</source>
-        <target/>
+        <target>"기록 생산 날짜, 출판과 배포 등의 날짜들과 중요 영역에 포함되지 않는 날짜와 기록 생산, 출판, 배포와 관련된 날짜(들)대한 주기를 기입하시오."(RAD 1.8B8) "기술 단위를 수집한 날짜(들)에 대한 정보를 제공하시오."  (RAD 1.B8a)</target>
       </trans-unit>
       <trans-unit id="892">
         <source>Select the type of activity that established the relation between the authority record and the archival description (e.g. creation, accumulation, collection, publication, etc.)</source>
-        <target/>
+        <target>전거레코드와 기록 기술 사이의 관계를 설정한 활동 유형을 선택하시오. (예를 들어 생산, 축적, 수집, 출판 등) </target>
       </trans-unit>
       <trans-unit id="893">
         <source>Date(s) - are not consistent with %1%higher levels%2%.</source>
-        <target/>
+        <target>날짜(들) - 이는 %1%상위계층%2%과 일치하지 않습니다.</target>
       </trans-unit>
       <trans-unit id="894">
         <source>Level of description - Value "%value%" is not consistent with higher levels.</source>
-        <target/>
+        <target>기술 계층 - 값 "%값%" 은 상위 계층과 일치하지 않습니다.</target>
       </trans-unit>
       <trans-unit id="895">
         <source>Statement of scale (architectural) - This is a mandatory element for architectural drawing.</source>
-        <target/>
+        <target>범위사항(건축학적인) - 이 항목은 건축 설계도를 위한 필수 요소입니다.</target>
       </trans-unit>
       <trans-unit id="896">
         <source>Statement of coordinates (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>좌표 사항(지도제작 상의) - 이 항목은 지도제작 자료를 위한 필수 요소입니다.</target>
       </trans-unit>
       <trans-unit id="897">
         <source>Statement of projection (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>투영 사항 (지도제작상의) - 이 항목은 지도제작 자료를 위한 필수 요소입니다.</target>
       </trans-unit>
       <trans-unit id="898">
         <source>Statement of scale (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>범위 사항(지도제작) - 이 항목은 지도 제작 자료를 위한 필수적 요소입니다.</target>
       </trans-unit>
       <trans-unit id="899">
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
-        <target/>
+        <target> 발행 기관과 액면가격 (우표) - 이는 우표 기록 기술의 필수 요소입니다.</target>
       </trans-unit>
       <trans-unit id="903">
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
+        <target>기록에 표시되어 있거나 혹은 이관시 제공된 본제목을 입력하시오. (RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="904">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>이 항목은 필수 요소입니다.</target>
       </trans-unit>
       <trans-unit id="905">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
-        <target/>
+        <target>가장 상위의 기술 수준에서 일반 자료 지정을 선택하시오. 만일 3개 이상이라면 "다중 매체"를 선택하시오. (RAD 1.1C)</target>
       </trans-unit>
       <trans-unit id="906">
         <source>"[W]hen applicable, transcribe parallel titles that appear in conjunction with the formal title proper..." (RAD 1.1D)</source>
-        <target/>
+        <target>"만약 가능하다[면], 공식표제에 상응되는 유사 제목을 기록하시오." (RAD 1.1D)</target>
       </trans-unit>
       <trans-unit id="907">
         <source>Parallel titles</source>
-        <target/>
+        <target>대등 표제들</target>
       </trans-unit>
       <trans-unit id="908">
         <source>"Transcribe other title information that appears in conjunction with the formal title proper..." (RAD 1.1E)</source>
-        <target/>
+        <target>"공식 표제와 함께 기타 제목 정보를 입력하시오..."(RAD 1.1E)</target>
       </trans-unit>
       <trans-unit id="909">
         <source>"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)</source>
-        <target/>
+        <target>“기록물 건단위 기술에서, 기록물의 공식적인 본제목이나 주요 정보 출처, 그리고 반드시 책임 소재 여부를  기술하시오..."(RAD 1.1F)</target>
       </trans-unit>
       <trans-unit id="911">
         <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="912">
-        <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Enter an unambiguous code used to uniquely identify the description.&lt;br/&gt;&lt;strong&gt;Level:&lt;/strong&gt; Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
+        <target>다음 드롭다운 메뉴에서 기술 수준을 선택하시오. 기술 수준을 선택하는 규칙과 관례는 RAD 1.0A를 참조하시오.</target>
       </trans-unit>
       <trans-unit id="913">
         <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
-        <target/>
+        <target>기록 자료를 보관하고 제어하는 기록보존소를 선택하시오. 이 필드가 지니는 값은 기록보존소 기록의 이름 필드의 전거형에서 차용합니다. 이름의 처음 몇 글자를 입력하여 존재하는 이름을 검색하시오. 그렇지 않으면 생성할 새로운 이름을 입력하고 새로운 기록보존소에 연결하시오.</target>
       </trans-unit>
       <trans-unit id="914">
         <source>Enter an unambiguous code used to uniquely identify the description.</source>
-        <target/>
+        <target>기술을 고유하게 식별하기 위해 사용된 분명한 코드를 입력하시오.</target>
       </trans-unit>
       <trans-unit id="916">
         <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
-        <target/>
+        <target>"혹 한부 이상의 판본이 있는 경우 판본 내역을 따라 기술 단위의 판본에 대한 책임 내역을 기술하시오." (RAD 1.2.C1) "초판을 기술할 때는 제목과 책임 내역 영역에 모든 책임 내역 사항을 기술하시오." (RAD 1.2C2)</target>
       </trans-unit>
       <trans-unit id="917">
         <source>Statement of responsibility relating to the edition</source>
-        <target/>
+        <target>편집에 관한 책임사항</target>
       </trans-unit>
       <trans-unit id="918">
         <source>"Give the scale of the unit being described...as a representative fraction (RF) expressed as a ratio (1: ). Precede the ratio by Scale. Give the scale even if it is already recorded as part of the title proper or other title information." (RAD 5.3B1)</source>
-        <target/>
+        <target>"기술 단위의 축척을 기입하시오... 이는 (1: )과 같이 비율로 표현되는 분수 축척(RF)으로 기술하되 비율을 먼저 기입한 뒤 척도를 기입하시오. 이미 이러한 정보가  제목이나 또는 다른 제목 정보에 기록되었더라도 이를 기입하시오. (RAD 5.3B1)</target>
       </trans-unit>
       <trans-unit id="919">
         <source>"Give the statement of projection if it is found on the prescribed source(s) of information." (RAD 5.3C1)</source>
-        <target/>
+        <target>"정해진 정보 출처(들) 프로젝션에 관련된 설명이 있다면 이를 기술하시오." (RAD 5.3C1)</target>
       </trans-unit>
       <trans-unit id="920">
         <source>"At the fonds, series or file levels, record coordinates for the maximum coverage provided by the materials in the unit, as long as they are reasonably contiguous." (RAD 5.3D)</source>
-        <target/>
+        <target>“퐁, 시리즈 혹은 파일 단위에서, 이 조합들이 연속성을 띄고 있는 한,  기술 단위 자료들의 최대치로 조합들을 기술하시오.” (RAD 5.3D)</target>
       </trans-unit>
       <trans-unit id="921">
         <source>"Give in English the scale in the units of measure found on the unit being described. If there is no English equivalent for the name of the unit of measure, give the name, within quotation marks, as found on the unit being described." (RAD 6.3B)</source>
-        <target/>
+        <target>"기술 단위에서 사용되는 측정 단위를 영어식으로 기입하시오. 영어식으로 적합한 용어를 찾을 수 없는 경우, 기술단위에서 사용되는 이름에 따옴표를  사용하여 측정단위를 표기하시오."(RAD 6.3B)</target>
       </trans-unit>
       <trans-unit id="922">
         <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
-        <target/>
+        <target>"우표 기록의 발행에 대해 책임이 있는 관할부서(예를들어 정부) 이름을 기입하시오." (RAD 12.3B1)  "금전적 가치를 가진 모든 단위에 대해  (예를들어 우표, 수입인지, 우편문구류) 표준화된 형식으로 금액 정보를 기입하고 통화단위명과 액면가 숫자를  숫자로 기록하시오. 액면가가 이미 본제목이나 다른 제목 정보에 포함되어 있다면, 보증서에 관한 정보를 포함시키시오." (RAD 12.3C1)</target>
       </trans-unit>
       <trans-unit id="923">
         <source>Add new name and/or date(s)</source>
-        <target/>
+        <target>이름 및 날짜(일시) 추가</target>
       </trans-unit>
       <trans-unit id="924">
         <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
-        <target/>
+        <target>"모든 계층에  기술 단위는 숫자로 표기된 물리적 단위로 표기하시오. 혹은 기술단위가 속한 계층(class)들에 대한 RAD 장의 하위 규칙(5B)에서 명시된 상세자료 유형에 따라 기술 단위를 표기하시오." (RAD 1.5B1) 기타 물리적 세부 사항에 관한 내용은  RAD 1.5C와 RAD 1.5D를 참고하시오. 이 필드 내의 캐리지 리턴을 포함한 다중 엔트리는 분리하시오 (i.e. 귀하의 키보드에서 Enter 키를 누르시오).</target>
       </trans-unit>
       <trans-unit id="925">
         <source>"At the item level of description, transcribe a title proper of the publisher's series as instructed in 1.1B1." (RAD 1.6B)</source>
-        <target/>
+        <target>"기술 계층 건 수준에서, 1.1B1의 지시에 따라 기록시리즈 출판자의 본제목을 기록하시오." (RAD1.6B)</target>
       </trans-unit>
       <trans-unit id="926">
         <source>"Transcribe parallel titles of a publisher's series as instructed in 1.1D." (RAD 1.6C1)</source>
-        <target/>
+        <target>"1.1D의 규정에 따라 기록시리즈 출판인의 유사한 제목들을 기록하시오" (RAD 1.6C1)</target>
       </trans-unit>
       <trans-unit id="927">
         <source>"Transcribe other title information of a publisher's series as instructed in 1.1E and only if considered necessary for identifying the publisher's series." (RAD 1.6D1)</source>
-        <target/>
+        <target>"출판자의 기록 시리즈의 식별을 위해 필요하다고 인정되는 경우에만 1.1E 규정에 따라 출판자의 기록 시리즈의 다른 표제 정보를 기록하시오."(RAD 1.6D1)</target>
       </trans-unit>
       <trans-unit id="928">
         <source>"Transcribe explicit statements of responsibility appearing in conjunction with a formal title proper of a publisher's series as instructed in 1.1F and only if considered necessary for identifying the publisher's series." (RAD 1.6E1)</source>
-        <target/>
+        <target>"출판자의 시리즈의 식별을 위해 필요하다고 인정되는 경우에 한해 1.1F 규정을 따라 출판자 기록 시리즈에 쓰인 공식  제목과 책임 내역을 명백하게 기술하시오." (RAD 1.6E1) </target>
       </trans-unit>
       <trans-unit id="929">
         <source>"Give the numbering of the item within a publisher's series in the terms given in the item." (RAD 1.6F1)</source>
-        <target/>
+        <target>" 출판사 시리즈 내 건 번호를 해당 건에서 사용된 방식으로 부여하시오."(RAD 1.6F1)</target>
       </trans-unit>
       <trans-unit id="930">
         <source>"Make notes on important details of publisher's series that are not included in the Publisher's series area, including variant series titles, incomplete series, and of numbers or letters that imply a series." (RAD 1.8B10)</source>
-        <target/>
+        <target>"출판자의 시리즈 영역에 포함되지 않은 출판 세부사항들, 예를 들어, 다양한 이형 시리즈의 제목이나  불완전한 시리즈와 이것이 시리즈임을 추정할 수 있도록 하는 숫자나 문자 등을 기입하시오."  (RAD 1.8B10)</target>
       </trans-unit>
       <trans-unit id="931">
         <source>"Give the history of the custody of the unit being described, i.e., the successive transfers of ownership and custody or control of the material, along with the dates thereof, insofar as it can be ascertained." (RAD 1.7C)</source>
-        <target/>
+        <target>"기술 단위의 보관 이력에 대해 기술하되, 확실하다고 판단되는 한에서 기록 소유권과 보관권, 제어 방식의 변화 과정과 변경 날짜에 대해 꼼꼼히 기술하시오." (RAD 1.7C)</target>
       </trans-unit>
       <trans-unit id="932">
         <source>"At the fonds, series, and collection levels of description, and when necessary at the file and the item levels of description, indicate the level being described and give information about the scope and the internal structure of or arrangement of the records, and about their contents." (RAD 1.7D) "For the scope of the unit being described, give information about the functions and/or kinds of activities generating the records, the period of time, the subject matter, and the geographical area to which they pertain. For the content of the unit being described, give information about its internal structure by indicating its arrangement, organization, and/or enumerating its next lowest level of description. Summarize the principal documentary forms (e.g., reports, minutes, correspondence, drawings, speeches)." (RAD 1.7D1)</source>
-        <target/>
+        <target>“퐁, 시리즈, 컬렉션 단위에서, 또는 가능하다면 기록철과 건 단위에서, 기술 단위를 명시하고 기록물의 범위와 내용, 내적 구조나 정리 수준에 대한 정보를 기술하시오."(RAD 1.7D) "개별 기술 단위의 범주에는, 기록을 생산한 업무의 기능과/또는 유형, 기간, 주제 사안, 기록이 존재하는 지리적 장소에 대한 정보를 기술하시오. 기술 단위의 내용에는 그 내용의 정리 과정에서 부여된 내적 구조에 대한 정보를 기입하거나, 또는 기술 단위의 가장 하위 계층단위에서 부여된 기록물 내적 구조에 대한 정보를 기술하시오. 기록물의  형태들을 요약적으로 기술하시오. (예: 보고서, 회의록, 서신, 제도, 연설 등)." (RAD 1.7D1)</target>
       </trans-unit>
       <trans-unit id="933">
         <source>"Make notes on the physical condition of the unit being described if that condition materially affects the clarity or legibility of the records." (RAD 1.8B9a)</source>
-        <target/>
+        <target>"만약 물리적 조건이 기록의 명료성이나 가독성에 실질적으로 영향을 미친다면 기술 단위의 물리적 조건에 관해 기입하시오." (RAD 1.8B9a)</target>
       </trans-unit>
       <trans-unit id="934">
         <source>"Record the donor or source (i.e., the immediate prior custodian) from whom the unit being described was acquired, and the date and method of acquisition, as well as the source/donor's relationship to the material, if any or all of this information is not confidential. If the source/donor is unknown, record that information." (RAD 1.8B12)</source>
-        <target/>
+        <target>"정보 중 일부 또는 전부가 비밀이 아닌 경우, 기록이 입수된 기증자 또는 출처(즉, 직접적인 이전 관리인), 취득일 및 입수방식,  기록에 대한 출처/기증인의 관계을 입력하시오. 출처/기증인을 알 수 없는 경우, 해당 정보를 기입하시오."(RAD 1.8B12)</target>
       </trans-unit>
       <trans-unit id="935">
         <source>"Make notes on the arrangement of the unit being described which contribute significantly to its understanding but cannot be put in the Scope and content (see 1.7D), e.g., about reorganisation(s) by the creator, arrangement by the archivist, changes in the classification scheme, or reconstitution of original order." (RAD 1.8B13)</source>
-        <target/>
+        <target>" 기록 범주와 내용에 포함될 수 없지만 그 기록물을 이해하는 데 중요하다고 여겨지는 기술 단위의 정리에 대한 정보를 기입하시오. (see 1.7D) 예를 들어 생산자에 의해 재정리(들) 되었다거나, 아키비스트에 의해 정리되었다거나 분류체계에 변화가 있었다거나 혹은 원질서가 재구성되었다거나 하는 등의 정보를 기입하시오." (RAD 1.8B13)</target>
       </trans-unit>
       <trans-unit id="936">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>"기술 단위의 언어를 명기하시오. 단, 다른 곳에서 기록되었거나 혹은 나 다른 기술요소들에서 분명히 나타난 경우는 제외하시오." (RAD 1.8. B14) 다음 드롭다운 메뉴에서 언어를 선택하시오. 선택의 폭을 줄이기 위해 처음 몇 글자를 기입하시오.</target>
       </trans-unit>
       <trans-unit id="938">
         <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
-        <target/>
+        <target>" 기술 단위가 복제본이고 원본 위치 정보가 따로 있다면, 그 정보를 기입하시오. 이와 더불어  원본의 위치 파악을 용이하게 하는 원본 위치 장소의 식별 번호를 기입하시오. 만약 원본이 더이상 현존하지 않는다면, 그 정보를 부여하시오." (RAD 1.8B15a)</target>
       </trans-unit>
       <trans-unit id="939">
         <source>"If all or part of the unit being described is available (either in the institution or elsewhere) in another format(s), e.g., if the text being described is also available on microfilm; or if a film is also available on videocassette, make a note indicating the other format(s) in which the unit being described is available and its location, if that information is known. If only a part of the unit being described is available in another format(s), indicate which parts." (RAD 1.8B15b)</source>
-        <target/>
+        <target>"기술 단위의 전체 혹은 그 일부가 다른 포맷(들)에서도 이용이 가능하다면(기관 또는 그 외의 장소), 예를 들어, 기술 단위 텍스트가 마이크로 필름으로도 이용이 가능하거나; 또는 영상물이 비디오카세트으로도 이용이 가능하다면, 이러한  이용이 가능한 포멧(들)의 보존 위치를 표시하는 주기를 기입하시오.  기술 단위의 일부분이 또다른 포맷(들)으로 존재한다면 이러한 사항도 기록하시오." (RAD 1.8B15b)</target>
       </trans-unit>
       <trans-unit id="940">
         <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
-        <target/>
+        <target>"기술 단위(혹은 단위의 부분)의 이용 제한사항에 대한 정보를 제공하시오." (RAD 1.8B16a)</target>
       </trans-unit>
       <trans-unit id="942">
         <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
-        <target/>
+        <target>"검색도구의 여부에 대한 정보를 제공하시오. 카드 목록, 상자 목록, 시리즈 목록, 물품목록, 색인 등 현 기술에 사용된 행정적/지적 제어도구를 포함시키시오."(RAD 1.8B17)</target>
       </trans-unit>
       <trans-unit id="943">
         <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
-        <target/>
+        <target>관련 자료에 대해서, "만일 타기관 소장 기록물이 현재 기술 단위와 동일한 출처를 가지고 있다면, 관련 자료의 퐁, 시리즈, 컬렉션의 출처를 밝히고 가능하다면, 별개의 건에 대해서는 그 위치를 표시하시오." (RAD 1.8B18). 관련 자료에 대해서, " 기술 단위 외부 자료들과 공유된 활동이나 공유된 책임을 가진 자료들이 있을 경우  그 관계들을 명시하시오."(RAD 1.8B20)</target>
       </trans-unit>
       <trans-unit id="944">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
-        <target/>
+        <target>"기술 단위가 개방 퐁이나 개방 시리즈 같이 아직 이관이 완료되지 않았을 경우, 향후 추가이관이 예상된다는 주기를 남기시오. 만약 추가이관이 예상되지 않는 경우, 해당 단위는 완료된 것으로 간주한다고 명기하시오." (RAD 1.8B19)</target>
       </trans-unit>
       <trans-unit id="946">
         <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
-        <target/>
+        <target>"기술되고 있는 기록물에 국제적으로 공인된 국제 표준 번호나도서 번호(ISBN), 국제 표준 자료 번호(ISSN)를 제공하시오. 공인받은 약어나 표준을 포함한 숫자는 공백과 하이픈으로 연결하시오." (RAD 1.9B1)</target>
       </trans-unit>
       <trans-unit id="947">
         <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
-        <target/>
+        <target>용어의 첫 몇글자를 입력하여 주제 분류에 존재하는 용어를 찾으시오. 그렇지 않으면, 생성할 새로운 용어를 입력하고 새로운 주제 용어에 연결하시오.</target>
       </trans-unit>
       <trans-unit id="948">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
-        <target/>
+        <target>용어 이름의 첫 몇글자를 입력하여 장소 분류에 존재하는 용어를 찾으시오. 그렇지 않으면, 생성할 새로운 용어를 입력하고 새로운 장소 용어에 연결하시오.</target>
       </trans-unit>
       <trans-unit id="949">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target/>
+        <target>"출처와 저자명, 그리고 기록 기술에 나타난 비주제어 접근점을 선택하시오. 모든 접근점은 관련 기록 기술에서 분명하게 드러나는 것으로 선택해야 합니다." (RAD 21.0B) 이 필드 안의 값은 전거레코드의 이름 필드에서 승인된 형태로 가져와야 합니다. 이름의 첫 몇 글자를 입력하여 존재하는 이름을 탐색하시오. 아니면, 생성할 새 이름을 입력하고 새로운 전거레코드에 연결하시오.</target>
       </trans-unit>
       <trans-unit id="950">
         <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
-        <target/>
+        <target>지역 및/또는 국가의 규정에 따라 고유한 기술 식별자를 기록하시오. 만약 기술이 국제적으로 사용된다면, 국가명에 대한 ISO 3166를 따라 국가코드를 기록하시오. 기술의 생산자가 국제기구일 경우, 국가코드에 조직 식별자를 기입하시오.</target>
       </trans-unit>
       <trans-unit id="951">
         <source>Description identifier</source>
@@ -560,114 +552,130 @@
       </trans-unit>
       <trans-unit id="952">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
-        <target/>
+        <target>기술사항을 생성, 수정 또는 배포함에 있어 책임을 지는 기관(들)의 공식명칭(들)을 기록하거나, 국내 또는 국제기관 표준 코드를에 따른 기관의 코드를 기록하시오.</target>
       </trans-unit>
       <trans-unit id="953">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description.</source>
-        <target/>
+        <target>기술물을 작성시 준수한 국제적, 국가적 및/또는 지역적 규칙이나 협약을 기록하시오.</target>
       </trans-unit>
       <trans-unit id="954">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
-        <target/>
+        <target>현재 기록물 기술의 상태, 즉  초안인지 최종본인지, 수정, 삭제 여부가 있는지에 대해 기술하시오. </target>
       </trans-unit>
       <trans-unit id="955">
         <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
-        <target/>
+        <target>기술이 관련 있는 국제 및/또는 국가적 지침 및/또는 규칙에 따라 세부사항의 최소, 일부 또는 최대 계층으로 구성되어있는지 여부를 기록하시오.</target>
       </trans-unit>
       <trans-unit id="956">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
-        <target/>
+        <target>항목이 작성 되었거나 수정된 일자(들)를 기록하시오.</target>
       </trans-unit>
       <trans-unit id="957">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>기록물을 기술하는데 사용된 언어(들)을 기입하시오.</target>
       </trans-unit>
       <trans-unit id="958">
         <source>Language</source>
-        <target/>
+        <target>언어</target>
       </trans-unit>
       <trans-unit id="959">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>기록 자료의 기술을 만드는 데 사용되는 스크립트(들)을 밝히시오.</target>
       </trans-unit>
       <trans-unit id="960">
         <source>Script</source>
-        <target/>
+        <target>규약</target>
       </trans-unit>
       <trans-unit id="961">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>이름 접근점 (주제)</target>
       </trans-unit>
       <trans-unit id="962">
         <source>Rights area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="963">
-        <source>Edit rights area</source>
-        <target/>
+        <target>권한 영역</target>
       </trans-unit>
       <trans-unit id="964">
         <source>Accession area</source>
-        <target/>
+        <target>인수 영역</target>
       </trans-unit>
       <trans-unit id="966">
         <source>Language and script note</source>
-        <target/>
+        <target>언어 및 규약 주기</target>
       </trans-unit>
       <trans-unit id="967">
         <source>Language and script notes</source>
-        <target/>
+        <target>기록물의 언어 및 규약</target>
       </trans-unit>
       <trans-unit id="969">
         <source>Edition statement - This is a mandatory element for published items if there are multiple editions.</source>
-        <target/>
+        <target>판사항 - 여러 판본이 있는 경우 출판된 건에 필수 요소</target>
       </trans-unit>
       <trans-unit id="970">
         <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
-        <target/>
+        <target>"이 영역은 건 단위 기술에서 사용하며 단일 혹은 다중의 사본들,  둘 이상의 버전을 가진 기록물의 판본정보를 기록하기위해 사용할 수 있습니다." (RAD 1.2A1) "기술되는 기록물 건의 추가 판사항을 기록하시오." (RAD 1.2B1) "만약 기술되는 기록물 건에  기록할 판 사항은 없지만 다른 추가 판에 주요한 변화가 포함되어 있다면, 이에 대해 언어와 본 제목에  짧막한 내역을 기술하고 꺾쇠 괄호로 그것을 표기하시오." (RAD 1.2B3)</target>
       </trans-unit>
       <trans-unit id="971">
         <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>"사용된 특정 알파벳이나 기호체계를 표기하시오." (RAD 1.8.B14) 드롭다운 메뉴에서 옵션을 선택하시오; 선택의 폭을 좁히기 위해 처음 몇개의 글자를 입력하시오.</target>
       </trans-unit>
       <trans-unit id="973">
         <source>How to access to this content?</source>
-        <target/>
+        <target>이 내용에 어떻게 접근할 것인가?</target>
       </trans-unit>
       <trans-unit id="974">
         <source>Contact the archivist at %1%</source>
-        <target/>
+        <target>%1%에서 아키비스트와 접촉</target>
       </trans-unit>
       <trans-unit id="975">
         <source>Show details</source>
-        <target/>
+        <target>상세 보기</target>
       </trans-unit>
       <trans-unit id="976">
         <source>Close</source>
-        <target/>
+        <target>닫기</target>
       </trans-unit>
       <trans-unit id="977">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
-        <target/>
+        <target>"기술되는 개체에 의해 수행된 기능, 업무 그리고 활동을 해당되는 날짜와 함께 기록하시오. 필요한 경우, 기능, 업무 또는 활동의 성격에 대해서도 기술하시오." (RAD 1.8B14).</target>
       </trans-unit>
       <trans-unit id="978">
         <source>For terms governing use and reproduction, "Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c). For terms governing publication, "Give information on legal or donor restrictions that may affect publication of the material." (RAD 1.8B16d)</source>
-        <target/>
+        <target>이용 및 재생산 용어들에 대해서, "자료의 이용 및 재생산에 영향을 미칠 수 있는 법적 정보 또는 기증자 제약 정보를 제공하시오." (RAD 1.8B16c). 출판 용어들에 대해, "자료의 출판에 영향을 미칠 수 있는 법적 정보와 기증자 제한 정보를 제공하시오." (RAD 1.8B16d)</target>
       </trans-unit>
       <trans-unit id="979">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target/>
+        <target>기록 기술에서 외부 자원을 사용했다면 이에 대한 인용사항을 기록하시오 (범위와 내용, 보관 이력 또는 주기 필드 등).</target>
       </trans-unit>
       <trans-unit id="980">
         <source>Associated materials</source>
-        <target/>
+        <target>관련 자료</target>
       </trans-unit>
       <trans-unit id="981">
         <source>Related materials</source>
-        <target/>
+        <target>관련 자료</target>
       </trans-unit>
       <trans-unit id="982">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target>이 기술과 AtoM의 다른 기술 간의 관계를 설정하려면, 관련 기술명을 몇 자 입력하고 그 아래 나타나는 자동완성 드롭다운 메뉴에서 선택하세요. 2개 이상의 관계 설정이 가능합니다.</target>
+      </trans-unit>
+      <trans-unit id="983">
+        <source>Administrative history / Biographical sketch</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="984">
+        <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="985">
+        <source>Genre access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="986">
+        <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="987">
+        <source>General note</source>
         <target/>
       </trans-unit>
     </body>

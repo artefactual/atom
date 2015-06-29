@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ja" datatype="plaintext" original="messages" date="2014-09-19T13:20:01Z" product-name="messages">
+  <file source-language="en" target-language="ja" datatype="plaintext" original="messages" date="2015-06-29T14:59:40Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -268,10 +268,6 @@
         <source>Edit access points</source>
         <target>アクセスポイントを編集する</target>
       </trans-unit>
-      <trans-unit id="73">
-        <source>Edit rights area</source>
-        <target>権利のエリアを編集する</target>
-      </trans-unit>
       <trans-unit id="74">
         <source>Accession area</source>
         <target>受入資料エリア</target>
@@ -398,6 +394,18 @@
       </trans-unit>
       <trans-unit id="105">
         <source>Record the international, national or local rules or conventions followed in preparing the description. (DACS 8.1.4)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Administrative / Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Administrative history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Biographical history</source>
         <target/>
       </trans-unit>
     </body>

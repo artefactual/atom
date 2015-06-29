@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2014-09-19T13:19:51Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2015-06-29T14:57:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -406,11 +406,11 @@ registos completos são os que fornecem informação para todos os elementos de 
       </trans-unit>
       <trans-unit id="104">
         <source>EAC</source>
-        <target/>
+        <target>EAC</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Last updated</source>
-        <target/>
+        <target>Última atualização</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Category</source>
@@ -418,15 +418,15 @@ registos completos são os que fornecem informação para todos os elementos de 
       </trans-unit>
       <trans-unit id="107">
         <source>Relationship type</source>
-        <target/>
+        <target>Tipo de relação</target>
       </trans-unit>
       <trans-unit id="108">
         <source>"Select a descriptive term from the drop-down menu to clarify the type of relationship between these two actors."</source>
-        <target/>
+        <target>Selecione um termo descritivo a partir da lista de opções para indicar o tipo de relação entre estas duas entidades produtoras.</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Type of relationship</source>
-        <target/>
+        <target>Tipo de relação</target>
       </trans-unit>
     </body>
   </file>

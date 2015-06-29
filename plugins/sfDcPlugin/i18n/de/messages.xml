@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2014-09-17T11:50:27Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2015-06-29T14:57:31Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -56,11 +56,11 @@
       </trans-unit>
       <trans-unit id="903">
         <source>Contributor</source>
-        <target/>
+        <target>Beitragender</target>
       </trans-unit>
       <trans-unit id="904">
         <source>Relation (isLocatedAt)</source>
-        <target/>
+        <target>Beziehung (isLocatedAt)</target>
       </trans-unit>
       <trans-unit id="905">
         <source>Coverage (spatial)</source>
@@ -68,7 +68,7 @@
       </trans-unit>
       <trans-unit id="907">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Dies ist ein Duplikat der Akte %1%</target>
       </trans-unit>
       <trans-unit id="908">
         <source>The unambiguous reference code used to uniquely identify this resource.</source>
@@ -96,7 +96,7 @@
       </trans-unit>
       <trans-unit id="919">
         <source>Related material(s) from which this resource is derived.</source>
-        <target/>
+        <target>Verwandte Materialien, von denen sich diese Ressource herleitet.</target>
       </trans-unit>
       <trans-unit id="920">
         <source>Language(s) of this resource.</source>
@@ -120,7 +120,7 @@
       </trans-unit>
       <trans-unit id="929">
         <source>&lt;p&gt;The nature or genre of the resource.&lt;/p&gt;&lt;p&gt;Assign as many types as applicable. The &lt;em&gt;Type&lt;/em&gt; options are limited to the DCMI Type vocabulary.&lt;/p&gt;&lt;p&gt;Assign the &lt;em&gt;Collection&lt;/em&gt; value if this resource is the top-level for a set of lower-level (child) resources.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the &lt;em&gt;image&lt;/em&gt;, &lt;em&gt;text&lt;/em&gt;, &lt;em&gt;sound&lt;/em&gt; or &lt;em&gt;moving image&lt;/em&gt; types are added automatically upon output, so do not duplicate those values here.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;Die Art oder Gattung der Ressource:.&lt;/p&gt;&lt;p&gt;Ordnen Sie so viele Typen wie sinnvoll zu.  Die &lt;em&gt;Typ&lt;/em&gt;- Optionen sind begrenzt auf das DCMI Typ Vokabular..&lt;/p&gt;&lt;p&gt;Weisen Sie den Wert &lt;em&gt;Sammlung [Collection]&lt;/em&gt;zu, wenn diese Ressource sich auf der obersten Ebene für eine Menge an Ressourcen auf einer niedrigeren Stufe (Kind-Elemente) befindet.&lt;/p&gt;&lt;p&gt;Bitte beachten Sie: wenn diese Ressource mit einem digitalen Objekt verknüpft ist, dann werden die &lt;em&gt;Bild-&lt;/em&gt;, &lt;em&gt;Text-&lt;/em&gt;, &lt;em&gt;Klang-&lt;/em&gt; oder&lt;em&gt;Film-&lt;/em&gt;Typen automatisch bei der Ausgabe hinzugefügt, bitte hier keine Werte doppelt eingeben.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="930">
         <source>&lt;p&gt;&lt;strong&gt;Child levels&lt;/strong&gt;&lt;br/&gt;Use these two fields to add lower levels to a collection level description. Click &lt;em&gt;Add new&lt;/em&gt; to create as many child levels as necessary.&lt;/p&gt;&lt;p&gt;These fields can also be used to add any number of intermediate levels of description (e.g. series, file, etc) between the top and bottom levels in a descriptive hierarchy. Use the hierarchy treeview to re-order hierarchy levels as necessary.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Identifier&lt;/em&gt;: The unambiguous reference code used to uniquely identify the child-level resource.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Title&lt;/em&gt;: The name given to the child-level resource.&lt;/p&gt;</source>
@@ -142,10 +142,6 @@
         <source>Rights area</source>
         <target>Bereich 'Rechte'</target>
       </trans-unit>
-      <trans-unit id="935">
-        <source>Edit rights area</source>
-        <target>Bearbeite Bereich 'Rechte'</target>
-      </trans-unit>
       <trans-unit id="936">
         <source>Accession area</source>
         <target>Bereich Zugang</target>
@@ -161,22 +157,6 @@
       <trans-unit id="939">
         <source>Elements area</source>
         <target>Bereich 'Elemente'</target>
-      </trans-unit>
-      <trans-unit id="940">
-        <source>How to access to this content?</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="941">
-        <source>Contact the archivist at %1%</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="942">
-        <source>Show details</source>
-        <target>Zeige Details</target>
-      </trans-unit>
-      <trans-unit id="943">
-        <source>Close</source>
-        <target>Schließen</target>
       </trans-unit>
       <trans-unit id="944">
         <source>Edit elements area</source>
@@ -212,7 +192,7 @@
       </trans-unit>
       <trans-unit id="952">
         <source>Identify and record the name(s) and type(s) of the unit of description.</source>
-        <target/>
+        <target>Die Name(n) und Art(en) der Verzeichnungseinheit sind zu identifizieren und festzuhalten.</target>
       </trans-unit>
     </body>
   </file>

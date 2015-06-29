@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2014-09-19T13:20:08Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2015-06-29T14:57:05Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Telephone: </source>
-        <target/>
+        <target>Số điện thoại :</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Fax: </source>
-        <target/>
+        <target>Fax: </target>
       </trans-unit>
       <trans-unit id="3">
         <source>Email: </source>

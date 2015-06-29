@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2014-09-19T13:19:55Z" product-name="messages">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2015-06-29T14:59:02Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -84,10 +84,6 @@
         <source>Rights area</source>
         <target>Àrea de drets</target>
       </trans-unit>
-      <trans-unit id="21">
-        <source>Edit rights area</source>
-        <target>Edita l'àrea de drets</target>
-      </trans-unit>
       <trans-unit id="22">
         <source>Accession area</source>
         <target>Àrea d'ingressos</target>
@@ -139,6 +135,30 @@
       <trans-unit id="34">
         <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.</source>
         <target>Identifiqueu la institució o fons del repositori propietari del recurs. Cerqueu un nom de repositori existent escrivint les primeres lletres del nom. Alternativament, escriuviu un nou nom per crear i enllaçar a un nou registre de repositori.</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Places</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Names</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>An abstract, table of contents or description of the resource's scope and contents.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Description</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

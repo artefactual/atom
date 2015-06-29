@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2013-10-03T11:49:41Z" product-name="messages">
+  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2015-06-29T15:05:36Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -15,10 +15,6 @@
       <trans-unit id="3">
         <source>The supplied content type is not supported by this server</source>
         <target>Il tipo di contenuto fornito non è supportato da questo server</target>
-      </trans-unit>
-      <trans-unit id="4">
-        <source>Checksum sent does not match the calculated checksum</source>
-        <target>Il checksum inviato non corrisponde con il checksum calcolato</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Not implemented</source>

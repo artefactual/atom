@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2013-10-03T11:49:46Z" product-name="messages">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2015-06-29T15:00:00Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -84,10 +84,6 @@
         <source>Rights area</source>
         <target>Área de dereitos</target>
       </trans-unit>
-      <trans-unit id="24">
-        <source>Edit rights area</source>
-        <target>Editar área de dereitos</target>
-      </trans-unit>
       <trans-unit id="25">
         <source>Accession area</source>
         <target>Área de acceso</target>
@@ -163,22 +159,6 @@
       <trans-unit id="44">
         <source>Elements area</source>
         <target>Área de elementos</target>
-      </trans-unit>
-      <trans-unit id="45">
-        <source>How to access to this content?</source>
-        <target>¿Como acceder a este contido?</target>
-      </trans-unit>
-      <trans-unit id="46">
-        <source>Contact the archivist at %1%</source>
-        <target>Contactar co arquiveiro en %1%</target>
-      </trans-unit>
-      <trans-unit id="47">
-        <source>Show details</source>
-        <target>Mostrar detalles</target>
-      </trans-unit>
-      <trans-unit id="48">
-        <source>Close</source>
-        <target>Pechar</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Edit elements area</source>

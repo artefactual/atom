@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2014-09-17T12:02:47Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2015-06-29T14:57:05Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Import completed</source>
-        <target/>
+        <target>nội dung hoàn thành</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1% terms imported in %2%s</source>
-        <target/>
+        <target>%1% hạn động nhập trong %2%s</target>
       </trans-unit>
       <trans-unit id="3">
         <source>View %1%</source>
-        <target/>
+        <target>Xem %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Import more %1%</source>
-        <target/>
+        <target>động nhập nhiều hơn %1%</target>
       </trans-unit>
       <trans-unit id="5">
         <source>SKOS import</source>
-        <target/>
+        <target>động nhập SKOS</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Select a file to import</source>
-        <target/>
+        <target>Chọn tập tin cho động nhập </target>
       </trans-unit>
       <trans-unit id="7">
         <source>Import</source>
-        <target/>
+        <target>nội dung</target>
       </trans-unit>
     </body>
   </file>

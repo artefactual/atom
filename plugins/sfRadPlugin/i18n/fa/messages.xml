@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2014-09-17T12:02:00Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2015-06-29T14:58:30Z" product-name="messages">
     <body>
       <trans-unit id="44">
         <source>Reference code</source>
@@ -278,10 +278,6 @@
         <source>Accruals</source>
         <target/>
       </trans-unit>
-      <trans-unit id="862">
-        <source>Other notes</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="863">
         <source>Standard number area</source>
         <target/>
@@ -412,10 +408,6 @@
       </trans-unit>
       <trans-unit id="904">
         <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="905">
-        <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Enter an unambiguous code used to uniquely identify the description.&lt;br/&gt;&lt;strong&gt;Level:&lt;/strong&gt; Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
         <target/>
       </trans-unit>
       <trans-unit id="906">
@@ -602,10 +594,6 @@
         <source>Rights area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="956">
-        <source>Edit rights area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="957">
         <source>Accession area</source>
         <target/>
@@ -668,6 +656,26 @@
       </trans-unit>
       <trans-unit id="975">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="976">
+        <source>Administrative history / Biographical sketch</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="977">
+        <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="978">
+        <source>Genre access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="979">
+        <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="980">
+        <source>General note</source>
         <target/>
       </trans-unit>
     </body>

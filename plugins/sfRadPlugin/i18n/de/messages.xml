@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2014-09-19T13:20:02Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2015-06-29T14:57:32Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -52,7 +52,7 @@
       </trans-unit>
       <trans-unit id="502">
         <source>Title proper of publisher's series</source>
-        <target/>
+        <target>Haupttitel der Verlagsreihe</target>
       </trans-unit>
       <trans-unit id="504">
         <source>Other title information of publisher's series</source>
@@ -84,7 +84,7 @@
       </trans-unit>
       <trans-unit id="779">
         <source>Other title information</source>
-        <target/>
+        <target>Andere Titelinformation</target>
       </trans-unit>
       <trans-unit id="783">
         <source>Edition statement</source>
@@ -92,19 +92,19 @@
       </trans-unit>
       <trans-unit id="784">
         <source>Statement of scale (cartographic)</source>
-        <target/>
+        <target>Angaben zum Maßstab (kartografisch)</target>
       </trans-unit>
       <trans-unit id="785">
         <source>Statement of projection (cartographic)</source>
-        <target/>
+        <target>Angaben zur Projektion (kartografisch)</target>
       </trans-unit>
       <trans-unit id="786">
         <source>Statement of coordinates (cartographic)</source>
-        <target/>
+        <target>Angaben zu Koordinaten (kartografisch)</target>
       </trans-unit>
       <trans-unit id="787">
         <source>Statement of scale (architectural)</source>
-        <target/>
+        <target>Angaben zum Maßstab (architektonisch)</target>
       </trans-unit>
       <trans-unit id="788">
         <source>Issuing jurisdiction and denomination (philatelic)</source>
@@ -136,11 +136,11 @@
       </trans-unit>
       <trans-unit id="796">
         <source>Terms governing use, reproduction, and publication</source>
-        <target/>
+        <target>Bestimmungen, die die Benutzung, Reproduktion und Veröffentlichung regeln.</target>
       </trans-unit>
       <trans-unit id="799">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Regeln und/oder Konventionen</target>
       </trans-unit>
       <trans-unit id="831">
         <source>Description record identifier</source>
@@ -172,11 +172,11 @@
       </trans-unit>
       <trans-unit id="909">
         <source>Edit title and statement of responsibility area</source>
-        <target/>
+        <target>Bearbeite den Bereich "Titel und Angabe zur Zuständigkeit"</target>
       </trans-unit>
       <trans-unit id="910">
         <source>Title statements of responsibility</source>
-        <target/>
+        <target>Titelangaben zur Verantwortlichkeit</target>
       </trans-unit>
       <trans-unit id="911">
         <source>Title notes</source>
@@ -184,7 +184,7 @@
       </trans-unit>
       <trans-unit id="912">
         <source>Edition area</source>
-        <target/>
+        <target>Bereich "Edition"</target>
       </trans-unit>
       <trans-unit id="913">
         <source>Edit edition area</source>
@@ -278,10 +278,6 @@
         <source>Accruals</source>
         <target>Zuwächse</target>
       </trans-unit>
-      <trans-unit id="936">
-        <source>Other notes</source>
-        <target>Sonstige Anmerkungen</target>
-      </trans-unit>
       <trans-unit id="937">
         <source>Standard number area</source>
         <target/>
@@ -292,7 +288,7 @@
       </trans-unit>
       <trans-unit id="939">
         <source>Standard number</source>
-        <target/>
+        <target>Standardnummer</target>
       </trans-unit>
       <trans-unit id="940">
         <source>Access points</source>
@@ -316,7 +312,7 @@
       </trans-unit>
       <trans-unit id="947">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Dies ist ein Duplikat der Akte %1%</target>
       </trans-unit>
       <trans-unit id="948">
         <source>Statement of responsibility</source>
@@ -364,19 +360,19 @@
       </trans-unit>
       <trans-unit id="962">
         <source>Statement of scale (architectural) - This is a mandatory element for architectural drawing.</source>
-        <target/>
+        <target>Angaben zum Maßstab (architektonisch) - dies ist ein notwendiges Feld für Architekturzeichnungen</target>
       </trans-unit>
       <trans-unit id="963">
         <source>Statement of coordinates (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>Angaben zu Koordinaten (kartografisch) - dies ist ein notwendiges Feld für Karten</target>
       </trans-unit>
       <trans-unit id="964">
         <source>Statement of projection (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>Angaben zur Projektion (kartografisch) - dies ist ein notwendiges Feld für Karten</target>
       </trans-unit>
       <trans-unit id="965">
         <source>Statement of scale (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>Angaben zum Maßstab (kartografisch) - dies ist ein notwendiges Feld für Karten</target>
       </trans-unit>
       <trans-unit id="966">
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
@@ -414,17 +410,13 @@
         <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="979">
-        <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Enter an unambiguous code used to uniquely identify the description.&lt;br/&gt;&lt;strong&gt;Level:&lt;/strong&gt; Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="980">
         <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
         <target>Wählen Sie den Name des Archivs, das die Resource verwahrt. Die Werte in diesem Feld werden übernommen aus dem Feld 'autorisierte Namensform' aus den Datensätzen zu Archiven. Suchen Sie nach einem existierenden Namen, indem Sie die ersten Buchstaben des Namens eintippen. Alternativ geben sie einen neuen Namen ein und verlinken ihn mit einem neuen Archiv. </target>
       </trans-unit>
       <trans-unit id="981">
         <source>Enter an unambiguous code used to uniquely identify the description.</source>
-        <target/>
+        <target>Geben Sie einen eindeutigen Code ein, um die Beschreibung unverwechselbar zu identifizieren</target>
       </trans-unit>
       <trans-unit id="983">
         <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
@@ -540,11 +532,11 @@
       </trans-unit>
       <trans-unit id="1014">
         <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
-        <target/>
+        <target>Suchen Sie nach einem existierenden Begriff in der "Themen-Taxonomie" indem Sie die ersten Buchstaben des Begriffs eintippen. Alternativ geben sie einen neuen Namen ein und verlinken ihn mit einem neuen Themen-Begriff. </target>
       </trans-unit>
       <trans-unit id="1015">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
-        <target/>
+        <target>Suchen Sie nach einem existierenden Begriff in der "Orte-Taxonomie" indem Sie die ersten Buchstaben des Begriffs eintippen. Alternativ geben sie einen neuen Namen ein und verlinken ihn mit einem neuen Orts-Begriff. </target>
       </trans-unit>
       <trans-unit id="1016">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
@@ -568,15 +560,15 @@
       </trans-unit>
       <trans-unit id="1021">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
-        <target/>
+        <target>Halten Sie den aktuellen Status der Beschreibung fest. Weisen Sie darauf hin, ob es sich um einen Entwurf, eine abgeschlossene und/oder überarbeitete oder gelöschte Fassung handelt.</target>
       </trans-unit>
       <trans-unit id="1022">
         <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
-        <target/>
+        <target>Halten Sie fest, ob die Beschreibung einen minimalen, teilweisen oder vollständigen Detaillierungsgrad gemäß den relevanten internationalen und/oder nationalen Regelwerken oder Leitlinien aufweist.</target>
       </trans-unit>
       <trans-unit id="1023">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
-        <target/>
+        <target>Halten Sie fest, wann der Eintrag ausgearbeitet und/oder überarbeitet wurde.</target>
       </trans-unit>
       <trans-unit id="1024">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
@@ -596,15 +588,11 @@
       </trans-unit>
       <trans-unit id="1028">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>Name Zugriffspunkte (Themen)</target>
       </trans-unit>
       <trans-unit id="1029">
         <source>Rights area</source>
         <target>Bereich 'Rechte'</target>
-      </trans-unit>
-      <trans-unit id="1030">
-        <source>Edit rights area</source>
-        <target>Bearbeite Bereich 'Rechte'</target>
       </trans-unit>
       <trans-unit id="1031">
         <source>Accession area</source>
@@ -632,11 +620,11 @@
       </trans-unit>
       <trans-unit id="1040">
         <source>How to access to this content?</source>
-        <target/>
+        <target>Wie kann man Zugang zu diesem Inhalt bekommen?</target>
       </trans-unit>
       <trans-unit id="1041">
         <source>Contact the archivist at %1%</source>
-        <target/>
+        <target>Nehmen Sie Kontakt mit dem Archivar auf unter %1%</target>
       </trans-unit>
       <trans-unit id="1042">
         <source>Show details</source>
@@ -656,11 +644,11 @@
       </trans-unit>
       <trans-unit id="1046">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target/>
+        <target>Erfassen Sie alle Angaben zu externen Quellen, die in der archivischen Beschreibung benutzt wurden (wie z. B. in den Elementen "Eingrenzung und Inhalt", "Bestandsgeschichte" oder "Anmerkungen"). </target>
       </trans-unit>
       <trans-unit id="1047">
         <source>Associated materials</source>
-        <target/>
+        <target>Verbundene Materialien</target>
       </trans-unit>
       <trans-unit id="1048">
         <source>Related materials</source>
@@ -669,6 +657,26 @@
       <trans-unit id="1049">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
         <target>Um eine Beziehung zwischen dieser Beschreibungund einer anderen Beschreibung in Atom herzustellen, beginnen Sie den Namen der verwandten Beschreibung einzugeben und wählen sie aus dem Autovervollständigen Drop-down Menü aus. Es können mehrere Beziehungen erstellt werden.</target>
+      </trans-unit>
+      <trans-unit id="1050">
+        <source>Administrative history / Biographical sketch</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1051">
+        <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1052">
+        <source>Genre access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1053">
+        <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1054">
+        <source>General note</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

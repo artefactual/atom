@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2014-09-17T11:57:37Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2015-06-29T14:59:40Z" product-name="messages">
     <body>
       <trans-unit id="43">
         <source>Identity area</source>
@@ -307,10 +307,6 @@
         <source>End</source>
         <target>終了</target>
       </trans-unit>
-      <trans-unit id="902">
-        <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Provide a specific local reference code, control number, or other unique identifier.&lt;br/&gt;&lt;strong&gt;Level of description:&lt;/strong&gt; Record the level of this unit of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
-        <target>&lt;strong&gt;識別子：&lt;/strong&gt; 特別な場所の、参照コード、整理番号、そのほかの一義的な識別子を提供します。&lt;br/&gt;&lt;strong&gt;記述階層：&lt;/strong&gt; この記述単位の階層を記録します。&lt;br/&gt;&lt;strong&gt;タイトル：&lt;/strong&gt; マルチレベル記述のルールと国際的な慣例にしたがって、正式タイトルか簡潔な支給されたタイトルを提供します。</target>
-      </trans-unit>
       <trans-unit id="905">
         <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
         <target>アーカイブズ資料のリポジトリを持つ組織の名称を入力する。名称の冒頭の文字を入力してアーカイブズ機関レコードから実在する名称を検索する。あるいは新しく名称を入力し新しくアーカイブズ機関レコードを作成してリンクさせる。</target>
@@ -423,10 +419,6 @@
         <source>Rights area</source>
         <target>権利のエリア</target>
       </trans-unit>
-      <trans-unit id="944">
-        <source>Edit rights area</source>
-        <target>権利のエリアを編集する</target>
-      </trans-unit>
       <trans-unit id="945">
         <source>Accession area</source>
         <target>受入資料エリア</target>
@@ -477,6 +469,22 @@
       </trans-unit>
       <trans-unit id="960">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="961">
+        <source>Administrative / Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="962">
+        <source>Administrative history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="963">
+        <source>Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="964">
+        <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
         <target/>
       </trans-unit>
     </body>

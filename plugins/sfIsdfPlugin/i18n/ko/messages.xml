@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2013-10-03T11:51:18Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2015-06-29T14:57:02Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Add new function</source>
-        <target/>
+        <target>기능 추가</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Untitled</source>
-        <target/>
+        <target>제목없음</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
@@ -18,23 +18,23 @@
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Type%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%유형%2% - 이 항목은 %3%필수%4% 요소입니다.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%이름의 전거형-Authorized form of name %2% - 이것은 %3%필수%4% 요소이다.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%기술 참조코드%2% - 이 항목은 %3%필수%4% 요소입니다.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Related authority records</source>
-        <target/>
+        <target>관련 전거레코드들</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Identifier/name</source>
-        <target/>
+        <target>식별자/이름</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Nature of relationship</source>
@@ -46,7 +46,7 @@
       </trans-unit>
       <trans-unit id="11">
         <source>Related authority record</source>
-        <target/>
+        <target>관련 전거레코드</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Authorized form of name</source>
@@ -54,11 +54,11 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Select the name from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
-        <target/>
+        <target>드롭다운 메뉴에서 자료명을 선택하라. 편하게 선택하도록 자료명의 처음 몇 글자를 입력하거나 식별자를 입력하라. (ISDF 6.1)</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Related functions</source>
-        <target/>
+        <target>관련 기능들</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Name</source>
@@ -66,7 +66,7 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Category</source>
-        <target/>
+        <target>범주</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Description</source>
@@ -74,19 +74,19 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Related function</source>
-        <target/>
+        <target>관련 기능</target>
       </trans-unit>
       <trans-unit id="19">
         <source>"Record the authorised form of name and any unique identifier of the related function." (ISDF 5.3.1)</source>
-        <target/>
+        <target>"관련 기능의 공식명칭과 고유식별자를 기록하라." (ISDF 5.3.1)</target>
       </trans-unit>
       <trans-unit id="20">
         <source>"Record a general category into which the relationship being described falls." (ISDF 5.3.2) Select a category from the drop-down menu: hierarchical, temporal or associative.</source>
-        <target/>
+        <target>"기술되는 관계가 속하는 일반적 범주를 기록하라." (ISDF 5.3.2) drop-down메뉴에서 계층적(hierarchical), 전후(temporal), 기타 관계 중에서 범주를 선택하라.</target>
       </trans-unit>
       <trans-unit id="21">
         <source>"Record a precise description of the nature of the relationship between the function being described and the related function." (ISDF 5.3.3) Note that the text entered in this field will also appear in the related function.</source>
-        <target/>
+        <target>"기술되는 기능과 관련 기능 간의 관계의 속성을 정확하게 기록하라." (ISDF 5.3.3) 이 필드에 들어간 내용은 관련 기능에서도 나타나게 된다.</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Related resources</source>
@@ -94,11 +94,11 @@
       </trans-unit>
       <trans-unit id="23">
         <source>Identifier/title</source>
-        <target/>
+        <target>식별자/제목</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Related resource</source>
-        <target/>
+        <target>관련 자원</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Title</source>
@@ -106,11 +106,12 @@
       </trans-unit>
       <trans-unit id="26">
         <source>Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
-        <target/>
+        <target>drop-down메뉴에서 제목을 선택하라; 편하게 선택하도록 자료명의 처음 몇 글자를 입력하거나 식별자를 입력하라. (ISDF 6.1)
+</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Edit %1% - ISDF</source>
-        <target/>
+        <target>%1%을 편집하기 - ISDF</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Identity area</source>
@@ -118,7 +119,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>"Specify whether the description is a function or one of its subdivisions." (ISDF 5.1.1) Select the type from the drop-down menu; these values are drawn from the ISDF Function Types taxonomy.</source>
-        <target/>
+        <target>" 기술이 기능 전체에 대한 것인지 아니면 하위 부분에 대한 것인지에 대해 구체적으로 명기하시오." (ISDF 5.1.1) 다음 드롭다운 메뉴에서 유형을 선택하시오. 이 값들은 ISDF 기능 유형 분류에 근거합니다.</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Type</source>
@@ -126,15 +127,15 @@
       </trans-unit>
       <trans-unit id="31">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>이 항목은 필수 요소입니다.</target>
       </trans-unit>
       <trans-unit id="32">
         <source>"Record the authorised name of the function being described. In cases where the name is not enough, add qualifiers to make it unique such as the territorial or administrative scope, or the name of the institution which performs it. This element is to be used in conjunction with the Function description identifier element (5.4.1)." (ISDF 5.1.2)</source>
-        <target/>
+        <target>"기술되는 기능의 공식명을 기록하라. 이름이 충분하지 않다면 지역이나 행정 범위, 기능을 수행하는 기관명 등과 같은 한정어를 추가하여 기능을 고유하게 만든다. 이 요소는 기능 기술 식별자 요소와 함께 사용해야 한다(5.4.1)." (ISDF 5.1.2)</target>
       </trans-unit>
       <trans-unit id="33">
         <source>"Purpose: To indicate the various forms in which the authorized form(s) of name occurs in other languages or script forms. Rule: Record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions element (5.4.3.) which rules have been applied." (ISDF 5.1.3)</source>
-        <target/>
+        <target>"목적:  타언어로 혹은 다른 형태로 존재하는 다양한 형식의 이름명의 전거 형식(들) 을 나타내기 위해. 규칙:  기관명의 대등명(들)을 전거레코드 생산 기관이 사용한 국내외 규칙이나 규범들을 따라 기입하시오. 모든 필요한 하위 요소와 특정 협약 및 규칙에서의 제한자를 포합니다. 이전에 규칙이 적용된 요소와 규칙에 대해 구체적으로 설명하시오. (5.4.3.)" (ISDF 5.1.3)</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Parallel form(s) of name</source>
@@ -142,7 +143,7 @@
       </trans-unit>
       <trans-unit id="35">
         <source>"Record any other names for the function being described." (ISDF 5.1.4)</source>
-        <target/>
+        <target>"기술되는 기능에 대한 기타 이름을 기록하라." (ISDF 5.1.4)</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Other form(s) of name</source>
@@ -150,7 +151,7 @@
       </trans-unit>
       <trans-unit id="37">
         <source>"Record any term and/or code from a classification scheme of functions. Record the classification scheme used in the element Rules and/or conventions used (5.4.3)." (ISDF 5.1.5)</source>
-        <target/>
+        <target>"기능분류표의 용어와 코드를 기록하라. 사용된 분류표를 규칙/규약 요소(5.4.3)에 기록하라." (ISDF 5.1.5) </target>
       </trans-unit>
       <trans-unit id="38">
         <source>Context area</source>
@@ -158,19 +159,19 @@
       </trans-unit>
       <trans-unit id="39">
         <source>"Provide a date or date span which covers the dates when the function was started and when it finished. If a function is ongoing, no end date is needed." (ISDF 5.2.1)</source>
-        <target/>
+        <target>"기능이 시작된 날과 끝난 날이 포함된 날짜와 시기를 기술하라. 계속되는 기능인 경우, 종료일자는 필요하지 않다." (ISDF 5.2.1)</target>
       </trans-unit>
       <trans-unit id="40">
         <source>"Record a narrative description of the purpose of the function." (ISDF 5.2.2)</source>
-        <target/>
+        <target>"기능의 목적을 서술적으로 기록하라." (ISDF 5.2.2)</target>
       </trans-unit>
       <trans-unit id="41">
         <source>"Record in narrative form or as a chronology the main events relating to the function." (ISDF 5.2.3)</source>
-        <target/>
+        <target>"기능과 관련된 주요 사건을 서술적이거나 연대기 형식으로 기록하라." (ISDF 5.2.3)</target>
       </trans-unit>
       <trans-unit id="42">
         <source>"Record any law, directive or charter which creates, changes or ends the function." (ISDF 5.2.4)</source>
-        <target/>
+        <target>"기능을 시작하게 하고, 변화, 종료하게 만든 법률, 명령, 계약 등을 기록하라." (ISDF 5.2.4)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Relationships area</source>
@@ -182,7 +183,7 @@
       </trans-unit>
       <trans-unit id="45">
         <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISDF 5.4.1)</source>
-        <target/>
+        <target>"지역이나 국가규칙에 따라 고유한 기술 식별자를 기록하라. 기술을 국제적으로 사용해야 한다면 기술이 생산된 국가의 코드를 국가명 표현에 관한 ISO 3166 최신판에 따라 기록한다. 기술의 생산자가 국제기구인 경우 국가코드 대신에 국제기구 식별기호를 기재한다.“(ISDF 5.4.1) </target>
       </trans-unit>
       <trans-unit id="46">
         <source>Description identifier</source>
@@ -190,7 +191,7 @@
       </trans-unit>
       <trans-unit id="47">
         <source>"Record the full authorised form of name(s) of agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a recognized code for the agency." (ISDF 5.4.2)</source>
-        <target/>
+        <target>"기술의 생산이나 수정, 전달에 책임이 있는 기관의 완전한 공식명을 기록하거나 승인된 기관 코드를 기록하라." (ISDF 5.4.2)</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Institution identifier</source>
@@ -198,15 +199,16 @@
       </trans-unit>
       <trans-unit id="49">
         <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival description. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied." (ISDF 5.4.3)</source>
-        <target/>
+        <target>"목적: 보존기록 기술을 할 때에 적용된 국가 혹은 국제 규약을 확인하기 위한 요소이다.
+규칙: 국가적이거나 국제적 규약의 이름과 해당 판 및 제정 날짜를 기술한다." (ISDF 5.4.3)</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>규칙 및 협약</target>
       </trans-unit>
       <trans-unit id="51">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDF 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
-        <target/>
+        <target>"이 필드의 목적은 이용자가 기술의 현재 상태를 파악할 수 있도록 기술 상태를 나타내는 것이다."(ISDF 5.4.4). 드롭다운 메뉴에서 최종안, 수정안, 초안을 선택하라.  </target>
       </trans-unit>
       <trans-unit id="52">
         <source>Status</source>
@@ -214,7 +216,7 @@
       </trans-unit>
       <trans-unit id="53">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimum records are those that consist only of the three essential elements of an ISDF compliant record (see 4.7), while full records are those that convey information for all relevant ISDF elements of description." (ISDF 5.4.5)</source>
-        <target/>
+        <target>드롭다운 메뉴에서 완전, 중간, 최소 수준을 선택하라. 국가적 지침이나 규칙이 없는 경우, 최소 수준의 기술 레코드는 ISDF의 필수 요소 3개만으로 구성되며(4.7 참조), 완전 수준 레코드는 ISDF의 모든 관련 요소들에 대한 정보를 포함한다. (ISDF 5.4.5)</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Level of detail</source>
@@ -222,35 +224,35 @@
       </trans-unit>
       <trans-unit id="55">
         <source>"Record the date the description was created and the dates of any revisions to the description." (ISDF 5.4.6)</source>
-        <target/>
+        <target>"기술이 생산된 날짜와 수정된 날짜를 기록하라." (ISDF 5.4.6) </target>
       </trans-unit>
       <trans-unit id="56">
         <source>Dates of creation, revision or deletion</source>
-        <target/>
+        <target>생산, 수정, 삭제일자</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)</source>
-        <target/>
+        <target>드롭다운 메뉴에서 레코드 작성에 사용한 언어를 선택하라. 편하게 선택하도록 언어의 첫 몇 글자만 입력하라.(ISDF 5.4.7) </target>
       </trans-unit>
       <trans-unit id="58">
         <source>Language(s)</source>
-        <target/>
+        <target>언어(들)</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)</source>
-        <target/>
+        <target>드롭다운 메뉴에서 레코드 작성에 사용한 문자를 선택하라. 편하게 선택하도록 언어의 첫 몇 글자만 입력하라. (ISDF 5.4.7) </target>
       </trans-unit>
       <trans-unit id="60">
         <source>Script(s)</source>
-        <target/>
+        <target>규약(들)</target>
       </trans-unit>
       <trans-unit id="61">
         <source>"Record the sources consulted in establishing the function description." (ISDF 5.4.8)</source>
-        <target/>
+        <target>"기능 기술을 할 때 참고한 자료를 기록하라." (ISDF 5.4.8)</target>
       </trans-unit>
       <trans-unit id="62">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDF 5.4.9)</source>
-        <target/>
+        <target>"기능 기술의 생산과 관리와 관련된 주기를 기록하라." (ISDF 5.4.9)</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Cancel</source>
@@ -262,11 +264,11 @@
       </trans-unit>
       <trans-unit id="66">
         <source>Create</source>
-        <target/>
+        <target>생성하기</target>
       </trans-unit>
       <trans-unit id="67">
         <source>View ISDF function</source>
-        <target/>
+        <target>ISDF 기능 보기</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Edit identity area</source>
@@ -274,7 +276,7 @@
       </trans-unit>
       <trans-unit id="70">
         <source>Classification</source>
-        <target/>
+        <target>분류</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Edit context area</source>
@@ -286,11 +288,11 @@
       </trans-unit>
       <trans-unit id="73">
         <source>Legislation</source>
-        <target/>
+        <target>제정</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Edit relationships area</source>
-        <target/>
+        <target>관계 영역 편집하기</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Identifier</source>
@@ -302,19 +304,19 @@
       </trans-unit>
       <trans-unit id="77">
         <source>Description of relationship</source>
-        <target/>
+        <target>관계 기술</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Dates of relationship</source>
-        <target/>
+        <target>관계 일자</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Dates of the relationship</source>
-        <target/>
+        <target>관계 일자</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Edit control area</source>
-        <target/>
+        <target>제어 영역 편집하기</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Sources</source>
@@ -322,7 +324,7 @@
       </trans-unit>
       <trans-unit id="82">
         <source>Maintenance notes</source>
-        <target/>
+        <target>유지 주기</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Edit</source>

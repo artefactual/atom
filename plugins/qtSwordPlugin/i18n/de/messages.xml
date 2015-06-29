@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2014-09-17T11:50:27Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2015-06-29T14:57:32Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,15 +10,11 @@
       </trans-unit>
       <trans-unit id="2">
         <source>The supplied format is not supported by this server</source>
-        <target/>
+        <target>Das gelieferte Format wird von diesem Server nicht unterstützt.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>The supplied content type is not supported by this server</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="4">
-        <source>Checksum sent does not match the calculated checksum</source>
-        <target>Die gesendte Prüfsumme stimmt nicht mit der kalkulierten Prüfsumme überein</target>
+        <target>Der gelieferte Inhaltstyp wird von diesem Server nicht unterstützt.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Not implemented</source>
@@ -26,7 +22,7 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Bad request</source>
-        <target/>
+        <target>Anfrage fehlerhaft</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Forbidden</source>
