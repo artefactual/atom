@@ -25,20 +25,39 @@
  */
 class arElasticSearchPluginUtil
 {
-  public static function convertDate($date)
+  const
+    DATE_FORMAT = 'Y-m-d',
+    DATETIME_FORMAT = 'Y-m-d H:i:s',
+    DATETIME_DEFAULT_FORMAT = 'Y-m-d\TH:i:s\Z';
+
+  public static function convertDate($date, $format = null)
   {
     if (is_null($date))
     {
       return;
     }
 
+    if (is_null($format))
+    {
+      $format = self::DATETIME_DEFAULT_FORMAT;
+    }
+
     if ($date instanceof DateTime)
     {
-      $value = $date->format('Y-m-d\TH:i:s\Z');
+      $value = $date->format($format);
     }
     else
     {
-      $value = \Elastica\Util::convertDate($date);
+      if (is_int($date))
+      {
+        $timestamp = $date;
+      }
+      else
+      {
+        $timestamp = strtotime($date);
+      }
+
+      $value = date($format, $timestamp);
     }
 
     return $value;

@@ -40,19 +40,10 @@
         <li class="level-description"><?php echo esc_specialchars(QubitCache::getLabel($doc['levelOfDescriptionId'], 'QubitTerm')) ?></li>
       <?php endif; ?>
 
-      <?php if (isset($doc['dates'])): ?>
-        <?php foreach ($doc['dates'] as $date): ?>
-          <?php if (isset($date['startDateString'])
-            || isset($date['endDateString'])
-            || null != get_search_i18n($date, 'date', array('culture' => $culture))): ?>
-
-            <li class="dates"><?php echo Qubit::renderDateStartEnd(get_search_i18n($date, 'date', array('culture' => $culture)),
-              isset($date['startDateString']) ? $date['startDateString'] : null,
-              isset($date['endDateString']) ? $date['endDateString'] : null) ?></li>
-
-            <?php break; ?>
-
-          <?php endif; ?>
+      <?php if (!empty($doc['dates'])): ?>
+        <?php foreach ($doc['dates']->getRawValue() as $date): ?>
+          <li class="dates"><?php echo render_es_event_date($date) ?></li>
+          <?php break ?>
         <?php endforeach; ?>
       <?php endif; ?>
 

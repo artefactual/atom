@@ -591,3 +591,44 @@ function qubit_auto_link_urls($text, $href_options = array())
     create_function('$matches', $callback_function),
     $text);
 }
+
+function render_es_event_date($date, $culture = null)
+{
+  if (!is_array($date))
+  {
+    throw new sfException('Unexpected value');
+  }
+
+  if (!isset($culture))
+  {
+    $culture = sfContext::getInstance()->user->getCulture();
+  }
+
+  if (null !== $textDate = get_search_i18n($date, 'date', array('culture' => $culture)))
+  {
+    return $textDate;
+  }
+
+  $start = @$date['startDate'];
+  $end = @$date['endDate'];
+
+  if (!empty($start) && !empty($end))
+  {
+    if ($start == $end)
+    {
+      return $start;
+    }
+
+    return "$start - $end";
+  }
+
+  if (!empty($start) && empty($end))
+  {
+    return $start;
+  }
+
+  if (empty($start) && !empty($end))
+  {
+    return "? - $end";
+  }
+}

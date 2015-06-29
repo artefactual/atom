@@ -409,7 +409,7 @@ class arElasticSearchInformationObjectPdo
     {
       foreach ($this->events as $item)
       {
-        switch($field)
+        switch ($field)
         {
           case 'start_date':
           case 'end_date':
@@ -445,13 +445,11 @@ class arElasticSearchInformationObjectPdo
             if (isset($item->start_date))
             {
               $tmp['startDate'] = arElasticSearchPluginUtil::convertDate($item->start_date);
-              $tmp['startDateString'] = Qubit::renderDate($item->start_date);
             }
 
             if (isset($item->end_date))
             {
               $tmp['endDate'] = arElasticSearchPluginUtil::convertDate($item->end_date);
-              $tmp['endDateString'] = Qubit::renderDate($item->end_date);
             }
 
             $tmp['typeId'] = $item->type_id;
