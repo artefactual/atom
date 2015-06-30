@@ -37,11 +37,14 @@ class arBaseJob extends Net_Gearman_Job_Common
   private $requiredParameters = array('id', 'name');
   protected $downloadFileExtension = null; // Child class should set if creating user downloads
 
+  protected $dispatcher = null;
+
   public function run($parameters)
   {
     $this->checkRequiredParameters($parameters);
 
-    $this->logger = sfContext::getInstance()->getLogger();
+    $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
+
     $this->job = QubitJob::getById($parameters['id']);
 
     if ($this->job === null)
@@ -92,6 +95,17 @@ class arBaseJob extends Net_Gearman_Job_Common
   }
 
   /**
+   * Redirect logs to Gearman Worker logger
+   *
+   * @param string  $message  the message
+   */
+  protected function log($message)
+  {
+    $this->dispatcher->notify(new sfEvent($this, 'gearman.worker.log',
+      array('message' => $message)));
+  }
+
+  /**
    * A wrapper to log error messages and set the QubitJob status to error.
    * This will also attach the error message as a note in the QubitJob.
    *
@@ -104,7 +118,7 @@ class arBaseJob extends Net_Gearman_Job_Common
       throw new Net_Gearman_Job_Exception('Called arBaseJob::error() before QubitJob fetched.');
     }
 
-    $this->logger->err($this->formatLogMsg($message));
+    $this->log($this->formatLogMsg($message));
     $this->job->setStatusError($message);
     $this->job->save();
   }
@@ -121,7 +135,7 @@ class arBaseJob extends Net_Gearman_Job_Common
       throw new Net_Gearman_Job_Exception('Called arBaseJob::info() before QubitJob fetched.');
     }
 
-    $this->logger->info($this->formatLogMsg($message));
+    $this->log($this->formatLogMsg($message));
   }
 
   /**
