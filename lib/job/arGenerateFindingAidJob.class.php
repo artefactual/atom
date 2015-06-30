@@ -73,7 +73,7 @@ class arGenerateFindingAidJob extends arBaseJob
     }
 
     // Call generate EAD task
-    exec("php $appRoot/symfony export:bulk --single-id=$resource->id $public $eadFilePath", $junk, $exitCode);
+    exec("php $appRoot/symfony export:bulk --single-id=$resource->id $public $eadFilePath  2> /dev/null", $junk, $exitCode);
 
     if ($exitCode != 0)
     {
@@ -101,7 +101,7 @@ class arGenerateFindingAidJob extends arBaseJob
 
     $junk = array();
 
-    exec(sprintf("java -jar '%s' -s:'%s' -xsl:'%s' -o:'%s'",
+    exec(sprintf("java -jar '%s' -s:'%s' -xsl:'%s' -o:'%s' 2> /dev/null",
       $saxonPath, $eadFilePath, $eadXslFilePath, $foFilePath), $junk, $exitCode);
 
     if ($exitCode != 0)
@@ -111,7 +111,7 @@ class arGenerateFindingAidJob extends arBaseJob
     }
 
     // Use FOP generated in previous step to generate PDF
-    exec(sprintf("fop -r -q -fo '%s' -%s '%s'", $foFilePath, self::getFindingAidFormat(), $pdfPath), $junk, $exitCode);
+    exec(sprintf("fop -r -q -fo '%s' -%s '%s' 2> /dev/null", $foFilePath, self::getFindingAidFormat(), $pdfPath), $junk, $exitCode);
 
     if ($exitCode != 0)
     {
