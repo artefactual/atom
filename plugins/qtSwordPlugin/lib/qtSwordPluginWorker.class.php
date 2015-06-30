@@ -24,23 +24,12 @@ class qtSwordPluginWorker extends arBaseJob
    */
   protected $extraRequiredParameters = array('information_object_id');
 
-  protected $dispatcher = null;
-
-  protected function log($message)
-  {
-    $this->dispatcher->notify(new sfEvent($this, 'gearman.worker.log',
-      array('message' => $message)));
-  }
-
   public function runJob($package)
   {
-    $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
-
-    $this->log('A new job has started to being processed.');
+    $this->info('A new job has started to being processed.');
 
     if (!is_writable(sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.sfConfig::get('app_upload_dir')))
     {
-      $this->log('Job failed: Read-write access needed in {sf_web_dir}/{app_upload_dir}.');
       $this->error('Read-write access needed in {sf_web_dir}/{app_upload_dir}.');
 
       return false;
@@ -48,19 +37,19 @@ class qtSwordPluginWorker extends arBaseJob
 
     if (isset($package['location']))
     {
-      $this->log(sprintf('A package was deposited by reference.'));
-      $this->log(sprintf('Location: %s', $package['location']));
+      $this->info('A package was deposited by reference.');
+      $this->info(sprintf('Location: %s', $package['location']));
     }
     else if (isset($package['filename']))
     {
-      $this->log(sprintf('A package was deposited by upload.'));
+      $this->info('A package was deposited by upload.');
     }
 
-    $this->log(sprintf('Processing...'));
+    $this->info('Processing...');
 
     $resource = QubitInformationObject::getById($package['information_object_id']);
 
-    $this->log(sprintf('Object slug: %s', $resource->slug));
+    $this->info(sprintf('Object slug: %s', $resource->slug));
 
     $extractor = qtPackageExtractorFactory::build($package['format'],
       $package + array('resource' => $resource, 'job' => $job));
@@ -75,7 +64,7 @@ class qtSwordPluginWorker extends arBaseJob
     $this->job->setStatusCompleted();
     $this->job->save();
 
-    $this->log(sprintf('Job finished.'));
+    $this->info('Job finished.');
 
     return true;
   }

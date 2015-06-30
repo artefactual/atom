@@ -83,24 +83,24 @@ EOF;
     {
       if (!class_exists($ability))
       {
-        $this->logSection('gearman-worker', "Ability not defined: $ability. Please ensure the job is in the lib/task/job directory or that the plugin is enabled.");
+        $this->log("Ability not defined: $ability. Please ensure the job is in the lib/task/job directory or that the plugin is enabled.");
 
         continue;
       }
 
-      $this->logSection('gearman-worker', "New ability: $ability");
+      $this->log("New ability: $ability");
       $worker->addAbility(QubitJob::getJobPrefix() . $ability);
     }
 
     $worker->attachCallback(
       function($handle, $job, $e)
       {
-        $this->logSection('gearman-worker', "Job failed: ".$e->getMessage());
+        $this->log("Job failed: ".$e->getMessage());
       },
       Net_Gearman_Worker::JOB_FAIL);
 
-    $this->logSection('gearman-worker', 'Running worker...');
-    $this->logSection('gearman-worker', 'PID ' . getmypid());
+    $this->log('Running worker...');
+    $this->log('PID ' . getmypid());
 
     $counter = 0;
 
@@ -125,6 +125,14 @@ EOF;
 
   public function gearmanWorkerLogger(sfEvent $event)
   {
-    $this->logSection('gearman-worker', $event['message']);
+    $this->log($event['message']);
+  }
+
+  /**
+   * @see sfTask
+   */
+  public function log($message)
+  {
+    parent::log(date('Y-m-d H:i:s > ').$message);
   }
 }
