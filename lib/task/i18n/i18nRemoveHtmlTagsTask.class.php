@@ -172,7 +172,14 @@ EOF;
     {
       // Only update if tags are found
       if ($value != strip_tags($value)) {
-        $transformedValue = $this->transformHtmlToText($value);
+        $options = array();
+
+        if ($column == 'extent_and_medium')
+        {
+          $options['remove_dt_tags'] = true;
+        }
+
+        $transformedValue = $this->transformHtmlToText($value, $options);
 
         $query .= (count($values)) ? ', ' : '';
 
@@ -197,17 +204,22 @@ EOF;
    *
    * @return string  transformed text
    */
-  private function transformHtmlToText($html)
+  private function transformHtmlToText($html, $options = array())
   {
     // Parse HTML
     $doc = new DOMDocument();
     $doc->loadHTML($html);
 
     // Apply transformations
-    $this->transformDocument($doc);
+    $this->transformDocument($doc, $options);
 
-    // Convert to string and strip leading/trailing whitespace
-    return trim(strip_tags($doc->saveXml()));
+    // Convert to string and apply final formatting:
+    //
+    // 1. Remove remaining tags
+    // 2. Convert triple-spacing to double-spacing
+    // 3. Remove leading/trailing whitespace
+    //
+    return trim(str_replace("\n\n\n", "\n\n", strip_tags($doc->saveXml())));
   }
 
   /**
@@ -217,12 +229,21 @@ EOF;
    *
    * @return void
    */
-  private function transformDocument(&$doc)
+  private function transformDocument(&$doc, $options = array())
   {
     // Create text representations of various HTML tags
     $this->transformDocumentLinks($doc);
     $this->transformDocumentLists($doc);
-    $this->transformDocumentDescriptionLists($doc);
+
+    if ($options['remove_dt_tags'] === true)
+    {
+      $this->transformDocumentDescriptionListsRemovingTerms($doc);
+    }
+    else
+    {
+      $this->transformDocumentDescriptionLists($doc);
+    }
+
     $this->transformDocumentBreaks($doc);
 
     // Deal with paragraphs last, as other transformations create them
@@ -251,7 +272,7 @@ EOF;
       if ($linkHref)
       {
         if (0 === strpos(strtolower($linkHref), 'mailto:')) {
-          $linkHref = removeFromStartOfString($linkHref, 'mailto:');
+          $linkHref = $this->removeFromStartOfString($linkHref, 'mailto:');
         }
 
         $linkText .= ' ['. $linkHref .']';
@@ -309,16 +330,50 @@ EOF;
   {
     $termList = $doc->getElementsByTagName('dt');
 
-    // Loop through each <dt> tag and remove it
+    // Loop through each <dt> tag
     while ($termList->length > 0)
     {
       $termNode = $termList->item(0);
+
+      // Get <dd> element
+      $descriptionNode = $termNode->nextSibling;
+      $descriptionText = $descriptionNode->textContent;
+      $descriptionNode->parentNode->removeChild($descriptionNode);
+
+      // Create <p> with combined text of <dt> and <dd> elements
+      $combinedText = $termNode->textContent .' '. $descriptionText;
+      $newParaNode = $doc->createElement('p');
+      $newTextNode = $doc->createTextNode($combinedText);
+      $newParaNode->appendChild($newTextNode);
+
+      $termNode->parentNode->replaceChild($newParaNode, $termNode);
+    }
+  }
+
+  /**
+   * Transform description list-related tags, enclosing the contents
+   * of the <dt> and <dd> tags in <p> tags
+   *
+   * @param DOMDocument  $doc  DOM document
+   *
+   * @return void
+   */
+  private function transformDocumentDescriptionListsRemovingTerms(&$doc)
+  {
+    $termList = $doc->getElementsByTagName('dt');
+
+    // Loop through each <dt> tag and remove them
+    while ($termList->length > 0)
+    {
+      $termNode = $termList->item(0);
+
+      // Either remove <dt> tags or replace them with a text node
       $termNode->parentNode->removeChild($termNode);
     }
 
-    $descriptionList = $doc->getElementsByTagName('dd');
+    $descriptionList = $doc->getElementsByTagName('dl');
 
-    // Look through each <dd> element and change to a <p> element
+    // Look through each <dl> element and change to a <p> element
     while ($descriptionList->length > 0)
     {
       $descriptionNode = $descriptionList->item(0);
