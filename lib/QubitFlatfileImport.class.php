@@ -1150,7 +1150,7 @@ class QubitFlatfileImport
   }
 
   /**
-   * Create a Qubit actor or, if one already exists, fetch it
+   * Create a Qubit actor
    *
    * @param string $name     name of actor
    * @param string $options  optional data
@@ -1159,12 +1159,9 @@ class QubitFlatfileImport
    */
   public static function createOrFetchActor($name, $options = array())
   {
-    // Get actor or create a new one. If the actor exists the data is not overwritten
-    if (null === $actor = QubitActor::getByNameAndRepositoryId($name, $options['repositoryId']))
-    {
-      unset($options['repositoryId']);
-      $actor = QubitFlatfileImport::createActor($name, $options);
-    }
+    // NOTE: this function will only create actors as it stands, until we implement #8642
+    unset($options['repositoryId']);
+    $actor = QubitFlatfileImport::createActor($name, $options);
 
     return $actor;
   }
