@@ -604,6 +604,7 @@ class QubitFlatfileImport
                          $this->object->id, $this->object->sourceCulture, $legacyId);
 
           print $this->logError($msg);
+          $duplicateFound = true;
         }
       }
       else
@@ -631,27 +632,30 @@ class QubitFlatfileImport
       $this->executeClosurePropertyIfSet('rowInitLogic');
     }
 
-    // set fields in information object and execute custom column handlers
-    $this->rowProcessingBeforeSave($row);
-
-    // execute pre-save ad-hoc import logic
-    $this->executeClosurePropertyIfSet('preSaveLogic');
-
-    if (isset($this->className))
+    if (!$duplicateFound)
     {
-      $this->object->save();
-    }
-    else
-    {
-      // execute row completion logic
-      $this->executeClosurePropertyIfSet('saveLogic');
-    }
+      // set fields in information object and execute custom column handlers
+      $this->rowProcessingBeforeSave($row);
 
-    // execute post-save ad-hoc import logic
-    $this->executeClosurePropertyIfSet('postSaveLogic');
+      // execute pre-save ad-hoc import logic
+      $this->executeClosurePropertyIfSet('preSaveLogic');
 
-    // process import columns that produce child data (properties and notes)
-    $this->rowProcessingAfterSave($row);
+      if (isset($this->className))
+      {
+        $this->object->save();
+      }
+      else
+      {
+        // execute row completion logic
+        $this->executeClosurePropertyIfSet('saveLogic');
+      }
+
+      // execute post-save ad-hoc import logic
+      $this->executeClosurePropertyIfSet('postSaveLogic');
+
+      // process import columns that produce child data (properties and notes)
+      $this->rowProcessingAfterSave($row);
+    }
 
     // reset row-specific status variables
     $this->rowStatusVars = array();
