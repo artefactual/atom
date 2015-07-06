@@ -71,6 +71,7 @@ class QubitFlatfileImport
 
     // initialize bookkeeping of rows processed
     $this->status['rows'] = 0;
+    $this->status['duplicates'] = 0;
   }
 
 
@@ -321,12 +322,13 @@ class QubitFlatfileImport
    * Log error message if an error log has been defined
    *
    * @param string $message  error message
+   * @param boolean $includeCurrentRowNumber  prefix error message with row number
    *
    * @return string  message prefixed with current row number
    */
-  public function logError($message)
+  public function logError($message, $includeCurrentRowNumber = true)
   {
-    $message = sprintf("Row %d: %s\n", $this->getStatus('rows') + 1, $message);
+    $message = ($includeCurrentRowNumber) ? sprintf("Row %d: %s\n", $this->getStatus('rows') + 1, $message) : $message;
 
     if ($this->errorLog)
     {
@@ -523,6 +525,12 @@ class QubitFlatfileImport
       $this->stopTimer();
     }
 
+    if ($this->status['duplicates'])
+    {
+      $msg = sprintf('Duplicates found: %d', $this->status['duplicates']);
+      print $this->logError($msg, false);
+    }
+
     // add ability to define cleanup, etc. logic
     $this->executeClosurePropertyIfSet('completeLogic');
   }
@@ -605,6 +613,7 @@ class QubitFlatfileImport
 
           print $this->logError($msg);
           $duplicateFound = true;
+          $this->status['duplicates']++;
         }
       }
       else
