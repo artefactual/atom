@@ -32,7 +32,8 @@ class QubitFlatfileImport
   public $displayProgress = true;    // display progress by default
   public $rowsUntilProgressDisplay;  // optional display progress every n rows
 
-  public $searchIndexingDisabled = true; // disable per-object search indexing by default
+  public $searchIndexingDisabled = true;  // disable per-object search indexing by default
+  public $updateExisting         = false; // if object already imported, attempt update
 
   public $status          = array(); // place to store data related to overall import
   public $rowStatusVars   = array(); // place to store data related to current row
@@ -70,8 +71,9 @@ class QubitFlatfileImport
     $this->setPropertiesFromArray($this, $options, true);
 
     // initialize bookkeeping of rows processed
-    $this->status['rows'] = 0;
+    $this->status['rows']       = 0;
     $this->status['duplicates'] = 0;
+    $this->status['updated']    = 0;
   }
 
 
@@ -531,6 +533,12 @@ class QubitFlatfileImport
       print $this->logError($msg, false);
     }
 
+    if ($this->status['updates'])
+    {
+      $msg = sprintf('Updated: %d', $this->status['updated']);
+      print $this->logError($msg, false);
+    }
+
     // add ability to define cleanup, etc. logic
     $this->executeClosurePropertyIfSet('completeLogic');
   }
@@ -608,12 +616,21 @@ class QubitFlatfileImport
         }
         else if ($this->object->sourceCulture == $this->columnValue('culture'))
         {
-          $msg = sprintf('Duplicate legacyId in database found, skipping row (id: %s, culture: %s, legacyId: %s)...',
-                         $this->object->id, $this->object->sourceCulture, $legacyId);
+          if ($this->updateExisting)
+          {
+            $actionType = 'updating';
+            $this->status['duplicates']++;
+          }
+          else {
+            $actionType = 'skipping';
+            $duplicateFound = true;
+            $this->status['duplicates']++;
+          }
+
+          $msg = sprintf('Duplicate legacyId in database found, %s row (id: %s, culture: %s, legacyId: %s)...',
+                         $actionType, $this->object->id, $this->object->sourceCulture, $legacyId);
 
           print $this->logError($msg);
-          $duplicateFound = true;
-          $this->status['duplicates']++;
         }
       }
       else

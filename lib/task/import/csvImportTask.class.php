@@ -71,6 +71,12 @@ EOF;
         null,
         sfCommandOption::PARAMETER_NONE,
         "Index for search during import."
+      ),
+      new sfCommandOption(
+        'update',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        "Attempt to update if description has already been imported."
       )
     ));
   }
@@ -957,6 +963,9 @@ EOF;
 
     // allow search indexing to be enabled via a CLI option
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
+
+    // allow updating to be enabled via a CLI option
+    $import->updateExisting = ($options['update']);
 
     // convert content with | characters to a bulleted list
     $import->contentFilterLogic = function($text)
