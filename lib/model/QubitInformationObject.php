@@ -1498,7 +1498,7 @@ class QubitInformationObject extends BaseInformationObject
    * To find existing actors associated with the information object, we check:
    * 1. Actors associated with this information object by an existing event
    * 2. Actors associated with this information object by relation (either subject or object)
-   * 3. Actors associated with other information objects in this repository
+   * 3. Actors that have the same name
    *
    * @param $name  The name of the actor
    * @param $options  An array of options filling in the new event or name access point info.
@@ -1530,16 +1530,10 @@ class QubitInformationObject extends BaseInformationObject
       $actor = $this->getActorByNameAndRelation($name, 'object');
     }
 
-    // Check relations with other descriptions in the repository
+    // Lastly, check just if there are any other actors with this exact name
     if (!$actor)
     {
-      $repoId = null;
-      if (null !== $repo = $this->getRepository(array('inherit' => true)))
-      {
-        $repoId = $repo->id;
-      }
-
-      $actor = QubitActor::getByNameAndRepositoryId($name, $repoId);
+      $actor = QubitActor::getByAuthorizedFormOfName($name);
     }
 
     // If there isn't a match create a new actor
