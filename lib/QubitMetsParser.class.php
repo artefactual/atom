@@ -372,10 +372,20 @@ class QubitMetsParser
 
       if ($creation['actorName'])
       {
-        $actor = new QubitActor;
-        $actor->parentId = QubitActor::ROOT_ID;
-        $actor->setAuthorizedFormOfName($creation['actorName']);
-        $actor->save();
+        // Check actor creation with the target repository
+        $repoId = null;
+        if (null !== $repo = $informationObject->getRepository(array('inherit' => true)))
+        {
+          $repoId = $repo->id;
+        }
+
+        if (null === $actor = QubitActor::getByNameAndRepositoryId($creation['actorName'], $repoId))
+        {
+          $actor = new QubitActor;
+          $actor->parentId = QubitActor::ROOT_ID;
+          $actor->setAuthorizedFormOfName($creation['actorName']);
+          $actor->save();
+        }
 
         $event->actorId = $actor->id;
       }

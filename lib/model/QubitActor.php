@@ -480,4 +480,45 @@ class QubitActor extends BaseActor
 
     return QubitInformationObject::get($criteria);
   }
+
+  public static function getByNameAndRepositoryId($name, $repositoryId = null)
+  {
+    // Get first actor with the given name and related
+    // to descriptions in the same repository.
+    // If the repository id is not set check relations
+    // with descriptions without repository
+    if (isset($repositoryId))
+    {
+      $repositoryCondition = 'WHERE anc.repository_id=?';
+      $params = array($name, $repositoryId, $repositoryId, $repositoryId);
+    }
+    else
+    {
+      $repositoryCondition = 'WHERE io.repository_id IS NULL';
+      $params = array($name);
+    }
+
+    $sql  = 'SELECT act.id FROM actor act ';
+    $sql .= 'INNER JOIN actor_i18n i18n ON act.id=i18n.id ';
+    $sql .= 'WHERE i18n.authorized_form_of_name=? ';
+    $sql .= 'AND act.id IN (';
+    $sql .= 'SELECT r.object_id AS id FROM relation r ';
+    $sql .= 'LEFT JOIN information_object io ON r.subject_id=io.id ';
+    $sql .= 'JOIN information_object anc ON io.lft >= anc.lft AND io.rgt <= anc.rgt ';
+    $sql .= $repositoryCondition;
+    $sql .= ' UNION SELECT r.subject_id AS id FROM relation r ';
+    $sql .= 'LEFT JOIN information_object io ON r.object_id=io.id ';
+    $sql .= 'JOIN information_object anc ON io.lft >= anc.lft AND io.rgt <= anc.rgt ';
+    $sql .= $repositoryCondition;
+    $sql .= ' UNION SELECT e.actor_id AS id FROM event e ';
+    $sql .= 'LEFT JOIN information_object io ON e.object_id=io.id ';
+    $sql .= 'JOIN information_object anc ON io.lft >= anc.lft AND io.rgt <= anc.rgt ';
+    $sql .= $repositoryCondition;
+    $sql .= ')';
+
+    if (false !== $actorId = QubitPdo::fetchColumn($sql, $params))
+    {
+      return self::getById($actorId);
+    }
+  }
 }
