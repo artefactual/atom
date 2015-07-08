@@ -1083,11 +1083,6 @@ class QubitFlatfileImport
           $actorOptions['history'] = $options['actorHistory'];
         }
 
-        if (property_exists($this->object, 'repositoryId') && isset($this->object->repositoryId))
-        {
-          $actorOptions['repositoryId'] = $this->object->repositoryId;
-        }
-
         $actor = $this->createOrFetchActor($options['actorName'], $actorOptions);
         $event->actorId = $actor->id;
       }
@@ -1160,9 +1155,8 @@ class QubitFlatfileImport
   public static function createOrFetchActor($name, $options = array())
   {
     // Get actor or create a new one. If the actor exists the data is not overwritten
-    if (null === $actor = QubitActor::getByNameAndRepositoryId($name, $options['repositoryId']))
+    if (null === $actor = QubitActor::getByAuthorizedFormOfName($name))
     {
-      unset($options['repositoryId']);
       $actor = QubitFlatfileImport::createActor($name, $options);
     }
 
