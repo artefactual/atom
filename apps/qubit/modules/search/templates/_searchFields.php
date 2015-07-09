@@ -2,9 +2,9 @@
 
   <p><?php echo __('Narrow down your search results.') ?></p>
 
-  <?php if (isset($criterias)): ?>
+  <?php if (isset($criteria)): ?>
 
-    <?php foreach ($criterias as $key => $item): ?>
+    <?php foreach ($criteria as $key => $item): ?>
 
       <div class="criteria">
 

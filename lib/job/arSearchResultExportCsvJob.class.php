@@ -96,19 +96,25 @@ class arSearchResultExportCsvJob extends arBaseJob
   protected function addCriteriaBasedOnSearchParameters()
   {
     // Add criteria for main search fields
-    if (null !== $criterias = $this->parseQuery())
+    if (null !== $criteria = $this->parseQuery())
     {
-      $this->search->queryBool->addMust($criterias);
+      $this->search->queryBool->addMust($criteria);
     }
 
-    // Add criteria fo secondary search fields
+    // Add criteria for secondary search fields
     foreach (SearchAdvancedAction::$NAMES as $name)
     {
       if (!empty($this->searchParams[$name])
-        && (null !== $criterias = SearchAdvancedAction::fieldCriteria($name, $this->searchParams[$name])))
+        && (null !== $criteria = SearchAdvancedAction::fieldCriteria($name, $this->searchParams[$name])))
       {
-        $this->search->queryBool->addMust($criterias);
+        $this->search->queryBool->addMust($criteria);
       }
+    }
+
+    // Add criteria for date range
+    if (null !== $criteria = SearchAdvancedAction::getDateRangeQuery($this->searchParams['sd'], $this->searchParams['ed']))
+    {
+      $this->search->queryBool->addMust($criteria);
     }
 
     // Set query if criteria were added

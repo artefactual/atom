@@ -52,6 +52,7 @@ mapping:
       i18n: true
       nested_only: true
     dynamic: strict
+    type: nested
     properties:
       start_date: { type: date, include_in_all: false }
       end_date: { type: date, include_in_all: false }
@@ -68,6 +69,29 @@ mapping:
     dynamic: true
     properties:
       slug: { type: string, index: not_analyzed }
+
+  basis_right:
+    _attributes:
+      nested_only: true
+    dynamic: strict
+    properties:
+      basis: { type: string, index: analyzed, include_in_all: false }
+      start_date: { type: date, index: not_analyzed, include_in_all: false }
+      end_date: { type: date, index: not_analyzed, include_in_all: false }
+      copyright_status: { type: string, index: analyzed, include_in_all: false }
+      rights_holder: { type: string, index: analyzed, include_in_all: false }
+      rights_note: { type: string, index: analyzed, include_in_all: false }
+      license_terms: { type: string, index: analyzed, include_in_all: false }
+
+  act_right:
+    _attributes:
+      nested_only: true
+    dynamic: strict
+    properties:
+      act: { type: string, index: analyzed, include_in_all: false }
+      restriction: { type: string, index: analyzed, include_in_all: false }
+      start_date: { type: date, index: not_analyzed, include_in_all: false }
+      end_date: { type: date, index: not_analyzed, include_in_all: false }
 
   mediainfo_track:
     _attributes:
@@ -274,29 +298,6 @@ mapping:
       size_on_disk: { type: long, index: not_analyzed, include_in_all: false }
       digital_object_count: { type: integer, index: not_analyzed, include_in_all: false }
       created_at: { type: date, index: not_analyzed, include_in_all: false }
-
-  basis_right:
-    _attributes:
-      nested_only: true
-    dynamic: strict
-    properties:
-      basis: { type: string, index: analyzed, include_in_all: false }
-      start_date: { type: date, index: not_analyzed, include_in_all: false }
-      end_date: { type: date, index: not_analyzed, include_in_all: false }
-      copyright_status: { type: string, index: analyzed, include_in_all: false }
-      rights_holder: { type: string, index: analyzed, include_in_all: false }
-      rights_note: { type: string, index: analyzed, include_in_all: false }
-      license_terms: { type: string, index: analyzed, include_in_all: false }
-
-  act_right:
-    _attributes:
-      nested_only: true
-    dynamic: strict
-    properties:
-      act: { type: string, index: analyzed, include_in_all: false }
-      restriction: { type: string, index: analyzed, include_in_all: false }
-      start_date: { type: date, index: not_analyzed, include_in_all: false }
-      end_date: { type: date, index: not_analyzed, include_in_all: false }
 
   term:
     _attributes:

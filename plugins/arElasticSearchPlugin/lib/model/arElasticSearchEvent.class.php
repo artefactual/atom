@@ -25,13 +25,13 @@ class arElasticSearchEvent extends arElasticSearchModelBase
 
     if (isset($event->start_date))
     {
-      $serialized['startDate'] = arElasticSearchPluginUtil::convertDate($event->start_date);
+      $serialized['startDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrYear($event->start_date);
       $serialized['startDateString'] = Qubit::renderDate($event->start_date);
     }
 
     if (isset($event->end_date))
     {
-     $serialized['endDate'] = arElasticSearchPluginUtil::convertDate($event->end_date);
+     $serialized['endDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrYear($event->end_date, true);
      $serialized['endDateString'] = Qubit::renderDate($event->end_date);
     }
 

@@ -4,7 +4,7 @@
 
   <section id="advanced-search-filters">
 
-    <h4><?php echo __('Search filters') ?></h4>
+    <h3><?php echo __('Search filters') ?></h3>
 
     <div class="filter">
       <?php if (sfConfig::get('app_multi_repository')): ?>
@@ -43,6 +43,19 @@
     <div class="filter">
       <?php echo $form->c
         ->label(__('Copyright status'))
+        ->renderRow() ?>
+    </div>
+
+    <h3><?php echo __('Date range') ?></h3>
+
+    <div class="filter">
+      <?php echo $form->sd
+        ->label(__('Start'))
+        ->renderRow() ?>
+    </div>
+    <div class="filter">
+      <?php echo $form->ed
+        ->label(__('End'))
         ->renderRow() ?>
     </div>
 
@@ -88,7 +101,7 @@
   </div>
 <?php endif; ?>
 
-<?php echo get_partial('search/searchFields', array('criterias' => $criterias, 'template' => $template)) ?>
+<?php echo get_partial('search/searchFields', array('criteria' => $criteria, 'template' => $template)) ?>
 
 <section class="actions">
   <input type="submit" class="c-btn c-btn-submit" value="<?php echo __('Search') ?>"/>

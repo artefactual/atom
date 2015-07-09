@@ -28,7 +28,9 @@ class SearchAdvancedAction extends DefaultBrowseAction
       't', // 'mediaType',
       'r', // 'repository',
       'f', // 'fonds/collection'
-      's' // 'searchFields'
+      's', // 'searchFields'
+      'sd', // 'startDate'
+      'ed' // 'endDate'
     );
 
   protected function addField($name)
@@ -173,6 +175,16 @@ class SearchAdvancedAction extends DefaultBrowseAction
         $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
 
         break;
+
+      case 'sd':
+      case 'ed':
+        $this->form->setValidator($name, new sfValidatorString);
+        $this->form->setWidget($name, new sfWidgetFormInput(array(), array('placeholder' => 'YYYY-MM-DD')));
+        $this->form->setValidator($name, new sfValidatorDate(array(
+          'date_format' => '/^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})$/',
+          'date_format_error' => 'YYYY-MM-DD')));
+
+        break;
     }
   }
 
@@ -292,7 +304,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
     $culture = $this->context->user->getCulture();
 
     $count = -1;
-    $this->criterias = array();
+    $this->criteria = array();
     while (null !== $query = $this->request->getParameter('sq'.++$count))
     {
       if (empty($query)) continue;
@@ -304,7 +316,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
       $this->addToQueryBool($queryBool, $operator, $queryField);
 
-      $this->criterias[] = array(
+      $this->criteria[] = array(
         'query' => $query,
         'field' => $field,
         'operator' => $operator);
@@ -450,6 +462,65 @@ class SearchAdvancedAction extends DefaultBrowseAction
       }
   }
 
+  static function getDateRangeQuery($start, $end)
+  {
+    if (empty($start) && empty($end))
+    {
+      return;
+    }
+
+    $query = new \Elastica\Query\Bool();
+    $range = array();
+
+    if (!empty($start))
+    {
+      $range['gte'] = $start;
+
+      // Start date before range and end date missing
+      $queryStart = new \Elastica\Query\Range('dates.startDate', array('lt' => $start));
+      $filter = new \Elastica\Filter\Missing;
+      $filter->setField('dates.endDate');
+      $filteredQuery = new \Elastica\Query\Filtered($queryStart, $filter);
+
+      $query->addShould($filteredQuery);
+    }
+
+    if (!empty($end))
+    {
+      $range['lte'] = $end;
+
+      // End date after range and start date missing
+      $queryEnd = new \Elastica\Query\Range('dates.endDate', array('gt' => $end));
+      $filter = new \Elastica\Filter\Missing;
+      $filter->setField('dates.startDate');
+      $filteredQuery = new \Elastica\Query\Filtered($queryEnd, $filter);
+
+      $query->addShould($filteredQuery);
+    }
+
+    if (!empty($start) && !empty($end))
+    {
+      // Start date before range and end date after range
+      $queryBool = new \Elastica\Query\Bool();
+      $queryBool->addMust(new \Elastica\Query\Range('dates.startDate', array('lt' => $start)));
+      $queryBool->addMust(new \Elastica\Query\Range('dates.endDate', array('gt' => $end)));
+
+      $query->addShould($queryBool);
+    }
+
+    // Any event date inside the range
+    $query->addShould(new \Elastica\Query\Range('dates.startDate', $range));
+    $query->addShould(new \Elastica\Query\Range('dates.endDate', $range));
+
+    // Use nested query and mapping object to allow querying
+    // over the start and end dates from the same event
+    $queryNested = new \Elastica\Query\Nested();
+    $queryNested->setPath('dates');
+    $queryNested->setQuery($query);
+
+    return $queryNested;
+  }
+
   public function execute($request)
   {
     parent::execute($request);
@@ -479,13 +550,13 @@ class SearchAdvancedAction extends DefaultBrowseAction
     $this->form->bind($request->getRequestParameters() + $request->getGetParameters());
     if (!$this->form->isValid())
     {
-      throw new sfException;
+      return;
     }
 
-    // Bulding a \Elastica\Query\Bool object from the search criterias
-    if (null !== $criterias = $this->parseQuery())
+    // Bulding a \Elastica\Query\Bool object from the search criteria
+    if (null !== $criteria = $this->parseQuery())
     {
-      $this->search->queryBool->addMust($criterias);
+      $this->search->queryBool->addMust($criteria);
     }
 
     // Process sidebar filters (as sfForm fields)
@@ -493,12 +564,18 @@ class SearchAdvancedAction extends DefaultBrowseAction
     {
       if (isset($this->request[$field->getName()]))
       {
-        // Bulding a \Elastica\Query\Bool object from the search criterias
-        if (null !== $criterias = $this->processField($field))
+        // Bulding a \Elastica\Query\Bool object from the search criteria
+        if (null !== $criteria = $this->processField($field))
         {
-          $this->search->queryBool->addMust($criterias);
+          $this->search->queryBool->addMust($criteria);
         }
       }
+    }
+
+    // Process date range
+    if (null !== $criteria = $this->getDateRangeQuery($this->request['sd'], $this->request['ed']))
+    {
+      $this->search->queryBool->addMust($criteria);
     }
 
     // Stop execution if zero results
