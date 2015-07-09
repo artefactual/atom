@@ -534,7 +534,7 @@ class QubitFlatfileImport
       print $this->logError($msg, false);
     }
 
-    if ($this->status['updates'])
+    if ($this->status['updated'])
     {
       $msg = sprintf('Updated: %d', $this->status['updated']);
       print $this->logError($msg, false);
@@ -617,22 +617,22 @@ class QubitFlatfileImport
         }
         else if ($this->object->sourceCulture == $this->columnValue('culture'))
         {
+          $actionDescription = ($this->updateExisting) ? 'updating' : 'skipping';
+
           if ($this->updateExisting)
           {
-            $actionType = 'updating';
-            $this->status['duplicates']++;
+            $this->status['updated']++;
 
             // execute ad-hoc row pre-update logic (remove related data, etc.)
             $this->executeClosurePropertyIfSet('updatePreparationLogic');
           }
           else {
-            $actionType = 'skipping';
-            $duplicateFound = true;
             $this->status['duplicates']++;
+            $skipRowProcessing = true;
           }
 
           $msg = sprintf('Duplicate legacyId in database found, %s row (id: %s, culture: %s, legacyId: %s)...',
-                         $actionType, $this->object->id, $this->object->sourceCulture, $legacyId);
+                         $actionDescription, $this->object->id, $this->object->sourceCulture, $legacyId);
 
           print $this->logError($msg);
         }
@@ -662,7 +662,7 @@ class QubitFlatfileImport
       $this->executeClosurePropertyIfSet('rowInitLogic');
     }
 
-    if (!$duplicateFound)
+    if (!$skipRowProcessing)
     {
       // set fields in information object and execute custom column handlers
       $this->rowProcessingBeforeSave($row);
