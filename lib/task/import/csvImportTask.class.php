@@ -402,6 +402,23 @@ EOF;
         'alternativeIdentifierLabels'  => '|'
       ),
 
+      'updatePreparationLogic' => function(&$self)
+      {
+        if ((isset($self->rowStatusVars['digitalObjectPath']) && $self->rowStatusVars['digitalObjectPath'])
+          || (isset($self->rowStatusVars['digitalObjectURI']) && $self->rowStatusVars['digitalObjectURI']))
+        {
+          // delete any digital objects that exist for this information object
+          $criteria = new Criteria;
+          $criteria->add(QubitDigitalObject::INFORMATION_OBJECT_ID, $self->object->id);
+          $results = QubitDigitalObject::get($criteria);
+
+          if ($results !== null)
+          {
+            $results[0]->delete();
+          }
+        }
+      },
+
       /* import logic to execute before saving information object */
       'preSaveLogic' => function(&$self)
       {

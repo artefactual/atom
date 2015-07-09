@@ -51,11 +51,12 @@ class QubitFlatfileImport
   public $variableColumns = array(); // columns in CSV to be later referenced by logic
   public $arrayColumns    = array(); // columns in CSV to explode and later reference
 
-  public $rowInitLogic;  // Optional logic to create/load object if not using $className
-  public $preSaveLogic;  // Optional pre-save logic
-  public $saveLogic;     // Optional logic to save object if not using $className
-  public $postSaveLogic; // Optional post-save logic
-  public $completeLogic; // Optional cleanup, etc. logic for after import
+  public $updatePreparationLogic;  // Optional pre-update logic (remove related data, etc.)
+  public $rowInitLogic;            // Optional logic to create/load object if not using $className
+  public $preSaveLogic;            // Optional pre-save logic
+  public $saveLogic;               // Optional logic to save object if not using $className
+  public $postSaveLogic;           // Optional post-save logic
+  public $completeLogic;           // Optional cleanup, etc. logic for after import
 
   // Replaceable logic to filter content before entering Qubit
   public $contentFilterLogic;
@@ -620,6 +621,9 @@ class QubitFlatfileImport
           {
             $actionType = 'updating';
             $this->status['duplicates']++;
+
+            // execute ad-hoc row pre-update logic (remove related data, etc.)
+            $this->executeClosurePropertyIfSet('updatePreparationLogic');
           }
           else {
             $actionType = 'skipping';
