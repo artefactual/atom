@@ -626,7 +626,8 @@ class QubitFlatfileImport
             // execute ad-hoc row pre-update logic (remove related data, etc.)
             $this->executeClosurePropertyIfSet('updatePreparationLogic');
           }
-          else {
+          else
+          {
             $this->status['duplicates']++;
             $skipRowProcessing = true;
           }
