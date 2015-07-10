@@ -426,9 +426,6 @@ mapping:
       reference_code:
         type: string
         fields:
-          referenceCode:
-            type: string
-            index: analyzed
           untouched:
             type: string
             index: not_analyzed

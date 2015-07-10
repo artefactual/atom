@@ -443,11 +443,7 @@ class arElasticSearchMapping
   {
     return array(
       'type' => 'string',
-      'fields' => array(
-        $fieldName => array(
-          'type' => 'string',
-          'index' => 'analyzed',
-          'include_in_all' => true)));
+      'include_in_all' => true);
   }
 
   protected function getNestedI18nObjects($languages, $nestedI18nFields)
@@ -464,7 +460,7 @@ class arElasticSearchMapping
       {
         $analyzer = isset(self::$analyzers[$culture]) ? self::$analyzers[$culture] : 'standard';
 
-        $fv['fields'][$fn]['analyzer'] = $analyzer;
+        $fv['analyzer'] = $analyzer;
       }
 
       $mapping[$culture] = array(
