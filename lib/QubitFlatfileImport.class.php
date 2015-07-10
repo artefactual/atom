@@ -32,7 +32,8 @@ class QubitFlatfileImport
   public $displayProgress = true;    // display progress by default
   public $rowsUntilProgressDisplay;  // optional display progress every n rows
 
-  public $searchIndexingDisabled = true; // disable per-object search indexing by default
+  public $searchIndexingDisabled = true;  // disable per-object search indexing by default
+  public $updateExisting         = false; // if object already imported, attempt update
 
   public $status          = array(); // place to store data related to overall import
   public $rowStatusVars   = array(); // place to store data related to current row
@@ -50,11 +51,12 @@ class QubitFlatfileImport
   public $variableColumns = array(); // columns in CSV to be later referenced by logic
   public $arrayColumns    = array(); // columns in CSV to explode and later reference
 
-  public $rowInitLogic;  // Optional logic to create/load object if not using $className
-  public $preSaveLogic;  // Optional pre-save logic
-  public $saveLogic;     // Optional logic to save object if not using $className
-  public $postSaveLogic; // Optional post-save logic
-  public $completeLogic; // Optional cleanup, etc. logic for after import
+  public $updatePreparationLogic;  // Optional pre-update logic (remove related data, etc.)
+  public $rowInitLogic;            // Optional logic to create/load object if not using $className
+  public $preSaveLogic;            // Optional pre-save logic
+  public $saveLogic;               // Optional logic to save object if not using $className
+  public $postSaveLogic;           // Optional post-save logic
+  public $completeLogic;           // Optional cleanup, etc. logic for after import
 
   // Replaceable logic to filter content before entering Qubit
   public $contentFilterLogic;
@@ -70,7 +72,9 @@ class QubitFlatfileImport
     $this->setPropertiesFromArray($this, $options, true);
 
     // initialize bookkeeping of rows processed
-    $this->status['rows'] = 0;
+    $this->status['rows']       = 0;
+    $this->status['duplicates'] = 0;
+    $this->status['updated']    = 0;
   }
 
 
@@ -321,12 +325,13 @@ class QubitFlatfileImport
    * Log error message if an error log has been defined
    *
    * @param string $message  error message
+   * @param boolean $includeCurrentRowNumber  prefix error message with row number
    *
    * @return string  message prefixed with current row number
    */
-  public function logError($message)
+  public function logError($message, $includeCurrentRowNumber = true)
   {
-    $message = sprintf("Row %d: %s\n", $this->getStatus('rows') + 1, $message);
+    $message = ($includeCurrentRowNumber) ? sprintf("Row %d: %s\n", $this->getStatus('rows') + 1, $message) : $message;
 
     if ($this->errorLog)
     {
@@ -523,6 +528,18 @@ class QubitFlatfileImport
       $this->stopTimer();
     }
 
+    if ($this->status['duplicates'])
+    {
+      $msg = sprintf('Duplicates found: %d', $this->status['duplicates']);
+      print $this->logError($msg, false);
+    }
+
+    if ($this->status['updated'])
+    {
+      $msg = sprintf('Updated: %d', $this->status['updated']);
+      print $this->logError($msg, false);
+    }
+
     // add ability to define cleanup, etc. logic
     $this->executeClosurePropertyIfSet('completeLogic');
   }
@@ -600,8 +617,23 @@ class QubitFlatfileImport
         }
         else if ($this->object->sourceCulture == $this->columnValue('culture'))
         {
-          $msg = sprintf('Duplicate legacyId in database found, skipping row (id: %s, culture: %s, legacyId: %s)...',
-                         $this->object->id, $this->object->sourceCulture, $legacyId);
+          $actionDescription = ($this->updateExisting) ? 'updating' : 'skipping';
+
+          if ($this->updateExisting)
+          {
+            $this->status['updated']++;
+
+            // execute ad-hoc row pre-update logic (remove related data, etc.)
+            $this->executeClosurePropertyIfSet('updatePreparationLogic');
+          }
+          else
+          {
+            $this->status['duplicates']++;
+            $skipRowProcessing = true;
+          }
+
+          $msg = sprintf('Duplicate legacyId in database found, %s row (id: %s, culture: %s, legacyId: %s)...',
+                         $actionDescription, $this->object->id, $this->object->sourceCulture, $legacyId);
 
           print $this->logError($msg);
         }
@@ -631,27 +663,30 @@ class QubitFlatfileImport
       $this->executeClosurePropertyIfSet('rowInitLogic');
     }
 
-    // set fields in information object and execute custom column handlers
-    $this->rowProcessingBeforeSave($row);
-
-    // execute pre-save ad-hoc import logic
-    $this->executeClosurePropertyIfSet('preSaveLogic');
-
-    if (isset($this->className))
+    if (!$skipRowProcessing)
     {
-      $this->object->save();
-    }
-    else
-    {
-      // execute row completion logic
-      $this->executeClosurePropertyIfSet('saveLogic');
-    }
+      // set fields in information object and execute custom column handlers
+      $this->rowProcessingBeforeSave($row);
 
-    // execute post-save ad-hoc import logic
-    $this->executeClosurePropertyIfSet('postSaveLogic');
+      // execute pre-save ad-hoc import logic
+      $this->executeClosurePropertyIfSet('preSaveLogic');
 
-    // process import columns that produce child data (properties and notes)
-    $this->rowProcessingAfterSave($row);
+      if (isset($this->className))
+      {
+        $this->object->save();
+      }
+      else
+      {
+        // execute row completion logic
+        $this->executeClosurePropertyIfSet('saveLogic');
+      }
+
+      // execute post-save ad-hoc import logic
+      $this->executeClosurePropertyIfSet('postSaveLogic');
+
+      // process import columns that produce child data (properties and notes)
+      $this->rowProcessingAfterSave($row);
+    }
 
     // reset row-specific status variables
     $this->rowStatusVars = array();
