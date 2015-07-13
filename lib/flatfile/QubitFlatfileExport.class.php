@@ -296,7 +296,13 @@ class QubitFlatfileExport
    */
   protected function content($value)
   {
-    return (is_array($value)) ? implode($this->separatorChar, $value) : $value;
+    if (is_array($value))
+    {
+      // Remove empty strings from the array via array_filter too, to prevent superfluous separators
+      return implode($this->separatorChar, array_filter($value, 'strlen'));
+    }
+
+    return $value;
   }
 
   /**
