@@ -424,8 +424,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
         default:
           $queryField = new \Elastica\Query\QueryString($query);
           $queryField->setDefaultOperator('OR');
-
-          arElasticSearchPluginUtil::setAllFields($queryField, $options = array('type' => 'informationObject'));
+          arElasticSearchPluginUtil::setAllFields($queryField, 'informationObject');
 
           break;
       }

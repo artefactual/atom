@@ -38,95 +38,185 @@ all:
           # in some fields as it can make the index very big.
           autocomplete:
             tokenizer: whitespace
-            filter: [lowercase, engram]
+            filter: [lowercase, engram, preserved_asciifolding]
 
-          std_arabic:
-            type: standard
-            stopwords: _arabic_
-          std_armenian:
-            type: standard
-            stopwords: _armenian_
-          std_basque:
-            type: standard
-            stopwords: _basque_
-          std_brazilian:
-            type: standard
-            stopwords: _brazilian_
-          std_bulgarian:
-            type: standard
-            stopwords: _bulgarian_
-          std_catalan:
-            type: standard
-            stopwords: _catalan_
-          std_czech:
-            type: standard
-            stopwords: _czech_
-          std_danish:
-            type: standard
-            stopwords: _danish_
-          std_dutch:
-            type: standard
-            stopwords: _dutch_
-          std_english:
-            type: standard
-            stopwords: _english_
-          std_finnish:
-            type: standard
-            stopwords: _finnish_
-          std_french:
-            type: standard
-            stopwords: _french_
-          std_galician:
-            type: standard
-            stopwords: _galician_
-          std_german:
-            type: standard
-            stopwords: _german_
-          std_greek:
-            type: standard
-            stopwords: _greek_
-          std_hindi:
-            type: standard
-            stopwords: _hindi_
-          std_hungarian:
-            type: standard
-            stopwords: _hungarian_
-          std_indonesian:
-            type: standard
-            stopwords: _indonesian_
-          std_italian:
-            type: standard
-            stopwords: _italian_
-          std_norwegian:
-            type: standard
-            stopwords: _norwegian_
-          std_persian:
-            type: standard
-            stopwords: _persian_
-          std_portuguese:
-            type: standard
-            stopwords: _portuguese_
-          std_romanian:
-            type: standard
-            stopwords: _romanian_
-          std_russian:
-            type: standard
-            stopwords: _russian_
-          std_spanish:
-            type: standard
-            stopwords: _spanish_
-          std_swedish:
-            type: standard
-            stopwords: _swedish_
-          std_turkish:
-            type: standard
-            stopwords: _turkish_
+          arabic:
+            tokenizer: standard
+            filter: [lowercase, arabic_stop, preserved_asciifolding]
+          armenian:
+            tokenizer: standard
+            filter: [lowercase, armenian_stop, preserved_asciifolding]
+          basque:
+            tokenizer: standard
+            filter: [lowercase, basque_stop, preserved_asciifolding]
+          brazilian:
+            tokenizer: standard
+            filter: [lowercase, brazilian_stop, preserved_asciifolding]
+          bulgarian:
+            tokenizer: standard
+            filter: [lowercase, bulgarian_stop, preserved_asciifolding]
+          catalan:
+            tokenizer: standard
+            filter: [lowercase, catalan_stop, preserved_asciifolding]
+          czech:
+            tokenizer: standard
+            filter: [lowercase, czech_stop, preserved_asciifolding]
+          danish:
+            tokenizer: standard
+            filter: [lowercase, danish_stop, preserved_asciifolding]
+          dutch:
+            tokenizer: standard
+            filter: [lowercase, dutch_stop, preserved_asciifolding]
+          english:
+            tokenizer: standard
+            filter: [lowercase, english_stop, preserved_asciifolding]
+          finnish:
+            tokenizer: standard
+            filter: [lowercase, finnish_stop, preserved_asciifolding]
+          french:
+            tokenizer: standard
+            filter: [lowercase, french_stop, preserved_asciifolding, french_elision]
+          galician:
+            tokenizer: standard
+            filter: [lowercase, galician_stop, preserved_asciifolding]
+          german:
+            tokenizer: standard
+            filter: [lowercase, german_stop, preserved_asciifolding]
+          greek:
+            tokenizer: standard
+            filter: [lowercase, greek_stop, preserved_asciifolding]
+          hindi:
+            tokenizer: standard
+            filter: [lowercase, hindi_stop, preserved_asciifolding]
+          hungarian:
+            tokenizer: standard
+            filter: [lowercase, hungarian_stop, preserved_asciifolding]
+          indonesian:
+            tokenizer: standard
+            filter: [lowercase, indonesian_stop, preserved_asciifolding]
+          italian:
+            tokenizer: standard
+            filter: [lowercase, italian_stop, preserved_asciifolding]
+          norwegian:
+            tokenizer: standard
+            filter: [lowercase, norwegian_stop, preserved_asciifolding]
+          persian:
+            tokenizer: standard
+            filter: [lowercase, persian_stop, preserved_asciifolding]
+          portuguese:
+            tokenizer: standard
+            filter: [lowercase, portuguese_stop, preserved_asciifolding]
+          romanian:
+            tokenizer: standard
+            filter: [lowercase, romanian_stop, preserved_asciifolding]
+          russian:
+            tokenizer: standard
+            filter: [lowercase, russian_stop, preserved_asciifolding]
+          spanish:
+            tokenizer: standard
+            filter: [lowercase, spanish_stop, preserved_asciifolding]
+          swedish:
+            tokenizer: standard
+            filter: [lowercase, swedish_stop, preserved_asciifolding]
+          turkish:
+            tokenizer: standard
+            filter: [lowercase, turkish_stop, preserved_asciifolding]
 
         filter:
           engram:
             type: edgeNGram
             min_gram: 3
             max_gram: 10
+          french_elision:
+            type: elision
+            articles: [l, m, t, qu, n, s, j, d, c, jusqu, quoiqu, lorsqu, puisqu]
+          preserved_asciifolding:
+            type: asciifolding
+            preserve_original: true
+
+          # To make 'stopwords' works with other token filters the analyzers can't have
+          # standard type and the 'stopwords' needs to be added as a token filter too
+          arabic_stop:
+            type: stop
+            stopwords: _arabic_
+          armenian_stop:
+            type: stop
+            stopwords: _armenian_
+          basque_stop:
+            type: stop
+            stopwords: _basque_
+          brazilian_stop:
+            type: stop
+            stopwords: _brazilian_
+          bulgarian_stop:
+            type: stop
+            stopwords: _bulgarian_
+          catalan_stop:
+            type: stop
+            stopwords: _catalan_
+          czech_stop:
+            type: stop
+            stopwords: _czech_
+          danish_stop:
+            type: stop
+            stopwords: _danish_
+          dutch_stop:
+            type: stop
+            stopwords: _dutch_
+          english_stop:
+            type: stop
+            stopwords: _english_
+          finnish_stop:
+            type: stop
+            stopwords: _finnish_
+          french_stop:
+            type: stop
+            stopwords: _french_
+          galician_stop:
+            type: stop
+            stopwords: _galician_
+          german_stop:
+            type: stop
+            stopwords: _german_
+          greek_stop:
+            type: stop
+            stopwords: _greek_
+          hindi_stop:
+            type: stop
+            stopwords: _hindi_
+          hungarian_stop:
+            type: stop
+            stopwords: _hungarian_
+          indonesian_stop:
+            type: stop
+            stopwords: _indonesian_
+          italian_stop:
+            type: stop
+            stopwords: _italian_
+          norwegian_stop:
+            type: stop
+            stopwords: _norwegian_
+          persian_stop:
+            type: stop
+            stopwords: _persian_
+          portuguese_stop:
+            type: stop
+            stopwords: _portuguese_
+          romanian_stop:
+            type: stop
+            stopwords: _romanian_
+          russian_stop:
+            type: stop
+            stopwords: _russian_
+          spanish_stop:
+            type: stop
+            stopwords: _spanish_
+          swedish_stop:
+            type: stop
+            stopwords: _swedish_
+          turkish_stop:
+            type: stop
+            stopwords: _turkish_
 
       # Disable dynamic creation of mappings for unmapped types
       mapper:
