@@ -2720,29 +2720,21 @@ class QubitInformationObject extends BaseInformationObject
 
       // This is the number of items we were asked for.
       $rows = QubitInformationObject::get($criteria);
-      $items = array();
 
-      // Transfer the results into an array. We enforce the limit this way as opposed to
-      // setLimit() because we need the 'total count' of siblings in $row->count(),
-      // not just a limited count. Doing it this way doesn't appear to significantly impact
-      // performance.
-      $i = 0;
-      foreach ($rows as $item)
-      {
-        $items[] = $item;
-        if (++$n == $limit)
-        {
-          break;
-        }
-      }
+      // Take note of row count before we do a limited version of the query
+      $rowsCount = $rows->count();
+
+      // Perform limited version of query
+      $criteria->setLimit($limit);
+      $rows = QubitInformationObject::get($criteria);
 
       if ($siblingsRemaining !== null)
       {
-        $siblingsRemaining = $rows->count() - $limit + 1;
+        $siblingsRemaining = $rowsCount - $limit + 1;
       }
 
       // Iterate over results and store them in the $results array
-      foreach ($items as $item)
+      foreach ($rows as $item)
       {
         // Avoid to add the same element, this may happen when sorting by title
         // or identifierTitle for unknown reasons
