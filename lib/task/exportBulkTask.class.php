@@ -51,7 +51,7 @@ class exportBulkTask extends exportBulkBaseTask
       array('ead', 'mods')
     );
 
-    if (!isset($options['single-id']))
+    if (!isset($options['single-slug']))
     {
       $this->checkPathIsWritable($arguments['path']);
     }
@@ -94,7 +94,7 @@ class exportBulkTask extends exportBulkBaseTask
         throw new sfException('Invalid XML generated for object '. $row['id'] .'.');
       }
 
-      if (isset($options['single-id']))
+      if (isset($options['single-slug']))
       {
         // If we're just exporting the one record, the given path
         // is actually the full path+filename.

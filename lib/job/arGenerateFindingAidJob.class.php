@@ -73,7 +73,7 @@ class arGenerateFindingAidJob extends arBaseJob
     }
 
     // Call generate EAD task
-    exec("php $appRoot/symfony export:bulk --single-id=$resource->id $public $eadFilePath  2> /dev/null", $junk, $exitCode);
+    exec("php $appRoot/symfony export:bulk --single-slug=$resource->slug $public $eadFilePath  2> /dev/null", $junk, $exitCode);
 
     if ($exitCode != 0)
     {

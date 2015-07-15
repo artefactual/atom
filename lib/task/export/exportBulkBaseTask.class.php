@@ -50,7 +50,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
       new sfCommandOption('items-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indicate progress every n items.'),
       new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria'),
       new sfCommandOption('current-level-only', null, sfCommandOption::PARAMETER_NONE, 'Do not export child descriptions of exported items'),
-      new sfCommandOption('single-id', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export a single fonds or collection based on id'),
+      new sfCommandOption('single-slug', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export a single fonds or collection based on slug'),
       new sfCommandOption('public', null, sfCommandOption::PARAMETER_NONE, 'Do not export draft physical locations or child descriptions')
     ));
   }
@@ -167,15 +167,22 @@ abstract class exportBulkBaseTask extends sfBaseTask
       INNER JOIN information_object_i18n i18n ON i.id=i18n.id
       WHERE ". $whereClause;
 
-    if (isset($options['single-id']))
+    if (isset($options['single-slug']))
     {
-      $query .= ' AND i.id=' . $options['single-id'];
+      $id = QubitPdo::fetchColumn('SELECT object_id FROM slug WHERE slug = ?', array($options['single-slug']));
+
+      if (!$id)
+      {
+        throw new sfException('Slug '.$options['single-slug'].' not found.');
+      }
+
+      $query .= ' AND i.id=' . $id;
     }
 
     // Order by place in hierarchy so parents are exported before children
     $query .= ' ORDER BY i.lft';
 
-    if (isset($options['single-id']))
+    if (isset($options['single-slug']))
     {
       $query .= ' LIMIT 1';
     }
