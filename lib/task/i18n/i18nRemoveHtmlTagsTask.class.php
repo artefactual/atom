@@ -199,13 +199,13 @@ EOF;
   {
     // Parse HTML
     $doc = new DOMDocument();
-    $doc->loadHTML($html);
+    $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 
     // Apply transformations
     $this->transformDocument($doc);
 
     // Convert to string and strip leading/trailing whitespace
-    return trim(strip_tags($doc->saveXml()));
+    return trim(strip_tags($doc->saveXml($doc->documentElement)));
   }
 
   /**
