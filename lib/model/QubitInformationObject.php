@@ -2722,6 +2722,13 @@ class QubitInformationObject extends BaseInformationObject
           }
       }
 
+      // If not authenticated, restrict access to published descriptions
+      if (!sfContext::getInstance()->user->isAuthenticated())
+      {
+        $criteria->addJoin(QubitInformationObject::ID, QubitStatus::OBJECT_ID);
+        $criteria->add(QubitStatus::STATUS_ID, QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
+      }
+
       // This is the number of items we were asked for.
       $rows = QubitInformationObject::get($criteria);
 
@@ -2749,12 +2756,6 @@ class QubitInformationObject extends BaseInformationObject
 
         // We will need this later to control the loop
         $last = $item;
-
-        // ACL checks
-        if (!QubitAcl::check($item, 'read'))
-        {
-          continue;
-        }
 
         // Add item to array
         $results[] = $item;
