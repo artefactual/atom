@@ -1213,32 +1213,14 @@ class QubitInformationObject extends BaseInformationObject
   public function getDescendentDigitalObjectCount()
   {
     $sql = '
-      SELECT id FROM information_object
-      WHERE lft > ? and rgt < ?
+      SELECT COUNT(d.id) FROM information_object i
+      INNER JOIN digital_object d ON i.id=d.information_object_id
+      WHERE i.lft > ? and i.rgt < ?
     ';
 
-    $rows = QubitPdo::fetchAll($sql, array($this->lft, $this->rgt));
+    $params = array($this->lft, $this->rgt);
 
-    // Convert SQL rows into just an array of integers with all the ids...
-    $ids = array_map(
-      function($row)
-      {
-        return (int)$row->id;
-      },
-      $rows
-    );
-
-    if (!count($ids))
-    {
-      return 0;
-    }
-
-    $sql = '
-      SELECT count(1) FROM digital_object
-      WHERE information_object_id IN (' . implode(',', $ids) . ')
-    ';
-
-    return QubitPdo::fetchColumn($sql);
+    return QubitPdo::fetchColumn($sql, $params);
   }
 
   /**
