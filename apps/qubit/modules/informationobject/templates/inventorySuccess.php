@@ -26,13 +26,14 @@
       <table class="table table-bordered table-striped">
         <tr>
           <?php echo get_partial('default/sortableTableHeader',
-            array('label' => __('Identifier'), 'name' => 'identifier', 'size' => '15%', 'default' => 'up')) ?>
+            array('label' => __('Identifier'), 'name' => 'identifier', 'size' => '14%', 'default' => 'up')) ?>
           <?php echo get_partial('default/sortableTableHeader',
-            array('label' => __('Title'), 'name' => 'title', 'size' => '45%')) ?>
+            array('label' => __('Title'), 'name' => 'title', 'size' => '40%')) ?>
           <?php echo get_partial('default/sortableTableHeader',
-            array('label' => __('Level of description'), 'name' => 'level', 'size' => '15%')) ?>
+            array('label' => __('Level of description'), 'name' => 'level', 'size' => '14%')) ?>
           <?php echo get_partial('default/sortableTableHeader',
-            array('label' => __('Date'), 'name' => 'date', 'size' => '25%')) ?>
+            array('label' => __('Date'), 'name' => 'date', 'size' => '24%')) ?>
+          <td width="8%"><?php echo sfConfig::get('app_ui_label_digitalobject') ?></td>
         </tr>
         <?php foreach ($pager->getResults() as $hit): ?>
           <?php $doc = $hit->getData() ?>
@@ -61,7 +62,15 @@
                 <?php endforeach; ?>
               <?php endif; ?>
             </td>
-
+            <td>
+              <?php if ($doc['hasDigitalObject']): ?>
+                <?php if (null !== $io = QubitInformationObject::getById($hit->getId())): ?>
+                  <?php if (null !== $link = $io->getDigitalObjectLink()): ?>
+                    <?php echo link_to(__('View'), $link) ?>
+                  <?php endif; ?>
+                <?php endif; ?>
+              <?php endif; ?>
+            </td>
           </tr>
         <?php endforeach; ?>
       </table>
