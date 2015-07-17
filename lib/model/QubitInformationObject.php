@@ -2551,11 +2551,7 @@ class QubitInformationObject extends BaseInformationObject
 
     $criteria = QubitInformationObject::addTreeViewSortCriteria($criteria);
 
-    foreach (QubitInformationObject::get($criteria) as $item)
-    {
-      $firstChild = $item;
-      break;
-    }
+    $firstChild = QubitInformationObject::getOne($criteria);
 
     $items = array();
     if (isset($firstChild))
