@@ -134,26 +134,6 @@ class InformationObjectIndexAction extends sfAction
       $this->response->addMeta('description', truncate_text($scopeAndContent, 150));
     }
 
-    // Only show link to view/download master copy of digital object if the
-    // user has readMaster permissions OR it's a text object (to allow reading)
-    $this->digitalObjectLink = null;
-    if (count($this->resource->digitalObjects) > 0)
-    {
-      $isText = in_array($this->resource->digitalObjects[0]->mediaTypeId, array(QubitTerm::TEXT_ID));
-
-      if ((QubitAcl::check($this->resource, 'readMaster') || $isText) &&
-           QubitGrantedRight::checkPremis($this->resource->id, 'readMaster'))
-      {
-        if (QubitTerm::EXTERNAL_URI_ID == $this->resource->digitalObjects[0]->usageId)
-        {
-          $this->digitalObjectLink = $this->resource->digitalObjects[0]->path;
-        }
-        else
-        {
-          $this->digitalObjectLink = $request->getUriPrefix() . $request->getRelativeUrlRoot() .
-                                     $this->resource->digitalObjects[0]->getFullPath();
-        }
-      }
-    }
+    $this->digitalObjectLink = $this->resource->getDigitalObjectLink();
   }
 }
