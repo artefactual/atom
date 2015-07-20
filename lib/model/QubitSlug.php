@@ -19,6 +19,10 @@
 
 class QubitSlug extends BaseSlug
 {
+  const
+    SLUG_BASIS_TITLE = 0,
+    SLUG_BASIS_REFERENCE_CODE = 1;
+
   public static function random($length = 12)
   {
     $separator = sfConfig::get('app_separator_character', '-');
@@ -44,7 +48,15 @@ class QubitSlug extends BaseSlug
     return $slug;
   }
 
-  public static function slugify($slug)
+  /**
+   * Slugify a specified string
+   *
+   * @param string $slug  The string we want to slugify
+   *
+   * @param bool $dropArticles  Whether or not to drop English articles from the slug.
+   *                            We can disable this when we generate slugs by identifier.
+   */
+  public static function slugify($slug, $dropArticles = true)
   {
     // Handle exotic characters gracefully
     $slug = iconv('utf-8', 'ascii//TRANSLIT', $slug);
@@ -58,11 +70,15 @@ class QubitSlug extends BaseSlug
     // characters with dash
     $slug = preg_replace('/[^0-9a-z]+/', '-', $slug);
 
-    // Drop (English) articles
     $slug = "-$slug-";
-    $slug = str_replace('-a-', '-', $slug);
-    $slug = str_replace('-an-', '-', $slug);
-    $slug = str_replace('-the-', '-', $slug);
+
+    // Drop (English) articles
+    if ($dropArticles)
+    {
+      $slug = str_replace('-a-', '-', $slug);
+      $slug = str_replace('-an-', '-', $slug);
+      $slug = str_replace('-the-', '-', $slug);
+    }
 
     $slug = trim($slug, '-');
 

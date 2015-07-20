@@ -24,7 +24,7 @@
  * @subpackage task
  * @author     David Juhasz <david@artefactual.com>
  */
-class propelGenerateSlugsTask extends sfBaseTask
+class propelGenerateSlugsTask extends arBaseTask
 {
   /**
    * @see sfTask
@@ -54,6 +54,8 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
+    parent::execute($arguments, $options);
+
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
@@ -70,7 +72,7 @@ EOF;
     $sql = "SELECT slug FROM slug ORDER BY slug";
     foreach ($conn->query($sql, PDO::FETCH_NUM) as $row)
     {
-      $slugs[$row[0]] = true;
+      $this->slugs[$row[0]] = true;
     }
 
     foreach ($tables as $table => $classname)
@@ -105,12 +107,17 @@ EOF;
       $sql .= '  AND base.source_culture = i18n.culture';
       $sql .= '  AND sl.id is NULL';
 
-      foreach($conn->query($sql, PDO::FETCH_NUM) as $row)
+      foreach ($conn->query($sql, PDO::FETCH_NUM) as $row)
       {
         // Get unique slug
         if (null !== $row[1])
         {
-          $slug = QubitSlug::slugify($row[1]);
+          $slug = QubitSlug::slugify($this->getStringToSlugify($row, $table));
+
+          if (!$slug)
+          {
+            $slug = $this->getRandomSlug();
+          }
 
           // Truncate at 250 chars
           if (250 < strlen($slug))
@@ -121,7 +128,7 @@ EOF;
           $count = 0;
           $suffix = '';
 
-          while (isset($slugs[$slug.$suffix]))
+          while (isset($this->slugs[$slug.$suffix]))
           {
             $count++;
             $suffix = '-'.$count;
@@ -131,15 +138,10 @@ EOF;
         }
         else
         {
-          $slug = QubitSlug::random();
-
-          while (isset($slugs[$slug]))
-          {
-            $slug = QubitSlug::random();
-          }
+          $slug = $this->getRandomSlug();
         }
 
-        $slugs[$slug] = true; // Add to lookup table
+        $this->slugs[$slug] = true; // Add to lookup table
         $newRows[] = array($row[0], $slug); // To add to slug table
       }
 
@@ -161,6 +163,64 @@ EOF;
       }
     }
 
+    $this->logSection(
+      'propel',
+      'Note: you will need to rebuild your search index for slug changes to show up in search results.'
+    );
+
     $this->logSection('propel', 'Done!');
+  }
+
+  private function getRandomSlug()
+  {
+    $slug = QubitSlug::random();
+
+    while (isset($this->slugs[$slug]))
+    {
+      $slug = QubitSlug::random();
+    }
+
+    return $slug;
+  }
+
+  private function getStringToSlugify($row, $table)
+  {
+    $basis = QubitSetting::getByName('slug_basis_informationobject');
+
+    // Special case: we'll get full inherited reference code from ES for information objects. Hydrating
+    // an ORM object then calling getInheritedReferenceCode() would be too large a performance hit for this task.
+    if ($table === 'information_object' && $basis && $basis->getValue() == QubitSlug::SLUG_BASIS_REFERENCE_CODE)
+    {
+      $refCode = $this->getInheritedReferenceCodeES($row[0]);
+
+      // Return full inherited ref code if available from ES. If not, fall back to the old behavior (gen from title).
+      if ($refCode)
+      {
+        return $refCode;
+      }
+    }
+
+    return $row[1];
+  }
+
+  private function getInheritedReferenceCodeES($id)
+  {
+    $query = new \Elastica\Query;
+    $queryBool = new \Elastica\Query\Bool;
+
+    $queryBool->addMust(new \Elastica\Query\Term(array('_id' => $id)));
+    $query->setQuery($queryBool);
+    $query->setLimit(1);
+
+    $results = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+
+    if (!$results->count())
+    {
+      return null;
+    }
+
+    $doc = $results[0]->getData();
+
+    return $doc['referenceCode'];
   }
 }

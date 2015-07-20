@@ -57,6 +57,7 @@ class SettingsGlobalForm extends sfForm
       'upload_quota' => new arWidgetFormUploadQuota,
       'explode_multipage_files' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
       'show_tooltips' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
+      'slug_basis_informationobject' => new sfWidgetFormSelectRadio(array('choices'=>array(QubitSlug::SLUG_BASIS_TITLE=>'title', QubitSlug::SLUG_BASIS_REFERENCE_CODE=>'reference code')), array('class'=>'radio')),
       'defaultPubStatus' => new sfWidgetFormSelectRadio(array('choices'=>array(QubitTerm::PUBLICATION_STATUS_DRAFT_ID=>$i18n->__('Draft'), QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID=>$i18n->__('Published'))), array('class'=>'radio')),
       'sword_deposit_dir' => new sfWidgetFormInput
     ));
@@ -84,6 +85,7 @@ class SettingsGlobalForm extends sfForm
       'defaultPubStatus' => $i18n->__('Default publication status'),
       'sword_deposit_dir' => $i18n->__('SWORD deposit directory'),
       'require_ssl_admin' => $i18n->__('Require SSL for all administrator funcionality'),
+      'slug_basis_informationobject' => $i18n->__('Generate description permalinks from'),
       'require_strong_passwords' => $i18n->__('Require strong passwords')
     ));
 
@@ -101,7 +103,8 @@ class SettingsGlobalForm extends sfForm
       'sort_treeview_informationobject' => $i18n->__('Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use'),
       'multi_repository' => $i18n->__('When set to &quot;no&quot;, the repository name is excluded from certain displays because it will be too repetitive'),
       'repository_quota' => $i18n->__('Default %1% upload limit for a new %2%.  A value of &quot;0&quot; (zero) disables file upload.  A value of &quot;-1&quot; allows unlimited uploads', array('%1%' => strtolower(sfConfig::get('app_ui_label_digitalobject')), '%2%' => strtolower(sfConfig::get('app_ui_label_repository')))),
-      'defaultPubStatus' => $i18n->__('Default publication status for newly created or imported %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject')))
+      'defaultPubStatus' => $i18n->__('Default publication status for newly created or imported %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))),
+      'slug_basis_informationobject' => $i18n->__('Choose whether permalinks for descriptions are generated from reference code or title'),
       // 'explode_multipage_files' => $i18n->__('')
       // 'show_tooltips' => $i18n->__('')
       // 'sword_deposit_dir' => $i18n->__('')
@@ -147,6 +150,7 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['sort_browser_anonymous'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['multi_repository'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['default_repository_browse_view'] = new sfValidatorString(array('required' => false));
+    $this->validatorSchema['slug_basis_informationobject'] = new sfValidatorChoice(array('choices' => array(QubitSlug::SLUG_BASIS_REFERENCE_CODE, QubitSlug::SLUG_BASIS_TITLE)));
 
     $this->validatorSchema['repository_quota'] = new sfValidatorNumber(
       array('required' => true, 'min' => -1),
