@@ -1208,32 +1208,14 @@ class QubitInformationObject extends BaseInformationObject
   public function getDescendentDigitalObjectCount()
   {
     $sql = '
-      SELECT id FROM information_object
-      WHERE lft > ? and rgt < ?
+      SELECT COUNT(d.id) FROM information_object i
+      INNER JOIN digital_object d ON i.id=d.information_object_id
+      WHERE i.lft > ? and i.rgt < ?
     ';
 
-    $rows = QubitPdo::fetchAll($sql, array($this->lft, $this->rgt));
+    $params = array($this->lft, $this->rgt);
 
-    // Convert SQL rows into just an array of integers with all the ids...
-    $ids = array_map(
-      function($row)
-      {
-        return (int)$row->id;
-      },
-      $rows
-    );
-
-    if (!count($ids))
-    {
-      return 0;
-    }
-
-    $sql = '
-      SELECT count(1) FROM digital_object
-      WHERE information_object_id IN (' . implode(',', $ids) . ')
-    ';
-
-    return QubitPdo::fetchColumn($sql);
+    return QubitPdo::fetchColumn($sql, $params);
   }
 
   /****************
@@ -2521,17 +2503,17 @@ class QubitInformationObject extends BaseInformationObject
     // Find first child visible
     $criteria = new Criteria;
     $criteria->add(QubitInformationObject::PARENT_ID, $this->id);
-    $criteria = QubitInformationObject::addTreeViewSortCriteria($criteria);
-    foreach (QubitInformationObject::get($criteria) as $item)
-    {
-      // ACL checks
-      if (QubitAcl::check($item, 'read'))
-      {
-        $firstChild = $item;
 
-        break;
-      }
+    // If not authenticated, restrict access to published descriptions
+    if (!sfContext::getInstance()->user->isAuthenticated())
+    {
+      $criteria->addJoin(QubitInformationObject::ID, QubitStatus::OBJECT_ID);
+      $criteria->add(QubitStatus::STATUS_ID, QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
     }
+
+    $criteria = QubitInformationObject::addTreeViewSortCriteria($criteria);
+
+    $firstChild = QubitInformationObject::getOne($criteria);
 
     $items = array();
     if (isset($firstChild))
@@ -2680,31 +2662,30 @@ class QubitInformationObject extends BaseInformationObject
           }
       }
 
+      // If not authenticated, restrict access to published descriptions
+      if (!sfContext::getInstance()->user->isAuthenticated())
+      {
+        $criteria->addJoin(QubitInformationObject::ID, QubitStatus::OBJECT_ID);
+        $criteria->add(QubitStatus::STATUS_ID, QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
+      }
+
       // This is the number of items we were asked for.
       $rows = QubitInformationObject::get($criteria);
-      $items = array();
 
-      // Transfer the results into an array. We enforce the limit this way as opposed to
-      // setLimit() because we need the 'total count' of siblings in $row->count(),
-      // not just a limited count. Doing it this way doesn't appear to significantly impact
-      // performance.
-      $i = 0;
-      foreach ($rows as $item)
-      {
-        $items[] = $item;
-        if (++$n == $limit)
-        {
-          break;
-        }
-      }
+      // Take note of row count before we do a limited version of the query
+      $rowsCount = $rows->count();
+
+      // Perform limited version of query
+      $criteria->setLimit($limit);
+      $rows = QubitInformationObject::get($criteria);
 
       if ($siblingsRemaining !== null)
       {
-        $siblingsRemaining = $rows->count() - $limit + 1;
+        $siblingsRemaining = $rowsCount - $limit + 1;
       }
 
       // Iterate over results and store them in the $results array
-      foreach ($items as $item)
+      foreach ($rows as $item)
       {
         // Avoid to add the same element, this may happen when sorting by title
         // or identifierTitle for unknown reasons
@@ -2715,12 +2696,6 @@ class QubitInformationObject extends BaseInformationObject
 
         // We will need this later to control the loop
         $last = $item;
-
-        // ACL checks
-        if (!QubitAcl::check($item, 'read'))
-        {
-          continue;
-        }
 
         // Add item to array
         $results[] = $item;
