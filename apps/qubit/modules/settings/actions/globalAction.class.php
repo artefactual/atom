@@ -89,6 +89,8 @@ class SettingsGlobalAction extends sfAction
     $showTooltips = QubitSetting::getByName('show_tooltips');
     $defaultPubStatus = QubitSetting::getByName('defaultPubStatus');
     $swordDepositDir = QubitSetting::getByName('sword_deposit_dir');
+    $slugTypeInformationObject = QubitSetting::getByName('slug_basis_informationobject');
+
 
     // Set defaults for global form
     $this->globalForm->setDefaults(array(
@@ -108,6 +110,7 @@ class SettingsGlobalAction extends sfAction
       'multi_repository' => (isset($multiRepository)) ? intval($multiRepository->getValue(array('sourceCulture'=>true))) : 1,
       'repository_quota' => (isset($repositoryQuota)) ? $repositoryQuota->getValue(array('sourceCulture'=>true)) : 0,
       'explode_multipage_files' => (isset($explodeMultipageFiles)) ? intval($explodeMultipageFiles->getValue(array('sourceCulture'=>true))) : 1,
+      'slug_basis_informationobject' => (isset($slugTypeInformationObject)) ? intval($slugTypeInformationObject->getValue(array('sourceCulture'=>true))) : QubitSlug::SLUG_BASIS_TITLE,
       'show_tooltips' => (isset($showTooltips)) ? intval($showTooltips->getValue(array('sourceCulture'=>true))) : 1,
       'defaultPubStatus' => (isset($defaultPubStatus)) ? $defaultPubStatus->getValue(array('sourceCulture'=>true)) : QubitTerm::PUBLICATION_STATUS_DRAFT_ID,
       'sword_deposit_dir' => (isset($swordDepositDir)) ? $swordDepositDir->getValue(array('sourceCulture'=>true)) : null
@@ -291,6 +294,15 @@ class SettingsGlobalAction extends sfAction
 
       // Force sourceCulture update to prevent discrepency in settings between cultures
       $setting->setValue($explodeMultipageFiles, array('sourceCulture' => true));
+      $setting->save();
+    }
+
+    if (null !== $slugTypeInformationObject = $thisForm->getValue('slug_basis_informationobject'))
+    {
+      $setting = QubitSetting::getByName('slug_basis_informationobject');
+
+      // Force sourceCulture update to prevent discrepency in settings between cultures
+      $setting->setValue($slugTypeInformationObject, array('sourceCulture' => true));
       $setting->save();
     }
 

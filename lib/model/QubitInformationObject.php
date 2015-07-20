@@ -115,42 +115,7 @@ class QubitInformationObject extends BaseInformationObject
 
         if (sfConfig::get('app_inherit_code_informationobject'))
         {
-          if (!isset($this->identifier))
-          {
-            return;
-          }
-
-          $identifier = array();
-          $repository = null;
-          foreach ($this->ancestors->andSelf()->orderBy('lft') as $item)
-          {
-            if (isset($item->identifier))
-            {
-              $identifier[] = $item->identifier;
-            }
-
-            if (isset($item->repository))
-            {
-              $repository = $item->repository;
-            }
-          }
-          $identifier = implode(sfConfig::get('app_separator_character', '-'), $identifier);
-
-          if (isset($repository->identifier))
-          {
-            $identifier = "$repository->identifier $identifier";
-          }
-
-          if (isset($repository))
-          {
-            $countryCode = $repository->getCountryCode();
-            if (isset($countryCode))
-            {
-              $identifier = "$countryCode $identifier";
-            }
-          }
-
-          return $identifier;
+          return $this->getInheritedReferenceCode();
         }
 
         return $this->identifier;
@@ -230,7 +195,7 @@ class QubitInformationObject extends BaseInformationObject
   {
     if (!isset($this->slug))
     {
-      $this->slug = QubitSlug::slugify($this->__get('title', array('sourceCulture' => true)));
+      $this->slug = $this->generateSlug();
     }
 
     return parent::insert($connection);
@@ -2918,5 +2883,78 @@ class QubitInformationObject extends BaseInformationObject
           $this->digitalObjects[0]->getFullPath();
       }
     }
+  }
+
+  /*
+   * Generate a slug for this information object. This might be based
+   * on title, identifier (reference code), or other properties in the future.
+   *
+   * @return string  The generated slug.
+   */
+  private function generateSlug()
+  {
+    switch ((int)QubitSetting::getByName('slug_basis_informationobject'))
+    {
+      case QubitSlug::SLUG_BASIS_REFERENCE_CODE:
+        return QubitSlug::slugify($this->getInheritedReferenceCode(), false);
+
+      case QubitSlug::SLUG_BASIS_TITLE:
+      default:
+        return QubitSlug::slugify($this->getTitle(array('sourceCulture' => true)), false);
+    }
+  }
+
+  /**
+   * Return this information object's full, inherited reference code.
+   *
+   * @return string
+   */
+  public function getInheritedReferenceCode()
+  {
+    if (!isset($this->identifier))
+    {
+      return;
+    }
+
+    $identifier = array();
+    $repository = null;
+
+    $item = $this;
+
+    // Ascend the hierarchy to build the inherited identifier manually,
+    // as this method may be called before saving and getAncestors() can work.
+    while ($item && $item->id != QubitInformationObject::ROOT_ID)
+    {
+      if (isset($item->identifier))
+      {
+        array_unshift($identifier, $item->identifier);
+      }
+
+      if (isset($item->repository))
+      {
+        $repository = $item->repository;
+      }
+
+      $item = $item->parent;
+    }
+
+    $identifier = implode(sfConfig::get('app_separator_character', '-'), $identifier);
+
+    if (isset($repository->identifier))
+    {
+      $identifier = "$repository->identifier $identifier";
+    }
+
+    if (isset($repository))
+    {
+      $countryCode = $repository->getCountryCode();
+
+      if (isset($countryCode))
+      {
+        $identifier = "$countryCode $identifier";
+      }
+    }
+
+    return $identifier;
   }
 }
