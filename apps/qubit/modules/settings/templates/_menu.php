@@ -15,6 +15,7 @@
         <tr><td><?php echo link_to(__('Permissions'), array('module' => 'settings', 'action' => 'permissions')) ?></td></tr>
         <tr><td><?php echo link_to(__('Inventory'), array('module' => 'settings', 'action' => 'inventory')) ?></td></tr>
         <tr><td><?php echo link_to(__('Digital object derivatives'), array('module' => 'settings', 'action' => 'digitalObjectDerivatives')) ?></td></tr>
+        <tr><td><?php echo link_to(__('DIP upload'), array('module' => 'settings', 'action' => 'dipUpload')) ?></td></tr>
       </tbody>
     </table>
 </div>
