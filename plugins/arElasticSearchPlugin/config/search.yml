@@ -33,6 +33,9 @@ all:
       analysis:
 
         analyzer:
+          default:
+            tokenizer: standard
+            filter: [lowercase, preserved_asciifolding]
 
           # This is a special analyzer for autocomplete searches. It's used only
           # in some fields as it can make the index very big.
