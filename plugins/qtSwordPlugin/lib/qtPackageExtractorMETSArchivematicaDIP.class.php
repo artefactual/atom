@@ -183,12 +183,25 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $child->setPublicationStatus($this->publicationStatus);
       $child->setLevelOfDescriptionByName('item');
       $child->parentId = $parent->id;
-      $child->title = substr($absolutePathWithinDipParts['basename'], 37);
 
-      if (null !== $title = $this->metsParser->getOriginalFilename($fileId))
+      // Determine filename to use as title (uploaded or, from METS, original filename)
+      $filename = substr($absolutePathWithinDipParts['basename'], 37);
+
+      if (null !== $originalFilename = $this->metsParser->getOriginalFilename($fileId))
       {
-        $child->title = $title;
+        $filename = $originalFilename;
       }
+
+      // Optionally strip the filename's extension
+      $stripExtensions = QubitSetting::getByName('stripExtensions');
+
+      if ((null !== $stripExtensions) && $stripExtensions->value)
+      {
+        $fileParts = pathinfo(trim($filename));
+        $filename = $fileParts['filename'];
+      }
+
+      $child->title = $filename;
 
       // Process metatadata from METS file
       if ((null !== $dmdId = $this->mappings['dmdMapping'][$fileId])
