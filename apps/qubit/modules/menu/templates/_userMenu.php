@@ -11,7 +11,7 @@
       </div>
 
       <div class="top-dropdown-header">
-        <?php echo __('Have an account?') ?>
+        <h3><?php echo __('Have an account?') ?></h3>
       </div>
 
       <div class="top-dropdown-body">
@@ -52,7 +52,7 @@
 
       <div class="top-dropdown-header">
         <?php echo image_tag($gravatar) ?>&nbsp;
-        <?php echo __('Hi, %1%', array('%1%' => $sf_user->user->username)) ?>
+        <h3><?php echo __('Hi, %1%', array('%1%' => $sf_user->user->username)) ?></h3>
       </div>
 
       <div class="top-dropdown-body">

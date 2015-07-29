@@ -9,7 +9,7 @@
     </div>
 
     <div class="top-dropdown-header">
-      <?php echo __('Quick links') ?>
+      <h3><?php echo __('Quick links') ?></h3>
     </div>
 
     <div class="top-dropdown-body">

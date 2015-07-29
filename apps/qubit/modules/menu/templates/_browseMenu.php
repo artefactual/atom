@@ -9,7 +9,7 @@
     </div>
 
     <div class="top-dropdown-header">
-      <?php echo $browseMenu->getLabel(array('cultureFallback' => true)) ?>
+      <h3><?php echo $browseMenu->getLabel(array('cultureFallback' => true)) ?></h3>
     </div>
 
     <div class="top-dropdown-body">
