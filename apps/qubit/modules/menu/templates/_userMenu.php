@@ -40,7 +40,7 @@
 
   <div id="user-menu">
 
-    <a class="top-item top-dropdown" data-toggle="dropdown" data-target="#" >
+    <a class="top-item top-dropdown" data-toggle="dropdown" data-target="#" href="#">
       <?php echo $sf_user->user->username ?>
     </a>
 
