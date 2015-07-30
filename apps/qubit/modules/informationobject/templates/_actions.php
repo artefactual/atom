@@ -29,6 +29,8 @@
             </a>
             <ul class="dropdown-menu">
 
+              <li><a href="#" data-toggle="modal" data-target="#renameModal">Rename</a></li>
+
               <li><?php echo link_to(__('Link physical storage'), array($resource, 'module' => 'informationobject', 'action' => 'editPhysicalObjects')) ?></li>
 
               <li class="divider"></li>
@@ -58,3 +60,5 @@
   </ul>
 
 </section>
+
+<?php echo get_partial('informationobject/renameModal', array('resource' => $resource)) ?>
