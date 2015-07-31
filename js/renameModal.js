@@ -45,12 +45,17 @@
           if (error !== undefined) {
             alert(message);
           } else {
-            // remove last element of URL
-            var urlParts = window.location.href.split('/');
-            var urlBase = urlParts.slice(0, urlParts.length - 1).join('/');
+            // redirect, if slug has changed (otherwise just refresh)
+            if ($('#renameModalEnableSlug').is(':checked')) {
+              // remove last element of URL
+              var urlParts = window.location.href.split('/');
+              var urlBase = urlParts.slice(0, urlParts.length - 1).join('/');
 
-            // redirect to current location
-            window.location = urlBase + '/' + $('#renameModalSlug').val();
+              // redirect to current location
+              window.location = urlBase + '/' + $('#renameModalSlug').val();
+            } else {
+              window.location.reload();
+            }
           }
         });
 
@@ -71,6 +76,11 @@
       $('#renameModalSubmit').unbind();
       $('#renameModalCancel').unbind();
       $('#renameModal form input[type=checkbox]').unbind();
+    });
+
+    // Auto-focus on the first field
+    $('#renameModal').on('shown', function () {
+      $('input:text:visible:first', this).focus();
     });
   });
 
