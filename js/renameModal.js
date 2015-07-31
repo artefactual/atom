@@ -35,31 +35,35 @@
     });
   }
 
+  function submit() {
+    postUpdates(function(error, message) {
+      if (error !== undefined) {
+        alert(message);
+      } else {
+        // redirect, if slug has changed (otherwise just refresh)
+        if ($('#renameModalEnableSlug').is(':checked')) {
+          // remove last element of URL
+          var urlParts = window.location.href.split('/');
+          var urlBase = urlParts.slice(0, urlParts.length - 1).join('/');
+
+          // redirect to current location
+          window.location = urlBase + '/' + $('#renameModalSlug').val();
+        } else {
+          window.location.reload();
+        }
+      }
+    });
+
+    $('#renameModal').modal('hide');
+  }
+
   $(function() {
     enableFields();
 
     // Add click handlers
     $('#renameModal').bind('show', function() {
       $('#renameModalSubmit').click(function(e) {
-        postUpdates(function(error, message) {
-          if (error !== undefined) {
-            alert(message);
-          } else {
-            // redirect, if slug has changed (otherwise just refresh)
-            if ($('#renameModalEnableSlug').is(':checked')) {
-              // remove last element of URL
-              var urlParts = window.location.href.split('/');
-              var urlBase = urlParts.slice(0, urlParts.length - 1).join('/');
-
-              // redirect to current location
-              window.location = urlBase + '/' + $('#renameModalSlug').val();
-            } else {
-              window.location.reload();
-            }
-          }
-        });
-
-        $('#renameModal').modal('hide');
+        submit();
       });
 
       $('#renameModalCancel').click(function(e) {
@@ -81,6 +85,12 @@
     // Auto-focus on the first field
     $('#renameModal').on('shown', function () {
       $('input:text:visible:first', this).focus();
+    });
+
+    $('#renameModal').on('keypress', function (e) {
+      if (e.keyCode == 13) {
+        submit();
+      }
     });
   });
 
