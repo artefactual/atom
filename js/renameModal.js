@@ -21,23 +21,18 @@
       }
     }
 
-  /*
-  $.ajax({
-    'url': '/transfer/cleanup_metadata_set/' + uuid + '/',
-    'type': 'POST',
-    'async': false,
-    'cache': false,
-    'data': updatedFields,
-    'success': function() {
-      callback();
-    },
-    'error': function() {
-      callback(true, 'Error sending update');
-    }
-  });
-  */
-
-    console.log(updatedFields);
+    $.ajax({
+      'url': window.location + '/rename?a=1',
+      'type': 'PUT',
+      'cache': false,
+      'data': updatedFields,
+      'success': function() {
+        callback();
+      },
+      'error': function() {
+        callback(true, 'Error sending update');
+      }
+    });
   }
 
   $(function() {
@@ -46,7 +41,18 @@
     // Add click handlers
     $('#renameModal').bind('show', function() {
       $('#renameModalSubmit').click(function(e) {
-        postUpdates();
+        postUpdates(function(error, message) {
+          if (error !== undefined) {
+            alert(message);
+          } else {
+            // remove last element of URL
+            var urlParts = window.location.href.split('/');
+            var urlBase = urlParts.slice(0, urlParts.length - 1).join('/');
+
+            // redirect to current location
+            window.location = urlBase + '/' + $('#renameModalSlug').val();
+          }
+        });
 
         $('#renameModal').modal('hide');
       });
