@@ -97,14 +97,14 @@ function render_show($label, $value, $options = array())
   $result = <<<contents
 <div class="field">
   <h3>$label</h3>
-  <div%s>
+  <div$fieldLabel>
     $value
   </div>
 </div>
 
 contents;
 
-  return sprintf($result, $fieldLabel);
+  return $result;
 }
 
 function render_show_repository($label, $resource)
