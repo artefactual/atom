@@ -1,6 +1,7 @@
 (function ($) {
 
   var fields = ['Title', 'Slug', 'Filename'];
+  var asyncOpInProgress = false;
 
   // Cycle through fields and disable them if their corresponding checkbox isn't checked
   function enableFields() {
@@ -10,15 +11,68 @@
     }
   }
 
-  // Hide modal and submit form data
+  function fetchSlugPreview(title, callback)
+  {
+    $.ajax({
+      'url': window.location.href + '/slugPreview',
+      'data': {'title': title},
+      'type': 'GET',
+      'cache': false,
+      'success': function(results) {
+        asyncOpInProgress = false;
+        callback(false, results['slug']);
+      },
+      'error': function() {
+        callback(true);
+      }
+    });
+  }
+
+  // Hide modal and submit form data when no AJAX requests pending
+  function trySubmit() {
+    // Wait until AJAX requests have completed
+    if (asyncOpInProgress) {
+      setTimeout(trySubmit, 1000);
+    } else {
+      submit();
+      setSlugPreview();
+    }
+  }
+
   function submit() {
+    // Hide modal and submit data
     $('#renameModal').modal('hide');
     $("#renameModalForm").submit();
+  }
+
+  function setSlugPreview()
+  {
+    fetchSlugPreview($('#renameModalTitle').val(), function(err, slug) {
+      if (err) {
+        alert('Error fetching slug preview.');
+      } else {
+        $('#renameModalSlug').val(slug);
+      }
+    });
   }
 
   $(function() {
     // Enable/disable fields according to checkbox values
     enableFields();
+
+    // Keep track of whether async requests are in progress
+    $('#renameModal').ajaxStart(function() {
+      asyncOpInProgress = true;
+    });
+
+    $('#renameModal').ajaxStop(function() {
+      asyncOpInProgress = false;
+    });
+
+    // If title changes, update slug
+    $('#renameModalTitle').change(function() {
+      setSlugPreview();
+    });
 
     // Add click handlers
     $('#renameModal').bind('show', function() {
@@ -29,7 +83,7 @@
 
       // Simulate submit button
       $('#renameModalSubmit').click(function(e) {
-        submit();
+        trySubmit();
       });
 
       // Hide form if cancel clicked
@@ -53,7 +107,7 @@
     // Submit when users hits the enter key
     $('#renameModal').on('keypress', function (e) {
       if (e.keyCode == 13) {
-        submit();
+        trySubmit();
       }
     });
   });
