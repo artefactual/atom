@@ -11,6 +11,7 @@
     }
   }
 
+  // Fetch a slug preview for a given title
   function fetchSlugPreview(title, callback)
   {
     $.ajax({
@@ -28,37 +29,38 @@
     });
   }
 
-  // Hide modal and submit form data when no AJAX requests pending
+  // When no AJAX requests are pending, hide modal and submit form data
   function trySubmit() {
     // Wait until AJAX requests have completed
     if (asyncOpInProgress) {
       setTimeout(trySubmit, 1000);
     } else {
       submit();
-      setSlugPreview();
     }
   }
 
+  // Hide modal and submit form data
   function submit() {
     // Hide modal and submit data
     $('#renameModal').modal('hide');
     $("#renameModalForm").submit();
   }
 
-  function setSlugPreview()
-  {
-    fetchSlugPreview($('#renameModalTitle').val(), function(err, slug) {
-      if (err) {
-        alert('Error fetching slug preview.');
-      } else {
-        $('#renameModalSlug').val(slug);
+  $(function() {
+    // Enable/disable fields according to initial checkbox values
+    enableFields();
+
+    // Auto-focus on the first field
+    $('#renameModal').on('shown', function () {
+      $('input:text:visible:first', this).focus();
+    });
+
+    // Submit when users hits the enter key
+    $('#renameModal').on('keypress', function (e) {
+      if (e.keyCode == 13) {
+        trySubmit();
       }
     });
-  }
-
-  $(function() {
-    // Enable/disable fields according to checkbox values
-    enableFields();
 
     // Keep track of whether async requests are in progress
     $('#renameModal').ajaxStart(function() {
@@ -67,11 +69,6 @@
 
     $('#renameModal').ajaxStop(function() {
       asyncOpInProgress = false;
-    });
-
-    // If title changes, update slug
-    $('#renameModalTitle').change(function() {
-      setSlugPreview();
     });
 
     // Add click handlers
@@ -99,16 +96,15 @@
       $('#renameModal form input[type=checkbox]').unbind();
     });
 
-    // Auto-focus on the first field
-    $('#renameModal').on('shown', function () {
-      $('input:text:visible:first', this).focus();
-    });
-
-    // Submit when users hits the enter key
-    $('#renameModal').on('keypress', function (e) {
-      if (e.keyCode == 13) {
-        trySubmit();
-      }
+    // If title changes, update slug
+    $('#renameModalTitle').change(function() {
+      fetchSlugPreview($('#renameModalTitle').val(), function(err, slug) {
+        if (err) {
+          alert('Error fetching slug preview.');
+        } else {
+          $('#renameModalSlug').val(slug);
+        }
+      });
     });
   });
 
