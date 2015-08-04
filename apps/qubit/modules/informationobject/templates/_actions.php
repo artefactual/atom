@@ -31,6 +31,8 @@
 
               <li><a href="#" data-toggle="modal" data-target="#renameModal">Rename</a></li>
 
+              <li class="divider"></li>
+
               <li><?php echo link_to(__('Link physical storage'), array($resource, 'module' => 'informationobject', 'action' => 'editPhysicalObjects')) ?></li>
 
               <li class="divider"></li>
