@@ -22,6 +22,8 @@
 
     <div id="wrapper" class="container">
 
+      <?php echo get_partial('alerts') ?>
+
       <div class="row">
 
         <div class="span3">

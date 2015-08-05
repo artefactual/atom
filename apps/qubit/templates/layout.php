@@ -20,6 +20,8 @@
 
     <div id="wrapper" class="container">
 
+      <?php echo get_partial('alerts') ?>
+
       <?php echo $sf_content ?>
 
     </div>
