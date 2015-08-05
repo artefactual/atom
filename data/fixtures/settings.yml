@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 130
+    value: 131
   milestone:
     name: milestone
     editable: 0
@@ -843,3 +843,10 @@ QubitSetting:
     source_culture: en
     value:
       en: sidebar
+  Qubit_Settings_stripExtensions:
+    name: stripExtensions
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 0
