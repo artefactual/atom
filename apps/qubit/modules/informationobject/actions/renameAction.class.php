@@ -19,7 +19,7 @@
 
 class InformationObjectRenameAction extends sfAction
 {
-  // allow modifications of certain fields
+  // allow modification of title, slug, and digital object filename
   public function execute($request)
   {
     // return 401 if unauthorized
