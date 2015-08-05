@@ -24,15 +24,15 @@
     // Create references to selectors
     var $renameModal = $('#renameModal');
 
-    var $fields         = {};
-    $fields['Title']    = $('#renameModalTitle');
-    $fields['Slug']     = $('#renameModalSlug');
-    $fields['Filename'] = $('#renameModalFilename');
+    var $fields          = {};
+    var $fieldCheckboxes = {};
 
-    var $fieldCheckboxes         = {};
-    $fieldCheckboxes['Title']    = $('#renameModalEnableTitle');
-    $fieldCheckboxes['Slug']     = $('#renameModalEnableSlug');
-    $fieldCheckboxes['Filename'] = $('#renameModalEnableFilename');
+    for (var index in fields) {
+      var field = fields[index];
+
+      $fields[field]          = $('#renameModal' + field);
+      $fieldCheckboxes[field] = $('#renameModalEnable' + field);
+    }
 
     $renameModalSubmit = $('#renameModalSubmit');
     $renameModalCancel = $('#renameModalCancel');
