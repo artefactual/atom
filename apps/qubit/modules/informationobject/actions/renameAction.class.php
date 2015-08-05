@@ -38,6 +38,9 @@ class InformationObjectRenameAction extends sfAction
 
     $resource = $this->updateFields();
 
+    ProjectConfiguration::getActive()->loadHelpers('I18N');
+    $this->getUser()->setFlash('notice', __('Description updated.'));
+
     $this->redirect(array($resource, 'module' => 'informationobject'));
   }
 
