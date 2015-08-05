@@ -144,7 +144,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     }
 
     // Save updated object relations
-    foreach ($this->relationsRelatedByobjectId as $relation)
+    foreach ($this->relationsRelatedByobjectId->transient as $relation)
     {
       $relation->indexOnSave = false;
       $relation->object = $this;
@@ -159,7 +159,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     }
 
     // Save updated subject relations
-    foreach ($this->relationsRelatedBysubjectId as $relation)
+    foreach ($this->relationsRelatedBysubjectId->transient as $relation)
     {
       $relation->indexOnSave = false;
       $relation->subject = $this;

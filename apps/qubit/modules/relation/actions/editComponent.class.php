@@ -147,6 +147,12 @@ class RelationEditComponent extends sfComponent
             $this->processField($field);
           }
         }
+
+        // Only transient objects will be saved automatically
+        if (isset($item['id']))
+        {
+          $this->relation->save();
+        }
       }
     }
   }
