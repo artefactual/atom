@@ -29,7 +29,6 @@
 
     for (var index in fields) {
       var field = fields[index];
-
       $fields[field]          = $('#renameModal' + field);
       $fieldCheckboxes[field] = $('#renameModalEnable' + field);
     }
