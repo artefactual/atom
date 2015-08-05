@@ -12,23 +12,23 @@
     <div>
       <div style="float:right"><input id="renameModalEnableTitle" type="checkbox" checked="checked" /> <?php echo __('Update title') ?></div>
       <label><?php echo __('Description title') ?></label>
-      <input id="renameModalTitle" name="title" type="text" value="<?php echo esc_entities($resource->title) ?>" />
-      <p>Original title: <em><?php echo esc_entities($resource->title) ?></em></p>
+      <input id="renameModalTitle" name="title" type="text" value="<?php echo $resource->title ?>" />
+      <p>Original title: <em><?php echo $resource->title ?></em></p>
     </div>
 
     <div>
       <div style="float:right"><input id="renameModalEnableSlug" type="checkbox" checked="checked" /> <?php echo __('Update slug') ?></div>
       <label><?php echo __('Slug') ?></label>
-      <input id="renameModalSlug" name="slug" type="text" value="<?php echo esc_entities($resource->slug) ?>" />
-      <p>Original slug: <em><?php echo esc_entities($resource->slug) ?></em></p>
+      <input id="renameModalSlug" name="slug" type="text" value="<?php echo $resource->slug ?>" />
+      <p>Original slug: <em><?php echo $resource->slug ?></em></p>
     </div>
 
 <?php if (count($resource->digitalObjects) > 0): ?>
     <div>
       <div style="float:right"><input id="renameModalEnableFilename" type="checkbox" /> <?php echo __('Update filename') ?></div>
       <label><?php echo __('File name') ?></label>
-      <input id="renameModalFilename" name="filename" type="text" value="<?php echo esc_entities($resource->digitalObjects[0]->name) ?>" />
-      <p>Original filename: <em><?php echo esc_entities($resource->digitalObjects[0]->name) ?></em></p>
+      <input id="renameModalFilename" name="filename" type="text" value="<?php echo $resource->digitalObjects[0]->name ?>" />
+      <p>Original filename: <em><?php echo $resource->digitalObjects[0]->name ?></em></p>
     </div>
 <?php endif; ?>
 
