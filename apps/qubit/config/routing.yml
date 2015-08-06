@@ -51,7 +51,7 @@ informationobject/action:
   class: QubitResourceRoute
   param:
     module: informationobject
-    action: { pattern: 'addDigitalObject|fileList|multiFileUpload|reports' }
+    action: { pattern: 'addDigitalObject|fileList|multiFileUpload|rename|reports|slugPreview' }
 
 oai:
   url: /;oai

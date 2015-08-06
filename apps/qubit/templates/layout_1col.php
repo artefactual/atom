@@ -22,6 +22,8 @@
 
     <div id="wrapper" class="container">
 
+      <?php echo get_partial('alerts') ?>
+
       <?php include_slot('title') ?>
 
       <?php include_slot('before-content') ?>

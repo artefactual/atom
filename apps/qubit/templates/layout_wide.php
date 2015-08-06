@@ -20,6 +20,8 @@
 
     <?php include_slot('before-content') ?>
 
+    <?php echo get_partial('alerts') ?>
+
     <?php if (!include_slot('content')): ?>
       <div class="container-fluid">
         <?php echo $sf_content ?>
