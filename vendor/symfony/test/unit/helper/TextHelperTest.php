@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../test/bootstrap/unit.php');
 require_once(dirname(__FILE__).'/../../../lib/helper/TagHelper.php');
 require_once(dirname(__FILE__).'/../../../lib/helper/TextHelper.php');
 
-$t = new lime_test(56);
+$t = new lime_test(58);
 
 // truncate_text()
 $t->diag('truncate_text()');
@@ -136,3 +136,13 @@ $t->is(auto_link_text('<p>http://twitter.com/#!/fabpot</p>'),'<p><a href="http:/
 $t->is(auto_link_text('<p>http://twitter.com/#!/fabpot is Fabien Potencier on Twitter</p>'),'<p><a href="http://twitter.com/#!/fabpot">http://twitter.com/#!/fabpot</a> is Fabien Potencier on Twitter</p>',"auto_link_text() converts URLs with complex fragments and trailing text to links");
 $t->is(auto_link_text('hello '.$email_result, 'email_addresses'), 'hello '.$email_result, "auto_link_text() does not double-link emails");
 $t->is(auto_link_text('<p>Link '.$link_result.'</p>'), '<p>Link '.$link_result.'</p>', "auto_link_text() does not double-link emails");
+
+$t->is(
+  auto_link_text('<p>http://www.google.com/?q=/query/string/with/slashes</p>'),
+  '<p><a href="http://www.google.com/?q=/query/string/with/slashes">http://www.google.com/?q=/query/string/with/slashes</a></p>',
+  'auto_link_text() accept slashes in the query string');
+
+$t->is(
+  auto_link_text('<p>http://ww2.foobar.org/search/photos.aspx?XC=/search/photos.aspx&FOO=BAR&DF=WebResultsDetails&XYZ=ABC-12345</p>'),
+  '<p><a href="http://ww2.foobar.org/search/photos.aspx?XC=/search/photos.aspx&FOO=BAR&DF=WebResultsDetails&XYZ=ABC-12345">http://ww2.foobar.org/search/photos.aspx?XC=/search/photos.aspx&FOO=BAR&DF=WebResultsDetails&XYZ=ABC-12345</a></p>',
+  'auto_link_text() accept slashes in the query string');
