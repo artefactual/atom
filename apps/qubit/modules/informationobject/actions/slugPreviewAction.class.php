@@ -23,7 +23,8 @@ class InformationObjectSlugPreviewAction extends sfAction
   public function execute($request)
   {
     // return 401 if unauthorized
-    if (!sfContext::getInstance()->user->isAuthenticated())
+    if (!sfContext::getInstance()->user->isAuthenticated()
+      || !QubitAcl::check($this->resource, 'read'))
     {
       $this->response->setStatusCode(401);
       return sfView::NONE;
