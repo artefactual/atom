@@ -19,10 +19,10 @@
 
 class InformationObjectRenameAction extends sfAction
 {
-  // allow modification of title, slug, and digital object filename
+  // Allow modification of title, slug, and digital object filename
   public function execute($request)
   {
-    // return 401 if unauthorized
+    // Return 401 if unauthorized
     if (!sfContext::getInstance()->user->isAuthenticated()
       || !QubitAcl::check($this->resource, 'update'))
     {
@@ -30,7 +30,7 @@ class InformationObjectRenameAction extends sfAction
       return sfView::NONE;
     }
 
-    // return 400 if incorrect HTTP method
+    // Return 400 if incorrect HTTP method
     if ($this->request->getMethod() != 'POST')
     {
       $this->response->setStatusCode(400);
@@ -51,13 +51,13 @@ class InformationObjectRenameAction extends sfAction
 
     $postData = $this->request->getPostParameters();
 
-    // update title, if requested
+    // Update title, if requested
     if (isset($postData['title']))
     {
       $resource->title = $postData['title'];
     }
 
-    // update slug, if requested
+    // Update slug, if requested
     if (isset($postData['slug']))
     {
       $slug = QubitSlug::getByObjectId($resource->id);
@@ -65,7 +65,7 @@ class InformationObjectRenameAction extends sfAction
       $slug->save();
     }
 
-    // update digital object filename, if requested
+    // Update digital object filename, if requested
     if (isset($postData['filename']) && count($resource->digitalObjects))
     {
       $digitalObject = $resource->digitalObjects[0];

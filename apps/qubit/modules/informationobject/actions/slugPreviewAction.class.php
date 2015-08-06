@@ -19,10 +19,10 @@
 
 class InformationObjectSlugPreviewAction extends sfAction
 {
-  // provide a preview of what a slug could be renamed to, given a title
+  // Provide a preview of what a slug could be renamed to, given a title
   public function execute($request)
   {
-    // return 401 if unauthorized
+    // Return 401 if unauthorized
     if (!sfContext::getInstance()->user->isAuthenticated()
       || !QubitAcl::check($this->resource, 'read'))
     {
@@ -30,7 +30,7 @@ class InformationObjectSlugPreviewAction extends sfAction
       return sfView::NONE;
     }
 
-    // return JSON containing first available slug
+    // Return JSON containing first available slug
     $response = array(
       'slug' => $this->determineAvailableSlug($this->request->getParameter('title'))
     );
@@ -51,7 +51,7 @@ class InformationObjectSlugPreviewAction extends sfAction
       $criteria = new Criteria;
       $criteria->add(QubitSlug::SLUG, $slug);
 
-      // create title variant in case current isn't available
+      // Create title variant in case current isn't available
       $counter++;
       $title = $originalTitle . $counter;
     }
