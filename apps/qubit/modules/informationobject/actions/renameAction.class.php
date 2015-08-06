@@ -39,8 +39,19 @@ class InformationObjectRenameAction extends sfAction
 
     $resource = $this->updateFields();
 
+    // Let user know description was updated (and if slug had to be adjusted)
     ProjectConfiguration::getActive()->loadHelpers('I18N');
-    $this->getUser()->setFlash('notice', __('Description updated.'));
+
+    $message = __('Description updated.');
+
+    $postData = $this->request->getPostParameters();
+
+    if (isset($postData['slug']) && $resource->slug != $postData['slug'])
+    {
+      $message .= ' '. __('Slug was adjusted to remove special characters or because it has already been used for another description.');
+    }
+
+    $this->getUser()->setFlash('notice', $message);
 
     $this->redirect(array($resource, 'module' => 'informationobject'));
   }
@@ -57,12 +68,17 @@ class InformationObjectRenameAction extends sfAction
       $resource->title = $postData['title'];
     }
 
-    // Update slug, if requested
+    // Attempt to update slug if slug sent
     if (isset($postData['slug']))
     {
       $slug = QubitSlug::getByObjectId($resource->id);
-      $slug->slug = $postData['slug'];
-      $slug->save();
+
+      // Attempt to change slug if submitted slug's different than current slug
+      if ($postData['slug'] != $slug->slug)
+      {
+        $slug->slug = InformationObjectSlugPreviewAction::determineAvailableSlug($postData['slug']);
+        $slug->save();
+      }
     }
 
     // Update digital object filename, if requested

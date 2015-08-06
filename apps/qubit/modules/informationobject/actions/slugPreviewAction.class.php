@@ -40,7 +40,7 @@ class InformationObjectSlugPreviewAction extends sfAction
     return $this->renderText(json_encode($response));
   }
 
-  private function determineAvailableSlug($title)
+  public static function determineAvailableSlug($title)
   {
     $originalTitle = $title;
 
