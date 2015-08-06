@@ -29,7 +29,7 @@
             </a>
             <ul class="dropdown-menu">
 
-              <li><a href="#" data-toggle="modal" data-target="#renameModal">Rename</a></li>
+              <li><a href="#" data-toggle="modal" data-target="#renameModal"><?php echo __('Rename') ?></a></li>
 
               <li class="divider"></li>
 
