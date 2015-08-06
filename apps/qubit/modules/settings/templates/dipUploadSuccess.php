@@ -2,7 +2,7 @@
 
 <?php slot('sidebar') ?>
 
-  <?php echo get_partial('settings/menu') ?>
+  <?php echo get_component('settings', 'menu') ?>
 
 <?php end_slot() ?>
 
