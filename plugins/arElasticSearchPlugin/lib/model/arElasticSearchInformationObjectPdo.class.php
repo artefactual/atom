@@ -1174,12 +1174,9 @@ class arElasticSearchInformationObjectPdo
     }
 
     // Notes
-    if (null !== $termId = $this->getTermIdByNameAndTaxonomy('General note', QubitTaxonomy::RAD_NOTE_ID))
+    foreach ($this->getNotesByType(QubitTerm::GENERAL_NOTE_ID) as $item)
     {
-      foreach ($this->getNotesByType($termId) as $item)
-      {
-        $serialized['generalNotes'][] = arElasticSearchNote::serialize($item);
-      }
+      $serialized['generalNotes'][] = arElasticSearchNote::serialize($item);
     }
 
     if (null !== $termId = $this->getTermIdByNameAndTaxonomy('Alpha-numeric designations', QubitTaxonomy::RAD_NOTE_ID))
