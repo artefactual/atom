@@ -1,18 +1,24 @@
 <?php
 
-
-/**
- * Skeleton subclass for representing a row from the 'granted_right' table.
+/*
+ * This file is part of the Access to Memory (AtoM) software.
  *
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should add additional methods to this class to meet the
- * application requirements.  This class will only be generated as
- * long as it does not already exist in the output directory.
- *
- * @package    lib.model
+ * You should have received a copy of the GNU General Public License
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
-class QubitGrantedRight extends BaseGrantedRight {
+
+class QubitGrantedRight extends BaseGrantedRight
+{
   const
     DENY_RIGHT = 0,
     GRANT_RIGHT = 1,
@@ -231,4 +237,4 @@ class QubitGrantedRight extends BaseGrantedRight {
   {
     return count(self::getByObjectIdAndAct($id)) > 0;
   }
-} // QubitGrantedRight
+}

@@ -32,6 +32,7 @@ class SettingsPermissionsAction extends sfAction
   public function execute($request)
   {
     $this->permissionsForm = new SettingsPermissionsForm;
+    $this->permissionsCopyrightStatementForm = new SettingsPermissionsCopyrightStatementForm;
 
     // Handle POST data (form submit)
     if ($request->isMethod('post'))
@@ -62,9 +63,37 @@ class SettingsPermissionsAction extends sfAction
 
         $premisAccessRightValues->value = serialize($request->permissions);
         $premisAccessRightValues->save();
-
-        $this->redirect('settings/permissions');
       }
+
+      $this->permissionsCopyrightStatementForm->bind($request->getPostParameters());
+      if ($this->permissionsCopyrightStatementForm->isValid())
+      {
+        $setting = QubitSetting::getByName('digitalobject_copyright_statement_enabled');
+        if (null === $this->setting)
+        {
+          $setting = new QubitSetting;
+          $setting->name = 'digitalobject_copyright_statement_enabled';
+        }
+        $setting->value = $this->permissionsCopyrightStatementForm->getValue('copyrightStatementEnabled');
+        $setting->save();
+
+        $statement = $this->permissionsCopyrightStatementForm->getValue('copyrightStatement');
+        $statement = QubitHtmlPurifier::getInstance()->purify($statement);
+
+        if (!empty($statement))
+        {
+          $setting = QubitSetting::getByName('digitalobject_copyright_statement');
+          if (null === $this->setting)
+          {
+            $setting = new QubitSetting;
+            $setting->name = 'digitalobject_copyright_statement';
+          }
+          $setting->value = $statement;
+          $setting->save();
+        }
+      }
+
+      $this->redirect('settings/permissions');
     }
   }
 }
