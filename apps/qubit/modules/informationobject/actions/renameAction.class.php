@@ -84,8 +84,12 @@ class InformationObjectRenameAction extends sfAction
     // Update digital object filename, if requested
     if (isset($postData['filename']) && count($resource->digitalObjects))
     {
+      // Parse filename so special characters can be removed
+      $fileParts = pathinfo(trim($postData['filename']));
+      $filename = QubitSlug::slugify($fileParts['filename']) .'.'. QubitSlug::slugify($fileParts['extension']);
+
       $digitalObject = $resource->digitalObjects[0];
-      $digitalObject->name = $postData['filename'];
+      $digitalObject->name = $filename;
       $digitalObject->save();
     }
 

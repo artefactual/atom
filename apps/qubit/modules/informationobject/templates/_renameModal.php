@@ -31,7 +31,7 @@
         Do not use any special characters or spaces in the slug - only lower case
         alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters
         will be stripped out or replaced.
-        Editing the slug or file name will not automaticlly update the other fields.
+        Editing the slug will not automatically update the other fields.
       </div>
       <p><?php echo __('Original slug') ?>: <em><?php echo $resource->slug ?></em></p>
     </div>
@@ -41,6 +41,12 @@
       <div style="float:right"><input id="renameModalEnableFilename" type="checkbox" /> <?php echo __('Update filename') ?></div>
       <label><?php echo __('File name') ?></label>
       <input id="renameModalFilename" name="filename" type="text" value="<?php echo $resource->digitalObjects[0]->name ?>" />
+      <div class="description">
+        Do not use any special characters or spaces in the filename - only lower case
+        alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters
+        will be stripped out or replaced.
+        Editing the filename will not automatically update the other fields.
+      </div>
       <p><?php echo __('Original filename') ?>: <em><?php echo $resource->digitalObjects[0]->name ?></em></p>
     </div>
     <?php endif; ?>
