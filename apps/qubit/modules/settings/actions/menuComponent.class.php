@@ -21,58 +21,59 @@ class SettingsMenuComponent extends sfComponent
 {
   public function execute($request)
   {
+    $i18n = $this->context->i18n;
     $this->nodes = array(
       array(
-        'label' => $this->context->i18n->__('Global'),
+        'label' => $i18n->__('Global'),
         'action' => 'global'
       ),
       array(
-        'label' => $this->context->i18n->__('Site information'),
+        'label' => $i18n->__('Site information'),
         'action' => 'siteInformation'
       ),
       array(
-        'label' => $this->context->i18n->__('Default page elements'),
+        'label' => $i18n->__('Default page elements'),
         'action' => 'pageElements'
       ),
       array(
-        'label' => $this->context->i18n->__('Default template'),
+        'label' => $i18n->__('Default template'),
         'action' => 'template'
       ),
       array(
-        'label' => $this->context->i18n->__('User interface labels'),
+        'label' => $i18n->__('User interface labels'),
         'action' => 'interfaceLabel'
       ),
       array(
-        'label' => $this->context->i18n->__('I18n languages'),
+        'label' => $i18n->__('I18n languages'),
         'action' => 'language'
       ),
       array(
-        'label' => $this->context->i18n->__('OAI repository'),
+        'label' => $i18n->__('OAI repository'),
         'action' => 'oai',
         'hide' => !$this->context->getConfiguration()->isPluginEnabled('arOaiPlugin')
       ),
       array(
-        'label' => $this->context->i18n->__('Finding Aid'),
+        'label' => $i18n->__('Finding Aid'),
         'action' => 'findingAid'
       ),
       array(
-        'label' => $this->context->i18n->__('Security'),
+        'label' => $i18n->__('Security'),
         'action' => 'security'
       ),
       array(
-        'label' => $this->context->i18n->__('Permissions'),
+        'label' => $i18n->__('Permissions'),
         'action' => 'permissions'
       ),
       array(
-        'label' => $this->context->i18n->__('Inventory'),
+        'label' => $i18n->__('Inventory'),
         'action' => 'inventory'
       ),
       array(
-        'label' => $this->context->i18n->__('Digital object derivatives'),
+        'label' => $i18n->__('Digital object derivatives'),
         'action' => 'digitalObjectDerivatives'
       ),
       array(
-        'label' => $this->context->i18n->__('DIP upload'),
+        'label' => $i18n->__('DIP upload'),
         'action' => 'dipUpload'
       )
     );
