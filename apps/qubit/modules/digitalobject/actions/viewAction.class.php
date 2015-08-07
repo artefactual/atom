@@ -47,9 +47,73 @@ class DigitalObjectViewAction extends sfAction
       $this->forward404();
     }
 
+    if ($this->needsPopup($action))
+    {
+      $this->resource = $this->resource->informationObject;
+
+      $this->response->addMeta('robots', 'noindex,nofollow');
+      $this->setTemplate('viewCopyrightStatement');
+      $this->copyrightStatement = sfConfig::get('app_digitalobject_copyright_statement');
+
+      return sfView::SUCCESS;
+    }
+
     $this->setResponseHeaders();
 
     return sfView::HEADER_ONLY;
+  }
+
+  protected function needsPopup($action)
+  {
+    // Only if the user is reading the master digital object
+    if ($action !== 'readMaster')
+    {
+      return false;
+    }
+
+    // Only if the copyright statement is enabled
+    if ('1' !== sfConfig::get('app_digitalobject_copyright_statement_enabled', false))
+    {
+      return false;
+    }
+
+    // Not needed when the confirmation has already been submitted
+    if ($this->request->isMethod('post'))
+    {
+      return false;
+    }
+
+    // Check if there is any right statement associated with the object where
+    // the basis = copyright and the restriction = conditional (regardless of
+    // the Rights Act). We don't need to show the popup otherwise.
+    $sql = 'SELECT EXISTS(
+      SELECT 1
+        FROM '.QubitInformationObject::TABLE_NAME.' io
+        JOIN '.QubitRelation::TABLE_NAME.' rel ON (rel.subject_id = io.id)
+        JOIN '.QubitGrantedRight::TABLE_NAME.' gr ON (rel.object_id = gr.rights_id)
+        JOIN '.QubitRights::TABLE_NAME.' r ON (gr.rights_id = r.id)
+      WHERE
+        io.id = ? AND
+        rel.type_id = ? AND
+        gr.restriction = ? AND
+        r.basis_id = ?
+      LIMIT 1) AS has';
+    $r = QubitPdo::fetchOne($sql, array(
+      $this->resource->informationObject->id,
+      QubitTerm::RIGHT_ID,
+      QubitGrantedRight::CONDITIONAL_RIGHT,
+      QubitTerm::RIGHT_BASIS_COPYRIGHT_ID));
+
+    if (false === $r || !isset($r->has))
+    {
+      throw new sfException('Unexpected error');
+    }
+    if ('1' !== $r->has)
+    {
+      return false;
+    }
+
+    return true;
   }
 
   protected function setResponseHeaders()

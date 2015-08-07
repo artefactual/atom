@@ -16,7 +16,7 @@
 
   <form action="<?php echo url_for('settings/permissions') ?>" method="post">
 
-    <p><?php echo __('Administrate PREMIS access permissions') ?></p>
+    <h3><?php echo __('Administrate PREMIS access permissions') ?></h3>
 
     <?php echo $permissionsForm['granted_right']->render() ?>
 
@@ -72,6 +72,25 @@
           <?php echo $permissionsForm['permissions']['disallow_thumb']->render(array('style' => 'display: inline; width: auto;')) ?>
         </div>
       </div>
+    </div>
+
+    <h3><?php echo __('Copyright statement') ?></h3>
+
+    <div class="well well-large" style="background-color: #fff">
+
+      <?php echo $permissionsCopyrightStatementForm->copyrightStatementEnabled
+        ->label(__('Enable copyright statement'))
+        ->renderRow() ?>
+
+      <br />
+      <div class="alert alert-info">
+        <?php echo __('When enabled the following text will appear whenever a user tries to download a digital object master with an associated rights statement where the Basis = copyright and the Restriction = conditional. You can style and customize the text as in a static page.') ?>
+      </div>
+
+      <?php echo $permissionsCopyrightStatementForm->copyrightStatement
+        ->label(__('Copyright statement'))
+        ->renderRow() ?>
+
     </div>
 
     <section class="actions">
