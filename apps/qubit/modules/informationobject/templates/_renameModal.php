@@ -1,4 +1,5 @@
 <?php $sf_response->addJavaScript('renameModal'); ?>
+<?php $sf_response->addJavaScript('description'); ?>
 
 <div class="modal hide" id="renameModal">
   <div class="modal-header">
@@ -9,10 +10,16 @@
   <form id="renameModalForm" action="<?php echo url_for(array('module' => 'informationobject', 'action' => 'rename', 'slug' => $resource->slug)) ?>" method="POST">
 
   <div class="modal-body">
+    <div class="alert">Use this interface to update the description title, slug (permalink), and/or digital object filename.</div>
+
     <div>
       <div style="float:right"><input id="renameModalEnableTitle" type="checkbox" checked="checked" /> <?php echo __('Update title') ?></div>
       <label><?php echo __('Description title') ?></label>
       <input id="renameModalTitle" name="title" type="text" value="<?php echo $resource->title ?>" />
+      <div class="description">
+        Editing the description title will automatically update the slug
+        field if the "Update slug" checkbox is selected - you can still edit it after.
+      </div>
       <p><?php echo __('Original title') ?>: <em><?php echo $resource->title ?></em></p>
     </div>
 
@@ -20,6 +27,12 @@
       <div style="float:right"><input id="renameModalEnableSlug" type="checkbox" checked="checked" /> <?php echo __('Update slug') ?></div>
       <label><?php echo __('Slug') ?></label>
       <input id="renameModalSlug" name="slug" type="text" value="<?php echo $resource->slug ?>" />
+      <div class="description">
+        Do not use any special characters or spaces in the slug - only lower case
+        alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters
+        will be stripped out or replaced.
+        Editing the slug or file name will not automaticlly update the other fields.
+      </div>
       <p><?php echo __('Original slug') ?>: <em><?php echo $resource->slug ?></em></p>
     </div>
 
