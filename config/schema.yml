@@ -307,6 +307,14 @@ propel:
     copyright_jurisdiction: varchar(1024)
     statute_determination_date: bu_date
 
+  granted_right:
+    rights_id: { type: integer, required: true, foreignTable: rights, foreignReference: id, onDelete: cascade }
+    act_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    restriction: { type: boolean, default: 1 }
+    start_date: bu_date
+    end_date: bu_date
+    notes: longvarchar
+
   rights_i18n:
     rights_note: longvarchar
     copyright_note: longvarchar
