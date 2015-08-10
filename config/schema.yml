@@ -300,10 +300,11 @@ propel:
     end_date: bu_date
     basis_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     rights_holder_id: { type: integer, foreignTable: actor, foreignReference: id, onDelete: setnull }
-    copyright_status_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }i
+    copyright_status_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     copyright_status_date: bu_date
     copyright_jurisdiction: varchar(1024)
     statute_determination_date: bu_date
+    statute_citation_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
 
   granted_right:
     rights_id: { type: integer, required: true, foreignTable: rights, foreignReference: id, onDelete: cascade }
@@ -322,7 +323,6 @@ propel:
     license_terms: longvarchar
     license_note: longvarchar
     statute_jurisdiction: longvarchar
-    statute_citation: longvarchar
     statute_note: longvarchar
 
   rights_holder:

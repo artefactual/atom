@@ -44,7 +44,6 @@ class RightsI18nTableMap extends TableMap {
 		$this->addColumn('LICENSE_TERMS', 'licenseTerms', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('LICENSE_NOTE', 'licenseNote', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('STATUTE_JURISDICTION', 'statuteJurisdiction', 'LONGVARCHAR', false, null, null);
-		$this->addColumn('STATUTE_CITATION', 'statuteCitation', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('STATUTE_NOTE', 'statuteNote', 'LONGVARCHAR', false, null, null);
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'rights', 'ID', true, null, null);
 		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 7, null);

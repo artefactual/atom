@@ -34,7 +34,7 @@
               function createYuiDiv()
                 {
                   // Share <select/> with nested scopes
-                  var select = this;
+                  var $select = $(this);
 
                   // Make autocomplete <input/>, copy @class from <select/>, copy
                   // @id from <select/> so <label for="..."/> is correct
@@ -49,7 +49,7 @@
                       {
                         // Make <li/> of hidden <input/> with <option/> value, and
                         // <span/> with <option/> HTML contents
-                        $('<li title="Remove item"><input name="' + $(select).attr('name') + '" type="hidden" value="' + $(this).val() + '"/><span>' + $(this).html() + '</span></li>')
+                        $('<li title="Remove item"><input name="' + $select.attr('name') + '" type="hidden" value="' + $(this).val() + '"/><span>' + $(this).html() + '</span></li>')
                           .click(function ()
                             {
                               // On click, remove <li/> and hide <ul/> if has not siblings
@@ -120,6 +120,9 @@
                             results.push([$('td a', this).html(), $('td a', this).attr('href')]);
                           });
 
+                        // Storing the results so we can use them later
+                        $select.data('xhrResults', results);
+
                         return { results: results };
                       };
                   }
@@ -169,7 +172,7 @@
                   // Give user chance to type something, one second may still
                   // be too little,
                   // http://developer.yahoo.com/yui/autocomplete/#delay
-                  autoComplete.queryDelay = parseFloat($(select).data('autocomplete-delay')) || 1;
+                  autoComplete.queryDelay = parseFloat($select.data('autocomplete-delay')) || 1;
 
                   // Add other fields from the form to the autocomplete request
                   if ($(this).attr('name') == 'relatedAuthorityRecord[subType]')
@@ -210,6 +213,44 @@
                       };
                   }
 
+                  // This function help us to know if a .multiple select has
+                  // already a given value and highlight it if wished
+                  var multipleSelectHasMatches = function (val, opts)
+                  {
+                    var found = false;
+                    val = val.trim().toLowerCase();
+                    opts = opts || {};
+
+                    $('li', $ul).each(function (i)
+                      {
+                        var $li = $(this);
+                        var text = $li.find('span').text() || $li.find('input[type=text]').val();
+
+                        if (val === text.trim().toLowerCase())
+                        {
+                          found = true;
+
+                          if (opts.hasOwnProperty('highlight') || opts.highlight === true)
+                          {
+                            var $span = $('span', this);
+                            if ($span)
+                            {
+                              $span.css('background', 'yellow');
+                              setTimeout(function ()
+                                {
+                                  $span.css('background', 'none');
+                                }, 1000);
+                            }
+                          }
+
+                          // Stop .each()
+                          return false;
+                        }
+                      });
+
+                    return found;
+                  }
+
                   // Start throbbing when first query is sent, stop throbbing
                   // when the last query to be sent is complete
                   //
@@ -233,7 +274,14 @@
 
                   autoComplete.itemSelectEvent.subscribe(function (type, args)
                     {
-                      if ($(select).attr('multiple'))
+                      selectItem.call(undefined, args[2]);
+                    });
+
+                  // Callback function used when itemSelectEvent is fired but also
+                  // used when textboxBlurEvent under certain circumstances
+                  var selectItem = function (data)
+                    {
+                      if ($select.attr('multiple'))
                       {
                         // Cancel default action of saved DOM event so as not
                         // to loose focus when selecting multiple items
@@ -246,11 +294,11 @@
                         // otherwise add it to list of selected items
                         if (!
                             // For unknown reasons, this selector isn't working, see issue 2004
-                            // $('li:has(input[value=' + args[2][1] + '])', $ul)
+                            // $('li:has(input[value=' + data[1] + '])', $ul)
                             $('li', $ul)
                             .filter(function()
                               {
-                                return args[2][1] == $(this).find('input').val();
+                                return data[1] == $(this).find('input').val();
                               })
                             .each(function ()
                               {
@@ -274,7 +322,7 @@
                           // one root <element/>, but not, I suspect, for
                           // strings with multiple root <element/>s or text
                           // outside the root <element/>
-                          $('<li title="Remove item"><input name="' + $(select).attr('name') + '" type="hidden" value="' + args[2][1] + '"/><span>' + args[2][0] + '</span></li>')
+                          $('<li title="Remove item"><input name="' + $select.attr('name') + '" type="hidden" value="' + data[1] + '"/><span>' + data[0] + '</span></li>')
                             .click(function ()
                               {
                                 // On click, remove <li/>
@@ -298,7 +346,7 @@
                       {
                         // On single <select/> item select, simply update the
                         // value of this input
-                        $hidden.val(args[2][1]);
+                        $hidden.val(data[1]);
                       }
 
                       // Update the value of the autocomplete <input/> here
@@ -306,25 +354,48 @@
                       //
                       // Use XML() constructor as with multiple <select/>, but
                       // use toString() to get text of parsed HTML
-                      if (args[2][0].indexOf('<b>') >= 0 && args[2][0].indexOf('</b>') >= 0)
+                      if (data[0].indexOf('<b>') >= 0 && data[0].indexOf('</b>') >= 0)
                       {
                         // Remove bold tags
-                        $input.val(args[2][0].substring(0, args[2][0].indexOf('<b>'))
-                          + args[2][0].substring(args[2][0].indexOf('<b>') + 3, args[2][0].indexOf('</b>'))
-                          + args[2][0].substring(args[2][0].indexOf('</b>') + 4, args[2][0].length));
+                        $input.val(data[0].substring(0, data[0].indexOf('<b>'))
+                          + data[0].substring(data[0].indexOf('<b>') + 3, data[0].indexOf('</b>'))
+                          + data[0].substring(data[0].indexOf('</b>') + 4, data[0].length));
                       }
                       else
                       {
-                        $input.val(args[2][0]);
+                        $input.val(data[0]);
                       }
-                    });
+                    };
 
-                  if ($(select).attr('multiple'))
+                  // Reuse autocomplete's suggested value when the user entried
+                  // the same text in order to avoid duplicates.
+                  if (!$select.attr('multiple'))
                   {
-                    // If multiple <select/>, clear autocomplete <input/> on
-                    // blur
-                    //
-                    // TODO Don't clear if event.preventDefault() was called?
+                    autoComplete.textboxBlurEvent.subscribe(function ()
+                      {
+                        var val = $input.val().trim().toLowerCase()
+                        var results = $select.data('xhrResults') || [];
+                        if (val && val.length && results.length)
+                        {
+                          for (var i = 0; i < results.length; i++)
+                          {
+                            if (results[i][0].trim().toLowerCase() === val)
+                            {
+                              selectItem(results[i]);
+
+                              break;
+                            }
+                          }
+                        }
+                      });
+                  }
+
+                  // If multiple <select/>, clear autocomplete <input/> on
+                  // blur
+                  //
+                  // TODO Don't clear if event.preventDefault() was called?
+                  if ($select.attr('multiple'))
+                  {
                     autoComplete.textboxBlurEvent.subscribe(function ()
                       {
                         $input.val('');
@@ -378,7 +449,7 @@
 
                     var $iframe;
 
-                    if (!$(select).attr('multiple'))
+                    if (!$select.attr('multiple'))
                     {
                       // Add hidden <iframe/>, set width, height, and border to
                       // zero, don't use display: none, i.e. hide() because it
@@ -444,7 +515,7 @@
 
                         if ($input.val())
                         {
-                          if ($(select).attr('multiple'))
+                          if ($select.attr('multiple'))
                           {
                             // Cancel default action of saved DOM event so as
                             // not to loose focus when selecting multiple items
@@ -453,92 +524,103 @@
                               event.preventDefault();
                             }
 
-                            // Add hidden <iframe/> for each new choice
-                            $iframe = $('<iframe src="' + components[0] + '"/>')
-                              .width(0)
-                              .height(0)
-                              .css('border', 0)
-                              .appendTo('body');
-
-                            // One submit handler for each new choice, use
-                            // named function so it can be unbound if choice is
-                            // removed
-                            submit = function (event)
+                            // Only if not found we are adding a new item to the list
+                            var found = multipleSelectHasMatches($input.val(), { highlight: true });
+                            if (!found)
                             {
-                              // Delay submit till all listeners done
-                              event.preventDefault();
-                              count++;
+                              // Add hidden <iframe/> for each new choice
+                              $iframe = $('<iframe src="' + components[0] + '"/>')
+                                .width(0)
+                                .height(0)
+                                .css('border', 0)
+                                .appendTo('body');
 
-                              $iframe.one('load', function ()
-                                {
-                                  // Make <input/> with URI of new resource as
-                                  // its value
-                                  $('<input name="' + $(select).attr('name') + '" type="hidden" value="' + this.contentWindow.document.location + '"/>').appendTo($li);
+                              // One submit handler for each new choice, use
+                              // named function so it can be unbound if choice is
+                              // removed
+                              submit = function (event)
+                              {
+                                // Delay submit till all listeners done
+                                event.preventDefault();
+                                count++;
 
-                                  // Decrement count of listeners and submit if
-                                  // all done
-                                  done();
-                                });
+                                $iframe.one('load', function ()
+                                  {
+                                    // Make <input/> with URI of new resource as
+                                    // its value
+                                    $('<input name="' + $select.attr('name') + '" type="hidden" value="' + this.contentWindow.document.location + '"/>').appendTo($li);
 
-                              // Apply selector to <iframe/> contents, update
-                              // value of selected element with text of the new
-                              // choice, and submit selected element's form
-                              $($(components[1], $iframe[0].contentWindow.document).val($clone.val())[0].form).submit();
+                                    // Decrement count of listeners and submit if
+                                    // all done
+                                    done();
+                                  });
+
+                                // Apply selector to <iframe/> contents, update
+                                // value of selected element with text of the new
+                                // choice, and submit selected element's form
+                                $($(components[1], $iframe[0].contentWindow.document).val($clone.val())[0].form).submit();
+                              }
+
+                              // Make <li/>
+                              var $li = $('<li title="Remove item"/>')
+                                .click(function (event)
+                                  {
+                                    // On click, remove <li/> and cancel addition
+                                    // of new choice, unless user clicked on new
+                                    // choice <input/>
+                                    if ($clone[0] != event.target)
+                                    {
+                                      $(this).hide('fast', function ()
+                                        {
+                                          $(this).remove();
+
+                                          // Toggle <ul/> based on children length
+                                          // jQuery.toggle() expects a boolean parameter
+                                          $ul.toggle(!!$ul.children().length);
+                                        });
+
+                                      // Cancel addition of new choice
+                                      $(form).unbind('submit', submit);
+                                    }
+                                  })
+                                .appendTo($ul.show());
+
+                              // Make new choice <input/> by cloning autocomplete
+                              // <input/>
+                              var $clone = $input
+                                .clone()
+
+                                // Remove class to hide throbber
+                                .removeClass('form-autocomplete')
+
+                                .blur(function ()
+                                  {
+                                    var val = $(this).val();
+                                    if (multipleSelectHasMatches(val))
+                                    {
+                                      val = '';
+                                    }
+
+                                    // On blur, remove <li/> and cancel addition
+                                    // of new choice, if text of the new choice
+                                    // was cleared
+                                    if (!val)
+                                    {
+                                      $li.hide('fast', function ()
+                                        {
+                                          $(this).remove();
+                                        });
+
+                                      // Cancel addition of new choice
+                                      $(form).unbind('submit', submit);
+                                    }
+                                  })
+                                .appendTo($li);
+
+                              // Select autocomplete <input/> contents so typing
+                              // will replace it
+                              $input.select();
                             }
-
-                            // Make <li/>
-                            var $li = $('<li title="Remove item"/>')
-                              .click(function (event)
-                                {
-                                  // On click, remove <li/> and cancel addition
-                                  // of new choice, unless user clicked on new
-                                  // choice <input/>
-                                  if ($clone[0] != event.target)
-                                  {
-                                    $(this).hide('fast', function ()
-                                      {
-                                        $(this).remove();
-
-                                        // Toggle <ul/> based on children length
-                                        // jQuery.toggle() expects a boolean parameter
-                                        $ul.toggle(!!$ul.children().length);
-                                      });
-
-                                    // Cancel addition of new choice
-                                    $(form).unbind('submit', submit);
-                                  }
-                                })
-                              .appendTo($ul.show());
-
-                            // Make new choice <input/> by cloning autocomplete
-                            // <input/>
-                            var $clone = $input
-                              .clone()
-
-                              // Remove class to hide throbber
-                              .removeClass('form-autocomplete')
-
-                              .blur(function ()
-                                {
-                                  // On blur, remove <li/> and cancel addition
-                                  // of new choice, if text of the new choice
-                                  // was cleared
-                                  if (!$(this).val())
-                                  {
-                                    $li.hide('fast', function ()
-                                      {
-                                        $(this).remove();
-                                      });
-
-                                    // Cancel addition of new choice
-                                    $(form).unbind('submit', submit);
-                                  }
-                                })
-                              .appendTo($li);
-
-                            // Select autocomplete <input/> contents so typing
-                            // will replace it
-                            $input.select();
                           }
 
                           // Listen for form submit
@@ -546,7 +628,7 @@
                           // Trick, if single <select/>, listener will be from
                           // parent scope. If multiple <select/>, listener will
                           // be from this scope, where it's wrapped in, if
-                          // ($(select).attr('multiple')) ...
+                          // ($select.attr('multiple')) ...
                           //
                           // This is because listeners have the same name in
                           // each scope, and it will get overridden if the if

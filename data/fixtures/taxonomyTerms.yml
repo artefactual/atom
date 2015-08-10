@@ -817,6 +817,14 @@ QubitTaxonomy:
       en: 'Genre'
     note:
       en: 'Genre terms drawn from appropriate vocabularies; used as an optional access point in the RAD template. Default terms are from "Basic Genre Terms for Cultural Heritage Materials" (Library of Congress).'
+  QubitTaxonomy_premis_rights_statutes:
+    source_culture: en
+    id: 75
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'PREMIS Rights Statutes'
+    note:
+      en: 'Used to store Statute values when defining PREMIS rights statements with a statute Basis.'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30

@@ -45,6 +45,7 @@ class RightsTableMap extends TableMap {
 		$this->addColumn('COPYRIGHT_STATUS_DATE', 'copyrightStatusDate', 'DATE', false, null, null);
 		$this->addColumn('COPYRIGHT_JURISDICTION', 'copyrightJurisdiction', 'VARCHAR', false, 1024, null);
 		$this->addColumn('STATUTE_DETERMINATION_DATE', 'statuteDeterminationDate', 'DATE', false, null, null);
+		$this->addForeignKey('STATUTE_CITATION_ID', 'statuteCitationId', 'INTEGER', 'term', 'ID', false, null, null);
 		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 7, null);
 		// validators
 	} // initialize()
@@ -58,6 +59,7 @@ class RightsTableMap extends TableMap {
     $this->addRelation('termRelatedBybasisId', 'term', RelationMap::MANY_TO_ONE, array('basis_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('actor', 'actor', RelationMap::MANY_TO_ONE, array('rights_holder_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('termRelatedBycopyrightStatusId', 'term', RelationMap::MANY_TO_ONE, array('copyright_status_id' => 'id', ), 'SET NULL', null);
+    $this->addRelation('termRelatedBystatuteCitationId', 'term', RelationMap::MANY_TO_ONE, array('statute_citation_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('grantedRight', 'grantedRight', RelationMap::ONE_TO_MANY, array('id' => 'rights_id', ), 'CASCADE', null);
     $this->addRelation('rightsI18n', 'rightsI18n', RelationMap::ONE_TO_MANY, array('id' => 'id', ), 'CASCADE', null);
 	} // buildRelations()

@@ -15,7 +15,6 @@ abstract class BaseRightsI18n implements ArrayAccess
     LICENSE_TERMS = 'rights_i18n.LICENSE_TERMS',
     LICENSE_NOTE = 'rights_i18n.LICENSE_NOTE',
     STATUTE_JURISDICTION = 'rights_i18n.STATUTE_JURISDICTION',
-    STATUTE_CITATION = 'rights_i18n.STATUTE_CITATION',
     STATUTE_NOTE = 'rights_i18n.STATUTE_NOTE',
     ID = 'rights_i18n.ID',
     CULTURE = 'rights_i18n.CULTURE';
@@ -30,7 +29,6 @@ abstract class BaseRightsI18n implements ArrayAccess
     $criteria->addSelectColumn(QubitRightsI18n::LICENSE_TERMS);
     $criteria->addSelectColumn(QubitRightsI18n::LICENSE_NOTE);
     $criteria->addSelectColumn(QubitRightsI18n::STATUTE_JURISDICTION);
-    $criteria->addSelectColumn(QubitRightsI18n::STATUTE_CITATION);
     $criteria->addSelectColumn(QubitRightsI18n::STATUTE_NOTE);
     $criteria->addSelectColumn(QubitRightsI18n::ID);
     $criteria->addSelectColumn(QubitRightsI18n::CULTURE);
@@ -48,8 +46,8 @@ abstract class BaseRightsI18n implements ArrayAccess
   public static function getFromRow(array $row)
   {
     $keys = array();
-    $keys['id'] = $row[10];
-    $keys['culture'] = $row[11];
+    $keys['id'] = $row[9];
+    $keys['culture'] = $row[10];
 
     $key = serialize($keys);
     if (!isset(self::$rightsI18ns[$key]))

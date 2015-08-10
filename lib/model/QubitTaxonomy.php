@@ -78,6 +78,9 @@ class QubitTaxonomy extends BaseTaxonomy
     // DACS notes
     DACS_NOTE_ID = 74,
 
+    // PREMIS Rights Statues
+    RIGHTS_STATUTES_ID = 75,
+
     // Genre taxonomy
     GENRE_ID = 78;
 

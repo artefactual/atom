@@ -126,12 +126,25 @@ class RightEditAction extends sfAction
       case 'copyrightNote':
       case 'licenseNote':
       case 'statuteJurisdiction':
-      case 'statuteCitation':
       case 'statuteNote':
       case 'rightsNote':
         $this->form->setValidator($name, new sfValidatorString);
         $this->form->setWidget($name, new sfWidgetFormTextarea);
         $this->form->setDefault($name, $this->right[$name]);
+
+        break;
+
+      case 'statuteCitation':
+        $this->form->setDefault('statuteCitation', $this->context->routing->generate(null, array($this->right->statuteCitation, 'module' => 'term')));
+        $this->form->setValidator('statuteCitation', new sfValidatorString);
+
+        $choices = array();
+        if (isset($this->right->statuteCitation))
+        {
+          $choices[$this->context->routing->generate(null, array($this->right->statuteCitation, 'module' => 'term'))] = $this->right->statuteCitation;
+        }
+
+        $this->form->setWidget('statuteCitation', new sfWidgetFormSelect(array('choices' => $choices)));
 
         break;
 
@@ -154,6 +167,7 @@ class RightEditAction extends sfAction
       case 'basis':
       case 'copyrightStatus':
       case 'rightsHolder':
+      case 'statuteCitation':
         unset($this->right[$field->getName()]);
 
         $value = $this->form->getValue($field->getName());
@@ -217,7 +231,7 @@ class RightEditAction extends sfAction
   {
     // attach each value in the form
     // to the new/existing rights object
-    foreach($this->form as $field)
+    foreach ($this->form as $field)
     {
       $this->processField($field);
     }
