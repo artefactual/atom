@@ -89,8 +89,20 @@ class InformationObjectRenameAction extends sfAction
       $filename = QubitSlug::slugify($fileParts['filename']) .'.'. QubitSlug::slugify($fileParts['extension']);
 
       $digitalObject = $resource->digitalObjects[0];
+
+      // Rename master file
+      $basePath = sfConfig::get('sf_web_dir') . $digitalObject->path;
+      $oldFilePath = $basePath . DIRECTORY_SEPARATOR . $digitalObject->name;
+      $newFilePath = $basePath . DIRECTORY_SEPARATOR . $filename;
+      rename($oldFilePath, $newFilePath);
+      chmod($newFilePath, 0644);
+
+      // Change name in database
       $digitalObject->name = $filename;
       $digitalObject->save();
+
+      // Regeneraate derivatives
+      digitalObjectRegenDerivativesTask::regenerateDerivatives($digitalObject);
     }
 
     $resource->save();
