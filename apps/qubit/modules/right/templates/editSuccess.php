@@ -47,9 +47,17 @@
             ->help(__('The country or other political body that has enacted the statute.'))
             ->renderRow() ?>
 
-          <?php echo $form->statuteCitation
-            ->help(__('An identifying designation for the statute. Use standard citation form when applicable, e.g. bibliographic citation.'))
-            ->renderRow() ?>
+          <div class="form-item form-item-statuteCitation">
+            <?php echo $form->statuteCitation->renderLabel() ?>
+            <?php echo $form->statuteCitation->render(array('class' => 'form-autocomplete')) ?>
+            <?php if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::RIGHTS_STATUTES_ID), 'createTerm')): ?>
+              <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::RIGHTS_STATUTES_ID), 'module' => 'taxonomy')))) ?> #name"/>
+            <?php endif; ?>
+            <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::RIGHTS_STATUTES_ID), 'module' => 'taxonomy')))) ?>"/>
+            <?php echo $form->statuteCitation
+              ->help(__('An identifying designation for the statute. Use standard citation form when applicable, e.g. bibliographic citation.'))
+              ->renderHelp() ?>
+          </div>
 
           <?php echo $form->statuteDeterminationDate
             ->help(__('Date that the decision to ascribe the right to this statute was made. As context for any future review/re-interpretation.'))

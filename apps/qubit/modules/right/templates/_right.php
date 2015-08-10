@@ -50,7 +50,9 @@
 
       <?php echo render_show(__('Statute jurisdiction'), render_value($resource->getStatuteJurisdiction(array('cultureFallback' => true)))) ?>
 
-      <?php echo render_show(__('Statute citation'), render_value($resource->getStatuteCitation(array('cultureFallback' => true)))) ?>
+      <?php if (null !== $statuteCitation = $resource->statuteCitation): ?>
+        <?php echo render_show(__('Statute citation'), render_value($statuteCitation->getName(array('cultureFallback' => true)))) ?>
+      <?php endif; ?>
 
       <?php echo render_show(__('Statute determination date'), render_value($resource->statuteDeterminationDate)) ?>
 

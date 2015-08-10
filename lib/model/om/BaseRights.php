@@ -16,6 +16,7 @@ abstract class BaseRights extends QubitObject implements ArrayAccess
     COPYRIGHT_STATUS_DATE = 'rights.COPYRIGHT_STATUS_DATE',
     COPYRIGHT_JURISDICTION = 'rights.COPYRIGHT_JURISDICTION',
     STATUTE_DETERMINATION_DATE = 'rights.STATUTE_DETERMINATION_DATE',
+    STATUTE_CITATION_ID = 'rights.STATUTE_CITATION_ID',
     SOURCE_CULTURE = 'rights.SOURCE_CULTURE';
 
   public static function addSelectColumns(Criteria $criteria)
@@ -33,6 +34,7 @@ abstract class BaseRights extends QubitObject implements ArrayAccess
     $criteria->addSelectColumn(QubitRights::COPYRIGHT_STATUS_DATE);
     $criteria->addSelectColumn(QubitRights::COPYRIGHT_JURISDICTION);
     $criteria->addSelectColumn(QubitRights::STATUTE_DETERMINATION_DATE);
+    $criteria->addSelectColumn(QubitRights::STATUTE_CITATION_ID);
     $criteria->addSelectColumn(QubitRights::SOURCE_CULTURE);
 
     return $criteria;
@@ -267,6 +269,13 @@ abstract class BaseRights extends QubitObject implements ArrayAccess
   public static function addJoincopyrightStatusCriteria(Criteria $criteria)
   {
     $criteria->addJoin(QubitRights::COPYRIGHT_STATUS_ID, QubitTerm::ID);
+
+    return $criteria;
+  }
+
+  public static function addJoinstatuteCitationCriteria(Criteria $criteria)
+  {
+    $criteria->addJoin(QubitRights::STATUTE_CITATION_ID, QubitTerm::ID);
 
     return $criteria;
   }

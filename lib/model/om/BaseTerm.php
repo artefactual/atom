@@ -254,6 +254,11 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       return true;
     }
 
+    if ('rightssRelatedBystatuteCitationId' == $name)
+    {
+      return true;
+    }
+
     if ('grantedRights' == $name)
     {
       return true;
@@ -814,6 +819,23 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       }
 
       return $this->refFkValues['rightssRelatedBycopyrightStatusId'];
+    }
+
+    if ('rightssRelatedBystatuteCitationId' == $name)
+    {
+      if (!isset($this->refFkValues['rightssRelatedBystatuteCitationId']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['rightssRelatedBystatuteCitationId'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['rightssRelatedBystatuteCitationId'] = self::getrightssRelatedBystatuteCitationIdById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['rightssRelatedBystatuteCitationId'];
     }
 
     if ('grantedRights' == $name)
@@ -1704,6 +1726,26 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
   public function addrightssRelatedBycopyrightStatusIdCriteria(Criteria $criteria)
   {
     return self::addrightssRelatedBycopyrightStatusIdCriteriaById($criteria, $this->id);
+  }
+
+  public static function addrightssRelatedBystatuteCitationIdCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitRights::STATUTE_CITATION_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getrightssRelatedBystatuteCitationIdById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addrightssRelatedBystatuteCitationIdCriteriaById($criteria, $id);
+
+    return QubitRights::get($criteria, $options);
+  }
+
+  public function addrightssRelatedBystatuteCitationIdCriteria(Criteria $criteria)
+  {
+    return self::addrightssRelatedBystatuteCitationIdCriteriaById($criteria, $this->id);
   }
 
   public static function addgrantedRightsCriteriaById(Criteria $criteria, $id)

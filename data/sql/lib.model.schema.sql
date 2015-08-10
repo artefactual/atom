@@ -998,6 +998,7 @@ CREATE TABLE `rights`
 	`copyright_status_date` DATE,
 	`copyright_jurisdiction` VARCHAR(1024),
 	`statute_determination_date` DATE,
+	`statute_citation_id` INTEGER,
 	`source_culture` VARCHAR(7)  NOT NULL,
 	PRIMARY KEY (`id`),
 	CONSTRAINT `rights_FK_1`
@@ -1017,6 +1018,11 @@ CREATE TABLE `rights`
 	INDEX `rights_FI_4` (`copyright_status_id`),
 	CONSTRAINT `rights_FK_4`
 		FOREIGN KEY (`copyright_status_id`)
+		REFERENCES `term` (`id`)
+		ON DELETE SET NULL,
+	INDEX `rights_FI_5` (`statute_citation_id`),
+	CONSTRAINT `rights_FK_5`
+		FOREIGN KEY (`statute_citation_id`)
 		REFERENCES `term` (`id`)
 		ON DELETE SET NULL
 )Engine=InnoDB;
@@ -1068,7 +1074,6 @@ CREATE TABLE `rights_i18n`
 	`license_terms` TEXT,
 	`license_note` TEXT,
 	`statute_jurisdiction` TEXT,
-	`statute_citation` TEXT,
 	`statute_note` TEXT,
 	`id` INTEGER  NOT NULL,
 	`culture` VARCHAR(7)  NOT NULL,
