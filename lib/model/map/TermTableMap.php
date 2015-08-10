@@ -83,6 +83,7 @@ class TermTableMap extends TableMap {
     $this->addRelation('repositoryRelatedBydescDetailId', 'repository', RelationMap::ONE_TO_MANY, array('id' => 'desc_detail_id', ), 'SET NULL', null);
     $this->addRelation('rightsRelatedBybasisId', 'rights', RelationMap::ONE_TO_MANY, array('id' => 'basis_id', ), 'SET NULL', null);
     $this->addRelation('rightsRelatedBycopyrightStatusId', 'rights', RelationMap::ONE_TO_MANY, array('id' => 'copyright_status_id', ), 'SET NULL', null);
+    $this->addRelation('grantedRight', 'grantedRight', RelationMap::ONE_TO_MANY, array('id' => 'act_id', ), 'SET NULL', null);
     $this->addRelation('statusRelatedBytypeId', 'status', RelationMap::ONE_TO_MANY, array('id' => 'type_id', ), 'CASCADE', null);
     $this->addRelation('statusRelatedBystatusId', 'status', RelationMap::ONE_TO_MANY, array('id' => 'status_id', ), 'CASCADE', null);
     $this->addRelation('termRelatedByparentId', 'term', RelationMap::ONE_TO_MANY, array('id' => 'parent_id', ), null, null);

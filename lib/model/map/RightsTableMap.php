@@ -58,6 +58,7 @@ class RightsTableMap extends TableMap {
     $this->addRelation('termRelatedBybasisId', 'term', RelationMap::MANY_TO_ONE, array('basis_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('actor', 'actor', RelationMap::MANY_TO_ONE, array('rights_holder_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('termRelatedBycopyrightStatusId', 'term', RelationMap::MANY_TO_ONE, array('copyright_status_id' => 'id', ), 'SET NULL', null);
+    $this->addRelation('grantedRight', 'grantedRight', RelationMap::ONE_TO_MANY, array('id' => 'rights_id', ), 'CASCADE', null);
     $this->addRelation('rightsI18n', 'rightsI18n', RelationMap::ONE_TO_MANY, array('id' => 'id', ), 'CASCADE', null);
 	} // buildRelations()
 

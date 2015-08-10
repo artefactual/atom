@@ -48,8 +48,6 @@ class DigitalObjectTableMap extends TableMap {
 		$this->addColumn('CHECKSUM', 'checksum', 'VARCHAR', false, 255, null);
 		$this->addColumn('CHECKSUM_TYPE', 'checksumType', 'VARCHAR', false, 50, null);
 		$this->addForeignKey('PARENT_ID', 'parentId', 'INTEGER', 'digital_object', 'ID', false, null, null);
-		$this->addColumn('LFT', 'lft', 'INTEGER', true, null, null);
-		$this->addColumn('RGT', 'rgt', 'INTEGER', true, null, null);
 		// validators
 	} // initialize()
 

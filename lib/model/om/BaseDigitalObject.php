@@ -18,9 +18,7 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
     BYTE_SIZE = 'digital_object.BYTE_SIZE',
     CHECKSUM = 'digital_object.CHECKSUM',
     CHECKSUM_TYPE = 'digital_object.CHECKSUM_TYPE',
-    PARENT_ID = 'digital_object.PARENT_ID',
-    LFT = 'digital_object.LFT',
-    RGT = 'digital_object.RGT';
+    PARENT_ID = 'digital_object.PARENT_ID';
 
   public static function addSelectColumns(Criteria $criteria)
   {
@@ -40,8 +38,6 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
     $criteria->addSelectColumn(QubitDigitalObject::CHECKSUM);
     $criteria->addSelectColumn(QubitDigitalObject::CHECKSUM_TYPE);
     $criteria->addSelectColumn(QubitDigitalObject::PARENT_ID);
-    $criteria->addSelectColumn(QubitDigitalObject::LFT);
-    $criteria->addSelectColumn(QubitDigitalObject::RGT);
 
     return $criteria;
   }
@@ -81,23 +77,6 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
     }
   }
 
-  public static function addOrderByPreorder(Criteria $criteria, $order = Criteria::ASC)
-  {
-    if ($order == Criteria::DESC)
-    {
-      return $criteria->addDescendingOrderByColumn(QubitDigitalObject::LFT);
-    }
-
-    return $criteria->addAscendingOrderByColumn(QubitDigitalObject::LFT);
-  }
-
-  public static function addRootsCriteria(Criteria $criteria)
-  {
-    $criteria->add(QubitDigitalObject::PARENT_ID);
-
-    return $criteria;
-  }
-
   public function __construct()
   {
     parent::__construct();
@@ -118,16 +97,6 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
     }
 
     if ('digitalObjectsRelatedByparentId' == $name)
-    {
-      return true;
-    }
-
-    if ('ancestors' == $name)
-    {
-      return true;
-    }
-
-    if ('descendants' == $name)
     {
       return true;
     }
@@ -170,113 +139,7 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
       return $this->refFkValues['digitalObjectsRelatedByparentId'];
     }
 
-    if ('ancestors' == $name)
-    {
-      if (!isset($this->values['ancestors']))
-      {
-        if ($this->new)
-        {
-          $this->values['ancestors'] = QubitQuery::create(array('self' => $this) + $options);
-        }
-        else
-        {
-          $criteria = new Criteria;
-          $this->addAncestorsCriteria($criteria);
-          $this->addOrderByPreorder($criteria);
-          $this->values['ancestors'] = self::get($criteria, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->values['ancestors'];
-    }
-
-    if ('descendants' == $name)
-    {
-      if (!isset($this->values['descendants']))
-      {
-        if ($this->new)
-        {
-          $this->values['descendants'] = QubitQuery::create(array('self' => $this) + $options);
-        }
-        else
-        {
-          $criteria = new Criteria;
-          $this->addDescendantsCriteria($criteria);
-          $this->addOrderByPreorder($criteria);
-          $this->values['descendants'] = self::get($criteria, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->values['descendants'];
-    }
-
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
-  }
-
-  protected function param($column)
-  {
-    $value = $this->values[$column->getPhpName()];
-
-    // Convert to DateTime or SQL zero special case
-    if (isset($value) && $column->isTemporal() && !$value instanceof DateTime)
-    {
-      // Year only: one or more digits.  Convert to SQL zero special case
-      if (preg_match('/^\d+$/', $value))
-      {
-        $value .= '-0-0';
-      }
-
-      // Year and month only: one or more digits, plus separator, plus
-      // one or more digits.  Convert to SQL zero special case
-      else if (preg_match('/^\d+[-\/]\d+$/', $value))
-      {
-        $value .= '-0';
-      }
-
-      // Convert to DateTime if not SQL zero special case: year plus
-      // separator plus zero to twelve (possibly zero padded) plus
-      // separator plus one or more zeros
-      if (!preg_match('/^\d+[-\/]0*(?:1[0-2]|\d)[-\/]0+$/', $value))
-      {
-        try
-        {
-          $value = new DateTime($value);
-        }
-        catch (Exception $e)
-        {
-          return null;
-        }
-      }
-    }
-
-    return $value;
-  }
-
-  protected function insert($connection = null)
-  {
-    parent::insert($connection);
-
-    return $this;
-  }
-
-  protected function update($connection = null)
-  {
-    parent::update($connection);
-
-    return $this;
-  }
-
-  public function delete($connection = null)
-  {
-    if ($this->deleted)
-    {
-      throw new PropelException('This object has already been deleted.');
-    }
-
-    $this->clear();
-    parent::delete($connection);
-
-    return $this;
   }
 
   public static function addJoininformationObjectCriteria(Criteria $criteria)
@@ -325,192 +188,5 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
   public function adddigitalObjectsRelatedByparentIdCriteria(Criteria $criteria)
   {
     return self::adddigitalObjectsRelatedByparentIdCriteriaById($criteria, $this->id);
-  }
-
-  public function hasChildren()
-  {
-    return ($this->rgt - $this->lft) > 1;
-  }
-
-  public function addAncestorsCriteria(Criteria $criteria)
-  {
-    return $criteria->add(QubitDigitalObject::LFT, $this->lft, Criteria::LESS_THAN)->add(QubitDigitalObject::RGT, $this->rgt, Criteria::GREATER_THAN);
-  }
-
-  public function addDescendantsCriteria(Criteria $criteria)
-  {
-    return $criteria->add(QubitDigitalObject::PARENT_ID, $this->id);
-  }
-
-  public function isInTree()
-  {
-    return $this->lft > 0 && $this->rgt > $this->lft;
-  }
-
-  public function isRoot()
-  {
-      return $this->isInTree() && $this->lft == 1;
-  }
-
-  public function isDescendantOf($parent)
-  {
-    return $this->isInTree() && $this->lft > $parent->lft && $this->rgt < $parent->rgt;
-  }
-
-  public function moveToFirstChildOf($parent, PropelPDO $con = null)
-  {
-    if ($parent->isDescendantOf($this))
-    {
-      throw new PropelException('Cannot move a node as child of one of its subtree nodes.');
-    }
-
-    $this->moveSubtreeTo($parent->lft + 1, $con);
-
-    return $this;
-  }
-
-  public function moveToLastChildOf($parent, PropelPDO $con = null)
-  {
-    if ($parent->isDescendantOf($this))
-    {
-      throw new PropelException('Cannot move a node as child of one of its subtree nodes.');
-    }
-
-    $this->moveSubtreeTo($parent->rgt, $con);
-
-    return $this;
-  }
-
-  public function moveToPrevSiblingOf($sibling, PropelPDO $con = null)
-  {
-    if (!$this->isInTree())
-    {
-      throw new PropelException('This object must be already in the tree to be moved. Use the insertAsPrevSiblingOf() instead.');
-    }
-
-    if ($sibling->isRoot())
-    {
-      throw new PropelException('Cannot move to previous sibling of a root node.');
-    }
-
-    if ($sibling->isDescendantOf($this))
-    {
-      throw new PropelException('Cannot move a node as sibling of one of its subtree nodes.');
-    }
-
-    $this->moveSubtreeTo($sibling->lft, $con);
-
-    return $this;
-  }
-
-  public function moveToNextSiblingOf($sibling, PropelPDO $con = null)
-  {
-    if (!$this->isInTree())
-    {
-      throw new PropelException('This object must be already in the tree to be moved. Use the insertAsPrevSiblingOf() instead.');
-    }
-
-    if ($sibling->isRoot())
-    {
-      throw new PropelException('Cannot move to previous sibling of a root node.');
-    }
-
-    if ($sibling->isDescendantOf($this))
-    {
-      throw new PropelException('Cannot move a node as sibling of one of its subtree nodes.');
-    }
-
-    $this->moveSubtreeTo($sibling->rgt + 1, $con);
-
-    return $this;
-  }
-
-  protected function moveSubtreeTo($destLeft, PropelPDO $con = null)
-  {
-    $left  = $this->lft;
-    $right = $this->rgt;
-
-    $treeSize = $right - $left +1;
-
-    if ($con === null)
-    {
-      $con = Propel::getConnection();
-    }
-
-    $con->beginTransaction();
-
-    try
-    {
-      // make room next to the target for the subtree
-      self::shiftRLValues($treeSize, $destLeft, null, $con);
-
-      if ($left >= $destLeft) // src was shifted too?
-      {
-        $left += $treeSize;
-        $right += $treeSize;
-      }
-
-      // move the subtree to the target
-      self::shiftRLValues($destLeft - $left, $left, $right, $con);
-
-      // remove the empty room at the previous location of the subtree
-      self::shiftRLValues(-$treeSize, $right + 1, null, $con);
-
-      // update all loaded nodes
-      // self::updateLoadedNodes(null, $con);
-
-      $con->commit();
-    }
-    catch (PropelException $e)
-    {
-      $con->rollback();
-
-      throw $e;
-    }
-  }
-
-  /**
-   * Adds $delta to all L and R values that are >= $first and <= $last.
-   * '$delta' can also be negative.
-   *
-   * @param int $delta Value to be shifted by, can be negative
-   * @param int $first First node to be shifted
-   * @param int $last Last node to be shifted (optional)
-   * @param PropelPDO $con Connection to use.
-   */
-  protected function shiftRLValues($delta, $first, $last = null, PropelPDO $con = null)
-  {
-    if ($con === null)
-    {
-      $con = Propel::getConnection();
-    }
-
-    // Shift left column values
-    $whereCriteria = new Criteria;
-    $criterion = $whereCriteria->getNewCriterion(QubitDigitalObject::LFT, $first, Criteria::GREATER_EQUAL);
-    if (null !== $last)
-    {
-      $criterion->addAnd($whereCriteria->getNewCriterion(QubitDigitalObject::LFT, $last, Criteria::LESS_EQUAL));
-    }
-    $whereCriteria->add($criterion);
-
-    $valuesCriteria = new Criteria;
-    $valuesCriteria->add(QubitDigitalObject::LFT, array('raw' => QubitDigitalObject::LFT . ' + ?', 'value' => $delta), Criteria::CUSTOM_EQUAL);
-
-    BasePeer::doUpdate($whereCriteria, $valuesCriteria, $con);
-
-    // Shift right column values
-    $whereCriteria = new Criteria;
-    $criterion = $whereCriteria->getNewCriterion(QubitDigitalObject::RGT, $first, Criteria::GREATER_EQUAL);
-    if (null !== $last)
-    {
-      $criterion->addAnd($whereCriteria->getNewCriterion(QubitDigitalObject::RGT, $last, Criteria::LESS_EQUAL));
-    }
-    $whereCriteria->add($criterion);
-
-    $valuesCriteria = new Criteria;
-    $valuesCriteria->add(QubitDigitalObject::RGT, array('raw' => QubitDigitalObject::RGT . ' + ?', 'value' => $delta), Criteria::CUSTOM_EQUAL);
-
-    BasePeer::doUpdate($whereCriteria, $valuesCriteria, $con);
   }
 }

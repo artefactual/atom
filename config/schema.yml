@@ -88,8 +88,6 @@ propel:
     checksum: varchar(255)
     checksum_type: type: varchar(50)
     parent_id: { type: integer, foreignTable: digital_object, foreignReference: id }
-    lft: { type: integer, required: true, nestedSetLeftKey: true }
-    rgt: { type: integer, required: true, nestedSetRightKey: true }
 
   event:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }

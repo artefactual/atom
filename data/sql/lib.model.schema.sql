@@ -245,8 +245,6 @@ CREATE TABLE `digital_object`
 	`checksum` VARCHAR(255),
 	`checksum_type` VARCHAR(50),
 	`parent_id` INTEGER,
-	`lft` INTEGER  NOT NULL,
-	`rgt` INTEGER  NOT NULL,
 	PRIMARY KEY (`id`),
 	CONSTRAINT `digital_object_FK_1`
 		FOREIGN KEY (`id`)
