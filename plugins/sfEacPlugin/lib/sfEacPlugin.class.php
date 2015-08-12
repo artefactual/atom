@@ -318,8 +318,10 @@ return;
 
       case 'resourceRelation':
         $criteria = new Criteria;
+        $criteria->addAlias('obj', QubitObject::TABLE_NAME);
+        $criteria->addJoin(QubitEvent::OBJECT_ID, 'obj.id');
         $criteria->add(QubitEvent::ACTOR_ID, $this->resource->id);
-        $criteria->addJoin(QubitEvent::OBJECT_ID, QubitInformationObject::ID);
+        $criteria->add('obj.class_name', 'QubitInformationObject');
 
         return QubitEvent::get($criteria);
 

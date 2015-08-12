@@ -185,8 +185,8 @@
       <?php endforeach; ?>
 
       <?php foreach ($eac->resourceRelation as $item): ?>
-        <resourceRelation <?php echo sfEacPlugin::toResourceRelationTypeAndXlinkRole($item->type) ?> xlink:href="<?php echo url_for(array($item->informationObject, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
-          <relationEntry><?php echo esc_specialchars(render_title($item->informationObject)) ?></relationEntry>
+        <resourceRelation <?php echo sfEacPlugin::toResourceRelationTypeAndXlinkRole($item->type) ?> xlink:href="<?php echo url_for(array($item->object, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
+          <relationEntry><?php echo esc_specialchars(render_title($item->object)) ?></relationEntry>
           <?php echo sfEacPlugin::renderDates($item) ?>
           <?php if (isset($item->date)): ?>
             <descriptiveNote>
