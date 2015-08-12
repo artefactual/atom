@@ -39,8 +39,19 @@ class InformationObjectRenameAction extends sfAction
 
     $resource = $this->updateFields();
 
+    // Let user know description was updated (and if slug had to be adjusted)
     ProjectConfiguration::getActive()->loadHelpers('I18N');
-    $this->getUser()->setFlash('notice', __('Description updated.'));
+
+    $message = __('Description updated.');
+
+    $postData = $this->request->getPostParameters();
+
+    if (isset($postData['slug']) && $resource->slug != $postData['slug'])
+    {
+      $message .= ' '. __('Slug was adjusted to remove special characters or because it has already been used for another description.');
+    }
+
+    $this->getUser()->setFlash('notice', $message);
 
     $this->redirect(array($resource, 'module' => 'informationobject'));
   }
@@ -57,20 +68,41 @@ class InformationObjectRenameAction extends sfAction
       $resource->title = $postData['title'];
     }
 
-    // Update slug, if requested
+    // Attempt to update slug if slug sent
     if (isset($postData['slug']))
     {
       $slug = QubitSlug::getByObjectId($resource->id);
-      $slug->slug = $postData['slug'];
-      $slug->save();
+
+      // Attempt to change slug if submitted slug's different than current slug
+      if ($postData['slug'] != $slug->slug)
+      {
+        $slug->slug = InformationObjectSlugPreviewAction::determineAvailableSlug($postData['slug']);
+        $slug->save();
+      }
     }
 
     // Update digital object filename, if requested
     if (isset($postData['filename']) && count($resource->digitalObjects))
     {
+      // Parse filename so special characters can be removed
+      $fileParts = pathinfo(trim($postData['filename']));
+      $filename = QubitSlug::slugify($fileParts['filename']) .'.'. QubitSlug::slugify($fileParts['extension']);
+
       $digitalObject = $resource->digitalObjects[0];
-      $digitalObject->name = $postData['filename'];
+
+      // Rename master file
+      $basePath = sfConfig::get('sf_web_dir') . $digitalObject->path;
+      $oldFilePath = $basePath . DIRECTORY_SEPARATOR . $digitalObject->name;
+      $newFilePath = $basePath . DIRECTORY_SEPARATOR . $filename;
+      rename($oldFilePath, $newFilePath);
+      chmod($newFilePath, 0644);
+
+      // Change name in database
+      $digitalObject->name = $filename;
       $digitalObject->save();
+
+      // Regeneraate derivatives
+      digitalObjectRegenDerivativesTask::regenerateDerivatives($digitalObject);
     }
 
     $resource->save();

@@ -147,32 +147,7 @@ EOF;
       $this->logSection('digital object', sprintf('Regenerating derivatives for %s... (%ss)',
         $do->name, $timer->elapsed()));
 
-      // Delete existing derivatives
-      foreach ($do->descendants as $derivative)
-      {
-        $derivative->delete();
-      }
-
-      // Delete existing transcripts
-      foreach ($do->propertys as $property)
-      {
-        if ('transcript' == $property->name)
-        {
-          $property->delete();
-        }
-      }
-
-      $do->createRepresentations(QubitTerm::MASTER_ID, $conn);
-
-      if ($options['index'])
-      {
-        // Update index
-        $do->save();
-      }
-
-      // Destroy out-of-scope objects
-      QubitDigitalObject::clearCache();
-      QubitInformationObject::clearCache();
+      digitalObjectRegenDerivativesTask::regenerateDerivatives($do);
     }
 
     // Warn user to manually update search index
@@ -182,5 +157,35 @@ EOF;
     }
 
     $this->logSection('digital object', 'Done!');
+  }
+
+  public static function regenerateDerivatives(&$digitalObject)
+  {
+    // Delete existing derivatives
+    foreach ($digitalObject->descendants as $derivative)
+    {
+      $derivative->delete();
+    }
+
+    // Delete existing transcripts
+    foreach ($digitalObject->propertys as $property)
+    {
+      if ('transcript' == $property->name)
+      {
+        $property->delete();
+      }
+    }
+
+    $digitalObject->createRepresentations(QubitTerm::MASTER_ID, $conn);
+
+    if ($options['index'])
+    {
+      // Update index
+      $digitalObject->save();
+    }
+
+    // Destroy out-of-scope objects
+    QubitDigitalObject::clearCache();
+    QubitInformationObject::clearCache();
   }
 }

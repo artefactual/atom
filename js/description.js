@@ -15,6 +15,13 @@
 
                 // Specific case for tooltips in YUI dialogs
                 var $dialog = $this.closest('div.yui-panel');
+
+                // If no YUI dialogs found, look for Bootstrap dialogs
+                if (!$dialog.length)
+                {
+                  var $dialog = $this.closest('div.modal');
+                }
+
                 if ($dialog.length)
                 {
                   var positionateDialog = function()
@@ -87,6 +94,7 @@
                   .hide();
 
                 $('div.yui-panel > .description-dialog').remove();
+                $('div.modal > .description-dialog').remove();
               });
         } };
   })(jQuery);
