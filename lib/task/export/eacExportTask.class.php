@@ -32,6 +32,24 @@ class eacExportTask extends exportBulkBaseTask
   protected $briefDescription = 'Bulk export multiple EAC XML files at once for authority records.';
 
   /**
+   * @see sfTask
+   */
+  protected function configure()
+  {
+    $this->addArguments(array(
+      new sfCommandArgument('path', sfCommandArgument::REQUIRED, 'The destination path for export file(s).')
+    ));
+
+    $this->addOptions(array(
+      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
+      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+      new sfCommandOption('items-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indicate progress every n items.'),
+      new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria')
+    ));
+  }
+
+  /**
    * @see exportBulkBaseTask
    */
   public function execute($arguments = array(), $options = array())
