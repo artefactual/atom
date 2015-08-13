@@ -954,11 +954,10 @@ EOF;
         // if both a URI and path are provided, the former is preferred.
         if ($uri = $self->rowStatusVars['digitalObjectURI'])
         {
-          // importFromURI can raise an exception if the download hits a timeout
-          $do = new QubitDigitalObject;
-          $do->importFromURI($uri);
-          $do->informationObject = $self->object;
-          $do->save();
+          if (!downloadExternalURIWithRetries($uri, $self->object))
+          {
+            $this->log("Failed to download $uri after multiple tries. Continuing task...");
+          }
         }
         else if ($path = $self->rowStatusVars['digitalObjectPath'])
         {
@@ -1083,4 +1082,42 @@ function refreshTaxonomyTerms($taxonomyId)
 {
   $result = QubitFlatfileImport::loadTermsFromTaxonomies(array($taxonomyId => 'terms'));
   return $result['terms'];
+}
+
+/**
+ * Downloads digital objects from a URI. Will retry a few times if we get any timeouts.
+ *
+ * @param string uri  The path to the external digital object, e.g.: https://www.example.com/hi.jpg
+ * @param QubitInformationObject infoObj  The information object to associate this digital object with.
+ *
+ * @return bool  True if the digital object downloaded / saved, false if not.
+ */
+function downloadExternalURIWithRetries($uri, $infoObj)
+{
+  $MAX_RETRIES = 3;
+
+  for ($i = 0; $i < $MAX_RETRIES; $i++)
+  {
+    try
+    {
+      $do = new QubitDigitalObject;
+
+      $do->importFromURI($uri);
+      $do->informationObject = $infoObj;
+      $do->save();
+    }
+    catch (Exception $e)
+    {
+      if ($e->getCode() === CURLE_OPERATION_TIMEDOUT)
+      {
+        continue;
+      }
+
+      throw $e;
+    }
+
+    break;
+  }
+
+  return $i < $MAX_RETRIES;
 }
