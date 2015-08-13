@@ -51,8 +51,11 @@ class arElasticSearchPluginUtil
    *
    * @param  string  date  The date string
    * @param  bool  endDate  If this is set to true, use 12-31 instead
+   *
+   * @return  mixed  A string indicating the normalized date in YYYY-MM-DD format,
+   *                 otherwise null indicating an invalid date string was given.
    */
-  public static function normalizeDateWithoutMonthOrYear($date, $endDate = false)
+  public static function normalizeDateWithoutMonthOrDay($date, $endDate = false)
   {
     if (!strlen($date))
     {
@@ -67,6 +70,13 @@ class arElasticSearchPluginUtil
     }
 
     list($year, $month, $day) = $dateParts;
+
+    // Invalid year. Return null now since cal_days_in_month will fail
+    // with year 0000. See #8796
+    if ((int)$year === 0)
+    {
+      return null;
+    }
 
     if ((int)$month === 0)
     {

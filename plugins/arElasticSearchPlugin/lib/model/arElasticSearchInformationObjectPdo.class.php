@@ -979,8 +979,8 @@ class arElasticSearchInformationObjectPdo
     {
       $basisRight = array();
 
-      $basisRight['startDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrYear($right->start_date);
-      $basisRight['endDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrYear($right->end_date, true);
+      $basisRight['startDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrDay($right->start_date);
+      $basisRight['endDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrDay($right->end_date, true);
       $basisRight['rightsNote'] = $right->rights_note;
       $basisRight['licenseTerms'] = $right->license_terms;
 
@@ -1018,8 +1018,8 @@ class arElasticSearchInformationObjectPdo
       }
 
       $actRight['restriction'] = QubitGrantedRight::getRestrictionString($grantedRight->restriction);
-      $actRight['startDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrYear($grantedRight->start_date);
-      $actRight['endDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrYear($grantedRight->end_date, true);
+      $actRight['startDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrDay($grantedRight->start_date);
+      $actRight['endDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrDay($grantedRight->end_date, true);
 
       $actRights[] = $actRight;
     }
