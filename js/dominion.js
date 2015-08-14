@@ -123,22 +123,19 @@
       var $facets = $('#facets');
       var $facet = $facets.find('.facet');
 
-      $facet.on('click', '.facet-header h3', function (e)
+      $facet.on('click', '.facet-header a', function (e)
         {
           $(e.target).parents('.facet').toggleClass('open');
-        });
-
-      $facets.find('.facets-header a').click(function (e)
-        {
-          $(e.target).toggleClass('open');
-          $facets.find('.content').toggle();
+          $(e.target).attr('aria-expanded', function (index, attr) {
+            return attr == 'false' ? 'true' : 'false';
+          });
         });
 
       // Open first two facets
       $facet.slice(0, 2).filter(function(index, element)
         {
           return 0 < $(element).find('li').length;
-        }).addClass('open');
+        }).addClass('open').find('.facet-header a').attr('aria-expanded', 'true');
     });
 
     $(document).ready(function () {

@@ -5,7 +5,11 @@
 <?php endif; ?>
 
   <div class="facet-header">
-    <h3><a href="#"><?php echo $label ?></a></h3>
+    <?php if (isset($sf_request->$facet)): ?>
+      <h3><a href="#" aria-expanded="true"><?php echo $label ?></a></h3>
+    <?php else: ?>
+      <h3><a href="#" aria-expanded="false"><?php echo $label ?></a></h3>
+    <?php endif; ?>
   </div>
 
   <div class="facet-body" id="<?php echo $target ?>">

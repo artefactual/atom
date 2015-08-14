@@ -6,7 +6,12 @@
 <?php endif; ?>
 
   <div class="facet-header">
-    <h3><a href="#"><?php echo $label ?></a></h3>
+    <?php if (isset($sf_request->$facet) || (isset($open) && $open
+      && isset($pager->facets[$facet]) && 0 < count($pager->facets[$facet]['terms']))): ?>
+      <h3><a href="#" aria-expanded="true"><?php echo $label ?></a></h3>
+    <?php else: ?>
+      <h3><a href="#" aria-expanded="false"><?php echo $label ?></a></h3>
+    <?php endif; ?>
   </div>
 
   <div class="facet-body" id="<?php echo $target ?>">
