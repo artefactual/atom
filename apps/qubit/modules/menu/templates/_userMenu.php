@@ -2,7 +2,7 @@
 
   <div id="user-menu">
 
-    <button class="top-item top-dropdown" data-toggle="dropdown" data-target="#"><?php echo __('Log in') ?></button>
+    <button class="top-item top-dropdown" data-toggle="dropdown" data-target="#" aria-expanded="false"><?php echo __('Log in') ?></button>
 
     <div class="top-dropdown-container">
 
@@ -40,7 +40,7 @@
 
   <div id="user-menu">
 
-    <button class="top-item top-dropdown" data-toggle="dropdown" data-target="#">
+    <button class="top-item top-dropdown" data-toggle="dropdown" data-target="#" aria-expanded="false">
       <?php echo $sf_user->user->username ?>
     </button>
 

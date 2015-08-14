@@ -47,7 +47,7 @@
           }
         });
 
-      $('[id$=menu]').tooltip(
+      $('#top-bar [id$=menu]').tooltip(
         {
           'placement': 'bottom'
         })
@@ -55,6 +55,23 @@
           {
             $(this).tooltip('hide');
           });
+
+      // Listen to class changes in the top div to change aria-expanded
+      // attribute in the child button when the dropdown is opened/closed.
+      // Bootstrap doesn't trigger any event in those cases until v3.
+      $('#top-bar [id$=menu]').attrchange({
+        trackValues: true,
+        callback: function(evnt) {
+          if(evnt.attributeName == 'class') {
+            if(evnt.newValue.search(/open/i) == -1) {
+              $(this).find('button.top-item').attr('aria-expanded', 'false');
+            }
+            else {
+              $(this).find('button.top-item').attr('aria-expanded', 'true');
+            }
+          }
+        }
+      });
     });
 
   /****
