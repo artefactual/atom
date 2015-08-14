@@ -10,7 +10,7 @@
   </head>
   <body class="yui-skin-sam <?php echo $sf_context->getModuleName() ?> <?php echo $sf_context->getActionName() ?>">
 
-    <div id="wrapper" class="container">
+    <div id="wrapper" class="container" role="main">
 
       <div class="row">
 
