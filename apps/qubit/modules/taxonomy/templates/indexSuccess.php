@@ -3,7 +3,7 @@
 <?php slot('sidebar') ?>
   <div class="sidebar-lowering">
 
-    <h3><?php echo __('Browse %1%:', array('%1%' => render_title($resource))) ?></h3>
+    <h2><?php echo __('Browse %1%:', array('%1%' => render_title($resource))) ?></h2>
 
     <?php echo get_component('term', 'treeView', array('browser' => false)) ?>
 

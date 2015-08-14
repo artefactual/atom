@@ -9,7 +9,7 @@
   <?php echo get_component('menu', 'staticPagesMenu') ?>
 
   <section>
-    <h3><?php echo __('Browse by') ?></h3>
+    <h2><?php echo __('Browse by') ?></h2>
     <ul>
       <?php $browseMenu = QubitMenu::getById(QubitMenu::BROWSE_ID) ?>
       <?php if ($browseMenu->hasChildren()): ?>

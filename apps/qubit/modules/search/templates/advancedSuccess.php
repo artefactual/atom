@@ -4,7 +4,7 @@
 
   <section id="advanced-search-filters">
 
-    <h3><?php echo __('Search filters') ?></h3>
+    <h2><?php echo __('Search filters') ?></h2>
 
     <div class="filter">
       <?php if (sfConfig::get('app_multi_repository')): ?>
@@ -46,7 +46,7 @@
         ->renderRow() ?>
     </div>
 
-    <h3><?php echo __('Date range') ?></h3>
+    <h2><?php echo __('Date range') ?></h2>
 
     <div class="filter">
       <?php echo $form->sd

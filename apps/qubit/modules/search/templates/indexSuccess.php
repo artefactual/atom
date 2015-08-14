@@ -66,6 +66,8 @@
 <?php slot('sidebar') ?>
   <section id="facets">
 
+    <h2><?php echo sfConfig::get('app_ui_label_facetstitle') ?></h2>
+
     <?php echo get_partial('search/facetLanguage', array(
       'target' => '#facet-languages',
       'label' => __('Language'),
