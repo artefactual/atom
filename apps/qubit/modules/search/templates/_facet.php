@@ -53,8 +53,8 @@
                         array_intersect(@$filters[$facet], array($id))))
                     :
                       $id),
-                'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?>
-            <span class="facet-count"><?php echo $term['count'] ?></span>
+                'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('aria-describedby' => 'facet-count-'.$id)) ?>
+            <span class="facet-count" id="facet-count-<?php echo $id ?>"><?php echo $term['count'] ?><span><?php echo __('results') ?></span></span>
           </li>
         <?php endforeach; ?>
       <?php endif; ?>
