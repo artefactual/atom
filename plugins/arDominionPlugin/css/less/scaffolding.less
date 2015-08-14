@@ -53,15 +53,30 @@ a:hover {
   }
 }
 
-// h1 multiline
+// Multiline headings
 
-.multiline {
+.multiline-header {
   margin-top: 18px;
-  line-height: 24px;
+  margin-bottom: 10px;
   img {
     float: left;
     margin-right: 8px;
   }
+  h1 {
+    line-height: 24px;
+    margin-bottom: 0;
+  }
+  .sub {
+    margin-top: 4px;
+    font-size: 12px;
+    display: block;
+    line-height: 1;
+  }
+}
+
+h1.multiline {
+  margin-top: 18px;
+  line-height: 24px;
   .sub {
     margin-top: 4px;
     font-size: 12px;
