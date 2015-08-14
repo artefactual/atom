@@ -3,11 +3,11 @@
 <div class="row-fluid">
   <div class="span6">
 
-    <h1 class="multiline">
+    <div class="multiline-header">
       <?php echo image_tag('/images/icons-large/icon-media.png') ?>
-      <?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?>
-      <span class="sub"><?php echo sfConfig::get('app_ui_label_digitalobject') ?></span>
-    </h1>
+      <h1 aria-describedby="results-label"><?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?></h1>
+      <span class="sub" id="results-label"><?php echo sfConfig::get('app_ui_label_digitalobject') ?></span>
+    </div>
 
   </div>
   <div class="span6">

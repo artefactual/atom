@@ -47,7 +47,7 @@
           }
         });
 
-      $('[id$=menu]').tooltip(
+      $('#top-bar [id$=menu]').tooltip(
         {
           'placement': 'bottom'
         })
@@ -55,6 +55,23 @@
           {
             $(this).tooltip('hide');
           });
+
+      // Listen to class changes in the top div to change aria-expanded
+      // attribute in the child button when the dropdown is opened/closed.
+      // Bootstrap doesn't trigger any event in those cases until v3.
+      $('#top-bar [id$=menu]').attrchange({
+        trackValues: true,
+        callback: function(evnt) {
+          if(evnt.attributeName == 'class') {
+            if(evnt.newValue.search(/open/i) == -1) {
+              $(this).find('button.top-item').attr('aria-expanded', 'false');
+            }
+            else {
+              $(this).find('button.top-item').attr('aria-expanded', 'true');
+            }
+          }
+        }
+      });
     });
 
   /****
@@ -123,22 +140,19 @@
       var $facets = $('#facets');
       var $facet = $facets.find('.facet');
 
-      $facet.on('click', '.facet-header p', function (e)
+      $facet.on('click', '.facet-header a', function (e)
         {
           $(e.target).parents('.facet').toggleClass('open');
-        });
-
-      $facets.find('.facets-header a').click(function (e)
-        {
-          $(e.target).toggleClass('open');
-          $facets.find('.content').toggle();
+          $(e.target).attr('aria-expanded', function (index, attr) {
+            return attr == 'false' ? 'true' : 'false';
+          });
         });
 
       // Open first two facets
       $facet.slice(0, 2).filter(function(index, element)
         {
           return 0 < $(element).find('li').length;
-        }).addClass('open');
+        }).addClass('open').find('.facet-header a').attr('aria-expanded', 'true');
     });
 
     $(document).ready(function () {

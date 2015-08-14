@@ -1,6 +1,6 @@
 <section id="popular-this-week">
 
-  <h3><?php echo __('Popular this week') ?></h3>
+  <h2><?php echo __('Popular this week') ?></h2>
   <ul>
     <?php foreach ($popularThisWeek as $item): ?>
       <?php $object = QubitObject::getById($item[0]); ?>

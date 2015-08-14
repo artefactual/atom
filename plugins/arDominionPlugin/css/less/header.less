@@ -61,6 +61,8 @@ header #logo {
   font-size: 13px;
   line-height: 14px;
   text-decoration: none;
+  border: none;
+  outline: none;
 }
 
 .top-dropdown {
@@ -68,9 +70,9 @@ header #logo {
 }
 
 .top-dropdown,
-a.top-dropdown:link,
-a.top-dropdown:visited,
-a.top-dropdown:active {
+button.top-dropdown:link,
+button.top-dropdown:visited,
+button.top-dropdown:active {
   padding: 5px 29px 6px 17px;
   background-image: url(../../images/gray-arrow.png);
   background-position: right center;
@@ -78,8 +80,9 @@ a.top-dropdown:active {
   color: lighten(@gray, 40%);
 }
 
-.open > a.top-dropdown,
-a.top-dropdown:hover {
+.open > button.top-dropdown,
+button.top-dropdown:hover,
+button.top-dropdown:focus {
   background-color: @topBarButtonHoverColor !important;
   background-image: url(../../images/white-arrow.png);
   color: @white;
@@ -128,11 +131,11 @@ nav > div {
   .top-dropdown-header {
     background-color: @white;
     padding: 0 10px;
-    font-size: 16px;
     border-bottom: 1px solid @grayLighter;
 
-    h3 {
+    h2 {
       display: inline-block;
+      font-size: 16px;
       margin: 0;
     }
   }
@@ -181,14 +184,14 @@ nav > div {
 
 #browse-menu {
   float: left;
-  > a {
+  > button {
     .border-radius(4px);
     background-color: lighten(@grayDark, 5%);
   }
 }
 
 #user-menu {
-  > a {
+  > button {
     margin-left: 12px;
   }
   form {
@@ -221,26 +224,26 @@ nav > div {
   // As text is hidden
   cursor: pointer;
 
-  > a {
+  > button {
     .border-radius(0);
   }
 
   // Cancel margin and padding
-  > a,
-  > a:before {
+  > button,
+  > button:before {
     margin: 0;
     padding: 0;
     line-height: @side;
     .square(@side);
   }
 
-  > a {
+  > button {
     .hide-text();
     position: relative;
   }
 
   // Icons
-  > a:before {
+  > button:before {
     font-family: 'FontAwesome';
     font-weight: normal;
     font-style: normal;
@@ -254,12 +257,13 @@ nav > div {
 
   // Hover effect
   &.open,
-  > a:hover {
+  > button:hover,
+  > button:focus {
     background-color: @topBarButtonHoverColor;
   }
 
-  &.open > a:before,
-  > a:hover:before {
+  &.open > button:before,
+  > button:hover:before {
     color: @white;
   }
 
@@ -268,37 +272,37 @@ nav > div {
 // Font-Awesome icons
 
 #admin-menu  {
-  > a:before {
+  > button:before {
     content: "\f085";
   }
 }
 
 #add-menu {
-  > a:before {
+  > button:before {
     content: "\f055";
   }
 }
 
 #manage-menu {
-  > a:before {
+  > button:before {
     content: "\f14b";
   }
 }
 
 #import-menu {
-  > a:before {
+  > button:before {
     content: "\f019";
   }
 }
 
 #language-menu {
-  > a:before {
+  > button:before {
     content: "\f0ac";
   }
 }
 
 #quick-links-menu {
-  > a:before {
+  > button:before {
     content: "\f05a";
   }
 }
@@ -319,6 +323,10 @@ nav > div {
 }
 
 #search-bar #search-form-wrapper {
+
+  h2 {
+    .hide();
+  }
 
   // Use form to margin top
   // And cancel default margin bottom
@@ -376,9 +384,13 @@ nav > div {
       content:"\f002";
     }
   }
+
+  span {
+    .hide();
+  }
 }
 
-// Responsive desgin
+// Responsive design
 
 @media (min-width: 1200px) { }
 

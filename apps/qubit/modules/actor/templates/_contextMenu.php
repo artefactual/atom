@@ -4,7 +4,7 @@
 
     <section class="list-menu">
 
-      <h4><?php echo __('Subject of') ?></h4>
+      <h2><?php echo __('Subject of') ?></h2>
 
       <ul>
         <?php foreach ($subjectInfoObjects as $item): ?>
@@ -20,7 +20,7 @@
 
     <section class="list-menu">
 
-      <h4><?php echo __('%1% of', array('%1%' => $role)) ?></h4>
+      <h2><?php echo __('%1% of', array('%1%' => $role)) ?></h2>
 
       <ul>
         <?php foreach ($informationObjects as $informationObject): ?>

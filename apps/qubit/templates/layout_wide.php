@@ -18,17 +18,21 @@
 
     <?php echo get_partial('header') ?>
 
-    <?php include_slot('before-content') ?>
+    <div role="main">
 
-    <?php echo get_partial('alerts') ?>
+      <?php include_slot('before-content') ?>
 
-    <?php if (!include_slot('content')): ?>
-      <div class="container-fluid">
-        <?php echo $sf_content ?>
-      </div>
-    <?php endif; ?>
+      <?php echo get_partial('alerts') ?>
 
-    <?php include_slot('after-content') ?>
+      <?php if (!include_slot('content')): ?>
+        <div class="container-fluid">
+          <?php echo $sf_content ?>
+        </div>
+      <?php endif; ?>
+
+      <?php include_slot('after-content') ?>
+
+    </div>
 
     <?php echo get_partial('footer') ?>
 

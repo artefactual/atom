@@ -2,10 +2,10 @@
 <?php use_helper('Date') ?>
 
 <?php slot('title') ?>
-  <h1 class="multiline">
-    <?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?>
-    <span class="sub"><?php echo __('Rights holder') ?></span>
-  </h1>
+  <div class="multiline-header">
+    <h1 aria-describedby="results-label"><?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?></h1>
+    <span class="sub" id="results-label"><?php echo __('Rights holder') ?></span>
+  </div>
 <?php end_slot() ?>
 
 <?php slot('before-content') ?>

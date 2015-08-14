@@ -20,7 +20,7 @@
 
     <?php include_slot('pre') ?>
 
-    <div id="wrapper" class="container">
+    <div id="wrapper" class="container" role="main">
 
       <?php echo get_partial('alerts') ?>
 

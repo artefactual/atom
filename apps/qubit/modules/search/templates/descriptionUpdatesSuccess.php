@@ -11,7 +11,7 @@
 
   <section class="sidebar-widget">
 
-    <h4><?php echo __('Filter options') ?></h4>
+    <h2><?php echo __('Filter options') ?></h2>
 
     <div>
 

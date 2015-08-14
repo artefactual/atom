@@ -1,11 +1,11 @@
 <?php decorate_with('layout_1col.php') ?>
 
 <?php slot('title') ?>
-  <h1 class="multiline">
-    <?php echo render_title($resource) ?>
+  <div class="multiline-header">
     <?php echo link_to(image_tag('printer-icon.png', array('alt' => __('Print'))), array($resource, 'module' => 'physicalobject', 'action' => 'boxList'), array('id' => 'print-button', 'title' => __('Print'))) ?>
+    <h1><?php echo render_title($resource) ?></h1>
     <span class="sub"><?php echo __('View %1%', array('%1%' => sfConfig::get('app_ui_label_physicalobject'))) ?></span>
-  </h1>
+  </div>
 <?php end_slot() ?>
 
 <?php slot('before-content') ?>

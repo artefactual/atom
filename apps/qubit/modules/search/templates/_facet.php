@@ -6,7 +6,12 @@
 <?php endif; ?>
 
   <div class="facet-header">
-    <p><?php echo $label ?></p>
+    <?php if (isset($sf_request->$facet) || (isset($open) && $open
+      && isset($pager->facets[$facet]) && 0 < count($pager->facets[$facet]['terms']))): ?>
+      <h3><a href="#" aria-expanded="true"><?php echo $label ?></a></h3>
+    <?php else: ?>
+      <h3><a href="#" aria-expanded="false"><?php echo $label ?></a></h3>
+    <?php endif; ?>
   </div>
 
   <div class="facet-body" id="<?php echo $target ?>">
@@ -53,8 +58,8 @@
                         array_intersect(@$filters[$facet], array($id))))
                     :
                       $id),
-                'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?>
-            <span class="facet-count"><?php echo $term['count'] ?></span>
+                'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('aria-describedby' => 'facet-count-'.$id)) ?>
+            <span class="facet-count" id="facet-count-<?php echo $id ?>"><?php echo $term['count'] ?><span><?php echo __('results') ?></span></span>
           </li>
         <?php endforeach; ?>
       <?php endif; ?>

@@ -1,4 +1,6 @@
-<div id="search-form-wrapper">
+<div id="search-form-wrapper" role="search">
+
+  <h2><?php echo __('Search') ?></h2>
 
   <form action="<?php echo url_for(array('module' => 'search')) ?>" data-autocomplete="<?php echo url_for(array('module' => 'search', 'action' => 'autocomplete')) ?>" autocomplete="off">
 
@@ -8,7 +10,7 @@
       <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo $sf_request->query ?>" placeholder="<?php echo __('Search') ?>"/>
     <?php endif; ?>
 
-    <button action="<?php echo url_for(array('module' => 'search')) ?>" data-autocomplete="<?php echo url_for(array('module' => 'search', 'action' => 'autocomplete')) ?>" autocomplete="off"></button>
+    <button action="<?php echo url_for(array('module' => 'search')) ?>" data-autocomplete="<?php echo url_for(array('module' => 'search', 'action' => 'autocomplete')) ?>" autocomplete="off"><span><?php echo __('Search') ?></span></button>
 
     <div id="search-realm" class="search-popover">
 

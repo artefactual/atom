@@ -3,7 +3,7 @@
 <?php slot('sidebar') ?>
   <div class="sidebar-lowering">
 
-    <h3><?php echo __('Browse %1%:', array('%1%' => render_title($resource))) ?></h3>
+    <h2><?php echo __('Browse %1%:', array('%1%' => render_title($resource))) ?></h2>
 
     <?php echo get_component('term', 'treeView', array('browser' => false)) ?>
 
@@ -11,13 +11,13 @@
 <?php end_slot() ?>
 
 <?php slot('title') ?>
-  <h1 class="multiline">
+  <div class="multiline-header">
     <?php if (isset($icon)): ?>
       <?php echo image_tag('/images/icons-large/icon-'.$icon.'.png') ?>
     <?php endif; ?>
-    <?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?>
-    <span class="sub"><?php echo render_title($resource) ?></span>
-  </h1>
+    <h1 aria-describedby="results-label"><?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?></h1>
+    <span class="sub" id="results-label"><?php echo render_title($resource) ?></span>
+  </div>
 <?php end_slot() ?>
 
 <?php slot('before-content') ?>

@@ -1,6 +1,6 @@
 <div id="language-menu" data-toggle="tooltip" data-title="<?php echo __('Language') ?>">
 
-  <a class="top-item" data-toggle="dropdown" data-target="#" href="#"><?php echo __('Language') ?></a>
+  <button class="top-item" data-toggle="dropdown" data-target="#" aria-expanded="false"><?php echo __('Language') ?></button>
 
   <div class="top-dropdown-container">
 
@@ -9,7 +9,7 @@
     </div>
 
     <div class="top-dropdown-header">
-      <h3><?php echo __('Language') ?></h3>
+      <h2><?php echo __('Language') ?></h2>
     </div>
 
     <div class="top-dropdown-body">

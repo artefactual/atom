@@ -21,7 +21,7 @@
     <?php include_slot('pre') ?>
 
     <?php if (!include_slot('content')): ?>
-      <div id="content">
+      <div id="content" role="main">
         <?php echo $sf_content ?>
       </div>
     <?php endif; ?>

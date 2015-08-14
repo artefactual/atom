@@ -53,15 +53,30 @@ a:hover {
   }
 }
 
-// h1 multiline
+// Multiline headings
 
-.multiline {
+.multiline-header {
   margin-top: 18px;
-  line-height: 24px;
+  margin-bottom: 10px;
   img {
     float: left;
     margin-right: 8px;
   }
+  h1 {
+    line-height: 24px;
+    margin-bottom: 0;
+  }
+  .sub {
+    margin-top: 4px;
+    font-size: 12px;
+    display: block;
+    line-height: 1;
+  }
+}
+
+h1.multiline {
+  margin-top: 18px;
+  line-height: 24px;
   .sub {
     margin-top: 4px;
     font-size: 12px;
@@ -380,15 +395,31 @@ div#content > table.table {
   }
 
   // Content of .facet-header for desktops
-  p {
+  h3 {
     text-transform: lowercase;
     font-variant: small-caps;
     font-weight: normal;
     font-size: 20px;
+    line-height: 20px;
     margin: 0 0 0 0;
-    padding: 4px 4px 6px 6px;
     position: relative;
     cursor: pointer;
+  }
+
+  .facet-header a  {
+    text-decoration: none;
+    display: block;
+    padding: 4px 4px 6px 6px;
+    color: @gray;
+
+    &:hover {
+      color: @white;
+      background-color: @grayLight;
+      &:after {
+        color: @white;
+      }
+    }
+
     &:after {
       font-variant: normal;
       position: absolute;
@@ -396,13 +427,6 @@ div#content > table.table {
       content: "\f107";
       font-family: "FontAwesome";
       color: @gray;
-    }
-    &:hover {
-      background-color: @grayLight;
-      color: @white;
-      &:after {
-        color: @white;
-      }
     }
   }
 
@@ -413,15 +437,13 @@ div#content > table.table {
   // Open state of a facet
   &.open {
 
-    // Change arrow icon
-    p:after {
-      content: "\f106";
-    }
-
-    .facet-header p {
+    .facet-header a  {
       background-color: @grayLight;
       color: @white;
+
+      // Change arrow icon
       &:after {
+        content: "\f106";
         color: @white;
       }
     }
@@ -462,6 +484,10 @@ div#content > table.table {
     padding-left: 4px;
     position: absolute;
     right: 5px;
+
+    > span {
+      .hide();
+    }
   }
 
 }
