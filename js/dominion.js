@@ -123,7 +123,7 @@
       var $facets = $('#facets');
       var $facet = $facets.find('.facet');
 
-      $facet.on('click', '.facet-header p', function (e)
+      $facet.on('click', '.facet-header h3', function (e)
         {
           $(e.target).parents('.facet').toggleClass('open');
         });

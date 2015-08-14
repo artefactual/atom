@@ -380,15 +380,31 @@ div#content > table.table {
   }
 
   // Content of .facet-header for desktops
-  p {
+  h3 {
     text-transform: lowercase;
     font-variant: small-caps;
     font-weight: normal;
     font-size: 20px;
+    line-height: 20px;
     margin: 0 0 0 0;
-    padding: 4px 4px 6px 6px;
     position: relative;
     cursor: pointer;
+  }
+
+  .facet-header a  {
+    text-decoration: none;
+    display: block;
+    padding: 4px 4px 6px 6px;
+    color: @gray;
+
+    &:hover {
+      color: @white;
+      background-color: @grayLight;
+      &:after {
+        color: @white;
+      }
+    }
+
     &:after {
       font-variant: normal;
       position: absolute;
@@ -396,13 +412,6 @@ div#content > table.table {
       content: "\f107";
       font-family: "FontAwesome";
       color: @gray;
-    }
-    &:hover {
-      background-color: @grayLight;
-      color: @white;
-      &:after {
-        color: @white;
-      }
     }
   }
 
@@ -413,15 +422,13 @@ div#content > table.table {
   // Open state of a facet
   &.open {
 
-    // Change arrow icon
-    p:after {
-      content: "\f106";
-    }
-
-    .facet-header p {
+    .facet-header a  {
       background-color: @grayLight;
       color: @white;
+
+      // Change arrow icon
       &:after {
+        content: "\f106";
         color: @white;
       }
     }

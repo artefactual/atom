@@ -6,7 +6,7 @@
 <?php endif; ?>
 
   <div class="facet-header">
-    <p><?php echo $label ?></p>
+    <h3><a href="#"><?php echo $label ?></a></h3>
   </div>
 
   <div class="facet-body" id="<?php echo $target ?>">
