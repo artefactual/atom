@@ -2,7 +2,7 @@
 
   <div id="user-menu">
 
-    <a class="top-item top-dropdown" data-toggle="dropdown" data-target="#" href="#"><?php echo __('Log in') ?></a>
+    <button class="top-item top-dropdown" data-toggle="dropdown" data-target="#"><?php echo __('Log in') ?></button>
 
     <div class="top-dropdown-container">
 
@@ -11,7 +11,7 @@
       </div>
 
       <div class="top-dropdown-header">
-        <h3><?php echo __('Have an account?') ?></h3>
+        <h2><?php echo __('Have an account?') ?></h2>
       </div>
 
       <div class="top-dropdown-body">
@@ -40,9 +40,9 @@
 
   <div id="user-menu">
 
-    <a class="top-item top-dropdown" data-toggle="dropdown" data-target="#" href="#">
+    <button class="top-item top-dropdown" data-toggle="dropdown" data-target="#">
       <?php echo $sf_user->user->username ?>
-    </a>
+    </button>
 
     <div class="top-dropdown-container">
 
@@ -52,7 +52,7 @@
 
       <div class="top-dropdown-header">
         <?php echo image_tag($gravatar) ?>&nbsp;
-        <h3><?php echo __('Hi, %1%', array('%1%' => $sf_user->user->username)) ?></h3>
+        <h2><?php echo __('Hi, %1%', array('%1%' => $sf_user->user->username)) ?></h2>
       </div>
 
       <div class="top-dropdown-body">

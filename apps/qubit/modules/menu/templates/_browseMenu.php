@@ -1,6 +1,6 @@
 <div id="browse-menu">
 
-  <a class="top-item top-dropdown" data-toggle="dropdown" data-target="#" href="#"><?php echo $browseMenu->getLabel(array('cultureFallback' => true)) ?></a>
+  <button class="top-item top-dropdown" data-toggle="dropdown" data-target="#"><?php echo $browseMenu->getLabel(array('cultureFallback' => true)) ?></button>
 
   <div class="top-dropdown-container top-dropdown-container-right">
 
@@ -9,7 +9,7 @@
     </div>
 
     <div class="top-dropdown-header">
-      <h3><?php echo $browseMenu->getLabel(array('cultureFallback' => true)) ?></h3>
+      <h2><?php echo $browseMenu->getLabel(array('cultureFallback' => true)) ?></h2>
     </div>
 
     <div class="top-dropdown-body">

@@ -1,6 +1,6 @@
 <div id="quick-links-menu" data-toggle="tooltip" data-title="<?php echo __('Quick links') ?>">
 
-  <a class="top-item" data-toggle="dropdown" data-target="#" href="#"><?php echo __('Quick links') ?></a>
+  <button class="top-item" data-toggle="dropdown" data-target="#"><?php echo __('Quick links') ?></button>
 
   <div class="top-dropdown-container">
 
@@ -9,7 +9,7 @@
     </div>
 
     <div class="top-dropdown-header">
-      <h3><?php echo __('Quick links') ?></h3>
+      <h2><?php echo __('Quick links') ?></h2>
     </div>
 
     <div class="top-dropdown-body">
