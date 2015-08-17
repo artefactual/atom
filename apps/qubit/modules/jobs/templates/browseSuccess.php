@@ -79,14 +79,14 @@
 <!-- User tips -->
 <?php if ($this->context->user->isAdministrator() && $jobs->count()): ?>
   <div class="messages" id="job-info-box">
-    <i class="icon-info-sign" id="job-info-box-icon"></i>&nbsp;You may only clear jobs belonging to you.
+    <i class="icon-info-sign" id="job-info-box-icon"></i>&nbsp;<?php echo __('You may only clear jobs belonging to you.') ?>
   </div>
 <?php endif; ?>
 
 <?php if (!$jobs->count()): ?>
   <div class="messages error" id="job-error-box">
     <ul>
-      <li>There are no jobs to report on.</li>
+      <li><?php echo __('There are no jobs to report on.') ?></li>
     </ul>
   </div>
 <?php endif; ?>
@@ -95,7 +95,7 @@
 <section class="actions">
   <ul>
     <li>
-      <a class="c-btn" onClick="window.location.reload()"><i class="icon-refresh icon-large" ></i> Refresh</a>
+      <a class="c-btn" onClick="window.location.reload()"><i class="icon-refresh icon-large" ></i>&nbsp;<?php echo __('Refresh') ?></a>
     </li>
     <li>
       <?php $autoRefreshIcons = sprintf("c-btn %s icon-large", $autoRefresh ? 'icon-ok-circle' : 'icon-circle-blank') ?>
