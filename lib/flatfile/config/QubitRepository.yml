@@ -1,6 +1,7 @@
 columnNames:
   - authorizedFormOfName
   - identifier
+  - culture
   - openingTimes
   - geoculturalContext
   - holdings
@@ -39,10 +40,12 @@ columnNames:
   - fax
   - website
   - notes
+  - legacyId
 
 direct:
   - authorizedFormOfName
   - identifier
+  - culture
   - openingTimes
   - geoculturalContext
   - holdings

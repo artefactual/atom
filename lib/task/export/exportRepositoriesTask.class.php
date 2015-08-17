@@ -61,16 +61,18 @@ EOF;
 
     foreach ($this->getRepositories() as $r)
     {
-      $this->logSection('csv', 'exporting '.$r->authorizedFormOfName);
-      $writer->exportResource($r);
+      $this->context->getUser()->setCulture($r->culture);
+      $repository = QubitRepository::getById($r->id);
+
+      $writer->exportResource($repository);
+      $this->logSection('csv', 'exported '.$repository->getAuthorizedFormOfName(array('cultureFallback' => true)).
+                        " (culture: {$r->culture})");
     }
   }
 
   private function getRepositories()
   {
-    $criteria = new Criteria;
-    $criteria->add(QubitRepository::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
-
-    return QubitRepository::get($criteria);
+    return QubitPdo::fetchAll('SELECT id, culture FROM repository_i18n WHERE id <> ?',
+                              array(QubitRepository::ROOT_ID));
   }
 }

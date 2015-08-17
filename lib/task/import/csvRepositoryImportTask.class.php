@@ -105,8 +105,23 @@ EOF;
         'geoculturalContext',
         'holdings',
         'findingAids',
+        'uploadLimit',
+        'history',
+        'mandates',
         'internalStructures',
-        'uploadLimit'
+        'collectingPolicies',
+        'buildings',
+        'accessConditions',
+        'disabledAccess',
+        'researchServices',
+        'reproductionServices',
+        'publicFacilities',
+        'descIdentifier',
+        'descInstitutionIdentifier',
+        'descRules',
+        'descRevisionHistory',
+        'descSources',
+        'culture'
       ),
 
       'columnMap' => array(
@@ -124,7 +139,18 @@ EOF;
         'email',
         'fax',
         'website',
-        'notes'
+        'notes',
+        # TODO: Parse the below fields
+        'legacyId',
+        'parallelFormsOfName',
+        'otherFormsOfName',
+        'types',
+        'languages',
+        'scripts',
+        'thematicAreas',
+        'geographicSubregions',
+        'descStatus',
+        'descDetail'
       ),
 
       /* import logic to execute before saving QubitRepository */
