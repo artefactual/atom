@@ -76,6 +76,11 @@ class QubitGrantedRight extends BaseGrantedRight
         continue;
       }
 
+      if (empty($right->rights) || empty($right->rights->basisId))
+      {
+        continue;
+      }
+
       switch ($right->restriction)
       {
         case QubitGrantedRight::DENY_RIGHT:
@@ -96,7 +101,10 @@ class QubitGrantedRight extends BaseGrantedRight
 
       // Remove unauthenticated user access and finish loop,
       // as one "denied" permission overules any "grants" we'll see.
-      if (!$premisPerms["{$restriction}_{$usage}"])
+      $basisSlug = $right->rights->basis->slug;
+      if (empty($premisPerms[$basisSlug]) ||
+          empty($premisPerms[$basisSlug]["{$restriction}_{$usage}"]) ||
+          !$premisPerms[$basisSlug]["{$restriction}_{$usage}"])
       {
         if (($key = array_search(QubitAclGroup::ANONYMOUS_ID, $groupIds)) !== false)
         {
@@ -188,18 +196,21 @@ class QubitGrantedRight extends BaseGrantedRight
     {
       throw new sfException("Invalid Act specified for PREMIS rights: $premisAccessRight");
     }
-    // -------------------------------------
-    //  $permissions will be an array, e.g.:
-    //  'allow_master'          => int 0,
-    //  'allow_reference'       => int 1,
-    //  'allow_thumb'           => int 1,
-    //  'conditional_master'    => int 0,
-    //  'conditional_reference' => int 1,
-    //  'conditional_thumb'     => int 1,
-    //  'disallow_master'       => int 1,
-    //  'disallow_reference'    => int 0,
-    //  'disallow_thumb'        => int 0
-    // -------------------------------------
+
+    /**
+     * $permissions will be a multidimensional array with different
+     * permissions for each basis (indexed by its slug):
+     * 'copyright' => array
+     *   'allow_master'          => int 0,
+     *   'allow_reference'       => int 1,
+     *   'allow_thumb'           => int 1,
+     *   'conditional_master'    => int 0,
+     *   'conditional_reference' => int 1,
+     *   'conditional_thumb'     => int 1,
+     *   'disallow_master'       => int 1,
+     *   'disallow_reference'    => int 0,
+     *   'disallow_thumb'        => int 0
+     */
     $permissions = QubitSetting::getByName('premisAccessRightValues');
 
     return array($act->id, unserialize($permissions->value));

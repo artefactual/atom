@@ -34,37 +34,33 @@ class SettingsPermissionsAction extends sfAction
     $this->permissionsForm = new SettingsPermissionsForm;
     $this->permissionsCopyrightStatementForm = new SettingsPermissionsCopyrightStatementForm;
 
+    $this->basis = array();
+    foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID) as $item)
+    {
+      $this->basis[$item->slug] = $item->getName(array('cultureFallback' => true));
+    }
+
+    $this->response->addJavaScript('permissionsSettings');
+
     // Handle POST data (form submit)
     if ($request->isMethod('post'))
     {
       QubitCache::getInstance()->removePattern('settings:i18n:*');
 
-      if (null !== $request->permissions && null !== $request->granted_right)
+      // PREMIS access permissions
+      $this->permissionsForm->bind($request->getPostParameters());
+      if ($this->permissionsForm->isValid())
       {
-        $requestGrantedRight = QubitTaxonomy::getBySlug($request->granted_right);
-        $permissions = array_map(function($v){ return (int) (bool) $v; }, $request->permissions);
-
-        // validate granted_right exists
-        if (null === $requestGrantedRight)
-        {
-          throw new sfException('invalid new PremisAccessRight value');
-        }
-
-        if (array_keys($request->permissions) !== array_keys(QubitSetting::$premisAccessRightValueDefaults))
-        {
-          throw new sfException('invalid new permissions values for premisAccessRightValues');
-        }
-
         $premisAccessRight = QubitSetting::getByName('premisAccessRight');
-        $premisAccessRightValues = QubitSetting::getByName('premisAccessRightValues');
-
-        $premisAccessRight->value = $requestGrantedRight->slug;
+        $premisAccessRight->value = $this->permissionsForm->getValue('granted_right');
         $premisAccessRight->save();
 
-        $premisAccessRightValues->value = serialize($request->permissions);
+        $premisAccessRightValues = QubitSetting::getByName('premisAccessRightValues');
+        $premisAccessRightValues->value = serialize($this->permissionsForm->getValue('permissions'));
         $premisAccessRightValues->save();
       }
 
+      // Copyright statement
       $this->permissionsCopyrightStatementForm->bind($request->getPostParameters());
       if ($this->permissionsCopyrightStatementForm->isValid())
       {

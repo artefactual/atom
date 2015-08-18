@@ -1638,3 +1638,77 @@ body.login #content {
     top: none;
   }
 }
+
+// Settings » Permissions
+
+#premisAccessPermissionsArea {
+
+  table {
+    width: 100%;
+    border: 1px solid #d9d9d9;
+    th, td {
+      border: 1px solid #d9d9d9;
+    }
+  }
+
+  .premis-permissions-basis { }
+
+  .premis-permissions-basis-value {
+    background-color: #eee;
+    select {
+      margin: 0px;
+    }
+    span {
+      text-align: center;
+      display: block;
+      font-style: italic;
+      color: #999;
+    }
+  }
+
+  .premis-permissions-mrt {
+    div {
+      display: table;
+      width: 100%;
+    }
+    ul {
+      display: table-row;
+      list-style-type: none;
+    }
+    li {
+      display: table-cell;
+      padding: 4px 0;
+      text-align: center;
+      input[type=checkbox] {
+        margin: 0;
+      }
+    }
+    .cbx {
+      cursor: pointer;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      &.hover {
+        background-color: #eee;
+      }
+    }
+  }
+
+  .premis-permissions-toggle {
+    text-align: right;
+    ul {
+      list-style-display: none;
+    }
+    li {
+      display: inline;
+    }
+  }
+
+  .btn-check-col {
+    margin-bottom: 0;
+  }
+
+}

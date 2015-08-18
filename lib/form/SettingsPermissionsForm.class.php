@@ -26,85 +26,76 @@
  */
 class SettingsPermissionsForm extends sfForm
 {
-
-  protected function getGrantedRightChoices()
-  {
-    $choices = null;
-    $routing  = sfContext::getInstance()->getRouting();
-
-    foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_ACT_ID) as $gr)
-    {
-      $choices[$gr->slug] = $gr->__toString();
-    }
-
-    return $choices;
-  }
-
-  protected function newSubForm()
-  {
-    $i18n = sfContext::getInstance()->i18n;
-
-    $choices = array(
-      '0' => $i18n->__('Disallowed'),
-      '1' => $i18n->__('Allowed')
-    );
-
-    $form = new sfForm;
-
-    $form->setWidgets(array(
-      'allow_master'           => new sfWidgetFormSelect(array('choices' => $choices)),
-      'allow_reference'        => new sfWidgetFormSelect(array('choices' => $choices)),
-      'allow_thumb'            => new sfWidgetFormSelect(array('choices' => $choices)),
-      'conditional_master'     => new sfWidgetFormSelect(array('choices' => $choices)),
-      'conditional_reference'  => new sfWidgetFormSelect(array('choices' => $choices)),
-      'conditional_thumb'      => new sfWidgetFormSelect(array('choices' => $choices)),
-      'disallow_master'        => new sfWidgetFormSelect(array('choices' => $choices)),
-      'disallow_reference'     => new sfWidgetFormSelect(array('choices' => $choices)),
-      'disallow_thumb'         => new sfWidgetFormSelect(array('choices' => $choices))
-    ));
-
-    $form->widgetSchema->setLabels(array(
-      'allow_master'           => $i18n->__('View / download master representation'),
-      'allow_reference'        => $i18n->__('View / download reference representation'),
-      'allow_thumb'            => $i18n->__('View / download thumbnail representation'),
-      'conditional_master'     => $i18n->__('View / download master representation'),
-      'conditional_reference'  => $i18n->__('View / download reference representation'),
-      'conditional_thumb'      => $i18n->__('View / download thumbnail representation'),
-      'disallow_master'        => $i18n->__('View / download master representation'),
-      'disallow_reference'     => $i18n->__('View / download reference representation'),
-      'disallow_thumb'         => $i18n->__('View / download thumbnail representation')
-    ));
-
-    $form->setDefaults(unserialize($this->premisAccessRightValues->value));
-
-    return $form;
-  }
-
   public function configure()
   {
-    $this->premisAccessRight = QubitSetting::getByName('premisAccessRight');
-    $this->premisAccessRightValues = QubitSetting::getByName('premisAccessRightValues');
+    $this->getValidatorSchema()->setOption('allow_extra_fields', true);
 
-    if (null === $this->premisAccessRightValues)
+    //
+    // PREMIS act
+    //
+
+    $premisAccessRight = QubitSetting::getByName('premisAccessRight');
+    if (null === $premisAccessRight)
     {
-      $this->premisAccessRightValues = QubitSetting::createNewSetting(
-        'premisAccessRightValues', serialize(QubitSetting::$premisAccessRightValueDefaults), array('deleteable' => false)
-      );
-
-      $this->premisAccessRightValues->save();
+      throw new sfException('Setting premisAccessRight cannot be found');
     }
 
-    if (null === $this->premisAccessRight)
+    $choices = array();
+    foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_ACT_ID) as $item)
     {
-      $this->premisAccessRight = QubitSetting::createNewSetting('premisAccessRight', 'delete', array('deleteable' => false));
-      $this->premisAccessRight->save();
+      $choices[$item->slug] = $item->__toString();
+    }
+    $this->setWidget('granted_right', new sfWidgetFormSelect(array('choices' => $choices)));
+    $this->setDefault('granted_right', $premisAccessRight->value);
+    $this->setValidator('granted_right', new sfValidatorChoice(array('choices' => array_keys($choices))));
+
+    //
+    // PREMIS permissionss
+    //
+
+    $this->embedForm('permissions', $this->getPermissionsForm());
+  }
+
+  protected function getPermissionsForm()
+  {
+    $premisAccessRightValues = QubitSetting::getByName('premisAccessRightValues');
+    if (null === $premisAccessRightValues)
+    {
+      throw new sfException('Setting premisAccessRightValues cannot be found');
     }
 
-    $this->setWidget(
-      'granted_right', new sfWidgetFormSelect(array('choices' => $this->getGrantedRightChoices()))
-    );
+    $premisAccessRightValues = unserialize($premisAccessRightValues->value);
+    $defaults = QubitSetting::$premisAccessRightValueDefaults;
 
-    $this->getWidget('granted_right')->setDefault($this->premisAccessRight->value);
-    $this->embedForm('permissions', $this->newSubForm());
+    $form = new sfForm;
+    $form->getValidatorSchema()->setOption('allow_extra_fields', true);
+
+    // Each basis has its own set of permissions (allow_master,
+    // allow_reference, etc...). We are embedding a new sfForm ($formBasis) for
+    // each basis and indexed by its slug.
+    foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID) as $item)
+    {
+      $formBasis = new sfForm;
+      $formBasis->getValidatorSchema()->setOption('allow_extra_fields', true);
+
+      // Permissions are represented with sfWidgetFormInputCheckbox
+      foreach ($defaults as $key => $value)
+      {
+        $formBasis->setWidget($key, new sfWidgetFormInputCheckbox);
+        $formBasis->setValidator($key, new sfValidatorBoolean(array('empty_value' => false)));
+
+        // The default value is obtained from the existing QubitSetting
+        // premisAccessRightValues
+        if (!empty($premisAccessRightValues[$item->slug]) && !empty($premisAccessRightValues[$item->slug][$key]))
+        {
+          $v = $premisAccessRightValues[$item->slug][$key];
+          $formBasis->setDefault($key, $v);
+        }
+      }
+
+      $form->embedForm($item->slug, $formBasis);
+    }
+
+    return $form;
   }
 }
