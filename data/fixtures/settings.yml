@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 134
+    value: 135
   milestone:
     name: milestone
     editable: 0
@@ -826,9 +826,6 @@ QubitSetting:
   Qubit_Settings_premisAccessRight:
     name: premisAccessRight
     value: disseminate
-  Qubit_Settings_premisAccessRightValues:
-    name: premisAccessRightValues
-    value: a:9:{s:12:"allow_master";s:1:"1";s:15:"allow_reference";s:1:"1";s:11:"allow_thumb";s:1:"1";s:18:"conditional_master";s:1:"0";s:21:"conditional_reference";s:1:"1";s:17:"conditional_thumb";s:1:"1";s:15:"disallow_master";s:1:"0";s:18:"disallow_reference";s:1:"0";s:14:"disallow_thumb";s:1:"0";}
   Qubit_Settings_defaultRepositoryBrowseView:
     name: default_repository_browse_view
     value: card

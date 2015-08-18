@@ -434,6 +434,24 @@ class sfInstall
 
     $loadData = new sfPropelDataLoadTask($dispatcher, $formatter);
     $loadData->run();
+
+    $premisAccessRightValues = array();
+    foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID) as $item)
+    {
+      $premisAccessRightValues[$item->slug] = array(
+        'allow_master'          => 1,
+        'allow_reference'       => 1,
+        'allow_thumb'           => 1,
+        'conditional_master'    => 0,
+        'conditional_reference' => 1,
+        'conditional_thumb'     => 1,
+        'disallow_master'       => 0,
+        'disallow_reference'    => 0,
+        'disallow_thumb'        => 0
+      );
+    }
+    $object = QubitSetting::createNewSetting('premisAccessRightValues', serialize($premisAccessRightValues));
+    $object->save();
   }
 
   public static function populateSearchIndex()
