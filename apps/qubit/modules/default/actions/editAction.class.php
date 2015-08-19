@@ -197,6 +197,15 @@ class DefaultEditAction extends sfAction
 
     $this->earlyExecute();
 
+    // Mainly used in autocomplete.js, this tells us that the user wants to
+    // reuse existing objects instead of adding new ones.
+    if (isset($this->request->linkExisting))
+    {
+      $this->form->setDefault('linkExisting', $this->request->linkExisting);
+      $this->form->setValidator('linkExisting', new sfValidatorBoolean);
+      $this->form->setWidget('linkExisting', new sfWidgetFormInputHidden);
+    }
+
     foreach ($this::$NAMES as $name)
     {
       $this->addField($name);

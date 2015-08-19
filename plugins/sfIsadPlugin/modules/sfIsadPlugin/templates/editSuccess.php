@@ -77,14 +77,14 @@
           <?php echo $form->creators
             ->help(__('Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)'))
             ->renderHelp() ?>
-          <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'add')) ?> #authorizedFormOfName"/>
+          <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'actor', 'action' => 'add')) ?> #authorizedFormOfName"/>
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'autocomplete')) ?>"/>
         </div>
 
         <div class="form-item">
           <?php echo $form->repository->renderLabel() ?>
           <?php echo $form->repository->render(array('class' => 'form-autocomplete')) ?>
-          <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'repository', 'action' => 'add')) ?> #authorizedFormOfName"/>
+          <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'repository', 'action' => 'add')) ?> #authorizedFormOfName"/>
           <input class="list" type="hidden" value="<?php echo url_for($sf_data->getRaw('repoAcParams')) ?>"/>
           <?php echo $form->repository
             ->help(__('Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.'))
@@ -177,7 +177,7 @@
             ->renderLabel() ?>
           <?php echo $form->relatedMaterialDescriptions->render(array('class' => 'form-autocomplete')) ?>
           <?php if (QubitAcl::check(QubitInformationObject::getRoot(), 'create')): ?>
-            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'add')) ?> #title"/>
+            <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'add')) ?> #title"/>
           <?php endif; ?>
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'autocomplete')) ?>"/>
           <?php echo $form->relatedMaterialDescriptions
@@ -207,7 +207,7 @@
             ->renderLabel() ?>
           <?php echo $form->subjectAccessPoints->render(array('class' => 'form-autocomplete')) ?>
           <?php if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID), 'createTerm')): ?>
-            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID), 'module' => 'taxonomy')))) ?> #name"/>
+            <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID), 'module' => 'taxonomy')))) ?> #name"/>
           <?php endif; ?>
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID), 'module' => 'taxonomy')))) ?>"/>
         </div>
@@ -218,7 +218,7 @@
             ->renderLabel() ?>
           <?php echo $form->placeAccessPoints->render(array('class' => 'form-autocomplete')) ?>
           <?php if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'createTerm')): ?>
-            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'module' => 'taxonomy')))) ?> #name"/>
+            <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'module' => 'taxonomy')))) ?> #name"/>
           <?php endif; ?>
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'module' => 'taxonomy')))) ?>"/>
         </div>
@@ -229,7 +229,7 @@
             ->renderLabel() ?>
           <?php echo $form->nameAccessPoints->render(array('class' => 'form-autocomplete')) ?>
           <?php if (QubitAcl::check(QubitActor::getRoot(), 'create')): ?>
-            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'add')) ?> #authorizedFormOfName"/>
+            <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'actor', 'action' => 'add')) ?> #authorizedFormOfName"/>
           <?php endif; ?>
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'autocomplete', 'showOnlyActors' => 'true')) ?>"/>
         </div>

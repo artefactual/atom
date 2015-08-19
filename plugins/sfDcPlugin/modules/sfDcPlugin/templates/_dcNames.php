@@ -44,7 +44,7 @@
             <?php echo $form->actor->render(array('class' => 'form-autocomplete')) ?>
 
             <?php if (QubitAcl::check(QubitActor::getRoot(), 'create')): ?>
-              <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'add')) ?> #authorizedFormOfName"/>
+              <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'actor', 'action' => 'add')) ?> #authorizedFormOfName"/>
             <?php endif; ?>
 
             <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'autocomplete')) ?>"/>

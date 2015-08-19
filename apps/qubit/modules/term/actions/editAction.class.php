@@ -24,12 +24,12 @@ class TermEditAction extends DefaultEditAction
     $NAMES = array(
       'code',
       'displayNote',
-      'name',
 
       // This position is intentional because narrowTerms ->processField()
-      // depends on the taxonomy
+      // and name ->processField() depends on the taxonomy value
       'taxonomy',
 
+      'name',
       'narrowTerms',
       'parent',
 
@@ -325,6 +325,22 @@ class TermEditAction extends DefaultEditAction
         if (!QubitTerm::isProtected($this->resource->id)
             && $this->resource->name != $this->form->getValue('name'))
         {
+          // Avoid duplicates (used in autocomplete.js)
+          if (filter_var($this->request->getPostParameter('linkExisting'), FILTER_VALIDATE_BOOLEAN))
+          {
+            $criteria = new Criteria;
+            $criteria->add(QubitTerm::TAXONOMY_ID, $this->resource->taxonomyId);
+            $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+            $criteria->add(QubitTermI18n::CULTURE, $this->context->user->getCulture());
+            $criteria->add(QubitTermI18n::NAME, $this->form->getValue('name'));
+            if (null !== $term = QubitTerm::getOne($criteria))
+            {
+              $this->redirect(array($term, 'module' => 'term'));
+
+              return;
+            }
+          }
+
           $this->resource->name = $this->form->getValue('name');
           $this->updatedLabel = true;
         }

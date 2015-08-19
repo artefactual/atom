@@ -102,7 +102,7 @@ content
         <?php echo $form->resource
           ->help(__('This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.'))
           ->renderHelp() ?>
-        <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'donor', 'action' => 'add')) ?> #authorizedFormOfName"/>
+        <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'donor', 'action' => 'add')) ?> #authorizedFormOfName"/>
         <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'donor', 'action' => 'autocomplete')) ?>"/>
       </div>
 

@@ -6,7 +6,7 @@
           $('form:has(select.form-autocomplete)', context).each(function ()
             {
               // Share <form/> with nested scopes
-              var form = this;
+              var $form = $(this);
 
               // Support multiple submit listeners which must all complete
               // before form is submitted
@@ -16,7 +16,7 @@
                 // Decrement count of listeners and submit if all done
                 if (1 > --count)
                 {
-                  $(form)
+                  $form
 
                     // Unbind submit listeners to avoid triggering again
                     .unbind('submit')
@@ -215,13 +215,13 @@
 
                   // This function help us to know if a .multiple select has
                   // already a given value and highlight it if wished
-                  var multipleSelectHasMatches = function (val, opts)
+                  var multipleSelectHasMatches = function (li, val, opts)
                   {
                     var found = false;
                     val = val.trim().toLowerCase();
                     opts = opts || {};
 
-                    $('li', $ul).each(function (i)
+                    $('li', $ul).not(li).each(function (i)
                       {
                         var $li = $(this);
                         var text = $li.find('span').text() || $li.find('input[type=text]').val();
@@ -441,11 +441,19 @@
                   // responses, and can't figure out how to get access to the
                   // URI of the final response,
                   // http://www.w3.org/TR/XMLHttpRequest/#notcovered
-                  var value = $(this).siblings('.add').val(); // $('~ .add', this) stopped working in jQuery 1.4.4
+                  var $add = $(this).siblings('.add'); // $('~ .add', this) stopped working in jQuery 1.4.4
+                  var value = $add.val();
                   if (value)
                   {
                     // Split into URI and selector like jQuery load()
                     var components = value.split(' ', 2);
+
+                    // Support for data-link-existing="true"
+                    if ($add.data('link-existing') === true) {
+                      var uri = new URI(components[0]);
+                      uri.addQuery('linkExisting', true);
+                      components[0] = uri.toString();
+                    }
 
                     var $iframe;
 
@@ -493,7 +501,7 @@
                       // choice
                       autoComplete.itemSelectEvent.subscribe(function ()
                         {
-                          $(form).unbind('submit', submit);
+                          $form.unbind('submit', submit);
 
                           // Trigger event to load item data if it's needed
                           $input.trigger({
@@ -525,7 +533,7 @@
                             }
 
                             // Only if not found we are adding a new item to the list
-                            var found = multipleSelectHasMatches($input.val(), { highlight: true });
+                            var found = multipleSelectHasMatches($input.parent(), $input.val(), { highlight: true });
                             if (!found)
                             {
                               // Add hidden <iframe/> for each new choice
@@ -580,7 +588,7 @@
                                         });
 
                                       // Cancel addition of new choice
-                                      $(form).unbind('submit', submit);
+                                      $form.unbind('submit', submit);
                                     }
                                   })
                                 .appendTo($ul.show());
@@ -595,8 +603,9 @@
 
                                 .blur(function ()
                                   {
+                                    var $this = $(this);
                                     var val = $(this).val();
-                                    if (multipleSelectHasMatches(val))
+                                    if (multipleSelectHasMatches($this.parent(), val))
                                     {
                                       val = '';
                                     }
@@ -612,7 +621,7 @@
                                         });
 
                                       // Cancel addition of new choice
-                                      $(form).unbind('submit', submit);
+                                      $form.unbind('submit', submit);
                                     }
                                   })
                                 .appendTo($li);
@@ -635,7 +644,7 @@
                           // statement evaluates
                           if (!$input.parents('div.yui-dialog').length)
                           {
-                            $(form).submit(submit);
+                            $form.submit(submit);
                           }
                           else
                           {
@@ -656,7 +665,7 @@
 
                           // If unmatched item is empty, cancel addition of new
                           // single <select/> choice
-                          $(form).unbind('submit', submit);
+                          $form.unbind('submit', submit);
                         }
                       });
                   }

@@ -134,6 +134,25 @@ class ActorEditAction extends DefaultEditAction
   {
     switch ($field->getName())
     {
+      case 'authorizedFormOfName':
+        // Avoid duplicates (used in autocomplete.js)
+        if (filter_var($this->request->getPostParameter('linkExisting'), FILTER_VALIDATE_BOOLEAN))
+        {
+          $criteria = new Criteria;
+          $criteria->addJoin(QubitObject::ID, QubitActorI18n::ID);
+          $criteria->add(QubitObject::CLASS_NAME, get_class($this->request));
+          $criteria->add(QubitActorI18n::CULTURE, $this->context->user->getCulture());
+          $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, $this->form->getValue('authorizedFormOfName'));
+          if (null !== $actor = QubitActor::getOne($criteria))
+          {
+            $this->redirect(array($actor));
+
+            return;
+          }
+        }
+
+        return parent::processField($field);
+
       case 'entityType':
         unset($this->resource->entityType);
 
