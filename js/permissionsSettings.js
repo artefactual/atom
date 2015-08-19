@@ -1,7 +1,7 @@
 (function ($)
   {
     // Toggle checkbox with extra accounting of visual state
-    var checkPermission = function (node, checked) {
+    var checkPermission = function (node, check) {
       var $li, $input;
       switch (node.tagName) {
         case 'INPUT':
@@ -18,13 +18,13 @@
 
       // If the desired state is not given we figure it out based on the
       // previous value
-      if (typeof checked === 'undefined') {
-        checked = !$li.hasClass('cbx-checked');
+      if (typeof check === 'undefined') {
+        check = !$li.hasClass('cbx-checked');
       }
 
       // Update the checkbox and its <li/> container
-      $li.toggleClass('cbx-checked', checked);
-      $input.prop('checked', checked);
+      $li.toggleClass('cbx-checked', check);
+      $input.prop('checked', check).attr('checked', check);
     };
 
     // Convenience wrapper in jQuery
@@ -45,12 +45,12 @@
           $(this).removeClass('hover');
         })
         .on('click', function (event) {
-          if (event.target.tagName !== 'INPUT') {
-            $(event.target).find('input').trigger('click');
-          } else {
-            event.preventDefault(); // We handle this with our checkPermission fn
+          if (event.target.tagName === 'LI') {
             checkPermission(event.target);
           }
+        })
+        .on('change', function (event) {
+          checkPermission(event.target, event.target.checked);
         });
 
       $area.find('.all').on('click', function (event) {

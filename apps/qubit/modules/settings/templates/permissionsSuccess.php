@@ -14,7 +14,7 @@
 
 <?php slot('content') ?>
 
-  <form action="<?php echo url_for('settings/permissions') ?>" method="post">
+  <form action="<?php echo url_for('settings/permissions') ?>" method="post" autocomplete="off">
 
     <div id="content">
 
