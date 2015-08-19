@@ -42,11 +42,11 @@ EOF;
   {
     parent::configure();
 
-    $this->addOptions(array(new sfCommandOption('merge-existing', null, sfCommandOption::PARAMETER_OPTIONAL,
-      "Don't create a new repository if there's already one with the same authorizedFormOfName in the db.")));
+    $this->addOptions(array(new sfCommandOption('update', null, sfCommandOption::PARAMETER_NONE,
+      'Update existing repositories if names match. Create a new repository otherwise.')));
 
     $this->addOptions(array(new sfCommandOption('upload-limit', null, sfCommandOption::PARAMETER_OPTIONAL,
-      "Set the upload limit for repositories getting imported (default: disable uploads)")));
+      'Set the upload limit for repositories getting imported (default: disable uploads)')));
   }
 
   /**
@@ -77,19 +77,9 @@ EOF;
       QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID => 'detailLevelTypes'
     ));
 
-    // Define import
     $import = new QubitFlatfileImport(array(
-      /* Pass context */
       'context' => sfContext::createInstance($this->configuration),
-
-      /* What type of object are we importing? */
       'className' => 'QubitRepository',
-
-      /* How many rows should import until we display an import status update? */
-      'rowsUntilProgressDisplay' => $options['rows-until-update'],
-
-      /* Where to log errors to */
-      'errorLog' => $options['error-log'],
 
       /* the status array is a place to put data that should be accessible
          from closure logic using the getStatus method */

@@ -586,7 +586,8 @@ class QubitFlatfileImport
       $tableName = sfInflector::underscore(substr($this->className, 5));
       $legacyId = $this->columnExists('legacyId') ? trim($this->columnValue('legacyId')) : null;
 
-      if ($this->className == 'QubitRepository' && $this->status['options']['merge-existing'] == 1)
+      if ($this->className == 'QubitRepository' && isset($this->status['options']['update']) &&
+          $this->status['options']['update'])
       {
         $this->object = $this->createOrFetchRepository($this->columnValue('authorizedFormOfName'));
       }
