@@ -1684,6 +1684,7 @@ body.login #content {
       }
     }
     .cbx {
+      background-color: @errorBackground;
       cursor: pointer;
       -webkit-touch-callout: none;
       -webkit-user-select: none;
@@ -1693,6 +1694,9 @@ body.login #content {
       user-select: none;
       &.hover {
         background-color: #eee;
+      }
+      &.cbx-checked {
+        background-color: @successBackground;
       }
     }
   }

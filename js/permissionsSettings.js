@@ -1,5 +1,39 @@
 (function ($)
   {
+    // Toggle checkbox with extra accounting of visual state
+    var checkPermission = function (node, checked) {
+      var $li, $input;
+      switch (node.tagName) {
+        case 'INPUT':
+          $input = $(node);
+          $li = $input.parent();
+          break;
+        case 'LI':
+          $li = $(node);
+          $input = $li.find('input');
+          break;
+        default:
+          return false;
+      }
+
+      // If the desired state is not given we figure it out based on the
+      // previous value
+      if (typeof checked === 'undefined') {
+        checked = !$li.hasClass('cbx-checked');
+      }
+
+      // Update the checkbox and its <li/> container
+      $li.toggleClass('cbx-checked', checked);
+      $input.prop('checked', checked);
+    };
+
+    // Convenience wrapper in jQuery
+    $.fn.checkPermission = function(checked) {
+      this.each(function () {
+        checkPermission.apply(null, [this, checked]);
+      });
+    };
+
     $(document).ready(function() {
 
       var $area = $('#premisAccessPermissionsArea');
@@ -13,18 +47,23 @@
         .on('click', function (event) {
           if (event.target.tagName !== 'INPUT') {
             $(event.target).find('input').trigger('click');
+          } else {
+            event.preventDefault(); // We handle this with our checkPermission fn
+            checkPermission(event.target);
           }
         });
 
       $area.find('.all').on('click', function (event) {
         event.preventDefault();
-        $area.find('input').prop('checked', true);
+        $area.find('input').checkPermission(true);
       });
 
       $area.find('.none').on('click', function (event) {
         event.preventDefault();
-        $area.find('input').prop('checked', false);
+        $area.find('input').checkPermission(false);
       });
+
+      $area.find('.cbx:has(input:checked)').addClass('cbx-checked');
 
       $area.find('.btn-check-col').on('click', function (event) {
 
@@ -56,7 +95,7 @@
           }
         });
 
-        $cbs.prop('checked', !checked);
+        $cbs.checkPermission(!checked);
 
       });
 
