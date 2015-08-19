@@ -350,6 +350,24 @@ class InformationObjectEditAction extends DefaultEditAction
   {
     switch ($field->getName())
     {
+      case 'title':
+        // Avoid duplicates (used in autocomplete.js)
+        if (filter_var($this->request->getPostParameter('linkExisting'), FILTER_VALIDATE_BOOLEAN))
+        {
+          $criteria = new Criteria;
+          $criteria->addJoin(QubitInformationObject::ID, QubitInformationObjectI18n::ID);
+          $criteria->add(QubitInformationObjectI18n::CULTURE, $this->context->user->getCulture());
+          $criteria->add(QubitInformationObjectI18n::TITLE, $this->form->getValue('title'));
+          if (null !== $io = QubitInformationObject::getOne($criteria))
+          {
+            $this->redirect(array($io, 'module' => 'informationobject'));
+
+            return;
+          }
+        }
+
+        return parent::processField($field);
+
       case 'levelOfDescription':
       case 'parent':
       case 'repository':

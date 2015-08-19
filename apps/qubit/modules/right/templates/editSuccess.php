@@ -51,7 +51,7 @@
             <?php echo $form->statuteCitation->renderLabel() ?>
             <?php echo $form->statuteCitation->render(array('class' => 'form-autocomplete')) ?>
             <?php if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::RIGHTS_STATUTES_ID), 'createTerm')): ?>
-              <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::RIGHTS_STATUTES_ID), 'module' => 'taxonomy')))) ?> #name"/>
+              <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::RIGHTS_STATUTES_ID), 'module' => 'taxonomy')))) ?> #name"/>
             <?php endif; ?>
             <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::RIGHTS_STATUTES_ID), 'module' => 'taxonomy')))) ?>"/>
             <?php echo $form->statuteCitation
@@ -78,7 +78,7 @@
           <div class="form-item">
             <?php echo $form->rightsHolder->renderLabel() ?>
             <?php echo $form->rightsHolder->render(array('class' => 'form-autocomplete')) ?>
-            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'rightsholder', 'action' => 'add')) ?> #authorizedFormOfName"/>
+            <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'rightsholder', 'action' => 'add')) ?> #authorizedFormOfName"/>
             <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'rightsholder', 'action' => 'autocomplete')) ?>"/>
             <?php echo $form->rightsHolder
               ->help(__('Name of the person(s) or organization(s) which has the authority to grant permissions or set rights restrictions.'))

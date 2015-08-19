@@ -83,7 +83,7 @@
             ->help(__('The name of the creator of the accession or the name of the department that created the accession.'))
             ->renderHelp() ?>
           <?php if (QubitAcl::check(QubitActor::getRoot(), 'create')): ?>
-            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'add')) ?> #authorizedFormOfName"/>
+            <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'actor', 'action' => 'add')) ?> #authorizedFormOfName"/>
           <?php endif; ?>
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'autocomplete', 'showOnlyActors' => 'true')) ?>"/>
         </div>
@@ -131,7 +131,7 @@
             ->renderLabel() ?>
           <?php echo $form->informationObjects->render(array('class' => 'form-autocomplete')) ?>
           <?php if (QubitAcl::check(QubitActor::getRoot(), 'create')): ?>
-            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'add')) ?> #title"/>
+            <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'add')) ?> #title"/>
           <?php endif; ?>
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'autocomplete')) ?>"/>
         </div>

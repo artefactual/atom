@@ -50,7 +50,7 @@
         <div class="form-item">
           <?php echo $form->containers->renderLabel() ?>
           <?php echo $form->containers->render(array('class' => 'form-autocomplete', 'data-autocomplete-delay' => 0.3)) ?>
-          <input class="add" type="hidden" value="<?php echo url_for(array($resource, 'module' => 'informationobject', 'action' => 'editPhysicalObjects')) ?> #name"/>
+          <input class="add" type="hidden" data-link-existing="false" value="<?php echo url_for(array($resource, 'module' => 'informationobject', 'action' => 'editPhysicalObjects')) ?> #name"/>
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'physicalobject', 'action' => 'autocomplete')) ?>"/>
         </div>
 
