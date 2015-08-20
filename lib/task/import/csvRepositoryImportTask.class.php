@@ -139,11 +139,11 @@ EOF;
         'fax',
         'website',
         'legacyId',
-        # TODO: Parse the below fields
-
         'parallelFormsOfName',
         'otherFormsOfName',
         'types',
+        # TODO: Parse the below fields
+
         'languages',
         'scripts',
         'thematicAreas',
@@ -161,13 +161,14 @@ EOF;
         {
           $self->object->uploadLimit = $opts['upload-limit'];
         }
+
+        addTypes($self->rowStatusVars['types'], $self->object);
+        addScriptsAndLangs($self->object, $self->rowStatusVars);
       },
 
       /* import logic to execute after saving QubitRepository */
       'postSaveLogic' => function(&$self)
       {
-        // add contact information
-
         createContact($self->object->id, $self->rowStatusVars);
         createKeymapEntry($self->rowStatusVars['legacyId'], $self->getStatus('sourceName'), $self->object->id);
 
@@ -184,6 +185,60 @@ EOF;
   }
 }
 
+function addScriptsAndLangs($repo, $rowStatusVars)
+{
+  $langCodeConvertor = new fbISO639_Map;
+
+  $repo->script = array();
+  $repo->language = array();
+
+  $scripts = array();
+
+  foreach (explode('|', $rowStatusVars['scripts']) as $script)
+  {
+    $script = trim($script);
+
+    if (!$script)
+    {
+      continue;
+    }
+
+    $scripts[] = sfEacPlugin::from6392($script);
+  }
+
+  $languages = array();
+
+  foreach (explode('|', $rowStatusVars['languages']) as $lang)
+  {
+    $lang = trim($lang);
+
+    if (!$lang)
+    {
+      continue;
+    }
+
+    $languages[] = sfEacPlugin::from6392($lang);
+  }
+
+  $repo->language = $languages;
+  $repo->script = $scripts;
+}
+
+function addTypes($types, $repo)
+{
+  foreach (explode('|', $types) as $type)
+  {
+    $type = trim($type);
+
+    if (!$type)
+    {
+      continue;
+    }
+
+    $repo->setTypeByName($type);
+  }
+}
+
 function createOtherNames($objectId, $typeId, $names)
 {
   foreach (explode('|', $names) as $name)
@@ -196,8 +251,8 @@ function createOtherNames($objectId, $typeId, $names)
     }
 
     $item = new QubitOtherName;
-    $item->name = $name;
-    $item->typeId = $typeId;
+    $item->name     = $name;
+    $item->typeId   = $typeId;
     $item->objectId = $objectId;
     $item->save();
   }
@@ -210,10 +265,10 @@ function createContact($actorId, $rowStatusVars)
 
   $info->contactPerson = $rowStatusVars['contactPerson'];
   $info->streetAddress = $rowStatusVars['streetAddress'];
-  $info->phone = $rowStatusVars['phone'];
-  $info->email = $rowStatusVars['email'];
-  $info->fax = $rowStatusVars['fax'];
-  $info->website = $rowStatusVars['website'];
+  $info->phone         = $rowStatusVars['phone'];
+  $info->email         = $rowStatusVars['email'];
+  $info->fax           = $rowStatusVars['fax'];
+  $info->website       = $rowStatusVars['website'];
 
   $info->save();
 }
