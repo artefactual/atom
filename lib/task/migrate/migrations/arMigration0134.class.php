@@ -41,6 +41,56 @@ class arMigration0134
     $taxonomy->culture = 'en';
     $taxonomy->save();
 
+    // Fixes for the changes incorrectly applied in arMigration0113.
+    $sql = "SHOW COLUMNS FROM `rights` LIKE 'act_id';";
+    if (false !== QubitPdo::fetchOne($sql))
+    {
+      //
+      // Get rid of act_id for once!
+      //
+
+      $sql = "ALTER TABLE `rights` DROP FOREIGN KEY `rights_FK_3`;";
+      QubitPdo::modify($sql);
+
+      $sql = "DROP INDEX `rights_FI_3` ON `rights`;";
+      QubitPdo::modify($sql);
+
+      $sql = "ALTER TABLE `rights` DROP COLUMN `act_id`;";
+      QubitPdo::modify($sql);
+
+      //
+      // Rename (rights_FI_4 => rights_FI_3) AND (rights_FK_4 => rights_FK_3)
+      //
+
+      $sql = "ALTER TABLE `rights` DROP FOREIGN KEY `rights_FK_4`;";
+      QubitPdo::modify($sql);
+
+      $sql = "DROP INDEX `rights_FI_4` ON `rights`;";
+      QubitPdo::modify($sql);
+
+      $sql = "ALTER TABLE `rights` ADD CONSTRAINT `rights_FK_3` FOREIGN KEY (`rights_holder_id`) REFERENCES `actor` (`id`) ON DELETE SET NULL;";
+      QubitPdo::modify($sql);
+
+      $sql = "CREATE INDEX `rights_FI_3` ON `rights` (`rights_holder_id`)";
+      QubitPdo::modify($sql);
+
+      //
+      // Rename (rights_FI_5 => rights_FI_4)  AND (rights_FK_5 => rights_FK_4)
+      //
+
+      $sql = "ALTER TABLE `rights` DROP FOREIGN KEY `rights_FK_5`;";
+      QubitPdo::modify($sql);
+
+      $sql = "DROP INDEX `rights_FI_5` ON `rights`;";
+      QubitPdo::modify($sql);
+
+      $sql = "ALTER TABLE `rights` ADD CONSTRAINT `rights_FK_4` FOREIGN KEY (`copyright_status_id`) REFERENCES `term` (`id`) ON DELETE SET NULL;";
+      QubitPdo::modify($sql);
+
+      $sql = "CREATE INDEX `rights_FI_4` ON `rights` (`copyright_status_id`)";
+      QubitPdo::modify($sql);
+    }
+
     // Add column `rights`.`statute_citation_id`
     $sql = "ALTER TABLE `rights` ADD COLUMN `statute_citation_id` INTEGER AFTER `statute_determination_date`";
     QubitPdo::modify($sql);
@@ -50,13 +100,7 @@ class arMigration0134
     QubitPdo::modify($sql);
 
     // Add constraint for column `rights`.`statute_citation_id`
-    $sql = <<<sql
-ALTER TABLE `rights`
-  ADD CONSTRAINT `rights_FK_5`
-  FOREIGN KEY (`statute_citation_id`)
-  REFERENCES `term` (`id`)
-  ON DELETE SET NULL;
-sql;
+    $sql = "ALTER TABLE `rights` ADD CONSTRAINT `rights_FK_5` FOREIGN KEY (`statute_citation_id`) REFERENCES `term` (`id`) ON DELETE SET NULL;";
     QubitPdo::modify($sql);
 
     // Populate terms based on the values found in the old `rights_i18n`.`statute_citation`

@@ -76,6 +76,11 @@ DROP INDEX rights_FI_3 ON rights;
 ALTER TABLE rights DROP act_id;
 sql;
 
+    /**
+     * The last three statements (regarding to .act_id) failed.
+     * Fixed in arMigration0134.
+     */
+
     QubitPdo::modify($sql);
 
     // Create default PREMIS settings
