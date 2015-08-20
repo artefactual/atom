@@ -32,7 +32,7 @@ class csvRepositoryImportTask extends csvImportBaseTask
   protected $name                = 'repository-import';
   protected $briefDescription    = 'Import csv repository data';
   protected $detailedDescription = <<<EOF
-Import CSV data
+Import CSV repository data
 EOF;
 
   /**
@@ -47,6 +47,9 @@ EOF;
 
     $this->addOptions(array(new sfCommandOption('upload-limit', null, sfCommandOption::PARAMETER_OPTIONAL,
       'Set the upload limit for repositories getting imported (default: disable uploads)')));
+
+    $this->addOptions(array(new sfCommandOption('source-name', null, sfCommandOption::PARAMETER_OPTIONAL,
+      'Set the source name for this import')));
   }
 
   /**
@@ -77,6 +80,11 @@ EOF;
       QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID => 'detailLevelTypes'
     ));
 
+    if (!isset($options['source-name']) || !$options['source-name'])
+    {
+      $options['source-name'] = $arguments['filename']; // Default source-name to the file name
+    }
+
     $import = new QubitFlatfileImport(array(
       'context' => sfContext::createInstance($this->configuration),
       'className' => 'QubitRepository',
@@ -84,7 +92,8 @@ EOF;
       /* the status array is a place to put data that should be accessible
          from closure logic using the getStatus method */
       'status' => array(
-        'options'                => $options
+        'update'    => $options['update'],
+        'sourceName' => $options['source-name']
       ),
 
       /* import columns that map directory to QubitRepository properties */
@@ -129,9 +138,9 @@ EOF;
         'email',
         'fax',
         'website',
-        'notes',
-        # TODO: Parse the below fields
         'legacyId',
+        # TODO: Parse the below fields
+
         'parallelFormsOfName',
         'otherFormsOfName',
         'types',
@@ -147,36 +156,81 @@ EOF;
       'preSaveLogic' => function(&$self)
       {
         $opts = $self->getStatus('options');
+
         if (isset($opts['upload-limit']) && !isset($self->object->uploadLimit))
+        {
           $self->object->uploadLimit = $opts['upload-limit'];
+        }
       },
 
       /* import logic to execute after saving QubitRepository */
       'postSaveLogic' => function(&$self)
       {
         // add contact information
-        $info = new QubitContactInformation();
-        $info->actorId = $self->object->id;
 
-        $info->contactPerson = $self->rowStatusVars['contactPerson'];
-        $info->streetAddress = $self->rowStatusVars['streetAddress'];
-        $info->phone = $self->rowStatusVars['phone'];
-        $info->email = $self->rowStatusVars['email'];
-        $info->fax = $self->rowStatusVars['fax'];
-        $info->website = $self->rowStatusVars['website'];
+        createContact($self->object->id, $self->rowStatusVars);
+        createKeymapEntry($self->rowStatusVars['legacyId'], $self->getStatus('sourceName'), $self->object->id);
 
-        $info->save();
+        createOtherNames($self->object->id, QubitTerm::PARALLEL_FORM_OF_NAME_ID,
+                         $self->rowStatusVars['parallelFormsOfName']);
 
-        // Add note
-        $note = new QubitNote();
-        $note->content = $self->rowStatusVars['notes'];
-        $note->objectId = $self->object->id;
-
-        $note->save();
+        createOtherNames($self->object->id, QubitTerm::OTHER_FORM_OF_NAME_ID,
+                         $self->rowStatusVars['otherFormsOfName']);
       }
     ));
 
     $import->csv($fh, $skipRows);
     $this->logSection("Imported repositories successfully!");
   }
+}
+
+function createOtherNames($objectId, $typeId, $names)
+{
+  foreach (explode('|', $names) as $name)
+  {
+    $name = trim($name);
+
+    if (!$name)
+    {
+      continue;
+    }
+
+    $item = new QubitOtherName;
+    $item->name = $name;
+    $item->typeId = $typeId;
+    $item->objectId = $objectId;
+    $item->save();
+  }
+}
+
+function createContact($actorId, $rowStatusVars)
+{
+  $info = new QubitContactInformation();
+  $info->actorId = $actorId;
+
+  $info->contactPerson = $rowStatusVars['contactPerson'];
+  $info->streetAddress = $rowStatusVars['streetAddress'];
+  $info->phone = $rowStatusVars['phone'];
+  $info->email = $rowStatusVars['email'];
+  $info->fax = $rowStatusVars['fax'];
+  $info->website = $rowStatusVars['website'];
+
+  $info->save();
+}
+
+function createKeymapEntry($legacyId, $sourceName, $id)
+{
+  $sql = 'SELECT count(1) FROM keymap WHERE source_id=? AND source_name=? AND target_id=? AND target_name=?';
+
+  if (QubitPdo::fetchColumn($sql, array($legacyId, $sourceName, $id, 'repository')) > 0)
+  {
+    return; // Avoid duplicate keymap entries
+  }
+
+  $keymap = new QubitKeymap;
+  $keymap->sourceId   = $legacyId;
+  $keymap->sourceName = $sourceName;
+  $keymap->targetId   = $id;
+  $keymap->targetName = 'repository';
+  $keymap->save();
 }

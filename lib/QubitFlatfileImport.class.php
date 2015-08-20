@@ -553,6 +553,8 @@ class QubitFlatfileImport
    */
   public function row($row = array())
   {
+    $this->object = null;
+
     // stash raw row data so it's accessible to closure logic
     $this->status['row'] = $row;
 
@@ -586,34 +588,21 @@ class QubitFlatfileImport
       $tableName = sfInflector::underscore(substr($this->className, 5));
       $legacyId = $this->columnExists('legacyId') ? trim($this->columnValue('legacyId')) : null;
 
-      if ($this->className == 'QubitRepository' && isset($this->status['options']['update']) &&
-          $this->status['options']['update'])
+      if (!$this->object && $this->className == 'QubitRepository' && isset($this->status['update']) &&
+          $this->status['update'])
       {
-        $this->object = $this->createOrFetchRepository($this->columnValue('authorizedFormOfName'));
+        $this->object = $this->createOrFetchRepository($this->columnValue('authorizedFormOfName'), false);
       }
-      else if ($legacyId && $mapEntry = $this->fetchKeymapEntryBySourceAndTargetName($legacyId,
-               $this->status['sourceName'], $tableName))
+
+      if (!$this->object && $legacyId && $mapEntry = $this->fetchKeymapEntryBySourceAndTargetName($legacyId,
+          $this->status['sourceName'], $tableName))
       {
-        $this->object = QubitInformationObject::getById($mapEntry->target_id);
+        $this->object = call_user_func($this->className.'::getById', $mapEntry->target_id);
 
         // Remove keymap entry if it doesn't point to a valid QubitInformationObject.
         if ($this->object === null)
         {
-          $query = '
-            DELETE FROM keymap WHERE source_id = ? AND target_id = ?
-            AND source_name = ? AND target_name = ?
-          ';
-
-          $statement = self::sqlQuery(
-            $query, array(
-              $legacyId,
-              $mapEntry->target_id,
-              $this->status['sourceName'],
-              $tableName
-            )
-          );
-
-          // create new object
+          $mapEntry->delete();
           $this->object = new $this->className;
         }
         else if ($this->object->sourceCulture == $this->columnValue('culture'))
@@ -639,7 +628,8 @@ class QubitFlatfileImport
           print $this->logError($msg);
         }
       }
-      else
+
+      if (!$this->object)
       {
         $this->object = new $this->className;
       }
@@ -705,17 +695,11 @@ class QubitFlatfileImport
     // process import columns that don't produce child data
     $this->forEachRowColumn($row, function(&$self, $index, $columnName, $value)
     {
-      if (
-        isset($self->columnNames[$index])
-        && in_array($self->columnNames[$index], $self->variableColumns)
-      )
+      if (isset($self->columnNames[$index]) && in_array($self->columnNames[$index], $self->variableColumns))
       {
         $self->rowStatusVars[$self->columnNames[$index]] = $value;
       }
-      else if (
-        isset($self->columnNames[$index])
-        && isset($self->arrayColumns[($self->columnNames[$index])])
-      )
+      else if (isset($self->columnNames[$index]) && isset($self->arrayColumns[($self->columnNames[$index])]))
       {
         $self->arrayColumnHandler($columnName, $self->arrayColumns[$columnName], $value);
       }
@@ -744,33 +728,18 @@ class QubitFlatfileImport
         $self->mappedColumnHandler($self->columnMap[$columnName], $value);
       }
       // if column maps to a property, set the property
-      else if (
-        isset($self->propertyMap)
-        && isset($self->propertyMap[$columnName])
-        && $value
-      )
+      else if (isset($self->propertyMap) && isset($self->propertyMap[$columnName]) && $value)
       {
-        $self->object->addProperty(
-          $self->propertyMap[$columnName],
-          $self->content($value)
-        );
+        $self->object->addProperty($self->propertyMap[$columnName], $self->content($value));
       }
-      else if (
-        isset($self->columnNames[$index])
-        && isset($self->handlers[($self->columnNames[$index])])
+      else if (isset($self->columnNames[$index]) && isset($self->handlers[($self->columnNames[$index])])
       )
       {
         // otherwise, if column is data and a handler for it is set, use it
-        call_user_func_array(
-          $self->handlers[$columnName],
-          array($self, $value)
-        );
+        call_user_func_array($self->handlers[$columnName], array($self, $value));
       }
-      else if (
-        isset($self->columnNames[$index])
-        && in_array($self->columnNames[$index], $self->standardColumns)
-        && $value
-      )
+      else if (isset($self->columnNames[$index]) && in_array($self->columnNames[$index], $self->standardColumns) &&
+               $value)
       {
         // otherwise, if column is data and it's a standard column, use it
         $self->object->{$self->columnNames[$index]} = $self->content($value);
@@ -794,13 +763,10 @@ class QubitFlatfileImport
       {
         // otherwise, if maps to a note, create it
         $transformationLogic = (isset($self->noteMap[$columnName]['transformationLogic']))
-          ? $self->noteMap[$columnName]['transformationLogic']
-          : false;
-        $self->createOrUpdateNotes(
-          $self->noteMap[$columnName]['typeId'],
-          explode('|', $value),
-          $transformationLogic
-        );
+          ? $self->noteMap[$columnName]['transformationLogic'] : false;
+
+        $self->createOrUpdateNotes($self->noteMap[$columnName]['typeId'], explode('|', $value),
+                                   $transformationLogic);
       }
     });
   }
@@ -1157,15 +1123,18 @@ class QubitFlatfileImport
   /**
    * Create a Qubit repository or, if one already exists, fetch it
    *
-   * @param string $name  name of repository
+   * @param string  $name  name of repository
+   *
+   * @param bool  $createIfNotFound  whether or not to create a repository if one with the
+   *                                 specified name doesn't exist.
    *
    * @return QubitRepository  created or fetched repository
    */
-  public static function createOrFetchRepository($name)
+  public static function createOrFetchRepository($name, $createIfNotFound = true)
   {
-    $query = "SELECT r.id FROM actor_i18n a \r
-      INNER JOIN repository r ON a.id=r.id \r
-      WHERE a.authorized_form_of_name=?";
+    $query = 'SELECT r.id FROM actor_i18n a
+              INNER JOIN repository r ON a.id=r.id
+              WHERE a.authorized_form_of_name=?';
 
     $statement = QubitFlatfileImport::sqlQuery($query, array($name));
     $result = $statement->fetch(PDO::FETCH_OBJ);
@@ -1176,7 +1145,10 @@ class QubitFlatfileImport
     }
     else
     {
-      return QubitFlatfileImport::createRepository($name);
+      if ($createIfNotFound)
+      {
+        return QubitFlatfileImport::createRepository($name);
+      }
     }
   }
 
