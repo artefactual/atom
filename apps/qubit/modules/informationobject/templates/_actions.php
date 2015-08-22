@@ -1,5 +1,4 @@
 <section class="actions">
-
   <ul>
 
       <?php if (QubitAcl::check($resource, 'update') || (QubitAcl::check($resource, 'translate'))): ?>
@@ -63,4 +62,4 @@
 
 </section>
 
-<?php echo get_partial('informationobject/renameModal', array('resource' => $resource)) ?>
+<?php echo get_partial('informationobject/renameModal', array('resource' => $resource, 'renameForm' => $renameForm)) ?>

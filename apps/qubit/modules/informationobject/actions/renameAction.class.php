@@ -37,55 +37,75 @@ class InformationObjectRenameAction extends sfAction
       return sfView::NONE;
     }
 
-    $resource = $this->updateFields();
-
-    // Let user know description was updated (and if slug had to be adjusted)
+    // Internationalization needed for flash messages
     ProjectConfiguration::getActive()->loadHelpers('I18N');
 
-    $message = __('Description updated.');
-
-    $postData = $this->request->getPostParameters();
-
-    if (isset($postData['slug']) && $resource->slug != $postData['slug'])
+    // Handle rename form submission
+    if (null !== $request->rename)
     {
-      $message .= ' '. __('Slug was adjusted to remove special characters or because it has already been used for another description.');
+      $this->renameForm = new InformationObjectRenameForm;
+
+      $this->renameForm->bind($request->rename);
+
+      if ($this->renameForm->isValid())
+      {
+        $resource = $this->updateResource();
+
+        // Let user know description was updated (and if slug had to be adjusted)
+        $message = __('Description updated.');
+
+        $postedSlug = $this->renameForm->getValue('slug');
+
+        if ((null !== $postedSlug) && $resource->slug != $postedSlug)
+        {
+          $message .= ' '. __('Slug was adjusted to remove special characters or because it has already been used for another description.');
+        }
+
+        $this->getUser()->setFlash('notice', $message);
+
+        $this->redirect(array($resource, 'module' => 'informationobject'));
+      }
     }
+    else
+    {
+      $this->getUser()->setFlash('error', __('No fields changed.'));
 
-    $this->getUser()->setFlash('notice', $message);
-
-    $this->redirect(array($resource, 'module' => 'informationobject'));
+      $this->redirect(array($this->getRoute()->resource, 'module' => 'informationobject'));
+    }
   }
 
-  private function updateFields()
+  private function updateResource()
   {
     $resource = $this->getRoute()->resource;
 
-    $postData = $this->request->getPostParameters();
+    $postedTitle    = $this->renameForm->getValue('title');
+    $postedSlug     = $this->renameForm->getValue('slug');
+    $postedFilename = $this->renameForm->getValue('filename');
 
-    // Update title, if requested
-    if (isset($postData['title']))
+    // Update title, if title sent
+    if (null !== $postedTitle)
     {
-      $resource->title = $postData['title'];
+      $resource->title = $postedTitle;
     }
 
     // Attempt to update slug if slug sent
-    if (isset($postData['slug']))
+    if (null !== $postedSlug)
     {
       $slug = QubitSlug::getByObjectId($resource->id);
 
       // Attempt to change slug if submitted slug's different than current slug
-      if ($postData['slug'] != $slug->slug)
+      if ($postedSlug != $slug->slug)
       {
-        $slug->slug = InformationObjectSlugPreviewAction::determineAvailableSlug($postData['slug']);
+        $slug->slug = InformationObjectSlugPreviewAction::determineAvailableSlug($postedSlug);
         $slug->save();
       }
     }
 
-    // Update digital object filename, if requested
-    if (isset($postData['filename']) && count($resource->digitalObjects))
+    // Update digital object filename, if filename sent
+    if ((null !== $postedFilename) && count($resource->digitalObjects))
     {
       // Parse filename so special characters can be removed
-      $fileParts = pathinfo(trim($postData['filename']));
+      $fileParts = pathinfo($postedFilename);
       $filename = QubitSlug::slugify($fileParts['filename']) .'.'. QubitSlug::slugify($fileParts['extension']);
 
       $digitalObject = $resource->digitalObjects[0];

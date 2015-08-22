@@ -1,6 +1,6 @@
 (function ($) {
 
-  var fields = ['Title', 'Slug', 'Filename'];
+  var fields = ['title', 'slug', 'filename'];
   var asyncOpInProgress = false;
 
   // Fetch a slug preview for a given title
@@ -29,8 +29,8 @@
 
     for (var index in fields) {
       var field = fields[index];
-      $fields[field]          = $('#renameModal' + field);
-      $fieldCheckboxes[field] = $('#renameModalEnable' + field);
+      $fields[field]          = $('#rename_' + field);
+      $fieldCheckboxes[field] = $('#rename_enable_' + field);
     }
 
     $renameModalSubmit = $('#renameModalSubmit');
@@ -109,12 +109,12 @@
     });
 
     // If title changes, update slug
-    $fields['Title'].change(function() {
-      fetchSlugPreview($fields['Title'].val(), function(err, slug) {
+    $fields['title'].change(function() {
+      fetchSlugPreview($fields['title'].val(), function(err, slug) {
         if (err) {
           alert('Error fetching slug preview.');
         } else {
-          $fields['Slug'].val(slug);
+          $fields['slug'].val(slug);
         }
       });
     });

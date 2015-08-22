@@ -162,7 +162,10 @@ EOF;
   public static function regenerateDerivatives(&$digitalObject)
   {
     // Delete existing derivatives
-    foreach ($digitalObject->descendants as $derivative)
+    $criteria = new Criteria;
+    $criteria->add(QubitDigitalObject::PARENT_ID, $digitalObject->id);
+
+    foreach(QubitDigitalObject::get($criteria) as $derivative)
     {
       $derivative->delete();
     }

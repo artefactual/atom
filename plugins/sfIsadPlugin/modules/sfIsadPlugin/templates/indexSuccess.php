@@ -339,5 +339,5 @@
 </section> <!-- /section#accessionArea -->
 
 <?php slot('after-content') ?>
-  <?php echo get_partial('informationobject/actions', array('resource' => $resource)) ?>
+  <?php echo get_partial('informationobject/actions', array('resource' => $resource, 'renameForm' => $renameForm)) ?>
 <?php end_slot() ?>
