@@ -35,7 +35,7 @@
         'label' => __('Part of'),
         'facet' => 'collection',
         'pager' => $pager,
-        'filters' => $filters)) ?>
+        'filters' => $search->filters)) ?>
 
       <?php echo get_partial('search/facet', array(
         'target' => '#facet-repository',

@@ -142,10 +142,10 @@ class arElasticSearchPluginQuery
 
     // Filter languages only if the languages facet is being used and languages is
     // set in the request
-    if (isset($this->facets['languages']) && isset($this->request->languages))
+    if (isset($this->facets['languages']) && isset($params['languages']))
     {
-      $this->filters['languages'] = $this->request->languages;
-      $term = new \Elastica\Filter\Term(array($this->facets['languages']['field'] => $this->request->languages));
+      $this->filters['languages'] = $params['languages'];
+      $term = new \Elastica\Filter\Term(array($this->facets['languages']['field'] => $params['languages']));
 
       $this->filterBool->addMust($term);
     }

@@ -29,14 +29,14 @@
         'label' => __('Language'),
         'facet' => 'languages',
         'pager' => $pager,
-        'filters' => $filters)) ?>
+        'filters' => $search->filters)) ?>
 
       <?php echo get_partial('search/facet', array(
         'target' => '#facet-entitytype',
         'label' => __('Entity type'),
         'facet' => 'types',
         'pager' => $pager,
-        'filters' => $filters)) ?>
+        'filters' => $search->filters)) ?>
 
     </div>
 

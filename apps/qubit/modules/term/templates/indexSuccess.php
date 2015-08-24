@@ -21,41 +21,39 @@
 
         <div class="content">
 
-          <?php if (QubitTaxonomy::PLACE_ID == $resource->taxonomyId): ?>
-
-            <?php echo get_partial('search/facet', array(
-              'target' => '#facet-subjects',
-              'label' => sfConfig::get('app_ui_label_subject'),
-              'facet' => 'subjects',
-              'pager' => $pager,
-              'filters' => $filters)) ?>
-
-          <?php elseif (QubitTaxonomy::SUBJECT_ID == $resource->taxonomyId): ?>
-
-            <?php echo get_partial('search/facet', array(
-              'target' => sfConfig::get('app_ui_label_place'),
-              'label' => __('Places'),
-              'facet' => 'places',
-              'pager' => $pager,
-              'filters' => $filters)) ?>
-
-          <?php elseif (QubitTaxonomy::GENRE_ID == $resource->taxonomyId): ?>
-
-            <?php echo get_partial('search/facet', array(
-              'target' => sfConfig::get('app_ui_label_genre'),
-              'label' => __('Genres'),
-              'facet' => 'genres',
-              'pager' => $pager,
-              'filters' => $filters)) ?>
-
-          <?php endif; ?>
-
           <?php echo get_partial('search/facetLanguage', array(
             'target' => '#facet-languages',
             'label' => __('Language'),
             'facet' => 'languages',
             'pager' => $pager,
-            'filters' => $filters)) ?>
+            'filters' => $search->filters)) ?>
+
+          <?php if (QubitTaxonomy::PLACE_ID != $resource->taxonomyId): ?>
+            <?php echo get_partial('search/facet', array(
+              'target' => '#facet-places',
+              'label' => sfConfig::get('app_ui_label_place'),
+              'facet' => 'places',
+              'pager' => $pager,
+              'filters' => $search->filters)) ?>
+            <?php endif; ?>
+
+          <?php if (QubitTaxonomy::SUBJECT_ID != $resource->taxonomyId): ?>
+            <?php echo get_partial('search/facet', array(
+              'target' => '#facet-subjects',
+              'label' => sfConfig::get('app_ui_label_subject'),
+              'facet' => 'subjects',
+              'pager' => $pager,
+              'filters' => $search->filters)) ?>
+          <?php endif; ?>
+
+          <?php if (QubitTaxonomy::GENRE_ID != $resource->taxonomyId): ?>
+            <?php echo get_partial('search/facet', array(
+              'target' => '#facet-genres',
+              'label' => sfConfig::get('app_ui_label_genre'),
+              'facet' => 'genres',
+              'pager' => $pager,
+              'filters' => $search->filters)) ?>
+          <?php endif; ?>
 
         </div>
 
