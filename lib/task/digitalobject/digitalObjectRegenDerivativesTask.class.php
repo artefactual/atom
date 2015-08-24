@@ -165,7 +165,7 @@ EOF;
     $criteria = new Criteria;
     $criteria->add(QubitDigitalObject::PARENT_ID, $digitalObject->id);
 
-    foreach(QubitDigitalObject::get($criteria) as $derivative)
+    foreach (QubitDigitalObject::get($criteria) as $derivative)
     {
       $derivative->delete();
     }
