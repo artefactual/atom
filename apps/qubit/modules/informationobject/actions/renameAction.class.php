@@ -31,18 +31,11 @@ class InformationObjectRenameAction extends sfAction
     }
 
     // Return 400 if incorrect HTTP method
-    if ($this->request->getMethod() != 'POST')
+    if ($request->isMethod('post'))
     {
-      $this->response->setStatusCode(400);
-      return sfView::NONE;
-    }
+      // Internationalization needed for flash messages
+      ProjectConfiguration::getActive()->loadHelpers('I18N');
 
-    // Internationalization needed for flash messages
-    ProjectConfiguration::getActive()->loadHelpers('I18N');
-
-    // Handle rename form submission
-    if (null !== $request->rename)
-    {
       $this->renameForm = new InformationObjectRenameForm;
 
       $this->renameForm->bind($request->rename);
@@ -68,9 +61,8 @@ class InformationObjectRenameAction extends sfAction
     }
     else
     {
-      $this->getUser()->setFlash('error', __('No fields changed.'));
-
-      $this->redirect(array($this->getRoute()->resource, 'module' => 'informationobject'));
+      $this->response->setStatusCode(400);
+      return sfView::NONE;
     }
   }
 
