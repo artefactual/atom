@@ -31,7 +31,7 @@
 
     <div id="header">
       <div id="logo-floater">
-        <h1><img alt="Qubit" id="logo" src="<?php echo $path ?>/images/logo.png"/><div>Qubit</div></h1>
+        <h1><img alt="" id="logo" src="<?php echo $path ?>/images/logo.png"/><div>Qubit</div></h1>
       </div>
     </div>
 

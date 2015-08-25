@@ -32,7 +32,7 @@
   <?php if ($resource->existsBanner()): ?>
     <div class="row" id="repository-banner">
       <div class="span7">
-        <?php echo image_tag($resource->getBannerPath()) ?>
+        <?php echo image_tag($resource->getBannerPath(), array('alt' => '')) ?>
       </div>
     </div>
   <?php endif; ?>

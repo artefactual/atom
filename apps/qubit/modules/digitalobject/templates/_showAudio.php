@@ -6,7 +6,7 @@
     <a class="flowplayer audio" href="<?php echo public_path($representation->getFullPath()) ?>"></a>
   <?php else: ?>
     <div style="text-align: center">
-      <?php echo image_tag($representation->getFullPath(), array('style' => 'border: #999 1px solid')) ?>
+      <?php echo image_tag($representation->getFullPath(), array('style' => 'border: #999 1px solid', 'alt' => '')) ?>
     </div>
   <?php endif;?>
 
@@ -18,14 +18,14 @@
 
   <?php if ($iconOnly): ?>
 
-    <?php echo link_to(image_tag('play'), $link) ?>
+    <?php echo link_to(image_tag('play', array('alt' => __('Open original %1%', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))), $link) ?>
 
   <?php else: ?>
 
     <div class="resource">
 
       <div class="resourceRep">
-        <?php echo link_to(image_tag('play'), $link) ?>
+        <?php echo link_to(image_tag('play', array('alt' => __('Open original %1%', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))), $link) ?>
       </div>
 
       <div class="resourceDesc">

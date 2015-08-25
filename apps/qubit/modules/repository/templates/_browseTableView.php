@@ -7,9 +7,9 @@
                            array('title' => __('Sort'), 'class' => 'sortable')) ?>
 
         <?php if ('nameUp' == $sf_request->sort): ?>
-          <?php echo image_tag('up.gif') ?>
+          <?php echo image_tag('up.gif', array('alt' => __('Sort ascending'))) ?>
         <?php elseif ('nameDown' == $sf_request->sort): ?>
-          <?php echo image_tag('down.gif') ?>
+          <?php echo image_tag('down.gif', array('alt' => __('Sort descending'))) ?>
         <?php endif; ?>
       </th>
 
@@ -19,9 +19,9 @@
                            array('title' => __('Sort'), 'class' => 'sortable')) ?>
 
         <?php if ('regionUp' == $sf_request->sort): ?>
-          <?php echo image_tag('up.gif') ?>
+          <?php echo image_tag('up.gif', array('alt' => __('Sort ascending'))) ?>
         <?php elseif ('regionDown' == $sf_request->sort): ?>
-          <?php echo image_tag('down.gif') ?>
+          <?php echo image_tag('down.gif', array('alt' => __('Sort descending'))) ?>
         <?php endif; ?>
       </th>
 
@@ -31,9 +31,9 @@
                            array('title' => __('Sort'), 'class' => 'sortable')) ?>
 
         <?php if ('localityUp' == $sf_request->sort): ?>
-          <?php echo image_tag('up.gif') ?>
+          <?php echo image_tag('up.gif', array('alt' => __('Sort ascending'))) ?>
         <?php elseif ('localityDown' == $sf_request->sort): ?>
-          <?php echo image_tag('down.gif') ?>
+          <?php echo image_tag('down.gif', array('alt' => __('Sort descending'))) ?>
         <?php endif; ?>
       </th>
 
@@ -48,7 +48,7 @@
     <tr>
       <td>
         <?php if (isset($doc['logoPath'])): ?>
-          <?php echo image_tag($doc['logoPath'], array('height' => '10%', 'width' => '10%')) ?>
+          <?php echo image_tag($doc['logoPath'], array('height' => '10%', 'width' => '10%', 'alt' => '')) ?>
         <?php endif; ?>
 
         <?php echo link_to(render_title(get_search_i18n($doc, 'authorizedFormOfName', array('allowEmpty' => false,

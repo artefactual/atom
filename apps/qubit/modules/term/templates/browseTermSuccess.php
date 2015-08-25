@@ -6,7 +6,7 @@
   <div class="hidden-phone">
     <h1>
       <?php if (isset($icon)): ?>
-        <?php echo image_tag('/images/icons-large/icon-'.$icon.'.png', array('width' => '42', 'height' => '42')) ?>
+        <?php echo image_tag('/images/icons-large/icon-'.$icon.'.png', array('width' => '42', 'height' => '42', 'alt' => '')) ?>
       <?php endif; ?>
       <?php echo __('Browse %1% %2%', array(
         '%1%' => render_title($resource->taxonomy),

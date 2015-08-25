@@ -33,7 +33,7 @@
 <?php
 
 // Template for new display table rows
-$editHtml = image_tag('pencil', array('alt' => 'edit', 'style' => 'align: top'));
+$editHtml = image_tag('pencil', array('alt' => __('Edit'), 'style' => 'align: top'));
 
 $rowTemplate = json_encode(<<<value
 <tr id="{{$form->getWidgetSchema()->generateName('id')}}">

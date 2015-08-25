@@ -24,7 +24,6 @@
               <th colspan="2" style="width: 90%;">
                 <?php echo __('Containers') ?>
               </th><th style="width: 5%;">
-                <?php echo image_tag('delete', array('align' => 'top', 'class' => 'deleteIcon')) ?>
               </th>
             </tr>
           </thead><tbody>
@@ -33,7 +32,7 @@
                 <td style="width: 90%"><div class="animateNicely">
                   <?php echo $item->subject->getLabel() ?>
                 </div></td><td style="width: 20px;"><div class="animateNicely">
-                  <?php echo link_to(image_tag('pencil', array('align' => 'top')), array($item->subject, 'module' => 'physicalobject', 'action' => 'edit')) ?>
+                  <?php echo link_to(image_tag('pencil', array('style' => 'align: top', 'alt' => __('Edit')), array($item->subject, 'module' => 'physicalobject', 'action' => 'edit')) ?>
                 </div></td><td style="width: 20px;"><div class="animateNicely">
                   <input class="multiDelete" name="delete_relations[]" type="checkbox" value="<?php echo url_for(array($item, 'module' => 'relation')) ?>"/>
                 </div></td>

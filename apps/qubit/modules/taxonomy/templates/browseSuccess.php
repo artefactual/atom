@@ -3,7 +3,7 @@
 <?php slot('title') ?>
   <div class="multiline-header">
     <?php if (isset($icon)): ?>
-      <?php echo image_tag('/images/icons-large/icon-'.$icon.'.png') ?>
+      <?php echo image_tag('/images/icons-large/icon-'.$icon.'.png', array('alt' => '')) ?>
     <?php endif; ?>
     <h1 aria-describedby="results-label"><?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?></h1>
     <span class="sub" id="results-label"><?php echo render_title($resource) ?></span>

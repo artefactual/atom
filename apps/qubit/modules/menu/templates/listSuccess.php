@@ -28,13 +28,13 @@
             <?php if (isset($item['prev'])): ?>
               <?php echo link_to(image_tag('up.gif', array('alt' => __('Move up'))), array('module' => 'menu', 'action' => 'list', 'move' => $item['id'], 'before' => $item['prev']), array('title' => __('Move item up in list'))) ?>
             <?php else: ?>
-              <?php echo image_tag('1x1_transparent', array('height' => '5', 'width' => '13')) ?>
+              &nbsp;&nbsp;
             <?php endif; ?>
 
             <?php if (isset($item['next'])): ?>
               <?php echo link_to(image_tag('down.gif', array('alt' => __('Move down'))), array('module' => 'menu', 'action' => 'list', 'move' => $item['id'], 'after' => $item['next']), array('title' => __('Move item down in list'))) ?>
             <?php else: ?>
-              <?php echo image_tag('1x1_transparent', array('height' => '5', 'width'=>'13')) ?>
+              &nbsp;&nbsp;
             <?php endif; ?>
 
             <?php if ($item['protected']): ?>

@@ -19,7 +19,7 @@
             <li>
               <a href="<?php echo url_for($item->getPath(array('getUrl' => true, 'resolveAlias' => true))) ?>">
                 <?php if (isset($icons[$item->name])): ?>
-                  <?php echo image_tag($icons[$item->name], array('width' => 42, 'height' => 42)) ?>
+                  <?php echo image_tag($icons[$item->name], array('width' => 42, 'height' => 42, 'alt' => '')) ?>
                 <?php endif; ?>
                 <?php echo esc_specialchars($item->getLabel(array('cultureFallback' => true))) ?>
               </a>

@@ -4,11 +4,11 @@
     <tr>
       <td>
         <?php if (null !== $representation = $leftObject->getCompoundRepresentation()): ?>
-          <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject') || QubitTerm::TEXT_ID == $resource->mediaType->id, image_tag($representation->getFullPath()), public_path($leftObject->getFullPath(), array('title' => __('View full size')))) ?>
+          <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject') || QubitTerm::TEXT_ID == $resource->mediaType->id, image_tag($representation->getFullPath(), array('alt' => '')), public_path($leftObject->getFullPath(), array('title' => __('View full size')))) ?>
         <?php endif; ?>
       </td><td>
         <?php if (null !== $rightObject && null !== $representation = $rightObject->getCompoundRepresentation()): ?>
-          <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject') || QubitTerm::TEXT_ID == $resource->mediaType->id, image_tag($representation->getFullPath()), public_path($rightObject->getFullPath(), array('title' => __('View full size')))) ?>
+          <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject') || QubitTerm::TEXT_ID == $resource->mediaType->id, image_tag($representation->getFullPath(), array('alt' => '')), public_path($rightObject->getFullPath(), array('title' => __('View full size')))) ?>
         <?php endif; ?>
       </td>
     </tr>

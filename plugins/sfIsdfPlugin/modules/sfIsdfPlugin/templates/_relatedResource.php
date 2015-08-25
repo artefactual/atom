@@ -20,7 +20,6 @@
         </th><th style="width: 20%">
           <?php echo __('Dates') ?>
         </th><th style="text-align: center; width: 10%">
-          <?php echo image_tag('delete', array('align' => 'top', 'class' => 'deleteIcon')) ?>
         </th>
       </tr>
     </thead><tbody>
@@ -43,7 +42,7 @@
 <?php
 
 // Template for new display table rows
-$editHtml = image_tag('pencil', array('alt' => 'edit', 'style' => 'align: top'));
+$editHtml = image_tag('pencil', array('alt' => __('Edit'), 'style' => 'align: top'));
 
 $rowTemplate = json_encode(<<<value
 <tr id="{{$form->getWidgetSchema()->generateName('id')}}">

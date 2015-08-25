@@ -40,7 +40,7 @@
         <?php if ($includeThumbnails): ?>
         <td>
         <?php if (null != ($do = $item['resource']->getDigitalObject()) && (null != $do->thumbnail)):  ?>
-          <?php echo image_tag($do->thumbnail->getFullPath()) ?>
+          <?php echo image_tag($do->thumbnail->getFullPath(), array('alt' => '')) ?>
         <?php else: ?>
           <?php echo __('N/A') ?>
         <?php endif; ?>

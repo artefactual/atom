@@ -4,7 +4,7 @@
 
   <div class="imageflow clearfix" id="imageflow">
     <?php foreach ($thumbnails as $item): ?>
-      <?php echo image_tag($item->getFullPath(), array('longdesc' => url_for(array($item->parent->informationObject, 'module' => 'informationobject')), 'alt' => esc_entities(render_title(truncate_text($item->parent->informationObject, 28))))) ?>
+      <?php echo image_tag($item->getFullPath(), array('longdesc' => url_for(array($item->parent->informationObject, 'module' => 'informationobject')), 'alt' => esc_entities(render_title(truncate_text($item->parent->informationObject, 100))))) ?>
     <?php endforeach; ?>
   </div>
 

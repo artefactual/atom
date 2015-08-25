@@ -51,7 +51,7 @@
       </div>
 
       <div class="top-dropdown-header">
-        <?php echo image_tag($gravatar) ?>&nbsp;
+        <?php echo image_tag($gravatar, array('alt' => '')) ?>&nbsp;
         <h2><?php echo __('Hi, %1%', array('%1%' => $sf_user->user->username)) ?></h2>
       </div>
 

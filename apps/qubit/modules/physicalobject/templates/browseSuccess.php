@@ -23,16 +23,16 @@
         <th class="sortable">
           <?php echo link_to(__('Name'), array('sort' => ('nameUp' == $sf_request->sort) ? 'nameDown' : 'nameUp') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('title' => __('Sort'), 'class' => 'sortable')) ?>
           <?php if ('nameUp' == $sf_request->sort): ?>
-            <?php echo image_tag('up.gif') ?>
+            <?php echo image_tag('up.gif', array('alt' => __('Sort ascending'))) ?>
           <?php elseif ('nameDown' == $sf_request->sort): ?>
-            <?php echo image_tag('down.gif') ?>
+            <?php echo image_tag('down.gif', array('alt' => __('Sort descending'))) ?>
           <?php endif; ?>
         </th><th class="sortable">
           <?php echo link_to(__('Location'), array('sort' => ('locationUp' == $sf_request->sort) ? 'locationDown' : 'locationUp') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('title' => __('Sort'), 'class' => 'sortable')) ?>
           <?php if ('locationUp' == $sf_request->sort): ?>
-            <?php echo image_tag('up.gif') ?>
+            <?php echo image_tag('up.gif', array('alt' => __('Sort ascending'))) ?>
           <?php elseif ('locationDown' == $sf_request->sort): ?>
-            <?php echo image_tag('down.gif') ?>
+            <?php echo image_tag('down.gif', array('alt' => __('Sort descending'))) ?>
           <?php endif; ?>
         </th><th>
           <?php echo __('Type') ?>
