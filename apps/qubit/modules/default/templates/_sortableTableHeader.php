@@ -19,9 +19,9 @@
     array('title' => __('Sort'), 'class' => 'sortable')) ?>
 
   <?php if ($up === $sf_request->sort): ?>
-    <?php echo image_tag('up.gif') ?>
+    <?php echo image_tag('up.gif', array('alt' => __('Sort ascending'))) ?>
   <?php elseif ($down === $sf_request->sort): ?>
-    <?php echo image_tag('down.gif') ?>
+    <?php echo image_tag('down.gif', array('alt' => __('Sort descending'))) ?>
   <?php endif; ?>
 
 </th>

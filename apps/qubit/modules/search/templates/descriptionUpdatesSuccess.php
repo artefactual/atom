@@ -2,7 +2,7 @@
 
 <?php slot('title') ?>
   <h1 class="multiline">
-    <?php echo image_tag('/images/icons-large/icon-new.png', array('width' => '42', 'height' => '42')) ?>
+    <?php echo image_tag('/images/icons-large/icon-new.png', array('width' => '42', 'height' => '42', 'alt' => '')) ?>
     <?php echo __('Browse newest additions') ?>
   </h1>
 <?php end_slot() ?>

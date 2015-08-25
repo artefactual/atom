@@ -12,7 +12,7 @@
       <section class="admin-message" id="error-404">
 
         <h2>
-          <img src="<?php echo $path ?>/images/logo.png"/>
+          <img alt="" src="<?php echo $path ?>/images/logo.png"/>
           Oops! An Error Occurred
         </h2>
 

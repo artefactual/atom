@@ -41,8 +41,5 @@
             // It returns document (which is not compatible
             // with hide()) if $('.multiDelete').lenght is zero
             .filter('input').hide();
-
-          // Drop delete icons from table headers
-          $('th img.deleteIcon', context).remove();
         } }
   })(jQuery);

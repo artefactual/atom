@@ -3,7 +3,7 @@
 
 <?php slot('title') ?>
   <div class="multiline-header">
-    <?php echo image_tag('/images/icons-large/icon-people.png') ?>
+    <?php echo image_tag('/images/icons-large/icon-people.png', array('alt' => '')) ?>
     <h1 aria-describedby="results-label"><?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?></h1>
     <span class="sub" id="results-label"><?php echo sfConfig::get('app_ui_label_actor') ?></span>
   </div>

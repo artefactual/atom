@@ -19,7 +19,6 @@
         </th><th style="width: 15%">
           <?php echo __('Primary') ?>
         </th><th style="text-align: center; width: 10%">
-          <?php echo image_tag('delete', array('align' => 'top', 'class' => 'deleteIcon')) ?>
         </th>
       </tr>
     </thead><tbody>
@@ -40,7 +39,7 @@
 <?php
 
 // Template for new display table rows
-$editHtml = '<a href="#">' . image_tag('pencil', array('alt' => 'edit', 'style' => 'align: top')) . '</a>';
+$editHtml = '<a href="#">' . image_tag('pencil', array('alt' => __('Edit'), 'style' => 'align: top')) . '</a>';
 
 $rowTemplate = json_encode(<<<value
 <tr id="{{$form->getWidgetSchema()->generateName('id')}}">

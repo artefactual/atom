@@ -1,6 +1,6 @@
 <?php if ($descriptions->getTotalHits() > 0): ?>
   <section>
-    <?php echo image_tag('/images/icons-small/icon-archival-small.png', array('width' => '24', 'height' => '24')) ?>
+    <?php echo image_tag('/images/icons-small/icon-archival-small.png', array('width' => '24', 'height' => '24', 'alt' => sfConfig::get('app_ui_label_informationobject'))) ?>
     <ul>
       <?php foreach ($descriptions->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
@@ -21,7 +21,7 @@
 
 <?php if ($repositories->getTotalHits() > 0): ?>
   <section>
-    <?php echo image_tag('/images/icons-small/icon-institutions-small.png', array('width' => '24', 'height' => '24')) ?>
+    <?php echo image_tag('/images/icons-small/icon-institutions-small.png', array('width' => '24', 'height' => '24', 'alt' => sfConfig::get('app_ui_label_actor'))) ?>
     <ul>
       <?php foreach ($repositories->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
@@ -36,7 +36,7 @@
 
 <?php if ($actors->getTotalHits() > 0): ?>
   <section>
-    <?php echo image_tag('/images/icons-small/icon-people-small.png', array('width' => '24', 'height' => '24')) ?>
+    <?php echo image_tag('/images/icons-small/icon-people-small.png', array('width' => '24', 'height' => '24', 'alt' => sfConfig::get('app_ui_label_repository'))) ?>
     <ul>
       <?php foreach ($actors->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
@@ -51,7 +51,7 @@
 
 <?php if ($places->getTotalHits() > 0): ?>
   <section>
-    <?php echo image_tag('/images/icons-small/icon-places-small.png', array('width' => '24', 'height' => '24')) ?>
+    <?php echo image_tag('/images/icons-small/icon-places-small.png', array('width' => '24', 'height' => '24', 'alt' => sfConfig::get('app_ui_label_place'))) ?>
     <ul>
       <?php foreach ($places->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
@@ -66,7 +66,7 @@
 
 <?php if ($subjects->getTotalHits() > 0): ?>
   <section>
-    <?php echo image_tag('/images/icons-small/icon-subjects-small.png', array('width' => '24', 'height' => '24')) ?>
+    <?php echo image_tag('/images/icons-small/icon-subjects-small.png', array('width' => '24', 'height' => '24', 'alt' => sfConfig::get('app_ui_label_subject'))) ?>
     <ul>
       <?php foreach ($subjects->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>

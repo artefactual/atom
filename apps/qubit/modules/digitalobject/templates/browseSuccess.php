@@ -1,10 +1,12 @@
+<?php use_helper('Text') ?>
+
 <?php decorate_with('layout_wide') ?>
 
 <div class="row-fluid">
   <div class="span6">
 
     <div class="multiline-header">
-      <?php echo image_tag('/images/icons-large/icon-media.png') ?>
+      <?php echo image_tag('/images/icons-large/icon-media.png', array('alt' => '')) ?>
       <h1 aria-describedby="results-label"><?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?></h1>
       <span class="sub" id="results-label"><?php echo sfConfig::get('app_ui_label_digitalobject') ?></span>
     </div>
@@ -55,21 +57,19 @@
     <?php $doc = $hit->getData() ?>
     <div class="brick">
       <div class="preview">
-        <?php if (!empty($doc['digitalObject']['thumbnailPath'])): ?>
-          <?php if (QubitAcl::check(QubitInformationObject::getById($hit->getId()), 'readThumbnail') &&
-                    QubitGrantedRight::checkPremis($hit->getId(), 'readThumb')): ?>
-
-            <?php echo link_to(image_tag($doc['digitalObject']['thumbnailPath']), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
-          <?php else: ?>
-            <?php echo link_to(image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId'])),
-              array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
-          <?php endif; ?>
+        <?php if (!empty($doc['digitalObject']['thumbnailPath'])
+                        && QubitAcl::check(QubitInformationObject::getById($hit->getId()), 'readThumbnail')
+                        && QubitGrantedRight::checkPremis($hit->getId(), 'readThumb')): ?>
+          <?php echo link_to(image_tag($doc['digitalObject']['thumbnailPath'],
+            array('alt' => __('Go to %1%', array('%1%' => esc_entities(render_title(truncate_text(get_search_i18n($doc, 'title', array('allowEmpty' => false)), 100))))))),
+            array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
         <?php else: ?>
-            <?php echo link_to(image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId'])),
-              array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
+          <?php echo link_to(image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId']),
+            array('alt' => __('Go to %1%', array('%1%' => esc_entities(render_title(truncate_text(get_search_i18n($doc, 'title', array('allowEmpty' => false)), 100))))))),
+            array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
         <?php endif; ?>
       </div>
-      <p class="description"><?php echo render_title(get_search_i18n($doc, 'title')) ?></p>
+      <p class="description"><?php echo render_title(get_search_i18n($doc, 'title', array('allowEmpty' => false))) ?></p>
       <div class="bottom">
         <p>
           <?php if ('1' == sfConfig::get('app_inherit_code_informationobject', 1)

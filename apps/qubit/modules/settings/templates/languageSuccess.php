@@ -42,7 +42,7 @@
               </td>
               <td>
                 <?php if ($setting->deleteable): ?>
-                  <?php echo link_to(image_tag('delete'), array($setting, 'module' => 'settings', 'action' => 'delete')) ?>
+                  <?php echo link_to(image_tag('delete', array('alt' => __('Delete'))), array($setting, 'module' => 'settings', 'action' => 'delete')) ?>
                 <?php endif; ?>
               </td>
             </tr>
