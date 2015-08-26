@@ -16,23 +16,22 @@
 
   <div class="facet-body" id="<?php echo $target ?>">
 
-    <ul>
-      <?php if ($facet === 'levels'): ?>
-        <div class="lod-filter btn-group" data-toggle="buttons">
-          <li>
-            <label>
-              <input type="radio" name="lod-filter" data-link="<?php echo $topLvlDescUrl ?>" <?php echo $checkedTopDesc ?>>
-              <?php echo __('Top-level descriptions') ?>
-            </label>
-            <label>
-              <input type="radio" name="lod-filter" data-link="<?php echo $allLvlDescUrl ?>" <?php echo $checkedAllDesc ?>>
-              <?php echo __('All descriptions') ?>
-            </label>
-          </li>
-        </div>
-      <?php endif; ?>
+    <?php $filters = sfOutputEscaper::unescape($filters) ?>
 
-      <?php $filters = sfOutputEscaper::unescape($filters) ?>
+    <?php if ($facet === 'levels'): ?>
+      <div class="lod-filter btn-group" data-toggle="buttons">
+        <label>
+          <input type="radio" name="lod-filter" data-link="<?php echo $topLvlDescUrl ?>" <?php echo $checkedTopDesc ?>>
+          <?php echo __('Top-level descriptions') ?>
+        </label>
+        <label>
+          <input type="radio" name="lod-filter" data-link="<?php echo $allLvlDescUrl ?>" <?php echo $checkedAllDesc ?>>
+          <?php echo __('All descriptions') ?>
+        </label>
+      </div>
+    <?php endif; ?>
+
+    <ul>
 
       <?php if (!isset($filters[$facet])): ?>
         <li class="active">
@@ -42,7 +41,7 @@
         <?php echo link_to(__('All'), array(
           $facet => null,
           'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?>
-      </li>
+        </li>
 
       <?php if (isset($pager->facets[$facet])): ?>
         <?php foreach ($pager->facets[$facet]['terms'] as $id => $term): ?>

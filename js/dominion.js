@@ -153,12 +153,11 @@
         {
           return 0 < $(element).find('li').length;
         }).addClass('open').find('.facet-header a').attr('aria-expanded', 'true');
-    });
 
-    $(document).ready(function () {
-        $('.lod-filter [type=radio]').change(function (ev) {
-            var link = ev.target.getAttribute('data-link');
-            document.location.replace(link);
+      $('.lod-filter [type=radio]').change(function (e)
+        {
+          var link = e.target.getAttribute('data-link');
+          document.location.replace(link);
         });
     });
 
