@@ -20,10 +20,16 @@
 
     <?php if ($facet === 'levels'): ?>
       <div class="lod-filter btn-group" data-toggle="buttons">
-        <label>
-          <input type="radio" name="lod-filter" data-link="<?php echo $topLvlDescUrl ?>" <?php echo $checkedTopDesc ?>>
-          <?php echo __('Top-level descriptions') ?>
-        </label>
+        <?php if (isset($pager->facets['toplevel'])): ?>
+          <?php $facet = sfOutputEscaper::unescape($pager->facets['toplevel']) ?>
+          <?php $count = (int)$facet['count'] ?>
+          <?php if ($count > 0): ?>
+            <label>
+              <input type="radio" name="lod-filter" data-link="<?php echo $topLvlDescUrl ?>" <?php echo $checkedTopDesc ?>>
+              <?php echo __('Top-level descriptions') ?>
+            </label>
+          <?php endif; ?>
+        <?php endif; ?>
         <label>
           <input type="radio" name="lod-filter" data-link="<?php echo $allLvlDescUrl ?>" <?php echo $checkedAllDesc ?>>
           <?php echo __('All descriptions') ?>
