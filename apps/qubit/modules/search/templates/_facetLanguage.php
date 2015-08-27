@@ -21,10 +21,12 @@
       <?php else: ?>
         <li>
       <?php endif; ?>
-        <?php echo link_to(__('Unique records'), array(
-          $facet => null,
-          'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('aria-describedby' => 'facet-count-unique')) ?>
-        <span class="facet-count" id="facet-count-unique"><?php echo $pager->facets[$facet]['terms']['unique']['count'] ?><span><?php echo __('results') ?></span></span>
+        <?php echo link_to(
+          __('Unique records') . '<span>, ' . $pager->facets[$facet]['terms']['unique']['count'] . ' ' . __('results') . '</span>',
+          array(
+            $facet => null,
+            'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('title' => '')) ?>
+        <span class="facet-count" aria-hidden="true"><?php echo $pager->facets[$facet]['terms']['unique']['count'] ?></span>
       </li>
 
       <?php if (isset($pager->facets[$facet])): ?>
@@ -32,11 +34,11 @@
           <?php if ($id != 'unique'): ?>
             <li <?php if (isset($filters[$facet]) && $id == $filters[$facet]) echo 'class="active"' ?>>
               <?php echo link_to(
-                $term['term'],
+                $term['term'] . '<span>, ' . $term['count'] . ' ' . __('results') . '</span>',
                 array(
                   $facet => $id,
-                  'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('aria-describedby' => 'facet-count-'.$id)) ?>
-              <span class="facet-count" id="facet-count-<?php echo $id ?>"><?php echo $term['count'] ?><span><?php echo __('results') ?></span></span>
+                  'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('title' => '')) ?>
+              <span class="facet-count" aria-hidden="true"><?php echo $term['count'] ?></span>
             </li>
           <?php endif; ?>
         <?php endforeach; ?>

@@ -472,6 +472,15 @@ div#content > table.table {
     padding: 2px 32px 2px 4px;
     .text-overflow();
     position: relative;
+
+    a > span {
+      position: absolute;
+      left: -10000px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
   }
 
   // Selected facet results
@@ -484,10 +493,6 @@ div#content > table.table {
     padding-left: 4px;
     position: absolute;
     right: 5px;
-
-    > span {
-      .hide();
-    }
   }
 
 }
