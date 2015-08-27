@@ -281,11 +281,22 @@ class sfInstall
   public static function configureDatabase(array $options = array())
   {
     $database = array();
+    $configFile = sfConfig::get('sf_config_dir').'/config.php';
 
     $configHandler = new sfInstallDatabaseConfigHandler;
 
     sfInstallDatabaseConfigHandler::$options = $options;
-    file_put_contents(sfConfig::get('sf_config_dir').'/config.php', $configHandler->execute(ProjectConfiguration::getActive()->getConfigPaths('config/databases.yml')));
+    file_put_contents($configFile, $configHandler->execute(ProjectConfiguration::getActive()->getConfigPaths('config/databases.yml')));
+
+    // Invalidate cache
+    if (function_exists('opcache_invalidate'))
+    {
+      $e = opcache_invalidate($configFile, true);
+    }
+    if (function_exists('apc_delete_file'))
+    {
+      $e = apc_delete_file($configFile);
+    }
 
     $databaseManager = sfContext::getInstance()->databaseManager;
 
