@@ -39,22 +39,33 @@ QubitStaticPage:
     source_culture: en
     title:
       ca: 'Quant a'
+      ca@valencia: Sobre
+      cy: Ynghylch
       de: Über
+      de-CH: Über
+      el: Σχετικά
       en: About
       es: Acerca
+      eu: Buruz
       fa: 'درباره ما'
       fr: 'À propos'
       gl: Acerca
+      hu: Info
       id: 'Tentang Kami'
+      is: Um
       it: Riguardo
       ja: ついて
       ka: შესახებ
-      ko: '큐빗에 대하여'
+      ko: About
       nl: Over
       pl: O...
       pt: Sobre
+      pt-BR: Sobre
       pt_BR: Sobre
       sl: 'O programu'
+      sr: О
+      vi: Về
+      zh: 关于
     content:
       de: "Dies ist die vorgegebene Seite <i>Über</i> der Open-Source Anwendung zur archivischen Erschließung AtoM. Für den Einstieg in AtoM benützen Sie die <a href=\"http://ica-atom.org/docs\">Dokumentation</a>. Hier erfahren Sie, wie Sie die Anwendung an die Gestaltung ihrer Webseite anpassen und editieren können.\n\nAtoM ist ein <a href=\"http://ica-atom.org/about#partners\">gemeinschaftliches Projekt</a>. Es möchte der internationalen archivarischen Gemeinschaft eine freie, auf Open-Source basierende Software-Anwendung zur Verfügung stellen, um Archivbestände in Übereinstimmung mit den ICA-Standards erschließen zu können.\n\nZiel ist es, eine einfache, vielsprachige, komplett webbasierte Anwendung zur Verfügung zu stellen, die es Institutionen erlaubt, ihre Archivbestände online vorzustellen."
       en: "This is the default <i>About</i> page for the AtoM open source archival description application. See the online <a href=\"http://ica-atom.org/docs\">documentation</a> to learn how to get started with AtoM, including how to customize and edit this page to suit your own website.\n\nAtoM is a <a href=\"http://ica-atom.org/about#partners\">collaborative project</a> with the aim to provide the international archival community with a free, open source software application to manage archival descriptions in accord with ICA standards.\n\nThe goal is to provide an easy to use, multilingual application that is fully web based and will allow institutions to make their archival collections available online."

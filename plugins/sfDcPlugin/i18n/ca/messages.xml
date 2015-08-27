@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2014-09-19T13:19:54Z" product-name="messages">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2015-08-27T12:08:39Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -39,22 +39,6 @@
       <trans-unit id="9">
         <source>Identify and record the name(s) and type(s) of the unit of description.</source>
         <target>Identifiqueu i registreu el/els nom(s) i tipus(s) de la unitat de descripció.</target>
-      </trans-unit>
-      <trans-unit id="10">
-        <source>How to access to this content?</source>
-        <target>Com accedir a aquest contingut?</target>
-      </trans-unit>
-      <trans-unit id="11">
-        <source>Contact the archivist at %1%</source>
-        <target>Contacteu amb l'arxiver a %1%</target>
-      </trans-unit>
-      <trans-unit id="12">
-        <source>Show details</source>
-        <target>Mostra els detalls</target>
-      </trans-unit>
-      <trans-unit id="13">
-        <source>Close</source>
-        <target>Tanca</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Elements area</source>
@@ -119,10 +103,6 @@
       <trans-unit id="29">
         <source>Rights area</source>
         <target>Àrea de drets</target>
-      </trans-unit>
-      <trans-unit id="30">
-        <source>Edit rights area</source>
-        <target>Edita l'àrea de drets</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Accession area</source>

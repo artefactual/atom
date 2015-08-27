@@ -75,22 +75,35 @@ QubitSetting:
     source_culture: en
     value:
       ca: 'Descripció arxivística'
+      ca@valencia: 'Descripció arxivística'
+      cs: 'Archivní popisy'
       de: 'Archivische Beschreibung'
+      de-CH: 'Archivische Beschreibung'
+      el: 'Αρχειακή περιγραφή'
       en: 'Archival description'
       es: 'Descripción archivística'
+      eu: 'Artxibo deskribapena'
       fr: 'Description archivistique'
       gl: 'Descrición arquivística'
+      hu: 'Levéltári leírás'
       id: 'Deskripsi Arsip'
+      is: 'Lýsandi samantekt'
       it: 'Descrizione archivistica'
       ja: アーカイブズ記述
       ka: 'საარქივო აღწერა'
+      ko: '기록물 기술'
       nl: 'Archivistische beschrijving'
       pl: 'Opis archiwalny'
       pt: 'Descrição arquivística'
+      pt-BR: 'Descrição arquivística'
       pt_BR: 'Descrição arquivística'
+      ro: 'Descriere arhiva'
+      ru: 'Архивное описание'
       sl: 'Arhivski popis'
+      sr: 'Архивски опис'
       th: คำอธิบายจดหมายเหตุ
       vi: 'Mô tả lưu trữ'
+      zh: 文献著录
   QubitSetting_12:
     name: actor
     scope: ui_label
@@ -99,22 +112,33 @@ QubitSetting:
     source_culture: en
     value:
       ca: 'Registre d''autoritat'
+      ca@valencia: 'Registre d''autoritat'
+      cy: 'Cofnod awdurdod'
       de: Normdatei
+      de-CH: Normdatei
+      el: 'Καθιερωμένη εγγραφή'
       en: 'Authority record'
       es: 'Registro de autoridad'
+      eu: 'Autoretza erregistroa'
       fr: 'Notice d''autorité'
       gl: 'Rexistro de autoridade'
+      hu: Iratképző
       id: 'Pencipta Arsip'
+      is: Nafnspjald
       it: 'Record d''autorità'
       ja: 典拠レコード
       ka: 'ავტორიტეტული ჩანაწერი'
+      ko: 전거레코드
       nl: 'Geauthoriseerde beschrijving'
       pl: 'Hasło wzorcowe'
-      pt: 'Registro de autoridade'
+      pt: 'Registo de autoridade'
+      pt-BR: 'Registro de autoridade'
       pt_BR: 'Registro de autoridade'
       sl: 'Zapis o ustvarjalcu'
+      sr: 'Нормативни запис'
       th: รายการควบคุม
       vi: 'Authority record'
+      zh: 规范记录
   QubitSetting_13:
     name: creator
     scope: ui_label
@@ -123,21 +147,34 @@ QubitSetting:
     source_culture: en
     value:
       ca: Productor
+      ca@valencia: Productor
+      cy: Crëwr
       de: Urheber/Bestandsbildner
+      de-CH: Urheber/Bestandsbildner
+      el: Παραγωγός
       en: Creator
       es: Creador
+      eu: Sortzailea
       fr: Producteur
       gl: Creador
+      hu: Iratképző
       id: Pencipta
+      is: Skjalamyndari
       it: 'Soggetto produttore'
       ja: 作成者
       ka: შემოქმედი
+      ko: 생산자
       nl: Archiefvormer
       pl: Twórca
       pt: Produtor
+      pt-BR: Produtor
       pt_BR: Produtor
+      ru: Создатель
       sl: Ustvaril
+      sr: 'Стваралац архивске грађе'
       th: ผู้ผลิตเอกสาร
+      vi: 'người sáng tạo'
+      zh: 创建者
   QubitSetting_14:
     name: repository
     scope: ui_label
@@ -146,13 +183,19 @@ QubitSetting:
     source_culture: en
     value:
       ca: 'Institució arxivística'
+      ca@valencia: 'Institució arxivística'
       de: Archiv
+      de-CH: Archiv
+      el: 'Αρχειακός Φορέας'
       en: 'Archival institution'
       es: 'Institución archivística'
+      eu: 'Artxibo erakundea'
       fa: منبع
       fr: 'Institution de conservation'
       gl: 'Institución arquivística'
+      hu: Levéltár
       id: 'Institusi Arsip'
+      is: Vörslustofnun
       it: 'Istituzione archivistica'
       ja: アーカイブズ機関
       ka: 'საარქივო ინსტიტუცია'
@@ -160,10 +203,14 @@ QubitSetting:
       nl: Archiefinstelling
       pl: 'Instytucja archiwalna'
       pt: 'Instituição de arquivo'
+      pt-BR: 'Instituição arquivística'
       pt_BR: 'Instituição arquivística'
+      ru: 'Архивное учреждение'
       sl: 'Arhivska ustanova'
+      sr: 'Архивска институција'
       th: สถาบันจดหมายเหตุ
       vi: 'Tổ chức lưu trữ'
+      zh: 文献机构
   QubitSetting_15:
     name: function
     scope: ui_label
@@ -172,21 +219,34 @@ QubitSetting:
     source_culture: en
     value:
       ca: Funció
+      ca@valencia: Funció
+      cy: Ffwythiant
       de: Funktion
+      de-CH: Funktion
+      el: Λειτουργία
       en: Function
       es: Función
+      eu: Funtzioa
       fr: Fonctions
       gl: Función
+      hu: Funkció
       id: Fungsi
+      is: Virkni
       it: Funzione
       ja: 機能
       ka: ფუნქცია
+      ko: 기능
       nl: Functie
       pl: Funkcja
       pt: Função
+      pt-BR: Função
       pt_BR: Função
+      ro: Functia
       sl: Funkcija
+      sr: Функција
       th: ฟังก์ชั่น
+      vi: 'Các chức năng'
+      zh: 功能
   QubitSetting_16:
     name: term
     scope: ui_label
@@ -195,21 +255,32 @@ QubitSetting:
     source_culture: en
     value:
       ca: Terme
+      ca@valencia: Terme
+      cy: Term
       de: Begriff
+      de-CH: Begriff
+      el: Όρος
       en: Term
       es: Término
+      eu: Terminoa
       fr: Terme
       gl: Termo
+      hu: Kifejezés
       id: Istilah
       it: Termine
       ja: 用語
       ka: ვადა
+      ko: 용어
       nl: Term
       pl: Termin
       pt: Termo
+      pt-BR: Termo
       pt_BR: Termo
       sl: Izraz
+      sr: Термин
       th: คำศัพท์
+      vi: Hạn
+      zh: 术语
   QubitSetting_17:
     name: subject
     scope: ui_label
@@ -218,12 +289,19 @@ QubitSetting:
     source_culture: en
     value:
       ca: Matèria
+      ca@valencia: Matèria
+      cy: Pwnc
       de: Gegenstand
+      de-CH: Gegenstand
+      el: Θέμα
       en: Subject
       es: Materia
+      eu: Gaia
       fr: Sujet
       gl: Tema
+      hu: Tárgy
       id: Subjek
+      is: Viðfangsefni
       it: Soggetto
       ja: 主題
       ka: 'სუბიექტი (თემა, საგანი, სათაური)'
@@ -231,9 +309,14 @@ QubitSetting:
       nl: Onderwerp
       pl: Temat
       pt: Assunto
+      pt-BR: Assunto
       pt_BR: Assunto
+      ru: Тема
       sl: Tematika
+      sr: Тема
       th: หัวข้อ
+      vi: Tượng
+      zh: 主题
   QubitSetting_18:
     name: collection
     scope: ui_label
@@ -242,21 +325,33 @@ QubitSetting:
     source_culture: en
     value:
       ca: Fons
+      ca@valencia: Fons
       de: Fonds
+      de-CH: Fonds
+      el: Αρχείο
       en: Fonds
       es: Fondo
+      eu: Fondoak
       fr: collection
       gl: Fondos
+      hu: Fond
+      is: Safn
       it: Fondo
       ja: フォンド
       ka: ფონდები
+      ko: 퐁
       nl: Archief
       pl: Zespoły
-      pt: Fundos
+      pt: Arquivo
+      pt-BR: Fundos
       pt_BR: Fundos
+      ro: Fonduri
+      ru: Фонды
       sl: Fondi
+      sr: Фонд
       th: เอกสารระดับกลุ่ม
       vi: 'Các phông'
+      zh: 宗卷
   QubitSetting_19:
     name: holdings
     scope: ui_label
@@ -265,22 +360,32 @@ QubitSetting:
     source_culture: en
     value:
       ca: Fons
+      ca@valencia: Fons
+      cy: Daliadau
       de: Bestände
+      de-CH: Bestände
       en: Holdings
       es: Fondos
+      eu: Inbertsioak
       fa: دربرگيرندگي
       fr: Fonds
       gl: Fondos
+      hu: Állomány
+      is: Skjalamagn
       it: Patrimoni
       ja: 所蔵
       ka: ანაბრები
+      ko: 소장물
       nl: Bestanden
       pl: 'Zasoby posiadane'
-      pt: Acervo
+      pt: 'Acervos documentais'
+      pt-BR: Acervo
       pt_BR: Acervo
       sl: 'Arhivsko gradivo'
+      sr: Збирка
       th: สถานที่เก็บเอกสาร
       vi: 'Ngắn về'
+      zh: 藏品
   QubitSetting_20:
     name: place
     scope: ui_label
@@ -289,13 +394,19 @@ QubitSetting:
     source_culture: en
     value:
       ca: Lloc
+      ca@valencia: Lloc
       de: Ort
+      de-CH: Ort
+      el: Τόπος
       en: Place
       es: Lugar
+      eu: Lekua
       fa: مكان
       fr: Lieu
       gl: Lugar
+      hu: Hely
       id: Tempat
+      is: Staður
       it: Luogo
       ja: 場所
       ka: ადგილი
@@ -303,9 +414,14 @@ QubitSetting:
       nl: Plaats
       pl: Miejsce
       pt: Local
+      pt-BR: Local
       pt_BR: Local
+      ru: Место
       sl: Kraj
+      sr: Место
       th: จัด
+      vi: 'địa điểm'
+      zh: 地点
   QubitSetting_21:
     name: name
     scope: ui_label
@@ -314,13 +430,20 @@ QubitSetting:
     source_culture: en
     value:
       ca: Nom
+      ca@valencia: Nom
+      cy: Enw
       de: Name
+      de-CH: Name
+      el: Όνομα
       en: Name
       es: Nombre
+      eu: Izena
       fa: نام
       fr: Nom
       gl: Nome
+      hu: Név
       id: Nama
+      is: Nafn
       it: Nome
       ja: 名称
       ka: სახელი
@@ -328,9 +451,15 @@ QubitSetting:
       nl: Naam
       pl: Nazwa
       pt: Nome
+      pt-BR: Nome
       pt_BR: Nome
+      ro: Nume
+      ru: Имя
       sl: Ime
+      sr: Назив/Име
       th: ชื่อ
+      vi: Tên
+      zh: 名称
   QubitSetting_22:
     name: digitalobject
     scope: ui_label
@@ -339,22 +468,34 @@ QubitSetting:
     source_culture: en
     value:
       ca: 'Objecte digital'
+      ca@valencia: 'Objecte digital'
+      cy: 'Gwrthrych digidol'
       de: 'Digitales Objekt'
+      de-CH: 'Digitales Objekt'
+      el: 'Ψηφιακό αντικείμενο'
       en: 'Digital object'
       es: 'Objeto digital'
+      eu: 'Objektu digitala'
       fr: 'Objet numérique'
       gl: 'Obxecto dixital'
+      hu: 'Digitális objektum'
       id: 'Objek Digital'
+      is: 'Stafræn eining'
       it: 'Oggetto digitale'
       ja: ディジタルオブジェクト
       ka: 'ციფრული ობიექტი'
+      ko: 디지털
       nl: 'Digitaal object'
       pl: 'Obiekt cyfrowy'
       pt: 'Objeto digital'
+      pt-BR: 'Objeto digital'
       pt_BR: 'Objeto digital'
+      ru: 'Цифровой объект'
       sl: 'Digitalni objekt'
+      sr: 'Дигитални објект'
       th: วัตถุดิจิตอล
       vi: 'Digital object'
+      zh: 数字对象
   QubitSetting_23:
     name: physicalobject
     scope: ui_label
@@ -363,22 +504,32 @@ QubitSetting:
     source_culture: en
     value:
       ca: 'Unitat d''instal·lació'
+      ca@valencia: 'Unitat de magatzematge'
+      cy: 'Storfa ffisegol'
       de: Aufbewahrung
+      de-CH: Aufbewahrung
+      el: 'Χώρος Αποθήκευσης'
       en: 'Physical storage'
       es: 'Unidad de almacenaje'
+      eu: 'Biltegi fisikoa'
       fr: 'Localisation physique'
       gl: 'Almacenamento físico'
+      hu: Tárolóeszköz
       id: 'Penyimpanan Fisik'
       it: Deposito
       ja: 物理的記憶
       ka: 'ფიზიკური საცავი'
+      ko: '물리적 보관장소'
       nl: 'Fysieke opslag'
       pl: 'Fizyczne miejsce przechowywania'
       pt: 'Depósito físico'
+      pt-BR: 'Depósito físico'
       pt_BR: 'Depósito físico'
       sl: 'Fizična hramba'
+      sr: Депо
       th: การเก็บเอกสารทางกายภาพ
       vi: 'vật lý'
+      zh: 物理储存
   QubitSetting_24:
     name: mediatype
     scope: ui_label
@@ -387,22 +538,34 @@ QubitSetting:
     source_culture: en
     value:
       ca: 'Tipus de suport'
+      ca@valencia: 'Tipus de suport'
       de: Medienart
+      de-CH: Medienart
+      el: 'Τύπος μέσου'
       en: 'Media type'
       es: 'Tipo de soporte'
+      eu: 'Medio Mota'
       fa: 'نوع رسانه'
       fr: 'Type de support'
       gl: 'Tipo de medio'
+      hu: 'Média típus'
+      is: 'Gerð miðla'
       it: 'Tipo di supporto'
       ja: メディア種別
       ka: 'მედია ტიპი'
+      ko: '미디어 유형'
       nl: mediatype
       pl: 'Typ medium'
       pt: 'Tipo de suporte'
+      pt-BR: 'Tipo de mídia'
       pt_BR: 'Tipo de mídia'
+      ro: 'Tipul media'
+      ru: 'Тип носителя'
       sl: 'Vrsta medija'
+      sr: 'Врста медија'
       th: ประเภทสื่อ
       vi: 'Loại truyền thông'
+      zh: 媒体类型
   QubitSetting_25:
     name: materialtype
     scope: ui_label
@@ -411,21 +574,33 @@ QubitSetting:
     source_culture: en
     value:
       ca: 'Tipus de material'
+      ca@valencia: 'Tipus de material'
+      cy: 'Math o ddeunydd'
       de: Materialart
+      de-CH: Materialart
+      el: 'Τύπος υλικού'
       en: 'Material type'
       es: 'Tipo de material'
+      eu: 'Material mota'
       fr: 'Type de document'
       gl: 'Tipo de material'
+      hu: 'Anyag típus'
+      is: Efnisform
       it: 'Tipo di materiale'
       ja: 資料種別
       ka: 'მასალის ტიპი'
+      ko: '자료 유형'
       nl: 'Soort materiaal'
       pl: 'Typ materiału'
       pt: 'Tipo de material'
+      pt-BR: 'Tipo de material'
       pt_BR: 'Tipo de material'
+      ru: 'Тип материала'
       sl: 'Vrsta gradiva'
+      sr: 'Врста грађе'
       th: ประเภทเอกสาร
       vi: 'Loại tài liệu'
+      zh: 资料类型
   QubitSetting_facets_title:
     name: facetstitle
     scope: ui_label
@@ -434,15 +609,27 @@ QubitSetting:
     source_culture: en
     value:
       ca: 'Filtreu els resultats per:'
+      ca@valencia: 'Restringir resultats per:'
+      cy: 'Cyfyngwch eich canlyniadau yn ôl:'
       de: 'Grenzen Sie Ihre Trefferzahl ein durch:'
+      de-CH: 'Grenzen Sie Ihre Trefferzahl ein durch:'
+      el: 'Κατάλογος κατόχων δικαιωμάτων'
       en: 'Narrow your results by:'
       es: 'Restringir resultados por:'
+      eu: 'Murriztu zure emaitzak:'
       fr: 'Affiner les résultats par :'
       gl: 'Refinar os resultados por:'
+      hu: 'Találatok szűkítése:'
+      is: 'Þrengja niðurstöður:'
       it: 'Restringi i risultati per:'
+      ko: '귀하의 검색 결과를 다음과 같이 좁히시오.:'
+      pt: 'Limite os seus resultados por:'
+      pt-BR: 'Limite seus resultados por:'
       pt_BR: 'Limite seus resultados por:'
       sl: 'Omejite rezultate:'
+      sr: 'Сузи резултате по:'
       vi: 'Thu hẹp kết quả của bạn bằng cách'
+      zh: '通过 减少结果'
   QubitSetting_access_disallow_warning:
     name: access_disallow_warning
     scope: ui_label
@@ -450,7 +637,17 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      de: 'Der Zugang zu diesen Unterlagen ist beschränkt, da sie personenbezogene oder vertrauliche Informationen enthalten. Bitte nehmen Sie Kontakt mit dem zuständigen Archivar auf, um mehr Informationen über die Nutzung dieser Unterlagen zu erhalten.'
       en: 'Access to this record is restricted because it contains personal or confidential information. Please contact the Reference Archivist for more information on accessing this record.'
+      es: 'El acceso a este registro está restringido, ya que contiene información personal o confidencial. Por favor, póngase en contacto con el Archivero de referencia para obtener más información sobre cómo acceder a este registro.'
+      fr: 'L''accès à ce dossier est limité car il contient des informations personnelles ou confidentielles. S''il vous plaît, communiquer avec l''archiviste pour plus d''informations sur l''accès à ce dossier.'
+      hu: 'Nincsen hozzáférése ehhez a dokumentumhoz mert személyes vagy bizalmas információt tartalmaz. Az dokumentumhoz való hozzáféréssel kapcsolatban kérjük, lépjen kapcsolatba az ajánlott levéltárossal!'
+      ko: '이 레코드는 개인 정보 또는 비밀 정보를 담고있기 때문에 접근이 제한됩니다. 이 레코드에 접근하려면 참조 기록관리인와 상의하세요.'
+      pt: 'O acesso a este registo é restrito porque contem informação pessoal ou confidencial. Por favor contacte o Arquivista responsável para mais informação.'
+      pt-BR: 'O acesso a este registro é restrito por conter informação pessoal ou confidencial. Entre em contato com o Arquivista para obter maiores informações sobre como ter acesso a esse registro.'
+      sl: 'Dostop do dokumentacije je omejen, ker vsebuje osebne ali zaupne informacije. Prosimo, obrnite se na arhivarja in pridobite več informacij o dostopu.'
+      sr: 'Приступ овом документу је ограничен јер садржи личне или поверљиве информације. Молимо вас контактирајте архивисту информатора за више информација.'
+      zh: '该记录包含个人或机密信息, 其检索受限制. 如果需要更多有关检索该记录的信息, 请与档案馆员联系.'
   QubitSetting_access_conditional_warning:
     name: access_conditional_warning
     scope: ui_label
@@ -459,6 +656,13 @@ QubitSetting:
     source_culture: en
     value:
       en: 'This record has not yet been reviewed for personal or confidential information. Please contact the Reference Archivist to request access and initiate an access review.'
+      fr: 'Cet enregistrement n''a pas encore fait l''objet d''une vérification pour les informations personnelles ou confidentielles. S''il vous plaît communiquer avec l''archiviste de référence pour demander l''accès et procéder à une vérification.'
+      hu: 'Ez az irat még nem volt felülvizsgálva személyes vagy bizalmas információk szempontjából. Lépjen kapcsolatba az ajánlott levéltárossal, hogy hozzáférést kérjen és elinduljon a hozzáférési vizsgálat.'
+      pt: 'Este registo ainda não foi revisto para obter informações pessoais ou confidenciais. Por favor contacte o Arquivista em referência para solicitar o acesso e começar uma revisão de acesso.'
+      pt-BR: 'Este registro ainda não foi revisado como informações pessoais ou confidenciais. Entre em contato com o Arquivista para solicitar acesso e iniciar um reexame deste.'
+      sl: 'Ni še ugotovljeno, ali zapis vsebuje osebne ali zaupne podatke. Prosimo, obrnite se na arhivarja in zaprosite za dostop ali dajte pobudo za preverbo dostopa.'
+      sr: 'Лични и поверљиви подаци у овом документу још нису прегледани. Молимо Вас обратите се архивисти информатору да затражите приступ и покренете оцену приступа.'
+      zh: '该记录由于个人或保密信息尚未被评论. 如需检索并创建首个检索评论, 请联系参考文献员.'
   QubitSetting_genre:
     name: genre
     scope: ui_label
@@ -466,7 +670,17 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      en: 'Genre'
+      de: Genre
+      de-CH: Genre
+      en: Genre
+      es: Tipo
+      hu: Műfaj
+      pt: Género
+      pt-BR: Gênero
+      ru: Жанр
+      sl: Zvrst
+      sr: Жанр
+      zh: 体裁
   QubitSetting_26:
     name: en
     scope: i18n_languages
@@ -810,7 +1024,22 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: pdf
+      cy: pdf
+      de: pdf
+      de-CH: pdf
       en: pdf
+      es: pdf
+      fr: PDF
+      hu: pdf
+      is: pdf
+      ko: pdf
+      pt: pdf
+      pt-BR: pdf
+      ru: pdf
+      sl: pdf
+      sr: pdf
+      zh: pdf
   Qubit_Settings_findingAidModel:
     name: findingAidModel
     editable: 1
@@ -818,6 +1047,14 @@ QubitSetting:
     source_culture: en
     value:
       en: inventory-summary
+      es: Inventario-Resumen
+      fr: 'inventaire sommaire'
+      hu: készletösszegzés
+      pt: inventário-sumário
+      pt-BR: 'inventário sumário'
+      sl: 'povzeket - seznam'
+      sr: 'сумарни инвентар'
+      zh: 详细目录-总结
   Qubit_Settings_publicFindingAid:
     name: publicFindingAid
     editable: 1

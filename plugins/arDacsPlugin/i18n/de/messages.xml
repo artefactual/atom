@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-09-19T13:20:02Z" product-name="messages">
+  <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2015-08-27T12:09:42Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -22,7 +22,7 @@
       </trans-unit>
       <trans-unit id="5">
         <source>Name and location of repository - This is a mandatory element.</source>
-        <target/>
+        <target>Name und Standort des Archivs - dies ist ein obligatorisches Element.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Title - This is a mandatory element.</source>
@@ -50,7 +50,7 @@
       </trans-unit>
       <trans-unit id="12">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Dies ist ein Duplikat der Akte %1%</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Identity elements</source>
@@ -70,7 +70,7 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Name and location of repository</source>
-        <target/>
+        <target>Name und Standort des Archivs</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Levels of description</source>
@@ -110,11 +110,11 @@
       </trans-unit>
       <trans-unit id="32">
         <source>Physical access</source>
-        <target/>
+        <target>Physischer Zugang</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Technical access</source>
-        <target/>
+        <target>Technischer Zugang</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Conditions governing reproduction and use</source>
@@ -150,7 +150,7 @@
       </trans-unit>
       <trans-unit id="42">
         <source>Related materials elements</source>
-        <target/>
+        <target>Elemente "Sachverwandte Unterlagen"</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Existence and location of originals</source>
@@ -178,7 +178,7 @@
       </trans-unit>
       <trans-unit id="49">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Regeln und/oder Konventionen</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Access points</source>
@@ -194,7 +194,7 @@
       </trans-unit>
       <trans-unit id="53">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>Name Zugriffspunkte (Themen)</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Rights area</source>
@@ -268,10 +268,6 @@
         <source>Edit access points</source>
         <target>Bearbeite 'Zugriffspunkte'</target>
       </trans-unit>
-      <trans-unit id="73">
-        <source>Edit rights area</source>
-        <target>Bearbeite Bereich 'Rechte'</target>
-      </trans-unit>
       <trans-unit id="74">
         <source>Accession area</source>
         <target>Bereich Zugang</target>
@@ -314,7 +310,7 @@
       </trans-unit>
       <trans-unit id="84">
         <source>&lt;strong&gt;Identifier&lt;/strong&gt;&lt;br /&gt;Provide a unique identifier for the materials being described in accordance with the institution’s administrative control system.&lt;br /&gt;&lt;strong&gt;Level of description&lt;/strong&gt;&lt;br /&gt;Record the level of this unit of description.&lt;br /&gt;&lt;strong&gt;Title&lt;/strong&gt;&lt;br /&gt;In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material.&lt;br /&gt;&lt;strong&gt;Date&lt;/strong&gt;&lt;br /&gt;Record a date of creation.</source>
-        <target/>
+        <target>&lt;strong&gt;Signatur&lt;/strong&gt; Für die beschriebenen Materialien ist ein eindeutiger Identifikator in Übereinstimmung mit dem Kontrollsystem der Institution  anzugeben. &lt;br/&gt;&lt;strong&gt;Verzeichnungsstufe:&lt;/strong&gt; Die Verzeichnungsstufe der Verzeichnungseinheit ist festzuhalten.&lt;br/&gt;&lt;strong&gt;Titel&lt;/strong&gt; Wenn kein sinnvoller offizieller Titel vorhanden ist, ist ein neuer, prägnant formulierter Titel, der das Material eindeutig identifiziert, zu formulieren.</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Record information about the nature of the materials and activities reflected in the unit being described to enable users to judge its potential relevance, including information about functions, activities, transations, and processes; documentary form(s) or intellectual characteristics; content dates; geographic areas and places; subject matter; completeness of the materials; or any other information that assists the user in evaluating the relevance of the materials. (DACS 3.1)</source>
@@ -398,6 +394,18 @@
       </trans-unit>
       <trans-unit id="105">
         <source>Record the international, national or local rules or conventions followed in preparing the description. (DACS 8.1.4)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Administrative / Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Administrative history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Biographical history</source>
         <target/>
       </trans-unit>
     </body>

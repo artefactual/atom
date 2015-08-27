@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2014-09-19T13:20:03Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2015-08-27T12:09:42Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -108,7 +108,7 @@ Wählen Sieso viele Typen wie erforderlich aus dem drop-down Menue; diese Werte 
       </trans-unit>
       <trans-unit id="41">
         <source>Mandates/Sources of authority</source>
-        <target/>
+        <target>Mandate/Herkunft der Kompetenz</target>
       </trans-unit>
       <trans-unit id="42">
         <source>"Describe, in narrative form or using organisational charts, the current administrative structure of the institution." (ISDIAH 5.3.4)</source>
@@ -124,7 +124,7 @@ Wählen Sieso viele Typen wie erforderlich aus dem drop-down Menue; diese Werte 
       </trans-unit>
       <trans-unit id="45">
         <source>Records management and collecting policies</source>
-        <target/>
+        <target>Records management und Sammlungsstrategie</target>
       </trans-unit>
       <trans-unit id="46">
         <source>"Record information on the building(s) of the institution (general and architectural characteristics of the building, capacity of storage areas, etc). Where possible, provide information which can be used for generating statistics." (ISDIAH 5.3.6)</source>
@@ -216,7 +216,7 @@ Wählen Sieso viele Typen wie erforderlich aus dem drop-down Menue; diese Werte 
       </trans-unit>
       <trans-unit id="68">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>Benutzte Regeln und/oder Konventionen</target>
       </trans-unit>
       <trans-unit id="69">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDIAH 5.6.4). Select Final, Revised or Draft from the drop-down menu.</source>
@@ -324,7 +324,7 @@ Wählen Sieso viele Typen wie erforderlich aus dem drop-down Menue; diese Werte 
       </trans-unit>
       <trans-unit id="99">
         <source>Maintenance notes</source>
-        <target/>
+        <target>Anmerkungen zur Wartung</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Edit</source>
@@ -376,7 +376,7 @@ Wählen Sieso viele Typen wie erforderlich aus dem drop-down Menue; diese Werte 
       </trans-unit>
       <trans-unit id="114">
         <source>Edit theme</source>
-        <target/>
+        <target>Bearbeitet das Thema</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Last updated</source>
@@ -404,10 +404,18 @@ Wählen Sieso viele Typen wie erforderlich aus dem drop-down Menue; diese Werte 
       </trans-unit>
       <trans-unit id="121">
         <source>Geographic subregion</source>
-        <target/>
+        <target>Geografische Teilregion</target>
       </trans-unit>
       <trans-unit id="122">
         <source>Search for an existing term in the Geographic Subregion taxonomy by typing the first few characters of the term name.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>Enter the digital latitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. 49.459044</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>Enter the digital longitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. -104.296984</source>
         <target/>
       </trans-unit>
     </body>

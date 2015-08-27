@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2014-09-17T12:00:06Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2015-08-27T12:08:51Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Add new archival institution</source>
-        <target/>
+        <target>신규 기록관리기관 추가</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Untitled</source>
-        <target/>
+        <target>제목없음</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
@@ -18,19 +18,19 @@
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%이름의 전거형-Authorized form of name %2% - 이것은 %3%필수%4% 요소이다.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%참조코드%2% - 이 항목은 %3%필수%4% 요소입니다.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.</source>
-        <target/>
+        <target>%1%연락처%2% - 당신은 %3%반드시%4% 다음에 열거한 위치나 주소 정보를 한 개 이상 포함해야 합니다: 도시, 국가, 우편번호, 지역 또는 거리 주소.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>%1%Contact information%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%연락처%2% - 이 항목은 %3%필수%4% 요소입니다.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Edit %1% - ISDIAH</source>
@@ -42,7 +42,7 @@
       </trans-unit>
       <trans-unit id="10">
         <source>"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)</source>
-        <target/>
+        <target>"관련 국제 표준과 국내 표준에 따라 숫자나 글자와 숫자로 구성된 단체 식별코드를 입력하시오." (ISDIAH 5.1.1)</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Identifier</source>
@@ -50,11 +50,11 @@
       </trans-unit>
       <trans-unit id="12">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>이 항목은 필수 요소입니다.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
-        <target/>
+        <target>"기관명을 표준화된 형태로 기입하시오. 필요하다면 이에 적절한 식별자(예를 들어 날짜, 장소 등)를 추가하시오. 또한 이 기술 요소에 적용된 규칙들과 이 규칙들이 근거한 표준이나 규칙에 대해 (5.6.3) 서도 구체적으로 입력하시오." (ISDIAH 5.1.2)</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Authorized form of name</source>
@@ -62,19 +62,20 @@
       </trans-unit>
       <trans-unit id="15">
         <source>This is a mandatory element</source>
-        <target/>
+        <target>이 항목은 필수 요소입니다.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
-        <target/>
+        <target> "목적:  기관명의  전거형태가 다른 언어 또는 규약(들)로 표현될때  사용될 수 있는 다양한 이형들을 나타내기 위해서  규칙: 기관명의 대등명(들)을 전거레코드 생산 기관이 사용한 국내외 규칙이나 규범들을 따라 기입하시오. 이때 위의 규약과 규칙에 적용된 하위 요소와 식별자를 포함시키시오. 규칙이 적용된 관례나 규준(5.6.3)이 있으면 구체적으로 명기하시오."(ISDIAH 5.1.3)</target>
       </trans-unit>
       <trans-unit id="17">
         <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
-        <target/>
+        <target>"잘 알려진 단체명 이외의 명칭을 기록하시오. 이에는 같은 이름이지만 다른표기법, 두문자어(첫머리를 딴 글자),  시간의 경과에 따라 변한 명칭 등 기타 친숙한 이명 등이 포함되며 이와관련된 날짜도 함께 기술합니다."(ISDIAH 5.1.4)</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired from the drop-down menu; these values are drawn from the Repository Types taxonomy.</source>
-        <target/>
+        <target>기관의 유형을 명기하시오. (ISDIAH 5.1.5) 드롭-다운 메뉴;에서 필요한만큼의 유형을 선택하시오. 이 값들은 레퍼지토리 타입의 분류체계에서 가져오게 됩니다.
+</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Contact area</source>
@@ -82,7 +83,7 @@
       </trans-unit>
       <trans-unit id="35">
         <source>See ISDIAH 5.2 for contact area information and examples.</source>
-        <target/>
+        <target>연락처와 사례를 보려면 ISDIAH 5.2를 참고하시오.</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Description area</source>
@@ -90,11 +91,11 @@
       </trans-unit>
       <trans-unit id="37">
         <source>"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)</source>
-        <target/>
+        <target>"기관의 이력에 관한 정보를 기록하시오. 이 정보에는 설립일자, 명칭 변경이력, 법적 권한 변경, 또는 그 밖의 기타 사항들에 대한 권한 변경 내용이 포함될 수 있습니다." (ISDIAH 5.3.1)</target>
       </trans-unit>
       <trans-unit id="38">
         <source>"Identify the geographical area the institution belongs to. Record any other relevant information about the cultural context of the institution." (ISDIAH 5.3.2)</source>
-        <target/>
+        <target>"기관이 속한 지리적 영역을 식별하시오. 기관의 문화적 맥락에 관한 정보가 있다면 이를 기록하시오."(ISDIAH 5.3.2)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Geographical and cultural context</source>
@@ -102,7 +103,7 @@
       </trans-unit>
       <trans-unit id="40">
         <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the institution, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISDIAH 5.3.3)</source>
-        <target/>
+        <target>"기관의 역할, 기능, 권한들을 기입하는 과정에서 전거레코드로 사용된 문서나 법률, 허가서를 기입하시오. 이와 더불어  법적 권한(들)에 대한 정보나 적용 날짜(들), 혹은 변경 날짜들을 함께 기록하시오."(ISDIAH 5.3.3) </target>
       </trans-unit>
       <trans-unit id="41">
         <source>Mandates/Sources of authority</source>
@@ -110,7 +111,7 @@
       </trans-unit>
       <trans-unit id="42">
         <source>"Describe, in narrative form or using organisational charts, the current administrative structure of the institution." (ISDIAH 5.3.4)</source>
-        <target/>
+        <target>"현재 기관의 행정구조를 서술식이나 조직구조 차트를 이용하여 기술하시오." (ISDIAH 5.3.4)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Administrative structure</source>
@@ -118,7 +119,7 @@
       </trans-unit>
       <trans-unit id="44">
         <source>"Record information about the records management and collecting policies of the institution. Define the scope and nature of material which the institution accessions. Indicate whether the repository seeks to acquire archival materials by transfer, gift, purchase and/or loan. If the policy includes active survey and/or rescue work, this might be spelt out." (ISDIAH 5.3.5)</source>
-        <target/>
+        <target>"기관의 기록관리 및 수집정책에 대한 정보를 명기하시오. 기관에서 수집하는 기록매체의 유형과 범위를 명확히 기술하시오. 기관에서 기록물을 이관, 기증, 구입/대여등의 방법을 통해 수집하고 있는지의 여부에 대해 기술하시오. 만약 이 수집정책이 자발적 설문이나 혹은 기록물 재해복구, 구조사업을 포함하고 있다면, 이에 대해 자세히 설명해야 합니다." (ISDIAH 5.3.5)</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Records management and collecting policies</source>
@@ -126,11 +127,11 @@
       </trans-unit>
       <trans-unit id="46">
         <source>"Record information on the building(s) of the institution (general and architectural characteristics of the building, capacity of storage areas, etc). Where possible, provide information which can be used for generating statistics." (ISDIAH 5.3.6)</source>
-        <target/>
+        <target>"기관 소속의 건물(들)에 관한 정보(건물의 건축학적 특징 및 일반적 특징, 서고의 용적 등)를 명시하시오. 가능하다면, 통계 작성에 쓰일 수 있는 정보를 제공하시오." (ISDIAH 5.3.6)</target>
       </trans-unit>
       <trans-unit id="47">
         <source>"Record a short description of the holdings of the institution, describing how and when they were formed. Provide information on volume of holdings, media formats, thematic coverage, etc." (ISDIAH 5.3.7)</source>
-        <target/>
+        <target>"기관의 소장 기록물들에 대해 언제 어떻게 소장 기록물들이 만들어졌는지 간략하게 기술하시오. 소장 기록물, 미디어 형식, 관련 주제에 대해 정보를 제공하시오." (ISDIAH 5.3.7) </target>
       </trans-unit>
       <trans-unit id="48">
         <source>Archival and other holdings</source>
@@ -138,7 +139,7 @@
       </trans-unit>
       <trans-unit id="49">
         <source>"Record the title and other pertinent details of the published and/or unpublished finding aids and guides prepared by the institution and of any other relevant publications. Use ISO 690 Information and documentation – Bibliographic references and other national or international cataloguing rules." (ISDIAH 5.3.8)</source>
-        <target/>
+        <target>"기관에서 제공한 지침, 출판/미출판된 검색도구, 그리고 그 밖의 관련 출판물의 제목과 적절한 세부사항을 명기하시오. ISO 690 Information and documentation – Bibliographic references와 그 밖의 국제/국내의 목록규칙을 활용하시오." (ISDIAH 5.3.8)</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Finding aids, guides and publications</source>
@@ -150,11 +151,11 @@
       </trans-unit>
       <trans-unit id="52">
         <source>"Record the opening hours of the institution and annual, seasonal and public holidays, and any other planned closures. Record times associated with the availability and/or delivery of services (for example, exhibition spaces, reference services, etc.)." (ISDIAH 5.4.1)</source>
-        <target/>
+        <target>"기관의 업무시간과 연간 휴무, 계절에 따른 휴무, 공휴일,  기타 휴무일에 대해서 명기하시오. 서비스 가능여부 혹은/그리고 서비스 제공(예를 들어, 전시공간, 참고 서비스 등)에 관한 시간 또한 명기하시오." (ISDIAH 5.4.1)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
-        <target/>
+        <target>"기록물 사용과 시설 사용에 적용되는 제한사항과 /또는 법령등 기록물 접근정책에 대해 기술하시오. 등록, 규정, 사용자 권한, 안내문, 사용요금 등에 관한 정보를 기록하고 또 적절한 곳에 관련법규에 대해 언급하시오." (ISDIAH 5.4.2)</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Conditions and requirements</source>
@@ -162,7 +163,7 @@
       </trans-unit>
       <trans-unit id="55">
         <source>"Record information about travelling to the institution and details for users with disabilities, including building features, specialised equipment or tools, parking or lifts." (ISDIAH 5.4.3)</source>
-        <target/>
+        <target>"기관을 찾아오는 방법을 설명하고 장애인 이용자를 위해  건물 특성, 특수 장비/도구, 주차/엘리베이터 등 세부 사항을 명시하시오." (ISDIAH 5.4.3)</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Accessibility</source>
@@ -174,15 +175,15 @@
       </trans-unit>
       <trans-unit id="58">
         <source>"Record information about the onsite services provided by the institution such as languages spoken by staff, research and consultation rooms, enquiry services, internal libraries, map, microfiches, audio-visual, computer rooms, etc. Record as well any relevant information about research services, such as research undertaken by the institution, and the fee charge if applicable." (ISDIAH 5.5.1)</source>
-        <target/>
+        <target>"기관이 제공하는 서비스에 대해 기술하시오. 이에는 외국어 서비스, 질의 응답 서비스, 구내 도서관, 지도나 마이크로피시실, 시청각실, 컴퓨터실 등의 정보가 포함될 수 있습니다. 또한기관에서 이용자를 위해 제공하는 연구 서비스에 관련된 정보와 이에 해당하는 수수료에 대한 정보를 함께 기술하시오." (ISDIAH 5.5.1)</target>
       </trans-unit>
       <trans-unit id="59">
         <source>"Record information about reproduction services available to the public (microfilms, photocopies, photographs, digitised copies). Specify general conditions and restrictions to the services, including applicable fees and publication rules." (ISDIAH 5.5.2)</source>
-        <target/>
+        <target>"이용자에게 제공되는 기록물 복제 서비스(마이크로필름, 복사, 사진, 디지털 사본)에 관한 정보를 제공하시오. 이 서비스에 대한 일반적 조건 및 제한사항, 수수료와 공개 규칙을 포함하여 명시하시오." (ISDIAH 5.5.2)</target>
       </trans-unit>
       <trans-unit id="60">
         <source>"Record information about spaces available for public use (permanent or temporary exhibitions, free or charged internet connection, cash machines, cafeterias, restaurants, shops, etc.)." (ISDIAH 5.5.3)</source>
-        <target/>
+        <target>"공공 서비스에 대한 정보(상설/기획 전시, 무료/유료 인터넷 서비스, 현금인출기, 카페, 식당, 상점 등)를 제공하시오." (ISDIAH 5.5.3)</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Public areas</source>
@@ -194,7 +195,7 @@
       </trans-unit>
       <trans-unit id="63">
         <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISIAH 5.6.1)</source>
-        <target/>
+        <target>"지역 규약이나 국가 협약을 준수하여 고유한 기술 식별자를 기록하시오. 만약 그 기술이 국제적으로 이용될 경우에는 ISO 3166 국가명 규칙  최신판에 따라 기술을 생산한 국가의 국가코드를 기록하시오. 그 기술의 생산자가 국제 기구인 경우에는 국가코드 대신에 조직 식별자를 기록하시오." (ISIAH 5.6.1)</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Description identifier</source>
@@ -202,7 +203,7 @@
       </trans-unit>
       <trans-unit id="65">
         <source>"Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard." (ISDIAH 5.6.2)</source>
-        <target/>
+        <target>"기술사항을 생성, 수정 혹은 배포를 담당한 기관(들)의 공식명칭(들)을 입력하거나, 국내 혹은 국제표준 기관코드에 따른 기관의 코드를 입력하시오." (ISDIAH 5.6.2)</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Institution identifier</source>
@@ -210,23 +211,24 @@
       </trans-unit>
       <trans-unit id="67">
         <source>"Record the names, and, where useful, the editions or publication dates of the conventions or rules applied. Specify, separately, which rules have been applied for creating the Authorised form(s) of name. Include reference to any system(s) of dating used to identify dates in this description (e.g. ISO 8601)." (ISDIAH 5.6.3)</source>
-        <target/>
+        <target>"이름명을 기입하시오. 적용된 규칙이나 규약의 출판 날짜나 판본에 관한 정보를 기입하시오. 별도로, 전거명(들)을 생산하는데 사용된 규칙에 대해 구체적으로 명시하시오. 이 기술에서 날짜를 식별하기 위해 사용된 날짜 체계(들)에 대해 설명하시오." (e.g. ISO 8601). (ISDIAH 5.6.3)</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>규칙 및 협약</target>
       </trans-unit>
       <trans-unit id="69">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDIAH 5.6.4). Select Final, Revised or Draft from the drop-down menu.</source>
-        <target/>
+        <target>이 필드의 목적은 "[t]o 사용자들이 설명의 현재 상태를 이해할수 있도록 설명의 초안 상태를 나타내는 것입니다." (ISDIAH 5.6.4). drop-down메뉴에서 초안 또는 최종 수정본을 선택하십시오.</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal descriptions are those that consist only of the three essential elements of an ISIAH compliant description (see 4.7), while full records are those that convey information for all relevant ISDIAH elements of description." (ISDIAH 5.6.5)</source>
-        <target/>
+        <target>드롭다운 메뉴에서 전체, 부분 혹은 최소치를 선택하시오. "국내지침이나 규칙이 없는 경우, 최소 기술사항은 ISIAH을 준수하는 기술사항의 세 가지 필수요소만으로 구성됩니다(4.7참조). 반면, 완전한 레코드는 기술사항의 모든 관련 ISDIAH 요소의 정보를 전달합니다." (ISDIAH 5.6.5)</target>
       </trans-unit>
       <trans-unit id="71">
         <source>"Record the date the description was created and the dates of any revisions to the description." (ISDIAH 5.6.6)</source>
-        <target/>
+        <target>"기술정보가 생성된 일자와 이를 수정한 경우, 수정한 일자까지 기록하시오." (ISDIAH 5.6.6)
+</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Dates of creation, revision and deletion</source>
@@ -234,15 +236,15 @@
       </trans-unit>
       <trans-unit id="73">
         <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
-        <target/>
+        <target>드롭다운 메뉴에서 이 기록의 언어(들)를 선택하시오; 선택의 폭을  좁히기 위해 처음 몇개의 글자를 입력하시오. (ISDIAH 5.6.7)</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
-        <target/>
+        <target>drop-down 메뉴에서 이 기록의 스크립트(들)을 선택하시오; 선택의 폭을 좁히기 위해 처음 몇개의 글자를 입력하시오. (ISDIAH 5.6.7)</target>
       </trans-unit>
       <trans-unit id="75">
         <source>"Record the sources consulted in establishing the description of the institution." (ISDIAH 5.6.8)</source>
-        <target/>
+        <target>"기관의 기술사항을 설정함에 있어 참고한 자료들을 명기하시오." (ISDIAH 5.6.8)</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Sources</source>
@@ -250,7 +252,7 @@
       </trans-unit>
       <trans-unit id="77">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
-        <target/>
+        <target>"기술정보의 생성과 유지에 관한 적절한 주기사항을 기록하시오." (ISDIAH 5.6.9)</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Cancel</source>
@@ -262,7 +264,7 @@
       </trans-unit>
       <trans-unit id="81">
         <source>Create</source>
-        <target/>
+        <target>생성하기</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Parallel form(s) of name</source>
@@ -286,7 +288,7 @@
       </trans-unit>
       <trans-unit id="90">
         <source>Holdings</source>
-        <target/>
+        <target>소장물</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Opening times</source>
@@ -294,7 +296,7 @@
       </trans-unit>
       <trans-unit id="92">
         <source>Access conditions and requirements</source>
-        <target/>
+        <target>접근 조건 및 요구사항</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Research services</source>
@@ -314,15 +316,15 @@
       </trans-unit>
       <trans-unit id="97">
         <source>Language(s)</source>
-        <target/>
+        <target>언어(들)</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Script(s)</source>
-        <target/>
+        <target>규약(들)</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Maintenance notes</source>
-        <target/>
+        <target>유지 주기</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Edit</source>
@@ -342,31 +344,31 @@
       </trans-unit>
       <trans-unit id="105">
         <source>Edit contact area</source>
-        <target/>
+        <target>연락 영역 편집하기</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Edit description area</source>
-        <target/>
+        <target>기술 영역 편집하기</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Edit access area</source>
-        <target/>
+        <target>접근 영역 편집</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Edit services area</source>
-        <target/>
+        <target>서비스 영역 편집하기</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Edit control area</source>
-        <target/>
+        <target>제어 영역 편집하기</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Primary contact</source>
-        <target/>
+        <target>1차 접근</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Website</source>
-        <target/>
+        <target>웹사이트</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Email</source>
@@ -374,38 +376,46 @@
       </trans-unit>
       <trans-unit id="114">
         <source>Edit theme</source>
-        <target/>
+        <target>테마 편집</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Last updated</source>
-        <target/>
+        <target>최종 업데이트</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Access points</source>
-        <target/>
+        <target>접근점</target>
       </trans-unit>
       <trans-unit id="117">
         <source>Edit access points</source>
-        <target/>
+        <target>접근점 편집</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Access Points</source>
-        <target/>
+        <target>액세스 포인트</target>
       </trans-unit>
       <trans-unit id="119">
         <source>Thematic area</source>
-        <target/>
+        <target>주제 영역</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Search for an existing term in the Thematic Areas taxonomy by typing the first few characters of the term name. This should be used to identify major collecting areas.</source>
-        <target/>
+        <target>용어의 처음 몇 글자를 입력해서 주제 영역 분류에서 존재하는 용어 찾기. 이는 주요 검색 영역을 분류하기 위해 사용됩니다.</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Geographic subregion</source>
-        <target/>
+        <target>지리적으로 하위 지역</target>
       </trans-unit>
       <trans-unit id="122">
         <source>Search for an existing term in the Geographic Subregion taxonomy by typing the first few characters of the term name.</source>
+        <target>용어의 처음 몇 글자를 입력해서 지리적 하위 지역 분류에서 존재하는 용어 찾기</target>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>Enter the digital latitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. 49.459044</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>Enter the digital longitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. -104.296984</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2013-08-22T17:10:59Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2015-08-27T12:08:51Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -24,7 +24,7 @@
       </trans-unit>
       <trans-unit id="120">
         <source>Language</source>
-        <target/>
+        <target>언어</target>
       </trans-unit>
       <trans-unit id="537">
         <source>Subject</source>
@@ -40,147 +40,127 @@
       </trans-unit>
       <trans-unit id="828">
         <source>%1%Identifier%2% - This is a mandatory element.</source>
-        <target/>
+        <target>%1%참조코드%2% - 이 항목은 필수요소입니다.</target>
       </trans-unit>
       <trans-unit id="829">
         <source>%1%Title%2% - This is a mandatory element.</source>
-        <target/>
+        <target>%1%제목%2% - 이 항목은 필수 요소입니다.</target>
       </trans-unit>
       <trans-unit id="834">
         <source>Creator</source>
-        <target/>
+        <target>생산자</target>
       </trans-unit>
       <trans-unit id="835">
         <source>Publisher</source>
-        <target/>
+        <target>출판자</target>
       </trans-unit>
       <trans-unit id="836">
         <source>Contributor</source>
-        <target/>
+        <target>기여자</target>
       </trans-unit>
       <trans-unit id="837">
         <source>Relation (isLocatedAt)</source>
-        <target/>
+        <target>관계 (isLocatedAt)</target>
       </trans-unit>
       <trans-unit id="838">
         <source>Coverage (spatial)</source>
-        <target/>
+        <target>범위 (공간적)</target>
       </trans-unit>
       <trans-unit id="840">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>중복된 기록입니다.'%1%'</target>
       </trans-unit>
       <trans-unit id="841">
         <source>The unambiguous reference code used to uniquely identify this resource.</source>
-        <target/>
+        <target>이 자료를 식별할 수 있는 고유한 참조 코드.</target>
       </trans-unit>
       <trans-unit id="842">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>이 항목은 필수 요소입니다.</target>
       </trans-unit>
       <trans-unit id="843">
         <source>The name given to this resource.</source>
-        <target/>
+        <target>이 자료에 부여된 이름.</target>
       </trans-unit>
       <trans-unit id="844">
         <source>Names and dates</source>
-        <target/>
+        <target>이름 및 일자</target>
       </trans-unit>
       <trans-unit id="846">
         <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
-        <target/>
+        <target>이 자료의 주제. 주제 분류 내 존재하는 용어를 검색하시오. 주제명의 첫 몇글자입력하여 찾거나나 아니면,  새로운 주제명을 입력하고 새 제 용어에 링크시키시오.</target>
       </trans-unit>
       <trans-unit id="849">
         <source>Child levels (if describing a collection)</source>
-        <target/>
+        <target>하위계층(컬렉션을 기술한다면)</target>
       </trans-unit>
       <trans-unit id="852">
         <source>Related material(s) from which this resource is derived.</source>
-        <target/>
+        <target>파생 자원의 관련 자료(들).</target>
       </trans-unit>
       <trans-unit id="853">
         <source>Language(s) of this resource.</source>
-        <target/>
+        <target>이 자원의 언어(들)</target>
       </trans-unit>
       <trans-unit id="857">
         <source>Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).</source>
-        <target/>
+        <target>기록물 보유 권한에 관한 정보(예. 저작권, 접근 조건 등)</target>
       </trans-unit>
       <trans-unit id="858">
         <source>Add new resource</source>
-        <target/>
+        <target>자원 추가</target>
       </trans-unit>
       <trans-unit id="859">
         <source>Untitled</source>
-        <target/>
+        <target>제목없음</target>
       </trans-unit>
       <trans-unit id="861">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
-        <target/>
+        <target>초록, 목차 또는 기록의 규모와 내용의 기술</target>
       </trans-unit>
       <trans-unit id="862">
         <source>&lt;p&gt;The nature or genre of the resource.&lt;/p&gt;&lt;p&gt;Assign as many types as applicable. The &lt;em&gt;Type&lt;/em&gt; options are limited to the DCMI Type vocabulary.&lt;/p&gt;&lt;p&gt;Assign the &lt;em&gt;Collection&lt;/em&gt; value if this resource is the top-level for a set of lower-level (child) resources.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the &lt;em&gt;image&lt;/em&gt;, &lt;em&gt;text&lt;/em&gt;, &lt;em&gt;sound&lt;/em&gt; or &lt;em&gt;moving image&lt;/em&gt; types are added automatically upon output, so do not duplicate those values here.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;기록물의 본질 또는 장르.&lt;/p&gt;&lt;p&gt;가능한 많은  유형을 제공하시오. The &lt;em&gt;유형&lt;/em&gt; 옵션은 DCMI Type 용어집에 한합니다.&lt;/p&gt;&lt;p&gt;제공하시오 &lt;em&gt;컬렉션&lt;/em&gt; 이 자원이 하위 계층 자원 세트(아이들)에 대한 최상위 계층이면&lt;/p&gt;&lt;p&gt;다음 사항에 유의하시오: 만약 이 자원이 디지털 객체에 연결된다면, the&lt;em&gt;이미지&lt;/em&gt;, &lt;em&gt;텍스트/em&gt;, &lt;em&gt;sound&lt;/em&gt; or &lt;em&gt;moving image&lt;/em&gt; 유형은 결과에 자동적으로 추가됩니다. 그러므로 여기에 이 값들을 복사하지 마시오.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="863">
         <source>&lt;p&gt;&lt;strong&gt;Child levels&lt;/strong&gt;&lt;br/&gt;Use these two fields to add lower levels to a collection level description. Click &lt;em&gt;Add new&lt;/em&gt; to create as many child levels as necessary.&lt;/p&gt;&lt;p&gt;These fields can also be used to add any number of intermediate levels of description (e.g. series, file, etc) between the top and bottom levels in a descriptive hierarchy. Use the hierarchy treeview to re-order hierarchy levels as necessary.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Identifier&lt;/em&gt;: The unambiguous reference code used to uniquely identify the child-level resource.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Title&lt;/em&gt;: The name given to the child-level resource.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;&lt;strong&gt;하위 계층&lt;/strong&gt;&lt;br/&gt;이 두 필드들을 사용하시오. 컬렉션 기술 계층에 하위 계층을 추가하기 위해서. 클릭&lt;em&gt;New를 추가하시오&lt;/em&gt; 가능한한 많은 하위 계층을 생성하기 위해서&lt;/p&gt;&lt;p&gt;이 필드들은 기술계층의 최상위 계층과 최하위 계층 사이에서 얼마든지 기술의 중간계층(예를 들어, 시리즈, 파일 등)을 추가하는 데  쓰일 수 있습니다. 필요하면 계층 구조를 재배열하기 위해 트리 뷰 방식을 사용하시오.&lt;/p&gt;&lt;p&gt;&lt;em&gt;식별자&lt;/em&gt;: 하위 계층의 자원을 유일하게 식별하기 위해 사용되는 분명한 참조코드&lt;/p&gt;&lt;p&gt;&lt;em&gt;제목&lt;/em&gt;: 하위 계층 자원에 주어지는 이름&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="864">
         <source>&lt;p&gt;The file format, physical medium, or dimensions of the resource.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the Internet Media Types (MIME) will be added automatically upon output, so don't duplicate those values here.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;파일포맷, 물리적 유형, 또는 기록물의 물리적 크기나 규모&lt;/p&gt;&lt;p&gt; 다음의 사항에 유의하시오: 만약 이 자원이 디지털 객체에 연결된다면, 인터넷 미디어 타입 (MIME)이 결과물에 자동적으로 추가될 것입니다. 그러므로 여기에 그 값을 복사하지 마시오.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="865">
         <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;&lt;p&gt;Search for an existing name in the organization records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new organization record.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;기록물 관리를 책임지고 있는 기관의 이름.&lt;/p&gt;&lt;p&gt; 기관명의 첫 몇자를 입력하여 기관명을 검색하시오. 아니면, 새 이름을 생성하고 이를 새 조직이름에 링크시키시오.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="866">
         <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource or relevant to its jurisdiction.&lt;/p&gt;&lt;p&gt;Search for an existing term in the Place taxonomy by typing the first few characters of the place name. Alternatively, type a new name to create and link to a new place.&lt;/p&gt;&lt;p&gt;Please note: if you entered a place of creation, publication or contribution that will be output automatically, so don’t repeat that place name here.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;기록물의 주제와 관련이 있거나 법적 권한과 연관이 있는 장소명 또는 지역명. &lt;/p&gt;&lt;p&gt;위치  분류체계에서 제공하는 용어를  장소명의 첫 몇 글자를 입력해서 검색하시오. 혹은 새로운 장소명을 입력하고 새 위치에 링크시키시오. &lt;/p&gt;&lt;p&gt;다음과 같은 사항을 유의하시오 만약, 출판, 배포, 생산 장소명을 입력했다면, 그것은 결과물에 자동적으로 나타날 것입니다. 그러므로 여기서 장소명을 반복하시 마시오.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="867">
         <source>Rights area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="868">
-        <source>Edit rights area</source>
-        <target/>
+        <target>권한 영역</target>
       </trans-unit>
       <trans-unit id="869">
         <source>Accession area</source>
-        <target/>
+        <target>인수 영역</target>
       </trans-unit>
       <trans-unit id="870">
         <source>%1%Relation%2% (%3%isLocatedAt%4%) - This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
-        <target/>
+        <target>%1%관계%2% (%3%isLocatedAt%4%) - 이 항목은 이 리소스 또는 상위 기술 계층에서의 필수 요소입니다(컬렉션의 일부분인 경우).</target>
       </trans-unit>
       <trans-unit id="871">
         <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
-        <target/>
+        <target>이 항목은 이 리소스 또는 상위 기술 계층에서의 필수 요소입니다(컬렉션의 일부분인 경우).</target>
       </trans-unit>
       <trans-unit id="872">
         <source>Elements area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="873">
-        <source>How to access to this content?</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="874">
-        <source>Contact the archivist at %1%</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="875">
-        <source>Show details</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="876">
-        <source>Close</source>
-        <target/>
+        <target>요소 영역</target>
       </trans-unit>
       <trans-unit id="877">
         <source>Edit elements area</source>
-        <target/>
+        <target>요소 </target>
       </trans-unit>
       <trans-unit id="878">
         <source>Date(s)</source>
@@ -192,19 +172,19 @@
       </trans-unit>
       <trans-unit id="880">
         <source>Start</source>
-        <target/>
+        <target>시작</target>
       </trans-unit>
       <trans-unit id="881">
         <source>End</source>
-        <target/>
+        <target>종료</target>
       </trans-unit>
       <trans-unit id="882">
         <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>기술단위의 일자(들)을 식별하고 기록하시오. 주어진 날짜의 형태를 식별하시오.  단일 날짜 또는 적절한 날짜의 범위를 기록하시오. 날짜 표시 필드는 고정값으로 입력하지 않을 수 있으며 대략적거나 불확실할 경우 조판기호를 사용할 수 있습니다. 날짜 검색을 용이하도록 하기 위해 시작필드와 마지막 필드를 사용하시오. 부정확한 날짜를 표현하기 위한 제한자나 특수기호를 사용하지 마시오. 사용가능한 일자 형태는 다음과 같습니다: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
       </trans-unit>
       <trans-unit id="883">
         <source>Name(s)</source>
-        <target/>
+        <target>이름(들)</target>
       </trans-unit>
       <trans-unit id="884">
         <source>Actor name</source>
@@ -212,7 +192,7 @@
       </trans-unit>
       <trans-unit id="885">
         <source>Identify and record the name(s) and type(s) of the unit of description.</source>
-        <target/>
+        <target>기술단위 유형(들)과 이름(들)을 기록하고 식별하시오.</target>
       </trans-unit>
     </body>
   </file>

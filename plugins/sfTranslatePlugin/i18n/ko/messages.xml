@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2011-09-13T14:35:41Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2015-08-27T12:05:07Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="4">
@@ -10,19 +10,19 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Save translation</source>
-        <target/>
+        <target>번역  저장</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Translate user interface</source>
-        <target/>
+        <target>사용자 인터페이스 번역</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Page text</source>
-        <target/>
+        <target>페이지 텍스트</target>
       </trans-unit>
       <trans-unit id="9">
         <source>%language% translation</source>
-        <target/>
+        <target>%language% 번역</target>
       </trans-unit>
     </body>
   </file>

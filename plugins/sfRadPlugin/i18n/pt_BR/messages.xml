@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2014-09-19T13:20:17Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2015-08-27T12:10:13Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -278,10 +278,6 @@
         <source>Accruals</source>
         <target>Incorporações</target>
       </trans-unit>
-      <trans-unit id="937">
-        <source>Other notes</source>
-        <target>Outras notas</target>
-      </trans-unit>
       <trans-unit id="938">
         <source>Standard number area</source>
         <target>Área de número normalizado</target>
@@ -413,10 +409,6 @@
       <trans-unit id="979">
         <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
         <target>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</target>
-      </trans-unit>
-      <trans-unit id="980">
-        <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Enter an unambiguous code used to uniquely identify the description.&lt;br/&gt;&lt;strong&gt;Level:&lt;/strong&gt; Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target>&lt;strong&gt;Identificador:&lt;/strong&gt;Digite um código unívoco usado para identificar a descrição.&lt;br/&gt;&lt;strong&gt;Nível:&lt;/strong&gt; Selecione um nível de descrição a partir da lista de opções. Veja RAD 1.0A para as regras e convenções sobre a seleção de níveis de descrição.&lt;br/&gt;&lt;strong&gt;Título:&lt;/strong&gt; Digite o título próprio, seja transcrito ou atribuido. (RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="981">
         <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
@@ -602,10 +594,6 @@ elaboração da descrição.</target>
       <trans-unit id="1030">
         <source>Rights area</source>
         <target>Zona de direitos</target>
-      </trans-unit>
-      <trans-unit id="1031">
-        <source>Edit rights area</source>
-        <target>Editar zona de direitos</target>
       </trans-unit>
       <trans-unit id="1032">
         <source>Accession area</source>

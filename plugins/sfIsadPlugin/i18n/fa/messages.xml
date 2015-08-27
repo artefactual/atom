@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2014-09-17T12:02:02Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2015-08-27T12:08:21Z" product-name="messages">
     <body>
       <trans-unit id="43">
         <source>Identity area</source>
@@ -306,10 +306,6 @@
         <source>End</source>
         <target/>
       </trans-unit>
-      <trans-unit id="895">
-        <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Provide a specific local reference code, control number, or other unique identifier.&lt;br/&gt;&lt;strong&gt;Level of description:&lt;/strong&gt; Record the level of this unit of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="898">
         <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
         <target/>
@@ -422,10 +418,6 @@
         <source>Rights area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="937">
-        <source>Edit rights area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="938">
         <source>Accession area</source>
         <target/>
@@ -446,22 +438,6 @@
         <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
         <target/>
       </trans-unit>
-      <trans-unit id="946">
-        <source>How to access to this content?</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="947">
-        <source>Contact the archivist at %1%</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="948">
-        <source>Show details</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="949">
-        <source>Close</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="950">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.&#x201D; (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
         <target/>
@@ -476,6 +452,22 @@
       </trans-unit>
       <trans-unit id="953">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="954">
+        <source>Administrative / Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="955">
+        <source>Administrative history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="956">
+        <source>Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="957">
+        <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
         <target/>
       </trans-unit>
     </body>

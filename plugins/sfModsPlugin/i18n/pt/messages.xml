@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-06-09T19:07:50Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2015-08-27T12:06:31Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -106,36 +106,56 @@
         <source>Rights area</source>
         <target>Zona de direitos</target>
       </trans-unit>
-      <trans-unit id="919">
-        <source>Edit rights area</source>
-        <target>Editar zona de direitos</target>
-      </trans-unit>
       <trans-unit id="920">
         <source>Accession area</source>
         <target>Zona da incorporação</target>
       </trans-unit>
       <trans-unit id="921">
         <source>Elements area</source>
-        <target/>
+        <target>Área de elementos</target>
       </trans-unit>
       <trans-unit id="922">
         <source>How to access to this content?</source>
-        <target/>
+        <target>Como aceder a este conteúdo?</target>
       </trans-unit>
       <trans-unit id="923">
         <source>Contact the archivist at %1%</source>
-        <target/>
+        <target>Contacte o arquivista em %1%</target>
       </trans-unit>
       <trans-unit id="924">
         <source>Show details</source>
-        <target/>
+        <target>Mostrar detalhes</target>
       </trans-unit>
       <trans-unit id="925">
         <source>Close</source>
-        <target/>
+        <target>Fechar</target>
       </trans-unit>
       <trans-unit id="926">
         <source>Edit elements area</source>
+        <target>Editar Área de elementos</target>
+      </trans-unit>
+      <trans-unit id="927">
+        <source>Places</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="928">
+        <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="929">
+        <source>Names</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="930">
+        <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="931">
+        <source>An abstract, table of contents or description of the resource's scope and contents.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="932">
+        <source>Description</source>
         <target/>
       </trans-unit>
     </body>

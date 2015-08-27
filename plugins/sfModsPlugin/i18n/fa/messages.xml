@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2013-06-09T19:07:22Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2015-08-27T12:08:20Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -106,10 +106,6 @@
         <source>Rights area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="844">
-        <source>Edit rights area</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="845">
         <source>Accession area</source>
         <target/>
@@ -136,6 +132,30 @@
       </trans-unit>
       <trans-unit id="851">
         <source>Edit elements area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="852">
+        <source>Places</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="853">
+        <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="854">
+        <source>Names</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="855">
+        <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="856">
+        <source>An abstract, table of contents or description of the resource's scope and contents.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="857">
+        <source>Description</source>
         <target/>
       </trans-unit>
     </body>

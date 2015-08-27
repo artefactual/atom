@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="es" datatype="plaintext" original="messages" date="2014-09-19T13:20:00Z" product-name="messages">
+  <file source-language="en" target-language="es" datatype="plaintext" original="messages" date="2015-08-27T12:10:04Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -268,10 +268,6 @@
         <source>Edit access points</source>
         <target>Editar puntos de acceso</target>
       </trans-unit>
-      <trans-unit id="73">
-        <source>Edit rights area</source>
-        <target>Editar área de derechos</target>
-      </trans-unit>
       <trans-unit id="74">
         <source>Accession area</source>
         <target>Área de Ingreso</target>
@@ -286,11 +282,11 @@
       </trans-unit>
       <trans-unit id="77">
         <source>At the highest level of a multilevel description or in a single level description, provide a unique identifier for the materials being described in accordance with the institution’s administrative control system. Optionally, devise unique identifiers at lower levels of a multilevel description. (DACS 2.1.3) The country and repository code will be automatically added from the linked repository record to form a full reference code.</source>
-        <target/>
+        <target>En el nivel más alto de una descripción multinivel o en una sola descripción de nivel, proporcionar un identificador único para los materiales que se describen de acuerdo con el sistema de control administrativo de la institución. Opcionalmente, idear identificadores únicos en los niveles más bajos de una descripción multinivel. (DACS 2.1.3) El país y el código del repositorio serán añadidos automáticamente a partir del registro del repositorio, para formar un código de referencia completo.</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
-        <target/>
+        <target>Explícitamente indicar el nombre del repositorio (DACS 2.2.2). Puedes buscar un nombre existente en los registros de la institución archivística escribiendo los primeros caracteres del nombre. Alternativamente,  escriba un nuevo nombre para crearlo y vincularlo a un nuevo registro archivístico.</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Select a level of description from the drop-down menu. Follow any relevant local or institutional guidelines in selecting the proper level of description. See DACS (2013) Chapter 1 for further guidance.</source>
@@ -302,7 +298,7 @@
       </trans-unit>
       <trans-unit id="81">
         <source>Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>Registre fechas de creación, de la actividad de mantenimiento de registros, publicación o difusión adecuada a los materiales que se describen a continuación. (DACS 2.4.3) El campo de visualización de la fecha se puede utilizar para introducir información de la fecha en texto libre, incluidas las marcas tipográficas para expresar aproximación, la incertidumbre, o calificación. Utilice los campos de inicio y fin para hacer posible la busqueda de fechas. No utilice calificadores o símbolos tipográficos. Los formatos aceptados de fecha: AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Record the quantity of the material in terms of its physical extent as linear or cubic feet, number of items, or number of containers or carriers. (DACS 2.5.4). Optionally, record the quantity in terms of material type(s) (DACS 2.5.5), and/or qualify the statement of physical extent to hightlight the existence of material types that re important (DACS 2.5.6).</source>
@@ -314,7 +310,7 @@
       </trans-unit>
       <trans-unit id="84">
         <source>&lt;strong&gt;Identifier&lt;/strong&gt;&lt;br /&gt;Provide a unique identifier for the materials being described in accordance with the institution’s administrative control system.&lt;br /&gt;&lt;strong&gt;Level of description&lt;/strong&gt;&lt;br /&gt;Record the level of this unit of description.&lt;br /&gt;&lt;strong&gt;Title&lt;/strong&gt;&lt;br /&gt;In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material.&lt;br /&gt;&lt;strong&gt;Date&lt;/strong&gt;&lt;br /&gt;Record a date of creation.</source>
-        <target/>
+        <target>&lt;strong&gt; Identificador &lt;/ strong&gt; &lt;br /&gt; Proporcionar un identificador único para los materiales que se describen en conformidad con el sistema de control administrativo de la institución. &lt;br /&gt; &lt;strong&gt; Nivel de descripción &lt;/ strong&gt; &lt;br /&gt; Registre el nivel de esta unidad de descripción. &lt;br /&gt; &lt;strong&gt; Titulo &lt;/ strong&gt; &lt;br /&gt; En ausencia de un título formal significativo, componer un breve título que identifique el material. &lt;br /&gt; &lt;strong&gt; Fecha &lt;/ strong&gt; &lt;br /&gt; Grabe una fecha de creación.</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Record information about the nature of the materials and activities reflected in the unit being described to enable users to judge its potential relevance, including information about functions, activities, transations, and processes; documentary form(s) or intellectual characteristics; content dates; geographic areas and places; subject matter; completeness of the materials; or any other information that assists the user in evaluating the relevance of the materials. (DACS 3.1)</source>
@@ -322,31 +318,31 @@
       </trans-unit>
       <trans-unit id="86">
         <source>Describe the current arrangement of the material in terms of the various aggregations within it and their relationships. (DACS 3.2.3)</source>
-        <target/>
+        <target>Describir la disposición actual del material en términos de las diversas agregaciones dentro de ella y de sus relaciones. (DACS 3.2.3)</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Give information about any restrictions on access to the unit being described (or parts thereof) as a result of the nature of the information therein or statutory/contractual requirements. As appropriate, specify the details of the restriction. If there are no restrictions, state that fact. (DACS 4.1.5)</source>
-        <target/>
+        <target>De información sobre las restricciones de acceso a la unidad que se describe (o partes de los mismos) como consecuencia de la naturaleza de la información de los mismos, o por los requisitos legales / contractuales. En su caso, indique los detalles de la restricción. Si no hay restricciones, debe declararse este hecho. (DACS 4.1.5)</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Provide information about the physical characteristics or condition of the unit being described that limit access to it or restrict its use. (DACS 4.2.5)</source>
-        <target/>
+        <target>Proporcionar información sobre las características físicas o condición de la unidad que se está describiendo que limitan el acceso a la misma o restringen su uso. (DACS 4.2.5)</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Provide information about any special equipment required to view or access the unit being described, if it is not clear from the Extent element. (DACS 4.3.5)</source>
-        <target/>
+        <target>Proporcionar información sobre cualquier equipo especial necesario para ver o acceder a la unidad que se está describiendo, si no está claro a partir del elemento extensión y alcance. (DACS 4.3.5)</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Give information about copyright status and any other conditions governing the reproduction, publication, and further use (e.g., display, public screening, broadcast, etc.) of the unit being described after access has been provided. (DACS 4.4.5)</source>
-        <target/>
+        <target>De información sobre el estado de los derechos de autor y cualesquiera otras condiciones que rijan la reproducción, publicación, y el uso de la unidad que se describe. (DACS 4.4.5)</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Record the language(s) of the materials being described. (DACS 4.5.2)</source>
-        <target/>
+        <target>Registre el idioma (s) de los materiales que se describen. (DACS 4.5.2)</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Record the scripts(s) of the materials being described.</source>
-        <target/>
+        <target>Registre la escritura(s) de los materiales que se describen.</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Record information about any distinctive alphabets, scripts, symbol systems, or abbreviations employed (DACS 4.5.3). If there is no language content, record “no linguistic content.” (DACS 4.5.4)</source>
@@ -394,10 +390,22 @@
       </trans-unit>
       <trans-unit id="104">
         <source>Record relevant information about sources consulted in establishing or revising the description. (DACS 8.1.3)</source>
-        <target/>
+        <target>Registre la información relevante acerca de las fuentes consultadas para establecer o revisar la descripción. (DACS 8.1.3)</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Record the international, national or local rules or conventions followed in preparing the description. (DACS 8.1.4)</source>
+        <target>Anote las reglas o convenciones internacionales, nacionales o locales seguidas en la preparación de la descripción. (DACS 8.1.4)</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Administrative / Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Administrative history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Biographical history</source>
         <target/>
       </trans-unit>
     </body>

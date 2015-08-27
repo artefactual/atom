@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-06-09T19:07:53Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2015-08-27T12:10:12Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -105,10 +105,6 @@
       <trans-unit id="918">
         <source>Rights area</source>
         <target>Zona de direitos</target>
-      </trans-unit>
-      <trans-unit id="919">
-        <source>Edit rights area</source>
-        <target>Editar zona de direitos</target>
       </trans-unit>
       <trans-unit id="920">
         <source>Accession area</source>

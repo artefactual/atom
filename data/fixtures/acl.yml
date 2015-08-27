@@ -6,105 +6,180 @@ QubitAclGroup:
     parent_id: QubitAclGroup_ROOT
     name:
       ca: anònim
+      ca@valencia: anònim
+      cy: anhysbys
       de: anonym
+      de-CH: anonym
+      el: ανώνυμος
       en: anonymous
       es: anónimo
+      eu: anonimoa
       fr: anonyme
       gl: anónimo
+      hu: anonim
+      is: nafnlaus
       it: anonimo
       ja: 匿名
       ka: ანონიმი
+      ko: 익명
       pl: anonimowy
       pt: anónimo
+      pt-BR: anônimo
       pt_BR: anônimo
       sl: anonimno
+      sr: анониман
       th: นิรนาม
+      vi: 'Vô danh'
+      zh: 匿名的
   QubitAclGroup_authenticated:
     id: 99
     parent_id: QubitAclGroup_ROOT
     name:
       ca: autenticat
+      ca@valencia: autenticat
+      cy: dilysedig
+      de: authentifiziert
+      de-CH: authentifiziert
+      el: επικυρωμένα
       en: authenticated
       es: autenticado
+      eu: autentifikatua
       fr: authentifié
       gl: autentificado
+      hu: bejelentkezett
+      is: staðfest
       it: autenticato
       ja: 認証された
       ka: აუთენტური
+      ko: '진본으로 인정됨'
       pl: zweryfikowany
       pt: autenticado
+      pt-BR: autenticado
       pt_BR: autenticado
       sl: overjeno
+      sr: потврђено
+      vi: 'Chứng thực'
+      zh: 已验证的
   QubitAclGroup_administrator:
     id: 100
     parent_id: QubitAclGroup_authenticated
     name:
       ca: administrador
+      ca@valencia: administrador
+      cy: gweinyddwr
       de: Administrator
+      de-CH: Administrator
+      el: διαχειριστής
       en: administrator
       es: administrador
+      eu: administratzailea
       fr: administrateur
       gl: administrador
+      hu: adminisztrátor
+      is: stjórnandi
       it: Amministratore
       ja: 管理者
       ka: ადმინისტრატორი
+      ko: 관리자
       pl: administrator
       pt: administrador
+      pt-BR: administrador
       pt_BR: administrador
+      ru: администратор
       sl: skrbnik
+      sr: администратор
+      vi: 'Quản trị'
+      zh: 管理者
   QubitAclGroup_editor:
     id: 101
     parent_id: QubitAclGroup_authenticated
     name:
       ca: editor
+      ca@valencia: editor
+      cy: golygydd
       de: Herausgeber
+      de-CH: Herausgeber
+      el: εκδότης
       en: editor
       es: editor
+      eu: editorea
       fr: 'auteur de la modification'
       gl: editor
+      hu: szerkesztő
+      is: ritstjóri
       it: editore
       ja: 編集者
       ka: რედაქტორი
+      ko: 편집자
       pl: edytor
       pt: editor
+      pt-BR: editor
       pt_BR: editor
       sl: urednik
+      sr: уредник
+      vi: 'Người sửa chửa tác phẩm'
+      zh: 编辑者
   QubitAclGroup_contributor:
     id: 102
     parent_id: QubitAclGroup_authenticated
     name:
       ca: col·laborador
+      ca@valencia: contribuïdor
+      cy: cyfrannwr
+      de: Beitragender
+      de-CH: Beitragender
       en: contributor
       es: contribuidor
+      eu: kolaboratzailea
       fr: contributeur
       gl: contribuínte
+      hu: munkatárs
       id: Kontributor
+      is: framlagsveitandi
       it: 'soggetto che ha fornito un contributo'
       ja: 貢献者
       ka: 'კონტრიბუტორი, დამხმარე, ხელის შემწყობი'
+      ko: 기여자
       pl: kontrybutor
       pt: colaborador
+      pt-BR: colaborador
       pt_BR: colaborador
       sl: sodelavec
+      sr: сарадник
+      vi: 'Người chịu phần'
+      zh: 贡献者
   QubitAclGroup_translator:
     id: 103
     parent_id: QubitAclGroup_authenticated
     name:
       ca: traductor
+      ca@valencia: traductor
+      cy: cyfieithydd
       de: Übersetzer
+      de-CH: Übersetzer
+      el: μεταφραστής
       en: translator
       es: traductor
+      eu: itzultzailea
       fr: traducteur
       gl: traductor
+      hu: fordító
       id: terjemah
+      is: þýðandi
       it: traduttore
       ja: 翻訳者
       ka: მთარგმნელი
+      ko: 번역자
       pl: tłumacz
       pt: tradutor
+      pt-BR: tradutor
       pt_BR: tradutor
+      ru: переводчик
       sl: prevajalec
+      sr: преводилац
       th: 'three dimensional วัตถุ'
+      vi: 'Người phiên dịch'
+      zh: 翻译员
 QubitAclPermission:
   QubitAclPermission_anonymous_read:
     group_id: QubitAclGroup_anonymous

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2014-09-19T13:19:51Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2015-08-27T12:06:31Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -140,7 +140,9 @@ vigência ou alteração do(s) mandato(s)." (ISDIAH 5.3.3)</target>
       </trans-unit>
       <trans-unit id="49">
         <source>"Record the title and other pertinent details of the published and/or unpublished finding aids and guides prepared by the institution and of any other relevant publications. Use ISO 690 Information and documentation – Bibliographic references and other national or international cataloguing rules." (ISDIAH 5.3.8)</source>
-        <target/>
+        <target>&lt;b&gt;ISDIAH 5.3.8&lt;/b&gt;&lt;br /&gt;
+&lt;strong&gt;Objetivo:&lt;/strong&gt; Fornecer uma visão geral dos instrumentos de pesquisa, impressos ou não, e guias preparados pela instituição com acervo arquivístico e quaisquer outras publicações relevantes.&lt;br /&gt;
+&lt;strong&gt;Regra:&lt;/strong&gt; Registe o titulo e os outros dados pertinentes dos instrumentos de pesquisa, impressos ou não, e guias preparados pela instituição com acervo arquivístico, bem como quaisquer outras publicações relevantes. Use a ISO 690 &lt;i&gt;Information and documentation -- Bibliographic references&lt;/i&gt; e outras regras, nacionais ou internacionais, de catalogação.</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Finding aids, guides and publications</source>
@@ -156,7 +158,9 @@ vigência ou alteração do(s) mandato(s)." (ISDIAH 5.3.3)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
-        <target/>
+        <target>&lt;b&gt;ISDIAH 5.4.2&lt;/b&gt;&lt;br /&gt;
+&lt;strong&gt;Objetivo:&lt;/strong&gt; Fornecer informação sobre as condições, requisitos e procedimentos para acesso e uso dos serviços institucionais.&lt;br /&gt;
+&lt;strong&gt;Regra:&lt;/strong&gt; Descreva as políticas de acesso, incluindo quaisquer restrições e/ou regulações para uso dos materiais e serviços. Registe informação sobre registo, agendamento, cartões de usuários, cartas de apresentação, taxas de admissão etc. Quando apropriado, faça referência à legislação.</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Conditions and requirements</source>
@@ -370,7 +374,7 @@ registos completos são os que fornecem informação para todos os elementos de 
       </trans-unit>
       <trans-unit id="112">
         <source>Website</source>
-        <target/>
+        <target>Sítio web</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Email</source>
@@ -378,11 +382,11 @@ registos completos são os que fornecem informação para todos os elementos de 
       </trans-unit>
       <trans-unit id="114">
         <source>Edit theme</source>
-        <target/>
+        <target>Editar tema</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Last updated</source>
-        <target/>
+        <target>Última atualização</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Access points</source>
@@ -394,22 +398,30 @@ registos completos são os que fornecem informação para todos os elementos de 
       </trans-unit>
       <trans-unit id="118">
         <source>Access Points</source>
-        <target/>
+        <target>Pontos de acesso</target>
       </trans-unit>
       <trans-unit id="119">
         <source>Thematic area</source>
-        <target/>
+        <target>Área Temática</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Search for an existing term in the Thematic Areas taxonomy by typing the first few characters of the term name. This should be used to identify major collecting areas.</source>
-        <target/>
+        <target>Pesquise por um termo existente em &lt;strong&gt;Área Temática&lt;/strong&gt; digitando os primeiros caracteres do termo. Deve ser utilizado para identificar as principais áreas de recolha.</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Geographic subregion</source>
-        <target/>
+        <target>Sub-região Geográfica</target>
       </trans-unit>
       <trans-unit id="122">
         <source>Search for an existing term in the Geographic Subregion taxonomy by typing the first few characters of the term name.</source>
+        <target>Pesquise por um termo existente em &lt;strong&gt;Sub-região Geográfica&lt;/strong&gt; digitando os primeiros caracteres do termo.</target>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>Enter the digital latitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. 49.459044</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>Enter the digital longitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. -104.296984</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2013-08-22T17:10:59Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2015-08-27T12:08:12Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -142,10 +142,6 @@
         <source>Rights area</source>
         <target>権利のエリア</target>
       </trans-unit>
-      <trans-unit id="868">
-        <source>Edit rights area</source>
-        <target>権利のエリアを編集する</target>
-      </trans-unit>
       <trans-unit id="869">
         <source>Accession area</source>
         <target>受入資料エリア</target>
@@ -160,22 +156,6 @@
       </trans-unit>
       <trans-unit id="872">
         <source>Elements area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="873">
-        <source>How to access to this content?</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="874">
-        <source>Contact the archivist at %1%</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="875">
-        <source>Show details</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="876">
-        <source>Close</source>
         <target/>
       </trans-unit>
       <trans-unit id="877">

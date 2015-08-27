@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2014-09-19T13:20:03Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2015-08-27T12:09:42Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -92,7 +92,7 @@
       </trans-unit>
       <trans-unit id="799">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Regeln und/oder Konventionen</target>
       </trans-unit>
       <trans-unit id="814">
         <source>Appraisal, destruction and scheduling</source>
@@ -252,7 +252,7 @@
       </trans-unit>
       <trans-unit id="930">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>Benutzte Regeln und/oder Konventionen</target>
       </trans-unit>
       <trans-unit id="931">
         <source>Dates of creation revision deletion</source>
@@ -272,7 +272,7 @@
       </trans-unit>
       <trans-unit id="936">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Dies ist ein Duplikat der Akte %1%</target>
       </trans-unit>
       <trans-unit id="937">
         <source>This is a mandatory element.</source>
@@ -288,7 +288,7 @@
       </trans-unit>
       <trans-unit id="953">
         <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
-        <target/>
+        <target>Geben Sie alle wichtigen physikalischen Bedingungen an, wie z. B. konservatorische Anforderungen, die die Benutzung der Verzeichnungseinheit beeinflussen. Geben Sie die für die Benutzung der Verzeichnungseinheit notwendige Soft- und Hardware an.</target>
       </trans-unit>
       <trans-unit id="962">
         <source>Add new archival description</source>
@@ -306,10 +306,6 @@
         <source>End</source>
         <target>Ende</target>
       </trans-unit>
-      <trans-unit id="969">
-        <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Provide a specific local reference code, control number, or other unique identifier.&lt;br/&gt;&lt;strong&gt;Level of description:&lt;/strong&gt; Record the level of this unit of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
-        <target>&lt;strong&gt;Signatur:&lt;/strong&gt; Für die eindeutige Identifikation sind ein spezifischer lokaler Referenzcode, eine Kontrollnummer oder andere eindeutige Identifikationsmerkmale anzugeben. &lt;br/&gt;&lt;strong&gt;Verzeichnungsstufe:&lt;/strong&gt; Die Verzeichnungsstufe der Verzeichnungseinheit ist festzuhalten.&lt;br/&gt;&lt;strong&gt;Titel:&lt;/strong&gt; Anzugeben ist entweder der überlieferte Titel oder ein neuer, prägnant formulierter Titel in Übereinstimmung mit den Regeln der mehrstufigen Verzeichnung oder nationalen Konventionen.</target>
-      </trans-unit>
       <trans-unit id="972">
         <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
         <target>Der Name der Einrichtung, die die Resource verwahrt, ist festzuhalten. Suchen Sie in den Dateien für Organisationen nach einem existierenden Namen, indem Sie die ersten Buchstaben des Namens eintippen. Alternativ geben sie einen neuen Namen ein und verlinken ihn mit einer neuen Datei für Organisationen. </target>
@@ -324,15 +320,15 @@
       </trans-unit>
       <trans-unit id="979">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
-        <target/>
+        <target>Halten Sie den aktuellen Status der Beschreibung fest. Weisen Sie darauf hin, ob es sich um einen Entwurf, eine abgeschlossene und/oder überarbeitete oder gelöschte Fassung handelt.</target>
       </trans-unit>
       <trans-unit id="980">
         <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
-        <target/>
+        <target>Halten Sie fest, ob die Beschreibung einen minimalen, teilweisen oder vollständigen Detaillierungsgrad gemäß den relevanten internationalen und/oder nationalen Regelwerken oder Leitlinien aufweist.</target>
       </trans-unit>
       <trans-unit id="981">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
-        <target/>
+        <target>Halten Sie fest, wann der Eintrag ausgearbeitet und/oder überarbeitet wurde.</target>
       </trans-unit>
       <trans-unit id="982">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
@@ -413,7 +409,7 @@ Für elektronische Akten ist festzuhalten oder zu verweisen auf Informationen zu
       </trans-unit>
       <trans-unit id="1007">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>Name Zugriffspunkte (Themen)</target>
       </trans-unit>
       <trans-unit id="1008">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
@@ -422,10 +418,6 @@ Für elektronische Akten ist festzuhalten oder zu verweisen auf Informationen zu
       <trans-unit id="1010">
         <source>Rights area</source>
         <target>Bereich 'Rechte'</target>
-      </trans-unit>
-      <trans-unit id="1011">
-        <source>Edit rights area</source>
-        <target>Bearbeite Bereich 'Rechte'</target>
       </trans-unit>
       <trans-unit id="1012">
         <source>Accession area</source>
@@ -447,29 +439,13 @@ Für elektronische Akten ist festzuhalten oder zu verweisen auf Informationen zu
         <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
         <target>Es sind die Bedingungen, wie z.B. urheberrechtliche Einschränkungen, mitzuteilen, die die Reproduktion der Verzeichnungseinheit nach gewährtem Zugang regeln. Wenn besondere Bestimmungen über die Benutzung, Reproduktion oder Publikation der jeweiligen Verzeichnungseinheit nicht bekannt sind, ist keine Angabe erforderlich. (ISAD 3.4.2)</target>
       </trans-unit>
-      <trans-unit id="1020">
-        <source>How to access to this content?</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1021">
-        <source>Contact the archivist at %1%</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1022">
-        <source>Show details</source>
-        <target>Zeige Details</target>
-      </trans-unit>
-      <trans-unit id="1023">
-        <source>Close</source>
-        <target>Schließen</target>
-      </trans-unit>
       <trans-unit id="1024">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
         <target>"Das Entstehungsdatum bzw. der Entstehungszeitraum der Verzeichnungseinheit ist zu identifizieren und festzuhalten. Die Art der Daten ist anzugeben." (ISAD 3.1.3). Das Feld zur Anzeige des Datums kann mit freiem Text belegt werden, einschließlich typographischer Zeichen, die Näherung, Ungewissheit oder eine nähere Bestimmung ausdrücken. Nutzen Sie die Felder für "Beginn" und "Ende", um Daten suchbar zu machen. Benutzen Sie hier keine näheren Bestimmungen oder typographische Zeichen, um Ungewissheit auszudrücken. Geeignete Datenformate sind: JJJJMMTT, JJJJ-MM-TT, JJJJ-MM, JJJJ.</target>
       </trans-unit>
       <trans-unit id="1025">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
-        <target/>
+        <target>Erfassen Sie alle Angaben zu externen Quellen, die in der archivischen Beschreibung benutzt wurden (wie z. B. in den Elementen "Eingrenzung und Inhalt", "Bestandsgeschichte" oder "Anmerkungen"). </target>
       </trans-unit>
       <trans-unit id="1026">
         <source>Related descriptions</source>
@@ -478,6 +454,22 @@ Für elektronische Akten ist festzuhalten oder zu verweisen auf Informationen zu
       <trans-unit id="1027">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
         <target>Um eine Beziehung zwischen dieser Beschreibungund einer anderen Beschreibung in Atom herzustellen, beginnen Sie den Namen der verwandten Beschreibung einzugeben und wählen sie aus dem Autovervollständigen Drop-down Menü aus. Es können mehrere Beziehungen erstellt werden.</target>
+      </trans-unit>
+      <trans-unit id="1028">
+        <source>Administrative / Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1029">
+        <source>Administrative history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1030">
+        <source>Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1031">
+        <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

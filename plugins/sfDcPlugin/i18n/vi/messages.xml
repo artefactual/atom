@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2014-09-19T13:20:08Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2015-08-27T12:10:28Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,7 +10,7 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Untitled</source>
-        <target/>
+        <target>Chưa có tiêu đề</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%Identifier%2% - This is a mandatory element.</source>
@@ -26,7 +26,7 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Name(s)</source>
-        <target/>
+        <target>Tên</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Actor name</source>
@@ -34,27 +34,12 @@
       </trans-unit>
       <trans-unit id="8">
         <source>Type</source>
-        <target/>
+        <target>Loại 
+</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Identify and record the name(s) and type(s) of the unit of description.</source>
         <target>Xác định và ghi tên các tên và loại của nội dung của đơn vị mô tả.</target>
-      </trans-unit>
-      <trans-unit id="10">
-        <source>How to access to this content?</source>
-        <target>Làm thế nào để truy cập vào nội dung này?</target>
-      </trans-unit>
-      <trans-unit id="11">
-        <source>Contact the archivist at %1%</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="12">
-        <source>Show details</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="13">
-        <source>Close</source>
-        <target>Đóng</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Elements area</source>
@@ -72,11 +57,11 @@ Hiệu</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Title</source>
-        <target/>
+        <target>Nhan đề </target>
       </trans-unit>
       <trans-unit id="18">
         <source>Creator</source>
-        <target/>
+        <target> người sáng tạo</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Publisher</source>
@@ -84,15 +69,16 @@ Hiệu</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Contributor</source>
-        <target/>
+        <target>Người góp phần</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Subject</source>
-        <target/>
+        <target>Tượng 
+</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Description</source>
-        <target/>
+        <target>Mô tả </target>
       </trans-unit>
       <trans-unit id="23">
         <source>Format</source>
@@ -100,7 +86,7 @@ Hiệu</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Source</source>
-        <target/>
+        <target>Nguồn </target>
       </trans-unit>
       <trans-unit id="25">
         <source>Language</source>
@@ -108,51 +94,47 @@ Hiệu</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Relation (isLocatedAt)</source>
-        <target/>
+        <target>Quan hệ (isLocatedAt)</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Coverage (spatial)</source>
-        <target/>
+        <target>Coverage (spatial)</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Rights</source>
-        <target/>
+        <target>Quyền</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Rights area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="30">
-        <source>Edit rights area</source>
-        <target>Hiệu khu quyền</target>
+        <target>Vùng quyền</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Accession area</source>
-        <target/>
+        <target>Vùng truy cập</target>
       </trans-unit>
       <trans-unit id="32">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Đây là bản sao của record %1%</target>
       </trans-unit>
       <trans-unit id="33">
         <source>The unambiguous reference code used to uniquely identify this resource.</source>
-        <target/>
+        <target>Các mã tham chiếu rõ ràng được sử dụng để nhận diện nguồn tài nguyên này.</target>
       </trans-unit>
       <trans-unit id="34">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Đây là yếu tố bắt buộc phải có.</target>
       </trans-unit>
       <trans-unit id="35">
         <source>The name given to this resource.</source>
-        <target/>
+        <target>Tên được đặt cho nguồn tài nguyên này.</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Names and dates</source>
-        <target/>
+        <target>Tên và ngày</target>
       </trans-unit>
       <trans-unit id="37">
         <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
-        <target/>
+        <target>Các chủ đề của tài nguyên. Tìm kiếm cho một thuật ngữ hiện có trong phân loại chủ đề bằng cách gõ vài ký tự đầu tiên của phần TÊN. Ngoài ra, nhập tên mới để khởi tạo và liên kết với một thuật ngữ chủ đề mới.</target>
       </trans-unit>
       <trans-unit id="38">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
@@ -160,7 +142,7 @@ Hiệu</target>
       </trans-unit>
       <trans-unit id="39">
         <source>&lt;p&gt;The nature or genre of the resource.&lt;/p&gt;&lt;p&gt;Assign as many types as applicable. The &lt;em&gt;Type&lt;/em&gt; options are limited to the DCMI Type vocabulary.&lt;/p&gt;&lt;p&gt;Assign the &lt;em&gt;Collection&lt;/em&gt; value if this resource is the top-level for a set of lower-level (child) resources.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the &lt;em&gt;image&lt;/em&gt;, &lt;em&gt;text&lt;/em&gt;, &lt;em&gt;sound&lt;/em&gt; or &lt;em&gt;moving image&lt;/em&gt; types are added automatically upon output, so do not duplicate those values here.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;Bản chất hoặc thể loại của tài nguyên. Định như nhiều  &lt;em&gt;loại &lt;/em&gt;có thể áp dụng. Các tùy chọn được giới hạn ở DCMI Type vocabulary.&lt;/p&gt;&lt;p&gt; Chỉ định giá trị bộ sưu tập nếu nguồn tài nguyên này là cấp cao nhất đối với một bộ cấp dưới (cấp con)&lt;/p&gt;&lt;p&gt; Lưu ý: nếu các nguồn lực này được liên kết với một đối tượng kỹ thuật số, &lt;em&gt;âm thanh&lt;em&gt; hay, loại &lt;em&gt;hình ảnh chuyển&lt;em&gt; động được tự động thêm vào đầu ra, do đó, không lặp lại những giá trị đó ở đây.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Child levels (if describing a collection)</source>
@@ -172,11 +154,11 @@ Hiệu</target>
       </trans-unit>
       <trans-unit id="42">
         <source>&lt;p&gt;The file format, physical medium, or dimensions of the resource.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the Internet Media Types (MIME) will be added automatically upon output, so don't duplicate those values here.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;Các định dạng tập tin, phương tiện vật lý, hoặc kích thước của tài nguyên &lt;/p&gt;&lt;p&gt; Xin lưu ý :. Nếu nguồn tài nguyên này được liên kết với một đối tượng kỹ thuật số, các loại truyền thông Internet (MIME) sẽ được tự động thêm vào đầu ra, do đó, không lặp lại những giá trị ở đây.&lt;p&gt;</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Related material(s) from which this resource is derived.</source>
-        <target/>
+        <target>Các tài liệu liên quan có nguồn gốc.</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Language(s) of this resource.</source>
@@ -184,11 +166,11 @@ Hiệu</target>
       </trans-unit>
       <trans-unit id="45">
         <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
-        <target/>
+        <target>Đây là yếu tố bắt buộc phải có đối với nguồn tài nguyên này hoặc descriptive levels cao hơn của nó (nếu là một phần của collection hierarchy).</target>
       </trans-unit>
       <trans-unit id="46">
         <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;&lt;p&gt;Search for an existing name in the organization records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new organization record.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;Tên của các tổ chức trong đó có giữ nguồn tài nguyên. .&lt;/p&gt;&lt;p&gt;Tìm kiếm cho một tên hiện có trong các hồ sơ tổ chức bằng cách gõ vài ký tự đầu tiên của tên. Ngoài ra, nhập tên mới để tạo ra và liên kết đến một hồ sơ tổ chức mới.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="47">
         <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource or relevant to its jurisdiction.&lt;/p&gt;&lt;p&gt;Search for an existing term in the Place taxonomy by typing the first few characters of the place name. Alternatively, type a new name to create and link to a new place.&lt;/p&gt;&lt;p&gt;Please note: if you entered a place of creation, publication or contribution that will be output automatically, so don’t repeat that place name here.&lt;/p&gt;</source>
@@ -200,15 +182,15 @@ Hiệu</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Date(s)</source>
-        <target/>
+        <target>Ngày </target>
       </trans-unit>
       <trans-unit id="50">
         <source>Date</source>
-        <target/>
+        <target>Ngày</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Start</source>
-        <target/>
+        <target>Bắt đầu</target>
       </trans-unit>
       <trans-unit id="52">
         <source>End</source>
