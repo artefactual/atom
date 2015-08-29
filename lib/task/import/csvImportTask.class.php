@@ -92,7 +92,7 @@ EOF;
 
     $skipRows = ($options['skip-rows']) ? $options['skip-rows'] : 0;
 
-    // source name can be specified so, if importing from multiple
+    // Source name can be specified so, if importing from multiple
     // sources, you can accommodate legacy ID collisions in files
     // you import from different places
     $sourceName = ($options['source-name'])
@@ -107,7 +107,7 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    // set default publication status
+    // Set default publication status
     $results = $conn->query('SELECT i18n.value
       FROM setting INNER JOIN setting_i18n i18n ON setting.id = i18n.id
       WHERE setting.name=\'defaultPubStatus\'');
@@ -154,7 +154,7 @@ EOF;
     }
     else if ($options['default-legacy-parent-id'])
     {
-      // attempt to fetch keymap entry
+      // Attempt to fetch keymap entry
       $keyMapEntry = QubitFlatfileImport::fetchKeymapEntryBySourceAndTargetName(
         $options['default-legacy-parent-id'],
         $sourceName,
@@ -179,23 +179,23 @@ EOF;
 
     // Define import
     $import = new QubitFlatfileImport(array(
-      /* Pass context */
+      // Pass context
       'context' => sfContext::createInstance($this->configuration),
 
-      /* What type of object are we importing? */
+      // What type of object are we importing?
       'className' => 'QubitInformationObject',
 
-      /* Allow silencing of progress info */
+      // Allow silencing of progress info
       'displayProgress' => ($options['quiet']) ? false : true,
 
-      /* How many rows should import until we display an import status update? */
+      // How many rows should import until we display an import status update?
       'rowsUntilProgressDisplay' => $options['rows-until-update'],
 
-      /* Where to log errors to */
+      // Where to log errors to
       'errorLog' => $options['error-log'],
 
-      /* the status array is a place to put data that should be accessible
-         from closure logic using the getStatus method */
+      // The status array is a place to put data that should be accessible
+      // from closure logic using the getStatus method
       'status' => array(
         'options'                => $options,
         'sourceName'             => $sourceName,
@@ -210,7 +210,7 @@ EOF;
         'physicalObjectTypes'    => $termData['physicalObjectTypes'],
       ),
 
-      /* import columns that map directory to QubitInformationObject properties */
+      // Import columns that map directory to QubitInformationObject properties
       'standardColumns' => array(
         'updatedAt',
         'createdAt',
@@ -238,31 +238,29 @@ EOF;
         'title'
       ),
 
-      /* import columns that should be redirected to QubitInformationObject
-         properties (and optionally transformed)
+      // Import columns that should be redirected to QubitInformationObject
+      // properties (and optionally transformed). Example:
+      // 'columnMap' => array(
+      //   'Archival History' => 'archivalHistory',
+      //   'Revision history' => array(
+      //     'column' => 'revision',
+      //     'transformationLogic' => function(&$self, $text)
+      //     {
+      //       return $self->appendWithLineBreakIfNeeded(
+      //         $self->object->revision,
+      //         $text
+      //       );
+      //     }
+      //   )
+      // ),
 
-         Example:
-         'columnMap' => array(
-           'Archival History' => 'archivalHistory',
-           'Revision history' => array(
-             'column' => 'revision',
-             'transformationLogic' => function(&$self, $text)
-             {
-               return $self->appendWithLineBreakIfNeeded(
-                 $self->object->revision,
-                 $text
-               );
-             }
-           )
-         ),
-      */
       'columnMap' => array(
         'radEdition' => 'edition',
         'institutionIdentifier' => 'institutionResponsibleIdentifier'
       ),
 
-      /* import columns that can be added using the
-         QubitInformationObject::addProperty method */
+      // Import columns that can be added using the
+      // QubitInformationObject::addProperty method
       'propertyMap' => array(
         'radOtherTitleInformation'            => 'otherTitleInformation',
         'radTitleStatementOfResponsibility'   => 'titleStatementOfResponsibility',
@@ -281,7 +279,7 @@ EOF;
         'radStandardNumber'                   => 'standardNumber'
       ),
 
-      /* import columns that can be added as QubitNote objects */
+      // Import columns that can be added as QubitNote objects
       'noteMap' => array(
         'languageNote' => array(
           'typeId' => array_search('Language note', $termData['noteTypes'])
@@ -351,7 +349,7 @@ EOF;
         )
       ),
 
-      /* these values get stored to the rowStatusVars array */
+      // These values get stored to the rowStatusVars array
       'variableColumns' => array(
         'legacyId',
         'parentId',
@@ -375,23 +373,19 @@ EOF;
         'digitalObjectURI'
       ),
 
-      /* these values get exploded and stored to the rowStatusVars array */
+      // These values get exploded and stored to the rowStatusVars array
       'arrayColumns' => array(
-        'accessionNumber'      => '|',
-        'creators'             => '|',
-        'creatorHistories'       => '|',
-        'creatorDates'      => '|', // These 4 columns are for backwards compatibility
-        'creatorDatesStart' => '|',
-        'creatorDatesEnd'   => '|',
-        'creatorDateNotes'  => '|',
+        'accessionNumber'              => '|',
+        'alternativeIdentifiers'       => '|',
+        'alternativeIdentifierLabels'  => '|',
 
-        'nameAccessPoints'     => '|',
-        'nameAccessPointHistories' => '|',
-        'placeAccessPoints'    => '|',
-        'placeAccessPointHistories' => '|', // not yet implemented
-        'subjectAccessPoints'  => '|',
-        'subjectAccessPointScopes' => '|', // not yet implemented
-        'genreAccessPoints'    => '|',
+        'nameAccessPoints'          => '|',
+        'nameAccessPointHistories'  => '|',
+        'placeAccessPoints'         => '|',
+        'placeAccessPointHistories' => '|', // Not yet implemented
+        'subjectAccessPoints'       => '|',
+        'subjectAccessPointScopes'  => '|',  // Not yet implemented
+        'genreAccessPoints'         => '|',
 
         'eventActors'          => '|',
         'eventActorHistories'  => '|',
@@ -401,8 +395,18 @@ EOF;
         'eventStartDates'      => '|',
         'eventEndDates'        => '|',
         'eventDescriptions'    => '|',
-        'alternativeIdentifiers'  => '|',
-        'alternativeIdentifierLabels'  => '|'
+
+        // These columns are for backwards compatibility
+        'creators'           => '|',
+        'creatorHistories'   => '|',
+        'creatorDates'       => '|',
+        'creatorDatesStart'  => '|',
+        'creatorDatesEnd'    => '|',
+        'creatorDateNotes'   => '|',
+        'creationDates'      => '|',
+        'creationDatesStart' => '|',
+        'creationDatesEnd'   => '|',
+        'creationDateNotes'  => '|'
       ),
 
       'updatePreparationLogic' => function(&$self)
@@ -410,7 +414,7 @@ EOF;
         if ((isset($self->rowStatusVars['digitalObjectPath']) && $self->rowStatusVars['digitalObjectPath'])
           || (isset($self->rowStatusVars['digitalObjectURI']) && $self->rowStatusVars['digitalObjectURI']))
         {
-          // delete any digital objects that exist for this information object
+          // Delete any digital objects that exist for this information object
           $criteria = new Criteria;
           $criteria->add(QubitDigitalObject::INFORMATION_OBJECT_ID, $self->object->id);
           $results = QubitDigitalObject::get($criteria);
@@ -422,17 +426,17 @@ EOF;
         }
       },
 
-      /* import logic to execute before saving information object */
+      // Import logic to execute before saving information object
       'preSaveLogic' => function(&$self)
       {
-        // set repository
+        // Set repository
         if (isset($self->rowStatusVars['repository']) && $self->rowStatusVars['repository'])
         {
           $repository = $self->createOrFetchRepository($self->rowStatusVars['repository']);
           $self->object->repositoryId = $repository->id;
         }
 
-        // set level of detail
+        // Set level of detail
         if (isset($self->rowStatusVars['levelOfDetail']) && 0 < strlen($self->rowStatusVars['levelOfDetail']))
         {
           $levelOfDetail = trim($self->rowStatusVars['levelOfDetail']);
@@ -457,7 +461,7 @@ EOF;
           $self->object->descriptionDetailId = $levelOfDetailTermId;
         }
 
-        // storage language-related properties as serialized data
+        // Storage language-related properties as serialized data
         $languageProperties = array(
           'language',
           'script',
@@ -474,7 +478,7 @@ EOF;
           }
         }
 
-        // add alternative identifiers
+        // Add alternative identifiers
         if (array_key_exists('alternativeIdentifiers', $self->rowStatusVars) &&
             array_key_exists('alternativeIdentifierLabels', $self->rowStatusVars))
         {
@@ -485,7 +489,7 @@ EOF;
           );
         }
 
-        // set description status
+        // Set description status
         if (isset($self->rowStatusVars['descriptionStatus']) && 0 < strlen($self->rowStatusVars['descriptionStatus']))
         {
           $descStatus = trim($self->rowStatusVars['descriptionStatus']);
@@ -507,7 +511,7 @@ EOF;
           }
         }
 
-        // set publication status
+        // Set publication status
         if (isset($self->rowStatusVars['publicationStatus']) && 0 < strlen($self->rowStatusVars['publicationStatus']))
         {
           $pubStatusTermId = array_search_case_insensitive(
@@ -547,8 +551,7 @@ EOF;
             if ($mapEntry = $self->fetchKeymapEntryBySourceAndTargetName(
               $self->rowStatusVars['parentId'],
               $self->getStatus('sourceName'),
-              'information_object'
-            ))
+              'information_object'))
             {
               $parentId = $mapEntry->target_id;
             }
@@ -570,7 +573,7 @@ EOF;
         }
       },
 
-      /* import logic to execute after saving information object */
+      // Import logic to execute after saving information object
       'postSaveLogic' => function(&$self)
       {
         if (!$self->object->id)
@@ -578,7 +581,7 @@ EOF;
           throw new sfException('Information object save failed');
         }
 
-        // add keymap entry
+        // Add keymap entry
         $keymap = new QubitKeymap;
         $keymap->sourceId   = $self->rowStatusVars['legacyId'];
         $keymap->sourceName = $self->getStatus('sourceName');
@@ -586,8 +589,7 @@ EOF;
         $keymap->targetName = 'information_object';
         $keymap->save();
 
-        // inherit repository instead of duplicating the association to it
-        // if applicable
+        // Inherit repository instead of duplicating the association to it if applicable
         if ($self->object->canInheritRepository($self->object->repositoryId))
         {
           // Use raw SQL since we don't want an entire save() here.
@@ -597,7 +599,7 @@ EOF;
           $self->object->repositoryId = null;
         }
 
-        // add physical objects
+        // Add physical objects
         if (isset($self->rowStatusVars['physicalObjectName']) &&
             $self->rowStatusVars['physicalObjectName'])
         {
@@ -609,10 +611,10 @@ EOF;
 
           foreach ($names as $index => $name)
           {
-            // if location column populated
+            // If location column populated
             if ($self->rowStatusVars['physicalObjectLocation'])
             {
-              // if current index applicable
+              // If current index applicable
               if (isset($locations[$index]))
               {
                 $location = $locations[$index];
@@ -627,10 +629,10 @@ EOF;
               $location = '';
             }
 
-            // if object type column populated
+            // If object type column populated
             if ($self->rowStatusVars['physicalObjectType'])
             {
-              // if current index applicable
+              // If current index applicable
               if (isset($types[$index]))
               {
                 $type = $types[$index];
@@ -661,12 +663,12 @@ EOF;
 
             $container = $self->createOrFetchPhysicalObject($name, $location, $physicalObjectTypeId);
 
-            // associate container with information object
+            // Associate container with information object
             $self->createRelation($container->id, $self->object->id, QubitTerm::HAS_PHYSICAL_OBJECT_ID);
           }
         }
 
-        // add subject access points
+        // Add subject access points
         $accessPointColumns = array(
           'subjectAccessPoints' => QubitTaxonomy::SUBJECT_ID,
           'placeAccessPoints'   => QubitTaxonomy::PLACE_ID,
@@ -692,7 +694,7 @@ EOF;
 
                 if ($scope)
                 {
-                  // get term ID
+                  // Get term ID
                   $query = "SELECT t.id FROM term t \r
                     INNER JOIN term_i18n i ON t.id=i.id \r
                     WHERE i.name=? AND t.taxonomy_id=? AND culture='en'";
@@ -708,7 +710,7 @@ EOF;
                   {
                     $termId = $result->id;
 
-                    // check if a scope note already exists for this term
+                    // Check if a scope note already exists for this term
                     $query = "SELECT n.id FROM note n INNER JOIN note_i18n i ON n.id=i.id WHERE n.object_id=? AND n.type_id=?";
 
                     $statement = QubitFlatfileImport::sqlQuery(
@@ -720,12 +722,12 @@ EOF;
 
                     if (!$result)
                     {
-                      // add scope note if it doesn't exist
+                      // Add scope note if it doesn't exist
                       $note = new QubitNote;
                       $note->objectId = $termId;
                       $note->typeId = QubitTerm::SCOPE_NOTE_ID;
                       $note->content = $self->content($scope);
-                      $note->scope = 'QubitTerm'; # not sure if this is needed
+                      $note->scope = 'QubitTerm'; // Not sure if this is needed
                       $note->save();
                     }
                   }
@@ -740,14 +742,14 @@ EOF;
           }
         }
 
-        // add name access points
+        // Add name access points
         if (isset($self->rowStatusVars['nameAccessPoints']))
         {
-          // add name access points
+          // Add name access points
           $index = 0;
           foreach ($self->rowStatusVars['nameAccessPoints'] as $name)
           {
-            // skip blank names
+            // Skip blank names
             if ($name)
             {
               $actorOptions = array();
@@ -769,30 +771,30 @@ EOF;
           }
         }
 
-        // add accessions
+        // Add accessions
         if (isset($self->rowStatusVars['accessionNumber']) &&
             count($self->rowStatusVars['accessionNumber']))
         {
           foreach ($self->rowStatusVars['accessionNumber'] as $accessionNumber)
           {
-            // attempt to fetch keymap entry
+            // Attempt to fetch keymap entry
             $accessionMapEntry = $self->fetchKeymapEntryBySourceAndTargetName(
               $accessionNumber,
               $self->getStatus('sourceName'),
               'accession'
             );
 
-            // if no entry found, create accession and entry
+            // If no entry found, create accession and entry
             if (!$accessionMapEntry)
             {
               print "\nCreating accession # ". $accessionNumber ."\n";
 
-              // create new accession
+              // Create new accession
               $accession = new QubitAccession;
               $accession->identifier = $accessionNumber;
               $accession->save();
 
-              // create keymap entry for accession
+              // Create keymap entry for accession
               $keymap = new QubitKeymap;
               $keymap->sourceId   = $accessionNumber;
               $keymap->sourceName = $self->getStatus('sourceName');
@@ -809,12 +811,12 @@ EOF;
 
             print "\nAssociating accession # ". $accessionNumber ." with ". $self->object->title ."\n";
 
-            // add relationship between information object and accession
+            // Add relationship between information object and accession
             $self->createRelation($self->object->id, $accessionId, QubitTerm::ACCESSION_ID);
           }
         }
 
-        // add material-related term relation
+        // Add material-related term relation
         if (isset($self->rowStatusVars['radGeneralMaterialDesignation']))
         {
           foreach ($self->rowStatusVars['radGeneralMaterialDesignation'] as $material)
@@ -823,7 +825,7 @@ EOF;
           }
         }
 
-        // add copyright info
+        // Add copyright info
         // TODO: handle this via a separate import
         if (isset($self->rowStatusVars['copyrightStatus']) && $self->rowStatusVars['copyrightStatus'])
         {
@@ -870,8 +872,8 @@ EOF;
 
                 if (isset($endDates))
                 {
-                  // if rightsholder/expiry dates and paired, use
-                  // corresponding date ...otherwise just use the
+                  // If rightsholder/expiry dates and paired, use
+                  // corresponding date, otherwise just use the
                   // first expiry date
                   $rightAndRelation['endDate']
                     = (count($endDates) == count($rightsHolderNames))
@@ -885,7 +887,11 @@ EOF;
                   }
                 }
 
-                if ($rightsHolderId) $rightAndRelation['rightsHolderId'] = $rightsHolderId;
+                if ($rightsHolderId)
+                {
+                  $rightAndRelation['rightsHolderId'] = $rightsHolderId;
+                }
+
                 $self->createRightAndRelation($rightAndRelation);
               }
               break;
@@ -947,19 +953,23 @@ EOF;
           }
         }
 
-        // add ad-hoc events
+        // Add events
         parent::importEvents($self);
-
-        // add creation events
-        parent::importCreators($self);
 
         // This will import only a single digital object;
         // if both a URI and path are provided, the former is preferred.
         if ($uri = $self->rowStatusVars['digitalObjectURI'])
         {
-          if (!downloadExternalURIWithRetries($uri, $self->object))
+          try
           {
-            $this->log("Failed to download $uri after multiple tries. Continuing task...");
+            if (!downloadExternalURIWithRetries($uri, $self->object))
+            {
+              $this->log("Failed to download $uri after multiple tries. Continuing task...");
+            }
+          }
+          catch (Exception $e)
+          {
+            print "\nFailed to download '$uri': ". $e->getMessage() ."\n";
           }
         }
         else if ($path = $self->rowStatusVars['digitalObjectPath'])
@@ -980,13 +990,13 @@ EOF;
       }
     ));
 
-    // allow search indexing to be enabled via a CLI option
+    // Allow search indexing to be enabled via a CLI option
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
 
-    // allow updating to be enabled via a CLI option
+    // Allow updating to be enabled via a CLI option
     $import->updateExisting = ($options['update']);
 
-    // convert content with | characters to a bulleted list
+    // Convert content with | characters to a bulleted list
     $import->contentFilterLogic = function($text)
     {
       return (substr_count($text, '|')) ? '* '. str_replace("|", "\n* ", $text) : $text;
@@ -997,7 +1007,7 @@ EOF;
       $self->object->setLevelOfDescriptionByName($data);
     });
 
-    // map value to taxonomy term name and take note of taxonomy term's ID
+    // Map value to taxonomy term name and take note of taxonomy term's ID
     $import->addColumnHandler('radGeneralMaterialDesignation', function(&$self, $data)
     {
       if ($data)
@@ -1029,7 +1039,7 @@ EOF;
 
     $import->csv($fh, $skipRows);
 
-    // build nested set if desired
+    // Build nested set if desired
     if (!$options['skip-nested-set-build'])
     {
       $buildNestedSet = new propelBuildNestedSetTask($this->dispatcher, $this->formatter);
@@ -1084,6 +1094,7 @@ function setAlternativeIdentifiers($io, $altIds, $altIdLabels)
 function refreshTaxonomyTerms($taxonomyId)
 {
   $result = QubitFlatfileImport::loadTermsFromTaxonomies(array($taxonomyId => 'terms'));
+
   return $result['terms'];
 }
 

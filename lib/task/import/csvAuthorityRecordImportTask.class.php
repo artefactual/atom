@@ -81,21 +81,23 @@ EOF;
       ? $options['source-name']
       : basename($arguments['filename']);
 
-    // if alias file option set, load aliases from CSV
+    // If alias file option set, load aliases from CSV
     $aliases = array();
 
     if ($options['alias-file'])
     {
-      // open alias CSV file
+      // Open alias CSV file
       if (false === $fh = fopen($options['alias-file'], 'rb'))
       {
         throw new sfException('You must specify a valid filename');
-      } else {
+      }
+      else
+      {
         print "Reading aliases\n";
 
-        // import name aliases, if specified
+        // Import name aliases, if specified
         $import = new QubitFlatfileImport(array(
-          /* Pass context */
+          // Pass context
           'context' => sfContext::createInstance($this->configuration),
 
           'status' => array(
@@ -146,20 +148,20 @@ EOF;
 
     // Define import
     $import = new QubitFlatfileImport(array(
-      /* Pass context */
+      // Pass context
       'context' => sfContext::createInstance($this->configuration),
 
-      /* What type of object are we importing? */
+      // What type of object are we importing?
       'className' => 'QubitActor',
 
-      /* How many rows should import until we display an import status update? */
+      // How many rows should import until we display an import status update?
       'rowsUntilProgressDisplay' => $options['rows-until-update'],
 
       /* Where to log errors to */
       'errorLog' => $options['error-log'],
 
-      /* the status array is a place to put data that should be accessible
-         from closure logic using the getStatus method */
+      // The status array is a place to put data that should be accessible
+      // from closure logic using the getStatus method
       'status' => array(
         'sourceName'             => $sourceName,
         'actorTypes'             => $termData['actorTypes'],
@@ -169,7 +171,7 @@ EOF;
         'actorNames'             => array()
       ),
 
-      /* import columns that map directory to QubitInformationObject properties */
+      // Import columns that map directory to QubitActor properties
       'standardColumns' => array(
         'authorizedFormOfName',
         'corporateBodyIdentifiers',
@@ -187,36 +189,34 @@ EOF;
         'sources'
       ),
 
-      /* import columns that should be redirected to QubitInformationObject
-         properties (and optionally transformed)
+      // Import columns that should be redirected to QubitActor
+      // properties (and optionally transformed). Example:
+      // 'columnMap' => array(
+      //   'Archival History' => 'archivalHistory',
+      //   'Revision history' => array(
+      //     'column' => 'revision',
+      //     'transformationLogic' => function(&$self, $text)
+      //     {
+      //       return $self->appendWithLineBreakIfNeeded(
+      //         $self->object->revision,
+      //         $text
+      //       );
+      //     }
+      //   )
+      // ),
 
-         Example:
-         'columnMap' => array(
-           'Archival History' => 'archivalHistory',
-           'Revision history' => array(
-             'column' => 'revision',
-             'transformationLogic' => function(&$self, $text)
-             {
-               return $self->appendWithLineBreakIfNeeded(
-                 $self->object->revision,
-                 $text
-               );
-             }
-           )
-         ),
-      */
       'columnMap' => array(
         'institutionIdentifier' => 'institutionResponsibleIdentifier'
       ),
 
-      /* import columns that can be added as QubitNote objects */
+      // Import columns that can be added as QubitNote objects
       'noteMap' => array(
         'maintenanceNotes' => array(
           'typeId' => array_search('Maintenance note', $termData['noteTypes'])
         )
       ),
 
-      /* these values get stored to the rowStatusVars array */
+      // These values get stored to the rowStatusVars array
       'variableColumns' => array(
         'typeOfEntity',
         'status',
@@ -231,7 +231,7 @@ EOF;
         'region'
       ),
 
-      /* import logic to execute before saving actor */
+      // Import logic to execute before saving actor
       'preSaveLogic' => function(&$self)
       {
         if ($self->object)
@@ -277,15 +277,15 @@ EOF;
         }
       },
 
-      /* import logic to execute after saving actor */
+      // Import logic to execute after saving actor
       'postSaveLogic' => function(&$self)
       {
         if ($self->object)
         {
-          // note actor name for optional relationship import phase
+          // Note actor name for optional relationship import phase
           $self->status['actorNames'][$self->object->id] = $self->object->authorizedFormOfName;
 
-          // cycle through aliases looking for other names
+          // Cycle through aliases looking for other names
           $otherNames = array();
 
           $aliases = $self->getStatus('aliases');
@@ -309,7 +309,7 @@ EOF;
                 throw new sfException('Invalid alias type"'. $alias['formType'] .'".');
               }
 
-              // add other name
+              // Add other name
               $otherName = new QubitOtherName;
               $otherName->objectId = $self->object->id;
               $otherName->name     = $alias['alternateForm'];
@@ -318,7 +318,7 @@ EOF;
             }
           }
 
-          // add contact information, if applicable
+          // Add contact information, if applicable
           $contactVariables = array(
             'email',
             'notes',
@@ -341,7 +341,7 @@ EOF;
 
           if ($hasContactInfo)
           {
-            // add contact information
+            // Add contact information
             $info = new QubitContactInformation();
             $info->actorId = $self->object->id;
 
@@ -359,24 +359,26 @@ EOF;
       }
     ));
 
-    // allow search indexing to be enabled via a CLI option
+    // Allow search indexing to be enabled via a CLI option
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
 
     $import->csv($fh, $skipRows);
     $actorNames = $import->getStatus('actorNames');
 
-    // optional relationship import
+    // Optional relationship import
     if ($options['relation-file'])
     {
-      // open relationship CSV file
+      // Open relationship CSV file
       if (false === $fh = fopen($options['relation-file'], 'rb'))
       {
         throw new sfException('You must specify a valid filename');
-      } else {
+      }
+      else
+      {
         print "Importing relationships\n";
 
         $import = new QubitFlatfileImport(array(
-          /* Pass context */
+          // Pass context
           'context' => sfContext::createInstance($this->configuration),
 
           'status' => array(
@@ -396,11 +398,11 @@ EOF;
 
           'saveLogic' => function(&$self)
           {
-            // figure out ID of the two actors
+            // Figure out ID of the two actors
             $sourceActorId = array_search($self->rowStatusVars['sourceAuthorizedFormOfName'], $self->status['actorNames']);
             $targetActorId = array_search($self->rowStatusVars['targetAuthorizedFormOfName'], $self->status['actorNames']);
 
-            // determine type ID of relationship type
+            // Determine type ID of relationship type
             $relationTypeId = array_search(
               $self->rowStatusVars['category'],
               $self->status['actorRelationTypes']
@@ -409,9 +411,10 @@ EOF;
             if (!$relationTypeId)
             {
               throw new sfException('Unknown relationship type :'. $self->rowStatusVars['category']);
-            } else {
-
-              // determine type ID of relationship type
+            }
+            else
+            {
+              // Determine type ID of relationship type
               // add relationship, with date/startdate/enddate/description
               if (!$sourceActorId || !$targetActorId)
               {
@@ -421,7 +424,9 @@ EOF;
 
                 $error = 'Actor "'. $badActor .'" does not exist';
                 print $self->logError($error);
-              } else {
+              }
+              else
+              {
                 $relation = new QubitRelation;
                 $relation->subjectId = $sourceActorId;
                 $relation->objectId  = $targetActorId;

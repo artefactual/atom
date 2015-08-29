@@ -144,7 +144,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
 
   protected function indicateProgress($itemsUntilUpdate)
   {
-    // if progress indicator should be displayed, display it
+    // If progress indicator should be displayed, display it
     if (!isset($itemsUntilUpdate) || !($itemsExported % $itemsUntilUpdate))
     {
       print '.';

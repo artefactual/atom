@@ -70,7 +70,7 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    // get import definition
+    // Get import definition
     $import = require($options['import-definition']);
 
     $import->csv($fh, $skipRows);

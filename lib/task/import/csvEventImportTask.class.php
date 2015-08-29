@@ -67,7 +67,7 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    // load taxonomies into variables to avoid use of magic numbers
+    // Load taxonomies into variables to avoid use of magic numbers
     $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
       QubitTaxonomy::EVENT_TYPE_ID => 'eventTypes'
     ));
@@ -85,7 +85,7 @@ EOF;
     $relationTypeColumn = 'eventType';
 
     $import = new QubitFlatfileImport(array(
-      /* Pass context */
+      // Pass context
       'context' => sfContext::createInstance($this->configuration),
 
       'status' => array(
@@ -115,7 +115,7 @@ EOF;
       {
         if (!$self->status['dataCached'])
         {
-          // cache key -> id associations
+          // Cache key -> id associations
           $self->status['subjectKeys'] = getNameIdArrayFromTable(
             $self,
             $self->status['subjectTable'],
@@ -138,7 +138,7 @@ EOF;
           $self->status['dataCached'] = true;
         }
 
-        // attempt to use pre-cached actor ID
+        // Attempt to use pre-cached actor ID
         $subjectKey = trim($self->columnValue($self->status['subjectValueColumn']));
         $subjectId = false;
         if ($subjectKey)
@@ -149,7 +149,7 @@ EOF;
           }
         }
 
-        // if actor ID not found, create
+        // If actor ID not found, create
         if (!$subjectId)
         {
           // create actor
@@ -171,7 +171,8 @@ EOF;
             }
           }
 
-          if ($objectId) {
+          if ($objectId)
+          {
             $self->status['goodObjects']++;
 
             $type = $self->columnValue($self->status['relationTypeColumn']);
@@ -195,12 +196,15 @@ EOF;
             $event->typeId              = $typeId;
             $event->actorId             = $subjectId;
             $event->save();
-          } else {
+          }
+          else
+          {
             $self->status['badObjects']++;
             print 'ERROR: object '. $objectKey ." not found.\n";
           }
         }
-        else {
+        else
+        {
           $self->status['badSubjects']++;
           print 'ERROR: subject '. $subjectKey ." not found.\n";
         }
@@ -215,6 +219,7 @@ EOF;
         print "Bad objects:   ". $self->status['badObjects'] ."\n";
       }
     ));
+
     $import->csv($fh, $skipRows);
   }
 }
@@ -238,5 +243,6 @@ function getNameIdArrayFromTable(&$self, $tableName, $keyColumn, $idColumn, $whe
   {
     $names[$subject->$keyColumn] = $subject->$idColumn;
   }
+
   return $names;
 }

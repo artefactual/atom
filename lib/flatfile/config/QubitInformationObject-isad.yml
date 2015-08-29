@@ -5,8 +5,6 @@ columnNames:
   - identifier
   - accessionNumber
   - title
-  - creators
-  - creatorHistories
   - levelOfDescription
   - extentAndMedium
   - repository

@@ -48,7 +48,8 @@ EOF;
   {
     parent::execute($arguments, $options);
 
-    $timer = new QubitTimer; // overall timing
+    // Overall timing
+    $timer = new QubitTimer;
 
     if (empty($arguments['folder']) || !file_exists($arguments['folder']))
     {

@@ -58,9 +58,9 @@ EOF;
         throw new sfException('You must specify a valid filename');
       }
 
-      // get import definition
+      // Get import definition
       $import = new QubitFlatfileImport(array(
-        /* Pass context */
+        // Pass context
         'context' => sfContext::createInstance($this->configuration),
 
         'status' => array(
@@ -83,7 +83,7 @@ EOF;
                 ? $self->status['sampleColumnValues'][$column]
                 : array();
 
-            // check if column isn't empty
+            // Check if column isn't empty
             if (trim($value))
             {
               $self->status['nonEmptyColumns'][$column] = true;
@@ -103,7 +103,7 @@ EOF;
               }
             }
 
-            // check for | character
+            // Check for | character
             if (substr_count($value, '|'))
             {
               $self->status['multiValueColumns'][$column]
@@ -122,12 +122,12 @@ EOF;
         $import->status['nonEmptyColumns']
       );
 
-      // add values of both arrays together
+      // Add values of both arrays together
       $a = $multiValueColumns;
       $b = $import->status['multiValueColumns'];
       $c = array();
 
-      // add values of both arrays if possible
+      // Add values of both arrays if possible
       foreach($a as $key => $value)
       {
         if (isset($b[$key]))
@@ -138,7 +138,7 @@ EOF;
         }
       }
 
-      // add values that only occur in array B
+      // Add values that only occur in array B
       foreach($b as $key => $value)
       {
         if (!isset($a[$key]))
@@ -205,7 +205,9 @@ EOF;
             print $value ."\n";
             $shownCount++;
           }
-        } else {
+        }
+        else
+        {
           print "    [empty]\n";
         }
       }

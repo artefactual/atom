@@ -86,17 +86,17 @@ EOF;
 
     // Define import
     $import = new QubitFlatfileImport(array(
-      /* Pass context */
+      // Pass context
       'context' => sfContext::createInstance($this->configuration),
 
-      /* How many rows should import until we display an import status update? */
+      // How many rows should import until we display an import status update?
       'rowsUntilProgressDisplay' => $options['rows-until-update'],
 
-      /* Where to log errors to */
+      // Where to log errors to
       'errorLog' => $options['error-log'],
 
-      /* the status array is a place to put data that should be accessible
-         from closure logic using the getStatus method */
+      // The status array is a place to put data that should be accessible
+      // from closure logic using the getStatus method
       'status' => array(
         'sourceName'         => $sourceName,
         'acquisitionTypes'   => $termData['acquisitionTypes'],
@@ -119,7 +119,7 @@ EOF;
 
       'arrayColumns' => array(
         'creators'             => '|',
-        'creatorHistories'       => '|',
+        'creatorHistories'     => '|',
         'eventActors'          => '|',
         'eventTypes'           => '|',
         'eventPlaces'          => '|',
@@ -129,29 +129,27 @@ EOF;
         'eventDescriptions'    => '|'
       ),
 
-      /* import columns that should be redirected to QubitInformationObject
-         properties (and optionally transformed)
+      // Import columns that should be redirected to QubitAccession
+      // properties (and optionally transformed). Example:
+      // 'columnMap' => array(
+      //   'Archival History' => 'archivalHistory',
+      //   'Revision history' => array(
+      //     'column' => 'revision',
+      //     'transformationLogic' => function(&$self, $text)
+      //     {
+      //       return $self->appendWithLineBreakIfNeeded(
+      //         $self->object->revision,
+      //         $text
+      //       );
+      //     }
+      //   )
+      // ),
 
-         Example:
-         'columnMap' => array(
-           'Archival History' => 'archivalHistory',
-           'Revision history' => array(
-             'column' => 'revision',
-             'transformationLogic' => function(&$self, $text)
-             {
-               return $self->appendWithLineBreakIfNeeded(
-                 $self->object->revision,
-                 $text
-               );
-             }
-           )
-         ),
-      */
       'columnMap' => array(
         'physicalCondition' => 'physicalCharacteristics'
       ),
 
-      /* these values get stored to the rowStatusVars array */
+      // These values get stored to the rowStatusVars array
       'variableColumns' => array(
         'accessionNumber',
         'acquisitionType',
@@ -167,12 +165,12 @@ EOF;
         'qubitParentSlug'
       ),
 
-      /* import logic to load accession */
+      // Import logic to load accession
       'rowInitLogic' => function(&$self)
       {
         $accessionNumber =  $self->rowStatusVars['accessionNumber'];
 
-        // look up Qubit ID of pre-created accession
+        // Look up Qubit ID of pre-created accession
         $statement = $self->sqlQuery(
           "SELECT id FROM accession WHERE identifier=?",
           $params = array($accessionNumber)
@@ -183,7 +181,9 @@ EOF;
         {
           print 'Found '. $result->id ."\n";
           $self->object = QubitAccession::getById($result->id);
-        } else {
+        }
+        else
+        {
           $self->object = false;
           $error = "Couldn't find accession # ". $accessionNumber .'... creating.';
           print $error ."\n";
@@ -192,7 +192,7 @@ EOF;
         }
       },
 
-      /* import logic to save accession */
+      // Import logic to save accession
       'saveLogic' => function(&$self)
       {
         if(isset($self->object) && is_object($self->object))
@@ -201,42 +201,35 @@ EOF;
         }
       },
 
-      /* create related objects */
+      // Create related objects
       'postSaveLogic' => function(&$self)
       {
         if(isset($self->object) && is_object($self->object))
         {
-          // add ad-hoc events
+          // Add events
           csvImportBaseTask::importEvents($self);
 
-          // add creation events
-          csvImportBaseTask::importCreators($self);
-
-          // add creators
-          if (
-            isset($self->rowStatusVars['creators'])
-            && $self->rowStatusVars['creators']
-          )
+          // Add creators
+          if (isset($self->rowStatusVars['creators'])
+            && $self->rowStatusVars['creators'])
           {
             foreach($self->rowStatusVars['creators'] as $creator)
             {
-              // fetch/create actor
+              // Fetch/create actor
               $actor = $self->createOrFetchActor($creator);
 
-              // create relation between accession and creator
+              // Create relation between accession and creator
               $self->createRelation($actor->id, $self->object->id, QubitTerm::CREATION_ID);
             }
           }
 
-          if (
-            isset($self->rowStatusVars['donorName'])
-            && $self->rowStatusVars['donorName']
-          )
+          if (isset($self->rowStatusVars['donorName'])
+            && $self->rowStatusVars['donorName'])
           {
-            // fetch/create donor
+            // Fetch/create donor
             $donor = $self->createOrFetchDonor($self->rowStatusVars['donorName']);
 
-            // map column names to QubitContactInformation properties
+            // Map column names to QubitContactInformation properties
             $columnToProperty = array(
               'donorEmail'         => 'email',
               'donorTelephone'     => 'telephone',
@@ -246,7 +239,7 @@ EOF;
               'donorPostalCode'    => 'postalCode'
             );
 
-            // set up creation of contact infomation
+            // Set up creation of contact infomation
             $contactData = array();
             foreach($columnToProperty as $column => $property)
             {
@@ -256,18 +249,16 @@ EOF;
               }
             }
 
-            // create contact information if none exists
+            // Create contact information if none exists
             $self->createOrFetchContactInformation($donor->id, $contactData);
 
-            // create relation between accession and donor
+            // Create relation between accession and donor
             $self->createRelation($self->object->id, $donor->id, QubitTerm::DONOR_ID);
           }
 
           // Link accession to existing description
-          if (
-            isset($self->rowStatusVars['qubitParentSlug'])
-            && $self->rowStatusVars['qubitParentSlug']
-          )
+          if (isset($self->rowStatusVars['qubitParentSlug'])
+            && $self->rowStatusVars['qubitParentSlug'])
           {
             $query = "SELECT object_id FROM slug WHERE slug=?";
             $statement = QubitFlatfileImport::sqlQuery($query, array($self->rowStatusVars['qubitParentSlug']));
@@ -275,7 +266,9 @@ EOF;
             if ($result)
             {
               $self->createRelation($result->object_id, $self->object->id, QubitTerm::ACCESSION_ID);
-            } else {
+            }
+            else
+            {
               throw new sfException('Could not find information object matching slug "'. $self->rowStatusVars['qubitParentSlug'] .'"');
             }
           }
@@ -290,7 +283,8 @@ EOF;
         if (isset($self->object) && is_object($self->object))
         {
           $parsedDate = $self->parseDateLoggingErrors($data);
-          if ($parsedDate) {
+          if ($parsedDate)
+          {
             $self->object->date = $parsedDate;
           }
         }

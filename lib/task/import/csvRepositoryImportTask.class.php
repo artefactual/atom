@@ -79,25 +79,25 @@ EOF;
 
     // Define import
     $import = new QubitFlatfileImport(array(
-      /* Pass context */
+      // Pass context
       'context' => sfContext::createInstance($this->configuration),
 
-      /* What type of object are we importing? */
+      // What type of object are we importing?
       'className' => 'QubitRepository',
 
-      /* How many rows should import until we display an import status update? */
+      // How many rows should import until we display an import status update?
       'rowsUntilProgressDisplay' => $options['rows-until-update'],
 
-      /* Where to log errors to */
+      // Where to log errors to
       'errorLog' => $options['error-log'],
 
-      /* the status array is a place to put data that should be accessible
-         from closure logic using the getStatus method */
+      // the status array is a place to put data that should be accessible
+      // from closure logic using the getStatus method
       'status' => array(
         'options'                => $options
       ),
 
-      /* import columns that map directory to QubitRepository properties */
+      // Import columns that map directory to QubitRepository properties
       'standardColumns' => array(
         'authorizedFormOfName',
         'identifier',
@@ -112,11 +112,11 @@ EOF;
       'columnMap' => array(
       ),
 
-      /* import columns that can be added as QubitNote objects */
+      // Import columns that can be added as QubitNote objects
       'noteMap' => array(
       ),
 
-      /* these values get stored to the rowStatusVars array */
+      // These values get stored to the rowStatusVars array
       'variableColumns' => array(
         'contactPerson',
         'streetAddress',
@@ -127,18 +127,20 @@ EOF;
         'notes'
       ),
 
-      /* import logic to execute before saving QubitRepository */
+      // Import logic to execute before saving QubitRepository
       'preSaveLogic' => function(&$self)
       {
         $opts = $self->getStatus('options');
         if (isset($opts['upload-limit']) && !isset($self->object->uploadLimit))
+        {
           $self->object->uploadLimit = $opts['upload-limit'];
+        }
       },
 
-      /* import logic to execute after saving QubitRepository */
+      // Import logic to execute after saving QubitRepository
       'postSaveLogic' => function(&$self)
       {
-        // add contact information
+        // Add contact information
         $info = new QubitContactInformation();
         $info->actorId = $self->object->id;
 

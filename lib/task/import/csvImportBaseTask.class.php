@@ -100,127 +100,108 @@ abstract class csvImportBaseTask extends arBaseTask
    */
   static function importEvents(&$import)
   {
-    // add ad-hoc events
-    if (isset($import->rowStatusVars['eventActors']))
+    $events = array();
+
+    // Event columns grouped by version
+    foreach (array(
+      '2.1' => array(
+        'actorName'    => 'creators',
+        'actorHistory' => 'creatorHistories',
+        'date'         => 'creatorDates',
+        'startDate'    => 'creatorDatesStart',
+        'endDate'      => 'creatorDatesEnd',
+        'description'  => 'creatorDateNotes',
+        'type'         => '-',
+        'place'        => '-'),
+      '2.2' => array(
+        'actorName'    => 'creators',
+        'actorHistory' => 'creatorHistories',
+        'date'         => 'creationDates',
+        'startDate'    => 'creationDatesStart',
+        'endDate'      => 'creationDatesEnd',
+        'description'  => 'creationDateNotes',
+        'type'         => '-',
+        'place'        => '-'),
+      '2.3' => array(
+        'actorName'    => 'eventActors',
+        'actorHistory' => 'eventActorHistories',
+        'date'         => 'eventDates',
+        'startDate'    => 'eventStartDates',
+        'endDate'      => 'eventEndDates',
+        'description'  => 'eventDescriptions',
+        'type'         => 'eventTypes',
+        'place'        => 'eventPlaces')) as $version => $propertyColumns)
     {
-      foreach($import->rowStatusVars['eventActors'] as $index => $actor)
+      // Get event data if one of the columns is populated in the current index
+      $index = 0;
+      while (isset($import->rowStatusVars[$propertyColumns['actorName']][$index])
+        || isset($import->rowStatusVars[$propertyColumns['actorHistory']][$index])
+        || isset($import->rowStatusVars[$propertyColumns['date']][$index])
+        || isset($import->rowStatusVars[$propertyColumns['startDate']][$index])
+        || isset($import->rowStatusVars[$propertyColumns['endDate']][$index])
+        || isset($import->rowStatusVars[$propertyColumns['description']][$index])
+        || isset($import->rowStatusVars[$propertyColumns['type']][$index])
+        || isset($import->rowStatusVars[$propertyColumns['place']][$index]))
       {
-        // initialize data that'll be used to create the event
-        $eventData = array(
-          'actorName' => ($actor != 'NULL') ? $actor : null
-        );
-
-        // define whether each event-related column's values go directly
-        // into an event property or put into a variable for further
-        // processing
-        $eventColumns = array(
-          'eventTypes' => array(
-            'variable'      => 'eventType',
-            'requiredError' => 'You have not populated the eventTypes column.'
-          ),
-          'eventPlaces'         => array('variable' => 'place'),
-          'eventDates'          => array('property' => 'date'),
-          'eventStartDates'     => array('property' => 'startDate'),
-          'eventEndDates'       => array('property' => 'endDate'),
-          'eventDescriptions'   => array('property' => 'description'),
-          'eventActorHistories' => array('property' => 'actorHistory')
-        );
-
-        // handle each of the event-related columns
-        $eventType = false;
-        $place     = false;
-        foreach($eventColumns as $column => $definition)
+        // Two columns are used in 2.1 and 2.2: 'creators' and 'creatorHistories'.
+        // To avoid adding duplicate events, if we are checking the 2.1 version
+        // and only those columns are populated, the events are not created and
+        // those columns will try to be related with the other 2.2 date columns.
+        // This could create duplicates in CSV files mixing 2.1 and 2.2 date columns,
+        // to avoid that, all values are removed after they are added to event data.
+        if ($version == '2.1'
+          && !isset($import->rowStatusVars[$propertyColumns['date']][$index])
+          && !isset($import->rowStatusVars[$propertyColumns['startDate']][$index])
+          && !isset($import->rowStatusVars[$propertyColumns['endDate']][$index])
+          && !isset($import->rowStatusVars[$propertyColumns['description']][$index]))
         {
-          if (isset($import->rowStatusVars[$column]))
-          {
-            $value
-              = (count($import->rowStatusVars['eventActors']) == count($import->rowStatusVars[$column]))
-                ? $import->rowStatusVars[$column][$index]
-                : $import->rowStatusVars[$column][0];
+          $index++;
 
-            // 'NULL' is synonymous with blank
-            $value = ($value == 'NULL') ? '' : $value;
-
-            // allow column value(s) to set event property
-            if (isset($definition['property']))
-            {
-              $eventData[($definition['property'])] = $value;
-            }
-
-            // allow column values(s) to set variable
-            if (isset($definition['variable']))
-            {
-              $$definition['variable'] = $value;
-            }
-          } else if (isset($definition['requiredError'])) {
-            throw new sfException('You have populated the eventActors column but not the eventTypes column.');
-          }
+          continue;
         }
 
-        // if an event type has been specified, attempt to create the event
-        if ($eventType)
-        {
-          // do lookup of type ID
-          $typeTerm = $import->createOrFetchTerm(QubitTaxonomy::EVENT_TYPE_ID, $eventType);
-          $eventTypeId = $typeTerm->id;
-
-          // create event
-          $event = $import->createOrUpdateEvent($eventTypeId, $eventData);
-
-          // create a place term if specified
-          if ($place)
-          {
-            // create place
-            $placeTerm = $import->createTerm(QubitTaxonomy::PLACE_ID, $place);
-            $import->createObjectTermRelation($event->id, $placeTerm->id);
-          }
-        } else {
-          throw new sfException('eventTypes column need to be populated.');
-        }
-      }
-    }
-  }
-
-  /**
-   * Import creation events
-   */
-  static function importCreators(&$import)
-  {
-    // add creators and creation events
-    $createEvents = array();
-    if (isset($import->rowStatusVars['creators']) && count($import->rowStatusVars['creators']))
-    {
-      foreach ($import->rowStatusVars['creators'] as $index => $creator)
-      {
-        // Init eventData array and add creator name. Ignore fields with value: 'NULL'.
         $eventData = array();
-
-        if ($creator !== 'NULL')
+        foreach ($propertyColumns as $property => $column)
         {
-          $eventData['actorName'] = $creator;
-        }
+          // Ignore 'NULL' values
+          if (isset($import->rowStatusVars[$column][$index])
+           && $import->rowStatusVars[$column][$index] != 'NULL')
+          {
+            $eventData[$property] = $import->rowStatusVars[$column][$index];
 
-        // Add creator history if specified
-        if (isset($import->rowStatusVars['creatorHistories'][$index]) &&
-            $import->rowStatusVars['creatorHistories'][$index] !== 'NULL')
-        {
-          $eventData['actorHistory'] = $import->rowStatusVars['creatorHistories'][$index];
+            // Remove values to avoid duplicates in CSV files mixing version columns.
+            // Use 'NULL' to let them be set (but ignored) for the next version cicle.
+            $import->rowStatusVars[$column][$index] = 'NULL';
+          }
         }
 
         if (count($eventData))
         {
-          array_push($createEvents, $eventData);
+          $events[] = $eventData;
         }
+
+        $index++;
       }
     }
 
-    // create events, if any
-    if (count($createEvents))
+    // Create events
+    foreach ($events as $eventData)
     {
-      foreach ($createEvents as $eventData)
+      if (!isset($eventData['type']))
       {
-        $event = $import->createOrUpdateEvent(QubitTerm::CREATION_ID, $eventData);
+        // Creation is the default event type
+        $eventTypeId = QubitTerm::CREATION_ID;
       }
+      else
+      {
+        // Get or add term if event type is set
+        $typeTerm = $import->createOrFetchTerm(QubitTaxonomy::EVENT_TYPE_ID, $eventData['type']);
+        $eventTypeId = $typeTerm->id;
+
+        unset($eventData['type']);
+      }
+
+      $event = $import->createOrUpdateEvent($eventTypeId, $eventData);
     }
   }
 }

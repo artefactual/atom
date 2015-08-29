@@ -1093,9 +1093,15 @@ class QubitFlatfileImport
     }
 
     $allowedProperties = array('date', 'description', 'startDate', 'endDate', 'typeId');
-    $ignoreOptions  = array('actorName', 'actorHistory');
+    $ignoreOptions  = array('actorName', 'actorHistory', 'place');
 
     $this->setPropertiesFromArray($event, $options, $allowedProperties, $ignoreOptions);
+
+    // Save actor history in untitled actor if there is actorHistory without actorName
+    if (isset($options['actorHistory']) && !isset($options['actorName']))
+    {
+      $options['actorName'] = '';
+    }
 
     if (isset($options['actorName']))
     {
@@ -1107,6 +1113,7 @@ class QubitFlatfileImport
         {
           $event->actor->history = $options['actorHistory'];
         }
+
         $event->actor->save();
       }
       else
@@ -1124,6 +1131,13 @@ class QubitFlatfileImport
     }
 
     $event->save();
+
+    // Add relation with place
+    if (isset($options['place']))
+    {
+      $placeTerm = $this->createOrFetchTerm(QubitTaxonomy::PLACE_ID, $options['place']);
+      $this->createObjectTermRelation($event->id, $placeTerm->id);
+    }
 
     return $event;
   }
@@ -1189,8 +1203,9 @@ class QubitFlatfileImport
    */
   public static function createOrFetchActor($name, $options = array())
   {
-    // Get actor or create a new one. If the actor exists the data is not overwritten
-    if (null === $actor = QubitActor::getByAuthorizedFormOfName($name))
+    // Get actor or create a new one (don't match untitled actors).
+    // If the actor exists the data is not overwritten
+    if ($name == '' || null === $actor = QubitActor::getByAuthorizedFormOfName($name))
     {
       $actor = QubitFlatfileImport::createActor($name, $options);
     }

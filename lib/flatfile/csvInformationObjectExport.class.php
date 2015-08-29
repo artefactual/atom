@@ -77,7 +77,6 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $this->setRadGeneralMaterialDesignationColumn();
     $this->setAlternativeIdentifierColumns();
     $this->setAccessionNumberColumn();
-    $this->setCreatorColumns();
     $this->setEventColumns();
 
     // Set physical object columns if CLI being used or user has permission
@@ -236,40 +235,6 @@ class csvInformationObjectExport extends QubitFlatfileExport
   }
 
   /*
-   * Set columns relation to creator actor and creation events
-   *
-   * @return void
-   */
-  protected function setCreatorColumns()
-  {
-    $creationEvents = array();
-
-    foreach ($this->resource->getCreationEvents() as $event)
-    {
-      // If creator's not linked to a date range, add
-      if (!$event->date && !$event->startDate && !$event->endDate and !$event->description and !$event->getPlace()->name)
-      {
-        if ($event->actor->authorizedFormOfName)
-        {
-          $creationEvents['creators'][] = $event->actor->authorizedFormOfName;
-          $creationEvents['creatorHistories'][] = $event->actor->history;
-        }
-      }
-    }
-
-    // Convert null values to the string 'NULL'. We use this to ensure we have the same number of values across
-    // multiple piped fields that correspond to each other.
-
-    foreach ($creationEvents as &$eventField)
-    {
-      $eventField = array_map(function($x) { return $x === null ? 'NULL' : $x; }, $eventField);
-    }
-
-    $this->setColumn('creators', $creationEvents['creators']);
-    $this->setColumn('creatorHistories', $creationEvents['creatorHistories']);
-  }
-
-  /*
    * Set event-related columns
    *
    * @return void
@@ -285,18 +250,18 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $actorHistories = array();
     $places         = array();
 
-    $events = $this->resource->getDates();
+    $events = $this->resource->getEvents();
 
     foreach ($events as $event)
     {
-      $types[]          = $this->eventTypeTerms[$event->typeId];
-      $dates[]          = $event->date;
-      $startDates[]     = $event->startDate;
-      $endDates[]       = $event->endDate;
-      $descriptions[]   = $event->description;
+      $types[]          = $this->eventTypeTerms[$event->typeId] ? $this->eventTypeTerms[$event->typeId] : 'NULL';
+      $dates[]          = $event->date ? $event->date : 'NULL';
+      $startDates[]     = $event->startDate ? $event->startDate : 'NULL';
+      $endDates[]       = $event->endDate ? $event->endDate : 'NULL';
+      $descriptions[]   = $event->description ? $event->description : 'NULL';
       $actors[]         = $event->actor->authorizedFormOfName ? $event->actor->authorizedFormOfName : 'NULL';
-      $actorHistories[] = $event->actor->history;
-      $places[]         = $event->getPlace()->name;
+      $actorHistories[] = $event->actor->history ? $event->actor->history : 'NULL';
+      $places[]         = $event->getPlace()->name ? $event->getPlace()->name : 'NULL';
     }
 
     $this->setColumn('eventTypes', $types);
