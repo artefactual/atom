@@ -45,6 +45,24 @@ class SettingsPermissionsAction extends sfAction
     // Handle POST data (form submit)
     if ($request->isMethod('post'))
     {
+      // Give the user the ability to preview the copyright statement before
+      // we persist the changes. We are reusing the viewCopyrightStatement
+      // template, populating the properties that are needed.
+      if ($request->hasParameter('preview'))
+      {
+        $this->setTemplate('viewCopyrightStatement', 'digitalobject');
+
+        $this->preview = true;
+        $this->resource = new QubitInformationObject;
+
+        $this->permissionsCopyrightStatementForm->bind($request->getPostParameters());
+        $statement = $this->permissionsCopyrightStatementForm->getValue('copyrightStatement');
+        $statement = QubitHtmlPurifier::getInstance()->purify($statement);
+        $this->copyrightStatement = $this->permissionsCopyrightStatementForm->getValue('copyrightStatement');
+
+        return sfView::SUCCESS;
+      }
+
       QubitCache::getInstance()->removePattern('settings:i18n:*');
 
       // PREMIS access permissions
