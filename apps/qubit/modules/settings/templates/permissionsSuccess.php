@@ -131,6 +131,8 @@
           ->label(__('Copyright statement'))
           ->renderRow() ?>
 
+        <input class="btn" type="submit" name="preview" value="<?php echo __('Preview') ?>"/>
+
       </fieldset>
 
     </div>
