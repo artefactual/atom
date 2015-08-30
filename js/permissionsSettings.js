@@ -99,6 +99,18 @@
 
       });
 
+      $('input[name=preview]').click(function (e)
+        {
+          e.preventDefault();
+
+          var $form = $(this).closest('form').attr('target', '_blank');
+          var $input = $('<input/>').attr({'type': 'hidden', 'name': 'preview', 'value': 'true' }).appendTo($form);
+
+          $form.submit();
+          $form.removeAttr('target');
+          $input.remove();
+        });
+
     });
   }
 )(jQuery);
