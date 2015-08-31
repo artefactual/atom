@@ -24,11 +24,24 @@ class SettingsPermissionsCopyrightStatementForm extends sfForm
     $this->getValidatorSchema()->setOption('allow_extra_fields', true);
 
     $this->setWidget('copyrightStatementEnabled', new sfWidgetFormSelectRadio(array('choices'=> array(1 => 'yes', 0 => 'no')), array('class'=>'radio')));
-    $this->setDefault('copyrightStatementEnabled', sfConfig::get('app_digitalobject_copyright_statement_enabled', false));
     $this->setValidator('copyrightStatementEnabled', new sfValidatorInteger(array('required' => false)));
 
+    $default = false;
+    if (null !== $setting = QubitSetting::getByName('digitalobject_copyright_statement_enabled'))
+    {
+      $value = $setting->getValue(array('culture' => 'en'));
+      if (!empty($value))
+      {
+        $default = $value;  
+      }
+    }
+    $this->setDefault('copyrightStatementEnabled', $default); 
+
     $this->setWidget('copyrightStatement', new sfWidgetFormTextArea(array(), array('rows' => 4)));
-    $this->setDefault('copyrightStatement', sfConfig::get('app_digitalobject_copyright_statement', false));
     $this->setValidator('copyrightStatement', new sfValidatorString);
+    if (null !== $setting = QubitSetting::getByName('digitalobject_copyright_statement'))
+    {
+      $this->setDefault('copyrightStatement', $setting->getValue());
+    }
   }
 }

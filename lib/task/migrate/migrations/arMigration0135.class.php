@@ -47,7 +47,7 @@ class arMigration0135
     }
 
     // Serialize and save
-    $setting->value = serialize($premisAccessRightValues);
+    $setting->setValue(serialize($premisAccessRightValues), array('culture' => 'en'));
     $setting->save();
 
     return true;

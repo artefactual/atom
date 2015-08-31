@@ -450,7 +450,7 @@ class sfInstall
         'disallow_thumb'        => 0
       );
     }
-    $object = QubitSetting::createNewSetting('premisAccessRightValues', serialize($premisAccessRightValues));
+    $object = QubitSetting::createNewSetting('premisAccessRightValues', serialize($premisAccessRightValues), array('culture' => 'en'));
     $object->save();
 
     $accessDisallowWarning = sfContext::getInstance()->i18n->__('Access to this record is restricted because it contains personal or confidential information. Please contact the Reference Archivist for more information on accessing this record.');

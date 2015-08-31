@@ -130,11 +130,11 @@
               <div class="tab-pane" id="<?php echo "tab{$basisSlug}" ?>">
                 <?php $name = "{$basisSlug}_disallow" ?>
                 <?php $field = $permissionsAccessStatementsForm[$name] ?>
-                <?php echo render_field($field->label(__('Disallow statement')), $settings[$name], array('name' => 'value')) ?>
+                <?php echo render_field($field->label(__('Disallow statement')), $settings[$name], array('name' => 'value', 'class' => 'resizable')) ?>
 
                 <?php $name = "{$basisSlug}_conditional" ?>
                 <?php $field = $permissionsAccessStatementsForm[$name] ?>
-                <?php echo render_field($field->label(__('Conditional statement')), $settings[$name], array('name' => 'value')) ?>
+                <?php echo render_field($field->label(__('Conditional statement')), $settings[$name], array('name' => 'value', 'class' => 'resizable')) ?>
               </div>
             <?php endforeach; ?>
           </div>
@@ -155,9 +155,8 @@
           <?php echo __('When enabled the following text will appear whenever a user tries to download a digital object master with an associated rights statement where the Basis = copyright and the Restriction = conditional. You can style and customize the text as in a static page.') ?>
         </div>
 
-        <?php echo $permissionsCopyrightStatementForm->copyrightStatement
-          ->label(__('Copyright statement'))
-          ->renderRow() ?>
+        <?php echo render_field($permissionsCopyrightStatementForm->copyrightStatement
+          ->label(__('Copyright statement')), $copyrightStatementSetting, array('class' => 'resizable')) ?>
 
         <input class="btn" type="submit" name="preview" value="<?php echo __('Preview') ?>"/>
 

@@ -71,11 +71,11 @@ class SettingsPermissionsAction extends sfAction
       if ($this->permissionsForm->isValid())
       {
         $premisAccessRight = QubitSetting::getByName('premisAccessRight');
-        $premisAccessRight->value = $this->permissionsForm->getValue('granted_right');
+        $premisAccessRight->setValue($this->permissionsForm->getValue('granted_right'), array('culture' => 'en'));
         $premisAccessRight->save();
 
         $premisAccessRightValues = QubitSetting::getByName('premisAccessRightValues');
-        $premisAccessRightValues->value = serialize($this->permissionsForm->getValue('permissions'));
+        $premisAccessRightValues->setValue(serialize($this->permissionsForm->getValue('permissions')), array('culture' => 'en'));
         $premisAccessRightValues->save();
       }
 
@@ -117,26 +117,27 @@ class SettingsPermissionsAction extends sfAction
       if ($this->permissionsCopyrightStatementForm->isValid())
       {
         $setting = QubitSetting::getByName('digitalobject_copyright_statement_enabled');
-        if (null === $this->setting)
+        if (null === $setting)
         {
           $setting = new QubitSetting;
           $setting->name = 'digitalobject_copyright_statement_enabled';
         }
-        $setting->value = $this->permissionsCopyrightStatementForm->getValue('copyrightStatementEnabled');
+        $setting->setValue($this->permissionsCopyrightStatementForm->getValue('copyrightStatementEnabled'), array('culture' => 'en'));
         $setting->save();
 
         $statement = $this->permissionsCopyrightStatementForm->getValue('copyrightStatement');
         $statement = QubitHtmlPurifier::getInstance()->purify($statement);
+        $this->copyrightStatementSetting = $statement;
 
         if (!empty($statement))
         {
           $setting = QubitSetting::getByName('digitalobject_copyright_statement');
-          if (null === $this->setting)
+          if (null === $setting)
           {
             $setting = new QubitSetting;
             $setting->name = 'digitalobject_copyright_statement';
           }
-          $setting->value = $statement;
+          $setting->setValue($statement);
           $setting->save();
         }
       }
