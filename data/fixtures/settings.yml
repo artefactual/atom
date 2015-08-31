@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 135
+    value: 136
   milestone:
     name: milestone
     editable: 0
@@ -630,39 +630,6 @@ QubitSetting:
       sr: 'Сузи резултате по:'
       vi: 'Thu hẹp kết quả của bạn bằng cách'
       zh: '通过 减少结果'
-  QubitSetting_access_disallow_warning:
-    name: access_disallow_warning
-    scope: ui_label
-    editable: 1
-    deleteable: 0
-    source_culture: en
-    value:
-      de: 'Der Zugang zu diesen Unterlagen ist beschränkt, da sie personenbezogene oder vertrauliche Informationen enthalten. Bitte nehmen Sie Kontakt mit dem zuständigen Archivar auf, um mehr Informationen über die Nutzung dieser Unterlagen zu erhalten.'
-      en: 'Access to this record is restricted because it contains personal or confidential information. Please contact the Reference Archivist for more information on accessing this record.'
-      es: 'El acceso a este registro está restringido, ya que contiene información personal o confidencial. Por favor, póngase en contacto con el Archivero de referencia para obtener más información sobre cómo acceder a este registro.'
-      fr: 'L''accès à ce dossier est limité car il contient des informations personnelles ou confidentielles. S''il vous plaît, communiquer avec l''archiviste pour plus d''informations sur l''accès à ce dossier.'
-      hu: 'Nincsen hozzáférése ehhez a dokumentumhoz mert személyes vagy bizalmas információt tartalmaz. Az dokumentumhoz való hozzáféréssel kapcsolatban kérjük, lépjen kapcsolatba az ajánlott levéltárossal!'
-      ko: '이 레코드는 개인 정보 또는 비밀 정보를 담고있기 때문에 접근이 제한됩니다. 이 레코드에 접근하려면 참조 기록관리인와 상의하세요.'
-      pt: 'O acesso a este registo é restrito porque contem informação pessoal ou confidencial. Por favor contacte o Arquivista responsável para mais informação.'
-      pt-BR: 'O acesso a este registro é restrito por conter informação pessoal ou confidencial. Entre em contato com o Arquivista para obter maiores informações sobre como ter acesso a esse registro.'
-      sl: 'Dostop do dokumentacije je omejen, ker vsebuje osebne ali zaupne informacije. Prosimo, obrnite se na arhivarja in pridobite več informacij o dostopu.'
-      sr: 'Приступ овом документу је ограничен јер садржи личне или поверљиве информације. Молимо вас контактирајте архивисту информатора за више информација.'
-      zh: '该记录包含个人或机密信息, 其检索受限制. 如果需要更多有关检索该记录的信息, 请与档案馆员联系.'
-  QubitSetting_access_conditional_warning:
-    name: access_conditional_warning
-    scope: ui_label
-    editable: 1
-    deleteable: 0
-    source_culture: en
-    value:
-      en: 'This record has not yet been reviewed for personal or confidential information. Please contact the Reference Archivist to request access and initiate an access review.'
-      fr: 'Cet enregistrement n''a pas encore fait l''objet d''une vérification pour les informations personnelles ou confidentielles. S''il vous plaît communiquer avec l''archiviste de référence pour demander l''accès et procéder à une vérification.'
-      hu: 'Ez az irat még nem volt felülvizsgálva személyes vagy bizalmas információk szempontjából. Lépjen kapcsolatba az ajánlott levéltárossal, hogy hozzáférést kérjen és elinduljon a hozzáférési vizsgálat.'
-      pt: 'Este registo ainda não foi revisto para obter informações pessoais ou confidenciais. Por favor contacte o Arquivista em referência para solicitar o acesso e começar uma revisão de acesso.'
-      pt-BR: 'Este registro ainda não foi revisado como informações pessoais ou confidenciais. Entre em contato com o Arquivista para solicitar acesso e iniciar um reexame deste.'
-      sl: 'Ni še ugotovljeno, ali zapis vsebuje osebne ali zaupne podatke. Prosimo, obrnite se na arhivarja in zaprosite za dostop ali dajte pobudo za preverbo dostopa.'
-      sr: 'Лични и поверљиви подаци у овом документу још нису прегледани. Молимо Вас обратите се архивисти информатору да затражите приступ и покренете оцену приступа.'
-      zh: '该记录由于个人或保密信息尚未被评论. 如需检索并创建首个检索评论, 请联系参考文献员.'
   QubitSetting_genre:
     name: genre
     scope: ui_label

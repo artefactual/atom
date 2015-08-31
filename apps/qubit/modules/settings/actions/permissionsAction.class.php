@@ -32,6 +32,7 @@ class SettingsPermissionsAction extends sfAction
   public function execute($request)
   {
     $this->permissionsForm = new SettingsPermissionsForm;
+    $this->permissionsAccessStatementsForm = new SettingsPermissionsAccessStatementsForm;
     $this->permissionsCopyrightStatementForm = new SettingsPermissionsCopyrightStatementForm;
 
     $this->basis = array();
@@ -76,6 +77,39 @@ class SettingsPermissionsAction extends sfAction
         $premisAccessRightValues = QubitSetting::getByName('premisAccessRightValues');
         $premisAccessRightValues->value = serialize($this->permissionsForm->getValue('permissions'));
         $premisAccessRightValues->save();
+      }
+
+      // PREMIS access statements
+      $values = $request->getPostParameters();
+      $this->permissionsAccessStatementsForm->bind($values['accessStatements']);
+      if ($this->permissionsAccessStatementsForm->isValid())
+      {
+        $values = $this->permissionsAccessStatementsForm->getValues();
+
+        foreach ($values as $key => $value)
+        {
+          $setting = QubitSetting::getByNameAndScope($key, 'access_statement');
+          if (null === $setting)
+          {
+            $setting = new QubitSetting;
+            $setting->scope = 'access_statement';
+            $setting->name = $key;
+          }
+
+          $setting->setValue($value);
+          $setting->save();
+        }
+
+        // Remove unused settings (e.g. a term of the basis taxonomy was
+        // deleted). We use array_key_exists because isset() returns false
+        // if the key is defined but its value is NULL.
+        foreach (QubitSetting::getByScope('access_statement') as $setting)
+        {
+          if (!array_key_exists($setting->name, $values))
+          {
+            $setting->delete();
+          }
+        }
       }
 
       // Copyright statement
