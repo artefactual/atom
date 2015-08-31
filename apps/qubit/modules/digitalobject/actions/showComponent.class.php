@@ -105,20 +105,10 @@ class DigitalObjectShowComponent extends sfComponent
     $curInfoObjectId = $this->resource->informationObject->id;
     $denyReason = '';
 
-    $conditionalWarning = QubitSetting::getByName('access_conditional_warning');
-    $deniedWarning = QubitSetting::getByName('access_disallow_warning');
-
     if (!QubitGrantedRight::checkPremis($curInfoObjectId, 'readReference', $denyReason) ||
         !QubitAcl::check($this->resource->informationObject, 'readReference'))
     {
-      if ($denyReason === 'conditional')
-      {
-        return $conditionalWarning ? $conditionalWarning->getValue() : '';
-      }
-      else
-      {
-        return $deniedWarning ? $deniedWarning->getValue() : '';
-      }
+      return $denyReason;
     }
 
     return false;

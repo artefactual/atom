@@ -111,6 +111,10 @@
           $input.remove();
         });
 
+      var $premisAccessStatementsArea = $('#premisAccessStatementsArea');
+      $premisAccessStatementsArea.find('.nav-tabs li:first-child').addClass('active');
+      $premisAccessStatementsArea.find('.tab-content .tab-pane:first-child').addClass('active');
+
     });
   }
 )(jQuery);

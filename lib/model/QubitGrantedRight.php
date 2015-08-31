@@ -111,7 +111,7 @@ class QubitGrantedRight extends BaseGrantedRight
           unset($groupIds[$key]);
           if ($denyReason !== null)
           {
-            $denyReason = $restriction;
+            $denyReason = self::getAccessWarning($basisSlug, $restriction);
           }
         }
 
@@ -120,6 +120,25 @@ class QubitGrantedRight extends BaseGrantedRight
     }
 
     return $groupIds;
+  }
+
+  private static function getAccessWarning($basisSlug, $restriction)
+  {
+    if ($restriction === 'conditional')
+    {
+      $setting = QubitSetting::getByNameAndScope("{$basisSlug}_conditional", 'access_statement');
+    }
+    else
+    {
+      $setting = QubitSetting::getByNameAndScope("{$basisSlug}_disallow", 'access_statement');
+    }
+
+    if ($setting === null)
+    {
+      return false;
+    }
+
+    return $setting->getValue(array('cultureFallback' => true));
   }
 
   /**
