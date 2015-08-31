@@ -41,6 +41,8 @@ class SettingsPermissionsAction extends sfAction
       $this->basis[$item->slug] = $item->getName(array('cultureFallback' => true));
     }
 
+    $this->copyrightStatementSetting = QubitSetting::getByName('digitalobject_copyright_statement');
+
     $this->response->addJavaScript('permissionsSettings');
 
     // Handle POST data (form submit)
@@ -127,7 +129,6 @@ class SettingsPermissionsAction extends sfAction
 
         $statement = $this->permissionsCopyrightStatementForm->getValue('copyrightStatement');
         $statement = QubitHtmlPurifier::getInstance()->purify($statement);
-        $this->copyrightStatementSetting = $statement;
 
         if (!empty($statement))
         {

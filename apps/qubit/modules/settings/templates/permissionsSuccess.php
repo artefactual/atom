@@ -156,7 +156,7 @@
         </div>
 
         <?php echo render_field($permissionsCopyrightStatementForm->copyrightStatement
-          ->label(__('Copyright statement')), $copyrightStatementSetting, array('class' => 'resizable')) ?>
+          ->label(__('Copyright statement')), $copyrightStatementSetting, array('name' => 'value', 'class' => 'resizable')) ?>
 
         <input class="btn" type="submit" name="preview" value="<?php echo __('Preview') ?>"/>
 
