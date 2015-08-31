@@ -449,6 +449,9 @@ class sfInstall
         'disallow_reference'    => 0,
         'disallow_thumb'        => 0
       );
+
+      // TODO: Add access conditional statement
+      // TODO: Add access disallow statement
     }
     $object = QubitSetting::createNewSetting('premisAccessRightValues', serialize($premisAccessRightValues));
     $object->save();

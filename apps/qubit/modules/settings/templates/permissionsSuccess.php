@@ -114,6 +114,34 @@
 
       </fieldset>
 
+      <fieldset class="collapsible" id="premisAccessStatementsArea">
+
+        <legend><?php echo __('PREMIS access statements') ?></legend>
+
+        <div class="tabbable tabs-left">
+          <ul class="nav nav-tabs">
+            <?php foreach ($basis as $basisSlug => $basisName): ?>
+              <li><a href="<?php echo "#tab{$basisSlug}" ?>" data-toggle="tab"><?php echo $basisName ?></a></li>
+            <?php endforeach; ?>
+          </ul>
+          <div class="tab-content">
+            <?php $settings = $permissionsAccessStatementsForm->getSettings() ?>
+            <?php foreach ($basis as $basisSlug => $basisName): ?>
+              <div class="tab-pane" id="<?php echo "tab{$basisSlug}" ?>">
+                <?php $name = "{$basisSlug}_disallow" ?>
+                <?php $field = $permissionsAccessStatementsForm[$name] ?>
+                <?php echo render_field($field->label(__('Disallow statement')), $settings[$name], array('name' => 'value')) ?>
+
+                <?php $name = "{$basisSlug}_conditional" ?>
+                <?php $field = $permissionsAccessStatementsForm[$name] ?>
+                <?php echo render_field($field->label(__('Conditional statement')), $settings[$name], array('name' => 'value')) ?>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        </div>
+
+      </fieldset>
+
       <fieldset class="collapsible" id="copyrightStatementArea">
 
         <legend><?php echo __('Copyright statement') ?></legend>

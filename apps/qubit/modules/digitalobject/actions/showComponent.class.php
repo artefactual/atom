@@ -99,6 +99,12 @@ class DigitalObjectShowComponent extends sfComponent
   /**
    * Get warning messages if access denied via 'deny' or 'conditional' PREMIS rules.
    * @return  A string of the warning if reference access denied, otherwise bool false
+   *
+   *  ¡¡ TODO !! Use new scope=access_statement settings instead of 
+   *  access_conditional_warning and access_disallow_warning. Have checkPremis()
+   *  return the basis or move the entire logic of this function under
+   *  QubitGrantedRight.
+   *
    */
   private function getAccessWarning()
   {
