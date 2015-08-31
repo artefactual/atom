@@ -201,7 +201,7 @@ EOF;
         if (2 == $class::MIN_MILESTONE && 1 == $previousMilestone && 2 == $currentMilestone)
         {
           // Run migration but don't bump dbversion
-          if (true !== $class::up($this->configuration)) throw new sfException('Failed to apply upgrade '.get_class($class));
+          if (true !== $class->up($this->configuration)) throw new sfException('Failed to apply upgrade '.get_class($class));
         }
       }
       // New upgrades, not applied yet
@@ -211,7 +211,7 @@ EOF;
         if (1 != $previousMilestone || 1 != $currentMilestone)
         {
           // Run migration
-          if (true !== $class::up($this->configuration)) throw new sfException('Failed to apply upgrade '.get_class($class));
+          if (true !== $class->up($this->configuration)) throw new sfException('Failed to apply upgrade '.get_class($class));
           $this->updateDatabaseVersion(++$version);
         }
       }

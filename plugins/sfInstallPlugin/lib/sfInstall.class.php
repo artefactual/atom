@@ -452,6 +452,25 @@ class sfInstall
     }
     $object = QubitSetting::createNewSetting('premisAccessRightValues', serialize($premisAccessRightValues));
     $object->save();
+
+    $accessDisallowWarning = sfContext::getInstance()->i18n->__('Access to this record is restricted because it contains personal or confidential information. Please contact the Reference Archivist for more information on accessing this record.');
+    $accessConditionalWarning = sfContext::getInstance()->i18n->__('This record has not yet been reviewed for personal or confidential information. Please contact the Reference Archivist to request access and initiate an access review.');
+    foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID) as $item)
+    {
+      $setting = new QubitSetting;
+      $setting->name = "{$item->slug}_disallow";
+      $setting->scope = 'access_statement';
+      $setting->setValue($accessDisallowWarning, array('culture' => 'en'));
+      // TODO Set translations from xliff catalogue using sfI18N?
+      $setting->save();
+
+      $setting = new QubitSetting;
+      $setting->name = "{$item->slug}_conditional";
+      $setting->scope = 'access_statement';
+      $setting->setValue($accessConditionalWarning, array('culture' => 'en'));
+      // TODO Set translations from xliff catalogue using sfI18N?
+      $setting->save();
+    }
   }
 
   public static function populateSearchIndex()
