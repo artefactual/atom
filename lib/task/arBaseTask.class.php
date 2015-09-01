@@ -37,7 +37,7 @@ abstract class arBaseTask extends sfBaseTask
   protected function execute($arguments = array(), $options = array())
   {
     $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);
-    $sf_context = sfContext::createInstance($configuration);
+    $this->context = sfContext::createInstance($configuration);
     sfConfig::add(QubitSetting::getSettingsArray());
   }
 }
