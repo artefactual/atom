@@ -73,7 +73,7 @@
       'label' => __('Language'),
       'facet' => 'languages',
       'pager' => $pager,
-      'filters' => $filters,
+      'filters' => $search->filters,
       'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
@@ -81,14 +81,14 @@
       'label' => __('Part of'),
       'facet' => 'collection',
       'pager' => $pager,
-      'filters' => $filters)) ?>
+      'filters' => $search->filters)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-levelOfDescription',
       'label' => __('Level of description'),
       'facet' => 'levels',
       'pager' => $pager,
-      'filters' => $filters,
+      'filters' => $search->filters,
       'topLvlDescUrl' => $topLvlDescUrl,
       'allLvlDescUrl' => $allLvlDescUrl,
       'checkedTopDesc' => $checkedTopDesc,
@@ -100,7 +100,7 @@
       'label' => sfConfig::get('app_ui_label_repository'),
       'facet' => 'repos',
       'pager' => $pager,
-      'filters' => $filters,
+      'filters' => $search->filters,
       'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
@@ -108,7 +108,7 @@
       'label' => sfConfig::get('app_ui_label_creator'),
       'facet' => 'creators',
       'pager' => $pager,
-      'filters' => $filters,
+      'filters' => $search->filters,
       'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
@@ -116,7 +116,7 @@
       'label' => sfConfig::get('app_ui_label_name'),
       'facet' => 'names',
       'pager' => $pager,
-      'filters' => $filters,
+      'filters' => $search->filters,
       'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
@@ -124,7 +124,7 @@
       'label' => sfConfig::get('app_ui_label_place'),
       'facet' => 'places',
       'pager' => $pager,
-      'filters' => $filters,
+      'filters' => $search->filters,
       'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
@@ -132,7 +132,7 @@
       'label' => sfConfig::get('app_ui_label_subject'),
       'facet' => 'subjects',
       'pager' => $pager,
-      'filters' => $filters,
+      'filters' => $search->filters,
       'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
@@ -140,7 +140,7 @@
       'label' => sfConfig::get('app_ui_label_genre'),
       'facet' => 'genres',
       'pager' => $pager,
-      'filters' => $filters,
+      'filters' => $search->filters,
       'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
@@ -148,7 +148,7 @@
       'label' => __('Media types'),
       'facet' => 'mediatypes',
       'pager' => $pager,
-      'filters' => $filters,
+      'filters' => $search->filters,
       'open' => true)) ?>
 
   </section>
