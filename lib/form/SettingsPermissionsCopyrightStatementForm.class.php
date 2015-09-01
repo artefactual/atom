@@ -29,7 +29,7 @@ class SettingsPermissionsCopyrightStatementForm extends sfForm
     $default = false;
     if (null !== $setting = QubitSetting::getByName('digitalobject_copyright_statement_enabled'))
     {
-      $value = $setting->getValue(array('culture' => 'en'));
+      $value = $setting->getValue(array('sourceCulture' => true));
       if (!empty($value))
       {
         $default = $value;  

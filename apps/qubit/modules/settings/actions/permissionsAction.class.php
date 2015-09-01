@@ -73,11 +73,11 @@ class SettingsPermissionsAction extends sfAction
       if ($this->permissionsForm->isValid())
       {
         $premisAccessRight = QubitSetting::getByName('premisAccessRight');
-        $premisAccessRight->setValue($this->permissionsForm->getValue('granted_right'), array('culture' => 'en'));
+        $premisAccessRight->setValue($this->permissionsForm->getValue('granted_right'), array('sourceCulture' => true));
         $premisAccessRight->save();
 
         $premisAccessRightValues = QubitSetting::getByName('premisAccessRightValues');
-        $premisAccessRightValues->setValue(serialize($this->permissionsForm->getValue('permissions')), array('culture' => 'en'));
+        $premisAccessRightValues->setValue(serialize($this->permissionsForm->getValue('permissions')), array('sourceCulture' => true));
         $premisAccessRightValues->save();
       }
 
@@ -91,13 +91,6 @@ class SettingsPermissionsAction extends sfAction
         foreach ($values as $key => $value)
         {
           $setting = QubitSetting::getByNameAndScope($key, 'access_statement');
-          if (null === $setting)
-          {
-            $setting = new QubitSetting;
-            $setting->scope = 'access_statement';
-            $setting->name = $key;
-          }
-
           $setting->setValue($value);
           $setting->save();
         }
@@ -123,8 +116,9 @@ class SettingsPermissionsAction extends sfAction
         {
           $setting = new QubitSetting;
           $setting->name = 'digitalobject_copyright_statement_enabled';
+          $setting->sourceCulture = sfConfig::get('sf_default_culture');
         }
-        $setting->setValue($this->permissionsCopyrightStatementForm->getValue('copyrightStatementEnabled'), array('culture' => 'en'));
+        $setting->setValue($this->permissionsCopyrightStatementForm->getValue('copyrightStatementEnabled'), array('sourceCulture' => true));
         $setting->save();
 
         $statement = $this->permissionsCopyrightStatementForm->getValue('copyrightStatement');

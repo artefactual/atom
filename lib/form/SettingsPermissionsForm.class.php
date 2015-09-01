@@ -46,7 +46,7 @@ class SettingsPermissionsForm extends sfForm
       $choices[$item->slug] = $item->__toString();
     }
     $this->setWidget('granted_right', new sfWidgetFormSelect(array('choices' => $choices)));
-    $this->setDefault('granted_right', $premisAccessRight->getValue(array('culture' => 'en')));
+    $this->setDefault('granted_right', $premisAccessRight->getValue(array('sourceCulture' => true)));
     $this->setValidator('granted_right', new sfValidatorChoice(array('choices' => array_keys($choices))));
 
     //
@@ -64,7 +64,7 @@ class SettingsPermissionsForm extends sfForm
       throw new sfException('Setting premisAccessRightValues cannot be found');
     }
 
-    $premisAccessRightValues = unserialize($premisAccessRightValues->getValue(array('culture' => 'en')));
+    $premisAccessRightValues = unserialize($premisAccessRightValues->getValue(array('sourceCulture' => true)));
     $defaults = QubitSetting::$premisAccessRightValueDefaults;
 
     $form = new sfForm;
