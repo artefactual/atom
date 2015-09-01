@@ -464,14 +464,24 @@ class sfInstall
       $setting->name = "{$item->slug}_disallow";
       $setting->scope = 'access_statement';
       $setting->setValue($accessDisallowWarning, array('culture' => 'en'));
-      // TODO Set translations from xliff catalogue using sfI18N?
+
+      foreach (QubitI18N::getTranslations($accessDisallowWarning) as $langCode => $message)
+      {
+        $setting->setValue($message, array('culture' => $langCode));
+      }
+
       $setting->save();
 
       $setting = new QubitSetting;
       $setting->name = "{$item->slug}_conditional";
       $setting->scope = 'access_statement';
       $setting->setValue($accessConditionalWarning, array('culture' => 'en'));
-      // TODO Set translations from xliff catalogue using sfI18N?
+
+      foreach (QubitI18N::getTranslations($accessConditionalWarning) as $langCode => $message)
+      {
+        $setting->setValue($message, array('culture' => $langCode));
+      }
+
       $setting->save();
     }
   }
