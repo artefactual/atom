@@ -450,8 +450,11 @@ class sfInstall
         'disallow_thumb'        => 0
       );
     }
-    $object = QubitSetting::createNewSetting('premisAccessRightValues', serialize($premisAccessRightValues), array('culture' => 'en'));
-    $object->save();
+    $setting = new QubitSetting;
+    $setting->name = 'premisAccessRightValues';
+    $setting->sourceCulture = sfConfig::get('sf_default_culture');
+    $setting->setValue(serialize($premisAccessRightValues), array('sourceCulture' => true));
+    $setting->save();
 
     $accessDisallowWarning = sfContext::getInstance()->i18n->__('Access to this record is restricted because it contains personal or confidential information. Please contact the Reference Archivist for more information on accessing this record.');
     $accessConditionalWarning = sfContext::getInstance()->i18n->__('This record has not yet been reviewed for personal or confidential information. Please contact the Reference Archivist to request access and initiate an access review.');
