@@ -61,6 +61,9 @@ class InformationObjectRenameComponent extends sfComponent
 
     // Set wrapper text for rename form
     $this->form->getWidgetSchema()->setNameFormat('rename[%s]');
+
+    // Handle form submission
+    $this->handleSubmit($request);
   }
 
   public function addField($name)
@@ -79,5 +82,77 @@ class InformationObjectRenameComponent extends sfComponent
 
         break;
     }
+  }
+
+  // Allow modification of title, slug, and digital object filename
+  public function handleSubmit($request)
+  {
+    // Return 400 if incorrect HTTP method
+    if ($request->isMethod('post'))
+    {
+      $this->form->bind($request->rename);
+
+      if ($this->form->isValid())
+      {
+        $this->updateResource();
+      }
+    }
+    else
+    {
+      $this->response->setStatusCode(400);
+      return sfView::NONE;
+    }
+  }
+
+  private function updateResource()
+  {
+    $postedTitle    = $this->form->getValue('title');
+    $postedSlug     = $this->form->getValue('slug');
+    $postedFilename = $this->form->getValue('filename');
+
+    // Update title, if title sent
+    if (null !== $postedTitle)
+    {
+      $this->resource->title = $postedTitle;
+    }
+
+    // Attempt to update slug if slug sent
+    if (null !== $postedSlug)
+    {
+      $slug = QubitSlug::getByObjectId($this->resource->id);
+
+      // Attempt to change slug if submitted slug's different than current slug
+      if ($postedSlug != $slug->slug)
+      {
+        $slug->slug = InformationObjectSlugPreviewAction::determineAvailableSlug($postedSlug);
+        $slug->save();
+      }
+    }
+
+    // Update digital object filename, if filename sent
+    if ((null !== $postedFilename) && count($this->resource->digitalObjects))
+    {
+      // Parse filename so special characters can be removed
+      $fileParts = pathinfo($postedFilename);
+      $filename = QubitSlug::slugify($fileParts['filename']) .'.'. QubitSlug::slugify($fileParts['extension']);
+
+      $digitalObject = $this->resource->digitalObjects[0];
+
+      // Rename master file
+      $basePath = sfConfig::get('sf_web_dir') . $digitalObject->path;
+      $oldFilePath = $basePath . DIRECTORY_SEPARATOR . $digitalObject->name;
+      $newFilePath = $basePath . DIRECTORY_SEPARATOR . $filename;
+      rename($oldFilePath, $newFilePath);
+      chmod($newFilePath, 0644);
+
+      // Change name in database
+      $digitalObject->name = $filename;
+      $digitalObject->save();
+
+      // Regeneraate derivatives
+      digitalObjectRegenDerivativesTask::regenerateDerivatives($digitalObject);
+    }
+
+    $this->resource->save();
   }
 }

@@ -25,10 +25,10 @@ class InformationObjectRenameAction extends sfAction
     // Return 400 if incorrect HTTP method
     if ($request->isMethod('post'))
     {
-      // Internationalization needed for flash messages
-      ProjectConfiguration::getActive()->loadHelpers('I18N');
+      $resource = $this->getRoute()->resource;
 
       $renameComponent = new InformationObjectRenameComponent($this->context, 'informationobject', 'index');
+      $renameComponent->resource = $resource;
       $renameComponent->execute($request);
 
       $this->form = $renameComponent->form;
@@ -37,7 +37,8 @@ class InformationObjectRenameAction extends sfAction
 
       if ($this->form->isValid())
       {
-        $resource = $this->updateResource();
+        // Internationalization needed for flash messages
+        ProjectConfiguration::getActive()->loadHelpers('I18N');
 
         // Let user know description was updated (and if slug had to be adjusted)
         $message = __('Description updated.');
@@ -59,61 +60,5 @@ class InformationObjectRenameAction extends sfAction
       $this->response->setStatusCode(400);
       return sfView::NONE;
     }
-  }
-
-  private function updateResource()
-  {
-    $resource = $this->getRoute()->resource;
-
-    $postedTitle    = $this->form->getValue('title');
-    $postedSlug     = $this->form->getValue('slug');
-    $postedFilename = $this->form->getValue('filename');
-
-    // Update title, if title sent
-    if (null !== $postedTitle)
-    {
-      $resource->title = $postedTitle;
-    }
-
-    // Attempt to update slug if slug sent
-    if (null !== $postedSlug)
-    {
-      $slug = QubitSlug::getByObjectId($resource->id);
-
-      // Attempt to change slug if submitted slug's different than current slug
-      if ($postedSlug != $slug->slug)
-      {
-        $slug->slug = InformationObjectSlugPreviewAction::determineAvailableSlug($postedSlug);
-        $slug->save();
-      }
-    }
-
-    // Update digital object filename, if filename sent
-    if ((null !== $postedFilename) && count($resource->digitalObjects))
-    {
-      // Parse filename so special characters can be removed
-      $fileParts = pathinfo($postedFilename);
-      $filename = QubitSlug::slugify($fileParts['filename']) .'.'. QubitSlug::slugify($fileParts['extension']);
-
-      $digitalObject = $resource->digitalObjects[0];
-
-      // Rename master file
-      $basePath = sfConfig::get('sf_web_dir') . $digitalObject->path;
-      $oldFilePath = $basePath . DIRECTORY_SEPARATOR . $digitalObject->name;
-      $newFilePath = $basePath . DIRECTORY_SEPARATOR . $filename;
-      rename($oldFilePath, $newFilePath);
-      chmod($newFilePath, 0644);
-
-      // Change name in database
-      $digitalObject->name = $filename;
-      $digitalObject->save();
-
-      // Regeneraate derivatives
-      digitalObjectRegenDerivativesTask::regenerateDerivatives($digitalObject);
-    }
-
-    $resource->save();
-
-    return $resource;
   }
 }
