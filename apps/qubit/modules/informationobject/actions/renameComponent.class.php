@@ -97,11 +97,6 @@ class InformationObjectRenameComponent extends sfComponent
         $this->updateResource();
       }
     }
-    else
-    {
-      $this->response->setStatusCode(400);
-      return sfView::NONE;
-    }
   }
 
   private function updateResource()
