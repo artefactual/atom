@@ -95,14 +95,12 @@ class InformationObjectIndexAction extends sfAction
   {
     $this->resource = $this->getRoute()->resource;
 
-    $this->renameForm = new InformationObjectRenameForm;
+    // Add rename form
+    $renameComponent = new InformationObjectRenameComponent($this->context, 'informationobject', 'index');
+    $renameComponent->resource = $this->resource;
+    $renameComponent->execute($request);
 
-    // Set rename form values
-    $this->renameForm->setDefaults(array(
-      'title' => $this->resource->title,
-      'slug' => $this->resource->slug,
-      'filename' => $this->resource->digitalObjects[0]->name
-    ));
+    $this->renameForm = $renameComponent->form;
 
     // Check that this isn't the root
     if (!isset($this->resource->parent))

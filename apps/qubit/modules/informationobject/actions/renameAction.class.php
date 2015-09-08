@@ -17,93 +17,21 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class InformationObjectRenameAction extends DefaultEditAction
+class InformationObjectRenameAction extends sfAction
 {
-  public static
-    $NAMES = array(
-      'title',
-      'slug',
-      'filename');
-
-  protected function configure()
-  {
-    // Set wrapper text for rename form
-    $this->widgetSchema->setNameFormat('rename[%s]');
-  }
-
-  protected function addField($name)
-  {
-    switch ($name)
-    {
-      case 'title':
-      case 'slug':
-      case 'filename':
-        $this->form->setValidator($name, new sfValidatorPass);
-        $this->form->setWidget($name, new sfWidgetFormInput);
-
-        break;
-
-      default:
-
-        break;
-    }
-
-    $i18n = sfContext::getInstance()->i18n;
-
-    // Add label text
-    $labels = array(
-      'title' => $i18n->__('Description title'),
-      'slug' => $i18n->__('Slug'),
-      'filename' => $i18n->__('File name')
-    );
-
-    if (isset($labels[$name]))
-    {
-      $this->form->getWidgetSchema()->{$name}->setLabel($labels[$name]);
-    }
-
-    // Add helper text
-    $help = array(
-      'title' => $i18n->__('Editing the description title will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.'),
-      'slug' => $i18n->__('Do not use any special characters or spaces in the slug - only lower case alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters will be stripped out or replaced. Editing the slug will not automatically update the other fields.'),
-      'filename' => $i18n->__('Do not use any special characters or spaces in the filename - only lower case alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters will be stripped out or replaced. Editing the filename will not automatically update the other fields.')
-    );
-
-    if (isset($help[$name]))
-    {
-      $this->form->getWidgetSchema()->{$name}->setHelp($help[$name]);
-    }
-  }
-
-  protected function earlyExecute()
-  {
-    $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
-
-    $this->resource = $this->getRoute()->resource;
-
-    // Check that this isn't the root
-    if (!isset($this->resource->parent))
-    {
-      $this->forward404();
-    }
-
-    // Check user authorization
-    if (!QubitAcl::check($this->resource, 'update'))
-    {
-      QubitAcl::forwardUnauthorized();
-    }
-  }
-
   // Allow modification of title, slug, and digital object filename
   public function execute($request)
   {
-    parent::execute($request);
-
     // Return 400 if incorrect HTTP method
     if ($request->isMethod('post'))
     {
       // Internationalization needed for flash messages
       ProjectConfiguration::getActive()->loadHelpers('I18N');
+
+      $renameComponent = new InformationObjectRenameComponent($this->context, 'informationobject', 'index');
+      $renameComponent->execute($request);
+
+      $this->form = $renameComponent->form;
 
       $this->form->bind($request->rename);
 
