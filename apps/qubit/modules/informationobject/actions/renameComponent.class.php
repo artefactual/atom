@@ -19,21 +19,15 @@
 
 class InformationObjectRenameComponent extends sfComponent
 {
-  public static
-    $NAMES = array(
-      'title',
-      'slug',
-      'filename');
-
   public function execute($request)
   {
     $this->form = new sfForm;
-    $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
     // Add fields
-    foreach(InformationObjectRenameComponent::$NAMES as $name)
+    foreach(array('title', 'slug', 'filename') as $name)
     {
-      $this->addField($name);
+      $this->form->setValidator($name, new sfValidatorString(array('required'=>false)));
+      $this->form->setWidget($name, new sfWidgetFormInput);
     }
 
     $i18n = sfContext::getInstance()->i18n;
@@ -66,24 +60,6 @@ class InformationObjectRenameComponent extends sfComponent
     $this->handleSubmit($request);
   }
 
-  public function addField($name)
-  {
-    switch ($name)
-    {
-      case 'title':
-      case 'slug':
-      case 'filename':
-        $this->form->setValidator($name, new sfValidatorString(array('required'=>false)));
-        $this->form->setWidget($name, new sfWidgetFormInput);
-
-        break;
-
-      default:
-
-        break;
-    }
-  }
-
   // Allow modification of title, slug, and digital object filename
   public function handleSubmit($request)
   {
@@ -101,8 +77,8 @@ class InformationObjectRenameComponent extends sfComponent
 
   private function updateResource()
   {
-    $postedTitle    = $this->form->getValue('title');
-    $postedSlug     = $this->form->getValue('slug');
+    $postedTitle = $this->form->getValue('title');
+    $postedSlug = $this->form->getValue('slug');
     $postedFilename = $this->form->getValue('filename');
 
     // Update title, if title sent
