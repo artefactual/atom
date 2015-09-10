@@ -880,4 +880,3 @@
     });
 
 })(window.jQuery);
-

@@ -1128,6 +1128,10 @@ section .vcard:last-child > .field:last-child > div {
 
   }
 
+  .search-result-description {
+    position: relative;
+  }
+
   // Title
 
   .title,
@@ -1143,6 +1147,7 @@ section .vcard:last-child > .field:last-child > div {
   .title {
     font-size: @baseFontSize * 1.25; // Cancel #content p
     margin-bottom: 0 !important;
+    margin-right: 25px !important;
     .text-overflow();
   }
 
@@ -1211,7 +1216,7 @@ section .vcard:last-child > .field:last-child > div {
 
 .header-options {
   .clearfix();
-  margin-bottom: @baseLineHeight / 2;
+  margin-bottom: @baseLineHeight / 4;
 }
 
 // Form

@@ -217,7 +217,8 @@ nav > div {
 #admin-menu,
 #import-menu,
 #manage-menu,
-#add-menu {
+#add-menu,
+#clipboard-menu {
 
   @side: 50px;
 
@@ -304,6 +305,32 @@ nav > div {
 #quick-links-menu {
   > button:before {
     content: "\f05a";
+  }
+}
+
+#clipboard-menu {
+  > button:before {
+    content: "\f0c6";
+  }
+
+  > button > span {
+    background-color: @blue;
+    color: @black;
+    position: absolute;
+    top: 5px;
+    padding-top: 10px;
+    font-family: "Open Sans Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 10px;
+    height: 10px;
+    width: 20px;
+  }
+
+  .top-dropdown-header > span {
+    display: block;
+    color: @grayLight;
+    margin: -6px 0 5px 0;
   }
 }
 
