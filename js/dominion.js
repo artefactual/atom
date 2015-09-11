@@ -142,6 +142,8 @@
 
       $facet.on('click', '.facet-header a', function (e)
         {
+          e.preventDefault();
+
           $(e.target).parents('.facet').toggleClass('open');
           $(e.target).attr('aria-expanded', function (index, attr) {
             return attr == 'false' ? 'true' : 'false';
