@@ -25,26 +25,26 @@
 
     <div>
       <div style="float:right"><input id="rename_enable_title" type="checkbox" checked="checked" /> <?php echo __('Update title') ?></div>
-      <label><?php echo $renameForm->title->label ?></label>
-      <?php echo $renameForm->title ?>
-      <div class="description"><?php echo $renameForm->title->help ?></div>
+      <label><?php echo $form->title->label ?></label>
+      <?php echo $form->title ?>
+      <div class="description"><?php echo $form->title->help ?></div>
       <p><?php echo __('Original title') ?>: <em><?php echo $resource->title ?></em></p>
     </div>
 
     <div>
       <div style="float:right"><input id="rename_enable_slug" type="checkbox" checked="checked" /> <?php echo __('Update slug') ?></div>
-      <label><?php echo $renameForm->slug->label ?></label>
-      <?php echo $renameForm->slug ?>
-      <div class="description"><?php echo $renameForm->slug->help ?></div>
+      <label><?php echo $form->slug->label ?></label>
+      <?php echo $form->slug ?>
+      <div class="description"><?php echo $form->slug->help ?></div>
       <p><?php echo __('Original slug') ?>: <em><?php echo $resource->slug ?></em></p>
     </div>
 
     <?php if (count($resource->digitalObjects) > 0): ?>
     <div>
       <div style="float:right"><input id="rename_enable_filename" type="checkbox" /> <?php echo __('Update filename') ?></div>
-      <label><?php echo $renameForm->filename->label ?></label>
-      <?php echo $renameForm->filename ?>
-      <div class="description"><?php echo $renameForm->filename->help ?></div>
+      <label><?php echo $form->filename->label ?></label>
+      <?php echo $form->filename ?>
+      <div class="description"><?php echo $form->filename->help ?></div>
       <p><?php echo __('Original filename') ?>: <em><?php echo $resource->digitalObjects[0]->name ?></em></p>
     </div>
     <?php endif; ?>

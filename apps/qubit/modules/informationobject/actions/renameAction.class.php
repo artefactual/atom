@@ -17,22 +17,53 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class InformationObjectRenameAction extends sfAction
+class InformationObjectRenameAction extends DefaultEditAction
 {
-  // Allow modification of title, slug, and digital object filename
-  public function execute($request)
+  // Arrays not allowed in class constants
+  public static
+    $NAMES = array(
+      'title',
+      'slug',
+      'filename');
+
+  protected function earlyExecute()
   {
     $this->resource = $this->getRoute()->resource;
 
-    // Return 401 if unauthorized
+    // Check user authorization
     if (!sfContext::getInstance()->user->isAuthenticated()
       || !QubitAcl::check($this->resource, 'update'))
     {
-      $this->response->setStatusCode(401);
-      return sfView::NONE;
+      QubitAcl::forwardUnauthorized();
     }
 
-    $this->renameForm = new InformationObjectRenameForm;
+    // Set wrapper text
+    $this->form->getWidgetSchema()->setNameFormat('rename[%s]');
+  }
+
+  protected function addField($name)
+  {
+    if (in_array($name, InformationObjectRenameAction::$NAMES))
+    {
+      if ($name == 'filename')
+      {
+        $this->form->setDefault($name, $this->resource->digitalObjects[0]->name);
+      }
+      else
+      {
+        $this->form->setDefault($name, $this->resource[$name]);
+      }
+
+      $this->form->setValidator($name, new sfValidatorString);
+      $this->form->setWidget($name, new sfWidgetFormInput);
+    }
+  }
+
+
+  // Allow modification of title, slug, and digital object filename
+  public function execute($request)
+  {
+    parent::execute($request);
 
     if ($this->request->getMethod() == 'POST')
     {
@@ -42,16 +73,16 @@ class InformationObjectRenameAction extends sfAction
       // Handle rename form submission
       if (null !== $request->rename)
       {
-        $this->renameForm->bind($request->rename);
+        $this->form->bind($request->rename);
 
-        if ($this->renameForm->isValid())
+        if ($this->form->isValid())
         {
           $this->updateResource();
 
           // Let user know description was updated (and if slug had to be adjusted)
           $message = __('Description updated.');
 
-          $postedSlug = $this->renameForm->getValue('slug');
+          $postedSlug = $this->form->getValue('slug');
 
           if ((null !== $postedSlug) && $this->resource->slug != $postedSlug)
           {
@@ -70,22 +101,13 @@ class InformationObjectRenameAction extends sfAction
         $this->redirect(array($this->resource, 'module' => 'informationobject'));
       }
     }
-    else
-    {
-      // Set rename form values
-      $this->renameForm->setDefaults(array(
-        'title' => $this->resource->title,
-        'slug' => $this->resource->slug,
-        'filename' => $this->resource->digitalObjects[0]->name
-      ));
-    }
   }
 
   private function updateResource()
   {
-    $postedTitle    = $this->renameForm->getValue('title');
-    $postedSlug     = $this->renameForm->getValue('slug');
-    $postedFilename = $this->renameForm->getValue('filename');
+    $postedTitle    = $this->form->getValue('title');
+    $postedSlug     = $this->form->getValue('slug');
+    $postedFilename = $this->form->getValue('filename');
 
     // Update title, if title sent
     if (null !== $postedTitle)
