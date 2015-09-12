@@ -22,6 +22,8 @@ class InformationObjectRenameAction extends sfAction
   // Allow modification of title, slug, and digital object filename
   public function execute($request)
   {
+    $this->resource = $this->getRoute()->resource;
+
     // Return 401 if unauthorized
     if (!sfContext::getInstance()->user->isAuthenticated()
       || !QubitAcl::check($this->resource, 'update'))
@@ -30,54 +32,57 @@ class InformationObjectRenameAction extends sfAction
       return sfView::NONE;
     }
 
-    // Return 400 if incorrect HTTP method
-    if ($this->request->getMethod() != 'POST')
+    $this->renameForm = new InformationObjectRenameForm;
+
+    if ($this->request->getMethod() == 'POST')
     {
-      $this->response->setStatusCode(400);
-      return sfView::NONE;
-    }
+      // Internationalization needed for flash messages
+      ProjectConfiguration::getActive()->loadHelpers('I18N');
 
-    // Internationalization needed for flash messages
-    ProjectConfiguration::getActive()->loadHelpers('I18N');
-
-    // Handle rename form submission
-    if (null !== $request->rename)
-    {
-      $this->renameForm = new InformationObjectRenameForm;
-
-      $this->renameForm->bind($request->rename);
-
-      if ($this->renameForm->isValid())
+      // Handle rename form submission
+      if (null !== $request->rename)
       {
-        $resource = $this->updateResource();
+        $this->renameForm->bind($request->rename);
 
-        // Let user know description was updated (and if slug had to be adjusted)
-        $message = __('Description updated.');
-
-        $postedSlug = $this->renameForm->getValue('slug');
-
-        if ((null !== $postedSlug) && $resource->slug != $postedSlug)
+        if ($this->renameForm->isValid())
         {
-          $message .= ' '. __('Slug was adjusted to remove special characters or because it has already been used for another description.');
+          $this->updateResource();
+
+          // Let user know description was updated (and if slug had to be adjusted)
+          $message = __('Description updated.');
+
+          $postedSlug = $this->renameForm->getValue('slug');
+
+          if ((null !== $postedSlug) && $this->resource->slug != $postedSlug)
+          {
+            $message .= ' '. __('Slug was adjusted to remove special characters or because it has already been used for another description.');
+          }
+
+          $this->getUser()->setFlash('notice', $message);
+
+          $this->redirect(array($this->resource, 'module' => 'informationobject'));
         }
+      }
+      else
+      {
+        $this->getUser()->setFlash('error', __('No fields changed.'));
 
-        $this->getUser()->setFlash('notice', $message);
-
-        $this->redirect(array($resource, 'module' => 'informationobject'));
+        $this->redirect(array($this->resource, 'module' => 'informationobject'));
       }
     }
     else
     {
-      $this->getUser()->setFlash('error', __('No fields changed.'));
-
-      $this->redirect(array($this->getRoute()->resource, 'module' => 'informationobject'));
+      // Set rename form values
+      $this->renameForm->setDefaults(array(
+        'title' => $this->resource->title,
+        'slug' => $this->resource->slug,
+        'filename' => $this->resource->digitalObjects[0]->name
+      ));
     }
   }
 
   private function updateResource()
   {
-    $resource = $this->getRoute()->resource;
-
     $postedTitle    = $this->renameForm->getValue('title');
     $postedSlug     = $this->renameForm->getValue('slug');
     $postedFilename = $this->renameForm->getValue('filename');
@@ -85,13 +90,13 @@ class InformationObjectRenameAction extends sfAction
     // Update title, if title sent
     if (null !== $postedTitle)
     {
-      $resource->title = $postedTitle;
+      $this->resource->title = $postedTitle;
     }
 
     // Attempt to update slug if slug sent
     if (null !== $postedSlug)
     {
-      $slug = QubitSlug::getByObjectId($resource->id);
+      $slug = QubitSlug::getByObjectId($this->resource->id);
 
       // Attempt to change slug if submitted slug's different than current slug
       if ($postedSlug != $slug->slug)
@@ -102,13 +107,13 @@ class InformationObjectRenameAction extends sfAction
     }
 
     // Update digital object filename, if filename sent
-    if ((null !== $postedFilename) && count($resource->digitalObjects))
+    if ((null !== $postedFilename) && count($this->resource->digitalObjects))
     {
       // Parse filename so special characters can be removed
       $fileParts = pathinfo($postedFilename);
       $filename = QubitSlug::slugify($fileParts['filename']) .'.'. QubitSlug::slugify($fileParts['extension']);
 
-      $digitalObject = $resource->digitalObjects[0];
+      $digitalObject = $this->resource->digitalObjects[0];
 
       // Rename master file
       $basePath = sfConfig::get('sf_web_dir') . $digitalObject->path;
@@ -125,8 +130,6 @@ class InformationObjectRenameAction extends sfAction
       digitalObjectRegenDerivativesTask::regenerateDerivatives($digitalObject);
     }
 
-    $resource->save();
-
-    return $resource;
+    $this->resource->save();
   }
 }

@@ -6,8 +6,13 @@
   // Fetch a slug preview for a given title
   function fetchSlugPreview(title, callback)
   {
+    // Assemble slug preview URL
+    var urlParts = window.location.href.split('/');
+    urlParts.pop();
+    var slugPreviewUrl = urlParts.join('/') + '/slugPreview';
+
     $.ajax({
-      'url': window.location.href + '/slugPreview',
+      'url': slugPreviewUrl,
       'data': {'title': title},
       'type': 'GET',
       'cache': false,
@@ -21,8 +26,12 @@
   }
 
   $(function() {
+
+    // Place cursor in first field of form
+    $('#renameForm input:text:visible:first').focus();
+
     // Create references to selectors
-    var $renameModal = $('#renameModal');
+    var $renameForm = $('#renameForm');
 
     var $fields          = {};
     var $fieldCheckboxes = {};
@@ -33,8 +42,7 @@
       $fieldCheckboxes[field] = $('#rename_enable_' + field);
     }
 
-    $renameModalSubmit = $('#renameModalSubmit');
-    $renameModalCancel = $('#renameModalCancel');
+    $renameFormSubmit = $('#renameFormSubmit'); // TODO make these not camel case
 
     // Cycle through fields and disable them if their corresponding checkbox isn't checked
     function enableFields() {
@@ -44,72 +52,7 @@
       }
     }
 
-    // Hide modal and submit form data
-    function submit() {
-      $renameModal.modal('hide');
-      $("#renameModalForm").submit();
-    }
-
-    // When no AJAX requests are pending, hide modal and submit form data
-    function trySubmit() {
-      if (asyncOpInProgress) {
-        setTimeout(trySubmit, 1000);
-      } else {
-        submit();
-      }
-    }
-
-    // Enable/disable fields according to initial checkbox values
-    enableFields();
-
-    // Auto-focus on the first field
-    $renameModal.on('shown', function () {
-      $('input:text:visible:first', this).focus();
-    });
-
-    // Submit when users hits the enter key
-    $renameModal.on('keypress', function (e) {
-      if (e.keyCode == 13) {
-        trySubmit();
-      }
-    });
-
-    // Keep track of whether async requests are in progress
-    $renameModal.ajaxStart(function() {
-      asyncOpInProgress = true;
-    });
-
-    $renameModal.ajaxStop(function() {
-      asyncOpInProgress = false;
-    });
-
-    // Add click handlers
-    $renameModal.bind('show', function() {
-      // Enable/disable fields when checkboxes clicked
-      $('#renameModal form input[type=checkbox]').click(function(e) {
-        enableFields();
-      });
-
-      // Simulate submit button
-      $renameModalSubmit.click(function(e) {
-        trySubmit();
-      });
-
-      // Hide form if cancel clicked
-      $renameModalCancel.click(function(e) {
-        $renameModal.modal('hide');
-      });
-    });
-
-    // Remove click handlers when modal's hidden
-    $renameModal.bind('hide', function() {
-      $renameModalSubmit.unbind();
-      $renameModalCancel.unbind();
-      $('#renameModal form input[type=checkbox]').unbind();
-    });
-
-    // If title changes, update slug
-    $fields['title'].change(function() {
+    function updateSlugPreview() {
       fetchSlugPreview($fields['title'].val(), function(err, slug) {
         if (err) {
           alert('Error fetching slug preview.');
@@ -117,6 +60,50 @@
           $fields['slug'].val(slug);
         }
       });
+    }
+
+    // When no AJAX requests are pending, submit form data
+    function trySubmit() {
+      if (asyncOpInProgress) {
+        setTimeout(trySubmit, 1000);
+      } else {
+        $("#renameForm").submit();
+      }
+    }
+
+    // Enable/disable fields according to initial checkbox values
+    enableFields();
+
+    // Submit when users hits the enter key
+    $renameForm.on('keypress', function (e) {
+      if (e.keyCode == 13) {
+        updateSlugPreview();
+        trySubmit();
+      }
+    });
+
+    // Keep track of whether async requests are in progress
+    $renameForm.ajaxStart(function() {
+      asyncOpInProgress = true;
+    });
+
+    $renameForm.ajaxStop(function() {
+      asyncOpInProgress = false;
+    });
+
+    // Enable/disable fields when checkboxes clicked
+    $('#renameForm input[type=checkbox]').click(function(e) {
+      enableFields();
+    });
+
+    // Simulate submit button
+    $renameFormSubmit.click(function(e) {
+      trySubmit();
+    });
+
+    // If title changes, update slug
+    $fields['title'].change(function() {
+      updateSlugPreview();
     });
   });
 
