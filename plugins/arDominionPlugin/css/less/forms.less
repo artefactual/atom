@@ -355,6 +355,25 @@ button.delete-small {
   content: '.';
 }
 
+// Rename model form-item div prevents clicks to enable/disable checkboxes
+#renameModalForm {
+  div.modal-body {
+    div.form-item {
+      display: inline;
+    }
+  }
+}
+
+#renameModalForm {
+  div.modal-body {
+    div.form-item {
+      label {
+        display: inline;
+      }
+    }
+  }
+}
+
 // jQuery minicolors plugin
 
 .minicolors {
