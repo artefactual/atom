@@ -42,7 +42,7 @@
       $fieldCheckboxes[field] = $('#rename_enable_' + field);
     }
 
-    $renameFormSubmit = $('#renameFormSubmit'); // TODO make these not camel case
+    $renameFormSubmit = $('#rename-form-submit');
 
     // Cycle through fields and disable them if their corresponding checkbox isn't checked
     function enableFields() {
@@ -92,7 +92,7 @@
     });
 
     // Enable/disable fields when checkboxes clicked
-    $('#renameForm input[type=checkbox]').click(function(e) {
+    $('#rename-form input[type=checkbox]').click(function(e) {
       enableFields();
     });
 

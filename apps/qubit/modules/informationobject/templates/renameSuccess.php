@@ -19,7 +19,7 @@
 
 <div id="content" class="yui-panel">
 
-  <form id="renameForm" action="<?php echo url_for(array('module' => 'informationobject', 'action' => 'rename', 'slug' => $resource->slug)) ?>" method="POST">
+    <?php echo $form->renderFormTag(url_for(array('module' => 'informationobject', 'action' => 'rename', 'slug' => $resource->slug)), array('id' => 'rename-form')) ?>
 
     <div class="alert"><?php echo __('Use this interface to update the description title, slug (permalink), and/or digital object filename.') ?></div>
 
@@ -51,7 +51,7 @@
 
     <section class="actions">
       <ul>
-        <li><a href="#" id="renameFormSubmit" class="c-btn c-btn-submit"><?php echo __('Update') ?></a></li>
+        <li><a href="#" id="rename-form-submit" class="c-btn c-btn-submit"><?php echo __('Update') ?></a></li>
         <li><?php echo link_to(__('Cancel'), array('module' => 'informationobject', 'action' => 'browse'), array('class' => 'c-btn c-btn-delete')) ?></li>
       </ul>
     </section>
