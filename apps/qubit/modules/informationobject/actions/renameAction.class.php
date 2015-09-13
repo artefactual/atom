@@ -70,36 +70,32 @@ class InformationObjectRenameAction extends DefaultEditAction
       // Internationalization needed for flash messages
       ProjectConfiguration::getActive()->loadHelpers('I18N');
 
-      // Handle rename form submission
-      if (null !== $request->rename)
-      {
-        $this->form->bind($request->rename);
+      $this->form->bind($request->rename);
 
-        if ($this->form->isValid())
+      if ($this->form->isValid())
+      {
+        $this->updateResource();
+
+        // Let user know description was updated (and if slug had to be adjusted)
+        $message = __('Description updated.');
+
+        $postedSlug = $this->form->getValue('slug');
+
+        if ((null !== $postedSlug) && $this->resource->slug != $postedSlug)
         {
-          $this->updateResource();
-
-          // Let user know description was updated (and if slug had to be adjusted)
-          $message = __('Description updated.');
-
-          $postedSlug = $this->form->getValue('slug');
-
-          if ((null !== $postedSlug) && $this->resource->slug != $postedSlug)
-          {
-            $message .= ' '. __('Slug was adjusted to remove special characters or because it has already been used for another description.');
-          }
-
-          $this->getUser()->setFlash('notice', $message);
-
-          $this->redirect(array($this->resource, 'module' => 'informationobject'));
+          $message .= ' '. __('Slug was adjusted to remove special characters or because it has already been used for another description.');
         }
-      }
-      else
-      {
-        $this->getUser()->setFlash('error', __('No fields changed.'));
+
+        $this->getUser()->setFlash('notice', $message);
 
         $this->redirect(array($this->resource, 'module' => 'informationobject'));
       }
+    }
+    else
+    {
+      $this->getUser()->setFlash('error', __('No fields changed.'));
+
+      $this->redirect(array($this->resource, 'module' => 'informationobject'));
     }
   }
 
