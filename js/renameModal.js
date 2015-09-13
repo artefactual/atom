@@ -28,10 +28,10 @@
   $(function() {
 
     // Place cursor in first field of form
-    $('#renameForm input:text:visible:first').focus();
+    $('#rename-form input:text:visible:first').focus();
 
     // Create references to selectors
-    var $renameForm = $('#renameForm');
+    var $renameForm = $('#rename-form');
 
     var $fields          = {};
     var $fieldCheckboxes = {};
@@ -67,7 +67,7 @@
       if (asyncOpInProgress) {
         setTimeout(trySubmit, 1000);
       } else {
-        $("#renameForm").submit();
+        $renameForm.submit();
       }
     }
 
