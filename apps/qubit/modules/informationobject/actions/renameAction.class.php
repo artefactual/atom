@@ -73,7 +73,7 @@ class InformationObjectRenameAction extends DefaultEditAction
       $this->form->bind($request->rename);
 
       if ($this->form->isValid())
-      {
+      { 
         $this->updateResource();
 
         // Let user know description was updated (and if slug had to be adjusted)
@@ -91,18 +91,12 @@ class InformationObjectRenameAction extends DefaultEditAction
         $this->redirect(array($this->resource, 'module' => 'informationobject'));
       }
     }
-    else
-    {
-      $this->getUser()->setFlash('error', __('No fields changed.'));
-
-      $this->redirect(array($this->resource, 'module' => 'informationobject'));
-    }
   }
 
   private function updateResource()
   {
-    $postedTitle    = $this->form->getValue('title');
-    $postedSlug     = $this->form->getValue('slug');
+    $postedTitle = $this->form->getValue('title');
+    $postedSlug = $this->form->getValue('slug');
     $postedFilename = $this->form->getValue('filename');
 
     // Update title, if title sent
