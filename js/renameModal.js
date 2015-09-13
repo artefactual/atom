@@ -38,7 +38,7 @@
 
     for (var index in fields) {
       var field = fields[index];
-      $fields[field]          = $('#rename_' + field);
+      $fields[field]          = $('#' + field);
       $fieldCheckboxes[field] = $('#rename_enable_' + field);
     }
 

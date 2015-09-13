@@ -26,18 +26,18 @@
       <div class="alert"><?php echo __('Use this interface to update the description title, slug (permalink), and/or digital object filename.') ?></div>
 
       <div class="rename-form-field-toggle"><input id="rename_enable_title" type="checkbox" checked="checked" /> <?php echo __('Update title') ?></div>
-    <br />
+      <br />
  
       <?php echo render_field($form->title
       ->label(__('Title'))
-      ->help(__('Editing the description title will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.')), $resource, array('class' => 'resizable')) ?>
+      ->help(__('Editing the description title will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.'))) ?>
 
       <div class="rename-form-field-toggle"><input id="rename_enable_slug" type="checkbox" checked="checked" /> <?php echo __('Update slug') ?></div>
       <br />
 
       <?php echo render_field($form->slug
         ->label(__('Slug'))
-        ->help(__('Do not use any special characters or spaces in the slug - only lower case alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters will be stripped out or replaced. Editing the slug will not automatically update the other fields.')), $resource, array('class' => 'resizable')) ?>
+        ->help(__('Do not use any special characters or spaces in the slug - only lower case alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters will be stripped out or replaced. Editing the slug will not automatically update the other fields.')), $resource) ?>
 
       <?php if (count($resource->digitalObjects) > 0): ?>
 
@@ -46,7 +46,7 @@
 
         <?php echo render_field($form->filename
           ->label(__('Filename'))
-          ->help(__('Do not use any special characters or spaces in the filename - only lower case alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters will be stripped out or replaced. Editing the filename will not automatically update the other fields.')), $resource, array('class' => 'resizable')) ?>
+          ->help(__('Do not use any special characters or spaces in the filename - only lower case alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters will be stripped out or replaced. Editing the filename will not automatically update the other fields.')), $resource) ?>
 
       <?php endif; ?>
 

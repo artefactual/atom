@@ -36,9 +36,6 @@ class InformationObjectRenameAction extends DefaultEditAction
     {
       QubitAcl::forwardUnauthorized();
     }
-
-    // Set wrapper text
-    $this->form->getWidgetSchema()->setNameFormat('rename[%s]');
   }
 
   protected function addField($name)
@@ -70,7 +67,7 @@ class InformationObjectRenameAction extends DefaultEditAction
       // Internationalization needed for flash messages
       ProjectConfiguration::getActive()->loadHelpers('I18N');
 
-      $this->form->bind($request->rename);
+      $this->form->bind($request->getPostParameters());
 
       if ($this->form->isValid())
       { 
