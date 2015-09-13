@@ -28,7 +28,7 @@
             </a>
             <ul class="dropdown-menu">
 
-              <li><a href="#" data-toggle="modal" data-target="#renameModal"><?php echo __('Rename') ?></a></li>
+              <li><?php echo link_to(__('Rename'), array($resource, 'module' => 'informationobject', 'action' => 'rename')) ?></li>
 
               <li class="divider"></li>
 
@@ -61,5 +61,3 @@
   </ul>
 
 </section>
-
-<?php echo get_partial('informationobject/renameModal', array('resource' => $resource, 'renameForm' => $renameForm)) ?>
