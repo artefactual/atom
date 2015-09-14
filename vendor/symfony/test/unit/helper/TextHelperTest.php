@@ -13,7 +13,7 @@ require_once(dirname(__FILE__).'/../../../test/bootstrap/unit.php');
 require_once(dirname(__FILE__).'/../../../lib/helper/TagHelper.php');
 require_once(dirname(__FILE__).'/../../../lib/helper/TextHelper.php');
 
-$t = new lime_test(58);
+$t = new lime_test(59);
 
 // truncate_text()
 $t->diag('truncate_text()');
@@ -140,9 +140,14 @@ $t->is(auto_link_text('<p>Link '.$link_result.'</p>'), '<p>Link '.$link_result.'
 $t->is(
   auto_link_text('<p>http://www.google.com/?q=/query/string/with/slashes</p>'),
   '<p><a href="http://www.google.com/?q=/query/string/with/slashes">http://www.google.com/?q=/query/string/with/slashes</a></p>',
-  'auto_link_text() accept slashes in the query string');
+  'auto_link_text() accepts slashes in the query string');
 
 $t->is(
   auto_link_text('<p>http://ww2.foobar.org/search/photos.aspx?XC=/search/photos.aspx&FOO=BAR&DF=WebResultsDetails&XYZ=ABC-12345</p>'),
   '<p><a href="http://ww2.foobar.org/search/photos.aspx?XC=/search/photos.aspx&FOO=BAR&DF=WebResultsDetails&XYZ=ABC-12345">http://ww2.foobar.org/search/photos.aspx?XC=/search/photos.aspx&FOO=BAR&DF=WebResultsDetails&XYZ=ABC-12345</a></p>',
-  'auto_link_text() accept slashes in the query string');
+  'auto_link_text() accepts slashes in the query string');
+
+$t->is(
+  auto_link_text('<p>ftp://ftp.idsoftware.com/idstuff/et/linux/et-linux-2.60.x86.run</p>'),
+  '<p><a href="ftp://ftp.idsoftware.com/idstuff/et/linux/et-linux-2.60.x86.run">ftp://ftp.idsoftware.com/idstuff/et/linux/et-linux-2.60.x86.run</a></p>',
+  'auto_link_text() accepts the ftp URI scheme');
