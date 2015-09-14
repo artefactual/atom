@@ -1,6 +1,6 @@
 <?php decorate_with('layout_2col.php') ?>
 
-<?php $sf_response->addJavaScript('renameModal'); ?>
+<?php $sf_response->addJavaScript('rename'); ?>
 <?php $sf_response->addJavaScript('description'); ?>
 
 <?php slot('sidebar') ?>
