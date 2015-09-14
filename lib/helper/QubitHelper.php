@@ -549,7 +549,7 @@ if (!defined('AR_AUTO_LINK_RE'))
       (?:&quot;|\")(?<label>.*?)(?:\&quot;|\")\:    #  - Double quote and colon
     )
     (
-      (?:https?://)|                                # protocol spec, or
+      (?:(?:https?|ftp)://)|                        # protocol spec, or
       (?:www\.)                                     # www.*
     )
     (

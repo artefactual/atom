@@ -35,8 +35,8 @@ $t->is(
   'qubit_auto_link_text() converts Redmine links');
 
 $t->is(
-  qubit_auto_link_text('Foobar1 http://www.foobar1.com Foobar2 http://www.foobar2.com and special link "here":http://here.com.'),
-  'Foobar1 <a href="http://www.foobar1.com">http://www.foobar1.com</a> Foobar2 <a href="http://www.foobar2.com">http://www.foobar2.com</a> and special link <a href="http://here.com">here</a>.',
+  qubit_auto_link_text('Foobar1 http://www.foobar1.com Foobar2 ftp://ftp.foobar2.com and special link "here":http://here.com.'),
+  'Foobar1 <a href="http://www.foobar1.com">http://www.foobar1.com</a> Foobar2 <a href="ftp://ftp.foobar2.com">ftp://ftp.foobar2.com</a> and special link <a href="http://here.com">here</a>.',
   'qubit_auto_link_text() converts Redmine and URLs when they both appear in the same string');
 
 $t->is(

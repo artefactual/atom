@@ -225,7 +225,7 @@ if (!defined('SF_AUTO_LINK_RE'))
       ^                     #   beginning of line
     )
     (
-      (?:https?://)|        # protocol spec, or
+      (?:(?:https?|ftp)://)|  # protocol spec, or
       (?:www\.)             # www.*
     )
     (
