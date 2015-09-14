@@ -2893,7 +2893,13 @@ class QubitInformationObject extends BaseInformationObject
    */
   private function generateSlug()
   {
-    switch ((int)QubitSetting::getByName('slug_basis_informationobject'))
+    // Default to generating slug by title if the setting isn't present.
+    if (null === $slugBasis = QubitSetting::getByName('slug_basis_informationobject'))
+    {
+      return QubitSlug::slugify($this->getTitle(array('sourceCulture' => true)), false);
+    }
+
+    switch ($slugBasis->getValue())
     {
       case QubitSlug::SLUG_BASIS_REFERENCE_CODE:
         return QubitSlug::slugify($this->getInheritedReferenceCode(), false);
