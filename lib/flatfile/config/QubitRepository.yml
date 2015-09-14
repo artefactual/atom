@@ -38,6 +38,8 @@ columnNames:
   - phone
   - email
   - fax
+  - city
+  - region
   - website
   - legacyId
 

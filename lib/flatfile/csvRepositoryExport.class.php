@@ -112,6 +112,8 @@ class csvRepositoryExport extends QubitFlatfileExport
     $this->setColumn('email', $c->getEmail());
     $this->setColumn('fax', $c->getFax());
     $this->setColumn('website', $c->getWebsite());
+    $this->setColumn('city', $c->getCity());
+    $this->setColumn('region', $c->getRegion());
   }
 
   private function getNames($typeId)

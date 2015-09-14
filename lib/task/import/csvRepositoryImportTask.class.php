@@ -137,6 +137,8 @@ EOF;
         'phone',
         'email',
         'fax',
+        'city',
+        'region',
         'website',
         'legacyId',
         'parallelFormsOfName',
@@ -269,6 +271,8 @@ function createContact($actorId, $rowStatusVars)
   $info->email         = $rowStatusVars['email'];
   $info->fax           = $rowStatusVars['fax'];
   $info->website       = $rowStatusVars['website'];
+  $info->city          = $rowStatusVars['city'];
+  $info->region        = $rowStatusVars['region'];
 
   $info->save();
 }
