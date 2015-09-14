@@ -17,81 +17,95 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class InformationObjectRenameAction extends sfAction
+class InformationObjectRenameAction extends DefaultEditAction
 {
-  // Allow modification of title, slug, and digital object filename
-  public function execute($request)
+  // Arrays not allowed in class constants
+  public static
+    $NAMES = array(
+      'title',
+      'slug',
+      'filename');
+
+  protected function earlyExecute()
   {
-    // Return 401 if unauthorized
+    $this->resource = $this->getRoute()->resource;
+
+    // Check user authorization
     if (!sfContext::getInstance()->user->isAuthenticated()
       || !QubitAcl::check($this->resource, 'update'))
     {
-      $this->response->setStatusCode(401);
-      return sfView::NONE;
+      QubitAcl::forwardUnauthorized();
     }
+  }
 
-    // Return 400 if incorrect HTTP method
-    if ($this->request->getMethod() != 'POST')
+  protected function addField($name)
+  {
+    if (in_array($name, InformationObjectRenameAction::$NAMES))
     {
-      $this->response->setStatusCode(400);
-      return sfView::NONE;
-    }
-
-    // Internationalization needed for flash messages
-    ProjectConfiguration::getActive()->loadHelpers('I18N');
-
-    // Handle rename form submission
-    if (null !== $request->rename)
-    {
-      $this->renameForm = new InformationObjectRenameForm;
-
-      $this->renameForm->bind($request->rename);
-
-      if ($this->renameForm->isValid())
+      if ($name == 'filename')
       {
-        $resource = $this->updateResource();
+        $this->form->setDefault($name, $this->resource->digitalObjects[0]->name);
+      }
+      else
+      {
+        $this->form->setDefault($name, $this->resource[$name]);
+      }
+
+      $this->form->setValidator($name, new sfValidatorString);
+      $this->form->setWidget($name, new sfWidgetFormInput);
+    }
+  }
+
+
+  // Allow modification of title, slug, and digital object filename
+  public function execute($request)
+  {
+    parent::execute($request);
+
+    if ($this->request->getMethod() == 'POST')
+    {
+      // Internationalization needed for flash messages
+      ProjectConfiguration::getActive()->loadHelpers('I18N');
+
+      $this->form->bind($request->getPostParameters());
+
+      if ($this->form->isValid())
+      { 
+        $this->updateResource();
 
         // Let user know description was updated (and if slug had to be adjusted)
         $message = __('Description updated.');
 
-        $postedSlug = $this->renameForm->getValue('slug');
+        $postedSlug = $this->form->getValue('slug');
 
-        if ((null !== $postedSlug) && $resource->slug != $postedSlug)
+        if ((null !== $postedSlug) && $this->resource->slug != $postedSlug)
         {
           $message .= ' '. __('Slug was adjusted to remove special characters or because it has already been used for another description.');
         }
 
         $this->getUser()->setFlash('notice', $message);
 
-        $this->redirect(array($resource, 'module' => 'informationobject'));
+        $this->redirect(array($this->resource, 'module' => 'informationobject'));
       }
-    }
-    else
-    {
-      $this->getUser()->setFlash('error', __('No fields changed.'));
-
-      $this->redirect(array($this->getRoute()->resource, 'module' => 'informationobject'));
     }
   }
 
   private function updateResource()
   {
-    $resource = $this->getRoute()->resource;
-
-    $postedTitle    = $this->renameForm->getValue('title');
-    $postedSlug     = $this->renameForm->getValue('slug');
-    $postedFilename = $this->renameForm->getValue('filename');
+    $postedTitle = $this->form->getValue('title');
+    $postedSlug = $this->form->getValue('slug');
+    $postedFilename = $this->form->getValue('filename');
 
     // Update title, if title sent
     if (null !== $postedTitle)
     {
-      $resource->title = $postedTitle;
+      $this->resource->title = $postedTitle;
     }
 
     // Attempt to update slug if slug sent
     if (null !== $postedSlug)
     {
-      $slug = QubitSlug::getByObjectId($resource->id);
+      $slug = QubitSlug::getByObjectId($this->resource->id);
 
       // Attempt to change slug if submitted slug's different than current slug
       if ($postedSlug != $slug->slug)
@@ -102,13 +116,13 @@ class InformationObjectRenameAction extends sfAction
     }
 
     // Update digital object filename, if filename sent
-    if ((null !== $postedFilename) && count($resource->digitalObjects))
+    if ((null !== $postedFilename) && count($this->resource->digitalObjects))
     {
       // Parse filename so special characters can be removed
       $fileParts = pathinfo($postedFilename);
       $filename = QubitSlug::slugify($fileParts['filename']) .'.'. QubitSlug::slugify($fileParts['extension']);
 
-      $digitalObject = $resource->digitalObjects[0];
+      $digitalObject = $this->resource->digitalObjects[0];
 
       // Rename master file
       $basePath = sfConfig::get('sf_web_dir') . $digitalObject->path;
@@ -125,8 +139,6 @@ class InformationObjectRenameAction extends sfAction
       digitalObjectRegenDerivativesTask::regenerateDerivatives($digitalObject);
     }
 
-    $resource->save();
-
-    return $resource;
+    $this->resource->save();
   }
 }
