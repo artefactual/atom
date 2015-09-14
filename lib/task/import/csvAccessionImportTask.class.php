@@ -118,15 +118,27 @@ EOF;
       ),
 
       'arrayColumns' => array(
-        'creators'             => '|',
-        'creatorHistories'     => '|',
         'eventActors'          => '|',
+        'eventActorHistories'  => '|',
         'eventTypes'           => '|',
         'eventPlaces'          => '|',
         'eventDates'           => '|',
         'eventStartDates'      => '|',
         'eventEndDates'        => '|',
-        'eventDescriptions'    => '|'
+        'eventDescriptions'    => '|',
+
+        // These columns are for backwards compatibility
+        'creators'           => '|',
+        'creatorHistories'   => '|',
+        'creatorDates'       => '|',
+        'creatorDatesStart'  => '|',
+        'creatorDatesEnd'    => '|',
+        'creatorDateNotes'   => '|',
+        'creationDates'      => '|',
+        'creationDatesStart' => '|',
+        'creationDatesEnd'   => '|',
+        'creationDateNotes'  => '|',
+        'creationDatesType'  => '|'
       ),
 
       // Import columns that should be redirected to QubitAccession
@@ -206,9 +218,6 @@ EOF;
       {
         if(isset($self->object) && is_object($self->object))
         {
-          // Add events
-          csvImportBaseTask::importEvents($self);
-
           // Add creators
           if (isset($self->rowStatusVars['creators'])
             && $self->rowStatusVars['creators'])
@@ -222,6 +231,9 @@ EOF;
               $self->createRelation($actor->id, $self->object->id, QubitTerm::CREATION_ID);
             }
           }
+
+          // Add events
+          csvImportBaseTask::importEvents($self);
 
           if (isset($self->rowStatusVars['donorName'])
             && $self->rowStatusVars['donorName'])

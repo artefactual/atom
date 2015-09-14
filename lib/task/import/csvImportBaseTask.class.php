@@ -120,7 +120,7 @@ abstract class csvImportBaseTask extends arBaseTask
         'startDate'    => 'creationDatesStart',
         'endDate'      => 'creationDatesEnd',
         'description'  => 'creationDateNotes',
-        'type'         => '-',
+        'type'         => 'creationDatesType',
         'place'        => '-'),
       '2.3' => array(
         'actorName'    => 'eventActors',
