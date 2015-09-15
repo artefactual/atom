@@ -56,3 +56,11 @@ fileListSuccess:
 itemListSuccess:
   stylesheets:
     print-preview: { media: screen, position: last }
+
+renameSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    /vendor/yui/container/container-min:
+    description:
+    rename:

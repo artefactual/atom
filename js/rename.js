@@ -77,6 +77,7 @@
     // Submit when users hits the enter key
     $renameForm.on('keypress', function (e) {
       if (e.keyCode == 13) {
+        e.preventDefault();
         updateSlugPreview();
         trySubmit();
       }
