@@ -1051,3 +1051,8 @@ QubitSetting:
     source_culture: en
     value:
       en: 0
+  Qubit_Settings_slugBasisInformationObject:
+    name: slug_basis_informationobject
+    source_culture: en
+    value:
+      en: 0
