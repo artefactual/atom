@@ -24,13 +24,7 @@
     <?php echo include_partial('default/breadcrumb', array('resource' => $resource, 'objects' => $resource->getAncestors()->andSelf()->orderBy('lft'))) ?>
   <?php endif; ?>
 
-  <div class="title-buttons">
-
-    <?php echo get_component('default', 'translationLinks', array('resource' => $resource)) ?>
-
-    <?php echo get_component('informationobject', 'clipboardButton', array('slug' => $resource->slug, 'wide' => true)) ?>
-
-  </div>
+  <?php echo get_component('default', 'translationLinks', array('resource' => $resource)) ?>
 
 <?php end_slot() ?>
 

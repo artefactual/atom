@@ -24,28 +24,32 @@ class InformationObjectClipboardButtonComponent extends sfComponent
     $this->url = url_for(array('module' => 'user', 'action' => 'clipboardToggleSlug'));
     $this->class = 'clipboard';
 
+    $i18n = $this->context->i18n;
+
     if ($this->wide)
     {
       $this->class .= '-wide';
       $this->tooltip = false;
+      $title = $i18n->__('Add');
+      $altTitle = $i18n->__('Remove');
     }
     else
     {
       $this->tooltip = true;
+      $title = $i18n->__('Add to clipboard');
+      $altTitle = $i18n->__('Remove from clipboard');
     }
-
-    $i18n = $this->context->i18n;
 
     if ($this->context->user->getClipboard()->has($this->slug))
     {
       $this->class .= ' added';
-      $this->title = $i18n->__('Remove from clipboard');
-      $this->altTitle = $i18n->__('Add to clipboard');
+      $this->title = $altTitle;
+      $this->altTitle = $title;
     }
     else
     {
-      $this->title = $i18n->__('Add to clipboard');
-      $this->altTitle = $i18n->__('Remove from clipboard');
+      $this->title = $title;
+      $this->altTitle = $altTitle;
     }
   }
 }

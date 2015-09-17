@@ -1,6 +1,14 @@
 <section id="action-icons">
   <ul>
 
+    <li class="separator"><h4><?php echo __('Clipboard') ?></h4></li>
+
+    <li class="clipboard">
+      <?php echo get_component('informationobject', 'clipboardButton', array('slug' => $resource->slug, 'wide' => true)) ?>
+    </li>
+
+    <li class="separator"><h4><?php echo __('Explore') ?></h4></li>
+
     <li>
       <a href="<?php echo url_for(array($resource, 'module' => 'informationobject', 'action' => 'reports')) ?>">
         <i class="icon-print"></i>
