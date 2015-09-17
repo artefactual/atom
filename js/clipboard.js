@@ -9,7 +9,6 @@
       this.$menuHeaderCount = this.$element.find('.top-dropdown-header > span');
       this.$menuClearAll = this.$element.find('li#node_clearClipboard a');
       this.$toggleButtons = $('button.clipboard');
-      this.$toggleWideButtons = $('button.clipboard-wide');
 
       this.init();
     };
@@ -27,8 +26,11 @@
         });
 
       this.$toggleButtons.on('click', $.proxy(this.toggle, this, true));
-      this.$toggleWideButtons.on('click', $.proxy(this.toggle, this, false));
       this.$menuClearAll.on('click', $.proxy(this.clear, this));
+
+      // Listener for wide buttons must be added like this
+      // as they are dynamically loaded in fullWidthTreeView.js
+      $(document).on('click', 'button.clipboard-wide', $.proxy(this.toggle, this, false));
     },
     toggle: function (reloadTooltip, event)
     {
@@ -82,7 +84,9 @@
                 this.updateButton($(button), false, true);
               }, this));
 
-              this.$toggleWideButtons.each($.proxy(function (index, button) {
+              // Wide buttons must be selected like this as they
+              // are dynamically loaded in fullWidthTreeView.js
+              $(document).find('button.clipboard-wide').each($.proxy(function (index, button) {
                 this.updateButton($(button), false, false);
               }, this));
             }
