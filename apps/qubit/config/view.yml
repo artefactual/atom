@@ -47,6 +47,7 @@ default:
     /vendor/meetselva/attrchange:
     qubit:
     treeView:
+    clipboard:
     dominion: { position: last }
 
   has_layout:     true

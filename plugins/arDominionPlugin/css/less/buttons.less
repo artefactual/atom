@@ -133,3 +133,92 @@ input.c-btn {
   background-color: @white;
   color: @black;
 }
+
+/*
+ * Clipboard
+ */
+
+button.clipboard,
+button.clipboard-wide {
+  border-radius: 5px;
+  outline: none;
+  color: @grayLight;
+
+  &:before {
+    font-family: 'FontAwesome';
+    font-size: 20px;
+    color: @grayLight;
+    content: "\f0c6";
+  }
+
+  &.added {
+    background-color: @blue;
+    color: @white;
+
+    &:before {
+      color: @white;
+    }
+  }
+
+  &:hover {
+    background-color: @grayLight;
+    color: @white;
+
+    &:before {
+      color: @white;
+    }
+  }
+}
+
+button.clipboard {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 20px;
+  width: 20px;
+  .hide-text();
+
+  &:before {
+    font-weight: normal;
+    font-style: normal;
+    text-align: center;
+    font-size: 20px;
+    position: absolute;
+    top: 10px;
+    left: 2px;
+  }
+}
+
+button.clipboard-wide {
+  position: relative;
+  background: none;
+  border: none;
+  box-shadow: none;
+  text-align: left;
+  padding: 4px 7px 4px 24px;
+  color: @blue;
+  font-size: 12px;
+
+  &:before {
+    margin-right: 25px;
+    color: @grayLight;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 16px;
+  }
+}
+
+a.clipboard-print {
+  display: inline-block;
+  margin-top: 2px;
+
+  > i {
+    font-size: 15px;
+    color: @gray;
+  }
+
+  &:hover > i {
+    color: @orange;
+  }
+}

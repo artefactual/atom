@@ -1095,9 +1095,10 @@ section .vcard:last-child > .field:last-child > div {
   &.has-preview {
 
     .search-result-preview {
+      float: left;
       display: inline-block;
       width: 17.8%;
-      margin-right: 10px;
+      margin-right: 2.2%;
       vertical-align: top;
       text-align: center;
       min-height: 120px;
@@ -1121,11 +1122,16 @@ section .vcard:last-child > .field:last-child > div {
     }
 
     .search-result-description {
-      width: 77%;
+      float: left;
+      width: 80%;
       display: inline-block;
       vertical-align: top;
     }
 
+  }
+
+  .search-result-description {
+    position: relative;
   }
 
   // Title
@@ -1143,6 +1149,7 @@ section .vcard:last-child > .field:last-child > div {
   .title {
     font-size: @baseFontSize * 1.25; // Cancel #content p
     margin-bottom: 0 !important;
+    margin-right: 25px !important;
     .text-overflow();
   }
 
@@ -1211,7 +1218,7 @@ section .vcard:last-child > .field:last-child > div {
 
 .header-options {
   .clearfix();
-  margin-bottom: @baseLineHeight / 2;
+  margin-bottom: @baseLineHeight / 4;
 }
 
 // Form

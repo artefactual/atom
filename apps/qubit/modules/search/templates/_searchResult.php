@@ -29,6 +29,8 @@
 
     <p class="title"><?php echo link_to(render_title(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></p>
 
+    <?php echo get_component('informationobject', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => false)) ?>
+
     <ul class="result-details">
 
       <?php if ('1' == sfConfig::get('app_inherit_code_informationobject', 1)

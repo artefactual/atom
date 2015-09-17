@@ -1699,3 +1699,23 @@ QubitMenu:
       th: หน้าคง
       vi: 'Trang tĩnh'
       zh: 静态页面
+  QubitMenu_clipboardmenu:
+    parent_id: QubitMenu_root
+    source_culture: en
+    name: clipboard
+    label:
+      en: 'Clipboard'
+  QubitMenu_clipboardclearmenu:
+    parent_id: QubitMenu_clipboardmenu
+    source_culture: en
+    name: clearClipboard
+    label:
+      en: 'Clear selections'
+    path: user/clipboardClear
+  QubitMenu_clipboardgotomenu:
+    parent_id: QubitMenu_clipboardmenu
+    source_culture: en
+    name: goToClipboard
+    label:
+      en: 'Go to clipboard'
+    path: user/clipboard
