@@ -1,6 +1,6 @@
 boxListSuccess:
   stylesheets:
-    print-preview: { media: screen, position: last }
+    print-reports: { media: screen, position: last }
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:

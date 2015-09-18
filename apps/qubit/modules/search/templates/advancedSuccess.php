@@ -64,12 +64,7 @@
 <?php end_slot() ?>
 
 <?php slot('title') ?>
-  <?php if ('print' == $sf_request->getParameter('media')): ?>
-    <div id="preview-message">
-      <?php echo __('Print preview') ?>
-      <?php echo link_to('Close', array_diff($sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('media' => 'print'))) ?>
-    </div>
-  <?php endif; ?>
+  <?php echo get_partial('default/printPreviewBar') ?>
 
   <h1><?php echo __('Advanced search') ?></h1>
 <?php end_slot() ?>
@@ -78,10 +73,7 @@
   <section id="action-icons">
     <ul>
       <li>
-        <a href="<?php echo url_for(array_merge($sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('media' => 'print'))) ?>">
-          <i class="icon-print"></i>
-          <?php echo __('Print') ?>
-        </a>
+        <?php echo get_partial('default/printPreviewButton') ?>
       </li>
       <?php if (isset($pager) && $pager->hasResults() && $sf_user->isAuthenticated()): ?>
       <li>

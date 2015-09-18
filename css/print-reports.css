@@ -460,3 +460,28 @@ table.item-list img
   float: left;
   margin: 2px 4px;
 }
+
+#print-date
+{
+  display: none;
+}
+
+#preview-message
+{
+  background: #eee;
+  display: block;
+  padding: 5px;
+  text-align: center;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+#preview-message a
+{
+  float: right;
+}
+
+#sfWebDebug
+{
+  display: block;
+}

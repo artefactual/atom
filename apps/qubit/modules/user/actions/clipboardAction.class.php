@@ -29,6 +29,11 @@ class UserClipboardAction extends DefaultBrowseAction
 
   public function execute($request)
   {
+    if ('print' == $request->getGetParameter('media'))
+    {
+      $this->getResponse()->addStylesheet('print-preview', 'last');
+    }
+
     $slugs = $this->context->user->getClipboard()->getAll();
 
     if (count($slugs) == 0)

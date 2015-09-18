@@ -122,11 +122,6 @@ class InformationObjectIndexAction extends sfAction
       $this->getResponse()->addJavascript('/vendor/jstree/jstree.min.js', 'last');
     }
 
-    if ('print' == $request->getGetParameter('media', 'screen'))
-    {
-      $this->getResponse()->addStylesheet('print-preview', 'last');
-    }
-
     $scopeAndContent = $this->resource->getScopeAndContent(array('cultureFallback' => true));
     if (!empty($scopeAndContent))
     {

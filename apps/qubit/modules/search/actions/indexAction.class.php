@@ -159,11 +159,6 @@ class SearchIndexAction extends DefaultBrowseAction
   {
     parent::execute($request);
 
-    if ('print' == $request->getGetParameter('media'))
-    {
-      $this->getResponse()->addStylesheet('print-preview', 'last');
-    }
-
     // Print noResults template if query is empty
     if (empty($request->query))
     {

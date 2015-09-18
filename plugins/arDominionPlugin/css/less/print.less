@@ -9,7 +9,9 @@
   #context-menu,
   section.actions,
   footer,
-  #sfWebDebug
+  #sfWebDebug,
+  button.clipboard,
+  a.clipboard-print
   {
     display: none;
   }
@@ -82,6 +84,12 @@
     padding: 0;
     margin: 0;
     margin-top: 2px;
+  }
+
+  /* This must not be added to the minified CSS version in 'css/print-preview.css' */
+
+  #preview-message {
+    display: none;
   }
 
 }

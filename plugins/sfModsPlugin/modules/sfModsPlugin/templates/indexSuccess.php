@@ -8,8 +8,6 @@
 
   <h1><?php echo render_title($mods) ?></h1>
 
-  <?php echo get_partial('informationobject/printPreviewBar', array('resource' => $resource)) ?>
-
   <?php if (isset($errorSchema)): ?>
     <div class="messages error">
       <ul>

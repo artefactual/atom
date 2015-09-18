@@ -1,6 +1,8 @@
 <?php decorate_with('layout_1col') ?>
 
 <?php slot('title') ?>
+  <?php echo get_partial('default/printPreviewBar') ?>
+
   <div class="multiline-header">
     <?php echo image_tag('/images/icons-large/icon-archival.png', array('alt' => '')) ?>
     <h1 aria-describedby="results-label"><?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?></h1>
@@ -10,10 +12,7 @@
 
 <?php slot('before-content') ?>
   <section class="header-options">
-    <a class="clipboard-print" href="<?php echo url_for(array_merge($sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('media' => 'print'))) ?>">
-      <i class="icon-print"></i>
-      <?php echo __('Print') ?>
-    </a>
+    <?php echo get_partial('default/printPreviewButton', array('class' => 'clipboard-print')) ?>
 
     <?php echo get_partial('default/sortPicker',
       array(

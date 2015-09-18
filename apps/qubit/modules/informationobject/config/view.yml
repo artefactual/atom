@@ -47,15 +47,15 @@ multiFileUploadSuccess:
 
 storageLocationsSuccess:
   stylesheets:
-    print-preview: { media: screen, position: last }
+    print-reports: { media: screen, position: last }
 
 fileListSuccess:
   stylesheets:
-    print-preview: { media: screen, position: last }
+    print-reports: { media: screen, position: last }
 
 itemListSuccess:
   stylesheets:
-    print-preview: { media: screen, position: last }
+    print-reports: { media: screen, position: last }
 
 renameSuccess:
   javascripts:
