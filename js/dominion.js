@@ -782,7 +782,7 @@
 
             // Modify subqueryField value
             $inlineSearch.find('#subqueryField')
-              .val($this.text());
+              .val($this.data('subquery-field-value'));
           })
         .on('keypress', 'input', function(e)
           {

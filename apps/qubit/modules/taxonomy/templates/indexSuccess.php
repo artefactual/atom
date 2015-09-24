@@ -28,7 +28,10 @@
         <?php echo get_component('search', 'inlineSearch', array(
           'label' => __('Search %1%', array('%1%' => render_title($resource))),
           'route' => url_for(array('module' => 'taxonomy', 'action' => 'index', 'slug' => $resource->slug)),
-          'fields' => array('All labels', 'Preferred label', '\'Use for\' labels'))) ?>
+          'fields' => array(
+            'allLabels' => __('All labels'),
+            'preferredLabel' => __('Preferred label'),
+            'useForLabels' => __('"Use for" labels')))) ?>
       </div>
       <div class="span4">
         <?php echo get_partial('default/sortPicker',
