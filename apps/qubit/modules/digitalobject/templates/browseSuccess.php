@@ -61,11 +61,11 @@
                         && QubitAcl::check(QubitInformationObject::getById($hit->getId()), 'readThumbnail')
                         && QubitGrantedRight::checkPremis($hit->getId(), 'readThumb')): ?>
           <?php echo link_to(image_tag($doc['digitalObject']['thumbnailPath'],
-            array('alt' => __('Go to %1%', array('%1%' => esc_entities(render_title(truncate_text(get_search_i18n($doc, 'title', array('allowEmpty' => false)), 100))))))),
+            array('alt' => esc_entities(render_title(truncate_text(get_search_i18n($doc, 'title', array('allowEmpty' => false)), 100))))),
             array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
         <?php else: ?>
           <?php echo link_to(image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId']),
-            array('alt' => __('Go to %1%', array('%1%' => esc_entities(render_title(truncate_text(get_search_i18n($doc, 'title', array('allowEmpty' => false)), 100))))))),
+            array('alt' => esc_entities(render_title(truncate_text(get_search_i18n($doc, 'title', array('allowEmpty' => false)), 100))))),
             array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
         <?php endif; ?>
       </div>

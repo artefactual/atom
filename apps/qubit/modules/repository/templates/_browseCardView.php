@@ -14,7 +14,7 @@
       <a href="<?php echo url_for(array('module' => 'repository', 'slug' => $doc['slug'])) ?>">
         <?php if ($hasLogo): ?>
           <div class="preview">
-            <?php echo image_tag('/uploads/r/'.$doc['slug'].'/conf/logo.png', array('alt' => __('Go to %1%', array('%1%' => esc_entities(render_title(truncate_text(get_search_i18n($doc, 'authorizedFormOfName', array('allowEmpty' => false, 'culture' => $selectedCulture)), 100))))))) ?>
+            <?php echo image_tag('/uploads/r/'.$doc['slug'].'/conf/logo.png', array('alt' => esc_entities(render_title(truncate_text(get_search_i18n($doc, 'authorizedFormOfName', array('allowEmpty' => false, 'culture' => $selectedCulture)), 100))))) ?>
           </div>
         <?php else: ?>
           <h4><?php echo $authorizedFormOfName ?></h4>
