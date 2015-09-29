@@ -954,7 +954,7 @@ EOF;
         }
 
         // Add events
-        parent::importEvents($self);
+        csvImportBaseTask::importEvents($self);
 
         // This will import only a single digital object;
         // if both a URI and path are provided, the former is preferred.
