@@ -122,7 +122,8 @@
       updateSlugUsingTitle();
     });
 
-    // If slug changes, check availability
+    // If slug changes, sanitize it and indicate if it has already been used
+    // by another resource
     $fields['slug'].change(function() {
       fetchSlugPreview($fields['slug'].val(), fetchSlugPreviewCallback);
     });
