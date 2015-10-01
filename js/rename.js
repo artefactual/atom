@@ -13,11 +13,11 @@
 
     $.ajax({
       'url': slugPreviewUrl,
-      'data': {'title': title},
+      'data': {'text': title},
       'type': 'GET',
       'cache': false,
       'success': function(results) {
-        callback(false, results['slug'], results['adjusted']);
+        callback(false, results['slug'], results['padded']);
       },
       'error': function() {
         callback(true);
@@ -61,11 +61,11 @@
     }
 
     // Callback to handle slug preview results
-    function fetchSlugPreviewCallback(err, slug, adjusted) {
+    function fetchSlugPreviewCallback(err, slug, padded) {
       if (err) {
         alert('Error fetching slug preview.');
       } else {
-        if (adjusted) {
+        if (padded) {
           $slugExistsWarningModal.modal('show');
         }
         $fields['slug'].val(slug);

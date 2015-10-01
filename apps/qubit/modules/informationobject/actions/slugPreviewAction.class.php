@@ -19,7 +19,8 @@
 
 class InformationObjectSlugPreviewAction extends sfAction
 {
-  // Provide a preview of what a slug could be renamed to, given a title
+  // Slugify text, if it's not already slugified, and indicate if it has been
+  // padded (if slug already used by another resource)
   public function execute($request)
   {
     $this->resource = $this->getRoute()->resource;
@@ -33,11 +34,11 @@ class InformationObjectSlugPreviewAction extends sfAction
     }
 
     // Return JSON containing first available slug
-    $availableSlug = $this->determineAvailableSlug($this->request->getParameter('title'), $this->resource->id);
+    $availableSlug = $this->determineAvailableSlug($this->request->getParameter('text'), $this->resource->id);
 
     $response = array(
-      'slug' => $availableSlug,
-      'adjusted' => $availableSlug != QubitSlug::slugify($this->request->getParameter('title'))
+      'slug'   => $availableSlug,
+      'padded' => $availableSlug != QubitSlug::slugify($this->request->getParameter('text'))
     );
 
     $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
@@ -45,20 +46,20 @@ class InformationObjectSlugPreviewAction extends sfAction
     return $this->renderText(json_encode($response));
   }
 
-  public static function determineAvailableSlug($title, $resourceId)
+  public static function determineAvailableSlug($text, $resourceId)
   {
-    $originalTitle = $title;
+    $originalText = $text;
 
     do
     {
-      $slugText = QubitSlug::slugify($title);
+      $slugText = QubitSlug::slugify($text);
 
       $criteria = new Criteria;
       $criteria->add(QubitSlug::SLUG, $slugText);
 
-      // Create title variant in case current isn't available
+      // Padded text if slugified text slug is used by another resource
       $counter++;
-      $title = $originalTitle .'-' . $counter;
+      $text = $originalText .'-' . $counter;
 
       $slug = QubitSlug::getOne($criteria);
     }
