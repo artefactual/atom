@@ -110,7 +110,7 @@ class InformationObjectRenameAction extends DefaultEditAction
       // Attempt to change slug if submitted slug's different than current slug
       if ($postedSlug != $slug->slug)
       {
-        $slug->slug = InformationObjectSlugPreviewAction::determineAvailableSlug($postedSlug);
+        $slug->slug = InformationObjectSlugPreviewAction::determineAvailableSlug($postedSlug, $this->resource->id);
         $slug->save();
       }
     }

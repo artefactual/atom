@@ -17,7 +17,7 @@
       'type': 'GET',
       'cache': false,
       'success': function(results) {
-        callback(false, results['slug']);
+        callback(false, results['slug'], results['adjusted']);
       },
       'error': function() {
         callback(true);
@@ -53,13 +53,19 @@
     }
 
     function updateSlugPreview() {
-      fetchSlugPreview($fields['title'].val(), function(err, slug) {
-        if (err) {
-          alert('Error fetching slug preview.');
-        } else {
-          $fields['slug'].val(slug);
-        }
-      });
+      // Only update slug preview if the slug field's enabled
+      if ($fieldCheckboxes['slug'].is(':checked')) {
+        fetchSlugPreview($fields['title'].val(), function(err, slug, adjusted) {
+          if (err) {
+            alert('Error fetching slug preview.');
+          } else {
+            if (adjusted) {
+              $('#rename-slug-warning').modal('show');
+            }
+            $fields['slug'].val(slug);
+          }
+        });
+      }
     }
 
     // When no AJAX requests are pending, submit form data

@@ -14,6 +14,25 @@
 
 <?php slot('content') ?>
 
+  <div class="modal hide" id="rename-slug-warning">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">×</a>
+      <h3><?php echo __('Slug in use') ?></h3>
+    </div>
+
+    <div class="modal-body">
+      <?php echo __('A slug based on this title already exists so a number has been added to pad the slug.') ?>
+    </div>
+
+    <div class="modal-footer">
+      <section class="actions">
+        <ul>
+          <li><a href="#" id="renameModalCancel" class="c-btn c-btn-submit" data-dismiss="modal"><?php echo __('Close') ?></a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
   <?php echo $form->renderFormTag(url_for(array('module' => 'informationobject', 'action' => 'rename', 'slug' => $resource->slug)), array('id' => 'rename-form')) ?>
 
     <?php echo $form->renderHiddenFields() ?>
@@ -33,12 +52,16 @@
           ->label(__('Title'))
           ->help(__('Editing the description title will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.'))) ?>
 
+        <p><?php echo __('Original title') ?>: <em><?php echo $resource->title ?></em></p>
+
         <div class="rename-form-field-toggle"><input id="rename_enable_slug" type="checkbox" checked="checked" /> <?php echo __('Update slug') ?></div>
         <br />
 
         <?php echo render_field($form->slug
           ->label(__('Slug'))
           ->help(__('Do not use any special characters or spaces in the slug - only lower case alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters will be stripped out or replaced. Editing the slug will not automatically update the other fields.')), $resource) ?>
+
+        <p><?php echo __('Original slug') ?>: <em><?php echo $resource->slug ?></em></p>
 
         <?php if (count($resource->digitalObjects) > 0): ?>
 
@@ -48,6 +71,8 @@
           <?php echo render_field($form->filename
           ->label(__('Filename'))
           ->help(__('Do not use any special characters or spaces in the filename - only lower case alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters will be stripped out or replaced. Editing the filename will not automatically update the other fields.')), $resource) ?>
+
+          <p><?php echo __('Original filename') ?>: <em><?php echo $resource->digitalObjects[0]->name ?></em></p>
 
         <?php endif; ?>
 

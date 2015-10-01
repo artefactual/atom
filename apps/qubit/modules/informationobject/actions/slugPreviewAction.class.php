@@ -22,6 +22,8 @@ class InformationObjectSlugPreviewAction extends sfAction
   // Provide a preview of what a slug could be renamed to, given a title
   public function execute($request)
   {
+    $this->resource = $this->getRoute()->resource;
+
     // Return 401 if unauthorized
     if (!sfContext::getInstance()->user->isAuthenticated()
       || !QubitAcl::check($this->resource, 'read'))
@@ -31,8 +33,11 @@ class InformationObjectSlugPreviewAction extends sfAction
     }
 
     // Return JSON containing first available slug
+    $availableSlug = $this->determineAvailableSlug($this->request->getParameter('title'), $this->resource->id);
+
     $response = array(
-      'slug' => $this->determineAvailableSlug($this->request->getParameter('title'))
+      'slug' => $availableSlug,
+      'adjusted' => $availableSlug != QubitSlug::slugify($this->request->getParameter('title'))
     );
 
     $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
@@ -40,23 +45,25 @@ class InformationObjectSlugPreviewAction extends sfAction
     return $this->renderText(json_encode($response));
   }
 
-  public static function determineAvailableSlug($title)
+  public static function determineAvailableSlug($title, $resourceId)
   {
     $originalTitle = $title;
 
     do
     {
-      $slug = QubitSlug::slugify($title);
+      $slugText = QubitSlug::slugify($title);
 
       $criteria = new Criteria;
-      $criteria->add(QubitSlug::SLUG, $slug);
+      $criteria->add(QubitSlug::SLUG, $slugText);
 
       // Create title variant in case current isn't available
       $counter++;
-      $title = $originalTitle . $counter;
-    }
-    while (null != QubitSlug::getOne($criteria));
+      $title = $originalTitle .'-' . $counter;
 
-    return $slug;
+      $slug = QubitSlug::getOne($criteria);
+    }
+    while (($slug != null) && ($slug->objectId != $resourceId));
+
+    return $slugText;
   }
 }
