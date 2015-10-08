@@ -1,9 +1,9 @@
 (function ($) {
 
   var fields = ['title', 'slug', 'filename'];
-  var asyncOpInProgress = false;
+  var asyncOpCounter = 0;
 
-  // Fetch a slug preview for a given title
+  // Convert text (can be a title or slug text) to an available slug
   function fetchSlugPreview(title, callback)
   {
     // Assemble slug preview URL
@@ -13,11 +13,11 @@
 
     $.ajax({
       'url': slugPreviewUrl,
-      'data': {'title': title},
+      'data': {'text': title},
       'type': 'GET',
       'cache': false,
       'success': function(results) {
-        callback(false, results['slug']);
+        callback(false, results['slug'], results['padded']);
       },
       'error': function() {
         callback(true);
@@ -31,7 +31,9 @@
     $('#rename-form input:text:visible:first').focus();
 
     // Create references to selectors
-    var $renameForm = $('#rename-form');
+    var $renameForm             = $('#rename-form');
+    var $renameFormSubmit       = $('#rename-form-submit');
+    var $slugExistsWarningModal = $('#rename-slug-warning');
 
     var $fields          = {};
     var $fieldCheckboxes = {};
@@ -42,8 +44,6 @@
       $fieldCheckboxes[field] = $('#rename_enable_' + field);
     }
 
-    $renameFormSubmit = $('#rename-form-submit');
-
     // Cycle through fields and disable them if their corresponding checkbox isn't checked
     function enableFields() {
       for (var index in fields) {
@@ -52,19 +52,29 @@
       }
     }
 
-    function updateSlugPreview() {
-      fetchSlugPreview($fields['title'].val(), function(err, slug) {
-        if (err) {
-          alert('Error fetching slug preview.');
-        } else {
-          $fields['slug'].val(slug);
+    // Update slug field by getting a slug preview based on the title
+    function updateSlugUsingTitle() {
+      // Only update slug preview if the slug field's enabled
+      if ($fieldCheckboxes['slug'].is(':checked')) {
+        fetchSlugPreview($fields['title'].val(), fetchSlugPreviewCallback);
+      }
+    }
+
+    // Callback to handle slug preview results
+    function fetchSlugPreviewCallback(err, slug, padded) {
+      if (err) {
+        alert('Error fetching slug preview.');
+      } else {
+        if (padded) {
+          $slugExistsWarningModal.modal('show');
         }
-      });
+        $fields['slug'].val(slug);
+      }
     }
 
     // When no AJAX requests are pending, submit form data
     function trySubmit() {
-      if (asyncOpInProgress) {
+      if (asyncOpCounter > 0) {
         setTimeout(trySubmit, 1000);
       } else {
         $renameForm.submit();
@@ -78,18 +88,23 @@
     $renameForm.on('keypress', function (e) {
       if (e.keyCode == 13) {
         e.preventDefault();
-        updateSlugPreview();
+
+        // If user pressing enter from title field, update slug if enabled
+        if ($fields['title'].is(':focus')) {
+          updateSlugUsingTitle();
+        }
+
         trySubmit();
       }
     });
 
-    // Keep track of whether async requests are in progress
+    // Keep track of how many async requests are in progress
     $renameForm.ajaxStart(function() {
-      asyncOpInProgress = true;
+      asyncOpCounter++;
     });
 
     $renameForm.ajaxStop(function() {
-      asyncOpInProgress = false;
+      asyncOpCounter--;
     });
 
     // Enable/disable fields when checkboxes clicked
@@ -104,7 +119,13 @@
 
     // If title changes, update slug
     $fields['title'].change(function() {
-      updateSlugPreview();
+      updateSlugUsingTitle();
+    });
+
+    // If slug changes, sanitize it and indicate if it has already been used
+    // by another resource
+    $fields['slug'].change(function() {
+      fetchSlugPreview($fields['slug'].val(), fetchSlugPreviewCallback);
     });
   });
 
