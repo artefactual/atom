@@ -46,11 +46,13 @@ class RelationIndexAction extends sfAction
     if (isset($this->resource->object))
     {
       $value['object'] = $this->context->routing->generate(null, array($this->resource->object));
+      $value['objectDisplay'] = strval($this->resource->object);
     }
 
     if (isset($this->resource->subject))
     {
       $value['subject'] = $this->context->routing->generate(null, array($this->resource->subject));
+      $value['subjectDisplay'] = strval($this->resource->subject);
     }
 
     if (isset($this->resource->type))

@@ -58,6 +58,7 @@ Drupal.behaviors.relatedAuthorityRecord = {
         'relationTableMap': function (response)
           {
             response.resource = response.object;
+            response.resourceDisplay = response.objectDisplay;
 
             return response;
           } });
@@ -71,15 +72,33 @@ Drupal.behaviors.relatedAuthorityRecord = {
         .find('td:last')
         .prepend('$editHtml');
 
-      // Load primary contact data when a new item is selected
+      // Load primary contact data when a new item is selected.
+      // Can't use dialog.loadData() with the donor primary contact url
+      // as it loads the data with a different id. The contact data must
+      // be obtained first and then update the dialog using the current dialog id
       jQuery('#relatedDonor .yui-ac-input').on('itemSelected', function (e)
         {
-          dialog.loadData(e.itemValue + '/donor/primaryContact', function ()
+          var dataSource = new YAHOO.util.XHRDataSource(e.itemValue + '/donor/primaryContact');
+          dataSource.responseType = YAHOO.util.DataSourceBase.TYPE_JSON;
+          dataSource.parseJSONData = function (request, response)
             {
-              dialog.yuiDialog.show();
-            });
-        });
+              response = dialog.options.relationTableMap.call(dialog, response);
 
+              return { results: [new (function (response)
+                {
+                  for (name in response)
+                  {
+                    this[dialog.fieldPrefix + '[' + name + ']'] = response[name];
+                  }
+                })(response)] };
+            }
+
+          dataSource.sendRequest(null, {
+            success: function (request, response)
+              {
+                dialog.updateDialog(dialog.id, response.results[0]);
+              } });
+        });
     } }
 
 content
