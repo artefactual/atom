@@ -23,39 +23,26 @@ class AccessionRelatedDonorAction extends RelationIndexAction
   {
     if (null !== $contact = $this->resource->object->getPrimaryContact())
     {
-      if (isset($contact->streetAddress))
+      foreach (array(
+        'city',
+        'contactPerson',
+        'countryCode',
+        'email',
+        'postalCode',
+        'region',
+        'streetAddress',
+        'telephone',
+        'contactType',
+        'website',
+        'fax',
+        'latitude',
+        'longitude',
+        'note') as $field)
       {
-        $value['streetAddress'] = $contact->streetAddress;
-      }
-
-      if (isset($contact->region))
-      {
-        $value['region'] = $contact->region;
-      }
-
-      if (isset($contact->countryCode))
-      {
-        $value['countryCode'] = $contact->countryCode;
-      }
-
-      if (isset($contact->postalCode))
-      {
-        $value['postalCode'] = $contact->postalCode;
-      }
-
-      if (isset($contact->telephone))
-      {
-        $value['telephone'] = $contact->telephone;
-      }
-
-      if (isset($contact->email))
-      {
-        $value['email'] = $contact->email;
-      }
-
-      if (isset($contact->contactPerson))
-      {
-        $value['contactPerson'] = $contact->contactPerson;
+        if (isset($contact->$field))
+        {
+          $value[$field] = $contact->$field;
+        }
       }
     }
 
