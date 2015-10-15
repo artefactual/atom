@@ -9,7 +9,7 @@
   <form class="sidebar-search" action="<?php echo url_for(array('module' => 'search')) ?>">
     <input type="hidden" name="repos" value="<?php echo $resource->id ?>">
     <div class="input-prepend input-append">
-      <input type="text" name="query" placeholder="Search holdings">
+      <input type="text" name="query" placeholder="<?php echo __('Search holdings') ?>">
       <button class="btn" type="submit">
         <i class="icon-search"></i>
       </button>
