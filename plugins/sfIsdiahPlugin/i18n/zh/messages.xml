@@ -1,420 +1,420 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2015-08-27T12:06:09Z" product-name="messages">
+  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2015-10-16T04:43:21Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>无标题的</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%规范的名称%2% - %3%必填%4%.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1% 标识符%2% -  %3% 必填%4%.</target>
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.</source>
-        <target/>
+        <target>%1%联系信息%2% - %3%必须%4%包括下列至少一个地址信息: 城市, 国家, 邮编, 地区或街道.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Contact information%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%联系信息%2% -  %3%必填%4%.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Add new archival institution</source>
-        <target/>
+        <target>添加新的档案馆</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Edit %1%</source>
-        <target/>
+        <target>编辑 %1%</target>
       </trans-unit>
       <trans-unit id="8">
         <source>See ISDIAH 5.2 for contact area information and examples.</source>
-        <target/>
+        <target>联系版块信息和举例, 参见 ISDIAH 5.2.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Enter the digital latitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. 49.459044</source>
-        <target/>
+        <target>输入该机构物理位置的数字维度(而不是以度分秒根式表达), 比如 49.459044</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Enter the digital longitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. -104.296984</source>
-        <target/>
+        <target>输入该机构物理位置的数字经度(而不是以度分秒根式表达), 比如 -104.296984</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Edit %1% - ISDIAH</source>
-        <target/>
+        <target>编辑 %1% - 档案保管机构描述国际标准(ISDIAH)</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Identity area</source>
-        <target/>
+        <target>特征标识版块</target>
       </trans-unit>
       <trans-unit id="13">
         <source>"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)</source>
-        <target/>
+        <target>"根据相关国际或国内标准记录用以确认机构的数字或字母数字代码." (ISDIAH 5.1.1)</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Identifier</source>
-        <target/>
+        <target>标识符</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>必填细目.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
-        <target/>
+        <target>"记录机构的标准名称, 如有需要, 添加适当的限定词 (比如日期, 地点等). 另外在规则和/或惯例细目(5.6.3)中指明该细目所应用的规则." (ISDIAH 5.1.2)</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Authorized form of name</source>
-        <target/>
+        <target>规范的名称</target>
       </trans-unit>
       <trans-unit id="18">
         <source>This is a mandatory element</source>
-        <target/>
+        <target>必填细目</target>
       </trans-unit>
       <trans-unit id="19">
         <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
-        <target/>
+        <target>"目的: 指明一个机构的规范名称在其他语言或文字中的各种形式. 规则: 根据著录单位所遵循的相关国内或国际惯例或规则记录该机构的并列名称, 包括这些惯例和规则所要求的任何必需的次细目以及/或者限定词. 在规则和/或惯例部分(5.6.3)明确说明所应用的规则." (ISDIAH 5.1.3)</target>
       </trans-unit>
       <trans-unit id="20">
         <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
-        <target/>
+        <target>"记录该机构可能为人所知的其他名称. 这包括统一名称的其他形式, 首字母缩写, 其他名称, 或历来更名(如果可能，一并提供更名的日期)." (ISDIAH 5.1.4)</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired from the drop-down menu; these values are drawn from the Repository Types taxonomy.</source>
-        <target/>
+        <target>记录机构类型. (ISDIAH 5.1.5) 从下拉单中选择需要的所有类型; 这些值来自典藏库类型分类.</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Contact area</source>
-        <target/>
+        <target>联系方式版块</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Description area</source>
-        <target/>
+        <target>著录版块</target>
       </trans-unit>
       <trans-unit id="24">
         <source>"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)</source>
-        <target/>
+        <target>"记录有关该机构历史的相关信息. 该细目包括该机构创立, 更名, 改变司法职责的日期信息, 或是该机构的任何权力来源." (ISDIAH 5.3.1)</target>
       </trans-unit>
       <trans-unit id="25">
         <source>"Identify the geographical area the institution belongs to. Record any other relevant information about the cultural context of the institution." (ISDIAH 5.3.2)</source>
-        <target/>
+        <target>"标明该机构的地理位置. 记录关于该机构文化背景的任何相关信息." (ISDIAH 5.3.2)</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Geographical and cultural context</source>
-        <target/>
+        <target>地理和文化背景</target>
       </trans-unit>
       <trans-unit id="27">
         <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the institution, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISDIAH 5.3.3)</source>
-        <target/>
+        <target>"记录为该机构的权力, 职能和责任提供权威依据的任何文献, 法律, 指令或宪章, 一并记录相关司法权信息以及权力生效或改变的起讫日期." (ISDIAH 5.3.3)</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Mandates/Sources of authority</source>
-        <target/>
+        <target>规范的授权/来源</target>
       </trans-unit>
       <trans-unit id="29">
         <source>"Describe, in narrative form or using organisational charts, the current administrative structure of the institution." (ISDIAH 5.3.4)</source>
-        <target/>
+        <target>"用叙事形式或组织结构图方式描述该机构当前的行政管理结构." (ISDIAH 5.3.4)</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Administrative structure</source>
-        <target/>
+        <target>管理结构</target>
       </trans-unit>
       <trans-unit id="31">
         <source>"Record information about the records management and collecting policies of the institution. Define the scope and nature of material which the institution accessions. Indicate whether the repository seeks to acquire archival materials by transfer, gift, purchase and/or loan. If the policy includes active survey and/or rescue work, this might be spelt out." (ISDIAH 5.3.5)</source>
-        <target/>
+        <target>"记录与该机构的记录管理和收集政策相关的信息. 详细解释该机构所登记的资料的范围与性质. 指明该典藏库是否通过转移, 礼物, 购买和/或借用方式寻求文献资料. 如果其政策包括活跃的调查和/或修缮, 阐明相关信息." (ISDIAH 5.3.5)</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Records management and collecting policies</source>
-        <target/>
+        <target>记录管理和收集政策</target>
       </trans-unit>
       <trans-unit id="33">
         <source>"Record information on the building(s) of the institution (general and architectural characteristics of the building, capacity of storage areas, etc). Where possible, provide information which can be used for generating statistics." (ISDIAH 5.3.6)</source>
-        <target/>
+        <target>"记录该机构的建筑物信息(一般特征和建筑物设计特征, 存放区容量等). 如果可能, 提供可以生成数据的信息." (ISDIAH 5.3.6)</target>
       </trans-unit>
       <trans-unit id="34">
         <source>"Record a short description of the holdings of the institution, describing how and when they were formed. Provide information on volume of holdings, media formats, thematic coverage, etc." (ISDIAH 5.3.7)</source>
-        <target/>
+        <target>"简要描述该机构的馆藏, 描述它们是如何以及何时入藏. 提供有关馆藏量, 媒介形式, 收藏主题等信息." (ISDIAH 5.3.7)</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Archival and other holdings</source>
-        <target/>
+        <target>文献及其他馆藏</target>
       </trans-unit>
       <trans-unit id="36">
         <source>"Record the title and other pertinent details of the published and/or unpublished finding aids and guides prepared by the institution and of any other relevant publications. Use ISO 690 Information and documentation – Bibliographic references and other national or international cataloguing rules." (ISDIAH 5.3.8)</source>
-        <target/>
+        <target>"记录由该机构制定的已发布和/或未发布的索引指南和指南的标题及其他相关细节以及其他任何相关的发布信息. 使用ISO 690 信息和著录 – 参考文献以及其他国内或国际编目规则." (ISDIAH 5.3.8)</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Finding aids, guides and publications</source>
-        <target/>
+        <target>索引指南, 指南和发布</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Access area</source>
-        <target/>
+        <target>检索版块</target>
       </trans-unit>
       <trans-unit id="39">
         <source>"Record the opening hours of the institution and annual, seasonal and public holidays, and any other planned closures. Record times associated with the availability and/or delivery of services (for example, exhibition spaces, reference services, etc.)." (ISDIAH 5.4.1)</source>
-        <target/>
+        <target>"记录机构的开放时间, 年度, 季节和公共节假日, 以及任何其他计划内的关闭时间. 记录与各项服务是否可用和/或交付的时间(比如展区, 咨询服务等)." (ISDIAH 5.4.1)</target>
       </trans-unit>
       <trans-unit id="40">
         <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
-        <target/>
+        <target>"描述检索政策, 包括有关使用资料及设施的任何限制和/或规则. 记录有关注册, 预约, 读者借阅单, 介绍信, 接收费等. 如果适用, 引用相关法律." (ISDIAH 5.4.2)</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Conditions and requirements</source>
-        <target/>
+        <target>条件和要求</target>
       </trans-unit>
       <trans-unit id="42">
         <source>"Record information about travelling to the institution and details for users with disabilities, including building features, specialised equipment or tools, parking or lifts." (ISDIAH 5.4.3)</source>
-        <target/>
+        <target>"为有残疾的使用者记录前往该机构的行程信息, 包括建筑物特征, 专业设备或工具, 停车场或是电梯." (ISDIAH 5.4.3)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Accessibility</source>
-        <target/>
+        <target>可访问性</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Services area</source>
-        <target/>
+        <target>服务版块</target>
       </trans-unit>
       <trans-unit id="45">
         <source>"Record information about the onsite services provided by the institution such as languages spoken by staff, research and consultation rooms, enquiry services, internal libraries, map, microfiches, audio-visual, computer rooms, etc. Record as well any relevant information about research services, such as research undertaken by the institution, and the fee charge if applicable." (ISDIAH 5.5.1)</source>
-        <target/>
+        <target>"记录该机构提供的现场服务信息, 比如工作人员的语言, 研究和咨询办公室, 询问服务, 内部图书馆, 地图, 缩微平片, 音视频, 计算机房等. 一并记录与研究服务相关的信息, 比如该机构从事的研究, 如果适用, 同时记录收费信息." (ISDIAH 5.5.1)</target>
       </trans-unit>
       <trans-unit id="46">
         <source>"Record information about reproduction services available to the public (microfilms, photocopies, photographs, digitised copies). Specify general conditions and restrictions to the services, including applicable fees and publication rules." (ISDIAH 5.5.2)</source>
-        <target/>
+        <target>"记录对外公开的复制服务信息(缩微胶卷, 复印件, 照片, 数码复印件). 具体说明服务的一般条件和限制,  包括费用和出版规则." (ISDIAH 5.5.2)</target>
       </trans-unit>
       <trans-unit id="47">
         <source>"Record information about spaces available for public use (permanent or temporary exhibitions, free or charged internet connection, cash machines, cafeterias, restaurants, shops, etc.)." (ISDIAH 5.5.3)</source>
-        <target/>
+        <target>"记录对外公开的空间信息(长期或临时展览, 费用或是收费网络服务, 取款机, 咖啡馆, 餐馆, 商店等)." (ISDIAH 5.5.3)</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Public areas</source>
-        <target/>
+        <target>公共版块</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Control area</source>
-        <target/>
+        <target>控制版块</target>
       </trans-unit>
       <trans-unit id="50">
         <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISIAH 5.6.1)</source>
-        <target/>
+        <target>"根据地区或全国惯例记录唯一著录标识符. 如果著录将在国际范围内使用, 根据ISO 3166代码的最新版本记录著录创建国的国家代码, 以代表该国国名. 如果著录由一个国际组织创建, 提供该组织的标识符, 以代替国家代码." (ISIAH 5.6.1)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Description identifier</source>
-        <target/>
+        <target>著录标识符</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard." (ISDIAH 5.6.2)</source>
-        <target/>
+        <target>"记录创建, 修改或传播该著录的机构的完整的规范名称, 或者根据国内或是国际单位代码标准记录该机构的认可代码." (ISDIAH 5.6.2)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Institution identifier</source>
-        <target/>
+        <target>机构标识符</target>
       </trans-unit>
       <trans-unit id="54">
         <source>"Record the names, and, where useful, the editions or publication dates of the conventions or rules applied. Specify, separately, which rules have been applied for creating the Authorised form(s) of name. Include reference to any system(s) of dating used to identify dates in this description (e.g. ISO 8601)." (ISDIAH 5.6.3)</source>
-        <target/>
+        <target>"记录所应用的惯例或规则的名称, 如有需要, 记录其版本或是出版日期. 另外明确说明创建规范名称所应用的规则. 包括该著录用以确认日期的计时系统参照 (比如 ISO 8601)." (ISDIAH 5.6.3)</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>使用的规则和/或惯例</target>
       </trans-unit>
       <trans-unit id="56">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDIAH 5.6.4). Select Final, Revised or Draft from the drop-down menu.</source>
-        <target/>
+        <target>该栏的目的是 "说明著录的初稿状态, 以便使用者理解著录的当前状态." (ISDIAH 5.6.4). 从下拉单中选择定稿, 已修改或初稿.</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal descriptions are those that consist only of the three essential elements of an ISIAH compliant description (see 4.7), while full records are those that convey information for all relevant ISDIAH elements of description." (ISDIAH 5.6.5)</source>
-        <target/>
+        <target>从下拉单中选择完整, 部分或最小. "如果没有全国通用指南或规则, 最小著录仅包括组成ISIAH适用著录的三项基本细目 (见 4.7). 完整记录包括表达所有相关的ISDIAH著录细目的信息." (ISDIAH 5.6.5)</target>
       </trans-unit>
       <trans-unit id="58">
         <source>"Record the date the description was created and the dates of any revisions to the description." (ISDIAH 5.6.6)</source>
-        <target/>
+        <target>"记录创建该著录的日期以及任何修改该著录的日期." (ISDIAH 5.6.6)</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>创建, 修改以及删除日期</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Last updated</source>
-        <target/>
+        <target>最近更新</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
-        <target/>
+        <target>从下拉单中选择该记录的语言; 输入前几个字母以缩小选择范围.  (ISDIAH 5.6.7)</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
-        <target/>
+        <target>从下拉单中选择该记录的文字; 输入前几个字母以缩小选择范围.  (ISDIAH 5.6.7)</target>
       </trans-unit>
       <trans-unit id="63">
         <source>"Record the sources consulted in establishing the description of the institution." (ISDIAH 5.6.8)</source>
-        <target/>
+        <target>"记录创建机构著录所参考的资料." (ISDIAH 5.6.8)</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Sources</source>
-        <target/>
+        <target>来源</target>
       </trans-unit>
       <trans-unit id="65">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
-        <target/>
+        <target>"记录与该著录的创建和维护相关的说明." (ISDIAH 5.6.9)</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Access points</source>
-        <target/>
+        <target>检索点</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Thematic area</source>
-        <target/>
+        <target>主题版块</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Search for an existing term in the Thematic Areas taxonomy by typing the first few characters of the term name. This should be used to identify major collecting areas.</source>
-        <target/>
+        <target>如需搜索主题区域分类中已存在的术语, 输入术语的前几个字母. 不能使用该方法确认主要的收藏区域.</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Geographic subregion</source>
-        <target/>
+        <target>地理亚区域</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Search for an existing term in the Geographic Subregion taxonomy by typing the first few characters of the term name.</source>
-        <target/>
+        <target>如需搜索次地区分类中已存在的术语, 输入术语的前几个字母.</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Cancel</source>
-        <target/>
+        <target>取消</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Save</source>
-        <target/>
+        <target>保存</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Create</source>
-        <target/>
+        <target>创建</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Primary contact</source>
-        <target/>
+        <target>主要联系</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Website</source>
-        <target/>
+        <target>网页</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Email</source>
-        <target/>
+        <target>邮件</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Edit identity area</source>
-        <target/>
+        <target>编辑特征标识版块</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Parallel form(s) of name</source>
-        <target/>
+        <target>并列的名称形式</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Other form(s) of name</source>
-        <target/>
+        <target>名称的其他形式</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Type</source>
-        <target/>
+        <target>类型</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Edit contact area</source>
-        <target/>
+        <target>编辑联系信息版块</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Edit description area</source>
-        <target/>
+        <target>编辑描述版块</target>
       </trans-unit>
       <trans-unit id="83">
         <source>History</source>
-        <target/>
+        <target>历史</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Buildings</source>
-        <target/>
+        <target>建筑</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Holdings</source>
-        <target/>
+        <target>藏品</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Edit access area</source>
-        <target/>
+        <target>编辑检索版块</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Opening times</source>
-        <target/>
+        <target>开放时间</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Access conditions and requirements</source>
-        <target/>
+        <target>检索条件及要求</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Edit services area</source>
-        <target/>
+        <target>编辑服务版块</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Research services</source>
-        <target/>
+        <target>研究服务</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Reproduction services</source>
-        <target/>
+        <target>复制服务</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Edit control area</source>
-        <target/>
+        <target>编辑控制版块</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Status</source>
-        <target/>
+        <target>状态</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Level of detail</source>
-        <target/>
+        <target>细节层级</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Language(s)</source>
-        <target/>
+        <target>语言</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Script(s)</source>
-        <target/>
+        <target>文字</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Maintenance notes</source>
-        <target/>
+        <target>维护说明</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Edit access points</source>
-        <target/>
+        <target>编辑检索点</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Access Points</source>
-        <target/>
+        <target>检索点</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Edit</source>
-        <target/>
+        <target>编辑</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Delete</source>
-        <target/>
+        <target>删除</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Add new</source>
-        <target/>
+        <target>添加新的</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Edit theme</source>
-        <target/>
+        <target>编辑主题</target>
       </trans-unit>
     </body>
   </file>

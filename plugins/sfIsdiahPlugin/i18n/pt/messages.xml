@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2015-08-27T12:06:31Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2015-10-16T04:43:22Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -418,11 +418,11 @@ registos completos são os que fornecem informação para todos os elementos de 
       </trans-unit>
       <trans-unit id="123">
         <source>Enter the digital latitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. 49.459044</source>
-        <target/>
+        <target>Introduza a latitude digital da localização física da instituição (em vez de graus, minutos e segundos), por exemplo, 49.459044</target>
       </trans-unit>
       <trans-unit id="124">
         <source>Enter the digital longitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. -104.296984</source>
-        <target/>
+        <target>Introduza a longitude digital da localização física da instituição (em vez de graus, minutos e segundos), por exemplo, -104.296984</target>
       </trans-unit>
     </body>
   </file>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cs" datatype="plaintext" original="messages" date="2015-08-27T12:07:43Z" product-name="messages">
+  <file source-language="en" target-language="cs" datatype="plaintext" original="messages" date="2015-10-16T04:43:25Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Bez názvu</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Authorized form of name - This is a mandatory element.</source>
@@ -74,7 +74,7 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Edit</source>
-        <target/>
+        <target>Upravit</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Add new</source>
@@ -82,7 +82,7 @@
       </trans-unit>
       <trans-unit id="20">
         <source>List donor</source>
-        <target/>
+        <target>Vypsat dárce</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Search donor</source>
@@ -98,7 +98,7 @@
       </trans-unit>
       <trans-unit id="24">
         <source>Search %1%</source>
-        <target/>
+        <target>Hledat %1%</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Alphabetic</source>
@@ -134,7 +134,7 @@
       </trans-unit>
       <trans-unit id="33">
         <source>Title</source>
-        <target/>
+        <target>Nadpis</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Acquisition date</source>
@@ -198,7 +198,7 @@
       </trans-unit>
       <trans-unit id="49">
         <source>Basic info</source>
-        <target/>
+        <target>Základní informace</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
@@ -302,7 +302,7 @@
       </trans-unit>
       <trans-unit id="75">
         <source>%1% area</source>
-        <target/>
+        <target>%1% oblast</target>
       </trans-unit>
       <trans-unit id="76">
         <source>It has %1% deaccessions that will also be deleted:</source>

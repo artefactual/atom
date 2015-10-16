@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2015-08-27T12:08:12Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2015-10-16T04:43:26Z" product-name="messages">
     <body>
       <trans-unit id="43">
         <source>Identity area</source>
@@ -461,11 +461,11 @@
       </trans-unit>
       <trans-unit id="962">
         <source>Administrative history</source>
-        <target/>
+        <target>管理の履歴</target>
       </trans-unit>
       <trans-unit id="963">
         <source>Biographical history</source>
-        <target/>
+        <target>履歴</target>
       </trans-unit>
       <trans-unit id="964">
         <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>

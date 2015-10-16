@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2015-08-27T12:08:40Z" product-name="messages">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2015-10-16T04:43:27Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -402,11 +402,11 @@
       </trans-unit>
       <trans-unit id="101">
         <source>Administrative history</source>
-        <target/>
+        <target>Història administrativa </target>
       </trans-unit>
       <trans-unit id="102">
         <source>Biographical history</source>
-        <target/>
+        <target>Història biogràfica </target>
       </trans-unit>
     </body>
   </file>

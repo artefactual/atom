@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca@valencia" datatype="plaintext" original="messages" date="2015-08-27T12:09:28Z" product-name="messages">
+  <file source-language="en" target-language="ca@valencia" datatype="plaintext" original="messages" date="2015-10-16T04:43:28Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Configure themes</source>
-        <target/>
+        <target>Configurar temes</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Default page elements</source>
-        <target/>
+        <target>Elements de pàgina per defecte</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Enable or disable the display of certain page elements.  Unless they have been overridden by a specific theme, these settings will be used site wide.</source>
-        <target/>
+        <target>Habilitar o deshabilitar el desplegament de certs elements de pàgina. Llevat que hagen sigut anul·lats per un tema específic, aquestes configuracions seran utilitzades en tot el lloc.</target>
       </trans-unit>
     </body>
   </file>

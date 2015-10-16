@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2015-08-27T12:10:04Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2015-10-16T04:43:31Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -138,27 +138,27 @@
       </trans-unit>
       <trans-unit id="38">
         <source>Places</source>
-        <target/>
+        <target>Lugares</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
-        <target/>
+        <target>Buscar un término existente en la taxonomía Lugares escribiendo los primeros caracteres del nombre del término. Alternativamente, escribir un nuevo término para crear y enlazar a un nuevo término de lugar.</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Names</source>
-        <target/>
+        <target>Nombres</target>
       </trans-unit>
       <trans-unit id="41">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target/>
+        <target>"Elija la procedencia, autor y otros puntos de acceso que no sean tema desde la descripción archivística, como sea apropiado. Todos los puntos de acceso deben ser concordantes con la descripción archivística a la cual están relacionados." (RAD 21.0B) Los valores en este campo se derivan desde el campo forma Autorizada del nombre, en los registros de autoridad. Buscar un nombre existente escribiendo los primeros caracteres del nombre. Alternativamente, escriba un nuevo nombre para crear y enlazar a un nuevo registro de autoridad.</target>
       </trans-unit>
       <trans-unit id="42">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
-        <target/>
+        <target>Un extracto, tabla de contenido o descripción del alcance y contenidos del recurso.</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Description</source>
-        <target/>
+        <target>Descripción</target>
       </trans-unit>
     </body>
   </file>

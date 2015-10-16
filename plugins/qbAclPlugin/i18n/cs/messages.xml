@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cs" datatype="plaintext" original="messages" date="2015-08-27T12:07:43Z" product-name="messages">
+  <file source-language="en" target-language="cs" datatype="plaintext" original="messages" date="2015-10-16T04:43:25Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -14,7 +14,7 @@
       </trans-unit>
       <trans-unit id="3">
         <source>%1%: %2%</source>
-        <target/>
+        <target>%1%: %2%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>All privileges</source>
@@ -26,7 +26,7 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Edit</source>
-        <target/>
+        <target>Upravit</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Delete</source>
@@ -58,7 +58,7 @@
       </trans-unit>
       <trans-unit id="14">
         <source>%1% name</source>
-        <target/>
+        <target>%1% jméno</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Action</source>
@@ -66,7 +66,7 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Permissions</source>
-        <target/>
+        <target>Oprávnění</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Grant</source>
@@ -86,7 +86,7 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Edit permissions</source>
-        <target/>
+        <target>Upravit oprávnění</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Main area</source>
@@ -102,11 +102,11 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Permission</source>
-        <target/>
+        <target>Oprávnění</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Permissions by taxonomy</source>
-        <target/>
+        <target>Oprávnění dle taxonomie</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Taxonomy name</source>
@@ -142,7 +142,7 @@
       </trans-unit>
       <trans-unit id="35">
         <source>List groups</source>
-        <target/>
+        <target>Vypsat skupiny</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Group</source>

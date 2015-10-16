@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2015-08-27T12:10:42Z" product-name="messages">
+  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2015-10-16T04:43:32Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -446,15 +446,15 @@
       </trans-unit>
       <trans-unit id="125">
         <source>Main</source>
-        <target/>
+        <target>Hoofd</target>
       </trans-unit>
       <trans-unit id="126">
         <source>Physical location</source>
-        <target/>
+        <target>Fysieke verblijfplaats</target>
       </trans-unit>
       <trans-unit id="127">
         <source>Other details</source>
-        <target/>
+        <target>Overige details</target>
       </trans-unit>
       <trans-unit id="128">
         <source>URL</source>
@@ -466,19 +466,19 @@
       </trans-unit>
       <trans-unit id="130">
         <source>Name of creator</source>
-        <target/>
+        <target>Naam van de archiefvormer</target>
       </trans-unit>
       <trans-unit id="131">
         <source>Administrative history</source>
-        <target/>
+        <target>Institutionele geschiedenis</target>
       </trans-unit>
       <trans-unit id="132">
         <source>Biographical history</source>
-        <target/>
+        <target>Biografie</target>
       </trans-unit>
       <trans-unit id="133">
         <source>Date(s)</source>
-        <target/>
+        <target>Datum(s)</target>
       </trans-unit>
       <trans-unit id="134">
         <source>More</source>

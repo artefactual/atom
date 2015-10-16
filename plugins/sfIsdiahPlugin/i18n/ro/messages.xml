@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ro" datatype="plaintext" original="messages" date="2015-08-27T12:09:57Z" product-name="messages">
+  <file source-language="en" target-language="ro" datatype="plaintext" original="messages" date="2015-10-16T04:43:31Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Fara titlu</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
@@ -30,7 +30,7 @@
       </trans-unit>
       <trans-unit id="7">
         <source>Edit %1%</source>
-        <target/>
+        <target>Editare %1%</target>
       </trans-unit>
       <trans-unit id="8">
         <source>See ISDIAH 5.2 for contact area information and examples.</source>
@@ -50,7 +50,7 @@
       </trans-unit>
       <trans-unit id="12">
         <source>Identity area</source>
-        <target/>
+        <target>Zona de identitate</target>
       </trans-unit>
       <trans-unit id="13">
         <source>"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)</source>
@@ -58,11 +58,11 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Identifier</source>
-        <target/>
+        <target>Identificator</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Acesta este un element obligatoriu.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
@@ -70,7 +70,7 @@
       </trans-unit>
       <trans-unit id="17">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Forma autorizată a numelui</target>
       </trans-unit>
       <trans-unit id="18">
         <source>This is a mandatory element</source>
@@ -198,7 +198,7 @@
       </trans-unit>
       <trans-unit id="49">
         <source>Control area</source>
-        <target/>
+        <target>Zona de control</target>
       </trans-unit>
       <trans-unit id="50">
         <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISIAH 5.6.1)</source>
@@ -206,7 +206,7 @@
       </trans-unit>
       <trans-unit id="51">
         <source>Description identifier</source>
-        <target/>
+        <target>Descriere identificator</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard." (ISDIAH 5.6.2)</source>
@@ -214,7 +214,7 @@
       </trans-unit>
       <trans-unit id="53">
         <source>Institution identifier</source>
-        <target/>
+        <target>Institutie de indentificare</target>
       </trans-unit>
       <trans-unit id="54">
         <source>"Record the names, and, where useful, the editions or publication dates of the conventions or rules applied. Specify, separately, which rules have been applied for creating the Authorised form(s) of name. Include reference to any system(s) of dating used to identify dates in this description (e.g. ISO 8601)." (ISDIAH 5.6.3)</source>
@@ -222,7 +222,7 @@
       </trans-unit>
       <trans-unit id="55">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>Reguli si/sau conventii folosite</target>
       </trans-unit>
       <trans-unit id="56">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDIAH 5.6.4). Select Final, Revised or Draft from the drop-down menu.</source>
@@ -258,7 +258,7 @@
       </trans-unit>
       <trans-unit id="64">
         <source>Sources</source>
-        <target/>
+        <target>Surse</target>
       </trans-unit>
       <trans-unit id="65">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
@@ -286,15 +286,15 @@
       </trans-unit>
       <trans-unit id="71">
         <source>Cancel</source>
-        <target/>
+        <target>Anulare</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Save</source>
-        <target/>
+        <target>Salvati</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Create</source>
-        <target/>
+        <target>Creaza</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Primary contact</source>
@@ -306,7 +306,7 @@
       </trans-unit>
       <trans-unit id="76">
         <source>Email</source>
-        <target/>
+        <target>Email</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Edit identity area</source>
@@ -314,15 +314,15 @@
       </trans-unit>
       <trans-unit id="78">
         <source>Parallel form(s) of name</source>
-        <target/>
+        <target>Formularul paralel (e) de nume</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Other form(s) of name</source>
-        <target/>
+        <target>Alta forma(e) a numelui</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Type</source>
-        <target/>
+        <target>Tipul</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Edit contact area</source>
@@ -334,7 +334,7 @@
       </trans-unit>
       <trans-unit id="83">
         <source>History</source>
-        <target/>
+        <target>Istorie</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Buildings</source>
@@ -374,23 +374,23 @@
       </trans-unit>
       <trans-unit id="93">
         <source>Status</source>
-        <target/>
+        <target>Status</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Level of detail</source>
-        <target/>
+        <target>Nivelul de detaliu</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Language(s)</source>
-        <target/>
+        <target>Limba/limbi</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Script(s)</source>
-        <target/>
+        <target>Manuscris(e)</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Maintenance notes</source>
-        <target/>
+        <target>Note de intretinere</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Edit access points</source>
@@ -402,11 +402,11 @@
       </trans-unit>
       <trans-unit id="100">
         <source>Edit</source>
-        <target/>
+        <target>Editare</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Delete</source>
-        <target/>
+        <target>Sterge</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Add new</source>

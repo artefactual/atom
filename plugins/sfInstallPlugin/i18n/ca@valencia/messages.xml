@@ -1,51 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca@valencia" datatype="plaintext" original="messages" date="2015-08-27T12:09:28Z" product-name="messages">
+  <file source-language="en" target-language="ca@valencia" datatype="plaintext" original="messages" date="2015-10-16T04:47:24Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Password strength:</source>
-        <target/>
+        <target>Seguretat de la contrasenya:</target>
       </trans-unit>
       <trans-unit id="2">
         <source>To make your password stronger:</source>
-        <target/>
+        <target>Per a fer més segura la seua contrasenya:</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Make it at least six characters</source>
-        <target/>
+        <target>Ha de contenir almenys sis caràcters</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Add lowercase letters</source>
-        <target/>
+        <target>Agregar lletres minúscules </target>
       </trans-unit>
       <trans-unit id="5">
         <source>Add uppercase letters</source>
-        <target/>
+        <target>Agregar lletres majúscules </target>
       </trans-unit>
       <trans-unit id="6">
         <source>Add numbers</source>
-        <target/>
+        <target>Agregar números </target>
       </trans-unit>
       <trans-unit id="7">
         <source>Add punctuation</source>
-        <target/>
+        <target>Agregar puntuació</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Make it different from your username</source>
-        <target/>
+        <target>Ha de contenir almenys sis caràcters</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Yes</source>
-        <target/>
+        <target>Sí</target>
       </trans-unit>
       <trans-unit id="10">
         <source>No</source>
-        <target/>
+        <target>No</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Passwords match:</source>
+        <target>Coincidència de contrasenyes:</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Access to this record is restricted because it contains personal or confidential information. Please contact the Reference Archivist for more information on accessing this record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>This record has not yet been reviewed for personal or confidential information. Please contact the Reference Archivist to request access and initiate an access review.</source>
         <target/>
       </trans-unit>
     </body>

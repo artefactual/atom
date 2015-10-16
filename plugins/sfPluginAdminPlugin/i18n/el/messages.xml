@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-08-27T12:07:02Z" product-name="messages">
+  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-10-16T04:43:23Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>List plugins</source>
-        <target/>
+        <target>Κατάλογος πρόσθετων</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Name</source>
-        <target/>
+        <target>Όνομα</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Version</source>
-        <target/>
+        <target>Έκδοση</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Enabled</source>
-        <target/>
+        <target>Ενεργοποιημένο</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Save</source>
-        <target/>
+        <target>Αποθήκευση</target>
       </trans-unit>
       <trans-unit id="6">
         <source>List themes</source>
-        <target/>
+        <target>Κατάλογος θεμάτα</target>
       </trans-unit>
     </body>
   </file>

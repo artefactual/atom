@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2015-08-27T12:10:28Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2015-10-16T04:43:32Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -404,11 +404,11 @@ Truy cập vật lý
       </trans-unit>
       <trans-unit id="101">
         <source>Administrative history</source>
-        <target/>
+        <target>Lịch sử hành chính</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Biographical history</source>
-        <target/>
+        <target>Tiểu sử</target>
       </trans-unit>
     </body>
   </file>

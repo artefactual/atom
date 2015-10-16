@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="is" datatype="plaintext" original="messages" date="2015-08-27T12:09:14Z" product-name="messages">
+  <file source-language="en" target-language="is" datatype="plaintext" original="messages" date="2015-10-16T04:43:27Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Án titils</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Add new resource</source>
-        <target/>
+        <target>Bæta við nýrri heimild</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
-        <target/>
+        <target>Breyta %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Select the type of activity that established the relation between the authority record and the resource.</source>
@@ -22,7 +22,7 @@
       </trans-unit>
       <trans-unit id="5">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Þetta er tvítak af færslu %1%</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Elements area</source>
@@ -38,11 +38,11 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Names and origin info</source>
-        <target/>
+        <target>Nöfn og upplýsingar um uppruna</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Add new name and/or origin info</source>
-        <target/>
+        <target>Bæta við nafni og/eða upplýsingum um uppruna</target>
       </trans-unit>
       <trans-unit id="11">
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
@@ -50,19 +50,19 @@
       </trans-unit>
       <trans-unit id="12">
         <source>Type of resource</source>
-        <target/>
+        <target>Gerð heimildar</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Add new child levels (if describing a collection)</source>
-        <target/>
+        <target>Bæta við nýjum undirþrepum (ef lýsa á sýndarsafni)</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Identifier</source>
-        <target/>
+        <target>Safnmark</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Title</source>
-        <target/>
+        <target>Titill</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
@@ -74,7 +74,7 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Subject</source>
-        <target/>
+        <target>Viðfangsefni</target>
       </trans-unit>
       <trans-unit id="19">
         <source>A term or phrase representing the primary topic(s) on which a work is focused. Search for an existing term in the Subjects taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
@@ -82,7 +82,7 @@
       </trans-unit>
       <trans-unit id="20">
         <source>Places</source>
-        <target/>
+        <target>Staðir</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
@@ -90,7 +90,7 @@
       </trans-unit>
       <trans-unit id="22">
         <source>Names</source>
-        <target/>
+        <target>Nöfn</target>
       </trans-unit>
       <trans-unit id="23">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
@@ -110,23 +110,23 @@
       </trans-unit>
       <trans-unit id="27">
         <source>Description</source>
-        <target/>
+        <target>Lýsing</target>
       </trans-unit>
       <trans-unit id="28">
         <source>How to access to this content?</source>
-        <target/>
+        <target>Hvernig á að nálgast þetta efni?</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Contact the archivist at %1%</source>
-        <target/>
+        <target>Hafa samband við skjalavörð %1%</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Show details</source>
-        <target/>
+        <target>Sýna ítaratriði</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Close</source>
-        <target/>
+        <target>Loka</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Edit elements area</source>
@@ -134,7 +134,7 @@
       </trans-unit>
       <trans-unit id="33">
         <source>Language</source>
-        <target/>
+        <target>Tungumál</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Internet media type</source>
@@ -142,23 +142,23 @@
       </trans-unit>
       <trans-unit id="35">
         <source>Access condition</source>
-        <target/>
+        <target>Skilyrði er stjórna aðgengi</target>
       </trans-unit>
       <trans-unit id="36">
         <source>URL</source>
-        <target/>
+        <target>URL</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Physical location</source>
-        <target/>
+        <target>Staðsetning</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Rights area</source>
-        <target/>
+        <target>Aðgengi</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Accession area</source>
-        <target/>
+        <target>Aðföng</target>
       </trans-unit>
     </body>
   </file>

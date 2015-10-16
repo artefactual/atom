@@ -1,144 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="is" datatype="plaintext" original="messages" date="2015-08-27T12:09:14Z" product-name="messages">
+  <file source-language="en" target-language="is" datatype="plaintext" original="messages" date="2015-10-16T04:43:27Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Án titils</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Authorized form of name - This is a mandatory element.</source>
-        <target/>
+        <target>Leyfilegt nafnaform - Þetta er skylduhylki.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Add new donor</source>
-        <target/>
+        <target>Bæta við nýjum gefanda</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Edit %1%</source>
-        <target/>
+        <target>Breyta %1%</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Edit donor</source>
-        <target/>
+        <target>Breyta gefanda</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Identity area</source>
-        <target/>
+        <target>Auðkenni</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Leyfileg nafnaform</target>
       </trans-unit>
       <trans-unit id="8">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Þetta er skylduhylki.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Contact area</source>
-        <target/>
+        <target>Tengiliðir</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Cancel</source>
-        <target/>
+        <target>Hætta við</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Save</source>
-        <target/>
+        <target>Vista</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Create</source>
-        <target/>
+        <target>Búa til</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Are you sure you want to delete %1%?</source>
-        <target/>
+        <target>Ert þú viss um að þú viljir eyða %1%?</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Delete</source>
-        <target/>
+        <target>Eyða</target>
       </trans-unit>
       <trans-unit id="15">
         <source>View donor</source>
-        <target/>
+        <target>Skoða gefanda</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Accession area</source>
-        <target/>
+        <target>Aðföng</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Related accession(s)</source>
-        <target/>
+        <target>Tengdar viðbætur</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Edit</source>
-        <target/>
+        <target>Breyta</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Add new</source>
-        <target/>
+        <target>Bæta við</target>
       </trans-unit>
       <trans-unit id="20">
         <source>List donor</source>
-        <target/>
+        <target>Telja upp gefendur</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Search donor</source>
-        <target/>
+        <target>Leita að gefanda</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Name</source>
-        <target/>
+        <target>Nafn</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Browse donor</source>
-        <target/>
+        <target>Vafra eftir gefendum</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Search %1%</source>
-        <target/>
+        <target>Leit %1%</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Alphabetic</source>
-        <target/>
+        <target>Stafrófsröð</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Most recent</source>
-        <target/>
+        <target>Nýjast</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Identifier</source>
-        <target/>
+        <target>Safnmark</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Updated</source>
-        <target/>
+        <target>Breytt</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Acquisition date - This is a mandatory element.</source>
-        <target/>
+        <target>Aðfangadagsetning - Þetta er skylduhylki</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Source of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>Heimild um aðföng - Þetta er skylduhylki.</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Location information - This is a mandatory element.</source>
-        <target/>
+        <target>Upplýsingar um staðsetningu - Þetta er skylduhylki.</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Accession number</source>
-        <target/>
+        <target>Afhendingarnúmer</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Title</source>
-        <target/>
+        <target>Titill</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Acquisition date</source>
-        <target/>
+        <target>Aðfangadagsetning</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Relevance</source>
@@ -146,15 +146,15 @@
       </trans-unit>
       <trans-unit id="36">
         <source>Add new accession record</source>
-        <target/>
+        <target>Bæta við nýrri aðfangaskráningu</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Related donors</source>
-        <target/>
+        <target>Tengdir gefendur</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Related donor record</source>
-        <target/>
+        <target>Skyldur gefandi</target>
       </trans-unit>
       <trans-unit id="39">
         <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
@@ -162,35 +162,35 @@
       </trans-unit>
       <trans-unit id="40">
         <source>Primary contact information</source>
-        <target/>
+        <target>Upplýsingar um tengilið</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Main</source>
-        <target/>
+        <target>Aðal</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Physical location</source>
-        <target/>
+        <target>Staðsetning</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Other details</source>
-        <target/>
+        <target>Önnur ítaratriði</target>
       </trans-unit>
       <trans-unit id="44">
         <source>URL</source>
-        <target/>
+        <target>URL</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Region/province</source>
-        <target/>
+        <target>Landssvæði</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Country</source>
-        <target/>
+        <target>Land</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Edit accession record</source>
-        <target/>
+        <target>Breyta aðfangaskrá</target>
       </trans-unit>
       <trans-unit id="48">
         <source>You are creating an accrual to accession %1%</source>
@@ -198,7 +198,7 @@
       </trans-unit>
       <trans-unit id="49">
         <source>Basic info</source>
-        <target/>
+        <target>Grunnupplýsingar</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
@@ -214,15 +214,15 @@
       </trans-unit>
       <trans-unit id="53">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Um aðföng</target>
       </trans-unit>
       <trans-unit id="54">
         <source>A description of the physical location in the repository where the accession can be found.</source>
-        <target/>
+        <target>Lýsing á því hvar viðbæturnar er að finna</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Location information</source>
-        <target/>
+        <target>Upplýsingar um staðsetningu</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Donor/Transferring body area</source>
@@ -246,7 +246,7 @@
       </trans-unit>
       <trans-unit id="61">
         <source>Creators</source>
-        <target/>
+        <target>Skjalamyndarar</target>
       </trans-unit>
       <trans-unit id="62">
         <source>The name of the creator of the accession or the name of the department that created the accession.</source>
@@ -262,11 +262,11 @@
       </trans-unit>
       <trans-unit id="65">
         <source>Archival/Custodial history</source>
-        <target/>
+        <target>Skjala-/varðveislusaga</target>
       </trans-unit>
       <trans-unit id="66">
         <source>A description of the intellectual content and document types represented in the accession.</source>
-        <target/>
+        <target>Lýsing á innihaldi og efnisformi viðbótanna.</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
@@ -274,7 +274,7 @@
       </trans-unit>
       <trans-unit id="68">
         <source>Appraisal, destruction and scheduling</source>
-        <target/>
+        <target>Grisjun, eyðing og áætlun</target>
       </trans-unit>
       <trans-unit id="69">
         <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
@@ -302,7 +302,7 @@
       </trans-unit>
       <trans-unit id="75">
         <source>%1% area</source>
-        <target/>
+        <target>%1% svæði</target>
       </trans-unit>
       <trans-unit id="76">
         <source>It has %1% deaccessions that will also be deleted:</source>
@@ -314,35 +314,35 @@
       </trans-unit>
       <trans-unit id="78">
         <source>Name of creator</source>
-        <target/>
+        <target>Nafn skjalamyndara</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Administrative history</source>
-        <target/>
+        <target>Stjórnunarsaga</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Biographical history</source>
-        <target/>
+        <target>Lífshlaup og æviatriði</target>
       </trans-unit>
       <trans-unit id="81">
         <source>View accession record</source>
-        <target/>
+        <target>Skoða aðfangaskrá</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Edit donor/transferring body area</source>
-        <target/>
+        <target>Breyta gjöf/tilfærslu</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Related donor</source>
-        <target/>
+        <target>Tengdur gefandi</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Edit administrative area</source>
-        <target/>
+        <target>Breyta stöðu skráningar</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Acquisition type</source>
-        <target/>
+        <target>Gerð aðfanga</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Resource type</source>
@@ -350,11 +350,11 @@
       </trans-unit>
       <trans-unit id="87">
         <source>Date(s)</source>
-        <target/>
+        <target>Dagsetning(ar)</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Scope and content</source>
-        <target/>
+        <target>Umfang og innihald</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Received extent units</source>
@@ -374,75 +374,75 @@
       </trans-unit>
       <trans-unit id="93">
         <source>Accruals</source>
-        <target/>
+        <target>Viðbætur</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Accrual to</source>
-        <target/>
+        <target>Viðbót við</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Rights area</source>
-        <target/>
+        <target>Aðgengi</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Edit rights area</source>
-        <target/>
+        <target>Breyta réttindum/aðgengi</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Deaccession area</source>
-        <target/>
+        <target>Endurskil</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Deaccession</source>
-        <target/>
+        <target>Endurskil</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Add accrual</source>
-        <target/>
+        <target>Bæta við viðbótum</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Create %1%</source>
-        <target/>
+        <target>Búa til %1%</target>
       </trans-unit>
       <trans-unit id="101">
         <source>More</source>
-        <target/>
+        <target>Meira</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Create new rights</source>
-        <target/>
+        <target>Búa til ný réttindi</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Browse accession</source>
-        <target/>
+        <target>Vafra gegnum afhendingar</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Identifier - This is a mandatory element.</source>
-        <target/>
+        <target>Auðkenni - Þetta er skyldu skráningarþáttur.</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Date of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>Dagsetning aðfanga - Þetta er skylduhylki.</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Scope - This is a mandatory element.</source>
-        <target/>
+        <target>Umfang - Þetta er skylduhylki.</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Description - This is a mandatory element.</source>
-        <target/>
+        <target>Lýsing - Þetta er skylduhylki.</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Add new deaccession record</source>
-        <target/>
+        <target>Bæta við nýrri endurskilafærslu</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Edit deaccession record</source>
-        <target/>
+        <target>Breyta endurskilafærslu</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Deaccession number</source>
-        <target/>
+        <target>Endurskilanúmer</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
@@ -450,15 +450,15 @@
       </trans-unit>
       <trans-unit id="112">
         <source>Scope</source>
-        <target/>
+        <target>Umfang</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Date of deaccession</source>
-        <target/>
+        <target>Dagsetning endurskila</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Date</source>
-        <target/>
+        <target>Dagsetning</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Identify what materials are being deaccessioned.</source>
@@ -466,7 +466,7 @@
       </trans-unit>
       <trans-unit id="116">
         <source>Description</source>
-        <target/>
+        <target>Lýsing</target>
       </trans-unit>
       <trans-unit id="117">
         <source>The number of units as a whole number and the measurement of the records to be deaccessioned.</source>
@@ -478,15 +478,15 @@
       </trans-unit>
       <trans-unit id="119">
         <source>View deaccession record</source>
-        <target/>
+        <target>Skoða endurskilaskrá</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Extent</source>
-        <target/>
+        <target>Umfang</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Reason</source>
-        <target/>
+        <target>Ástæða</target>
       </trans-unit>
     </body>
   </file>

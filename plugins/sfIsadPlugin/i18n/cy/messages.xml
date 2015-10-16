@@ -1,112 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2015-08-27T12:09:35Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2015-10-16T04:43:29Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Heb deitl</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative / Biographical history</source>
-        <target/>
+        <target>Hanes Gweinyddol / Bywgraffyddol </target>
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
-        <target/>
+        <target>Hanes gweinyddol</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Biographical history</source>
-        <target/>
+        <target>Hanes bywgraffyddol</target>
       </trans-unit>
       <trans-unit id="5">
         <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
-        <target/>
+        <target>Mae'r disgrifiad archifol hwn, neu un o'i lefelau uwch, %1%angen%2% o leiaf un %3%crëwr%4%.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
-        <target/>
+        <target>%1%Dyddiad(au)%2% - nid ydynt yn gyson â %3%lefelau uwch%2%.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>%1%Date(s)%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Dyddiad(au)%2% - Mae hwn yn elfen %3%orfodol%4%.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>%1%Extent and medium%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Maint a chyfrwng%2% - Mae hwn yn elfen %3%orfodol%4%.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Dynodwr%2% - Mae hwn yn elfen %3%orfodol%4%.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>%1%Level of description%2% - Value "%value%" is not consistent with higher levels.</source>
-        <target/>
+        <target>%1%Lefel y disgrifiad%2% - Nid yw'r gwerth "%value%" yn gyson â lefelau uwch.</target>
       </trans-unit>
       <trans-unit id="11">
         <source>%1%Level of description%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Lefel y disgrifiad%2% - Mae hwn yn elfen %3%orfodol%4%.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>%1%Title%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Teitl%2% - Mae hwn yn elfen %3%orfodol%4%.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Add new archival description</source>
-        <target/>
+        <target>Ychwanegu disgrifiad archifol newydd</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Edit %1%</source>
-        <target/>
+        <target>Golygu %1%</target>
       </trans-unit>
       <trans-unit id="15">
         <source>File list</source>
-        <target/>
+        <target>Rhestr ffeiliau</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Reference code</source>
-        <target/>
+        <target> Cod cyfeirnod</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Title</source>
-        <target/>
+        <target>Teitl</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Date(s)</source>
-        <target/>
+        <target>Dyddiad(au)</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Conditions governing access</source>
-        <target/>
+        <target>Amodau rheoli mynediad</target>
       </trans-unit>
       <trans-unit id="20">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Mae hwn yn ddyblyg o gofnod %1%</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Identity area</source>
-        <target/>
+        <target>Ardal dynodi</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
-        <target/>
+        <target>Rhowch gyfeirnod lleol penodol, rhif rheoli, neu ddynodwr unigryw arall. Bydd y cod wlad a chadwrfa yn cael eu hychwanegu'n awtomatig o'r cofnod cadwrfa gysylltiedig i ffurfio cyfeirnod llawn. (ISAD 3.1.1)</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Identifier</source>
-        <target/>
+        <target>Dynodwr</target>
       </trans-unit>
       <trans-unit id="24">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Mae hwn yn elfen orfodol.</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
-        <target/>
+        <target>Rhowch naill ai deitl ffurfiol neu deitl a gyflenwir cryno yn unol â rheolau disgrifiad aml-lefel a chonfensiynau cenedlaethol. (ISAD 3.1.2)</target>
       </trans-unit>
       <trans-unit id="26">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>"Nodwch a chofnodwch dyddiad(au) yr uned o ddisgrifiad. Nodwch y math o ddyddiad a roddwyd. Cofnodwch fel un dyddiad neu amrediad o ddyddiadau fel y bo'n briodol." (ISAD 3.1.3). Gellir defnyddio’r maes arddangos Dyddiad i fewnosod gwybodaeth am ddyddiadau fel testun rhydd, gan gynnwys marciau argraffyddol i fynegi dynesiad, ansicrwydd, neu gymhwyster. Defnyddiwch y meysydd dechrau a diwedd i wneud y dyddiadau’n chwiladwy. Peidiwch â defnyddio unrhyw gymwysterau na symbolau teipograffyddol i fynegi ansicrwydd. Fformatau dyddiad derbyniol: BBBBMMDD, BBBB-MM-DD, BBBB-MM, BBBB.</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Record the level of this unit of description. (ISAD 3.1.4)</source>
@@ -114,363 +114,363 @@
       </trans-unit>
       <trans-unit id="28">
         <source>Level of description</source>
-        <target/>
+        <target>Lefel y disgrifiad</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
-        <target/>
+        <target>Dynodwr: Rhowch gyfeirnod lleol penodol, rhif rheoli, neu ddynodwr unigryw arall. Lefel disgrifio: Cofnodwch lefel yr uned o ddisgrifiad hon. Teitl: Rhowch naill ai deitl ffurfiol neu deitl a gyflenwir cryno yn unol â rheolau disgrifiad aml-lefel a chonfensiynau cenedlaethol.</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (ISAD 3.1.5)</source>
-        <target/>
+        <target>Cofnodwch faint yr uned disgrifiad drwy roi nifer yr unedau ffisegol neu resymegol mewn rhifolion Arabeg ynghyd ag uned y mesuriad. Rhowch gyfrwng penodol (cyfryngau) yr uned ddisgrifiad. Gwahanwch y meintiau lluosog gyda thoriad llinell. (ISAD 3.1.5).</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Extent and medium</source>
-        <target/>
+        <target>Maint a chyfrwng</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Context area</source>
-        <target/>
+        <target>Ardal cyd-destun</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Name of creator(s)</source>
-        <target/>
+        <target>Enw'r crëwr(crewyr)</target>
       </trans-unit>
       <trans-unit id="34">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
-        <target/>
+        <target>Mae'r disgrifiad archifol hwn, neu un o'i lefelau uwch, angen o leiaf un crëwr.</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)</source>
-        <target/>
+        <target>Cofnodwch enw'r sefydliad(au) neu'r unigolyn(unigolion) sy'n gyfrifol am greu, casglu a chynnal y cofnodion yn yr uned ddisgrifiad. Chwiliwch am enw sy'n bodoli eisoes yn y cofnodion awdurdod drwy deipio ychydig lythrennau cyntaf yr enw. Fel arall, teipiwch enw newydd i greu a chysylltu i gofnod awdurdod newydd. (ISAD 3.2.1)</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
-        <target/>
+        <target>Cofnodwch enw'r sefydliad sydd â gwarchodaeth y deunydd archifol. Chwiliwvh am enw sy'n bodoli eisoes yng nghofnodion y sefydliad archifol drwy deipio ychydig lythrennau cyntaf yr enw. Fel arall, teipiwch enw newydd i greu a chysylltu i gofnod sefydliad newydd.</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Record the successive transfers of ownership, responsibility and/or custody of the unit of description and indicate those actions, such as history of the arrangement, production of contemporary finding aids, re-use of the records for other purposes or software migrations, that have contributed to its present structure and arrangement. Give the dates of these actions, insofar as they can be ascertained. If the archival history is unknown, record that information. (ISAD 3.2.3)</source>
-        <target/>
+        <target>Cofnodwch y trosglwyddiadau olynol o berchnogaeth, cyfrifoldeb a/neu warchodaeth yr uned o ddisgrifiad a nodi'r gweithredoedd hynny, megis hanes y trefniant, cynhyrchu rhestri cymorth cyfoes, ailddefnydd y cofnodion at ddibenion eraill neu fudo meddalwedd, sydd wedi cyfrannu at ei strwythur a'i drefn bresennol. Rhowch ddyddiadau'r gweithredoedd hyn, i'r graddau y gellir eu canfod. Os yw'r hanes archifol yn anhysbys, cofnodi'r wybodaeth honno. (ISAD 3.2.3)</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Record the source from which the unit of description was acquired and the date and/or method of acquisition if any or all of this information is not confidential. If the source is unknown, record that information. Optionally, add accession numbers or codes. (ISAD 3.2.4)</source>
-        <target/>
+        <target>Cofnodwch ffynhonnell y derbyniwyd yr uned ddisgrifiad a'r dyddiad a/neu ddull o derbyn os nad yw'r holl neu rhan o'r wybodaeth yn gyfrinachol. Os yw'r ffynhonnell yn hysbys, cofnodwch y wybodaeth honno. Yn ddewisol, ychwanegwch rhifau derbyn neu godau. (ISAD 3.2.4)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Immediate source of acquisition or transfer</source>
-        <target/>
+        <target>Ffynhonnell uniongyrchol y derbyniad neu trosglwyddiad</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Content and structure area</source>
-        <target/>
+        <target>Ardal cynnwys a strwythur</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (ISAD 3.3.1)</source>
-        <target/>
+        <target>Rhowch grynodeb o'r cwmpas (megis, cyfnodau amser, daearyddiaeth) a chynnwys, (megis ffurfiau dogfennol, testun, prosesau gweinyddol) yr uned disgrifiad, sy'n briodol i lefel y disgrifiad. (ISAD 3.3.1)</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material. (ISAD 3.3.2)</source>
-        <target/>
+        <target>Cofnodwch werthusiad, dinistriad a gweithrediadau amserlennu a gymerwyd ar neu wedi'u cynllunio ar gyfer yr uned disgrifiad, yn enwedig os gallent effeithio ar ddehongliad y deunydd. (ISAD 3.3.2)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Appraisal, destruction and scheduling</source>
-        <target/>
+        <target>Gwerthuso, dinistrio ac amserlennu</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Indicate if accruals are expected. Where appropriate, give an estimate of their quantity and frequency. (ISAD 3.3.3)</source>
-        <target/>
+        <target>Nodwch os disgwylir unrhyw groniadau. Lle bo'n briodol, rhowch amcangyfrif o'u maint ac amlder. (ISAD 3.3.3)</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Specify the internal structure, order and/or the system of classification of the unit of description. Note how these have been treated by the archivist. For electronic records, record or reference information on system design. (ISAD 3.3.4)</source>
-        <target/>
+        <target>Nodwch y strwythur mewnol, trefn a/neu system dosbarthu'r uned disgrifiad. Nodwch sut mae'r rhain wedi cael eu trin gan yr archifydd. Ar gyfer cofnodion electronig, cofnodwch neu cyfeiriwch at wybodaeth am ddylunio system. (ISAD 3.3.4)</target>
       </trans-unit>
       <trans-unit id="46">
         <source>System of arrangement</source>
-        <target/>
+        <target>System o drefniant</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Conditions of access and use area</source>
-        <target/>
+        <target>Ardal amodau mynediad a defnydd</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
-        <target/>
+        <target>Nodwch statws y gyfraith neu gyfreithiol, contract, rheoliadau neu bolisi sy'n effeithio ar fynediad at yr uned disgrifiad. Nodwch y cyfnod cau a'r dyddiad y bydd y deunydd ar gael pan fo'n briodol. (ISAD 3.4.1)</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
-        <target/>
+        <target>Rhowch wybodaeth am amodau, megis hawlfraint, sy'n rheoli atgynhyrchu'r uned disgrifiad ar ôl i fynediad cael ei ddarparu. Os yw bodolaeth o amodau o'r fath yn hysbys, cofnodwch hyn. Os nad oes unrhyw amodau, nid oes angen unrhyw ddatganiad. (ISAD 3.4.2)</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Conditions governing reproduction</source>
-        <target/>
+        <target>Amodau rheoli atgynhyrchu</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
-        <target/>
+        <target>Cofnodwch iaith(ieithoedd) y deunyddiau yn cynnwys yr uned disgrifiad. (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Language of material</source>
-        <target/>
+        <target>Iaith y deunydd</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
-        <target/>
+        <target>Cofnodwch y sgript(iau) y deunyddiau yn cynnwys yr uned disgrifiad. (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Script of material</source>
-        <target/>
+        <target>Sgript o ddeunydd</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
-        <target/>
+        <target>Nodwch unrhyw wyddorau, sgriptiau, systemau symbol neu fyrfoddau unigryw a ddefnyddir. (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Language and script notes</source>
-        <target/>
+        <target>Nodiadau iaith a sgript</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
-        <target/>
+        <target>Nodwch unrhyw gyflyrau ffisegol pwysig, megis gofynion cadwraeth, sy'n effeithio ar y defnydd o'r uned ddisgrifiad. Nodwch unrhyw feddalwedd a/neu galedwedd sydd ei angen i gael mynediad at yr uned disgrifiad.</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Physical characteristics and technical requirements</source>
-        <target/>
+        <target>Nodweddion ffisegol ac anghenion technegol</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Give information about any finding aids that the repository or records creator may have that provide information relating to the context and contents of the unit of description. If appropriate, include information on where to obtain a copy. (ISAD 3.4.5)</source>
-        <target/>
+        <target>Rhowch wybodaeth am unrhyw gymhorthion chwilio a all fod gan y gadwrfa neu grëwr y cofnodion sy'n darparu gwybodaeth sy'n ymwneud â chyd-destun a chynnwys yr uned disgrifiad. Os yn briodol, rhowch y wybodaeth am ble i gael copi. (ISAD 3.4.5)</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Allied materials area</source>
-        <target/>
+        <target>Ardal deunyddiau perthynol</target>
       </trans-unit>
       <trans-unit id="61">
         <source>If the original of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. If the originals no longer exist, or their location is unknown, give that information. (ISAD 3.5.1)</source>
-        <target/>
+        <target>Os yw'r uned disgrifiad gwreiddiol ar gael (naill ai yn y sefydliad neu mewn man arall) cofnodwch ei leoliad, ynghyd ag unrhyw rifau rheoli arwyddocaol. Os nad yw'r gwreiddiol yn bodoli mwyach, neu bod eu lleoliad yn anhysbys, noder y wybodaeth hynny. (ISAD 3.5.1)</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Existence and location of originals</source>
-        <target/>
+        <target>Bodolaeth a lleoliad y gwreiddiol</target>
       </trans-unit>
       <trans-unit id="63">
         <source>If the copy of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. (ISAD 3.5.2)</source>
-        <target/>
+        <target>Os yw copi o'r uned disgrifiad ar gael (naill ai yn y sefydliad neu mewn man arall) cofnodwch ei leoliad, ynghyd ag unrhyw rifau rheoli arwyddocaol. (ISAD 3.5.2)</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Existence and location of copies</source>
-        <target/>
+        <target>Bodolaeth a lleoliad copïau</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
-        <target/>
+        <target>Cofnodwch wybodaeth am unedau o ddisgrifiad yn yr un ystorfa neu yn rywle arall sy'n gysylltiedig drwy brofiant neu gymdeithas(au) eraill. Defnyddiwch geiriad rhagarweiniol priodol ac esboniwch natur y berthynas. Os yw'r uned gysylltiedig o ddisgrifiad yn cymorth chwilio, defnyddiwch yr elfen cymhorthion chwilio o ddisgrifiad (3.4.5) i gyfeirio ato. (ISAD 3.5.3)</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Related units of description</source>
-        <target/>
+        <target>Unedau o ddisgrifiad cysylltiedig</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Related descriptions</source>
-        <target/>
+        <target>Disgrifiadau cysylltiedig</target>
       </trans-unit>
       <trans-unit id="68">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target/>
+        <target>I greu perthynas rhwng y disgrifiad hwn a disgrifiad arall sydd yn AtoM, dechreuwch deipio enw'r disgrifiad cysylltiedig a dewiswch o'r gwymplen AutoComplete pan fydd yn ymddangos isod. Gallir creu perthnasau lluosog.</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Notes area</source>
-        <target/>
+        <target>Ardal nodiadau</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Access points</source>
-        <target/>
+        <target>Pwyntiau mynediad</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Subject access points</source>
-        <target/>
+        <target>Pwyntiau mynediad pwnc</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Place access points</source>
-        <target/>
+        <target>Pwyntiau mynediad lleoedd</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>Pwyntiau mynediad enw (pynciau)</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Description control area</source>
-        <target/>
+        <target>Ardal rheolaeth disgrifiad</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
-        <target/>
+        <target>Cofnodwch ddynodwr disgrifiad unigryw yn unol â chonfensiynau lleol a/neu genedlaethol. Os yw’r disgrifiad i’w ddefnyddio’n rhyngwladol, cofnodwch y cod gwlad lle crëwyd y disgrifiad yn unol â'r fersiwn diweddaraf o ISO 3166 - Codau ar gyfer cynrychiolaeth enwau gwledydd. Lle mae crëwr y disgrifiad yn sefydliad rhyngwladol, rhowch y dynodwr sefydliadol yn lle'r cod gwlad.</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Description identifier</source>
-        <target/>
+        <target>Dynodwr disgrifiad</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
-        <target/>
+        <target>Cofnodwch ffurf awdurdodedig llawn enw(au) yr asiantaeth(au) sy'n gyfrifol am greu, addasu neu'n rhoi’r disgrifiad neu, fel arall, cofnodwch god ar gyfer yr asiantaeth yn unol â'r safon cod asiantaeth genedlaethol neu ryngwladol.</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Institution identifier</source>
-        <target/>
+        <target>Dynodwr sefydliad</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
-        <target/>
+        <target>Cofnodwch rheolau neu gonfensiynau rhyngwladol, cenedlaethol a/neu leol a ddilynwyd wrth baratoi'r disgrifiad. (ISAD 3.7.2)</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Rheolau neu gonfensiynau</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Status</source>
-        <target/>
+        <target>Statws</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
-        <target/>
+        <target>Cofnodwch statws presennol y disgrifiad, gan nodi a yw'n drafft, wedi'i gwblhau a/neu'n ddiwygiedig neu wedi ei ddileu .</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
-        <target/>
+        <target>Cofnodwch a oedd y disgrifiad yn cynnwys lefel fach iawn, rhannol neu llawn o fanylion yn unol â  ganllawiau cenedlaethol rhyngwladol perthnasol a / neu reolau .</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Level of detail</source>
-        <target/>
+        <target>Lefel o fanylder</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
-        <target/>
+        <target>Cofnodwch dyddiad(au) cafodd y cofnod ei baratoi a/neu ddiwygio.</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>Dyddiadau creadigaeth, adolygiad a dilead</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>Nodwch yr iaith(ieithoedd) a ddefnyddir i greu'r disgrifiad o'r deunydd archifol.</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Language(s)</source>
-        <target/>
+        <target>Iaith(ieithoedd)</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>Nodwch yr sgript(iau) a ddefnyddir i greu'r disgrifiad o'r deunydd archifol.</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Script(s)</source>
-        <target/>
+        <target>Sgript(iau)</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
-        <target/>
+        <target>Cofnodwch gyfeiriadau am unrhyw ffynonellau allanol a ddefnyddir yn y disgrifiad archifol (megis y Sgôp a Chynnwys, Hanes Archifol, neu feysydd Nodiadau).</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Sources</source>
-        <target/>
+        <target>Ffynonellau</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Edit identity area</source>
-        <target/>
+        <target>Golygu ardal dynodi</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Edit context area</source>
-        <target/>
+        <target>Golygu ardal cyd-destun</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Related function</source>
-        <target/>
+        <target>Ffwythiant cysylltiedig</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Repository</source>
-        <target/>
+        <target>Cadwrfa</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Archival history</source>
-        <target/>
+        <target>Hanes archifol</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Edit content and structure area</source>
-        <target/>
+        <target>Golygu ardal cynnwys a strwythur</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Scope and content</source>
-        <target/>
+        <target>Cwmpas a chynnwys</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Accruals</source>
-        <target/>
+        <target>Croniadau</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Edit conditions of access and use area</source>
-        <target/>
+        <target>Golygu ardal amodau mynediad a defnydd</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Finding aids</source>
-        <target/>
+        <target>Cymhorthion chwilio</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Edit alied materials area</source>
-        <target/>
+        <target>Golygu ardal deunyddiau perthynol</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Publication note</source>
-        <target/>
+        <target>Nodyn cyhoeddiad</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Edit notes area</source>
-        <target/>
+        <target>Golygu ardal nodiadau</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Note</source>
-        <target/>
+        <target>Nodyn</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Edit access points</source>
-        <target/>
+        <target>Golygu pwyntiau mynediad</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Edit description control area</source>
-        <target/>
+        <target>Golygu ardal rheoli disgrifiad</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>Rheolau a/neu confensiynau a ddefnyddiwyd</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Dates of creation revision deletion</source>
-        <target/>
+        <target>Dyddiadau creadigaeth adolygiad dilead</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Archivist's note</source>
-        <target/>
+        <target>Nodyn yr archifydd</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Rights area</source>
-        <target/>
+        <target>Ardal hawliau</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Accession area</source>
-        <target/>
+        <target>Ardal derbyn</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Type</source>
-        <target/>
+        <target>Math</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Date</source>
-        <target/>
+        <target>Dyddiad</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Start</source>
-        <target/>
+        <target>Cychwyn</target>
       </trans-unit>
       <trans-unit id="117">
         <source>End</source>
-        <target/>
+        <target>Diwedd</target>
       </trans-unit>
     </body>
   </file>

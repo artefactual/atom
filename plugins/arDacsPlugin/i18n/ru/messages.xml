@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ru" datatype="plaintext" original="messages" date="2015-08-27T12:06:41Z" product-name="messages">
+  <file source-language="en" target-language="ru" datatype="plaintext" original="messages" date="2015-10-16T04:43:22Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Без названия</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative / Biographical history</source>
@@ -22,15 +22,15 @@
       </trans-unit>
       <trans-unit id="5">
         <source>Identifier - This is a mandatory element.</source>
-        <target/>
+        <target>Идентификатор  -Это обязательный элемент.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Name and location of repository - This is a mandatory element.</source>
-        <target/>
+        <target>Наименование и местоположение хранилиша  -Это обязательный элемент.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Title - This is a mandatory element.</source>
-        <target/>
+        <target>Название -Это обязательный элемент.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Date(s) - are not consistent with higher levels.</source>
@@ -38,7 +38,7 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Date(s) - This is a mandatory element.</source>
-        <target/>
+        <target>Дата(ы) -Это обязательный элемент.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Extent - This is a mandatory element.</source>
@@ -54,11 +54,11 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Add new archival description</source>
-        <target/>
+        <target>Добавить новое архивное описание</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Edit %1%</source>
-        <target/>
+        <target>Изменить %1%</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a duplicate of record %1%</source>
@@ -74,15 +74,15 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Identifier</source>
-        <target/>
+        <target>Идентификатор</target>
       </trans-unit>
       <trans-unit id="19">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Это обязательный элемент.</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Name and location of repository</source>
-        <target/>
+        <target>Наименование и местонахождение хранилища</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
@@ -102,7 +102,7 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Title</source>
-        <target/>
+        <target>Название</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
@@ -118,7 +118,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>Name of creator(s)</source>
-        <target/>
+        <target>Имя автора(ов)</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Record the name(s) of the creator(s) identified in the name element in the devised title of the materials using standardized vocabularies or with rules for formulating standardized names (DACS 2.6.4). Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
@@ -130,7 +130,7 @@
       </trans-unit>
       <trans-unit id="32">
         <source>Content and structure elements</source>
-        <target/>
+        <target>Элементы содержания и структуры</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Record information about the nature of the materials and activities reflected in the unit being described to enable users to judge its potential relevance, including information about functions, activities, transations, and processes; documentary form(s) or intellectual characteristics; content dates; geographic areas and places; subject matter; completeness of the materials; or any other information that assists the user in evaluating the relevance of the materials. (DACS 3.1)</source>
@@ -166,7 +166,7 @@
       </trans-unit>
       <trans-unit id="41">
         <source>Physical access</source>
-        <target/>
+        <target>Физический доступ</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Provide information about any special equipment required to view or access the unit being described, if it is not clear from the Extent element. (DACS 4.3.5)</source>
@@ -306,7 +306,7 @@
       </trans-unit>
       <trans-unit id="76">
         <source>Access points</source>
-        <target/>
+        <target>Точки доступа</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Subject access points</source>
@@ -334,7 +334,7 @@
       </trans-unit>
       <trans-unit id="83">
         <source>Date(s)</source>
-        <target/>
+        <target>Дата(ы)</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Related function</source>
@@ -394,7 +394,7 @@
       </trans-unit>
       <trans-unit id="98">
         <source>Archivist's note</source>
-        <target/>
+        <target>Примечание архивиста</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Edit access points</source>

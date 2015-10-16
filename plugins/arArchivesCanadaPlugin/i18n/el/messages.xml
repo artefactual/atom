@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-08-27T12:07:02Z" product-name="messages">
+  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-10-16T04:43:23Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Browse by</source>
-        <target/>
+        <target>Περιήγηση κατά</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Virtual exhibits</source>
-        <target/>
+        <target>Εικονικές εκθέσεις</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Search %1%</source>
-        <target/>
+        <target>Αναζήτηση %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Search</source>
-        <target/>
+        <target>Αναζήτηση</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Advanced search</source>
-        <target/>
+        <target>Σύνθετη αναζήτηση</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Global search</source>
-        <target/>
+        <target>Γενική αναζήτηση</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Search &lt;span&gt;%1%&lt;/span&gt;</source>
-        <target/>
+        <target>Αναζήτηση &lt;span&gt;%1%&lt;/span&gt;</target>
       </trans-unit>
     </body>
   </file>

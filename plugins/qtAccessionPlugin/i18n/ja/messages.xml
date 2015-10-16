@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2015-08-27T12:08:12Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2015-10-16T04:43:26Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -446,15 +446,15 @@
       </trans-unit>
       <trans-unit id="130">
         <source>Main</source>
-        <target/>
+        <target>メイン</target>
       </trans-unit>
       <trans-unit id="131">
         <source>Physical location</source>
-        <target/>
+        <target>物理的所在</target>
       </trans-unit>
       <trans-unit id="132">
         <source>Other details</source>
-        <target/>
+        <target>他の詳細</target>
       </trans-unit>
       <trans-unit id="133">
         <source>URL</source>
@@ -466,19 +466,19 @@
       </trans-unit>
       <trans-unit id="135">
         <source>Name of creator</source>
-        <target/>
+        <target>作成者名</target>
       </trans-unit>
       <trans-unit id="136">
         <source>Administrative history</source>
-        <target/>
+        <target>管理の履歴</target>
       </trans-unit>
       <trans-unit id="137">
         <source>Biographical history</source>
-        <target/>
+        <target>履歴</target>
       </trans-unit>
       <trans-unit id="138">
         <source>Date(s)</source>
-        <target/>
+        <target>日付</target>
       </trans-unit>
       <trans-unit id="139">
         <source>More</source>

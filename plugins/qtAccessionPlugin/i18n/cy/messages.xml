@@ -1,412 +1,412 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2015-08-27T12:09:35Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2015-10-16T04:43:30Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Heb deitl</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Authorized form of name - This is a mandatory element.</source>
-        <target/>
+        <target>Ffurf awdurdodedig enw - Mae hwn yn elfen orfodol.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Add new donor</source>
-        <target/>
+        <target>Ychwanegu rhoddwr newydd</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Edit %1%</source>
-        <target/>
+        <target>Golygu %1%</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Edit donor</source>
-        <target/>
+        <target>Golygu rhoddwr</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Identity area</source>
-        <target/>
+        <target>Ardal dynodi</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Ffurf awdurdodedig enw</target>
       </trans-unit>
       <trans-unit id="8">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Mae hwn yn elfen orfodol.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Contact area</source>
-        <target/>
+        <target>Ardal gyswllt</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Cancel</source>
-        <target/>
+        <target>Diddymu</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Save</source>
-        <target/>
+        <target>Cadw</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Create</source>
-        <target/>
+        <target>Creu</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Are you sure you want to delete %1%?</source>
-        <target/>
+        <target>A ydych yn sicr eich bod am ddileu %1%?</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Delete</source>
-        <target/>
+        <target>Dileu</target>
       </trans-unit>
       <trans-unit id="15">
         <source>View donor</source>
-        <target/>
+        <target>Gweld rhoddwr</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Accession area</source>
-        <target/>
+        <target>Ardal derbyn</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Related accession(s)</source>
-        <target/>
+        <target>Derbyn(ion) cysylltiedig</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Edit</source>
-        <target/>
+        <target>Golygu</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Add new</source>
-        <target/>
+        <target>Ychwanegu newydd</target>
       </trans-unit>
       <trans-unit id="20">
         <source>List donor</source>
-        <target/>
+        <target>Rhestri'r rhoddwr</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Search donor</source>
-        <target/>
+        <target>Chwilio rhoddwr</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Name</source>
-        <target/>
+        <target>Enw</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Browse donor</source>
-        <target/>
+        <target>Pori rhoddwr</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Search %1%</source>
-        <target/>
+        <target>Chwilio %1%</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Alphabetic</source>
-        <target/>
+        <target>Yn nhrefn yr wyddor</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Most recent</source>
-        <target/>
+        <target>Y mwyaf diweddar</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Identifier</source>
-        <target/>
+        <target>Dynodwr</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Updated</source>
-        <target/>
+        <target>Diweddarwyd</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Acquisition date - This is a mandatory element.</source>
-        <target/>
+        <target>Dyddiad derbyn - Mae hwn yn elfen orfodol.</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Source of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>Ffynhonnell y derbyniad - Mae hwn yn elfen orfodol.</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Location information - This is a mandatory element.</source>
-        <target/>
+        <target>Gwybodaeth lleoliad - mae hwn yn elfen orfodol.</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Accession number</source>
-        <target/>
+        <target>Rhif derbyn</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Title</source>
-        <target/>
+        <target>Teitl</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Acquisition date</source>
-        <target/>
+        <target>Dyddiad derbyn</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Relevance</source>
-        <target/>
+        <target>Perthnasedd</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Add new accession record</source>
-        <target/>
+        <target>Ychwanegu cofnod derbyn newydd</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Related donors</source>
-        <target/>
+        <target>Rhoddwyr cysylltiedig</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Related donor record</source>
-        <target/>
+        <target>Cofnod rhoddwr cysylltiedig</target>
       </trans-unit>
       <trans-unit id="39">
         <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
-        <target/>
+        <target>Hon yw'r maes endid cyfreithiol ac yn darparu'r wybodaeth gyswllt ar gyfer y person(au) neu'r sefydliad sydd yn rhoi neu'n trosglwyddo'r deunyddiau. Mae ganddi'r opsiwn o achosion lluosog ac yn darparu'r opsiwn o greu mwy nag un cofnod cyswllt gan ddefnyddio'r un ffurf.</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Primary contact information</source>
-        <target/>
+        <target>Gwybodaeth prif gyswllt</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Main</source>
-        <target/>
+        <target>Prif</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Physical location</source>
-        <target/>
+        <target>Lleoliad ffisegol</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Other details</source>
-        <target/>
+        <target>Manylion eraill</target>
       </trans-unit>
       <trans-unit id="44">
         <source>URL</source>
-        <target/>
+        <target>URL</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Region/province</source>
-        <target/>
+        <target>Rhanbarth/talaith</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Country</source>
-        <target/>
+        <target>Gwlad</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Edit accession record</source>
-        <target/>
+        <target>Golygu cofnod derbyn</target>
       </trans-unit>
       <trans-unit id="48">
         <source>You are creating an accrual to accession %1%</source>
-        <target/>
+        <target>Rydych yn creu croniad i derbyniad %1%</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Basic info</source>
-        <target/>
+        <target>Gwybodaeth sylfaenol</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
-        <target/>
+        <target>Dylai rhif derbyn fod yn gyfuniad o werthoedd a gofnodwyd yn y maes a dylai fod yn rhif derbyn unigryw ar gyfer y gadwrfa</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
-        <target/>
+        <target>Mae'r dyddiad derbyn yn cynrychioli dyddiad derbyn y deunyddiau ac mae'n cael ei hychwanegu yn ystod y broses rhodd.</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
-        <target/>
+        <target>Nodwch ffynhonnell uniongyrchol y derbyniad neu drosglwyddiad, a dyddiad a dull y derbyn OS NAD yw'r wybodaeth yn gyfrinachol.</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Ffynhonnell uniongyrchol y derbyniad</target>
       </trans-unit>
       <trans-unit id="54">
         <source>A description of the physical location in the repository where the accession can be found.</source>
-        <target/>
+        <target>Disgrifiad o'r lleoliad ffisegol yn y gadwrfa lle gellir dod o hyd i'r derbyniad.</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Location information</source>
-        <target/>
+        <target>Gwybodaeth lleoliad</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Donor/Transferring body area</source>
-        <target/>
+        <target>Ardal corff Rhoddwr/Trosglwyddo</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Administrative area</source>
-        <target/>
+        <target>Ardal gweinyddol</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Term describing the type of accession transaction and referring to the way in which the accession was acquired.</source>
-        <target/>
+        <target>Term sy'n disgrifio y math o drafodiad derbyn ac yn cyfeirio at y ffordd y cafwyd y derbyniad.</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Select the type of resource represented in the accession, either public or private.</source>
-        <target/>
+        <target>Dewiswch y math o adnodd a gynrychiolir yn y derbyniad, naill ai'n gyhoeddus neu'n breifat.</target>
       </trans-unit>
       <trans-unit id="60">
         <source>The title of the accession, usually the creator name and term describing the format of the accession materials.</source>
-        <target/>
+        <target>Teitl y derbyniad, fel arfer, enw'r crëwr a'r term sy'n disgrifio fformat y deunyddiau derbyn.</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Creators</source>
-        <target/>
+        <target>Crewyr</target>
       </trans-unit>
       <trans-unit id="62">
         <source>The name of the creator of the accession or the name of the department that created the accession.</source>
-        <target/>
+        <target>Enw crëwr y derfyniad neu enw'r adran a greodd y derbyniad.</target>
       </trans-unit>
       <trans-unit id="63">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>"Nodwch a chofnodwch dyddiad(au) yr uned o ddisgrifiad. Nodwch y math o ddyddiad a roddwyd. Cofnodwch fel un dyddiad neu amrediad o ddyddiadau fel y bo'n briodol." (ISAD 3.1.3). Gellir defnyddio’r maes arddangos Dyddiad i fewnosod gwybodaeth am ddyddiadau fel testun rhydd, gan gynnwys marciau argraffyddol i fynegi dynesiad, ansicrwydd, neu gymhwyster. Defnyddiwch y meysydd dechrau a diwedd i wneud y dyddiadau’n chwiladwy. Peidiwch â defnyddio unrhyw gymwysterau na symbolau teipograffyddol i fynegi ansicrwydd. Fformatau dyddiad derbyniol: BBBBMMDD, BBBB-MM-DD, BBBB-MM, BBBB.</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Information on the history of the accession. When the accession is acquired directly from the creator, do not record an archival history but record the information as the Immediate Source of Acquisition.</source>
-        <target/>
+        <target>Gwybodaeth am hanes y derbyniad. Pan dderbynnir y derbyniad yn uniongyrchol gan y crëwr, peidiwch gofnodi hanes archifol ond cofnodwch y wybodaeth fel Ffynhonnell Uniongyrchol y Derbyniad. </target>
       </trans-unit>
       <trans-unit id="65">
         <source>Archival/Custodial history</source>
-        <target/>
+        <target>Hanes Archifol/Gwarchodol</target>
       </trans-unit>
       <trans-unit id="66">
         <source>A description of the intellectual content and document types represented in the accession.</source>
-        <target/>
+        <target>Disgrifiad o'r cynnwys deallusol a'r mathau o ddogfen a gynrychiolir yn y derbyniad.</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
-        <target/>
+        <target>Cofnodwch werthusiad, dinistriad a gweithrediadau amserlennu a gymerwyd ar neu wedi'u cynllunio ar gyfer yr uned disgrifiad, yn enwedig os gallent effeithio ar ddehongliad y deunydd.</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Appraisal, destruction and scheduling</source>
-        <target/>
+        <target>Gwerthuso, dinistrio ac amserlennu</target>
       </trans-unit>
       <trans-unit id="69">
         <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
-        <target/>
+        <target>Disgrifiad o gyflwr ffisegol y derbyniad ac os oes angen unrhyw waith cadwraeth neu driniaeth arbennig.</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Physical condition</source>
-        <target/>
+        <target>Cyflwr ffisegol</target>
       </trans-unit>
       <trans-unit id="71">
         <source>The number of units as a whole number and the measurement of the received volume of records in the accession.</source>
-        <target/>
+        <target>Nifer yr unedau fel rhif cyfan a mesuriad cyfaint y cofnodion a dderbyniwyd yn y derbyniad.</target>
       </trans-unit>
       <trans-unit id="72">
         <source>An indicator of the accessioning process.</source>
-        <target/>
+        <target>Dynodwr o'r broses derbyn.</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Indicates the priority the repository assigns to completing the processing of the accession.</source>
-        <target/>
+        <target>Yn dangos y flaenoriaeth y mae'r gadwrfa yn pennu i gwblhau'r gwaith o brosesu'r derbyniad.</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
-        <target/>
+        <target>Nodiadau am y cynllun prosesu, yn disgrifio beth sydd angen ei wneud er mwyn i'r derbyniad gael ei brosesu'n gyflawn.</target>
       </trans-unit>
       <trans-unit id="75">
         <source>%1% area</source>
-        <target/>
+        <target>%1% ardal</target>
       </trans-unit>
       <trans-unit id="76">
         <source>It has %1% deaccessions that will also be deleted:</source>
-        <target/>
+        <target>Mae ganddo %1% dad-derbyniad bydd hefyd yn cael ei dileu:</target>
       </trans-unit>
       <trans-unit id="77">
         <source>It has %1% accruals. They will not be deleted.</source>
-        <target/>
+        <target>Mae ganddo %1% croniad. Ni fyddant yn cael eu dileu.</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Name of creator</source>
-        <target/>
+        <target>Enw'r crëwr</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Administrative history</source>
-        <target/>
+        <target>Hanes gweinyddol</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Biographical history</source>
-        <target/>
+        <target>Hanes bywgraffyddol</target>
       </trans-unit>
       <trans-unit id="81">
         <source>View accession record</source>
-        <target/>
+        <target>Gweld cofnod derbyn</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Edit donor/transferring body area</source>
-        <target/>
+        <target>Golygu ardal corff Rhoddwr/Trosglwyddo</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Related donor</source>
-        <target/>
+        <target>Rhoddwr cysylltiedig</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Edit administrative area</source>
-        <target/>
+        <target>Golygu ardal gweinyddol</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Acquisition type</source>
-        <target/>
+        <target>Math o dderbyniad</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Resource type</source>
-        <target/>
+        <target>Math o adnodd</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Date(s)</source>
-        <target/>
+        <target>Dyddiad(au)</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Scope and content</source>
-        <target/>
+        <target>Cwmpas a chynnwys</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Received extent units</source>
-        <target/>
+        <target>Unedau maint a dderbyniwyd</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Processing status</source>
-        <target/>
+        <target>Prosesu statws</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Processing priority</source>
-        <target/>
+        <target>Prosesu blaenoriaeth</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Processing notes</source>
-        <target/>
+        <target>Prosesu nodiadau</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Accruals</source>
-        <target/>
+        <target>Croniadau</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Accrual to</source>
-        <target/>
+        <target>Croniad i</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Rights area</source>
-        <target/>
+        <target>Ardal hawliau</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Edit rights area</source>
-        <target/>
+        <target>Golygu ardal hawliau</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Deaccession area</source>
-        <target/>
+        <target>Ardal dad-derbyn</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Deaccession</source>
-        <target/>
+        <target>Dad-derbyniad</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Add accrual</source>
-        <target/>
+        <target>Ychwanegu croniad</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Create %1%</source>
-        <target/>
+        <target>Creu %1%</target>
       </trans-unit>
       <trans-unit id="101">
         <source>More</source>
-        <target/>
+        <target>Mwy</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Create new rights</source>
@@ -414,79 +414,79 @@
       </trans-unit>
       <trans-unit id="103">
         <source>Browse accession</source>
-        <target/>
+        <target>Pori derbyn</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Identifier - This is a mandatory element.</source>
-        <target/>
+        <target>Dynodwr - Mae hwn yn elfen orfodol.</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Date of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>Dyddiad derbyn - Mae hwn yn elfen orfodol.</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Scope - This is a mandatory element.</source>
-        <target/>
+        <target>Cwmpas - Mae hwn yn elfen orfodol.</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Description - This is a mandatory element.</source>
-        <target/>
+        <target>Disgrifiad - Mae hwn yn elfen orfodol.</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Add new deaccession record</source>
-        <target/>
+        <target>Ychwanegu cofnod dad-derbyn newydd</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Edit deaccession record</source>
-        <target/>
+        <target>Golygu cofnod dad-derbyn</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Deaccession number</source>
-        <target/>
+        <target>Rhif dad-derbyn</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
-        <target/>
+        <target>Nodwch a yw'r derbyniad cyfan yn cael ei dad-derbyn, neu os mai dim ond rhan o'r derbyniad sy'n cael ei ddad-derbyn.</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Scope</source>
-        <target/>
+        <target>Cwmpas</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Date of deaccession</source>
-        <target/>
+        <target>Dyddiad dad-derbyn</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Date</source>
-        <target/>
+        <target>Dyddiad</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Identify what materials are being deaccessioned.</source>
-        <target/>
+        <target>Nodwch pa deunyddiau sy'n cael eu dad-derbyn.</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Description</source>
-        <target/>
+        <target>Disgrifiad</target>
       </trans-unit>
       <trans-unit id="117">
         <source>The number of units as a whole number and the measurement of the records to be deaccessioned.</source>
-        <target/>
+        <target>Nifer yr unedau fel rhif cyfan a mesuriad cyfaint y cofnodion a i'w dad-derbyn.</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Provide a reason why the records are being deaccessioned.</source>
-        <target/>
+        <target>Nodwch reswm pam fod y cofnodion yn cael eu dad-derbyn</target>
       </trans-unit>
       <trans-unit id="119">
         <source>View deaccession record</source>
-        <target/>
+        <target>Gweld y cofnod dad-derbyn</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Extent</source>
-        <target/>
+        <target>Maint</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Reason</source>
-        <target/>
+        <target>Rheswm</target>
       </trans-unit>
     </body>
   </file>

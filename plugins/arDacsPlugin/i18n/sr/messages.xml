@@ -1,412 +1,412 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2015-08-27T12:10:53Z" product-name="messages">
+  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2015-10-16T04:43:33Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Без наслова</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative / Biographical history</source>
-        <target/>
+        <target>Историјат ствараоца</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
-        <target/>
+        <target>Историјат ствараоца</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Biographical history</source>
-        <target/>
+        <target>Историјат ствараоца</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Identifier - This is a mandatory element.</source>
-        <target/>
+        <target>Идентификатор - Ово је обавезни поље</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Name and location of repository - This is a mandatory element.</source>
-        <target/>
+        <target>Назив и локација архива - Ово је обавезно поље.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Title - This is a mandatory element.</source>
-        <target/>
+        <target>Назив јединице описа - Ово је обавезно поље</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Date(s) - are not consistent with higher levels.</source>
-        <target/>
+        <target>Датум(и) - нису усаглашени са вишим нивоима</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Date(s) - This is a mandatory element.</source>
-        <target/>
+        <target>Датум(и) - ово је обавезно поље</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Extent - This is a mandatory element.</source>
-        <target/>
+        <target>Обим - ово је обавезно поље.</target>
       </trans-unit>
       <trans-unit id="11">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
-        <target/>
+        <target>Овај архивси опис, или неки његов виши ниво, захтева макар једног ствараоца. </target>
       </trans-unit>
       <trans-unit id="12">
         <source>Scope and content - This is a mandatory element.</source>
-        <target/>
+        <target>Оквир и садржај - Ово је обавезно поље</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Add new archival description</source>
-        <target/>
+        <target>Додај нови архивски опис</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Edit %1%</source>
-        <target/>
+        <target>Уреди %1%</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Ово је дупликат записа %1%</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Identity elements</source>
-        <target/>
+        <target>Поља идентификације</target>
       </trans-unit>
       <trans-unit id="17">
         <source>At the highest level of a multilevel description or in a single level description, provide a unique identifier for the materials being described in accordance with the institution’s administrative control system. Optionally, devise unique identifiers at lower levels of a multilevel description. (DACS 2.1.3) The country and repository code will be automatically added from the linked repository record to form a full reference code.</source>
-        <target/>
+        <target>На највишем ниво описа са више нивоа или на опису са једним нивоом, одредити јединствени идентификатор за грађу који се описује у сагласности са системом административне контроле институције. Алтернативно, одредити јединствени идентификатор за ниже нивое вишестепеног описа. (DACS 2.1.3) Ознака земље или архива ће бити аутоматски додата из повезаног описа архива да би се формирала потпуна сигнатура. </target>
       </trans-unit>
       <trans-unit id="18">
         <source>Identifier</source>
-        <target/>
+        <target>Идентификатор</target>
       </trans-unit>
       <trans-unit id="19">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Ово је обавезно поље</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Name and location of repository</source>
-        <target/>
+        <target>Назив и локација архива</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
-        <target/>
+        <target>Експлицитно навести назив архива, укључујући надређена тела (DACS 2.2.2).  Потражити да ли назив/име постоји у нормативном запису уношењем првих неколико слова назива/имена. Алтернативно, унети нови назив/име за стварање новог нормативног записа.</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Select a level of description from the drop-down menu. Follow any relevant local or institutional guidelines in selecting the proper level of description. See DACS (2013) Chapter 1 for further guidance.</source>
-        <target/>
+        <target>Изабери ниво описа из падајућег менија. Консултовати релевантне локалне или правила установе у одабиру тачног нивоа описа. За више информација види DACS (2013) Поглавље 1</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Levels of description</source>
-        <target/>
+        <target>Нивои описа</target>
       </trans-unit>
       <trans-unit id="24">
         <source>In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material, normally consisting of a name segment, a term indicating the nature of the unit being described, and optionally a topical segment. Do not enclose devised titles in square brackets. (DACS 2.3.3)</source>
-        <target/>
+        <target>У одсуству смисленог званичног назива, саставити кратки назив јединице описа који једнозначно идентификује грађу, а који треба да садржи имене/назив, термин који назначава природу грађе која се описује и по могућству тематику. Не наводити додељене називе у угластм заградама. (DACS 2.3.3)</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Title</source>
-        <target/>
+        <target>Назив јединице описа</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>Навести датуме стварања, чувања, објављивања или емитовања грађе у зависности од врсте грађе која се описује. (DACS 2.4.3) Поље за приказ датума може се употребити и за информације о датуму у форми слободног текста, укључујући и типографске ознаке да се изрази процена, несигурност или квалификација. Употребити поља почетног и крајњег датума да би били претраживи. Не употребљавати квалификаторе и типографске симболе за несигурност. Прихватљиви формати датума: ГГГГММДД, ГГГГ-ММ-ДД, ГГГГ-ММ, ГГГГ.</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Record the quantity of the material in terms of its physical extent as linear or cubic feet, number of items, or number of containers or carriers. (DACS 2.5.4). Optionally, record the quantity in terms of material type(s) (DACS 2.5.5), and/or qualify the statement of physical extent to hightlight the existence of material types that re important (DACS 2.5.6).</source>
-        <target/>
+        <target>Навести количину грађе у дужним или кубним метрима, број јединица или број контејнера или носача. (DACS 2.5.4). Алтернативно, навести количину врсте(и) материјала (DACS 2.5.5) и/или навести податак о физичком обиму да би се нагласило постојање важних врста грађе (DACS 2.5.6).</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Extent</source>
-        <target/>
+        <target>Обим</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Name of creator(s)</source>
-        <target/>
+        <target>Назив/Име ствараоца архивске грађе</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Record the name(s) of the creator(s) identified in the name element in the devised title of the materials using standardized vocabularies or with rules for formulating standardized names (DACS 2.6.4). Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target/>
+        <target>Навести назив(е)/име(на) појединаца из додељеног назива јединице описа употребљавајући стандардизоване речнике или правила за креирање стандардизованих облика назива/имена (DACS 2.6.4). Потражити да ли назив/име постоји у нормативном запису уношењем првих неколико слова назива/имена. Алтернативно, унети нови назив/име за стварање новог нормативног записа.</target>
       </trans-unit>
       <trans-unit id="31">
         <source>&lt;strong&gt;Identifier&lt;/strong&gt;&lt;br /&gt;Provide a unique identifier for the materials being described in accordance with the institution’s administrative control system.&lt;br /&gt;&lt;strong&gt;Level of description&lt;/strong&gt;&lt;br /&gt;Record the level of this unit of description.&lt;br /&gt;&lt;strong&gt;Title&lt;/strong&gt;&lt;br /&gt;In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material.&lt;br /&gt;&lt;strong&gt;Date&lt;/strong&gt;&lt;br /&gt;Record a date of creation.</source>
-        <target/>
+        <target>&lt;strong&gt;Идентификатор&lt;/strong&gt;&lt;br /&gt;Унети јединствени идентификатор за грађу коју се описује у сагласности са системом административне контроле институције.&lt;br /&gt;&lt;strong&gt;Ниво описа&lt;/strong&gt;&lt;br /&gt;Забележити ниво јединице описа.&lt;br /&gt;&lt;strong&gt;Назив&lt;/strong&gt;&lt;br /&gt;У одсуству смисленог званичног назива, саставите кратки назив који једнозначно идентификује грађу.&lt;br /&gt;&lt;strong&gt;Датум&lt;/strong&gt;&lt;br /&gt;Забележите датум стварања.</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Content and structure elements</source>
-        <target/>
+        <target>Поља садржаја и структуре</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Record information about the nature of the materials and activities reflected in the unit being described to enable users to judge its potential relevance, including information about functions, activities, transations, and processes; documentary form(s) or intellectual characteristics; content dates; geographic areas and places; subject matter; completeness of the materials; or any other information that assists the user in evaluating the relevance of the materials. (DACS 3.1)</source>
-        <target/>
+        <target>Навести информацију о природи грађе и активностима који се односе на јединицу која се описује да би се омогућило корисницима да процене релевантност, укључујући информације о функцијама, активностима, трансакцијама и процесима; документарној форми(ама) и интелектуалним карактеристикама; датумима у садржају, географским областима и местима; предмету; комплетности грађе; или било коју другу информацију која ће помоћи кориснику да процени релевантност грађе. (DACS 3.1)</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Scope and content</source>
-        <target/>
+        <target>Оквир и садржај</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Describe the current arrangement of the material in terms of the various aggregations within it and their relationships. (DACS 3.2.3)</source>
-        <target/>
+        <target>Описује систем сређивања грађе у смислу њеног окупљања као и унутрашњих веза. (DACS 3.2.3)</target>
       </trans-unit>
       <trans-unit id="36">
         <source>System of arrangement</source>
-        <target/>
+        <target>Систем сређивања</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Conditions of access and use elements</source>
-        <target/>
+        <target>Поље услова приступа и кориштења</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Give information about any restrictions on access to the unit being described (or parts thereof) as a result of the nature of the information therein or statutory/contractual requirements. As appropriate, specify the details of the restriction. If there are no restrictions, state that fact. (DACS 4.1.5)</source>
-        <target/>
+        <target>Навести информацију о свим ограничењима приступа јединици која се описује (или њеном делу) а која су резултат природе садржаних информација или законских/уговорних обавеза. Гдје је могуће навести детаље ограничења. Ако нема ограничења, неопходно је то навести. (DACS 4.1.5)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Conditions governing access</source>
-        <target/>
+        <target>Услови приступа</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Provide information about the physical characteristics or condition of the unit being described that limit access to it or restrict its use. (DACS 4.2.5)</source>
-        <target/>
+        <target>Унети информацију о физичким карактеристикама или стању које ограничавају приступ или употребу јединице која се описује. (DACS 4.2.5)</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Physical access</source>
-        <target/>
+        <target>Физички приступ</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Provide information about any special equipment required to view or access the unit being described, if it is not clear from the Extent element. (DACS 4.3.5)</source>
-        <target/>
+        <target>Унети информацију о специјалној опреми неопходној да би се прегледала или приступило јединици која се описује, ако то није видљиво из Поља обима. (DACS 4.3.5)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Technical access</source>
-        <target/>
+        <target>Технички приступ</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Give information about copyright status and any other conditions governing the reproduction, publication, and further use (e.g., display, public screening, broadcast, etc.) of the unit being described after access has been provided. (DACS 4.4.5)</source>
-        <target/>
+        <target>Навести информацију о статусу ауторског права и свих других услова који се тичу умножавања, објављивања и даље употребе (нпр. приказивања, јавног емитовања и сл.) јединице која се описује након што је приступ омогућен. (DACS 4.4.5)</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Conditions governing reproduction and use</source>
-        <target/>
+        <target>Услови умножавања и употребе</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Record the language(s) of the materials being described. (DACS 4.5.2)</source>
-        <target/>
+        <target>Навести језик(е) грађе која чини јединицу описа. (DACS 4.5.2)</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Languages of the material</source>
-        <target/>
+        <target>Језици грађе</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Record the scripts(s) of the materials being described.</source>
-        <target/>
+        <target>Навести писмо(а) архивске грађе која чини јединицу описа.</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Scripts of the material</source>
-        <target/>
+        <target>Писма грађе</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Record information about any distinctive alphabets, scripts, symbol systems, or abbreviations employed (DACS 4.5.3). If there is no language content, record “no linguistic content.” (DACS 4.5.4)</source>
-        <target/>
+        <target>Навести и све посебне алфабете, писма, систем симбола или скраћенице који су коришћени. (DACS 4.5.3). Ако нема језичког садржаја, навести "нема језичког садржаја." (DACS 4.5.4)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Language and script notes</source>
-        <target/>
+        <target>Напомене о језику и писму</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Record information about any existing finding aids that provide information relating to the context and contents of the unit being described... including any relevant information about its location or availability, and any other information necessary to assist the user in evaluating its usefulness. Include finding aids prepared by the creator (e.g., registers, indexes, etc.) that are part of the unit being described. (DACS 4.6.2)</source>
-        <target/>
+        <target>Навести информације о постојећим информативним средствима која се односе на контекст и садржај јединице која се описује... укључујући све релевантне информације о ниховим локацијама или доступности, као и свим информацијама које могу помоћи кориснику да процени њихову корисност. Укључити информативна средства која је припремио ствараоц грађе (нпр. регистре, индексе и сл.) а који су део јединице коај се описује. (DACS 4.6.2)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Acquisition and appraisal elements</source>
-        <target/>
+        <target>Поље за набавку и вредновање</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Custodial history</source>
-        <target/>
+        <target>Историјат старања</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Record the successive transfers of ownership, responsibility, or custody or control of the unit being described from the time it left the possession of the creator until its acquisition by the repository, along with the dates thereof, insofar as this information can be ascertained and is significant to the user’s understanding of the authenticity. (DACS 5.1.3)</source>
-        <target/>
+        <target>Навести хронолошким редом преносе власништва, одговорности или старања или контроле над јединицом описа од времена када је напустила ствараоца па до преузимања од стране архива, са датумима од-до као и информацијама које се могу утврдити и значајне су за корисниково разумевање аутентичности. (DACS 5.1.3)</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Record the source(s) from which the materials being described were acquired, the date(s) of acquisition, and the method of acquisition, if this information is not confidential. (DACS 5.2.3)</source>
-        <target/>
+        <target>Навести извор(е) од којих је грађа набављена, датум(е) набавке, начин набавке уколико ове информације нису поверљиве. (DACS 5.2.3)</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Immediate source of acquisition or transfer</source>
-        <target/>
+        <target>Преузимање грађе</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Where the destruction or retention of archival materials has a bearing on the interpretation and use of the unit being described, provide information about the materials destroyed or retained and provide the reason(s) for the appraisal decision(s), where known. (DACS 5.3.4)</source>
-        <target/>
+        <target>Када је излучивање или задржавање архивске грађе значајно за разумевање и коришћење јединице која се описује, навести информације о грађи који је уништена или задржана и навести разлог(е) за вредновање, ако су познати. (DACS 5.3.4)</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Appraisal, destruction and scheduling information</source>
-        <target/>
+        <target>Информације о вредновању, излучивању и роковима чувања</target>
       </trans-unit>
       <trans-unit id="60">
         <source>If known, indicate whether or not further accruals are expected. When appropriate, indicate frequency and volume. (DACS 5.4.2)</source>
-        <target/>
+        <target>Ако је познато, назначити да ли се очекују допуне. Кад је могуће, навести процену о њиховој количини и учесталости.  (DACS 5.4.2)</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Related materials elements</source>
-        <target/>
+        <target>Поља повезане грађе</target>
       </trans-unit>
       <trans-unit id="62">
         <source>If the materials being described are reproductions and the originals are located elsewhere, give the location of the originals (DACS 6.1.4). Record any identifying numbers that may help in locating the originals in the cited location (DACS 6.1.6).</source>
-        <target/>
+        <target>Ако су материјали који се описују копије, а оригинали се налазе другде, навести локацију оригинала.  (DACS 6.1.4). Навести било који идентификациони број који би могао помоћи у проналажењу оригинала на наведеној локацији.  (DACS 6.1.6).</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Existence and location of originals</source>
-        <target/>
+        <target>Постојање и локације оригинала</target>
       </trans-unit>
       <trans-unit id="64">
         <source>If a copy of all or part of the material being described is available, in addition to the originals, record information about the medium and location of the copy, any identifying numbers, and any conditions on the use or availability of the copy. If a copy of only a part of the unit being described is available, indicate which part. If the materials being described are available via remote access (electronically or otherwise), provide the relevant information needed to access them. (DACS 6.2.3)</source>
-        <target/>
+        <target>Ако је доступна копија целе или дела грађе која се описује, уз оригинал, навести информацију о носачу записа и локацији копије, идентификујућим бројевима као и све услове доступности и употребе копије. Ако је доступна само копија дела грaђе која се описује, назначити којег дела. Ако је грађа која се описује доступна преко удаљеног приступа (електронског или на неки други начин), навести информације неопходне за приступ. (DACS 6.2.3)</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Existence and location of copies</source>
-        <target/>
+        <target>Постојање и локације копија</target>
       </trans-unit>
       <trans-unit id="66">
         <source>If there are materials that have a direct and significant connection to those being described by reason of closely shared responsibility or sphere of activity, provide the title, location, and, optionally, the reference number(s) of the related materials and their relationship with the materials being described. (DACS 6.3.5)</source>
-        <target/>
+        <target>Ако постоји грађа која је директно или значајно повезана са оном која се описује било блиско повезаном одговорношћу или делатношћу, навести назив јединице, локацију и по могућству сигнатуру(е) повезане грађе и њен однос са грађом која се описује. (DACS 6.3.5)</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Related archival materials</source>
-        <target/>
+        <target>Повезана архивски материјал</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Related descriptions</source>
-        <target/>
+        <target>Сродни описи</target>
       </trans-unit>
       <trans-unit id="69">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target/>
+        <target>Да би се створила веза између овог описа и других описа унутар АтоМ, унесите назив/име описа и одаберите га из падајућег менија. Вишеструке везе могу бити створене. </target>
       </trans-unit>
       <trans-unit id="70">
         <source>Notes element</source>
-        <target/>
+        <target>Поље напомена</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Description control element</source>
-        <target/>
+        <target>Поље контроле описа</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Record relevant information about sources consulted in establishing or revising the description. (DACS 8.1.3)</source>
-        <target/>
+        <target>Навести релевантне информације о изворима консултованим за стварање или измену описа. (DACS 8.1.3)</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Sources used</source>
-        <target/>
+        <target>Употребљени извори</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Record the international, national or local rules or conventions followed in preparing the description. (DACS 8.1.4)</source>
-        <target/>
+        <target>Навести међународне, националне или локалне прописе или правила који су поштовани у изради описа. (DACS 8.1.4)</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Правила или прописи</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Access points</source>
-        <target/>
+        <target>Приступне тачке</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Subject access points</source>
-        <target/>
+        <target>Предметне приступне тачке</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Place access points</source>
-        <target/>
+        <target>Приступне тачке места</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>Приступне тачке назива/имена (предметне)</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Edit identity elements</source>
-        <target/>
+        <target>Уреди поља идентификације</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Reference code</source>
-        <target/>
+        <target>Сигнатура</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Level of description</source>
-        <target/>
+        <target>Ниво описа</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Date(s)</source>
-        <target/>
+        <target>Датум(и)</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Related function</source>
-        <target/>
+        <target>Повезана функција</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Edit context and structure elements</source>
-        <target/>
+        <target>Уреди поља контекста и структуре</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Edit conditions of access and use elements</source>
-        <target/>
+        <target>Уреди поља услова приступа и кориштења</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Conditions governing reproduction</source>
-        <target/>
+        <target>Услови умножавања</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Finding aids</source>
-        <target/>
+        <target>Информативна средства</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Edit acquisition and appraisal elements</source>
-        <target/>
+        <target>Уреди поља за преузету грађу и вредновање</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Преузимање грађе</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Accruals</source>
-        <target/>
+        <target>Допуне</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Edit related materials elements</source>
-        <target/>
+        <target>Уреди поља повезане грађе</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Publication notes</source>
-        <target/>
+        <target>Напомене о публикацији</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Edit notes element</source>
-        <target/>
+        <target>Уреди поље напомена</target>
       </trans-unit>
       <trans-unit id="95">
         <source>General note</source>
-        <target/>
+        <target>Општа напомена</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Specialized notes</source>
-        <target/>
+        <target>Посебне напомене</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Edit description control element</source>
-        <target/>
+        <target>Уреди поље контроле описа</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Archivist's note</source>
-        <target/>
+        <target>Архиваторска напомена</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Edit access points</source>
-        <target/>
+        <target>Уреди приступне тачке</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Rights area</source>
-        <target/>
+        <target>Подручје права</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Accession area</source>
-        <target/>
+        <target>Подручје улазног инвентара</target>
       </trans-unit>
     </body>
   </file>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2015-08-27T12:05:25Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2015-10-16T04:43:19Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Import completed</source>
-        <target/>
+        <target>Import klar</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1% terms imported in %2%s</source>
@@ -30,7 +30,7 @@
       </trans-unit>
       <trans-unit id="7">
         <source>Import</source>
-        <target/>
+        <target>Importera</target>
       </trans-unit>
     </body>
   </file>

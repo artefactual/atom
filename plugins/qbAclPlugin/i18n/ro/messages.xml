@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ro" datatype="plaintext" original="messages" date="2015-08-27T12:09:57Z" product-name="messages">
+  <file source-language="en" target-language="ro" datatype="plaintext" original="messages" date="2015-10-16T04:43:31Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,7 +10,7 @@
       </trans-unit>
       <trans-unit id="2">
         <source>All %1%</source>
-        <target/>
+        <target>Total %1%</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%: %2%</source>
@@ -26,11 +26,11 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Edit</source>
-        <target/>
+        <target>Editare</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Delete</source>
-        <target/>
+        <target>Sterge</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Add new</source>
@@ -50,11 +50,11 @@
       </trans-unit>
       <trans-unit id="12">
         <source>Cancel</source>
-        <target/>
+        <target>Anulare</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Save</source>
-        <target/>
+        <target>Salvati</target>
       </trans-unit>
       <trans-unit id="14">
         <source>%1% name</source>
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="23">
         <source>Create</source>
-        <target/>
+        <target>Creaza</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Are you sure you want to delete %1%?</source>
@@ -130,11 +130,11 @@
       </trans-unit>
       <trans-unit id="32">
         <source>Name</source>
-        <target/>
+        <target>Nume</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Description</source>
-        <target/>
+        <target>Descriere</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Translate</source>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ro" datatype="plaintext" original="messages" date="2015-08-27T12:09:57Z" product-name="messages">
+  <file source-language="en" target-language="ro" datatype="plaintext" original="messages" date="2015-10-16T04:43:31Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Fara titlu</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Type%2% - This is a %3%mandatory%4% element.</source>
@@ -22,251 +22,253 @@
       </trans-unit>
       <trans-unit id="5">
         <source>Add new function</source>
-        <target/>
+        <target>Adauga noua functie</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Edit %1%</source>
-        <target/>
+        <target>Editare %1%</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Related resources</source>
-        <target/>
+        <target>Resurse sugerate</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Identifier/title</source>
-        <target/>
+        <target>Identificator/titlu</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Nature of relationship</source>
-        <target/>
+        <target>Natura relatiei</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Dates</source>
-        <target/>
+        <target>Data</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Edit</source>
-        <target/>
+        <target>Editare</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Related resource</source>
-        <target/>
+        <target>Resursa sugerata</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Title</source>
-        <target/>
+        <target>Titlu</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
-        <target/>
+        <target>Selectati titlul din meniul vertical ; introduceți identificatorul sau primele litere pentru a restrange opțiunile. (ISDF 6.1)</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Related functions</source>
-        <target/>
+        <target>Functii sugerate</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Name</source>
-        <target/>
+        <target>Nume</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Category</source>
-        <target/>
+        <target>Categorie</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Description</source>
-        <target/>
+        <target>Descriere</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Related function</source>
-        <target/>
+        <target>Functia sugerata</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Forma autorizată a numelui</target>
       </trans-unit>
       <trans-unit id="21">
         <source>"Record the authorised form of name and any unique identifier of the related function." (ISDF 5.3.1)</source>
-        <target/>
+        <target>Inregistrați forma autorizata a numelui si a oricarui identificator unic al functiei aferente. (ISDF 5.3.1)</target>
       </trans-unit>
       <trans-unit id="22">
         <source>"Record a general category into which the relationship being described falls." (ISDF 5.3.2) Select a category from the drop-down menu: hierarchical, temporal or associative.</source>
-        <target/>
+        <target>Inregistrati o categorie generala în care relația a fost descrisa cazand (ISDF 5.3.2) .Selectati o categorie din meniul vertical: ierarhic,temporal sau asociativ.</target>
       </trans-unit>
       <trans-unit id="23">
         <source>"Record a precise description of the nature of the relationship between the function being described and the related function." (ISDF 5.3.3) Note that the text entered in this field will also appear in the related function.</source>
-        <target/>
+        <target>Inregistrati o descriere exacta a naturii relatiei dintre functia descrisa si cea legata. (ISDF 5.3.3) Retineti ca textul introdus in acest domeniu va aparea, de asemenea, în functia aferenta.</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Edit %1% - ISDF</source>
-        <target/>
+        <target>Editare %1% -ISDF</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Identity area</source>
-        <target/>
+        <target>Zona de identitate</target>
       </trans-unit>
       <trans-unit id="26">
         <source>"Specify whether the description is a function or one of its subdivisions." (ISDF 5.1.1) Select the type from the drop-down menu; these values are drawn from the ISDF Function Types taxonomy.</source>
-        <target/>
+        <target>"Specificati dacă descrierea este o functie sau unul dintre subdiviziunile sale." (ISDF 5.1.1) Selectati tipul din meniul vertical; aceste valori sunt extrase din ISDF,tipuri de funcții taxonomice.</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Type</source>
-        <target/>
+        <target>Tipul</target>
       </trans-unit>
       <trans-unit id="28">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Acesta este un element obligatoriu.</target>
       </trans-unit>
       <trans-unit id="29">
         <source>"Record the authorised name of the function being described. In cases where the name is not enough, add qualifiers to make it unique such as the territorial or administrative scope, or the name of the institution which performs it. This element is to be used in conjunction with the Function description identifier element (5.4.1)." (ISDF 5.1.2)</source>
-        <target/>
+        <target>Inregistrati numele autorizat al functiei de descris. In cazul în care numele nu este suficient, se adauga calificative pentru a-l face unic, cum ar fi domeniul de aplicare teritorial sau administrativ, sau numele institutiei pe care o efectueaza. Acest element trebuie utilizat împreună cu descrierea elementului identificator (5.4.1). (ISDF 5.1.2)</target>
       </trans-unit>
       <trans-unit id="30">
         <source>"Purpose: To indicate the various forms in which the authorized form(s) of name occurs in other languages or script forms. Rule: Record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions element (5.4.3.) which rules have been applied." (ISDF 5.1.3)</source>
-        <target/>
+        <target>
+
+Scop: Pentru a indica diferitele forme în care forma autorizat (e) de nume apare scrisa  în alte limbi sau forme . Regula: Inregistrati formularul paralel (e) de nume, în conformitate cu orice conventii nationale sau internationale relevante sau reguli aplicate de agentia care a creat descrierea, inclusiv orice elemente necesare si / sau de calificare cerute de aceste conventii sau reguli. Precizați în reguli si / sau convențtile elementului (5.4.3.), care dintre relguli au fost aplicate. (ISDF 5.1.3</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Parallel form(s) of name</source>
-        <target/>
+        <target>Formularul paralel (e) de nume</target>
       </trans-unit>
       <trans-unit id="32">
         <source>"Record any other names for the function being described." (ISDF 5.1.4)</source>
-        <target/>
+        <target>Se inregistreaza orice alte nume pentru functia de descriere. (5.1.4 ISDF)</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Other form(s) of name</source>
-        <target/>
+        <target>Alta forma(e) a numelui</target>
       </trans-unit>
       <trans-unit id="34">
         <source>"Record any term and/or code from a classification scheme of functions. Record the classification scheme used in the element Rules and/or conventions used (5.4.3)." (ISDF 5.1.5)</source>
-        <target/>
+        <target>Inregistrati orice termen si / sau cod de la o schema de clasificare a functiilor. Inregistrati schema de clasificare folosita în reguli si / sau conventiile elementului utilizat (5.4.3). (ISDF 5.1.5)</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Context area</source>
-        <target/>
+        <target>Zona context</target>
       </trans-unit>
       <trans-unit id="36">
         <source>"Provide a date or date span which covers the dates when the function was started and when it finished. If a function is ongoing, no end date is needed." (ISDF 5.2.1)</source>
-        <target/>
+        <target>Furnizarea de o data sau data interval care acopera datele la care a fost începuta funcția și atunci cand este terminata. Dacă o functie este în curs de desfașurare,nu  este nevoie de nici o dată de sfarșit.(5.2.1 ISDF)</target>
       </trans-unit>
       <trans-unit id="37">
         <source>"Record a narrative description of the purpose of the function." (ISDF 5.2.2)</source>
-        <target/>
+        <target>Inregistrati o descriere a scopului functiei. (5.2.2 ISDF)</target>
       </trans-unit>
       <trans-unit id="38">
         <source>"Record in narrative form or as a chronology the main events relating to the function." (ISDF 5.2.3)</source>
-        <target/>
+        <target>Inregistrati în forma narativa sau ca o cronologie a principalelor evenimente legate de aceasta functie.(5.2.3 ISDF)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>"Record any law, directive or charter which creates, changes or ends the function." (ISDF 5.2.4)</source>
-        <target/>
+        <target>Inregistrati orice lege, directiva sau ca privilegiu care creeaza, modifica sau termina functia. (ISDF 5.2.4)</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Relationships area</source>
-        <target/>
+        <target>Zona de relatii</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Control area</source>
-        <target/>
+        <target>Zona de control</target>
       </trans-unit>
       <trans-unit id="42">
         <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISDF 5.4.1)</source>
-        <target/>
+        <target>Inregistrati o descriere identificator unic, în conformitate cu conventiile locale si / sau nationale. Dacă descrierea este pentru a fi utilizata pe plan international, se inregistreaza codul tarii în care descrierea a fost creeata in conformitate cu cea mai recenta versiune a ISO 3166 coduri pentru reprezentarea numelor de tari. In cazul in care creatorul descrierii este o organizatie internationala, se da identificatorul de organizare in loc de codul de tara. (ISDF 5.4.1)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Description identifier</source>
-        <target/>
+        <target>Descriere identificator</target>
       </trans-unit>
       <trans-unit id="44">
         <source>"Record the full authorised form of name(s) of agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a recognized code for the agency." (ISDF 5.4.2)</source>
-        <target/>
+        <target>Inregistrati forma complet autorizata de nume de agentie  pentru creearea, modificarea sau difuzarea descrierii sau, alternativ, inregistrati un cod recunoscut pentru agenție. (5.4.2 ISDF)</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Institution identifier</source>
-        <target/>
+        <target>Institutie de indentificare</target>
       </trans-unit>
       <trans-unit id="46">
         <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival description. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied." (ISDF 5.4.3)</source>
-        <target/>
+        <target>Scopul: Pentru a identifica conventiile sau normele nationale sau internationale aplicate în crearea descrierii arhivistică .Regula:Inregistrati numele si atunci cand este util, editiile sau datele de publicare ale conventiilor sau normelor aplicate. (5.4.3 ISDF)</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>Reguli si/sau conventii folosite</target>
       </trans-unit>
       <trans-unit id="48">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDF 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
-        <target/>
+        <target>Scopul acestui domeniu este de a indica starea de redactare a descrierii, astfel incat utilizatorii sa poata intelege starea curenta a descrierii." (ISDF 5.4.4). Selectati finala, revizuit sau proiect din meniul vertical</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Status</source>
-        <target/>
+        <target>Status</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimum records are those that consist only of the three essential elements of an ISDF compliant record (see 4.7), while full records are those that convey information for all relevant ISDF elements of description." (ISDF 5.4.5)</source>
-        <target/>
+        <target>Selectati complet, partial sau minim din meniul vertical. În absenta unor orientari sau norme nationale, inregistrarile minime sunt cele care constau doar din cele trei elemente esentiale ale inregistrarii conforme ISDF (a se vedea 4.7), în timp ce inregistrarile complete sunt cele care transmit informatii pentru toate elementele  relevante de descriereale (5.4.5 ISDF).</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Level of detail</source>
-        <target/>
+        <target>Nivelul de detaliu</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"Record the date the description was created and the dates of any revisions to the description." (ISDF 5.4.6)</source>
-        <target/>
+        <target>Inregistrați data creearii descrierii și datele oricarei revisuire a descrierii. (ISDF 5.4.6)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Dates of creation, revision or deletion</source>
-        <target/>
+        <target>Date de creatie, revizuire sau stergere</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)</source>
-        <target/>
+        <target>Selectati limba (e) din aceasta înregistrare din meniul vertical; introduceți primele câteva litere pentru a restrânge opțiunile. (5.4.7 ISDF)</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Language(s)</source>
-        <target/>
+        <target>Limba/limbi</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)</source>
-        <target/>
+        <target>Selectati script-ul (e) din aceasta inregistrare din meniul vertical; introduceti primele cateva litere pentru a restrânge optiunile. (5.4.7 ISDF)</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Script(s)</source>
-        <target/>
+        <target>Manuscris(e)</target>
       </trans-unit>
       <trans-unit id="58">
         <source>"Record the sources consulted in establishing the function description." (ISDF 5.4.8)</source>
-        <target/>
+        <target>Inregistrați sursele consultate în vederea stabilirii descrierii functiei. (ISDF 5.4.8)</target>
       </trans-unit>
       <trans-unit id="59">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDF 5.4.9)</source>
-        <target/>
+        <target>Record notes pertinent to the creation and maintenance of the description." (ISDF 5.4.9)</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Cancel</source>
-        <target/>
+        <target>Anulare</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Save</source>
-        <target/>
+        <target>Salvati</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Create</source>
-        <target/>
+        <target>Creaza</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Related authority records</source>
-        <target/>
+        <target>Inregistrari de autoritate sugerate</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Identifier/name</source>
-        <target/>
+        <target>Identificator/nume</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Related authority record</source>
-        <target/>
+        <target>Inregistrare de autoritate sugerata</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Select the name from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
-        <target/>
+        <target>Selectati numele din meniul drop-down; introduceți identificatorul sau primele litere pentru a restrânge opțiunile. (ISDF 6.1)</target>
       </trans-unit>
       <trans-unit id="67">
         <source>View ISDF function</source>
@@ -278,7 +280,7 @@
       </trans-unit>
       <trans-unit id="69">
         <source>Classification</source>
-        <target/>
+        <target>Clasificare</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Edit context area</source>
@@ -286,11 +288,11 @@
       </trans-unit>
       <trans-unit id="71">
         <source>History</source>
-        <target/>
+        <target>Istorie</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Legislation</source>
-        <target/>
+        <target>Legislatie</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Edit relationships area</source>
@@ -298,7 +300,7 @@
       </trans-unit>
       <trans-unit id="74">
         <source>Identifier</source>
-        <target/>
+        <target>Identificator</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Category of relationship</source>
@@ -322,15 +324,15 @@
       </trans-unit>
       <trans-unit id="80">
         <source>Sources</source>
-        <target/>
+        <target>Surse</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Maintenance notes</source>
-        <target/>
+        <target>Note de intretinere</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Delete</source>
-        <target/>
+        <target>Sterge</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Add new</source>

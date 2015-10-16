@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2015-08-27T12:10:28Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2015-10-16T04:43:32Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -458,43 +458,43 @@ người tặng
       </trans-unit>
       <trans-unit id="111">
         <source>Main</source>
-        <target/>
+        <target>Chính</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Physical location</source>
-        <target/>
+        <target>Vị trí vật lý </target>
       </trans-unit>
       <trans-unit id="113">
         <source>Other details</source>
-        <target/>
+        <target>Chi tiết khác</target>
       </trans-unit>
       <trans-unit id="114">
         <source>URL</source>
-        <target/>
+        <target>URL</target>
       </trans-unit>
       <trans-unit id="115">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>Xác định và ghi ngày tháng của các đơn vị mô tả. Xác định các loại ngày nhất định. Ghi lại  như một ngày hoặc một chuỗi các ngày phù hợp. (ISAD 3.1.3). Các lĩnh vực ngày hiển thị có thể được sử dụng để nhập thông tin ngày văn bản miễn phí, bao gồm nhãn hiệu in ấn để thể hiện xấp xỉ, không chắc chắn, hoặc trình độ chuyên môn. Sử dụng các trường bắt đầu và kết thúc để làm cho ngày tìm kiếm. Không sử dụng bất kỳ vòng loại hoặc các ký hiệu đánh máy để bày tỏ sự không chắc chắn. Chấp nhận định dạng ngày: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Name of creator</source>
-        <target/>
+        <target>Tên sáng tạo viên</target>
       </trans-unit>
       <trans-unit id="117">
         <source>Administrative history</source>
-        <target/>
+        <target>Lịch sử hành chính</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Biographical history</source>
-        <target/>
+        <target>Tiểu sử</target>
       </trans-unit>
       <trans-unit id="119">
         <source>Date(s)</source>
-        <target/>
+        <target>Ngày </target>
       </trans-unit>
       <trans-unit id="120">
         <source>More</source>
-        <target/>
+        <target>Hơn</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Create new rights</source>

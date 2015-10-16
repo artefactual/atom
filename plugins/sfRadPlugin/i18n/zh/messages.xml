@@ -1,668 +1,668 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2015-08-27T12:06:09Z" product-name="messages">
+  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2015-10-16T04:43:22Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>无标题的</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative history / Biographical sketch</source>
-        <target/>
+        <target>管理历史/传记简介</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
-        <target/>
+        <target>管理历史</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Biographical sketch</source>
-        <target/>
+        <target>传记简介</target>
       </trans-unit>
       <trans-unit id="5">
         <source>This archival description requires at least one date.</source>
-        <target/>
+        <target>该文献著录需要至少一个日期.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Date(s) - are not consistent with %1%higher levels%2%.</source>
-        <target/>
+        <target>日期 - 与 %1%更高层级%2%不一致.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Physical description - This is a mandatory element.</source>
-        <target/>
+        <target>物理描述-必填.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Title - This is a mandatory element.</source>
-        <target/>
+        <target>标题-必填.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Level of description - Value "%value%" is not consistent with higher levels.</source>
-        <target/>
+        <target>描述层级-值 "%value%" 与更高层级不一致. </target>
       </trans-unit>
       <trans-unit id="10">
         <source>Level of description - This is a mandatory element.</source>
-        <target/>
+        <target>著录层级-必填</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Statement of scale (architectural) - This is a mandatory element for architectural drawing.</source>
-        <target/>
+        <target>比例说明(建筑的)-对于建筑制图,该项必填.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Statement of coordinates (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>坐标说明(地图的)-对于地图资料, 该项必填.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Statement of projection (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>投影说明(地图的)-对于地图资料, 该项必填.</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Statement of scale (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>比例说明(地图的)-对于地图资料, 该项必填.</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
-        <target/>
+        <target>发行(邮票)管辖权和面值-对邮票记录, 该项必填.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Scope and content - This is a mandatory element.</source>
-        <target/>
+        <target>范围和内容-必填.</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Edition statement - This is a mandatory element for published items if there are multiple editions.</source>
-        <target/>
+        <target>版本声明-如果出版物有多个版本, 该栏必填.</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Add new archival description</source>
-        <target/>
+        <target>添加新的文献著录</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Edit %1%</source>
-        <target/>
+        <target>编辑 %1%</target>
       </trans-unit>
       <trans-unit id="20">
         <source>"Give the date(s) of creation of the unit being described either as a single date, or range of dates (for inclusive dates and/or predominant dates). Always give the inclusive dates. When providing predominant dates, specify them as such, preceded by the word predominant..." (RAD 1.4B2) Record probable and uncertain dates in square brackets, using the conventions described in 1.4B5.</source>
-        <target/>
+        <target>"提供创建著录单元的日期或日期范围 (起迄日期和/或主要日期). 始终提供起讫日期. 当提供主要日期时, 明确说明这是主要日期..." (RAD 1.4B2) 根据 1.4B5描述的惯例用方括号记录可能和不确定的日期.</target>
       </trans-unit>
       <trans-unit id="21">
         <source>"Make notes on dates and any details pertaining to the dates of creation, publication, or distribution, of the unit being described that are not included in the Date(s) of creation, including publication, distribution, etc., area and that are considered to be important." (RAD 1.8B8) "Make notes on the date(s) of accumulation or collection of the unit being described." (RAD 1.8B8a)</source>
-        <target/>
+        <target>"对于与创建, 发布, 或分配著录单元相关的日期及所有重要的细节信息, 如果其不属于创建日期版块(包括发布, 分配版块), 则加注说明这些信息." (RAD 1.8B8) "加注说明著录单元累积或收藏的日期." (RAD 1.8B8a)</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Select the type of activity that established the relation between the authority record and the archival description (e.g. creation, accumulation, collection, publication, etc.)</source>
-        <target/>
+        <target>选择建立规范记录和文献著录关系的活动类型 (比如引用, 累计, 收藏, 出版等)</target>
       </trans-unit>
       <trans-unit id="23">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>这是记录 %1%的副本</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Title and statement of responsibility area</source>
-        <target/>
+        <target>标题和责任声明版块</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
+        <target>输入抄录或补充的正题名. (RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Title proper</source>
-        <target/>
+        <target>正题名</target>
       </trans-unit>
       <trans-unit id="27">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>必填细目.</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
-        <target/>
+        <target>在最高著录层级选择一般资料名称. 如果媒介多于三项, 选择"多重媒介" (RAD 1.1C)</target>
       </trans-unit>
       <trans-unit id="29">
         <source>General material designation</source>
-        <target/>
+        <target>总体资料名称</target>
       </trans-unit>
       <trans-unit id="30">
         <source>"[W]hen applicable, transcribe parallel titles that appear in conjunction with the formal title proper..." (RAD 1.1D)</source>
-        <target/>
+        <target>"如果适用, 抄录和正式正题名一起出现的并列标题..." (RAD 1.1D)</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Parallel titles</source>
-        <target/>
+        <target>并列标题</target>
       </trans-unit>
       <trans-unit id="32">
         <source>"Transcribe other title information that appears in conjunction with the formal title proper..." (RAD 1.1E)</source>
-        <target/>
+        <target>“抄录正式正题名以外的标题信息...” (RAD 1.1E)</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Other title information</source>
-        <target/>
+        <target>其他标题信息</target>
       </trans-unit>
       <trans-unit id="34">
         <source>"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)</source>
-        <target/>
+        <target>"对于物件著录, 抄录主要信息来源中与正式正题名一起出现的明确的责任声明..." (RAD 1.1F)</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Statement of responsibility</source>
-        <target/>
+        <target>责任声明</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
-        <target/>
+        <target>从下拉单中选择著录层级. 有关选择著录层级的规则和惯例, 参见RAD 1.0A.</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Level of description</source>
-        <target/>
+        <target>描述层级</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
+        <target>标识符: 输入一个准确识别该著录的独一无二的代码. 层级: 从下拉选单中选择一个著录层级. 根据RAD 1.0A 的规则和惯例选择著录层级. 标题: 输入抄录或是补充的正题名, (RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
-        <target/>
+        <target>选择保管和控制文献资料的典藏库. 该栏的值来自文献机构记录中规范名称栏. 如需搜索已存在的名称, 输入名称的前几个字母. 或者, 输入一个新的名称以创建并链接到新的文献机构.</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Enter an unambiguous code used to uniquely identify the description.</source>
-        <target/>
+        <target>输入一个用以标识著录的唯一代码.</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Reference code</source>
-        <target/>
+        <target>参考代码</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Edition area</source>
-        <target/>
+        <target>版本版块</target>
       </trans-unit>
       <trans-unit id="43">
         <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
-        <target/>
+        <target>"仅在物件层级著录中使用该版块记录以在单个或是多个副本中以两种或多种版本(或状态)存在的物件的版本声明." (RAD 1.2A1) "抄录与著录物件相关的版本声明." (RAD 1.2B1) "如果著录物件缺少版本声明, 但是与之前版本相比具有很大改动, 并且这些改动已知, 则用正标题的语言和文字作简要说明, 并将说明至于方括号内." (RAD 1.2B3)</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Edition statement</source>
-        <target/>
+        <target>版本声明</target>
       </trans-unit>
       <trans-unit id="45">
         <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
-        <target/>
+        <target>"如有版本声明，则抄录与所描述项目的一个或多个版本 (但不是所有版本) 相关的责任声明." (RAD 1.2.C1) "描述首版时, 记录标题和责任声明版块中所有的责任声明." (RAD 1.2C2)</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Statement of responsibility relating to the edition</source>
-        <target/>
+        <target>与该版本相关的责任声明</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Class of material specific details area</source>
-        <target/>
+        <target>资料细节等级版块</target>
       </trans-unit>
       <trans-unit id="48">
         <source>"Give the scale of the unit being described...as a representative fraction (RF) expressed as a ratio (1: ). Precede the ratio by Scale. Give the scale even if it is already recorded as part of the title proper or other title information." (RAD 5.3B1)</source>
-        <target/>
+        <target>"以数字比例尺 (RF)的方式提供著录单元的比例..., 其表达方式为比例 (1: ). 在比例尺一词后附上相应比例. 即使比例尺已出现在正标题或其他标题信息中, 仍需提供比例尺说明." (RAD 5.3B1)</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Statement of scale (cartographic)</source>
-        <target/>
+        <target>比例说明(地图的)</target>
       </trans-unit>
       <trans-unit id="50">
         <source>"Give the statement of projection if it is found on the prescribed source(s) of information." (RAD 5.3C1)</source>
-        <target/>
+        <target>"如果在指定的信息来源中找到投影声明, 则提供这一信息." (RAD 5.3C1)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Statement of projection (cartographic)</source>
-        <target/>
+        <target>投影说明(地图的)</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"At the fonds, series or file levels, record coordinates for the maximum coverage provided by the materials in the unit, as long as they are reasonably contiguous." (RAD 5.3D)</source>
-        <target/>
+        <target>"在宗卷, 系列或文件层级, 记录单元资料所提供的最大覆盖的坐标值, 只要这些信息前后一致." (RAD 5.3D)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Statement of coordinates (cartographic)</source>
-        <target/>
+        <target>坐标说明(地图的)</target>
       </trans-unit>
       <trans-unit id="54">
         <source>"Give in English the scale in the units of measure found on the unit being described. If there is no English equivalent for the name of the unit of measure, give the name, within quotation marks, as found on the unit being described." (RAD 6.3B)</source>
-        <target/>
+        <target>"用英语描述著录单元所使用的测量单位范围. 如果测量单位在英语中没有对应表达方式, 则提供其名称, 并将名称置于引号内" (RAD 6.3B)</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Statement of scale (architectural)</source>
-        <target/>
+        <target>比例说明(建筑的)</target>
       </trans-unit>
       <trans-unit id="56">
         <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
-        <target/>
+        <target>"提供负责发行邮票记录的管辖机构 (比如政府)." (RAD 12.3B1) "对于所有具有面额的单位 (比如邮票, 印花税票, 邮政用品), 用标准格式提供其面额信息, 即面额值的阿拉伯数字加上货币单位名称. 即使面额已被记录在正题名或其他标题信息中, 仍需提供面额声明." (RAD 12.3C1)</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Issuing jurisdiction and denomination (philatelic)</source>
-        <target/>
+        <target>发行方管辖权和名称 (集邮的)</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Dates of creation area</source>
-        <target/>
+        <target>创建日期版块</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Add new name and/or date(s)</source>
-        <target/>
+        <target>添加新名称以及/或者日期</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Physical description area</source>
-        <target/>
+        <target>物理描述版块</target>
       </trans-unit>
       <trans-unit id="61">
         <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
-        <target/>
+        <target>"在所有著录层级, 记录著录单元的尺寸. 根据处理(著录单元所属的)广泛资料类别的章节中次规则 .5B, 使用阿拉伯数字和明确的材料名称, 提供著录单元的物理单位量." (RAD 1.5B1) 包括RAD 1.5C和1.5D中标明的物理细节和维度. 该栏中用回车符隔开多个条目 (即使用回车键).</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Physical description</source>
-        <target/>
+        <target>物理描述</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Publisher's series area</source>
-        <target/>
+        <target>出版社连续出版物版块</target>
       </trans-unit>
       <trans-unit id="64">
         <source>"At the item level of description, transcribe a title proper of the publisher's series as instructed in 1.1B1." (RAD 1.6B)</source>
-        <target/>
+        <target>"对于物件著录, 根据1.1B1抄录出版社连续出版物的正题名." (RAD 1.6B)</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Title proper of publisher's series</source>
-        <target/>
+        <target>出版社连续出版物的正题名</target>
       </trans-unit>
       <trans-unit id="66">
         <source>"Transcribe parallel titles of a publisher's series as instructed in 1.1D." (RAD 1.6C1)</source>
-        <target/>
+        <target>"根据1.1D抄录出版社连续出版物的并列标题." (RAD 1.6C1)</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Parallel title of publisher's series</source>
-        <target/>
+        <target>出版社连续出版物的并列标题</target>
       </trans-unit>
       <trans-unit id="68">
         <source>"Transcribe other title information of a publisher's series as instructed in 1.1E and only if considered necessary for identifying the publisher's series." (RAD 1.6D1)</source>
-        <target/>
+        <target>"根据1.1E抄录有助于识别、确认出版社连续出版物的其他书名信息." (RAD 1.6D1)</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Other title information of publisher's series</source>
-        <target/>
+        <target>出版社连续出版物的其他标题信息</target>
       </trans-unit>
       <trans-unit id="70">
         <source>"Transcribe explicit statements of responsibility appearing in conjunction with a formal title proper of a publisher's series as instructed in 1.1F and only if considered necessary for identifying the publisher's series." (RAD 1.6E1)</source>
-        <target/>
+        <target>"根据1.1F抄录有助于识别、确认出版社连续出版物的与正式正标题一起出现的明确的责任声明." (RAD 1.6E1)</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Statement of responsibility relating to publisher's series</source>
-        <target/>
+        <target>与出版社连续出版物相关的责任声明</target>
       </trans-unit>
       <trans-unit id="72">
         <source>"Give the numbering of the item within a publisher's series in the terms given in the item." (RAD 1.6F1)</source>
-        <target/>
+        <target>"根据物件本身条件提供该物件在出版社连续出版物中的编号." (RAD 1.6F1)</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Numbering within publisher's series</source>
-        <target/>
+        <target>出版社连续出版物编号</target>
       </trans-unit>
       <trans-unit id="74">
         <source>"Make notes on important details of publisher's series that are not included in the Publisher's series area, including variant series titles, incomplete series, and of numbers or letters that imply a series." (RAD 1.8B10)</source>
-        <target/>
+        <target>"如果出版社连续出版物的一些重要细节信息没有包括在出版社连续出版物版块中, 则加注说明这些信息, 包括该连续出版物的其他系列标题, 非成套系列, 以及暗示其属于系列出版物的数字或字母." (RAD 1.8B10)</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Note on publisher's series</source>
-        <target/>
+        <target>对出版社连续出版物的说明</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Archival description area</source>
-        <target/>
+        <target>文献著录版块</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Edit authority record</source>
-        <target/>
+        <target>编辑规范记录</target>
       </trans-unit>
       <trans-unit id="78">
         <source>"Give the history of the custody of the unit being described, i.e., the successive transfers of ownership and custody or control of the material, along with the dates thereof, insofar as it can be ascertained." (RAD 1.7C)</source>
-        <target/>
+        <target>"提供著录单元的保管历史, 比如所有权和保管或是资料控制的连续转移, 如果转移日期确定, 则一并提供." (RAD 1.7C)</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Custodial history</source>
-        <target/>
+        <target>保管历史</target>
       </trans-unit>
       <trans-unit id="80">
         <source>"At the fonds, series, and collection levels of description, and when necessary at the file and the item levels of description, indicate the level being described and give information about the scope and the internal structure of or arrangement of the records, and about their contents." (RAD 1.7D) "For the scope of the unit being described, give information about the functions and/or kinds of activities generating the records, the period of time, the subject matter, and the geographical area to which they pertain. For the content of the unit being described, give information about its internal structure by indicating its arrangement, organization, and/or enumerating its next lowest level of description. Summarize the principal documentary forms (e.g., reports, minutes, correspondence, drawings, speeches)." (RAD 1.7D1)</source>
-        <target/>
+        <target>"对于宗卷, 系列, 收藏集层级的著录 (如有需要, 包括文件和物件层级的著录), 说明著录层级并且提供有关记录范围和内部结构或整理的信息, 及其内容." (RAD 1.7D) "对于单元范围, 提供生成记录的职能和/或活动, 时间, 主题以及与记录相关的地理区域等信息. 对于单元内容, 提供其内部结构信息, 说明其整理, 组织, 和/或列举其下一最低层级著录. 总结主要的文献形式 (比如报告, 会议记录, 通信, 绘画, 演讲稿)." (RAD 1.7D1)</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Scope and content</source>
-        <target/>
+        <target>范围和内容</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Notes area</source>
-        <target/>
+        <target>说明版块</target>
       </trans-unit>
       <trans-unit id="83">
         <source>"Make notes on the physical condition of the unit being described if that condition materially affects the clarity or legibility of the records." (RAD 1.8B9a)</source>
-        <target/>
+        <target>"如果著录单元的物理条件对记录的清晰度和易读性有实际影响, 加注说明该物理条件 ." (RAD 1.8B9a)</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Physical condition</source>
-        <target/>
+        <target>物理条件</target>
       </trans-unit>
       <trans-unit id="85">
         <source>"Record the donor or source (i.e., the immediate prior custodian) from whom the unit being described was acquired, and the date and method of acquisition, as well as the source/donor's relationship to the material, if any or all of this information is not confidential. If the source/donor is unknown, record that information." (RAD 1.8B12)</source>
-        <target/>
+        <target>如果不是保密信息, 记录捐赠者或是该著录单元的入藏来源(比如前一位监管者), 以及该来源/捐赠者与该资料的关系. 如果来源/捐赠者未知, 则如实记录. (RAD 1.8B12)</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>藏品直接来源</target>
       </trans-unit>
       <trans-unit id="87">
         <source>"Make notes on the arrangement of the unit being described which contribute significantly to its understanding but cannot be put in the Scope and content (see 1.7D), e.g., about reorganisation(s) by the creator, arrangement by the archivist, changes in the classification scheme, or reconstitution of original order." (RAD 1.8B13)</source>
-        <target/>
+        <target>"如果整理信息有助于理解著录单元但不属于范围和内容版块, 则加注记录该信息 (见 1.7D), 比如创建者的重新组织, 文献员的整理, 分类方法的改变或者重新排序." (RAD 1.8B13)</target>
       </trans-unit>
       <trans-unit id="88">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>"记录著录单元的语言, 除非语言信息在其他地方已标注或是在其他著录细目中显而易见. 一并注明所使用的任何独特的字母或符号系统."(RAD 1.8.B14). 从下拉单中选择语言; 输入前几个字母以缩小选择范围.</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Language of material</source>
-        <target/>
+        <target>资料的语言</target>
       </trans-unit>
       <trans-unit id="90">
         <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>"说明所使用的所有独特的字母或符号系统." (RAD 1.8.B14) 从下拉选单中选择文字; 输入前几个字母以缩小选择范围.</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Script of material</source>
-        <target/>
+        <target>资料文字</target>
       </trans-unit>
       <trans-unit id="92">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
-        <target/>
+        <target>"记录著录单元的语言, 除非语言信息在其他地方已标注或是在其他著录细目中显而易见. 一并注明所使用的任何独特的字母或符号系统." (RAD 1.8B14). 不要复制通过语言或文字栏的下拉单添加的信息.</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Language and script notes</source>
-        <target/>
+        <target>语言和文字说明</target>
       </trans-unit>
       <trans-unit id="94">
         <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
-        <target/>
+        <target>"如果著录单元是复制品并且原件地点已知, 提供原件地点. 另外, 提供有助于定位原件在馆藏地的识别号. 如果原件不再存在, 则如实记录." (RAD 1.8B15a)</target>
       </trans-unit>
       <trans-unit id="95">
         <source>"If all or part of the unit being described is available (either in the institution or elsewhere) in another format(s), e.g., if the text being described is also available on microfilm; or if a film is also available on videocassette, make a note indicating the other format(s) in which the unit being described is available and its location, if that information is known. If only a part of the unit being described is available in another format(s), indicate which parts." (RAD 1.8B15b)</source>
-        <target/>
+        <target>"如果该著录单元整体或部分(在该机构或是其他地方)具有其他存在格式, 比如著录文本有缩微胶卷格式; 或电影有录影带格式, 并且如果这些信息已知, 则加注说明该单元的其他存在格式及其地点. 如果该著录单元部分内容具有其他存在格式, 需要标明是哪些部分." (RAD 1.8B15b)</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Availability of other formats</source>
-        <target/>
+        <target>其他格式的可用性</target>
       </trans-unit>
       <trans-unit id="97">
         <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
-        <target/>
+        <target>"提供限制检索该单元(或者该单元的某些部分)的相关信息." (RAD 1.8B16a)</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Restrictions on access</source>
-        <target/>
+        <target>检索限制</target>
       </trans-unit>
       <trans-unit id="99">
         <source>For terms governing use and reproduction, "Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c). For terms governing publication, "Give information on legal or donor restrictions that may affect publication of the material." (RAD 1.8B16d)</source>
-        <target/>
+        <target>对于管理使用和复制的条件, "提供可能影响资料使用或复制的法律限制或捐赠者限制信息." (RAD 1.8B16c). 对于管理出版的条件, "提供可能影响资料发表的法律限制或捐赠者限制信息." (RAD 1.8B16d)</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Terms governing use, reproduction, and publication</source>
-        <target/>
+        <target>控制使用, 复制, 和发布的术语</target>
       </trans-unit>
       <trans-unit id="101">
         <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
-        <target/>
+        <target>"提供有关任何索引指南的存在信息. 包括在单元著录阶段针对现存资料的合适的管理和/或智能控制工具, 比如卡片目录, 邮箱列表, 系列列表, 详细目录, 索引等." (RAD 1.8B17)</target>
       </trans-unit>
       <trans-unit id="102">
         <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
-        <target/>
+        <target>对于彼此相关的资料, "如果另一个机构的记录与著录单元因为有共同的出处而相关, 则在宗卷, 系列或收藏集层级提及并引用相关的资料; 如果是单个物件并且其藏地已知, 则一并说明." (RAD 1.8B18). 对于相关的资料, "说明几组记录之间有着重要的联系, 因为它们在一个或多个在著录单元之外的单元中有共同的责任或是活动范围." (RAD 1.8B20)</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Associated materials</source>
-        <target/>
+        <target>相关资料</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Related materials</source>
-        <target/>
+        <target>相关资料</target>
       </trans-unit>
       <trans-unit id="105">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target/>
+        <target>创建该著录与AtoM中另一个著录的关系, 首先输入所关联的著录的名称, 然后从自动填充的下拉选单中选择该名称. 可以创建多个关系.</target>
       </trans-unit>
       <trans-unit id="106">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
-        <target/>
+        <target>"如果著录单元尚未完整, 比如一个开放性宗卷或系列, 加注说明藏品将会增加... 如果不再有预期的藏品增加, 则指明该单元已完整." (RAD 1.8B19)</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Standard number area</source>
-        <target/>
+        <target>标准书号版块</target>
       </trans-unit>
       <trans-unit id="108">
         <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
-        <target/>
+        <target>"提供著录物件的国际标准书号 (ISBN), 国际标准期刊号 (ISSN), 或者任何其他国际通用的标准号码. 提供这些号码需使用通用字母缩写以及标准空格或连字符." (RAD 1.9B1)</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Access points</source>
-        <target/>
+        <target>检索点</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Subject access points</source>
-        <target/>
+        <target>主题检索点</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
-        <target/>
+        <target>如需搜索主题分类中已存在的术语, 输入术语的前几个字母. 或者, 输入一个新的术语以创建并链接到一个新的主题术语.</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Place access points</source>
-        <target/>
+        <target>地点检索点</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
-        <target/>
+        <target>如需搜索地点分类中已存在的术语, 输入术语的前几个字母. 或者, 输入一个新的术语以创建并链接到一个新的地点术语.</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Genre access points</source>
-        <target/>
+        <target>体裁检索点</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
-        <target/>
+        <target>如需搜索体裁分类中已存在的术语, 输入术语的前几个字母. 或者, 输入一个新的术语以创建并链接到一个新的体裁术语.</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>名称检索点 (主题)</target>
       </trans-unit>
       <trans-unit id="117">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target/>
+        <target>"从文献著录中选择出处, 作者和其他合适的非主题检索点. 所有检索点都必须在其相关文献著录中可见." (RAD 21.0B) 该栏的值来自规范记录中规范名称栏. 如需搜索已存在的名称, 输入名称的前几个字母. 或者, 输入一个新的名称以创建并链接到新的规范记录.</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Control area</source>
-        <target/>
+        <target>控制版块</target>
       </trans-unit>
       <trans-unit id="119">
         <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
-        <target/>
+        <target>根据地方和/或国家惯例记录唯一著录标识符. 如果著录将在国际范围内使用, 根据ISO 3166代码的最新版本记录著录创建国的国家代码, 以代表该国国名. 如果著录由一个国际组织创建, 提供该组织的标识符, 以代替国家代码.</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Description identifier</source>
-        <target/>
+        <target>著录标识符</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
-        <target/>
+        <target>记录创建, 修改或传播该著录的机构的完整的规范名称, 或者根据国内或是国际单位代码标准记录该机构的认可代码.</target>
       </trans-unit>
       <trans-unit id="122">
         <source>Institution identifier</source>
-        <target/>
+        <target>机构标识符</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description.</source>
-        <target/>
+        <target>记录起草著录所遵循的国际, 国内和/或当地规则或惯例.</target>
       </trans-unit>
       <trans-unit id="124">
         <source>Rules or conventions</source>
-        <target/>
+        <target>规则或惯例</target>
       </trans-unit>
       <trans-unit id="125">
         <source>Status</source>
-        <target/>
+        <target>状态</target>
       </trans-unit>
       <trans-unit id="126">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
-        <target/>
+        <target>记录著录的当前状态, 指明其是草稿, 最终版本和/或修订版，还是已删除.</target>
       </trans-unit>
       <trans-unit id="127">
         <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
-        <target/>
+        <target>根据相关的国际和/或国家指南和/或规则记录著录包括最小量, 部分还是全部细节.</target>
       </trans-unit>
       <trans-unit id="128">
         <source>Level of detail</source>
-        <target/>
+        <target>细节层级</target>
       </trans-unit>
       <trans-unit id="129">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
-        <target/>
+        <target>记录该条目起草和/或修改的日期.</target>
       </trans-unit>
       <trans-unit id="130">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>创建, 修改以及删除日期</target>
       </trans-unit>
       <trans-unit id="131">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>说明创建文献资料著录所使用的语言.</target>
       </trans-unit>
       <trans-unit id="132">
         <source>Language</source>
-        <target/>
+        <target>语言</target>
       </trans-unit>
       <trans-unit id="133">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>说明创建文献资料著录所使用的文字.</target>
       </trans-unit>
       <trans-unit id="134">
         <source>Script</source>
-        <target/>
+        <target>文字</target>
       </trans-unit>
       <trans-unit id="135">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target/>
+        <target>记录文献著录所使用的任何外部资源的引用信息(比如在范围和内容版块, 文献历史版块, 或是注释栏中).</target>
       </trans-unit>
       <trans-unit id="136">
         <source>Sources</source>
-        <target/>
+        <target>来源</target>
       </trans-unit>
       <trans-unit id="137">
         <source>Edit title and statement of responsibility area</source>
-        <target/>
+        <target>编辑标题和责任声明版块</target>
       </trans-unit>
       <trans-unit id="138">
         <source>Parallel title</source>
-        <target/>
+        <target>并列标题</target>
       </trans-unit>
       <trans-unit id="139">
         <source>Title statements of responsibility</source>
-        <target/>
+        <target>标题 责任声明</target>
       </trans-unit>
       <trans-unit id="140">
         <source>Title notes</source>
-        <target/>
+        <target>标题说明</target>
       </trans-unit>
       <trans-unit id="141">
         <source>Repository</source>
-        <target/>
+        <target>典藏库</target>
       </trans-unit>
       <trans-unit id="142">
         <source>Edit edition area</source>
-        <target/>
+        <target>编辑版本版块</target>
       </trans-unit>
       <trans-unit id="143">
         <source>Edition statement of responsibility</source>
-        <target/>
+        <target>版本责任声明</target>
       </trans-unit>
       <trans-unit id="144">
         <source>Edit class of material specific details area</source>
-        <target/>
+        <target>编辑资料细节等级版块</target>
       </trans-unit>
       <trans-unit id="145">
         <source>Edit dates of creation area</source>
-        <target/>
+        <target>编辑创建日期版块</target>
       </trans-unit>
       <trans-unit id="146">
         <source>Edit physical description area</source>
-        <target/>
+        <target>编辑物理描述版块</target>
       </trans-unit>
       <trans-unit id="147">
         <source>Edit publisher's series area</source>
-        <target/>
+        <target>编辑出版社连续出版物版块</target>
       </trans-unit>
       <trans-unit id="148">
         <source>Parallel titles of publisher's series</source>
-        <target/>
+        <target>出版社连续出版物的并列标题</target>
       </trans-unit>
       <trans-unit id="149">
         <source>Edit archival description area</source>
-        <target/>
+        <target>编辑文献著录版块</target>
       </trans-unit>
       <trans-unit id="150">
         <source>Edit notes area</source>
-        <target/>
+        <target>编辑说明版块</target>
       </trans-unit>
       <trans-unit id="151">
         <source>Arrangement</source>
-        <target/>
+        <target>整理</target>
       </trans-unit>
       <trans-unit id="152">
         <source>Language and script note</source>
-        <target/>
+        <target>语言和文字说明</target>
       </trans-unit>
       <trans-unit id="153">
         <source>Location of originals</source>
-        <target/>
+        <target>原件位置</target>
       </trans-unit>
       <trans-unit id="154">
         <source>Finding aids</source>
-        <target/>
+        <target>索引指南</target>
       </trans-unit>
       <trans-unit id="155">
         <source>Accruals</source>
-        <target/>
+        <target>增加</target>
       </trans-unit>
       <trans-unit id="156">
         <source>General note</source>
-        <target/>
+        <target>一般说明</target>
       </trans-unit>
       <trans-unit id="157">
         <source>Edit standard number area</source>
-        <target/>
+        <target>编辑标准数字版块</target>
       </trans-unit>
       <trans-unit id="158">
         <source>Standard number</source>
-        <target/>
+        <target>标准书号</target>
       </trans-unit>
       <trans-unit id="159">
         <source>Edit access points</source>
-        <target/>
+        <target>编辑检索点</target>
       </trans-unit>
       <trans-unit id="160">
         <source>Edit control area</source>
-        <target/>
+        <target>编辑控制版块</target>
       </trans-unit>
       <trans-unit id="161">
         <source>Description record identifier</source>
-        <target/>
+        <target>著录记录标识符</target>
       </trans-unit>
       <trans-unit id="162">
         <source>Language of description</source>
-        <target/>
+        <target>描述语言</target>
       </trans-unit>
       <trans-unit id="163">
         <source>Script of description</source>
-        <target/>
+        <target>著录文字</target>
       </trans-unit>
       <trans-unit id="164">
         <source>Rights area</source>
-        <target/>
+        <target>权利版块</target>
       </trans-unit>
       <trans-unit id="165">
         <source>Accession area</source>
-        <target/>
+        <target>登记版块</target>
       </trans-unit>
     </body>
   </file>

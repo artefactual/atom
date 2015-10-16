@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2015-08-27T12:09:35Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2015-10-16T04:43:30Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Import completed</source>
-        <target/>
+        <target>Mewnforio wedi'i gwblhau</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1% terms imported in %2%s</source>
-        <target/>
+        <target>mewnforiwyd %1% term yn %2%</target>
       </trans-unit>
       <trans-unit id="3">
         <source>View %1%</source>
-        <target/>
+        <target>Gweld %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Import more %1%</source>
-        <target/>
+        <target>Mewnforio rhagor %1%</target>
       </trans-unit>
       <trans-unit id="5">
         <source>SKOS import</source>
@@ -26,11 +26,11 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Select a file to import</source>
-        <target/>
+        <target>Dewiswch ffeil i'w mewnforio</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Import</source>
-        <target/>
+        <target>Mewnforio</target>
       </trans-unit>
     </body>
   </file>

@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="is" datatype="plaintext" original="messages" date="2015-08-27T12:09:14Z" product-name="messages">
+  <file source-language="en" target-language="is" datatype="plaintext" original="messages" date="2015-10-16T04:43:27Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Án titils</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Leyfileg nafnmynd%2% - Þetta er %3%skyldu%4%hylki.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Auðkenni%2% - Þetta er %3%skyldu%4% skráningarþáttur.</target>
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.</source>
-        <target/>
+        <target>%1% Upplýsingar um tenglilið%2% - Þú %3%verður%4% að tilgreina a.m.k. eitt af þessum atriðum: borg, land, póstnúmer, svæði eða heimilisfang.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Contact information%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Upplýsingar um tengilið%2% - Þetta er %3%skyldu%4%hylki.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Add new archival institution</source>
-        <target/>
+        <target>Bæta við nýrri stofnun</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Edit %1%</source>
-        <target/>
+        <target>Breyta %1%</target>
       </trans-unit>
       <trans-unit id="8">
         <source>See ISDIAH 5.2 for contact area information and examples.</source>
@@ -46,11 +46,11 @@
       </trans-unit>
       <trans-unit id="11">
         <source>Edit %1% - ISDIAH</source>
-        <target/>
+        <target>Breyta %1% - ISDIAH</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Identity area</source>
-        <target/>
+        <target>Auðkenni</target>
       </trans-unit>
       <trans-unit id="13">
         <source>"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)</source>
@@ -58,11 +58,11 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Identifier</source>
-        <target/>
+        <target>Safnmark</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Þetta er skylduhylki.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
@@ -70,11 +70,11 @@
       </trans-unit>
       <trans-unit id="17">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Leyfileg nafnaform</target>
       </trans-unit>
       <trans-unit id="18">
         <source>This is a mandatory element</source>
-        <target/>
+        <target>Þetta er skylduhylki</target>
       </trans-unit>
       <trans-unit id="19">
         <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
@@ -90,11 +90,11 @@
       </trans-unit>
       <trans-unit id="22">
         <source>Contact area</source>
-        <target/>
+        <target>Tengiliðir</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Description area</source>
-        <target/>
+        <target>Lýsing</target>
       </trans-unit>
       <trans-unit id="24">
         <source>"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)</source>
@@ -106,7 +106,7 @@
       </trans-unit>
       <trans-unit id="26">
         <source>Geographical and cultural context</source>
-        <target/>
+        <target>Landfræðilegt og menningarlegt samhengi</target>
       </trans-unit>
       <trans-unit id="27">
         <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the institution, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISDIAH 5.3.3)</source>
@@ -114,15 +114,15 @@
       </trans-unit>
       <trans-unit id="28">
         <source>Mandates/Sources of authority</source>
-        <target/>
+        <target>Lagaheimild</target>
       </trans-unit>
       <trans-unit id="29">
         <source>"Describe, in narrative form or using organisational charts, the current administrative structure of the institution." (ISDIAH 5.3.4)</source>
-        <target/>
+        <target>"Lýsing á uppbyggingu skipulagsheildar, t.d. með skipuriti eða frásögn" (ISDIAH 5.3.4)</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Administrative structure</source>
-        <target/>
+        <target>Stjórnunargerð</target>
       </trans-unit>
       <trans-unit id="31">
         <source>"Record information about the records management and collecting policies of the institution. Define the scope and nature of material which the institution accessions. Indicate whether the repository seeks to acquire archival materials by transfer, gift, purchase and/or loan. If the policy includes active survey and/or rescue work, this might be spelt out." (ISDIAH 5.3.5)</source>
@@ -130,7 +130,7 @@
       </trans-unit>
       <trans-unit id="32">
         <source>Records management and collecting policies</source>
-        <target/>
+        <target>Skjalastjórn og aðfangastefna</target>
       </trans-unit>
       <trans-unit id="33">
         <source>"Record information on the building(s) of the institution (general and architectural characteristics of the building, capacity of storage areas, etc). Where possible, provide information which can be used for generating statistics." (ISDIAH 5.3.6)</source>
@@ -142,7 +142,7 @@
       </trans-unit>
       <trans-unit id="35">
         <source>Archival and other holdings</source>
-        <target/>
+        <target>Skjöl og önnur gögn</target>
       </trans-unit>
       <trans-unit id="36">
         <source>"Record the title and other pertinent details of the published and/or unpublished finding aids and guides prepared by the institution and of any other relevant publications. Use ISO 690 Information and documentation – Bibliographic references and other national or international cataloguing rules." (ISDIAH 5.3.8)</source>
@@ -150,11 +150,11 @@
       </trans-unit>
       <trans-unit id="37">
         <source>Finding aids, guides and publications</source>
-        <target/>
+        <target>Leiðarvísar og útgáfur</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Access area</source>
-        <target/>
+        <target>Aðgengi</target>
       </trans-unit>
       <trans-unit id="39">
         <source>"Record the opening hours of the institution and annual, seasonal and public holidays, and any other planned closures. Record times associated with the availability and/or delivery of services (for example, exhibition spaces, reference services, etc.)." (ISDIAH 5.4.1)</source>
@@ -166,7 +166,7 @@
       </trans-unit>
       <trans-unit id="41">
         <source>Conditions and requirements</source>
-        <target/>
+        <target>Skilyrði og kröfur</target>
       </trans-unit>
       <trans-unit id="42">
         <source>"Record information about travelling to the institution and details for users with disabilities, including building features, specialised equipment or tools, parking or lifts." (ISDIAH 5.4.3)</source>
@@ -174,11 +174,11 @@
       </trans-unit>
       <trans-unit id="43">
         <source>Accessibility</source>
-        <target/>
+        <target>Aðgengi</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Services area</source>
-        <target/>
+        <target>Þjónustusvæði</target>
       </trans-unit>
       <trans-unit id="45">
         <source>"Record information about the onsite services provided by the institution such as languages spoken by staff, research and consultation rooms, enquiry services, internal libraries, map, microfiches, audio-visual, computer rooms, etc. Record as well any relevant information about research services, such as research undertaken by the institution, and the fee charge if applicable." (ISDIAH 5.5.1)</source>
@@ -194,11 +194,11 @@
       </trans-unit>
       <trans-unit id="48">
         <source>Public areas</source>
-        <target/>
+        <target>Almennur aðgangur</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Control area</source>
-        <target/>
+        <target>Stjórnsvæði</target>
       </trans-unit>
       <trans-unit id="50">
         <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISIAH 5.6.1)</source>
@@ -206,7 +206,7 @@
       </trans-unit>
       <trans-unit id="51">
         <source>Description identifier</source>
-        <target/>
+        <target>Lýsinganúmer</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard." (ISDIAH 5.6.2)</source>
@@ -214,7 +214,7 @@
       </trans-unit>
       <trans-unit id="53">
         <source>Institution identifier</source>
-        <target/>
+        <target>Kennimark stofnunar</target>
       </trans-unit>
       <trans-unit id="54">
         <source>"Record the names, and, where useful, the editions or publication dates of the conventions or rules applied. Specify, separately, which rules have been applied for creating the Authorised form(s) of name. Include reference to any system(s) of dating used to identify dates in this description (e.g. ISO 8601)." (ISDIAH 5.6.3)</source>
@@ -222,7 +222,7 @@
       </trans-unit>
       <trans-unit id="55">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>Reglur eða aðferð sem stuðst er við</target>
       </trans-unit>
       <trans-unit id="56">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDIAH 5.6.4). Select Final, Revised or Draft from the drop-down menu.</source>
@@ -234,15 +234,15 @@
       </trans-unit>
       <trans-unit id="58">
         <source>"Record the date the description was created and the dates of any revisions to the description." (ISDIAH 5.6.6)</source>
-        <target/>
+        <target>"Skráðu dagsetninguna þegar lýsingin var búin til og þar dagsetningar þegar henni var breytt." (ISDF 5.6.6)</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>Skráningardagsetning</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Last updated</source>
-        <target/>
+        <target>Síðast breytt</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
@@ -254,19 +254,19 @@
       </trans-unit>
       <trans-unit id="63">
         <source>"Record the sources consulted in establishing the description of the institution." (ISDIAH 5.6.8)</source>
-        <target/>
+        <target>"Skráðu þær heimildir sem notast var við við lýsingu á stofnuninni." (ISDIAH 5.6.8)</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Sources</source>
-        <target/>
+        <target>Heimildir</target>
       </trans-unit>
       <trans-unit id="65">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
-        <target/>
+        <target>"Skráðu þær athugasemdir sem tengjast tilurð og uppfærslu lýsingarinnar." (ISDF 5.6.9)</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Access points</source>
-        <target/>
+        <target>Aðgangsleiðir</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Thematic area</source>
@@ -286,87 +286,87 @@
       </trans-unit>
       <trans-unit id="71">
         <source>Cancel</source>
-        <target/>
+        <target>Hætta við</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Save</source>
-        <target/>
+        <target>Vista</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Create</source>
-        <target/>
+        <target>Búa til</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Primary contact</source>
-        <target/>
+        <target>Aðaltengiliður</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Website</source>
-        <target/>
+        <target>Vefsíða</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Email</source>
-        <target/>
+        <target>Tölvupóstfang</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Edit identity area</source>
-        <target/>
+        <target>Breyta auðkenni</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Parallel form(s) of name</source>
-        <target/>
+        <target>Hliðstæð nafnaform</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Other form(s) of name</source>
-        <target/>
+        <target>Aðrar nafnmyndir</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Type</source>
-        <target/>
+        <target>Tegund</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Edit contact area</source>
-        <target/>
+        <target>Breyta tengiliðum</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Edit description area</source>
-        <target/>
+        <target>Breyta lýsingu</target>
       </trans-unit>
       <trans-unit id="83">
         <source>History</source>
-        <target/>
+        <target>Saga</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Buildings</source>
-        <target/>
+        <target>Byggingar</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Holdings</source>
-        <target/>
+        <target>Skjalamagn</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Edit access area</source>
-        <target/>
+        <target>Breyta aðgangi</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Opening times</source>
-        <target/>
+        <target>Opnunartími</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Access conditions and requirements</source>
-        <target/>
+        <target>Skilyrði og kröfur fyrir aðgengi</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Edit services area</source>
-        <target/>
+        <target>Breyta þjónustu</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Research services</source>
-        <target/>
+        <target>Rannsóknarþjónusta</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Reproduction services</source>
-        <target/>
+        <target>Þjónusta við endurgerð</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Edit control area</source>
@@ -374,47 +374,47 @@
       </trans-unit>
       <trans-unit id="93">
         <source>Status</source>
-        <target/>
+        <target>Staða</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Level of detail</source>
-        <target/>
+        <target>Skráningarstaða</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Language(s)</source>
-        <target/>
+        <target>Tungumál</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Script(s)</source>
-        <target/>
+        <target>Leturgerð(ir)</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Maintenance notes</source>
-        <target/>
+        <target>Athugasemdir um breytingar</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Edit access points</source>
-        <target/>
+        <target>Breyta aðgangsleiðum</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Access Points</source>
-        <target/>
+        <target>Aðgangsleiðir</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Edit</source>
-        <target/>
+        <target>Breyta</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Delete</source>
-        <target/>
+        <target>Eyða</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Add new</source>
-        <target/>
+        <target>Bæta við</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Edit theme</source>
-        <target/>
+        <target>Breyta þema</target>
       </trans-unit>
     </body>
   </file>

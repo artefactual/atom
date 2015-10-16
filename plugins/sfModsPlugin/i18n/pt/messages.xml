@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2015-08-27T12:06:31Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2015-10-16T04:43:22Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -136,27 +136,27 @@
       </trans-unit>
       <trans-unit id="927">
         <source>Places</source>
-        <target/>
+        <target>Locais</target>
       </trans-unit>
       <trans-unit id="928">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
-        <target/>
+        <target>Para procurar um termo existente na taxonomia de Lugares digitar os primeiros caracteres do termo. Alternativamente, poderá digitar um novo termo e criar a respectiva ligação</target>
       </trans-unit>
       <trans-unit id="929">
         <source>Names</source>
-        <target/>
+        <target>Nomes</target>
       </trans-unit>
       <trans-unit id="930">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target/>
+        <target>"Escolher autor, proveniência e outros pontos de acesso que não sejam assuntos da descrição arquivística, conforme o caso. Todos os pontos de acesso devem ser evidentes a partir da descrição arquivística a que se referem." (RAD 21.0B) Os valores deste campo são retirados a forma autorizada do nome no campo de registos de autoridade. Pesquisar um nome existente, digitando os primeiros caracteres do nome. Alternativamente, digite um novo nome para criar e ligar a um novo registo autoridade.</target>
       </trans-unit>
       <trans-unit id="931">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
-        <target/>
+        <target>Resumo, índice do conteúdo ou descrição do âmbito e conteúdo do recurso.</target>
       </trans-unit>
       <trans-unit id="932">
         <source>Description</source>
-        <target/>
+        <target>Descrição</target>
       </trans-unit>
     </body>
   </file>

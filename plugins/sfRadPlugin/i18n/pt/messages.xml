@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2015-08-27T12:06:31Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2015-10-16T04:43:22Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -645,23 +645,23 @@ elaboração da descrição.</target>
       </trans-unit>
       <trans-unit id="1051">
         <source>Administrative history / Biographical sketch</source>
-        <target/>
+        <target>História administrativa / Resumo biográfico</target>
       </trans-unit>
       <trans-unit id="1052">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
+        <target>&lt;strong&gt;Identificador:&lt;/strong&gt;Digite um código unívoco usado para identificar a descrição.&lt;br/&gt;&lt;strong&gt;Nível:&lt;/strong&gt; Selecione um nível de descrição a partir da lista de opções. Veja RAD 1.0A para as regras e convenções sobre a seleção de níveis de descrição.&lt;br/&gt;&lt;strong&gt;Título:&lt;/strong&gt; Digite o título próprio, seja transcrito ou atribuído. (RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="1053">
         <source>Genre access points</source>
-        <target/>
+        <target>Pontos de acesso de género</target>
       </trans-unit>
       <trans-unit id="1054">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
-        <target/>
+        <target>Pesquise por um termo existente em taxonomia Género digitando os primeiros caracteres do termo. Como alternativa, digite um novo termo para criar e ligar a um novo termo género.</target>
       </trans-unit>
       <trans-unit id="1055">
         <source>General note</source>
-        <target/>
+        <target>Nota geral</target>
       </trans-unit>
     </body>
   </file>

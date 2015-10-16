@@ -1,412 +1,412 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2015-08-27T12:06:09Z" product-name="messages">
+  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2015-10-16T04:43:21Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>无标题的</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative / Biographical history</source>
-        <target/>
+        <target>管理/传记历史</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
-        <target/>
+        <target>管理历史</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Biographical history</source>
-        <target/>
+        <target>传纪历史</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Identifier - This is a mandatory element.</source>
-        <target/>
+        <target>标识符-必填</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Name and location of repository - This is a mandatory element.</source>
-        <target/>
+        <target>典藏库名称和地点-必填.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Title - This is a mandatory element.</source>
-        <target/>
+        <target>标题-必填.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Date(s) - are not consistent with higher levels.</source>
-        <target/>
+        <target>日期 - 与更高层级不一致.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Date(s) - This is a mandatory element.</source>
-        <target/>
+        <target>日期-必填.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Extent - This is a mandatory element.</source>
-        <target/>
+        <target>尺寸-必填</target>
       </trans-unit>
       <trans-unit id="11">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
-        <target/>
+        <target>该文献著录, 或其某一项高级描述, 要求至少一个创建者.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Scope and content - This is a mandatory element.</source>
-        <target/>
+        <target>范围和内容-必填.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Add new archival description</source>
-        <target/>
+        <target>添加新的文献著录</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Edit %1%</source>
-        <target/>
+        <target>编辑 %1%</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>这是记录 %1%的副本</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Identity elements</source>
-        <target/>
+        <target>特征标识细目</target>
       </trans-unit>
       <trans-unit id="17">
         <source>At the highest level of a multilevel description or in a single level description, provide a unique identifier for the materials being described in accordance with the institution’s administrative control system. Optionally, devise unique identifiers at lower levels of a multilevel description. (DACS 2.1.3) The country and repository code will be automatically added from the linked repository record to form a full reference code.</source>
-        <target/>
+        <target>对于多层级著录的最高层级或是单一层级著录, 根据机构的管理控制体系提供著录资料的唯一标识符. 另外可以选择是否为多层级著录的最低层级设计唯一标识符. (DACS 2.1.3) 国家和典藏库代码会从所链接的典藏库记录中自动添加, 以组成完整的参考代码.</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Identifier</source>
-        <target/>
+        <target>标识符</target>
       </trans-unit>
       <trans-unit id="19">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>必填细目.</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Name and location of repository</source>
-        <target/>
+        <target>典藏库名称和地点</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
-        <target/>
+        <target>明确陈诉典藏库的名称, 包括任何父层级收藏(DACS 2.2.2). 如需搜索文献机构记录中已存在的名称, 输入该名称的前几个字母. 或者, 输入一个新的名称以创建并链接到新的文献机构记录.</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Select a level of description from the drop-down menu. Follow any relevant local or institutional guidelines in selecting the proper level of description. See DACS (2013) Chapter 1 for further guidance.</source>
-        <target/>
+        <target>从下拉单中选择著录层级. 根据相关的地方或是机构指南以选择正确的著录层级. 如需更多指导信息, 参见DACS (2013), 第一章.</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Levels of description</source>
-        <target/>
+        <target>描述层级</target>
       </trans-unit>
       <trans-unit id="24">
         <source>In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material, normally consisting of a name segment, a term indicating the nature of the unit being described, and optionally a topical segment. Do not enclose devised titles in square brackets. (DACS 2.3.3)</source>
-        <target/>
+        <target>如果缺少有意义的正是标题, 创建一个能单独标识该资料的简短标题, 该标题通常包括一个名称段, 一个说明著录单元性质的术语, 以及一个主题段(最后一项非必须). 不要将创建的标题置于方括号内. (DACS 2.3.3)</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Title</source>
-        <target/>
+        <target>标题</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>记录与著录材料相关的创建日期, 记录保存活动, 发布, 或是广播. (DACS 2.4.3) 日期显示栏可用来输入自由文本日期信息, 包括表示大约, 不确定, 或条件的印刷字体符. 使用起始和结束栏来标记可搜索的日期. 不要使用任何限定词或印刷字体符来表示不确定. 可接受的日期格式: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Record the quantity of the material in terms of its physical extent as linear or cubic feet, number of items, or number of containers or carriers. (DACS 2.5.4). Optionally, record the quantity in terms of material type(s) (DACS 2.5.5), and/or qualify the statement of physical extent to hightlight the existence of material types that re important (DACS 2.5.6).</source>
-        <target/>
+        <target>记录资料的线性或立方英尺, 物件数量, 容器量或载体量. (DACS 2.5.4). 以下两项内容非必需: 记录与资料类型相关的数量(DACS 2.5.5), 和/或描述其物理尺寸陈述以强调重要的资料类型(DACS 2.5.6).</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Extent</source>
-        <target/>
+        <target>尺寸</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Name of creator(s)</source>
-        <target/>
+        <target>创建者名称</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Record the name(s) of the creator(s) identified in the name element in the devised title of the materials using standardized vocabularies or with rules for formulating standardized names (DACS 2.6.4). Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target/>
+        <target>使用标准词汇或根据表达标准名称的规则记录在资料标题的名称细目中已确认的创建者的名字 (DACS 2.6.4). 如需搜索规则记录中已经存在的名称, 输入该名称的前几个字母. 或者, 输入一个新的名称以创建并链接到一个新的规则记录.</target>
       </trans-unit>
       <trans-unit id="31">
         <source>&lt;strong&gt;Identifier&lt;/strong&gt;&lt;br /&gt;Provide a unique identifier for the materials being described in accordance with the institution’s administrative control system.&lt;br /&gt;&lt;strong&gt;Level of description&lt;/strong&gt;&lt;br /&gt;Record the level of this unit of description.&lt;br /&gt;&lt;strong&gt;Title&lt;/strong&gt;&lt;br /&gt;In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material.&lt;br /&gt;&lt;strong&gt;Date&lt;/strong&gt;&lt;br /&gt;Record a date of creation.</source>
-        <target/>
+        <target>&lt;strong&gt;Identifier&lt;/strong&gt;&lt;br /&gt;根据机构管理控制体系提供著录资料的唯一标识符.&lt;br /&gt;&lt;strong&gt;Level of description&lt;/strong&gt;&lt;br /&gt;记录著录单元的层级.&lt;br /&gt;&lt;strong&gt;Title&lt;/strong&gt;&lt;br /&gt;没有缺少有意义的正是标题, 提供一个能够单独标识该资料的简短标题.&lt;br /&gt;&lt;strong&gt;Date&lt;/strong&gt;&lt;br /&gt;记录创建日期.</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Content and structure elements</source>
-        <target/>
+        <target>内容和结构细目</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Record information about the nature of the materials and activities reflected in the unit being described to enable users to judge its potential relevance, including information about functions, activities, transations, and processes; documentary form(s) or intellectual characteristics; content dates; geographic areas and places; subject matter; completeness of the materials; or any other information that assists the user in evaluating the relevance of the materials. (DACS 3.1)</source>
-        <target/>
+        <target>记录与著录单元所反应的资料和活动的性质相关的信息, 以便使用者判断其可能具有的相关性, 包括与职能, 活动, 交易和处理相关的信息; 文献形式或知识特征; 内容日期; 地理区域和地点; 主题; 资料的完整程度; 或其他有助于使用者评估资料相关性的任何信息. (DACS 3.1)</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Scope and content</source>
-        <target/>
+        <target>范围和内容</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Describe the current arrangement of the material in terms of the various aggregations within it and their relationships. (DACS 3.2.3)</source>
-        <target/>
+        <target>根据该资料内部各种集合及它们之间的关系来描述其当前的整理. (DACS 3.2.3)</target>
       </trans-unit>
       <trans-unit id="36">
         <source>System of arrangement</source>
-        <target/>
+        <target>整理系统</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Conditions of access and use elements</source>
-        <target/>
+        <target>检索和使用条件细目</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Give information about any restrictions on access to the unit being described (or parts thereof) as a result of the nature of the information therein or statutory/contractual requirements. As appropriate, specify the details of the restriction. If there are no restrictions, state that fact. (DACS 4.1.5)</source>
-        <target/>
+        <target>提供关于限制检索著录单元(或部分内容)的信息, 限制条件可能源自单元内容的性质或是法律/合同要求. 如果适用, 提供限制条件的细节信息. 如果没有任何检索限制, 则如实陈述. (DACS 4.1.5)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Conditions governing access</source>
-        <target/>
+        <target>管理检索的条件</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Provide information about the physical characteristics or condition of the unit being described that limit access to it or restrict its use. (DACS 4.2.5)</source>
-        <target/>
+        <target>提供限制著录单元检索或使用的物理特征或条件等相关信息. (DACS 4.2.5)</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Physical access</source>
-        <target/>
+        <target>物理检索</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Provide information about any special equipment required to view or access the unit being described, if it is not clear from the Extent element. (DACS 4.3.5)</source>
-        <target/>
+        <target>提供查看或检索著录单元所必需的任何特殊设备的信息, 如果该信息在尺寸细目中没有清楚标明. (DACS 4.3.5)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Technical access</source>
-        <target/>
+        <target>技术检索</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Give information about copyright status and any other conditions governing the reproduction, publication, and further use (e.g., display, public screening, broadcast, etc.) of the unit being described after access has been provided. (DACS 4.4.5)</source>
-        <target/>
+        <target>提供著录单元版权信息以及完成检索以后管理著录单元复制, 出版和进一步使用(比如展示, 公开放映, 广播等)的其他条件信息. (DACS 4.4.5)</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Conditions governing reproduction and use</source>
-        <target/>
+        <target>管理复制和使用的条件</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Record the language(s) of the materials being described. (DACS 4.5.2)</source>
-        <target/>
+        <target>记录所著录的资料的语言. (DACS 4.5.2)</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Languages of the material</source>
-        <target/>
+        <target>该资料的语言</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Record the scripts(s) of the materials being described.</source>
-        <target/>
+        <target>记录所著录的资料的文字.</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Scripts of the material</source>
-        <target/>
+        <target>资料文字</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Record information about any distinctive alphabets, scripts, symbol systems, or abbreviations employed (DACS 4.5.3). If there is no language content, record “no linguistic content.” (DACS 4.5.4)</source>
-        <target/>
+        <target>记录与所使用的独特的字母, 文字, 符号体系或简写相关的信息 (DACS 4.5.3). 如果没有语言内容, 则记录"没有语言内容." (DACS 4.5.4)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Language and script notes</source>
-        <target/>
+        <target>语言和文字说明</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Record information about any existing finding aids that provide information relating to the context and contents of the unit being described... including any relevant information about its location or availability, and any other information necessary to assist the user in evaluating its usefulness. Include finding aids prepared by the creator (e.g., registers, indexes, etc.) that are part of the unit being described. (DACS 4.6.2)</source>
-        <target/>
+        <target>记录能够提供著录单元背景和内容相关信息的任何已存在的索引指南的信息... 包括地点信息, 可用性以及其他有助于使用者评估其有用性的信息. 包括由创建者准备的并组成著录单元一部分的检索指南. (DACS 4.6.2)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Acquisition and appraisal elements</source>
-        <target/>
+        <target>入藏和评价细目</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Custodial history</source>
-        <target/>
+        <target>保管历史</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Record the successive transfers of ownership, responsibility, or custody or control of the unit being described from the time it left the possession of the creator until its acquisition by the repository, along with the dates thereof, insofar as this information can be ascertained and is significant to the user’s understanding of the authenticity. (DACS 5.1.3)</source>
-        <target/>
+        <target>记录著录单元从离开创建者到入藏这段时间内其所有权, 责任或保管(控制)的连续转移, 如果这些活动的日期确定并有助于使用者理解其可靠性，则一并提供. (DACS 5.1.3)</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Record the source(s) from which the materials being described were acquired, the date(s) of acquisition, and the method of acquisition, if this information is not confidential. (DACS 5.2.3)</source>
-        <target/>
+        <target>如果非保密信息, 记录著录资料的入藏来源, 日期和方式. (DACS 5.2.3)</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Immediate source of acquisition or transfer</source>
-        <target/>
+        <target>入藏或转移的直接来源</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Where the destruction or retention of archival materials has a bearing on the interpretation and use of the unit being described, provide information about the materials destroyed or retained and provide the reason(s) for the appraisal decision(s), where known. (DACS 5.3.4)</source>
-        <target/>
+        <target>如果文献资料的销毁或保留对著录单元的阐释和使用有影响, 提供资料销毁或保留的相关信息, 如果评估决定的原因已知, 则一并提供. (DACS 5.3.4)</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Appraisal, destruction and scheduling information</source>
-        <target/>
+        <target>评价, 销毁, 编制信息</target>
       </trans-unit>
       <trans-unit id="60">
         <source>If known, indicate whether or not further accruals are expected. When appropriate, indicate frequency and volume. (DACS 5.4.2)</source>
-        <target/>
+        <target>如果已知, 说明藏品是否有预期的增加. 如果适用, 说明增加的频率和数量. (DACS 5.4.2)</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Related materials elements</source>
-        <target/>
+        <target>相关资料细目</target>
       </trans-unit>
       <trans-unit id="62">
         <source>If the materials being described are reproductions and the originals are located elsewhere, give the location of the originals (DACS 6.1.4). Record any identifying numbers that may help in locating the originals in the cited location (DACS 6.1.6).</source>
-        <target/>
+        <target>如果著录资料是复制件并且原件在其他地方, 提供原件地点(DACS 6.1.4). 记录有助于在原件地点定位该原件的任何标识符号(DACS 6.1.6).</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Existence and location of originals</source>
-        <target/>
+        <target>原件及其位置</target>
       </trans-unit>
       <trans-unit id="64">
         <source>If a copy of all or part of the material being described is available, in addition to the originals, record information about the medium and location of the copy, any identifying numbers, and any conditions on the use or availability of the copy. If a copy of only a part of the unit being described is available, indicate which part. If the materials being described are available via remote access (electronically or otherwise), provide the relevant information needed to access them. (DACS 6.2.3)</source>
-        <target/>
+        <target>如果著录资料的全部或部分内容有副本可用, 除原件信息以外, 记录关于副本媒介, 馆藏地, 标识符号信息以及其他有关副本使用或可用性的信息. 如果著录单元部分内容有副本, 说明是哪些部分. 如果著录资料能够通过远程检索获取(以电子方式或其他方式), 提供检索所需要的信息.(DACS 6.2.3)</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Existence and location of copies</source>
-        <target/>
+        <target>副本及其位置</target>
       </trans-unit>
       <trans-unit id="66">
         <source>If there are materials that have a direct and significant connection to those being described by reason of closely shared responsibility or sphere of activity, provide the title, location, and, optionally, the reference number(s) of the related materials and their relationship with the materials being described. (DACS 6.3.5)</source>
-        <target/>
+        <target>如果有资料与著录资料有直接并重要的联系, 比如有共同的责任或是活动范围, 提供相关资料的标题, 藏地, 参考代码以及其与著录资料的关系(后两项非必填内容). (DACS 6.3.5)</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Related archival materials</source>
-        <target/>
+        <target>相关文献资料</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Related descriptions</source>
-        <target/>
+        <target>相关描述</target>
       </trans-unit>
       <trans-unit id="69">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target/>
+        <target>创建该著录与AtoM中另一个著录的关系, 首先输入所关联的著录的名称, 然后从自动填充的下拉选单中选择该名称. 可以创建多个关系.</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Notes element</source>
-        <target/>
+        <target>注释细目</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Description control element</source>
-        <target/>
+        <target>著录控制细目</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Record relevant information about sources consulted in establishing or revising the description. (DACS 8.1.3)</source>
-        <target/>
+        <target>记录创建或修改著录过程中参考的资源的相关信息. (DACS 8.1.3)</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Sources used</source>
-        <target/>
+        <target>已使用的来源</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Record the international, national or local rules or conventions followed in preparing the description. (DACS 8.1.4)</source>
-        <target/>
+        <target>记录起草著录所遵循的国际, 国内和/或当地规则或惯例. (DACS 8.1.4)</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Rules or conventions</source>
-        <target/>
+        <target>规则或惯例</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Access points</source>
-        <target/>
+        <target>检索点</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Subject access points</source>
-        <target/>
+        <target>主题检索点</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Place access points</source>
-        <target/>
+        <target>地点检索点</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>名称检索点 (主题)</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Edit identity elements</source>
-        <target/>
+        <target>编辑特征标识细目</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Reference code</source>
-        <target/>
+        <target>参考代码</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Level of description</source>
-        <target/>
+        <target>描述层级</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Date(s)</source>
-        <target/>
+        <target>日期</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Related function</source>
-        <target/>
+        <target>相关功能</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Edit context and structure elements</source>
-        <target/>
+        <target>编辑背景和结构细目</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Edit conditions of access and use elements</source>
-        <target/>
+        <target>编辑检索和使用条件的细目</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Conditions governing reproduction</source>
-        <target/>
+        <target>管理复制的条件</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Finding aids</source>
-        <target/>
+        <target>索引指南</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Edit acquisition and appraisal elements</source>
-        <target/>
+        <target>编辑入藏和评价细目</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>藏品直接来源</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Accruals</source>
-        <target/>
+        <target>增加</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Edit related materials elements</source>
-        <target/>
+        <target>编辑相关资料细目</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Publication notes</source>
-        <target/>
+        <target>发布说明</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Edit notes element</source>
-        <target/>
+        <target>编辑说明细目</target>
       </trans-unit>
       <trans-unit id="95">
         <source>General note</source>
-        <target/>
+        <target>一般说明</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Specialized notes</source>
-        <target/>
+        <target>详细说明</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Edit description control element</source>
-        <target/>
+        <target>编辑描述控制细目</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Archivist's note</source>
-        <target/>
+        <target>档案管理员说明</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Edit access points</source>
-        <target/>
+        <target>编辑检索点</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Rights area</source>
-        <target/>
+        <target>权利版块</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Accession area</source>
-        <target/>
+        <target>登记版块</target>
       </trans-unit>
     </body>
   </file>

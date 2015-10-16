@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2015-08-27T12:05:24Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2015-10-16T04:43:19Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -30,11 +30,11 @@
       </trans-unit>
       <trans-unit id="7">
         <source>Edit %1%</source>
-        <target/>
+        <target>Redigera %1%</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Edit %1% - ISAAR</source>
-        <target/>
+        <target>Redigera %1% - ISAAR</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Identity area</source>
@@ -134,7 +134,8 @@
       </trans-unit>
       <trans-unit id="33">
         <source>"Describe the internal structure of a corporate body and the dates of any changes to that structure that are significant to the understanding of the way that corporate body conducted its affairs (e.g. by means of dated organization charts). Describe the genealogy of a family (e.g. by means of a family tree) in a way that demonstrates the inter-relationships of its members with covering dates." (ISAAR 5.2.7)</source>
-        <target/>
+        <target>"Beskriv den inre strukturen av en organisation och datumen för förändringar av strukturen som har en signifikans för att förstå hur organisationen har bedrivit sin verksamhet (t.ex. genom daterade organisationskartor).
+Beskriv familjeförhållanden (t.ex. genom släktträd) på ett sätt som visar de interna förhållandena av familjemedlemmarna inklusive en datering." (ISAAR 5.2.7)</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Internal structures/genealogy</source>
@@ -194,7 +195,7 @@
       </trans-unit>
       <trans-unit id="48">
         <source>Last updated</source>
-        <target/>
+        <target>Senast uppdaterad</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Select the language(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
@@ -214,7 +215,7 @@
       </trans-unit>
       <trans-unit id="53">
         <source>Cancel</source>
-        <target/>
+        <target>Avbryt</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Save</source>
@@ -222,7 +223,7 @@
       </trans-unit>
       <trans-unit id="55">
         <source>Create</source>
-        <target/>
+        <target>Skapa</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Related corporate bodies, persons or families</source>
@@ -234,7 +235,7 @@
       </trans-unit>
       <trans-unit id="58">
         <source>Category</source>
-        <target/>
+        <target>Kategori</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Type</source>
@@ -242,15 +243,15 @@
       </trans-unit>
       <trans-unit id="60">
         <source>Dates</source>
-        <target/>
+        <target>Datum</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Description</source>
-        <target/>
+        <target>Beskrivning</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Edit</source>
-        <target/>
+        <target>Redigera</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Related corporate body, person or family</source>
@@ -290,11 +291,11 @@
       </trans-unit>
       <trans-unit id="72">
         <source>Export</source>
-        <target/>
+        <target>Exportera</target>
       </trans-unit>
       <trans-unit id="73">
         <source>EAC</source>
-        <target/>
+        <target>EAC</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Edit identity area</source>
@@ -362,7 +363,7 @@
       </trans-unit>
       <trans-unit id="90">
         <source>Language(s)</source>
-        <target/>
+        <target>Språk</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Script(s)</source>
@@ -370,7 +371,7 @@
       </trans-unit>
       <trans-unit id="92">
         <source>Sources</source>
-        <target/>
+        <target>Källor</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Maintenance notes</source>
@@ -378,11 +379,11 @@
       </trans-unit>
       <trans-unit id="94">
         <source>Delete</source>
-        <target/>
+        <target>Radera</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Add new</source>
-        <target/>
+        <target>Lägg till ny</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Related resources</source>

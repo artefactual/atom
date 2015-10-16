@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2015-08-27T12:10:53Z" product-name="messages">
+  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2015-10-16T04:43:33Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Browse by</source>
-        <target/>
+        <target>Прегледај по</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Virtual exhibits</source>
-        <target/>
+        <target>Виртуелне изложбе</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Search %1%</source>
-        <target/>
+        <target>Претражи %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Search</source>
-        <target/>
+        <target>Претражи</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Advanced search</source>
-        <target/>
+        <target>Напредна претрага</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Global search</source>
-        <target/>
+        <target>Општа претрага</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Search &lt;span&gt;%1%&lt;/span&gt;</source>
-        <target/>
+        <target>Претражи &lt;span&gt;%1%&lt;/span&gt;</target>
       </trans-unit>
     </body>
   </file>

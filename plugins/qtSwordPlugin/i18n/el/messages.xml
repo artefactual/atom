@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-08-27T12:07:02Z" product-name="messages">
+  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-10-16T04:43:23Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Not implemented</source>
-        <target/>
+        <target>Δεν εφαρμόζεται</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Bad request</source>
@@ -14,19 +14,19 @@
       </trans-unit>
       <trans-unit id="3">
         <source>Forbidden</source>
-        <target/>
+        <target>Απαγορευμένη</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Not found</source>
-        <target/>
+        <target>Δεν βρέθηκαν</target>
       </trans-unit>
       <trans-unit id="5">
         <source>The supplied format is not supported by this server</source>
-        <target/>
+        <target>Η παρεχόμενη μορφή δεν υποστηρίζεται από αυτό το διακομιστή</target>
       </trans-unit>
       <trans-unit id="6">
         <source>The supplied content type is not supported by this server</source>
-        <target/>
+        <target>Ο παρεχόμενος τύπος περιεχομένου δεν υποστηρίζεται από αυτό το διακομιστή</target>
       </trans-unit>
     </body>
   </file>

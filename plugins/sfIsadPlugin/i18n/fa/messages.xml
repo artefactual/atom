@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2015-08-27T12:08:21Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2015-10-16T04:43:26Z" product-name="messages">
     <body>
       <trans-unit id="43">
         <source>Identity area</source>
@@ -460,7 +460,7 @@
       </trans-unit>
       <trans-unit id="955">
         <source>Administrative history</source>
-        <target/>
+        <target>&#x62A;&#x627;&#x631;&#x64A;&#x62E; &#x627;&#x62F;&#x627;&#x631;&#x64A;</target>
       </trans-unit>
       <trans-unit id="956">
         <source>Biographical history</source>

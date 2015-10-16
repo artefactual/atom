@@ -1,340 +1,340 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2015-08-27T12:10:53Z" product-name="messages">
+  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2015-10-16T04:43:33Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Без наслова</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Type%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Врста%2% - Ово је %3%обавезно%4% поље</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Званични облик назива/имена%2% - Ово је %3%обавезнo%4% поље</target>
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Идентификатор описа%2% - Ово је %3%обавезнo%4% поље</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Add new function</source>
-        <target/>
+        <target>Додај нову функцију</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Edit %1%</source>
-        <target/>
+        <target>Уреди %1%</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Related resources</source>
-        <target/>
+        <target>Повезани извори</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Identifier/title</source>
-        <target/>
+        <target>Идентификатор/наслов</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Nature of relationship</source>
-        <target/>
+        <target>Природа везе</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Dates</source>
-        <target/>
+        <target>Датуми</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Edit</source>
-        <target/>
+        <target>Уреди</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Related resource</source>
-        <target/>
+        <target>Повезани извор</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Title</source>
-        <target/>
+        <target>Назив јединице описа</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
-        <target/>
+        <target>Изабрати наслов из падајућег менија;  унети идентификатор или првих неколико слова да би се сузио избор. (ISDF 6.1)</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Related functions</source>
-        <target/>
+        <target>Повезане функције</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Name</source>
-        <target/>
+        <target>Назив/Име</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Category</source>
-        <target/>
+        <target>Категорија</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Description</source>
-        <target/>
+        <target>Опис</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Related function</source>
-        <target/>
+        <target>Повезана функција</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Званични облик назива/имена</target>
       </trans-unit>
       <trans-unit id="21">
         <source>"Record the authorised form of name and any unique identifier of the related function." (ISDF 5.3.1)</source>
-        <target/>
+        <target>"Записати званичан(не) облик(е) назива и сваки јединствени идентификатор повезане функције." (ISDF 5.3.1)</target>
       </trans-unit>
       <trans-unit id="22">
         <source>"Record a general category into which the relationship being described falls." (ISDF 5.3.2) Select a category from the drop-down menu: hierarchical, temporal or associative.</source>
-        <target/>
+        <target>"Уписати општу категорију у коју спада веза/однос." (ISDF 5.3.2) Изабрати категорију из падајућег менија: хијерархијска, временска или асоцијативна.</target>
       </trans-unit>
       <trans-unit id="23">
         <source>"Record a precise description of the nature of the relationship between the function being described and the related function." (ISDF 5.3.3) Note that the text entered in this field will also appear in the related function.</source>
-        <target/>
+        <target>"Уписати прецизан опис природе везе/односа између функције и повезане функције." (ISDF 5.3.3) Текст унесен у овом пољу ће се појавити и у повезаној функцији</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Edit %1% - ISDF</source>
-        <target/>
+        <target>Уреди %1% - ISDF</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Identity area</source>
-        <target/>
+        <target>Подручје идентификације</target>
       </trans-unit>
       <trans-unit id="26">
         <source>"Specify whether the description is a function or one of its subdivisions." (ISDF 5.1.1) Select the type from the drop-down menu; these values are drawn from the ISDF Function Types taxonomy.</source>
-        <target/>
+        <target>"Утврдити да ли је предмет описа функција или једна од њених даљих подела, у складу са националном или међународном терминологијом." (ISDF 5.1.1) Изабрати врсту из падајућег менија; ове вредности се црпе из ISDF Врсте функција таксономије.</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Type</source>
-        <target/>
+        <target>Врста</target>
       </trans-unit>
       <trans-unit id="28">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Ово је обавезно поље</target>
       </trans-unit>
       <trans-unit id="29">
         <source>"Record the authorised name of the function being described. In cases where the name is not enough, add qualifiers to make it unique such as the territorial or administrative scope, or the name of the institution which performs it. This element is to be used in conjunction with the Function description identifier element (5.4.1)." (ISDF 5.1.2)</source>
-        <target/>
+        <target>"Уписати званичан(не) облик(е) назива функције. Навести територијални или административни делокруг функције, назив установе која ју је вршила и друге одговарајуће квалификаторе да би се функција разликовала од осталих функција са сличним називима. Овај елемент треба да се користи заједно са елементом  [пољем] Идентификатор описа функције (5.4.1)." (ISDF 5.1.2)</target>
       </trans-unit>
       <trans-unit id="30">
         <source>"Purpose: To indicate the various forms in which the authorized form(s) of name occurs in other languages or script forms. Rule: Record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions element (5.4.3.) which rules have been applied." (ISDF 5.1.3)</source>
-        <target/>
+        <target>"Сврха: Да се наведу различити облици у којима се званичан(ни) облик(ци) назива појављује у другим језицима или писмима. Правило: Уписати упоредни(е) облик(е) назива у складу са свим значајним националним или међународним прописима или правилима, које је применила архивска установа која је израдила опис, укључујући све неопходне поделементе  [потпоља] и/или квалификаторе које захтевају ти прописи или правила. У елементу Коришћени прописи и/или правила (5.4.3) навести која су правила примењена." (ISDF 5.1.3)</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Parallel form(s) of name</source>
-        <target/>
+        <target>Упоредни облик(ци) назива/имена</target>
       </trans-unit>
       <trans-unit id="32">
         <source>"Record any other names for the function being described." (ISDF 5.1.4)</source>
-        <target/>
+        <target>"Навести остале називе функције." (ISDF 5.1.4)</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Other form(s) of name</source>
-        <target/>
+        <target>Други облик(ци) назива/имена</target>
       </trans-unit>
       <trans-unit id="34">
         <source>"Record any term and/or code from a classification scheme of functions. Record the classification scheme used in the element Rules and/or conventions used (5.4.3)." (ISDF 5.1.5)</source>
-        <target/>
+        <target>"Уписати било који термин и/или код из класификационе шеме функција. Навести коришћену класификациону шему у елементу  [пољу] Коришћени прописи и/или правила (5.4.3)" (ISDF 5.1.5)</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Context area</source>
-        <target/>
+        <target>Подручје конекста</target>
       </trans-unit>
       <trans-unit id="36">
         <source>"Provide a date or date span which covers the dates when the function was started and when it finished. If a function is ongoing, no end date is needed." (ISDF 5.2.1)</source>
-        <target/>
+        <target>"Навести датум или временски распон, који обухвата датуме када је функција започела и када је она завршена. Ако је функција у току није потребно наводити завршни датум." (ISDF 5.2.1)</target>
       </trans-unit>
       <trans-unit id="37">
         <source>"Record a narrative description of the purpose of the function." (ISDF 5.2.2)</source>
-        <target/>
+        <target>"Дати наративни опис сврхе функције." (ISDF 5.2.2)</target>
       </trans-unit>
       <trans-unit id="38">
         <source>"Record in narrative form or as a chronology the main events relating to the function." (ISDF 5.2.3)</source>
-        <target/>
+        <target>"Записати у наративном облику или у виду хронологије историјат обављања функције." (ISDF 5.2.3) </target>
       </trans-unit>
       <trans-unit id="39">
         <source>"Record any law, directive or charter which creates, changes or ends the function." (ISDF 5.2.4)</source>
-        <target/>
+        <target>"Уписати све законе, упутства или повеље који стварају, мењају или сужавају функцију." (ISDF 5.2.4)</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Relationships area</source>
-        <target/>
+        <target>Подручје веза/односа</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Control area</source>
-        <target/>
+        <target>Подручје контроле</target>
       </trans-unit>
       <trans-unit id="42">
         <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISDF 5.4.1)</source>
-        <target/>
+        <target>"Уписати јединствени идентификатор описа у складу са локалним и/или националним прописима. Ако опис треба да се користи интернационално, уписати код земље у којој је опис израђен у складу са најновијом верзијом ISO 3166 Codes for the representation of names of countries (кодови за представљање назива земаља). Kaда је стваралац описа међународна организација, дати идентификатор организације уместо кода земље." (ISDF 5.4.1)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Description identifier</source>
-        <target/>
+        <target>Идентификатор описа</target>
       </trans-unit>
       <trans-unit id="44">
         <source>"Record the full authorised form of name(s) of agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a recognized code for the agency." (ISDF 5.4.2)</source>
-        <target/>
+        <target>"Уписати пун званичан облик назива установе(а) одговорне за израду, измене или дистрибуирање описа или, по избору, уписати утврђени код установе." (ISDF 5.4.2)</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Institution identifier</source>
-        <target/>
+        <target>Сигла</target>
       </trans-unit>
       <trans-unit id="46">
         <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival description. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied." (ISDF 5.4.3)</source>
-        <target/>
+        <target>"Сврха: Да се утврде национални или међународни прописи или правила примењени у изради описа. Правило: Уписати називе, а где је сврсисходно, издања или датуме објављивања прописа или правила који су примењивани." (ISDF 5.4.3)</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>Правила и/или прописи употребљени</target>
       </trans-unit>
       <trans-unit id="48">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDF 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
-        <target/>
+        <target>Сврха овог поља је "да назначи статус у процесу израде описа како би корисници знали који је његов тренутни статус." (ISDF 5.4.4) Изабрати Коначна, Исправљена верзија или Нацрт из падајућег менија.</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Status</source>
-        <target/>
+        <target>Статус</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimum records are those that consist only of the three essential elements of an ISDF compliant record (see 4.7), while full records are those that convey information for all relevant ISDF elements of description." (ISDF 5.4.5)</source>
-        <target/>
+        <target>Изабрати Потпуни, Делимични или Минимални из падајућег менија. "У недостатку националних смерница или правила, минимални описи су они који садрже само три основна елемента описа израђеног у складу са ISDF-ом (видети 4.7), док су потпуни описи они који доносе информације за све значајне елементе описа према овом стандарду." (ISDF 5.4.5)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Level of detail</source>
-        <target/>
+        <target>Ниво детаљности</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"Record the date the description was created and the dates of any revisions to the description." (ISDF 5.4.6)</source>
-        <target/>
+        <target>"Уписати датум када је опис израђен и датуме свих измена описа." (ISDF 5.4.6)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Dates of creation, revision or deletion</source>
-        <target/>
+        <target>Датуми стварања, ревизије или брисања</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)</source>
-        <target/>
+        <target>Изабрати језик(е) описа из падајућег менија; унети првих неколико слова да би се сузио избор. (ISDF 5.4.7)</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Language(s)</source>
-        <target/>
+        <target>Језик(ци)</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)</source>
-        <target/>
+        <target>Изабрати писмо(a) описа из падајућег менија; унети првих неколико слова да би се сузио избор. (ISDF 5.4.7)</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Script(s)</source>
-        <target/>
+        <target>Писмо(а)</target>
       </trans-unit>
       <trans-unit id="58">
         <source>"Record the sources consulted in establishing the function description." (ISDF 5.4.8)</source>
-        <target/>
+        <target>"Уписати изворе који су консултовани у изради нормативног записа." (ISDF 5.4.8)</target>
       </trans-unit>
       <trans-unit id="59">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDF 5.4.9)</source>
-        <target/>
+        <target>"Уписати напомене које се односе на израду и одржавање описа." (ISDF 5.4.9)</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Cancel</source>
-        <target/>
+        <target>Поништи</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Save</source>
-        <target/>
+        <target>Сачувај</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Create</source>
-        <target/>
+        <target>Створи</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Related authority records</source>
-        <target/>
+        <target>Повезани нормативни записи</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Identifier/name</source>
-        <target/>
+        <target>Идентификтор/назив</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Related authority record</source>
-        <target/>
+        <target>Повезани нормативни запис</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Select the name from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
-        <target/>
+        <target>Изабрати назив/име из падајућег менија; унети идентификатор или првих неколико слова да би се сузио избор. (ISDF 6.1)</target>
       </trans-unit>
       <trans-unit id="67">
         <source>View ISDF function</source>
-        <target/>
+        <target>Види  ISDF функцију</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Edit identity area</source>
-        <target/>
+        <target>Уреди подручје идентификације</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Classification</source>
-        <target/>
+        <target>Класификација</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Edit context area</source>
-        <target/>
+        <target>Уреди подручје контекста </target>
       </trans-unit>
       <trans-unit id="71">
         <source>History</source>
-        <target/>
+        <target>Историјат</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Legislation</source>
-        <target/>
+        <target>Законодавство</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Edit relationships area</source>
-        <target/>
+        <target>Уреди подручје веза</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Identifier</source>
-        <target/>
+        <target>Идентификатор</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Category of relationship</source>
-        <target/>
+        <target>Категорија везе/односа</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Description of relationship</source>
-        <target/>
+        <target>Опис везе</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Dates of relationship</source>
-        <target/>
+        <target>Датуми везе/односа</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Dates of the relationship</source>
-        <target/>
+        <target>Датуми везе/односа</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Edit control area</source>
-        <target/>
+        <target>Уреди подручје контроле</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Sources</source>
-        <target/>
+        <target>Извори</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Maintenance notes</source>
-        <target/>
+        <target>Напомене о одржавању</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Delete</source>
-        <target/>
+        <target>Обриши</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Add new</source>
-        <target/>
+        <target>Додај нови</target>
       </trans-unit>
     </body>
   </file>

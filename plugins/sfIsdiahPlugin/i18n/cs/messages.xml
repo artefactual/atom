@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cs" datatype="plaintext" original="messages" date="2015-08-27T12:07:43Z" product-name="messages">
+  <file source-language="en" target-language="cs" datatype="plaintext" original="messages" date="2015-10-16T04:43:25Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Bez názvu</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
@@ -258,7 +258,7 @@
       </trans-unit>
       <trans-unit id="64">
         <source>Sources</source>
-        <target/>
+        <target>Zdroje</target>
       </trans-unit>
       <trans-unit id="65">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
@@ -382,7 +382,7 @@
       </trans-unit>
       <trans-unit id="95">
         <source>Language(s)</source>
-        <target/>
+        <target>Jazyk(y)</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Script(s)</source>
@@ -402,7 +402,7 @@
       </trans-unit>
       <trans-unit id="100">
         <source>Edit</source>
-        <target/>
+        <target>Upravit</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Delete</source>

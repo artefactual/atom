@@ -77,6 +77,7 @@ QubitSetting:
       ca: 'Descripció arxivística'
       ca@valencia: 'Descripció arxivística'
       cs: 'Archivní popisy'
+      cy: 'Disgrifiad archifol'
       de: 'Archivische Beschreibung'
       de-CH: 'Archivische Beschreibung'
       el: 'Αρχειακή περιγραφή'
@@ -101,6 +102,7 @@ QubitSetting:
       ru: 'Архивное описание'
       sl: 'Arhivski popis'
       sr: 'Архивски опис'
+      sv: Arkivbeskrivning
       th: คำอธิบายจดหมายเหตุ
       vi: 'Mô tả lưu trữ'
       zh: 文献著录
@@ -120,7 +122,7 @@ QubitSetting:
       en: 'Authority record'
       es: 'Registro de autoridad'
       eu: 'Autoretza erregistroa'
-      fr: 'Notice d''autorité'
+      fr: 'Fichier d''autorité'
       gl: 'Rexistro de autoridade'
       hu: Iratképző
       id: 'Pencipta Arsip'
@@ -184,6 +186,7 @@ QubitSetting:
     value:
       ca: 'Institució arxivística'
       ca@valencia: 'Institució arxivística'
+      cy: 'Sefydliad archifol'
       de: Archiv
       de-CH: Archiv
       el: 'Αρχειακός Φορέας'
@@ -208,6 +211,7 @@ QubitSetting:
       ru: 'Архивное учреждение'
       sl: 'Arhivska ustanova'
       sr: 'Архивска институција'
+      sv: Arkivinstitution
       th: สถาบันจดหมายเหตุ
       vi: 'Tổ chức lưu trữ'
       zh: 文献机构
@@ -313,7 +317,7 @@ QubitSetting:
       pt_BR: Assunto
       ru: Тема
       sl: Tematika
-      sr: Тема
+      sr: Предмет
       th: หัวข้อ
       vi: Tượng
       zh: 主题
@@ -326,6 +330,7 @@ QubitSetting:
     value:
       ca: Fons
       ca@valencia: Fons
+      cy: Fonds
       de: Fonds
       de-CH: Fonds
       el: Αρχείο
@@ -383,6 +388,7 @@ QubitSetting:
       pt_BR: Acervo
       sl: 'Arhivsko gradivo'
       sr: Збирка
+      sv: Bestånd
       th: สถานที่เก็บเอกสาร
       vi: 'Ngắn về'
       zh: 藏品
@@ -395,6 +401,7 @@ QubitSetting:
     value:
       ca: Lloc
       ca@valencia: Lloc
+      cy: Lle
       de: Ort
       de-CH: Ort
       el: Τόπος
@@ -493,6 +500,7 @@ QubitSetting:
       ru: 'Цифровой объект'
       sl: 'Digitalni objekt'
       sr: 'Дигитални објект'
+      sv: 'Digitalt objekt'
       th: วัตถุดิจิตอล
       vi: 'Digital object'
       zh: 数字对象
@@ -539,6 +547,7 @@ QubitSetting:
     value:
       ca: 'Tipus de suport'
       ca@valencia: 'Tipus de suport'
+      cy: 'Math o gyfrwng'
       de: Medienart
       de-CH: Medienart
       el: 'Τύπος μέσου'
@@ -563,6 +572,7 @@ QubitSetting:
       ru: 'Тип носителя'
       sl: 'Vrsta medija'
       sr: 'Врста медија'
+      sv: Mediatyper
       th: ประเภทสื่อ
       vi: 'Loại truyền thông'
       zh: 媒体类型
@@ -647,6 +657,7 @@ QubitSetting:
       ru: Жанр
       sl: Zvrst
       sr: Жанр
+      sv: Genre
       zh: 体裁
   QubitSetting_26:
     name: en
@@ -1013,6 +1024,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      de: Inventarübersicht
       en: inventory-summary
       es: Inventario-Resumen
       fr: 'inventaire sommaire'
@@ -1020,7 +1032,7 @@ QubitSetting:
       pt: inventário-sumário
       pt-BR: 'inventário sumário'
       sl: 'povzeket - seznam'
-      sr: 'сумарни инвентар'
+      sr: 'Инвентар - извод'
       zh: 详细目录-总结
   Qubit_Settings_publicFindingAid:
     name: publicFindingAid
@@ -1036,14 +1048,20 @@ QubitSetting:
   Qubit_Settings_digitalObjectDerivativesPdfPageNumber:
     name: digital_object_derivatives_pdf_page_number
     value:
+      de: '1'
       en: 1
+      pt: '1'
+      sr: '1'
   Qubit_Settings_treeviewType:
     name: treeview_type
     editable: 1
     deleteable: 0
     source_culture: en
     value:
+      de: Seitenleiste
       en: sidebar
+      pt: 'barra lateral'
+      sr: 'бочна трака'
   Qubit_Settings_stripExtensions:
     name: stripExtensions
     editable: 1

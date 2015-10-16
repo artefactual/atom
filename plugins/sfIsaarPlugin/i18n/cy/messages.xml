@@ -1,428 +1,430 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2015-08-27T12:09:35Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2015-10-16T04:43:29Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Heb deitl</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Ffurf awdurdodedig enw%2% - Mae hwn yn elfen %3%orfodol%4%.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%Dates of existence%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Dyddiadau bodolaeth%2% - Mae hwn yn elfen %3%orfodol%4%.</target>
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Dynodwr disgrifiad%2% - Mae hwn yn elfen %3%orfodol%4%.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Type of entity%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Math o endid%2% - Mae hwn yn elfen %3%orfodol%4%.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Add new authority record</source>
-        <target/>
+        <target>Ychwanegu cofnod awdurdod newydd</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Edit %1%</source>
-        <target/>
+        <target>Golygu %1%</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Edit %1% - ISAAR</source>
-        <target/>
+        <target>Golygu %1% - ISAAR</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Identity area</source>
-        <target/>
+        <target>Ardal dynodi</target>
       </trans-unit>
       <trans-unit id="10">
         <source>"Specify the type of entity that is being described in this authority record." (ISAAR 5.1.1) Select Corporate body, Family or Person from the drop-down menu.</source>
-        <target/>
+        <target>"Nodwch y math o endid sy'n cael ei ddisgrifio yn y cofnod awdurdod hwn." (ISAAR 5.1.1) Dewiswch gorff corfforaethol, Teulu neu Berson o'r gwymplen.</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Type of entity</source>
-        <target/>
+        <target>Math o endid</target>
       </trans-unit>
       <trans-unit id="12">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Mae hwn yn elfen orfodol.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>"Record the standardized form of name for the entity being described in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record. Use dates, place, jurisdiction, occupation, epithet and other qualifiers as appropriate to distinguish the authorized form of name from those of other entities with similar names." (ISAAR 5.1.2)</source>
-        <target/>
+        <target>"Cofnodwch ffurf safonol yr enw ar gyfer yr endid a ddisgrifir yn unol ag unrhyw gonfensiynau cenedlaethol neu ryngwladol perthnasol neu reolau a ddefnyddir gan yr asiantaeth a greodd y cofnod awdurdod. Defnyddiwch ddyddiadau, lle, awdurdodaeth, galwedigaeth, ffugenw a goleddfwyr eraill fel y bo'n briodol i wahaniaethu ffurf awdurdodedig yr enw o'r endidau eraill sydd ag enwau tebyg." (ISAAR 5.1.2)</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Ffurf awdurdodedig enw</target>
       </trans-unit>
       <trans-unit id="15">
         <source>"Purpose: To indicate the various forms in which the Authorized form of name occurs in other languages or script form(s). Rule: record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record, including any necessary sub elements and/or qualifiers required by those conventions or rules." (ISAAR 5.1.3)</source>
-        <target/>
+        <target>"Pwrpas: I fynegi'r amryw ffurfiau y mae'r ffurf awdurdodedig o enw yn digwydd mewn ieithoedd eraill neu ffurf(iau) sgript. Rheol: Cofnodi'r ffurf(iau) gyfochrog o enw yn unol ag unrhyw gonfensiynau cenedlaethol neu ryngwladol perthnasol neu reolau cymhwyso gan yr asiantaeth a greodd y cofnod awdurdod, yn cynnwys unrhyw is elfennau a/neu oleddfwyr angenrheidiol sy'n ofynnol gan gonfensiynau neu'r rheolau hynny." (ISAAR 5.1.3)</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Parallel form(s) of name</source>
-        <target/>
+        <target>Ffurf(iau) cyfochrog o enw</target>
       </trans-unit>
       <trans-unit id="17">
         <source>"Record the standardized form of name for the entity being described in accordance with other conventions or rules. Specify the rules and/or if appropriate the name of the agency by which these standardized forms of name have been constructed." (ISAAR 5.1.4)</source>
-        <target/>
+        <target>"Cofnodwch ffurf safonol yr enw ar gyfer yr endid sy’n cael ei ddisgrifio yn unol â chonfensiynau neu reolau eraill. Nodwch y rheolau ac/neu os yw'n briodol enw'r asiantaeth a luniodd y ffurfiau safonol hyn." (ISAAR 5.1.4)</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Standardized form(s) of name according to other rules</source>
-        <target/>
+        <target>Ffurf(iau) safonol o enw yn ôl rheolau eraill</target>
       </trans-unit>
       <trans-unit id="19">
         <source>The purpose of this field is to "indicate any other name(s) for the corporate body, person or family not used elsewhere in the Identity Area." Examples are acronyms, previous names, pseudonyms, maiden names and titles of nobility or honour. (ISAAR 5.1.5)</source>
-        <target/>
+        <target>Pwrpas y maes hwn yw i "ddangos unrhyw enw(au) arall ar gyfer y corff corfforaethol, person neu deulu sydd heb ei ddefnyddio unrhyw le arall yn yr Ardal Dynodi." Esiamplau yw acronymau, enwau blaenorol, ffugenwau, enwau cyn priodi a theitlau bonedd neu anrhydedd. (ISAAR 5.1.5)</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Other form(s) of name</source>
-        <target/>
+        <target>Ffurf(iau) arall o enw</target>
       </trans-unit>
       <trans-unit id="21">
         <source>"Record where possible any official number or other identifier (e.g. a company registration number) for the corporate body and reference the jurisdiction and scheme under which it has been allocated." (ISAAR 5.1.6)</source>
-        <target/>
+        <target>"Cofnodwch le'n bosibl unrhyw rif swyddogol neu ddynodwr arall (ee rhif cofrestru'r cwmni) ar gyfer y corff corfforaethol a chyfeiriwch at yr awdurdodaeth a’r cynllun lle mae wedi ei ddyrannu." (ISAAR 5.1.6)</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Identifiers for corporate bodies</source>
-        <target/>
+        <target>Dynodwyr ar gyfer cyrff corfforaethol</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Description area</source>
-        <target/>
+        <target>Ardal disgrifiad</target>
       </trans-unit>
       <trans-unit id="24">
         <source>"Record the dates of existence of the entity being described. For corporate bodies include the date of establishment/foundation/enabling legislation and dissolution. For persons include the dates or approximate dates of birth and death or, when these dates are not known, floruit dates. Where parallel systems of dating are used, equivalences may be recorded according to relevant conventions or rules. Specify in the Rules and/or conventions element (5.4.3) the system(s) of dating used, e.g. ISO 8601." (ISAAR 5.2.1)</source>
-        <target/>
+        <target>"Cofnodwch ddyddiadau fodolaeth yr endid a ddisgrifir. Cynhwyswch y dyddiad sefydlu/sylfaen/galluogi deddfwriaeth a diddymu ar gyfer cyrff corfforaethol. Cynhwyswch y dyddiadau neu ddyddiadau bras geni a marwolaeth ar gyfer pobl, neu, pan nad yw’r dyddiadau hyn yn hysbys, dyddiadau bodolaeth. Lle mae systemau cyfochrog o ddyddio yn cael eu defnyddio, gellir cofnodi cywertheddoedd yn unol â chonfensiynau neu reolau perthnasol. Nodwch yn yr elfen Rheolau a/neu gonfensiynau (5.4.3) y system(au) dyddio a ddefnyddir, ee ISO 8601." (ISAAR 5.2.1)</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Dates of existence</source>
-        <target/>
+        <target>Dyddiadau bodolaeth</target>
       </trans-unit>
       <trans-unit id="26">
         <source>"Record in narrative form or as a chronology the main life events, activities, achievements and/or roles of the entity being described. This may include information on gender, nationality, family and religious or political affiliations. Wherever possible, supply dates as an integral component of the narrative description." (ISAAR 5.2.2)</source>
-        <target/>
+        <target>"Cofnodwch ar ffurf naratif neu fel cronoleg y prif ddigwyddiadau bywyd, gweithgareddau, cyflawniadau a/neu rolau'r endid a ddisgrifir. Gall hyn gynnwys gwybodaeth am ryw, cenedligrwydd, teulu a chysylltiadau crefyddol neu wleidyddol. Lle bynnag y bo'n bosibl, rhowch ddyddiadau cyflenwi fel rhan annatod o'r disgrifiad naratif." (ISAAR 5.2.2)</target>
       </trans-unit>
       <trans-unit id="27">
         <source>"Purpose: to indicate the predominant places and/or jurisdictions where the corporate body, person or family was based, lived or resided or had some other connection. Rule: record the name of the predominant place(s)/jurisdiction(s), together with the nature and covering dates of the relationship with the entity." (ISAAR 5.2.3)</source>
-        <target/>
+        <target>"Pwrpas: i nodi'r prif leoedd a/neu awdurdodaethau lle'r oedd y corff, unigolyn neu deulu corfforaethol yn seiliedig, yn byw neu'n byw neu wedi cael rhywfaint o gysylltiad arall. Rheol :  Cofnodwch enw'r prif lle(fydd)/awdurdodaeth(au), ynghyd â natur a dyddiadau cwmpasu'r berthynas gyda'r endid." (ISAAR 5.2.3)</target>
       </trans-unit>
       <trans-unit id="28">
         <source>"Record the legal status and where appropriate the type of corporate body together with the covering dates when this status applied." (ISAAR 5.2.4)</source>
-        <target/>
+        <target>"Cofnodwch y statws cyfreithiol a lle bo'n briodol y math o gorff corfforaethol ynghyd â'r dyddiadau cwmpasu pan roddwyd y statws hwn." (ISAAR 5.2.4)</target>
       </trans-unit>
       <trans-unit id="29">
         <source>"Record the functions, occupations and activities performed by the entity being described, together with the covering dates when useful. If necessary, describe the nature of the function, occupation or activity." (ISAAR 5.2.5)</source>
-        <target/>
+        <target>"Cofnodwch ffwythiannau, galwedigaethau a gweithgareddau a berfformir gan yr endid a ddisgrifir, ynghyd â'r dyddiadau cwmpasu pan yn ddefnyddiol. Os oes angen, disgrifiwch natur y ffwythiant, galwedigaeth neu weithgaredd." (ISAAR 5.2.5)</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Functions, occupations and activities</source>
-        <target/>
+        <target>Ffwythiannau, galwedigaethau a gweithgareddau</target>
       </trans-unit>
       <trans-unit id="31">
         <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the entity being described, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISAAR 5.2.6)</source>
-        <target/>
+        <target>"Cofnodwch unrhyw ddogfen, cyfraith, cyfarwyddeb neu siarter sy'n gweithredu fel ffynhonnell o awdurdod ar gyfer y pwerau, swyddogaethau a chyfrifoldebau'r endid a ddisgrifir, ynghyd â gwybodaeth am awdurdodaeth(au) a dyddiadau cwmpasu pan gafodd y mandad(au) eu cymhwyso neu eu newid." (ISAAR 5.2.6)</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Mandates/sources of authority</source>
-        <target/>
+        <target>Mandadau/ffynonellau awdurdod</target>
       </trans-unit>
       <trans-unit id="33">
         <source>"Describe the internal structure of a corporate body and the dates of any changes to that structure that are significant to the understanding of the way that corporate body conducted its affairs (e.g. by means of dated organization charts). Describe the genealogy of a family (e.g. by means of a family tree) in a way that demonstrates the inter-relationships of its members with covering dates." (ISAAR 5.2.7)</source>
-        <target/>
+        <target>"Disgrifiwch strwythur mewnol y corff corfforaethol a dyddiadau unrhyw newidiadau i'r strwythur hwnnw sydd yn arwyddocaol i ddealltwriaeth o'r ffordd y cynhaliodd y corff corfforaethol ei faterion (ee trwy gyfrwng siartiau trefniadaeth dyddio). Disgrifiwch achyddiaeth o deulu (ee trwy gyfrwng coeden deulu) mewn ffordd sy'n dangos rhyngberthnasau ei aelodau gyda dyddiadau cwmpasu." (ISAAR 5.2.7)</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Internal structures/genealogy</source>
-        <target/>
+        <target>Strwythurau/achyddiaeth mewnol </target>
       </trans-unit>
       <trans-unit id="35">
         <source>"Provide any significant information on the social, cultural, economic, political and/or historical context in which the entity being described operated." (ISAAR 5.2.8)</source>
-        <target/>
+        <target>"Darparwch unrhyw wybodaeth sylweddol ar y cyd-destun cymdeithasol, diwylliannol, economaidd, gwleidyddol a/neu hanesyddol y gweithredodd yr endid sy’n cael ei ddisgrifio." (ISAAR 5.2.8)</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Relationships area</source>
-        <target/>
+        <target>Ardal cysylltiadau</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Control area</source>
-        <target/>
+        <target>Ardal rheoli</target>
       </trans-unit>
       <trans-unit id="38">
         <source>"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)</source>
-        <target/>
+        <target>"Cofnodwch ddynodwr cofnod awdurdod unigryw yn unol â chonfensiynau lleol a/neu genedlaethol. Os bydd y cofnod awdurdod yn cael ei ddefnyddio yn rhyngwladol, cofnodwch god gwlad y wlad lle crëwyd y cofnod awdurdod yn unol â fersiwn diweddaraf o Godau ISO 3166 ar gyfer cynrychiolaeth enwau gwledydd. Lle mae crëwr y cofnod awdurdod yn sefydliad rhyngwladol, rhowch y dynodwr sefydliadol yn lle'r cod gwlad." (ISAAR 5.4.1)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Description identifier</source>
-        <target/>
+        <target>Dynodwr disgrifiad</target>
       </trans-unit>
       <trans-unit id="40">
         <source>"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)</source>
-        <target/>
+        <target>"Cofnodwch ffurf awdurdodedig llawn enw(au) yr asiantaeth(au) sy'n gyfrifol am greu, addasu neu roi’r cofnod awdurdod neu, fel arall, cofnodwch god ar gyfer yr asiantaeth yn unol â'r safon cod asiantaeth genedlaethol neu ryngwladol. Cynhwyswch gyfeiriad i unrhyw systemau adnabod a ddefnyddir i adnabod y sefydliadau (ee ISO 15,511)." (ISAAR 5.4.2)
+
+</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Institution identifier</source>
-        <target/>
+        <target>Dynodwr sefydliad</target>
       </trans-unit>
       <trans-unit id="42">
         <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival authority record. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied. Specify separately which rules have been applied for creating the Authorized form of name. Include reference to any system(s) of dating used to identify dates in this authority record (e.g. ISO 8601)." (ISAAR 5.4.3)</source>
-        <target/>
+        <target>"Pwrpas: I nodi confensiynau neu reolau cenedlaethol neu ryngwladol wrth greu'r cofnod awdurdod archifol. Rheol: Cofnodwch enwau a lle mae’n ddefnyddiol argraffiadau neu ddyddiadau cyhoeddi o gonfensiynau neu reolau a gymhwyswyd. Nodwch ar wahân rheolau sydd wedi cael eu defnyddio ar gyfer creu'r ffurf awdurdodedig o enw. Cynhwyswch gyfeiriad at unrhyw system(au) dyddio a ddefnyddir i nodi dyddiadau yn y cofnod awdurdod hwn (ee ISO 8601)." (ISAAR 5.4.3)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>Rheolau a/neu confensiynau a ddefnyddiwyd</target>
       </trans-unit>
       <trans-unit id="44">
         <source>The purpose of this field is "[t]o indicate the drafting status of the authority record so that users can understand the current status of the authority record." (ISAAR 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
-        <target/>
+        <target>Pwrpas y maes hwn yw "[i] ddangos statws ddrafftio'r cofnod awdurdod fel y gall defnyddwyr ddeall statws presennol y cofnod awdurdod." (ISAAR 5.4.4). Dewiswch Terfynol, Diwygiedig neu Drafft o'r gwymplen.</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal records are those that consist only of the four essential elements of an ISAAR(CPF) compliant authority record (see 4.8), while full records are those that convey information for all relevant ISAAR(CPF) elements of description." (ISAAR 5.4.5)</source>
-        <target/>
+        <target>Dewiswch Llawn, Rhannol neu Ychydig iawn o'r gwymplen. "Yn absenoldeb canllawiau neu reolau cenedlaethol, disgrifiadau bach iawn yw'r rhai sy'n cynnwys dim ond y pedair elfen hanfodol o gofnod awdurdod cydymffurfio ISAAR(CPF) (gweler 4.8), tra bod cofnodion llawn yn rhai sy'n cyfleu gwybodaeth ar gyfer pob elfen o ddisgrifiad ISDIAH perthnasol." (ISAAR 5.4.5)</target>
       </trans-unit>
       <trans-unit id="46">
         <source>"Record the date the authority record was created and the dates of any revisions to the record." (ISAAR 5.4.6)</source>
-        <target/>
+        <target>"Cofnodwch ddyddiad y crëwyd y cofnod awdurdod a dyddiadau unrhyw ddiwygiadau i'r cofnod." (ISAAR 5.4.6)</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>Dyddiadau creadigaeth, adolygiad a dilead</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Last updated</source>
-        <target/>
+        <target>Diweddarwyd ddiwethaf</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Select the language(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
-        <target/>
+        <target>Dewiswch iaith(ieithoedd) y cofnod awdurdod o'r gwymplen; teipiwch rhai o'r llythrennau cyntaf i leihau'r dewisiadau. (ISAAR 5.4.7)</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Select the script(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
-        <target/>
+        <target>Dewiswch sgript(iau) y cofnod awdurdod o'r gwymplen; teipiwch rhai o'r llythrennau cyntaf i leihau'r dewisiadau. (ISAAR 5.4.7)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>"Record the sources consulted in establishing the authority record." (ISAAR 5.4.8)</source>
-        <target/>
+        <target>"Cofnodwch y ffynonellau yr ymgynghorwyd â hwy wrth sefydlu'r cofnod awdurdod." (ISAAR 5.4.8)</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"Record notes pertinent to the creation and maintenance of the authority record. The names of persons responsible for creating the authority record may be recorded here." (ISAAR 5.4.9)</source>
-        <target/>
+        <target>"Cofnodwch nodiadau perthnasol at greu a chynnal y cofnod awdurdod. Gall enwau'r bobl sy'n gyfrifol am greu'r cofnod awdurdod gael eu cofnodi yma." (ISAAR 5.4.9)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Cancel</source>
-        <target/>
+        <target>Diddymu</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Save</source>
-        <target/>
+        <target>Cadw</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Create</source>
-        <target/>
+        <target>Creu</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Related corporate bodies, persons or families</source>
-        <target/>
+        <target>Cyrff corfforaethol, personau neu teuluoedd cysylltiedig</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Name</source>
-        <target/>
+        <target>Enw</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Category</source>
-        <target/>
+        <target>Categori</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Type</source>
-        <target/>
+        <target>Math</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Dates</source>
-        <target/>
+        <target>Dyddiadau</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Description</source>
-        <target/>
+        <target>Disgrifiad</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Edit</source>
-        <target/>
+        <target>Golygu</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Related corporate body, person or family</source>
-        <target/>
+        <target>Corff corfforaethol, person neu teulu cysylltiedig</target>
       </trans-unit>
       <trans-unit id="64">
         <source>"Record the authorized form of name and any relevant unique identifiers, including the authority record identifier, for the related entity." (ISAAR 5.3.1) Select the name from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>"Cofnodwch ffurf awdurdodedig yr enw ac unrhyw fanylion adnabod unigryw perthnasol, gan gynnwys dynodwr y cofnod awdurdod, ar gyfer yr endid cysylltiedig." (ISAAR 5.3.1) Dewiswch yr enw o'r gwymplen; mewnosodwch rhai o'r llythrennau cyntaf i leihau'r dewisiadau.</target>
       </trans-unit>
       <trans-unit id="65">
         <source>"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.</source>
-        <target/>
+        <target>"Pwrpas: I nodi categori cyffredinol y berthynas rhwng yr endid a ddisgrifir a'r corff, unigolyn neu deulu corfforaethol arall." (ISAAR 5.3.2). Dewiswch gategori o'r gwymplen: hierarchaidd, tymhorol, teulu neu gysylltiadol.</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Category of relationship</source>
-        <target/>
+        <target>Categori perthynas</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Relationship type</source>
-        <target/>
+        <target>Math o berthynas</target>
       </trans-unit>
       <trans-unit id="68">
         <source>"Select a descriptive term from the drop-down menu to clarify the type of relationship between these two actors."</source>
-        <target/>
+        <target>"Dewiswch derm disgrifiadol o'r gwymplen i egluro'r math o berthynas rhwng y ddau actor."</target>
       </trans-unit>
       <trans-unit id="69">
         <source>"Record a precise description of the nature of the relationship between the entity described in this authority record and the other related entity....Record in the Rules and/or conventions element (5.4.3) any classification scheme used as a source of controlled vocabulary terms to describe the relationship. A narrative description of the history and/or nature of the relationship may also be provided here." (ISAAR 5.3.3). Note that the text entered in this field will also appear in the related authority record.</source>
-        <target/>
+        <target>"Cofnodwch ddisgrifiad manwl o natur y berthynas rhwng yr endid a ddisgrifir yn y cofnod awdurdod hwn ac yn yr endid cysylltiedig arall.... Cofnodwch yn yr elfen Rheolau a/neu gonfensiynau (5.4.3) unrhyw gynllun dosbarthiad a ddefnyddir fel ffynhonnell dermau geirfa a reolir i ddisgrifio'r berthynas. Gellir darparu disgrifiad naratif o hanes a/neu natur y berthynas yma hefyd." (ISAAR 5.3.3). Noder y bydd y testun a roddir yn y maes hwn hefyd yn ymddangos yn y cofnod awdurdod perthnasol.</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Description of relationship</source>
-        <target/>
+        <target>Disgrifiad perthynas</target>
       </trans-unit>
       <trans-unit id="71">
         <source>"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
-        <target/>
+        <target>"Cofnodwch pan yn berthnasol dyddiad cychwyn y berthynas neu dyddiad yr olyniaeth a, phan yn berthnasol, dyddiad rhoi gorau i’r berthynas." (ISAAR 5.3.4) Rhowch y dyddiad fel yr hoffech iddo ymddangos yn nhudalen dangos y cofnod awdurdod, gan ddefnyddio goleddfwyr a/neu symbolau teipio i fynegi ansicrwydd os dymunir.</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Export</source>
-        <target/>
+        <target>Allforio</target>
       </trans-unit>
       <trans-unit id="73">
         <source>EAC</source>
-        <target/>
+        <target>EAC</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Edit identity area</source>
-        <target/>
+        <target>Golygu ardal dynodi</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Edit description area</source>
-        <target/>
+        <target>Golygu ardal disgrifiad</target>
       </trans-unit>
       <trans-unit id="76">
         <source>History</source>
-        <target/>
+        <target>Hanes</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Places</source>
-        <target/>
+        <target>Lleoedd</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Legal status</source>
-        <target/>
+        <target>Statws cyfreithiol</target>
       </trans-unit>
       <trans-unit id="79">
         <source>General context</source>
-        <target/>
+        <target>Cyd-destun cyffredinol</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Edit relationships area</source>
-        <target/>
+        <target>Golygu ardal cysylltiadau</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Related entity</source>
-        <target/>
+        <target>Endid cysylltiedig</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Identifier of the related entity</source>
-        <target/>
+        <target>Dynodwr yr endid perthnasol</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Category of the relationship</source>
-        <target/>
+        <target>Categori o'r berthynas</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Type of relationship</source>
-        <target/>
+        <target>Math o berthynas</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Dates of the relationship</source>
-        <target/>
+        <target>Dyddiadau'r berthynas</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Related function</source>
-        <target/>
+        <target>Ffwythiant cysylltiedig</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Edit control area</source>
-        <target/>
+        <target>Golygu ardal rheolaeth</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Status</source>
-        <target/>
+        <target>Statws</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Level of detail</source>
-        <target/>
+        <target>Lefel o fanylder</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Language(s)</source>
-        <target/>
+        <target>Iaith(ieithoedd)</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Script(s)</source>
-        <target/>
+        <target>Sgript(iau)</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Sources</source>
-        <target/>
+        <target>Ffynonellau</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Maintenance notes</source>
-        <target/>
+        <target>Nodiadau cynnal a chadw</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Delete</source>
-        <target/>
+        <target>Dileu</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Add new</source>
-        <target/>
+        <target>Ychwanegu newydd</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Related resources</source>
-        <target/>
+        <target>Adnoddau cysylltiedig</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Title</source>
-        <target/>
+        <target>Teitl</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Relationship</source>
-        <target/>
+        <target>Perthynas</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Title of related resource</source>
-        <target/>
+        <target>Teitl yr adnodd cysylltiedig</target>
       </trans-unit>
       <trans-unit id="100">
         <source>"Provide the unique identifiers/reference codes and/or titles for the related resources." (ISAAR 6.1) Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices.</source>
-        <target/>
+        <target>"Darparwch ddynodwyr/codau cyfeirio unigryw a/neu deitlau ar gyfer yr adnoddau cysylltiedig." (ISAAR 6.1) Dewiswch y teitl o'r gwymplen; mewnosodwch y dynodwr neu rhai o'r llythrennau cyntaf i leihau'r dewisiadau.</target>
       </trans-unit>
       <trans-unit id="101">
         <source>"Describe the nature of the relationships between the corporate body, person or family and the related resource." (ISAAR 6.3) Select the type of relationship from the drop-down menu; these values are drawn from the Event Types taxonomy.</source>
-        <target/>
+        <target>"Disgrifiwch natur y berthynas rhwng y corff , unigolyn neu deulu corfforaethol a'r adnoddau cysylltiedig." (ISAAR 6.3) Dewiswch y math o berthynas o'r gwymplen; mae'r gwerthoedd hyn yn cael eu tynnu o'r dacsonomeg Math o Ddigwyddiad.</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Nature of relationship</source>
-        <target/>
+        <target>Natur y berthynas</target>
       </trans-unit>
       <trans-unit id="103">
         <source>"Identify the type of related resources, e.g. Archival materials (fonds, record series, etc), archival description, finding aid, monograph, journal article, web site, photograph, museum collection, documentary film, oral history recording." (ISAAR 6.2) In the current version of the software, Archival material is provided as the only default value.</source>
-        <target/>
+        <target>"Dynodwch y math o adnoddau cysylltiedig, ee deunyddiau archifol (fonds, cyfres cofnodion, ac ati), disgrifiad archifol, cymorth chwilio, monograff, erthygl cylchgrawn, gwefan, ffotograff, casgliad amgueddfa, ffilm ddogfen, recordiad hanes ar lafar." (ISAAR 6.2) Yn fersiwn cyfredol y meddalwedd, mae deunydd Archifol yn cael ei ddarparu fel yr unig werth diofyn.</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Type of related resource</source>
-        <target/>
+        <target>Math o adnodd cysylltiedig</target>
       </trans-unit>
       <trans-unit id="105">
         <source>"Provide any relevant dates for the related resources and/or the relationship between the corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
-        <target/>
+        <target>"Darparwch unrhyw ddyddiadau perthnasol ar gyfer yr adnoddau cysylltiedig â/neu berthynas rhwng y corff, unigolyn neu deulu corfforaethol a'r adnoddau cysylltiedig." (ISAAR 6.4) Rhowch y dyddiad fel yr hoffech iddo ymddangos yn nhudalen dangos y cofnod awdurdod, gan ddefnyddio goleddfwyr a/neu symbolau teipio i fynegi ansicrwydd os dymunir.</target>
       </trans-unit>
     </body>
   </file>

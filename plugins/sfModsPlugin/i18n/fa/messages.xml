@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2015-08-27T12:08:20Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2015-10-16T04:43:26Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -136,7 +136,7 @@
       </trans-unit>
       <trans-unit id="852">
         <source>Places</source>
-        <target/>
+        <target>&#x645;&#x643;&#x627;&#x646; &#x647;&#x627;</target>
       </trans-unit>
       <trans-unit id="853">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
@@ -156,7 +156,7 @@
       </trans-unit>
       <trans-unit id="857">
         <source>Description</source>
-        <target/>
+        <target>&#x62A;&#x648;&#x636;&#x64A;&#x62D;</target>
       </trans-unit>
     </body>
   </file>

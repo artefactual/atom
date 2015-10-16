@@ -1,428 +1,433 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2015-08-27T12:07:24Z" product-name="messages">
+  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2015-10-16T04:43:24Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Cím nélkül</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Kitüntetett névalak%2% - Az elem kitöltése %3%kötelező%4%</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%Dates of existence%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Keletkezési dátumok%2% - Az elem megadása %3%kötelező%4%,</target>
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target> %1% Leírás azonosító/ja - Az elem kitöltése  %3% kötelező %4%.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Type of entity%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Entitás típusa%2% - Az elem megadása %3%kötelező%4%.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Add new authority record</source>
-        <target/>
+        <target>Új iratképző hozzáadása</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Edit %1%</source>
-        <target/>
+        <target>%1% szerkesztése</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Edit %1% - ISAAR</source>
-        <target/>
+        <target>%1% szerkesztése - ISAAR</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Identity area</source>
-        <target/>
+        <target>Azonosítási adatcsoport</target>
       </trans-unit>
       <trans-unit id="10">
         <source>"Specify the type of entity that is being described in this authority record." (ISAAR 5.1.1) Select Corporate body, Family or Person from the drop-down menu.</source>
-        <target/>
+        <target>„Határozzuk meg a leírt entitás típusát, amelyik ebben az azonosító leírásban szerepel.” (ISAAR 5.1.1). Válassza a Szervezet/testület, Család vagy Személy opciókat a legördülő menüből.</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Type of entity</source>
-        <target/>
+        <target>Entitás típusa</target>
       </trans-unit>
       <trans-unit id="12">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Az elem megadása kötelező.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>"Record the standardized form of name for the entity being described in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record. Use dates, place, jurisdiction, occupation, epithet and other qualifiers as appropriate to distinguish the authorized form of name from those of other entities with similar names." (ISAAR 5.1.2)</source>
-        <target/>
+        <target>„A leírt entitás nevének a leírást létrehozó intézmény által alkalmazott, a nemzeti vagy nemzetközi szabályoknak és szokásoknak megfelelő, kitüntetett alakját kell rögzíteni. Alkalmazni kell mindazokat a minősítő adatokat – pl. dátum, hely, jogi státus, foglalkozás, cím, stb. –, melyek szükségesek ahhoz, hogy a kitüntetett névalakot más, hasonló nevű entitásoktól megkülönböztethessük.” (ISAAR 5.1.2)</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Kitüntetett névalak</target>
       </trans-unit>
       <trans-unit id="15">
         <source>"Purpose: To indicate the various forms in which the Authorized form of name occurs in other languages or script form(s). Rule: record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record, including any necessary sub elements and/or qualifiers required by those conventions or rules." (ISAAR 5.1.3)</source>
-        <target/>
+        <target>„Cél: Jelezni, hogy a kitüntetett névalak más nyelven vagy más írásmódban milyen formá(k)ban jelenik meg. Szabály: Az iratképző azonosító leírását létrehozó intézmény által alkalmazott bármely nemzeti vagy nemzetközi szabálynak és szokásnak megfelelően tüntessük fel a névváltozato(ka)t, kiegészítve ezen szabályok és szokások által előírt al-elemekkel, minősítő adatokkal.” (ISAAR 5.1.3)</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Parallel form(s) of name</source>
-        <target/>
+        <target>Párhuzamosan használt névalakok 
+</target>
       </trans-unit>
       <trans-unit id="17">
         <source>"Record the standardized form of name for the entity being described in accordance with other conventions or rules. Specify the rules and/or if appropriate the name of the agency by which these standardized forms of name have been constructed." (ISAAR 5.1.4)</source>
-        <target/>
+        <target>„Rögzítsük a leírt entitás más szabályok vagy szokások szerint szabványosított névalakjait. Soroljuk fel ezen szabályokat, valamint, ha célszerű, a szabványosított névalakot megalkotó intézmények nevét.” (ISAAR 5.1.4)</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Standardized form(s) of name according to other rules</source>
-        <target/>
+        <target>Egyéb szabvány szerinti névalak(ok) </target>
       </trans-unit>
       <trans-unit id="19">
         <source>The purpose of this field is to "indicate any other name(s) for the corporate body, person or family not used elsewhere in the Identity Area." Examples are acronyms, previous names, pseudonyms, maiden names and titles of nobility or honour. (ISAAR 5.1.5)</source>
-        <target/>
+        <target>A mező célja „rögzíteni az adott szervezet/testület, személy vagy család nevének (neveinek) minden olyan alakját, melyek nem szerepelnek az azonosítási adatcsoport más elemeiben"” Például betű- vagy mozaiknév, korábbi nevek, álnevek, leánykori nevek és tiszteletbeli vagy nemesi rangok. (ISAAR 5.1.5)</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Other form(s) of name</source>
-        <target/>
+        <target>Egyéb névalak(ok)</target>
       </trans-unit>
       <trans-unit id="21">
         <source>"Record where possible any official number or other identifier (e.g. a company registration number) for the corporate body and reference the jurisdiction and scheme under which it has been allocated." (ISAAR 5.1.6)</source>
-        <target/>
+        <target>„Rögzítsük, ha ez lehetséges, a szervezetre/testületre vonatkozó hivatalos azonosítószámokat vagy más azonosító kódokat (pl. a vállalat bejegyzési számát), és tüntessük fel, hogy ezeket milyen jogszabály vagy rendszer szerint rendelték hozzá a szervezethez/testülethez.” (ISAAR 5.1.6)</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Identifiers for corporate bodies</source>
-        <target/>
+        <target>A szervezetek/testületek egyedi azonosítói</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Description area</source>
-        <target/>
+        <target>Leírási adatcsoport</target>
       </trans-unit>
       <trans-unit id="24">
         <source>"Record the dates of existence of the entity being described. For corporate bodies include the date of establishment/foundation/enabling legislation and dissolution. For persons include the dates or approximate dates of birth and death or, when these dates are not known, floruit dates. Where parallel systems of dating are used, equivalences may be recorded according to relevant conventions or rules. Specify in the Rules and/or conventions element (5.4.3) the system(s) of dating used, e.g. ISO 8601." (ISAAR 5.2.1)</source>
-        <target/>
+        <target>„„Soroljuk fel a leírt entitás fennállásának/életének/létezésének időköreit. A szervezeteknél/testületeknél adjuk meg a létrehozás/alapítás/törvényes bejegyzés, valamint a megszűnés időpontját. A személyeknél adjuk meg a születés és az elhalálozás időpontjait, ha ezek ismeretlenek, akkor hozzávetőlegesen.  Párhuzamos dátumjelölési rendszerek használata esetén az időpontok többféle szabály szerint is megadhatók. A Szabályok és szokások (5.4.3.) elemben adjuk meg a használt dátumjelölés(ek) szabályait, pl. ISO 8601.” (ISAAR 5.2.1)</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Dates of existence</source>
-        <target/>
+        <target>Létezés időköre 
+</target>
       </trans-unit>
       <trans-unit id="26">
         <source>"Record in narrative form or as a chronology the main life events, activities, achievements and/or roles of the entity being described. This may include information on gender, nationality, family and religious or political affiliations. Wherever possible, supply dates as an integral component of the narrative description." (ISAAR 5.2.2)</source>
-        <target/>
+        <target>„Elbeszélő formában vagy kronologikus rendben fel kell sorolni a leírásra kerülő entitás életének/működésének főbb eseményeit, tevékenységeit, eredményeit. Ide tartozhatnak a nemre, nemzetiségre, családra, vallási vagy politikai elkötelezettségre vonatkozó információk. Az elbeszélés szerves részeként minden lehetséges helyen közölni kell a vonatkozó évszámokat.” (ISAAR 5.2.2)</target>
       </trans-unit>
       <trans-unit id="27">
         <source>"Purpose: to indicate the predominant places and/or jurisdictions where the corporate body, person or family was based, lived or resided or had some other connection. Rule: record the name of the predominant place(s)/jurisdiction(s), together with the nature and covering dates of the relationship with the entity." (ISAAR 5.2.3)</source>
-        <target/>
+        <target>„Cél: Azon fontosabb helyek és/vagy közigazgatási területek felsorolása, melyek területén a szervezet/testület, személy vagy család székhelye volt, ahol élt, lakott, működött, melyekkel kapcsolatba került, vagy melyekre illetékessége kiterjedt. Szabály: Minden főbb helység esetén rögzítsük a hely(ek) vagy közigazgatási terület(ek) nevét, az entitáshoz való kapcsolódás jellegét, valamint a vonatkozó időkört. (ISAAR 5.2.3)</target>
       </trans-unit>
       <trans-unit id="28">
         <source>"Record the legal status and where appropriate the type of corporate body together with the covering dates when this status applied." (ISAAR 5.2.4)</source>
-        <target/>
+        <target>„Rögzítsük a szervezet/testület jogállását, valamint, ha szükséges, a típusát, az érvényesség idejével együtt.” (ISAAR 5.2.4)</target>
       </trans-unit>
       <trans-unit id="29">
         <source>"Record the functions, occupations and activities performed by the entity being described, together with the covering dates when useful. If necessary, describe the nature of the function, occupation or activity." (ISAAR 5.2.5)</source>
-        <target/>
+        <target>„Rögzítsük a leírt entitás funkcióit, foglalkozásait, tevékenységeit, valamint, ha ez szükséges, az ezekhez kapcsolódó időpontokat. Szükség esetén le kell írni a tevékenység, foglalkozás vagy funkció természetét/sajátosságai.” (ISAAR 5.2.5)</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Functions, occupations and activities</source>
-        <target/>
+        <target>Funkció, foglalkozás, tevékenység</target>
       </trans-unit>
       <trans-unit id="31">
         <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the entity being described, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISAAR 5.2.6)</source>
-        <target/>
+        <target>„Rögzítsük, a vonatkozó dátumokkal együtt, azon jogszabályokat, hivatali utasításokat, alapszabályokat, kiváltságokat, melyekből az entitás felelősségi köre, funkciója, hatalma származik, valamint az ezekkel összefüggő illetékesség és hatásköri változásokat.” (ISAAR 5.2.6)</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Mandates/sources of authority</source>
-        <target/>
+        <target>Feladatkör, hatáskör</target>
       </trans-unit>
       <trans-unit id="33">
         <source>"Describe the internal structure of a corporate body and the dates of any changes to that structure that are significant to the understanding of the way that corporate body conducted its affairs (e.g. by means of dated organization charts). Describe the genealogy of a family (e.g. by means of a family tree) in a way that demonstrates the inter-relationships of its members with covering dates." (ISAAR 5.2.7)</source>
-        <target/>
+        <target>„Szervezet/testület esetén írjuk le a szervezeti felépítést, és rögzítsük az időközben történt változtatásokat és azok időpontjait, amilyen mértékben ez szükséges a szervezet/testület működésének megértéséhez (pl. szervezeti ábra segítségével). Család esetében a leszármazás rendjét írjuk le (pl. családfa segítségével), oly módon, hogy a tagok közötti kapcsolatok a vonatkozó dátumokkal együtt legyenek feltüntetve.” (ISAAR 5.2.7)
+</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Internal structures/genealogy</source>
-        <target/>
+        <target>Szervezeti felépítés/geneológia</target>
       </trans-unit>
       <trans-unit id="35">
         <source>"Provide any significant information on the social, cultural, economic, political and/or historical context in which the entity being described operated." (ISAAR 5.2.8)</source>
-        <target/>
+        <target>„Adjunk meg bármely fontos információt, melyek jellemzik azt a társadalmi, kulturális, gazdasági, politikai, történeti stb. környezetet/kontextust, melyben a leírt entitás tevékenységét folytatta.” (ISAAR 5.2.8)</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Relationships area</source>
-        <target/>
+        <target>Kapcsolatok adatcsoport</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Control area</source>
-        <target/>
+        <target>Ellenőrző adatcsoport</target>
       </trans-unit>
       <trans-unit id="38">
         <source>"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)</source>
-        <target/>
+        <target>„Az iratképző azonosító leírását egyedi azonosítóval kell ellátni a helyi és/vagy nemzeti szokásoknak megfelelően. Ha az azonosító leírás nemzetközi használatra készül, rögzíteni kell a rekordot létrehozó ország kódját az ISO 3166 szabvány utolsó változatának megfelelően. Amennyiben az azonosító leírás szerzője nemzetközi szervezet, az ország kódjának helyén a szervezet azonosítóját kell megadni.” (ISAAR 5.4.1)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Description identifier</source>
-        <target/>
+        <target>Leírási azonosító</target>
       </trans-unit>
       <trans-unit id="40">
         <source>"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)</source>
-        <target/>
+        <target>„Rögzíteni kell az iratképző azonosító leírásának kidolgozásáért, módosításáért vagy terjesztéséért felelős intézmény teljes kitüntetett névalakját, vagy meg kell adni annak nemzeti vagy nemzetközi szabvány szerinti kódját. Meg kell jelölni az intézmény azonosítására használt szabályrendszert (pl. ISO 15511).” (ISAAR 5.2.1)</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Institution identifier</source>
-        <target/>
+        <target>Intézmény azonosítója</target>
       </trans-unit>
       <trans-unit id="42">
         <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival authority record. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied. Specify separately which rules have been applied for creating the Authorized form of name. Include reference to any system(s) of dating used to identify dates in this authority record (e.g. ISO 8601)." (ISAAR 5.4.3)</source>
-        <target/>
+        <target>„Cél: Az [iratképző] azonosító leírásának kidolgozása során alkalmazott nemzeti vagy nemzetközi szabályok,  szokások felsorolása. Szabály: Rögzítsük az alkalmazott szabályok, szokások nevét és, amennyiben ez szükséges, a felhasznált változat számát vagy a megjelenés időpontját. Külön fel kell sorolni a „kitüntetett névalak” képzésénél alkalmazott szabályokat. Meg kell adni a dátumformáknál használt különböző szabályrendszereket (pl. ISO 8601).” (ISAAR 5.4.3)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>Felhasznált szabályok és/vagy előírások</target>
       </trans-unit>
       <trans-unit id="44">
         <source>The purpose of this field is "[t]o indicate the drafting status of the authority record so that users can understand the current status of the authority record." (ISAAR 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
-        <target/>
+        <target>A mező célja „[m]egjelölni, hogy az azonosító leírás részletessége minimális, részleges, vagy teljes” (ISAAR 5.4.4). A legördülő menüből válassza ki, hogy Végleges, Felülvizsgált vagy Vázlat.</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal records are those that consist only of the four essential elements of an ISAAR(CPF) compliant authority record (see 4.8), while full records are those that convey information for all relevant ISAAR(CPF) elements of description." (ISAAR 5.4.5)</source>
-        <target/>
+        <target>Válassza a Teljes,  részleges vagy minimális opciókat a legördüló menüből. „Nemzeti útmutatók vagy szabályok hiányában minimális részletességűnek tekintendők azok a rekordok, amelyekben csupán az ISAAR(CPF) szabvány által meghatározott négy legfontosabb elem kerül leírásra (ld. 4.8.) és teljesnek azok, melyek az ISAAR(CPF) szabványban meghatározott összes releváns leírási elemet tartalmazzák.” (ISAAR 5.4.5)
+”</target>
       </trans-unit>
       <trans-unit id="46">
         <source>"Record the date the authority record was created and the dates of any revisions to the record." (ISAAR 5.4.6)</source>
-        <target/>
+        <target>„Meg kell adni az iratképző azonosító leírása létrehozásának dátumát, illetve a felülvizsgálatok időpontjait.” (ISAAR 5.4.6)</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>A leírás készítésének, felülvizsgálatának és törlésének ideje</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Last updated</source>
-        <target/>
+        <target>Utoljára frissítve</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Select the language(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
-        <target/>
+        <target>Válassza ki az iratképző leírásának nyelvét a legördülő menüből; üsse be az első néhány betűt a találatok szűkítéséhez. (ISAAR 5.4.7)</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Select the script(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
-        <target/>
+        <target>Válassza ki az azonosító leírás nyelvét és írásmódját (írásmódjait) a legördülő menüből; gépelje be az első néhány betűt, hogy csökkentse a lehetőségek számát. (ISAAR 5.4.7)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>"Record the sources consulted in establishing the authority record." (ISAAR 5.4.8)</source>
-        <target/>
+        <target>„Ismertessük az iratképző azonosító leírásának kidolgozásához felhasznált forrásokat.” (ISAAR 5.4.8)</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"Record notes pertinent to the creation and maintenance of the authority record. The names of persons responsible for creating the authority record may be recorded here." (ISAAR 5.4.9)</source>
-        <target/>
+        <target>„Rögzítsük az iratképző azonosító leírásának létrehozására és karbantartására vonatkozó adatokat. Itt tüntethető fel a leírás készítőjének neve is.” (ISAAR 5.4.9)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Cancel</source>
-        <target/>
+        <target>Mégsem</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Save</source>
-        <target/>
+        <target>Mentés</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Create</source>
-        <target/>
+        <target>Létrehozás</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Related corporate bodies, persons or families</source>
-        <target/>
+        <target>Kapcsolódó szervezetek/testületek, személyek vagy családok</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Name</source>
-        <target/>
+        <target>Név</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Category</source>
-        <target/>
+        <target>Kategória</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Type</source>
-        <target/>
+        <target>Típus</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Dates</source>
-        <target/>
+        <target>Dátumok</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Description</source>
-        <target/>
+        <target>Leírás</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Edit</source>
-        <target/>
+        <target>Szerkesztés</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Related corporate body, person or family</source>
-        <target/>
+        <target>Kapcsolódó szervezet/testület, személy, vagy család</target>
       </trans-unit>
       <trans-unit id="64">
         <source>"Record the authorized form of name and any relevant unique identifiers, including the authority record identifier, for the related entity." (ISAAR 5.3.1) Select the name from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>„Rögzítsük a kapcsolódó entitás kitüntetett névalakját és minden releváns egyedi azonosítóját, ideértve azonosító leírásának azonosítóját is.” (ISAAR 5.3.1) Válassza ki a nevet a legördülő menüből; üsse be az első néhány betűt, hogy szűkítse a válaszható lehetőségeket.</target>
       </trans-unit>
       <trans-unit id="65">
         <source>"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.</source>
-        <target/>
+        <target>„Cél: Meghatározni a leírt entitás és egy másik szervezet/testület, személy vagy család kapcsolatának általános jellegét.” (ISAAR 5.3.2) Válassza ki a kategóriát a legördülő menüből: hierarchikus, ideiglenes, családi jellegű vagy társulási.</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Category of relationship</source>
-        <target/>
+        <target>A kapcsolat jellege</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Relationship type</source>
-        <target/>
+        <target>Kapcsolat típusa</target>
       </trans-unit>
       <trans-unit id="68">
         <source>"Select a descriptive term from the drop-down menu to clarify the type of relationship between these two actors."</source>
-        <target/>
+        <target>„Válasszon ki egy leíró terminust a legördülő menüből, amely meghatározza a két iratképző közötti kapcsolatot típusát.”</target>
       </trans-unit>
       <trans-unit id="69">
         <source>"Record a precise description of the nature of the relationship between the entity described in this authority record and the other related entity....Record in the Rules and/or conventions element (5.4.3) any classification scheme used as a source of controlled vocabulary terms to describe the relationship. A narrative description of the history and/or nature of the relationship may also be provided here." (ISAAR 5.3.3). Note that the text entered in this field will also appear in the related authority record.</source>
-        <target/>
+        <target>„Ismertessük konkrétan a leírt entitás és a vele kapcsolatban álló entitás kapcsolatának jellegét. … Adjuk meg a "szabályok és szokások" (5.4.3.) elemben a kapcsolatok leírására használt tipológiát. A kapcsolat történetéről és/vagy jellegéről szöveges leírás is adható.” (ISAAR 5.3.3) Az ebbe a mezőbe beírt szöveg meg fog jelenni a kapcsolódó azonosító leírásban.</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Description of relationship</source>
-        <target/>
+        <target>A kapcsolat leírása</target>
       </trans-unit>
       <trans-unit id="71">
         <source>"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
-        <target/>
+        <target>„Rögzítsük, amennyiben megadható, a kapcsolat kezdetét vagy az utódlás időpontját, valamint, a kapcsolat megszűnésének időpontját.” (ISAAR 5.3.4) A dátumot úgy vigye be, ahogy az iratképző azonosító leírásában megjelenítve szeretné látni, ha szükséges, használva  a bizonytalanságot kifejező jeleket és szimbólumokat.</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Export</source>
-        <target/>
+        <target>Exportálás</target>
       </trans-unit>
       <trans-unit id="73">
         <source>EAC</source>
-        <target/>
+        <target>EAC</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Edit identity area</source>
-        <target/>
+        <target>Azonosítási adatcsoport szerkesztése</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Edit description area</source>
-        <target/>
+        <target>Leírási adatcsoport szerkesztése</target>
       </trans-unit>
       <trans-unit id="76">
         <source>History</source>
-        <target/>
+        <target>A levéltár története</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Places</source>
-        <target/>
+        <target>Helyek</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Legal status</source>
-        <target/>
+        <target>Jogállás </target>
       </trans-unit>
       <trans-unit id="79">
         <source>General context</source>
-        <target/>
+        <target>Tágabb összefüggések 
+</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Edit relationships area</source>
-        <target/>
+        <target>Kapcsolatok adatcsoport szerkesztése</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Related entity</source>
-        <target/>
+        <target>Kapcsolódó entitás</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Identifier of the related entity</source>
-        <target/>
+        <target>A kapcsolódó entitás azonosítója</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Category of the relationship</source>
-        <target/>
+        <target>A kapcsolat jellege</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Type of relationship</source>
-        <target/>
+        <target>Kapcsolat típusa</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Dates of the relationship</source>
-        <target/>
+        <target>A kapcsolat időköre</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Related function</source>
-        <target/>
+        <target>Kapcsolódó funkció</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Edit control area</source>
-        <target/>
+        <target>Ellenőrző adatcsoport szerkesztése</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Status</source>
-        <target/>
+        <target>Állapot</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Level of detail</source>
-        <target/>
+        <target>A leírás részletezettségi szintje</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Language(s)</source>
-        <target/>
+        <target>Nyelv(ek)</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Script(s)</source>
-        <target/>
+        <target>Írásrendszer(ek)</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Sources</source>
-        <target/>
+        <target>Források</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Maintenance notes</source>
-        <target/>
+        <target>A leírás karbantartására vonatkozó megjegyzések </target>
       </trans-unit>
       <trans-unit id="94">
         <source>Delete</source>
-        <target/>
+        <target>Törlés</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Add new</source>
-        <target/>
+        <target>Új hozzáadása</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Related resources</source>
-        <target/>
+        <target>Kapcsolódó források</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Title</source>
-        <target/>
+        <target>Cím</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Relationship</source>
-        <target/>
+        <target>Kapcsolat</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Title of related resource</source>
-        <target/>
+        <target>Kapcsolódó forrás címe</target>
       </trans-unit>
       <trans-unit id="100">
         <source>"Provide the unique identifiers/reference codes and/or titles for the related resources." (ISAAR 6.1) Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices.</source>
-        <target/>
+        <target>Meg kell határozni az  érintett források egyedi azonosítóját/hivatkozási kódját és/vagy címét. (ISAAR 6.1) A címet válassza ki a legördülő menüből; gépelje be az azonosítót vagy első néhány betűjét, hogy csökkentse a lehetőségek számát.</target>
       </trans-unit>
       <trans-unit id="101">
         <source>"Describe the nature of the relationships between the corporate body, person or family and the related resource." (ISAAR 6.3) Select the type of relationship from the drop-down menu; these values are drawn from the Event Types taxonomy.</source>
-        <target/>
+        <target>„Ismertessük a szervezet/testület, személy vagy család és az érintett forrás kapcsolatának jellegét.” (ISAAR 6.3) Válassza ki a kapcsolat típusát a legördülő menüből; ezek az értékek az eseménytípusok taxonómiából származnak.</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Nature of relationship</source>
-        <target/>
+        <target>A kapcsolat milyensége</target>
       </trans-unit>
       <trans-unit id="103">
         <source>"Identify the type of related resources, e.g. Archival materials (fonds, record series, etc), archival description, finding aid, monograph, journal article, web site, photograph, museum collection, documentary film, oral history recording." (ISAAR 6.2) In the current version of the software, Archival material is provided as the only default value.</source>
-        <target/>
+        <target>„Határozzuk meg a forrás típusát: pl. levéltári anyag (fond, sorozat stb.), levéltári leírás, segédlet, monográfia, újságcikk, weboldal, fényképgyűjtemény, múzeumi gyűjtemény, film, oral-history hangfelvétel, stb. (ISAAR 6.2) A szoftver jelenlegi verziója egyedül a levéltári anyagot kínálja föl alapértelmezettként.</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Type of related resource</source>
-        <target/>
+        <target>Kapcsolódó forrás típusa</target>
       </trans-unit>
       <trans-unit id="105">
         <source>"Provide any relevant dates for the related resources and/or the relationship between the corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
-        <target/>
+        <target>„Soroljuk fel az érintett forrásra vonatkozó, illetve a szervezet/testület, személy vagy család hozzá fűződő kapcsolata szempontjából meghatározó időköröket.” (ISAAR 6.4) A dátumot úgy vigyük be, ahogy az iratképző azonosító leírásában megjelenítve szeretnénk látni , ha szükséges, használva  a bizonytalanságot kifejező jeleket és szimbólumokat.</target>
       </trans-unit>
     </body>
   </file>

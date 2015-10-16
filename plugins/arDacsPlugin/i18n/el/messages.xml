@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-08-27T12:07:02Z" product-name="messages">
+  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-10-16T04:43:23Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Χωρίς τίτλο</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative / Biographical history</source>
@@ -22,51 +22,51 @@
       </trans-unit>
       <trans-unit id="5">
         <source>Identifier - This is a mandatory element.</source>
-        <target/>
+        <target>Αναγνωριστικό - Το στοιχείο είναι υποχρεωτικό.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Name and location of repository - This is a mandatory element.</source>
-        <target/>
+        <target>Όνομα και τοποθεσία του αποθετηρίου - Το στοιχείο είναι υποχρεωτικό.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Title - This is a mandatory element.</source>
-        <target/>
+        <target>Τίτλος - Το στοιχείο είναι υποχρεωτικό.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Date(s) - are not consistent with higher levels.</source>
-        <target/>
+        <target>Ημερομηνία(ες) - δεν είναι σύμφωνες με το υψηλότερο επίπεδο.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Date(s) - This is a mandatory element.</source>
-        <target/>
+        <target>Ημερομηνία(ες) - Αυτό το στοιχείο είναι υποχρεωτικό.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Extent - This is a mandatory element.</source>
-        <target/>
+        <target>Μέγεθος - Το στοιχείο είναι υποχρεωτικό.</target>
       </trans-unit>
       <trans-unit id="11">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
-        <target/>
+        <target>Η αρχειακή περιγραφή, ή ένα από τα υψηλότερα επίπεδα της, χρειάζεται τουλάχιστον έναν δημιουργό.  </target>
       </trans-unit>
       <trans-unit id="12">
         <source>Scope and content - This is a mandatory element.</source>
-        <target/>
+        <target>Παρουσίαση Περιεχόμενου - Το στοιχείο είναι υποχρεωτικό.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Add new archival description</source>
-        <target/>
+        <target>Προσθήκη νέας αρχειακής περιγραφής</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Edit %1%</source>
-        <target/>
+        <target>Επεξεργασία %1%</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Αυτό είναι αντίγραφο της εγγραφής %1% </target>
       </trans-unit>
       <trans-unit id="16">
         <source>Identity elements</source>
-        <target/>
+        <target>Στοιχεία Αναγνώρισης</target>
       </trans-unit>
       <trans-unit id="17">
         <source>At the highest level of a multilevel description or in a single level description, provide a unique identifier for the materials being described in accordance with the institution’s administrative control system. Optionally, devise unique identifiers at lower levels of a multilevel description. (DACS 2.1.3) The country and repository code will be automatically added from the linked repository record to form a full reference code.</source>
@@ -74,15 +74,15 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Identifier</source>
-        <target/>
+        <target>Αναγνωριστικό</target>
       </trans-unit>
       <trans-unit id="19">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Αυτό το στοιχείο είναι υποχρεωτικό.</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Name and location of repository</source>
-        <target/>
+        <target>Όνομα και τοποθεσία του αποθετηρίου </target>
       </trans-unit>
       <trans-unit id="21">
         <source>Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="23">
         <source>Levels of description</source>
-        <target/>
+        <target>Επίπεδα περιγραφής</target>
       </trans-unit>
       <trans-unit id="24">
         <source>In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material, normally consisting of a name segment, a term indicating the nature of the unit being described, and optionally a topical segment. Do not enclose devised titles in square brackets. (DACS 2.3.3)</source>
@@ -102,7 +102,7 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Title</source>
-        <target/>
+        <target>Τίτλος</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
@@ -114,11 +114,11 @@
       </trans-unit>
       <trans-unit id="28">
         <source>Extent</source>
-        <target/>
+        <target>Μέγεθος</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Name of creator(s)</source>
-        <target/>
+        <target>Όνομα παραγωγού(ων)</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Record the name(s) of the creator(s) identified in the name element in the devised title of the materials using standardized vocabularies or with rules for formulating standardized names (DACS 2.6.4). Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
@@ -130,7 +130,7 @@
       </trans-unit>
       <trans-unit id="32">
         <source>Content and structure elements</source>
-        <target/>
+        <target>Στοιχεία Περιεχομένου και Διάρθρωσης</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Record information about the nature of the materials and activities reflected in the unit being described to enable users to judge its potential relevance, including information about functions, activities, transations, and processes; documentary form(s) or intellectual characteristics; content dates; geographic areas and places; subject matter; completeness of the materials; or any other information that assists the user in evaluating the relevance of the materials. (DACS 3.1)</source>
@@ -138,7 +138,7 @@
       </trans-unit>
       <trans-unit id="34">
         <source>Scope and content</source>
-        <target/>
+        <target>Παρουσίαση Περιεχόμενου</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Describe the current arrangement of the material in terms of the various aggregations within it and their relationships. (DACS 3.2.3)</source>
@@ -146,11 +146,11 @@
       </trans-unit>
       <trans-unit id="36">
         <source>System of arrangement</source>
-        <target/>
+        <target>Σύστημα Ταξινόμησης</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Conditions of access and use elements</source>
-        <target/>
+        <target>Στοιχεία Όρων Πρόσβασης και Χρήσης</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Give information about any restrictions on access to the unit being described (or parts thereof) as a result of the nature of the information therein or statutory/contractual requirements. As appropriate, specify the details of the restriction. If there are no restrictions, state that fact. (DACS 4.1.5)</source>
@@ -158,7 +158,7 @@
       </trans-unit>
       <trans-unit id="39">
         <source>Conditions governing access</source>
-        <target/>
+        <target>Όροι πρόσβασης</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Provide information about the physical characteristics or condition of the unit being described that limit access to it or restrict its use. (DACS 4.2.5)</source>
@@ -174,7 +174,7 @@
       </trans-unit>
       <trans-unit id="43">
         <source>Technical access</source>
-        <target/>
+        <target>Τεχνική πρόσβασης</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Give information about copyright status and any other conditions governing the reproduction, publication, and further use (e.g., display, public screening, broadcast, etc.) of the unit being described after access has been provided. (DACS 4.4.5)</source>
@@ -182,23 +182,23 @@
       </trans-unit>
       <trans-unit id="45">
         <source>Conditions governing reproduction and use</source>
-        <target/>
+        <target>Όροι αναπαραγωγής και χρήσης</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Record the language(s) of the materials being described. (DACS 4.5.2)</source>
-        <target/>
+        <target>Καταγράψτε την γλώσσα(ες) του υλικού που περιγράφεται. (DACS 4.5.2)</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Languages of the material</source>
-        <target/>
+        <target>Γλώσσες του υλικού</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Record the scripts(s) of the materials being described.</source>
-        <target/>
+        <target>Καταγράψτε την γραφή(ες) του υλικού που περιγράφεται.</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Scripts of the material</source>
-        <target/>
+        <target>Γραφή του υλικού</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Record information about any distinctive alphabets, scripts, symbol systems, or abbreviations employed (DACS 4.5.3). If there is no language content, record “no linguistic content.” (DACS 4.5.4)</source>
@@ -206,7 +206,7 @@
       </trans-unit>
       <trans-unit id="51">
         <source>Language and script notes</source>
-        <target/>
+        <target>Σημειώσεις γλώσσας και γραφής</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Record information about any existing finding aids that provide information relating to the context and contents of the unit being described... including any relevant information about its location or availability, and any other information necessary to assist the user in evaluating its usefulness. Include finding aids prepared by the creator (e.g., registers, indexes, etc.) that are part of the unit being described. (DACS 4.6.2)</source>
@@ -230,7 +230,7 @@
       </trans-unit>
       <trans-unit id="57">
         <source>Immediate source of acquisition or transfer</source>
-        <target/>
+        <target>Διαδικασία Πρόσκτησης</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Where the destruction or retention of archival materials has a bearing on the interpretation and use of the unit being described, provide information about the materials destroyed or retained and provide the reason(s) for the appraisal decision(s), where known. (DACS 5.3.4)</source>
@@ -238,7 +238,7 @@
       </trans-unit>
       <trans-unit id="59">
         <source>Appraisal, destruction and scheduling information</source>
-        <target/>
+        <target>Πληροφορίες για επιλογές, εκκαθαρίσεις και τελική διατήρηση</target>
       </trans-unit>
       <trans-unit id="60">
         <source>If known, indicate whether or not further accruals are expected. When appropriate, indicate frequency and volume. (DACS 5.4.2)</source>
@@ -246,7 +246,7 @@
       </trans-unit>
       <trans-unit id="61">
         <source>Related materials elements</source>
-        <target/>
+        <target>Συνδεόμενα στοιχεία υλικού</target>
       </trans-unit>
       <trans-unit id="62">
         <source>If the materials being described are reproductions and the originals are located elsewhere, give the location of the originals (DACS 6.1.4). Record any identifying numbers that may help in locating the originals in the cited location (DACS 6.1.6).</source>
@@ -254,7 +254,7 @@
       </trans-unit>
       <trans-unit id="63">
         <source>Existence and location of originals</source>
-        <target/>
+        <target>Εντοπισμός των πρωτότυπων</target>
       </trans-unit>
       <trans-unit id="64">
         <source>If a copy of all or part of the material being described is available, in addition to the originals, record information about the medium and location of the copy, any identifying numbers, and any conditions on the use or availability of the copy. If a copy of only a part of the unit being described is available, indicate which part. If the materials being described are available via remote access (electronically or otherwise), provide the relevant information needed to access them. (DACS 6.2.3)</source>
@@ -262,7 +262,7 @@
       </trans-unit>
       <trans-unit id="65">
         <source>Existence and location of copies</source>
-        <target/>
+        <target>Εντοπισμός των αντιγράφων</target>
       </trans-unit>
       <trans-unit id="66">
         <source>If there are materials that have a direct and significant connection to those being described by reason of closely shared responsibility or sphere of activity, provide the title, location, and, optionally, the reference number(s) of the related materials and their relationship with the materials being described. (DACS 6.3.5)</source>
@@ -270,7 +270,7 @@
       </trans-unit>
       <trans-unit id="67">
         <source>Related archival materials</source>
-        <target/>
+        <target>Συνδεόμενο αρχειακό υλικό </target>
       </trans-unit>
       <trans-unit id="68">
         <source>Related descriptions</source>
@@ -286,7 +286,7 @@
       </trans-unit>
       <trans-unit id="71">
         <source>Description control element</source>
-        <target/>
+        <target>Στοιχείο ελέγχου περιγραφής</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Record relevant information about sources consulted in establishing or revising the description. (DACS 8.1.3)</source>
@@ -298,63 +298,63 @@
       </trans-unit>
       <trans-unit id="74">
         <source>Record the international, national or local rules or conventions followed in preparing the description. (DACS 8.1.4)</source>
-        <target/>
+        <target>Καταγράφουμε τους διεθνείς, εθνικούς και/ή τοπικούς κανόνες ή τα πρότυπα περιγραφής που ακολουθήθηκαν για τη σύνταξη της περιγραφής. (DACS 8.1.4)</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Κανόνες ή Πρότυπα</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Access points</source>
-        <target/>
+        <target>Σημεία πρόσβαση</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Subject access points</source>
-        <target/>
+        <target>Θέματα ως Σημεία πρόσβασης</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Place access points</source>
-        <target/>
+        <target>Τοποθεσίες ως Σημεία πρόσβασης</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>Όνοματα ως Σημεία πρόσβασης (Θέματα)</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Edit identity elements</source>
-        <target/>
+        <target>Επεξεργασία αναγνωριστικού στοιχείων</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Reference code</source>
-        <target/>
+        <target>Κωδικός αναγνώρισης</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Level of description</source>
-        <target/>
+        <target>Επίπεδο περιγραφής</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Date(s)</source>
-        <target/>
+        <target>Ημερομηνία(ες)</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Related function</source>
-        <target/>
+        <target>Συνδεόμενη Λειτουργία</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Edit context and structure elements</source>
-        <target/>
+        <target>Επεξεργασία στοιχείων Πλαισίου και Διάρθρωσης</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Edit conditions of access and use elements</source>
-        <target/>
+        <target>Επεξεργασία στοιχείων όρων πρόσβασης και χρήσης</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Conditions governing reproduction</source>
-        <target/>
+        <target>Όροι αναπαραγωγής</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Finding aids</source>
-        <target/>
+        <target>Εργαλείο έρευνας</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Edit acquisition and appraisal elements</source>
@@ -362,27 +362,27 @@
       </trans-unit>
       <trans-unit id="90">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Διαδικασία Πρόσκτησης</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Accruals</source>
-        <target/>
+        <target>Προσθήκες Υλικού</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Edit related materials elements</source>
-        <target/>
+        <target>Επεξεργασία στοιχείων σχετικού υλικού</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Publication notes</source>
-        <target/>
+        <target>Σημειώσεις δημοσίευσης</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Edit notes element</source>
-        <target/>
+        <target>Επεξεργασία σημείωσης στοιχείων</target>
       </trans-unit>
       <trans-unit id="95">
         <source>General note</source>
-        <target/>
+        <target>Γενική σημείωση</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Specialized notes</source>
@@ -390,23 +390,23 @@
       </trans-unit>
       <trans-unit id="97">
         <source>Edit description control element</source>
-        <target/>
+        <target>Επεξεργασία στοιχείου ελέγχου περιγραφής</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Archivist's note</source>
-        <target/>
+        <target>Παρατηρήσεις και Όνομα Αρχειονόμου</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Edit access points</source>
-        <target/>
+        <target>Επεξεργασία Σημείων πρόσβασης</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Rights area</source>
-        <target/>
+        <target>Πεδίο δικαιωμάτων</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Accession area</source>
-        <target/>
+        <target>Πεδίο Πρόσκτησης</target>
       </trans-unit>
     </body>
   </file>

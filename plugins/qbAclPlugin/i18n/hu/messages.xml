@@ -1,160 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2015-08-27T12:07:24Z" product-name="messages">
+  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2015-10-16T04:43:24Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Group %1%</source>
-        <target/>
+        <target>Csoport %1%</target>
       </trans-unit>
       <trans-unit id="2">
         <source>All %1%</source>
-        <target/>
+        <target>Minden %1%</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%: %2%</source>
-        <target/>
+        <target>%1%: %2%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>All privileges</source>
-        <target/>
+        <target>Összes privilégium</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Edit %1% permissions of %2%</source>
-        <target/>
+        <target>%1% jogosultság szerkesztése a %2%-ból</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Edit</source>
-        <target/>
+        <target>Szerkesztés</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Delete</source>
-        <target/>
+        <target>Törlés</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Add new</source>
-        <target/>
+        <target>Új hozzáadása</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Permissions for all %1%</source>
-        <target/>
+        <target>Jogosultság minden %1% részére</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Add permissions by %1%</source>
-        <target/>
+        <target> %1% jogosultságok hozzáadása</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Add %1%</source>
-        <target/>
+        <target>%1% hozzáadása</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Cancel</source>
-        <target/>
+        <target>Mégsem</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Save</source>
-        <target/>
+        <target>Mentés</target>
       </trans-unit>
       <trans-unit id="14">
         <source>%1% name</source>
-        <target/>
+        <target>%1% név</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Action</source>
-        <target/>
+        <target>Intézkedés</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Permissions</source>
-        <target/>
+        <target>Jogosultságok</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Grant</source>
-        <target/>
+        <target>Hozzáad</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Deny</source>
-        <target/>
+        <target>Megtagad</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Inherit</source>
-        <target/>
+        <target>Örököl</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Edit %1% permissions</source>
-        <target/>
+        <target>%1% jogosultságok szerkesztése</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Edit permissions</source>
-        <target/>
+        <target>Jogosultságok szerkesztése</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Main area</source>
-        <target/>
+        <target>Fő adatcsoport</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Create</source>
-        <target/>
+        <target>Létrehozás</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Are you sure you want to delete %1%?</source>
-        <target/>
+        <target>Biztosan törölni akarja %1%-t?</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Permission</source>
-        <target/>
+        <target>Jogosultság</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Permissions by taxonomy</source>
-        <target/>
+        <target>Jogosultságok taxanómia szerint</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Taxonomy name</source>
-        <target/>
+        <target>Taxonómia neve</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Add permissions by taxonomy</source>
-        <target/>
+        <target>Jogosultságok hozzáadása taxonómiával</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Add taxonomy</source>
-        <target/>
+        <target>Új taxonomómia</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Permissions by %1%</source>
-        <target/>
+        <target>Jogosultságok %1% szerint</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Group details</source>
-        <target/>
+        <target>Csoport részletek</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Name</source>
-        <target/>
+        <target>Név</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Description</source>
-        <target/>
+        <target>Leírás</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Translate</source>
-        <target/>
+        <target>Fordít</target>
       </trans-unit>
       <trans-unit id="35">
         <source>List groups</source>
-        <target/>
+        <target>Csoportok listája</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Group</source>
-        <target/>
+        <target>Csoport</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Members</source>
-        <target/>
+        <target>Tagok</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Taxonomy: %1%</source>
-        <target/>
+        <target>Taxonómia: %1%</target>
       </trans-unit>
     </body>
   </file>

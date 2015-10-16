@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-08-27T12:07:02Z" product-name="messages">
+  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-10-16T04:43:23Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Χωρίς τίτλο</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Καθιερωμένη μορφή του Ονόματος%2% - Το στοιχείο είναι %3%υποχρεωτικό%4%.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Κωδικός Αναγνώρισης%2% - Αυτό το στοιχείο είναι %3%υποχρεωτικό%4%.</target>
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.</source>
-        <target/>
+        <target>%1%Στοιχεία επικοινωνίας%2% - %3%Απαιτείται%4% να περιλαμβάνεται τουλάχιστον ένα από τα ακόλουθα πεδία τοποθεσίας ή διεύθυνσης: Πόλη, Ταχυδρομικός Κώδικας, ή οδός.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Contact information%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Στοιχεία επικοινωνίας%2% - Το στοιχείο είναι %3%υποχρεωτικό%4%.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Add new archival institution</source>
-        <target/>
+        <target>Προσθήκη Αρχειακού Φορέα</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Edit %1%</source>
-        <target/>
+        <target>Επεξεργασία %1%</target>
       </trans-unit>
       <trans-unit id="8">
         <source>See ISDIAH 5.2 for contact area information and examples.</source>
-        <target/>
+        <target>Βλ. ISDIAH 5.2 για πληροφορίες και παραδείγματα του πεδίου επικοινωνίας.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Enter the digital latitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. 49.459044</source>
@@ -46,23 +46,23 @@
       </trans-unit>
       <trans-unit id="11">
         <source>Edit %1% - ISDIAH</source>
-        <target/>
+        <target>Επεξεργασία %1% - ISDIAH</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Identity area</source>
-        <target/>
+        <target>Πεδίο Αναγνώρισης</target>
       </trans-unit>
       <trans-unit id="13">
         <source>"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)</source>
-        <target/>
+        <target>"Καταγράφουμε τον αριθμητικό ή αλφαριθμητικό κωδικό που προσδιορίζει τον αρχειακό φορέα σύμφωνα με τα σχετικά διεθνή και εθνικά πρότυπα." (ISDIAH 5.1.1)</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Identifier</source>
-        <target/>
+        <target>Αναγνωριστικό</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Αυτό το στοιχείο είναι υποχρεωτικό.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
@@ -70,31 +70,31 @@
       </trans-unit>
       <trans-unit id="17">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Καθιερωμένη μορφή του Ονόματος</target>
       </trans-unit>
       <trans-unit id="18">
         <source>This is a mandatory element</source>
-        <target/>
+        <target>Αυτό το στοιχείο είναι υποχρεωτικό</target>
       </trans-unit>
       <trans-unit id="19">
         <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
-        <target/>
+        <target>"Στόχος: Να υποδειχθούν οι ποικίλες μορφές στις οποίες η καθιερωμένη μορφή του ονόματος ενός οργανισμού συναντάται σε άλλες γλώσσες ή γραφές. Κανόνας: Καταγράφουμε τις παράλληλες μορφές του ονόματος ενός οργανισμού σύμφωνα με τις εθνικές ή διεθνείς συμβάσεις και/ή κανόνες που εφαρμόζονται από τον φορέα ο οποίος δημιούργησε την περιγραφή, περιλαμβάνοντας όλα τα απαραίτητα συστατικά και/ή προσδιοριστικά στοιχεία που απαιτούνται από αυτές τις συμβάσεις ή κανόνες. Προσδιορίστε στα χρησιμοποιούμενα στοιχεία των κανόνων ή / και συμβάσεων (5.6.3), ποιοι κανόνες έχουν έχουν εφαρμοστεί (ISDIAH 5.1.3)</target>
       </trans-unit>
       <trans-unit id="20">
         <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
-        <target/>
+        <target>Καταγράφουμε κάθε άλλο όνομα με το οποίο ο Αρχειακός Φορέας ίσως είναι γνωστός. Σε αυτό περιλαμβάνονται άλλες μορφές του ίδιου ονόματος, ακρωνύμια, άλλα ονόματα, ή αλλαγές του ονόματος στο χρόνο, περιλαμβάνοντας, εάν είναι εφικτό, σχετικές ημερομηνίες. (ISDIAH 5.1.4)</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired from the drop-down menu; these values are drawn from the Repository Types taxonomy.</source>
-        <target/>
+        <target>Καταγράφουμε το τύπο του φορέα τεκμηρίωσης. (ISDIAH 5.1.5) Επιλέγουμε όσους τύπους επιθυμούμε από το αναδιπλούμενο μενού, οι τιμές αυτέ προέρχονται από το ευρετήριο Τύποι αποθετηρίου</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Contact area</source>
-        <target/>
+        <target>Πεδίο επικοινωνίας</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Description area</source>
-        <target/>
+        <target>Πεδίο περιγραφής</target>
       </trans-unit>
       <trans-unit id="24">
         <source>"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)</source>
@@ -102,23 +102,23 @@
       </trans-unit>
       <trans-unit id="25">
         <source>"Identify the geographical area the institution belongs to. Record any other relevant information about the cultural context of the institution." (ISDIAH 5.3.2)</source>
-        <target/>
+        <target>"Προσδιορίζουμε την γεωγραφική περιοχή που ανήκει ο αρχειακός φορέας. Καταγράφουμε κάθε σημαντική πληροφορία σχετικά με το πολιτιστικό πλαίσιο του φορέα." (ISDIAH 5.3.2)</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Geographical and cultural context</source>
-        <target/>
+        <target>Γεωγραφικό και πολιτιστικό πλαίσιο</target>
       </trans-unit>
       <trans-unit id="27">
         <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the institution, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISDIAH 5.3.3)</source>
-        <target/>
+        <target>"Καταγράφουμε όλα τα νομιμοποιητικά κείμενα (νόμοι, διατάγματα, αποφάσεις, πράξεις, οδηγίες, εγκύκλιοι), τα οποία καθορίζουν τις εξουσίες, τις λειτουργίες και τις αρμοδιότητες του φορέα, καθώς και τις πληροφορίες που αφορούν τη δικαιοδοσία και τις χρονολογίες ισχύος ή μεταβολής της." (ISDIAH 5.3.3)</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Mandates/Sources of authority</source>
-        <target/>
+        <target>Προέλευση των Καθιερωμένων Αποδόσεων</target>
       </trans-unit>
       <trans-unit id="29">
         <source>"Describe, in narrative form or using organisational charts, the current administrative structure of the institution." (ISDIAH 5.3.4)</source>
-        <target/>
+        <target>"Περιγράψτε, σε αφηγηματική μορφή ή χρησιμοποιώντας το οργανόγραμμα, την τωρινή διοικητική δομή του φορέα." (ISDIAH 5.3.4)</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Administrative structure</source>
@@ -130,7 +130,7 @@
       </trans-unit>
       <trans-unit id="32">
         <source>Records management and collecting policies</source>
-        <target/>
+        <target>Πολιτικές διαχείρισης και συλλογής αρχείων</target>
       </trans-unit>
       <trans-unit id="33">
         <source>"Record information on the building(s) of the institution (general and architectural characteristics of the building, capacity of storage areas, etc). Where possible, provide information which can be used for generating statistics." (ISDIAH 5.3.6)</source>
@@ -154,7 +154,7 @@
       </trans-unit>
       <trans-unit id="38">
         <source>Access area</source>
-        <target/>
+        <target>Πεδίο πρόσβασης</target>
       </trans-unit>
       <trans-unit id="39">
         <source>"Record the opening hours of the institution and annual, seasonal and public holidays, and any other planned closures. Record times associated with the availability and/or delivery of services (for example, exhibition spaces, reference services, etc.)." (ISDIAH 5.4.1)</source>
@@ -162,23 +162,23 @@
       </trans-unit>
       <trans-unit id="40">
         <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
-        <target/>
+        <target>"Περιγράψτε τις πολιτικές πρόσβασης, συμπεριλαμβανομένων τυχόν περιορισμών ή / και των κανονισμών για τη χρήση του υλικού και των εγκαταστάσεων. Καταγράψτε τις πληροφορίες σχετικά με την εγγραφή, προγραμματισμένες συναντήσεις, τα εισιτήρια αναγνωστών, συστατικές επιστολές, τέλη εισόδου, κλπ. Ανάλογα με την περίπτωση, να κάνετε αναφορά στη σχετική νομοθεσία." (ISDIAH 5.4.2)</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Conditions and requirements</source>
-        <target/>
+        <target>Όροι και προυποθέσεις</target>
       </trans-unit>
       <trans-unit id="42">
         <source>"Record information about travelling to the institution and details for users with disabilities, including building features, specialised equipment or tools, parking or lifts." (ISDIAH 5.4.3)</source>
-        <target/>
+        <target>"Καταγράψτε πληροφορίες σχετικά με την μετακίνηση προς τον φορέα και λεπτομέρειες για χρήστες με ειδικές ανάγκες, περιλαμβάνοντας κτιριακές υποδομές, ειδικό εξοπλισμό, χώρους στάθμευσις ή ανελκυστήρες ." (ISDIAH 5.4.3)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Accessibility</source>
-        <target/>
+        <target>Προσβασιμότητα</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Services area</source>
-        <target/>
+        <target>Πεδίο υπηρεσιών</target>
       </trans-unit>
       <trans-unit id="45">
         <source>"Record information about the onsite services provided by the institution such as languages spoken by staff, research and consultation rooms, enquiry services, internal libraries, map, microfiches, audio-visual, computer rooms, etc. Record as well any relevant information about research services, such as research undertaken by the institution, and the fee charge if applicable." (ISDIAH 5.5.1)</source>
@@ -186,35 +186,35 @@
       </trans-unit>
       <trans-unit id="46">
         <source>"Record information about reproduction services available to the public (microfilms, photocopies, photographs, digitised copies). Specify general conditions and restrictions to the services, including applicable fees and publication rules." (ISDIAH 5.5.2)</source>
-        <target/>
+        <target>Καταγράφουμε πληροφορίες σχετικά με τις διαθέσιμες υπηρεσίες αναπαραγωγής για το κοινό (μικροφίλμ, φωτοαντίγραφα, φωτογράφηση, ψηφιακά αντίγραφα). Διευκρινίστε τους γενικούς όρους και περιορισμούς για τις υπηρεσίες, συμπεριλαμβάνοντας τις ισχύουσες χρεώσεις και τους κανόνες δημοσίευσης. (ISDIAH 5.5.2)</target>
       </trans-unit>
       <trans-unit id="47">
         <source>"Record information about spaces available for public use (permanent or temporary exhibitions, free or charged internet connection, cash machines, cafeterias, restaurants, shops, etc.)." (ISDIAH 5.5.3)</source>
-        <target/>
+        <target>Καταγράφουμε πληροφορίες σχετικά με τους διαθέσιμους χώρους  για χρήση από το κοινό (μόνιμες ή προσωρινές εκθέσεις, ελεύθερη ή με χρέωση πρόσβαση στο διαδίκτυο, ΑΤΜ, καφετέριες, εστιατόρια, μαγαζιά, κλπ). (ISDIAH 5.5.3)</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Public areas</source>
-        <target/>
+        <target>Δημόσιοι χώροι</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Control area</source>
-        <target/>
+        <target>Πεδίο ελέγχου</target>
       </trans-unit>
       <trans-unit id="50">
         <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISIAH 5.6.1)</source>
-        <target/>
+        <target>"Καταγράφουμε έναν μοναδικό κωδικό αναγνώρισης της περιγραφής σύμφωνα με τις τοπικές και/ή εθνικές συμβάσεις. Αν η περιγραφή πρόκειται να χρησιμοποιηθεί διεθνώς, καταγράφουμε τον κωδικό της χώρας στην οποία δημιουργήθηκε η περιγραφή, σύμφωνα με την τελευταία έκδοση του ISO 3166 - Codes for the representation of names of countries. Όπου ο δημιουργός της περιγραφής είναι ένας διεθνής οργανισμός, δίνουμε τον κωδικό του οργανισμού στη θέση του κωδικού της χώρας." (ISIAH 5.6.1)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Description identifier</source>
-        <target/>
+        <target>Αναγνωριστικό περιγραφής</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard." (ISDIAH 5.6.2)</source>
-        <target/>
+        <target>Καταγράφουμε την πλήρη καθιερωμένη μορφή του ονόματος κάθε μιας από τις υπηρεσίες που είναι υπεύθυνες για τη δημιουργία, τροποποίηση ή δημοσιοποίηση της περιγραφής ή, εναλλακτικά, καταγράφουμε έναν κωδικό αναγνώρισης της υπηρεσίας, σύμφωνα με τα εθνικά ή διεθνή πρότυπα κωδικοποίησης υπηρεσιών.  (ISDIAH 5.6.2)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Institution identifier</source>
-        <target/>
+        <target>Αναγνωριστικό φορέα τεκμηρίωσης</target>
       </trans-unit>
       <trans-unit id="54">
         <source>"Record the names, and, where useful, the editions or publication dates of the conventions or rules applied. Specify, separately, which rules have been applied for creating the Authorised form(s) of name. Include reference to any system(s) of dating used to identify dates in this description (e.g. ISO 8601)." (ISDIAH 5.6.3)</source>
@@ -222,51 +222,51 @@
       </trans-unit>
       <trans-unit id="55">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>Χρησιμοποιούμενοι Κανόνες ή Πρότυπα Περιγραφής</target>
       </trans-unit>
       <trans-unit id="56">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDIAH 5.6.4). Select Final, Revised or Draft from the drop-down menu.</source>
-        <target/>
+        <target>Ο στόχος του πεδίου αυτού είναι "να προσδιοριστεί το στάδιο στο οποίο βρίσκεται η επεξεργασία της περιγραφής ώστε οι χρήστες να μπορούν να κατανοήσουν την παρούσα κατάστασή της".(ISDIAH 5.6.4). Επιλέξτε Final, Revised ή Draft από το αναδιπλούμενο μενού.</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal descriptions are those that consist only of the three essential elements of an ISIAH compliant description (see 4.7), while full records are those that convey information for all relevant ISDIAH elements of description." (ISDIAH 5.6.5)</source>
-        <target/>
+        <target>Επιλέξτε  Full, Partial ή Minimal από το αναδιπλούμενο μενού. "Εάν δεν υπάρχουν εθνικές οδηγίες ή κανόνες, ως ελάχιστες περιγραφές θεωρούνται εκείνες που περιλαμβάνουν μόνο τα τρία απαραίτητα στοιχεία μιας περιγραφής συμβατής με το ISIAH (βλ. 4.7), ενώ πλήρεις εγγραφές είναι εκείνες που περιλαμβάνουν πληροφορίες για όλα τα στοιχεία περιγραφής." (ISDIAH 5.6.5)</target>
       </trans-unit>
       <trans-unit id="58">
         <source>"Record the date the description was created and the dates of any revisions to the description." (ISDIAH 5.6.6)</source>
-        <target/>
+        <target>"Καταγράψτε την ημερομηνία δημιουργίας της περιγραφής, και κάθε ημερομηνία αναθεώρησης της περιγραφής." (ISDIAH 5.6.6)</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>Ημερομηνίες δημιουργίας, αναθεώρησης και διαγραφής</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Last updated</source>
-        <target/>
+        <target>Τελευταία ενημέρωση</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
-        <target/>
+        <target>Επιλέξτε τη γλώσσα(ες) της εγγραφής από το αναδιπλούμενο μενού, εισάγετε τα πρώτα γράμματα του ονόματος για να περιορίσετε τις επιλογές. (ISDIAH 5.6.7)</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
-        <target/>
+        <target>Επιλέξτε τη γλώσσα(ες) της εγγραφής από το αναδιπλούμενο μενού, εισάγετε τα πρώτα γράμματα για να περιορίσετε τις επιλογές. (ISDIAH 5.6.7)</target>
       </trans-unit>
       <trans-unit id="63">
         <source>"Record the sources consulted in establishing the description of the institution." (ISDIAH 5.6.8)</source>
-        <target/>
+        <target>"Καταγράψτε τις πηγές που συμβουλευτήκατε για τον προσδιορισμό της περιγραφής του φορέα". (ISDIAH 5.6.8)</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Sources</source>
-        <target/>
+        <target>Πηγές</target>
       </trans-unit>
       <trans-unit id="65">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
-        <target/>
+        <target>"Καταγράψτε σημειώσεις σχετικά με τη δημιουργία και τη διατήρηση της περιγραφης." (ISDIAH 5.6.9)</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Access points</source>
-        <target/>
+        <target>Σημεία πρόσβαση</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Thematic area</source>
@@ -286,23 +286,23 @@
       </trans-unit>
       <trans-unit id="71">
         <source>Cancel</source>
-        <target/>
+        <target>Ακύρωση</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Save</source>
-        <target/>
+        <target>Αποθήκευση</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Create</source>
-        <target/>
+        <target>Δημιουργήστε</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Primary contact</source>
-        <target/>
+        <target>Βασική επικοινωνία</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Website</source>
-        <target/>
+        <target>Ιστότοπος</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Email</source>
@@ -310,35 +310,35 @@
       </trans-unit>
       <trans-unit id="77">
         <source>Edit identity area</source>
-        <target/>
+        <target>Επεξεργασία πεδίου αναγνώρισης</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Parallel form(s) of name</source>
-        <target/>
+        <target>Παράλληλη μορφή(ες) του Ονόματος</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Other form(s) of name</source>
-        <target/>
+        <target>Άλλες μορφές του ονόματος</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Type</source>
-        <target/>
+        <target>Τύπος</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Edit contact area</source>
-        <target/>
+        <target>Επεξεργασία πεδίου επικοινωνίας</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Edit description area</source>
-        <target/>
+        <target>Επεξεργασία πεδίου περιγραφής</target>
       </trans-unit>
       <trans-unit id="83">
         <source>History</source>
-        <target/>
+        <target>Ιστορικό/Βιογραφικό</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Buildings</source>
-        <target/>
+        <target>Κτίρια</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Holdings</source>
@@ -346,11 +346,11 @@
       </trans-unit>
       <trans-unit id="86">
         <source>Edit access area</source>
-        <target/>
+        <target>Επεξεργασία πεδίου πρόσβασης</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Opening times</source>
-        <target/>
+        <target>Ωράριο λειτουργίας</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Access conditions and requirements</source>
@@ -358,43 +358,43 @@
       </trans-unit>
       <trans-unit id="89">
         <source>Edit services area</source>
-        <target/>
+        <target>Επεξεργασία πεδίου υπηρεσιών</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Research services</source>
-        <target/>
+        <target>Υπηρεσίες έρευνας</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Reproduction services</source>
-        <target/>
+        <target>Υπηρεσίες αναπαραγωγής</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Edit control area</source>
-        <target/>
+        <target>Επεξεργασία πεδίου ελέγχου</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Status</source>
-        <target/>
+        <target>Κατάσταση</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Level of detail</source>
-        <target/>
+        <target>Επίπεδο λεπτομέρειας</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Language(s)</source>
-        <target/>
+        <target>Γλώσσα(ες)</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Script(s)</source>
-        <target/>
+        <target>Γραφή(ες)</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Maintenance notes</source>
-        <target/>
+        <target>Σημειώσεις συντήρησης</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Edit access points</source>
-        <target/>
+        <target>Επεξεργασία Σημείων πρόσβασης</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Access Points</source>
@@ -402,19 +402,19 @@
       </trans-unit>
       <trans-unit id="100">
         <source>Edit</source>
-        <target/>
+        <target>Επεξεργασία</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Delete</source>
-        <target/>
+        <target>Διαγραφή</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Add new</source>
-        <target/>
+        <target>Προσθήκη νέου</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Edit theme</source>
-        <target/>
+        <target>Επεξεργασία θέματος ιστοσελίδας</target>
       </trans-unit>
     </body>
   </file>

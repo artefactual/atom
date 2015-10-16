@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2015-08-27T12:09:43Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2015-10-16T04:43:30Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -76,7 +76,7 @@
       </trans-unit>
       <trans-unit id="777">
         <source>General material designation</source>
-        <target/>
+        <target>Allgemeine Werkstoffbezeichnung</target>
       </trans-unit>
       <trans-unit id="778">
         <source>Parallel title</source>
@@ -144,7 +144,7 @@
       </trans-unit>
       <trans-unit id="831">
         <source>Description record identifier</source>
-        <target/>
+        <target>Beschreibungsdatensatzkennzahl</target>
       </trans-unit>
       <trans-unit id="895">
         <source>Level of description - This is a mandatory element.</source>
@@ -280,7 +280,7 @@
       </trans-unit>
       <trans-unit id="937">
         <source>Standard number area</source>
-        <target/>
+        <target>Standardnummernbereich</target>
       </trans-unit>
       <trans-unit id="938">
         <source>Edit standard number area</source>
@@ -644,7 +644,7 @@
       </trans-unit>
       <trans-unit id="1050">
         <source>Administrative history / Biographical sketch</source>
-        <target/>
+        <target>Verwaltungsgeschichte/Biogramm</target>
       </trans-unit>
       <trans-unit id="1051">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
@@ -652,15 +652,15 @@
       </trans-unit>
       <trans-unit id="1052">
         <source>Genre access points</source>
-        <target/>
+        <target>Zugriffspunkt (Genre)</target>
       </trans-unit>
       <trans-unit id="1053">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
-        <target/>
+        <target>Suchen Sie nach einem existierenden Begriff in der "Genre-Taxonomie" indem Sie die ersten Buchstaben des Begriffs eintippen. Alternativ geben sie einen neuen Namen ein und verlinken ihn mit einem neuen Genre-Begriff. </target>
       </trans-unit>
       <trans-unit id="1054">
         <source>General note</source>
-        <target/>
+        <target>Allgemeine Anmerkung</target>
       </trans-unit>
     </body>
   </file>

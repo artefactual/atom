@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2015-08-27T12:11:02Z" product-name="messages">
+  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2015-10-16T04:43:34Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -138,11 +138,11 @@
       </trans-unit>
       <trans-unit id="38">
         <source>Places</source>
-        <target/>
+        <target>สถานที</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
-        <target/>
+        <target>ค้นหาคำที่มีอยู่ในอนุกรมวิธานสถานที่ด้วยการพิมพ์ตัวอักษรบางตัวหรือพิมพ์คำใหม่เพื่อสร้างและเชื่อมโยงไปยังสถานที่คำศัพท์ใหม่.</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Names</source>
@@ -150,7 +150,7 @@
       </trans-unit>
       <trans-unit id="41">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target/>
+        <target>ิิ"เลือกแหล่งที่มาของเอกสาร ผู้เขียนและnon-subject access pontอื่นๆ จากคำอธิบายจดหมายเหตุตามความเหมาะสมจุดเข้าถึงเอกสารที่เกียวข้องทั้งหมดจะต้องเห็นได้ชัดในคำอธิบายจดหมายเหตุ "(RAD 21.0B) ค่าในfieldนี้ถูกดึงออกมาจากใบมอบฉันทะในfiledชื่อในauthority records ค้นหาชื่อที่มีอยู่โดยการพิมพ์ตัวอักษรบางตัวหรือพิมพ์ชื่อใหม่เพื่อสร้างและเชื่อมโยงไปยังauthority recordใหม่</target>
       </trans-unit>
       <trans-unit id="42">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
@@ -158,7 +158,7 @@
       </trans-unit>
       <trans-unit id="43">
         <source>Description</source>
-        <target/>
+        <target>คำอธิบาย</target>
       </trans-unit>
     </body>
   </file>

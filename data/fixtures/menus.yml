@@ -42,6 +42,7 @@ QubitMenu:
       pt_BR: Navegar
       sl: Brskaj
       sr: Прегледај
+      sv: Bläddra
       vi: Duyệt
       zh: 浏览
   QubitMenu_mainmenu_addedit:
@@ -77,6 +78,7 @@ QubitMenu:
       ru: Добавить
       sl: Dodaj
       sr: Додај
+      sv: 'Lägg till'
       th: เพิ่ม
       vi: Thêm
       zh: 添加
@@ -112,6 +114,7 @@ QubitMenu:
       ru: Управление
       sl: Uredi
       sr: Уреди
+      sv: Hantera
       th: บริหาร(Manage)
       vi: 'Quản lý'
       zh: 管理
@@ -123,6 +126,7 @@ QubitMenu:
     label:
       ca: Ingressos
       ca@valencia: Ingressos
+      cy: Derbynion
       de: Akzessionen
       de-CH: Akzessionen
       el: Προσκτήσεις
@@ -144,6 +148,7 @@ QubitMenu:
       pt_BR: Incorporações
       sl: Prevzemi
       sr: 'Улазни инвентари'
+      sv: Accessioner
       th: การเข้าถึงเอกสาร
       vi: 'Truy cập'
       zh: 登记
@@ -156,6 +161,7 @@ QubitMenu:
       ca: Donants
       ca@valencia: Donants
       cs: Dárci
+      cy: Rhoddwyr
       de: 'Abgebende Stellen/Personen'
       de-CH: 'Abgebende Stellen/Personen'
       en: Donors
@@ -177,6 +183,7 @@ QubitMenu:
       ru: Доноры
       sl: Donatorji
       sr: 'Предаваоци грађе'
+      sv: Donatorer
       th: ผู้บริจาค
       vi: 'Người tặng'
       zh: 捐赠者
@@ -239,6 +246,7 @@ QubitMenu:
     label:
       ca: 'Titulars dels drets'
       ca@valencia: 'Titulars de drets'
+      cy: 'Deiliaid yr hawliau'
       de: Rechteinhaber
       de-CH: Rechteinhaber
       en: 'Rights holders'
@@ -271,6 +279,7 @@ QubitMenu:
     label:
       ca: Taxonomies
       ca@valencia: Taxonomies
+      cy: Tacsonomegau
       de: Taxonomien
       de-CH: Taxonomien
       el: Ταξονομίες
@@ -328,6 +337,7 @@ QubitMenu:
       ru: Импорт
       sl: Uvoz
       sr: Увести
+      sv: Importera
       th: นำเข้า
       vi: 'nội dung'
       zh: 导入
@@ -340,6 +350,7 @@ QubitMenu:
     label:
       ca: Administrador
       ca@valencia: Administrador
+      cy: Gweinyddiaeth
       de: Administrator
       de-CH: Administrator
       el: Διαχειριστής
@@ -362,6 +373,7 @@ QubitMenu:
       ru: Администратор
       sl: Skrbnik
       sr: Администратор
+      sv: Admin
       vi: 'quản trị'
       zh: 管理员
     path: user/list
@@ -372,6 +384,7 @@ QubitMenu:
     label:
       ca: 'Registres d''ingressos'
       ca@valencia: 'Registres d''ingressos'
+      cy: 'Cofnodion derbyn'
       de: Akzessionsdateien
       de-CH: Akzessionsdateien
       el: 'Εγγραφή πρόσκτησης'
@@ -392,7 +405,7 @@ QubitMenu:
       pt-BR: 'Registros de incorporação'
       pt_BR: 'Registros de incorporação'
       sl: 'Zapisi o prevzemu'
-      sr: 'Инвентарни записи'
+      sr: 'Записник о преузимању'
       th: รายงานการเข้าถึงเอกสาร
       vi: 'Kỷ lục truy cập'
       zh: 登记记录
@@ -405,6 +418,7 @@ QubitMenu:
       ca: 'Descripcions arxivístiques'
       ca@valencia: 'Descripcions arxivístiques'
       cs: 'Archivní popisy'
+      cy: 'Disgrifiadau archifol'
       de: 'Archivische Beschreibungen'
       de-CH: 'Archivische Beschreibungen'
       el: 'Αρχειακές περιγραφές'
@@ -425,6 +439,7 @@ QubitMenu:
       ru: 'Архивные описания'
       sl: 'arhivski opisi'
       sr: 'Архивски описи'
+      sv: Arkivbeskrivningar
       vi: 'Mô tả lưu trữ'
       zh: 文献著录
     path: informationobject/add
@@ -442,7 +457,7 @@ QubitMenu:
       en: 'Authority records'
       es: 'Registro de autoridad'
       eu: 'Autoretza erregistroak'
-      fr: 'Notices d''autorité'
+      fr: 'Fichiers d''autorité'
       gl: 'Rexistros de autoridade'
       hu: Iratképzők
       is: Nafnspjöld
@@ -465,6 +480,7 @@ QubitMenu:
     label:
       ca: 'Institucions arxivístiques'
       ca@valencia: 'Institucions arxivístiques'
+      cy: 'Sefydladau archifol'
       de: Archive
       de-CH: Archive
       el: 'Αρχειακοί Φορείς'
@@ -488,6 +504,7 @@ QubitMenu:
       ru: 'Архивные учреждения'
       sl: 'arhivske ustanove'
       sr: 'Архивске институције'
+      sv: Arkivinstitutioner
       th: คลังเก็บ
       vi: 'Tổ chức lưu trữ'
       zh: 文献机构
@@ -617,6 +634,7 @@ QubitMenu:
       pt_BR: CSV
       sl: CSV
       sr: CSV
+      sv: CSV
       vi: CSV
       zh: 逗号分隔值文件(CSV)
     path: 'object/importSelect?type=csv'
@@ -652,6 +670,7 @@ QubitMenu:
       ru: Пользователи
       sl: Uporabniki
       sr: Корисници
+      sv: Användare
       th: ผู้ใช้
       vi: 'Người dùng'
       zh: 用户
@@ -699,6 +718,7 @@ QubitMenu:
       ca: 'Permisos de les descripcions arxivístiques'
       ca@valencia: 'Permisos de descripció arxivística'
       cs: 'Práva k archivním popisům'
+      cy: 'Hawliau disgrifiad archifol'
       de: 'Berechtigung für archivische Beschreibungen'
       en: 'Archival description permissions'
       es: 'Information object permissions'
@@ -726,6 +746,7 @@ QubitMenu:
     label:
       ca: 'Permisos del registre d''autoritat'
       ca@valencia: 'Permisos registre d''autoritat'
+      cy: 'Hawliau cofnod awdurdod'
       de: 'Berechtigung für Normdateien'
       en: 'Authority record permissions'
       es: 'Permisos del actor'
@@ -754,6 +775,7 @@ QubitMenu:
     label:
       ca: 'Permisos de les institucions arxivístiques'
       ca@valencia: 'Permisos institucions arxivístiques'
+      cy: 'Hawliau sefydliad archifol'
       de: 'Berechtigung für Archive'
       en: 'Archival institution permissions'
       es: 'Permisos Instituciones archivísticas'
@@ -769,6 +791,7 @@ QubitMenu:
       pt_BR: 'Permissões de instituições arquivísticas'
       sl: 'Dovoljenja glede arhivske ustanove'
       sr: 'Дозволе архивске инстутције'
+      sv: 'Behörigheter arkivinstitution'
       vi: 'Cho phép tổ chức lưu trữ'
       zh: 文献机构权限
   QubitMenu_mainmenu_admin_users_termAcl:
@@ -779,6 +802,7 @@ QubitMenu:
     label:
       ca: 'Permisos per a les taxonomies'
       ca@valencia: 'Permisos per a taxonomies'
+      cy: 'Hawliau tacsonomeg'
       el: 'Δικαιώματα ταξονομίας'
       en: 'Taxonomy permissions'
       es: 'Permisos para taxonomías'
@@ -877,6 +901,7 @@ QubitMenu:
       ca: 'Permisos de les descripcions arxivístiques'
       ca@valencia: 'Permisos de descripció arxivística'
       cs: 'Práva k archivním popisům'
+      cy: 'Hawliau disgrifiad archifol'
       de: 'Berechtigung für archivische Beschreibungen'
       en: 'Archival description permissions'
       es: 'Information object permissions'
@@ -904,6 +929,7 @@ QubitMenu:
     label:
       ca: 'Permisos del registre d''autoritat'
       ca@valencia: 'Permisos registre d''autoritat'
+      cy: 'Hawliau cofnod awdurdod'
       de: 'Berechtigung für Normdateien'
       en: 'Authority record permissions'
       es: 'Permisos del actor'
@@ -932,6 +958,7 @@ QubitMenu:
     label:
       ca: 'Permisos de les institucions arxivístiques'
       ca@valencia: 'Permisos institucions arxivístiques'
+      cy: 'Hawliau sefydliad archifol'
       de: 'Berechtigung für Archive'
       en: 'Archival institution permissions'
       es: 'Permisos Instituciones archivísticas'
@@ -947,6 +974,7 @@ QubitMenu:
       pt_BR: 'Permissões de instituições arquivísticas'
       sl: 'Dovoljenja glede arhivske ustanove'
       sr: 'Дозволе архивске инстутције'
+      sv: 'Behörigheter arkivinstitution'
       vi: 'Cho phép tổ chức lưu trữ'
       zh: 文献机构权限
   QubitMenu_mainmenu_admin_groups_termAcl:
@@ -957,6 +985,7 @@ QubitMenu:
     label:
       ca: 'Permisos per a les taxonomies'
       ca@valencia: 'Permisos per a taxonomies'
+      cy: 'Hawliau tacsonomeg'
       el: 'Δικαιώματα ταξονομίας'
       en: 'Taxonomy permissions'
       es: 'Permisos para taxonomías'
@@ -986,6 +1015,7 @@ QubitMenu:
     label:
       ca: 'Pàgines estàtiques'
       ca@valencia: 'Pàgines estàtiques'
+      cy: 'Tudalennau statig'
       de: 'Statische Seiten'
       de-CH: 'Statische Seiten'
       el: 'Στατικές σελίδες'
@@ -1018,6 +1048,7 @@ QubitMenu:
     label:
       ca: Menús
       ca@valencia: Menús
+      cy: Arlwyon
       de: Menüs
       de-CH: Menüs
       el: Μενού
@@ -1039,6 +1070,7 @@ QubitMenu:
       ru: Меню
       sl: Meniji
       sr: Менији
+      sv: Menyer
       vi: Menus
       zh: 选单
     path: menu/list
@@ -1147,6 +1179,7 @@ QubitMenu:
     label:
       ca: 'Actualitzacions de descripció'
       ca@valencia: 'Actualitzacions de descripció'
+      cy: 'Diweddariadau disgrifiad'
       de: 'Aktualisierung der Beschreibung'
       de-CH: 'Aktualisierung der Beschreibung'
       el: 'Περιγραφή ενημερώσεων'
@@ -1179,6 +1212,7 @@ QubitMenu:
     label:
       ca: 'Cerca/reemplaça a nivell global'
       ca@valencia: 'Cercar/reemplaçar global'
+      cy: 'Chwilio/amnewid traws-systemol'
       de: 'Allgemeines Suchen/Ersetzen'
       de-CH: 'Allgemeines Suchen/Ersetzen'
       el: 'Γενική αναζήτηση/αντικατάσταση'
@@ -1198,6 +1232,7 @@ QubitMenu:
       pt_BR: 'Pesquisa/substituição global'
       sl: 'Išči/zamenjaj v celotnem programu'
       sr: 'Општа претрага/замена'
+      sv: 'Global sök/ersätt'
       th: 'ค้นหา / แทน ทั่วโลก'
       vi: 'Tìm hiểu phạm vi quốc tế/ thay thế'
       zh: 全局搜索/替代
@@ -1232,6 +1267,7 @@ QubitMenu:
       pt_BR: Início
       sl: Domov
       sr: 'Почетна страна'
+      sv: Hem
       vi: 'Trang chủ'
       zh: 主页
     path: '@homepage'
@@ -1266,6 +1302,7 @@ QubitMenu:
       pt_BR: Sobre
       sl: 'O programu'
       sr: О
+      sv: Om
       vi: Về
       zh: 关于
     path: 'staticpage/index?slug=about'
@@ -1369,6 +1406,7 @@ QubitMenu:
       ru: Войти
       sl: Prijava
       sr: 'Пријави се'
+      sv: 'Logga in'
       th: เข้าสู่ระบบ
       vi: 'Đăng nhập'
       zh: 登入
@@ -1416,6 +1454,7 @@ QubitMenu:
       ca: 'Descripcions arxivístiques'
       ca@valencia: 'Descripcions arxivístiques'
       cs: 'Archivní popisy'
+      cy: 'Disgrifiadau archifol'
       de: 'Archivische Beschreibungen'
       de-CH: 'Archivische Beschreibungen'
       el: 'Αρχειακές περιγραφές'
@@ -1435,6 +1474,7 @@ QubitMenu:
       ru: 'Архивные описания'
       sl: 'arhivski opisi'
       sr: 'Архивски описи'
+      sv: Arkivbeskrivningar
       vi: 'Mô tả lưu trữ'
       zh: 文献著录
     path: informationobject/browse
@@ -1452,7 +1492,7 @@ QubitMenu:
       en: 'Authority records'
       es: 'Registro de autoridad'
       eu: 'Autoretza erregistroak'
-      fr: 'Notices d''autorité'
+      fr: 'Fichiers d''autorité'
       gl: 'Rexistros de autoridade'
       hu: Iratképzők
       is: Nafnspjöld
@@ -1474,6 +1514,7 @@ QubitMenu:
     label:
       ca: 'Institucions arxivístiques'
       ca@valencia: 'Institucions arxivístiques'
+      cy: 'Sefydladau archifol'
       de: Archive
       de-CH: Archive
       el: 'Αρχειακοί Φορείς'
@@ -1496,6 +1537,7 @@ QubitMenu:
       ru: 'Архивные учреждения'
       sl: 'arhivske ustanove'
       sr: 'Архивске институције'
+      sv: Arkivinstitutioner
       th: คลังเก็บ
       vi: 'Tổ chức lưu trữ'
       zh: 文献机构
@@ -1507,6 +1549,7 @@ QubitMenu:
     label:
       ca: Funcions
       ca@valencia: Funcions
+      cy: Ffwythiannau
       de: Funktionen
       de-CH: Funktionen
       el: Λειτουργίες
@@ -1529,6 +1572,7 @@ QubitMenu:
       pt_BR: Funções
       sl: Funkcije
       sr: Функције
+      sv: Funktioner
       th: ฟังก์ชั่น
       vi: 'Các chức năng'
       zh: 功能
@@ -1562,7 +1606,7 @@ QubitMenu:
       pt_BR: Assuntos
       ru: Темы
       sl: Osebe
-      sr: Теме
+      sr: Предмет
       th: หัวข้อ
       vi: 'Chủ đề'
       zh: 主题
@@ -1574,6 +1618,7 @@ QubitMenu:
     label:
       ca: Llocs
       ca@valencia: Llocs
+      cy: Lleoedd
       de: Orte
       de-CH: Orte
       el: Τοποθεσίες
@@ -1644,6 +1689,7 @@ QubitMenu:
     label:
       ca: 'Elements públics'
       ca@valencia: 'Elements visibles'
+      cy: 'Elfennau gweladwy'
       de: 'Sichtbare Elemente'
       de-CH: 'Sichtbare Elemente'
       el: 'Ορατά στοιχεία'
@@ -1676,6 +1722,7 @@ QubitMenu:
     label:
       ca: 'Pàgines estàtiques'
       ca@valencia: 'Pàgines estàtiques'
+      cy: 'Tudalennau statig'
       de: 'Statische Seiten'
       de-CH: 'Statische Seiten'
       el: 'Στατικές σελίδες'
@@ -1704,13 +1751,18 @@ QubitMenu:
     source_culture: en
     name: clipboard
     label:
-      en: 'Clipboard'
+      de: Zwischenablage
+      en: Clipboard
+      fr: Presse-papiers
+      sr: Међумеморија
   QubitMenu_clipboardclearmenu:
     parent_id: QubitMenu_clipboardmenu
     source_culture: en
     name: clearClipboard
     label:
+      de: 'Auswahl löschen'
       en: 'Clear selections'
+      sr: 'Очисти одабрано'
     path: user/clipboardClear
   QubitMenu_clipboardgotomenu:
     parent_id: QubitMenu_clipboardmenu
@@ -1718,4 +1770,5 @@ QubitMenu:
     name: goToClipboard
     label:
       en: 'Go to clipboard'
+      sr: 'Иди у међумеморију (clipboard)'
     path: user/clipboard

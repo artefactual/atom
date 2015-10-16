@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2015-08-27T12:09:35Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2015-10-16T04:43:29Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>List plugins</source>
-        <target/>
+        <target>Rhestri plugins</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Name</source>
-        <target/>
+        <target>Enw</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Version</source>
-        <target/>
+        <target>Fersiwn</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Enabled</source>
-        <target/>
+        <target>Galluogwyd</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Save</source>
-        <target/>
+        <target>Cadw</target>
       </trans-unit>
       <trans-unit id="6">
         <source>List themes</source>
-        <target/>
+        <target>Rhestri'r themâu</target>
       </trans-unit>
     </body>
   </file>

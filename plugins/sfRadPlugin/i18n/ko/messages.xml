@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2015-08-27T12:08:51Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2015-10-16T04:43:27Z" product-name="messages">
     <body>
       <trans-unit id="44">
         <source>Reference code</source>
@@ -660,7 +660,7 @@
       </trans-unit>
       <trans-unit id="987">
         <source>General note</source>
-        <target/>
+        <target>일반 주기</target>
       </trans-unit>
     </body>
   </file>

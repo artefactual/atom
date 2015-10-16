@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2015-08-27T12:08:02Z" product-name="messages">
+  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2015-10-16T04:43:26Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -646,23 +646,23 @@
       </trans-unit>
       <trans-unit id="184">
         <source>Administrative history / Biographical sketch</source>
-        <target/>
+        <target>Administrativna zgodovina/Biografski oris</target>
       </trans-unit>
       <trans-unit id="185">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
+        <target>Identifikator: Vnesite nedvoumno signaturo za točno identifikacijo arhivskega popisa. Nivo: Iz spustnega menija izberite nivo popisa. Preberite RAD 1.0A za več informacij o pravilih in dogovorih pri izboru nivojev popisa. Naslov: Vnesite dejanski naslov, ki je lahko prepisan ali prevzet. (RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="186">
         <source>Genre access points</source>
-        <target/>
+        <target>Gesla glede spola</target>
       </trans-unit>
       <trans-unit id="187">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
-        <target/>
+        <target>Poiščite obstoječ izraz v taksonomiji Spol, tako da vnesete prvih nekaj črk izraza, lahko pa vnesete nov izraz in ustvarite povezavo do novega izraza glede spola.</target>
       </trans-unit>
       <trans-unit id="188">
         <source>General note</source>
-        <target/>
+        <target>Splošna opomba</target>
       </trans-unit>
     </body>
   </file>

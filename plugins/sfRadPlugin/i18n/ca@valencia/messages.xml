@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca@valencia" datatype="plaintext" original="messages" date="2015-08-27T12:09:28Z" product-name="messages">
+  <file source-language="en" target-language="ca@valencia" datatype="plaintext" original="messages" date="2015-10-16T04:43:29Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Sense títol </target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative history / Biographical sketch</source>
@@ -14,143 +14,145 @@
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
-        <target/>
+        <target>Història administrativa </target>
       </trans-unit>
       <trans-unit id="4">
         <source>Biographical sketch</source>
-        <target/>
+        <target>Esquema biogràfic </target>
       </trans-unit>
       <trans-unit id="5">
         <source>This archival description requires at least one date.</source>
-        <target/>
+        <target>Aquesta descripció arxivística requereix almenys una data.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Date(s) - are not consistent with %1%higher levels%2%.</source>
-        <target/>
+        <target>Data(es) - no són consistents amb els %1%nivells superiors%2%.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Physical description - This is a mandatory element.</source>
-        <target/>
+        <target>Descripció física - Aquest és un element obligatori.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Title - This is a mandatory element.</source>
-        <target/>
+        <target>Títol - Aquest és un element obligatori.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Level of description - Value "%value%" is not consistent with higher levels.</source>
-        <target/>
+        <target>Nivell de descripció - El valor "%value%" no és consistent amb els nivells superiors.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Level of description - This is a mandatory element.</source>
-        <target/>
+        <target>Nivell de descripció - Aquest és un element obligatori. </target>
       </trans-unit>
       <trans-unit id="11">
         <source>Statement of scale (architectural) - This is a mandatory element for architectural drawing.</source>
-        <target/>
+        <target>Esment de l'escala (arquitectònica) - Aquest és un element obligatori per a plànols arquitectònics</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Statement of coordinates (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>Esment de coordenades (cartogràfica) - Aquest és un element obligatori per a material cartogràfic.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Statement of projection (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>Esment de projecció (cartogràfica) - Aquest és un element obligatori per a material cartogràfic.</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Statement of scale (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>Esment de l'escala (cartogràfica) - Aquest és un element obligatori per a material cartogràfic</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
-        <target/>
+        <target>Jurisdicció d'emissió i denominació (filatèlic) - Aquest és un element obligatori per a un registre filatèlic.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Scope and content - This is a mandatory element.</source>
-        <target/>
+        <target>Abast i contingut - Aquest és un element obligatori.</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Edition statement - This is a mandatory element for published items if there are multiple editions.</source>
-        <target/>
+        <target>Declaració d'edició - aquest element és obligatori per a ítems ja publicats si existeixen edicions múltiples.</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Add new archival description</source>
-        <target/>
+        <target>Agregar nova descripció arxivística </target>
       </trans-unit>
       <trans-unit id="19">
         <source>Edit %1%</source>
-        <target/>
+        <target>Editar %1%</target>
       </trans-unit>
       <trans-unit id="20">
         <source>"Give the date(s) of creation of the unit being described either as a single date, or range of dates (for inclusive dates and/or predominant dates). Always give the inclusive dates. When providing predominant dates, specify them as such, preceded by the word predominant..." (RAD 1.4B2) Record probable and uncertain dates in square brackets, using the conventions described in 1.4B5.</source>
-        <target/>
+        <target>“Registre la data(es) de creació de la unitat que es descriu ja siga com una única data o un rang de dates (per a dates inclusives i/o dates predominants). Sempre lliure les dates inclusives. Quan es lliuren dates predominants, especifique-les com a tals, precedides per la paraula predominant...” (RAD 1.4B2) Registre dates probables i incertes en claudàtors quadrats, usant les convencions descrites en 1.4B5.</target>
       </trans-unit>
       <trans-unit id="21">
         <source>"Make notes on dates and any details pertaining to the dates of creation, publication, or distribution, of the unit being described that are not included in the Date(s) of creation, including publication, distribution, etc., area and that are considered to be important." (RAD 1.8B8) "Make notes on the date(s) of accumulation or collection of the unit being described." (RAD 1.8B8a)</source>
-        <target/>
+        <target>"Fer notes sobre les dates i detalls pertanyents a les dates de creació, publicació o distribució de la unitat que es descriu que no s'han inclòs en l'àrea de Data(es) de creació, incloent publicació, distribució, etc., que es considera són importants." (RAD 1.8B8) "Faça notes en la data(es) d'acumulació o col·lecció de la unitat que es descriu." (RAD 1.8B8a)
+</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Select the type of activity that established the relation between the authority record and the archival description (e.g. creation, accumulation, collection, publication, etc.)</source>
-        <target/>
+        <target>Seleccione el tipus d'activitat que va establir la relació entre el registre d'autoritat i la descripció arxivística (ex. creació, acumulació, col·lecció, publicació, etc.)</target>
       </trans-unit>
       <trans-unit id="23">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Aquest és un registre duplicat de %1%</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Title and statement of responsibility area</source>
-        <target/>
+        <target>Àrea de títol i declaració de responsabilitat</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
+        <target>Ingresse un títol apropiat, ja siga transcrit o subministrador. (RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Title proper</source>
-        <target/>
+        <target>Títol apropiat</target>
       </trans-unit>
       <trans-unit id="27">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Aquest és un element obligatori.</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
-        <target/>
+        <target>Seleccione la Designació General del Material en el nivell superior de descripció. Si hi ha més de tres, seleccione "mitjans múltiples" (RAD 1.1C)</target>
       </trans-unit>
       <trans-unit id="29">
         <source>General material designation</source>
-        <target/>
+        <target>Tipus general de material </target>
       </trans-unit>
       <trans-unit id="30">
         <source>"[W]hen applicable, transcribe parallel titles that appear in conjunction with the formal title proper..." (RAD 1.1D)</source>
-        <target/>
+        <target>"Quan siga aplicable, transcriga els títols paral·lels que apareixen en conjunció amb el títol oficial apropiat..." (RAD 1.1D)</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Parallel titles</source>
-        <target/>
+        <target>Títols paral·lels</target>
       </trans-unit>
       <trans-unit id="32">
         <source>"Transcribe other title information that appears in conjunction with the formal title proper..." (RAD 1.1E)</source>
-        <target/>
+        <target>"Transcriga una altra informació del títol que aparega en conjunt amb el títol oficial apropiat..." (RAD 1.1I)</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Other title information</source>
-        <target/>
+        <target>Altra informació de títol </target>
       </trans-unit>
       <trans-unit id="34">
         <source>"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)</source>
-        <target/>
+        <target>"En el nivell de descripció d'ítem, transcriga les declaracions de responsabilitat explícites que apareixen en conjunció amb el títol formal apropiat, en o sobre la font d'informació principal..." (RAD 1.1F)
+</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Statement of responsibility</source>
-        <target/>
+        <target>Declaració de responsabilitat </target>
       </trans-unit>
       <trans-unit id="36">
         <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
-        <target/>
+        <target>Seleccione un nivell de descripció des del menú desplegable. Veure RAD 1.0A per a regles i convencions en seleccionar nivells de descripció.</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Level of description</source>
-        <target/>
+        <target>Nivell de descripció </target>
       </trans-unit>
       <trans-unit id="38">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
@@ -158,259 +160,259 @@
       </trans-unit>
       <trans-unit id="39">
         <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
-        <target/>
+        <target>Seleccione el repositori que té custòdia i control del material d'arxiu. Els valors en aquest camp són extrets des del camp Forma autoritzada del nom en els registres d'institució arxivística. Cercar un nom existent escrivint els primers caràcters del nom. Alternativament, escriga un nou nom per a crear i enllaçar una nova institució arxivística.</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Enter an unambiguous code used to uniquely identify the description.</source>
-        <target/>
+        <target>Ingresse un codi no ambigu utilitzat per a identificar únicament la descripció.</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Reference code</source>
-        <target/>
+        <target>Codi de referència</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Edition area</source>
-        <target/>
+        <target>Àrea d'edició </target>
       </trans-unit>
       <trans-unit id="43">
         <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
-        <target/>
+        <target>"Utilitze esta àrea solament en el nivell de descripció de l'ítem per a registrar esments corresponents a versions existents de l'ítem en dos o més versions o estats en còpies úniques o múltiples." (RAD 1.2A1) "Transcriga l'esment d'edició corresponent a l'ítem que s'està descrivint." (RAD 1.2B1) "Si l'ítem que està descrivint-se no té un esment d'edició però conté canvis significatius pel que fa a altres edicions, agregue un esment breu en el mateix idioma que presenta el títol i tanque-ho entre cometes." (RAD 1.2B3)</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Edition statement</source>
-        <target/>
+        <target>Declaració d'edició </target>
       </trans-unit>
       <trans-unit id="45">
         <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
-        <target/>
+        <target>"Transcriga una declaració de responsabilitat relacionada a una o més edicions, però no per a totes les edicions, per als ítems que es descriuen seguint la declaració d'edició, si hi ha alguna." (RAD 1.2.C1) "Quan es descriu la primera edició, lliure totes les declaracions de responsabilitat en el Títol i àrea de declaració de responsabilitat." (RAD 1.2C2)</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Statement of responsibility relating to the edition</source>
-        <target/>
+        <target>Declaració de responsabilitat relativa a l'edició</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Class of material specific details area</source>
-        <target/>
+        <target>Àrea de detalls específics de la classe de material</target>
       </trans-unit>
       <trans-unit id="48">
         <source>"Give the scale of the unit being described...as a representative fraction (RF) expressed as a ratio (1: ). Precede the ratio by Scale. Give the scale even if it is already recorded as part of the title proper or other title information." (RAD 5.3B1)</source>
-        <target/>
+        <target>"Lliure l'escala de la unitat que es descriu... com una fracció representativa (RF) expressada com una proporció (1: ). Precedisca la proporció per Escala. Lliure l'escala fins i tot si ja ha sigut registrada com a part del títol o una altra informació del títol." (RAD 5.3B1)</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Statement of scale (cartographic)</source>
-        <target/>
+        <target>Esment de l'escala (cartogràfica)</target>
       </trans-unit>
       <trans-unit id="50">
         <source>"Give the statement of projection if it is found on the prescribed source(s) of information." (RAD 5.3C1)</source>
-        <target/>
+        <target>"Lliure la declaració de projecció si està fundada en la(es) font(s) d'informació prescrita." (RAD 5.3C1)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Statement of projection (cartographic)</source>
-        <target/>
+        <target>Esment de projecció (cartogràfica)</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"At the fonds, series or file levels, record coordinates for the maximum coverage provided by the materials in the unit, as long as they are reasonably contiguous." (RAD 5.3D)</source>
-        <target/>
+        <target>"En els fons, sèries o nivells d'arxiu, registre les coordenades per a la cobertura màxima proveïdes pels materials en la unitat, sempre que siguen raonablement contigües." (RAD 5.3D)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Statement of coordinates (cartographic)</source>
-        <target/>
+        <target>Esment de coordenades (cartogràfica)</target>
       </trans-unit>
       <trans-unit id="54">
         <source>"Give in English the scale in the units of measure found on the unit being described. If there is no English equivalent for the name of the unit of measure, give the name, within quotation marks, as found on the unit being described." (RAD 6.3B)</source>
-        <target/>
+        <target>“Proporcione en Valencià l'escala en unitats de mesura que es troba en la unitat que es descriu. Si no hi ha equivalència en Valencià per al nom de la unitat de mesura, lliure el nom, dins de cometes, com es troba en la unitat que es descriu.” (RAD 6.3B)</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Statement of scale (architectural)</source>
-        <target/>
+        <target>Esment de l'escala (arquitectònica)</target>
       </trans-unit>
       <trans-unit id="56">
         <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
-        <target/>
+        <target>"Lliure el nom de la jurisdicció (ex. govern) responsable d'emetre els registres filatèlics." (RAD 12.3B1) "Per a totes les unitats que posseeixen una denominació (ex. segells de correu, timbres fiscals, articles de papereria postal), lliure la denominació en un format estandarditzat , registrant el número de denominació en numerals aràbics seguits pel nom de la unitat de moneda. Incloga una declaració de denominació fins i tot si la denominació ja ha sigut registrada com a part del títol o una altra informació del títol." (RAD 12.3C1)</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Issuing jurisdiction and denomination (philatelic)</source>
-        <target/>
+        <target>Jurisdicció d'emissió i denominació (filatèlic) </target>
       </trans-unit>
       <trans-unit id="58">
         <source>Dates of creation area</source>
-        <target/>
+        <target>Àrea de dates de creació</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Add new name and/or date(s)</source>
-        <target/>
+        <target>Agregar nou nom i/o data(es)</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Physical description area</source>
-        <target/>
+        <target>Àrea de descripció física </target>
       </trans-unit>
       <trans-unit id="61">
         <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
-        <target/>
+        <target>En tots els nivells registre l'extensió de la unitat que es descriu donant el número d'unitats físiques en números aràbics i la designació específica del material, com s'instrueix en la subregla .5 B en el capítol(s) que tracta amb l'àmplia classe(s) de material amb a la qual pertany la unitat que es descriu." (RAD 1.5B1) Incloga altres detalls físics i dimensions com s'especifica en RAD 1.5C i 1.5D. Separe entrades múltiples en aquest camp amb un retorn de carro (ex. pressione la tecla Enter en el seu teclat)</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Physical description</source>
-        <target/>
+        <target>Descripció física </target>
       </trans-unit>
       <trans-unit id="63">
         <source>Publisher's series area</source>
-        <target/>
+        <target>Àrea de sèries editorials</target>
       </trans-unit>
       <trans-unit id="64">
         <source>"At the item level of description, transcribe a title proper of the publisher's series as instructed in 1.1B1." (RAD 1.6B)</source>
-        <target/>
+        <target>"En el nivell de descripció d'ítem, transcriga un títol apropiat de la sèrie de l'editor com s'instrueix en 1.1B1." (RAD 1.6B)</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Title proper of publisher's series</source>
-        <target/>
+        <target>Títol apropiat de les sèries de l'editor</target>
       </trans-unit>
       <trans-unit id="66">
         <source>"Transcribe parallel titles of a publisher's series as instructed in 1.1D." (RAD 1.6C1)</source>
-        <target/>
+        <target>"Transcriga els títols paral·lels d'una sèrie editorial com s'instrueix en 1.1D." (RAD 1.6C1)</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Parallel title of publisher's series</source>
-        <target/>
+        <target>Títol paral·lel de sèrie editorial</target>
       </trans-unit>
       <trans-unit id="68">
         <source>"Transcribe other title information of a publisher's series as instructed in 1.1E and only if considered necessary for identifying the publisher's series." (RAD 1.6D1)</source>
-        <target/>
+        <target>"Transcriga una altra informació del títol d'una sèrie editorial com s'instrueix en 1.1E i solament si ho considera necessari per a identificar les sèries editorials." (RAD 1.6D1)</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Other title information of publisher's series</source>
-        <target/>
+        <target>Una altra informació de títol de les sèries editorials</target>
       </trans-unit>
       <trans-unit id="70">
         <source>"Transcribe explicit statements of responsibility appearing in conjunction with a formal title proper of a publisher's series as instructed in 1.1F and only if considered necessary for identifying the publisher's series." (RAD 1.6E1)</source>
-        <target/>
+        <target>"Transcriga les declaracions de responsabilitat explícites que apareguen en conjunt amb un títol oficial apropiat de les sèries editorials, com s'instrueix en 1.1F i solament si ho considera necessari per a identificar les sèries editorials." (RAD 1.6I1)</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Statement of responsibility relating to publisher's series</source>
-        <target/>
+        <target>Declaració de responsabilitat relativa a les sèries editorials</target>
       </trans-unit>
       <trans-unit id="72">
         <source>"Give the numbering of the item within a publisher's series in the terms given in the item." (RAD 1.6F1)</source>
-        <target/>
+        <target>Lliure la numeració de l'ítem dins d'una sèrie editorial en els termes donats en l'ítem." (RAD 1.6F1)</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Numbering within publisher's series</source>
-        <target/>
+        <target>Numeració dins de la sèrie editorial</target>
       </trans-unit>
       <trans-unit id="74">
         <source>"Make notes on important details of publisher's series that are not included in the Publisher's series area, including variant series titles, incomplete series, and of numbers or letters that imply a series." (RAD 1.8B10)</source>
-        <target/>
+        <target>"Faça notes sobre detalls importants de les sèries editorials que no estan incloses en l'àrea de sèries editorials, incloent títols de sèries variants, sèries incompletes, i de números o lletres que impliquen una sèrie." (RAD 1.8B10)</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Note on publisher's series</source>
-        <target/>
+        <target>Nota en les sèries editorials</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Archival description area</source>
-        <target/>
+        <target>Àrea de descripció arxivística </target>
       </trans-unit>
       <trans-unit id="77">
         <source>Edit authority record</source>
-        <target/>
+        <target>Editar registre d'autoritat </target>
       </trans-unit>
       <trans-unit id="78">
         <source>"Give the history of the custody of the unit being described, i.e., the successive transfers of ownership and custody or control of the material, along with the dates thereof, insofar as it can be ascertained." (RAD 1.7C)</source>
-        <target/>
+        <target>"Lliure la història de la custòdia de la unitat que es descriu, ex. les transferències successives de propietat i custòdia o control del material, juntament amb les dates dels mateixos, en la mesura en què es puguen determinar." (RAD 1.7C)</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Custodial history</source>
-        <target/>
+        <target>Historial de custòdia </target>
       </trans-unit>
       <trans-unit id="80">
         <source>"At the fonds, series, and collection levels of description, and when necessary at the file and the item levels of description, indicate the level being described and give information about the scope and the internal structure of or arrangement of the records, and about their contents." (RAD 1.7D) "For the scope of the unit being described, give information about the functions and/or kinds of activities generating the records, the period of time, the subject matter, and the geographical area to which they pertain. For the content of the unit being described, give information about its internal structure by indicating its arrangement, organization, and/or enumerating its next lowest level of description. Summarize the principal documentary forms (e.g., reports, minutes, correspondence, drawings, speeches)." (RAD 1.7D1)</source>
-        <target/>
+        <target>"En els nivells de descripció de fons, sèries i col·leccions, i quan siga necessari en l'arxiu i els nivells de descripció d'ítem, indicar el nivell que es descriu i lliurar informació sobre l'abast i l'estructura interna del o dels arranjaments de registres, i sobre els seus continguts". (RAD 1.7D) "Per a l'abast de la unitat que es descriu, lliurar informació sobre les seues funcions i/o tipus d'activitats generant els registres, el període de temps, la matèria tema, i l'àrea geogràfica a la qual pertany. Per al contingut de la unitat que es descriu, lliurar informació sobre la seua estructura interna indicant els seus arranjaments, organització, i/o enumerant el seu següent nivell de descripció més baix. Resumisca la forma principal documental (ex. reportes, minutes, correspondència, dibuixos, discursos)." (RAD 1.7D1)</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Scope and content</source>
-        <target/>
+        <target>Abast i contingut </target>
       </trans-unit>
       <trans-unit id="82">
         <source>Notes area</source>
-        <target/>
+        <target>Àrea de notes</target>
       </trans-unit>
       <trans-unit id="83">
         <source>"Make notes on the physical condition of the unit being described if that condition materially affects the clarity or legibility of the records." (RAD 1.8B9a)</source>
-        <target/>
+        <target>"Faça notes sobre la condició física de la unitat que es descriu, si esta condició afecta materialment la claredat o llegibilitat dels registres." (RAD 1.8B9a)</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Physical condition</source>
-        <target/>
+        <target>Condicions físiques </target>
       </trans-unit>
       <trans-unit id="85">
         <source>"Record the donor or source (i.e., the immediate prior custodian) from whom the unit being described was acquired, and the date and method of acquisition, as well as the source/donor's relationship to the material, if any or all of this information is not confidential. If the source/donor is unknown, record that information." (RAD 1.8B12)</source>
-        <target/>
+        <target>"Registrar el donant o font (ex. el custodi immediat anterior) des dels quals la unitat que es descriu va ser adquirida, i la data i mètode d'adquisició, així com la relació de la font/donant per al material, si qualsevol o tota aquesta informació no és confidencial. Si la font/donant és coneguda, registrar aqueixa informació." (RAD 1.8B12)</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Origen de l'ingrés </target>
       </trans-unit>
       <trans-unit id="87">
         <source>"Make notes on the arrangement of the unit being described which contribute significantly to its understanding but cannot be put in the Scope and content (see 1.7D), e.g., about reorganisation(s) by the creator, arrangement by the archivist, changes in the classification scheme, or reconstitution of original order." (RAD 1.8B13)</source>
-        <target/>
+        <target>"Faça notes sobre l'arranjament de la unitat que es descriu la qual cosa contribueix significativament a la seua comprensió però no pot ser posada en Abast i contingut (veure 1.7D), ex. sobre reorganització(ns) pel creador, arranjament per l'arxiver, canvis en l'esquema de classificació, o reconstitució de l'ordre original." (RAD 1.8B13)</target>
       </trans-unit>
       <trans-unit id="88">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>"Registre l'idioma o idiomes de la unitat que es descriu, llevat que haja sigut anotat en una altra part o siga aparent des d'altres elements de la descripció." (RAD 1.8.B14). Seleccione l'idioma des del menú desplegable; ingresse les primeres lletres per a reduir les alternatives.</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Language of material</source>
-        <target/>
+        <target>Idioma del material </target>
       </trans-unit>
       <trans-unit id="90">
         <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>"Tingueu en compte els alfabets distintius o sistemes de símbols utilitzats." (RAD 1.8.B14) Seleccioneu la seqüència de comandaments al menú desplegable, introduïu les primeres lletres per a reduir les opcions.</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Script of material</source>
-        <target/>
+        <target>Escriptura del material</target>
       </trans-unit>
       <trans-unit id="92">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
-        <target/>
+        <target>"Registre l'idioma o idiomes de la unitat que es descriu, llevat que haja sigut anotat en una altra part o siga aparent des d'altres elements de la descripció." (RAD 1.8.B14). Seleccione l'idioma des del menú desplegable; ingresse les primeres lletres per a reduir les alternatives.</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Language and script notes</source>
-        <target/>
+        <target>Nota sobre les llengües i escriptures </target>
       </trans-unit>
       <trans-unit id="94">
         <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
-        <target/>
+        <target>"Si la unitat que es descriu és una reproducció i la localització del material original és coneguda, lliure esta localització. Lliure, a més, qualsevol número identificatiu que puga ajudar a localitzar el material original en la citada localització. Si es sap que els originals ja no existeixen, lliure esta informació." (RAD 1.8B15a)</target>
       </trans-unit>
       <trans-unit id="95">
         <source>"If all or part of the unit being described is available (either in the institution or elsewhere) in another format(s), e.g., if the text being described is also available on microfilm; or if a film is also available on videocassette, make a note indicating the other format(s) in which the unit being described is available and its location, if that information is known. If only a part of the unit being described is available in another format(s), indicate which parts." (RAD 1.8B15b)</source>
-        <target/>
+        <target>"Si tota o part de la unitat que es descriu està disponible (ja siga en la institució o en una altra part) en un altre(s) format(s), ex. si el text que es descriu també està disponible en microfilm; o si una pel·lícula també està disponible en cinta de vídeo, faça una nota indicant el/els altre(s) format(s) en el qual la unitat que es descriu està disponible i la seua localització, si esta informació és coneguda. Si solament una part de la unitat que es descriu està disponible en un altre format(s), indique quines parts." (RAD 1.8B15b)</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Availability of other formats</source>
-        <target/>
+        <target>Disponibilitat d'altres formats</target>
       </trans-unit>
       <trans-unit id="97">
         <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
-        <target/>
+        <target>“Proporcione informació sobre qualsevol restricció localitzada en l'accés a la unitat (o parts de la unitat) que es descriu.” (RAD 1.8B16a)</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Restrictions on access</source>
-        <target/>
+        <target>Restriccions d'accés </target>
       </trans-unit>
       <trans-unit id="99">
         <source>For terms governing use and reproduction, "Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c). For terms governing publication, "Give information on legal or donor restrictions that may affect publication of the material." (RAD 1.8B16d)</source>
-        <target/>
+        <target>Per a la gestió de l'ús i reproducció, "Donar informació sobre restriccions de donants o legals que puguen afectar a l'ús o reproducció dels materials". (RAD 1.8B16c). Per a la gestió de la publicació, "Donar informació sobre restriccions referides als donants o legals que puguen afectar a la publicació dels materials". (RAD 1.8B16d)</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Terms governing use, reproduction, and publication</source>
-        <target/>
+        <target>Condicions d'ús, reproducció, i publicació</target>
       </trans-unit>
       <trans-unit id="101">
         <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
-        <target/>
+        <target>“Proporcione informació relativa a l'existència de qualsevol instrument de descripció. Incloga eines administratives i/o control intel·lectual apropiades sobre el material en existència al moment de la descripció de la unitat, tal com cartes de catalogació, llistat de caselles, llistats de sèries, inventaris, índexs, etc.” (RAD 1.8B17)</target>
       </trans-unit>
       <trans-unit id="102">
         <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
-        <target/>
+        <target>Per a material associat, "Si els registres en una altra institució estan associats amb la unitat que es descriu en virtut del fet que comparteixen el mateix origen, faça un cita al material associat a nivell de fons, sèrie o col·lecció, o per a ítems individuals, indique la seua localització si esta és coneguda." (RAD 1.8B18). Per a material relacionat, "Indicar els grups de registres que tenen alguna relació significativa en raó de responsabilitat compartida o esfera compartida d'activitat, en una o més unitats de material externs a la unitat que es descriu." (RAD 1.8B20)</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Associated materials</source>
@@ -426,35 +428,35 @@
       </trans-unit>
       <trans-unit id="106">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
-        <target/>
+        <target>"Quan la unitat que es descriu encara no està completa, per exemple un fons o una sèrie oberta, crear una nota explicant les addicions d'informació que s'esperen... Si no s'espera addicionar més informació a la unitat, indicar que la unitat es considera tancada." (RAD 1.8B19)</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Standard number area</source>
-        <target/>
+        <target>Àrea de número estàndard </target>
       </trans-unit>
       <trans-unit id="108">
         <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
-        <target/>
+        <target>“Proporcione el Número Estàndard Internacional de Llibre (sigles en anglès ISBN), Número Estàndard Internacional de Publicacions Seriades (sigla en anglès ISSN), o qualsevol altre número estàndard internacional convingut per a l'ítem que es descriu. Lliure tals números amb l'abreviació convinguda i amb la separació estàndard o guions.” (RAD 1.9B1)</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Access points</source>
-        <target/>
+        <target>Punts d'accés </target>
       </trans-unit>
       <trans-unit id="110">
         <source>Subject access points</source>
-        <target/>
+        <target>Punts d'accés per matèria </target>
       </trans-unit>
       <trans-unit id="111">
         <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
-        <target/>
+        <target>Cercar un terme existent en la taxonomia Temes escrivint els primers caràcters del nom del terme. Alternativament, escriure un nou terme per a crear i enllaçar a un nou terme de Tema.</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Place access points</source>
-        <target/>
+        <target>Punts d'accés per lloc</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
-        <target/>
+        <target>Cercar un terme existent en la taxonomia Llocs escrivint els primers caràcters del nom del terme. Alternativament, escriure un nou terme per a crear i enllaçar a un nou terme de lloc.</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Genre access points</source>
@@ -466,203 +468,203 @@
       </trans-unit>
       <trans-unit id="116">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>Punt d'accés per nom (matèria)</target>
       </trans-unit>
       <trans-unit id="117">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target/>
+        <target>"Trie la procedència, autor i altres punts d'accés que no siguen tema des de la descripció arxivística, com siga apropiat. Tots els punts d'accés han de ser concordants amb la descripció arxivística a la qual estan relacionats" (RAD 21.0B) Els valors en aquest camp es deriven des del camp Forma Autoritzada del Nom, en els registres d'autoritat. Cercar un nom existent escrivint els primers caràcters del nom. Alternativament, escriga un nou nom per a crear i enllaçar a un nou registre d'autoritat.</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Control area</source>
-        <target/>
+        <target>Àrea de control</target>
       </trans-unit>
       <trans-unit id="119">
         <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
-        <target/>
+        <target>Registre un identificador únic d'acord a les convencions locals i/o nacionals. Si la descripció serà utilitzada internacionalment, registre el codi del país en el qual va ser creada la descripció, d'acord amb l'última versió de la norma ISO 3166 - Codis per a la representació de noms de països. Quan el creador de la descripció siga una organització internacional, lliure l'identificador organitzacional en lloc del codi del país.</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Description identifier</source>
-        <target/>
+        <target>Identificador de la descripció</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
-        <target/>
+        <target>Registre la(es) forma(es) autoritzada(es) del nom completa de la(es) agència(es) responsable(es) de la creació, modificació o disseminació de la descripció o, alternativament, registre un codi per a l'agència en concordança amb els estàndards nacionals o internacionals per a codis d'agència.</target>
       </trans-unit>
       <trans-unit id="122">
         <source>Institution identifier</source>
-        <target/>
+        <target>Identificador de la institució </target>
       </trans-unit>
       <trans-unit id="123">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description.</source>
-        <target/>
+        <target>Registre les regles o conveccions internacionals, nacionals i/o locals seguides en la preparació de la descripció.</target>
       </trans-unit>
       <trans-unit id="124">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Regles o convencions</target>
       </trans-unit>
       <trans-unit id="125">
         <source>Status</source>
-        <target/>
+        <target>Estat d'elaboració </target>
       </trans-unit>
       <trans-unit id="126">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
-        <target/>
+        <target>Registre l'estat actual de la descripció, indicant si és un esborrany, està finalitzat i/o revisat o esborrat.</target>
       </trans-unit>
       <trans-unit id="127">
         <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
-        <target/>
+        <target>Registrar si la descripció consisteix d'un nivell de detall mínim, parcial o complet d'acord als lineaments i/o regles internacionals i/o nacionals rellevants.</target>
       </trans-unit>
       <trans-unit id="128">
         <source>Level of detail</source>
-        <target/>
+        <target>Nivell de detall</target>
       </trans-unit>
       <trans-unit id="129">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
-        <target/>
+        <target>Registre la(es) data(es) en què l'entrada va ser preparada i/o revisada.</target>
       </trans-unit>
       <trans-unit id="130">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>Dates de creació, revisió i eliminació</target>
       </trans-unit>
       <trans-unit id="131">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>Indicar l'idioma(es) utilitzat(s) per a crear la descripció del material d'arxiu.</target>
       </trans-unit>
       <trans-unit id="132">
         <source>Language</source>
-        <target/>
+        <target>Idioma</target>
       </trans-unit>
       <trans-unit id="133">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>Indicar l'escriptura(es) usada(es) per a crear la descripció del material d'arxiu.</target>
       </trans-unit>
       <trans-unit id="134">
         <source>Script</source>
-        <target/>
+        <target>Escriptura </target>
       </trans-unit>
       <trans-unit id="135">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target/>
+        <target>Cites sobre qualsevol recurs extern utilitzat en la descripció arxivística (com a abast i contingut, notes, etc...).</target>
       </trans-unit>
       <trans-unit id="136">
         <source>Sources</source>
-        <target/>
+        <target>Fonts </target>
       </trans-unit>
       <trans-unit id="137">
         <source>Edit title and statement of responsibility area</source>
-        <target/>
+        <target>Editar àrea de títol i declaració de responsabilitat </target>
       </trans-unit>
       <trans-unit id="138">
         <source>Parallel title</source>
-        <target/>
+        <target>Títol paral·lel </target>
       </trans-unit>
       <trans-unit id="139">
         <source>Title statements of responsibility</source>
-        <target/>
+        <target>Títol declaració de responsabilitat </target>
       </trans-unit>
       <trans-unit id="140">
         <source>Title notes</source>
-        <target/>
+        <target>Nota sobre els títols</target>
       </trans-unit>
       <trans-unit id="141">
         <source>Repository</source>
-        <target/>
+        <target>Institució arxivística </target>
       </trans-unit>
       <trans-unit id="142">
         <source>Edit edition area</source>
-        <target/>
+        <target>Editar àrea d'edició </target>
       </trans-unit>
       <trans-unit id="143">
         <source>Edition statement of responsibility</source>
-        <target/>
+        <target>Declaració de responsabilitat d'edició</target>
       </trans-unit>
       <trans-unit id="144">
         <source>Edit class of material specific details area</source>
-        <target/>
+        <target>Editar àrea de detalls específics de classe de material</target>
       </trans-unit>
       <trans-unit id="145">
         <source>Edit dates of creation area</source>
-        <target/>
+        <target>Editar àrea de dates de creació </target>
       </trans-unit>
       <trans-unit id="146">
         <source>Edit physical description area</source>
-        <target/>
+        <target>Editar àrea de descripció física </target>
       </trans-unit>
       <trans-unit id="147">
         <source>Edit publisher's series area</source>
-        <target/>
+        <target>Editar àrea de sèries editorials </target>
       </trans-unit>
       <trans-unit id="148">
         <source>Parallel titles of publisher's series</source>
-        <target/>
+        <target>Títols paral·lels de sèrie editorial</target>
       </trans-unit>
       <trans-unit id="149">
         <source>Edit archival description area</source>
-        <target/>
+        <target>Editar àrea de descripció arxivística </target>
       </trans-unit>
       <trans-unit id="150">
         <source>Edit notes area</source>
-        <target/>
+        <target>Editar àrea de notes</target>
       </trans-unit>
       <trans-unit id="151">
         <source>Arrangement</source>
-        <target/>
+        <target>Arranjament </target>
       </trans-unit>
       <trans-unit id="152">
         <source>Language and script note</source>
-        <target/>
+        <target>Nota sobre les llengües i escriptures</target>
       </trans-unit>
       <trans-unit id="153">
         <source>Location of originals</source>
-        <target/>
+        <target>Ubicació dels originals </target>
       </trans-unit>
       <trans-unit id="154">
         <source>Finding aids</source>
-        <target/>
+        <target>Instruments de descripció </target>
       </trans-unit>
       <trans-unit id="155">
         <source>Accruals</source>
-        <target/>
+        <target>Ingressos </target>
       </trans-unit>
       <trans-unit id="156">
         <source>General note</source>
-        <target/>
+        <target>Nota general </target>
       </trans-unit>
       <trans-unit id="157">
         <source>Edit standard number area</source>
-        <target/>
+        <target>Editar àrea de número estàndard </target>
       </trans-unit>
       <trans-unit id="158">
         <source>Standard number</source>
-        <target/>
+        <target>Número estàndard </target>
       </trans-unit>
       <trans-unit id="159">
         <source>Edit access points</source>
-        <target/>
+        <target>Editar punts d'accés </target>
       </trans-unit>
       <trans-unit id="160">
         <source>Edit control area</source>
-        <target/>
+        <target>Editar àrea de control</target>
       </trans-unit>
       <trans-unit id="161">
         <source>Description record identifier</source>
-        <target/>
+        <target>Identificador de registre de descripció</target>
       </trans-unit>
       <trans-unit id="162">
         <source>Language of description</source>
-        <target/>
+        <target>Idioma de descripció </target>
       </trans-unit>
       <trans-unit id="163">
         <source>Script of description</source>
-        <target/>
+        <target>Escriptura de la descripció</target>
       </trans-unit>
       <trans-unit id="164">
         <source>Rights area</source>
-        <target/>
+        <target>Àrea de drets</target>
       </trans-unit>
       <trans-unit id="165">
         <source>Accession area</source>
-        <target/>
+        <target>Àrea d'adhesió </target>
       </trans-unit>
     </body>
   </file>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2015-08-27T12:06:31Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2015-10-16T04:43:22Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -472,19 +472,19 @@ Formatos aceitáveis ​​de data: AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.&lt;/str
       </trans-unit>
       <trans-unit id="1029">
         <source>Administrative / Biographical history</source>
-        <target/>
+        <target>História administrativa / biográfica</target>
       </trans-unit>
       <trans-unit id="1030">
         <source>Administrative history</source>
-        <target/>
+        <target>História administrativa</target>
       </trans-unit>
       <trans-unit id="1031">
         <source>Biographical history</source>
-        <target/>
+        <target>História biográfica</target>
       </trans-unit>
       <trans-unit id="1032">
         <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
-        <target/>
+        <target>&lt;strong&gt;Identificador:&lt;/strong&gt; Fornecer um código de referência local específico, número de controle, ou outro identificador único.&lt;br/&gt;&lt;strong&gt;Nível de descrição:&lt;/strong&gt; Registe o nível da unidade a ser descrita.&lt;br/&gt;&lt;strong&gt;Título:&lt;/strong&gt; Fornecer um título formal ou um título conciso fornecido de acordo com as regras de descrição multinível e as convenções nacionais.</target>
       </trans-unit>
     </body>
   </file>

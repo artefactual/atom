@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ro" datatype="plaintext" original="messages" date="2015-08-27T12:09:57Z" product-name="messages">
+  <file source-language="en" target-language="ro" datatype="plaintext" original="messages" date="2015-10-16T04:43:31Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Fara titlu</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative / Biographical history</source>
@@ -58,7 +58,7 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Edit %1%</source>
-        <target/>
+        <target>Editare %1%</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a duplicate of record %1%</source>
@@ -74,11 +74,11 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Identifier</source>
-        <target/>
+        <target>Identificator</target>
       </trans-unit>
       <trans-unit id="19">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Acesta este un element obligatoriu.</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Name and location of repository</source>
@@ -102,7 +102,7 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Title</source>
-        <target/>
+        <target>Titlu</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
@@ -138,7 +138,7 @@
       </trans-unit>
       <trans-unit id="34">
         <source>Scope and content</source>
-        <target/>
+        <target>Domeniul de aplicare și conținut</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Describe the current arrangement of the material in terms of the various aggregations within it and their relationships. (DACS 3.2.3)</source>
@@ -310,11 +310,11 @@
       </trans-unit>
       <trans-unit id="77">
         <source>Subject access points</source>
-        <target/>
+        <target>Accesare puncte de subiect</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Place access points</source>
-        <target/>
+        <target>Locuri puncte de acces</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Name access points (subjects)</source>
@@ -330,7 +330,7 @@
       </trans-unit>
       <trans-unit id="82">
         <source>Level of description</source>
-        <target/>
+        <target>Nivelul descrierii</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Date(s)</source>
@@ -338,7 +338,7 @@
       </trans-unit>
       <trans-unit id="84">
         <source>Related function</source>
-        <target/>
+        <target>Functia sugerata</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Edit context and structure elements</source>
@@ -362,7 +362,7 @@
       </trans-unit>
       <trans-unit id="90">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Sursa imediata de achizitie</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Accruals</source>
@@ -402,7 +402,7 @@
       </trans-unit>
       <trans-unit id="100">
         <source>Rights area</source>
-        <target/>
+        <target>Domeniul drepturilor</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Accession area</source>

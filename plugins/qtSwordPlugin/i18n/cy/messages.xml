@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2015-08-27T12:09:35Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2015-10-16T04:43:29Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Not implemented</source>
-        <target/>
+        <target>Heb ei weithredu</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Bad request</source>
-        <target/>
+        <target>Cais gwael</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Forbidden</source>
-        <target/>
+        <target>Gwaharddedig</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Not found</source>
-        <target/>
+        <target>Heb ei ddarganfod</target>
       </trans-unit>
       <trans-unit id="5">
         <source>The supplied format is not supported by this server</source>
-        <target/>
+        <target>Nid yw'r fformat a gyflenwir yn cael ei gefnogi gan y gweinydd hwn</target>
       </trans-unit>
       <trans-unit id="6">
         <source>The supplied content type is not supported by this server</source>
-        <target/>
+        <target>Nid yw'r math o gynnwys a gyflenwir yn cael ei gefnogi gan y gweinydd hwn</target>
       </trans-unit>
     </body>
   </file>

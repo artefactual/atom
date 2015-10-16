@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cs" datatype="plaintext" original="messages" date="2015-08-27T12:07:43Z" product-name="messages">
+  <file source-language="en" target-language="cs" datatype="plaintext" original="messages" date="2015-10-16T04:43:25Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Bez názvu</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Identifier%2% - This is a mandatory element.</source>
@@ -66,7 +66,7 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Title</source>
-        <target/>
+        <target>Nadpis</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Names and dates</source>

@@ -1,51 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2015-08-27T12:06:09Z" product-name="messages">
+  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2015-10-16T04:44:12Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Password strength:</source>
-        <target/>
+        <target>密码强度:</target>
       </trans-unit>
       <trans-unit id="2">
         <source>To make your password stronger:</source>
-        <target/>
+        <target>使密码更牢固:</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Make it at least six characters</source>
-        <target/>
+        <target>至少六个字母</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Add lowercase letters</source>
-        <target/>
+        <target>添加小写字母</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Add uppercase letters</source>
-        <target/>
+        <target>添加大写字母</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Add numbers</source>
-        <target/>
+        <target>添加新数字</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Add punctuation</source>
-        <target/>
+        <target>添加标点符号</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Make it different from your username</source>
-        <target/>
+        <target>不同于用户名</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Yes</source>
-        <target/>
+        <target>是的</target>
       </trans-unit>
       <trans-unit id="10">
         <source>No</source>
-        <target/>
+        <target>不</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Passwords match:</source>
+        <target>密码匹配:</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Access to this record is restricted because it contains personal or confidential information. Please contact the Reference Archivist for more information on accessing this record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>This record has not yet been reviewed for personal or confidential information. Please contact the Reference Archivist to request access and initiate an access review.</source>
         <target/>
       </trans-unit>
     </body>

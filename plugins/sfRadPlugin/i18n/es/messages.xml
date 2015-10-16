@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2015-08-27T12:10:04Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2015-10-16T04:43:31Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -646,7 +646,7 @@
       </trans-unit>
       <trans-unit id="184">
         <source>Administrative history / Biographical sketch</source>
-        <target/>
+        <target>Historia archivística / Semblanza biográfica</target>
       </trans-unit>
       <trans-unit id="185">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
@@ -654,15 +654,15 @@
       </trans-unit>
       <trans-unit id="186">
         <source>Genre access points</source>
-        <target/>
+        <target>Tipo de puntos de acceso</target>
       </trans-unit>
       <trans-unit id="187">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
-        <target/>
+        <target>Busque un término existente en la taxonomía Tipo escribiendo los primeros caracteres del nombre del plazo. Como alternativa, escriba un nuevo término para crear y vincular a un nuevo término género.</target>
       </trans-unit>
       <trans-unit id="188">
         <source>General note</source>
-        <target/>
+        <target>Nota general</target>
       </trans-unit>
     </body>
   </file>

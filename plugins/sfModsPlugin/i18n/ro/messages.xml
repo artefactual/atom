@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ro" datatype="plaintext" original="messages" date="2015-08-27T12:09:57Z" product-name="messages">
+  <file source-language="en" target-language="ro" datatype="plaintext" original="messages" date="2015-10-16T04:43:31Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Fara titlu</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Add new resource</source>
@@ -14,7 +14,7 @@
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
-        <target/>
+        <target>Editare %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Select the type of activity that established the relation between the authority record and the resource.</source>
@@ -26,7 +26,7 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Elements area</source>
-        <target/>
+        <target>Elemente de suprafata</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Contains a unique standard number or code that distinctively identifies a resource.</source>
@@ -58,11 +58,11 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Identifier</source>
-        <target/>
+        <target>Identificator</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Title</source>
-        <target/>
+        <target>Titlu</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
@@ -110,7 +110,7 @@
       </trans-unit>
       <trans-unit id="27">
         <source>Description</source>
-        <target/>
+        <target>Descriere</target>
       </trans-unit>
       <trans-unit id="28">
         <source>How to access to this content?</source>
@@ -134,7 +134,7 @@
       </trans-unit>
       <trans-unit id="33">
         <source>Language</source>
-        <target/>
+        <target>Limba</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Internet media type</source>
@@ -154,7 +154,7 @@
       </trans-unit>
       <trans-unit id="38">
         <source>Rights area</source>
-        <target/>
+        <target>Domeniul drepturilor</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Accession area</source>

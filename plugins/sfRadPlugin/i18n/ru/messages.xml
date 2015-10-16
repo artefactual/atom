@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ru" datatype="plaintext" original="messages" date="2015-08-27T12:06:41Z" product-name="messages">
+  <file source-language="en" target-language="ru" datatype="plaintext" original="messages" date="2015-10-16T04:43:22Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Без названия</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative history / Biographical sketch</source>
@@ -34,7 +34,7 @@
       </trans-unit>
       <trans-unit id="8">
         <source>Title - This is a mandatory element.</source>
-        <target/>
+        <target>Название -Это обязательный элемент.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Level of description - Value "%value%" is not consistent with higher levels.</source>
@@ -74,11 +74,11 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Add new archival description</source>
-        <target/>
+        <target>Добавить новое архивное описание</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Edit %1%</source>
-        <target/>
+        <target>Изменить %1%</target>
       </trans-unit>
       <trans-unit id="20">
         <source>"Give the date(s) of creation of the unit being described either as a single date, or range of dates (for inclusive dates and/or predominant dates). Always give the inclusive dates. When providing predominant dates, specify them as such, preceded by the word predominant..." (RAD 1.4B2) Record probable and uncertain dates in square brackets, using the conventions described in 1.4B5.</source>
@@ -110,7 +110,7 @@
       </trans-unit>
       <trans-unit id="27">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Это обязательный элемент.</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
@@ -238,7 +238,7 @@
       </trans-unit>
       <trans-unit id="59">
         <source>Add new name and/or date(s)</source>
-        <target/>
+        <target>Добавить новое имя и/или дату(ы)</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Physical description area</source>
@@ -306,7 +306,7 @@
       </trans-unit>
       <trans-unit id="76">
         <source>Archival description area</source>
-        <target/>
+        <target>Область архивного описания</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Edit authority record</source>
@@ -338,7 +338,7 @@
       </trans-unit>
       <trans-unit id="84">
         <source>Physical condition</source>
-        <target/>
+        <target>Физическое состояние</target>
       </trans-unit>
       <trans-unit id="85">
         <source>"Record the donor or source (i.e., the immediate prior custodian) from whom the unit being described was acquired, and the date and method of acquisition, as well as the source/donor's relationship to the material, if any or all of this information is not confidential. If the source/donor is unknown, record that information." (RAD 1.8B12)</source>
@@ -438,7 +438,7 @@
       </trans-unit>
       <trans-unit id="109">
         <source>Access points</source>
-        <target/>
+        <target>Точки доступа</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Subject access points</source>
@@ -502,7 +502,7 @@
       </trans-unit>
       <trans-unit id="125">
         <source>Status</source>
-        <target/>
+        <target>Статус</target>
       </trans-unit>
       <trans-unit id="126">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
@@ -530,7 +530,7 @@
       </trans-unit>
       <trans-unit id="132">
         <source>Language</source>
-        <target/>
+        <target>Язык</target>
       </trans-unit>
       <trans-unit id="133">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
@@ -566,7 +566,7 @@
       </trans-unit>
       <trans-unit id="141">
         <source>Repository</source>
-        <target/>
+        <target>Хранилище</target>
       </trans-unit>
       <trans-unit id="142">
         <source>Edit edition area</source>

@@ -1,428 +1,428 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2015-08-27T12:10:52Z" product-name="messages">
+  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2015-10-16T04:43:33Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Без наслова</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Званични облик назива/имена%2% - Ово је %3%обавезнo%4% поље</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%Dates of existence%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Време постојања%2% - Ово је %3%обавезнo%4% поље</target>
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Идентификатор описа%2% - Ово је %3%обавезнo%4% поље</target>
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Type of entity%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Врста ентитета%2% - Ово је %3%обавезнo%4% поље</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Add new authority record</source>
-        <target/>
+        <target>Додај нови нормативни запис</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Edit %1%</source>
-        <target/>
+        <target>Уреди %1%</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Edit %1% - ISAAR</source>
-        <target/>
+        <target>Уреди %1% - ISAAR</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Identity area</source>
-        <target/>
+        <target>Подручје идентификације</target>
       </trans-unit>
       <trans-unit id="10">
         <source>"Specify the type of entity that is being described in this authority record." (ISAAR 5.1.1) Select Corporate body, Family or Person from the drop-down menu.</source>
-        <target/>
+        <target>"Утврдити врсту ентитета  који се описује у том нормативном запису." (ISAAR 5.1.1) Изабрати из падајућег менија: правно лице, физичко лице или породица.</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Type of entity</source>
-        <target/>
+        <target>Врста ентитета</target>
       </trans-unit>
       <trans-unit id="12">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Ово је обавезно поље</target>
       </trans-unit>
       <trans-unit id="13">
         <source>"Record the standardized form of name for the entity being described in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record. Use dates, place, jurisdiction, occupation, epithet and other qualifiers as appropriate to distinguish the authorized form of name from those of other entities with similar names." (ISAAR 5.1.2)</source>
-        <target/>
+        <target>"Уписати званичан облик назива/имена ентитета који се описује у складу са свим значајним националним или међународним прописима или правилима које је применила установа која је израдила нормативни запис. Користити датуме, место, правну надлежност, занимање, надимак или друге квалификаторе погодне за разликовање званичног облика назива/имена од других ентитета са сличним називима/именима." (ISAAR 5.1.2)</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Званични облик назива/имена</target>
       </trans-unit>
       <trans-unit id="15">
         <source>"Purpose: To indicate the various forms in which the Authorized form of name occurs in other languages or script form(s). Rule: record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record, including any necessary sub elements and/or qualifiers required by those conventions or rules." (ISAAR 5.1.3)</source>
-        <target/>
+        <target>"Сврха: Да се наведу различити облици у којима се званичан облик назива/имена појављује у другим језицима или писмима. Правило: Уписати упоредни(е) облик(е) назива/имена у складу са свим значајним националним или међународним прописима или правилима, које је применила установа која је израдила нормативни запис, укључујући све неопходне поделементе [потпоља] и/или квалификаторе које захтевају ти прописи или правила." (ISAAR 5.1.3)</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Parallel form(s) of name</source>
-        <target/>
+        <target>Упоредни облик(ци) назива/имена</target>
       </trans-unit>
       <trans-unit id="17">
         <source>"Record the standardized form of name for the entity being described in accordance with other conventions or rules. Specify the rules and/or if appropriate the name of the agency by which these standardized forms of name have been constructed." (ISAAR 5.1.4)</source>
-        <target/>
+        <target>"Уписати стандардизован облик назива/имена за ентитет који се описује у складу са другим прописима или правилима. Навести правила и/или, ако је потребно, назив установе која је израдила те стандардизоване облике назива/имена." (ISAAR 5.1.4)</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Standardized form(s) of name according to other rules</source>
-        <target/>
+        <target>Стандардизована форма(е) назива/имена према другим правилима.</target>
       </trans-unit>
       <trans-unit id="19">
         <source>The purpose of this field is to "indicate any other name(s) for the corporate body, person or family not used elsewhere in the Identity Area." Examples are acronyms, previous names, pseudonyms, maiden names and titles of nobility or honour. (ISAAR 5.1.5)</source>
-        <target/>
+        <target>Сврха овог поља је да се "укаже на било који други назив(е) за правно лице, односно име(на) за физичко лице или породицу који нису коришћени на другим местима у Подручју идентитета." На пример акроними, претходна имена, псеудоними, девојачка презимена или племићке титуле. (ISAAR 5.1.5)</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Other form(s) of name</source>
-        <target/>
+        <target>Други облик(ци) назива/имена</target>
       </trans-unit>
       <trans-unit id="21">
         <source>"Record where possible any official number or other identifier (e.g. a company registration number) for the corporate body and reference the jurisdiction and scheme under which it has been allocated." (ISAAR 5.1.6)</source>
-        <target/>
+        <target>"Где је могуће унети сваки званичан број или други идентификатор (нпр. матични број предузећа) за правно лице и упутити на правну надлежност и шему на основу које је додељен." (ISAAR 5.1.6)</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Identifiers for corporate bodies</source>
-        <target/>
+        <target>Идентификатори за правна лица</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Description area</source>
-        <target/>
+        <target>Подручје описа</target>
       </trans-unit>
       <trans-unit id="24">
         <source>"Record the dates of existence of the entity being described. For corporate bodies include the date of establishment/foundation/enabling legislation and dissolution. For persons include the dates or approximate dates of birth and death or, when these dates are not known, floruit dates. Where parallel systems of dating are used, equivalences may be recorded according to relevant conventions or rules. Specify in the Rules and/or conventions element (5.4.3) the system(s) of dating used, e.g. ISO 8601." (ISAAR 5.2.1)</source>
-        <target/>
+        <target>"Уписати датуме постојања ентитета који се описује. За правна лица укључити датуме оснивања/установљења/правног акта о почетку и престанку рада. За физичка лица обухватити датуме или приближне датуме рођења и смрти или, када ти датуми нису познати, датуме процвата. Уколико су коришћени системи паралелног датирања, еквиваленти могу бити наведени у складу са одговарајућим прописима или правилима. У елементу [пољу] Прописи и/или правила (5.4.3) навести коришћени систем(е) датирања, нпр. ISO 8601." (ISAAR 5.2.1)</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Dates of existence</source>
-        <target/>
+        <target>Датуми постојања</target>
       </trans-unit>
       <trans-unit id="26">
         <source>"Record in narrative form or as a chronology the main life events, activities, achievements and/or roles of the entity being described. This may include information on gender, nationality, family and religious or political affiliations. Wherever possible, supply dates as an integral component of the narrative description." (ISAAR 5.2.2)</source>
-        <target/>
+        <target>"Записати у наративном облику или у виду хронологије најважније догађаје у животу, деловање, достигнућа и/или улоге ентитета који се описује. То може да обухвати информације о рођењу, полу, националности, породичној и верској или политичкој припадности. Где год је могуће навести датуме као саставни део наративног описа." (ISAAR 5.2.2)</target>
       </trans-unit>
       <trans-unit id="27">
         <source>"Purpose: to indicate the predominant places and/or jurisdictions where the corporate body, person or family was based, lived or resided or had some other connection. Rule: record the name of the predominant place(s)/jurisdiction(s), together with the nature and covering dates of the relationship with the entity." (ISAAR 5.2.3)</source>
-        <target/>
+        <target>Сврха: Да се наведу најважнија места и/или месне надлежности где је правно, физичко лице или породица имало седиште, живело, пребивало или имало неку другу везу. Правило: Уписати називе најважнијег(их) места и подручја месне надлежности, заједно са природом и датумом(има) трајања везе са ентитетом. (ISAAR 5.2.3)</target>
       </trans-unit>
       <trans-unit id="28">
         <source>"Record the legal status and where appropriate the type of corporate body together with the covering dates when this status applied." (ISAAR 5.2.4)</source>
-        <target/>
+        <target>"Уписати правни статус и где је то могуће врсту правног лица заједно са раздобљем у којем је лице имало тај статус." (ISAAR 5.2.4)</target>
       </trans-unit>
       <trans-unit id="29">
         <source>"Record the functions, occupations and activities performed by the entity being described, together with the covering dates when useful. If necessary, describe the nature of the function, occupation or activity." (ISAAR 5.2.5)</source>
-        <target/>
+        <target>"Уписати функције, занимања и делатности ентитета који се описује, са временом трајања када је то сврсисходно. Према потреби, описати природу функције, занимања или делатности." (ISAAR 5.2.5)</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Functions, occupations and activities</source>
-        <target/>
+        <target>Функције, занимања и активности</target>
       </trans-unit>
       <trans-unit id="31">
         <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the entity being described, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISAAR 5.2.6)</source>
-        <target/>
+        <target>"Уписати све документе, законе, упутства или повеље који се сматрају изворима за поједина овлашћења, функције и одговорности ентитета који се описује, заједно са информацијама о стварној и територијалној надлежности(ма) и датумима трајања или промене те надлежности." (ISAAR 5.2.6)</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Mandates/sources of authority</source>
-        <target/>
+        <target>Надлежности/извори овлаштења</target>
       </trans-unit>
       <trans-unit id="33">
         <source>"Describe the internal structure of a corporate body and the dates of any changes to that structure that are significant to the understanding of the way that corporate body conducted its affairs (e.g. by means of dated organization charts). Describe the genealogy of a family (e.g. by means of a family tree) in a way that demonstrates the inter-relationships of its members with covering dates." (ISAAR 5.2.7)</source>
-        <target/>
+        <target>"Описати унутрашњу структуру правног лица и навести датуме свих њених промена који су значајни за разумевање начина на који је правно лице водило своје послове (нпр. уз помоћ датумски уређених организационих табела). Описати родослов породице (нпр. уз помоћ породичног стабла) на начин који показује међусобне односе њених чланова, са релевантним датумима." (ISAAR 5.2.7)</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Internal structures/genealogy</source>
-        <target/>
+        <target>Унутрашња структура/генеалогија</target>
       </trans-unit>
       <trans-unit id="35">
         <source>"Provide any significant information on the social, cultural, economic, political and/or historical context in which the entity being described operated." (ISAAR 5.2.8)</source>
-        <target/>
+        <target>"Пружити значајне информације о општем друштвеном, културном, привредном, политичком и/или историјском контексту у којем је ентитет који се описује деловао." (ISAAR 5.2.8)</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Relationships area</source>
-        <target/>
+        <target>Подручје веза/односа</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Control area</source>
-        <target/>
+        <target>Подручје контроле</target>
       </trans-unit>
       <trans-unit id="38">
         <source>"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)</source>
-        <target/>
+        <target>"Уписати јединствени идентификатор нормативног записа у складу са локалним и/или националним прописима. Ако нормативни запис треба да се користи интернационално, уписати код земље у којој је нормативни запис израђен у складу са најновијим верзијом ISO 3166 – Кодови за представљање назива земаља. Где је стваралац нормативног записа међународна организација, дати идентификатор организације уместо кода земље." (ISAAR 5.4.1)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Description identifier</source>
-        <target/>
+        <target>Идентификатор описа</target>
       </trans-unit>
       <trans-unit id="40">
         <source>"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)</source>
-        <target/>
+        <target>"Уписати пун званичан облик назива установе(а) одговорне за израду, измене или дистрибуирање нормативног записа или, по избору, уписати код установе у складу са националним или међународним стандардом за кодове установа. Укључити упутницу на све системе идентификације коришћене за идентификовање установе (нпр. ISO 155111)." (ISAAR 5.4.2)</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Institution identifier</source>
-        <target/>
+        <target>Сигла</target>
       </trans-unit>
       <trans-unit id="42">
         <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival authority record. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied. Specify separately which rules have been applied for creating the Authorized form of name. Include reference to any system(s) of dating used to identify dates in this authority record (e.g. ISO 8601)." (ISAAR 5.4.3)</source>
-        <target/>
+        <target>"Сврха: Да се утврде национални или међународни прописи или правила примењени у изради архивског нормативног записа. Правило: Уписати називе, а где је сврсисходно, издања или датуме објављивања прописа или правила који су примењени. Посебно навести која су правила примењена у изради Званичног облика назива/имена. Укључити упутнице на све системе датирања коришћене за утврђивање датума у овом нормативном запису (нпр. ISO 8601)." (ISAAR 5.4.3)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>Правила и/или прописи употребљени</target>
       </trans-unit>
       <trans-unit id="44">
         <source>The purpose of this field is "[t]o indicate the drafting status of the authority record so that users can understand the current status of the authority record." (ISAAR 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
-        <target/>
+        <target>Сврха овог поља је "да назначи статус у процесу израде описа како би корисници знали који је његов тренутни статус." (ISAAR 5.4.4) Изабрати Коначна, Исправљена верзија или Нацрт из падајућег менија.</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal records are those that consist only of the four essential elements of an ISAAR(CPF) compliant authority record (see 4.8), while full records are those that convey information for all relevant ISAAR(CPF) elements of description." (ISAAR 5.4.5)</source>
-        <target/>
+        <target>Изабрати Потпуни, Делимични или Минимални из падајућег менија. "У недостатку националних смерница или правила, минимални записи су они који се састоје само од четири основна елемента нормативног записа израђеног у складу са ISAAR(CPF)-ом (види 4.8), док су потпуни записи они који доносе информације за све значајне елементе описа ISAAR(CPF)-а." (ISAAR 5.4.5) </target>
       </trans-unit>
       <trans-unit id="46">
         <source>"Record the date the authority record was created and the dates of any revisions to the record." (ISAAR 5.4.6)</source>
-        <target/>
+        <target>"Уписати датум када је нормативни запис израђен и датуме свих измена записа." (ISAAR 5.4.6)</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>Датуми израде, измене или брисања</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Last updated</source>
-        <target/>
+        <target>Последње ажурирање</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Select the language(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
-        <target/>
+        <target>Изабрати језик(е) нормативног записа из падајућег менија; унети првих неколико слова да би се сузио избор. (ISAAR 5.4.7)</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Select the script(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
-        <target/>
+        <target>Изабрати писмо(a) описа из падајућег менија; унети првих неколико слова да би се сузио избор. (ISAAR 5.4.7)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>"Record the sources consulted in establishing the authority record." (ISAAR 5.4.8)</source>
-        <target/>
+        <target>"Уписати изворе који су консултовани у изради нормативног записа." (ISAAR 5.4.8)</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"Record notes pertinent to the creation and maintenance of the authority record. The names of persons responsible for creating the authority record may be recorded here." (ISAAR 5.4.9)</source>
-        <target/>
+        <target>"Уписати напомене које се односе на израду и одржавање нормативног записа. Овде се могу уписати имена особа задужених за израду нормативног записа." (ISAAR 5.4.9)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Cancel</source>
-        <target/>
+        <target>Поништи</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Save</source>
-        <target/>
+        <target>Сачувај</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Create</source>
-        <target/>
+        <target>Створи</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Related corporate bodies, persons or families</source>
-        <target/>
+        <target>Повезана правна лица, појединци или породице</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Name</source>
-        <target/>
+        <target>Назив/Име</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Category</source>
-        <target/>
+        <target>Категорија</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Type</source>
-        <target/>
+        <target>Врста</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Dates</source>
-        <target/>
+        <target>Датуми</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Description</source>
-        <target/>
+        <target>Опис</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Edit</source>
-        <target/>
+        <target>Уреди</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Related corporate body, person or family</source>
-        <target/>
+        <target>Повезано правно лице, појединац или породица</target>
       </trans-unit>
       <trans-unit id="64">
         <source>"Record the authorized form of name and any relevant unique identifiers, including the authority record identifier, for the related entity." (ISAAR 5.3.1) Select the name from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>"Записати званичан облик назива/имена и све значајне јединствене идентификаторе, укључујући идентификатор нормативног записа, за повезани ентитет." (ISAAR 5.3.1) Изабрати назив/име из падајућег менија; унети првих пар слова за сужавање избора.</target>
       </trans-unit>
       <trans-unit id="65">
         <source>"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.</source>
-        <target/>
+        <target>"Сврха: Утврдити општу врсту везе/односа између ентитета који се описује и другог правног, физичког лица или породице." (ISAAR 5.3.2) Изабрати категорију из падајућег менија: хијерархијска, временска, породична или асоцијативна. </target>
       </trans-unit>
       <trans-unit id="66">
         <source>Category of relationship</source>
-        <target/>
+        <target>Категорија везе/односа</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Relationship type</source>
-        <target/>
+        <target>Врста везе/односа</target>
       </trans-unit>
       <trans-unit id="68">
         <source>"Select a descriptive term from the drop-down menu to clarify the type of relationship between these two actors."</source>
-        <target/>
+        <target>"Изабрати описни термин из падајућег менија да би се појаснила врста односа између два ствараоца."</target>
       </trans-unit>
       <trans-unit id="69">
         <source>"Record a precise description of the nature of the relationship between the entity described in this authority record and the other related entity....Record in the Rules and/or conventions element (5.4.3) any classification scheme used as a source of controlled vocabulary terms to describe the relationship. A narrative description of the history and/or nature of the relationship may also be provided here." (ISAAR 5.3.3). Note that the text entered in this field will also appear in the related authority record.</source>
-        <target/>
+        <target>"Уписати прецизан опис природе везе/односа између ентитета који се описује у овом нормативном запису и другог повезаног ентитета, нпр. надређени орган, подређени орган, власник, претходник, супруг, супруга, син, рођак, наставник, ученик, професионални колега. Уписати у елемент  [поље] прописи и/или правила (5.4.3) све класификационе шеме коришћене као извор термина контролисаног речника за описивање тог односа. Овде се може дати и наративни опис историјата и/или природе тог односа. (ISAAR 5.3.3)." Текст унесен у ово поље ће се појавити и у повезаном нормативном запису.</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Description of relationship</source>
-        <target/>
+        <target>Опис везе</target>
       </trans-unit>
       <trans-unit id="71">
         <source>"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
-        <target/>
+        <target>"Када је значајно, уписати датум почетка везе/односа или датум наслеђивања и, када је значајно, датум престанка везе/односа." (ISAAR 5.3.4) Унети датум онако како би сте желели да се појави на приказу нормативног записа, употребљујући квалификаторе и/или типографске симболе да би изразили евентуалне несигурности.</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Export</source>
-        <target/>
+        <target>Извоз</target>
       </trans-unit>
       <trans-unit id="73">
         <source>EAC</source>
-        <target/>
+        <target>EAC</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Edit identity area</source>
-        <target/>
+        <target>Уреди подручје идентификације</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Edit description area</source>
-        <target/>
+        <target>Уреди подручје описа</target>
       </trans-unit>
       <trans-unit id="76">
         <source>History</source>
-        <target/>
+        <target>Историјат</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Places</source>
-        <target/>
+        <target>Места</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Legal status</source>
-        <target/>
+        <target>Правни статус</target>
       </trans-unit>
       <trans-unit id="79">
         <source>General context</source>
-        <target/>
+        <target>Општи контекст</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Edit relationships area</source>
-        <target/>
+        <target>Уреди подручје веза</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Related entity</source>
-        <target/>
+        <target>Повезани ентитет</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Identifier of the related entity</source>
-        <target/>
+        <target>Идентификатор повезане јединице</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Category of the relationship</source>
-        <target/>
+        <target>Категорија везе/односа</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Type of relationship</source>
-        <target/>
+        <target>Врста везе/односа</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Dates of the relationship</source>
-        <target/>
+        <target>Датуми везе/односа</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Related function</source>
-        <target/>
+        <target>Повезана функција</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Edit control area</source>
-        <target/>
+        <target>Уреди подручје контроле</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Status</source>
-        <target/>
+        <target>Статус</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Level of detail</source>
-        <target/>
+        <target>Ниво детаљности</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Language(s)</source>
-        <target/>
+        <target>Језик(ци)</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Script(s)</source>
-        <target/>
+        <target>Писмо(а)</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Sources</source>
-        <target/>
+        <target>Извори</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Maintenance notes</source>
-        <target/>
+        <target>Напомене о одржавању</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Delete</source>
-        <target/>
+        <target>Обриши</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Add new</source>
-        <target/>
+        <target>Додај нови</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Related resources</source>
-        <target/>
+        <target>Повезани извори</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Title</source>
-        <target/>
+        <target>Назив јединице описа</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Relationship</source>
-        <target/>
+        <target>Веза/Однос</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Title of related resource</source>
-        <target/>
+        <target>Наслов повезаног извора</target>
       </trans-unit>
       <trans-unit id="100">
         <source>"Provide the unique identifiers/reference codes and/or titles for the related resources." (ISAAR 6.1) Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices.</source>
-        <target/>
+        <target>"Обезбедити јединствене идентификаторе/референтне кодове и/или наслове за повезане изворе." (ISAAR 6.1) Изабрати наслов из падајућег менија; унети идентификатор или првих неколико слова да би се сузио избор.</target>
       </trans-unit>
       <trans-unit id="101">
         <source>"Describe the nature of the relationships between the corporate body, person or family and the related resource." (ISAAR 6.3) Select the type of relationship from the drop-down menu; these values are drawn from the Event Types taxonomy.</source>
-        <target/>
+        <target>"Описати природу везе/односа између правног, физичког лица или породице и пoвезаног извора, нпр. стваралац, аутор, тема, ималац, власник ауторског права, контролор, власник." (ISAAR 6.3) Изабрати врсту везе из падајућег менија; ове вредности се црпе из такосномије Врста догађаја.</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Nature of relationship</source>
-        <target/>
+        <target>Природа везе</target>
       </trans-unit>
       <trans-unit id="103">
         <source>"Identify the type of related resources, e.g. Archival materials (fonds, record series, etc), archival description, finding aid, monograph, journal article, web site, photograph, museum collection, documentary film, oral history recording." (ISAAR 6.2) In the current version of the software, Archival material is provided as the only default value.</source>
-        <target/>
+        <target>"Утврдити врсте повезаних извора, нпр. архивска грађа (фонд, серија докумената итд.), архивски опис, информативно средство, монографија, новински чланак, web site, фотографија, музејска збирка, документарни филм, звучни или видео запис усмене историје." (ISAAR 6.2) У овој верзији програма, Архивска грађа је понуђена као једина предефинисана вредност.</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Type of related resource</source>
-        <target/>
+        <target>Врста повезаног извора</target>
       </trans-unit>
       <trans-unit id="105">
         <source>"Provide any relevant dates for the related resources and/or the relationship between the corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
-        <target/>
+        <target>"Навести све датуме који су у вези са повезаним извором и/или однос између правног, физичког лица или породице и повезаног извора и описати значај тих датума." (ISAAR 6.4) Унети датум онако како би сте желели да се појави на приказу нормативног записа, употребљујући квалификаторе и/или типографске симболе да би изразили евентуалне несигурности.</target>
       </trans-unit>
     </body>
   </file>

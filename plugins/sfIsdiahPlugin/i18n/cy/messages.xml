@@ -1,272 +1,278 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2015-08-27T12:09:35Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2015-10-16T04:43:29Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Heb deitl</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Ffurf awdurdodedig enw%2% - Mae hwn yn elfen %3%orfodol%4%.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Dynodwr%2% - Mae hwn yn elfen %3%orfodol%4%.</target>
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.</source>
-        <target/>
+        <target>%1%Manylion cyswllt%2% - %3%Rhaid%4% cynnwys o leiaf un o'r meysydd lleoliad neu cyfeiriad dilynol: dinas, gwlad, cod post, rhanbarth neu gyfeiriad stryd.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Contact information%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Manylion cyswllt%2% - Mae hwn yn elfen %3%orfodol%4%.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Add new archival institution</source>
-        <target/>
+        <target>Ychwanegu sefydliad archifol newydd</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Edit %1%</source>
-        <target/>
+        <target>Golygu %1%</target>
       </trans-unit>
       <trans-unit id="8">
         <source>See ISDIAH 5.2 for contact area information and examples.</source>
-        <target/>
+        <target>Gweler ISDIAH 5.2 ar gyfer gwybodaeth ac esiamplau ardal cyswllt.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Enter the digital latitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. 49.459044</source>
-        <target/>
+        <target>Rhowch ledred digidol lleoliad ffisegol y sefydliad (yn hytrach na graddau, munudau ac eiliadau), ee 49.459044</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Enter the digital longitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. -104.296984</source>
-        <target/>
+        <target>Nodwch hydred digidol lleoliad ffisegol y sefydliad (yn hytrach na graddau, munudau ac eiliadau), ee -104.296984</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Edit %1% - ISDIAH</source>
-        <target/>
+        <target>Golygu %1% - ISDIAH</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Identity area</source>
-        <target/>
+        <target>Ardal dynodi</target>
       </trans-unit>
       <trans-unit id="13">
         <source>"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)</source>
-        <target/>
+        <target>"Cofnodwch y cod rhifol neu alffa-rhifol sy’n dynodi'r sefydliad yn unol â'r safonau rhyngwladol a chenedlaethol perthnasol." (ISDIAH 5.1.1)</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Identifier</source>
-        <target/>
+        <target>Dynodwr</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Mae hwn yn elfen orfodol.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
-        <target/>
+        <target>"Cofnodwch ffurf safonol enw'r sefydliad, gan ychwanegu goleddfwyr priodol (er enghraifft dyddiadau, lle, ac ati), os oes angen. Nodwch ar wahân yn yr elfen Rheolau a ddefnyddir a/neu gonfensiynau (5.6.3) y set o reolau a ddefnyddir ar gyfer yr elfen hon." (ISDIAH 5.1.2)</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Ffurf awdurdodedig enw</target>
       </trans-unit>
       <trans-unit id="18">
         <source>This is a mandatory element</source>
-        <target/>
+        <target>Mae hwn yn elfen orfodol</target>
       </trans-unit>
       <trans-unit id="19">
         <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
-        <target/>
+        <target>"Pwrpas: I fynegi'r amryw ffurfiau y mae'r ffurf awdurdodedig o enw'r sefydliad yn digwydd mewn ieithoedd eraill neu ffurf(iau) sgript. Rheol: Cofnodwch y ffurf(iau) cyfochrog o enw'r sefydliad yn unol ag unrhyw gonfensiynau cenedlaethol neu ryngwladol neu reolau a ddefnyddir gan yr asiantaeth a greodd y disgrifiad, gan gynnwys unrhyw is elfennau a/neu oleddfwyr sy'n ofynnol gan y confensiynau neu'r rheolau hynny. Nodwch yn yr elfen Rheolau a/neu gonfensiynau a ddefnyddiwyd (5.6.3) pa reolau sydd wedi eu defnyddio." (ISDIAH 5.1.3)</target>
       </trans-unit>
       <trans-unit id="20">
         <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
-        <target/>
+        <target>"Cofnodwch unrhyw enw(au) arall y gall y sefydliad gael ei adnabod. Gallai hyn gynnwys ffurfiau eraill o'r un enw, acronymau, enwau sefydliadol eraill, neu newid enw dros amser, gan gynnwys, os yn bosibl, dyddiadau perthnasol." (ISDIAH 5.1.4)</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired from the drop-down menu; these values are drawn from the Repository Types taxonomy.</source>
-        <target/>
+        <target>Cofnodwch y math o sefydliad. (ISDIAH 5.1.5) Dewiswch cymaint o fathau ag a ddymunir o'r gwymplen; mae'r gwerthoedd hyn yn cael eu tynnu o'r dacsonomeg Mathau o Gadwrfa.</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Contact area</source>
-        <target/>
+        <target>Ardal gyswllt</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Description area</source>
-        <target/>
+        <target>Ardal disgrifiad</target>
       </trans-unit>
       <trans-unit id="24">
         <source>"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)</source>
-        <target/>
+        <target>"Cofnodwch unrhyw wybodaeth berthnasol am hanes y sefydliad. Gall yr elfen hon cynnwys gwybodaeth am ddyddiadau sefydlu, newid enwau, newidiadau i’r mandadau deddfwriaethol, neu o unrhyw ffynonellau eraill o awdurdod ar gyfer y sefydliad." (ISDIAH 5.3.1)</target>
       </trans-unit>
       <trans-unit id="25">
         <source>"Identify the geographical area the institution belongs to. Record any other relevant information about the cultural context of the institution." (ISDIAH 5.3.2)</source>
-        <target/>
+        <target>"Dynodwch yr ardal ddaearyddol y mae’r sefydliad yn perthyn i. Cofnodwch unrhyw wybodaeth berthnasol arall am gyd-destun diwylliannol y sefydliad." (ISDIAH 5.3.2)
+
+
+
+
+</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Geographical and cultural context</source>
-        <target/>
+        <target>Cyd-destun daearyddol a diwylliannol</target>
       </trans-unit>
       <trans-unit id="27">
         <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the institution, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISDIAH 5.3.3)</source>
-        <target/>
+        <target>"Cofnodwch unrhyw ddogfen, cyfraith, cyfarwyddeb neu siarter sy'n gweithredu fel ffynhonnell o awdurdod ar gyfer y pwerau, ffwythiannau a chyfrifoldebau'r sefydliad a ddisgrifir, ynghyd â gwybodaeth am awdurdodaeth(au) a dyddiadau cwmpasu pan gafodd y mandad(au) eu cymhwyso neu eu newid." (ISAAR 5.3.3)</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Mandates/Sources of authority</source>
-        <target/>
+        <target>Mandadau/Ffynonellau awdurdod</target>
       </trans-unit>
       <trans-unit id="29">
         <source>"Describe, in narrative form or using organisational charts, the current administrative structure of the institution." (ISDIAH 5.3.4)</source>
-        <target/>
+        <target>"Disgrifiwch, ar ffurf naratif neu drwy ddefnyddio siartiau trefniadaeth, strwythur gweinyddol presennol y sefydliad." (ISDIAH 5.3.4)</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Administrative structure</source>
-        <target/>
+        <target>Strwythur gweinyddol</target>
       </trans-unit>
       <trans-unit id="31">
         <source>"Record information about the records management and collecting policies of the institution. Define the scope and nature of material which the institution accessions. Indicate whether the repository seeks to acquire archival materials by transfer, gift, purchase and/or loan. If the policy includes active survey and/or rescue work, this might be spelt out." (ISDIAH 5.3.5)</source>
-        <target/>
+        <target>"Cofnodwch wybodaeth am reolaeth cofnodion a pholisïau chasglu'r sefydliad. Diffiniwch gwmpas a natur y deunydd y mae'r sefydliad yn eu derbyn. Nodwch a yw'r ystorfa yn ceisio caffael deunyddiau archifol drwy drosglwyddiad, rhodd, pryniant a/neu fenthyciad. Os yw’r polisi yn cynnwys arolwg gweithgar a/neu waith achub, gallai hyn gael ei esbonio." (ISDIAH 5.3.5)</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Records management and collecting policies</source>
-        <target/>
+        <target>Polisiau rheoli cofnodion a chasglu</target>
       </trans-unit>
       <trans-unit id="33">
         <source>"Record information on the building(s) of the institution (general and architectural characteristics of the building, capacity of storage areas, etc). Where possible, provide information which can be used for generating statistics." (ISDIAH 5.3.6)</source>
-        <target/>
+        <target>"Cofnodwch wybodaeth ar adeilad(au) y sefydliad (nodweddion cyffredinol a phensaernïol yr adeilad, maint y storfeydd, ac ati). Lle bo'n bosibl, rhowch wybodaeth y gellir ei defnyddio ar gyfer cynhyrchu ystadegau." (ISDIAH 5.3.6)</target>
       </trans-unit>
       <trans-unit id="34">
         <source>"Record a short description of the holdings of the institution, describing how and when they were formed. Provide information on volume of holdings, media formats, thematic coverage, etc." (ISDIAH 5.3.7)</source>
-        <target/>
+        <target>"Cofnodwch ddisgrifiad byr o ddaliadau'r sefydliad, gan ddisgrifio sut a phryd y cawsant eu ffurfio. Darparwch wybodaeth am faint y daliadau, fformatau cyfryngau, sylw thematig, ac ati." (ISDIAH 5.3.7)</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Archival and other holdings</source>
-        <target/>
+        <target>Daliadau archifol ac eraill</target>
       </trans-unit>
       <trans-unit id="36">
         <source>"Record the title and other pertinent details of the published and/or unpublished finding aids and guides prepared by the institution and of any other relevant publications. Use ISO 690 Information and documentation – Bibliographic references and other national or international cataloguing rules." (ISDIAH 5.3.8)</source>
-        <target/>
+        <target>"Cofnodwch y teitl a manylion perthnasol arall y cymhorthion chwilio a chanllawiau sydd wedi’u cyhoeddi a/neu heb eu cyhoeddi a baratowyd gan y sefydliad ac unrhyw gyhoeddiadau perthnasol eraill. Defnyddiwch ISO 690 Gwybodaeth a dogfennaeth - Cyfeiriadau llyfryddol a rheolau catalogio cenedlaethol neu ryngwladol arall" (ISDIAH 5.3.8)</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Finding aids, guides and publications</source>
-        <target/>
+        <target>Cymhorthion chwilio, canllawiau a chyhoeddiadau</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Access area</source>
-        <target/>
+        <target>Ardal mynediad</target>
       </trans-unit>
       <trans-unit id="39">
         <source>"Record the opening hours of the institution and annual, seasonal and public holidays, and any other planned closures. Record times associated with the availability and/or delivery of services (for example, exhibition spaces, reference services, etc.)." (ISDIAH 5.4.1)</source>
-        <target/>
+        <target>"Cofnodwch oriau agor y sefydliad a gwyliau blynyddol, tymhorol a chyhoeddus, ac unrhyw gynlluniau cau eraill. Cofnodwch amseroedd sy’n gysylltiedig ag argaeledd a/neu gyflwyno gwasanaethau (er enghraifft, mannau arddangos, gwasanaethau cyfeirio, ac ati)." (ISDIAH 5.4.1)</target>
       </trans-unit>
       <trans-unit id="40">
         <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
-        <target/>
+        <target>"Disgrifiwch bolisïau mynediad, gan gynnwys unrhyw gyfyngiadau a/neu reoliadau ar gyfer y defnydd o ddeunyddiau a chyfleusterau. Cofnodwch wybodaeth am gofrestru, apwyntiadau, tocynnau darllenwyr, llythyrau cyflwyno, ffioedd mynediad, ac ati. Lle bo’n briodol, yn cyfeirio at y ddeddfwriaeth berthnasol." (ISDIAH 5.4.2)</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Conditions and requirements</source>
-        <target/>
+        <target>Amodau ac anghenion</target>
       </trans-unit>
       <trans-unit id="42">
         <source>"Record information about travelling to the institution and details for users with disabilities, including building features, specialised equipment or tools, parking or lifts." (ISDIAH 5.4.3)</source>
-        <target/>
+        <target>"Cofnodwch wybodaeth am deithio i'r sefydliad a manylion ar gyfer defnyddwyr ag anableddau, gan gynnwys nodweddion yr adeilad, cyfarpar neu offer arbenigol, parcio neu lifftiau." (ISDIAH 5.4.3)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Accessibility</source>
-        <target/>
+        <target>Hygyrchedd</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Services area</source>
-        <target/>
+        <target>Ardal gwasanaethau</target>
       </trans-unit>
       <trans-unit id="45">
         <source>"Record information about the onsite services provided by the institution such as languages spoken by staff, research and consultation rooms, enquiry services, internal libraries, map, microfiches, audio-visual, computer rooms, etc. Record as well any relevant information about research services, such as research undertaken by the institution, and the fee charge if applicable." (ISDIAH 5.5.1)</source>
-        <target/>
+        <target>"Cofnodwch wybodaeth am wasanaethau ar y safle a ddarperir gan y sefydliad, fel ieithoedd a siaredir gan staff, ystafelloedd ymchwil ac ymgynghori, gwasanaethau ymholiadau, llyfrgelloedd mewnol, map, microffish, clyweledol, ystafelloedd cyfrifiaduron, ac ati. Cofnodwch yn ogystal unrhyw wybodaeth berthnasol am wasanaethau ymchwil, megis ymchwil a wnaed gan y sefydliad, a’r ffioedd os yn berthnasol." (ISDIAH 5.5.1)</target>
       </trans-unit>
       <trans-unit id="46">
         <source>"Record information about reproduction services available to the public (microfilms, photocopies, photographs, digitised copies). Specify general conditions and restrictions to the services, including applicable fees and publication rules." (ISDIAH 5.5.2)</source>
-        <target/>
+        <target>"Cofnodwch gwybodaeth am y gwasanaethau atgynhyrchu sydd ar gael i'r cyhoedd (microffilmiau, llungopïau, ffotograffau, copïau digido). Nodwch amodau cyffredinol a chyfyngiadau i'r gwasanaethau, gan gynnwys ffioedd perthnasol a rheolau cyhoeddi." (ISDIAH 5.5.2)</target>
       </trans-unit>
       <trans-unit id="47">
         <source>"Record information about spaces available for public use (permanent or temporary exhibitions, free or charged internet connection, cash machines, cafeterias, restaurants, shops, etc.)." (ISDIAH 5.5.3)</source>
-        <target/>
+        <target>"Cofnodwch wybodaeth am leoedd sydd ar gael at ddefnydd y cyhoedd (arddangosfeydd parhaol neu dros dro, gysylltiad rhyngrwyd di-dâl neu a godir tâl iddo, peiriannau arian parod, llefydd bwyta, siopau, ac ati)." (ISDIAH 5.5.3)</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Public areas</source>
-        <target/>
+        <target>Ardaloedd cyhoeddus</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Control area</source>
-        <target/>
+        <target>Ardal rheoli</target>
       </trans-unit>
       <trans-unit id="50">
         <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISIAH 5.6.1)</source>
-        <target/>
+        <target>"Cofnodwch ddynodwr disgrifiad unigryw yn unol â chonfensiynau lleol a/neu genedlaethol. Os yw’r disgrifiad i’w ddefnyddio’n rhyngwladol, cofnodwch y cod gwlad lle crëwyd y disgrifiad yn unol â'r fersiwn diweddaraf o ISO 3166 - Codau ar gyfer cynrychiolaeth enwau gwledydd. Lle mae crëwr y disgrifiad yn sefydliad rhyngwladol, rhowch y dynodwr sefydliadol yn lle'r cod gwlad." (ISIAH 5.6.1)
+</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Description identifier</source>
-        <target/>
+        <target>Dynodwr disgrifiad</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard." (ISDIAH 5.6.2)</source>
-        <target/>
+        <target>"Cofnodwch ffurf awdurdodedig llawn enw(au) yr asiantaeth(au) sy'n gyfrifol am greu, addasu neu'n rhoi’r disgrifiad neu, fel arall, cofnodwch god ar gyfer yr asiantaeth yn unol â'r safon cod asiantaeth genedlaethol neu ryngwladol." (ISDIAH 5.6.2)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Institution identifier</source>
-        <target/>
+        <target>Dynodwr sefydliad</target>
       </trans-unit>
       <trans-unit id="54">
         <source>"Record the names, and, where useful, the editions or publication dates of the conventions or rules applied. Specify, separately, which rules have been applied for creating the Authorised form(s) of name. Include reference to any system(s) of dating used to identify dates in this description (e.g. ISO 8601)." (ISDIAH 5.6.3)</source>
-        <target/>
+        <target>"Cofnodwch yr enwau, a, lle mae’n ddefnyddiol, argraffiadau neu ddyddiadau cyhoeddi o gonfensiynau neu reolau a gymhwyswyd. Nodwch, ar wahân, pa reolau sydd wedi cael eu defnyddio ar gyfer creu y ffurf(iau) Awdurdodedig o enw. Cynhwyswch gyfeiriad at unrhyw system(au) o ddyddio a ddefnyddir i nodi dyddiadau yn y disgrifiad hwn (ee ISO 8601)." (ISDIAH 5.6.3)</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>Rheolau a/neu confensiynau a ddefnyddiwyd</target>
       </trans-unit>
       <trans-unit id="56">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDIAH 5.6.4). Select Final, Revised or Draft from the drop-down menu.</source>
-        <target/>
+        <target>Pwrpas y maes hwn yw "[i] ddangos statws ddrafftio'r disgrifiad fel y gall defnyddwyr ddeall statws presennol y disgrifiad." (ISDIAH 5.6.4). Dewiswch Terfynol, Diwygiedig neu Drafft o'r gwymplen.</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal descriptions are those that consist only of the three essential elements of an ISIAH compliant description (see 4.7), while full records are those that convey information for all relevant ISDIAH elements of description." (ISDIAH 5.6.5)</source>
-        <target/>
+        <target>Dewiswch Llawn, Rhannol neu Ychydig iawn o'r gwymplen. "Yn absenoldeb canllawiau neu reolau cenedlaethol, disgrifiadau bach iawn yw'r rhai sy'n cynnwys dim ond y tair elfen hanfodol o ddisgrifiad cydymffurfio ISIAH (gweler 4.7), tra bod cofnodion llawn yn rhai sy'n cyfleu gwybodaeth ar gyfer pob elfen o ddisgrifiad ISDIAH perthnasol." (ISDIAH 5.6.5)</target>
       </trans-unit>
       <trans-unit id="58">
         <source>"Record the date the description was created and the dates of any revisions to the description." (ISDIAH 5.6.6)</source>
-        <target/>
+        <target>"Cofnodwch ddyddiad y crëwyd y disgrifiad a dyddiadau unrhyw ddiwygiadau i'r disgrifiad." (ISDIAH 5.6.6)</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>Dyddiadau creadigaeth, adolygiad a dilead</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Last updated</source>
-        <target/>
+        <target>Diweddarwyd ddiwethaf</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
-        <target/>
+        <target>Dewiswch iaith(ieithoedd) y cofnod o'r gwymplen; teipiwch rhai o'r llythrennau cyntaf i leihau'r dewisiadau. (ISDIAH 5.6.7)</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
-        <target/>
+        <target>Dewiswch sgript(iau) y cofnod o'r gwymplen; teipiwch rhai o'r llythrennau cyntaf i leihau'r dewisiadau. (ISDIAH 5.6.7)</target>
       </trans-unit>
       <trans-unit id="63">
         <source>"Record the sources consulted in establishing the description of the institution." (ISDIAH 5.6.8)</source>
-        <target/>
+        <target>"Cofnodwch y ffynonellau yr ymgynghorwyd â hwy wrth sefydlu disgrifiad y sefydliad." (ISDIAH 5.6.8)</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Sources</source>
-        <target/>
+        <target>Ffynonellau</target>
       </trans-unit>
       <trans-unit id="65">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
-        <target/>
+        <target>"Cofnodwch nodiadau perthnasol at y creu a chynhaliaeth o'r disgrifiad." (ISDIAH 5.6.9)</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Access points</source>
-        <target/>
+        <target>Pwyntiau mynediad</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Thematic area</source>
@@ -274,147 +280,147 @@
       </trans-unit>
       <trans-unit id="68">
         <source>Search for an existing term in the Thematic Areas taxonomy by typing the first few characters of the term name. This should be used to identify major collecting areas.</source>
-        <target/>
+        <target>Chwiliwch am derm presennol yn y tacsonomeg Ardaloedd Thematig trwy deipio ychydig o lythrennau cyntaf yr enw term. Dylid ddefnyddio hwn i nodi meysydd casglu mawr.</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Geographic subregion</source>
-        <target/>
+        <target>Isranbarth daearyddol</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Search for an existing term in the Geographic Subregion taxonomy by typing the first few characters of the term name.</source>
-        <target/>
+        <target>Chwiliwch am derm presennol yn y tacsonomeg Daearyddol Isranbarthol trwy deipio ychydig o lythrennau cyntaf yr enw term.</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Cancel</source>
-        <target/>
+        <target>Diddymu</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Save</source>
-        <target/>
+        <target>Cadw</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Create</source>
-        <target/>
+        <target>Creu</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Primary contact</source>
-        <target/>
+        <target>Prif gyswllt</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Website</source>
-        <target/>
+        <target>Gwefan</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Email</source>
-        <target/>
+        <target>E-bost</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Edit identity area</source>
-        <target/>
+        <target>Golygu ardal dynodi</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Parallel form(s) of name</source>
-        <target/>
+        <target>Ffurf(iau) cyfochrog o enw</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Other form(s) of name</source>
-        <target/>
+        <target>Ffurf(iau) arall o enw</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Type</source>
-        <target/>
+        <target>Math</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Edit contact area</source>
-        <target/>
+        <target>Golygu ardal gyswllt</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Edit description area</source>
-        <target/>
+        <target>Golygu ardal disgrifiad</target>
       </trans-unit>
       <trans-unit id="83">
         <source>History</source>
-        <target/>
+        <target>Hanes</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Buildings</source>
-        <target/>
+        <target>Adeiladau</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Holdings</source>
-        <target/>
+        <target>Daliadau</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Edit access area</source>
-        <target/>
+        <target>Golygu ardal mynediad</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Opening times</source>
-        <target/>
+        <target>Oriau agor</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Access conditions and requirements</source>
-        <target/>
+        <target>Amodau a gofynion mynediad</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Edit services area</source>
-        <target/>
+        <target>Golygu ardal gwasanaethau</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Research services</source>
-        <target/>
+        <target>Gwasanaethau ymchwil</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Reproduction services</source>
-        <target/>
+        <target>Gwasanaethau atgynhyrchu</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Edit control area</source>
-        <target/>
+        <target>Golygu ardal rheolaeth</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Status</source>
-        <target/>
+        <target>Statws</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Level of detail</source>
-        <target/>
+        <target>Lefel o fanylder</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Language(s)</source>
-        <target/>
+        <target>Iaith(ieithoedd)</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Script(s)</source>
-        <target/>
+        <target>Sgript(iau)</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Maintenance notes</source>
-        <target/>
+        <target>Nodiadau cynnal a chadw</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Edit access points</source>
-        <target/>
+        <target>Golygu pwyntiau mynediad</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Access Points</source>
-        <target/>
+        <target>Pwyntiau Mynediad</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Edit</source>
-        <target/>
+        <target>Golygu</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Delete</source>
-        <target/>
+        <target>Dileu</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Add new</source>
-        <target/>
+        <target>Ychwanegu newydd</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Edit theme</source>
-        <target/>
+        <target>Golygu thema</target>
       </trans-unit>
     </body>
   </file>

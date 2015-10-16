@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2015-08-27T12:05:24Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2015-10-16T04:43:19Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -26,7 +26,7 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Edit %1%</source>
-        <target/>
+        <target>Redigera %1%</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Related resources</source>
@@ -42,11 +42,11 @@
       </trans-unit>
       <trans-unit id="10">
         <source>Dates</source>
-        <target/>
+        <target>Datum</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Edit</source>
-        <target/>
+        <target>Redigera</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Related resource</source>
@@ -70,11 +70,11 @@
       </trans-unit>
       <trans-unit id="17">
         <source>Category</source>
-        <target/>
+        <target>Kategori</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Description</source>
-        <target/>
+        <target>Beskrivning</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Related function</source>
@@ -98,7 +98,7 @@
       </trans-unit>
       <trans-unit id="24">
         <source>Edit %1% - ISDF</source>
-        <target/>
+        <target>Redigera %1% - ISDF</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Identity area</source>
@@ -154,7 +154,7 @@
       </trans-unit>
       <trans-unit id="38">
         <source>"Record in narrative form or as a chronology the main events relating to the function." (ISDF 5.2.3)</source>
-        <target/>
+        <target>"Beskriv, i en berättande form eller genom kronologi de huvudsakliga händelserna som relaterar till funktionen." (ISDF 5.2.3)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>"Record any law, directive or charter which creates, changes or ends the function." (ISDF 5.2.4)</source>
@@ -222,7 +222,7 @@
       </trans-unit>
       <trans-unit id="55">
         <source>Language(s)</source>
-        <target/>
+        <target>Språk</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)</source>
@@ -242,7 +242,7 @@
       </trans-unit>
       <trans-unit id="60">
         <source>Cancel</source>
-        <target/>
+        <target>Avbryt</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Save</source>
@@ -250,7 +250,7 @@
       </trans-unit>
       <trans-unit id="62">
         <source>Create</source>
-        <target/>
+        <target>Skapa</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Related authority records</source>
@@ -278,7 +278,7 @@
       </trans-unit>
       <trans-unit id="69">
         <source>Classification</source>
-        <target/>
+        <target>Klassificering</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Edit context area</source>
@@ -298,7 +298,7 @@
       </trans-unit>
       <trans-unit id="74">
         <source>Identifier</source>
-        <target/>
+        <target>Identifierare</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Category of relationship</source>
@@ -322,7 +322,7 @@
       </trans-unit>
       <trans-unit id="80">
         <source>Sources</source>
-        <target/>
+        <target>Källor</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Maintenance notes</source>
@@ -330,11 +330,11 @@
       </trans-unit>
       <trans-unit id="82">
         <source>Delete</source>
-        <target/>
+        <target>Radera</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Add new</source>
-        <target/>
+        <target>Lägg till ny</target>
       </trans-unit>
     </body>
   </file>

@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2015-08-27T12:06:09Z" product-name="messages">
+  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2015-10-16T04:43:21Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>List plugins</source>
-        <target/>
+        <target>汇编插件清单</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Name</source>
-        <target/>
+        <target>名称</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Version</source>
-        <target/>
+        <target>版本</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Enabled</source>
-        <target/>
+        <target>启用</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Save</source>
-        <target/>
+        <target>保存</target>
       </trans-unit>
       <trans-unit id="6">
         <source>List themes</source>
-        <target/>
+        <target>汇编主题清单</target>
       </trans-unit>
     </body>
   </file>

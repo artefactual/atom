@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cs" datatype="plaintext" original="messages" date="2015-08-27T12:07:44Z" product-name="messages">
+  <file source-language="en" target-language="cs" datatype="plaintext" original="messages" date="2015-10-16T04:43:25Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Bez názvu</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative history / Biographical sketch</source>
@@ -74,7 +74,7 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Add new archival description</source>
-        <target/>
+        <target>Přidat nový archvní popis</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Edit %1%</source>
@@ -306,7 +306,7 @@
       </trans-unit>
       <trans-unit id="76">
         <source>Archival description area</source>
-        <target/>
+        <target>Oblast archvních popisů</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Edit authority record</source>
@@ -546,7 +546,7 @@
       </trans-unit>
       <trans-unit id="136">
         <source>Sources</source>
-        <target/>
+        <target>Zdroje</target>
       </trans-unit>
       <trans-unit id="137">
         <source>Edit title and statement of responsibility area</source>

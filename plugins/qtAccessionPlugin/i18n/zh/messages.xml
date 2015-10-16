@@ -1,492 +1,492 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2015-08-27T12:06:09Z" product-name="messages">
+  <file source-language="en" target-language="zh" datatype="plaintext" original="messages" date="2015-10-16T04:43:21Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>无标题的</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Authorized form of name - This is a mandatory element.</source>
-        <target/>
+        <target>规范的名称-必填.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Add new donor</source>
-        <target/>
+        <target>添加新的捐赠者</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Edit %1%</source>
-        <target/>
+        <target>编辑 %1%</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Edit donor</source>
-        <target/>
+        <target>编辑捐赠者</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Identity area</source>
-        <target/>
+        <target>特征标识版块</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Authorized form of name</source>
-        <target/>
+        <target>规范的名称</target>
       </trans-unit>
       <trans-unit id="8">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>必填细目.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Contact area</source>
-        <target/>
+        <target>联系方式版块</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Cancel</source>
-        <target/>
+        <target>取消</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Save</source>
-        <target/>
+        <target>保存</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Create</source>
-        <target/>
+        <target>创建</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Are you sure you want to delete %1%?</source>
-        <target/>
+        <target>确定删除%1%?</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Delete</source>
-        <target/>
+        <target>删除</target>
       </trans-unit>
       <trans-unit id="15">
         <source>View donor</source>
-        <target/>
+        <target>查看捐赠者</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Accession area</source>
-        <target/>
+        <target>登记版块</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Related accession(s)</source>
-        <target/>
+        <target>相关登记</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Edit</source>
-        <target/>
+        <target>编辑</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Add new</source>
-        <target/>
+        <target>添加新的</target>
       </trans-unit>
       <trans-unit id="20">
         <source>List donor</source>
-        <target/>
+        <target>汇编捐赠者清单</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Search donor</source>
-        <target/>
+        <target>搜索捐赠者</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Name</source>
-        <target/>
+        <target>名称</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Browse donor</source>
-        <target/>
+        <target>浏览捐赠者</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Search %1%</source>
-        <target/>
+        <target>搜索 %1%</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Alphabetic</source>
-        <target/>
+        <target>字母的</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Most recent</source>
-        <target/>
+        <target>最新的</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Identifier</source>
-        <target/>
+        <target>标识符</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Updated</source>
-        <target/>
+        <target>已更新的</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Acquisition date - This is a mandatory element.</source>
-        <target/>
+        <target>入藏日期-必填.</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Source of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>入藏来源-必填</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Location information - This is a mandatory element.</source>
-        <target/>
+        <target>位置信息-必填</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Accession number</source>
-        <target/>
+        <target>登记号</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Title</source>
-        <target/>
+        <target>标题</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Acquisition date</source>
-        <target/>
+        <target>入藏日期</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Relevance</source>
-        <target/>
+        <target>相关度</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Add new accession record</source>
-        <target/>
+        <target>添加新的登记记录</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Related donors</source>
-        <target/>
+        <target>相关捐赠者</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Related donor record</source>
-        <target/>
+        <target>相关捐赠者记录</target>
       </trans-unit>
       <trans-unit id="39">
         <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
-        <target/>
+        <target>这是法律实体栏, 提供捐赠或转移资料的个人或机构的联系信息. 该栏有多实例供选择, 并提供创建使用同一形式的多个联系方式记录的选择.</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Primary contact information</source>
-        <target/>
+        <target>主要联系信息</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Main</source>
-        <target/>
+        <target>主要</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Physical location</source>
-        <target/>
+        <target>物理位置</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Other details</source>
-        <target/>
+        <target>其他细节</target>
       </trans-unit>
       <trans-unit id="44">
         <source>URL</source>
-        <target/>
+        <target>URL</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Region/province</source>
-        <target/>
+        <target>地区/省份</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Country</source>
-        <target/>
+        <target>国家</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Edit accession record</source>
-        <target/>
+        <target>编辑登记记录</target>
       </trans-unit>
       <trans-unit id="48">
         <source>You are creating an accrual to accession %1%</source>
-        <target/>
+        <target>你正在为馆藏库 %1% 添加新的入藏.</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Basic info</source>
-        <target/>
+        <target>基本信息</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
-        <target/>
+        <target>登记号应当是该栏数个值的组合，并且应当是典藏库中独一无二的号码.</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
-        <target/>
+        <target>登记日期是指接收材料的日期，在捐赠过程中添加.</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
-        <target/>
+        <target>标明入藏或转移的直接来源, 入藏日期和方法, 如果这些不是保密信息.</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>藏品直接来源</target>
       </trans-unit>
       <trans-unit id="54">
         <source>A description of the physical location in the repository where the accession can be found.</source>
-        <target/>
+        <target>描述该登记资料在典藏库中的物理位置</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Location information</source>
-        <target/>
+        <target>位置信息</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Donor/Transferring body area</source>
-        <target/>
+        <target>捐赠者/转移团体版块</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Administrative area</source>
-        <target/>
+        <target>管理版块</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Term describing the type of accession transaction and referring to the way in which the accession was acquired.</source>
-        <target/>
+        <target>描述藏品交易类型以及指代获取该藏品的方式的术语</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Select the type of resource represented in the accession, either public or private.</source>
-        <target/>
+        <target>选择资源类型, 公开或是私有.</target>
       </trans-unit>
       <trans-unit id="60">
         <source>The title of the accession, usually the creator name and term describing the format of the accession materials.</source>
-        <target/>
+        <target>登记标题, 通常是创建者的名字以及描述藏品资料格式的术语.</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Creators</source>
-        <target/>
+        <target>创建者</target>
       </trans-unit>
       <trans-unit id="62">
         <source>The name of the creator of the accession or the name of the department that created the accession.</source>
-        <target/>
+        <target>创建该登记的个人或部门的名字</target>
       </trans-unit>
       <trans-unit id="63">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>"确认并记录著录单元的日期. 确认指定日期的类型. 根据需要记录日期或是日期范围.” (ISAD 3.1.3). 日期显示栏可用来输入自由文本日期信息, 包括表示大约, 不确定, 或条件的印刷字体符. 使用起始和结束栏来标记可搜索的日期. 不要使用任何限定词或印刷字体符来表示不确定. 可接受的日期格式: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Information on the history of the accession. When the accession is acquired directly from the creator, do not record an archival history but record the information as the Immediate Source of Acquisition.</source>
-        <target/>
+        <target>登记历史信息. 如果登记直接获取于创建者, 不要记录文献历史, 但是将该信息记录为入藏直接来源.</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Archival/Custodial history</source>
-        <target/>
+        <target>文献/保管历史</target>
       </trans-unit>
       <trans-unit id="66">
         <source>A description of the intellectual content and document types represented in the accession.</source>
-        <target/>
+        <target>关于藏品的文献类型和智识内容的描述.</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
-        <target/>
+        <target>记录已完成或是计划中著录单元评估, 销毁和编目活动, 尤其是可能会影响资料阐释的活动.</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Appraisal, destruction and scheduling</source>
-        <target/>
+        <target>评价, 销毁, 编制</target>
       </trans-unit>
       <trans-unit id="69">
         <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
-        <target/>
+        <target>描述藏品的物理条件以及是否需要维护或其他特别处理.</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Physical condition</source>
-        <target/>
+        <target>物理条件</target>
       </trans-unit>
       <trans-unit id="71">
         <source>The number of units as a whole number and the measurement of the received volume of records in the accession.</source>
-        <target/>
+        <target>典藏库中所接收的记录单元总量</target>
       </trans-unit>
       <trans-unit id="72">
         <source>An indicator of the accessioning process.</source>
-        <target/>
+        <target>登记处理过程标记.</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Indicates the priority the repository assigns to completing the processing of the accession.</source>
-        <target/>
+        <target>说明典藏库中完成该登记过程的优先权.</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
-        <target/>
+        <target>关于处理计划的说明, 描述完成登记过程所需要做的事.</target>
       </trans-unit>
       <trans-unit id="75">
         <source>%1% area</source>
-        <target/>
+        <target>%1% 版块</target>
       </trans-unit>
       <trans-unit id="76">
         <source>It has %1% deaccessions that will also be deleted:</source>
-        <target/>
+        <target>有将被删除的 %1% 销毁:</target>
       </trans-unit>
       <trans-unit id="77">
         <source>It has %1% accruals. They will not be deleted.</source>
-        <target/>
+        <target>有 %1% 增长. 它们不会被删除.</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Name of creator</source>
-        <target/>
+        <target>创建者名称</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Administrative history</source>
-        <target/>
+        <target>管理历史</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Biographical history</source>
-        <target/>
+        <target>传纪历史</target>
       </trans-unit>
       <trans-unit id="81">
         <source>View accession record</source>
-        <target/>
+        <target>查看登记记录</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Edit donor/transferring body area</source>
-        <target/>
+        <target>编辑捐赠者/转移实体版块</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Related donor</source>
-        <target/>
+        <target>相关捐赠者</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Edit administrative area</source>
-        <target/>
+        <target>编辑管理版块</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Acquisition type</source>
-        <target/>
+        <target>入藏类型</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Resource type</source>
-        <target/>
+        <target>资源类型</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Date(s)</source>
-        <target/>
+        <target>日期</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Scope and content</source>
-        <target/>
+        <target>范围和内容</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Received extent units</source>
-        <target/>
+        <target>通用尺寸单位</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Processing status</source>
-        <target/>
+        <target>处理状态</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Processing priority</source>
-        <target/>
+        <target>处理优先等级</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Processing notes</source>
-        <target/>
+        <target>处理说明</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Accruals</source>
-        <target/>
+        <target>增加</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Accrual to</source>
-        <target/>
+        <target>增加至</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Rights area</source>
-        <target/>
+        <target>权利版块</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Edit rights area</source>
-        <target/>
+        <target>编辑权利版块</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Deaccession area</source>
-        <target/>
+        <target>注销版块</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Deaccession</source>
-        <target/>
+        <target>注销</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Add accrual</source>
-        <target/>
+        <target>添加增长量</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Create %1%</source>
-        <target/>
+        <target>创建 %1%</target>
       </trans-unit>
       <trans-unit id="101">
         <source>More</source>
-        <target/>
+        <target>更多的</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Create new rights</source>
-        <target/>
+        <target>创建新的权利</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Browse accession</source>
-        <target/>
+        <target>浏览登记</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Identifier - This is a mandatory element.</source>
-        <target/>
+        <target>标识符-必填</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Date of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>入藏日期-必填</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Scope - This is a mandatory element.</source>
-        <target/>
+        <target>范围-必填</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Description - This is a mandatory element.</source>
-        <target/>
+        <target>著录-必填.</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Add new deaccession record</source>
-        <target/>
+        <target>添加新的注销记录</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Edit deaccession record</source>
-        <target/>
+        <target>编辑注销记录</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Deaccession number</source>
-        <target/>
+        <target>注销号</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
-        <target/>
+        <target>标明记录是全部注销还是部分注销.</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Scope</source>
-        <target/>
+        <target>范围</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Date of deaccession</source>
-        <target/>
+        <target>注销日期</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Date</source>
-        <target/>
+        <target>日期</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Identify what materials are being deaccessioned.</source>
-        <target/>
+        <target>标明哪些资料被注销.</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Description</source>
-        <target/>
+        <target>著录</target>
       </trans-unit>
       <trans-unit id="117">
         <source>The number of units as a whole number and the measurement of the records to be deaccessioned.</source>
-        <target/>
+        <target>将被注销的单元总量</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Provide a reason why the records are being deaccessioned.</source>
-        <target/>
+        <target>提供一个原因说明记录为什么被注销.</target>
       </trans-unit>
       <trans-unit id="119">
         <source>View deaccession record</source>
-        <target/>
+        <target>查看注销记录</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Extent</source>
-        <target/>
+        <target>尺寸</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Reason</source>
-        <target/>
+        <target>原因</target>
       </trans-unit>
     </body>
   </file>

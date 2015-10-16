@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-08-27T12:07:02Z" product-name="messages">
+  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-10-16T04:43:23Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Χωρίς τίτλο</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Add new resource</source>
-        <target/>
+        <target>Προσθήκη νέας πηγής</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
-        <target/>
+        <target>Επεξεργασία %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Select the type of activity that established the relation between the authority record and the resource.</source>
@@ -22,7 +22,7 @@
       </trans-unit>
       <trans-unit id="5">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Αυτό είναι αντίγραφο της εγγραφής %1% </target>
       </trans-unit>
       <trans-unit id="6">
         <source>Elements area</source>
@@ -38,7 +38,7 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Names and origin info</source>
-        <target/>
+        <target>Ονόματα και πληροφορίες προέλευσης</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Add new name and/or origin info</source>
@@ -50,7 +50,7 @@
       </trans-unit>
       <trans-unit id="12">
         <source>Type of resource</source>
-        <target/>
+        <target>Τύπος της πηγής</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Add new child levels (if describing a collection)</source>
@@ -58,11 +58,11 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Identifier</source>
-        <target/>
+        <target>Αναγνωριστικό</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Title</source>
-        <target/>
+        <target>Τίτλος</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
@@ -74,7 +74,7 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Subject</source>
-        <target/>
+        <target>Θέμα</target>
       </trans-unit>
       <trans-unit id="19">
         <source>A term or phrase representing the primary topic(s) on which a work is focused. Search for an existing term in the Subjects taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
@@ -82,7 +82,7 @@
       </trans-unit>
       <trans-unit id="20">
         <source>Places</source>
-        <target/>
+        <target>Τοποθεσίες</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="23">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target/>
+        <target>Επιλέξτε προέλευση, συγγραφέα και άλλα μη-θεματικά σημεία πρόσβασης από την αρχειακή περιγραφή, ανάλογα με την περίπτωση. Όλα τα σημεία πρόσβασης πρέπει να προκύπτουν από την αρχειακή περιγραφή στην οποία αναφέρονται." (RAD 21.0B). Οι τιμές στο πεδίο αυτό λαμβάνονται από το πεδίο Καθιερωμένη μορφή ονόματος της καθιερωμένης εγγραφής. Αναζητήστε για ένα υπάρχον όνομα πληκτρολογώντας τους πρώτους χαρακτήρες του ονόματος. Εναλλακτικά, πληκτρολογήστε ένα νέο όνομα για να δημιουργήσετε και να συνδέσετε σε μια νέο καθιερωμένη εγγραφή.</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
@@ -106,19 +106,19 @@
       </trans-unit>
       <trans-unit id="26">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
-        <target/>
+        <target>Μια περίληψη, πίνακας περιεχομένων ή περιγραφή των περιεχομένων</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Description</source>
-        <target/>
+        <target>Περιγραφή</target>
       </trans-unit>
       <trans-unit id="28">
         <source>How to access to this content?</source>
-        <target/>
+        <target>Πως θα έχετε πρόσβαση στο περιεχόμενο;</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Contact the archivist at %1%</source>
-        <target/>
+        <target>Επικοινωνήστε με τον αρχειονόμο στο %1%</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Show details</source>
@@ -126,15 +126,15 @@
       </trans-unit>
       <trans-unit id="31">
         <source>Close</source>
-        <target/>
+        <target>Κλείσιμο</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Edit elements area</source>
-        <target/>
+        <target>Επεξεργασία πεδίου στοιχείων</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Language</source>
-        <target/>
+        <target>Γλώσσα</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Internet media type</source>
@@ -146,19 +146,19 @@
       </trans-unit>
       <trans-unit id="36">
         <source>URL</source>
-        <target/>
+        <target>URL</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Physical location</source>
-        <target/>
+        <target>Τοποθεσία Φυσικού Αντικειμένου</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Rights area</source>
-        <target/>
+        <target>Πεδίο δικαιωμάτων</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Accession area</source>
-        <target/>
+        <target>Πεδίο Πρόσκτησης</target>
       </trans-unit>
     </body>
   </file>

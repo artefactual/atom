@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2015-08-27T12:08:12Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2015-10-16T04:43:26Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -137,11 +137,11 @@
       </trans-unit>
       <trans-unit id="859">
         <source>Places</source>
-        <target/>
+        <target>場所</target>
       </trans-unit>
       <trans-unit id="860">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
-        <target/>
+        <target>名称の冒頭の数文字を入力し場所の分類から実在する用語を検索する。あるいは新しく用語を入力し新しく場所に関する用語を作成してリンクさせます。</target>
       </trans-unit>
       <trans-unit id="861">
         <source>Names</source>
@@ -149,15 +149,15 @@
       </trans-unit>
       <trans-unit id="862">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target/>
+        <target>"必要に応じ、アーカイブズ記述から出所、著者、その他件名（主題キーワード）以外のアクセス・ポイントを選択してください。アクセス・ポイントは、それが関連付けられるアーカイブズ記述において一見して明らかでなければなりません。" (RAD 21.0B) このフィールドの値は、典拠レコードの名称フィールドに入力された正式名称をそのまま用います。名称の冒頭の数文字を入力して、既存の名称を検索してください。あるいは、新しい名称を入力し、新しい典拠レコードにリンクしてください。</target>
       </trans-unit>
       <trans-unit id="863">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
-        <target/>
+        <target>要約、内容のリスト、資料の内容の記述</target>
       </trans-unit>
       <trans-unit id="864">
         <source>Description</source>
-        <target/>
+        <target>記述</target>
       </trans-unit>
     </body>
   </file>

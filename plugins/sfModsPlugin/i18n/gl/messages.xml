@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2015-08-27T12:07:35Z" product-name="messages">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2015-10-16T04:43:25Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -138,7 +138,7 @@
       </trans-unit>
       <trans-unit id="38">
         <source>Places</source>
-        <target/>
+        <target>Lugares</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
@@ -154,11 +154,11 @@
       </trans-unit>
       <trans-unit id="42">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
-        <target/>
+        <target>Un resumo, táboa de contido ou descrición do alcance e contidos do recurso.</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Description</source>
-        <target/>
+        <target>Descrición</target>
       </trans-unit>
     </body>
   </file>

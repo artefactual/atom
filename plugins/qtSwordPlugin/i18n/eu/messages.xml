@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="eu" datatype="plaintext" original="messages" date="2015-08-27T12:05:47Z" product-name="messages">
+  <file source-language="en" target-language="eu" datatype="plaintext" original="messages" date="2015-10-16T04:43:20Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Not implemented</source>
-        <target/>
+        <target>Inplementatu gabe</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Bad request</source>
-        <target/>
+        <target>Eskaera txarra</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Forbidden</source>
-        <target/>
+        <target>Debekatua</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Not found</source>
-        <target/>
+        <target>Ez da aurkitu</target>
       </trans-unit>
       <trans-unit id="5">
         <source>The supplied format is not supported by this server</source>
-        <target/>
+        <target>Zerbitzariak ez du onartzen emandako formatua</target>
       </trans-unit>
       <trans-unit id="6">
         <source>The supplied content type is not supported by this server</source>
-        <target/>
+        <target>Zerbitzariak ez du onartzen emandako edukin mota </target>
       </trans-unit>
     </body>
   </file>

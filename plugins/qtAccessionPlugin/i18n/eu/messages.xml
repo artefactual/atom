@@ -1,160 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="eu" datatype="plaintext" original="messages" date="2015-08-27T12:05:47Z" product-name="messages">
+  <file source-language="en" target-language="eu" datatype="plaintext" original="messages" date="2015-10-16T04:43:20Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Izenbururik gabea</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Authorized form of name - This is a mandatory element.</source>
-        <target/>
+        <target>Baimenduriko izenaren forma - Hau derrigorrezko elementua da.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Add new donor</source>
-        <target/>
+        <target>Emaile berria gehitu</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Edit %1%</source>
-        <target/>
+        <target>%1% editatu</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Edit donor</source>
-        <target/>
+        <target>Atxikimendua editatu</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Identity area</source>
-        <target/>
+        <target>Nortasun eremua</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Baimenduriko izenaren forma</target>
       </trans-unit>
       <trans-unit id="8">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Hau derrigorrezko elementu bat da.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Contact area</source>
-        <target/>
+        <target>Kontakturako eremua</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Cancel</source>
-        <target/>
+        <target>Ezeztatu</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Save</source>
-        <target/>
+        <target>Gorde</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Create</source>
-        <target/>
+        <target>Sortu</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Are you sure you want to delete %1%?</source>
-        <target/>
+        <target>Ziur al zaude %1% ezabatu nahi duzula?</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Delete</source>
-        <target/>
+        <target>Ezabatu</target>
       </trans-unit>
       <trans-unit id="15">
         <source>View donor</source>
-        <target/>
+        <target>Emaile ikuskera</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Accession area</source>
-        <target/>
+        <target>Atxikimendu eremua</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Related accession(s)</source>
-        <target/>
+        <target>Erlazionaturiko atxikimendua(k)</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Edit</source>
-        <target/>
+        <target>Editatu</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Add new</source>
-        <target/>
+        <target>Berria gehitu</target>
       </trans-unit>
       <trans-unit id="20">
         <source>List donor</source>
-        <target/>
+        <target>Atxikipenen zerrenda</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Search donor</source>
-        <target/>
+        <target>Emailea bilatu</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Name</source>
-        <target/>
+        <target>Izena</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Browse donor</source>
-        <target/>
+        <target>Emaileak arakatu</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Search %1%</source>
-        <target/>
+        <target>%1% bilatu</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Alphabetic</source>
-        <target/>
+        <target>Alfabetikoa</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Most recent</source>
-        <target/>
+        <target>Berriena</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Identifier</source>
-        <target/>
+        <target>Identifikatzailea</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Updated</source>
-        <target/>
+        <target>Igoa</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Acquisition date - This is a mandatory element.</source>
-        <target/>
+        <target>Eskuratze data - Hau derrigorrezko elementua da.</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Source of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>Eskuratze iturria - Hau derrigorrezko elementua da.</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Location information - This is a mandatory element.</source>
-        <target/>
+        <target>Kokapenaren informazioa - Hau derrigorrezko elementua da.</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Accession number</source>
-        <target/>
+        <target>Atxikimendu zenbakia</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Title</source>
-        <target/>
+        <target>Izenburua</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Acquisition date</source>
-        <target/>
+        <target>Eskuratze data</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Relevance</source>
-        <target/>
+        <target>Garrantzia</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Add new accession record</source>
-        <target/>
+        <target>Atxikimendu erregistro berria gehitu</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Related donors</source>
-        <target/>
+        <target>Emaile erlazionatuak</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Related donor record</source>
-        <target/>
+        <target>Emaile erregistroarekin erlazionatua</target>
       </trans-unit>
       <trans-unit id="39">
         <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
@@ -162,51 +162,51 @@
       </trans-unit>
       <trans-unit id="40">
         <source>Primary contact information</source>
-        <target/>
+        <target>Kontaktu nagusiaren informazioa</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Main</source>
-        <target/>
+        <target>Nagusia</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Physical location</source>
-        <target/>
+        <target>Kokaleku fisikoa</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Other details</source>
-        <target/>
+        <target>Beste xehetasun batzu</target>
       </trans-unit>
       <trans-unit id="44">
         <source>URL</source>
-        <target/>
+        <target>URL-a</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Region/province</source>
-        <target/>
+        <target>Eskualdea/probintzia</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Country</source>
-        <target/>
+        <target>Herrialdea</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Edit accession record</source>
-        <target/>
+        <target>Atxikimendu erregistroa editatu</target>
       </trans-unit>
       <trans-unit id="48">
         <source>You are creating an accrual to accession %1%</source>
-        <target/>
+        <target>%1% atxikimenduarentzako sortzapen bat egiten ari zara</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Basic info</source>
-        <target/>
+        <target>Oinarrizko informazioa</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
-        <target/>
+        <target>Atxikimendu zenbakia alorrean erregistraturiko balioen konbinazio bat izan behar du eta errepositorioko atxikimendu zenbaki bakarra egon beharko luke</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
-        <target/>
+        <target>Atxikimendu datak materialak jasotako data errepresentatzen du eta donazio prozedua egiten den bitartean gehitzen da.</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
@@ -214,23 +214,23 @@
       </trans-unit>
       <trans-unit id="53">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Berehalako eskuratze iturria</target>
       </trans-unit>
       <trans-unit id="54">
         <source>A description of the physical location in the repository where the accession can be found.</source>
-        <target/>
+        <target>Errepositorioko kokaleku fisikoaren deskribapena non atxikimendua aurkitu daiteken.</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Location information</source>
-        <target/>
+        <target>Kokapenaren informazioa</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Donor/Transferring body area</source>
-        <target/>
+        <target>Emateko/Transferentzia gorputzentzako eremua </target>
       </trans-unit>
       <trans-unit id="57">
         <source>Administrative area</source>
-        <target/>
+        <target>Bilaketa aurreratua</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Term describing the type of accession transaction and referring to the way in which the accession was acquired.</source>
@@ -238,7 +238,7 @@
       </trans-unit>
       <trans-unit id="59">
         <source>Select the type of resource represented in the accession, either public or private.</source>
-        <target/>
+        <target>Atxikimenduan adierazitako baliabide mota aukeratu, bai publiko edo pribatua.</target>
       </trans-unit>
       <trans-unit id="60">
         <source>The title of the accession, usually the creator name and term describing the format of the accession materials.</source>
@@ -246,7 +246,7 @@
       </trans-unit>
       <trans-unit id="61">
         <source>Creators</source>
-        <target/>
+        <target>Sortzaileak</target>
       </trans-unit>
       <trans-unit id="62">
         <source>The name of the creator of the accession or the name of the department that created the accession.</source>
@@ -258,15 +258,15 @@
       </trans-unit>
       <trans-unit id="64">
         <source>Information on the history of the accession. When the accession is acquired directly from the creator, do not record an archival history but record the information as the Immediate Source of Acquisition.</source>
-        <target/>
+        <target>Atxikipen historiaren informazioa. Atxikipena sortzaileak lortzen badu zuzenean, ez artxiboaren historiarik erregistratu baina bai Berehalako Lorpen Iturriaren informazioa.</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Archival/Custodial history</source>
-        <target/>
+        <target>Artxibo/Kustodiaren historia</target>
       </trans-unit>
       <trans-unit id="66">
         <source>A description of the intellectual content and document types represented in the accession.</source>
-        <target/>
+        <target>Eduki intelektualaren deskribapena eta atxikimenduan errepresentaturiko dokumentu motak.</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
@@ -274,15 +274,15 @@
       </trans-unit>
       <trans-unit id="68">
         <source>Appraisal, destruction and scheduling</source>
-        <target/>
+        <target>Estimazio, suntsiketa eta plangintza</target>
       </trans-unit>
       <trans-unit id="69">
         <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
-        <target/>
+        <target>Atxikimenduaren baldintza fisikoarean deskribapena eta beharrezkoa izan daitezken edozein babes edo erabilera bereziak.</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Physical condition</source>
-        <target/>
+        <target>Baldintza fisikoak</target>
       </trans-unit>
       <trans-unit id="71">
         <source>The number of units as a whole number and the measurement of the received volume of records in the accession.</source>
@@ -290,123 +290,123 @@
       </trans-unit>
       <trans-unit id="72">
         <source>An indicator of the accessioning process.</source>
-        <target/>
+        <target>Atxikimendu prozesuaren adierazlea.</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Indicates the priority the repository assigns to completing the processing of the accession.</source>
-        <target/>
+        <target>Errepositorioak atxikimendu prozesuan ezartzen duen lehentasuna adierazi.</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
-        <target/>
+        <target>Prozesaketa planari buruzko oharrak, atxikimendua burutzeko prozesu osoa aurrera eramateko behar den guztia deskribatu.</target>
       </trans-unit>
       <trans-unit id="75">
         <source>%1% area</source>
-        <target/>
+        <target>%1% eremua</target>
       </trans-unit>
       <trans-unit id="76">
         <source>It has %1% deaccessions that will also be deleted:</source>
-        <target/>
+        <target>%1% atxikipen eten ditu eta hauek ere ezabatuko dira:</target>
       </trans-unit>
       <trans-unit id="77">
         <source>It has %1% accruals. They will not be deleted.</source>
-        <target/>
+        <target>%1% sortzapen ditu. Hauek ez dira ezabatuko.</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Name of creator</source>
-        <target/>
+        <target>Sortzailearen izena</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Administrative history</source>
-        <target/>
+        <target>Historia administratiboa</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Biographical history</source>
-        <target/>
+        <target>Historia biografikoa</target>
       </trans-unit>
       <trans-unit id="81">
         <source>View accession record</source>
-        <target/>
+        <target>Atxikipen erregistroa ikusi</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Edit donor/transferring body area</source>
-        <target/>
+        <target>Editatu emailea/transferentziaren gorputz eremua</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Related donor</source>
-        <target/>
+        <target>Emailearekin erlazionatua</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Edit administrative area</source>
-        <target/>
+        <target>Eremu administratiboa editatu</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Acquisition type</source>
-        <target/>
+        <target>Eskuratze mota</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Resource type</source>
-        <target/>
+        <target>Baliabide mota</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Date(s)</source>
-        <target/>
+        <target>Data(k)</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Scope and content</source>
-        <target/>
+        <target>Esparrua eta edukia</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Received extent units</source>
-        <target/>
+        <target>Jasotako neurri unitateak</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Processing status</source>
-        <target/>
+        <target>Egoera prozesatzen</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Processing priority</source>
-        <target/>
+        <target>Lehentasuna prozesatzen</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Processing notes</source>
-        <target/>
+        <target>Prozesaketaren oharrak</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Accruals</source>
-        <target/>
+        <target>Sortzapenak</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Accrual to</source>
-        <target/>
+        <target>Sortzatu</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Rights area</source>
-        <target/>
+        <target>Eskubideen eremua</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Edit rights area</source>
-        <target/>
+        <target>Eskubide eremua editatu</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Deaccession area</source>
-        <target/>
+        <target>Atxikimendu-eten eremua</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Deaccession</source>
-        <target/>
+        <target>Atxikimendu-etena</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Add accrual</source>
-        <target/>
+        <target>Atxikimendua gehitu</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Create %1%</source>
-        <target/>
+        <target>%1% sortu</target>
       </trans-unit>
       <trans-unit id="101">
         <source>More</source>
-        <target/>
+        <target>Gehiago</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Create new rights</source>
@@ -414,59 +414,59 @@
       </trans-unit>
       <trans-unit id="103">
         <source>Browse accession</source>
-        <target/>
+        <target>Atxikimendua bilatu</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Identifier - This is a mandatory element.</source>
-        <target/>
+        <target>Identifikatzailea - Hau derrigorrezko elementua da.</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Date of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>Eskuratze data - Hau derrigorrezkoa elementua da.</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Scope - This is a mandatory element.</source>
-        <target/>
+        <target>Esparrua - Hau derrigorrezko elementua da.</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Description - This is a mandatory element.</source>
-        <target/>
+        <target>Deskribapena - Derrigorrezko elementua da hau.</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Add new deaccession record</source>
-        <target/>
+        <target>Atxikimendu-eten erregistro berria gehitu</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Edit deaccession record</source>
-        <target/>
+        <target>Atxikimendu-eten erregistroa editatu</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Deaccession number</source>
-        <target/>
+        <target>Atxikimendu-eten zenbakia</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
-        <target/>
+        <target>Atxikimendu osoaren atxikimendu-etena egiten ari den identifikatu edo soilik atxikimenduaren parte baten atxikimendu-etena</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Scope</source>
-        <target/>
+        <target>Esparrua</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Date of deaccession</source>
-        <target/>
+        <target>Atxikimendu-etenaren data</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Date</source>
-        <target/>
+        <target>Data</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Identify what materials are being deaccessioned.</source>
-        <target/>
+        <target>Identifikatu zein materialeren atxikimendua ari den eteten.</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Description</source>
-        <target/>
+        <target>Deskribapen</target>
       </trans-unit>
       <trans-unit id="117">
         <source>The number of units as a whole number and the measurement of the records to be deaccessioned.</source>
@@ -474,19 +474,19 @@
       </trans-unit>
       <trans-unit id="118">
         <source>Provide a reason why the records are being deaccessioned.</source>
-        <target/>
+        <target>Erregistroen atxikipena eteteko arrazoia eman.</target>
       </trans-unit>
       <trans-unit id="119">
         <source>View deaccession record</source>
-        <target/>
+        <target>Atxikipen etenen erregistroa ikusi</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Extent</source>
-        <target/>
+        <target>Luzapena</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Reason</source>
-        <target/>
+        <target>Arrazoia</target>
       </trans-unit>
     </body>
   </file>

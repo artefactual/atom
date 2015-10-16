@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2015-08-27T12:09:42Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2015-10-16T04:43:30Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -457,19 +457,19 @@ Für elektronische Akten ist festzuhalten oder zu verweisen auf Informationen zu
       </trans-unit>
       <trans-unit id="1028">
         <source>Administrative / Biographical history</source>
-        <target/>
+        <target>Verwaltungsgeschichte/Biographische Angaben</target>
       </trans-unit>
       <trans-unit id="1029">
         <source>Administrative history</source>
-        <target/>
+        <target>Verwaltungsgeschichte</target>
       </trans-unit>
       <trans-unit id="1030">
         <source>Biographical history</source>
-        <target/>
+        <target>Biographische Angaben </target>
       </trans-unit>
       <trans-unit id="1031">
         <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
-        <target/>
+        <target>Signatur: Für die eindeutige Identifikation sind ein spezifischer lokaler Referenzcode, eine Kontrollnummer oder andere eindeutige Identifikationsmerkmale anzugeben. Verzeichnungsstufe: Die Verzeichnungsstufe der Verzeichnungseinheit ist festzuhalten. Titel: Anzugeben ist entweder der überlieferte Titel oder ein neuer, prägnant formulierter Titel in Übereinstimmung mit den Regeln der mehrstufigen Verzeichnung oder nationalen Konventionen.</target>
       </trans-unit>
     </body>
   </file>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2015-08-27T12:05:25Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2015-10-16T04:43:19Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -26,11 +26,11 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Add new archival institution</source>
-        <target/>
+        <target>Lägg till ny arkivinstitution</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Edit %1%</source>
-        <target/>
+        <target>Redigera %1%</target>
       </trans-unit>
       <trans-unit id="8">
         <source>See ISDIAH 5.2 for contact area information and examples.</source>
@@ -46,7 +46,7 @@
       </trans-unit>
       <trans-unit id="11">
         <source>Edit %1% - ISDIAH</source>
-        <target/>
+        <target>Redigera %1% - ISDIAH</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Identity area</source>
@@ -58,7 +58,7 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Identifier</source>
-        <target/>
+        <target>Identifierare</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a mandatory element.</source>
@@ -162,7 +162,7 @@
       </trans-unit>
       <trans-unit id="40">
         <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
-        <target/>
+        <target>"Beskriv åtkomstmöjligheter, inkludera eventuella restriktioner och/eller regleringar för nyttjande av material och anläggningar. Ange information om registrering, bokningar, lånekort, introduktionsbrev, inträdesavgifter etc. Vid behov, relatera till aktuell lagstiftning." (ISDIAH 5.4.2)</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Conditions and requirements</source>
@@ -242,7 +242,7 @@
       </trans-unit>
       <trans-unit id="60">
         <source>Last updated</source>
-        <target/>
+        <target>Senast uppdaterad</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
@@ -258,7 +258,7 @@
       </trans-unit>
       <trans-unit id="64">
         <source>Sources</source>
-        <target/>
+        <target>Källor</target>
       </trans-unit>
       <trans-unit id="65">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
@@ -286,7 +286,7 @@
       </trans-unit>
       <trans-unit id="71">
         <source>Cancel</source>
-        <target/>
+        <target>Avbryt</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Save</source>
@@ -294,11 +294,11 @@
       </trans-unit>
       <trans-unit id="73">
         <source>Create</source>
-        <target/>
+        <target>Skapa</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Primary contact</source>
-        <target/>
+        <target>Primär kontakt</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Website</source>
@@ -306,7 +306,7 @@
       </trans-unit>
       <trans-unit id="76">
         <source>Email</source>
-        <target/>
+        <target>E-post</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Edit identity area</source>
@@ -338,11 +338,11 @@
       </trans-unit>
       <trans-unit id="84">
         <source>Buildings</source>
-        <target/>
+        <target>Byggnader</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Holdings</source>
-        <target/>
+        <target>Bestånd</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Edit access area</source>
@@ -382,7 +382,7 @@
       </trans-unit>
       <trans-unit id="95">
         <source>Language(s)</source>
-        <target/>
+        <target>Språk</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Script(s)</source>
@@ -402,19 +402,19 @@
       </trans-unit>
       <trans-unit id="100">
         <source>Edit</source>
-        <target/>
+        <target>Redigera</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Delete</source>
-        <target/>
+        <target>Radera</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Add new</source>
-        <target/>
+        <target>Lägg till ny</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Edit theme</source>
-        <target/>
+        <target>Redigera tema</target>
       </trans-unit>
     </body>
   </file>

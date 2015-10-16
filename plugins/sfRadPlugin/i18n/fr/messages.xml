@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2015-08-27T12:07:13Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2015-10-16T04:43:24Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -651,7 +651,7 @@ la reproduction des documents." (RDDA 1.8B16c). Pour les conditions de publicati
       </trans-unit>
       <trans-unit id="183">
         <source>Administrative history / Biographical sketch</source>
-        <target/>
+        <target>Histoire administrative / notice biographique</target>
       </trans-unit>
       <trans-unit id="184">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
@@ -667,7 +667,7 @@ la reproduction des documents." (RDDA 1.8B16c). Pour les conditions de publicati
       </trans-unit>
       <trans-unit id="187">
         <source>General note</source>
-        <target/>
+        <target>Note générale</target>
       </trans-unit>
     </body>
   </file>

@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-08-27T12:07:02Z" product-name="messages">
+  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-10-16T04:43:23Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Import completed</source>
-        <target/>
+        <target>Εισαγωγή ολοκληρώθηκε</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1% terms imported in %2%s</source>
-        <target/>
+        <target>%1% όροι εισήχθησαν σε %2%"</target>
       </trans-unit>
       <trans-unit id="3">
         <source>View %1%</source>
-        <target/>
+        <target>Προβολή %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Import more %1%</source>
-        <target/>
+        <target>Εισαγωγή περισσότερων %1%</target>
       </trans-unit>
       <trans-unit id="5">
         <source>SKOS import</source>
-        <target/>
+        <target>Εισαγωγή SKOS</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Select a file to import</source>
-        <target/>
+        <target>Επιλέξτε ένα αρχείο για εισαγωγή</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Import</source>
-        <target/>
+        <target>Εισαγωγή</target>
       </trans-unit>
     </body>
   </file>

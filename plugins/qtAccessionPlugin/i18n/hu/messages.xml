@@ -1,492 +1,492 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2015-08-27T12:07:24Z" product-name="messages">
+  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2015-10-16T04:43:24Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Cím nélkül</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Authorized form of name - This is a mandatory element.</source>
-        <target/>
+        <target>Kitüntetett névalak - Az elem megadása kötelező.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Add new donor</source>
-        <target/>
+        <target>Új adományozó hozzáadása</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Edit %1%</source>
-        <target/>
+        <target>%1% szerkesztése</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Edit donor</source>
-        <target/>
+        <target>Adományozó szerkesztése</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Identity area</source>
-        <target/>
+        <target>Azonosítási adatcsoport</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Kitüntetett névalak</target>
       </trans-unit>
       <trans-unit id="8">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Az elem megadása kötelező.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Contact area</source>
-        <target/>
+        <target>Kapcsolat adatcsoport</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Cancel</source>
-        <target/>
+        <target>Mégsem</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Save</source>
-        <target/>
+        <target>Mentés</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Create</source>
-        <target/>
+        <target>Létrehozás</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Are you sure you want to delete %1%?</source>
-        <target/>
+        <target>Biztosan törölni akarja %1%-t?</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Delete</source>
-        <target/>
+        <target>Törlés</target>
       </trans-unit>
       <trans-unit id="15">
         <source>View donor</source>
-        <target/>
+        <target>Adományozó megtekintése</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Accession area</source>
-        <target/>
+        <target>Gyarapodási adatcsoport</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Related accession(s)</source>
-        <target/>
+        <target>Kapcsolódó beszerzés(ek)</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Edit</source>
-        <target/>
+        <target>Szerkesztés</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Add new</source>
-        <target/>
+        <target>Új hozzáadása</target>
       </trans-unit>
       <trans-unit id="20">
         <source>List donor</source>
-        <target/>
+        <target>Adományozó lista</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Search donor</source>
-        <target/>
+        <target>Adományozó keresése</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Name</source>
-        <target/>
+        <target>Név</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Browse donor</source>
-        <target/>
+        <target>Adományozók böngészése</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Search %1%</source>
-        <target/>
+        <target>Keresés: %1%</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Alphabetic</source>
-        <target/>
+        <target>Alfabetikus</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Most recent</source>
-        <target/>
+        <target>Legfrissebb</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Identifier</source>
-        <target/>
+        <target>Jelzet</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Updated</source>
-        <target/>
+        <target>Frissítve</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Acquisition date - This is a mandatory element.</source>
-        <target/>
+        <target>Beszerzési dátum - Az elem megadása kötelező.</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Source of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>A beszerzés forrása - Az elem megadása kötelező</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Location information - This is a mandatory element.</source>
-        <target/>
+        <target>Hely információ - Az elem megadása kötelező.</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Accession number</source>
-        <target/>
+        <target>Gyarapodási szám</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Title</source>
-        <target/>
+        <target>Cím</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Acquisition date</source>
-        <target/>
+        <target>Beszerzési dátum</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Relevance</source>
-        <target/>
+        <target>Relevancia</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Add new accession record</source>
-        <target/>
+        <target>Új gyarapodási rekord hozzáadása</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Related donors</source>
-        <target/>
+        <target>Kapcsolódó adományozók</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Related donor record</source>
-        <target/>
+        <target>Kapcsolódó adományozó bejegyzése</target>
       </trans-unit>
       <trans-unit id="39">
         <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
-        <target/>
+        <target>Ez a jogokat tartalmazó entitás mezője, és tartalmazza annak a személy(ek)nek vagy intézménynek az elérhetőségét, amely adományozta vagy átadta az anyagokat. Lehetőség van többszörös bejegyzésre és arra, hogy több elérhetőséget adjunk meg ugyanazt a lapot használva.</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Primary contact information</source>
-        <target/>
+        <target>Elsődleges elérhetőség</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Main</source>
-        <target/>
+        <target>Fő</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Physical location</source>
-        <target/>
+        <target>Fizikai lelőhely</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Other details</source>
-        <target/>
+        <target>Egyéb részletek</target>
       </trans-unit>
       <trans-unit id="44">
         <source>URL</source>
-        <target/>
+        <target>URL</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Region/province</source>
-        <target/>
+        <target>Régió/megye</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Country</source>
-        <target/>
+        <target>Ország</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Edit accession record</source>
-        <target/>
+        <target>Gyarapodási rekord szerkesztése</target>
       </trans-unit>
       <trans-unit id="48">
         <source>You are creating an accrual to accession %1%</source>
-        <target/>
+        <target>Gyarapodást ad hozzá a következő hozzáféréshez: %1%</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Basic info</source>
-        <target/>
+        <target>Alapadatok</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
-        <target/>
+        <target>A gyarapítási szám a mezőben található értékek és a levéltári intézmény egyedi gyarapítási számának kombinációja kell hogy legyen.</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
-        <target/>
+        <target>A gyarapítási dátum a levéltári anyagok beérkezésének dátumát jelenti, és az átadási eljárás során keletkezik.</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
-        <target/>
+        <target>Azonosítsa a megszerzés vagy transzfer közvetlen forrását, valamint a dátumát és módszerét a megszerzésnek HA ez az információ NEM minősített.</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Levéltárba kerülés/Gyarapodás</target>
       </trans-unit>
       <trans-unit id="54">
         <source>A description of the physical location in the repository where the accession can be found.</source>
-        <target/>
+        <target>A raktár fizikai helyének leírása, ahol a gyarapodás taláható</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Location information</source>
-        <target/>
+        <target>Hely információ</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Donor/Transferring body area</source>
-        <target/>
+        <target>Adományozó/átadó testület adatcsoportja</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Administrative area</source>
-        <target/>
+        <target>Adminisztratív adatcsoport</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Term describing the type of accession transaction and referring to the way in which the accession was acquired.</source>
-        <target/>
+        <target>A beszerzési tranzakció típusát leíró és a beszerzés módjára utaló kifejezés.</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Select the type of resource represented in the accession, either public or private.</source>
-        <target/>
+        <target>Válassza ki a gyarapodás eredetének típusát, akár nyilvános, akár magán.</target>
       </trans-unit>
       <trans-unit id="60">
         <source>The title of the accession, usually the creator name and term describing the format of the accession materials.</source>
-        <target/>
+        <target>A hozzáférés címe, amely általában az iratképző neve és a beszerzési anyagok formátumát leíró kifejezés.</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Creators</source>
-        <target/>
+        <target>Iratképzők</target>
       </trans-unit>
       <trans-unit id="62">
         <source>The name of the creator of the accession or the name of the department that created the accession.</source>
-        <target/>
+        <target>Az iratképzőnek vagy a gyarapodást biztosító részlegnek a neve.</target>
       </trans-unit>
       <trans-unit id="63">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>„A leírási egység dátumának (időkörének) meghatározása. Tüntessük fel a megadott dátum típusát. Megadható egyetlen időpont, és időintervallum is.” (ISAD 3.1.3)  A &lt;strong&gt;Dátum&lt;/strong&gt; ablakmező felhasználható szabad-szövegű dátum bevitelére, beleértve olyan tipográfiai jeleket is amelyek hozzávetőlegességet, bizonytalanságot vagy minősítést fejeznek ki. A dátumok kereshetővé tételéhez használja a &lt;strong&gt;Kezdő dátum&lt;/strong&gt; és &lt;/strong&gt;Befejező dátum&lt;/strong&gt; mezőket. Itt ne használjon olyan minősítőket és tipográfiai szimbólumokat amelyek bizonytalanságot fejeznek ki. Elfogadható dátum formátumok: ÉÉÉÉHHNN, ÉÉÉÉ-HH-NN, ÉÉÉÉ-HH, ÉÉÉÉ.</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Information on the history of the accession. When the accession is acquired directly from the creator, do not record an archival history but record the information as the Immediate Source of Acquisition.</source>
-        <target/>
+        <target>Az elérés történetére vonatkozó információ. Amikor az eléréshez egyenesen a létrehozó engedélye szükséges, ne rögzítse a levéltározási történetet, hanem csupán csak azt az információt, hogy a forrás engedélye szükséges.</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Archival/Custodial history</source>
-        <target/>
+        <target>Levéltári/megőrzési történet</target>
       </trans-unit>
       <trans-unit id="66">
         <source>A description of the intellectual content and document types represented in the accession.</source>
-        <target/>
+        <target>A szerzeményben feltüntetett szellemi tartalom és dokumentum típusok leírása.</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
-        <target/>
+        <target>Rögzítsük a leírási egységen végrehajtott vagy tervezett iratértékelési, selejtezési munkálatokat, különösen, ha azok befolyásolhatják az anyag értelmezését.</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Appraisal, destruction and scheduling</source>
-        <target/>
+        <target>Iratértékelés, selejtezés, tervezés </target>
       </trans-unit>
       <trans-unit id="69">
         <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
-        <target/>
+        <target>A gyarapodás fizikai állapotának és az esetleges szükséges konzerválási vagy különleges kezelési eljárás leírása.</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Physical condition</source>
-        <target/>
+        <target>Fizikai állapot</target>
       </trans-unit>
       <trans-unit id="71">
         <source>The number of units as a whole number and the measurement of the received volume of records in the accession.</source>
-        <target/>
+        <target>Az egységek száma egész számként és a hozzáférésben megkapott iratmennyiség mértéke.</target>
       </trans-unit>
       <trans-unit id="72">
         <source>An indicator of the accessioning process.</source>
-        <target/>
+        <target>A gyarapodási folyamat egyik jelzője.</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Indicates the priority the repository assigns to completing the processing of the accession.</source>
-        <target/>
+        <target>Megjelöli a tárolóhelységek fontossági sorrendjét, amelyeknek be kell fejeznie az állománygyarapodás folyamatát.</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
-        <target/>
+        <target>Jegyzetek az eljárási tervről, annak leírása, hogy mi szükséges ahhoz, hogy a gyarapodás végbemenjen.</target>
       </trans-unit>
       <trans-unit id="75">
         <source>%1% area</source>
-        <target/>
+        <target>%1% terület</target>
       </trans-unit>
       <trans-unit id="76">
         <source>It has %1% deaccessions that will also be deleted:</source>
-        <target/>
+        <target>%1% elérhetetlensége van ami szintén törölve lesz:</target>
       </trans-unit>
       <trans-unit id="77">
         <source>It has %1% accruals. They will not be deleted.</source>
-        <target/>
+        <target>%1% gyarapodása van. Nem lesznek törölve.</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Name of creator</source>
-        <target/>
+        <target>Iratképző neve</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Administrative history</source>
-        <target/>
+        <target>Szervtörténet</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Biographical history</source>
-        <target/>
+        <target>Életrajz</target>
       </trans-unit>
       <trans-unit id="81">
         <source>View accession record</source>
-        <target/>
+        <target>Gyarapodási rekord megtekintése</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Edit donor/transferring body area</source>
-        <target/>
+        <target>Adományozó/átadó testület adatcsoport szerkesztése</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Related donor</source>
-        <target/>
+        <target>Kapcsolódó adományozó</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Edit administrative area</source>
-        <target/>
+        <target>Adminisztratív adatcsoport szerkesztése</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Acquisition type</source>
-        <target/>
+        <target>Beszerzés típusa</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Resource type</source>
-        <target/>
+        <target>Forrás típusa</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Date(s)</source>
-        <target/>
+        <target>Dátum(ok)</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Scope and content</source>
-        <target/>
+        <target>Tárgy és tartalom</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Received extent units</source>
-        <target/>
+        <target>Fogadott terjedelmi egységek</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Processing status</source>
-        <target/>
+        <target>Feldolgozás állapota</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Processing priority</source>
-        <target/>
+        <target>Feldolgozás prioritása</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Processing notes</source>
-        <target/>
+        <target>Jegyzetek feldolgozása</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Accruals</source>
-        <target/>
+        <target>Jövőbeni gyarapodás</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Accrual to</source>
-        <target/>
+        <target>Gyarapodás ide:</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Rights area</source>
-        <target/>
+        <target>Jogi státusz adatcsoport</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Edit rights area</source>
-        <target/>
+        <target>Jogi státusz adatcsoport szerkesztése</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Deaccession area</source>
-        <target/>
+        <target>Fogyási adatcsoport</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Deaccession</source>
-        <target/>
+        <target>Fogyás</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Add accrual</source>
-        <target/>
+        <target>Gyarapodás hozzáadása</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Create %1%</source>
-        <target/>
+        <target>%1% létrehozása</target>
       </trans-unit>
       <trans-unit id="101">
         <source>More</source>
-        <target/>
+        <target>Továbbiak</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Create new rights</source>
-        <target/>
+        <target>Új jog(osultság)ok létrehozása</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Browse accession</source>
-        <target/>
+        <target>Gyarapodások böngészése</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Identifier - This is a mandatory element.</source>
-        <target/>
+        <target>Azonosító – Az elem megadása kötelező.</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Date of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>Beszerzési dátum - Az elem megadása kötelező.</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Scope - This is a mandatory element.</source>
-        <target/>
+        <target>Tárgy - Az elem megadása kötelező.</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Description - This is a mandatory element.</source>
-        <target/>
+        <target>Leírás - Az elem megadása kötelező</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Add new deaccession record</source>
-        <target/>
+        <target>Új fogyatéki rekord hozzáadása</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Edit deaccession record</source>
-        <target/>
+        <target>Fogyási rekord szerkesztése</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Deaccession number</source>
-        <target/>
+        <target>Fogyási szám</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
-        <target/>
+        <target>Azonosítsa azt, hogy a hozzáférés egésze, vagy csak a hozzáférés egy része van megtagadva.</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Scope</source>
-        <target/>
+        <target>Tárgy</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Date of deaccession</source>
-        <target/>
+        <target>Fogyás dátuma</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Date</source>
-        <target/>
+        <target>Dátum</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Identify what materials are being deaccessioned.</source>
-        <target/>
+        <target>Azonosítsa azokat anyagokat, amelyek hozzáférhetetlenné lettek téve.</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Description</source>
-        <target/>
+        <target>Leírás</target>
       </trans-unit>
       <trans-unit id="117">
         <source>The number of units as a whole number and the measurement of the records to be deaccessioned.</source>
-        <target/>
+        <target>Az egységek száma egész számként és a hozzáférhetetlenné teendő iratok mértéke.</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Provide a reason why the records are being deaccessioned.</source>
-        <target/>
+        <target>Adjon meg egy okot, hogy a rekord miért került fogyatékba.</target>
       </trans-unit>
       <trans-unit id="119">
         <source>View deaccession record</source>
-        <target/>
+        <target>Fogyási rekord megtekintése</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Extent</source>
-        <target/>
+        <target>Terjedelem</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Reason</source>
-        <target/>
+        <target>Indok</target>
       </trans-unit>
     </body>
   </file>

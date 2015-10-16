@@ -1,152 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="eu" datatype="plaintext" original="messages" date="2015-08-27T12:05:47Z" product-name="messages">
+  <file source-language="en" target-language="eu" datatype="plaintext" original="messages" date="2015-10-16T04:43:20Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Group %1%</source>
-        <target/>
+        <target> %1% taldea</target>
       </trans-unit>
       <trans-unit id="2">
         <source>All %1%</source>
-        <target/>
+        <target>%1% guztia</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%: %2%</source>
-        <target/>
+        <target>%1%: %2%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>All privileges</source>
-        <target/>
+        <target>Pribilegio guztiak</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Edit %1% permissions of %2%</source>
-        <target/>
+        <target>%2%ren %1% baimenak editatu</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Edit</source>
-        <target/>
+        <target>Editatu</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Delete</source>
-        <target/>
+        <target>Ezabatu</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Add new</source>
-        <target/>
+        <target>Berria gehitu</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Permissions for all %1%</source>
-        <target/>
+        <target>%1% guztientzat baimenak</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Add permissions by %1%</source>
-        <target/>
+        <target>Gehitu baimenak %1% bidez </target>
       </trans-unit>
       <trans-unit id="11">
         <source>Add %1%</source>
-        <target/>
+        <target>%1% gehitu</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Cancel</source>
-        <target/>
+        <target>Ezeztatu</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Save</source>
-        <target/>
+        <target>Gorde</target>
       </trans-unit>
       <trans-unit id="14">
         <source>%1% name</source>
-        <target/>
+        <target>%1% izena</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Action</source>
-        <target/>
+        <target>Ekintza</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Permissions</source>
-        <target/>
+        <target>Baimenak</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Grant</source>
-        <target/>
+        <target>Dirulaguntza</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Deny</source>
-        <target/>
+        <target>Ukatu</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Inherit</source>
-        <target/>
+        <target>Heredatua</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Edit %1% permissions</source>
-        <target/>
+        <target>%1% baimenak editatu</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Edit permissions</source>
-        <target/>
+        <target>Baimenak editatu</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Main area</source>
-        <target/>
+        <target>Eremu nagusia</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Create</source>
-        <target/>
+        <target>Sortu</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Are you sure you want to delete %1%?</source>
-        <target/>
+        <target>Ziur al zaude %1% ezabatu nahi duzula?</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Permission</source>
-        <target/>
+        <target>Baimena</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Permissions by taxonomy</source>
-        <target/>
+        <target>Taxonomia bidezko baimenak</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Taxonomy name</source>
-        <target/>
+        <target>Taxonomiaren izena</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Add permissions by taxonomy</source>
-        <target/>
+        <target>Baimenak gehitu taxonomiaren bitartez</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Add taxonomy</source>
-        <target/>
+        <target>Taxonomia gehitu</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Permissions by %1%</source>
-        <target/>
+        <target>%1% bidezko baimenak</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Group details</source>
-        <target/>
+        <target>Taldearen xehetasunak</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Name</source>
-        <target/>
+        <target>Izena</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Description</source>
-        <target/>
+        <target>Deskribapen</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Translate</source>
-        <target/>
+        <target>Itzuli</target>
       </trans-unit>
       <trans-unit id="35">
         <source>List groups</source>
-        <target/>
+        <target>Talde zerrenda</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Group</source>
-        <target/>
+        <target>Taldea</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Members</source>
@@ -154,7 +154,7 @@
       </trans-unit>
       <trans-unit id="38">
         <source>Taxonomy: %1%</source>
-        <target/>
+        <target>Taxonomia: %1%</target>
       </trans-unit>
     </body>
   </file>

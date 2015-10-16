@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ru" datatype="plaintext" original="messages" date="2015-08-27T12:06:41Z" product-name="messages">
+  <file source-language="en" target-language="ru" datatype="plaintext" original="messages" date="2015-10-16T04:43:22Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,15 +10,15 @@
       </trans-unit>
       <trans-unit id="2">
         <source>All %1%</source>
-        <target/>
+        <target>Все %1%</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%: %2%</source>
-        <target/>
+        <target>%1%: %2%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>All privileges</source>
-        <target/>
+        <target>Все привилегии</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Edit %1% permissions of %2%</source>
@@ -26,15 +26,15 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Edit</source>
-        <target/>
+        <target>Изменить</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Delete</source>
-        <target/>
+        <target>Удалить</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Add new</source>
-        <target/>
+        <target>Добавить новое</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Permissions for all %1%</source>
@@ -46,27 +46,27 @@
       </trans-unit>
       <trans-unit id="11">
         <source>Add %1%</source>
-        <target/>
+        <target>Добавить %1%</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Cancel</source>
-        <target/>
+        <target>Отмена</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Save</source>
-        <target/>
+        <target>Сохранить</target>
       </trans-unit>
       <trans-unit id="14">
         <source>%1% name</source>
-        <target/>
+        <target>%1% имя</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Action</source>
-        <target/>
+        <target>Действие</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Permissions</source>
-        <target/>
+        <target>Разрешения</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Grant</source>
@@ -74,7 +74,7 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Deny</source>
-        <target/>
+        <target>Запрещено</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Inherit</source>
@@ -86,7 +86,7 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Edit permissions</source>
-        <target/>
+        <target>Изменить разрешения</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Main area</source>
@@ -94,15 +94,15 @@
       </trans-unit>
       <trans-unit id="23">
         <source>Create</source>
-        <target/>
+        <target>Создать</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Are you sure you want to delete %1%?</source>
-        <target/>
+        <target>Вы уверены что хотите удалить %1%?</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Permission</source>
-        <target/>
+        <target>Разрешение</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Permissions by taxonomy</source>
@@ -118,7 +118,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>Add taxonomy</source>
-        <target/>
+        <target>Добавить таксономию</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Permissions by %1%</source>
@@ -130,11 +130,11 @@
       </trans-unit>
       <trans-unit id="32">
         <source>Name</source>
-        <target/>
+        <target>Имя</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Description</source>
-        <target/>
+        <target>Описание</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Translate</source>
@@ -142,7 +142,7 @@
       </trans-unit>
       <trans-unit id="35">
         <source>List groups</source>
-        <target/>
+        <target>Список групп</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Group</source>
@@ -150,7 +150,7 @@
       </trans-unit>
       <trans-unit id="37">
         <source>Members</source>
-        <target/>
+        <target>Члены</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Taxonomy: %1%</source>

@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca@valencia" datatype="plaintext" original="messages" date="2015-08-27T12:09:28Z" product-name="messages">
+  <file source-language="en" target-language="ca@valencia" datatype="plaintext" original="messages" date="2015-10-16T04:43:28Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Sense títol </target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Forma autoritzada del nom%2% - Aquest és un element %3%obligatori%4%.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Identificador%2% - Aquest és un element %3%obligatori%4%.</target>
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.</source>
-        <target/>
+        <target>%Informació de contacte%2% -  %3%Deu%4% d'incloure almenys un dels següents camps de localització o d'adreça: ciutat, país, codi postal, regió o carrer.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Contact information%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Informació de contacte%2% - Aquest és un element %3%obligatori%4%.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Add new archival institution</source>
-        <target/>
+        <target>Agregar nova institució arxivística </target>
       </trans-unit>
       <trans-unit id="7">
         <source>Edit %1%</source>
-        <target/>
+        <target>Editar %1%</target>
       </trans-unit>
       <trans-unit id="8">
         <source>See ISDIAH 5.2 for contact area information and examples.</source>
-        <target/>
+        <target>Veure ISDIAH 5.2 per a informació sobre l'àrea de contacte i exemples.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Enter the digital latitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. 49.459044</source>
@@ -46,227 +46,227 @@
       </trans-unit>
       <trans-unit id="11">
         <source>Edit %1% - ISDIAH</source>
-        <target/>
+        <target>Editar %1% - ISDIAH</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Identity area</source>
-        <target/>
+        <target>Àrea d'identificació </target>
       </trans-unit>
       <trans-unit id="13">
         <source>"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)</source>
-        <target/>
+        <target>"Registrar el codi numèric o alfanumèric que identifica a la institució, d'acord amb els estàndards internacionals rellevants." (ISDIAH 5.1.1)</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Identifier</source>
-        <target/>
+        <target>Identificador </target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Aquest és un element obligatori.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
-        <target/>
+        <target>"Registrar la forma autoritzada del nom de la institució, afegint els qualificadors necessaris (per exemple dates, llocs, etc.), si és necessari. Especificar separadament quin conjunt de regles han sigut aplicades per a aquest element, en l'element de Regles i/o convencions usades (5.6.3)." (ISDIAH 5.1.2)</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Forma autoritzada del nom</target>
       </trans-unit>
       <trans-unit id="18">
         <source>This is a mandatory element</source>
-        <target/>
+        <target>Aquest és un element obligatori</target>
       </trans-unit>
       <trans-unit id="19">
         <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
-        <target/>
+        <target>"Propòsit: Indicar les diverses formes amb les quals la forma autoritzada del nom d'una institució s'escriu en altres idiomes o formes d'escriptura. Regla: registre la(es) forma(es) paral·lela(es) del nom de la institució d'acord a qualsevol convenció o regla nacional o internacional rellevants aplicades per l'agència que va crear la descripció, incloent qualsevol subelement necessari i/o els qualificadors requerits per aquelles convencions o regles. En els elements utilitzats de regles i/o convencions (5.6.3) especifique quines regles es van aplicar" (ISDIAH 5.1.3)</target>
       </trans-unit>
       <trans-unit id="20">
         <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
-        <target/>
+        <target>"Registrar qualsevol altre nom de la institució pel qual pot ser coneguda. Açò pot incloure altres formes del mateix nom, acrònims, altres nom institucionals, o canvis patits pel nom al llarg del temps i si és possible, les seues corresponents dates." (ISDIAH 5.1.4)</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired from the drop-down menu; these values are drawn from the Repository Types taxonomy.</source>
-        <target/>
+        <target>Registre el tipus d'institució. (ISDIAH 5.1.5) Seleccione tants tipus com desitge des del menú desplegable; eixos valors són extrets des de la taxonomia Tipus de Repositori.</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Contact area</source>
-        <target/>
+        <target>Àrea de contacte </target>
       </trans-unit>
       <trans-unit id="23">
         <source>Description area</source>
-        <target/>
+        <target>Àrea de descripció </target>
       </trans-unit>
       <trans-unit id="24">
         <source>"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)</source>
-        <target/>
+        <target>"Registrar la informació pertinent sobre la història de la institució que custodia els fons d'arxiu. Aquest element pot incloure informació sobre les dates de fundació, canvis en la denominació, canvis dels textos constitutius de la institució i d'altres fonts reglamentàries." (ISDIAH 5.3.1)</target>
       </trans-unit>
       <trans-unit id="25">
         <source>"Identify the geographical area the institution belongs to. Record any other relevant information about the cultural context of the institution." (ISDIAH 5.3.2)</source>
-        <target/>
+        <target>"Identifique l'àrea geogràfica a la qual pertany la institució. Introduïsca qualsevol altra informació rellevant sobre el context cultural de la institució." (ISDIAH 5.3.2)</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Geographical and cultural context</source>
-        <target/>
+        <target>Context geogràfic i cultural </target>
       </trans-unit>
       <trans-unit id="27">
         <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the institution, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISDIAH 5.3.3)</source>
-        <target/>
+        <target>"Registrar qualsevol document, llei, directriu o document que actue com a font legal per a exercir les competències, funcions i responsabilitats de la institució detentora del fons d'arxiu que s'està descrivint, juntament amb la informació sobre la jurisdicció o jurisdiccions competents i les dates durant les quals es van aplicar o van modificar les seues atribucions." (ISDIAH 5.3.3)</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Mandates/Sources of authority</source>
-        <target/>
+        <target>Mandats/Fonts d'autoritat</target>
       </trans-unit>
       <trans-unit id="29">
         <source>"Describe, in narrative form or using organisational charts, the current administrative structure of the institution." (ISDIAH 5.3.4)</source>
-        <target/>
+        <target>"Descriga, en forma narrativa o utilitzant diagrames organitzatius, l'estructura administrativa actual de la institució.” (ISDIAH 5.3.4)</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Administrative structure</source>
-        <target/>
+        <target>Estructura administrativa </target>
       </trans-unit>
       <trans-unit id="31">
         <source>"Record information about the records management and collecting policies of the institution. Define the scope and nature of material which the institution accessions. Indicate whether the repository seeks to acquire archival materials by transfer, gift, purchase and/or loan. If the policy includes active survey and/or rescue work, this might be spelt out." (ISDIAH 5.3.5)</source>
-        <target/>
+        <target>"Registrar la informació relativa a la gestió de documents i al sistema d'ingressos de la institució que conserva els fons d'arxiu. Definir l'abast i naturalesa dels materials que adquireix la institució. Indicar així mateix si l'esmentada institució accepta donacions, compres i/o dipòsits de documents d'arxiu. Si la política d'ingressos inclou una cerca activa i/o un treball de rescat de documentació, llavors aquesta informació ha de ser assenyalada de manera explícita." (ISDIAH 5.3.5)</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Records management and collecting policies</source>
-        <target/>
+        <target>Administració de registres i polítiques de recol·lecció</target>
       </trans-unit>
       <trans-unit id="33">
         <source>"Record information on the building(s) of the institution (general and architectural characteristics of the building, capacity of storage areas, etc). Where possible, provide information which can be used for generating statistics." (ISDIAH 5.3.6)</source>
-        <target/>
+        <target>"Registrar informació relativa a l'edifici/s de la institució que custodia els fons d'arxiu (característiques generals i peculiaritats arquitectòniques de l'edifici, capacitat de l'àrea de dipòsit, etc.). Quan siga possible proporcionar informació que puga ser utilitzada per a generar estadístiques." (ISDIAH 5.3.6)</target>
       </trans-unit>
       <trans-unit id="34">
         <source>"Record a short description of the holdings of the institution, describing how and when they were formed. Provide information on volume of holdings, media formats, thematic coverage, etc." (ISDIAH 5.3.7)</source>
-        <target/>
+        <target>"Consigne de forma resumida els fons i altres agrupacions documentals custodiats en la institució que posseeix els fons d'arxiu, descrivint com i quan es van formar. Facilite informació sobre el volum, els formats, els suports, les matèries, etc. (ISDIAH 5.3.7)</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Archival and other holdings</source>
-        <target/>
+        <target>Fons i col·leccions </target>
       </trans-unit>
       <trans-unit id="36">
         <source>"Record the title and other pertinent details of the published and/or unpublished finding aids and guides prepared by the institution and of any other relevant publications. Use ISO 690 Information and documentation – Bibliographic references and other national or international cataloguing rules." (ISDIAH 5.3.8)</source>
-        <target/>
+        <target>"Registrar el títol i altra informació útil relativa als instruments de descripció i guies, publicats i/o no publicats preparats per la institució que conserva els fons d'arxiu i qualsevol altra publicació que es considere pertinent. Utilitzar la norma ISO 690 Documentació - Referencies bibliogràfiques - Contingut, forma i estructura, i d'altres regles de catalogació nacionals o internacionals." (ISDIAH 5.3.8)</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Finding aids, guides and publications</source>
-        <target/>
+        <target>Instruments de descripció, guies i publicacions </target>
       </trans-unit>
       <trans-unit id="38">
         <source>Access area</source>
-        <target/>
+        <target>Àrea d'accés </target>
       </trans-unit>
       <trans-unit id="39">
         <source>"Record the opening hours of the institution and annual, seasonal and public holidays, and any other planned closures. Record times associated with the availability and/or delivery of services (for example, exhibition spaces, reference services, etc.)." (ISDIAH 5.4.1)</source>
-        <target/>
+        <target>"Registrar l'horari d'obertura, les vacances anuals i els dies festius de la institució, així com qualsevol tancament que es tinga previst. Consignar els horaris relatius a la disponibilitat, o no, de certs serveis (per exemple exposicions, serveis de referència, etc.)." (ISDIAH 5.4.1)</target>
       </trans-unit>
       <trans-unit id="40">
         <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
-        <target/>
+        <target>“Descriu polítiques d'accés, incloent qualsevol restricció i/o regulació per a l'ús dels materials i instal·lacions. Registrar informació sobre inscripcions, cites, entrades del lector, cartes de presentació, formularis d'admissió, etc. On siga apropiat, fer referència a la legislació rellevant.” (ISDIAH 5.4.2)</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Conditions and requirements</source>
-        <target/>
+        <target>Condicions i requeriments </target>
       </trans-unit>
       <trans-unit id="42">
         <source>"Record information about travelling to the institution and details for users with disabilities, including building features, specialised equipment or tools, parking or lifts." (ISDIAH 5.4.3)</source>
-        <target/>
+        <target>"Registrar informació sobre els mitjans de transport per a anar a la institució que posseeix els fons d'arxiu i qualsevol detall sobre les facilitats existents per a usuaris amb mobilitat reduïda, incloent les relatives al disseny de l'edifici, equipaments o eines especials, aparcament o àrea de trànsit." (ISDIAH 5.4.3)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Accessibility</source>
-        <target/>
+        <target>Accessibilitat </target>
       </trans-unit>
       <trans-unit id="44">
         <source>Services area</source>
-        <target/>
+        <target>Àrea de serveis </target>
       </trans-unit>
       <trans-unit id="45">
         <source>"Record information about the onsite services provided by the institution such as languages spoken by staff, research and consultation rooms, enquiry services, internal libraries, map, microfiches, audio-visual, computer rooms, etc. Record as well any relevant information about research services, such as research undertaken by the institution, and the fee charge if applicable." (ISDIAH 5.5.1)</source>
-        <target/>
+        <target>"Registrar la informació dels serveis oferits presencialment als ciutadans per la institució tals com a sala de consulta i recerca, servei de referència, biblioteca auxiliar, sala de consulta de mapes i plànols, de microformes, sala d'audiovisuals, disponibilitat de llocs informàtics, idiomes parlats pel personal, etc. Consignar així mateix tota la informació necessària sobre els serveis de consulta a distància que es proporcionen, tals com les cerques efectuades per la pròpia institució i les tarifes aplicades si escau." (ISDIAH 5.5.1)</target>
       </trans-unit>
       <trans-unit id="46">
         <source>"Record information about reproduction services available to the public (microfilms, photocopies, photographs, digitised copies). Specify general conditions and restrictions to the services, including applicable fees and publication rules." (ISDIAH 5.5.2)</source>
-        <target/>
+        <target>"Registrar la informació relativa als serveis de reproducció oferits al públic (microfilms, fotocòpies, fotografies, còpies digitals). Especificar les condicions generals i requisits d'aquests serveis, incloent les tarifes aplicades i les normes de publicació." (ISDIAH 5.5.2)</target>
       </trans-unit>
       <trans-unit id="47">
         <source>"Record information about spaces available for public use (permanent or temporary exhibitions, free or charged internet connection, cash machines, cafeterias, restaurants, shops, etc.)." (ISDIAH 5.5.3)</source>
-        <target/>
+        <target>"Consignar la informació relativa als espais disponibles per a l'ús públic (exposicions permanents o temporals, accés a Internet gratuït o amb càrrec, maquines expenedores, cafeteria, restaurant, tendes, etc.)." (ISDIAH 5.5.3)</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Public areas</source>
-        <target/>
+        <target>Àrees públiques </target>
       </trans-unit>
       <trans-unit id="49">
         <source>Control area</source>
-        <target/>
+        <target>Àrea de control</target>
       </trans-unit>
       <trans-unit id="50">
         <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISIAH 5.6.1)</source>
-        <target/>
+        <target>"Registre un identificador de la descripció d'acord a les normes locals i/o nacionals. Si la descripció va a ser objecte d'ús internacional, consigne el codi del país amb la qual la descripció s'ha elaborat segons l'última versió d'ISO 3166 - Codi per a la representació de nom de països. Quan l'autor de la descripció siga una organització internacional, s'utilitzarà el seu corresponent codi d'identificació, en lloc del codi del país." (ISDIAH 5.6.1)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Description identifier</source>
-        <target/>
+        <target>Identificador de la descripció</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard." (ISDIAH 5.6.2)</source>
-        <target/>
+        <target>"Registrar de manera completa, la forma autoritzada del nom de l'entitat responsable de l'elaboració, modificació i difusió de la descripció, o bé, indicar el codi d'identificació de l'entitat d'acord als estàndards nacionals o internacionals de codificació d'entitats." (ISDIAH 5.6.2)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Institution identifier</source>
-        <target/>
+        <target>Identificador de la institució </target>
       </trans-unit>
       <trans-unit id="54">
         <source>"Record the names, and, where useful, the editions or publication dates of the conventions or rules applied. Specify, separately, which rules have been applied for creating the Authorised form(s) of name. Include reference to any system(s) of dating used to identify dates in this description (e.g. ISO 8601)." (ISDIAH 5.6.3)</source>
-        <target/>
+        <target>"Registrar el nom i, quan siga necessari, l'edició o dades de publicació de les convencions o regles aplicades. Precisar clarament les normes que s'han aplicat per a elaborar la(les) Forma(es) autoritzada(es) del nom (5.1.2). Fer referència a qualsevol sistema(es) de datació utilitzat per a identificar les dates en aquest registre d'autoritat (per exemple ISO 8601)." (ISDIAH 5.6.3)</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>Regles i/o convencions usades</target>
       </trans-unit>
       <trans-unit id="56">
         <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDIAH 5.6.4). Select Final, Revised or Draft from the drop-down menu.</source>
-        <target/>
+        <target>El propòsit d'aquest camp és "indicar l'estat d'esborrany de la descripció de tal manera que els usuaris coneguen l'estat actual de la descripció." (ISDIAH 5.6.4). Seleccione Final, Revisat o Esborrany des del menú desplegable.</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal descriptions are those that consist only of the three essential elements of an ISIAH compliant description (see 4.7), while full records are those that convey information for all relevant ISDIAH elements of description." (ISDIAH 5.6.5)</source>
-        <target/>
+        <target>Seleccione Complet, Parcial o Mínim des del menú desplegable. "En absència de lineaments o regles nacionals, els registres mínims són aquells que consisteixen solament de tres elements essencials d'un registre compatible amb ISDIAH (veure 4.7), mentre que registres complets són aquells que porten informació per a tots els elements ISDIAH rellevants d'una descripció."(ISDIAH 5.6.5)</target>
       </trans-unit>
       <trans-unit id="58">
         <source>"Record the date the description was created and the dates of any revisions to the description." (ISDIAH 5.6.6)</source>
-        <target/>
+        <target>"Registrar la data en què la descripció va ser creada i les dates de qualsevol versió de la descripció." (ISDIAH 5.6.6)</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>Dates de creació, revisió i eliminació</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Last updated</source>
-        <target/>
+        <target>Últimes actualitzacions </target>
       </trans-unit>
       <trans-unit id="61">
         <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
-        <target/>
+        <target>Seleccione l'idioma(es) d'aquest registre des del menú desplegable; ingresse les primeres lletres per a reduir les opcions. (ISDIAH 5.6.7)</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
-        <target/>
+        <target>Seleccione l'escriptura(es) d'aquest registre des del menú desplegable; ingresse les primeres lletres per a reduir les opcions. (ISDIAH 5.6.7)</target>
       </trans-unit>
       <trans-unit id="63">
         <source>"Record the sources consulted in establishing the description of the institution." (ISDIAH 5.6.8)</source>
-        <target/>
+        <target>"Registrar les fonts consultades en l'establiment de la descripció de la institució." (ISDIAH 5.6.8)</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Sources</source>
-        <target/>
+        <target>Fonts </target>
       </trans-unit>
       <trans-unit id="65">
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
-        <target/>
+        <target>"Registrar notes pertinents a la creació i manteniment de la descripció." (ISDIAH 5.6.9)</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Access points</source>
-        <target/>
+        <target>Punts d'accés </target>
       </trans-unit>
       <trans-unit id="67">
         <source>Thematic area</source>
@@ -286,115 +286,115 @@
       </trans-unit>
       <trans-unit id="71">
         <source>Cancel</source>
-        <target/>
+        <target>Cancel·lar </target>
       </trans-unit>
       <trans-unit id="72">
         <source>Save</source>
-        <target/>
+        <target>Guardar </target>
       </trans-unit>
       <trans-unit id="73">
         <source>Create</source>
-        <target/>
+        <target>Crear </target>
       </trans-unit>
       <trans-unit id="74">
         <source>Primary contact</source>
-        <target/>
+        <target>Contacte principal </target>
       </trans-unit>
       <trans-unit id="75">
         <source>Website</source>
-        <target/>
+        <target>Lloc web</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Email</source>
-        <target/>
+        <target>Correu electrònic </target>
       </trans-unit>
       <trans-unit id="77">
         <source>Edit identity area</source>
-        <target/>
+        <target>Editar l'àrea d'identitat </target>
       </trans-unit>
       <trans-unit id="78">
         <source>Parallel form(s) of name</source>
-        <target/>
+        <target>Forma(es) paral·lela(es) del nom</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Other form(s) of name</source>
-        <target/>
+        <target>Altra(es) forma(es) de nom</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Type</source>
-        <target/>
+        <target>Tipus</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Edit contact area</source>
-        <target/>
+        <target>Editar àrea de contacte </target>
       </trans-unit>
       <trans-unit id="82">
         <source>Edit description area</source>
-        <target/>
+        <target>Editar àrea de descripció </target>
       </trans-unit>
       <trans-unit id="83">
         <source>History</source>
-        <target/>
+        <target>Història </target>
       </trans-unit>
       <trans-unit id="84">
         <source>Buildings</source>
-        <target/>
+        <target>Edificis </target>
       </trans-unit>
       <trans-unit id="85">
         <source>Holdings</source>
-        <target/>
+        <target>Fons</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Edit access area</source>
-        <target/>
+        <target>Editar àrea d'accés </target>
       </trans-unit>
       <trans-unit id="87">
         <source>Opening times</source>
-        <target/>
+        <target>Horari d'obertura </target>
       </trans-unit>
       <trans-unit id="88">
         <source>Access conditions and requirements</source>
-        <target/>
+        <target>Condicions d'accés i requeriments </target>
       </trans-unit>
       <trans-unit id="89">
         <source>Edit services area</source>
-        <target/>
+        <target>Editar àrea de serveis </target>
       </trans-unit>
       <trans-unit id="90">
         <source>Research services</source>
-        <target/>
+        <target>Serveis per a la recerca</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Reproduction services</source>
-        <target/>
+        <target>Serveis de reproducció</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Edit control area</source>
-        <target/>
+        <target>Editar àrea de control</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Status</source>
-        <target/>
+        <target>Estat d'elaboració </target>
       </trans-unit>
       <trans-unit id="94">
         <source>Level of detail</source>
-        <target/>
+        <target>Nivell de detall</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Language(s)</source>
-        <target/>
+        <target>Idioma(es)</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Script(s)</source>
-        <target/>
+        <target>Escriptura(es)</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Maintenance notes</source>
-        <target/>
+        <target>Notes de manteniment</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Edit access points</source>
-        <target/>
+        <target>Editar punts d'accés </target>
       </trans-unit>
       <trans-unit id="99">
         <source>Access Points</source>
@@ -402,19 +402,19 @@
       </trans-unit>
       <trans-unit id="100">
         <source>Edit</source>
-        <target/>
+        <target>Editar</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Delete</source>
-        <target/>
+        <target>Esborrar</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Add new</source>
-        <target/>
+        <target>Agregar nou</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Edit theme</source>
-        <target/>
+        <target>Editar tema </target>
       </trans-unit>
     </body>
   </file>
