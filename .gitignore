@@ -21,3 +21,6 @@
 
 # Sitemap
 /sitemap.*
+
+# Transifex files
+.tx/i18n
