@@ -250,7 +250,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $actorHistories = array();
     $places         = array();
 
-    $events = $this->resource->getEvents();
+    $events = $this->resource->getEventsRelatedByobjectId();
 
     foreach ($events as $event)
     {

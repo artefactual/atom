@@ -222,7 +222,7 @@ class QubitInformationObject extends BaseInformationObject
 
     // Save updated related events (update search index after updating all
     // related objects that are included in the index document)
-    foreach ($this->events as $item)
+    foreach ($this->eventsRelatedByobjectId as $item)
     {
       $item->indexOnSave = false;
 
@@ -1453,7 +1453,7 @@ class QubitInformationObject extends BaseInformationObject
    */
   private function getActorByNameAndEvent($name)
   {
-    foreach ($this->events as $event)
+    foreach ($this->eventsRelatedByobjectId as $event)
     {
       if (isset($event->actor))
       {
@@ -1576,7 +1576,7 @@ class QubitInformationObject extends BaseInformationObject
         $event->setDescription($options['event_note']);
       }
 
-      $this->events[] = $event;
+      $this->eventsRelatedByobjectId[] = $event;
     }
     // In EAD import, the term relation is not always created at this point;
     // it might be created afterwards.
@@ -1804,7 +1804,7 @@ class QubitInformationObject extends BaseInformationObject
 
     // Obtain creators (we can't use criteria because they're not saved yet)
     $creators = array();
-    foreach ($this->events as $existingEvent)
+    foreach ($this->eventsRelatedByobjectId as $existingEvent)
     {
       if ($existingEvent->typeId == QubitTerm::CREATION_ID && isset($existingEvent->actor))
       {
@@ -1836,7 +1836,7 @@ class QubitInformationObject extends BaseInformationObject
         $event->setActorId($actor->id);
         $event->setTypeId(QubitTerm::CREATION_ID);
 
-        $this->events[] = $event;
+        $this->eventsRelatedByobjectId[] = $event;
       }
       else if (!isset($creators[$key]->history))
       {
@@ -1974,7 +1974,7 @@ class QubitInformationObject extends BaseInformationObject
   {
     // Check events array for related events/actors (we may not have saved this
     // data to the database yet)
-    if (0 < count($relatedEvents = $this->events))
+    if (0 < count($relatedEvents = $this->eventsRelatedByobjectId))
     {
       foreach ($relatedEvents as $event)
       {
@@ -2179,7 +2179,7 @@ class QubitInformationObject extends BaseInformationObject
     $event->setEndDate($normalizedDate['end']);
     $event->setDate($date);
 
-    $this->events[] = $event;
+    $this->eventsRelatedByobjectId[] = $event;
 
     return $event;
   }

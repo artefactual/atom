@@ -176,23 +176,6 @@ abstract class BaseAccession extends QubitObject implements ArrayAccess
       return $this->refFkValues['deaccessions'];
     }
 
-    if ('events' == $name)
-    {
-      if (!isset($this->refFkValues['events']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['events'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['events'] = self::geteventsById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['events'];
-    }
-
     try
     {
       if (1 > strlen($value = call_user_func_array(array($this->getCurrentaccessionI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
@@ -354,20 +337,5 @@ abstract class BaseAccession extends QubitObject implements ArrayAccess
     }
 
     return $accessionI18ns[$options['culture']];
-  }
-
-  public static function geteventsById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addeventsCriteriaById($criteria, $id);
-
-    return QubitEvent::get($criteria, $options);
-  }
-
-  public static function addeventsCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitEvent::OBJECT_ID, $id);
-
-    return $criteria;
   }
 }

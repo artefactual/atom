@@ -21,7 +21,7 @@ class QubitValidatorDates extends sfValidatorBase
 {
   protected function doClean($value)
   {
-    foreach ($value->events as $item)
+    foreach ($value->eventsRelatedByobjectId as $item)
     {
       $valid = true;
 

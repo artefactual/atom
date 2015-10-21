@@ -82,7 +82,7 @@ class sfDcPlugin implements ArrayAccess
         // elements, we only return a limited set of events: just those that
         // are related to creation/origination
         $event = array();
-        foreach ($this->resource->events as $item)
+        foreach ($this->resource->eventsRelatedByobjectId as $item)
         {
           switch ($item->typeId)
           {
@@ -102,7 +102,7 @@ class sfDcPlugin implements ArrayAccess
       case 'coverage':
         $coverage = array();
 
-        foreach ($this->resource->events as $item)
+        foreach ($this->resource->eventsRelatedByobjectId as $item)
         {
           if (null !== $place = $item->getPlace())
           {

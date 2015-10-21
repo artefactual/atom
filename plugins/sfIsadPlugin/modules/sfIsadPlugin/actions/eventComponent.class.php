@@ -97,7 +97,7 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
         }
         else
         {
-          $this->resource->events[] = $this->event = new QubitEvent;
+          $this->resource->eventsRelatedByobjectId[] = $this->event = new QubitEvent;
         }
 
         foreach ($this->form as $field)

@@ -159,7 +159,7 @@ class sfRadPluginIndexAction extends InformationObjectIndexAction
 
             // No publication events?
             $isPublication = false;
-            foreach ($this->resource->events as $item)
+            foreach ($this->resource->eventsRelatedByobjectId as $item)
             {
               if (QubitTerm::PUBLICATION_ID == $item->typeId)
               {

@@ -549,7 +549,7 @@ class InformationObjectEditAction extends DefaultEditAction
 
       if ('sfIsadPlugin' != $this->request->module)
       {
-        foreach ($sourceInformationObject->events as $sourceEvent)
+        foreach ($sourceInformationObject->eventsRelatedByobjectId as $sourceEvent)
         {
           if (false === array_search($this->context->routing->generate(null, array($sourceEvent, 'module' => 'event')), (array)$this->request->deleteEvents))
           {
@@ -590,7 +590,7 @@ class InformationObjectEditAction extends DefaultEditAction
               $event->objectTermRelationsRelatedByobjectId[] = $termRelation;
             }
 
-            $this->resource->events[] = $event;
+            $this->resource->eventsRelatedByobjectId[] = $event;
           }
         }
       }
@@ -729,7 +729,7 @@ class InformationObjectEditAction extends DefaultEditAction
           }
         }
 
-        $childLevel->events[] = $creationEvent;
+        $childLevel->eventsRelatedByobjectId[] = $creationEvent;
       }
 
       if (0 < strlen($item['levelOfDescription'])

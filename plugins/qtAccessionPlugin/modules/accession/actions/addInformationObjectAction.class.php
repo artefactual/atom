@@ -62,7 +62,7 @@ class AccessionAddInformationObjectAction extends sfAction
       $event->actor = $item->subject;
       $event->typeId = QubitTerm::CREATION_ID;
 
-      $informationObject->events[] = $event;
+      $informationObject->eventsRelatedByobjectId[] = $event;
     }
 
     // Populate dates
@@ -74,7 +74,7 @@ class AccessionAddInformationObjectAction extends sfAction
       $event->endDate = $accessionEvent->endDate;
       $event->typeId = $accessionEvent->typeId;
 
-      $informationObject->events[] = $event;
+      $informationObject->eventsRelatedByobjectId[] = $event;
     }
 
     // Relationship between the information object and accession record

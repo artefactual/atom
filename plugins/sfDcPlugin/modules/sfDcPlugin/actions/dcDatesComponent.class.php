@@ -54,7 +54,7 @@ class sfDcPluginDcDatesComponent extends InformationObjectEventComponent
         }
         if (is_null($this->event))
         {
-          $this->resource->events[] = $this->event = new QubitEvent;
+          $this->resource->eventsRelatedByobjectId[] = $this->event = new QubitEvent;
         }
 
         $this->event->typeId = QubitTerm::CREATION_ID;
