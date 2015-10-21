@@ -54,7 +54,7 @@ foreach ($cases as $item)
   $event->typeId = QubitTerm::CREATION_ID;
   $event->startDate = $item[1];
   $event->endDate = $item[2];
-  $informationObject->events[] = $event;
+  $informationObject->eventsRelatedByobjectId[] = $event;
   $informationObject->save();
 }
 

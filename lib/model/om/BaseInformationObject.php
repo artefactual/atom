@@ -130,11 +130,6 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
       return true;
     }
 
-    if ('events' == $name)
-    {
-      return true;
-    }
-
     if ('informationObjectsRelatedByparentId' == $name)
     {
       return true;
@@ -204,23 +199,6 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
       }
 
       return $this->refFkValues['digitalObjects'];
-    }
-
-    if ('events' == $name)
-    {
-      if (!isset($this->refFkValues['events']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['events'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['events'] = self::geteventsById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['events'];
     }
 
     if ('informationObjectsRelatedByparentId' == $name)
@@ -535,26 +513,6 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
   public function adddigitalObjectsCriteria(Criteria $criteria)
   {
     return self::adddigitalObjectsCriteriaById($criteria, $this->id);
-  }
-
-  public static function addeventsCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitEvent::OBJECT_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function geteventsById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addeventsCriteriaById($criteria, $id);
-
-    return QubitEvent::get($criteria, $options);
-  }
-
-  public function addeventsCriteria(Criteria $criteria)
-  {
-    return self::addeventsCriteriaById($criteria, $this->id);
   }
 
   public static function addinformationObjectsRelatedByparentIdCriteriaById(Criteria $criteria, $id)

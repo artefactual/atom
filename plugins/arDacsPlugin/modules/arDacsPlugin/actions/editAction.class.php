@@ -107,7 +107,7 @@ class arDacsPluginEditAction extends InformationObjectEditAction
     {
       case 'creators':
         $criteria = new Criteria;
-        $this->resource->addEventsCriteria($criteria);
+        $criteria->add(QubitEvent::OBJECT_ID, $this->resource->id);
         $criteria->add(QubitEvent::ACTOR_ID, null, Criteria::ISNOTNULL);
         $criteria->add(QubitEvent::TYPE_ID, QubitTerm::CREATION_ID);
 
@@ -175,7 +175,7 @@ class arDacsPluginEditAction extends InformationObjectEditAction
           $event->actor = $item;
           $event->typeId = QubitTerm::CREATION_ID;
 
-          $this->resource->events[] = $event;
+          $this->resource->eventsRelatedByobjectId[] = $event;
         }
 
         break;

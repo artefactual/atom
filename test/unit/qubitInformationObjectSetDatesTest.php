@@ -34,7 +34,7 @@ function testGetDefaultDateValue($normalizedDates)
 
   $io = QubitInformationObject::getById($io->id);
 
-  $event = $io->events[0];
+  $event = $io->eventsRelatedByobjectId[0];
 
   return array($event->startDate, $event->endDate, $io->id);
 }

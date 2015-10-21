@@ -24,7 +24,7 @@
         <div class="delete-list">
           <ul>
             <?php foreach ($resource->events as $item): ?>
-              <li><?php echo Qubit::renderDateStartEnd($item->getDate(array('cultureFallback' => true)), $item->startDate, $item->endDate) ?> (<?php echo render_title($resource) ?>) <?php echo link_to(render_title($item->informationObject), array($item->informationObject, 'module' => 'informationobject')) ?></li>
+              <li><?php echo Qubit::renderDateStartEnd($item->getDate(array('cultureFallback' => true)), $item->startDate, $item->endDate) ?> (<?php echo render_title($resource) ?>) <?php echo link_to(render_title($item->object), array($item->object, 'module' => 'informationobject')) ?></li>
             <?php endforeach; ?>
           </ul>
         </div>

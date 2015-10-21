@@ -440,7 +440,7 @@ class QubitMetsParser
         }
       }
 
-      $informationObject->events[] = $event;
+      $informationObject->eventsRelatedByobjectId[] = $event;
     }
 
     return $informationObject;

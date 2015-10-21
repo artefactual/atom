@@ -45,7 +45,7 @@ class QubitAccession extends BaseAccession
 
     // Save updated related events (update search index after updating all
     // related objects that are included in the index document)
-    foreach ($this->events as $item)
+    foreach ($this->eventsRelatedByobjectId as $item)
     {
       $item->indexOnSave = false;
 

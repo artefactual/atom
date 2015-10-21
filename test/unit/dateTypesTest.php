@@ -32,7 +32,7 @@ $event = new QubitEvent;
 $event->startDate = '2001-02-03';
 $event->endDate = '2004-05-06';
 $event->typeId = QubitTerm::CREATION_ID;
-$informationObject->events[] = $event;
+$informationObject->eventsRelatedByobjectId[] = $event;
 
 $informationObject->save();
 
