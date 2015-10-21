@@ -87,7 +87,19 @@ class TermEditAction extends DefaultEditAction
     else
     {
       // Check authorization
-      if (!QubitAcl::check(QubitTerm::getRoot(), 'create'))
+      if (isset($this->request->taxonomy))
+      {
+        $params = $this->context->routing->parse(Qubit::pathInfo($this->request->taxonomy));
+        $taxonomy = $params['_sf_route']->resource;
+
+        $authorized = QubitAcl::check($taxonomy, 'createTerm');
+      }
+      else
+      {
+        $authorized = QubitAcl::check(QubitTerm::getRoot(), 'create');
+      }
+
+      if (!$authorized)
       {
         QubitAcl::forwardUnauthorized();
       }
