@@ -683,14 +683,11 @@ class InformationObjectEditAction extends DefaultEditAction
 
     foreach ($updateChildLevels as $item)
     {
+      // Notice that the publication status is established
+      // later in the updateStatus function
       $childLevel = new QubitInformationObject;
       $childLevel->identifier = $item['identifier'];
       $childLevel->title = $item['title'];
-
-      if (null != ($pubStatus = $this->resource->getPublicationStatus()))
-      {
-        $childLevel->setPublicationStatus($pubStatus->statusId);
-      }
 
       if (0 < strlen($item['levelOfDescription']) && (null !== QubitTerm::getById($item['levelOfDescription'])))
       {
