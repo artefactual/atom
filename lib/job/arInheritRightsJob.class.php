@@ -32,8 +32,8 @@ class arInheritRightsJob extends arBaseJob
    * @see arBaseJob::$requiredParameters
    */
   protected $extraRequiredParameters = array(
-    'overwrite_or_combine',  // values: overwrite, combine
-    'all_or_digital_only'  // values: all, digital_only
+    'overwrite_or_combine', // Values: overwrite, combine
+    'all_or_digital_only'   // Values: all, digital_only
   );
 
   public function runJob($parameters)
@@ -43,76 +43,46 @@ class arInheritRightsJob extends arBaseJob
     if (($io = QubitInformationObject::getById($ioId)) === null)
     {
       $this->error("Invalid information object id: $ioId");
+
       return false;
     }
 
-    $idsToUpdate = array(); // Info object IDs to recalculate rights based on PREMIS
+    // Info object IDs to recalculate rights based on PREMIS
+    $idsToUpdate = array();
 
     foreach ($io->descendants as $descendant)
     {
-      // if digital only and descendant isn't a digital object, skip
+      // If digital only and descendant isn't a digital object, skip
       if ('digital_only' === $parameters['all_or_digital_only'] && null === $descendant->getDigitalObject())
       {
         $this->info("skipping descendant {$descendant->getId()}\n");
+
         continue;
       }
 
       $idsToUpdate[] = $descendant->id;
 
-      // delete existing rights if overwriting rights
-      if ('overwrite' === $parameters['overwrite_or_combine']) {
-        // the object property of the relation($item) is the right
-        foreach ($descendant->getRights() as $item) {
+      // Delete existing rights if overwriting rights
+      if ('overwrite' === $parameters['overwrite_or_combine'])
+      {
+        // The object property of the relation($item) is the right
+        foreach ($descendant->getRights() as $item)
+        {
           $item->object->delete();
         }
       }
 
-      // lastly, copy all rights from $io to $descendants
-      foreach ($io->getRights() as $parentRelation) {
-        $right = $parentRelation->object;
-        // duplicate the right
-        $newRight = new QubitRights;
-        $newRight->startDate                   = $right->startDate;
-        $newRight->endDate                     = $right->endDate;
-        $newRight->basisId                     = $right->basisId;
-        $newRight->rightsHolderId              = $right->rightsHolderId;
-        $newRight->copyrightStatusId           = $right->copyrightStatusId;
-        $newRight->copyrightStatusDate         = $right->copyrightStatusDate;
-        $newRight->copyrightJurisdiction       = $right->copyrightJurisdiction;
-        $newRight->statuteDeterminationDate    = $right->statuteDeterminationDate;
-        $newRight->sourceCulture               = $right->sourceCulture;
+      // Lastly, copy all rights from $io to $descendants
+      foreach ($io->getRights() as $parentRelation)
+      {
+        $rights = $parentRelation->object;
 
-        $newRight->rightsNote                  = $right->rightsNote;
-        $newRight->copyrightNote               = $right->copyrightNote;
-        $newRight->identifierValue             = $right->identifierValue;
-        $newRight->identifierType              = $right->identifierType;
-        $newRight->identifierRole              = $right->identifierRole;
-        $newRight->licenseTerms                = $right->licenseTerms;
-        $newRight->licenseNote                 = $right->licenseNote;
-        $newRight->statuteJurisdiction         = $right->statuteJurisdiction;
-        $newRight->statuteCitation             = $right->statuteCitation;
-        $newRight->statuteNote                 = $right->statuteNote;
-        $newRight->culture                     = $right->culture;
+        // Duplicate the right
+        $newRights = $rights->copy();
 
-        // duplicate the related granted_rights
-        foreach($right->grantedRights as $gr)
-        {
-          $newGr = new QubitGrantedRight;
-          $newGr->rightsId      = $gr->rightsId;
-          $newGr->actId         = $gr->actId;
-          $newGr->restriction   = $gr->restriction;
-          $newGr->startDate     = $gr->startDate;
-          $newGr->endDate       = $gr->endDate;
-          $newGr->notes         = $gr->notes;
-
-          $newRight->grantedRights[] = $newGr;
-        }
-
-        $newRight->save();
-
-        // create a relation record associating the new right to the descendant
+        // Create a relation record associating the new right to the descendant
         $newRelation = new QubitRelation;
-        $newRelation->objectId  = $newRight->getId();
+        $newRelation->objectId  = $newRights->getId();
         $newRelation->typeId    = QubitTerm::RIGHT_ID;
         $newRelation->subjectId = $descendant->getId();
 

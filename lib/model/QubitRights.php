@@ -111,6 +111,8 @@ class QubitRights extends BaseRights
     $newRights->copyrightStatusDate = $this->copyrightStatusDate;
     $newRights->copyrightJurisdiction = $this->copyrightJurisdiction;
     $newRights->statuteDeterminationDate = $this->statuteDeterminationDate;
+    $newRights->statuteCitation = $this->statuteCitation;
+    $newRights->sourceCulture = $this->sourceCulture;
 
     // Current culture row
     $newRights->rightsNote = $this->rightsNote;
@@ -121,7 +123,6 @@ class QubitRights extends BaseRights
     $newRights->licenseTerms = $this->licenseTerms;
     $newRights->licenseNote = $this->licenseNote;
     $newRights->statuteJurisdiction = $this->statuteJurisdiction;
-    $newRights->statuteCitation = $this->statuteCitation;
     $newRights->statuteNote = $this->statuteNote;
 
     // Other culture rows
@@ -141,7 +142,6 @@ class QubitRights extends BaseRights
       $rightsI18n->licenseTerms = $sourceRightsI18n->licenseTerms;
       $rightsI18n->licenseNote = $sourceRightsI18n->licenseNote;
       $rightsI18n->statuteJurisdiction = $sourceRightsI18n->statuteJurisdiction;
-      $rightsI18n->statuteCitation = $sourceRightsI18n->statuteCitation;
       $rightsI18n->statuteNote = $sourceRightsI18n->statuteNote;
       $rightsI18n->culture = $sourceRightsI18n->culture;
 
