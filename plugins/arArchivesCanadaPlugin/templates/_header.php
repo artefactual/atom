@@ -22,9 +22,9 @@
         <div class="span12">
 
           <?php if ('fr' == $sf_user->getCulture()): ?>
-            <a id="header-council" href="http://www.cdncouncilarchives.ca/"><?php echo image_tag('/plugins/arArchivesCanadaPlugin/images/council.fr.png', array('width' => '156', 'height' => '42', 'alt' => __('Canadian Council of Archives'))) ?></a>
+            <a id="header-council" href="http://archivescanada.ca"><?php echo image_tag('/plugins/arArchivesCanadaPlugin/images/council.fr.png', array('width' => '156', 'height' => '42', 'alt' => __('Canadian Council of Archives'))) ?></a>
           <?php else: ?>
-            <a id="header-council" href="http://www.cdncouncilarchives.ca/"><?php echo image_tag('/plugins/arArchivesCanadaPlugin/images/council.en.png', array('width' => '156', 'height' => '42', 'alt' => __('Canadian Council of Archives'))) ?></a>
+            <a id="header-council" href="http://archivescanada.ca"><?php echo image_tag('/plugins/arArchivesCanadaPlugin/images/council.en.png', array('width' => '156', 'height' => '42', 'alt' => __('Canadian Council of Archives'))) ?></a>
           <?php endif; ?>
 
           <ul id="header-nav" class="nav nav-pills">
