@@ -54,11 +54,6 @@ class TermTableMap extends TableMap {
     $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('taxonomy', 'taxonomy', RelationMap::MANY_TO_ONE, array('taxonomy_id' => 'id', ), 'CASCADE', null);
     $this->addRelation('termRelatedByparentId', 'term', RelationMap::MANY_TO_ONE, array('parent_id' => 'id', ), null, null);
-    $this->addRelation('accessionRelatedByacquisitionTypeId', 'accession', RelationMap::ONE_TO_MANY, array('id' => 'acquisition_type_id', ), 'SET NULL', null);
-    $this->addRelation('accessionRelatedByprocessingPriorityId', 'accession', RelationMap::ONE_TO_MANY, array('id' => 'processing_priority_id', ), 'SET NULL', null);
-    $this->addRelation('accessionRelatedByprocessingStatusId', 'accession', RelationMap::ONE_TO_MANY, array('id' => 'processing_status_id', ), 'SET NULL', null);
-    $this->addRelation('accessionRelatedByresourceTypeId', 'accession', RelationMap::ONE_TO_MANY, array('id' => 'resource_type_id', ), 'SET NULL', null);
-    $this->addRelation('deaccession', 'deaccession', RelationMap::ONE_TO_MANY, array('id' => 'scope_id', ), 'SET NULL', null);
     $this->addRelation('actorRelatedByentityTypeId', 'actor', RelationMap::ONE_TO_MANY, array('id' => 'entity_type_id', ), 'SET NULL', null);
     $this->addRelation('actorRelatedBydescriptionStatusId', 'actor', RelationMap::ONE_TO_MANY, array('id' => 'description_status_id', ), 'SET NULL', null);
     $this->addRelation('actorRelatedBydescriptionDetailId', 'actor', RelationMap::ONE_TO_MANY, array('id' => 'description_detail_id', ), 'SET NULL', null);
@@ -89,6 +84,11 @@ class TermTableMap extends TableMap {
     $this->addRelation('statusRelatedBystatusId', 'status', RelationMap::ONE_TO_MANY, array('id' => 'status_id', ), 'CASCADE', null);
     $this->addRelation('termRelatedByparentId', 'term', RelationMap::ONE_TO_MANY, array('id' => 'parent_id', ), null, null);
     $this->addRelation('termI18n', 'termI18n', RelationMap::ONE_TO_MANY, array('id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('accessionRelatedByacquisitionTypeId', 'accession', RelationMap::ONE_TO_MANY, array('id' => 'acquisition_type_id', ), 'SET NULL', null);
+    $this->addRelation('accessionRelatedByprocessingPriorityId', 'accession', RelationMap::ONE_TO_MANY, array('id' => 'processing_priority_id', ), 'SET NULL', null);
+    $this->addRelation('accessionRelatedByprocessingStatusId', 'accession', RelationMap::ONE_TO_MANY, array('id' => 'processing_status_id', ), 'SET NULL', null);
+    $this->addRelation('accessionRelatedByresourceTypeId', 'accession', RelationMap::ONE_TO_MANY, array('id' => 'resource_type_id', ), 'SET NULL', null);
+    $this->addRelation('deaccession', 'deaccession', RelationMap::ONE_TO_MANY, array('id' => 'scope_id', ), 'SET NULL', null);
 	} // buildRelations()
 
 } // TermTableMap
