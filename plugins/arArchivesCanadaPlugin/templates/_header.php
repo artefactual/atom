@@ -22,14 +22,14 @@
         <div class="span12">
 
           <?php if ('fr' == $sf_user->getCulture()): ?>
-            <a id="header-council" href="http://archivescanada.ca"><?php echo image_tag('/plugins/arArchivesCanadaPlugin/images/council.fr.png', array('width' => '156', 'height' => '42', 'alt' => __('Canadian Council of Archives'))) ?></a>
+            <a id="header-council" href="http://cdncouncilarchives.ca"><?php echo image_tag('/plugins/arArchivesCanadaPlugin/images/council.fr.png', array('width' => '156', 'height' => '42', 'alt' => __('Canadian Council of Archives'))) ?></a>
           <?php else: ?>
-            <a id="header-council" href="http://archivescanada.ca"><?php echo image_tag('/plugins/arArchivesCanadaPlugin/images/council.en.png', array('width' => '156', 'height' => '42', 'alt' => __('Canadian Council of Archives'))) ?></a>
+            <a id="header-council" href="http://cdncouncilarchives.ca"><?php echo image_tag('/plugins/arArchivesCanadaPlugin/images/council.en.png', array('width' => '156', 'height' => '42', 'alt' => __('Canadian Council of Archives'))) ?></a>
           <?php endif; ?>
 
           <ul id="header-nav" class="nav nav-pills">
 
-            <li><?php echo link_to(__('Home'), '@homepage') ?></li>
+            <li><?php echo link_to(__('Home'), 'http://archivescanada.ca') ?></li>
 
             <?php if ('fr' == $sf_user->getCulture()): ?>
               <li><?php echo link_to(__('Contactez-nous'), array('module' => 'staticpage', 'slug' => 'contact')) ?></li>
@@ -58,7 +58,7 @@
       <div class="row">
 
         <div id="logo-and-name" class="span6">
-          <h1><?php echo link_to(image_tag('/plugins/arArchivesCanadaPlugin/images/logo.png'), '@homepage', array('rel' => 'home')) ?></h1>
+          <h1><?php echo link_to(image_tag('/plugins/arArchivesCanadaPlugin/images/logo.png', array('alt' => __('Archives Canada'))), 'http://archivescanada.ca', array('rel' => 'home')) ?></h1>
         </div>
 
         <div id="header-search" class="span6">
