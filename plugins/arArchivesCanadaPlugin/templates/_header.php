@@ -29,7 +29,11 @@
 
           <ul id="header-nav" class="nav nav-pills">
 
-            <li><?php echo link_to(__('Home'), 'http://archivescanada.ca') ?></li>
+            <?php if ('fr' == $sf_user->getCulture()): ?>
+              <li><?php echo link_to(__('Home'), 'http://archivescanada.ca/homeFR') ?></li>
+            <?php else: ?>
+              <li><?php echo link_to(__('Home'), 'http://archivescanada.ca') ?></li>
+            <?php endif; ?>
 
             <?php if ('fr' == $sf_user->getCulture()): ?>
               <li><?php echo link_to(__('Contactez-nous'), array('module' => 'staticpage', 'slug' => 'contact')) ?></li>
@@ -58,7 +62,11 @@
       <div class="row">
 
         <div id="logo-and-name" class="span6">
-          <h1><?php echo link_to(image_tag('/plugins/arArchivesCanadaPlugin/images/logo.png', array('alt' => __('Archives Canada'))), 'http://archivescanada.ca', array('rel' => 'home')) ?></h1>
+          <?php if ('fr' == $sf_user->getCulture()): ?>
+            <h1><?php echo link_to(image_tag('/plugins/arArchivesCanadaPlugin/images/logo.png', array('alt' => __('Archives Canada'))), 'http://archivescanada.ca/homeFR', array('rel' => 'home')) ?></h1>
+          <?php else: ?>
+            <h1><?php echo link_to(image_tag('/plugins/arArchivesCanadaPlugin/images/logo.png', array('alt' => __('Archives Canada'))), 'http://archivescanada.ca', array('rel' => 'home')) ?></h1>
+          <?php endif; ?>
         </div>
 
         <div id="header-search" class="span6">
