@@ -168,9 +168,11 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       // DIP paths
       if (false === $absolutePathWithinDip = $this->getAccessCopyPath($objectUUID))
       {
-        // This is actually not too bad, maybe normalization failed but we still
-        // want to have an information object
         sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             Access copy cannot be found in the DIP');
+
+        // Do not create IOs for files without access copy,
+        // if normalization fails, Archivematica copies the original into the DIP
+        continue;
       }
       else
       {
