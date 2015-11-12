@@ -57,7 +57,7 @@ class DigitalObjectShowComponent extends sfComponent
 
     if ($this->usageType == QubitTerm::REFERENCE_ID)
     {
-      $this->refMessage = $this->getAccessWarning();
+      $this->accessWarning = $this->getAccessWarning();
     }
 
     if (!isset($this->link))
