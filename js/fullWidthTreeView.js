@@ -83,6 +83,9 @@
     // Bind click events to nodes to load the informationobject's page and insert the current page
     $("#fullwidth-treeview").bind("select_node.jstree", function(evt, data)
     {
+      // Remove any alerts
+      $('#notice-alerts.alert,#error-alerts.alert').remove();
+
       // Open node if possible
       data.instance.open_node(data.node);
 
