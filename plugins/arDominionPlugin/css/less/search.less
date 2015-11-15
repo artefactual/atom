@@ -63,63 +63,187 @@ h1 {
 
 // Advanced search
 
-#advanced-search-fields {
+.advanced-search-toggle {
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  padding: 5px 0 5px 0;
+  color: #333;
 
-  // Text introduction
-  p {
-    margin: 20px 20px 10px 20px;
+  &:before, &:after {
+    padding: 0 10px 0 10px;
+    font-variant: normal;
+    font-size: 15px;
+    content: "\f103";
+    font-family: "FontAwesome";
   }
 
-  // Cancel default margin
-  input,
-  select {
+  &:hover {
+    background-color: #f5f5f5;
+    color: #333;
+  }
+
+  &:focus {
+    text-decoration: none;
+    color: #333;
+  }
+
+  &.open:before, &.open:after {
+    content: "\f102";
+  }
+}
+
+.advanced-search {
+  border-top: 1px solid #e3e3e3;
+
+  p {
+    margin: 10px !important;
+  }
+
+  select, input {
     margin-bottom: 0;
   }
 
-  // Add new criteria button
-  #add-new-criteria {
-    margin-left: 20px;
-    margin-bottom: 20px;
-  }
-
   .criteria {
-    margin: 10px;
-  }
-
-  .boolean {
-    margin-bottom: 10px;
-    select {
-      margin: 0 auto 0 auto;
-      width: auto;
-    }
-  }
-
-  .criterion {
-    margin: 10px;
     .well();
-    .in {
-      display: inline;
-      line-height: @baseLineHeight * 1.5;
-      span {
-        color: @grayDark;
-        margin: auto 10px;
+    margin: 10px;
+    padding: 10px;
+    line-height: 0;
+
+    .criterion {
+      margin-bottom: 10px;
+      width: 100%;
+      display: inline-block;
+
+      .boolean, .query, span, .field {
         display: inline-block;
+        margin: 0;
+      }
+
+      .query, span, .field {
+        float: right;
+      }
+
+      .boolean {
+        width: 13%;
+      }
+
+      .query {
+        width: 45%;
+      }
+
+      span {
+        width: 5%;
+        padding-top: 5px;
+        text-align: center;
+        line-height: 20px;
+      }
+
+      .field {
+        width: 35%;
+      }
+
+      &:first-child {
+        .boolean {
+          display: none;
+        }
+
+        .query {
+          width: 60%;
+        }
+      }
+    }
+
+    .add-new-criteria {
+      span {
+        margin-left: 10px;
+      }
+
+      .dropdown-menu > li > a:hover {
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        background-color: #f5f5f5;
+        background-image: none;
+        color: #333;
+      }
+    }
+
+    .filter-row {
+      display: inline-block;
+      width: 100%;
+
+      &:not(:first-child) {
+        margin-top: 10px;
+      }
+
+      .filter {
+        input, select {
+          width: 60%;
+          float: right;
+          display: inline-block;
+        }
+
+        label {
+          display: inline-block;
+          float: left;
+          width: 38%;
+          text-align: right;
+          padding-top: 5px;
+        }
+      }
+
+      .filter-left {
+        display: inline-block;
+        width: 32%;
+      }
+
+      .filter-center {
+        display: inline-block;
+        width: 33%;
+      }
+
+      .filter-right {
+        display: inline-block;
+        width: 33%;
+      }
+
+      .lod-filter {
+        display: inline-block;
+        width: 55%;
+        margin-left: 10%;
+        padding: 0;
+
+        label {
+          display: inline-block;
+          padding: 0 10px;
+        }
+      }
+
+      .date-range-filter {
+        display: inline-block;
+        width: 30%;
+        margin-left: 3%;
+        padding: 0;
+
+        label {
+          display: inline-block;
+          padding: 0 10px;
+        }
       }
     }
   }
 
-}
+  .actions {
+    .border-radius(0px);
+    padding-left: 20px;
+    text-align: center;
 
-#advanced-search-fields ~ .actions {
-
-  .border-radius(0px);
-  padding-left: 20px;
-  text-align: center;
-
-  input {
-    width: 20%;
-    margin-left: 4px;
-    display: inline-block;
+    input {
+      width: 20%;
+      margin-left: 4px;
+      display: inline-block;
+    }
   }
 
 }

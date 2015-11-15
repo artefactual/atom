@@ -17,19 +17,34 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class SearchExportCsvAction extends sfAction
+class InformationObjectExportCsvAction extends sfAction
 {
-  // export CSV representation of descriptions occurring in search results
+  // Export CSV representation of descriptions occurring in search/browse results
   public function execute($request)
   {
     if (sfContext::getInstance()->user->isAuthenticated())
     {
-      $params = array(
-        'params' => $request->getParameterHolder()->getAll()
-      );
-      QubitJob::runJob('arSearchResultExportCsvJob', $params);
+      // To keep the top level descriptions filter an facet in sync
+      // the autocomplete value is converted to the resource id
+      // before the facet filters are added to the query
+      $getParameters = $request->getGetParameters();
+      if (isset($getParameters['collection']) && !ctype_digit($getParameters['collection']))
+      {
+        $params = sfContext::getInstance()->routing->parse(Qubit::pathInfo($getParameters['collection']));
+        $collection = $params['_sf_route']->resource;
 
-      // let user know export has started
+        unset($getParameters['collection']);
+
+        if ($collection instanceof QubitInformationObject)
+        {
+          $getParameters['collection'] = $collection->id;
+        }
+      }
+
+      $options = array('params' => $getParameters);
+      QubitJob::runJob('arSearchResultExportCsvJob', $options);
+
+      // Let user know export has started
       sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
       $jobManageUrl = url_for(array('module' => 'jobs', 'action' => 'browse'));
       $message = '<strong>Export of descriptions initiated.</strong> Check <a href="'. $jobManageUrl . '">job management</a> page to download the results when it has completed.';

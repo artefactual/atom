@@ -2,12 +2,20 @@
 <?php use_helper('Date') ?>
 
 <?php slot('title') ?>
+  <?php echo get_partial('default/printPreviewBar') ?>
+
   <div class="multiline-header">
     <?php echo image_tag('/images/icons-large/icon-archival.png', array('alt' => '')) ?>
     <h1 aria-describedby="results-label"><?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?></h1>
     <span class="sub" id="results-label"><?php echo sfConfig::get('app_ui_label_informationobject') ?></span>
   </div>
 <?php end_slot() ?>
+
+<?php if ($sf_user->hasFlash('notice')): ?>
+  <div class="messages">
+    <div><?php echo $sf_user->getFlash('notice', ESC_RAW) ?></div>
+  </div>
+<?php endif; ?>
 
 <?php slot('sidebar') ?>
   <section id="facets">
@@ -37,12 +45,14 @@
         'pager' => $pager,
         'filters' => $search->filters)) ?>
 
-      <?php echo get_partial('search/facet', array(
-        'target' => '#facet-repository',
-        'label' => sfConfig::get('app_ui_label_repository'),
-        'facet' => 'repos',
-        'pager' => $pager,
-        'filters' => $search->filters)) ?>
+      <?php if (sfConfig::get('app_multi_repository')): ?>
+        <?php echo get_partial('search/facet', array(
+          'target' => '#facet-repository',
+          'label' => sfConfig::get('app_ui_label_repository'),
+          'facet' => 'repos',
+          'pager' => $pager,
+          'filters' => $search->filters)) ?>
+      <?php endif; ?>
 
       <?php echo get_partial('search/facet', array(
         'target' => '#facet-names',
@@ -84,12 +94,7 @@
         'label' => __('Level of description'),
         'facet' => 'levels',
         'pager' => $pager,
-        'filters' => $search->filters,
-        'topLvlDescUrl' => $topLvlDescUrl,
-        'allLvlDescUrl' => $allLvlDescUrl,
-        'checkedTopDesc' => $checkedTopDesc,
-        'checkedAllDesc' => $checkedAllDesc,
-        'open' => true)) ?>
+        'filters' => $search->filters)) ?>
 
       <?php echo get_partial('search/facet', array(
         'target' => '#facet-mediaTypes',
@@ -116,11 +121,92 @@
       </span>
     <?php endif; ?>
 
-    <?php if (isset($collectionFilter)): ?>
+    <?php if (isset($fonds)): ?>
       <span class="search-filter">
-        <?php echo $collectionFilter->__toString() ?>
+        <?php echo $fonds->__toString() ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+        <?php unset($params['fonds']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
+    <?php if (isset($collection)): ?>
+      <span class="search-filter">
+        <?php echo $collection->__toString() ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['collection']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
+    <?php if (isset($creators)): ?>
+      <span class="search-filter">
+        <?php echo $creators->__toString() ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+        <?php unset($params['creators']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
+    <?php if (isset($names)): ?>
+      <span class="search-filter">
+        <?php echo $names->__toString() ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+        <?php unset($params['names']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
+    <?php if (isset($places)): ?>
+      <span class="search-filter">
+        <?php echo $places->__toString() ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+        <?php unset($params['places']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
+    <?php if (isset($levels)): ?>
+      <span class="search-filter">
+        <?php echo $levels->__toString() ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+        <?php unset($params['levels']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
+    <?php if (isset($subjects)): ?>
+      <span class="search-filter">
+        <?php echo $subjects->__toString() ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+        <?php unset($params['subjects']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
+    <?php if (isset($mediatypes)): ?>
+      <span class="search-filter">
+        <?php echo $mediatypes->__toString() ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+        <?php unset($params['mediatypes']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
+    <?php if (isset($copyrightStatus)): ?>
+      <span class="search-filter">
+        <?php echo $copyrightStatus->__toString() ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+        <?php unset($params['copyrightStatus']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
+    <?php if (isset($materialType)): ?>
+      <span class="search-filter">
+        <?php echo $materialType->__toString() ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+        <?php unset($params['materialType']) ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
       </span>
     <?php endif; ?>
@@ -130,12 +216,11 @@
         <?php echo __('Only digital objects') ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['onlyMedia']) ?>
-        <?php unset($params['page']) ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
       </span>
     <?php endif; ?>
 
-    <?php if (isset($sf_request->topLod) && $sf_request->topLod): ?>
+    <?php if ($topLod): ?>
       <span class="search-filter">
         <?php echo __('Only top-level descriptions') ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
@@ -144,35 +229,93 @@
       </span>
     <?php endif; ?>
 
-    <?php echo get_partial('default/sortPicker',
-      array(
-        'options' => array(
-          'lastUpdated' => __('Most recent'),
-          'alphabetic' => __('Alphabetic'),
-          'identifier' => __('Reference code')))) ?>
+    <?php if (isset($sf_request->languages)): ?>
+      <span class="search-filter">
+        <?php echo ucfirst(sfCultureInfo::getInstance($sf_user->getCulture())->getLanguage($sf_request->languages)) ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+        <?php unset($params['languages']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
+    <?php if (isset($dateRange)): ?>
+      <span class="search-filter">
+        <?php echo $dateRange ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+        <?php unset($params['startDate']) ?>
+        <?php unset($params['endDate']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
 
   </section>
 
 <?php end_slot() ?>
 
-<?php if (!isset($sf_request->onlyMedia) && isset($pager->facets['digitalobjects']) && 0 < $pager->facets['digitalobjects']['count']): ?>
-  <div class="search-result media-summary">
-    <p>
-      <?php echo __('%1% results with digital objects', array(
-        '%1%' => $pager->facets['digitalobjects']['count'])) ?>
-      <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-      <?php unset($params['page']) ?>
-      <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params + array('onlyMedia' => true)) ?>">
-        <i class="icon-search"></i>
-        <?php echo __('Show results with digital objects') ?>
-      </a>
-    </p>
-  </div>
-<?php endif; ?>
+<?php slot('content') ?>
 
-<?php foreach ($pager->getResults() as $hit): ?>
-  <?php echo get_partial('search/searchResult', array('hit' => $hit, 'culture' => $selectedCulture)) ?>
-<?php endforeach; ?>
+  <?php echo get_partial('search/advancedSearch', array(
+    'criteria'     => $criteria,
+    'template'     => $template,
+    'form'         => $form,
+    'show'         => $showAdvanced,
+    'topLod'       => $topLod,
+    'rangeType'    => $rangeType,
+    'hiddenFields' => $hiddenFields)) ?>
+
+  <section class="browse-options">
+    <?php echo get_partial('default/printPreviewButton') ?>
+
+    <?php if (isset($pager) && $pager->hasResults() && $sf_user->isAuthenticated()): ?>
+      <a href="<?php echo url_for(array_merge($sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('module' => 'informationobject', 'action' => 'exportCsv'))) ?>">
+        <i class="icon-upload-alt"></i>
+        <?php echo __('Export CSV') ?>
+      </a>
+    <?php endif; ?>
+
+    <?php echo get_partial('default/sortPicker', array(
+      'options' => array(
+        'lastUpdated' => __('Most recent'),
+        'alphabetic'  => __('Alphabetic'),
+        'identifier'  => __('Reference code'),
+        'date'        => __('Date')))) ?>
+  </section>
+
+  <div id="content">
+
+    <?php if (isset($pager)): ?>
+
+      <?php if (!isset($sf_request->onlyMedia) && isset($pager->facets['digitalobjects']) && 0 < $pager->facets['digitalobjects']['count']): ?>
+        <div class="search-result media-summary">
+          <p>
+            <?php echo __('%1% results with digital objects', array(
+              '%1%' => $pager->facets['digitalobjects']['count'])) ?>
+            <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+            <?php unset($params['page']) ?>
+            <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params + array('onlyMedia' => true)) ?>">
+              <i class="icon-search"></i>
+              <?php echo __('Show results with digital objects') ?>
+            </a>
+          </p>
+        </div>
+      <?php endif; ?>
+
+      <?php if ($pager->hasResults()): ?>
+        <?php foreach ($pager->getResults() as $hit): ?>
+          <?php echo get_partial('search/searchResult', array('hit' => $hit, 'culture' => $selectedCulture)) ?>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <section id="no-search-results">
+          <i class="icon-search"></i>
+          <p class="no-results-found"><?php echo __('No results found.') ?></p>
+        </section>
+      <?php endif; ?>
+
+    <?php endif; ?>
+
+  </div>
+
+<?php end_slot() ?>
 
 <?php slot('after-content') ?>
   <?php echo get_partial('default/pager', array('pager' => $pager)) ?>

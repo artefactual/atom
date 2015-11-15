@@ -150,17 +150,11 @@
           });
         });
 
-      // Open first two facets
-      $facet.slice(0, 2).filter(function(index, element)
+      // Open first three facets
+      $facet.slice(0, 3).filter(function(index, element)
         {
           return 0 < $(element).find('li').length;
         }).addClass('open').find('.facet-header a').attr('aria-expanded', 'true');
-
-      $('.lod-filter [type=radio]').change(function (e)
-        {
-          var link = e.target.getAttribute('data-link');
-          document.location.replace(link);
-        });
     });
 
   /****
@@ -626,9 +620,8 @@
   var AdvancedSearch = function (element)
     {
       this.$element = $(element);
-      this.$form = this.$element.find('form');
-      this.$criteria = this.$element.find('.criteria');
-      this.$filters = this.$element.find('#advanced-search-filters');
+      this.$form = this.$element.find('form[name="advanced-search-form"]');
+      this.$toggle = this.$element.find('a.advanced-search-toggle');
 
       this.init();
       this.listen();
@@ -640,124 +633,129 @@
 
     init: function()
     {
-      // Hide first boolean
-      this.$criteria.first().find('.boolean').hide();
-
       // Hide last criteria if more than once
-      if (1 < this.$criteria.length)
+      if (1 < this.$form.find('.criterion').length)
       {
-        this.$criteria.last().remove();
+        this.$form.find('.criterion:last').remove();
       }
 
-      // Autoscroll to results
-      var $article = this.$element.find('article');
-      if ($article.length)
-      {
-        var pos = $article.first().offset().top;
-        window.scrollTo(0, pos);
-      }
+      // Initialize datepickers
+      var opts = {
+        changeYear: true,
+        changeMonth: true,
+        yearRange: '-100:+100',
+        dateFormat: 'yy-mm-dd',
+        defaultDate: new Date(),
+        constrainInput: false,
+        beforeShow: function (input, instance) {
+          var top  = $(this).offset().top + $(this).outerHeight();
+          setTimeout(function() {
+            instance.dpDiv.css({
+              'top' : top,
+            });
+          }, 1);
+        }
+      };
+
+      // Don't change user input value when enter is pressed with datepicker
+      // It must be added before the datepicker is initialized
+      $('#startDate, #endDate').bind('keydown', function (event) {
+        if (event.which == 13) {
+          var e = jQuery.Event('keydown');
+          e.which = 9;
+          e.keyCode = 9;
+          $(this).trigger(e);
+
+          return false;
+        }
+      }).datepicker(opts);
     },
 
     listen: function()
     {
       this.$form
+        .on('click', '.add-new-criteria .dropdown-menu a', $.proxy(this.addCriterion, this))
         .on('click', 'input.reset', $.proxy(this.reset, this))
         .on('submit', $.proxy(this.submit, this));
 
-      // Bind events
-      this.$element.on('click', $.proxy(this.click, this));
+      this.$toggle.on('click', $.proxy(this.toggle, this));
     },
 
     submit: function (event)
     {
-      this.$filters.find('select').filter(function()
-        {
-          if (!this.value)
-          {
-            this.removeAttribute('name');
-          }
-        });
+      // Disable empty fields and first operator in criteria
+      this.$form.find(':input[value=""]').attr("disabled", "disabled");
+      this.$form.find('select[name="so0"]').attr("disabled", "disabled");
+
+      // Fix only year dates on form submit
+      var sd = this.$form.find('#startDate');
+      if (/^\d{4}$/.test(sd.val()))
+      {
+        sd.val(sd.val() + '-01-01');
+      }
+      var ed = this.$form.find('#endDate');
+      if (/^\d{4}$/.test(ed.val()))
+      {
+        ed.val(ed.val() + '-12-31');
+      }
     },
 
     reset: function (event)
     {
-      clearFormFields(this.$form);
-
-      this.$element.find('.search-result').remove();
-      this.$element.find('.criteria:not(:first)').remove();
-      this.$element.find('.result-count').parent().remove();
+      window.location.replace(this.$form.attr('action') + '?showAdvanced=1&topLod=0');
     },
 
-    click: function (event)
+    addCriterion: function (event)
     {
-      switch (event.target.id)
-      {
-        case 'add-criteria-and':
-        case 'add-criteria-or':
-        case 'add-criteria-not':
-          event.preventDefault();
+      event.preventDefault();
 
-          this.addCriteria(event.target.  id.replace('add-criteria-', ''));
-
-          break;
-      }
-    },
-
-    addCriteria: function (option)
-    {
       this
-        .cloneLastCriteria()
-        .insertAfter(this.getLastCriteria())
-        .show()
-        .find('.boolean select').val(option).end()
-        .find('.criterion input').first().focus();
+        .cloneLastCriterion()
+        .insertAfter(this.$form.find('.criterion:last')).show()
+        .find('select.boolean').val(event.target.id.replace('add-criterion-', '')).end()
+        .find('input').first().focus();
     },
 
-    getLastCriteria: function()
+    cloneLastCriterion: function()
     {
-      return this.$element.find('.criteria:last');
-    },
-
-    cloneLastCriteria: function()
-    {
-      var $clone = this.getLastCriteria().clone();
+      var $clone = this.$form.find('.criterion:last').clone();
 
       var nextNumber = parseInt($clone.find('input:first').attr('name').match(/\d+/).shift()) + 1;
 
-      $clone
-        .find('input, select').each(function(index, element)
-          {
-            var name = this.getAttribute('name').replace(/[\d+]/, nextNumber);
-            this.setAttribute('name', name);
-          }).end()
-        .find('.boolean').show();
+      $clone.find('input, select').each(function (index, element)
+      {
+        var name = this.getAttribute('name').replace(/[\d+]/, nextNumber);
+        this.setAttribute('name', name);
+      });
 
       clearFormFields($clone);
 
       return $clone;
+    },
+
+    toggle: function (e)
+    {
+      e.preventDefault();
+
+      if(this.$toggle.toggleClass('open').hasClass('open'))
+      {
+        this.$toggle.attr('aria-expanded', true);
+      }
+      else
+      {
+        this.$toggle.attr('aria-expanded', false);
+      }
+
+      $('section.advanced-search').toggle(400);
     }
   };
 
   $(function ()
     {
-      var $advancedSearch = $('body.search.advanced');
+      var $advancedSearch = $('body.informationobject.browse');
       if (0 < $advancedSearch.length)
       {
         new AdvancedSearch($advancedSearch.get(0));
-      }
-
-      var $body = $('body.search');
-      if ($body.hasClass('index') || $body.hasClass('advanced'))
-      {
-        $body.find('[name^=creationDate]').on('keyup', function (e)
-          {
-            // Enter
-            if (e.keyCode == 13)
-            {
-              e.preventDefault();
-              $(e.target).closest('form').submit();
-            }
-          });
       }
     });
 

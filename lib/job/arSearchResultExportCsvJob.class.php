@@ -41,7 +41,19 @@ class arSearchResultExportCsvJob extends arBaseJob
   public function runJob($parameters)
   {
     $this->searchParams = $parameters['params'];
-    $this->search = new arElasticSearchPluginQuery();
+    $this->search = new arElasticSearchPluginQuery(InformationObjectBrowseAction::$FACETS);
+
+    // Add facet filters to the query
+    $this->search->addFilters($this->searchParams);
+
+    // If not using RAD, default to ISAD CSV export format
+    $this->archivalStandard = 'isad';
+    if (QubitSetting::getByNameAndScope('informationobject', 'default_template') == 'rad')
+    {
+      $this->archivalStandard = 'rad';
+    }
+
+    // Build query from adv. search form
     $this->addCriteriaBasedOnSearchParameters();
 
     // Sort by ID so parents can import properly from resulting export file
@@ -49,16 +61,6 @@ class arSearchResultExportCsvJob extends arBaseJob
 
     // Increase limit from default
     $this->search->query->setLimit(1000000000);
-
-    // If not using RAD, default to ISAD CSV export format
-    if (QubitSetting::getByNameAndScope('informationobject', 'default_template') == 'rad')
-    {
-      $this->archivalStandard = 'rad';
-    }
-    else
-    {
-      $this->archivalStandard = 'isad';
-    }
 
     // Create temp directory in which CSV export files will be written
     $tempPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'search_export_'. $this->job->id;
@@ -95,33 +97,49 @@ class arSearchResultExportCsvJob extends arBaseJob
    */
   protected function addCriteriaBasedOnSearchParameters()
   {
-    // Add criteria for main search fields
+    // Build query with the boolean criteria
     if (null !== $criteria = $this->parseQuery())
     {
       $this->search->queryBool->addMust($criteria);
     }
 
-    // Add criteria for secondary search fields
-    foreach (SearchAdvancedAction::$NAMES as $name)
+    // Process date range, defaults to inclusive
+    $rangeType = $this->searchParams['rangeType'];
+    if (!isset($rangeType))
+    {
+      $rangeType = 'inclusive';
+    }
+
+    if (null !== $criteria = InformationObjectBrowseAction::getDateRangeQuery($this->searchParams['startDate'], $this->searchParams['endDate'], $rangeType))
+    {
+      $this->search->queryBool->addMust($criteria);
+    }
+
+    // Process advanced search form fields
+    // Some of them have the same name as a facet, this creates query
+    // duplication but allows as to keep facets and adv. search form syncronized
+    foreach (InformationObjectBrowseAction::$NAMES as $name)
     {
       if (!empty($this->searchParams[$name])
-        && (null !== $criteria = SearchAdvancedAction::fieldCriteria($name, $this->searchParams[$name])))
+        && (null !== $criteria = InformationObjectBrowseAction::fieldCriteria($name, $this->searchParams[$name])))
       {
         $this->search->queryBool->addMust($criteria);
       }
     }
 
-    // Add criteria for date range
-    if (null !== $criteria = SearchAdvancedAction::getDateRangeQuery($this->searchParams['sd'], $this->searchParams['ed']))
+    // Default to show only top level descriptions
+    if (!isset($this->searchParams['topLod']) || filter_var($this->searchParams['topLod'], FILTER_VALIDATE_BOOLEAN))
     {
-      $this->search->queryBool->addMust($criteria);
+      $this->search->queryBool->addMust(new \Elastica\Query\Term(array('parentId' => QubitInformationObject::ROOT_ID)));
     }
 
-    // Set query if criteria were added
-    if (count($this->search->queryBool->getParams()))
+    // Get all information objects if the query is empty
+    if (1 > count($this->search->queryBool->getParams()))
     {
-      $this->search->query->setQuery($this->search->queryBool);
+      $this->search->queryBool->addMust(new \Elastica\Query\MatchAll());
     }
+
+    $this->search->query->setQuery($this->search->queryBool);
   }
 
   /**
@@ -147,6 +165,13 @@ class arSearchResultExportCsvJob extends arBaseJob
   {
     $queryBool = new \Elastica\Query\Bool();
 
+    // Include search-box query in boolean criteria
+    if (1 !== preg_match('/^[\s\t\r\n]*$/', $this->searchParams['query']))
+    {
+      $queryField = InformationObjectBrowseAction::queryField('_all', $this->searchParams['query'], $this->archivalStandard);
+      InformationObjectBrowseAction::addToQueryBool($queryBool, 'and', $queryField);
+    }
+
     $count = 0;
 
     while (null !== $query = $this->searchParams['sq' . $count])
@@ -162,11 +187,11 @@ class arSearchResultExportCsvJob extends arBaseJob
         $operator = $this->searchParams['so'.$count];
         if (empty($operator))
         {
-          $operator = 'or';
+          $operator = 'and';
         }
 
-        $queryField = SearchAdvancedAction::queryField($field, $query, $this->archivalStandard);
-        SearchAdvancedAction::addToQueryBool($queryBool, $operator, $queryField);
+        $queryField = InformationObjectBrowseAction::queryField($field, $query, $this->archivalStandard);
+        InformationObjectBrowseAction::addToQueryBool($queryBool, $operator, $queryField);
       }
 
       $count++;

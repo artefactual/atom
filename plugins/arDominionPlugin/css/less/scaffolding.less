@@ -1224,7 +1224,28 @@ section .vcard:last-child > .field:last-child > div {
 
 .header-options {
   .clearfix();
-  margin-bottom: @baseLineHeight / 4;
+}
+
+// Links and sort options in the middle of the content
+
+.browse-options {
+  margin: 15px 0 10px 0;
+  display: inline-block;
+  width: 100%;
+
+  > a {
+    padding-right: 10px;
+
+    i {
+      font-size: 15px;
+      padding-right: 3px;
+      color: @grayLight;
+    }
+
+    &:hover > i {
+      color: @orange;
+    }
+  }
 }
 
 // Form
@@ -1240,6 +1261,7 @@ section .vcard:last-child > .field:last-child > div {
   display: inline-block;
   padding: 3px 20px 3px 6px;
   margin-right: 4px;
+  margin-bottom: 5px;
   max-width: 240px;
   .text-overflow();
   position: relative;
@@ -1276,7 +1298,6 @@ section .vcard:last-child > .field:last-child > div {
 
   float: right;
   text-align: right;
-  margin-top: 2px;
 
   &.shared {
     margin-top: 24px;
@@ -1291,7 +1312,7 @@ section .vcard:last-child > .field:last-child > div {
 
   // This is the item selected and shown, e.g. "Sort by: [Most recent]"
   .dropdown-selected {
-    color: @blue;
+    color: #0088cc;
     &:after {
       margin-left: 6px;
       margin-right: 4px;
