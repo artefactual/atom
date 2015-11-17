@@ -115,12 +115,12 @@ h1 {
       width: 100%;
       display: inline-block;
 
-      .boolean, .query, span, .field {
+      .boolean, .query, span, .field, .delete-criterion {
         display: inline-block;
         margin: 0;
       }
 
-      .query, span, .field {
+      .query, span, .field, .delete-criterion {
         float: right;
       }
 
@@ -129,7 +129,7 @@ h1 {
       }
 
       .query {
-        width: 45%;
+        width: 42%;
       }
 
       span {
@@ -143,13 +143,24 @@ h1 {
         width: 35%;
       }
 
+      .delete-criterion {
+        width: 3%;
+        text-align: right;
+        padding-top: 8px;
+        color: #999;
+
+        &:hover, &:focus {
+          text-decoration: none;
+        }
+      }
+
       &:first-child {
         .boolean {
           display: none;
         }
 
         .query {
-          width: 60%;
+          width: 57%;
         }
       }
     }

@@ -676,6 +676,7 @@
       this.$form
         .on('click', '.add-new-criteria .dropdown-menu a', $.proxy(this.addCriterion, this))
         .on('click', 'input.reset', $.proxy(this.reset, this))
+        .on('click', 'a.delete-criterion', $.proxy(this.deleteCriterion, this))
         .on('submit', $.proxy(this.submit, this));
 
       this.$toggle.on('click', $.proxy(this.toggle, this));
@@ -731,6 +732,36 @@
       clearFormFields($clone);
 
       return $clone;
+    },
+
+    deleteCriterion: function (event)
+    {
+      event.preventDefault();
+
+      var $criterion = $(event.target.closest('.criterion'));
+      var targetNumber = parseInt($criterion.find('input:first').attr('name').match(/\d+/).shift());
+
+      // First criterion without siblings, just clear that criterion
+      if (targetNumber == 0 && this.$form.find('.criterion').length == 1)
+      {
+        clearFormFields($criterion);
+        return;
+      }
+
+      // Otherwise update next siblings input and select names
+      $criterion.nextAll('.criterion').each(function ()
+        {
+          var $this = $(this);
+          var number = parseInt($this.find('input:first').attr('name').match(/\d+/).shift());
+          $this.find('input, select').each(function (index, element)
+          {
+            var name = this.getAttribute('name').replace(/[\d+]/, number - 1);
+            this.setAttribute('name', name);
+          });
+        });
+
+      // Then delete criterion
+      $criterion.remove();
     },
 
     toggle: function (e)

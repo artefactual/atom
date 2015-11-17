@@ -28,6 +28,8 @@
                 <option value="not"<?php echo $item['operator'] == 'not' ? ' selected="selected"' : '' ?>><?php echo __('not') ?></option>
               </select>
 
+              <a href="#" class="delete-criterion"><i class="icon-remove"></i></a>
+
               <select class="field" name="sf<?php echo $key ?>">
                 <option value=""<?php echo $item['field'] == '' ? ' selected="selected"' : '' ?>><?php echo __('Any field') ?></option>
                 <option value="title"<?php echo $item['field'] == 'title' ? ' selected="selected"' : '' ?>><?php echo __('Title') ?></option>
@@ -64,6 +66,8 @@
             <option value="or"><?php echo __('or') ?></option>
             <option value="not"><?php echo __('not') ?></option>
           </select>
+
+          <a href="#" class="delete-criterion"><i class="icon-remove"></i></a>
 
           <select class="field" name="sf<?php echo $count ?>">
             <option value=""><?php echo __('Any field') ?></option>
