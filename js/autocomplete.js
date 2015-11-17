@@ -84,7 +84,7 @@
                       {
                         if (!$input.val().length)
                         {
-                          $hidden.val('');
+                          $hidden.val('').trigger('change');
                         }
                       });
                   }
@@ -346,7 +346,7 @@
                       {
                         // On single <select/> item select, simply update the
                         // value of this input
-                        $hidden.val(data[1]);
+                        $hidden.val(data[1]).trigger('change');
                       }
 
                       // Update the value of the autocomplete <input/> here
@@ -484,7 +484,7 @@
                           {
                             // Update value of this input with URI of new
                             // resource
-                            $hidden.val(this.contentWindow.document.location);
+                            $hidden.val(this.contentWindow.document.location).trigger('change');
 
                             // Decrement count of listeners and submit if all
                             // done
@@ -650,7 +650,7 @@
                           {
                             // Clear hidden field value when selecting an un-
                             // matched value in a dialog
-                            $hidden.val('');
+                            $hidden.val('').trigger('change');
 
                             // Link input to iframe for dialog submit behaviour
                             if (undefined == $input.data('iframe'))
@@ -661,7 +661,7 @@
                         }
                         else
                         {
-                          $hidden.val('');
+                          $hidden.val('').trigger('change');
 
                           // If unmatched item is empty, cancel addition of new
                           // single <select/> choice
@@ -677,7 +677,7 @@
                     // Clear both autocomplete <input/> and hidden <input/>
                     autoComplete.unmatchedItemSelectEvent.subscribe(function ()
                       {
-                        $hidden.val('');
+                        $hidden.val('').trigger('change');
                         $input.val('');
                       });
                   }

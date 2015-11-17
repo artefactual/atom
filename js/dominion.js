@@ -622,6 +622,9 @@
       this.$element = $(element);
       this.$form = this.$element.find('form[name="advanced-search-form"]');
       this.$toggle = this.$element.find('a.advanced-search-toggle');
+      this.$reposFacet = this.$element.find("#\\#facet-repository").closest('section.facet');
+      this.$reposFilter = this.$element.find('select[name="repos"]');
+      this.$collectionFilter = this.$element.find('input[name="collection"]');
 
       this.init();
       this.listen();
@@ -638,6 +641,8 @@
       {
         this.$form.find('.criterion:last').remove();
       }
+
+      this.checkReposFilter();
 
       // Initialize datepickers
       var opts = {
@@ -680,6 +685,29 @@
         .on('submit', $.proxy(this.submit, this));
 
       this.$toggle.on('click', $.proxy(this.toggle, this));
+      this.$collectionFilter.on('change', $.proxy(this.checkReposFilter, this));
+    },
+
+    checkReposFilter: function (event)
+    {
+      // Disable repository filter and facet if top-level description selected
+      if (this.$reposFilter.length && this.$collectionFilter.val() != '')
+      {
+        this.$reposFilter.attr("disabled", "disabled");
+        this.$reposFilter.val('');
+        if (this.$reposFacet.length)
+        {
+          this.$reposFacet.hide();
+        }
+      }
+      else if (this.$reposFilter.length && this.$collectionFilter.val() == '')
+      {
+        this.$reposFilter.removeAttr('disabled');
+        if (this.$reposFacet.length)
+        {
+          this.$reposFacet.show();
+        }
+      }
     },
 
     submit: function (event)
