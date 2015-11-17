@@ -203,6 +203,15 @@
                       return '?taxonomy=' + taxonomy + '&parent=' + parent + '&query=' + query;
                     };
                   }
+                  else if ($(this).attr('name') == 'collection' && $(this).closest('section.advanced-search').length)
+                  {
+                    autoComplete.generateRequest = function (query)
+                    {
+                      var repository = $('section.advanced-search select[name=repos]').val();
+
+                      return '&repository=' + repository + '&query=' + query;
+                    };
+                  }
                   // Alternatively use try/catch?
                   else if ('undefined' !== typeof dataSource.liveData.indexOf
                     && -1 != dataSource.liveData.indexOf('?'))

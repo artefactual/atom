@@ -70,10 +70,20 @@ class InformationObjectAutocompleteAction extends sfAction
     $this->query->setQuery($this->queryBool);
 
     // Filter results by parent
-    if (isset($request->parent))
+    if (!empty($request->parent))
     {
       $queryTerm = new \Elastica\Query\Term;
       $queryTerm->setTerm('parentId', $request->parent);
+
+      $filter = new \Elastica\Filter\Query($queryTerm);
+      $this->filterBool->addMust($filter);
+    }
+
+    // Filter results by repository
+    if (!empty($request->repository))
+    {
+      $queryTerm = new \Elastica\Query\Term;
+      $queryTerm->setTerm('repository.id', $request->repository);
 
       $filter = new \Elastica\Filter\Query($queryTerm);
       $this->filterBool->addMust($filter);
