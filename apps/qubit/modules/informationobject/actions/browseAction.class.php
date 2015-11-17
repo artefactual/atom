@@ -642,6 +642,10 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         $this->getParameters['collection'] = $this->collection->id;
       }
     }
+    else if (isset($this->getParameters['collection']) && ctype_digit($this->getParameters['collection']))
+    {
+      $this->collection = QubitInformationObject::getById($this->getParameters['collection']);
+    }
 
     // Create the query and filter it with the selected facets
     parent::execute($request);
@@ -701,12 +705,6 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     }
 
     // Store data for search-filters
-    if (isset($request->fonds))
-    {
-      $params = sfContext::getInstance()->routing->parse(Qubit::pathInfo($request->fonds));
-      $this->fonds = $params['_sf_route']->resource;
-    }
-
     if (isset($request->repos) && ctype_digit($request->repos))
     {
       $this->repos = QubitRepository::getById($request->repos);

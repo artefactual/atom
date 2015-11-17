@@ -121,15 +121,6 @@
       </span>
     <?php endif; ?>
 
-    <?php if (isset($fonds)): ?>
-      <span class="search-filter">
-        <?php echo $fonds->__toString() ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['fonds']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
-      </span>
-    <?php endif; ?>
-
     <?php if (isset($collection)): ?>
       <span class="search-filter">
         <?php echo $collection->__toString() ?>
