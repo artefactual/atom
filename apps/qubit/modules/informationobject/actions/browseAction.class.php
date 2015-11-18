@@ -130,17 +130,8 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         break;
 
       case 'levels':
+        // Choices are added in the end with the LOD facet data
         $this->form->setValidator($name, new sfValidatorString);
-
-        $choices = array();
-        $choices[null] = null;
-        foreach (QubitTaxonomy::getTaxonomyTerms(QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID) as $item)
-        {
-          $choices[$item->id] = $item->__toString();
-        }
-
-        $this->form->setValidator($name, new sfValidatorString);
-        $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
 
         break;
 
@@ -564,10 +555,17 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         $criteria = new Criteria;
         $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
 
+        // Add LOD filter options here too, it needs to be
+        // based on the levels available in the facet
+        $choices = array();
+        $choices[null] = null;
         foreach (QubitTerm::get($criteria) as $item)
         {
           $this->types[$item->id] = $item->__toString();
+          $choices[$item->id] = $item->__toString();
         }
+
+        $this->form->setWidget('levels', new sfWidgetFormSelect(array('choices' => $choices)));
 
         break;
 
