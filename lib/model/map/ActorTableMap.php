@@ -60,7 +60,6 @@ class ActorTableMap extends TableMap {
     $this->addRelation('termRelatedBydescriptionStatusId', 'term', RelationMap::MANY_TO_ONE, array('description_status_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('termRelatedBydescriptionDetailId', 'term', RelationMap::MANY_TO_ONE, array('description_detail_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('actorRelatedByparentId', 'actor', RelationMap::MANY_TO_ONE, array('parent_id' => 'id', ), null, null);
-    $this->addRelation('donor', 'donor', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('actorRelatedByparentId', 'actor', RelationMap::ONE_TO_MANY, array('id' => 'parent_id', ), null, null);
     $this->addRelation('actorI18n', 'actorI18n', RelationMap::ONE_TO_MANY, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('contactInformation', 'contactInformation', RelationMap::ONE_TO_MANY, array('id' => 'actor_id', ), 'CASCADE', null);
@@ -69,6 +68,7 @@ class ActorTableMap extends TableMap {
     $this->addRelation('rights', 'rights', RelationMap::ONE_TO_MANY, array('id' => 'rights_holder_id', ), 'SET NULL', null);
     $this->addRelation('rightsHolder', 'rightsHolder', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('user', 'user', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('donor', 'donor', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
 	} // buildRelations()
 
 } // ActorTableMap
