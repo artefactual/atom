@@ -252,25 +252,28 @@ abstract class BaseOtherNameI18n implements ArrayAccess
     {
       foreach ($table->getColumns() as $column)
       {
+        // Foreign key column name
+        $nameId = $name.'Id';
+
         // Set local column values
-        if ($name == $column->getPhpName())
+        if ($name === $column->getPhpName())
         {
           $this->values[$name] = $value;
         }
 
-        // If this is a foreign key column (has Id suffix) then get primary key from related table
-        else if ("{$name}Id" == $column->getPhpName())
+        // If this is a foreign key column then get primary key from related table
+        else if ($nameId === $column->getPhpName())
         {
-          if(isset($value))
+          if(!empty($value))
           {
             $relatedTable = $column->getTable()->getDatabaseMap()->getTable($column->getRelatedTableName());
 
-            $this->values["{$name}Id"] = $value->__get($relatedTable->getColumn($column->getRelatedColumnName())->getPhpName(), $options);
+            $this->values[$nameId] = $value->__get($relatedTable->getColumn($column->getRelatedColumnName())->getPhpName(), $options);
           }
           else
           {
             // If $value is null, then don't try and fetch related object for primary key
-            $this->values["{$name}Id"] = null;
+            $this->values[$nameId] = null;
           }
         }
 
