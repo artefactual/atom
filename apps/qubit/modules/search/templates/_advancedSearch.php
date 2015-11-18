@@ -145,27 +145,40 @@
               ->renderRow() ?>
           </div>
 
-          <div class="filter-center">
-            <?php echo $form->copyrightStatus
-              ->label(__('Copyright status'))
-              ->renderRow() ?>
-          </div>
-
           <div class="filter-right">
-            <?php echo $form->materialType
-              ->label(__('General material designation'))
+            <?php echo $form->onlyMedia
+              ->label(__('Digital object available'))
               ->renderRow() ?>
           </div>
 
         </div>
 
-        <div class="filter-row">
+        <?php $showCopyright = sfConfig::get('app_toggleCopyrightFilter') ?>
+        <?php $showMaterial  = sfConfig::get('app_toggleMaterialFilter') ?>
 
-          <div class="filter-left">
-            <?php echo $form->onlyMedia
-              ->label(__('Digital object available'))
-              ->renderRow() ?>
+        <?php if ($showCopyright || $showMaterial): ?>
+          <div class="filter-row">
+
+            <?php if ($showCopyright): ?>
+              <div class="filter<?php echo $showMaterial ? '-left' : '' ?>">
+                <?php echo $form->copyrightStatus
+                  ->label(__('Copyright status'))
+                  ->renderRow() ?>
+              </div>
+            <?php endif; ?>
+
+            <?php if ($showMaterial): ?>
+              <div class="filter<?php echo $showCopyright ? '-right' : '' ?>">
+                <?php echo $form->materialType
+                  ->label(__('General material designation'))
+                  ->renderRow() ?>
+              </div>
+            <?php endif; ?>
+
           </div>
+        <?php endif; ?>
+
+        <div class="filter-row">
 
           <div class="lod-filter">
             <label>
@@ -187,17 +200,20 @@
       <div class="criteria">
 
         <div class="filter-row">
-          <div class="filter-left">
+
+          <div class="start-date">
             <?php echo $form->startDate
               ->label(__('Start'))
               ->renderRow() ?>
           </div>
-          <div class="filter-center">
+
+          <div class="end-date">
             <?php echo $form->endDate
               ->label(__('End'))
               ->renderRow() ?>
           </div>
-          <div class="date-range-filter">
+
+          <div class="date-type">
             <label>
               <input type="radio" name="rangeType" value="inclusive" <?php echo $rangeType == 'inclusive' ? 'checked' : '' ?>>
               <?php echo __('Inclusive') ?>
@@ -207,6 +223,7 @@
               <?php echo __('Exact') ?>
             </label>
           </div>
+
         </div>
 
       </div>

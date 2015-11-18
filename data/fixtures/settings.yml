@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 137
+    value: 138
   milestone:
     name: milestone
     editable: 0
@@ -740,6 +740,14 @@ QubitSetting:
     value: 1
   toggleLanguageMenu:
     name: toggleLanguageMenu
+    source_culture: en
+    value: 1
+  toggleCopyrightFilter:
+    name: toggleCopyrightFilter
+    source_culture: en
+    value: 1
+  toggleMaterialFilter:
+    name: toggleMaterialFilter
     source_culture: en
     value: 1
   QubitSetting_checkForUpdates:

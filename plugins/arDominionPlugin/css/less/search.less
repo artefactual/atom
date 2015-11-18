@@ -101,7 +101,7 @@ h1 {
   }
 
   select, input {
-    margin-bottom: 0;
+    margin: 0;
   }
 
   .filter .yui-ac-content {
@@ -119,6 +119,16 @@ h1 {
       width: 100%;
       display: inline-block;
 
+      &:first-child {
+        .boolean {
+          display: none;
+        }
+
+        .query {
+          width: 53%;
+        }
+      }
+
       .boolean, .query, span, .field, .delete-criterion {
         display: inline-block;
         margin: 0;
@@ -133,11 +143,11 @@ h1 {
       }
 
       .query {
-        width: 42%;
+        width: 38%;
       }
 
       span {
-        width: 5%;
+        width: 9%;
         padding-top: 5px;
         text-align: center;
         line-height: 20px;
@@ -155,16 +165,6 @@ h1 {
 
         &:hover, &:focus {
           text-decoration: none;
-        }
-      }
-
-      &:first-child {
-        .boolean {
-          display: none;
-        }
-
-        .query {
-          width: 57%;
         }
       }
     }
@@ -192,15 +192,19 @@ h1 {
         margin-top: 10px;
       }
 
+      label {
+        white-space: nowrap ;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       .filter {
         input, select {
           width: 60%;
           float: right;
-          display: inline-block;
         }
 
         label {
-          display: inline-block;
           float: left;
           width: 38%;
           text-align: right;
@@ -209,25 +213,18 @@ h1 {
       }
 
       .filter-left {
-        display: inline-block;
-        width: 32%;
-      }
-
-      .filter-center {
-        display: inline-block;
-        width: 33%;
+        width: 49%;
+        float: left;
       }
 
       .filter-right {
-        display: inline-block;
-        width: 33%;
+        width: 49%;
+        float: right;
       }
 
       .lod-filter {
-        display: inline-block;
-        width: 55%;
-        margin-left: 10%;
-        padding: 0;
+        margin-top: 5px;
+        float: right;
 
         label {
           display: inline-block;
@@ -235,14 +232,26 @@ h1 {
         }
       }
 
-      .date-range-filter {
+      .start-date {
         display: inline-block;
-        width: 30%;
+        width: 32%;
+      }
+
+      .end-date {
+        display: inline-block;
+        margin-left: 1%;
+        width: 32%;
+      }
+
+      .date-type {
+        display: inline-block;
+        width: 29%;
         margin-left: 3%;
-        padding: 0;
+        margin-top: 10px;
 
         label {
           display: inline-block;
+          vertical-align: middle;
           padding: 0 10px;
         }
       }
@@ -261,6 +270,48 @@ h1 {
     }
   }
 
+}
+
+// Responsive for advanced search filters
+
+@media (max-width: 435px) {
+  .advanced-search .criteria .filter-row {
+    .filter {
+      input, select, label {
+        width: 100%;
+        text-align: left;
+        padding-top: 0;
+      }
+    }
+
+    .filter-left,
+    .filter-right {
+      width: 100%;
+      margin: 0;
+    }
+
+    .filter-right {
+      margin-top: 10px;
+    }
+
+    .lod-filter {
+      float: none;
+
+      label {
+        display: block;
+      }
+    }
+
+    .start-date,
+    .end-date {
+      width: 48%;
+    }
+
+    .date-type {
+      width: 100%;
+      margin: 10px 0 0 0;
+    }
+  }
 }
 
 #no-search-results {

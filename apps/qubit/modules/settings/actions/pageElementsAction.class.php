@@ -37,7 +37,9 @@ class SettingsPageElementsAction extends sfAction
       'toggleLogo' => new sfWidgetFormInputCheckbox,
       'toggleTitle' => new sfWidgetFormInputCheckbox,
       'toggleLanguageMenu' => new sfWidgetFormInputCheckbox,
-      'toggleIoSlider' => new sfWidgetFormInputCheckbox));
+      'toggleIoSlider' => new sfWidgetFormInputCheckbox,
+      'toggleCopyrightFilter' => new sfWidgetFormInputCheckbox,
+      'toggleMaterialFilter' => new sfWidgetFormInputCheckbox));
 
     $criteria = new Criteria;
     $criteria->add(QubitSetting::NAME, 'toggleDescription');
@@ -82,6 +84,24 @@ class SettingsPageElementsAction extends sfAction
       $toggleIoSliderSetting = $toggleIoSliderQuery[0];
 
       $this->defaultPageElementsForm->setDefault('toggleIoSlider', $toggleIoSliderSetting->__get('value', array('sourceCulture' => true)));
+    }
+
+    $criteria = new Criteria;
+    $criteria->add(QubitSetting::NAME, 'toggleCopyrightFilter');
+    if (1 == count($toggleCopyrightFilterQuery = QubitSetting::get($criteria)))
+    {
+      $toggleCopyrightFilterSetting = $toggleCopyrightFilterQuery[0];
+
+      $this->defaultPageElementsForm->setDefault('toggleCopyrightFilter', $toggleCopyrightFilterSetting->__get('value', array('sourceCulture' => true)));
+    }
+
+    $criteria = new Criteria;
+    $criteria->add(QubitSetting::NAME, 'toggleMaterialFilter');
+    if (1 == count($toggleMaterialFilterQuery = QubitSetting::get($criteria)))
+    {
+      $toggleMaterialFilterSetting = $toggleMaterialFilterQuery[0];
+
+      $this->defaultPageElementsForm->setDefault('toggleMaterialFilter', $toggleMaterialFilterSetting->__get('value', array('sourceCulture' => true)));
     }
   }
 }

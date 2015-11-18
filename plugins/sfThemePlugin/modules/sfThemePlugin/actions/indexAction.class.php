@@ -28,7 +28,9 @@ class sfThemePluginIndexAction extends sfAction
       'toggleLogo' => new sfWidgetFormInputCheckbox,
       'toggleTitle' => new sfWidgetFormInputCheckbox,
       'toggleLanguageMenu' => new sfWidgetFormInputCheckbox,
-      'toggleIoSlider' => new sfWidgetFormInputCheckbox));
+      'toggleIoSlider' => new sfWidgetFormInputCheckbox,
+      'toggleCopyrightFilter' => new sfWidgetFormInputCheckbox,
+      'toggleMaterialFilter' => new sfWidgetFormInputCheckbox));
 
     $criteria = new Criteria;
     $criteria->add(QubitSetting::NAME, 'toggleDescription');
@@ -75,6 +77,24 @@ class sfThemePluginIndexAction extends sfAction
       $this->form->setDefault('toggleIoSlider', $toggleIoSliderSetting->__get('value', array('sourceCulture' => true)));
     }
 
+    $criteria = new Criteria;
+    $criteria->add(QubitSetting::NAME, 'toggleCopyrightFilter');
+    if (1 == count($toggleCopyrightFilterQuery = QubitSetting::get($criteria)))
+    {
+      $toggleCopyrightFilterSetting = $toggleCopyrightFilterQuery[0];
+
+      $this->form->setDefault('toggleCopyrightFilter', $toggleCopyrightFilterSetting->__get('value', array('sourceCulture' => true)));
+    }
+
+    $criteria = new Criteria;
+    $criteria->add(QubitSetting::NAME, 'toggleMaterialFilter');
+    if (1 == count($toggleMaterialFilterQuery = QubitSetting::get($criteria)))
+    {
+      $toggleMaterialFilterSetting = $toggleMaterialFilterQuery[0];
+
+      $this->form->setDefault('toggleMaterialFilter', $toggleMaterialFilterSetting->__get('value', array('sourceCulture' => true)));
+    }
+
     if ($request->isMethod('post'))
     {
       $this->form->setValidators(array(
@@ -82,7 +102,9 @@ class sfThemePluginIndexAction extends sfAction
         'toggleLogo' => new sfValidatorBoolean,
         'toggleTitle' => new sfValidatorBoolean,
         'toggleLanguageMenu' => new sfValidatorBoolean,
-        'toggleIoSlider' => new sfValidatorBoolean));
+        'toggleIoSlider' => new sfValidatorBoolean,
+        'toggleCopyrightFilter' => new sfValidatorBoolean,
+        'toggleMaterialFilter' => new sfValidatorBoolean));
 
       $this->form->bind($request->getPostParameters());
 
@@ -132,6 +154,24 @@ class sfThemePluginIndexAction extends sfAction
 
         $toggleIoSliderSetting->__set('value', $this->form->getValue('toggleIoSlider'), array('sourceCulture' => true));
         $toggleIoSliderSetting->save();
+
+        if (1 != count($toggleCopyrightFilterQuery))
+        {
+          $toggleCopyrightFilterSetting = new QubitSetting;
+          $toggleCopyrightFilterSetting->name = 'toggleCopyrightFilter';
+        }
+
+        $toggleCopyrightFilterSetting->__set('value', $this->form->getValue('toggleCopyrightFilter'), array('sourceCulture' => true));
+        $toggleCopyrightFilterSetting->save();
+
+        if (1 != count($toggleMaterialFilterQuery))
+        {
+          $toggleMaterialFilterSetting = new QubitSetting;
+          $toggleMaterialFilterSetting->name = 'toggleMaterialFilter';
+        }
+
+        $toggleMaterialFilterSetting->__set('value', $this->form->getValue('toggleMaterialFilter'), array('sourceCulture' => true));
+        $toggleMaterialFilterSetting->save();
 
         QubitCache::getInstance()->removePattern('settings:i18n:*');
 

@@ -49,6 +49,14 @@
             <td><?php echo $defaultPageElementsForm->toggleIoSlider->label('Digital object carousel')->renderLabel() ?></td>
             <td><?php echo $defaultPageElementsForm->toggleIoSlider ?></td>
           </tr>
+          <tr>
+            <td><?php echo $defaultPageElementsForm->toggleCopyrightFilter->label('Copyright status filter')->renderLabel() ?></td>
+            <td><?php echo $defaultPageElementsForm->toggleCopyrightFilter ?></td>
+          </tr>
+          <tr>
+            <td><?php echo $defaultPageElementsForm->toggleMaterialFilter->label('General material designation filter')->renderLabel() ?></td>
+            <td><?php echo $defaultPageElementsForm->toggleMaterialFilter ?></td>
+          </tr>
         </tbody>
       </table>
 
