@@ -70,6 +70,17 @@
     {
       event.preventDefault();
 
+      // Show alert box in clipboard page
+      if ($('body').is('.user.clipboard'))
+      {
+        $(
+          '<div class="alert">' +
+          '<button type="button" data-dismiss="alert" class="close">&times;</button>'
+        )
+        .append(this.$element.data('alert-message'))
+        .prependTo($('#wrapper.container'));
+      }
+
       $.ajax({
         url: this.$menuClearAll.attr('href'),
         type: 'DELETE',

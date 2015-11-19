@@ -1,4 +1,4 @@
-<div id="clipboard-menu" data-toggle="tooltip" data-title="<?php echo __('Clipboard') ?>">
+<div id="clipboard-menu" data-toggle="tooltip" data-title="<?php echo __('Clipboard') ?>" data-alert-message="<?php echo __('Note: clipboard items unclipped in this page will be removed from the clipboard when the page is refreshed. You can re-select them now, or refresh the page to remove them completely.') ?>">
 
   <button class="top-item" data-toggle="dropdown" data-target="#" aria-expanded="false">
     <?php echo __('Clipboard') ?>
