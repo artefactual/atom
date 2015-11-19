@@ -151,6 +151,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       return;
     }
 
+    // Create array with children data
+    $children = array();
     foreach ($files as $file)
     {
       if(!isset($file['ID']))
@@ -162,8 +164,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
       // Object UUID
       $objectUUID = $this->mappings['uuidMapping'][$fileId];
-
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - objectUUID: '.$objectUUID);
 
       // DIP paths
       if (false === $absolutePathWithinDip = $this->getAccessCopyPath($objectUUID))
@@ -179,12 +179,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         $absolutePathWithinDipParts = pathinfo($absolutePathWithinDip);
         $relativePathWithinDip = 'objects'.DIRECTORY_SEPARATOR.$absolutePathWithinDipParts['basename'];
       }
-
-      // Create child
-      $child = new QubitInformationObject;
-      $child->setPublicationStatus($this->publicationStatus);
-      $child->setLevelOfDescriptionByName('item');
-      $child->parentId = $parent->id;
 
       // Determine filename to use as title (uploaded or, from METS, original filename)
       $filename = substr($absolutePathWithinDipParts['basename'], 37);
@@ -203,7 +197,25 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         $filename = $fileParts['filename'];
       }
 
-      $child->title = $filename;
+      $children[$fileId]['title'] = $filename;
+      $children[$fileId]['objectUUID'] = $objectUUID;
+      $children[$fileId]['absolutePathWithinDip'] = $absolutePathWithinDip;
+    }
+
+    // Sort children by title
+    usort($children, function ($elem1, $elem2) {
+      return strcmp($elem1['title'], $elem2['title']);
+    });
+
+    // Create children in order
+    foreach ($children as $fileId => $data)
+    {
+      // Create child
+      $child = new QubitInformationObject;
+      $child->setPublicationStatus($this->publicationStatus);
+      $child->setLevelOfDescriptionByName('item');
+      $child->parentId = $parent->id;
+      $child->title = $data['title'];
 
       // Process metatadata from METS file
       if ((null !== $dmdId = $this->mappings['dmdMapping'][$fileId])
@@ -213,14 +225,16 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       }
 
       // Storage UUIDs
-      $child->addProperty('objectUUID', $objectUUID);
+      $child->addProperty('objectUUID', $data['objectUUID']);
       $child->addProperty('aipUUID', $this->aip->uuid);
 
+      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - objectUUID: '.$data['objectUUID']);
+
       // Add digital object
-      if (false !== $absolutePathWithinDip && is_readable($absolutePathWithinDip))
+      if (false !== $data['absolutePathWithinDip'] && is_readable($data['absolutePathWithinDip']))
       {
         $digitalObject = new QubitDigitalObject;
-        $digitalObject->assets[] = new QubitAsset($absolutePathWithinDip);
+        $digitalObject->assets[] = new QubitAsset($data['absolutePathWithinDip']);
         $digitalObject->usageId = QubitTerm::MASTER_ID;
         $child->digitalObjects[] = $digitalObject;
       }
