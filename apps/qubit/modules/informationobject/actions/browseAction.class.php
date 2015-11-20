@@ -692,8 +692,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       // - Criteria fields
       // - 'query' param (added to the criteria)
       // - 'showAdvanced' param (always added)
-      if (in_array($key, $this::$NAMES)
-        || 1 === preg_match('/^(sq|sf|so)\d+$/', $key)
+      if (in_array($key, $this::$NAMES) || 1 === preg_match('/^(sq|sf|so)\d+$/', $key)
         || in_array($key, array('query', 'showAdvanced')))
       {
         continue;
