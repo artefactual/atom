@@ -70,16 +70,7 @@
     {
       event.preventDefault();
 
-      // Show alert box in clipboard page
-      if ($('body').is('.user.clipboard'))
-      {
-        $(
-          '<div class="alert">' +
-          '<button type="button" data-dismiss="alert" class="close">&times;</button>'
-        )
-        .append(this.$element.data('alert-message'))
-        .prependTo($('#wrapper.container'));
-      }
+      this.showAlert();
 
       $.ajax({
         url: this.$menuClearAll.attr('href'),
@@ -115,6 +106,12 @@
       if ((!$button.hasClass('added') && added)
         || ($button.hasClass('added') && !added))
       {
+        // Show alert when removing
+        if (!added)
+        {
+          this.showAlert();
+        }
+
         $button.toggleClass('added');
 
         var label = $button.attr('data-title');
@@ -160,6 +157,19 @@
       else
       {
         this.$menuHeaderCount.text(count + ' ' + singleLabel);
+      }
+    },
+    showAlert: function()
+    {
+      // Show alert box in clipboard page if it is not already added
+      if ($('body').is('.user.clipboard') && $('#wrapper.container > .alert').length == 0)
+      {
+        $(
+          '<div class="alert">' +
+          '<button type="button" data-dismiss="alert" class="close">&times;</button>'
+        )
+        .append(this.$element.data('alert-message'))
+        .prependTo($('#wrapper.container'));
       }
     }
   };
