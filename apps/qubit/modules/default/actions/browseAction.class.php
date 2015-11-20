@@ -90,17 +90,23 @@ class DefaultBrowseAction extends sfAction
 
           $resultSetWithoutLanguageFilter = QubitSearch::getInstance()->index->getType($this::INDEX_TYPE)->search($this->search->query);
 
-          $facets[$name]['terms']['unique'] = array(
-            'count' => $resultSetWithoutLanguageFilter->getTotalHits(),
-            'term' => 'Unique records');
+          $count= $resultSetWithoutLanguageFilter->getTotalHits();
         }
         // Without language filter the count equals the number of hits
         else
         {
-          $facets[$name]['terms']['unique'] = array(
-            'count' => $resultSet->getTotalHits(),
-            'term' => 'Unique records');
+          $count= $resultSet->getTotalHits();
         }
+
+        $i18n = sfContext::getInstance()->i18n;
+
+        $uniqueTerm = array(
+          'unique' => array(
+            'count' => $count,
+            'term' => $i18n->__('Unique records')));
+
+        // Add unique term at the biginning of the array
+        $facets[$name]['terms'] = $uniqueTerm + $facets[$name]['terms'];
       }
     }
 
