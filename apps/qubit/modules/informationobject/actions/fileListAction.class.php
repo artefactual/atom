@@ -114,6 +114,7 @@ class InformationObjectFileListAction extends sfAction
     $criteria = new Criteria;
     $criteria->add(QubitInformationObject::LFT, $this->resource->lft, Criteria::GREATER_EQUAL);
     $criteria->add(QubitInformationObject::RGT, $this->resource->rgt, Criteria::LESS_EQUAL);
+    $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, $lod->id);
     $criteria->addAscendingOrderByColumn(QubitInformationObject::LFT);
 
     // Filter drafts
@@ -125,23 +126,20 @@ class InformationObjectFileListAction extends sfAction
 
     foreach($informationObjects as $item)
     {
-      if ($lod->id == $item->levelOfDescriptionId)
-      {
-        $creationDates = self::getCreationDates($item);
-        $parentTitle = QubitInformationObject::getStandardsBasedInstance($item->parent)->__toString();
+      $creationDates = self::getCreationDates($item);
+      $parentTitle = QubitInformationObject::getStandardsBasedInstance($item->parent)->__toString();
 
-        $this->results[$parentTitle][] = array(
-          'resource' => $item,
-          'referenceCode' => QubitInformationObject::getStandardsBasedInstance($item)->referenceCode,
-          'title' => $item->getTitle(array('cultureFallback' => true)),
-          'dates' => (isset($creationDates)) ? Qubit::renderDateStartEnd($creationDates->getDate(array('cultureFallback' => true)), $creationDates->startDate, $creationDates->endDate) : '&nbsp;',
-          'startDate' => (isset($creationDates)) ? $creationDates->startDate : null,
-          'accessConditions' => $item->getAccessConditions(array('cultureFallback' => true)),
-          'locations' => self::getLocationString($item)
-        );
+      $this->results[$parentTitle][] = array(
+        'resource' => $item,
+        'referenceCode' => QubitInformationObject::getStandardsBasedInstance($item)->referenceCode,
+        'title' => $item->getTitle(array('cultureFallback' => true)),
+        'dates' => (isset($creationDates)) ? Qubit::renderDateStartEnd($creationDates->getDate(array('cultureFallback' => true)), $creationDates->startDate, $creationDates->endDate) : '&nbsp;',
+        'startDate' => (isset($creationDates)) ? $creationDates->startDate : null,
+        'accessConditions' => $item->getAccessConditions(array('cultureFallback' => true)),
+        'locations' => self::getLocationString($item)
+      );
 
-        $this->resultCount++;
-      }
+      $this->resultCount++;
     }
 
     // Sort items by selected criteria
@@ -149,7 +147,7 @@ class InformationObjectFileListAction extends sfAction
     foreach ($this->results as $key => &$items)
     {
       uasort($items, function($a, $b) use ($sortBy) {
-         return strnatcasecmp($a[$sortBy], $b[$sortBy]); 
+         return strnatcasecmp($a[$sortBy], $b[$sortBy]);
       });
     }
   }
