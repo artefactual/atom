@@ -248,11 +248,8 @@ EOF;
 
       if ($linkHref)
       {
-        if (0 === strpos(strtolower($linkHref), 'mailto:')) {
-          $linkHref = removeFromStartOfString($linkHref, 'mailto:');
-        }
-
-        $linkText .= ' ['. $linkHref .']';
+        // Convert <a href="url">label</a> link to Redmine style "label":url link.
+        $linkText = sprintf('"%s":%s', $linkText, $linkHref);
       }
 
       $newTextNode = $doc->createTextNode($linkText);
@@ -373,18 +370,5 @@ EOF;
 
       $paraNode->parentNode->replaceChild($newTextNode, $paraNode);
     }
-  }
-
-  /**
-   * Remove text at the start of strings
-   *
-   * @param string  $string  text
-   * @param string  $substring  text to remove
-   *
-   * @return string  processed text
-   */
-  private function removeFromStartOfString($string, $substring)
-  {
-    return substr($string, strlen($substring), strlen($string) - strlen($substring));
   }
 }
