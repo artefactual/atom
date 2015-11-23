@@ -21,7 +21,7 @@ require_once dirname(__FILE__).'/../bootstrap/unit.php';
 
 require_once(dirname(__FILE__).'/../../lib/helper/QubitHelper.php');
 
-$t = new lime_test(18, new lime_output_color);
+$t = new lime_test(19, new lime_output_color);
 
 /**
  * qubit_auto_link_text()
@@ -33,6 +33,11 @@ $t->is(
   qubit_auto_link_text('Visit our "website":http://www.accesstomemory.org.'),
   'Visit our <a href="http://www.accesstomemory.org">website</a>.',
   'qubit_auto_link_text() converts Redmine links');
+
+$t->is(
+  qubit_auto_link_text('Email me "here":mailto:bob@bob.com'),
+  'Email me <a href="mailto:bob@bob.com">here</a>',
+  'qubit_auto_link_text() converts Redmine mailto links');
 
 $t->is(
   qubit_auto_link_text('Foobar1 http://www.foobar1.com Foobar2 ftp://ftp.foobar2.com and special link "here":http://here.com.'),

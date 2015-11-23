@@ -550,11 +550,12 @@ if (!defined('AR_AUTO_LINK_RE'))
     )
     (
       (?:(?:https?|ftp)://)|                        # protocol spec, or
-      (?:www\.)                                     # www.*
+      (?:www\.)|                                    # www.*
+      (?:mailto:)
     )
     (
-      [-\w]+                                        # subdomain or domain
-      (?:\.[-\w]+)*                                 # remaining subdomains or domain
+      [-\w@]+                                       # subdomain or domain
+      (?:\.[-\w@]+)*                                # remaining subdomains or domain
       (?::\d+)?                                     # port
       (?:/(?:(?:[\~\w\+%-]|(?:[,.;:][^\s$]))+)?)*   # path
       (?:\?[\w\+\/%&=.;-]+)?                        # query string
