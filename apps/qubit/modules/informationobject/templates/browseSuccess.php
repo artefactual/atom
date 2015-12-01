@@ -204,7 +204,11 @@
 
     <?php if (isset($sf_request->onlyMedia)): ?>
       <span class="search-filter">
-        <?php echo __('Only digital objects') ?>
+        <?php if (filter_var($sf_request->onlyMedia, FILTER_VALIDATE_BOOLEAN)): ?>
+          <?php echo __('With digital objects') ?>
+        <?php else: ?>
+          <?php echo __('Without digital objects') ?>
+        <?php endif; ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['onlyMedia']) ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
