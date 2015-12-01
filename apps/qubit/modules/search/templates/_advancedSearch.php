@@ -28,7 +28,9 @@
                 <option value="not"<?php echo $item['operator'] == 'not' ? ' selected="selected"' : '' ?>><?php echo __('not') ?></option>
               </select>
 
-              <a href="#" class="delete-criterion"><i class="icon-remove"></i></a>
+              <input class="query" type="text" placeholder="<?php echo __('Search') ?>" name="sq<?php echo $key ?>" value="<?php echo esc_entities($item['query']) ?>"/>
+
+              <span><?php echo __('in') ?></span>
 
               <select class="field" name="sf<?php echo $key ?>">
                 <option value=""<?php echo $item['field'] == '' ? ' selected="selected"' : '' ?>><?php echo __('Any field') ?></option>
@@ -47,9 +49,7 @@
                 <option value="referenceCode"<?php echo $item['field'] == 'referenceCode' ? ' selected="selected"' : '' ?>><?php echo __('Reference code') ?></option>
               </select>
 
-              <span><?php echo __('in') ?></span>
-
-              <input class="query" type="text" placeholder="<?php echo __('Search') ?>" name="sq<?php echo $key ?>" value="<?php echo esc_entities($item['query']) ?>"/>
+              <a href="#" class="delete-criterion"><i class="icon-remove"></i></a>
 
             </div>
 
@@ -67,7 +67,9 @@
             <option value="not"><?php echo __('not') ?></option>
           </select>
 
-          <a href="#" class="delete-criterion"><i class="icon-remove"></i></a>
+          <input class="query" type="text" placeholder="<?php echo __('Search') ?>" name="sq<?php echo $count?>"/>
+
+          <span><?php echo __('in') ?></span>
 
           <select class="field" name="sf<?php echo $count ?>">
             <option value=""><?php echo __('Any field') ?></option>
@@ -86,9 +88,7 @@
             <option value="referenceCode"><?php echo __('Reference code') ?></option>
           </select>
 
-          <span><?php echo __('in') ?></span>
-
-          <input class="query" type="text" placeholder="<?php echo __('Search') ?>" name="sq<?php echo $count?>"/>
+          <a href="#" class="delete-criterion"><i class="icon-remove"></i></a>
 
         </div>
 
