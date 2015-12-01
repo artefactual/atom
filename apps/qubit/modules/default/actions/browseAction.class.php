@@ -106,7 +106,11 @@ class DefaultBrowseAction extends sfAction
             'term' => $i18n->__('Unique records')));
 
         // Add unique term at the biginning of the array
-        $facets[$name]['terms'] = $uniqueTerm + $facets[$name]['terms'];
+        // only when there are other terms
+        if (isset($facets[$name]) && count($facets[$name]['terms']))
+        {
+          $facets[$name]['terms'] = $uniqueTerm + $facets[$name]['terms'];
+        }
       }
     }
 
