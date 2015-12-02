@@ -28,7 +28,7 @@
                 <option value="not"<?php echo $item['operator'] == 'not' ? ' selected="selected"' : '' ?>><?php echo __('not') ?></option>
               </select>
 
-              <input class="query" type="text" placeholder="<?php echo __('Search') ?>" name="sq<?php echo $key ?>" value="<?php echo esc_entities($item['query']) ?>"/>
+              <input class="query" type="text" placeholder="<?php echo __('Search') ?>" name="sq<?php echo $key ?>" value="<?php echo $item['query'] ?>"/>
 
               <span><?php echo __('in') ?></span>
 
