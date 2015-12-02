@@ -52,15 +52,21 @@ class UserClipboardAction extends DefaultBrowseAction
         case 'identifier':
           $this->search->query->addSort(array('referenceCode.untouched' => 'asc'));
 
-        case 'lastUpdated':
-          $this->search->query->setSort(array('updatedAt' => 'desc'));
-          break;
-
         // I don't think that this is going to scale, but let's leave it for now
         case 'alphabetic':
-        default:
           $field = sprintf('i18n.%s.title.untouched', $this->selectedCulture);
           $this->search->query->addSort(array($field => 'asc'));
+
+          break;
+
+        case 'date':
+          $this->search->query->setSort(array('dates.startDate' => 'asc'));
+
+        break;
+
+        case 'lastUpdated':
+        default:
+          $this->search->query->setSort(array('updatedAt' => 'desc'));
       }
 
       $this->search->query->setQuery($this->search->queryBool);

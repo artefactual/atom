@@ -14,12 +14,12 @@
   <section class="header-options">
     <?php echo get_partial('default/printPreviewButton', array('class' => 'clipboard-print')) ?>
 
-    <?php echo get_partial('default/sortPicker',
-      array(
-        'options' => array(
-          'lastUpdated' => __('Most recent'),
-          'alphabetic' => __('Alphabetic'),
-          'identifier' => __('Reference code')))) ?>
+    <?php echo get_partial('default/sortPicker', array(
+      'options' => array(
+        'lastUpdated' => __('Most recent'),
+        'alphabetic'  => __('Alphabetic'),
+        'identifier'  => __('Reference code'),
+        'date'        => __('Date')))) ?>
   </section>
 <?php end_slot() ?>
 
