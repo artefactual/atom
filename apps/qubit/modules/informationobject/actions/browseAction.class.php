@@ -292,22 +292,9 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
   {
     $queryBool = new \Elastica\Query\Bool();
     $this->criteria = array();
-
-    // Include search-box query in boolean criteria
-    if (1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))
-    {
-      $queryField = $this->queryField('_all', $this->request->query, $this->template);
-
-      $this->addToQueryBool($queryBool, 'and', $queryField);
-
-      $this->criteria[] = array(
-        'query' => $this->request->query,
-        'field' => '_all',
-        'operator' => 'and');
-    }
+    $count = -1;
 
     // Parse adv. search boolean criteria
-    $count = -1;
     while (null !== $query = $this->request->getParameter('sq'.++$count))
     {
       if (empty($query))
@@ -760,11 +747,16 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       $this->dateRange = '[ '.$request->startDate.' - '.$request->endDate.' ]';
     }
 
-    // Add first criterion to the search box if it's over any field and the query is not set
-    if (!isset($request->query) && !isset($request->sf0) && isset($request->sq0))
+    // Add first criterion to the search box if it's over any field
+    if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->sq0) && !isset($request->sf0))
     {
       $request->query = $request->sq0;
-      unset($request->sq0);
+    }
+
+    // And search box query to the first criterion
+    if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->query))
+    {
+      $request->sq0 = $request->query;
     }
 
     // Build query with the boolean criteria
