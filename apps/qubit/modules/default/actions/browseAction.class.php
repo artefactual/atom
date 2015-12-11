@@ -90,16 +90,26 @@ class DefaultBrowseAction extends sfAction
 
           $resultSetWithoutLanguageFilter = QubitSearch::getInstance()->index->getType($this::INDEX_TYPE)->search($this->search->query);
 
-          $facets[$name]['terms']['unique'] = array(
-            'count' => $resultSetWithoutLanguageFilter->getTotalHits(),
-            'term' => 'Unique records');
+          $count= $resultSetWithoutLanguageFilter->getTotalHits();
         }
         // Without language filter the count equals the number of hits
         else
         {
-          $facets[$name]['terms']['unique'] = array(
-            'count' => $resultSet->getTotalHits(),
-            'term' => 'Unique records');
+          $count= $resultSet->getTotalHits();
+        }
+
+        $i18n = sfContext::getInstance()->i18n;
+
+        $uniqueTerm = array(
+          'unique' => array(
+            'count' => $count,
+            'term' => $i18n->__('Unique records')));
+
+        // Add unique term at the biginning of the array
+        // only when there are other terms
+        if (isset($facets[$name]) && count($facets[$name]['terms']))
+        {
+          $facets[$name]['terms'] = $uniqueTerm + $facets[$name]['terms'];
         }
       }
     }
@@ -114,39 +124,10 @@ class DefaultBrowseAction extends sfAction
       case 'languages':
         foreach ($ids as $code => $count)
         {
-          $this->types[$code] = sfCultureInfo::getInstance(sfContext::getInstance()->user->getCulture())->getLanguage($code);
+          $this->types[$code] = ucfirst(sfCultureInfo::getInstance(sfContext::getInstance()->user->getCulture())->getLanguage($code));
         }
 
         break;
-    }
-  }
-
-  /**
-   * Determine url parameters based on if the "top-level descriptions" or "all descriptions"
-   * radio buttons are selected. Also determine which radio button is 'checked'.
-   *
-   * Filter out non-top level descriptions from the ES query if the user has selected
-   * "top-level descriptions."
-   */
-  protected function handleTopLevelDescriptionsOnlyFilter()
-  {
-    $this->topLvlDescUrl = $this->context->routing->generate(null, array('topLod' => true) +
-                           $this->request->getParameterHolder()->getAll());
-
-    $this->allLvlDescUrl = $this->context->routing->generate(null, array('topLod' => false) +
-                           $this->request->getParameterHolder()->getAll());
-
-    if (isset($this->request->topLod) && $this->request->topLod)
-    {
-      $this->checkedTopDesc = 'checked';
-      $this->checkedAllDesc = '';
-
-      $this->search->queryBool->addMust(new \Elastica\Query\Term(array('parentId' => QubitInformationObject::ROOT_ID)));
-    }
-    else
-    {
-      $this->checkedTopDesc = '';
-      $this->checkedAllDesc = 'checked';
     }
   }
 
@@ -177,16 +158,19 @@ class DefaultBrowseAction extends sfAction
       $request->sort = $this->sortSetting;
     }
 
-    $indexType = property_exists($this, 'INDEX_TYPE') ? $this::INDEX_TYPE : null;
-    $facets    = property_exists($this, 'FACETS') ? $this::$FACETS : null;
+    $facets = property_exists($this, 'FACETS') ? $this::$FACETS : array();
 
     $this->search = new arElasticSearchPluginQuery(
-      $indexType,
       $facets,
       $request->limit,
       $request->page);
 
-    $this->search->addFilters($this->request->getGetParameters());
+    if (!isset($this->getParameters))
+    {
+      $this->getParameters = $request->getGetParameters();
+    }
+
+    $this->search->addFilters($this->getParameters);
 
     if (isset($this->search->filters['languages']))
     {

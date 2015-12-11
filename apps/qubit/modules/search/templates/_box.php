@@ -2,7 +2,9 @@
 
   <h2><?php echo __('Search') ?></h2>
 
-  <form action="<?php echo url_for(array('module' => 'search')) ?>" data-autocomplete="<?php echo url_for(array('module' => 'search', 'action' => 'autocomplete')) ?>" autocomplete="off">
+  <form action="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse')) ?>" data-autocomplete="<?php echo url_for(array('module' => 'search', 'action' => 'autocomplete')) ?>" autocomplete="off">
+
+    <input type="hidden" name="topLod" value="0"/>
 
     <?php if (isset($repository)): ?>
       <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo $sf_request->query ?>" placeholder="<?php echo __('Search %1%', array('%1%' => render_title($repository))) ?>"/>
@@ -10,7 +12,7 @@
       <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo $sf_request->query ?>" placeholder="<?php echo __('Search') ?>"/>
     <?php endif; ?>
 
-    <button action="<?php echo url_for(array('module' => 'search')) ?>" data-autocomplete="<?php echo url_for(array('module' => 'search', 'action' => 'autocomplete')) ?>" autocomplete="off"><span><?php echo __('Search') ?></span></button>
+    <button><span><?php echo __('Search') ?></span></button>
 
     <div id="search-realm" class="search-popover">
 
@@ -48,7 +50,7 @@
       <?php endif; ?>
 
       <div class="search-realm-advanced">
-        <a href="<?php echo url_for(array('module' => 'search', 'action' => 'advanced')) ?>">
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse', 'showAdvanced' => true, 'topLod' => false)) ?>">
           <?php echo __('Advanced search') ?>&nbsp;&raquo;
         </a>
       </div>

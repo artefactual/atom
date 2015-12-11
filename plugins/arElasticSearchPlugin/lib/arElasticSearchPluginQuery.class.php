@@ -30,16 +30,14 @@ class arElasticSearchPluginQuery
   /*
    * Constructor
    *
-   * @param string $indexType  the name of the ElasticSearch document type to search
    * @param array $facets  search facets (see the addFacets method)
    * @param int $limit  how many results should be returned
    * @param int $page  how page of results should be returned
    *
    * @return void
    */
-  public function __construct($indexType, $facets, $limit = 50, $page = 1)
+  public function __construct($facets = array(), $limit = 50, $page = 1)
   {
-    $this->indexType = $indexType;
     $this->facets = $facets;
 
     $page = (isset($page)) ? $page : 1;
@@ -171,9 +169,24 @@ class arElasticSearchPluginQuery
 
         $this->filters[$param][] = $facetValue;
 
-        $term = new \Elastica\Query\Term(array($this->facets[$param]['field'] => $facetValue));
+        $query = new \Elastica\Query\Term(array($this->facets[$param]['field'] => $facetValue));
 
-        $this->queryBool->addMust($term);
+        // Collection facet must select all descendants and itself
+        if ($param == 'collection')
+        {
+          $collection = QubitInformationObject::getById($facetValue);
+
+          $querySelf = new \Elastica\Query\Match();
+          $querySelf->setFieldQuery('slug', $collection->slug);
+
+          $queryBool = new \Elastica\Query\Bool();
+          $queryBool->addShould($query);
+          $queryBool->addShould($querySelf);
+
+          $query = $queryBool;
+        }
+
+        $this->queryBool->addMust($query);
       }
     }
   }

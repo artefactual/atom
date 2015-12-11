@@ -14,9 +14,9 @@
 
 <?php slot('content') ?>
 
-  <?php echo $defaultPageElementsForm->renderFormTag(url_for(array('module' => 'sfThemePlugin')), array('style' => 'float: left;')) ?>
+  <form action="<?php echo url_for('settings/pageElements') ?>" method="post">
 
-    <?php echo $defaultPageElementsForm->renderGlobalErrors() ?>
+    <?php echo $form->renderGlobalErrors() ?>
     <p><?php echo __('Enable or disable the display of certain page elements. Unless they have been overridden by a specific theme, these settings will be used site wide.') ?></p>
 
     <div id="content">
@@ -30,24 +30,32 @@
         </thead>
         <tbody>
           <tr>
-            <td><?php echo $defaultPageElementsForm->toggleLogo->label('Logo')->renderLabel() ?></td>
-            <td><?php echo $defaultPageElementsForm->toggleLogo ?></td>
+            <td><?php echo $form->toggleLogo->label('Logo')->renderLabel() ?></td>
+            <td><?php echo $form->toggleLogo ?></td>
           </tr>
           <tr>
-            <td><?php echo $defaultPageElementsForm->toggleTitle->label('Title')->renderLabel() ?></td>
-            <td><?php echo $defaultPageElementsForm->toggleTitle ?></td>
+            <td><?php echo $form->toggleTitle->label('Title')->renderLabel() ?></td>
+            <td><?php echo $form->toggleTitle ?></td>
           </tr>
           <tr>
-            <td><?php echo $defaultPageElementsForm->toggleDescription->label('Description')->renderLabel() ?></td>
-            <td><?php echo $defaultPageElementsForm->toggleDescription ?></td>
+            <td><?php echo $form->toggleDescription->label('Description')->renderLabel() ?></td>
+            <td><?php echo $form->toggleDescription ?></td>
           </tr>
           <tr>
-            <td><?php echo $defaultPageElementsForm->toggleLanguageMenu->label('Language menu')->renderLabel() ?></td>
-            <td><?php echo $defaultPageElementsForm->toggleLanguageMenu ?></td>
+            <td><?php echo $form->toggleLanguageMenu->label('Language menu')->renderLabel() ?></td>
+            <td><?php echo $form->toggleLanguageMenu ?></td>
           </tr>
           <tr>
-            <td><?php echo $defaultPageElementsForm->toggleIoSlider->label('Digital object carousel')->renderLabel() ?></td>
-            <td><?php echo $defaultPageElementsForm->toggleIoSlider ?></td>
+            <td><?php echo $form->toggleIoSlider->label('Digital object carousel')->renderLabel() ?></td>
+            <td><?php echo $form->toggleIoSlider ?></td>
+          </tr>
+          <tr>
+            <td><?php echo $form->toggleCopyrightFilter->label('Copyright status filter')->renderLabel() ?></td>
+            <td><?php echo $form->toggleCopyrightFilter ?></td>
+          </tr>
+          <tr>
+            <td><?php echo $form->toggleMaterialFilter->label('General material designation filter')->renderLabel() ?></td>
+            <td><?php echo $form->toggleMaterialFilter ?></td>
           </tr>
         </tbody>
       </table>

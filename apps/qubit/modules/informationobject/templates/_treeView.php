@@ -111,7 +111,7 @@
 
   <form method="get" action="<?php echo url_for(array('module' => 'search', 'action' => 'index', 'collection' => $resource->getCollectionRoot()->id)) ?>" data-not-found="<?php echo __('No results found.') ?>">
     <div class="search-box">
-      <input type="text" name="query" placeholder="<?php echo __('Search titles and identifiers') ?>" />
+      <input type="text" name="query" placeholder="<?php echo __('Search') ?>" />
       <button type="submit"><i class="icon-search"></i></button>
     </div>
   </form>

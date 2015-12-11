@@ -74,7 +74,7 @@
       <p><?php echo truncate_text($scopeAndContent, 250) ?></p>
     <?php endif; ?>
 
-    <?php if (null !== $creationDetails = get_search_creation_details($doc, $culture)): ?>
+    <?php if (isset($doc['creators']) && null !== $creationDetails = get_search_creation_details($doc, $culture)): ?>
       <p class="creation-details"><?php echo $creationDetails ?></p>
     <?php endif; ?>
 
