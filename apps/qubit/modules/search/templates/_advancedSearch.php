@@ -124,7 +124,7 @@
         <div class="filter-row">
           <div class="filter">
             <?php echo $form->collection
-              ->label(__('Top-level descriptions'))
+              ->label(__('Top-level description'))
               ->renderLabel() ?>
             <?php echo $form->collection->render(array('class' => 'form-autocomplete')) ?>
             <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'autocomplete', 'parent' => QubitInformationObject::ROOT_ID, 'filterDrafts' => true)) ?>"/>
