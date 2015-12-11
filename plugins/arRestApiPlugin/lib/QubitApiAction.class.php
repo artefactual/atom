@@ -75,6 +75,13 @@ class QubitAPIAction extends sfAction
     // Load Qubit helper before calling it
     ProjectConfiguration::getActive()->loadHelpers(array('Asset', 'Qubit'));
 
+    // Load site base URL
+    $this->siteBaseUrl = '';
+    if (null !== $setting = QubitSetting::getByName('siteBaseUrl'))
+    {
+      $this->siteBaseUrl = $setting->getValue(array('sourceCulture' => true));
+    }
+
     $result = call_user_func_array($fnCallable, $fnParamaters);
 
     return $this->renderData($result);
