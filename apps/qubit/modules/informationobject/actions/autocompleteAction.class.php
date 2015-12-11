@@ -70,7 +70,7 @@ class InformationObjectAutocompleteAction extends sfAction
     $this->query->setQuery($this->queryBool);
 
     // Filter results by parent
-    if (!empty($request->parent))
+    if (!empty($request->parent) && ctype_digit($request->parent))
     {
       $queryTerm = new \Elastica\Query\Term;
       $queryTerm->setTerm('parentId', $request->parent);
@@ -80,7 +80,7 @@ class InformationObjectAutocompleteAction extends sfAction
     }
 
     // Filter results by repository
-    if (!empty($request->repository))
+    if (!empty($request->repository) && ctype_digit($request->repository))
     {
       $queryTerm = new \Elastica\Query\Term;
       $queryTerm->setTerm('repository.id', $request->repository);
