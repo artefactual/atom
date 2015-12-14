@@ -21,20 +21,64 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
 {
   protected function get($request)
   {
-    // Create query objects
-    $query = new \Elastica\Query;
-    $queryBool = new \Elastica\Query\Bool;
-    $queryBool->addMust(new \Elastica\Query\MatchAll);
+    $getParameters = $request->getGetParameters();
 
-    // Pagination and sorting
-    $this->prepareEsPagination($query);
-    $this->prepareEsSorting($query, array(
-      'createdAt' => 'createdAt'));
+    // Get actual information object template to check archival history
+    // visibility in _advancedSearch partial and in parseQuery function
+    $archivalStandard = 'isad';
+    if (null !== $infoObjectTemplate = QubitSetting::getByNameAndScope('informationobject', 'default_template'))
+    {
+      $archivalStandard = $infoObjectTemplate->getValue(array('sourceCulture'=>true));
+    }
 
-    // Assign query
-    $query->setQuery($queryBool);
+    $limit = sfConfig::get('app_hits_per_page');
+    if (isset($request->limit) && ctype_digit($request->limit))
+    {
+      $limit = $request->limit;
+    }
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+    $skip = 0;
+    if (isset($request->skip) && ctype_digit($request->skip))
+    {
+      $skip = $request->skip;
+    }
+
+    // Default to show all level descriptions
+    if (!isset($request->topLod) || !filter_var($request->topLod, FILTER_VALIDATE_BOOLEAN))
+    {
+      $getParameters['topLod'] = 0;
+    }
+
+    $this->search = new arElasticSearchPluginQuery($limit, $skip);
+    $this->search->addFacetFilters(InformationObjectBrowseAction::$FACETS, $getParameters);
+    $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $getParameters, $archivalStandard);
+
+    // Sort
+    switch ($request->sort)
+    {
+      case 'identifier':
+        $this->search->query->addSort(array('referenceCode.untouched' => 'asc'));
+
+        break;
+
+      // I don't think that this is going to scale, but let's leave it for now
+      case 'alphabetic':
+        $field = sprintf('i18n.%s.title.untouched', $this->selectedCulture);
+        $this->search->query->addSort(array($field => 'asc'));
+
+        break;
+
+      case 'date':
+        $this->search->query->setSort(array('dates.startDate' => 'asc'));
+
+        break;
+
+      case 'lastUpdated':
+      default:
+        $this->search->query->setSort(array('updatedAt' => 'desc'));
+    }
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->getQuery(false, true));
 
     // Build array from results
     $results = $lodMapping = array();
