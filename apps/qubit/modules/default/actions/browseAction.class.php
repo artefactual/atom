@@ -139,11 +139,6 @@ class DefaultBrowseAction extends sfAction
       $this->forward404();
     }
 
-    if (empty($request->limit))
-    {
-      $request->limit = sfConfig::get('app_hits_per_page');
-    }
-
     if ($this->getUser()->isAuthenticated())
     {
       $this->sortSetting = sfConfig::get('app_sort_browser_user');
@@ -158,19 +153,30 @@ class DefaultBrowseAction extends sfAction
       $request->sort = $this->sortSetting;
     }
 
-    $facets = property_exists($this, 'FACETS') ? $this::$FACETS : array();
-
-    $this->search = new arElasticSearchPluginQuery(
-      $facets,
-      $request->limit,
-      $request->page);
-
-    if (!isset($this->getParameters))
+    $this->limit = sfConfig::get('app_hits_per_page');
+    if (isset($request->limit) && ctype_digit($request->limit))
     {
-      $this->getParameters = $request->getGetParameters();
+      $this->limit = $request->limit;
     }
 
-    $this->search->addFilters($this->getParameters);
+    $skip = 0;
+    if (isset($request->page) && ctype_digit($request->page))
+    {
+      $skip = ($request->page - 1) * $this->limit;
+    }
+
+    $this->search = new arElasticSearchPluginQuery($this->limit, $skip);
+
+    if (property_exists($this, 'FACETS'))
+    {
+      if (!isset($this->getParameters))
+      {
+        $this->getParameters = $request->getGetParameters();
+      }
+
+      $this->search->addFacets($this::$FACETS);
+      $this->search->addFacetFilters($this::$FACETS, $this->getParameters);
+    }
 
     if (isset($this->search->filters['languages']))
     {

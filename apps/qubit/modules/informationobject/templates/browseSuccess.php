@@ -250,7 +250,7 @@
 <?php slot('content') ?>
 
   <?php echo get_partial('search/advancedSearch', array(
-    'criteria'     => $criteria,
+    'criteria'     => $search->criteria,
     'template'     => $template,
     'form'         => $form,
     'show'         => $showAdvanced,
