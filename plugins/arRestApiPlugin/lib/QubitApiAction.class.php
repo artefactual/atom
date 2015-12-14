@@ -73,7 +73,7 @@ class QubitAPIAction extends sfAction
     }
 
     // Load Qubit helper before calling it
-    ProjectConfiguration::getActive()->loadHelpers(array('Asset', 'Qubit'));
+    ProjectConfiguration::getActive()->loadHelpers(array('Asset', 'Qubit', 'Date', 'I18N'));
 
     // Load site base URL
     $this->siteBaseUrl = '';
