@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-10-16T04:43:23Z" product-name="messages">
+  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-12-18T08:52:16Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -314,7 +314,7 @@
       </trans-unit>
       <trans-unit id="78">
         <source>Dates of the relationship</source>
-        <target/>
+        <target>Ημερομηνίες της Σχέσης</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Edit control area</source>

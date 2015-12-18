@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2015-10-16T04:43:24Z" product-name="messages">
+  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2015-12-18T08:52:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -155,7 +155,7 @@
       </trans-unit>
       <trans-unit id="38">
         <source>Give information about any restrictions on access to the unit being described (or parts thereof) as a result of the nature of the information therein or statutory/contractual requirements. As appropriate, specify the details of the restriction. If there are no restrictions, state that fact. (DACS 4.1.5)</source>
-        <target/>
+        <target>Adjon információt a leírt egységgel (vagy annak egy részével) kapcsolatos bármely korlátozásról, amelyet az abban található információ természete, vagy más jogszabályi/szerződési követelmények okoznak. Amennyire lehetséges, határozza meg a korlátozás részleteit. Ha nincsen korlátozás, állapítsa meg ezt a tényt. (DACS 4.1.5)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Conditions governing access</source>
@@ -235,7 +235,7 @@
       </trans-unit>
       <trans-unit id="58">
         <source>Where the destruction or retention of archival materials has a bearing on the interpretation and use of the unit being described, provide information about the materials destroyed or retained and provide the reason(s) for the appraisal decision(s), where known. (DACS 5.3.4)</source>
-        <target/>
+        <target>Ahol a levéltári anyagok megtartásának vagy elpusztításának jelentősége van az értelmezés tekintetében, és leírásra kerül az egység használhatósága, adjon információt a az elpusztított vagy megtartott anyagról, és adja meg az értékelési döntés(ek) okát (okait), ahol az ismert. (DACS 5.3.4)</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Appraisal, destruction and scheduling information</source>

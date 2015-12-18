@@ -28,6 +28,7 @@ QubitAclGroup:
       pt_BR: anônimo
       sl: anonimno
       sr: анониман
+      sv: anonym
       th: นิรนาม
       vi: 'Vô danh'
       zh: 匿名的
@@ -88,6 +89,7 @@ QubitAclGroup:
       ru: администратор
       sl: skrbnik
       sr: администратор
+      sv: administrator
       vi: 'Quản trị'
       zh: 管理者
   QubitAclGroup_editor:
@@ -117,6 +119,7 @@ QubitAclGroup:
       pt_BR: editor
       sl: urednik
       sr: уредник
+      sv: redaktör
       vi: 'Người sửa chửa tác phẩm'
       zh: 编辑者
   QubitAclGroup_contributor:

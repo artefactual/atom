@@ -235,6 +235,7 @@ QubitMenu:
       pt_BR: 'Depósito físico'
       sl: 'Fizična hramba'
       sr: Депо
+      sv: 'Fysisk lagring'
       th: การเก็บเอกสารทางกายภาพ
       vi: 'vật lý'
       zh: 物理储存
@@ -267,6 +268,7 @@ QubitMenu:
       pt_BR: 'Detentores de direitos'
       sl: 'Imetniki pravic'
       sr: 'Носиоци права'
+      sv: Rättighetsinnehavare
       th: เจ้าของสิทธิ
       vi: 'Người nắm giữ quyền'
       zh: 权利持有者
@@ -301,6 +303,7 @@ QubitMenu:
       pt_BR: Taxonomias
       sl: Taksonomije
       sr: Таксономије
+      sv: Taxonomier
       th: อนุกรมวิธาน
       vi: 'Phân loại'
       zh: 分类
@@ -470,6 +473,7 @@ QubitMenu:
       pt_BR: 'Registros de autoridade'
       sl: 'normativni zapisi'
       sr: 'Нормативни записи'
+      sv: Auktoritetsposter
       vi: 'Biểu ghi tiêu'
       zh: 规范记录
     path: actor/add
@@ -539,6 +543,7 @@ QubitMenu:
       pt_BR: Termos
       sl: Izrazi
       sr: Термини
+      sv: Termer
       th: คำศัพท์
       vi: Hạn
       zh: 术语
@@ -605,6 +610,7 @@ QubitMenu:
       pt_BR: XML
       sl: XML
       sr: XML
+      sv: XML
       vi: XML
       zh: XML
     path: 'object/importSelect?type=xml'
@@ -618,6 +624,7 @@ QubitMenu:
       cy: CSV
       de: CSV
       de-CH: CSV
+      el: CSV
       en: CSV
       es: CSV
       eu: CSV
@@ -706,6 +713,7 @@ QubitMenu:
       ru: Профиль
       sl: profil
       sr: Профил
+      sv: Profil
       th: ประว้ติส่วนตัว
       vi: 'hồ sơ'
       zh: 简介
@@ -889,6 +897,7 @@ QubitMenu:
       ru: Профиль
       sl: profil
       sr: Профил
+      sv: Profil
       th: ประว้ติส่วนตัว
       vi: 'hồ sơ'
       zh: 简介
@@ -1037,6 +1046,7 @@ QubitMenu:
       pt_BR: 'Páginas estáticas'
       sl: 'Statične strani'
       sr: 'Статичнe странe'
+      sv: 'Statiska sidor'
       th: หน้าคง
       vi: 'Trang tĩnh'
       zh: 静态页面
@@ -1102,6 +1112,7 @@ QubitMenu:
       ru: Расширения
       sl: Vtičniki
       sr: 'Софтверски додатак'
+      sv: Plugins
       th: ปลั๊กอิน
       vi: Plugins
       zh: 插件
@@ -1136,6 +1147,7 @@ QubitMenu:
       ru: Темы
       sl: Teme
       sr: Теме
+      sv: Teman
       vi: 'Chủ đề'
       zh: 主题
     path: sfPluginAdminPlugin/themes
@@ -1149,6 +1161,7 @@ QubitMenu:
       cy: Gosodiadau
       de: Einstellungen
       de-CH: Einstellungen
+      el: Ρυθμίσεις
       en: Settings
       es: Configuraciones
       eu: Ezarpenak
@@ -1168,6 +1181,7 @@ QubitMenu:
       pt_BR: Configurações
       sl: Nastavitve
       sr: Подешавања
+      sv: Inställningar
       th: การตั้งค่า
       vi: 'Cài đặt'
       zh: 设置
@@ -1337,6 +1351,7 @@ QubitMenu:
       ru: Помощь
       sl: Pomoč
       sr: Помоћ
+      sv: Hjälp
       vi: Help
       zh: 帮助
     path: 'http://docs.accesstomemory.org/'
@@ -1504,6 +1519,7 @@ QubitMenu:
       pt_BR: 'Registros de autoridade'
       sl: 'normativni zapisi'
       sr: 'Нормативни записи'
+      sv: Auktoritetsposter
       vi: 'Biểu ghi tiêu'
       zh: 规范记录
     path: actor/browse
@@ -1607,6 +1623,7 @@ QubitMenu:
       ru: Темы
       sl: Osebe
       sr: Предмет
+      sv: Ämnesområden
       th: หัวข้อ
       vi: 'Chủ đề'
       zh: 主题
@@ -1643,6 +1660,7 @@ QubitMenu:
       ru: Места
       sl: Kraji
       sr: Места
+      sv: Platser
       th: สถานที
       vi: 'địa điểm'
       zh: 地点
@@ -1678,6 +1696,7 @@ QubitMenu:
       ru: 'Цифровые объекты'
       sl: 'Digitalni predmeti'
       sr: 'Дигитални објекти'
+      sv: 'Digitala objekt'
       th: วัตถุดิจิตอล
       vi: 'Tượng kỹ thuật số'
       zh: 数字对象
@@ -1743,6 +1762,7 @@ QubitMenu:
       pt-BR: 'Páginas estáticas'
       sl: 'Statične strani'
       sr: 'Статичнe странe'
+      sv: 'Statiska sidor'
       th: หน้าคง
       vi: 'Trang tĩnh'
       zh: 静态页面

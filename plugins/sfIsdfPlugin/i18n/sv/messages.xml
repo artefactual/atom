@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2015-10-16T04:43:19Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2015-12-18T08:52:13Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,11 +10,11 @@
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Type%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Typ%2% - Detta är ett %3%obligatoriskt%4% element.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Auktoriserad namnform%2% - detta är ett %3%obligatoriskt%4% element.</target>
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
@@ -34,11 +34,11 @@
       </trans-unit>
       <trans-unit id="8">
         <source>Identifier/title</source>
-        <target/>
+        <target>Identifierare/titel</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Nature of relationship</source>
-        <target/>
+        <target>Typ av relation</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Dates</source>
@@ -54,7 +54,7 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Title</source>
-        <target/>
+        <target>Titel</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
@@ -82,7 +82,7 @@
       </trans-unit>
       <trans-unit id="20">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Auktoriserad namnform</target>
       </trans-unit>
       <trans-unit id="21">
         <source>"Record the authorised form of name and any unique identifier of the related function." (ISDF 5.3.1)</source>
@@ -110,11 +110,11 @@
       </trans-unit>
       <trans-unit id="27">
         <source>Type</source>
-        <target/>
+        <target>Typ</target>
       </trans-unit>
       <trans-unit id="28">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Detta är ett obligatoriskt element.</target>
       </trans-unit>
       <trans-unit id="29">
         <source>"Record the authorised name of the function being described. In cases where the name is not enough, add qualifiers to make it unique such as the territorial or administrative scope, or the name of the institution which performs it. This element is to be used in conjunction with the Function description identifier element (5.4.1)." (ISDF 5.1.2)</source>
@@ -198,7 +198,7 @@
       </trans-unit>
       <trans-unit id="49">
         <source>Status</source>
-        <target/>
+        <target>Status</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimum records are those that consist only of the three essential elements of an ISDF compliant record (see 4.7), while full records are those that convey information for all relevant ISDF elements of description." (ISDF 5.4.5)</source>
@@ -206,7 +206,7 @@
       </trans-unit>
       <trans-unit id="51">
         <source>Level of detail</source>
-        <target/>
+        <target>Beskrivningsnivå</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"Record the date the description was created and the dates of any revisions to the description." (ISDF 5.4.6)</source>
@@ -246,7 +246,7 @@
       </trans-unit>
       <trans-unit id="61">
         <source>Save</source>
-        <target/>
+        <target>Spara</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Create</source>

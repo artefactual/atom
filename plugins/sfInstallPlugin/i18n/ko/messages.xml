@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2015-10-16T04:46:43Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2015-12-18T08:52:19Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -50,7 +50,7 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Access to this record is restricted because it contains personal or confidential information. Please contact the Reference Archivist for more information on accessing this record.</source>
-        <target/>
+        <target>이 레코드는 개인 정보 또는 비밀 정보를 담고있기 때문에 접근이 제한됩니다. 이 레코드에 접근하려면 참조 기록관리인와 상의하세요.</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This record has not yet been reviewed for personal or confidential information. Please contact the Reference Archivist to request access and initiate an access review.</source>

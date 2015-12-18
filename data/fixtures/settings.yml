@@ -282,6 +282,7 @@ QubitSetting:
       pt_BR: Termo
       sl: Izraz
       sr: Термин
+      sv: Term
       th: คำศัพท์
       vi: Hạn
       zh: 术语
@@ -426,6 +427,7 @@ QubitSetting:
       ru: Место
       sl: Kraj
       sr: Место
+      sv: Plats
       th: จัด
       vi: 'địa điểm'
       zh: 地点
@@ -535,6 +537,7 @@ QubitSetting:
       pt_BR: 'Depósito físico'
       sl: 'Fizična hramba'
       sr: Депо
+      sv: 'Fysisk lagring'
       th: การเก็บเอกสารทางกายภาพ
       vi: 'vật lý'
       zh: 物理储存
@@ -638,6 +641,7 @@ QubitSetting:
       pt_BR: 'Limite seus resultados por:'
       sl: 'Omejite rezultate:'
       sr: 'Сузи резултате по:'
+      sv: 'Avgränsa sökresultatet:'
       vi: 'Thu hẹp kết quả của bạn bằng cách'
       zh: '通过 减少结果'
   QubitSetting_genre:
@@ -1014,6 +1018,7 @@ QubitSetting:
       cy: pdf
       de: pdf
       de-CH: pdf
+      el: pdf
       en: pdf
       es: pdf
       fr: PDF
@@ -1025,6 +1030,7 @@ QubitSetting:
       ru: pdf
       sl: pdf
       sr: pdf
+      sv: pdf
       zh: pdf
   Qubit_Settings_findingAidModel:
     name: findingAidModel
@@ -1041,6 +1047,7 @@ QubitSetting:
       pt-BR: 'inventário sumário'
       sl: 'povzeket - seznam'
       sr: 'Инвентар - извод'
+      sv: 'lager - summering'
       zh: 详细目录-总结
   Qubit_Settings_publicFindingAid:
     name: publicFindingAid
@@ -1060,6 +1067,7 @@ QubitSetting:
       en: 1
       pt: '1'
       sr: '1'
+      sv: '1'
   Qubit_Settings_treeviewType:
     name: treeview_type
     editable: 1
@@ -1070,6 +1078,7 @@ QubitSetting:
       en: sidebar
       pt: 'barra lateral'
       sr: 'бочна трака'
+      sv: sidspalt
   Qubit_Settings_stripExtensions:
     name: stripExtensions
     editable: 1
