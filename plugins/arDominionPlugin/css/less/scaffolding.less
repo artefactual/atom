@@ -1773,6 +1773,11 @@ body.login #content {
 // Print preview bar
 
 #preview-message {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 100%;
   background: #eee;
   display: block;
   padding: 5px;
@@ -1782,5 +1787,9 @@ body.login #content {
 
   a {
     float: right;
+  }
+
+  &+ .multiline-header {
+    margin-top: 45px;
   }
 }
