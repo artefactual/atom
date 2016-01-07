@@ -46,8 +46,15 @@
           ->renderRow() ?>
 
         <?php echo $form->type
+          ->renderLabel() ?>
+        <?php echo $form->type
           ->help(__('Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired from the drop-down menu; these values are drawn from the Repository Types taxonomy.'))
-          ->renderRow(array('class' => 'form-autocomplete')) ?>
+          ->render(array('class' => 'form-autocomplete')) ?>
+
+        <?php $repoTypeTaxonomyId = QubitTaxonomy::REPOSITORY_TYPE_ID ?>
+        <?php if (QubitAcl::check(QubitTaxonomy::getById($repoTypeTaxonomyId), 'createTerm')): ?>
+          <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById($repoTypeTaxonomyId), 'module' => 'taxonomy')))) ?> #name"/>
+        <?php endif; ?>
 
       </fieldset>
 
