@@ -38,6 +38,7 @@ class propelGenerateSlugsTask extends arBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+      new sfCommandOption('delete', null, sfCommandOption::PARAMETER_NONE, 'Delete existing slugs before generating'),
     ));
 
     $this->namespace = 'propel';
@@ -67,6 +68,18 @@ EOF;
       'event' => 'QubitEvent',
       'accession' => 'QubitAccession'
     );
+
+    // Optionally delete existing slugs
+    if ($options['delete'])
+    {
+      foreach ($tables as $table => $classname)
+      {
+        $this->logSection('propel', "Delete $table slugs...");
+
+        $sql = "DELETE FROM slug WHERE object_id > 3 AND object_id IN (SELECT id FROM $table)";
+        $conn->query($sql);
+      }
+    }
 
     // Create hash of slugs already in database
     $sql = "SELECT slug FROM slug ORDER BY slug";
