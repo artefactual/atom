@@ -218,9 +218,9 @@ class arElasticSearchInformationObjectPdo
       }
       else
       {
-        if (is_array($this->ancestors) && count($this->ancestors) > 0)
+        if (is_array($this->getAncestors()) && count($this->getAncestors()) > 0)
         {
-          foreach (array_reverse($this->ancestors) as $item)
+          foreach (array_reverse($this->getAncestors()) as $item)
           {
             if (isset($item->repository_id))
             {
@@ -319,7 +319,7 @@ class arElasticSearchInformationObjectPdo
     }
 
     $refcode = '';
-    $this->repository =$this->getRepository();
+    $this->repository = $this->getRepository();
 
     if (isset($this->repository))
     {
@@ -335,7 +335,7 @@ class arElasticSearchInformationObjectPdo
     }
 
     $identifiers = array();
-    $this->ancestors =$this->getAncestors();
+    $this->ancestors = $this->getAncestors();
 
     foreach (array_merge(is_array($this->ancestors) ? $this->ancestors : array(), array($this)) as $item)
     {
