@@ -424,32 +424,22 @@
                 </xsl:if>
                 <!--Creates a submenu for collections, record groups and series and fonds-->
                 <xsl:for-each select="child::*[@level = 'collection']  | child::*[@level = 'recordgrp']  | child::*[@level = 'series'] | child::*[@level = 'fonds']">
-                    <fo:bookmark internal-destination="{local:buildID(.)}">
-                        <fo:bookmark-title>
-                            <xsl:choose>
-                                <xsl:when test="ead:head">
-                                    <xsl:apply-templates select="child::*/ead:head"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:apply-templates select="child::*/ead:unittitle"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </fo:bookmark-title>
-                    </fo:bookmark>
-                    <!-- Creates a submenu for subfonds, subgrp or subseries -->
-                    <xsl:for-each select="child::*[@level = 'subfonds'] | child::*[@level = 'subgrp']  | child::*[@level = 'subseries']">
-                        <fo:bookmark internal-destination="{local:buildID(.)}">
+                    <xsl:if test="child::*/ead:unittitle[1]">
+                        <fo:bookmark internal-destination="{local:buildID(child::*/ead:unittitle[1])}">
                             <fo:bookmark-title>
-                                <xsl:choose>
-                                    <xsl:when test="ead:head">
-                                        <xsl:apply-templates select="child::*/ead:head"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:apply-templates select="child::*/ead:unittitle"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
+                                <xsl:value-of select="local:tagName(child::*/ead:unittitle[1])"/>
                             </fo:bookmark-title>
                         </fo:bookmark>
+                    </xsl:if>
+                    <!-- Creates a submenu for subfonds, subgrp or subseries -->
+                    <xsl:for-each select="child::*[@level = 'subfonds'] | child::*[@level = 'subgrp']  | child::*[@level = 'subseries']">
+                        <xsl:if test="child::*/ead:unittitle[1]">
+                            <fo:bookmark internal-destination="{local:buildID(child::*/ead:unittitle[1])}">
+                                <fo:bookmark-title>
+                                    <xsl:value-of select="local:tagName(child::*/ead:unittitle[1])"/>
+                                </fo:bookmark-title>
+                            </fo:bookmark>
+                        </xsl:if>
                     </xsl:for-each>
                 </xsl:for-each>
             </xsl:for-each>
