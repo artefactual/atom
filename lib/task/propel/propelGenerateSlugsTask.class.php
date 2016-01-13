@@ -62,9 +62,9 @@ EOF;
 
     $tables = array(
       'actor' => 'QubitActor',
+      'term' => 'QubitTerm',
       'information_object' => 'QubitInformationObject',
       'physical_object' => 'QubitPhysicalObject',
-      'term' => 'QubitTerm',
       'event' => 'QubitEvent',
       'accession' => 'QubitAccession'
     );
@@ -76,7 +76,13 @@ EOF;
       {
         $this->logSection('propel', "Delete $table slugs...");
 
-        $sql = "DELETE FROM slug WHERE object_id > 3 AND object_id IN (SELECT id FROM $table)";
+        $sql = "DELETE FROM slug WHERE object_id IN (SELECT id FROM $table)";
+
+        if (defined("$classname::ROOT_ID"))
+        {
+          $sql .= ' AND object_id != '.$classname::ROOT_ID;
+        }
+
         $conn->query($sql);
       }
     }
@@ -116,8 +122,14 @@ EOF;
       $sql .= '  ON base.id = i18n.id';
       $sql .= ' LEFT JOIN '.QubitSlug::TABLE_NAME.' sl';
       $sql .= '  ON base.id = sl.object_id';
-      $sql .= ' WHERE base.id > 3';
-      $sql .= '  AND base.source_culture = i18n.culture';
+      $sql .= ' WHERE';
+
+      if (defined("$classname::ROOT_ID"))
+      {
+        $sql .= '  base.id != '. $classname::ROOT_ID .' AND';
+      }
+
+      $sql .= '  base.source_culture = i18n.culture';
       $sql .= '  AND sl.id is NULL';
 
       foreach ($conn->query($sql, PDO::FETCH_NUM) as $row)
