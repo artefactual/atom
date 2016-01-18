@@ -59,14 +59,14 @@ class sfIsaarPluginEventComponent extends EventEditComponent
     switch ($field->getName())
     {
       case 'informationObject':
-        unset($this->event->informationObject);
+        unset($this->event->object);
 
         $value = $this->form->getValue('informationObject');
 
         if (isset($value))
         {
           $params = $this->context->routing->parse(Qubit::pathInfo($value));
-          $this->event->informationObject = $params['_sf_route']->resource;
+          $this->event->object = $params['_sf_route']->resource;
         }
 
         break;
