@@ -148,6 +148,10 @@ class EventEditComponent extends sfComponent
           $params = $this->context->routing->parse(Qubit::pathInfo($item['id']));
           $this->event = $params['_sf_route']->resource;
         }
+        elseif ($this->resource instanceof QubitActor)
+        {
+          $this->resource->events[] = $this->event = new QubitEvent;
+        }
         else
         {
           $this->resource->eventsRelatedByobjectId[] = $this->event = new QubitEvent;
