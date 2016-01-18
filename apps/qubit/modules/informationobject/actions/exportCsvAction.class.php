@@ -41,6 +41,18 @@ class InformationObjectExportCsvAction extends sfAction
         }
       }
 
+      // Add first criterion to the search box if it's over any field
+      if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->sq0) && !isset($request->sf0))
+      {
+        $getParameters['query'] = $request->sq0;
+      }
+
+      // And search box query as the first criterion
+      if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->query))
+      {
+        $getParameters['sq0'] = $request->query;
+      }
+
       $options = array('params' => $getParameters);
       QubitJob::runJob('arSearchResultExportCsvJob', $options);
 

@@ -30,22 +30,15 @@ class arSearchResultExportCsvJob extends arBaseJob
   /**
    * @see arBaseJob::$requiredParameters
    */
-  protected $extraRequiredParameters = array('params');  // search params
+  protected $extraRequiredParameters = array('params');  // Search params
   protected $downloadFileExtension = 'zip';
 
-  protected $searchParams;      // key/value array of search terms
   protected $search;            // arElasticSearchPluginQuery instance
 
-  protected $archivalStandard;  // which CSV export configuration to use: either "rad" or "isad"
+  protected $archivalStandard;  // Which CSV export configuration to use: either "rad" or "isad"
 
   public function runJob($parameters)
   {
-    $this->searchParams = $parameters['params'];
-    $this->search = new arElasticSearchPluginQuery(InformationObjectBrowseAction::$FACETS);
-
-    // Add facet filters to the query
-    $this->search->addFilters($this->searchParams);
-
     // If not using RAD, default to ISAD CSV export format
     $this->archivalStandard = 'isad';
     if (QubitSetting::getByNameAndScope('informationobject', 'default_template') == 'rad')
@@ -53,14 +46,11 @@ class arSearchResultExportCsvJob extends arBaseJob
       $this->archivalStandard = 'rad';
     }
 
-    // Build query from adv. search form
-    $this->addCriteriaBasedOnSearchParameters();
-
-    // Sort by ID so parents can import properly from resulting export file
+    // Create query increasing limit from default
+    $this->search = new arElasticSearchPluginQuery(1000000000);
+    $this->search->addFacetFilters(InformationObjectBrowseAction::$FACETS, $parameters['params']);
+    $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $parameters['params'], $this->archivalStandard);
     $this->search->query->setSort(array('lft' => 'asc'));
-
-    // Increase limit from default
-    $this->search->query->setLimit(1000000000);
 
     // Create temp directory in which CSV export files will be written
     $tempPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'search_export_'. $this->job->id;
@@ -91,121 +81,6 @@ class arSearchResultExportCsvJob extends arBaseJob
   }
 
   /**
-   * Add criteria to query based on parameters.
-   *
-   * @return void
-   */
-  protected function addCriteriaBasedOnSearchParameters()
-  {
-    // Build query with the boolean criteria
-    if (null !== $criteria = $this->parseQuery())
-    {
-      $this->search->queryBool->addMust($criteria);
-    }
-
-    // Process date range, defaults to inclusive
-    $rangeType = $this->searchParams['rangeType'];
-    if (!isset($rangeType))
-    {
-      $rangeType = 'inclusive';
-    }
-
-    if (null !== $criteria = InformationObjectBrowseAction::getDateRangeQuery($this->searchParams['startDate'], $this->searchParams['endDate'], $rangeType))
-    {
-      $this->search->queryBool->addMust($criteria);
-    }
-
-    // Process advanced search form fields
-    // Some of them have the same name as a facet, this creates query
-    // duplication but allows as to keep facets and adv. search form syncronized
-    foreach (InformationObjectBrowseAction::$NAMES as $name)
-    {
-      if (!empty($this->searchParams[$name])
-        && (null !== $criteria = InformationObjectBrowseAction::fieldCriteria($name, $this->searchParams[$name])))
-      {
-        $this->search->queryBool->addMust($criteria);
-      }
-    }
-
-    // Default to show only top level descriptions
-    if (!isset($this->searchParams['topLod']) || filter_var($this->searchParams['topLod'], FILTER_VALIDATE_BOOLEAN))
-    {
-      $this->search->queryBool->addMust(new \Elastica\Query\Term(array('parentId' => QubitInformationObject::ROOT_ID)));
-    }
-
-    // Get all information objects if the query is empty
-    if (1 > count($this->search->queryBool->getParams()))
-    {
-      $this->search->queryBool->addMust(new \Elastica\Query\MatchAll());
-    }
-
-    $this->search->query->setQuery($this->search->queryBool);
-  }
-
-  /**
-   * Translate array of search parameters to query criteria.
-   *
-   * Modified version of parseQuery method in the SearchAdvancedAction class
-   *
-   * Each set of parameters is numbered, starting at zero, and includes three
-   * properties: query text (prefixed by "sq"), operation (prefixed by "so": "and" or
-   * "or"), and fields (prefixed by "sf") to return (defaulting to "_all").
-   *
-   * For example:
-   *
-   *   $this->searchParams = array(
-   *     'so0' => 'and',
-   *     'sq0' => 'cats',
-   *     'sf0' => ''
-   *   );
-   *
-   * @return object  \Elastica\Query\Bool instance
-   */
-  protected function parseQuery()
-  {
-    $queryBool = new \Elastica\Query\Bool();
-
-    // Include search-box query in boolean criteria
-    if (1 !== preg_match('/^[\s\t\r\n]*$/', $this->searchParams['query']))
-    {
-      $queryField = InformationObjectBrowseAction::queryField('_all', $this->searchParams['query'], $this->archivalStandard);
-      InformationObjectBrowseAction::addToQueryBool($queryBool, 'and', $queryField);
-    }
-
-    $count = 0;
-
-    while (null !== $query = $this->searchParams['sq' . $count])
-    {
-      if (!empty($query))
-      {
-        $field = $this->searchParams['sf'.$count];
-        if (empty($field))
-        {
-          $field = '_all';
-        }
-
-        $operator = $this->searchParams['so'.$count];
-        if (empty($operator))
-        {
-          $operator = 'and';
-        }
-
-        $queryField = InformationObjectBrowseAction::queryField($field, $query, $this->archivalStandard);
-        InformationObjectBrowseAction::addToQueryBool($queryBool, $operator, $queryField);
-      }
-
-      $count++;
-    }
-
-    if (0 == count($queryBool->getParams()))
-    {
-      return;
-    }
-
-    return $queryBool;
-  }
-
-  /**
    * Export search results as CSV
    *
    * @param string  Path of file to write CSV data to
@@ -225,7 +100,7 @@ class arSearchResultExportCsvJob extends arBaseJob
     array_unshift($writer->columnNames, 'referenceCode');
     array_unshift($writer->standardColumns, 'referenceCode');
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->query);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->getQuery(false, false));
 
     foreach ($resultSet as $hit)
     {
