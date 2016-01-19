@@ -63,6 +63,22 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'informationobjectsRead',
       'params' => array('slug' => self::REGEX_SLUG)));
+
+    $this->addRoute('POST', '/api/informationobjects', array(
+      'module' => 'api',
+      'action' => 'informationobjectsCreate'));
+
+    /**
+     * Digital objects
+     */
+
+    $this->addRoute('GET', '/api/digitalobjects', array(
+      'module' => 'api',
+      'action' => 'digitalobjectsBrowse'));
+
+    $this->addRoute('POST', '/api/digitalobjects', array(
+      'module' => 'api',
+      'action' => 'digitalobjectsCreate'));
   }
 
   protected function addRoute($method, $pattern, array $options = array())
