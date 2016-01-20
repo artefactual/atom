@@ -30,6 +30,7 @@ columnNames:
   - subjectAccessPoints
   - placeAccessPoints
   - nameAccessPoints
+  - genreAccessPoints
   - descriptionIdentifier
   - institutionIdentifier
   - rules
