@@ -34,6 +34,8 @@
 
   <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
 
+  <?php echo get_partial('informationobject/genreAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+
   <?php echo get_partial('informationobject/placeAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
 
   <?php if (check_field_visibility('app_element_visibility_physical_storage')): ?>
@@ -229,6 +231,10 @@
 
   <div class="nameAccessPoints">
     <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource)) ?>
+  </div>
+
+  <div class="genreAccessPoints">
+    <?php echo get_partial('informationobject/genreAccessPoints', array('resource' => $resource)) ?>
   </div>
 </section> <!-- /section#accessPointsArea -->
 
