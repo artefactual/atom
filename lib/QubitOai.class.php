@@ -277,24 +277,31 @@ class QubitOai
     }
     return false;
   }
+  
+  public static function getOaiNamespaceIdentifier()
+  {
+	$oaiNamespaceIdentifier = sfContext::getInstance()->request->getHost();
+    
+    return $oaiNamespaceIdentifier; 
+  }
 
   public static function getRepositoryIdentifier()
   {
     $repositoryIdentifier = sfContext::getInstance()->request->getHost();
     if ($repositoryCode = sfConfig::get('app_oai_oai_repository_code'))
     {
-      $repositoryIdentifier .= ':'.$repositoryCode;
+      $repositoryIdentifier .= ':' . $repositoryCode;
     }
 
     return $repositoryIdentifier;
   }
 
-  public static function getSampleIdentifier()
+  public static function getOaiSampleIdentifier()
   {
-    $sampleIdentifier = sfContext::getInstance()->request->getHost().':';
+    $sampleIdentifier = 'oai:' . QubitOai::getOaiNamespaceIdentifier();
     if ($repositoryCode = sfConfig::get('app_oai_oai_repository_code'))
     {
-      $sampleIdentifier .= $repositoryCode;
+      $sampleIdentifier .=  ':' . $repositoryCode;
     }
     $sampleIdentifier .= '_100002';
 

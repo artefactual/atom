@@ -70,7 +70,7 @@ class SettingsOaiAction extends sfAction
     $oaiRepositoryCode = QubitSetting::getByName('oai_repository_code');
     $oaiAdminEmails = QubitSetting::getByName('oai_admin_emails');
     $oaiRepositoryIdentifier = QubitOai::getRepositoryIdentifier();
-    $sampleOaiIdentifier = QubitOai::getSampleIdentifier();
+    $sampleOaiIdentifier = QubitOai::getOaiSampleIdentifier();
     $resumptionTokenLimit = QubitSetting::getByName('resumption_token_limit');
     $oaiAdditionalSetsEnabled = QubitSetting::getByName('oai_additional_sets_enabled');
 
