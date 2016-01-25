@@ -8,6 +8,6 @@ all:
     acl:
       - arInheritRightsJob
     search_csv_export:
-      - arSearchResultExportCsvJob
+      - arInformationObjectCsvExportJob
     sword:
       - qtSwordPluginWorker

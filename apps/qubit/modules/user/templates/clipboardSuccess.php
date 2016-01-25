@@ -11,8 +11,15 @@
 <?php end_slot() ?>
 
 <?php slot('before-content') ?>
-  <section class="header-options">
+  <section class="browse-options">
     <?php echo get_partial('default/printPreviewButton', array('class' => 'clipboard-print')) ?>
+
+    <?php if (isset($pager) && $pager->hasResults() && $sf_user->isAuthenticated()): ?>
+      <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'exportCsv', 'fromClipboard' => true)) ?>">
+        <i class="icon-upload-alt"></i>
+        <?php echo __('Export CSV') ?>
+      </a>
+    <?php endif; ?>
 
     <?php echo get_partial('default/sortPicker', array(
       'options' => array(

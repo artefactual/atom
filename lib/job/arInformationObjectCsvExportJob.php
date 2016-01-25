@@ -25,7 +25,7 @@
  * @subpackage jobs
  */
 
-class arSearchResultExportCsvJob extends arBaseJob
+class arInformationObjectCsvExportJob extends arBaseJob
 {
   /**
    * @see arBaseJob::$requiredParameters
@@ -48,8 +48,17 @@ class arSearchResultExportCsvJob extends arBaseJob
 
     // Create query increasing limit from default
     $this->search = new arElasticSearchPluginQuery(1000000000);
-    $this->search->addFacetFilters(InformationObjectBrowseAction::$FACETS, $parameters['params']);
-    $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $parameters['params'], $this->archivalStandard);
+
+    if ($parameters['params']['fromClipboard'])
+    {
+      $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $parameters['params']['slugs']));
+    }
+    else
+    {
+      $this->search->addFacetFilters(InformationObjectBrowseAction::$FACETS, $parameters['params']);
+      $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $parameters['params'], $this->archivalStandard);
+    }
+
     $this->search->query->setSort(array('lft' => 'asc'));
 
     // Create temp directory in which CSV export files will be written

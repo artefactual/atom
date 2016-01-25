@@ -22,39 +22,47 @@ class InformationObjectExportCsvAction extends sfAction
   // Export CSV representation of descriptions occurring in search/browse results
   public function execute($request)
   {
-    if (sfContext::getInstance()->user->isAuthenticated())
+    if ($this->context->user->isAuthenticated())
     {
-      // To keep the top level descriptions filter an facet in sync
-      // the autocomplete value is converted to the resource id
-      // before the facet filters are added to the query
-      $getParameters = $request->getGetParameters();
-      if (isset($getParameters['collection']) && !ctype_digit($getParameters['collection']))
+      if ($request->fromClipboard)
       {
-        $params = sfContext::getInstance()->routing->parse(Qubit::pathInfo($getParameters['collection']));
-        $collection = $params['_sf_route']->resource;
-
-        unset($getParameters['collection']);
-
-        if ($collection instanceof QubitInformationObject)
+        $options = array('params' => array('fromClipboard' => true, 'slugs' => $this->context->user->getClipboard()->getAll()));
+      }
+      else
+      {
+        // To keep the top level descriptions filter an facet in sync
+        // the autocomplete value is converted to the resource id
+        // before the facet filters are added to the query
+        $getParameters = $request->getGetParameters();
+        if (isset($getParameters['collection']) && !ctype_digit($getParameters['collection']))
         {
-          $getParameters['collection'] = $collection->id;
+          $params = sfContext::getInstance()->routing->parse(Qubit::pathInfo($getParameters['collection']));
+          $collection = $params['_sf_route']->resource;
+
+          unset($getParameters['collection']);
+
+          if ($collection instanceof QubitInformationObject)
+          {
+            $getParameters['collection'] = $collection->id;
+          }
         }
+
+        // Add first criterion to the search box if it's over any field
+        if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->sq0) && !isset($request->sf0))
+        {
+          $getParameters['query'] = $request->sq0;
+        }
+
+        // And search box query as the first criterion
+        if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->query))
+        {
+          $getParameters['sq0'] = $request->query;
+        }
+
+        $options = array('params' => $getParameters);
       }
 
-      // Add first criterion to the search box if it's over any field
-      if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->sq0) && !isset($request->sf0))
-      {
-        $getParameters['query'] = $request->sq0;
-      }
-
-      // And search box query as the first criterion
-      if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->query))
-      {
-        $getParameters['sq0'] = $request->query;
-      }
-
-      $options = array('params' => $getParameters);
-      QubitJob::runJob('arSearchResultExportCsvJob', $options);
+      QubitJob::runJob('arInformationObjectCsvExportJob', $options);
 
       // Let user know export has started
       sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
