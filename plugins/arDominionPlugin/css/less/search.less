@@ -236,19 +236,19 @@ h1 {
 
       .start-date {
         display: inline-block;
-        width: 32%;
+        width: 30%;
       }
 
       .end-date {
         display: inline-block;
         margin-left: 1%;
-        width: 32%;
+        width: 30%;
       }
 
       .date-type {
         display: inline-block;
         width: 29%;
-        margin-left: 3%;
+        margin-left: 1%;
         margin-top: 10px;
 
         label {
@@ -257,6 +257,31 @@ h1 {
           padding: 0 10px;
         }
       }
+
+      .date-range-help-icon {
+        width: 4%;
+        margin-left: 1%;
+        font-size: 20px;
+        text-align: right;
+        display: inline-block;
+
+        &:focus {
+          color: @blue;
+          text-decoration: none;
+        }
+
+        &:hover {
+          color: @blueDark;
+        }
+      }
+    }
+
+    .date-range-help {
+      display: none;
+      line-height: 20px;
+      padding: 10px;
+      margin-top: 20px;
+      margin-bottom: 10px;
     }
   }
 
@@ -310,7 +335,7 @@ h1 {
     }
 
     .date-type {
-      width: 100%;
+      width: 80%;
       margin: 10px 0 0 0;
     }
   }

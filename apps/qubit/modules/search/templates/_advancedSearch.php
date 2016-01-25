@@ -216,7 +216,7 @@
           <div class="date-type">
             <label>
               <input type="radio" name="rangeType" value="inclusive" <?php echo $rangeType == 'inclusive' ? 'checked' : '' ?>>
-              <?php echo __('Inclusive') ?>
+              <?php echo __('Overlapping') ?>
             </label>
             <label>
               <input type="radio" name="rangeType" value="exact" <?php echo $rangeType == 'exact' ? 'checked' : '' ?>>
@@ -224,6 +224,12 @@
             </label>
           </div>
 
+          <a href="#" class="date-range-help-icon" aria-expanded="false"><i class="icon-question-sign"></i></a>
+
+        </div>
+
+        <div class="alert alert-info date-range-help animateNicely">
+          <?php echo __('Use these options to specify how the date range returns results. "Exact" means that the start and end dates of descriptions returned must fall entirely within the date range entered. "Overlapping" means that any description whose start or end dates touch or overlap the target date range will be returned.') ?>
         </div>
 
       </div>

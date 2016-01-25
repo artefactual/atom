@@ -625,6 +625,7 @@
       this.$reposFacet = this.$element.find("#\\#facet-repository").closest('section.facet');
       this.$reposFilter = this.$element.find('select[name="repos"]');
       this.$collectionFilter = this.$element.find('input[name="collection"]');
+      this.$dateRangeHelpIcon = this.$element.find('a.date-range-help-icon');
 
       this.init();
       this.listen();
@@ -686,6 +687,7 @@
 
       this.$toggle.on('click', $.proxy(this.toggle, this));
       this.$collectionFilter.on('change', $.proxy(this.checkReposFilter, this));
+      this.$dateRangeHelpIcon.on('click', $.proxy(this.toggleDateRangeHelp, this));
     },
 
     checkReposFilter: function (event)
@@ -806,6 +808,22 @@
       }
 
       $('section.advanced-search').toggle(400);
+    },
+
+    toggleDateRangeHelp: function (e)
+    {
+      e.preventDefault();
+
+      if(this.$dateRangeHelpIcon.toggleClass('open').hasClass('open'))
+      {
+        this.$dateRangeHelpIcon.attr('aria-expanded', true);
+      }
+      else
+      {
+        this.$dateRangeHelpIcon.attr('aria-expanded', false);
+      }
+
+      $('.date-range-help').toggle(400);
     }
   };
 
