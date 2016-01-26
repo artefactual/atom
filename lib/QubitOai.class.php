@@ -24,6 +24,7 @@
  * @subpackage lib
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  * @author     Peter Van Garderen <peter@artefactual.com>
+ * @author     Damian Bauder <drbauder@ucalgary.ca>
  */
 
 class QubitOai

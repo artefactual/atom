@@ -25,6 +25,7 @@
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     Jack Bates <jack@nottheoilrig.com>
  * @author     David Juhasz <david@artefactual.com>
+ * @author     Damian Bauder <drbauder@ucalgary.ca>
  */
 
 class SettingsOaiAction extends sfAction
