@@ -281,14 +281,22 @@ class QubitOai
   
   public static function getOaiNamespaceIdentifier()
   {
-     $oaiNamespaceIdentifier = sfContext::getInstance()->request->getHost();
+     $oaiNamespaceIdentifier = QubitSetting::getByName('siteBaseUrl')->getValue(array('cultureFallback' => true));
+     
+     // If parse_url() successfully returns a host, use it; otherwise, use
+     // siteBaseUrl unmodified.
+     if ($urlHost = parse_url($oaiNamespaceIdentifier, PHP_URL_HOST))
+     {
+       $oaiNamespaceIdentifier = $urlHost;
+     };
     
     return $oaiNamespaceIdentifier; 
   }
 
   public static function getRepositoryIdentifier()
   {
-    $repositoryIdentifier = sfContext::getInstance()->request->getHost();
+    $repositoryIdentifier = QubitOai::getOaiNamespaceIdentifier();
+    
     if ($repositoryCode = sfConfig::get('app_oai_oai_repository_code'))
     {
       $repositoryIdentifier .= ':'.$repositoryCode;
@@ -299,12 +307,7 @@ class QubitOai
 
   public static function getOaiSampleIdentifier()
   {
-    $sampleIdentifier = 'oai:'.QubitOai::getOaiNamespaceIdentifier();
-    if ($repositoryCode = sfConfig::get('app_oai_oai_repository_code'))
-    {
-      $sampleIdentifier .=  ':'.$repositoryCode;
-    }
-    $sampleIdentifier .= '_100002';
+    $sampleIdentifier = 'oai:'.QubitOai::getRepositoryIdentifier().'_100002';
 
     return $sampleIdentifier;
   }
