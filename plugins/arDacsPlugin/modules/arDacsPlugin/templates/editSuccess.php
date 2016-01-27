@@ -248,6 +248,17 @@
         </div>
 
         <div class="form-item">
+          <?php echo $form->genreAccessPoints
+            ->label(__('Genre access points'))
+            ->renderLabel() ?>
+          <?php echo $form->genreAccessPoints->render(array('class' => 'form-autocomplete')) ?>
+          <?php if (QubitAcl::check(QubitActor::getRoot(), 'create')): ?>
+            <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'actor', 'action' => 'add')) ?>"/>
+          <?php endif; ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::GENRE_ID), 'module' => 'taxonomy')))) ?>"/>
+        </div>
+
+        <div class="form-item">
           <?php echo $form->nameAccessPoints
             ->label(__('Name access points (subjects)'))
             ->renderLabel() ?>

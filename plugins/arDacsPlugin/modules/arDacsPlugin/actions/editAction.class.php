@@ -38,6 +38,7 @@ class arDacsPluginEditAction extends InformationObjectEditAction
       'locationOfCopies',
       'locationOfOriginals',
       'nameAccessPoints',
+      'genreAccessPoints',
       'physicalCharacteristics',
       'placeAccessPoints',
       'relatedMaterialDescriptions',

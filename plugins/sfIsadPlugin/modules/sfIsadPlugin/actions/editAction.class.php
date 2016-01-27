@@ -50,6 +50,7 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
       'locationOfCopies',
       'locationOfOriginals',
       'nameAccessPoints',
+      'genreAccessPoints',
       'physicalCharacteristics',
       'placeAccessPoints',
       'relatedUnitsOfDescription',
