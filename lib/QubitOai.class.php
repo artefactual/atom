@@ -281,7 +281,7 @@ class QubitOai
   
   public static function getOaiNamespaceIdentifier()
   {
-	$oaiNamespaceIdentifier = sfContext::getInstance()->request->getHost();
+     $oaiNamespaceIdentifier = sfContext::getInstance()->request->getHost();
     
     return $oaiNamespaceIdentifier; 
   }
@@ -291,7 +291,7 @@ class QubitOai
     $repositoryIdentifier = sfContext::getInstance()->request->getHost();
     if ($repositoryCode = sfConfig::get('app_oai_oai_repository_code'))
     {
-      $repositoryIdentifier .= ':' . $repositoryCode;
+      $repositoryIdentifier .= ':'.$repositoryCode;
     }
 
     return $repositoryIdentifier;
@@ -299,10 +299,10 @@ class QubitOai
 
   public static function getOaiSampleIdentifier()
   {
-    $sampleIdentifier = 'oai:' . QubitOai::getOaiNamespaceIdentifier();
+    $sampleIdentifier = 'oai:'.QubitOai::getOaiNamespaceIdentifier();
     if ($repositoryCode = sfConfig::get('app_oai_oai_repository_code'))
     {
-      $sampleIdentifier .=  ':' . $repositoryCode;
+      $sampleIdentifier .=  ':'.$repositoryCode;
     }
     $sampleIdentifier .= '_100002';
 
