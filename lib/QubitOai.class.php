@@ -164,20 +164,42 @@ class QubitOai
     }
     return false;
   }
+  
+  protected static function parseUrlHost($URL)
+  {
+    $parsedURL = parse_url($URL);
+    
+    // If the scheme is missing from a URL, parse_url() mistakenly interprets the host as the path.
+    // Prepend a dummy scheme and re-parse, if this is the case.
+    if ($parsedURL['scheme'] == null)
+    {
+      $parsedURL = parse_url('http://'.$URL);
+    }
+    
+    return $parsedURL['host'];
+  }
 
   /**
-   * Extracts the base URL form the _SERVER global
+   * Extracts the port and script name, and derives the scheme, from the _SERVER global.
+   * Then, combines those with the user-defined siteBaseUrl setting to form the base URL.
    *
    * @return string base URL
    */
   public static function getBaseUrl()
   {
-    $baseURL = 'http://'.$_SERVER['SERVER_NAME'];
+    $scheme = $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
+    
+    $siteBaseUrl = QubitSetting::getByName('siteBaseUrl')->getValue(array('cultureFallback' => true));
+    $host = QubitOai::parseUrlHost($siteBaseUrl);
+    
+    $baseURL = $scheme.$host;
     if ($_SERVER['SERVER_PORT'] != '80')
     {
       $baseURL .= ':'.$_SERVER['SERVER_PORT'];
     }
-    return $baseURL.$_SERVER['SCRIPT_NAME'];
+    $baseURL .= $_SERVER['SCRIPT_NAME'];
+    
+    return $baseURL;
   }
 
   /**
@@ -281,14 +303,8 @@ class QubitOai
   
   public static function getOaiNamespaceIdentifier()
   {
-     $oaiNamespaceIdentifier = QubitSetting::getByName('siteBaseUrl')->getValue(array('cultureFallback' => true));
-     
-     // If parse_url() successfully returns a host, use it; otherwise, use
-     // siteBaseUrl unmodified.
-     if ($urlHost = parse_url($oaiNamespaceIdentifier, PHP_URL_HOST))
-     {
-       $oaiNamespaceIdentifier = $urlHost;
-     };
+    $siteBaseUrl = QubitSetting::getByName('siteBaseUrl')->getValue(array('cultureFallback' => true));
+    $oaiNamespaceIdentifier = QubitOai::parseUrlHost($siteBaseUrl);
     
     return $oaiNamespaceIdentifier; 
   }
