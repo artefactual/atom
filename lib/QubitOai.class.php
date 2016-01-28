@@ -171,7 +171,7 @@ class QubitOai
     
     // If the scheme is missing from a URL, parse_url() mistakenly interprets the host as the path.
     // Prepend a dummy scheme and re-parse, if this is the case.
-    if ($parsedURL['scheme'] == null)
+    if (!isset($parsedURL['scheme']))
     {
       $parsedURL = parse_url('http://'.$URL);
     }
