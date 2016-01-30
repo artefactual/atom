@@ -82,7 +82,6 @@ class sfRadPluginEditAction extends InformationObjectEditAction
       'titleStatementOfResponsibility',
       'titleProperOfPublishersSeries',
       'type',
-      'publicationStatus',
       'displayStandard',
       'displayStandardUpdateDescendants');
 

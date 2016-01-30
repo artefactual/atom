@@ -11,3 +11,5 @@ all:
       - arInformationObjectCsvExportJob
     sword:
       - qtSwordPluginWorker
+    publication_status:
+      - arUpdatePublicationStatusJob

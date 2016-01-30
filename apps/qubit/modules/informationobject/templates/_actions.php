@@ -30,6 +30,10 @@
 
               <li><?php echo link_to(__('Rename'), array($resource, 'module' => 'informationobject', 'action' => 'rename')) ?></li>
 
+              <?php if (QubitAcl::check($resource, 'publish')): ?>
+                <li><?php echo link_to(__('Update publication status'), array($resource, 'module' => 'informationobject', 'action' => 'updatePublicationStatus')) ?></li>
+              <?php endif; ?>
+
               <li class="divider"></li>
 
               <li><?php echo link_to(__('Link physical storage'), array($resource, 'module' => 'informationobject', 'action' => 'editPhysicalObjects')) ?></li>

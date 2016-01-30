@@ -40,7 +40,6 @@ class sfModsPluginEditAction extends InformationObjectEditAction
       'type',
       'repository',
       'scopeAndContent',
-      'publicationStatus',
       'displayStandard',
       'displayStandardUpdateDescendants');
 
