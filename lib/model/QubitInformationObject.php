@@ -1209,14 +1209,13 @@ class QubitInformationObject extends BaseInformationObject
       }
       else
       {
-        if (QubitAcl::check($this, 'readMaster'))
+        if (!QubitAcl::check($this, 'readMaster') && null !== $do->reference &&
+            QubitAcl::check($this, 'readReference'))
         {
-          return QubitSetting::getByName('siteBaseUrl') .'/'. $path;
+          $path = $do->reference->getFullPath();
         }
-        elseif (null !== $do->reference && QubitAcl::check($this, 'readReference'))
-        {
-          return QubitSetting::getByName('siteBaseUrl') .'/'. $do->reference->getFullPath();
-        }
+
+        return rtrim(QubitSetting::getByName('siteBaseUrl'), '/').'/'.ltrim($path, '/');
       }
     }
   }

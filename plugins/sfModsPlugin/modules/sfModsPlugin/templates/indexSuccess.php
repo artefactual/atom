@@ -114,11 +114,7 @@
   <?php echo render_show(__('Access condition'), render_value($resource->getAccessConditions(array('cultureFallback' => true)))) ?>
 
   <?php if (0 < count($resource->digitalObjects)): ?>
-    <?php if (QubitTerm::EXTERNAL_URI_ID == $resource->digitalObjects[0]->usageId): ?>
-      <?php echo render_show(__('URL'), link_to(null, $resource->digitalObjects[0]->path)) ?>
-    <?php else: ?>
-      <?php echo render_show(__('URL'), link_to(null, public_path($resource->digitalObjects[0]->getFullPath(), true))) ?>
-    <?php endif; ?>
+    <?php echo render_show(__('URL'), link_to(null, $resource->getDigitalObjectPublicUrl())) ?>
   <?php endif; ?>
 
   <div class="field">
