@@ -69,8 +69,6 @@ class arUpdatePublicationStatusJob extends arBaseJob
     $this->job->setStatusCompleted();
     $this->job->save();
 
-    $this->info('Job finished.');
-
     return true;
   }
 }

@@ -74,10 +74,6 @@ class InformationObjectUpdatePublicationStatusAction extends DefaultEditAction
         $this->form->setWidget('updateDescendants', new sfWidgetFormInputCheckbox);
 
         break;
-
-      default:
-
-        return parent::addField($name);
     }
   }
 

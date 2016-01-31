@@ -60,6 +60,7 @@ class arBaseJob extends Net_Gearman_Job_Common
     {
       $this->createJobsDownloadsDirectory();
       $this->runJob($parameters);
+      $this->info('Job finished.');
     }
     catch (Exception $e)
     {
