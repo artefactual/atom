@@ -140,48 +140,6 @@ class InformationObjectEditAction extends DefaultEditAction
 
         break;
 
-      case 'publicationStatus':
-        $publicationStatus = $this->resource->getStatus(array('typeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID));
-        if (isset($publicationStatus))
-        {
-          $this->form->setDefault('publicationStatus', $publicationStatus->statusId);
-        }
-        else
-        {
-          $this->form->setDefault('publicationStatus', sfConfig::get('app_defaultPubStatus'));
-        }
-
-        $this->form->setValidator('publicationStatus', new sfValidatorString);
-
-        if (isset($this->resource) && QubitAcl::check($this->resource, 'publish') || !isset($this->resurce) && QubitAcl::check($this->parent, 'publish'))
-        {
-          $choices = array();
-          foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::PUBLICATION_STATUS_ID) as $item)
-          {
-            $choices[$item->id] = $item;
-          }
-
-          $this->form->setWidget('publicationStatus', new sfWidgetFormSelect(array('choices' => $choices)));
-        }
-        else
-        {
-          $choices = array();
-          if (isset($publicationStatus))
-          {
-            $choices = array($publicationStatus->id => $publicationStatus->status->__toString());
-          }
-          else
-          {
-            $status = QubitTerm::getById(sfConfig::get('app_defaultPubStatus'));
-            $choices = array($status->id => $status->__toString());
-          }
-
-          // Disable widget if user doesn't have "publish" permission
-          $this->form->setWidget('publicationStatus', new sfWidgetFormSelect(array('choices' => $choices), array('disabled' => true)));
-        }
-
-        break;
-
       case 'displayStandard':
           $this->form->setDefault('displayStandard', $this->resource->displayStandardId);
           $this->form->setValidator('displayStandard', new sfValidatorString);
@@ -598,9 +556,12 @@ class InformationObjectEditAction extends DefaultEditAction
 
     parent::processForm();
 
+    // Set default publication status
+    $this->defaultPublicationStatusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
+    $this->resource->setPublicationStatus($this->defaultPublicationStatusId);
+
     $this->deleteNotes();
     $this->updateChildLevels();
-    $this->updateStatus(); // Must come after updateChildLevels()
     $this->removeDuplicateRepositoryAssociations();
   }
 
@@ -683,11 +644,10 @@ class InformationObjectEditAction extends DefaultEditAction
 
     foreach ($updateChildLevels as $item)
     {
-      // Notice that the publication status is established
-      // later in the updateStatus function
       $childLevel = new QubitInformationObject;
       $childLevel->identifier = $item['identifier'];
       $childLevel->title = $item['title'];
+      $childLevel->setPublicationStatus($this->defaultPublicationStatusId);
 
       if (0 < strlen($item['levelOfDescription']) && (null !== QubitTerm::getById($item['levelOfDescription'])))
       {
@@ -737,51 +697,6 @@ class InformationObjectEditAction extends DefaultEditAction
           || 0 < strlen($item['title']))
       {
         $this->resource->informationObjectsRelatedByparentId[] = $childLevel;
-      }
-    }
-  }
-
-  protected function updateStatus()
-  {
-    if (!QubitAcl::check($this->resource, 'publish'))
-    {
-      // if the user does not have 'publish' permission, use default publication
-      // status setting
-      $pubStatusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
-    }
-    else
-    {
-      $pubStatusId = $this->form->getValue('publicationStatus');
-    }
-
-    // Only update publicationStatus if its value has changed because it
-    // triggers a resource-intensive update of all its descendants
-    $oldStatus = $this->resource->getStatus(array('typeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID));
-    if (!isset($oldStatus) && isset($pubStatusId) || $pubStatusId !== $oldStatus->statusId)
-    {
-      $this->resource->setPublicationStatus($pubStatusId);
-
-      // Set pub status for child levels
-      foreach ($this->resource->informationObjectsRelatedByparentId as $child)
-      {
-        $child->setPublicationStatus($pubStatusId);
-      }
-
-      // Update pub status of descendants
-      foreach ($this->resource->descendants as $descendant)
-      {
-        if (null === $descendantPubStatus = $descendant->getStatus(array('typeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID)))
-        {
-          $descendantPubStatus = new QubitStatus;
-          $descendantPubStatus->typeId = QubitTerm::STATUS_TYPE_PUBLICATION_ID;
-          $descendantPubStatus->objectId = $descendant->id;
-        }
-
-        if ($pubStatusId != $descendantPubStatus->statusId)
-        {
-          $descendantPubStatus->statusId = $pubStatusId;
-          $descendantPubStatus->save();
-        }
       }
     }
   }

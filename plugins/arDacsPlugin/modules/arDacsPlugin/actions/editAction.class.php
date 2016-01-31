@@ -50,7 +50,6 @@ class arDacsPluginEditAction extends InformationObjectEditAction
       'script',
       'sources',
       'subjectAccessPoints',
-      'publicationStatus',
       'displayStandard',
       'displayStandardUpdateDescendants',
       'title',

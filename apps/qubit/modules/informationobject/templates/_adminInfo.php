@@ -6,8 +6,6 @@
 
     <div class="span4">
 
-      <?php echo $form->publicationStatus->label(__('Publication status'))->renderRow() ?>
-
       <div class="field">
         <h3><?php echo __('Source language') ?></h3>
         <div>

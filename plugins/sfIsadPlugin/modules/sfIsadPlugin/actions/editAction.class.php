@@ -65,7 +65,6 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
       'sources',
       'subjectAccessPoints',
       'descriptionStatus',
-      'publicationStatus',
       'displayStandard',
       'displayStandardUpdateDescendants',
       'title');

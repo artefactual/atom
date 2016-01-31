@@ -41,7 +41,6 @@ class sfDcPluginEditAction extends InformationObjectEditAction
       'subjectAccessPoints',
       'title',
       'type',
-      'publicationStatus',
       'displayStandard',
       'displayStandardUpdateDescendants');
 
