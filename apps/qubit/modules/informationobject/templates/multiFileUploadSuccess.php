@@ -10,7 +10,7 @@
 
 <noscript>
   <div class="messages warning">
-    <?php echo __('Your browser does not support JavaScript. See %1%minimum requirements%2%.', array('%1%' => '<a href="http://accesstomemory.org/wiki/index.php?title=Minimum_requirements">', '%2%' => '</a>')) ?>
+    <?php echo __('Your browser does not support JavaScript. See %1%minimum requirements%2%.', array('%1%' => '<a href="https://www.accesstomemory.org/wiki/index.php?title=Minimum_requirements">', '%2%' => '</a>')) ?>
   </div>
 
   <ul class="actions links">
@@ -20,7 +20,7 @@
 
 <div id="no-flash" style="display: none;">
   <div class="messages warning">
-    <?php echo __('Your browser does not have Flash player installed. To import digital objects, please <a href="http://get.adobe.com/flashplayer/">Download Adobe Flash Player</a> (requires version 9.0.45 or higher)') ?>
+    <?php echo __('Your browser does not have Flash player installed. To import digital objects, please <a href="https://get.adobe.com/flashplayer/">Download Adobe Flash Player</a> (requires version 9.0.45 or higher)') ?>
   </div>
 
   <ul class="actions links">
