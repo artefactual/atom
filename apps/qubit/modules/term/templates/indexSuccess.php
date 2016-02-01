@@ -110,7 +110,7 @@
       <div>
         <?php echo $resource->code ?>
         <?php if (!empty($resource->code) && QubitTaxonomy::PLACE_ID == $resource->taxonomy->id): ?>
-          <?php echo image_tag('http://maps.googleapis.com/maps/api/staticmap?zoom=13&size=300x300&sensor=false&center='.$resource->code,
+          <?php echo image_tag('https://maps.googleapis.com/maps/api/staticmap?zoom=13&size=300x300&sensor=false&center='.$resource->code,
             array('class' => 'static-map', 'alt' => __('Map of %1%', array('%1%' => esc_entities(render_title(truncate_text($resource, 100))))))) ?>
         <?php endif; ?>
       </div>
