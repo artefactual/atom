@@ -24,6 +24,7 @@
  * @subpackage lib
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  * @author     Peter Van Garderen <peter@artefactual.com>
+ * @author     Damian Bauder <drbauder@ucalgary.ca>
  */
 
 class QubitOai
@@ -163,20 +164,42 @@ class QubitOai
     }
     return false;
   }
+  
+  protected static function parseUrlHost($URL)
+  {
+    $parsedURL = parse_url($URL);
+    
+    // If the scheme is missing from a URL, parse_url() mistakenly interprets the host as the path.
+    // Prepend a dummy scheme and re-parse, if this is the case.
+    if (!isset($parsedURL['scheme']))
+    {
+      $parsedURL = parse_url('http://'.$URL);
+    }
+    
+    return $parsedURL['host'];
+  }
 
   /**
-   * Extracts the base URL form the _SERVER global
+   * Extracts the port and script name, and derives the scheme, from the _SERVER global.
+   * Then, combines those with the user-defined siteBaseUrl setting to form the base URL.
    *
    * @return string base URL
    */
   public static function getBaseUrl()
   {
-    $baseURL = 'http://'.$_SERVER['SERVER_NAME'];
+    $scheme = $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
+    
+    $siteBaseUrl = QubitSetting::getByName('siteBaseUrl')->getValue(array('cultureFallback' => true));
+    $host = QubitOai::parseUrlHost($siteBaseUrl);
+    
+    $baseURL = $scheme.$host;
     if ($_SERVER['SERVER_PORT'] != '80')
     {
       $baseURL .= ':'.$_SERVER['SERVER_PORT'];
     }
-    return $baseURL.$_SERVER['SCRIPT_NAME'];
+    $baseURL .= $_SERVER['SCRIPT_NAME'];
+    
+    return $baseURL;
   }
 
   /**
@@ -277,10 +300,19 @@ class QubitOai
     }
     return false;
   }
+  
+  public static function getOaiNamespaceIdentifier()
+  {
+    $siteBaseUrl = QubitSetting::getByName('siteBaseUrl')->getValue(array('cultureFallback' => true));
+    $oaiNamespaceIdentifier = QubitOai::parseUrlHost($siteBaseUrl);
+    
+    return $oaiNamespaceIdentifier; 
+  }
 
   public static function getRepositoryIdentifier()
   {
-    $repositoryIdentifier = sfContext::getInstance()->request->getHost();
+    $repositoryIdentifier = QubitOai::getOaiNamespaceIdentifier();
+    
     if ($repositoryCode = sfConfig::get('app_oai_oai_repository_code'))
     {
       $repositoryIdentifier .= ':'.$repositoryCode;
@@ -289,14 +321,9 @@ class QubitOai
     return $repositoryIdentifier;
   }
 
-  public static function getSampleIdentifier()
+  public static function getOaiSampleIdentifier()
   {
-    $sampleIdentifier = sfContext::getInstance()->request->getHost().':';
-    if ($repositoryCode = sfConfig::get('app_oai_oai_repository_code'))
-    {
-      $sampleIdentifier .= $repositoryCode;
-    }
-    $sampleIdentifier .= '_100002';
+    $sampleIdentifier = 'oai:'.QubitOai::getRepositoryIdentifier().'_100002';
 
     return $sampleIdentifier;
   }

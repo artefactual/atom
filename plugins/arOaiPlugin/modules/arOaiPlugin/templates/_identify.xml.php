@@ -12,9 +12,9 @@
     <description>
       <oai-identifier xmlns="http://www.openarchives.org/OAI/2.0/oai-identifier" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai-identifier http://www.openarchives.org/OAI/2.0/oai-identifier.xsd">
         <scheme>oai</scheme>
-        <repositoryIdentifier><?php echo QubitOai::getRepositoryIdentifier() ?></repositoryIdentifier>
+        <repositoryIdentifier><?php echo QubitOai::getOaiNamespaceIdentifier() ?></repositoryIdentifier>
         <delimiter>:</delimiter>
-        <sampleIdentifier><?php echo QubitOai::getSampleIdentifier() ?></sampleIdentifier>
+        <sampleIdentifier><?php echo QubitOai::getOaiSampleIdentifier() ?></sampleIdentifier>
       </oai-identifier>
     </description>
   </Identify>
