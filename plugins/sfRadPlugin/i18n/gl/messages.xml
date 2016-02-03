@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2015-06-29T15:00:00Z" product-name="messages">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2016-02-03T14:48:31Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -678,7 +678,7 @@
       </trans-unit>
       <trans-unit id="188">
         <source>General note</source>
-        <target/>
+        <target>Nota xeral</target>
       </trans-unit>
     </body>
   </file>

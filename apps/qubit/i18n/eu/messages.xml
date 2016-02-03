@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2015-06-29T15:02:58Z" original="messages" product-name="messages" source-language="en" target-language="eu">
+  <file datatype="plaintext" date="2016-02-03T14:53:41Z" original="messages" product-name="messages" source-language="en" target-language="eu">
     <header/>
     <body>
       <trans-unit id="8ee4c4cda03a4eae9fe64773376c582df3f9f8bf">
@@ -3445,11 +3445,6 @@ oai:foo.org:repositorycode_10001</target>
         <target>Orrialdeko %min% ikustaldi gutxienez erakutsi behar dituzu</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
-      <trans-unit id="c36d5e6158429222401afa00fc07d09f75b74668">
-        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="http://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
-        <target>Zure nabigatzaileak ez du Flash player-a instalatuta. Objektu digitalak inportatzeko, mesedez &lt;a href="http://get.adobe.com/flashplayer/"&gt;Adobe Flash Player deskargatu&lt;/a&gt; (9.0.45 bertsioa edo berriagoa eskatzen du)</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
-      </trans-unit>
       <trans-unit id="94e4bacf21221b860626117bf0b69a4f93ac2d21">
         <source>Your browser does not support JavaScript. See %1%minimum requirements%2%.</source>
         <target>Zure nabigatzaileak ez du JavaScript onartzen. Ikus %1%gutxieneko eskakizunak%2%.</target>
@@ -3534,6 +3529,14 @@ oai:foo.org:repositorycode_10001</target>
         <source>you</source>
         <target>zu</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="https://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Map of %1%</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

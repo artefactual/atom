@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2015-06-29T15:02:17Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2016-02-03T14:48:36Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -613,23 +613,23 @@ elaboração da descrição.</target>
       </trans-unit>
       <trans-unit id="1036">
         <source>Administrative history / Biographical sketch</source>
-        <target/>
+        <target>História administrativa/biográfica</target>
       </trans-unit>
       <trans-unit id="1037">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
+        <target>Identificador: Digite um código inequívoco usado para identificar exclusivamente a descrição. Level: Selecione um nível de descrição no menu deslizante. Veja RAD 1.0A para regras e convenções sobre a seleção de níveis de descrição. Título: Digite o título próprio, seja transcrito ou fornecido. (RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="1038">
         <source>Genre access points</source>
-        <target/>
+        <target>Pontos de acesso de gênero</target>
       </trans-unit>
       <trans-unit id="1039">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
-        <target/>
+        <target>Pesquise um termo existente na taxonomia digitando os primeiros caracteres do nome. Alternativamente, digite um novo termo para criar e relacioná-lo.</target>
       </trans-unit>
       <trans-unit id="1040">
         <source>General note</source>
-        <target/>
+        <target>Nota geral</target>
       </trans-unit>
     </body>
   </file>

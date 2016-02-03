@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2015-06-29T15:02:16Z" original="messages" product-name="messages" source-language="en" target-language="pt-BR">
+  <file datatype="plaintext" date="2016-02-03T14:53:32Z" original="messages" product-name="messages" source-language="en" target-language="pt-BR">
     <header/>
     <body>
       <trans-unit id="8ee4c4cda03a4eae9fe64773376c582df3f9f8bf">
@@ -3569,11 +3569,6 @@
         <target>Devem ser mostrados ao menos %min% visitas por p&#xE1;gina.</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
-      <trans-unit id="c36d5e6158429222401afa00fc07d09f75b74668">
-        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="http://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
-        <target>O navegador n&#xE3;o tem o leitor de Flash instalado. Para importar objetos digitais, acesse &lt;a href="http://get.adobe.com/flashplayer/"&gt;Transferir Adobe Flash Player&lt;/a&gt; (necessita da vers&#xE3;o 9.0.45 ou superior)</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
-      </trans-unit>
       <trans-unit id="94e4bacf21221b860626117bf0b69a4f93ac2d21">
         <source>Your browser does not support JavaScript. See %1%minimum requirements%2%.</source>
         <target>Seu navegador n&#xE3;o suporta JavaScript. Verifique os %1%requisitos m&#xED;nimos %2%</target>
@@ -3658,6 +3653,14 @@
         <source>you</source>
         <target>voc&#xEA;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="https://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Map of %1%</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

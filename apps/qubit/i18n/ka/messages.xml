@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2015-06-29T15:02:04Z" original="messages" product-name="messages" source-language="en" target-language="ka">
+  <file datatype="plaintext" date="2016-02-03T14:53:02Z" original="messages" product-name="messages" source-language="en" target-language="ka">
     <header/>
     <body>
       <trans-unit id="8ee4c4cda03a4eae9fe64773376c582df3f9f8bf">
@@ -3326,11 +3326,6 @@
         <target> &#x10E8;&#x10D4;&#x10DC; &#x10E3;&#x10DC;&#x10D3;&#x10D0; &#x10E3;&#x10E9;&#x10D5;&#x10D4;&#x10DC;&#x10DD; &#x10D0;&#x10E0;&#x10D0; &#x10E3;&#x10DB;&#x10EA;&#x10D8;&#x10E0;&#x10D4;&#x10E1; %min% &#x10D8;&#x10E1;&#x10D0; &#x10E0;&#x10DD;&#x10DB;&#x10D4;&#x10DA;&#x10D8;&#x10EA; &#x10DB;&#x10DD;&#x10EE;&#x10D5;&#x10D3;&#x10D0; &#x10D7;&#x10D8;&#x10D7;&#x10DD;&#x10D4;&#x10E3;&#x10DA; &#x10D2;&#x10D5;&#x10D4;&#x10E0;&#x10D3;&#x10D6;&#x10D4;</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
-      <trans-unit id="c36d5e6158429222401afa00fc07d09f75b74668">
-        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="http://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
-        <target>&#x10E8;&#x10D4;&#x10DC;&#x10E1; &#x10D1;&#x10E0;&#x10D0;&#x10E3;&#x10D6;&#x10D4;&#x10E0;&#x10E1; &#x10D0;&#x10E0; &#x10D0;&#x10E5;&#x10D5;&#x10E1; &#x10D3;&#x10D0;&#x10D8;&#x10DC;&#x10E1;&#x10E2;&#x10D0;&#x10DA;&#x10D8;&#x10E0;&#x10D4;&#x10D1;&#x10E3;&#x10DA;&#x10D8; &#x10E4;&#x10DA;&#x10D4;&#x10E8; &#x10DE;&#x10DA;&#x10D4;&#x10D8;&#x10D4;&#x10E0;&#x10D8; , &#x10E0;&#x10D0;&#x10D7;&#x10D0; &#x10DB;&#x10D8;&#x10D8;&#x10E6;&#x10DD;&#x10E1; &#x10EA;&#x10D8;&#x10E4;&#x10E0;&#x10E3;&#x10DA;&#x10D8; &#x10DD;&#x10D1;&#x10D8;&#x10D4;&#x10E5;&#x10E2;&#x10D4;&#x10D1;&#x10D8;. &#x10D2;&#x10D7;&#x10EE;&#x10DD;&#x10D5;&#x10D7; &lt;a</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
-      </trans-unit>
       <trans-unit id="94e4bacf21221b860626117bf0b69a4f93ac2d21">
         <source>Your browser does not support JavaScript. See %1%minimum requirements%2%.</source>
         <target>&#x10E8;&#x10D4;&#x10DC;&#x10E1; &#x10D1;&#x10E0;&#x10D0;&#x10E3;&#x10D6;&#x10D4;&#x10E0;&#x10E1; &#x10D0;&#x10E0; &#x10D0;&#x10E5;&#x10D5;&#x10E1; &#x10D3;&#x10D0;&#x10DB;&#x10EE;&#x10DB;&#x10D0;&#x10E0;&#x10D4; &#x10EF;&#x10D0;&#x10D5;&#x10D0;&#x10E1;&#x10D9;&#x10E0;&#x10D8;&#x10DE;&#x10E2;&#x10D8; &#x10D8;&#x10EE;&#x10D8;&#x10DA;&#x10D4;&#x10D7; See %1%&#x10DB;&#x10D8;&#x10DC;&#x10D8;&#x10DB;&#x10D0;&#x10DA;&#x10E3;&#x10E0;&#x10D8; &#x10DB;&#x10DD;&#x10D7;&#x10EE;&#x10DD;&#x10D5;&#x10DC;&#x10D8;&#x10DA;&#x10D4;&#x10D1;&#x10D4;&#x10D1;&#x10D8;%2%.</target>
@@ -3408,6 +3403,14 @@
         <source>you</source>
         <target> &#x10E8;&#x10D4;&#x10DC;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="https://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Map of %1%</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

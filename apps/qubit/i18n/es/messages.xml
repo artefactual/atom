@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2015-06-29T14:59:49Z" original="messages" product-name="messages" source-language="en" target-language="es">
+  <file datatype="plaintext" date="2016-02-03T14:50:59Z" original="messages" product-name="messages" source-language="en" target-language="es">
     <header/>
     <body>
       <trans-unit id="8ee4c4cda03a4eae9fe64773376c582df3f9f8bf">
@@ -436,6 +436,7 @@
       </trans-unit>
       <trans-unit id="11e7d8d6de94bea14bfdfbb135dc8706bb55f0c2">
         <source>An API key must be sent in the HTTP request ZZZ header to authenticate requests</source>
+        <target>Hay que enviar una clave API en el encabezamiento ZZZ de la solicitud HTTP para autenticar las solicitudes</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsOaiRepositoryForm.class.php</note>
       </trans-unit>
       <trans-unit id="b7063e1e7db18c362696dec9cf8da2c9a4f40444">
@@ -1055,14 +1056,17 @@
       </trans-unit>
       <trans-unit id="49d010b43fef51e679bfa687236f9d9547b43de4">
         <source>Documentation Identifier Role</source>
+        <target>Rol del Identificador Documental</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/_right.php</note>
       </trans-unit>
       <trans-unit id="cff9d0feb97168d5b92e6e0376dc18e1b9388470">
         <source>Documentation Identifier Type</source>
+        <target>Tipo de Identificador Documental</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/_right.php</note>
       </trans-unit>
       <trans-unit id="67e5257bb5d4c214c752587fb7c7cb31c6b0ad42">
         <source>Documentation Identifier Value</source>
+        <target>Valor del Identificador Documental</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/_right.php</note>
       </trans-unit>
       <trans-unit id="a479c9c34e878d07b4d67a73a48f432ad7dc53c8">
@@ -2622,6 +2626,7 @@
       </trans-unit>
       <trans-unit id="77926a042f966ece9c2736bb8bd5acc51eb68103">
         <source>Results &lt;span class="result-start"&gt;%1%&lt;/span&gt; to &lt;span class="result-end"&gt;%2%&lt;/span&gt; of %3%</source>
+        <target>Resultados &lt;span class="result-start"&gt;%1%&lt;/span&gt; a &lt;span class="result-end"&gt;%2%&lt;/span&gt; de %3%</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/templates/_sidebarPager.php</note>
       </trans-unit>
       <trans-unit id="e08b0f0cdec57fe8860ddaf468b9e5654b98cc9d">
@@ -3244,6 +3249,7 @@
       </trans-unit>
       <trans-unit id="e0b11377ac38712be06c421d2bf188df60a42562">
         <source>This user has %1% note(s) in the system. These notes will not be deleted, but their association with this user will be removed.</source>
+        <target>El usuario tiene %1% nota(s) en el sistema. Estas notas no ser&#xE1;n eliminadas, pero su asociaci&#xF3;n con el usuario se quitar&#xE1;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/deleteSuccess.php</note>
       </trans-unit>
       <trans-unit id="3a70a8b43589e3fe6afc33db59d796bd3f6db4a9">
@@ -3467,14 +3473,17 @@
       </trans-unit>
       <trans-unit id="8da71d44777901e9ba71c726ac3f7a2be03f0b3f">
         <source>View / download master representation</source>
+        <target>Ver / descargar la representaci&#xF3;n principal (master)</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsPermissionsForm.class.php</note>
       </trans-unit>
       <trans-unit id="981bd5c3a2e984a7622d304da2d2c1cb8deff96f">
         <source>View / download reference representation</source>
+        <target>Ver / descargar la representaci&#xF3;n de referencia</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsPermissionsForm.class.php</note>
       </trans-unit>
       <trans-unit id="3eaf343fdc7c7bd51d4f5be7d932795c662e7b0a">
         <source>View / download thumbnail representation</source>
+        <target>Ver / descargar la miniatura de la representaci&#xF3;n</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsPermissionsForm.class.php</note>
       </trans-unit>
       <trans-unit id="7b187ac28ebf064b786d1e3085c6312e0c72b606">
@@ -3551,11 +3560,6 @@
         <source>You must show at least %min% hits per page</source>
         <target>Debe mostrar al menos %min% coincidencias por p&#xE1;gina</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
-      </trans-unit>
-      <trans-unit id="c36d5e6158429222401afa00fc07d09f75b74668">
-        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="http://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
-        <target>Su navegador no tiene Flash player instalado. Por favor, para importar objetos digitales &lt;a href="http://get.adobe.com/flashplayer/"&gt;Descargue Adobe Flash Player&lt;/a&gt; (necesita una versi&#xF3;n 9.0.45 a mayor)</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="94e4bacf21221b860626117bf0b69a4f93ac2d21">
         <source>Your browser does not support JavaScript. See %1%minimum requirements%2%.</source>
@@ -3641,6 +3645,14 @@
         <source>you</source>
         <target>usted</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="https://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Map of %1%</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

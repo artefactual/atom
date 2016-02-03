@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2015-06-29T14:58:52Z" original="messages" product-name="messages" source-language="en" target-language="vi">
+  <file datatype="plaintext" date="2016-02-03T14:50:18Z" original="messages" product-name="messages" source-language="en" target-language="vi">
     <header/>
     <body>
       <trans-unit id="8ee4c4cda03a4eae9fe64773376c582df3f9f8bf">
@@ -3499,11 +3499,6 @@ T&#x1EA3;i l&#xEA;n m&#x1EDB;i %1%</target>
         <target>B&#x1EA1;n ph&#x1EA3;i hi&#x1EC3;n th&#x1ECB; &#xED;t nh&#x1EA5;t %min% k&#x1EBF;t qu&#x1EA3; t&#xEC;m ki&#x1EBF;m tr&#xEA;n m&#x1ED9;t trang</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
-      <trans-unit id="c36d5e6158429222401afa00fc07d09f75b74668">
-        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="http://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
-        <target>Tr&#xEC;nh duy&#x1EC7;t c&#x1EE7;a b&#x1EA1;n kh&#xF4;ng c&#xF3; Flash player &#x111;&#x1B0;&#x1EE3;c c&#xE0;i &#x111;&#x1EB7;t. Nh&#x1EAD;p kh&#x1EA9;u &#x111;&#x1ED1;i t&#x1B0;&#x1EE3;ng k&#x1EF9; thu&#x1EAD;t s&#x1ED1;, xin vui l&#xF2;ng &lt;a href="http://get.adobe.com/flashplayer/"&gt; T&#x1EA3;i Adobe Flash Player &lt;/a&gt; (y&#xEA;u c&#x1EA7;u phi&#xEA;n b&#x1EA3;n 9.0.45 ho&#x1EB7;c cao h&#x1A1;n)</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
-      </trans-unit>
       <trans-unit id="94e4bacf21221b860626117bf0b69a4f93ac2d21">
         <source>Your browser does not support JavaScript. See %1%minimum requirements%2%.</source>
         <target>Tr&#xEC;nh duy&#x1EC7;t c&#x1EE7;a b&#x1EA1;n kh&#xF4;ng h&#x1ED7; tr&#x1EE3; JavaScript. Xem %1%minimum requirements%2%</target>
@@ -3588,6 +3583,14 @@ T&#x1EA3;i l&#xEA;n m&#x1EDB;i %1%</target>
         <source>you</source>
         <target>b&#x1EA1;n</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="https://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Map of %1%</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

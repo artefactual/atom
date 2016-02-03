@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-06-29T14:57:16Z" product-name="messages">
+  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2016-02-03T14:48:37Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -30,7 +30,7 @@
       </trans-unit>
       <trans-unit id="7">
         <source>%1%: %2%</source>
-        <target/>
+        <target>%1%: %2%</target>
       </trans-unit>
       <trans-unit id="8">
         <source>All privileges</source>

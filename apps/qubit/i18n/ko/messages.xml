@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2015-06-29T14:58:01Z" original="messages" product-name="messages" source-language="en" target-language="ko">
+  <file datatype="plaintext" date="2016-02-03T14:49:36Z" original="messages" product-name="messages" source-language="en" target-language="ko">
     <header/>
     <body>
       <trans-unit id="8ee4c4cda03a4eae9fe64773376c582df3f9f8bf">
@@ -3491,11 +3491,6 @@
         <target>&#xD398;&#xC774;&#xC9C0;&#xB2F9; &#xCD5C;&#xC18C; %min% &#xAC80;&#xC0C9;&#xC77C;&#xCE58; &#xACB0;&#xACFC;&#xB97C; &#xBCF4;&#xC5EC;&#xC8FC;&#xC5B4;&#xC57C; &#xD569;&#xB2C8;&#xB2E4;.</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
-      <trans-unit id="c36d5e6158429222401afa00fc07d09f75b74668">
-        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="http://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
-        <target>&#xADC0;&#xD558;&#xC758; &#xBE0C;&#xB77C;&#xC6B0;&#xC800;&#xB294; &#xD50C;&#xB798;&#xC2DC; &#xD50C;&#xB808;&#xC774;&#xC5B4;&#xAC00; &#xC124;&#xCE58;&#xB418;&#xC5B4; &#xC788;&#xC9C0; &#xC54A;&#xC2B5;&#xB2C8;&#xB2E4;. &#xB514;&#xC9C0;&#xD138; &#xAC1D;&#xCCB4;&#xB97C; &#xAC00;&#xC838; &#xC624;&#xC2DC;&#xB824;&#xBA74;, &lt;/ A&gt; href="http://get.adobe.com/flashplayer/"&gt;&#xB294; &#xC5B4;&#xB3C4;&#xBE44; &#xD50C;&#xB798;&#xC2DC; &#xD50C;&#xB808;&#xC774;&#xC5B4;&#xB97C; &#xB2E4;&#xC6B4;&#xB85C;&#xB4DC;&#xD558;&#xC2DC;&#xC624;. (&#xBC84;&#xC804; 9.0.45 &#xC774;&#xC0C1;&#xC774; &#xD544;&#xC694;&#xD569;&#xB2C8;&#xB2E4;.)</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
-      </trans-unit>
       <trans-unit id="94e4bacf21221b860626117bf0b69a4f93ac2d21">
         <source>Your browser does not support JavaScript. See %1%minimum requirements%2%.</source>
         <target>&#xBE0C;&#xB77C;&#xC6B0;&#xC800;&#xAC00; JavaScript&#xB97C; &#xC9C0;&#xC6D0;&#xD558;&#xC9C0; &#xC54A;&#xC2B5;&#xB2C8;&#xB2E4;.  %1% &#xCD5C;&#xC18C; &#xD544;&#xC218; &#xC0AC;&#xD56D;&#xC744; %2% &#xBCF4;&#xC2DC;&#xC624;.</target>
@@ -3580,6 +3575,14 @@
         <source>you</source>
         <target>&#xB2F9;&#xC2E0;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="https://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Map of %1%</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

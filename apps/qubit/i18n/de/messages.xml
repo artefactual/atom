@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2015-06-29T14:57:31Z" original="messages" product-name="messages" source-language="en" target-language="de">
+  <file datatype="plaintext" date="2016-02-03T14:48:51Z" original="messages" product-name="messages" source-language="en" target-language="de">
     <header/>
     <body>
       <trans-unit id="8ee4c4cda03a4eae9fe64773376c582df3f9f8bf">
@@ -291,6 +291,7 @@
       </trans-unit>
       <trans-unit id="e3916a920c3e231ba6282142ddee81f7d63b81ee">
         <source>Add permissions by %1%</source>
+        <target>Berechtigungen f&#xFC;r %1% hinzuf&#xFC;gen</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/editRepositoryAclSuccess.php</note>
       </trans-unit>
       <trans-unit id="81ff5bd1f35f92f6a2ade545d1a3dcd5cd2960ef">
@@ -1714,6 +1715,7 @@
       </trans-unit>
       <trans-unit id="d4a308b8918e79dd602ef88b50c4022f3100918c">
         <source>License terms</source>
+        <target>Lizenzbedingungen</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/_right.php</note>
       </trans-unit>
       <trans-unit id="fdb0454e76ad8adb7f347a381dd5eeaf9b1cd6e4">
@@ -1738,6 +1740,7 @@
       </trans-unit>
       <trans-unit id="5f8f0d751c84e672c324724b218b9ca51769113d">
         <source>Link physical storage</source>
+        <target>Physikalischen Speicher verkn&#xFC;pfen</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_actions.php</note>
       </trans-unit>
       <trans-unit id="29ee3939774ab239e5ff8dbf716097cfd15717a4">
@@ -2058,6 +2061,7 @@
       </trans-unit>
       <trans-unit id="92cb19318d1451bdf32d678cd44c0c79fb1926dd">
         <source>Notes for this granted right.</source>
+        <target>Hinweise f&#xFC;r dieses gew&#xE4;hrtes Recht.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/editSuccess.php</note>
       </trans-unit>
       <trans-unit id="d32d5b3879c3c18b4211871b5e4f9e22f0c528ec">
@@ -3417,6 +3421,7 @@
       </trans-unit>
       <trans-unit id="e901340a842b48f8ffa0364ef3c911f4c1a4c47e">
         <source>View full size</source>
+        <target>Volle Gr&#xF6;&#xDF;e anzeigen</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_showCompound.php</note>
       </trans-unit>
       <trans-unit id="18fcc7d5b0dd71e2fd7486a4e2e21b6adb88e54b">
@@ -3483,11 +3488,6 @@
         <source>You must show at least %min% hits per page</source>
         <target>Sie m&#xFC;ssen zumindest %min% Treffer je Seite anzeigen</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
-      </trans-unit>
-      <trans-unit id="c36d5e6158429222401afa00fc07d09f75b74668">
-        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="http://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
-        <target>Ihr Browser hat keinen Flash Player installiert Um digitale Objekte zu importieren, laden Sie bitte &lt;a href="http://get.adobe.com/flashplayer/"&gt; Adobe Flash Player &lt;/a&gt; herunter (requires version 9.0.45 or higher)</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="94e4bacf21221b860626117bf0b69a4f93ac2d21">
         <source>Your browser does not support JavaScript. See %1%minimum requirements%2%.</source>
@@ -3573,6 +3573,14 @@
         <source>you</source>
         <target>Du</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="https://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Map of %1%</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

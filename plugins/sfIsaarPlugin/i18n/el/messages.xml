@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2015-06-29T14:57:16Z" product-name="messages">
+  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2016-02-03T14:48:37Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -290,7 +290,7 @@
       </trans-unit>
       <trans-unit id="72">
         <source>EAC</source>
-        <target/>
+        <target>EAC</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Edit identity area</source>
@@ -338,7 +338,7 @@
       </trans-unit>
       <trans-unit id="84">
         <source>Dates of the relationship</source>
-        <target/>
+        <target>Ημερομηνίες της Σχέσης</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Related function</source>
