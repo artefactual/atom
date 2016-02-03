@@ -27,11 +27,51 @@ class QubitCache
     {
       if (null === $cacheClass = sfConfig::get('app_cache_engine'))
       {
-        $cacheClass = sfConfig::get('app_cache_engine_class', 'sfApcCache');
+        $cacheClass = sfConfig::get('app_cache_engine_class', 'sfAPCCache');
       }
-      if (null !== $params = sfConfig::get('app_cache_engine_param'))
+
+      $options = array();
+
+      if (null !== $setting = sfConfig::get('app_cache_engine_param_prefix'))
       {
-        $options += sfConfig::get('app_cache_engine_param');
+        $options['prefix'] = $setting;
+      }
+
+      if (null !== $setting = sfConfig::get('app_cache_engine_param_lifetime'))
+      {
+        $options['lifetime'] = (float)$setting;
+      }
+
+      if ($cacheClass === 'sfMemcacheCache')
+      {
+        if (null !== $setting = sfConfig::get('app_cache_engine_param_servers'))
+        {
+          $servers = array();
+          foreach ($setting as $item)
+          {
+            $servers[] = array(
+              'host' => $item[0]['host'],
+              'port' => $item[1]['port']
+            );
+          }
+
+          $options['servers'] = $servers;
+        }
+        else if ((null !== $host = sfConfig::get('app_cache_engine_param_host')) && (null !== $port = sfConfig::get('app_cache_engine_param_port')))
+        {
+          $options['host'] = $host;
+          $options['port'] = $port;
+        }
+
+        if (null !== $setting = sfConfig::get('app_cache_engine_param_storeCacheInfo'))
+        {
+          $options['storeCacheInfo'] = (bool)$setting;
+        }
+
+        if (null !== $setting = sfConfig::get('app_cache_engine_param_persistent'))
+        {
+          $options['persistent'] = (bool)$setting;
+        }
       }
 
       self::$instance = new $cacheClass($options);
