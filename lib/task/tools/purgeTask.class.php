@@ -144,6 +144,8 @@ EOF;
       $siteBaseUrl = (!empty($siteBaseUrl)) ? $siteBaseUrl : 'http://127.0.0.1';
     }
 
+    $this->validateUrl($siteBaseUrl);
+
     $this->createSetting('siteTitle', $siteTitle);
     $this->createSetting('siteDescription', $siteDescription);
     $this->createSetting('siteBaseUrl', $siteBaseUrl);
@@ -182,5 +184,33 @@ EOF;
     $options['username'] = 'demo';
     $options['password'] = 'demo';
     $options['url'] = 'http://127.0.0.1';
+  }
+
+  /*
+   * This method throws an exception if the user specified a malformed URL as the base URL.
+   * @param string $url  The specified base URL
+   */
+  private function validateUrl($url)
+  {
+    $invalidUrl = new sfException("Invalid base URL given: $url");
+
+    // parse_url may return false for badly malformed URLs, but it shouldn't be used solely
+    // to validate them. We're mainly using it here to determine if http:// or https:// is
+    // part of the URL.
+    if (false === $urlParts = parse_url($url))
+    {
+      throw $invalidUrl;
+    }
+
+    // FILTER_VALIDATE_URL always returns false if no scheme is specified, default to http://
+    if (!isset($urlParts['scheme']))
+    {
+      $url = 'http://'.$url;
+    }
+
+    if (false === filter_var($url, FILTER_VALIDATE_URL))
+    {
+      throw $invalidUrl;
+    }
   }
 }
