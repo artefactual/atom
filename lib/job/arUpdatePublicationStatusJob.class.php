@@ -29,15 +29,15 @@ class arUpdatePublicationStatusJob extends arBaseJob
   /**
    * @see arBaseJob::$requiredParameters
    */
-  protected $extraRequiredParameters = array('resourceId', 'publicationStatusId');
+  protected $extraRequiredParameters = array('objectId', 'publicationStatusId');
 
   public function runJob($parameters)
   {
     $i18n = sfContext::getInstance()->i18n;
 
-    if (null === $resource = QubitInformationObject::getById($parameters['resourceId']))
+    if (null === $resource = QubitInformationObject::getById($parameters['objectId']))
     {
-      $this->error($i18n->__('Invalid description id: %1', array('%1' => $parameters['resourceId'])));
+      $this->error($i18n->__('Invalid description id: %1', array('%1' => $parameters['objectId'])));
 
       return false;
     }
@@ -49,7 +49,7 @@ class arUpdatePublicationStatusJob extends arBaseJob
       return false;
     }
 
-    $message = $i18n->__('Updating publication status to the descendants of "%1" to "%2".', array('%1' => $resource->title, '%2' => $publicationStatus->name));
+    $message = $i18n->__('Updating publication status for the descendants of "%1" to "%2".', array('%1' => $resource->title, '%2' => $publicationStatus->name));
     $this->job->addNoteText($message);
     $this->info($message);
 
