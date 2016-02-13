@@ -63,7 +63,7 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
 
       // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
-        $field = sprintf('i18n.%s.title.untouched', $this->selectedCulture);
+        $field = sprintf('i18n.%s.title.untouched', sfContext::getInstance()->user->getCulture());
         $this->search->query->addSort(array($field => 'asc'));
 
         break;
