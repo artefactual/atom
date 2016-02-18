@@ -78,7 +78,7 @@ EOF;
 
     // determine taxonomy term usage then normalize
     $names = array();
-    $this->populateTaxonomyNameUsage($names, $taxonomyId);
+    $this->populateTaxonomyNameUsage($names, $taxonomyId, $options['culture']);
     $this->normalizeTaxonomy($names);
   }
 
@@ -98,14 +98,14 @@ EOF;
     }
   }
 
-  protected function populateTaxonomyNameUsage(&$names, $taxonomyId)
+  protected function populateTaxonomyNameUsage(&$names, $taxonomyId, $culture)
   {
     $sql = "SELECT t.id, i.name FROM term t \r
       INNER JOIN term_i18n i ON t.id=i.id \r
-      WHERE t.taxonomy_id=? \r
+      WHERE t.taxonomy_id=? AND i.culture=? \r
       ORDER BY t.id";
 
-    $statement = QubitFlatfileImport::sqlQuery($sql, array($taxonomyId));
+    $statement = QubitFlatfileImport::sqlQuery($sql, array($taxonomyId, $culture));
 
     while($object = $statement->fetch(PDO::FETCH_OBJ))
     {
