@@ -252,12 +252,14 @@ class QubitFlatfileExport
   {
     $terms = array();
 
-    foreach (QubitFlatfileImport::getTaxonomyTerms($taxonomyId) as $termId => $term)
+    foreach (QubitFlatfileImport::getTaxonomyTerms($taxonomyId) as $term)
     {
-      $terms[$termId] = $term->name;
+      $terms[$term->culture][$term->id] = $term->name;
     }
 
-    return $terms;
+    // QubitFlatfileImport::getTaxonomyTerms has changed to allow a better
+    // culture matching on import. On export we're still only using english terms
+    return $terms['en'];
   }
 
 

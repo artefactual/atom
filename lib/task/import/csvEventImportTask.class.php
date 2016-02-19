@@ -178,7 +178,7 @@ EOF;
             $type = $self->columnValue($self->status['relationTypeColumn']);
             print 'Relate '. $subjectId .' to '. $objectId .' as '. $type .".\n";
 
-            $typeId = array_search($type, $self->status['eventTypes']);
+            $typeId = array_search($type, $self->status['eventTypes'][$self->columnValue('culture')]);
 
             if (!$typeId)
             {

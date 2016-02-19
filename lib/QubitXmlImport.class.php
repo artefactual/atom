@@ -573,33 +573,33 @@ class QubitXmlImport
 
               // Load taxonomies into variables to avoid use of magic numbers
               $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
-                QubitTaxonomy::NOTE_TYPE_ID                => 'noteTypes',
-                QubitTaxonomy::RAD_NOTE_ID                 => 'radNoteTypes',
-                QubitTaxonomy::RAD_TITLE_NOTE_ID           => 'titleNoteTypes',
-                QubitTaxonomy::DACS_NOTE_ID               => 'dacsSpecializedNotesTypes'
+                QubitTaxonomy::NOTE_TYPE_ID      => 'noteTypes',
+                QubitTaxonomy::RAD_NOTE_ID       => 'radNoteTypes',
+                QubitTaxonomy::RAD_TITLE_NOTE_ID => 'titleNoteTypes',
+                QubitTaxonomy::DACS_NOTE_ID      => 'dacsSpecializedNotesTypes'
               ));
 
-              $titleVariationNoteTypeId            = array_search('Variations in title', $termData['titleNoteTypes']);
-              $titleAttributionsNoteTypeId         = array_search('Attributions and conjectures', $termData['titleNoteTypes']);
-              $titleContinuationNoteTypeId         = array_search('Continuation of title', $termData['titleNoteTypes']);
-              $titleStatRepNoteTypeId              = array_search('Statements of responsibility', $termData['titleNoteTypes']);
-              $titleParallelNoteTypeId             = array_search('Parallel titles and other title information', $termData['titleNoteTypes']);
-              $titleSourceNoteTypeId               = array_search('Source of title proper', $termData['titleNoteTypes']);
-              $alphaNumericaDesignationsNoteTypeId = array_search('Alpha-numeric designations', $termData['radNoteTypes']);
-              $physDescNoteTypeId                  = array_search('Physical description', $termData['radNoteTypes']);
-              $editionNoteTypeId                   = array_search('Edition', $termData['radNoteTypes']);
-              $conservationNoteTypeId              = array_search('Conservation', $termData['radNoteTypes']);
+              $titleVariationNoteTypeId            = array_search('Variations in title', $termData['titleNoteTypes']['en']);
+              $titleAttributionsNoteTypeId         = array_search('Attributions and conjectures', $termData['titleNoteTypes']['en']);
+              $titleContinuationNoteTypeId         = array_search('Continuation of title', $termData['titleNoteTypes']['en']);
+              $titleStatRepNoteTypeId              = array_search('Statements of responsibility', $termData['titleNoteTypes']['en']);
+              $titleParallelNoteTypeId             = array_search('Parallel titles and other title information', $termData['titleNoteTypes']['en']);
+              $titleSourceNoteTypeId               = array_search('Source of title proper', $termData['titleNoteTypes']['en']);
+              $alphaNumericaDesignationsNoteTypeId = array_search('Alpha-numeric designations', $termData['radNoteTypes']['en']);
+              $physDescNoteTypeId                  = array_search('Physical description', $termData['radNoteTypes']['en']);
+              $editionNoteTypeId                   = array_search('Edition', $termData['radNoteTypes']['en']);
+              $conservationNoteTypeId              = array_search('Conservation', $termData['radNoteTypes']['en']);
 
-              $pubSeriesNoteTypeId                 = array_search("Publisher's series", $termData['radNoteTypes']);
-              $rightsNoteTypeId                    = array_search("Rights", $termData['radNoteTypes']);
-              $materialNoteTypeId                  = array_search("Accompanying material", $termData['radNoteTypes']);
-              $generalNoteTypeId                   = array_search("General note", $termData['radNoteTypes']);
+              $pubSeriesNoteTypeId                 = array_search("Publisher's series", $termData['radNoteTypes']['en']);
+              $rightsNoteTypeId                    = array_search("Rights", $termData['radNoteTypes']['en']);
+              $materialNoteTypeId                  = array_search("Accompanying material", $termData['radNoteTypes']['en']);
+              $generalNoteTypeId                   = array_search("General note", $termData['radNoteTypes']['en']);
 
-              $dacsAlphaNumericaDesignationsNoteTypeId  = array_search('Alphanumeric designations', $termData['dacsSpecializedNotesTypes']);
-              $dacsCitationNoteTypeId            = array_search("Citation", $termData['dacsSpecializedNotesTypes']);
-              $dacsConservationNoteTypeId        = array_search("Conservation", $termData['dacsSpecializedNotesTypes']);
-              $dacsProcessingInformationNoteTypeId   = array_search("Processing information", $termData['dacsSpecializedNotesTypes']);
-              $dacsVariantTitleInformationNoteTypeId   = array_search("Variant title information", $termData['dacsSpecializedNotesTypes']);
+              $dacsAlphaNumericaDesignationsNoteTypeId  = array_search('Alphanumeric designations', $termData['dacsSpecializedNotesTypes']['en']);
+              $dacsCitationNoteTypeId            = array_search("Citation", $termData['dacsSpecializedNotesTypes']['en']);
+              $dacsConservationNoteTypeId        = array_search("Conservation", $termData['dacsSpecializedNotesTypes']['en']);
+              $dacsProcessingInformationNoteTypeId   = array_search("Processing information", $termData['dacsSpecializedNotesTypes']['en']);
+              $dacsVariantTitleInformationNoteTypeId   = array_search("Variant title information", $termData['dacsSpecializedNotesTypes']['en']);
 
               // invoke the object and method defined in the schema map
               $obj = call_user_func_array(array( & $currentObject, $methodMap['Method']), $parameters);

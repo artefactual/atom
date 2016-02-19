@@ -117,10 +117,9 @@
   <?php
   // Load taxonomies into variables to avoid use of magic numbers
   $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
-    QubitTaxonomy::NOTE_TYPE_ID                => 'noteTypes',
-    QubitTaxonomy::RAD_NOTE_ID                 => 'radNoteTypes',
-    QubitTaxonomy::RAD_TITLE_NOTE_ID      => 'titleNoteTypes',
-    QubitTaxonomy::DACS_NOTE_ID               => 'dacsSpecializedNotesTypes'
+    QubitTaxonomy::RAD_NOTE_ID       => 'radNoteTypes',
+    QubitTaxonomy::RAD_TITLE_NOTE_ID => 'titleNoteTypes',
+    QubitTaxonomy::DACS_NOTE_ID      => 'dacsSpecializedNoteTypes'
   ));
 
   $radTitleNotes = array(
@@ -134,7 +133,7 @@
 
   foreach ($radTitleNotes as $name => $xmlType)
   {
-    $noteTypeId = array_search($name, $termData['titleNoteTypes']);
+    $noteTypeId = array_search($name, $termData['titleNoteTypes']['en']);
 
     if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => $noteTypeId)))):
       foreach ($notes as $note): ?>
@@ -155,7 +154,7 @@
 
   foreach($radNotes as $name => $xmlType)
   {
-    $noteTypeId = array_search($name, $termData['radNoteTypes']);
+    $noteTypeId = array_search($name, $termData['radNoteTypes']['en']);
 
     if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => $noteTypeId)))):
       foreach ($notes as $note): ?>
@@ -165,16 +164,16 @@
   }
 
   $dacsSpecializedNotes = array(
-    'Conservation'       => 'dacsConservation',
-    'Citation'                => 'dacsCitation',
+    'Conservation'              => 'dacsConservation',
+    'Citation'                  => 'dacsCitation',
     'Alphanumeric designations' => 'dacsAlphanumericDesignation',
-    'Variant title information'               => 'dacsVariantTitleInformation',
-    'Processing information'      => 'dacsProcessingInformation'
+    'Variant title information' => 'dacsVariantTitleInformation',
+    'Processing information'    => 'dacsProcessingInformation'
   );
 
   foreach ($dacsSpecializedNotes as $name => $xmlType)
   {
-    $noteTypeId = array_search($name, $termData['dacsSpecializedNotesTypes']);
+    $noteTypeId = array_search($name, $termData['dacsSpecializedNoteTypes']['en']);
 
     if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => $noteTypeId)))):
       foreach ($notes as $note): ?>
@@ -445,7 +444,7 @@
       <?php endif; ?>
 
       <?php foreach($radNotes as $name => $xmlType): ?>
-          <?php $noteTypeId = array_search($name, $termData['radNoteTypes']); ?>
+          <?php $noteTypeId = array_search($name, $termData['radNoteTypes']['en']); ?>
 
           <?php if (0 < count($notes = $descendant->getNotesByType(array('noteTypeId' => $noteTypeId)))): ?>
             <?php foreach ($notes as $note): ?>

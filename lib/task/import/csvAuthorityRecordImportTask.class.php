@@ -212,7 +212,7 @@ EOF;
       // Import columns that can be added as QubitNote objects
       'noteMap' => array(
         'maintenanceNotes' => array(
-          'typeId' => array_search('Maintenance note', $termData['noteTypes'])
+          'typeId' => array_search('Maintenance note', $termData['noteTypes']['en'])
         )
       ),
 
@@ -245,7 +245,7 @@ EOF;
               'type of entity',
               $self->rowStatusVars['typeOfEntity'],
               array(),
-              $self->getStatus('actorTypes')
+              $self->status['actorTypes'][$self->columnValue('culture')]
             );
           }
 
@@ -258,7 +258,7 @@ EOF;
               'status',
               $self->rowStatusVars['status'],
               array(),
-              $self->getStatus('descriptionStatusTypes')
+              $self->status['descriptionStatusTypes'][$self->columnValue('culture')]
             );
           }
 
@@ -271,7 +271,7 @@ EOF;
               'level of detail',
               $self->rowStatusVars['levelOfDetail'],
               array(),
-              $self->getStatus('detailLevelTypes')
+              $self->status['detailLevelTypes'][$self->columnValue('culture')]
             );
           }
         }
@@ -405,7 +405,7 @@ EOF;
             // Determine type ID of relationship type
             $relationTypeId = array_search(
               $self->rowStatusVars['category'],
-              $self->status['actorRelationTypes']
+              $self->status['actorRelationTypes'][$self->columnValue('culture')]
             );
 
             if (!$relationTypeId)
