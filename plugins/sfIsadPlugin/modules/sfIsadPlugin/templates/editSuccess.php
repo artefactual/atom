@@ -229,7 +229,7 @@
             ->renderLabel() ?>
           <?php echo $form->genreAccessPoints->render(array('class' => 'form-autocomplete')) ?>
           <?php if (QubitAcl::check(QubitActor::getRoot(), 'create')): ?>
-            <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'actor', 'action' => 'add')) ?>"/>
+            <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::GENRE_ID), 'module' => 'taxonomy')))) ?> #name"/>
           <?php endif; ?>
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::GENRE_ID), 'module' => 'taxonomy')))) ?>"/>
         </div>
