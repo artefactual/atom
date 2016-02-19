@@ -501,8 +501,7 @@ EOF;
           {
             print "\nTerm $descStatus not found in description status taxonomy, creating it...\n";
 
-            $culture = isset($self->object->culture) ? $self->object->culture : 'en';
-            $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::DESCRIPTION_STATUS_ID, $descStatus, $culture);
+            $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::DESCRIPTION_STATUS_ID, $descStatus, $self->columnValue('culture'));
             $self->status['descriptionStatusTypes'] = refreshTaxonomyTerms(QubitTaxonomy::DESCRIPTION_STATUS_ID);
 
             $self->object->descriptionStatusId = $newTerm->id;
@@ -652,8 +651,7 @@ EOF;
             {
               print "\nTerm $type not found in physical object type taxonomy, creating it...\n";
 
-              $culture = isset($self->object->culture) ? $self->object->culture : 'en';
-              $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID, $type, $culture);
+              $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID, $type, $self->columnValue('culture'));
               $self->status['physicalObjectTypes'] = refreshTaxonomyTerms(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID);
 
               $physicalObjectTypeId = $newTerm->id;
@@ -1025,8 +1023,7 @@ EOF;
           {
             print "\nTerm $value not found in material type taxonomy, creating it...\n";
 
-            $culture = isset($self->object->culture) ? $self->object->culture : 'en';
-            $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::MATERIAL_TYPE_ID, $value, $culture);
+            $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::MATERIAL_TYPE_ID, $value, $self->columnValue('culture'));
             $self->status['materialTypes'] = refreshTaxonomyTerms(QubitTaxonomy::MATERIAL_TYPE_ID);
 
             $self->rowStatusVars['radGeneralMaterialDesignation'][] = $newTerm->id;

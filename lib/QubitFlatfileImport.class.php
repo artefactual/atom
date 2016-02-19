@@ -1135,7 +1135,13 @@ class QubitFlatfileImport
     // Add relation with place
     if (isset($options['place']))
     {
-      $placeTerm = $this->createOrFetchTerm(QubitTaxonomy::PLACE_ID, $options['place']);
+      $culture = 'en';
+      if (isset($options['culture']))
+      {
+        $culture = $options['culture'];
+      }
+
+      $placeTerm = $this->createOrFetchTerm(QubitTaxonomy::PLACE_ID, $options['place'], $culture);
       $this->createObjectTermRelation($event->id, $placeTerm->id);
     }
 
@@ -1346,10 +1352,12 @@ class QubitFlatfileImport
   {
     $query = "SELECT t.id FROM term t LEFT JOIN term_i18n ti ON t.id=ti.id \r
       WHERE t.taxonomy_id=? AND ti.name=? AND ti.culture=?";
+
     $statement = QubitFlatfileImport::sqlQuery(
       $query,
       array($taxonomyId, $name, $culture)
     );
+
     $result = $statement->fetch(PDO::FETCH_OBJ);
     if ($result)
     {

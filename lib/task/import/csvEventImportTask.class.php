@@ -183,9 +183,10 @@ EOF;
             if (!$typeId)
             {
               print "Term does not exist... adding.\n";
-              $term = QubitFlatfileImport::createOrFetchTerm(
+              $term = QubitFlatfileImport::createTerm(
                 QubitTaxonomy::EVENT_TYPE_ID,
-                $type
+                $type,
+                $self->columnValue('culture')
               );
               $typeId = $term->id;
               $self->status['eventTypes'][$typeId] = $type;
