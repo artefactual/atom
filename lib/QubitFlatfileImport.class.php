@@ -1516,28 +1516,21 @@ class QubitFlatfileImport
   }
 
   /**
-   * Get the terms in a taxonomy, optionally specifying culture
+   * Get the terms in a taxonomy using sql query
    *
    * @param integer $taxonomyId  taxonomy ID
-   * @param string $culture  culture code (defaulting to English)
    *
-   * @return array  array of term IDs and their respective names
+   * @return array  objects resultset
    */
-  public static function getTaxonomyTerms($taxonomyId, $culture = 'en')
+  public static function getTaxonomyTerms($taxonomyId)
   {
-    $terms = array();
-
-    $query = "SELECT * FROM term t \r
-      LEFT JOIN term_i18n ti ON t.id=ti.id AND ti.culture=? \r
+    $query = "SELECT t.id, ti.culture, ti.name FROM term t
+      LEFT JOIN term_i18n ti ON t.id=ti.id
       WHERE taxonomy_id=?";
-    $statement = QubitFlatfileImport::sqlQuery($query, array($culture, $taxonomyId));
 
-    while($term = $statement->fetch(PDO::FETCH_OBJ))
-    {
-      $terms[$term->id] = $term;
-    }
+    $statement = QubitFlatfileImport::sqlQuery($query, array($taxonomyId));
 
-    return $terms;
+    return $statement->fetchAll(PDO::FETCH_OBJ);
   }
 
   /**
@@ -1555,9 +1548,9 @@ class QubitFlatfileImport
     foreach ($taxonomies as $taxonomyId => $varName)
     {
       $taxonomyTerms[$varName] = array();
-      foreach (QubitFlatfileImport::getTaxonomyTerms($taxonomyId) as $termId => $term)
+      foreach (QubitFlatfileImport::getTaxonomyTerms($taxonomyId) as $term)
       {
-        $taxonomyTerms[$varName][$termId] = $term->name;
+        $taxonomyTerms[$varName][$term->culture][$term->id] = $term->name;
       }
     }
 
