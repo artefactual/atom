@@ -1541,39 +1541,6 @@ class QubitFlatfileImport
   }
 
   /**
-   * Get a term's ID using its name, optionally specifying culture
-   *
-   * @param integer $taxonomyId  taxonomy ID
-   * @param string $termName  term name
-   * @param string $culture  culture code (defaulting to English)
-   *
-   * @return integer/boolean  term ID/false
-   */
-  public function getTaxonomyTermIdUsingName($taxonomyId, $termName, $culture = 'en')
-  {
-    global $cachedTaxonomyTerms;
-
-    $cachedTaxonomyTerms = (isset($cachedTaxonomyTerms))
-      ? $cachedTaxonomyTerms
-      : array();
-
-    $cachedTaxonomyTerms[$culture] = (isset($cachedTaxonomyTerms[$culture]))
-      ? $cachedTaxonomyTerms[$culture]
-      : array();
-
-    if (!isset($cachedTaxonomyTerms[$culture][$taxonomyId]))
-    {
-      $cachedTaxonomyTerms[$culture][$taxonomyId] = array();
-      foreach (QubitFlatfileImport::getTaxonomyTerms($taxonomyId, $culture) as $term)
-      {
-        $cachedTaxonomyTerms[$culture][$taxonomyId][$term->id] = $term->name;
-      }
-    }
-
-    return array_search($termName, $cachedTaxonomyTerms[$culture][$taxonomyId]);
-  }
-
-  /**
    * Load terms from one or more taxonomies and use the terms to populate one
    * or more array elements.
    *
