@@ -90,9 +90,15 @@ EOF
           ->label(__('Allowed languages for translation'))
           ->renderRow(array('class' => 'form-autocomplete')) ?>
 
+        <?php if (isset($rest_enabled) && $rest_enabled): ?>
+          <?php echo $form->rest_api_key
+            ->label(__('REST API access key'. ((isset($rest_api_key)) ? ': <code>'. $rest_api_key .'</code>' : '')))
+            ->renderRow() ?>
+        <?php endif; ?>
+
         <?php if (isset($oai_enabled) && $oai_enabled): ?>
           <?php echo $form->oai_api_key
-            ->label(__('OAI-PMH API access key'. (($oai_api_key) ? ': <code>'. $oai_api_key .'</code>' : '')))
+            ->label(__('OAI-PMH API access key'. ((isset($oai_api_key)) ? ': <code>'. $oai_api_key .'</code>' : '')))
             ->renderRow() ?>
         <?php endif; ?>
 
