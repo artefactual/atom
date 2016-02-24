@@ -1,6 +1,6 @@
-# Prepend arRestApiPluginHttpAuthFilter to the chain
-httpAuthFilter:
-  class: arRestApiPluginHttpAuthFilter
+# Prepend arRestApiPluginTokenAuthFilter to the chain
+tokenAuthFilter:
+  class: arRestApiPluginTokenAuthFilter
 
 # Inherit filters, cascade mechanism
 transaction: ~

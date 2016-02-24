@@ -61,7 +61,16 @@
       <?php endif; ?>
     <?php endif; ?>
 
-    <?php if ($sf_context->getConfiguration()->isPluginEnabled('arOaiPlugin')): ?>
+    <?php if ($sf_context->getConfiguration()->isPluginEnabled('arRestApiPlugin') && isset($rest_api_key)): ?>
+      <div class="field">
+        <h3><?php echo __('REST API key') ?></h3>
+        <div>
+          <code><?php echo $rest_api_key ?></code>
+        </div>
+      </div>
+    <?php endif; ?>
+
+    <?php if ($sf_context->getConfiguration()->isPluginEnabled('arOaiPlugin') && isset($oai_api_key)): ?>
       <div class="field">
         <h3><?php echo __('OAI-PMH API key') ?></h3>
         <div>
