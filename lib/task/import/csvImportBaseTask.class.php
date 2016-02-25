@@ -195,11 +195,14 @@ abstract class csvImportBaseTask extends arBaseTask
       else
       {
         // Get or add term if event type is set
-        $typeTerm = $import->createOrFetchTerm(QubitTaxonomy::EVENT_TYPE_ID, $eventData['type']);
+        $typeTerm = $import->createOrFetchTerm(QubitTaxonomy::EVENT_TYPE_ID, $eventData['type'], $import->columnValue('culture'));
         $eventTypeId = $typeTerm->id;
 
         unset($eventData['type']);
       }
+
+      // Add row culture to fetch place term in event creation/update
+      $eventData['culture'] = $import->columnValue('culture');
 
       $event = $import->createOrUpdateEvent($eventTypeId, $eventData);
     }

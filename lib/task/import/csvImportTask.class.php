@@ -282,70 +282,70 @@ EOF;
       // Import columns that can be added as QubitNote objects
       'noteMap' => array(
         'languageNote' => array(
-          'typeId' => array_search('Language note', $termData['noteTypes'])
+          'typeId' => array_search('Language note', $termData['noteTypes']['en'])
         ),
         'publicationNote' => array(
-          'typeId' => array_search('Publication note', $termData['noteTypes'])
+          'typeId' => array_search('Publication note', $termData['noteTypes']['en'])
         ),
         'generalNote' => array(
-          'typeId' => array_search('General note', $termData['noteTypes'])
+          'typeId' => array_search('General note', $termData['noteTypes']['en'])
         ),
         'archivistNote' => array(
-          'typeId' => array_search("Archivist's note", $termData['noteTypes'])
+          'typeId' => array_search("Archivist's note", $termData['noteTypes']['en'])
         ),
         'radNoteCast' => array(
-          'typeId' => array_search('Cast note', $termData['radNoteTypes'])
+          'typeId' => array_search('Cast note', $termData['radNoteTypes']['en'])
         ),
         'radNoteCredits' => array(
-          'typeId' => array_search('Credits note', $termData['radNoteTypes'])
+          'typeId' => array_search('Credits note', $termData['radNoteTypes']['en'])
         ),
         'radNoteSignaturesInscriptions' => array(
-          'typeId' => array_search('Signatures note', $termData['radNoteTypes'])
+          'typeId' => array_search('Signatures note', $termData['radNoteTypes']['en'])
         ),
         'radNoteConservation' => array(
-          'typeId' => array_search('Conservation', $termData['radNoteTypes'])
+          'typeId' => array_search('Conservation', $termData['radNoteTypes']['en'])
         ),
         'radNoteGeneral' => array(
-          'typeId' => array_search('General note', $termData['noteTypes'])
+          'typeId' => array_search('General note', $termData['noteTypes']['en'])
         ),
         'radNotePhysicalDescription' => array(
-          'typeId' => array_search('Physical description', $termData['radNoteTypes'])
+          'typeId' => array_search('Physical description', $termData['radNoteTypes']['en'])
         ),
         'radNotePublishersSeries' => array(
-          'typeId' => array_search("Publisher's series", $termData['radNoteTypes'])
+          'typeId' => array_search("Publisher's series", $termData['radNoteTypes']['en'])
         ),
         'radNoteRights' => array(
-          'typeId' => array_search('Rights', $termData['radNoteTypes'])
+          'typeId' => array_search('Rights', $termData['radNoteTypes']['en'])
         ),
         'radNoteAccompanyingMaterial' => array(
-          'typeId' => array_search('Accompanying material', $termData['radNoteTypes'])
+          'typeId' => array_search('Accompanying material', $termData['radNoteTypes']['en'])
         ),
         'radNoteAlphaNumericDesignation' => array(
-          'typeId' => array_search('Alpha-numeric designations', $termData['radNoteTypes'])
+          'typeId' => array_search('Alpha-numeric designations', $termData['radNoteTypes']['en'])
         ),
         'radNoteEdition' => array(
-          'typeId' => array_search('Edition', $termData['radNoteTypes'])
+          'typeId' => array_search('Edition', $termData['radNoteTypes']['en'])
         ),
         'radTitleStatementOfResponsibilityNote' => array(
-          'typeId' => array_search('Statements of responsibility', $termData['titleNoteTypes'])
+          'typeId' => array_search('Statements of responsibility', $termData['titleNoteTypes']['en'])
         ),
         'radTitleParallelTitles' => array(
-          'typeId' => array_search('Parallel titles and other title information', $termData['titleNoteTypes'])
+          'typeId' => array_search('Parallel titles and other title information', $termData['titleNoteTypes']['en'])
         ),
         'radTitleSourceOfTitleProper' => array(
-          'typeId' => array_search('Source of title proper', $termData['titleNoteTypes'])
+          'typeId' => array_search('Source of title proper', $termData['titleNoteTypes']['en'])
         ),
         'radTitleVariationsInTitle' => array(
-          'typeId' => array_search('Variations in title', $termData['titleNoteTypes'])
+          'typeId' => array_search('Variations in title', $termData['titleNoteTypes']['en'])
         ),
         'radTitleAttributionsAndConjectures' => array(
-          'typeId' => array_search('Attributions and conjectures', $termData['titleNoteTypes'])
+          'typeId' => array_search('Attributions and conjectures', $termData['titleNoteTypes']['en'])
         ),
         'radTitleContinues' => array(
-          'typeId' => array_search('Continuation of title', $termData['titleNoteTypes'])
+          'typeId' => array_search('Continuation of title', $termData['titleNoteTypes']['en'])
         ),
         'radTitleNoteContinuationOfTitle' => array(
-          'typeId' => array_search('Continuation of title', $termData['titleNoteTypes'])
+          'typeId' => array_search('Continuation of title', $termData['titleNoteTypes']['en'])
         )
       ),
 
@@ -441,17 +441,15 @@ EOF;
         {
           $levelOfDetail = trim($self->rowStatusVars['levelOfDetail']);
 
-          $levelOfDetailTermId = array_search_case_insensitive($levelOfDetail, $self->status['levelOfDetailTypes']);
+          $levelOfDetailTermId = array_search_case_insensitive($levelOfDetail, $self->status['levelOfDetailTypes'][$self->columnValue('culture')]);
           if ($levelOfDetailTermId === false)
           {
             print "\nTerm $levelOfDetail not found in description details level taxonomy, creating it...\n";
 
-            $culture = isset($self->object->culture) ? $self->object->culture : 'en';
-
             $newTerm = QubitFlatfileImport::createTerm(
               QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID,
               $levelOfDetail,
-              $culture
+              $self->columnValue('culture')
             );
 
             $levelOfDetailTermId = $newTerm->id;
@@ -493,7 +491,7 @@ EOF;
         if (isset($self->rowStatusVars['descriptionStatus']) && 0 < strlen($self->rowStatusVars['descriptionStatus']))
         {
           $descStatus = trim($self->rowStatusVars['descriptionStatus']);
-          $statusTermId = array_search_case_insensitive($descStatus, $self->status['descriptionStatusTypes']);
+          $statusTermId = array_search_case_insensitive($descStatus, $self->status['descriptionStatusTypes'][$self->columnValue('culture')]);
 
           if (false !== $statusTermId)
           {
@@ -503,8 +501,7 @@ EOF;
           {
             print "\nTerm $descStatus not found in description status taxonomy, creating it...\n";
 
-            $culture = isset($self->object->culture) ? $self->object->culture : 'en';
-            $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::DESCRIPTION_STATUS_ID, $descStatus, $culture);
+            $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::DESCRIPTION_STATUS_ID, $descStatus, $self->columnValue('culture'));
             $self->status['descriptionStatusTypes'] = refreshTaxonomyTerms(QubitTaxonomy::DESCRIPTION_STATUS_ID);
 
             $self->object->descriptionStatusId = $newTerm->id;
@@ -516,7 +513,7 @@ EOF;
         {
           $pubStatusTermId = array_search_case_insensitive(
             $self->rowStatusVars['publicationStatus'],
-            $self->status['pubStatusTypes']
+            $self->status['pubStatusTypes'][$self->columnValue('culture')]
           );
 
           if (!$pubStatusTermId)
@@ -647,15 +644,14 @@ EOF;
               $type = 'Box';
             }
 
-            $physicalObjectTypeId = array_search_case_insensitive($type, $self->getStatus('physicalObjectTypes'));
+            $physicalObjectTypeId = array_search_case_insensitive($type, $self->status['physicalObjectTypes'][$self->columnValue('culture')]);
 
             // Create new physical object type if not found
             if ($physicalObjectTypeId === false)
             {
               print "\nTerm $type not found in physical object type taxonomy, creating it...\n";
 
-              $culture = isset($self->object->culture) ? $self->object->culture : 'en';
-              $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID, $type, $culture);
+              $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID, $type, $self->columnValue('culture'));
               $self->status['physicalObjectTypes'] = refreshTaxonomyTerms(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID);
 
               $physicalObjectTypeId = $newTerm->id;
@@ -1017,7 +1013,7 @@ EOF;
         foreach ($data as $value)
         {
           $value = trim($value);
-          $materialTypeId = array_search_case_insensitive($value, $self->getStatus('materialTypes'));
+          $materialTypeId = array_search_case_insensitive($value, $self->status['materialTypes'][$self->columnValue('culture')]);
 
           if ($materialTypeId !== false)
           {
@@ -1027,8 +1023,7 @@ EOF;
           {
             print "\nTerm $value not found in material type taxonomy, creating it...\n";
 
-            $culture = isset($self->object->culture) ? $self->object->culture : 'en';
-            $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::MATERIAL_TYPE_ID, $value, $culture);
+            $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::MATERIAL_TYPE_ID, $value, $self->columnValue('culture'));
             $self->status['materialTypes'] = refreshTaxonomyTerms(QubitTaxonomy::MATERIAL_TYPE_ID);
 
             $self->rowStatusVars['radGeneralMaterialDesignation'][] = $newTerm->id;

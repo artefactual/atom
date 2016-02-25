@@ -310,7 +310,7 @@ EOF;
         'resourceTypeId',
         'resource type',
         $data,
-        $self->getStatus('resourceTypes')
+        $self->status['resourceTypes'][$self->columnValue('culture')]
       );
     });
 
@@ -321,7 +321,7 @@ EOF;
         'acquisitionTypeId',
         'acquisition type',
         $data,
-        $self->getStatus('acquisitionTypes')
+        $self->status['acquisitionTypes'][$self->columnValue('culture')]
       );
     });
 
@@ -332,7 +332,7 @@ EOF;
         'processingStatusId',
         'processing status',
         $data,
-        $self->getStatus('processingStatus')
+        $self->status['processingStatus'][$self->columnValue('culture')]
       );
     });
 
@@ -343,7 +343,7 @@ EOF;
         'processingPriorityId',
         'processing priority',
         $data,
-        $self->getStatus('processingPriority')
+        $self->status['processingPriority'][$self->columnValue('culture')]
       );
     });
 

@@ -68,15 +68,6 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    // Load taxonomies into variables to avoid use of magic numbers
-    $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
-      QubitTaxonomy::NOTE_TYPE_ID                => 'noteTypes',
-      QubitTaxonomy::ACTOR_ENTITY_TYPE_ID        => 'actorTypes',
-      QubitTaxonomy::ACTOR_RELATION_TYPE_ID      => 'actorRelationTypes',
-      QubitTaxonomy::DESCRIPTION_STATUS_ID       => 'descriptionStatusTypes',
-      QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID => 'detailLevelTypes'
-    ));
-
     // Define import
     $import = new QubitFlatfileImport(array(
       // Pass context
@@ -94,7 +85,7 @@ EOF;
       // the status array is a place to put data that should be accessible
       // from closure logic using the getStatus method
       'status' => array(
-        'options'                => $options
+        'options' => $options
       ),
 
       // Import columns that map directory to QubitRepository properties

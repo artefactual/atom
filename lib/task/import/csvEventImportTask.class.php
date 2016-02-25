@@ -178,14 +178,15 @@ EOF;
             $type = $self->columnValue($self->status['relationTypeColumn']);
             print 'Relate '. $subjectId .' to '. $objectId .' as '. $type .".\n";
 
-            $typeId = array_search($type, $self->status['eventTypes']);
+            $typeId = array_search($type, $self->status['eventTypes'][$self->columnValue('culture')]);
 
             if (!$typeId)
             {
               print "Term does not exist... adding.\n";
-              $term = QubitFlatfileImport::createOrFetchTerm(
+              $term = QubitFlatfileImport::createTerm(
                 QubitTaxonomy::EVENT_TYPE_ID,
-                $type
+                $type,
+                $self->columnValue('culture')
               );
               $typeId = $term->id;
               $self->status['eventTypes'][$typeId] = $type;
