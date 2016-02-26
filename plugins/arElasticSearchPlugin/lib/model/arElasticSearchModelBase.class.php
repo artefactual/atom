@@ -38,7 +38,7 @@ abstract class arElasticSearchModelBase
     $this->log(" - Loading " . get_class($this) . "...");
   }
 
-  public function getCount($object)
+  public function getCount()
   {
     return $this->count;
   }
