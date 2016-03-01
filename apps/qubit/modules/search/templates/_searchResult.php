@@ -1,13 +1,15 @@
 <?php use_helper('Text') ?>
 
 <?php $doc = $hit->getData() ?>
-<?php if (isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject']): ?>
+<?php if (isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject'] ||
+         (isset($doc['childDigitalObjects']) && count($doc['childDigitalObjects']))): ?>
   <article class="search-result has-preview">
 <?php else: ?>
   <article class="search-result">
 <?php endif; ?>
 
-  <?php if (isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject']): ?>
+  <?php if ((isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject']) ||
+            (isset($doc['childDigitalObjects']) && count($doc['childDigitalObjects']))): ?>
     <div class="search-result-preview">
       <a href="<?php echo url_for(array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>">
         <div class="preview-container">
@@ -17,7 +19,13 @@
             <?php echo image_tag($doc['digitalObject']['thumbnailPath'],
               array('alt' => esc_entities(render_title(truncate_text(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture)), 100))))) ?>
           <?php else: ?>
-            <?php echo image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId']),
+            <?php if (isset($doc['digitalObject']['mediaTypeId'])): ?>
+              <?php $mediaTypeId = $doc['digitalObject']['mediaTypeId'] ?>
+            <?php else: ?>
+              <?php $mediaTypeId = QubitTerm::IMAGE_ID ?>
+            <?php endif; ?>
+
+            <?php echo image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId(),
               array('alt' => esc_entities(render_title(truncate_text(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture)), 100))))) ?>
           <?php endif; ?>
         </div>

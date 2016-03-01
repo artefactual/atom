@@ -456,9 +456,18 @@ class arElasticSearchPluginQuery
         break;
 
       case 'onlyMedia':
-        $query = new \Elastica\Query\Term;
-        $query->setTerm('hasDigitalObject', filter_var($value, FILTER_VALIDATE_BOOLEAN));
-        return $query;
+        $queryAll = new \Elastica\Query\MatchAll;
+
+        $filter = new \Elastica\Filter\Exists('childDigitalObjects');
+        $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filter);
+
+        $query = new \Elastica\Query\Term(array('hasDigitalObject' => true));
+        $queryBool = new \Elastica\Query\Bool;
+
+        $queryBool->addShould($query);
+        $queryBool->addShould($filteredQuery);
+
+        return $queryBool;
 
         break;
 

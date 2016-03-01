@@ -267,8 +267,49 @@ class QubitInformationObject extends BaseInformationObject
     }
 
     QubitSearch::getInstance()->update($this);
+    $this->updateParentDigitalObjectInfo();
 
     return $this;
+  }
+
+  public function updateParentDigitalObjectInfo()
+  {
+    if (!isset($this->parentId) || $this->parentId == QubitInformationObject::ROOT_ID)
+    {
+      return;
+    }
+
+    if (!isset($this->id))
+    {
+      throw new sfException("No id for this information object when expected");
+    }
+
+    $search = new arElasticSearchPluginQuery(1);
+    $search->queryBool->addMust(new \Elastica\Query\Term(array('_id' => $this->parentId)));
+    $results = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($search->getQuery(false, false));
+
+    if (!count($results))
+    {
+      return; // This can happen at initial information object creation, just ignore it.
+    }
+
+    $io = $results->offsetGet(0)->getData();
+    $io['id'] = $this->parentId;
+
+    if (count($this->digitalObjects) && !in_array($this->id, $io['childDigitalObjects']))
+    {
+      $io['childDigitalObjects'][] = $this->id;
+    }
+    else if (!count($this->digitalObjects) && false !== $key = array_search($this->id, $io['childDigitalObjects']))
+    {
+      unset($io['childDigitalObjects'][$key]); // This may ruin the key sequentiality
+
+      // Elastica doesn't like being passed arrays with non-sequential keys, and won't update the field
+      // unless we re-sequence them.
+      $io['childDigitalObjects'] = array_values($io['childDigitalObjects']);
+    }
+
+    QubitSearch::getInstance()->addDocument($io, 'QubitInformationObject');
   }
 
   public static function getRoot()

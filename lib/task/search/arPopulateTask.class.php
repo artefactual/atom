@@ -47,7 +47,6 @@ EOF;
     sfContext::createInstance($this->configuration);
 
     new sfDatabaseManager($this->configuration);
-
     QubitSearch::getInstance()->populate();
   }
 }

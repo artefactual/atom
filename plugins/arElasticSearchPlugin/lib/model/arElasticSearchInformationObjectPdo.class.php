@@ -161,12 +161,11 @@ class arElasticSearchInformationObjectPdo
       // Find ancestors
       $sql  = 'SELECT
                   node.id,
-                  identifier,
-                  repository_id,
-                  slug';
+                  node.identifier,
+                  node.repository_id,
+                  slug.slug';
       $sql .= ' FROM '.QubitInformationObject::TABLE_NAME.' node';
-      $sql .= ' JOIN '.QubitSlug::TABLE_NAME.' slug
-                  ON node.id = slug.object_id';
+      $sql .= ' JOIN '.QubitSlug::TABLE_NAME.' slug ON node.id = slug.object_id';
       $sql .= ' WHERE node.lft < ? AND node.rgt > ?';
       $sql .= ' ORDER BY lft';
 
@@ -191,9 +190,10 @@ class arElasticSearchInformationObjectPdo
     if (!isset($this->children))
     {
       // Find children
-      $sql  = 'SELECT
-                  node.id';
+      $sql  = 'SELECT node.id, d.media_type_id';
       $sql .= ' FROM '.QubitInformationObject::TABLE_NAME.' node';
+      $sql .= ' LEFT JOIN '.QubitDigitalObject::TABLE_NAME.' d';
+      $sql .= ' ON d.information_object_id = node.id';
       $sql .= ' WHERE node.parent_id = :id';
       $sql .= ' ORDER BY lft';
 
@@ -1039,6 +1039,7 @@ class arElasticSearchInformationObjectPdo
     $serialized['levelOfDescriptionId'] = $this->level_of_description_id;
     $serialized['publicationStatusId'] = $this->publication_status_id;
     $serialized['lft'] = $this->lft;
+    $serialized['childDigitalObjects'] = array();
 
     // Alternative identifiers
     $alternativeIdentifiers = $this->getAlternativeIdentifiers();
@@ -1059,6 +1060,11 @@ class arElasticSearchInformationObjectPdo
     foreach ($this->getChildren() as $child)
     {
       $serialized['children'][] = $child->id;
+
+      if ($child->media_type_id)
+      {
+        $serialized['childDigitalObjects'][] = $child->id;
+      }
     }
 
     // Copyright status

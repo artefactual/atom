@@ -40,6 +40,11 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
     // Recursively descend down hierarchy
     $this->recursivelyAddInformationObjects(QubitInformationObject::ROOT_ID, $this->count);
+
+    QubitSearch::getInstance()->flushBatch();
+    QubitSearch::getInstance()->index->refresh();
+
+    $this->updateAncestorsDigitalObjectInfo();
   }
 
   public function recursivelyAddInformationObjects($parentId, $totalRows, $options = array())
@@ -90,5 +95,49 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitInformationObject');
 
     return true;
+  }
+
+  private function updateAncestorsDigitalObjectInfo()
+  {
+    $sql = 'SELECT i.id, i.parent_id FROM digital_object d
+            JOIN information_object i ON d.information_object_id = i.id
+            WHERE i.parent_id != '.QubitInformationObject::ROOT_ID;
+
+    foreach (QubitPdo::fetchAll($sql) as $row)
+    {
+      $this->updateDigitalObjectInfo($row->id, $row->parent_id);
+    }
+  }
+
+  private function updateDigitalObjectInfo($id, $parentId)
+  {
+    $search = new arElasticSearchPluginQuery(1);
+    $search->queryBool->addMust(new \Elastica\Query\Term(array('_id' => $parentId)));
+    $results = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($search->getQuery(false, false));
+
+    if (count($results) === 0)
+    {
+      // Special case: this can happen during a search:populate when the ancestor documents were
+      // just inserted but the ES index hasn't refreshed yet. We handle this problem by re-calling
+      // this method at the end of the search:populate task after ES refreshes.
+      return;
+    }
+    else if (count($results) !== 1)
+    {
+      throw new sfException('Error: expected one result for ancestor search (id='.$parentId.'), got '.count($results));
+    }
+
+    // Normal case: the archival description's document needs updating, and the specified
+    // ancestor document is present in ES. Take our 1 result and insert/remove this info object's id
+    // to keep a running count of which children have/don't have digital objects.
+    $io = $results->offsetGet(0)->getData();
+
+    if (!in_array($id, $io['childDigitalObjects']))
+    {
+      $io['childDigitalObjects'][] = $id;
+      $io['id'] = $parentId;
+
+      QubitSearch::getInstance()->addDocument($io, 'QubitInformationObject');
+    }
   }
 }
