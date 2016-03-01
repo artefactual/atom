@@ -262,14 +262,7 @@ class QubitTerm extends BaseTerm
     {
       $child->indexOnSave = false;
       $child->parentId = $this->id;
-
-      try
-      {
-        $child->save();
-      }
-      catch (PropelException $e)
-      {
-      }
+      $child->save();
     }
   }
 

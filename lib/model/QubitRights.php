@@ -89,14 +89,7 @@ class QubitRights extends BaseRights
     {
       $grantedRight->indexOnSave = false;
       $grantedRight->rights = $this;
-
-      try
-      {
-        $grantedRight->save();
-      }
-      catch (PropelException $e)
-      {
-      }
+      $grantedRight->save();
     }
   }
 

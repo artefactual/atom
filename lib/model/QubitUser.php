@@ -34,27 +34,13 @@ class QubitUser extends BaseUser
     foreach ($this->aclUserGroups as $aclUserGroup)
     {
       $aclUserGroup->user = $this;
-
-      try
-      {
-        $aclUserGroup->save();
-      }
-      catch (PropelException $e)
-      {
-      }
+      $aclUserGroup->save();
     }
 
     foreach ($this->aclPermissions as $aclPermission)
     {
       $aclPermission->user = $this;
-
-      try
-      {
-        $aclPermission->save();
-      }
-      catch (PropelException $e)
-      {
-      }
+      $aclPermission->save();
     }
 
     return $this;

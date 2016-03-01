@@ -103,14 +103,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     {
       $relation->indexOnSave = false;
       $relation->object = $this;
-
-      try
-      {
-        $relation->save();
-      }
-      catch (PropelException $e)
-      {
-      }
+      $relation->save();
     }
 
     // Save updated notes
@@ -118,14 +111,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     {
       $note->indexOnSave = false;
       $note->object = $this;
-
-      try
-      {
-        $note->save();
-      }
-      catch (PropelException $e)
-      {
-      }
+      $note->save();
     }
 
     // Save updated properties
@@ -133,14 +119,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     {
       $property->indexOnSave = false;
       $property->object = $this;
-
-      try
-      {
-        $property->save();
-      }
-      catch (PropelException $e)
-      {
-      }
+      $property->save();
     }
 
     // Save updated object relations
@@ -148,14 +127,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     {
       $relation->indexOnSave = false;
       $relation->object = $this;
-
-      try
-      {
-        $relation->save();
-      }
-      catch (PropelException $e)
-      {
-      }
+      $relation->save();
     }
 
     // Save updated subject relations
@@ -163,28 +135,14 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     {
       $relation->indexOnSave = false;
       $relation->subject = $this;
-
-      try
-      {
-        $relation->save();
-      }
-      catch (PropelException $e)
-      {
-      }
+      $relation->save();
     }
 
     // Save updated other namnes
     foreach ($this->otherNames as $otherName)
     {
       $otherName->object = $this;
-
-      try
-      {
-        $otherName->save();
-      }
-      catch (PropelException $e)
-      {
-      }
+      $otherName->save();
     }
 
     return $this;

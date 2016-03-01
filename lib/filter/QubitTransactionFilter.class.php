@@ -27,7 +27,7 @@ class QubitTransactionFilter extends sfFilter
     if (!isset(self::$connection))
     {
       self::$connection = Propel::getConnection();
-      // self::$connection->beginTransaction();
+      self::$connection->beginTransaction();
     }
 
     return self::$connection;
@@ -35,6 +35,8 @@ class QubitTransactionFilter extends sfFilter
 
   public function execute($filterChain)
   {
+    self::getConnection();
+
     try
     {
       $filterChain->execute();

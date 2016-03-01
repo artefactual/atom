@@ -51,14 +51,7 @@ class QubitAccession extends BaseAccession
 
       // TODO Needed if $this is new, should be transparent
       $item->object = $this;
-
-      try
-      {
-        $item->save($connection);
-      }
-      catch (PropelException $e)
-      {
-      }
+      $item->save($connection);
     }
 
     QubitSearch::getInstance()->update($this);

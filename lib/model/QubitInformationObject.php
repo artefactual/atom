@@ -210,14 +210,7 @@ class QubitInformationObject extends BaseInformationObject
     {
       // TODO Needed if $this is new, should be transparent
       $item->parent = $this;
-
-      try
-      {
-        $item->save($connection);
-      }
-      catch (PropelException $e)
-      {
-      }
+      $item->save($connection);
     }
 
     // Save updated related events (update search index after updating all
@@ -228,14 +221,7 @@ class QubitInformationObject extends BaseInformationObject
 
       // TODO Needed if $this is new, should be transparent
       $item->object = $this;
-
-      try
-      {
-        $item->save($connection);
-      }
-      catch (PropelException $e)
-      {
-      }
+      $item->save($connection);
     }
 
     // Save new digital objects
@@ -246,14 +232,7 @@ class QubitInformationObject extends BaseInformationObject
 
       // TODO Needed if $this is new, should be transparent
       $item->informationObject = $this;
-
-      try
-      {
-        $item->save($connection);
-      }
-      catch (PropelException $e)
-      {
-      }
+      $item->save($connection);
 
       break; // Save only one digital object per information object
     }

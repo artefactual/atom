@@ -55,14 +55,7 @@ class QubitAclGroup extends BaseAclGroup implements Zend_Acl_Role_Interface
     foreach ($this->aclPermissions as $aclPermission)
     {
       $aclPermission->group = $this;
-
-      try
-      {
-        $aclPermission->save($connection);
-      }
-      catch (PropelException $e)
-      {
-      }
+      $aclPermission->save($connection);
     }
 
     return $this;

@@ -147,28 +147,14 @@ class QubitActor extends BaseActor
       // Update search index for related info object
       $event->indexOnSave = true;
       $event->actor = $this;
-
-      try
-      {
-        $event->save();
-      }
-      catch (PropelException $e)
-      {
-      }
+      $event->save();
     }
 
     // Save related contact information objects
     foreach ($this->contactInformations as $item)
     {
       $item->actor = $this;
-
-      try
-      {
-        $item->save();
-      }
-      catch (PropelException $e)
-      {
-      }
+      $item->save();
     }
 
     // Repositories are updated in the save function for QubitRepository class
