@@ -58,6 +58,7 @@ class DigitalObjectDeleteAction extends sfAction
     {
       // Delete the digital object record from the database
       $this->resource->delete();
+      QubitSearch::getInstance()->update($this->informationObject);
 
       // Redirect to edit page for parent Info Object
       if (isset($parent))
