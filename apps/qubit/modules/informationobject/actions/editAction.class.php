@@ -33,6 +33,10 @@ class InformationObjectEditAction extends DefaultEditAction
 
     $this->resource = new QubitInformationObject;
 
+    // Publication status defaults to draft
+    $this->publicationStatusId = QubitTerm::PUBLICATION_STATUS_DRAFT_ID;
+    $this->unpublishing = false;
+
     // Edit
     if (isset($this->getRoute()->resource))
     {
@@ -54,6 +58,25 @@ class InformationObjectEditAction extends DefaultEditAction
       $this->form->setDefault('serialNumber', $this->resource->serialNumber);
       $this->form->setValidator('serialNumber', new sfValidatorInteger);
       $this->form->setWidget('serialNumber', new sfWidgetFormInputHidden);
+
+      $publicationStatus = $this->resource->getStatus(array('typeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID));
+      if (QubitAcl::check($this->resource, 'publish') && !isset($publicationStatus))
+      {
+        // Use app. default pub. status if the user can publish and
+        // the current pub. status is missing (rare case)
+        $this->publicationStatusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
+      }
+      else if (QubitAcl::check($this->resource, 'publish'))
+      {
+        // Use current pub. status if the user can publish
+        $this->publicationStatusId = $publicationStatus->statusId;
+      }
+      else if (isset($publicationStatus) && $publicationStatus->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)
+      {
+        // Take note to show a warning if the user can't publish but the current pub. status
+        // is published while editing, as it will change the pub. status to draft
+        $this->unpublishing = true;
+      }
     }
 
     // Duplicate
@@ -89,8 +112,11 @@ class InformationObjectEditAction extends DefaultEditAction
       $this->form->setValidator('sourceId', new sfValidatorInteger);
       $this->form->setWidget('sourceId', new sfWidgetFormInputHidden);
 
-      // Set publication status to "draft"
-      $this->resource->setPublicationStatus(sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID));
+      // Use app. default pub. status if the user can publish
+      if (QubitAcl::check($this->resource, 'publish'))
+      {
+        $this->publicationStatusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
+      }
     }
 
     // Create
@@ -117,6 +143,12 @@ class InformationObjectEditAction extends DefaultEditAction
       if (!QubitAcl::check($this->parent, 'create'))
       {
         QubitAcl::forwardUnauthorized();
+      }
+
+      // Use app. default pub. status if the user can publish
+      if (QubitAcl::check($this->parent, 'publish'))
+      {
+        $this->publicationStatusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
       }
     }
   }
@@ -556,9 +588,16 @@ class InformationObjectEditAction extends DefaultEditAction
 
     parent::processForm();
 
-    // Set default publication status
-    $this->defaultPublicationStatusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
-    $this->resource->setPublicationStatus($this->defaultPublicationStatusId);
+    // Set publication status
+    $this->resource->setPublicationStatus($this->publicationStatusId);
+
+    // Let user know if the description has been unpublished
+    if ($this->unpublishing)
+    {
+      $i18n = $this->context->i18n;
+      $message = $i18n->__('Your edits to this description have been saved and the description has reverted to Draft status. Please ask a user with sufficient permissions to publish the description again to make it publicly visible.');
+      $this->getUser()->setFlash('notice', $message);
+    }
 
     $this->deleteNotes();
     $this->updateChildLevels();
@@ -642,12 +681,19 @@ class InformationObjectEditAction extends DefaultEditAction
       $displayStandardId = $this->resource->displayStandardId;
     }
 
+    // Use app. default pub. status for the children if the user can publish
+    $childrenPublicationStatusId = $this->publicationStatusId;
+    if (QubitAcl::check($this->resource, 'publish'))
+    {
+      $childrenPublicationStatusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
+    }
+
     foreach ($updateChildLevels as $item)
     {
       $childLevel = new QubitInformationObject;
       $childLevel->identifier = $item['identifier'];
       $childLevel->title = $item['title'];
-      $childLevel->setPublicationStatus($this->defaultPublicationStatusId);
+      $childLevel->setPublicationStatus($childrenPublicationStatusId);
 
       if (0 < strlen($item['levelOfDescription']) && (null !== QubitTerm::getById($item['levelOfDescription'])))
       {
