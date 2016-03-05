@@ -266,6 +266,24 @@ class QubitJob extends BaseJob
       $job->addNoteText($jobParams['description']);
     }
 
+    try
+    {
+      // Commit current transaction to avoid race conditions in jobs
+      // executed by the Gearman worker, as they use a different connection
+      $connection = QubitTransactionFilter::getConnection();
+      $connection->commit();
+
+      // Restart transaction for the remaining of the request,
+      // commited in QubitTransactionFilter at the end
+      $connection->beginTransaction();
+    }
+    catch (Exception $e)
+    {
+      $connection->rollBack();
+
+      throw $e;
+    }
+
     // Pass in the job id to the worker so it can update status
     $jobParams['id'] = $job->id;
     $jobName = self::getJobPrefix() . $jobName; // Append prefix, see getJobPrefix() for details
