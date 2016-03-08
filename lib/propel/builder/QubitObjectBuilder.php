@@ -558,7 +558,7 @@ script;
   {
     if (!isset(\$connection))
     {
-      \$connection = QubitTransactionFilter::getConnection({$this->getPeerClassName()}::DATABASE_NAME);
+      \$connection = Propel::getConnection();
     }
 
     \$affectedRows = 0;
@@ -1500,7 +1500,7 @@ script;
 
     if (!isset(\$connection))
     {
-      \$connection = QubitTransactionFilter::getConnection({$this->getPeerClassName()}::DATABASE_NAME);
+      \$connection = Propel::getConnection();
     }
 
     \$offset = 0;
@@ -1619,7 +1619,7 @@ script;
 
     if (!isset(\$connection))
     {
-      \$connection = QubitTransactionFilter::getConnection({$this->getPeerClassName()}::DATABASE_NAME);
+      \$connection = Propel::getConnection();
     }
 
     \$offset = 0;
@@ -1961,7 +1961,7 @@ unset(\$this->values['{$this->getColumnVarName($this->nestedSetLeftColumn)}']);
 unset(\$this->values['{$this->getColumnVarName($this->nestedSetRightColumn)}']);
     if (!isset(\$connection))
     {
-      \$connection = QubitTransactionFilter::getConnection({$this->getPeerClassName()}::DATABASE_NAME);
+      \$connection = Propel::getConnection();
     }
 
     if (!isset(\$this->{$this->getColumnVarName($this->nestedSetLeftColumn)}) || !isset(\$this->{$this->getColumnVarName($this->nestedSetRightColumn)}))
@@ -2063,7 +2063,7 @@ script;
   {
     if (!isset(\$connection))
     {
-      \$connection = QubitTransactionFilter::getConnection({$this->getPeerClassName()}::DATABASE_NAME);
+      \$connection = Propel::getConnection();
     }
 
     \$delta = \$this->{$this->getColumnVarName($this->nestedSetRightColumn)} - \$this->{$this->getColumnVarName($this->nestedSetLeftColumn)} + 1;

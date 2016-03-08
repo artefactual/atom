@@ -92,7 +92,7 @@ abstract class BaseAccessLog implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitAccessLog::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $affectedRows = 0;
@@ -412,7 +412,7 @@ abstract class BaseAccessLog implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitAccessLog::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;
@@ -464,7 +464,7 @@ abstract class BaseAccessLog implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitAccessLog::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;

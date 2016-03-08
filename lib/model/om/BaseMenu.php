@@ -106,7 +106,7 @@ abstract class BaseMenu implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitMenu::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $affectedRows = 0;
@@ -589,7 +589,7 @@ abstract class BaseMenu implements ArrayAccess
 
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitMenu::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;
@@ -668,7 +668,7 @@ abstract class BaseMenu implements ArrayAccess
 
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitMenu::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;
@@ -845,7 +845,7 @@ unset($this->values['lft']);
 unset($this->values['rgt']);
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitMenu::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     if (!isset($this->lft) || !isset($this->rgt))
@@ -940,7 +940,7 @@ unset($this->values['rgt']);
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitMenu::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $delta = $this->rgt - $this->lft + 1;

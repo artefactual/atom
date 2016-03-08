@@ -266,6 +266,26 @@ class QubitJob extends BaseJob
       $job->addNoteText($jobParams['description']);
     }
 
+    try
+    {
+      // Commit current database transaction before we dispatch the task to gearmand
+      // so the resources modified are persisted before the assigned worker starts
+      // processing the task. If we don't do this now the transaction will be committed
+      // once this request is processed but not before the worker hits the database.
+      $connection = QubitTransactionFilter::getConnection();
+      $connection->commit();
+
+      // Start a new transaction as there might be more database work within the
+      // current request, it's commited at the end in QubitTransactionFilter.
+      $connection->beginTransaction();
+    }
+    catch (Exception $e)
+    {
+      $connection->rollBack();
+
+      throw $e;
+    }
+
     // Pass in the job id to the worker so it can update status
     $jobParams['id'] = $job->id;
     $jobName = self::getJobPrefix() . $jobName; // Append prefix, see getJobPrefix() for details
