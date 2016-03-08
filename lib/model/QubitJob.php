@@ -268,13 +268,15 @@ class QubitJob extends BaseJob
 
     try
     {
-      // Commit current transaction to avoid race conditions in jobs
-      // executed by the Gearman worker, as they use a different connection
+      // Commit current database transaction before we dispatch the task to gearmand
+      // so the resources modified are persisted before the assigned worker starts
+      // processing the task. If we don't do this now the transaction will be committed
+      // once this request is processed but not before the worker hits the database.
       $connection = QubitTransactionFilter::getConnection();
       $connection->commit();
 
-      // Restart transaction for the remaining of the request,
-      // commited in QubitTransactionFilter at the end
+      // Start a new transaction as there might be more database work within the
+      // current request, it's commited at the end in QubitTransactionFilter.
       $connection->beginTransaction();
     }
     catch (Exception $e)
