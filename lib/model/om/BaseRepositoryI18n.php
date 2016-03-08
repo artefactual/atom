@@ -122,7 +122,7 @@ abstract class BaseRepositoryI18n implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitRepositoryI18n::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $affectedRows = 0;
@@ -443,7 +443,7 @@ abstract class BaseRepositoryI18n implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitRepositoryI18n::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;
@@ -495,7 +495,7 @@ abstract class BaseRepositoryI18n implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitRepositoryI18n::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;

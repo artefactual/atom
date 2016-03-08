@@ -108,7 +108,7 @@ abstract class BaseAclPermission implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitAclPermission::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $affectedRows = 0;
@@ -428,7 +428,7 @@ abstract class BaseAclPermission implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitAclPermission::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;
@@ -480,7 +480,7 @@ abstract class BaseAclPermission implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitAclPermission::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;

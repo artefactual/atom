@@ -100,7 +100,7 @@ abstract class BaseNote implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitNote::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $affectedRows = 0;
@@ -492,7 +492,7 @@ abstract class BaseNote implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitNote::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;
@@ -544,7 +544,7 @@ abstract class BaseNote implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitNote::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;

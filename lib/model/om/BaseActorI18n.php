@@ -118,7 +118,7 @@ abstract class BaseActorI18n implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitActorI18n::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $affectedRows = 0;
@@ -439,7 +439,7 @@ abstract class BaseActorI18n implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitActorI18n::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;
@@ -491,7 +491,7 @@ abstract class BaseActorI18n implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitActorI18n::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;

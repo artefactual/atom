@@ -120,7 +120,7 @@ abstract class BaseContactInformation implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitContactInformation::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $affectedRows = 0;
@@ -512,7 +512,7 @@ abstract class BaseContactInformation implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitContactInformation::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;
@@ -564,7 +564,7 @@ abstract class BaseContactInformation implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitContactInformation::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;

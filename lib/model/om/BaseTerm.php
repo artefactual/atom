@@ -1893,7 +1893,7 @@ unset($this->values['lft']);
 unset($this->values['rgt']);
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitTerm::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     if (!isset($this->lft) || !isset($this->rgt))
@@ -1988,7 +1988,7 @@ unset($this->values['rgt']);
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitTerm::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $delta = $this->rgt - $this->lft + 1;

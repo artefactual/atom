@@ -102,7 +102,7 @@ abstract class BaseOaiRepository implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitOaiRepository::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $affectedRows = 0;
@@ -444,7 +444,7 @@ abstract class BaseOaiRepository implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitOaiRepository::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;
@@ -496,7 +496,7 @@ abstract class BaseOaiRepository implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitOaiRepository::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $offset = 0;
