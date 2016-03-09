@@ -56,11 +56,6 @@ class qtSwordPluginWorker extends arBaseJob
 
     $extractor->run();
 
-    // Save ES documents in the batch queue
-    // We need to call the magic method explictly
-    // because the object isn't destroyed in a worker
-    QubitSearch::getInstance()->__destruct();
-
     $this->job->setStatusCompleted();
     $this->job->save();
 

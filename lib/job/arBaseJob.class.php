@@ -60,6 +60,8 @@ class arBaseJob extends Net_Gearman_Job_Common
     {
       $this->createJobsDownloadsDirectory();
       $this->runJob($parameters);
+      QubitSearch::getInstance()->flushBatch();
+
       $this->info('Job finished.');
     }
     catch (Exception $e)
