@@ -105,24 +105,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
       return;
     }
 
-    // If there are still documents in the batch queue, send them
-    if ($this->config['batch_mode'] && count($this->batchDocs) > 0)
-    {
-      try
-      {
-        $this->index->addDocuments($this->batchDocs);
-      }
-      catch (Exception $e)
-      {
-        // Clear batchDocs if something went wrong too
-        $this->batchDocs = array();
-
-        throw $e;
-      }
-
-      $this->batchDocs = array();
-    }
-
+    $this->flushBatch();
     $this->index->refresh();
   }
 
@@ -252,6 +235,30 @@ class arElasticSearchPlugin extends QubitSearchEngine
     }
 
     $this->initialize();
+  }
+
+  /*
+   * Flush batch of documents if we're in batch mode.
+   */
+  public function flushBatch()
+  {
+    // If there are still documents in the batch queue, send them
+    if ($this->config['batch_mode'] && count($this->batchDocs) > 0)
+    {
+      try
+      {
+        $this->index->addDocuments($this->batchDocs);
+      }
+      catch (Exception $e)
+      {
+        // Clear batchDocs if something went wrong too
+        $this->batchDocs = array();
+
+        throw $e;
+      }
+
+      $this->batchDocs = array();
+    }
   }
 
   /**
