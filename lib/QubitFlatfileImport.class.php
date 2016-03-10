@@ -432,6 +432,32 @@ class QubitFlatfileImport
     return $combined;
   }
 
+  /*
+   * Determine if the CSV file contains a byte order mark (BOM) at the start.
+   * If so, skip over it.
+   *
+   * @param resource  $fh  The file handle pointing to the current CSV
+   */
+  private function handleByteOrderMark($fh)
+  {
+    $BOM = "\xEF\xBB\xBF";
+
+    if (false === $data = fread($fh, strlen($BOM)))
+    {
+      throw new sfException('Failed to read from CSV file in handleByteOrderMark.');
+    }
+
+    if (0 === strncmp($data, $BOM, 3))
+    {
+      return; // Just eat the BOM and move on from this file position
+    }
+
+    // No BOM, rewind the file handle position
+    if (false === rewind($fh))
+    {
+      throw new sfException('Rewinding file position failed in handleByteOrderMark.');
+    }
+  }
 
   /*
    *
@@ -463,6 +489,8 @@ class QubitFlatfileImport
    */
   public function csv($fh, $skipRows = 0)
   {
+    $this->handleByteOrderMark($fh);
+
     $this->status['skippedRows'] = $skipRows;
     $this->columnNames = fgetcsv($fh, 60000);
 
@@ -484,9 +512,7 @@ class QubitFlatfileImport
     {
       if ($column != trim($column))
       {
-        print $this->logError(
-          sprintf("WARNING: Column '%s' has whitespace before or after its name.", $column)
-        );
+        print $this->logError(sprintf("WARNING: Column '%s' has whitespace before or after its name.", $column));
       }
     }
 
