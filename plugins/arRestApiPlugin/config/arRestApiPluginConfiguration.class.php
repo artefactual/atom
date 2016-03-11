@@ -69,6 +69,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'informationobjectsTree',
       'params' => array('parent_slug' => self::REGEX_SLUG)));
 
+    $this->addRoute('PUT', '/api/informationobjects/:slug', array(
+      'module' => 'api',
+      'action' => 'informationobjectsUpdate',
+      'params' => array('slug' => self::REGEX_SLUG)));
+
     $this->addRoute('DELETE', '/api/informationobjects/:slug', array(
       'module' => 'api',
       'action' => 'informationobjectsDelete',
