@@ -457,7 +457,6 @@ class QubitXmlImport
             break;
 
           case 'flocat':
-          case 'digital_object':
             $resources = array();
             foreach ($nodeList2 as $item)
             {

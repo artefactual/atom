@@ -35,6 +35,7 @@ class QubitInformationObject extends BaseInformationObject
 
   // allow per-object disabling of nested set updating during bulk imports
   public $disableNestedSetUpdating = false;
+  private $digitalObjectNames = array();
 
   /**
    * When cast as a string, return i18n-ized object title with fallback to
@@ -266,9 +267,23 @@ class QubitInformationObject extends BaseInformationObject
       $status->save($connection);
     }
 
+    $this->saveDigitalObjectNames();
+
     QubitSearch::getInstance()->update($this);
 
     return $this;
+  }
+
+  private function saveDigitalObjectNames()
+  {
+    foreach ($this->digitalObjectNames as $do)
+    {
+      $keymap = new QubitKeymap;
+      $keymap->sourceName = $do;
+      $keymap->targetId   = $this->id;
+      $keymap->targetName = 'information_object';
+      $keymap->save();
+    }
   }
 
   public static function getRoot()
@@ -1202,6 +1217,11 @@ class QubitInformationObject extends BaseInformationObject
   /****************
    Import methods
   *****************/
+
+  public function handleDao($data)
+  {
+    $this->digitalObjectNames[] = $data;
+  }
 
   /**
    * Wrapper for QubitDigitalObject::importFromUri() method
