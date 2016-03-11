@@ -110,7 +110,7 @@ class QubitAclSearch
     // If no grants then user can't see anything
     if (0 == $grants)
     {
-      self::forwardUnauthorized();
+      QubitAcl::forwardUnauthorized();
     }
 
     // If global deny is default, then list allowed resources
