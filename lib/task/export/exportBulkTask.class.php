@@ -95,10 +95,15 @@ class exportBulkTask extends exportBulkBaseTask
         throw new sfException('Invalid XML generated for object '. $row['id'] .'.');
       }
 
-      if (isset($options['single-slug']))
+      if (isset($options['single-slug']) && $options['format'] == 'ead')
       {
-        // If we're just exporting the one record, the given path
-        // is actually the full path+filename.
+        if (is_dir($arguments['path']))
+        {
+          throw new sfException('When using the single-slug option with EAD, path should be a file.');
+        }
+
+        // If we're just exporting a single hierarchy of descriptions as EAD,
+        // the given path is actually the full path and filename
         $filePath = $arguments['path'];
       }
       else
