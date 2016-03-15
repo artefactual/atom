@@ -153,36 +153,44 @@ abstract class exportBulkBaseTask extends sfBaseTask
 
   public static function informationObjectQuerySql($options)
   {
-    // EAD data nests children, so we only have to get top-level items
-    $whereClause = ($options['format'] == 'ead' || $options['current-level-only'])
-      ? "parent_id=". QubitInformationObject::ROOT_ID
-      : "i.id != 1";
+    // Fetch description for specific slug and its children
+    if (isset($options['single-slug']))
+    {
+      $query = 'SELECT i.lft, i.rgt, i.id FROM information_object i INNER JOIN slug s ON i.id=s.object_id WHERE s.slug = ?';
+      $slug = QubitPdo::fetchOne($query, array($options['single-slug']));
 
+      if (null === $slug)
+      {
+        throw new sfException('Slug '.$options['single-slug'].' not found.');
+      }
+
+      $whereClause = 'i.lft >= '. $slug->lft .' AND i.rgt <='. $slug->rgt;
+    }
+    else
+    {
+      // Fetch top-level descriptions if EAD (EAD data nests children) or if only exporting top-level
+      $whereClause = ($options['format'] == 'ead' || $options['current-level-only'])
+        ? "parent_id = "
+        : "i.id != ";
+      $whereClause .= QubitInformationObject::ROOT_ID;
+    }
+
+    // Add optional custom criteria
     if ($options['criteria'])
     {
       $whereClause .= ' AND '. $options['criteria'];
     }
 
+    // Assemble full query
     $query = "SELECT * FROM information_object i
       INNER JOIN information_object_i18n i18n ON i.id=i18n.id
       WHERE ". $whereClause;
 
-    if (isset($options['single-slug']))
-    {
-      $id = QubitPdo::fetchColumn('SELECT object_id FROM slug WHERE slug = ?', array($options['single-slug']));
-
-      if (!$id)
-      {
-        throw new sfException('Slug '.$options['single-slug'].' not found.');
-      }
-
-      $query .= ' AND i.id=' . $id;
-    }
-
     // Order by place in hierarchy so parents are exported before children
     $query .= ' ORDER BY i.lft';
 
-    if (isset($options['single-slug']))
+    // EAD data nests children, so if exporting specific slug we just need top-level item
+    if ($options['format'] == 'ead' && isset($options['single-slug']))
     {
       $query .= ' LIMIT 1';
     }
