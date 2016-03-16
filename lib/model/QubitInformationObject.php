@@ -281,7 +281,7 @@ class QubitInformationObject extends BaseInformationObject
       $keymap = new QubitKeymap;
       $keymap->sourceName = $do;
       $keymap->targetId   = $this->id;
-      $keymap->targetName = 'information_object';
+      $keymap->targetName = 'etrc_digital_object';
       $keymap->save();
     }
   }
