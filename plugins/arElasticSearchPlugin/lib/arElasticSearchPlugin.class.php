@@ -336,14 +336,13 @@ class arElasticSearchPlugin extends QubitSearchEngine
       {
         $this->index->addDocuments($this->batchDocs);
         $this->batchDocs = array();
+        $this->index->refresh();
       }
     }
     else
     {
       $this->index->getType($type)->addDocument($document);
     }
-
-    $this->index->refresh();
   }
 
   /**
