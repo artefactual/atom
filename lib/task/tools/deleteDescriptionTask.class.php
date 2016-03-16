@@ -31,7 +31,8 @@ class deleteDescriptionTask extends sfBaseTask
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel')
+      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+      new sfCommandOption('no-confirmation', 'B', sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation'),
     ));
 
     $this->namespace = 'tools';
@@ -39,7 +40,7 @@ class deleteDescriptionTask extends sfBaseTask
     $this->briefDescription = 'Delete description given its slug.';
 
     $this->detailedDescription = <<<EOF
-Purge all data.
+Delete archival descriptions by slug.
 EOF;
   }
 
@@ -57,18 +58,42 @@ EOF;
       throw new sfException('The description cannot be found in the database.');
     }
 
-    foreach ($informationObject->descendants->andSelf()->orderBy('rgt') as $item)
+    $descriptions = $informationObject->descendants->andSelf()->orderBy('rgt');
+    $totalDescs = count($descriptions);
+
+    if (!$options['no-confirmation'])
+    {
+      if (!$this->getConfirmation($informationObject->getTitle(array('cultureFallback' => true)), $totalDescs))
+      {
+        return;
+      }
+    }
+
+    $n = 0;
+
+    foreach ($descriptions as $desc)
     {
       // Delete related digitalObjects
-      foreach ($item->digitalObjects as $digitalObject)
+      foreach ($desc->digitalObjects as $digitalObject)
       {
         $digitalObject->informationObjectId = null;
         $digitalObject->delete();
       }
 
-      $item->delete();
-
-      $this->logSection("IO deleted...");
+      $this->logSection('Deleting "'.$desc->getTitle(array('cultureFallback' => true)).
+                        '" ('.++$n.'/'.$totalDescs.')');
+      $desc->delete();
     }
+
+    $this->logSection('Finished!');
+  }
+
+  private function getConfirmation($descTitle, $totalDescs)
+  {
+    return $this->askConfirmation(array(
+      'WARNING: You are about to delete the record "'.$descTitle.'" and '.($totalDescs - 1).
+      ' descendant records.', 'Are you sure you want to proceed? (y/N)'),
+      'QUESTION_LARGE', false
+    );
   }
 }
