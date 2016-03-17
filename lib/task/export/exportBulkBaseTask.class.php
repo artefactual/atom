@@ -153,9 +153,9 @@ abstract class exportBulkBaseTask extends sfBaseTask
 
   public static function informationObjectQuerySql($options)
   {
-    // Fetch description for specific slug and its children
     if (isset($options['single-slug']))
     {
+      // Fetch description for specific slug and its children
       $query = 'SELECT i.lft, i.rgt, i.id FROM information_object i INNER JOIN slug s ON i.id=s.object_id WHERE s.slug = ?';
       $slug = QubitPdo::fetchOne($query, array($options['single-slug']));
 
@@ -168,17 +168,19 @@ abstract class exportBulkBaseTask extends sfBaseTask
     }
     else
     {
-      // Fetch top-level descriptions if EAD (EAD data nests children) or if only exporting top-level
-      $whereClause = ($options['format'] == 'ead' || $options['current-level-only'])
-        ? "parent_id = "
-        : "i.id != ";
-      $whereClause .= QubitInformationObject::ROOT_ID;
-    }
-
-    // Add optional custom criteria
-    if ($options['criteria'])
-    {
-      $whereClause .= ' AND '. $options['criteria'];
+      if ($options['criteria'])
+      {
+        // Use custom criteria
+        $whereClause = $options['criteria'];
+      }
+      else
+      {
+        // Fetch top-level descriptions if EAD (EAD data nests children) or if only exporting top-level
+        $whereClause = ($options['format'] == 'ead' || $options['current-level-only'])
+          ? "parent_id = "
+          : "i.id != ";
+        $whereClause .= QubitInformationObject::ROOT_ID;
+      }
     }
 
     // Assemble full query
