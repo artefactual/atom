@@ -101,8 +101,9 @@ class arGenerateFindingAidJob extends arBaseJob
 
     $junk = array();
 
-    exec(sprintf("java -jar '%s' -s:'%s' -xsl:'%s' -o:'%s' 2> /dev/null",
-      $saxonPath, $eadFilePath, $eadXslFilePath, $foFilePath), $junk, $exitCode);
+    $cmd = sprintf("java -jar '%s' -s:'%s' -xsl:'%s' -o:'%s' 2> /dev/null", $saxonPath, $eadFilePath, $eadXslFilePath, $foFilePath);
+    $this->info(sprintf('Running: %s', $cmd));
+    exec($cmd, $junk, $exitCode);
 
     if ($exitCode != 0)
     {
@@ -111,7 +112,9 @@ class arGenerateFindingAidJob extends arBaseJob
     }
 
     // Use FOP generated in previous step to generate PDF
-    exec(sprintf("fop -r -q -fo '%s' -%s '%s' 2> /dev/null", $foFilePath, self::getFindingAidFormat(), $pdfPath), $junk, $exitCode);
+    $cmd = sprintf("fop -r -q -fo '%s' -%s '%s' 2> /dev/null", $foFilePath, self::getFindingAidFormat(), $pdfPath);
+    $this->info(sprintf('Running: %s', $cmd));
+    exec($cmd, $junk, $exitCode);
 
     if ($exitCode != 0)
     {
