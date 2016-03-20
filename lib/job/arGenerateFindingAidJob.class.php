@@ -73,11 +73,15 @@ class arGenerateFindingAidJob extends arBaseJob
     }
 
     // Call generate EAD task
-    exec("php $appRoot/symfony export:bulk --single-slug=$resource->slug $public $eadFilePath  2> /dev/null", $junk, $exitCode);
+    $output = array();
+    exec("php $appRoot/symfony export:bulk --single-slug=$resource->slug $public $eadFilePath 2>&1", $output, $exitCode);
 
-    if ($exitCode != 0)
+    if ($exitCode > 0)
     {
-      $this->error('Exporting EAD has failed');
+      $this->error('Exporting EAD has failed.');
+
+      $this->logCmdOutput($output, 'ERROR(EAD-EXPORT)');
+
       return false;
     }
 
@@ -99,23 +103,32 @@ class arGenerateFindingAidJob extends arBaseJob
     $pdfPath = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR .
       self::getFindingAidPath($this->resourceId);
 
-    $junk = array();
+    $cmd = sprintf("java -jar '%s' -s:'%s' -xsl:'%s' -o:'%s' 2>&1", $saxonPath, $eadFilePath, $eadXslFilePath, $foFilePath);
+    $this->info(sprintf('Running: %s', $cmd));
+    $output = array();
+    exec($cmd, $output, $exitCode);
 
-    exec(sprintf("java -jar '%s' -s:'%s' -xsl:'%s' -o:'%s' 2> /dev/null",
-      $saxonPath, $eadFilePath, $eadXslFilePath, $foFilePath), $junk, $exitCode);
-
-    if ($exitCode != 0)
+    if ($exitCode > 0)
     {
-      $this->error('Transforming the EAD with Saxon has failed');
+      $this->error('Transforming the EAD with Saxon has failed.');
+
+      $this->logCmdOutput($output, 'ERROR(SAXON)');
+
       return false;
     }
 
     // Use FOP generated in previous step to generate PDF
-    exec(sprintf("fop -r -q -fo '%s' -%s '%s' 2> /dev/null", $foFilePath, self::getFindingAidFormat(), $pdfPath), $junk, $exitCode);
+    $cmd = sprintf("fop -r -q -fo '%s' -%s '%s' 2>&1", $foFilePath, self::getFindingAidFormat(), $pdfPath);
+    $this->info(sprintf('Running: %s', $cmd));
+    $output = array();
+    exec($cmd, $output, $exitCode);
 
     if ($exitCode != 0)
     {
       $this->error('Converting the EAD FO to PDF has failed.');
+
+      $this->logCmdOutput($output, 'ERROR(FOP)');
+
       return false;
     }
 
@@ -128,6 +141,23 @@ class arGenerateFindingAidJob extends arBaseJob
     $this->job->save();
 
     return true;
+  }
+
+  private function logCmdOutput(array $output, $prefix = null)
+  {
+    if (empty($prefix))
+    {
+      $prefix = 'ERROR: ';
+    }
+    else
+    {
+      $prefix = $prefix.': ';
+    }
+
+    foreach ($output as $line)
+    {
+      $this->error($prefix.$line);
+    }
   }
 
   private function fixHeader($xmlString, $url = null)
