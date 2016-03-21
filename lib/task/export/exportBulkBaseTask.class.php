@@ -88,7 +88,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
 
   public static function includeXmlExportClassesAndHelpers()
   {
-    $appRoot = dirname(__FILE__) .'/../../..';
+    $appRoot = sfConfig::get('sf_root_dir');
 
     include($appRoot .'/plugins/sfEadPlugin/lib/sfEadPlugin.class.php');
     include($appRoot .'/vendor/symfony/lib/helper/UrlHelper.php');
