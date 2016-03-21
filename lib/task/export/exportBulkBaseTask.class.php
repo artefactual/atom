@@ -90,12 +90,14 @@ abstract class exportBulkBaseTask extends sfBaseTask
   {
     $appRoot = sfConfig::get('sf_root_dir');
 
-    include($appRoot .'/plugins/sfEadPlugin/lib/sfEadPlugin.class.php');
-    include($appRoot .'/vendor/symfony/lib/helper/UrlHelper.php');
-    include($appRoot .'/vendor/symfony/lib/helper/I18NHelper.php');
-    include($appRoot .'/vendor/FreeBeerIso639Map.php');
-    include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
-    include($appRoot .'/lib/helper/QubitHelper.php');
+    include $appRoot.'/plugins/sfEadPlugin/lib/sfEadPlugin.class.php';
+    include $appRoot.'/plugins/sfModsPlugin/lib/sfModsPlugin.class.php';
+    include $appRoot.'/plugins/sfEacPlugin/lib/sfEacPlugin.class.php';
+    include $appRoot.'/vendor/symfony/lib/helper/UrlHelper.php';
+    include $appRoot.'/vendor/symfony/lib/helper/I18NHelper.php';
+    include $appRoot.'/vendor/FreeBeerIso639Map.php';
+    include $appRoot.'/vendor/symfony/lib/helper/EscapingHelper.php';
+    include $appRoot.'/lib/helper/QubitHelper.php';
   }
 
   public static function captureResourceExportTemplateOutput($resource, $format, $options)
