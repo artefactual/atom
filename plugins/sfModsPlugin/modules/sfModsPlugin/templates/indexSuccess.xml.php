@@ -119,7 +119,7 @@
     </location>
   <?php endif; ?>
 
-  <?php if ($resource->repository->authorizedFormOfName): ?>
+  <?php if (isset($resource->repository) && $resource->repository->authorizedFormOfName): ?>
     <location>
       <physicalLocation><?php echo esc_specialchars($resource->repository->authorizedFormOfName) ?></physicalLocation>
     </location>
