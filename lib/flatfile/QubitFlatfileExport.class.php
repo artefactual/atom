@@ -336,7 +336,8 @@ class QubitFlatfileExport
       }
 
       // Generate filename
-      $filename = exportBulkBaseTask::generateSortableFilename($this->fileIndex, 'csv', $this->standard);
+      // Pad fileIndex with zeros so filenames can be sorted in creation order for imports
+      $filename = sprintf('%s_%s.csv', $this->standard, str_pad($this->fileIndex, 10, '0', STR_PAD_LEFT));
       $filePath = $this->path .'/'. $filename;
     }
     else
@@ -404,7 +405,7 @@ class QubitFlatfileExport
   }
 
   /**
-   * Append row data to file 
+   * Append row data to file
    *
    * @param string $filePath  path to file
    * @param array $row  array of each column's values

@@ -74,7 +74,7 @@ class eacExportTask extends exportBulkBaseTask
 
       foreach ($informationObject->getActors() as $resource)
       {
-        $filename = $this->generateSortableFilename($resource->id, 'xml', 'eac');
+        $filename = $this->generateSortableFilename($resource, 'xml', 'eac');
         $filePath = sprintf('%s/%s', $arguments['path'], $filename);
 
         // Only export actor the first time it's encountered in a description

@@ -108,7 +108,7 @@ class exportBulkTask extends exportBulkBaseTask
       }
       else
       {
-        $filename = $this->generateSortableFilename($row['id'], 'xml', $options['format']);
+        $filename = $this->generateSortableFilename($resource, 'xml', $options['format']);
         $filePath = sprintf('%s/%s', $arguments['path'], $filename);
       }
 
