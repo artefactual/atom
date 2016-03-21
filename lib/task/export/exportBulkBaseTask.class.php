@@ -136,10 +136,22 @@ abstract class exportBulkBaseTask extends sfBaseTask
     return $output;
   }
 
-  public static function generateSortableFilename($objectId, $extension, $formatAbbreviation)
+  /**
+   * Generate a suitable file name for export files.
+   *
+   * @param $resource  The information object we're exporting
+   * @param $extension  The file extension (e.g. csv, xml)
+   * @param $formatAbbreviation  The type of export format (e.g. ead, eac, mods)
+   *
+   * @return string  The generated filename based on the format, info object id, slug, and extension
+   */
+  public static function generateSortableFilename($resource, $extension, $formatAbbreviation)
   {
+    $MAX_SLUG_CHARS = 200;
+
     // Pad ID with zeros so filenames can be sorted in creation order for imports
-    return sprintf('%s_%s.%s', $formatAbbreviation, str_pad($objectId, 10, '0', STR_PAD_LEFT), $extension);
+    return sprintf('%s_%s_%s.%s', $formatAbbreviation, str_pad($resource->id, 10, '0', STR_PAD_LEFT),
+                   substr($resource->slug, 0, $MAX_SLUG_CHARS), $extension);
   }
 
   protected function indicateProgress($itemsUntilUpdate)
