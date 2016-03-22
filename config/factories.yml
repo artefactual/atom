@@ -61,6 +61,7 @@ all:
   routing:
     class: QubitPatternRouting
     param:
+      logging: false
       generate_shortest_url:            true
       extra_parameters_as_query_string: true
       # class: sfAPCCache
