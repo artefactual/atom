@@ -106,12 +106,6 @@ class arOaiPluginIndexAction extends sfAction
       $this->requestAttributes .= ' '.$key.'="'.esc_specialchars($this->attributes[$key]).'"';
     }
 
-    $this->sets = array();
-    foreach (QubitInformationObject::getCollections() as $el)
-    {
-      $this->sets[] = new sfIsadPlugin($el);
-    }
-
     /**
      * Validate that verb is valid
     */
