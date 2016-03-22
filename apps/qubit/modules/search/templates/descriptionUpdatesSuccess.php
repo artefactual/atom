@@ -23,15 +23,6 @@
           ->label('Type')
           ->renderRow() ?>
 
-        <?php if (false): ?>
-        <?php echo __('Date range') ?>
-        <?php echo $form->dateStart->renderError() ?>
-        <?php echo $form->dateEnd->renderError() ?>
-        <?php echo __('%1% to %2%', array(
-          '%1%' => $form->dateStart->render(),
-          '%2%' => $form->dateEnd->render())) ?>
-        <?php endif; ?>
-
         <?php echo $form->dateOf->renderRow() ?>
 
         <?php echo $form->publicationStatus
