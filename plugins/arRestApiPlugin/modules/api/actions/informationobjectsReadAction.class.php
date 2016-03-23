@@ -40,6 +40,11 @@ class ApiInformationObjectsReadAction extends QubitApiAction
 
     $ioData = array();
 
+    if ($this->resource->parent->id != QubitInformationObject::ROOT_ID)
+    {
+      $this->addItemToArray($ioData, 'parent', $this->resource->parent->slug);
+    }
+
     $this->addItemToArray($ioData, 'reference_code', $this->resource->referenceCode);
     $this->addItemToArray($ioData, 'title', $this->resource->getTitle(array('cultureFallback' => true)));
 
