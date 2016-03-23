@@ -1,8 +1,0 @@
-; $Id: minimal.info,v 1.1 2010/01/04 23:08:34 webchick Exp $
-name = Minimal
-description = Start with only a few modules enabled.
-version = VERSION
-core = 7.x
-dependencies[] = block
-dependencies[] = dblog
-files[] = minimal.profile
