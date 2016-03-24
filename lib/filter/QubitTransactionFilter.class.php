@@ -34,31 +34,37 @@ class QubitTransactionFilter extends sfFilter
 
   public function execute($filterChain)
   {
-    self::getConnection();
-    self::$connection->beginTransaction();
+    try
+    {
+      $conn = self::getConnection();
+      $conn->beginTransaction();
+    }
+    catch (PropelException $e)
+    {
+    }
 
     try
     {
       $filterChain->execute();
 
-      if (isset(self::$connection))
+      if (isset($conn))
       {
-        self::$connection->commit();
+        $conn->commit();
       }
     }
     catch (Exception $e)
     {
-      if (isset(self::$connection))
+      if (isset($conn))
       {
         // Whitelist of exceptions which commit instead of rollback the
         // transaction
         if ($e instanceof sfStopException)
         {
-          self::$connection->commit();
+          $conn->commit();
         }
         else
         {
-          self::$connection->rollBack();
+          $conn->rollBack();
         }
       }
 
