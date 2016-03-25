@@ -927,7 +927,7 @@ class QubitTerm extends BaseTerm
    */
   public static function getEsTermsByTaxonomyId($taxonomyId, $limit = 10)
   {
-    $queryBool = new \Elastica\Query\Bool;
+    $queryBool = new \Elastica\Query\BoolQuery;
     $queryTerm = new \Elastica\Query\Term;
 
     $queryTerm->setTerm('taxonomyId', $taxonomyId);

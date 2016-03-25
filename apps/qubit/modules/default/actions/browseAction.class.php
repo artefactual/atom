@@ -79,12 +79,12 @@ class DefaultBrowseAction extends sfAction
           // Create and add a new one only with drafts filtered (only for information object queries)
           if ($this::INDEX_TYPE == 'QubitInformationObject')
           {
-            $this->filterBool = new \Elastica\Filter\Bool;
+            $this->filterBool = new \Elastica\Filter\BoolFilter;
             QubitAclSearch::filterDrafts($this->filterBool);
 
             if (0 < count($this->filterBool->toArray()))
             {
-              $this->search->query->setFilter($this->filterBool);
+              $this->search->query->setPostFilter($this->filterBool);
             }
           }
 

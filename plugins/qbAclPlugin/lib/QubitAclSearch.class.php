@@ -68,7 +68,7 @@ class QubitAclSearch
             $filter = new \Elastica\Filter\Not($filterTerm);
           }
 
-          $query->setFilter($filter);
+          $query->setPostFilter($filter);
         }
       }
     }
@@ -129,7 +129,7 @@ class QubitAclSearch
       {
         $filter = new \Elastica\Filter\Ids;
         $filter->setIds($ids);
-        $query->setFilter($filter);
+        $query->setPostFilter($filter);
       }
     }
 
@@ -151,7 +151,7 @@ class QubitAclSearch
         $filterIds->setIds($ids);
         $filter = new \Elastica\Filter\Not($filterIds);
 
-        $query->setFilter($filter);
+        $query->setPostFilter($filter);
       }
     }
 
@@ -161,9 +161,9 @@ class QubitAclSearch
   /**
    * Filter search query by resource specific ACL
    *
-   * @param  \Elastica\Filter\Bool $filterBool Search query object
+   * @param  \Elastica\Filter\BoolFilter $filterBool Search query object
    */
-  public static function filterDrafts(\Elastica\Filter\Bool $filterBool)
+  public static function filterDrafts(\Elastica\Filter\BoolFilter $filterBool)
   {
     // Filter out 'draft' items by repository
     $repositoryViewDrafts = QubitAcl::getRepositoryAccess('viewDraft');
@@ -185,7 +185,7 @@ class QubitAclSearch
       // preceeding rules will be "ALLOW" rules)
       $globalRule = array_pop($repositoryViewDrafts);
 
-      $filter = new \Elastica\Filter\Bool();
+      $filter = new \Elastica\Filter\BoolFilter;
 
       while ($repo = array_shift($repositoryViewDrafts))
       {

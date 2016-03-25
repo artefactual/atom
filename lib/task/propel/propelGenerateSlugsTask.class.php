@@ -231,7 +231,7 @@ EOF;
   private function getInheritedReferenceCodeES($id)
   {
     $query = new \Elastica\Query;
-    $queryBool = new \Elastica\Query\Bool;
+    $queryBool = new \Elastica\Query\BoolQuery;
 
     $queryBool->addMust(new \Elastica\Query\Term(array('_id' => $id)));
     $query->setQuery($queryBool);

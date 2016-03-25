@@ -39,8 +39,8 @@ class arElasticSearchPluginQuery
     $this->query->setLimit($limit);
     $this->query->setFrom($skip);
 
-    $this->queryBool = new \Elastica\Query\Bool();
-    $this->filterBool = new \Elastica\Filter\Bool;
+    $this->queryBool = new \Elastica\Query\BoolQuery;
+    $this->filterBool = new \Elastica\Filter\BoolFilter;
   }
 
   /**
@@ -94,7 +94,7 @@ class arElasticSearchPluginQuery
         $facet->setSize($item['size']);
       }
 
-      $filter = new \Elastica\Filter\Bool;
+      $filter = new \Elastica\Filter\BoolFilter;
 
       // Sets a filter for this facet
       if (isset($item['filter']))
@@ -167,10 +167,10 @@ class arElasticSearchPluginQuery
         {
           $collection = QubitInformationObject::getById($facetValue);
 
-          $querySelf = new \Elastica\Query\Match();
+          $querySelf = new \Elastica\Query\Match;
           $querySelf->setFieldQuery('slug', $collection->slug);
 
-          $queryBool = new \Elastica\Query\Bool();
+          $queryBool = new \Elastica\Query\BoolQuery;
           $queryBool->addShould($query);
           $queryBool->addShould($querySelf);
 
@@ -236,12 +236,12 @@ class arElasticSearchPluginQuery
    *     'sf0' => ''
    *   );
    *
-   * @return object  \Elastica\Query\Bool instance
+   * @return object  \Elastica\Query\BoolQuery instance
    */
   protected function parseQuery($params, $archivalStandard)
   {
     $this->criteria = array();
-    $queryBool = new \Elastica\Query\Bool();
+    $queryBool = new \Elastica\Query\BoolQuery;
     $count = 0;
 
     while (isset($params['sq' . $count]))
@@ -358,7 +358,7 @@ class arElasticSearchPluginQuery
         break;
 
       case 'place':
-        $queryField = new \Elastica\Query\Bool();
+        $queryField = new \Elastica\Query\BoolQuery;
 
         $queryPlaceTermName = new \Elastica\Query\QueryString($query);
         $queryPlaceTermName->setFields(arElasticSearchPluginUtil::getI18nFieldNames('places.i18n.%s.name'));
@@ -396,11 +396,11 @@ class arElasticSearchPluginQuery
         case 'or':
           // Build boolean query with all the previous queries
           // and the new one as 'shoulds'
-          $queryOr = new \Elastica\Query\Bool();
+          $queryOr = new \Elastica\Query\BoolQuery;
           $queryOr->addShould($queryBool);
           $queryOr->addShould($queryField);
 
-          $queryBool = new \Elastica\Query\Bool();
+          $queryBool = new \Elastica\Query\BoolQuery;
           $queryBool->addMust($queryOr);
 
           break;
@@ -440,7 +440,7 @@ class arElasticSearchPluginQuery
           $query = new \Elastica\Query\Term;
           $query->setTerm('copyrightStatusId', $value);
 
-          $queryBool = new \Elastica\Query\Bool();
+          $queryBool = new \Elastica\Query\BoolQuery;
           $queryBool->addShould($query);
           $queryBool->addShould($filteredQuery);
 
@@ -491,7 +491,7 @@ class arElasticSearchPluginQuery
       $type = 'inclusive';
     }
 
-    $query = new \Elastica\Query\Bool();
+    $query = new \Elastica\Query\BoolQuery;
     $range = array();
 
     if (!empty($params['startDate']))
@@ -529,7 +529,7 @@ class arElasticSearchPluginQuery
     if (!empty($params['startDate']) && !empty($params['endDate']) && $type == 'inclusive')
     {
       // Start date before range and end date after range
-      $queryBool = new \Elastica\Query\Bool();
+      $queryBool = new \Elastica\Query\BoolQuery;
       $queryBool->addMust(new \Elastica\Query\Range('dates.startDate', array('lt' => $params['startDate'])));
       $queryBool->addMust(new \Elastica\Query\Range('dates.endDate', array('gt' => $params['endDate'])));
 
@@ -570,7 +570,7 @@ class arElasticSearchPluginQuery
   {
     if (!$allowEmpty && 1 > count($this->queryBool->getParams()))
     {
-      $this->queryBool->addMust(new \Elastica\Query\MatchAll());
+      $this->queryBool->addMust(new \Elastica\Query\MatchAll);
     }
 
     $this->query->setQuery($this->queryBool);
@@ -583,7 +583,7 @@ class arElasticSearchPluginQuery
     // Set filter
     if (0 < count($this->filterBool->toArray()))
     {
-      $this->query->setFilter($this->filterBool);
+      $this->query->setPostFilter($this->filterBool);
     }
 
     return $this->query;

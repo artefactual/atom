@@ -56,7 +56,7 @@ class SearchIndexAction extends DefaultBrowseAction
     // Set filter
     if (0 < count($this->search->filterBool->toArray()))
     {
-      $this->search->query->setFilter($this->search->filterBool);
+      $this->search->query->setPostFilter($this->search->filterBool);
     }
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->query);

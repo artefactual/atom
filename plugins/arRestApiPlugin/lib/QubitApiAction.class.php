@@ -119,7 +119,7 @@ class QubitAPIAction extends sfAction
    * \Elastica\Query because the former happens after faceting while the
    * latter happens before faceting.
    */
-  protected function filterEsFacetFilter($name, $field, \Elastica\Filter\Bool &$filterBool, $operator = 'AND', array $options = array())
+  protected function filterEsFacetFilter($name, $field, \Elastica\Filter\BoolFilter &$filterBool, $operator = 'AND', array $options = array())
   {
     if (!isset($this->request->$name))
     {
@@ -171,7 +171,7 @@ class QubitAPIAction extends sfAction
    * \Elastica\Filter because the later happens after faceting while the
    * former happens before faceting.
    */
-  protected function filterEsFacetQuery($name, $field, \Elastica\Query\Bool &$queryBool, $operator = 'AND', array $options = array())
+  protected function filterEsFacetQuery($name, $field, \Elastica\Query\BoolQuery &$queryBool, $operator = 'AND', array $options = array())
   {
     if (!isset($this->request->$name))
     {
@@ -218,7 +218,7 @@ class QubitAPIAction extends sfAction
     }
   }
 
-  protected function filterEsRangeFacet($from, $to, $field, \Elastica\Query\Bool &$queryBool, array $options = array())
+  protected function filterEsRangeFacet($from, $to, $field, \Elastica\Query\BoolQuery &$queryBool, array $options = array())
   {
     if (!isset($this->request->$from) && !isset($this->request->$to))
     {

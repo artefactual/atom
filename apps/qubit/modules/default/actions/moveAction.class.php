@@ -105,7 +105,7 @@ class DefaultMoveAction extends sfAction
       $this->query->setFrom(($request->page - 1) * $request->limit);
     }
 
-    $this->queryBool = new \Elastica\Query\Bool();
+    $this->queryBool = new \Elastica\Query\BoolQuery;
 
     if (isset($request->query))
     {

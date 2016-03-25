@@ -287,7 +287,7 @@ EOF;
         // Set filter
         if (0 < count($this->search->filterBool->toArray()))
         {
-          $this->search->query->setFilter($this->search->filterBool);
+          $this->search->query->setPostFilter($this->search->filterBool);
         }
 
         $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->query);
@@ -322,7 +322,7 @@ EOF;
       $listQuery->setFrom(($request->listPage - 1) * $request->listLimit);
     }
 
-    $listQueryBool = new \Elastica\Query\Bool();
+    $listQueryBool = new \Elastica\Query\BoolQuery;
     $listQueryBool->addMust(new \Elastica\Query\Term(array('taxonomyId' => $this->resource->taxonomyId)));
 
     $listQuery->setQuery($listQueryBool);

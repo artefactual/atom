@@ -82,7 +82,7 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
       $query->setFrom(($page - 1) * $limit);
     }
 
-    $q = new \Elastica\Query\Bool;
+    $q = new \Elastica\Query\BoolQuery;
 
     $q1 = new \Elastica\Query\Term;
     $q1->setTerm('ancestors', $resource->id);
@@ -152,11 +152,11 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
 
 
     // Filter drafts
-    $filterBool = new \Elastica\Filter\Bool;
+    $filterBool = new \Elastica\Filter\BoolFilter;
     QubitAclSearch::filterDrafts($filterBool);
     if (0 < count($filterBool->toArray()))
     {
-      $query->setFilter($filterBool);
+      $query->setPostFilter($filterBool);
     }
 
     return QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
