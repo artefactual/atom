@@ -40,7 +40,6 @@ default:
     /vendor/jquery.expander.js:
     /vendor/jquery.masonry.js:
     /vendor/jquery.imagesloaded.js:
-    # /vendor/jquery.infinitescroll.js:
     /vendor/bootstrap/js/bootstrap:
     # /vendor/chosen/chosen.jquery.js:
     /vendor/URI.js:

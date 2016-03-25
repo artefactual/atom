@@ -5,7 +5,3 @@ editSuccess:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     description:
     deleteBasisRight.js:
-
-browseSuccess:
-  javascripts:
-    /vendor/jquery.hoverIntent.js:
