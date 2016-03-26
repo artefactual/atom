@@ -1,0 +1,33 @@
+# Service file for systemd
+#
+# Installation:
+# Copy this file to `/usr/lib/systemd/system` and reload the configuration of
+# systemd running `systemctl daemon-reload`.
+#
+# Basic usage:
+# - Enable service: `systemctl enable atom-worker`.
+# - Start service: `systemctl start atom-worker`.
+# - Check status: `systemctl status atom-worker`.
+# - Check logs: `journalctl -f -u atom-worker`.
+#
+# Help:
+# _ https://www.freedesktop.org/wiki/Software/systemd
+# - https://wiki.ubuntu.com/SystemdForUpstartUsers
+# - https://wiki.debian.org/systemd
+# - https://wiki.archlinux.org/index.php/systemd
+
+[Unit]
+Description=AtoM worker
+After=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/usr/share/nginx/atom
+ExecStart=/usr/bin/php -d memory_limit=-1 -d error_reporting="E_ALL" symfony jobs:worker
+ExecStop=/bin/kill -s TERM $MAINPID
+Restart=no
