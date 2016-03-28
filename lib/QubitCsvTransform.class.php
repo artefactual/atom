@@ -82,7 +82,7 @@ class QubitCsvTransform extends QubitFlatfileImport
       throw new sfException('You must specifiy the output-file option.');
     }
 
-    if (getEnv("MYSQL_PASSWORD") === false)
+    if (getEnv('MYSQL_PASSWORD') === false)
     {
       throw new sfException('You must set the MYSQL_PASSWORD environmental variable. This script will use the "root" user and a database called "import".');
     }
@@ -105,15 +105,15 @@ class QubitCsvTransform extends QubitFlatfileImport
 
   function initializeMySQLtemp()
   {
-    $link = mysql_connect('localhost', 'root', getEnv("MYSQL_PASSWORD"));
+    if (false === $password = getEnv('MYSQL_PASSWORD'))
+    {
+      throw new sfException('You must set the MYSQL_PASSWORD environmental variable. This script will use the "root" user and a database called "import".');
+    }
 
-    if (!$link) throw new sfException('MySQL connection failed. Make sure the MYSQL_PASSWORD environmental variable is set.');
-
-    $db = mysql_select_db('import', $link);
-
-    if (!$db) throw new sfException(
-      'MySQL DB selection failed. Make sure a database called "import" exists.'
-    );
+    if (false === $link = mysqli_connect('localhost', 'root', $password, 'import'))
+    {
+      throw new sfException('MySQL connection failed. Make sure the MYSQL_PASSWORD environmental variable is set.');
+    }
 
     $sql = "CREATE TABLE IF NOT EXISTS import_descriptions (
       id INT NOT NULL AUTO_INCREMENT,
@@ -121,22 +121,26 @@ class QubitCsvTransform extends QubitFlatfileImport
       data LONGTEXT,
       PRIMARY KEY (id)
     )";
+    if (false === mysqli_query($link, $sql))
+    {
+      throw new sfException('MySQL create table failed.');
+    }
 
-    $result = mysql_query($sql);
-
-    if (!$result) throw new sfException('MySQL create table failed.');
-
-    $result = mysql_query("DELETE FROM import_descriptions");
+    $sql = 'DELETE FROM import_descriptions';
+    if (false === mysqli_query($link, $sql))
+    {
+      throw new sfException('MySQL delete from import_descriptions failed.');
+    }
   }
 
   function addRowToMySQL($sortorder)
   {
     $sql = "INSERT INTO import_descriptions
         (sortorder, data)
-        VALUES ('". mysql_real_escape_string($sortorder) ."',
-        '". mysql_real_escape_string(serialize($this->status['row'])) ."')";
+        VALUES ('". mysqli_real_escape_string($sortorder) ."',
+        '". mysqli_real_escape_string(serialize($this->status['row'])) ."')";
 
-    $result = mysql_query($sql);
+    $result = mysqli_query($sql);
 
     if (!$result)
     {
@@ -167,11 +171,11 @@ class QubitCsvTransform extends QubitFlatfileImport
     // cycle through DB, sorted by sort, and write CSV file
     $sql = "SELECT data FROM import_descriptions ORDER BY sortorder";
 
-    $result = mysql_query($sql);
+    $result = mysqli_query($sql);
 
     $currentRow = 1;
 
-    while($row = mysql_fetch_assoc($result))
+    while($row = mysqli_fetch_assoc($result))
     {
       // if starting a new chunk, write CSV headers
       if (($currentRow % $this->rowsPerFile) == 0)
