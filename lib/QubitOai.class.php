@@ -29,8 +29,8 @@
 
 class QubitOai
 {
-  /* Any custom OAI set implementations that are available (in addition to the
-   * standard collection sets) */
+  // Any custom OAI set implementations that are available (in addition to the
+  // standard collection sets)
   private static $additionalOaiSets = array();
 
   /**
@@ -39,7 +39,6 @@ class QubitOai
    * @param string $msg an error message
    * @return bool true for message sent properly
    */
-
   public static function mailErrors($msg)
   {
     $to      = QubitOai::getAdminEmail();
@@ -48,6 +47,7 @@ class QubitOai
     $message = $msg;
     $headers = "From: {QubitOai::getAdminEmail()}\r\nX-Mailer: PHP/".phpversion();
     $params = sprintf('-oi -f %s', $from);
+
     return mail($to, $subject, $message, $headers, $params);
   }
 
@@ -61,8 +61,9 @@ class QubitOai
     $criteria = new Criteria;
     $criteria->addJoin(QubitUser::ID, QubitAclUserGroup::USER_ID);
     $criteria->add(QubitAclUserGroup::GROUP_ID, QubitAclGroup::ADMINISTRATOR_ID);
-    $user = QubitUser::getOne($criteria);
     $criteria->addAscendingOrderByColumn(QubitUser::ID);
+    $user = QubitUser::getOne($criteria);
+
     return trim($user->getEmail());
   }
 
@@ -73,10 +74,9 @@ class QubitOai
    * @param array $requestValidKeys valid keys
    * @return bool are the attributes valid or not
    */
-
   public static function checkBadArgument($keys, $requestValidKeys, $mandatoryKeys)
   {
-    //Check that only valid keys are present
+    // Check that only valid keys are present
     foreach ($keys as $key)
     {
       if (!in_array($key, $requestValidKeys))
@@ -84,7 +84,8 @@ class QubitOai
         return false;
       }
     }
-    //Check that all mandatory keys are present
+
+    // Check that all mandatory keys are present
     foreach ($mandatoryKeys as $mandatoryKey)
     {
       if (!in_array($mandatoryKey, $keys))
@@ -92,13 +93,14 @@ class QubitOai
         return false;
       }
     }
+
     return true;
   }
 
   /**
    * Check if there are null values in the parameters
    *
-   * @param array    $parameters query's parameters
+   * @param array $parameters query's parameters
    * @return bool true if there are null values
    */
   public function hasNullParameter($parameters)
@@ -112,24 +114,26 @@ class QubitOai
         return true;
       }
     }
+
     return false;
   }
 
   /**
    * Validates date format
    *
-   * @param array    $date submited date
+   * @param array $date submited date
    * @return bool true if the date is valid
    */
   public static function isValidDate($date)
   {
-    // ex 2003-01-02T01:30:30Z or 2003-01-02
+    // Ex. 2003-01-02T01:30:30Z or 2003-01-02
     $parts = explode('-', $date);
     if (count($parts) != 3)
     {
       return false;
     }
-    // if time is part of the date then validate
+
+    // If time is part of the date then validate
     if ($T_pos = strpos($parts[2], 'T'))
     {
       $time = substr($parts[2], $T_pos);
@@ -140,13 +144,13 @@ class QubitOai
       }
     }
 
-    // parameters - Month, Day, Year
+    // Parameters - Month, Day, Year
     if (!@checkdate($parts[1], $parts[2], $parts[0]))
     {
       return false;
     }
 
-    // if validation got this far then return true (valid date)
+    // If validation got this far then return true (valid date)
     return true;
   }
 
@@ -162,6 +166,7 @@ class QubitOai
     {
       return true;
     }
+
     return false;
   }
   
@@ -214,6 +219,7 @@ class QubitOai
     {
       return gmdate('Y-m-d\TH:i:s\Z');
     }
+
     return gmdate('Y-m-d\TH:i:s\Z', strtotime($date));
   }
 
@@ -225,6 +231,7 @@ class QubitOai
   public static function getMetadataFormats()
   {
     $metadataFormats = array(array('prefix'=>'oai_dc', 'namespace'=>'http://www.openarchives.org/OAI/2.0/oai_dc/', 'schema'=>'http://www.openarchives.org/OAI/2.0/oai_dc.xsd'));
+
     return $metadataFormats;
   }
 
@@ -245,7 +252,8 @@ class QubitOai
 
     $useAdditionalOaiSets = QubitSetting::getByName('oai_additional_sets_enabled');
 
-    if ($useAdditionalOaiSets && $useAdditionalOaiSets->value) {
+    if ($useAdditionalOaiSets && $useAdditionalOaiSets->value)
+    {
       foreach (QubitOai::$additionalOaiSets as $oaiSet)
       {
         $oaiSets[] = $oaiSet;
@@ -257,7 +265,6 @@ class QubitOai
 
   /**
    * Add a new OAI set to the available list
-   *
    */
   public static function addOaiSet($oaiSet)
   {
@@ -276,10 +283,12 @@ class QubitOai
   {
     foreach ($oaiSets as $oaiSet)
     {
-      if ($oaiSet->contains($record)) {
+      if ($oaiSet->contains($record))
+      {
         return $oaiSet->setSpec();
       }
     }
+
     return 'None';
   }
 
@@ -298,6 +307,7 @@ class QubitOai
         return $oaiSet;
       }
     }
+
     return false;
   }
   
@@ -334,10 +344,10 @@ class QubitOai
    * @param array  $oai_identifier the full oai identifier
    * @return int the oai identifier key
    */
-
   public static function getOaiIdNumber($identifier)
   {
     preg_match('/^.*_([0-9]+)$/', $identifier, $result);
+
     return $result[1];
   }
 
@@ -351,11 +361,14 @@ class QubitOai
   {
     $dom = new DOMDocument;
     $dom->loadXML($xml);
+
     return true;
+
     if ($dom->schemaValidate($xml))
     {
       return true;
     }
+
     return false;
   }
 
@@ -377,6 +390,7 @@ class QubitOai
     {
       return false;
     }
+
     return $oaiSimpleRes;
   }
 
@@ -386,24 +400,22 @@ class QubitOai
   }
 
   /*
-   * modified helper methods from (http://www.php.net/manual/en/ref.dom.php):
+   * Modified helper methods from (http://www.php.net/manual/en/ref.dom.php):
    *
-   * - create a DOMDocument from a file
-   * - parse the namespaces in it
-   * - create a XPath object with all the namespaces registered
-   *  - load the schema locations
-   *  - validate the file on the main schema (the one without prefix)
+   * - Create a DOMDocument from a file.
+   * - Parse the namespaces in it.
+   * - Create a XPath object with all the namespaces registered:
+   *   - Load the schema locations.
+   *   - Validate the file on the main schema (the one without prefix).
    */
   public static function loadXML($XMLString)
   {
     libxml_use_internal_errors(true);
 
     // FIXME: trap possible load validation errors (just suppress for now)
-    //$err_level = error_reporting(0);
-
     $doc = new DOMDocument('1.0', 'UTF-8');
 
-    // enforce all XML parsing rules and validation
+    // Enforce all XML parsing rules and validation
     $doc->validateOnParse = true;
     $doc->resolveExternals = true;
 
@@ -416,18 +428,16 @@ class QubitOai
     $doc->namespaces = array();
     $doc->xpath = new DOMXPath($doc);
 
-    // pass along any XML errors that have been generated
+    // Pass along any XML errors that have been generated
     $doc->libxmlerrors = libxml_get_errors();
 
-    // if the document didn't parse correctly, stop right here
+    // If the document didn't parse correctly, stop right here
     if (empty($doc->documentElement))
     {
       return $doc;
     }
 
-    //error_reporting($err_level);
-
-    // look through the entire document for namespaces
+    // Look through the entire document for namespaces
     $re = '/xmlns:([^=]+)="([^"]+)"/';
     preg_match_all($re, $XMLString, $mat, PREG_SET_ORDER);
 
@@ -442,6 +452,7 @@ class QubitOai
       {
         $pre = 'noname';
       }
+
       $doc->xpath->registerNamespace($pre, $uri);
     }
 
@@ -465,7 +476,7 @@ class QubitOai
         }
       }
 
-      // validate document against default namespace schema
+      // Validate document against default namespace schema
       $doc->schemaValidate($doc->schemaLocations[$doc->namespaces['']]);
     }
 
