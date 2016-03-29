@@ -349,6 +349,7 @@ class QubitInformationObject extends BaseInformationObject
       $set->apply($criteria);
     }
 
+    $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
     $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
 
     $c2 = clone $criteria;
