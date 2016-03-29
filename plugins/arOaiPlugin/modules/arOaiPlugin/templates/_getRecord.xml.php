@@ -15,6 +15,4 @@
       <?php endif; ?>
     </record>
   </GetRecord>
-<?php else: ?>
-  <error code="noRecordsMatch">The combination of the values of the from, until, set and metadataPrefix arguments results in an empty list.</error>
 <?php endif; ?>
