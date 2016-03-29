@@ -505,32 +505,20 @@ class QubitInformationObject extends BaseInformationObject
 
   /**
    * Get all info objects that have the root node as a parent, and have children
-   * (not orphans). Checking ACL
+   * (not orphans). Filtering drafts.
    *
    * @return array collection of QubitInformationObjects
    */
   public static function getCollections()
   {
+    // For a node with no children: rgt = (lft+1);
+    // therefore search for nodes with: rgt > (lft+1)
     $criteria = new Criteria;
-    $criteria->addAlias('parent', QubitInformationObject::TABLE_NAME);
-    $criteria->addJoin(QubitInformationObject::PARENT_ID, 'parent.id');
-
-    // For a node with no children: rgt = (lft+1); therefore search for nodes
-    // with: rgt > (lft+1)
     $criteria->add(QubitInformationObject::RGT, QubitInformationObject::RGT.' > ('.QubitInformationObject::LFT.' + 1)', Criteria::CUSTOM);
-    $criteria->add('parent.lft', 1);
+    $criteria->add(QubitInformationObject::PARENT_ID, QubitInformationObject::ROOT_ID);
+    $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
 
-    $collections = array();
-
-    foreach (QubitInformationObject::get($criteria) as $item)
-    {
-      if (QubitAcl::check($item, 'read'))
-      {
-        $collections[] = $item;
-      }
-    }
-
-    return $collections;
+    return QubitInformationObject::get($criteria);
   }
 
   public function getCollectionRoot()
