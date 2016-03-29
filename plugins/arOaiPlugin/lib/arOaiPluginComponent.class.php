@@ -98,8 +98,6 @@ abstract class arOaiPluginComponent extends sfComponent
 
   public function getUpdates()
   {
-    $this->oaiSets = QubitOai::getOaiSets();
-
     // If set is not supplied, define it as ''
     if (!isset($this->set))
     {
@@ -118,6 +116,7 @@ abstract class arOaiPluginComponent extends sfComponent
       QubitSetting::getByName('resumption_token_limit')->__toString(),
       $oaiSet
     );
+
     $this->publishedRecords = $update['data'];
     $this->remaining        = $update['remaining'];
     $this->recordsCount     = count($this->publishedRecords);
