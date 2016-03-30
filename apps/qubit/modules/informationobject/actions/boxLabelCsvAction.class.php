@@ -51,7 +51,7 @@ class InformationObjectBoxLabelCsvAction extends sfAction
       // Creation dates
       foreach ($informationObject->getDates(array('type_id' => QubitTerm::CREATION_ID)) as $item)
       {
-        $creationDates[] = $item->startDate;
+        $creationDates[] = $item->getDate(array('cultureFallback' => true));
       }
 
       // Write reference code, container name, title, creation dates
