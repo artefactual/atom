@@ -96,7 +96,7 @@ abstract class arOaiPluginComponent extends sfComponent
     }
   }
 
-  public function getUpdates()
+  public function getUpdates($filterDrafts = false)
   {
     // If set is not supplied, define it as ''
     if (!isset($this->set))
@@ -114,7 +114,8 @@ abstract class arOaiPluginComponent extends sfComponent
       $this->until,
       $this->cursor,
       QubitSetting::getByName('resumption_token_limit')->__toString(),
-      $oaiSet
+      $oaiSet,
+      $filterDrafts
     );
 
     $this->publishedRecords = $update['data'];

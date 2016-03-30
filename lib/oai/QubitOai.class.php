@@ -240,9 +240,9 @@ class QubitOai
    *
    * @return array of available OAI sets
    */
-  public static function getOaiSets()
+  public static function getOaiSets($filterDrafts = false)
   {
-    $collections = QubitInformationObject::getCollections();
+    $collections = QubitInformationObject::getCollections($filterDrafts);
     $oaiSets = array();
 
     foreach ($collections as $collection)
