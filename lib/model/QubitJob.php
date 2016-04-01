@@ -290,7 +290,7 @@ class QubitJob extends BaseJob
     $jobParams['id'] = $job->id;
     $jobName = self::getJobPrefix() . $jobName; // Append prefix, see getJobPrefix() for details
 
-    // Send a Gearman client request to start the job in any available workers...
+    // Submit a non-blocking task to Gearman
     $gmClient = new Net_Gearman_Client(arGearman::getServers());
     $gmClient->$jobName($jobParams);
 
@@ -314,15 +314,12 @@ class QubitJob extends BaseJob
    * Get a unique identifier to associate a job with a particular AtoM install.
    * This is used to prevent workers from other AtoM installs on the same system
    * from taking the jobs from AtoM instances they don't belong to.
-   *
-   * Ideally we'd just have one giant pool of workers that any AtoM instance can use,
-   * but taking into account different job versions / changes, client specific jobs,
-   * database, data and folder access between AtoM instances, etc., it was much simpler
-   * to do it this way for now.
    */
   public static function getJobPrefix()
   {
-    return sfConfig::get('sf_root_dir') . ' - ';
+    // Deliberately avoiding spaces, tabs, etc... see #9648.
+    $key = sprintf('title="%s"; url="%s"', addslashes(sfConfig::get('app_siteTitle')), addslashes(sfConfig::get('app_siteBaseUrl')));
+    return substr(md5($key), 0, 16).'-';
   }
 
   /**
