@@ -1,0 +1,113 @@
+---
+version: "2"
+
+volumes:
+
+  elasticsearch_data:
+    driver: local
+
+  percona_data:
+    driver: local
+
+  atom_uploads:
+    driver: local
+
+  atom_downloads:
+    driver: local
+
+services:
+
+  elasticsearch:
+    image: "elasticsearch:1.7"
+    # chown only seems to be solving a problem only happeing with osx+boot2docker and vboxsf
+    command: "bash -c 'chown -R elasticsearch:elasticsearch /elasticsearch-data && elasticsearch -Des.network.host=0.0.0.0 -Des.path.data=/elasticsearch-data'"
+    volumes:
+      - "elasticsearch_data:/elasticsearch-data:rw"
+    expose:
+      - "9200"
+      - "9300"
+
+  percona:
+    image: "percona:5.7"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=my-secret-pw"
+      - "MYSQL_DATABASE=atom"
+      - "MYSQL_USER=atom"
+      - "MYSQL_PASSWORD=atom_12345"
+    volumes:
+      - "percona_data:/var/lib/mysql:rw"
+      - "./etc/mysql/conf.d/:/etc/mysql/conf.d:ro"
+    expose:
+      - "3306"
+
+  memcached:
+    image: "memcached"
+    command: "-p 11211 -m 128 -u memcache"
+    expose:
+      - "11211"
+
+  gearmand:
+    image: "sevein/gearmand"
+    command: "--queue-type=libmemcached --libmemcached-servers=memcached:11211 --listen=0.0.0.0 --port=4730 --log-file=stderr"
+    expose:
+      - "4730"
+    links:
+      - "memcached"
+
+  atom:
+    build:
+      context: "../"
+      dockerfile: "./docker/Dockerfile"
+    command: "fpm"
+    links:
+      - "gearmand"
+      - "memcached"
+      - "percona"
+      - "elasticsearch"
+    volumes:
+      - "../:/atom/src:rw"
+      - "atom_uploads:/atom/src/uploads:rw"
+      - "atom_downloads:/atom/src/downloads:rw"
+    environment:
+      - "ATOM_DEVELOPMENT_MODE=on"
+      - "ATOM_ELASTICSEARCH_HOST=elasticsearch"
+      - "ATOM_MEMCACHED_HOST=memcached"
+      - "ATOM_GEARMAND_HOST=gearmand"
+      - "ATOM_MYSQL_DSN=mysql:host=percona;port=3306;dbname=atom;charset=utf8"
+      - "ATOM_MYSQL_USERNAME=atom"
+      - "ATOM_MYSQL_PASSWORD=atom_12345"
+
+  atom_worker:
+    build:
+      context: "../"
+      dockerfile: "./docker/Dockerfile"
+    command: "worker"
+    links:
+      - "gearmand"
+      - "memcached"
+      - "percona"
+      - "elasticsearch"
+    volumes:
+      - "../:/atom/src:rw"
+      - "atom_uploads:/atom/src/uploads:rw"
+      - "atom_downloads:/atom/src/downloads:rw"
+    environment:
+      - "ATOM_DEVELOPMENT_MODE=on"
+      - "ATOM_ELASTICSEARCH_HOST=elasticsearch"
+      - "ATOM_MEMCACHED_HOST=memcached"
+      - "ATOM_GEARMAND_HOST=gearmand"
+      - "ATOM_MYSQL_DSN=mysql:host=percona;port=3306;dbname=atom;charset=utf8"
+      - "ATOM_MYSQL_USERNAME=atom"
+      - "ATOM_MYSQL_PASSWORD=atom_12345"
+
+  nginx:
+    image: "nginx:latest"
+    links:
+      - "atom"
+    ports:
+      - "8000:80"
+    volumes:
+      - "../:/atom/src:ro"
+      - "./etc/nginx/prod.conf:/etc/nginx/nginx.conf:ro"
+      - "atom_uploads:/atom/src/uploads:ro"
+      - "atom_downloads:/atom/src/downloads:ro"
