@@ -211,9 +211,6 @@ class InformationObjectNotesComponent extends sfComponent
         if (is_null($this->note))
         {
           $this->resource->notes[] =  $this->note = new QubitNote;
-
-          // Notes should inherit the source culture from its descriptions
-          $this->note->sourceCulture = $this->resource->sourceCulture;
         }
 
         if (isset($item['type']))
