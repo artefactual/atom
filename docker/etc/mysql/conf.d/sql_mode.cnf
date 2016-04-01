@@ -1,0 +1,3 @@
+[mysqld]
+; STRICT_TRANS_TABLES disabled on purpose (culture length bug in AtoM and other potential issues?)
+sql-mode="ONLY_FULL_GROUP_BY,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
