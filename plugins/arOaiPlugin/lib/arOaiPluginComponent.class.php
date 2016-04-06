@@ -96,7 +96,7 @@ abstract class arOaiPluginComponent extends sfComponent
     }
   }
 
-  public function getUpdates($filterDrafts = false)
+  public function getUpdates($options = array())
   {
     // If set is not supplied, define it as ''
     if (!isset($this->set))
@@ -108,15 +108,15 @@ abstract class arOaiPluginComponent extends sfComponent
       $oaiSet = QubitOai::getMatchingOaiSet($this->set, $this->oaiSets);
     }
 
+    $extraOptions = array(
+      'from'   => $this->from,
+      'until'  => $this->until,
+      'cursor' => $this->cursor,
+      'offset' => QubitSetting::getByName('resumption_token_limit')->__toString(),
+      'oaiSet' => $oaiSet);
+
     // Get the records according to the limit dates and collection
-    $update = QubitInformationObject::getUpdatedRecords(
-      $this->from,
-      $this->until,
-      $this->cursor,
-      QubitSetting::getByName('resumption_token_limit')->__toString(),
-      $oaiSet,
-      $filterDrafts
-    );
+    $update = QubitInformationObject::getUpdatedRecords(array_merge($options, $extraOptions));
 
     $this->publishedRecords = $update['data'];
     $this->remaining        = $update['remaining'];

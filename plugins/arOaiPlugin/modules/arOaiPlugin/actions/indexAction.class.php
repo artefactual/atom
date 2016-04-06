@@ -135,7 +135,7 @@ class arOaiPluginIndexAction extends sfAction
       $this->oaiSets = array();
       if ($this->request->verb == 'ListSets')
       {
-        $this->oaiSets = QubitOai::getOaiSets(true);
+        $this->oaiSets = QubitOai::getOaiSets(array('filterDrafts' => true));
       }
       else if (in_array($this->request->verb, array('ListRecords', 'ListIdentifiers', 'GetRecord')))
       {
