@@ -44,7 +44,5 @@ class arOaiPluginlistSetsComponent extends sfComponent
     {
       $this->requestAttributes .= ' '.$key.'="'.$this->attributes[$key].'"';
     }
-
-    $this->sets = QubitOAI::getOaiSets();
   }
 }

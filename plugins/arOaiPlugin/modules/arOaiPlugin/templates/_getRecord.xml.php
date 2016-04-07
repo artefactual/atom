@@ -1,3 +1,4 @@
+<?php if (QubitAcl::check($informationObject, 'read')): ?>
   <GetRecord>
     <record>
       <header>
@@ -14,3 +15,4 @@
       <?php endif; ?>
     </record>
   </GetRecord>
+<?php endif; ?>

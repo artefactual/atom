@@ -33,7 +33,7 @@ class arOaiPluginListIdentifiersComponent extends arOaiPluginComponent
 
     $this->setUpdateParametersFromRequest($request);
 
-    $this->getUpdates();
+    $this->getUpdates(array('filterDrafts' => true));
 
     $this->path = $request->getUriPrefix().$request->getPathInfo();
 

@@ -321,42 +321,54 @@ class QubitInformationObject extends BaseInformationObject
 
   /**
    * Get all information objects updated between two dates
-   * @date from, the inferior limit date
-   * @date util, the superior limit date
+   *
    * @return QubitQuery collection of QubitInformationObjects
    */
-  public static function getUpdatedRecords($from = '', $until = '', $offset = 0, $limit = 10, $set = '')
+  public static function getUpdatedRecords($options = array())
   {
     $criteria = new Criteria;
-
     $criteria->addJoin(QubitInformationObject::ID, QubitStatus::OBJECT_ID);
     $criteria->add(QubitStatus::STATUS_ID, QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
-
     $criteria->addJoin(QubitInformationObject::ID, QubitObject::ID);
 
-    if ($from != '')
+    if (!empty($options['from']))
     {
-      $criteria->add(QubitObject::UPDATED_AT, $from, Criteria::GREATER_EQUAL);
+      $criteria->add(QubitObject::UPDATED_AT, $options['from'], Criteria::GREATER_EQUAL);
     }
 
-    if ($until != '')
+    if (!empty($options['until']))
     {
-      $criteria->addAnd(QubitObject::UPDATED_AT, $until, Criteria::LESS_EQUAL);
+      $criteria->addAnd(QubitObject::UPDATED_AT, $options['until'], Criteria::LESS_EQUAL);
     }
 
-    if ($set != '')
+    if (!empty($options['set']))
     {
-      $set->apply($criteria);
+      $options['set']->apply($criteria);
+    }
+
+    if (isset($options['filterDrafts']) && $options['filterDrafts'])
+    {
+      $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
     }
 
     $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
 
+    if (empty($options['offset']))
+    {
+      $options['offset'] = 0;
+    }
+
+    if (empty($options['limit']))
+    {
+      $options['limit'] = 10;
+    }
+
     $c2 = clone $criteria;
     $count = BasePeer::doCount($c2)->fetchColumn(0);
-    $remaining = $count - ($offset + $limit);
+    $remaining = $count - ($options['offset'] + $options['limit']);
 
-    $criteria->setOffset($offset);
-    $criteria->setLimit($limit);
+    $criteria->setOffset($options['offset']);
+    $criteria->setLimit($options['limit']);
 
     return array(
       'data'      => QubitInformationObject::get($criteria),
@@ -505,32 +517,24 @@ class QubitInformationObject extends BaseInformationObject
 
   /**
    * Get all info objects that have the root node as a parent, and have children
-   * (not orphans). Checking ACL
+   * (not orphans). Filtering drafts when requested.
    *
    * @return array collection of QubitInformationObjects
    */
-  public static function getCollections()
+  public static function getCollections($options = array())
   {
+    // For a node with no children: rgt = (lft+1);
+    // therefore search for nodes with: rgt > (lft+1)
     $criteria = new Criteria;
-    $criteria->addAlias('parent', QubitInformationObject::TABLE_NAME);
-    $criteria->addJoin(QubitInformationObject::PARENT_ID, 'parent.id');
-
-    // For a node with no children: rgt = (lft+1); therefore search for nodes
-    // with: rgt > (lft+1)
     $criteria->add(QubitInformationObject::RGT, QubitInformationObject::RGT.' > ('.QubitInformationObject::LFT.' + 1)', Criteria::CUSTOM);
-    $criteria->add('parent.lft', 1);
+    $criteria->add(QubitInformationObject::PARENT_ID, QubitInformationObject::ROOT_ID);
 
-    $collections = array();
-
-    foreach (QubitInformationObject::get($criteria) as $item)
+    if (isset($options['filterDrafts']) && $options['filterDrafts'])
     {
-      if (QubitAcl::check($item, 'read'))
-      {
-        $collections[] = $item;
-      }
+      $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
     }
 
-    return $collections;
+    return QubitInformationObject::get($criteria);
   }
 
   public function getCollectionRoot()

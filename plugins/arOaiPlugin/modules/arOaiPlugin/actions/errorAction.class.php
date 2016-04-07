@@ -46,42 +46,5 @@ class arOaiPluginErrorAction extends sfAction
     {
       $this->requestAttributes .= ' '.$key.'="'.$this->attributes[$key].'"';
     }
-
-    $this->sets = array();
-    foreach (QubitInformationObject::getCollections() as $el)
-    {
-      $this->sets[] = new sfIsadPlugin($el);
-    }
-
-    if (isset($this->request->verb))
-    {
-      switch($this->request->verb)
-      {
-        case 'Identify':
-          $this->verb = 'identify';
-          break;
-        case 'ListMetadataFormats':
-          $this->verb = 'listMetadataFormats';
-          break;
-        case 'ListSets':
-          $this->verb = 'listSets';
-          break;
-        case 'ListRecords':
-          $this->verb = 'listRecords';
-          break;
-        case 'ListIdentifiers':
-          $this->verb = 'listIdentifiers';
-          break;
-        case 'GetRecord':
-          $this->verb = 'getRecord';
-          break;
-        default:
-          $this->verb = 'badVerb';
-      }
-    }
-    else
-    {
-      $this->verb = 'badVerb';
-    }
   }
 }

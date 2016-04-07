@@ -48,7 +48,7 @@ class arOaiPluginIndexAction extends sfAction
   {
     sfConfig::set('sf_escaping_strategy', false);
 
-    $appRoot = dirname(__FILE__) .'/../../../../..';
+    $appRoot = sfConfig::get('sf_root_dir');
     include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
 
     // If authentication is enabled, check API key in HTTP header
@@ -58,8 +58,7 @@ class arOaiPluginIndexAction extends sfAction
     // authenticate, responding with 403 if authentication fails
     $requestOaiApiKey = $request->getHttpHeader('X-OAI-API-Key');
 
-    if (!empty($requestOaiApiKey)
-      || null !== $authenticationRequiredSetting && $authenticationRequiredSetting->value)
+    if (!empty($requestOaiApiKey) || null !== $authenticationRequiredSetting && $authenticationRequiredSetting->value)
     {
       // Require user have valid API key to access OAI data
       if (empty($requestOaiApiKey))
@@ -84,19 +83,12 @@ class arOaiPluginIndexAction extends sfAction
     }
 
     $request->setRequestFormat('xml');
-    /*    print_r($this->oaiErrorArray);
-    //Check for null and duplicate parameters
-    if(QubitOai::hasDuplicateOrNullParameters())
-    {
-      $request->setParameter('errorCode', 'badArgument');
-      $request->setParameter('errorMsg', $this->oaiErrorArray{'badArgument'});
-      $this->forward('arOaiPlugin', 'error');
-    }*/
+
     $this->date = QubitOai::getDate();
     $this->path = $this->request->getUriPrefix().$this->request->getPathInfo();
     $this->attributes = $this->request->getGetParameters();
 
-    /* If we have a valid resumption token, apply its parameters to our request */
+    // If we have a valid resumption token, apply its parameters to our request
     $this->applyResumptionToken($request, $this->attributes);
 
     $this->attributesKeys = array_keys($this->attributes);
@@ -106,33 +98,25 @@ class arOaiPluginIndexAction extends sfAction
       $this->requestAttributes .= ' '.$key.'="'.esc_specialchars($this->attributes[$key]).'"';
     }
 
-    $this->sets = array();
-    foreach (QubitInformationObject::getCollections() as $el)
-    {
-      $this->sets[] = new sfIsadPlugin($el);
-    }
-
-    /**
-     * Validate that verb is valid
-    */
+    // Validate that verb is valid
     if (isset($this->request->verb))
     {
       if (!in_array($this->request->verb, $this->oaiVerbArr))
       {
         $request->setParameter('errorCode', 'badVerb');
         $request->setParameter('errorMsg', 'Value of the verb argument is not a legal OAI-PMH verb, the verb argument is missing, or the verb argument is repeated.');
+
         $this->forward('arOaiPlugin', 'error');
       }
 
-      /**
-       * Validate that attributes are valid
-      */
+      // Validate that attributes are valid
       $allowedKeys = sfConfig::get('mod_aroaiplugin_'.$this->request->verb.'Allowed');
       $mandatoryKeys = sfConfig::get('mod_aroaiplugin_'.$this->request->verb.'Mandatory');
       if (!QubitOai::checkBadArgument($this->attributesKeys, $allowedKeys, $mandatoryKeys))
       {
         $request->setParameter('errorCode', 'badArgument');
         $request->setParameter('errorMsg', 'The request includes illegal arguments, is missing required arguments, includes a repeated argument, or values for arguments have an illegal syntax.');
+
         $this->forward('arOaiPlugin', 'error');
       }
 
@@ -142,14 +126,28 @@ class arOaiPluginIndexAction extends sfAction
       {
         $request->setParameter('errorCode', 'badVerb');
         $request->setParameter('errorMsg', 'The metadata format identified by the value given for the metadataPrefix argument is not supported by the item or by the repository.');
+
         $this->forward('arOaiPlugin', 'error');
       }
 
+      // Load OAI sets for the required verbs, filtering drafts
+      // in the verbs where the sets are displayed directly
+      $this->oaiSets = array();
+      if ($this->request->verb == 'ListSets')
+      {
+        $this->oaiSets = QubitOai::getOaiSets(array('filterDrafts' => true));
+      }
+      else if (in_array($this->request->verb, array('ListRecords', 'ListIdentifiers', 'GetRecord')))
+      {
+        $this->oaiSets = QubitOai::getOaiSets();
+      }
 
       // If the 'set' parameter is provided, it should refer to an existing set
-      if ($this->request->set && !QubitOai::getMatchingOaiSet($this->request->set, QubitOai::getOaiSets())) {
+      if ($this->request->set && !QubitOai::getMatchingOaiSet($this->request->set, $this->oaiSets))
+      {
         $request->setParameter('errorCode', 'badArgument');
         $request->setParameter('errorMsg', 'The requested OAI set is not known by this repository.');
+
         $this->forward('arOaiPlugin', 'error');
       }
 
@@ -185,15 +183,16 @@ class arOaiPluginIndexAction extends sfAction
 
   private function applyResumptionToken($request, &$attributes)
   {
-    if (!isset($request->resumptionToken)) {
-      /* Nothing to do */
+    if (!isset($request->resumptionToken))
+    {
       return;
     }
 
     $resumptionTokenJson = base64_decode($request->resumptionToken);
     $resumptionToken = $resumptionTokenJson ? json_decode($resumptionTokenJson) : False;
 
-    if ($resumptionToken === False) {
+    if ($resumptionToken === False)
+    {
       $this->sendResumptionTokenError($request);
     }
 
@@ -201,19 +200,22 @@ class arOaiPluginIndexAction extends sfAction
 
     foreach ($settableAttributes as $attribute)
     {
-      if ($resumptionToken->$attribute) {
-        /* We set each attribute both on the request and on our attributes list.
-         * The attributes list is checked by QubitOai::checkBadArgument, while
-         * $request is used by the call to arOaiPluginComponent. */
+      if ($resumptionToken->$attribute)
+      {
+        // We set each attribute both on the request and on our attributes list.
+        // The attributes list is checked by QubitOai::checkBadArgument, while
+        // $request is used by the call to arOaiPluginComponent.
         $attributes[$attribute] = $resumptionToken->$attribute;
         $request->$attribute = $resumptionToken->$attribute;
       }
     }
   }
 
-  private function sendResumptionTokenError($request) {
+  private function sendResumptionTokenError($request)
+  {
     $request->setParameter('errorCode', 'badResumptionToken');
     $request->setParameter('errorMsg', 'Value of the resumptionToken argument is invalid.');
+
     $this->forward('arOaiPlugin', 'error');
   }
 }

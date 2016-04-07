@@ -39,17 +39,16 @@ abstract class arOaiPluginComponent extends sfComponent
    *
    * @param sfRequest $request The current sfRequest object
    *
-   * @return mixed     A string containing the view name associated with this action
+   * @return mixed A string containing the view name associated with this action
    */
-  public function execute($request) {
+  public function execute($request)
+  {
     parent::execute($request);
   }
 
   public function setUpdateParametersFromRequest($request)
   {
-    /*
-     * If limit dates are not supplied, define them as ''
-     */
+    // If limit dates are not supplied, define them as ''
     if (!isset($request->from))
     {
       $this->from = '';
@@ -86,25 +85,20 @@ abstract class arOaiPluginComponent extends sfComponent
       $this->metadataPrefix = $request->metadataPrefix;
     }
 
-    /*
-     * If cursor not supplied, define as 0
-     */
+    // If cursor not supplied, define as 0
     if (!isset($request->cursor))
     {
       $this->cursor = 0;
     }
-    else {
+    else
+    {
       $this->cursor = $request->cursor;
     }
   }
 
-  public function getUpdates()
+  public function getUpdates($options = array())
   {
-    $this->oaiSets = QubitOai::getOaiSets();
-
-    /*
-     * If set is not supplied, define it as ''
-     */
+    // If set is not supplied, define it as ''
     if (!isset($this->set))
     {
       $oaiSet = '';
@@ -114,14 +108,16 @@ abstract class arOaiPluginComponent extends sfComponent
       $oaiSet = QubitOai::getMatchingOaiSet($this->set, $this->oaiSets);
     }
 
-    //Get the records according to the limit dates and collection
-    $update = QubitInformationObject::getUpdatedRecords(
-      $this->from,
-      $this->until,
-      $this->cursor,
-      QubitSetting::getByName('resumption_token_limit')->__toString(),
-      $oaiSet
-    );
+    $extraOptions = array(
+      'from'   => $this->from,
+      'until'  => $this->until,
+      'cursor' => $this->cursor,
+      'offset' => QubitSetting::getByName('resumption_token_limit')->__toString(),
+      'oaiSet' => $oaiSet);
+
+    // Get the records according to the limit dates and collection
+    $update = QubitInformationObject::getUpdatedRecords(array_merge($options, $extraOptions));
+
     $this->publishedRecords = $update['data'];
     $this->remaining        = $update['remaining'];
     $this->recordsCount     = count($this->publishedRecords);
