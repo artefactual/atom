@@ -1386,24 +1386,41 @@ class QubitDigitalObject extends BaseDigitalObject
    * Download external file via sfWebBrowser and return its temporary location
    *
    * @param string URI
-   * @return mixed FALSE if error, array otherwise
+   * @return string contents
    */
   private function downloadExternalObject($uri)
   {
-    // Parse URL into components and get file/base name
-    $uriComponents = parse_url($uri);
-
     // Initialize web browser
     $timeout = sfConfig::get("app_download_timeout");
     $browser = new sfWebBrowser(array(), null, array('Timeout' => $timeout));
     $browser->get($uri);
 
-    if ($browser->get($uri)->responseIsError() || 1 > strlen(($filename = basename($uriComponents['path']))))
+    if ($browser->get($uri)->responseIsError())
     {
       return false;
     }
 
-    return array($filename, $browser->getResponseText());
+    return $browser->getResponseText();
+  }
+
+  /**
+   * Get filename from URI path
+   *
+   * @param string URI
+   * @return mixed null if error, string otherwise
+   */
+  private function getFilenameFromUri($uri)
+  {
+    // Parse URL into components and get file/base name
+    $uriComponents = parse_url($uri);
+    $filename = basename($uriComponents['path']);
+
+    if (1 > strlen($filename))
+    {
+      throw new sfException(sprintf('Couldn\'t parse filename from uri %s', $uri));
+    }
+
+    return $filename;
   }
 
   /**
@@ -1415,7 +1432,9 @@ class QubitDigitalObject extends BaseDigitalObject
    */
   public function importFromURI($uri, $options = array())
   {
-    list($filename, $contents) = $this->downloadExternalObject($uri);
+    $filename = $this->getFilenameFromUri($uri);
+    $contents = $this->downloadExternalObject($uri);
+
     if (false === $this->localPath = Qubit::saveTemporaryFile($filename, $contents))
     {
       throw new sfException('Encountered error fetching external resource.');
@@ -2250,7 +2269,8 @@ class QubitDigitalObject extends BaseDigitalObject
   {
     if (null === $this->localPath && QubitTerm::EXTERNAL_URI_ID == $this->usageId)
     {
-      list($filename, $contents) = $this->downloadExternalObject($this->path);
+      $filename = $this->getFilenameFromUri($this->path);
+      $contents = $this->downloadExternalObject($this->path);
       $this->localPath = Qubit::saveTemporaryFile($filename, $contents);
     }
 
@@ -2928,7 +2948,9 @@ class QubitDigitalObject extends BaseDigitalObject
       // Create new temporary copy from external resources if the old copy is missing
       if (!isset($path) || !file_exists($path))
       {
-        list($filename, $contents) = $this->downloadExternalObject($this->getPath());
+        $filename = $this->getFilenameFromUri($this->getPath());
+        $contents = $this->downloadExternalObject($this->getPath());
+
         if (false === $path = Qubit::saveTemporaryFile($filename, $contents))
         {
           return;
