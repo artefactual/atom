@@ -1386,21 +1386,53 @@ class QubitDigitalObject extends BaseDigitalObject
    * Download external file via sfWebBrowser and return its temporary location
    *
    * @param string URI
+   * @param array options optional arguments
+   *
    * @return string contents
    */
-  private function downloadExternalObject($uri)
+  private function downloadExternalObject($uri, $options = array())
   {
     // Initialize web browser
     $timeout = sfConfig::get("app_download_timeout");
     $browser = new sfWebBrowser(array(), null, array('Timeout' => $timeout));
-    $browser->get($uri);
 
-    if ($browser->get($uri)->responseIsError())
+    // Set retries from optional argument
+    $retries = (isset($options['downloadRetries']) && 0 < $options['downloadRetries']) ? $options['downloadRetries'] : 0;
+
+    // Attempt to download the digital object, with possible retries
+    for ($i=0; $i <= $retries; $i++)
     {
-      return false;
+      try
+      {
+        $browser->get($uri);
+      }
+      catch (Exception $e)
+      {
+        // If request times out
+        if ($e->getCode() === CURLE_OPERATION_TIMEDOUT)
+        {
+          // Try again, up to $retries
+          continue;
+        }
+
+        throw $e;
+      }
+
+      // If response code is an error (4xx or 5xx)
+      if ($browser->responseIsError())
+      {
+        // Try again, up to $retries
+        continue;
+      }
+
+      if (false !== $contents = $browser->getResponseText())
+      {
+        return $contents;
+      }
     }
 
-    return $browser->getResponseText();
+    // Throw exception on failure
+    throw new sfException(sprintf('Error downloading "%s" (attempts: %s).', $uri, $i));
   }
 
   /**
@@ -1427,31 +1459,48 @@ class QubitDigitalObject extends BaseDigitalObject
    * Populate a digital object from a resource pointed to by a URI
    * This is for, eg. importing encoded digital objects from XML
    *
-   * @param string  $uri  URI pointing to the resource
-   * @return boolean  success or failure
+   * @param string $uri     URI pointing to the resource
+   * @param array  $options Optional arguments
+   *
+   * @return QubitDigitalObject this object
    */
   public function importFromURI($uri, $options = array())
   {
     $filename = $this->getFilenameFromUri($uri);
-    $contents = $this->downloadExternalObject($uri);
 
-    if (false === $this->localPath = Qubit::saveTemporaryFile($filename, $contents))
-    {
-      throw new sfException('Encountered error fetching external resource.');
-    }
-
-    $asset = new QubitAsset($uri, $contents);
-    $this->assets[] = $asset;
-
-    // Set digital object as external URI
+    // Set general properties that don't require downloading the asset
     $this->usageId = QubitTerm::EXTERNAL_URI_ID;
-
     $this->name = $filename;
     $this->path = $uri;
+    $this->setMimeAndMediaType();
+
+    // If not creating derivatives right now, don't download the resource
+    if (isset($options['skipDerivatives']) && $options['skipDerivatives'])
+    {
+      $this->createDerivatives = false;
+
+      return $self;
+    }
+
+    // Download the remote resource bitstream
+    $contents = $this->downloadExternalObject($uri, $options);
+
+    // Save downloaded bitstream to a temp file
+    if (false === $this->localPath = Qubit::saveTemporaryFile($filename, $contents))
+    {
+      throw new sfException(sprintf('Error writing downloaded file to "%s".', $this->localPath));
+    }
+
+    // Attach downloaded file to digital object
+    $asset = new QubitAsset($this->localPath);
+    $this->assets[] = $asset;
+
+    // Set properties derived from file contents
     $this->checksum = $asset->getChecksum();
     $this->checksumType = $asset->getChecksumAlgorithm();
     $this->byteSize = strlen($contents);
-    $this->setMimeAndMediaType();
+
+    return $self;
   }
 
   /**
