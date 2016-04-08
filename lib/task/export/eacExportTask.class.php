@@ -64,42 +64,45 @@ class eacExportTask extends exportBulkBaseTask
 
     $this->includeXmlExportClassesAndHelpers();
 
-    // Get descriptions matching optional specification
-    $rows = $conn->query($this->informationObjectQuerySql($options), PDO::FETCH_ASSOC);
+    // Using left join and comparisons to null here to make sure we exclude
+    // actor rows associated with repositories and users.
+    $query = 'SELECT a.id FROM actor a
+              JOIN actor_i18n ai ON a.id = ai.id
+              JOIN object o ON a.id = o.id
+              WHERE a.id != ? AND o.class_name = ?';
 
-    foreach ($rows as $row)
+    if ($options['criteria'])
+    {
+      $query .= ' AND '.$options['criteria'];
+    }
+
+    foreach (QubitPdo::fetchAll($query, array(QubitActor::ROOT_ID, 'QubitActor')) as $row)
     {
       // Fetch description then assocated actors
-      $informationObject = QubitInformationObject::getById($row['id']);
+      $resource = QubitActor::getById($row->id);
 
-      foreach ($informationObject->getActors() as $resource)
+      $filename = $this->generateSortableFilename($resource, 'xml', 'eac');
+      $filePath = sprintf('%s/%s', $arguments['path'], $filename);
+
+      // Only export actor the first time it's encountered in a description
+      if (!file_exists($filePath))
       {
-        $filename = $this->generateSortableFilename($resource, 'xml', 'eac');
-        $filePath = sprintf('%s/%s', $arguments['path'], $filename);
-
-        // Only export actor the first time it's encountered in a description
-        if (!file_exists($filePath))
+        $rawXml = $this->captureResourceExportTemplateOutput($resource, 'eac');
+        try
         {
-          $rawXml = $this->captureResourceExportTemplateOutput($resource, 'eac');
-
-          try
-          {
-            $xml = Qubit::tidyXml($rawXml);
-          }
-          catch (Exception $e)
-          {
-            $badXmlFilePath = sys_get_temp_dir() .'/'. $filename;
-            file_put_contents($badXmlFilePath, $rawXml);
-
-            throw new sfException('Saved invalid generated XML to '. $badXmlFilePath);
-          }
-
-          file_put_contents($filePath, $xml);
-
-          $this->indicateProgress($options['items-until-update']);
-
-          $itemsExported++;
+          $xml = Qubit::tidyXml($rawXml);
         }
+        catch (Exception $e)
+        {
+          $badXmlFilePath = sys_get_temp_dir() .'/'. $filename;
+          file_put_contents($badXmlFilePath, $rawXml);
+
+          throw new sfException('Saved invalid generated XML to '. $badXmlFilePath);
+        }
+
+        file_put_contents($filePath, $xml);
+        $this->indicateProgress($options['items-until-update']);
+        $itemsExported++;
       }
     }
 
