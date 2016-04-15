@@ -423,11 +423,11 @@ EOF;
           // Delete any digital objects that exist for this information object
           $criteria = new Criteria;
           $criteria->add(QubitDigitalObject::INFORMATION_OBJECT_ID, $self->object->id);
-          $results = QubitDigitalObject::get($criteria);
+          $results = QubitDigitalObject::getOne($criteria);
 
           if ($results !== null)
           {
-            $results[0]->delete();
+            $results->delete();
           }
         }
       },
