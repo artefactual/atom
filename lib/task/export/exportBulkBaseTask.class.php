@@ -182,7 +182,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
       $query = 'SELECT i.lft, i.rgt, i.id FROM information_object i INNER JOIN slug s ON i.id=s.object_id WHERE s.slug = ?';
       $slug = QubitPdo::fetchOne($query, array($options['single-slug']));
 
-      if (null === $slug)
+      if (false === $slug)
       {
         throw new sfException('Slug '.$options['single-slug'].' not found.');
       }
