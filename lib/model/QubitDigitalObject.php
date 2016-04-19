@@ -1394,7 +1394,7 @@ class QubitDigitalObject extends BaseDigitalObject
   {
     // Initialize web browser
     $timeout = sfConfig::get("app_download_timeout");
-    $browser = new sfWebBrowser(array(), null, array('Timeout' => $timeout));
+    $browser = new sfWebBrowser(array(), 'sfCurlAdapter', array('Timeout' => $timeout));
 
     // Set retries from optional argument
     $retries = (isset($options['downloadRetries']) && 0 < $options['downloadRetries']) ? $options['downloadRetries'] : 0;
@@ -1459,8 +1459,8 @@ class QubitDigitalObject extends BaseDigitalObject
    * Populate a digital object from a resource pointed to by a URI
    * This is for, eg. importing encoded digital objects from XML
    *
-   * @param string $uri     URI pointing to the resource
-   * @param array  $options Optional arguments
+   * @param string $uri remote digital object URI
+   * @param array $options Optional arguments
    *
    * @return QubitDigitalObject this object
    */

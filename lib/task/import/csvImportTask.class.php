@@ -982,14 +982,15 @@ EOF;
             $do->importFromURI($uri, $options);
             $do->save($conn);
           }
-          catch (sfException $e)
+          catch (Exception $e)
           {
-            echo $e->getMessage()."\n";
+            // Echo error to STDOUT
+            $this->log($e->getMessage());
 
             // Log error
             if (sfConfig::get('sf_logging_enabled'))
             {
-              sfContext::getInstance()->getLogger()->err($e->getMessage);
+              sfContext::getInstance()->getLogger()->err($e->getMessage());
             }
           }
         }
