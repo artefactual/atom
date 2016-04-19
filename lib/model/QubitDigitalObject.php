@@ -1475,10 +1475,8 @@ class QubitDigitalObject extends BaseDigitalObject
     $this->setMimeAndMediaType();
 
     // If not creating derivatives right now, don't download the resource
-    if (isset($options['skipDerivatives']) && $options['skipDerivatives'])
+    if (!$this->createDerivatives)
     {
-      $this->createDerivatives = false;
-
       return $self;
     }
 

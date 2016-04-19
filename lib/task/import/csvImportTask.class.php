@@ -967,8 +967,8 @@ EOF;
 
           if ($self->status['options']['skip-derivatives'])
           {
-            // If not creating derivatives, then skip download altogether
-            $options = array('skipDerivatives' => true);
+            // Don't download remote resource or create derivatives
+            $do->createDerivatives = false;
           }
           else
           {
