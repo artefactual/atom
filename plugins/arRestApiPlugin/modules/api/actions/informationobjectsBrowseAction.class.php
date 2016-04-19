@@ -53,30 +53,38 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
     $this->search->addFacetFilters(InformationObjectBrowseAction::$FACETS, $getParameters);
     $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $getParameters, $archivalStandard);
 
-    // Sort
+    // Determin sort field and default order
     switch ($request->sort)
     {
       case 'identifier':
-        $this->search->query->addSort(array('referenceCode.untouched' => 'asc'));
-
+        $field = 'referenceCode.untouched';
+        $order = 'asc';
         break;
 
       // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
         $field = sprintf('i18n.%s.title.untouched', sfContext::getInstance()->user->getCulture());
-        $this->search->query->addSort(array($field => 'asc'));
-
+        $order = 'asc';
         break;
 
       case 'date':
-        $this->search->query->setSort(array('dates.startDate' => 'asc'));
-
+        $field = 'dates.startDate';
+        $order = 'asc';
         break;
 
       case 'lastUpdated':
       default:
-        $this->search->query->setSort(array('updatedAt' => 'desc'));
+        $field = 'updatedAt';
+        $order = 'desc';
     }
+
+    // Optionally reverse sort order
+    if (isset($request->reverse) && !empty($request->reverse))
+    {
+      $order = ($order == 'asc') ? 'desc' : 'asc';
+    }
+
+    $this->search->query->setSort(array($field => $order));
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->getQuery(false, true));
 
