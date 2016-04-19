@@ -965,7 +965,7 @@ EOF;
           $do = new QubitDigitalObject;
           $do->informationObject = $self->object;
 
-          if (isset($self->status['options']['skip-derivatives']))
+          if ($self->status['options']['skip-derivatives'])
           {
             // If not creating derivatives, then skip download altogether
             $options = array('skipDerivatives' => true);
