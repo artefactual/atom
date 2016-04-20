@@ -996,17 +996,32 @@ EOF;
         }
         else if ($path = $self->rowStatusVars['digitalObjectPath'])
         {
-          if (false === $content = file_get_contents($path))
+          $do = new QubitDigitalObject;
+          $do->usageId = QubitTerm::MASTER_ID;
+          $do->informationObject = $self->object;
+
+          // Don't create derivatives (reference, thumb)
+          if ($self->status['options']['skip-derivatives'])
           {
-            $this->log("Unable to read file: ".$path);
+            $do->createDerivatives = false;
           }
-          else
+
+          $do->assets[] = new QubitAsset($path);
+
+          try
           {
-            $do = new QubitDigitalObject;
-            $do->assets[] = new QubitAsset($path, $content);
-            $do->usageId = QubitTerm::MASTER_ID;
-            $do->informationObject = $self->object;
             $do->save($conn);
+          }
+          catch (Exception $e)
+          {
+            // Echo error to STDOUT
+            $this->log($e->getMessage());
+
+            // Log error
+            if (sfConfig::get('sf_logging_enabled'))
+            {
+              sfContext::getInstance()->getLogger()->err($e->getMessage());
+            }
           }
         }
       }
