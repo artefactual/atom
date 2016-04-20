@@ -130,8 +130,22 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         break;
 
       case 'levels':
-        // Choices are added in the end with the LOD facet data
-        $this->form->setValidator($name, new sfValidatorString);
+        $criteria = new Criteria;
+        $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID);
+
+        // Do source culture fallback
+        $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTerm');
+        $criteria->addAscendingOrderByColumn('name');
+
+        $choices = array();
+        $choices[null] = null;
+        foreach (QubitTerm::get($criteria) as $item)
+        {
+          $choices[$item->id] = $item->__toString();
+        }
+
+        $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
+        $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
 
         break;
 
@@ -224,24 +238,6 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
   {
     switch ($name)
     {
-      case 'levels':
-        $criteria = new Criteria;
-        $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
-
-        // Add LOD filter options here too, it needs to be
-        // based on the levels available in the facet
-        $choices = array();
-        $choices[null] = null;
-        foreach (QubitTerm::get($criteria) as $item)
-        {
-          $this->types[$item->id] = $item->__toString();
-          $choices[$item->id] = $item->__toString();
-        }
-
-        $this->form->setWidget('levels', new sfWidgetFormSelect(array('choices' => $choices)));
-
-        break;
-
       case 'repos':
         $criteria = new Criteria;
         $criteria->add(QubitRepository::ID, array_keys($ids), Criteria::IN);
@@ -253,6 +249,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         break;
 
+      case 'levels':
       case 'mediatypes':
       case 'places':
       case 'subjects':
@@ -428,13 +425,6 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       $this->addField($name);
     }
 
-    // Stop if the input is not valid
-    $this->form->bind($request->getRequestParameters() + $request->getGetParameters());
-    if (!$this->form->isValid())
-    {
-      return;
-    }
-
     // Get actual information object template to check archival history
     // visibility in _advancedSearch partial and in parseQuery function
     $this->template = 'isad';
@@ -475,6 +465,14 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
     // Add advanced form filter to the query
     $this->search->addAdvancedSearchFilters($this::$NAMES, $this->getParameters, $this->template);
+
+    // Stop if the input is not valid. It must be after the query is created but before
+    // it's executed to keep the boolean search and other params for the next request
+    $this->form->bind($request->getRequestParameters() + $request->getGetParameters());
+    if (!$this->form->isValid())
+    {
+      return;
+    }
 
     // Sort
     switch ($request->sort)
