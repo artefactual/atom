@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2015-08-27T12:10:13Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2016-04-19T21:27:10Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -432,6 +432,10 @@ elaboração da descrição. (ISAD 3.7.2)</target>
       <trans-unit id="1016">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
         <target>Registre as citações usadas de qualquer fonte externa para a descrição arquivística (como os de Escopo e Contéudo, Arquivo Histórico, ou Campos de notas).</target>
+      </trans-unit>
+      <trans-unit id="1017">
+        <source>Genre access points</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

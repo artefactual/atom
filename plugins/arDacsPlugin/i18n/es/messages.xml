@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="es" datatype="plaintext" original="messages" date="2015-10-16T04:43:31Z" product-name="messages">
+  <file source-language="en" target-language="es" datatype="plaintext" original="messages" date="2016-04-19T21:28:12Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -366,7 +366,7 @@
       </trans-unit>
       <trans-unit id="98">
         <source>If known, indicate whether or not further accruals are expected. When appropriate, indicate frequency and volume. (DACS 5.4.2)</source>
-        <target/>
+        <target>Si se conoce, indicar sií o no si se esperan nuevas ingresos. En su caso, indicar la frecuencia y volumen. (DACS 5.4.2)</target>
       </trans-unit>
       <trans-unit id="99">
         <source>If the materials being described are reproductions and the originals are located elsewhere, give the location of the originals (DACS 6.1.4). Record any identifying numbers that may help in locating the originals in the cited location (DACS 6.1.6).</source>
@@ -407,6 +407,10 @@
       <trans-unit id="108">
         <source>Biographical history</source>
         <target>Historia biográfica</target>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Genre access points</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

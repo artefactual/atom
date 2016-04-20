@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2015-10-16T04:43:22Z" product-name="messages">
+  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2016-04-19T21:24:52Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="3">
@@ -115,22 +115,6 @@
       <trans-unit id="32">
         <source>Elements area</source>
         <target>Area degli elementi</target>
-      </trans-unit>
-      <trans-unit id="33">
-        <source>How to access to this content?</source>
-        <target>Come accedere a questo contenuto?</target>
-      </trans-unit>
-      <trans-unit id="34">
-        <source>Contact the archivist at %1%</source>
-        <target>Contatta l'archivista a %1%</target>
-      </trans-unit>
-      <trans-unit id="35">
-        <source>Show details</source>
-        <target>Mostra dettagli</target>
-      </trans-unit>
-      <trans-unit id="36">
-        <source>Close</source>
-        <target>Chiudi</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Edit elements area</source>

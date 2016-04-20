@@ -1075,7 +1075,7 @@ QubitTaxonomy:
       ka: 'შეზღუდვის მოცულობა'
       ko: '처분 범위'
       pl: 'Zakres zbycia'
-      pt: 'Âmbito da transferência'
+      pt: 'Âmbito da desafetação'
       pt-BR: 'Escopo de transferência'
       pt_BR: 'Escopo de transferência'
       sl: 'Obseg prodaje'
@@ -1321,6 +1321,7 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       en: 'PREMIS Rights Statutes'
+      es: 'Estatutos de derechos PREMIS'
       sv: PREMIS-rättigheter
     note:
       en: 'Used to store Statute values when defining PREMIS rights statements with a statute Basis.'
@@ -3536,6 +3537,7 @@ QubitTerm:
       de: 'Unterstützende Dokumentation'
       de-CH: 'Unterstützende Dokumentation'
       en: 'Supporting documentation'
+      es: 'Documentación de soporte'
       eu: Laguntza-dokumentazioa
       fr: 'Documentation d''appui'
       hu: Segéddokumentáció
@@ -3559,6 +3561,7 @@ QubitTerm:
       de: 'Unterstützende Technik'
       de-CH: 'Unterstützende Technik'
       en: 'Supporting technology'
+      es: 'Tecnología de soporte'
       eu: Laguntza-teknologia
       fr: 'Technologie d''appui'
       hu: Segédtechnológia
@@ -8340,7 +8343,7 @@ QubitTerm:
       pt_BR: 'Sob direitos autorais'
       ro: 'In conformitate cu drepturile de autor'
       sl: 'Zaščiteno z avtorsko pravico'
-      sr: 'Под ауторским правом'
+      sr: 'Заштићено ауторским правом'
       sv: Upphovsrättsskyddad
       th: ดามลิขสิทธิ์
       vi: 'Theo bản quyền'
@@ -9305,6 +9308,7 @@ QubitTerm:
       de-CH: Architektur
       en: Architecture
       es: Arquitectura
+      fr: Architecture
       hu: Építészet
       is: Arkitektúr
       it: Architettura
@@ -9697,6 +9701,7 @@ QubitTerm:
       de: Filme
       de-CH: Filme
       en: 'Motion Pictures'
+      es: Películas
       fr: 'Images en mouvement'
       hu: Mozgóképek
       pt: 'Imagens em movimento'
@@ -10066,6 +10071,7 @@ QubitTerm:
     source_culture: en
     name:
       en: 'Signatures note'
+      es: 'Nota de firma'
       sr: 'Напомена о сигнатури'
   QubitTerm_cast_note:
     taxonomy_id: QubitTaxonomy_21
@@ -10079,6 +10085,7 @@ QubitTerm:
     source_culture: en
     name:
       en: 'Credits note'
+      es: 'Nota de créditos'
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111

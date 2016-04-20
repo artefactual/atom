@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2015-12-18T08:52:13Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2016-04-19T21:28:22Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -38,7 +38,7 @@
       </trans-unit>
       <trans-unit id="9">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Identifier%2% - Detta är ett %3%obligatoriskt%4% element.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>%1%Level of description%2% - Value "%value%" is not consistent with higher levels.</source>
@@ -470,6 +470,10 @@
       </trans-unit>
       <trans-unit id="117">
         <source>End</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>Genre access points</source>
         <target/>
       </trans-unit>
     </body>

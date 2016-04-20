@@ -1065,6 +1065,7 @@ QubitSetting:
     value:
       de: '1'
       en: 1
+      es: '1'
       pt: '1'
       sr: '1'
       sv: '1'
@@ -1076,6 +1077,7 @@ QubitSetting:
     value:
       de: Seitenleiste
       en: sidebar
+      es: 'barra lateral'
       pt: 'barra lateral'
       sr: 'бочна трака'
       sv: sidspalt
