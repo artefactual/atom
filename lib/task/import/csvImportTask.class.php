@@ -88,6 +88,25 @@ EOF;
   }
 
   /**
+   * Echo and log a message
+   *
+   * @see sfTask::log()
+   * @see sfLoggger::log()
+   *
+   * @param string $message N.B. sfTask::log() accepts an array or string, but
+   *                        sfLogger::log() expects a string only
+   * @param string $priority See sfLogger for priority levels
+   */
+  public function log($message, $priority = sfLogger::INFO)
+  {
+    // Echo message
+    parent::log($message);
+
+    // Log message
+    sfContext::getInstance()->getLogger()->log($message, $priority);
+  }
+
+  /**
    * @see sfTask
    */
   public function execute($arguments = array(), $options = array())
@@ -984,14 +1003,8 @@ EOF;
           }
           catch (Exception $e)
           {
-            // Echo error to STDOUT
-            $this->log($e->getMessage());
-
             // Log error
-            if (sfConfig::get('sf_logging_enabled'))
-            {
-              sfContext::getInstance()->getLogger()->err($e->getMessage());
-            }
+            $this->log($e->getMessage(), sfLogger::ERR);
           }
         }
         else if ($path = $self->rowStatusVars['digitalObjectPath'])
@@ -1014,14 +1027,8 @@ EOF;
           }
           catch (Exception $e)
           {
-            // Echo error to STDOUT
-            $this->log($e->getMessage());
-
             // Log error
-            if (sfConfig::get('sf_logging_enabled'))
-            {
-              sfContext::getInstance()->getLogger()->err($e->getMessage());
-            }
+            $this->log($e->getMessage(), sfLogger::ERR);
           }
         }
       }
