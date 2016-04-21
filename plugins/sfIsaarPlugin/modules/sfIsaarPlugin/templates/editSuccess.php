@@ -106,7 +106,7 @@
 
         <?php echo render_field($form->descriptionIdentifier
           ->help(__('"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)'))
-          ->label(__('Description identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource) ?>
+          ->label(__('Authority record identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource) ?>
 
         <?php echo render_field($form->institutionResponsibleIdentifier
           ->help(__('"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)'))
