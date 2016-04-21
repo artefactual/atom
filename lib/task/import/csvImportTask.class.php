@@ -77,8 +77,33 @@ EOF;
         null,
         sfCommandOption::PARAMETER_NONE,
         "Attempt to update if description has already been imported."
+      ),
+      new sfCommandOption(
+        'skip-derivatives',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        "Skip creation of digital object derivatives."
       )
     ));
+  }
+
+  /**
+   * Echo and log a message
+   *
+   * @see sfTask::log()
+   * @see sfLoggger::log()
+   *
+   * @param string $message N.B. sfTask::log() accepts an array or string, but
+   *                        sfLogger::log() expects a string only
+   * @param string $priority See sfLogger for priority levels
+   */
+  public function log($message, $priority = sfLogger::INFO)
+  {
+    // Echo message
+    parent::log($message);
+
+    // Log message
+    sfContext::getInstance()->getLogger()->log($message, $priority);
   }
 
   /**
@@ -417,11 +442,11 @@ EOF;
           // Delete any digital objects that exist for this information object
           $criteria = new Criteria;
           $criteria->add(QubitDigitalObject::INFORMATION_OBJECT_ID, $self->object->id);
-          $results = QubitDigitalObject::get($criteria);
+          $results = QubitDigitalObject::getOne($criteria);
 
           if ($results !== null)
           {
-            $results[0]->delete();
+            $results->delete();
           }
         }
       },
@@ -956,31 +981,54 @@ EOF;
         // if both a URI and path are provided, the former is preferred.
         if ($uri = $self->rowStatusVars['digitalObjectURI'])
         {
+          $do = new QubitDigitalObject;
+          $do->informationObject = $self->object;
+
+          if ($self->status['options']['skip-derivatives'])
+          {
+            // Don't download remote resource or create derivatives
+            $do->createDerivatives = false;
+          }
+          else
+          {
+            // Try downloading external object up to three times (2 retries)
+            $options = array('downloadRetries' => 2);
+          }
+
+          // Catch digital object import errors to avoid killing whole import
           try
           {
-            if (!downloadExternalURIWithRetries($uri, $self->object))
-            {
-              $this->log("Failed to download $uri after multiple tries. Continuing task...");
-            }
+            $do->importFromURI($uri, $options);
+            $do->save($conn);
           }
           catch (Exception $e)
           {
-            print "\nFailed to download '$uri': ". $e->getMessage() ."\n";
+            // Log error
+            $this->log($e->getMessage(), sfLogger::ERR);
           }
         }
         else if ($path = $self->rowStatusVars['digitalObjectPath'])
         {
-          if (false === $content = file_get_contents($path))
+          $do = new QubitDigitalObject;
+          $do->usageId = QubitTerm::MASTER_ID;
+          $do->informationObject = $self->object;
+
+          // Don't create derivatives (reference, thumb)
+          if ($self->status['options']['skip-derivatives'])
           {
-            $this->log("Unable to read file: ".$path);
+            $do->createDerivatives = false;
           }
-          else
+
+          $do->assets[] = new QubitAsset($path);
+
+          try
           {
-            $do = new QubitDigitalObject;
-            $do->assets[] = new QubitAsset($path, $content);
-            $do->usageId = QubitTerm::MASTER_ID;
-            $do->informationObject = $self->object;
             $do->save($conn);
+          }
+          catch (Exception $e)
+          {
+            // Log error
+            $this->log($e->getMessage(), sfLogger::ERR);
           }
         }
       }
@@ -1091,42 +1139,4 @@ function refreshTaxonomyTerms($taxonomyId)
   $result = QubitFlatfileImport::loadTermsFromTaxonomies(array($taxonomyId => 'terms'));
 
   return $result['terms'];
-}
-
-/**
- * Downloads digital objects from a URI. Will retry a few times if we get any timeouts.
- *
- * @param string uri  The path to the external digital object, e.g.: https://www.example.com/hi.jpg
- * @param QubitInformationObject infoObj  The information object to associate this digital object with.
- *
- * @return bool  True if the digital object downloaded / saved, false if not.
- */
-function downloadExternalURIWithRetries($uri, $infoObj)
-{
-  $MAX_RETRIES = 3;
-
-  for ($i = 0; $i < $MAX_RETRIES; $i++)
-  {
-    try
-    {
-      $do = new QubitDigitalObject;
-
-      $do->importFromURI($uri);
-      $do->informationObject = $infoObj;
-      $do->save();
-    }
-    catch (Exception $e)
-    {
-      if ($e->getCode() === CURLE_OPERATION_TIMEDOUT)
-      {
-        continue;
-      }
-
-      throw $e;
-    }
-
-    break;
-  }
-
-  return $i < $MAX_RETRIES;
 }
