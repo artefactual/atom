@@ -147,7 +147,19 @@ EOF;
       $this->logSection('digital object', sprintf('Regenerating derivatives for %s... (%ss)',
         $do->name, $timer->elapsed()));
 
-      digitalObjectRegenDerivativesTask::regenerateDerivatives($do);
+      // Trap any exceptions when creating derivatives and continue script
+      try
+      {
+        digitalObjectRegenDerivativesTask::regenerateDerivatives($do);
+      }
+      catch (Exception $e)
+      {
+        // Echo error
+        $this->log($e->getMessage());
+
+        // Log error
+        sfContext::getInstance()->getLogger()->err($e->getMessage());
+      }
     }
 
     // Warn user to manually update search index
