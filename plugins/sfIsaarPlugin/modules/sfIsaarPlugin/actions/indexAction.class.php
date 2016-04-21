@@ -57,7 +57,7 @@ class sfIsaarPluginIndexAction extends ActorIndexAction
 
       $validatorSchema->descriptionIdentifier = new sfValidatorString(array(
         'required' => true), array(
-        'required' => $this->context->i18n->__('%1%Description identifier%2% - This is a %3%mandatory%4% element.', array('%1%' => '<a href="http://ica-atom.org/doc/RS-2#5.4.1">', '%2%' => '</a>', '%3%' => '<a href="http://ica-atom.org/doc/RS-2#4.7">', '%4%' => '</a>'))));
+        'required' => $this->context->i18n->__('%1%Authority record identifier%2% - This is a %3%mandatory%4% element.', array('%1%' => '<a href="http://ica-atom.org/doc/RS-2#5.4.1">', '%2%' => '</a>', '%3%' => '<a href="http://ica-atom.org/doc/RS-2#4.7">', '%4%' => '</a>'))));
       $values['descriptionIdentifier'] = $this->resource->descriptionIdentifier;
 
       $validatorSchema->entityType = new sfValidatorString(array(
