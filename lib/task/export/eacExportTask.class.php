@@ -104,8 +104,12 @@ class eacExportTask extends exportBulkBaseTask
         $this->indicateProgress($options['items-until-update']);
         $itemsExported++;
       }
+      else
+      {
+        $this->log("$filePath already exists, skipping...");
+      }
     }
 
-    print "\nExport complete (". $itemsExported ." actors exported).\n";
+    $this->log("\nExport complete ($itemsExported actors exported).");
   }
 }

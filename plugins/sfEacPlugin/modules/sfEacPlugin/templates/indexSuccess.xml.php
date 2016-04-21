@@ -2,81 +2,84 @@
 <eac-cpf xmlns="urn:isbn:1-931666-33-4" xmlns:xlink="http://www.w3.org/1999/xlink">
 
   <control>
+    <?php if (isset($resource->descriptionIdentifier) && $resource->descriptionIdentifier): ?>
+      <recordId><?php echo esc_specialchars($resource->descriptionIdentifier) ?></recordId>
+    <?php endif; ?>
 
-    <recordId><?php echo esc_specialchars($resource->descriptionIdentifier) ?></recordId>
+    <?php if (isset($eac->maintenanceStatus) && $eac->maintenanceStatus): ?>
+      <maintenanceStatus><?php echo $eac->maintenanceStatus ?></maintenanceStatus>
+    <?php endif; ?>
 
-    <maintenanceStatus><?php echo $eac->maintenanceStatus ?></maintenanceStatus>
+    <?php if (isset($eac->publicationStatus) && $eac->publicationStatus): ?>
+      <publicationStatus><?php echo $eac->publicationStatus ?></publicationStatus>
+    <?php endif; ?>
 
-    <publicationStatus><?php echo $eac->publicationStatus ?></publicationStatus>
+    <?php if (isset($resource->institutionResponsibleIdentifier) && $resource->institutionResponsibleIdentifier): ?>
+      <maintenanceAgency>
+        <agencyName><?php echo esc_specialchars($resource->institutionResponsibleIdentifier) ?></agencyName>
+      </maintenanceAgency>
+    <?php endif; ?>
 
-    <maintenanceAgency>
+    <?php if ($resource->language || $resource->script): ?>
+      <languageDeclaration>
+        <?php foreach ($resource->language as $code): ?>
+          <language languageCode="<?php echo sfEacPlugin::to6392($code) ?>"><?php echo format_language($code) ?></language>
+        <?php endforeach; ?>
 
-      <agencyName><?php echo esc_specialchars($resource->institutionResponsibleIdentifier) ?></agencyName>
-
-    </maintenanceAgency>
-
-    <languageDeclaration>
-
-      <?php foreach ($resource->language as $code): ?>
-        <language languageCode="<?php echo sfEacPlugin::to6392($code) ?>"><?php echo format_language($code) ?></language>
-      <?php endforeach; ?>
-
-      <?php foreach ($resource->script as $code): ?>
-        <script scriptCode="<?php echo $code ?>"><?php echo format_script($code) ?></script>
-      <?php endforeach; ?>
-
-    </languageDeclaration>
+        <?php foreach ($resource->script as $code): ?>
+          <script scriptCode="<?php echo $code ?>"><?php echo format_script($code) ?></script>
+        <?php endforeach; ?>
+      </languageDeclaration>
+    <?php endif; ?>
 
     <conventionDeclaration>
-
       <abbreviation>conventionDeclaration</abbreviation>
 
-      <citation><?php echo esc_specialchars($resource->rules) ?></citation>
-
+      <?php if (isset($resource->rules) && $resource->rules): ?>
+        <citation><?php echo esc_specialchars($resource->rules) ?></citation>
+      <?php endif; ?>
     </conventionDeclaration>
 
     <localTypeDeclaration>
-
       <abbreviation>detailLevel</abbreviation>
-
       <citation>http://ica-atom.org/doc/RS-2#5.4</citation>
-
     </localTypeDeclaration>
 
-    <localControl localType="detailLevel">
+    <?php if(isset($resource->descriptionDetail) && $resource->descriptionDetail): ?>
+      <localControl localType="detailLevel">
+        <term><?php echo esc_specialchars($resource->descriptionDetail) ?></term>
+      </localControl>
+    <?php endif; ?>
 
-      <term><?php echo esc_specialchars($resource->descriptionDetail) ?></term>
+    <?php if (isset($eac->maintenanceHistory) && $eac->maintenanceHistory): ?>
+      <maintenanceHistory><?php echo $eac->maintenanceHistory ?></maintenanceHistory>
+    <?php endif; ?>
 
-    </localControl>
-
-    <maintenanceHistory><?php echo $eac->maintenanceHistory ?></maintenanceHistory>
-
-    <sources>
-
-      <source>
-
-        <sourceEntry><?php echo esc_specialchars($resource->sources) ?></sourceEntry>
-
-      </source>
-
-    </sources>
-
+    <?php if (isset($resource->sources) && $resource->sources): ?>
+      <sources>
+        <source>
+          <sourceEntry><?php echo esc_specialchars($resource->sources) ?></sourceEntry>
+        </source>
+      </sources>
+    <?php endif; ?>
   </control>
 
   <cpfDescription>
-
     <identity>
+      <?php if (isset($resource->corporateBodyIdentifiers) && $resource->corporateBodyIdentifiers): ?>
+        <entityId><?php echo esc_specialchars($resource->corporateBodyIdentifiers) ?></entityId>
+      <?php endif; ?>
 
-      <entityId><?php echo esc_specialchars($resource->corporateBodyIdentifiers) ?></entityId>
-
-      <entityType><?php echo $eac->entityType ?></entityType>
+      <?php if (isset($eac->entityType) && $eac->entityType): ?>
+        <entityType><?php echo $eac->entityType ?></entityType>
+      <?php endif; ?>
 
       <nameEntry>
-
-        <part><?php echo esc_specialchars($resource->authorizedFormOfName) ?></part>
+        <?php if (isset($resource->authorizedFormOfName) && $resource->authorizedFormOfName): ?>
+          <part><?php echo esc_specialchars($resource->authorizedFormOfName) ?></part>
+        <?php endif; ?>
 
         <authorizedForm>conventionDeclaration</authorizedForm>
-
       </nameEntry>
 
       <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::STANDARDIZED_FORM_OF_NAME_ID)) as $item): ?>
@@ -122,94 +125,102 @@
 
     </identity>
 
-    <description>
+    <?php if ($eac->hasDescriptionElements($resource)): ?>
+      <description>
+        <?php if (isset($eac->existDates) && $eac->existDates): ?>
+          <existDates><?php echo $eac->existDates ?></existDates>
+        <?php endif; ?>
 
-      <existDates><?php echo $eac->existDates ?></existDates>
+        <?php if (isset($resource->places) && $resource->places): ?>
+          <place>
+            <placeEntry><?php echo esc_specialchars($resource->places) ?></placeEntry>
+          </place>
+        <?php endif; ?>
 
-      <place>
+        <?php if (isset($resource->legalStatus) && $resource->legalStatus): ?>
+          <legalStatus>
+            <term><?php echo esc_specialchars($resource->legalStatus) ?></term>
+          </legalStatus>
+        <?php endif; ?>
 
-        <placeEntry><?php echo esc_specialchars($resource->places) ?></placeEntry>
+        <?php if (isset($resource->functions) && $resource->functions): ?>
+          <function>
+            <term><?php echo esc_specialchars($resource->functions) ?></term>
+          </function>
 
-      </place>
+          <occupation>
+            <descriptiveNote><?php echo esc_specialchars($resource->functions) ?></descriptiveNote>
+          </occupation>
+        <?php endif; ?>
 
-      <legalStatus>
+        <?php if (isset($resource->mandates) && $resource->mandates): ?>
+          <mandate>
+            <term><?php echo esc_specialchars($resource->mandates) ?></term>
+          </mandate>
+        <?php endif; ?>
 
-        <term><?php echo esc_specialchars($resource->legalStatus) ?></term>
+        <?php // The following $eac->* properties are magic and will always be set: ?>
 
-      </legalStatus>
+        <?php if ($eac->structureOrGenealogy): ?>
+          <structureOrGenealogy><?php echo $eac->structureOrGenealogy ?></structureOrGenealogy>
+        <?php endif; ?>
 
-      <function>
+        <?php if ($eac->generalContext): ?>
+          <generalContext><?php echo $eac->generalContext ?></generalContext>
+        <?php endif; ?>
 
-        <term><?php echo esc_specialchars($resource->functions) ?></term>
+        <?php if ($eac->biogHist): ?>
+          <biogHist id="<?php echo 'md5-' . md5(url_for(array($resource, 'module' => 'actor'), true)) ?>"><?php echo $eac->biogHist ?></biogHist>
+        <?php endif; ?>
+      </description>
+    <?php endif; ?>
 
-      </function>
+    <?php if (count($resource->getActorRelations()) || count($eac->subjectOf) || count($eac->resourceRelation) ||
+              count($eac->functionRelation)): ?>
 
-      <occupation>
+      <relations>
+        <?php foreach ($resource->getActorRelations() as $item): ?>
+          <cpfRelation cpfRelationType="<?php echo sfEacPlugin::toCpfRelationType($item->type->id) ?>" xlink:href="<?php echo url_for(array($item->getOpposedObject($resource), 'module' => 'actor'), true) ?>" xlink:type="simple">
+            <relationEntry><?php echo esc_specialchars(render_title($item->getOpposedObject($resource))) ?></relationEntry>
+            <?php echo sfEacPlugin::renderDates($item) ?>
+            <?php if (isset($item->description)): ?>
+              <descriptiveNote>
+                <?php echo render_value('<p>'.$item->description).'</p>' ?>
+              </descriptiveNote>
+            <?php endif; ?>
+          </cpfRelation>
+        <?php endforeach; ?>
 
-        <descriptiveNote><?php echo esc_specialchars($resource->functions) ?></descriptiveNote>
+        <?php foreach ($eac->subjectOf as $item): ?>
+          <resourceRelation resourceRelationType="subjectOf" xlink:href="<?php echo url_for(array($item->subject, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
+            <relationEntry><?php echo esc_specialchars(render_title($item->subject)) ?></relationEntry>
+          </resourceRelation>
+        <?php endforeach; ?>
 
-      </occupation>
+        <?php foreach ($eac->resourceRelation as $item): ?>
+          <resourceRelation <?php echo sfEacPlugin::toResourceRelationTypeAndXlinkRole($item->type) ?> xlink:href="<?php echo url_for(array($item->object, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
+            <relationEntry><?php echo esc_specialchars(render_title($item->object)) ?></relationEntry>
+            <?php echo sfEacPlugin::renderDates($item) ?>
+            <?php if (isset($item->date)): ?>
+              <descriptiveNote>
+                <?php echo render_value('<p>'.$item->date).'</p>' ?>
+              </descriptiveNote>
+            <?php endif; ?>
+          </resourceRelation>
+        <?php endforeach; ?>
 
-      <mandate>
-
-        <term><?php echo esc_specialchars($resource->mandates) ?></term>
-
-      </mandate>
-
-      <structureOrGenealogy><?php echo $eac->structureOrGenealogy ?></structureOrGenealogy>
-
-      <generalContext><?php echo $eac->generalContext ?></generalContext>
-
-      <biogHist id="<?php echo 'md5-' . md5(url_for(array($resource, 'module' => 'actor'), true)) ?>"><?php echo $eac->biogHist ?></biogHist>
-
-    </description>
-
-    <relations>
-
-      <?php foreach ($resource->getActorRelations() as $item): ?>
-        <cpfRelation cpfRelationType="<?php echo sfEacPlugin::toCpfRelationType($item->type->id) ?>" xlink:href="<?php echo url_for(array($item->getOpposedObject($resource), 'module' => 'actor'), true) ?>" xlink:type="simple">
-          <relationEntry><?php echo esc_specialchars(render_title($item->getOpposedObject($resource))) ?></relationEntry>
-          <?php echo sfEacPlugin::renderDates($item) ?>
-          <?php if (isset($item->description)): ?>
-            <descriptiveNote>
-              <?php echo render_value('<p>'.$item->description).'</p>' ?>
-            </descriptiveNote>
-          <?php endif; ?>
-        </cpfRelation>
-      <?php endforeach; ?>
-
-      <?php foreach ($eac->subjectOf as $item): ?>
-        <resourceRelation resourceRelationType="subjectOf" xlink:href="<?php echo url_for(array($item->subject, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
-          <relationEntry><?php echo esc_specialchars(render_title($item->subject)) ?></relationEntry>
-        </resourceRelation>
-      <?php endforeach; ?>
-
-      <?php foreach ($eac->resourceRelation as $item): ?>
-        <resourceRelation <?php echo sfEacPlugin::toResourceRelationTypeAndXlinkRole($item->type) ?> xlink:href="<?php echo url_for(array($item->object, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
-          <relationEntry><?php echo esc_specialchars(render_title($item->object)) ?></relationEntry>
-          <?php echo sfEacPlugin::renderDates($item) ?>
-          <?php if (isset($item->date)): ?>
-            <descriptiveNote>
-              <?php echo render_value('<p>'.$item->date).'</p>' ?>
-            </descriptiveNote>
-          <?php endif; ?>
-        </resourceRelation>
-      <?php endforeach; ?>
-
-      <?php foreach ($eac->functionRelation as $item): ?>
-        <functionRelation xlink:href="<?php echo url_for(array($item, 'module' => 'function'), true) ?>" xlink:type="simple">
-          <relationEntry><?php echo esc_specialchars(render_title($item->subject)) ?></relationEntry>
-          <?php echo sfEacPlugin::renderDates($item) ?>
-          <?php if (0 < count($date = $item->getNotesByType(array('noteTypeId' => QubitTerm::RELATION_NOTE_DATE_ID)))): ?>
-            <descriptiveNote>
-              <?php echo render_value('<p>'.$date[0]).'</p>' ?>
-            </descriptiveNote>
-          <?php endif; ?>
-        </functionRelation>
-      <?php endforeach; ?>
-
-    </relations>
-
+        <?php foreach ($eac->functionRelation as $item): ?>
+          <functionRelation xlink:href="<?php echo url_for(array($item, 'module' => 'function'), true) ?>" xlink:type="simple">
+            <relationEntry><?php echo esc_specialchars(render_title($item->subject)) ?></relationEntry>
+            <?php echo sfEacPlugin::renderDates($item) ?>
+            <?php if (0 < count($date = $item->getNotesByType(array('noteTypeId' => QubitTerm::RELATION_NOTE_DATE_ID)))): ?>
+              <descriptiveNote>
+                <?php echo render_value('<p>'.$date[0]).'</p>' ?>
+              </descriptiveNote>
+            <?php endif; ?>
+          </functionRelation>
+        <?php endforeach; ?>
+      </relations>
+    <?php endif; ?>
   </cpfDescription>
-
 </eac-cpf>
