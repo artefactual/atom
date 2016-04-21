@@ -259,7 +259,12 @@ class sfEacPlugin implements ArrayAccess
 
         // TODO <date/>, <dateRange/>, <dateSet/>, <descriptiveNote/>, simple
         // natural language parsing?
-        return '<date>'.esc_specialchars($this->resource->datesOfExistence).'</date>';
+        if (isset($this->resource->datesOfExistence))
+        {
+          return '<date>'.esc_specialchars($this->resource->datesOfExistence).'</date>';
+        }
+
+        return;
 
       case 'generalContext':
 
@@ -913,8 +918,12 @@ return;
     $value = preg_replace('/(?:^\*.*\r?\n)*(?:^\*.*)/m', "<list>\n$0\n</list>", $value);
     $value = preg_replace('/(?:^-.*\r?\n)*(?:^-.*)/m', "<list>\n$0\n</list>", $value);
     $value = preg_replace('/^(?:\*|-)\s*(.*)/m', '<item>$1</item>', $value);
+    $value = preg_replace('/(?:\r?\n){2,}/', "</p>\n<p>", $value);
 
-    $value = '<p>'.preg_replace('/(?:\r?\n){2,}/', "</p>\n<p>", $value).'</p>';
+    if ($value)
+    {
+      $value = '<p>'.$value.'</p>';
+    }
 
     return $value;
   }
@@ -1048,5 +1057,31 @@ str;
     }
 
     return $dates;
+  }
+
+  /**
+   * Determine if one or more description elements are filled in.
+   *
+   * It was either this or a massive conditional statement like:
+   * (isset($a) && $a) || (isset($b) && $b) || ...).
+   *
+   * @param $resource  The actor we're getting information from
+   * @return  bool  True if there are one or more description elements, false otherwise
+   */
+  public function hasDescriptionElements($resource)
+  {
+    // Use @ to coerce non-isset properties to NULL
+    $descriptionElements = @array(
+      $this->existDates,
+      $resource->places,
+      $resource->legalStatus,
+      $resource->functions,
+      $resource->mandates,
+      $this->structureOrGenealogy,
+      $this->generalContext,
+      $this->biogHist
+    );
+
+    return (bool)array_filter($descriptionElements);
   }
 }
