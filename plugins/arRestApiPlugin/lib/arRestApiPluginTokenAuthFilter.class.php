@@ -23,7 +23,10 @@ class arRestApiPluginTokenAuthFilter extends sfFilter
   {
     if ($this->isFirstCall())
     {
-      if (!isset($_SERVER['HTTP_X_REST_API_KEY']))
+      $request = $this->getContext()->getRequest();
+
+      // X_REST_API_KEY is and old name still checked for backward compatibility.
+      if (null === $key = Qubit::getHttpHeader('REST-API-Key', 'HTTP_X_REST_API_KEY'))
       {
         $this->sendHeaders();
 
@@ -32,7 +35,7 @@ class arRestApiPluginTokenAuthFilter extends sfFilter
 
       $criteria = new Criteria;
       $criteria->add(QubitProperty::NAME, 'restApiKey');
-      $criteria->add(QubitPropertyI18n::VALUE, $_SERVER['HTTP_X_REST_API_KEY']);
+      $criteria->add(QubitPropertyI18n::VALUE, $key);
 
       if (null == $restApiKeyProperty = QubitProperty::getOne($criteria))
       {
@@ -41,7 +44,6 @@ class arRestApiPluginTokenAuthFilter extends sfFilter
         return;
       }
 
-      // Authenticate user so ACL checks can be applies in XML template# get user ID from property?
       $user = QubitUser::getById($restApiKeyProperty->objectId);
 
       if (null === $user)
