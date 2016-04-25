@@ -105,11 +105,6 @@ class exportBulkTask extends exportBulkBaseTask
         // If we're just exporting a single hierarchy of descriptions as EAD,
         // the given path is actually the full path and filename
         $filePath = $arguments['path'];
-
-        if (!is_writeable($filePath))
-        {
-          throw new sfException("Cannot write to file: $filePath");
-        }
       }
       else
       {
@@ -117,7 +112,10 @@ class exportBulkTask extends exportBulkBaseTask
         $filePath = sprintf('%s/%s', $arguments['path'], $filename);
       }
 
-      file_put_contents($filePath, $xml);
+      if (false === file_put_contents($filePath, $xml))
+      {
+        throw new sfException("Cannot write to path: $filePath");
+      }
 
       $this->indicateProgress($options['items-until-update']);
 
