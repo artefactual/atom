@@ -29,8 +29,8 @@ class UserEditAction extends DefaultEditAction
       'password',
       'translate',
       'username',
-      'rest_api_key',
-      'oai_api_key');
+      'restApiKey',
+      'oaiApiKey');
 
   protected function earlyExecute()
   {
@@ -181,8 +181,8 @@ class UserEditAction extends DefaultEditAction
 
         break;
 
-      case 'rest_api_key':
-      case 'oai_api_key':
+      case 'restApiKey':
+      case 'oaiApiKey':
         // Give user option of (re)generating or deleting API key
         $choices = array(
           ''         => $this->context->i18n->__('-- Select action --'),
@@ -201,13 +201,13 @@ class UserEditAction extends DefaultEditAction
         }
 
         // Expose whether or not API is enabled
-        if ($name == 'oai_api_key')
+        if ($name == 'oaiApiKey')
         {
-          $this->oai_enabled = $this->context->getConfiguration()->isPluginEnabled('arOaiPlugin');
+          $this->oaiEnabled = $this->context->getConfiguration()->isPluginEnabled('arOaiPlugin');
         }
         else
         {
-          $this->rest_enabled = $this->context->getConfiguration()->isPluginEnabled('arRestApiPlugin');
+          $this->restEnabled = $this->context->getConfiguration()->isPluginEnabled('arRestApiPlugin');
         }
 
         break;
@@ -275,8 +275,8 @@ class UserEditAction extends DefaultEditAction
 
         break;
 
-      case 'rest_api_key':
-      case 'oai_api_key':
+      case 'restApiKey':
+      case 'oaiApiKey':
         $keyAction = $this->form->getValue($name);
         $apiKey = QubitProperty::getOneByObjectIdAndName($this->resource->id, sfInflector::camelize($name));
 

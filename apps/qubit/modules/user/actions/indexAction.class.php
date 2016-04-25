@@ -23,7 +23,7 @@ class UserIndexAction extends sfAction
   {
     $this->resource = $this->getRoute()->resource;
 
-    foreach(array('rest_api_key', 'oai_api_key') as $key)
+    foreach (array('restApiKey', 'oaiApiKey') as $key)
     {
       // Get API key value, if any
       $apiKeyProperty = QubitProperty::getOneByObjectIdAndName($this->resource->id, sfInflector::camelize($key));

@@ -61,20 +61,28 @@
       <?php endif; ?>
     <?php endif; ?>
 
-    <?php if ($sf_context->getConfiguration()->isPluginEnabled('arRestApiPlugin') && isset($rest_api_key)): ?>
+    <?php if ($sf_context->getConfiguration()->isPluginEnabled('arRestApiPlugin')): ?>
       <div class="field">
         <h3><?php echo __('REST API key') ?></h3>
         <div>
-          <code><?php echo $rest_api_key ?></code>
+          <?php if (isset($restApiKey)): ?>
+            <code><?php echo $restApiKey ?></code>
+          <?php else: ?>
+            <?php echo __('Not generated yet.') ?>
+          <?php endif; ?>
         </div>
       </div>
     <?php endif; ?>
 
-    <?php if ($sf_context->getConfiguration()->isPluginEnabled('arOaiPlugin') && isset($oai_api_key)): ?>
+    <?php if ($sf_context->getConfiguration()->isPluginEnabled('arOaiPlugin')): ?>
       <div class="field">
         <h3><?php echo __('OAI-PMH API key') ?></h3>
         <div>
-          <code><?php echo $oai_api_key ?></code>
+          <?php if (isset($oaiApiKey)): ?>
+            <code><?php echo $oaiApiKey ?></code>
+          <?php else: ?>
+            <?php echo __('Not generated yet.') ?>
+          <?php endif; ?>
         </div>
       </div>
     <?php endif; ?>
