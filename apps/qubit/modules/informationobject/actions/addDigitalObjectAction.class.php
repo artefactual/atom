@@ -122,7 +122,6 @@ class InformationObjectAddDigitalObjectAction extends sfAction
       try
       {
         $digitalObject->importFromURI($this->form->getValue('url'));
-        $this->resource->digitalObjects[] = $digitalObject;
       }
       catch (sfException $e)
       {
@@ -131,5 +130,6 @@ class InformationObjectAddDigitalObjectAction extends sfAction
       }
     }
 
+    $this->resource->digitalObjects[] = $digitalObject;
   }
 }
