@@ -39,8 +39,8 @@ class Qubit
   // support zero day or zero month
   public static function renderDate($value)
   {
-    // Natural number, trim leading zeros
-    $natural = '0*([1-9]\d*)';
+    // Natural number
+    $natural = '([1-9]\d*)';
 
     // Zero and separator, trim leading zeros
     $zero = '0*(0[-\/])';
