@@ -120,7 +120,7 @@ services:
   nginx:
     image: "nginx:latest"
     ports:
-      - "8000:80"
+      - "80"
     volumes:
       - "../:/atom/src:ro"
       - "./etc/nginx/prod.conf:/etc/nginx/nginx.conf:ro"
