@@ -35,7 +35,7 @@ RUN set -xe \
 RUN set -xe \
 		&& apk add --no-cache --virtual .atom-deps \
 			openjdk8-jre-base \
-			# ffmpeg \ (libva package problem, temporary disabled)
+			ffmpeg \
 			imagemagick \
 			ghostscript \
 			poppler-utils \
