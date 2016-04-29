@@ -127,7 +127,7 @@
 
     <?php if ($eac->hasDescriptionElements($resource)): ?>
       <description>
-        <?php if (isset($eac->existDates) && $eac->existDates): ?>
+        <?php if ($eac->existDates): ?>
           <existDates><?php echo $eac->existDates ?></existDates>
         <?php endif; ?>
 

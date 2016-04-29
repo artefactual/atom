@@ -256,10 +256,9 @@ class sfEacPlugin implements ArrayAccess
         return;
 
       case 'existDates':
-
         // TODO <date/>, <dateRange/>, <dateSet/>, <descriptiveNote/>, simple
         // natural language parsing?
-        if (isset($this->resource->datesOfExistence))
+        if ($this->resource->datesOfExistence)
         {
           return '<date>'.esc_specialchars($this->resource->datesOfExistence).'</date>';
         }
