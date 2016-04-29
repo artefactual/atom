@@ -50,7 +50,7 @@
                 <option value="referenceCode"<?php echo $item['field'] == 'referenceCode' ? ' selected="selected"' : '' ?>><?php echo __('Reference code') ?></option>
               </select>
 
-              <a href="#" class="delete-criterion"><i class="icon-remove"></i></a>
+              <a href="#" class="delete-criterion"><i class="fa fa-times"></i></a>
 
             </div>
 
@@ -90,7 +90,7 @@
             <option value="referenceCode"><?php echo __('Reference code') ?></option>
           </select>
 
-          <a href="#" class="delete-criterion"><i class="icon-remove"></i></a>
+          <a href="#" class="delete-criterion"><i class="fa fa-times"></i></a>
 
         </div>
 
@@ -226,7 +226,7 @@
             </label>
           </div>
 
-          <a href="#" class="date-range-help-icon" aria-expanded="false"><i class="icon-question-sign"></i></a>
+          <a href="#" class="date-range-help-icon" aria-expanded="false"><i class="fa fa-question-circle"></i></a>
 
         </div>
 

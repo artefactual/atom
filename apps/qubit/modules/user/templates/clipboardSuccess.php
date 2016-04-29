@@ -16,7 +16,7 @@
 
     <?php if (isset($pager) && $pager->hasResults() && $sf_user->isAuthenticated()): ?>
       <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'exportCsv', 'fromClipboard' => true)) ?>">
-        <i class="icon-upload-alt"></i>
+        <i class="fa fa-upload"></i>
         <?php echo __('Export CSV') ?>
       </a>
     <?php endif; ?>

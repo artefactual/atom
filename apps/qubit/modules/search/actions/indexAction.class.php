@@ -91,7 +91,7 @@ class SearchIndexAction extends DefaultBrowseAction
     $response['more'] = <<<EOF
 <div class="more">
   <a href="$url">
-    <i class="icon-search"></i>
+    <i class="fa fa-search"></i>
     $link
   </a>
 </div>

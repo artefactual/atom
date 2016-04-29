@@ -35,7 +35,7 @@
       <?php if (isset($sf_request->subquery)): ?>
         <input type="text" name="subquery" value="<?php echo $sf_request->subquery ?>" />
         <a class="btn" href="<?php echo $cleanRoute ?>">
-          <i class="icon-remove"></i>
+          <i class="fa fa-times"></i>
         </a>
       <?php else: ?>
         <input type="text" name="subquery" placeholder="<?php echo $label ?>" />
@@ -43,7 +43,7 @@
 
       <div class="btn-group">
         <button class="btn" type="submit">
-          <i class="icon-search"></i>
+          <i class="fa fa-search"></i>
         </button>
       </div>
 

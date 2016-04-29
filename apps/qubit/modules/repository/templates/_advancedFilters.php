@@ -60,7 +60,7 @@
 
   <div class="row">
     <div class="span3">
-      <button type="submit" class="btn icon-filter">&nbsp;<?php echo __('Set filters') ?></button>
+      <button type="submit" class="btn fa fa-filter">&nbsp;<?php echo __('Set filters') ?></button>
     </div>
   </div>
 </form>

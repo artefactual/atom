@@ -68,7 +68,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
       if ($data['parent'] == '1')
       {
         $data['parent'] = '#';
-        $data['icon'] = 'icon-archive';
+        $data['icon'] = 'fa fa-archive';
       }
 
       // Not used currently

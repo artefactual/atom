@@ -15,7 +15,7 @@
 
     <div class="visible-phone facets-header">
       <a class="x-btn btn-wide">
-        <i class="icon-filter"></i>
+        <i class="fa fa-filter"></i>
         <?php echo __('Filters') ?>
       </a>
     </div>
@@ -87,11 +87,11 @@
         <div class="btn-group">
           <?php echo link_to(' ', array('module' => 'repository', 'action' => 'browse', 'view' => $cardView) +
                              $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
-                             array('class' => 'btn icon-th-large '.($view === $cardView ? 'active' : ''))) ?>
+                             array('class' => 'btn fa fa-th-large '.($view === $cardView ? 'active' : ''))) ?>
 
           <?php echo link_to(' ', array('module' => 'repository', 'action' => 'browse', 'view' => $tableView) +
                              $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
-                             array('class' => 'btn icon-list '.($view === $tableView ? 'active' : ''))) ?>
+                             array('class' => 'btn fa fa-list '.($view === $tableView ? 'active' : ''))) ?>
         </div>
       </div>
       <div class="span2">
@@ -106,7 +106,7 @@
 
     <div class="row">
       <div class="span5">
-        <button id="toggleAdvancedFilters" class="btn icon-double-angle-down">&nbsp;<?php echo __('Advanced') ?></button>
+        <button id="toggleAdvancedFilters" class="btn fa fa-angle-double-down">&nbsp;<?php echo __('Advanced') ?></button>
       </div>
     </div>
 

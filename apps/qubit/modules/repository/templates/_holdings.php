@@ -11,13 +11,13 @@
     <div class="input-prepend input-append">
       <input type="text" name="query" placeholder="<?php echo __('Search holdings') ?>">
       <button class="btn" type="submit">
-        <i class="icon-search"></i>
+        <i class="fa fa-search"></i>
       </button>
     </div>
   </form>
   <div class="more">
     <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse', 'repos' => $resource->id)) ?>">
-      <i class="icon-search"></i>
+      <i class="fa fa-search"></i>
       <?php echo __('Browse %1% holdings', array('%1%' => $pager->getNbResults())) ?>
     </a>
   </div>

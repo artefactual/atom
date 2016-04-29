@@ -25,7 +25,7 @@
             <li><input type="text" name="to" /></li>
           <?php endif; ?>
           <li>
-            <button type="submit" class="btn btn-small"><i class="icon-play-sign"></i></button>
+            <button type="submit" class="btn btn-small"><i class="fa fa-play-circle"></i></button>
           </li>
         </ul>
 

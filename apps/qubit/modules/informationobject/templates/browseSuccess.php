@@ -36,7 +36,7 @@
 
       <div class="visible-phone facets-header">
         <a class="x-btn btn-wide">
-          <i class="icon-filter"></i>
+          <i class="fa fa-filter"></i>
           <?php echo __('Filters') ?>
         </a>
       </div>
@@ -134,7 +134,7 @@
         <?php echo render_title($repos) ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['repos']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
       </span>
     <?php endif; ?>
 
@@ -143,7 +143,7 @@
         <?php echo $collection->__toString() ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['collection']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
       </span>
     <?php endif; ?>
 
@@ -152,7 +152,7 @@
         <?php echo $creators->__toString() ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['creators']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
       </span>
     <?php endif; ?>
 
@@ -161,7 +161,7 @@
         <?php echo $names->__toString() ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['names']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
       </span>
     <?php endif; ?>
 
@@ -170,7 +170,7 @@
         <?php echo $places->__toString() ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['places']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
       </span>
     <?php endif; ?>
 
@@ -179,7 +179,7 @@
         <?php echo $levels->__toString() ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['levels']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
       </span>
     <?php endif; ?>
 
@@ -188,7 +188,7 @@
         <?php echo $subjects->__toString() ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['subjects']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
       </span>
     <?php endif; ?>
 
@@ -197,7 +197,7 @@
         <?php echo $mediatypes->__toString() ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['mediatypes']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
       </span>
     <?php endif; ?>
 
@@ -206,7 +206,7 @@
         <?php echo $copyrightStatus->__toString() ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['copyrightStatus']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
       </span>
     <?php endif; ?>
 
@@ -215,7 +215,7 @@
         <?php echo $materialType->__toString() ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['materialType']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
       </span>
     <?php endif; ?>
 
@@ -228,7 +228,7 @@
         <?php endif; ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['onlyMedia']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
       </span>
     <?php endif; ?>
 
@@ -237,7 +237,7 @@
         <?php echo __('Only top-level descriptions') ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php $params['topLod'] = 0 ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
       </span>
     <?php endif; ?>
 
@@ -246,7 +246,7 @@
         <?php echo ucfirst(sfCultureInfo::getInstance($sf_user->getCulture())->getLanguage($sf_request->languages)) ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['languages']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
       </span>
     <?php endif; ?>
 
@@ -256,7 +256,7 @@
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['startDate']) ?>
         <?php unset($params['endDate']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
       </span>
     <?php endif; ?>
 
@@ -282,7 +282,7 @@
 
       <?php if ($sf_user->isAuthenticated()): ?>
         <a href="<?php echo url_for(array_merge($sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('module' => 'informationobject', 'action' => 'exportCsv'))) ?>">
-          <i class="icon-upload-alt"></i>
+          <i class="fa fa-upload"></i>
           <?php echo __('Export CSV') ?>
         </a>
       <?php endif; ?>
@@ -305,7 +305,7 @@
             <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
             <?php unset($params['page']) ?>
             <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params + array('onlyMedia' => true)) ?>">
-              <i class="icon-search"></i>
+              <i class="fa fa-search"></i>
               <?php echo __('Show results with digital objects') ?>
             </a>
           </p>
@@ -318,7 +318,7 @@
         <?php endforeach; ?>
       <?php else: ?>
         <section id="no-search-results">
-          <i class="icon-search"></i>
+          <i class="fa fa-search"></i>
           <p class="no-results-found"><?php echo __('No results found.') ?></p>
         </section>
       <?php endif; ?>

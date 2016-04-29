@@ -176,8 +176,8 @@
       <form method="get" action="<?php echo url_for(array($resource->taxonomy, 'module' => 'taxonomy')) ?>" data-not-found="<?php echo __('No results found.') ?>">
         <div class="search-box">
           <input type="text" name="query" placeholder="<?php echo __('Search %1%', array('%1%' => $resource->taxonomy)) ?>" />
-          <button type="submit"><i class="icon-search"></i></button>
-          <button id="treeview-search-settings" href="#"><i class="icon-search-settings"></i></button>
+          <button type="submit"><i class="fa fa-search"></i></button>
+          <button id="treeview-search-settings" href="#"><i class="fa fa-cog"></i></button>
         </div>
 
         <div class="animateNicely" id="field-options" style="display: none;">

@@ -33,37 +33,37 @@
       data.plugins = ['types'];
       data.types = {
         'default': {
-          'icon': 'icon-folder-close-alt'
+          'icon': 'fa fa-folder-o'
         },
 
         // Item, File
         'Item': {
-          'icon': 'icon-file-text-alt'
+          'icon': 'fa fa-file-text-o'
         },
         'File': {
-          'icon': 'icon-file-text-alt'
+          'icon': 'fa fa-file-text-o'
         },
 
         // Series, Subseries, Subfonds
         'Series': {
-          'icon': 'icon-folder-close-alt'
+          'icon': 'fa fa-folder-o'
         },
         'Subseries': {
-          'icon': 'icon-folder-close-alt'
+          'icon': 'fa fa-folder-o'
         },
         'subfonds': {
-          'icon': 'icon-folder-close-alt'
+          'icon': 'fa fa-folder-o'
         },
         'Sous-fonds': {
-          'icon': 'icon-folder-close-alt'
+          'icon': 'fa fa-folder-o'
         },
         
         // Fonds, Collection
         'Fonds': {
-          'icon': 'icon-archive'
+          'icon': 'fa fa-archive'
         },
         'Collection': {
-          'icon': 'icon-archive'
+          'icon': 'fa fa-archive'
         }
       }
 

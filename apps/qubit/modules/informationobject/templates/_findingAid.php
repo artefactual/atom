@@ -3,7 +3,7 @@
 <?php if ($sf_user->isAuthenticated()): ?>
   <li>
     <a href="<?php echo url_for(array($resource, 'module' => 'informationobject', 'action' => 'findingAid')) ?>">
-      <i class="icon-cogs"></i>
+      <i class="fa fa-cogs"></i>
       <?php echo __('Generate') ?>
     </a>
   </li>
@@ -12,14 +12,14 @@
 <?php if ($status === QubitTerm::JOB_STATUS_COMPLETED_ID): ?>
   <li>
     <a href="<?php echo public_path($path) ?>" target="_blank">
-      <i class="icon-upload-alt"></i>
+      <i class="fa fa-upload"></i>
       <?php echo __('Download'); ?>
     </a>
   </li>
 <?php else: ?>
   <li>
     <a>
-      <i class="icon-info-sign"></i>
+      <i class="fa fa-info-circle"></i>
       <?php echo __('Status: ') . ucfirst($statusString); ?>
     </a>
   </li>

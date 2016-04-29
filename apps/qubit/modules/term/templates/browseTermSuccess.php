@@ -32,7 +32,7 @@
 
       <div class="visible-phone facets-header">
         <a class="x-btn btn-wide">
-          <i class="icon-filter"></i>
+          <i class="fa fa-filter"></i>
           <?php echo __('Filters') ?>
         </a>
       </div>

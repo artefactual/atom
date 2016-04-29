@@ -11,13 +11,13 @@
         // Animate the toggle button
         if ($filtersSection.css('display') == 'block')
         {
-          $filtersToggle.removeClass('icon-double-angle-up');
-          $filtersToggle.addClass('icon-double-angle-down');
+          $filtersToggle.removeClass('fa-angle-double-up');
+          $filtersToggle.addClass('fa-angle-double-down');
         }
         else if ($filtersSection.css('display') == 'none')
         {
-          $filtersToggle.removeClass('icon-double-angle-down');
-          $filtersToggle.addClass('icon-double-angle-up');
+          $filtersToggle.removeClass('fa-angle-double-down');
+          $filtersToggle.addClass('fa-angle-double-up');
         }
 
         $filtersSection.slideToggle(200);

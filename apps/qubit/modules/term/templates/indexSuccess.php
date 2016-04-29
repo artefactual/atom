@@ -14,7 +14,7 @@
 
         <div class="visible-phone facets-header">
           <a class="x-btn btn-wide">
-            <i class="icon-filter"></i>
+            <i class="fa fa-filter"></i>
             <?php echo __('Filters') ?>
           </a>
         </div>
@@ -243,7 +243,7 @@
               <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
               <?php unset($params['onlyDirect']) ?>
               <?php unset($params['page']) ?>
-              <a href="<?php echo url_for(array($resource, 'module' => 'term') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+              <a href="<?php echo url_for(array($resource, 'module' => 'term') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
             </span>
           <?php endif; ?>
 
@@ -267,7 +267,7 @@
             <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
             <?php unset($params['page']) ?>
             <a href="<?php echo url_for(array($resource, 'module' => 'term') + $params + array('onlyDirect' => true)) ?>">
-              <i class="icon-search"></i>
+              <i class="fa fa-search"></i>
               <?php echo __('Exclude narrower terms') ?>
             </a>
           </p>

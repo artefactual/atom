@@ -1,7 +1,7 @@
 <section class="admin-message" id="error-404">
 
   <h2>
-    <i class="icon-remove"></i>
+    <i class="fa fa-times"></i>
     <?php echo __('Sorry, page not found') ?>
   </h2>
 

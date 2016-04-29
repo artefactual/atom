@@ -40,7 +40,7 @@
 
         <li>
           <a href="<?php echo url_for(array($resource, 'module' => 'sfEacPlugin', 'sf_format' => 'xml')) ?>">
-            <i class="icon-upload-alt"></i>
+            <i class="fa fa-upload"></i>
             <?php echo __('EAC') ?>
           </a>
         </li>
