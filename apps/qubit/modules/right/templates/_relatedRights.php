@@ -6,7 +6,7 @@
       array(
         'resource' => $right->object,
         'inherit' => $item != $resource ? $item : null,
-        'informationObject' => $resource)) ?>
+        'relatedObject' => $resource)) ?>
 
   <?php endforeach; ?>
 
@@ -17,7 +17,8 @@
     <?php echo get_partial('right/right',
       array(
         'resource' => $item->object,
-        'inherit' => 0 == count($resource->getRights()) ? $resource : null)) ?>
+        'inherit' => 0 == count($resource->getRights()) ? $resource : null,
+        'relatedObject' => $resource)) ?>
 
   <?php endforeach; ?>
 
