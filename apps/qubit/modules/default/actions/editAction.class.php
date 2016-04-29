@@ -133,7 +133,7 @@ class DefaultEditAction extends sfAction
 
         foreach ($this[$field->getName()] as $item)
         {
-          if (isset($value[$item->id]))
+          if (!empty($value[$item->id]))
           {
             $item->name = $value[$item->id];
             unset($filtered[$item->id]);
@@ -146,8 +146,14 @@ class DefaultEditAction extends sfAction
 
         foreach ($filtered as $item)
         {
+          if (!$item)
+          {
+            continue;
+          }
+
           $otherName = new QubitOtherName;
           $otherName->name = $item;
+
           switch ($field->getName())
           {
             case 'parallelName':
