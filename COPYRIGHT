@@ -154,6 +154,12 @@ Url:       http://ruflin.github.com/Elastica/
 Copyright: Nicolas Ruflin <spam@ruflin.com>
 License:   Apache 2.0
 
+password_compat
+---------------
+Url: https://github.com/ircmaxell/password_compat
+Copyright: Anthony Ferrara 2012
+License: MIT
+
 printer-icon.png
 ----------------
 Url: http://www.fatcow.com/free-icons
