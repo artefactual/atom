@@ -57,9 +57,14 @@ class ProjectConfiguration extends sfProjectConfiguration
 
   protected function namespacesClassLoader()
   {
+    $rootDir = sfConfig::get('sf_root_dir');
+
+    // Use APC when available to cache the location of namespaced classes
     if (extension_loaded('apc'))
     {
-      $loader = new ApcUniversalClassLoader('atom');
+      // Use unique prefix to avoid cache clashing
+      $prefix = sprintf('atom:%s:', md5($rootDir));
+      $loader = new ApcUniversalClassLoader($prefix);
     }
     else
     {
@@ -67,7 +72,7 @@ class ProjectConfiguration extends sfProjectConfiguration
     }
 
     $loader->registerNamespaces(array(
-      'Elastica' => __DIR__.'/../vendor/elastica'));
+      'Elastica' => $rootDir.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'elastica'));
 
     $loader->register();
   }
