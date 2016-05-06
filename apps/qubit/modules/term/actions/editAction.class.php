@@ -294,7 +294,7 @@ class TermEditAction extends DefaultEditAction
 
         foreach ($this[$field->getName()] as $item)
         {
-          if (isset($value[$item->id]))
+          if (!empty($value[$item->id]))
           {
             $item->content = $value[$item->id];
             unset($filtered[$item->id]);
@@ -307,6 +307,11 @@ class TermEditAction extends DefaultEditAction
 
         foreach ($filtered as $item)
         {
+          if (!$item)
+          {
+            continue;
+          }
+
           $note = new QubitNote;
           $note->content = $item;
           switch ($field->getName())
@@ -496,7 +501,7 @@ class TermEditAction extends DefaultEditAction
 
         foreach ($this->useFor as $item)
         {
-          if (isset($value[$item->id]))
+          if (!empty($value[$item->id]))
           {
             $item->name = $value[$item->id];
             unset($filtered[$item->id]);
@@ -509,6 +514,11 @@ class TermEditAction extends DefaultEditAction
 
         foreach ($filtered as $item)
         {
+          if (!$item)
+          {
+            continue;
+          }
+
           $otherName = new QubitOtherName;
           $otherName->name = $item;
           $otherName->typeId = QubitTerm::ALTERNATIVE_LABEL_ID;
