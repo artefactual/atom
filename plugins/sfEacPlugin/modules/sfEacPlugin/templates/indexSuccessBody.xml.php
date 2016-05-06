@@ -2,19 +2,19 @@
 <eac-cpf xmlns="urn:isbn:1-931666-33-4" xmlns:xlink="http://www.w3.org/1999/xlink">
 
   <control>
-    <?php if (isset($resource->descriptionIdentifier) && $resource->descriptionIdentifier): ?>
+    <?php if (!empty($resource->descriptionIdentifier)): ?>
       <recordId><?php echo esc_specialchars($resource->descriptionIdentifier) ?></recordId>
     <?php endif; ?>
 
-    <?php if (isset($eac->maintenanceStatus) && $eac->maintenanceStatus): ?>
+    <?php if (!empty($eac->maintenanceStatus)): ?>
       <maintenanceStatus><?php echo $eac->maintenanceStatus ?></maintenanceStatus>
     <?php endif; ?>
 
-    <?php if (isset($eac->publicationStatus) && $eac->publicationStatus): ?>
+    <?php if (!empty($eac->publicationStatus)): ?>
       <publicationStatus><?php echo $eac->publicationStatus ?></publicationStatus>
     <?php endif; ?>
 
-    <?php if (isset($resource->institutionResponsibleIdentifier) && $resource->institutionResponsibleIdentifier): ?>
+    <?php if (!empty($resource->institutionResponsibleIdentifier)): ?>
       <maintenanceAgency>
         <agencyName><?php echo esc_specialchars($resource->institutionResponsibleIdentifier) ?></agencyName>
       </maintenanceAgency>
@@ -35,7 +35,7 @@
     <conventionDeclaration>
       <abbreviation>conventionDeclaration</abbreviation>
 
-      <?php if (isset($resource->rules) && $resource->rules): ?>
+      <?php if (!empty($resource->rules)): ?>
         <citation><?php echo esc_specialchars($resource->rules) ?></citation>
       <?php endif; ?>
     </conventionDeclaration>
@@ -45,17 +45,17 @@
       <citation>http://ica-atom.org/doc/RS-2#5.4</citation>
     </localTypeDeclaration>
 
-    <?php if(isset($resource->descriptionDetail) && $resource->descriptionDetail): ?>
+    <?php if(!empty($resource->descriptionDetail)): ?>
       <localControl localType="detailLevel">
         <term><?php echo esc_specialchars($resource->descriptionDetail) ?></term>
       </localControl>
     <?php endif; ?>
 
-    <?php if (isset($eac->maintenanceHistory) && $eac->maintenanceHistory): ?>
+    <?php if (!empty($eac->maintenanceHistory)): ?>
       <maintenanceHistory><?php echo $eac->maintenanceHistory ?></maintenanceHistory>
     <?php endif; ?>
 
-    <?php if (isset($resource->sources) && $resource->sources): ?>
+    <?php if (!empty($resource->sources)): ?>
       <sources>
         <source>
           <sourceEntry><?php echo esc_specialchars($resource->sources) ?></sourceEntry>
@@ -66,16 +66,16 @@
 
   <cpfDescription>
     <identity>
-      <?php if (isset($resource->corporateBodyIdentifiers) && $resource->corporateBodyIdentifiers): ?>
+      <?php if (!empty($resource->corporateBodyIdentifiers)): ?>
         <entityId><?php echo esc_specialchars($resource->corporateBodyIdentifiers) ?></entityId>
       <?php endif; ?>
 
-      <?php if (isset($eac->entityType) && $eac->entityType): ?>
+      <?php if (!empty($eac->entityType)): ?>
         <entityType><?php echo $eac->entityType ?></entityType>
       <?php endif; ?>
 
       <nameEntry>
-        <?php if (isset($resource->authorizedFormOfName) && $resource->authorizedFormOfName): ?>
+        <?php if (!empty($resource->authorizedFormOfName)): ?>
           <part><?php echo esc_specialchars($resource->authorizedFormOfName) ?></part>
         <?php endif; ?>
 
@@ -104,21 +104,21 @@
 
       <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID)) as $item): ?>
         <nameEntryParallel>
-        <?php foreach ($item->otherNameI18ns as $otherName): ?>
-          <?php if (sfContext::getInstance()->getUser()->getCulture() == $otherName->culture): ?>
-            <nameEntry xml:lang="<?php echo sfEacPlugin::to6392($otherName->culture) ?>" scriptCode="Latn">
-              <part><?php echo esc_specialchars($item->name) ?></part>
+          <?php foreach ($item->otherNameI18ns as $otherName): ?>
+            <?php if (sfContext::getInstance()->getUser()->getCulture() == $otherName->culture): ?>
+              <nameEntry xml:lang="<?php echo sfEacPlugin::to6392($otherName->culture) ?>" scriptCode="Latn">
+                <part><?php echo esc_specialchars($item->name) ?></part>
 
-              <preferredForm>conventionDeclaration</preferredForm>
-            </nameEntry>
-          <?php else: ?>
-            <nameEntry xml:lang="<?php echo sfEacPlugin::to6392($otherName->culture) ?>" scriptCode="Latn">
-              <part><?php echo esc_specialchars($otherName->name) ?></part>
-            </nameEntry>
-          <?php endif; ?>
-        <?php endforeach; ?>
+                <preferredForm>conventionDeclaration</preferredForm>
+              </nameEntry>
+            <?php else: ?>
+              <nameEntry xml:lang="<?php echo sfEacPlugin::to6392($otherName->culture) ?>" scriptCode="Latn">
+                <part><?php echo esc_specialchars($otherName->name) ?></part>
+              </nameEntry>
+            <?php endif; ?>
+          <?php endforeach; ?>
 
-        <authorizedForm>conventionDeclaration</authorizedForm>
+          <authorizedForm>conventionDeclaration</authorizedForm>
 
         </nameEntryParallel>
       <?php endforeach; ?>
@@ -131,19 +131,19 @@
           <existDates><?php echo $eac->existDates ?></existDates>
         <?php endif; ?>
 
-        <?php if (isset($resource->places) && $resource->places): ?>
+        <?php if (!empty($resource->places)): ?>
           <place>
             <placeEntry><?php echo esc_specialchars($resource->places) ?></placeEntry>
           </place>
         <?php endif; ?>
 
-        <?php if (isset($resource->legalStatus) && $resource->legalStatus): ?>
+        <?php if (!empty($resource->legalStatus)): ?>
           <legalStatus>
             <term><?php echo esc_specialchars($resource->legalStatus) ?></term>
           </legalStatus>
         <?php endif; ?>
 
-        <?php if (isset($resource->functions) && $resource->functions): ?>
+        <?php if (!empty($resource->functions)): ?>
           <function>
             <term><?php echo esc_specialchars($resource->functions) ?></term>
           </function>
@@ -153,7 +153,7 @@
           </occupation>
         <?php endif; ?>
 
-        <?php if (isset($resource->mandates) && $resource->mandates): ?>
+        <?php if (!empty($resource->mandates)): ?>
           <mandate>
             <term><?php echo esc_specialchars($resource->mandates) ?></term>
           </mandate>
@@ -203,7 +203,7 @@
             <?php echo sfEacPlugin::renderDates($item) ?>
             <?php if (isset($item->date)): ?>
               <descriptiveNote>
-                <?php echo render_value('<p>'.$item->date).'</p>' ?>
+                <?php echo '<p>'.render_value($item->date).'</p>' ?>
               </descriptiveNote>
             <?php endif; ?>
           </resourceRelation>
