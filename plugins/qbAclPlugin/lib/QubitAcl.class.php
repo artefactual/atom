@@ -129,40 +129,52 @@ class QubitAcl
         }
       }
 
-      switch (get_class($resource))
-      {
-        // Allow access to authenticated users, or to *any* user if action is
-        // "read"
-        //
-        // TODO: Add root object to allow hierarchical ACL checks
-        case 'QubitAccession':
-        case 'QubitDeaccession':
-        case 'QubitDonor':
-        case 'QubitFunction':
-        case 'QubitRightsHolder':
-          $hasAccess = ($user->isAuthenticated() || self::$ACTIONS['read'] == $action);
-          break;
-
-        // Administrator only
-        case 'QubitUser':
-        case 'QubitMenu':
-        case 'QubitStaticPage':
-        case 'QubitAclGroup':
-        case 'QubitAclUser':
-          $hasAccess = $user->hasGroup(QubitAclGroup::ADMINISTRATOR_ID);
-          break;
-
-        // Rely on ACL for authorization
-        // TODO Switch *all* authorization to ACL
-        default:
-          $hasAccess = self::isAllowed($user, $resource, $action, $options);
-      }
-
       // OR condition, first "true" result returns
-      if ($hasAccess)
+      if ($hasAccess = self::checkAccessByClass($resource, $user, $action, $options))
       {
         return $hasAccess;
       }
+    }
+
+    return $hasAccess;
+  }
+
+  /*
+   * Check if the current user has access to this resource, based on
+   * class specific rules. This is a helper function to QubitAcl::check().
+   *
+   * @param $resource  The current resource we're checking user access against.
+   * @param $user  The current user
+   * @param $action  Which permissions action we're checking
+   * @param $options  Access check options.
+   */
+  private static function checkAccessByClass($resource, $user, $action, $options)
+  {
+    switch (get_class($resource))
+    {
+      // Allow access to editors and administrators
+      case 'QubitAccession':
+      case 'QubitDeaccession':
+      case 'QubitDonor':
+      case 'QubitFunction':
+      case 'QubitRightsHolder':
+        $hasAccess = $user->isAuthenticated() && ($user->hasGroup(QubitAclGroup::ADMINISTRATOR_ID) ||
+                     $user->hasGroup(QubitAclGroup::EDITOR_ID));
+        break;
+
+      // Administrator only
+      case 'QubitUser':
+      case 'QubitMenu':
+      case 'QubitStaticPage':
+      case 'QubitAclGroup':
+      case 'QubitAclUser':
+        $hasAccess = $user->hasGroup(QubitAclGroup::ADMINISTRATOR_ID);
+        break;
+
+      // Rely on ACL for authorization
+      // TODO Switch *all* authorization to ACL
+      default:
+        $hasAccess = self::isAllowed($user, $resource, $action, $options);
     }
 
     return $hasAccess;
