@@ -330,7 +330,8 @@ information_object:
 
     originalsloc:
       XPath:  "(originalsloc | descgrp/originalsloc)"
-      Method: setLocationOfOriginals
+      Method: importOriginalsLocationEadData
+      Parameters: ["$domNode2"]
 
     #TODO: check for @type attribute and pass it as note type
     note:

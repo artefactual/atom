@@ -1582,6 +1582,37 @@ class QubitInformationObject extends BaseInformationObject
   }
 
   /**
+   * Import data from a <originalsloc> tag in EAD2002
+   *
+   * As the locations of originals field is unstructured, EAD content must
+   * be amalgamated as text. Note that when EAD exported from AtoM the content
+   * is exported in a p tag within the originalsloc tag.
+   *
+   * @param $originalsNode  DOMNode  EAD originalsloc DOM node
+   */
+  public function importOriginalsLocationEadData($originalsNode)
+  {
+    $text = '';
+
+    // Add <p> tag content to amalgamated value
+    foreach ($originalsNode->getElementsByTagName('p') as $pNode)
+    {
+      $text .= trim($pNode->textContent) ."\n";
+    }
+
+    // Add <addressline> tag content to amalgamated value
+    foreach ($originalsNode->getElementsByTagName('address') as $addressNode)
+    {
+      foreach ($addressNode->getElementsByTagName('addressline') as $addressLineNode)
+      {
+        $text .= trim($addressLineNode->textContent) ."\n";
+      }
+    }
+
+    $this->setLocationOfOriginals(trim($text));
+  }
+
+  /**
    * Import language-related data from a <langusage> tag in EAD2002
    *
    * @param $langusageNode  DOMNode  EAD langusage DOM node
