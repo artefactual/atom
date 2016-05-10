@@ -70,7 +70,7 @@
         <entityId><?php echo esc_specialchars($resource->corporateBodyIdentifiers) ?></entityId>
       <?php endif; ?>
 
-      <?php if (!empty($eac->entityType)): ?>
+      <?php if ($eac->entityType): ?>
         <entityType><?php echo $eac->entityType ?></entityType>
       <?php endif; ?>
 
