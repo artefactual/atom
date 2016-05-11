@@ -20,7 +20,7 @@
 
 </div>
 
-<?php if (SecurityCheck::hasPermission($sf_user, array('module' => 'staticpage', 'action' => 'update'))): ?>
+<?php if (QubitAcl::check($resource, 'update')): ?>
   <?php slot('after-content') ?>
       <section class="actions">
         <ul>
