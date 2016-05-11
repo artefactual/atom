@@ -17,25 +17,25 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Observer of notificiation of access events
- *
- * @package AccesstoMemory
- * @subpackage lib
- */
-class QubitAccessLogObserver
+class SecurityPrivileges
 {
-  /*
-   * access_log.view event listener
-   */
-  public static function view(sfEvent $event)
+  public static function editCredentials($user, $object)
   {
-    $object = $event['object'];
+    switch (strtolower($object))
+    {
+      case 'informationobject':
+        return $user->hasCredential(array('administrator', 'editor', 'contributor', 'translator'), false);
 
-    $access = new QubitAccessLog;
-    $access->objectId = $object->id;
-    $access->accessDate = date('Y-m-d H:i:s');
+      case 'actor':
+        return $user->hasCredential(array('administrator', 'editor', 'contributor', 'translator'), false);
 
-    $access->save();
+      case 'repository':
+        return $user->hasCredential(array('administrator', 'editor', 'contributor', 'translator'), false);
+
+      case 'term':
+        return $user->hasCredential(array('administrator', 'editor', 'translator'), false);
+    }
+
+    return false;
   }
 }
