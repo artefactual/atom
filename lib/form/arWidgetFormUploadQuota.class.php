@@ -26,18 +26,25 @@ class arWidgetFormUploadQuota extends sfWidgetFormInput
 
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    if (sfConfig::get('app_upload_limit') == 0)
+    $uploadLimit = (int)sfConfig::get('app_upload_limit');
+
+    if ($uploadLimit === 0)
     {
       return '<label>' . __('Digital object upload is disabled') . '</label>';
+    }
+    else if ($uploadLimit === -1)
+    {
+      return '<label>'.__('Unlimited').'</label>';
     }
 
     $size = Qubit::getDirectorySize(sfConfig::get('sf_upload_dir'));
     if ($size < 0)
     {
-      return '<label>' . __('The uploads directory has not been created yet.') . '</label>';
+      return '<label>'.__('The uploads directory has not been created yet.').'</label>';
     }
 
-    return '<label>' . __('%1% used of %2%', array('%1%' => hr_filesize($size),
-                '%2%' => sfConfig::get('app_upload_limit') < 0 ? '<i>Unlimited</i>' : sfConfig::get('app_upload_limit') . ' GB')) . '</label>';
+    return '<label>' . __('%1% used of %2%', array(
+      '%1%' => hr_filesize($size),
+      '%2%' => $uploadLimit.' GB')).'</label>';
   }
 }
