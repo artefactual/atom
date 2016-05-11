@@ -33,8 +33,11 @@ class QubitUser extends BaseUser
 
     foreach ($this->aclUserGroups as $aclUserGroup)
     {
-      $aclUserGroup->user = $this;
-      $aclUserGroup->save();
+      if (!$aclUserGroup->isDeleted())
+      {
+        $aclUserGroup->user = $this;
+        $aclUserGroup->save();
+      }
     }
 
     foreach ($this->aclPermissions as $aclPermission)
