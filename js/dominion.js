@@ -506,8 +506,12 @@
             break;
 
           case 40: // Down arrow
-            e.preventDefault();
-            this.move(1);
+            // If charCode is 40 then, in Chrome/IE, it's an open parenthesis
+            if (e.charCode == 0)
+            {
+              e.preventDefault();
+              this.move(1);
+            }
             break;
         }
 
