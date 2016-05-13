@@ -8,41 +8,47 @@
   </h1>
 <?php end_slot() ?>
 
-<noscript>
-  <div class="messages warning">
-    <?php echo __('Your browser does not support JavaScript. See %1%minimum requirements%2%.', array('%1%' => '<a href="https://www.accesstomemory.org/wiki/index.php?title=Minimum_requirements">', '%2%' => '</a>')) ?>
-  </div>
+<?php slot('content') ?>
 
-  <ul class="actions links">
-    <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject')) ?></li>
-  </ul>
-</noscript>
-
-<div id="no-flash" style="display: none;">
-  <div class="messages warning">
-    <?php echo __('Your browser does not have Flash player installed. To import digital objects, please <a href="https://get.adobe.com/flashplayer/">Download Adobe Flash Player</a> (requires version 9.0.45 or higher)') ?>
-  </div>
-
-  <ul class="actions links">
-    <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject')) ?></li>
-  </ul>
-</div>
-
-<?php if (QubitDIgitalObject::reachedAppUploadLimit()): ?>
-
-  <div id="upload_limit_reached">
+  <noscript>
     <div class="messages warning">
-      <?php echo __('The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your system administrator to increase the available disk space.',  array('%1%' => sfConfig::get('app_upload_limit'))) ?>
+      <?php echo __('Your browser does not support JavaScript. See %1%minimum requirements%2%.', array('%1%' => '<a href="https://www.accesstomemory.org/wiki/index.php?title=Minimum_requirements">', '%2%' => '</a>')) ?>
     </div>
 
-    <ul class="actions links">
-      <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject')) ?></li>
-    </ul>
+    <section class="actions">
+      <ul>
+        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
+      </ul>
+    </section>
+  </noscript>
+
+  <div id="no-flash" style="display: none;">
+    <div class="messages warning">
+      <?php echo __('Your browser does not have Flash player installed. To import digital objects, please <a href="https://get.adobe.com/flashplayer/">Download Adobe Flash Player</a> (requires version 9.0.45 or higher)') ?>
+    </div>
+
+    <section class="actions">
+      <ul>
+        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
+      </ul>
+    </section>
   </div>
 
-<?php else: ?>
+  <?php if (QubitDigitalObject::reachedAppUploadLimit()): ?>
 
-  <?php slot('content') ?>
+    <div id="upload_limit_reached">
+      <div class="messages warning">
+        <?php echo __('The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your system administrator to increase the available disk space.',  array('%1%' => sfConfig::get('app_upload_limit'))) ?>
+      </div>
+
+      <section class="actions">
+        <ul>
+          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject')) ?></li>
+        </ul>
+      </sectin>
+    </div>
+
+  <?php else: ?>
 
     <?php echo $form->renderGlobalErrors() ?>
 
@@ -93,12 +99,12 @@
 
     </form>
 
-  <?php end_slot() ?>
+  <?php endif; ?>
 
-<?php endif; ?>
+<?php end_slot() ?>
 
 <?php slot('after-content') ?>
-<?php echo javascript_tag(<<<content
+  <?php echo javascript_tag(<<<content
 // If JavaScript and Flash Player installed
 if (0 == YAHOO.deconcept.SWFObjectUtil.getPlayerVersion().major)
 {
@@ -136,4 +142,4 @@ Qubit.multiFileUpload.i18nOversizedFile = '{$sf_context->i18n->__('This file cou
 
 content
 ) ?>
-  <?php end_slot() ?>
+<?php end_slot() ?>
