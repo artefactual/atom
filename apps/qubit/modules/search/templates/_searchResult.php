@@ -71,7 +71,7 @@
     </ul>
 
     <?php if (null !== $scopeAndContent = get_search_i18n($doc, 'scopeAndContent', array('culture' => $culture))): ?>
-      <p><?php echo truncate_text($scopeAndContent, 250) ?></p>
+      <p><?php echo truncate_text(strip_tags(render_value($scopeAndContent)), 250) ?></p>
     <?php endif; ?>
 
     <?php if (isset($doc['creators']) && null !== $creationDetails = get_search_creation_details($doc, $culture)): ?>
