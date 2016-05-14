@@ -1,6 +1,6 @@
 <div id="search-form-wrapper">
 
-  <form action="<?php echo url_for(array('module' => 'search')) ?>" data-autocomplete="<?php echo url_for(array('module' => 'search', 'action' => 'autocomplete')) ?>">
+  <form action="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse')) ?>" data-autocomplete="<?php echo url_for(array('module' => 'search', 'action' => 'autocomplete')) ?>">
 
     <div class="input-append">
 
@@ -40,7 +40,7 @@
             <?php endif; ?>
             <li class="divider"></li>
             <li class="advanced-search">
-              <a href="<?php echo url_for(array('module' => 'search', 'action' => 'advanced')) ?>">
+              <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse', 'showAdvanced' => true, 'topLod' => false)) ?>">
                 <i class="icon-zoom-in"></i>
                 <?php echo __('Advanced search') ?>
               </a>
@@ -88,7 +88,7 @@
       <?php endif; ?>
 
       <div class="search-realm-advanced">
-        <a href="<?php echo url_for(array('module' => 'search', 'action' => 'advanced')) ?>">
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse', 'showAdvanced' => true, 'topLod' => false)) ?>">
           <?php echo __('Advanced search') ?>&nbsp;&raquo;
         </a>
       </div>
