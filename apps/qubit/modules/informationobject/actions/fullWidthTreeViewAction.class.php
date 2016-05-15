@@ -55,7 +55,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
       }
 
       $data['a_attr']['title'] = $data['text'];
-      $data['text'] = ((int) $data['status_id'] == QubitTerm::PUBLICATION_STATUS_DRAFT_ID ? '('.$data['status'].') ' : '') . "<u>{$data['type']}</u> {$data['text']}";
+      $data['text'] = ((int) $data['status_id'] == QubitTerm::PUBLICATION_STATUS_DRAFT_ID ? '('.$data['status'].') ' : '') . "<u>{$data['lod']}</u> {$data['text']}";
 
       // Some special flags on our current selected item
       if ($data['id'] == $_this->selectedItemId)
@@ -71,11 +71,10 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
         $data['icon'] = 'fa fa-archive';
       }
 
-      // Not used currently
-      unset($data['identifier'], $data['status'], $data['status_id'], $data['source_culture'], $data['current_title']);
-
       $data['a_attr']['href'] = $_this->generateUrl('slug', array('slug' => @$data['slug']));
-      unset($data['slug']);
+
+      // Not used currently
+      unset($data['status'], $data['status_id'], $data['slug'], $data['source_culture'], $data['current_title']);
     });
 
     return $this->renderText(json_encode(array('core' => array('data' => $data))));
@@ -88,32 +87,36 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
 
     $draftsSql = ($drafts) ? "AND status.status_id <> " . QubitTerm::PUBLICATION_STATUS_DRAFT_ID : "" ;
 
-    $sql = "SELECT node.id, node.source_culture,
-        IFNULL(source_i18n.title, '<i>$untitled</i>') as text, IFNULL(node.identifier, '') as identifier,
-        node.parent_id as parent, slug.slug, IFNULL(term_type.name, '') as type,
-        status_term.name as status, status_id, current_i18n.title as current_title
+    $sql = "SELECT
+        io.id,
+        io.source_culture,
+        current_i18n.title AS current_title,
+        IFNULL(source_i18n.title, '<i>$untitled</i>') as text,
+        io.parent_id AS parent,
+        slug.slug,
+        IFNULL(lod.name, '') AS lod,
+        st_i18n.name AS status,
+        status.status_id AS status_id
         FROM
-          (information_object AS parent,
-          information_object AS node,
-          information_object_i18n as source_i18n,
-          slug, status, term_i18n as status_term)
-          LEFT JOIN term_i18n AS term_type ON (node.level_of_description_id = term_type.id AND term_type.culture = :culture)
-          LEFT JOIN information_object_i18n AS current_i18n ON (node.id = current_i18n.id AND current_i18n.culture = :culture)
-        WHERE node.lft BETWEEN parent.lft AND parent.rgt
-          AND source_i18n.id = node.id
-          AND source_i18n.culture = node.source_culture
-          AND status.object_id = node.id
-          AND node.id = slug.object_id
-          AND parent.id = :id
-          AND status_term.id = status.status_id AND status_term.`culture` = :culture
+          information_object io
+          LEFT JOIN information_object_i18n current_i18n ON io.id = current_i18n.id AND current_i18n.culture = :culture
+          LEFT JOIN information_object_i18n source_i18n ON io.id = source_i18n.id AND source_i18n.culture = io.source_culture
+          LEFT JOIN term_i18n lod ON io.level_of_description_id = lod.id AND lod.culture = :culture
+          LEFT JOIN status ON io.id = status.object_id AND status.type_id = :pubStatus
+          LEFT JOIN term_i18n st_i18n ON status.status_id = st_i18n.id AND st_i18n.culture = :culture
+          LEFT JOIN slug ON io.id = slug.object_id
+        WHERE
+          io.lft BETWEEN :lft AND :rgt
           $draftsSql
-        ORDER BY node.lft;";
+        ORDER BY io.lft;";
 
     $conn = Propel::getConnection();
 
     $stmt = $conn->prepare($sql);
-    $stmt->bindValue(':id', $item->id);
     $stmt->bindValue(':culture', $this->getUser()->getCulture());
+    $stmt->bindValue(':pubStatus', QubitTerm::STATUS_TYPE_PUBLICATION_ID);
+    $stmt->bindValue(':lft', $item->lft);
+    $stmt->bindValue(':rgt', $item->rgt);
     $stmt->execute();
 
     $ids = $stmt->fetchAll(PDO::FETCH_ASSOC);
