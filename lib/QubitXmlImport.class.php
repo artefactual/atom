@@ -408,6 +408,12 @@ class QubitXmlImport
    */
   private function processMethods(&$domNode, &$importDOM, $methods, &$currentObject, $importSchema)
   {
+    // We want to keep track of nodes processed so we don't process one twice
+    // if multiple selectors apply to it (for example the generic "odd" tag
+    // handler should not trigger if a specific "odd" handler was previously
+    // triggered for the same node)
+    $processed = array();
+
     // go through methods and populate properties
     foreach ($methods as $name => $methodMap)
     {
@@ -507,6 +513,15 @@ class QubitXmlImport
           default:
             foreach ($nodeList2 as $key => $domNode2)
             {
+              // Skip this node if method path isn't "self" and node's previously been processed
+              if ($methodMap['XPath'] != '.' && isset($processed[$domNode2->getNodePath()]))
+              {
+                continue;
+              }
+
+              // Take note that this node has been processed
+              $processed[$domNode2->getNodePath()] = true;
+
               // normalize the node text; NB: this will strip any child elements, eg. HTML tags
               $nodeValue = self::normalizeNodeValue($domNode2);
 
