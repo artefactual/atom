@@ -240,7 +240,7 @@
         }
 
         // Pass function so the placement is computed every time
-        $li.popover({ placement: function(popover, element) {
+        $li.popover({ html: true, placement: function(popover, element) {
             return ($(window).innerWidth() - $(element).offset().left < 550) ? 'left' : 'right';
           }});
 
