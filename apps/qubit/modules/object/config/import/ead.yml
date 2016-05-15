@@ -464,4 +464,4 @@ information_object:
     odd:
       XPath:  "odd"
       Method: importEadNote
-      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::OTHER_DESCRIPTIVE_DATA_ID)"]
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::GENERAL_NOTE_ID)"]
