@@ -39,7 +39,7 @@
 
   <?php if (isset($help)): ?>
     <div class="description">
-      <?php echo $help ?>
+      <?php echo $sf_data->getRaw('help') ?>
     </div>
   <?php endif ?>
 
