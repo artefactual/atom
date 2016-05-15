@@ -81,7 +81,12 @@
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'autocomplete')) ?>"/>
         </div>
 
-        <?php echo get_partial('informationobject/childLevels', array('help' => __('<strong>Identifier</strong><br />Provide a unique identifier for the materials being described in accordance with the institution’s administrative control system.<br /><strong>Level of description</strong><br />Record the level of this unit of description.<br /><strong>Title</strong><br />In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material.<br /><strong>Date</strong><br />Record a date of creation.'))) ?>
+        <?php // Take note of escaping strategy, then turn it off so help HTML won't be escaped
+              $escapingStrategy = sfConfig::get('sf_escaping_strategy');
+              sfConfig::set('sf_escaping_strategy', false); ?>
+        <?php echo get_partial('informationobject/childLevels', array('help' => __('<strong>Identifier</strong><br />Provide a unique identifier for the materials being described in accordance with the institution’s administrative control system.<br /><strong>Level of description</strong><br />Record the level of this unit of description.<br /><strong>Title</strong><br />In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material.<br /><strong>Date</strong><br />Record a date of creation.')), ESC_RAW) ?>
+        <?php // Restore escaping strategy
+              sfConfig::set('sf_escaping_strategy', $escapingStrategy); ?>
 
       </fieldset> <!-- /#identityArea -->
 
