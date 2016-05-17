@@ -26,6 +26,22 @@ class QubitMeta extends sfFilter
     $context->response->addMeta('title', sfConfig::get('app_siteTitle'));
     $context->response->addMeta('description', sfConfig::get('app_siteDescription'));
 
-    $filterChain->execute();
+    try
+    {
+      $filterChain->execute();
+    }
+    catch (Exception $e)
+    {
+      $interfaces = class_implements($e, true);
+      if (in_array('Elastica\Exception\ExceptionInterface', $interfaces))
+      {
+        $context->getRequest()->setParameter('exception', $e);
+        $context->getController()->forward('search', 'error');
+
+        throw new sfStopException;
+      }
+
+      throw $e;
+    }
   }
 }
