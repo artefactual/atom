@@ -2,6 +2,8 @@
 
   <form action="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse')) ?>" data-autocomplete="<?php echo url_for(array('module' => 'search', 'action' => 'autocomplete')) ?>">
 
+    <input type="hidden" name="topLod" value="0"/>
+
     <div class="input-append">
 
       <?php if (isset($repository)): ?>
