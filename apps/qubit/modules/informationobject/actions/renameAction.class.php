@@ -70,7 +70,7 @@ class InformationObjectRenameAction extends DefaultEditAction
       $this->form->bind($request->getPostParameters());
 
       if ($this->form->isValid())
-      { 
+      {
         $this->updateResource();
 
         // Let user know description was updated (and if slug had to be adjusted)
@@ -106,12 +106,21 @@ class InformationObjectRenameAction extends DefaultEditAction
     if (null !== $postedSlug)
     {
       $slug = QubitSlug::getByObjectId($this->resource->id);
+      $findingAidPath = arGenerateFindingAidJob::getFindingAidPath($this->resource->id);
 
       // Attempt to change slug if submitted slug's different than current slug
       if ($postedSlug != $slug->slug)
       {
         $slug->slug = InformationObjectSlugPreviewAction::determineAvailableSlug($postedSlug, $this->resource->id);
         $slug->save();
+
+        // Update finding aid filename
+        $newFindingAidPath = arGenerateFindingAidJob::getFindingAidPath($this->resource->id);
+        if (false === rename($findingAidPath, $newFindingAidPath))
+        {
+          $message = sprintf('Finding aid document could not be renamed according to new slug (old=%s, new=%s)', $findingAidPath, $newFindingAidPath);
+          $this->logMessage($message, 'warning');
+        }
       }
     }
 
