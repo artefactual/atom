@@ -58,8 +58,12 @@ class QubitSlug extends BaseSlug
    */
   public static function slugify($slug, $dropArticles = true)
   {
-    // Handle exotic characters gracefully
-    $slug = iconv('utf-8', 'ascii//TRANSLIT', $slug);
+    // Handle exotic characters gracefully.
+    // TRANSLIT doesn't work in musl's iconv, see #9855.
+    if ((false !== $result = iconv('utf-8', 'ascii//TRANSLIT', $slug)) || (false !== $result = iconv('utf-8', 'ascii', $slug)))
+    {
+      $slug = $result;
+    }
 
     $slug = strtolower($slug);
 
