@@ -4,7 +4,7 @@
   <?php echo __('Elapsed time: %1% seconds.', array('%1%' => $timer->elapsed())) ?>
 </div>
 
-<?php if ($errors != null): ?>
+<?php if (null !== $errors = $errors->getRaw()): ?>
   <?php if (!(count($errors) == 1 && $errors[0] == '..')): ?>
     <div class="messages error">
       <h3>Warnings were encountered:</h3>
