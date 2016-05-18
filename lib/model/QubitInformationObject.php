@@ -2535,14 +2535,14 @@ class QubitInformationObject extends BaseInformationObject
     if (isset($firstChild))
     {
       $firstChildSiblings = $firstChild->getTreeViewSiblings(
-        array('limit' => $numberOfPreviousOrNextSiblings + 2, 'position' => 'next'),
+        array('limit' => $numberOfPreviousOrNextSiblings + 1, 'position' => 'next'),
         $childrenRemaining
       );
 
       // Merge the first child found and its potential siblings
       $items = array_merge(array($firstChild), $firstChildSiblings);
 
-      $hasNextSiblings = count($items) > $numberOfPreviousOrNextSiblings;
+      $hasNextSiblings = count($items) > $numberOfPreviousOrNextSiblings + 1;
       if ($hasNextSiblings)
       {
         array_pop($items);
