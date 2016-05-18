@@ -28,13 +28,6 @@ class qtSwordPluginWorker extends arBaseJob
   {
     $this->info('A new job has started to being processed.');
 
-    if (!is_writable(sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.sfConfig::get('app_upload_dir')))
-    {
-      $this->error('Read-write access needed in {sf_web_dir}/{app_upload_dir}.');
-
-      return false;
-    }
-
     if (isset($package['location']))
     {
       $this->info('A package was deposited by reference.');
