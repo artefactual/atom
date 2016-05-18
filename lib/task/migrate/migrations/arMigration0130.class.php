@@ -36,10 +36,13 @@ class arMigration0130
    */
   public function up($configuration)
   {
-    // Add extra column, information_object.display_standard_id
-    QubitMigrate::addColumn(
-      QubitJob::TABLE_NAME,
-      'download_path TEXT');
+    if (false === QubitPdo::fetchOne("SHOW COLUMNS IN ". QubitJob::TABLE_NAME." LIKE ?", array('download_path')))
+    {
+      // Add extra column, job.download_path, if it doesn't already exist
+      QubitMigrate::addColumn(
+        QubitJob::TABLE_NAME,
+        'download_path TEXT');
+    }
 
     return true;
   }
