@@ -317,9 +317,9 @@ class QubitJob extends BaseJob
    */
   public static function getJobPrefix()
   {
-    // Deliberately avoiding spaces, tabs, etc... see #9648.
-    $key = sprintf('title="%s"; url="%s"', addslashes(sfConfig::get('app_siteTitle')), addslashes(sfConfig::get('app_siteBaseUrl')));
-    return substr(md5($key), 0, 16).'-';
+    // Deliberately avoiding spaces, tabs, etc by using md5 hashing, see #9648.
+    $key = sfConfig::get('app_siteTitle').sfConfig::get('app_siteBaseUrl').sfConfig::get('sf_root_dir');
+    return md5($key).'-';
   }
 
   /**
