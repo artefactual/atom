@@ -4,10 +4,10 @@
   <?php echo __('Elapsed time: %1% seconds.', array('%1%' => $timer->elapsed())) ?>
 </div>
 
-<?php if (null !== $errors = $errors->getRaw()): ?>
+<?php if ($errors && $errors->count()): ?>
   <?php if (!(count($errors) == 1 && $errors[0] == '..')): ?>
     <div class="messages error">
-      <h3>Warnings were encountered:</h3>
+      <h3><?php echo __('The following issues were encountered:') ?></h3>
       <?php foreach ($errors as $error): ?>
         <div>
           <?php echo $error ?>
