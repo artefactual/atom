@@ -608,7 +608,7 @@ class QubitXmlImport
               $pubSeriesNoteTypeId                 = array_search("Publisher's series", $termData['radNoteTypes']['en']);
               $rightsNoteTypeId                    = array_search("Rights", $termData['radNoteTypes']['en']);
               $materialNoteTypeId                  = array_search("Accompanying material", $termData['radNoteTypes']['en']);
-              $generalNoteTypeId                   = array_search("General note", $termData['radNoteTypes']['en']);
+              $generalNoteTypeId                   = array_search("General note", $termData['noteTypes']['en']);
 
               $dacsAlphaNumericaDesignationsNoteTypeId  = array_search('Alphanumeric designations', $termData['dacsSpecializedNotesTypes']['en']);
               $dacsCitationNoteTypeId            = array_search("Citation", $termData['dacsSpecializedNotesTypes']['en']);
