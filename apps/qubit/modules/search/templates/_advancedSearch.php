@@ -1,8 +1,8 @@
-<div id="content">
+<section class="advanced-search-section">
 
   <a href="#" class="advanced-search-toggle <?php echo $show ? 'open' : '' ?>" aria-expanded="<?php echo $show ? 'true' : 'false' ?>"><?php echo __('Advanced search options') ?></a>
 
-  <section class="advanced-search animateNicely" <?php echo !$show ? 'style="display: none;"' : '' ?>>
+  <div class="advanced-search animateNicely" <?php echo !$show ? 'style="display: none;"' : '' ?>>
 
     <?php echo $form->renderFormTag(url_for(array('module' => 'informationobject', 'action' => 'browse')), array('name' => 'advanced-search-form', 'method' => 'get')) ?>
 
@@ -255,6 +255,6 @@
 
     </form>
 
-  </section>
+  </div>
 
-</div>
+</section>

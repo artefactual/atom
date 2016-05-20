@@ -3,10 +3,10 @@
 
   $(function()
     {
-      var $filtersToggle = $('#toggleAdvancedFilters');
+      var $filtersToggle = $('#toggle-advanced-filters');
 
       $filtersToggle.click(function() {
-        var $filtersSection = $('#advancedRepositoryFilters');
+        var $filtersSection = $('#advanced-repository-filters');
 
         // Animate the toggle button
         if ($filtersSection.css('display') == 'block')
