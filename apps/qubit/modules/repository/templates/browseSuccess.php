@@ -104,17 +104,15 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="span5">
-        <button id="toggleAdvancedFilters" class="btn fa fa-angle-double-down">&nbsp;<?php echo __('Advanced') ?></button>
+    <section class="advanced-search-section">
+      <a href="#" id="toggle-advanced-filters" class="advanced-search-toggle"><?php echo __('Advanced search options') ?></a>
+      <div id="advanced-repository-filters" class="advanced-search">
+        <?php echo get_component('repository', 'advancedFilters', array(
+          'thematicAreas' => $thematicAreas,
+          'repositories' => $repositories,
+          'repositoryTypes' => $repositoryTypes) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?>
       </div>
-    </div>
-
-    <div id="advancedRepositoryFilters" class="row">
-      <?php echo get_component('repository', 'advancedFilters', array('thematicAreas' => $thematicAreas,
-                             'repositories' => $repositories, 'repositoryTypes' => $repositoryTypes) +
-                             $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?>
-    </div>
+    </section>
   </section>
 
 <?php end_slot() ?>

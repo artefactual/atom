@@ -514,22 +514,21 @@ h1 {
   }
 }
 
-#advancedRepositoryFilters {
-  display: none;
+// Similar to #content
+.advanced-search-section {
+  background-color: @white;
   border: 1px solid @borderOutlineColor;
-  background: @grayLighter;
-  margin-left: 0px;
-  margin-top: 10px;
-  padding-bottom: 10px;
-
-  div {
-    margin-left: 3px;
-    margin-top: 1px;
-    background: @grayLighter;
+  .border-radius(4px);
+  .box-shadow(0 1px 1px rgba(0, 0, 0, .2));
+  .actions {
+    margin-bottom: -20px;
   }
+}
 
-  form {
-    margin-bottom: 0px;
+#advanced-repository-filters {
+  display: none;
+  .advanced-repository-filters-content {
+    padding: 10px;
   }
 }
 
