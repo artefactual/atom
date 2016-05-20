@@ -811,7 +811,7 @@
         this.$toggle.attr('aria-expanded', false);
       }
 
-      $('section.advanced-search').toggle(400);
+      $('.advanced-search').toggle(400);
     },
 
     toggleDateRangeHelp: function (e)
