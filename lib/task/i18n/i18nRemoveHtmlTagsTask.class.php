@@ -205,7 +205,7 @@ EOF;
     $this->transformDocument($doc);
 
     // Convert to string and strip leading/trailing whitespace
-    return trim(strip_tags($doc->saveXml($doc->documentElement)));
+    return trim(htmlspecialchars_decode(strip_tags($doc->saveXml($doc->documentElement))));
   }
 
   /**
