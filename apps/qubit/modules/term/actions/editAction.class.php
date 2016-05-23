@@ -182,7 +182,8 @@ class TermEditAction extends DefaultEditAction
           $this->form->setDefault('parent', $this->request->parent);
 
           $params = $this->context->routing->parse(Qubit::pathInfo($this->request->parent));
-          $choices[$this->request->parent] = $params['_sf_route']->resource;
+          $this->parent = $params['_sf_route']->resource;
+          $choices[$this->request->parent] = $this->parent;
         }
 
         $this->form->setWidget('parent', new sfWidgetFormSelect(array('choices' => $choices)));
