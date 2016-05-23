@@ -60,5 +60,11 @@ class InformationObjectDeleteAction extends sfAction
 
       $this->redirect(array('module' => 'informationobject', 'action' => 'browse'));
     }
+
+    // Apparently we can't slice a QubitQuery. `previewSize` is shared with
+    // the template so we can break the loop when desired.
+    $this->count = count($this->resource->descendants);
+    $this->previewSize = (int)sfConfig::get('app_hits_per_page', 10);
+    $this->previewIsLimited = $this->count > $this->previewSize;
   }
 }
