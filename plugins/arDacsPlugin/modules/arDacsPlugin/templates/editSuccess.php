@@ -275,7 +275,7 @@
 
     </div>
 
-    <?php echo get_partial('informationobject/editActions', array('resource' => $resource)) ?>
+    <?php echo get_partial('informationobject/editActions', array('resource' => ($parent !== null ? $parent : $resource))) ?>
 
   </form>
 
