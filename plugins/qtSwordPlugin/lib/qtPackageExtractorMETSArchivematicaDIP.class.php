@@ -204,7 +204,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     // Sort children by title
     usort($children, function ($elem1, $elem2) {
-      return strcmp($elem1['title'], $elem2['title']);
+      return strcasecmp($elem1['title'], $elem2['title']);
     });
 
     // Create children in order
