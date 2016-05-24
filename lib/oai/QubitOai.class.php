@@ -264,6 +264,16 @@ class QubitOai
   }
 
   /**
+   * Return array of additional OAI sets
+   *
+   * @return array of additional OAI sets
+   */
+  public static function getAdditionalOaiSets()
+  {
+    return QubitOai::$additionalOaiSets;
+  }
+
+  /**
    * Add a new OAI set to the available list
    */
   public static function addOaiSet($oaiSet)
