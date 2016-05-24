@@ -67,6 +67,7 @@ header #logo {
 
 .top-dropdown {
   cursor: pointer; // no href
+  width: 100%
 }
 
 .top-dropdown,
@@ -185,6 +186,16 @@ nav > div {
 #browse-menu {
   float: left;
   > button {
+    .border-radius(4px);
+    background-color: lighten(@grayDark, 5%);
+  }
+}
+
+.panel #browse-menu {
+  float: none;
+  width: 100%;
+  > button {
+    float: none;
     .border-radius(4px);
     background-color: lighten(@grayDark, 5%);
   }

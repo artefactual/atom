@@ -26,6 +26,12 @@ class TaxonomyBrowseAction extends sfAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
+    if (sfConfig::get('app_enable_institutional_scoping'))
+    {
+      // Remove search-realm
+      $this->context->user->removeAttribute('search-realm');
+    }
+    
     // HACK Use id deliberately, vs. slug, because "Subjects" and "Places"
     // menus still use id
     $this->resource = QubitTaxonomy::getById($request->id);

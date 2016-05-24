@@ -31,4 +31,4 @@ indexSuccess:
 all:
   components:
     css:
-      [repository, stylesheet]
+      [sfIsadPlugin, stylesheet]

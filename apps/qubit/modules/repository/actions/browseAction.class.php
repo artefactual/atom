@@ -94,6 +94,22 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     $this->tableView = 'table';
     $allowedViews = array($this->cardView, $this->tableView);
 
+    if (sfConfig::get('app_enable_institutional_scoping'))    
+    {
+      if (isset($request->repos) && ctype_digit($request->repos) && null !== $this->repos = QubitRepository::getById($request->repos))
+      {
+        $this->search->queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $request->repos)));
+
+        // Store realm in user session
+        $this->context->user->setAttribute('search-realm', $request->repos);
+      }
+      else
+      {
+        // Remove search-realm
+        $this->context->user->removeAttribute('search-realm');
+      }
+    }
+
     if (1 === preg_match('/^[\s\t\r\n]*$/', $request->subquery))
     {
       $this->search->queryBool->addMust(new \Elastica\Query\MatchAll());

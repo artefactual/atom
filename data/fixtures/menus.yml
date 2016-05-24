@@ -119,6 +119,13 @@ QubitMenu:
       vi: 'Quản lý'
       zh: 管理
     path: accession/browse
+  QubitMenu_browseinstitution:
+    id: 11
+    parent_id: QubitMenu_root
+    source_culture: en
+    name: browseInstitution
+    label:
+      en: Browse our collection
   QubitMenu_mainmenu_manage_accessions:
     parent_id: QubitMenu_mainmenu_manage
     source_culture: en
@@ -1799,3 +1806,36 @@ QubitMenu:
       pt: 'Ir para a área de transferência'
       sr: 'Иди у међумеморију (clipboard)'
     path: user/clipboard
+  QubitMenu_browseinstitution_informationobjects:
+    parent_id: QubitMenu_browseinstitution
+    source_culture: en
+    name: browseInformationObjectsInstitution
+    label:
+      ca: 'Descripcions arxivístiques'
+      ca@valencia: 'Descripcions arxivístiques'
+      cs: 'Archivní popisy'
+      cy: 'Disgrifiadau archifol'
+      de: 'Archivische Beschreibungen'
+      de-CH: 'Archivische Beschreibungen'
+      el: 'Αρχειακές περιγραφές'
+      en: 'Archival descriptions'
+      es: 'Descripción archivística'
+      eu: 'Artxibo deskribapenak'
+      fr: 'Descriptions archivistiques'
+      gl: 'Descrición arquivística'
+      hu: 'Levéltári leírások'
+      is: 'Lýsandi samantektir'
+      it: 'Descrizioni archivistiche'
+      ko: '기록물 기술'
+      nl: 'archivistische beschrijving'
+      pt: 'Descrições arquivísticas'
+      pt-BR: 'Descrições arquivísticas'
+      pt_BR: 'Descrições arquivísticas'
+      ru: 'Архивные описания'
+      sl: 'arhivski opisi'
+      sr: 'Архивски описи'
+      sv: Arkivbeskrivningar
+      vi: 'Mô tả lưu trữ'
+      zh: 文献著录
+    path: informationobject/browse?repos=%currentRealm%
+

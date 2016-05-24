@@ -35,13 +35,13 @@ class SettingsOaiRepositoryForm extends sfForm
 
     // Build widgets
     $this->setWidgets(array(
-      'oai_authentication_enabled' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
+      'oai_authentication_enabled' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'oai_repository_code' => new sfWidgetFormInput,
       'oai_admin_emails' => new sfWidgetFormTextarea,
-      'oai_repository_identifier' => new sfWidgetFormInput(array(), array('class'=>'disabled', 'disabled'=>true)),
-      'sample_oai_identifier' => new sfWidgetFormInput(array(), array('class'=>'disabled', 'disabled'=>true)),
+      'oai_repository_identifier' => new sfWidgetFormInput(array(), array('class' => 'disabled', 'disabled' => true)),
+      'sample_oai_identifier' => new sfWidgetFormInput(array(), array('class' => 'disabled', 'disabled' => true)),
       'resumption_token_limit' => new sfWidgetFormInput,
-      'oai_additional_sets_enabled' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio'))
+      'oai_additional_sets_enabled' => new arWidgetFormSelectRadioOaiAdditionalSetEnable(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio'))
     ));
 
     // Add labels

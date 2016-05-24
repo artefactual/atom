@@ -663,6 +663,22 @@ QubitSetting:
       sr: Жанр
       sv: Genre
       zh: 体裁
+  QubitSetting_globalsearch:
+    name: globalsearch
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: Search
+  QubitSetting_institutionsearchholdings:
+    name: institutionsearchholdings
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: Search our collection
   QubitSetting_26:
     name: en
     scope: i18n_languages
@@ -779,6 +795,9 @@ QubitSetting:
   QubitSetting_swordDepositDir:
     name: sword_deposit_dir
     value: /tmp
+  QubitSetting_enableInstitutionalScoping:
+    name: enable_institutional_scoping
+    value: 0
   QubitSetting_requireSslAdmin:
     name: require_ssl_admin
     value: 0

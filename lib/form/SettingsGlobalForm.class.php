@@ -54,6 +54,7 @@ class SettingsGlobalForm extends sfForm
       'sort_browser_anonymous' => new sfWidgetFormSelectRadio(array('choices' => array('alphabetic' => 'alphabetic', 'lastUpdated' => 'last updated', 'identifier' => 'identifier')), array('class' => 'radio')),
       'default_repository_browse_view' => new sfWidgetFormSelectRadio(array('choices' => array('card' => $i18n->__('card'), 'table' => $i18n->__('table'))), array('class' => 'radio')),
       'multi_repository' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
+      'enable_institutional_scoping' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
       'repository_quota' => new sfWidgetFormInput,
       'upload_quota' => new arWidgetFormUploadQuota,
       'explode_multipage_files' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
@@ -80,6 +81,7 @@ class SettingsGlobalForm extends sfForm
       'sort_browser_anonymous' => $i18n->__('Sort browser (anonymous)'),
       'default_repository_browse_view' => $i18n->__('Default repository browse view'),
       'multi_repository' => $i18n->__('Multiple repositories'),
+      'enable_institutional_scoping' => $i18n->__('Enable institutional scoping'),
       'repository_quota' => $i18n->__('Default %1% upload limit (GB)', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))),
       'upload_quota' => $i18n->__('Total space available for uploads'),
       'explode_multipage_files' => $i18n->__('Upload multi-page files as multiple descriptions'),
@@ -104,6 +106,7 @@ class SettingsGlobalForm extends sfForm
       'inherit_code_informationobject' => $i18n->__('When set to &quot;yes&quot;, the reference code string will be built using the information object identifier plus the identifiers of all its ancestors'),
       'sort_treeview_informationobject' => $i18n->__('Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use'),
       'multi_repository' => $i18n->__('When set to &quot;no&quot;, the repository name is excluded from certain displays because it will be too repetitive'),
+      'enable_institutional_scoping' => $i18n->__('Applies to multi-repository sites only. When set to &quot;yes&quot;, additional search and browse options will be available at the repository level'),
       'repository_quota' => $i18n->__('Default %1% upload limit for a new %2%.  A value of &quot;0&quot; (zero) disables file upload.  A value of &quot;-1&quot; allows unlimited uploads', array('%1%' => strtolower(sfConfig::get('app_ui_label_digitalobject')), '%2%' => strtolower(sfConfig::get('app_ui_label_repository')))),
       'defaultPubStatus' => $i18n->__('Default publication status for newly created or imported %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))),
       'slug_basis_informationobject' => $i18n->__('Choose whether permalinks for descriptions are generated from reference code or title'),
@@ -152,6 +155,7 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['sort_browser_user'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['sort_browser_anonymous'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['multi_repository'] = new sfValidatorInteger(array('required' => false));
+    $this->validatorSchema['enable_institutional_scoping'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['default_repository_browse_view'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['slug_basis_informationobject'] = new sfValidatorChoice(array('choices' => array(QubitSlug::SLUG_BASIS_REFERENCE_CODE, QubitSlug::SLUG_BASIS_TITLE)));
 

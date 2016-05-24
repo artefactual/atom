@@ -90,6 +90,7 @@ class SettingsGlobalAction extends sfAction
     $showTooltips = QubitSetting::getByName('show_tooltips');
     $defaultPubStatus = QubitSetting::getByName('defaultPubStatus');
     $swordDepositDir = QubitSetting::getByName('sword_deposit_dir');
+    $enableInstitutionalScoping = QubitSetting::getByName('enable_institutional_scoping');
     $slugTypeInformationObject = QubitSetting::getByName('slug_basis_informationobject');
 
 
@@ -115,7 +116,8 @@ class SettingsGlobalAction extends sfAction
       'slug_basis_informationobject' => (isset($slugTypeInformationObject)) ? intval($slugTypeInformationObject->getValue(array('sourceCulture'=>true))) : QubitSlug::SLUG_BASIS_TITLE,
       'show_tooltips' => (isset($showTooltips)) ? intval($showTooltips->getValue(array('sourceCulture'=>true))) : 1,
       'defaultPubStatus' => (isset($defaultPubStatus)) ? $defaultPubStatus->getValue(array('sourceCulture'=>true)) : QubitTerm::PUBLICATION_STATUS_DRAFT_ID,
-      'sword_deposit_dir' => (isset($swordDepositDir)) ? $swordDepositDir->getValue(array('sourceCulture'=>true)) : null
+      'sword_deposit_dir' => (isset($swordDepositDir)) ? $swordDepositDir->getValue(array('sourceCulture'=>true)) : null,
+      'enable_institutional_scoping' => (isset($enableInstitutionalScoping)) ? intval($enableInstitutionalScoping->getValue(array('sourceCulture'=>true))) : 0
     ));
   }
 
@@ -352,6 +354,16 @@ class SettingsGlobalAction extends sfAction
       $setting->save();
     }
 
+    // Enable Institutional Scoping
+    if (null !== $enableInstitutionalScoping = $thisForm->getValue('enable_institutional_scoping'))
+    {
+      $setting = QubitSetting::getByName('enable_institutional_scoping');
+
+      // Force sourceCulture update to prevent discrepency in settings between cultures
+      $setting->setValue($enableInstitutionalScoping, array('sourceCulture' => true));
+      $setting->save();
+    }
+    
     return $this;
   }
 }

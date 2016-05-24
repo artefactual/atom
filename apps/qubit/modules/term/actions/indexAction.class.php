@@ -98,6 +98,12 @@ class TermIndexAction extends DefaultBrowseAction
       $this->forward404();
     }
 
+    if (sfConfig::get('app_enable_institutional_scoping'))    
+    {
+      // Remove search-realm
+      $this->context->user->removeAttribute('search-realm');
+    }
+    
     if (isset($request->languages))
     {
       $this->culture = $request->languages;

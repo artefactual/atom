@@ -103,6 +103,11 @@ class myUser extends sfBasicSecurityUser implements Zend_Acl_Role_Interface
     $this->getAttributeHolder()->remove('nav_context_module');
   }
 
+  public function removeAttribute($attribute)
+  {
+      $this->getAttributeHolder()->remove($attribute);
+  }
+  
   public function getUserID()
   {
     return $this->getAttribute('user_id');

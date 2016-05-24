@@ -21,6 +21,12 @@ class TaxonomyIndexAction extends sfAction
 {
   public function execute($request)
   {
+    if (sfConfig::get('app_enable_institutional_scoping'))
+    {
+      // Remove search-realm
+      $this->context->user->removeAttribute('search-realm');
+    }
+      
     // HACK Use id deliberately, vs. slug, because "Subjects" and "Places"
     // menus still use id
     if (isset($request->id))
