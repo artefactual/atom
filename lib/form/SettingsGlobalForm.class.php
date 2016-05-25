@@ -43,6 +43,7 @@ class SettingsGlobalForm extends sfForm
       'check_for_updates' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
       'reference_image_maxwidth' => new sfWidgetFormInput,
       'hits_per_page' => new sfWidgetFormInput,
+      'accession_mask_enabled' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
       'accession_mask' => new sfWidgetFormInput,
       'accession_counter' => new sfWidgetFormInput,
       'separator_character' => new sfWidgetFormInput(array(), array('maxlength' => 1)),
@@ -68,6 +69,7 @@ class SettingsGlobalForm extends sfForm
       'check_for_updates' => $i18n->__('Check for updates'),
       'reference_image_maxwidth' => $i18n->__('Maximum image width (pixels)'),
       'hits_per_page' => $i18n->__('Results per page'),
+      'accession_mask_enabled' => $i18n->__('Accession mask enabled'),
       'accession_mask' => $i18n->__('Accession mask'),
       'accession_counter' => $i18n->__('Accession counter'),
       'separator_character' => $i18n->__('Reference code separator'),
@@ -140,6 +142,7 @@ class SettingsGlobalForm extends sfForm
 
     $this->validatorSchema['version'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['check_for_updates'] = new sfValidatorString(array('required' => false));
+    $this->validatorSchema['accession_mask_enabled'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['accession_mask'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['separator_character'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['accession_counter'] = new sfValidatorString(array('required' => false));
