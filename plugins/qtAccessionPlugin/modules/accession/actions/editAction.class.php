@@ -181,14 +181,18 @@ class AccessionEditAction extends DefaultEditAction
       case 'identifier':
         $this->form->setDefault('identifier', $this->resource['identifier']);
 
-        if (!isset($this->resource->id))
+        // If accession mask enable setting isn't set or is set to on, then populate default with mask value
+        $accessionMaskEnabledSetting = QubitSetting::getByName('accession_mask_enabled');
+        $accessionMaskEnabled = (null === $accessionMaskEnabledSetting || boolval($accessionMaskEnabledSetting->getValue(array('sourceCulture'=>true))));
+
+        if (!isset($this->resource->id) && $accessionMaskEnabled)
         {
           $dt = new DateTime;
           $this->form->setDefault('identifier', QubitAccession::generateAccessionIdentifier());
         }
 
-        $this->form->setValidator('identifier', new sfValidatorString);
-        $this->form->setWidget('identifier', new sfWidgetFormInput(array(), array('disabled' => 'disabled')));
+        $this->form->setValidator('identifier', new QubitValidatorAccessionIdentifier(array('required' => true, 'resource' => $this->resource)));
+        $this->form->setWidget('identifier', new sfWidgetFormInput());
 
         break;
 
@@ -290,6 +294,8 @@ class AccessionEditAction extends DefaultEditAction
         break;
 
       case 'identifier':
+        $value = $this->form->getValue($field->getName());
+        $this->resource['identifier'] = $value;
         break;
 
       case 'informationObjects':
