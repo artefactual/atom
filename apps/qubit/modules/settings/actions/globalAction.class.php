@@ -74,6 +74,7 @@ class SettingsGlobalAction extends sfAction
     $checkForUpdates = QubitSetting::getByName('check_for_updates');
     $refImageMaxWidth = QubitSetting::getByName('reference_image_maxwidth');
     $hitsPerPage = QubitSetting::getByName('hits_per_page');
+    $accessionMaskEnabled = QubitSetting::getByName('accession_mask_enabled');
     $accessionMask = QubitSetting::getByName('accession_mask');
     $accessionCounter = QubitSetting::getByName('accession_counter');
     $separatorCharacter = QubitSetting::getByName('separator_character');
@@ -98,6 +99,7 @@ class SettingsGlobalAction extends sfAction
       'check_for_updates' => (isset($checkForUpdates)) ? intval($checkForUpdates->getValue(array('sourceCulture'=>true))) : 1,
       'reference_image_maxwidth' => (isset($refImageMaxWidth)) ? $refImageMaxWidth->getValue(array('sourceCulture'=>true)) : null,
       'hits_per_page' => (isset($hitsPerPage)) ? $hitsPerPage->getValue(array('sourceCulture'=>true)) : null,
+      'accession_mask_enabled' => (isset($accessionMaskEnabled)) ? intval($accessionMaskEnabled->getValue(array('sourceCulture'=>true))) : 1,
       'accession_mask' => (isset($accessionMask)) ? $accessionMask->getValue(array('sourceCulture'=>true)) : null,
       'accession_counter' => (isset($accessionCounter)) ? intval($accessionCounter->getValue(array('sourceCulture'=>true))) : 1,
       'separator_character' => (isset($separatorCharacter)) ? $separatorCharacter->getValue(array('sourceCulture'=>true)) : null,
@@ -158,6 +160,20 @@ class SettingsGlobalAction extends sfAction
         $setting->setValue($hitsPerPage, array('sourceCulture'=>true));
         $setting->save();
       }
+    }
+
+    // Accession mask enabled
+    if (null !== $accessionMaskEnabled = $thisForm->getValue('accession_mask_enabled'))
+    {
+      if (null === $setting = QubitSetting::getByName('accession_mask_enabled'))
+      {
+        $setting = new QubitSetting;
+        $setting->name = 'accession_mask_enabled';
+      }
+
+      // Force sourceCulture update to prevent discrepency in settings between cultures
+      $setting->setValue($accessionMaskEnabled, array('sourceCulture' => true));
+      $setting->save();
     }
 
     // Accession mask
