@@ -28,6 +28,7 @@ class AccessionEditAction extends DefaultEditAction
       'creators',
       'date',
       'identifier',
+      'identifierAvailableCheckUrl',
       'informationObjects',
       'locationInformation',
       'resourceType',
@@ -193,6 +194,14 @@ class AccessionEditAction extends DefaultEditAction
 
         $this->form->setValidator('identifier', new QubitValidatorAccessionIdentifier(array('required' => true, 'resource' => $this->resource)));
         $this->form->setWidget('identifier', new sfWidgetFormInput());
+
+        break;
+
+      case 'identifierAvailableCheckUrl':
+        // Store URL for checking identifiers as a hidden field so we can relay it to JavaScript validation
+        $routingParams = array('module' => 'accession', 'action' => 'checkIdentifierAvailable', 'accession_id' => $this->resource->id);
+        $this->form->setDefault($name, $this->context->getRouting()->generate(null, $routingParams));
+        $this->form->setWidget($name, new sfWidgetFormInputHidden);
 
         break;
 

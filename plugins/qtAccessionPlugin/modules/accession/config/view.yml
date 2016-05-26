@@ -10,6 +10,7 @@ editSuccess:
     multiRow:
     autocomplete:
     date:
+    /plugins/qtAccessionPlugin/js/validation:
 
 indexSuccess:
   javascripts:
