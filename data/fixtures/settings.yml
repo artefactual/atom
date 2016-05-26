@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 138
+    value: 139
   milestone:
     name: milestone
     editable: 0
@@ -1060,6 +1060,9 @@ QubitSetting:
   Qubit_Settings_defaultRepositoryBrowseView:
     name: default_repository_browse_view
     value: card
+  Qubit_Settings_defaultArchivalDescriptionBrowseView:
+    name: default_archival_description_browse_view
+    value: table
   Qubit_Settings_digitalObjectDerivativesPdfPageNumber:
     name: digital_object_derivatives_pdf_page_number
     value:
