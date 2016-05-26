@@ -818,7 +818,7 @@ class arElasticSearchInformationObjectPdo
   {
     if (!$this->__isset('digital_object_id'))
     {
-      return;
+      return false;
     }
 
     if (!isset(self::$statements['transcript']))
@@ -837,6 +837,52 @@ class arElasticSearchInformationObjectPdo
     self::$statements['transcript']->execute(array($this->__get('digital_object_id')));
 
     return self::$statements['transcript']->fetchColumn();
+  }
+
+  /**
+   * Get finding aid text transcript, if one exists
+   */
+  public function getFindingAidTranscript()
+  {
+    if (!isset(self::$statements['findingAidTranscript']))
+    {
+      $sql  = 'SELECT i18n.value
+        FROM '.QubitProperty::TABLE_NAME.' property
+        JOIN '.QubitPropertyI18n::TABLE_NAME.' i18n
+          ON property.id = i18n.id
+        WHERE property.name = "findingAidTranscript"
+          AND property.source_culture = i18n.culture
+          AND property.object_id = ?';
+
+      self::$statements['findingAidTranscript'] = self::$conn->prepare($sql);
+    }
+
+    self::$statements['findingAidTranscript']->execute(array($this->__get('id')));
+
+    return self::$statements['findingAidTranscript']->fetchColumn();
+  }
+
+  /**
+   * Get finding aid status
+   */
+  public function getFindingAidStatus()
+  {
+    if (!isset(self::$statements['findingAidStatus']))
+    {
+      $sql  = 'SELECT i18n.value
+        FROM '.QubitProperty::TABLE_NAME.' property
+        JOIN '.QubitPropertyI18n::TABLE_NAME.' i18n
+          ON property.id = i18n.id
+        WHERE property.name = "findingAidStatus"
+          AND property.source_culture = i18n.culture
+          AND property.object_id = ?';
+
+      self::$statements['findingAidStatus'] = self::$conn->prepare($sql);
+    }
+
+    self::$statements['findingAidStatus']->execute(array($this->__get('id')));
+
+    return self::$statements['findingAidStatus']->fetchColumn();
   }
 
   protected function getAlternativeIdentifiers()
@@ -1031,6 +1077,17 @@ class arElasticSearchInformationObjectPdo
   {
     $serialized = array();
 
+    // Add default null values to allow document updates using partial data.
+    // To remove fields from the document is required the use of scripts, which
+    // requires global configuration changes or deployments headaches. If there
+    // is not a default value set in the mapping configuration, null values work
+    // the same as missing fields in almost every case and allow us to 'remove'
+    // fields without using scripts in partial updates.
+    $serialized['findingAid'] = array(
+      'transcript' => null,
+      'status' => null
+    );
+
     $serialized['id'] = $this->id;
     $serialized['slug'] = $this->slug;
 
@@ -1112,9 +1169,21 @@ class arElasticSearchInformationObjectPdo
     }
 
     // Transcript
-    if (null !== $transcript = $this->getTranscript())
+    if (false !== $transcript = $this->getTranscript())
     {
       $serialized['transcript'] = $transcript;
+    }
+
+    // Finding aid transcript
+    if (false !== $findingAidTranscript = $this->getFindingAidTranscript())
+    {
+      $serialized['findingAid']['transcript'] = $findingAidTranscript;
+    }
+
+    // Finding aid status
+    if (false !== $findingAidStatus = $this->getFindingAidStatus())
+    {
+      $serialized['findingAid']['status'] = (integer)$findingAidStatus;
     }
 
     // Repository

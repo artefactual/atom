@@ -146,6 +146,8 @@
 
   <?php echo render_show(__('Finding aids'), render_value($resource->getFindingAids(array('cultureFallback' => true)))) ?>
 
+  <?php echo get_component('informationobject', 'findingAidLink', array('resource' => $resource)) ?>
+
 </section> <!-- /section#conditionsOfAccessAndUseArea -->
 
 <section id="acquisitionAndAppraisalArea">

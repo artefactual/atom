@@ -70,7 +70,7 @@ abstract class Net_Gearman_Job
         $class = NET_GEARMAN_JOB_CLASS_PREFIX . $job;
 
         // Strip out any potential prefixes used in uniquely identifying AtoM installs.
-        // e.g. "fdd4764376d2f763-arGenerateFindingAidJob" -> "arGenerateFindingAidJob"
+        // e.g. "fdd4764376d2f763-arFindingAidJob" -> "arFindingAidJob"
         // See issue #7423.
         $prefix = QubitJob::getJobPrefix();
         if (substr($class, 0, strlen($prefix)) === $prefix) {

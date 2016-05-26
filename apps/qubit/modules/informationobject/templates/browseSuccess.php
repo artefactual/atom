@@ -260,6 +260,15 @@
       </span>
     <?php endif; ?>
 
+    <?php if (isset($findingAidStatusTag)): ?>
+      <span class="search-filter">
+        <?php echo $findingAidStatusTag ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+        <?php unset($params['findingAidStatus']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
   </section>
 
 <?php end_slot() ?>
