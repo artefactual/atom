@@ -309,7 +309,7 @@
           'date'        => __('Date')))) ?>
     </section>
 
-    <div id="content">
+    <div id="content" class="browse-content">
       <?php if (!isset($sf_request->onlyMedia) && isset($pager->facets['digitalobjects']) && 0 < $pager->facets['digitalobjects']['count']): ?>
         <div class="search-result media-summary">
           <p>
