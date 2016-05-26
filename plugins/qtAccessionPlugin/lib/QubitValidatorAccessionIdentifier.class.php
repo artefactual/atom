@@ -32,23 +32,16 @@ class QubitValidatorAccessionIdentifier extends sfValidatorBase
     $criteria = new Criteria;
     $criteria->add(QubitAccession::IDENTIFIER, $value);
 
-    if (!isset($this->getOption('resource')->id))
-    {
-      // If accession is new, make sure no other accession's using proposed identifier
-      if (0 == count(QubitAccession::get($criteria)))
-      {
-        return $value;
-      }
-    }
-    else
+    // If accession isn't new, make sure no accession other than it is using proposed identifier
+    if (isset($this->getOption('resource')->id))
     {
       // If accession isn't new, make sure no accession other than it is using proposed identifier
       $criteria->add(QubitAccession::ID, $this->getOption('resource')->id, Criteria::NOT_EQUAL);      
+    }
 
-      if (0 == count(QubitAccession::get($criteria)))
-      {
-        return $value;
-      }
+    if (0 == count(QubitAccession::get($criteria)))
+    {
+      return $value;
     }
 
     throw new sfValidatorError($this, sfContext::getInstance()->i18n->__('This identifer is already in use.'), array('value' => $value));
