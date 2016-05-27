@@ -570,7 +570,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     }
     else
     {
-      $this->view = sfConfig::get('app_default_repository_browse_view', 'card');
+      $this->view = sfConfig::get('app_default_archival_description_browse_view', $this->tableView);
     }
   }
 }
