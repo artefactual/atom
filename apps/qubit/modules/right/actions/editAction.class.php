@@ -74,6 +74,10 @@ class RightEditAction extends sfAction
         $this->form->setValidator($name, new sfValidatorString);
         $this->form->setWidget($name, $this->dateWidget());
         $this->form->setDefault($name, $this->right[$name]);
+        if ($name == 'copyrightStatusDate')
+        {
+          $this->form->getWidgetSchema()->{$name}->setLabel($this->context->i18n->__('Copyright status determination date'));
+        }
 
         break;
 

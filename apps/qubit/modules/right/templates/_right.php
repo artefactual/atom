@@ -32,7 +32,7 @@
 
       <?php echo render_show(__('Copyright status'), render_value($resource->copyrightStatus)) ?>
 
-      <?php echo render_show(__('Copyright status date'), render_value($resource->copyrightStatusDate)) ?>
+      <?php echo render_show(__('Copyright status determination date'), render_value($resource->copyrightStatusDate)) ?>
 
       <?php echo render_show(__('Copyright jurisdiction'), render_value(format_country($resource->copyrightJurisdiction))) ?>
 
