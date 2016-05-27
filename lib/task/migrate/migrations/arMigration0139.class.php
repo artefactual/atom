@@ -18,8 +18,10 @@
  */
 
 /*
- * Change browse digital object link destination to now use archival
+ * 1. Change browse digital object link destination to now use archival
  * description browse page, see #9769
+ *
+ * 2. Add default_archival_description_browse_view default setting
  *
  * @package    AccesstoMemory
  * @subpackage migration
@@ -36,6 +38,15 @@ class arMigration0139
     {
       $menu->path = 'informationobject/browse?view=card&onlyMedia=1';
       $menu->save();
+    }
+
+    if (null === QubitSetting::getByName('default_archival_description_browse_view'))
+    {
+      $setting = new QubitSetting;
+      $setting->setName('default_archival_description_browse_view');
+      $setting->setSourceCulture('en');
+      $setting->setValue('table');
+      $setting->save();
     }
 
     return true;
