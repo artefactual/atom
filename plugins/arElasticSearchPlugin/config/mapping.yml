@@ -401,6 +401,7 @@ mapping:
     properties:
       slug: { type: string, index: not_analyzed }
       identifier: { type: string, index: not_analyzed }
+      reference_code_without_country_and_repo: { type: string, index: not_analyzed }
       level_of_description_id: { type: integer, index: not_analyzed }
       lft: { type: integer, index: not_analyzed }
       publication_status_id: { type: integer, index: not_analyzed }

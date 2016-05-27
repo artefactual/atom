@@ -135,36 +135,29 @@ EOF;
       foreach ($conn->query($sql, PDO::FETCH_NUM) as $row)
       {
         // Get unique slug
-        if (null !== $row[1])
-        {
-          $slug = QubitSlug::slugify($this->getStringToSlugify($row, $table));
+        $slug = QubitSlug::slugify($this->getStringToSlugify($row, $table));
 
-          if (!$slug)
-          {
-            $slug = $this->getRandomSlug();
-          }
-
-          // Truncate at 250 chars
-          if (250 < strlen($slug))
-          {
-            $slug = substr($slug, 0, 250);
-          }
-
-          $count = 0;
-          $suffix = '';
-
-          while (isset($this->slugs[$slug.$suffix]))
-          {
-            $count++;
-            $suffix = '-'.$count;
-          }
-
-          $slug .= $suffix;
-        }
-        else
+        if (!$slug)
         {
           $slug = $this->getRandomSlug();
         }
+
+        // Truncate at 250 chars
+        if (250 < strlen($slug))
+        {
+          $slug = substr($slug, 0, 250);
+        }
+
+        $count = 0;
+        $suffix = '';
+
+        while (isset($this->slugs[$slug.$suffix]))
+        {
+          $count++;
+          $suffix = '-'.$count;
+        }
+
+        $slug .= $suffix;
 
         $this->slugs[$slug] = true; // Add to lookup table
         $newRows[] = array($row[0], $slug); // To add to slug table
@@ -179,7 +172,7 @@ EOF;
         $last = min($i+$inc, count($newRows));
         for ($j = $i; $j < $last; $j++)
         {
-          $sql .= '('.$newRows[$j][0].', \''.$newRows[$j][1].'\'), ';
+          $sql .= sprintf('("%s", "%s"), ', $newRows[$j][0], $newRows[$j][1]);
         }
 
         $sql = substr($sql, 0, -2).';';
@@ -208,27 +201,71 @@ EOF;
     return $slug;
   }
 
+  /**
+   * Call table specific handlers to return an appropriate string to base the slug off of.
+   *
+   * For now we only have special slug basis settings for information objects, but other
+   * class types may get their own custom settings in the future.
+   *
+   * @return string  The string to base our slug off of.
+   */
   private function getStringToSlugify($row, $table)
   {
-    $basis = QubitSetting::getByName('slug_basis_informationobject');
-
-    // Special case: we'll get full inherited reference code from ES for information objects. Hydrating
-    // an ORM object then calling getInheritedReferenceCode() would be too large a performance hit for this task.
-    if ($table === 'information_object' && $basis && $basis->getValue() == QubitSlug::SLUG_BASIS_REFERENCE_CODE)
+    switch ($table)
     {
-      $refCode = $this->getInheritedReferenceCodeES($row[0]);
+      case 'information_object':
+        return $this->getInformationObjectStringToSlugify($row);
 
-      // Return full inherited ref code if available from ES. If not, fall back to the old behavior (gen from title).
-      if ($refCode)
-      {
-        return $refCode;
-      }
+      default:
+        return $row[1];
     }
-
-    return $row[1];
   }
 
-  private function getInheritedReferenceCodeES($id)
+  /**
+   * Get string to slugify for an information object, based on the slug basis setting.
+   *
+   * @param array $row  Data pulled from the database about the information object.
+   * @return string  The string to use to slugify.
+   */
+  private function getInformationObjectStringToSlugify($row)
+  {
+    if (null === $basis = QubitSetting::getByName('slug_basis_informationobject'))
+    {
+      return $row[1]; // Fall back to title as the slug basis if no setting present
+    }
+
+    // Note: pull reference codes from ES, as hydrating an ORM object and building the inherited
+    // reference code on-the-fly is not performant.
+    switch ($basis->getValue())
+    {
+      case QubitSlug::SLUG_BASIS_REFERENCE_CODE:
+        return $this->getSlugStringFromES($row[0], 'referenceCode');
+
+      case QubitSlug::SLUG_BASIS_REFERENCE_CODE_NO_COUNTRY_REPO:
+        return $this->getSlugStringFromES($row[0], 'referenceCodeWithoutCountryAndRepo');
+
+      case QubitSlug::SLUG_BASIS_IDENTIFIER:
+        return $this->getSlugStringFromES($row[0], 'identifier');
+
+      case QubitSlug::SLUG_BASIS_TITLE:
+        return $row[1];
+
+      default:
+        throw new sfException('Unsupported slug basis specified in settings: '.$basis->getValue());
+    }
+  }
+
+  /**
+   * Get an information object string from ES to use as the basis for generating a slug.
+   *
+   * @param int $id  The id for the information object we're looking up.
+   *
+   * @param string $property  Depending on the slug basis, this is the property that contains the string we want.
+   *                          e.g., referenceCode, identifier, etc.
+   *
+   * @return string  Return the specified string to use as a basis to generate the slug.
+   */
+  private function getSlugStringFromES($id, $property)
   {
     $query = new \Elastica\Query;
     $queryBool = new \Elastica\Query\BoolQuery;
@@ -246,6 +283,11 @@ EOF;
 
     $doc = $results[0]->getData();
 
-    return $doc['referenceCode'];
+    if (!array_key_exists($property, $doc))
+    {
+      throw new sfException("ElasticSearch document for information object (id: $id) has no property $property");
+    }
+
+    return $doc[$property];
   }
 }
