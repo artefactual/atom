@@ -2926,9 +2926,12 @@ class QubitInformationObject extends BaseInformationObject
   /**
    * Return this information object's full, inherited reference code.
    *
+   * @param bool $includeRepoAndCountry  Whether to include the repository identifier and country
+   * code.
+   *
    * @return string
    */
-  public function getInheritedReferenceCode()
+  public function getInheritedReferenceCode($includeRepoAndCountry = true)
   {
     if (!isset($this->identifier))
     {
@@ -2959,18 +2962,21 @@ class QubitInformationObject extends BaseInformationObject
 
     $identifier = implode(sfConfig::get('app_separator_character', '-'), $identifier);
 
-    if (isset($repository->identifier))
+    if ($includeRepoAndCountry)
     {
-      $identifier = "$repository->identifier $identifier";
-    }
-
-    if (isset($repository))
-    {
-      $countryCode = $repository->getCountryCode();
-
-      if (isset($countryCode))
+      if (isset($repository->identifier))
       {
-        $identifier = "$countryCode $identifier";
+        $identifier = "$repository->identifier-$identifier";
+      }
+
+      if (isset($repository))
+      {
+        $countryCode = $repository->getCountryCode();
+
+        if (isset($countryCode))
+        {
+          $identifier = "$countryCode-$identifier";
+        }
       }
     }
 
