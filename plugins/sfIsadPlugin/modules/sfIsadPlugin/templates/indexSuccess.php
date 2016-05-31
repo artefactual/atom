@@ -175,6 +175,9 @@
   <?php endif; ?>
 
   <?php echo render_show(__('Finding aids'), render_value($resource->getFindingAids(array('cultureFallback' => true))), array('fieldLabel' => 'findingAids')) ?>
+
+  <?php echo get_component('informationobject', 'findingAidLink', array('resource' => $resource)) ?>
+
 </section> <!-- /section#conditionsOfAccessAndUseArea -->
 
 <section id="alliedMaterialsArea">

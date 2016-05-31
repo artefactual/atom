@@ -33,16 +33,18 @@ class arInheritRightsJob extends arBaseJob
    */
   protected $extraRequiredParameters = array(
     'overwrite_or_combine', // Values: overwrite, combine
-    'all_or_digital_only'   // Values: all, digital_only
+    'all_or_digital_only',  // Values: all, digital_only
+    'objectId'
   );
 
   public function runJob($parameters)
   {
-    $ioId = $parameters['objectId'];
+    $io = QubitInformationObject::getById($parameters['objectId']);
 
-    if (($io = QubitInformationObject::getById($ioId)) === null)
+    // Check that object exists and that it is not the root
+    if (!isset($io) || !isset($io->parent))
     {
-      $this->error("Invalid information object id: $ioId");
+      $this->error($this->i18n->__('Could not find an information object with id: %1', array('%1' => $parameters['objectId'])));
 
       return false;
     }
@@ -55,7 +57,7 @@ class arInheritRightsJob extends arBaseJob
       // If digital only and descendant isn't a digital object, skip
       if ('digital_only' === $parameters['all_or_digital_only'] && null === $descendant->getDigitalObject())
       {
-        $this->info("skipping descendant {$descendant->getId()}\n");
+        $this->info($this->i18n->__('Skipping descendant %1', array('%1' => $descendant->getId())));
 
         continue;
       }

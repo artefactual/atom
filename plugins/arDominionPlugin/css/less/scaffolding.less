@@ -167,17 +167,6 @@ th {
 
   font-size: 12px;
 
-  // Icons
-  i {
-    font-size: 14px;
-    color: @grayLight;
-    margin-right: 4px;
-  }
-
-  a:hover i {
-    color: @orange;
-  }
-
   ul {
     margin: 0;
     list-style: none;
@@ -194,15 +183,35 @@ th {
     margin-top: -2px;
   }
 
-  a {
+  // Icons
+  a:not(.btn) {
     color: @blue;
     display: block;
     padding: 2px 4px;
+
+    i {
+      font-size: 14px;
+      color: @grayLight;
+      margin-right: 4px;
+    }
+
     &:hover {
       background-color: @grayLighter;
+
+      i {
+        color: @orange;
+      }
     }
   }
 
+  a.btn {
+    margin-top: 5px;
+    font-size: 12px;
+
+    i {
+      margin-right: 5px;
+    }
+  }
 }
 
 // jQuery Masonry bricks

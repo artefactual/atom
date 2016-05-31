@@ -93,11 +93,12 @@ class arElasticSearchPluginUtil
 
   /**
    * Set all fields for a QueryString, removing those hidden for public users
+   * and those included in the except array.
    *
    * Tried to add the result fields to the cache but APC (our default caching engine) uses separate
    * memory spaces for web/cli and the cached fields can't be removed in arSearchPopulateTask
    */
-  public static function setAllFields(\Elastica\Query\QueryString $query, $indexType)
+  public static function setAllFields(\Elastica\Query\QueryString $query, $indexType, $except = array())
   {
     // Load ES mappings
     $mappings = arElasticSearchPlugin::loadMappings();
@@ -116,6 +117,12 @@ class arElasticSearchPluginUtil
 
     // Get all string fields included in _all for the index type
     $allFields = self::getAllObjectStringFields($mappings[$indexType], $prefix = '', $cultures);
+
+    // Remove fields in except (use array_values() because array_diff() adds keys)
+    if (count($except) > 0)
+    {
+      $allFields = array_values(array_diff($allFields, $except));
+    }
 
     // Do not check hidden fields for authenticated users, actors or repositories
     if (sfContext::getInstance()->user->isAuthenticated()

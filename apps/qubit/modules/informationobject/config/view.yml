@@ -80,3 +80,11 @@ updatePublicationStatusSuccess:
     /vendor/yui/container/container-min:
     /vendor/yui/connection/connection-min:
     repositoryHoldings:
+
+uploadFindingAidSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    /vendor/yui/connection/connection-min:
+    /vendor/yui/container/container-min:
+    repositoryHoldings:

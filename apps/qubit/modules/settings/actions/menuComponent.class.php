@@ -78,6 +78,15 @@ class SettingsMenuComponent extends sfComponent
       )
     );
 
+    // Only show LDAP authentication settings if LDAP authentication's used
+    if ($this->context->user instanceof ldapUser)
+    {
+      array_push($this->nodes, array(
+        'label' => $i18n->__('LDAP Authentication'),
+        'action' => 'ldap'
+      ));
+    }
+
     foreach ($this->nodes as $i => &$node)
     {
       // Remove hidden nodes
