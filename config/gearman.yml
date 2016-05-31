@@ -4,7 +4,7 @@ all:
 
   worker_types:
     general:
-      - arGenerateFindingAidJob
+      - arFindingAidJob
     acl:
       - arInheritRightsJob
     search_csv_export:

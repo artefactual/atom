@@ -243,6 +243,8 @@
 
   <?php echo render_show(__('Finding aids'), render_value($resource->getFindingAids(array('cultureFallback' => true))), array('fieldLabel' => 'findingAids')) ?>
 
+  <?php echo get_component('informationobject', 'findingAidLink', array('resource' => $resource)) ?>
+
   <?php echo render_show(__('Associated materials'), render_value($resource->getRelatedUnitsOfDescription(array('cultureFallback' => true))), array('fieldLabel' => 'associatedMaterials')) ?>
 
   <div class="relatedMaterialDescriptions">

@@ -372,6 +372,21 @@ class arElasticSearchPluginQuery
 
         break;
 
+      case 'findingAidTranscript':
+        $queryField = new \Elastica\Query\QueryString($query);
+        $queryField->setDefaultField('findingAid.transcript');
+        $queryField->setDefaultOperator('OR');
+
+        break;
+
+      case 'allExceptFindingAidTranscript':
+        $queryField = new \Elastica\Query\QueryString($query);
+        $queryField->setDefaultOperator('OR');
+        $except = array('findingAid.transcript');
+        arElasticSearchPluginUtil::setAllFields($queryField, 'informationObject', $except);
+
+        break;
+
       case '_all':
       default:
         $queryField = new \Elastica\Query\QueryString($query);
@@ -450,24 +465,53 @@ class arElasticSearchPluginQuery
         {
           $query = new \Elastica\Query\Term;
           $query->setTerm('copyrightStatusId', $value);
+
           return $query;
         }
-
-        break;
 
       case 'onlyMedia':
         $query = new \Elastica\Query\Term;
         $query->setTerm('hasDigitalObject', filter_var($value, FILTER_VALIDATE_BOOLEAN));
-        return $query;
 
-        break;
+        return $query;
 
       case 'materialType':
         $query = new \Elastica\Query\Term;
         $query->setTerm('materialTypeId', $value);
+
         return $query;
 
-        break;
+      case 'findingAidStatus':
+        switch ($value)
+        {
+          case 'yes':
+            $queryAll = new \Elastica\Query\MatchAll();
+            $filter = new \Elastica\Filter\Exists('findingAid.status');
+            $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filter);
+
+            return $filteredQuery;
+
+          case 'no':
+            $queryAll = new \Elastica\Query\MatchAll();
+            $filter = new \Elastica\Filter\Missing('findingAid.status');
+            $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filter);
+
+            return $filteredQuery;
+
+          case 'generated':
+            $query = new \Elastica\Query\Term;
+            $query->setTerm('findingAid.status', arFindingAidJob::GENERATED_STATUS);
+
+            return $query;
+
+          case 'uploaded':
+            $query = new \Elastica\Query\Term;
+            $query->setTerm('findingAid.status', arFindingAidJob::UPLOADED_STATUS);
+
+            return $query;
+        }
+
+        return;
     }
   }
 

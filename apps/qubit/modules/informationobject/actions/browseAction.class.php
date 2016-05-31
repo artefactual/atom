@@ -39,7 +39,8 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       'startDate',
       'endDate',
       'topLod',
-      'rangeType'
+      'rangeType',
+      'findingAidStatus'
     ),
 
     $FACETS = array(
@@ -231,6 +232,20 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
           'date_format_error' => 'YYYY-MM-DD')));
 
         break;
+
+      case 'findingAidStatus':
+        $choices = array(
+          ''  => '',
+          'yes' => $this->context->i18n->__('Yes'),
+          'no' => $this->context->i18n->__('No'),
+          'generated' => $this->context->i18n->__('Generated'),
+          'uploaded' => $this->context->i18n->__('Uploaded')
+        );
+
+        $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
+        $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
+
+        break;
     }
   }
 
@@ -373,6 +388,34 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     if (isset($request->startDate) || isset($request->endDate))
     {
       $this->dateRange = '[ '.$request->startDate.' - '.$request->endDate.' ]';
+    }
+
+    if (!empty($request->findingAidStatus))
+    {
+      $i18n = $this->context->i18n;
+
+      switch ($request->findingAidStatus)
+      {
+        case 'yes':
+          $this->findingAidStatusTag = $i18n->__('With finding aid');
+
+          break;
+
+        case 'no':
+          $this->findingAidStatusTag = $i18n->__('Without finding aid');
+
+          break;
+
+        case 'generated':
+          $this->findingAidStatusTag = $i18n->__('With generated finding aid');
+
+          break;
+
+        case 'uploaded':
+          $this->findingAidStatusTag = $i18n->__('With uploaded finding aid');
+
+          break;
+      }
     }
   }
 

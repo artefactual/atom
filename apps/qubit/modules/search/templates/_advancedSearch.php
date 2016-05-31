@@ -48,6 +48,8 @@
                 <option value="genre"<?php echo $item['field'] == 'genre' ? ' selected="selected"' : '' ?>><?php echo __('Genre access points') ?></option>
                 <option value="identifier"<?php echo $item['field'] == 'identifier' ? ' selected="selected"' : '' ?>><?php echo __('Identifier') ?></option>
                 <option value="referenceCode"<?php echo $item['field'] == 'referenceCode' ? ' selected="selected"' : '' ?>><?php echo __('Reference code') ?></option>
+                <option value="findingAidTranscript"<?php echo $item['field'] == 'findingAidTranscript' ? ' selected="selected"' : '' ?>><?php echo __('Finding aid text') ?></option>
+                <option value="allExceptFindingAidTranscript"<?php echo $item['field'] == 'allExceptFindingAidTranscript' ? ' selected="selected"' : '' ?>><?php echo __('Any field except finding aid text') ?></option>
               </select>
 
               <a href="#" class="delete-criterion"><i class="fa fa-times"></i></a>
@@ -88,6 +90,8 @@
             <option value="genre"><?php echo __('Genre access points') ?></option>
             <option value="identifier"><?php echo __('Identifier') ?></option>
             <option value="referenceCode"><?php echo __('Reference code') ?></option>
+            <option value="findingAidTranscript"><?php echo __('Finding aid text') ?></option>
+            <option value="allExceptFindingAidTranscript"><?php echo __('Any field except finding aid text') ?></option>
           </select>
 
           <a href="#" class="delete-criterion"><i class="fa fa-times"></i></a>
@@ -139,7 +143,7 @@
 
       <div class="criteria">
 
-        <div class="filter-row">
+        <div class="filter-row triple">
 
           <div class="filter-left">
             <?php echo $form->levels
@@ -147,9 +151,15 @@
               ->renderRow() ?>
           </div>
 
-          <div class="filter-right">
+          <div class="filter-center">
             <?php echo $form->onlyMedia
               ->label(__('Digital object available'))
+              ->renderRow() ?>
+          </div>
+
+          <div class="filter-right">
+            <?php echo $form->findingAidStatus
+              ->label(__('Finding aid'))
               ->renderRow() ?>
           </div>
 

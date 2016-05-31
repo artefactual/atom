@@ -29,11 +29,11 @@ class arTestJob extends arBaseJob
 {
   public function runJob($parameters)
   {
-    $this->info("Got a test job! id: {$this->job->id}\n");
+    $this->info($this->i18n->__('Got a test job! Id: %1', array('%1' => $this->job->id)));
 
     if (isset($parameters['error']))
     {
-      $this->job->setStatusError('The test worker broke!');
+      $this->job->setStatusError($this->i18n->__('The test worker broke!'));
     }
     else
     {
