@@ -414,6 +414,11 @@ mapping:
       direct_places: { type: integer, index: not_analyzed, include_in_all: false }
       direct_genres: { type: integer, index: not_analyzed, include_in_all: false }
       has_digital_object: { type: boolean, index: not_analyzed, include_in_all: false }
+      finding_aid:
+        type: object
+        properties:
+          transcript: { type: string, index: analyzed, include_in_all: true }
+          status: { type: integer, index: not_analyzed, include_in_all: false }
       digital_object:
         type: object
         properties:

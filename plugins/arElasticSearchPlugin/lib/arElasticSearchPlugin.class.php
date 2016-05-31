@@ -346,6 +346,38 @@ class arElasticSearchPlugin extends QubitSearchEngine
   }
 
   /**
+   * Partial data will be merged into the existing document
+   * (simple recursive merge, inner merging of objects,
+   * replacing core "keys/values" and arrays). There is no
+   * way to delete a field using this method but, if it's
+   * considered where needed, it can be set to 'null'.
+   */
+  public function partialUpdate($object, $data)
+  {
+    if (!$this->enabled)
+    {
+      return;
+    }
+
+    if ($object instanceof QubitUser)
+    {
+      return;
+    }
+
+    $document = new \Elastica\Document($object->id, $data);
+
+    try
+    {
+      $this->index->getType(get_class($object))->updateDocument($document);
+    }
+    catch (\Elastica\Exception\NotFoundException $e)
+    {
+      // Create document if it's not found
+      $this->update($object);
+    }
+  }
+
+  /**
    * Function helper to parse query strings
    */
   public function parse(string $query)

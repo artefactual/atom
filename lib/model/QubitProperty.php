@@ -30,7 +30,8 @@ class QubitProperty extends BaseProperty
 {
   // Flag for updating search index on save or delete
   public
-    $indexOnSave = true;
+    $indexOnSave = true,
+    $indexOnDelete = true;
 
   public function __toString()
   {
@@ -70,9 +71,12 @@ class QubitProperty extends BaseProperty
   {
     parent::delete($connection);
 
-    if ($this->getObject() instanceof QubitInformationObject)
+    if ($this->indexOnDelete)
     {
-      QubitSearch::getInstance()->update($this->getObject());
+      if ($this->getObject() instanceof QubitInformationObject)
+      {
+        QubitSearch::getInstance()->update($this->getObject());
+      }
     }
   }
 

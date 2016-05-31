@@ -31,10 +31,14 @@
 
         <legend><?php echo __('Basic info') ?></legend>
 
+        <?php echo image_tag('loading.small.gif', array('class' => 'hidden pull-right', 'id' => 'spinner', 'alt' => __('Loading...'))) ?>
+
         <?php echo $form->identifier
           ->help(__('Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository'))
           ->label(__('Accession number'))
           ->renderRow() ?>
+
+        <div id="identifier-check-server-error" class="alert alert-danger hidden"><?php echo __('Server error while checking identifer availability.') ?></div>
 
         <?php echo $form->date
           ->help(__('Accession date represents the date of receipt of the materials and is added during the donation process.'))

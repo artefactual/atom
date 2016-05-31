@@ -17,24 +17,24 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class InformationObjectFindingAidAction extends sfAction
+class arWidgetFormSelectRadioOaiAdditionalSetEnable extends sfWidgetFormSelectRadio
 {
-  // export an object w/relations as an XML document with selected schema
-  public function execute($request)
+  public function formatter($widget, $inputs)
   {
-    if (isset($this->getRoute()->resource) && sfContext::getInstance()->user->isAuthenticated())
+    $output = parent::formatter($widget, $inputs);
+
+    $oaiAdditionalSetsEnabled = QubitSetting::getByName('oai_additional_sets_enabled');
+
+    // If OAI additional sets are enabled, display a list of links to them
+    if (isset($oaiAdditionalSetsEnabled) && intval($oaiAdditionalSetsEnabled->getValue(array('sourceCulture'=>true))))
     {
-      $i18n = $this->context->i18n;
-      $resource = $this->getRoute()->resource;
-
-      $params = array(
-        'objectId' => $resource->id,
-        'description' => $i18n->__('Generating finding aid for: ').$resource->getTitle(array('cultureFallback' => true))
-      );
-
-      $job = QubitJob::runJob('arGenerateFindingAidJob', $params);
+      foreach(QubitOai::getAdditionalOaiSets() as $set)
+      {
+        $setUrl = url_for('oai') .'?verb=ListRecords&metadataPrefix=oai_dc&set='. $set->setSpec();
+        $output .= $this->renderContentTag('div', $this->renderContentTag('a', $set->getName(), array('href' => $setUrl)));
+      }
     }
 
-    $this->redirect($request->getHttpHeader('referer'));
+    return $output;
   }
 }
