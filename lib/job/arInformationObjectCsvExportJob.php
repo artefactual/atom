@@ -66,22 +66,23 @@ class arInformationObjectCsvExportJob extends arBaseJob
     mkdir($tempPath);
 
     // Export CSV to temp directory
-    $this->info('Starting export to '. $tempPath .'.');
+    $this->info($this->i18n->__('Starting export to %1.', array('%1' => $tempPath)));
     $itemsExported = $this->exportResults($tempPath);
-    $this->info('Exported '. $itemsExported .' descriptions.');
+    $this->info($this->i18n->__('Exported %1 descriptions.', array('%1' => $itemsExported)));
 
     // Compress CSV export files as a ZIP archive
-    $this->info('Creating ZIP file '. $this->getDownloadFilePath() .'.');
+    $this->info($this->i18n->__('Creating ZIP file %1.', array('%1' => $this->getDownloadFilePath())));
     $success = $this->createZipForDownload($tempPath);
 
     if ($success !== true)
     {
-      $this->error('Failed to create ZIP file.');
+      $this->error($this->i18n->__('Failed to create ZIP file.'));
+
       return false;
     }
 
     // Mark job as complete and set download path
-    $this->info('Export and archiving complete.');
+    $this->info($this->i18n->__('Export and archiving complete.'));
     $this->job->setStatusCompleted();
     $this->job->downloadPath = $this->getDownloadRelativeFilePath();
     $this->job->save();
@@ -123,7 +124,7 @@ class arInformationObjectCsvExportJob extends arBaseJob
         // Log progress every 1000 rows
         if ($itemsExported && ($itemsExported % 1000 == 0))
         {
-          $this->info($itemsExported .' items exported.');
+          $this->info($this->i18n->__('%1 items exported.', array('%1' => $itemsExported)));
         }
 
         $itemsExported++;

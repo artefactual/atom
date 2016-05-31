@@ -542,6 +542,21 @@ class QubitInformationObject extends BaseInformationObject
     return $this->ancestors->andSelf()->orderBy('lft')->__get(1);
   }
 
+  public function getFindingAidStatus()
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitProperty::OBJECT_ID, $this->id);
+    $criteria->add(QubitProperty::NAME, 'findingAidStatus');
+    $property = QubitProperty::getOne($criteria);
+
+    if (!isset($property))
+    {
+      return;
+    }
+
+    return $property->getValue(array('sourceCulture'=>true));
+  }
+
   public function setRoot()
   {
     $criteria = new Criteria;

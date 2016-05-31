@@ -43,6 +43,8 @@ class arBaseJob extends Net_Gearman_Job_Common
   {
     $this->checkRequiredParameters($parameters);
 
+    $this->i18n = sfContext::getInstance()->i18n;
+
     $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
 
     $this->job = QubitJob::getById($parameters['id']);
@@ -62,7 +64,7 @@ class arBaseJob extends Net_Gearman_Job_Common
       $this->runJob($parameters);
       QubitSearch::getInstance()->flushBatch();
 
-      $this->info('Job finished.');
+      $this->info($this->i18n->__('Job finished.'));
     }
     catch (Exception $e)
     {
@@ -70,8 +72,6 @@ class arBaseJob extends Net_Gearman_Job_Common
 
       // Mark QubitJob as failed
       $this->error('Exception: '.$e->getMessage());
-
-      throw new Net_Gearman_Job_Exception($e->getMessage());
     }
   }
 
