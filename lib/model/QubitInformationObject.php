@@ -2906,21 +2906,44 @@ class QubitInformationObject extends BaseInformationObject
    */
   private function generateSlug()
   {
-    // Default to generating slug by title if the setting isn't present.
     if (null === $slugBasis = QubitSetting::getByName('slug_basis_informationobject'))
     {
-      return QubitSlug::slugify($this->getTitle(array('sourceCulture' => true)), false);
+      throw new sfException('No slug_basis_informationobject setting in the database.');
     }
+
+    $stringToSlugify = null;
 
     switch ($slugBasis->getValue())
     {
       case QubitSlug::SLUG_BASIS_REFERENCE_CODE:
-        return QubitSlug::slugify($this->getInheritedReferenceCode(), false);
+        $stringToSlugify = $this->getInheritedReferenceCode();
+        break;
 
       case QubitSlug::SLUG_BASIS_TITLE:
+        $stringToSlugify = $this->getTitle(array('sourceCulture' => true));
+        break;
+
+      case QubitSlug::SLUG_BASIS_REFERENCE_CODE_NO_COUNTRY_REPO:
+        $stringToSlugify = $this->getInheritedReferenceCode(false);
+        break;
+
+      case QubitSlug::SLUG_BASIS_IDENTIFIER:
+        $stringToSlugify = $this->identifier;
+        break;
+
       default:
-        return QubitSlug::slugify($this->getTitle(array('sourceCulture' => true)), false);
+        throw new sfException('Unsupported slug basis specified in settings: '.$slugBasis->getValue());
     }
+
+    // Blank string or null returned, attempt to fall back to slug based on title
+    if ($slugBasis->getValue() != QubitSlug::SLUG_BASIS_TITLE && !$stringToSlugify)
+    {
+      $stringToSlugify = $this->getTitle(array('sourceCulture' => true));
+    }
+
+    // If we still have a blank or null value here, QubitObject will eventually create a random
+    // slug for us. See QubitObject::insertSlug().
+    return QubitSlug::slugify($stringToSlugify, false);
   }
 
   /**
