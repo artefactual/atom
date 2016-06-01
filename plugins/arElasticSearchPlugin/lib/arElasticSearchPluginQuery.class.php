@@ -379,6 +379,13 @@ class arElasticSearchPluginQuery
 
         break;
 
+      case 'digitalObjectTranscript':
+        $queryField = new \Elastica\Query\QueryString($query);
+        $queryField->setDefaultField('transcript');
+        $queryField->setDefaultOperator('OR');
+
+        break;
+
       case 'allExceptFindingAidTranscript':
         $queryField = new \Elastica\Query\QueryString($query);
         $queryField->setDefaultOperator('OR');

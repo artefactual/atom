@@ -48,6 +48,7 @@
                 <option value="genre"<?php echo $item['field'] == 'genre' ? ' selected="selected"' : '' ?>><?php echo __('Genre access points') ?></option>
                 <option value="identifier"<?php echo $item['field'] == 'identifier' ? ' selected="selected"' : '' ?>><?php echo __('Identifier') ?></option>
                 <option value="referenceCode"<?php echo $item['field'] == 'referenceCode' ? ' selected="selected"' : '' ?>><?php echo __('Reference code') ?></option>
+                <option value="digitalObjectTranscript"<?php echo $item['field'] == 'digitalObjectTranscript' ? ' selected="selected"' : '' ?>><?php echo __('Digital object text') ?></option>
                 <option value="findingAidTranscript"<?php echo $item['field'] == 'findingAidTranscript' ? ' selected="selected"' : '' ?>><?php echo __('Finding aid text') ?></option>
                 <option value="allExceptFindingAidTranscript"<?php echo $item['field'] == 'allExceptFindingAidTranscript' ? ' selected="selected"' : '' ?>><?php echo __('Any field except finding aid text') ?></option>
               </select>
@@ -90,6 +91,7 @@
             <option value="genre"><?php echo __('Genre access points') ?></option>
             <option value="identifier"><?php echo __('Identifier') ?></option>
             <option value="referenceCode"><?php echo __('Reference code') ?></option>
+            <option value="digitalObjectTranscript"><?php echo __('Digital object text') ?></option>
             <option value="findingAidTranscript"><?php echo __('Finding aid text') ?></option>
             <option value="allExceptFindingAidTranscript"><?php echo __('Any field except finding aid text') ?></option>
           </select>
