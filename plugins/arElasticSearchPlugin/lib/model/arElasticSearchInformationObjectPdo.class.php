@@ -311,7 +311,13 @@ class arElasticSearchInformationObjectPdo
     }
   }
 
-  public function getReferenceCode()
+  /**
+   * Get full reference code, with optional country code and repository prefixes as well.
+   *
+   * @param bool $includeRepoAndCountry  Whether or not to prepend country code and repository identifier
+   * @return string  The full reference code
+   */
+  public function getReferenceCode($includeRepoAndCountry = true)
   {
     if (null == $this->__get('identifier'))
     {
@@ -321,7 +327,7 @@ class arElasticSearchInformationObjectPdo
     $refcode = '';
     $this->repository = $this->getRepository();
 
-    if (isset($this->repository))
+    if (isset($this->repository) && $includeRepoAndCountry)
     {
       if (null != $cc = $this->repository->getCountryCode(array('culture' => $this->__get('culture'))))
       {
@@ -1036,6 +1042,7 @@ class arElasticSearchInformationObjectPdo
 
     $serialized['identifier'] = $this->identifier;
     $serialized['referenceCode'] = $this->getReferenceCode();
+    $serialized['referenceCodeWithoutCountryAndRepo'] = $this->getReferenceCode(false);
     $serialized['levelOfDescriptionId'] = $this->level_of_description_id;
     $serialized['publicationStatusId'] = $this->publication_status_id;
     $serialized['lft'] = $this->lft;

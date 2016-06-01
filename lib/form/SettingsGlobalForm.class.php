@@ -35,7 +35,7 @@ class SettingsGlobalForm extends sfForm
 
   public function configure()
   {
-    $i18n = sfContext::getInstance()->i18n;
+    $this->i18n = sfContext::getInstance()->i18n;
 
     // Build widgets
     $this->setWidgets(array(
@@ -47,67 +47,67 @@ class SettingsGlobalForm extends sfForm
       'accession_counter' => new sfWidgetFormInput,
       'separator_character' => new sfWidgetFormInput(array(), array('maxlength' => 1)),
       'inherit_code_informationobject' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
-      'treeview_type' => new sfWidgetFormSelectRadio(array('choices'=>array('sidebar' => $i18n->__('Sidebar'), 'fullWidth' => $i18n->__('Full width'))), array('class' => 'radio')),
+      'treeview_type' => new sfWidgetFormSelectRadio(array('choices'=>array('sidebar' => $this->i18n->__('Sidebar'), 'fullWidth' => $this->i18n->__('Full width'))), array('class' => 'radio')),
       'sort_treeview_informationobject' => new sfWidgetFormSelectRadio(array('choices'=>array('none'=>'manual', 'title'=>'title', 'identifierTitle'=> 'identifier - title')), array('class'=>'radio')),
       'sort_browser_user' => new sfWidgetFormSelectRadio(array('choices'=>array('alphabetic'=>'alphabetic', 'lastUpdated'=> 'last updated', 'identifier' => 'identifier')), array('class'=>'radio')),
       'sort_browser_anonymous' => new sfWidgetFormSelectRadio(array('choices'=>array('alphabetic'=>'alphabetic', 'lastUpdated'=> 'last updated', 'identifier' => 'identifier')), array('class'=>'radio')),
-      'default_repository_browse_view' => new sfWidgetFormSelectRadio(array('choices' => array('card' => $i18n->__('card'), 'table' => $i18n->__('table'))), array('class' => 'radio')),
+      'default_repository_browse_view' => new sfWidgetFormSelectRadio(array('choices' => array('card' => $this->i18n->__('card'), 'table' => $this->i18n->__('table'))), array('class' => 'radio')),
       'multi_repository' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
       'repository_quota' => new sfWidgetFormInput,
       'upload_quota' => new arWidgetFormUploadQuota,
       'explode_multipage_files' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
       'show_tooltips' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
-      'slug_basis_informationobject' => new sfWidgetFormSelectRadio(array('choices'=>array(QubitSlug::SLUG_BASIS_TITLE=>'title', QubitSlug::SLUG_BASIS_REFERENCE_CODE=>'reference code')), array('class'=>'radio')),
-      'defaultPubStatus' => new sfWidgetFormSelectRadio(array('choices'=>array(QubitTerm::PUBLICATION_STATUS_DRAFT_ID=>$i18n->__('Draft'), QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID=>$i18n->__('Published'))), array('class'=>'radio')),
+      'slug_basis_informationobject' => $this->getSlugBasisInformationObjectWidget(),
+      'defaultPubStatus' => new sfWidgetFormSelectRadio(array('choices'=>array(QubitTerm::PUBLICATION_STATUS_DRAFT_ID=>$this->i18n->__('Draft'), QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID=>$this->i18n->__('Published'))), array('class'=>'radio')),
       'sword_deposit_dir' => new sfWidgetFormInput
     ));
 
     // Add labels
     $this->widgetSchema->setLabels(array(
-      'version' => $i18n->__('Application version'),
-      'check_for_updates' => $i18n->__('Check for updates'),
-      'reference_image_maxwidth' => $i18n->__('Maximum image width (pixels)'),
-      'hits_per_page' => $i18n->__('Results per page'),
-      'accession_mask' => $i18n->__('Accession mask'),
-      'accession_counter' => $i18n->__('Accession counter'),
-      'separator_character' => $i18n->__('Reference code separator'),
-      'inherit_code_informationobject' => $i18n->__('Inherit reference code (information object)'),
-      'treeview_type' => $i18n->__('Treeview type'),
-      'sort_treeview_informationobject' => $i18n->__('Sort treeview (information object)'),
-      'sort_browser_user' => $i18n->__('Sort browser (users)'),
-      'sort_browser_anonymous' => $i18n->__('Sort browser (anonymous)'),
-      'default_repository_browse_view' => $i18n->__('Default repository browse view'),
-      'multi_repository' => $i18n->__('Multiple repositories'),
-      'repository_quota' => $i18n->__('Default %1% upload limit (GB)', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))),
-      'upload_quota' => $i18n->__('Total space available for uploads'),
-      'explode_multipage_files' => $i18n->__('Upload multi-page files as multiple descriptions'),
-      'show_tooltips' => $i18n->__('Show tooltips'),
-      'defaultPubStatus' => $i18n->__('Default publication status'),
-      'sword_deposit_dir' => $i18n->__('SWORD deposit directory'),
-      'require_ssl_admin' => $i18n->__('Require SSL for all administrator funcionality'),
-      'slug_basis_informationobject' => $i18n->__('Generate description permalinks from'),
-      'require_strong_passwords' => $i18n->__('Require strong passwords')
+      'version' => $this->i18n->__('Application version'),
+      'check_for_updates' => $this->i18n->__('Check for updates'),
+      'reference_image_maxwidth' => $this->i18n->__('Maximum image width (pixels)'),
+      'hits_per_page' => $this->i18n->__('Results per page'),
+      'accession_mask' => $this->i18n->__('Accession mask'),
+      'accession_counter' => $this->i18n->__('Accession counter'),
+      'separator_character' => $this->i18n->__('Reference code separator'),
+      'inherit_code_informationobject' => $this->i18n->__('Inherit reference code (information object)'),
+      'treeview_type' => $this->i18n->__('Treeview type'),
+      'sort_treeview_informationobject' => $this->i18n->__('Sort treeview (information object)'),
+      'sort_browser_user' => $this->i18n->__('Sort browser (users)'),
+      'sort_browser_anonymous' => $this->i18n->__('Sort browser (anonymous)'),
+      'default_repository_browse_view' => $this->i18n->__('Default repository browse view'),
+      'multi_repository' => $this->i18n->__('Multiple repositories'),
+      'repository_quota' => $this->i18n->__('Default %1% upload limit (GB)', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))),
+      'upload_quota' => $this->i18n->__('Total space available for uploads'),
+      'explode_multipage_files' => $this->i18n->__('Upload multi-page files as multiple descriptions'),
+      'show_tooltips' => $this->i18n->__('Show tooltips'),
+      'defaultPubStatus' => $this->i18n->__('Default publication status'),
+      'sword_deposit_dir' => $this->i18n->__('SWORD deposit directory'),
+      'require_ssl_admin' => $this->i18n->__('Require SSL for all administrator funcionality'),
+      'slug_basis_informationobject' => $this->i18n->__('Generate description permalinks from'),
+      'require_strong_passwords' => $this->i18n->__('Require strong passwords')
     ));
 
     // Add helper text
     $this->widgetSchema->setHelps(array(
-      'version' => $i18n->__('The current version of the application'),
-      'check_for_updates' => $i18n->__('Enable automatic update notification'),
-      'reference_image_maxwidth' => $i18n->__('The maximum width for derived reference images'),
-      'hits_per_page' => $i18n->__('The number of records shown per page on list pages'),
-      // 'accession_mask' => $i18n->__(''),
-      // 'accession_counter' => $i18n->__(''),
-      'default_repository_browse_view' => $i18n->__('Set the default view template when browsing repositories'),
-      'separator_character' => $i18n->__('The character separating hierarchical elements in a reference code'),
-      'inherit_code_informationobject' => $i18n->__('When set to &quot;yes&quot;, the reference code string will be built using the information object identifier plus the identifiers of all its ancestors'),
-      'sort_treeview_informationobject' => $i18n->__('Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use'),
-      'multi_repository' => $i18n->__('When set to &quot;no&quot;, the repository name is excluded from certain displays because it will be too repetitive'),
-      'repository_quota' => $i18n->__('Default %1% upload limit for a new %2%.  A value of &quot;0&quot; (zero) disables file upload.  A value of &quot;-1&quot; allows unlimited uploads', array('%1%' => strtolower(sfConfig::get('app_ui_label_digitalobject')), '%2%' => strtolower(sfConfig::get('app_ui_label_repository')))),
-      'defaultPubStatus' => $i18n->__('Default publication status for newly created or imported %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))),
-      'slug_basis_informationobject' => $i18n->__('Choose whether permalinks for descriptions are generated from reference code or title'),
-      // 'explode_multipage_files' => $i18n->__('')
-      // 'show_tooltips' => $i18n->__('')
-      // 'sword_deposit_dir' => $i18n->__('')
+      'version' => $this->i18n->__('The current version of the application'),
+      'check_for_updates' => $this->i18n->__('Enable automatic update notification'),
+      'reference_image_maxwidth' => $this->i18n->__('The maximum width for derived reference images'),
+      'hits_per_page' => $this->i18n->__('The number of records shown per page on list pages'),
+      // 'accession_mask' => $this->i18n->__(''),
+      // 'accession_counter' => $this->i18n->__(''),
+      'default_repository_browse_view' => $this->i18n->__('Set the default view template when browsing repositories'),
+      'separator_character' => $this->i18n->__('The character separating hierarchical elements in a reference code'),
+      'inherit_code_informationobject' => $this->i18n->__('When set to &quot;yes&quot;, the reference code string will be built using the information object identifier plus the identifiers of all its ancestors'),
+      'sort_treeview_informationobject' => $this->i18n->__('Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use'),
+      'multi_repository' => $this->i18n->__('When set to &quot;no&quot;, the repository name is excluded from certain displays because it will be too repetitive'),
+      'repository_quota' => $this->i18n->__('Default %1% upload limit for a new %2%.  A value of &quot;0&quot; (zero) disables file upload.  A value of &quot;-1&quot; allows unlimited uploads', array('%1%' => strtolower(sfConfig::get('app_ui_label_digitalobject')), '%2%' => strtolower(sfConfig::get('app_ui_label_repository')))),
+      'defaultPubStatus' => $this->i18n->__('Default publication status for newly created or imported %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))),
+      'slug_basis_informationobject' => $this->i18n->__('Choose whether permalinks for descriptions are generated from reference code or title'),
+      // 'explode_multipage_files' => $this->i18n->__('')
+      // 'show_tooltips' => $this->i18n->__('')
+      // 'sword_deposit_dir' => $this->i18n->__('')
     ));
 
     // Reference image max. width validator
@@ -118,9 +118,9 @@ class SettingsGlobalForm extends sfForm
         'max' => self::$refImageMaxWidthMax
       ),
       array(
-        'required' => $i18n->__('This field is required'),
-        'min' => $i18n->__('This value must be at least %min% pixels'),
-        'max' => $i18n->__('This value can not be greater than %max% pixels')
+        'required' => $this->i18n->__('This field is required'),
+        'min' => $this->i18n->__('This value must be at least %min% pixels'),
+        'max' => $this->i18n->__('This value can not be greater than %max% pixels')
       )
     );
 
@@ -132,9 +132,9 @@ class SettingsGlobalForm extends sfForm
         'max' => self::$hitsPerPageMax
       ),
       array(
-        'required' => $i18n->__('This field is required'),
-        'min'=> $i18n->__('You must show at least %min% hits per page'),
-        'max'=> $i18n->__('You cannot show more than %max% hits per page')
+        'required' => $this->i18n->__('This field is required'),
+        'min'=> $this->i18n->__('You must show at least %min% hits per page'),
+        'max'=> $this->i18n->__('You cannot show more than %max% hits per page')
       )
     );
 
@@ -150,11 +150,11 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['sort_browser_anonymous'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['multi_repository'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['default_repository_browse_view'] = new sfValidatorString(array('required' => false));
-    $this->validatorSchema['slug_basis_informationobject'] = new sfValidatorChoice(array('choices' => array(QubitSlug::SLUG_BASIS_REFERENCE_CODE, QubitSlug::SLUG_BASIS_TITLE)));
+    $this->validatorSchema['slug_basis_informationobject'] = $this->getSlugBasisInformationObjectValidator();
 
     $this->validatorSchema['repository_quota'] = new sfValidatorNumber(
       array('required' => true, 'min' => -1),
-      array('min' => $i18n->__('Minimum value is "%min%"')));
+      array('min' => $this->i18n->__('Minimum value is "%min%"')));
     $this->validatorSchema['explode_multipage_files'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['show_tooltips'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['defaultPubStatus'] = new sfValidatorChoice(array('choices' => array(QubitTerm::PUBLICATION_STATUS_DRAFT_ID, QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)));
@@ -167,5 +167,29 @@ class SettingsGlobalForm extends sfForm
 
     // Set wrapper text for global form settings
     $this->widgetSchema->setNameFormat('global_settings[%s]');
+  }
+
+  private function getSlugBasisInformationObjectWidget()
+  {
+    $choices = array(
+      QubitSlug::SLUG_BASIS_TITLE => $this->i18n->__('title'),
+      QubitSlug::SLUG_BASIS_IDENTIFIER => $this->i18n->__('identifier'),
+      QubitSlug::SLUG_BASIS_REFERENCE_CODE_NO_COUNTRY_REPO => $this->i18n->__('reference code'),
+      QubitSlug::SLUG_BASIS_REFERENCE_CODE => $this->i18n->__('reference code (repository identifier & country code included)'),
+    );
+
+    return new sfWidgetFormSelectRadio(array('choices' => $choices), array('class' => 'radio'));
+  }
+
+  private function getSlugBasisInformationObjectValidator()
+  {
+    $choices = array(
+      QubitSlug::SLUG_BASIS_REFERENCE_CODE,
+      QubitSlug::SLUG_BASIS_TITLE,
+      QubitSlug::SLUG_BASIS_IDENTIFIER,
+      QubitSlug::SLUG_BASIS_REFERENCE_CODE_NO_COUNTRY_REPO,
+    );
+
+    return new sfValidatorChoice(array('choices' => $choices));
   }
 }
