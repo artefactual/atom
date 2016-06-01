@@ -152,7 +152,7 @@
 
         <br />
         <div class="alert alert-info">
-          <?php echo __('When enabled the following text will appear whenever a user tries to download a digital object master with an associated rights statement where the Basis = copyright and the Restriction = conditional. You can style and customize the text as in a static page.') ?>
+          <?php echo __('When enabled the following text will appear whenever a user tries to download a %1% master with an associated rights statement where the Basis = copyright and the Restriction = conditional. You can style and customize the text as in a static page.', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))) ?>
         </div>
 
         <?php echo render_field($permissionsCopyrightStatementForm->copyrightStatement

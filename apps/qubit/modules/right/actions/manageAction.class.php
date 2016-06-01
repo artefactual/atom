@@ -44,7 +44,7 @@ class RightManageAction extends sfAction
     $this->form->setWidget('all_or_digital_only', new sfWidgetFormChoice(array(
       'expanded' => true,
       'choices'  => array('all' => $this->context->i18n->__('Apply to all descendants'),
-                          'digital_only' => $this->context->i18n->__('Apply only to digital object descendants')),
+                          'digital_only' => $this->context->i18n->__('Apply only to %1% descendants', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))))),
       'default'  => 'all'
     )));
 

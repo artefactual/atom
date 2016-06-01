@@ -41,9 +41,9 @@
               <li class="divider"></li>
 
               <?php if (0 < count($resource->digitalObjects) && QubitDigitalObject::isUploadAllowed()): ?>
-                <li><?php echo link_to(__('Edit digital object'), array($resource->digitalObjects[0], 'module' => 'digitalobject', 'action' => 'edit')) ?></li>
+                <li><?php echo link_to(__('Edit %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))), array($resource->digitalObjects[0], 'module' => 'digitalobject', 'action' => 'edit')) ?></li>
               <?php elseif (QubitDigitalObject::isUploadAllowed()): ?>
-                <li><?php echo link_to(__('Link digital object'), array($resource, 'module' => 'informationobject', 'action' => 'addDigitalObject')) ?></li>
+                <li><?php echo link_to(__('Link %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))), array($resource, 'module' => 'informationobject', 'action' => 'addDigitalObject')) ?></li>
               <?php endif; // has digital object ?>
 
               <?php if ((null === $resource->repository || 0 != $resource->repository->uploadLimit) && QubitDigitalObject::isUploadAllowed()): ?>

@@ -2,7 +2,7 @@
 
 <section>
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Digital object metadata').'</h2>', array($resource, 'module' => 'digitalobject', 'action' => 'edit'), array('title' => __('Edit digital object'))) ?>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('%1% metadata', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))).'</h2>', array($resource, 'module' => 'digitalobject', 'action' => 'edit'), array('title' => __('Edit %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))))) ?>
 
   <?php if (!QubitAcl::check($resource->informationObject, 'readReference')): ?>
     <?php echo render_show(__('Access'), __('Restricted')) ?>
