@@ -532,8 +532,13 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         break;
 
-      case 'date':
+      case 'startDate':
         $this->search->query->setSort(array('dates.startDate' => 'asc'));
+
+        break;
+
+      case 'endDate':
+        $this->search->query->setSort(array('dates.endDate' => 'desc'));
 
         break;
 

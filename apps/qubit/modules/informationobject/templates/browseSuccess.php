@@ -301,7 +301,8 @@
           'lastUpdated' => __('Most recent'),
           'alphabetic'  => __('Alphabetic'),
           'identifier'  => __('Reference code'),
-          'date'        => __('Date')))) ?>
+          'startDate'   => __('Start date'),
+          'endDate'     => __('End date')))) ?>
     </section>
 
     <div id="content">
