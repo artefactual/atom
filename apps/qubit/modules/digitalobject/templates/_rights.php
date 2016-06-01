@@ -1,6 +1,6 @@
 <section>
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Digital object (%1%) rights area', array('%1%' => $resource->usage)).'</h2>', array($resource, 'module' => 'digitalobject', 'action' => 'edit'), array('title' => __('Edit digital object'))) ?>
+  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('%1% (%2%) rights area', array('%1%' => sfConfig::get('app_ui_label_digitalobject'), '%2%' => $resource->usage)).'</h2>', array($resource, 'module' => 'digitalobject', 'action' => 'edit'), array('title' => __('Edit %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))))) ?>
 
   <?php foreach ($resource->getRights() as $item): ?>
 
@@ -14,7 +14,7 @@
 
   <?php if ($child = $resource->getChildByUsageId(QubitTerm::REFERENCE_ID)): ?>
 
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Digital object (%1%) rights area', array('%1%' => $child->usage)).'</h2>', array($resource, 'module' => 'digitalobject', 'action' => 'edit'), array('title' => __('Edit digital object'))) ?>
+    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('%1% (%2%) rights area', array('%1%' => sfConfig::get('app_ui_label_digitalobject'), '%2%' => $child->usage)).'</h2>', array($resource, 'module' => 'digitalobject', 'action' => 'edit'), array('title' => __('Edit %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))))) ?>
 
     <?php foreach ($child->getRights() as $item): ?>
 
@@ -30,7 +30,7 @@
 
   <?php if ($child = $resource->getChildByUsageId(QubitTerm::THUMBNAIL_ID)): ?>
 
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Digital object (%1%) rights area', array('%1%' => $child->usage)).'</h2>', array($resource, 'module' => 'digitalobject', 'action' => 'edit'), array('title' => __('Edit digital object'))) ?>
+    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('%1% (%2%) rights area', array('%1%' => sfConfig::get('app_ui_label_digitalobject'), '%2%' => $child->usage)).'</h2>', array($resource, 'module' => 'digitalobject', 'action' => 'edit'), array('title' => __('Edit %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))))) ?>
 
     <?php foreach ($child->getRights() as $item): ?>
 

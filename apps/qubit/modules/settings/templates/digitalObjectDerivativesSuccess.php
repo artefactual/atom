@@ -8,7 +8,7 @@
 
 <?php slot('title') ?>
 
-  <h1><?php echo __('Digital object derivatives') ?></h1>
+  <h1><?php echo __('%1% derivatives', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))) ?></h1>
 
 <?php end_slot() ?>
 
@@ -20,7 +20,7 @@
 
       <fieldset class="collapsible">
 
-        <legend><?php echo __('Digital object derivatives settings') ?></legend>
+        <legend><?php echo __('%1% derivatives settings', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))) ?></legend>
 
         <?php echo $form->pdfPageNumber
           ->label(__('PDF page number for image derivative'))

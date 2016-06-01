@@ -153,7 +153,7 @@
 
           <div class="filter-center">
             <?php echo $form->onlyMedia
-              ->label(__('Digital object available'))
+              ->label(__('%1% available', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))
               ->renderRow() ?>
           </div>
 
