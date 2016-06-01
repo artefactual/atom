@@ -2,7 +2,7 @@
 
 <?php slot('title') ?>
   <h1 class="multiline">
-    <?php echo __('Link digital object') ?>
+    <?php echo __('Link %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))) ?>
     <span class="sub"><?php echo render_title(new sfIsadPlugin($resource)) ?></span>
   </h1>
 <?php end_slot() ?>
@@ -40,7 +40,7 @@
 
         <fieldset class="collapsible" id="singleFileUpload">
 
-          <legend><?php echo __('Upload a digital object') ?></legend>
+          <legend><?php echo __('Upload a %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))) ?></legend>
 
           <?php if (null == $repository || -1 == $repository->uploadLimit || floatval($repository->getDiskUsage() / pow(10, 9)) < floatval($repository->uploadLimit)): ?>
 
@@ -69,7 +69,7 @@
 
         <fieldset class="collapsible" id="externalFileLink">
 
-          <legend><?php echo __('Link to an external digital object') ?></legend>
+          <legend><?php echo __('Link to an external %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))) ?></legend>
 
           <?php echo $form->url->renderRow() ?>
 

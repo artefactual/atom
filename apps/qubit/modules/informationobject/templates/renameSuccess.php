@@ -43,7 +43,7 @@
 
         <legend><?php echo __('Rename') ?></legend>
 
-        <p><?php echo __('Use this interface to update the description title, slug (permalink), and/or digital object filename.') ?></p>
+        <p><?php echo __('Use this interface to update the description title, slug (permalink), and/or %1% filename.', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))) ?></p>
 
         <div class="rename-form-field-toggle"><input id="rename_enable_title" type="checkbox" checked="checked" /> <?php echo __('Update title') ?></div>
         <br />

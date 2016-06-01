@@ -2,7 +2,7 @@
 
 <?php slot('title') ?>
   <h1 class="multiline">
-    <?php echo __('Edit digital object') ?>
+    <?php echo __('Edit %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))) ?>
     <span class="sub"><?php echo render_title(QubitInformationObject::getStandardsBasedInstance($informationObject)) ?></span>
   </h1>
 <?php end_slot() ?>
@@ -35,7 +35,7 @@
 
         <?php if ($showCompoundObjectToggle): ?>
           <?php echo $form->displayAsCompound
-            ->label(__('View children as a compound digital object?'))
+            ->label(__('View children as a compound %1%?', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))))
             ->renderRow() ?>
         <?php endif; ?>
 
@@ -54,7 +54,7 @@
           <?php else: ?>
 
             <?php echo $form["repFile_$usageId"]
-              ->label(__('Select a digital object to upload'))
+              ->label(__('Select a %1% to upload', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))))
               ->renderRow() ?>
 
             <?php if ($resource->canThumbnail()): ?>

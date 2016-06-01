@@ -131,7 +131,7 @@
 
       <fieldset class="collapsible collapsed">
 
-        <legend><?php echo __('Digital object metadata area') ?></legend>
+        <legend><?php echo __('%1% metadata area', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))) ?></legend>
 
         <?php foreach (array(
           'digital_object_url' => __('URL'),
