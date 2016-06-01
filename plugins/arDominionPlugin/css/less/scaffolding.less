@@ -212,13 +212,9 @@ th {
 @brickPadding: 15px;
 
 .masonry {
-
-  margin-left: -4px;
-
   &.centered {
     margin: 0 auto;
   }
-
 }
 
 .masonry-brick {
@@ -227,6 +223,14 @@ th {
 
 .digitalobject .brick {
   width: @brickWidth*1.25;
+}
+
+.browse-content {
+  padding-left: 12px;
+}
+
+.browse-masonry {
+  margin-top: 10px;
 }
 
 .brick {
@@ -1221,6 +1225,7 @@ section .vcard:last-child > .field:last-child > div {
   margin: 15px 0 10px 0;
   display: inline-block;
   width: 100%;
+  line-height: 30px;
 
   > a {
     padding-right: 10px;
@@ -1283,6 +1288,10 @@ section .vcard:last-child > .field:last-child > div {
 
 // Sort header
 
+.sort-options {
+  line-height: 30px;
+}
+
 #sort-header {
 
   float: right;
@@ -1297,6 +1306,7 @@ section .vcard:last-child > .field:last-child > div {
     float: left;
     color: #666;
     margin-right: 6px;
+    line-height: 30px;
   }
 
   // This is the item selected and shown, e.g. "Sort by: [Most recent]"
