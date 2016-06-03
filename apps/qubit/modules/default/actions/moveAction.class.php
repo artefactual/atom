@@ -65,17 +65,22 @@ class DefaultMoveAction extends sfAction
       {
         $parent = QubitObject::getBySlug($this->form->parent->getValue());
 
-        // In term treeview, root node links (href) to taxonomy, but it represents the term root object
-        if ($this->resource instanceOf QubitTerm && $parent instanceof QubitTaxonomy)
-        {
-          $this->resource->parentId = QubitTerm::ROOT_ID;
-        }
-        else
-        {
-          $this->resource->parentId = $parent->id;
-        }
+        $params = array(
+          'objectId' => $this->resource->id,
+          'parentId' => $parent->id
+        );
 
-        $this->resource->save();
+        QubitJob::runJob('arObjectMoveJob', $params);
+
+        // Notify user move has started
+        sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
+
+        $jobManageUrl = url_for(array('module' => 'jobs', 'action' => 'browse'));
+        $jobManageLink = '<a href="'. $jobManageUrl . '">'. $this->context->i18n->__('job management') .'</a>';
+
+        $message = '<strong>'. $this->context->i18n->__('Move initiated.') .'</strong> ';
+        $message .= $this->context->i18n->__("If job hasn't already completed, check %1% page to determine present status.", array('%1%' => $jobManageLink));
+        $this->getUser()->setFlash('notice', $message);
 
         if ($request->isXmlHttpRequest())
         {

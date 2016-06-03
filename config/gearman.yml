@@ -7,6 +7,8 @@ all:
       - arFindingAidJob
     acl:
       - arInheritRightsJob
+    move:
+      - arObjectMoveJob
     search_csv_export:
       - arInformationObjectCsvExportJob
     sword:
