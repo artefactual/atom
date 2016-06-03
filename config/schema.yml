@@ -52,6 +52,7 @@ propel:
     completed_at: timestamp
     user_id: { type: integer, required: false, foreignTable: user, foreignReference: id, onDelete: setnull  }
     object_id: { type: integer, require: false, foreignTable: object, foreignReference: id, onDelete: setnull }
+    output: longvarchar
 
   contact_information:
     actor_id: { type: integer, required: true, foreignTable: actor, foreignReference: id, onDelete: cascade }
