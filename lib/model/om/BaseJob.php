@@ -13,7 +13,8 @@ abstract class BaseJob extends QubitObject implements ArrayAccess
     STATUS_ID = 'job.STATUS_ID',
     COMPLETED_AT = 'job.COMPLETED_AT',
     USER_ID = 'job.USER_ID',
-    OBJECT_ID = 'job.OBJECT_ID';
+    OBJECT_ID = 'job.OBJECT_ID',
+    OUTPUT = 'job.OUTPUT';
 
   public static function addSelectColumns(Criteria $criteria)
   {
@@ -28,6 +29,7 @@ abstract class BaseJob extends QubitObject implements ArrayAccess
     $criteria->addSelectColumn(QubitJob::COMPLETED_AT);
     $criteria->addSelectColumn(QubitJob::USER_ID);
     $criteria->addSelectColumn(QubitJob::OBJECT_ID);
+    $criteria->addSelectColumn(QubitJob::OUTPUT);
 
     return $criteria;
   }

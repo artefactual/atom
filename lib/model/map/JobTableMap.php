@@ -43,6 +43,7 @@ class JobTableMap extends TableMap {
 		$this->addColumn('COMPLETED_AT', 'completedAt', 'TIMESTAMP', false, null, null);
 		$this->addForeignKey('USER_ID', 'userId', 'INTEGER', 'user', 'ID', false, null, null);
 		$this->addForeignKey('OBJECT_ID', 'objectId', 'INTEGER', 'object', 'ID', false, null, null);
+		$this->addColumn('OUTPUT', 'output', 'LONGVARCHAR', false, null, null);
 		// validators
 	} // initialize()
 

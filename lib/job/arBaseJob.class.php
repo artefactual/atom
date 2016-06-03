@@ -98,14 +98,29 @@ class arBaseJob extends Net_Gearman_Job_Common
   }
 
   /**
+   * Saves log messages to the database for future job reports.
+   *
+   * @param string  $message  the log message to insert into the db
+   */
+  private function addLogTextToDatabase($message)
+  {
+    // TEXT type cannot have a default (i.e. ''), so use CONCAT_WS because it can work with null values
+    // and coerce them into a string with an empty string separater.
+    $sql = 'UPDATE job SET output = CONCAT_WS("", output, ?, "\n") WHERE id = ?';
+    QubitPdo::prepareAndExecute($sql, array($message, $this->job->id));
+  }
+
+  /**
    * Redirect logs to Gearman Worker logger
    *
    * @param string  $message  the message
    */
   protected function log($message)
   {
-    $this->dispatcher->notify(new sfEvent($this, 'gearman.worker.log',
-      array('message' => $message)));
+    $this->dispatcher->notify(new sfEvent($this, 'gearman.worker.log', array('message' =>
+      sprintf('Job %d "%s": %s', $this->job->id, $this->job->name, $message))));
+
+    $this->addLogTextToDatabase('['.strftime('%r').'] '.$message);
   }
 
   /**
@@ -121,7 +136,7 @@ class arBaseJob extends Net_Gearman_Job_Common
       throw new Net_Gearman_Job_Exception('Called arBaseJob::error() before QubitJob fetched.');
     }
 
-    $this->log($this->formatLogMsg($message));
+    $this->log($message);
     $this->job->setStatusError($message);
     $this->job->save();
   }
@@ -138,17 +153,7 @@ class arBaseJob extends Net_Gearman_Job_Common
       throw new Net_Gearman_Job_Exception('Called arBaseJob::info() before QubitJob fetched.');
     }
 
-    $this->log($this->formatLogMsg($message));
-  }
-
-  /**
-   * Adds valuable meta-data to log messages.
-   *
-   * @param string  $message  the log message
-   */
-  private function formatLogMsg($message)
-  {
-    return sprintf('Job %d "%s": %s', $this->job->id, $this->job->name, $message);
+    $this->log($message);
   }
 
   /**

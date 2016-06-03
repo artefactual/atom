@@ -151,6 +151,7 @@ CREATE TABLE `job`
 	`completed_at` DATETIME,
 	`user_id` INTEGER,
 	`object_id` INTEGER,
+	`output` TEXT,
 	PRIMARY KEY (`id`),
 	CONSTRAINT `job_FK_1`
 		FOREIGN KEY (`id`)
