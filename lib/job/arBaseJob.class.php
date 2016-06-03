@@ -98,14 +98,27 @@ class arBaseJob extends Net_Gearman_Job_Common
   }
 
   /**
+   * Saves log messages to the database for future job reports.
+   *
+   * @param string  $message  the log message to insert into the db
+   */
+  private function addLogTextToDatabase($message)
+  {
+    // TEXT type cannot have a default (i.e. ''), so use CONCAT_WS because it can work with null values
+    // and coerce them into a string with an empty string separater.
+    $sql = 'UPDATE job SET output = CONCAT_WS("", output, ?, "\n") WHERE id = ?';
+    QubitPdo::prepareAndExecute($sql, array($message, $this->job->id));
+  }
+
+  /**
    * Redirect logs to Gearman Worker logger
    *
    * @param string  $message  the message
    */
   protected function log($message)
   {
-    $this->dispatcher->notify(new sfEvent($this, 'gearman.worker.log',
-      array('message' => $message)));
+    $this->dispatcher->notify(new sfEvent($this, 'gearman.worker.log', array('message' => $message)));
+    $this->addLogTextToDatabase($message);
   }
 
   /**
