@@ -1,4 +1,4 @@
-<h1>Manage jobs</h1>
+<h1><?php echo __('Manage jobs') ?></h1>
 
 <div>
   <ul class="nav nav-tabs" id="job-tabs">
