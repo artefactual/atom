@@ -4,7 +4,7 @@
   <h1><?php echo render_title(__('Job report')) ?></h1>
 <?php end_slot() ?>
 
-<section id="overviewArea">
+<section id="report-overview-area">
   <h2><?php echo __('Overview') ?></h2>
   <?php echo render_show(__('Name'), render_value($job->name), array('fieldLabel' => 'jobName')) ?>
   <?php echo render_show(__('Id'), render_value($job->id), array('fieldLabel' => 'jobId')) ?>
@@ -22,9 +22,9 @@
   <?php endif; ?>
 </section>
 
-<section id="logArea">
+<section id="log-area">
   <h2><?php echo __('Log') ?></h2>
-  <div>
+  <div id="job-log-output">
     <?php echo render_value($job->output) ?>
   </div>
 </section>
