@@ -117,8 +117,10 @@ class arBaseJob extends Net_Gearman_Job_Common
    */
   protected function log($message)
   {
-    $this->dispatcher->notify(new sfEvent($this, 'gearman.worker.log', array('message' => $message)));
-    $this->addLogTextToDatabase($message);
+    $this->dispatcher->notify(new sfEvent($this, 'gearman.worker.log', array('message' =>
+      sprintf('Job %d "%s": %s', $this->job->id, $this->job->name, $message))));
+
+    $this->addLogTextToDatabase('['.strftime('%r').'] '.$message);
   }
 
   /**
@@ -134,7 +136,7 @@ class arBaseJob extends Net_Gearman_Job_Common
       throw new Net_Gearman_Job_Exception('Called arBaseJob::error() before QubitJob fetched.');
     }
 
-    $this->log($this->formatLogMsg($message));
+    $this->log($message);
     $this->job->setStatusError($message);
     $this->job->save();
   }
@@ -151,17 +153,7 @@ class arBaseJob extends Net_Gearman_Job_Common
       throw new Net_Gearman_Job_Exception('Called arBaseJob::info() before QubitJob fetched.');
     }
 
-    $this->log($this->formatLogMsg($message));
-  }
-
-  /**
-   * Adds valuable meta-data to log messages.
-   *
-   * @param string  $message  the log message
-   */
-  private function formatLogMsg($message)
-  {
-    return sprintf('Job %d "%s": %s', $this->job->id, $this->job->name, $message);
+    $this->log($message);
   }
 
   /**
