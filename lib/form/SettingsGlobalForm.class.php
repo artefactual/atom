@@ -174,7 +174,7 @@ class SettingsGlobalForm extends sfForm
     $choices = array(
       QubitSlug::SLUG_BASIS_TITLE => $this->i18n->__('title'),
       QubitSlug::SLUG_BASIS_IDENTIFIER => $this->i18n->__('identifier'),
-      QubitSlug::SLUG_BASIS_REFERENCE_CODE_NO_COUNTRY_REPO => $this->i18n->__('reference code'),
+      QubitSlug::SLUG_BASIS_REFERENCE_CODE_NO_COUNTRY_REPO => $this->i18n->__('reference code (repository identifier & country code not included)'),
       QubitSlug::SLUG_BASIS_REFERENCE_CODE => $this->i18n->__('reference code (repository identifier & country code included)'),
     );
 
