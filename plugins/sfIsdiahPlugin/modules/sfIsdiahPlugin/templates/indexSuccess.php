@@ -254,7 +254,7 @@
         <?php endif; ?>
         <li class="divider"></li>
         <?php if (QubitAcl::check($resource, 'update')): ?>
-          <li><?php echo link_to(__('Edit theme'), array($resource, 'module' => 'repository', 'action' => 'editTheme'), array('class' => 'c-btn', 'title' => 'Edit theme')) ?>
+          <li><?php echo link_to(__('Edit theme'), array($resource, 'module' => 'repository', 'action' => 'editTheme'), array('class' => 'c-btn', 'title' => 'Edit theme')) ?></li>
         <?php endif; ?>
       </ul>
     </section>
