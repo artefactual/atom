@@ -10,7 +10,7 @@
 
     <section class="actions">
       <ul>
-        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'menu'), array('class' => 'c-btn')) ?></li>
+        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'menu', 'action' => 'edit'), array('class' => 'c-btn')) ?></li>
         <li><input class="c-btn c-btn-delete" type="submit" value="<?php echo __('Delete') ?>"/></li>
       </ul>
     </section>
