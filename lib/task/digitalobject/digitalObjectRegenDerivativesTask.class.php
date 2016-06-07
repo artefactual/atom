@@ -28,6 +28,7 @@ class digitalObjectRegenDerivativesTask extends arBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
       new sfCommandOption('slug', 'l', sfCommandOption::PARAMETER_OPTIONAL, 'Information object slug', null),
+      new sfCommandOption('type', 'd', sfCommandOption::PARAMETER_OPTIONAL, 'Derivative type ("reference" or "thumbnail")', null),
       new sfCommandOption('index', 'i', sfCommandOption::PARAMETER_NONE, 'Update search index (defaults to false)', null),
       new sfCommandOption('force', 'f', sfCommandOption::PARAMETER_NONE, 'No confirmation message', null),
       new sfCommandOption('only-externals', 'o', sfCommandOption::PARAMETER_NONE, 'Only external objects', null),
@@ -150,7 +151,7 @@ EOF;
       // Trap any exceptions when creating derivatives and continue script
       try
       {
-        digitalObjectRegenDerivativesTask::regenerateDerivatives($do);
+        digitalObjectRegenDerivativesTask::regenerateDerivatives($do, $options['type']);
       }
       catch (Exception $e)
       {
@@ -171,7 +172,7 @@ EOF;
     $this->logSection('digital object', 'Done!');
   }
 
-  public static function regenerateDerivatives(&$digitalObject)
+  public static function regenerateDerivatives(&$digitalObject, $type = null)
   {
     // Delete existing derivatives
     $criteria = new Criteria;
@@ -191,7 +192,21 @@ EOF;
       }
     }
 
-    $digitalObject->createRepresentations(QubitTerm::MASTER_ID, $conn);
+    switch($type)
+    {
+      case "reference":
+        $usageId = QubitTerm::REFERENCE_ID;
+        break;
+
+      case "thumbnail":
+        $usageId = QubitTerm::THUMBNAIL_ID;
+        break;
+
+      default:
+        $usageId = QubitTerm::MASTER_ID;
+    }
+
+    $digitalObject->createRepresentations($usageId, $conn);
 
     if ($options['index'])
     {
