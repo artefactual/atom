@@ -28,3 +28,7 @@
     <?php echo render_value($job->output) ?>
   </div>
 </section>
+
+<div id="jobs-return-link">
+  <?php echo link_to(__('« Return to jobs management page'), array('module' => 'jobs', 'action' => 'browse')) ?>
+</div>
