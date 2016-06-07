@@ -6,7 +6,7 @@
 
 <section id="overviewArea">
   <h2><?php echo __('Overview') ?></h2>
-  <?php echo render_show(__('Name'), render_value($job->name), array('fieldLabel' => 'jobId')) ?>
+  <?php echo render_show(__('Name'), render_value($job->name), array('fieldLabel' => 'jobName')) ?>
   <?php echo render_show(__('Id'), render_value($job->id), array('fieldLabel' => 'jobId')) ?>
   <?php echo render_show(__('Creation date'), render_value($job->getCreationDateString()), array('fieldLabel' => 'jobCreatedAt')) ?>
   <?php echo render_show(__('Completion date'), render_value($job->getCompletionDateString()), array('fieldLabel' => 'jobCompletedAt')) ?>
