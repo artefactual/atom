@@ -28,6 +28,11 @@ class PhysicalObjectDeleteAction extends sfAction
 {
   public function execute($request)
   {
+  	if (!isset($request->limit))
+  	{
+  	  $request->limit = sfConfig::get('app_hits_per_page');
+  	}
+  	
     $this->form = new sfForm;
 
     $this->resource = $this->getRoute()->resource;
@@ -35,7 +40,13 @@ class PhysicalObjectDeleteAction extends sfAction
     $criteria = new Criteria;
     $criteria->add(QubitRelation::SUBJECT_ID, $this->resource->id);
     $criteria->addJoin(QubitRelation::OBJECT_ID, QubitInformationObject::ID);
-    $this->informationObjects = QubitInformationObject::get($criteria);
+    
+    $this->pager = new QubitPager('QubitInformationObject');
+    $this->pager->setCriteria($criteria);
+    $this->pager->setMaxPerPage($request->limit);
+    $this->pager->setPage($request->page);
+    
+    $this->informationObjects = $this->pager->getResults();
 
     $this->form->setValidator('next', new sfValidatorString);
     $this->form->setWidget('next', new sfWidgetFormInputHidden);
