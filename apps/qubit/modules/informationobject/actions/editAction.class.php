@@ -138,6 +138,12 @@ class InformationObjectEditAction extends DefaultEditAction
         $this->parent = QubitInformationObject::getById(QubitInformationObject::ROOT_ID);
         $this->form->setDefault('parent', $this->context->routing->generate(null, array($this->parent, 'module' => 'informationobject')));
       }
+      
+      if (isset($getParams['repository']))
+      {
+        $this->resource->repository = QubitRepository::getById($this->request->repository);
+        $this->form->setDefault('repository', $this->context->routing->generate(null, array($this->resource->repository, 'module' => 'repository')));
+      }
 
       // Check authorization
       if (!QubitAcl::check($this->parent, 'create'))
