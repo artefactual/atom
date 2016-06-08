@@ -1,5 +1,7 @@
 FROM php:7-fpm-alpine
 
+ARG GIT_BRANCH
+
 ENV FOP_HOME /usr/share/fop-2.1
 
 RUN set -xe \
@@ -9,6 +11,8 @@ RUN set -xe \
 			libxslt-dev \
 			zlib-dev \
 			libmemcached-dev \
+			autoconf \
+			build-base \
 		&& docker-php-ext-install \
 			gettext \
 			mbstring \
@@ -46,9 +50,13 @@ RUN set -xe \
 		&& curl -Ls https://archive.apache.org/dist/xmlgraphics/fop/binaries/fop-2.1-bin.tar.gz | tar xz -C /usr/share \
 		&& ln -sf /usr/share/fop-2.1/fop /usr/local/bin/fop
 
-COPY / /atom/src
-RUN make -C /atom/src/plugins/arDominionPlugin \
-	&& make -C /atom/src/plugins/arArchivesCanadaPlugin
+RUN set -xe \
+		&& mkdir /atom \
+		&& curl -Ls https://github.com/artefactual/atom/archive/$GIT_BRANCH.tar.gz | tar xz -C /atom \
+		&& cd /atom \
+		&& mv * src \
+		&& make -C /atom/src/plugins/arDominionPlugin \
+		&& make -C /atom/src/plugins/arArchivesCanadaPlugin
 
 WORKDIR /atom/src
 ENTRYPOINT ["/atom/src/docker/entrypoint.sh"]
