@@ -117,6 +117,7 @@ class arElasticSearchInformationObjectPdo
          pubstat.status_id as publication_status_id,
          do.id as digital_object_id,
          do.media_type_id as media_type_id,
+         do.usage_id as usage_id,
          do.name as filename
        FROM '.QubitInformationObject::TABLE_NAME.' io
        JOIN '.QubitObject::TABLE_NAME.' obj
@@ -1144,6 +1145,13 @@ class arElasticSearchInformationObjectPdo
     foreach ($this->getMaterialTypeId() as $item)
     {
       $serialized['materialTypeId'][] = $item->id;
+    }
+
+    // Make sure that media_type_id gets a value in case that one was not
+    // assigned, which seems to be a possibility when using the offline usage.
+    if (null === $this->media_type_id && $this->usage_id == QubitTerm::OFFLINE_ID)
+    {
+      $this->media_type_id = QubitTerm::OTHER_ID;
     }
 
     // Media

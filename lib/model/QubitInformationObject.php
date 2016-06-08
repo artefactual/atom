@@ -65,6 +65,10 @@ class QubitInformationObject extends BaseInformationObject
 
     switch ($name)
     {
+      case 'formatName':
+      case 'formatVersion':
+      case 'formatRegistryKey':
+      case 'formatRegistryName':
       case 'objectUUID':
       case 'aipUUID':
 
@@ -1217,6 +1221,10 @@ class QubitInformationObject extends BaseInformationObject
       if (QubitTerm::EXTERNAL_URI_ID == $do->usageId)
       {
         return $path;
+      }
+      else if (QubitTerm::OFFLINE_ID === $do->usageId)
+      {
+        throw new sfException('getDigitalObjectPublicUrl() is not available for offline digital objects');
       }
       else
       {
@@ -2908,20 +2916,26 @@ class QubitInformationObject extends BaseInformationObject
       return;
     }
 
-    $isText = in_array($this->digitalObjects[0]->mediaTypeId, array(QubitTerm::TEXT_ID));
+    $digitalObject = $this->digitalObjects[0];
+    if (QubitTerm::OFFLINE_ID === $digitalObject->usageId)
+    {
+      throw new sfException('getDigitalObjectLink() is not available for offline digital objects');
+    }
+
+    $isText = in_array($digitalObject->mediaTypeId, array(QubitTerm::TEXT_ID));
     $hasReadMaster = QubitAcl::check($this, 'readMaster');
 
     if (QubitGrantedRight::checkPremis($this->id, 'readMaster') && ($hasReadMaster || $isText))
     {
-      if (QubitTerm::EXTERNAL_URI_ID == $this->digitalObjects[0]->usageId)
+      if (QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId)
       {
-        return $this->digitalObjects[0]->path;
+        return $digitalObject->path;
       }
       else
       {
         $request = sfContext::getInstance()->getRequest();
         return $request->getUriPrefix().$request->getRelativeUrlRoot().
-          $this->digitalObjects[0]->getFullPath();
+          $digitalObject->getFullPath();
       }
     }
   }

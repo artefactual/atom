@@ -439,19 +439,22 @@ class ApiInformationObjectsReadAction extends QubitApiAction
         {
           $this->addItemToArray($doData, 'url', $digitalObject->getFullPath());
         }
-        else
+        else if (QubitTerm::OFFLINE_ID != $digitalObject->usageId)
         {
           $this->addItemToArray($doData, 'url', $this->siteBaseUrl . $digitalObject->getFullPath());
         }
 
-        if (null !== $reference = $digitalObject->getRepresentationByUsage(QubitTerm::REFERENCE_ID))
+        if (QubitTerm::OFFLINE_ID != $digitalObject->usageId)
         {
-          $this->addItemToArray($doData, 'reference_url', $this->siteBaseUrl . $reference->getFullPath());
-        }
+          if (null !== $reference = $digitalObject->getRepresentationByUsage(QubitTerm::REFERENCE_ID))
+          {
+            $this->addItemToArray($doData, 'reference_url', $this->siteBaseUrl . $reference->getFullPath());
+          }
 
-        if (null !== $thumbnail = $digitalObject->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID))
-        {
-          $this->addItemToArray($doData, 'thumbnail_url', $this->siteBaseUrl . $thumbnail->getFullPath());
+          if (null !== $thumbnail = $digitalObject->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID))
+          {
+            $this->addItemToArray($doData, 'thumbnail_url', $this->siteBaseUrl . $thumbnail->getFullPath());
+          }
         }
       }
 

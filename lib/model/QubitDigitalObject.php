@@ -1243,14 +1243,17 @@ class QubitDigitalObject extends BaseDigitalObject
       $child->delete();
     }
 
-    // Delete digital asset
-    if (file_exists($this->getAbsolutePath()))
+    if ($this->usageId !== QubitTerm::OFFLINE_ID)
     {
-      unlink($this->getAbsolutePath());
-    }
+      // Delete digital asset
+      if (file_exists($this->getAbsolutePath()))
+      {
+        unlink($this->getAbsolutePath());
+      }
 
-    // Prune asset directory, if empty
-    self::pruneEmptyDirs(sfConfig::get('sf_web_dir').$this->path);
+      // Prune asset directory, if empty
+      self::pruneEmptyDirs(sfConfig::get('sf_web_dir').$this->path);
+    }
 
     foreach (QubitRelation::getBySubjectOrObjectId($this->id) as $item)
     {
@@ -1577,9 +1580,12 @@ class QubitDigitalObject extends BaseDigitalObject
    */
   public function getPublicPath()
   {
-    if ($this->usageId == QubitTerm::EXTERNAL_URI_ID) {
+    if ($this->usageId == QubitTerm::EXTERNAL_URI_ID)
+    {
       return $this->getPath();
-    } else {
+    }
+    else
+    {
       return public_path($this->getFullPath(), true);
     }
   }

@@ -37,6 +37,10 @@
   <?php if ($sf_user->isAuthenticated()): ?>
     <?php echo render_show(__('Object UUID'), $resource->informationObject->objectUUID, array('fieldLabel' => 'objectUUID')) ?>
     <?php echo render_show(__('AIP UUID'), $resource->informationObject->aipUUID, array('fieldLabel' => 'aipUUID')) ?>
+    <?php echo render_show(__('Format name'), $resource->informationObject->formatName, array('fieldLabel' => 'formatName')) ?>
+    <?php echo render_show(__('Format version'), $resource->informationObject->formatVersion, array('fieldLabel' => 'formatVersion')) ?>
+    <?php echo render_show(__('Format registry key'), $resource->informationObject->formatRegistryKey, array('fieldLabel' => 'formatRegistryKey')) ?>
+    <?php echo render_show(__('Format registry name'), $resource->informationObject->formatRegistryName, array('fieldLabel' => 'formatRegistryName')) ?>
   <?php endif; ?>
 
 </section>

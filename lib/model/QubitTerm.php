@@ -122,7 +122,7 @@ class QubitTerm extends BaseTerm
     // ISAAR standardized form name
     STANDARDIZED_FORM_OF_NAME_ID = 165,
 
-    // External URI
+    // Digital object usage taxonomy (addition)
     EXTERNAL_URI_ID = 166,
 
     // Relation types
@@ -160,7 +160,10 @@ class QubitTerm extends BaseTerm
     // Job statuses
     JOB_STATUS_IN_PROGRESS_ID = 183,
     JOB_STATUS_COMPLETED_ID = 184,
-    JOB_STATUS_ERROR_ID = 185;
+    JOB_STATUS_ERROR_ID = 185,
+
+    // Digital object usage taxonomy (addition)
+    OFFLINE_ID = 186;
 
 
   public static function isProtected($id)

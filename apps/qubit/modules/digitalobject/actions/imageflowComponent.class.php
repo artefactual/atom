@@ -57,21 +57,29 @@ class DigitalObjectImageflowComponent extends sfComponent
 
     foreach (QubitDigitalObject::get($criteria) as $item)
     {
-      // ensure the user has permissions to see a thumbnail
-      if (!QubitAcl::check($item->informationObject, 'readThumbnail') ||
-          !QubitGrantedRight::checkPremis($item->informationObject->id, 'readThumb'))
+      if ($item->usageId == QubitTerm::OFFLINE_ID)
       {
-        $thumbnail = QubitDigitalObject::getGenericRepresentation($item->mimeType);
+        $thumbnail = QubitDigitalObject::getGenericRepresentation($item->mimeType, QubitTerm::THUMBNAIL_ID);
         $thumbnail->setParent($item);
       }
       else
       {
-        $thumbnail = $item->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID);
-
-        if (!$thumbnail)
+        // Ensure the user has permissions to see a thumbnail
+        if (!QubitAcl::check($item->informationObject, 'readThumbnail') ||
+            !QubitGrantedRight::checkPremis($item->informationObject->id, 'readThumb'))
         {
-          $thumbnail = QubitDigitalObject::getGenericRepresentation($item->mimeType, QubitTerm::THUMBNAIL_ID);
+          $thumbnail = QubitDigitalObject::getGenericRepresentation($item->mimeType);
           $thumbnail->setParent($item);
+        }
+        else
+        {
+          $thumbnail = $item->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID);
+
+          if (!$thumbnail)
+          {
+            $thumbnail = QubitDigitalObject::getGenericRepresentation($item->mimeType, QubitTerm::THUMBNAIL_ID);
+            $thumbnail->setParent($item);
+          }
         }
       }
 

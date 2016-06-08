@@ -36,7 +36,11 @@ class ApiDigitalObjectsCreateAction extends QubitApiAction
       $this->do->mimeType = $mimeType;
     }
 
-    if (empty($payload->media_type) && !empty($this->do->mimeType))
+    if (empty($payload->media_type))
+    {
+      $this->do->mediaTypeId = QubitTerm::OTHER_ID;
+    }
+    else if (!empty($this->do->mimeType) && 'unknown' != $this->do->mimeType)
     {
       $this->do->setDefaultMediaType();
     }
@@ -44,24 +48,26 @@ class ApiDigitalObjectsCreateAction extends QubitApiAction
     // Associate properties with information object
     if (!empty($this->do->informationObjectId))
     {
+      $props = array(
+        'file_uuid' => 'objectUUID',
+        'aip_uuid' => 'aipUUID',
+        'format_name' => 'formatName',
+        'format_version' => 'formatVersion',
+        'format_registry_key' => 'formatRegistryKey',
+        'format_registry_name' => 'formatRegistryName'
+      );
 
-      // Create file UUID property
-      if (!empty($payload->file_uuid))
+      foreach ($props as $pkey => $pval)
       {
+        if (empty($payload->$pkey))
+        {
+          continue;
+        }
+
         $property = new QubitProperty;
         $property->objectId = $this->do->informationObjectId;
-        $property->name = "objectUUID";
-        $property->value = $payload->file_uuid;
-        $property->save();
-      }
-
-      // Create AIP UUID property
-      if (!empty($payload->aip_uuid))
-      {
-        $property = new QubitProperty;
-        $property->objectId = $this->do->informationObjectId;
-        $property->name = "aipUUID";
-        $property->value = $payload->aip_uuid;
+        $property->name = $pval;
+        $property->value = $payload->$pkey;
         $property->save();
       }
     }
@@ -113,12 +119,26 @@ class ApiDigitalObjectsCreateAction extends QubitApiAction
         break;
 
       case 'media_type':
+        if (!empty($value))
+        {
+          $criteria = new Criteria;
+          $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+          $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::MEDIA_TYPE_ID);
+          $criteria->add(QubitTermI18n::NAME, $value);
+          if (null !== $typeTerm = QubitTerm::getOne($criteria))
+          {
+            $this->do->mediaType = $typeTerm;
+          }
+        }
+        break;
+
+      case 'usage':
         $criteria = new Criteria;
         $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-        $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::MEDIA_TYPE_ID);
+        $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::DIGITAL_OBJECT_USAGE_ID);
         $criteria->add(QubitTermI18n::NAME, $value);
         $typeTerm = QubitTerm::getOne($criteria);
-        $this->do->mediaType = $typeTerm;
+        $this->do->usage = $typeTerm;
         break;
     }
   }

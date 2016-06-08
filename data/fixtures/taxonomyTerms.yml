@@ -2147,6 +2147,13 @@ QubitTerm:
       sv: 'Extern URI'
       vi: 'URI ngoài'
       zh: 外部URI
+  QubitTerm_digital_object_usage_offline:
+    taxonomy_id: QubitTaxonomy_17
+    parent_id: QubitTerm_110
+    id: 186
+    source_culture: en
+    name:
+      en: 'Offline'
   QubitTerm_137:
     taxonomy_id: QubitTaxonomy_17
     parent_id: QubitTerm_110

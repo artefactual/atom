@@ -95,6 +95,8 @@ EOF;
       $query .= ' AND do.id IN (' . implode(', ', $ids) . ')';
     }
 
+    $query .= ' AND do.usage_id != '.QubitTerm::OFFLINE_ID;
+
     // Final confirmation
     if (!$options['force'])
     {
@@ -102,7 +104,7 @@ EOF;
 
       if ($options['slug'])
       {
-        $confirm[] = 'Continuing will regenerate the dervivatives for ALL descendants of';
+        $confirm[] = 'Continuing will regenerate the derivatives for ALL descendants of';
         $confirm[] = '"'.$options['slug'].'"';
       }
       else
