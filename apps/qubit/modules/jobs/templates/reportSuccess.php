@@ -6,19 +6,58 @@
 
 <section id="report-overview-area">
   <h2><?php echo __('Overview') ?></h2>
-  <?php echo render_show(__('Name'), render_value($job->name), array('fieldLabel' => 'jobName')) ?>
-  <?php echo render_show(__('Id'), render_value($job->id), array('fieldLabel' => 'jobId')) ?>
-  <?php echo render_show(__('Creation date'), render_value($job->getCreationDateString()), array('fieldLabel' => 'jobCreatedAt')) ?>
-  <?php echo render_show(__('Completion date'), render_value($job->getCompletionDateString()), array('fieldLabel' => 'jobCompletedAt')) ?>
-  <?php echo render_show(__('Status'), render_value(ucfirst($job->getStatusString())), array('fieldLabel' => 'jobStatus')) ?>
-  <?php echo render_show(__('Creator'), render_value(QubitJob::getUserString($job)), array('fieldLabel' => 'jobUser')) ?>
+
+  <div class="job-report-field">
+    <div><?php echo __('Name') ?></div>
+    <div><?php echo render_value($job->name) ?></div>
+  </div>
+
+  <div class="job-report-field">
+    <div><?php echo __('Id') ?></div>
+    <div><?php echo render_value($job->id) ?></div>
+  </div>
+
+  <div class="job-report-field">
+    <div><?php echo __('Creation date') ?></div>
+    <div><?php echo render_value($job->getCreationDateString()) ?></div>
+  </div>
+
+  <div class="job-report-field">
+    <div><?php echo __('Completion date') ?></div>
+    <div><?php echo render_value($job->getCompletionDateString()) ?></div>
+  </div>
+
+  <div class="job-report-field">
+    <div><?php echo __('Status') ?></div>
+    <div>
+      <?php echo render_value(ucfirst($job->getStatusString())) ?>
+      <?php if ($job->statusId == QubitTerm::JOB_STATUS_COMPLETED_ID): ?>
+        <i class="fa fa-check-square" id="job-check-color"></i>
+      <?php elseif ($job->statusId == QubitTerm::JOB_STATUS_ERROR_ID): ?>
+        <i class="fa fa-exclamation-triangle" id="job-warning-color"></i>
+      <?php elseif ($job->statusId == QubitTerm::JOB_STATUS_IN_PROGRESS_ID): ?>
+        <i class="fa fa-cogs" id="job-cogs-color"></i>
+      <?php endif; ?>
+    </div>
+  </div>
+
+  <div class="job-report-field">
+    <div><?php echo __('Creator') ?></div>
+    <div><?php echo render_value(QubitJob::getUserString($job)) ?></div>
+  </div>
 
   <?php if ($job->getObjectModule() && $job->getObjectSlug()): ?>
-    <?php echo render_show(__('Associated item'), link_to(__('Link'), array('module' => $job->getObjectModule(), 'slug' => $job->getObjectSlug()))) ?>
+    <div class="job-report-field">
+      <div><?php echo __('Associated item') ?></div>
+      <div><?php echo link_to(__('Link'), array('module' => $job->getObjectModule(), 'slug' => $job->getObjectSlug())) ?></div>
+    </div>
   <?php endif; ?>
 
   <?php if ($job->downloadPath): ?>
-    <?php echo render_show(__('Download link'), render_value($job->downloadPath), array('fieldLabel' => 'jobDownloadLink')) ?>
+    <div class="job-report-field">
+      <div><?php echo __('Download path') ?></div>
+      <div><?php echo link_to(__('Link'), public_path($job->downloadPath)) ?>
+    </div>
   <?php endif; ?>
 </section>
 
@@ -29,6 +68,6 @@
   </div>
 </section>
 
-<div id="jobs-return-link">
+<div id="job-return-link">
   <?php echo link_to(__('« Return to jobs management page'), array('module' => 'jobs', 'action' => 'browse')) ?>
 </div>

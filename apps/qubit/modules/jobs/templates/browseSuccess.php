@@ -60,10 +60,12 @@
             <p><?php echo $note->__toString() ?></p>
           <?php endforeach; ?>
           <?php if (isset($job->downloadPath)): ?>
-            <?php echo link_to(__('Download'), public_path($job->downloadPath), array('class' => 'download')) ?>
+            <?php echo link_to(__('Download'), public_path($job->downloadPath), array('class' => 'job-link')) ?>
             (<?php echo hr_filesize(filesize($job->downloadPath)) ?>)
           <?php endif; ?>
-          <?php echo link_to(__('Full report'), array('module' => 'jobs', 'action' => 'report', 'id' => $job->id)) ?>
+
+          <?php echo link_to(__('Full report'), array('module' => 'jobs', 'action' => 'report', 'id' => $job->id),
+            array('class' => 'job-link')) ?>
         </td>
 
         <!-- User who created the job -->
