@@ -6,11 +6,12 @@ set -o nounset
 # set -o xtrace
 
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-__file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 __root="$(cd "$(dirname "${__dir}")" && pwd)"
 
-TAG="artefactual/atom:edge"
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+RELEASE="edge-$(echo $BRANCH | sed 's/[\/\.]//g')"
+TAG="artefactual/atom:$RELEASE"
 
-docker build --pull --tag ${TAG} --file ${__dir}/Dockerfile ${__root}
+docker build --pull --tag ${TAG} --file ${__dir}/Dockerfile --build-arg "GIT_BRANCH=$BRANCH" ${__root}
 
 docker push ${TAG}
