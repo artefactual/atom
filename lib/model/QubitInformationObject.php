@@ -2923,12 +2923,16 @@ class QubitInformationObject extends BaseInformationObject
   {
     if (null === $slugBasis = QubitSetting::getByName('slug_basis_informationobject'))
     {
-      throw new sfException('No slug_basis_informationobject setting in the database.');
+      $slugBasis = QubitSlug::SLUG_BASIS_TITLE; // Fall back to title as slug basis
+    }
+    else
+    {
+      $slugBasis = $slugBasis->getValue();
     }
 
     $stringToSlugify = null;
 
-    switch ($slugBasis->getValue())
+    switch ($slugBasis)
     {
       case QubitSlug::SLUG_BASIS_REFERENCE_CODE:
         $stringToSlugify = $this->getInheritedReferenceCode();
@@ -2947,11 +2951,11 @@ class QubitInformationObject extends BaseInformationObject
         break;
 
       default:
-        throw new sfException('Unsupported slug basis specified in settings: '.$slugBasis->getValue());
+        throw new sfException('Unsupported slug basis specified in settings: '.$slugBasis);
     }
 
     // Blank string or null returned, attempt to fall back to slug based on title
-    if ($slugBasis->getValue() != QubitSlug::SLUG_BASIS_TITLE && !$stringToSlugify)
+    if ($slugBasis != QubitSlug::SLUG_BASIS_TITLE && !$stringToSlugify)
     {
       $stringToSlugify = $this->getTitle(array('sourceCulture' => true));
     }
