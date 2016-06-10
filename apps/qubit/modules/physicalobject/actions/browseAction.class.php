@@ -31,6 +31,12 @@ class PhysicalObjectBrowseAction extends sfAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
+    if (sfConfig::get('app_enable_institutional_scoping'))
+    {
+      //remove search-realm
+      $this->context->user->removeAttribute('search-realm');
+    }
+    
     $criteria = new Criteria;
 
     // Do source culture fallback

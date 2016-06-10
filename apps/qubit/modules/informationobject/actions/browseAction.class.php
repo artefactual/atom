@@ -339,6 +339,14 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       // Add repo to the user session as realm
       $this->context->user->setAttribute('search-realm', $request->repos);
     }
+    else {
+      if ((sfConfig::get('app_enable_institutional_scoping')) &&
+        (!(isset($request->collection) && ctype_digit($request->collection))))
+      {
+        // Remove realm
+        $this->context->user->removeAttribute('search-realm'); 
+      }
+    }
 
     if (isset($request->creators) && ctype_digit($request->creators))
     {

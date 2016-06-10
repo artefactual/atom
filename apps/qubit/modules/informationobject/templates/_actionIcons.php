@@ -25,16 +25,30 @@
       </li>
     <?php endif; ?>
 
-    <li>
-      <a href="<?php echo url_for(array(
-        'module' => 'informationobject',
-        'action' => 'browse',
-        'collection' => $resource->getCollectionRoot()->id,
-        'topLod' => false)) ?>">
-        <i class="fa fa-list"></i>
-        <?php echo __('Browse as list') ?>
-      </a>
-    </li>
+    <?php if (isset($resource) && sfConfig::get('app_enable_institutional_scoping') && $sf_user->hasAttribute('search-realm') ): ?>
+      <li>
+        <a href="<?php echo url_for(array(
+          'module' => 'informationobject',
+          'action' => 'browse',
+          'collection' => $resource->getCollectionRoot()->id,
+          'repos' => $sf_user->getAttribute('search-realm'),        
+          'topLod' => false)) ?>">
+          <i class="icon-list"></i>
+          <?php echo __('Browse as list') ?>
+        </a>
+      </li>
+    <?php else: ?>
+      <li>
+        <a href="<?php echo url_for(array(
+          'module' => 'informationobject',
+          'action' => 'browse',
+          'collection' => $resource->getCollectionRoot()->id,
+          'topLod' => false)) ?>">
+          <i class="icon-list"></i>
+          <?php echo __('Browse as list') ?>
+        </a>
+      </li>
+    <?php endif; ?>
 
     <li>
       <a href="<?php echo url_for(array(

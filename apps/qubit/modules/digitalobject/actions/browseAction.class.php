@@ -58,6 +58,12 @@ class DigitalObjectBrowseAction extends DefaultBrowseAction
   {
     parent::execute($request);
 
+    if (sfConfig::get('app_enable_institutional_scoping'))
+    {
+      // remove search-realm
+      $this->context->user->removeAttribute('search-realm');
+    }
+    
     // Create query object
     $this->search->queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => true)));
 

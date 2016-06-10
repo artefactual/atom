@@ -38,7 +38,7 @@ class QubitMenu extends BaseMenu
 
     // 4rd generation constant ids
     TAXONOMY_ID = 6;
-
+    
   /**
    * Wrapper for BaseMenu::getPath() call to allow additional functionality
    *  option 'resolveAlias' - resolve aliases into full path
@@ -52,9 +52,14 @@ class QubitMenu extends BaseMenu
     $aliases = array(
       '%profile%' => sfContext::getInstance()->routing->generate(null, array('module' => 'user', 'slug' => sfContext::getInstance()->user->getUserSlug())),
       '%currentId%' => sfContext::getInstance()->request->id,
-      '%currentSlug%' => @sfContext::getInstance()->request->getAttribute('sf_route')->resource->slug
+      '%currentSlug%' => @sfContext::getInstance()->request->getAttribute('sf_route')->resource->slug,
+      
+      // Used by menu items on the Institutional Block as part of the enable_institutional_scoping feature.
+      // Try using search-realm if available, else try resource->id from sf_route, else try repos param on request.
+      // Convoluted because different context variables are available only under certain circumstances.
+      '%currentRealm%' => (@sfContext::getInstance()->user->getAttribute('search-realm') ? @sfContext::getInstance()->user->getAttribute('search-realm') : (@sfContext::getInstance()->request->getAttribute('sf_route')->resource->id ? @sfContext::getInstance()->request->getAttribute('sf_route')->resource->id : @sfContext::getInstance()->request->getParameter('repos')) )
     );
-
+    
     $path = parent::offsetGet('path', $options);
 
     if (isset($options['resolveAlias']) && $options['resolveAlias'])

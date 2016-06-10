@@ -9,7 +9,7 @@
     <?php if (isset($repository)): ?>
       <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo $sf_request->query ?>" placeholder="<?php echo __('Search %1%', array('%1%' => render_title($repository))) ?>"/>
     <?php else: ?>
-      <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo $sf_request->query ?>" placeholder="<?php echo __('Search') ?>"/>
+      <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo $sf_request->query ?>" placeholder="<?php echo __('%1%', array('%1%' => sfConfig::get('app_ui_label_globalsearch'))) ?>"/>
     <?php endif; ?>
 
     <button><span><?php echo __('Search') ?></span></button>

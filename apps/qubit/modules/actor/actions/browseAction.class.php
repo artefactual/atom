@@ -65,6 +65,21 @@ class ActorBrowseAction extends DefaultBrowseAction
   public function execute($request)
   {
     parent::execute($request);
+    
+    if (isset($request->repos) && ctype_digit($request->repos))
+    {
+      $this->repos = QubitRepository::getById($request->repos);
+
+      // Add repo to the user session as realm
+      $this->context->user->setAttribute('search-realm', $request->repos);
+    }
+    else {
+      if (sfConfig::get('app_enable_institutional_scoping'))
+      {
+        // Remove search realm
+        $this->context->user->removeAttribute('search-realm');
+      }
+    }
 
     if (1 === preg_match('/^[\s\t\r\n]*$/', $request->subquery))
     {
