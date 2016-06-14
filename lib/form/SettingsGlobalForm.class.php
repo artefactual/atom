@@ -69,6 +69,7 @@ class SettingsGlobalForm extends sfForm
       'check_for_updates' => $this->i18n->__('Check for updates'),
       'reference_image_maxwidth' => $this->i18n->__('Maximum image width (pixels)'),
       'hits_per_page' => $this->i18n->__('Results per page'),
+      'accession_mask_enabled' => $this->i18n->__('Accession mask enabled'),
       'accession_mask' => $this->i18n->__('Accession mask'),
       'accession_counter' => $this->i18n->__('Accession counter'),
       'separator_character' => $this->i18n->__('Reference code separator'),
