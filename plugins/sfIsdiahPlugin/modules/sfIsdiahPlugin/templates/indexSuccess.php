@@ -252,6 +252,9 @@
         <?php if (QubitAcl::check($resource, 'create')): ?>
           <li><?php echo link_to(__('Add new'), array('module' => 'repository', 'action' => 'add'), array('class' => 'c-btn', 'title' => __('Add new'))) ?></li>
         <?php endif; ?>
+        <?php if (QubitAcl::check(QubitInformationObject, 'create')): ?>
+          <li><?php echo link_to(__('Add new archival description'), array('module' => 'informationobject', 'action' => 'add', 'repository' => $resource->id), array('class' => 'c-btn', 'title' => __('Add new description'))) ?></li>
+        <?php endif; ?>
         <li class="divider"></li>
         <?php if (QubitAcl::check($resource, 'update')): ?>
           <li><?php echo link_to(__('Edit theme'), array($resource, 'module' => 'repository', 'action' => 'editTheme'), array('class' => 'c-btn', 'title' => 'Edit theme')) ?>
