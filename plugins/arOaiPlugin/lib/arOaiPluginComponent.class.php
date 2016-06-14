@@ -113,7 +113,7 @@ abstract class arOaiPluginComponent extends sfComponent
       'until'  => $this->until,
       'cursor' => $this->cursor,
       'limit' => QubitSetting::getByName('resumption_token_limit')->__toString(),
-      'oaiSet' => $oaiSet);
+      'set' => $oaiSet);
 
     // Get the records according to the limit dates and collection
     $update = QubitInformationObject::getUpdatedRecords(array_merge($options, $extraOptions));
