@@ -26,6 +26,7 @@ columnNames:
   - relatedUnitsOfDescription
   - publicationNote
   - digitalObjectURI
+  - digitalObjectChecksum
   - generalNote
   - subjectAccessPoints
   - placeAccessPoints

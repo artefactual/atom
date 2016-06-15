@@ -106,6 +106,9 @@ class csvInformationObjectExport extends QubitFlatfileExport
     // Set digital object public URL
     $this->setColumn('digitalObjectURI', $this->resource->getDigitalObjectPublicUrl());
 
+    // Grab checksum for this digital object
+    $this->setColumn('digitalObjectChecksum', $this->resource->getDigitalObjectChecksum());
+
     // Set publication status
     $this->setColumn('publicationStatus', $this->resource->getPublicationStatus());
   }
