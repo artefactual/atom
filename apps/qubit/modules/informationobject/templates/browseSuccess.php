@@ -296,6 +296,11 @@
         </a>
       <?php endif; ?>
 
+      <span>
+        <?php echo get_partial('default/viewPicker', array('view' => $view, 'cardView' => $cardView,
+          'tableView' => $tableView, 'module' => 'informationobject')) ?>
+      </span>
+
       <?php echo get_partial('default/sortPicker', array(
         'options' => array(
           'lastUpdated' => __('Most recent'),
@@ -305,8 +310,7 @@
           'endDate'     => __('End date')))) ?>
     </section>
 
-    <div id="content">
-
+    <div id="content" class="browse-content">
       <?php if (!isset($sf_request->onlyMedia) && isset($pager->facets['digitalobjects']) && 0 < $pager->facets['digitalobjects']['count']): ?>
         <div class="search-result media-summary">
           <p>
@@ -322,17 +326,11 @@
         </div>
       <?php endif; ?>
 
-      <?php if ($pager->hasResults()): ?>
-        <?php foreach ($pager->getResults() as $hit): ?>
-          <?php echo get_partial('search/searchResult', array('hit' => $hit, 'culture' => $selectedCulture)) ?>
-        <?php endforeach; ?>
-      <?php else: ?>
-        <section id="no-search-results">
-          <i class="fa fa-search"></i>
-          <p class="no-results-found"><?php echo __('No results found.') ?></p>
-        </section>
+      <?php if ($view === $tableView): ?>
+        <?php echo get_partial('informationobject/tableViewResults', array('pager' => $pager, 'selectedCulture' => $selectedCulture)) ?>
+      <?php elseif ($view === $cardView): ?>
+        <?php echo get_partial('informationobject/cardViewResults', array('pager' => $pager, 'selectedCulture' => $selectedCulture)) ?>
       <?php endif; ?>
-
     </div>
 
   <?php endif; ?>

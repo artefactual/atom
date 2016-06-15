@@ -547,6 +547,8 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         $this->search->query->setSort(array('updatedAt' => 'desc'));
     }
 
+    $this->setView($request);
+
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->getQuery(false, true));
 
     // Page results
@@ -556,5 +558,24 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     $this->pager->init();
 
     $this->populateFacets($resultSet);
+  }
+
+  /**
+   * Set browse page layout view
+   */
+  private function setView($request)
+  {
+    $this->cardView = 'card';
+    $this->tableView = 'table';
+    $allowedViews = array($this->cardView, $this->tableView);
+
+    if (isset($request->view) && in_array($request->view, $allowedViews))
+    {
+      $this->view = $request->view;
+    }
+    else
+    {
+      $this->view = sfConfig::get('app_default_archival_description_browse_view', $this->tableView);
+    }
   }
 }

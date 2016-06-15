@@ -53,6 +53,7 @@ class SettingsGlobalForm extends sfForm
       'sort_browser_user' => new sfWidgetFormSelectRadio(array('choices' => array('alphabetic' => 'alphabetic', 'lastUpdated' => 'last updated', 'identifier' => 'identifier')), array('class' => 'radio')),
       'sort_browser_anonymous' => new sfWidgetFormSelectRadio(array('choices' => array('alphabetic' => 'alphabetic', 'lastUpdated' => 'last updated', 'identifier' => 'identifier')), array('class' => 'radio')),
       'default_repository_browse_view' => new sfWidgetFormSelectRadio(array('choices' => array('card' => $this->i18n->__('card'), 'table' => $this->i18n->__('table'))), array('class' => 'radio')),
+      'default_archival_description_browse_view' => new sfWidgetFormSelectRadio(array('choices' => array('card' => $this->i18n->__('card'), 'table' => $this->i18n->__('table'))), array('class' => 'radio')),
       'multi_repository' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'repository_quota' => new sfWidgetFormInput,
       'upload_quota' => new arWidgetFormUploadQuota,
@@ -79,6 +80,7 @@ class SettingsGlobalForm extends sfForm
       'sort_browser_user' => $this->i18n->__('Sort browser (users)'),
       'sort_browser_anonymous' => $this->i18n->__('Sort browser (anonymous)'),
       'default_repository_browse_view' => $this->i18n->__('Default repository browse view'),
+      'default_archival_description_browse_view' => $this->i18n->__('Default archival description browse view'),
       'multi_repository' => $this->i18n->__('Multiple repositories'),
       'repository_quota' => $this->i18n->__('Default %1% upload limit (GB)', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))),
       'upload_quota' => $this->i18n->__('Total space available for uploads'),
@@ -100,6 +102,7 @@ class SettingsGlobalForm extends sfForm
       // 'accession_mask' => $this->i18n->__(''),
       // 'accession_counter' => $this->i18n->__(''),
       'default_repository_browse_view' => $this->i18n->__('Set the default view template when browsing repositories'),
+      'default_archival_description_browse_view' => $this->i18n->__('Set the default view template when browsing archival descriptions'),
       'separator_character' => $this->i18n->__('The character separating hierarchical elements in a reference code'),
       'inherit_code_informationobject' => $this->i18n->__('When set to &quot;yes&quot;, the reference code string will be built using the information object identifier plus the identifiers of all its ancestors'),
       'sort_treeview_informationobject' => $this->i18n->__('Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use'),
@@ -153,6 +156,7 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['sort_browser_anonymous'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['multi_repository'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['default_repository_browse_view'] = new sfValidatorString(array('required' => false));
+    $this->validatorSchema['default_archival_description_browse_view'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['slug_basis_informationobject'] = $this->getSlugBasisInformationObjectValidator();
 
     $this->validatorSchema['repository_quota'] = new sfValidatorNumber(
