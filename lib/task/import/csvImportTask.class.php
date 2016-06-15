@@ -395,7 +395,8 @@ EOF;
         'physicalObjectType',
         'physicalStorageLocation',
         'digitalObjectPath',
-        'digitalObjectURI'
+        'digitalObjectURI',
+        'digitalObjectChecksum'
       ),
 
       // These values get exploded and stored to the rowStatusVars array
@@ -439,14 +440,33 @@ EOF;
         if ((isset($self->rowStatusVars['digitalObjectPath']) && $self->rowStatusVars['digitalObjectPath'])
           || (isset($self->rowStatusVars['digitalObjectURI']) && $self->rowStatusVars['digitalObjectURI']))
         {
-          // Delete any digital objects that exist for this information object
-          $criteria = new Criteria;
-          $criteria->add(QubitDigitalObject::INFORMATION_OBJECT_ID, $self->object->id);
-          $results = QubitDigitalObject::getOne($criteria);
+          // Retrieve any digital objects that exist for this information object
+          $do = $self->object->getDigitalObject();
 
-          if ($results !== null)
+          if ($do !== null)
           {
-            $results->delete();
+            $deleteDigitalObject = true;
+
+            if ($self->updateExisting)
+            {
+              // if   - there is a checksum in the import file
+              //      - the checksum is non-blank
+              //      - the checksum in the csv file matches what is in the database
+              // then - do not re-load the digital object from the import file on UPDATE (leave existing recs as is)
+              // else - reload the digital object in the import file (i.e. delete existing record below)
+              if (isset($self->rowStatusVars['digitalObjectChecksum'])
+                && $self->rowStatusVars['digitalObjectChecksum']
+                && 0 === strcmp($self->rowStatusVars['digitalObjectChecksum'], $do->getChecksum()))
+              {
+                // if the checksum matches what is stored with digital object, do not import this digital object.
+                $deleteDigitalObject = false;
+              }
+            }
+
+            if ($deleteDigitalObject)
+            {
+              $do->delete();
+            }
           }
         }
       },
@@ -979,7 +999,20 @@ EOF;
 
         // This will import only a single digital object;
         // if both a URI and path are provided, the former is preferred.
-        if ($uri = $self->rowStatusVars['digitalObjectURI'])
+
+        // note: Digital Objects should only be created here if they do not
+        // exist already.  If getDigitalObject() is null, we know they do not
+        // exist and therefore should be created.
+
+        // When this CSV importer is run and the --update parameter is set,
+        // the function 'updatePreparationLogic' (above) will be run.
+        // 'updatePreparationLogic' has been enhanced to compare the DO
+        // checksum in the DB against the checksum in the import CSV and will
+        // only remove the DO if the checksums differ.  If they are removed
+        // because the checksums are different, the following code will
+        // recreate them from the CSV file.
+        if ($uri = $self->rowStatusVars['digitalObjectURI']
+          && null === $self->object->getDigitalObject())
         {
           $do = new QubitDigitalObject;
           $do->informationObject = $self->object;
@@ -1007,7 +1040,8 @@ EOF;
             $this->log($e->getMessage(), sfLogger::ERR);
           }
         }
-        else if ($path = $self->rowStatusVars['digitalObjectPath'])
+        else if ($path = $self->rowStatusVars['digitalObjectPath']
+          && null === $self->object->getDigitalObject())
         {
           $do = new QubitDigitalObject;
           $do->usageId = QubitTerm::MASTER_ID;
@@ -1038,7 +1072,7 @@ EOF;
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
 
     // Allow updating to be enabled via a CLI option
-    $import->updateExisting = ($options['update']);
+    $import->updateExisting = isset($options['update']);
 
     // Convert content with | characters to a bulleted list
     $import->contentFilterLogic = function($text)

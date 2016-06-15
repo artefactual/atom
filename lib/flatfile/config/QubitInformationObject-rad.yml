@@ -70,6 +70,7 @@ columnNames:
   - sources
   - publicationStatus
   - digitalObjectURI
+  - digitalObjectChecksum
   - generalNote
   - appraisal
   - physicalObjectName
@@ -84,7 +85,7 @@ columnNames:
   - eventDescriptions
   - eventActors
   - eventActorHistories
-  - eventPlaces 
+  - eventPlaces
   - culture
 
 # Columns that map to information object properties

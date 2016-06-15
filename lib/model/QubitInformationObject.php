@@ -1168,6 +1168,19 @@ class QubitInformationObject extends BaseInformationObject
   }
 
   /**
+   * Get the digital object's checksum value
+   *
+   * @return string  digital object checksum or null
+   */
+  public function getDigitalObjectChecksum()
+  {
+    if (null !== $do = $this->getDigitalObject())
+    {
+      return $do->getChecksum();
+    }
+  }
+
+  /**
    * Get the total digital object count for this & all descendents to this
    * information object.
    *
