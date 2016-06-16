@@ -63,6 +63,37 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'informationobjectsRead',
       'params' => array('slug' => self::REGEX_SLUG)));
+
+    $this->addRoute('GET', '/api/informationobjects/tree/:parent_slug', array(
+      'module' => 'api',
+      'action' => 'informationobjectsTree',
+      'params' => array('parent_slug' => self::REGEX_SLUG)));
+
+    $this->addRoute('PUT', '/api/informationobjects/:slug', array(
+      'module' => 'api',
+      'action' => 'informationobjectsUpdate',
+      'params' => array('slug' => self::REGEX_SLUG)));
+
+    $this->addRoute('DELETE', '/api/informationobjects/:slug', array(
+      'module' => 'api',
+      'action' => 'informationobjectsDelete',
+      'params' => array('slug' => self::REGEX_SLUG)));
+
+    $this->addRoute('POST', '/api/informationobjects', array(
+      'module' => 'api',
+      'action' => 'informationobjectsCreate'));
+
+    /**
+     * Digital objects
+     */
+
+    $this->addRoute('GET', '/api/digitalobjects', array(
+      'module' => 'api',
+      'action' => 'digitalobjectsBrowse'));
+
+    $this->addRoute('POST', '/api/digitalobjects', array(
+      'module' => 'api',
+      'action' => 'digitalobjectsCreate'));
   }
 
   protected function addRoute($method, $pattern, array $options = array())
