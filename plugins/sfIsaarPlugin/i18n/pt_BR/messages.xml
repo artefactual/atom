@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2014-09-19T13:20:17Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2016-06-19T10:52:26Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -23,10 +23,6 @@
       <trans-unit id="5">
         <source>%1%Dates of existence%2% - This is a %3%mandatory%4% element.</source>
         <target>%1%Datas de existência%2% - É um %3%elemento%4% obrigatório.</target>
-      </trans-unit>
-      <trans-unit id="6">
-        <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target>%1%Identificador da descrição%2% - É um %3%elemento%4% obrigatório.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>%1%Type of entity%2% - This is a %3%mandatory%4% element.</source>
@@ -244,10 +240,6 @@
         <source>"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)</source>
         <target>"Registre um identificador específico do registro de autoridade, de acordo com convenções locais e/ou internacionais. Se o registro de autoridade é para uso internacional, registre o código do país no qual este registro de autoridade foi criado, de acordo com a última versão da ISO 3166 Codes for the representation of names of countries. Quando o produtor de um registro de autoridade for uma organização internacional, forneça o identificador da organização em lugar do código do país." (ISAAR 5.4.1)</target>
       </trans-unit>
-      <trans-unit id="61">
-        <source>Description identifier</source>
-        <target>identificador da descrição</target>
-      </trans-unit>
       <trans-unit id="62">
         <source>"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)</source>
         <target>"Registre de maneira completa a(s) forma(s) autorizada(s) do(s) nome(s) da(s) instituição(ões) responsável(veis) pela produção, modificação ou disseminação do registro de autoridade ou, como alternativa, registre um código para a instituição de acordo com a norma nacional ou internacional para códigos de instituição. Inclua referências a quaisquer sistemas de identificação usados para identificar as instituições (por exemplo, ISO 15511)." (ISAAR 5.4.2)</target>
@@ -400,6 +392,14 @@ registos completos são os que fornecem informação para todos os elementos de 
       <trans-unit id="102">
         <source>Last updated</source>
         <target>Última atualização</target>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>%1%Authority record identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Authority record identifier</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

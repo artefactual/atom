@@ -122,7 +122,7 @@ QubitSetting:
       en: 'Authority record'
       es: 'Registro de autoridad'
       eu: 'Autoretza erregistroa'
-      fr: 'Fichier d''autorité'
+      fr: 'Notice d''autorité'
       gl: 'Rexistro de autoridade'
       hu: Iratképző
       id: 'Pencipta Arsip'
@@ -194,7 +194,7 @@ QubitSetting:
       es: 'Institución archivística'
       eu: 'Artxibo erakundea'
       fa: منبع
-      fr: 'Institution de conservation'
+      fr: 'Service d''archives'
       gl: 'Institución arquivística'
       hu: Levéltár
       id: 'Institusi Arsip'
@@ -206,7 +206,7 @@ QubitSetting:
       nl: Archiefinstelling
       pl: 'Instytucja archiwalna'
       pt: 'Instituição de arquivo'
-      pt-BR: 'Instituição arquivística'
+      pt-BR: 'Entidade custodiadora'
       pt_BR: 'Instituição arquivística'
       ru: 'Архивное учреждение'
       sl: 'Arhivska ustanova'
@@ -231,7 +231,7 @@ QubitSetting:
       en: Function
       es: Función
       eu: Funtzioa
-      fr: Fonctions
+      fr: Fonction
       gl: Función
       hu: Funkció
       id: Fungsi
@@ -338,7 +338,7 @@ QubitSetting:
       en: Fonds
       es: Fondo
       eu: Fondoak
-      fr: collection
+      fr: Fonds
       gl: Fondos
       hu: Fond
       is: Safn
@@ -485,13 +485,13 @@ QubitSetting:
       en: 'Digital object'
       es: 'Objeto digital'
       eu: 'Objektu digitala'
-      fr: 'Objet numérique'
+      fr: 'Document numérique'
       gl: 'Obxecto dixital'
       hu: 'Digitális objektum'
       id: 'Objek Digital'
       is: 'Stafræn eining'
       it: 'Oggetto digitale'
-      ja: ディジタルオブジェクト
+      ja: デジタルオブジェクト
       ka: 'ციფრული ობიექტი'
       ko: 디지털
       nl: 'Digitaal object'
@@ -655,6 +655,7 @@ QubitSetting:
       de-CH: Genre
       en: Genre
       es: Tipo
+      fr: Genre
       hu: Műfaj
       pt: Género
       pt-BR: Gênero
@@ -1067,6 +1068,7 @@ QubitSetting:
       en: 1
       es: '1'
       pt: '1'
+      pt-BR: '1'
       sr: '1'
       sv: '1'
   Qubit_Settings_treeviewType:
@@ -1078,7 +1080,9 @@ QubitSetting:
       de: Seitenleiste
       en: sidebar
       es: 'barra lateral'
+      fr: 'barre latérale'
       pt: 'barra lateral'
+      pt-BR: 'barra lateral'
       sr: 'бочна трака'
       sv: sidspalt
   Qubit_Settings_stripExtensions:

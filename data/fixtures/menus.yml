@@ -103,7 +103,7 @@ QubitMenu:
       hu: Szerkesztés
       is: Stjórna
       it: Gestisci
-      ja: 運営する
+      ja: 管理
       ka: მართვა
       ko: 관리
       nl: Beheer
@@ -133,7 +133,7 @@ QubitMenu:
       en: Accessions
       es: Ingresos
       eu: Atxikimenduak
-      fr: Entrées
+      fr: Acquisitions
       gl: Ingresos
       hu: Gyarapodások
       is: Afhendingar
@@ -264,7 +264,7 @@ QubitMenu:
       nl: Rechthebbenden
       pl: 'Posiadacze praw'
       pt: 'Proprietários dos direitos'
-      pt-BR: 'Detentores de direitos'
+      pt-BR: 'Detentores dos direitos'
       pt_BR: 'Detentores de direitos'
       sl: 'Imetniki pravic'
       sr: 'Носиоци права'
@@ -394,7 +394,7 @@ QubitMenu:
       en: 'Accession records'
       es: 'Registros de ingresos'
       eu: 'Atxikimendu erregistroak'
-      fr: 'Notices d''entrée'
+      fr: 'Notices d''acquisition'
       gl: 'Rexistros de ingresos'
       hu: 'Gyarapodási rekord/adatok'
       is: Aðfangaskrá
@@ -460,11 +460,12 @@ QubitMenu:
       en: 'Authority records'
       es: 'Registro de autoridad'
       eu: 'Autoretza erregistroak'
-      fr: 'Fichiers d''autorité'
+      fr: 'Notices d''autorité'
       gl: 'Rexistros de autoridade'
       hu: Iratképzők
       is: Nafnspjöld
       it: 'Record d''autorità'
+      ja: 典拠レコード
       ko: 전거레코드
       nl: 'geautoriseerd bestand'
       pl: 'Hasło wzorcowe'
@@ -491,7 +492,7 @@ QubitMenu:
       en: 'Archival institutions'
       es: 'Instituciones archivísticas'
       eu: 'Artxibo erakundeak'
-      fr: 'Institutions de conservation'
+      fr: 'Services d''archives'
       gl: Repositorios
       hu: Levéltárak
       id: Repositori
@@ -503,7 +504,7 @@ QubitMenu:
       nl: archiefinstelling
       pl: 'Instytucja archiwalna'
       pt: 'Instituição arquivística'
-      pt-BR: 'Instituições arquivísticas'
+      pt-BR: 'Entidades custodiadoras'
       pt_BR: 'Instituições arquivísticas'
       ru: 'Архивные учреждения'
       sl: 'arhivske ustanove'
@@ -562,7 +563,7 @@ QubitMenu:
       en: Function
       es: Función
       eu: Funtzioa
-      fr: Fonctions
+      fr: Fonction
       gl: Función
       hu: Funkció
       id: Fungsi
@@ -788,14 +789,14 @@ QubitMenu:
       en: 'Archival institution permissions'
       es: 'Permisos Instituciones archivísticas'
       eu: 'Erakunde artxibozainaren baimenak'
-      fr: 'Autorisations de l''institution de conservation'
+      fr: 'Autorisations du services d''archives'
       gl: 'Permisos de institución arquivística'
       hu: 'Levéltári intézmény jogosultságok'
       is: 'Heimildir vörslustofnunar'
       it: 'Permessi dell''istituto archivistico'
       ko: '기록관리기관 접근권한'
       pt: 'Permissões da instituição arquivística'
-      pt-BR: 'Permissões de instituições arquivísticas'
+      pt-BR: 'Permissões de entidades custodiadoras'
       pt_BR: 'Permissões de instituições arquivísticas'
       sl: 'Dovoljenja glede arhivske ustanove'
       sr: 'Дозволе архивске инстутције'
@@ -860,6 +861,7 @@ QubitMenu:
       pt: Grupos
       pt-BR: Grupos
       pt_BR: Grupos
+      ru: Группы
       sl: Skupine
       sr: Групе
       th: กลุ่ม
@@ -972,14 +974,14 @@ QubitMenu:
       en: 'Archival institution permissions'
       es: 'Permisos Instituciones archivísticas'
       eu: 'Erakunde artxibozainaren baimenak'
-      fr: 'Autorisations de l''institution de conservation'
+      fr: 'Autorisations du services d''archives'
       gl: 'Permisos de institución arquivística'
       hu: 'Levéltári intézmény jogosultságok'
       is: 'Heimildir vörslustofnunar'
       it: 'Permessi dell''istituto archivistico'
       ko: '기록관리기관 접근권한'
       pt: 'Permissões da instituição arquivística'
-      pt-BR: 'Permissões de instituições arquivísticas'
+      pt-BR: 'Permissões de entidades custodiadoras'
       pt_BR: 'Permissões de instituições arquivísticas'
       sl: 'Dovoljenja glede arhivske ustanove'
       sr: 'Дозволе архивске инстутције'
@@ -1233,7 +1235,7 @@ QubitMenu:
       en: 'Global search/replace'
       es: 'Buscar/reemplazar global'
       eu: 'Bilaketa/ordezkatze globala'
-      fr: 'Recherche et remplacement globaux'
+      fr: 'Recherche et remplacement généraux'
       gl: 'Búsqueda global/Reemprazar'
       hu: 'Keresés/csere a teljes adatbázisban'
       is: 'Víðvær leit/skipti'
@@ -1507,11 +1509,12 @@ QubitMenu:
       en: 'Authority records'
       es: 'Registro de autoridad'
       eu: 'Autoretza erregistroak'
-      fr: 'Fichiers d''autorité'
+      fr: 'Notices d''autorité'
       gl: 'Rexistros de autoridade'
       hu: Iratképzők
       is: Nafnspjöld
       it: 'Record d''autorità'
+      ja: 典拠レコード
       ko: 전거레코드
       nl: 'geautoriseerd bestand'
       pt: 'Registos de autoridade'
@@ -1537,7 +1540,7 @@ QubitMenu:
       en: 'Archival institutions'
       es: 'Instituciones archivísticas'
       eu: 'Artxibo erakundeak'
-      fr: 'Institutions de conservation'
+      fr: 'Services d''archives'
       gl: Repositorios
       hu: Levéltárak
       id: Repositori
@@ -1548,7 +1551,7 @@ QubitMenu:
       ko: 기록물관리기관
       nl: archiefinstelling
       pt: 'Instituição arquivística'
-      pt-BR: 'Instituições arquivísticas'
+      pt-BR: 'Entidades custodiadoras'
       pt_BR: 'Instituições arquivísticas'
       ru: 'Архивные учреждения'
       sl: 'arhivske ustanove'
@@ -1679,13 +1682,13 @@ QubitMenu:
       en: 'Digital objects'
       es: 'Objetos digitales'
       eu: 'Objektu digitalak'
-      fr: 'Objets numériques'
+      fr: 'Documents numériques'
       gl: 'Obxectos dixitais'
       hu: 'Digitális obkektumok'
       id: 'Objek Digital'
       is: 'Stafrænar einingar'
       it: 'Oggetti digitali'
-      ja: ディジタルオブジェクト
+      ja: デジタルオブジェクト
       ka: 'ციფრული ობიექტები'
       ko: '디지털 객체'
       nl: 'Digitale objecten'
@@ -1774,8 +1777,9 @@ QubitMenu:
       de: Zwischenablage
       en: Clipboard
       es: Portapapeles
-      fr: Presse-papiers
+      fr: Presse-papier
       pt: 'Área de transferência'
+      pt-BR: 'Área de Transferência'
       sr: Међумеморија
   QubitMenu_clipboardclearmenu:
     parent_id: QubitMenu_clipboardmenu
@@ -1785,6 +1789,7 @@ QubitMenu:
       de: 'Auswahl löschen'
       en: 'Clear selections'
       es: 'Borrar selección'
+      fr: 'Effacer les sélections'
       pt: 'Limpar seleções'
       pt-BR: 'Limpar seleção'
       sr: 'Очисти одабрано'
@@ -1796,6 +1801,8 @@ QubitMenu:
     label:
       en: 'Go to clipboard'
       es: 'Ir al portapapeles'
+      fr: 'Aller au presse-papier'
       pt: 'Ir para a área de transferência'
+      pt-BR: 'Ir para a área de transferência'
       sr: 'Иди у међумеморију (clipboard)'
     path: user/clipboard

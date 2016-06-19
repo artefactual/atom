@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="fr" datatype="plaintext" original="messages" date="2016-04-19T21:25:37Z" product-name="messages">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="messages" date="2016-06-19T10:47:28Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -342,7 +342,7 @@
       </trans-unit>
       <trans-unit id="92">
         <source>Record the scripts(s) of the materials being described.</source>
-        <target/>
+        <target>Indiquer le(s) script(s) des documents décrits.</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Record information about any distinctive alphabets, scripts, symbol systems, or abbreviations employed (DACS 4.5.3). If there is no language content, record “no linguistic content.” (DACS 4.5.4)</source>
@@ -410,7 +410,7 @@
       </trans-unit>
       <trans-unit id="109">
         <source>Genre access points</source>
-        <target/>
+        <target>Mots-clés - Genre</target>
       </trans-unit>
     </body>
   </file>
