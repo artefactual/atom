@@ -1,0 +1,75 @@
+<?php
+
+/*
+ * This file is part of the Access to Memory (AtoM) software.
+ *
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *names.id
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+class ActorRelatedInformationObjectsAction extends sfAction
+{
+  public function execute($request)
+  {
+  }
+
+  /**
+   * Get related IOs by event type. If no event type id
+   * is provided, 'Subject of' IOs are returned
+   */
+  public static function getRelatedInformationObjects($actorId, $page, $limit, $eventTypeId = null)
+  {
+    $query = new \Elastica\Query;
+
+    if (!isset($eventTypeId))
+    {
+      // Get subject of IOs (name access points)
+      $queryTerm = new \Elastica\Query\Term(array('names.id' => $actorId));
+
+      $query->setQuery($queryTerm);
+    }
+    else
+    {
+      // Get related by event IOs 
+      $queryBool = new \Elastica\Query\BoolQuery;
+      $queryBool->addMust(new \Elastica\Query\Term(array('dates.actorId' => $actorId)));
+      $queryBool->addMust(new \Elastica\Query\Term(array('dates.typeId' => $eventTypeId)));
+
+      // Use nested query and mapping object to allow querying
+      // over the actor and event ids from the same event
+      $queryNested = new \Elastica\Query\Nested();
+      $queryNested->setPath('dates');
+      $queryNested->setQuery($queryBool);
+
+      $query->setQuery($queryNested);
+    }
+
+    $query->setLimit($limit);
+    $query->setFrom($limit * ($page - 1));
+
+    $title = sprintf('i18n.%s.title.untouched', sfContext::getInstance()->user->getCulture());
+    $query->setSort(array($title => array('order' => 'asc', 'ignore_unmapped' => true)));
+
+    $filter = new \Elastica\Filter\BoolFilter;
+    QubitAclSearch::filterDrafts($filter);
+
+    if (0 < count($filter->toArray()))
+    {
+      $query->setPostFilter($filter);
+    }
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+
+    return $resultSet;
+  }
+}

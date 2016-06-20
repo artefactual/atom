@@ -1,32 +1,31 @@
 <div class="sidebar-lowering">
 
-  <?php if (isset($subjectInfoObjects)): ?>
+  <?php foreach ($lists as $list): ?>
 
-    <section class="list-menu">
+    <section id="repo-holdings" class="list-menu"
+      data-total-pages="<?php echo $list['pager']->getLastPage() ?>"
+      data-url="<?php echo $list['dataUrl'] ?>">
 
-      <h2><?php echo __('Subject of') ?></h2>
+      <h3>
+        <h2><?php echo __('%1% of', array('%1%' => $list['label'])) ?></h2>
+        <?php echo image_tag('loading.small.gif', array('class' => 'hidden', 'id' => 'spinner', 'alt' => __('Loading ...'))) ?>
+      </h3>
+
+      <div class="more">
+        <a href="<?php echo $list['moreUrl'] ?>">
+          <i class="fa fa-search"></i>
+          <?php echo __('Browse %1% results', array('%1%' => $list['pager']->getNbResults())) ?>
+        </a>
+      </div>
 
       <ul>
-        <?php foreach ($subjectInfoObjects as $item): ?>
-          <li><?php echo link_to(render_title($item), array($item, 'module' => 'informationobject')) ?></li>
+        <?php foreach ($list['pager']->getResults() as $hit): ?>
+          <?php $doc = $hit->getData() ?>
+          <li><?php echo link_to(get_search_i18n($doc, 'title', array('allowEmpty' => false)), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></li>
         <?php endforeach; ?>
       </ul>
 
-    </section>
-
-  <?php endif; ?>
-
-  <?php foreach ($relatedInfoObjects as $role => $informationObjects): ?>
-
-    <section class="list-menu">
-
-      <h2><?php echo __('%1% of', array('%1%' => $role)) ?></h2>
-
-      <ul>
-        <?php foreach ($informationObjects as $informationObject): ?>
-          <li><?php echo link_to(render_title($informationObject), array($informationObject, 'module' => 'informationobject')) ?><?php if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $informationObject->getPublicationStatus()->status->id): ?> <span class="publicationStatus"><?php echo $informationObject->getPublicationStatus()->status ?></span><?php endif; ?></li>
-        <?php endforeach; ?>
-      </ul>
+      <?php echo get_partial('default/sidebarPager', array('pager' => $list['pager'])) ?>
 
     </section>
 
