@@ -183,7 +183,7 @@ class arElasticSearchPluginQuery
   }
 
   /**
-   * Add criteria to query based on advanced search form
+   * Add criteria to query based on advanced search form and other params
    *
    * @return void
    */
@@ -216,6 +216,24 @@ class arElasticSearchPluginQuery
     if (!isset($params['topLod']) || filter_var($params['topLod'], FILTER_VALIDATE_BOOLEAN))
     {
       $this->queryBool->addMust(new \Elastica\Query\Term(array('parentId' => QubitInformationObject::ROOT_ID)));
+    }
+
+    // Show descriptions related to an actor by an event type,
+    // this parameters come from the actor related IOs lists
+    if (isset($params['actorId']) && ctype_digit($params['actorId'])
+      && isset($params['eventTypeId']) && ctype_digit($params['eventTypeId']))
+    {
+      $queryBool = new \Elastica\Query\BoolQuery;
+      $queryBool->addMust(new \Elastica\Query\Term(array('dates.actorId' => $params['actorId'])));
+      $queryBool->addMust(new \Elastica\Query\Term(array('dates.typeId' => $params['eventTypeId'])));
+
+      // Use nested query and mapping object to allow querying
+      // over the actor and event ids from the same event
+      $queryNested = new \Elastica\Query\Nested();
+      $queryNested->setPath('dates');
+      $queryNested->setQuery($queryBool);
+
+      $this->queryBool->addMust($queryNested);
     }
   }
 
