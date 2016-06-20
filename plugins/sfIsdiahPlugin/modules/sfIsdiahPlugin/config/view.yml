@@ -17,7 +17,7 @@ indexSuccess:
     /vendor/yui/connection/connection-min:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/container/container-min:
-    /js/repositoryHoldings:
+    /js/sidebarPaginatedList:
     blank:
 
 all:

@@ -12,4 +12,5 @@ editSuccess:
 
 indexSuccess:
   javascripts:
+    /js/sidebarPaginatedList:
     blank:

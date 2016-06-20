@@ -2,12 +2,12 @@
 
   <?php foreach ($lists as $list): ?>
 
-    <section id="repo-holdings" class="list-menu"
+    <section class="sidebar-paginated-list list-menu"
       data-total-pages="<?php echo $list['pager']->getLastPage() ?>"
       data-url="<?php echo $list['dataUrl'] ?>">
 
       <h3>
-        <h2><?php echo __('%1% of', array('%1%' => $list['label'])) ?></h2>
+        <?php echo __('%1% of', array('%1%' => $list['label'])) ?>
         <?php echo image_tag('loading.small.gif', array('class' => 'hidden', 'id' => 'spinner', 'alt' => __('Loading ...'))) ?>
       </h3>
 

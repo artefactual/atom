@@ -1,4 +1,4 @@
-<section id="repo-holdings" class="list-menu"
+<section class="sidebar-paginated-list list-menu"
   data-total-pages="<?php echo $pager->getLastPage() ?>"
   data-url="<?php echo url_for(array('module' => 'repository', 'action' => 'holdings', 'id' => $resource->id)) ?>">
 

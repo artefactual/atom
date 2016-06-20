@@ -23,12 +23,8 @@ class RepositoryHoldingsAction extends sfAction
   {
     $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
 
-    if (empty($request->id) || !ctype_digit($request->id))
-    {
-      $this->forward404();
-    }
-
-    if (!empty($request->page) && !ctype_digit($request->page))
+    if ((empty($request->id) || !ctype_digit($request->id))
+      || (empty($request->page) || !ctype_digit($request->page)))
     {
       $this->forward404();
     }
@@ -45,25 +41,25 @@ class RepositoryHoldingsAction extends sfAction
 
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('Qubit', 'Url'));
 
-    $holdings = array();
+    $results = array();
     foreach ($pager->getResults() as $item)
     {
       $doc = $item->getData();
-      $holdings[] = array(
+      $results[] = array(
         'url' => url_for(array('module' => 'informationobject', 'slug' => $doc['slug'])),
         'title' => get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture, 'cultureFallback' => true))
       );
     }
 
-    $results = array(
-      'holdings'    => $holdings,
+    $data = array(
+      'results'     => $results,
       'start'       => $pager->getFirstIndice(),
       'end'         => $pager->getLastIndice(),
       'currentPage' => $pager->getPage(),
       'lastPage'    => $pager->getLastPage()
     );
 
-    return $this->renderText(json_encode($results));
+    return $this->renderText(json_encode($data));
   }
 
   /**

@@ -21,6 +21,53 @@ class ActorRelatedInformationObjectsAction extends sfAction
 {
   public function execute($request)
   {
+    $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
+
+    if ((empty($request->actorId) || !ctype_digit($request->actorId))
+      || (empty($request->page) || !ctype_digit($request->page))
+      || (isset($request->eventTypeId) && !ctype_digit($request->eventTypeId)))
+    {
+      $this->forward404();
+    }
+
+    $limit = sfConfig::get('app_hits_per_page', 10);
+    $culture = $this->context->user->getCulture();
+
+    if (isset($request->eventTypeId))
+    {
+      $resultSet = self::getRelatedInformationObjects($request->actorId, $request->page, $limit, $request->eventTypeId);
+    }
+    else
+    {
+      $resultSet = self::getRelatedInformationObjects($request->actorId, $request->page, $limit);
+    }
+
+    $pager = new QubitSearchPager($resultSet);
+    $pager->setMaxPerPage($limit);
+    $pager->setPage($request->page);
+    $pager->init();
+
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Qubit', 'Url'));
+
+    $results = array();
+    foreach ($pager->getResults() as $item)
+    {
+      $doc = $item->getData();
+      $results[] = array(
+        'url' => url_for(array('module' => 'informationobject', 'slug' => $doc['slug'])),
+        'title' => get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture, 'cultureFallback' => true))
+      );
+    }
+
+    $data = array(
+      'results'     => $results,
+      'start'       => $pager->getFirstIndice(),
+      'end'         => $pager->getLastIndice(),
+      'currentPage' => $pager->getPage(),
+      'lastPage'    => $pager->getLastPage()
+    );
+
+    return $this->renderText(json_encode($data));
   }
 
   /**
