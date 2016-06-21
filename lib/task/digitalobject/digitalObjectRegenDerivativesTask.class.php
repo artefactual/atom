@@ -171,7 +171,7 @@ EOF;
     $this->logSection('digital object', 'Done!');
   }
 
-  public static function regenerateDerivatives(&$digitalObject)
+  public static function regenerateDerivatives(&$digitalObject, $options = array())
   {
     // Delete existing derivatives
     $criteria = new Criteria;
@@ -182,12 +182,15 @@ EOF;
       $derivative->delete();
     }
 
-    // Delete existing transcripts
-    foreach ($digitalObject->propertys as $property)
+    // Delete existing transcripts if 'keepTranscript' option is not sent or it's false
+    if (!isset($options['keepTranscript']) || !$options['keepTranscript'])
     {
-      if ('transcript' == $property->name)
+      foreach ($digitalObject->propertys as $property)
       {
-        $property->delete();
+        if ('transcript' == $property->name)
+        {
+          $property->delete();
+        }
       }
     }
 
