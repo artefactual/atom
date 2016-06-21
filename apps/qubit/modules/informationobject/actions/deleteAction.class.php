@@ -21,6 +21,11 @@ class InformationObjectDeleteAction extends sfAction
 {
   public function execute($request)
   {
+  	if (!isset($request->limit))
+  	{
+  		$request->limit = sfConfig::get('app_hits_per_page');
+  	}
+  	
     $this->form = new sfForm;
 
     $this->resource = $this->getRoute()->resource;
@@ -61,10 +66,17 @@ class InformationObjectDeleteAction extends sfAction
       $this->redirect(array('module' => 'informationobject', 'action' => 'browse'));
     }
 
-    // Apparently we can't slice a QubitQuery. `previewSize` is shared with
-    // the template so we can break the loop when desired.
     $this->count = count($this->resource->descendants);
-    $this->previewSize = (int)sfConfig::get('app_hits_per_page', 10);
-    $this->previewIsLimited = $this->count > $this->previewSize;
+    
+    $criteria = new Criteria;
+    $criteria->add(QubitInformationObject::PARENT_ID, $this->resource->id);
+    
+    // Page results
+    $this->pager = new QubitPager('QubitInformationObject');
+    $this->pager->setCriteria($criteria);
+    $this->pager->setMaxPerPage($request->limit);
+    $this->pager->setPage($request->page);
+    
+    $this->descendants = $this->pager->getResults();
   }
 }

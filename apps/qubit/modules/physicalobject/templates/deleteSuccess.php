@@ -27,13 +27,17 @@
 
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'physicalobject'), array('class' => 'c-btn')) ?></li>
-        <li><input class="c-btn c-btn-delete" type="submit" value="<?php echo __('Delete') ?>"/></li>
-      </ul>
-    </section>
-
   </form>
 
+<?php end_slot() ?>
+
+<?php slot('after-content') ?>
+  <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+
+  <section class="actions">
+    <ul>
+      <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'physicalobject'), array('class' => 'c-btn')) ?></li>
+      <li><input class="c-btn c-btn-delete" type="submit" value="<?php echo __('Delete') ?>"/></li>
+    </ul>
+  </section>
 <?php end_slot() ?>
