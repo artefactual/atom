@@ -48,7 +48,7 @@
 
   <?php if ($job->getObjectModule() && $job->getObjectSlug()): ?>
     <div class="job-report-field">
-      <div><?php echo __('Associated item') ?></div>
+      <div><?php echo __('Associated record') ?></div>
       <div><?php echo link_to(__('Link'), array('module' => $job->getObjectModule(), 'slug' => $job->getObjectSlug())) ?></div>
     </div>
   <?php endif; ?>
@@ -56,18 +56,24 @@
   <?php if ($job->downloadPath): ?>
     <div class="job-report-field">
       <div><?php echo __('Download path') ?></div>
-      <div><?php echo link_to(__('Link'), public_path($job->downloadPath)) ?>
+      <div><?php echo link_to(__('Link'), public_path($job->downloadPath)) ?></div>
     </div>
   <?php endif; ?>
 </section>
 
 <section id="log-area">
   <h2><?php echo __('Log') ?></h2>
-  <div id="job-log-output">
-    <?php echo render_value($job->output) ?>
+  <div>
+    <pre id="job-log-output"><?php echo render_value(trim($job->output)) ?></pre>
   </div>
 </section>
 
-<div id="job-return-link">
-  <?php echo link_to(__('« Return to jobs management page'), array('module' => 'jobs', 'action' => 'browse')) ?>
-</div>
+<?php slot('after-content') ?>
+  <section class="actions">
+    <ul>
+      <li>
+        <?php echo link_to(__('Return to jobs management page'), array('module' => 'jobs', 'action' => 'browse'), array('class' => 'c-btn')) ?>
+      </li>
+    </ul>
+  </section>
+<?php end_slot() ?>
