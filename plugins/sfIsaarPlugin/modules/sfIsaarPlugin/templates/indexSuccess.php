@@ -1,7 +1,7 @@
 <?php decorate_with('layout_3col') ?>
 
 <?php slot('sidebar') ?>
-  <?php include_component('actor', 'contextMenu') ?>
+  <?php include_component('actor', 'contextMenu', array('resource' => $resource)) ?>
 <?php end_slot() ?>
 
 <?php slot('title') ?>

@@ -7,7 +7,7 @@
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ *names.id
  * Access to Memory (AtoM) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -17,14 +17,15 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class RepositoryHoldingsAction extends sfAction
+class ActorRelatedInformationObjectsAction extends sfAction
 {
   public function execute($request)
   {
     $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
 
-    if ((empty($request->id) || !ctype_digit($request->id))
-      || (empty($request->page) || !ctype_digit($request->page)))
+    if ((empty($request->actorId) || !ctype_digit($request->actorId))
+      || (empty($request->page) || !ctype_digit($request->page))
+      || (isset($request->eventTypeId) && !ctype_digit($request->eventTypeId)))
     {
       $this->forward404();
     }
@@ -32,7 +33,7 @@ class RepositoryHoldingsAction extends sfAction
     $limit = sfConfig::get('app_hits_per_page', 10);
     $culture = $this->context->user->getCulture();
 
-    $resultSet = self::getHoldings($request->id, $request->page, $limit);
+    $resultSet = self::getRelatedInformationObjects($request->actorId, $request->page, $limit, $request->eventTypeId);
 
     $pager = new QubitSearchPager($resultSet);
     $pager->setMaxPerPage($limit);
@@ -63,16 +64,35 @@ class RepositoryHoldingsAction extends sfAction
   }
 
   /**
-   * Query this repository's holdings
+   * Get related IOs by event type. If no event type id
+   * is provided, 'Subject of' IOs are returned
    */
-  public static function getHoldings($id, $page, $limit)
+  public static function getRelatedInformationObjects($actorId, $page, $limit, $eventTypeId = null)
   {
-    $queryBool = new \Elastica\Query\BoolQuery;
-    $queryBool->addShould(new \Elastica\Query\MatchAll);
-    $queryBool->addMust(new \Elastica\Query\Term(array('parentId' => QubitInformationObject::ROOT_ID)));
-    $queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $id)));
+    $query = new \Elastica\Query;
 
-    $query = new \Elastica\Query($queryBool);
+    if (!isset($eventTypeId))
+    {
+      // Get subject of IOs (name access points)
+      $queryTerm = new \Elastica\Query\Term(array('names.id' => $actorId));
+
+      $query->setQuery($queryTerm);
+    }
+    else
+    {
+      // Get related by event IOs 
+      $queryBool = new \Elastica\Query\BoolQuery;
+      $queryBool->addMust(new \Elastica\Query\Term(array('dates.actorId' => $actorId)));
+      $queryBool->addMust(new \Elastica\Query\Term(array('dates.typeId' => $eventTypeId)));
+
+      // Use nested query and mapping object to allow querying
+      // over the actor and event ids from the same event
+      $queryNested = new \Elastica\Query\Nested();
+      $queryNested->setPath('dates');
+      $queryNested->setQuery($queryBool);
+
+      $query->setQuery($queryNested);
+    }
 
     $query->setLimit($limit);
     $query->setFrom($limit * ($page - 1));

@@ -29,74 +29,49 @@ class ActorContextMenuComponent extends sfComponent
 {
   public function execute($request)
   {
-    if (!isset($request->limit))
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
+
+    $page = 1;
+    $limit = sfConfig::get('app_hits_per_page', 10);
+
+    // Store related information objects in lists with pagination, lists for
+    // all event types and for name access point relations (subject of)
+    $this->lists = array();
+
+    // Subject of
+    $resultSet = ActorRelatedInformationObjectsAction::getRelatedInformationObjects($this->resource->id, $page, $limit);
+
+    if ($resultSet->getTotalHits() > 0)
     {
-      $request->limit = sfConfig::get('app_hits_per_page');
+      $pager = new QubitSearchPager($resultSet);
+      $pager->setPage($page);
+      $pager->setMaxPerPage($limit);
+      $pager->init();
+
+      $this->lists[] = array(
+        'label' => $this->context->i18n->__('Subject'),
+        'pager' => $pager,
+        'dataUrl' => url_for(array('module' => 'actor', 'action' => 'relatedInformationObjects', 'actorId' => $this->resource->id)),
+        'moreUrl' => url_for(array('module' => 'informationobject', 'action' => 'browse', 'topLod' => 0, 'names' => $this->resource->id)));
     }
 
-    $this->resource = $request->getAttribute('sf_route')->resource;
-
-    // Arrays used to store all the descriptions related to this resource
-    // and the paginated results related by the event type
-    $this->relatedInfoObjects = $this->pagers = array();
-
-    // Get "subject of" information objects (name access point)
-    $criteria = new Criteria;
-    $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
-    $criteria->add(QubitRelation::TYPE_ID, QubitTerm::NAME_ACCESS_POINT_ID);
-    $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitInformationObject::ID);
-
-    // Filter draft descriptions
-    $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
-
-    // Paginate results
-    $pager = new QubitPager('QubitInformationObject');
-    $pager->setCriteria($criteria);
-    $pager->setMaxPerPage($request->limit);
-    $pager->setPage($request->page);
-
-    $role = __('Subject');
-    if (0 < count($pager->getResults()))
-    {
-      // Add pager only if needed
-      if ($pager->getNbResults() > $request->limit)
-      {
-        $this->pagers[$role] = $pager;
-      }
-
-      $this->relatedInfoObjects[$role] = $pager->getResults();
-    }
-
-    // Iterate over event types to get the related descriptions for each type of event
+    // All event types
     foreach (QubitTerm::getEventTypes() as $eventType)
     {
-      $criteria = new Criteria;
-      $criteria->add(QubitEvent::ACTOR_ID, $this->resource->id);
-      $criteria->add(QubitEvent::TYPE_ID, $eventType->id);
-      $criteria->addJoin(QubitEvent::OBJECT_ID, QubitInformationObject::ID);
+      $resultSet = ActorRelatedInformationObjectsAction::getRelatedInformationObjects($this->resource->id, $page, $limit, $eventType->id);
 
-      // Sort info objects alphabetically (w/ fallback)
-      $criteria->addAscendingOrderByColumn('title');
-      $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitInformationObject');
-
-      // Filter draft descriptions
-      $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
-
-      // Paginate results
-      $pager = new QubitPager('QubitInformationObject');
-      $pager->setCriteria($criteria);
-      $pager->setMaxPerPage($request->limit);
-      $pager->setPage($request->page);
-
-      if (0 < count($pager->getResults()))
+      if ($resultSet->getTotalHits() > 0)
       {
-        // Add pager only if needed
-        if ($pager->getNbResults() > $request->limit)
-        {
-          $this->pagers[$eventType->getRole()] = $pager;
-        }
+        $pager = new QubitSearchPager($resultSet);
+        $pager->setPage($page);
+        $pager->setMaxPerPage($limit);
+        $pager->init();
 
-        $this->relatedInfoObjects[$eventType->getRole()] = $pager->getResults();
+        $this->lists[] = array(
+          'label' => $eventType->getRole(),
+          'pager' => $pager,
+          'dataUrl' => url_for(array('module' => 'actor', 'action' => 'relatedInformationObjects', 'actorId' => $this->resource->id, 'eventTypeId' => $eventType->id)),
+          'moreUrl' => url_for(array('module' => 'informationobject', 'action' => 'browse', 'topLod' => 0, 'actorId' => $this->resource->id, 'eventTypeId' => $eventType->id)));
       }
     }
   }

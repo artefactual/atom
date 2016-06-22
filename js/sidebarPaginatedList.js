@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var holdingsView = function(element)
+  var paginatedListView = function(element)
   {
     this.$element = element;
 
@@ -33,9 +33,9 @@
     this.init();
   };
 
-  holdingsView.prototype =
+  paginatedListView.prototype =
   {
-    constructor: holdingsView,
+    constructor: paginatedListView,
     init: function()
     {
       this.$next.on('mousedown', $.proxy(this.next, this));
@@ -134,14 +134,14 @@
 
             this.$results.empty();
 
-            var len = data['holdings'].length
+            var len = data['results'].length
             for (var i = 0; i < len; i++)
             {
               this.$results.append(
                 $('<li>').append(
-                  $('<a>').attr('href', data['holdings'][i]['url'])
-                          .attr('title', data['holdings'][i]['title'])
-                          .append(data['holdings'][i]['title'])));
+                  $('<a>').attr('href', data['results'][i]['url'])
+                          .attr('title', data['results'][i]['title'])
+                          .append(data['results'][i]['title'])));
             }
 
             this.$resultStart.html(data['start']);
@@ -170,26 +170,24 @@
     }
   };
 
-  $.fn.holdings = function()
+  $.fn.paginatedList = function()
     {
       var $this = this;
-      var data = $this.data('holdings');
+      var data = $this.data('paginatedList');
       if (!data)
       {
-        $this.data('holdings', new holdingsView(this));
+        $this.data('paginatedList', new paginatedListView(this));
       }
     };
 
-  $.fn.holdings.Constructor = holdingsView;
+  $.fn.paginatedList.Constructor = paginatedListView;
 
   $(function ()
     {
-      var $holdings = $('#repo-holdings');
-
-      if (0 < $holdings.length)
-      {
-        $holdings.holdings();
-      }
+      $('.sidebar-paginated-list').each(function ()
+        {
+          $(this).paginatedList();
+        });
     });
 
 })(jQuery);
