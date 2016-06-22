@@ -33,14 +33,7 @@ class ActorRelatedInformationObjectsAction extends sfAction
     $limit = sfConfig::get('app_hits_per_page', 10);
     $culture = $this->context->user->getCulture();
 
-    if (isset($request->eventTypeId))
-    {
-      $resultSet = self::getRelatedInformationObjects($request->actorId, $request->page, $limit, $request->eventTypeId);
-    }
-    else
-    {
-      $resultSet = self::getRelatedInformationObjects($request->actorId, $request->page, $limit);
-    }
+    $resultSet = self::getRelatedInformationObjects($request->actorId, $request->page, $limit, $request->eventTypeId);
 
     $pager = new QubitSearchPager($resultSet);
     $pager->setMaxPerPage($limit);
