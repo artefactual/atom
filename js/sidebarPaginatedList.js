@@ -4,7 +4,6 @@
 
   var paginatedListView = function(element)
   {
-    console.log(element);
     this.$element = element;
 
     this.url = this.$element.data('url');
