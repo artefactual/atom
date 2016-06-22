@@ -34,6 +34,8 @@ class ActorContextMenuComponent extends sfComponent
     $page = 1;
     $limit = sfConfig::get('app_hits_per_page', 10);
 
+    // Store related information objects in lists with pagination, lists for
+    // all event types and for name access point relations (subject of)
     $this->lists = array();
 
     // Subject of
