@@ -1700,7 +1700,7 @@ QubitMenu:
       th: วัตถุดิจิตอล
       vi: 'Tượng kỹ thuật số'
       zh: 数字对象
-    path: informationobject/browse?view=card&onlyMedia=1
+    path: informationobject/browse?view=card&onlyMedia=1&topLod=0
   QubitMenu_mainmenu_admin_visibleElements:
     parent_id: QubitMenu_mainmenu_admin
     source_culture: en
