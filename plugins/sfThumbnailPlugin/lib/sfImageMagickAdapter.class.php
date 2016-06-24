@@ -380,6 +380,14 @@ class sfImageMagickAdapter
    */
   private function getCount($image)
   {
+    $extension = pathinfo($image, PATHINFO_EXTENSION);
+
+    // If processing a PDF, attempt to use pdfinfo as it's faster
+    if (strtolower($extension) == 'pdf')
+    {
+      return sfImageMagickAdapter::getPdfPageCount($image);
+    }
+
     $command = $this->magickCommands['identify'].' -format %n '.escapeshellarg($image);
     exec($command, $stdout, $retval);
     if ($retval === 1)
@@ -388,6 +396,43 @@ class sfImageMagickAdapter
     }
 
     return intval(@$stdout[0]);
+  }
+
+  public static function pdfinfoToolAvailable()
+  {
+    return !empty(shell_exec('which pdfinfo'));
+  }
+
+  public static function getPdfPageCount($filename)
+  {
+    // Default to 1 if pdfinfo not installed
+    if (!sfImageMagickAdapter::pdfinfoToolAvailable())
+    {
+      return 1;
+    }
+
+    return sfImageMagickAdapter::getPdfinfoPageCount($filename);
+  }
+
+  public static function getPdfinfoPageCount($filename)
+  {
+    $command = 'pdfinfo '. escapeshellarg($filename);
+    exec($command, $stdout, $retval);
+    if ($retval === 1)
+    {
+      throw new Exception('PDF could not be analyzed.');
+    }
+
+    // Parse page number from output
+    foreach($stdout as $line)
+    {
+      if (preg_match('/Pages:\s*(\d+)/i', $line, $matches) === 1)
+      {
+        return intval($matches[1]);
+      }
+    }
+
+    throw new Exception('PDF analysis incomplete.');
   }
 
   private function getExtract($image, array $options = array())
