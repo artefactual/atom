@@ -819,7 +819,24 @@ class QubitXmlImport
       }
       else
       {
-        $nodeValue .= preg_replace('/[\n\r\s]+/', ' ', $child->nodeValue);
+        if($child->tagName=='extent') 
+        {
+          foreach ($child->childNodes as $childChild)
+          {
+            if ($childChild->nodeName == 'lb')
+            {
+              $nodeValue .= "\n";
+            } 
+            else
+            {
+              $nodeValue .= preg_replace('/[\n\r\s]+/', ' ', $childChild->nodeValue);
+            }
+          }
+        } else {
+
+          $nodeValue .= preg_replace('/[\n\r\s]+/', ' ', $child->nodeValue);
+
+        }
       }
     }
 
