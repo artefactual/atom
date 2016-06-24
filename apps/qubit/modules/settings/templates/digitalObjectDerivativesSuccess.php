@@ -22,20 +22,28 @@
 
         <legend><?php echo __('%1% derivatives settings', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))) ?></legend>
 
-        <?php echo $form->pdfPageNumber
-          ->label(__('PDF page number for image derivative'))
-          ->help(__('If the page number does not exist, the derivative will be generated from the previous closest one.'))
-          ->renderRow() ?>
+        <?php if ($pdfinfoAvailable): ?>
+          <?php echo $form->pdfPageNumber
+            ->label(__('PDF page number for image derivative'))
+            ->help(__('If the page number does not exist, the derivative will be generated from the previous closest one.'))
+            ->renderRow() ?>
+        <?php else: ?>
+          <div class="messages error">
+            <?php echo __('The pdfinfo tool is required to use this functionality. Please contact your system administrator.') ?>
+          </div>
+        <?php endif; ?>
 
       </fieldset>
 
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
-      </ul>
-    </section>
+    <?php if ($pdfinfoAvailable): ?>
+      <section class="actions">
+        <ul>
+          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
+        </ul>
+      </section>
+    <?php endif; ?>
 
   </form>
 

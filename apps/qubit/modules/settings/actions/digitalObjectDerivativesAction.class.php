@@ -69,6 +69,8 @@ class SettingsDigitalObjectDerivativesAction extends DefaultEditAction
   {
     parent::execute($request);
 
+    $this->pdfinfoAvailable = sfImageMagickAdapter::pdfinfoToolAvailable();
+
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getPostParameters());
