@@ -810,12 +810,27 @@ class QubitXmlImport
   public static function replaceLineBreaks($node)
   {
     $nodeValue = '';
+    $fieldsArray = array('extent', 'physfacet', 'dimensions');
 
     foreach ($node->childNodes as $child)
     {
       if ($child->nodeName == 'lb')
       {
         $nodeValue .= "\n";
+      }
+      else if (in_array($child->tagName, $fieldsArray))
+      {
+        foreach ($child->childNodes as $childNode)
+        {
+          if ($childNode->nodeName == 'lb')
+          {
+            $nodeValue .= "\n";
+          }
+          else
+          {
+            $nodeValue .= preg_replace('/[\n\r\s]+/', ' ', $childNode->nodeValue);
+          }
+        }
       }
       else
       {
