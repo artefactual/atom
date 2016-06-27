@@ -2045,16 +2045,21 @@ class QubitDigitalObject extends BaseDigitalObject
   {
     if ($this->canThumbnail() && self::hasImageMagick())
     {
-      if (QubitTerm::EXTERNAL_URI_ID == $this->usageId)
-      {
-        $command = 'identify '.$this->getLocalPath();
-      }
-      else
-      {
-        $command = 'identify '.$this->getAbsolutePath();
-      }
+      $filename = (QubitTerm::EXTERNAL_URI_ID == $this->usageId) ? $this->getLocalPath() : $this->getAbsolutePath();
 
-      exec($command, $output, $status);
+      $extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+      // If processing a PDF, attempt to use pdfinfo as it's faster
+      if (strtolower($extension) == 'pdf' && sfImageMagickAdapter::pdfinfoToolAvailable())
+      {
+        $pages = sfImageMagickAdapter::getPdfinfoPageCount($filename);
+      }
+      else 
+      {
+        $command = 'identify '. $filename;
+        exec($command, $output, $status);
+        $pages = count($output);
+      }
 
       if ($status == 0)
       {
@@ -2063,7 +2068,7 @@ class QubitDigitalObject extends BaseDigitalObject
         $pageCount->setObjectId($this->id);
         $pageCount->setName('page_count');
         $pageCount->setScope('digital_object');
-        $pageCount->setValue(count($output), array('sourceCulture' => true));
+        $pageCount->setValue($pages, array('sourceCulture' => true));
         $pageCount->save($connection);
       }
     }
