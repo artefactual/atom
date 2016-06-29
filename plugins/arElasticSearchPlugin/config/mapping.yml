@@ -371,6 +371,20 @@ mapping:
       timestamp: true
       autocompleteFields: [title]
       rawFields:  [title]
+      # Select which foreign type i18n fields we'll include when searching _all
+      i18nIncludeInAll:
+        - repository.authorizedFormOfName
+        - names.authorizedFormOfName
+        - names.otherNames.name
+        - names.parallelNames.name
+        - names.standardizedNames.name
+        - creators.authorizedFormOfName
+        - creators.otherNames.name
+        - creators.parallelNames.name
+        - creators.standardizedNames.name
+        - subjects.name
+        - places.name
+        - genres.name
     _partial_foreign_types:
       part_of:
         _i18nFields: [title]

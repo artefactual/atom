@@ -408,7 +408,7 @@ class arElasticSearchPluginQuery
         $queryField = new \Elastica\Query\QueryString($query);
         $queryField->setDefaultOperator('OR');
         $except = array('findingAid.transcript');
-        arElasticSearchPluginUtil::setAllFields($queryField, 'informationObject', $except);
+        arElasticSearchPluginUtil::setFields($queryField, 'informationObject', $except);
 
         break;
 
@@ -416,7 +416,7 @@ class arElasticSearchPluginQuery
       default:
         $queryField = new \Elastica\Query\QueryString($query);
         $queryField->setDefaultOperator('OR');
-        arElasticSearchPluginUtil::setAllFields($queryField, 'informationObject');
+        arElasticSearchPluginUtil::setFields($queryField, 'informationObject');
 
         break;
     }

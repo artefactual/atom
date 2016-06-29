@@ -92,67 +92,52 @@ class arElasticSearchPluginUtil
   }
 
   /**
-   * Set all fields for a QueryString, removing those hidden for public users
-   * and those included in the except array.
+   * Get all available language codes that are enabled in the administrator settings.
    *
-   * Tried to add the result fields to the cache but APC (our default caching engine) uses separate
-   * memory spaces for web/cli and the cached fields can't be removed in arSearchPopulateTask
+   * @return array  An array containing the above language codes as strings.
    */
-  public static function setAllFields(\Elastica\Query\QueryString $query, $indexType, $except = array())
+  private static function getAvailableLanguages()
   {
-    // Load ES mappings
-    $mappings = arElasticSearchPlugin::loadMappings();
-
-    if (!isset($mappings[$indexType]))
-    {
-      throw new sfException('Unrecognized index type: ' . $indexType);
-    }
-
-    // Get available cultures
     $cultures = array();
     foreach (QubitSetting::getByScope('i18n_languages') as $setting)
     {
       $cultures[] = $setting->getValue(array('sourceCulture' => true));
     }
 
-    // Get all string fields included in _all for the index type
-    $allFields = self::getAllObjectStringFields($mappings[$indexType], $prefix = '', $cultures);
+    return $cultures;
+  }
 
-    // Remove fields in except (use array_values() because array_diff() adds keys)
-    if (count($except) > 0)
-    {
-      $allFields = array_values(array_diff($allFields, $except));
-    }
-
-    // Do not check hidden fields for authenticated users, actors or repositories
-    if (sfContext::getInstance()->user->isAuthenticated()
-      || $indexType == 'actor'
-      || $indexType == 'repository')
-    {
-      $query->setFields($allFields);
-
-      return;
-    }
-
-    // Get actual template tor the index type
+  /**
+   * Retrieve the default template type given a specified ES index type.
+   *
+   * @return string  The default template (e.g. isad)
+   */
+  private static function getTemplate($indexType)
+  {
     switch ($indexType)
     {
       case 'informationObject':
-
         $infoObjectTemplate = QubitSetting::getByNameAndScope('informationobject', 'default_template');
         if (isset($infoObjectTemplate))
         {
-          $template = $infoObjectTemplate->getValue(array('sourceCulture'=>true));
+          return $infoObjectTemplate->getValue(array('sourceCulture'=>true));
         }
-
-        break;
 
       // TODO: Other index types (actor, term, etc)
     }
+  }
 
+  /**
+   * Retrieve a list of fields that are set to hidden in the visible elements settings.
+   *
+   * @return array  An array specifying which fields are to be hidden from anonymous users.
+   */
+  private static function getHiddenFields()
+  {
     // Create array with relations (hidden field => ES mapping field) for the actual template and cultures
     $relations = array();
-    if (isset($template))
+
+    if (null !== $template = self::getTemplate())
     {
       switch ($template)
       {
@@ -203,10 +188,10 @@ class arElasticSearchPluginUtil
 
     // Obtain hidden fields
     $hiddenFields = array();
+
     foreach (QubitSetting::getByScope('element_visibility') as $setting)
     {
-      if(!(bool) $setting->getValue(array('sourceCulture' => true))
-        && isset($relations[$setting->name])
+      if(!(bool)$setting->getValue(array('sourceCulture' => true)) && isset($relations[$setting->name])
         && $relations[$setting->name] != '')
       {
         foreach ($relations[$setting->name] as $fieldName)
@@ -216,19 +201,185 @@ class arElasticSearchPluginUtil
       }
     }
 
-    // Remove hidden fields from ES mapping fields (use array_values() because array_diff() adds keys)
-    $filteredFields = array_values(array_diff($allFields, $hiddenFields));
+    return $hiddenFields;
+  }
 
-    // Set filtered fields for the query
+  /**
+   * Set fields for a QueryString, removing those hidden for public users and those included in the except array.
+   *
+   * Tried to add the result fields to the cache but APC (our default caching engine) uses separate
+   * memory spaces for web/cli and the cached fields can't be removed in arSearchPopulateTask
+   */
+  public static function setFields(\Elastica\Query\QueryString $query, $indexType, $except = array())
+  {
+    // Load ES mappings
+    $mappings = arElasticSearchPlugin::loadMappings()->asArray();
+
+    if (!isset($mappings[$indexType]))
+    {
+      throw new sfException('Unrecognized index type: ' . $indexType);
+    }
+
+    $cultures = self::getAvailableLanguages();
+    $i18nIncludeInAll = null;
+
+    if ($indexType === 'informationObject')
+    {
+      $i18nIncludeInAll = $mappings[$indexType]['_attributes']['i18nIncludeInAll'];
+    }
+
+    // Get all string fields included in _all for the index type
+    $allFields = self::getAllObjectStringFields(
+      $indexType,
+      $mappings[$indexType],
+      $prefix = '',
+      $cultures,
+      false,
+      $i18nIncludeInAll
+    );
+
+    // Remove fields in except (use array_values() because array_diff() adds keys)
+    if (count($except) > 0)
+    {
+      $allFields = array_values(array_diff($allFields, $except));
+    }
+
+    // Do not check hidden fields for authenticated users, actors or repositories
+    if (sfContext::getInstance()->user->isAuthenticated() || $indexType == 'actor' || $indexType == 'repository')
+    {
+      $query->setFields($allFields);
+
+      return;
+    }
+
+    // Remove hidden fields from ES mapping fields (use array_values() because array_diff() adds keys)
+    $filteredFields = array_values(array_diff($allFields, self::getHiddenFields()));
     $query->setFields($filteredFields);
   }
 
   /**
-   * Gets all string fields included in _all from a mapping object array and cultures
+   * Check whether an i18n field should be included in the list of fields for an _all search
+   *
+   * @param string $prefix  The current prefix for the field name, e.g. "creators." for "creators.name"
+   * @param string $fieldName  The current field name, e.g. "name" in "creators.name"
+   * @param array $i18nIncludeInAll  A list of i18n fields to be allowed when searching _all
+   *
+   * @return bool  True if we should include this field in the _all search, false otherwise.
    */
-  protected static function getAllObjectStringFields($object, $prefix, $cultures)
+  private static function checkI18nIncludeInAll($prefix, $fieldName, $i18nIncludeInAll)
+  {
+    if (!$i18nIncludeInAll)
+    {
+      return; // Return and skip this check, no i18nIncludeInAll _attribute present.
+    }
+
+    return in_array($prefix.$fieldName, $i18nIncludeInAll);
+  }
+
+  /**
+   * Handle adding i18n fields to our fields list. This is a helper function for getAllObjectStringFields().
+   *
+   * Depending on the index type, there may be special rules we need to check before adding i18n fields to
+   * our fields list.
+   *
+   * @param string $rootIndexType  The current, top level index type we're adding fields to, e.g. "informationObject".
+   *
+   *                               Note that since we recursively call getAllObjectStringFields to get foreign type
+   *                               fields, this value may not be the "current" index being parsed, e.g. when adding
+   *                               creators.name actor fields inside informationObject.
+   *
+   * @param array &$fields  A reference to our list of fields we're searching over with our _all query.
+   * @param string $prefix  The current prefix for the field name, e.g. "creators." for "creators.name"
+   * @param string $culture  The current culture for the i18n field we're adding.
+   * @param string $fieldName  The current field name, e.g. "name" in "creators.name"
+   * @param bool $foreignType  Whether or not this field in question is being parsed for a foreign type,
+   *                           e.g. inside informationObject.creators
+   *
+   * @param array $i18nIncludeInAll  A list of i18n fields to be allowed when searching _all
+   *
+   *
+   */
+  private static function handleI18nStringFields($rootIndexType, &$fields, $prefix, $culture, $fieldName, $foreignType,
+                                                 $i18nIncludeInAll)
+  {
+    // We may add special rules for other index types in the future
+    switch ($rootIndexType)
+    {
+      case 'informationObject':
+        if ($foreignType && false === self::checkI18nIncludeInAll($prefix, $fieldName, $i18nIncludeInAll))
+        {
+          return; // Skip field
+        }
+
+        break;
+    }
+
+    // Concatenate object name ($prefix), culture and field name
+    $fields[] = $prefix.'i18n.'.$culture.'.'.$fieldName;
+  }
+
+  /**
+   * Handle adding non-i18n string properties to our fields list. This is a helper function for
+   * getAllObjectStringFields().
+   *
+   * Depending on the index type, there may be special rules we need to check before adding string fields to
+   * our fields list.
+   *
+   * @param string $rootIndexType  The current, top level index type we're adding fields to, e.g. "informationObject".
+   *
+   *                               Note that since we recursively call getAllObjectStringFields to get foreign type
+   *                               fields, this value may not be the "current" index being parsed, e.g. when adding
+   *                               creators.name actor fields inside informationObject.
+   *
+   * @param array &$fields  A reference to our list of fields we're searching over with our _all query.
+   * @param string $prefix  The current prefix for the prop name, e.g. "informationObject." in "informationObject.slug"
+   * @param string $propertyName  The current property name, e.g. "slug" in "informationObject.slug"
+   * @param bool $foreignType  Whether or not this field in question is being parsed for a foreign type,
+   *                           e.g. inside informationObject.creators
+   */
+  private static function handleNonI18nStringFields($rootIndexType, &$fields, $prefix, $propertyName, $foreignType)
+  {
+    // We may add special rules for other index types in the future
+    switch ($rootIndexType)
+    {
+      case 'informationObject':
+        if ($foreignType)
+        {
+          return; // Skip all foreign type non-i18n string fields for info objects
+        }
+
+        break;
+    }
+
+    // Concatenate object name ($prefix) and field name
+    $fields[] = $prefix.$propertyName;
+  }
+
+  /**
+   * Gets all string fields included in _all from a mapping object array and cultures.
+   *
+   * This function will be called recursively on foreign types and nested fields.
+   *
+   *
+   * @param string $rootIndexType  The current, top level index type we're adding fields to, e.g. "informationObject".
+   *
+   *                               Note that since we recursively call getAllObjectStringFields to get foreign type
+   *                               fields, this value may not be the "current" index being parsed, e.g. when adding
+   *                               creators.name actor fields inside informationObject.
+   *
+   * @param array $object  An array containing the current object mappings.
+   * @param string $prefix  The current prefix for the prop name, e.g. "informationObject." in "informationObject.slug"
+   * @param array $cultures  A list of cultures we'll be adding i18n fields from
+   * @param bool $foreignType  Whether or not this field in question is being parsed for a foreign type,
+   *                           e.g. inside informationObject.creators
+   *
+   * @param array $i18nIncludeInAll  A list of i18n fields to be allowed when searching _all
+   */
+  protected static function getAllObjectStringFields($rootIndexType, $object, $prefix, $cultures, $foreignType = false,
+                                                     $i18nIncludeInAll = null)
   {
     $fields = array();
+
     if (isset($object['properties']))
     {
       foreach ($object['properties'] as $propertyName => $propertyProperties)
@@ -245,27 +396,42 @@ class arElasticSearchPluginUtil
 
             foreach ($propertyProperties['properties'][$culture]['properties'] as $fieldName => $fieldProperties)
             {
-              // Concatenate object name ($prefix) and field name
-              $fields[] = $prefix.'i18n.'.$culture.'.'.$fieldName;
+              self::handleI18nStringFields($rootIndexType, $fields, $prefix, $culture, $fieldName, $foreignType,
+                                           $i18nIncludeInAll);
             }
           }
         }
         // Get nested objects fields
         else if (isset($propertyProperties['type']) && $propertyProperties['type'] == 'object')
         {
-          $fields = array_merge($fields, self::getAllObjectStringFields($object['properties'][$propertyName], $prefix.$propertyName.'.', $cultures));
+          $nestedFields = self::getAllObjectStringFields(
+            $rootIndexType,
+            $object['properties'][$propertyName],
+            $prefix.$propertyName.'.',
+            $cultures
+          );
+
+          $fields = array_merge($fields, $nestedFields);
         }
-        // Get foreing objects fields (couldn't find a better why that checking the dynamic property)
+        // Get foreign objects fields (couldn't find a better way than checking the dynamic property)
         else if (isset($propertyProperties['dynamic']))
         {
-          $fields = array_merge($fields, self::getAllObjectStringFields($object['properties'][$propertyName], $prefix.$propertyName.'.', $cultures));
+          $foreignObjectFields = self::getAllObjectStringFields(
+            $rootIndexType,
+            $object['properties'][$propertyName],
+            $prefix.$propertyName.'.',
+            $cultures,
+            true,
+            $i18nIncludeInAll
+          );
+
+          $fields = array_merge($fields, $foreignObjectFields);
         }
         // Get string fields included in _all
         else if ((!isset($propertyProperties['include_in_all']) || $propertyProperties['include_in_all'])
           && (isset($propertyProperties['type']) && $propertyProperties['type'] == 'string'))
         {
-          // Concatenate object name ($prefix) and field name
-          $fields[] = $prefix.$propertyName;
+          self::handleNonI18nStringFields($rootIndexType, $fields, $prefix, $propertyName, $foreignType);
         }
       }
     }
