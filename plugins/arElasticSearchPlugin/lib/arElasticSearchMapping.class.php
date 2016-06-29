@@ -93,8 +93,6 @@ class arElasticSearchMapping
       $this->fixYamlShorthands();
 
       $this->excludeNestedOnlyTypes();
-
-      $this->cleanYamlShorthands();
     }
   }
 
@@ -175,9 +173,16 @@ class arElasticSearchMapping
   }
 
   /**
-   * Clean YAML shorthands recursively
+   * Clean YAML shorthands recursively.
+   *
+   * We have some special YAML properties in mapping.yml that we only use internally
+   * to indicate foreign types, special attributes, etc. This method will remove those
+   * from the mappings array, which is necessary since when we generate our ES schema
+   * we don't want to send those special properties in the mapping.
+   *
+   * @param array mapping  A reference to our ES YAML mappings
    */
-  protected function cleanYamlShorthands(&$mapping = null)
+  public function cleanYamlShorthands(&$mapping = null)
   {
     // If no parameter is passed, $this->mapping will be used
     if (null === $mapping)
@@ -229,7 +234,7 @@ class arElasticSearchMapping
           $languages = QubitSetting::getByScope('i18n_languages');
           if (1 > count($languages))
           {
-            throw new sfException('The database settings don\'t content any language.');
+            throw new sfException('No i18n_languages in database settings.');
           }
 
           $this->setIfNotSet($typeProperties['properties'], 'sourceCulture', array('type' => 'string', 'index' => 'not_analyzed', 'include_in_all' => false));

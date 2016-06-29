@@ -102,7 +102,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     {
       $queryText = new \Elastica\Query\QueryString($request->subquery);
       $queryText->setDefaultOperator('OR');
-      arElasticSearchPluginUtil::setAllFields($queryText, 'repository');
+      arElasticSearchPluginUtil::setFields($queryText, 'repository');
 
       $this->search->queryBool->addMust($queryText);
     }
