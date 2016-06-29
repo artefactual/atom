@@ -29,8 +29,8 @@ class SearchIndexAction extends DefaultBrowseAction
     parent::execute($request);
 
     $queryText = new \Elastica\Query\QueryString($request->query);
-    $queryText->setDefaultOperator('OR');
-    arElasticSearchPluginUtil::setAllFields($queryText, 'informationObject');
+    $queryText->setDefaultOperator('AND');
+    arElasticSearchPluginUtil::setFields($queryText, 'informationObject');
 
     $this->search->queryBool->addMust($queryText);
 

@@ -520,12 +520,17 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     // Sort
     switch ($request->sort)
     {
+      // Sort by highest ES score
+      case 'relevance':
+        $this->search->query->addSort(array('_score' => 'desc'));
+
+        break;
+
       case 'identifier':
         $this->search->query->addSort(array('referenceCode.untouched' => 'asc'));
 
         break;
 
-      // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
         $field = sprintf('i18n.%s.title.untouched', $this->selectedCulture);
         $this->search->query->addSort(array($field => 'asc'));

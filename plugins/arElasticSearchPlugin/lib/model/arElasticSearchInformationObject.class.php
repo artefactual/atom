@@ -91,4 +91,28 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
     return true;
   }
+
+  /**
+   * Set boost values for various information object fields.
+   *
+   * @param array &$fields  A reference to our array of fields we're adding boost values to.
+   * @param array $cultures  An array specifying which cultures the i18n fields cover.
+   */
+  public static function setBoostValues(&$fields, $cultures)
+  {
+    $i18nBoostFields = array(
+      'i18n.%s.title' => 10,
+      'subjects.i18n.%s.name' => 5,
+      'creators.i18n.%s.authorizedFormOfName' => 6,
+      'names.i18n.%s.authorizedFormOfName' => 3,
+      'places.i18n.%s.name' => 3,
+      'i18n.%s.scopeAndContent' => 5,
+    );
+
+    $nonI18nBoostFields = array(
+      'identifier' => 5,
+    );
+
+    self::addBoostValuesToFields($fields, $i18nBoostFields, $nonI18nBoostFields);
+  }
 }

@@ -169,7 +169,9 @@ class arElasticSearchPlugin extends QubitSearchEngine
       // Load mappings
       if (null === $this->mappings)
       {
-        $this->mappings = self::loadMappings();
+        $mappings = self::loadMappings();
+        $mappings->cleanYamlShorthands(); // Remove _attributes, _foreign_types, etc.
+        $this->mappings = $mappings->asArray();
       }
 
       // Iterate over types (actor, information_object, ...)
@@ -211,8 +213,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
     // Load first mapping.yml file found
     $esMapping = new arElasticSearchMapping;
     $esMapping->loadYAML(array_shift($files));
-
-    return $esMapping->asArray();
+    return $esMapping;
   }
 
   /**

@@ -305,6 +305,7 @@
         'options' => array(
           'lastUpdated' => __('Most recent'),
           'alphabetic'  => __('Alphabetic'),
+          'relevance'   => __('Relevance'),
           'identifier'  => __('Reference code'),
           'startDate'   => __('Start date'),
           'endDate'     => __('End date')))) ?>
