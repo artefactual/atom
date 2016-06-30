@@ -176,9 +176,25 @@ EOF;
 
   public static function regenerateDerivatives(&$digitalObject, $options = array())
   {
+    // Determine usage ID for type
+    switch($options['type'])
+    {
+      case "reference":
+        $usageId = QubitTerm::REFERENCE_ID;
+        break;
+
+      case "thumbnail":
+        $usageId = QubitTerm::THUMBNAIL_ID;
+        break;
+    }
+
     // Delete existing derivatives
     $criteria = new Criteria;
     $criteria->add(QubitDigitalObject::PARENT_ID, $digitalObject->id);
+    if (isset($usageId))
+    {
+      $criteria->add(QubitDigitalObject::USAGE_ID, $usageId);
+    }
 
     foreach(QubitDigitalObject::get($criteria) as $derivative)
     {
@@ -192,20 +208,6 @@ EOF;
     {
       $transcriptProperty = $digitalObject->getPropertyByName('transcript');
       $transcriptProperty->delete();
-    }
-
-    switch($options['type'])
-    {
-      case "reference":
-        $usageId = QubitTerm::REFERENCE_ID;
-        break;
-
-      case "thumbnail":
-        $usageId = QubitTerm::THUMBNAIL_ID;
-        break;
-
-      default:
-        $usageId = QubitTerm::MASTER_ID;
     }
 
     $digitalObject->createRepresentations($usageId, $conn);
