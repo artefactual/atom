@@ -2004,17 +2004,25 @@ class QubitDigitalObject extends BaseDigitalObject
         break;
 
       case QubitTerm::TEXT_ID:
-        if ($usageId == QubitTerm::EXTERNAL_URI_ID || $usageId == QubitTerm::MASTER_ID)
+        if ($this->canThumbnail())
         {
-          // Thumbnail PDFs (may add other formats in future)
-          if ($this->canThumbnail())
+          if ($usageId == QubitTerm::EXTERNAL_URI_ID || $usageId == QubitTerm::MASTER_ID)
           {
+            // Thumbnail PDFs (may add other formats in future)
             $this->createReferenceImage($connection);
             $this->createThumbnail($connection);
-          }
 
-          // Extract text
-          $this->extractText($connection);
+            // Extract text
+            $this->extractText($connection);
+          }
+          else if ($usageId == QubitTerm::REFERENCE_ID)
+          {
+            $this->createReferenceImage($connection);
+          }
+          else if ($usageId == QubitTerm::THUMBNAIL_ID)
+          {
+            $this->createThumbnail($connection);
+          }
         }
 
         break;
