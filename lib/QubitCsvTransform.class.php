@@ -24,6 +24,9 @@ class QubitCsvTransform extends QubitFlatfileImport
     $transformLogic,
     $rowsPerFile = 1000;
 
+  private
+    $link;
+
   public function __construct($options = array())
   {
     if (
@@ -115,6 +118,8 @@ class QubitCsvTransform extends QubitFlatfileImport
       throw new sfException('MySQL connection failed. Make sure the MYSQL_PASSWORD environmental variable is set.');
     }
 
+    $this->link = $link;
+
     $sql = "CREATE TABLE IF NOT EXISTS import_descriptions (
       id INT NOT NULL AUTO_INCREMENT,
       sortorder INT,
@@ -137,10 +142,10 @@ class QubitCsvTransform extends QubitFlatfileImport
   {
     $sql = "INSERT INTO import_descriptions
         (sortorder, data)
-        VALUES ('". mysqli_real_escape_string($sortorder) ."',
-        '". mysqli_real_escape_string(serialize($this->status['row'])) ."')";
+        VALUES ('". mysqli_real_escape_string($this->link, $sortorder) ."',
+        '". mysqli_real_escape_string($this->link, serialize($this->status['row'])) ."')";
 
-    $result = mysqli_query($sql);
+    $result = mysqli_query($this->link, $sql);
 
     if (!$result)
     {
@@ -171,7 +176,7 @@ class QubitCsvTransform extends QubitFlatfileImport
     // cycle through DB, sorted by sort, and write CSV file
     $sql = "SELECT data FROM import_descriptions ORDER BY sortorder";
 
-    $result = mysqli_query($sql);
+    $result = mysqli_query($this->link, $sql);
 
     $currentRow = 1;
 
