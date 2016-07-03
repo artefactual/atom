@@ -108,8 +108,6 @@ class QubitCsvTransformFactory
 
         if (!$fhIn) throw new sfException('Error reading '. $self->status['tempFile'] .'.');
 
-        $self->initializeMySQLtemp();
-
         $stage2 = new QubitCsvTransform(array(
 
           'skipOptionsAndEnvironmentCheck' => true,
@@ -182,6 +180,7 @@ class QubitCsvTransformFactory
           }
         ));
 
+        $stage2->initializeMySQLtemp();
         $stage2->csv($fhIn);
       }
     ));
