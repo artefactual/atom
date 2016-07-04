@@ -32,12 +32,17 @@ class QubitXmlImport
     $errors = null,
     $rootObject = null,
     $parent = null,
-    $events = array();
+    $events = array(),
+    $eadUrl = null,
+    $sourceName = null;
 
   public function import($xmlFile, $options = array())
   {
     // load the XML document into a DOMXML object
     $importDOM = $this->loadXML($xmlFile, $options);
+
+    // save the file name for use in saving keymap record
+    $this->sourceName = basename($xmlFile);
 
     // if we were unable to parse the XML file at all
     if (empty($importDOM->documentElement))
@@ -272,9 +277,22 @@ class QubitXmlImport
       $importDOM->xpath = new DOMXPath($importDOM);
     }
 
-    // switch source culture if language is set in an EAD document
     if ($importSchema == 'ead')
     {
+      // get ead url from ead header for use in matching this object
+      //$this->eadUrl = $importDOM->xpath->query('//eadheader/eadid/@url');
+      if (is_object($urlValues = $importDOM->xpath->query('//eadheader/eadid/@url')))
+      {
+        foreach ($urlValues as $url)
+        {
+          $this->eadUrl = trim(preg_replace('/[\n\r\s]+/', ' ', $url->nodeValue));
+          // Possibly more than one url but we can only take one. Take first
+          // valid one.
+          break;
+        }
+      }
+
+      // switch source culture if language is set in an EAD document
       if (is_object($langusage = $importDOM->xpath->query('//eadheader/profiledesc/langusage/language/@langcode')))
       {
         $sf_user = sfContext::getInstance()->user;
@@ -394,11 +412,36 @@ class QubitXmlImport
       $currentObject->setPublicationStatus(sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID));
     }
 
-    // save the object after it's fully-populated
-    $currentObject->save();
+    $doSave = true;
+    // if this is an information object in an XML EAD import, run the enhanced matching check.
+    if ($currentObject instanceof QubitInformationObject && $importSchema == 'ead')
+    {
+      // run matching check - will return true or false
+      $results = $this->handlePreSaveInformationObject($currentObject);
 
-    // write the ID onto the current XML node for tracking
-    $domNode->setAttribute('xml:id', $currentObject->id);
+      // if no match, log a message and skip saving it.
+      if (!(array_key_exists('matched', $results) && true === $results['matched']))
+      {
+        $doSave = false;
+        // This obj does not match a record in the database.  Log it.
+        $this->errors[] = ('Unable to match record ' . $currentObject->identifier . '. Skipping record: ' . $currentObject->title);
+      }
+    }
+
+    if ($doSave)
+    {
+      // save the object after it's fully-populated
+      $currentObject->save();
+
+      // if this is an Info Object, save the EadUrl in the keymap table for matching.
+      if ($currentObject instanceof QubitInformationObject && $importSchema == 'ead')
+      {
+        $this->saveEadUrl($currentObject);
+      }
+
+      // write the ID onto the current XML node for tracking
+      $domNode->setAttribute('xml:id', $currentObject->id);
+    }
   }
 
   /*
@@ -963,6 +1006,76 @@ class QubitXmlImport
 
         $event->save();
       }
+    }
+  }
+
+  /**
+   * Run presave informationObject logic.
+   */
+  private function handlePreSaveInformationObject (&$currentObject)
+  {
+    $results = array();
+
+    // logic for --match option.  Try and match against an informationObject
+    // already in the database.
+    $criteria = new Criteria;
+    $criteria->add(QubitKeymap::SOURCE_ID, $this->eadUrl);
+    $criteria->add(QubitKeymap::SOURCE_NAME, $this->sourceName);
+    $criteria->add(QubitKeymap::TARGET_NAME, 'information_object');
+
+    // check keymap table for sourceId == $this->eadUrl
+    if (null !== $km = QubitKeymap::getOne($criteria))
+    {
+      $results['matched'] = true;
+    }
+    // else check for an informationObject based on id, title, repo.
+    else if ($this->getMatchedInformationObject($currentObject->identifier, $currentObject->title, $currentObject->repository->authorizedFormOfName))
+    {
+      $results['matched'] = true;
+    }
+
+    return $results;
+  }
+
+  /**
+   * Try to match informationObject to an existing one in system.
+   */
+  private function getMatchedInformationObject ($identifier, $title, $repoName)
+  {
+    $sf_user = sfContext::getInstance()->user;
+    $currentCulture = $sf_user->getCulture();
+
+    // looking for exact match
+    $queryBool = new \Elastica\Query\BoolQuery;
+    $queryBool->addMust(new \Elastica\Query\MatchAll);
+    $queryBool->addMust(new \Elastica\Query\Term(array('identifier' => $identifier)));
+    $queryBool->addMust(new \Elastica\Query\Term(array(sprintf('i18n.%s.title.untouched', $currentCulture) => $title)));
+    $queryBool->addMust(new \Elastica\Query\Term(array(sprintf('repository.i18n.%s.authorizedFormOfName.untouched', $currentCulture) => $repoName)));
+
+    $query = new \Elastica\Query($queryBool);
+    $query->setLimit(1);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+
+    // matching criteria matches a record exactly if > 0.
+    if (0 < $resultSet->count())
+    {
+      return true;
+    }
+  }
+
+  /**
+   * Save the EAD Url to the keymap table for matching against next time.
+   */
+  private function saveEadUrl(&$currentObject)
+  {
+    if ($this->eadUrl)
+    {
+      $keymap = new QubitKeymap;
+      $keymap->sourceId = $this->eadUrl;
+      $keymap->sourceName = $this->sourceName;
+      $keymap->targetId = $currentObject->id;
+      $keymap->targetName = 'information_object';
+      $keymap->save();
     }
   }
 }
