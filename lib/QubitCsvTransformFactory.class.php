@@ -62,6 +62,7 @@ class QubitCsvTransformFactory
       'options' => $this->cliOptions,
 
       'status' => array(
+        'cliOptions'              => $this->cliOptions,
         'parentKeys'              => array(),
         'noIdentifierCount'       => 0,
         'tempFile'                => $tempCsvFile,
@@ -113,6 +114,7 @@ class QubitCsvTransformFactory
           'skipOptionsAndEnvironmentCheck' => true,
 
           'status' => array(
+            'cliOptions'       => $self->status['cliOptions'],
             'finalOutputFile'  => $self->status['finalOutputFile'],
             'parentKeys'       => $self->status['parentKeys'],
             'badParents'       => 0,
@@ -130,13 +132,18 @@ class QubitCsvTransformFactory
             {
               $keyOfRowParent = trim($self->status['rowParentKeyLookupLogic']($self));
 
-              // if this row has a parent key and the parent key exists, set
+              // if this row has a parent key and a calculated parent key exists, set
               // the "parentId" column
-              if ($keyOfRowParent && isset($self->status['parentKeys'][$keyOfRowParent])) {
-                $parentId = $self->status['parentKeys'][$keyOfRowParent];
-                //print "Found parent ID ". $parentId ."\n";
-                $self->columnValue('parentId', $parentId);
-              } else if ($keyOfRowParent) {
+              if ($keyOfRowParent && isset($self->status['parentKeys'][$keyOfRowParent]))
+              {
+                $self->columnValue('parentId', $self->status['parentKeys'][$keyOfRowParent]);
+              }
+              else if ($keyOfRowParent)
+              {
+                $self->columnValue('parentId', $keyOfRowParent);
+              }
+              else
+              {
                 // ...otherwise if the parent key didn't exist, note that it's bad
                 print "Bad parent found: ". $keyOfRowParent ." (row ". ($self->getStatus('rows') + 1) .")\n";
                 $self->status['badParents']++;
