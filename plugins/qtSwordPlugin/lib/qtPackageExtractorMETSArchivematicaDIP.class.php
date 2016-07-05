@@ -202,8 +202,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $children[$fileId]['absolutePathWithinDip'] = $absolutePathWithinDip;
     }
 
-    // Sort children by title
-    usort($children, function ($elem1, $elem2) {
+    // Sort children by title, use asort to keep index association
+    asort($children, function ($elem1, $elem2) {
       return strcasecmp($elem1['title'], $elem2['title']);
     });
 
