@@ -1011,7 +1011,7 @@ EOF;
         // only remove the DO if the checksums differ.  If they are removed
         // because the checksums are different, the following code will
         // recreate them from the CSV file.
-        if ($uri = $self->rowStatusVars['digitalObjectURI']
+        if (($uri = $self->rowStatusVars['digitalObjectURI'])
           && null === $self->object->getDigitalObject())
         {
           $do = new QubitDigitalObject;
@@ -1040,7 +1040,7 @@ EOF;
             $this->log($e->getMessage(), sfLogger::ERR);
           }
         }
-        else if ($path = $self->rowStatusVars['digitalObjectPath']
+        else if (($path = $self->rowStatusVars['digitalObjectPath'])
           && null === $self->object->getDigitalObject())
         {
           $do = new QubitDigitalObject;
