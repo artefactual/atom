@@ -182,16 +182,13 @@ EOF;
       $derivative->delete();
     }
 
-    // Delete existing transcripts if 'keepTranscript' option is not sent or it's false
+    // Delete existing transcript if 'keepTranscript' option is not sent or it's false,
+    // we need to keep it to avoid an error trying to save a deleted property when this
+    // method is called from IO rename action
     if (!isset($options['keepTranscript']) || !$options['keepTranscript'])
     {
-      foreach ($digitalObject->propertys as $property)
-      {
-        if ('transcript' == $property->name)
-        {
-          $property->delete();
-        }
-      }
+      $transcriptProperty = $digitalObject->getPropertyByName('transcript');
+      $transcriptProperty->delete();
     }
 
     $digitalObject->createRepresentations(QubitTerm::MASTER_ID, $conn);
