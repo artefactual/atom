@@ -364,4 +364,26 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
   {
     return QubitRelation::getRelationsBySubjectId($this->id, array('typeId' => QubitTerm::RIGHT_ID));
   }
+
+  /********************
+       Properties
+  *********************/
+
+  /**
+   * Get first matching related property by name (optionally scope).
+   * Return an empty QubitProperty object if a matching one doesn't exist.
+   *
+   * @param string $name
+   * @param array $options
+   * @return QubitProperty
+   */
+  public function getPropertyByName($name, $options = array())
+  {
+    if (null === $property = QubitProperty::getOneByObjectIdAndName($this->id, $name, $options))
+    {
+      $property = new QubitProperty;
+    }
+
+    return $property;
+  }
 }
