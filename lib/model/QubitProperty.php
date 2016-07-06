@@ -144,6 +144,11 @@ class QubitProperty extends BaseProperty
         $property->setScope($options['scope']);
       }
 
+      if (isset($options['indexOnSave']) && !$options['indexOnSave'])
+      {
+        $property->indexOnSave = false;
+      }
+
       $property->save();
 
       return $property;

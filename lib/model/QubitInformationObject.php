@@ -33,8 +33,11 @@ class QubitInformationObject extends BaseInformationObject
   const
     ROOT_ID = 1;
 
-  // allow per-object disabling of nested set updating during bulk imports
-  public $disableNestedSetUpdating = false;
+  public
+    // Allow per-object disabling of nested set updating during bulk imports
+    $disableNestedSetUpdating = false,
+    // Flag for updating search index on save
+    $indexOnSave = true;
 
   /**
    * When cast as a string, return i18n-ized object title with fallback to
@@ -241,6 +244,23 @@ class QubitInformationObject extends BaseInformationObject
       break; // Save only one digital object per information object
     }
 
+    // Save new premis objects
+    foreach ($this->premisObjects as $item)
+    {
+      // TODO Needed if $this is new, should be transparent
+      $item->informationObject = $this;
+
+      try
+      {
+        $item->save($connection);
+      }
+      catch (PropelException $e)
+      {
+      }
+
+      break; // Save only one premis object per information object
+    }
+
     // Save updated Status
     $hasPubStatus = false;
     foreach ($this->statuss as $item)
@@ -270,7 +290,10 @@ class QubitInformationObject extends BaseInformationObject
       $status->save($connection);
     }
 
-    QubitSearch::getInstance()->update($this);
+    if ($this->indexOnSave)
+    {
+      QubitSearch::getInstance()->update($this);
+    }
 
     return $this;
   }

@@ -250,6 +250,16 @@ propel:
     description: longvarchar
     location: longvarchar
 
+  premis_object:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    information_object_id:
+    puid: varchar(255)
+    filename: varchar(1024)
+    last_modified: timestamp
+    date_ingested: bu_date
+    size: integer
+    mime_type: varchar(255)
+
   property:
     object_id: { type: integer, required: true, foreignTable: object, foreignReference: id, onDelete: cascade }
     scope: varchar(1024)

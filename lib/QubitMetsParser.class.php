@@ -19,22 +19,12 @@
 
 class QubitMetsParser
 {
-  private $document;
+  private $document, $resource;
 
-  public function __construct($filepath, $options = array())
+  public function __construct($document, $options = array())
   {
-    if (!file_exists($filepath))
-    {
-      throw new sfException('METS XML file was not found in:' . $filepath);
-    }
-
     // Load document
-    $this->document = new SimpleXMLElement(@file_get_contents($filepath));
-
-    if (!isset($this->document))
-    {
-      throw new sfException('METS XML file in \'' . $filepath . '\' could not be opened.');
-    }
+    $this->document = $document;
 
     // Register namespaces
     $this->document->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
@@ -446,7 +436,7 @@ class QubitMetsParser
     return $informationObject;
   }
 
-  public function getInformationObjectDataForSearchIndex($objectUuid)
+  public function addMetsDataToInformationObject(&$resource, $objectUuid)
   {
     // Obtain amdSec id for objectUuid
     foreach ($this->document->xpath('//m:fileSec/m:fileGrp[@USE="original"]/m:file') as $item)
@@ -461,14 +451,14 @@ class QubitMetsParser
 
     if (!isset($amdSecId))
     {
-      throw new sfException('AMD section was not found for object UUID: ' . $objectUuid);
+      return 'AMD section was not found for object UUID: ' . $objectUuid;
     }
 
     $this->objectXpath = '//m:amdSec[@ID="'.$amdSecId.'"]/m:techMD/m:mdWrap[@MDTYPE="PREMIS:OBJECT"]/m:xmlData/p:object/';
 
-    $this->ioData = array();
+    $this->resource = $resource;
 
-    $this->loadObjectData();
+    $this->loadPremisObjectData();
     $this->loadFitsAudioData();
     $this->loadFitsDocumentData();
     $this->loadFitsTextData();
@@ -476,23 +466,18 @@ class QubitMetsParser
     $this->loadFormatData();
     $this->loadEventsData($amdSecId);
     $this->loadAgentsData($amdSecId);
-
-    if (empty($this->ioData))
-    {
-      return;
-    }
-
-    return $this->ioData;
   }
 
-  private function loadObjectData()
+  private function loadPremisObjectData()
   {
+    $premisObject = new QubitPremisObject;
+
     $fields = array(
       'filename' => array(
         'xpath' => $this->objectXpath.'p:originalName',
         'type' => 'lastPartOfPath'),
       'puid' => array(
-        'xpath' => $this->objectXpath.'p:objectCharacteristics/p:format/p:formatRegistry[s:formatRegistryName="PRONOM"]/p:formatRegistryKey',
+        'xpath' => $this->objectXpath.'p:objectCharacteristics/p:format/p:formatRegistry[p:formatRegistryName="PRONOM"]/p:formatRegistryKey',
         'type' => 'string'),
       'lastModified' => array(
         'xpath' => $this->objectXpath.'p:objectCharacteristics/p:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/repInfo/lastModified',
@@ -509,13 +494,16 @@ class QubitMetsParser
       $value = $this->getFieldValue($this->document, $options['xpath'], $options['type']);
       if (!empty($value))
       {
-        $this->ioData[$fieldName] = $value;
+        $premisObject->$fieldName = $value;
       }
     }
+
+    $this->resource->premisObjects[] = $premisObject;
   }
 
   private function loadFitsAudioData()
   {
+    $fitsAudio = array();
     $audioXpath = $this->objectXpath.'p:objectCharacteristics/p:objectCharacteristicsExtension/f:fits/f:metadata/f:audio/';
 
     $fields = array(
@@ -543,13 +531,19 @@ class QubitMetsParser
       $value = $this->getFieldValue($this->document, $options['xpath'], $options['type']);
       if (!empty($value))
       {
-        $this->ioData['audio'][$fieldName] = $value;
+        $fitsAudio[$fieldName] = $value;
       }
+    }
+
+    if (!empty($fitsAudio))
+    {
+      QubitProperty::addUnique($this->resource->id, 'fitsAudio', serialize($fitsAudio), array('scope' => 'premisData', 'indexOnSave' => false));
     }
   }
 
   private function loadFitsDocumentData()
   {
+    $fitsDocument = array();
     $documentXpath = $this->objectXpath.'p:objectCharacteristics/p:objectCharacteristicsExtension/f:fits/f:metadata/f:document/';
 
     $fields = array(
@@ -595,13 +589,19 @@ class QubitMetsParser
       $value = $this->getFieldValue($this->document, $options['xpath'], $options['type']);
       if (!empty($value))
       {
-        $this->ioData['document'][$fieldName] = $value;
+        $fitsDocument[$fieldName] = $value;
       }
+    }
+
+    if (!empty($fitsDocument))
+    {
+      QubitProperty::addUnique($this->resource->id, 'fitsDocument', serialize($fitsDocument), array('scope' => 'premisData', 'indexOnSave' => false));
     }
   }
 
   private function loadFitsTextData()
   {
+    $fitsText = array();
     $textXpath = $this->objectXpath.'p:objectCharacteristics/p:objectCharacteristicsExtension/f:fits/f:metadata/f:text/';
 
     $fields = array(
@@ -626,8 +626,13 @@ class QubitMetsParser
       $value = $this->getFieldValue($this->document, $options['xpath'], $options['type']);
       if (!empty($value))
       {
-        $this->ioData['text'][$fieldName] = $value;
+        $fitsText[$fieldName] = $value;
       }
+    }
+
+    if (!empty($fitsText))
+    {
+      QubitProperty::addUnique($this->resource->id, 'fitsText', serialize($fitsText), array('scope' => 'premisData', 'indexOnSave' => false));
     }
   }
 
@@ -893,30 +898,35 @@ class QubitMetsParser
         }
       }
 
-      // Add track by type
-      $type = $track->xpath('@type');
-      switch ($type[0])
+      if (!empty($esTrack))
       {
-        case 'General':
-          $this->ioData['mediainfo']['generalTracks'][] = $esTrack;
+        // Add track by type
+        $type = $track->xpath('@type');
+        switch ($type[0])
+        {
+          case 'General':
+            QubitProperty::addUnique($this->resource->id, 'mediainfoGeneralTrack', serialize($esTrack), array('scope' => 'premisData', 'indexOnSave' => false));
 
-          break;
+            break;
 
-        case 'Video':
-          $this->ioData['mediainfo']['videoTracks'][] = $esTrack;
+          case 'Video':
+            QubitProperty::addUnique($this->resource->id, 'mediainfoVideoTrack', serialize($esTrack), array('scope' => 'premisData', 'indexOnSave' => false));
 
-          break;
+            break;
 
-        case 'Audio':
-          $this->ioData['mediainfo']['audioTracks'][] = $esTrack;
+          case 'Audio':
+            QubitProperty::addUnique($this->resource->id, 'mediainfoAudioTrack', serialize($esTrack), array('scope' => 'premisData', 'indexOnSave' => false));
 
-          break;
+            break;
+        }
       }
     }
   }
 
   private function loadFormatData()
   {
+    $format = array();
+
     $fields = array(
       'name' => array(
         'xpath' => $this->objectXpath.'p:objectCharacteristics/p:format/p:formatDesignation/p:formatName',
@@ -933,11 +943,13 @@ class QubitMetsParser
 
     foreach ($fields as $fieldName => $options)
     {
-      $value = $this->getFieldValue($this->document, $options['xpath'], $options['type']);
-      if (!empty($value))
-      {
-        $this->ioData['format'][$fieldName] = $value;
-      }
+      // Allow empty values in format data
+      $format[$fieldName] = $value = $this->getFieldValue($this->document, $options['xpath'], $options['type']);
+    }
+
+    if (!empty($format))
+    {
+      QubitProperty::addUnique($this->resource->id, 'format', serialize($format), array('scope' => 'premisData', 'indexOnSave' => false));
     }
   }
 
@@ -1009,17 +1021,20 @@ class QubitMetsParser
       // Add event dateTime to IO's dateIngested field if it's the ingestion event
       if (isset($event['type']) && isset($event['dateTime']) && $event['type'] == 'ingestion')
       {
-        $this->ioData['dateIngested'] = $event['dateTime'];
+        $this->resource->premisObjects[0]->dateIngested = $event['dateTime'];
       }
 
-      // Format identification event is stored apart
-      if (isset($event['type']) && $event['type'] == 'format identification')
+      if (!empty($event))
       {
-        $this->ioData['formatIdentificationEvent'] = $event;
-      }
-      else
-      {
-        $this->ioData['otherEvents'][] = $event;
+        // Format identification event is stored apart
+        if (isset($event['type']) && $event['type'] == 'format identification')
+        {
+          QubitProperty::addUnique($this->resource->id, 'formatIdentificationEvent', serialize($event), array('scope' => 'premisData', 'indexOnSave' => false));
+        }
+        else
+        {
+          QubitProperty::addUnique($this->resource->id, 'otherEvent', serialize($event), array('scope' => 'premisData', 'indexOnSave' => false));
+        }
       }
     }
   }
@@ -1055,7 +1070,10 @@ class QubitMetsParser
         }
       }
 
-      $this->ioData['agents'][] = $agent;
+      if (!empty($agent))
+      {
+        QubitProperty::addUnique($this->resource->id, 'agent', serialize($agent), array('scope' => 'premisData', 'indexOnSave' => false));
+      }
     }
   }
 
@@ -1069,7 +1087,8 @@ class QubitMetsParser
     switch ($type)
     {
       case 'lastPartOfPath':
-        return end(explode('/', (string)$results[0]));
+        $parts = explode('/', (string)$results[0]);
+        return end($parts);
 
       case 'string':
         return (string)$results[0];

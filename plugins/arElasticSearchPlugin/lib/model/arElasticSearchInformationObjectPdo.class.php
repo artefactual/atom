@@ -996,34 +996,6 @@ class arElasticSearchInformationObjectPdo
     return self::$statements['physicalObjects']->fetchAll(PDO::FETCH_OBJ);
   }
 
-  protected function getMetsData()
-  {
-    $aipUUID = $this->getPropertyValue('aipUUID');
-    $objectUUID = $this->getPropertyValue('objectUUID');
-    if (null === $aipUUID || null === $objectUUID)
-    {
-      return;
-    }
-
-    // Get METS filepath
-    $metsFilepath = sfConfig::get('sf_uploads_dir').
-      DIRECTORY_SEPARATOR.'aips'.
-      DIRECTORY_SEPARATOR.$aipUUID.
-      DIRECTORY_SEPARATOR.'METS.xml';
-
-    try
-    {
-      $parser = new QubitMetsParser($metsFilepath);
-      $metsData = $parser->getInformationObjectDataForSearchIndex($objectUUID);
-    }
-    catch (Exception $e)
-    {
-      return;
-    }
-
-    return $metsData;
-  }
-
   private function getBasisRights()
   {
     $basisRights = array();
@@ -1262,6 +1234,12 @@ class arElasticSearchInformationObjectPdo
     foreach ($this->getNotesByType(QubitTerm::GENERAL_NOTE_ID) as $item)
     {
       $serialized['generalNotes'][] = arElasticSearchNote::serialize($item);
+    }
+
+    // PREMIS data
+    if (null !== $premisData = arElasticSearchPluginUtil::getPremisData($this->id, self::$conn))
+    {
+      $serialized['metsData'] = $premisData;
     }
 
     if (null !== $termId = $this->getTermIdByNameAndTaxonomy('Alpha-numeric designations', QubitTaxonomy::RAD_NOTE_ID))

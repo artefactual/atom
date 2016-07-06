@@ -140,6 +140,11 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
       return true;
     }
 
+    if ('premisObjects' == $name)
+    {
+      return true;
+    }
+
     try
     {
       if (!$value = call_user_func_array(array($this->getCurrentinformationObjectI18n($options), '__isset'), $args) && !empty($options['cultureFallback']))
@@ -233,6 +238,23 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
       }
 
       return $this->refFkValues['informationObjectI18ns'];
+    }
+
+    if ('premisObjects' == $name)
+    {
+      if (!isset($this->refFkValues['premisObjects']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['premisObjects'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['premisObjects'] = self::getpremisObjectsById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['premisObjects'];
     }
 
     try
@@ -553,6 +575,26 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
   public function addinformationObjectI18nsCriteria(Criteria $criteria)
   {
     return self::addinformationObjectI18nsCriteriaById($criteria, $this->id);
+  }
+
+  public static function addpremisObjectsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitPremisObject::INFORMATION_OBJECT_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getpremisObjectsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addpremisObjectsCriteriaById($criteria, $id);
+
+    return QubitPremisObject::get($criteria, $options);
+  }
+
+  public function addpremisObjectsCriteria(Criteria $criteria)
+  {
+    return self::addpremisObjectsCriteriaById($criteria, $this->id);
   }
 
   public function getCurrentinformationObjectI18n(array $options = array())

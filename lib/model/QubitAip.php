@@ -25,6 +25,10 @@
  */
 class QubitAip extends BaseAip
 {
+  // Flag for updating search index on save
+  public
+    $indexOnSave = true;
+
   /**
    * Additional save functionality (e.g. update search index)
    *
@@ -35,7 +39,10 @@ class QubitAip extends BaseAip
   {
     parent::save($connection);
 
-    QubitSearch::getInstance()->update($this);
+    if ($indexOnSave)
+    {
+      QubitSearch::getInstance()->update($this);
+    }
 
     return $this;
   }

@@ -513,4 +513,134 @@ class arElasticSearchPluginUtil
 
     return $i18nFieldNames;
   }
+
+  /*
+   * Gets all premis data related to an information object
+   */
+  public static function getPremisData($ioId, $conn)
+  {
+    $premisData = array();
+
+    $sql  = 'SELECT *
+      FROM '.QubitPremisObject::TABLE_NAME.' premis
+      WHERE premis.information_object_id = ?';
+
+    $statement = $conn->prepare($sql);
+    $statement->execute(array($ioId));
+
+    foreach ($statement->fetch() as $field => $value)
+    {
+      if (empty($value))
+      {
+        continue;
+      }
+
+      switch ($field)
+      {
+        case 'last_modified':
+          $premisData['lastModified'] =  arElasticSearchPluginUtil::convertDate($value);
+
+          break;
+
+        case 'date_ingested':
+          $premisData['dateIngested'] =  arElasticSearchPluginUtil::convertDate($value);
+
+          break;
+
+        case 'mime_type':
+          $premisData['mimeType'] = $value;
+
+          break;
+
+        case 'size':
+          $premisData['size'] = $value;
+
+          break;
+
+        case 'filename':
+          $premisData['filename'] = $value;
+
+          break;
+
+        case 'puid':
+          $premisData['puid'] = $value;
+
+          break;
+      }
+    }
+
+    $sql  = 'SELECT property.name, i18n.value
+      FROM '.QubitProperty::TABLE_NAME.' property
+      JOIN '.QubitPropertyI18n::TABLE_NAME.' i18n
+        ON property.id = i18n.id
+      WHERE property.scope = "premisData"
+        AND property.source_culture = i18n.culture
+        AND property.object_id = ?';
+
+    $statement = $conn->prepare($sql);
+    $statement->execute(array($ioId));
+
+    foreach ($statement->fetchAll(PDO::FETCH_OBJ) as $property)
+    {
+      $value = unserialize($property->value);
+
+      switch ($property->name)
+      {
+        case 'fitsAudio':
+          $premisData['audio'] = $value;
+
+          break;
+
+        case 'fitsDocument':
+          $premisData['document'] = $value;
+
+          break;
+
+        case 'fitsText':
+          $premisData['text'] = $value;
+
+          break;
+
+        case 'mediainfoGeneralTrack':
+          $premisData['mediainfo']['generalTracks'][] = $value;
+
+          break;
+
+        case 'mediainfoVideoTrack':
+          $premisData['mediainfo']['videoTracks'][] = $value;
+
+          break;
+
+        case 'mediainfoAudioTrack':
+          $premisData['mediainfo']['audioTracks'][] = $value;
+
+          break;
+
+        case 'format':
+          $premisData['format'] = $value;
+
+          break;
+
+        case 'formatIdentificationEvent':
+          $premisData['formatIdentificationEvent'] = $value;
+
+          break;
+
+        case 'otherEvent':
+          $premisData['otherEvents'][] = $value;
+
+          break;
+
+        case 'agent':
+          $premisData['agents'][] = $value;
+
+          break;
+      }
+    }
+
+    if (!empty($premisData))
+    {
+      return $premisData;
+    }
+  }
 }

@@ -120,16 +120,16 @@ class arElasticSearchAipPdo
     $digitalObjects = array();
     foreach (self::$statements['do']->fetchAll(PDO::FETCH_OBJ) as $item)
     {
-      $do = array();
-      $do['name'] = $item->name;
-      $do['size'] = $item->byte_size;
-      $do['mimeType'] = $item->mime_type;
-      $do['lastModified'] = arElasticSearchPluginUtil::convertDate($item->updated_at);
-
-      $digitalObjects[] = $do;
+      if (null !== $premisData = arElasticSearchPluginUtil::getPremisData($item->object_id, self::$conn))
+      {
+        $digitalObjects[] = array('metsData' => $premisData);
+      }
     }
 
-    return $digitalObjects;
+    if (!empty($digitalObjects))
+    {
+      return $digitalObjects;
+    }
   }
 
   public function serialize()
@@ -149,10 +149,9 @@ class arElasticSearchAipPdo
       $serialized['type'] = $node->serialize();
     }
 
-    if (null !== $this->part_of)
+    if (null !== $digitalObjects = $this->getDigitalObjects())
     {
-      $serialized['partOf']['id'] = $this->part_of;
-      $serialized['partOf']['i18n'] = arElasticSearchModelBase::serializeI18ns($this->part_of, array('QubitInformationObject'), array('fields' => array('title')));
+      $serialized['digitalObjects'] = $digitalObjects;
     }
 
     return $serialized;

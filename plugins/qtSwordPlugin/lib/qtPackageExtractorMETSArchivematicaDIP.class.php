@@ -35,23 +35,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
           sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Opening '.$path);
 
-          // Directory for the METS file
-          $dirPath = sfConfig::get('sf_uploads_dir').
-            DIRECTORY_SEPARATOR.'aips'.
-            DIRECTORY_SEPARATOR.$aipUUID.
-            DIRECTORY_SEPARATOR;
-
-          // Create the target directory
-          if (!file_exists($dirPath))
-          {
-            mkdir($dirPath, 0755, true);
-          }
-
-          // Copy METS file
-          if (false !== @copy($path, $dirPath.'METS.xml'))
-          {
-            sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Saving '.$dirPath.'METS.xml');
-          }
+          $this->document = new SimpleXMLElement(@file_get_contents($path));
 
           break;
         }
@@ -59,16 +43,20 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
       closedir($handle);
     }
-
-    // Stop if the METS file wasn't found
-    if (!$entry)
+    else
     {
       throw new sfException('METS XML file was not found.');
     }
 
-    // Load METS file (it will stop the process if the file can't be opened)
-    $this->metsParser = new QubitMetsParser($this->filename.DIRECTORY_SEPARATOR.$entry);
+    if (!isset($this->document))
+    {
+      throw new sfException('METS document could not be opened.');
+    }
 
+    // Initialice METS parser, used in addDigitalObjects to add
+    // the required data from the METS file to the digital objects
+    $this->metsParser = new QubitMetsParser($this->document);
+    
     // Stop if there isn't a proper structMap
     if (null === $structMap = $this->metsParser->getStructMap())
     {
@@ -89,6 +77,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $this->aip->partOf = $this->resource->id;
     $this->aip->sizeOnDisk = $this->metsParser->getAipSizeOnDisk();
     $this->aip->createdAt = $this->metsParser->getAipCreationDate();
+    $this->aip->indexOnSave = false;
     $this->aip->save();
 
     sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - aipUUID: '.$aipUUID);
@@ -111,7 +100,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         break;
     }
 
-    // Finally, update target resource in ES
+    // Finally, update target resource and AIP in ES
+    QubitSearch::getInstance()->update($this->aip);
     QubitSearch::getInstance()->update($this->resource);
 
     parent::process();
@@ -245,8 +235,19 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $relation->typeId = QubitTerm::AIP_RELATION_ID;
       $child->relationsRelatedByobjectId[] = $relation;
 
-      // A lot more data from the METS file (object metadata, events, agents)
-      // is obtained in arElasticSearchInformationObjectPdo
+      // Save IO without updating the ES document
+      $child->indexOnSave = false;
+      $child->save();
+
+      // Add required data from METS file to the database
+      $error = $this->metsParser->addMetsDataToInformationObject($child, $data['objectUUID']);
+      if (isset($error))
+      {
+        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             ' . $error);
+      }
+
+      // Save IO updating the ES document
+      $child->indexOnSave = true;
       $child->save();
     }
   }
@@ -320,8 +321,19 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         $relation->typeId = QubitTerm::AIP_RELATION_ID;
         $child->relationsRelatedByobjectId[] = $relation;
 
-        // A lot more data from the METS file (object metadata, events, agents)
-        // is obtained in arElasticSearchInformationObjectPdo
+        // Save IO without updating the ES document
+        $child->indexOnSave = false;
+        $child->save();
+
+        // Add required data from METS file to the database
+        $error = $this->metsParser->addMetsDataToInformationObject($child, $objectUUID);
+        if (isset($error))
+        {
+          sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             ' . $error);
+        }
+
+        // Save IO updating the ES document
+        $child->indexOnSave = true;
         $child->save();
       }
     }

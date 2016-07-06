@@ -67,6 +67,7 @@ class ObjectTableMap extends TableMap {
     $this->addRelation('objectTermRelationRelatedByobjectId', 'objectTermRelation', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
     $this->addRelation('otherName', 'otherName', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
     $this->addRelation('physicalObject', 'physicalObject', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('premisObject', 'premisObject', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('property', 'property', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
     $this->addRelation('relationRelatedByid', 'relation', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('relationRelatedBysubjectId', 'relation', RelationMap::ONE_TO_MANY, array('id' => 'subject_id', ), null, null);
