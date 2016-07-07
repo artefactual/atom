@@ -911,24 +911,6 @@ class QubitInformationObject extends BaseInformationObject
   }
 
   /**
-   * Get first matching related property by name (optionally scope).
-   * Return an empty QubitProperty object if a matching one doesn't exist.
-   *
-   * @param string $name
-   * @param array $options
-   * @return QubitProperty
-   */
-  public function getPropertyByName($name, $options = array())
-  {
-    if (null === $property = QubitProperty::getOneByObjectIdAndName($this->id, $name, $options))
-    {
-      $property = new QubitProperty;
-    }
-
-    return $property;
-  }
-
-  /**
    * Save a related property and create a new property if a matching one doesn't
    * already exist.
    *

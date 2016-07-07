@@ -140,12 +140,12 @@ class InformationObjectRenameAction extends DefaultEditAction
       rename($oldFilePath, $newFilePath);
       chmod($newFilePath, 0644);
 
+      // Regenerate derivatives
+      digitalObjectRegenDerivativesTask::regenerateDerivatives($digitalObject, array('keepTranscript' => true));
+
       // Change name in database
       $digitalObject->name = $filename;
       $digitalObject->save();
-
-      // Regeneraate derivatives
-      digitalObjectRegenDerivativesTask::regenerateDerivatives($digitalObject);
     }
 
     $this->resource->save();

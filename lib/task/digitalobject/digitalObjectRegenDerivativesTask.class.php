@@ -171,7 +171,7 @@ EOF;
     $this->logSection('digital object', 'Done!');
   }
 
-  public static function regenerateDerivatives(&$digitalObject)
+  public static function regenerateDerivatives(&$digitalObject, $options = array())
   {
     // Delete existing derivatives
     $criteria = new Criteria;
@@ -182,13 +182,13 @@ EOF;
       $derivative->delete();
     }
 
-    // Delete existing transcripts
-    foreach ($digitalObject->propertys as $property)
+    // Delete existing transcript if 'keepTranscript' option is not sent or it's false,
+    // we need to keep it to avoid an error trying to save a deleted property when this
+    // method is called from IO rename action
+    if (!isset($options['keepTranscript']) || !$options['keepTranscript'])
     {
-      if ('transcript' == $property->name)
-      {
-        $property->delete();
-      }
+      $transcriptProperty = $digitalObject->getPropertyByName('transcript');
+      $transcriptProperty->delete();
     }
 
     $digitalObject->createRepresentations(QubitTerm::MASTER_ID, $conn);
