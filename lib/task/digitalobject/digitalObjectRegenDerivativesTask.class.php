@@ -153,7 +153,7 @@ EOF;
       // Trap any exceptions when creating derivatives and continue script
       try
       {
-        digitalObjectRegenDerivativesTask::regenerateDerivatives($do, $options['type']);
+        digitalObjectRegenDerivativesTask::regenerateDerivatives($do, $options);
       }
       catch (Exception $e)
       {
@@ -174,7 +174,7 @@ EOF;
     $this->logSection('digital object', 'Done!');
   }
 
-  public static function regenerateDerivatives(&$digitalObject, $type = null)
+  public static function regenerateDerivatives(&$digitalObject, $options = array())
   {
     // Delete existing derivatives
     $criteria = new Criteria;
@@ -185,16 +185,16 @@ EOF;
       $derivative->delete();
     }
 
-    // Delete existing transcripts
-    foreach ($digitalObject->propertys as $property)
+    // Delete existing transcript if 'keepTranscript' option is not sent or it's false,
+    // we need to keep it to avoid an error trying to save a deleted property when this
+    // method is called from IO rename action
+    if (!isset($options['keepTranscript']) || !$options['keepTranscript'])
     {
-      if ('transcript' == $property->name)
-      {
-        $property->delete();
-      }
+      $transcriptProperty = $digitalObject->getPropertyByName('transcript');
+      $transcriptProperty->delete();
     }
 
-    switch($type)
+    switch($options['type'])
     {
       case "reference":
         $usageId = QubitTerm::REFERENCE_ID;
