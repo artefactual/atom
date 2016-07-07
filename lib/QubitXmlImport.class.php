@@ -303,11 +303,14 @@ class QubitXmlImport
             continue;
           }
 
+
+          //A remettre avant push, Pas de changement de langue pour pouvoir tester plus facilement
+          /*
           if ($currentCulture !== $twoCharCode)
           {
             $this->errors[] = sfContext::getInstance()->i18n->__('EAD "langmaterial" is set to').': "'.$isocode.'" ('.format_language($twoCharCode, 'en').'). '.sfContext::getInstance()->i18n->__('Your XML document has been saved in this language and your user interface has just been switched to this language.');
           }
-          $sf_user->setCulture($twoCharCode);
+          $sf_user->setCulture($twoCharCode);*/
           // can only set to one language, so have to break once the first valid language is encountered
           break;
         }
@@ -810,6 +813,7 @@ class QubitXmlImport
   public static function replaceLineBreaks($node)
   {
     $nodeValue = '';
+    $fieldsArray = array('extent', 'physfacet', 'dimensions');
 
     foreach ($node->childNodes as $child)
     {
@@ -817,29 +821,25 @@ class QubitXmlImport
       {
         $nodeValue .= "\n";
       }
-      else
+      else if (in_array($child->tagName, $fieldsArray)) 
       {
-        if($child->tagName=='extent') 
+        foreach ($child->childNodes as $childNode)
         {
-          foreach ($child->childNodes as $childChild)
+          if ($childNode->nodeName == 'lb')
           {
-            if ($childChild->nodeName == 'lb')
-            {
-              $nodeValue .= "\n";
-            } 
-            else
-            {
-              $nodeValue .= preg_replace('/[\n\r\s]+/', ' ', $childChild->nodeValue);
-            }
+            $nodeValue .= "\n";
+          } 
+          else
+          {
+            $nodeValue .= preg_replace('/[\n\r\s]+/', ' ', $childNode->nodeValue);
           }
-        } else {
-
-          $nodeValue .= preg_replace('/[\n\r\s]+/', ' ', $child->nodeValue);
-
         }
+      } 
+      else 
+      {
+        $nodeValue .= preg_replace('/[\n\r\s]+/', ' ', $child->nodeValue);
       }
     }
-
     return $nodeValue;
   }
 
