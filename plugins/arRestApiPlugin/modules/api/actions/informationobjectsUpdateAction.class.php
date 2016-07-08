@@ -19,6 +19,8 @@
 
 class ApiInformationObjectsUpdateAction extends QubitApiAction
 {
+  private $noteToDelete; // To specify a note to delete after updating
+
   protected function put($request, $payload)
   {
     if (null === $this->io = QubitObject::getBySlug($request->slug))
@@ -37,6 +39,11 @@ class ApiInformationObjectsUpdateAction extends QubitApiAction
     }
 
     $this->io->save();
+
+    if (isset($this->noteToDelete))
+    {
+      $this->noteToDelete->delete();
+    }
 
     return array(
       'id' => (int)$this->io->id,
@@ -206,7 +213,7 @@ class ApiInformationObjectsUpdateAction extends QubitApiAction
           }
           else
           {
-            $note->delete();
+            $this->noteToDelete = $note;
           }
         }
         else
