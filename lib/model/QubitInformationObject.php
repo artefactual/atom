@@ -1724,6 +1724,10 @@ class QubitInformationObject extends BaseInformationObject
       {
         $noteContent .= "\n";
       }
+      else if ($child->nodeName == 'language')
+      {
+        $noteContent .= ' '.trim($child->nodeValue);
+      }
     }
 
     // add language and script note, if so
