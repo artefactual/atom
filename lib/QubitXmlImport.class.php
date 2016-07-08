@@ -34,7 +34,8 @@ class QubitXmlImport
     $parent = null,
     $events = array(),
     $eadUrl = null,
-    $sourceName = null;
+    $sourceName = null,
+    $options = array();
 
   public function import($xmlFile, $options = array())
   {
@@ -43,6 +44,9 @@ class QubitXmlImport
 
     // save the file name for use in saving keymap record
     $this->sourceName = basename($xmlFile);
+
+    // save options so we can access from processMethods
+    $this->options = $options;
 
     // if we were unable to parse the XML file at all
     if (empty($importDOM->documentElement))
@@ -414,7 +418,7 @@ class QubitXmlImport
 
     $doSave = true;
     // if this is an information object in an XML EAD import, run the enhanced matching check.
-    if ($currentObject instanceof QubitInformationObject && $importSchema == 'ead')
+    if ($currentObject instanceof QubitInformationObject && $importSchema == 'ead' &&  $this->options['match'])
     {
       // run matching check - will return true or false
       $results = $this->handlePreSaveInformationObject($currentObject);
