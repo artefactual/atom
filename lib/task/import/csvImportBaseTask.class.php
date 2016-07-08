@@ -87,7 +87,7 @@ abstract class csvImportBaseTask extends arBaseTask
       // if supplied param is not in $validParams, throw exception
       if (!in_array(trim($options['update']), $validParams))
       {
-        $msg = sprintf("Parameter \"%s\" is not valid for --update option.", $options['update']);
+        $msg = sprintf('Parameter "%s" is not valid for --update option.', $options['update']);
         $msg .= sprintf(" Valid options are: %s", implode(", ", $validParams));
         throw new sfException($msg);
       }

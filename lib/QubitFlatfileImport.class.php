@@ -674,7 +674,6 @@ class QubitFlatfileImport
           }
           else
           {
-            // create new object
             $this->object = new $this->className;
           }
         }
