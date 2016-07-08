@@ -75,8 +75,8 @@ EOF;
       new sfCommandOption(
         'update',
         null,
-        sfCommandOption::PARAMETER_NONE,
-        "Attempt to update if description has already been imported."
+        sfCommandOption::PARAMETER_OPTIONAL,
+        "Attempt to update if description has already been imported. Use update=\"match\" to update matched records only."
       ),
       new sfCommandOption(
         'skip-derivatives',
@@ -1073,6 +1073,27 @@ EOF;
 
     // Allow updating to be enabled via a CLI option
     $import->updateExisting = isset($options['update']);
+
+    // Are there params set on --update flag?
+    if ($options['update'])
+    {
+      // Parameters for --update are validated in csvImportBaseTask.class.php.
+      switch ($options['update'])
+      {
+        case 'match':
+          // Save match option. If update is ON, and match is set, only updating
+          // existing records - do not create new objects.
+          $import->matchExisting = true;
+        break;
+
+        default:
+          // Validation of params to --update in csvImportBaseTask.class.php.
+          throw new sfException('Update parameter "'
+            . $options['update']
+            .'" not handled: Correct --update parameter.');
+        break;
+      }
+    }
 
     // Convert content with | characters to a bulleted list
     $import->contentFilterLogic = function($text)

@@ -77,6 +77,21 @@ abstract class csvImportBaseTask extends arBaseTask
         ."specify a source name (otherwise the filename will be used as a "
         . "source name).\n";
     }
+
+    // validate params that can be used in conjunction with --update='opt'
+    if ($options['update'])
+    {
+      // array of valid params
+      $validParams = array('match');
+
+      // if supplied param is not in $validParams, throw exception
+      if (!in_array(trim($options['update']), $validParams))
+      {
+        $msg = sprintf("Parameter \"%s\" is not valid for --update option.", $options['update']);
+        $msg .= sprintf(" Valid options are: %s", implode(", ", $validParams));
+        throw new sfException($msg);
+      }
+    }
   }
 
   /**

@@ -34,6 +34,7 @@ class QubitFlatfileImport
 
   public $searchIndexingDisabled = true;  // disable per-object search indexing by default
   public $updateExisting         = false; // if object already imported, attempt update
+  public $matchExisting          = false; // when updating, only load rows that we can match
 
   public $status          = array(); // place to store data related to overall import
   public $rowStatusVars   = array(); // place to store data related to current row
@@ -658,8 +659,24 @@ class QubitFlatfileImport
         // if still unable to match, create new object.
         if ($this->object === null)
         {
-          // create new object
-          $this->object = new $this->className;
+          // If --match option specified, we must be able to match the
+          // row to a info object in the DB. If we are here, no match
+          // has been found. Skip this row and log a message.
+          if ($this->matchExisting)
+          {
+            $skipRowProcessing = true;
+
+            $msg = sprintf('Unable to match row. Skipping record: %s (id: %s)',
+                           $this->columnExists('title') ? trim($this->columnValue('title')) : '',
+                           $this->columnExists('identifier') ? trim($this->columnValue('identifier')) : '');
+
+            print $this->logError($msg);
+          }
+          else
+          {
+            // create new object
+            $this->object = new $this->className;
+          }
         }
         else if ($this->object->sourceCulture == $this->columnValue('culture'))
         {
