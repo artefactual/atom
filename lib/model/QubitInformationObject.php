@@ -318,9 +318,31 @@ class QubitInformationObject extends BaseInformationObject
       }
     }
 
+    // Delete any keymap entries
+    $this->removeKeymapEntries();
+
     QubitSearch::getInstance()->delete($this);
 
     parent::delete($connection);
+  }
+
+  /**
+   * Remove any corresponding keymap entries on delete of this object
+   *
+   */
+  private function removeKeymapEntries()
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitKeymap::TARGET_ID, $this->id);
+    $criteria->add(QubitKeymap::TARGET_NAME, 'information_object');
+
+    if ($objectKeymap = QubitKeymap::get($criteria))
+    {
+      foreach ($objectKeymap as $item)
+      {
+        $item->delete();
+      }
+    }
   }
 
   /**
