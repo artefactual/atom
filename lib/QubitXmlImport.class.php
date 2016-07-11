@@ -418,7 +418,8 @@ class QubitXmlImport
 
     $doSave = true;
     // if this is an information object in an XML EAD import, run the enhanced matching check.
-    if ($currentObject instanceof QubitInformationObject && $importSchema == 'ead' &&  $this->options['match'])
+    if ($currentObject instanceof QubitInformationObject && $importSchema == 'ead'
+      && isset($this->options['match']) && $this->options['match'])
     {
       // run matching check - will return true or false
       $results = $this->handlePreSaveInformationObject($currentObject);
