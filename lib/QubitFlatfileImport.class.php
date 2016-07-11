@@ -623,25 +623,28 @@ class QubitFlatfileImport
         {
           $mapEntry = $this->fetchKeymapEntryBySourceAndTargetName($legacyId, $this->status['sourceName'], $tableName);
           $this->object = QubitInformationObject::getById($mapEntry->target_id);
+
+          // Remove keymap entry if it doesn't point to a valid QubitInformationObject.
+          if (null === $this->object)
+          {
+            $query = '
+              DELETE FROM keymap WHERE source_id = ? AND target_id = ?
+              AND source_name = ? AND target_name = ?
+            ';
+
+            $statement = self::sqlQuery(
+              $query, array(
+                $legacyId,
+                $mapEntry->target_id,
+                $this->status['sourceName'],
+                $tableName
+              )
+            );
+          }
         }
 
-        // Remove keymap entry if it doesn't point to a valid QubitInformationObject.
-        if ($this->object === null)
+        if (null === $this->object)
         {
-          $query = '
-            DELETE FROM keymap WHERE source_id = ? AND target_id = ?
-            AND source_name = ? AND target_name = ?
-          ';
-
-          $statement = self::sqlQuery(
-            $query, array(
-              $legacyId,
-              $mapEntry->target_id,
-              $this->status['sourceName'],
-              $tableName
-            )
-          );
-
           // Unable to match to keymap entry.
           // Try matching via secondary method - match record in DB by
           // identifier + title + repository.
@@ -649,14 +652,14 @@ class QubitFlatfileImport
             && $this->columnExists('title')
             && $this->columnExists('repository'))
           {
-            $objectId = $this->getMatchedInformationObject($this->columnValue('identifier'),
+            $objectId = QubitInformationObject::getByTitleIdentifierAndRepo($this->columnValue('identifier'),
                         $this->columnValue('title'), $this->columnValue('repository'));
             $this->object = QubitInformationObject::getById($objectId);
           }
         }
 
         // if still unable to match, create new object.
-        if ($this->object === null)
+        if (null === $this->object)
         {
           // create new object
           $this->object = new $this->className;
@@ -1697,37 +1700,6 @@ class QubitFlatfileImport
     else
     {
       throw new sfException('Could not find a way to handle '. $description .' value "'. $value .'".');
-    }
-  }
-
-  /**
-   * Try to match informationObject to an existing one in system.
-   *
-   * @param string $identifier  informationObject identifier
-   * @param string $title       informationObject title
-   * @param string $repoName    repository authorizedFormOfName
-   *
-   * @return integer InfoObj Id
-   */
-  private function getMatchedInformationObject ($identifier, $title, $repoName)
-  {
-    $sf_user = sfContext::getInstance()->user;
-    $currentCulture = $sf_user->getCulture();
-
-    // looking for exact match
-    $queryBool = new \Elastica\Query\BoolQuery;
-    $queryBool->addMust(new \Elastica\Query\MatchAll);
-    $queryBool->addMust(new \Elastica\Query\Term(array('identifier' => $identifier)));
-    $queryBool->addMust(new \Elastica\Query\Term(array(sprintf('i18n.%s.title.untouched', $currentCulture) => $title)));
-    $queryBool->addMust(new \Elastica\Query\Term(array(sprintf('repository.i18n.%s.authorizedFormOfName.untouched', $currentCulture) => $repoName)));
-
-    $query = new \Elastica\Query($queryBool);
-    $query->setLimit(1);
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
-
-    foreach ($resultSet as $hit)
-    {
-      return $hit->getId();
     }
   }
 }

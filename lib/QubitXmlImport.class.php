@@ -1044,38 +1044,13 @@ class QubitXmlImport
       $results['matched'] = true;
     }
     // else check for an informationObject based on id, title, repo.
-    else if ($this->getMatchedInformationObject($currentObject->identifier, $currentObject->title, $currentObject->repository->authorizedFormOfName))
+    else if (null !== $objectId = QubitInformationObject::getByTitleIdentifierAndRepo($currentObject->identifier,
+             $currentObject->title, $currentObject->repository->authorizedFormOfName))
     {
       $results['matched'] = true;
     }
 
     return $results;
-  }
-
-  /**
-   * Try to match informationObject to an existing one in system.
-   */
-  private function getMatchedInformationObject ($identifier, $title, $repoName)
-  {
-    $sf_user = sfContext::getInstance()->user;
-    $currentCulture = $sf_user->getCulture();
-
-    // looking for exact match
-    $queryBool = new \Elastica\Query\BoolQuery;
-    $queryBool->addMust(new \Elastica\Query\MatchAll);
-    $queryBool->addMust(new \Elastica\Query\Term(array('identifier' => $identifier)));
-    $queryBool->addMust(new \Elastica\Query\Term(array(sprintf('i18n.%s.title.untouched', $currentCulture) => $title)));
-    $queryBool->addMust(new \Elastica\Query\Term(array(sprintf('repository.i18n.%s.authorizedFormOfName.untouched', $currentCulture) => $repoName)));
-
-    $query = new \Elastica\Query($queryBool);
-    $query->setLimit(1);
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
-
-    // matching criteria matches a record exactly if > 0.
-    if (0 < $resultSet->count())
-    {
-      return true;
-    }
   }
 
   /**
