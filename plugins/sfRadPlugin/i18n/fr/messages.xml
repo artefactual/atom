@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2016-06-19T10:47:28Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2016-07-11T09:58:15Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -635,7 +635,7 @@ la reproduction des documents." (RDDA 1.8B16c). Pour les conditions de publicati
       </trans-unit>
       <trans-unit id="179">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target/>
+        <target>Indiquer les références des sources externes utilisées pour la description (comme dans la portée et contenu, l'historique de conservation ou les notes)</target>
       </trans-unit>
       <trans-unit id="180">
         <source>Associated materials</source>

@@ -225,7 +225,7 @@ QubitMenu:
       hu: Tárolóeszköz
       id: 'Penyimpanan Fisik'
       it: Deposito
-      ja: 物理的記憶
+      ja: 物理的な保管場所
       ka: 'ფიზიკური საცავი'
       ko: '물리적 보관장소'
       nl: 'Fysieke opslag'
@@ -430,9 +430,10 @@ QubitMenu:
       eu: 'Artxibo deskribapenak'
       fr: 'Descriptions archivistiques'
       gl: 'Descrición arquivística'
-      hu: 'Levéltári leírások'
+      hu: Irateírások
       is: 'Lýsandi samantektir'
       it: 'Descrizioni archivistiche'
+      ja: アーカイブズ記述
       ko: '기록물 기술'
       nl: 'archivistische beschrijving'
       pl: 'Opis archiwalny'
@@ -498,7 +499,7 @@ QubitMenu:
       id: Repositori
       is: Vörslustofnanir
       it: 'Istituzione archivistica'
-      ja: リポジトリ
+      ja: アーカイブズ機関
       ka: საცავები
       ko: 기록물관리기관
       nl: archiefinstelling
@@ -734,7 +735,7 @@ QubitMenu:
       eu: 'Artxibo deskribapenaren baimenak'
       fr: 'Droits sur la description archivistique'
       gl: 'Permisos de descrición arquivística'
-      hu: 'Levéltári leírás jogosultságok'
+      hu: 'Irateírási jogosultságok'
       it: 'Permessi per la descrizione archivistica'
       ja: 情報オブジェクト許可
       ka: 'საინფორმაციო ობიექტის უფლებამოსილებები'
@@ -919,7 +920,7 @@ QubitMenu:
       eu: 'Artxibo deskribapenaren baimenak'
       fr: 'Droits sur la description archivistique'
       gl: 'Permisos de descrición arquivística'
-      hu: 'Levéltári leírás jogosultságok'
+      hu: 'Irateírási jogosultságok'
       it: 'Permessi per la descrizione archivistica'
       ja: 情報オブジェクト許可
       ka: 'საინფორმაციო ობიექტის უფლებამოსილებები'
@@ -1308,7 +1309,7 @@ QubitMenu:
       id: 'Tentang Kami'
       is: Um
       it: Riguardo
-      ja: ついて
+      ja: このウェブサイトについて
       ka: შესახებ
       ko: About
       nl: Over
@@ -1480,9 +1481,10 @@ QubitMenu:
       eu: 'Artxibo deskribapenak'
       fr: 'Descriptions archivistiques'
       gl: 'Descrición arquivística'
-      hu: 'Levéltári leírások'
+      hu: Irateírások
       is: 'Lýsandi samantektir'
       it: 'Descrizioni archivistiche'
+      ja: アーカイブズ記述
       ko: '기록물 기술'
       nl: 'archivistische beschrijving'
       pt: 'Descrições arquivísticas'
@@ -1546,7 +1548,7 @@ QubitMenu:
       id: Repositori
       is: Vörslustofnanir
       it: 'Istituzione archivistica'
-      ja: リポジトリ
+      ja: アーカイブズ機関
       ka: საცავები
       ko: 기록물관리기관
       nl: archiefinstelling
@@ -1724,7 +1726,7 @@ QubitMenu:
       id: 'Elemen terlihat'
       is: 'Sýnileg hylki'
       it: 'Elementi visibili'
-      ja: 見えるエレメント
+      ja: 表示するエレメント
       ka: 'შესამჩნევი ელემენტები'
       ko: '가시적 요소'
       pt: 'Elementos visíveis'
@@ -1778,6 +1780,7 @@ QubitMenu:
       en: Clipboard
       es: Portapapeles
       fr: Presse-papier
+      hu: Vágólap
       pt: 'Área de transferência'
       pt-BR: 'Área de Transferência'
       sr: Међумеморија
@@ -1790,6 +1793,7 @@ QubitMenu:
       en: 'Clear selections'
       es: 'Borrar selección'
       fr: 'Effacer les sélections'
+      hu: 'Kijelöltek törlése'
       pt: 'Limpar seleções'
       pt-BR: 'Limpar seleção'
       sr: 'Очисти одабрано'
@@ -1802,6 +1806,7 @@ QubitMenu:
       en: 'Go to clipboard'
       es: 'Ir al portapapeles'
       fr: 'Aller au presse-papier'
+      hu: 'Menj a vágólapra'
       pt: 'Ir para a área de transferência'
       pt-BR: 'Ir para a área de transferência'
       sr: 'Иди у међумеморију (clipboard)'

@@ -86,7 +86,7 @@ QubitSetting:
       eu: 'Artxibo deskribapena'
       fr: 'Description archivistique'
       gl: 'Descrición arquivística'
-      hu: 'Levéltári leírás'
+      hu: Iratleírás
       id: 'Deskripsi Arsip'
       is: 'Lýsandi samantekt'
       it: 'Descrizione archivistica'
@@ -527,7 +527,7 @@ QubitSetting:
       hu: Tárolóeszköz
       id: 'Penyimpanan Fisik'
       it: Deposito
-      ja: 物理的記憶
+      ja: 物理的な保管場所
       ka: 'ფიზიკური საცავი'
       ko: '물리적 보관장소'
       nl: 'Fysieke opslag'
@@ -1067,6 +1067,7 @@ QubitSetting:
       de: '1'
       en: 1
       es: '1'
+      hu: '1'
       pt: '1'
       pt-BR: '1'
       sr: '1'
@@ -1081,6 +1082,7 @@ QubitSetting:
       en: sidebar
       es: 'barra lateral'
       fr: 'barre latérale'
+      hu: 'oldalsó mező'
       pt: 'barra lateral'
       pt-BR: 'barra lateral'
       sr: 'бочна трака'

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2016-06-19T10:52:26Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2016-07-11T09:58:16Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -395,11 +395,11 @@ registos completos são os que fornecem informação para todos os elementos de 
       </trans-unit>
       <trans-unit id="103">
         <source>%1%Authority record identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Identificador do registro de autoridade%2% - É em%3%elemento%4% obrigatório.</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Authority record identifier</source>
-        <target/>
+        <target>Identificador do registro de autoridade</target>
       </trans-unit>
     </body>
   </file>

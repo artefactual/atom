@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2016-06-19T10:53:17Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2016-07-11T09:58:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -418,11 +418,11 @@
       </trans-unit>
       <trans-unit id="110">
         <source>%1%Authority record identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Identificador de registro de autoridad%2% - Este es un elemento %3%obligatorio%4% </target>
       </trans-unit>
       <trans-unit id="111">
         <source>Authority record identifier</source>
-        <target/>
+        <target>Identificador de registro de autoridad</target>
       </trans-unit>
     </body>
   </file>

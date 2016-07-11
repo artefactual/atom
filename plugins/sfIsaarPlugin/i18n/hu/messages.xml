@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2016-06-19T10:49:36Z" product-name="messages">
+  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2016-07-11T09:58:13Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -423,11 +423,11 @@
       </trans-unit>
       <trans-unit id="106">
         <source>%1%Authority record identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Iratképző azonosító%2% - Ez egy %3%kötelező%4% elem.</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Authority record identifier</source>
-        <target/>
+        <target>Iratképző azonosító</target>
       </trans-unit>
     </body>
   </file>

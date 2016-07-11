@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2016-04-19T21:22:07Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2016-07-11T09:58:12Z" product-name="messages">
     <body>
       <trans-unit id="43">
         <source>Identity area</source>
@@ -449,7 +449,7 @@
       </trans-unit>
       <trans-unit id="959">
         <source>Related descriptions</source>
-        <target/>
+        <target>関連の記述</target>
       </trans-unit>
       <trans-unit id="960">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>

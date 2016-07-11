@@ -573,7 +573,7 @@ QubitTaxonomy:
       id: 'Tipe Relasi'
       is: 'Gerð tengsla'
       it: 'Tipo di relazione'
-      ja: 関係種別
+      ja: 関係の種別
       ka: 'კავშირის, ურთიერთობის ტიპი'
       ko: '관련 유형'
       nl: 'Soorten relaties'
@@ -815,7 +815,7 @@ QubitTaxonomy:
       hu: 'Kifejezés-viszonyok típusai'
       id: 'Tipe Relasi Istilah'
       it: 'Tipi di relazione fra termini'
-      ja: 用語関係種別
+      ja: 関係の種別に関する用語
       ka: 'ურთიერთობის ტიპების ვადები'
       ko: '용어 관계 유형'
       nl: 'Term relatie typen'
@@ -880,7 +880,7 @@ QubitTaxonomy:
       id: 'Status Publikasi'
       is: 'Staða skráningar'
       it: 'Stato della pubblicazione'
-      ja: 出版物のステータス
+      ja: 公開の状態
       ka: 'პუბლიკაციის სტატუსი'
       ko: '출판 상태'
       nl: 'Publicatie status'
@@ -1325,6 +1325,7 @@ QubitTaxonomy:
     name:
       en: 'PREMIS Rights Statutes'
       es: 'Estatutos de derechos PREMIS'
+      hu: 'PREMIS Jogi Státuszok'
       pt: 'Estatutos de direitos do PREMIS'
       pt-BR: 'PREMIS Estatutos de direitos'
       sv: PREMIS-rättigheter
@@ -1969,7 +1970,7 @@ QubitTerm:
       hu: Hangfelvétel
       is: Hljóð
       it: Audio
-      ja: 視聴覚
+      ja: オーディオ
       ka: აუდიო
       ko: 오디오
       nl: Audio
@@ -2644,7 +2645,7 @@ QubitTerm:
       id: sementara
       is: tímabundið
       it: temporale
-      ja: 一時的
+      ja: 時間的前後関係
       ka: დროებითი
       ko: 일시적인
       pl: świecki
@@ -2677,7 +2678,7 @@ QubitTerm:
       hu: család
       is: fjölskylda
       it: famiglia
-      ja: 家族
+      ja: 家
       ka: ოჯახი
       ko: 가족
       nl: Familie
@@ -2710,7 +2711,7 @@ QubitTerm:
       gl: asociativo
       hu: társulási
       it: associativo
-      ja: 連合の
+      ja: その他の関係性
       ka: ასოციაციური
       ko: 연관있는
       pl: wiążący
@@ -2836,7 +2837,7 @@ QubitTerm:
       gl: asociativo
       hu: társulási
       it: associativo
-      ja: 連合の
+      ja: その他の関係性
       ka: ასოციაციური
       ko: 연관있는
       pl: wiążący
@@ -2926,7 +2927,7 @@ QubitTerm:
       hu: Vázlat
       is: Uppkast
       it: Bozza
-      ja: 原稿
+      ja: 下書き
       ka: დრაფტი
       ko: 초안
       nl: Concept
@@ -2962,7 +2963,7 @@ QubitTerm:
       id: Terpublikasi
       is: Útgefið
       it: Pubblicato
-      ja: 出版された
+      ja: 公表
       ka: გამოქვეყნებული
       ko: 출판된
       nl: Gepubliceerd
@@ -3061,6 +3062,7 @@ QubitTerm:
       hu: Gyarapodás
       is: Viðbót
       it: Incremento
+      ja: 追加受入
       ko: '추가 이관'
       pt: Incorporações
       pt-BR: Incorporação
@@ -3190,6 +3192,7 @@ QubitTerm:
       fr: 'Descriptions matérielles associées'
       hu: 'Kapcsolódó anyagok leírásai'
       it: 'Descrizioni dei materiali collegati'
+      ja: 関連資料の記述
       ko: '관련 자료 기술'
       pt: 'Descrições de material relacionado'
       pt-BR: 'Descrições de materiais relacionados'
@@ -3254,7 +3257,7 @@ QubitTerm:
       id: sementara
       is: tímabundið
       it: temporale
-      ja: 一時的
+      ja: 時間的前後関係
       ka: დროებითი
       ko: 일시적인
       pl: świecki
@@ -3286,7 +3289,7 @@ QubitTerm:
       gl: asociativo
       hu: társulási
       it: associativo
-      ja: 連合の
+      ja: その他の関係性
       ka: ასოციაციური
       ko: 연관있는
       pl: wiążący
@@ -4286,7 +4289,7 @@ QubitTerm:
       hu: 'Hollinger doboz'
       is: 'Hollinger box'
       it: 'Scatola Hollinger'
-      ja: Hollingerボックス
+      ja: 保存箱
       ka: 'საარქივო მასალებისთვის'
       ko: 'Hollinger 박스'
       nl: Ponskaartendoos
@@ -4344,7 +4347,7 @@ QubitTerm:
       eu: Artxibadorea
       fr: Classeur
       gl: Arquivador
-      hu: 'Filling?? szekrény'
+      hu: 'Irattartó szekrény'
       is: Skjalaskápur
       it: Classificatore
       ja: ファイリングキャビネット
@@ -4509,7 +4512,7 @@ QubitTerm:
       hu: Vázlat
       is: Uppkast
       it: Bozza
-      ja: 原稿
+      ja: 下書き
       ka: დრაფტი
       ko: 초안
       nl: Concept
@@ -4577,7 +4580,7 @@ QubitTerm:
       id: Sebagian
       is: Hluti
       it: Intermedio
-      ja: 一部の
+      ja: 部分的
       ka: ნაწილობრივი
       ko: 일부의
       nl: Gedeeltelijk
@@ -4896,7 +4899,7 @@ QubitTerm:
       ca@valencia: Persona/organització
       cy: Person/sefydliad
       de: Person/Einrichtung
-      de-CH: Person/Einrichtung
+      de-CH: Person/Organisation
       el: Άτομο/Οργανισμός
       en: Person/organization
       es: Persona/organización
@@ -5144,7 +5147,7 @@ QubitTerm:
       eu: 'Artxibo deskribapena'
       fr: 'Description archivistique'
       gl: 'Descrición arquivística'
-      hu: 'Levéltári leírás'
+      hu: Iratleírás
       id: 'Deskripsi Arsip'
       is: 'Lýsandi samantekt'
       it: 'Descrizione archivistica'
@@ -5451,7 +5454,7 @@ QubitTerm:
       id: Agama
       is: Trúarlegt
       it: Religioso
-      ja: 地域の
+      ja: 宗教的な
       ka: 'რელიგიური, სარწმუნოებრივი'
       ko: 종교적인
       nl: Religie
@@ -5517,7 +5520,7 @@ QubitTerm:
       gl: Municipal
       hu: városi
       it: Municipale
-      ja: 首都の
+      ja: 市町村の
       ka: 'მინიციპალური, საქალაქო'
       ko: 지방자치제의
       nl: Gemeentelijk
@@ -5847,7 +5850,7 @@ QubitTerm:
       hu: Tárolóeszköz
       id: 'Penyimpanan Fisik'
       it: Deposito
-      ja: 物理的記憶
+      ja: 物理的な保管場所
       ka: 'ფიზიკური საცავი'
       ko: '물리적 보관장소'
       nl: 'Fysieke opslag'
@@ -6078,7 +6081,7 @@ QubitTerm:
       hu: 'Mozgó képek'
       is: 'Flyt myndir'
       it: 'Immagini in movimento'
-      ja: 画像を移動する
+      ja: 動画
       ka: 'სურათების გადმოტანა'
       ko: 동영상
       nl: 'Bewegend beeld'
@@ -6270,7 +6273,7 @@ QubitTerm:
       id: 'Arsip Teks'
       is: Textaskjal
       it: 'Documentazione testuale'
-      ja: テキストの記録
+      ja: 文字情報からなる記録
       ka: 'ტექსტური ჩანაწერი'
       ko: '원문 기록'
       nl: 'Tekst document'
@@ -6842,7 +6845,7 @@ QubitTerm:
       id: 'rekaman suara'
       is: hljóðupptaka
       it: 'registrazione sonora'
-      ja: 音声録音
+      ja: 録音
       ka: 'ხმის ჩაწერა'
       ko: '음성 기록'
       pl: 'nagrania dźwiękowe'
@@ -6870,7 +6873,7 @@ QubitTerm:
       hu: 'hangfelvétel, zenei'
       id: 'rekaman suara - musik'
       it: 'registrazione sonora - musicale'
-      ja: '音声録音 - 音楽'
+      ja: 録音-音楽
       ka: 'ხმის ჩაწერა- მუსიკალურად'
       pl: 'nagrania dźwiękowe - muzyczne'
       pt: 'registo sonoro - musical'
@@ -6896,7 +6899,7 @@ QubitTerm:
       hu: 'hangfelvétel, nem zenei'
       id: 'rekaman suara - nonmusik'
       it: 'registrazione sonora - non musicale'
-      ja: '音声録音 - 非音楽'
+      ja: 録音―音楽以外
       ka: 'ხმის ჩაწერა -არამუსიკალურად (არა მუსიკის)'
       pl: 'nagrania dźwiękowe - niemuzyczne'
       pt: 'registo sonoro - não musical'
@@ -6926,7 +6929,7 @@ QubitTerm:
       id: 'gambar tetap'
       is: mynd
       it: 'immagine statica'
-      ja: 静的イメージ
+      ja: 静止画像
       ka: 'ისევ სურათი'
       ko: '스틸 이미지'
       pl: 'obrazy nieruchome'
@@ -7411,7 +7414,7 @@ QubitTerm:
       id: 'gambar tetap'
       is: mynd
       it: 'immagine statica'
-      ja: 静的イメージ
+      ja: 静止画像
       ka: 'ისევ სურათი'
       ko: '스틸 이미지'
       pl: 'obrazy nieruchome'
@@ -7541,7 +7544,7 @@ QubitTerm:
       hu: 'Üzleti folyamat'
       id: 'Bisnis Proses'
       it: Processo
-      ja: ビジネスの過程
+      ja: 業務過程
       ka: 'საქმიანი პროცესი'
       ko: '업무 과정'
       nl: Bedrijfsproces
@@ -7640,7 +7643,7 @@ QubitTerm:
       hu: Tranzakció
       id: Transaksi
       it: Operazione
-      ja: 取引
+      ja: 業務
       ka: 'ტრანზაქცია(საქმის წარმოება, შესრულება)'
       ko: 처리
       pl: Transakcja
@@ -7896,7 +7899,7 @@ QubitTerm:
       hu: Közepes
       is: Miðlungs
       it: Supporto
-      ja: 中間
+      ja: 媒体
       ka: საშუალო
       ko: 매체
       nl: Drager
@@ -8250,7 +8253,7 @@ QubitTerm:
       hu: Migrálás
       is: Flytja
       it: Migra
-      ja: 移民
+      ja: マイグレーション
       ka: მიგრირება
       ko: 옮기다
       nl: Migreren
@@ -8345,7 +8348,7 @@ QubitTerm:
       id: 'Kewenangan Hak Cipta'
       is: 'Nýtur höfundarréttar'
       it: 'Soggetto a copyright'
-      ja: 著作権の下に
+      ja: 著作権で保護されています
       ka: 'საავტორო უფლებით'
       ko: '저작권 하에'
       pl: 'Podlega prawom autorskim'
@@ -8928,6 +8931,7 @@ QubitTerm:
       hu: 'Természeti források'
       is: 'Náttúrulegar auðlindir'
       it: 'Risorse naturali'
+      ja: 天然資源
       ko: '천연 자원'
       pt: 'Recursos Naturais'
       pt-BR: 'Recursos Naturais'
@@ -9001,6 +9005,7 @@ QubitTerm:
       hu: 'Kikapcsolódás / Pihenés / Sport'
       is: 'Afþreying / Tómstundir / Íþróttir'
       it: 'Divertimento / Tempo libero / Sport'
+      ja: レクリエーション／レジャー／スポーツ
       ko: '레크레이션 / 여가 / 스포츠'
       pt: 'Passatempos / Lazer / Desportos'
       pt-BR: 'Recreação / Lazer / Esportes'
@@ -9025,6 +9030,7 @@ QubitTerm:
       fr: Religion
       hu: Vallás
       it: Religione
+      ja: 宗教
       ko: 종교
       pt: Religião
       pt-BR: Religião
@@ -9049,6 +9055,7 @@ QubitTerm:
       fr: 'Sciences et technologie'
       hu: 'Tudomány és Technológia'
       it: 'Scienza e tecnologia'
+      ja: 科学技術
       ko: '과학 및 기술'
       pt: 'Ciência e Tecnologia'
       pt-BR: 'Ciência e Tecnologia'
@@ -9264,6 +9271,7 @@ QubitTerm:
       eu: 'Erregistroen mantenimendurako aktibitatea'
       hu: 'Nyilvántartás készítés'
       it: 'Tenuta documentale'
+      ja: レコードキーピング活動
       ko: '기록되는 동작'
       pt: 'Gestão documental'
       pt-BR: 'Atividade de manutenção de registros'
@@ -9720,6 +9728,7 @@ QubitTerm:
       es: Películas
       fr: 'Images en mouvement'
       hu: Mozgóképek
+      ja: 映画
       pt: 'Imagens em movimento'
       pt-BR: 'Imagens em movimento'
       ru: Кинофильм
@@ -9741,6 +9750,7 @@ QubitTerm:
       hu: Zene
       is: Tónlist
       it: Musica
+      ja: 音楽
       pt: Música
       pt-BR: Música
       ru: Музыка
@@ -9780,6 +9790,7 @@ QubitTerm:
       es: Pinturas
       fr: Peintures
       hu: Festmények
+      ja: 絵画
       pt: Pinturas
       pt-BR: Pinturas
       sl: Slike
@@ -9799,6 +9810,7 @@ QubitTerm:
       fr: Dépliants
       hu: Röplapok
       it: Opuscoli
+      ja: パンフレット
       pt: Panfletos
       pt-BR: Panfletos
       sl: Brošure
@@ -9817,6 +9829,7 @@ QubitTerm:
       fr: Périodiques
       hu: Periodikák
       it: Periodici
+      ja: 定期刊行物
       pt: Periódicos
       pt-BR: Periódicos
       ru: Периодика
@@ -9859,6 +9872,7 @@ QubitTerm:
       hu: Fényképek
       is: Ljósmyndir
       it: Fotografie
+      ja: 写真
       pt: Fotografias
       pt-BR: Fotografias
       sl: Fotografije
@@ -9878,6 +9892,7 @@ QubitTerm:
       es: 'Objetos físicos'
       fr: 'Objets physiques'
       hu: 'Fizikai objektumok'
+      ja: 物理的オブジェクト
       pt: 'Objecto físico'
       pt-BR: 'Objetos Físicos'
       ru: 'Физические Объекты'
@@ -9899,6 +9914,7 @@ QubitTerm:
       fr: Poésie
       hu: Költészet
       it: Poesia
+      ja: 詩
       pt: Poesia
       pt-BR: Poesia
       sl: Poezija
@@ -9938,6 +9954,7 @@ QubitTerm:
       es: 'Tarjetas Postales'
       fr: 'Cartes postales'
       hu: Képeslapok
+      ja: はがき
       pt: Postais
       pt-BR: 'Cartões postais'
       ru: Открытки
@@ -9959,6 +9976,7 @@ QubitTerm:
       fr: 'Affiches (posters)'
       hu: Poszterek
       it: Poster
+      ja: ポスター
       pt: Posters
       pt-BR: Pôsteres
       ru: Плакаты
@@ -10045,6 +10063,7 @@ QubitTerm:
       fr: 'Partition de musique'
       hu: Kotta
       it: Spartito
+      ja: 楽譜
       pt: 'Folha de música'
       pt-BR: Partitura
       sl: Partitura
@@ -10093,6 +10112,7 @@ QubitTerm:
       en: 'Signatures note'
       es: 'Nota de firma'
       fr: 'Note sur la signature'
+      hu: 'Aláírások jegyzet'
       pt: 'Nota de estatuto'
       pt-BR: 'Nota de assinaturas'
       sr: 'Напомена о сигнатури'
@@ -10103,6 +10123,7 @@ QubitTerm:
     name:
       en: 'Cast note'
       fr: 'Note de l''équipe'
+      hu: 'Szereposztás jegyzet'
       pt: 'Nota de lançamento'
       pt-BR: 'Nota da equipe'
   QubitTerm_credits_note:
@@ -10113,6 +10134,7 @@ QubitTerm:
       en: 'Credits note'
       es: 'Nota de créditos'
       fr: 'Note sur les crédits'
+      hu: 'Szerzőkre, készítőkre vonatkozó jegyzet'
       pt: 'Notas do arquivista'
       pt-BR: 'Nota de créditos'
 QubitNote:

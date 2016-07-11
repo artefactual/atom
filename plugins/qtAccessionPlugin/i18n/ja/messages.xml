@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2015-10-16T04:43:26Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2016-07-11T09:58:12Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -402,7 +402,7 @@
       </trans-unit>
       <trans-unit id="117">
         <source>Related accession(s)</source>
-        <target/>
+        <target>関連する受け入れ資料（複数可）</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Accruals</source>
@@ -410,7 +410,7 @@
       </trans-unit>
       <trans-unit id="119">
         <source>Accrual to</source>
-        <target/>
+        <target>％への追加受入</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Add accrual</source>
@@ -442,7 +442,7 @@
       </trans-unit>
       <trans-unit id="129">
         <source>Relevance</source>
-        <target/>
+        <target>関連性</target>
       </trans-unit>
       <trans-unit id="130">
         <source>Main</source>
