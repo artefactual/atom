@@ -468,6 +468,25 @@ class QubitFlatfileImport
 
   protected function handleColumnRenaming()
   {
+    // Assign names to blank columns
+    $baseLabel = 'Untitled';
+    $labelNumber = 1;
+    foreach ($this->columnNames as $index => $name)
+    {
+      if (empty($name))
+      {
+        // Increment label number if column already exists
+        while(in_array($baseLabel . $labelNumber, $this->columnNames))
+        {
+          $labelNumber++;
+        }
+
+        $label = $baseLabel . $labelNumber;
+        print $this->logError(sprintf("Named blank column %d in header row '%s'.", $index + 1, $label));
+        $this->columnNames[$index] = $label;
+      }
+    }
+
     if (isset($this->renameColumns))
     {
       foreach ($this->renameColumns as $sourceColumn => $newName)
