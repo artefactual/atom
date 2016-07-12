@@ -466,6 +466,38 @@ class QubitFlatfileImport
    *  ----------------------
    */
 
+  /**
+   * Assign names to unnamed columns
+   *
+   * @return void
+   */
+  protected function handleUnnamedColumns()
+  {
+    // Assign names to unnamed columns
+    $baseLabel = 'Untitled';
+    $labelNumber = 1;
+    foreach ($this->columnNames as $index => $name)
+    {
+      if (empty($name))
+      {
+        // Increment label number if column already exists
+        while(in_array($baseLabel . $labelNumber, $this->columnNames))
+        {
+          $labelNumber++;
+        }
+
+        $label = $baseLabel . $labelNumber;
+        print $this->logError(sprintf("Named blank column %d in header row '%s'.", $index + 1, $label));
+        $this->columnNames[$index] = $label;
+      }
+    }
+  }
+
+  /**
+   * Rename specified columns
+   *
+   * @return void
+   */
   protected function handleColumnRenaming()
   {
     if (isset($this->renameColumns))
@@ -500,6 +532,7 @@ class QubitFlatfileImport
       throw new sfException('Could not read initial row. File could be empty.');
     }
 
+    $this->handleUnnamedColumns();
     $this->handleColumnRenaming();
 
     // add virtual columns (for column amalgamation, etc.)
