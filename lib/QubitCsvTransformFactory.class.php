@@ -23,6 +23,7 @@ class QubitCsvTransformFactory
   public $machineName;
   public $addColumns;
   public $renameColumns;
+  public $ignoreRows;
   public $parentKeyLogic;
   public $rowParentKeyLookupLogic;
   public $setupLogic;
@@ -35,6 +36,7 @@ class QubitCsvTransformFactory
       'machineName',
       'addColumns',
       'renameColumns',
+      'ignoreRows',
       'parentKeyLogic',
       'rowParentKeyLookupLogic',
       'setupLogic',
@@ -64,6 +66,7 @@ class QubitCsvTransformFactory
       'status' => array(
         'cliOptions'              => $this->cliOptions,
         'parentKeys'              => array(),
+        'ignoreRows'              => $this->ignoreRows,
         'noIdentifierCount'       => 0,
         'tempFile'                => $tempCsvFile,
         'outFh'                   => fopen($tempCsvFile, 'w'),
@@ -118,6 +121,7 @@ class QubitCsvTransformFactory
             'finalOutputFile'  => $self->status['finalOutputFile'],
             'parentKeys'       => $self->status['parentKeys'],
             'badParents'       => 0,
+            'ignoreRows'       => $self->status['ignoreRows'],
             'tempFile'         => $self->status['tempFile'],
             'badLevelOfDescription' => 0,
             'rowParentKeyLookupLogic' => $self->status['rowParentKeyLookupLogic'],
@@ -128,6 +132,13 @@ class QubitCsvTransformFactory
 
           'saveLogic' => function(&$self)
           {
+            // Ignore row, if requested
+            if (in_array($self->status['rows'], $self->status['ignoreRows']))
+            {
+              print "Ignoring row ". $self->status['rows'] ."...\n";
+              return;
+            }
+
             if (isset($self->status['rowParentKeyLookupLogic']))
             {
               $keyOfRowParent = trim($self->status['rowParentKeyLookupLogic']($self));
