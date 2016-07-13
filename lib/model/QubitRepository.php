@@ -116,6 +116,9 @@ class QubitRepository extends BaseRepository
 
     QubitSearch::getInstance()->update($this);
 
+    // Remove adv. search repository options from cache
+    QubitCache::getInstance()->removePattern('advanced-search:list-of-repositories:*');
+
     return $this;
   }
 
@@ -137,6 +140,19 @@ class QubitRepository extends BaseRepository
     parent::insert($connection);
 
     return $this;
+  }
+
+  /**
+   * Additional actions to take on delete
+   *
+   */
+  public function delete($connection = null)
+  {
+    // Remove adv. search repository options from cache
+    QubitCache::getInstance()->removePattern('advanced-search:list-of-repositories:*');
+
+    // Elasticsearch document is deleted in QubitActor
+    parent::delete($connection);
   }
 
   /**
