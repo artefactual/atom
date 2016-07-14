@@ -41,8 +41,9 @@ class DigitalObjectViewAction extends sfAction
 
     list($infoObj, $action) = $this->getInfoObjAndAction();
 
-    // Do appropriate ACL check(s)
-    if (!QubitAcl::check($infoObj, $action) || !QubitGrantedRight::checkPremis($infoObj->id, $action))
+    // Do appropriate ACL check(s). Master copy of text objects are always allowed for reading
+    if ((!QubitAcl::check($infoObj, $action) || !QubitGrantedRight::checkPremis($infoObj->id, $action))
+      && !($action == 'readMaster' && $this->resource->mediaTypeId == QubitTerm::TEXT_ID))
     {
       $this->forward404();
     }
