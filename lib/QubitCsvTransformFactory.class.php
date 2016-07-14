@@ -24,6 +24,7 @@ class QubitCsvTransformFactory
   public $addColumns;
   public $renameColumns;
   public $ignoreRows;
+  public $ignoreRowCheckLogic;
   public $parentKeyLogic;
   public $rowParentKeyLookupLogic;
   public $setupLogic;
@@ -37,6 +38,7 @@ class QubitCsvTransformFactory
       'addColumns',
       'renameColumns',
       'ignoreRows',
+      'ignoreRowCheckLogic',
       'parentKeyLogic',
       'rowParentKeyLookupLogic',
       'setupLogic',
@@ -67,6 +69,7 @@ class QubitCsvTransformFactory
         'cliOptions'              => $this->cliOptions,
         'parentKeys'              => array(),
         'ignoreRows'              => $this->ignoreRows,
+        'ignoreRowCheckLogic'     => $this->ignoreRowCheckLogic,
         'noIdentifierCount'       => 0,
         'tempFile'                => $tempCsvFile,
         'outFh'                   => fopen($tempCsvFile, 'w'),
@@ -91,7 +94,6 @@ class QubitCsvTransformFactory
           $parentKey = trim($self->status['parentKeyLogic']($self));
           if ($parentKey)
           {
-            //print "Stored parent key...\n";
             $self->status['parentKeys'][$parentKey] = $self->columnValue('legacyId');
           }
         }
@@ -117,23 +119,29 @@ class QubitCsvTransformFactory
           'skipOptionsAndEnvironmentCheck' => true,
 
           'status' => array(
-            'cliOptions'       => $self->status['cliOptions'],
-            'finalOutputFile'  => $self->status['finalOutputFile'],
-            'parentKeys'       => $self->status['parentKeys'],
-            'badParents'       => 0,
-            'ignoreRows'       => $self->status['ignoreRows'],
-            'tempFile'         => $self->status['tempFile'],
-            'badLevelOfDescription' => 0,
+            'cliOptions'              => $self->status['cliOptions'],
+            'finalOutputFile'         => $self->status['finalOutputFile'],
+            'parentKeys'              => $self->status['parentKeys'],
+            'badParents'              => 0,
+            'ignoreRows'              => $self->status['ignoreRows'],
+            'ignoreRowCheckLogic'     => $self->status['ignoreRowCheckLogic'],
+            'tempFile'                => $self->status['tempFile'],
+            'badLevelOfDescription'   => 0,
             'rowParentKeyLookupLogic' => $self->status['rowParentKeyLookupLogic'],
-            'ignoreBadLod' => $self->status['ignoreBadLod']
+            'ignoreBadLod'            => $self->status['ignoreBadLod']
           ),
 
           'errorLog' => $self->errorLog,
 
           'saveLogic' => function(&$self)
           {
-            // Ignore row, if requested
-            if (in_array($self->status['rows'], $self->status['ignoreRows']))
+            // Ignore row if ignore check is present and returns true
+            $ignore = isset($self->status['ignoreRowCheckLogic']) && $self->status['ignoreRowCheckLogic']($self);
+
+            // Ingore row if already ignoring or if present in list of rows to ignore
+            $ignore = ($ignore) ? true : in_array($self->status['rows'], $self->status['ignoreRows']);
+
+            if ($ignore)
             {
               print "Ignoring row ". $self->status['rows'] ."...\n";
               return;
