@@ -253,6 +253,12 @@ class QubitTerm extends BaseTerm
 
   public function save($connection = null)
   {
+    // Add root term as parent if no parent is set and it's not the root term
+    if ($this->id != QubitTerm::ROOT_ID && !isset($this->parent))
+    {
+      $this->parentId = QubitTerm::ROOT_ID;
+    }
+
     parent::save($connection);
 
     QubitSearch::getInstance()->update($this);
