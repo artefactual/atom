@@ -91,4 +91,22 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
     return true;
   }
+
+  public static function setBoostValues(&$fields, $cultures)
+  {
+    $i18nBoostFields = array(
+      'i18n.%s.title' => 10,
+      'subjects.i18n.%s.name' => 5,
+      'creators.i18n.%s.authorizedFormOfName' => 8,
+      'names.i18n.%s.authorizedFormOfName' => 3,
+      'places.i18n.%s.name' => 3,
+      'i18n.%s.scopeAndContent' => 5,
+    );
+
+    $nonI18nBoostFields = array(
+      'identifier' => 5,
+    );
+
+    arElasticSearchPluginUtil::addBoostValuesToFields($fields, $i18nBoostFields, $nonI18nBoostFields);
+  }
 }
