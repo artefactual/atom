@@ -92,6 +92,12 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     return true;
   }
 
+  /**
+   * Set boost values for various information object fields.
+   *
+   * @param array &$fields  A reference to our array of fields we're adding boost values to.
+   * @param array $cultures  An array specifying which cultures the i18n fields cover.
+   */
   public static function setBoostValues(&$fields, $cultures)
   {
     $i18nBoostFields = array(
