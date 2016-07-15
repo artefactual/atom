@@ -97,7 +97,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     $i18nBoostFields = array(
       'i18n.%s.title' => 10,
       'subjects.i18n.%s.name' => 5,
-      'creators.i18n.%s.authorizedFormOfName' => 8,
+      'creators.i18n.%s.authorizedFormOfName' => 6,
       'names.i18n.%s.authorizedFormOfName' => 3,
       'places.i18n.%s.name' => 3,
       'i18n.%s.scopeAndContent' => 5,
