@@ -459,6 +459,15 @@ class arElasticSearchPluginUtil
     return $fields;
   }
 
+  /**
+   * Add boost values to various fields.
+   *
+   * @param array &$fields  An array of the fields to be modified with their boost values added.
+   * @param array $i18nfields  Specifies which i18n fields to boost, and which boost value to use.
+   *                           The array is in the form of 'fieldName' => (int)boostNumber
+   *
+   * @param array $nonI18nFields  Same as above, except for non-i18n string fields.
+   */
   public static function addBoostValuesToFields(&$fields, $i18nFields, $nonI18nFields)
   {
     // Expand all the i18n fields into their various cultures, add boost values
@@ -492,6 +501,17 @@ class arElasticSearchPluginUtil
     }
   }
 
+  /**
+   * Expands i18n field names into various specified cultures, with the option to add boosting.
+   *
+   * @param array $fields  Which fields to expand. For example, 'i18n.%s.title' will expand to 'i18n.en.title',
+   *                       'i18n.fr.title', 'i18n.es.title', etc.
+   *
+   * @param array $cultures  An array specifying which cultures to expand to. If not specified, we look up which
+   *                         cultures are active in AtoM and go off that.
+   *
+   * @param array $boost  An array specifying filedName => (int)boostValue to add boost values onto the fields.
+   */
   public static function getI18nFieldNames($fields, $cultures = null, $boost = array())
   {
     // Get all available cultures if $cultures isn't set
