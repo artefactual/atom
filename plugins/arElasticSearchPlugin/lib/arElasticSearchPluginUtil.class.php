@@ -238,6 +238,8 @@ class arElasticSearchPluginUtil
       $i18nIncludeInAll
     );
 
+    self::setBoostValues($indexType, $allFields, $cultures);
+
     // Remove fields in except (use array_values() because array_diff() adds keys)
     if (count($except) > 0)
     {
@@ -254,7 +256,25 @@ class arElasticSearchPluginUtil
 
     // Remove hidden fields from ES mapping fields (use array_values() because array_diff() adds keys)
     $filteredFields = array_values(array_diff($allFields, self::getHiddenFields()));
+
     $query->setFields($filteredFields);
+  }
+
+  /**
+   * Delegates out to other functions based on indexType, which will in turn set the boost values for each field.
+   *
+   * @param string $indexType  which index type we're setting the field boost values for.
+   * @param array &$fields  a reference to the fields we're setting the boost values on.
+   * @param array $cultures  a list of cultures we'll be boosting for in i18n fields
+   */
+  private static function setBoostValues($indexType, &$fields, $cultures)
+  {
+    switch ($indexType)
+    {
+      case 'informationObject':
+        arElasticSearchInformationObject::setBoostValues($fields, $cultures);
+        break;
+    }
   }
 
   /**
@@ -437,6 +457,39 @@ class arElasticSearchPluginUtil
     }
 
     return $fields;
+  }
+
+  public static function addBoostValuesToFields(&$fields, $i18nFields, $nonI18nFields)
+  {
+    // Expand all the i18n fields into their various cultures, add boost values
+    $i18nBoostFields = arElasticSearchPluginUtil::getI18nFieldNames(
+      array_keys($i18nFields),
+      $cultures,
+      $i18nFields
+    );
+
+    foreach ($fields as &$field)
+    {
+      foreach ($i18nBoostFields as $i18nBoostField)
+      {
+        // Match boost field against current field, add boost if match found.
+        // i.e.: i18n.en.title will turn into i18n.en.title^10
+        if (0 === strpos($i18nBoostField, $field))
+        {
+          $field = $i18nBoostField;
+        }
+      }
+
+      foreach ($nonI18nFields as $nonI18nBoostField => $boost)
+      {
+        $nonI18nBoostField = $nonI18nBoostField.'^'.$boost;
+
+        if (0 === strpos($nonI18nBoostField, $field))
+        {
+          $field = $nonI18nBoostField;
+        }
+      }
+    }
   }
 
   public static function getI18nFieldNames($fields, $cultures = null, $boost = array())
