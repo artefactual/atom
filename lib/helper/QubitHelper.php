@@ -377,7 +377,7 @@ function get_search_i18n($hit, $fieldName, $options = array())
     }
     else
     {
-      if ('sfOutputEscaperArrayDecorator' === get_class($hit))
+      if (is_object($hit) && 'sfOutputEscaperArrayDecorator' === get_class($hit))
       {
         $i18nRaw = $hit->getRaw('i18n');
         if (empty($i18nRaw[$culture][$fieldName]))
@@ -389,6 +389,11 @@ function get_search_i18n($hit, $fieldName, $options = array())
       }
       else
       {
+        if (empty($hit['i18n'][$culture][$fieldName]))
+        {
+          return false;
+        }
+
         return $hit['i18n'][$culture][$fieldName];
       }
     }
