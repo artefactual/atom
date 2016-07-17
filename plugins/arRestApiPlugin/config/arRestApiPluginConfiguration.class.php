@@ -30,7 +30,7 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
   const REGEX_SLUG = '[0-9A-Za-z-]+';
 
   public static
-    $summary = 'REST API plugin. Required for Hierarchical DIP Upload',
+    $summary = 'REST API plugin',
     $version = '1.0.0';
 
   public function routingLoadConfiguration(sfEvent $event)
@@ -41,6 +41,10 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     // same results using a nested routing.yml files in arRestApiPlugin because
     // there's no way to bypass some of the catch-any routes in the main yaml.
     // This is probably not being cached at all :(
+
+    $this->addRoute('GET', '/api', array(
+      'module' => 'api',
+      'action' => 'index'));
 
     /**
      * Taxonomies and terms

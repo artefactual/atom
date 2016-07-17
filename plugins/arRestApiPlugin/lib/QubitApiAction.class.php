@@ -19,9 +19,22 @@
 
 class QubitAPIAction extends sfAction
 {
+  public function preExecute()
+  {
+    sfConfig::set('sf_web_debug', false);
+  }
+
   public function execute($request)
   {
     $view = sfView::NONE;
+
+    if (!$this->authenticateUser())
+    {
+      header('HTTP/1.0 401 Unauthorized');
+      $this->response->setStatusCode(401);
+
+      return $view;
+    }
 
     try
     {
@@ -51,6 +64,47 @@ class QubitAPIAction extends sfAction
     }
 
     return $view;
+  }
+
+  private function authenticateUser()
+  {
+    // Cookie-based authentication (already signed)
+    if ($this->context->user->isAuthenticated())
+    {
+      return true;
+    }
+
+    // Basic authentication
+    if (isset($_SERVER['PHP_AUTH_USER']))
+    {
+      if ($this->context->user->authenticate($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']))
+      {
+        return true;
+      }
+    }
+
+    // X_REST_API_KEY is and old name still checked for backward compatibility. Last attempt!
+    if (null !== $key = Qubit::getHttpHeader(array('REST-API-Key', 'HTTP_X_REST_API_KEY')))
+    {
+      $criteria = new Criteria;
+      $criteria->add(QubitProperty::NAME, 'restApiKey');
+      $criteria->add(QubitPropertyI18n::VALUE, $key);
+      if (null === $restApiKeyProperty = QubitProperty::getOne($criteria))
+      {
+        return false;
+      }
+
+      if (null === $user = QubitUser::getById($restApiKeyProperty->objectId))
+      {
+        return false;
+      }
+
+      $this->context->user->signIn($user);
+
+      return true;
+    }
+
+    return false;
   }
 
   public function process($request)
