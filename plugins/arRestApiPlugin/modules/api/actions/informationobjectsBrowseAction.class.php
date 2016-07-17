@@ -106,8 +106,12 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
 
       $this->addItemToArray($result, 'slug', $doc['slug']);
       $this->addItemToArray($result, 'title', get_search_i18n($doc, 'title'));
-      $this->addItemToArray($result, 'repository', get_search_i18n($doc['repository'], 'authorizedFormOfName'));
       $this->addItemToArray($result, 'physical_characteristics', get_search_i18n($doc, 'physicalCharacteristics'));
+
+      if (isset($doc['repository']))
+      {
+        $this->addItemToArray($result, 'repository', get_search_i18n($doc['repository'], 'authorizedFormOfName'));
+      }
 
       // Get LOD name, creating a mapping for other results
       if (isset($doc['levelOfDescriptionId']))
