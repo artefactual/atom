@@ -284,16 +284,23 @@ class UserEditAction extends DefaultEditAction
         {
           case 'generate':
             // Create user OAI-PMH key property if it doesn't exist
-            if (null == $apiKey)
+            if (null === $apiKey)
             {
               $apiKey = new QubitProperty;
-              $apiKey->objectId = $this->resource->id;
               $apiKey->name = sfInflector::camelize($name);
             }
 
             // Generate new OAI-PMH API key
             $apiKey->value = bin2hex(openssl_random_pseudo_bytes(8));
-            $apiKey->save();
+
+            if (!isset($apiKey->id))
+            {
+              $this->resource->propertys[] = $apiKey;
+            }
+            else
+            {
+              $apiKey->save();
+            }
 
             break;
 
