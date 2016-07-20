@@ -68,10 +68,12 @@
   </div>
 </section>
 
-<section class="actions" id="job-return-link">
-  <ul>
-    <li>
-      <?php echo link_to(__('Return to jobs management page'), array('module' => 'jobs', 'action' => 'browse'), array('class' => 'c-btn')) ?>
-    </li>
-  </ul>
-</section>
+<?php slot('after-content') ?>
+  <section class="actions">
+    <ul>
+      <li>
+        <?php echo link_to(__('Return to jobs management page'), array('module' => 'jobs', 'action' => 'browse'), array('class' => 'c-btn')) ?>
+      </li>
+    </ul>
+  </section>
+<?php end_slot() ?>
