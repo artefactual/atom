@@ -113,6 +113,6 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
       'identifier' => 5,
     );
 
-    arElasticSearchPluginUtil::addBoostValuesToFields($fields, $i18nBoostFields, $nonI18nBoostFields);
+    arElasticSearchModelBase::addBoostValuesToFields($fields, $i18nBoostFields, $nonI18nBoostFields);
   }
 }
