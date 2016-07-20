@@ -31,10 +31,5 @@ class sfAPCuCache extends sfAPCCache
   public function initialize($options = array())
   {
     parent::initialize($options);
-
-    if (!$this->usingAPCu)
-    {
-      throw new sfInitializationException('You must have APCu installed and enabled to use sfAPCuCache class.');
-    }
   }
 }
