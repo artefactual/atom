@@ -136,7 +136,7 @@ abstract class arElasticSearchModelBase
    *
    * @param array $nonI18nFields  Same as above, except for non-i18n string fields.
    */
-  public static function addBoostValuesToFields(&$fields, $i18nFields, $nonI18nFields)
+  protected static function addBoostValuesToFields(&$fields, $i18nFields, $nonI18nFields)
   {
     // Expand all the i18n fields into their various cultures, add boost values
     $i18nBoostFields = arElasticSearchPluginUtil::getI18nFieldNames(
