@@ -307,28 +307,28 @@ class arElasticSearchPluginQuery
       case 'identifier':
         $queryField = new \Elastica\Query\QueryString($query);
         $queryField->setDefaultField('identifier');
-        $queryField->setDefaultOperator('OR');
+        $queryField->setDefaultOperator('AND');
 
         break;
 
       case 'referenceCode':
         $queryField = new \Elastica\Query\QueryString($query);
         $queryField->setDefaultField('referenceCode');
-        $queryField->setDefaultOperator('OR');
+        $queryField->setDefaultOperator('AND');
 
         break;
 
       case 'title':
         $queryField = new \Elastica\Query\QueryString($query);
         $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.title'));
-        $queryField->setDefaultOperator('OR');
+        $queryField->setDefaultOperator('AND');
 
         break;
 
       case 'scopeAndContent':
         $queryField = new \Elastica\Query\QueryString($query);
         $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.scopeAndContent'));
-        $queryField->setDefaultOperator('OR');
+        $queryField->setDefaultOperator('AND');
 
         break;
 
@@ -342,7 +342,7 @@ class arElasticSearchPluginQuery
         {
           $queryField = new \Elastica\Query\QueryString($query);
           $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.archivalHistory'));
-          $queryField->setDefaultOperator('OR');
+          $queryField->setDefaultOperator('AND');
         }
 
         break;
@@ -350,28 +350,28 @@ class arElasticSearchPluginQuery
       case 'extentAndMedium':
         $queryField = new \Elastica\Query\QueryString($query);
         $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.extentAndMedium'));
-        $queryField->setDefaultOperator('OR');
+        $queryField->setDefaultOperator('AND');
 
         break;
 
       case 'genre':
         $queryField = new \Elastica\Query\QueryString($query);
         $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('genres.i18n.%s.name'));
-        $queryField->setDefaultOperator('OR');
+        $queryField->setDefaultOperator('AND');
 
         break;
 
       case 'subject':
         $queryField = new \Elastica\Query\QueryString($query);
         $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('subjects.i18n.%s.name'));
-        $queryField->setDefaultOperator('OR');
+        $queryField->setDefaultOperator('AND');
 
         break;
 
       case 'name':
         $queryField = new \Elastica\Query\QueryString($query);
         $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('names.i18n.%s.authorizedFormOfName'));
-        $queryField->setDefaultOperator('OR');
+        $queryField->setDefaultOperator('AND');
 
         break;
 
@@ -380,12 +380,12 @@ class arElasticSearchPluginQuery
 
         $queryPlaceTermName = new \Elastica\Query\QueryString($query);
         $queryPlaceTermName->setFields(arElasticSearchPluginUtil::getI18nFieldNames('places.i18n.%s.name'));
-        $queryPlaceTermName->setDefaultOperator('OR');
+        $queryPlaceTermName->setDefaultOperator('AND');
         $queryField->addShould($queryPlaceTermName);
 
         $queryPlaceTermUseFor = new \Elastica\Query\QueryString($query);
         $queryPlaceTermUseFor->setFields(arElasticSearchPluginUtil::getI18nFieldNames('places.useFor.i18n.%s.name'));
-        $queryPlaceTermUseFor->setDefaultOperator('OR');
+        $queryPlaceTermUseFor->setDefaultOperator('AND');
         $queryField->addShould($queryPlaceTermUseFor);
 
         break;
@@ -393,30 +393,30 @@ class arElasticSearchPluginQuery
       case 'findingAidTranscript':
         $queryField = new \Elastica\Query\QueryString($query);
         $queryField->setDefaultField('findingAid.transcript');
-        $queryField->setDefaultOperator('OR');
+        $queryField->setDefaultOperator('AND');
 
         break;
 
       case 'digitalObjectTranscript':
         $queryField = new \Elastica\Query\QueryString($query);
         $queryField->setDefaultField('transcript');
-        $queryField->setDefaultOperator('OR');
+        $queryField->setDefaultOperator('AND');
 
         break;
 
       case 'allExceptFindingAidTranscript':
         $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setDefaultOperator('OR');
+        $queryField->setDefaultOperator('AND');
         $except = array('findingAid.transcript');
-        arElasticSearchPluginUtil::setAllFields($queryField, 'informationObject', $except);
+        arElasticSearchPluginUtil::setFields($queryField, 'informationObject', $except);
 
         break;
 
       case '_all':
       default:
         $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setDefaultOperator('OR');
-        arElasticSearchPluginUtil::setAllFields($queryField, 'informationObject');
+        $queryField->setDefaultOperator('AND');
+        arElasticSearchPluginUtil::setFields($queryField, 'informationObject');
 
         break;
     }
