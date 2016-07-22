@@ -114,6 +114,8 @@ class SearchDescriptionUpdatesAction extends sfAction
       $this->addField($name);
     }
 
+    $this->response->addJavaScript('clipboardToggleAll');
+
     $defaults = array(
       'className' => 'QubitInformationObject',
       'dateStart' => date('Y-m-d', strtotime('-1 month')),
