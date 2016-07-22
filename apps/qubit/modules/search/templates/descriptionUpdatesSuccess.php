@@ -41,7 +41,7 @@
 
 <?php slot('content') ?>
 
-  <table class="table table-bordered sticky-enabled">
+  <table class="table table-bordered sticky-enabled" id="clipboardButtonNode">
     <thead>
       <tr>
         <th><?php echo __($nameColumnDisplay); ?></th>
@@ -54,6 +54,13 @@
           <th style="width: 110px"><?php echo __('Updated'); ?></th>
         <?php else: ?>
           <th style="width: 110px"><?php echo __('Created'); ?></th>
+        <?php endif; ?>
+        <?php if ('QubitInformationObject' == $className || 'QubitActor' == $className || 'QubitRepository' == $className): ?>
+          <th style="width: 110px">
+            <a href="#" class="all">All</a>
+            <div class="separator" style="display: inline;">/</div>
+            <a href="#" class="none">None</a>
+          </th>
         <?php endif; ?>
       </tr>
     </thead><tbody>
@@ -108,6 +115,12 @@
               <?php echo $result->updatedAt ?>
             <?php else: ?>
               <?php echo $result->createdAt ?>
+            <?php endif; ?>
+          </td>
+
+          <td>
+            <?php if ('QubitInformationObject' == $className || 'QubitActor' == $className || 'QubitRepository' == $className): ?>
+              <?php echo get_component('informationobject', 'clipboardButton', array('slug' => $result->slug, 'wide' => true)) ?>
             <?php endif; ?>
           </td>
 
