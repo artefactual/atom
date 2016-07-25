@@ -21,7 +21,8 @@
 </div>
 
 <?php slot('after-content') ?>
-  <form method="post">
+  <form method="get">
+    <input type="hidden" name="token" value="<?php echo $accessToken ?>"/>
     <section class="actions">
       <ul>
         <?php if (isset($preview)): ?>
