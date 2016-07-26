@@ -644,7 +644,6 @@ class QubitFlatfileImport
     if (isset($this->className))
     {
       $tableName = sfInflector::underscore(substr($this->className, 5));
-      $legacyId = $this->columnExists('legacyId') ? trim($this->columnValue('legacyId')) : null;
 
       if ($this->className == 'QubitRepository' && $this->status['options']['merge-existing'] == 1)
       {
@@ -652,89 +651,7 @@ class QubitFlatfileImport
       }
       else if ('QubitInformationObject' == $this->className)
       {
-        // Try matching to a record in the keymap table
-        if ($legacyId)
-        {
-          $mapEntry = $this->fetchKeymapEntryBySourceAndTargetName($legacyId, $this->status['sourceName'], $tableName);
-          $this->object = QubitInformationObject::getById($mapEntry->target_id);
-
-          // Remove keymap entry if it doesn't point to a valid QubitInformationObject.
-          if (null === $this->object)
-          {
-            $query = '
-              DELETE FROM keymap WHERE source_id = ? AND target_id = ?
-              AND source_name = ? AND target_name = ?
-            ';
-
-            $statement = self::sqlQuery(
-              $query, array(
-                $legacyId,
-                $mapEntry->target_id,
-                $this->status['sourceName'],
-                $tableName
-              )
-            );
-          }
-        }
-
-        if (null === $this->object)
-        {
-          // Unable to match to keymap entry.
-          // Try matching via secondary method - match record in DB by
-          // identifier + title + repository.
-          if ($this->columnExists('identifier')
-            && $this->columnExists('title')
-            && $this->columnExists('repository'))
-          {
-            $objectId = QubitInformationObject::getByTitleIdentifierAndRepo($this->columnValue('identifier'),
-                        $this->columnValue('title'), $this->columnValue('repository'));
-            $this->object = QubitInformationObject::getById($objectId);
-          }
-        }
-
-        // if still unable to match, create new object.
-        if (null === $this->object)
-        {
-          // If --match option specified, we must be able to match the
-          // row to a info object in the DB. If we are here, no match
-          // has been found. Skip this row and log a message.
-          if ($this->matchExisting)
-          {
-            $skipRowProcessing = true;
-
-            $msg = sprintf('Unable to match row. Skipping record: %s (id: %s)',
-                           $this->columnExists('title') ? trim($this->columnValue('title')) : '',
-                           $this->columnExists('identifier') ? trim($this->columnValue('identifier')) : '');
-
-            print $this->logError($msg);
-          }
-          else
-          {
-            $this->object = new $this->className;
-          }
-        }
-        else if ($this->object->sourceCulture == $this->columnValue('culture'))
-        {
-          $actionDescription = ($this->updateExisting) ? 'updating' : 'skipping';
-
-          if ($this->updateExisting)
-          {
-            $this->status['updated']++;
-
-            // execute ad-hoc row pre-update logic (remove related data, etc.)
-            $this->executeClosurePropertyIfSet('updatePreparationLogic');
-          }
-          else
-          {
-            $this->status['duplicates']++;
-            $skipRowProcessing = true;
-          }
-
-          $msg = sprintf('Duplicate legacyId in database found, %s row (id: %s, culture: %s, legacyId: %s)...',
-                         $actionDescription, $this->object->id, $this->object->sourceCulture, $legacyId);
-
-          print $this->logError($msg);
-        }
+        $skipRowProcessing = $this->getMatchingInformationObject();
       }
       else
       {
@@ -788,6 +705,110 @@ class QubitFlatfileImport
 
     // reset row-specific status variables
     $this->rowStatusVars = array();
+  }
+
+  private function getMatchingInformationObject()
+  {
+    $this->getInformationObjectByKeymap();
+
+    if (null === $this->object)
+    {
+      // Unable to match to keymap entry.
+      // Try matching via secondary method - match record in DB by
+      // identifier + title + repository.
+      if ($this->columnExists('identifier')
+        && $this->columnExists('title')
+        && $this->columnExists('repository'))
+      {
+        $objectId = QubitInformationObject::getByTitleIdentifierAndRepo($this->columnValue('identifier'),
+                    $this->columnValue('title'), $this->columnValue('repository'));
+        $this->object = QubitInformationObject::getById($objectId);
+      }
+    }
+
+    // if still unable to match, create new object.
+    if (null === $this->object)
+    {
+      // If --match option specified, we must be able to match the
+      // row to a info object in the DB. If we are here, no match
+      // has been found. Skip this row and log a message.
+      if ($this->matchExisting)
+      {
+        $skipRowProcessing = true;
+
+        $msg = sprintf('Unable to match row. Skipping record: %s (id: %s)',
+                        $this->columnExists('title') ? trim($this->columnValue('title')) : '',
+                        $this->columnExists('identifier') ? trim($this->columnValue('identifier')) : '');
+
+        print $this->logError($msg);
+      }
+      else
+      {
+        $this->object = new $this->className;
+      }
+    }
+    else if ($this->object->sourceCulture == $this->columnValue('culture'))
+    {
+      $actionDescription = ($this->updateExisting) ? 'updating' : 'skipping';
+
+      if ($this->updateExisting)
+      {
+        $this->status['updated']++;
+
+        // execute ad-hoc row pre-update logic (remove related data, etc.)
+        $this->executeClosurePropertyIfSet('updatePreparationLogic');
+      }
+      else
+      {
+        $this->status['duplicates']++;
+        $skipRowProcessing = true;
+      }
+
+      $msg = sprintf('Duplicate legacyId in database found, %s row (id: %s, culture: %s, legacyId: %s)...',
+                      $actionDescription, $this->object->id, $this->object->sourceCulture, $legacyId);
+
+      print $this->logError($msg);
+    }
+
+    return $skipRowProcessing;
+  }
+
+  private function getInformationObjectByKeymap()
+  {
+    $legacyId = $this->columnExists('legacyId') ? trim($this->columnValue('legacyId')) : null;
+    $tableName = 'information_object';
+
+    if (!$legacyId)
+    {
+      return;
+    }
+
+    $mapEntry = $this->fetchKeymapEntryBySourceAndTargetName($legacyId, $this->status['sourceName'], $tableName);
+
+    if (!$mapEntry)
+    {
+      return;
+    }
+
+    $this->object = QubitInformationObject::getById($mapEntry->target_id);
+
+    // Remove keymap entry if it doesn't point to a valid QubitInformationObject.
+    if (null === $this->object)
+    {
+      $query = '
+        DELETE FROM keymap WHERE source_id = ? AND target_id = ?
+        AND source_name = ? AND target_name = ?
+      ';
+
+      $statement = self::sqlQuery(
+        $query, array(
+          $legacyId,
+          $mapEntry->target_id,
+          $this->status['sourceName'],
+          $tableName
+        )
+      );
+    }
   }
 
   /**

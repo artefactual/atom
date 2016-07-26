@@ -97,8 +97,8 @@ abstract class csvImportBaseTask extends arBaseTask
 
     if (!in_array(trim($options['update']), $validParams))
     {
-      $msg = sprintf('Parameter "%s" is not valid for --update option.', $options['update']);
-      $msg .= sprintf(" Valid options are: %s", implode(", ", $validParams));
+      $msg  = sprintf('Parameter "%s" is not valid for --update option. ', $options['update']);
+      $msg .= sprintf('Valid options are: %s', implode(', ', $validParams));
       throw new sfException($msg);
     }
   }
