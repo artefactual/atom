@@ -75,15 +75,33 @@ EOF;
       new sfCommandOption(
         'update',
         null,
-        sfCommandOption::PARAMETER_OPTIONAL,
-        "Attempt to update if description has already been imported. Use update=\"match\" to update matched records only."
+        sfCommandOption::PARAMETER_REQUIRED,
+        'Attempt to update if description has already been imported. Valid option values are "match-and-update" & "delete-and-replace".'
+      ),
+      new sfCommandOption(
+        'skip-matched',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        'When importing records without --update, use this option to skip creating new records when an existing one matches.'
+      ),
+      new sfCommandOption(
+        'skip-unmatched',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        "When importing records with --update, skip creating new records if no existing records match."
       ),
       new sfCommandOption(
         'skip-derivatives',
         null,
         sfCommandOption::PARAMETER_NONE,
         "Skip creation of digital object derivatives."
-      )
+      ),
+      new sfCommandOption(
+        'limit',
+        null,
+        sfCommandOption::PARAMETER_REQUIRED,
+        'Limit --update matching to under a specified top level description or repository via slug.'
+      ),
     ));
   }
 
@@ -447,7 +465,7 @@ EOF;
           {
             $deleteDigitalObject = true;
 
-            if ($self->updateExisting)
+            if ($self->isUpdating())
             {
               // if   - there is a checksum in the import file
               //      - the checksum is non-blank
@@ -623,13 +641,24 @@ EOF;
           throw new sfException('Information object save failed');
         }
 
-        // Add keymap entry
-        $keymap = new QubitKeymap;
-        $keymap->sourceId   = $self->rowStatusVars['legacyId'];
-        $keymap->sourceName = $self->getStatus('sourceName');
-        $keymap->targetId   = $self->object->id;
-        $keymap->targetName = 'information_object';
-        $keymap->save();
+        $targetClass = 'information_object';
+
+        $keymap = $self->fetchKeymapEntryBySourceAndTargetName(
+          $self->rowStatusVars['legacyId'],
+          $self->getStatus('sourceName'),
+          $targetClass
+        );
+
+        if (!$keymap)
+        {
+          // Add keymap entry
+          $keymap = new QubitKeymap;
+          $keymap->sourceId   = $self->rowStatusVars['legacyId'];
+          $keymap->sourceName = $self->getStatus('sourceName');
+          $keymap->targetId   = $self->object->id;
+          $keymap->targetName = $targetClass;
+          $keymap->save();
+        }
 
         // Inherit repository instead of duplicating the association to it if applicable
         if ($self->object->canInheritRepository($self->object->repositoryId))
@@ -1070,9 +1099,10 @@ EOF;
 
     // Allow search indexing to be enabled via a CLI option
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
-
-    // Allow updating to be enabled via a CLI option
-    $import->updateExisting = isset($options['update']);
+    if ($options['limit'])
+    {
+      $import->limitToId = getIdCorrespondingToSlug($options['limit']);
+    }
 
     // Are there params set on --update flag?
     if ($options['update'])
@@ -1080,20 +1110,25 @@ EOF;
       // Parameters for --update are validated in csvImportBaseTask.class.php.
       switch ($options['update'])
       {
-        case 'match':
+        case 'delete-and-replace':
+          // Delete any matching records, and re-import them (attach to existing entities if possible).
+          $import->deleteAndReplace = true;
+          break;
+
+        case 'match-and-update':
           // Save match option. If update is ON, and match is set, only updating
           // existing records - do not create new objects.
-          $import->matchExisting = true;
-        break;
+          $import->matchAndUpdate = true;
+          break;
 
         default:
-          // Validation of params to --update in csvImportBaseTask.class.php.
-          throw new sfException('Update parameter "'
-            . $options['update']
-            .'" not handled: Correct --update parameter.');
-        break;
+          // This should never happen due to parent::validateOptions()
+          throw new sfException('Update parameter "'.$options['update'].'" not handled: Correct --update parameter.');
       }
     }
+
+    $import->skipMatched = $options['skip-matched'];
+    $import->skipUnmatched = $options['skip-unmatched'];
 
     // Convert content with | characters to a bulleted list
     $import->contentFilterLogic = function($text)

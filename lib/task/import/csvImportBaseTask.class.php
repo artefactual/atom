@@ -78,19 +78,33 @@ abstract class csvImportBaseTask extends arBaseTask
         . "source name).\n";
     }
 
-    // validate params that can be used in conjunction with --update='opt'
-    if ($options['update'])
+    if ($options['limit'] && !$options['update'])
     {
-      // array of valid params
-      $validParams = array('match');
+      throw new sfException('The --limit option requires the --update option to be present.');
+    }
 
-      // if supplied param is not in $validParams, throw exception
-      if (!in_array(trim($options['update']), $validParams))
-      {
-        $msg = sprintf('Parameter "%s" is not valid for --update option.', $options['update']);
-        $msg .= sprintf(" Valid options are: %s", implode(", ", $validParams));
-        throw new sfException($msg);
-      }
+    $this->validateUpdateOptions($options);
+  }
+
+  /**
+   * Validate --update option values, throw an exception if invalid value specified.
+   *
+   * @param array $options  CLI options passed in during import.
+   */
+  protected function validateUpdateOptions($options)
+  {
+    if (!$options['update'])
+    {
+      return;
+    }
+
+    $validParams = array('match-and-update', 'delete-and-replace');
+
+    if (!in_array(trim($options['update']), $validParams))
+    {
+      $msg  = sprintf('Parameter "%s" is not valid for --update option. ', $options['update']);
+      $msg .= sprintf('Valid options are: %s', implode(', ', $validParams));
+      throw new sfException($msg);
     }
   }
 
