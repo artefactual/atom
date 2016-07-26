@@ -34,16 +34,20 @@
     },
     toggle: function (reloadTooltip, event)
     {
-      event.preventDefault();
+      if (typeof event.preventDefault === 'function')
+      {
+        event.preventDefault();
+      }
 
       var $button = $(event.target);
-      
+
       if (reloadTooltip)
       {
         $button.tooltip('hide');
       }
 
-      $.ajax({
+      // Return deferred object
+      return $.ajax({
         url: $button.data('clipboard-url'),
         data: { slug: $button.data('clipboard-slug') },
         context: this,
