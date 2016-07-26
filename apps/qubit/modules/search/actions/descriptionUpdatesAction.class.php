@@ -114,7 +114,7 @@ class SearchDescriptionUpdatesAction extends sfAction
       $this->addField($name);
     }
 
-    $this->response->addJavaScript('clipboardToggleAll');
+    $this->response->addJavaScript('clipboardToggleAll', 'last');
 
     $defaults = array(
       'className' => 'QubitInformationObject',
