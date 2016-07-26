@@ -85,9 +85,12 @@ class QubitCsvTransform extends QubitFlatfileImport
       throw new sfException('You must specifiy the output-file option.');
     }
 
-    if (getEnv('MYSQL_PASSWORD') === false)
+    foreach(array('MYSQL_HOST', 'MYSQL_USER', 'MYSQL_PASSWORD', 'MYSQL_DB') as $var)
     {
-      throw new sfException('You must set the MYSQL_PASSWORD environmental variable. This script will use the "root" user and a database called "import".');
+      if (getEnv($var) === false)
+      {
+        throw new sfException('You must set the '. $var .' environmental variable.');
+      }
     }
   }
 
@@ -108,14 +111,10 @@ class QubitCsvTransform extends QubitFlatfileImport
 
   function initializeMySQLtemp()
   {
-    if (false === $password = getEnv('MYSQL_PASSWORD'))
+    // Possible future cleanup: use QubitPdo (might have to add a method to set QubitPdo's private $conn property)
+    if (false === $link = mysqli_connect(getEnv('MYSQL_HOST'), getEnv('MYSQL_USER'), getEnv('MYSQL_PASSWORD'), getEnv('MYSQL_DB')))
     {
-      throw new sfException('You must set the MYSQL_PASSWORD environmental variable. This script will use the "root" user and a database called "import".');
-    }
-
-    if (false === $link = mysqli_connect('localhost', 'root', $password, 'import'))
-    {
-      throw new sfException('MySQL connection failed. Make sure the MYSQL_PASSWORD environmental variable is set.');
+      throw new sfException('MySQL connection failed.');
     }
 
     $this->link = $link;
