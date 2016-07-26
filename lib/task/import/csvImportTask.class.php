@@ -75,7 +75,7 @@ EOF;
       new sfCommandOption(
         'update',
         null,
-        sfCommandOption::PARAMETER_OPTIONAL,
+        sfCommandOption::PARAMETER_REQUIRED,
         "Attempt to update if description has already been imported. Use update=\"match\" to update matched records only."
       ),
       new sfCommandOption(
@@ -1080,7 +1080,7 @@ EOF;
       // Parameters for --update are validated in csvImportBaseTask.class.php.
       switch ($options['update'])
       {
-        case 'match':
+        case 'match-and-update':
           // Save match option. If update is ON, and match is set, only updating
           // existing records - do not create new objects.
           $import->matchExisting = true;
