@@ -606,6 +606,66 @@ class QubitFlatfileImport
   }
 
   /**
+   * Set default culture to en if not present; ensure current culture is set to the current row's culture.
+   */
+  private function handleCulture()
+  {
+    // Add blank culture field if not present in import
+    if (!in_array('culture', $this->columnNames))
+    {
+      $this->columnNames[] = 'culture';
+      $this->addColumns[]  = 'culture';
+    }
+
+    // Default culture to English
+    if (0 == strlen($this->columnValue('culture')))
+    {
+      $this->columnValue('culture', 'en');
+    }
+
+    // Set current culture to culture specified in CSV row.
+    if (isset($this->context) && 'sfContext' == get_class($this->context))
+    {
+      $this->context->getUser()->setCulture($this->columnValue('culture'));
+    }
+  }
+
+  /**
+   * Make row data match columns (in case virtual columns have been added)
+   */
+  private function handleVirtualCols()
+  {
+    foreach (array_keys($this->columnNames) as $key)
+    {
+      if (!isset($this->status['row'][$key]))
+      {
+        $this->status['row'][$key] = '';
+      }
+    }
+  }
+
+  private function fetchOrCreateObjectByClass()
+  {
+    switch ($this->className)
+    {
+      case 'QubitRepository':
+        if ($this->status['options']['merge-existing'] == 1)
+        {
+          $this->object = $this->createOrFetchRepository($this->columnValue('authorizedFormOfName'));
+          return false;
+        }
+
+        break;
+
+      case 'QubitInformationObject':
+        return $this->handleInformationObjectRow();
+    }
+
+    $this->object = new $this->className;
+    return false;
+  }
+
+  /**
    * Process a row of imported data
    *
    * @param array $row  array of column data
@@ -614,77 +674,31 @@ class QubitFlatfileImport
    */
   public function row($row = array())
   {
-    // stash raw row data so it's accessible to closure logic
-    $this->status['row'] = $row;
+    $this->status['row'] = $row; // Stash raw row data so it's accessible to closure logic
+    $skipRowProcessing = false;
 
-    // make row data match columns (in case virtual columns have been added)
-    foreach (array_keys($this->columnNames) as $key)
-    {
-      if (!isset($this->status['row'][$key]))
-      {
-        $this->status['row'][$key] = '';
-      }
-    }
-
-    // add blank culture field if not present in import
-    if (!in_array('culture', $this->columnNames))
-    {
-      $this->columnNames[] = 'culture';
-      $this->addColumns[]  = 'culture';
-    }
-
-    // default culture to English
-    if (0 == strlen($this->columnValue('culture')))
-    {
-      $this->columnValue('culture', 'en');
-    }
-
-    // set row status variables that are based on column values
-    $this->rowProcessingBeforeObjectCreation($row);
+    $this->handleVirtualCols();
+    $this->handleCulture();
+    $this->rowProcessingBeforeObjectCreation($row); // Set row status variables that are based on column values
 
     if (isset($this->className))
     {
-      $tableName = sfInflector::underscore(substr($this->className, 5));
+      $skipRowProcessing = $this->fetchOrCreateObjectByClass();
 
-      if ($this->className == 'QubitRepository' && $this->status['options']['merge-existing'] == 1)
-      {
-        $this->object = $this->createOrFetchRepository($this->columnValue('authorizedFormOfName'));
-      }
-      else if ('QubitInformationObject' == $this->className)
-      {
-        $skipRowProcessing = $this->getMatchingInformationObject();
-      }
-      else
-      {
-        $this->object = new $this->className;
-      }
-
-      // Set current culture
-      if (isset($this->context) && 'sfContext' == get_class($this->context))
-      {
-        $this->context->getUser()->setCulture($this->columnValue('culture'));
-      }
-
-      // determine whether nested set should be updated, if applicable to object type
       if (property_exists(get_class($this->object), 'disableNestedSetUpdating'))
       {
-        // enable nested set updating if search indexing is enabled
-        $this->object->disableNestedSetUpdating = ($this->searchIndexingDisabled) ? true : false;
+        $this->object->disableNestedSetUpdating = $this->searchIndexingDisabled;
       }
     }
     else
     {
-      // execute ad-hoc row initialization logic (which can make objects, load
-      // them, etc.)
+      // Execute ad-hoc row initialization logic (which can make objects, load them, etc.)
       $this->executeClosurePropertyIfSet('rowInitLogic');
     }
 
     if (!$skipRowProcessing)
     {
-      // set fields in information object and execute custom column handlers
-      $this->rowProcessingBeforeSave($row);
-
-      // execute pre-save ad-hoc import logic
+      $this->rowProcessingBeforeSave($row); // Set fields in object and execute custom column handlers
       $this->executeClosurePropertyIfSet('preSaveLogic');
 
       if (isset($this->className))
@@ -697,10 +711,7 @@ class QubitFlatfileImport
         $this->executeClosurePropertyIfSet('saveLogic');
       }
 
-      // execute post-save ad-hoc import logic
-      $this->executeClosurePropertyIfSet('postSaveLogic');
-
-      // process import columns that produce child data (properties and notes)
+      $this->executeClosurePropertyIfSet('postSaveLogic');  // Import cols that have child data (properties and notes)
       $this->rowProcessingAfterSave($row);
     }
 
@@ -718,7 +729,7 @@ class QubitFlatfileImport
    *
    * @return bool  Whether to skip row processing for this description.
    */
-  private function getMatchingInformationObject()
+  private function handleInformationObjectRow()
   {
     // Default behavior: if --update isn't set, just create a new information object, don't do
     // any matching against existing information objects.
@@ -729,42 +740,23 @@ class QubitFlatfileImport
     }
 
     $legacyId = $this->columnExists('legacyId') ? trim($this->columnValue('legacyId')) : null;
-    $this->getInformationObjectByKeymap($legacyId);
+
+    // Try to match on legacyId in keymap
+    $this->setInformationObjectByKeymap($legacyId);
 
     if (null === $this->object)
     {
-      // Unable to match to keymap entry.
-      // Try matching via secondary method - match record in DB by
-      // identifier + title + repository.
-      if ($this->columnExists('identifier')
-        && $this->columnExists('title')
-        && $this->columnExists('repository'))
-      {
-        $objectId = QubitInformationObject::getByTitleIdentifierAndRepo($this->columnValue('identifier'),
-                    $this->columnValue('title'), $this->columnValue('repository'));
-        $this->object = QubitInformationObject::getById($objectId);
-      }
+      // No match found in keymap, try to match on title, repository and identifier.
+      $this->setInformationObjectByFields();
     }
 
-    // if still unable to match, create new object.
     if (null === $this->object)
     {
-      if ($this->skipUnmatched)
-      {
-        $skipRowProcessing = true;
-
-        $msg = sprintf('Unable to match row. Skipping record: %s (id: %s)',
-                        $this->columnExists('title') ? trim($this->columnValue('title')) : '',
-                        $this->columnExists('identifier') ? trim($this->columnValue('identifier')) : '');
-
-        print $this->logError($msg);
-      }
-      else
-      {
-        $this->object = new $this->className;
-      }
+      // Still no match found, create information object if --skip-unmatched is not set in options.
+      return $this->createNewInformationObject();
     }
-    else if ($this->object->sourceCulture == $this->columnValue('culture'))
+
+    if ($this->object->sourceCulture == $this->columnValue('culture'))
     {
       $actionDescription = ($this->isUpdating()) ? 'updating' : 'skipping';
 
@@ -781,7 +773,7 @@ class QubitFlatfileImport
         $skipRowProcessing = true;
       }
 
-      $msg = sprintf('Duplicate legacyId in database found, %s row (id: %s, culture: %s, legacyId: %s)...',
+      $msg = sprintf('Matching legacyId in database found, %s row (id: %s, culture: %s, legacyId: %s)...',
                       $actionDescription, $this->object->id, $this->object->sourceCulture, $legacyId);
 
       print $this->logError($msg);
@@ -790,16 +782,56 @@ class QubitFlatfileImport
     return $skipRowProcessing;
   }
 
-  private function getInformationObjectByKeymap($legacyId)
+  /**
+   * Creates a new information object if --skip-unmatched isn't set in options.
+   */
+  private function createNewInformationObject()
   {
-    $tableName = 'information_object';
+    if ($this->skipUnmatched)
+    {
+      $skipRowProcessing = true;
 
+      $msg = sprintf('Unable to match row. Skipping record: %s (id: %s)',
+                      $this->columnExists('title') ? trim($this->columnValue('title')) : '',
+                      $this->columnExists('identifier') ? trim($this->columnValue('identifier')) : '');
+
+      print $this->logError($msg);
+      return true;
+    }
+
+    $this->object = new $this->className;
+    return false;
+  }
+
+  /**
+   * Find a matching information object based on title, repository and identifier.
+   */
+  private function setInformationObjectByFields()
+  {
+    if ($this->columnExists('identifier') && $this->columnExists('title') && $this->columnExists('repository'))
+    {
+      $objectId = QubitInformationObject::getByTitleIdentifierAndRepo(
+        $this->columnValue('identifier'),
+        $this->columnValue('title'),
+        $this->columnValue('repository')
+      );
+
+      $this->object = QubitInformationObject::getById($objectId);
+    }
+  }
+
+  private function setInformationObjectByKeymap($legacyId)
+  {
     if (!$legacyId)
     {
       return;
     }
 
-    $mapEntry = $this->fetchKeymapEntryBySourceAndTargetName($legacyId, $this->status['sourceName'], $tableName);
+    $mapEntry = $this->fetchKeymapEntryBySourceAndTargetName(
+      $legacyId,
+      $this->status['sourceName'],
+      'information_object'
+    );
 
     if (!$mapEntry)
     {
@@ -811,19 +843,7 @@ class QubitFlatfileImport
     // Remove keymap entry if it doesn't point to a valid QubitInformationObject.
     if (null === $this->object)
     {
-      $query = '
-        DELETE FROM keymap WHERE source_id = ? AND target_id = ?
-        AND source_name = ? AND target_name = ?
-      ';
-
-      $statement = self::sqlQuery(
-        $query, array(
-          $legacyId,
-          $mapEntry->target_id,
-          $this->status['sourceName'],
-          $tableName
-        )
-      );
+      self::sqlQuery('DELETE FROM keymap WHERE id=?', array($mapEntry->id));
     }
   }
 
@@ -1745,7 +1765,7 @@ class QubitFlatfileImport
    */
   public function fetchKeymapEntryBySourceAndTargetName($sourceId, $sourceName, $targetName)
   {
-    $query = "SELECT target_id FROM keymap \r
+    $query = "SELECT target_id, id FROM keymap
       WHERE source_id=? AND source_name=? AND target_name=?";
 
     $statement = QubitFlatfileImport::sqlQuery(

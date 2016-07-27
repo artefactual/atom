@@ -76,7 +76,19 @@ EOF;
         'update',
         null,
         sfCommandOption::PARAMETER_REQUIRED,
-        "Attempt to update if description has already been imported. Use update=\"match\" to update matched records only."
+        'Attempt to update if description has already been imported. Use update="match" to update matched records only.'
+      ),
+      new sfCommandOption(
+        'skip-matched',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        'When importing records without --update, use this option to skip creating new records when an existing one matches.'
+      ),
+      new sfCommandOption(
+        'skip-unmatched',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        "When importing records with --update, skip creating new records if no existing records match."
       ),
       new sfCommandOption(
         'skip-derivatives',
@@ -1077,20 +1089,25 @@ EOF;
       // Parameters for --update are validated in csvImportBaseTask.class.php.
       switch ($options['update'])
       {
+        case 'delete-and-replace':
+          // Delete any matching records, and re-import them (attach to existing entities if possible).
+          $import->deleteAndReplace = true;
+          break;
+
         case 'match-and-update':
           // Save match option. If update is ON, and match is set, only updating
           // existing records - do not create new objects.
           $import->matchAndUpdate = true;
-        break;
+          break;
 
         default:
-          // Validation of params to --update in csvImportBaseTask.class.php.
-          throw new sfException('Update parameter "'
-            . $options['update']
-            .'" not handled: Correct --update parameter.');
-        break;
+          // This should never happen due to parent::validateOptions()
+          throw new sfException('Update parameter "'.$options['update'].'" not handled: Correct --update parameter.');
       }
     }
+
+    $import->skipMatched = $options['skip-matched'];
+    $import->skipUnmatched = $options['skip-unmatched'];
 
     // Convert content with | characters to a bulleted list
     $import->contentFilterLogic = function($text)
