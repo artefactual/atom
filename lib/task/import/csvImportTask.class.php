@@ -447,7 +447,7 @@ EOF;
           {
             $deleteDigitalObject = true;
 
-            if ($self->updateExisting)
+            if ($self->isUpdating())
             {
               // if   - there is a checksum in the import file
               //      - the checksum is non-blank
@@ -1071,9 +1071,6 @@ EOF;
     // Allow search indexing to be enabled via a CLI option
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
 
-    // Allow updating to be enabled via a CLI option
-    $import->updateExisting = isset($options['update']);
-
     // Are there params set on --update flag?
     if ($options['update'])
     {
@@ -1083,7 +1080,7 @@ EOF;
         case 'match-and-update':
           // Save match option. If update is ON, and match is set, only updating
           // existing records - do not create new objects.
-          $import->matchExisting = true;
+          $import->matchAndUpdate = true;
         break;
 
         default:

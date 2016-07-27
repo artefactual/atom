@@ -33,9 +33,10 @@ class QubitFlatfileImport
   public $rowsUntilProgressDisplay;  // optional display progress every n rows
 
   public $searchIndexingDisabled = true;  // disable per-object search indexing by default
-  public $updateExisting         = false; // if object already imported, attempt update
-  public $matchExisting          = false; // when updating, only load rows that we can match
-
+  public $matchAndUpdate         = false; // Match existing records & update them
+  public $deleteAndReplace       = false; // Delete matching records & replace them
+  public $skipMatched            = false; // Skip creating new record if matching one is found
+  public $skipUnmatched          = false; // Skip creating new record if matching one is not found
   public $status          = array(); // place to store data related to overall import
   public $rowStatusVars   = array(); // place to store data related to current row
 
@@ -707,9 +708,28 @@ class QubitFlatfileImport
     $this->rowStatusVars = array();
   }
 
+  private function isUpdating()
+  {
+    return $this->matchAndUpdate || $this->deleteAndReplace;
+  }
+
+  /**
+   * Handle various update options when importing information objects.
+   *
+   * @return bool  Whether to skip row processing for this description.
+   */
   private function getMatchingInformationObject()
   {
-    $this->getInformationObjectByKeymap();
+    // Default behavior: if --update isn't set, just create a new information object, don't do
+    // any matching against existing information objects.
+    if (!$this->isUpdating() && !$this->skipMatched)
+    {
+      $this->object = new QubitInformationObject;
+      return false;
+    }
+
+    $legacyId = $this->columnExists('legacyId') ? trim($this->columnValue('legacyId')) : null;
+    $this->getInformationObjectByKeymap($legacyId);
 
     if (null === $this->object)
     {
@@ -729,10 +749,7 @@ class QubitFlatfileImport
     // if still unable to match, create new object.
     if (null === $this->object)
     {
-      // If --match option specified, we must be able to match the
-      // row to a info object in the DB. If we are here, no match
-      // has been found. Skip this row and log a message.
-      if ($this->matchExisting)
+      if ($this->skipUnmatched)
       {
         $skipRowProcessing = true;
 
@@ -749,9 +766,9 @@ class QubitFlatfileImport
     }
     else if ($this->object->sourceCulture == $this->columnValue('culture'))
     {
-      $actionDescription = ($this->updateExisting) ? 'updating' : 'skipping';
+      $actionDescription = ($this->isUpdating()) ? 'updating' : 'skipping';
 
-      if ($this->updateExisting)
+      if ($this->isUpdating())
       {
         $this->status['updated']++;
 
@@ -773,9 +790,8 @@ class QubitFlatfileImport
     return $skipRowProcessing;
   }
 
-  private function getInformationObjectByKeymap()
+  private function getInformationObjectByKeymap($legacyId)
   {
-    $legacyId = $this->columnExists('legacyId') ? trim($this->columnValue('legacyId')) : null;
     $tableName = 'information_object';
 
     if (!$legacyId)
