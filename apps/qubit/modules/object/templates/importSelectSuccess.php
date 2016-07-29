@@ -66,6 +66,18 @@
           </label>
         </div>
 
+        <?php if ('csv' == $type && sfConfig::get('app_csv_transform_script_name')): ?>
+          <div class="form-item">
+            <label>
+              <input name="doCsvTransform" type="checkbox"/>
+              <?php echo __('Include transformation script') ?>
+              <div class="pull-right">
+                <?php echo __(sfConfig::get('app_csv_transform_script_name')) ?>
+              </div>
+            </label>
+          </div>
+        <?php endif; ?>
+
       </fieldset>
 
     </section>

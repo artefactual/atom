@@ -28,3 +28,7 @@ all:
 
   # htmlpurifier is used in static pages, disabled by default
   htmlpurifier_enabled: false
+
+  # Specify a CSV Transform script that can be automatically applied from
+  # the CSV Import Page in AtoM
+  # csv_transform_script_name: /full/path/to/transformscript

@@ -33,9 +33,16 @@ class QubitCsvImport
     $parent = null;
 
   public $indexDuringImport = false;
+  public $doCsvTransform = false;
 
   public function import($csvFile, $type = null)
   {
+    // perform the transformation, if requested and correctly configured
+    if ($this->doCsvTransform)
+    {
+      $transformedFile = $this->doTransform($csvFile);
+    }
+
     // Find the proper task
     switch ($type)
     {
@@ -72,9 +79,9 @@ class QubitCsvImport
         escapeshellarg(sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'symfony'),
         escapeshellarg($taskClassName),
         $commandIndexFlag,
-        escapeshellarg($csvFile),
+        escapeshellarg($csvFile),  // --source-name should be original pre-transform file name. tmp file name: /tmp/phpLjBIBv ??
         escapeshellarg($this->parent->slug),
-        escapeshellarg($csvFile));
+        escapeshellarg($transformedFile ? $transformedFile : $csvFile));
     }
     else
     {
@@ -83,8 +90,8 @@ class QubitCsvImport
         escapeshellarg(sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'symfony'),
         escapeshellarg($taskClassName),
         $commandIndexFlag,
-        escapeshellarg($csvFile),
-        escapeshellarg($csvFile));
+        escapeshellarg($csvFile),   // --source-name should be original pre-transform file name. tmp file name: /tmp/phpLjBIBv ??
+        escapeshellarg($transformedFile ? $transformedFile : $csvFile));
     }
 
     // stderr to stdout
@@ -107,6 +114,63 @@ class QubitCsvImport
     }
 
     return $this;
+  }
+
+  /**
+   * Trigger a csv transform on the server using a configured transformation
+   * script.
+   *
+   * @package    AccesstoMemory
+   * @subpackage library
+   */
+  public function doTransform($csvFile)
+  {
+    // ensure csv_transform_script_name is configured.
+    if (!sfConfig::get('app_csv_transform_script_name'))
+    {
+      throw new sfException('Transform failed. Script not found. Please correct AtoM configuration (csv_transform_script_name)');
+    }
+    // ensure we can find the uploaded source csv file.
+    if (!file_exists($csvFile))
+    {
+      throw new sfException('Transform failed. Unable to locate file: ' . $csvFile);
+    }
+
+    // build output filename and path. Take source dir and name and create a
+    // parallel temp file based on that.
+    $csvFilePath = pathinfo($csvFile);
+    $outputFileName = tempnam($csvFilePath['dirname'], $csvFilePath['filename'] . '-');
+    $logFileName = $outputFileName . '.log';
+
+    // Example: ./transform_csv.py /tmp/original_file.csv /tmp/transformed_file.csv
+    $command = sprintf(sfConfig::get('app_csv_transform_script_name') . ' %s %s',
+      escapeshellarg($csvFile),
+      escapeshellarg($outputFileName)) ;
+
+    // redirect stderr to stdout to logfile
+    $command .= ' 2>&1 > ' . $logFileName;
+
+    exec($command, $output, $exitCode);
+
+    if (0 < $exitCode)
+    {
+      if (!file_exists($logFileName))
+      {
+        // can't find output file
+        throw new sfException('Transform failed: ' . $exitCode . '; Outputfile not found: ' . $logFileName);
+      }
+      // log file contains details about the errors.
+      $outputLines = file($logFileName, FILE_SKIP_EMPTY_LINES);
+
+      throw new sfException('Transform failed: ' . $exitCode . '; ' .htmlspecialchars(implode('; ' , $outputLines)));
+    }
+
+    if (!file_exists($outputFileName))
+    {
+      throw new sfException('Transform failed: Unable to find transformed file: ' . $outputFileName);
+    }
+
+    return $outputFileName;
   }
 
   /**
