@@ -121,14 +121,14 @@ class ObjectImportAction extends sfAction
             $importer->indexDuringImport = ($request->getParameter('noindex') == 'on') ? false : true;
             $importer->doCsvTransform = ($request->getParameter('doCsvTransform') == 'on') ? true : false;
             if (isset($this->getRoute()->resource)) $importer->setParent($this->getRoute()->resource);
-            $importer->import($file['tmp_name'], $request->csvObjectType);
+            $importer->import($file['tmp_name'], $request->csvObjectType, $file['name']);
 
             break;
 
           case 'xml':
             $importer = new QubitXmlImport;
             if (isset($this->getRoute()->resource)) $importer->setParent($this->getRoute()->resource);
-            $importer->import($file['tmp_name'], array('strictXmlParsing' => false));
+            $importer->import($file['tmp_name'], array('strictXmlParsing' => false), $file['name']);
 
             break;
 

@@ -37,13 +37,22 @@ class QubitXmlImport
     $sourceName = null,
     $options = array();
 
-  public function import($xmlFile, $options = array())
+  public function import($xmlFile, $options = array(), $xmlOrigFileName = null)
   {
     // load the XML document into a DOMXML object
     $importDOM = $this->loadXML($xmlFile, $options);
 
-    // save the file name for use in saving keymap record
-    $this->sourceName = basename($xmlFile);
+    if (null === $xmlOrigFileName)
+    {
+      // WebUI passes a temp file name in $xmlFile. e.g. /tmp/phpLjBIBv
+      // If $xmlOrigFileName is null, save $xmlFile in keymap record
+      $this->sourceName = basename($xmlFile);
+    }
+    else
+    {
+      // use the original file name when creating keymap record
+      $this->sourceName = basename($xmlOrigFileName);
+    }
 
     // save options so we can access from processMethods
     $this->options = $options;

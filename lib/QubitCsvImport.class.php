@@ -35,8 +35,20 @@ class QubitCsvImport
   public $indexDuringImport = false;
   public $doCsvTransform = false;
 
-  public function import($csvFile, $type = null)
+  public function import($csvFile, $type = null, $csvOrigFileName = null)
   {
+    if (null === $csvOrigFileName)
+    {
+      // WebUI passes a temp file name in $csvFile. e.g. /tmp/phpLjBIBv
+      // If $csvOrigFileName is null, save $csvFile in keymap record
+      $csvOrigFileName = basename($csvFile);
+    }
+    else
+    {
+      // use the orig file name when creating keymap record
+      $csvOrigFileName = basename($csvOrigFileName);
+    }
+
     // perform the transformation, if requested and correctly configured
     if ($this->doCsvTransform)
     {
@@ -79,7 +91,7 @@ class QubitCsvImport
         escapeshellarg(sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'symfony'),
         escapeshellarg($taskClassName),
         $commandIndexFlag,
-        escapeshellarg($csvFile),  // --source-name should be original pre-transform file name. tmp file name: /tmp/phpLjBIBv ??
+        escapeshellarg($csvOrigFileName),
         escapeshellarg($this->parent->slug),
         escapeshellarg($transformedFile ? $transformedFile : $csvFile));
     }
@@ -90,7 +102,7 @@ class QubitCsvImport
         escapeshellarg(sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'symfony'),
         escapeshellarg($taskClassName),
         $commandIndexFlag,
-        escapeshellarg($csvFile),   // --source-name should be original pre-transform file name. tmp file name: /tmp/phpLjBIBv ??
+        escapeshellarg($csvOrigFileName),
         escapeshellarg($transformedFile ? $transformedFile : $csvFile));
     }
 
