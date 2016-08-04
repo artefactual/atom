@@ -76,7 +76,7 @@ EOF;
         'update',
         null,
         sfCommandOption::PARAMETER_REQUIRED,
-        'Attempt to update if description has already been imported. Use update="match" to update matched records only.'
+        'Attempt to update if description has already been imported. Valid option values are "match-and-update" & "delete-and-replace".'
       ),
       new sfCommandOption(
         'skip-matched',
@@ -635,13 +635,24 @@ EOF;
           throw new sfException('Information object save failed');
         }
 
-        // Add keymap entry
-        $keymap = new QubitKeymap;
-        $keymap->sourceId   = $self->rowStatusVars['legacyId'];
-        $keymap->sourceName = $self->getStatus('sourceName');
-        $keymap->targetId   = $self->object->id;
-        $keymap->targetName = 'information_object';
-        $keymap->save();
+        $targetClass = 'information_object';
+
+        $keymap = $self->fetchKeymapEntryBySourceAndTargetName(
+          $self->rowStatusVars['legacyId'],
+          $self->getStatus('sourceName'),
+          $targetClass
+        );
+
+        if (!$keymap)
+        {
+          // Add keymap entry
+          $keymap = new QubitKeymap;
+          $keymap->sourceId   = $self->rowStatusVars['legacyId'];
+          $keymap->sourceName = $self->getStatus('sourceName');
+          $keymap->targetId   = $self->object->id;
+          $keymap->targetName = $targetClass;
+          $keymap->save();
+        }
 
         // Inherit repository instead of duplicating the association to it if applicable
         if ($self->object->canInheritRepository($self->object->repositoryId))

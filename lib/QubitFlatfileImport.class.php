@@ -766,6 +766,7 @@ class QubitFlatfileImport
 
         // execute ad-hoc row pre-update logic (remove related data, etc.)
         $this->executeClosurePropertyIfSet('updatePreparationLogic');
+        $skipRowProcessing = false;
       }
       else
       {
@@ -789,8 +790,6 @@ class QubitFlatfileImport
   {
     if ($this->skipUnmatched)
     {
-      $skipRowProcessing = true;
-
       $msg = sprintf('Unable to match row. Skipping record: %s (id: %s)',
                       $this->columnExists('title') ? trim($this->columnValue('title')) : '',
                       $this->columnExists('identifier') ? trim($this->columnValue('identifier')) : '');
