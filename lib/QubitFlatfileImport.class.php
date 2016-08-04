@@ -674,6 +674,7 @@ class QubitFlatfileImport
    */
   public function row($row = array())
   {
+    $this->object = null; // Ensure object set to null so our --update options don't get confused between rows
     $this->status['row'] = $row; // Stash raw row data so it's accessible to closure logic
     $skipRowProcessing = false;
 
@@ -758,7 +759,8 @@ class QubitFlatfileImport
 
     if ($this->object->sourceCulture == $this->columnValue('culture'))
     {
-      $actionDescription = ($this->isUpdating()) ? 'updating' : 'skipping';
+      $msg = sprintf('Matching description found, %s; row (id: %s, culture: %s, legacyId: %s)...',
+                      $this->getActionDescription(), $this->object->id, $this->object->sourceCulture, $legacyId);
 
       if ($this->isUpdating())
       {
@@ -767,6 +769,11 @@ class QubitFlatfileImport
         // execute ad-hoc row pre-update logic (remove related data, etc.)
         $this->executeClosurePropertyIfSet('updatePreparationLogic');
         $skipRowProcessing = false;
+
+        if ($this->deleteAndReplace)
+        {
+          $this->handleDeleteAndReplace();
+        }
       }
       else
       {
@@ -774,13 +781,41 @@ class QubitFlatfileImport
         $skipRowProcessing = true;
       }
 
-      $msg = sprintf('Matching legacyId in database found, %s row (id: %s, culture: %s, legacyId: %s)...',
-                      $actionDescription, $this->object->id, $this->object->sourceCulture, $legacyId);
-
       print $this->logError($msg);
     }
 
     return $skipRowProcessing;
+  }
+
+  /**
+   * Return a string indicating what action the import process is going to take for this row.
+   *
+   * @return string  The action description string.
+   */
+  private function getActionDescription()
+  {
+    if ($this->deleteAndReplace)
+    {
+      return 'updating using delete and replace';
+    }
+    else if ($this->matchAndUpdate)
+    {
+      return 'updating in place';
+    }
+
+    return 'skipping';
+  }
+
+  /**
+   * Take appropriate actions when we find a matching record and are in delete & replace mode.
+   */
+  private function handleDeleteAndReplace()
+  {
+    $oldSlug = $this->object->slug;
+
+    $this->object->delete();
+    $this->object = new QubitInformationObject;
+    $this->object->slug = $oldSlug; // Retain previous record's slug
   }
 
   /**
