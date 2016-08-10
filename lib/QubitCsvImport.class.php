@@ -34,9 +34,19 @@ class QubitCsvImport
 
   public $indexDuringImport = false;
   public $doCsvTransform = false;
+  public $skipUnmatched = false;
+  public $skipMatched = false;
+  public $updateType = '';
+  public $limit = '';
 
   public function import($csvFile, $type = null, $csvOrigFileName = null)
   {
+    $commandUpdate = '';
+    $commandSkipMatched = '';
+    $commandSkipUnmatched = '';
+    $commandLimit = '';
+    $exitCode= 0;
+
     if (null === $csvOrigFileName)
     {
       // WebUI passes a temp file name in $csvFile. e.g. /tmp/phpLjBIBv
@@ -45,11 +55,11 @@ class QubitCsvImport
     }
     else
     {
-      // use the orig file name when creating keymap record
+      // Use the orig file name when creating keymap record.
       $csvOrigFileName = basename($csvOrigFileName);
     }
 
-    // perform the transformation, if requested and correctly configured
+    // Perform the transformation, if requested and correctly configured.
     if ($this->doCsvTransform)
     {
       $transformedFile = $this->doTransform($csvFile);
@@ -80,17 +90,42 @@ class QubitCsvImport
         break;
     }
 
-    // Figure out whether indexing flag should be added to command
+    // Figure out whether indexing flag should be added to command.
     $commandIndexFlag = ($taskClassName != 'csv:event-import' && $this->indexDuringImport) ? '--index' : '';
 
-    // Build command string
+    if ('' !== $this->updateType)
+    {
+      switch ($this->updateType)
+      {
+        case 'import-as-new':
+          $commandSkipMatched = ($this->skipMatched) ? '--skip-matched' : '';
+          break;
+
+        case 'match-and-update':
+        case 'delete-and-replace':
+          $commandUpdate = ($this->updateType == 'match-and-update') ? '--update="match-and-update"' : '--update="delete-and-replace"';
+          $commandSkipUnmatched = ($this->skipUnmatched) ? '--skip-unmatched' : '';
+          $commandLimit = ('' !== $this->limit) ? "--limit=\"$this->limit\"" : '';
+          break;
+
+        default:
+          throw new sfException($this->i18n->__('Unknown update type specified: %1', array('%1' => $updateType)));
+          break;
+      }
+    }
+
+    // Build command string.
     if (isset($this->parent))
     {
       // Example: php symfony csv:import --default-parent-slug="$sourceName" /tmp/foobar
-      $command = sprintf('php %s %s %s --quiet --source-name=%s --default-parent-slug=%s %s',
+      $command = sprintf('php %s %s %s %s %s %s %s --quiet --source-name=%s --default-parent-slug=%s %s',
         escapeshellarg(sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'symfony'),
         escapeshellarg($taskClassName),
         $commandIndexFlag,
+        $commandLimit,
+        $commandUpdate,
+        $commandSkipUnmatched,
+        $commandSkipMatched,
         escapeshellarg($csvOrigFileName),
         escapeshellarg($this->parent->slug),
         escapeshellarg($transformedFile ? $transformedFile : $csvFile));
@@ -98,24 +133,31 @@ class QubitCsvImport
     else
     {
       // Example: php symfony csv:import /tmp/foobar
-      $command = sprintf('php %s %s %s --quiet --source-name=%s %s',
+      $command = sprintf('php %s %s %s %s %s %s %s --quiet --source-name=%s %s',
         escapeshellarg(sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'symfony'),
         escapeshellarg($taskClassName),
         $commandIndexFlag,
+        $commandLimit,
+        $commandUpdate,
+        $commandSkipUnmatched,
+        $commandSkipMatched,
         escapeshellarg($csvOrigFileName),
         escapeshellarg($transformedFile ? $transformedFile : $csvFile));
     }
 
-    // stderr to stdout
+    // Log the command string in the job output window.
+    $output[] = $command;
+
+    // Redirect stderr to stdout.
     $command .= ' 2>&1';
 
     // Run
     exec($command, $output, $exitCode);
 
-    // Throw exception if exit code is greater than zero
+    // Throw exception if exit code is greater than zero.
     if (0 < $exitCode)
     {
-      $output = implode($output, "<br />");
+      $output = implode(array_filter($output), "; ");
 
       throw new sfException($output);
     }
@@ -140,12 +182,12 @@ class QubitCsvImport
     // ensure csv_transform_script_name is configured.
     if (!sfConfig::get('app_csv_transform_script_name'))
     {
-      throw new sfException('Transform failed. Script not found. Please correct AtoM configuration (csv_transform_script_name)');
+      throw new sfException($this->i18n->__('Transform failed. Script not found. Please correct AtoM configuration (csv_transform_script_name)'));
     }
     // ensure we can find the uploaded source csv file.
     if (!file_exists($csvFile))
     {
-      throw new sfException('Transform failed. Unable to locate file: ' . $csvFile);
+      throw new sfException($this->i18n->__('Transform failed. Unable to locate file: %1', array('%1' => $csvFile)));
     }
 
     // build output filename and path. Take source dir and name and create a
@@ -159,7 +201,7 @@ class QubitCsvImport
       escapeshellarg($csvFile),
       escapeshellarg($outputFileName)) ;
 
-    // redirect stderr to stdout to logfile
+    // Redirect stderr to stdout to logfile.
     $command .= ' 2>&1 > ' . $logFileName;
 
     exec($command, $output, $exitCode);
@@ -168,18 +210,18 @@ class QubitCsvImport
     {
       if (!file_exists($logFileName))
       {
-        // can't find output file
-        throw new sfException('Transform failed: ' . $exitCode . '; Outputfile not found: ' . $logFileName);
+        // Can't find output file.
+        throw new sfException($this->i18n->__('Transform failed: %1; Outputfile not found: %2', array('%1' => $exitCode, '%2' => $logFileName)));
       }
-      // log file contains details about the errors.
+      // Log file contains details about the errors.
       $outputLines = file($logFileName, FILE_SKIP_EMPTY_LINES);
 
-      throw new sfException('Transform failed: ' . $exitCode . '; ' .htmlspecialchars(implode('; ' , $outputLines)));
+      throw new sfException($this->i18n->__('Transform failed: %1; %2', array('%1' => $exitCode, '%2' => htmlspecialchars(implode('; ' , $outputLines)))));
     }
 
     if (!file_exists($outputFileName))
     {
-      throw new sfException('Transform failed: Unable to find transformed file: ' . $outputFileName);
+      throw new sfException($this->i18n->__('Transform failed: Unable to find transformed file: %1', array('%1' => $outputFileName)));
     }
 
     return $outputFileName;
