@@ -51,103 +51,30 @@ class ObjectImportAction extends sfAction
       $this->redirect($importSelectRoute);
     }
 
-    // set indexing preference
-    if (isset($request->noindex))
+    $options = array('noIndex' => ($request->getParameter('noindex') == 'on') ? false : true,
+                     'doCsvTransform' => ($request->getParameter('doCsvTransform') == 'on') ? true : false,
+                     'parent' => (isset($this->getRoute()->resource) ? $this->getRoute()->resource : null),
+                     'csvObjectType' => $request->csvObjectType,
+                     // Choose import type based on importType parameter
+                     // This decision used to be based in the file extension but some users
+                     // experienced problems when the extension was omitted
+                     'importType' => $importType,
+                     'file' => $request->getFiles('file'));
+
+    try
     {
-      QubitSearch::disable();
+      QubitJob::runJob('arFileImportJob', $options);
+
+      // Let user know import has started
+      sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
+      $jobManageUrl = url_for(array('module' => 'jobs', 'action' => 'browse'));
+      $message = '<strong>Import of ' . strtoupper($importType) . ' file initiated.</strong> Check <a href="'. $jobManageUrl . '">job management</a> page to view the status of the import.';
+      $this->context->user->setFlash('notice', $this->context->i18n->__($message));
     }
-
-    // Zip file
-    if ('zip' == strtolower(pathinfo($file['name'], PATHINFO_EXTENSION)))
+    catch (sfException $e)
     {
-      // Check whether PHP Zip extension is installed
-      if (!class_exists('ZipArchive'))
-      {
-        $this->context->user->setFlash('error', $this->context->i18n->__('PHP Zip extension could not be found.'));
-        $this->redirect($importSelectRoute);
-      }
-
-      // Create temporary directory
-      $zipDirectory = $file['tmp_name'].'-zip';
-      if (!file_exists($zipDirectory))
-      {
-        mkdir($zipDirectory, 0755);
-      }
-
-      // Extract the zip archive into the temporary folder
-      // TODO: need some error handling here
-      $zip = new ZipArchive();
-      $zip->open($file['tmp_name']);
-      $zip->extractTo($zipDirectory);
-      $zip->close();
-
-      $files = Qubit::dirTree($zipDirectory);
-
-      foreach ($files as $importFile)
-      {
-        // Try to free up memory
-        unset($importer);
-
-        // Choose import type based on file extension, eg. csv, xml
-        switch (strtolower(pathinfo($importFile, PATHINFO_EXTENSION)))
-        {
-          case 'csv':
-            $importer = new QubitCsvImport;
-            if (isset($this->getRoute()->resource)) $importer->setParent($this->getRoute()->resource);
-            $importer->import($importFile);
-
-            break;
-
-          case 'xml':
-            $importer = new QubitXmlImport;
-            if (isset($this->getRoute()->resource)) $importer->setParent($this->getRoute()->resource);
-            $importer->import($importFile, array('strictXmlParsing' => false));
-
-            break;
-        }
-      }
-    }
-    else
-    {
-      try
-      {
-        // Choose import type based on importType parameter
-        // This decision used to be based in the file extension but some users
-        // experienced problems when the extension was omitted
-        switch ($importType)
-        {
-          case 'csv':
-            $importer = new QubitCsvImport;
-            $importer->indexDuringImport = ($request->getParameter('noindex') == 'on') ? false : true;
-            $importer->doCsvTransform = ($request->getParameter('doCsvTransform') == 'on') ? true : false;
-            if (isset($this->getRoute()->resource)) $importer->setParent($this->getRoute()->resource);
-            $importer->import($file['tmp_name'], $request->csvObjectType, $file['name']);
-
-            break;
-
-          case 'xml':
-            $importer = new QubitXmlImport;
-            if (isset($this->getRoute()->resource)) $importer->setParent($this->getRoute()->resource);
-            $importer->import($file['tmp_name'], array('strictXmlParsing' => false), $file['name']);
-
-            break;
-
-          default:
-            $this->context->user->setFlash('error', $this->context->i18n->__('Unable to import selected file: unknown file extension.'));
-            $this->redirect($importSelectRoute);
-
-            break;
-        }
-      }
-      catch (sfException $e)
-      {
-        $this->context->user->setFlash('error', $e->getMessage());
-        $this->redirect($importSelectRoute);
-      }
-
-      $this->errors = $importer->getErrors();
-      $this->rootObject = $importer->getRootObject();
-      $this->objectType = strtr(get_class($this->rootObject), array('Qubit' => ''));
+      $this->context->user->setFlash('error', $e->getMessage());
+      $this->redirect($importSelectRoute);
     }
   }
 }

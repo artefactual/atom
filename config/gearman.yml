@@ -15,3 +15,5 @@ all:
       - qtSwordPluginWorker
     publication_status:
       - arUpdatePublicationStatusJob
+    file_import:
+      - arFileImportJob

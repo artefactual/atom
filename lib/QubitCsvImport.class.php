@@ -115,7 +115,7 @@ class QubitCsvImport
     // Throw exception if exit code is greater than zero
     if (0 < $exitCode)
     {
-      $output = implode($output, "<br />");
+      $output = implode(array_filter($output), "; ");
 
       throw new sfException($output);
     }
@@ -140,12 +140,12 @@ class QubitCsvImport
     // ensure csv_transform_script_name is configured.
     if (!sfConfig::get('app_csv_transform_script_name'))
     {
-      throw new sfException('Transform failed. Script not found. Please correct AtoM configuration (csv_transform_script_name)');
+      throw new sfException($this->i18n->__('Transform failed. Script not found. Please correct AtoM configuration (csv_transform_script_name)'));
     }
     // ensure we can find the uploaded source csv file.
     if (!file_exists($csvFile))
     {
-      throw new sfException('Transform failed. Unable to locate file: ' . $csvFile);
+      throw new sfException($this->i18n->__('Transform failed. Unable to locate file: %1', array('%1' => $csvFile)));
     }
 
     // build output filename and path. Take source dir and name and create a
@@ -169,17 +169,17 @@ class QubitCsvImport
       if (!file_exists($logFileName))
       {
         // can't find output file
-        throw new sfException('Transform failed: ' . $exitCode . '; Outputfile not found: ' . $logFileName);
+        throw new sfException($this->i18n->__('Transform failed: %1; Outputfile not found: %2', array('%1' => $exitCode, '%2' => $logFileName)));
       }
       // log file contains details about the errors.
       $outputLines = file($logFileName, FILE_SKIP_EMPTY_LINES);
 
-      throw new sfException('Transform failed: ' . $exitCode . '; ' .htmlspecialchars(implode('; ' , $outputLines)));
+      throw new sfException($this->i18n->__('Transform failed: %1; %2', array('%1' => $exitCode, '%2' => htmlspecialchars(implode('; ' , $outputLines)))));
     }
 
     if (!file_exists($outputFileName))
     {
-      throw new sfException('Transform failed: Unable to find transformed file: ' . $outputFileName);
+      throw new sfException($this->i18n->__('Transform failed: Unable to find transformed file: %1', array('%1' => $outputFileName)));
     }
 
     return $outputFileName;
