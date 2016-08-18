@@ -39,6 +39,10 @@ class QubitXmlImport
 
   public function import($xmlFile, $options = array(), $xmlOrigFileName = null)
   {
+    // Save options so we can access from processMethods
+    $this->options = $options;
+    $this->validateOptions();
+
     // load the XML document into a DOMXML object
     $importDOM = $this->loadXML($xmlFile, $options);
 
@@ -53,9 +57,6 @@ class QubitXmlImport
       // use the original file name when creating keymap record
       $this->sourceName = basename($xmlOrigFileName);
     }
-
-    // save options so we can access from processMethods
-    $this->options = $options;
 
     // if we were unable to parse the XML file at all
     if (empty($importDOM->documentElement))
@@ -373,13 +374,21 @@ class QubitXmlImport
         }
 
         // use DOM to populate object
-        $this->populateObject($domNode, $importDOM, $mapping, $currentObject, $importSchema);
+        if (!$this->populateObject($domNode, $importDOM, $mapping, $currentObject, $importSchema))
+        {
+          break; // No match found for top level description on --update, end import
+        }
       }
     }
 
     return $this;
   }
 
+  /**
+   * Populate EAD information objects.
+   *
+   * @return bool  True if we want to continue populating objects, false if we want to end the import.
+   */
   private function populateObject(&$domNode, &$importDOM, &$mapping, &$currentObject, $importSchema)
   {
     // if a parent path is specified, try to parent the node
@@ -418,6 +427,7 @@ class QubitXmlImport
 
     // go through methods and populate properties
     $this->processMethods($domNode, $importDOM, $mapping['Methods'], $currentObject, $importSchema);
+    $doSave = true;
 
     // make sure we have a publication status set before indexing
     if ($currentObject instanceof QubitInformationObject && count($currentObject->statuss) == 0)
@@ -425,21 +435,10 @@ class QubitXmlImport
       $currentObject->setPublicationStatus(sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID));
     }
 
-    $doSave = true;
-    // if this is an information object in an XML EAD import, run the enhanced matching check.
-    if ($currentObject instanceof QubitInformationObject && $importSchema == 'ead'
-      && isset($this->options['match']) && $this->options['match'])
+    // if this is an information object in an XML EAD import, run the enhanced update check.
+    if ($currentObject instanceof QubitInformationObject && $importSchema == 'ead')
     {
-      // run matching check - will return true or false
-      $results = $this->handlePreSaveInformationObject($currentObject);
-
-      // if no match, log a message and skip saving it.
-      if (!(array_key_exists('matched', $results) && true === $results['matched']))
-      {
-        $doSave = false;
-        // This obj does not match a record in the database.  Log it.
-        $this->errors[] = ('Unable to match record ' . $currentObject->identifier . '. Skipping record: ' . $currentObject->title);
-      }
+      $doSave = $this->handlePreSaveInformationObject($currentObject);
     }
 
     if ($doSave)
@@ -456,6 +455,8 @@ class QubitXmlImport
       // write the ID onto the current XML node for tracking
       $domNode->setAttribute('xml:id', $currentObject->id);
     }
+
+    return $doSave;
   }
 
   /*
@@ -1040,31 +1041,46 @@ class QubitXmlImport
 
   /**
    * Run presave informationObject logic.
+   *
+   * This method will determine if there's a match to an existing information object, and take any
+   * additional --update steps.
+   *
+   * @return bool  true to save the information object, false to skip saving it.
    */
-  private function handlePreSaveInformationObject (&$currentObject)
+  private function handlePreSaveInformationObject(&$currentObject)
   {
-    $results = array();
+    // Logic for --update option.  Try and match against an informationObject already in the database.
+    $objectId = QubitInformationObject::getByTitleIdentifierAndRepo(
+      $currentObject->identifier,
+      $currentObject->title,
+      $currentObject->repository->authorizedFormOfName
+    );
 
-    // logic for --match option.  Try and match against an informationObject
-    // already in the database.
-    $criteria = new Criteria;
-    $criteria->add(QubitKeymap::SOURCE_ID, $this->eadUrl);
-    $criteria->add(QubitKeymap::SOURCE_NAME, $this->sourceName);
-    $criteria->add(QubitKeymap::TARGET_NAME, 'information_object');
-
-    // check keymap table for sourceId == $this->eadUrl
-    if (null !== $km = QubitKeymap::getOne($criteria))
+    // Remove existing, matching information object before replacing it & saving.
+    if (!empty($objectId) && $this->options['update'] === 'delete-and-replace')
     {
-      $results['matched'] = true;
-    }
-    // else check for an informationObject based on id, title, repo.
-    else if (null !== $objectId = QubitInformationObject::getByTitleIdentifierAndRepo($currentObject->identifier,
-             $currentObject->title, $currentObject->repository->authorizedFormOfName))
-    {
-      $results['matched'] = true;
+      if (null !== $io = QubitInformationObject::getById($objectId))
+      {
+        print "Deleting and replacing {$currentObject->title}...\n";
+        $io->deleteFullHierarchy();
+      }
     }
 
-    return $results;
+    // Skip creating a new record if there's no match
+    if (!$objectId && $this->options['skip-unmatched'] && $this->options['update'])
+    {
+      print "No match found for {$currentObject->title}, skipping...\n";
+      return false;
+    }
+
+    // If we're not updating, don't create new records if match found
+    if ($objectId && $this->options['skip-matched'] && !$this->options['update'])
+    {
+      print "Found duplicate record for {$currentObject->title}, skipping...\n";
+      return false;
+    }
+
+    return true;
   }
 
   /**
@@ -1080,6 +1096,17 @@ class QubitXmlImport
       $keymap->targetId = $currentObject->id;
       $keymap->targetName = 'information_object';
       $keymap->save();
+    }
+  }
+
+  /**
+   * Ensure we were passed valid options, throw an exception otherwise.
+   */
+  private function validateOptions()
+  {
+    if ($this->options['update'] && $this->options['update'] !== 'delete-and-replace')
+    {
+      throw new sfException('EAD import currently only supports "delete-and-replace" update mode.');
     }
   }
 }
