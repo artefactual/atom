@@ -34,7 +34,12 @@ class importBulkTask extends arBaseTask
       new sfCommandOption('schema', null, sfCommandOption::PARAMETER_OPTIONAL, 'Schema to use if importing a CSV file'),
       new sfCommandOption('output', null, sfCommandOption::PARAMETER_OPTIONAL, 'Filename to output results in CSV format'),
       new sfCommandOption('verbose', '-v', sfCommandOption::PARAMETER_NONE, 'Verbose output'),
-      new sfCommandOption('match', null, sfCommandOption::PARAMETER_NONE, 'Skip loading imported objects where no match is found'),
+      new sfCommandOption(
+        'update',
+        null,
+        sfCommandOption::PARAMETER_REQUIRED,
+        'Attempt to update if description has already been imported. Valid option values are "delete-and-replace".'
+      ),
     ));
 
     $this->namespace        = 'import';

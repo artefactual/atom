@@ -418,6 +418,7 @@ class QubitXmlImport
 
     // go through methods and populate properties
     $this->processMethods($domNode, $importDOM, $mapping['Methods'], $currentObject, $importSchema);
+    $doSave = true;
 
     // make sure we have a publication status set before indexing
     if ($currentObject instanceof QubitInformationObject && count($currentObject->statuss) == 0)
@@ -425,21 +426,10 @@ class QubitXmlImport
       $currentObject->setPublicationStatus(sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID));
     }
 
-    $doSave = true;
-    // if this is an information object in an XML EAD import, run the enhanced matching check.
-    if ($currentObject instanceof QubitInformationObject && $importSchema == 'ead'
-      && isset($this->options['match']) && $this->options['match'])
+    // if this is an information object in an XML EAD import, run the enhanced update check.
+    if ($currentObject instanceof QubitInformationObject && $importSchema == 'ead' && $this->options['update'])
     {
-      // run matching check - will return true or false
-      $results = $this->handlePreSaveInformationObject($currentObject);
-
-      // if no match, log a message and skip saving it.
-      if (!(array_key_exists('matched', $results) && true === $results['matched']))
-      {
-        $doSave = false;
-        // This obj does not match a record in the database.  Log it.
-        $this->errors[] = ('Unable to match record ' . $currentObject->identifier . '. Skipping record: ' . $currentObject->title);
-      }
+      $doSave = $this->handlePreSaveInformationObject($currentObject);
     }
 
     if ($doSave)
@@ -1040,13 +1030,17 @@ class QubitXmlImport
 
   /**
    * Run presave informationObject logic.
+   *
+   * This method will determine if there's a match to an existing information object, and take any
+   * additional --update steps.
+   *
+   * @return bool  true to save the information object, false to skip saving it.
    */
-  private function handlePreSaveInformationObject (&$currentObject)
+  private function handlePreSaveInformationObject(&$currentObject)
   {
-    $results = array();
+    $result = true; // TODO: change this when --skip-matched is implemented
 
-    // logic for --match option.  Try and match against an informationObject
-    // already in the database.
+    // logic for --update option.  Try and match against an informationObject already in the database.
     $criteria = new Criteria;
     $criteria->add(QubitKeymap::SOURCE_ID, $this->eadUrl);
     $criteria->add(QubitKeymap::SOURCE_NAME, $this->sourceName);
@@ -1055,16 +1049,27 @@ class QubitXmlImport
     // check keymap table for sourceId == $this->eadUrl
     if (null !== $km = QubitKeymap::getOne($criteria))
     {
-      $results['matched'] = true;
+      $objectId = $km->targetId;
     }
-    // else check for an informationObject based on id, title, repo.
-    else if (null !== $objectId = QubitInformationObject::getByTitleIdentifierAndRepo($currentObject->identifier,
-             $currentObject->title, $currentObject->repository->authorizedFormOfName))
+    else
     {
-      $results['matched'] = true;
+      $objectId = QubitInformationObject::getByTitleIdentifierAndRepo(
+        $currentObject->identifier,
+        $currentObject->title,
+        $currentObject->repository->authorizedFormOfName
+      );
     }
 
-    return $results;
+    // Remove existing, matching information object before replacing it & saving.
+    if (!empty($objectId) && $this->options['update'] === 'delete-and-replace')
+    {
+      if (null !== $io = QubitInformationObject::getById($objectId))
+      {
+        $io->delete();
+      }
+    }
+
+    return $result;
   }
 
   /**
