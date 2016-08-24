@@ -37,6 +37,7 @@ class QubitFlatfileImport
   public $deleteAndReplace       = false; // Delete matching records & replace them
   public $skipMatched            = false; // Skip creating new record if matching one is found
   public $skipUnmatched          = false; // Skip creating new record if matching one is not found
+  public $limitToId              = 0;     // Id of repository or TLD to limit our update matching under
   public $status          = array(); // place to store data related to overall import
   public $rowStatusVars   = array(); // place to store data related to current row
 
@@ -751,6 +752,8 @@ class QubitFlatfileImport
       $this->setInformationObjectByFields();
     }
 
+    $this->checkInformationObjectMatchLimit(); // Handle --limit option.
+
     if (null === $this->object)
     {
       // Still no match found, create information object if --skip-unmatched is not set in options.
@@ -766,7 +769,7 @@ class QubitFlatfileImport
       {
         $this->status['updated']++;
 
-        // execute ad-hoc row pre-update logic (remove related data, etc.)
+        // Execute ad-hoc row pre-update logic (remove related data, etc.)
         $this->executeClosurePropertyIfSet('updatePreparationLogic');
         $skipRowProcessing = false;
 
@@ -835,6 +838,41 @@ class QubitFlatfileImport
 
     $this->object = new $this->className;
     return false;
+  }
+
+  /**
+   * The user can specify a --limit option on import that makes it so --update matches only occur
+   * if the matching description is under a specified repository or top level description.
+   *
+   * This function will check to ensure if the current matching information object is within the limit,
+   * and if not, set the object back to null since it isn't a match we want.
+   *
+   */
+  private function checkInformationObjectMatchLimit()
+  {
+    if (!$this->object || !$this->limitToId)
+    {
+      return;
+    }
+
+    if (null !== $repo = $this->object->getRepository(array('inherit' => true)))
+    {
+      // This matching information object is under the repository specified in --limit, don't touch object.
+      if ($this->limitToId == $repo->id)
+      {
+        return;
+      }
+    }
+
+    $collectionRoot = $this->object->getCollectionRoot();
+
+    // This matching information object is under the TLD specified in --limit, don't touch object.
+    if ($collectionRoot && $this->limitToId == $collectionRoot->id)
+    {
+      return;
+    }
+
+    $this->object = null; // Out of limits, throw out the match.
   }
 
   /**

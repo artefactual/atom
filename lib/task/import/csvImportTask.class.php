@@ -95,7 +95,13 @@ EOF;
         null,
         sfCommandOption::PARAMETER_NONE,
         "Skip creation of digital object derivatives."
-      )
+      ),
+      new sfCommandOption(
+        'limit',
+        null,
+        sfCommandOption::PARAMETER_REQUIRED,
+        'Limit --update matching to under a specified top level description or repository via slug.'
+      ),
     ));
   }
 
@@ -1093,6 +1099,10 @@ EOF;
 
     // Allow search indexing to be enabled via a CLI option
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
+    if ($options['limit'])
+    {
+      $import->limitToId = getIdCorrespondingToSlug($options['limit']);
+    }
 
     // Are there params set on --update flag?
     if ($options['update'])

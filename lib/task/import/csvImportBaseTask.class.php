@@ -78,6 +78,11 @@ abstract class csvImportBaseTask extends arBaseTask
         . "source name).\n";
     }
 
+    if ($options['limit'] && !$options['update'])
+    {
+      throw new sfException('The --limit option requires the --update option to be present.');
+    }
+
     $this->validateUpdateOptions($options);
   }
 
