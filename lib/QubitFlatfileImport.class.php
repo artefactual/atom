@@ -721,7 +721,7 @@ class QubitFlatfileImport
     $this->rowStatusVars = array();
   }
 
-  private function isUpdating()
+  public function isUpdating()
   {
     return $this->matchAndUpdate || $this->deleteAndReplace;
   }
