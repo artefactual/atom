@@ -38,7 +38,25 @@ class importBulkTask extends arBaseTask
         'update',
         null,
         sfCommandOption::PARAMETER_REQUIRED,
-        'Attempt to update if description has already been imported. Valid option values are "delete-and-replace".'
+        'Attempt to update if description has already been imported. Valid option values are "match-and-update" & "delete-and-replace".'
+      ),
+      new sfCommandOption(
+        'skip-matched',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        'When importing records without --update, use this option to skip creating new records when an existing one matches.'
+      ),
+      new sfCommandOption(
+        'skip-unmatched',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        "When importing records with --update, skip creating new records if no existing records match."
+      ),
+      new sfCommandOption(
+        'limit',
+        null,
+        sfCommandOption::PARAMETER_REQUIRED,
+        'Limit --update matching to under a specified top level description or repository via slug.'
       ),
     ));
 

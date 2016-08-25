@@ -3086,4 +3086,23 @@ class QubitInformationObject extends BaseInformationObject
 
     return $identifier;
   }
+
+  /**
+   * Delete this information object as well as all children information objects.
+   * This function will also delete digital objects in the hierarchy as well.
+   */
+  public function deleteFullHierarchy()
+  {
+    foreach ($this->descendants->andSelf()->orderBy('rgt') as $item)
+    {
+      // Delete related digitalObjects
+      foreach ($item->digitalObjects as $digitalObject)
+      {
+        $digitalObject->informationObjectId = null;
+        $digitalObject->delete();
+      }
+
+      $item->delete();
+    }
+  }
 }

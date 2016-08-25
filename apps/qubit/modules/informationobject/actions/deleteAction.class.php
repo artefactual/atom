@@ -40,18 +40,7 @@ class InformationObjectDeleteAction extends sfAction
     if ($request->isMethod('delete'))
     {
       $parent = $this->resource->parent;
-
-      foreach ($this->resource->descendants->andSelf()->orderBy('rgt') as $item)
-      {
-        // Delete related digitalObjects
-        foreach ($item->digitalObjects as $digitalObject)
-        {
-          $digitalObject->informationObjectId = null;
-          $digitalObject->delete();
-        }
-
-        $item->delete();
-      }
+      $this->resource->deleteFullHierarchy();
 
       if (isset($parent->parent))
       {
