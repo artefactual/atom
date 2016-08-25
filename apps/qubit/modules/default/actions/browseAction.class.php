@@ -139,7 +139,11 @@ class DefaultBrowseAction extends sfAction
       $this->forward404();
     }
 
-    if ($this->getUser()->isAuthenticated())
+    if (array_key_exists('query', $request->getGetParameters()))
+    {
+      $this->sortSetting = 'relevance'; // If we're searching, by default sort by relevance
+    }
+    else if ($this->getUser()->isAuthenticated())
     {
       $this->sortSetting = sfConfig::get('app_sort_browser_user');
     }
