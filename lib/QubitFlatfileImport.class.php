@@ -645,6 +645,45 @@ class QubitFlatfileImport
     }
   }
 
+  /**
+   * Check array of event data from import, check if this exact event already exists.
+   *
+   * @return bool  True if exists, false if not
+   */
+  public function hasDuplicateEvent($event)
+  {
+    if (!isset($this->object->id))
+    {
+      return;
+    }
+
+    $fields = array('startDate', 'startTime', 'endDate', 'endTime', 'typeId', 'objectId', 'actorId', 'name',
+                    'description', 'date', 'culture');
+
+    foreach ($this->object->eventsRelatedByobjectId as $existingEvent)
+    {
+      $match = true;
+
+      foreach ($fields as $field)
+      {
+        // Found a field that doesn't match, so this isn't a duplicate. Move onto the next event and check...
+        if ($existingEvent->$field != $event->$field)
+        {
+          $match = false;
+          break;
+        }
+      }
+
+      // All fields matched, found duplicate.
+      if ($match)
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   private function fetchOrCreateObjectByClass()
   {
     switch ($this->className)
@@ -816,6 +855,9 @@ class QubitFlatfileImport
   {
     $oldSlug = $this->object->slug;
 
+    // Prevent FK restraint errors; we'll rebuild the hierarchy from the csv.
+    QubitPdo::prepareAndExecute('UPDATE information_object SET parent_id=null WHERE parent_id=?',
+                                array($this->object->id));
     $this->object->delete();
     $this->object = new QubitInformationObject;
     $this->object->slug = $oldSlug; // Retain previous record's slug
@@ -1295,7 +1337,6 @@ class QubitFlatfileImport
    * @param integer $typeId  term ID of event type
    * @param array $options  option parameter
    *
-   * @return QubitEvent  created event
    */
   public function createOrUpdateEvent($typeId, $options = array())
   {
@@ -1315,7 +1356,7 @@ class QubitFlatfileImport
 
     if (null === $event)
     {
-      // Couldn't find event
+      // Couldn't find or create event
       return;
     }
 
@@ -1357,6 +1398,11 @@ class QubitFlatfileImport
       }
     }
 
+    if ($this->matchAndUpdate && $this->hasDuplicateEvent($event))
+    {
+      return; // Skip creating / updating events if this exact one already exists.
+    }
+
     $event->save();
 
     // Add relation with place
@@ -1371,8 +1417,6 @@ class QubitFlatfileImport
       $placeTerm = $this->createOrFetchTerm(QubitTaxonomy::PLACE_ID, $options['place'], $culture);
       $this->createObjectTermRelation($event->id, $placeTerm->id);
     }
-
-    return $event;
   }
 
   /**

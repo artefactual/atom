@@ -617,12 +617,11 @@ EOF;
             }
             else
             {
-              $error = 'For legacyId '
-                . $self->rowStatusVars['legacyId']
-                .' Could not find parentId '
-                . $self->rowStatusVars['parentId']
-                .' in key_map table';
+              $error = sprintf('legacyId %s: could not find parentId %s in key_map table. Setting parent to root...',
+                               $self->rowStatusVars['legacyId'], $self->rowStatusVars['parentId']);
+
               print $self->logError($error);
+              $self->object->parentId = QubitInformationObject::ROOT_ID;
             }
           }
         }

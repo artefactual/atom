@@ -233,7 +233,7 @@ abstract class csvImportBaseTask extends arBaseTask
       // Add row culture to fetch place term in event creation/update
       $eventData['culture'] = $import->columnValue('culture');
 
-      $event = $import->createOrUpdateEvent($eventTypeId, $eventData);
+      $import->createOrUpdateEvent($eventTypeId, $eventData);
     }
   }
 }
