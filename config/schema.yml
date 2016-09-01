@@ -143,6 +143,8 @@ propel:
     display_standard_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     lft: { type: integer, required: true, nestedSetLeftKey: true }
     rgt: { type: integer, required: true, nestedSetRightKey: true }
+    _indexes:
+      lft: [lft]
 
   information_object_i18n:
     title: varchar(1024)
@@ -382,6 +384,8 @@ propel:
     parent_id: { type: integer, foreignTable: term, foreignReference: id }
     lft: { type: integer, required: true, nestedSetLeftKey: true }
     rgt: { type: integer, required: true, nestedSetRightKey: true }
+    _indexes:
+      lft: [lft]
 
   term_i18n:
     name: varchar(1024)

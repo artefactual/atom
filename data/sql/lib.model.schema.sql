@@ -427,6 +427,7 @@ CREATE TABLE `information_object`
 	`source_culture` VARCHAR(7)  NOT NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `information_object_U_1` (`oai_local_identifier`),
+	KEY `lft`(`lft`),
 	CONSTRAINT `information_object_FK_1`
 		FOREIGN KEY (`id`)
 		REFERENCES `object` (`id`)
@@ -1323,6 +1324,7 @@ CREATE TABLE `term`
 	`rgt` INTEGER  NOT NULL,
 	`source_culture` VARCHAR(7)  NOT NULL,
 	PRIMARY KEY (`id`),
+	KEY `lft`(`lft`),
 	CONSTRAINT `term_FK_1`
 		FOREIGN KEY (`id`)
 		REFERENCES `object` (`id`)
