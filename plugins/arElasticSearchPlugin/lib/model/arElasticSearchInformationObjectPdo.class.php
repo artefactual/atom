@@ -1286,12 +1286,6 @@ class arElasticSearchInformationObjectPdo
       $serialized['aip'][] = $node->serialize();
     }
 
-    // METS data
-    if (null !== $metsData = $this->getMetsData())
-    {
-      $serialized['metsData'] = $metsData;
-    }
-
     $serialized['actRights'] = $this->getActRights();
     $serialized['basisRights'] = $this->getBasisRights();
 
