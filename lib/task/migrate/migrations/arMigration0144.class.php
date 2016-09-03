@@ -65,5 +65,7 @@ sql;
 
       QubitPdo::modify($sql);
     }
+
+    return true;
   }
 }
