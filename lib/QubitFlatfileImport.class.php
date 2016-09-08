@@ -855,6 +855,9 @@ class QubitFlatfileImport
   {
     $oldSlug = $this->object->slug;
 
+    // Prevent FK restraint errors; we'll rebuild the hierarchy from the csv.
+    QubitPdo::prepareAndExecute('UPDATE information_object SET parent_id=null WHERE parent_id=?',
+                                array($this->object->id));
     $this->object->delete();
     $this->object = new QubitInformationObject;
     $this->object->slug = $oldSlug; // Retain previous record's slug
