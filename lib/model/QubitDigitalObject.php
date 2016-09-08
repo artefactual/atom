@@ -1264,10 +1264,23 @@ class QubitDigitalObject extends BaseDigitalObject
     if (!empty($this->informationObjectId))
     {
       QubitSearch::getInstance()->update($this->getInformationObject());
+      $this->deleteFromAssociatedInformationObject();
     }
 
     // Delete self
     parent::delete($connection);
+  }
+
+  /**
+   * If we have an associated information object, ensure this digital object is cleared
+   * from its digitalObjects property.
+   */
+  private function deleteFromAssociatedInformationObject()
+  {
+    if ((null !== $io = $this->getInformationObject()) && isset($io->refFkValues['digitalObjects']))
+    {
+      unset($io->refFkValues['digitalObjects']);
+    }
   }
 
   /**
@@ -2068,7 +2081,7 @@ class QubitDigitalObject extends BaseDigitalObject
       {
         $pages = sfImageMagickAdapter::getPdfinfoPageCount($filename);
       }
-      else 
+      else
       {
         $command = 'identify '. $filename;
         exec($command, $output, $status);
