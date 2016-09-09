@@ -24,7 +24,7 @@
  * @package     AccesstoMemory
  * @subpackage  tools
  */
-class arMetsToDatabaseTask extends sfBaseTask
+class arMetsToDatabaseTask extends arBaseTask
 {
   protected function configure()
   {
@@ -66,7 +66,7 @@ EOF;
     }
   }
 
-  public function run()
+  public function run($arguments = array(), $options = array())
   {
     $timer = new QubitTimer;
 
