@@ -13,7 +13,7 @@
         </li>
       <?php endforeach; ?>
       <?php if ($descriptions->getTotalHits() > 3): ?>
-        <li class="showall"><?php echo link_to(__('all matching descriptions'), array('module' => 'search', 'action' => 'index') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?></li>
+        <li class="showall"><?php echo link_to(__('all matching descriptions'), array('module' => 'informationobject', 'action' => 'browse', 'topLod' => '0') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?></li>
       <?php endif; ?>
     </ul>
   </section>
