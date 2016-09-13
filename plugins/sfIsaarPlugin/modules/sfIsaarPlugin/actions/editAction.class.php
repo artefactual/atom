@@ -43,6 +43,7 @@ class sfIsaarPluginEditAction extends ActorEditAction
       'internalStructures',
       'language',
       'legalStatus',
+      'maintainingRepository',
       'maintenanceNotes',
       'mandates',
       'otherName',
