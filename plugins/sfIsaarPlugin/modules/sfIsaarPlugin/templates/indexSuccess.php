@@ -165,6 +165,10 @@
 
   <?php echo render_show(__('Authority record identifier'), render_value($resource->descriptionIdentifier)) ?>
 
+  <?php if (null !== $repository = $resource->getMaintainingRepository()): ?>
+    <?php echo render_show(__('Maintaining repository'), link_to(render_title($repository), array($repository, 'module' => 'repository'))) ?>
+  <?php endif; ?>
+
   <?php echo render_show(__('Institution identifier'), render_value($resource->getInstitutionResponsibleIdentifier(array('cultureFallback' => true)))) ?>
 
   <?php echo render_show(__('Rules and/or conventions used'), render_value($resource->getRules(array('cultureFallback' => true)))) ?>
