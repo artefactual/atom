@@ -249,14 +249,7 @@ class QubitInformationObject extends BaseInformationObject
     {
       // TODO Needed if $this is new, should be transparent
       $item->informationObject = $this;
-
-      try
-      {
-        $item->save($connection);
-      }
-      catch (PropelException $e)
-      {
-      }
+      $item->save($connection);
 
       break; // Save only one premis object per information object
     }
@@ -309,6 +302,20 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function delete($connection = null)
   {
+    // Delete related digitalObjects
+    foreach ($this->digitalObjects as $digitalObject)
+    {
+      // Set IO to null to avoid ES document update
+      $digitalObject->informationObjectId = null;
+      $digitalObject->delete();
+    }
+
+    // Delete related premisObjects
+    foreach ($this->premisObjects as $premisObject)
+    {
+      $premisObject->delete();
+    }
+
     // Physical object relations
     $relations = QubitRelation::getRelationsByObjectId($this->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID));
     foreach ($relations as $item)
@@ -3112,19 +3119,11 @@ class QubitInformationObject extends BaseInformationObject
 
   /**
    * Delete this information object as well as all children information objects.
-   * This function will also delete digital objects in the hierarchy as well.
    */
   public function deleteFullHierarchy()
   {
     foreach ($this->descendants->andSelf()->orderBy('rgt') as $item)
     {
-      // Delete related digitalObjects
-      foreach ($item->digitalObjects as $digitalObject)
-      {
-        $digitalObject->informationObjectId = null;
-        $digitalObject->delete();
-      }
-
       $item->delete();
     }
   }

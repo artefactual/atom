@@ -69,21 +69,6 @@ EOF;
 
       foreach ($resource->descendants->andSelf()->orderBy('rgt') as $item)
       {
-        // Delete related digitalObjects
-        foreach ($item->digitalObjects as $digitalObject)
-        {
-          $digitalObject->informationObjectId = null;
-          
-          try
-          {
-            $digitalObject->delete();
-          }
-          catch (Exception $e)
-          {
-            $this->log("Warning: got error while deleting: " . $e->getMessage());
-          }
-        }
-
         try
         {
           $item->delete();
