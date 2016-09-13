@@ -50,6 +50,18 @@
             <td><?php echo $form->toggleIoSlider ?></td>
           </tr>
           <tr>
+            <td>
+              <?php echo $form->toggleDigitalObjectMap->label('Digital object map')->renderLabel() ?>
+              <?php if (!$googleMapsApiKeySet): ?>
+                <div class="description">
+                  <?php $securitySettingsLinkHtml = link_to(__('Security'), array('module' => 'settings', 'action' => 'security')) ?>
+                  <?php echo __('This feature will not work until a Google Maps API key is specified on the %1% settings page.', array('%1%' => $securitySettingsLinkHtml)) ?>
+                </div>
+              <?php endif; ?>
+            </td>
+            <td><?php echo $form->toggleDigitalObjectMap ?></td>
+          </tr>
+          <tr>
             <td><?php echo $form->toggleCopyrightFilter->label('Copyright status filter')->renderLabel() ?></td>
             <td><?php echo $form->toggleCopyrightFilter ?></td>
           </tr>
