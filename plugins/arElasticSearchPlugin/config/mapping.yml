@@ -339,6 +339,7 @@ mapping:
       description_identifier: { type:string, index: not_analyzed }
       corporate_body_identifiers: { type: string, index: not_analyzed }
       entity_type_id: { type: integer, index: not_analyzed, include_in_all: false }
+      maintaining_repository_id: { type: integer, index: not_analyzed, include_in_all: false }
 
   accession:
     _attributes:
