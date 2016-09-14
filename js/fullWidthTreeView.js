@@ -84,7 +84,7 @@
     $("#fullwidth-treeview").bind("select_node.jstree", function(evt, data)
     {
       // Remove any alerts
-      $('#notice-alerts.alert,#error-alerts.alert').remove();
+      $('.app-alert').remove();
 
       // Open node if possible
       data.instance.open_node(data.node);
