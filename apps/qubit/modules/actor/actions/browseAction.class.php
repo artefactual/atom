@@ -40,6 +40,10 @@ class ActorBrowseAction extends DefaultBrowseAction
       'types' =>
         array('type' => 'term',
               'field' => 'entityTypeId',
+              'size' => 10),
+      'maintainingRepository' =>
+        array('type' => 'term',
+              'field' => 'maintainingRepositoryId',
               'size' => 10));
 
   protected function populateFacet($name, $ids)
@@ -53,6 +57,17 @@ class ActorBrowseAction extends DefaultBrowseAction
         foreach (QubitTerm::get($criteria) as $item)
         {
           $this->types[$item->id] = $item->getName(array('cultureFallback' => true));
+        }
+
+        break;
+
+      case 'maintainingRepository':
+        $criteria = new Criteria;
+        $criteria->add(QubitActor::ID, array_keys($ids), Criteria::IN);
+
+        foreach (QubitActor::get($criteria) as $item)
+        {
+          $this->types[$item->id] = $item->getAuthorizedFormOfName(array('cultureFallback' => true));
         }
 
         break;

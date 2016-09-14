@@ -2,6 +2,7 @@
 
 <?php slot('sidebar') ?>
   <?php include_component('repository', 'contextMenu') ?>
+  <?php include_component('repository', 'maintainedActors', array('resource' => $resource)) ?>
 <?php end_slot() ?>
 
 <?php slot('google_analytics') ?>

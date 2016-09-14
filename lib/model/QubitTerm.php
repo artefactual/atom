@@ -163,7 +163,10 @@ class QubitTerm extends BaseTerm
     JOB_STATUS_ERROR_ID = 185,
 
     // Digital object usage taxonomy (addition)
-    OFFLINE_ID = 186;
+    OFFLINE_ID = 186,
+
+    // Relation type taxonomy
+    MAINTAINING_REPOSITORY_RELATION_ID = 187;
 
 
   public static function isProtected($id)

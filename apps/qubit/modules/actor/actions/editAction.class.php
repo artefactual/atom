@@ -118,6 +118,20 @@ class ActorEditAction extends DefaultEditAction
 
         break;
 
+      case 'maintainingRepository':
+        $choices = array();
+        if (null !== $repo = $this->resource->getMaintainingRepository())
+        {
+          $repoRoute = $this->context->routing->generate(null, array($repo, 'module' => 'repository'));
+          $choices[$repoRoute] = $repo;
+          $this->form->setDefault('maintainingRepository', $repoRoute);
+        }
+
+        $this->form->setValidator('maintainingRepository', new sfValidatorString);
+        $this->form->setWidget('maintainingRepository', new sfWidgetFormSelect(array('choices' => $choices)));
+
+        break;
+
       default:
 
         return parent::addField($name);
@@ -161,6 +175,16 @@ class ActorEditAction extends DefaultEditAction
         {
           $params = $this->context->routing->parse(Qubit::pathInfo($value));
           $this->resource->entityType = $params['_sf_route']->resource;
+        }
+
+        break;
+
+      case 'maintainingRepository':
+        $value = $this->form->getValue('maintainingRepository');
+        if (isset($value))
+        {
+          $params = $this->context->routing->parse(Qubit::pathInfo($value));
+          $this->resource->setMaintainingRepository($params['_sf_route']->resource);
         }
 
         break;

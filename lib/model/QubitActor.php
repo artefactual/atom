@@ -466,4 +466,36 @@ class QubitActor extends BaseActor
 
     return QubitInformationObject::get($criteria);
   }
+
+  public function getMaintainingRepository()
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitRelation::OBJECT_ID, $this->id);
+    $criteria->add(QubitRelation::TYPE_ID, QubitTerm::MAINTAINING_REPOSITORY_RELATION_ID);
+
+    if (null !== $relation = QubitRelation::getOne($criteria))
+    {
+      return $relation->subject;
+    }
+  }
+
+  public function setMaintainingRepository($repository)
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitRelation::OBJECT_ID, $this->id);
+    $criteria->add(QubitRelation::TYPE_ID, QubitTerm::MAINTAINING_REPOSITORY_RELATION_ID);
+
+    if (null === $relation = QubitRelation::getOne($criteria))
+    {
+      $relation = new QubitRelation;
+      $relation->typeId = QubitTerm::MAINTAINING_REPOSITORY_RELATION_ID;
+      $relation->subjectId = $repository->id;
+      $this->relationsRelatedByobjectId[] = $relation;
+    }
+    else
+    {
+      $relation->subjectId = $repository->id;
+      $relation->save();
+    }
+  }
 }
