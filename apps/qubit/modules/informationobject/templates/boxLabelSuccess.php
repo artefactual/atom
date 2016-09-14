@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <h1 class="do-print"><?php echo $this->i18n->__('Physical storage locations') ?></h1>
+  <h1 class="do-print"><?php echo $this->i18n->__('Box labels') ?></h1>
 
   <h1 class="label">
     <?php echo $resource->getTitle(array('cultureFallback' => true)) ?>
@@ -26,11 +26,13 @@
         <th>
           <?php echo $this->i18n->__('#') ?>
         </th><th>
-          <?php echo $this->i18n->__('Name') ?>
+          <?php echo $this->i18n->__('Reference code') ?>
         </th><th>
-          <?php echo $this->i18n->__('Location') ?>
+          <?php echo $this->i18n->__('Physical object name') ?>
         </th><th>
-          <?php echo $this->i18n->__('Type') ?>
+          <?php echo $this->i18n->__('Title') ?>
+        </th><th>
+          <?php echo $this->i18n->__('Creation date(s)') ?>
         </th>
       </tr>
     </thead><tbody>
@@ -39,11 +41,19 @@
           <td>
             <?php echo $row++ ?>
           </td><td>
-            <?php echo link_to($item->name, sfConfig::get('app_siteBaseUrl').'/'.$item->slug) ?>
+            <?php echo $item['referenceCode'] ?>
           </td><td>
-            <?php echo $item->location ?>
+            <?php echo $item['physicalObjectName'] ?>
           </td><td>
-            <?php echo $item->type->__toString() ?>
+            <?php echo $item['title'] ?>
+          </td><td>
+            <?php if ($item['creationDates']): ?>
+              <ul>
+                <?php foreach (explode('|', $item['creationDates']) as $creationDate): ?>
+                  <li><?php echo $creationDate ?></li>
+                <?php endforeach; ?>
+              </ul>
+            <?php endif; ?>
           </td>
         </tr>
       <?php endforeach; ?>

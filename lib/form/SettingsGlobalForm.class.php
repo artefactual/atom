@@ -63,7 +63,8 @@ class SettingsGlobalForm extends sfForm
       'defaultPubStatus' => new sfWidgetFormSelectRadio(array('choices' => array(QubitTerm::PUBLICATION_STATUS_DRAFT_ID => $this->i18n->__('Draft'), QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID => $this->i18n->__('Published'))), array('class' => 'radio')),
       'draft_notification_enabled' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'sword_deposit_dir' => new sfWidgetFormInput,
-      'google_maps_api_key' => new sfWidgetFormInput
+      'google_maps_api_key' => new sfWidgetFormInput,
+      'generate_reports_as_pub_user' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
     ));
 
     // Add labels
@@ -94,7 +95,8 @@ class SettingsGlobalForm extends sfForm
       'require_ssl_admin' => $this->i18n->__('Require SSL for all administrator funcionality'),
       'slug_basis_informationobject' => $this->i18n->__('Generate description permalinks from'),
       'require_strong_passwords' => $this->i18n->__('Require strong passwords'),
-      'google_maps_api_key' => $this->i18n->__('Google Maps Javascript API key (for displaying dynamic maps)')
+      'google_maps_api_key' => $this->i18n->__('Google Maps Javascript API key (for displaying dynamic maps)'),
+      'generate_reports_as_pub_user' => $this->i18n->__('Generate archival description reports as public user'),
     ));
 
     // Add helper text
@@ -172,6 +174,7 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['draft_notification_enabled'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['sword_deposit_dir'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['google_maps_api_key'] = new sfValidatorString(array('required' => false));
+    $this->validatorSchema['generate_reports_as_pub_user'] = new sfValidatorInteger(array('required' => false));
 
     // Set decorator
     $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);

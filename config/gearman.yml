@@ -19,3 +19,5 @@ all:
       - arFileImportJob
     xml_export:
       - arXmlExportJob
+    generate_csv_report:
+      - arGenerateReportJob

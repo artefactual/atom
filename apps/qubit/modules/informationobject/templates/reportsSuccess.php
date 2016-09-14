@@ -14,12 +14,27 @@
   <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'reports')), array('class' => 'form-inline')) ?>
 <?php end_slot() ?>
 
+<?php if (count($existingReports)): ?>
+  <fieldset class="single">
+    <div class="fieldset-wrapper">
+      <?php echo __('Existing reports:') ?>
+      <ul class="job-report-list">
+        <?php foreach ($existingReports as $report): ?>
+          <li>
+            <?php echo link_to($report['type'].' ('.$report['format'].')', $report['path']) ?>
+          </li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+  </fieldset>
+<?php endif; ?>
+
 <fieldset class="single">
 
   <div class="fieldset-wrapper">
 
   <?php if ($reportsAvailable): ?>
-    <?php echo render_field($form->report->label(__('Select report')), $resource) ?>
+    <?php echo render_field($form->report->label(__('Select new report to generate:')), $resource) ?>
   <?php else: ?>
     <?php echo __('There are no relevant reports for this item') ?>
   <?php endif; ?>
