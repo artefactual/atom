@@ -172,7 +172,7 @@ class InformationObjectItemListAction extends sfAction
       foreach ($this->results as $key => &$items)
       {
         uasort($items, function($a, $b) use ($sortBy) {
-           return strnatcasecmp($a[$sortBy], $b[$sortBy]); 
+           return strnatcasecmp($a[$sortBy], $b[$sortBy]);
         });
       }
 
