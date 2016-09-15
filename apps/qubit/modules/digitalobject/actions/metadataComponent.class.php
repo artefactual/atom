@@ -40,5 +40,16 @@ class DigitalObjectMetadataComponent extends sfComponent
     {
       $this->denyFileNameByPremis = true;
     }
+
+    // Provide Google Maps API key to template
+    $this->googleMapsApiKey = sfConfig::get('app_google_maps_api_key');
+
+    // Provide latitude to template
+    $latitudeProperty = $this->infoObj->digitalObjects[0]->getPropertyByName('latitude');
+    $this->latitude = $latitudeProperty->value;
+
+    // Provide longitude to template
+    $longitudeProperty = $this->infoObj->digitalObjects[0]->getPropertyByName('longitude');
+    $this->longitude = $longitudeProperty->value;
   }
 }
