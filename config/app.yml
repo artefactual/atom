@@ -20,9 +20,6 @@ all:
   # by and environment variable called "ATOM_READ_ONLY"
   read_only: false
 
-  # Used in the repo template
-  # google_maps_api_key: ...
-
   # Google Analitycs
   # google_analytics_api_key: ...
 

@@ -73,8 +73,8 @@
 
 <?php end_slot() ?>
 
-<?php if (isset($latitude) && isset($longitude) && null !== $key = sfConfig::get('app_google_maps_api_key')): ?>
-  <div id="front-map" class="simple-map" data-key="<?php echo $key ?>" data-latitude="<?php echo $latitude ?>" data-longitude="<?php echo $longitude ?>"></div>
+<?php if (isset($latitude) && isset($longitude) && $mapApiKey = sfConfig::get('app_google_maps_api_key')): ?>
+  <div id="front-map" class="simple-map" data-key="<?php echo $mapApiKey ?>" data-latitude="<?php echo $latitude ?>" data-longitude="<?php echo $longitude ?>"></div>
 <?php endif; ?>
 
 <section id="identifyArea">
