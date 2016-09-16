@@ -104,6 +104,19 @@ class DigitalObjectEditAction extends sfAction
         $this->form->setWidget($derName, new sfWidgetFormInputCheckbox(array(), array('value' => 1)));
       }
     }
+
+    // Add latitude and longitude fields
+    foreach (array('latitude', 'longitude') as $geoPropertyField)
+    {
+      $this->form->setValidator($geoPropertyField, new sfValidatorNumber);
+      $this->form->setWidget($geoPropertyField, new sfWidgetFormInput);
+
+      $fieldProperty = $this->resource->getPropertyByName($geoPropertyField);
+      if (isset($fieldProperty->value))
+      {
+        $this->form->setDefault($geoPropertyField, $fieldProperty->value);
+      }
+    }
   }
 
   public function execute($request)
@@ -221,6 +234,26 @@ class DigitalObjectEditAction extends sfAction
     if (null != $this->form->getValue('generateDerivative_'.QubitTerm::THUMBNAIL_ID))
     {
       $this->resource->createThumbnail();
+    }
+
+    // Store latitude and longitude as properties
+    foreach (array('latitude', 'longitude') as $geoPropertyField)
+    {
+      // Create or update property
+      $geoProperty = $this->resource->getPropertyByName($geoPropertyField);
+
+      // Intialize property if new
+      if (empty($geoProperty->objectId))
+      {
+        $geoProperty = new QubitProperty;
+        $geoProperty->objectId = $this->resource->id;
+        $geoProperty->editable = true;
+        $geoProperty->name = $geoPropertyField;
+      }
+
+      // Set value and save
+      $geoProperty->value = $this->form->getValue($geoPropertyField);
+      $geoProperty->save();
     }
   }
 }
