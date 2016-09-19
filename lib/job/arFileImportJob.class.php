@@ -33,8 +33,8 @@ class arFileImportJob extends arBaseJob
   {
     $this->info($this->i18n->__('Importing %1 file: %2.', array('%1' => strtoupper($parameters['importType']), '%2' => $parameters['file']['name'])));
 
-    // set indexing preference
-    if (true == $parameters['noIndex'])
+    // Set indexing preference.
+    if (false == $parameters['index'])
     {
       QubitSearch::disable();
     }
@@ -45,22 +45,19 @@ class arFileImportJob extends arBaseJob
       {
         case 'csv':
           $importer = new QubitCsvImport;
-          if ($parameters['doCsvTransform']) { $this->info($this->i18n->__('Applying transformation to CSV file.')); }
-          $importer->doCsvTransform = $parameters['doCsvTransform'];
 
-          if ($parameters['noIndex']) { $this->info($this->i18n->__('Indexing imported records.')); }
-          $importer->indexDuringImport = $parameters['noIndex'];
+          $this->setCsvImportParams($importer, $parameters);
 
-          if (null != $parameters['parent']) { $importer->setParent($parameters['parent']); }
-
-          $importer->import($parameters['file']['tmp_name'], $request->csvObjectType, $parameters['file']['name']);
+          $importer->import($parameters['file']['tmp_name'], $parameters['objectType'], $parameters['file']['name']);
 
           break;
 
         case 'xml':
           $importer = new QubitXmlImport;
-          if (null != $parameters['parent']) { $importer->setParent($parameters['parent']); }
-          $importer->import($parameters['file']['tmp_name'], array('strictXmlParsing' => false), $parameters['file']['name']);
+
+          $options = $this->setXmlImportParams($importer, $parameters);
+
+          $importer->import($parameters['file']['tmp_name'], $options, $parameters['file']['name']);
 
           break;
 
@@ -80,12 +77,136 @@ class arFileImportJob extends arBaseJob
       return false;
     }
 
-    // Mark job as complete
+    if ($importer->hasErrors())
+    {
+      foreach ($importer->getErrors() as $error)
+      {
+        $this->info($error);
+      }
+    }
+
+    // Mark job as complete.
     $this->info($this->i18n->__('Import complete.'));
     $this->job->setStatusCompleted();
     $this->job->save();
 
     return true;
+  }
+
+  /**
+   * Configure all params for the CSV load.
+   *
+   * @param  reference to QubitCsvImport object
+   *         array()
+   *
+   * @return null
+   */
+  private function setCsvImportParams(&$importer, $parameters)
+  {
+    foreach ($parameters as $key => $value)
+    {
+      if (empty($value))
+      {
+        continue;
+      }
+
+      switch ($key)
+      {
+        case 'doCsvTransform':
+          $this->info($this->i18n->__('Applying transformation to CSV file.'));
+          $importer->doCsvTransform = $parameters['doCsvTransform'];
+          break;
+        case 'index':
+          if ('event' != $parameters['objectType'])
+          {
+            $this->info($this->i18n->__('Indexing imported records.'));
+            $importer->indexDuringImport = $parameters['index'];
+          }
+          break;
+        case 'skip-unmatched':
+          $this->info($this->i18n->__('Skipping unmatched records.'));
+          $importer->skipUnmatched = $parameters['skip-unmatched'];
+          break;
+        case 'skip-matched':
+          $this->info($this->i18n->__('Skipping matched records.'));
+          $importer->skipMatched = $parameters['skip-matched'];
+          break;
+        case 'update':
+          $this->info($this->i18n->__('Update type: %1', array('%1' => $parameters['update'])));
+          $importer->updateType = $parameters['update'];
+          break;
+        case 'repositorySlug':
+          $this->info($this->i18n->__('Repository: %1', array('%1' => $parameters['repositorySlug'])));
+          $importer->limit = $parameters['repositorySlug'];
+          break;
+        case 'collectionSlug':
+          // collectionSlug, if specified, should take precedence over repositorySlug.
+          $this->info($this->i18n->__('Collection: %1', array('%1' => $parameters['collectionSlug'])));
+          $importer->limit = $parameters['collectionSlug'];
+          break;
+        case 'parent':
+          $importer->setParent($parameters['parent']);
+          break;
+      }
+    }
+  }
+
+  /**
+   * Configure all params for the XML load.
+   *
+   * @param  reference to QubitXmlImport object
+   *         array() reference
+   *
+   * @return array()
+   */
+  private function setXmlImportParams(&$importer, &$parameters)
+  {
+    $options = array();
+
+    $options['strictXmlParsing'] = false;
+
+    foreach ($parameters as $key => $value)
+    {
+      if (empty($value))
+      {
+        continue;
+      }
+
+      switch ($key)
+      {
+        case 'index':
+          $this->info($this->i18n->__('Indexing imported records.'));
+          $options['index'] = $parameters['index'];
+          break;
+        case 'skip-unmatched':
+          $this->info($this->i18n->__('Skipping unmatched records.'));
+          $options['skip-unmatched'] = $parameters['skip-unmatched'];
+          break;
+        case 'skip-matched':
+          $this->info($this->i18n->__('Skipping matched records.'));
+          $options['skip-matched'] = $parameters['skip-matched'];
+          break;
+        case 'update':
+          $this->info($this->i18n->__('Update type: %1', array('%1' => $parameters['update'])));
+          if ('import-as-new' != $parameters['update'])
+          {
+            $options['update'] = $parameters['update'];
+          }
+          break;
+        case 'repositorySlug':
+          $this->info($this->i18n->__('Repository: %1', array('%1' => $parameters['repositorySlug'])));
+          $options['limit'] = $parameters['repositorySlug'];
+          break;
+        case 'collectionSlug':
+          $this->info($this->i18n->__('Collection: %1', array('%1' => $parameters['collectionSlug'])));
+          $options['limit'] = $parameters['collectionSlug'];
+          break;
+        case 'parent':
+          $importer->setParent($parameters['parent']);
+          break;
+      }
+    }
+    return $options;
   }
 
 }

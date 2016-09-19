@@ -53,7 +53,7 @@ class ObjectImportSelectAction extends DefaultEditAction
         $criteria->addAscendingOrderByColumn('authorized_form_of_name');
         $cache = QubitCache::getInstance();
         $cacheKey = 'file-import:list-of-repositories:'.$this->context->user->getCulture();
-        //$cacheKey = 'advanced-search:list-of-repositories:'.$this->context->user->getCulture();
+
         if ($cache->has($cacheKey))
         {
           $choices = $cache->get($cacheKey);
@@ -120,16 +120,17 @@ class ObjectImportSelectAction extends DefaultEditAction
 
     $options = array('index' => ($request->getParameter('noIndex') == 'on') ? false : true,
                      'doCsvTransform' => ($request->getParameter('doCsvTransform') == 'on') ? true : false,
-                     'skipUnmatched' => ($request->getParameter('skipUnmatched') == 'on') ? true : false,
+                     'skip-unmatched' => ($request->getParameter('skipUnmatched') == 'on') ? true : false,
+                     'skip-matched' => ($request->getParameter('skipMatched') == 'on') ? true : false,
                      'parent' => (isset($this->getRoute()->resource) ? $this->getRoute()->resource : null),
                      'objectType' => $request->getParameter('objectType'),
                      // Choose import type based on importType parameter
                      // This decision used to be based in the file extension but some users
                      // experienced problems when the extension was omitted
                      'importType' => $importType,
-                     'updateType' => $request->getParameter('updateType'),
-                     'collectionSlug' => end(explode('/', $request->getPostParameter('collection'))),
+                     'update' => $request->getParameter('updateType'),
                      'repositorySlug' => $request->getPostParameter('repos'),
+                     'collectionSlug' => end(explode('/', $request->getPostParameter('collection'))),
                      'file' => $request->getFiles('file'));
 
     try
@@ -155,7 +156,6 @@ class ObjectImportSelectAction extends DefaultEditAction
 
     if ($request->isMethod('post'))
     {
-      //$this->getParameters = $request->getGetParameters();
       $this->form->bind($request->getPostParameters());
 
       if ($this->form->isValid())
@@ -167,7 +167,6 @@ class ObjectImportSelectAction extends DefaultEditAction
         $this->setTemplate('importResults');
       }
     }
-
     else
     {
       $this->response->addJavaScript('checkReposFilter', 'last');
