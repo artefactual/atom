@@ -21,6 +21,8 @@ class arElasticSearchTerm extends arElasticSearchModelBase
 {
   public function populate()
   {
+    $errors = array();
+
     $sql  = 'SELECT term.id';
     $sql .= ' FROM '.QubitTerm::TABLE_NAME.' term';
     $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON term.id = object.id';
@@ -34,13 +36,22 @@ class arElasticSearchTerm extends arElasticSearchModelBase
     // Loop through results, and add to search index
     foreach ($terms as $key => $item)
     {
-      $node = new arElasticSearchTermPdo($item->id);
-      $data = $node->serialize();
+      try
+      {
+        $node = new arElasticSearchTermPdo($item->id);
+        $data = $node->serialize();
 
-      QubitSearch::getInstance()->addDocument($data, 'QubitTerm');
+        QubitSearch::getInstance()->addDocument($data, 'QubitTerm');
 
-      $this->logEntry($data['i18n'][$data['sourceCulture']]['name'], $key + 1);
+        $this->logEntry($data['i18n'][$data['sourceCulture']]['name'], $key + 1);
+      }
+      catch (sfException $e)
+      {
+        $errors[] = $e->getMessage();
+      }
     }
+
+    return $errors;
   }
 
   public static function update($object)

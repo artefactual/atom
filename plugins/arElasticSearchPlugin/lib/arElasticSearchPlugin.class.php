@@ -270,20 +270,28 @@ class arElasticSearchPlugin extends QubitSearchEngine
     // Delete index and initialize again
     $this->flush();
     $this->log('Index erased.');
-
     $this->log('Populating index...');
 
-    // Document counter and timer
+    // Document counter, timer and errors
     $total = 0;
     $timer = new QubitTimer;
+    $errors = array();
+    $showErrors = false;
 
     foreach ($this->mappings as $typeName => $typeProperties)
     {
-      $className = 'arElasticSearch'.sfInflector::camelize($typeName);
+      $camelizedTypeName = sfInflector::camelize($typeName);
+      $className = 'arElasticSearch'.$camelizedTypeName;
 
       $class = new $className;
       $class->setTimer($timer);
-      $class->populate();
+
+      $typeErrors = $class->populate();
+      if (count($typeErrors) > 0)
+      {
+        $showErrors = true;
+        $errors = array_merge($errors, $typeErrors);
+      }
 
       $total += $class->getCount();
     }
@@ -292,6 +300,19 @@ class arElasticSearchPlugin extends QubitSearchEngine
       array(
         $total,
         $timer->elapsed())));
+
+    if (!$showErrors)
+    {
+      return;
+    }
+
+    // Log errors
+    $this->log('The following errors have been encountered:');
+    foreach ($errors as $error)
+    {
+      $this->log($error);
+    }
+    $this->log('Please, contact with an administrator.');
   }
 
   /**

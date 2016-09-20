@@ -91,7 +91,7 @@ class arElasticSearchAipPdo
 
     if (false === $this->data)
     {
-      throw new sfException("Couldn't find aip (id:'.$id.')");
+      throw new sfException("Couldn't find aip (id: $id)");
     }
 
     self::$statements['aip']->closeCursor();

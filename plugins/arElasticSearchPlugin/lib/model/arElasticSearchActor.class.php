@@ -21,6 +21,8 @@ class arElasticSearchActor extends arElasticSearchModelBase
 {
   public function populate()
   {
+    $errors = array();
+
     $sql  = 'SELECT actor.id';
     $sql .= ' FROM '.QubitActor::TABLE_NAME.' actor';
     $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON actor.id = object.id';
@@ -34,13 +36,22 @@ class arElasticSearchActor extends arElasticSearchModelBase
     // Loop through results, and add to search index
     foreach ($actors as $key => $item)
     {
-      $node = new arElasticSearchActorPdo($item->id);
-      $data = $node->serialize();
+      try
+      {
+        $node = new arElasticSearchActorPdo($item->id);
+        $data = $node->serialize();
 
-      QubitSearch::getInstance()->addDocument($data, 'QubitActor');
+        QubitSearch::getInstance()->addDocument($data, 'QubitActor');
 
-      $this->logEntry($data['i18n'][$data['sourceCulture']]['authorizedFormOfName'], $key + 1);
+        $this->logEntry($data['i18n'][$data['sourceCulture']]['authorizedFormOfName'], $key + 1);
+      }
+      catch (sfException $e)
+      {
+        $errors[] = $e->getMessage();
+      }
     }
+
+    return $errors;
   }
 
   public static function update($object)

@@ -99,7 +99,7 @@ class arElasticSearchTermPdo
 
     if (false === $this->data)
     {
-      throw new sfException("Couldn't find term (id:'.$id.')");
+      throw new sfException("Couldn't find term (id: $id)");
     }
 
     self::$statements['term']->closeCursor();
