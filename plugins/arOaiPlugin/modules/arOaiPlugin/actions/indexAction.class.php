@@ -125,7 +125,7 @@ class arOaiPluginIndexAction extends sfAction
       $metadataPrefix = $this->request->metadataPrefix;
       if ($metadataPrefix != '' AND $metadataPrefix != 'oai_dc')
       {
-        $request->setParameter('errorCode', 'badVerb');
+        $request->setParameter('errorCode', 'cannotDisseminateFormat');
         $request->setParameter('errorMsg', 'The metadata format identified by the value given for the metadataPrefix argument is not supported by the item or by the repository.');
 
         $this->forward('arOaiPlugin', 'error');
