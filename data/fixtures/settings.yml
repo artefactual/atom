@@ -912,6 +912,10 @@ QubitSetting:
     name: digital_object_file_name
     scope: element_visibility
     value: 1
+  Qubit_Settings_visibleElements_digitalObjectGeolocation:
+    name: digital_object_geolocation
+    scope: element_visibility
+    value: 1
   Qubit_Settings_visibleElements_digitalObjectMediaType:
     name: digital_object_media_type
     scope: element_visibility

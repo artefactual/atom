@@ -136,6 +136,7 @@
         <?php foreach (array(
           'digital_object_url' => __('URL'),
           'digital_object_file_name' => __('File name'),
+          'digital_object_geolocation' => __('Latitude and longitude'),
           'digital_object_media_type' => __('Media type'),
           'digital_object_mime_type' => __('MIME type'),
           'digital_object_file_size' => __('File size'),
