@@ -22,6 +22,11 @@
     <?php endif; ?>
   <?php endif; ?>
 
+  <?php if (check_field_visibility('app_element_visibility_digital_object_geolocation')): ?>
+    <?php echo render_show(__('Latitude'), $latitude, array('fieldLabel' => 'latitude')) ?>
+    <?php echo render_show(__('Longitude'), $longitude, array('fieldLabel' => 'longitude')) ?>
+  <?php endif; ?>
+
   <?php if (check_field_visibility('app_element_visibility_digital_object_media_type')): ?>
     <?php echo render_show(__('Media type'), $resource->mediaType, array('fieldLabel' => 'mediaType')) ?>
   <?php endif; ?>
