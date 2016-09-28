@@ -91,6 +91,7 @@ class SettingsGlobalAction extends sfAction
     $showTooltips = QubitSetting::getByName('show_tooltips');
     $defaultPubStatus = QubitSetting::getByName('defaultPubStatus');
     $swordDepositDir = QubitSetting::getByName('sword_deposit_dir');
+    $googleMapsApiKey = QubitSetting::getByName('google_maps_api_key');
     $slugTypeInformationObject = QubitSetting::getByName('slug_basis_informationobject');
 
 
@@ -117,7 +118,8 @@ class SettingsGlobalAction extends sfAction
       'slug_basis_informationobject' => (isset($slugTypeInformationObject)) ? intval($slugTypeInformationObject->getValue(array('sourceCulture'=>true))) : QubitSlug::SLUG_BASIS_TITLE,
       'show_tooltips' => (isset($showTooltips)) ? intval($showTooltips->getValue(array('sourceCulture'=>true))) : 1,
       'defaultPubStatus' => (isset($defaultPubStatus)) ? $defaultPubStatus->getValue(array('sourceCulture'=>true)) : QubitTerm::PUBLICATION_STATUS_DRAFT_ID,
-      'sword_deposit_dir' => (isset($swordDepositDir)) ? $swordDepositDir->getValue(array('sourceCulture'=>true)) : null
+      'sword_deposit_dir' => (isset($swordDepositDir)) ? $swordDepositDir->getValue(array('sourceCulture'=>true)) : null,
+      'google_maps_api_key' => (isset($googleMapsApiKey)) ? $googleMapsApiKey->getValue(array('sourceCulture'=>true)) : null
     ));
   }
 
@@ -361,6 +363,20 @@ class SettingsGlobalAction extends sfAction
 
       // Force sourceCulture update to prevent discrepency in settings between cultures
       $setting->setValue($swordDepositDir, array('sourceCulture' => true));
+      $setting->save();
+    }
+
+    // Google Maps Javascript API key
+    if (null !== $googleMapsApiKey = $thisForm->getValue('google_maps_api_key'))
+    {
+      if (null === $setting = QubitSetting::getByName('google_maps_api_key'))
+      {
+        $setting = new QubitSetting;
+        $setting->name = 'google_maps_api_key';
+      }
+
+      // Force sourceCulture update to prevent discrepency in settings between cultures
+      $setting->setValue($googleMapsApiKey, array('sourceCulture' => true));
       $setting->save();
     }
 
