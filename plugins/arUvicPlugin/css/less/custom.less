@@ -1,0 +1,451 @@
+/*
+ * This file is part of the Access to Memory (AtoM) software.
+ *
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+// Color changes
+
+.facet.open .facet-header p,
+.facet p:hover,
+#treeview-header p,
+.nav-pills > .active > a, .nav-pills > .active > a:hover, .nav-pills > .active > a:focus {
+  background-color: @red;
+}
+
+a,
+.search-result .title a,
+#sort-header .dropdown-selected,
+#sort-header .dropdown li a,
+.top-dropdown-container .top-dropdown-body ul a,
+.facet li a,
+#treeview li a,
+.search-result.media-summary a,
+#action-icons a {
+  color: @red;
+
+  &:hover, &:active {
+    color: @red;
+    text-decoration: underline;
+  }
+}
+
+textarea:focus,
+select:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: @red;
+  outline: 0;
+  outline: thin dotted \9;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px @red;
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px @red;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px @red;
+}
+
+// Header
+
+header {
+  background-color: @red;
+  border-bottom: 5px solid @orange;
+
+  .ccap-top-bar {
+    min-height: 50px;
+
+    #site-name {
+      font-family: 'Candal', sans-serif;
+      font-size: 30px;
+      line-height: 30px;
+      margin-left: 10px;
+      padding-right: 20px;
+
+      a:hover,
+      a:active {
+        text-decoration: none;
+        color: @orange;
+      }
+    }
+
+    .top-dropdown, a.top-dropdown:link, a.top-dropdown:visited, a.top-dropdown:active {
+      padding: 5px 10px 5px 10px;
+      background-image: none !important;
+    }
+
+    #browse-menu {
+      display: none;
+    }
+
+    #browse-menu > a,
+    #user-menu > a {
+      background-color: @white;
+      color: @red;
+
+      &:after {
+        float: right;
+        margin-left: 10px;
+        color: @red;
+        content: "\f0d7"; // icon-caret-down
+        font-family: 'FontAwesome';
+      }
+
+      &:hover {
+        color: @white;
+        text-decoration: none;
+
+        &:after {
+          color: @white;
+        }
+      }
+    }
+
+    #browse-menu.open > a,
+    #user-menu.open > a {
+      color: @white;
+
+      &:after {
+        color: @white;
+      }
+    }
+
+    #search-bar #search-form-wrapper input,
+    #search-bar #search-form-wrapper button {
+      background-color: @white;
+      color: @red;
+    }
+
+    #search-bar #search-form-wrapper input {
+      .placeholder(@red);
+      
+      &:focus {
+        .placeholder(@red);
+      }
+
+    }
+
+    #quick-links-menu.open, #language-menu.open, #admin-menu.open, #import-menu.open, #manage-menu.open, #add-menu.open, #quick-links-menu > a:hover, #language-menu > a:hover, #admin-menu > a:hover, #import-menu > a:hover, #manage-menu > a:hover, #add-menu > a:hover {
+      background-color: transparent;
+    }
+
+    #quick-links-menu.open > a:before, #language-menu.open > a:before, #admin-menu.open > a:before, #import-menu.open > a:before, #manage-menu.open > a:before, #add-menu.open > a:before, #quick-links-menu > a:hover:before, #language-menu > a:hover:before, #admin-menu > a:hover:before, #import-menu > a:hover:before, #manage-menu > a:hover:before, #add-menu > a:hover:before {
+      color: @orange;
+    }
+  }
+
+  .ccap-navigation-bar {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background-color: @red;
+    position: relative;
+
+    > ul {
+      display: inline-block;
+      list-style: none inside;
+      margin: 0;
+      height: 47px;
+
+      li {
+        float: left;
+        vertical-align: bottom;
+        height: 47px;
+
+        a {
+          position: relative;
+          line-height: 1;
+          color: @white;
+          display: block;
+          text-align: center;
+          padding: 10px;
+          font-weight: 600;
+
+          &:hover,
+          &:active {
+            color: @orange;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+#update-check {
+  border-bottom: none;
+}
+
+// Homepage
+
+#ccap-home-banner {
+
+  background-image: url('../../images/homepage.jpg') !important;
+  background-position: center center;
+  background-repeat: no-repeat;
+  .background-size(cover);
+  height: 420px;
+  border-bottom: 5px solid @orange;
+  position: relative;
+
+  h1, h2 {
+    color: @white;
+    text-align: center;
+    text-shadow: -1px 0 black, 0 1px black, 0 2px 4px black, 0 2px 4px black;
+    position: absolute;
+    left: 10%;
+  }
+
+  h1 {
+    top: 90px;
+    font-size: @baseFontSize * 2.75;
+  }
+
+  h2 {
+    top: 50px;
+  }
+
+}
+
+#ccap-home-body {
+  background-image: url('../../../arDominionPlugin/images/separator.png');
+  background-repeat: no-repeat;
+  background-position: center top;
+  padding: 0 0 20px 0;
+  p {
+    margin: 0 0 10px 0px;
+  }
+}
+
+#ccap-home-carousel-title {
+  margin-left: 20px;
+  margin-bottom: 0;
+  color: @grayLight;
+  font-style: italic;
+  font-size: 14px;
+  text-align: center;
+}
+
+#ccap-home-carousel {
+
+  height: 140px;
+  border-top: 4px solid @black;
+  border-bottom: 4px solid @black;
+  margin-bottom: -40px;
+  overflow: hidden;
+
+  > div {
+    width: 200%;
+  }
+
+  .carousel-item {
+    float: left;
+    border-right: 4px solid @black;
+    img {
+      height: 140px;
+      max-height: 140px;
+    }
+  }
+
+}
+
+.browse-item {
+  clear: both;
+  margin-bottom: 10px;
+  .icon {
+    float: left;
+  }
+  p {
+    float: left;
+    font-size: 16px;
+    line-height: 40px;
+    margin: 0 0 0 10px !important;
+    color: @grayDark;
+  }
+}
+
+// Footer
+
+footer {
+
+  border-top: 1px solid @grayLight;
+  background-color: #f8f8f8;
+  background-image: url('../../../arDominionPlugin/images/separator.png');
+  background-repeat: no-repeat;
+  background-position: center top;
+  min-height: 95px;
+  margin: 40px 0 0 0;
+  padding: 20px 0;
+
+  ul {
+    list-style: none;
+    margin: 0;
+  }
+
+  h5 {
+    text-transform: uppercase;
+    font-weight: normal;
+  }
+
+  a {
+    color: @grayLight;
+    &:hover {
+      color: @grayDark;
+      text-decoration: none;
+    }
+  }
+
+  .row > div:hover h5 {
+    color: @gray;
+    text-shadow: 0px 0px 4px @grayLighter;
+  }
+
+  // Powered by
+  .right {
+    text-align: right;
+  }
+
+  #atom-logo {
+    float: right;
+    margin-top: -4px;
+    width: 140px;
+  }
+
+  // Other logos
+  .center {
+    text-align: center;
+
+    img {
+      padding-top: 20px;
+      padding-bottom: 20px;
+
+      &#bc {
+        margin-top: -30px;
+        margin-bottom: -40px;
+      }
+    }
+  }
+
+}
+
+// Responsive design
+
+@media (max-width: 979px) {
+  header .ccap-top-bar #search-bar #browse-menu {
+    display: block;
+    width: 18%;
+  }
+
+  header .ccap-top-bar #search-bar #search-form-wrapper {
+    float: right;
+  }
+
+  header .ccap-navigation-bar {
+    height: 15px;
+  }
+
+  header .ccap-navigation-bar > ul {
+    display: none;
+  }
+
+  header .ccap-top-bar nav {
+    clear: none;
+  }
+
+  header .ccap-top-bar #search-bar {
+    padding: 0 10px;
+  }
+
+  #ccap-home-banner {
+    height: 240px;
+
+    // Align headers with the center
+    h1, h2 {
+      position: static;
+      text-align: center;
+      margin: 0;
+    }
+
+    h1 {
+      padding-top: 60px;
+    }
+
+  }
+}
+
+@media (max-width: 767px) {
+  header,
+  #ccap-home-carousel {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+
+  #ccap-home-banner {
+    margin: 0 -20px;
+  }
+
+  header .ccap-top-bar #site-name {
+    float: left;
+    text-align: left;
+    margin-top: 6px;
+    margin-bottom: 4px;
+  }
+
+  header .ccap-top-bar #search-bar #browse-menu {
+    width: 25%;
+  }
+
+  header .ccap-top-bar #search-bar #search-form-wrapper {
+    width: 73%;
+  }
+
+  footer .center img {
+    max-width: 50%;
+
+    &#bc {
+      margin-top: -40px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  header .ccap-navigation-bar {
+    height: 5px;
+  }
+
+  #browse-menu > a {
+    text-indent: inherit;
+  }
+
+  header .ccap-top-bar #search-bar #browse-menu {
+    width: 40%;
+  }
+
+  header .ccap-top-bar #search-bar #search-form-wrapper {
+    width: 58%;
+  }
+
+  footer .center img {
+    max-width: 80%;
+  }
+}

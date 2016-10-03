@@ -1,0 +1,71 @@
+/*
+ * This file is part of the Access to Memory (AtoM) software.
+ *
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+@font-face {
+  font-family: 'Open Sans Regular';
+  src: url('../../arDominionPlugin/vendor/fonts/open-sans/OpenSans-Regular-webfont.eot');
+  src: url('../../arDominionPlugin/vendor/fonts/open-sans/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../../arDominionPlugin/vendor/fonts/open-sans/OpenSans-Regular-webfont.woff') format('woff'),
+    url('../../arDominionPlugin/vendor/fonts/open-sans/OpenSans-Regular-webfont.ttf') format('truetype'),
+    url('../../arDominionPlugin/vendor/fonts/open-sans/OpenSans-Regular-webfont.svg#OpenSansRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans Semibold';
+  src: url('../../arDominionPlugin/vendor/fonts/open-sans/OpenSans-Semibold-webfont.eot');
+  src: url('../../arDominionPlugin/vendor/fonts/open-sans/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../../arDominionPlugin/vendor/fonts/open-sans/OpenSans-Semibold-webfont.woff') format('woff'),
+    url('../../arDominionPlugin/vendor/fonts/open-sans/OpenSans-Semibold-webfont.ttf') format('truetype'),
+    url('../../arDominionPlugin/vendor/fonts/open-sans/OpenSans-Semibold-webfont.svg#OpenSansRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Candal);
+
+/*
+ * Load Twitter Bootstrap v2.2.2
+ * -----------------------------------------------------------------------------
+ * I can't just load their bootstrap.less and responsive.less files because
+ * there are some limitations: 1) less @variables can't be overriden, 2) for
+ * some reason responsive.less imports the vendor variables.less again
+ */
+
+@import "../../../vendor/bootstrap/less/reset.less";
+@import "less/variables";
+@import "../../arDominionPlugin/css/less/loader-bootstrap";
+@import "../../arDominionPlugin/css/less/loader-yui";
+
+// Load arDominionPlugin files
+@import "../../arDominionPlugin/css/less/mixins.less";
+@import "../../arDominionPlugin/css/less/scaffolding.less";
+@import "../../arDominionPlugin/css/less/type.less";
+@import "../../arDominionPlugin/css/less/pager.less";
+@import "../../arDominionPlugin/css/less/search.less";
+@import "../../arDominionPlugin/css/less/header.less";
+@import "../../arDominionPlugin/css/less/treeview.less";
+@import "../../arDominionPlugin/css/less/popovers.less";
+@import "../../arDominionPlugin/css/less/description.less";
+@import "../../arDominionPlugin/css/less/import.less";
+@import "../../arDominionPlugin/css/less/forms.less";
+@import "../../arDominionPlugin/css/less/buttons.less";
+@import "../../arDominionPlugin/css/less/legacy.less";
+
+// Customizations
+@import "less/custom.less";
