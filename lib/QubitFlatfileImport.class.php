@@ -699,10 +699,19 @@ class QubitFlatfileImport
 
       foreach ($fields as $field)
       {
-        // Found a field that doesn't match, so this isn't a duplicate. Move onto the next event and check...
-        if ($existingEvent->$field != $event->$field)
+        // Use special logic when comparing dates, see dateStringsEqual for details.
+        if (false !== strpos(strtolower($field), 'date'))
         {
-          $match = false;
+          $match = $match && $this->dateStringsEqual($existingEvent->$field, $event->$field);
+        }
+        else
+        {
+          $match = $match && $existingEvent->$field === $event->$field;
+        }
+
+        // Event fields differ, don't bother checking other fields since these aren't equal
+        if (!$match)
+        {
           break;
         }
       }
@@ -715,6 +724,31 @@ class QubitFlatfileImport
     }
 
     return false;
+  }
+
+  /**
+   * Compare two date strings. This function has some custom logic to account for MySQL adding
+   * '-00-00' to dates that only indicate year, but not month / day.
+   *
+   * @param string $dbDate  First date in the comparison. This is the date fetched from the db with potential
+   *                        '-00-00' in it.
+   * @param string $csvDate  Second date for comparison.
+   * @return bool  True if date strings are equal, false otherwise.
+   */
+  private function dateStringsEqual($dbDate, $csvDate)
+  {
+    $dbDate = trim($dbDate);
+    $csvDate = trim($csvDate);
+    $suffix = '-00-00';
+
+    // If our database added -00-00 onto the date, add it onto the csv date as well if applicable,
+    // so we can compare e.g.: '2000-00-00' vs. '2000'
+    if ($suffix === substr($dbDate, -strlen($suffix)) && 1 === preg_match('/^\d{4}$/', $csvDate))
+    {
+        $csvDate .= $suffix;
+    }
+
+    return $csvDate === $dbDate;
   }
 
   private function fetchOrCreateObjectByClass()
@@ -1867,6 +1901,12 @@ class QubitFlatfileImport
    */
   public function createRelation($subjectId, $objectId, $typeId)
   {
+    // Prevent duplicate relations.
+    if ($this->relationExists($subjectId, $objectId))
+    {
+      return;
+    }
+
     $relation = new QubitRelation;
     $relation->subjectId = $subjectId;
     $relation->objectId  = $objectId;
@@ -1885,12 +1925,52 @@ class QubitFlatfileImport
    */
   public function createObjectTermRelation($objectId, $termId)
   {
+    // Prevent duplicate object-term relations.
+    if ($this->objectTermRelationExists($objectId, $termId))
+    {
+      return;
+    }
+
     $relation = new QubitObjectTermRelation;
     $relation->termId = $termId;
     $relation->objectId = $objectId;
     $relation->save();
 
     return $relation;
+  }
+
+  /**
+   * Check whether or not a term / phys obj relation already exists for this info object.
+   *
+   * @param integer $subjectId  The term, actor or phys object we're relating to.
+   * @param integer $objectId  Information object we're relating to.
+   *
+   * @return bool  True if this relation already exists, false otherwise.
+   */
+  private function relationExists($subjectId, $objectId)
+  {
+    $c = new Criteria;
+    $c->add(QubitRelation::OBJECT_ID, $objectId);
+    $c->add(QubitRelation::SUBJECT_ID, $subjectId);
+
+    return null !== QubitRelation::getOne($c);
+  }
+
+  /**
+   * Check whether or not an object-term relation already exists for this info object.
+   *
+   * @param integer $objectId  Information object we're relating to.
+   * @param integer $termId  The term or actor we're relating to.
+   *
+   * @return bool  True if this relation already exists, false otherwise.
+   */
+  private function objectTermRelationExists($objectId, $termId)
+  {
+    $c = new Criteria;
+    $c->add(QubitObjectTermRelation::OBJECT_ID, $objectId);
+    $c->add(QubitObjectTermRelation::TERM_ID, $termId);
+
+    return null !== QubitObjectTermRelation::getOne($c);
   }
 
   /**
