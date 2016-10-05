@@ -1739,6 +1739,12 @@ class QubitFlatfileImport
    */
   public function createRelation($subjectId, $objectId, $typeId)
   {
+    // Prevent duplicate relations.
+    if ($this->relationExists($subjectId, $objectId))
+    {
+      return;
+    }
+
     $relation = new QubitRelation;
     $relation->subjectId = $subjectId;
     $relation->objectId  = $objectId;
@@ -1757,12 +1763,52 @@ class QubitFlatfileImport
    */
   public function createObjectTermRelation($objectId, $termId)
   {
+    // Prevent duplicate object-term relations.
+    if ($this->objectTermRelationExists($objectId, $termId))
+    {
+      return;
+    }
+
     $relation = new QubitObjectTermRelation;
     $relation->termId = $termId;
     $relation->objectId = $objectId;
     $relation->save();
 
     return $relation;
+  }
+
+  /**
+   * Check whether or not a term relation already exists for this info object.
+   *
+   * @param integer $subjectId  The term or actor we're relating to.
+   * @param integer $objectId  Information object we're relating to.
+   *
+   * @return bool  True if this relation already exists, false otherwise.
+   */
+  private function relationExists($subjectId, $objectId)
+  {
+    $c = new Criteria;
+    $c->add(QubitRelation::OBJECT_ID, $objectId);
+    $c->add(QubitRelation::SUBJECT_ID, $subjectId);
+
+    return null !== QubitRelation::getOne($c);
+  }
+
+  /**
+   * Check whether or not an object-term relation already exists for this info object.
+   *
+   * @param integer $objectId  Information object we're relating to.
+   * @param integer $termId  The term or actor we're relating to.
+   *
+   * @return bool  True if this relation already exists, false otherwise.
+   */
+  private function objectTermRelationExists($objectId, $termId)
+  {
+    $c = new Criteria;
+    $c->add(QubitObjectTermRelation::OBJECT_ID, $objectId);
+    $c->add(QubitObjectTermRelation::TERM_ID, $termId);
+
+    return null !== QubitObjectTermRelation::getOne($c);
   }
 
   /**
