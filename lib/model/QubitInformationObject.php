@@ -376,6 +376,21 @@ class QubitInformationObject extends BaseInformationObject
   }
 
   /**
+   * Get number of information objects with draft status
+   *
+   * @return int  Number of information objects with draft status
+   */
+  public static function getDraftCount()
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitInformationObject::ID, QubitInformationObject::ROOT_ID, Criteria::NOT_EQUAL);
+    $criteria->addJoin(QubitInformationObject::ID, QubitStatus::OBJECT_ID);
+    $criteria->add(QubitStatus::STATUS_ID, QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
+
+    return BasePeer::doCount($criteria)->fetchColumn(0);
+  }
+
+  /**
    * Get all information objects updated between two dates
    *
    * @return QubitQuery collection of QubitInformationObjects
