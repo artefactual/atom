@@ -367,18 +367,17 @@ class SettingsGlobalAction extends sfAction
     }
 
     // Google Maps Javascript API key
-    if (null !== $googleMapsApiKey = $thisForm->getValue('google_maps_api_key'))
-    {
-      if (null === $setting = QubitSetting::getByName('google_maps_api_key'))
-      {
-        $setting = new QubitSetting;
-        $setting->name = 'google_maps_api_key';
-      }
+    $googleMapsApiKey = $thisForm->getValue('google_maps_api_key');
 
-      // Force sourceCulture update to prevent discrepency in settings between cultures
-      $setting->setValue($googleMapsApiKey, array('sourceCulture' => true));
-      $setting->save();
+    if (null === $setting = QubitSetting::getByName('google_maps_api_key'))
+    {
+      $setting = new QubitSetting;
+      $setting->name = 'google_maps_api_key';
     }
+
+    // Force sourceCulture update to prevent discrepency in settings between cultures
+    $setting->setValue($googleMapsApiKey, array('sourceCulture' => true));
+    $setting->save();
 
     return $this;
   }

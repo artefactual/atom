@@ -54,8 +54,7 @@
               <?php echo $form->toggleDigitalObjectMap->label('Digital object map')->renderLabel() ?>
               <?php if (!$googleMapsApiKeySet): ?>
                 <div class="description">
-                  <?php $securitySettingsLinkHtml = link_to(__('Security'), array('module' => 'settings', 'action' => 'security')) ?>
-                  <?php echo __('This feature will not work until a Google Maps API key is specified on the %1% settings page.', array('%1%' => $securitySettingsLinkHtml)) ?>
+                  <?php echo __('This feature will not work until a Google Maps API key is specified on the %1%global%2% settings page.', array('%1%' => '<a href="'. url_for('settings/global'). '">', '%2%' => '</a>')) ?>
                 </div>
               <?php endif; ?>
             </td>
