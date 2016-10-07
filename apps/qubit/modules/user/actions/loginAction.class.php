@@ -69,6 +69,11 @@ class UserLoginAction extends sfAction
       {
         if ($this->context->user->authenticate($this->form->getValue('email'), $this->form->getValue('password')))
         {
+          if (sfConfig::get('app_draft_notification_enabled') && $draftCount = QubitInformationObject::getDraftCount())
+          {
+            $this->getUser()->setFlash('notice', $this->getDraftNotificationText($draftCount));
+          }
+
           if (null !== $next = $this->form->getValue('next'))
           {
             $this->redirect($next);
@@ -80,5 +85,20 @@ class UserLoginAction extends sfAction
         $this->form->getErrorSchema()->addError(new sfValidatorError(new sfValidatorPass, 'Sorry, unrecognized email or password'));
       }
     }
+  }
+
+  private function getDraftNotificationText($draftCount)
+  {
+    $draftUrl = $this->context->routing->generate(null, array(
+      'module' => 'search',
+      'action' => 'descriptionUpdates',
+      'limit' => 10,
+      'sort' => 'updatedDown',
+      'className' => 'QubitInformationObject',
+      'dateOf' => 'CREATED_AT',
+      'publicationStatus' => QubitTerm::PUBLICATION_STATUS_DRAFT_ID,
+    ));
+
+    return $this->context->i18n->__('%1% draft(s) available (visit %2%newest additions%3% page to browse them)', array('%1%' => $draftCount, '%2%' => '<a href="'. $draftUrl .'">', '%3%' => '</a>'));
   }
 }

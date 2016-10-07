@@ -90,10 +90,10 @@ class SettingsGlobalAction extends sfAction
     $explodeMultipageFiles = QubitSetting::getByName('explode_multipage_files');
     $showTooltips = QubitSetting::getByName('show_tooltips');
     $defaultPubStatus = QubitSetting::getByName('defaultPubStatus');
+    $draftNotificationEnabled = QubitSetting::getByName('draft_notification_enabled');
     $swordDepositDir = QubitSetting::getByName('sword_deposit_dir');
     $googleMapsApiKey = QubitSetting::getByName('google_maps_api_key');
     $slugTypeInformationObject = QubitSetting::getByName('slug_basis_informationobject');
-
 
     // Set defaults for global form
     $this->globalForm->setDefaults(array(
@@ -118,6 +118,7 @@ class SettingsGlobalAction extends sfAction
       'slug_basis_informationobject' => (isset($slugTypeInformationObject)) ? intval($slugTypeInformationObject->getValue(array('sourceCulture'=>true))) : QubitSlug::SLUG_BASIS_TITLE,
       'show_tooltips' => (isset($showTooltips)) ? intval($showTooltips->getValue(array('sourceCulture'=>true))) : 1,
       'defaultPubStatus' => (isset($defaultPubStatus)) ? $defaultPubStatus->getValue(array('sourceCulture'=>true)) : QubitTerm::PUBLICATION_STATUS_DRAFT_ID,
+      'draft_notification_enabled' => (isset($draftNotificationEnabled)) ? intval($draftNotificationEnabled->getValue(array('sourceCulture'=>true))) : 0,
       'sword_deposit_dir' => (isset($swordDepositDir)) ? $swordDepositDir->getValue(array('sourceCulture'=>true)) : null,
       'google_maps_api_key' => (isset($googleMapsApiKey)) ? $googleMapsApiKey->getValue(array('sourceCulture'=>true)) : null
     ));
@@ -353,6 +354,20 @@ class SettingsGlobalAction extends sfAction
 
       // Force sourceCulture update to prevent discrepency in settings between cultures
       $setting->setValue($defaultPubStatus, array('sourceCulture' => true));
+      $setting->save();
+    }
+
+    // Total drafts notification enabled
+    if (null !== $draftNotificationEnabled = $thisForm->getValue('draft_notification_enabled'))
+    {
+      if (null === $setting = QubitSetting::getByName('draft_notification_enabled'))
+      {
+        $setting = new QubitSetting;
+        $setting->name = 'draft_notification_enabled';
+      }
+
+      // Force sourceCulture update to prevent discrepency in settings between cultures
+      $setting->setValue($draftNotificationEnabled, array('sourceCulture' => true));
       $setting->save();
     }
 
