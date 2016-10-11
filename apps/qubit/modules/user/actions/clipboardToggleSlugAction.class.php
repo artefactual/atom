@@ -29,6 +29,7 @@ class UserClipboardToggleSlugAction extends sfAction
 
     $response = array(
       'added' => $this->context->user->getClipboard()->toggle($request->slug),
+      'countByType' => json_encode($this->context->user->getClipboard()->countByType()),
       'count' => $this->context->user->getClipboard()->count());
 
     $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');

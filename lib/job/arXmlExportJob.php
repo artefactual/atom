@@ -25,39 +25,28 @@
  * @subpackage jobs
  */
 
-class arInformationObjectCsvExportJob extends arBaseJob
+class arXmlExportJob extends arBaseJob
 {
   /**
    * @see arBaseJob::$requiredParameters
    */
-  protected $extraRequiredParameters = array('params');  // Search params
   protected $downloadFileExtension = 'zip';
   protected $search;            // arElasticSearchPluginQuery instance
-  protected $archivalStandard;  // Which CSV export configuration to use: either "rad" or "isad"
-  protected $params = array();
+  protected $errors = null;
 
   public function runJob($parameters)
   {
-    $this->params = $parameters;
-
-    // If not using RAD, default to ISAD CSV export format
-    $this->archivalStandard = 'isad';
-    if (QubitSetting::getByNameAndScope('informationobject', 'default_template') == 'rad')
-    {
-      $this->archivalStandard = 'rad';
-    }
-
     // Create query increasing limit from default
     $this->search = new arElasticSearchPluginQuery(1000000000);
 
-    if ($this->params['params']['fromClipboard'])
+    if ($parameters['params']['fromClipboard'])
     {
-      $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
+      $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $parameters['params']['slugs']));
     }
     else
     {
-      $this->search->addFacetFilters(InformationObjectBrowseAction::$FACETS, $this->params['params']);
-      $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $this->params['params'], $this->archivalStandard);
+      $this->search->addFacetFilters(InformationObjectBrowseAction::$FACETS, $parameters['params']);
+      $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $parameters['params'], $this->archivalStandard);
     }
 
     $this->search->query->setSort(array('lft' => 'asc'));
@@ -68,8 +57,17 @@ class arInformationObjectCsvExportJob extends arBaseJob
 
     // Export CSV to temp directory
     $this->info($this->i18n->__('Starting export to %1.', array('%1' => $tempPath)));
-    $itemsExported = $this->exportResults($tempPath);
-    $this->info($this->i18n->__('Exported %1 descriptions.', array('%1' => $itemsExported)));
+
+    $this->exportResults($tempPath, $parameters);
+
+    // Output CLI task messages.
+    if (null != $this->errors)
+    {
+      foreach ($this->errors as $error)
+      {
+        $this->info($error);
+      }
+    }
 
     // Compress CSV export files as a ZIP archive
     $this->info($this->i18n->__('Creating ZIP file %1.', array('%1' => $this->getDownloadFilePath())));
@@ -96,53 +94,63 @@ class arInformationObjectCsvExportJob extends arBaseJob
    *
    * @param string  Path of file to write CSV data to
    *
-   * @return int  Number of descriptions exported
+   * @return null
    */
-  protected function exportResults($path)
+  protected function exportResults($path, $params)
   {
-    $itemsExported = 0;
-
-    // Exporter will create a new file each 10,000 rows
-    $writer = new csvInformationObjectExport($path, $this->archivalStandard, 10000);
-
-    // Force loading of information object configuration, then modify writer
-    // configuration
-    $writer->loadResourceSpecificConfiguration('QubitInformationObject');
-    array_unshift($writer->columnNames, 'referenceCode');
-    array_unshift($writer->standardColumns, 'referenceCode');
-
+    $exitCode = 0;
+    $resultIds = array();
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->getQuery(false, false));
 
     foreach ($resultSet as $hit)
     {
-      $resource = QubitInformationObject::getById($hit->getId());
-
-      // If ElasticSearch document is stale (corresponding MySQL data deleted), ignore
-      if ($resource !== null)
-      {
-        $writer->exportResource($resource);
-
-        // export descendants if configured
-        if (!$this->params['current-level-only'])
-        {
-          $descendants = $resource->descendants->orderBy('lft');
-
-          foreach($descendants as $descendant)
-          {
-            $writer->exportResource($descendant);
-          }
-        }
-
-        // Log progress every 1000 rows
-        if ($itemsExported && ($itemsExported % 1000 == 0))
-        {
-          $this->info($this->i18n->__('%1 items exported.', array('%1' => $itemsExported)));
-        }
-
-        $itemsExported++;
-      }
+      $resultIds[] = $hit->getId();
     }
 
-    return $itemsExported;
+    // If ElasticSearch document is stale (corresponding MySQL data deleted), ignore
+    if (empty($resultIds))
+    {
+      $this->error($this->i18n->__('Records not found in search index.'));
+      return;
+    }
+
+    foreach ($resultIds as $result)
+    {
+      $taskClassName = 'export:bulk';
+
+      $criteria = sprintf('--criteria="i.id = (%s)"', $result);
+      $currentLevelOnly = (true == $params['current-level-only']) ? '--current-level-only' : '';
+      $public = (true == $params['public']) ? '--public' : '';
+
+      $command = sprintf('php %s %s %s %s %s %s',
+        escapeshellarg(sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'symfony'),
+        escapeshellarg($taskClassName),
+        $criteria,
+        $currentLevelOnly,
+        $public,
+        escapeshellarg($path));
+
+      // Log the command string in the job output window.
+      $output[] = $command;
+
+      // stderr to stdout
+      $command .= ' 2>&1';
+
+      // Run
+      exec($command, $output, $exitCode);
+
+      // Throw exception if exit code is greater than zero
+      if (0 < $exitCode)
+      {
+        $output = implode($output, "<br />");
+
+        throw new sfException($output);
+      }
+      else
+      {
+        // Warnings
+        $this->errors = $output;
+      }
+    }
   }
 }

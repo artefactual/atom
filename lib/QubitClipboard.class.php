@@ -21,6 +21,15 @@
  * Representation of the user clipboard.
  * This class does not lock the session storage to prevent concurrent writes.
  *
+ * Serialized array structure groups slugs by class_name:
+ *
+ * Array
+ * (
+ *     [QubitInformationObject] => Array
+ *         (
+ *             [0] => slug1 (string)
+ *             etc...
+ *
  * @package    AccesstoMemory
  * @subpackage libraries
  */
@@ -43,20 +52,22 @@ class QubitClipboard
    * @return boolean True if added, false if removed
    */
   public function toggle($slug)
-  { 
+  {
     // Get actual items
-    $items = $this->getAll();
+    $items = $this->getAllByClassName();
+    // Get slug's class name
+    $className = $this->getClassNameFromSlug($slug);
 
     // Add or remove slug to clipboard items
-    if (in_array($slug, $items))
+    if (in_array($slug, $items[$className]))
     {
-      $items = array_merge(array_diff($items, array($slug)));
+      $items[$className] = array_merge(array_diff($items[$className], array($slug)));
 
       $added = false;
     }
     else
     {
-      $items[] = $slug;
+      $items[$className][] = $slug;
 
       $added = true;
     }
@@ -73,8 +84,25 @@ class QubitClipboard
    * @return int Count of information objects in the clipboard
    */
   public function count()
-  { 
+  {
     return count($this->getAll());
+  }
+
+  /**
+   * Get the number of objects in clipboard by object type
+   *
+   * @return array of counts by object types in the clipboard
+   */
+  public function countByType()
+  {
+    $counts = array();
+
+    foreach ($this->getAllByClassName() as $className => $slugArray)
+    {
+      $counts[$className] = count($slugArray);
+    }
+
+    return $counts;
   }
 
   /**
@@ -104,6 +132,25 @@ class QubitClipboard
    */
   public function getAll()
   {
+    $slugArray = array();
+    $items = $this->getAllByClassName();
+
+    // Translate array by type into flat array of slugs and return.
+    foreach ($items as $type => $slugs)
+    {
+      $slugArray = array_merge($slugArray, $slugs);
+    }
+
+    return $slugArray;
+  }
+
+  /**
+   * Gets an array with all the information object slugs sorted by class name in the clipboard
+   *
+   * @return array Slugs added to the clipboard
+   */
+  private function getAllByClassName()
+  {
     $items = array();
     if (null !== $savedItems = $this->storage->read(self::CLIPBOARD_NAMESPACE))
     {
@@ -112,4 +159,21 @@ class QubitClipboard
 
     return $items;
   }
+
+  /**
+   * For a given slug, determine the object type and return it
+   *
+   * @return object class name; return null if unable to determine class name
+   */
+   private function getClassNameFromSlug($slug)
+   {
+     $query = 'SELECT o.class_name FROM slug s JOIN object o ON s.object_id=o.id WHERE s.slug=' . '"' . $slug . '"';
+     $statement = QubitPdo::prepareAndExecute($query);
+     $result = $statement->fetch(PDO::FETCH_OBJ);
+
+     if ($result)
+     {
+       return $result->class_name;
+     }
+   }
 }

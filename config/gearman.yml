@@ -17,3 +17,5 @@ all:
       - arUpdatePublicationStatusJob
     file_import:
       - arFileImportJob
+    xml_export:
+      - arXmlExportJob

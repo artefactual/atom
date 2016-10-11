@@ -15,13 +15,10 @@
 
     <div class="top-dropdown-header">
       <h2><?php echo __('Clipboard') ?></h2>
-
-      <span data-plural-label="<?php echo __('descriptions selected') ?>" data-single-label="<?php echo __('description selected') ?>">
-        <?php if ($count != 1): ?>
-          <?php echo $count . ' ' . __('descriptions selected') ?>
-        <?php else: ?>
-          <?php echo $count . ' ' . __('description selected') ?>
-        <?php endif; ?>
+      <span id="count-block" data-information-object-label="<?php echo sfConfig::get('app_ui_label_informationobject') ?>" data-actor-object-label="<?php echo sfConfig::get('app_ui_label_actor') ?>" data-repository-object-label="<?php echo sfConfig::get('app_ui_label_repository') ?>">
+        <?php foreach ($countByType as $objectType => $countType): ?>
+          <?php echo __('%1% count: %2%', array('%1%' => $objectTypes[$objectType], '%2%' => $countType)); ?><br />
+        <?php endforeach; ?>
       </span>
     </div>
 
