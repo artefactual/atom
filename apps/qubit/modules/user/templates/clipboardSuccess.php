@@ -14,13 +14,6 @@
   <section class="browse-options">
     <?php echo get_partial('default/printPreviewButton', array('class' => 'clipboard-print')) ?>
 
-    <?php if (isset($pager) && $pager->hasResults() && $sf_user->isAuthenticated()): ?>
-      <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'exportCsv', 'fromClipboard' => true)) ?>">
-        <i class="fa fa-upload"></i>
-        <?php echo __('Export CSV') ?>
-      </a>
-    <?php endif; ?>
-
     <?php echo get_partial('default/sortPicker', array(
       'options' => array(
         'lastUpdated' => __('Most recent'),
@@ -42,6 +35,9 @@
   <section class="actions">
     <ul>
       <li><?php echo link_to (__('Clear all'), array('module' => 'user', 'action' => 'clipboardClear'), array('class' => 'c-btn c-btn-delete')) ?></li>
+      <?php if (isset($pager) && $pager->hasResults() && $sf_user->isAuthenticated()): ?>
+        <li><?php echo link_to(__('Export'), array('module' => 'object', 'action' => 'export'), array('class' => 'c-btn')) ?></li>
+      <?php endif; ?>
     </ul>
   </section>
 <?php end_slot() ?>

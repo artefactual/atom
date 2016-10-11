@@ -1,5 +1,4 @@
 importSelectSuccess:
-
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
@@ -15,3 +14,10 @@ importSelectSuccess:
     multiInstanceInput:
     multiRow:
     select:
+
+exportSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/textarea:
