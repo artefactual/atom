@@ -184,7 +184,11 @@ class ActorEditAction extends DefaultEditAction
         if (isset($value))
         {
           $params = $this->context->routing->parse(Qubit::pathInfo($value));
-          $this->resource->setMaintainingRepository($params['_sf_route']->resource);
+          $this->resource->setOrDeleteMaintainingRepository($params['_sf_route']->resource);
+        }
+        else
+        {
+          $this->resource->setOrDeleteMaintainingRepository();
         }
 
         break;
