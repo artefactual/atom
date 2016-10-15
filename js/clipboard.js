@@ -58,7 +58,7 @@
         success: function (data)
           {
             this.updateButton($button, data.added, reloadTooltip);
-            this.updateCounts(data.count);
+            this.updateCounts(data.count, data.countByType);
           },
         error: function(error)
           {
@@ -134,10 +134,12 @@
         }
       }
     },
-    updateCounts: function (count)
+    updateCounts: function (count, countByType)
     {
       // Menu button count
       var $buttonSpan = this.$menuButton.find('> span');
+      var countText = '';
+      
       if (!$buttonSpan.length && count > 0)
       {
         this.$menuButton.append('<span>' + count + '</span>');
@@ -152,16 +154,34 @@
       }
 
       // Menu dropdown header count
-      var pluralLabel = this.$menuHeaderCount.data('plural-label');
-      var singleLabel = this.$menuHeaderCount.data('single-label');
-      if (count != 1)
-      {
-        this.$menuHeaderCount.text(count + ' ' + pluralLabel);
+      var informationObjectLabel = this.$menuHeaderCount.data('information-object-label');
+      var actorLabel = this.$menuHeaderCount.data('actor-object-label');
+      var repositoryLabel = this.$menuHeaderCount.data('repository-object-label');
+
+      countByType = JSON.parse(countByType);
+
+      for (var key in countByType) {
+        if (countByType.hasOwnProperty(key)) {
+          switch (key)
+          {
+            case 'QubitInformationObject':
+              countText += informationObjectLabel;
+              break;
+            case 'QubitActor':
+              countText += actorLabel;
+              break;
+            case 'QubitRepository':
+              countText += repositoryLabel;
+              break;
+            default:
+              countText += 'Object';
+              break;
+          }
+          countText += ' count: ' + countByType[key] + '<br />';
+        }
       }
-      else
-      {
-        this.$menuHeaderCount.text(count + ' ' + singleLabel);
-      }
+
+      this.$menuHeaderCount.html(countText);
     },
     showAlert: function()
     {
