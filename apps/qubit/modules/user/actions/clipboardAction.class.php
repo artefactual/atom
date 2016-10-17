@@ -86,7 +86,7 @@ class UserClipboardAction extends DefaultBrowseAction
     // Page results
     $this->pager = new QubitSearchPager($resultSet);
     $this->pager->setPage($request->page ? $request->page : 1);
-    $this->pager->setMaxPerPage($request->limit);
+    $this->pager->setMaxPerPage($this->limit);
     $this->pager->init();
   }
 }
