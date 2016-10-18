@@ -85,6 +85,13 @@ class arFileImportJob extends arBaseJob
       }
     }
 
+    // Try to remove tmp file from uploads/tmp.
+    if (unlink($parameters['file']['tmp_name']) === false)
+    {
+      // Issue warning if unable to delete but do not show job as failed because of this.
+      $this->error($this->i18n->__('Failed to delete temporary file %1 -- please check your folder permissions.', array('%1' => $parameters['file']['tmp_name'])));
+    }
+
     // Mark job as complete.
     $this->info($this->i18n->__('Import complete.'));
     $this->job->setStatusCompleted();

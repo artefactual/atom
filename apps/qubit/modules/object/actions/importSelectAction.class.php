@@ -95,6 +95,13 @@ class ObjectImportSelectAction extends DefaultEditAction
     }
   }
 
+  /**
+   * Launch the file import background job and return.
+   *
+   * @param  $request data
+   *
+   * @return null
+   */
   protected function doBackgroundImport($request)
   {
     $file = $request->getFiles('file');
@@ -110,6 +117,17 @@ class ObjectImportSelectAction extends DefaultEditAction
     else
     {
       $importSelectRoute = array('module' => 'object', 'action' => 'importSelect', 'type' => $importType);
+    }
+
+    // Move uploaded file to new location to pass off to background arFileImportJob.
+    try
+    {
+      $file = Qubit::moveUploadFile($file);
+    }
+    catch (sfException $e)
+    {
+      $this->getUser()->setFlash('error', $e->getMessage());
+      $this->redirect($importSelectRoute);
     }
 
     // if we got here without a file upload, go to file selection
@@ -131,7 +149,7 @@ class ObjectImportSelectAction extends DefaultEditAction
                      'update' => $request->getParameter('updateType'),
                      'repositorySlug' => $request->getPostParameter('repos'),
                      'collectionSlug' => end(explode('/', $request->getPostParameter('collection'))),
-                     'file' => $request->getFiles('file'));
+                     'file' => $file);
 
     try
     {
