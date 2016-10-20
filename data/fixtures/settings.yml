@@ -104,6 +104,7 @@ QubitSetting:
       sr: 'Архивски опис'
       sv: Arkivbeskrivning
       th: คำอธิบายจดหมายเหตุ
+      uz: 'Arxiv tavsifi'
       vi: 'Mô tả lưu trữ'
       zh: 文献著录
   QubitSetting_12:
@@ -139,6 +140,7 @@ QubitSetting:
       sl: 'Zapis o ustvarjalcu'
       sr: 'Нормативни запис'
       th: รายการควบคุม
+      uz: 'Avtoritet yozuv'
       vi: 'Authority record'
       zh: 规范记录
   QubitSetting_13:
@@ -467,6 +469,7 @@ QubitSetting:
       sl: Ime
       sr: Назив/Име
       th: ชื่อ
+      uz: Nomi
       vi: Tên
       zh: 名称
   QubitSetting_22:
@@ -577,6 +580,7 @@ QubitSetting:
       sr: 'Врста медија'
       sv: Mediatyper
       th: ประเภทสื่อ
+      uz: 'Resurs turi'
       vi: 'Loại truyền thông'
       zh: 媒体类型
   QubitSetting_25:

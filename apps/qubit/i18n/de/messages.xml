@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2016-07-11T10:01:05Z" original="messages" product-name="messages" source-language="en" target-language="de">
+  <file datatype="plaintext" date="2016-10-19T17:04:30Z" original="messages" product-name="messages" source-language="en" target-language="de">
     <header/>
     <body>
       <trans-unit id="a5162e31ab7277f79bebcb03364debdf5c0913b8">
@@ -372,6 +372,7 @@
       </trans-unit>
       <trans-unit id="b64e576b755641826adb3737f880263e56fa2def">
         <source>Advanced search options</source>
+        <target>Erweiterte Suchoptionen</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/repository/templates/browseSuccess.php</note>
       </trans-unit>
       <trans-unit id="ee68d3496bb455d50d1b8a9987c710dd56818065">
@@ -1233,6 +1234,7 @@
       </trans-unit>
       <trans-unit id="04b03af47e6eb68bd98ddab8db611bb66d33aa8a">
         <source>Elasticsearch error: %1%</source>
+        <target>Elasticsearch-Fehler: %1%</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/actions/errorAction.class.php</note>
       </trans-unit>
       <trans-unit id="0b7145cd22fc88b11b7811f0aabdcc455777489b">
@@ -1367,6 +1369,7 @@
       </trans-unit>
       <trans-unit id="afcdf53702cb401c19cf800db3728b0063c17ff7">
         <source>Export history CSV</source>
+        <target>Chronik-CSV exportieren</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/jobs/templates/browseSuccess.php</note>
       </trans-unit>
       <trans-unit id="0e8881271ff69b83f18ee1284fadbbaa3351dd18">
@@ -1440,6 +1443,7 @@
       </trans-unit>
       <trans-unit id="1d418f9a4f336e7d5a4571efa07895625a635204">
         <source>Find results with:</source>
+        <target>Ergebnisse suchen mit:</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/_advancedSearch.php</note>
       </trans-unit>
       <trans-unit id="32c2ee9329cbee93fce22aa4ce947887c5b85f48">
@@ -2960,6 +2964,7 @@
       </trans-unit>
       <trans-unit id="b3a881e3eac634a592888e231525adfe176ab7e8">
         <source>Search error encountered</source>
+        <target>Suchfehler aufgetreten</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/errorSuccess.php</note>
       </trans-unit>
       <trans-unit id="4b9d3f099ce6ddb8ea655f99a85cafe45e43e4b3">

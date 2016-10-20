@@ -80,6 +80,7 @@ QubitMenu:
       sr: Додај
       sv: 'Lägg till'
       th: เพิ่ม
+      uz: 'Yangi qo''shish'
       vi: Thêm
       zh: 添加
     path: accession/add
@@ -396,7 +397,7 @@ QubitMenu:
       eu: 'Atxikimendu erregistroak'
       fr: 'Notices d''acquisition'
       gl: 'Rexistros de ingresos'
-      hu: 'Gyarapodási rekord/adatok'
+      hu: 'Gyarapodási rekordok'
       is: Aðfangaskrá
       it: 'Registrazioni delle acquisizioni'
       ja: 受入記録
@@ -613,6 +614,7 @@ QubitMenu:
       sl: XML
       sr: XML
       sv: XML
+      uz: XML
       vi: XML
       zh: XML
     path: 'object/importSelect?type=xml'
@@ -717,6 +719,7 @@ QubitMenu:
       sr: Профил
       sv: Profil
       th: ประว้ติส่วนตัว
+      uz: Profil
       vi: 'hồ sơ'
       zh: 简介
   QubitMenu_mainmenu_admin_users_infoObjectAcl:
@@ -902,6 +905,7 @@ QubitMenu:
       sr: Профил
       sv: Profil
       th: ประว้ติส่วนตัว
+      uz: Profil
       vi: 'hồ sơ'
       zh: 简介
   QubitMenu_mainmenu_admin_groups_infoObjectAcl:
@@ -1285,6 +1289,7 @@ QubitMenu:
       sl: Domov
       sr: 'Почетна страна'
       sv: Hem
+      uz: 'Bosh sahifa'
       vi: 'Trang chủ'
       zh: 主页
     path: '@homepage'
@@ -1426,6 +1431,7 @@ QubitMenu:
       sr: 'Пријави се'
       sv: 'Logga in'
       th: เข้าสู่ระบบ
+      uz: Kirish
       vi: 'Đăng nhập'
       zh: 登入
     path: user/login
@@ -1461,6 +1467,7 @@ QubitMenu:
       ru: Выйти
       sl: odjava
       sr: 'Одјави се'
+      uz: Chiqish
       vi: 'Đăng xuất'
       zh: 登出
     path: user/logout
@@ -1630,6 +1637,7 @@ QubitMenu:
       sr: Предмет
       sv: Ämnesområden
       th: หัวข้อ
+      uz: Mavzular
       vi: 'Chủ đề'
       zh: 主题
     path: 'taxonomy/browse?id=35'
@@ -1667,6 +1675,7 @@ QubitMenu:
       sr: Места
       sv: Platser
       th: สถานที
+      uz: Joylar
       vi: 'địa điểm'
       zh: 地点
     path: 'taxonomy/browse?id=42'
@@ -1736,6 +1745,7 @@ QubitMenu:
       sl: 'Vidni elementi'
       sr: 'Видљива поља'
       th: 'elementsที่สามารถมองเห็นได้,'
+      uz: 'Ko''rinuvchan elementlar'
       vi: 'Yếu tố có thể thấy'
       zh: 可见细目
     path: settings/visibleElements

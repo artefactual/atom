@@ -160,6 +160,7 @@ QubitTaxonomy:
       sr: Предмет
       sv: Ämnesområden
       th: หัวข้อ
+      uz: Mavzular
       vi: 'Chủ đề'
       zh: 主题
   QubitTaxonomy_6:
@@ -360,6 +361,7 @@ QubitTaxonomy:
       sr: Места
       sv: Platser
       th: สถานที
+      uz: Joylar
       vi: 'địa điểm'
       zh: 地点
   QubitTaxonomy_13:
@@ -1113,6 +1115,7 @@ QubitTaxonomy:
       sl: 'Osnova za pravice'
       sr: 'Правна основа'
       th: พื้นฐานสิทธ
+      uz: 'Huquqlar asosi'
       vi: 'Căn cư  quyềń'
       zh: 权利基础
   QubitTaxonomy_right_act:
@@ -1176,6 +1179,7 @@ QubitTaxonomy:
       sl: 'Status avtorskih pravic'
       sr: 'Статус ауторског права'
       th: สถานภาพลิขสิทธิ์
+      uz: 'Mualliflik huquqi holati'
       vi: 'địa vị bản quyền'
       zh: 版权状态
   QubitTaxonomy_information_object_templates:
@@ -1246,6 +1250,7 @@ QubitTaxonomy:
       pt_BR: 'Área Temática'
       sl: 'Tematsko Območje'
       sr: 'Тематско подручје'
+      uz: 'Yo''nalish/Soha'
       vi: 'Diện tích chuyên đề'
       zh: 主题版块
     note:
@@ -1271,6 +1276,7 @@ QubitTaxonomy:
       pt_BR: 'Sub-região Geográfica'
       sl: 'Zemljepisno podobmočje'
       sr: 'Географски подрегион'
+      uz: 'Geografik hudud'
       vi: 'Tiểu vùng địa lý'
       zh: 地理亚区域
     note:
@@ -1367,6 +1373,7 @@ QubitTerm:
       sl: Ustvarjanje
       sr: Стварање
       th: การผลิต
+      uz: Yaratilgan
       vi: 'Năm tạo'
       zh: 创建
   QubitTerm_113:
@@ -1711,6 +1718,7 @@ QubitTerm:
       sl: 'Opomba o obsegu'
       sr: 'Напомена о оквиру'
       th: 'ขอบเขตและเนื้อหา - นี่เป็นองค์ประกอบที่จำเป็น'
+      uz: Mazmuni
       vi: 'Ghi chú phạm vi'
       zh: 范围说明
   QubitTerm_122:
@@ -2940,6 +2948,7 @@ QubitTerm:
       sl: Osnutek
       sr: Нацрт
       sv: Utkast
+      uz: Xomaki
       vi: 'Dự thảo'
       zh: 草稿
   QubitTerm_publication_status_published:
@@ -2975,6 +2984,7 @@ QubitTerm:
       sr: 'Завршен опис'
       sv: Publicerad
       th: ตีพิมพ์
+      uz: 'Taqdim etilgan'
       vi: 'Xuất bản'
       zh: 已发布
   QubitTerm_maintenance_note:
@@ -3103,6 +3113,7 @@ QubitTerm:
       sr: 'Улазни инвентар'
       sv: Accession
       th: การเข้าถึงเอกสาร
+      uz: 'Arxivga qabul qilish'
       vi: 'Truy cập'
       zh: 登记
   QubitTerm_right:
@@ -4525,6 +4536,7 @@ QubitTerm:
       sl: Osnutek
       sr: Нацрт
       sv: Utkast
+      uz: Xomaki
       vi: 'Dự thảo'
       zh: 草稿
   QubitTerm_170:
@@ -4992,6 +5004,7 @@ QubitTerm:
       sr: Архив
       sv: Magasin
       th: คลังเก็บ
+      uz: 'Arxiv muassasasi'
       vi: Repository
       zh: 典藏库
   QubitTerm_187:
@@ -5165,6 +5178,7 @@ QubitTerm:
       sr: 'Архивски опис'
       sv: Arkivbeskrivning
       th: คำอธิบายจดหมายเหตุ
+      uz: 'Arxiv tavsifi'
       vi: 'Mô tả lưu trữ'
       zh: 文献著录
   QubitTerm_192:
@@ -5198,6 +5212,7 @@ QubitTerm:
       sl: 'Zapis o ustvarjalcu'
       sr: 'Нормативни запис'
       th: รายการควบคุม
+      uz: 'Avtoritet yozuv'
       vi: 'Authority record'
       zh: 规范记录
   QubitTerm_193:
@@ -5761,6 +5776,7 @@ QubitTerm:
       sl: Ime
       sr: Назив/Име
       th: ชื่อ
+      uz: Nomi
       vi: Tên
       zh: 名称
   QubitTerm_216:
@@ -5898,6 +5914,7 @@ QubitTerm:
       sr: 'Врста медија'
       sv: Mediatyper
       th: ประเภทสื่อ
+      uz: 'Resurs turi'
       vi: 'Loại truyền thông'
       zh: 媒体类型
   QubitTerm_220:
@@ -8143,6 +8160,7 @@ QubitTerm:
       sr: Обриши
       sv: Radera
       th: ลบ
+      uz: 'O''chirish'
       vi: Xóa
       zh: 删除
   QubitTerm_right_act_discover:
