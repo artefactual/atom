@@ -7,6 +7,8 @@ globalReplaceSuccess:
     multiRow:
 
 descriptionUpdatesSuccess:
+  stylesheets:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/ui/ui.all.css:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
-
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/ui/ui.datepicker.js:
