@@ -23,7 +23,7 @@ class InformationObjectTreeViewComponent extends sfComponent
   {
     $this->resource = $request->getAttribute('sf_route')->resource;
 
-    $this->treeviewType = sfConfig::get('app_treeview_type', 'sidebar');
+    $this->treeviewType = sfConfig::get('app_treeview_type__source', 'sidebar');
     if ($this->treeviewType != 'sidebar')
     {
       return sfView::SUCCESS;
