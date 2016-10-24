@@ -72,7 +72,8 @@ class QubitSetting extends BaseSetting
     $sql = 'SELECT
         setting.*,
         (CASE WHEN (current.VALUE IS NOT NULL AND current.VALUE <> "") THEN current.VALUE ELSE source.VALUE END) AS value,
-        (CASE WHEN (current.CULTURE IS NOT NULL AND current.CULTURE <> "") THEN current.CULTURE ELSE source.CULTURE END) AS culture
+        (CASE WHEN (current.CULTURE IS NOT NULL AND current.CULTURE <> "") THEN current.CULTURE ELSE source.CULTURE END) AS culture,
+        source.VALUE AS value_source
       FROM '.QubitSetting::TABLE_NAME.'
       LEFT JOIN '.QubitSettingI18n::TABLE_NAME.' current
         ON (setting.ID = current.id AND current.CULTURE = ?)
@@ -94,6 +95,8 @@ class QubitSetting extends BaseSetting
       }
 
       $settings[$key] = $qubitSetting->value;
+
+      $settings[$key.'__source'] = $qubitSetting->value_source;
     }
 
     return $settings;
