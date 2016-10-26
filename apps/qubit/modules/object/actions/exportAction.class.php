@@ -75,22 +75,9 @@ class ObjectExportAction extends DefaultEditAction
 
   protected function doBackgroundExport($request)
   {
-    // Export type, CSV or XML?
-    $exportType = $request->getParameter('format', 'xml');
-
-    // We will use this later to redirect users back to the importSelect page
-    if (isset($this->getRoute()->resource))
-    {
-      $exportRoute = array($this->getRoute()->resource, 'module' => 'object', 'action' => 'importSelect', 'type' => $exportType);
-    }
-    else
-    {
-      $exportRoute = array('module' => 'object', 'action' => 'export', 'type' => $exportType);
-    }
-
     // Create array of selections to pass to background job where Term ID will
     // be key, and Term description is value.
-    foreach($this->levels as $key => $value)
+    foreach ($this->levels as $value)
     {
       $levelsOfDescription[$value] = $this->choices[$value];
     }
@@ -105,7 +92,7 @@ class ObjectExportAction extends DefaultEditAction
 
     try
     {
-      if ('CSV' == strtoupper($exportType))
+      if ('CSV' == strtoupper($this->type))
       {
         QubitJob::runJob('arInformationObjectCsvExportJob', $options);
       }
@@ -114,22 +101,40 @@ class ObjectExportAction extends DefaultEditAction
         QubitJob::runJob('arXmlExportJob', $options);
       }
 
-      // Let user know import has started
+      // Let user know export has started
       sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
-      $jobManageUrl = url_for(array('module' => 'jobs', 'action' => 'browse'));
-      $message = '<strong>Export of descriptions initiated.</strong> Check <a href="'. $jobManageUrl . '">job management</a> page to download the results when it has completed.';
-      $this->context->user->setFlash('notice', $this->context->i18n->__($message));
+
+      $message = $this->context->i18n->__('%1%Export of descriptions initiated.%2% Check %3%job management%4% page to download the results when it has completed.', array(
+        '%1%' => '<strong>',
+        '%2%' => '</strong>',
+        '%3%' => sprintf('<a href="%s">', url_for(array('module' => 'jobs', 'action' => 'browse'))),
+        '%4%' => '</a>'));
+
+      $this->context->user->setFlash('notice', $message);
     }
     catch (sfException $e)
     {
       $this->context->user->setFlash('error', $e->getMessage());
-      $this->redirect($exportRoute);
+      return sfView::SUCCESS;
     }
   }
 
   public function execute($request)
   {
     parent::execute($request);
+
+    $this->response->addJavaScript('exportOptions', 'last');
+
+    // Export type, CSV or XML?
+    $this->type = $request->getParameter('type', 'csv');
+
+    $this->redirectUrl = array('module' => 'object', 'action' => 'export');
+    if (null !== $referrer = $request->getReferer())
+    {
+      $this->redirectUrl = $referrer;
+    }
+
+    $this->title = $this->context->i18n->__('Export');
 
     if ($request->isMethod('post'))
     {
@@ -141,19 +146,8 @@ class ObjectExportAction extends DefaultEditAction
 
         $this->doBackgroundExport($request);
 
-        $this->setTemplate('exportResults');
+        $this->redirect($this->redirectUrl);
       }
-    }
-    else
-    {
-      $this->response->addJavaScript('exportOptions', 'last');
-
-      if (isset($request->type))
-      {
-        $this->type = $request->type;
-      }
-
-      $this->title = $this->context->i18n->__('Export');
     }
   }
 }

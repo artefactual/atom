@@ -125,7 +125,7 @@
 
     onExportSubmit: function ()
     {
-      if (true || !this.$includeAllLevels.prop('checked') && '' == this.$levelSelect.val())
+      if (!this.$includeAllLevels.prop('checked') && '' == this.$levelSelect.val())
       {
         event.preventDefault();
         this.showAlert();

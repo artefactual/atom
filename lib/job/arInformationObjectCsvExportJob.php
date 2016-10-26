@@ -68,7 +68,7 @@ class arInformationObjectCsvExportJob extends arBaseJob
 
     // Export CSV to temp directory
     $this->info($this->i18n->__('Starting export to %1.', array('%1' => $tempPath)));
-    $itemsExported = $this->exportResults($tempPath, $this->params);
+    $itemsExported = $this->exportResults($tempPath);
     $this->info($this->i18n->__('Exported %1 descriptions.', array('%1' => $itemsExported)));
 
     // Compress CSV export files as a ZIP archive
@@ -123,7 +123,7 @@ class arInformationObjectCsvExportJob extends arBaseJob
         $writer->exportResource($resource);
 
         // export descendants if configured
-        if (true != $this->params['current-level-only'])
+        if (!$this->params['current-level-only'])
         {
           $descendants = $resource->descendants->orderBy('lft');
 
@@ -144,32 +144,5 @@ class arInformationObjectCsvExportJob extends arBaseJob
     }
 
     return $itemsExported;
-  }
-
-  protected function createZipForDownload($path)
-  {
-    if (!is_writable($this->getJobsDownloadDirectory()))
-    {
-      return false;
-    }
-
-    $zip = new ZipArchive();
-
-    $success = $zip->open($this->getDownloadFilePath(), ZipArchive::CREATE | ZipArchive::OVERWRITE);
-
-    if ($success == true)
-    {
-      foreach(scandir($path) as $file)
-      {
-        if (!is_dir($file))
-        {
-          $zip->addFile($path . DIRECTORY_SEPARATOR . $file, $file);
-        }
-      }
-
-      $zip->close();
-    }
-
-    return $success;
   }
 }

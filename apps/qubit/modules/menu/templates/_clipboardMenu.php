@@ -17,7 +17,7 @@
       <h2><?php echo __('Clipboard') ?></h2>
       <span id="count-block" data-information-object-label="<?php echo sfConfig::get('app_ui_label_informationobject') ?>" data-actor-object-label="<?php echo sfConfig::get('app_ui_label_actor') ?>" data-repository-object-label="<?php echo sfConfig::get('app_ui_label_repository') ?>">
         <?php foreach ($countByType as $objectType => $countType): ?>
-          <?php echo $objectTypes[$objectType] . ' count: ' . $countType ?><br />
+          <?php echo __('%1% count: %2%', array('%1%' => $objectTypes[$objectType], '%2%' => $countType)); ?><br />
         <?php endforeach; ?>
       </span>
     </div>

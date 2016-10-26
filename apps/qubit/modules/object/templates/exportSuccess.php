@@ -30,8 +30,6 @@
 
         <legend><?php echo __('Export options') ?></legend>
 
-        <input type="hidden" name="exportType" value="<?php echo esc_entities($type) ?>"/>
-
         <div class="form-item">
           <label><?php echo __('Type') ?></label>
           <select name="objectType">
@@ -43,19 +41,10 @@
 
         <div class="form-item">
           <label><?php echo __('Format') ?></label>
-          <?php if ('csv' == $type): ?>
-            <select name="format">
-              <option value="xml"><?php echo __('XML') ?></option>
-              <option value="csv" selected="selected"><?php echo __('CSV') ?></option>
-            </select>
-          <?php endif; ?>
-
-          <?php if ('csv' != $type): ?>
-            <select name="format">
-              <option value="xml" selected="selected"><?php echo __('XML') ?></option>
-              <option value="csv"><?php echo __('CSV') ?></option>
-            </select>
-          <?php endif; ?>
+          <select name="type">
+            <option value="csv"<?php echo ('xml' != $type) ? 'selected="selected"' : '' ?>><?php echo __('CSV') ?></option>
+            <option value="xml"<?php echo ('xml' == $type) ? 'selected="selected"' : '' ?>><?php echo __('XML') ?></option>
+          </select>
         </div>
 
         <div class="form-item">
@@ -77,16 +66,11 @@
                 <?php echo $form->levels
                   ->label(__('Levels of description'))
                   ->help(__('Select the levels of description to be included in the export. If no levels are selected, the export will fail. You can use the control (Mac ⌘) and/or shift keys to multi-select values from the Levels of description menu. Descriptions that are descendants of levels not included in the export will also be excluded.'))
-                  ->renderRow(array('class' => 'form-autocomplete')) ?>
+                  ->renderRow() ?>
               </div>
-              <br />
-              <?php $taxonomy = QubitTaxonomy::getById(QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID) ?>
-
             </div>
           </div>
         </div>
-
-
       </fieldset>
       </div>
     </section>
@@ -94,7 +78,7 @@
     <section class="actions">
       <ul>
         <li><input class="c-btn c-btn-submit" type="submit" id="exportSubmit" value="<?php echo __('Export') ?>"/></li>
-        <li><?php echo link_to(__('Cancel'), array('module' => 'user', 'action' => 'clipboard'), array('class' => 'c-btn')) ?></li>
+        <li><?php echo link_to(__('Cancel'), !empty($sf_request->getReferer()) ? $sf_request->getReferer() : array('module' => 'user', 'action' => 'clipboard'), array('class' => 'c-btn')) ?></li>
       </ul>
     </section>
 

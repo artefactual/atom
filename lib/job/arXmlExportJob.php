@@ -98,7 +98,7 @@ class arXmlExportJob extends arBaseJob
    */
   protected function exportResults($path, $params)
   {
-    $exitCode= 0;
+    $exitCode = 0;
     $resultIds = array();
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->getQuery(false, false));
 
@@ -152,39 +152,5 @@ class arXmlExportJob extends arBaseJob
         $this->errors = $output;
       }
     }
-  }
-
-  /**
-   * Create ZIP file from results
-   *
-   * @param string  Path of file to write CSV data to
-   *
-   * @return int  success bool
-   */
-  protected function createZipForDownload($path)
-  {
-    if (!is_writable($this->getJobsDownloadDirectory()))
-    {
-      return false;
-    }
-
-    $zip = new ZipArchive();
-
-    $success = $zip->open($this->getDownloadFilePath(), ZipArchive::CREATE | ZipArchive::OVERWRITE);
-
-    if ($success == true)
-    {
-      foreach(scandir($path) as $file)
-      {
-        if (!is_dir($file))
-        {
-          $zip->addFile($path . DIRECTORY_SEPARATOR . $file, $file);
-        }
-      }
-
-      $zip->close();
-    }
-
-    return $success;
   }
 }
