@@ -666,10 +666,19 @@ class QubitFlatfileImport
 
       foreach ($fields as $field)
       {
-        // Found a field that doesn't match, so this isn't a duplicate. Move onto the next event and check...
-        if ($existingEvent->$field != $event->$field)
+        // Use special logic when comparing dates, see dateStringsEqual for details.
+        if (false !== strpos(strtolower($field), 'date'))
         {
-          $match = false;
+          $match = $match && $this->dateStringsEqual($existingEvent->$field, $event->$field);
+        }
+        else
+        {
+          $match = $match && $existingEvent->$field === $event->$field;
+        }
+
+        // Event fields differ, don't bother checking other fields since these aren't equal
+        if (!$match)
+        {
           break;
         }
       }
@@ -682,6 +691,31 @@ class QubitFlatfileImport
     }
 
     return false;
+  }
+
+  /**
+   * Compare two date strings. This function has some custom logic to account for MySQL adding
+   * '-00-00' to dates that only indicate year, but not month / day.
+   *
+   * @param string $dbDate  First date in the comparison. This is the date fetched from the db with potential
+   *                        '-00-00' in it.
+   * @param string $csvDate  Second date for comparison.
+   * @return bool  True if date strings are equal, false otherwise.
+   */
+  private function dateStringsEqual($dbDate, $csvDate)
+  {
+    $dbDate = trim($dbDate);
+    $csvDate = trim($csvDate);
+    $suffix = '-00-00';
+
+    // If our database added -00-00 onto the date, add it onto the csv date as well if applicable,
+    // so we can compare e.g.: '2000-00-00' vs. '2000'
+    if ($suffix === substr($dbDate, -strlen($suffix)) && 1 === preg_match('/^\d{4}$/', $csvDate))
+    {
+        $csvDate .= $suffix;
+    }
+
+    return $csvDate === $dbDate;
   }
 
   private function fetchOrCreateObjectByClass()
