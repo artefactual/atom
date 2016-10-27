@@ -83,6 +83,11 @@ class QubitCsvImport
 
         break;
 
+      case 'repository':
+        $taskClassName = 'csv:repository-import';
+
+        break;
+
       case 'informationObject':
       default:
         $taskClassName = 'csv:import';

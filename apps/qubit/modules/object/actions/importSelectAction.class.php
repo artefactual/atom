@@ -95,6 +95,30 @@ class ObjectImportSelectAction extends DefaultEditAction
     }
   }
 
+  protected function processField($field)
+  {
+    switch ($field->getName())
+    {
+      case 'repos':
+        $this->repositorySlug = $this->request->getPostParameter('repos');
+
+        break;
+
+      case 'collection':
+        $url = $this->request->getPostParameter('collection');
+        if (!empty($url))
+        {
+          $parts = explode('/', $url);
+          $this->collectionSlug = end($parts);
+        }
+
+        break;
+
+      default:
+        return parent::processField($field);
+    }
+  }
+
   /**
    * Launch the file import background job and return.
    *
@@ -147,8 +171,8 @@ class ObjectImportSelectAction extends DefaultEditAction
                      // experienced problems when the extension was omitted
                      'importType' => $importType,
                      'update' => $request->getParameter('updateType'),
-                     'repositorySlug' => $request->getPostParameter('repos'),
-                     'collectionSlug' => end(explode('/', $request->getPostParameter('collection'))),
+                     'repositorySlug' => $this->repositorySlug,
+                     'collectionSlug' => $this->collectionSlug,
                      'file' => $file);
 
     try

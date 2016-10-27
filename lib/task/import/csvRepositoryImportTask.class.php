@@ -42,11 +42,44 @@ EOF;
   {
     parent::configure();
 
-    $this->addOptions(array(new sfCommandOption('merge-existing', null, sfCommandOption::PARAMETER_OPTIONAL,
-      "Don't create a new repository if there's already one with the same authorizedFormOfName in the db.")));
-
-    $this->addOptions(array(new sfCommandOption('upload-limit', null, sfCommandOption::PARAMETER_OPTIONAL,
-      "Set the upload limit for repositories getting imported (default: disable uploads)")));
+    $this->addOptions(array(
+      new sfCommandOption(
+        'source-name',
+        null,
+        sfCommandOption::PARAMETER_OPTIONAL,
+        'Source name to use when inserting keymap entries.'
+      ),
+      new sfCommandOption(
+        'index',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        "Index for search during import."
+      ),
+      new sfCommandOption(
+        'update',
+        null,
+        sfCommandOption::PARAMETER_REQUIRED,
+        'Attempt to update if repository has already been imported. Valid option values are "match-and-update" & "delete-and-replace".'
+      ),
+      new sfCommandOption(
+        'skip-matched',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        'When importing records without --update, use this option to skip creating new records when an existing one matches.'
+      ),
+      new sfCommandOption(
+        'skip-unmatched',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        "When importing records with --update, skip creating new records if no existing records match."
+      ),
+      new sfCommandOption(
+        'upload-limit',
+        null,
+        sfCommandOption::PARAMETER_OPTIONAL,
+        "Set the upload limit for repositories getting imported (default: disable uploads)")
+      )
+    );
   }
 
   /**
@@ -152,6 +185,9 @@ EOF;
         $note->save();
       }
     ));
+
+    // Allow search indexing to be enabled via a CLI option
+    $import->searchIndexingDisabled = ($options['index']) ? false : true;
 
     $import->csv($fh, $skipRows);
     $this->logSection("Imported repositories successfully!");

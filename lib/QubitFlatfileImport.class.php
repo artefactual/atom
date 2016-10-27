@@ -688,20 +688,13 @@ class QubitFlatfileImport
   {
     switch ($this->className)
     {
-      case 'QubitRepository':
-        if ($this->status['options']['merge-existing'] == 1)
-        {
-          $this->object = $this->createOrFetchRepository($this->columnValue('authorizedFormOfName'));
-          return false;
-        }
-
-        break;
-
       case 'QubitInformationObject':
         return $this->handleInformationObjectRow();
+
+      default:
+        $this->object = new $this->className;
     }
 
-    $this->object = new $this->className;
     return false;
   }
 

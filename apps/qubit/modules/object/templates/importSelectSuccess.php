@@ -45,6 +45,7 @@
               <option value="accession"><?php echo sfConfig::get('app_ui_label_accession', __('Accession')) ?></option>
               <option value="authorityRecord"><?php echo sfConfig::get('app_ui_label_actor') ?></option>
               <option value="event"><?php echo sfConfig::get('app_ui_label_event', __('Event')) ?></option>
+              <option value="repository"><?php echo sfConfig::get('app_ui_label_repository', __('Repository')) ?></option>
             </select>
           </div>
         <?php endif; ?>
