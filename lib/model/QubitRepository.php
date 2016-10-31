@@ -151,7 +151,14 @@ class QubitRepository extends BaseRepository
     // Remove adv. search repository options from cache
     QubitCache::getInstance()->removePattern('advanced-search:list-of-repositories:*');
 
-    // Elasticsearch document is deleted in QubitActor
+    foreach ($this->informationObjects as $item)
+    {
+      unset($item->repository);
+
+      $item->save();
+    }
+
+    // Events, relations and the Elasticsearch document are deleted in QubitActor
     parent::delete($connection);
   }
 
