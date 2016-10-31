@@ -100,7 +100,7 @@
                 </label>
 
                 <div class="criteria">
-                  <div class="filter-row">
+                  <div class="filter-row repos-limit">
                     <div class="filter">
                       <?php echo $form->repos
                         ->label(__('Limit matches to:'))
@@ -108,7 +108,7 @@
                     </div>
                   </div>
 
-                  <div class="filter-row">
+                  <div class="filter-row collection-limit">
                     <div class="filter">
                       <?php echo $form->collection
                         ->label(__('Top-level description'))

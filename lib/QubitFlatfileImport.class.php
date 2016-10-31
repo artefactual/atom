@@ -124,6 +124,39 @@ class QubitFlatfileImport
     }
   }
 
+  public function setUpdateOptions($options)
+  {
+    if ($options['limit'])
+    {
+      $this->limitToId = $this->getIdCorrespondingToSlug($options['limit']);
+    }
+
+    // Are there params set on --update flag?
+    if ($options['update'])
+    {
+      // Parameters for --update are validated in csvImportBaseTask.class.php.
+      switch ($options['update'])
+      {
+        case 'delete-and-replace':
+          // Delete any matching records, and re-import them (attach to existing entities if possible).
+          $this->deleteAndReplace = true;
+          break;
+
+        case 'match-and-update':
+          // Save match option. If update is ON, and match is set, only updating
+          // existing records - do not create new objects.
+          $this->matchAndUpdate = true;
+          break;
+
+        default:
+          throw new sfException('Update parameter "'.$options['update'].'" not handled: Correct --update parameter.');
+      }
+    }
+
+    $this->skipMatched = $options['skip-matched'];
+    $this->skipUnmatched = $options['skip-unmatched'];
+  }
+
   /*
    * Utility function to filter data, with a function that can be optionally
    * overridden, before it enters Qubit
@@ -691,6 +724,9 @@ class QubitFlatfileImport
       case 'QubitInformationObject':
         return $this->handleInformationObjectRow();
 
+      case 'QubitRepository':
+        return $this->handleRepositoryRow();
+
       default:
         $this->object = new $this->className;
     }
@@ -952,6 +988,91 @@ class QubitFlatfileImport
     {
       self::sqlQuery('DELETE FROM keymap WHERE id=?', array($mapEntry->id));
     }
+  }
+
+  /**
+   * Handle various update options when importing repositories.
+   *
+   * @return bool  Whether to skip row processing for this repository.
+   */
+  private function handleRepositoryRow()
+  {
+    // Not updating and not skipping matches: create a new record without checking
+    if (!$this->isUpdating() && !$this->skipMatched)
+    {
+      $this->object = new QubitRepository;
+
+      return false;
+    }
+
+    // Check existing repo by auth. form of name
+    $query = "SELECT object.id
+      FROM object JOIN actor_i18n i18n
+      ON object.id = i18n.id
+      WHERE i18n.authorized_form_of_name = ?
+      AND object.class_name = 'QubitRepository';";
+
+    $statement = QubitFlatfileImport::sqlQuery($query, array($this->columnValue('authorizedFormOfName')));
+    $result = $statement->fetch(PDO::FETCH_OBJ);
+
+    // Not updating, skipping matches and match found: mark as duplicate and skip
+    if (!$this->isUpdating() && $this->skipMatched && $result)
+    {
+      $msg = sprintf('Matching repository found for "%s", skipping.',
+                      $this->columnValue('authorizedFormOfName'));
+      print $this->logError($msg);
+
+      $this->status['duplicates']++;
+      $this->object = null;
+
+      return true;
+    }
+
+    // Updating, skipping unmatched and match not found: skip
+    if ($this->isUpdating() && $this->skipUnmatched && !$result)
+    {
+      $msg = sprintf('No match found for repository "%s", skipping.',
+                      $this->columnValue('authorizedFormOfName'));
+      print $this->logError($msg);
+
+      $this->object = null;
+
+      return true;
+    }
+
+    // Updating and match found
+    if ($this->isUpdating() && $result)
+    {
+      $msg = sprintf('Matching repository found for "%s", %s.',
+                      $this->columnValue('authorizedFormOfName'),
+                      $this->getActionDescription());
+      print $this->logError($msg);
+
+      $this->status['updated']++;
+      $this->object = QubitRepository::getById($result->id);
+
+      // Match and update: process row updating current object
+      if ($this->matchAndUpdate)
+      {
+        return false;
+      }
+
+      // Delete and replace: delete relations with IOs and actors and delete record
+      QubitPdo::prepareAndExecute('UPDATE information_object SET repository_id=null WHERE repository_id=?',
+                                  array($result->id));
+      QubitPdo::prepareAndExecute('DELETE FROM relation WHERE object_id=:id OR subject_id=:id',
+                                  array(':id' => $result->id));
+      $this->object->delete();
+    }
+
+    // Create new repository and process row.
+    // Cases that will reach this:
+    //   - Not updating, skipping matches and match not found
+    //   - Updating, not skipping unmatched and match not found
+    //   - Updating with delete and replace after match deletion
+    $this->object = new QubitRepository;
+
+    return false;
   }
 
   /**
@@ -1915,6 +2036,24 @@ class QubitFlatfileImport
     else
     {
       throw new sfException('Could not find a way to handle '. $description .' value "'. $value .'".');
+    }
+  }
+
+  public function getIdCorrespondingToSlug($slug)
+  {
+    $query = "SELECT object_id FROM slug WHERE slug=?";
+
+    $statement = QubitFlatfileImport::sqlQuery($query, array($slug));
+
+    $result = $statement->fetch(PDO::FETCH_OBJ);
+
+    if ($result)
+    {
+      return $result->object_id;
+    }
+    else
+    {
+      throw new sfException('Could not find object matching slug "'. $slug .'"');
     }
   }
 }

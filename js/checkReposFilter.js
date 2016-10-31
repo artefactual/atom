@@ -21,6 +21,9 @@
       this.$updateBlock = this.$element.find('div[id="updateBlock"]');
       this.$noIndexBlock = this.$element.find('div[id="noIndex"]');
 
+      this.$repoLimitBlock = this.$element.find('div.repos-limit');
+      this.$collectionLimitBlock = this.$element.find('div.collection-limit');
+
       this.init();
       this.listen();
     };
@@ -89,8 +92,7 @@
       {
         this.$reposFilter.removeAttr('disabled');
         this.$skipMatched.attr('checked', false);
-        this.$importAsNewPanel.hide();
-        this.$matchingPanel.show();
+        this.updateMatchingPanel();
       }
     },
 
@@ -101,7 +103,9 @@
         case 'informationObject':
         case 'authorityRecord':
         case 'ead':
+        case 'repository':
           // Show updateBlock for these objectTypes.
+          this.updateMatchingPanel();
           this.$updateBlock.show();
           break;
 
@@ -112,6 +116,39 @@
           // Do NOT show updateBlock for these objectTypes.
           this.$updateBlock.hide();
           break;
+      }
+    },
+
+    updateMatchingPanel: function ()
+    {
+      if (this.$updateTypeSelect.val() == 'import-as-new')
+      {
+        this.resetMatchingBlock();
+      }
+      else
+      {
+        switch (this.$objectTypeSelect.val())
+        {
+          case 'authorityRecord':
+            this.$collectionFilter.val('');
+            this.$repoLimitBlock.show();
+            this.$collectionLimitBlock.hide();
+            break;
+
+          case 'repository':
+            this.$reposFilter.val('');
+            this.$collectionFilter.val('');
+            this.$repoLimitBlock.hide();
+            this.$collectionLimitBlock.hide();
+            break;
+
+          default:
+            this.$repoLimitBlock.show();
+            this.$collectionLimitBlock.show();
+        }
+
+        this.$importAsNewPanel.hide();
+        this.$matchingPanel.show();
       }
     },
 

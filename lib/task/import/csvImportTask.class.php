@@ -1098,36 +1098,9 @@ EOF;
 
     // Allow search indexing to be enabled via a CLI option
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
-    if ($options['limit'])
-    {
-      $import->limitToId = getIdCorrespondingToSlug($options['limit']);
-    }
 
-    // Are there params set on --update flag?
-    if ($options['update'])
-    {
-      // Parameters for --update are validated in csvImportBaseTask.class.php.
-      switch ($options['update'])
-      {
-        case 'delete-and-replace':
-          // Delete any matching records, and re-import them (attach to existing entities if possible).
-          $import->deleteAndReplace = true;
-          break;
-
-        case 'match-and-update':
-          // Save match option. If update is ON, and match is set, only updating
-          // existing records - do not create new objects.
-          $import->matchAndUpdate = true;
-          break;
-
-        default:
-          // This should never happen due to parent::validateOptions()
-          throw new sfException('Update parameter "'.$options['update'].'" not handled: Correct --update parameter.');
-      }
-    }
-
-    $import->skipMatched = $options['skip-matched'];
-    $import->skipUnmatched = $options['skip-unmatched'];
+    // Set update, limit and skip options
+    $import->setUpdateOptions($options);
 
     // Convert content with | characters to a bulleted list
     $import->contentFilterLogic = function($text)
@@ -1185,24 +1158,6 @@ EOF;
 function array_search_case_insensitive($search, $array)
 {
   return array_search(strtolower($search), array_map('strtolower', $array));
-}
-
-function getIdCorrespondingToSlug($slug)
-{
-  $query = "SELECT object_id FROM slug WHERE slug=?";
-
-  $statement = QubitFlatfileImport::sqlQuery($query, array($slug));
-
-  $result = $statement->fetch(PDO::FETCH_OBJ);
-
-  if ($result)
-  {
-    return $result->object_id;
-  }
-  else
-  {
-    throw new sfException('Could not find information object matching slug "'. $slug .'"');
-  }
 }
 
 function setAlternativeIdentifiers($io, $altIds, $altIdLabels)

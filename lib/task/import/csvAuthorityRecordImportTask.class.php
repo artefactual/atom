@@ -362,6 +362,9 @@ EOF;
     // Allow search indexing to be enabled via a CLI option
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
 
+    // Set update, limit and skip options
+    $import->setUpdateOptions($options);
+
     $import->csv($fh, $skipRows);
     $actorNames = $import->getStatus('actorNames');
 

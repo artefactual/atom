@@ -87,6 +87,8 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
+    parent::execute($arguments, $options);
+
     $this->validateOptions($options);
 
     $this->logSection("Importing repository objects from CSV to AtoM");
@@ -188,6 +190,9 @@ EOF;
 
     // Allow search indexing to be enabled via a CLI option
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
+
+    // Set update, limit and skip options
+    $import->setUpdateOptions($options);
 
     $import->csv($fh, $skipRows);
     $this->logSection("Imported repositories successfully!");
