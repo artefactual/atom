@@ -1006,7 +1006,7 @@ class QubitFlatfileImport
       return false;
     }
 
-    // Check existing repo by auth. form of name
+    // Check existing repo/actor by auth. form of name
     $query = "SELECT object.id
       FROM object JOIN actor_i18n i18n
       ON object.id = i18n.id

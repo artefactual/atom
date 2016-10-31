@@ -103,6 +103,7 @@
         case 'informationObject':
         case 'authorityRecord':
         case 'ead':
+        case 'eac-cpf':
         case 'repository':
           // Show updateBlock for these objectTypes.
           this.updateMatchingPanel();
@@ -130,6 +131,7 @@
         switch (this.$objectTypeSelect.val())
         {
           case 'authorityRecord':
+          case 'eac-cpf':
             this.$collectionFilter.val('');
             this.$repoLimitBlock.show();
             this.$collectionLimitBlock.hide();
