@@ -41,6 +41,8 @@ class csvInformationObjectExport extends QubitFlatfileExport
   protected $eventTypeTerms          = array();
   protected $physicalObjectTypes     = array();
 
+  protected $options = array();
+
   /*
    * Information object-specific property setting based on configuration data
    *
@@ -52,6 +54,16 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $this->commonNoteMap = $config['note']['common'];
     $this->radNoteMap    = $config['note']['rad'];
     $this->titleNoteMap  = $config['note']['title'];
+  }
+
+  /*
+   * Store export parameters for use.
+   *
+   * @return void
+   */
+  public function setOptions($options = array())
+  {
+    $this->options = $options;
   }
 
   /*
@@ -80,7 +92,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
     $this->setEventColumns();
 
     // Set physical object columns if CLI being used or user has permission
-    if (check_field_visibility('app_element_visibility_physical_storage'))
+    if (check_field_visibility('app_element_visibility_physical_storage', $this->options))
     {
       $this->setPhysicalObjectColumns();
     }
