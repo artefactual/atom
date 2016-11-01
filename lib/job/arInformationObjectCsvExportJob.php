@@ -101,9 +101,13 @@ class arInformationObjectCsvExportJob extends arBaseJob
   protected function exportResults($path)
   {
     $itemsExported = 0;
+    $public = isset($this->params['public']) && $this->params['public'];
 
     // Exporter will create a new file each 10,000 rows
     $writer = new csvInformationObjectExport($path, $this->archivalStandard, 10000);
+
+    // store export options for use in csvInformationObjectExport
+    $writer->setOptions($this->params);
 
     // Force loading of information object configuration, then modify writer
     // configuration
@@ -120,6 +124,12 @@ class arInformationObjectCsvExportJob extends arBaseJob
       // If ElasticSearch document is stale (corresponding MySQL data deleted), ignore
       if ($resource !== null)
       {
+        // Don't export draft descriptions with public option
+        if ($public && $resource->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID)
+        {
+          continue;
+        }
+
         $writer->exportResource($resource);
 
         // export descendants if configured
@@ -129,6 +139,12 @@ class arInformationObjectCsvExportJob extends arBaseJob
 
           foreach($descendants as $descendant)
           {
+            // Don't export draft descendant descriptions with public option
+            if ($public && $descendant->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID)
+            {
+              continue;
+            }
+
             $writer->exportResource($descendant);
           }
         }
