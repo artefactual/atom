@@ -27,9 +27,13 @@ class arGenerateCsvReportJob extends arBaseJob
   /**
    * @see arBaseJob::$requiredParameters
    */
-  protected $extraRequiredParameters = array('objectId', 'reportType');
+  protected $extraRequiredParameters = array('objectId', 'reportType', 'reportFormat');
 
   private $resource = null;
+  private $templatePaths = array(
+    'itemList' => 'apps/qubit/modules/informationobject/templates/itemListSuccess.php',
+    'fileList' => 'apps/qubit/modules/informationobject/templates/fileListSuccess.php'
+  );
 
   public function runJob($parameters)
   {
@@ -63,17 +67,38 @@ class arGenerateCsvReportJob extends arBaseJob
         return false;
     }
 
-    $this->writeCsv($results);
+
+    $result = $this->writeReport($results, $parameters['reportType'], $this->parameters['reportFormat']);
 
     $this->job->setStatusCompleted();
     $this->job->save();
 
+    return $result;
+  }
+
+  private function writeReport($results, $type, $format)
+  {
+    switch ($format)
+    {
+      case 'csv':
+        $this->writeCsv($results);
+        break;
+
+      case 'html':
+        $this->writeHtml($results, $type);
+        break;
+
+      default:
+        $this->error($this->i18n->__('Invalid report format: %1', array('%1' => $format)));
+        return false;
+    }
+
     return true;
   }
 
-  private function getFilename()
+  private function getFilename($format)
   {
-    return 'downloads'.DIRECTORY_SEPARATOR.$this->resource->slug.'-'.$this->parameters['reportType'].'.csv';
+    return 'downloads/'.$this->resource->slug.'-'.$this->parameters['reportType'].'.'.$format;
   }
 
   private function getFileOrItemListResults($levelOfDescription)
@@ -88,7 +113,7 @@ class arGenerateCsvReportJob extends arBaseJob
 
     if (null === $lod = QubitTermI18n::getOne($c2))
     {
-      throw new sfException("Can't find 'item' level of description in term table");
+      throw new sfException("Can't find '$levelOfDescription' level of description in term table");
     }
 
     $criteria = new Criteria;
@@ -114,7 +139,7 @@ class arGenerateCsvReportJob extends arBaseJob
       $parentTitle = QubitInformationObject::getStandardsBasedInstance($item->parent)->__toString();
       $creationDates = InformationObjectItemListAction::getCreationDates($item);
 
-      $results[] = array(
+      $results[$parentFile][] = array(
         'resource' => $item,
         'referenceCode' => QubitInformationObject::getStandardsBasedInstance($item)->referenceCode,
         'title' => $item->getTitle(array('cultureFallback' => true)),
@@ -131,21 +156,24 @@ class arGenerateCsvReportJob extends arBaseJob
       return strnatcasecmp($a[$sortBy], $b[$sortBy]);
     });
 
-
-
-    return true;
+    return $results;
   }
 
-  private function writeCsv($values)
+  private function writeCsv($results)
   {
-    if (null === $fh = fopen($this->getFilename(), 'w'))
+    if (!count($results))
     {
-      throw new sfException('Unable to open file '.$this->getFilename().' - please check permissions.');
+      return;
+    }
+
+    if (null === $fh = fopen($this->getFilename('csv'), 'w'))
+    {
+      throw new sfException('Unable to open file '.$this->getFilename('csv').' - please check permissions.');
     }
 
     $first = true;
 
-    foreach ($values as $row)
+    foreach ($results as $row)
     {
       unset($row['resource']);
 
@@ -159,6 +187,28 @@ class arGenerateCsvReportJob extends arBaseJob
       fputcsv($fh, $row);
     }
 
+    fclose($fh);
+  }
+
+  private function writeHtml($results, $type)
+  {
+    if (!count($results))
+    {
+      return;
+    }
+
+    if (null === $fh = fopen($this->getFilename('html'), 'w'))
+    {
+      throw new sfException('Unable to open file '.$this->getFilename('html').' - please check permissions.');
+    }
+
+    $resource = $this->resource;
+
+    ob_start();
+    include($this->templatePaths[$type]);
+    $output = ob_get_clean();
+
+    fwrite($fh, $output);
     fclose($fh);
   }
 
