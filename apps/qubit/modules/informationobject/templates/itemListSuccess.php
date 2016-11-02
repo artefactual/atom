@@ -37,9 +37,9 @@
           <th><?php echo $this->i18n->__('Title') ?></th>
           <th><?php echo $this->i18n->__('Dates') ?></th>
           <th><?php echo $this->i18n->__('Access restrictions') ?></th>
-        <?php if (sfContext::getInstance()->user->isAuthenticated()): ?>
-          <th><?php echo $this->i18n->__('Retrieval information') ?></th>
-        <?php endif; ?>
+          <?php if (sfContext::getInstance()->user->isAuthenticated()): ?>
+            <th><?php echo $this->i18n->__('Retrieval information') ?></th>
+          <?php endif; ?>
         </tr>
       </thead>
       <tbody>
@@ -47,21 +47,21 @@
           <tr>
             <td class="row-number"><?php echo $row++ ?></td>
             <?php if ($includeThumbnails): ?>
-            <td>
-            <?php if (null != ($do = $item['resource']->getDigitalObject()) && (null != $do->thumbnail)):  ?>
-              <?php echo image_tag($do->thumbnail->getFullPath(), array('alt' => '')) ?>
-            <?php else: ?>
-              <?php echo $this->i18n->__('N/A') ?>
-            <?php endif; ?>
-            </td>
+              <td>
+                <?php if (null != ($do = $item['resource']->getDigitalObject()) && (null != $do->thumbnail)):  ?>
+                  <?php echo image_tag($do->thumbnail->getFullPath(), array('alt' => '')) ?>
+                <?php else: ?>
+                  <?php echo $this->i18n->__('N/A') ?>
+                <?php endif; ?>
+              </td>
             <?php endif; ?>
             <td><?php echo $item['referenceCode'] ?></td>
             <td><?php echo $item['title'] ?></td>
             <td><?php echo $item['dates'] ?></td>
             <td><?php echo isset($item['accessConditions']) ? $item['accessConditions'] : $this->i18n->__('None') ?></td>
-          <?php if (sfContext::getInstance()->user->isAuthenticated()): ?>
-            <td><?php echo $item['locations'] ?></td>
-          <?php endif; ?>
+            <?php if (sfContext::getInstance()->user->isAuthenticated()): ?>
+              <td><?php echo $item['locations'] ?></td>
+            <?php endif; ?>
           </tr>
         <?php endforeach; ?>
       </tbody>

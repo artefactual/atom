@@ -32,7 +32,7 @@ class arGenerateCsvReportJob extends arBaseJob
   private $resource = null;
   private $templatePaths = array(
     'itemList' => 'apps/qubit/modules/informationobject/templates/itemListSuccess.php',
-    'fileList' => 'apps/qubit/modules/informationobject/templates/fileListSuccess.php'
+    'fileList' => 'apps/qubit/modules/informationobject/templates/itemListSuccess.php'
   );
 
   public function runJob($parameters)
@@ -67,7 +67,6 @@ class arGenerateCsvReportJob extends arBaseJob
         return false;
     }
 
-
     $result = $this->writeReport($results, $parameters['reportType'], $this->parameters['reportFormat']);
 
     $this->job->setStatusCompleted();
@@ -81,19 +80,20 @@ class arGenerateCsvReportJob extends arBaseJob
     switch ($format)
     {
       case 'csv':
-        $this->writeCsv($results);
+        $result = $this->writeCsv($results);
         break;
 
       case 'html':
-        $this->writeHtml($results, $type);
+        $result = $this->writeHtml($results, $type);
         break;
 
       default:
         $this->error($this->i18n->__('Invalid report format: %1', array('%1' => $format)));
-        return false;
+        $result = false;
+        break;
     }
 
-    return true;
+    return $result;
   }
 
   private function getFilename($format)
@@ -137,7 +137,7 @@ class arGenerateCsvReportJob extends arBaseJob
       }
 
       $parentTitle = QubitInformationObject::getStandardsBasedInstance($item->parent)->__toString();
-      $creationDates = InformationObjectItemListAction::getCreationDates($item);
+      $creationDates = $this->getCreationDates($item);
 
       $results[$parentFile][] = array(
         'resource' => $item,
@@ -147,7 +147,7 @@ class arGenerateCsvReportJob extends arBaseJob
                    $creationDates->startDate, $creationDates->endDate) : '',
         'startDate' => isset($creationDates) ? $creationDates->startDate : null,
         'accessConditions' => $item->getAccessConditions(array('cultureFallback' => true)),
-        'locations' => InformationObjectItemListAction::getLocationString($item)
+        'locations' => $this->getLocationString($item)
       );
     }
 
@@ -171,20 +171,37 @@ class arGenerateCsvReportJob extends arBaseJob
       throw new sfException('Unable to open file '.$this->getFilename('csv').' - please check permissions.');
     }
 
-    $first = true;
-
-    foreach ($results as $row)
+    // Iterate over descriptions and their report results
+    foreach ($results as $tldTitle => $items)
     {
-      unset($row['resource']);
+      fputcsv($fh, array($this->i18n->__('Archival description hierarchy:')));
 
-      // Write CSV header
-      if ($first)
+      // Display hierarchy leading up to the top level of description before report results for items / files
+      foreach ($items[0]['resource']->getAncestors()->orderBy('lft') as $ancestor)
       {
-        fputcsv($fh, array_keys($row));
-        $first = false;
+        if ($ancestor->id != QubitInformationObject::ROOT_ID)
+        {
+          fputcsv($fh, array($ancestor->getTitle(array('cultureFallback' => true))));
+        }
       }
 
-      fputcsv($fh, $row);
+      fputcsv($fh, array('---'));
+      $first = true;
+
+      // Display items or files
+      foreach ($items as $row)
+      {
+        unset($row['resource']);
+
+        // Write CSV header
+        if ($first)
+        {
+          fputcsv($fh, array_keys($row));
+          $first = false;
+        }
+
+        fputcsv($fh, $row);
+      }
     }
 
     fclose($fh);
@@ -205,7 +222,7 @@ class arGenerateCsvReportJob extends arBaseJob
     $resource = $this->resource;
 
     ob_start();
-    include($this->templatePaths[$type]);
+    include $this->templatePaths[$type];
     $output = ob_get_clean();
 
     fwrite($fh, $output);
@@ -225,5 +242,42 @@ class arGenerateCsvReportJob extends arBaseJob
   private function generateBoxLabelCsv()
   {
 
+  }
+
+  private function getLocationString($resource)
+  {
+    $locations = array();
+    if (null !== ($physicalObjects = $resource->getPhysicalObjects()))
+    {
+      foreach ($physicalObjects as $item)
+      {
+        $locations[] = $item->getLabel();
+      }
+    }
+
+    return implode('; ', $locations);
+  }
+
+  private function getCreationDates($resource)
+  {
+    $creationEvents = $resource->getCreationEvents();
+
+    if (0 == count($creationEvents))
+    {
+      if (isset($resource->parent))
+      {
+        return $this->getCreationDates($resource->parent);
+      }
+    }
+    else
+    {
+      foreach ($creationEvents as $item)
+      {
+        if (null != $item->getDate(array('cultureFallback' => true)) || null != $item->startDate)
+        {
+          return $item;
+        }
+      }
+    }
   }
 }
