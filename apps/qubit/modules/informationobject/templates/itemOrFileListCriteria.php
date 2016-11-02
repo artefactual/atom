@@ -5,20 +5,24 @@
 <?php end_slot() ?>
 
 <?php slot('title') ?>
-  <h1><?php echo __('File list - report criteria') ?></h1>
+  <h1><?php echo __($type.' list - report criteria') ?></h1>
   <h2><?php echo render_title($resource) ?></h2>
 <?php end_slot() ?>
 
 <?php slot('before-content') ?>
   <?php echo $form->renderGlobalErrors() ?>
-  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'fileList')), array('class' => 'form-inline')) ?>
+  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'itemOrFileList', 'type' => $type)), array('class' => 'form-inline')) ?>
 <?php end_slot() ?>
 
 <fieldset class="single">
 
   <div class="fieldset-wrapper">
 
-    <?php echo render_field($form->sortBy->label(__('Sort by')), $resource) ?>
+    <?php echo render_field($form->sortBy
+      ->label(__('Sort by')), $resource) ?>
+
+    <?php echo render_field($form->includeThumbnails
+      ->label(__('Include thumbnails')), $resource) ?>
 
   </div>
 

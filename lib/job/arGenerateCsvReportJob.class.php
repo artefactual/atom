@@ -30,9 +30,11 @@ class arGenerateCsvReportJob extends arBaseJob
   protected $extraRequiredParameters = array('objectId', 'reportType', 'reportFormat');
 
   private $resource = null;
+  const itemOrFileTemplatePath = 'apps/qubit/modules/informationobject/templates/itemOrFileListSuccess.php';
+
   private $templatePaths = array(
-    'itemList' => 'apps/qubit/modules/informationobject/templates/itemListSuccess.php',
-    'fileList' => 'apps/qubit/modules/informationobject/templates/itemListSuccess.php'
+    'itemList' => self::itemOrFileTemplatePath,
+    'fileList' => self::itemOrFileTemplatePath
   );
 
   public function runJob($parameters)

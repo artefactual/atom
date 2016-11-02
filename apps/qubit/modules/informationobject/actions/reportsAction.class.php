@@ -37,11 +37,11 @@ class InformationObjectReportsAction extends sfAction
           $choices = array();
 
           if ($this->resource->containsLevelOfDescription('File')) {
-            $choices[$this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'fileList'))] = $this->context->i18n->__('File list');
+            $choices[$this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'itemOrFileList', 'type' => 'file'))] = $this->context->i18n->__('File list');
           }
 
           if ($this->resource->containsLevelOfDescription('Item')) {
-            $choices[$this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'itemList'))] = $this->context->i18n->__('Item list');
+            $choices[$this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'itemOrFileList', 'type' => 'item'))] = $this->context->i18n->__('Item list');
           }
         }
         else

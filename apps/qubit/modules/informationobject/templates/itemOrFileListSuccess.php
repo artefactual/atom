@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  <h1 class="label"><?php echo $this->i18n->__('Item list') ?></h1>
+  <h1 class="label"><?php echo $this->i18n->__($type.' list') ?></h1>
 
   <?php $row = $startrow = 1; foreach ($results as $parent => $items): ?>
     <h2 class="element-invisible"><?php echo $this->i18n->__('%1% hierarchy', array('%1%' => sfConfig::get('app_ui_label_informationobject'))) ?></h2>
