@@ -832,7 +832,7 @@ EOF;
                 $actorOptions['repositoryId'] = $repo->id;
               }
 
-              $actor = $self->createOrFetchActor($name, $actorOptions);
+              $actor = $self->createOrFetchAndUpdateActorForIo($name, $actorOptions);
               $self->createRelation($self->object->id, $actor->id, QubitTerm::NAME_ACCESS_POINT_ID);
             }
 

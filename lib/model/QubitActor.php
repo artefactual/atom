@@ -441,7 +441,7 @@ class QubitActor extends BaseActor
 
   /**
    * Search for an actor by the AUTHORIZED_FORM_OF_NAME i18n column. Optionally
-   * limit search to a specific culture.
+   * limit search to a specific culture, history or maintaining repository
    *
    * @param string $name search string
    * @param array $options optional parameters
@@ -456,6 +456,18 @@ class QubitActor extends BaseActor
     if (isset($options['culture']))
     {
       $criteria->addAnd(QubitActorI18n::CULTURE, $options['culture']);
+    }
+
+    if (isset($options['history']))
+    {
+      $criteria->addAnd(QubitActorI18n::HISTORY, $options['history']);
+    }
+
+    if (isset($options['repositoryId']))
+    {
+      $criteria->addJoin(QubitActor::ID, QubitRelation::OBJECT_ID);
+      $criteria->add(QubitRelation::TYPE_ID, QubitTerm::MAINTAINING_REPOSITORY_RELATION_ID);
+      $criteria->add(QubitRelation::SUBJECT_ID, $options['repositoryId']);
     }
 
     return QubitActor::getOne($criteria, $options);

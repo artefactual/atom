@@ -1597,6 +1597,17 @@ class QubitInformationObject extends BaseInformationObject
       $actor = QubitActor::getByAuthorizedFormOfName($name);
     }
 
+    // When the history option is populated and we
+    // already have a match with a different history
+    if ($actor && !empty($options['history']) && $actor->history !== $options['history'])
+    {
+      // Try to get a full match in name and history or create a new one.
+      // Only the delete and replace option from IO import could reach
+      // this point so there is no need to check by maintaining repository
+      // and update the actor history.
+      $actor = QubitActor::getByAuthorizedFormOfName($name, array('history' => $options['history']));
+    }
+
     // If there isn't a match create a new actor
     if (!$actor)
     {

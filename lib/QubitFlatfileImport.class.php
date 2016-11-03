@@ -1555,7 +1555,15 @@ class QubitFlatfileImport
           $actorOptions['history'] = $options['actorHistory'];
         }
 
-        $actor = $this->createOrFetchActor($options['actorName'], $actorOptions);
+        if ($this->object instanceof QubitInformationObject)
+        {
+          $actor = $this->createOrFetchAndUpdateActorForIo($options['actorName'], $actorOptions);
+        }
+        else
+        {
+          $actor = $this->createOrFetchActor($options['actorName'], $actorOptions);
+        }
+
         $event->actorId = $actor->id;
       }
     }
@@ -1630,6 +1638,59 @@ class QubitFlatfileImport
     {
       return QubitFlatfileImport::createRepository($name);
     }
+  }
+
+  /**
+   * Fetch or create a QubitActor record based on the actor name,
+   * the imported IO repository and the update options. Update the
+   * actor history in matches from the same repository when using
+   * the match and update option
+   *
+   * @param string $name     name of actor
+   * @param array  $options  optional data
+   *
+   * @return QubitActor  created or fetched actor
+   */
+  public function createOrFetchAndUpdateActorForIo($name, $options = array())
+  {
+    // Create new actor if there is no match by
+    // auth. form of name (do not match untitled actors)
+    if (empty($name) || null === $actor = QubitActor::getByAuthorizedFormOfName($name))
+    {
+      return $this->createActor($name, $options);
+    }
+
+    // Return first matching actor if the actor history is empty on the import
+    if (empty($options['history']))
+    {
+      return $actor;
+    }
+
+    // Check for a match with the same auth. form of name and history
+    if (null !== $actor = QubitActor::getByAuthorizedFormOfName($name, array('history' => $options['history'])))
+    {
+      return $actor;
+    }
+
+    // Importing to an IO without repository or in a repo not maintaining an actor match
+    if (!isset($this->object->repository) || 
+      null === $actor = QubitActor::getByAuthorizedFormOfName($name, array('repositoryId' => $this->object->repository->id)))
+    {
+      // Create a new one with the new history
+      return $this->createActor($name, $options);
+    }
+
+    // Change actor history when updating a match in the same repo
+    if ($this->matchAndUpdate)
+    {
+      $actor->history = $options['history'];
+      $actor->save();
+
+      return $actor;
+    }
+
+    // Create new actor when importing as new or deleting and replacing
+    return $this->createActor($name, $options);
   }
 
   /**
