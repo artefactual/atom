@@ -221,7 +221,7 @@ class arGenerateCsvReportJob extends arBaseJob
       throw new sfException('Unable to open file '.$this->getFilename('html').' - please check permissions.');
     }
 
-    $resource = $this->resource;
+    $resource = $this->resource; // Pass resource to template.
 
     ob_start();
     include $this->templatePaths[$type];
@@ -229,21 +229,6 @@ class arGenerateCsvReportJob extends arBaseJob
 
     fwrite($fh, $output);
     fclose($fh);
-  }
-
-  private function generateItemListCsv()
-  {
-
-  }
-
-  private function generateStorageLocationCsv()
-  {
-
-  }
-
-  private function generateBoxLabelCsv()
-  {
-
   }
 
   private function getLocationString($resource)
@@ -264,12 +249,9 @@ class arGenerateCsvReportJob extends arBaseJob
   {
     $creationEvents = $resource->getCreationEvents();
 
-    if (0 == count($creationEvents))
+    if (0 == count($creationEvents) && isset($resource->parent))
     {
-      if (isset($resource->parent))
-      {
-        return $this->getCreationDates($resource->parent);
-      }
+      return $this->getCreationDates($resource->parent);
     }
     else
     {

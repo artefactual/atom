@@ -34,6 +34,56 @@ class InformationObjectItemOrFileListAction extends sfAction
       'includeThumbnails'
     );
 
+  public function execute($request)
+  {
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
+    $this->resource = $this->getRoute()->resource;
+    $this->type = isset($request->type) ? ucfirst($request->type) : $this->context->i18n->__('Item');
+
+    if (!isset($this->resource))
+    {
+      $this->forward404();
+    }
+
+    $this->form = new sfForm;
+
+    foreach ($this::$NAMES as $name)
+    {
+      $this->addField($name);
+    }
+
+    if ($request->isMethod('post'))
+    {
+      $this->form->bind($request->getPostParameters());
+
+      if ($this->form->isValid())
+      {
+        $this->initiateReportGeneration();
+        $this->redirect(array($this->resource, 'module' => 'informationobject'));
+      }
+    }
+
+    return 'Criteria';
+  }
+
+  private function initiateReportGeneration()
+  {
+    $params = array(
+        'objectId' => $this->resource->id,
+        'reportType' => 'fileList',
+        'sortBy' => 'title',
+        'reportFormat' => 'csv'
+    );
+
+    QubitJob::runJob('arGenerateCsvReportJob', $params);
+
+    $reportsUrl = url_for(array($this->resource, 'module' => 'informationobject', 'action' => 'reports'));
+    $message = $this->context->i18n->__(
+      'Report generation has started, please check the <a href="'.$reportsUrl.'">reports</a> page soon.');
+
+    $this->getUser()->setFlash('notice', $message);
+  }
+
   protected function addField($name)
   {
     switch ($name)
@@ -60,8 +110,7 @@ class InformationObjectItemOrFileListAction extends sfAction
 
       case 'includeThumbnails':
         $choices = array(
-          '1' => $this->context->i18n->__('Yes')
-        );
+          '1' => $this->context->i18n->__('Yes'));
 
         $this->form->setValidator($name, new sfValidatorChoice(array(
           'choices' => array_keys($choices),
@@ -74,33 +123,5 @@ class InformationObjectItemOrFileListAction extends sfAction
 
         break;
     }
-  }
-
-  public function execute($request)
-  {
-    $this->resource = $this->getRoute()->resource;
-    $this->type = isset($request->type) ? ucfirst($request->type) : $this->context->i18n->__('Item');
-    if (!isset($this->resource))
-    {
-      $this->forward404();
-    }
-
-    $this->form = new sfForm;
-
-    foreach ($this::$NAMES as $name)
-    {
-      $this->addField($name);
-    }
-
-    if ($request->isMethod('post'))
-    {
-      $this->form->bind($request->getPostParameters());
-      if ($this->form->isValid())
-      {
-        return sfView::SUCCESS;
-      }
-    }
-
-    return 'Criteria';
   }
 }
