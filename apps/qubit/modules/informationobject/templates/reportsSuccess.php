@@ -15,11 +15,22 @@
 <?php end_slot() ?>
 
 <fieldset class="single">
+  <div class="fieldset-wrapper">
+    <?php echo __('Existing reports:') ?>
+    <ul>
+      <?php foreach ($existingReports as $report): ?>
+        <li><?php echo $report['type'] ?></li>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+</fieldset>
+
+<fieldset class="single">
 
   <div class="fieldset-wrapper">
 
   <?php if ($reportsAvailable): ?>
-    <?php echo render_field($form->report->label(__('Select report')), $resource) ?>
+    <?php echo render_field($form->report->label(__('Select new report to generate:')), $resource) ?>
   <?php else: ?>
     <?php echo __('There are no relevant reports for this item') ?>
   <?php endif; ?>

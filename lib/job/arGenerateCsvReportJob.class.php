@@ -39,16 +39,18 @@ class arGenerateCsvReportJob extends arBaseJob
 
   public function runJob($parameters)
   {
-    $this->parameters = $parameters;
+    $this->params = $parameters;
 
     // Check that object exists and that it is not the root
-    if (null === $this->resource = QubitInformationObject::getById($parameters['objectId']))
+    if (null === $this->resource = QubitInformationObject::getById($this->params['objectId']))
     {
-      $this->error($this->i18n->__('Error: Could not find an information object with id: %1', array('%1' => $parameters['objectId'])));
+      $this->error($this->i18n->__('Error: Could not find an information object with id: %1', array('%1' => $this->params['objectId'])));
       return false;
     }
 
-    switch ($this->parameters['reportType'])
+    $this->filename = self::getFilename($this->resource, $this->params['reportFormat'], $this->params['reportType']);
+
+    switch ($this->params['reportType'])
     {
       case 'fileList':
         $results = $this->getFileOrItemListResults('file');
@@ -65,11 +67,11 @@ class arGenerateCsvReportJob extends arBaseJob
         break;
 
       default:
-        $this->error($this->i18n->__('Invalid report type: %1', array('%1' => $parameters['reportType'])));
+        $this->error($this->i18n->__('Invalid report type: %1', array('%1' => $this->params['reportType'])));
         return false;
     }
 
-    $result = $this->writeReport($results, $parameters['reportType'], $this->parameters['reportFormat']);
+    $result = $this->writeReport($results);
 
     $this->job->setStatusCompleted();
     $this->job->save();
@@ -77,35 +79,36 @@ class arGenerateCsvReportJob extends arBaseJob
     return $result;
   }
 
-  private function writeReport($results, $type, $format)
+  private function writeReport($results)
   {
-    switch ($format)
+    switch ($this->params['reportFormat'])
     {
       case 'csv':
         $result = $this->writeCsv($results);
         break;
 
       case 'html':
-        $result = $this->writeHtml($results, $type);
+        $result = $this->writeHtml($results);
         break;
 
       default:
-        $this->error($this->i18n->__('Invalid report format: %1', array('%1' => $format)));
+        $this->error($this->i18n->__('Invalid report format: %1', array('%1' => $this->params['format'])));
         $result = false;
         break;
     }
 
+print "Wrote ".$this->filename."\n";
     return $result;
   }
 
-  private function getFilename($format)
+  public static function getFilename($resource, $format, $type)
   {
-    return 'downloads/'.$this->resource->slug.'-'.$this->parameters['reportType'].'.'.$format;
+    return 'downloads/'.$resource->slug.'-'.$type.'.'.$format;
   }
 
   private function getFileOrItemListResults($levelOfDescription)
   {
-    $sortBy = isset($this->parameters['sortBy']) ? $this->parameters['sortBy'] : 'referenceCode';
+    $sortBy = isset($this->params['sortBy']) ? $this->params['sortBy'] : 'referenceCode';
 
     $c2 = new Criteria;
     $c2->addJoin(QubitTerm::ID, QubitTermI18n::ID, Criteria::INNER_JOIN);
@@ -168,9 +171,9 @@ class arGenerateCsvReportJob extends arBaseJob
       return;
     }
 
-    if (null === $fh = fopen($this->getFilename('csv'), 'w'))
+    if (null === $fh = fopen($this->filename, 'w'))
     {
-      throw new sfException('Unable to open file '.$this->getFilename('csv').' - please check permissions.');
+      throw new sfException('Unable to open file '.$this->filename.' - please check permissions.');
     }
 
     // Iterate over descriptions and their report results
@@ -209,22 +212,26 @@ class arGenerateCsvReportJob extends arBaseJob
     fclose($fh);
   }
 
-  private function writeHtml($results, $type)
+  private function writeHtml($results)
   {
     if (!count($results))
     {
       return;
     }
 
-    if (null === $fh = fopen($this->getFilename('html'), 'w'))
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'Tag'));
+
+    if (null === $fh = fopen($this->filename, 'w'))
     {
-      throw new sfException('Unable to open file '.$this->getFilename('html').' - please check permissions.');
+      throw new sfException('Unable to open file '.$this->filename.' - please check permissions.');
     }
 
     $resource = $this->resource; // Pass resource to template.
+    $includeThumbnails = $this->params['includeThumbnails'];
+    $sortBy = $this->params['sortBy'];
 
     ob_start();
-    include $this->templatePaths[$type];
+    include $this->templatePaths[$this->params['reportType']];
     $output = ob_get_clean();
 
     fwrite($fh, $output);

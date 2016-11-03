@@ -31,7 +31,8 @@ class InformationObjectItemOrFileListAction extends sfAction
   public static
     $NAMES = array(
       'sortBy',
-      'includeThumbnails'
+      'includeThumbnails',
+      'format'
     );
 
   public function execute($request)
@@ -68,18 +69,31 @@ class InformationObjectItemOrFileListAction extends sfAction
 
   private function initiateReportGeneration()
   {
+    $reportType = (false === strpos(strtolower($this->type), 'item')) ? 'fileList' : 'itemList';
+
+    if (is_array($this->form->includeThumbnails->getValue()) &&
+        '1' === array_pop($this->form->includeThumbnails->getValue()))
+    {
+      $includeThumbnails = true;
+    }
+    else
+    {
+      $includeThumbnails = false;
+    }
+
     $params = array(
         'objectId' => $this->resource->id,
-        'reportType' => 'fileList',
-        'sortBy' => 'title',
-        'reportFormat' => 'csv'
+        'reportType' => $reportType,
+        'sortBy' => $this->form->sortBy->getValue(),
+        'reportFormat' => $this->form->format->getValue(),
+        'includeThumbnails' => $includeThumbnails
     );
 
     QubitJob::runJob('arGenerateCsvReportJob', $params);
 
     $reportsUrl = url_for(array($this->resource, 'module' => 'informationobject', 'action' => 'reports'));
-    $message = $this->context->i18n->__(
-      'Report generation has started, please check the <a href="'.$reportsUrl.'">reports</a> page soon.');
+    $message = $this->context->i18n->__('Report generation has started, please check the <a href="'.
+                                        $reportsUrl.'">reports</a> page again soon.');
 
     $this->getUser()->setFlash('notice', $message);
   }
@@ -122,6 +136,12 @@ class InformationObjectItemOrFileListAction extends sfAction
           'choices' => $choices)));
 
         break;
+
+      case 'format':
+        $choices = array('html' => 'HTML', 'csv' => 'CSV');
+        $this->form->setDefault($name, 'html');
+        $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
+        $this->form->setWidget($name, new sfWidgetFormChoice(array('expanded' => true, 'choices' => $choices)));
     }
   }
 }

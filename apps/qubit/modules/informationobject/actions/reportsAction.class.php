@@ -25,6 +25,64 @@ class InformationObjectReportsAction extends sfAction
       'report'
     );
 
+  public function execute($request)
+  {
+    $this->typeLabels = array(
+      'fileList' => $this->context->i18n->__('File list'),
+      'itemList' => $this->context->i18n->__('Item list'),
+      'storageLocations' => $this->context->i18n->__('Physical storage locations'),
+      'boxLabelCsv' => $this->context->i18n->__('Box label CSV')
+    );
+
+    $this->resource = $this->getRoute()->resource;
+    $this->getExistingReports();
+
+    if (!isset($this->resource))
+    {
+      $this->forward404();
+    }
+
+    $this->form = new sfForm;
+
+    foreach ($this::$NAMES as $name)
+    {
+      $this->addField($name);
+    }
+
+    if ($request->isMethod('post'))
+    {
+      $this->form->bind($request->getPostParameters());
+      if ($this->form->isValid())
+      {
+        $this->redirect($this->form->getValue('report'));
+      }
+    }
+  }
+
+  private function getExistingReports()
+  {
+    $formats = array('csv', 'html');
+    $types = array_keys($this->typeLabels);
+    $this->existingReports = array();
+
+    foreach ($types as $type)
+    {
+      foreach ($formats as $format)
+      {
+        $path = arGenerateCsvReportJob::getFilename($this->resource, $format, $type);
+
+        if (file_exists($path))
+        {
+          $this->existingReports[] = array(
+            'path' => $path,
+            'type' => $this->typeLabels[$type],
+            'format' => strtoupper($format),
+          );
+        }
+      }
+    }
+  }
+
   protected function addField($name)
   {
     switch ($name)
@@ -67,32 +125,6 @@ class InformationObjectReportsAction extends sfAction
         }
 
         break;
-    }
-  }
-
-  public function execute($request)
-  {
-    $this->resource = $this->getRoute()->resource;
-
-    if (!isset($this->resource))
-    {
-      $this->forward404();
-    }
-
-    $this->form = new sfForm;
-
-    foreach ($this::$NAMES as $name)
-    {
-      $this->addField($name);
-    }
-
-    if ($request->isMethod('post'))
-    {
-      $this->form->bind($request->getPostParameters());
-      if ($this->form->isValid())
-      {
-        $this->redirect($this->form->getValue('report'));
-      }
     }
   }
 }

@@ -18,11 +18,9 @@
 
   <div class="fieldset-wrapper">
 
-    <?php echo render_field($form->sortBy
-      ->label(__('Sort by')), $resource) ?>
-
-    <?php echo render_field($form->includeThumbnails
-      ->label(__('Include thumbnails')), $resource) ?>
+    <?php echo render_field($form->sortBy->label(__('Sort by')), $resource) ?>
+    <?php echo render_field($form->format->label(__('Format')), $resource) ?>
+    <?php echo render_field($form->includeThumbnails->label(__('Include thumbnails')), $resource) ?>
 
   </div>
 
