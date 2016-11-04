@@ -27,22 +27,25 @@ class QubitSlug extends BaseSlug
 
   public static function random($length = 12)
   {
-    $separator = sfConfig::get('app_separator_character', '-');
+    $separator = '-';
 
     // Adapted from http://stackoverflow.com/questions/5615490/random-code-generator/5615957#5615957
     $alphabet = '23456789abcdefghkmnpqrstwxyz';
-    $alphabet_size = strlen($alphabet);
+    $alphabetSize = strlen($alphabet);
 
-    $block_length = 4;
-    $num_blocks = $length / $block_length;
+    $blockLength = 4;
+    $numBlocks = ceil($length / $blockLength);
 
     $slug = '';
-    for ($i = 0; $i < $num_blocks; $i++) {
-      for ($j = 0; $j < $block_length; $j++) {
-        $slug .= $alphabet[mt_rand(0, $alphabet_size - 1)];
+    for ($i = 0; $i < $numBlocks; $i++)
+    {
+      for ($j = 0; $j < $blockLength; $j++)
+      {
+        $slug .= $alphabet[mt_rand(0, $alphabetSize - 1)];
       }
 
-      if ($i != $num_blocks - 1) {
+      if ($i != $numBlocks - 1)
+      {
         $slug .= $separator;
       }
     }
