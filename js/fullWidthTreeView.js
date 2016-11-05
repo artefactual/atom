@@ -60,12 +60,13 @@
     $('#fullwidth-treeview-row').resizable({handles: 's'}).animate({height: '200px'}, 500);
 
     // Scroll to active node
-    var active_node = null;
-    if ( active_node = $('li [selected_on_load]')[0])
-    {
-      active_node.scrollIntoView(true);
-      $('body')[0].scrollIntoView(true);
-    }
+    $('#fullwidth-treeview').bind('ready.jstree', function() {
+      var active_node = $('li[selected_on_load="true"]')[0];
+      if (active_node) {
+        active_node.scrollIntoView(true);
+        $('body')[0].scrollIntoView(true);
+      }
+    });
 
     // Bind click events to nodes to load the informationobject's page and insert the current page
     $("#fullwidth-treeview").bind("select_node.jstree", function(evt, data)
