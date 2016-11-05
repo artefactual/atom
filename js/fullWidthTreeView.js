@@ -26,59 +26,46 @@
     $('#main-column h1').after($(html));
     $('#fullwidth-treeview-row').animate({height: '100px'}, 500);
 
-    // Initialize the jstree with json from server
-    $.get((window.location.pathname.match("^[^;]*")[0] + url), function(data)
-    {
-      // Configure jstree grid columns
-      data.plugins = ['types'];
-      data.types = {
-        'default': {
-          'icon': 'fa fa-folder-o'
-        },
-
-        // Item, File
-        'Item': {
-          'icon': 'fa fa-file-text-o'
-        },
-        'File': {
-          'icon': 'fa fa-file-text-o'
-        },
-
-        // Series, Subseries, Subfonds
-        'Series': {
-          'icon': 'fa fa-folder-o'
-        },
-        'Subseries': {
-          'icon': 'fa fa-folder-o'
-        },
-        'subfonds': {
-          'icon': 'fa fa-folder-o'
-        },
-        'Sous-fonds': {
-          'icon': 'fa fa-folder-o'
-        },
-        
-        // Fonds, Collection
-        'Fonds': {
-          'icon': 'fa fa-archive'
-        },
-        'Collection': {
-          'icon': 'fa fa-archive'
+    var options = {
+      'plugins': ['types'],
+      'types': {
+        'default':    {'icon': 'fa fa-folder-o'},
+        'Item':       {'icon': 'fa fa-file-text-o'},
+        'File':       {'icon': 'fa fa-file-text-o'},
+        'Series':     {'icon': 'fa fa-folder-o'},
+        'Subseries':  {'icon': 'fa fa-folder-o'},
+        'subfonds':   {'icon': 'fa fa-folder-o'},
+        'Sous-fonds': {'icon': 'fa fa-folder-o'},
+        'Fonds':      {'icon': 'fa fa-archive'},
+        'Collection': {'icon': 'fa fa-archive'}
+      },
+      'core': {
+        'data': {
+          'url': function (node) {
+            return node.id === '#' ?
+              window.location.pathname.match("^[^;]*")[0] + url :
+              node.a_attr.href + url;
+          },
+          'data': function (node) {
+            return node.id === '#' ?
+              {'firstLoad': true} :
+              {'firstLoad': false};
+          }
         }
       }
+    };
 
-      // Initialize jstree
-      $('#fullwidth-treeview').jstree(data);
-      $('#fullwidth-treeview-row').resizable({handles: 's'}).animate({height: '200px'}, 500);
+    // Initialize jstree
+    $('#fullwidth-treeview').jstree(options);
+    $('#fullwidth-treeview-row').resizable({handles: 's'}).animate({height: '200px'}, 500);
 
-      // Scroll to active node
-      var active_node = null;
-      if ( active_node = $('li [selected_on_load]')[0])
-      {
-        active_node.scrollIntoView(true);
-        $('body')[0].scrollIntoView(true);
-      }
-    });
+    // Scroll to active node
+    var active_node = null;
+    if ( active_node = $('li [selected_on_load]')[0])
+    {
+      active_node.scrollIntoView(true);
+      $('body')[0].scrollIntoView(true);
+    }
 
     // Bind click events to nodes to load the informationobject's page and insert the current page
     $("#fullwidth-treeview").bind("select_node.jstree", function(evt, data)
