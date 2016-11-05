@@ -78,12 +78,12 @@ class QubitSetting extends BaseSetting
       LEFT JOIN '.QubitSettingI18n::TABLE_NAME.' current
         ON (setting.ID = current.id AND current.CULTURE = ?)
       LEFT JOIN '.QubitSettingI18n::TABLE_NAME.' source
-        ON (setting.ID = source.id AND source.CULTURE = setting.SOURCE_CULTURE AND source.CULTURE <> ?)';
+        ON (setting.ID = source.id AND source.CULTURE = setting.SOURCE_CULTURE)';
 
     $settings = array();
     $culture = sfContext::getInstance()->user->getCulture();
 
-    foreach (QubitPdo::fetchAll($sql, array($culture, $culture)) as $qubitSetting)
+    foreach (QubitPdo::fetchAll($sql, array($culture)) as $qubitSetting)
     {
       if ($qubitSetting->scope)
       {
