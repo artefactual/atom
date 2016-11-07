@@ -30,13 +30,14 @@ class QubitPdo
 {
   protected static $conn;
 
-  public static function fetchAll($query, $parameters = array())
+  public static function fetchAll($query, $parameters = array(), $options = array())
   {
     $readStmt = self::prepareAndExecute($query, $parameters);
 
-    $fetchedRows = $readStmt->fetchAll(\PDO::FETCH_CLASS);
-    $readStmt->closeCursor();
+    $fetchMode = isset($options['fetchMode']) ? $options['fetchMode'] : PDO::FETCH_CLASS;
+    $fetchedRows = $readStmt->fetchAll($fetchMode);
 
+    $readStmt->closeCursor();
     unset($readStmt);
 
     return $fetchedRows;
