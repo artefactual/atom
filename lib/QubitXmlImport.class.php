@@ -301,7 +301,6 @@ class QubitXmlImport
     if ($importSchema == 'ead')
     {
       // get ead url from ead header for use in matching this object
-      //$this->eadUrl = $importDOM->xpath->query('//eadheader/eadid/@url');
       if (is_object($urlValues = $importDOM->xpath->query('//eadheader/eadid/@url')))
       {
         foreach ($urlValues as $url)
@@ -1074,6 +1073,20 @@ class QubitXmlImport
         if ($matchId)
         {
           $matchResource = QubitInformationObject::getById($matchId);
+        }
+
+        // If resource not found, try matching against keymap table.
+        if (!isset($matchResource) && $this->eadUrl && $importSchema == 'ead')
+        {
+          $criteria = new Criteria;
+          $criteria->add(QubitKeymap::SOURCE_ID, $this->eadUrl);
+          $criteria->add(QubitKeymap::SOURCE_NAME, $this->sourceName);
+          $criteria->add(QubitKeymap::TARGET_NAME, 'information_object');
+
+          if (null !== $keymap = QubitKeymap::getOne($criteria))
+          {
+            $matchResource = QubitInformationObject::getById($keymap->targetId);
+          }
         }
 
         break;
