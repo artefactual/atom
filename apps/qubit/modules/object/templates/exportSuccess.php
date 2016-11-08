@@ -25,7 +25,7 @@
     <?php echo $form->renderHiddenFields() ?>
 
     <section id="content">
-      <div id="export-options" data-export-toggle="tooltip" data-export-title="<?php echo __('Export') ?>" data-export-alert-message="<?php echo __('Error: Must select a level of description or include all descendants.') ?>">
+      <div id="export-options" data-export-toggle="tooltip" data-export-title="<?php echo __('Export') ?>" data-export-alert-message="<?php echo __('Error: You must have at least one %1%Level of description%2% selected or choose %1%Include all levels of description%2% to proceed.', array('%1%' => '<strong>', '%2%' => '</strong>')) ?>">
       <fieldset class="collapsible">
 
         <legend><?php echo __('Export options') ?></legend>

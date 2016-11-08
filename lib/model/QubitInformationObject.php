@@ -654,20 +654,29 @@ class QubitInformationObject extends BaseInformationObject
   public function getDescendantsForExport($options = array())
   {
     $descendants = array();
+    $fromClipboard = isset($options['params']['fromClipboard']) ? true : false;
+    $levels = isset($options['levels']) ? $options['levels'] : array();
+    $numLevels = count($levels);
 
     foreach ($this->getChildren()->orderBy('lft') as $child)
     {
       $addCondition = true;
 
-      // If we're not in a CLI enviroment, check ACL
-      if (!is_using_cli())
+      // If we're not in a CLI or BG job enviroment, check ACL
+      if (!is_using_cli() || $fromClipboard)
       {
         $addCondition = QubitAcl::check($child, 'read');
       }
       // Otherwise, if public option is set to true, check drafts directly
       if (isset($options['public']) && $options['public'])
       {
-        $addCondition = QubitTerm::PUBLICATION_STATUS_DRAFT_ID != $child->getPublicationStatus()->statusId;
+        // If $addCondition is already false, it should stay false.
+        $addCondition = $addCondition && QubitTerm::PUBLICATION_STATUS_DRAFT_ID != $child->getPublicationStatus()->statusId;
+      }
+      // If 'levels' option is set, and $child LOD is not in $levels array, return and do not add more descendants.
+      if (0 < $numLevels)
+      {
+        $addCondition = $addCondition && array_key_exists($child->levelOfDescriptionId, $levels);
       }
 
       if ($addCondition)

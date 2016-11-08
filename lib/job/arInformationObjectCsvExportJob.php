@@ -102,6 +102,8 @@ class arInformationObjectCsvExportJob extends arBaseJob
   {
     $itemsExported = 0;
     $public = isset($this->params['public']) && $this->params['public'];
+    $levels = isset($this->params['levels']) ? $this->params['levels'] : array();
+    $numLevels = count($levels);
 
     // Exporter will create a new file each 10,000 rows
     $writer = new csvInformationObjectExport($path, $this->archivalStandard, 10000);
@@ -124,8 +126,10 @@ class arInformationObjectCsvExportJob extends arBaseJob
       // If ElasticSearch document is stale (corresponding MySQL data deleted), ignore
       if ($resource !== null)
       {
-        // Don't export draft descriptions with public option
-        if ($public && $resource->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID)
+        // Don't export draft descriptions with public option.
+        // Don't export records if level of description is not in list of selected LODs.
+        if (($public && $resource->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID) ||
+          (0 < $numLevels && !array_key_exists($resource->levelOfDescriptionId, $levels)))
         {
           continue;
         }
@@ -139,8 +143,10 @@ class arInformationObjectCsvExportJob extends arBaseJob
 
           foreach($descendants as $descendant)
           {
-            // Don't export draft descendant descriptions with public option
-            if ($public && $descendant->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID)
+            // Don't export draft descendant descriptions with public option.
+            // Don't export records if level of description is not in list of selected LODs.
+            if (($public && $descendant->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID) ||
+              (0 < $numLevels && !array_key_exists($descendant->levelOfDescriptionId, $levels)))
             {
               continue;
             }

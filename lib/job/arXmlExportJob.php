@@ -32,21 +32,25 @@ class arXmlExportJob extends arBaseJob
    */
   protected $downloadFileExtension = 'zip';
   protected $search;            // arElasticSearchPluginQuery instance
-  protected $errors = null;
+  protected $params = array();
 
   public function runJob($parameters)
   {
+    $this->params = $parameters;
+
+    $this->params['format'] = 'ead';
+
     // Create query increasing limit from default
     $this->search = new arElasticSearchPluginQuery(1000000000);
 
-    if ($parameters['params']['fromClipboard'])
+    if ($this->params['params']['fromClipboard'])
     {
-      $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $parameters['params']['slugs']));
+      $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
     }
     else
     {
-      $this->search->addFacetFilters(InformationObjectBrowseAction::$FACETS, $parameters['params']);
-      $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $parameters['params'], $this->archivalStandard);
+      $this->search->addFacetFilters(InformationObjectBrowseAction::$FACETS, $this->params['params']);
+      $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $this->params['params'], $this->params['format']);
     }
 
     $this->search->query->setSort(array('lft' => 'asc'));
@@ -58,16 +62,8 @@ class arXmlExportJob extends arBaseJob
     // Export CSV to temp directory
     $this->info($this->i18n->__('Starting export to %1.', array('%1' => $tempPath)));
 
-    $this->exportResults($tempPath, $parameters);
-
-    // Output CLI task messages.
-    if (null != $this->errors)
-    {
-      foreach ($this->errors as $error)
-      {
-        $this->info($error);
-      }
-    }
+    $itemsExported = $this->exportResults($tempPath);
+    $this->info($this->i18n->__('Exported %1 descriptions.', array('%1' => $itemsExported)));
 
     // Compress CSV export files as a ZIP archive
     $this->info($this->i18n->__('Creating ZIP file %1.', array('%1' => $this->getDownloadFilePath())));
@@ -96,61 +92,79 @@ class arXmlExportJob extends arBaseJob
    *
    * @return null
    */
-  protected function exportResults($path, $params)
+  protected function exportResults($path)
   {
-    $exitCode = 0;
-    $resultIds = array();
+    $itemsExported = 0;
+    $public = isset($this->params['public']) && $this->params['public'];
+    $levels = isset($this->params['levels']) ? $this->params['levels'] : array();
+    $numLevels = count($levels);
+
+    exportBulkBaseTask::includeXmlExportClassesAndHelpers();
+
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->getQuery(false, false));
 
     foreach ($resultSet as $hit)
     {
-      $resultIds[] = $hit->getId();
+      $resource = QubitInformationObject::getById($hit->getId());
+
+      // If ElasticSearch document is stale (corresponding MySQL data deleted), ignore
+      if ($resource !== null)
+      {
+        // Don't export draft descriptions with public option.
+        // Don't export records if level of description is not in list of selected LODs.
+        if (($public && $resource->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID) ||
+          (0 < $numLevels && !array_key_exists($resource->levelOfDescriptionId, $levels)))
+        {
+          continue;
+        }
+
+        $this->exportResource($resource, $path);
+
+        // Log progress every 1000 rows
+        if ($itemsExported && ($itemsExported % 1000 == 0))
+        {
+          $this->info($this->i18n->__('%1 items exported.', array('%1' => $itemsExported)));
+          Qubit::clearClassCaches();
+        }
+
+        $itemsExported++;
+      }
     }
 
-    // If ElasticSearch document is stale (corresponding MySQL data deleted), ignore
-    if (empty($resultIds))
+    return $itemsExported;
+  }
+
+  /**
+   * Export XML to file
+   *
+   * @param object  information object to be export
+   * @param string  xml export path
+   *
+   * @return null
+   */
+  protected function exportResource($resource, $path)
+  {
+    try
     {
-      $this->error($this->i18n->__('Records not found in search index.'));
-      return;
+      // Print warnings/notices here too, as they are often important.
+      $errLevel = error_reporting(E_ALL);
+
+      $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput($resource, $this->params['format'], $this->params);
+      $xml = Qubit::tidyXml($rawXml);
+
+      error_reporting($errLevel);
+    }
+    catch (Exception $e)
+    {
+      throw new sfException($this->i18n->__('Invalid XML generated for object %1%.', array('%1%' => $row['id'])));
     }
 
-    foreach ($resultIds as $result)
+    $filename = exportBulkBaseTask::generateSortableFilename($resource, 'xml', $this->params['format']);
+    $filePath = sprintf('%s/%s', $path, $filename);
+
+    if (false === file_put_contents($filePath, $xml))
     {
-      $taskClassName = 'export:bulk';
-
-      $criteria = sprintf('--criteria="i.id = (%s)"', $result);
-      $currentLevelOnly = (true == $params['current-level-only']) ? '--current-level-only' : '';
-      $public = (true == $params['public']) ? '--public' : '';
-
-      $command = sprintf('php %s %s %s %s %s %s',
-        escapeshellarg(sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'symfony'),
-        escapeshellarg($taskClassName),
-        $criteria,
-        $currentLevelOnly,
-        $public,
-        escapeshellarg($path));
-
-      // Log the command string in the job output window.
-      $output[] = $command;
-
-      // stderr to stdout
-      $command .= ' 2>&1';
-
-      // Run
-      exec($command, $output, $exitCode);
-
-      // Throw exception if exit code is greater than zero
-      if (0 < $exitCode)
-      {
-        $output = implode($output, "<br />");
-
-        throw new sfException($output);
-      }
-      else
-      {
-        // Warnings
-        $this->errors = $output;
-      }
+      throw new sfException($this->i18n->__('Cannot write to path: %1%', array('%1%' => $filePath)));
     }
   }
 }
