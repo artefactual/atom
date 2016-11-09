@@ -167,9 +167,12 @@ class arGenerateCsvReportJob extends arBaseJob
     }
 
     // Sort items by selected criteria
-    uasort($results, function($a, $b) use ($sortBy) {
-      return strnatcasecmp($a[$sortBy], $b[$sortBy]);
-    });
+    foreach ($results as $key => &$items)
+    {
+      uasort($items, function($a, $b) use ($sortBy) {
+        return strnatcasecmp($a[$sortBy], $b[$sortBy]);
+      });
+    }
 
     return $results;
   }
