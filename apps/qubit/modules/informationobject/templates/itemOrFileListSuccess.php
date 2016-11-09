@@ -1,18 +1,21 @@
 <html>
 <head>
   <style>
-    table {
-        border-collapse: collapse;
+    table, thead {
+      border-collapse: collapse;
+      border: 1px solid black;
     }
 
-    table, th, td {
-        border: 1px solid black;
+    th, td {
+      border-bottom: 1px solid #ddd;
+      padding: 2px;
     }
+
   </style>
 </head>
 
 <body>
-  <h1 class="label"><?php echo $this->i18n->__($type.' list') ?></h1>
+  <h1 class="label"><?php echo $reportTypeLabel.$this->i18n->__(' report') ?></h1><hr>
 
   <?php $row = $startrow = 1; foreach ($results as $parent => $items): ?>
     <h2 class="element-invisible"><?php echo $this->i18n->__('%1% hierarchy', array('%1%' => sfConfig::get('app_ui_label_informationobject'))) ?></h2>
@@ -20,7 +23,7 @@
       <ul>
       <?php foreach ($items[0]['resource']->getAncestors()->orderBy('lft') as $ancestor): ?>
         <?php if (QubitInformationObject::ROOT_ID != intval($ancestor->id)): ?>
-        <li><h3><?php echo QubitInformationObject::getStandardsBasedInstance($ancestor)->__toString() ?></h3></li>
+        <li><?php echo QubitInformationObject::getStandardsBasedInstance($ancestor)->__toString() ?></li>
         <?php endif; ?>
       <?php endforeach; ?>
       </ul>
@@ -66,13 +69,6 @@
         <?php endforeach; ?>
       </tbody>
     </table>
-
-    <div class="result-count">
-      <?php echo $this->i18n->__('Showing %1% to %2% of %3% results', array(
-        '%1%' => $startrow,
-        '%2%' => ($startrow += count($items)) - 1,
-        '%3%' => $resultCount)) ?>
-    </div>
   <?php endforeach; ?>
 </body>
 </html>

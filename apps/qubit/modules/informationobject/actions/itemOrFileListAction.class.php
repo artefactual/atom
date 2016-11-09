@@ -84,6 +84,7 @@ class InformationObjectItemOrFileListAction extends sfAction
     $params = array(
         'objectId' => $this->resource->id,
         'reportType' => $reportType,
+        'reportTypeLabel' => $this->type,
         'sortBy' => $this->form->sortBy->getValue(),
         'reportFormat' => $this->form->format->getValue(),
         'includeThumbnails' => $includeThumbnails

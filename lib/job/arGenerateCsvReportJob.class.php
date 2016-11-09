@@ -27,7 +27,7 @@ class arGenerateCsvReportJob extends arBaseJob
   /**
    * @see arBaseJob::$requiredParameters
    */
-  protected $extraRequiredParameters = array('objectId', 'reportType', 'reportFormat');
+  protected $extraRequiredParameters = array('objectId', 'reportType', 'reportTypeLabel', 'reportFormat');
 
   private $resource = null;
   const itemOrFileTemplatePath = 'apps/qubit/modules/informationobject/templates/itemOrFileListSuccess.php';
@@ -242,6 +242,7 @@ class arGenerateCsvReportJob extends arBaseJob
     $resource = $this->resource; // Pass resource to template.
     $includeThumbnails = $this->params['includeThumbnails'];
     $sortBy = $this->params['sortBy'];
+    $reportTypeLabel = $this->params['reportTypeLabel'];
 
     ob_start();
     include $this->templatePaths[$this->params['reportType']];
