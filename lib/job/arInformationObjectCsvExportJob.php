@@ -139,18 +139,8 @@ class arInformationObjectCsvExportJob extends arBaseJob
         // export descendants if configured
         if (!$this->params['current-level-only'])
         {
-          $descendants = $resource->descendants->orderBy('lft');
-
-          foreach($descendants as $descendant)
+          foreach ($resource->getDescendantsForExport($this->params) as $descendant)
           {
-            // Don't export draft descendant descriptions with public option.
-            // Don't export records if level of description is not in list of selected LODs.
-            if (($public && $descendant->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID) ||
-              (0 < $numLevels && !array_key_exists($descendant->levelOfDescriptionId, $levels)))
-            {
-              continue;
-            }
-
             $writer->exportResource($descendant);
           }
         }
