@@ -74,7 +74,7 @@ class InformationObjectReportsAction extends sfAction
         if (file_exists($path))
         {
           $this->existingReports[] = array(
-            'path' => $path,
+            'path' => sfConfig::get('siteBaseUrl').DIRECTORY_SEPARATOR.$path,
             'type' => $this->typeLabels[$type],
             'format' => strtoupper($format),
           );

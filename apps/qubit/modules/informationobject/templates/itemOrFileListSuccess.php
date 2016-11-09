@@ -48,8 +48,8 @@
             <td class="row-number"><?php echo $row++ ?></td>
             <?php if ($includeThumbnails): ?>
               <td>
-                <?php if (null != ($do = $item['resource']->getDigitalObject()) && (null != $do->thumbnail)):  ?>
-                  <?php echo image_tag($do->thumbnail->getFullPath(), array('alt' => '')) ?>
+                <?php if ((null !== $do = $item['resource']->getDigitalObject()) && (null != $do->thumbnail)):  ?>
+                  <?php echo image_tag(sfConfig::get('app_siteBaseUrl').$do->thumbnail->getFullPath()) ?>
                 <?php else: ?>
                   <?php echo $this->i18n->__('N/A') ?>
                 <?php endif; ?>

@@ -31,6 +31,7 @@ class arGenerateCsvReportJob extends arBaseJob
 
   private $resource = null;
   const itemOrFileTemplatePath = 'apps/qubit/modules/informationobject/templates/itemOrFileListSuccess.php';
+  const reportsDir = 'downloads/reports';
 
   private $templatePaths = array(
     'itemList' => self::itemOrFileTemplatePath,
@@ -40,6 +41,7 @@ class arGenerateCsvReportJob extends arBaseJob
   public function runJob($parameters)
   {
     $this->params = $parameters;
+    $this->createReportsDir();
 
     // Check that object exists and that it is not the root
     if (null === $this->resource = QubitInformationObject::getById($this->params['objectId']))
@@ -97,13 +99,21 @@ class arGenerateCsvReportJob extends arBaseJob
         break;
     }
 
-print "Wrote ".$this->filename."\n";
     return $result;
+  }
+
+  private function createReportsDir()
+  {
+    $dirPath = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.self::reportsDir;
+    if (!is_dir($dirPath) && !mkdir($dirPath, 0755))
+    {
+      throw new sfException('Failed to create reports directory.');
+    }
   }
 
   public static function getFilename($resource, $format, $type)
   {
-    return 'downloads/'.$resource->slug.'-'.$type.'.'.$format;
+    return self::reportsDir.DIRECTORY_SEPARATOR.$resource->slug.'-'.$type.'.'.$format;
   }
 
   private function getFileOrItemListResults($levelOfDescription)

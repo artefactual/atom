@@ -55,14 +55,6 @@ storageLocationsSuccess:
   stylesheets:
     print-reports: { media: screen, position: last }
 
-fileListSuccess:
-  stylesheets:
-    print-reports: { media: screen, position: last }
-
-itemListSuccess:
-  stylesheets:
-    print-reports: { media: screen, position: last }
-
 renameSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:

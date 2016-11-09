@@ -14,16 +14,20 @@
   <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'reports')), array('class' => 'form-inline')) ?>
 <?php end_slot() ?>
 
-<fieldset class="single">
-  <div class="fieldset-wrapper">
-    <?php echo __('Existing reports:') ?>
-    <ul>
-      <?php foreach ($existingReports as $report): ?>
-        <li><?php echo $report['type'] ?></li>
-      <?php endforeach; ?>
-    </ul>
-  </div>
-</fieldset>
+<?php if (count($existingReports)): ?>
+  <fieldset class="single">
+    <div class="fieldset-wrapper">
+      <?php echo __('Existing reports:') ?>
+      <ul class="job-report-list">
+        <?php foreach ($existingReports as $report): ?>
+          <li>
+            <?php echo link_to($report['type'].' ('.$report['format'].')', $report['path']) ?>
+          </li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+  </fieldset>
+<?php endif; ?>
 
 <fieldset class="single">
 
