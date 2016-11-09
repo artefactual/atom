@@ -17,6 +17,7 @@
       this.$exportSubmit = this.$element.find('input[id="exportSubmit"]');
       this.$exportDiv = this.$element.find('div[id="export-options"]');
       this.$formatSelect = this.$element.find('select[name="format"]');
+      this.$genericHelpIcon = this.$element.find('a.generic-help-icon');
 
       this.init();
       this.listen();
@@ -38,6 +39,7 @@
       this.$includeAllLevels.on('change', $.proxy(this.onIncludeAllLevelsChange, this));
       this.$objectType.on('change', $.proxy(this.onObjectTypeChange, this));
       this.$exportSubmit.on('click', $.proxy(this.onExportSubmit, this));
+      this.$genericHelpIcon.on('click', $.proxy(this.toggleGenericHelp, this));
     },
 
     setDefaults: function()
@@ -144,6 +146,16 @@
         .append(this.$exportDiv.data('export-alert-message'))
         .prependTo($('#wrapper.container'));
       }
+    },
+
+    toggleGenericHelp: function (e)
+    {
+      e.preventDefault();
+
+      var expanded = this.$genericHelpIcon.toggleClass('open').hasClass('open');
+      this.$genericHelpIcon.attr('aria-expanded', expanded);
+
+      $('.generic-help').toggle(400);
     }
   };
 

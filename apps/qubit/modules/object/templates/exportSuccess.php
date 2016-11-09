@@ -50,10 +50,14 @@
         <div class="form-item">
           <div class="panel panel-default" id="exportOptions">
             <div class="panel-body">
-              <label>
-                <input name="includeDescendants" type="checkbox"/>
-                <?php echo __('Include descendants') ?>
-              </label>
+              <div class="generic-help-box">
+                <label class="generic-help-type">
+                  <input name="includeDescendants" type="checkbox"/>
+                  <?php echo __('Include descendants') ?>
+                </label>
+                <a href="#" class="generic-help-icon" aria-expanded="false"><i class="fa fa-question-circle pull-right"></i></a>
+              </div>
+
               <label>
                 <input name="includeDrafts" type="checkbox"/>
                 <?php echo __('Include draft records') ?>
@@ -69,6 +73,12 @@
                   ->renderRow() ?>
               </div>
             </div>
+
+            <div class="alert alert-info generic-help animateNicely">
+              <p><?php echo __('Choosing "Include descendants" will include all lower-level records beneath those currently on the clipboard in the export.') ?></p>
+              <p><?php echo __('Choosing "Include draft records" will include those marked with a Draft publication status in the export. Note: if you do NOT choose this option, any descendants of a draft record will also be excluded, even if they are published.') ?></p>
+            </div>
+
           </div>
         </div>
       </fieldset>
