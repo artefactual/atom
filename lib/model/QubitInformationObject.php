@@ -376,6 +376,24 @@ class QubitInformationObject extends BaseInformationObject
   }
 
   /**
+   * Return all keymap entries associated with this object.
+   *
+   * @return array  Array of keymap records. Returns null if no keymap
+   *                records found.
+   */
+  public function fetchAllKeymapEntries()
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitKeymap::TARGET_ID, $this->id);
+    $criteria->add(QubitKeymap::TARGET_NAME, 'information_object');
+
+    if (null !== $keymaps = QubitKeymap::get($criteria))
+    {
+      return $keymaps;
+    }
+  }
+
+  /**
    * Get number of information objects with draft status
    *
    * @return int  Number of information objects with draft status
