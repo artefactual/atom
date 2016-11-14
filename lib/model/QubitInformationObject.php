@@ -672,7 +672,6 @@ class QubitInformationObject extends BaseInformationObject
   public function getDescendantsForExport($options = array())
   {
     $descendants = array();
-    $fromClipboard = isset($options['params']['fromClipboard']) ? true : false;
     $levels = isset($options['levels']) ? $options['levels'] : array();
     $numLevels = count($levels);
 
@@ -680,8 +679,8 @@ class QubitInformationObject extends BaseInformationObject
     {
       $addCondition = true;
 
-      // If we're not in a CLI or BG job enviroment, check ACL
-      if (!is_using_cli() || $fromClipboard)
+      // If we're not in a CLI enviroment, check ACL
+      if ('cli' != sfContext::getInstance()->getConfiguration()->getEnvironment())
       {
         $addCondition = QubitAcl::check($child, 'read');
       }
