@@ -102,6 +102,12 @@ EOF;
         sfCommandOption::PARAMETER_REQUIRED,
         'Limit --update matching to under a specified top level description or repository via slug.'
       ),
+      new sfCommandOption(
+        'keep-digital-objects',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        'Skip the deletion of existing digital objects and their derivatives when using --update with "match-and-update".'
+      )
     ));
   }
 
@@ -455,13 +461,16 @@ EOF;
 
       'updatePreparationLogic' => function(&$self)
       {
-        if ((isset($self->rowStatusVars['digitalObjectPath']) && $self->rowStatusVars['digitalObjectPath'])
+        // If keep-digital-objects is set and --update="match-and-update" is set,
+        // skip this logic to delete digital objects.
+        if (((isset($self->rowStatusVars['digitalObjectPath']) && $self->rowStatusVars['digitalObjectPath'])
           || (isset($self->rowStatusVars['digitalObjectURI']) && $self->rowStatusVars['digitalObjectURI']))
+          && !$self->keepDigitalObjects)
         {
           // Retrieve any digital objects that exist for this information object
           $do = $self->object->getDigitalObject();
 
-          if ($do !== null)
+          if (null !== $do)
           {
             $deleteDigitalObject = true;
 
