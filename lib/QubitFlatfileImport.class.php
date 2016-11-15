@@ -37,6 +37,7 @@ class QubitFlatfileImport
   public $deleteAndReplace       = false; // Delete matching records & replace them
   public $skipMatched            = false; // Skip creating new record if matching one is found
   public $skipUnmatched          = false; // Skip creating new record if matching one is not found
+  public $keepDigitalObjects     = false; // Skip deletion of DOs when set. Works when --update set.
   public $limitToId              = 0;     // Id of repository or TLD to limit our update matching under
   public $status          = array(); // place to store data related to overall import
   public $rowStatusVars   = array(); // place to store data related to current row
@@ -146,6 +147,8 @@ class QubitFlatfileImport
           // Save match option. If update is ON, and match is set, only updating
           // existing records - do not create new objects.
           $this->matchAndUpdate = true;
+          // keepDigitalObjects only makes sense with match-and-update
+          $this->keepDigitalObjects = $options['keep-digital-objects'];
           break;
 
         default:
