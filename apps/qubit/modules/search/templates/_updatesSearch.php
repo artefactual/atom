@@ -1,6 +1,6 @@
-<a href="#" class="advanced-search-toggle <?php echo $show ? 'open' : '' ?>" aria-expanded="<?php echo $show ? 'true' : 'false' ?>"><?php echo __('Filter options') ?></a>
+<section class="advanced-search-section" id="description-updates-section">
 
-<section class="advanced-search-section">
+  <a href="#" class="advanced-search-toggle <?php echo $show ? 'open' : '' ?>" aria-expanded="<?php echo $show ? 'true' : 'false' ?>"><?php echo __('Filter options') ?></a>
 
   <div class="advanced-search animateNicely" <?php echo !$show ? 'style="display: none;"' : '' ?>>
 
