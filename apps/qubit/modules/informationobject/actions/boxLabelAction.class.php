@@ -1,35 +1,36 @@
 <?php
 
 /*
- * This file is part of the Access to Memory (AtoM) software.
+ * This file is part of the AccesstoMemory (AtoM) software.
  *
- * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
+ * AccesstoMemory (AtoM) is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
- * Access to Memory (AtoM) is distributed in the hope that it will be useful,
+  *
+ * AccesstoMemory (AtoM) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
+ * along with AccesstoMemory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class InformationObjectStorageLocationsAction extends sfAction
+class InformationObjectBoxLabelAction extends sfAction
 {
   public function execute($request)
   {
     $this->resource = $this->getRoute()->resource;
-    $this->type = $this->context->i18n->__('Physical storage locations');
+    $this->type = $this->context->i18n->__('Box label');
 
     if (!isset($this->resource))
     {
       $this->forward404();
     }
 
-    if (!$this->getUser()->isAuthenticated())
+    // Check user authorization
+    if (!QubitAcl::check($this->resource, 'read'))
     {
       QubitAcl::forwardUnauthorized();
     }
@@ -63,8 +64,8 @@ class InformationObjectStorageLocationsAction extends sfAction
 
     $params = array(
         'objectId' => $this->resource->id,
-        'reportType' => 'storageLocations',
-        'reportTypeLabel' => $this->context->i18n->__('Physical storage locations'),
+        'reportType' => 'boxLabel',
+        'reportTypeLabel' => $this->context->i18n->__('Box label'),
         'reportFormat' => $this->form->format->getValue(),
     );
 

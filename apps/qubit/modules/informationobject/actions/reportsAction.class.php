@@ -31,7 +31,7 @@ class InformationObjectReportsAction extends sfAction
       'fileList' => $this->context->i18n->__('File list'),
       'itemList' => $this->context->i18n->__('Item list'),
       'storageLocations' => $this->context->i18n->__('Physical storage locations'),
-      'boxLabelCsv' => $this->context->i18n->__('Box label CSV')
+      'boxLabel' => $this->context->i18n->__('Box label')
     );
 
     $this->resource = $this->getRoute()->resource;
@@ -110,7 +110,7 @@ class InformationObjectReportsAction extends sfAction
         if ($this->getUser()->isAuthenticated())
         {
           $choices[$this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'storageLocations'))] = $this->context->i18n->__('Physical storage locations');
-          $choices[$this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'boxLabelCsv'))] = $this->context->i18n->__('Box label CSV');
+          $choices[$this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'boxLabel'))] = $this->context->i18n->__('Box label');
         }
 
         $this->reportsAvailable = !empty($choices);

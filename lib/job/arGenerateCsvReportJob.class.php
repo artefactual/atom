@@ -29,15 +29,20 @@ class arGenerateCsvReportJob extends arBaseJob
    */
   protected $extraRequiredParameters = array('objectId', 'reportType', 'reportTypeLabel', 'reportFormat');
 
-  private $resource = null;
-  const itemOrFileTemplatePath = 'apps/qubit/modules/informationobject/templates/itemOrFileListSuccess.php';
-  const storageLocationsTemplatePath = 'apps/qubit/modules/informationobject/templates/storageLocationsSuccess.php';
-  const reportsDir = 'downloads/reports';
+  private
+    $resource = null;
+
+  const
+    itemOrFileTemplatePath = 'apps/qubit/modules/informationobject/templates/itemOrFileListSuccess.php',
+    storageLocationsTemplatePath = 'apps/qubit/modules/informationobject/templates/storageLocationsSuccess.php',
+    boxLabelTemplatePath = 'apps/qubit/modules/informationobject/templates/boxLabelSuccess.php',
+    reportsDir = 'downloads/reports';
 
   private $templatePaths = array(
     'itemList' => self::itemOrFileTemplatePath,
     'fileList' => self::itemOrFileTemplatePath,
     'storageLocations' => self::storageLocationsTemplatePath,
+    'boxLabel' => self::boxLabelTemplatePath,
   );
 
   public function runJob($parameters)
@@ -48,7 +53,8 @@ class arGenerateCsvReportJob extends arBaseJob
     // Check that object exists and that it is not the root
     if (null === $this->resource = QubitInformationObject::getById($this->params['objectId']))
     {
-      $this->error($this->i18n->__('Error: Could not find an information object with id: %1', array('%1' => $this->params['objectId'])));
+      $this->error($this->i18n->__('Error: Could not find an information object with id: %1',
+                                   array('%1' => $this->params['objectId'])));
       return false;
     }
 
@@ -58,7 +64,7 @@ class arGenerateCsvReportJob extends arBaseJob
     {
       case 'itemList':
       case 'fileList':
-        $results = $this->getFileOrItemListResults($this->params['reportType'] == 'itemList' ? 'item' : 'list');
+        $results = $this->getFileOrItemListResults($this->params['reportType'] == 'itemList' ? 'item' : 'file');
 
         if ('csv' === $this->params['reportFormat'])
         {
@@ -85,7 +91,17 @@ class arGenerateCsvReportJob extends arBaseJob
 
         break;
 
-      case 'boxLabelCsv':
+      case 'boxLabel':
+        if ('csv' === $this->params['reportFormat'])
+        {
+          $ret = $this->writeBoxLabelCsv();
+        }
+        else
+        {
+          //$ret = $this->writeHtml($results);
+          throw new sfException('box label html report not implemeneted');
+        }
+
         break;
 
       default:
@@ -187,6 +203,35 @@ class arGenerateCsvReportJob extends arBaseJob
     }
 
     return $results;
+  }
+
+  private function writeBoxLabelCsv()
+  {
+    if (null === $fh = fopen($this->filename, 'w'))
+    {
+      throw new sfException('Unable to open file '.$this->filename.' - please check permissions.');
+    }
+
+    fputcsv($fh, array('referenceCode', 'physicalObjectName', 'title', 'creationDates'));
+
+    foreach ($this->resource->descendants->andSelf()->orderBy('rgt') as $informationObject)
+    {
+      // Creation dates
+      foreach ($informationObject->getDates(array('type_id' => QubitTerm::CREATION_ID)) as $item)
+      {
+        $creationDates[] = $item->getDate(array('cultureFallback' => true));
+      }
+
+      // Write reference code, container name, title, creation dates
+      foreach ($informationObject->getPhysicalObjects() as $item)
+      {
+        fputcsv($fh, array($informationObject->referenceCode, $item->__toString(), $informationObject->__toString(),
+                implode($creationDates, '|')));
+      }
+    }
+
+    fclose($fh);
+    return true;
   }
 
   private function writeStorageLocationsCsv($results)
