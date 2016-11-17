@@ -2156,7 +2156,7 @@ class QubitFlatfileImport
    *
    * @return stdClass  result object
    */
-  public function fetchKeymapEntryBySourceAndTargetName($sourceId, $sourceName, $targetName)
+  public static function fetchKeymapEntryBySourceAndTargetName($sourceId, $sourceName, $targetName)
   {
     $query = "SELECT target_id, id FROM keymap
       WHERE source_id=? AND source_name=? AND target_name=?";
