@@ -262,6 +262,14 @@ class QubitFlatfileImport
   }
 
   /**
+   * Copy one column value to another column in internal representation of current row
+   */
+  function copy($sourceColumn, $destinationColumn)
+  {
+    $this->columnValue($destinationColumn, $this->columnValue($sourceColumn));
+  }
+
+  /**
    * Get status variable value
    *
    * @param string $var  name of variable
@@ -1634,7 +1642,7 @@ class QubitFlatfileImport
    *
    * @return stdClass  result object
    */
-  public function fetchKeymapEntryBySourceAndTargetName($sourceId, $sourceName, $targetName)
+  public static function fetchKeymapEntryBySourceAndTargetName($sourceId, $sourceName, $targetName)
   {
     $query = "SELECT target_id FROM keymap \r
       WHERE source_id=? AND source_name=? AND target_name=?";
