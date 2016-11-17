@@ -298,6 +298,14 @@ class QubitFlatfileImport
   }
 
   /**
+   * Copy one column value to another column in internal representation of current row
+   */
+  function copy($sourceColumn, $destinationColumn)
+  {
+    $this->columnValue($destinationColumn, $this->columnValue($sourceColumn));
+  }
+
+  /**
    * Get status variable value
    *
    * @param string $var  name of variable
