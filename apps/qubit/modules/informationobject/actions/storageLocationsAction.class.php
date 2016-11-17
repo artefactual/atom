@@ -21,7 +21,9 @@ class InformationObjectStorageLocationsAction extends sfAction
 {
   public function execute($request)
   {
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
     $this->resource = $this->getRoute()->resource;
+    $this->type = $this->context->i18n->__('Physical storage locations');
 
     if (!isset($this->resource))
     {
@@ -33,23 +35,44 @@ class InformationObjectStorageLocationsAction extends sfAction
       QubitAcl::forwardUnauthorized();
     }
 
-    $criteria = new Criteria;
+    $this->form = new sfForm;
 
-    $criteria->setDistinct();
-    $criteria->add(QubitInformationObject::LFT, $this->resource->lft, Criteria::GREATER_EQUAL);
-    $criteria->add(QubitInformationObject::RGT, $this->resource->rgt, Criteria::LESS_EQUAL);
-    $criteria->add(QubitRelation::TYPE_ID, QubitTerm::HAS_PHYSICAL_OBJECT_ID);
-    $criteria->addJoin(QubitRelation::OBJECT_ID, QubitInformationObject::ID);
-    $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitPhysicalObject::ID);
+    $choices = array('html' => 'HTML', 'csv' => 'CSV');
+    $name = 'format';
 
-    $this->physicalObjects = QubitPhysicalObject::get($criteria);
+    $this->form->setDefault($name, 'html');
+    $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
+    $this->form->setWidget($name, new sfWidgetFormChoice(array('expanded' => true, 'choices' => $choices)));
 
-    if (0 == count($this->physicalObjects))
+    if ($request->isMethod('post'))
     {
-      return sfView::ERROR;
+      $this->form->bind($request->getPostParameters());
+
+      if ($this->form->isValid())
+      {
+        $this->initiateReportGeneration();
+        $this->redirect(array($this->resource, 'module' => 'informationobject'));
+      }
     }
 
-    $c2 = clone $criteria;
-    $this->foundcount = BasePeer::doCount($c2)->fetchColumn(0);
+    return 'Criteria';
+  }
+
+  private function initiateReportGeneration()
+  {
+    $params = array(
+        'objectId' => $this->resource->id,
+        'reportType' => 'storageLocations',
+        'reportTypeLabel' => $this->context->i18n->__('Physical storage locations'),
+        'reportFormat' => $this->form->format->getValue(),
+    );
+
+    QubitJob::runJob('arGenerateCsvReportJob', $params);
+
+    $reportsUrl = url_for(array($this->resource, 'module' => 'informationobject', 'action' => 'reports'));
+    $message = $this->context->i18n->__('Report generation has started, please check the <a href="'.
+                                        $reportsUrl.'">reports</a> page again soon.');
+
+    $this->getUser()->setFlash('notice', $message);
   }
 }

@@ -1,44 +1,58 @@
-<div id="preview-message">
-  <?php echo __('Print preview') ?>
-  <?php echo link_to('Close', array($resource, 'module' => 'informationobject')) ?>
-</div>
+<html>
+<head>
+  <style>
+    table, thead {
+      border-collapse: collapse;
+      border: 1px solid black;
+    }
 
-<h1 class="do-print"><?php echo __('Physical storage locations') ?></h1>
+    th, td {
+      border-bottom: 1px solid #ddd;
+      padding: 2px;
+    }
 
-<h1 class="label">
-  <?php $isad = new sfIsadPlugin($resource); echo $isad->__toString() ?>
-</h1>
+  </style>
+</head>
 
-<table class="sticky-enabled">
-  <thead>
-    <tr>
-      <th>
-        <?php echo __('#') ?>
-      </th><th>
-        <?php echo __('Name') ?>
-      </th><th>
-        <?php echo __('Location') ?>
-      </th><th>
-        <?php echo __('Type') ?>
-      </th>
-    </tr>
-  </thead><tbody>
-    <?php $row = 1; foreach ($physicalObjects as $item): ?>
+<body>
+  <h1 class="do-print"><?php echo $this->i18n->__('Physical storage locations') ?></h1>
+
+  <h1 class="label">
+    <?php echo $resource->getTitle(array('cultureFallback' => true)) ?>
+  </h1>
+
+  <table class="sticky-enabled">
+    <thead>
       <tr>
-        <td>
-          <?php echo $row++ ?>
-        </td><td>
-          <?php echo link_to($item->name, array($item, 'module' => 'physicalobject')) ?>
-        </td><td>
-          <?php echo $item->location ?>
-        </td><td>
-          <?php echo $item->type->__toString() ?>
-        </td>
+        <th>
+          <?php echo $this->i18n->__('#') ?>
+        </th><th>
+          <?php echo $this->i18n->__('Name') ?>
+        </th><th>
+          <?php echo $this->i18n->__('Location') ?>
+        </th><th>
+          <?php echo $this->i18n->__('Type') ?>
+        </th>
       </tr>
-    <?php endforeach; ?>
-  </tbody>
-</table>
+    </thead><tbody>
+      <?php $row = 1; foreach ($physicalObjects as $item): ?>
+        <tr>
+          <td>
+            <?php echo $row++ ?>
+          </td><td>
+            <?php echo link_to($item->name, sfConfig::get('app_siteBaseUrl').'/'.$item->slug) ?>
+          </td><td>
+            <?php echo $item->location ?>
+          </td><td>
+            <?php echo $item->type->__toString() ?>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
 
-<div id="result-count">
-  <?php echo __('Showing %1% results', array('%1%' => $foundcount)) ?>
-</div>
+  <div id="result-count">
+    <?php echo $this->i18n->__('Showing %1% results', array('%1%' => count($physicalObjects))) ?>
+  </div>
+</body>
+</html>

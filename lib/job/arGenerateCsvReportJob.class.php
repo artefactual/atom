@@ -31,11 +31,13 @@ class arGenerateCsvReportJob extends arBaseJob
 
   private $resource = null;
   const itemOrFileTemplatePath = 'apps/qubit/modules/informationobject/templates/itemOrFileListSuccess.php';
+  const storageLocationsTemplatePath = 'apps/qubit/modules/informationobject/templates/storageLocationsSuccess.php';
   const reportsDir = 'downloads/reports';
 
   private $templatePaths = array(
     'itemList' => self::itemOrFileTemplatePath,
-    'fileList' => self::itemOrFileTemplatePath
+    'fileList' => self::itemOrFileTemplatePath,
+    'storageLocations' => self::storageLocationsTemplatePath,
   );
 
   public function runJob($parameters)
@@ -54,15 +56,33 @@ class arGenerateCsvReportJob extends arBaseJob
 
     switch ($this->params['reportType'])
     {
-      case 'fileList':
-        $results = $this->getFileOrItemListResults('file');
-        break;
-
       case 'itemList':
-        $results = $this->getFileOrItemListResults('item');
+      case 'fileList':
+        $results = $this->getFileOrItemListResults($this->params['reportType'] == 'itemList' ? 'item' : 'list');
+
+        if ('csv' === $this->params['reportFormat'])
+        {
+          $ret = $this->writeItemOrListCsv($results);
+        }
+        else
+        {
+          $ret = $this->writeHtml($results);
+        }
+
         break;
 
       case 'storageLocations':
+        $results = $this->getStorageLocationsResults();
+
+        if ('csv' === $this->params['reportFormat'])
+        {
+          $ret = $this->writeStorageLocationsCsv($results);
+        }
+        else
+        {
+          $ret = $this->writeHtml($results);
+        }
+
         break;
 
       case 'boxLabelCsv':
@@ -73,38 +93,16 @@ class arGenerateCsvReportJob extends arBaseJob
         return false;
     }
 
-    $result = $this->writeReport($results);
-
     $this->job->setStatusCompleted();
     $this->job->save();
 
-    return $result;
-  }
-
-  private function writeReport($results)
-  {
-    switch ($this->params['reportFormat'])
-    {
-      case 'csv':
-        $result = $this->writeCsv($results);
-        break;
-
-      case 'html':
-        $result = $this->writeHtml($results);
-        break;
-
-      default:
-        $this->error($this->i18n->__('Invalid report format: %1', array('%1' => $this->params['format'])));
-        $result = false;
-        break;
-    }
-
-    return $result;
+    return $ret;
   }
 
   private function createReportsDir()
   {
     $dirPath = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.self::reportsDir;
+
     if (!is_dir($dirPath) && !mkdir($dirPath, 0755))
     {
       throw new sfException('Failed to create reports directory.');
@@ -114,6 +112,20 @@ class arGenerateCsvReportJob extends arBaseJob
   public static function getFilename($resource, $format, $type)
   {
     return self::reportsDir.DIRECTORY_SEPARATOR.$resource->slug.'-'.$type.'.'.$format;
+  }
+
+  private function getStorageLocationsResults()
+  {
+    $criteria = new Criteria;
+
+    $criteria->setDistinct();
+    $criteria->add(QubitInformationObject::LFT, $this->resource->lft, Criteria::GREATER_EQUAL);
+    $criteria->add(QubitInformationObject::RGT, $this->resource->rgt, Criteria::LESS_EQUAL);
+    $criteria->add(QubitRelation::TYPE_ID, QubitTerm::HAS_PHYSICAL_OBJECT_ID);
+    $criteria->addJoin(QubitRelation::OBJECT_ID, QubitInformationObject::ID);
+    $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitPhysicalObject::ID);
+
+    return QubitPhysicalObject::get($criteria);
   }
 
   private function getFileOrItemListResults($levelOfDescription)
@@ -177,11 +189,36 @@ class arGenerateCsvReportJob extends arBaseJob
     return $results;
   }
 
-  private function writeCsv($results)
+  private function writeStorageLocationsCsv($results)
   {
     if (!count($results))
     {
-      return;
+      $this->info($this->i18n->__('No results found for storage locations report.'));
+      return true;
+    }
+
+    if (null === $fh = fopen($this->filename, 'w'))
+    {
+      throw new sfException('Unable to open file '.$this->filename.' - please check permissions.');
+    }
+
+    fputcsv($fh, array($this->i18n->__('Name'), $this->i18n->__('Location'), $this->i18n->__('Type')));
+
+    foreach ($results as $item)
+    {
+      fputcsv($fh, array($item->name, $item->location, $item->type));
+    }
+
+    fclose($fh);
+    return true;
+  }
+
+  private function writeItemOrListCsv($results)
+  {
+    if (!count($results))
+    {
+      $this->info($this->i18n->__('No results found for item or list report.'));
+      return true;
     }
 
     if (null === $fh = fopen($this->filename, 'w'))
@@ -223,16 +260,18 @@ class arGenerateCsvReportJob extends arBaseJob
     }
 
     fclose($fh);
+    return true;
   }
 
   private function writeHtml($results)
   {
     if (!count($results))
     {
-      return;
+      $this->info($this->i18n->__('No results found for '.$this->params['reportTypeLabel'].' report.'));
+      return true;
     }
 
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'Tag'));
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'Tag', 'Url'));
 
     if (null === $fh = fopen($this->filename, 'w'))
     {
@@ -240,9 +279,21 @@ class arGenerateCsvReportJob extends arBaseJob
     }
 
     $resource = $this->resource; // Pass resource to template.
-    $includeThumbnails = $this->params['includeThumbnails'];
-    $sortBy = $this->params['sortBy'];
-    $reportTypeLabel = $this->params['reportTypeLabel'];
+
+    if ('itemList' === $this->params['reportType'] || 'fileList' === $this->params['reportType'])
+    {
+      $includeThumbnails = $this->params['includeThumbnails'];
+      $sortBy = $this->params['sortBy'];
+      $reportTypeLabel = $this->params['reportTypeLabel'];
+    }
+    else if ('storageLocations' === $this->params['reportType'])
+    {
+      $physicalObjects = $results;
+    }
+    else if ('boxLabel' === $this->params['reportType'])
+    {
+      throw new  sfException('box label html not implemeneted');
+    }
 
     ob_start();
     include $this->templatePaths[$this->params['reportType']];
@@ -270,7 +321,7 @@ class arGenerateCsvReportJob extends arBaseJob
   {
     $creationEvents = $resource->getCreationEvents();
 
-    if (0 == count($creationEvents) && isset($resource->parent))
+    if (!count($creationEvents) && isset($resource->parent))
     {
       return $this->getCreationDates($resource->parent);
     }
