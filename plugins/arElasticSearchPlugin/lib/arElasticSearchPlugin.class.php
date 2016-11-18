@@ -166,13 +166,8 @@ class arElasticSearchPlugin extends QubitSearchEngine
           array('recreate' => true));
       }
 
-      // Load mappings
-      if (null === $this->mappings)
-      {
-        $mappings = self::loadMappings();
-        $mappings->cleanYamlShorthands(); // Remove _attributes, _foreign_types, etc.
-        $this->mappings = $mappings->asArray();
-      }
+      // Load and normalize mappings
+      $this->loadAndNormalizeMappings();
 
       // Iterate over types (actor, information_object, ...)
       foreach ($this->mappings as $typeName => $typeProperties)
@@ -194,6 +189,16 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $this->log(sprintf('Defining mapping %s...', $typeName));
         $mapping->send();
       }
+    }
+  }
+
+  private function loadAndNormalizeMappings()
+  {
+    if (null === $this->mappings)
+    {
+      $mappings = self::loadMappings();
+      $mappings->cleanYamlShorthands(); // Remove _attributes, _foreign_types, etc.
+      $this->mappings = $mappings->asArray();
     }
   }
 
@@ -265,11 +270,28 @@ class arElasticSearchPlugin extends QubitSearchEngine
   /**
    * Populate index
    */
-  public function populate()
+  public function populate($excludeTypes = null)
   {
-    // Delete index and initialize again
-    $this->flush();
-    $this->log('Index erased.');
+    $excludeTypes = (!empty($excludeTypes)) ? $excludeTypes : array();
+
+    // Delete index and initialize again if all document types are to be indexed
+    if (!count($excludeTypes))
+    {
+      $this->flush();
+      $this->log('Index erased.');
+    }
+    else
+    {
+      // Initialize index if necessary
+      $this->initialize();
+
+      // Load mappings if index initialization wasn't needed
+      $this->loadAndNormalizeMappings();
+    }
+
+    // Display what types will be indexed
+    $this->displayTypesToIndex($excludeTypes);
+
     $this->log('Populating index...');
 
     // Document counter, timer and errors
@@ -280,20 +302,29 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
     foreach ($this->mappings as $typeName => $typeProperties)
     {
-      $camelizedTypeName = sfInflector::camelize($typeName);
-      $className = 'arElasticSearch'.$camelizedTypeName;
-
-      $class = new $className;
-      $class->setTimer($timer);
-
-      $typeErrors = $class->populate();
-      if (count($typeErrors) > 0)
+      if (!in_array(strtolower($typeName), $excludeTypes))
       {
-        $showErrors = true;
-        $errors = array_merge($errors, $typeErrors);
-      }
+        $camelizedTypeName = sfInflector::camelize($typeName);
+        $className = 'arElasticSearch'.$camelizedTypeName;
 
-      $total += $class->getCount();
+        // If excluding types then index as a whole hasn't been flushed: delete type's documents
+        if (count($excludeTypes))
+        {
+          $this->index->getType('Qubit'. $camelizedTypeName)->deleteByQuery(new \Elastica\Query\MatchAll);
+        }
+
+        $class = new $className;
+        $class->setTimer($timer);
+
+        $typeErrors = $class->populate();
+        if (count($typeErrors) > 0)
+        {
+          $showErrors = true;
+          $errors = array_merge($errors, $typeErrors);
+        }
+
+        $total += $class->getCount();
+      }
     }
 
     $this->log(vsprintf('Index populated with %s documents in %s seconds.',
@@ -313,6 +344,30 @@ class arElasticSearchPlugin extends QubitSearchEngine
       $this->log($error);
     }
     $this->log('Please, contact with an administrator.');
+  }
+
+  /**
+   * Display types that will be indexed
+   */
+  private function displayTypesToIndex($excludeTypes)
+  {
+    $typeCount = 0;
+
+    $this->log('Types that will be indexed:');
+
+    foreach ($this->mappings as $typeName => $typeProperties)
+    {
+      if (!in_array(strtolower($typeName), $excludeTypes))
+      {
+        $this->log(' - '. $typeName);
+        $typeCount++;
+      }
+    }
+
+    if (!$typeCount)
+    {
+      $this->log('   None');
+    }
   }
 
   /**
