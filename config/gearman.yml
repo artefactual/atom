@@ -20,4 +20,4 @@ all:
     xml_export:
       - arXmlExportJob
     generate_csv_report:
-      - arGenerateCsvReportJob
+      - arGenerateReportJob

@@ -69,7 +69,7 @@ class InformationObjectReportsAction extends sfAction
     {
       foreach ($formats as $format)
       {
-        $path = arGenerateCsvReportJob::getFilename($this->resource, $format, $type);
+        $path = arGenerateReportJob::getFilename($this->resource, $format, $type);
 
         if (file_exists($path))
         {

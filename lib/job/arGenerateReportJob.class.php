@@ -22,7 +22,7 @@
  * @author     Mike G <mikeg@artefactual.com>
  */
 
-class arGenerateCsvReportJob extends arBaseJob
+class arGenerateReportJob extends arBaseJob
 {
   /**
    * @see arBaseJob::$requiredParameters
@@ -70,11 +70,11 @@ class arGenerateCsvReportJob extends arBaseJob
 
         if ('csv' === $this->params['reportFormat'])
         {
-          $ret = $this->writeItemOrListCsv($results);
+          $this->writeItemOrListCsv($results);
         }
         else
         {
-          $ret = $this->writeHtml($results);
+          $this->writeHtml($results);
         }
 
         break;
@@ -84,11 +84,11 @@ class arGenerateCsvReportJob extends arBaseJob
 
         if ('csv' === $this->params['reportFormat'])
         {
-          $ret = $this->writeStorageLocationsCsv($results);
+          $this->writeStorageLocationsCsv($results);
         }
         else
         {
-          $ret = $this->writeHtml($results);
+          $this->writeHtml($results);
         }
 
         break;
@@ -98,26 +98,29 @@ class arGenerateCsvReportJob extends arBaseJob
 
         if ('csv' === $this->params['reportFormat'])
         {
-          $ret = $this->writeBoxLabelCsv($results);
+          $this->writeBoxLabelCsv($results);
         }
         else
         {
-          $ret = $this->writeHtml($results);
+          $this->writeHtml($results);
         }
 
         break;
 
       default:
         $this->error($this->i18n->__('Invalid report type: %1', array('%1' => $this->params['reportType'])));
-        $ret = false;
+        return false;
     }
 
     $this->job->setStatusCompleted();
     $this->job->save();
 
-    return $ret;
+    return true;
   }
 
+  /**
+   * Create downloads/reports directory if it doesn't already exist.
+   */
   private function createReportsDir()
   {
     $dirPath = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.self::reportsDir;
@@ -128,11 +131,19 @@ class arGenerateCsvReportJob extends arBaseJob
     }
   }
 
+  /**
+   * Get a report's filename based on slug, report type and format.
+   *
+   * @return string  The report filename.
+   */
   public static function getFilename($resource, $format, $type)
   {
     return self::reportsDir.DIRECTORY_SEPARATOR.$resource->slug.'-'.$type.'.'.$format;
   }
 
+  /**
+   * Return a list of physical object locations given our specified resource.
+   */
   private function getStorageLocationsResults()
   {
     $criteria = new Criteria;
@@ -147,6 +158,9 @@ class arGenerateCsvReportJob extends arBaseJob
     return QubitPhysicalObject::get($criteria);
   }
 
+  /**
+   * Get a list of items or files to report on given the specified resource.
+   */
   private function getFileOrItemListResults($levelOfDescription)
   {
     $sortBy = isset($this->params['sortBy']) ? $this->params['sortBy'] : 'referenceCode';
@@ -208,6 +222,9 @@ class arGenerateCsvReportJob extends arBaseJob
     return $results;
   }
 
+  /**
+   * Return an array of box label results.
+   */
   private function getBoxLabelResults()
   {
     $results = array();
@@ -236,12 +253,17 @@ class arGenerateCsvReportJob extends arBaseJob
     return $results;
   }
 
+  /**
+   * Write box label report to CSV.
+   *
+   * @param array results  A list of box label results for the report.
+   */
   private function writeBoxLabelCsv($results)
   {
     if (!count($results))
     {
       $this->info($this->i18n->__('No results found for box label report.'));
-      return true;
+      return;
     }
 
     if (null === $fh = fopen($this->filename, 'w'))
@@ -257,15 +279,19 @@ class arGenerateCsvReportJob extends arBaseJob
     }
 
     fclose($fh);
-    return true;
   }
 
+  /**
+   * Write storage location report to CSV.
+   *
+   * @param array results  A list of results for the report.
+   */
   private function writeStorageLocationsCsv($results)
   {
     if (!count($results))
     {
       $this->info($this->i18n->__('No results found for storage locations report.'));
-      return true;
+      return;
     }
 
     if (null === $fh = fopen($this->filename, 'w'))
@@ -281,15 +307,19 @@ class arGenerateCsvReportJob extends arBaseJob
     }
 
     fclose($fh);
-    return true;
   }
 
+  /**
+   * Write file or item list report to CSV.
+   *
+   * @param array results  A list of results for the report.
+   */
   private function writeItemOrListCsv($results)
   {
     if (!count($results))
     {
       $this->info($this->i18n->__('No results found for item or list report.'));
-      return true;
+      return;
     }
 
     if (null === $fh = fopen($this->filename, 'w'))
@@ -331,15 +361,20 @@ class arGenerateCsvReportJob extends arBaseJob
     }
 
     fclose($fh);
-    return true;
   }
 
+  /**
+   * Write a report to an html document. This is a general purpose function that will capture
+   * the output of html report templates based on report type.
+   *
+   * @param array results  A list of results for the report.
+   */
   private function writeHtml($results)
   {
     if (!count($results))
     {
       $this->info($this->i18n->__('No results found for '.$this->params['reportTypeLabel'].' report.'));
-      return true;
+      return;
     }
 
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'Tag', 'Url'));
@@ -366,6 +401,9 @@ class arGenerateCsvReportJob extends arBaseJob
     fclose($fh);
   }
 
+  /**
+   * Return a ; delineated string of locations based on a resource's physical objects.
+   */
   private function getLocationString($resource)
   {
     $locations = array();
@@ -380,6 +418,9 @@ class arGenerateCsvReportJob extends arBaseJob
     return implode('; ', $locations);
   }
 
+  /**
+   * Get creation dates given specified resource.
+   */
   private function getCreationDates($resource)
   {
     $creationEvents = $resource->getCreationEvents();
@@ -388,14 +429,12 @@ class arGenerateCsvReportJob extends arBaseJob
     {
       return $this->getCreationDates($resource->parent);
     }
-    else
+
+    foreach ($creationEvents as $item)
     {
-      foreach ($creationEvents as $item)
+      if (null != $item->getDate(array('cultureFallback' => true)) || null != $item->startDate)
       {
-        if (null != $item->getDate(array('cultureFallback' => true)) || null != $item->startDate)
-        {
-          return $item;
-        }
+        return $item;
       }
     }
   }

@@ -90,7 +90,7 @@ class InformationObjectItemOrFileListAction extends sfAction
         'includeThumbnails' => $includeThumbnails
     );
 
-    QubitJob::runJob('arGenerateCsvReportJob', $params);
+    QubitJob::runJob('arGenerateReportJob', $params);
 
     $reportsUrl = url_for(array($this->resource, 'module' => 'informationobject', 'action' => 'reports'));
     $message = $this->context->i18n->__('Report generation has started, please check the <a href="'.
