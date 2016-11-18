@@ -30,6 +30,7 @@ class arSearchPopulateTask extends sfBaseTask
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+      new sfCommandOption('exclude-types', null, sfCommandOption::PARAMETER_OPTIONAL, 'Exclude document type(s) (command-separated) from indexing'),
       new sfCommandOption('verbose', 'v', sfCommandOption::PARAMETER_NONE, 'If passed, progress is displayed for each object indexed')));
 
     $this->namespace = 'search';
@@ -39,6 +40,10 @@ class arSearchPopulateTask extends sfBaseTask
     $this->detailedDescription = <<<EOF
 The [search:populate|INFO] task empties, populates, and optimizes the index
 in the current project. It may take quite a while to run.
+
+To exclude a document type, use the --exclude-types option. For example:
+
+  php symfony search:populate --exclude-types="term,actor"
 EOF;
   }
 
@@ -48,6 +53,8 @@ EOF;
 
     new sfDatabaseManager($this->configuration);
 
-    QubitSearch::getInstance()->populate();
+    $excludeTypes = (!empty($options['exclude-types'])) ? explode(',', strtolower($options['exclude-types'])) : null;
+
+    QubitSearch::getInstance()->populate($excludeTypes);
   }
 }
