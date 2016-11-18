@@ -94,6 +94,7 @@ class SettingsGlobalAction extends sfAction
     $swordDepositDir = QubitSetting::getByName('sword_deposit_dir');
     $googleMapsApiKey = QubitSetting::getByName('google_maps_api_key');
     $slugTypeInformationObject = QubitSetting::getByName('slug_basis_informationobject');
+    $generateReportsAsPubUser = QubitSetting::getByName('generate_reports_as_pub_user');
 
     // Set defaults for global form
     $this->globalForm->setDefaults(array(
@@ -120,7 +121,8 @@ class SettingsGlobalAction extends sfAction
       'defaultPubStatus' => (isset($defaultPubStatus)) ? $defaultPubStatus->getValue(array('sourceCulture'=>true)) : QubitTerm::PUBLICATION_STATUS_DRAFT_ID,
       'draft_notification_enabled' => (isset($draftNotificationEnabled)) ? intval($draftNotificationEnabled->getValue(array('sourceCulture'=>true))) : 0,
       'sword_deposit_dir' => (isset($swordDepositDir)) ? $swordDepositDir->getValue(array('sourceCulture'=>true)) : null,
-      'google_maps_api_key' => (isset($googleMapsApiKey)) ? $googleMapsApiKey->getValue(array('sourceCulture'=>true)) : null
+      'google_maps_api_key' => (isset($googleMapsApiKey)) ? $googleMapsApiKey->getValue(array('sourceCulture'=>true)) : null,
+      'generate_reports_as_pub_user' => (isset($generateReportsAsPubUser)) ? $generateReportsAsPubUser->getValue(array('sourceCulture'=>true)) : 1,
     ));
   }
 
@@ -130,6 +132,13 @@ class SettingsGlobalAction extends sfAction
   protected function updateGlobalSettings()
   {
     $thisForm = $this->globalForm;
+
+    if (null !== $generateReportsAsPubUser = $thisForm->getValue('generate_reports_as_pub_user'))
+    {
+      $setting = QubitSetting::getByName('generate_reports_as_pub_user');
+      $setting->setValue($generateReportsAsPubUser, array('sourceCulture' => true));
+      $setting->save();
+    }
 
     // Check for updates
     if (null !== $checkForUpdates = $thisForm->getValue('check_for_updates'))

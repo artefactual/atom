@@ -73,6 +73,12 @@ class InformationObjectReportsAction extends sfAction
 
         if (file_exists($path))
         {
+          if (!sfContext::getInstance()->user->isAuthenticated() &&
+              in_array($type, array('storageLocations', 'boxLabel')))
+          {
+            continue;
+          }
+
           $this->existingReports[] = array(
             'path' => sfConfig::get('siteBaseUrl').DIRECTORY_SEPARATOR.$path,
             'type' => $this->typeLabels[$type],
@@ -115,7 +121,8 @@ class InformationObjectReportsAction extends sfAction
 
         $this->reportsAvailable = !empty($choices);
 
-        if ($this->reportsAvailable) {
+        if ($this->reportsAvailable)
+        {
           $available_routes = array_keys($choices);
           $this->form->setDefault($name, $available_routes[0]);
           $this->form->setValidator($name, new sfValidatorChoice(array('choices' => $available_routes)));
