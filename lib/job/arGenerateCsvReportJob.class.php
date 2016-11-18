@@ -109,7 +109,7 @@ class arGenerateCsvReportJob extends arBaseJob
 
       default:
         $this->error($this->i18n->__('Invalid report type: %1', array('%1' => $this->params['reportType'])));
-        return false;
+        $ret = false;
     }
 
     $this->job->setStatusCompleted();

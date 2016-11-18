@@ -7,17 +7,16 @@
     }
 
     th, td {
-      border-bottom: 1px solid #ddd;
+      border: 1px solid #ddd;
       padding: 2px;
     }
-
   </style>
 </head>
 
 <body>
   <h1 class="label"><?php echo $reportTypeLabel.$this->i18n->__(' report') ?></h1><hr>
 
-  <?php $row = $startrow = 1; foreach ($results as $parent => $items): ?>
+  <?php $row = 1; foreach ($results as $parent => $items): ?>
     <h2 class="element-invisible"><?php echo $this->i18n->__('%1% hierarchy', array('%1%' => sfConfig::get('app_ui_label_informationobject'))) ?></h2>
     <div class="resource-hierarchy">
       <ul>
@@ -40,7 +39,7 @@
           <th><?php echo $this->i18n->__('Title') ?></th>
           <th><?php echo $this->i18n->__('Dates') ?></th>
           <th><?php echo $this->i18n->__('Access restrictions') ?></th>
-          <?php if (sfContext::getInstance()->user->isAuthenticated()): ?>
+          <?php if (0 == sfConfig::get('app_generate_reports_as_pub_user', 1)): ?>
             <th><?php echo $this->i18n->__('Retrieval information') ?></th>
           <?php endif; ?>
         </tr>
@@ -62,7 +61,7 @@
             <td><?php echo $item['title'] ?></td>
             <td><?php echo $item['dates'] ?></td>
             <td><?php echo isset($item['accessConditions']) ? $item['accessConditions'] : $this->i18n->__('None') ?></td>
-            <?php if (sfContext::getInstance()->user->isAuthenticated()): ?>
+            <?php if (0 == sfConfig::get('app_generate_reports_as_pub_user', 1)): ?>
               <td><?php echo $item['locations'] ?></td>
             <?php endif; ?>
           </tr>
