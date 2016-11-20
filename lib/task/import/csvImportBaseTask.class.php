@@ -77,6 +77,40 @@ abstract class csvImportBaseTask extends arBaseTask
         ."specify a source name (otherwise the filename will be used as a "
         . "source name).\n";
     }
+
+    if ($options['limit'] && !$options['update'])
+    {
+      throw new sfException('The --limit option requires the --update option to be present.');
+    }
+
+    if ($options['keep-digital-objects'] && 'match-and-update' != trim($options['update']))
+    {
+      throw new sfException('The --keep-digital-objects option can only be used when --update=\'match-and-update\' option is present.');
+    }
+
+    $this->validateUpdateOptions($options);
+  }
+
+  /**
+   * Validate --update option values, throw an exception if invalid value specified.
+   *
+   * @param array $options  CLI options passed in during import.
+   */
+  protected function validateUpdateOptions($options)
+  {
+    if (!$options['update'])
+    {
+      return;
+    }
+
+    $validParams = array('match-and-update', 'delete-and-replace');
+
+    if (!in_array(trim($options['update']), $validParams))
+    {
+      $msg  = sprintf('Parameter "%s" is not valid for --update option. ', $options['update']);
+      $msg .= sprintf('Valid options are: %s', implode(', ', $validParams));
+      throw new sfException($msg);
+    }
   }
 
   /**
@@ -204,7 +238,7 @@ abstract class csvImportBaseTask extends arBaseTask
       // Add row culture to fetch place term in event creation/update
       $eventData['culture'] = $import->columnValue('culture');
 
-      $event = $import->createOrUpdateEvent($eventTypeId, $eventData);
+      $import->createOrUpdateEvent($eventTypeId, $eventData);
     }
   }
 }

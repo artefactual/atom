@@ -75,14 +75,38 @@ EOF;
       new sfCommandOption(
         'update',
         null,
+        sfCommandOption::PARAMETER_REQUIRED,
+        'Attempt to update if description has already been imported. Valid option values are "match-and-update" & "delete-and-replace".'
+      ),
+      new sfCommandOption(
+        'skip-matched',
+        null,
         sfCommandOption::PARAMETER_NONE,
-        "Attempt to update if description has already been imported."
+        'When importing records without --update, use this option to skip creating new records when an existing one matches.'
+      ),
+      new sfCommandOption(
+        'skip-unmatched',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        "When importing records with --update, skip creating new records if no existing records match."
       ),
       new sfCommandOption(
         'skip-derivatives',
         null,
         sfCommandOption::PARAMETER_NONE,
         "Skip creation of digital object derivatives."
+      ),
+      new sfCommandOption(
+        'limit',
+        null,
+        sfCommandOption::PARAMETER_REQUIRED,
+        'Limit --update matching to under a specified top level description or repository via slug.'
+      ),
+      new sfCommandOption(
+        'keep-digital-objects',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        'Skip the deletion of existing digital objects and their derivatives when using --update with "match-and-update".'
       )
     ));
   }
@@ -395,7 +419,8 @@ EOF;
         'physicalObjectType',
         'physicalStorageLocation',
         'digitalObjectPath',
-        'digitalObjectURI'
+        'digitalObjectURI',
+        'digitalObjectChecksum'
       ),
 
       // These values get exploded and stored to the rowStatusVars array
@@ -436,17 +461,39 @@ EOF;
 
       'updatePreparationLogic' => function(&$self)
       {
-        if ((isset($self->rowStatusVars['digitalObjectPath']) && $self->rowStatusVars['digitalObjectPath'])
+        // If keep-digital-objects is set and --update="match-and-update" is set,
+        // skip this logic to delete digital objects.
+        if (((isset($self->rowStatusVars['digitalObjectPath']) && $self->rowStatusVars['digitalObjectPath'])
           || (isset($self->rowStatusVars['digitalObjectURI']) && $self->rowStatusVars['digitalObjectURI']))
+          && !$self->keepDigitalObjects)
         {
-          // Delete any digital objects that exist for this information object
-          $criteria = new Criteria;
-          $criteria->add(QubitDigitalObject::INFORMATION_OBJECT_ID, $self->object->id);
-          $results = QubitDigitalObject::getOne($criteria);
+          // Retrieve any digital objects that exist for this information object
+          $do = $self->object->getDigitalObject();
 
-          if ($results !== null)
+          if (null !== $do)
           {
-            $results->delete();
+            $deleteDigitalObject = true;
+
+            if ($self->isUpdating())
+            {
+              // if   - there is a checksum in the import file
+              //      - the checksum is non-blank
+              //      - the checksum in the csv file matches what is in the database
+              // then - do not re-load the digital object from the import file on UPDATE (leave existing recs as is)
+              // else - reload the digital object in the import file (i.e. delete existing record below)
+              if (isset($self->rowStatusVars['digitalObjectChecksum'])
+                && $self->rowStatusVars['digitalObjectChecksum']
+                && 0 === strcmp($self->rowStatusVars['digitalObjectChecksum'], $do->getChecksum()))
+              {
+                // if the checksum matches what is stored with digital object, do not import this digital object.
+                $deleteDigitalObject = false;
+              }
+            }
+
+            if ($deleteDigitalObject)
+            {
+              $do->delete();
+            }
           }
         }
       },
@@ -579,12 +626,11 @@ EOF;
             }
             else
             {
-              $error = 'For legacyId '
-                . $self->rowStatusVars['legacyId']
-                .' Could not find parentId '
-                . $self->rowStatusVars['parentId']
-                .' in key_map table';
+              $error = sprintf('legacyId %s: could not find parentId %s in key_map table. Setting parent to root...',
+                               $self->rowStatusVars['legacyId'], $self->rowStatusVars['parentId']);
+
               print $self->logError($error);
+              $self->object->parentId = QubitInformationObject::ROOT_ID;
             }
           }
         }
@@ -603,13 +649,24 @@ EOF;
           throw new sfException('Information object save failed');
         }
 
-        // Add keymap entry
-        $keymap = new QubitKeymap;
-        $keymap->sourceId   = $self->rowStatusVars['legacyId'];
-        $keymap->sourceName = $self->getStatus('sourceName');
-        $keymap->targetId   = $self->object->id;
-        $keymap->targetName = 'information_object';
-        $keymap->save();
+        $targetClass = 'information_object';
+
+        $keymap = $self->fetchKeymapEntryBySourceAndTargetName(
+          $self->rowStatusVars['legacyId'],
+          $self->getStatus('sourceName'),
+          $targetClass
+        );
+
+        if (!$keymap)
+        {
+          // Add keymap entry
+          $keymap = new QubitKeymap;
+          $keymap->sourceId   = $self->rowStatusVars['legacyId'];
+          $keymap->sourceName = $self->getStatus('sourceName');
+          $keymap->targetId   = $self->object->id;
+          $keymap->targetName = $targetClass;
+          $keymap->save();
+        }
 
         // Inherit repository instead of duplicating the association to it if applicable
         if ($self->object->canInheritRepository($self->object->repositoryId))
@@ -784,7 +841,7 @@ EOF;
                 $actorOptions['repositoryId'] = $repo->id;
               }
 
-              $actor = $self->createOrFetchActor($name, $actorOptions);
+              $actor = $self->createOrFetchAndUpdateActorForIo($name, $actorOptions);
               $self->createRelation($self->object->id, $actor->id, QubitTerm::NAME_ACCESS_POINT_ID);
             }
 
@@ -979,7 +1036,20 @@ EOF;
 
         // This will import only a single digital object;
         // if both a URI and path are provided, the former is preferred.
-        if ($uri = $self->rowStatusVars['digitalObjectURI'])
+
+        // note: Digital Objects should only be created here if they do not
+        // exist already.  If getDigitalObject() is null, we know they do not
+        // exist and therefore should be created.
+
+        // When this CSV importer is run and the --update parameter is set,
+        // the function 'updatePreparationLogic' (above) will be run.
+        // 'updatePreparationLogic' has been enhanced to compare the DO
+        // checksum in the DB against the checksum in the import CSV and will
+        // only remove the DO if the checksums differ.  If they are removed
+        // because the checksums are different, the following code will
+        // recreate them from the CSV file.
+        if (($uri = $self->rowStatusVars['digitalObjectURI'])
+          && null === $self->object->getDigitalObject())
         {
           $do = new QubitDigitalObject;
           $do->informationObject = $self->object;
@@ -1007,7 +1077,8 @@ EOF;
             $this->log($e->getMessage(), sfLogger::ERR);
           }
         }
-        else if ($path = $self->rowStatusVars['digitalObjectPath'])
+        else if (($path = $self->rowStatusVars['digitalObjectPath'])
+          && null === $self->object->getDigitalObject())
         {
           $do = new QubitDigitalObject;
           $do->usageId = QubitTerm::MASTER_ID;
@@ -1037,8 +1108,8 @@ EOF;
     // Allow search indexing to be enabled via a CLI option
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
 
-    // Allow updating to be enabled via a CLI option
-    $import->updateExisting = ($options['update']);
+    // Set update, limit and skip options
+    $import->setUpdateOptions($options);
 
     // Convert content with | characters to a bulleted list
     $import->contentFilterLogic = function($text)
@@ -1096,24 +1167,6 @@ EOF;
 function array_search_case_insensitive($search, $array)
 {
   return array_search(strtolower($search), array_map('strtolower', $array));
-}
-
-function getIdCorrespondingToSlug($slug)
-{
-  $query = "SELECT object_id FROM slug WHERE slug=?";
-
-  $statement = QubitFlatfileImport::sqlQuery($query, array($slug));
-
-  $result = $statement->fetch(PDO::FETCH_OBJ);
-
-  if ($result)
-  {
-    return $result->object_id;
-  }
-  else
-  {
-    throw new sfException('Could not find information object matching slug "'. $slug .'"');
-  }
 }
 
 function setAlternativeIdentifiers($io, $altIds, $altIdLabels)
