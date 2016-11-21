@@ -172,7 +172,7 @@ EOF;
 
         $info->contactPerson = $self->rowStatusVars['contactPerson'];
         $info->streetAddress = $self->rowStatusVars['streetAddress'];
-        $info->phone = $self->rowStatusVars['phone'];
+        $info->telephone = $self->rowStatusVars['phone'];
         $info->email = $self->rowStatusVars['email'];
         $info->fax = $self->rowStatusVars['fax'];
         $info->website = $self->rowStatusVars['website'];
