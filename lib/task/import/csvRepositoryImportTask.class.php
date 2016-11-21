@@ -146,11 +146,11 @@ EOF;
       'variableColumns' => array(
         'contactPerson',
         'streetAddress',
-        'phone',
+        'telephone',
         'email',
         'fax',
         'website',
-        'notes'
+        'maintenanceNote'
       ),
 
       // Import logic to execute before saving QubitRepository
@@ -166,25 +166,62 @@ EOF;
       // Import logic to execute after saving QubitRepository
       'postSaveLogic' => function(&$self)
       {
-        // Add contact information
-        $info = new QubitContactInformation();
-        $info->actorId = $self->object->id;
+        // Check if any contact information data exists
+        $addContactInfo = false;
+        $contactInfoFields = array('contactPerson', 'streetAddress', 'telephone', 'email', 'fax', 'website');
+        foreach ($contactInfoFields as $field)
+        {
+          if (!empty($self->rowStatusVars[$field]))
+          {
+            $addContactInfo = true;
 
-        $info->contactPerson = $self->rowStatusVars['contactPerson'];
-        $info->streetAddress = $self->rowStatusVars['streetAddress'];
-        $info->telephone = $self->rowStatusVars['phone'];
-        $info->email = $self->rowStatusVars['email'];
-        $info->fax = $self->rowStatusVars['fax'];
-        $info->website = $self->rowStatusVars['website'];
+            break;
+          }
+        }
 
-        $info->save();
+        if ($addContactInfo)
+        {
+          // Try to get existing contanct information
+          $criteria = new Criteria;
+          $criteria->add(QubitContactInformation::ACTOR_ID, $self->object->id);
+          $contactInfo = QubitContactInformation::getOne($criteria);
+
+          if (!isset($contactInfo))
+          {
+            $contactInfo = new QubitContactInformation;
+            $contactInfo->actorId = $self->object->id;
+          }
+
+          foreach ($contactInfoFields as $field)
+          {
+            // Don't overwrite/add blank fields
+            if (!empty($self->rowStatusVars[$field]))
+            {
+              $contactInfo->$field = $self->rowStatusVars[$field];
+            }
+          }
+
+          $contactInfo->save();
+        }
 
         // Add note
-        $note = new QubitNote();
-        $note->content = $self->rowStatusVars['notes'];
-        $note->objectId = $self->object->id;
+        if (!empty($self->rowStatusVars['maintenanceNote']))
+        {
+          $criteria = new Criteria;
+          $criteria->add(QubitNote::OBJECT_ID, $self->object->id);
+          $criteria->add(QubitNote::TYPE_ID, QubitTerm::MAINTENANCE_NOTE_ID);
+          $note = QubitNote::getOne($criteria);
 
-        $note->save();
+          if (!isset($note))
+          {
+            $note = new QubitNote;
+            $note->typeId = QubitTerm::MAINTENANCE_NOTE_ID;
+            $note->objectId = $self->object->id;
+          }
+
+          $note->content = $self->rowStatusVars['maintenanceNote'];
+          $note->save();
+        }
       }
     ));
 

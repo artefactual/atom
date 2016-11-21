@@ -1,3 +1,3 @@
-identifier,uploadLimit,authorizedFormOfName,contactPerson,streetAddress,phone,email,fax,website,openingTimes,geoculturalContext,holdings,findingAids,notes,internalStructures,culture
+identifier,uploadLimit,authorizedFormOfName,contactPerson,streetAddress,telephone,email,fax,website,openingTimes,geoculturalContext,holdings,findingAids,maintenanceNote,internalStructures,culture
 EXA,2,Example Archives,"Sample Archivist","123 Example St, BC Canada",Phone: (123) 555-5555,archivist@example.com,Fax: (123) 555-5555,http://examplerepositorysite.com,"9am-5pm",,"Total Volume: 500 meters of text, 274,500 photographs",,,,en
 EXB,3,Example Archives 2,"Sample Archivist 2","456 Example St, BC Canada",Phone: (123) 555-5555,archivist@example2.com,Fax: (123) 555-5555,http://example2repositorysite.com,"8am-9pm",,"5 photographs",,,,en
