@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 144
+    value: 146
   milestone:
     name: milestone
     editable: 0
@@ -910,6 +910,10 @@ QubitSetting:
     value: 1
   Qubit_Settings_visibleElements_digitalObjectFileName:
     name: digital_object_file_name
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectGeolocation:
+    name: digital_object_geolocation
     scope: element_visibility
     value: 1
   Qubit_Settings_visibleElements_digitalObjectMediaType:

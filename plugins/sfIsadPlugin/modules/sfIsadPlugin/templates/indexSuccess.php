@@ -326,7 +326,7 @@
 <?php if (0 < count($resource->digitalObjects)): ?>
 
   <div class="digitalObjectMetadata">
-    <?php echo get_partial('digitalobject/metadata', array('resource' => $resource->digitalObjects[0])) ?>
+    <?php echo get_component('digitalobject', 'metadata', array('resource' => $resource->digitalObjects[0], 'infoObj' => $resource)) ?>
   </div>
 
   <div class="digitalObjectRights">

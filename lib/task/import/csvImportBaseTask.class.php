@@ -83,6 +83,11 @@ abstract class csvImportBaseTask extends arBaseTask
       throw new sfException('The --limit option requires the --update option to be present.');
     }
 
+    if ($options['keep-digital-objects'] && 'match-and-update' != trim($options['update']))
+    {
+      throw new sfException('The --keep-digital-objects option can only be used when --update=\'match-and-update\' option is present.');
+    }
+
     $this->validateUpdateOptions($options);
   }
 

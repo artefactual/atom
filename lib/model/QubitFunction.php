@@ -19,6 +19,13 @@
 
 class QubitFunction extends BaseFunction
 {
+  public function save($connection = null)
+  {
+    parent::save($connection);
+
+    QubitSearch::getInstance()->update($this);
+  }
+
   public function __toString()
   {
     $string = $this->authorizedFormOfName;

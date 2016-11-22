@@ -73,13 +73,6 @@ EOF;
 
     foreach ($descriptions as $desc)
     {
-      // Delete related digitalObjects
-      foreach ($desc->digitalObjects as $digitalObject)
-      {
-        $digitalObject->informationObjectId = null;
-        $digitalObject->delete();
-      }
-
       $this->logSection('Deleting "'.$desc->getTitle(array('cultureFallback' => true)).
                         '" ('.++$n.'/'.$totalDescs.')');
       $desc->delete();

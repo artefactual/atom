@@ -249,14 +249,7 @@ class QubitInformationObject extends BaseInformationObject
     {
       // TODO Needed if $this is new, should be transparent
       $item->informationObject = $this;
-
-      try
-      {
-        $item->save($connection);
-      }
-      catch (PropelException $e)
-      {
-      }
+      $item->save($connection);
 
       break; // Save only one premis object per information object
     }
@@ -309,6 +302,20 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function delete($connection = null)
   {
+    // Delete related digitalObjects
+    foreach ($this->digitalObjects as $digitalObject)
+    {
+      // Set IO to null to avoid ES document update
+      $digitalObject->informationObjectId = null;
+      $digitalObject->delete();
+    }
+
+    // Delete related premisObjects
+    foreach ($this->premisObjects as $premisObject)
+    {
+      $premisObject->delete();
+    }
+
     // Physical object relations
     $relations = QubitRelation::getRelationsByObjectId($this->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID));
     foreach ($relations as $item)
@@ -366,6 +373,39 @@ class QubitInformationObject extends BaseInformationObject
         $item->delete();
       }
     }
+  }
+
+  /**
+   * Return all keymap entries associated with this object.
+   *
+   * @return array  Array of keymap records. Returns null if no keymap
+   *                records found.
+   */
+  public function fetchAllKeymapEntries()
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitKeymap::TARGET_ID, $this->id);
+    $criteria->add(QubitKeymap::TARGET_NAME, 'information_object');
+
+    if (null !== $keymaps = QubitKeymap::get($criteria))
+    {
+      return $keymaps;
+    }
+  }
+
+  /**
+   * Get number of information objects with draft status
+   *
+   * @return int  Number of information objects with draft status
+   */
+  public static function getDraftCount()
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitInformationObject::ID, QubitInformationObject::ROOT_ID, Criteria::NOT_EQUAL);
+    $criteria->addJoin(QubitInformationObject::ID, QubitStatus::OBJECT_ID);
+    $criteria->add(QubitStatus::STATUS_ID, QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
+
+    return BasePeer::doCount($criteria)->fetchColumn(0);
   }
 
   /**
@@ -632,20 +672,28 @@ class QubitInformationObject extends BaseInformationObject
   public function getDescendantsForExport($options = array())
   {
     $descendants = array();
+    $levels = isset($options['levels']) ? $options['levels'] : array();
+    $numLevels = count($levels);
 
     foreach ($this->getChildren()->orderBy('lft') as $child)
     {
       $addCondition = true;
 
       // If we're not in a CLI enviroment, check ACL
-      if (!is_using_cli())
+      if ('cli' != sfContext::getInstance()->getConfiguration()->getEnvironment())
       {
         $addCondition = QubitAcl::check($child, 'read');
       }
       // Otherwise, if public option is set to true, check drafts directly
       if (isset($options['public']) && $options['public'])
       {
-        $addCondition = QubitTerm::PUBLICATION_STATUS_DRAFT_ID != $child->getPublicationStatus()->statusId;
+        // If $addCondition is already false, it should stay false.
+        $addCondition = $addCondition && QubitTerm::PUBLICATION_STATUS_DRAFT_ID != $child->getPublicationStatus()->statusId;
+      }
+      // If 'levels' option is set, and $child LOD is not in $levels array, return and do not add more descendants.
+      if (0 < $numLevels)
+      {
+        $addCondition = $addCondition && array_key_exists($child->levelOfDescriptionId, $levels);
       }
 
       if ($addCondition)
@@ -1564,6 +1612,17 @@ class QubitInformationObject extends BaseInformationObject
     if (!$actor)
     {
       $actor = QubitActor::getByAuthorizedFormOfName($name);
+    }
+
+    // When the history option is populated and we
+    // already have a match with a different history
+    if ($actor && !empty($options['history']) && $actor->history !== $options['history'])
+    {
+      // Try to get a full match in name and history or create a new one.
+      // Only the delete and replace option from IO import could reach
+      // this point so there is no need to check by maintaining repository
+      // and update the actor history.
+      $actor = QubitActor::getByAuthorizedFormOfName($name, array('history' => $options['history']));
     }
 
     // If there isn't a match create a new actor
@@ -3108,5 +3167,16 @@ class QubitInformationObject extends BaseInformationObject
     }
 
     return $identifier;
+  }
+
+  /**
+   * Delete this information object as well as all children information objects.
+   */
+  public function deleteFullHierarchy()
+  {
+    foreach ($this->descendants->andSelf()->orderBy('rgt') as $item)
+    {
+      $item->delete();
+    }
   }
 }

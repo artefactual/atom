@@ -21,6 +21,8 @@ class arElasticSearchRepository extends arElasticSearchModelBase
 {
   public function populate()
   {
+    $errors = array();
+
     $criteria = new Criteria;
     $criteria->add(QubitRepository::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
     $repositories = QubitRepository::get($criteria);
@@ -29,12 +31,21 @@ class arElasticSearchRepository extends arElasticSearchModelBase
 
     foreach ($repositories as $key => $repository)
     {
-      $data = self::serialize($repository);
+      try
+      {
+        $data = self::serialize($repository);
 
-      $this->search->addDocument($data, 'QubitRepository');
+        $this->search->addDocument($data, 'QubitRepository');
 
-      $this->logEntry($repository->__toString(), $key + 1);
+        $this->logEntry($repository->__toString(), $key + 1);
+      }
+      catch (sfException $e)
+      {
+        $errors[] = $e->getMessage();
+      }
     }
+
+    return $errors;
   }
 
   public static function serialize($object)

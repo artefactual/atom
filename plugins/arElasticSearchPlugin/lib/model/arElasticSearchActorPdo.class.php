@@ -119,12 +119,31 @@ class arElasticSearchActorPdo
 
     if (false === $this->data)
     {
-      throw new sfException("Couldn't find actor (id:'.$id.')");
+      throw new sfException("Couldn't find actor (id: $id)");
     }
 
     self::$statements['actor']->closeCursor();
 
     return $this;
+  }
+
+  protected function getMaintainingRepositoryId()
+  {
+    if (!isset(self::$statements['maintainingRepository']))
+    {
+      $sql  = 'SELECT rel.subject_id';
+      $sql .= ' FROM '.QubitRelation::TABLE_NAME.' rel';
+      $sql .= ' WHERE rel.object_id = :object_id';
+      $sql .= '   AND rel.type_id = :type_id';
+
+      self::$statements['maintainingRepository'] = self::$conn->prepare($sql);
+    }
+
+    self::$statements['maintainingRepository']->execute(array(
+      ':object_id' => $this->id,
+      ':type_id' => QubitTerm::MAINTAINING_REPOSITORY_RELATION_ID));
+
+    return self::$statements['maintainingRepository']->fetchColumn();
   }
 
   public function serialize()
@@ -155,6 +174,11 @@ class arElasticSearchActorPdo
     foreach (QubitPdo::fetchAll($sql, array($this->id, QubitTerm::STANDARDIZED_FORM_OF_NAME_ID)) as $item)
     {
       $serialized['standardizedNames'][] = arElasticSearchOtherName::serialize($item);
+    }
+
+    if (false !== $maintainingRepositoryId = $this->getMaintainingRepositoryId())
+    {
+      $serialized['maintainingRepositoryId'] = (integer)$maintainingRepositoryId;
     }
 
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);

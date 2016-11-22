@@ -38,6 +38,13 @@
         'pager' => $pager,
         'filters' => $search->filters)) ?>
 
+      <?php echo get_partial('search/facet', array(
+        'target' => '#facet-maintainingrepository',
+        'label' => __('Maintained by'),
+        'facet' => 'maintainingRepository',
+        'pager' => $pager,
+        'filters' => $search->filters)) ?>
+
     </div>
 
   </section>

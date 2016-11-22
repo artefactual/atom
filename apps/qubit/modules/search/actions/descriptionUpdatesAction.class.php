@@ -29,12 +29,10 @@ class SearchDescriptionUpdatesAction extends sfAction
   public static
     $NAMES = array(
       'className',
-      'dateStart',
-      'dateEnd',
+      'startDate',
+      'endDate',
       'dateOf',
-      'publicationStatus',
-      'limit',
-      'sort'
+      'publicationStatus'
     );
 
   protected function addField($name)
@@ -54,15 +52,15 @@ class SearchDescriptionUpdatesAction extends sfAction
 
         break;
 
-      case 'dateStart':
+      case 'startDate':
         $this->form->setValidator($name, new sfValidatorDate(array(), array('invalid' => $this->context->i18n->__('Invalid start date'))));
-        $this->form->setWidget($name, new sfWidgetFormInput(array(), array('style' => 'width: auto')));
+        $this->form->setWidget($name, new sfWidgetFormInput);
 
         break;
 
-      case 'dateEnd':
+      case 'endDate':
         $this->form->setValidator($name, new sfValidatorDate(array(), array('invalid' => $this->context->i18n->__('Invalid end date'))));
-        $this->form->setWidget($name, new sfWidgetFormInput(array(), array('style' => 'width: auto')));
+        $this->form->setWidget($name, new sfWidgetFormInput);
 
         break;
 
@@ -89,18 +87,6 @@ class SearchDescriptionUpdatesAction extends sfAction
         $this->form->setWidget($name, new arWidgetFormSelectRadio(array('choices' => $choices, 'class' => 'radio inline')));
 
         break;
-
-      case 'limit':
-        $this->form->setValidator($name, new sfValidatorString);
-        $this->form->setWidget($name, new sfWidgetFormInputHidden);
-
-        break;
-
-      case 'sort':
-        $this->form->setValidator($name, new sfValidatorString);
-        $this->form->setWidget($name, new sfWidgetFormInputHidden);
-
-        break;
     }
   }
 
@@ -118,150 +104,94 @@ class SearchDescriptionUpdatesAction extends sfAction
 
     $defaults = array(
       'className' => 'QubitInformationObject',
-      'dateStart' => date('Y-m-d', strtotime('-1 month')),
-      'dateEnd' => date('Y-m-d'),
+      'startDate' => date('Y-m-d', strtotime('-1 month')),
+      'endDate' => date('Y-m-d'),
       'dateOf' => 'CREATED_AT',
-      'publicationStatus' => 'all',
-      'limit' => '10',
-      'sort' => 'updatedDown'
+      'publicationStatus' => 'all'
     );
 
-    $this->form->bind($request->getRequestParameters() + $request->getGetParameters() + $defaults);
+    $this->form->bind($request->getGetParameters() + $defaults);
 
     if ($this->form->isValid())
     {
       $this->className = $this->form->getValue('className');
-
+      $nameColumnDisplay = $this->className == ('QubitInformationObject') ? 'Title' : 'Name';
+      $this->nameColumnDisplay = $this->context->i18n->__($nameColumnDisplay);
       $this->doSearch();
     }
+
+    $this->showForm = $this->request->getParameter('showForm');
   }
 
   public function doSearch()
   {
-    $criteria = new Criteria;
-    $this->sort = $this->request->getParameter('sort', 'updatedDown');
-
-    // This join seems to be necessary to avoid cross joining the local table
-    // with the QubitObject table
-    $criteria->addJoin(constant($this->className.'::ID'), QubitObject::ID);
-
-    switch ($this->form->getValue('className'))
-    {
-      case 'QubitActor':
-        $nameColumn = 'authorized_form_of_name';
-        $this->nameColumnDisplay = 'Name';
-        $criteria = QubitActor::addGetOnlyActorsCriteria($criteria);
-        $criteria->add(QubitActor::PARENT_ID, null, Criteria::ISNOTNULL);
-
-        break;
-
-      case 'QubitFunction':
-        $nameColumn = 'authorized_form_of_name';
-        $this->nameColumnDisplay = 'Name';
-
-        break;
-
-      case 'QubitRepository':
-        $nameColumn = 'authorized_form_of_name';
-        $this->nameColumnDisplay = 'Name';
-        $criteria = QubitRepository::addGetOnlyRepositoryCriteria($criteria);
-
-        break;
-
-      case 'QubitTerm':
-        $nameColumn = 'name';
-        $this->nameColumnDisplay = 'Name';
-        $criteria->add(QubitTerm::PARENT_ID, null, Criteria::ISNOTNULL);
-
-        break;
-
-      // Default: information object
-      default:
-        $nameColumn = 'title';
-        $this->nameColumnDisplay = 'Title';
-        $criteria->add(QubitInformationObject::PARENT_ID, null, Criteria::ISNOTNULL);
-    }
+    $queryBool = new \Elastica\Query\BoolQuery;
 
     if ('QubitInformationObject' == $this->className && 'all' != $this->form->getValue('publicationStatus'))
     {
-      $criteria->addJoin(QubitObject::ID, QubitStatus::OBJECT_ID);
-      $criteria->add(QubitStatus::STATUS_ID, $this->form->getValue('publicationStatus'));
+      $queryBool->addMust(new \Elastica\Query\Term(array('publicationStatusId' => $this->form->getValue('publicationStatus'))));
     }
 
-    // End date at midnight
-    if (null != $this->form->getValue('dateEnd'))
-    {
-      $dateEnd = $this->form->getValue('dateEnd').' 24:00:00';
-    }
+    $this->addDateRangeQuery($queryBool, $this->form->getValue('dateOf'));
 
-    // Add date criteria
-    switch ($dateOf = $this->form->getValue('dateOf'))
-    {
-      case 'CREATED_AT':
-      case 'UPDATED_AT':
-        if (null !== $this->form->getValue('dateStart'))
-        {
-          $criteria->addAnd(constant('QubitObject::'.$dateOf), $this->form->getValue('dateStart'), Criteria::GREATER_EQUAL);
-        }
+    $query = new \Elastica\Query($queryBool);
+    $limit = sfConfig::get('app_hits_per_page', 10);
+    $page = $this->request->getParameter('page', 1);
 
-        if (isset($dateEnd))
-        {
-          $criteria->addAnd(constant('QubitObject::'.$dateOf), $dateEnd, Criteria::LESS_EQUAL);
-        }
+    $query->setLimit($limit);
+    $query->setFrom($limit * ($page - 1));
+    $query->setSort(array('createdAt' => 'desc'));
 
-        break;
-
-      default:
-        if (null !== $this->form->getValue('dateStart'))
-        {
-          $c1 = $criteria->getNewCriterion(QubitObject::CREATED_AT, $this->form->getValue('dateStart'), Criteria::GREATER_EQUAL);
-          $c2 = $criteria->getNewCriterion(QubitObject::UPDATED_AT, $this->form->getValue('dateStart'), Criteria::GREATER_EQUAL);
-          $c1->addOr($c2);
-          $criteria->addAnd($c1);
-        }
-
-        if (isset($dateEnd))
-        {
-          $c3 = $criteria->getNewCriterion(QubitObject::CREATED_AT, $dateEnd, Criteria::LESS_EQUAL);
-          $c4 = $criteria->getNewCriterion(QubitObject::UPDATED_AT, $dateEnd, Criteria::LESS_EQUAL);
-          $c3->addOr($c4);
-          $criteria->addAnd($c3);
-        }
-    }
-
-    // Add sort criteria
-    switch($this->sort)
-    {
-      case 'nameDown':
-        $criteria->addDescendingOrderByColumn($nameColumn);
-
-        break;
-
-      case 'nameUp':
-        $criteria->addAscendingOrderByColumn($nameColumn);
-
-        break;
-
-      case 'updatedUp':
-        $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
-
-        break;
-
-      case 'updatedDown':
-      default:
-       $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
-    }
-
-    // Add fallback criteria for name
-    if ('nameDown' == $this->sort || 'nameUp' == $this->sort)
-    {
-      $criteria = QubitCultureFallback::addFallbackCriteria($criteria, $this->form->getValue('className'));
-    }
+    $resultSet = QubitSearch::getInstance()->index->getType($this->form->getValue('className'))->search($query);
 
     // Page results
-    $this->pager = new QubitPager($this->className);
-    $this->pager->setCriteria($criteria);
-    $this->pager->setMaxPerPage($this->form->getValue('limit'));
+    $this->pager = new QubitSearchPager($resultSet);
+    $this->pager->setMaxPerPage($limit);
     $this->pager->setPage($this->request->getParameter('page', 1));
+  }
+
+  private function addDateRangeQuery($queryBool, $dateOf)
+  {
+    switch ($dateOf)
+    {
+      case 'CREATED_AT':
+        $this->addDateRangeQueryClause($queryBool, 'createdAt', $this->form->getValue('startDate'), $this->form->getValue('endDate'));
+
+        break;
+
+      case 'UPDATED_AT':
+        $this->addDateRangeQueryClause($queryBool, 'updatedAt', $this->form->getValue('startDate'), $this->form->getValue('endDate'));
+
+        break;
+
+      default:
+        // Subquery for finding created at dates within range
+        $createdAtQueryBool = new \Elastica\Query\BoolQuery;
+        $this->addDateRangeQueryClause($createdAtQueryBool, 'createdAt', $this->form->getValue('startDate'), $this->form->getValue('endDate'));
+
+        // Subquery for finding updated at dates within range
+        $updatedAtQueryBool = new \Elastica\Query\BoolQuery;
+        $this->addDateRangeQueryClause($updatedAtQueryBool, 'updatedAt', $this->form->getValue('startDate'), $this->form->getValue('endDate'));
+
+        // Combined subquery
+        $bothDatesQueryBool = new \Elastica\Query\BoolQuery;
+        $bothDatesQueryBool->addShould($createdAtQueryBool);
+        $bothDatesQueryBool->addShould($updatedAtQueryBool);
+
+        $queryBool->addMust($bothDatesQueryBool);
+    }
+  }
+
+  private function addDateRangeQueryClause($queryBool, $field, $startDate, $endDate)
+  {
+    if (null !== $startDate)
+    {
+      $queryBool->addMust(new \Elastica\Query\Range($field, array('gte' => $startDate)));
+    }
+
+    if (null !== $endDate)
+    {
+      $queryBool->addMust(new \Elastica\Query\Range($field, array('lte' => $endDate)));
+    }
   }
 }

@@ -102,6 +102,12 @@ EOF;
         sfCommandOption::PARAMETER_REQUIRED,
         'Limit --update matching to under a specified top level description or repository via slug.'
       ),
+      new sfCommandOption(
+        'keep-digital-objects',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        'Skip the deletion of existing digital objects and their derivatives when using --update with "match-and-update".'
+      )
     ));
   }
 
@@ -455,13 +461,16 @@ EOF;
 
       'updatePreparationLogic' => function(&$self)
       {
-        if ((isset($self->rowStatusVars['digitalObjectPath']) && $self->rowStatusVars['digitalObjectPath'])
+        // If keep-digital-objects is set and --update="match-and-update" is set,
+        // skip this logic to delete digital objects.
+        if (((isset($self->rowStatusVars['digitalObjectPath']) && $self->rowStatusVars['digitalObjectPath'])
           || (isset($self->rowStatusVars['digitalObjectURI']) && $self->rowStatusVars['digitalObjectURI']))
+          && !$self->keepDigitalObjects)
         {
           // Retrieve any digital objects that exist for this information object
           $do = $self->object->getDigitalObject();
 
-          if ($do !== null)
+          if (null !== $do)
           {
             $deleteDigitalObject = true;
 
@@ -832,7 +841,7 @@ EOF;
                 $actorOptions['repositoryId'] = $repo->id;
               }
 
-              $actor = $self->createOrFetchActor($name, $actorOptions);
+              $actor = $self->createOrFetchAndUpdateActorForIo($name, $actorOptions);
               $self->createRelation($self->object->id, $actor->id, QubitTerm::NAME_ACCESS_POINT_ID);
             }
 
@@ -1098,36 +1107,9 @@ EOF;
 
     // Allow search indexing to be enabled via a CLI option
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
-    if ($options['limit'])
-    {
-      $import->limitToId = getIdCorrespondingToSlug($options['limit']);
-    }
 
-    // Are there params set on --update flag?
-    if ($options['update'])
-    {
-      // Parameters for --update are validated in csvImportBaseTask.class.php.
-      switch ($options['update'])
-      {
-        case 'delete-and-replace':
-          // Delete any matching records, and re-import them (attach to existing entities if possible).
-          $import->deleteAndReplace = true;
-          break;
-
-        case 'match-and-update':
-          // Save match option. If update is ON, and match is set, only updating
-          // existing records - do not create new objects.
-          $import->matchAndUpdate = true;
-          break;
-
-        default:
-          // This should never happen due to parent::validateOptions()
-          throw new sfException('Update parameter "'.$options['update'].'" not handled: Correct --update parameter.');
-      }
-    }
-
-    $import->skipMatched = $options['skip-matched'];
-    $import->skipUnmatched = $options['skip-unmatched'];
+    // Set update, limit and skip options
+    $import->setUpdateOptions($options);
 
     // Convert content with | characters to a bulleted list
     $import->contentFilterLogic = function($text)
@@ -1185,24 +1167,6 @@ EOF;
 function array_search_case_insensitive($search, $array)
 {
   return array_search(strtolower($search), array_map('strtolower', $array));
-}
-
-function getIdCorrespondingToSlug($slug)
-{
-  $query = "SELECT object_id FROM slug WHERE slug=?";
-
-  $statement = QubitFlatfileImport::sqlQuery($query, array($slug));
-
-  $result = $statement->fetch(PDO::FETCH_OBJ);
-
-  if ($result)
-  {
-    return $result->object_id;
-  }
-  else
-  {
-    throw new sfException('Could not find information object matching slug "'. $slug .'"');
-  }
 }
 
 function setAlternativeIdentifiers($io, $altIds, $altIdLabels)

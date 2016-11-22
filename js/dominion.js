@@ -833,7 +833,8 @@
 
   $(function ()
     {
-      var $advancedSearch = $('body.informationobject.browse');
+      // Find search for if on an appropriate page
+      var $advancedSearch = $('body.informationobject.browse,body.search.descriptionUpdates');
       if (0 < $advancedSearch.length)
       {
         new AdvancedSearch($advancedSearch.get(0));

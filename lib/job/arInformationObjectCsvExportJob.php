@@ -32,13 +32,14 @@ class arInformationObjectCsvExportJob extends arBaseJob
    */
   protected $extraRequiredParameters = array('params');  // Search params
   protected $downloadFileExtension = 'zip';
-
   protected $search;            // arElasticSearchPluginQuery instance
-
   protected $archivalStandard;  // Which CSV export configuration to use: either "rad" or "isad"
+  protected $params = array();
 
   public function runJob($parameters)
   {
+    $this->params = $parameters;
+
     // If not using RAD, default to ISAD CSV export format
     $this->archivalStandard = 'isad';
     if (QubitSetting::getByNameAndScope('informationobject', 'default_template') == 'rad')
@@ -49,14 +50,14 @@ class arInformationObjectCsvExportJob extends arBaseJob
     // Create query increasing limit from default
     $this->search = new arElasticSearchPluginQuery(1000000000);
 
-    if ($parameters['params']['fromClipboard'])
+    if ($this->params['params']['fromClipboard'])
     {
-      $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $parameters['params']['slugs']));
+      $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
     }
     else
     {
-      $this->search->addFacetFilters(InformationObjectBrowseAction::$FACETS, $parameters['params']);
-      $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $parameters['params'], $this->archivalStandard);
+      $this->search->addFacetFilters(InformationObjectBrowseAction::$FACETS, $this->params['params']);
+      $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $this->params['params'], $this->archivalStandard);
     }
 
     $this->search->query->setSort(array('lft' => 'asc'));
@@ -100,9 +101,15 @@ class arInformationObjectCsvExportJob extends arBaseJob
   protected function exportResults($path)
   {
     $itemsExported = 0;
+    $public = isset($this->params['public']) && $this->params['public'];
+    $levels = isset($this->params['levels']) ? $this->params['levels'] : array();
+    $numLevels = count($levels);
 
     // Exporter will create a new file each 10,000 rows
     $writer = new csvInformationObjectExport($path, $this->archivalStandard, 10000);
+
+    // store export options for use in csvInformationObjectExport
+    $writer->setOptions($this->params);
 
     // Force loading of information object configuration, then modify writer
     // configuration
@@ -119,7 +126,24 @@ class arInformationObjectCsvExportJob extends arBaseJob
       // If ElasticSearch document is stale (corresponding MySQL data deleted), ignore
       if ($resource !== null)
       {
+        // Don't export draft descriptions with public option.
+        // Don't export records if level of description is not in list of selected LODs.
+        if (($public && $resource->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID) ||
+          (0 < $numLevels && !array_key_exists($resource->levelOfDescriptionId, $levels)))
+        {
+          continue;
+        }
+
         $writer->exportResource($resource);
+
+        // export descendants if configured
+        if (!$this->params['current-level-only'])
+        {
+          foreach ($resource->getDescendantsForExport($this->params) as $descendant)
+          {
+            $writer->exportResource($descendant);
+          }
+        }
 
         // Log progress every 1000 rows
         if ($itemsExported && ($itemsExported % 1000 == 0))
@@ -132,32 +156,5 @@ class arInformationObjectCsvExportJob extends arBaseJob
     }
 
     return $itemsExported;
-  }
-
-  protected function createZipForDownload($path)
-  {
-    if (!is_writable($this->getJobsDownloadDirectory()))
-    {
-      return false;
-    }
-
-    $zip = new ZipArchive();
-
-    $success = $zip->open($this->getDownloadFilePath(), ZipArchive::CREATE | ZipArchive::OVERWRITE);
-
-    if ($success == true)
-    {
-      foreach(scandir($path) as $file)
-      {
-        if (!is_dir($file))
-        {
-          $zip->addFile($path . DIRECTORY_SEPARATOR . $file, $file);
-        }
-      }
-
-      $zip->close();
-    }
-
-    return $success;
   }
 }

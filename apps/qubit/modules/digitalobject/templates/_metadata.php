@@ -4,6 +4,10 @@
 
   <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('%1% metadata', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))).'</h2>', array($resource, 'module' => 'digitalobject', 'action' => 'edit'), array('title' => __('Edit %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))))) ?>
 
+  <?php if (sfConfig::get('app_toggleDigitalObjectMap') && is_numeric($latitude) && is_numeric($longitude) && $googleMapsApiKey): ?>
+    <div id="front-map" class="simple-map" data-key="<?php echo $googleMapsApiKey ?>" data-latitude="<?php echo $latitude ?>" data-longitude="<?php echo $longitude ?>"></div>
+  <?php endif; ?>
+
   <?php if (!QubitAcl::check($resource->informationObject, 'readReference')): ?>
     <?php echo render_show(__('Access'), __('Restricted')) ?>
   <?php endif; ?>
@@ -16,6 +20,11 @@
     <?php if (check_field_visibility('app_element_visibility_digital_object_file_name') && !$denyFileNameByPremis): ?>
       <?php echo render_show(__('Filename'), $resource->name, array('fieldLabel' => 'filename')) ?>
     <?php endif; ?>
+  <?php endif; ?>
+
+  <?php if (check_field_visibility('app_element_visibility_digital_object_geolocation')): ?>
+    <?php echo render_show(__('Latitude'), $latitude, array('fieldLabel' => 'latitude')) ?>
+    <?php echo render_show(__('Longitude'), $longitude, array('fieldLabel' => 'longitude')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_digital_object_media_type')): ?>

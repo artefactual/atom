@@ -169,6 +169,25 @@ class QubitActor extends BaseActor
 
   public function delete($connection = null)
   {
+    foreach ($this->events as $item)
+    {
+      if (isset($item->object) && isset($item->type))
+      {
+        unset($item->actor);
+
+        $item->save();
+      }
+      else
+      {
+        $item->delete();
+      }
+    }
+
+    foreach (QubitRelation::getBySubjectOrObjectId($this->id) as $relation)
+    {
+      $relation->delete();
+    }
+
     if (!($this instanceOf QubitRightsHolder || $this instanceOf QubitDonor))
     {
       QubitSearch::getInstance()->delete($this);
@@ -422,7 +441,7 @@ class QubitActor extends BaseActor
 
   /**
    * Search for an actor by the AUTHORIZED_FORM_OF_NAME i18n column. Optionally
-   * limit search to a specific culture.
+   * limit search to a specific culture, history or maintaining repository
    *
    * @param string $name search string
    * @param array $options optional parameters
@@ -437,6 +456,18 @@ class QubitActor extends BaseActor
     if (isset($options['culture']))
     {
       $criteria->addAnd(QubitActorI18n::CULTURE, $options['culture']);
+    }
+
+    if (isset($options['history']))
+    {
+      $criteria->addAnd(QubitActorI18n::HISTORY, $options['history']);
+    }
+
+    if (isset($options['repositoryId']))
+    {
+      $criteria->addJoin(QubitActor::ID, QubitRelation::OBJECT_ID);
+      $criteria->add(QubitRelation::TYPE_ID, QubitTerm::MAINTAINING_REPOSITORY_RELATION_ID);
+      $criteria->add(QubitRelation::SUBJECT_ID, $options['repositoryId']);
     }
 
     return QubitActor::getOne($criteria, $options);
@@ -465,5 +496,48 @@ class QubitActor extends BaseActor
     $criteria->add(QubitEvent::ACTOR_ID, $this->id);
 
     return QubitInformationObject::get($criteria);
+  }
+
+  public function getMaintainingRepository()
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitRelation::OBJECT_ID, $this->id);
+    $criteria->add(QubitRelation::TYPE_ID, QubitTerm::MAINTAINING_REPOSITORY_RELATION_ID);
+
+    if (null !== $relation = QubitRelation::getOne($criteria))
+    {
+      return $relation->subject;
+    }
+  }
+
+  public function setOrDeleteMaintainingRepository($repository = null)
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitRelation::OBJECT_ID, $this->id);
+    $criteria->add(QubitRelation::TYPE_ID, QubitTerm::MAINTAINING_REPOSITORY_RELATION_ID);
+    $relation = QubitRelation::getOne($criteria);
+
+    if (!isset($repository))
+    {
+      if (isset($relation))
+      {
+        $relation->delete();
+      }
+
+      return;
+    }
+
+    if (!isset($relation))
+    {
+      $relation = new QubitRelation;
+      $relation->typeId = QubitTerm::MAINTAINING_REPOSITORY_RELATION_ID;
+      $relation->subjectId = $repository->id;
+      $this->relationsRelatedByobjectId[] = $relation;
+    }
+    else
+    {
+      $relation->subjectId = $repository->id;
+      $relation->save();
+    }
   }
 }

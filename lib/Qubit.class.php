@@ -309,4 +309,41 @@ class Qubit
 
     return $default;
   }
+
+  /**
+   * Move the uploaded file to a stable location so it is available post-upload.
+   *
+   * @param  $file array
+   *
+   * @return modified $file array
+   */
+  public static function moveUploadFile($file)
+  {
+    // Create tmp dir if it doesn't exist already.
+    $tmpDir = sfConfig::get('sf_upload_dir').'/tmp';
+    if (!file_exists($tmpDir))
+    {
+      mkdir($tmpDir);
+      chmod($tmpDir, 0775);
+    }
+
+    // Get a unique file name (to avoid clashing file names).
+    do
+    {
+      $uniqueString = substr(md5(time().$file['name']), 0, 8);
+      $tmpFileName = "TMP$uniqueString";
+      $tmpFilePath = "$tmpDir/$tmpFileName";
+    }
+    while (file_exists($tmpFilePath));
+
+    // Move file to web/uploads/tmp directory.
+    if (!move_uploaded_file($file['tmp_name'], $tmpFilePath))
+    {
+      $errorMessage = $this->context->i18n->__('Unable to complete file import. File %1% could not be moved to %2%', array('%1%' => $file['name'], '%2%' => $tmpDir));
+      throw new sfException($errorMessage);
+    }
+
+    $file['tmp_name'] = $tmpFilePath;
+    return $file;
+  }
 }

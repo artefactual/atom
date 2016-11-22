@@ -21,18 +21,29 @@ class arElasticSearchAccession extends arElasticSearchModelBase
 {
   public function populate()
   {
+    $errors = array();
+
     $accessions = QubitAccession::getAll();
 
     $this->count = count($accessions);
 
     foreach ($accessions as $key => $accession)
     {
-      $data = self::serialize($accession);
+      try
+      {
+        $data = self::serialize($accession);
 
-      $this->search->addDocument($data, 'QubitAccession');
+        $this->search->addDocument($data, 'QubitAccession');
 
-      $this->logEntry($accession->__toString(), $key + 1);
+        $this->logEntry($accession->__toString(), $key + 1);
+      }
+      catch (sfException $e)
+      {
+        $errors[] = $e->getMessage();
+      }
     }
+
+    return $errors;
   }
 
   public static function serialize($object)

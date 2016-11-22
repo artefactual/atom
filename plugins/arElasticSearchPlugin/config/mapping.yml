@@ -339,6 +339,7 @@ mapping:
       description_identifier: { type:string, index: not_analyzed }
       corporate_body_identifiers: { type: string, index: not_analyzed }
       entity_type_id: { type: integer, index: not_analyzed, include_in_all: false }
+      maintaining_repository_id: { type: integer, index: not_analyzed, include_in_all: false }
 
   accession:
     _attributes:
@@ -371,6 +372,21 @@ mapping:
       geographic_subregions: { type: integer, index: not_analyzed, include_in_all: false }
       thematic_areas: { type: integer, index: not_analyzed, include_in_all: false }
       logo_path: { type: string, index: not_analyzed, include_in_all: false }
+
+  function:
+    _attributes:
+      i18n: true
+      timestamp: true
+      rawFields:  [authorizedFormOfName]
+    _foreign_types:
+      other_names: other_name
+      parallel_names: other_name
+    dynamic: strict
+    properties:
+      slug: { type: string, index: not_analyzed }
+      decriptionStatusId: { type: integer, index: not_analyzed }
+      decriptionDetailId: { type: integer, index: not_analyzed }
+      decriptionIdentifier: { type: string, index: not_analyzed }
 
   information_object:
     _attributes:

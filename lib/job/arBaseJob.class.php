@@ -60,9 +60,11 @@ class arBaseJob extends Net_Gearman_Job_Common
     // Net_Gearman_Job_Exception to avoid breaking the worker
     try
     {
+      $this->signIn();
       $this->createJobsDownloadsDirectory();
       $this->runJob($parameters);
       QubitSearch::getInstance()->flushBatch();
+      $this->signOut();
 
       $this->info($this->i18n->__('Job finished.'));
     }
@@ -235,5 +237,64 @@ class arBaseJob extends Net_Gearman_Job_Common
         $c::clearCache();
       }
     }
+  }
+
+  /**
+   * Create ZIP file from results
+   *
+   * @param string  Path of file to write CSV data to
+   *
+   * @return int  success bool
+   */
+  protected function createZipForDownload($path)
+  {
+    if (!is_writable($this->getJobsDownloadDirectory()))
+    {
+      return false;
+    }
+
+    $zip = new ZipArchive();
+
+    $success = $zip->open($this->getDownloadFilePath(), ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+    if ($success == true)
+    {
+      foreach(scandir($path) as $file)
+      {
+        if (!is_dir($file))
+        {
+          $zip->addFile($path . DIRECTORY_SEPARATOR . $file, $file);
+        }
+      }
+
+      $zip->close();
+    }
+
+    return $success;
+  }
+
+  /**
+   * Set job owner in user Context. ACL checks require this to be set.
+   * Job owner's user is grabbed from the QubitJob instance.
+   *
+   * @return null
+   */
+  protected function signIn()
+  {
+    $user = QubitUser::getById($this->job->userId);
+    sfContext::getInstance()->user->signIn($user);
+  }
+
+  /**
+   * Clean up job owner & user Context.
+   *
+   * @return null
+   */
+  protected function signOut()
+  {
+    // Need to delete the ACL instance because we are in a gearman worker loop.
+    // Calling destruct() forces a new QubitAcl instance for each job.
+    QubitAcl::destruct();
+    sfContext::getInstance()->user->signOut();
   }
 }

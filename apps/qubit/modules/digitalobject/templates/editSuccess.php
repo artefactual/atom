@@ -39,6 +39,10 @@
             ->renderRow() ?>
         <?php endif; ?>
 
+        <?php echo $form->latitude->label('Latitude')->renderRow(); ?>
+
+        <?php echo $form->longitude->label('Longitude')->renderRow(); ?>
+
       </fieldset>
 
       <?php foreach ($representations as $usageId => $representation): ?>

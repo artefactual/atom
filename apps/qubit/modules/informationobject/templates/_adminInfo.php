@@ -32,6 +32,14 @@
         </div>
       <?php endif; ?>
 
+      <div class="field">
+        <h3><?php echo __('Source name') ?></h3>
+        <div>
+          <?php foreach ($resource->fetchAllKeymapEntries() as $keymap): ?>
+            <p><?php echo $keymap->sourceName ?></p>
+          <?php endforeach ?>
+        </div>
+      </div>
     </div>
 
     <div class="span4">

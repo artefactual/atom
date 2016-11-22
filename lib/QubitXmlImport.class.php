@@ -39,6 +39,12 @@ class QubitXmlImport
 
   public function import($xmlFile, $options = array(), $xmlOrigFileName = null)
   {
+    // Save options so we can access from processMethods
+    $this->options = $options;
+    $this->validateOptions();
+
+    $this->i18n = sfContext::getInstance()->i18n;
+
     // load the XML document into a DOMXML object
     $importDOM = $this->loadXML($xmlFile, $options);
 
@@ -54,13 +60,10 @@ class QubitXmlImport
       $this->sourceName = basename($xmlOrigFileName);
     }
 
-    // save options so we can access from processMethods
-    $this->options = $options;
-
     // if we were unable to parse the XML file at all
     if (empty($importDOM->documentElement))
     {
-      $errorMsg = sfContext::getInstance()->i18n->__('Unable to parse XML file: malformed or unresolvable entities');
+      $errorMsg = $this->i18n->__('Unable to parse XML file: malformed or unresolvable entities');
 
       throw new Exception($errorMsg);
     }
@@ -71,7 +74,7 @@ class QubitXmlImport
       // warning condition, XML file has errors (perhaps not well-formed or invalid?)
       foreach ($importDOM->libxmlerrors as $libxmlerror)
       {
-        $xmlerrors[] = sfContext::getInstance()->i18n->__('libxml error %code% on line %line% in input file: %message%', array('%code%' => $libxmlerror->code, '%message%' => $libxmlerror->message, '%line%' => $libxmlerror->line));
+        $xmlerrors[] = $this->i18n->__('libxml error %code% on line %line% in input file: %message%', array('%code%' => $libxmlerror->code, '%message%' => $libxmlerror->message, '%line%' => $libxmlerror->line));
       }
 
       $this->errors = array_merge((array) $this->errors, $xmlerrors);
@@ -95,7 +98,7 @@ class QubitXmlImport
       // Populate errors to show in the template
       foreach (libxml_get_errors() as $libxmlerror)
       {
-        $this->errors[] = sfContext::getInstance()->i18n->__('libxml error %code% on line %line% in input file: %message%', array('%code%' => $libxmlerror->code, '%message%' => $libxmlerror->message, '%line%' => $libxmlerror->line));
+        $this->errors[] = $this->i18n->__('libxml error %code% on line %line% in input file: %message%', array('%code%' => $libxmlerror->code, '%message%' => $libxmlerror->message, '%line%' => $libxmlerror->line));
       }
 
       $parser = new sfModsConvertor();
@@ -106,7 +109,7 @@ class QubitXmlImport
       else
       {
         $errorData = $parser->getErrorData();
-        $this->errors[] = array(sfContext::getInstance()->i18n->__('SAX xml parse error %code% on line %line% in input file: %message%', array('%code%' => $errorData['code'], '%message%' => $errorData['string'], '%line%' => $errorData['line'])));
+        $this->errors[] = array($this->i18n->__('SAX xml parse error %code% on line %line% in input file: %message%', array('%code%' => $errorData['code'], '%message%' => $errorData['string'], '%line%' => $errorData['line'])));
       }
 
       return $this;
@@ -119,6 +122,11 @@ class QubitXmlImport
 
       $eac = new sfEacPlugin($this->rootObject);
       $eac->parse($importDOM);
+
+      if (!$this->handlePreSaveLogic($this->rootObject))
+      {
+        return $this;
+      }
 
       $this->rootObject->save();
 
@@ -196,7 +204,7 @@ class QubitXmlImport
         // if libxml threw errors, populate them to show in the template
         foreach (libxml_get_errors() as $libxmlerror)
         {
-          $this->errors[] = sfContext::getInstance()->i18n->__('libxml error %code% on line %line% in input file: %message%', array('%code%' => $libxmlerror->code, '%message%' => $libxmlerror->message, '%line%' => $libxmlerror->line));
+          $this->errors[] = $this->i18n->__('libxml error %code% on line %line% in input file: %message%', array('%code%' => $libxmlerror->code, '%message%' => $libxmlerror->message, '%line%' => $libxmlerror->line));
         }
 
         break;
@@ -222,7 +230,7 @@ class QubitXmlImport
         // Populate errors to show in the template
         foreach (libxml_get_errors() as $libxmlerror)
         {
-          $this->errors[] = sfContext::getInstance()->i18n->__('libxml error %code% on line %line% in input file: %message%', array('%code%' => $libxmlerror->code, '%message%' => $libxmlerror->message, '%line%' => $libxmlerror->line));
+          $this->errors[] = $this->i18n->__('libxml error %code% on line %line% in input file: %message%', array('%code%' => $libxmlerror->code, '%message%' => $libxmlerror->message, '%line%' => $libxmlerror->line));
         }
 
         break;
@@ -234,7 +242,7 @@ class QubitXmlImport
         $setting = QubitSetting::getOne($criteria);
         if (null === $setting || !in_array('sfSkosPlugin', unserialize($setting->getValue(array('sourceCulture' => true)))))
         {
-          throw new sfException(sfContext::getInstance()->i18n->__('The SKOS plugin is not enabled'));
+          throw new sfException($this->i18n->__('The SKOS plugin is not enabled'));
         }
 
         $importTerms = sfSkosPlugin::parse($importDOM, $options);
@@ -250,7 +258,7 @@ class QubitXmlImport
     if (!file_exists($importMap))
     {
       // error condition, unknown schema or no import filter
-      $errorMsg = sfContext::getInstance()->i18n->__('Unknown schema or import format: "%format%"', array('%format%' => $importSchema));
+      $errorMsg = $this->i18n->__('Unknown schema or import format: "%format%"', array('%format%' => $importSchema));
 
       throw new Exception($errorMsg);
     }
@@ -282,7 +290,7 @@ class QubitXmlImport
         }
         else
         {
-          $this->errors[] = sfContext::getInstance()->i18n->__('Unable to load import XSL filter: "%importXSL%"', array('%importXSL%' => $importXSL));
+          $this->errors[] = $this->i18n->__('Unable to load import XSL filter: "%importXSL%"', array('%importXSL%' => $importXSL));
         }
       }
 
@@ -293,7 +301,6 @@ class QubitXmlImport
     if ($importSchema == 'ead')
     {
       // get ead url from ead header for use in matching this object
-      //$this->eadUrl = $importDOM->xpath->query('//eadheader/eadid/@url');
       if (is_object($urlValues = $importDOM->xpath->query('//eadheader/eadid/@url')))
       {
         foreach ($urlValues as $url)
@@ -330,13 +337,13 @@ class QubitXmlImport
           }
           catch (Exception $e)
           {
-            $this->errors[] = sfContext::getInstance()->i18n->__('EAD "langmaterial" is set to').': "'.$isocode.'". '.sfContext::getInstance()->i18n->__('This language is currently not supported.');
+            $this->errors[] = $this->i18n->__('EAD "langmaterial" is set to').': "'.$isocode.'". '.$this->i18n->__('This language is currently not supported.');
             continue;
           }
 
           if ($currentCulture !== $twoCharCode)
           {
-            $this->errors[] = sfContext::getInstance()->i18n->__('EAD "langmaterial" is set to').': "'.$isocode.'" ('.format_language($twoCharCode, 'en').'). '.sfContext::getInstance()->i18n->__('Your XML document has been saved in this language and your user interface has just been switched to this language.');
+            $this->errors[] = $this->i18n->__('EAD "langmaterial" is set to').': "'.$isocode.'" ('.format_language($twoCharCode, 'en').'). '.$this->i18n->__('Your XML document has been saved in this language and your user interface has just been switched to this language.');
           }
           $sf_user->setCulture($twoCharCode);
           // can only set to one language, so have to break once the first valid language is encountered
@@ -353,7 +360,7 @@ class QubitXmlImport
       // if object is not defined or a valid class, we can't process this mapping
       if (empty($mapping['Object']) || !class_exists('Qubit'.$mapping['Object']))
       {
-        $this->errors[] = sfContext::getInstance()->i18n->__('Non-existent class defined in import mapping: "%class%"', array('%class%' => 'Qubit'.$mapping['Object']));
+        $this->errors[] = $this->i18n->__('Non-existent class defined in import mapping: "%class%"', array('%class%' => 'Qubit'.$mapping['Object']));
         continue;
       }
 
@@ -373,13 +380,21 @@ class QubitXmlImport
         }
 
         // use DOM to populate object
-        $this->populateObject($domNode, $importDOM, $mapping, $currentObject, $importSchema);
+        if (!$this->populateObject($domNode, $importDOM, $mapping, $currentObject, $importSchema))
+        {
+          break; // No match found for top level description on --update, end import
+        }
       }
     }
 
     return $this;
   }
 
+  /**
+   * Populate EAD information objects.
+   *
+   * @return bool  True if we want to continue populating objects, false if we want to end the import.
+   */
   private function populateObject(&$domNode, &$importDOM, &$mapping, &$currentObject, $importSchema)
   {
     // if a parent path is specified, try to parent the node
@@ -418,6 +433,7 @@ class QubitXmlImport
 
     // go through methods and populate properties
     $this->processMethods($domNode, $importDOM, $mapping['Methods'], $currentObject, $importSchema);
+    $doSave = true;
 
     // make sure we have a publication status set before indexing
     if ($currentObject instanceof QubitInformationObject && count($currentObject->statuss) == 0)
@@ -425,21 +441,10 @@ class QubitXmlImport
       $currentObject->setPublicationStatus(sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID));
     }
 
-    $doSave = true;
-    // if this is an information object in an XML EAD import, run the enhanced matching check.
-    if ($currentObject instanceof QubitInformationObject && $importSchema == 'ead'
-      && isset($this->options['match']) && $this->options['match'])
+    // if this is an information object in an XML EAD import, run the enhanced update check.
+    if ($currentObject instanceof QubitInformationObject && $importSchema == 'ead')
     {
-      // run matching check - will return true or false
-      $results = $this->handlePreSaveInformationObject($currentObject);
-
-      // if no match, log a message and skip saving it.
-      if (!(array_key_exists('matched', $results) && true === $results['matched']))
-      {
-        $doSave = false;
-        // This obj does not match a record in the database.  Log it.
-        $this->errors[] = ('Unable to match record ' . $currentObject->identifier . '. Skipping record: ' . $currentObject->title);
-      }
+      $doSave = $this->handlePreSaveLogic($currentObject);
     }
 
     if ($doSave)
@@ -456,6 +461,8 @@ class QubitXmlImport
       // write the ID onto the current XML node for tracking
       $domNode->setAttribute('xml:id', $currentObject->id);
     }
+
+    return $doSave;
   }
 
   /*
@@ -477,7 +484,7 @@ class QubitXmlImport
       // if method is not defined, we can't process this mapping
       if (empty($methodMap['Method']) || !is_callable(array($currentObject, $methodMap['Method'])))
       {
-        $this->errors[] = sfContext::getInstance()->i18n->__('Non-existent method defined in import mapping: "%method%"', array('%method%' => $methodMap['Method']));
+        $this->errors[] = $this->i18n->__('Non-existent method defined in import mapping: "%method%"', array('%method%' => $methodMap['Method']));
         continue;
       }
 
@@ -1039,32 +1046,196 @@ class QubitXmlImport
   }
 
   /**
-   * Run presave informationObject logic.
+   * Run presave logic (only available for information objects and actors)
+   *
+   * This method will determine if a new record should be created, skipped or replaced
+   * based on the update, skip and limit options
+   *
+   * @param mixed  QubitInformationObject or QubitActor to save
+   * @return bool  true to save the record, false to skip saving it
    */
-  private function handlePreSaveInformationObject (&$currentObject)
+  private function handlePreSaveLogic($resource)
   {
-    $results = array();
-
-    // logic for --match option.  Try and match against an informationObject
-    // already in the database.
-    $criteria = new Criteria;
-    $criteria->add(QubitKeymap::SOURCE_ID, $this->eadUrl);
-    $criteria->add(QubitKeymap::SOURCE_NAME, $this->sourceName);
-    $criteria->add(QubitKeymap::TARGET_NAME, 'information_object');
-
-    // check keymap table for sourceId == $this->eadUrl
-    if (null !== $km = QubitKeymap::getOne($criteria))
+    // Populate variables based on resource class
+    switch (get_class($resource))
     {
-      $results['matched'] = true;
-    }
-    // else check for an informationObject based on id, title, repo.
-    else if (null !== $objectId = QubitInformationObject::getByTitleIdentifierAndRepo($currentObject->identifier,
-             $currentObject->title, $currentObject->repository->authorizedFormOfName))
-    {
-      $results['matched'] = true;
+      case 'QubitInformationObject':
+        $title = $resource->title;
+        $passesLimitFunctionName = 'passesLimitOptionForIo';
+        $deleteFunctionName = 'deleteFullHierarchy';
+
+        $matchId = QubitInformationObject::getByTitleIdentifierAndRepo(
+          $resource->identifier,
+          $resource->title,
+          $resource->repository->authorizedFormOfName
+        );
+
+        if ($matchId)
+        {
+          $matchResource = QubitInformationObject::getById($matchId);
+        }
+
+        // If resource not found, try matching against keymap table.
+        if (!isset($matchResource) && $this->eadUrl && $importSchema == 'ead')
+        {
+          $criteria = new Criteria;
+          $criteria->add(QubitKeymap::SOURCE_ID, $this->eadUrl);
+          $criteria->add(QubitKeymap::SOURCE_NAME, $this->sourceName);
+          $criteria->add(QubitKeymap::TARGET_NAME, 'information_object');
+
+          if (null !== $keymap = QubitKeymap::getOne($criteria))
+          {
+            $matchResource = QubitInformationObject::getById($keymap->targetId);
+          }
+        }
+
+        break;
+
+      case 'QubitActor':
+        $title = $resource->authorizedFormOfName;
+        $passesLimitFunctionName = 'passesLimitOptionForActor';
+        $deleteFunctionName = 'delete';
+
+        $query = "SELECT object.id
+          FROM object JOIN actor_i18n i18n
+          ON object.id = i18n.id
+          WHERE i18n.authorized_form_of_name = ?
+          AND object.class_name = 'QubitActor';";
+
+        $matchId = QubitPdo::fetchColumn($query, array($resource->authorizedFormOfName));
+
+        if ($matchId)
+        {
+          $matchResource = QubitActor::getById($matchId);
+        }
+
+        break;
+
+      default:
+        // Create new record for not supported resources
+        $this->errors[] = $this->i18n->__('Pre-save logic not supported for %class_name%', array('%class_name%' => get_class($resource)));
+        return true;
     }
 
-    return $results;
+    // No need to check match if we're not updating nor skipping matches
+    if (!$this->options['update'] && !$this->options['skip-matched'])
+    {
+      $this->errors[] = $this->i18n->__('Creating a new record: %title%', array('%title%' => $title));
+      return true;
+    }
+
+    // Match found, but not updating and skipping matches
+    if (isset($matchResource) && !$this->options['update'] && $this->options['skip-matched'])
+    {
+      $this->errors[] = $this->i18n->__('Found duplicated record for %title%, skipping', array('%title%' => $title));
+      return false;
+    }
+
+    // No match found and updating with skip unmatched
+    if (!isset($matchResource) && $this->options['update'] && $this->options['skip-unmatched'])
+    {
+      $this->errors[] = $this->i18n->__('No match found for %title%, skipping', array('%title%' => $title));
+      return false;
+    }
+
+    // Match found and updating, check limit option
+    if (isset($matchResource) && $this->options['update'])
+    {
+      if (!call_user_func(array($this, $passesLimitFunctionName), $matchResource))
+      {
+        $this->errors[] = $this->i18n->__('Match found for %title% outside the limit, skipping', array('%title%' => $title));
+        return false;
+      }
+      else
+      {
+        $this->errors[] = $this->i18n->__('Deleting and replacing record: %title%', array('%title%' => $title));
+        call_user_func(array($matchResource, $deleteFunctionName));
+        return true;
+      }
+    }
+
+    // Match not found when not updating and skipping matches
+    $this->errors[] = $this->i18n->__('Creating a new record: %title%', array('%title%' => $title));
+    return true;
+  }
+
+  /**
+   * Check if an information object passes the limit option. Passes when:
+   * - The limit option is not set
+   * - The limit option is the slug of the resource's collection root
+   * - The limit option is the slug of the resource's inherit repository
+   *
+   * @param QubitInformationObject $io  The information object to check
+   * @return bool  The information object passes the limit option or not
+   * @throws sfException  When the limit option is not accepted
+   */
+  private function passesLimitOptionForIo($io)
+  {
+    if (false === $limit = $this->getLimitIdAndClassName())
+    {
+      return true;
+    }
+
+    switch ($limit->class_name)
+    {
+      case 'QubitRepository':
+        $repo = $io->getRepository(array('inherit' => true));
+        return isset($repo) && $repo->id == $limit->id;
+
+      case 'QubitInformationObject':
+        $collectionRoot = $io->getCollectionRoot();
+        return isset($collectionRoot) && $collectionRoot->id == $limit->id;
+
+      default:
+        throw new sfException($this->i18n->__('Slugs from %class_name% are not accepted as limit option for information objects', array('%class_name%' => $limit->class_name)));
+    }
+  }
+
+  /**
+   * Check if an actor passes the limit option. Passes when:
+   * - The limit option is not set
+   * - The limit option is the slug of the resource's maintaining repository
+   *
+   * @param QubitActor $actor  The actor object to check
+   * @return bool  The actor passes the limit option or not
+   * @throws sfException  When the limit option is not accepted
+   */
+  private function passesLimitOptionForActor($actor)
+  {
+    if (false === $limit = $this->getLimitIdAndClassName())
+    {
+      return true;
+    }
+
+    switch ($limit->class_name)
+    {
+      case 'QubitRepository':
+        $repo = $actor->getMaintainingRepository();
+        return isset($repo) && $repo->id == $limit->id;
+
+      default:
+        throw new sfException($this->i18n->__('Slugs from %class_name% are not accepted as limit option for actors', array('%class_name%' => $limit->class_name)));
+    }
+  }
+
+  /**
+   * Obtain the limit type (class_name) and id based on the limit option slug
+   *
+   * @return mixed  bool false if no option set or no slug found or
+   *                stdClass object with 'id' and 'class_name' properties
+   */
+  private function getLimitIdAndClassName()
+  {
+    if (empty($this->options['limit']))
+    {
+      return false;
+    }
+
+    $query = "SELECT object.id, object.class_name
+              FROM object JOIN slug ON slug.object_id = object.id
+              WHERE slug.slug = ?";
+
+    return QubitPdo::fetchOne($query, array($this->options['limit']));
   }
 
   /**
@@ -1080,6 +1251,17 @@ class QubitXmlImport
       $keymap->targetId = $currentObject->id;
       $keymap->targetName = 'information_object';
       $keymap->save();
+    }
+  }
+
+  /**
+   * Ensure we were passed valid options, throw an exception otherwise.
+   */
+  private function validateOptions()
+  {
+    if ($this->options['update'] && $this->options['update'] !== 'delete-and-replace')
+    {
+      throw new sfException($this->i18n->__('EAD import currently only supports %mode% update mode.', array('%mode%' => '"delete-and-replace"')));
     }
   }
 }

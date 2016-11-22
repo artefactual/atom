@@ -21,6 +21,8 @@ class arElasticSearchAip extends arElasticSearchModelBase
 {
   public function populate()
   {
+    $errors = array();
+
     $sql  = 'SELECT id';
     $sql .= ' FROM '.QubitAip::TABLE_NAME;
 
@@ -31,13 +33,22 @@ class arElasticSearchAip extends arElasticSearchModelBase
     // Loop through results, and add to search index
     foreach ($aips as $key => $item)
     {
-      $node = new arElasticSearchAipPdo($item->id);
-      $data = $node->serialize();
+      try
+      {
+        $node = new arElasticSearchAipPdo($item->id);
+        $data = $node->serialize();
 
-      QubitSearch::getInstance()->addDocument($data, 'QubitAip');
+        QubitSearch::getInstance()->addDocument($data, 'QubitAip');
 
-      $this->logEntry($data['filename'], $key + 1);
+        $this->logEntry($data['filename'], $key + 1);
+      }
+      catch (sfException $e)
+      {
+        $errors[] = $e->getMessage();
+      }
     }
+
+    return $errors;
   }
 
   public static function update($object)

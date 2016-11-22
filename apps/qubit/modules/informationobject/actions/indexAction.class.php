@@ -114,7 +114,7 @@ class InformationObjectIndexAction extends sfAction
     // automatically load the file(s)
     $this->getResponse()->addJavascript('deleteBasisRight.js', 'last');
 
-    if (sfConfig::get('app_treeview_type', 'sidebar') == 'fullWidth')
+    if (sfConfig::get('app_treeview_type__source', 'sidebar') == 'fullWidth')
     {
       $this->getResponse()->addStylesheet('fullWidthTreeView', 'last');
       $this->getResponse()->addStylesheet('/vendor/jstree/themes/default/style.min.css', 'last');

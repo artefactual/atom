@@ -24,6 +24,8 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     $statements,
     $counter = 0;
 
+  protected $errors = array();
+
   public function populate()
   {
     if (!isset(self::$conn))
@@ -40,6 +42,8 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
     // Recursively descend down hierarchy
     $this->recursivelyAddInformationObjects(QubitInformationObject::ROOT_ID, $this->count);
+
+    return $this->errors;
   }
 
   public function recursivelyAddInformationObjects($parentId, $totalRows, $options = array())
@@ -63,22 +67,29 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     // Loop through results, and add to search index
     foreach (self::$statements['getChildren']->fetchAll(PDO::FETCH_OBJ) as $item)
     {
-      $node = new arElasticSearchInformationObjectPdo($item->id, $options);
-      $data = $node->serialize();
-
-      QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
-
-      self::$counter++;
-
-      $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
-
-      // Descend hierarchy
-      if (1 < ($item->rgt - $item->lft))
+      try
       {
-        // Pass ancestors and repository down to descendants
-        $this->recursivelyAddInformationObjects($item->id, $totalRows, array(
-          'ancestors'  => array_merge($node->getAncestors(), array($node)),
-          'repository' => $node->getRepository()));
+        $node = new arElasticSearchInformationObjectPdo($item->id, $options);
+        $data = $node->serialize();
+
+        QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
+
+        self::$counter++;
+
+        $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
+
+        // Descend hierarchy
+        if (1 < ($item->rgt - $item->lft))
+        {
+          // Pass ancestors and repository down to descendants
+          $this->recursivelyAddInformationObjects($item->id, $totalRows, array(
+            'ancestors'  => array_merge($node->getAncestors(), array($node)),
+            'repository' => $node->getRepository()));
+        }
+      }
+      catch (sfException $e)
+      {
+        $this->errors[] = $e->getMessage();
       }
     }
   }

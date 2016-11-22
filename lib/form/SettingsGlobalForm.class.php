@@ -61,7 +61,9 @@ class SettingsGlobalForm extends sfForm
       'show_tooltips' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'slug_basis_informationobject' => $this->getSlugBasisInformationObjectWidget(),
       'defaultPubStatus' => new sfWidgetFormSelectRadio(array('choices' => array(QubitTerm::PUBLICATION_STATUS_DRAFT_ID => $this->i18n->__('Draft'), QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID => $this->i18n->__('Published'))), array('class' => 'radio')),
-      'sword_deposit_dir' => new sfWidgetFormInput
+      'draft_notification_enabled' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
+      'sword_deposit_dir' => new sfWidgetFormInput,
+      'google_maps_api_key' => new sfWidgetFormInput
     ));
 
     // Add labels
@@ -87,10 +89,12 @@ class SettingsGlobalForm extends sfForm
       'explode_multipage_files' => $this->i18n->__('Upload multi-page files as multiple descriptions'),
       'show_tooltips' => $this->i18n->__('Show tooltips'),
       'defaultPubStatus' => $this->i18n->__('Default publication status'),
+      'draft_notification_enabled' => $this->i18n->__('Show available drafts notification upon user login'),
       'sword_deposit_dir' => $this->i18n->__('SWORD deposit directory'),
       'require_ssl_admin' => $this->i18n->__('Require SSL for all administrator funcionality'),
       'slug_basis_informationobject' => $this->i18n->__('Generate description permalinks from'),
-      'require_strong_passwords' => $this->i18n->__('Require strong passwords')
+      'require_strong_passwords' => $this->i18n->__('Require strong passwords'),
+      'google_maps_api_key' => $this->i18n->__('Google Maps Javascript API key (for displaying dynamic maps)')
     ));
 
     // Add helper text
@@ -165,7 +169,9 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['explode_multipage_files'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['show_tooltips'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['defaultPubStatus'] = new sfValidatorChoice(array('choices' => array(QubitTerm::PUBLICATION_STATUS_DRAFT_ID, QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)));
+    $this->validatorSchema['draft_notification_enabled'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['sword_deposit_dir'] = new sfValidatorString(array('required' => false));
+    $this->validatorSchema['google_maps_api_key'] = new sfValidatorString(array('required' => false));
 
     // Set decorator
     $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);

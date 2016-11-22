@@ -36,6 +36,7 @@ class SettingsPageElementsAction extends sfAction
       'toggleTitle',
       'toggleLanguageMenu',
       'toggleIoSlider',
+      'toggleDigitalObjectMap',
       'toggleCopyrightFilter',
       'toggleMaterialFilter'
     );
@@ -45,9 +46,25 @@ class SettingsPageElementsAction extends sfAction
     $settings = array();
     $this->form = new sfForm;
 
+    // Take note if a Google Maps API key has been set
+    $googleMapsApiKeySetting = QubitSetting::getByName('google_maps_api_key');
+    $this->googleMapsApiKeySet = !empty($googleMapsApiKeySetting->value);
+
+    // Take note of whether digital object map is enabled
+    $toggleDigitalObjectMapSetting = QubitSetting::getByName('toggleDigitalObjectMap');
+
     foreach ($this::$NAMES as $name)
     {
-      $this->form->setWidget($name, new sfWidgetFormInputCheckbox);
+      // Disable checkbox to show digital object maps if it's not currently enabled and no Google Maps API key is defined
+      if ($name == 'toggleDigitalObjectMap' && empty($toggleDigitalObjectMapSetting->value) && empty($googleMapsApiKeySetting->value))
+      {
+        $this->form->setWidget($name, new sfWidgetFormInputCheckbox(array(), array('class' => 'disabled', 'disabled' => true)));
+      }
+      else
+      {
+        $this->form->setWidget($name, new sfWidgetFormInputCheckbox);
+      }
+
       $this->form->setValidator($name, new sfValidatorBoolean);
 
       if (null !== $settings[$name] = QubitSetting::getByName($name))

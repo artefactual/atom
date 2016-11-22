@@ -18,7 +18,7 @@
         // put them in a queue and execute sequentially.
         function getToggleFn(button) {
           return function() {
-            return clipboard.toggle(true, { 'target': button })
+            return clipboard.toggle(false, { 'target': button })
           }
         }
 

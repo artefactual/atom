@@ -27,6 +27,12 @@ class menuClipboardMenuComponent extends sfComponent
       return sfView::NONE;
     }
 
-    $this->count = $this->context->user->getClipboard()->count();
+    $this->countByType = $this->context->user->getClipboard()->countByType();
+    $this->count = array_sum($this->countByType);
+
+    $this->objectTypes = array(
+      'QubitInformationObject' => sfConfig::get('app_ui_label_informationobject'),
+      'QubitActor' => sfConfig::get('app_ui_label_actor'),
+      'QubitRepository' => sfConfig::get('app_ui_label_repository'));
   }
 }

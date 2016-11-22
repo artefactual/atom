@@ -2421,6 +2421,13 @@ QubitTerm:
       th: วัตถุทางกายภาพ
       vi: 'có đối tượng vật lý'
       zh: 有物理藏品
+  QubitTerm_maintaining_repository_relation:
+    taxonomy_id: QubitTaxonomy_19
+    parent_id: QubitTerm_110
+    id: 187
+    source_culture: en
+    name:
+      en: 'Maintaining repository'
   QubitTerm_180:
     taxonomy_id: QubitTaxonomy_7
     parent_id: QubitTerm_110
