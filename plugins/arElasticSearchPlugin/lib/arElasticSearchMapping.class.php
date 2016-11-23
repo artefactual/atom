@@ -177,7 +177,7 @@ class arElasticSearchMapping
   /**
    * Clean YAML shorthands recursively
    */
-  protected function cleanYamlShorthands(&$mapping = null)
+  public function cleanYamlShorthands(&$mapping = null)
   {
     // If no parameter is passed, $this->mapping will be used
     if (null === $mapping)
