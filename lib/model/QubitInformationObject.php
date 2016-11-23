@@ -2473,6 +2473,37 @@ class QubitInformationObject extends BaseInformationObject
     return QubitInformationObject::get($criteria, $options);
   }
 
+  /**
+   * Try to match informationObject to an existing one in system.
+   *
+   * @param string $identifier  informationObject identifier
+   * @param string $title       informationObject title
+   * @param string $repoName    repository authorizedFormOfName
+   *
+   * @return integer InfoObj id
+   */
+  public static function getByTitleIdentifierAndRepo ($identifier, $title, $repoName)
+  {
+    $sf_user = sfContext::getInstance()->user;
+    $currentCulture = $sf_user->getCulture();
+
+    // looking for exact match
+    $queryBool = new \Elastica\Query\BoolQuery;
+    $queryBool->addMust(new \Elastica\Query\MatchAll);
+    $queryBool->addMust(new \Elastica\Query\Term(array('identifier' => $identifier)));
+    $queryBool->addMust(new \Elastica\Query\Term(array(sprintf('i18n.%s.title.untouched', $currentCulture) => $title)));
+    $queryBool->addMust(new \Elastica\Query\Term(array(sprintf('repository.i18n.%s.authorizedFormOfName.untouched', $currentCulture) => $repoName)));
+
+    $query = new \Elastica\Query($queryBool);
+    $query->setLimit(1);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+
+    if ($resultSet->count())
+    {
+      return $resultSet[0]->getId();
+    }
+  }
+
   /*****************************************************
    Publication Status
   *****************************************************/
