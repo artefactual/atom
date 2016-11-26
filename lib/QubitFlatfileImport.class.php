@@ -883,14 +883,16 @@ class QubitFlatfileImport
       {
         $this->status['updated']++;
 
+        if ($this->deleteAndReplace)
+        {
+          // This must be called before updatePreparationLogic, or else duplicate information object
+          // entries may appear in ElasticSearch.
+          $this->handleDeleteAndReplace();
+        }
+
         // Execute ad-hoc row pre-update logic (remove related data, etc.)
         $this->executeClosurePropertyIfSet('updatePreparationLogic');
         $skipRowProcessing = false;
-
-        if ($this->deleteAndReplace)
-        {
-          $this->handleDeleteAndReplace();
-        }
       }
       else
       {
@@ -1684,7 +1686,7 @@ class QubitFlatfileImport
     }
 
     // Importing to an IO without repository or in a repo not maintaining an actor match
-    if (!isset($this->object->repository) || 
+    if (!isset($this->object->repository) ||
       null === $actor = QubitActor::getByAuthorizedFormOfName($name, array('repositoryId' => $this->object->repository->id)))
     {
       // Create a new one with the new history
