@@ -37,6 +37,7 @@ class QubitFlatfileImport
   public $deleteAndReplace       = false; // Delete matching records & replace them
   public $skipMatched            = false; // Skip creating new record if matching one is found
   public $skipUnmatched          = false; // Skip creating new record if matching one is not found
+  public $matchUsingDatabase     = false; // Match using database rather than ElasticSearch index
   public $keepDigitalObjects     = false; // Skip deletion of DOs when set. Works when --update set.
   public $limitToId              = 0;     // Id of repository or TLD to limit our update matching under
   public $status          = array(); // place to store data related to overall import
@@ -999,11 +1000,55 @@ class QubitFlatfileImport
   {
     if ($this->columnExists('identifier') && $this->columnExists('title') && $this->columnExists('repository'))
     {
-      $objectId = QubitInformationObject::getByTitleIdentifierAndRepo(
-        $this->columnValue('identifier'),
-        $this->columnValue('title'),
-        $this->columnValue('repository')
-      );
+      if ($this->matchUsingDatabase)
+      {
+        // Use row-specific culture, if specified
+        if ($this->columnExists('culture'))
+        {
+          $culture = $this->columnValue('culture');
+        }
+
+        // If no culture's specified, use default culture
+        if (empty($culture))
+        {
+          $culture = $this->context->getInstance()->user->getCulture();
+        }
+
+        // Get ID of potential match, if any
+        $query = "SELECT i.id FROM information_object i \r
+          INNER JOIN information_object_i18n ii ON (i.id=ii.id AND ii.culture=?) \r
+          WHERE i.identifier=? \r
+          AND ii.title=? \r
+          LIMIT 1";
+
+        $statement = self::sqlQuery($query, array($culture, $this->columnValue('identifier'), $this->columnValue('title')));
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+
+        $objectId = $result->id;
+      }
+      else
+      {
+        $objectId = QubitInformationObject::getByTitleIdentifierAndRepo(
+          $this->columnValue('identifier'),
+          $this->columnValue('title'),
+          $this->columnValue('repository')
+        );
+      }
+
+      $object = QubitInformationObject::getById($objectId);
+
+      // As repository can be inherited, use model logic to look up respository
+      if ($this->matchUsingDatabase && $object !== null)
+      {
+        $repository = $object->getRepository();
+
+        if ($repository->authorizedFormOfName == $this->columnValue('repository'))
+        {
+          $this->object = $object;
+        }
+
+        return;
+      }
 
       $this->object = QubitInformationObject::getById($objectId);
     }
