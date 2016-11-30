@@ -1797,7 +1797,7 @@ QubitMenu:
     name: clearClipboard
     label:
       de: 'Auswahl löschen'
-      en: 'Clear selections'
+      en: 'Clear all selections'
       es: 'Borrar selección'
       pt: 'Limpar seleções'
       pt-BR: 'Limpar seleção'

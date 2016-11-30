@@ -33,7 +33,7 @@
       </a>
 
       <div class="bottom">
-        <p><?php echo $title ?></p>
+        <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => false, 'repositoryOrDigitalObjBrowse' => true)) ?><?php echo $title ?>
       </div>
     </div>
   <?php endforeach; ?>

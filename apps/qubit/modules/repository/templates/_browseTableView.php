@@ -37,8 +37,11 @@
         <?php endif; ?>
       </th>
 
-      <th style="width: 20%">
+      <th style="width: 17%">
         <?php echo __('Thematic area') ?>
+      </th>
+
+      <th style="width 3%">
       </th>
     </tr>
   </thead>
@@ -68,6 +71,10 @@
             <li><?php echo render_value(QubitTerm::getById($areaTerm)) ?></li>
           <?php endforeach; ?>
         <?php endif; ?>
+      </td>
+
+      <td>
+        <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => false, 'repositoryOrDigitalObjBrowse' => true)) ?>
       </td>
     </tr>
   <?php endforeach; ?>

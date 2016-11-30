@@ -21,6 +21,7 @@
 
       this.init();
       this.listen();
+      this.onObjectTypeChange();
     };
 
 
@@ -47,7 +48,7 @@
       this.resetLevelsOptions();
     },
 
-    onIncludeDescendantsChange: function (event)
+    onIncludeDescendantsChange: function ()
     {
       if (this.$includeDescendants.prop('checked'))
       {
@@ -67,7 +68,7 @@
       this.$levelSelect.val('');
     },
 
-    onIncludeAllLevelsChange: function (event)
+    onIncludeAllLevelsChange: function ()
     {
       this.$levelDiv.toggleClass('hidden');
       if (this.$includeAllLevels.prop('checked'))
@@ -76,7 +77,7 @@
       }
     },
 
-    onObjectTypeChange: function (event)
+    onObjectTypeChange: function ()
     {
       /*
         - no xml export option when exporting repos
@@ -86,23 +87,25 @@
       {
         case 'informationObject':
           this.$exportOptionsPanel.show();
+          this.$formatSelect.find('option[value="csv"]').prop('selected', true);
           this.$formatSelect.find('option[value="csv"]').show();
           this.$formatSelect.find('option[value="xml"]').show();
           break;
 
-        case 'repository':
-          // hide xml option; select csv
-          this.$formatSelect.find('option[value="csv"]').prop('selected', true);
-          this.$formatSelect.find('option[value="xml"]').hide();
+        case 'actor':
+          this.$formatSelect.find('option[value="xml"]').prop('selected', true);
+          this.$formatSelect.find('option[value="csv"]').show();
+          this.$formatSelect.find('option[value="xml"]').show();
 
           this.$exportOptionsPanel.hide();
           this.resetExportOptionsPanel();
           break;
 
-        case 'authorityRecord':
-          // hide csv option; select xml
-          this.$formatSelect.find('option[value="xml"]').prop('selected', true);
-          this.$formatSelect.find('option[value="csv"]').hide();
+        case 'repository':
+          // hide xml option; select csv
+          this.$formatSelect.find('option[value="csv"]').prop('selected', true);
+          this.$formatSelect.find('option[value="csv"]').show();
+          this.$formatSelect.find('option[value="xml"]').hide();
 
           this.$exportOptionsPanel.hide();
           this.resetExportOptionsPanel();

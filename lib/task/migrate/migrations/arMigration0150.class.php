@@ -17,27 +17,31 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-abstract class arBaseTask extends sfBaseTask
+/*
+ * Update clear all menu label for clipboard
+ *
+ * @package    AccesstoMemory
+ * @subpackage migration
+ */
+class arMigration0150
 {
-  const MAX_LINE_SIZE = 2048;
+  const
+    VERSION = 150, // The new database version
+    MIN_MILESTONE = 2; // The minimum milestone required
 
   /**
-   * @see sfCommandApplicationTask
+   * Upgrade
+   *
+   * @return bool True if the upgrade succeeded, False otherwise
    */
-  public function __construct(sfEventDispatcher $dispatcher, sfFormatter $formatter)
+  public function up($configuration)
   {
-    parent::__construct($dispatcher, $formatter);
+    if (null !== $menuItem = QubitMenu::getByName('clearClipboard'))
+    {
+      $menuItem->setLabel('Clear all selections', array('culture' => 'en'));
+      $menuItem->save();
+    }
 
-    $formatter->setMaxLineSize(self::MAX_LINE_SIZE);
-  }
-
-  /**
-   * @see sfTask
-   */
-  protected function execute($arguments = array(), $options = array())
-  {
-    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);
-    $this->context = sfContext::createInstance($configuration);
-    sfConfig::add(QubitSetting::getSettingsArray());
+    return true;
   }
 }

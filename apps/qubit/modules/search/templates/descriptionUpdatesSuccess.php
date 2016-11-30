@@ -109,7 +109,7 @@
 
             <?php if ('QubitInformationObject' == $className || 'QubitActor' == $className || 'QubitRepository' == $className): ?>
               <td>
-                <?php echo get_component('informationobject', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => true)) ?>
+                <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => true)) ?>
               </td>
             <?php endif; ?>
 

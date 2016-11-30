@@ -25,45 +25,31 @@
  * @subpackage jobs
  */
 
-class arXmlExportJob extends arBaseJob
+class arActorXmlExportJob extends arBaseJob
 {
   /**
    * @see arBaseJob::$requiredParameters
    */
   protected $downloadFileExtension = 'zip';
-  protected $search;            // arElasticSearchPluginQuery instance
-  protected $params = array();
+  protected $search;
 
   public function runJob($parameters)
   {
-    $this->params = $parameters;
-
-    $this->params['format'] = 'ead';
-
     // Create query increasing limit from default
     $this->search = new arElasticSearchPluginQuery(1000000000);
+    $this->params = $parameters;
 
-    if ($this->params['params']['fromClipboard'])
-    {
-      $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
-    }
-    else
-    {
-      $this->search->addFacetFilters(InformationObjectBrowseAction::$FACETS, $this->params['params']);
-      $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $this->params['params'], $this->params['format']);
-    }
-
-    $this->search->query->setSort(array('lft' => 'asc'));
+    $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
 
     // Create temp directory in which CSV export files will be written
-    $tempPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'search_export_'. $this->job->id;
+    $tempPath = sys_get_temp_dir().'/actor_clipboard_export_'.$this->job->id;
     mkdir($tempPath);
 
     // Export CSV to temp directory
     $this->info($this->i18n->__('Starting export to %1.', array('%1' => $tempPath)));
 
     $itemsExported = $this->exportResults($tempPath);
-    $this->info($this->i18n->__('Exported %1 descriptions.', array('%1' => $itemsExported)));
+    $this->info($this->i18n->__('Exported %1 actors.', array('%1' => $itemsExported)));
 
     // Compress CSV export files as a ZIP archive
     $this->info($this->i18n->__('Creating ZIP file %1.', array('%1' => $this->getDownloadFilePath())));
@@ -95,40 +81,21 @@ class arXmlExportJob extends arBaseJob
   protected function exportResults($path)
   {
     $itemsExported = 0;
-    $public = isset($this->params['public']) && $this->params['public'];
-    $levels = isset($this->params['levels']) ? $this->params['levels'] : array();
-    $numLevels = count($levels);
 
     exportBulkBaseTask::includeXmlExportClassesAndHelpers();
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->getQuery(false, false));
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($this->search->getQuery(false, false));
 
     foreach ($resultSet as $hit)
     {
-      $resource = QubitInformationObject::getById($hit->getId());
-
-      // If ElasticSearch document is stale (corresponding MySQL data deleted), ignore
-      if ($resource !== null)
+      if (null === $resource = QubitActor::getById($hit->getId()))
       {
-        // Don't export draft descriptions with public option.
-        // Don't export records if level of description is not in list of selected LODs.
-        if (($public && $resource->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID) ||
-          (0 < $numLevels && !array_key_exists($resource->levelOfDescriptionId, $levels)))
-        {
-          continue;
-        }
-
-        $this->exportResource($resource, $path);
-
-        // Log progress every 1000 rows
-        if ($itemsExported && ($itemsExported % 1000 == 0))
-        {
-          $this->info($this->i18n->__('%1 items exported.', array('%1' => $itemsExported)));
-          Qubit::clearClassCaches();
-        }
-
-        $itemsExported++;
+        continue;
       }
+
+      $this->exportResource($resource, $path);
+
+      $itemsExported++;
     }
 
     return $itemsExported;
@@ -149,7 +116,7 @@ class arXmlExportJob extends arBaseJob
       // Print warnings/notices here too, as they are often important.
       $errLevel = error_reporting(E_ALL);
 
-      $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput($resource, $this->params['format'], $this->params);
+      $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput($resource, 'eac');
       $xml = Qubit::tidyXml($rawXml);
 
       error_reporting($errLevel);
@@ -159,7 +126,7 @@ class arXmlExportJob extends arBaseJob
       throw new sfException($this->i18n->__('Invalid XML generated for object %1%.', array('%1%' => $row['id'])));
     }
 
-    $filename = exportBulkBaseTask::generateSortableFilename($resource, 'xml', $this->params['format']);
+    $filename = exportBulkBaseTask::generateSortableFilename($resource, 'xml', 'eac');
     $filePath = sprintf('%s/%s', $path, $filename);
 
     if (false === file_put_contents($filePath, $xml))

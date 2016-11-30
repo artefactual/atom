@@ -60,7 +60,7 @@ class QubitFlatfileExport
    *
    * @return void
    */
-  public function __construct($destinationPath, $standard, $rowsPerFile = false)
+  public function __construct($destinationPath, $standard = null, $rowsPerFile = false)
   {
     $this->path     = $destinationPath;
     $this->standard = $standard;
@@ -69,6 +69,8 @@ class QubitFlatfileExport
     {
       $this->rowsPerFile = $rowsPerFile;
     }
+
+    include_once sfConfig::get('sf_root_dir').'/lib/helper/QubitHelper.php';
   }
 
 
@@ -95,18 +97,21 @@ class QubitFlatfileExport
     $resourceTypeBaseConfigFile = $resourceClass .'.yml';
     $config = $this->loadResourceConfigFile($resourceTypeBaseConfigFile, 'base');
 
-    // Load archival standard-specific export configuration for type
-    // (this can augment and/or override the base configuration)
-    $resourceTypeStandardConfigFile = $resourceClass .'-'. $this->standard .'.yml';
-    $standardConfig = $this->loadResourceConfigFile($resourceTypeStandardConfigFile, 'archival standard');
+    if ($this->standard)
+    {
+      // Load archival standard-specific export configuration for type
+      // (this can augment and/or override the base configuration)
+      $resourceTypeStandardConfigFile = $resourceClass .'-'. $this->standard .'.yml';
+      $standardConfig = $this->loadResourceConfigFile($resourceTypeStandardConfigFile, 'archival standard');
 
-    // Allow standard-specific export configuration to override base config
-    $this->overrideConfigData($config, $standardConfig);
+      // Allow standard-specific export configuration to override base config
+      $this->overrideConfigData($config, $standardConfig);
+    }
 
     $this->columnNames     = $config['columnNames'];
-    $this->standardColumns = $config['direct'];
-    $this->columnMap       = $config['map'];
-    $this->propertyMap     = $config['property'];
+    $this->standardColumns = isset($config['direct']) ? $config['direct'] : array();
+    $this->columnMap       = isset($config['map']) ? $config['map'] : array();
+    $this->propertyMap     = isset($config['property']) ? $config['property'] : array();
 
     $this->cacheTaxonomies($config['cacheTaxonomies']);
 
@@ -142,7 +147,7 @@ class QubitFlatfileExport
 
     if (gettype($config) != 'array')
     {
-      throw new sfException('Missing/malformed resource '. $roleDescription .' config: '. $resourceTypeConfigFilePath);
+      throw new sfException('Missing/malformed resource '. $roleDescription .' config: '. $configFilePath);
     }
 
     return $config;
@@ -348,17 +353,12 @@ class QubitFlatfileExport
     // If file doesn't yet exist, write headers
     if (!file_exists($filePath))
     {
-      fputcsv($this->currentFileHandle, $this->columnNames);
       $this->appendRowToCsvFile($filePath, $this->columnNames);
     }
 
     // Clear Qubit object cache periodically
     if (($this->rowsExported % $this->rowsPerFile) == 0)
     {
-      // Clear in-memory object caches
-      $appRoot = dirname(__FILE__) .'/../..';
-      require_once(realpath($appRoot .'/lib/helper/QubitHelper.php'));
-
       Qubit::clearClassCaches();
     }
 
@@ -380,7 +380,7 @@ class QubitFlatfileExport
     $this->row = array();
 
     // Cycle through columns to populate row array
-    foreach($this->columnNames as $column)
+    foreach ($this->columnNames as $column)
     {
       $value = '';
 

@@ -1,0 +1,67 @@
+columnNames:
+  - authorizedFormOfName
+  - identifier
+  - culture
+  - openingTimes
+  - geoculturalContext
+  - holdings
+  - findingAids
+  - uploadLimit
+  - history
+  - mandates
+  - internalStructures
+  - collectingPolicies
+  - buildings
+  - accessConditions
+  - disabledAccess
+  - researchServices
+  - reproductionServices
+  - publicFacilities
+  - descIdentifier
+  - descInstitutionIdentifier
+  - descRules
+  - descRevisionHistory
+  - descSources
+
+  # Non-direct columns
+  - parallelFormsOfName
+  - otherFormsOfName
+  - types
+  - languages
+  - scripts
+  - thematicAreas
+  - geographicSubregions
+  - descStatus
+  - descDetail
+  - contactPerson
+  - streetAddress
+  - phone
+  - email
+  - fax
+  - website
+  - legacyId
+
+direct:
+  - authorizedFormOfName
+  - identifier
+  - culture
+  - openingTimes
+  - geoculturalContext
+  - holdings
+  - findingAids
+  - uploadLimit
+  - history
+  - mandates
+  - internalStructures
+  - collectingPolicies
+  - buildings
+  - accessConditions
+  - disabledAccess
+  - researchServices
+  - reproductionServices
+  - publicFacilities
+  - descIdentifier
+  - descInstitutionIdentifier
+  - descRules
+  - descRevisionHistory
+  - descSources

@@ -35,6 +35,11 @@
 
     <section id="action-icons">
       <ul>
+        <li class="separator"><h4><?php echo __('Clipboard') ?></h4></li>
+
+        <li class="clipboard">
+          <?php echo get_component('object', 'clipboardButton', array('slug' => $resource->slug, 'wide' => true)) ?>
+        </li>
 
         <li class="separator"><h4><?php echo __('Export') ?></h4></li>
 

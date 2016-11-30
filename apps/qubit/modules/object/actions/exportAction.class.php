@@ -31,6 +31,39 @@ class ObjectExportAction extends DefaultEditAction
     $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
   }
 
+  public function execute($request)
+  {
+    parent::execute($request);
+
+    $this->response->addJavaScript('exportOptions', 'last');
+
+    // Export type, CSV or XML?
+    $this->type = $request->getParameter('format', 'csv');
+    $this->objectType = $request->getParameter('objectType');
+
+    $this->redirectUrl = array('module' => 'object', 'action' => 'export');
+    if (null !== $referrer = $request->getReferer())
+    {
+      $this->redirectUrl = $referrer;
+    }
+
+    $this->title = $this->context->i18n->__('Export');
+
+    if ($request->isMethod('post'))
+    {
+      $this->form->bind($request->getPostParameters());
+
+      if ($this->form->isValid())
+      {
+        $this->processForm();
+
+        $this->doBackgroundExport($request);
+
+        $this->redirect($this->redirectUrl);
+      }
+    }
+  }
+
   protected function addField($name)
   {
     switch ($name)
@@ -82,23 +115,24 @@ class ObjectExportAction extends DefaultEditAction
       $levelsOfDescription[$value] = $this->choices[$value];
     }
 
-    $options = array('params' => array('fromClipboard' => true,
-                                       'slugs' => $this->context->user->getClipboard()->getAll()),
-                     'current-level-only' => ('on' == $request->getParameter('includeDescendants')) ? false : true,
-                     'public' => ($request->getParameter('includeDrafts') == 'on') ? false : true,
-                     'objectType' => $request->getParameter('objectType'),
-                     'levels' => $levelsOfDescription);
+    $options = array(
+      'params' => array('fromClipboard' => true, 'slugs' => $this->context->user->getClipboard()->getAll()),
+      'current-level-only' => 'on' !== $request->getParameter('includeDescendants'),
+      'public' => 'on' !== $request->getParameter('includeDrafts'),
+      'objectType' => $this->objectType,
+      'levels' => $levelsOfDescription
+    );
+
+    // When exporting actors, ensure aliases and relations are also exported.
+    if ('actor' === $this->objectType && 'CSV' === strtoupper($this->type))
+    {
+      $options['aliases'] = true;
+      $options['relations'] = true;
+    }
 
     try
     {
-      if ('CSV' == strtoupper($this->type))
-      {
-        QubitJob::runJob('arInformationObjectCsvExportJob', $options);
-      }
-      else
-      {
-        QubitJob::runJob('arXmlExportJob', $options);
-      }
+      QubitJob::runJob($this->getJobNameString(), $options);
 
       // Let user know export has started
       sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
@@ -118,35 +152,35 @@ class ObjectExportAction extends DefaultEditAction
     }
   }
 
-  public function execute($request)
+  private function getJobNameString()
   {
-    parent::execute($request);
-
-    $this->response->addJavaScript('exportOptions', 'last');
-
-    // Export type, CSV or XML?
-    $this->type = $request->getParameter('type', 'csv');
-
-    $this->redirectUrl = array('module' => 'object', 'action' => 'export');
-    if (null !== $referrer = $request->getReferer())
+    switch ($this->objectType)
     {
-      $this->redirectUrl = $referrer;
-    }
+      case 'informationObject':
+        if ('CSV' == strtoupper($this->type))
+        {
+          return 'arInformationObjectCsvExportJob';
+        }
+        else
+        {
+          return 'arInformationObjectXmlExportJob';
+        }
 
-    $this->title = $this->context->i18n->__('Export');
+      case 'actor':
+        if ('CSV' == strtoupper($this->type))
+        {
+          return 'arActorCsvExportJob';
+        }
+        else
+        {
+          return 'arActorXmlExportJob';
+        }
 
-    if ($request->isMethod('post'))
-    {
-      $this->form->bind($request->getPostParameters());
+      case 'repository':
+        return 'arRepositoryCsvExportJob';
 
-      if ($this->form->isValid())
-      {
-        $this->processForm();
-
-        $this->doBackgroundExport($request);
-
-        $this->redirect($this->redirectUrl);
-      }
+      default:
+        throw new sfException("Invalid object type specified: {$this->objectType}");
     }
   }
 }

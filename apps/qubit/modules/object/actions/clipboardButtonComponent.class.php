@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class InformationObjectClipboardButtonComponent extends sfComponent
+class ObjectClipboardButtonComponent extends sfComponent
 {
   public function execute($request)
   {
@@ -50,6 +50,12 @@ class InformationObjectClipboardButtonComponent extends sfComponent
     {
       $this->title = $title;
       $this->altTitle = $altTitle;
+    }
+
+    // Mix in repository page specific styles
+    if (!empty($this->repositoryOrDigitalObjBrowse))
+    {
+      $this->class .= ' repository-or-digital-obj-browse';
     }
   }
 }
