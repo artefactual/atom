@@ -107,6 +107,12 @@ EOF;
         null,
         sfCommandOption::PARAMETER_NONE,
         'Skip the deletion of existing digital objects and their derivatives when using --update with "match-and-update".'
+      ),
+      new sfCommandOption(
+        'match-using-database',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        'Detect matches without relying on the ElasticSearch index.'
       )
     ));
   }
@@ -458,6 +464,8 @@ EOF;
         'creationDatesEnd'   => '|',
         'creationDateNotes'  => '|'
       ),
+
+      'matchUsingDatabase' => $options['match-using-database'],
 
       'updatePreparationLogic' => function(&$self)
       {
