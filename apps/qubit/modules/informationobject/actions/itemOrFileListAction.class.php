@@ -93,8 +93,8 @@ class InformationObjectItemOrFileListAction extends sfAction
     QubitJob::runJob('arGenerateReportJob', $params);
 
     $reportsUrl = url_for(array($this->resource, 'module' => 'informationobject', 'action' => 'reports'));
-    $message = $this->context->i18n->__('Report generation has started, please check the <a href="'.
-                                        $reportsUrl.'">reports</a> page again soon.');
+    $message = $this->context->i18n->__('Report generation has started, please check the <a href="%1">reports</a> page again soon.',
+                                        array('%1' => $reportsUrl));
 
     $this->getUser()->setFlash('notice', $message);
   }

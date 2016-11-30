@@ -5,7 +5,7 @@
 <?php end_slot() ?>
 
 <?php slot('title') ?>
-  <h1><?php echo __($type.' - report criteria') ?></h1>
+  <h1><?php echo __('%1 - report criteria', array('%1' => $type)) ?></h1>
   <h2><?php echo render_title($resource) ?></h2>
 <?php end_slot() ?>
 
