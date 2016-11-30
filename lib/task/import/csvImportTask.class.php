@@ -624,9 +624,13 @@ EOF;
             {
               $parentId = $mapEntry->target_id;
             }
+            else if (null !== QubitInformationObject::getById($self->rowStatusVars['parentId']))
+            {
+              $parentId = $self->rowStatusVars['parentId'];
+            }
             else
             {
-              $error = sprintf('legacyId %s: could not find parentId %s in key_map table. Setting parent to root...',
+              $error = sprintf('legacyId %s: could not find parentId %s in key_map table or existing data. Setting parent to root...',
                                $self->rowStatusVars['legacyId'], $self->rowStatusVars['parentId']);
 
               print $self->logError($error);
