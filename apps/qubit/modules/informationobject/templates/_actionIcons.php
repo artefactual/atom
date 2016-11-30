@@ -4,7 +4,7 @@
     <li class="separator"><h4><?php echo __('Clipboard') ?></h4></li>
 
     <li class="clipboard">
-      <?php echo get_component('informationobject', 'clipboardButton', array('slug' => $resource->slug, 'wide' => true)) ?>
+      <?php echo get_component('object', 'clipboardButton', array('slug' => $resource->slug, 'wide' => true)) ?>
     </li>
 
     <li class="separator"><h4><?php echo __('Explore') ?></h4></li>
