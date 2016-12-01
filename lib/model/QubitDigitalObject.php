@@ -1265,6 +1265,7 @@ class QubitDigitalObject extends BaseDigitalObject
     {
       $this->deleteFromAssociatedInformationObject();
       QubitSearch::getInstance()->update($this->getInformationObject());
+      $this->deleteFromAssociatedInformationObject();
     }
 
     // Delete self
