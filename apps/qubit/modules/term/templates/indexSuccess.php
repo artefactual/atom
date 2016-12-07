@@ -121,6 +121,9 @@
       <div>
         <ul>
           <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::SCOPE_NOTE_ID)) as $item): ?>
+            <?php if ($item->sourceCulture != $sf_user->getCulture()): ?>
+              <?php continue; ?>
+            <?php endif; ?>
             <li><?php echo render_value($item->getContent(array('cultureFallback' => true))) ?></li>
           <?php endforeach; ?>
         </ul>
@@ -180,6 +183,9 @@
           <div>
             <ul>
               <?php foreach ($resource->otherNames as $item): ?>
+                <?php if ($item->sourceCulture != $sf_user->getCulture()): ?>
+                  <?php continue; ?>
+                <?php endif; ?>
                 <li><?php echo __('UF %1%', array('%1%' => render_title($item))) ?></li>
               <?php endforeach; ?>
             </ul>

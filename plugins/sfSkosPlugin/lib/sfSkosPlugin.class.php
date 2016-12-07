@@ -19,357 +19,311 @@
 
 class sfSkosPlugin
 {
-  public
-    $concepts = array();
+  protected
 
-  public static function parse($doc, $options = array())
+    // Internal EasyRdf_Graph.
+    $graph = null,
+
+    // Notify user after this number of concepts added.
+    $notifyAfter = 100,
+
+    // Total amount of concepts added.
+    $total = 0,
+
+    // QubitTaxonomy that we're using in the import.
+    $taxonomy = null,
+
+    // QubitTerm main ancestors, it could be just the root.
+    $parent = null,
+
+    // List of languages which have been seen during the import but are not
+    // available in AtoM. For reporting purposes.
+    $unsupportedLanguages = array(),
+
+    // Import errors registered.
+    $errors = array();
+
+  public function __construct($taxonomyId, $options = array())
   {
-    $terms = array();
+    $this->logger = isset($options['logger']) ? $options['logger'] : new sfNoLogger(new sfEventDispatcher);
+    $this->i18n = sfContext::getInstance()->i18n;
 
-    libxml_use_internal_errors(true);
-
-    // Report XML errors
-    if (!$doc)
+    if (null === $this->taxonomy = QubitTaxonomy::getById($taxonomyId))
     {
-      foreach (libxml_get_errors() as $error)
-      {
-        //TODO echo errors in template. Use custom validator?
-        var_dump($error);
-      }
+      throw new sfSkosPluginException($this->i18n->__('Taxonomy with ID %1% could not be found', array('%1%' => $taxonomyId)));
     }
 
-    $skos = new sfSkosPlugin;
-    $skos->xpath = new DOMXPath($doc);
-
-    // Create Xpath object, register namespaces
-    $skos->xpath->registerNamespace('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-    $skos->xpath->registerNamespace('skos', 'http://www.w3.org/2004/02/skos/core#');
-    $skos->xpath->registerNamespace('dc', 'http://purl.org/dc/elements/1.1/');
-
-    // Set taxonomy
-    $skos->taxonomy = QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID);
-    if (isset($options['taxonomy']))
+    if (is_null($options['parentId']))
     {
-      $skos->taxonomy = QubitTaxonomy::getById($options['taxonomy']);
+      $this->parent = QubitTerm::getRoot();
+    }
+    else if (null === $this->parent = QubitTerm::getById($options['parentId']))
+    {
+      throw new sfSkosPluginException($this->i18n->__('Term with ID %1% could not be found', array('%1%' => $options['parentId'])));
     }
 
-    $skos->parent = QubitTerm::getById(QubitTerm::ROOT_ID);
-    if (isset($options['parent']))
+    $this->graph = new EasyRdf_Graph;
+
+    $this->languages = array();
+    foreach (QubitSetting::getByScope('i18n_languages') as $item)
     {
-      $skos->parent = $options['parent'];
+      $this->languages[] = $item->getName();
     }
+  }
 
-    // XPath selector for expanded RDF syntax
-    $rdfsel = "rdf:Description[rdf:type[@rdf:resource='http://www.w3.org/2004/02/skos/core#Concept']]";
+  public static function import($resource, $taxonomyId, $parentId = null)
+  {
+    $skos = new self($taxonomyId, array('parentId' => $parentId));
+    $skos->load($resource);
 
-    // Get all concepts
-    $concepts = $skos->xpath->query("skos:Concept | $rdfsel");
-
-    // Create terms from concepts
-    foreach ($concepts as $concept)
-    {
-      if (!($concept instanceof domElement))
-      {
-        continue;
-      }
-
-      $skos->addTerm($concept);
-    }
-
-    // Built term associations (including hierarchy)
-    foreach ($concepts as $concept)
-    {
-      if (!($concept instanceof domElement))
-      {
-        continue;
-      }
-
-      // Add parent
-      if (0 < $skos->xpath->query('./skos:broader', $concept)->length)
-      {
-        $skos->setParent($concept);
-      }
-    }
-
-    foreach ($concepts as $concept)
-    {
-      if (!($concept instanceof domElement))
-      {
-        continue;
-      }
-
-      // Add children
-      if (0 < $skos->xpath->query('./skos:narrower', $concept)->length)
-      {
-        $skos->setChildren($concept);
-      }
-    }
-
-    foreach ($concepts as $concept)
-    {
-      if (!($concept instanceof domElement))
-      {
-        continue;
-      }
-
-      // Add relations
-      if (0 < $skos->xpath->query('./skos:related', $concept)->length)
-      {
-        $skos->addTermRelations($concept);
-      }
-    }
+    $skos->importGraph();
 
     return $skos;
   }
 
-  protected function addTerm($concept)
+  public function load($resource)
   {
-    $term = new QubitTerm;
-    $term->taxonomy = $this->taxonomy;
-
-    // Parent to current root (we'll update later)
-    $term->parent = $this->parent;
-
-    // Preferred label
-    $prefLabels = $this->xpath->query('./skos:prefLabel', $concept);
-
-    foreach ($prefLabels as $prefLabel)
+    $scheme = parse_url($resource, PHP_URL_SCHEME);
+    if (!$scheme)
     {
-      $value = self::setI18nValue($term, $prefLabel);
-
-      if (isset($value))
-      {
-        $validName = $value;
-      }
+      throw new sfSkosPluginException($this->i18n->__('Malformed URI.'));
     }
 
-    // Don't save a term with no valid name
-    if (!isset($validName))
+    $this->logger->info($this->i18n->__('Type of scheme: %1%', array('%1%' => $scheme)));
+    $this->logger->info($this->i18n->__('Taxonomy: %1%', array('%1%' => $this->taxonomy->getName(array('cultureFallback' => true)))));
+    $this->logger->info($this->i18n->__('Term ID: %1%', array('%1%' => $this->parent-id)));
+
+    if ($scheme === 'file')
     {
-      return;
+      $this->graph->parseFile($resource);
     }
-
-    // Alternate labels
-    foreach ($this->xpath->query('./skos:altLabel', $concept) as $altLabel)
+    else if ($scheme === 'data')
     {
-      $otherName = new QubitOtherName;
-      $otherName->typeId = QubitTerm::ALTERNATIVE_LABEL_ID;
-
-      $value = self::setI18nValue($otherName, $altLabel);
-
-      if (isset($value))
-      {
-        $term->otherNames[] = $otherName;
-      }
-
-      unset($otherName);
+      $this->graph->parse(file_get_contents($resource));
     }
-
-    // URI - save as source note
-    $uri = $concept->getAttributeNodeNS('http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'about');
-    if ($uri instanceof DOMAttr)
+    else if (in_array($scheme, array('http', 'https')))
     {
-      $note = new QubitNote;
-      $note->typeId = QubitTerm::SOURCE_NOTE_ID;
-      $note->content = $uri->nodeValue;
-
-      $term->notes[] = $note;
-
-      unset($note);
+      $this->graph->load($resource);
     }
-
-    // Scope notes
-    foreach ($this->xpath->query('./skos:scopeNote', $concept) as $scopeNote)
-    {
-      $note = new QubitNote;
-      $note->typeId = QubitTerm::SCOPE_NOTE_ID;
-
-      $value = self::setI18nValue($note, $scopeNote);
-
-      if (isset($value))
-      {
-        $term->notes[] = $note;
-      }
-
-      unset($note);
-    }
-
-    // Map dc.coverage to term.code for place terms
-    // Hacky Hackerton was here
-    if (QubitTaxonomy::PLACE_ID == $this->taxonomy->getId()) {
-      foreach ($this->xpath->query('./dc:coverage', $concept) as $coverage)
-      {
-          $term->code = $coverage->nodeValue;
-      }
-    }
-
-    // Save the term
-    $term->save();
-
-    // Hash to store concept to term mapping
-    $this->terms[$uri->nodeValue] = $term;
-
-    return $this;
-  }
-
-  protected function addTermRelations($concept)
-  {
-    $subjectUri = $concept->getAttributeNodeNS('http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'about');
-    if (!($subjectUri instanceof DOMAttr) || !isset($this->terms[$subjectUri->nodeValue]))
-    {
-      continue;
-    }
-
-    foreach ($this->xpath->query('./skos:related', $concept) as $related)
-    {
-      $objectUri = $related->getAttributeNodeNS('http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'resource');
-      if (!($objectUri instanceof DomAttr) || !isset($this->terms[$objectUri->nodeValue]))
-      {
-        continue;
-      }
-
-      // Don't duplicate relationship
-      foreach ($this->relations as $r)
-      {
-        if (
-          $r['subject'] == $objectUri->nodeValue && $r['object'] == $subjectUri->nodeValue ||
-          $r['subject'] == $subjectUri->nodeValue && $r['object'] == $objectUri->nodeValue)
-        {
-          continue 2;
-        }
-      }
-
-      $relation = new QubitRelation;
-      $relation->typeId = QubitTerm::TERM_RELATION_ASSOCIATIVE_ID;
-      $relation->subject = $this->terms[$subjectUri->nodeValue];
-      $relation->object = $this->terms[$objectUri->nodeValue];
-
-      $relation->save();
-
-      $this->relations[] = array('subject' => $subjectUri->nodeValue, 'object' => $objectUri->nodeValue);
-    }
-
-    return $this;
-  }
-
-  protected function setParent($concept)
-  {
-    $uri = $concept->getAttributeNodeNS('http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'about');
-
-    if (!isset($this->terms[$uri->nodeValue]))
-    {
-      return;
-    }
-
-    // If term doesn't have default parentId, then assume it's already be set
-    if ($this->parent->id != $this->terms[$uri->nodeValue]->parentId)
-    {
-      return;
-    }
-
-    foreach($this->xpath->query('./skos:broader', $concept) as $broader)
-    {
-      if (!($broader instanceof DOMElement))
-      {
-        continue;
-      }
-
-      $parentUri = $broader->getAttributeNodeNS('http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'resource');
-
-      if (!isset($this->terms[$parentUri->nodeValue]))
-      {
-        continue;
-      }
-
-      if ($parentUri instanceof DOMAttr)
-      {
-        $this->terms[$uri->nodeValue]->parent = $this->terms[$parentUri->nodeValue];
-        $this->terms[$uri->nodeValue]->save();
-      }
-
-      return; // Only allowed one parent
-    }
-  }
-
-  protected function setChildren($concept)
-  {
-    $uri = $concept->getAttributeNodeNS('http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'about');
-
-    if (!isset($this->terms[$uri->nodeValue]))
-    {
-      return;
-    }
-
-    foreach($this->xpath->query('./skos:narrower', $concept) as $narrower)
-    {
-      if (!($narrower instanceof DOMElement))
-      {
-        continue;
-      }
-
-      $childUri = $narrower->getAttributeNodeNS('http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'resource');
-
-      if ($childUri instanceof DOMAttr)
-      {
-        // Skip if child doesn't exists, or it has already been parented
-        if (!isset($this->terms[$childUri->nodeValue]) ||
-          $this->terms[$uri->nodeValue]->id == $this->terms[$childUri->nodeValue]->parentId)
-        {
-          continue;
-        }
-
-        $this->terms[$childUri->nodeValue]->parent = $this->terms[$uri->nodeValue];
-        $this->terms[$childUri->nodeValue]->save();
-      }
-    }
-  }
-
-  protected static function getTermBySourceNote($sourceNote)
-  {
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitTerm::ID, QubitNote::OBJECT_ID);
-    $criteria->addJoin(QubitNote::ID, QubitNoteI18n::ID);
-    $criteria->add(QubitNoteI18n::CONTENT, $sourceNote);
-
-    return QubitTerm::getOne($criteria);
-  }
-
-  protected static function setI18nValue($obj, $domNode)
-  {
-    if (!($domNode instanceof DOMElement))
-    {
-      return;
-    }
-
-    switch (get_class($obj))
-    {
-      case 'QubitNote':
-        $colName = 'content';
-        break;
-
-      default:
-        $colName = 'name';
-    }
-
-    // Check for xml:lang attribute
-    if (null !== $langNode = $domNode->attributes->getNamedItem('lang'))
-    {
-      $message = $domNode->nodeValue;
-      $culture = $langNode->nodeValue;
-    }
-
     else
     {
-      $message = $domNode->nodeValue;
+      throw new sfSkosPluginException($this->i18n->__('Unsupported scheme!'));
     }
 
-    $obj->__set($colName, $message, array('culture' => $culture));
-
-    if (isset($culture) && !isset($term->sourceCulture))
+    if ($this->graph->isEmpty())
     {
-      $obj->sourceCulture = $culture;
+      throw new sfSkosPluginException($this->i18n->__('The graph is empty.'));
     }
 
-    return $obj->__get($colName, array('culture' => $culture));
+    $this->logger->info($this->i18n->__('The graph contains %1% concepts.', array('%1%' => count($this->graph->allOfType('skos:Concept')))));
+  }
+
+  /**
+   * We want to harvest the graph from top to bottom.
+   */
+  protected function getRootConcepts()
+  {
+    $conceptScheme = $this->graph->get('skos:ConceptScheme', '^rdf:type');
+    if (null !== $conceptScheme)
+    {
+      return $conceptScheme->allResources('skos:hasTopConcept');
+    }
+
+    return $this->graph->allOfType('skos:Concept');
+  }
+
+  public function importGraph()
+  {
+    $concepts = $this->getRootConcepts();
+    foreach ($concepts as $item)
+    {
+      if (false === $item instanceof EasyRdf_Resource)
+      {
+        $this->logger->info($this->i18n->__('Unexpected concept, type received: %1%.', array('%1%' => gettype($item))));
+
+        continue;
+      }
+
+      $this->addConcept($item, $this->parent->id);
+    }
+
+    // Build list of relationships using sfSkosUniqueRelations
+    $relations = new sfSkosUniqueRelations;
+    foreach ($this->graph->allOfType('skos:Concept') as $c)
+    {
+      foreach ($c->allResources('skos:related') as $r)
+      {
+        $relations->insert($c->get('atom:id')->getValue(), $r->get('atom:id')->getValue());
+      }
+    }
+
+    foreach ($relations as $item)
+    {
+      $relation = new QubitRelation;
+      $relation->typeId = QubitTerm::TERM_RELATION_ASSOCIATIVE_ID;
+      $relation->subjectId = $item[0];
+      $relation->objectId = $item[1];
+
+      $relation->indexOnSave = false;
+      $relation->save();
+    }
+
+    // Report error with unsupported languages
+    if (0 < count($this->unsupportedLanguages))
+    {
+      $this->errors[] = $this->i18n->__('The following languages are used in the dataset imported but not supported by AtoM: %1%', array('%1%' => implode(",", array_keys($this->unsupportedLanguages))));
+    }
+
+    // Re-index parent term so numberOfDescendants reflects the changes
+    if (QubitTerm::ROOT_ID != $this->parent->id)
+    {
+      QubitSearch::getInstance()->update($this->parent);
+    }
+  }
+
+  protected function addConcept(EasyRdf_Resource $concept, $parentId)
+  {
+    $term = new QubitTerm;
+    $term->parentId = $parentId;
+    $term->taxonomyId = $this->taxonomy->id;
+
+    $this->setPrefLabel($term, $concept);
+    $this->setAltLabels($term, $concept);
+    $this->setScopeNote($term, $concept);
+    $this->setUriSourceNote($term, $concept);
+
+    // Map dc.coverage to term.code for place terms. Hacky Hackerton was here.
+    if (QubitTaxonomy::PLACE_ID === $this->taxonomy->id)
+    {
+      if (null !== $literal = $concept->getLiteral('dc:coverage'))
+      {
+        $term->code = $literal->getValue();
+      }
+    }
+
+    $term->save();
+
+    $this->notify();
+
+    // Update graph resource with AtoM's given ID.
+    $concept->set('atom:id', (int)$term->id);
+
+    foreach ($concept->allResources('skos:narrower') as $item)
+    {
+      $this->addConcept($item, $term->id);
+    }
+  }
+
+  protected function setPrefLabel(QubitTerm $term, EasyRdf_Resource $concept)
+  {
+    $literals = $concept->allLiterals('skos:prefLabel');
+    if (1 > count($literals))
+    {
+      return false;
+    }
+
+    foreach ($literals as $item)
+    {
+      if (false === $lang = $this->isLangSupported($item->getLang()))
+      {
+        continue;
+      }
+
+      $term->setName($item->getValue(), array('culture' => $lang));
+    }
+  }
+
+  protected function setAltLabels(QubitTerm $term, EasyRdf_Resource $concept)
+  {
+    $literals = $concept->allLiterals('skos:altLabel');
+    if (1 > count($literals))
+    {
+      return false;
+    }
+
+    foreach ($literals as $item)
+    {
+      if (false === $lang = $this->isLangSupported($item->getLang()))
+      {
+        continue;
+      }
+
+      $otherName = new QubitOtherName;
+      $otherName->typeId = QubitTerm::ALTERNATIVE_LABEL_ID;
+      $otherName->sourceCulture = $item->getLang();
+      $otherName->setName($item->getValue(), array('culture' => $lang));
+
+      $term->otherNames[] = $otherName;
+    }
+  }
+
+  protected function setScopeNote(QubitTerm $term, EasyRdf_Resource $concept)
+  {
+    $literals = $concept->allLiterals('skos:scopeNote');
+    if (1 > count($literals))
+    {
+      return false;
+    }
+
+    foreach ($literals as $item)
+    {
+      if (false === $lang = $this->isLangSupported($item->getLang()))
+      {
+        continue;
+      }
+
+      $note = new QubitNote;
+      $note->typeId = QubitTerm::SCOPE_NOTE_ID;
+      $note->sourceCulture = $item->getLang();
+      $note->setContent($item->getValue(), array('culture' => $lang));
+
+      $term->notes[] = $note;
+    }
+  }
+
+  protected function setUriSourceNote(QubitTerm $term, EasyRdf_Resource $concept)
+  {
+    $note = new QubitNote;
+    $note->typeId = QubitTerm::SOURCE_NOTE_ID;
+    $note->content = $concept->getUri();
+
+    $term->notes[] = $note;
+  }
+
+  protected function isLangSupported($lang)
+  {
+    if (in_array($lang, $this->languages))
+    {
+      return $lang;
+    }
+
+    $this->unsupportedLanguages[$lang] = true;
+
+    return false;
+  }
+
+  public function hasErrors()
+  {
+    return 0 < count($this->errors);
+  }
+
+  public function getErrors()
+  {
+    return $this->errors;
+  }
+
+  public function getGraph()
+  {
+    return $this->graph;
+  }
+
+  protected function notify()
+  {
+    $this->total++;
+
+    if (($this->total % $this->notifyAfter) === 0)
+    {
+      $this->logger->info($this->i18n->__('A total of %1% concepts have been processed so far.', array('%1%' => $this->total)));
+    }
   }
 }

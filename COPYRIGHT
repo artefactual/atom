@@ -202,3 +202,9 @@ htmlpurifier
 Url: http://htmlpurifier.org/
 Copyright: Edward Z. Yang <ezyang@mit.edu>
 License: LGPLv2.1
+
+EasyRdf
+-------
+Url: http://www.easyrdf.org/
+Copyright: Nicholas Humfrey <nicholas.humfrey@bbc.co.uk>
+License: https://github.com/njh/easyrdf/blob/master/LICENSE.md

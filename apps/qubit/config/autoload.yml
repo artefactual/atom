@@ -12,3 +12,7 @@ autoload:
 
   fbiso639:
     path: %SF_ROOT_DIR%/vendor/FreeBeerIso639Map.php
+
+  EasyRdf:
+    path: %SF_ROOT_DIR%/vendor/easyrdf/EasyRdf
+    recursive: on

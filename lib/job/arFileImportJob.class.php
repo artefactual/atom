@@ -18,7 +18,7 @@
  */
 
 /**
- * Job worker for XML and CSV imports initiated from the WebUI.
+ * Job worker for file-based imports initiated from the WebUI.
  *
  * @package    symfony
  * @subpackage jobs
@@ -31,10 +31,17 @@ class arFileImportJob extends arBaseJob
    */
   public function runJob($parameters)
   {
-    $this->info($this->i18n->__('Importing %1 file: %2.', array('%1' => strtoupper($parameters['importType']), '%2' => $parameters['file']['name'])));
+    if (isset($parameters['file']))
+    {
+      $this->info($this->i18n->__('Importing %1 file: %2.', array('%1' => strtoupper($parameters['importType']), '%2' => $parameters['file']['name'])));
+    }
+    else
+    {
+      $this->info($this->i18n->__('Importing %1.', array('%1' => strtoupper($parameters['importType']))));
+    }
 
     // Set indexing preference.
-    if (false == $parameters['index'])
+    if (isset($parameters['index']) && false === $parameters['index'])
     {
       QubitSearch::disable();
     }
@@ -61,11 +68,18 @@ class arFileImportJob extends arBaseJob
 
           break;
 
+        case 'skos':
+          $importer = new sfSkosPlugin($parameters['taxonomyId'], array('parentId' => $parameters['parentId'], 'logger' => $this->logger));
+          $importer->load($parameters['location']);
+          $importer->importGraph();
+
+          break;
+
         default:
           // 'importType' defaults to 'CSV' by design if extension is blank or something unknown.
           // This was to prevent errors if csv file does not have the correct extension. See
           // modules/object/actions/importAction.class.php.  This default case should never be called.
-          $this->error($this->i18n->__('Unable to import selected file: unknown file extension.'));
+          $this->error($this->i18n->__('Unable to import selected file: unknown format %1%.', array('%1%' => $parameters['importType'])));
           return false;
 
           break;
@@ -86,7 +100,7 @@ class arFileImportJob extends arBaseJob
     }
 
     // Try to remove tmp file from uploads/tmp.
-    if (unlink($parameters['file']['tmp_name']) === false)
+    if (isset($parameters['file']) && false === unlink($parameters['file']['tmp_name']))
     {
       // Issue warning if unable to delete but do not show job as failed because of this.
       $this->error($this->i18n->__('Failed to delete temporary file %1 -- please check your folder permissions.', array('%1' => $parameters['file']['tmp_name'])));
