@@ -339,7 +339,7 @@ class Qubit
     // Move file to web/uploads/tmp directory.
     if (!move_uploaded_file($file['tmp_name'], $tmpFilePath))
     {
-      $errorMessage = $this->context->i18n->__('Unable to complete file import. File %1% could not be moved to %2%', array('%1%' => $file['name'], '%2%' => $tmpDir));
+      $errorMessage = sfContext::getInstance()->i18n->__('Unable to complete file import. File %1% could not be moved to %2%', array('%1%' => $file['name'], '%2%' => $tmpDir));
       throw new sfException($errorMessage);
     }
 

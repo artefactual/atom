@@ -177,13 +177,13 @@ class ObjectImportSelectAction extends DefaultEditAction
 
     try
     {
-      QubitJob::runJob('arFileImportJob', $options);
+      $job = QubitJob::runJob('arFileImportJob', $options);
 
-      // Let user know import has started
-      sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
-      $jobManageUrl = url_for(array('module' => 'jobs', 'action' => 'browse'));
-      $message = '<strong>Import of ' . strtoupper($importType) . ' file initiated.</strong> Check <a href="'. $jobManageUrl . '">job management</a> page to view the status of the import.';
-      $this->context->user->setFlash('notice', $this->context->i18n->__($message));
+      $this->getUser()->setFlash('notice', $this->context->i18n->__('Import file initiated. Check %1%job %2%%3% to view the status of the import.', array(
+        '%1%' => sprintf('<a href="%s">', $this->context->routing->generate(null, array('module' => 'jobs', 'action' => 'report', 'id' => $job->id))),
+        '%2%' => $job->id,
+        '%3%' => '</a>'
+      )), array('persist' => false));
     }
     catch (sfException $e)
     {

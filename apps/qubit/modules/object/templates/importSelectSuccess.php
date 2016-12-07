@@ -60,9 +60,7 @@
               <option value="dc"><?php echo __('DC') ?></option>
             </select>
 
-            <div class="alert alert-info text-center">
-              <p><?php echo __('If you are importing a SKOS file to a taxonomy other than subjects, please go to the %1%', array('%1%' => link_to(__('SKOS import page'), array('module' => 'sfSkosPlugin', 'action' => 'import')))) ?></p>
-            </div>
+            <p class="alert alert-info text-center"><?php echo __('If you are importing a SKOS file to a taxonomy other than subjects, please go to the %1%', array('%1%' => link_to(__('SKOS import page'), array('module' => 'sfSkosPlugin', 'action' => 'import')))) ?></p>
           </div>
         <?php endif; ?>
 

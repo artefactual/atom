@@ -30,7 +30,7 @@
   <div class="job-report-field">
     <div><?php echo __('Status') ?></div>
     <div>
-      <?php echo render_value(ucfirst($job->getStatusString())) ?>
+      <?php echo render_value($job->getStatusString()) ?>
       <?php if ($job->statusId == QubitTerm::JOB_STATUS_COMPLETED_ID): ?>
         <i class="fa fa-check-square" id="job-check-color"></i>
       <?php elseif ($job->statusId == QubitTerm::JOB_STATUS_ERROR_ID): ?>
@@ -64,7 +64,12 @@
 <section id="log-area">
   <h2><?php echo __('Log') ?></h2>
   <div>
-    <pre id="job-log-output"><?php echo render_value(trim($job->output)) ?></pre>
+    <?php $output = trim($job->output) ?>
+    <?php if (0 < strlen($output)): ?>
+      <pre id="job-log-output"><?php echo render_value($output) ?></pre>
+    <?php else: ?>
+      <p id="job-log-output-empty"><?php echo __('Empty') ?></p>
+    <?php endif; ?>
   </div>
 </section>
 

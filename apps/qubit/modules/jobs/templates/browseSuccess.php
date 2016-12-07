@@ -45,7 +45,7 @@
             <i class="fa fa-cogs" id="job-cogs-color"></i>
           <?php endif; ?>
 
-          <?php echo ucfirst($job->getStatusString()) ?>
+          <?php echo $job->getStatusString() ?>
 
           <?php if ($job->getObjectModule() && $job->getObjectSlug()): ?>
             <a href="<?php echo url_for(array('module' => $job->getObjectModule(),

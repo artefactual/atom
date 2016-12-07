@@ -117,21 +117,19 @@ class QubitJob extends BaseJob
    */
   public function getStatusString()
   {
-    if (!isset($this->statusId))
-    {
-      return 'unknown';
-    }
+    $i18n = sfContext::getInstance()->i18n;
+    $unknown = $i18n->__('Unknown');
 
     switch ($this->statusId)
     {
       case QubitTerm::JOB_STATUS_COMPLETED_ID:
-        return 'completed';
+        return $i18n->__('Completed');
       case QubitTerm::JOB_STATUS_IN_PROGRESS_ID:
-        return 'running';
+        return $i18n->__('Running');
       case QubitTerm::JOB_STATUS_ERROR_ID:
-        return 'error';
+        return $i18n->__('Error');
       default:
-        return 'unknown';
+        return $unknown;
     }
   }
 
