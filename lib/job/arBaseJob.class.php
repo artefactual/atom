@@ -41,29 +41,35 @@ class arBaseJob extends Net_Gearman_Job_Common
 
   public function run($parameters)
   {
+    $context = sfContext::getInstance();
+    $this->i18n = $context->i18n;
+    $this->user = $context->user;
+    $this->dispatcher = $context->getEventDispatcher();
+
     $this->checkRequiredParameters($parameters);
 
-    $this->i18n = sfContext::getInstance()->i18n;
-
-    $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
-
-    $this->job = QubitJob::getById($parameters['id']);
-
-    if ($this->job === null)
+    // Instantiate QubitJob
+    if (null === $this->job = QubitJob::getById($parameters['id']))
     {
       throw new Net_Gearman_Job_Exception('Called a Gearman worker with an invalid QubitJob id.');
     }
 
-    $this->clearCache();
+    $this->logger = new arJobLogger($this->dispatcher, array('level' => sfLogger::INFO, 'job' => $this->job));
+
+    Qubit::clearClassCaches();
 
     // Catch all possible exceptions in job execution and throw
     // Net_Gearman_Job_Exception to avoid breaking the worker
     try
     {
       $this->signIn();
+
       $this->createJobsDownloadsDirectory();
+
       $this->runJob($parameters);
+
       QubitSearch::getInstance()->flushBatch();
+
       $this->signOut();
 
       $this->info($this->i18n->__('Job finished.'));
@@ -100,32 +106,6 @@ class arBaseJob extends Net_Gearman_Job_Common
   }
 
   /**
-   * Saves log messages to the database for future job reports.
-   *
-   * @param string  $message  the log message to insert into the db
-   */
-  private function addLogTextToDatabase($message)
-  {
-    // TEXT type cannot have a default (i.e. ''), so use CONCAT_WS because it can work with null values
-    // and coerce them into a string with an empty string separater.
-    $sql = 'UPDATE job SET output = CONCAT_WS("", output, ?, "\n") WHERE id = ?';
-    QubitPdo::prepareAndExecute($sql, array($message, $this->job->id));
-  }
-
-  /**
-   * Redirect logs to Gearman Worker logger
-   *
-   * @param string  $message  the message
-   */
-  protected function log($message)
-  {
-    $this->dispatcher->notify(new sfEvent($this, 'gearman.worker.log', array('message' =>
-      sprintf('Job %d "%s": %s', $this->job->id, $this->job->name, $message))));
-
-    $this->addLogTextToDatabase('['.strftime('%r').'] '.$message);
-  }
-
-  /**
    * A wrapper to log error messages and set the QubitJob status to error.
    * This will also attach the error message as a note in the QubitJob.
    *
@@ -138,7 +118,7 @@ class arBaseJob extends Net_Gearman_Job_Common
       throw new Net_Gearman_Job_Exception('Called arBaseJob::error() before QubitJob fetched.');
     }
 
-    $this->log($message);
+    $this->logger->info($message);
     $this->job->setStatusError($message);
     $this->job->save();
   }
@@ -155,7 +135,7 @@ class arBaseJob extends Net_Gearman_Job_Common
       throw new Net_Gearman_Job_Exception('Called arBaseJob::info() before QubitJob fetched.');
     }
 
-    $this->log($message);
+    $this->logger->info($message);
   }
 
   /**
@@ -226,20 +206,6 @@ class arBaseJob extends Net_Gearman_Job_Common
   }
 
   /**
-   * Clear various Qubit classes' caches.
-   */
-  private function clearCache()
-  {
-    foreach (get_declared_classes() as $c)
-    {
-      if (strpos($c, 'Qubit') === 0 && method_exists($c, 'clearCache'))
-      {
-        $c::clearCache();
-      }
-    }
-  }
-
-  /**
    * Create ZIP file from results
    *
    * @param string  Path of file to write CSV data to
@@ -282,7 +248,7 @@ class arBaseJob extends Net_Gearman_Job_Common
   protected function signIn()
   {
     $user = QubitUser::getById($this->job->userId);
-    sfContext::getInstance()->user->signIn($user);
+    $this->user->signIn($user);
   }
 
   /**
@@ -295,6 +261,6 @@ class arBaseJob extends Net_Gearman_Job_Common
     // Need to delete the ACL instance because we are in a gearman worker loop.
     // Calling destruct() forces a new QubitAcl instance for each job.
     QubitAcl::destruct();
-    sfContext::getInstance()->user->signOut();
+    $this->user->signOut();
   }
 }
