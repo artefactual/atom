@@ -1121,13 +1121,13 @@ EOF;
       return (substr_count($text, '|')) ? '* '. str_replace("|", "\n* ", $text) : $text;
     };
 
-    $import->addColumnHandler('levelOfDescription', function(&$self, $data)
+    $import->addColumnHandler('levelOfDescription', function($self, $data)
     {
       $self->object->setLevelOfDescriptionByName($data);
     });
 
     // Map value to taxonomy term name and take note of taxonomy term's ID
-    $import->addColumnHandler('radGeneralMaterialDesignation', function(&$self, $data)
+    $import->addColumnHandler('radGeneralMaterialDesignation', function($self, $data)
     {
       if ($data)
       {
