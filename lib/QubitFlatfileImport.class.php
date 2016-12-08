@@ -2191,7 +2191,8 @@ class QubitFlatfileImport
   public static function fetchKeymapEntryBySourceAndTargetName($sourceId, $sourceName, $targetName)
   {
     $query = "SELECT target_id, id FROM keymap
-      WHERE source_id=? AND source_name=? AND target_name=?";
+      WHERE source_id=? AND source_name=? AND target_name=?
+      ORDER BY id DESC";
 
     $statement = QubitFlatfileImport::sqlQuery(
       $query,

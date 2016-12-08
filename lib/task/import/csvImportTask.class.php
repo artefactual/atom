@@ -653,24 +653,13 @@ EOF;
           throw new sfException('Information object save failed');
         }
 
-        $targetClass = 'information_object';
-
-        $keymap = $self->fetchKeymapEntryBySourceAndTargetName(
-          $self->rowStatusVars['legacyId'],
-          $self->getStatus('sourceName'),
-          $targetClass
-        );
-
-        if (!$keymap)
-        {
-          // Add keymap entry
-          $keymap = new QubitKeymap;
-          $keymap->sourceId   = $self->rowStatusVars['legacyId'];
-          $keymap->sourceName = $self->getStatus('sourceName');
-          $keymap->targetId   = $self->object->id;
-          $keymap->targetName = $targetClass;
-          $keymap->save();
-        }
+        // Add keymap entry
+        $keymap = new QubitKeymap;
+        $keymap->sourceId   = $self->rowStatusVars['legacyId'];
+        $keymap->sourceName = $self->getStatus('sourceName');
+        $keymap->targetId   = $self->object->id;
+        $keymap->targetName = 'information_object';
+        $keymap->save();
 
         // Inherit repository instead of duplicating the association to it if applicable
         if ($self->object->canInheritRepository($self->object->repositoryId))
