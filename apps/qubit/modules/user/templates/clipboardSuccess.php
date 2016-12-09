@@ -25,7 +25,7 @@
     &nbsp;
     <?php echo get_partial('default/genericPicker', array(
       'options' => array(
-        'informationobject' => sfConfig::get('app_ui_label_informationobject'),
+        'informationObject' => sfConfig::get('app_ui_label_informationobject'),
         'actor'             => sfConfig::get('app_ui_label_actor'),
         'repository'        => sfConfig::get('app_ui_label_repository')
       ),

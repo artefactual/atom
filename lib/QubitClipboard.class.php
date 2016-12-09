@@ -149,7 +149,7 @@ class QubitClipboard
    *
    * @return array Slugs added to the clipboard
    */
-  private function getAllByClassName()
+  public function getAllByClassName()
   {
     $items = array();
     if (null !== $savedItems = $this->storage->read(self::CLIPBOARD_NAMESPACE))

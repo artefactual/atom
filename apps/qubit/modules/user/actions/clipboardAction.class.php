@@ -25,8 +25,6 @@
  */
 class UserClipboardAction extends DefaultBrowseAction
 {
-  const INDEX_TYPE = 'QubitInformationObject';
-
   public function execute($request)
   {
     if ('print' == $request->getGetParameter('media'))
@@ -34,9 +32,10 @@ class UserClipboardAction extends DefaultBrowseAction
       $this->getResponse()->addStylesheet('print-preview', 'last');
     }
 
-    $slugs = $this->context->user->getClipboard()->getAll();
+    $entityType = 'Qubit'.ucfirst($request->getGetParameter('type', 'informationObject'));
+    $allSlugs = $this->context->user->getClipboard()->getAllByClassName();
 
-    if (count($slugs) == 0)
+    if (!isset($allSlugs[$entityType]) || !count($allSlugs[$entityType]))
     {
       $resultSet = new \Elastica\ResultSet(new Elastica\Response(null), new Elastica\Query);
     }
@@ -44,6 +43,7 @@ class UserClipboardAction extends DefaultBrowseAction
     {
       parent::execute($request);
 
+      $slugs = $allSlugs[$entityType];
       $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $slugs));
 
       // Sort
@@ -97,7 +97,7 @@ class UserClipboardAction extends DefaultBrowseAction
         $this->search->query->setPostFilter($this->search->filterBool);
       }
 
-      $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->query);
+      $resultSet = QubitSearch::getInstance()->index->getType($entityType)->search($this->search->query);
     }
 
     // Page results
