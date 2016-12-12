@@ -869,20 +869,26 @@ EOF;
             // If no entry found, create accession and entry
             if (!$accessionMapEntry)
             {
-              print "\nCreating accession # ". $accessionNumber ."\n";
+              $criteria = new Criteria;
+              $criteria->add(QubitAccession::IDENTIFIER, $accessionNumber);
 
-              // Create new accession
-              $accession = new QubitAccession;
-              $accession->identifier = $accessionNumber;
-              $accession->save();
+              if (null === $accession = QubitAccession::getone($criteria))
+              {
+                print "\nCreating accession # ". $accessionNumber ."\n";
 
-              // Create keymap entry for accession
-              $keymap = new QubitKeymap;
-              $keymap->sourceId   = $accessionNumber;
-              $keymap->sourceName = $self->getStatus('sourceName');
-              $keymap->targetId   = $accession->id;
-              $keymap->targetName = 'accession';
-              $keymap->save();
+                // Create new accession
+                $accession = new QubitAccession;
+                $accession->identifier = $accessionNumber;
+                $accession->save();
+
+                // Create keymap entry for accession
+                $keymap = new QubitKeymap;
+                $keymap->sourceId   = $accessionNumber;
+                $keymap->sourceName = $self->getStatus('sourceName');
+                $keymap->targetId   = $accession->id;
+                $keymap->targetName = 'accession';
+                $keymap->save();
+              }
 
               $accessionId = $accession->id;
             }
