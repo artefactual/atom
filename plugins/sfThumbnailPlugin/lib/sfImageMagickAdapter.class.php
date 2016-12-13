@@ -195,7 +195,7 @@ class sfImageMagickAdapter
 
         $this->sourceWidth = $width;
         $this->sourceHeight = $height;
-        $this->sourceMime = $this->mimeMap[strtolower($type)];
+        $this->sourceMime = $this->getMimeType($image);
       }
     }
     else
@@ -215,6 +215,20 @@ class sfImageMagickAdapter
     $thumbnail->initThumb($this->sourceWidth, $this->sourceHeight, $this->maxWidth, $this->maxHeight, $this->scale, $this->inflate);
 
     return true;
+  }
+
+  /**
+   * Determine file mime type using the PHP fileinfo library.
+   *
+   * @param string  file we want the mime type for
+   *
+   * @return string  Mime type
+   */
+  public static function getMimeType($file)
+  {
+    // Use fileinfo to figure out file mimetype.
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    return finfo_file($finfo, $file);
   }
 
   public function loadData($thumbnail, $image, $mime)
@@ -383,7 +397,7 @@ class sfImageMagickAdapter
     $extension = pathinfo($image, PATHINFO_EXTENSION);
 
     // If processing a PDF, attempt to use pdfinfo as it's faster
-    if (strtolower($extension) == 'pdf')
+    if ('application/pdf' == $this->getSourceMime())
     {
       return sfImageMagickAdapter::getPdfPageCount($image);
     }
