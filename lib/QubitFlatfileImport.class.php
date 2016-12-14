@@ -1436,8 +1436,7 @@ class QubitFlatfileImport
     {
       $query = "SELECT id FROM note WHERE object_id = ? AND type_id = ?;";
 
-      $statement = self::sqlQuery($query, array(
-        $this->object->id, $typeId));
+      $statement = self::sqlQuery($query, array($this->object->id, $typeId));
 
       while ($noteId = $statement->fetchColumn())
       {
@@ -1459,8 +1458,11 @@ class QubitFlatfileImport
         $options['noteId'] = $noteIds[$i];
       }
 
-      $this->createOrUpdateNote($typeId, $text, $options);
-
+      // checkNoteExists will prevent note duplication.
+      if (!$this->checkNoteExists($this->object->id, $typeId, $this->content($text), $this->columnValue('culture')))
+      {
+        $this->createOrUpdateNote($typeId, $text, $options);
+      }
     }
   }
 
@@ -1504,6 +1506,31 @@ class QubitFlatfileImport
     $note->save();
 
     return $note;
+  }
+
+  /**
+   * Return whether a note already exists given specified parameters.
+   *
+   * This function is to prevent creating duplicate notes when updating descriptions.
+   *
+   * @param int $objectId  Object id for object that the note belongs to.
+   * @param int $typeId  Note type id indicating note type.
+   * @param string $content  Note content to check against.
+   * @param string $culture  Note culture to check against.
+   *
+   * @return bool  True if the same note exists, false otherwise.
+   */
+  private function checkNoteExists($objectId, $typeId, $content, $culture)
+  {
+    $c = new Criteria;
+    $c->add(QubitNote::OBJECT_ID, $objectId);
+    $c->add(QubitNote::TYPE_ID, $typeId);
+
+    $c->addJoin(QubitNote::ID, QubitNoteI18n::ID);
+    $c->add(QubitNoteI18n::CONTENT, $content);
+    $c->add(QubitNoteI18n::CULTURE, $culture);
+
+    return null !== QubitNote::getOne($c);
   }
 
   /**
