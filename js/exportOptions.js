@@ -86,23 +86,25 @@
       {
         case 'informationObject':
           this.$exportOptionsPanel.show();
+          this.$formatSelect.find('option[value="csv"]').prop('selected', true);
           this.$formatSelect.find('option[value="csv"]').show();
           this.$formatSelect.find('option[value="xml"]').show();
           break;
 
-        case 'repository':
-          // hide xml option; select csv
-          this.$formatSelect.find('option[value="csv"]').prop('selected', true);
-          this.$formatSelect.find('option[value="xml"]').hide();
+        case 'authorityRecord':
+          this.$formatSelect.find('option[value="xml"]').prop('selected', true);
+          this.$formatSelect.find('option[value="csv"]').show();
+          this.$formatSelect.find('option[value="xml"]').show();
 
           this.$exportOptionsPanel.hide();
           this.resetExportOptionsPanel();
           break;
 
-        case 'authorityRecord':
-          // hide csv option; select xml
-          this.$formatSelect.find('option[value="xml"]').prop('selected', true);
-          this.$formatSelect.find('option[value="csv"]').hide();
+        case 'repository':
+          // hide xml option; select csv
+          this.$formatSelect.find('option[value="csv"]').prop('selected', true);
+          this.$formatSelect.find('option[value="csv"]').show();
+          this.$formatSelect.find('option[value="xml"]').hide();
 
           this.$exportOptionsPanel.hide();
           this.resetExportOptionsPanel();

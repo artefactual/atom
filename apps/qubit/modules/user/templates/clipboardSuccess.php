@@ -37,7 +37,11 @@
 <?php slot('content') ?>
   <div id="content">
     <?php foreach ($pager->getResults() as $hit): ?>
-      <?php echo get_partial('search/searchResult', array('hit' => $hit, 'culture' => $selectedCulture)) ?>
+      <?php if ('QubitInformationObject' === $entityType): ?>
+        <?php echo get_partial('search/searchResult', array('hit' => $hit, 'culture' => $selectedCulture)) ?>
+      <?php else: ?>
+        <?php echo get_partial('actor/searchResult', array('doc' => $hit->getData(), 'culture' => $selectedCulture)) ?>
+      <?php endif; ?>
     <?php endforeach; ?>
   </div>
 

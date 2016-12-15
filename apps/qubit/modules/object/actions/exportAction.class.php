@@ -83,7 +83,7 @@ class ObjectExportAction extends DefaultEditAction
     }
 
     $options = array('params' => array('fromClipboard' => true,
-                                       'slugs' => $this->context->user->getClipboard()->getAll()),
+                     'slugs' => $this->context->user->getClipboard()->getAll()),
                      'current-level-only' => ('on' == $request->getParameter('includeDescendants')) ? false : true,
                      'public' => ($request->getParameter('includeDrafts') == 'on') ? false : true,
                      'objectType' => $request->getParameter('objectType'),

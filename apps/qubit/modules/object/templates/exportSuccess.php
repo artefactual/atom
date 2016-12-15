@@ -41,7 +41,7 @@
 
         <div class="form-item">
           <label><?php echo __('Format') ?></label>
-          <select name="type">
+          <select name="format">
             <option value="csv"<?php echo ('xml' != $type) ? 'selected="selected"' : '' ?>><?php echo __('CSV') ?></option>
             <option value="xml"<?php echo ('xml' == $type) ? 'selected="selected"' : '' ?>><?php echo __('XML') ?></option>
           </select>
