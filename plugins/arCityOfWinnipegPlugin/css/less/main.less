@@ -1,0 +1,397 @@
+/*
+ * This file is part of the Access to Memory (AtoM) software.
+ *
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+// Color changes
+a,
+.search-result .title a,
+#sort-header .dropdown-selected,
+#action-icons a {
+  color: @gray;
+}
+
+#content h2,
+.breadcrumb li:after,
+.search-result.media-summary,
+.search-result .result-details li.reference-code,
+.pagination ul > .active > span,
+.pagination ul > li > a:hover,
+.pager a:hover,
+#action-icons a:hover i,
+.search-filter,
+.vcard .agent,
+#no-search-results .suggestion a {
+  color: @grayDark;
+}
+
+input[type="text"]:focus, select:focus, textarea:focus {
+  outline-size: 2px;
+  outline-color: @grayDark;
+}
+
+#sidebar li,
+#sidebar a:not (.facet-header),
+#treeview .active a {
+  color: @gray;
+}
+
+#sidebar ul {
+  list-style-type: none;
+  margin: 0 0 10px 10px;
+  background-color: @white;
+}
+
+a:hover,
+#action-icons a:hover,
+.search-result .title a:hover {
+  color: @grayDarker;
+  text-decoration: underline;
+}
+
+.facet .facet-body {
+  background-color: @white;
+}
+
+#wrapper,
+.span9,
+.facet-body li,
+#treeview li,
+.container-fluid {
+  background-color: @white;
+  color: @gray;
+}
+
+#treeview {
+  background-color: @white;
+}
+
+#coverflow,
+.digital-object-reference {
+  background-color: @gray;
+}
+
+.actions,
+.popover-title,
+.nav-pills > .active > a,
+.nav-pills > .active > a:hover
+{
+  background-color: @grayLight;
+}
+
+#treeview .ancestor {
+  background-color: @graySilver;
+}
+
+.facet.open .facet-header h3,
+.facet-header h3:hover,
+#treeview-header h3 {
+  background-color: @gray;
+}
+
+.nav-pills > .active > a,
+.nav-pills > .active > a:hover {
+  color: @white;
+}
+
+.popover-title,
+#content .field > h3,
+#sidebar h2:not(.popover-title),
+.c-btn,
+#advanced-search-filters > h4,
+.sidebar-widget > h4, h3,
+.list-menu > h4 {
+  color: @gray;
+}
+
+.c-btn,
+.c-btn .caret > border-top-color, border-bottom-color {
+  color: @white;
+}
+
+.c-btn:hover, .c-btn:focus, .c-btn:active {
+  background-color: @grayLighter;
+}
+
+.visible-phone.facets-header a:hover {
+  background-color: @grayLighter;
+}
+
+.visible-phone.facets-header a {
+  border-color: @grayLight;
+}
+
+#sidebar h2:not(.popover-title),
+#advanced-search-filters > h4,
+.sidebar-widget > h4, h3,
+.list-menu > h4 {
+  height: auto;
+  overflow: visible;
+  position: static;
+  border-bottom: 3px solid @gray;
+  margin: 10px;
+  padding: 0;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+// Bold caps kerning
+#sidebar h2 {
+  letter-spacing: -.5px;
+}
+
+// Font changes
+
+body {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#content h2,
+#content .media-summary p {
+  color: @grayDark;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#main-column > h1 {
+  font-size: 25px;
+}
+
+#content .field > h3 {
+  font-weight: bold;
+}
+
+// Layout fixes
+
+.span4 {
+  width: auto;
+  float: right;
+}
+
+.repository-logo {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#advanced-search-filters div.filter {
+  padding: 0 10px;
+}
+
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0;
+}
+
+.row-fluid {
+  margin-right: 10px;
+  margin-left: 10px;
+  width: auto;
+}
+
+#update-check {
+  .hide();
+}
+
+// Fix width in 1column layout
+
+#wrapper > table,
+#wrapper > .manage-button,
+#wrapper > h1,
+#wrapper > section,
+#wrapper > ul,
+#wrapper > div#content
+{
+  max-width: 96%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#wrapper > section.actions {
+  max-width: 94%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Backgrounds and shadows
+
+body {
+  background: url(../../images/background.png) top center fixed no-repeat;
+  background-color: @graySilver;
+}
+
+#wrapper,
+.container-fluid {
+  -moz-box-shadow: 5px 0 5px 0 rgba(100, 100, 100, 0.5), -5px 0 5px 0 rgba(100, 100, 100, 0.5);
+  -webkit-box-shadow: 5px 0 5px 0 rgba(100, 100, 100, 0.5), -5px 0 5px 0 rgba(100, 100, 100, 0.5);
+  box-shadow: 5px 0 5px 0 rgba(100, 100, 100, 0.5), -5px 0 5px 0 rgba(100, 100, 100, 0.5);
+}
+
+#treeview .active {
+  background-color: @grayLighter !important;
+  -webkit-border-radius: 2px 0 0 2px;
+  -moz-border-radius: 2px 0 0 2px;
+  border-radius: 2px 0 0 2px;
+  -webkit-box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, .3), inset 3px 3px 5px 0 rgba(100, 100, 100, 0.1), inset 0 -1px 1px 0 rgba(100, 100, 100, .2);
+  -moz-box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, .3), inset 3px 3px 5px 0 rgba(100, 100, 100, 0.1), inset 0 -1px 1px 0 rgba(100, 100, 100, .2);
+  box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, .3), inset 3px 3px 5px 0 rgba(100, 100, 100, 0.1), inset 0 -1px 1px 0 rgba(100, 100, 100, .2);
+}
+
+textarea:focus,
+select:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: @blueDark;
+  outline: 0;
+  outline: thin dotted \9;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px @blueDark;
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px @blueDark;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px @blueDark;
+}
+
+// Sidebar and content background to the bottom
+
+html, body {
+  height: 100%;
+}
+
+#wrapper, .container-fluid {
+  min-height: 100%;
+  height: auto !important; /*min-height hack*/
+  height: 100%;            /*min-height hack*/
+  margin-bottom: -10em;     /*Negates #push on longer pages*/
+
+}
+
+footer {
+  height: 0;
+}
+
+// Responsive design
+
+@media (max-width: 767px) {
+  .span3 {
+    min-height: 0;
+  }
+  .span9 {
+    padding: 10px;
+  }
+
+  .span2 {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  #context-menu a {
+    display: block;
+    padding: 10px;
+    border: 2px solid @grayLighter;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  #wrapper,
+  .navbar-static-top .container,
+  .navbar-fixed-top .container,
+  .navbar-fixed-bottom .container,
+  #top-bar,
+  .container-fluid {
+    width: 740px;
+  }
+
+  .span3 {
+    margin-top: 20px;
+  }
+
+  #context-menu a {
+    display: block;
+    padding: 10px;
+    border: 2px solid @grayLighter;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    font-size: 18px;
+    margin-right: 15px;
+  }
+}
+
+@media (min-width: 980px) and (max-width: 1200px) {
+  #wrapper,
+  .navbar-static-top .container,
+  .navbar-fixed-top .container,
+  .navbar-fixed-bottom .container,
+  #top-bar,
+  .container-fluid {
+    width: 960px;
+  }
+
+  .span7 {
+    width: 540px;
+  }
+
+  .span2 {
+    width: 120px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #wrapper,
+  .navbar-static-top .container,
+  .navbar-fixed-top .container,
+  .navbar-fixed-bottom .container,
+  #top-bar,
+  .container-fluid {
+    width: 1190px;
+  }
+}
+
+.ref-na {
+  background-color: red;
+  display: inline;
+  float: right;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: rgb(255, 234, 150);
+  border: 1px solid #999;
+}

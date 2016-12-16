@@ -1,0 +1,313 @@
+/*
+ * This file is part of the Access to Memory (AtoM) software.
+ *
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#top-bar {
+  height: 165px!important;
+  background-color: @gray;
+  -moz-box-shadow: 5px 0 5px 0 rgba(100, 100, 100, 0.5), -5px 0 5px 0 rgba(100, 100, 100, 0.5);
+  -webkit-box-shadow: 5px 0 5px 0 rgba(100, 100, 100, 0.5), -5px 0 5px 0 rgba(100, 100, 100, 0.5);
+  box-shadow: 5px 0 5px 0 rgba(100, 100, 100, 0.5), -5px 0 5px 0 rgba(100, 100, 100, 0.5);
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+
+  nav {
+   position: absolute;
+   bottom: 16px;
+   right: 0;
+  }
+}
+
+#search-bar {
+  position: absolute;
+  bottom: 0;
+  left: 280px;
+  padding-bottom: 10px;
+}
+
+#search-bar #search-form-wrapper input {
+  color: #ccc !important;
+  border: 1px solid #ccc !important;
+}
+
+#search-form-wrapper a {
+  color: @graySilver;
+}
+
+.open > button.top-dropdown,
+button.top-dropdown:hover,
+button.top-dropdown:focus {
+  background-color: @blueDark !important;
+  color: @white;
+}
+
+a.top-dropdown,
+.top-dropdown-header,
+.top-dropdown-body,
+.top-dropdown-body a {
+  background-color: @white !important;
+  color: @grayDark;
+  font-size: 1.1em;
+  border-radius: 3px!important;
+}
+
+.open > a.top-dropdown,
+a.top-dropdown:hover,
+.top-dropdown-body a:hover {
+  background-color: @blueDark !important;
+  color: @white !important;
+  text-decoration: none;
+}
+
+#search-bar #search-form-wrapper {
+  button {
+    width: 26px;
+    height: 23px;
+    right: 1px;
+    position: absolute;
+    background: @grayLighter;
+    margin-top: 1px;
+    font-size: 1.1em;
+    border: none;
+    &:before {
+      font-family: FontAwesome;
+      content: "\f002";
+    }
+  }
+  input {
+    background-color: @white;
+    float: right;
+    color: @black!important;
+    font-size: 1.1em;
+    border: 1px solid @gray;
+    border-radius: 3px!important;
+    &::-webkit-input-placeholder {
+      color: @black;
+    }
+    &:-moz-placeholder { /* Firefox 18- */
+      color: @black;
+    }
+    &::-moz-placeholder {  /* Firefox 19+ */
+    color: @black;
+    }
+    &:-ms-input-placeholder {
+      color: @black;
+    }
+  }
+}
+
+.search-realm-advanced-home {
+  position: relative;
+  float: left;
+  margin-left: 8px;
+  font-size: .9em;
+}
+
+.top-item,
+#browse-menu > a {
+  color: @white;
+  font-size: 1.1em;
+}
+
+.top-dropdown {
+  background-image: url(../../../arDominionPlugin/images/white-arrow.png);
+}
+
+.top-dropdown-arrow,
+.top-dropdown-bottom,
+#site-slogan {
+  .hide();
+}
+
+#logo {
+  padding-top: 8px;
+  width : 225px;
+  height: auto;
+}
+
+#logo-city {
+  float: right;
+  padding-top: 8px;
+  padding-right: 16px;
+  width : 240px;
+  height: auto;
+}
+
+#quick-links-menu,
+#clipboard-menu,
+#language-menu,
+#admin-menu,
+#import-menu,
+#manage-menu,
+#add-menu {
+  // Hover effect
+  &.open,
+  > button:hover,
+  > button:focus {
+    background-color: @blueDark;
+  }
+
+  &.open > button:before,
+  > button:hover:before {
+    color: @white;
+  }
+}
+
+// Responsive design
+
+@media (max-width: 1200px) {
+  #search-bar #search-form-wrapper {
+    width: 60%!important;
+  }
+  #top-bar {
+    height: 250px!important;
+  }
+
+  #search-bar {
+    position: absolute;
+    bottom: 0;
+    left: 35px;
+    padding-bottom: 15px;
+  }
+
+  #search-form-wrapper {
+    float: left!important;
+
+    form {
+      margin-right: 0px;
+    }
+
+    input {
+      .input-block-level();
+      min-height: 25px;
+    }
+  }
+}
+
+nav #user-menu {
+  .hide();
+}
+
+@media (max-width: 979px) {
+  #top-bar {
+    height: 250px!important;
+  }
+
+  #browse-menu {
+    width: 62px!important;
+    > a {
+      .box-sizing(border-box);
+      margin-left: 0px;
+      float: left;
+      //to match background
+      color: transparent !important;
+      overflow: hidden;
+      &:before {
+        content: "\f0ca";
+        color: @white;
+        font-family: 'fontAwesome';
+      }
+    }
+  }
+
+  #quick-links-menu, #clipboard-menu, #language-menu a {
+    position: relative;
+    z-index: 1000;
+    width: 40px;
+  }
+
+  #quick-links-menu {
+    margin-right: -10px!important;
+    padding-right: 0px!important;
+  }
+
+  //override Dominion's behavior
+  nav {
+    .show()!important;
+  }
+}
+
+@media (max-width: 767px) {
+
+  #top-bar {
+    height: 200px!important;
+  }
+
+  #logo {
+    padding-top: 8px;
+    width : 190px;
+    height: auto;
+  }
+
+  #logo-city {
+    float: right;
+    padding-top: 8px;
+    padding-right: 16px;
+    width : 170px;
+    height: auto;
+  }
+
+  #search-bar {
+    .hide();
+  }
+}
+
+@media (max-width: 580px) {
+  #top-bar {
+    height: 175px!important;
+  }
+
+  #logo {
+    padding-top: 8px;
+    width : 165px;
+    height: auto;
+  }
+
+  #logo-city {
+    float: right;
+    padding-top: 8px;
+    padding-right: 16px;
+    width : 145px;
+    height: auto;
+  }
+}
+
+@media (max-width: 400px) {
+  #logo {
+    padding-top: 8px;
+    width : 135px;
+    height: auto;
+  }
+
+  #logo-city {
+    float: right;
+    padding-top: 8px;
+    padding-right: 16px;
+    width : 100px;
+    height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  nav #user-menu {
+    .hide();
+  }
+
+  > a:hover {
+    background-color: transparent!important;
+  }
+}
