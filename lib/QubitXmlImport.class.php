@@ -1076,7 +1076,7 @@ class QubitXmlImport
         }
 
         // If resource not found, try matching against keymap table.
-        if (!isset($matchResource) && $this->eadUrl && $importSchema == 'ead')
+        if (!isset($matchResource) && $this->eadUrl)
         {
           $criteria = new Criteria;
           $criteria->add(QubitKeymap::SOURCE_ID, $this->eadUrl);
