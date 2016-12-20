@@ -20,7 +20,7 @@ a,
 .search-result .title a,
 #sort-header .dropdown-selected,
 #action-icons a {
-  color: @gray;
+  color: @blueDark;
 }
 
 #content h2,
@@ -48,9 +48,14 @@ input[type="text"]:focus, select:focus, textarea:focus {
   color: @gray;
 }
 
+#sidebar form.sidebar-search {
+    margin: 10px;
+    width: 100%;
+}
+
 #sidebar ul {
   list-style-type: none;
-  margin: 0 0 10px 10px;
+  margin: 10px;
   background-color: @white;
 }
 
@@ -71,7 +76,7 @@ a:hover,
 #treeview li,
 .container-fluid {
   background-color: @white;
-  color: @gray;
+  color: @grayDarker;
 }
 
 #treeview {
@@ -146,12 +151,6 @@ a:hover,
   font-size: 16px;
   line-height: 24px;
   font-weight: bold;
-  text-transform: uppercase;
-}
-
-// Bold caps kerning
-#sidebar h2 {
-  letter-spacing: -.5px;
 }
 
 // Font changes
@@ -164,14 +163,12 @@ body {
 }
 
 h1 {
-  text-transform: uppercase;
   font-weight: bold;
 }
 
 #content h2,
 #content .media-summary p {
   color: @grayDark;
-  text-transform: uppercase;
   font-weight: bold;
 }
 
@@ -184,7 +181,6 @@ h1 {
 }
 
 // Layout fixes
-
 .span4 {
   width: auto;
   float: right;
@@ -197,6 +193,10 @@ h1 {
 
 #advanced-search-filters div.filter {
   padding: 0 10px;
+}
+
+#wrapper > form {
+  margin: 0 20px 20px 20px;
 }
 
 .container-fluid {

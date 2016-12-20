@@ -17,26 +17,42 @@
 
 #top-bar {
   height: 165px!important;
-  background-color: @gray;
+  background-color: @blueDark;
   -moz-box-shadow: 5px 0 5px 0 rgba(100, 100, 100, 0.5), -5px 0 5px 0 rgba(100, 100, 100, 0.5);
   -webkit-box-shadow: 5px 0 5px 0 rgba(100, 100, 100, 0.5), -5px 0 5px 0 rgba(100, 100, 100, 0.5);
   box-shadow: 5px 0 5px 0 rgba(100, 100, 100, 0.5), -5px 0 5px 0 rgba(100, 100, 100, 0.5);
   position: relative;
   margin-right: auto;
   margin-left: auto;
+}
 
-  nav {
-   position: absolute;
-   bottom: 16px;
-   right: 0;
-  }
+.winn-bar-container {
+  width: 100%;
+  height: 110px;
+  background-color: @gray;
+}
+
+.winn-bar {
+  max-width: 1170px;
+  margin: auto;
+  height: 110px;
+}
+
+.search-bar-container {
+  background-color: @grayLighter;
+  height: 59px;
+}
+
+.search-bar-container #search-bar nav {
+  float: right;
+  position: relative;
+  right: 195px;
 }
 
 #search-bar {
-  position: absolute;
+  position: relative;
   bottom: 0;
-  left: 280px;
-  padding-bottom: 10px;
+  left: 195px;
 }
 
 #search-bar #search-form-wrapper input {
@@ -45,7 +61,7 @@
 }
 
 #search-form-wrapper a {
-  color: @graySilver;
+  color: @grayDarker;
 }
 
 .open > button.top-dropdown,
@@ -79,7 +95,7 @@ a.top-dropdown:hover,
     height: 23px;
     right: 1px;
     position: absolute;
-    background: @grayLighter;
+    background: @grayDark;
     margin-top: 1px;
     font-size: 1.1em;
     border: none;
@@ -134,16 +150,16 @@ a.top-dropdown:hover,
 }
 
 #logo {
-  padding-top: 8px;
-  width : 225px;
+  padding-top: 5px;
+  width : 150px;
   height: auto;
 }
 
 #logo-city {
   float: right;
-  padding-top: 8px;
-  padding-right: 16px;
-  width : 240px;
+  padding-top: 4px;
+  padding-right: 4px;
+  width : 450px;
   height: auto;
 }
 
@@ -154,6 +170,10 @@ a.top-dropdown:hover,
 #import-menu,
 #manage-menu,
 #add-menu {
+  button:before {
+    color: @gray;
+  }
+
   // Hover effect
   &.open,
   > button:hover,
@@ -167,21 +187,15 @@ a.top-dropdown:hover,
   }
 }
 
+nav #user-menu {
+  .hide();
+}
+
+
 // Responsive design
-
 @media (max-width: 1200px) {
-  #search-bar #search-form-wrapper {
-    width: 60%!important;
-  }
-  #top-bar {
-    height: 250px!important;
-  }
-
   #search-bar {
-    position: absolute;
-    bottom: 0;
     left: 35px;
-    padding-bottom: 15px;
   }
 
   #search-form-wrapper {
@@ -196,15 +210,32 @@ a.top-dropdown:hover,
       min-height: 25px;
     }
   }
-}
 
-nav #user-menu {
-  .hide();
+  .search-bar-container #search-bar nav {
+    right: 35px;
+  }
+
+  #search-bar {
+    left: 35px;
+  }
 }
 
 @media (max-width: 979px) {
   #top-bar {
-    height: 250px!important;
+    height: 215px!important;
+  }
+
+  .winn-bar-container {
+    background-color: @gray;
+  }
+
+  .winn-bar {
+    height: 110px;
+  }
+
+  .search-bar-container {
+    background-color: @grayLighter;
+    height: 110px;
   }
 
   #browse-menu {
@@ -242,72 +273,60 @@ nav #user-menu {
 }
 
 @media (max-width: 767px) {
-
-  #top-bar {
-    height: 200px!important;
-  }
-
-  #logo {
-    padding-top: 8px;
-    width : 190px;
-    height: auto;
-  }
-
-  #logo-city {
-    float: right;
-    padding-top: 8px;
-    padding-right: 16px;
-    width : 170px;
-    height: auto;
-  }
-
-  #search-bar {
-    .hide();
-  }
+.winn-bar {
+  height: 115px;
 }
 
-@media (max-width: 580px) {
-  #top-bar {
-    height: 175px!important;
-  }
-
-  #logo {
-    padding-top: 8px;
-    width : 165px;
-    height: auto;
-  }
-
-  #logo-city {
-    float: right;
-    padding-top: 8px;
-    padding-right: 16px;
-    width : 145px;
-    height: auto;
-  }
+.search-bar-container {
+  background-color: @grayLighter;
+  height: 115px;
 }
 
-@media (max-width: 400px) {
-  #logo {
-    padding-top: 8px;
-    width : 135px;
-    height: auto;
-  }
-
   #logo-city {
     float: right;
     padding-top: 8px;
     padding-right: 16px;
-    width : 100px;
+    width : 335px;
     height: auto;
   }
 }
 
 @media (max-width: 640px) {
-  nav #user-menu {
-    .hide();
-  }
-
   > a:hover {
     background-color: transparent!important;
+  }
+
+  #logo-city {
+    float: right;
+    padding-top: 8px;
+    padding-right: 16px;
+    width : 280px;
+    height: auto;
+  }
+}
+
+@media (max-width: 580px) {
+
+  #search-bar #search-form-wrapper {
+    width: 70%;
+  }
+
+  #logo-city {
+    float: right;
+    padding-top: 8px;
+    padding-right: 16px;
+    width : 165px;
+    height: auto;
+  }
+}
+
+@media (max-width: 400px) {
+
+  #logo-city {
+    float: right;
+    padding-top: 8px;
+    padding-right: 16px;
+    width : 125px;
+    height: auto;
   }
 }
