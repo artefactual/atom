@@ -645,6 +645,13 @@ QubitMenu:
       vi: CSV
       zh: 逗号分隔值文件(CSV)
     path: 'object/importSelect?type=csv'
+  QubitMenu_mainmenu_import_skos:
+    parent_id: QubitMenu_mainmenu_import
+    source_culture: en
+    name: importSkos
+    label:
+      en: SKOS
+    path: 'sfSkosPlugin/import'
   QubitMenu_mainmenu_admin_users:
     parent_id: QubitMenu_mainmenu_admin
     source_culture: en

@@ -133,7 +133,9 @@ class sfSkosPluginImportAction extends DefaultEditAction
           '%1%' => sprintf('<a href="%s">', $this->context->routing->generate(null, array('module' => 'jobs', 'action' => 'report', 'id' => $job->id))),
           '%2%' => $job->id,
           '%3%' => '</a>'
-        )), array('persist' => false));
+        )));
+
+        $this->redirect(array('module' => 'sfSkosPlugin', 'action' => 'import'));
       }
     }
   }
