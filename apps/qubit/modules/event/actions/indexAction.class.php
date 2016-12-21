@@ -33,6 +33,7 @@ class EventIndexAction extends sfAction
     if (isset($this->resource->actor))
     {
       $value['actor'] = $this->context->routing->generate(null, array($this->resource->actor, 'module' => 'actor'));
+      $value['actorDisplay'] = $this->resource->actor->getAuthorizedFormOfName(array('cultureFallback' => true));
     }
 
     if (isset($this->resource->date))
@@ -57,6 +58,7 @@ class EventIndexAction extends sfAction
     if (isset($place))
     {
       $value['place'] = $this->context->routing->generate(null, array($place, 'module' => 'term'));
+      $value['placeDisplay'] = $place->getName(array('cultureFallback' => true));
     }
 
     if (isset($this->resource->type))

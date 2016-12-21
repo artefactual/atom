@@ -86,31 +86,50 @@ class InformationObjectEventComponent extends EventEditComponent
         break;
 
       case 'place':
+        // Get related term id
         $value = $this->form->getValue('place');
-        if (isset($value))
+        if (!empty($value))
         {
           $params = $this->context->routing->parse(Qubit::pathInfo($value));
+          $termId = $params['_sf_route']->resource->id;
         }
 
-        foreach ($this->event->objectTermRelationsRelatedByobjectId as $item)
+        // Get term relation
+        if (isset($this->event->id))
         {
-          if (isset($value) && $params['_sf_route']->resource->id == $item->id)
-          {
-            unset($value);
-          }
-          else
-          {
-            $item->delete();
-          }
+          $relation = QubitObjectTermRelation::getOneByObjectId($this->event->id);
         }
 
-        if (isset($value))
+        // Nothing to do
+        if (!isset($termId) && !isset($relation))
         {
-          $relation = new QubitObjectTermRelation;
-          $relation->term = $params['_sf_route']->resource;
-
-          $this->event->objectTermRelationsRelatedByobjectId[] = $relation;
+          break;
         }
+
+        // The relation needs to be deleted/updated independently
+        // if the event exits, otherwise when deleting, it will try to
+        // save it again from the objectTermRelationsRelatedByobjectId array.
+        // If the event is new, the relation needs to be created and attached
+        // to the event in the objectTermRelationsRelatedByobjectId array.
+        if (!isset($termId) && isset($relation))
+        {
+          $relation->delete();
+
+          break;
+        }
+
+        if (isset($termId) && isset($relation))
+        {
+          $relation->termId = $termId;
+          $relation->save();
+
+          break;
+        }
+
+        $relation = new QubitObjectTermRelation;
+        $relation->termId = $termId;
+
+        $this->event->objectTermRelationsRelatedByobjectId[] = $relation;
 
         break;
 

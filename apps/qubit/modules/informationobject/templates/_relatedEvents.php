@@ -3,11 +3,13 @@
 <table id="relatedEvents" class="table table-bordered">
   <thead>
     <tr>
-      <th style="width: 35%">
+      <th style="width: 25%">
         <?php echo __('Name') ?>
-      </th><th style="width: 25%">
+      </th><th style="width: 20%">
         <?php echo __('Role/event') ?>
-      </th><th style="width: 30%">
+      </th><th style="width: 20%">
+        <?php echo __('Place') ?>
+      </th><th style="width: 25%">
         <?php echo __('Date(s)') ?>
       </th><th style="width: 10%">
         &nbsp;
@@ -25,6 +27,12 @@
         </td><td>
           <div>
             <?php echo $item->type ?>
+          </div>
+        </td><td>
+          <div>
+            <?php if (null !== $relation = QubitObjectTermRelation::getOneByObjectId($item->id)): ?>
+              <?php echo render_title($relation->term) ?>
+            <?php endif; ?>
           </div>
         </td><td>
           <div>

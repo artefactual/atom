@@ -17,6 +17,8 @@ $rowTemplate = json_encode(<<<value
   </td><td>
     {{$form->type->renderName()}}
   </td><td>
+    {{$form->place->renderName()}}
+  </td><td>
     {{$form->date->renderName()}}
   </td><td style="text-align: right">
     $editHtml <button class="delete-small" name="delete" type="button"/>
