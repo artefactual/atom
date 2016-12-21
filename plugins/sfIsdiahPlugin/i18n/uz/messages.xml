@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2016-10-19T17:01:01Z" product-name="messages">
+  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2016-12-21T12:00:53Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Nomsiz</target>
       </trans-unit>
       <trans-unit id="2">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
@@ -30,7 +30,7 @@
       </trans-unit>
       <trans-unit id="7">
         <source>Edit %1%</source>
-        <target/>
+        <target>%1% sahifasini tahrirlash</target>
       </trans-unit>
       <trans-unit id="8">
         <source>See ISDIAH 5.2 for contact area information and examples.</source>
@@ -58,11 +58,11 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Identifier</source>
-        <target/>
+        <target>Kod</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Bu majburiy element</target>
       </trans-unit>
       <trans-unit id="16">
         <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
@@ -266,7 +266,7 @@
       </trans-unit>
       <trans-unit id="66">
         <source>Access points</source>
-        <target/>
+        <target>Foydalanish nuqtalari</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Thematic area</source>
@@ -286,15 +286,15 @@
       </trans-unit>
       <trans-unit id="71">
         <source>Cancel</source>
-        <target/>
+        <target>Bekor qilish</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Save</source>
-        <target/>
+        <target>Saqlash</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Create</source>
-        <target/>
+        <target>Yaratish</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Primary contact</source>
@@ -306,7 +306,7 @@
       </trans-unit>
       <trans-unit id="76">
         <source>Email</source>
-        <target/>
+        <target>Email</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Edit identity area</source>
@@ -322,7 +322,7 @@
       </trans-unit>
       <trans-unit id="80">
         <source>Type</source>
-        <target/>
+        <target>Turi</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Edit contact area</source>
@@ -338,7 +338,7 @@
       </trans-unit>
       <trans-unit id="84">
         <source>Buildings</source>
-        <target/>
+        <target>Binolar</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Holdings</source>
@@ -402,15 +402,15 @@
       </trans-unit>
       <trans-unit id="100">
         <source>Edit</source>
-        <target/>
+        <target>Tahrirlash</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Delete</source>
-        <target/>
+        <target>O'chirish</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Add new</source>
-        <target/>
+        <target>Yangi qo'shish</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Add description</source>

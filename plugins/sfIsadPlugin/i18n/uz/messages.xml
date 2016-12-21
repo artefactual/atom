@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2016-10-19T17:01:01Z" product-name="messages">
+  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2016-12-21T12:00:53Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Nomsiz</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative / Biographical history</source>
@@ -58,7 +58,7 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Edit %1%</source>
-        <target/>
+        <target>%1% sahifasini tahrirlash</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a duplicate of record %1%</source>
@@ -70,7 +70,7 @@
       </trans-unit>
       <trans-unit id="17">
         <source>Reference code</source>
-        <target/>
+        <target>Manba kodi</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
@@ -78,11 +78,11 @@
       </trans-unit>
       <trans-unit id="19">
         <source>Identifier</source>
-        <target/>
+        <target>Kod</target>
       </trans-unit>
       <trans-unit id="20">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Bu majburiy element</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
@@ -90,7 +90,7 @@
       </trans-unit>
       <trans-unit id="22">
         <source>Title</source>
-        <target/>
+        <target>Sarlavha</target>
       </trans-unit>
       <trans-unit id="23">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
@@ -102,7 +102,7 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Level of description</source>
-        <target/>
+        <target>Tavsif darajasi</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
@@ -114,7 +114,7 @@
       </trans-unit>
       <trans-unit id="28">
         <source>Extent and medium</source>
-        <target/>
+        <target>O'lcham va tashuvchisi</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Context area</source>
@@ -274,19 +274,19 @@
       </trans-unit>
       <trans-unit id="68">
         <source>Access points</source>
-        <target/>
+        <target>Foydalanish nuqtalari</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Subject access points</source>
-        <target/>
+        <target>Mavzular</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Place access points</source>
-        <target/>
+        <target>Joylar</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Genre access points</source>
-        <target/>
+        <target>Turi</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Name access points (subjects)</source>
@@ -370,23 +370,23 @@
       </trans-unit>
       <trans-unit id="92">
         <source>Date(s)</source>
-        <target/>
+        <target>Sanalar</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Type</source>
-        <target/>
+        <target>Turi</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Date</source>
-        <target/>
+        <target>Sana</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Start</source>
-        <target/>
+        <target>Boshlanishi</target>
       </trans-unit>
       <trans-unit id="96">
         <source>End</source>
-        <target/>
+        <target>Tugashi</target>
       </trans-unit>
       <trans-unit id="97">
         <source>File list</source>
@@ -406,11 +406,11 @@
       </trans-unit>
       <trans-unit id="101">
         <source>Repository</source>
-        <target/>
+        <target>Arxiv muassasasi</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Archival history</source>
-        <target/>
+        <target>Arxiv tarixi</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Edit content and structure area</source>
@@ -418,7 +418,7 @@
       </trans-unit>
       <trans-unit id="104">
         <source>Scope and content</source>
-        <target/>
+        <target>Mazmuni</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Accruals</source>
@@ -446,7 +446,7 @@
       </trans-unit>
       <trans-unit id="111">
         <source>Note</source>
-        <target/>
+        <target>Izoh</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Edit access points</source>

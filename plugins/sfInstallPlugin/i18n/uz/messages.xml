@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2016-10-19T17:01:01Z" product-name="messages">
+  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2016-12-21T12:00:53Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Password strength:</source>
-        <target/>
+        <target>Parol mukammalligi</target>
       </trans-unit>
       <trans-unit id="2">
         <source>To make your password stronger:</source>
-        <target/>
+        <target>Parolni murakkablashtirish uchun:</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Make it at least six characters</source>
-        <target/>
+        <target>Kamida 6 ta belgi</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Add lowercase letters</source>
-        <target/>
+        <target>Kichik harflar bilan kiriting</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Add uppercase letters</source>
-        <target/>
+        <target>Katta harflar bilan kiriting</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Add numbers</source>
-        <target/>
+        <target>Raqam kiriting</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Add punctuation</source>
-        <target/>
+        <target>Belgi kiriting</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Make it different from your username</source>
-        <target/>
+        <target>Foydalanuvchi nomiga o'xshamasligi lozim</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Yes</source>
-        <target/>
+        <target>Ha</target>
       </trans-unit>
       <trans-unit id="10">
         <source>No</source>
-        <target/>
+        <target>Yo'q</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Passwords match:</source>
-        <target/>
+        <target>Parollar mosligi</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Access to this record is restricted because it contains personal or confidential information. Please contact the Reference Archivist for more information on accessing this record.</source>

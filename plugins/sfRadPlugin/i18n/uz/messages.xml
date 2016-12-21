@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2016-10-19T17:01:01Z" product-name="messages">
+  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2016-12-21T12:00:53Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Nomsiz</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative history / Biographical sketch</source>
@@ -78,7 +78,7 @@
       </trans-unit>
       <trans-unit id="19">
         <source>Edit %1%</source>
-        <target/>
+        <target>%1% sahifasini tahrirlash</target>
       </trans-unit>
       <trans-unit id="20">
         <source>"Give the date(s) of creation of the unit being described either as a single date, or range of dates (for inclusive dates and/or predominant dates). Always give the inclusive dates. When providing predominant dates, specify them as such, preceded by the word predominant..." (RAD 1.4B2) Record probable and uncertain dates in square brackets, using the conventions described in 1.4B5.</source>
@@ -110,7 +110,7 @@
       </trans-unit>
       <trans-unit id="27">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Bu majburiy element</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
@@ -118,7 +118,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>General material designation</source>
-        <target/>
+        <target>Hujjat turi</target>
       </trans-unit>
       <trans-unit id="30">
         <source>"[W]hen applicable, transcribe parallel titles that appear in conjunction with the formal title proper..." (RAD 1.1D)</source>
@@ -150,7 +150,7 @@
       </trans-unit>
       <trans-unit id="37">
         <source>Level of description</source>
-        <target/>
+        <target>Tavsif darajasi</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
@@ -166,7 +166,7 @@
       </trans-unit>
       <trans-unit id="41">
         <source>Reference code</source>
-        <target/>
+        <target>Manba kodi</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Edition area</source>
@@ -326,7 +326,7 @@
       </trans-unit>
       <trans-unit id="81">
         <source>Scope and content</source>
-        <target/>
+        <target>Mazmuni</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Notes area</source>
@@ -338,7 +338,7 @@
       </trans-unit>
       <trans-unit id="84">
         <source>Physical condition</source>
-        <target/>
+        <target>Fizik holati</target>
       </trans-unit>
       <trans-unit id="85">
         <source>"Record the donor or source (i.e., the immediate prior custodian) from whom the unit being described was acquired, and the date and method of acquisition, as well as the source/donor's relationship to the material, if any or all of this information is not confidential. If the source/donor is unknown, record that information." (RAD 1.8B12)</source>
@@ -438,11 +438,11 @@
       </trans-unit>
       <trans-unit id="109">
         <source>Access points</source>
-        <target/>
+        <target>Foydalanish nuqtalari</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Subject access points</source>
-        <target/>
+        <target>Mavzular</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
@@ -450,7 +450,7 @@
       </trans-unit>
       <trans-unit id="112">
         <source>Place access points</source>
-        <target/>
+        <target>Joylar</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
@@ -458,7 +458,7 @@
       </trans-unit>
       <trans-unit id="114">
         <source>Genre access points</source>
-        <target/>
+        <target>Turi</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
@@ -530,7 +530,7 @@
       </trans-unit>
       <trans-unit id="132">
         <source>Language</source>
-        <target/>
+        <target>Til</target>
       </trans-unit>
       <trans-unit id="133">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
@@ -566,7 +566,7 @@
       </trans-unit>
       <trans-unit id="141">
         <source>Repository</source>
-        <target/>
+        <target>Arxiv muassasasi</target>
       </trans-unit>
       <trans-unit id="142">
         <source>Edit edition area</source>
