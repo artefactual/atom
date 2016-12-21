@@ -64,6 +64,25 @@ class QubitOai
   }
 
   /**
+   * Check that metadata format is valid
+   *
+   * @param string    metadata format
+   * @return bool  is the metadata format valid or not
+   */
+  public static function checkValidMetadataFormat($metadataFormat)
+  {
+    foreach (self::getMetadataFormats() as $formatData)
+    {
+      if ($formatData['prefix'] == $metadataFormat)
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
    * Check if there are null values in the parameters
    *
    * @param array $parameters query's parameters
@@ -196,7 +215,10 @@ class QubitOai
    */
   public static function getMetadataFormats()
   {
-    $metadataFormats = array(array('prefix'=>'oai_dc', 'namespace'=>'http://www.openarchives.org/OAI/2.0/oai_dc/', 'schema'=>'http://www.openarchives.org/OAI/2.0/oai_dc.xsd'));
+    $metadataFormats = array(
+      array('prefix' => 'oai_dc', 'namespace' => 'http://www.openarchives.org/OAI/2.0/oai_dc/', 'schema' => 'http://www.openarchives.org/OAI/2.0/oai_dc.xsd'),
+      array('prefix' => 'oai_ead', 'namespace' => 'urn:isbn:1-931666-22-9', 'schema' => 'http://www.loc.gov/ead/ead.xsd')
+    );
 
     return $metadataFormats;
   }

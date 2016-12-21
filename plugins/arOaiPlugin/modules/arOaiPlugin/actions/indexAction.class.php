@@ -123,7 +123,7 @@ class arOaiPluginIndexAction extends sfAction
 
       // For now, if there is a metadataPrefix requested other than oai_dc, fail the request
       $metadataPrefix = $this->request->metadataPrefix;
-      if ($metadataPrefix != '' AND $metadataPrefix != 'oai_dc')
+      if ($metadataPrefix != '' && !QubitOai::checkValidMetadataFormat($metadataPrefix))
       {
         $request->setParameter('errorCode', 'cannotDisseminateFormat');
         $request->setParameter('errorMsg', 'The metadata format identified by the value given for the metadataPrefix argument is not supported by the item or by the repository.');
