@@ -39,8 +39,11 @@ class Qubit
   // support zero day or zero month
   public static function renderDate($value)
   {
-    // Natural number
-    $natural = '([1-9]\d*)';
+    // Natural number - This will not strip leading zeroes.
+    // Note that this will NOT add leading zeroes if they are not present.
+    // e.g. 2016-12-08 will be displayed as 2016-12-08
+    //      2016-12-8 will be displayed as 2016-12-8
+    $natural = '(0*[1-9]\d*)';
 
     // Zero and separator, trim leading zeros
     $zero = '0*(0[-\/])';
@@ -48,12 +51,11 @@ class Qubit
     // Trim trailing separator and zero
     $trim = '[-\/]0+';
 
-    // Trim leading zeros from year, month, and day, and trailing zero day and
-    // month
+    // Trim trailing zero day and month
     $pattern = "/0*(\d+)(?:([-\/])$natural(?:([-\/])$natural
-          |$trim)
-        |([-\/])$zero$natural
-        |$trim$trim)/x";
+      |$trim)
+      |([-\/])$zero$natural
+      |$trim$trim)/x";
 
     $replacement = '$1$2$3$4$5$6$7$8';
 

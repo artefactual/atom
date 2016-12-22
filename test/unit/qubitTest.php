@@ -34,7 +34,7 @@ class sfWebRequestStub
 $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', true);
 sfContext::createInstance($configuration)->request = new sfWebRequestStub;
 
-$t = new lime_test(2, new lime_output_color);
+$t = new lime_test(19, new lime_output_color);
 
 sfContext::getInstance()->request->pathInfoPrefix = '/aaa/bbb';
 
@@ -45,3 +45,38 @@ sfContext::getInstance()->request->pathInfoPrefix = null;
 
 $t->is(Qubit::pathInfo('/aaa/bbb/ccc/ddd'), '/aaa/bbb/ccc/ddd',
   '"::pathInfo()" without prefix');
+
+
+/*
+ * Qubit::renderDate
+ */
+
+$tests = array(
+  # GIVEN - EXPECTED
+  array('1992-00-00', '1992'),
+  array('1992-12-00', '1992-12'),
+  array('1992-08-00', '1992-08'),
+  array('1992-8-00', '1992-8'),
+  array('1992-8-0', '1992-8'),
+
+  array('1992-01-02', '1992-01-02'),
+  array('1992-01-01', '1992-01-01'),
+  array('1992-6-9', '1992-6-9'),
+  array('1992-06-9', '1992-06-9'),
+  array('1992-6-09', '1992-6-09'),
+  array('1992-08-12', '1992-08-12'),
+  array('1992-6-16', '1992-6-16'),
+  array('1992-06-16', '1992-06-16'),
+
+  array('1992-12-12', '1992-12-12'),
+  array('1992-12-6', '1992-12-6'),
+  array('1992-12-06', '1992-12-06'),
+  array('1992-12-16', '1992-12-16'),
+);
+
+foreach ($tests as $item)
+{
+  list($given, $expected) = $item;
+
+  $t->is(Qubit::renderDate($given), $expected, "renderDate() renders date $given as $expected");
+}
