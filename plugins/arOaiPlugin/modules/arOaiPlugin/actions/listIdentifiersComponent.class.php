@@ -33,7 +33,15 @@ class arOaiPluginListIdentifiersComponent extends arOaiPluginComponent
 
     $this->setUpdateParametersFromRequest($request);
 
-    $this->getUpdates(array('filterDrafts' => true));
+    $options = array('filterDrafts' => true);
+
+    // Restrict to top-level descriptions for EAD given children get nested
+    if ($request->metadataPrefix == 'oai_ead')
+    {
+      $options['topLevel'] = true;
+    }
+
+    $this->getUpdates($options);
 
     $this->path = $request->getUriPrefix().$request->getPathInfo();
 
