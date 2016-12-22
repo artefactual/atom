@@ -126,7 +126,11 @@ class sfSkosPlugin
     $conceptScheme = $this->graph->get('skos:ConceptScheme', '^rdf:type');
     if (null !== $conceptScheme)
     {
-      return $conceptScheme->allResources('skos:hasTopConcept');
+      $topConcepts = $conceptScheme->allResources('skos:hasTopConcept');
+      if (0 < count($topConcepts))
+      {
+        return $topConcepts;
+      }
     }
 
     return $this->graph->allOfType('skos:Concept');

@@ -19,7 +19,7 @@
 
 require_once dirname(__FILE__).'/../../../../test/bootstrap/unit.php';
 
-$t = new lime_test(14, new lime_output_color);
+$t = new lime_test(17, new lime_output_color);
 
 $t->diag('Initializing configuration.');
 $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', true);
@@ -38,6 +38,694 @@ $vocabSimple = <<<EOT
   skos:related <http://example.com/foo> ;
   skos:prefLabel "Bar ORIGINAL" ;
   skos:prefLabel "Bar ESPAÑOL"@es .
+EOT;
+
+$europeUnescoThesaurus = <<<EOT
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+         xmlns:isothes="http://purl.org/iso25964/skos-thes#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:dc="http://purl.org/dc/terms/">
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept920">
+    <skos:prefLabel xml:lang="en">Romania</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Roumanie</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Rumanía</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Румыния</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept13519">
+    <skos:prefLabel xml:lang="en">Lithuanian SSR</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">RSS de Lituanie</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Литовская ССР</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">RSS de Lituania</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept898">
+    <skos:prefLabel xml:lang="fr">Tchécoslovaquie</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Checoslovaquia</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Чехословакия</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Czechoslovakia</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept891">
+    <skos:prefLabel xml:lang="es">Azerbaiyán</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Азербайджан</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Azerbaïdjan</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Azerbaijan</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept914">
+    <skos:prefLabel xml:lang="es">Malta</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Malta</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Мальта</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Malte</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept917">
+    <skos:prefLabel xml:lang="ru">Нидерланды</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Pays-Bas</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Netherlands</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Países Bajos</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept888">
+    <skos:prefLabel xml:lang="es">Albania</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Albania</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Albanie</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Албания</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept928">
+    <skos:prefLabel xml:lang="ru">Западная Европа</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Europe occidentale</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Western Europe</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Europa Occidental</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept3557">
+    <skos:prefLabel xml:lang="ru">Северная Европа</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Northern Europe</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Europe du Nord</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Europa del Norte</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept10293">
+    <skos:prefLabel xml:lang="fr">RSS d'Estonie</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">RSS de Estonia</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Estonian SSR</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Эстонская ССР</skos:prefLabel>
+  </skos:Concept>
+
+  <isothes:ConceptGroup rdf:about="http://vocabularies.unesco.org/thesaurus/domain7">
+    <skos:notation>7</skos:notation>
+    <isothes:subGroup rdf:resource="http://vocabularies.unesco.org/thesaurus/mt7.20"/>
+    <rdf:type rdf:resource="http://vocabularies.unesco.org/ontology#Domain"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Collection"/>
+    <skos:prefLabel xml:lang="en">Countries and country groupings</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Pays et ensembles de pay</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Страны и группы стран</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Países y agrupaciones de países</skos:prefLabel>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/mt7.20"/>
+  </isothes:ConceptGroup>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept892">
+    <skos:prefLabel xml:lang="en">Belarus</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Bélarus</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Belarrús</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Беларусь</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept900">
+    <skos:prefLabel xml:lang="fr">Estonie</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Estonia</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Estonia</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Эстония</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept915">
+    <skos:prefLabel xml:lang="ru">Республика Молдова</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">República de Moldova</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Moldova R</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Moldova R</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept17058">
+    <skos:prefLabel xml:lang="es">Serbia</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Serbia</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Сербия</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Serbie</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept890">
+    <skos:prefLabel xml:lang="ru">Австрия</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Autriche</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Austria</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Austria</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept908">
+    <skos:prefLabel xml:lang="es">Hungría</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Hungary</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Hongrie</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Венгрия</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:ConceptScheme rdf:about="http://vocabularies.unesco.org/thesaurus">
+    <skos:prefLabel xml:lang="en">UNESCO Thesaurus</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Thésaurus de l'UNESCO</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Тезаурус ЮНЕСКО</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Tesauro de la UNESCO</skos:prefLabel>
+  </skos:ConceptScheme>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept909">
+    <skos:prefLabel xml:lang="en">Ireland</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Ирландия</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Irlanda</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Irlande</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept905">
+    <skos:prefLabel xml:lang="ru">ФРГ</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Alemania, República Federal</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Germany FR</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Allemagne, république fédérale</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept901">
+    <skos:prefLabel xml:lang="es">Europa</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Europe</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Europe</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Европа</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept923">
+    <skos:prefLabel xml:lang="fr">Espagne</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">España</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Spain</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Испания</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept12132">
+    <skos:prefLabel xml:lang="en">Iceland</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Islande</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Islandia</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Исландия</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept16123">
+    <skos:prefLabel xml:lang="ru">Украинская ССР</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Ukrainian SSR</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">RSS de Ucrania</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">RSS d'Ukraine</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept5270">
+    <skos:prefLabel xml:lang="es">Rusia</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Россия</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Russia</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Russie</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept910">
+    <skos:prefLabel xml:lang="ru">Италия</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Italie</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Italy</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Italia</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept927">
+    <skos:prefLabel xml:lang="ru">СССР</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">URSS</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">URSS</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">USSR</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept16624">
+    <skos:prefLabel xml:lang="fr">SSR de Tadjikistan</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Tajik SSR</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Таджикская ССР</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">RSS de Tayikistán</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept4239">
+    <skos:prefLabel xml:lang="en">Bosnia and Herzegovina</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Босния и Герцеговина</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Bosnie-Herzégovine</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Bosnia-Herzegovina</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept893">
+    <skos:prefLabel xml:lang="en">Belgium</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Бельгия</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Bélgica</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Belgique</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept918">
+    <skos:prefLabel xml:lang="fr">Pologne</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Polonia</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Польша</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Poland</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept13074">
+    <skos:prefLabel xml:lang="es">RSS de Kirguizistán</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Киргизская ССР</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Kirghiz SSR</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">RSS kirghize</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept10481">
+    <skos:prefLabel xml:lang="fr">Suède</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Швеция</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Suecia</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Sweden</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept924">
+    <skos:prefLabel xml:lang="ru">Швейцария</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Suiza</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Switzerland</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Suisse</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept8621">
+    <skos:prefLabel xml:lang="es">Eslovaquia</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Slovaquie</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Slovakia</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Словакия</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept902">
+    <skos:prefLabel xml:lang="es">Francia</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">France</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">France</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Франция</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept889">
+    <skos:prefLabel xml:lang="ru">Армения</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Armenia</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Armenia</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Arménie</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept13448">
+    <skos:prefLabel xml:lang="ru">Лихтенштейн</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Liechtenstein</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Liechtenstein</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Liechtenstein</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept11934">
+    <skos:prefLabel xml:lang="ru">Папский престол</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Saint-Siège</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Santa Sede</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Holy See</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept13268">
+    <skos:prefLabel xml:lang="es">RSS de Letonia</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">RSS de Lettonie</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Latvian SSR</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Латвийская ССР</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept7343">
+    <skos:prefLabel xml:lang="ru">Чешская Республика</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">République tchèque</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">República Checa</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Czech Republic</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept17059">
+    <skos:prefLabel xml:lang="fr">Monténégro</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Montenegro</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Montenegro</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Черногория</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept7623">
+    <skos:prefLabel xml:lang="fr">Groenland</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Гренландия</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Groenlandia</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Greenland</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept13062">
+    <skos:prefLabel xml:lang="ru">Казахская ССР</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">RSS de Kazakhstan</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">RSS de Kazajistán</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Kazakh SSR</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept10480">
+    <skos:prefLabel xml:lang="es">Finlandia</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Finland</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Финляндия</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Finlande</skos:prefLabel>
+  </skos:Concept>
+
+  <owl:Class rdf:about="http://vocabularies.unesco.org/ontology#MicroThesaurus">
+    <rdfs:label xml:lang="ru">Микротезаурус</rdfs:label>
+    <rdfs:label xml:lang="fr">Micro-Thesaurus</rdfs:label>
+    <rdfs:label xml:lang="en">Micro-Thesaurus</rdfs:label>
+    <rdfs:label xml:lang="es">Microtesauro</rdfs:label>
+  </owl:Class>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept14609">
+    <skos:prefLabel xml:lang="ru">Норвегия</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Noruega</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Norvège</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Norway</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept2368">
+    <skos:prefLabel xml:lang="es">Andorra</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Andorra</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Андорра</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Andorre</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept926">
+    <skos:prefLabel xml:lang="es">Ucrania</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Украина</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Ukraine</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Ukraine</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept906">
+    <skos:prefLabel xml:lang="es">Gibraltar</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Gibraltar</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Gibraltar</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Гибралтар</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept8623">
+    <skos:prefLabel xml:lang="en">The former Yugoslav Republic of Macedonia</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Бывшая Республика Македония в составе Югославии</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Ex-république yougoslave de Macédoine</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Ex República yugoslava de Macedonia</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept8622">
+    <skos:prefLabel xml:lang="es">Eslovenia</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Slovénie</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Slovenia</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Словения</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept2886">
+    <skos:prefLabel xml:lang="es">RSS de Armenia</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">RSS d'Arménie</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Armenian SSR</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Армянская ССР</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept16622">
+    <skos:prefLabel xml:lang="fr">SSR d'Ouzbékistan</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Узбекская ССР</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">RSS de Uzbekistán</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Uzbek SSR</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept911">
+    <skos:prefLabel xml:lang="ru">Латвия</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Letonia</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Latvia</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Lettonie</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept899">
+    <skos:prefLabel xml:lang="fr">Europe orientale</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Восточная Европа</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Eastern Europe</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Europa Oriental</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept919">
+    <skos:prefLabel xml:lang="ru">Португалия</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Portugal</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Portugal</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Portugal</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept904">
+    <skos:prefLabel xml:lang="fr">Allemagne</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Германия</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Alemania</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Germany</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept17070">
+    <skos:prefLabel xml:lang="en">Faroes</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Iles Féroé</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Islas Feroe</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept4785">
+    <skos:prefLabel xml:lang="ru">Грузия</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Georgia</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Georgia</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Géorgie</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept894">
+    <skos:prefLabel xml:lang="es">Bulgaria</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Bulgaria</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Bulgarie</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Болгария</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept925">
+    <skos:prefLabel xml:lang="en">UK</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Royaume-Uni</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Reino Unido</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">СК - Соединенное Королевство</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept897">
+    <skos:prefLabel xml:lang="ru">Кипр</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Cyprus</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Chipre</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Chypre</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept4483">
+    <skos:prefLabel xml:lang="ru">Белорусская ССР</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">RSS de Biélorussie</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">RSS de Bielorrusia</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Byelorussian SSR</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept907">
+    <skos:prefLabel xml:lang="en">Greece</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Grecia</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Греция</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Grèce</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept14245">
+    <skos:prefLabel xml:lang="en">Moldavian SSR</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">SSR de Moldavie</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Молдавская ССР</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">RSS de Moldavia</skos:prefLabel>
+  </skos:Concept>
+
+  <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept896">
+    <skos:prefLabel xml:lang="en">Croatia</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Хорватия</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Croatie</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Croacia</skos:prefLabel>
+  </skos:Concept>
+
+  <isothes:ConceptGroup rdf:about="http://vocabularies.unesco.org/thesaurus/mt7.20">
+    <skos:notation>7.20</skos:notation>
+    <isothes:superGroup rdf:resource="http://vocabularies.unesco.org/thesaurus/domain7"/>
+    <dc:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2006-08-09</dc:modified>
+    <rdf:type rdf:resource="http://vocabularies.unesco.org/ontology#MicroThesaurus"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Collection"/>
+    <skos:inScheme rdf:resource="http://vocabularies.unesco.org/thesaurus"/>
+    <skos:prefLabel xml:lang="es">Europa</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Europe</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Europe</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Европа</skos:prefLabel>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept920"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept13519"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept898"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept891"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept914"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept917"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept888"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept928"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept3557"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept10293"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept892"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept900"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept915"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept17058"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept890"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept908"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept909"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept905"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept901"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept923"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept12132"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept16123"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept5270"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept910"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept927"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept16624"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept4239"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept893"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept918"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept13074"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept10481"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept924"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept8621"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept902"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept889"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept13448"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept11934"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept13268"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept7343"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept17059"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept7623"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept13062"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept10480"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept14609"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept2368"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept926"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept906"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept8623"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept8622"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept2886"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept16622"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept911"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept899"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept919"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept904"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept17070"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept4785"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept894"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept925"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept897"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept4483"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept907"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept14245"/>
+    <skos:member rdf:resource="http://vocabularies.unesco.org/thesaurus/concept896"/>
+    <skos:member>
+      <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept903">
+        <skos:prefLabel xml:lang="es">República Democrática Alemana</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">German DR</skos:prefLabel>
+        <skos:prefLabel xml:lang="ru">ГДР</skos:prefLabel>
+        <skos:prefLabel xml:lang="fr">République démocratique allemande</skos:prefLabel>
+      </skos:Concept>
+    </skos:member>
+
+    <skos:member>
+      <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept895">
+        <skos:prefLabel xml:lang="en">Caucasian States</skos:prefLabel>
+        <skos:prefLabel xml:lang="es">Estado caucasiano</skos:prefLabel>
+        <skos:prefLabel xml:lang="ru">Государства Кавказа</skos:prefLabel>
+        <skos:prefLabel xml:lang="fr">État du Caucase</skos:prefLabel>
+      </skos:Concept>
+    </skos:member>
+
+    <skos:member>
+      <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept3485">
+        <skos:prefLabel xml:lang="fr">RSS d'Azerbaïdjan</skos:prefLabel>
+        <skos:prefLabel xml:lang="ru">Азербайджанская ССР</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Azerbaijan SSR</skos:prefLabel>
+        <skos:prefLabel xml:lang="es">RSS de Azerbaiyán</skos:prefLabel>
+      </skos:Concept>
+    </skos:member>
+
+    <skos:member>
+      <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept16126">
+        <skos:prefLabel xml:lang="fr">RSSF de Russie</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Russian SFSR</skos:prefLabel>
+        <skos:prefLabel xml:lang="es">RFSS de Rusia</skos:prefLabel>
+        <skos:prefLabel xml:lang="ru">Российская СФСР</skos:prefLabel>
+      </skos:Concept>
+    </skos:member>
+
+    <skos:member>
+      <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept913">
+        <skos:prefLabel xml:lang="fr">Luxembourg</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Luxembourg</skos:prefLabel>
+        <skos:prefLabel xml:lang="es">Luxemburgo</skos:prefLabel>
+        <skos:prefLabel xml:lang="ru">Люксембург</skos:prefLabel>
+      </skos:Concept>
+    </skos:member>
+
+    <skos:member>
+      <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept929">
+        <skos:prefLabel xml:lang="es">Yugoslavia</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Yugoslavia</skos:prefLabel>
+        <skos:prefLabel xml:lang="ru">Югославия</skos:prefLabel>
+        <skos:prefLabel xml:lang="fr">Yougoslavie</skos:prefLabel>
+      </skos:Concept>
+    </skos:member>
+
+    <skos:member>
+      <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept921">
+        <skos:prefLabel xml:lang="fr">Fédération de Russie</skos:prefLabel>
+        <skos:prefLabel xml:lang="es">Federación de Rusia</skos:prefLabel>
+        <skos:prefLabel xml:lang="ru">Российская Федерация</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Russian Federation</skos:prefLabel>
+      </skos:Concept>
+    </skos:member>
+
+    <skos:member>
+      <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept7367">
+        <skos:prefLabel xml:lang="fr">Danemark</skos:prefLabel>
+        <skos:prefLabel xml:lang="es">Dinamarca</skos:prefLabel>
+        <skos:prefLabel xml:lang="ru">Дания</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Denmark</skos:prefLabel>
+      </skos:Concept>
+    </skos:member>
+
+    <skos:member>
+      <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept922">
+        <skos:prefLabel xml:lang="fr">Serbie-Monténégro</skos:prefLabel>
+        <skos:prefLabel xml:lang="es">Serbia y Montenegro</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Serbia and Montenegro</skos:prefLabel>
+        <skos:prefLabel xml:lang="ru">Сербия и Черногория</skos:prefLabel>
+      </skos:Concept>
+    </skos:member>
+
+    <skos:member>
+      <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept916">
+        <skos:prefLabel xml:lang="ru">Монако</skos:prefLabel>
+        <skos:prefLabel xml:lang="fr">Monaco</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Monaco</skos:prefLabel>
+        <skos:prefLabel xml:lang="es">Mónaco</skos:prefLabel>
+      </skos:Concept>
+    </skos:member>
+
+    <skos:member>
+      <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept11467">
+        <skos:prefLabel xml:lang="fr">RSS de Géorgie</skos:prefLabel>
+        <skos:prefLabel xml:lang="ru">Грузинская ССР</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Georgian SSR</skos:prefLabel>
+        <skos:prefLabel xml:lang="es">RSS de Georgia</skos:prefLabel>
+      </skos:Concept>
+    </skos:member>
+
+    <skos:member>
+      <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept16130">
+        <skos:prefLabel xml:lang="es">RSS de Turkmenistán</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Turkmen SSR</skos:prefLabel>
+        <skos:prefLabel xml:lang="ru">Туркменская ССР</skos:prefLabel>
+        <skos:prefLabel xml:lang="fr">RSS turkmène</skos:prefLabel>
+      </skos:Concept>
+    </skos:member>
+
+    <skos:member>
+      <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept912">
+        <skos:prefLabel xml:lang="es">Lituania</skos:prefLabel>
+        <skos:prefLabel xml:lang="ru">Литва</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">Lithuania</skos:prefLabel>
+        <skos:prefLabel xml:lang="fr">Lituanie</skos:prefLabel>
+      </skos:Concept>
+    </skos:member>
+
+    <skos:member>
+      <skos:Concept rdf:about="http://vocabularies.unesco.org/thesaurus/concept13963">
+        <skos:prefLabel xml:lang="es">San Marino</skos:prefLabel>
+        <skos:prefLabel xml:lang="en">San Marino</skos:prefLabel>
+        <skos:prefLabel xml:lang="ru">Сан-Марино</skos:prefLabel>
+        <skos:prefLabel xml:lang="fr">Saint-Marin</skos:prefLabel>
+      </skos:Concept>
+    </skos:member>
+
+  </isothes:ConceptGroup>
+
+</rdf:RDF>
 EOT;
 
 // CSS2 vocabulary in RDF/XML
@@ -304,3 +992,50 @@ withTransaction(function($conn) use ($t, $vocabSimple)
   $t->is($doc['numberOfDescendants'], count($importer->getGraph()->allOfType('skos:Concept')), 'Parent term ES document :numberOfDescendants: field is up to date');
 
 });
+
+
+/**
+ * Test that getRootConcepts() is matching all the concepts.
+ */
+
+function getPrivateMethod($object, $name)
+{
+  $class = new ReflectionClass($object);
+  $method = $class->getMethod($name);
+  $method->setAccessible(true);
+
+  return $method;
+}
+
+$testingDataSets = array(
+  array(
+    'name' => 'vocabCSS2',
+    'data' => $vocabCSS2,
+    'totalConcepts' => 20
+  ),
+  array(
+    'name' => 'vocabSimple',
+    'data' => $vocabSimple,
+    'totalConcepts' => 22
+  ),
+  array(
+    'name' => 'europeUnescoThesaurus',
+    'data' => $europeUnescoThesaurus,
+    'totalConcepts' => 100
+  )
+);
+
+$importer = new sfSkosPlugin(QubitTaxonomy::PLACE_ID);
+$methodGetRootConcepts = getPrivateMethod($importer, 'getRootConcepts');
+
+foreach ($testingDataSets as $item)
+{
+  $data = $item['data'];
+  $totalConcepts = $item['totalConcepts'];
+
+  $importer->load(toDataScheme($data));
+
+  $result = $methodGetRootConcepts->invoke($importer);
+
+  $t->is(count($result), $totalConcepts, "Number of concepts found in ${item[name]} equals to $totalConcepts");
+}
