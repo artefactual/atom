@@ -39,11 +39,12 @@ class QubitXmlImport
 
   public function import($xmlFile, $options = array(), $xmlOrigFileName = null)
   {
+    // Needs to be created before validateOptions() is called.
+    $this->i18n = sfContext::getInstance()->i18n;
+
     // Save options so we can access from processMethods
     $this->options = $options;
     $this->validateOptions();
-
-    $this->i18n = sfContext::getInstance()->i18n;
 
     // load the XML document into a DOMXML object
     $importDOM = $this->loadXML($xmlFile, $options);
@@ -451,9 +452,9 @@ class QubitXmlImport
     {
       // save the object after it's fully-populated
       $currentObject->save();
-
-      // if this is an Info Object, save the EadUrl in the keymap table for matching.
-      if ($currentObject instanceof QubitInformationObject && $importSchema == 'ead')
+      // if this is the root Info Object, save the EadUrl in the keymap table for matching.
+      if ($currentObject instanceof QubitInformationObject && $importSchema == 'ead' &&
+        $this->rootObject === $currentObject)
       {
         $this->saveEadUrl($currentObject);
       }
@@ -1060,6 +1061,19 @@ class QubitXmlImport
     switch (get_class($resource))
     {
       case 'QubitInformationObject':
+        // Short circuit if 'delete-and-replace' is set with 'skip-unmatched' if this is
+        // not the root object. After the top level record is loaded, there will be
+        // nothing to match against as deleteFullHierarchy will have been called on
+        // the first iteration. Load all recs in this situation as long as the top
+        // level record matches. Currently the only update mode is 'delete-and-replace'
+        // and the only match option that works with 'delete-and-replace' is
+        // 'skip-unmatched'. This will need to be modified if additional matching
+        // options are added.
+        if ($this->options['update'] === 'delete-and-replace' && $this->options['skip-unmatched'] && $this->rootObject !== $resource)
+        {
+          return true;
+        }
+
         $title = $resource->title;
         $passesLimitFunctionName = 'passesLimitOptionForIo';
         $deleteFunctionName = 'deleteFullHierarchy';
@@ -1073,6 +1087,22 @@ class QubitXmlImport
         if ($matchId)
         {
           $matchResource = QubitInformationObject::getById($matchId);
+        }
+
+        // If resource not found, try matching against keymap table. eadUrl is
+        // unique to EAD file, but not unique to each record in the file.
+        // Matching on keymap will only make sense for the top level record.
+        if (!isset($matchResource) && $this->eadUrl && $this->rootObject === $resource)
+        {
+          $criteria = new Criteria;
+          $criteria->add(QubitKeymap::SOURCE_ID, $this->eadUrl);
+          $criteria->add(QubitKeymap::SOURCE_NAME, $this->sourceName);
+          $criteria->add(QubitKeymap::TARGET_NAME, 'information_object');
+
+          if (null !== $keymap = QubitKeymap::getOne($criteria))
+          {
+            $matchResource = QubitInformationObject::getById($keymap->targetId);
+          }
         }
 
         break;
