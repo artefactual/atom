@@ -181,6 +181,9 @@ class sfImageMagickAdapter
     $imgData = @getimagesize($image);
     if (!$imgData)
     {
+      // Get MIME from php finfo and save to sourceMime property.
+      // 'sourceMime' needs to be set before running getExtract.
+      $this->sourceMime = $this->getMimeType($image);
       $extract = $this->getExtract($image);
       exec($this->magickCommands['identify'].' '.escapeshellarg($image).$extract, $stdout, $retval);
       if ($retval === 1)
@@ -195,7 +198,6 @@ class sfImageMagickAdapter
 
         $this->sourceWidth = $width;
         $this->sourceHeight = $height;
-        $this->sourceMime = $this->getMimeType($image);
       }
     }
     else
