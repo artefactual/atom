@@ -1075,20 +1075,6 @@ class QubitXmlImport
           $matchResource = QubitInformationObject::getById($matchId);
         }
 
-        // If resource not found, try matching against keymap table.
-        if (!isset($matchResource) && $this->eadUrl)
-        {
-          $criteria = new Criteria;
-          $criteria->add(QubitKeymap::SOURCE_ID, $this->eadUrl);
-          $criteria->add(QubitKeymap::SOURCE_NAME, $this->sourceName);
-          $criteria->add(QubitKeymap::TARGET_NAME, 'information_object');
-
-          if (null !== $keymap = QubitKeymap::getOne($criteria))
-          {
-            $matchResource = QubitInformationObject::getById($keymap->targetId);
-          }
-        }
-
         break;
 
       case 'QubitActor':
