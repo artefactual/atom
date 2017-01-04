@@ -25,7 +25,7 @@
  * @subpackage jobs
  */
 
-class arXmlExportJob extends arBaseJob
+class arInformationObjectXmlExportJob extends arBaseJob
 {
   /**
    * @see arBaseJob::$requiredParameters

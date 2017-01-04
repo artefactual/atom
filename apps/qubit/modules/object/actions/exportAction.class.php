@@ -91,14 +91,7 @@ class ObjectExportAction extends DefaultEditAction
 
     try
     {
-      if ('CSV' == strtoupper($this->type))
-      {
-        QubitJob::runJob('arInformationObjectCsvExportJob', $options);
-      }
-      else
-      {
-        QubitJob::runJob('arXmlExportJob', $options);
-      }
+      QubitJob::runJob($this->getJobNameString(), $options);
 
       // Let user know export has started
       sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
@@ -118,6 +111,38 @@ class ObjectExportAction extends DefaultEditAction
     }
   }
 
+  private function getJobNameString()
+  {
+    switch ($this->objectType)
+    {
+      case 'informationObject':
+        if ('CSV' == strtoupper($this->type))
+        {
+          return 'arInformationObjectCsvExportJob';
+        }
+        else
+        {
+          return 'arInformationObjectXmlExportJob';
+        }
+
+      case 'authorityRecord':
+        if ('CSV' == strtoupper($this->type))
+        {
+          return 'arActorCsvExportJob';
+        }
+        else
+        {
+          return 'arActorXmlExportJob';
+        }
+
+      case 'repository':
+        return 'arRepositoryCsvExportJob';
+
+      default:
+        throw new sfException("Invalid object type specified: {$this->objectType}");
+    }
+  }
+
   public function execute($request)
   {
     parent::execute($request);
@@ -125,7 +150,8 @@ class ObjectExportAction extends DefaultEditAction
     $this->response->addJavaScript('exportOptions', 'last');
 
     // Export type, CSV or XML?
-    $this->type = $request->getParameter('type', 'csv');
+    $this->type = $request->getParameter('format', 'csv');
+    $this->objectType = $request->getParameter('objectType', 'informationObject');
 
     $this->redirectUrl = array('module' => 'object', 'action' => 'export');
     if (null !== $referrer = $request->getReferer())
