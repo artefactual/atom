@@ -230,7 +230,11 @@ class QubitOai
    */
   public static function getOaiSets($options = array())
   {
-    $collections = QubitInformationObject::getCollections($options);
+    $result = QubitInformationObject::getCollections($options);
+    $collections = $result['data'];
+    $collectionCount = $result['count'];
+    $remaining = $result['remaining'];
+
     $oaiSets = array();
 
     foreach ($collections as $collection)
@@ -240,15 +244,30 @@ class QubitOai
 
     $useAdditionalOaiSets = QubitSetting::getByName('oai_additional_sets_enabled');
 
-    if ($useAdditionalOaiSets && $useAdditionalOaiSets->value)
+    // If all collections have been returned and additional sets are enabled, add them
+    if (!$remaining && $useAdditionalOaiSets && $useAdditionalOaiSets->value)
     {
-      foreach (QubitOai::$additionalOaiSets as $oaiSet)
+      $additionalSetsToSkip = $options['offset'] - $collectionCount; // Skip additional sets within offset
+
+      foreach (QubitOai::$additionalOaiSets as $index => $oaiSet)
       {
-        $oaiSets[] = $oaiSet;
+        // If paging isn't active or the current "page" isn't full (and this set shouldn't be skipped), add set
+        if (!$options['limit'] || (count($oaiSets) < $options['limit'] && $index >= $additionalSetsToSkip))
+        {
+          $oaiSets[] = $oaiSet;
+        }
+        else if (count($oaiSets) >= $options['limit'])
+        {
+          // The "page" is full so add this set to the remaining count
+          $remaining++;
+        }
       }
     }
 
-    return $oaiSets;
+    return array(
+      'data' => $oaiSets,
+      'remaining' => $remaining
+    );
   }
 
   /**

@@ -134,13 +134,10 @@ class arOaiPluginIndexAction extends sfAction
       // Load OAI sets for the required verbs, filtering drafts
       // in the verbs where the sets are displayed directly
       $this->oaiSets = array();
-      if ($this->request->verb == 'ListSets')
+      if (in_array($this->request->verb, array('ListRecords', 'ListIdentifiers', 'GetRecord')))
       {
-        $this->oaiSets = QubitOai::getOaiSets(array('filterDrafts' => true));
-      }
-      else if (in_array($this->request->verb, array('ListRecords', 'ListIdentifiers', 'GetRecord')))
-      {
-        $this->oaiSets = QubitOai::getOaiSets();
+        $results = QubitOai::getOaiSets();
+        $this->oaiSets = $results['data'];
       }
 
       // If the 'set' parameter is provided, it should refer to an existing set

@@ -411,7 +411,7 @@ class QubitInformationObject extends BaseInformationObject
   /**
    * Get all information objects updated between two dates
    *
-   * @return QubitQuery collection of QubitInformationObjects
+   * @return array  collection of QubitInformationObjects and remaining object count
    */
   public static function getUpdatedRecords($options = array())
   {
@@ -613,7 +613,7 @@ class QubitInformationObject extends BaseInformationObject
    * Get all info objects that have the root node as a parent, and have children
    * (not orphans). Filtering drafts when requested.
    *
-   * @return array collection of QubitInformationObjects
+   * @return array  collection of QubitInformationObjects and remaining object count
    */
   public static function getCollections($options = array())
   {
@@ -628,7 +628,29 @@ class QubitInformationObject extends BaseInformationObject
       $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
     }
 
-    return QubitInformationObject::get($criteria);
+    if (empty($options['offset']))
+    {
+      $options['offset'] = 0;
+    }
+
+    if (empty($options['limit']))
+    {
+      $options['limit'] = 10;
+    }
+
+    $c2 = clone $criteria;
+    $count = BasePeer::doCount($c2)->fetchColumn(0);
+    $remaining = $count - ($options['offset'] + $options['limit']);
+    $remaining = ($remaining < 0) ? 0 : $remaining;
+
+    $criteria->setOffset($options['offset']);
+    $criteria->setLimit($options['limit']);
+
+    return array(
+      'data' => QubitInformationObject::get($criteria),
+      'count' => $count,
+      'remaining' => $remaining
+    );
   }
 
   public function getCollectionRoot()

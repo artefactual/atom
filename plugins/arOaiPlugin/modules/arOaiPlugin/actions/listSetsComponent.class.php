@@ -24,7 +24,7 @@
  * @subpackage oai
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
-class arOaiPluginlistSetsComponent extends sfComponent
+class arOaiPluginlistSetsComponent extends arOaiPluginComponent
 {
   /**
    * Executes action
@@ -37,12 +37,24 @@ class arOaiPluginlistSetsComponent extends sfComponent
     $this->date = QubitOai::getDate();
     $this->path = $this->request->getUriPrefix().$this->request->getPathInfo();
 
-    $this->attributes = $this->request->getGetParameters();
-    $this->attributesKeys = array_keys($this->attributes);
-    $this->requestAttributes = '';
-    foreach ($this->attributesKeys as $key)
+    $this->setUpdateParametersFromRequest($request);
+    $this->getPagedOaiSets($request);
+    $this->setRequestAttributes($request);
+  }
+
+  private function getPagedOaiSets($request)
+  {
+    $options = array('filterDrafts' => true);
+    if (isset($this->cursor))
     {
-      $this->requestAttributes .= ' '.$key.'="'.$this->attributes[$key].'"';
+      $options['offset'] = $this->cursor;
     }
+    $options['limit'] = QubitSetting::getByName('resumption_token_limit')->__toString();
+
+    $results = QubitOai::getOaiSets($options);
+    $this->oaiSets = $results['data'];
+    $this->remaining = $results['remaining'];
+    $resumptionCursor = $this->cursor + QubitSetting::getByName('resumption_token_limit')->__toString();
+    $this->resumptionToken  = base64_encode(json_encode(array('cursor' => $resumptionCursor)));
   }
 }
