@@ -52,7 +52,15 @@ class QubitMenu extends BaseMenu
     $aliases = array(
       '%profile%' => sfContext::getInstance()->routing->generate(null, array('module' => 'user', 'slug' => sfContext::getInstance()->user->getUserSlug())),
       '%currentId%' => sfContext::getInstance()->request->id,
-      '%currentSlug%' => @sfContext::getInstance()->request->getAttribute('sf_route')->resource->slug
+      '%currentSlug%' => @sfContext::getInstance()->request->getAttribute('sf_route')->resource->slug,
+
+      // 'currentRealm' is used by menu items on the Institutional Block as part of the enable_institutional_scoping feature.
+      // Try using search-realm if available, else try resource->id from sf_route, else try repos param on request.
+      '%currentRealm%' => (@sfContext::getInstance()->user->getAttribute('search-realm')
+        ? @sfContext::getInstance()->user->getAttribute('search-realm')
+        : (@sfContext::getInstance()->request->getAttribute('sf_route')->resource->id
+          ? @sfContext::getInstance()->request->getAttribute('sf_route')->resource->id
+          : @sfContext::getInstance()->request->getParameter('repos')) )
     );
 
     $path = parent::offsetGet('path', $options);
