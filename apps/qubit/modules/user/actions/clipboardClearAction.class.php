@@ -36,6 +36,8 @@ class UserClipboardClearAction extends sfAction
     }
 
     $slugs = $this->context->user->getClipboard()->getAll();
+    $this->type = $request->getGetParameter('type', 'QubitInformationObject');
+    $this->typeLabel = $this->getTypeLabel();
 
     // Redirect to clipboard page if the clipboard is empty
     if (count($slugs) == 0)
@@ -55,8 +57,26 @@ class UserClipboardClearAction extends sfAction
       $query->setPostFilter($filterBool);
     }
 
-    $this->resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+    $this->resultSet = QubitSearch::getInstance()->index->getType($this->type)->search($query);
 
     $this->form = new sfForm;
+  }
+
+  /**
+   * Return human readable entity type label from config.
+   */
+  private function getTypeLabel()
+  {
+    switch ($this->type)
+    {
+      case 'QubitInformationObject':
+        return sfConfig::get('app_ui_label_informationobject');
+      case 'QubitActor':
+        return sfConfig::get('app_ui_label_actor');
+      case 'QubitRepository':
+        return sfConfig::get('app_ui_label_repository');
+      default:
+        throw new sfException("Invalid entity type in clear clipboard: {$this->type}");
+    }
   }
 }
