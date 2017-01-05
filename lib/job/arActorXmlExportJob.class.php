@@ -88,9 +88,50 @@ class arActorXmlExportJob extends arBaseJob
 
     foreach ($resultSet as $hit)
     {
+      if (null === $resource = QubitActor::getById($hit->getId()))
+      {
+        continue;
+      }
+
+      $this->exportResource($resource, $path);
+
       $itemsExported++;
     }
 
     return $itemsExported;
+  }
+
+  /**
+   * Export XML to file
+   *
+   * @param object  information object to be export
+   * @param string  xml export path
+   *
+   * @return null
+   */
+  protected function exportResource($resource, $path)
+  {
+    try
+    {
+      // Print warnings/notices here too, as they are often important.
+      $errLevel = error_reporting(E_ALL);
+
+      $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput($resource, 'eac');
+      $xml = Qubit::tidyXml($rawXml);
+
+      error_reporting($errLevel);
+    }
+    catch (Exception $e)
+    {
+      throw new sfException($this->i18n->__('Invalid XML generated for object %1%.', array('%1%' => $row['id'])));
+    }
+
+    $filename = exportBulkBaseTask::generateSortableFilename($resource, 'xml', 'eac');
+    $filePath = sprintf('%s/%s', $path, $filename);
+
+    if (false === file_put_contents($filePath, $xml))
+    {
+      throw new sfException($this->i18n->__('Cannot write to path: %1%', array('%1%' => $filePath)));
+    }
   }
 }
