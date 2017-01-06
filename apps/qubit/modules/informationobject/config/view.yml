@@ -80,3 +80,8 @@ uploadFindingAidSuccess:
     /vendor/yui/connection/connection-min:
     /vendor/yui/container/container-min:
     repositoryHoldings:
+
+all:
+  components:
+    css:
+      [informationobject, stylesheet]
