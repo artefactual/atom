@@ -289,27 +289,6 @@ class QubitOai
   }
 
   /**
-   * Returns the setSpec for the OAI set containiner $record
-   *
-   * @param mixed $record, an Information Object record
-   * @param array of available OAI sets
-
-   * @return string oai identifier of the element's collection
-   */
-  public static function getSetSpec($record, $oaiSets)
-  {
-    foreach ($oaiSets as $oaiSet)
-    {
-      if ($oaiSet->contains($record))
-      {
-        return $oaiSet->setSpec();
-      }
-    }
-
-    return 'None';
-  }
-
-  /**
    * Returns the OAI set matching $setSpec
    *
    * @param string $setSpec, the setSpec of an OAI set

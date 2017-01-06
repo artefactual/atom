@@ -131,22 +131,19 @@ class arOaiPluginIndexAction extends sfAction
         $this->forward('arOaiPlugin', 'error');
       }
 
-      // Load OAI sets for the required verbs, filtering drafts
-      // in the verbs where the sets are displayed directly
-      $this->oaiSets = array();
-      if (in_array($this->request->verb, array('ListRecords', 'ListIdentifiers', 'GetRecord')))
+      // If the 'set' parameter is provided, load sets and make sure it refers to an existing set
+      if ($this->request->set)
       {
         $results = QubitOai::getOaiSets();
         $this->oaiSets = $results['data'];
-      }
 
-      // If the 'set' parameter is provided, it should refer to an existing set
-      if ($this->request->set && !QubitOai::getMatchingOaiSet($this->request->set, $this->oaiSets))
-      {
-        $request->setParameter('errorCode', 'badArgument');
-        $request->setParameter('errorMsg', 'The requested OAI set is not known by this repository.');
+        if (!QubitOai::getMatchingOaiSet($this->request->set, $this->oaiSets))
+        {
+          $request->setParameter('errorCode', 'badArgument');
+          $request->setParameter('errorMsg', 'The requested OAI set is not known by this repository.');
 
-        $this->forward('arOaiPlugin', 'error');
+          $this->forward('arOaiPlugin', 'error');
+        }
       }
 
       switch ($this->request->verb)

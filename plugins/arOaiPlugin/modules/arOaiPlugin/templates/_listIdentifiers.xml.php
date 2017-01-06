@@ -6,7 +6,7 @@
     <header>
       <identifier><?php echo $record->getOaiIdentifier() ?></identifier>
       <datestamp><?php echo QubitOai::getDate($record->getUpdatedAt())?></datestamp>
-      <setSpec><?php echo QubitOai::getSetSpec($record, $oaiSets)?></setSpec>
+      <setSpec><?php echo $record->getCollectionRoot()->getOaiIdentifier()?></setSpec>
     </header>
 <?php endforeach; ?>
   <?php if ($remaining > 0): ?>
