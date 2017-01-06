@@ -95,6 +95,7 @@ class SettingsGlobalAction extends sfAction
     $googleMapsApiKey = QubitSetting::getByName('google_maps_api_key');
     $slugTypeInformationObject = QubitSetting::getByName('slug_basis_informationobject');
     $generateReportsAsPubUser = QubitSetting::getByName('generate_reports_as_pub_user');
+    $enableInstitutionalScoping = QubitSetting::getByName('enable_institutional_scoping');
 
     // Set defaults for global form
     $this->globalForm->setDefaults(array(
@@ -123,6 +124,7 @@ class SettingsGlobalAction extends sfAction
       'sword_deposit_dir' => (isset($swordDepositDir)) ? $swordDepositDir->getValue(array('sourceCulture'=>true)) : null,
       'google_maps_api_key' => (isset($googleMapsApiKey)) ? $googleMapsApiKey->getValue(array('sourceCulture'=>true)) : null,
       'generate_reports_as_pub_user' => (isset($generateReportsAsPubUser)) ? $generateReportsAsPubUser->getValue(array('sourceCulture'=>true)) : 1,
+      'enable_institutional_scoping' => (isset($enableInstitutionalScoping)) ? intval($enableInstitutionalScoping->getValue(array('sourceCulture'=>true))) : 0,
     ));
   }
 
@@ -402,6 +404,16 @@ class SettingsGlobalAction extends sfAction
     // Force sourceCulture update to prevent discrepency in settings between cultures
     $setting->setValue($googleMapsApiKey, array('sourceCulture' => true));
     $setting->save();
+
+    // Enable Institutional Scoping
+    if (null !== $enableInstitutionalScoping = $thisForm->getValue('enable_institutional_scoping'))
+    {
+      $setting = QubitSetting::getByName('enable_institutional_scoping');
+
+      // Force sourceCulture update to prevent discrepency in settings between cultures
+      $setting->setValue($enableInstitutionalScoping, array('sourceCulture' => true));
+      $setting->save();
+    }
 
     return $this;
   }
