@@ -98,22 +98,17 @@ abstract class arOaiPluginComponent extends sfComponent
 
   public function getUpdates($options = array())
   {
-    // If set is not supplied, define it as ''
-    if (!isset($this->set))
-    {
-      $oaiSet = '';
-    }
-    else
-    {
-      $oaiSet = QubitOai::getMatchingOaiSet($this->set, $this->oaiSets);
-    }
-
     $extraOptions = array(
       'from'   => $this->from,
       'until'  => $this->until,
       'cursor' => $this->cursor,
-      'limit' => QubitSetting::getByName('resumption_token_limit')->__toString(),
-      'set' => $oaiSet);
+      'limit' => QubitSetting::getByName('resumption_token_limit')->__toString());
+
+    // Get set if one has been named
+    if ($this->set != '')
+    {
+      $extraOptions['set'] = QubitOai::getMatchingOaiSet($this->set);
+    }
 
     // Get the records according to the limit dates and collection
     $update = QubitInformationObject::getUpdatedRecords(array_merge($options, $extraOptions));

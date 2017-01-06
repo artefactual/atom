@@ -294,14 +294,27 @@ class QubitOai
    * @param string $setSpec, the setSpec of an OAI set
    * @return QubitOaiSet/boolean the OAI set matched (or false if none matched)
    */
-  public static function getMatchingOaiSet($setSpec, $oaiSets)
+  public static function getMatchingOaiSet($setSpec)
   {
-    foreach ($oaiSets as $oaiSet)
+    // Check additional sets, if enabled
+    $setting = QubitSetting::getByName('oai_additional_sets_enabled');
+    $setsEnabled = (null === $setting) ? false : $setting->value;
+
+    if ($setsEnabled)
     {
-      if ($oaiSet->setSpec() == $setSpec)
+      foreach (QubitOai::$additionalOaiSets as $oaiSet)
       {
-        return $oaiSet;
+        if ($oaiSet->setSpec() == $setSpec)
+        {
+          return $oaiSet;
+        }
       }
+    }
+
+    // Return information object with local identifier
+    if (null !== $result = QubitInformationObject::getRecordByOaiID(QubitOai::getOaiIdNumber($setSpec)))
+    {
+      return new QubitOaiCollectionSet($result);
     }
 
     return false;
@@ -344,7 +357,7 @@ class QubitOai
   {
     preg_match('/^.*_([0-9]+)$/', $identifier, $result);
 
-    return $result[1];
+    return (count($result)) ? $result[1] : false;
   }
 
   /**
