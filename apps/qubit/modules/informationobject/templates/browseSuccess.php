@@ -43,6 +43,10 @@
 
       <div class="content">
 
+        <?php if ($sf_user->getAttribute('search-realm') && sfConfig::get('app_enable_institutional_scoping')): ?>
+          <?php include_component('repository', 'holdingsInstitution', array('resource' => QubitRepository::getById($sf_user->getAttribute('search-realm')))) ?>
+        <?php endif; ?>
+
         <h2><?php echo sfConfig::get('app_ui_label_facetstitle') ?></h2>
 
         <?php echo get_partial('search/facetLanguage', array(
