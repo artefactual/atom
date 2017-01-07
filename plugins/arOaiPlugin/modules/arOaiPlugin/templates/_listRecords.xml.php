@@ -4,7 +4,6 @@
   <ListRecords>
   <?php foreach ($publishedRecords as $record): ?>
     <?php if (QubitAcl::check($record, 'read')): ?>
-      <?php $requestname->setAttribute('informationObject', $record) ?>
       <record>
         <header>
           <identifier><?php echo $record->getOaiIdentifier() ?></identifier>

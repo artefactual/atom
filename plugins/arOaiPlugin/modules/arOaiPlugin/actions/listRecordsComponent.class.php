@@ -29,14 +29,10 @@ class arOaiPluginListRecordsComponent extends arOaiPluginComponent
   public function execute($request)
   {
     $this->requestname = $request;
-    $request->setRequestFormat('xml');
-    $this->date = gmdate('Y-m-d\TH:i:s\Z');
 
     $this->setUpdateParametersFromRequest($request);
 
     $this->getUpdates();
-
-    $this->path = $request->getUriPrefix().$request->getPathInfo();
 
     $this->setRequestAttributes($request);
   }

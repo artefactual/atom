@@ -1,16 +1,15 @@
-<?php if (QubitAcl::check($informationObject, 'read')): ?>
+<?php if (QubitAcl::check($record, 'read')): ?>
   <GetRecord>
     <record>
       <header>
-        <identifier><?php echo $informationObject->getOaiIdentifier() ?></identifier>
-        <datestamp><?php echo QubitOai::getDate($informationObject->getUpdatedAt())?></datestamp>
-        <setSpec><?php echo $informationObject->getCollectionRoot()->getOaiIdentifier()?></setSpec>
+        <identifier><?php echo $record->getOaiIdentifier() ?></identifier>
+        <datestamp><?php echo QubitOai::getDate($record->getUpdatedAt())?></datestamp>
+        <setSpec><?php echo $record->getCollectionRoot()->getOaiIdentifier()?></setSpec>
       </header>
       <metadata>
-        <?php echo get_component('sfDcPlugin', 'dc', array('resource' => $informationObject)) ?>
+        <?php echo get_component('sfDcPlugin', 'dc', array('resource' => $record)) ?>
       </metadata>
-      <?php if (count($informationObject->digitalObjects)): ?>
-        <?php $record = $informationObject ?>
+      <?php if (count($record->digitalObjects)): ?>
         <?php include('_about.xml.php') ?>  
       <?php endif; ?>
     </record>

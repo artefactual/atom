@@ -28,9 +28,6 @@ class arOaiPluginListIdentifiersComponent extends arOaiPluginComponent
 {
   public function execute($request)
   {
-    $request->setRequestFormat('xml');
-    $this->date = gmdate('Y-m-d\TH:i:s\Z');
-
     $this->setUpdateParametersFromRequest($request);
 
     $options = array('filterDrafts' => true);
@@ -42,8 +39,6 @@ class arOaiPluginListIdentifiersComponent extends arOaiPluginComponent
     }
 
     $this->getUpdates($options);
-
-    $this->path = $request->getUriPrefix().$request->getPathInfo();
 
     $this->setRequestAttributes($request);
   }

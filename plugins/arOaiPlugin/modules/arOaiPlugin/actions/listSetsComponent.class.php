@@ -33,10 +33,6 @@ class arOaiPluginlistSetsComponent extends arOaiPluginComponent
    */
   public function execute($request)
   {
-    $request->setRequestFormat('xml');
-    $this->date = QubitOai::getDate();
-    $this->path = $this->request->getUriPrefix().$this->request->getPathInfo();
-
     $this->setUpdateParametersFromRequest($request);
     $this->getPagedOaiSets($request);
     $this->setRequestAttributes($request);

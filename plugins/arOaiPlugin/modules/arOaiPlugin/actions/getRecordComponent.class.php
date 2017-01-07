@@ -30,14 +30,9 @@ class arOaiPluginGetRecordComponent extends arOaiPluginComponent
 {
   public function execute($request)
   {
-    $request->setRequestFormat('xml');
-    $this->date = gmdate('Y-m-d\TH:i:s\Z');
-
     $oai_local_identifier_id = QubitOai::getOaiIdNumber($request->identifier);
-    $this->informationObject = QubitInformationObject::getRecordByOaiID($oai_local_identifier_id);
-    $request->setAttribute('informationObject', $this->informationObject);
-
-    $this->path = $request->getUriPrefix().$request->getPathInfo();
+    $this->record = QubitInformationObject::getRecordByOaiID($oai_local_identifier_id);
+    $request->setAttribute('record', $this->record);
 
     $this->setRequestAttributes($request);
   }
