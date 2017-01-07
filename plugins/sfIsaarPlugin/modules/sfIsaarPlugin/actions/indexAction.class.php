@@ -31,6 +31,12 @@ class sfIsaarPluginIndexAction extends ActorIndexAction
   {
     parent::execute($request);
 
+    if (sfConfig::get('app_enable_institutional_scoping'))
+    {
+      // remove search-realm
+      $this->context->user->removeAttribute('search-realm');
+    }
+
     $this->isaar = new sfIsaarPlugin($this->resource);
 
     if (1 > strlen($title = $this->resource->__toString()))

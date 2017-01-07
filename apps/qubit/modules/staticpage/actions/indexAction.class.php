@@ -31,6 +31,12 @@ class StaticPageIndexAction extends sfAction
     $this->response->setTitle("$title - {$this->response->getTitle()}");
 
     $this->content = $this->getPurifiedStaticPageContent();
+
+    if (sfConfig::get('app_enable_institutional_scoping') && $this->resource->slug == 'home')
+    {
+      // Remove the search-realm attribute
+      $this->context->user->removeAttribute('search-realm');
+    }
   }
 
   protected function getPurifiedStaticPageContent()
