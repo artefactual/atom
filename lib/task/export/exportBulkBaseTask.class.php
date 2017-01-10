@@ -93,7 +93,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
     $includes = array(
       '/plugins/sfEadPlugin/lib/sfEadPlugin.class.php',
       '/plugins/sfModsPlugin/lib/sfModsPlugin.class.php',
-      '/plugins/sfModsPlugin/lib/sfModsPlugin.class.php',
+      '/plugins/sfDcPlugin/lib/sfDcPlugin.class.php',
       '/plugins/sfIsaarPlugin/lib/sfIsaarPlugin.class.php',
       '/plugins/sfEacPlugin/lib/sfEacPlugin.class.php',
       '/vendor/symfony/lib/helper/UrlHelper.php',
@@ -129,6 +129,12 @@ abstract class exportBulkBaseTask extends sfBaseTask
         $eac = new sfEacPlugin($resource);
         break;
 
+      case 'dc':
+        $dc = new sfDcPlugin($resource);
+        // Hack to get around issue with get_component helper run from worker (qubitConfiguration->getControllerDirs returns wrong dirs)
+        $template = 'plugins/sfDcPlugin/modules/sfDcPlugin/templates/_dc.xml.php';
+        break;
+
       default:
         throw Exception('Unknown format.');
     }
@@ -142,6 +148,11 @@ abstract class exportBulkBaseTask extends sfBaseTask
     ob_start();
     include($template);
     $output = ob_get_contents();
+    if ($format == 'dc')
+    {
+      // Hack to get around issue with get_component helper run from worker (qubitConfiguration->getControllerDirs returns wrong dirs)
+      $output = '<?xml version="1.0" encoding="'.sfConfig::get('sf_charset', 'UTF-8')."\" ?>\n". $output;
+    }
     ob_end_clean();
 
     return $output;
