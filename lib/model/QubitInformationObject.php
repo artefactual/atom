@@ -572,6 +572,114 @@ class QubitInformationObject extends BaseInformationObject
     return $repositoryId == $inheritedRepoId;
   }
 
+  /**
+   * Export or delete EAD and DC XML.
+   */
+  public function updateXmlExports()
+  {
+    // Create DC and EAD XML exports if the description's published... otherwise delete any that may exist
+    if ($this->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)
+    {
+      $this->createXmlExports();
+    }
+    else
+    {
+      $this->deleteXmlExports();
+    }
+  }
+
+  /**
+   * Initate asynchronous jobs to export EAD and DC XML.
+   */
+  public function createXmlExports()
+  {
+    // Export top-level parent as EAD
+    $params = array(
+      'objectId' => $this->getCollectionRoot()->id,
+      'format'   => 'ead'
+    );
+
+    QubitJob::runJob('arXmlExportSingleFileJob', $params);
+
+    // Export as DC
+    $params = array(
+      'objectId' => $this->id,
+      'format' => 'dc'
+    );
+    QubitJob::runJob('arXmlExportSingleFileJob', $params);
+  }
+
+  /**
+   *
+   * Remove EAD and DC XML exports.
+   */
+  public function deleteXmlExports()
+  {
+    unlink($this->pathToEadExport());
+    unlink($this->pathToEadExport(true));
+    unlink($this->pathToDcExport());
+    unlink($this->pathToDcExport(true));
+  }
+
+  /**
+   * Return URL to EAD XML or, if unpublished, action to generate XML.
+   *
+   * @return string  URL
+   */
+  public function urlForEadExport()
+  {
+    if ($this->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID && file_exists($this->pathToEadExport()))
+    {
+      return sfConfig::get('siteBaseUrl') .'/'. $this->pathToEadExport();
+    }
+    else
+    {
+      sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
+      return url_for(array($this, 'module' => 'sfEadPlugin', 'sf_format' => 'xml'));
+    }
+  }
+
+  /**
+   * Return file path to EAD XML, regardless of whether it's available.
+   *
+   * @param
+   * @return string  file path of EAD XML
+   */
+  public function pathToEadExport($contentsOnly = false)
+  {
+    return arXmlExportSingleFileJob::getPath($this->getCollectionRoot()->id, 'ead', $contentsOnly);
+  }
+
+  /**
+   * Return URL to DC XML or, if unpublished, action to generate XML.
+   *
+   * @param
+   * @return string  URL
+   */
+  public function urlForDcExport()
+  {
+    if ($this->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID && file_exists($this->pathToDcExport()))
+    {
+      return sfConfig::get('siteBaseUrl') .'/'. $this->pathToDcExport();
+    }
+    else
+    {
+      sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
+      return url_for(array($this, 'module' => 'sfDcPlugin', 'sf_format' => 'xml'));
+    }
+  }
+
+  /**
+   * Return file path to DC XML, regardless of whether it's available.
+   *
+   * @param
+   * @return string  file path of DC XML
+   */
+  public function pathToDcExport($contentsOnly = false)
+  {
+    return arXmlExportSingleFileJob::getPath($this->id, 'dc', $contentsOnly);
+  }
+
   /**************************
      Nested Set (Hierarchy)
   ***************************/
