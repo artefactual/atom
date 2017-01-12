@@ -139,7 +139,7 @@
       // Menu button count
       var $buttonSpan = this.$menuButton.find('> span');
       var countText = '';
-      
+
       if (!$buttonSpan.length && count > 0)
       {
         this.$menuButton.append('<span>' + count + '</span>');
@@ -158,30 +158,32 @@
       var actorLabel = this.$menuHeaderCount.data('actor-object-label');
       var repositoryLabel = this.$menuHeaderCount.data('repository-object-label');
 
-      countByType = JSON.parse(countByType);
+      if (typeof(countByType) !== 'undefined') {
+        countByType = JSON.parse(countByType);
 
-      for (var key in countByType) {
-        if (countByType.hasOwnProperty(key)) {
-          switch (key)
-          {
-            case 'QubitInformationObject':
-              countText += informationObjectLabel;
-              break;
-            case 'QubitActor':
-              countText += actorLabel;
-              break;
-            case 'QubitRepository':
-              countText += repositoryLabel;
-              break;
-            default:
-              countText += 'Object';
-              break;
+        for (var key in countByType) {
+          if (countByType.hasOwnProperty(key)) {
+            switch (key)
+            {
+              case 'QubitInformationObject':
+                countText += informationObjectLabel;
+                break;
+              case 'QubitActor':
+                countText += actorLabel;
+                break;
+              case 'QubitRepository':
+                countText += repositoryLabel;
+                break;
+              default:
+                countText += 'Object';
+                break;
+            }
+            countText += ' count: ' + countByType[key] + '<br />';
           }
-          countText += ' count: ' + countByType[key] + '<br />';
         }
-      }
 
-      this.$menuHeaderCount.html(countText);
+        this.$menuHeaderCount.html(countText);
+      }
     },
     showAlert: function()
     {

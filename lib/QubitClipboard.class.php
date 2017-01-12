@@ -119,10 +119,22 @@ class QubitClipboard
 
   /**
    * Removes clipboard namespace from storage
+   * @param string $type  Specify what class type to clear only, e.g.: 'QubitInformationObject', 'QubitActor', etc.
    */
-  public function clear()
+  public function clear($type = null)
   {
+    if (null !== $type)
+    {
+      $items = $this->getAllByClassName();
+      unset($items[$type]);
+    }
+
     $this->storage->remove(self::CLIPBOARD_NAMESPACE);
+
+    if (null !== $type)
+    {
+      $this->storage->write(self::CLIPBOARD_NAMESPACE, serialize($items));
+    }
   }
 
   /**

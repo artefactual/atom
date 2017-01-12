@@ -24,11 +24,7 @@
         'endDate'       => __('End date')))) ?>
     &nbsp;
     <?php echo get_partial('default/genericPicker', array(
-      'options' => array(
-        'informationObject' => sfConfig::get('app_ui_label_informationobject'),
-        'actor'             => sfConfig::get('app_ui_label_actor'),
-        'repository'        => sfConfig::get('app_ui_label_repository')
-      ),
+      'options' => $uiLabels,
       'label' => __('Entity type'),
       'param' => 'type')) ?>
   </section>
@@ -36,6 +32,10 @@
 
 <?php slot('content') ?>
   <div id="content">
+    <?php if (!isset($pager) || !$pager->hasResults()): ?>
+      <?php echo __('No results for this entity type.') ?>
+    <?php endif; ?>
+
     <?php foreach ($pager->getResults() as $hit): ?>
       <?php if ('QubitInformationObject' === $entityType): ?>
         <?php echo get_partial('search/searchResult', array('hit' => $hit, 'culture' => $selectedCulture)) ?>
@@ -49,8 +49,8 @@
 
   <section class="actions">
     <ul>
-      <li><?php echo link_to (__('Clear all'), array('module' => 'user', 'action' => 'clipboardClear', 'type' => $entityType), array('class' => 'c-btn c-btn-delete')) ?></li>
       <?php if (isset($pager) && $pager->hasResults() && $sf_user->isAuthenticated()): ?>
+        <li><?php echo link_to (__('Clear %1 clipboard', array('%1' => lcfirst($uiLabels[$type]))), array('module' => 'user', 'action' => 'clipboardClear', 'type' => $entityType), array('class' => 'c-btn c-btn-delete')) ?></li>
         <li><?php echo link_to(__('Export'), array('module' => 'object', 'action' => 'export'), array('class' => 'c-btn')) ?></li>
       <?php endif; ?>
     </ul>

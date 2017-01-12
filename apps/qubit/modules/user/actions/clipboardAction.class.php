@@ -32,7 +32,11 @@ class UserClipboardAction extends DefaultBrowseAction
       $this->getResponse()->addStylesheet('print-preview', 'last');
     }
 
+    // Get entity type class name
     $this->entityType = 'Qubit'.ucfirst($request->getGetParameter('type', 'informationObject'));
+
+    // Get entity type name
+    $this->type = $request->getGetParameter('type', 'informationObject');
     $allSlugs = $this->context->user->getClipboard()->getAllByClassName();
 
     if (!isset($allSlugs[$this->entityType]) || !count($allSlugs[$this->entityType]))
@@ -105,5 +109,11 @@ class UserClipboardAction extends DefaultBrowseAction
     $this->pager->setPage($request->page ? $request->page : 1);
     $this->pager->setMaxPerPage($this->limit);
     $this->pager->init();
+
+    $this->uiLabels = array(
+      'informationObject' => sfConfig::get('app_ui_label_informationobject'),
+      'actor'             => sfConfig::get('app_ui_label_actor'),
+      'repository'        => sfConfig::get('app_ui_label_repository')
+    );
   }
 }

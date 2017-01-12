@@ -21,9 +21,11 @@ class UserClipboardClearAction extends sfAction
 {
   public function execute($request)
   {
+    $this->type = $request->getGetParameter('type', null);
+
     if ($request->isMethod('delete'))
     {
-      $this->context->user->getClipboard()->clear();
+      $this->context->user->getClipboard()->clear($this->type);
 
       if ($request->isXmlHttpRequest())
       {
@@ -36,7 +38,6 @@ class UserClipboardClearAction extends sfAction
     }
 
     $slugs = $this->context->user->getClipboard()->getAll();
-    $this->type = $request->getGetParameter('type', 'QubitInformationObject');
     $this->typeLabel = $this->getTypeLabel();
 
     // Redirect to clipboard page if the clipboard is empty
