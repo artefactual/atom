@@ -21,6 +21,12 @@ class digitalObjectRegenDerivativesTask extends arBaseTask
 {
   protected function configure()
   {
+    // Validate "type" options
+    $this->validTypes = array(
+      'reference',
+      'thumbnail'
+    );
+
     //$this->addArguments(array());
 
     $this->addOptions(array(
@@ -54,6 +60,16 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
+    // Validate 'type' value
+    if ($options['type'] && !in_array($options['type'], $this->validTypes))
+    {
+      // If value is not valid, show message and return error code 1
+      error_log(sprintf('Invalid value for "type", must be one of (%s)',
+        implode(',', $this->validTypes)));
+
+      exit(1);
+    }
+
     if ($options['index'])
     {
       QubitSearch::enable();
@@ -84,11 +100,13 @@ EOF;
       $query .= ' WHERE io.lft >= '.$row->lft.' and io.rgt <= '.$row->rgt;
     }
 
+    // Only regenerate derivatives for remote digital objects
     if ($options['only-externals'])
     {
       $query .= ' AND do.usage_id = '.QubitTerm::EXTERNAL_URI_ID;
     }
 
+    // Limit ids for regeneration by json list
     if ($options['json'])
     {
       $ids = json_decode(file_get_contents($options['json']));
@@ -176,7 +194,7 @@ EOF;
 
   public static function regenerateDerivatives(&$digitalObject, $options = array())
   {
-    // Determine usage ID for type
+    // Determine usage ID from type flag
     switch($options['type'])
     {
       case "reference":
@@ -186,12 +204,17 @@ EOF;
       case "thumbnail":
         $usageId = QubitTerm::THUMBNAIL_ID;
         break;
+
+      default:
+        $usageId = $digitalObject->usageId; // MASTER_ID or EXTERNAL_URI_ID
     }
 
     // Delete existing derivatives
     $criteria = new Criteria;
     $criteria->add(QubitDigitalObject::PARENT_ID, $digitalObject->id);
-    if (isset($usageId))
+
+    // Delete only ref or thumnail derivative if "type" flag set
+    if (QubitTerm::REFERENCE_ID == $usageId || QubitTerm::THUMBNAIL_ID == $usageId)
     {
       $criteria->add(QubitDigitalObject::USAGE_ID, $usageId);
     }
@@ -210,6 +233,7 @@ EOF;
       $transcriptProperty->delete();
     }
 
+    // Generate new derivatives
     $digitalObject->createRepresentations($usageId, $conn);
 
     if ($options['index'])

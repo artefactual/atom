@@ -2005,12 +2005,11 @@ class QubitDigitalObject extends BaseDigitalObject
           }
           else if ($usageId == QubitTerm::REFERENCE_ID)
           {
-            $this->resizeByUsageId(QubitTerm::REFERENCE_ID);
-            $this->createThumbnail($connection);
+            $this->createReferenceImage($connection);
           }
           else if ($usageId == QubitTerm::THUMBNAIL_ID)
           {
-            $this->resizeByUsageId(QubitTerm::THUMBNAIL_ID);
+            $this->createThumbnail($connection);
           }
         }
 
