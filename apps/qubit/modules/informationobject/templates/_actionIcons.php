@@ -48,11 +48,12 @@
 
     <li>
       <a href="<?php echo url_for(array(
-        $resource->getCollectionRoot(),
-        'module' => 'digitalobject',
+        'module' => 'informationobject',
         'action' => 'browse',
         'collection' => $resource->getCollectionRoot()->id,
-        'topLod' => false)) ?>">
+        'topLod' => false,
+        'view' => 'card',
+        'onlyMedia' => true)) ?>">
         <i class="fa fa-picture-o"></i>
         <?php echo __('Browse digital objects') ?>
       </a>
