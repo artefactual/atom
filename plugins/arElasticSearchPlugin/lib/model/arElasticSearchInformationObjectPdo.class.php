@@ -1132,15 +1132,7 @@ class arElasticSearchInformationObjectPdo
       $serialized['digitalObject']['mediaTypeId'] = $this->media_type_id;
       $serialized['digitalObject']['usageId'] = $this->usage_id;
       $serialized['digitalObject']['filename'] = $this->filename;
-
-      if (QubitTerm::EXTERNAL_URI_ID == $this->usage_id)
-      {
-        $serialized['digitalObject']['thumbnailPath'] = $this->path;
-      }
-      else
-      {
-        $serialized['digitalObject']['thumbnailPath'] = $this->getThumbnailPath();
-      }
+      $serialized['digitalObject']['thumbnailPath'] = $this->getThumbnailPath();
 
       $serialized['hasDigitalObject'] = true;
     }
