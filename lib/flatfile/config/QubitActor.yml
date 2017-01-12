@@ -1,0 +1,28 @@
+direct:
+  - culture
+  - authorizedFormOfName
+  - corporateBodyIdentifiers
+  - datesOfExistence
+  - history
+  - places
+  - legalStatus
+  - functions
+  - mandates
+  - internalStructures
+  - generalContext
+  - descriptionIdentifier
+  - rules
+  - revisionHistory
+  - sources
+
+map:
+  institutionResponsibleIdentifier:  institutionIdentifier
+  descriptionStatus:                 status
+  entityType:                        typeOfEntity
+  descriptionDetail:                 levelOfDetail
+
+property:
+
+note:
+
+cacheTaxonomies:

@@ -1,0 +1,21 @@
+columnNames:
+  - culture
+  - typeOfEntity
+  - authorizedFormOfName
+  - corporateBodyIdentifiers
+  - datesOfExistence
+  - history
+  - places
+  - legalStatus
+  - functions
+  - mandates
+  - internalStructures
+  - generalContext
+  - descriptionIdentifier
+  - institutionIdentifier
+  - rules
+  - status
+  - levelOfDetail
+  - revisionHistory
+  - sources
+  - maintenanceNotes

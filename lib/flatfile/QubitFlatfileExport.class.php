@@ -95,13 +95,16 @@ class QubitFlatfileExport
     $resourceTypeBaseConfigFile = $resourceClass .'.yml';
     $config = $this->loadResourceConfigFile($resourceTypeBaseConfigFile, 'base');
 
-    // Load archival standard-specific export configuration for type
-    // (this can augment and/or override the base configuration)
-    $resourceTypeStandardConfigFile = $resourceClass .'-'. $this->standard .'.yml';
-    $standardConfig = $this->loadResourceConfigFile($resourceTypeStandardConfigFile, 'archival standard');
+    if ($this->standard)
+    {
+      // Load archival standard-specific export configuration for type
+      // (this can augment and/or override the base configuration)
+      $resourceTypeStandardConfigFile = $resourceClass .'-'. $this->standard .'.yml';
+      $standardConfig = $this->loadResourceConfigFile($resourceTypeStandardConfigFile, 'archival standard');
 
-    // Allow standard-specific export configuration to override base config
-    $this->overrideConfigData($config, $standardConfig);
+      // Allow standard-specific export configuration to override base config
+      $this->overrideConfigData($config, $standardConfig);
+    }
 
     $this->columnNames     = $config['columnNames'];
     $this->standardColumns = $config['direct'];
@@ -142,7 +145,7 @@ class QubitFlatfileExport
 
     if (gettype($config) != 'array')
     {
-      throw new sfException('Missing/malformed resource '. $roleDescription .' config: '. $resourceTypeConfigFilePath);
+      throw new sfException('Missing/malformed resource '. $roleDescription .' config: '. $configFilePath);
     }
 
     return $config;
@@ -348,7 +351,6 @@ class QubitFlatfileExport
     // If file doesn't yet exist, write headers
     if (!file_exists($filePath))
     {
-      fputcsv($this->currentFileHandle, $this->columnNames);
       $this->appendRowToCsvFile($filePath, $this->columnNames);
     }
 
@@ -380,7 +382,7 @@ class QubitFlatfileExport
     $this->row = array();
 
     // Cycle through columns to populate row array
-    foreach($this->columnNames as $column)
+    foreach ($this->columnNames as $column)
     {
       $value = '';
 

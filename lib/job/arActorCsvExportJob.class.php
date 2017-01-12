@@ -46,12 +46,17 @@ class arActorCsvExportJob extends arBaseJob
     mkdir($tempPath);
 
     // Export CSV to temp directory
-    $this->info($this->i18n->__('Starting export to %1.', array('%1' => $tempPath)));
-    $itemsExported = $this->exportResults($tempPath);
+    $this->info($this->i18n->__('Starting export to %1', array('%1' => $tempPath)));
+
+    if (-1 === $itemsExported = $this->exportResults($tempPath))
+    {
+      return false;
+    }
+
     $this->info($this->i18n->__('Exported %1 actors.', array('%1' => $itemsExported)));
 
     // Compress CSV export files as a ZIP archive
-    $this->info($this->i18n->__('Creating ZIP file %1.', array('%1' => $this->getDownloadFilePath())));
+    $this->info($this->i18n->__('Creating ZIP file %1', array('%1' => $this->getDownloadFilePath())));
     $success = $this->createZipForDownload($tempPath);
 
     if ($success !== true)
@@ -75,7 +80,7 @@ class arActorCsvExportJob extends arBaseJob
    *
    * @param string  Path of file to write CSV data to
    *
-   * @return int  Number of descriptions exported
+   * @return int  Number of descriptions exported, -1 if and error occurred and to end the job.
    */
   protected function exportResults($path)
   {
@@ -83,8 +88,20 @@ class arActorCsvExportJob extends arBaseJob
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($this->search->getQuery(false, false));
 
+    $writer = new csvActorExport($path, 'atom', 10000);
+    $writer->setOptions($this->params);
+    $writer->loadResourceSpecificConfiguration('QubitActor');
+
     foreach ($resultSet as $hit)
     {
+      if (null === $resource = QubitActor::getById($hit->getId()))
+      {
+        $this->error($this->i18n->__('Cannot fetch actor, id: '.$hit->getId()));
+        return -1;
+      }
+
+      $writer->exportResource($resource);
+
       // Log progress every 1000 rows
       if ($itemsExported && ($itemsExported % 1000 == 0))
       {
