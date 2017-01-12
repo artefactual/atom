@@ -53,6 +53,8 @@
 
         <?php echo link_to(render_title(get_search_i18n($doc, 'authorizedFormOfName', array('allowEmpty' => false,
                            'culture' => $selectedCulture))), array('module' => 'repository', 'slug' => $doc['slug'])) ?>
+
+        <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => true)) ?>
       </td>
 
       <td>
