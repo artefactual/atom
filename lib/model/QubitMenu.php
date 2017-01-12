@@ -49,18 +49,34 @@ class QubitMenu extends BaseMenu
    */
   public function getPath($options = array())
   {
+    // 'currentRealm' is used by menu items on the Institutional Block as part of the
+    // enable_institutional_scoping feature. Try using search-realm if available, else
+    // try resource->id from sf_route, else try repos param on request.
+    if (null !== sfContext::getInstance()->user->getAttribute('search-realm'))
+    {
+      $currentRealm = sfContext::getInstance()->user->getAttribute('search-realm');
+    }
+    else if (isset(sfContext::getInstance()->request->getAttribute('sf_route')->resource->id))
+    {
+      $currentRealm = sfContext::getInstance()->request->getAttribute('sf_route')->resource->id;
+    }
+    else if (null !== sfContext::getInstance()->request->getParameter('repos'))
+    {
+      $currentRealm = sfContext::getInstance()->request->getParameter('repos');
+    }
+    else
+    {
+      $currentRealm = null;
+    }
+
+    $currentSlug = isset(sfContext::getInstance()->request->getAttribute('sf_route')->resource->slug) ?
+      sfContext::getInstance()->request->getAttribute('sf_route')->resource->slug : null;
+
     $aliases = array(
       '%profile%' => sfContext::getInstance()->routing->generate(null, array('module' => 'user', 'slug' => sfContext::getInstance()->user->getUserSlug())),
       '%currentId%' => sfContext::getInstance()->request->id,
-      '%currentSlug%' => @sfContext::getInstance()->request->getAttribute('sf_route')->resource->slug,
-
-      // 'currentRealm' is used by menu items on the Institutional Block as part of the enable_institutional_scoping feature.
-      // Try using search-realm if available, else try resource->id from sf_route, else try repos param on request.
-      '%currentRealm%' => (@sfContext::getInstance()->user->getAttribute('search-realm')
-        ? @sfContext::getInstance()->user->getAttribute('search-realm')
-        : (@sfContext::getInstance()->request->getAttribute('sf_route')->resource->id
-          ? @sfContext::getInstance()->request->getAttribute('sf_route')->resource->id
-          : @sfContext::getInstance()->request->getParameter('repos')) )
+      '%currentSlug%' => $currentSlug,
+      '%currentRealm%' => $currentRealm
     );
 
     $path = parent::offsetGet('path', $options);

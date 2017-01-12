@@ -88,7 +88,7 @@ class ActorBrowseAction extends DefaultBrowseAction
       // Add repo to the user session as realm
       $this->context->user->setAttribute('search-realm', $request->repos);
     }
-    elseif (sfConfig::get('app_enable_institutional_scoping'))
+    else if (sfConfig::get('app_enable_institutional_scoping'))
     {
       // Remove search realm
       $this->context->user->removeAttribute('search-realm');

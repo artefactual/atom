@@ -102,7 +102,7 @@ class SearchAutocompleteAction extends sfAction
         // Store realm in user session
         $this->context->user->setAttribute('search-realm', $request->repos);
       }
-      elseif (sfConfig::get('app_enable_institutional_scoping'))
+      else if (sfConfig::get('app_enable_institutional_scoping'))
       {
         // Remove search-realm
         $this->context->user->removeAttribute('search-realm');

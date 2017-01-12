@@ -24,8 +24,8 @@ class SearchBoxComponent extends sfComponent
     // if the institutional scoping setting is on, search is always global.
     if (sfConfig::get('app_enable_institutional_scoping'))
     {
-      $this->repository = NULL;
-      $this->altRepository = NULL;
+      $this->repository = null;
+      $this->altRepository = null;
       return;
     }
 
