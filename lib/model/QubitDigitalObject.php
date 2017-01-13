@@ -2045,11 +2045,19 @@ class QubitDigitalObject extends BaseDigitalObject
           $this->createVideoDerivative(QubitTerm::REFERENCE_ID, $connection);
           $this->createVideoDerivative(QubitTerm::THUMBNAIL_ID, $connection);
         }
+        else if ($usageId == QubitTerm::REFERENCE_ID || $usageId == QubitTerm::THUMBNAIL_ID)
+        {
+          $this->createVideoDerivative($usageId, $connection);
+        }
 
         break;
 
       case QubitTerm::AUDIO_ID:
-        if ($usageId == QubitTerm::EXTERNAL_URI_ID || $usageId == QubitTerm::MASTER_ID)
+        if (in_array($usageId, array(
+          QubitTerm::EXTERNAL_URI_ID,
+          QubitTerm::MASTER_ID,
+          QubitTerm::REFERENCE_ID
+        )))
         {
           $this->createAudioDerivative(QubitTerm::REFERENCE_ID, $connection);
         }
