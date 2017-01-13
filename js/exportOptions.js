@@ -91,7 +91,7 @@
           this.$formatSelect.find('option[value="xml"]').show();
           break;
 
-        case 'authorityRecord':
+        case 'actor':
           this.$formatSelect.find('option[value="xml"]').prop('selected', true);
           this.$formatSelect.find('option[value="csv"]').show();
           this.$formatSelect.find('option[value="xml"]').show();
@@ -166,7 +166,8 @@
     var $node = $('body');
     if (0 < $node.length)
     {
-      new ExportOptions($node.get(0));
+      var exportOpts = new ExportOptions($node.get(0));
+      exportOpts.onObjectTypeChange(exportOpts);
     }
   });
 

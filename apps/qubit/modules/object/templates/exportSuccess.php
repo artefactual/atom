@@ -29,21 +29,20 @@
       <fieldset class="collapsible">
 
         <legend><?php echo __('Export options') ?></legend>
-
         <div class="form-item">
           <label><?php echo __('Type') ?></label>
           <select name="objectType">
-            <option value="informationObject"><?php echo sfConfig::get('app_ui_label_informationobject') ?></option>
-            <option value="authorityRecord"><?php echo sfConfig::get('app_ui_label_actor') ?></option>
-            <option value="repository"><?php echo sfConfig::get('app_ui_label_repository') ?></option>
+            <option value="informationObject"<?php echo ('informationObject' === $objectType) ? ' selected="selected"' : ''?>><?php echo sfConfig::get('app_ui_label_informationobject') ?></option>
+            <option value="actor"<?php echo ('actor' === $objectType) ? ' selected="selected"' : ''?>><?php echo sfConfig::get('app_ui_label_actor') ?></option>
+            <option value="repository"<?php echo ('repository' === $objectType) ? ' selected="selected"' : ''?>><?php echo sfConfig::get('app_ui_label_repository') ?></option>
           </select>
         </div>
 
         <div class="form-item">
           <label><?php echo __('Format') ?></label>
           <select name="format">
-            <option value="csv"<?php echo ('xml' != $type) ? 'selected="selected"' : '' ?>><?php echo __('CSV') ?></option>
-            <option value="xml"<?php echo ('xml' == $type) ? 'selected="selected"' : '' ?>><?php echo __('XML') ?></option>
+            <option value="csv"<?php echo ('xml' != $type) ? ' selected="selected"' : '' ?>><?php echo __('CSV') ?></option>
+            <option value="xml"<?php echo ('xml' == $type) ? ' selected="selected"' : '' ?>><?php echo __('XML') ?></option>
           </select>
         </div>
 

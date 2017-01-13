@@ -31,6 +31,39 @@ class ObjectExportAction extends DefaultEditAction
     $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
   }
 
+  public function execute($request)
+  {
+    parent::execute($request);
+
+    $this->response->addJavaScript('exportOptions', 'last');
+
+    // Export type, CSV or XML?
+    $this->type = $request->getParameter('format', 'csv');
+    $this->objectType = $request->getParameter('objectType', 'informationObject');
+
+    $this->redirectUrl = array('module' => 'object', 'action' => 'export');
+    if (null !== $referrer = $request->getReferer())
+    {
+      $this->redirectUrl = $referrer;
+    }
+
+    $this->title = $this->context->i18n->__('Export');
+
+    if ($request->isMethod('post'))
+    {
+      $this->form->bind($request->getPostParameters());
+
+      if ($this->form->isValid())
+      {
+        $this->processForm();
+
+        $this->doBackgroundExport($request);
+
+        $this->redirect($this->redirectUrl);
+      }
+    }
+  }
+
   protected function addField($name)
   {
     switch ($name)
@@ -125,7 +158,7 @@ class ObjectExportAction extends DefaultEditAction
           return 'arInformationObjectXmlExportJob';
         }
 
-      case 'authorityRecord':
+      case 'actor':
         if ('CSV' == strtoupper($this->type))
         {
           return 'arActorCsvExportJob';
@@ -140,39 +173,6 @@ class ObjectExportAction extends DefaultEditAction
 
       default:
         throw new sfException("Invalid object type specified: {$this->objectType}");
-    }
-  }
-
-  public function execute($request)
-  {
-    parent::execute($request);
-
-    $this->response->addJavaScript('exportOptions', 'last');
-
-    // Export type, CSV or XML?
-    $this->type = $request->getParameter('format', 'csv');
-    $this->objectType = $request->getParameter('objectType', 'informationObject');
-
-    $this->redirectUrl = array('module' => 'object', 'action' => 'export');
-    if (null !== $referrer = $request->getReferer())
-    {
-      $this->redirectUrl = $referrer;
-    }
-
-    $this->title = $this->context->i18n->__('Export');
-
-    if ($request->isMethod('post'))
-    {
-      $this->form->bind($request->getPostParameters());
-
-      if ($this->form->isValid())
-      {
-        $this->processForm();
-
-        $this->doBackgroundExport($request);
-
-        $this->redirect($this->redirectUrl);
-      }
     }
   }
 }
