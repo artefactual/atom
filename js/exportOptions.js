@@ -21,6 +21,7 @@
 
       this.init();
       this.listen();
+      this.onObjectTypeChange();
     };
 
 
@@ -47,7 +48,7 @@
       this.resetLevelsOptions();
     },
 
-    onIncludeDescendantsChange: function (event)
+    onIncludeDescendantsChange: function ()
     {
       if (this.$includeDescendants.prop('checked'))
       {
@@ -67,7 +68,7 @@
       this.$levelSelect.val('');
     },
 
-    onIncludeAllLevelsChange: function (event)
+    onIncludeAllLevelsChange: function ()
     {
       this.$levelDiv.toggleClass('hidden');
       if (this.$includeAllLevels.prop('checked'))
@@ -76,7 +77,7 @@
       }
     },
 
-    onObjectTypeChange: function (event)
+    onObjectTypeChange: function ()
     {
       /*
         - no xml export option when exporting repos
@@ -166,8 +167,7 @@
     var $node = $('body');
     if (0 < $node.length)
     {
-      var exportOpts = new ExportOptions($node.get(0));
-      exportOpts.onObjectTypeChange(exportOpts);
+      new ExportOptions($node.get(0));
     }
   });
 
