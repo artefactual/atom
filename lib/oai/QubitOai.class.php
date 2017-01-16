@@ -34,40 +34,6 @@ class QubitOai
   private static $additionalOaiSets = array();
 
   /**
-   * Mail error report
-   *
-   * @param string $msg an error message
-   * @return bool true for message sent properly
-   */
-  public static function mailErrors($msg)
-  {
-    $to      = QubitOai::getAdminEmail();
-    $from    = $to;
-    $subject = 'Qubit OAI-PMH Harvest';
-    $message = $msg;
-    $headers = "From: {QubitOai::getAdminEmail()}\r\nX-Mailer: PHP/".phpversion();
-    $params = sprintf('-oi -f %s', $from);
-
-    return mail($to, $subject, $message, $headers, $params);
-  }
-
-  /**
-   * Admin email finder
-   *
-   * @return string the administrator email
-   */
-  public static function getAdminEmail()
-  {
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitUser::ID, QubitAclUserGroup::USER_ID);
-    $criteria->add(QubitAclUserGroup::GROUP_ID, QubitAclGroup::ADMINISTRATOR_ID);
-    $criteria->addAscendingOrderByColumn(QubitUser::ID);
-    $user = QubitUser::getOne($criteria);
-
-    return trim($user->getEmail());
-  }
-
-  /**
    * Check that all supplied keys are valid for the provided request
    *
    * @param array    $keys submited request's keys
