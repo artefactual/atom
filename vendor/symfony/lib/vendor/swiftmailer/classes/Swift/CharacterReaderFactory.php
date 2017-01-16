@@ -8,21 +8,19 @@
  * file that was distributed with this source code.
  */
 
-
 /**
  * A factory for creating CharacterReaders.
- * @package Swift
- * @subpackage Encoder
+ *
  * @author Chris Corbyn
  */
 interface Swift_CharacterReaderFactory
 {
-
-  /**
-   * Returns a CharacterReader suitable for the charset applied.
-   * @param string $charset
-   * @return Swift_CharacterReader
-   */
-  public function getReaderFor($charset);
-  
+    /**
+     * Returns a CharacterReader suitable for the charset applied.
+     *
+     * @param string $charset
+     *
+     * @return Swift_CharacterReader
+     */
+    public function getReaderFor($charset);
 }
