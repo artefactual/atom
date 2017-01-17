@@ -32,6 +32,12 @@ class FunctionBrowseAction extends sfAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
+    if (sfConfig::get('app_enable_institutional_scoping'))
+    {
+      // remove search-realm
+      $this->context->user->removeAttribute('search-realm');
+    }
+
     if (!isset($request->sort))
     {
       if ($this->getUser()->isAuthenticated())
