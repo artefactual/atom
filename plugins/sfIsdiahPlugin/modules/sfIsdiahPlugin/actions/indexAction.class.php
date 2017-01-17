@@ -33,6 +33,13 @@ class sfIsdiahPluginIndexAction extends RepositoryIndexAction
 
     $this->isdiah = new sfIsdiahPlugin($this->resource);
 
+    if (null !== $this->resource->id &&
+      sfConfig::get('app_enable_institutional_scoping'))
+    {
+      // Add repo to the user session as realm
+      $this->context->user->setAttribute('search-realm', $this->resource->id);
+    }
+
     if (1 > strlen($title = $this->resource->__toString()))
     {
       $title = $this->context->i18n->__('Untitled');
