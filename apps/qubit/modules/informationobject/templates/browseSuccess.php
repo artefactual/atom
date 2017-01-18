@@ -1,4 +1,4 @@
-<?php if (isset($pager) && $pager->hasResults()): ?>
+<?php if (isset($pager) && $pager->hasResults() || sfConfig::get('app_enable_institutional_scoping')): ?>
   <?php decorate_with('layout_2col') ?>
 <?php else: ?>
   <?php decorate_with('layout_1col') ?>
@@ -28,7 +28,7 @@
   </div>
 <?php endif; ?>
 
-<?php if (isset($pager) && $pager->hasResults()): ?>
+<?php if (isset($pager) && $pager->hasResults() || sfConfig::get('app_enable_institutional_scoping')): ?>
 
   <?php slot('sidebar') ?>
 
