@@ -39,7 +39,6 @@ columnNames:
   - email
   - fax
   - website
-  - notes
   - legacyId
 
 direct:
