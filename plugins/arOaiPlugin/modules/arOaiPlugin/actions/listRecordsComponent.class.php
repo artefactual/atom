@@ -34,6 +34,7 @@ class arOaiPluginListRecordsComponent extends arOaiPluginComponent
 
     $this->getUpdates();
 
+    $this->metadataPrefix = $request->metadataPrefix;
     $this->setRequestAttributes($request);
   }
 }

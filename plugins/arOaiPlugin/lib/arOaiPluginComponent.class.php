@@ -134,4 +134,9 @@ abstract class arOaiPluginComponent extends sfComponent
       $this->requestAttributes .= ' '.$key.'="'.$this->attributes[$key].'"';
     }
   }
+
+  public static function includeCachedMetadata($objectId, $metadataPrefix)
+  {
+    include(arXmlExportSingleFileJob::getPath($objectId, str_replace('oai_', '', $metadataPrefix), true));
+  }
 }

@@ -32,6 +32,7 @@ class arOaiPluginGetRecordComponent extends arOaiPluginComponent
   {
     $oai_local_identifier_id = QubitOai::getOaiIdNumber($request->identifier);
     $this->record = QubitInformationObject::getRecordByOaiID($oai_local_identifier_id);
+    $this->metadataPrefix = $request->metadataPrefix;
     $request->setAttribute('record', $this->record);
 
     $this->setRequestAttributes($request);

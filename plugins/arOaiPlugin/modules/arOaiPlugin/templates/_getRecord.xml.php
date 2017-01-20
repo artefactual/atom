@@ -7,7 +7,7 @@
         <setSpec><?php echo $record->getCollectionRoot()->getOaiIdentifier()?></setSpec>
       </header>
       <metadata>
-        <?php echo get_component('sfDcPlugin', 'dc', array('resource' => $record)) ?>
+        <?php arOaiPluginComponent::includeCachedMetadata($record->id, $metadataPrefix) ?>
       </metadata>
       <?php if (count($record->digitalObjects)): ?>
         <?php include('_about.xml.php') ?>  
