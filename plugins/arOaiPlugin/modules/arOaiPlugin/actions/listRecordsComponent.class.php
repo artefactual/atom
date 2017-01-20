@@ -32,7 +32,8 @@ class arOaiPluginListRecordsComponent extends arOaiPluginComponent
 
     $this->setUpdateParametersFromRequest($request);
 
-    $this->getUpdates();
+    $options = ($request->metadataPrefix == 'oai_ead') ? array('limit' => 1) : array();
+    $this->getUpdates($options);
 
     $this->metadataPrefix = $request->metadataPrefix;
     $this->setRequestAttributes($request);
