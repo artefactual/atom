@@ -41,7 +41,7 @@
           'topLod' => false)) ?>">
       <?php endif; ?>
 
-        <i class="icon-list"></i>
+        <i class="fa fa-list"></i>
         <?php echo __('Browse as list') ?>
       </a>
     </li>
