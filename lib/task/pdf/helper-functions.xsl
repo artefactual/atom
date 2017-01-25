@@ -197,7 +197,7 @@
             <xsl:when test="$tag = 'title'">Title</xsl:when>
             <xsl:when test="$tag = 'unittitle'">Title</xsl:when>
             <xsl:when test="$tag = 'unitdate'">Date</xsl:when>
-            <xsl:when test="$tag = 'unitid'">ID</xsl:when>
+            <xsl:when test="$tag = 'unitid'">Reference code</xsl:when>
             <xsl:when test="$tag = 'titlepage'">Title page</xsl:when>
             <xsl:when test="$tag = 'titleproper'">Title proper of the finding aid</xsl:when>
             <xsl:when test="$tag = 'titlestmt'">Title statement</xsl:when>
