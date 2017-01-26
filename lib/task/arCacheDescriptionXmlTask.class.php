@@ -50,44 +50,11 @@ EOF;
 
   public static function exportAll()
   {
-    arXmlExportSingleFileJob::createExportDestinationDirs();
-    exportBulkBaseTask::includeXmlExportClassesAndHelpers();
-
     print "Caching XML representations of information objects...\n";
 
-    foreach (QubitInformationObject::getAll() as $io)
-    {
-      $published = $io->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID;
-
-      // Only cache if not root and published
-      if ($io->id != QubitInformationObject::ROOT_ID && $published)
-      {
-        // Only cache top-level information object's EAD XML
-        if ($io->parentId == QubitInformationObject::ROOT_ID)
-        {  
-          self::cacheXmlRepresentation($io, 'ead');
-          printf("Cached EAD XML for information object %s.\n", $io->id);
-        }
-
-        self::cacheXmlRepresentation($io, 'dc');
-        printf("Cached DC XML for information object %s.\n", $io->id);
-      }
-    }
+    $cache = new QubitInformationObjectXmlCache;
+    $cache->exportAll();
 
     print "Done.\n";
-  }
-
-  public static function cacheXmlRepresentation($resource, $format)
-  {
-    $tempFilePath = tmpfile();
-    file_put_contents($tempFilePath, self::getXmlRepresentation($resource, $format));
-    arXmlExportSingleFileJob::storeExport($tempFilePath, $resource->id, $format);
-    unlink($tempFilePath);
-  }
-
-  public static function getXmlRepresentation($resource, $format)
-  {
-    $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput($resource, $format);
-    return Qubit::tidyXml($rawXml);
   }
 }

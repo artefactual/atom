@@ -36,7 +36,9 @@ class arMigration0150
    */
   public function up($configuration)
   {
-    arCacheDescriptionXmlTask::exportAll();
+    $cache = new QubitInformationObjectXmlCache;
+    $cache->exportAll();
+
     return true;
   }
 }
