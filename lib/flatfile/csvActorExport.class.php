@@ -65,7 +65,6 @@ class csvActorExport extends QubitFlatfileExport
   {
     $filename = sprintf('%s/%s_%s_%s.csv', $this->path, $this->standard,
                         str_pad($this->fileIndex, 10, '0', STR_PAD_LEFT), $type);
-
     switch ($type)
     {
       case 'aliases':
@@ -83,7 +82,29 @@ class csvActorExport extends QubitFlatfileExport
 
   private function exportAliases($filename, $resource)
   {
+    $formTypes = array('other', 'standardized', 'parallel');
+    $rows = array();
 
+    foreach ($formTypes as $type)
+    {
+      if (null === $typeId = constant('QubitTerm::'.strtoupper($type).'_FORM_OF_NAME_ID'))
+      {
+        throw new sfException("Unknown constant type in exportAliases: $type");
+      }
+
+      // Get other names for STANDARDIZED_FORM_OF_NAME_ID, PARALLEL_FORM_OF_NAME_ID & OTHER_FORM_OF_NAME_ID
+      foreach ($resource->getOtherNames(array('typeId' => $typeId)) as $name)
+      {
+        $rows[] = array(
+          'parentAuthorizedFormOfName' => $resource->authorizedFormOfName,
+          'alternateForm'              => (string)$name,
+          'formType'                   => $type,
+          'culture'                    => $resource->culture
+        );
+      }
+    }
+
+    $this->writeCompanionCsv($filename, $rows);
   }
 
   private function exportRelations($filename, $resource)
@@ -103,7 +124,7 @@ class csvActorExport extends QubitFlatfileExport
         $category = $item->type->parent;
       }
 
-      $row = array(
+      $rows[] = array(
         'sourceAuthorizedFormOfName' => $resource->authorizedFormOfName,
         'targetAuthorizedFormOfName' => $relatedEntity->authorizedFormOfName,
         'category'                   => (string)$category, // Return string representation for QubitTerm
@@ -113,14 +134,12 @@ class csvActorExport extends QubitFlatfileExport
         'endDate'                    => $item->endDate,
         'culture'                    => $resource->culture
       );
-
-      $rows[] = $row;
     }
 
     $this->writeCompanionCsv($filename, $rows);
   }
 
-  private function writeCompanionCsv($filename, $rows)
+  private function writeCompanionCsv($filename, array $rows)
   {
     if (empty($rows))
     {
@@ -132,8 +151,8 @@ class csvActorExport extends QubitFlatfileExport
       throw new sfException("Failed to create file $filename");
     }
 
-    $header = array_keys($rows[0]);
-    fputcsv($fh, $header);
+    // Write header
+    fputcsv($fh, array_keys($rows[0]));
 
     foreach ($rows as $row)
     {
