@@ -115,12 +115,20 @@ class ObjectExportAction extends DefaultEditAction
       $levelsOfDescription[$value] = $this->choices[$value];
     }
 
-    $options = array('params' => array('fromClipboard' => true,
-                     'slugs' => $this->context->user->getClipboard()->getAll()),
-                     'current-level-only' => ('on' == $request->getParameter('includeDescendants')) ? false : true,
-                     'public' => ($request->getParameter('includeDrafts') == 'on') ? false : true,
-                     'objectType' => $request->getParameter('objectType'),
-                     'levels' => $levelsOfDescription);
+    $options = array(
+      'params' => array('fromClipboard' => true, 'slugs' => $this->context->user->getClipboard()->getAll()),
+      'current-level-only' => 'on' !== $request->getParameter('includeDescendants'),
+      'public' => 'on' !== $request->getParameter('includeDrafts'),
+      'objectType' => $request->getParameter('objectType'),
+      'levels' => $levelsOfDescription
+    );
+
+    // When exporting actors, ensure aliases and relations are also exported.
+    if ('actor' === $this->objectType && 'CSV' === strtoupper($this->type))
+    {
+      $options['aliases'] = true;
+      $options['relations'] = true;
+    }
 
     try
     {

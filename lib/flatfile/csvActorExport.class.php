@@ -34,6 +34,115 @@ class csvActorExport extends QubitFlatfileExport
     $this->options = $options;
   }
 
+  /**
+   * Export a actor, and additionally any aliases / relationships.
+   *
+   * @param object $resource  object to export
+   *
+   * @return void
+   */
+  public function exportResource(&$resource)
+  {
+    parent::exportResource($resource);
+
+    $companionFileTypes = array('aliases', 'relations');
+
+    foreach ($companionFileTypes as $type)
+    {
+      if (!empty($this->options[$type]))
+      {
+        $this->exportCompanionFile($type, $resource);
+      }
+    }
+  }
+
+  /**
+   * Export companion files with this resource. In this case, actor aliases or relations.
+   *
+   * @param string $type  The type of companion file,
+   */
+  private function exportCompanionFile($type, $resource)
+  {
+    $filename = sprintf('%s/%s_%s_%s.csv', $this->path, $this->standard,
+                        str_pad($this->fileIndex, 10, '0', STR_PAD_LEFT), $type);
+
+    switch ($type)
+    {
+      case 'aliases':
+        $this->exportAliases($filename, $resource);
+        break;
+
+      case 'relations':
+        $this->exportRelations($filename, $resource);
+        break;
+
+      default:
+        throw new sfException("Invalid companion file type in csvActorExport::exportCompanionFile - $type given.");
+    }
+  }
+
+  private function exportAliases($filename, $resource)
+  {
+
+  }
+
+  private function exportRelations($filename, $resource)
+  {
+    $rows = array();
+
+    foreach ($resource->getActorRelations() as $item)
+    {
+      $relatedEntity = $item->getOpposedObject($resource->id);
+
+      if (QubitTerm::ROOT_ID == $item->type->parentId)
+      {
+        $category = $item->type;
+      }
+      else
+      {
+        $category = $item->type->parent;
+      }
+
+      $row = array(
+        'sourceAuthorizedFormOfName' => $resource->authorizedFormOfName,
+        'targetAuthorizedFormOfName' => $relatedEntity->authorizedFormOfName,
+        'category'                   => (string)$category, // Return string representation for QubitTerm
+        'description'                => $item->description,
+        'date'                       => $item->date,
+        'startDate'                  => $item->startDate,
+        'endDate'                    => $item->endDate,
+        'culture'                    => $resource->culture
+      );
+
+      $rows[] = $row;
+    }
+
+    $this->writeCompanionCsv($filename, $rows);
+  }
+
+  private function writeCompanionCsv($filename, $rows)
+  {
+    if (empty($rows))
+    {
+      return;
+    }
+
+    if (false === $fh = fopen($filename, 'w'))
+    {
+      throw new sfException("Failed to create file $filename");
+    }
+
+    $header = array_keys($rows[0]);
+    fputcsv($fh, $header);
+
+    foreach ($rows as $row)
+    {
+      fputcsv($fh, $row);
+    }
+
+    fclose($fh);
+  }
+
   /*
    * Specific column settings before CSV row write
    *
