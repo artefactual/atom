@@ -73,7 +73,7 @@ class QubitOai
   {
     foreach (self::getMetadataFormats() as $formatData)
     {
-      if ($formatData['prefix'] == $metadataFormat)
+      if ($formatData['prefix'] === $metadataFormat)
       {
         return true;
       }
@@ -297,10 +297,7 @@ class QubitOai
   public static function getMatchingOaiSet($setSpec)
   {
     // Check additional sets, if enabled
-    $setting = QubitSetting::getByName('oai_additional_sets_enabled');
-    $setsEnabled = (null === $setting) ? false : $setting->value;
-
-    if ($setsEnabled)
+    if (sfConfig::get('app_oai_additional_sets_enabled__source', false))
     {
       foreach (QubitOai::$additionalOaiSets as $oaiSet)
       {

@@ -5,7 +5,7 @@
            <setName><?php echo esc_specialchars(strval($set->getName())) ?></setName>
         </set>
     <?php endforeach ?>
-  <?php if ($remaining > 0): ?>
-    <resumptionToken><?php echo $resumptionToken?></resumptionToken>
-  <?php endif?>
+    <?php if ($remaining > 0): ?>
+      <resumptionToken><?php echo $resumptionToken?></resumptionToken>
+    <?php endif?>
   </ListSets>

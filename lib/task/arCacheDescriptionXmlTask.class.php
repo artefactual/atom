@@ -55,7 +55,7 @@ EOF;
 
     print "Caching XML representations of information objects...\n";
 
-    foreach(QubitInformationObject::getAll() as $io)
+    foreach (QubitInformationObject::getAll() as $io)
     {
       $published = $io->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID;
 
@@ -79,7 +79,7 @@ EOF;
 
   public static function cacheXmlRepresentation($resource, $format)
   {
-    $tempFilePath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'export_'. $format .'_'. $io->id;
+    $tempFilePath = tmpfile();
     file_put_contents($tempFilePath, self::getXmlRepresentation($resource, $format));
     arXmlExportSingleFileJob::storeExport($tempFilePath, $resource->id, $format);
     unlink($tempFilePath);
