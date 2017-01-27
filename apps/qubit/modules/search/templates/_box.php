@@ -6,10 +6,10 @@
 
     <input type="hidden" name="topLod" value="0"/>
 
-    <?php if (isset($repository)): ?>
+    <?php if (isset($repository) && !sfConfig::get('app_enable_institutional_scoping')): ?>
       <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo $sf_request->query ?>" placeholder="<?php echo __('Search %1%', array('%1%' => render_title($repository))) ?>"/>
     <?php else: ?>
-      <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo $sf_request->query ?>" placeholder="<?php echo __('%1%', array('%1%' => sfConfig::get('app_ui_label_globalSearch'))) ?>"/>
+      <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php if (!$sf_user->getAttribute('search-realm') || !sfConfig::get('app_enable_institutional_scoping')) echo $sf_request->query ?>" placeholder="<?php echo __('%1%', array('%1%' => sfConfig::get('app_ui_label_globalSearch'))) ?>"/>
     <?php endif; ?>
 
     <button><span><?php echo __('Search') ?></span></button>
