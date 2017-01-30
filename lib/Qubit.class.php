@@ -64,15 +64,18 @@ class Qubit
 
   public static function renderDateStartEnd($date, $start, $end)
   {
-    if (isset($date))
+    if (!empty($date))
     {
       return $date;
     }
 
-    if (isset($start) || isset($end))
+    if (!empty($start) || !empty($end))
     {
       $start = Qubit::renderDate($start);
+      $start = empty($start) ? '?' : $start;
+
       $end = Qubit::renderDate($end);
+      $end = empty($end) ? '?' : $end;
 
       if ($end == $start)
       {

@@ -44,20 +44,13 @@
         <li class="level-description"><?php echo esc_specialchars(QubitCache::getLabel($doc['levelOfDescriptionId'], 'QubitTerm')) ?></li>
       <?php endif; ?>
 
-      <?php if (isset($doc['dates'])): ?>
-        <?php foreach ($doc['dates'] as $date): ?>
-          <?php if (isset($date['startDateString'])
-            || isset($date['endDateString'])
-            || null != get_search_i18n($date, 'date', array('culture' => $culture))): ?>
-
-            <li class="dates"><?php echo Qubit::renderDateStartEnd(get_search_i18n($date, 'date', array('culture' => $culture)),
-              isset($date['startDateString']) ? $date['startDateString'] : null,
-              isset($date['endDateString']) ? $date['endDateString'] : null) ?></li>
-
-            <?php break; ?>
-
-          <?php endif; ?>
-        <?php endforeach; ?>
+      <?php if (isset($doc['dates']) && 0 < count($doc['dates'])): ?>
+        <?php $date = $doc['dates'][0] ?>
+        <?php $displayDate = get_search_i18n($date, 'date', array('culture' => $culture)) ?>
+        <?php $result = Qubit::renderDateStartEnd($displayDate, $date['startDateString'], $date['endDateString']) ?>
+        <?php if (!empty($result)): ?>
+          <li class="dates"><?php echo $result ?></li>
+        <?php endif; ?>
       <?php endif; ?>
 
       <?php if (isset($doc['publicationStatusId']) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $doc['publicationStatusId']): ?>
