@@ -18,8 +18,10 @@
       'options' => array(
         'lastUpdated' => __('Most recent'),
         'alphabetic'  => __('Alphabetic'),
+        'relevance'   => __('Relevance'),
         'identifier'  => __('Reference code'),
-        'date'        => __('Date')))) ?>
+        'startDate'   => __('Start date'),
+        'endDate'     => __('End date')))) ?>
   </section>
 <?php end_slot() ?>
 
