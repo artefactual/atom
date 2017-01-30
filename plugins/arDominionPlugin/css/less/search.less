@@ -316,6 +316,12 @@ h1 {
 
 }
 
+// Put datepicker on top of .btn-group > .btn.active,
+// wich has a z-index of 2 defined by Bootstrap
+.ui-datepicker {
+  z-index: 3;
+}
+
 // Responsive for advanced search filters
 
 @media (max-width: 435px) {
