@@ -307,12 +307,13 @@
 
       <?php echo get_partial('default/sortPicker', array(
         'options' => array(
-          'lastUpdated' => __('Most recent'),
-          'alphabetic'  => __('Alphabetic'),
-          'relevance'   => __('Relevance'),
-          'identifier'  => __('Reference code'),
-          'startDate'   => __('Start date'),
-          'endDate'     => __('End date')))) ?>
+          'lastUpdated'   => __('Most recent'),
+          'alphabetic'    => __('Alphabetic'),
+          'relevance'     => __('Relevance'),
+          'identifier'    => __('Identifier'),
+          'referenceCode' => __('Reference code'),
+          'startDate'     => __('Start date'),
+          'endDate'       => __('End date')))) ?>
     </section>
 
     <div id="content" class="browse-content">

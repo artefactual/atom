@@ -533,6 +533,11 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         break;
 
       case 'identifier':
+        $this->search->query->addSort(array('identifier' => 'asc'));
+
+        break;
+
+      case 'referenceCode':
         $this->search->query->addSort(array('referenceCode.untouched' => 'asc'));
 
         break;
