@@ -44,13 +44,9 @@
         <li class="level-description"><?php echo esc_specialchars(QubitCache::getLabel($doc['levelOfDescriptionId'], 'QubitTerm')) ?></li>
       <?php endif; ?>
 
-      <?php if (isset($doc['dates']) && 0 < count($doc['dates'])): ?>
-        <?php $date = $doc['dates'][0] ?>
-        <?php $displayDate = get_search_i18n($date, 'date', array('culture' => $culture)) ?>
-        <?php $result = Qubit::renderDateStartEnd($displayDate, $date['startDateString'], $date['endDateString']) ?>
-        <?php if (!empty($result)): ?>
-          <li class="dates"><?php echo $result ?></li>
-        <?php endif; ?>
+      <?php $date = render_search_result_date($doc['dates']) ?>
+      <?php if (!empty($date)): ?>
+        <li class="dates"><?php echo $date ?></li>
       <?php endif; ?>
 
       <?php if (isset($doc['publicationStatusId']) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $doc['publicationStatusId']): ?>

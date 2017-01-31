@@ -49,18 +49,7 @@
               <?php endif; ?>
             </td>
             <td>
-              <?php if (isset($doc['dates'])): ?>
-                <?php foreach ($doc['dates']->getRawValue() as $date): ?>
-                  <?php if (isset($date['startDateString'])
-                    || isset($date['endDateString'])
-                    || null != get_search_i18n($date, 'date', array('culture' => $culture))): ?>
-                    <?php echo Qubit::renderDateStartEnd(get_search_i18n($date, 'date', array('culture' => $culture)),
-                      isset($date['startDateString']) ? $date['startDateString'] : null,
-                      isset($date['endDateString']) ? $date['endDateString'] : null) ?>
-                    <?php break; ?>
-                  <?php endif; ?>
-                <?php endforeach; ?>
-              <?php endif; ?>
+              <?php echo render_search_result_date($doc['dates']) ?>
             </td>
             <td>
               <?php if ($doc['hasDigitalObject']): ?>

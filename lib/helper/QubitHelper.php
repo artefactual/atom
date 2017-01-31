@@ -597,3 +597,27 @@ function qubit_auto_link_urls($text, $href_options = array())
     create_function('$matches', $callback_function),
     $text);
 }
+
+function render_search_result_date($date)
+{
+  $date = sfOutputEscaper::unescape($date);
+
+  if (empty($date))
+  {
+    return;
+  }
+
+  foreach ((array)$date as $item)
+  {
+    $displayDate = get_search_i18n($item, 'date', array('culture' => $culture));
+    $startDate = $item['startDateString'];
+    $endDate = $item['endDateString'];
+
+    if (empty($displayDate) && empty($startDate) && empty($endDate))
+    {
+      continue;
+    }
+
+    return Qubit::renderDateStartEnd($displayDate, $startDate, $endDate);
+  }
+}
