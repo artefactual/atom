@@ -235,6 +235,20 @@ class sfInstall
     sfConfig::set('sf_debug', $saveDebug);
     sfConfig::set('sf_logging_enabled', $saveLoggingEnabled);
 
+    // Clear PHP opcode cache. This was added to correct issue where occasionally
+    // during installation, the cache will contain the vendor skeleton .yml
+    // files, which override the AtoM config files that get written to the cache
+    // folder during install. This prevents the i18n and Qubit helpers being
+    // loaded (from apps/qubit/config/settings.yml) triggering the i18n errors.
+    if (function_exists('opcache_reset'))
+    {
+      opcache_reset();
+    }
+    if (function_exists('apc_clear_cache'))
+    {
+      apc_clear_cache();
+    }
+
     return $settingsYml;
   }
 
