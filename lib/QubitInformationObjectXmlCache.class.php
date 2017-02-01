@@ -124,7 +124,14 @@ class QubitInformationObjectXmlCache
   }
 
   /**
-   * Store XML representation of information object.
+   * Store XML representations of information object.
+   *
+   * Two XML files are created, copied from a source file to files within the
+   * downloads directory. One copy contains the complete XML while the other
+   * removes the XML declaration line (and, for EAD, the doctype line).
+   *
+   * The copy with the line(s) removed is created so it can be included within
+   * OAI-PMH results.
    *
    * @param string  path to temporary file containing XML
    * @param integer  ID of information object to cache
@@ -134,8 +141,11 @@ class QubitInformationObjectXmlCache
    */
   protected function storeXmlExport($filePath, $objectId, $format)
   {
+    // Copy unmodified XML to downloads subdirectory
     copy($filePath, $this->getFilePath($objectId, $format));
-    $skipLines = ($format == 'ead') ? 2 : 1;
+
+    // Copy XML with declaration/doctype removed to downloads subdirectory
+    $skipLines = ($format == 'ead') ? 2 : 1; // For EAD doctype line stripped in addition to XML declaration
     $this->rewriteFileSkippingLines($filePath, $this->getFilePath($objectId, $format, true), $skipLines);
   }
 
@@ -183,6 +193,8 @@ class QubitInformationObjectXmlCache
 
   /**
    * Rewrite file skipping lines.
+   *
+   * This is used to rewrite XML files, removing the XML declaration and doctype.
    *
    * @param string  source file
    * @param string  destination file
