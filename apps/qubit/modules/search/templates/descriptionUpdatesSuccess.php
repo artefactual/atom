@@ -91,7 +91,7 @@
 
             <?php if ('QubitInformationObject' == $className && 0 < sfConfig::get('app_multi_repository')): ?>
               <td>
-                <?php if (null !== $repository = (isset($doc['repository'])) ? truncate_text(get_search_i18n($doc, 'authorizedFormOfName', array('allowEmpty' => false)), 100) : null): ?>
+                <?php if (null !== $repository = (isset($doc['repository'])) ? truncate_text(get_search_i18n($doc['repository'], 'authorizedFormOfName', array('allowEmpty' => false)), 100) : null): ?>
                   <?php echo $repository ?>
                 <?php endif; ?>
               </td>
