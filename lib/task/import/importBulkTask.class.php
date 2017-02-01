@@ -146,9 +146,9 @@ EOF;
 
       if ($importer->hasErrors())
       {
-        foreach ($importer->getErrors() as $error)
+        foreach ($importer->getErrors() as $message)
         {
-          $this->log('Error ('. $file .'): '. $error);
+          $this->log('('. $file .'): '. $message);
         }
       }
 
