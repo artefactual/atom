@@ -29,29 +29,18 @@ class arXmlExportSingleFileJob extends arBaseJob
   /**
    * @see arBaseJob::$requiredParameters
    */
+  protected
+    $extraRequiredParameters = array('objectId', 'format');
+
   protected $params = array();
 
   public function runJob($parameters)
   {
     $this->params = $parameters;
 
-    if (!isset($this->params['objectId']))
-    {
-      $this->error($this->i18n->__('No object ID provided.'));
-
-      return false;
-    }
-
     if (!is_numeric($this->params['objectId']))
     {
       $this->error($this->i18n->__('Object ID must be numberic.'));
-
-      return false;
-    }
-
-    if (!isset($this->params['format']))
-    {
-      $this->error($this->i18n->__('No format specified.'));
 
       return false;
     }
