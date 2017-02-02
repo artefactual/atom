@@ -52,7 +52,7 @@ EOF;
   {
     print "Caching XML representations of information objects...\n";
 
-    $cache = new QubitInformationObjectXmlCache;
+    $cache = new QubitInformationObjectXmlCache(array('logger' => sfContext::getInstance()->getLogger()));
     $cache->exportAll();
 
     print "Done.\n";

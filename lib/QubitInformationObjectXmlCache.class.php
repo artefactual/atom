@@ -26,8 +26,12 @@
  */
 class QubitInformationObjectXmlCache
 {
-  public function __construct()
+  protected $logger;
+
+  public function __construct($options = array())
   {
+    $this->logger = isset($options['logger']) ? $options['logger'] : new sfNoLogger(new sfEventDispatcher);
+    $this->i18n = sfContext::getInstance()->i18n;
     $this->createExportDestinationDirs();
   }
 
@@ -86,6 +90,7 @@ class QubitInformationObjectXmlCache
       // Only cache if not root and published
       if ($io->id != QubitInformationObject::ROOT_ID && $published)
       {
+        $this->logger->info($this->i18n->__('Exporting information object ID %1%', array('%1%' => $io->id)));
         $this->export($io);
       }
     }
