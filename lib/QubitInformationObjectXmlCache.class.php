@@ -147,11 +147,11 @@ class QubitInformationObjectXmlCache
   protected function storeXmlExport($filePath, $objectId, $format)
   {
     // Copy unmodified XML to downloads subdirectory
-    copy($filePath, $this->getFilePath($objectId, $format));
+    copy($filePath, self::getFilePath($objectId, $format));
 
     // Copy XML with declaration/doctype removed to downloads subdirectory
     $skipLines = ($format == 'ead') ? 2 : 1; // For EAD doctype line stripped in addition to XML declaration
-    $this->rewriteFileSkippingLines($filePath, $this->getFilePath($objectId, $format, true), $skipLines);
+    $this->rewriteFileSkippingLines($filePath, self::getFilePath($objectId, $format, true), $skipLines);
   }
 
   /**

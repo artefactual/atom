@@ -633,8 +633,7 @@ class QubitInformationObject extends BaseInformationObject
     }
     else
     {
-      sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
-      return url_for(array($this, 'module' => 'sfEadPlugin', 'sf_format' => 'xml'));
+      return sfContext::getInstance()->routing->generate(null, array($this, 'module' => 'sfEadPlugin', 'sf_format' => 'xml'));
     }
   }
 
@@ -663,8 +662,7 @@ class QubitInformationObject extends BaseInformationObject
     }
     else
     {
-      sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
-      return url_for(array($this, 'module' => 'sfDcPlugin', 'sf_format' => 'xml'));
+      return sfContext::getInstance()->routing->generate(null, array($this, 'module' => 'sfDcPlugin', 'sf_format' => 'xml'));
     }
   }
 
