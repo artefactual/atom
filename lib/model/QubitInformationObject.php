@@ -598,7 +598,6 @@ class QubitInformationObject extends BaseInformationObject
       'objectId' => $this->getCollectionRoot()->id,
       'format'   => 'ead'
     );
-
     QubitJob::runJob('arXmlExportSingleFileJob', $params);
 
     // Export as DC
