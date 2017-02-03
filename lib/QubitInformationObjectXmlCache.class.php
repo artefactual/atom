@@ -61,7 +61,7 @@ class QubitInformationObjectXmlCache
   /**
    * Export information object to EAD (if top-level) and DC.
    *
-   * @param object  information object to be export
+   * @param object  information object instance to export
    *
    * @return null
    */
@@ -107,25 +107,11 @@ class QubitInformationObjectXmlCache
   protected function cacheXmlRepresentation($resource, $format)
   {
     $tempFile = tmpfile();
-    fwrite($tempFile, $this->generateXmlRepresentation($resource, $format));
+    $cacheResource = new QubitInformationObjectXmlCacheResource($resource);
+    fwrite($tempFile, $cacheResource->generateXmlRepresentation($format));
     $metadata = stream_get_meta_data($tempFile);
-    $this->storeXmlExport($metadata['uri'], $resource->id, $format);
+    $this->storeXmlExport($metadata['uri'], $resource, $format);
     fclose($tempFile);
-  }
-
-  /**
-   * Generate XML representation of information object.
-   *
-   * @param object  information object to cache
-   * @param string  format of XML ("dc" or "ead")
-   *
-   * @return string  XML representation
-   */
-  protected function generateXmlRepresentation($resource, $format)
-  {
-    exportBulkBaseTask::includeXmlExportClassesAndHelpers();
-    $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput($resource, $format);
-    return Qubit::tidyXml($rawXml);
   }
 
   /**
@@ -139,61 +125,21 @@ class QubitInformationObjectXmlCache
    * OAI-PMH results.
    *
    * @param string  path to temporary file containing XML
-   * @param integer  ID of information object to cache
+   * @param object  information object instance to cache
    * @param string  format of XML ("dc" or "ead")
    *
    * @return null
    */
-  protected function storeXmlExport($filePath, $objectId, $format)
+  protected function storeXmlExport($filePath, $resource, $format)
   {
+    $cacheResource = new QubitInformationObjectXmlCacheResource($resource);
+
     // Copy unmodified XML to downloads subdirectory
-    copy($filePath, self::getFilePath($objectId, $format));
+    copy($filePath, $cacheResource->getFilePath($format));
 
     // Copy XML with declaration/doctype removed to downloads subdirectory
     $skipLines = ($format == 'ead') ? 2 : 1; // For EAD doctype line stripped in addition to XML declaration
-    $this->rewriteFileSkippingLines($filePath, self::getFilePath($objectId, $format, true), $skipLines);
-  }
-
-  /**
-   * Get file path of an information object's XML representation.
-   *
-   * @param integer  ID of information object to cache
-   * @param string  format of XML ("dc" or "ead")
-   * @param boolean  where or not to store just the contents (no XML header lines)
-   *
-   * @return string  path to XML representation
-   */
-  public static function getFilePath($objectId, $format, $contentsOnly = false)
-  {
-    $filename = md5($objectId);
-    if ($contentsOnly)
-    {
-      $filename .= '_contents';
-    }
-    $filename .= '.'. strtolower($format) .'.xml';
-
-    $exportsPath = 'downloads' . DIRECTORY_SEPARATOR . 'exports';
-    return $exportsPath . DIRECTORY_SEPARATOR . strtolower($format) . DIRECTORY_SEPARATOR . $filename;
-  }
-
-  /**
-   * Get URL of an information object's XML representation.
-   *
-   * @param integer  ID of information object to cache
-   * @param string  format of XML ("dc" or "ead")
-   *
-   * @return string  URL of XML representation
-   */
-  public static function getPathForDownload($objectId, $format)
-  {
-    $path = self::getFilePath($objectId, $format);
-
-    if (file_exists(sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR . $path))
-    {
-      return $path;
-    }
-
-    return null;
+    $this->rewriteFileSkippingLines($filePath, $cacheResource->getFilePath($format, true), $skipLines);
   }
 
   /**
