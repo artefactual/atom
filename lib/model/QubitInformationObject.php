@@ -645,7 +645,8 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function pathToEadExport($contentsOnly = false)
   {
-    return QubitInformationObjectXmlCache::getFilePath($this->getCollectionRoot()->id, 'ead', $contentsOnly);
+    $cacheResource = new QubitInformationObjectXmlCacheResource($this->getCollectionRoot());
+    return $cacheResource->getFilePath('ead', $contentsOnly);
   }
 
   /**
@@ -674,7 +675,8 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function pathToDcExport($contentsOnly = false)
   {
-    return QubitInformationObjectXmlCache::getFilePath($this->id, 'dc', $contentsOnly);
+    $cacheResource = new QubitInformationObjectXmlCacheResource($this->getCollectionRoot());
+    return $cacheResource->getFilePath('dc', $contentsOnly);
   }
 
   /**************************
