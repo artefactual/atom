@@ -125,14 +125,23 @@ EOF;
 
       // Import columns that map directory to QubitRepository properties
       'standardColumns' => array(
-        'authorizedFormOfName',
         'identifier',
-        'openingTimes',
+        'uploadLimit',
+        'authorizedFormOfName',
         'geoculturalContext',
+        'internalStructures',
+        'collectingPolicies',
         'holdings',
         'findingAids',
-        'internalStructures',
-        'uploadLimit'
+        'openingTimes',
+        'accessConditions',
+        'disabledAccess',
+        'researchServices',
+        'reproductionServices',
+        'publicFacilities',
+        'descInstitutionIdentifier',
+        'descRules',
+        'descRevisionHistory'
       ),
 
       'columnMap' => array(
