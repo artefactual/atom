@@ -352,7 +352,7 @@
         this.$element.addClass('loading');
 
         var radio = this.$form.find('[type=radio]:checked');
-        var realm = radio.length ? radio.get(0).value : 'all';
+        var realm = radio.length ? radio.get(0).value : '';
 
         $.ajax(this.source,
           {
