@@ -40,7 +40,7 @@ class QubitInformationObjectXmlCacheResource
    *
    * @return string  XML representation
    */
-  protected function generateXmlRepresentation($format)
+  public function generateXmlRepresentation($format)
   {
     exportBulkBaseTask::includeXmlExportClassesAndHelpers();
     $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput($this->resource, $format);
