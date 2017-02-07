@@ -109,7 +109,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
     }
   }
 
-  public static function captureResourceExportTemplateOutput($resource, $format, $options)
+  public static function captureResourceExportTemplateOutput($resource, $format, $options = array())
   {
     $pluginName = 'sf'. ucfirst($format) .'Plugin';
     $template = sprintf('plugins/%s/modules/%s/templates/indexSuccess.xml.php', $pluginName, $pluginName);

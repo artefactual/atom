@@ -162,6 +162,7 @@ class DigitalObjectEditAction extends sfAction
         $this->processForm();
 
         $this->resource->save();
+        $this->informationObject->updateXmlExports();
 
         $this->redirect(array($this->informationObject, 'module' => 'informationobject'));
       }

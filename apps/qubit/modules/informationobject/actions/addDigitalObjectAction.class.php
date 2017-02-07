@@ -92,6 +92,7 @@ class InformationObjectAddDigitalObjectAction extends sfAction
         $this->processForm();
 
         $this->resource->save();
+        $this->resource->updateXmlExports();
 
         $this->redirect(array($this->resource, 'module' => 'informationobject'));
       }
