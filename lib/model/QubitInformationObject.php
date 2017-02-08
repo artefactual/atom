@@ -577,6 +577,12 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function updateXmlExports()
   {
+    // Don't update unless caching-on-update is enabled
+    if (empty(sfConfig::get('app_cache_xml_on_save')))
+    {
+      return;
+    }
+
     // Create DC and EAD XML exports if the description's published... otherwise delete any that may exist
     if ($this->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)
     {
