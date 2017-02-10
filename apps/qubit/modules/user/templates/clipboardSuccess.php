@@ -32,9 +32,11 @@
 
 <?php slot('content') ?>
   <div id="content">
-    <?php if (!isset($pager) || !$pager->hasResults()): ?>
-      <?php echo __('No results for this entity type.') ?>
-    <?php endif; ?>
+    <div class="text-section">
+      <?php if (!isset($pager) || !$pager->hasResults()): ?>
+        <?php echo __('No results for this entity type.') ?>
+      <?php endif; ?>
+    </div>
 
     <?php foreach ($pager->getResults() as $hit): ?>
       <?php if ('QubitInformationObject' === $entityType): ?>
