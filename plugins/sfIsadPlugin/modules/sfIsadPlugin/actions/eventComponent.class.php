@@ -92,7 +92,7 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
         if (!isset($this->request->sourceId) && isset($item['id']))
         {
           $params = $this->context->routing->parse(Qubit::pathInfo($item['id']));
-          $this->event = $params['_sf_route']->resource;
+          $this->resource->eventsRelatedByobjectId[] = $this->event = $params['_sf_route']->resource;
           array_push($finalEventIds, $this->event->id);
         }
         else
