@@ -18,7 +18,7 @@ class Response
      *
      * @var float Query time
      */
-    protected $_queryTime = null;
+    protected $_queryTime;
 
     /**
      * Response string (json).
@@ -28,32 +28,32 @@ class Response
     protected $_responseString = '';
 
     /**
-     * Error.
-     *
-     * @var bool Error
-     */
-    protected $_error = false;
-
-    /**
      * Transfer info.
      *
      * @var array transfer info
      */
-    protected $_transferInfo = array();
+    protected $_transferInfo = [];
 
     /**
      * Response.
      *
-     * @var \Elastica\Response Response object
+     * @var array|null
      */
-    protected $_response = null;
+    protected $_response;
 
     /**
      * HTTP response status code.
      *
      * @var int
      */
-    protected $_status = null;
+    protected $_status;
+
+    /**
+     * Whether or not to convert bigint results to string (see issue #717).
+     *
+     * @var bool
+     */
+    protected $_jsonBigintConversion = false;
 
     /**
      * Construct.
@@ -78,14 +78,55 @@ class Response
      */
     public function getError()
     {
-        $message = '';
-        $response = $this->getData();
+        $error = $this->getFullError();
 
-        if (isset($response['error'])) {
-            $message = $response['error'];
+        if (!$error) {
+            return '';
+        }
+
+        if (is_string($error)) {
+            return $error;
+        }
+
+        $rootError = $error;
+        if (isset($error['root_cause'][0])) {
+            $rootError = $error['root_cause'][0];
+        }
+
+        $message = $rootError['reason'];
+        if (isset($rootError['index'])) {
+            $message .= ' [index: '.$rootError['index'].']';
+        }
+
+        if (isset($error['reason']) && $rootError['reason'] != $error['reason']) {
+            $message .= ' [reason: '.$error['reason'].']';
         }
 
         return $message;
+    }
+
+    /**
+     * A keyed array representing any errors that occurred.
+     *
+     * In case of http://localhost:9200/_alias/test the error is a string
+     *
+     * @return array|string|null Error data or null if there is no error
+     */
+    public function getFullError()
+    {
+        $response = $this->getData();
+
+        if (isset($response['error'])) {
+            return $response['error'];
+        }
+    }
+
+    /**
+     * @return string Error string based on the error object
+     */
+    public function getErrorMessage()
+    {
+        return $this->getError();
     }
 
     /**
@@ -97,11 +138,7 @@ class Response
     {
         $response = $this->getData();
 
-        if (isset($response['error'])) {
-            return true;
-        }
-
-        return false;
+        return isset($response['error']);
     }
 
     /**
@@ -131,11 +168,7 @@ class Response
 
         // Bulk insert checks. Check every item
         if (isset($data['status'])) {
-            if ($data['status'] >= 200 && $data['status'] <= 300) {
-                return true;
-            }
-
-            return false;
+            return $data['status'] >= 200 && $data['status'] <= 300;
         }
 
         if (isset($data['items'])) {
@@ -146,7 +179,9 @@ class Response
             foreach ($data['items'] as $item) {
                 if (isset($item['index']['ok']) && false == $item['index']['ok']) {
                     return false;
-                } elseif (isset($item['index']['status']) && ($item['index']['status'] < 200 || $item['index']['status'] >= 300)) {
+                }
+
+                if (isset($item['index']['status']) && ($item['index']['status'] < 200 || $item['index']['status'] >= 300)) {
                     return false;
                 }
             }
@@ -159,7 +194,7 @@ class Response
             return true;
         }
 
-        return (isset($data['ok']) && $data['ok']);
+        return isset($data['ok']) && $data['ok'];
     }
 
     /**
@@ -179,22 +214,23 @@ class Response
     {
         if ($this->_response == null) {
             $response = $this->_responseString;
-            if ($response === false) {
-                $this->_error = true;
-            } else {
-                try {
+
+            try {
+                if ($this->getJsonBigintConversion()) {
+                    $response = JSON::parse($response, true, 512, JSON_BIGINT_AS_STRING);
+                } else {
                     $response = JSON::parse($response);
-                } catch (JSONParseException $e) {
-                    // leave response as is if parse fails
                 }
+            } catch (JSONParseException $e) {
+                // leave response as is if parse fails
             }
 
             if (empty($response)) {
-                $response = array();
+                $response = [];
             }
 
             if (is_string($response)) {
-                $response = array('message' => $response);
+                $response = ['message' => $response];
             }
 
             $this->_response = $response;
@@ -304,5 +340,25 @@ class Response
         }
 
         return $data['_scroll_id'];
+    }
+
+    /**
+     * Sets whether or not to apply bigint conversion on the JSON result.
+     *
+     * @param bool $jsonBigintConversion
+     */
+    public function setJsonBigintConversion($jsonBigintConversion)
+    {
+        $this->_jsonBigintConversion = $jsonBigintConversion;
+    }
+
+    /**
+     * Gets whether or not to apply bigint conversion on the JSON result.
+     *
+     * @return bool
+     */
+    public function getJsonBigintConversion()
+    {
+        return $this->_jsonBigintConversion;
     }
 }

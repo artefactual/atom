@@ -16,33 +16,33 @@ class Node
      *
      * @var \Elastica\Client
      */
-    protected $_client = null;
+    protected $_client;
 
     /**
      * @var string Unique node id
      */
-    protected $_id = '';
+    protected $_id;
 
     /**
      * Node name.
      *
      * @var string Node name
      */
-    protected $_name = '';
+    protected $_name;
 
     /**
      * Node stats.
      *
-     * @var \Elastica\Node\Stats Node Stats
+     * @var \Elastica\Node\Stats|null Node Stats
      */
-    protected $_stats = null;
+    protected $_stats;
 
     /**
      * Node info.
      *
-     * @var \Elastica\Node\Info Node info
+     * @var \Elastica\Node\Info|null Node info
      */
-    protected $_info = null;
+    protected $_info;
 
     /**
      * Create a new node object.
@@ -103,7 +103,7 @@ class Node
     /**
      * Return stats object of the current node.
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-stats.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-stats.html
      *
      * @return \Elastica\Node\Stats Node stats
      */
@@ -119,7 +119,7 @@ class Node
     /**
      * Return info object of the current node.
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-info.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-info.html
      *
      * @return \Elastica\Node\Info Node info object
      */
@@ -141,21 +141,5 @@ class Node
     {
         $this->_stats = null;
         $this->_info = null;
-    }
-
-    /**
-     * Shuts this node down.
-     *
-     * @param string $delay OPTIONAL Delay after which node is shut down (default = 1s)
-     *
-     * @return \Elastica\Response
-     *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-shutdown.html
-     */
-    public function shutdown($delay = '1s')
-    {
-        $path = '_cluster/nodes/'.$this->getId().'/_shutdown?delay='.$delay;
-
-        return $this->_client->request($path, Request::POST);
     }
 }

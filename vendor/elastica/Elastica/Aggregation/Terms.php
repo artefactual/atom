@@ -4,7 +4,7 @@ namespace Elastica\Aggregation;
 /**
  * Class Terms.
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html
  */
 class Terms extends AbstractTermsAggregation
 {
@@ -18,6 +18,6 @@ class Terms extends AbstractTermsAggregation
      */
     public function setOrder($order, $direction)
     {
-        return $this->setParam('order', array($order => $direction));
+        return $this->setParam('order', [$order => $direction]);
     }
 }

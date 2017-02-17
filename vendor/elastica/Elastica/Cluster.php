@@ -4,13 +4,14 @@ namespace Elastica;
 use Elastica\Cluster\Health;
 use Elastica\Cluster\Settings;
 use Elastica\Exception\NotImplementedException;
+use Elasticsearch\Endpoints\Cluster\State;
 
 /**
- * Cluster informations for elasticsearch.
+ * Cluster information for elasticsearch.
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/cluster.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster.html
  */
 class Cluster
 {
@@ -19,7 +20,7 @@ class Cluster
      *
      * @var \Elastica\Client Client object
      */
-    protected $_client = null;
+    protected $_client;
 
     /**
      * Cluster state response.
@@ -51,8 +52,7 @@ class Cluster
      */
     public function refresh()
     {
-        $path = '_cluster/state';
-        $this->_response = $this->_client->request($path, Request::GET);
+        $this->_response = $this->_client->requestEndpoint(new State());
         $this->_data = $this->getResponse()->getData();
     }
 
@@ -73,14 +73,7 @@ class Cluster
      */
     public function getIndexNames()
     {
-        $metaData = $this->_data['metadata']['indices'];
-
-        $indices = array();
-        foreach ($metaData as $key => $value) {
-            $indices[] = $key;
-        }
-
-        return $indices;
+        return array_keys($this->_data['metadata']['indices']);
     }
 
     /**
@@ -88,7 +81,7 @@ class Cluster
      *
      * @return array State array
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-state.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-state.html
      */
     public function getState()
     {
@@ -103,7 +96,7 @@ class Cluster
     public function getNodeNames()
     {
         $data = $this->getState();
-        $nodeNames = array();
+        $nodeNames = [];
         foreach ($data['nodes'] as $node) {
             $nodeNames[] = $node['name'];
         }
@@ -118,7 +111,7 @@ class Cluster
      */
     public function getNodes()
     {
-        $nodes = array();
+        $nodes = [];
         $data = $this->getState();
 
         foreach ($data['nodes'] as $id => $name) {
@@ -141,7 +134,7 @@ class Cluster
     /**
      * Returns the cluster information (not implemented yet).
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-info.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-info.html
      *
      * @param array $args Additional arguments
      *
@@ -155,7 +148,7 @@ class Cluster
     /**
      * Return Cluster health.
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html
      *
      * @return \Elastica\Cluster\Health
      */
@@ -172,21 +165,5 @@ class Cluster
     public function getSettings()
     {
         return new Settings($this->getClient());
-    }
-
-    /**
-     * Shuts down the complete cluster.
-     *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-shutdown.html
-     *
-     * @param string $delay OPTIONAL Seconds to shutdown cluster after (default = 1s)
-     *
-     * @return \Elastica\Response
-     */
-    public function shutdown($delay = '1s')
-    {
-        $path = '_shutdown?delay='.$delay;
-
-        return $this->_client->request($path, Request::POST);
     }
 }

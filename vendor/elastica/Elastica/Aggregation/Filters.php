@@ -2,12 +2,12 @@
 namespace Elastica\Aggregation;
 
 use Elastica\Exception\InvalidException;
-use Elastica\Filter\AbstractFilter;
+use Elastica\Query\AbstractQuery;
 
 /**
  * Class Filters.
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-filters-aggregation.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-filters-aggregation.html
  */
 class Filters extends AbstractAggregation
 {
@@ -17,25 +17,25 @@ class Filters extends AbstractAggregation
     /**
      * @var int Type of bucket keys - named, or anonymous
      */
-    private $_type = null;
+    private $_type;
 
     /**
      * Add a filter.
      *
      * If a name is given, it will be added as a key, otherwise considered as an anonymous filter
      *
-     * @param AbstractFilter $filter
-     * @param string         $name
+     * @param AbstractQuery $filter
+     * @param string        $name
      *
      * @return $this
      */
-    public function addFilter(AbstractFilter $filter, $name = null)
+    public function addFilter(AbstractQuery $filter, $name = null)
     {
         if (null !== $name && !is_string($name)) {
             throw new InvalidException('Name must be a string');
         }
 
-        $filterArray = array();
+        $filterArray = [];
 
         $type = self::NAMED_TYPE;
 
@@ -59,11 +59,35 @@ class Filters extends AbstractAggregation
     }
 
     /**
+     * @param bool $otherBucket
+     *
+     * @return $this
+     */
+    public function setOtherBucket($otherBucket)
+    {
+        if (!is_bool($otherBucket)) {
+            throw new \InvalidArgumentException('other_bucket only supports boolean values');
+        }
+
+        return $this->setParam('other_bucket', $otherBucket);
+    }
+
+    /**
+     * @param string $otherBucketKey
+     *
+     * @return $this
+     */
+    public function setOtherBucketKey($otherBucketKey)
+    {
+        return $this->setParam('other_bucket_key', $otherBucketKey);
+    }
+
+    /**
      * @return array
      */
     public function toArray()
     {
-        $array = array();
+        $array = [];
         $filters = $this->getParam('filters');
 
         foreach ($filters as $filter) {
@@ -73,6 +97,14 @@ class Filters extends AbstractAggregation
             } else {
                 $array['filters']['filters'][] = current($filter)->toArray();
             }
+        }
+
+        if ($this->hasParam('other_bucket')) {
+            $array['filters']['other_bucket'] = $this->getParam('other_bucket');
+        }
+
+        if ($this->hasParam('other_bucket_key')) {
+            $array['filters']['other_bucket_key'] = $this->getParam('other_bucket_key');
         }
 
         if ($this->_aggs) {

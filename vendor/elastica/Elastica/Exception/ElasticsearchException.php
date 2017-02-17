@@ -1,6 +1,8 @@
 <?php
 namespace Elastica\Exception;
 
+trigger_error('Elastica\Exception\ElasticsearchException is deprecated. Use Elastica\Exception\ResponseException::getResponse::getFullError instead.', E_USER_DEPRECATED);
+
 /**
  * Elasticsearch exception.
  *
@@ -19,6 +21,11 @@ class ElasticsearchException extends \Exception implements ExceptionInterface
      * @var bool Whether exception was local to server node or remote
      */
     private $_isRemote = false;
+
+    /**
+     * @var array Error array
+     */
+    protected $_error = [];
 
     /**
      * Constructs elasticsearch exception.
@@ -87,5 +94,13 @@ class ElasticsearchException extends \Exception implements ExceptionInterface
     public function isRemoteTransportException()
     {
         return $this->_isRemote;
+    }
+
+    /**
+     * @return array Error array
+     */
+    public function getError()
+    {
+        return $this->_error;
     }
 }

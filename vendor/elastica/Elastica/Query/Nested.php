@@ -6,7 +6,7 @@ namespace Elastica\Query;
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html
  */
 class Nested extends AbstractQuery
 {
@@ -44,5 +44,17 @@ class Nested extends AbstractQuery
     public function setScoreMode($scoreMode)
     {
         return $this->setParam('score_mode', $scoreMode);
+    }
+
+    /**
+     * Set inner hits.
+     *
+     * @param InnerHits $innerHits
+     *
+     * @return $this
+     */
+    public function setInnerHits(InnerHits $innerHits)
+    {
+        return $this->setParam('inner_hits', $innerHits);
     }
 }

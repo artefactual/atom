@@ -2,16 +2,18 @@
 namespace Elastica\Tool;
 
 use Elastica\Bulk;
+use Elastica\Bulk\Action;
 use Elastica\Index;
 use Elastica\Query\MatchAll;
-use Elastica\ScanAndScroll;
-use Elastica\Search;
+use Elastica\Scroll;
 use Elastica\Type;
 
 /**
  * Functions to move documents and types between indices.
  *
  * @author Manuel Andreo Garcia <andreo.garcia@gmail.com>
+ *
+ * @deprecated use Reindex instead. This class will be removed in further Elastica releases.
  */
 class CrossIndex
 {
@@ -34,7 +36,7 @@ class CrossIndex
     /**
      * Expiry time option.
      *
-     * type: string (see Elastica\ScanAndScroll)
+     * type: string (see Elastica\Scroll)
      * default: '1m'
      */
     const OPTION_EXPIRY_TIME = 'expiryTime';
@@ -42,7 +44,7 @@ class CrossIndex
     /**
      * Size per shard option.
      *
-     * type: int (see Elastica\ScanAndScroll)
+     * type: int (see Elastica\Scroll)
      * default: 1000
      */
     const OPTION_SIZE_PER_SHARD = 'sizePerShard';
@@ -61,40 +63,38 @@ class CrossIndex
     public static function reindex(
         Index $oldIndex,
         Index $newIndex,
-        array $options = array()
+        array $options = []
     ) {
         // prepare search
-        $search = new Search($oldIndex->getClient());
+        $search = $oldIndex->createSearch();
 
         $options = array_merge(
-            array(
+            [
                 self::OPTION_TYPE => null,
                 self::OPTION_QUERY => new MatchAll(),
                 self::OPTION_EXPIRY_TIME => '1m',
                 self::OPTION_SIZE_PER_SHARD => 1000,
-            ),
+            ],
             $options
         );
 
-        $search->addIndex($oldIndex);
         if (isset($options[self::OPTION_TYPE])) {
             $type = $options[self::OPTION_TYPE];
-            $search->addTypes(is_array($type) ? $type : array($type));
+            $search->addTypes(is_array($type) ? $type : [$type]);
         }
         $search->setQuery($options[self::OPTION_QUERY]);
 
         // search on old index and bulk insert in new index
-        $scanAndScroll = new ScanAndScroll(
+        $scroll = new Scroll(
             $search,
-            $options[self::OPTION_EXPIRY_TIME],
-            $options[self::OPTION_SIZE_PER_SHARD]
+            $options[self::OPTION_EXPIRY_TIME]
         );
-        foreach ($scanAndScroll as $resultSet) {
+        foreach ($scroll as $resultSet) {
             $bulk = new Bulk($newIndex->getClient());
             $bulk->setIndex($newIndex);
 
             foreach ($resultSet as $result) {
-                $action = new Bulk\Action();
+                $action = new Action();
                 $action->setType($result->getType());
                 $action->setId($result->getId());
                 $action->setSource($result->getData());
@@ -124,13 +124,13 @@ class CrossIndex
     public static function copy(
         Index $oldIndex,
         Index $newIndex,
-        array $options = array()
+        array $options = []
     ) {
         // normalize types to array of string
-        $types = array();
+        $types = [];
         if (isset($options[self::OPTION_TYPE])) {
             $types = $options[self::OPTION_TYPE];
-            $types = is_array($types) ? $types : array($types);
+            $types = is_array($types) ? $types : [$types];
 
             $types = array_map(
                 function ($type) {

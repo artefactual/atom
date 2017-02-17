@@ -2,14 +2,13 @@
 namespace Elastica\Node;
 
 use Elastica\Node as BaseNode;
-use Elastica\Request;
 
 /**
  * Elastica cluster node object.
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-status.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-status.html
  */
 class Stats
 {
@@ -18,21 +17,21 @@ class Stats
      *
      * @var \Elastica\Response Response object
      */
-    protected $_response = null;
+    protected $_response;
 
     /**
      * Stats data.
      *
      * @var array stats data
      */
-    protected $_data = array();
+    protected $_data = [];
 
     /**
      * Node.
      *
      * @var \Elastica\Node Node object
      */
-    protected $_node = null;
+    protected $_node;
 
     /**
      * Create new stats for node.
@@ -105,8 +104,10 @@ class Stats
      */
     public function refresh()
     {
-        $path = '_nodes/'.$this->getNode()->getName().'/stats';
-        $this->_response = $this->getNode()->getClient()->request($path, Request::GET);
+        $endpoint = new \Elasticsearch\Endpoints\Cluster\Nodes\Stats();
+        $endpoint->setNodeID($this->getNode()->getName());
+
+        $this->_response = $this->getNode()->getClient()->requestEndpoint($endpoint);
         $data = $this->getResponse()->getData();
         $this->_data = reset($data['nodes']);
     }

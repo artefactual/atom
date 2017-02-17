@@ -2,14 +2,13 @@
 namespace Elastica\Index;
 
 use Elastica\Index as BaseIndex;
-use Elastica\Request;
 
 /**
  * Elastica index stats object.
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-stats.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-stats.html
  */
 class Stats
 {
@@ -18,21 +17,21 @@ class Stats
      *
      * @var \Elastica\Response Response object
      */
-    protected $_response = null;
+    protected $_response;
 
     /**
      * Stats info.
      *
      * @var array Stats info
      */
-    protected $_data = array();
+    protected $_data = [];
 
     /**
      * Index.
      *
      * @var \Elastica\Index Index object
      */
-    protected $_index = null;
+    protected $_index;
 
     /**
      * Construct.
@@ -101,8 +100,7 @@ class Stats
      */
     public function refresh()
     {
-        $path = '_stats';
-        $this->_response = $this->getIndex()->request($path, Request::GET);
+        $this->_response = $this->getIndex()->requestEndpoint(new \Elasticsearch\Endpoints\Indices\Stats());
         $this->_data = $this->getResponse()->getData();
     }
 }

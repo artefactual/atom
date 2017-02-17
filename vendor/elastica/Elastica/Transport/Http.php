@@ -7,6 +7,7 @@ use Elastica\Exception\ResponseException;
 use Elastica\JSON;
 use Elastica\Request;
 use Elastica\Response;
+use Elastica\Util;
 
 /**
  * Elastica Http Transport object.
@@ -27,7 +28,7 @@ class Http extends AbstractTransport
      *
      * @var resource Curl resource to reuse
      */
-    protected static $_curlConnection = null;
+    protected static $_curlConnection;
 
     /**
      * Makes calls to the elasticsearch server.
@@ -58,7 +59,12 @@ class Http extends AbstractTransport
             $baseUri = $this->_scheme.'://'.$connection->getHost().':'.$connection->getPort().'/'.$connection->getPath();
         }
 
-        $baseUri .= $request->getPath();
+        $requestPath = $request->getPath();
+        if (!Util::isDateMathEscaped($requestPath)) {
+            $requestPath = Util::escapeDateMath($requestPath);
+        }
+
+        $baseUri .= $requestPath;
 
         $query = $request->getQuery();
 
@@ -69,6 +75,11 @@ class Http extends AbstractTransport
         curl_setopt($conn, CURLOPT_URL, $baseUri);
         curl_setopt($conn, CURLOPT_TIMEOUT, $connection->getTimeout());
         curl_setopt($conn, CURLOPT_FORBID_REUSE, 0);
+
+        // Tell ES that we support the compressed responses
+        // An "Accept-Encoding" header containing all supported encoding types is sent
+        // curl will decode the response automatically if the response is encoded
+        curl_setopt($conn, CURLOPT_ENCODING, '');
 
         /* @see Connection::setConnectTimeout() */
         $connectTimeout = $connection->getConnectTimeout();
@@ -87,17 +98,24 @@ class Http extends AbstractTransport
             curl_setopt($conn, CURLOPT_PROXY, $proxy);
         }
 
+        $username = $connection->getUsername();
+        $password = $connection->getPassword();
+        if (!is_null($username) && !is_null($password)) {
+            curl_setopt($conn, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+            curl_setopt($conn, CURLOPT_USERPWD, "$username:$password");
+        }
+
         $this->_setupCurl($conn);
 
-        $headersConfig = $connection->hasConfig('headers') ? $connection->getConfig('headers') : array();
+        $headersConfig = $connection->hasConfig('headers') ? $connection->getConfig('headers') : [];
+
+        $headers = [];
 
         if (!empty($headersConfig)) {
-            $headers = array();
+            $headers = [];
             while (list($header, $headerValue) = each($headersConfig)) {
                 array_push($headers, $header.': '.$headerValue);
             }
-
-            curl_setopt($conn, CURLOPT_HTTPHEADER, $headers);
         }
 
         // TODO: REFACTOR
@@ -110,30 +128,29 @@ class Http extends AbstractTransport
             }
 
             if (is_array($data)) {
-                $content = JSON::stringify($data, 'JSON_ELASTICSEARCH');
+                $content = JSON::stringify($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
             } else {
                 $content = $data;
+
+                // Escaping of / not necessary. Causes problems in base64 encoding of files
+                $content = str_replace('\/', '/', $content);
             }
 
-            // Escaping of / not necessary. Causes problems in base64 encoding of files
-            $content = str_replace('\/', '/', $content);
-
+            array_push($headers, sprintf('Content-Type: %s', $request->getContentType()));
             if ($connection->hasCompression()) {
-                // An "Accept-Encoding" header containing all supported encoding types is sent
-                // Curl will decode the response automatically
-                curl_setopt($conn, CURLOPT_ENCODING, '');
-
-                // Let's precise that the request is also compressed
-                curl_setopt($conn, CURLOPT_HTTPHEADER, array('Content-Encoding: gzip'));
-
-                // Let's compress the request body,
+                // Compress the body of the request ...
                 curl_setopt($conn, CURLOPT_POSTFIELDS, gzencode($content));
+
+                // ... and tell ES that it is compressed
+                array_push($headers, 'Content-Encoding: gzip');
             } else {
                 curl_setopt($conn, CURLOPT_POSTFIELDS, $content);
             }
         } else {
             curl_setopt($conn, CURLOPT_POSTFIELDS, '');
         }
+
+        curl_setopt($conn, CURLOPT_HTTPHEADER, $headers);
 
         curl_setopt($conn, CURLOPT_NOBODY, $httpMethod == 'HEAD');
 
@@ -154,6 +171,9 @@ class Http extends AbstractTransport
         $response = new Response($responseString, curl_getinfo($conn, CURLINFO_HTTP_CODE));
         $response->setQueryTime($end - $start);
         $response->setTransferInfo(curl_getinfo($conn));
+        if ($connection->hasConfig('bigintConversion')) {
+            $response->setJsonBigintConversion($connection->getConfig('bigintConversion'));
+        }
 
         if ($response->hasError()) {
             throw new ResponseException($request, $response);
