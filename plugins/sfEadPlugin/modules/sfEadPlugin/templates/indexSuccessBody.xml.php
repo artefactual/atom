@@ -319,6 +319,10 @@
         include('indexSuccessBodyBioghistElement.xml.php');
       ?>
 
+      <?php if ($descendant->getPublicationStatus()): ?>
+        <odd type="publicationStatus"><p><?php echo escape_dc(esc_specialchars($descendant->getPublicationStatus())) ?></p></odd>
+      <?php endif; ?>
+
       <?php if (0 < strlen($value = $descendant->getScopeAndContent(array('cultureFallback' => true)))): ?>
         <scopecontent encodinganalog="<?php echo $ead->getMetadataParameter('scopecontent') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></scopecontent>
       <?php endif; ?>
