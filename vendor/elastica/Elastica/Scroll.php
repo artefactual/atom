@@ -6,7 +6,7 @@ namespace Elastica;
  *
  * @author Manuel Andreo Garcia <andreo.garcia@gmail.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html
  */
 class Scroll implements \Iterator
 {
@@ -23,12 +23,12 @@ class Scroll implements \Iterator
     /**
      * @var null|string
      */
-    protected $_nextScrollId = null;
+    protected $_nextScrollId;
 
     /**
      * @var null|ResultSet
      */
-    protected $_currentResultSet = null;
+    protected $_currentResultSet;
 
     /**
      * 0: scroll<br>
@@ -37,7 +37,7 @@ class Scroll implements \Iterator
      *
      * @var array
      */
-    protected $_options = array(null, null, null);
+    protected $_options = [null, null, null];
 
     /**
      * Constructor.
@@ -74,7 +74,6 @@ class Scroll implements \Iterator
 
         $this->_search->setOption(Search::OPTION_SCROLL, $this->expiryTime);
         $this->_search->setOption(Search::OPTION_SCROLL_ID, $this->_nextScrollId);
-        $this->_search->setOption(Search::OPTION_SEARCH_TYPE, Search::OPTION_SEARCH_TYPE_SCROLL);
         $this->_setScrollId($this->_search->search());
 
         $this->_revertOptions();
@@ -116,14 +115,13 @@ class Scroll implements \Iterator
     {
         // reset state
         $this->_nextScrollId = null;
-        $this->_options = array(null, null, null);
+        $this->_options = [null, null, null];
 
         // initial search
         $this->_saveOptions();
 
         $this->_search->setOption(Search::OPTION_SCROLL, $this->expiryTime);
         $this->_search->setOption(Search::OPTION_SCROLL_ID, null);
-        $this->_search->setOption(Search::OPTION_SEARCH_TYPE, null);
         $this->_setScrollId($this->_search->search());
 
         $this->_revertOptions();
@@ -156,10 +154,6 @@ class Scroll implements \Iterator
         if ($this->_search->hasOption(Search::OPTION_SCROLL_ID)) {
             $this->_options[1] = $this->_search->getOption(Search::OPTION_SCROLL_ID);
         }
-
-        if ($this->_search->hasOption(Search::OPTION_SEARCH_TYPE)) {
-            $this->_options[2] = $this->_search->getOption(Search::OPTION_SEARCH_TYPE);
-        }
     }
 
     /**
@@ -169,6 +163,5 @@ class Scroll implements \Iterator
     {
         $this->_search->setOption(Search::OPTION_SCROLL, $this->_options[0]);
         $this->_search->setOption(Search::OPTION_SCROLL_ID, $this->_options[1]);
-        $this->_search->setOption(Search::OPTION_SEARCH_TYPE, $this->_options[2]);
     }
 }

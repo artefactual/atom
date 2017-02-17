@@ -9,7 +9,7 @@ use Elastica\Request;
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-status.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-status.html
  */
 class Info
 {
@@ -18,28 +18,35 @@ class Info
      *
      * @var \Elastica\Response Response object
      */
-    protected $_response = null;
+    protected $_response;
 
     /**
      * Stats data.
      *
      * @var array stats data
      */
-    protected $_data = array();
+    protected $_data = [];
 
     /**
      * Node.
      *
      * @var \Elastica\Node Node object
      */
-    protected $_node = null;
+    protected $_node;
 
     /**
      * Query parameters.
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
+
+    /**
+     * Unique node id.
+     *
+     * @var string
+     */
+    protected $_id;
 
     /**
      * Create new info object for node.
@@ -47,7 +54,7 @@ class Info
      * @param \Elastica\Node $node   Node object
      * @param array          $params List of params to return. Can be: settings, os, process, jvm, thread_pool, network, transport, http
      */
-    public function __construct(BaseNode $node, array $params = array())
+    public function __construct(BaseNode $node, array $params = [])
     {
         $this->_node = $node;
         $this->refresh($params);
@@ -113,7 +120,7 @@ class Info
      *
      * @return array plugin data
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-info.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-nodes-info.html
      */
     public function getPlugins()
     {
@@ -197,16 +204,16 @@ class Info
      *
      * @return \Elastica\Response Response object
      */
-    public function refresh(array $params = array())
+    public function refresh(array $params = [])
     {
         $this->_params = $params;
 
         $path = '_nodes/'.$this->getNode()->getId();
 
         if (!empty($params)) {
-            $path .= '?';
+            $path .= '/';
             foreach ($params as $param) {
-                $path .= $param.'=true&';
+                $path .= $param.',';
             }
         }
 

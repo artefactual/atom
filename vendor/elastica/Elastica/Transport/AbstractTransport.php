@@ -65,7 +65,7 @@ abstract class AbstractTransport extends Param
      *
      * The $transport parameter can be one of the following values:
      *
-     * * string: The short name of a transport. For instance "Http", "Memcache" or "Thrift"
+     * * string: The short name of a transport. For instance "Http"
      * * object: An already instantiated instance of a transport
      * * array: An array with a "type" key which must be set to one of the two options. All other
      *          keys in the array will be set as parameters in the transport instance
@@ -78,7 +78,7 @@ abstract class AbstractTransport extends Param
      *
      * @return AbstractTransport
      */
-    public static function create($transport, Connection $connection, array $params = array())
+    public static function create($transport, Connection $connection, array $params = [])
     {
         if (is_array($transport) && isset($transport['type'])) {
             $transportParams = $transport;
@@ -89,13 +89,23 @@ abstract class AbstractTransport extends Param
         }
 
         if (is_string($transport)) {
-            $className = 'Elastica\\Transport\\'.$transport;
+            $specialTransports = [
+                'httpadapter' => 'HttpAdapter',
+                'nulltransport' => 'NullTransport',
+            ];
 
-            if (!class_exists($className)) {
-                throw new InvalidException('Invalid transport');
+            if (isset($specialTransports[strtolower($transport)])) {
+                $transport = $specialTransports[strtolower($transport)];
+            } else {
+                $transport = ucfirst($transport);
             }
-
-            $transport = new $className();
+            $classNames = ["Elastica\\Transport\\$transport", $transport];
+            foreach ($classNames as $className) {
+                if (class_exists($className)) {
+                    $transport = new $className();
+                    break;
+                }
+            }
         }
 
         if ($transport instanceof self) {

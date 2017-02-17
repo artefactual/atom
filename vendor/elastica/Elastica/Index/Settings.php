@@ -9,39 +9,39 @@ use Elastica\Request;
 /**
  * Elastica index settings object.
  *
- * All settings listed in the update settings API (http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html)
- * can be changed on a running indices. To make changes like the merge policy (http://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-merge.html)
+ * All settings listed in the update settings API (https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html)
+ * can be changed on a running indices. To make changes like the merge policy (https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-merge.html)
  * the index has to be closed first and reopened after the call
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-merge.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-merge.html
  */
 class Settings
 {
+    const DEFAULT_REFRESH_INTERVAL = '1s';
+
     /**
      * Response.
      *
      * @var \Elastica\Response Response object
      */
-    protected $_response = null;
+    protected $_response;
 
     /**
      * Stats info.
      *
      * @var array Stats info
      */
-    protected $_data = array();
+    protected $_data = [];
 
     /**
      * Index.
      *
      * @var \Elastica\Index Index object
      */
-    protected $_index = null;
-
-    const DEFAULT_REFRESH_INTERVAL = '1s';
+    protected $_index;
 
     /**
      * Construct.
@@ -63,7 +63,7 @@ class Settings
      *
      * @return array|string|null Settings data
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html
      */
     public function get($setting = '')
     {
@@ -113,7 +113,7 @@ class Settings
     {
         $replicas = (int) $replicas;
 
-        $data = array('number_of_replicas' => $replicas);
+        $data = ['number_of_replicas' => $replicas];
 
         return $this->set($data);
     }
@@ -127,7 +127,7 @@ class Settings
      */
     public function setReadOnly($readOnly = true)
     {
-        return $this->set(array('blocks.write' => $readOnly));
+        return $this->set(['blocks.write' => $readOnly]);
     }
 
     /**
@@ -157,7 +157,7 @@ class Settings
     {
         $state = $state ? 1 : 0;
 
-        return $this->set(array('blocks.read' => $state));
+        return $this->set(['blocks.read' => $state]);
     }
 
     /**
@@ -177,7 +177,7 @@ class Settings
     {
         $state = $state ? 1 : 0;
 
-        return $this->set(array('blocks.write' => $state));
+        return $this->set(['blocks.write' => $state]);
     }
 
     /**
@@ -188,14 +188,14 @@ class Settings
         // TODO will have to be replace by block.metadata.write once https://github.com/elasticsearch/elasticsearch/pull/9203 has been fixed
         // the try/catch will have to be remove too
         try {
-            return (bool) $this->get('blocks.metadata');
+            return (bool) $this->get('blocks.write');
         } catch (ResponseException $e) {
             if (strpos($e->getMessage(), 'ClusterBlockException') !== false) {
                 // hacky way to test if the metadata is blocked since bug 9203 is not fixed
                 return true;
-            } else {
-                throw $e;
             }
+
+            throw $e;
         }
     }
 
@@ -206,10 +206,9 @@ class Settings
      */
     public function setBlocksMetadata($state = true)
     {
-        // TODO will have to be replace by block.metadata.write once https://github.com/elasticsearch/elasticsearch/pull/9203 has been fixed
         $state = $state ? 1 : 0;
 
-        return $this->set(array('blocks.metadata' => $state));
+        return $this->set(['blocks.write' => $state]);
     }
 
     /**
@@ -224,7 +223,7 @@ class Settings
      */
     public function setRefreshInterval($interval)
     {
-        return $this->set(array('refresh_interval' => $interval));
+        return $this->set(['refresh_interval' => $interval]);
     }
 
     /**
@@ -246,34 +245,6 @@ class Settings
     }
 
     /**
-     * Return merge policy.
-     *
-     * @return string Merge policy type
-     */
-    public function getMergePolicyType()
-    {
-        return $this->get('merge.policy.type');
-    }
-
-    /**
-     * Sets merge policy.
-     *
-     * @param string $type Merge policy type
-     *
-     * @return \Elastica\Response Response object
-     *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-merge.html
-     */
-    public function setMergePolicyType($type)
-    {
-        $this->getIndex()->close();
-        $response = $this->set(array('merge.policy.type' => $type));
-        $this->getIndex()->open();
-
-        return $response;
-    }
-
-    /**
      * Sets the specific merge policies.
      *
      * To have this changes made the index has to be closed and reopened
@@ -283,12 +254,12 @@ class Settings
      *
      * @return \Elastica\Response
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-merge.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-merge.html
      */
     public function setMergePolicy($key, $value)
     {
         $this->getIndex()->close();
-        $response = $this->set(array('merge.policy.'.$key => $value));
+        $response = $this->set(['merge.policy.'.$key => $value]);
         $this->getIndex()->open();
 
         return $response;
@@ -301,7 +272,7 @@ class Settings
      *
      * @return string Refresh interval
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-merge.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-merge.html
      */
     public function getMergePolicy($key)
     {
@@ -353,12 +324,12 @@ class Settings
      *
      * @return \Elastica\Response Response object
      */
-    public function request(array $data = array(), $method = Request::GET)
+    public function request(array $data = [], $method = Request::GET)
     {
         $path = '_settings';
 
         if (!empty($data)) {
-            $data = array('index' => $data);
+            $data = ['index' => $data];
         }
 
         return $this->getIndex()->request($path, $method, $data);
