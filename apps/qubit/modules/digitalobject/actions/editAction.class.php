@@ -206,8 +206,7 @@ class DigitalObjectEditAction extends sfAction
         }
         else if (QubitTerm::THUMBNAIL_ID == $usageId)
         {
-          $maxwidth = 100;
-          $maxheight = 100;
+          list($maxwidth, $maxheight) = QubitDigitalObject::getImageMaxDimensions(QubitTerm::THUMBNAIL_ID);
         }
 
         $content = QubitDigitalObject::resizeImage($tmpFile, $maxwidth, $maxheight);
