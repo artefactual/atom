@@ -42,18 +42,22 @@ class QubitAPIAction extends sfAction
     }
     catch (QubitApi404Exception $e)
     {
+      $errorId = 'not-found';
       $this->response->setStatusCode(404, $e->getMessage());
     }
     catch (QubitApiNotAuthorizedException $e)
     {
-      $this->response->setStatusCode(401);
+      $errorId = 'not-authorized';
+      $this->response->setStatusCode(401, $e->getMessage());
     }
     catch (QubitApiForbiddenException $e)
     {
+      $errorId = 'forbidden';
       $this->response->setStatusCode(403, $e->getMessage());
     }
     catch (QubitApiBadRequestException $e)
     {
+      $errorId = 'bad-request';
       $this->response->setStatusCode(400, $e->getMessage());
     }
     catch (Exception $e)
@@ -63,7 +67,14 @@ class QubitAPIAction extends sfAction
       throw $e;
     }
 
-    return $view;
+    if (!empty($errorId))
+    {
+      return $this->renderData(array('id' => $errorId, 'message' => $e->getMessage()));
+    }
+    else
+    {
+      return $view;
+    }
   }
 
   private function authenticateUser()

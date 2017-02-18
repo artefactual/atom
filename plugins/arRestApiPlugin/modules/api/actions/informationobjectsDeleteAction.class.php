@@ -31,7 +31,7 @@ class ApiInformationObjectsDeleteAction extends QubitApiAction
     {
       if (QubitInformationObject::ROOT_ID === (int)$slug->objectId)
       {
-        throw new QubitApiForbiddenException;
+        throw new QubitApiForbiddenException('Forbidden');
       }
 
       $criteria = new Criteria;
