@@ -23,7 +23,7 @@ class ApiInformationObjectsCreateAction extends QubitApiAction
   {
     if (QubitInformationObject::ROOT_ID === (int)$request->id)
     {
-      throw new QubitApiForbiddenException;
+      throw new QubitApiForbiddenException('Forbidden');
     }
 
     $this->io = new QubitInformationObject();

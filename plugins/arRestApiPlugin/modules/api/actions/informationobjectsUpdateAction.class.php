@@ -30,7 +30,7 @@ class ApiInformationObjectsUpdateAction extends QubitApiAction
 
     if (QubitInformationObject::ROOT_ID === (int)$this->io->id)
     {
-      throw new QubitApiForbiddenException;
+      throw new QubitApiForbiddenException('Forbidden');
     }
 
     foreach ($payload as $field => $value)

@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitAPIAction extends sfAction
+class QubitApiAction extends sfAction
 {
   public function preExecute()
   {
@@ -28,32 +28,34 @@ class QubitAPIAction extends sfAction
   {
     $view = sfView::NONE;
 
-    if (!$this->authenticateUser())
-    {
-      header('HTTP/1.0 401 Unauthorized');
-      $this->response->setStatusCode(401);
-
-      return $view;
-    }
-
     try
     {
+      if (!$this->authenticateUser())
+      {
+        throw new QubitApiNotAuthorizedException('Not authorized');
+      }
+
       $view = $this->process($request);
     }
     catch (QubitApi404Exception $e)
     {
+      $errorId = 'not-found';
       $this->response->setStatusCode(404, $e->getMessage());
     }
     catch (QubitApiNotAuthorizedException $e)
     {
-      $this->response->setStatusCode(401);
+      header('HTTP/1.0 401 Unauthorized');
+      $errorId = 'not-authorized';
+      $this->response->setStatusCode(401, $e->getMessage());
     }
     catch (QubitApiForbiddenException $e)
     {
+      $errorId = 'forbidden';
       $this->response->setStatusCode(403, $e->getMessage());
     }
     catch (QubitApiBadRequestException $e)
     {
+      $errorId = 'bad-request';
       $this->response->setStatusCode(400, $e->getMessage());
     }
     catch (Exception $e)
@@ -63,7 +65,14 @@ class QubitAPIAction extends sfAction
       throw $e;
     }
 
-    return $view;
+    if (!empty($errorId))
+    {
+      return $this->renderData(array('id' => $errorId, 'message' => $e->getMessage()));
+    }
+    else
+    {
+      return $view;
+    }
   }
 
   private function authenticateUser()

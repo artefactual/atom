@@ -17,6 +17,6 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitAPIException extends Exception
+class QubitApiException extends Exception
 {
 }
