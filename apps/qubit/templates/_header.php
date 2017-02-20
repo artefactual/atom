@@ -42,8 +42,6 @@
 
   </div>
 
-  </section>
-
   <?php echo get_component_slot('header') ?>
 
 </header>
