@@ -102,13 +102,21 @@ class sfIsadPlugin implements ArrayAccess
     {
       case 'languageNotes':
 
-        // Stop if the string is empty
+        $note = $this->resource->getNotesByType(array('noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID))->offsetGet(0);
+        $missingNote = count($note) === 0;
+
         if (0 == strlen($value))
         {
+          // Delete note if it's available
+          if (!$missingNote)
+          {
+            $note->delete();
+          }
+
           break;
         }
 
-        if (0 == count($note = $this->resource->getNotesByType(array('noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID))->offsetGet(0)))
+        if ($missingNote)
         {
           $note = new QubitNote;
           $note->typeId = QubitTerm::LANGUAGE_NOTE_ID;

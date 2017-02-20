@@ -175,7 +175,6 @@ class sfRadPlugin implements ArrayAccess
         $note->content = $value;
 
         return $this;
-
     }
   }
 
