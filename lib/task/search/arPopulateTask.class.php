@@ -67,7 +67,7 @@ EOF;
     QubitSearch::getInstance()->populate($excludeTypes);
   }
 
-  protected function availableDocumentTypes()
+  private function availableDocumentTypes()
   {
     $types = array_keys(QubitSearch::getInstance()->loadMappings()->asArray());
     sort($types);
