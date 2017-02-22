@@ -516,19 +516,8 @@ class InformationObjectEditAction extends DefaultEditAction
         $this->resource->addPhysicalObject($physicalObject);
       }
 
-      // Duplicate notes
-      foreach ($sourceInformationObject->notes as $sourceNote)
-      {
-        if (!isset($this->request->delete_notes[$sourceNote->id]))
-        {
-          $note = new QubitNote;
-          $note->content = $sourceNote->content;
-          $note->typeId = $sourceNote->type->id;
-          $note->userId = $this->context->user->getAttribute('user_id');
-
-          $this->resource->notes[] = $note;
-        }
-      }
+      $this->duplicateNotes($sourceInformationObject);
+      $this->duplicateAlternativeIdentifiers($sourceInformationObject);
 
       foreach (QubitRelation::getRelationsBySubjectId($sourceInformationObject->id, array('typeId' => QubitTerm::RIGHT_ID)) as $item)
       {
@@ -634,6 +623,47 @@ class InformationObjectEditAction extends DefaultEditAction
     }
 
     QubitDescription::addAssets($this->response);
+  }
+
+  /**
+   * Copy over a source information object's alternative identifiers when duplicating.
+   *
+   * @param QubitInformationObject $sourceIo  The source information object we're duplicating from.
+   */
+  private function duplicateAlternativeIdentifiers($sourceIo)
+  {
+    foreach ($sourceIo->getProperties(null, 'alternativeIdentifiers') as $sourceAltId)
+    {
+      $altId = new QubitProperty;
+      $altId->scope = 'alternativeIdentifiers';
+      $altId->name = $sourceAltId->name;
+      $altId->sourceCulture = $sourceAltId->sourceCulture;
+      $altId->value = $sourceAltId->value;
+
+      $this->resource->propertys[] = $altId;
+    }
+  }
+
+  /**
+   * Copy over a source information object's notes when duplicating.
+   *
+   * @param QubitInformationObject $sourceIo  The source information object we're duplicating from.
+   */
+  private function duplicateNotes($sourceIo)
+  {
+    // Duplicate notes
+    foreach ($sourceIo->notes as $sourceNote)
+    {
+      if (!isset($this->request->delete_notes[$sourceNote->id]))
+      {
+        $note = new QubitNote;
+        $note->content = $sourceNote->content;
+        $note->typeId = $sourceNote->type->id;
+        $note->userId = $this->context->user->getAttribute('user_id');
+
+        $this->resource->notes[] = $note;
+      }
+    }
   }
 
   /**
