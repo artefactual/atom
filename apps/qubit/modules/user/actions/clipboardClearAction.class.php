@@ -37,7 +37,8 @@ class UserClipboardClearAction extends sfAction
       $this->redirect(array('module' => 'user', 'action' => 'clipboard'));
     }
 
-    $slugs = $this->context->user->getClipboard()->getAll();
+    $allSlugs = $this->context->user->getClipboard()->getAllByClassName();
+    $slugs = $allSlugs[$this->type];
     $this->typeLabel = $this->getTypeLabel();
 
     // Redirect to clipboard page if the clipboard is empty

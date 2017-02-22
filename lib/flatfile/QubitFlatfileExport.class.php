@@ -69,6 +69,8 @@ class QubitFlatfileExport
     {
       $this->rowsPerFile = $rowsPerFile;
     }
+
+    include_once sfConfig::get('sf_root_dir').'/lib/helper/QubitHelper.php';
   }
 
 

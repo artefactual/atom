@@ -32,12 +32,12 @@ class UserClipboardAction extends DefaultBrowseAction
       $this->getResponse()->addStylesheet('print-preview', 'last');
     }
 
-    // Get entity type class name
-    $this->entityType = 'Qubit'.ucfirst($request->getGetParameter('type', 'informationObject'));
-
     // Get entity type name
     $this->type = $request->getGetParameter('type', 'informationObject');
     $allSlugs = $this->context->user->getClipboard()->getAllByClassName();
+
+    // Get entity type class name
+    $this->entityType = 'Qubit'.ucfirst($this->type);
 
     if (!isset($allSlugs[$this->entityType]) || !count($allSlugs[$this->entityType]))
     {

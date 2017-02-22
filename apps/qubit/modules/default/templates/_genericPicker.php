@@ -1,4 +1,3 @@
-
 <div id="sort-header"<?php if (!empty($class)): ?> class="<?php echo $class ?>"<?php endif; ?>>
   <div class="sort-options">
 
