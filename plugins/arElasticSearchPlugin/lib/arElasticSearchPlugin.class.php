@@ -169,7 +169,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
       // Load and normalize mappings
       $this->loadAndNormalizeMappings();
 
-      // Iterate over types (actor, information_object, ...)
+      // Iterate over types (actor, informationobject, ...)
       foreach ($this->mappings as $typeName => $typeProperties)
       {
         $typeName = 'Qubit'.sfInflector::camelize($typeName);
