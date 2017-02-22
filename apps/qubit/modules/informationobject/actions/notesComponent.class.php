@@ -223,8 +223,12 @@ class InformationObjectNotesComponent extends sfComponent
         }
 
         // Save the old notes, because adding a new note with "$this->resource->notes[] ="
-        // overrides the unsaved changes
-        if (isset($item['id']))
+        // overrides the unsaved changes.
+        //
+        // We also do an additional check against resource id and note objectId; if they do
+        // not match, we're in duplicate record mode and want to avoid modifying the original
+        // record's notes.
+        if (isset($item['id']) && $this->note->objectId == $this->resource->id)
         {
           $this->note->save();
         }
