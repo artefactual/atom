@@ -70,7 +70,11 @@ class InformationObjectAlternativeIdentifiersComponent extends sfComponent
 
         // Save the old properties, because adding a new property with "$this->resource->properties[] ="
         // overrides the unsaved changes
-        if (isset($item['id']))
+        //
+        // We also do an additional check against resource id and property objectId; if they do
+        // not match, we're in duplicate record mode and want to avoid modifying the original
+        // record's alternative identifiers.
+        if (isset($item['id']) && $property->objectId == $this->resource->id)
         {
           $property->save();
         }
