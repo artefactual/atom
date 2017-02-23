@@ -29,6 +29,7 @@ all:
 
       number_of_shards: 4
       number_of_replicas: 1
+      index.mapping.total_fields.limit: 2000
 
       analysis:
 

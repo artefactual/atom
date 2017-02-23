@@ -197,6 +197,7 @@ class arElasticSearchMapping
         case '_attributes':
         case '_foreign_types':
         case '_partial_foreign_types':
+        case '_i18nFields':
           unset($mapping[$key]);
 
           break;
@@ -237,7 +238,7 @@ class arElasticSearchMapping
             throw new sfException('No i18n_languages in database settings.');
           }
 
-          $this->setIfNotSet($typeProperties['properties'], 'sourceCulture', array('type' => 'string', 'index' => 'not_analyzed', 'include_in_all' => false));
+          $this->setIfNotSet($typeProperties['properties'], 'sourceCulture', array('type' => 'text', 'index' => 'not_analyzed', 'include_in_all' => false));
 
           // We are using the same mapping for all the i18n fields
           $nestedI18nFields = array();
@@ -262,13 +263,12 @@ class arElasticSearchMapping
             foreach ($typeProperties['_attributes']['autocompleteFields'] as $item)
             {
               $nestedI18nFields[$item]['fields']['autocomplete'] = array(
-                'type' => 'string',
+                'type' => 'text',
                 'index' => 'analyzed',
-                'index_analyzer' => 'autocomplete',
+                'analyzer' => 'autocomplete',
                 'search_analyzer' => 'standard',
                 'store' => 'yes',
-                'term_vector' => 'with_positions_offsets',
-                'include_in_all' => false);
+                'term_vector' => 'with_positions_offsets');
             }
           }
 
@@ -277,9 +277,8 @@ class arElasticSearchMapping
             foreach ($typeProperties['_attributes']['rawFields'] as $item)
             {
               $nestedI18nFields[$item]['fields']['untouched'] = array(
-                'type' => 'string',
-                'index' => 'not_analyzed',
-                'include_in_all' => false);
+                'type' => 'text',
+                'index' => 'not_analyzed');
             }
           }
 
@@ -382,7 +381,7 @@ class arElasticSearchMapping
         }
 
         // Add source culture propertie
-        $this->setIfNotSet($mapping['properties'], 'sourceCulture', array('type' => 'string', 'index' => 'not_analyzed', 'include_in_all' => false));
+        $this->setIfNotSet($mapping['properties'], 'sourceCulture', array('type' => 'text', 'index' => 'not_analyzed', 'include_in_all' => false));
 
         $nestedI18nFields = array();
         foreach ($mapping['_i18nFields'] as $i18nFieldName)
@@ -447,7 +446,7 @@ class arElasticSearchMapping
   protected function getI18nFieldMapping($fieldName)
   {
     return array(
-      'type' => 'string',
+      'type' => 'text',
       'include_in_all' => true);
   }
 
@@ -467,6 +466,7 @@ class arElasticSearchMapping
 
         $fv['analyzer'] = $analyzer;
       }
+      unset($fv);
 
       $mapping[$culture] = array(
         'type' => 'object',
@@ -477,7 +477,7 @@ class arElasticSearchMapping
 
     // Create a list of languages for faceting
     $mapping['languages'] = array(
-      'type' => 'string',
+      'type' => 'text',
       'index' => 'not_analyzed');
 
     return $mapping;
