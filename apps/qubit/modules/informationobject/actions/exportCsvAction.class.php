@@ -71,6 +71,14 @@ class InformationObjectExportCsvAction extends sfAction
       $this->getUser()->setFlash('notice', $message);
     }
 
-    $this->redirect($request->getHttpHeader('referer'));
+    // If referer URL is valid, redirect to it... otherwise, redirect to the information objects browse page)
+    if (filter_var($request->getHttpHeader('referer'), FILTER_VALIDATE_URL) === true)
+    {
+      $this->redirect($request->getHttpHeader('referer'));
+    }
+    else
+    {
+      $this->redirect($this->context->routing->generate(null, array(null, 'module' => 'informationobject', 'action' => 'browse')));
+    }
   }
 }
