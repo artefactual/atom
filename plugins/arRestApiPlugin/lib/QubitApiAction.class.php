@@ -19,60 +19,14 @@
 
 class QubitApiAction extends sfAction
 {
-  public function preExecute()
-  {
-    sfConfig::set('sf_web_debug', false);
-  }
-
   public function execute($request)
   {
-    $view = sfView::NONE;
-
-    try
+    if (!$this->authenticateUser())
     {
-      if (!$this->authenticateUser())
-      {
-        throw new QubitApiNotAuthorizedException('Not authorized');
-      }
-
-      $view = $this->process($request);
-    }
-    catch (QubitApi404Exception $e)
-    {
-      $errorId = 'not-found';
-      $this->response->setStatusCode(404, $e->getMessage());
-    }
-    catch (QubitApiNotAuthorizedException $e)
-    {
-      header('HTTP/1.0 401 Unauthorized');
-      $errorId = 'not-authorized';
-      $this->response->setStatusCode(401, $e->getMessage());
-    }
-    catch (QubitApiForbiddenException $e)
-    {
-      $errorId = 'forbidden';
-      $this->response->setStatusCode(403, $e->getMessage());
-    }
-    catch (QubitApiBadRequestException $e)
-    {
-      $errorId = 'bad-request';
-      $this->response->setStatusCode(400, $e->getMessage());
-    }
-    catch (Exception $e)
-    {
-      $this->response->setStatusCode(500);
-
-      throw $e;
+      throw new QubitApiNotAuthorizedException('Not authorized');
     }
 
-    if (!empty($errorId))
-    {
-      return $this->renderData(array('id' => $errorId, 'message' => $e->getMessage()));
-    }
-    else
-    {
-      return $view;
-    }
+    return $this->process($request);
   }
 
   private function authenticateUser()

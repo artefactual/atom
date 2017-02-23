@@ -98,13 +98,21 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     $this->addRoute('POST', '/api/digitalobjects', array(
       'module' => 'api',
       'action' => 'digitalobjectsCreate'));
+
+    $this->addRoute('*', '/api/*', array(
+      'module' => 'api',
+      'action' => 'endpointNotFound'));
   }
 
   protected function addRoute($method, $pattern, array $options = array())
   {
     $defaults = $requirements = array();
 
-    $requirements['sf_method'] = explode(',', $method);
+    // Allow routes to only apply to specific HTTP methods
+    if ($method != '*')
+    {
+      $requirements['sf_method'] = explode(',', $method);
+    }
 
     if (isset($options['module']))
     {
