@@ -234,7 +234,11 @@ class QubitI18nConsolidatedExtract extends sfI18nApplicationExtract
               break;
 
             case 'QubitSetting':
-              $values = $item['value'];
+              if (in_array($item['scope'], QubitSetting::$translatableScopes))
+              {
+                $values = $item['value'];
+              }
+
               break;
           }
 

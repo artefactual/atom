@@ -38,7 +38,11 @@ class QubitSetting extends BaseSetting
       'disallow_master'       => 0,
       'disallow_reference'    => 0,
       'disallow_thumb'        => 0
-    );
+    ),
+    // List of scopes with translatable settings,
+    // QubitI18nConsolidatedExtract checks this array to add those
+    // settings value from /data/fixtures/settings.yml to the XLIFF files
+    $translatableScopes = array('ui_label');
 
   public function __toString()
   {

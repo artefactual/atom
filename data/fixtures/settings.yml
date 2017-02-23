@@ -1037,41 +1037,14 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      ca: pdf
-      cy: pdf
-      de: pdf
-      de-CH: pdf
-      el: pdf
       en: pdf
-      es: pdf
-      fr: PDF
-      hu: pdf
-      is: pdf
-      ko: pdf
-      pt: pdf
-      pt-BR: pdf
-      ru: pdf
-      sl: pdf
-      sr: pdf
-      sv: pdf
-      zh: pdf
   Qubit_Settings_findingAidModel:
     name: findingAidModel
     editable: 1
     deleteable: 0
     source_culture: en
     value:
-      de: Inventarübersicht
       en: inventory-summary
-      es: Inventario-Resumen
-      fr: 'inventaire sommaire'
-      hu: készletösszegzés
-      pt: inventário-sumário
-      pt-BR: 'inventário sumário'
-      sl: 'povzeket - seznam'
-      sr: 'Инвентар - извод'
-      sv: 'lager - summering'
-      zh: 详细目录-总结
   Qubit_Settings_publicFindingAid:
     name: publicFindingAid
     editable: 1
@@ -1089,24 +1062,14 @@ QubitSetting:
   Qubit_Settings_digitalObjectDerivativesPdfPageNumber:
     name: digital_object_derivatives_pdf_page_number
     value:
-      de: '1'
       en: 1
-      es: '1'
-      pt: '1'
-      sr: '1'
-      sv: '1'
   Qubit_Settings_treeviewType:
     name: treeview_type
     editable: 1
     deleteable: 0
     source_culture: en
     value:
-      de: Seitenleiste
       en: sidebar
-      es: 'barra lateral'
-      pt: 'barra lateral'
-      sr: 'бочна трака'
-      sv: sidspalt
   Qubit_Settings_stripExtensions:
     name: stripExtensions
     editable: 1
