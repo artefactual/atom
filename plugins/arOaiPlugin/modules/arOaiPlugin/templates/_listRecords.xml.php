@@ -11,7 +11,7 @@
           <setSpec><?php echo $record->getCollectionRoot()->getOaiIdentifier()?></setSpec>
         </header>
         <metadata>
-          <?php arOaiPluginComponent::includeCachedMetadata($record->id, $metadataPrefix) ?>
+          <?php arOaiPluginComponent::includeCachedMetadata($record, $metadataPrefix) ?>
         </metadata>
         <?php include('_about.xml.php') ?>
       </record>

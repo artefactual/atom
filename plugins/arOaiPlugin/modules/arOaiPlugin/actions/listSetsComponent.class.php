@@ -50,7 +50,7 @@ class arOaiPluginlistSetsComponent extends arOaiPluginComponent
     $results = QubitOai::getOaiSets($options);
     $this->oaiSets = $results['data'];
     $this->remaining = $results['remaining'];
-    $resumptionCursor = $this->cursor + QubitSetting::getByName('resumption_token_limit')->__toString();
+    $resumptionCursor = $this->cursor + $options['limit'];
     $this->resumptionToken  = base64_encode(json_encode(array('cursor' => $resumptionCursor)));
   }
 }

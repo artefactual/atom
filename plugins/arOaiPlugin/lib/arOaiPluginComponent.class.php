@@ -137,8 +137,9 @@ abstract class arOaiPluginComponent extends sfComponent
     }
   }
 
-  public static function includeCachedMetadata($objectId, $metadataPrefix)
+  public static function includeCachedMetadata($resource, $metadataPrefix)
   {
-    include(arXmlExportSingleFileJob::getPath($objectId, str_replace('oai_', '', $metadataPrefix), true));
+    $representation = new QubitInformationObjectXmlCacheResource($resource);
+    include($representation->getFilePath(str_replace('oai_', '', $metadataPrefix), true));
   }
 }
