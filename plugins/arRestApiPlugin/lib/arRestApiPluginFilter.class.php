@@ -68,6 +68,6 @@ class arRestApiPluginFilter extends sfFilter
       'message' => $errorMessage
     );
 
-    $response->setContent($response->getContent() . json_encode($responseData));
+    $response->setContent($response->getContent() . arRestApiPluginUtils::arrayToJson($responseData));
   }
 }

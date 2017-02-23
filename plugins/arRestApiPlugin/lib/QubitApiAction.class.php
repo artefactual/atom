@@ -120,15 +120,9 @@ class QubitApiAction extends sfAction
       return sfView::NONE;
     }
 
-    $options = 0;
-    if ($this->context->getConfiguration()->isDebug() && defined('JSON_PRETTY_PRINT'))
-    {
-      $options |= JSON_PRETTY_PRINT;
-    }
-
     $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
 
-    return $this->renderText(json_encode($data, $options));
+    return $this->renderText(arRestApiPluginUtils::arrayToJson($data));
   }
 
   /**
