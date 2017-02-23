@@ -440,7 +440,7 @@ class QubitInformationObject extends BaseInformationObject
       $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
     }
 
-    if (!isset($options['topLevel']))
+    if (!empty($options['topLevel']))
     {
       $criteria->add(QubitInformationObject::PARENT_ID, QubitInformationObject::ROOT_ID);
     }
