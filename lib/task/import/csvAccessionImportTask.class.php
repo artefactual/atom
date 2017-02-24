@@ -172,6 +172,7 @@ EOF;
         'donorRegion',
         'donorCountry',
         'donorPostalCode',
+        'donorCountry',
         'donorTelephone',
         'donorEmail',
         'qubitParentSlug'
@@ -259,6 +260,12 @@ EOF;
               {
                 $contactData[$property] = $self->rowStatusVars[$column];
               }
+            }
+
+            // Attempt to coerce country to country code if value specified (and not already a country code)
+            if (!empty($self->rowStatusVars['donorCountry']))
+            {
+              $contactData['countryCode'] = $this->parseCountryOrCountryCodeOrFail($self->rowStatusVars['donorCountry']);
             }
 
             // Create contact information if none exists
@@ -351,6 +358,24 @@ EOF;
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
 
     $import->csv($fh, $skipRows);
+  }
+
+  private function parseCountryOrCountryCodeOrFail($value)
+  {
+    $countries = sfCultureInfo::getInstance()->getCountries();
+
+    if (isset($countries[strtoupper($value)]))
+    {
+      return $value; // Value was a country code
+    }
+    else if ($countryCode = array_search($value, $countries))
+    {
+      return $countryCode; // Value was a country name
+    }
+    else
+    {
+      throw new sfException(sprintf('Could not find country or country code matching "%s"', $value));
+    }
   }
 }
 
