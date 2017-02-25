@@ -45,10 +45,10 @@ EOF;
   public function execute($arguments = array(), $options = array())
   {
     parent::execute($arguments, $options);
-    self::exportAll();
+    $this->exportAll();
   }
 
-  public static function exportAll()
+  private function exportAll()
   {
     print "Caching XML representations of information objects...\n";
 
