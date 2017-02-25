@@ -50,11 +50,12 @@ EOF;
 
   private function exportAll()
   {
-    print "Caching XML representations of information objects...\n";
+    $logger = new sfCommandLogger(new sfEventDispatcher);
+    $logger->log('Caching XML representations of information objects...');
 
-    $cache = new QubitInformationObjectXmlCache(array('logger' => new sfCommandLogger(new sfEventDispatcher)));
+    $cache = new QubitInformationObjectXmlCache(array('logger' => $logger));
     $cache->exportAll();
 
-    print "Done.\n";
+    $logger->log('Done.');
   }
 }
