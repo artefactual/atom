@@ -83,14 +83,22 @@ class QubitInformationObjectXmlCache
    */
   public function exportAll()
   {
-    foreach (QubitInformationObject::getAll() as $io)
-    {
-      $published = $io->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID;
+    // Get not-root and published information objects
+    $criteria = new Criteria;
+    $criteria->add(QubitInformationObject::ID, QubitInformationObject::ROOT_ID, Criteria::NOT_EQUAL);
+    $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
+    $results = QubitInformationObject::get($criteria);
 
-      // Only cache if not root and published
-      if ($io->id != QubitInformationObject::ROOT_ID && $published)
+    $exporting = 0;
+
+    if (count($results))
+    {
+      $this->logger->info($this->i18n->__('%1% published information objects found.', array('%1%' => count($results))));
+
+      foreach ($results as $io)
       {
-        $this->logger->info($this->i18n->__('Exporting information object ID %1%', array('%1%' => $io->id)));
+        $exporting++;
+        $this->logger->info($this->i18n->__('Exporting information object ID %1% (%2% of %3%)', array('%1%' => $io->id, '%2%' => $exporting, '%3%' => count($results))));
         $this->export($io);
       }
     }
