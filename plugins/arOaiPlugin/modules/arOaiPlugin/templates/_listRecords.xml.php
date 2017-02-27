@@ -11,7 +11,11 @@
           <setSpec><?php echo $record->getCollectionRoot()->getOaiIdentifier()?></setSpec>
         </header>
         <metadata>
-          <?php arOaiPluginComponent::includeCachedMetadata($record, $metadataPrefix) ?>
+          <?php if ($metadataPrefix == 'oai_dc' && !arOaiPluginComponent::cachedMetadataExists($record, $metadataPrefix)): ?>
+            <?php echo get_component('sfDcPlugin', 'dc', array('resource' => $record)) ?>
+          <?php else: ?>
+            <?php arOaiPluginComponent::includeCachedMetadata($record, $metadataPrefix) ?>
+          <?php endif; ?>
         </metadata>
         <?php include('_about.xml.php') ?>
       </record>
