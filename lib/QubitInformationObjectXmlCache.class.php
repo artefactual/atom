@@ -70,10 +70,10 @@ class QubitInformationObjectXmlCache
     // Only cache top-level information object's EAD XML
     if ($resource->parentId == QubitInformationObject::ROOT_ID)
     {
-      $this->cacheXmlRepresentation($resource, 'ead');
+      $this->cacheXmlFormat($resource, 'ead');
     }
 
-    $this->cacheXmlRepresentation($resource, 'dc');
+    $this->cacheXmlFormat($resource, 'dc');
   }
 
   /**
@@ -107,12 +107,15 @@ class QubitInformationObjectXmlCache
   /**
    * Export information object to EAD (if top-level) and DC.
    *
+   * Generate a format of XML for a resource, first storing it as a temp file
+   * then storing it in a location accessible to web users.
+   *
    * @param object  information object to cache
    * @param string  format of XML ("dc" or "ead")
    *
    * @return null
    */
-  protected function cacheXmlRepresentation($resource, $format)
+  protected function cacheXmlFormat($resource, $format)
   {
     $tempFile = tmpfile();
     $cacheResource = new QubitInformationObjectXmlCacheResource($resource);
@@ -159,7 +162,7 @@ class QubitInformationObjectXmlCache
    * @param string  destination file
    * @param integer  number of lines to skip
    *
-   * @return string  URL of XML representation
+   * @return null
    */
   protected function rewriteFileSkippingLines($source, $destination, $skipLines = 0)
   {
@@ -184,5 +187,20 @@ class QubitInformationObjectXmlCache
 
     fclose($sfp);
     fclose($dfp);
+  }
+
+  /**
+   * Get a resource's file path to an XML export of a given format.
+   *
+   * @param object  information object resource to get file path for
+   * @param string  XML format
+   * @param boolean  whether or not to get file path for just the XML's contents (no XML header lines)
+   *
+   * @return string  file path of EAD XML
+   */
+  public static function resourceExportFilePath($resource, $format, $contentsOnly = false)
+  {
+    $cacheResource = new QubitInformationObjectXmlCacheResource($resource);
+    return $cacheResource->getFilePath($format, $contentsOnly);
   }
 }
