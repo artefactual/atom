@@ -3,7 +3,7 @@
 <?php else: ?>
   <ListRecords>
   <?php foreach ($publishedRecords as $record): ?>
-    <?php if (QubitAcl::check($record, 'read')): ?>
+    <?php if (QubitAcl::check($record, 'read') && array_search($record->getOaiIdentifier(), $identifiersWithMissingCacheFiles) === false): ?>
       <record>
         <header>
           <identifier><?php echo $record->getOaiIdentifier() ?></identifier>
@@ -16,6 +16,9 @@
         <?php include('_about.xml.php') ?>
       </record>
     <?php endif; ?>
+  <?php endforeach; ?>
+  <?php foreach ($identifiersWithMissingCacheFiles as $identifier): ?>
+    <error code="cannotDisseminateFormat">The metadata format identified by the value given for the metadataPrefix argument is available for item <?php echo $identifier; ?>.</error>
   <?php endforeach; ?>
   <?php if ($remaining > 0): ?>
     <resumptionToken><?php echo $resumptionToken ?></resumptionToken>

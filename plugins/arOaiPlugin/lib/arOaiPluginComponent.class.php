@@ -137,9 +137,20 @@ abstract class arOaiPluginComponent extends sfComponent
     }
   }
 
+  public static function parseXmlFormatFromMetadataPrefix($metadataPrefix)
+  {
+    return str_replace('oai_', '', $metadataPrefix);
+  }
+
+  public static function cachedMetadataExists($resource, $metadataPrefix)
+  {
+    $format = self::parseXmlFormatFromMetadataPrefix($metadataPrefix);
+    return file_exists(QubitInformationObjectXmlCache::resourceExportFilePath($resource, $format, true));
+  }
+
   public static function includeCachedMetadata($resource, $metadataPrefix)
   {
-    $representation = new QubitInformationObjectXmlCacheResource($resource);
-    include($representation->getFilePath(str_replace('oai_', '', $metadataPrefix), true));
+    $format = self::parseXmlFormatFromMetadataPrefix($metadataPrefix);
+    include(QubitInformationObjectXmlCache::resourceExportFilePath($resource, $format, true));
   }
 }
