@@ -17,6 +17,9 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitApiBadRequestException extends Exception
+class QubitApiBadRequestException extends QubitApiException
 {
+  protected $message = 'Bad request';
+  protected $id = 'bad-request';
+  protected $statusCode = 400;
 }

@@ -17,6 +17,9 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitApiNotAuthorizedException extends Exception
+class QubitApiNotAuthorizedException extends QubitApiException
 {
+  protected $message = 'Not authorized';
+  protected $id = 'not-authorized';
+  protected $statusCode = 401;
 }

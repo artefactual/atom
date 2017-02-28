@@ -19,4 +19,16 @@
 
 class QubitApiException extends Exception
 {
+  protected $id;
+  protected $statusCode;
+
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  public function getStatusCode()
+  {
+    return $this->statusCode;
+  }
 }

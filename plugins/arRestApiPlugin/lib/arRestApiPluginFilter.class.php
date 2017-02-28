@@ -27,45 +27,32 @@ class arRestApiPluginFilter extends sfFilter
     {
       $filterChain->execute();
     }
-    catch (QubitApi404Exception $e)
-    {
-      $this->setErrorResponse(404, 'not-found', $e->getMessage());
-    }
-    catch (QubitApiNotAuthorizedException $e)
-    {
-      header('HTTP/1.0 401 Unauthorized');
-      $this->setErrorResponse(401, 'not-authorized', $e->getMessage());
-    }
-    catch (QubitApiForbiddenException $e)
-    {
-      $this->setErrorResponse(403, 'forbidden', $e->getMessage());
-    }
-    catch (QubitApiBadRequestException $e)
-    {
-      $this->setErrorResponse(400, 'bad-request', $e->getMessage());
-    }
     catch (sfStopException $e)
     {
       // Ignore stop exceptions
       return;
     }
+    catch (QubitApiException $e)
+    {
+      $this->setErrorResponse($e);
+    }
     catch (Exception $e)
     {
-      $this->setErrorResponse(500, 'internal-error', $e->getMessage());
+      $this->setErrorResponse(new QubitApiUnknownException);
     }
   }
 
-  private function setErrorResponse($httpStatusCode, $errorId, $errorMessage)
+  private function setErrorResponse(QubitApiException $e)
   {
     $response = sfContext::getInstance()->response;
-
     $response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
-    $response->setStatusCode($httpStatusCode);
 
     // Translate exception into response data
+    $response->setStatusCode($e->getStatusCode);
+
     $responseData = array(
-      'id' => $errorId,
-      'message' => $errorMessage
+      'id' => $e->getId(),
+      'message' => $e->getMessage()
     );
 
     $response->setContent($response->getContent() . arRestApiPluginUtils::arrayToJson($responseData));

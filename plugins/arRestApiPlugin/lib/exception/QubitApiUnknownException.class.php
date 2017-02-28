@@ -17,9 +17,9 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitApiForbiddenException extends QubitApiException
+class QubitApiUnknownException extends QubitApiException
 {
-  protected $message = 'Forbidden';
-  protected $id = 'forbidden';
-  protected $statusCode = 403;
+  protected $message = 'Internal error';
+  protected $id = 'internal-error';
+  protected $statusCode = 500;
 }

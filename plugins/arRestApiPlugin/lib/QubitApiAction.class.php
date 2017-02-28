@@ -23,7 +23,7 @@ class QubitApiAction extends sfAction
   {
     if (!$this->authenticateUser())
     {
-      throw new QubitApiNotAuthorizedException('Not authorized');
+      throw new QubitApiNotAuthorizedException;
     }
 
     return $this->process($request);
