@@ -297,7 +297,7 @@ class QubitOai
   public static function getMatchingOaiSet($setSpec)
   {
     // Check additional sets, if enabled
-    if (sfConfig::get('app_oai_additional_sets_enabled__source', false))
+    if (sfConfig::get('app_oai_oai_additional_sets_enabled__source', false))
     {
       foreach (QubitOai::$additionalOaiSets as $oaiSet)
       {
