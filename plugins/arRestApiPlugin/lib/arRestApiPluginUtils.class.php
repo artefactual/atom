@@ -70,4 +70,20 @@ class arRestApiPluginUtils
 
     return $dt->setTimezone($timezone)->format($format);
   }
+
+  /**
+   * Convert array into JSON, pretty printing it if in dev mode
+   */
+  public static function arrayToJson($data)
+  {
+    // Determine if JSON should be pretty printed
+    $options = 0;
+    if (sfContext::getInstance()->getConfiguration()->isDebug() && defined('JSON_PRETTY_PRINT'))
+    {
+      $options |= JSON_PRETTY_PRINT;
+    }
+
+    return json_encode($data, $options);
+
+  }
 }

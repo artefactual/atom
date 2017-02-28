@@ -17,6 +17,18 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitAPIException extends Exception
+class QubitApiException extends Exception
 {
+  protected $id;
+  protected $statusCode;
+
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  public function getStatusCode()
+  {
+    return $this->statusCode;
+  }
 }

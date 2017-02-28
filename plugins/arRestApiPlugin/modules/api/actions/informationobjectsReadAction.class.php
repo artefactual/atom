@@ -35,7 +35,7 @@ class ApiInformationObjectsReadAction extends QubitApiAction
     // Check user authorization
     if (!QubitAcl::check($this->resource, 'read'))
     {
-      throw new QubitApiNotAuthorizedException();
+      throw new QubitApiNotAuthorizedException;
     }
 
     $ioData = array();

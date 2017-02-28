@@ -17,53 +17,16 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitAPIAction extends sfAction
+class QubitApiAction extends sfAction
 {
-  public function preExecute()
-  {
-    sfConfig::set('sf_web_debug', false);
-  }
-
   public function execute($request)
   {
-    $view = sfView::NONE;
-
     if (!$this->authenticateUser())
     {
-      header('HTTP/1.0 401 Unauthorized');
-      $this->response->setStatusCode(401);
-
-      return $view;
+      throw new QubitApiNotAuthorizedException;
     }
 
-    try
-    {
-      $view = $this->process($request);
-    }
-    catch (QubitApi404Exception $e)
-    {
-      $this->response->setStatusCode(404, $e->getMessage());
-    }
-    catch (QubitApiNotAuthorizedException $e)
-    {
-      $this->response->setStatusCode(401);
-    }
-    catch (QubitApiForbiddenException $e)
-    {
-      $this->response->setStatusCode(403, $e->getMessage());
-    }
-    catch (QubitApiBadRequestException $e)
-    {
-      $this->response->setStatusCode(400, $e->getMessage());
-    }
-    catch (Exception $e)
-    {
-      $this->response->setStatusCode(500);
-
-      throw $e;
-    }
-
-    return $view;
+    return $this->process($request);
   }
 
   private function authenticateUser()
@@ -157,15 +120,9 @@ class QubitAPIAction extends sfAction
       return sfView::NONE;
     }
 
-    $options = 0;
-    if ($this->context->getConfiguration()->isDebug() && defined('JSON_PRETTY_PRINT'))
-    {
-      $options |= JSON_PRETTY_PRINT;
-    }
-
     $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
 
-    return $this->renderText(json_encode($data, $options));
+    return $this->renderText(arRestApiPluginUtils::arrayToJson($data));
   }
 
   /**

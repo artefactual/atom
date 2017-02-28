@@ -17,9 +17,10 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitApiForbiddenException extends QubitApiException
+class ApiEndpointNotFoundAction extends sfAction
 {
-  protected $message = 'Forbidden';
-  protected $id = 'forbidden';
-  protected $statusCode = 403;
+  public function execute($request)
+  {
+    throw new QubitApi404Exception;
+  }
 }
