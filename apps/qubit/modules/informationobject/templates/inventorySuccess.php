@@ -33,7 +33,7 @@
             array('label' => __('Level of description'), 'name' => 'level', 'size' => '14%')) ?>
           <?php echo get_partial('default/sortableTableHeader',
             array('label' => __('Date'), 'name' => 'date', 'size' => '24%')) ?>
-          <td width="8%"><?php echo sfConfig::get('app_ui_label_digitalobject') ?></td>
+          <th width="8%"><?php echo sfConfig::get('app_ui_label_digitalobject') ?></th>
         </tr>
         <?php foreach ($pager->getResults() as $hit): ?>
           <?php $doc = $hit->getData() ?>
