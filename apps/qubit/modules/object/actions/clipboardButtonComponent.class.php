@@ -51,5 +51,11 @@ class ObjectClipboardButtonComponent extends sfComponent
       $this->title = $title;
       $this->altTitle = $altTitle;
     }
+
+    // Mix in repository page specific styles
+    if (!empty($this->repositoryBrowse))
+    {
+      $this->class .= ' clipboard-repository-browse';
+    }
   }
 }

@@ -37,8 +37,11 @@
         <?php endif; ?>
       </th>
 
-      <th style="width: 20%">
+      <th style="width: 15%">
         <?php echo __('Thematic area') ?>
+      </th>
+
+      <th style="width 5%">
       </th>
     </tr>
   </thead>
@@ -53,8 +56,6 @@
 
         <?php echo link_to(render_title(get_search_i18n($doc, 'authorizedFormOfName', array('allowEmpty' => false,
                            'culture' => $selectedCulture))), array('module' => 'repository', 'slug' => $doc['slug'])) ?>
-
-        <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => true)) ?>
       </td>
 
       <td>
@@ -70,6 +71,10 @@
             <li><?php echo render_value(QubitTerm::getById($areaTerm)) ?></li>
           <?php endforeach; ?>
         <?php endif; ?>
+      </td>
+
+      <td>
+        <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => false, 'repositoryBrowse' => true)) ?>
       </td>
     </tr>
   <?php endforeach; ?>
