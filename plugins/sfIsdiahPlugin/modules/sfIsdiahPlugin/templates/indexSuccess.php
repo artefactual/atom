@@ -51,6 +51,12 @@
 <?php end_slot() ?>
 
 <?php slot('context-menu') ?>
+  <ul>
+    <li>
+      <?php echo __('Clipboard') ?>
+    </li>
+  </ul>
+  <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => true)) ?>
 
   <?php if (isset($primaryContact)): ?>
     <section id="primary-contact">
