@@ -27,14 +27,14 @@
 class arOaiPluginIndexAction extends sfAction
 {
   public $oaiErrorArr = array(
-    'badArgument'=>'The request includes illegal arguments, is missing required arguments, includes a repeated argument, or values for arguments have an illegal syntax.',
-    'badResumptionToken'=>'The value of the resumptionToken argument is invalid or expired.',
-    'badVerb'=>'Value of the verb argument is not a legal OAI-PMH verb, the verb argument is missing, or the verb argument is repeated.',
-    'cannotDisseminateFormat'=>'The metadata format identified by the value given for the metadataPrefix argument is not supported by the item or by the repository.',
-    'idDoesNotExist'=>'The value of the identifier argument is unknown or illegal in this repository.',
-    'noRecordsMatch'=>'The combination of the values of the from, until, set and metadataPrefix arguments results in an empty list.',
-    'noMetadataFormats'=>'There are no metadata formats available for the specified item.',
-    'noSetHierarchy'=>'The repository does not support sets.'
+    'badArgument' => 'The request includes illegal arguments, is missing required arguments, includes a repeated argument, or values for arguments have an illegal syntax.',
+    'badResumptionToken' => 'The value of the resumptionToken argument is invalid or expired.',
+    'badVerb' => 'Value of the verb argument is not a legal OAI-PMH verb, the verb argument is missing, or the verb argument is repeated.',
+    'cannotDisseminateFormat' => 'The metadata format identified by the value given for the metadataPrefix argument is not supported by the item or by the repository.',
+    'idDoesNotExist' => 'The value of the identifier argument is unknown or illegal in this repository.',
+    'noRecordsMatch' => 'The combination of the values of the from, until, set and metadataPrefix arguments results in an empty list.',
+    'noMetadataFormats' => 'There are no metadata formats available for the specified item.',
+    'noSetHierarchy' => 'The repository does not support sets.'
   );
 
   public $oaiVerbArr = array('Identify', 'ListMetadataFormats', 'ListSets', 'ListRecords', 'ListIdentifiers', 'GetRecord');
@@ -123,7 +123,7 @@ class arOaiPluginIndexAction extends sfAction
 
       // For now, if there is a metadataPrefix requested other than oai_dc, fail the request
       $metadataPrefix = $this->request->metadataPrefix;
-      if ($metadataPrefix != '' AND $metadataPrefix != 'oai_dc')
+      if ($metadataPrefix != '' && !QubitOai::checkValidMetadataFormat($metadataPrefix))
       {
         $request->setParameter('errorCode', 'cannotDisseminateFormat');
         $request->setParameter('errorMsg', 'The metadata format identified by the value given for the metadataPrefix argument is not supported by the item or by the repository.');
@@ -131,23 +131,20 @@ class arOaiPluginIndexAction extends sfAction
         $this->forward('arOaiPlugin', 'error');
       }
 
-      // Load OAI sets for the required verbs, filtering drafts
-      // in the verbs where the sets are displayed directly
-      $this->oaiSets = array();
-      if ($this->request->verb == 'ListSets')
-      {
-        $this->oaiSets = QubitOai::getOaiSets(array('filterDrafts' => true));
-      }
-      else if (in_array($this->request->verb, array('ListRecords', 'ListIdentifiers', 'GetRecord')))
-      {
-        $this->oaiSets = QubitOai::getOaiSets();
-      }
-
-      // If the 'set' parameter is provided, it should refer to an existing set
-      if ($this->request->set && !QubitOai::getMatchingOaiSet($this->request->set, $this->oaiSets))
+      // If the 'set' parameter is provided, load sets and make sure it refers to an existing set
+      if ($this->request->set && !QubitOai::getMatchingOaiSet($this->request->set))
       {
         $request->setParameter('errorCode', 'badArgument');
         $request->setParameter('errorMsg', 'The requested OAI set is not known by this repository.');
+
+        $this->forward('arOaiPlugin', 'error');
+      }
+
+      // If 'identifier' parameter is provided, make sure it refers to an existing record
+      if ($this->request->identifier && null === QubitInformationObject::getRecordByOaiID(QubitOai::getOaiIdNumber($this->request->identifier)))
+      {
+        $request->setParameter('errorCode', 'idDoesNotExist');
+        $request->setParameter('errorMsg', 'The value of the identifier argument is unknown or illegal in this repository.');
 
         $this->forward('arOaiPlugin', 'error');
       }

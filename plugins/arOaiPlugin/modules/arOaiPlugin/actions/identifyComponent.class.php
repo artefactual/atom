@@ -28,8 +28,6 @@ class arOaiPluginIdentifyComponent extends arOaiPluginComponent
 {
   public function execute($request)
   {
-    $request->setRequestFormat('xml');
-    $this->date = gmdate('Y-m-d\TH:i:s\Z');
     $this->title = sfconfig::get('app_siteTitle');
     $this->description = sfconfig::get('app_siteDescription');
     $this->protocolVersion = '2.0';
@@ -40,7 +38,6 @@ class arOaiPluginIdentifyComponent extends arOaiPluginComponent
     $this->granularity = 'YYYY-MM-DDThh:mm:ssZ';
     $this->deletedRecord = 'no';
     $this->compression = 'gzip';
-    $this->path = url_for('oai/oaiAction');
 
     $this->setRequestAttributes($request);
 

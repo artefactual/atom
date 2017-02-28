@@ -37,7 +37,7 @@
     <dc:format><?php echo esc_specialchars(strval($item)) ?></dc:format>
   <?php endforeach; ?>
 
-  <dc:identifier><?php echo esc_specialchars(url_for(array($resource, 'module' => 'informationobject'), true)) ?></dc:identifier>
+  <dc:identifier><?php echo esc_specialchars(sfConfig::get('app_siteBaseUrl') .'/'.$resource->slug) ?></dc:identifier>
 
   <dc:identifier><?php echo esc_specialchars(strval($resource->identifier)) ?></dc:identifier>
 

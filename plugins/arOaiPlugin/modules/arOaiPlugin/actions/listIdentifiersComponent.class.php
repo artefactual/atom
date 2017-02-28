@@ -28,14 +28,17 @@ class arOaiPluginListIdentifiersComponent extends arOaiPluginComponent
 {
   public function execute($request)
   {
-    $request->setRequestFormat('xml');
-    $this->date = gmdate('Y-m-d\TH:i:s\Z');
-
     $this->setUpdateParametersFromRequest($request);
 
-    $this->getUpdates(array('filterDrafts' => true));
+    $options = array('filterDrafts' => true);
 
-    $this->path = $request->getUriPrefix().$request->getPathInfo();
+    // Restrict to top-level descriptions for EAD given children get nested
+    if ($request->metadataPrefix == 'oai_ead')
+    {
+      $options['topLevel'] = true;
+    }
+
+    $this->getUpdates($options);
 
     $this->setRequestAttributes($request);
   }

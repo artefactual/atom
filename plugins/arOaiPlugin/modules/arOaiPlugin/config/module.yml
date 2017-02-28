@@ -10,5 +10,5 @@ all:
     ListMetadataFormatsMandatory:  []
     ListRecordsAllowed:            [verb, metadataPrefix, from, until, set, resumptionToken, cursor]
     ListRecordsMandatory:          [metadataPrefix]
-    ListSetsAllowed:               [verb, resumptionToken]
+    ListSetsAllowed:               [verb, resumptionToken, cursor]
     ListSetsMandatory:             []

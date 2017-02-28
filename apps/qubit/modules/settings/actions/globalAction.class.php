@@ -96,6 +96,7 @@ class SettingsGlobalAction extends sfAction
     $slugTypeInformationObject = QubitSetting::getByName('slug_basis_informationobject');
     $generateReportsAsPubUser = QubitSetting::getByName('generate_reports_as_pub_user');
     $enableInstitutionalScoping = QubitSetting::getByName('enable_institutional_scoping');
+    $cacheXmlOnSave = QubitSetting::getByName('cache_xml_on_save');
 
     // Set defaults for global form
     $this->globalForm->setDefaults(array(
@@ -125,6 +126,7 @@ class SettingsGlobalAction extends sfAction
       'google_maps_api_key' => (isset($googleMapsApiKey)) ? $googleMapsApiKey->getValue(array('sourceCulture'=>true)) : null,
       'generate_reports_as_pub_user' => (isset($generateReportsAsPubUser)) ? $generateReportsAsPubUser->getValue(array('sourceCulture'=>true)) : 1,
       'enable_institutional_scoping' => (isset($enableInstitutionalScoping)) ? intval($enableInstitutionalScoping->getValue(array('sourceCulture'=>true))) : 0,
+      'cache_xml_on_save' => (isset($cacheXmlOnSave)) ? intval($cacheXmlOnSave->getValue(array('sourceCulture'=>true))) : 0,
     ));
   }
 
@@ -414,6 +416,18 @@ class SettingsGlobalAction extends sfAction
       $setting->setValue($enableInstitutionalScoping, array('sourceCulture' => true));
       $setting->save();
     }
+
+    // Cache XML on save
+    $cacheXmlOnSave = $thisForm->getValue('cache_xml_on_save');
+
+    if (null === $setting = QubitSetting::getByName('cache_xml_on_save'))
+    {
+      $setting = new QubitSetting;
+      $setting->name = 'cache_xml_on_save';
+    }
+
+    $setting->setValue($cacheXmlOnSave, array('sourceCulture' => true));
+    $setting->save();
 
     return $this;
   }

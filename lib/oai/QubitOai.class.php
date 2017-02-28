@@ -64,6 +64,25 @@ class QubitOai
   }
 
   /**
+   * Check that metadata format is valid
+   *
+   * @param string    metadata format
+   * @return bool  is the metadata format valid or not
+   */
+  public static function checkValidMetadataFormat($metadataFormat)
+  {
+    foreach (self::getMetadataFormats() as $formatData)
+    {
+      if ($formatData['prefix'] === $metadataFormat)
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
    * Check if there are null values in the parameters
    *
    * @param array $parameters query's parameters
@@ -196,7 +215,10 @@ class QubitOai
    */
   public static function getMetadataFormats()
   {
-    $metadataFormats = array(array('prefix'=>'oai_dc', 'namespace'=>'http://www.openarchives.org/OAI/2.0/oai_dc/', 'schema'=>'http://www.openarchives.org/OAI/2.0/oai_dc.xsd'));
+    $metadataFormats = array(
+      array('prefix' => 'oai_dc', 'namespace' => 'http://www.openarchives.org/OAI/2.0/oai_dc/', 'schema' => 'http://www.openarchives.org/OAI/2.0/oai_dc.xsd'),
+      array('prefix' => 'oai_ead', 'namespace' => 'urn:isbn:1-931666-22-9', 'schema' => 'http://www.loc.gov/ead/ead.xsd')
+    );
 
     return $metadataFormats;
   }
@@ -208,7 +230,11 @@ class QubitOai
    */
   public static function getOaiSets($options = array())
   {
-    $collections = QubitInformationObject::getCollections($options);
+    $result = QubitInformationObject::getCollections($options);
+    $collections = $result['data'];
+    $collectionCount = $result['count'];
+    $remaining = $result['remaining'];
+
     $oaiSets = array();
 
     foreach ($collections as $collection)
@@ -218,15 +244,30 @@ class QubitOai
 
     $useAdditionalOaiSets = QubitSetting::getByName('oai_additional_sets_enabled');
 
-    if ($useAdditionalOaiSets && $useAdditionalOaiSets->value)
+    // If all collections have been returned and additional sets are enabled, add them
+    if (!$remaining && $useAdditionalOaiSets && $useAdditionalOaiSets->value)
     {
-      foreach (QubitOai::$additionalOaiSets as $oaiSet)
+      $additionalSetsToSkip = $options['offset'] - $collectionCount; // Skip additional sets within offset
+
+      foreach (QubitOai::$additionalOaiSets as $index => $oaiSet)
       {
-        $oaiSets[] = $oaiSet;
+        // If paging isn't active or the current "page" isn't full (and this set shouldn't be skipped), add set
+        if (!$options['limit'] || (count($oaiSets) < $options['limit'] && $index >= $additionalSetsToSkip))
+        {
+          $oaiSets[] = $oaiSet;
+        }
+        else if (count($oaiSets) >= $options['limit'])
+        {
+          // The "page" is full so add this set to the remaining count
+          $remaining++;
+        }
       }
     }
 
-    return $oaiSets;
+    return array(
+      'data' => $oaiSets,
+      'remaining' => $remaining
+    );
   }
 
   /**
@@ -248,40 +289,29 @@ class QubitOai
   }
 
   /**
-   * Returns the setSpec for the OAI set containiner $record
-   *
-   * @param mixed $record, an Information Object record
-   * @param array of available OAI sets
-
-   * @return string oai identifier of the element's collection
-   */
-  public static function getSetSpec($record, $oaiSets)
-  {
-    foreach ($oaiSets as $oaiSet)
-    {
-      if ($oaiSet->contains($record))
-      {
-        return $oaiSet->setSpec();
-      }
-    }
-
-    return 'None';
-  }
-
-  /**
    * Returns the OAI set matching $setSpec
    *
    * @param string $setSpec, the setSpec of an OAI set
    * @return QubitOaiSet/boolean the OAI set matched (or false if none matched)
    */
-  public static function getMatchingOaiSet($setSpec, $oaiSets)
+  public static function getMatchingOaiSet($setSpec)
   {
-    foreach ($oaiSets as $oaiSet)
+    // Check additional sets, if enabled
+    if (sfConfig::get('app_oai_additional_sets_enabled__source', false))
     {
-      if ($oaiSet->setSpec() == $setSpec)
+      foreach (QubitOai::$additionalOaiSets as $oaiSet)
       {
-        return $oaiSet;
+        if ($oaiSet->setSpec() == $setSpec)
+        {
+          return $oaiSet;
+        }
       }
+    }
+
+    // Return information object with local identifier
+    if (null !== $result = QubitInformationObject::getRecordByOaiID(QubitOai::getOaiIdNumber($setSpec)))
+    {
+      return new QubitOaiCollectionSet($result);
     }
 
     return false;
@@ -324,7 +354,7 @@ class QubitOai
   {
     preg_match('/^.*_([0-9]+)$/', $identifier, $result);
 
-    return $result[1];
+    return (count($result)) ? $result[1] : false;
   }
 
   /**

@@ -19,5 +19,7 @@ all:
       - arFileImportJob
     xml_export:
       - arXmlExportJob
+    xml_export_single_file:
+      - arXmlExportSingleFileJob
     generate_csv_report:
       - arGenerateReportJob

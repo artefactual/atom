@@ -34,17 +34,5 @@ class arOaiPluginErrorAction extends sfAction
   public function execute($request)
   {
     sfConfig::set('sf_escaping_strategy', false);
-
-    $request->setRequestFormat('xml');
-    $this->date = QubitOai::getDate();
-    $this->path = $this->request->getUriPrefix().$this->request->getPathInfo();
-
-    $this->attributes = $this->request->getGetParameters();
-    $this->attributesKeys = array_keys($this->attributes);
-    $this->requestAttributes = '';
-    foreach ($this->attributesKeys as $key)
-    {
-      $this->requestAttributes .= ' '.$key.'="'.$this->attributes[$key].'"';
-    }
   }
 }

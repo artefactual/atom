@@ -79,7 +79,7 @@
 
     <?php if ($sf_context->getConfiguration()->isPluginEnabled('sfDcPlugin')): ?>
       <li>
-        <a href="<?php echo url_for(array($resource, 'module' => 'sfDcPlugin', 'sf_format' => 'xml')) ?>">
+        <a href="<?php echo $resource->urlForDcExport() ?>">
           <i class="fa fa-upload"></i>
           <?php echo __('Dublin Core 1.1 XML') ?>
         </a>
@@ -88,7 +88,7 @@
 
     <?php if ($sf_context->getConfiguration()->isPluginEnabled('sfEadPlugin')): ?>
       <li>
-        <a href="<?php echo url_for(array($resource, 'module' => 'sfEadPlugin', 'sf_format' => 'xml')) ?>">
+        <a href="<?php echo $resource->urlForEadExport() ?>">
           <i class="fa fa-upload"></i>
           <?php echo __('EAD 2002 XML') ?>
         </a>

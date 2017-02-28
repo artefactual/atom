@@ -106,6 +106,9 @@ class InformationObjectUpdatePublicationStatusAction extends DefaultEditAction
           $this->getUser()->setFlash('notice', $message);
         }
 
+        // Create or delete DC and EAD XML exports
+        $this->resource->updateXmlExports();
+
         $this->redirect(array($this->resource, 'module' => 'informationobject'));
       }
     }

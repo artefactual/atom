@@ -28,11 +28,6 @@ class arOaiPluginListMetadataFormatsComponent extends arOaiPluginComponent
 {
   public function execute($request)
   {
-    $request->setRequestFormat('xml');
-    $this->date = gmdate('Y-m-d\TH:i:s\Z');
-
-    $this->path = $this->request->getUriPrefix().$this->request->getPathInfo();
-
     $this->setRequestAttributes($request);
   }
 }

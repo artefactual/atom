@@ -411,7 +411,7 @@ class QubitInformationObject extends BaseInformationObject
   /**
    * Get all information objects updated between two dates
    *
-   * @return QubitQuery collection of QubitInformationObjects
+   * @return array  collection of QubitInformationObjects and remaining object count
    */
   public static function getUpdatedRecords($options = array())
   {
@@ -435,9 +435,14 @@ class QubitInformationObject extends BaseInformationObject
       $options['set']->apply($criteria);
     }
 
-    if (isset($options['filterDrafts']) && $options['filterDrafts'])
+    if (!empty($options['filterDrafts']))
     {
       $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
+    }
+
+    if (!empty($options['topLevel']))
+    {
+      $criteria->add(QubitInformationObject::PARENT_ID, QubitInformationObject::ROOT_ID);
     }
 
     $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
@@ -567,6 +572,117 @@ class QubitInformationObject extends BaseInformationObject
     return $repositoryId == $inheritedRepoId;
   }
 
+  /**
+   * Export or delete EAD and DC XML.
+   */
+  public function updateXmlExports()
+  {
+    // Don't update unless caching-on-update is enabled
+    if (empty(sfConfig::get('app_cache_xml_on_save')))
+    {
+      return;
+    }
+
+    // Create DC and EAD XML exports if the description's published... otherwise delete any that may exist
+    if ($this->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)
+    {
+      $this->createXmlExports();
+    }
+    else
+    {
+      $this->deleteXmlExports();
+    }
+  }
+
+  /**
+   * Initate asynchronous jobs to export EAD and DC XML.
+   */
+  public function createXmlExports()
+  {
+    // Export top-level parent as EAD
+    $params = array(
+      'objectId' => $this->getCollectionRoot()->id,
+      'format'   => 'ead'
+    );
+    QubitJob::runJob('arXmlExportSingleFileJob', $params);
+
+    // Export as DC
+    $params = array(
+      'objectId' => $this->id,
+      'format' => 'dc'
+    );
+    QubitJob::runJob('arXmlExportSingleFileJob', $params);
+  }
+
+  /**
+   *
+   * Remove EAD and DC XML exports.
+   */
+  public function deleteXmlExports()
+  {
+    unlink($this->pathToEadExport());
+    unlink($this->pathToEadExport(true));
+    unlink($this->pathToDcExport());
+    unlink($this->pathToDcExport(true));
+  }
+
+  /**
+   * Return URL to EAD XML or, if unpublished, action to generate XML.
+   *
+   * @return string  URL
+   */
+  public function urlForEadExport()
+  {
+    if ($this->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID && file_exists($this->pathToEadExport()))
+    {
+      return sfConfig::get('siteBaseUrl') .'/'. $this->pathToEadExport();
+    }
+    else
+    {
+      return sfContext::getInstance()->routing->generate(null, array($this, 'module' => 'sfEadPlugin', 'sf_format' => 'xml'));
+    }
+  }
+
+  /**
+   * Return file path to EAD XML, regardless of whether it's available.
+   *
+   * @param
+   * @return string  file path of EAD XML
+   */
+  public function pathToEadExport($contentsOnly = false)
+  {
+    return QubitInformationObjectXmlCache::resourceExportFilePath($this->getCollectionRoot(), 'ead', $contentsOnly);
+  }
+
+  /**
+   * Return URL to DC XML or, if unpublished, action to generate XML.
+   *
+   * @param
+   * @return string  URL
+   */
+  public function urlForDcExport()
+  {
+    if ($this->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID && file_exists($this->pathToDcExport()))
+    {
+      return sfConfig::get('siteBaseUrl') .'/'. $this->pathToDcExport();
+    }
+    else
+    {
+      return sfContext::getInstance()->routing->generate(null, array($this, 'module' => 'sfDcPlugin', 'sf_format' => 'xml'));
+    }
+  }
+
+  /**
+   * Return file path to DC XML, regardless of whether it's available.
+   *
+   * @param
+   * @return string  file path of DC XML
+   */
+  public function pathToDcExport($contentsOnly = false)
+  {
+    return QubitInformationObjectXmlCache::resourceExportFilePath($this, 'dc', $contentsOnly);
+  }
+
   /**************************
      Nested Set (Hierarchy)
   ***************************/
@@ -608,7 +724,7 @@ class QubitInformationObject extends BaseInformationObject
    * Get all info objects that have the root node as a parent, and have children
    * (not orphans). Filtering drafts when requested.
    *
-   * @return array collection of QubitInformationObjects
+   * @return array  collection of QubitInformationObjects and remaining object count
    */
   public static function getCollections($options = array())
   {
@@ -623,7 +739,29 @@ class QubitInformationObject extends BaseInformationObject
       $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
     }
 
-    return QubitInformationObject::get($criteria);
+    if (empty($options['offset']))
+    {
+      $options['offset'] = 0;
+    }
+
+    if (empty($options['limit']))
+    {
+      $options['limit'] = 10;
+    }
+
+    $c2 = clone $criteria;
+    $count = BasePeer::doCount($c2)->fetchColumn(0);
+    $remaining = $count - ($options['offset'] + $options['limit']);
+    $remaining = ($remaining < 0) ? 0 : $remaining;
+
+    $criteria->setOffset($options['offset']);
+    $criteria->setLimit($options['limit']);
+
+    return array(
+      'data' => QubitInformationObject::get($criteria),
+      'count' => $count,
+      'remaining' => $remaining
+    );
   }
 
   public function getCollectionRoot()

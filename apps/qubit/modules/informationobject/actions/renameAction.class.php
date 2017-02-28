@@ -149,5 +149,6 @@ class InformationObjectRenameAction extends DefaultEditAction
     }
 
     $this->resource->save();
+    $this->resource->updateXmlExports();
   }
 }

@@ -29,15 +29,26 @@ class arOaiPluginListRecordsComponent extends arOaiPluginComponent
   public function execute($request)
   {
     $this->requestname = $request;
-    $request->setRequestFormat('xml');
-    $this->date = gmdate('Y-m-d\TH:i:s\Z');
 
     $this->setUpdateParametersFromRequest($request);
 
-    $this->getUpdates();
+    $options = ($request->metadataPrefix == 'oai_ead') ? array('topLevel' => true, 'limit' => 1) : array();
+    $this->getUpdates($options);
 
-    $this->path = $request->getUriPrefix().$request->getPathInfo();
+    // If metadata requested is EAD and results were found, determine if any are missing corresponding cache files
+    $this->identifiersWithMissingCacheFiles = array();
+    if ($request->metadataPrefix == 'oai_ead' && count($this->publishedRecords))
+    {
+      foreach ($this->publishedRecords as $resource)
+      {
+        if (!arOaiPluginComponent::cachedMetadataExists($resource, 'oai_ead'))
+        {
+          array_push($this->identifiersWithMissingCacheFiles, $resource->getOaiIdentifier());
+        }
+      }
+    }
 
+    $this->metadataPrefix = $request->metadataPrefix;
     $this->setRequestAttributes($request);
   }
 }

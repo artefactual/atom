@@ -98,30 +98,27 @@ abstract class arOaiPluginComponent extends sfComponent
 
   public function getUpdates($options = array())
   {
-    // If set is not supplied, define it as ''
-    if (!isset($this->set))
-    {
-      $oaiSet = '';
-    }
-    else
-    {
-      $oaiSet = QubitOai::getMatchingOaiSet($this->set, $this->oaiSets);
-    }
-
-    $extraOptions = array(
+    $presetOptions = array(
       'from'   => $this->from,
       'until'  => $this->until,
-      'cursor' => $this->cursor,
-      'limit' => QubitSetting::getByName('resumption_token_limit')->__toString(),
-      'set' => $oaiSet);
+      'offset' => $this->cursor,
+      'limit' => QubitSetting::getByName('resumption_token_limit')->__toString());
+
+    // Get set if one has been named
+    if ($this->set != '')
+    {
+      $presetOptions['set'] = QubitOai::getMatchingOaiSet($this->set);
+    }
+
+    $options = array_merge($presetOptions, $options);
 
     // Get the records according to the limit dates and collection
-    $update = QubitInformationObject::getUpdatedRecords(array_merge($options, $extraOptions));
+    $update = QubitInformationObject::getUpdatedRecords($options);
 
     $this->publishedRecords = $update['data'];
     $this->remaining        = $update['remaining'];
     $this->recordsCount     = count($this->publishedRecords);
-    $resumptionCursor       = $this->cursor + QubitSetting::getByName('resumption_token_limit')->__toString();
+    $resumptionCursor       = $this->cursor + $options['limit'];
     $this->resumptionToken  = base64_encode(json_encode(array('from' => $this->from,
                                                               'until' => $this->until,
                                                               'cursor' => $resumptionCursor,
@@ -138,5 +135,22 @@ abstract class arOaiPluginComponent extends sfComponent
     {
       $this->requestAttributes .= ' '.$key.'="'.$this->attributes[$key].'"';
     }
+  }
+
+  public static function parseXmlFormatFromMetadataPrefix($metadataPrefix)
+  {
+    return str_replace('oai_', '', $metadataPrefix);
+  }
+
+  public static function cachedMetadataExists($resource, $metadataPrefix)
+  {
+    $format = self::parseXmlFormatFromMetadataPrefix($metadataPrefix);
+    return file_exists(QubitInformationObjectXmlCache::resourceExportFilePath($resource, $format, true));
+  }
+
+  public static function includeCachedMetadata($resource, $metadataPrefix)
+  {
+    $format = self::parseXmlFormatFromMetadataPrefix($metadataPrefix);
+    include(QubitInformationObjectXmlCache::resourceExportFilePath($resource, $format, true));
   }
 }
