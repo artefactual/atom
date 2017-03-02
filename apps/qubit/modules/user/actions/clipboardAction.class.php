@@ -49,46 +49,8 @@ class UserClipboardAction extends DefaultBrowseAction
 
       $slugs = $allSlugs[$this->entityType];
       $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $slugs));
-
-      // Sort
-      switch ($request->sort)
-      {
-        // Sort by highest ES score
-        case 'relevance':
-          $this->search->query->addSort(array('_score' => 'desc'));
-
-          break;
-
-        case 'identifier':
-          $this->search->query->addSort(array('identifier' => 'asc'));
-
-          break;
-
-        case 'referenceCode':
-          $this->search->query->addSort(array('referenceCode.untouched' => 'asc'));
-
-          break;
-
-        case 'alphabetic':
-          $field = sprintf('i18n.%s.title.untouched', $this->selectedCulture);
-          $this->search->query->addSort(array($field => 'asc'));
-
-          break;
-
-        case 'startDate':
-          $this->search->query->setSort(array('dates.startDate' => 'asc'));
-
-          break;
-
-        case 'endDate':
-          $this->search->query->setSort(array('dates.endDate' => 'desc'));
-
-          break;
-
-        case 'lastUpdated':
-        default:
-          $this->search->query->setSort(array('updatedAt' => 'desc'));
-      }
+      $this->setSortOptions();
+      $this->setESSort($request);
 
       $this->search->query->setQuery($this->search->queryBool);
 
@@ -115,5 +77,85 @@ class UserClipboardAction extends DefaultBrowseAction
       'actor'             => sfConfig::get('app_ui_label_actor'),
       'repository'        => sfConfig::get('app_ui_label_repository')
     );
+  }
+
+  /**
+   * Set available sorting options based on entity type.
+   */
+  private function setSortOptions()
+  {
+    $this->sortOptions = array(
+      'lastUpdated' => $this->context->i18n->__('Most recent'),
+      'alphabetic'  => $this->context->i18n->__('Alphabetic'),
+      'relevance'   => $this->context->i18n->__('Relevance'),
+    );
+
+    // IOs and Repos have identifier sort option in common
+    if (in_array($this->entityType, array('QubitInformationObject', 'QubitRepository')))
+    {
+      $this->sortOptions['identifier'] = $this->context->i18n->__('Identifier');
+    }
+
+    // IO specific sort options
+    if ('QubitInformationObject' === $this->entityType)
+    {
+      $this->sortOptions['referenceCode'] = $this->context->i18n->__('Reference code');
+      $this->sortOptions['startDate'] = $this->context->i18n->__('Start date');
+      $this->sortOptions['endDate'] = $this->context->i18n->__('End date');
+    }
+  }
+
+  /**
+   * Set which field to sort by for current ES query.
+   *
+   * @param sfRequest $sort  Current request object.
+   */
+  private function setESSort($request)
+  {
+    // Prevent selecting an inappropriate sort field when switching entity types.
+    // e.g.: if we are sorting by start date for archival descriptions, but switch to auth recs we
+    // will default to sort by relevance since authority records don't have start dates to sort over.
+    $request->sort = isset($this->sortOptions[$request->sort]) ? $request->sort : 'relevance';
+
+    switch ($request->sort)
+    {
+      // Sort by highest ES score
+      case 'relevance':
+        $this->search->query->addSort(array('_score' => 'desc'));
+
+        break;
+
+      case 'identifier':
+        $this->search->query->addSort(array('identifier' => 'asc'));
+
+        break;
+
+      case 'referenceCode':
+        $this->search->query->addSort(array('referenceCode.untouched' => 'asc'));
+
+        break;
+
+      // Sort by title if information object, go with authorized form of name if repository / actor
+      case 'alphabetic':
+        $fieldName = 'QubitInformationObject' === $this->entityType ? 'title' : 'authorizedFormOfName';
+        $field = sprintf('i18n.%s.%s.untouched', $this->selectedCulture, $fieldName);
+        $this->search->query->addSort(array($field => 'asc'));
+
+        break;
+
+      case 'startDate':
+        $this->search->query->setSort(array('dates.startDate' => 'asc'));
+
+        break;
+
+      case 'endDate':
+        $this->search->query->setSort(array('dates.endDate' => 'desc'));
+
+        break;
+
+      case 'lastUpdated':
+      default:
+        $this->search->query->setSort(array('updatedAt' => 'desc'));
+    }
   }
 }

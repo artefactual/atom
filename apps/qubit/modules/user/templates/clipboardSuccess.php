@@ -13,16 +13,10 @@
 <?php slot('before-content') ?>
   <section class="browse-options">
     <?php echo get_partial('default/printPreviewButton', array('class' => 'clipboard-print')) ?>
-    <?php echo get_partial('default/sortPicker', array(
-      'options' => array(
-        'lastUpdated'   => __('Most recent'),
-        'alphabetic'    => __('Alphabetic'),
-        'relevance'     => __('Relevance'),
-        'identifier'    => __('Identifier'),
-        'referenceCode' => __('Reference code'),
-        'startDate'     => __('Start date'),
-        'endDate'       => __('End date')))) ?>
-    &nbsp;
+    <?php if ($pager->hasResults()): ?>
+      <?php echo get_partial('default/sortPicker', array('options' => $sortOptions)) ?>
+      &nbsp;
+    <?php endif; ?>
     <?php echo get_partial('default/genericPicker', array(
       'options' => $uiLabels,
       'label' => __('Entity type'),
