@@ -45,8 +45,8 @@
 
   <section class="actions">
     <ul>
+      <li><?php echo link_to(__('Clear %1 clipboard', array('%1' => lcfirst($uiLabels[$type]))), array('module' => 'user', 'action' => 'clipboardClear', 'type' => $entityType), array('class' => 'c-btn c-btn-delete')) ?></li>
       <?php if (isset($pager) && $pager->hasResults() && $sf_user->isAuthenticated()): ?>
-        <li><?php echo link_to (__('Clear %1 clipboard', array('%1' => lcfirst($uiLabels[$type]))), array('module' => 'user', 'action' => 'clipboardClear', 'type' => $entityType), array('class' => 'c-btn c-btn-delete')) ?></li>
         <li><?php echo link_to(__('Export'), array('module' => 'object', 'action' => 'export', 'objectType' => $type), array('class' => 'c-btn')) ?></li>
       <?php endif; ?>
     </ul>
