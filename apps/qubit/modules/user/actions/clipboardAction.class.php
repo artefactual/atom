@@ -53,15 +53,7 @@ class UserClipboardAction extends DefaultBrowseAction
       $this->setESSort($request);
 
       $this->search->query->setQuery($this->search->queryBool);
-
-      // Filter drafts in case they were manually added to the clipboard
-      QubitAclSearch::filterDrafts($this->search->filterBool);
-
-      // Set filter
-      if (0 < count($this->search->filterBool->toArray()))
-      {
-        $this->search->query->setPostFilter($this->search->filterBool);
-      }
+      $this->setFilters();
 
       $resultSet = QubitSearch::getInstance()->index->getType($this->entityType)->search($this->search->query);
     }
@@ -108,7 +100,7 @@ class UserClipboardAction extends DefaultBrowseAction
   /**
    * Set which field to sort by for current ES query.
    *
-   * @param sfRequest $sort  Current request object.
+   * @param sfRequest $request  Current request object.
    */
   private function setESSort($request)
   {
@@ -156,6 +148,27 @@ class UserClipboardAction extends DefaultBrowseAction
       case 'lastUpdated':
       default:
         $this->search->query->setSort(array('updatedAt' => 'desc'));
+    }
+  }
+
+
+  /**
+   * Filter drafts in case they were manually added to the clipboard.
+   * This currently only applies to information objects.
+   */
+  private function setFilters()
+  {
+    if ('QubitInformationObject' !== $this->entityType)
+    {
+      return;
+    }
+
+    QubitAclSearch::filterDrafts($this->search->filterBool);
+
+    // Set filter
+    if (0 < count($this->search->filterBool->toArray()))
+    {
+      $this->search->query->setPostFilter($this->search->filterBool);
     }
   }
 }
