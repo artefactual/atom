@@ -38,8 +38,7 @@ class arMigration0150
   {
     if (null !== $menuItem = QubitMenu::getByName('clearClipboard'))
     {
-      $menuItem->label = 'Clear all selections';
-      $menuItem->sourceCulture = 'en';
+      $menuItem->setLabel('Clear all selections', array('culture' => 'en'));
       $menuItem->save();
     }
 
