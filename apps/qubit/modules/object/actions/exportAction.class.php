@@ -39,7 +39,7 @@ class ObjectExportAction extends DefaultEditAction
 
     // Export type, CSV or XML?
     $this->type = $request->getParameter('format', 'csv');
-    $this->objectType = $request->getParameter('objectType', 'informationObject');
+    $this->objectType = $request->getParameter('objectType');
 
     $this->redirectUrl = array('module' => 'object', 'action' => 'export');
     if (null !== $referrer = $request->getReferer())
