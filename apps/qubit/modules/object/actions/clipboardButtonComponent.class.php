@@ -53,9 +53,9 @@ class ObjectClipboardButtonComponent extends sfComponent
     }
 
     // Mix in repository page specific styles
-    if (!empty($this->repositoryBrowse))
+    if (!empty($this->repositoryOrDigitalObjBrowse))
     {
-      $this->class .= ' clipboard-repository-browse';
+      $this->class .= ' repository-or-digital-obj-browse';
     }
   }
 }

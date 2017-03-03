@@ -37,11 +37,11 @@
         <?php endif; ?>
       </th>
 
-      <th style="width: 15%">
+      <th style="width: 17%">
         <?php echo __('Thematic area') ?>
       </th>
 
-      <th style="width 5%">
+      <th style="width 3%">
       </th>
     </tr>
   </thead>
@@ -74,7 +74,7 @@
       </td>
 
       <td>
-        <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => false, 'repositoryBrowse' => true)) ?>
+        <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => false, 'repositoryOrDigitalObjBrowse' => true)) ?>
       </td>
     </tr>
   <?php endforeach; ?>
