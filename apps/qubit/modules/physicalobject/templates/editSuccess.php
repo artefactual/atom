@@ -39,8 +39,10 @@
       <ul>
         <?php if (null !== $next = $form->getValue('next')): ?>
           <li><?php echo link_to(__('Cancel'), $next, array('class' => 'c-btn')) ?></li>
-        <?php else: ?>
+        <?php elseif (isset($sf_request->getAttribute('sf_route')->resource)): ?>
           <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'physicalobject'), array('class' => 'c-btn')) ?></li>
+        <?php else: ?>
+          <li><?php echo link_to(__('Cancel'), array('module' => 'physicalobject', 'action' => 'browse'), array('class' => 'c-btn')) ?></li>
         <?php endif; ?>
         <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
       </ul>
