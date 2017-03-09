@@ -254,11 +254,12 @@
           <?php endif; ?>
 
         <div id="sort-header">
-          <?php echo get_partial('default/sortPicker',
-            array(
-              'options' => array(
-                'lastUpdated' => __('Most recent'),
-                'alphabetic' => __('Alphabetic')))) ?>
+          <?php echo get_partial('default/sortPicker', array(
+            'options' => array(
+              'lastUpdated' => __('Most recent'),
+              'alphabetic'  => __('Alphabetic'),
+              'identifier'  => __('Reference code'),
+              'date'        => __('Date')))) ?>
         </div>
 
     </section>
