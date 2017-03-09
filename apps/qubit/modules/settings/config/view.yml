@@ -5,3 +5,6 @@ all:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
 
+treeviewSuccess:
+  javascripts:
+    description:
