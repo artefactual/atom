@@ -54,7 +54,7 @@
           'data': function (node) {
             return node.id === '#' ?
               {'firstLoad': true} :
-              {'firstLoad': false};
+              {'firstLoad': false, 'referenceCode': node.original.referenceCode};
           }
         }
       }

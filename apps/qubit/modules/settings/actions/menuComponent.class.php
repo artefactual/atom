@@ -75,6 +75,10 @@ class SettingsMenuComponent extends sfComponent
       array(
         'label' => $i18n->__('DIP upload'),
         'action' => 'dipUpload'
+      ),
+      array(
+        'label' => $i18n->__('Treeview'),
+        'action' => 'treeview'
       )
     );
 
