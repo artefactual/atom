@@ -278,41 +278,4 @@ class sfRadPluginEditAction extends InformationObjectEditAction
 
     return parent::processForm();
   }
-
-  protected function updateNotes()
-  {
-    if (isset($this->request->rad_title_note) && 0 < strlen($this->request->rad_title_note))
-    {
-      $note = new QubitNote;
-      $note->content = $this->request->rad_title_note;
-      $note->typeId = $this->request->rad_title_note_type;
-      $note->userId = $this->context->user->getAttribute('user_id');
-
-      $this->resource->notes[] = $note;
-    }
-
-    if (isset($this->request->rad_note) && 0 < strlen($this->request->rad_note))
-    {
-      $note = new QubitNote;
-      $note->content = $this->request->rad_note;
-      $note->typeId = $this->request->rad_note_type;
-      $note->userId = $this->context->user->getAttribute('user_id');
-
-      $this->resource->notes[] = $note;
-    }
-
-    // Update language notes (multiple)
-    foreach ((array) $this->request->rad_language_note as $content)
-    {
-      if (0 < strlen($content))
-      {
-        $note = new QubitNote;
-        $note->content = $content;
-        $note->typeId = QubitTerm::LANGUAGE_NOTE_ID;
-        $note->userId = $this->context->user->getAttribute('user_id');
-
-        $this->resource->notes[] = $note;
-      }
-    }
-  }
 }
