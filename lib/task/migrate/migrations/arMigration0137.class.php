@@ -47,7 +47,7 @@ class arMigration0137
         $menu->name = 'clearClipboard';
         $menu->path = 'user/clipboardClear';
         $menu->sourceCulture = 'en';
-        $menu->label = 'Clear selections';
+        $menu->label = 'Clear all selections';
         $menu->save();
       }
 
