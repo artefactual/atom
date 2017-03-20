@@ -258,7 +258,7 @@
             'options' => array(
               'lastUpdated' => __('Most recent'),
               'alphabetic'  => __('Alphabetic'),
-              'identifier'  => __('Reference code'),
+              'referenceCode'  => __('Reference code'),
               'date'        => __('Date')))) ?>
         </div>
 

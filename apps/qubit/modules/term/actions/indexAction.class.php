@@ -275,11 +275,17 @@ EOF;
 
         switch ($request->sort)
         {
-          // I don't think that this is going to scale, but let's leave it for now
+          case 'referenceCode':
+            $this->search->query->setSort(array('referenceCode.untouched' => 'asc'));
+            break;
+
           case 'alphabetic':
             $field = sprintf('i18n.%s.title.untouched', $this->culture);
             $this->search->query->setSort(array($field => 'asc'));
+            break;
 
+          case 'date':
+            $this->search->query->setSort(array('dates.startDate' => 'asc'));
             break;
 
           case 'lastUpdated':
