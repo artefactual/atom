@@ -191,7 +191,7 @@
       if ($('body').is('.user.clipboard') && $('#wrapper.container > .alert').length == 0)
       {
         $(
-          '<div class="alert">' +
+          '<div class="alert app-alert">' +
           '<button type="button" data-dismiss="alert" class="close">&times;</button>'
         )
         .append(this.$element.data('alert-message'))

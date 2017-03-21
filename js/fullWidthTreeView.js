@@ -17,6 +17,10 @@
 
   function loadTreeView ()
   {
+    // Remove existing treeview in case we are
+    // reloading it after a node move failure
+    $('#fullwidth-treeview-row').remove();
+
     var url  = '/informationobject/fullWidthTreeView';
     var $fwTreeView = $('<div id="fullwidth-treeview"></div>');
     var $fwTreeViewRow = $('<div id="fullwidth-treeview-row"></div>');
@@ -146,13 +150,54 @@
       $("#fullwidth-treeview .tooltip").remove();
     };
 
+    // On node move: remove persistent tooltip and execute
+    // Ajax request to update the hierarchy in the backend
+    var moveNodeListener = function (e, data)
+    {
+      $("#fullwidth-treeview .tooltip").remove();
+
+      var moveResponse = $.parseJSON($.ajax({
+        url: data.node.a_attr.href + '/informationobject/fullWidthTreeViewMove',
+        type: 'POST',
+        async: false,
+        data: {
+          'oldPosition': data.old_position,
+          'newPosition': data.position
+        }
+      }).responseText);
+
+      // Show alert with request result
+      if (moveResponse.error)
+      {
+        $(
+          '<div class="alert app-alert">' +
+          '<button type="button" data-dismiss="alert" class="close">&times;</button>'
+        )
+        .append(moveResponse.error)
+        .prependTo($('#wrapper.container'));
+
+        // Reload treeview if failed
+        $(loadTreeView);
+      }
+      else if (moveResponse.success)
+      {
+        $(
+          '<div class="app-alert alert alert-info">' +
+          '<button type="button" data-dismiss="alert" class="close">&times;</button>'
+        )
+        .append(moveResponse.success)
+        .prependTo($('#wrapper.container'));
+      }
+    };
+
     // Initialize jstree with options and listeners
     $fwTreeView
       .jstree(options)
       .bind('ready.jstree', readyListener)
       .bind('select_node.jstree', selectNodeListener)
       .bind('hover_node.jstree', hoverNodeListener)
-      .bind('open_node.jstree', openNodeListener);
+      .bind('open_node.jstree', openNodeListener)
+      .bind('move_node.jstree', moveNodeListener);
 
     // TODO restore window.history states
     $(window).bind('popstate', function() {});
