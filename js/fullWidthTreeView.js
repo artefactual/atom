@@ -32,7 +32,7 @@
 
     // Declare jsTree options
     var options = {
-      'plugins': ['types'],
+      'plugins': ['types', 'dnd'],
       'types': {
         'default':    {'icon': 'fa fa-folder-o'},
         'Item':       {'icon': 'fa fa-file-text-o'},
@@ -43,6 +43,19 @@
         'Sous-fonds': {'icon': 'fa fa-folder-o'},
         'Fonds':      {'icon': 'fa fa-archive'},
         'Collection': {'icon': 'fa fa-archive'}
+      },
+      'dnd': {
+        // Drag and drop configuration, disable:
+        // - Node copy on drag
+        // - Load nodes on hover while dragging
+        // - Multiple node drag
+        // - Root node drag
+        'copy': false,
+        'open_timeout': 0,
+        'drag_selection': false,
+        'is_draggable': function (nodes) {
+          return nodes[0].parent !== '#';
+        }
       },
       'core': {
         'data': {
@@ -56,6 +69,15 @@
               {'firstLoad': true} :
               {'firstLoad': false, 'referenceCode': node.original.referenceCode};
           }
+        },
+        'check_callback': function (operation, node, node_parent, node_position, more) {
+          // Operations allowed:
+          // - Before and after drag and drop between siblings
+          // - Move core operations (node drop event)
+          return operation === 'move_node'
+            && (more.core || (more.dnd
+            && node.parent === more.ref.parent
+            && more.pos !== 'i'));
         }
       }
     };
