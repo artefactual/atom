@@ -149,6 +149,14 @@
     {
       $("#fullwidth-treeview .tooltip").remove();
 
+      // Avoid request if new and old positions are the same,
+      // this can't be avoided in the check_callback function
+      // because we don't have both positions in there
+      if (data.old_position === data.position)
+      {
+        return;
+      }
+
       var moveResponse = $.parseJSON($.ajax({
         url: data.node.a_attr.href + '/informationobject/fullWidthTreeViewMove',
         type: 'POST',
