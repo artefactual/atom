@@ -17,10 +17,6 @@
 
   function loadTreeView ()
   {
-    // Remove existing treeview in case we are
-    // reloading it after a node move failure
-    $('#fullwidth-treeview-row').remove();
-
     var url  = '/informationobject/fullWidthTreeView';
     var $fwTreeView = $('<div id="fullwidth-treeview"></div>');
     var $fwTreeViewRow = $('<div id="fullwidth-treeview-row"></div>');
@@ -101,9 +97,6 @@
     // On node selection: load the informationobject's page and insert the current page
     var selectNodeListener = function (e, data)
     {
-      // Remove any alerts
-      $('.app-alert').remove();
-
       // Open node if possible
       data.instance.open_node(data.node);
 
@@ -177,7 +170,7 @@
         .prependTo($('#wrapper.container'));
 
         // Reload treeview if failed
-        $(loadTreeView);
+        data.instance.refresh();
       }
       else if (moveResponse.success)
       {
