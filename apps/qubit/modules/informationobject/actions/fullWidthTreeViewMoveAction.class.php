@@ -87,8 +87,27 @@ class InformationObjectFullWidthTreeViewMoveAction extends sfAction
       return $this->renderText(json_encode(array('error' => $i18n->__('Move failed: new position outside the range'))));
     }
 
+    // TODO? Check if another move job is running over the same parent
+
+    $params = array(
+      'objectId' => $this->resource->id,
+      'parentId' => $this->resource->parentId,
+      'targetSiblingId' => $children[$newPosition]['id'],
+      'targetPosition' => $newPosition > $oldPosition ? 'after' : 'before'
+    );
+
+    // QubitJob::runJob('arObjectMoveJob', $params);
+
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
+
+    $jobManageUrl = url_for(array('module' => 'jobs', 'action' => 'browse'));
+    $jobManageLink = '<a href="'. $jobManageUrl . '">'. $i18n->__('job management') .'</a>';
+
+    $message = '<strong>'. $i18n->__('Move initiated.') .'</strong> ';
+    $message .= $i18n->__("If job hasn't already completed, check %1% page to determine present status.", array('%1%' => $jobManageLink));
+
     $this->response->setStatusCode(201);
 
-    return $this->renderText(json_encode(array('success' => $i18n->__('Move accepted'))));
+    return $this->renderText(json_encode(array('success' => $message)));
   }
 }
