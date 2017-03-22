@@ -1845,3 +1845,39 @@ QubitMenu:
       vi: 'Mô tả lưu trữ'
       zh: 文献著录
     path: informationobject/browse?repos=%currentRealm%
+  QubitMenu_browseinstitution_digital_objects:
+    parent_id: QubitMenu_browseinstitution
+    source_culture: en
+    name: browseDigitalObjectsInstitution
+    label:
+      ca: 'Objectes digitals'
+      ca@valencia: 'Objectes digitals'
+      cy: 'Gwrthrychau digidol'
+      de: 'Digitales Objekt'
+      de-CH: 'Digitales Objekt'
+      el: 'Ψηφιακά αντικείμενα'
+      en: 'Digital objects'
+      es: 'Objetos digitales'
+      eu: 'Objektu digitalak'
+      fr: 'Objets numériques'
+      gl: 'Obxectos dixitais'
+      hu: 'Digitális obkektumok'
+      id: 'Objek Digital'
+      is: 'Stafrænar einingar'
+      it: 'Oggetti digitali'
+      ja: ディジタルオブジェクト
+      ka: 'ციფრული ობიექტები'
+      ko: '디지털 객체'
+      nl: 'Digitale objecten'
+      pl: 'Obiekty cyfrowe'
+      pt: 'Objeto digital'
+      pt-BR: 'Objetos digitais'
+      pt_BR: 'Objetos digitais'
+      ru: 'Цифровые объекты'
+      sl: 'Digitalni predmeti'
+      sr: 'Дигитални објекти'
+      sv: 'Digitala objekt'
+      th: วัตถุดิจิตอล
+      vi: 'Tượng kỹ thuật số'
+      zh: 数字对象
+    path: informationobject/browse?repos=%currentRealm%&view=card&onlyMedia=1&topLod=0
