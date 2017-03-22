@@ -143,7 +143,7 @@
       if ($('body').is('.object.export') && $('#wrapper.container > .alert').length == 0)
       {
         $(
-          '<div class="alert app-alert">' +
+          '<div class="alert">' +
           '<button type="button" data-dismiss="alert" class="close">&times;</button>'
         )
         .append(this.$exportDiv.data('export-alert-message'))

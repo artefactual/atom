@@ -163,7 +163,7 @@
       if (moveResponse.error)
       {
         $(
-          '<div class="alert app-alert">' +
+          '<div class="alert">' +
           '<button type="button" data-dismiss="alert" class="close">&times;</button>'
         )
         .append(moveResponse.error)
@@ -175,7 +175,7 @@
       else if (moveResponse.success)
       {
         $(
-          '<div class="app-alert alert alert-info">' +
+          '<div class="alert alert-info">' +
           '<button type="button" data-dismiss="alert" class="close">&times;</button>'
         )
         .append(moveResponse.success)
