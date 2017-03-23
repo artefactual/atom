@@ -18,8 +18,7 @@
  */
 
 /**
- * A worker to, given the HTTP GET parameters sent to advanced search,
- * replicate the search and export the resulting decriptions to CSV.
+ * A job to move an object to a new parent or to another position among its siblings
  *
  * @package    symfony
  * @subpackage jobs
