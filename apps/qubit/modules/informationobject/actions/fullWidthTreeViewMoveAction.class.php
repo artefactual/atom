@@ -68,31 +68,10 @@ class InformationObjectFullWidthTreeViewMoveAction extends sfAction
       return $this->renderText(json_encode(array('error' => $i18n->__('Move not needed: new and old positions are the same'))));
     }
 
-    // Check current positions to avoid mismatch
-    $sql = "SELECT id FROM information_object WHERE parent_id = :parentId ORDER BY lft;";
-    $params = array(':parentId' => $this->resource->parentId);
-    $children = QubitPdo::fetchAll($sql, $params, array('fetchMode' => PDO::FETCH_ASSOC));
-
-    if (array_search(array('id' => $this->resource->id), $children) != $oldPosition)
-    {
-      $this->response->setStatusCode(400);
-
-      return $this->renderText(json_encode(array('error' => $i18n->__('Move failed: mismatch in current position'))));
-    }
-
-    if ($newPosition >= count($children))
-    {
-      $this->response->setStatusCode(400);
-
-      return $this->renderText(json_encode(array('error' => $i18n->__('Move failed: new position outside the range'))));
-    }
-
-    // TODO? Check if another move job is running over the same parent
-
     $params = array(
       'objectId' => $this->resource->id,
-      'targetSiblingId' => $children[$newPosition]['id'],
-      'targetPosition' => $newPosition > $oldPosition ? 'after' : 'before'
+      'oldPosition' => $oldPosition,
+      'newPosition' => $newPosition
     );
 
     // Catch no Gearman worker available exception

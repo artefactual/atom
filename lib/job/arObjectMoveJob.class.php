@@ -74,31 +74,56 @@ class arObjectMoveJob extends arBaseJob
     }
 
     // Move between siblings if requested
-    if (isset($parameters['targetSiblingId']) && isset($parameters['targetPosition']))
+    if (isset($parameters['oldPosition']) && isset($parameters['newPosition']))
     {
-      if (($targetSibling = QubitObject::getById($parameters['targetSiblingId'])) === null)
+      $this->info($this->i18n->__('Moving object between siblings'));
+
+      // Check current positions to avoid mismatch
+      $sql = "SELECT id FROM information_object WHERE parent_id = :parentId ORDER BY lft;";
+      $params = array(':parentId' => $object->parentId);
+      $children = QubitPdo::fetchAll($sql, $params, array('fetchMode' => PDO::FETCH_ASSOC));
+
+      if (array_search(array('id' => $object->id), $children) != $parameters['oldPosition'])
       {
-        $this->error($this->i18n->__('Invalid target sibling (id: %1)', array('%1' => $parameters['targetSiblingId'])));
+        $this->error($this->i18n->__('Mismatch in current position'));
 
         return false;
       }
 
-      switch ($parameters['targetPosition'])
+      if ($parameters['newPosition'] >= count($children))
+      {
+        $this->error($this->i18n->__('New position outside the range'));
+
+        return false;
+      }
+
+      // Get target sibling and position in relation to it
+      $targetSiblingId = $children[$parameters['newPosition']]['id'];
+      $targetPosition = $parameters['newPosition'] > $parameters['oldPosition'] ? 'after' : 'before';
+
+      if (($targetSibling = QubitObject::getById($targetSiblingId)) === null)
+      {
+        $this->error($this->i18n->__('Invalid target sibling (id: %1)', array('%1' => $targetSiblingId)));
+
+        return false;
+      }
+
+      switch ($targetPosition)
       {
         case 'before':
-          $this->info($this->i18n->__('Moving object before sibling (id: %1)', array('%1' => $parameters['targetSiblingId'])));
+          $this->info($this->i18n->__('Moving object before sibling (id: %1)', array('%1' => $targetSiblingId)));
           $object->moveToPrevSiblingOf($targetSibling);
 
           break;
 
         case 'after':
-          $this->info($this->i18n->__('Moving object after sibling (id: %1)', array('%1' => $parameters['targetSiblingId'])));
+          $this->info($this->i18n->__('Moving object after sibling (id: %1)', array('%1' => $targetSiblingId)));
           $object->moveToNextSiblingOf($targetSibling);
 
           break;
 
         default:
-          $this->error($this->i18n->__('Invalid target position (%1)', array('%1' => $parameters['targetPosition'])));
+          $this->error($this->i18n->__('Invalid target position (%1)', array('%1' => $targetPosition)));
 
           return false;
       }
