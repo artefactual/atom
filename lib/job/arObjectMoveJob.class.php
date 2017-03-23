@@ -34,13 +34,12 @@ class arObjectMoveJob extends arBaseJob
 
   public function runJob($parameters)
   {
-    $this->job->addNoteText($this->i18n->__('Moving object.'));
-    $this->job->save();
+    $this->info($this->i18n->__('Moving object (id: %1)', array('%1' => $parameters['objectId'])));
 
     // Fetch object
     if (($object = QubitObject::getById($parameters['objectId'])) === null)
     {
-      $this->error("Invalid object id: {$parameters['objectId']}");
+      $this->error($this->i18n->__('Invalid object id'));
 
       return false;
     }
@@ -50,7 +49,7 @@ class arObjectMoveJob extends arBaseJob
     {
       if (($parent = QubitObject::getById($parameters['parentId'])) === null)
       {
-        $this->error("Invalid parent id: {$parameters['parentId']}");
+        $this->error($this->i18n->__('Invalid parent (id: %1)', array('%1' => $parameters['parentId'])));
 
         return false;
       }
@@ -68,6 +67,8 @@ class arObjectMoveJob extends arBaseJob
       // Avoid updating parent if not needed
       if ($object->parentId !== $newParentId)
       {
+        $this->info($this->i18n->__('Moving object to parent (id: %1)', array('%1' => $parameters['parentId'])));
+
         $object->parentId = $newParentId;
         $object->save();
       }
@@ -78,7 +79,7 @@ class arObjectMoveJob extends arBaseJob
     {
       if (($targetSibling = QubitObject::getById($parameters['targetSiblingId'])) === null)
       {
-        $this->error("Invalid target sibling id: {$parameters['targetSiblingId']}");
+        $this->error($this->i18n->__('Invalid target sibling (id: %1)', array('%1' => $parameters['targetSiblingId'])));
 
         return false;
       }
@@ -86,24 +87,26 @@ class arObjectMoveJob extends arBaseJob
       switch ($parameters['targetPosition'])
       {
         case 'before':
+          $this->info($this->i18n->__('Moving object before sibling (id: %1)', array('%1' => $parameters['targetSiblingId'])));
           $object->moveToPrevSiblingOf($targetSibling);
 
           break;
 
         case 'after':
+          $this->info($this->i18n->__('Moving object after sibling (id: %1)', array('%1' => $parameters['targetSiblingId'])));
           $object->moveToNextSiblingOf($targetSibling);
 
           break;
 
         default:
-          $this->error("Invalid target position: {$parameters['targetPosition']}");
+          $this->error($this->i18n->__('Invalid target position (%1)', array('%1' => $parameters['targetPosition'])));
 
           return false;
       }
     }
 
-    // Mark job as complete
-    $this->info('Move complete.');
+    // Mark job as completed
+    $this->info('Move completed.');
     $this->job->setStatusCompleted();
     $this->job->save();
 
