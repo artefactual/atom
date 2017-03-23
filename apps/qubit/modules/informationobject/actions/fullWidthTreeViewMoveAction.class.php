@@ -96,7 +96,7 @@ class InformationObjectFullWidthTreeViewMoveAction extends sfAction
       'targetPosition' => $newPosition > $oldPosition ? 'after' : 'before'
     );
 
-    // QubitJob::runJob('arObjectMoveJob', $params);
+    QubitJob::runJob('arObjectMoveJob', $params);
 
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
 

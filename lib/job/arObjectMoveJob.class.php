@@ -38,21 +38,17 @@ class arObjectMoveJob extends arBaseJob
     $this->job->save();
 
     // Fetch object
-    $objectId = $parameters['objectId'];
-
-    if (($object = QubitObject::getById($objectId)) === null)
+    if (($object = QubitObject::getById($parameters['objectId'])) === null)
     {
-      $this->error("Invalid object id: $objectId");
+      $this->error("Invalid object id: {$parameters['objectId']}");
 
       return false;
     }
 
     // Fetch parent object
-    $parentId = $parameters['parentId'];
-
-    if (($parent = QubitObject::getById($parentId)) === null)
+    if (($parent = QubitObject::getById($parameters['parentId'])) === null)
     {
-      $this->error("Invalid parent id: $parentId");
+      $this->error("Invalid parent id: {$parameters['parentId']}");
 
       return false;
     }
@@ -60,14 +56,48 @@ class arObjectMoveJob extends arBaseJob
     // In term treeview, root node links (href) to taxonomy, but it represents the term root object
     if ($object instanceOf QubitTerm && $parent instanceof QubitTaxonomy)
     {
-      $object->parentId = QubitTerm::ROOT_ID;
+      $newParentId = QubitTerm::ROOT_ID;
     }
     else
     {
-      $object->parentId = $parent->id;
+      $newParentId = $parent->id;
     }
 
-    $object->save();
+    // Avoid updating parent if not needed
+    if ($object->parentId !== $newParentId)
+    {
+      $object->parentId = $newParentId;
+      $object->save();
+    }
+
+    // Move between siblings if requested
+    if (isset($parameters['targetSiblingId']) && isset($parameters['targetPosition']))
+    {
+      if (($targetSibling = QubitObject::getById($parameters['targetSiblingId'])) === null)
+      {
+        $this->error("Invalid target sibling id: {$parameters['targetSiblingId']}");
+
+        return false;
+      }
+
+      switch ($parameters['targetPosition'])
+      {
+        case 'before':
+          $object->moveToPrevSiblingOf($targetSibling);
+
+          break;
+
+        case 'after':
+          $object->moveToNextSiblingOf($targetSibling);
+
+          break;
+
+        default:
+          $this->error("Invalid target position: {$parameters['targetPosition']}");
+
+          return false;
+      }
+    }
 
     // Mark job as complete
     $this->info('Move complete.');
