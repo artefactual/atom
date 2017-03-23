@@ -95,7 +95,18 @@ class InformationObjectFullWidthTreeViewMoveAction extends sfAction
       'targetPosition' => $newPosition > $oldPosition ? 'after' : 'before'
     );
 
-    QubitJob::runJob('arObjectMoveJob', $params);
+    // Catch no Gearman worker available exception
+    // and others to show alert with exception message
+    try
+    {
+      QubitJob::runJob('arObjectMoveJob', $params);
+    }
+    catch (Exception $e)
+    {
+      $this->response->setStatusCode(500);
+
+      return $this->renderText(json_encode(array('error' => $i18n->__('Move failed: ') . $e->getMessage())));
+    }
 
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
 
