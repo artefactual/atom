@@ -91,7 +91,6 @@ class InformationObjectFullWidthTreeViewMoveAction extends sfAction
 
     $params = array(
       'objectId' => $this->resource->id,
-      'parentId' => $this->resource->parentId,
       'targetSiblingId' => $children[$newPosition]['id'],
       'targetPosition' => $newPosition > $oldPosition ? 'after' : 'before'
     );

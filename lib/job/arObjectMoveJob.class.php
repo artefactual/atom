@@ -30,7 +30,7 @@ class arObjectMoveJob extends arBaseJob
   /**
    * @see arBaseJob::$requiredParameters
    */
-  protected $extraRequiredParameters = array('objectId', 'parentId');
+  protected $extraRequiredParameters = array('objectId');
 
   public function runJob($parameters)
   {
@@ -45,29 +45,32 @@ class arObjectMoveJob extends arBaseJob
       return false;
     }
 
-    // Fetch parent object
-    if (($parent = QubitObject::getById($parameters['parentId'])) === null)
+    // Change parent if requested
+    if (isset($parameters['parentId']))
     {
-      $this->error("Invalid parent id: {$parameters['parentId']}");
+      if (($parent = QubitObject::getById($parameters['parentId'])) === null)
+      {
+        $this->error("Invalid parent id: {$parameters['parentId']}");
 
-      return false;
-    }
+        return false;
+      }
 
-    // In term treeview, root node links (href) to taxonomy, but it represents the term root object
-    if ($object instanceOf QubitTerm && $parent instanceof QubitTaxonomy)
-    {
-      $newParentId = QubitTerm::ROOT_ID;
-    }
-    else
-    {
-      $newParentId = $parent->id;
-    }
+      // In term treeview, root node links (href) to taxonomy, but it represents the term root object
+      if ($object instanceOf QubitTerm && $parent instanceof QubitTaxonomy)
+      {
+        $newParentId = QubitTerm::ROOT_ID;
+      }
+      else
+      {
+        $newParentId = $parent->id;
+      }
 
-    // Avoid updating parent if not needed
-    if ($object->parentId !== $newParentId)
-    {
-      $object->parentId = $newParentId;
-      $object->save();
+      // Avoid updating parent if not needed
+      if ($object->parentId !== $newParentId)
+      {
+        $object->parentId = $newParentId;
+        $object->save();
+      }
     }
 
     // Move between siblings if requested
