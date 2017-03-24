@@ -296,8 +296,8 @@ class arBaseJob extends Net_Gearman_Job_Common
   /**
    * Check if another sensitive job is running.
    *
-   * @return boolean true if another sensitive job is being executed
-   *                 false if it can be executed
+   * @return boolean true if this is the oldest being executed
+   *                 false if there is an older one in execution
    */
   protected function canBeFullyExecuted()
   {
