@@ -312,9 +312,13 @@ class arBaseJob extends Net_Gearman_Job_Common
      ORDER BY object.created_at;";
 
     $params = array(':statusId' => QubitTerm::JOB_STATUS_IN_PROGRESS_ID);
-
-    // It will be at least one sensitive job running, this one
     $runningJobs = QubitPdo::fetchAll($sql, $params, array('fetchMode' => PDO::FETCH_ASSOC));
+
+    // Edge case where the QubitJobs are cleared while this one is waiting
+    if (count($runningJobs) == 0)
+    {
+      throw new Net_Gearman_Job_Exception('There is not a running QubitJob in the database associated this job.');
+    }
 
     // If this job is the first one, it can be fully executed
     return $this->job->id === $runningJobs[0]['id'];
