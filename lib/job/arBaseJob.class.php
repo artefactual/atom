@@ -44,12 +44,13 @@ class arBaseJob extends Net_Gearman_Job_Common
    * arObjectMoveJob and the import jobs. The Gearman job server doesn't include a built in
    * system to postpone/schedule jobs so, if multiple jobs from the $avoidParallelExecutionJobs
    * variable bellow are executed at the same time, the late ones will wait, retrying after
-   * the amount of seconds indicated in $waitForRetryTime, until the previous ones are finished.
-   * Due to the limitations of the Gearman job server, the waiting jobs will block the workers
-   * executing them until they are finished.
+   * the amount of seconds indicated in $waitForRetryTime, until the previous ones are finished
+   * or the maximun amount of tries ($maxTries) is reached. Due to the limitations of the Gearman
+   * job server, the waiting jobs will block the workers executing them until they are ended.
    */
   protected $avoidParallelExecutionJobs = array('arObjectMoveJob', 'arFileImportJob');
   protected $waitForRetryTime = 10;
+  Protected $maxRetries = 10;
 
   protected $dispatcher = null;
   protected $downloadFileExtension = null; // Child class should set if creating user downloads
@@ -81,9 +82,19 @@ class arBaseJob extends Net_Gearman_Job_Common
       if (in_array(get_class($this), $this->avoidParallelExecutionJobs))
       {
         // Wait until other sensitive jobs are finished by order
+        $retries = 0;
         while (!$this->canBeFullyExecuted())
         {
-          $this->info($this->i18n->__('Another sensitive job is being executed, retry in %1 seconds', array('%1' => $this->waitForRetryTime)));
+          // Fail the job if we have reached the max. amount of retries
+          if ($retries++ == $this->maxRetries)
+          {
+            $this->error($this->i18n->__('Maximum retries reached (%1). Please, try to launch the job again when other sensitive jobs are finished or contact an administrator', array('%1' => $this->maxRetries)));
+
+            return false;
+          }
+
+          // Log retry info
+          $this->info($this->i18n->__('Another sensitive job is being executed, will retry in %1 seconds', array('%1' => $this->waitForRetryTime)));
 
           sleep($this->waitForRetryTime);
         }
