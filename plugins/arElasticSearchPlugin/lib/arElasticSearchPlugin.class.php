@@ -42,13 +42,21 @@ class arElasticSearchPlugin extends QubitSearchEngine
   public $index = null;
 
   /**
-   * elasticsearch bulk API makes it possible to perform many index/delete
-   * operations in a single call. This can greatly increase the indexing speed.
-   * This array will be used to store documents in batches.
+   * Elasticsearch bulk API makes it possible to perform many operations in a
+   * single call. This can greatly increase the indexing speed.
+   *
+   * This array will be used to store documents to add in a batch.
    *
    * @var array
    */
-  private $batchDocs = array();
+  private $batchAddDocs = array();
+
+  /**
+   * This array will be used to store documents to delete in a batch.
+   *
+   * @var array
+   */
+  private $batchDeleteDocs = array();
 
   /**
    * Mappings configuration, mapping.yml
@@ -245,25 +253,49 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
   /*
    * Flush batch of documents if we're in batch mode.
+   *
+   * We process additions before deletions to avoid an error due to deleting a
+   * document that hasn't been created yet.
    */
   public function flushBatch()
   {
-    // If there are still documents in the batch queue, send them
-    if ($this->config['batch_mode'] && count($this->batchDocs) > 0)
+    if ($this->batchMode)
     {
-      try
+      // Batch add documents, if any
+      if (count($this->batchAddDocs) > 0)
       {
-        $this->index->addDocuments($this->batchDocs);
+        try
+        {
+          $this->index->addDocuments($this->batchAddDocs);
+        }
+        catch (Exception $e)
+        {
+          // Clear batchAddDocs if something went wrong too
+          $this->batchAddDocs = array();
+
+          throw $e;
+        }
+
+        $this->batchAddDocs = array();
       }
-      catch (Exception $e)
+
+      // Batch delete documents, if any
+      if (count($this->batchDeleteDocs) > 0)
       {
-        // Clear batchDocs if something went wrong too
-        $this->batchDocs = array();
+        try
+        {
+          $this->index->deleteDocuments($this->batchDeleteDocs);
+        }
+        catch (Exception $e)
+        {
+          // Clear batchDeleteDocs if something went wrong too
+          $this->batchDeleteDocs = array();
 
-        throw $e;
+          throw $e;
+        }
+
+        $this->batchDeleteDocs = array();
       }
-
-      $this->batchDocs = array();
     }
   }
 
@@ -405,14 +437,13 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
     if ($this->batchMode)
     {
-      // Add this document to the batch queue
-      $this->batchDocs[] = $document;
+      // Add this document to the batch add queue
+      $this->batchAddDocs[] = $document;
 
-      // If we have a full batch, send in bulk
-      if (count($this->batchDocs) >= $this->batchSize)
+      // If we have a full batch, send additions and deletions in bulk
+      if (count($this->batchAddDocs) >= $this->batchSize)
       {
-        $this->index->addDocuments($this->batchDocs);
-        $this->batchDocs = array();
+        $this->flushBatch();
         $this->index->refresh();
       }
     }
@@ -484,13 +515,34 @@ class arElasticSearchPlugin extends QubitSearchEngine
       return;
     }
 
-    try
+    if ($this->batchMode)
     {
-      $this->index->getType(get_class($object))->deleteById($object->id);
+      // The document being deleted may not have been added to the index yet (if it's
+      // still queued up in $this->batchAddDocs) so create a document object representing
+      // the document to be deleted and add this document object to the batch delete
+      // queue.
+      $document = new \Elastica\Document($object->id);
+      $document->setType(get_class($object));
+
+      $this->batchDeleteDocs[] = $document;
+
+      // If we have a full batch, send additions and deletions in bulk
+      if (count($this->batchDeleteDocs) >= $this->batchSize)
+      {
+        $this->flushBatch();
+        $this->index->refresh();
+      }
     }
-    catch (\Elastica\Exception\NotFoundException $e)
+    else
     {
-      // Ignore
+      try
+      {
+        $this->index->getType(get_class($object))->deleteById($object->id);
+      }
+      catch (\Elastica\Exception\NotFoundException $e)
+      {
+        // Ignore
+      }
     }
   }
 
