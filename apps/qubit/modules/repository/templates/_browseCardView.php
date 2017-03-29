@@ -21,7 +21,7 @@
         <?php endif; ?>
       </a>
       <div class="bottom">
-        <p><?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => false, 'repositoryOrDigitalObjBrowse' => true)) ?><?php echo $authorizedFormOfName ?></p>
+        <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => false, 'repositoryOrDigitalObjBrowse' => true)) ?><?php echo $authorizedFormOfName ?>
       </div>
     </div>
   <?php endforeach; ?>
