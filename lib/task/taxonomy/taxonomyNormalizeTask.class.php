@@ -68,8 +68,8 @@ EOF;
     parent::execute($arguments, $options);
 
     // Look up taxonomy ID using name
-    $taxonomyId = $this->getTaxonomyIdByName($arguments['taxonomy-name'], $options['culture']);
-    if (!$taxonomyId)
+    $this->taxonomyId = $this->getTaxonomyIdByName($arguments['taxonomy-name'], $options['culture']);
+    if (!$this->taxonomyId)
     {
       throw new sfException("A taxonomy named '". $arguments['taxonomy-name'] ."' not found for culture '". $options['culture'] ."'.");
     }
@@ -78,10 +78,10 @@ EOF;
 
     // Determine taxonomy term usage then normalize
     $names = array();
-    $this->populateTaxonomyNameUsage($names, $taxonomyId, $options['culture']);
+    $this->populateTaxonomyNameUsage($names, $options['culture']);
     $this->normalizeTaxonomy($names);
 
-    $this->log("Please, rebuild the search index if chanes have been made.");
+    $this->log("Please, rebuild the search index if changes have been made.");
   }
 
   protected function getTaxonomyIdByName($name, $culture)
@@ -102,14 +102,14 @@ EOF;
     }
   }
 
-  protected function populateTaxonomyNameUsage(&$names, $taxonomyId, $culture)
+  protected function populateTaxonomyNameUsage(&$names, $culture)
   {
     $sql = "SELECT t.id, i.name FROM term t
       INNER JOIN term_i18n i ON t.id=i.id
       WHERE t.taxonomy_id=:id AND i.culture=:culture
       ORDER BY t.id";
 
-    $params = array(':id' => $taxonomyId, ':culture' => $culture);
+    $params = array(':id' => $this->taxonomyId, ':culture' => $culture);
 
     $terms = QubitPdo::fetchAll($sql, $params, array('fetchMode' => PDO::FETCH_OBJ));
 
@@ -142,27 +142,27 @@ EOF;
     $this->log("Normalizing terms with name '". $name ."'...");
 
     // Cycle through usage and change to point to selected term
-    if (count($usage))
+    foreach ($usage as $id)
     {
-      // Delete now unused terms
-      foreach($usage as $id)
+      $this->log("Changing object term relations from term ". $id ." to ". $selected_id .".");
+
+      $sql = "UPDATE object_term_relation SET term_id=:newId WHERE term_id=:oldId";
+      $params = array(':newId' => $selected_id, ':oldId' => $id);
+      QubitPdo::modify($sql, $params);
+
+      if ($this->taxonomyId == QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID)
       {
-        $this->log("Changing object term relations to term ". $id ." to ". $selected_id .".");
+        $this->log("Changing level of descriptions from term ". $id ." to ". $selected_id .".");
 
-        $sql = "UPDATE object_term_relation SET term_id=:newId WHERE term_id=:oldId";
-        $params = array(':newId' => $selected_id, ':oldId' => $id);
+        $sql = "UPDATE information_object SET level_of_description_id=:newId WHERE level_of_description_id=:oldId";
         QubitPdo::modify($sql, $params);
-
-        $this->log("Deleting term ID ". $id .".");
-
-        // Delete taxonomy term
-        $term = QubitTerm::getById($id);
-        $term->delete();
       }
-    }
-    else
-    {
-      $this->log("Already normalized");
+
+      $this->log("Deleting term ID ". $id .".");
+
+      // Delete taxonomy term
+      $term = QubitTerm::getById($id);
+      $term->delete();
     }
   }
 }
