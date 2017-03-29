@@ -69,7 +69,7 @@ class SearchIndexAction extends DefaultBrowseAction
       return;
     }
 
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url', 'Escaping'));
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url', 'Escaping', 'Qubit'));
 
     $response = array('results' => array());
     foreach ($resultSet->getResults() as $item)
@@ -79,7 +79,7 @@ class SearchIndexAction extends DefaultBrowseAction
 
       $result = array(
         'url' => url_for(array('module' => 'informationobject', 'slug' => $data['slug'])),
-        'title' => esc_specialchars($data['i18n'][$this->context->user->getCulture()]['title']),
+        'title' => esc_specialchars(get_search_i18n($data, 'title', array('allowEmpty' => false))),
         'identifier' => isset($data['identifier']) && !empty($data['identifier']) ? esc_specialchars($data['identifier']).' - ' : '',
         'level' => null !== $levelOfDescription ? esc_specialchars($levelOfDescription->getName()) : '');
 

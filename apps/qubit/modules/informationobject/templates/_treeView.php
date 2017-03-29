@@ -13,7 +13,7 @@
   </li>
 </ul>
 
-<div id="treeview" data-current-id="<?php echo $resource->id ?>" data-sortable="<?php echo $sortable ? 'true' : 'false' ?>">
+<div id="treeview" data-current-id="<?php echo $resource->id ?>" data-sortable="<?php echo empty($sortable) ? 'false' : 'true' ?>">
 
   <?php if ($treeviewType == 'sidebar'): ?>
 
