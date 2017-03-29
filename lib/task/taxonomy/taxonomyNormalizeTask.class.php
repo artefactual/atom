@@ -69,14 +69,14 @@ EOF;
 
     $this->log("Normalizing for '". $options['culture'] ."' culture...");
 
-    // look up taxonomy ID using name
+    // Look up taxonomy ID using name
     $taxonomyId = $this->getTaxonomyIdByName($arguments['taxonomy-name'], $options['culture']);
     if (!$taxonomyId)
     {
       throw new sfException("A taxonomy named '". $arguments['taxonomy-name'] ."' not found for culture '". $options['culture'] ."'.");
     }
 
-    // determine taxonomy term usage then normalize
+    // Determine taxonomy term usage then normalize
     $names = array();
     $this->populateTaxonomyNameUsage($names, $taxonomyId, $options['culture']);
     $this->normalizeTaxonomy($names);
@@ -90,10 +90,12 @@ EOF;
 
     $statement = QubitFlatfileImport::sqlQuery($sql, array($culture, $name));
 
-    if($object = $statement->fetch(PDO::FETCH_OBJ))
+    if ($object = $statement->fetch(PDO::FETCH_OBJ))
     {
       return $object->id;
-    } else {
+    }
+    else
+    {
       return false;
     }
   }
@@ -107,19 +109,20 @@ EOF;
 
     $statement = QubitFlatfileImport::sqlQuery($sql, array($taxonomyId, $culture));
 
-    while($object = $statement->fetch(PDO::FETCH_OBJ))
+    while ($object = $statement->fetch(PDO::FETCH_OBJ))
     {
       if (!isset($names[$object->name]))
       {
         $names[$object->name] = array();
       }
+
       array_push($names[$object->name], $object->id);
     }
   }
 
   protected function normalizeTaxonomy($names)
   {
-    foreach($names as $name => $usage)
+    foreach ($names as $name => $usage)
     {
       if (count($usage) > 1)
       {
@@ -134,10 +137,10 @@ EOF;
 
     $this->log("Normalizing terms with name '". $name ."'...");
 
-    // cycle through usage and change to point to selected term
+    // Cycle through usage and change to point to selected term
     if (count($usage))
     {
-      // delete now unused terms
+      // Delete now unused terms
       foreach($usage as $id)
       {
         $this->log("Changing object term relations to term ". $id ." to ". $selected_id .".");
@@ -149,12 +152,14 @@ EOF;
 
         $this->log("Deleting term ID ". $id .".");
 
-        // delete taxonomy term
+        // Delete taxonomy term
         $term = QubitTerm::getById($id);
         $term->delete();
       }
-    } else {
-      print "Already normalized.\n";
+    }
+    else
+    {
+      $this->log("Already normalized");
     }
   }
 }
