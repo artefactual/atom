@@ -24,7 +24,7 @@
  * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
-class taxonomyNormalizeTask extends sfBaseTask
+class taxonomyNormalizeTask extends arBaseTask
 {
   protected function configure()
   {
@@ -65,7 +65,7 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
-    sfContext::createInstance($this->configuration);
+    parent::execute($arguments, $options);
 
     $this->log("Normalizing for '". $options['culture'] ."' culture...");
 
