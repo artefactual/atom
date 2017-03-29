@@ -75,7 +75,16 @@
             <?php endif; ?>
 
             <?php if (isset($doc['useFor']) && count($doc['useFor']) > 0): ?>
-              <p><?php echo 'Use for: '.get_search_i18n(array_pop($doc['useFor']), 'name', array('allowEmpty' => false)) ?><?php foreach ($doc['useFor'] as $label): ?><?php echo ', '.get_search_i18n($label, 'name', true, false) ?><?php endforeach; ?></p>
+              <p>
+                <?php $labels = array() ?>
+                <?php echo __('Use for: ') ?>
+
+                <?php foreach ($doc['useFor'] as $label): ?>
+                  <?php $labels[] = get_search_i18n($label, 'name', array('allowEmpty' => false)) ?>
+                <?php endforeach; ?>
+
+                <?php echo implode(', ', $labels) ?>
+              </p>
             <?php endif; ?>
 
           </td><td>
