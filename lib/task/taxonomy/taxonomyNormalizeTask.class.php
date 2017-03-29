@@ -67,8 +67,6 @@ EOF;
   {
     parent::execute($arguments, $options);
 
-    $this->log("Normalizing for '". $options['culture'] ."' culture...");
-
     // Look up taxonomy ID using name
     $taxonomyId = $this->getTaxonomyIdByName($arguments['taxonomy-name'], $options['culture']);
     if (!$taxonomyId)
@@ -76,10 +74,14 @@ EOF;
       throw new sfException("A taxonomy named '". $arguments['taxonomy-name'] ."' not found for culture '". $options['culture'] ."'.");
     }
 
+    $this->log("Normalizing for '". $options['culture'] ."' culture...");
+
     // Determine taxonomy term usage then normalize
     $names = array();
     $this->populateTaxonomyNameUsage($names, $taxonomyId, $options['culture']);
     $this->normalizeTaxonomy($names);
+
+    $this->log("Please, rebuild the search index if chanes have been made.");
   }
 
   protected function getTaxonomyIdByName($name, $culture)
