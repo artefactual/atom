@@ -102,21 +102,23 @@ EOF;
 
   protected function populateTaxonomyNameUsage(&$names, $taxonomyId, $culture)
   {
-    $sql = "SELECT t.id, i.name FROM term t \r
-      INNER JOIN term_i18n i ON t.id=i.id \r
-      WHERE t.taxonomy_id=? AND i.culture=? \r
+    $sql = "SELECT t.id, i.name FROM term t
+      INNER JOIN term_i18n i ON t.id=i.id
+      WHERE t.taxonomy_id=:id AND i.culture=:culture
       ORDER BY t.id";
 
-    $statement = QubitFlatfileImport::sqlQuery($sql, array($taxonomyId, $culture));
+    $params = array(':id' => $taxonomyId, ':culture' => $culture);
 
-    while ($object = $statement->fetch(PDO::FETCH_OBJ))
+    $terms = QubitPdo::fetchAll($sql, $params, array('fetchMode' => PDO::FETCH_OBJ));
+
+    foreach ($terms as $term)
     {
-      if (!isset($names[$object->name]))
+      if (!isset($names[$term->name]))
       {
-        $names[$object->name] = array();
+        $names[$term->name] = array();
       }
 
-      array_push($names[$object->name], $object->id);
+      array_push($names[$term->name], $term->id);
     }
   }
 
@@ -145,10 +147,9 @@ EOF;
       {
         $this->log("Changing object term relations to term ". $id ." to ". $selected_id .".");
 
-        $sql = "UPDATE object_term_relation \r
-          SET term_id=? WHERE term_id=?";
-
-        $statement = QubitFlatfileImport::sqlQuery($sql, array($selected_id, $id));
+        $sql = "UPDATE object_term_relation SET term_id=:newId WHERE term_id=:oldId";
+        $params = array(':newId' => $selected_id, ':oldId' => $id);
+        QubitPdo::modify($sql, $params);
 
         $this->log("Deleting term ID ". $id .".");
 
