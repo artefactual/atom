@@ -18,8 +18,7 @@
  */
 
 /**
- * A worker to, given the HTTP GET parameters sent to advanced search,
- * replicate the search and export the resulting decriptions to CSV.
+ * A job to move an object to a new parent or to another position among its siblings
  *
  * @package    symfony
  * @subpackage jobs
@@ -30,47 +29,108 @@ class arObjectMoveJob extends arBaseJob
   /**
    * @see arBaseJob::$requiredParameters
    */
-  protected $extraRequiredParameters = array('objectId', 'parentId');
+  protected $extraRequiredParameters = array('objectId');
 
   public function runJob($parameters)
   {
-    $this->job->addNoteText($this->i18n->__('Moving object.'));
-    $this->job->save();
+    $this->info($this->i18n->__('Moving object (id: %1)', array('%1' => $parameters['objectId'])));
 
     // Fetch object
-    $objectId = $parameters['objectId'];
-
-    if (($object = QubitObject::getById($objectId)) === null)
+    if (($object = QubitObject::getById($parameters['objectId'])) === null)
     {
-      $this->error("Invalid object id: $objectId");
+      $this->error($this->i18n->__('Invalid object id'));
 
       return false;
     }
 
-    // Fetch parent object
-    $parentId = $parameters['parentId'];
-
-    if (($parent = QubitObject::getById($parentId)) === null)
+    // Change parent if requested
+    if (isset($parameters['parentId']))
     {
-      $this->error("Invalid parent id: $parentId");
+      if (($parent = QubitObject::getById($parameters['parentId'])) === null)
+      {
+        $this->error($this->i18n->__('Invalid parent (id: %1)', array('%1' => $parameters['parentId'])));
 
-      return false;
+        return false;
+      }
+
+      // In term treeview, root node links (href) to taxonomy, but it represents the term root object
+      if ($object instanceOf QubitTerm && $parent instanceof QubitTaxonomy)
+      {
+        $newParentId = QubitTerm::ROOT_ID;
+      }
+      else
+      {
+        $newParentId = $parent->id;
+      }
+
+      // Avoid updating parent if not needed
+      if ($object->parentId !== $newParentId)
+      {
+        $this->info($this->i18n->__('Moving object to parent (id: %1)', array('%1' => $parameters['parentId'])));
+
+        $object->parentId = $newParentId;
+        $object->save();
+      }
     }
 
-    // In term treeview, root node links (href) to taxonomy, but it represents the term root object
-    if ($object instanceOf QubitTerm && $parent instanceof QubitTaxonomy)
+    // Move between siblings if requested
+    if (isset($parameters['oldPosition']) && isset($parameters['newPosition']))
     {
-      $object->parentId = QubitTerm::ROOT_ID;
-    }
-    else
-    {
-      $object->parentId = $parent->id;
+      $this->info($this->i18n->__('Moving object between siblings'));
+
+      // Check current positions to avoid mismatch
+      $sql = "SELECT id FROM information_object WHERE parent_id = :parentId ORDER BY lft;";
+      $params = array(':parentId' => $object->parentId);
+      $children = QubitPdo::fetchAll($sql, $params, array('fetchMode' => PDO::FETCH_ASSOC));
+
+      if (array_search(array('id' => $object->id), $children) != $parameters['oldPosition'])
+      {
+        $this->error($this->i18n->__('Mismatch in current position'));
+
+        return false;
+      }
+
+      if ($parameters['newPosition'] >= count($children))
+      {
+        $this->error($this->i18n->__('New position outside the range'));
+
+        return false;
+      }
+
+      // Get target sibling and position in relation to it
+      $targetSiblingId = $children[$parameters['newPosition']]['id'];
+      $targetPosition = $parameters['newPosition'] > $parameters['oldPosition'] ? 'after' : 'before';
+
+      if (($targetSibling = QubitObject::getById($targetSiblingId)) === null)
+      {
+        $this->error($this->i18n->__('Invalid target sibling (id: %1)', array('%1' => $targetSiblingId)));
+
+        return false;
+      }
+
+      switch ($targetPosition)
+      {
+        case 'before':
+          $this->info($this->i18n->__('Moving object before sibling (id: %1)', array('%1' => $targetSiblingId)));
+          $object->moveToPrevSiblingOf($targetSibling);
+
+          break;
+
+        case 'after':
+          $this->info($this->i18n->__('Moving object after sibling (id: %1)', array('%1' => $targetSiblingId)));
+          $object->moveToNextSiblingOf($targetSibling);
+
+          break;
+
+        default:
+          $this->error($this->i18n->__('Invalid target position (%1)', array('%1' => $targetPosition)));
+
+          return false;
+      }
     }
 
-    $object->save();
-
-    // Mark job as complete
-    $this->info('Move complete.');
+    // Mark job as completed
+    $this->info('Move completed.');
     $this->job->setStatusCompleted();
     $this->job->save();
 

@@ -35,9 +35,25 @@ class arBaseJob extends Net_Gearman_Job_Common
    * If any of the required paramareters is missing the job will fail.
    */
   private $requiredParameters = array('id', 'name');
-  protected $downloadFileExtension = null; // Child class should set if creating user downloads
+
+  /*
+   * Parallel execution and retry time:
+   *
+   * In instances where two or more workers are setup, multiple jobs could run in parallel.
+   * We want to avoid that in jobs that make sensitive changes to the nested set, like the
+   * arObjectMoveJob and the import jobs. The Gearman job server doesn't include a built in
+   * system to postpone/schedule jobs so, if multiple jobs from the $avoidParallelExecutionJobs
+   * variable bellow are executed at the same time, the late ones will wait, retrying after
+   * the amount of seconds indicated in $waitForRetryTime, until the previous ones are finished
+   * or the maximun amount of tries ($maxTries) is reached. Due to the limitations of the Gearman
+   * job server, the waiting jobs will block the workers executing them until they are ended.
+   */
+  protected $avoidParallelExecutionJobs = array('arObjectMoveJob', 'arFileImportJob');
+  protected $waitForRetryTime = 10;
+  Protected $maxRetries = 10;
 
   protected $dispatcher = null;
+  protected $downloadFileExtension = null; // Child class should set if creating user downloads
 
   public function run($parameters)
   {
@@ -56,12 +72,36 @@ class arBaseJob extends Net_Gearman_Job_Common
 
     $this->logger = new arJobLogger($this->dispatcher, array('level' => sfLogger::INFO, 'job' => $this->job));
 
-    Qubit::clearClassCaches();
-
     // Catch all possible exceptions in job execution and throw
     // Net_Gearman_Job_Exception to avoid breaking the worker
     try
     {
+      $this->info($this->i18n->__('Job started.'));
+
+      // If this is a sensitive job
+      if (in_array(get_class($this), $this->avoidParallelExecutionJobs))
+      {
+        // Wait until other sensitive jobs are finished by order
+        $retries = 0;
+        while (!$this->canBeFullyExecuted())
+        {
+          // Fail the job if we have reached the max. amount of retries
+          if ($retries++ == $this->maxRetries)
+          {
+            $this->error($this->i18n->__('Maximum retries reached (%1). Please, try to launch the job again when other sensitive jobs are finished or contact an administrator', array('%1' => $this->maxRetries)));
+
+            return false;
+          }
+
+          // Log retry info
+          $this->info($this->i18n->__('Another sensitive job is being executed, will retry in %1 seconds', array('%1' => $this->waitForRetryTime)));
+
+          sleep($this->waitForRetryTime);
+        }
+      }
+
+      Qubit::clearClassCaches();
+
       $this->signIn();
 
       $this->createJobsDownloadsDirectory();
@@ -262,5 +302,36 @@ class arBaseJob extends Net_Gearman_Job_Common
     // Calling destruct() forces a new QubitAcl instance for each job.
     QubitAcl::destruct();
     $this->user->signOut();
+  }
+
+  /**
+   * Check if another sensitive job is running.
+   *
+   * @return boolean true if this is the oldest being executed
+   *                 false if there is an older one in execution
+   */
+  protected function canBeFullyExecuted()
+  {
+    // Add job names directly to the query to avoid params escaping
+    $jobNames = "('" . implode("','", $this->avoidParallelExecutionJobs) . "')";
+
+    // Select sensitive jobs running ordering by created_at
+    $sql = "SELECT job.id FROM job
+     LEFT JOIN object ON object.id = job.id
+     WHERE job.status_id = :statusId
+     AND job.name IN $jobNames
+     ORDER BY object.created_at;";
+
+    $params = array(':statusId' => QubitTerm::JOB_STATUS_IN_PROGRESS_ID);
+    $runningJobs = QubitPdo::fetchAll($sql, $params, array('fetchMode' => PDO::FETCH_ASSOC));
+
+    // Edge case where the QubitJobs are cleared while this one is waiting
+    if (count($runningJobs) == 0)
+    {
+      throw new Net_Gearman_Job_Exception('There is not a running QubitJob in the database associated this job.');
+    }
+
+    // If this job is the first one, it can be fully executed
+    return $this->job->id === $runningJobs[0]['id'];
   }
 }
