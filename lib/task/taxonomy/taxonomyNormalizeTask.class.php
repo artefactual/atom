@@ -24,7 +24,7 @@
  * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
-class taxonomyNormalizeTask extends sfBaseTask
+class taxonomyNormalizeTask extends arBaseTask
 {
   protected function configure()
   {
@@ -65,21 +65,23 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
-    sfContext::createInstance($this->configuration);
+    parent::execute($arguments, $options);
 
-    $this->log("Normalizing for '". $options['culture'] ."' culture...");
-
-    // look up taxonomy ID using name
-    $taxonomyId = $this->getTaxonomyIdByName($arguments['taxonomy-name'], $options['culture']);
-    if (!$taxonomyId)
+    // Look up taxonomy ID using name
+    $this->taxonomyId = $this->getTaxonomyIdByName($arguments['taxonomy-name'], $options['culture']);
+    if (!$this->taxonomyId)
     {
       throw new sfException("A taxonomy named '". $arguments['taxonomy-name'] ."' not found for culture '". $options['culture'] ."'.");
     }
 
-    // determine taxonomy term usage then normalize
+    $this->log("Normalizing for '". $options['culture'] ."' culture...");
+
+    // Determine taxonomy term usage then normalize
     $names = array();
-    $this->populateTaxonomyNameUsage($names, $taxonomyId, $options['culture']);
+    $this->populateTaxonomyNameUsage($names, $options['culture']);
     $this->normalizeTaxonomy($names);
+
+    $this->log("Please, rebuild the search index if changes have been made.");
   }
 
   protected function getTaxonomyIdByName($name, $culture)
@@ -90,36 +92,41 @@ EOF;
 
     $statement = QubitFlatfileImport::sqlQuery($sql, array($culture, $name));
 
-    if($object = $statement->fetch(PDO::FETCH_OBJ))
+    if ($object = $statement->fetch(PDO::FETCH_OBJ))
     {
       return $object->id;
-    } else {
+    }
+    else
+    {
       return false;
     }
   }
 
-  protected function populateTaxonomyNameUsage(&$names, $taxonomyId, $culture)
+  protected function populateTaxonomyNameUsage(&$names, $culture)
   {
-    $sql = "SELECT t.id, i.name FROM term t \r
-      INNER JOIN term_i18n i ON t.id=i.id \r
-      WHERE t.taxonomy_id=? AND i.culture=? \r
+    $sql = "SELECT t.id, i.name FROM term t
+      INNER JOIN term_i18n i ON t.id=i.id
+      WHERE t.taxonomy_id=:id AND i.culture=:culture
       ORDER BY t.id";
 
-    $statement = QubitFlatfileImport::sqlQuery($sql, array($taxonomyId, $culture));
+    $params = array(':id' => $this->taxonomyId, ':culture' => $culture);
 
-    while($object = $statement->fetch(PDO::FETCH_OBJ))
+    $terms = QubitPdo::fetchAll($sql, $params, array('fetchMode' => PDO::FETCH_OBJ));
+
+    foreach ($terms as $term)
     {
-      if (!isset($names[$object->name]))
+      if (!isset($names[$term->name]))
       {
-        $names[$object->name] = array();
+        $names[$term->name] = array();
       }
-      array_push($names[$object->name], $object->id);
+
+      array_push($names[$term->name], $term->id);
     }
   }
 
   protected function normalizeTaxonomy($names)
   {
-    foreach($names as $name => $usage)
+    foreach ($names as $name => $usage)
     {
       if (count($usage) > 1)
       {
@@ -134,27 +141,28 @@ EOF;
 
     $this->log("Normalizing terms with name '". $name ."'...");
 
-    // cycle through usage and change to point to selected term
-    if (count($usage))
+    // Cycle through usage and change to point to selected term
+    foreach ($usage as $id)
     {
-      // delete now unused terms
-      foreach($usage as $id)
+      $this->log("Changing object term relations from term ". $id ." to ". $selected_id .".");
+
+      $sql = "UPDATE object_term_relation SET term_id=:newId WHERE term_id=:oldId";
+      $params = array(':newId' => $selected_id, ':oldId' => $id);
+      QubitPdo::modify($sql, $params);
+
+      if ($this->taxonomyId == QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID)
       {
-        $this->log("Changing object term relations to term ". $id ." to ". $selected_id .".");
+        $this->log("Changing level of descriptions from term ". $id ." to ". $selected_id .".");
 
-        $sql = "UPDATE object_term_relation \r
-          SET term_id=? WHERE term_id=?";
-
-        $statement = QubitFlatfileImport::sqlQuery($sql, array($selected_id, $id));
-
-        $this->log("Deleting term ID ". $id .".");
-
-        // delete taxonomy term
-        $term = QubitTerm::getById($id);
-        $term->delete();
+        $sql = "UPDATE information_object SET level_of_description_id=:newId WHERE level_of_description_id=:oldId";
+        QubitPdo::modify($sql, $params);
       }
-    } else {
-      print "Already normalized.\n";
+
+      $this->log("Deleting term ID ". $id .".");
+
+      // Delete taxonomy term
+      $term = QubitTerm::getById($id);
+      $term->delete();
     }
   }
 }
