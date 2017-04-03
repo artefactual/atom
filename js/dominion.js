@@ -140,6 +140,12 @@
       var $facets = $('#facets');
       var $facet = $facets.find('.facet');
 
+      $facets.on('click', '.facets-header a', function (e)
+        {
+          $(e.target).toggleClass('open');
+          $facets.find('.content').toggle();
+        });
+
       $facet.on('click', '.facet-header a', function (e)
         {
           e.preventDefault();
