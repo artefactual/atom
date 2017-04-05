@@ -183,7 +183,7 @@
       else if (moveResponse.success)
       {
         $(
-          '<div class="alert alert-info">' +
+          '<div class="alert">' +
           '<button type="button" data-dismiss="alert" class="close">&times;</button>'
         )
         .append(moveResponse.success)

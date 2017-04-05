@@ -93,7 +93,7 @@ class InformationObjectFullWidthTreeViewMoveAction extends sfAction
     $jobManageLink = '<a href="'. $jobManageUrl . '">'. $i18n->__('job management') .'</a>';
 
     $message = '<strong>'. $i18n->__('Move initiated.') .'</strong> ';
-    $message .= $i18n->__("Check %1% page to determine present status. You can keep moving nodes if you don't reload the page. Once the page is reloaded, if a moving job hasn't ended, you could temporarilly loose your changes and new changes may fail. After the moving job ends and the page is reloaded the treeview will be back to an stable status.", array('%1%' => $jobManageLink));
+    $message .= $i18n->__("Check the %1% page to determine present status. You can keep moving nodes if you don't reload the page. Once the page is reloaded, if a move job hasn't ended, your recent change(s) may not yet be displayed and new changes may fail. After the move job ends and the page is reloaded, the treeview will be back to a stable status.", array('%1%' => $jobManageLink));
 
     $this->response->setStatusCode(201);
 
