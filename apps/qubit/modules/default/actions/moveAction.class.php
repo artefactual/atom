@@ -86,17 +86,6 @@ class DefaultMoveAction extends sfAction
         {
           return $this->renderText('');
         }
-        else
-        {
-          if ($this->resource instanceof QubitInformationObject)
-          {
-            $this->redirect(array($this->resource, 'module' => 'informationobject'));
-          }
-          else if ($this->resource instanceof QubitTerm)
-          {
-            $this->redirect(array($this->resource, 'module' => 'term'));
-          }
-        }
       }
     }
 
