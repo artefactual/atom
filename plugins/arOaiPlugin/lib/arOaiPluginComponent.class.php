@@ -111,7 +111,7 @@ abstract class arOaiPluginComponent extends sfComponent
     $extraOptions = array(
       'from'   => $this->from,
       'until'  => $this->until,
-      'cursor' => $this->cursor,
+      'offset' => $this->cursor,
       'limit' => QubitSetting::getByName('resumption_token_limit')->__toString(),
       'set' => $oaiSet);
 
