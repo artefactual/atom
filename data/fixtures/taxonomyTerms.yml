@@ -1325,6 +1325,12 @@ QubitTaxonomy:
       sv: PREMIS-rättigheter
     note:
       en: 'Used to store Statute values when defining PREMIS rights statements with a statute Basis.'
+  QubitTaxonomy_job_status:
+    source_culture: en
+    id: 79
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'Job status'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -10100,6 +10106,24 @@ QubitTerm:
     name:
       en: 'Credits note'
       es: 'Nota de créditos'
+  QubtTerm_job_status_in_progress:
+    taxonomy_id: QubitTaxonomy_job_status
+    id: 183
+    source_culture: en
+    name:
+      en: 'In progress'
+  QubtTerm_job_status_in_completed:
+    taxonomy_id: QubitTaxonomy_job_status
+    id: 184
+    source_culture: en
+    name:
+      en: 'Completed'
+  QubtTerm_job_status_error:
+    taxonomy_id: QubitTaxonomy_job_status
+    id: 185
+    source_culture: en
+    name:
+      en: 'Error'
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111
