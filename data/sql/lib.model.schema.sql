@@ -147,10 +147,10 @@ CREATE TABLE `job`
 	`id` INTEGER  NOT NULL,
 	`name` VARCHAR(255),
 	`download_path` TEXT,
-	`status_id` INTEGER  NOT NULL,
 	`completed_at` DATETIME,
 	`user_id` INTEGER,
 	`object_id` INTEGER,
+	`status_id` INTEGER,
 	`output` TEXT,
 	PRIMARY KEY (`id`),
 	CONSTRAINT `job_FK_1`
@@ -166,6 +166,11 @@ CREATE TABLE `job`
 	CONSTRAINT `job_FK_3`
 		FOREIGN KEY (`object_id`)
 		REFERENCES `object` (`id`)
+		ON DELETE SET NULL,
+	INDEX `job_FI_4` (`status_id`),
+	CONSTRAINT `job_FK_4`
+		FOREIGN KEY (`status_id`)
+		REFERENCES `term` (`id`)
 		ON DELETE SET NULL
 )Engine=InnoDB;
 
