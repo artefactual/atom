@@ -48,10 +48,10 @@ propel:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     name: varchar(255)
     download_path: longvarchar
-    status_id: { type: integer, required: true }
     completed_at: timestamp
     user_id: { type: integer, required: false, foreignTable: user, foreignReference: id, onDelete: setnull  }
     object_id: { type: integer, require: false, foreignTable: object, foreignReference: id, onDelete: setnull }
+    status_id: { type: integer, required: false, foreignTable: term, foreignReference: id, onDelete: setnull }
     output: longvarchar
 
   contact_information:
