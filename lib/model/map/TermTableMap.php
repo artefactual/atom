@@ -63,6 +63,7 @@ class TermTableMap extends TableMap {
     $this->addRelation('actorRelatedBydescriptionStatusId', 'actor', RelationMap::ONE_TO_MANY, array('id' => 'description_status_id', ), 'SET NULL', null);
     $this->addRelation('actorRelatedBydescriptionDetailId', 'actor', RelationMap::ONE_TO_MANY, array('id' => 'description_detail_id', ), 'SET NULL', null);
     $this->addRelation('aip', 'aip', RelationMap::ONE_TO_MANY, array('id' => 'type_id', ), 'SET NULL', null);
+    $this->addRelation('job', 'job', RelationMap::ONE_TO_MANY, array('id' => 'status_id', ), 'SET NULL', null);
     $this->addRelation('digitalObjectRelatedByusageId', 'digitalObject', RelationMap::ONE_TO_MANY, array('id' => 'usage_id', ), 'SET NULL', null);
     $this->addRelation('digitalObjectRelatedBymediaTypeId', 'digitalObject', RelationMap::ONE_TO_MANY, array('id' => 'media_type_id', ), 'SET NULL', null);
     $this->addRelation('event', 'event', RelationMap::ONE_TO_MANY, array('id' => 'type_id', ), 'CASCADE', null);

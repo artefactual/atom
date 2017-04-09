@@ -154,6 +154,11 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       return true;
     }
 
+    if ('jobs' == $name)
+    {
+      return true;
+    }
+
     if ('digitalObjectsRelatedByusageId' == $name)
     {
       return true;
@@ -479,6 +484,23 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       }
 
       return $this->refFkValues['aips'];
+    }
+
+    if ('jobs' == $name)
+    {
+      if (!isset($this->refFkValues['jobs']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['jobs'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['jobs'] = self::getjobsById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['jobs'];
     }
 
     if ('digitalObjectsRelatedByusageId' == $name)
@@ -1326,6 +1348,26 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
   public function addaipsCriteria(Criteria $criteria)
   {
     return self::addaipsCriteriaById($criteria, $this->id);
+  }
+
+  public static function addjobsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitJob::STATUS_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getjobsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addjobsCriteriaById($criteria, $id);
+
+    return QubitJob::get($criteria, $options);
+  }
+
+  public function addjobsCriteria(Criteria $criteria)
+  {
+    return self::addjobsCriteriaById($criteria, $this->id);
   }
 
   public static function adddigitalObjectsRelatedByusageIdCriteriaById(Criteria $criteria, $id)

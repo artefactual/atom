@@ -10,10 +10,10 @@ abstract class BaseJob extends QubitObject implements ArrayAccess
     ID = 'job.ID',
     NAME = 'job.NAME',
     DOWNLOAD_PATH = 'job.DOWNLOAD_PATH',
-    STATUS_ID = 'job.STATUS_ID',
     COMPLETED_AT = 'job.COMPLETED_AT',
     USER_ID = 'job.USER_ID',
     OBJECT_ID = 'job.OBJECT_ID',
+    STATUS_ID = 'job.STATUS_ID',
     OUTPUT = 'job.OUTPUT';
 
   public static function addSelectColumns(Criteria $criteria)
@@ -25,10 +25,10 @@ abstract class BaseJob extends QubitObject implements ArrayAccess
     $criteria->addSelectColumn(QubitJob::ID);
     $criteria->addSelectColumn(QubitJob::NAME);
     $criteria->addSelectColumn(QubitJob::DOWNLOAD_PATH);
-    $criteria->addSelectColumn(QubitJob::STATUS_ID);
     $criteria->addSelectColumn(QubitJob::COMPLETED_AT);
     $criteria->addSelectColumn(QubitJob::USER_ID);
     $criteria->addSelectColumn(QubitJob::OBJECT_ID);
+    $criteria->addSelectColumn(QubitJob::STATUS_ID);
     $criteria->addSelectColumn(QubitJob::OUTPUT);
 
     return $criteria;
@@ -86,6 +86,13 @@ abstract class BaseJob extends QubitObject implements ArrayAccess
   public static function addJoinobjectCriteria(Criteria $criteria)
   {
     $criteria->addJoin(QubitJob::OBJECT_ID, QubitObject::ID);
+
+    return $criteria;
+  }
+
+  public static function addJoinstatusCriteria(Criteria $criteria)
+  {
+    $criteria->addJoin(QubitJob::STATUS_ID, QubitTerm::ID);
 
     return $criteria;
   }
