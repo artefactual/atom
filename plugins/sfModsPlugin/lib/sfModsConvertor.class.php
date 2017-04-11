@@ -456,7 +456,7 @@ class sfModsConvertor extends QubitSaxParser {
     foreach ($nameData as $name)
     {
       $event = new QubitEvent();
-      $event->informationObjectId = $this->resource->id;
+      $event->objectId = $this->resource->id;
       $eventTypeTerm = QubitFlatfileImport::createOrFetchTerm(QubitTaxonomy::EVENT_TYPE_ID, $name['role']);
       $event->typeId = $eventTypeTerm->id;
 
@@ -484,7 +484,7 @@ class sfModsConvertor extends QubitSaxParser {
   protected function importOriginInfo()
   {
     $event = new QubitEvent();
-    $event->informationObjectId = $this->resource->id;
+    $event->objectId = $this->resource->id;
     $event->typeId = (!empty($this->originTypeId)) ? $this->originTypeId : QubitTerm::CREATION_ID;
 
     // Set date, if set

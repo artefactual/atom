@@ -1625,7 +1625,7 @@ class QubitFlatfileImport
       }
 
       $placeTerm = $this->createOrFetchTerm(QubitTaxonomy::PLACE_ID, $options['place'], $culture);
-      $this->createObjectTermRelation($event->id, $placeTerm->id);
+      self::createObjectTermRelation($event->id, $placeTerm->id);
     }
   }
 
@@ -2025,10 +2025,10 @@ class QubitFlatfileImport
    *
    * @return QubitObjectTermRelation  created relation
    */
-  public function createObjectTermRelation($objectId, $termId)
+  public static function createObjectTermRelation($objectId, $termId)
   {
     // Prevent duplicate object-term relations.
-    if ($this->objectTermRelationExists($objectId, $termId))
+    if (self::objectTermRelationExists($objectId, $termId))
     {
       return;
     }
@@ -2066,7 +2066,7 @@ class QubitFlatfileImport
    *
    * @return bool  True if this relation already exists, false otherwise.
    */
-  private function objectTermRelationExists($objectId, $termId)
+  public static function objectTermRelationExists($objectId, $termId)
   {
     $c = new Criteria;
     $c->add(QubitObjectTermRelation::OBJECT_ID, $objectId);
@@ -2101,7 +2101,7 @@ class QubitFlatfileImport
       $term = $this->createTerm($taxonomyId, $name, $culture);
     }
 
-    $this->createObjectTermRelation($this->object->id, $term->id);
+    self::createObjectTermRelation($this->object->id, $term->id);
   }
 
   /**
