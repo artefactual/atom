@@ -34,10 +34,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
     parent::__construct($dispatcher, $formatter);
   }
 
-  /**
-   * @see sfTask
-   */
-  protected function addCommonArgumentsAndOptions()
+  protected function addCoreArgumentsAndOptions()
   {
     $this->addArguments(array(
       new sfCommandArgument('path', sfCommandArgument::REQUIRED, 'The destination path for export file(s).')
@@ -47,7 +44,15 @@ abstract class exportBulkBaseTask extends sfBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-      new sfCommandOption('items-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indicate progress every n items.'),
+      new sfCommandOption('items-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indicate progress every n items.')
+    ));
+  }
+
+  protected function addCommonArgumentsAndOptions()
+  {
+    $this->addCoreArgumentsAndOptions();
+
+    $this->addOptions(array(
       new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria'),
       new sfCommandOption('current-level-only', null, sfCommandOption::PARAMETER_NONE, 'Do not export child descriptions of exported items'),
       new sfCommandOption('single-slug', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export a single fonds or collection based on slug'),

@@ -1,0 +1,9 @@
+# Columns that should be included in the usage export
+columnNames:
+  - id
+  - parentId
+  - taxonomyId
+  - name
+  - sourceCulture
+  - culture
+  - use_count

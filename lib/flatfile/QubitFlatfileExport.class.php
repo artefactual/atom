@@ -113,11 +113,32 @@ class QubitFlatfileExport
     $this->columnMap       = isset($config['map']) ? $config['map'] : array();
     $this->propertyMap     = isset($config['property']) ? $config['property'] : array();
 
+    // If column names/order aren't specified, derive them
+    if ($this->columnNames === null)
+    {
+      // Add standard columns
+      $this->columnNames = ($this->standardColumns !== null) ? $this->standardColumns : array();
+
+      // Add from column map
+      if ($this->columnMap !== null)
+      {
+        $this->columnNames = array_merge($this->columnNames, array_values($this->columnMap));
+      }
+
+      // Add from property map
+      if ($this->propertyMap !== null)
+      {
+        $this->columnNames = array_merge($this->columnNames, array_values($this->propertyMap));
+      }
+    }
+
     $this->cacheTaxonomies($config['cacheTaxonomies']);
 
     // Apply custom configuration logic defined by child classes
     $this->config($config);
 
+    // Initiaize row in preparation for export
+    $this->row = array_fill(0, count($this->columnNames), null);
     $this->configurationLoaded = true;
   }
 
@@ -282,7 +303,7 @@ class QubitFlatfileExport
    *
    * @return void
    */
-  protected function setColumn($column, $value)
+  public function setColumn($column, $value)
   {
     $columnIndex = array_search($column, $this->columnNames);
 
@@ -364,9 +385,9 @@ class QubitFlatfileExport
 
     $this->prepareRowFromResource();
 
-    // Write row to file
+    // Write row to file and initialize row
     $this->appendRowToCsvFile($filePath, $this->row);
-
+    $this->row = array_fill(0, count($this->columnNames), null);
     $this->rowsExported++;
   }
 
@@ -377,28 +398,30 @@ class QubitFlatfileExport
    */
   public function prepareRowFromResource()
   {
-    $this->row = array();
-
     // Cycle through columns to populate row array
-    foreach ($this->columnNames as $column)
+    foreach ($this->columnNames as $index => $column)
     {
-      $value = '';
+      $value = $this->row[$index];
 
-      if (in_array($column, $this->standardColumns))
+      // If row value hasn't been set to anything, attempt to get resource property
+      if ($value === null)
       {
-        $value = $this->resource->{$column};
-      }
-      else if (($sourceColumn = array_search($column, $this->columnMap)) !== false)
-      {
-        $value = $this->resource->{$sourceColumn};
-      }
-      else if (isset($this->propertyMap[$column]))
-      {
-        $value = $this->resource->getPropertyByName($this->propertyMap[$column])->__toString();
+        if (in_array($column, $this->standardColumns))
+        {
+          $value = $this->resource->{$column};
+        }
+        else if (($sourceColumn = array_search($column, $this->columnMap)) !== false)
+        {
+          $value = $this->resource->{$sourceColumn};
+        }
+        else if (isset($this->propertyMap[$column]))
+        {
+          $value = $this->resource->getPropertyByName($this->propertyMap[$column])->__toString();
+        }
       }
 
       // Add column value (imploding if necessary)
-      $this->row[] = $this->content($value);
+      $this->row[$index] = $this->content($value);
     }
 
     $this->modifyRowBeforeExport();

@@ -1,0 +1,8 @@
+# Columns that map directly to term properties
+direct:
+  - id
+  - parentId
+  - taxonomyId
+  - name
+  - sourceCulture
+  - culture
