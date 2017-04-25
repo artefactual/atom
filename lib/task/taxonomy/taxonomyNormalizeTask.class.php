@@ -78,10 +78,12 @@ EOF;
 
     // Determine taxonomy term usage then normalize
     $names = array();
+    $affected_objects = array();
     $this->populateTaxonomyNameUsage($names, $options['culture']);
-    $this->normalizeTaxonomy($names);
+    $this->normalizeTaxonomy($names, $affected_objects);
+    $this->reindexAffectedObjects($affected_objects);
 
-    $this->log("Please, rebuild the search index if changes have been made.");
+    $this->log("Affected objects have been reindexed.");
   }
 
   protected function getTaxonomyIdByName($name, $culture)
@@ -124,18 +126,18 @@ EOF;
     }
   }
 
-  protected function normalizeTaxonomy($names)
+  protected function normalizeTaxonomy($names, &$affected_objects)
   {
     foreach ($names as $name => $usage)
     {
       if (count($usage) > 1)
       {
-        $this->normalizeTaxonomyTerm($name, $usage);
+        $this->normalizeTaxonomyTerm($name, $usage, $affected_objects);
       }
     }
   }
 
-  protected function normalizeTaxonomyTerm($name, $usage)
+  protected function normalizeTaxonomyTerm($name, $usage, &$affected_objects)
   {
     $selected_id = array_shift($usage);
 
@@ -144,6 +146,13 @@ EOF;
     // Cycle through usage and change to point to selected term
     foreach ($usage as $id)
     {
+      $sql = "select object_id from object_term_relation where term_id=?";
+      $statement = QubitFlatfileImport::sqlQuery($sql, array($id));
+      while($object = $statement->fetch(PDO::FETCH_OBJ))
+      {
+        $affected_objects[] = $object->object_id;
+      }
+
       $this->log("Changing object term relations from term ". $id ." to ". $selected_id .".");
 
       $sql = "UPDATE object_term_relation SET term_id=:newId WHERE term_id=:oldId";
@@ -163,6 +172,16 @@ EOF;
       // Delete taxonomy term
       $term = QubitTerm::getById($id);
       $term->delete();
+    }
+  }
+
+  protected function reindexAffectedObjects($affected_objects)
+  {
+    $search = QubitSearch::getInstance();
+    foreach($affected_objects as $id) 
+    {
+      $o = QubitInformationObject::getById($id);
+      $search->update($o);
     }
   }
 }
