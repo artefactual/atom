@@ -78,10 +78,10 @@ EOF;
 
     // Determine taxonomy term usage then normalize
     $names = array();
-    $affected_objects = array();
+    $affectedObjects = array();
     $this->populateTaxonomyNameUsage($names, $options['culture']);
-    $this->normalizeTaxonomy($names, $affected_objects);
-    $this->reindexAffectedObjects($affected_objects);
+    $this->normalizeTaxonomy($names, $affectedObjects);
+    $this->reindexAffectedObjects($affectedObjects);
 
     $this->log("Affected objects have been reindexed.");
   }
@@ -126,18 +126,18 @@ EOF;
     }
   }
 
-  protected function normalizeTaxonomy($names, &$affected_objects)
+  protected function normalizeTaxonomy($names, &$affectedObjects)
   {
     foreach ($names as $name => $usage)
     {
       if (count($usage) > 1)
       {
-        $this->normalizeTaxonomyTerm($name, $usage, $affected_objects);
+        $this->normalizeTaxonomyTerm($name, $usage, $affectedObjects);
       }
     }
   }
 
-  protected function normalizeTaxonomyTerm($name, $usage, &$affected_objects)
+  protected function normalizeTaxonomyTerm($name, $usage, &$affectedObjects)
   {
     $selected_id = array_shift($usage);
 
@@ -150,7 +150,7 @@ EOF;
       $statement = QubitFlatfileImport::sqlQuery($sql, array($id));
       while ($object = $statement->fetch(PDO::FETCH_OBJ))
       {
-        $affected_objects[] = $object->object_id;
+        $affectedObjects[] = $object->object_id;
       }
 
       $this->log("Changing object term relations from term ". $id ." to ". $selected_id .".");
@@ -175,10 +175,10 @@ EOF;
     }
   }
 
-  protected function reindexAffectedObjects($affected_objects)
+  protected function reindexAffectedObjects($affectedObjects)
   {
     $search = QubitSearch::getInstance();
-    foreach ($affected_objects as $id) 
+    foreach ($affectedObjects as $id) 
     {
       $o = QubitInformationObject::getById($id);
       $search->update($o);
