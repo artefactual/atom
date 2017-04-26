@@ -148,7 +148,7 @@ EOF;
     {
       $sql = "select object_id from object_term_relation where term_id=?";
       $statement = QubitFlatfileImport::sqlQuery($sql, array($id));
-      while($object = $statement->fetch(PDO::FETCH_OBJ))
+      while ($object = $statement->fetch(PDO::FETCH_OBJ))
       {
         $affected_objects[] = $object->object_id;
       }
@@ -178,7 +178,7 @@ EOF;
   protected function reindexAffectedObjects($affected_objects)
   {
     $search = QubitSearch::getInstance();
-    foreach($affected_objects as $id) 
+    foreach ($affected_objects as $id) 
     {
       $o = QubitInformationObject::getById($id);
       $search->update($o);
