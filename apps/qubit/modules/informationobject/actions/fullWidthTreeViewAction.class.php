@@ -195,7 +195,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
           }
 
           $date = Qubit::renderDateStartEnd($event['display_date'], $event['start_date'], $event['end_date']);
-          $result['text'] = "{$result['text']} ({$date})";
+          $result['text'] = "{$result['text']}, {$date}";
 
           break;
         }
