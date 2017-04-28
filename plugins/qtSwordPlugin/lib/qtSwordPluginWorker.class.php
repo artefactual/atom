@@ -26,8 +26,6 @@ class qtSwordPluginWorker extends arBaseJob
 
   public function runJob($package)
   {
-    $this->info('A new job has started to being processed.');
-
     if (isset($package['location']))
     {
       $this->info('A package was deposited by reference.');
@@ -51,8 +49,6 @@ class qtSwordPluginWorker extends arBaseJob
 
     $this->job->setStatusCompleted();
     $this->job->save();
-
-    $this->info('Job finished.');
 
     return true;
   }

@@ -30,20 +30,14 @@ class qtSwordPluginHttpAuthFilter extends sfFilter
         exit;
       }
 
-      $user = QubitUser::checkCredentials($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], $error);
+      $authenticated = sfContext::getInstance()->user->authenticate($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
 
-      if (null === $user)
+      if (!$authenticated)
       {
         $this->sendHeaders();
 
         return;
       }
-
-      $user = new myUser(new sfEventDispatcher(), new sfNoStorage());
-      $user->authenticate($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
-
-      // We'll need username/email details later
-      sfContext::getInstance()->request->setAttribute('user', $user);
     }
 
     $filterChain->execute();

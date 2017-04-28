@@ -38,7 +38,7 @@ class qtSwordPluginDepositAction extends sfAction
       return $this->generateResponse(400, 'error/ErrorBadRequest', array('summary' => $this->context->i18n->__('Bad request')));
     }
 
-    if (QubitAcl::check(QubitInformationObject::getRoot(), 'create'))
+    if (!QubitAcl::check(QubitInformationObject::getRoot(), 'create'))
     {
       return $this->generateResponse(403, 'error/ErrorBadRequest', array('summary' => $this->context->i18n->__('Forbidden')));
     }
@@ -49,7 +49,7 @@ class qtSwordPluginDepositAction extends sfAction
     }
 
     $this->resource = $this->getRoute()->resource;
-    $this->user = $request->getAttribute('user');
+    $this->user = $this->context->user;
     $this->package = array();
 
     // Package format, check if supported
