@@ -34,6 +34,7 @@
           <?php echo get_partial('default/sortableTableHeader',
             array('label' => __('Date'), 'name' => 'date', 'size' => '24%')) ?>
           <th width="8%"><?php echo sfConfig::get('app_ui_label_digitalobject') ?></th>
+          <th></th>
         </tr>
         <?php foreach ($pager->getResults() as $hit): ?>
           <?php $doc = $hit->getData() ?>
@@ -59,6 +60,9 @@
                   <?php endif; ?>
                 <?php endif; ?>
               <?php endif; ?>
+            </td>
+            <td>
+              <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => true)) ?>
             </td>
           </tr>
         <?php endforeach; ?>
