@@ -20,7 +20,7 @@
 
     <div id="wrapper" class="container" role="main">
 
-      <?php echo get_partial('alerts') ?>
+      <?php echo get_component('default', 'alerts') ?>
 
       <?php echo $sf_content ?>
 

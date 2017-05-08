@@ -16,7 +16,7 @@
   </head>
   <body class="yui-skin-sam <?php echo $sf_context->getModuleName() ?> <?php echo $sf_context->getActionName() ?>">
 
-    <?php echo get_partial('header') ?>
+    <?php echo get_component('default', 'alerts') ?>
 
     <?php include_slot('pre') ?>
 

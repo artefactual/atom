@@ -54,6 +54,11 @@ class QubitJob extends BaseJob
   {
     parent::delete($connection);
 
+    if (isset($job->downloadPath))
+    {
+      unlink($job->downloadPath);
+    }
+
     foreach ($this->notes as $note)
     {
       $note->delete();

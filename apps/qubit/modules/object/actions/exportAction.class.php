@@ -120,7 +120,8 @@ class ObjectExportAction extends DefaultEditAction
       'current-level-only' => 'on' !== $request->getParameter('includeDescendants'),
       'public' => 'on' !== $request->getParameter('includeDrafts'),
       'objectType' => $this->objectType,
-      'levels' => $levelsOfDescription
+      'levels' => $levelsOfDescription,
+      'name' => $this->context->i18n->__('CSV export')
     );
 
     // When exporting actors, ensure aliases and relations are also exported.
@@ -132,16 +133,27 @@ class ObjectExportAction extends DefaultEditAction
 
     try
     {
-      QubitJob::runJob($this->getJobNameString(), $options);
+      $job = QubitJob::runJob($this->getJobNameString(), $options);
 
-      // Let user know export has started
-      sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
+      // If anonymous user, store job ID in session
+      if (!$this->context->user->isAuthenticated())
+      {
+        $manager = new QubitUnauthenticatedUserJobManager($this->context->user);
+        $manager->addJobAssociation($job);
+      }
 
-      $message = $this->context->i18n->__('%1%Export of descriptions initiated.%2% Check %3%job management%4% page to download the results when it has completed.', array(
-        '%1%' => '<strong>',
-        '%2%' => '</strong>',
-        '%3%' => sprintf('<a href="%s">', url_for(array('module' => 'jobs', 'action' => 'browse'))),
-        '%4%' => '</a>'));
+      if ($this->context->user->isAuthenticated())
+      {
+        $message = $this->context->i18n->__('%1%Export of descriptions initiated.%2% Check %3%job management%4% page to download the results when it has completed.', array(
+          '%1%' => '<strong>',
+          '%2%' => '</strong>',
+          '%3%' => sprintf('<a href="%s">', $this->context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'))),
+          '%4%' => '</a>'));
+      }
+      else
+      {
+        $message = $this->context->i18n->__('Export of description initiated. Progress will reported in a subsequent notification.');
+      }
 
       $this->context->user->setFlash('notice', $message);
     }
