@@ -31,25 +31,41 @@ class JobsDeleteAction extends sfAction
    */
   public function execute($request)
   {
-    if (!$this->context->user || !$this->context->user->isAuthenticated())
+    if (!$this->context->user)
     {
       QubitAcl::forwardUnauthorized();
     }
 
-    $jobs = QubitJob::getJobsByUser($this->context->user);
-
-    foreach ($jobs as $job)
+    if (!$this->context->user->isAuthenticated() && $request->getParameter('id'))
     {
-      if ($job->statusId != QubitTerm::JOB_STATUS_IN_PROGRESS_ID)
-      {
-        if (isset($job->downloadPath))
-        {
-          unlink($job->downloadPath);
-        }
-        $job->delete();
-      }
-    }
+      // Handle deletion of individual jobs created by an unauthorized user
+      $manager = new QubitUnauthenticatedUserJobManager($this->context->user);
 
-    $this->redirect(array('module' => 'jobs', 'action' => 'browse'));
+      if (!$manager->deleteJobByIdIfAssociatedAndComplete($request->getParameter('id')))
+      {
+        QubitAcl::forwardUnauthorized();
+      }
+
+      $this->redirect($request->getReferer());
+    }
+    else if ($this->context->user->isAuthenticated() && !$request->getParameter('id'))
+    {
+      // Handle bulk deletion of jobs associated with an authorized user
+      $jobs = QubitJob::getJobsByUser($this->context->user);
+
+      foreach ($jobs as $job)
+      {
+        if ($job->statusId != QubitTerm::JOB_STATUS_IN_PROGRESS_ID)
+        {
+          $job->delete();
+        }
+      }
+
+      $this->redirect(array('module' => 'jobs', 'action' => 'browse'));
+    }
+    else
+    {
+      QubitAcl::forwardUnauthorized();
+    }
   }
 }

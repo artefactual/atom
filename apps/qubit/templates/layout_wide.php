@@ -22,7 +22,7 @@
 
       <?php include_slot('before-content') ?>
 
-      <?php echo get_partial('alerts') ?>
+      <?php echo get_component('default', 'alerts') ?>
 
       <?php if (!include_slot('content')): ?>
         <div class="container-fluid">

@@ -102,7 +102,14 @@ class arBaseJob extends Net_Gearman_Job_Common
 
       Qubit::clearClassCaches();
 
-      $this->signIn();
+      if ($this->user->isAuthenticated())
+      {
+        $this->signIn();
+      }
+      else
+      {
+        $this->deleteOldUnauthenticatedJobs();
+      }
 
       $this->createJobsDownloadsDirectory();
 
@@ -110,7 +117,10 @@ class arBaseJob extends Net_Gearman_Job_Common
 
       QubitSearch::getInstance()->flushBatch();
 
-      $this->signOut();
+      if ($this->user->isAuthenticated())
+      {
+        $this->signOut();
+      }
 
       $this->info($this->i18n->__('Job finished.'));
     }
@@ -228,7 +238,7 @@ class arBaseJob extends Net_Gearman_Job_Common
 
   private function getJobDownloadFilename()
   {
-    return $this->job->id .'.'. $this->downloadFileExtension;
+    return md5($this->job->id) .'.'. $this->downloadFileExtension;
   }
 
   /**
@@ -302,6 +312,30 @@ class arBaseJob extends Net_Gearman_Job_Common
     // Calling destruct() forces a new QubitAcl instance for each job.
     QubitAcl::destruct();
     $this->user->signOut();
+  }
+
+  /**
+   * Delete old unauthenticated jobs.
+   *
+   * @return null
+   */
+  protected function deleteOldUnauthenticatedJobs()
+  {
+    $now = new DateTime('now');
+    $oldDate = date_sub($now, date_interval_create_from_date_string('2 days'));
+
+    $criteria = new Criteria;
+    $criteria->add(QubitJob::CREATED_AT, $oldDate, Criteria::LESS_THAN);
+    $criteria->add(QubitJob::USER_ID, null, Criteria::ISNULL);
+
+    foreach (QubitJob::get($criteria) as $job)
+    {
+      if (isset($job->downloadPath))
+      {
+        unlink($job->downloadPath);
+      }
+      $job->delete();
+    }
   }
 
   /**

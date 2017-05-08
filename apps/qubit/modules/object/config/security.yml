@@ -4,5 +4,8 @@ import:
 importSelect:
   credentials: administrator
 
+export:
+  is_secure: false
+
 all:
   is_secure: true
