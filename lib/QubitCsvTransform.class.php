@@ -119,6 +119,8 @@ class QubitCsvTransform extends QubitFlatfileImport
 
     $this->link = $link;
 
+    $this->link = $link;
+
     $sql = "CREATE TABLE IF NOT EXISTS import_descriptions (
       id INT NOT NULL AUTO_INCREMENT,
       sortorder INT,
