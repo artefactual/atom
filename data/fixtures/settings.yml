@@ -1089,3 +1089,24 @@ QubitSetting:
     source_culture: en
     value:
       en: 0
+  Qubit_Settings_identifierMask:
+    name: identifier_mask
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: %Y-%m-%d/#i
+  Qubit_Settings_identifierCounter:
+    name: identifier_counter
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 0
+  Qubit_Settings_identifierMaskEnabled:
+    name: identifier_mask_enabled
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 0
