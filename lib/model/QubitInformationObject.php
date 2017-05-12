@@ -3347,7 +3347,7 @@ class QubitInformationObject extends BaseInformationObject
       throw new sfException('identifier_mask setting not found--is your database upgraded?');
     }
 
-    return preg_replace_callback('/([#%])([A-z]+)/', function($match)
+    return preg_replace_callback('/([#%])([A-z]+)/', function($match) use ($counter)
     {
       if ('%' == $match[1])
       {

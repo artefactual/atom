@@ -138,7 +138,7 @@ class InformationObjectEditAction extends DefaultEditAction
         $this->parent = QubitInformationObject::getById(QubitInformationObject::ROOT_ID);
         $this->form->setDefault('parent', $this->context->routing->generate(null, array($this->parent, 'module' => 'informationobject')));
       }
-      
+
       if (isset($getParams['repository']))
       {
         $this->resource->repository = QubitRepository::getById($this->request->repository);
@@ -156,6 +156,9 @@ class InformationObjectEditAction extends DefaultEditAction
       {
         $this->publicationStatusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
       }
+
+      // If creating new description and identifier mask is set to on, auto-generate next identifier.
+      $this->handleIdentifierFromMask();
     }
   }
 
@@ -781,6 +784,26 @@ class InformationObjectEditAction extends DefaultEditAction
       {
         $this->resource->informationObjectsRelatedByparentId[] = $childLevel;
       }
+    }
+  }
+
+  /**
+   * If identifier mask is enabled, set our new info obj to an identifier generated
+   * from the mask. Also increment the mask counter.
+   */
+  private function handleIdentifierFromMask()
+  {
+    if (null === $maskEnabled = QubitSetting::getByName('identifier_mask_enabled'))
+    {
+      throw new sfException('identifier_mask_enabled setting not found--is your database upgraded?');
+    }
+
+    if ($maskEnabled->value)
+    {
+      $this->resource->identifier = QubitInformationObject::generateIdentiferFromMask();
+      $counter = QubitInformationObject::getIdentifierCounter();
+      $counter->value++;
+      $counter->save();
     }
   }
 }
