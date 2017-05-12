@@ -42,6 +42,8 @@
           ->label(__('Identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
           ->renderRow() ?>
 
+        <?php echo get_partial('informationobject/identifierOptions', array('mask' => $mask, 'hideAltIdButton' => true)) ?>
+
         <?php echo render_field($form->title
           ->help(__('The name given to this resource.'))
           ->label(__('Title').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource) ?>

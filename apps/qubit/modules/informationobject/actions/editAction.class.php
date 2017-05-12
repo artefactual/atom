@@ -138,7 +138,7 @@ class InformationObjectEditAction extends DefaultEditAction
         $this->parent = QubitInformationObject::getById(QubitInformationObject::ROOT_ID);
         $this->form->setDefault('parent', $this->context->routing->generate(null, array($this->parent, 'module' => 'informationobject')));
       }
-      
+
       if (isset($getParams['repository']))
       {
         $this->resource->repository = QubitRepository::getById($this->request->repository);
@@ -156,6 +156,9 @@ class InformationObjectEditAction extends DefaultEditAction
       {
         $this->publicationStatusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
       }
+
+      // If creating new description and identifier mask is set to on, auto-generate next identifier.
+      $this->handleIdentifierFromMask();
     }
   }
 
@@ -597,6 +600,7 @@ class InformationObjectEditAction extends DefaultEditAction
     $this->deleteNotes();
     $this->updateChildLevels();
     $this->removeDuplicateRepositoryAssociations();
+    $this->incrementMaskCounter();
   }
 
   public function execute($request)
@@ -782,5 +786,34 @@ class InformationObjectEditAction extends DefaultEditAction
         $this->resource->informationObjectsRelatedByparentId[] = $childLevel;
       }
     }
+  }
+
+  /**
+   * If identifier mask is enabled, set our new info obj to an identifier generated
+   * from the mask.
+   */
+  private function handleIdentifierFromMask()
+  {
+    // Pass if we're using mask or not to template, fill in identifier with generated
+    // identifier if so.
+    if ($this->mask = sfConfig::get('app_identifier_mask_enabled', 0))
+    {
+      $this->resource->identifier = QubitInformationObject::generateIdentiferFromMask();
+    }
+  }
+
+  /**
+   * If the user is using an identifier generated from the mask, increment the mask counter.
+   */
+  private function incrementMaskCounter()
+  {
+    if (!filter_var($this->request->getPostParameter('usingMask'), FILTER_VALIDATE_BOOLEAN))
+    {
+      return;
+    }
+
+    $counter = QubitInformationObject::getIdentifierCounter();
+    $counter->value++;
+    $counter->save();
   }
 }

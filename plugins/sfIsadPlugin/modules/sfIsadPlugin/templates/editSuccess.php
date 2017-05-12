@@ -8,7 +8,6 @@
 <?php end_slot() ?>
 
 <?php slot('title') ?>
-
   <h1><?php echo render_title($isad) ?></h1>
 
   <?php if (isset($sf_request->source)): ?>
@@ -44,6 +43,7 @@
           ->label(__('Identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
           ->renderRow() ?>
 
+        <?php echo get_partial('informationobject/identifierOptions', array('mask' => $mask)) ?>
         <?php echo get_partial('informationobject/alternativeIdentifiers', $sf_data->getRaw('alternativeIdentifiersComponent')->getVarHolder()->getAll()) ?>
 
         <?php echo render_field($form->title

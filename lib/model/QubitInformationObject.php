@@ -3317,4 +3317,46 @@ class QubitInformationObject extends BaseInformationObject
       $item->delete();
     }
   }
+
+  /**
+   * Get current identifier counter for identifier mask from database.
+   *
+   * @return QubitSetting  The identifier counter setting (use ->value to get value).
+   */
+  public static function getIdentifierCounter()
+  {
+    if (null === $counter = QubitSetting::getByName('identifier_counter'))
+    {
+      throw new sfException('identifier_counter setting not found--is your database upgraded?');
+    }
+
+    return $counter;
+  }
+
+  /**
+   * Generate identifier based on identifier mask and current counter.
+   *
+   * @return string  The generated identifier.
+   */
+  public static function generateIdentiferFromMask()
+  {
+    $counter = self::getIdentifierCounter();
+
+    return preg_replace_callback('/([#%])([A-z]+)/', function($match) use ($counter)
+    {
+      if ('%' == $match[1])
+      {
+        return strftime('%'.$match[2]);
+      }
+      else if ('#' == $match[1])
+      {
+        if (0 < preg_match('/^i+$/', $match[2], $matches))
+        {
+          return str_pad($counter->value, strlen($matches[0]), 0, STR_PAD_LEFT);
+        }
+
+        return $match[2];
+      }
+    }, sfConfig::get('app_identifier_mask', ''));
+  }
 }

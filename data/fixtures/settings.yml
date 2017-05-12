@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 153
+    value: 154
   milestone:
     name: milestone
     editable: 0
@@ -1084,6 +1084,27 @@ QubitSetting:
       en: 0
   Qubit_Settings_generateReportsAsPubUser:
     name: generate_reports_as_pub_user
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 0
+  Qubit_Settings_identifierMask:
+    name: identifier_mask
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: %Y-%m-%d/#i
+  Qubit_Settings_identifierCounter:
+    name: identifier_counter
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 0
+  Qubit_Settings_identifierMaskEnabled:
+    name: identifier_mask_enabled
     editable: 1
     deleteable: 0
     source_culture: en

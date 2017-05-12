@@ -46,6 +46,9 @@ class SettingsGlobalForm extends sfForm
       'accession_mask_enabled' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'accession_mask' => new sfWidgetFormInput,
       'accession_counter' => new sfWidgetFormInput,
+      'identifier_mask_enabled' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
+      'identifier_mask' => new sfWidgetFormInput,
+      'identifier_counter' => new sfWidgetFormInput,
       'separator_character' => new sfWidgetFormInput(array(), array('maxlength' => 1)),
       'inherit_code_informationobject' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'sort_browser_user' => new sfWidgetFormSelectRadio(array('choices' => array('alphabetic' => 'alphabetic', 'lastUpdated' => 'last updated', 'identifier' => 'identifier', 'referenceCode' => $this->i18n->__('reference code'))), array('class' => 'radio')),
@@ -76,6 +79,9 @@ class SettingsGlobalForm extends sfForm
       'accession_mask_enabled' => $this->i18n->__('Accession mask enabled'),
       'accession_mask' => $this->i18n->__('Accession mask'),
       'accession_counter' => $this->i18n->__('Accession counter'),
+      'identifier_mask_enabled' => $this->i18n->__('Identifier mask enabled'),
+      'identifier_mask' => $this->i18n->__('Identifier mask'),
+      'identifier_counter' => $this->i18n->__('Identifier counter'),
       'separator_character' => $this->i18n->__('Reference code separator'),
       'inherit_code_informationobject' => $this->i18n->__('Inherit reference code (information object)'),
       'sort_browser_user' => $this->i18n->__('Sort browser (users)'),
@@ -163,6 +169,9 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['default_repository_browse_view'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['default_archival_description_browse_view'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['slug_basis_informationobject'] = $this->getSlugBasisInformationObjectValidator();
+    $this->validatorSchema['identifier_mask_enabled'] = new sfValidatorInteger(array('required' => false));
+    $this->validatorSchema['identifier_mask'] = new sfValidatorString(array('required' => false));
+    $this->validatorSchema['identifier_counter'] = new sfValidatorString(array('required' => false));
 
     $this->validatorSchema['repository_quota'] = new sfValidatorNumber(
       array('required' => true, 'min' => -1),

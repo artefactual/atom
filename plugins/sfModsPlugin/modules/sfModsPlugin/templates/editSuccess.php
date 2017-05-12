@@ -41,6 +41,8 @@
           ->help(__('Contains a unique standard number or code that distinctively identifies a resource.'))
           ->renderRow() ?>
 
+        <?php echo get_partial('informationobject/identifierOptions', array('mask' => $mask, 'hideAltIdButton' => true)) ?>
+
         <?php echo render_field($form->title
           ->help(__('A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it. Choice and format of titles should be governed by a content standard such as the Anglo-American Cataloging Rules, 2nd edition (AACR2), Cataloguing Cultural Objects (CCO), or Describing Archives: A Content Standard (DACS). Details such as capitalization, choosing among the forms of titles presented on an item, and use of abbreviations should be determined based on the rules in a content standard. One standard should be chosen and used consistently for all records in a set.')), $resource) ?>
 
