@@ -77,6 +77,9 @@ class SettingsGlobalAction extends sfAction
     $accessionMaskEnabled = QubitSetting::getByName('accession_mask_enabled');
     $accessionMask = QubitSetting::getByName('accession_mask');
     $accessionCounter = QubitSetting::getByName('accession_counter');
+    $identifierMaskEnabled = QubitSetting::getByName('identifier_mask_enabled');
+    $identifierMask = QubitSetting::getByName('identifier_mask');
+    $identifierCounter = QubitSetting::getByName('identifier_counter');
     $separatorCharacter = QubitSetting::getByName('separator_character');
     $inheritCodeInformationObject = QubitSetting::getByName('inherit_code_informationobject');
     $sortBrowserUser = QubitSetting::getByName('sort_browser_user');
@@ -105,6 +108,9 @@ class SettingsGlobalAction extends sfAction
       'accession_mask_enabled' => (isset($accessionMaskEnabled)) ? intval($accessionMaskEnabled->getValue(array('sourceCulture'=>true))) : 1,
       'accession_mask' => (isset($accessionMask)) ? $accessionMask->getValue(array('sourceCulture'=>true)) : null,
       'accession_counter' => (isset($accessionCounter)) ? intval($accessionCounter->getValue(array('sourceCulture'=>true))) : 1,
+      'identifier_mask_enabled' => (isset($identifierMaskEnabled)) ? intval($identifierMaskEnabled->getValue(array('sourceCulture'=>true))) : 1,
+      'identifier_mask' => (isset($identifierMask)) ? $identifierMask->getValue(array('sourceCulture'=>true)) : null,
+      'identifier_counter' => (isset($identifierCounter)) ? intval($identifierCounter->getValue(array('sourceCulture'=>true))) : 1,
       'separator_character' => (isset($separatorCharacter)) ? $separatorCharacter->getValue(array('sourceCulture'=>true)) : null,
       'inherit_code_informationobject' => (isset($inheritCodeInformationObject)) ? intval($inheritCodeInformationObject->getValue(array('sourceCulture'=>true))) : 1,
       'sort_browser_user' => (isset($sortBrowserUser)) ? $sortBrowserUser->getValue(array('sourceCulture'=>true)) : 0,
@@ -209,6 +215,43 @@ class SettingsGlobalAction extends sfAction
 
         // Force sourceCulture update to prevent discrepency in settings between cultures
         $setting->setValue($accessionCounter, array('sourceCulture' => true));
+        $setting->save();
+      }
+    }
+
+    // Identifier mask enabled
+    if (null !== $identifierMaskEnabled = $thisForm->getValue('identifier_mask_enabled'))
+    {
+      if (null === $setting = QubitSetting::getByName('identifier_mask_enabled'))
+      {
+        $setting = new QubitSetting;
+        $setting->name = 'identifier_mask_enabled';
+      }
+
+      // Force sourceCulture update to prevent discrepency in settings between cultures
+      $setting->setValue($identifierMaskEnabled, array('sourceCulture' => true));
+      $setting->save();
+    }
+
+    // Identifier mask
+    if (null !== $identifierMask = $thisForm->getValue('identifier_mask'))
+    {
+      $setting = QubitSetting::getByName('identifier_mask');
+
+      // Force sourceCulture update to prevent discrepency in settings between cultures
+      $setting->setValue($identifierMask, array('sourceCulture' => true));
+      $setting->save();
+    }
+
+    // Identifier counter
+    if (null !== $identifierCounter = $thisForm->getValue('identifier_counter'))
+    {
+      if (ctype_digit($identifierCounter) && $identifierCounter > -1)
+      {
+        $setting = QubitSetting::getByName('identifier_counter');
+
+        // Force sourceCulture update to prevent discrepency in settings between cultures
+        $setting->setValue($identifierCounter, array('sourceCulture' => true));
         $setting->save();
       }
     }
