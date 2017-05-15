@@ -10108,18 +10108,21 @@ QubitTerm:
       es: 'Nota de créditos'
   QubtTerm_job_status_in_progress:
     taxonomy_id: QubitTaxonomy_job_status
+    parent_id: QubitTerm_110
     id: 183
     source_culture: en
     name:
       en: 'In progress'
   QubtTerm_job_status_in_completed:
     taxonomy_id: QubitTaxonomy_job_status
+    parent_id: QubitTerm_110
     id: 184
     source_culture: en
     name:
       en: 'Completed'
   QubtTerm_job_status_error:
     taxonomy_id: QubitTaxonomy_job_status
+    parent_id: QubitTerm_110
     id: 185
     source_culture: en
     name:

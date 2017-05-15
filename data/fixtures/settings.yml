@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 152
+    value: 153
   milestone:
     name: milestone
     editable: 0

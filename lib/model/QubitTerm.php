@@ -233,7 +233,10 @@ class QubitTerm extends BaseTerm
       QubitTerm::TEXT_ID,
       QubitTerm::THUMBNAIL_ID,
       QubitTerm::TITLE_NOTE_ID,
-      QubitTerm::VIDEO_ID));
+      QubitTerm::VIDEO_ID,
+      QubitTerm::JOB_STATUS_IN_PROGRESS_ID,
+      QubitTerm::JOB_STATUS_COMPLETED_ID,
+      QubitTerm::JOB_STATUS_ERROR_ID));
   }
 
   public function __toString()

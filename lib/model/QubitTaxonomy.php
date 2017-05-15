@@ -82,7 +82,9 @@ class QubitTaxonomy extends BaseTaxonomy
     RIGHTS_STATUTES_ID = 75,
 
     // Genre taxonomy
-    GENRE_ID = 78;
+    GENRE_ID = 78,
+
+    JOB_STATUS_ID = 79;
 
   public static
     $lockedTaxonomies = array(
@@ -97,7 +99,8 @@ class QubitTaxonomy extends BaseTaxonomy
       self::STATUS_TYPE_ID,
       self::PUBLICATION_STATUS_ID,
       self::ACTOR_NAME_TYPE_ID,
-      self::INFORMATION_OBJECT_TEMPLATE_ID);
+      self::INFORMATION_OBJECT_TEMPLATE_ID,
+      self::JOB_STATUS_ID);
 
   public function __toString()
   {
