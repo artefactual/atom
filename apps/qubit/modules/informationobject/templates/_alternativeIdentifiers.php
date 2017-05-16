@@ -1,5 +1,6 @@
 <div class="section">
-  <a href="#" id="alternative-identifiers">Add alternative identifier(s)</a>
+  <a href="#" id="alternative-identifiers"><?php echo __('Add alternative identifier(s)') ?></a>
+  <a data-endpoint-url="<?php echo url_for(array('module' => 'informationobject', 'action' => 'generateIdentifier')) ?>" id="generate-identifier"><?php echo __('Generate identifier') ?></a>
 </div>
 
 <div class="section" id="alternative-identifiers-table"<?php echo 0 < count($alternativeIdentifiers) ? '' : 'style="display:none"' ?>>
