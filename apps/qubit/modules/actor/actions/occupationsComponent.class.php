@@ -21,12 +21,13 @@ class ActorOccupationsComponent extends sfComponent
 {
   public function execute($request)
   {
+    // Create form. The note field has to be named content to allow translations
     $this->form = new sfForm;
     $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
     $this->form->setValidator('occupation', new sfValidatorString);
-    $this->form->setValidator('note', new sfValidatorString);
+    $this->form->setValidator('content', new sfValidatorString);
     $this->form->setWidget('occupation', new sfWidgetFormSelect(array('choices' => array())));
-    $this->form->setWidget('note', new sfWidgetFormTextarea);
+    $this->form->setWidget('content', new sfWidgetFormTextarea);
 
     $this->occupations = $this->resource->getOccupations();
     $this->occupationsTaxonomy = QubitTaxonomy::getById(QubitTaxonomy::ACTOR_OCCUPATION_ID);
@@ -65,11 +66,11 @@ class ActorOccupationsComponent extends sfComponent
         $relation->term = $params['_sf_route']->resource;
 
         // Attach note to new relations if populated
-        if (!isset($item['id']) && strlen($item['note']) > 0)
+        if (!isset($item['id']) && strlen($item['content']) > 0)
         {
           $relation->notes[] = $note = new QubitNote;
           $note->typeId = QubitTerm::ACTOR_OCCUPATION_NOTE_ID;
-          $note->content = $item['note'];
+          $note->content = $item['content'];
         }
 
         // Save the old relations, because adding an existing relation with
@@ -81,23 +82,43 @@ class ActorOccupationsComponent extends sfComponent
             'noteTypeId' => QubitTerm::ACTOR_OCCUPATION_NOTE_ID
           ))->offsetGet(0);
 
-          if (!isset($note) && strlen($item['note']) > 0)
+          if (!isset($note) && strlen($item['content']) > 0)
           {
             // Add new note
             $relation->notes[] = $note = new QubitNote;
             $note->typeId = QubitTerm::ACTOR_OCCUPATION_NOTE_ID;
             $note->content = $item['note'];
           }
-          else if (isset($note) && strlen($item['note']) > 0)
+          else if (isset($note) && strlen($item['content']) > 0)
           {
             // Update note
-            $note->content = $item['note'];
+            $note->content = $item['content'];
             $note->save();
           }
-          else if (isset($note) && strlen($item['note']) < 1)
+          else if (isset($note) && strlen($item['content']) < 1)
           {
-            // Delete note
-            $note->delete();
+            $deleteNote = true;
+
+            // Check other cultures
+            foreach ($note->noteI18ns as $i18n)
+            {
+              // If there is a content in other culture do not delete the note, just update
+              if ($i18n->culture !== $this->context->user->getCulture() && !empty($i18n->content))
+              {
+                $note->content = $item['content'];
+                $note->save();
+
+                $deleteNote = false;
+
+                break;
+              }
+            }
+
+            // Delete note without content in any culture
+            if ($deleteNote)
+            {
+              $note->delete();
+            }
           }
 
           $relation->save();

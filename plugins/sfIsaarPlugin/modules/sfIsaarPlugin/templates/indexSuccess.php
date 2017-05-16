@@ -174,7 +174,10 @@
       <?php foreach ($resource->getOccupations() as $item): ?>
         <div>
           <?php echo link_to(render_title($item->term), array($item->term, 'module' => 'term')) ?>
-          <?php echo render_show(__('Note'), render_value($item->getNotesByType(array('noteTypeId' => QubitTerm::ACTOR_OCCUPATION_NOTE_ID))->offsetGet(0))) ?>
+          <?php $note = $item->getNotesByType(array('noteTypeId' => QubitTerm::ACTOR_OCCUPATION_NOTE_ID))->offsetGet(0) ?>
+          <?php if (isset($note)): ?>
+            <?php echo render_show(__('Note'), render_value($note->getContent(array('cultureFallback' => true)))) ?>
+          <?php endif; ?>
         </div>
       <?php endforeach; ?>
     </div>

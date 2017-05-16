@@ -28,8 +28,14 @@
           </div>
         </td><td>
           <div class="animateNicely">
-            <?php $form->setDefault('note', $item->getNotesByType(array('noteTypeId' => QubitTerm::ACTOR_OCCUPATION_NOTE_ID))->offsetGet(0)); ?>
-            <?php echo $form->note->render(array('class' => 'resizable')) ?>
+            <?php $note = $item->getNotesByType(array('noteTypeId' => QubitTerm::ACTOR_OCCUPATION_NOTE_ID))->offsetGet(0) ?>
+            <?php if (isset($note)): ?>
+              <?php $form->setDefault('content', $note->getContent()); ?>
+              <?php echo render_field($form->content, $note, array('class' => 'resizable', 'onlyInput' => true)) ?>
+            <?php else: ?>
+              <?php $form->setDefault('content', ''); ?>
+              <?php echo $form->content->render(array('class' => 'resizable')) ?>
+            <?php endif; ?>
           </div>
         </td>
       </tr>
@@ -53,8 +59,8 @@
         </div>
       </td><td>
         <div class="animateNicely">
-          <?php $form->setDefault('note', ''); ?>
-          <?php echo $form->note->render(array('class' => 'resizable')) ?>
+          <?php $form->setDefault('content', ''); ?>
+          <?php echo $form->content->render(array('class' => 'resizable')) ?>
         </div>
       </td>
     </tr>
