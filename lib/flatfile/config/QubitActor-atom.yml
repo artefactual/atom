@@ -19,3 +19,5 @@ columnNames:
   - revisionHistory
   - sources
   - maintenanceNotes
+  - actorOccupations
+  - actorOccupationNotes
