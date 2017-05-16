@@ -333,6 +333,12 @@ mapping:
       other_names: other_name
       parallel_names: other_name
       standardized_names: other_name
+    _partial_foreign_types:
+      occupations:
+        _i18nFields: [name, content]
+        dynamic: strict
+        properties:
+          id: { type: integer, index: not_analyzed }
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }
