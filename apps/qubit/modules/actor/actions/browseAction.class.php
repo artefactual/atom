@@ -44,6 +44,10 @@ class ActorBrowseAction extends DefaultBrowseAction
       'maintainingRepository' =>
         array('type' => 'term',
               'field' => 'maintainingRepositoryId',
+              'size' => 10),
+      'occupation' =>
+        array('type' => 'term',
+              'field' => 'occupations.id',
               'size' => 10));
 
   protected function populateFacet($name, $ids)
@@ -51,6 +55,7 @@ class ActorBrowseAction extends DefaultBrowseAction
     switch ($name)
     {
       case 'types':
+      case 'occupation':
         $criteria = new Criteria;
         $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
 

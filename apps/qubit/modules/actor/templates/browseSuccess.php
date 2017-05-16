@@ -45,6 +45,13 @@
         'pager' => $pager,
         'filters' => $search->filters)) ?>
 
+      <?php echo get_partial('search/facet', array(
+        'target' => '#facet-occupation',
+        'label' => __('Occupation'),
+        'facet' => 'occupation',
+        'pager' => $pager,
+        'filters' => $search->filters)) ?>
+
     </div>
 
   </section>
