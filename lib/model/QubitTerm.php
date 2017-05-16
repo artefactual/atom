@@ -166,7 +166,9 @@ class QubitTerm extends BaseTerm
     OFFLINE_ID = 186,
 
     // Relation type taxonomy
-    MAINTAINING_REPOSITORY_RELATION_ID = 187;
+    MAINTAINING_REPOSITORY_RELATION_ID = 187,
+
+    ACTOR_OCCUPATION_NOTE_ID = 188;
 
 
   public static function isProtected($id)
@@ -236,7 +238,8 @@ class QubitTerm extends BaseTerm
       QubitTerm::VIDEO_ID,
       QubitTerm::JOB_STATUS_IN_PROGRESS_ID,
       QubitTerm::JOB_STATUS_COMPLETED_ID,
-      QubitTerm::JOB_STATUS_ERROR_ID));
+      QubitTerm::JOB_STATUS_ERROR_ID,
+      QubitTerm::ACTOR_OCCUPATION_NOTE_ID));
   }
 
   public function __toString()

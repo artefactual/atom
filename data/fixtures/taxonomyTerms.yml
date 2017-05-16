@@ -1331,6 +1331,12 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       en: 'Job status'
+  QubitTaxonomy_actor_occupation:
+    source_culture: en
+    id: 80
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'Actor occupations'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -3615,6 +3621,13 @@ QubitTerm:
     source_culture: en
     name:
       en: 'Error'
+  QubtTerm_actor_occupation_note:
+    taxonomy_id: QubitTaxonomy_7
+    parent_id: QubitTerm_110
+    id: 188
+    source_culture: en
+    name:
+      en: 'Actor occupation note'
   QubitTerm_actor_relationship_is_the_superior_of:
     taxonomy_id: QubitTaxonomy_actor_relation_type
     parent_id: QubitTerm_actor_relationship_hierarchical

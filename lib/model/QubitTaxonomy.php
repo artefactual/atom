@@ -84,7 +84,9 @@ class QubitTaxonomy extends BaseTaxonomy
     // Genre taxonomy
     GENRE_ID = 78,
 
-    JOB_STATUS_ID = 79;
+    JOB_STATUS_ID = 79,
+
+    ACTOR_OCCUPATION_ID = 80;
 
   public static
     $lockedTaxonomies = array(
