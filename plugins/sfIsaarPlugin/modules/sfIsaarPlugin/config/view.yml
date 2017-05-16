@@ -9,6 +9,7 @@ editSuccess:
     /vendor/yui/autocomplete/autocomplete-min:
     autocomplete:
     multiInput:
+    multiRow:
 
 indexSuccess:
   javascripts:

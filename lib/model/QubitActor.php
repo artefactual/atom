@@ -540,4 +540,14 @@ class QubitActor extends BaseActor
       $relation->save();
     }
   }
+
+  public function getOccupations()
+  {
+    $criteria = new Criteria;
+    $this->addObjectTermRelationsRelatedByObjectIdCriteria($criteria);
+    QubitObjectTermRelation::addJoinTermCriteria($criteria);
+    $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::ACTOR_OCCUPATION_ID);
+
+    return QubitObjectTermRelation::get($criteria);
+  }
 }
