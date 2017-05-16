@@ -1078,7 +1078,8 @@ str;
       $resource->mandates,
       $this->structureOrGenealogy,
       $this->generalContext,
-      $this->biogHist
+      $this->biogHist,
+      $resource->getOccupations(),
     );
 
     return (bool)array_filter($descriptionElements);
