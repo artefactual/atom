@@ -608,10 +608,6 @@ return;
     // <placeEntry/>
     $this->resource->legalStatus = $fd->find('eac:cpfDescription/eac:description/eac:legalStatus/eac:term|eac:cpfDescription/eac:description/eac:legalStatuses/eac:legalStatus/eac:term')->text();
 
-    // TODO <date/>, <dateRange/>, <dateSet/>, <descriptiveNote/>,
-    // <placeEntry/>
-    $this->resource->functions = $fd->find('eac:cpfDescription/eac:description/eac:function/eac:term|eac:cpfDescription/eac:description/eac:functions/eac:function/eac:term|eac:cpfDescription/eac:description/eac:occupation/eac:term|eac:cpfDescription/eac:description/eac:occupations/eac:occupation/eac:term')->text();
-
     //$fd->find('eac:cpfDescription/eac:description/eac:languageUsed');
 
     // TODO <date/>, <dateRange/>, <dateSet/>, <descriptiveNote/>,
@@ -785,6 +781,52 @@ return;
       // TODO Set $relation->type by mapping to controlled vocabulary
 
       $this->resource->relationsRelatedByobjectId[] = $relation;
+    }
+
+    foreach ($fd->find('eac:cpfDescription/eac:description/eac:occupations/eac:occupation') as $node)
+    {
+      $termName = trim($fd->spawn()->add($node)->find('eac:term')->text());
+
+      if (empty($termName))
+      {
+        continue;
+      }
+
+      $criteria = new Criteria;
+      $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+      $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::ACTOR_OCCUPATION_ID);
+      $criteria->add(QubitTermI18n::NAME, $termName);
+      $criteria->add(QubitTermI18n::CULTURE, sfContext::getInstance()->user->getCulture());
+
+      $term = QubitTerm::getOne($criteria);
+      if (!isset($term))
+      {
+        if (!QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::ACTOR_OCCUPATION_ID), 'createTerm'))
+        {
+          continue;
+        }
+
+        $term = new QubitTerm;
+        $term->name = $termName;
+        $term->taxonomyId = QubitTaxonomy::ACTOR_OCCUPATION_ID;
+        $term->save();
+      }
+
+      $relation = new QubitObjectTermRelation;
+      $relation->term = $term;
+
+      $noteContent = trim($fd->spawn()->add($node)->find('eac:descriptiveNote')->text());
+
+      if (!empty($noteContent))
+      {
+        $note = new QubitNote;
+        $note->typeId = QubitTerm::ACTOR_OCCUPATION_NOTE_ID;
+        $note->content = $noteContent;
+
+        $relation->notes[] = $note;
+      }
+
+      $this->resource->objectTermRelationsRelatedByobjectId[] = $relation;
     }
 
     // TODO <alternativeSet/>
