@@ -600,6 +600,7 @@ class InformationObjectEditAction extends DefaultEditAction
     $this->deleteNotes();
     $this->updateChildLevels();
     $this->removeDuplicateRepositoryAssociations();
+    $this->incrementMaskCounter();
   }
 
   public function execute($request)
@@ -789,7 +790,7 @@ class InformationObjectEditAction extends DefaultEditAction
 
   /**
    * If identifier mask is enabled, set our new info obj to an identifier generated
-   * from the mask. Also increment the mask counter.
+   * from the mask.
    */
   private function handleIdentifierFromMask()
   {
@@ -801,9 +802,23 @@ class InformationObjectEditAction extends DefaultEditAction
     if ($maskEnabled->value)
     {
       $this->resource->identifier = QubitInformationObject::generateIdentiferFromMask();
-      $counter = QubitInformationObject::getIdentifierCounter();
-      $counter->value++;
-      $counter->save();
     }
+
+    $this->mask = $maskEnabled->value; // Pass if we're using an identifier generated from mask to template
+  }
+
+  /**
+   * If the user is using an identifier generated from the mask, increment the mask counter.
+   */
+  private function incrementMaskCounter()
+  {
+    if (!filter_var($this->request->getPostParameter('usingMask'), FILTER_VALIDATE_BOOLEAN))
+    {
+      return;
+    }
+
+    $counter = QubitInformationObject::getIdentifierCounter();
+    $counter->value++;
+    $counter->save();
   }
 }
