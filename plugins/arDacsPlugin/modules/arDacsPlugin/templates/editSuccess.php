@@ -42,6 +42,7 @@
           ->label(__('Identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
           ->renderRow() ?>
 
+        <?php echo get_partial('informationobject/identifierOptions', array('mask' => $mask)) ?>
         <?php echo get_partial('informationobject/alternativeIdentifiers', $sf_data->getRaw('alternativeIdentifiersComponent')->getVarHolder()->getAll()) ?>
 
         <div class="form-item">

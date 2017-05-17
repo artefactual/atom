@@ -11,6 +11,7 @@ editSuccess:
     /vendor/yui/container/container-min:
     /vendor/yui/autocomplete/autocomplete-min:
     /vendor/imageflow/imageflow.packed.js:
+    /js/generateIdentifier.js:
     autocomplete:
     blank:
     imageflow:
