@@ -794,17 +794,12 @@ class InformationObjectEditAction extends DefaultEditAction
    */
   private function handleIdentifierFromMask()
   {
-    if (null === $maskEnabled = QubitSetting::getByName('identifier_mask_enabled'))
-    {
-      throw new sfException('identifier_mask_enabled setting not found--is your database upgraded?');
-    }
-
-    if ($maskEnabled->value)
+    // Pass if we're using mask or not to template, fill in identifier with generated
+    // identifier if so.
+    if ($this->mask = sfConfig::get('app_identifier_mask_enabled', 0))
     {
       $this->resource->identifier = QubitInformationObject::generateIdentiferFromMask();
     }
-
-    $this->mask = $maskEnabled->value; // Pass if we're using an identifier generated from mask to template
   }
 
   /**

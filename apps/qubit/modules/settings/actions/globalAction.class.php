@@ -209,7 +209,7 @@ class SettingsGlobalAction extends sfAction
     // Accession counter
     if (null !== $accessionCounter = $thisForm->getValue('accession_counter'))
     {
-      if (ctype_digit($accessionCounter) && $accessionCounter > -1)
+      if (ctype_digit($accessionCounter))
       {
         $setting = QubitSetting::getByName('accession_counter');
 
@@ -222,15 +222,12 @@ class SettingsGlobalAction extends sfAction
     // Identifier mask enabled
     if (null !== $identifierMaskEnabled = $thisForm->getValue('identifier_mask_enabled'))
     {
-      if (null === $setting = QubitSetting::getByName('identifier_mask_enabled'))
+      if (null !== $setting = QubitSetting::getByName('identifier_mask_enabled'))
       {
-        $setting = new QubitSetting;
-        $setting->name = 'identifier_mask_enabled';
+        // Force sourceCulture update to prevent discrepency in settings between cultures
+        $setting->setValue($identifierMaskEnabled, array('sourceCulture' => true));
+        $setting->save();
       }
-
-      // Force sourceCulture update to prevent discrepency in settings between cultures
-      $setting->setValue($identifierMaskEnabled, array('sourceCulture' => true));
-      $setting->save();
     }
 
     // Identifier mask
@@ -246,7 +243,7 @@ class SettingsGlobalAction extends sfAction
     // Identifier counter
     if (null !== $identifierCounter = $thisForm->getValue('identifier_counter'))
     {
-      if (ctype_digit($identifierCounter) && $identifierCounter > -1)
+      if (ctype_digit($identifierCounter))
       {
         $setting = QubitSetting::getByName('identifier_counter');
 

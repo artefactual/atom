@@ -3342,11 +3342,6 @@ class QubitInformationObject extends BaseInformationObject
   {
     $counter = self::getIdentifierCounter();
 
-    if (null === $mask = QubitSetting::getByName('identifier_mask'))
-    {
-      throw new sfException('identifier_mask setting not found--is your database upgraded?');
-    }
-
     return preg_replace_callback('/([#%])([A-z]+)/', function($match) use ($counter)
     {
       if ('%' == $match[1])
@@ -3362,6 +3357,6 @@ class QubitInformationObject extends BaseInformationObject
 
         return $match[2];
       }
-    }, $mask->value);
+    }, sfConfig::get('app_identifier_mask', ''));
   }
 }
