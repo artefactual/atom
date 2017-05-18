@@ -71,21 +71,28 @@ class arInformationObjectCsvExportJob extends arBaseJob
     $itemsExported = $this->exportResults($tempPath);
     $this->info($this->i18n->__('Exported %1 descriptions.', array('%1' => $itemsExported)));
 
-    // Compress CSV export files as a ZIP archive
-    $this->info($this->i18n->__('Creating ZIP file %1.', array('%1' => $this->getDownloadFilePath())));
-    $success = $this->createZipForDownload($tempPath);
-
-    if ($success !== true)
+    if ($itemsExported)
     {
-      $this->error($this->i18n->__('Failed to create ZIP file.'));
+      // Compress CSV export files as a ZIP archive
+      $this->info($this->i18n->__('Creating ZIP file %1.', array('%1' => $this->getDownloadFilePath())));
+      $success = $this->createZipForDownload($tempPath);
+      $this->job->downloadPath = $this->getDownloadRelativeFilePath();
 
-      return false;
+      if ($success !== true)
+      {
+        $this->error($this->i18n->__('Failed to create ZIP file.'));
+
+        return false;
+      }
+
+      $this->info($this->i18n->__('Export and archiving complete.'));
+    }
+    else
+    {
+      $this->info($this->i18n->__('No relevant archival descriptions were found to export.'));
     }
 
-    // Mark job as complete and set download path
-    $this->info($this->i18n->__('Export and archiving complete.'));
     $this->job->setStatusCompleted();
-    $this->job->downloadPath = $this->getDownloadRelativeFilePath();
     $this->job->save();
 
     return true;
