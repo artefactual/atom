@@ -72,7 +72,7 @@ class QubitPdo
     return $fetchedColumn;
   }
 
-  public static function modify($query, $parameters)
+  public static function modify($query, $parameters = array())
   {
     $modifyStmt = self::prepareAndExecute($query, $parameters);
 
