@@ -375,7 +375,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
     {
       $this->log($error);
     }
-    $this->log('Please, contact with an administrator.');
+    $this->log('Please, contact an administrator.');
   }
 
   /**
