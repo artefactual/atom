@@ -543,15 +543,29 @@ class QubitXmlImport
             break;
 
           case 'container':
+            // Get the collection root to check for existent phys. objects
+            if (!$this->collectionRoot)
+            {
+              $this->collectionRoot = $this->rootObject->getCollectionRoot();
+            }
+
             foreach ($nodeList2 as $item)
             {
-              $container = $item->nodeValue;
-              $type = $importDOM->xpath->query('@type', $item)->item(0)->nodeValue;
-              $label = $importDOM->xpath->query('@label', $item)->item(0)->nodeValue;
+              $name = $item->nodeValue;
               $parent = $importDOM->xpath->query('@parent', $item)->item(0)->nodeValue;
               $location = $importDOM->xpath->query('did/physloc[@id="'.$parent.'"]', $domNode)->item(0)->nodeValue;
 
-              $currentObject->importPhysicalObject($location, $container, $type, $label);
+              $options = array(
+                'type' => $importDOM->xpath->query('@type', $item)->item(0)->nodeValue,
+                'label' => $importDOM->xpath->query('@label', $item)->item(0)->nodeValue
+              );
+
+              if ($this->collectionRoot)
+              {
+                $options['collectionId'] = $this->collectionRoot->id;
+              }
+
+              $currentObject->importPhysicalObject($location, $name, $options);
             }
 
             break;

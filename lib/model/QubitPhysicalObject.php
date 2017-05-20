@@ -152,25 +152,41 @@ class QubitPhysicalObject extends BasePhysicalObject
    */
   public static function checkPhysicalObjectExistsInCollection($name, $location, $typeId, $collectionId)
   {
+    if (!isset($collectionId))
+    {
+      return;
+    }
+
+    // Get collection lft and rgt values from the database as they are not
+    // always being updated in the class cache in multi-level imports
+    $sql = "SELECT lft, rgt FROM information_object WHERE id = :id;";
+    $collection = QubitPdo::fetchOne($sql, array(':id' => $collectionId));
+    if (!isset($collection))
+    {
+      return;
+    }
+
     $objs = QubitPhysicalObject::getPhysicalObjectsByNameAndLocation($name, $location, $typeId);
     foreach ($objs as $physObj)
     {
-      $ios = $physObj->getInformationObjects();
-      foreach ($ios as $io)
-      {
-        $topLevelParent = $io->parent;
-        while ($topLevelParent->parent && $topLevelParent->parent->id != QubitInformationObject::ROOT_ID)
-        {
-          $topLevelParent = $topLevelParent->parent;
-        }
+      $sql = "SELECT rel.id FROM relation rel
+        INNER JOIN information_object io ON rel.object_id = io.id
+        WHERE rel.subject_id = :id AND rel.type_id = :typeId
+        AND io.lft >= :lft AND io.rgt <= :rgt;";
 
-        if ($topLevelParent->id === $collectionId)
-        {
-          return $physObj;
-        }
+      $params = array(
+        ':id' => $physObj->id,
+        ':typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID,
+        ':lft' => $collection->lft,
+        ':rgt' => $collection->rgt
+      );
+
+      if (QubitPdo::fetchOne($sql, $params))
+      {
+        return $physObj;
       }
     }
 
-    return null;
+    return;
   }
 }
