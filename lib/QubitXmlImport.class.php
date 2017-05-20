@@ -1037,25 +1037,26 @@ class QubitXmlImport
     {
       $event = $values['event'];
 
-      if (!empty($event))
+      if (empty($event))
       {
-        $place = array_key_exists('place', $values) ? $values['place'] : NULL;
-        $actor = array_key_exists('actor', $values) ? $values['actor'] : NULL;
+        continue;
+      }
 
-        if ($place !== NULL && $event->getPlace() === NULL)
-        {
-          $otr = new QubitObjectTermRelation;
-          $otr->setObject($event);
-          $otr->setTerm($place);
-          $otr->save();
-        }
+      $place = array_key_exists('place', $values) ? $values['place'] : null;
+      $actor = array_key_exists('actor', $values) ? $values['actor'] : null;
 
-        if ($actor !== NULL && $event->getActor() === NULL)
-        {
-          $event->setActor($actor);
-        }
+      if ($place && !$event->getPlace())
+      {
+        $otr = new QubitObjectTermRelation;
+        $otr->setTerm($place);
+        $otr->indexOnSave = false;
 
-        $event->save();
+        $event->objectTermRelationsRelatedByobjectId[] = $otr;
+      }
+
+      if ($actor && !$event->getActor())
+      {
+        $event->setActor($actor);
       }
     }
   }
