@@ -33,9 +33,9 @@ class QubitObjectTermRelation extends BaseObjectTermRelation
 
     if ($this->indexOnSave)
     {
-      if ($this->objectId != $cleanObjectId && null !== QubitInformationObject::getById($cleanObjectId))
+      if ($this->objectId != $cleanObjectId && null !== QubitObject::getById($cleanObjectId))
       {
-        QubitSearch::getInstance()->update(QubitInformationObject::getById($cleanObjectId));
+        QubitSearch::getInstance()->update(QubitObject::getById($cleanObjectId));
       }
 
       if ($this->object instanceof QubitInformationObject)
