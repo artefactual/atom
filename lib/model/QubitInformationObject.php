@@ -2035,6 +2035,7 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function importOriginationEadData($node)
   {
+    $imported = array();
     $entityTypes = array(
       'persname' => QubitTerm::PERSON_ID,
       'corpname' => QubitTerm::CORPORATE_BODY_ID,
@@ -2048,15 +2049,19 @@ class QubitInformationObject extends BaseInformationObject
 
       if ($nameNodes->length)
       {
-        foreach ($nameNodes as $n)
+        foreach ($nameNodes as $node)
         {
-          $this->setActorByName(
-            $n->nodeValue,
+          $actor = $this->setActorByName(
+            $node->nodeValue,
             array('entity_type_id' => $typeId, 'event_type_id' => QubitTerm::CREATION_ID)
           );
+
+          $imported[] = array('node' => $node, 'actor' => $actor);
         }
       }
     }
+
+    return $imported;
   }
 
   /**

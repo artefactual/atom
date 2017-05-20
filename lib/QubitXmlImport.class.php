@@ -695,14 +695,24 @@ class QubitXmlImport
               $dacsProcessingInformationNoteTypeId   = array_search("Processing information", $termData['dacsSpecializedNotesTypes']['en']);
               $dacsVariantTitleInformationNoteTypeId   = array_search("Variant title information", $termData['dacsSpecializedNotesTypes']['en']);
 
-              // invoke the object and method defined in the schema map
-              $obj = call_user_func_array(array( & $currentObject, $methodMap['Method']), $parameters);
+              // Invoke the object and method defined in the schema map
+              $result = call_user_func_array(array( & $currentObject, $methodMap['Method']), $parameters);
 
               // If an actor/event object was returned, track that
               // in the events cache for later cleanup
-              if(!empty($obj))
+              if($currentObject instanceof QubitInformationObject && !empty($result))
               {
-                $this->trackEvent($obj, $domNode2);
+                if ($methodMap['Method'] === 'importOriginationEadData')
+                {
+                  foreach($result as $actorNode)
+                  {
+                    $this->trackEvent($actorNode['actor'], $actorNode['node']);
+                  }
+                }
+                else
+                {
+                  $this->trackEvent($result, $domNode2);
+                }
               }
             }
         }
