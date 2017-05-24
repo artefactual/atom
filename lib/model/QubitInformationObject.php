@@ -2606,15 +2606,15 @@ class QubitInformationObject extends BaseInformationObject
 
   public function importPhysicalObject($location, $name, $options = array())
   {
-    if ($options['label'] && $options['type'])
+    if (!empty($options['label']) && !empty($options['type']))
     {
       $fullType = ucfirst($options['label']).' '.$options['type'];
     }
-    else if ($options['type'])
+    else if (!empty($options['type']))
     {
       $fullType = ucfirst($options['type']);
     }
-    else if ($options['label'])
+    else if (!empty($options['label']))
     {
       $fullType = ucfirst($options['label']);
     }
@@ -2631,7 +2631,7 @@ class QubitInformationObject extends BaseInformationObject
       : false;
 
     // Check for an existing physical object within this collection with the same name
-    if ($options['collectionId'])
+    if (isset($options['collectionId']))
     {
       $object = QubitPhysicalObject::checkPhysicalObjectExistsInCollection(
         $name,

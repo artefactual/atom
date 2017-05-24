@@ -159,7 +159,7 @@ class QubitPhysicalObject extends BasePhysicalObject
 
     // Get collection lft and rgt values from the database as they are not
     // always being updated in the class cache in multi-level imports
-    $sql = "SELECT lft, rgt FROM information_object WHERE id = :id;";
+    $sql = 'SELECT lft, rgt FROM information_object WHERE id = :id;';
     $collection = QubitPdo::fetchOne($sql, array(':id' => $collectionId));
     if (!isset($collection))
     {
@@ -169,10 +169,10 @@ class QubitPhysicalObject extends BasePhysicalObject
     $objs = QubitPhysicalObject::getPhysicalObjectsByNameAndLocation($name, $location, $typeId);
     foreach ($objs as $physObj)
     {
-      $sql = "SELECT rel.id FROM relation rel
+      $sql = 'SELECT rel.id FROM relation rel
         INNER JOIN information_object io ON rel.object_id = io.id
         WHERE rel.subject_id = :id AND rel.type_id = :typeId
-        AND io.lft >= :lft AND io.rgt <= :rgt;";
+        AND io.lft >= :lft AND io.rgt <= :rgt;';
 
       $params = array(
         ':id' => $physObj->id,
@@ -186,7 +186,5 @@ class QubitPhysicalObject extends BasePhysicalObject
         return $physObj;
       }
     }
-
-    return;
   }
 }
