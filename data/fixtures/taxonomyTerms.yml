@@ -3594,6 +3594,27 @@ QubitTerm:
       sr: 'Подржавајућа технологија'
       vi: 'Công nghệ hỗ trợ'
       zh: 辅助技术
+  QubtTerm_job_status_in_progress:
+    taxonomy_id: QubitTaxonomy_job_status
+    parent_id: QubitTerm_110
+    id: 183
+    source_culture: en
+    name:
+      en: 'In progress'
+  QubtTerm_job_status_in_completed:
+    taxonomy_id: QubitTaxonomy_job_status
+    parent_id: QubitTerm_110
+    id: 184
+    source_culture: en
+    name:
+      en: 'Completed'
+  QubtTerm_job_status_error:
+    taxonomy_id: QubitTaxonomy_job_status
+    parent_id: QubitTerm_110
+    id: 185
+    source_culture: en
+    name:
+      en: 'Error'
   QubitTerm_actor_relationship_is_the_superior_of:
     taxonomy_id: QubitTaxonomy_actor_relation_type
     parent_id: QubitTerm_actor_relationship_hierarchical
@@ -10106,27 +10127,6 @@ QubitTerm:
     name:
       en: 'Credits note'
       es: 'Nota de créditos'
-  QubtTerm_job_status_in_progress:
-    taxonomy_id: QubitTaxonomy_job_status
-    parent_id: QubitTerm_110
-    id: 183
-    source_culture: en
-    name:
-      en: 'In progress'
-  QubtTerm_job_status_in_completed:
-    taxonomy_id: QubitTaxonomy_job_status
-    parent_id: QubitTerm_110
-    id: 184
-    source_culture: en
-    name:
-      en: 'Completed'
-  QubtTerm_job_status_error:
-    taxonomy_id: QubitTaxonomy_job_status
-    parent_id: QubitTerm_110
-    id: 185
-    source_culture: en
-    name:
-      en: 'Error'
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111
