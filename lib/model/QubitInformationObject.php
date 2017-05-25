@@ -583,47 +583,38 @@ class QubitInformationObject extends BaseInformationObject
       return;
     }
 
-    // Create DC and EAD XML exports if the description's published... otherwise delete any that may exist
-    if ($this->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)
+    // Create EAD XML exports if the description and/or top-level parent is published... otherwise delete any that may exist
+    if ($this->getCollectionRoot()->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)
     {
-      $this->createXmlExports();
+      // Export top-level parent as EAD
+      $params = array(
+        'objectId' => $this->getCollectionRoot()->id,
+        'format'   => 'ead'
+      );
+      QubitJob::runJob('arXmlExportSingleFileJob', $params);
     }
     else
     {
-      $this->deleteXmlExports();
+      unlink($this->pathToEadExport());
+      unlink($this->pathToEadExport(true));
     }
-  }
 
-  /**
-   * Initate asynchronous jobs to export EAD and DC XML.
-   */
-  public function createXmlExports()
-  {
-    // Export top-level parent as EAD
-    $params = array(
-      'objectId' => $this->getCollectionRoot()->id,
-      'format'   => 'ead'
-    );
-    QubitJob::runJob('arXmlExportSingleFileJob', $params);
 
-    // Export as DC
-    $params = array(
-      'objectId' => $this->id,
-      'format' => 'dc'
-    );
-    QubitJob::runJob('arXmlExportSingleFileJob', $params);
-  }
-
-  /**
-   *
-   * Remove EAD and DC XML exports.
-   */
-  public function deleteXmlExports()
-  {
-    unlink($this->pathToEadExport());
-    unlink($this->pathToEadExport(true));
-    unlink($this->pathToDcExport());
-    unlink($this->pathToDcExport(true));
+    // Create DC XML exports if the description's published... otherwise delete any that may exist
+    if ($this->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)
+    {
+      // Export as DC
+      $params = array(
+        'objectId' => $this->id,
+        'format' => 'dc'
+      );
+      QubitJob::runJob('arXmlExportSingleFileJob', $params);
+    }
+    else
+    {
+      unlink($this->pathToDcExport());
+      unlink($this->pathToDcExport(true));
+    }
   }
 
   /**
