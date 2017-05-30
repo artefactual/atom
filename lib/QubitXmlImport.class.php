@@ -1055,18 +1055,18 @@ class QubitXmlImport
       $place = array_key_exists('place', $values) ? $values['place'] : null;
       $actor = array_key_exists('actor', $values) ? $values['actor'] : null;
 
-      if ($place && !$event->getPlace())
+      if ($place)
       {
         $otr = new QubitObjectTermRelation;
-        $otr->setTerm($place);
+        $otr->termId = $place->id;
         $otr->indexOnSave = false;
 
         $event->objectTermRelationsRelatedByobjectId[] = $otr;
       }
 
-      if ($actor && !$event->getActor())
+      if ($actor)
       {
-        $event->setActor($actor);
+        $event->actorId = $actor->id;
       }
     }
   }
