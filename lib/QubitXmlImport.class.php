@@ -700,7 +700,7 @@ class QubitXmlImport
 
               // If an actor/event object was returned, track that
               // in the events cache for later cleanup
-              if($currentObject instanceof QubitInformationObject && !empty($result))
+              if ($currentObject instanceof QubitInformationObject && !empty($result))
               {
                 if ($methodMap['Method'] === 'importOriginationEadData')
                 {
