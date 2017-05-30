@@ -717,11 +717,11 @@ class QubitXmlImport
             }
         }
 
-        $this->associateEvents();
-
         unset($nodeList2);
       }
     }
+
+    $this->associateEvents();
   }
 
   /**
