@@ -543,15 +543,29 @@ class QubitXmlImport
             break;
 
           case 'container':
+            // Get the collection root to check for existent phys. objects
+            if (!$this->collectionRoot)
+            {
+              $this->collectionRoot = $this->rootObject->getCollectionRoot();
+            }
+
             foreach ($nodeList2 as $item)
             {
-              $container = $item->nodeValue;
-              $type = $importDOM->xpath->query('@type', $item)->item(0)->nodeValue;
-              $label = $importDOM->xpath->query('@label', $item)->item(0)->nodeValue;
+              $name = $item->nodeValue;
               $parent = $importDOM->xpath->query('@parent', $item)->item(0)->nodeValue;
               $location = $importDOM->xpath->query('did/physloc[@id="'.$parent.'"]', $domNode)->item(0)->nodeValue;
 
-              $currentObject->importPhysicalObject($location, $container, $type, $label);
+              $options = array(
+                'type' => $importDOM->xpath->query('@type', $item)->item(0)->nodeValue,
+                'label' => $importDOM->xpath->query('@label', $item)->item(0)->nodeValue
+              );
+
+              if ($this->collectionRoot)
+              {
+                $options['collectionId'] = $this->collectionRoot->id;
+              }
+
+              $currentObject->importPhysicalObject($location, $name, $options);
             }
 
             break;
@@ -681,23 +695,33 @@ class QubitXmlImport
               $dacsProcessingInformationNoteTypeId   = array_search("Processing information", $termData['dacsSpecializedNotesTypes']['en']);
               $dacsVariantTitleInformationNoteTypeId   = array_search("Variant title information", $termData['dacsSpecializedNotesTypes']['en']);
 
-              // invoke the object and method defined in the schema map
-              $obj = call_user_func_array(array( & $currentObject, $methodMap['Method']), $parameters);
+              // Invoke the object and method defined in the schema map
+              $result = call_user_func_array(array( & $currentObject, $methodMap['Method']), $parameters);
 
               // If an actor/event object was returned, track that
               // in the events cache for later cleanup
-              if(!empty($obj))
+              if ($currentObject instanceof QubitInformationObject && !empty($result))
               {
-                $this->trackEvent($obj, $domNode2);
+                if ($methodMap['Method'] === 'importOriginationEadData')
+                {
+                  foreach($result as $actorNode)
+                  {
+                    $this->trackEvent($actorNode['actor'], $actorNode['node']);
+                  }
+                }
+                else
+                {
+                  $this->trackEvent($result, $domNode2);
+                }
               }
             }
         }
 
-        $this->associateEvents();
-
         unset($nodeList2);
       }
     }
+
+    $this->associateEvents();
   }
 
   /**
@@ -1023,25 +1047,26 @@ class QubitXmlImport
     {
       $event = $values['event'];
 
-      if (!empty($event))
+      if (empty($event))
       {
-        $place = array_key_exists('place', $values) ? $values['place'] : NULL;
-        $actor = array_key_exists('actor', $values) ? $values['actor'] : NULL;
+        continue;
+      }
 
-        if ($place !== NULL && $event->getPlace() === NULL)
-        {
-          $otr = new QubitObjectTermRelation;
-          $otr->setObject($event);
-          $otr->setTerm($place);
-          $otr->save();
-        }
+      $place = array_key_exists('place', $values) ? $values['place'] : null;
+      $actor = array_key_exists('actor', $values) ? $values['actor'] : null;
 
-        if ($actor !== NULL && $event->getActor() === NULL)
-        {
-          $event->setActor($actor);
-        }
+      if ($place)
+      {
+        $otr = new QubitObjectTermRelation;
+        $otr->termId = $place->id;
+        $otr->indexOnSave = false;
 
-        $event->save();
+        $event->objectTermRelationsRelatedByobjectId[] = $otr;
+      }
+
+      if ($actor)
+      {
+        $event->actorId = $actor->id;
       }
     }
   }

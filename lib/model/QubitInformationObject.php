@@ -2035,6 +2035,7 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function importOriginationEadData($node)
   {
+    $imported = array();
     $entityTypes = array(
       'persname' => QubitTerm::PERSON_ID,
       'corpname' => QubitTerm::CORPORATE_BODY_ID,
@@ -2048,15 +2049,19 @@ class QubitInformationObject extends BaseInformationObject
 
       if ($nameNodes->length)
       {
-        foreach ($nameNodes as $n)
+        foreach ($nameNodes as $node)
         {
-          $this->setActorByName(
-            $n->nodeValue,
+          $actor = $this->setActorByName(
+            $node->nodeValue,
             array('entity_type_id' => $typeId, 'event_type_id' => QubitTerm::CREATION_ID)
           );
+
+          $imported[] = array('node' => $node, 'actor' => $actor);
         }
       }
     }
+
+    return $imported;
   }
 
   /**
@@ -2599,25 +2604,25 @@ class QubitInformationObject extends BaseInformationObject
     }
   }
 
-  public function importPhysicalObject($location, $name = false, $type = false, $label = false)
+  public function importPhysicalObject($location, $name, $options = array())
   {
-    if ($label && $type)
+    if (!empty($options['label']) && !empty($options['type']))
     {
-      $fullType = ucfirst($label).' '.$type;
+      $fullType = ucfirst($options['label']).' '.$options['type'];
     }
-    else if ($type)
+    else if (!empty($options['type']))
     {
-      $fullType = ucfirst($type);
+      $fullType = ucfirst($options['type']);
     }
-    else if ($label)
+    else if (!empty($options['label']))
     {
-      $fullType = ucfirst($label);
+      $fullType = ucfirst($options['label']);
     }
 
     $name = trim($name);
     $location = trim($location);
 
-    // if a type has been provided, look it up
+    // If a type has been provided, look it up
     $term = ($fullType)
       ? QubitFlatfileImport::createOrFetchTerm(
           QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID,
@@ -2626,28 +2631,18 @@ class QubitInformationObject extends BaseInformationObject
       : false;
 
     // Check for an existing physical object within this collection with the same name
-    if ($this->parentId)
+    if (isset($options['collectionId']))
     {
-      // Get collection id, note we must loop through parent ids here
-      // as opposed to calling getCollectionRoot() because these objects
-      // aren't fully formed yet.
-
-      $topLevelParent = $this->parent;
-      while ($topLevelParent->parent && $topLevelParent->parent->id != QubitInformationObject::ROOT_ID)
-      {
-        $topLevelParent = $topLevelParent->parent;
-      }
-
       $object = QubitPhysicalObject::checkPhysicalObjectExistsInCollection(
         $name,
         $location,
         ($term) ? $term->id : null,
-        $topLevelParent->id
+        $options['collectionId']
       );
     }
 
-    // There was no existing physical object to attach, create a new one.
-    if (!isset($object) || $object === null)
+    // There was no existing physical object to attach, create a new one
+    if (!isset($object))
     {
       $object = new QubitPhysicalObject();
       $object->name = $name;

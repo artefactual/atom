@@ -88,7 +88,7 @@
   <?php endif; ?>
 
   <?php foreach ($$resourceVar->getDates() as $date): ?>
-    <unitdate <?php if ($date->getActor() !== NULL || $date->getPlace() !== NULL): ?> <?php echo 'id="atom_'.$date->id.'_event"' ?> <?php endif; ?> <?php if ($date->typeId != QubitTerm::CREATION_ID): ?><?php if ($type = $date->getType()->__toString()): ?><?php echo 'datechar="'.strtolower($type).'" ' ?><?php endif; ?><?php else: ?><?php $type = null; ?><?php endif; ?><?php if ($startdate = $date->getStartDate()): ?><?php echo 'normal="'?><?php echo Qubit::renderDate($startdate) ?><?php if (0 < strlen($enddate = $date->getEndDate())): ?><?php echo '/'?><?php echo Qubit::renderDate($enddate) ?><?php endif; ?><?php echo '"' ?><?php endif; ?> <?php if (0 < strlen($encoding = $ead->getMetadataParameter('unitdate'.strtolower($type)))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('unitdateDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars(Qubit::renderDateStartEnd($date->getDate(array('cultureFallback' => true)), $date->startDate, $date->endDate))) ?></unitdate>
+    <unitdate <?php if ($date->getActor() !== null || $date->getPlace() !== null): ?> <?php echo 'id="atom_'.$date->id.'_event"' ?> <?php endif; ?> <?php if ($date->typeId != QubitTerm::CREATION_ID): ?><?php if ($type = $date->getType()->__toString()): ?><?php echo 'datechar="'.strtolower($type).'" ' ?><?php endif; ?><?php else: ?><?php $type = null; ?><?php endif; ?><?php if ($startdate = $date->getStartDate()): ?><?php echo 'normal="'?><?php echo Qubit::renderDate($startdate) ?><?php if (0 < strlen($enddate = $date->getEndDate())): ?><?php echo '/'?><?php echo Qubit::renderDate($enddate) ?><?php endif; ?><?php echo '"' ?><?php endif; ?> <?php if (0 < strlen($encoding = $ead->getMetadataParameter('unitdate'.strtolower($type)))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('unitdateDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars(Qubit::renderDateStartEnd($date->getDate(array('cultureFallback' => true)), $date->startDate, $date->endDate))) ?></unitdate>
   <?php endforeach; // dates ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getExtentAndMedium(array('cultureFallback' => true)))): ?>
@@ -190,26 +190,24 @@
     <?php endif; ?>
   <?php endif; ?>
 
-  <?php if (0 < count($creators)): ?>
-    <?php foreach($events as $date): ?>
-      <?php $creator = QubitActor::getById($date->actorId); ?>
-
-      <origination encodinganalog="<?php echo $ead->getMetadataParameter('origination') ?>">
-        <?php if ($type = $creator->getEntityTypeId()): ?>
+  <?php if (0 < count($events)): ?>
+    <origination encodinganalog="<?php echo $ead->getMetadataParameter('origination') ?>">
+      <?php foreach($events as $date): ?>
+        <?php if ($type = $date->actor->getEntityTypeId()): ?>
           <?php if (QubitTerm::PERSON_ID == $type): ?>
-            <persname><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></persname>
+            <persname <?php echo 'id="atom_'.$date->id.'_actor"' ?>><?php echo escape_dc(esc_specialchars($date->actor->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></persname>
           <?php endif; ?>
           <?php if (QubitTerm::FAMILY_ID == $type): ?>
-            <famname><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></famname>
+            <famname <?php echo 'id="atom_'.$date->id.'_actor"' ?>><?php echo escape_dc(esc_specialchars($date->actor->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></famname>
           <?php endif; ?>
           <?php if (QubitTerm::CORPORATE_BODY_ID == $type): ?>
-            <corpname><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></corpname>
+            <corpname <?php echo 'id="atom_'.$date->id.'_actor"' ?>><?php echo escape_dc(esc_specialchars($date->actor->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></corpname>
           <?php endif; ?>
         <?php else: ?>
-          <name><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></name>
+          <name <?php echo 'id="atom_'.$date->id.'_actor"' ?>><?php echo escape_dc(esc_specialchars($date->actor->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></name>
         <?php endif; ?>
-      </origination>
-    <?php endforeach; ?>
+      <?php endforeach; ?>
+    </origination>
   <?php endif; ?>
 
 </did>
