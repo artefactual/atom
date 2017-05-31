@@ -137,7 +137,7 @@ EOF;
       while ($io = $statement->fetch(PDO::FETCH_OBJ))
       {
         // Process HTML in row's columns
-        $columnsChanged = $this->processInformationObjectI18nHtml($io, $tableName, $columns);
+        $columnsChanged = $this->processI18nHtml($io, $tableName, $columns);
 
         // Update total column values changed
         if ($columnsChanged)
