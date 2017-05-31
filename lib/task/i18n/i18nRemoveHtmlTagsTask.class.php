@@ -129,9 +129,13 @@ EOF;
     $changedCount       = 0;
     $columnsChangedCount = 0;
 
-    foreach(i18nRemoveHtmlTagsTask::$tables as $tableName => $columns) {
+    $rootIds = implode(', ', array(QubitInformationObject::ROOT_ID, QubitActor::ROOT_ID,
+                       QubitRepository::ROOT_ID));
+
+    foreach (i18nRemoveHtmlTagsTask::$tables as $tableName => $columns)
+    {
       // Fetch all information object i18n rows
-      $query = "SELECT * FROM " .$tableName . " WHERE id != ". QubitInformationObject::ROOT_ID;
+      $query = 'SELECT * FROM '.$tableName.' WHERE id NOT IN ('.$rootIds.')';
       $statement = QubitPdo::prepareAndExecute($query);
 
       while ($io = $statement->fetch(PDO::FETCH_OBJ))
@@ -147,7 +151,7 @@ EOF;
         }
 
         // Report progress
-        $message = 'Processed information object '.$io->id;
+        $message = 'Processed object '.$io->id;
 
         if ($columnsChanged)
         {
@@ -160,11 +164,11 @@ EOF;
     }
 
     // Report summary of processing
-    $message = 'Processed '. $rowCount .' information objects.';
+    $message = 'Processed '. $rowCount .' objects.';
 
     if ($changedCount)
     {
-      $message .= ' Changed '. $changedCount .' information objects';
+      $message .= ' Changed '. $changedCount .' objects';
       $message .= ' ('. $columnsChangedCount .' field values changed).';
     }
 
@@ -183,7 +187,7 @@ EOF;
     // Determine what column values contain HTML
     $columnValues = array();
 
-    foreach($columns as $column)
+    foreach ($columns as $column)
     {
       // Store column name/value for processing if it contains tags
       if ($io->{$column} && (($io->{$column} != strip_tags($io->{$column})) || ($io->{$column} != html_entity_decode($io->{$column}))))
@@ -193,8 +197,7 @@ EOF;
     }
 
     // Update database with transformed column values
-    $this->transformHtmlInI18nTableColumns(
-      $tableName, $io->id, $io->culture, $columnValues);
+    $this->transformHtmlInI18nTableColumns($tableName, $io->id, $io->culture, $columnValues);
 
     return count($columnValues);
   }
@@ -216,10 +219,11 @@ EOF;
 
     $query = 'UPDATE '. $table .' SET ';
 
-    foreach($columnValues as $column => $value)
+    foreach ($columnValues as $column => $value)
     {
       // Only update if tags or HTML entities are found
-      if (($value != strip_tags($value)) || ($value != html_entity_decode($value))) {
+      if ($value != strip_tags($value) || $value != html_entity_decode($value))
+      {
         $transformedValue = $this->transformHtmlToText($value);
 
         $query .= (count($values)) ? ', ' : '';
@@ -389,7 +393,7 @@ EOF;
     $breakList = $doc->getElementsByTagName('br');
 
     // Loop through each <p> and replace with text
-    while($breakList->length)
+    while ($breakList->length)
     {
       $breakNode = $breakList->item(0);
 
@@ -411,7 +415,7 @@ EOF;
     $paraList = $doc->getElementsByTagName('p');
 
     // Loop through each <p> and replace with text
-    while($paraList->length)
+    while ($paraList->length)
     {
       $paraNode = $paraList->item(0);
 
