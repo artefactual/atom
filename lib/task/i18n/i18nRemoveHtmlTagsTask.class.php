@@ -219,8 +219,7 @@ EOF;
 
     foreach($columnValues as $column => $value)
     {
-      // Only update if tags are found
-      //if ($value != strip_tags($value)) {
+      // Only update if tags or HTML entities are found
       if (($value != strip_tags($value)) || ($value != html_entity_decode($value))) {
         $transformedValue = $this->transformHtmlToText($value);
 
