@@ -172,14 +172,13 @@ EOF;
   }
 
   /**
-   * Determine what information object i18n columns are populated
-   * and update them.
+   * Determine which i18n columns are populated and update them.
    *
    * @param stdClass $io  row of information object i18n data
    *
    * @return integer  number of columns changed
    */
-  private function processInformationObjectI18nHtml(&$io, $tableName, $columns)
+  private function processI18nHtml(&$io, $tableName, $columns)
   {
     // Determine what column values contain HTML
     $columnValues = array();
