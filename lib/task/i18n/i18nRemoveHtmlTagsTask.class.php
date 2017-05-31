@@ -27,28 +27,76 @@
  */
 class i18nRemoveHtmlTagsTask extends sfBaseTask
 {
-  public static $columns = array(
-    'title',
-    'alternate_title',
-    'edition',
-    'extent_and_medium',
-    'archival_history',
-    'acquisition',
-    'scope_and_content',
-    'appraisal',
-    'accruals',
-    'arrangement',
-    'access_conditions',
-    'reproduction_conditions',
-    'physical_characteristics',
-    'finding_aids',
-    'location_of_originals',
-    'location_of_copies',
-    'related_units_of_description',
-    'institution_responsible_identifier',
-    'rules',
-    'sources',
-    'revision_history'
+  public static $tables = array(
+    'information_object_i18n' => array(
+      'title',
+      'alternate_title',
+      'edition',
+      'extent_and_medium',
+      'archival_history',
+      'acquisition',
+      'scope_and_content',
+      'appraisal',
+      'accruals',
+      'arrangement',
+      'access_conditions',
+      'reproduction_conditions',
+      'physical_characteristics',
+      'finding_aids',
+      'location_of_originals',
+      'location_of_copies',
+      'related_units_of_description',
+      'institution_responsible_identifier',
+      'rules',
+      'sources',
+      'revision_history',
+    ),
+    'actor_i18n' => array(
+      'authorized_form_of_name',
+      'dates_of_existence',
+      'history',
+      'places',
+      'legal_status',
+      'functions',
+      'mandates',
+      'internal_structures',
+      'general_context',
+      'institution_responsible_identifier',
+      'rules',
+      'sources',
+      'revision_history',
+    ),
+    'note_i18n' => array(
+      'note_i18n',
+    ),
+    'repository_i18n' => array(
+      'geocultural_context',
+      'collecting_policies',
+      'buildings',
+      'holdings',
+      'finding_aids',
+      'opening_times',
+      'access_conditions',
+      'disabled_access',
+      'research_services',
+      'reproduction_services',
+      'public_facilities',
+      'desc_institution_identifier',
+      'desc_rules',
+      'desc_sources',
+      'desc_revision_history',
+    ),
+    'rights_i18n' => array(
+      'rights_note',
+      'copyright_note',
+      'identifier_value',
+      'identifier_type',
+      'identifier_role',
+      'license_terms',
+      'license_note',
+      'statute_jurisdiction',
+      'statute_note',
+    ),
   );
 
   /**
@@ -64,10 +112,11 @@ class i18nRemoveHtmlTagsTask extends sfBaseTask
 
     $this->namespace = 'i18n';
     $this->name = 'remove-html-tags';
-    $this->briefDescription = 'Remove HTML tags from inside information object i18n fields';
+    $this->briefDescription = 'Remove HTML tags from inside various i18n fields, and convert HTML entities';
 
     $this->detailedDescription = <<<EOF
-Remove HTML tags from inside information object i18n fields
+Remove HTML tags from inside information object, actor, note, repository, and rights i18n fields.
+HTML character entities are also converted to their non-HTML representations.
 EOF;
   }
 
@@ -80,32 +129,34 @@ EOF;
     $changedCount       = 0;
     $columnsChangedCount = 0;
 
-    // Fetch all information object i18n rows
-    $query = "SELECT * FROM information_object_i18n WHERE id != ". QubitInformationObject::ROOT_ID;
-    $statement = QubitPdo::prepareAndExecute($query);
+    foreach(i18nRemoveHtmlTagsTask::$tables as $tableName => $columns) {
+      // Fetch all information object i18n rows
+      $query = "SELECT * FROM " .$tableName . " WHERE id != ". QubitInformationObject::ROOT_ID;
+      $statement = QubitPdo::prepareAndExecute($query);
 
-    while ($io = $statement->fetch(PDO::FETCH_OBJ))
-    {
-      // Process HTML in row's columns
-      $columnsChanged = $this->processInformationObjectI18nHtml($io);
-
-      // Update total column values changed
-      if ($columnsChanged)
+      while ($io = $statement->fetch(PDO::FETCH_OBJ))
       {
-        $changedCount++;
-        $columnsChangedCount += $columnsChanged;
+        // Process HTML in row's columns
+        $columnsChanged = $this->processI18nHtml($io, $tableName, $columns);
+
+        // Update total column values changed
+        if ($columnsChanged)
+        {
+          $changedCount++;
+          $columnsChangedCount += $columnsChanged;
+        }
+
+        // Report progress
+        $message = 'Processed information object '.$io->id;
+
+        if ($columnsChanged)
+        {
+          $message .= ' ('. $columnsChanged . ' changes)';
+        }
+
+        $this->logSection('i18n', $message);
+        $rowCount++;
       }
-
-      // Report progress
-      $message = 'Processed information object '.$io->id;
-
-      if ($columnsChanged)
-      {
-        $message .= ' ('. $columnsChanged . ' changes)';
-      }
-
-      $this->logSection('i18n', $message);
-      $rowCount++;
     }
 
     // Report summary of processing
@@ -121,22 +172,21 @@ EOF;
   }
 
   /**
-   * Determine what information object i18n columns are populated
-   * and update them.
+   * Determine which i18n columns are populated and update them.
    *
    * @param stdClass $io  row of information object i18n data
    *
    * @return integer  number of columns changed
    */
-  private function processInformationObjectI18nHtml(&$io)
+  private function processI18nHtml(&$io, $tableName, $columns)
   {
     // Determine what column values contain HTML
     $columnValues = array();
 
-    foreach(i18nRemoveHtmlTagsTask::$columns as $column)
+    foreach($columns as $column)
     {
       // Store column name/value for processing if it contains tags
-      if ($io->{$column} && ($io->{$column} != strip_tags($io->{$column})))
+      if ($io->{$column} && (($io->{$column} != strip_tags($io->{$column})) || ($io->{$column} != html_entity_decode($io->{$column}))))
       {
         $columnValues[$column] = $io->{$column};
       }
@@ -144,7 +194,7 @@ EOF;
 
     // Update database with transformed column values
     $this->transformHtmlInI18nTableColumns(
-      'information_object_i18n', $io->id, $io->culture, $columnValues);
+      $tableName, $io->id, $io->culture, $columnValues);
 
     return count($columnValues);
   }
@@ -161,15 +211,15 @@ EOF;
    */
   private function transformHtmlInI18nTableColumns($table, $id, $culture, $columnValues)
   {
-    // Aseemble query and note parsed column values
+    // Assemble query and note parsed column values
     $values = array();
 
     $query = 'UPDATE '. $table .' SET ';
 
     foreach($columnValues as $column => $value)
     {
-      // Only update if tags are found
-      if ($value != strip_tags($value)) {
+      // Only update if tags or HTML entities are found
+      if (($value != strip_tags($value)) || ($value != html_entity_decode($value))) {
         $transformedValue = $this->transformHtmlToText($value);
 
         $query .= (count($values)) ? ', ' : '';
