@@ -12,3 +12,5 @@ descriptionUpdatesSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/ui/ui.datepicker.js:
+    clipboardToggleAll:
+    descUpdToggleIoOptions:

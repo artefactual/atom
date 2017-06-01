@@ -12,7 +12,7 @@
 
       <div class="criteria">
 
-        <div class="filter-row triple">
+        <div class="filter-row double">
 
           <div class="filter-left">
             <?php echo $form->className
@@ -20,7 +20,7 @@
               ->renderRow() ?>
           </div>
 
-          <div class="filter-center">
+          <div class="filter-right">
             <label class="date-of-label"><?php echo __('Date of') ?></label>
             <div class="date-of">
               <?php foreach ($form->getWidgetSchema()->dateOf->getChoices() as $value => $translatedText): ?>
@@ -32,8 +32,21 @@
             </div>
           </div>
 
-          <div class="filter-right">
-            <label class="publication-status-label"><?php echo __('Publication status (%1% only)', array('%1%' => sfConfig::get('app_ui_label_informationobject'))) ?></label>
+        </div>
+
+        <div class="filter-row double" id="io-options">
+
+          <?php if (sfConfig::get('app_multi_repository')): ?>
+            <div class="filter-left">
+              <?php echo $form->repository
+                ->label(__('Repository'))
+                ->renderRow() ?>
+            </div>
+            <div class="filter-right">
+          <?php else: ?>
+            <div class="filter-left">
+          <?php endif; ?>
+            <label class="publication-status-label"><?php echo __('Publication status') ?></label>
             <div class="publication-status">
               <?php foreach ($form->getWidgetSchema()->publicationStatus->getChoices() as $value => $translatedText): ?>
                 <label>
@@ -43,7 +56,9 @@
               <?php endforeach; ?>
             </div>
           </div>
+
         </div>
+
       </div>
 
       <p><?php echo __('Filter by date range:') ?></p>

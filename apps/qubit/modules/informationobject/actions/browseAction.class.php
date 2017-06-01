@@ -183,7 +183,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         $criteria->addAscendingOrderByColumn('authorized_form_of_name');
 
         $cache = QubitCache::getInstance();
-        $cacheKey = 'advanced-search:list-of-repositories:'.$this->context->user->getCulture();
+        $cacheKey = 'search:list-of-repositories:'.$this->context->user->getCulture();
         if ($cache->has($cacheKey))
         {
           $choices = $cache->get($cacheKey);

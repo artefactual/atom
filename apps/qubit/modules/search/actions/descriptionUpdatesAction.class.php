@@ -32,7 +32,8 @@ class SearchDescriptionUpdatesAction extends sfAction
       'startDate',
       'endDate',
       'dateOf',
-      'publicationStatus'
+      'publicationStatus',
+      'repository'
     );
 
   protected function addField($name)
@@ -87,6 +88,41 @@ class SearchDescriptionUpdatesAction extends sfAction
         $this->form->setWidget($name, new arWidgetFormSelectRadio(array('choices' => $choices, 'class' => 'radio inline')));
 
         break;
+
+      case 'repository':
+        // Get list of repositories
+        $criteria = new Criteria;
+
+        // Do source culture fallback
+        $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitActor');
+
+        // Ignore root repository
+        $criteria->add(QubitActor::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
+
+        $criteria->addAscendingOrderByColumn('authorized_form_of_name');
+
+        $cache = QubitCache::getInstance();
+        $cacheKey = 'search:list-of-repositories:'.$this->context->user->getCulture();
+        if ($cache->has($cacheKey))
+        {
+          $choices = $cache->get($cacheKey);
+        }
+        else
+        {
+          $choices = array();
+          $choices[null] = null;
+          foreach (QubitRepository::get($criteria) as $repository)
+          {
+            $choices[$repository->id] = $repository->__toString();
+          }
+
+          $cache->set($cacheKey, $choices, 3600);
+        }
+
+        $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
+        $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
+
+        break;
     }
   }
 
@@ -100,14 +136,13 @@ class SearchDescriptionUpdatesAction extends sfAction
       $this->addField($name);
     }
 
-    $this->response->addJavaScript('clipboardToggleAll', 'last');
-
     $defaults = array(
       'className' => 'QubitInformationObject',
       'startDate' => date('Y-m-d', strtotime('-1 month')),
       'endDate' => date('Y-m-d'),
       'dateOf' => 'CREATED_AT',
-      'publicationStatus' => 'all'
+      'publicationStatus' => 'all',
+      'repository' => null
     );
 
     $this->form->bind($request->getGetParameters() + $defaults);
@@ -127,9 +162,17 @@ class SearchDescriptionUpdatesAction extends sfAction
   {
     $queryBool = new \Elastica\Query\BoolQuery;
 
-    if ('QubitInformationObject' == $this->className && 'all' != $this->form->getValue('publicationStatus'))
+    if ('QubitInformationObject' == $this->className)
     {
-      $queryBool->addMust(new \Elastica\Query\Term(array('publicationStatusId' => $this->form->getValue('publicationStatus'))));
+      if ('all' != $this->form->getValue('publicationStatus'))
+      {
+        $queryBool->addMust(new \Elastica\Query\Term(array('publicationStatusId' => $this->form->getValue('publicationStatus'))));
+      }
+
+      if (null !== $this->form->getValue('repository'))
+      {
+        $queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $this->form->getValue('repository'))));
+      }
     }
 
     $this->addDateRangeQuery($queryBool, $this->form->getValue('dateOf'));
