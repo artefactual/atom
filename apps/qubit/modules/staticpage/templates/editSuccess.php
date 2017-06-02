@@ -1,3 +1,5 @@
+<?php use_javascript('//cdn.jsdelivr.net/tinymce/4.0.18/tinymce.min.js'); ?>
+<?php use_javascript('/js/staticpage_tinymce.js'); ?>
 <?php decorate_with('layout_1col.php') ?>
 
 <?php slot('title') ?>
