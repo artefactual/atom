@@ -172,6 +172,22 @@
         <?php if ($eac->biogHist): ?>
           <biogHist id="<?php echo 'md5-' . md5(url_for(array($resource, 'module' => 'actor'), true)) ?>"><?php echo $eac->biogHist ?></biogHist>
         <?php endif; ?>
+
+        <?php if (count($occupations = $resource->getOccupations()) > 0): ?>
+          <occupations>
+            <?php foreach ($occupations as $item): ?>
+              <occupation>
+                <term><?php echo esc_specialchars($item->term->getName(array('cultureFallback' => true))) ?></term>
+                <?php $note = $item->getNotesByType(array('noteTypeId' => QubitTerm::ACTOR_OCCUPATION_NOTE_ID))->offsetGet(0) ?>
+                <?php if (isset($note)): ?>
+                  <descriptiveNote>
+                    <?php echo render_value('<p>'.$note->getContent(array('cultureFallback' => true))).'</p>' ?>
+                  </descriptiveNote>
+                <?php endif; ?>
+              </occupation>
+            <?php endforeach; ?>
+          </occupations>
+        <?php endif; ?>
       </description>
     <?php endif; ?>
 

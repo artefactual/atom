@@ -164,6 +164,27 @@
 
 </section> <!-- /section#relationshipsArea -->
 
+<section id="accessPointsArea">
+
+  <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Access points area').'</h2>', array($resource, 'module' => 'actor', 'action' => 'edit'), array('anchor' => 'accessPointsArea', 'title' => __('Edit access points area'))) ?>
+
+  <div class="field">
+    <h3><?php echo __('Occupations') ?></h3>
+    <div>
+      <?php foreach ($resource->getOccupations() as $item): ?>
+        <div>
+          <?php echo link_to(render_title($item->term), array($item->term, 'module' => 'term')) ?>
+          <?php $note = $item->getNotesByType(array('noteTypeId' => QubitTerm::ACTOR_OCCUPATION_NOTE_ID))->offsetGet(0) ?>
+          <?php if (isset($note)): ?>
+            <?php echo render_show(__('Note'), render_value($note->getContent(array('cultureFallback' => true)))) ?>
+          <?php endif; ?>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+
+</section> <!-- /section#accessPointsArea -->
+
 <section id="controlArea">
 
   <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Control area').'</h2>', array($resource, 'module' => 'actor', 'action' => 'edit'), array('anchor' => 'controlArea', 'title' => __('Edit control area'))) ?>

@@ -170,6 +170,7 @@ class csvActorExport extends QubitFlatfileExport
   protected function modifyRowBeforeExport()
   {
     $this->setMaintenanceNote();
+    $this->setOccupations();
   }
 
   private function setMaintenanceNote()
@@ -181,6 +182,38 @@ class csvActorExport extends QubitFlatfileExport
     if (null !== $note = QubitNote::getOne($criteria))
     {
       $this->setColumn('maintenanceNotes', (string)$note);
+    }
+  }
+
+  private function setOccupations()
+  {
+    $addNotes = false;
+    $actorOccupations = $actorOccupationNotes = array();
+
+    foreach ($this->resource->getOccupations() as $occupation)
+    {
+      $actorOccupations[] = (string)$occupation->term;
+
+      $note = $occupation->getNotesByType(array(
+        'noteTypeId' => QubitTerm::ACTOR_OCCUPATION_NOTE_ID
+      ))->offsetGet(0);
+
+      if (isset($note))
+      {
+        $addNotes = true;
+        $actorOccupationNotes[] = (string)$note->content;
+      }
+      else
+      {
+        $actorOccupationNotes[] = 'NULL';
+      }
+    }
+
+    $this->setColumn('actorOccupations', implode('|', $actorOccupations));
+
+    if ($addNotes)
+    {
+      $this->setColumn('actorOccupationNotes', implode('|', $actorOccupationNotes));
     }
   }
 }

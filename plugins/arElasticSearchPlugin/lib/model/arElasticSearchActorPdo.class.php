@@ -146,6 +146,31 @@ class arElasticSearchActorPdo
     return self::$statements['maintainingRepository']->fetchColumn();
   }
 
+  protected function getOccupations()
+  {
+    if (!isset(self::$statements['occupations']))
+    {
+      $sql  = 'SELECT term.id as term_id, note.id as note_id';
+      $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' rel';
+      $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' term
+                  ON rel.term_id = term.id';
+      $sql .= ' LEFT JOIN '.QubitNote::TABLE_NAME.' note
+                  ON rel.id = note.object_id
+                  AND note.type_id = :type_id';
+      $sql .= ' WHERE rel.object_id = :object_id';
+      $sql .= ' AND term.taxonomy_id = :taxonomy_id';
+
+      self::$statements['occupations'] = self::$conn->prepare($sql);
+    }
+
+    self::$statements['occupations']->execute(array(
+      ':type_id' => QubitTerm::ACTOR_OCCUPATION_NOTE_ID,
+      ':object_id' => $this->id,
+      ':taxonomy_id' => QubitTaxonomy::ACTOR_OCCUPATION_ID));
+
+    return self::$statements['occupations']->fetchAll(PDO::FETCH_OBJ);
+  }
+
   public function serialize()
   {
     $serialized = array();
@@ -179,6 +204,31 @@ class arElasticSearchActorPdo
     if (false !== $maintainingRepositoryId = $this->getMaintainingRepositoryId())
     {
       $serialized['maintainingRepositoryId'] = (integer)$maintainingRepositoryId;
+    }
+
+    foreach ($this->getOccupations() as $occupation)
+    {
+      $occupationArray = array();
+
+      $i18nFields = arElasticSearchModelBase::serializeI18ns(
+        $occupation->term_id,
+        array('QubitTerm'),
+        array('fields' => array('name'))
+      );
+
+      if (isset($occupation->note_id))
+      {
+        $i18nFields = arElasticSearchModelBase::serializeI18ns(
+          $occupation->note_id,
+          array('QubitNote'),
+          array('fields' => array('content'), 'merge' => $i18nFields)
+        );
+      }
+
+      $occupationArray['id'] = $occupation->term_id;
+      $occupationArray['i18n'] = $i18nFields;
+
+      $serialized['occupations'][] = $occupationArray;
     }
 
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);

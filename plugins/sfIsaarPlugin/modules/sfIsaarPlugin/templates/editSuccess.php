@@ -100,6 +100,14 @@
 
       </fieldset>
 
+      <fieldset class="collapsible collapsed" id="accessPointsArea">
+
+        <legend><?php echo __('Access points') ?></legend>
+
+        <?php echo get_partial('actor/occupations', $sf_data->getRaw('occupationsComponent')->getVarHolder()->getAll()) ?>
+
+      </fieldset>
+
       <fieldset class="collapsible collapsed" id="descriptionControlArea">
 
         <legend><?php echo __('Control area') ?></legend>

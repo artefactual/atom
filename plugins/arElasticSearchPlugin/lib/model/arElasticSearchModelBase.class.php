@@ -80,6 +80,13 @@ abstract class arElasticSearchModelBase
     // Properties
     $i18ns = array();
 
+    // Allow merging i18n fields, used for partial foreign types
+    // when different object fields are included in the same object
+    if (isset($options['merge']))
+    {
+      $i18ns = $options['merge'];
+    }
+
     // Tableize class name
     foreach ($classes as &$class)
     {
@@ -116,7 +123,8 @@ abstract class arElasticSearchModelBase
       }
     }
 
-    $i18ns['languages'] = array_keys($i18ns);
+    // Avoid including languages key inside languages when the merge option is set
+    $i18ns['languages'] = array_values(array_diff(array_keys($i18ns), array('languages')));
 
     return $i18ns;
   }

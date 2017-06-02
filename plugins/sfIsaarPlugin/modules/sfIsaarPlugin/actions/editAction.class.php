@@ -81,6 +81,10 @@ class sfIsaarPluginEditAction extends ActorEditAction
     $this->relatedAuthorityRecordComponent = new sfIsaarPluginRelatedAuthorityRecordComponent($this->context, 'sfIsaarPlugin', 'relatedAuthorityRecord');
     $this->relatedAuthorityRecordComponent->resource = $this->resource;
     $this->relatedAuthorityRecordComponent->execute($this->request);
+
+    $this->occupationsComponent = new ActorOccupationsComponent($this->context, 'actor', 'occupations');
+    $this->occupationsComponent->resource = $this->resource;
+    $this->occupationsComponent->execute($this->request);
   }
 
   protected function addField($name)
@@ -119,6 +123,7 @@ class sfIsaarPluginEditAction extends ActorEditAction
   {
     $this->eventComponent->processForm();
     $this->relatedAuthorityRecordComponent->processForm();
+    $this->occupationsComponent->processForm();
 
     return parent::processForm();
   }
