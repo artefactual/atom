@@ -2,7 +2,7 @@
 namespace Elastica\Bulk\Action;
 
 use Elastica\Document;
-use Elastica\Script;
+use Elastica\Script\AbstractScript;
 
 class UpdateDocument extends IndexDocument
 {
@@ -22,7 +22,7 @@ class UpdateDocument extends IndexDocument
     {
         parent::setDocument($document);
 
-        $source = array('doc' => $document->getData());
+        $source = ['doc' => $document->getData()];
 
         if ($document->getDocAsUpsert()) {
             $source['doc_as_upsert'] = true;
@@ -40,11 +40,11 @@ class UpdateDocument extends IndexDocument
     }
 
     /**
-     * @param \Elastica\Script $script
+     * @param \Elastica\Script\AbstractScript $script
      *
      * @return $this
      */
-    public function setScript(Script $script)
+    public function setScript(AbstractScript $script)
     {
         parent::setScript($script);
 

@@ -4,11 +4,11 @@ namespace Elastica;
 use Elastica\Aggregation\AbstractAggregation;
 use Elastica\Exception\InvalidException;
 use Elastica\Exception\NotImplementedException;
-use Elastica\Facet\AbstractFacet;
-use Elastica\Filter\AbstractFilter;
 use Elastica\Query\AbstractQuery;
 use Elastica\Query\MatchAll;
 use Elastica\Query\QueryString;
+use Elastica\Script\AbstractScript;
+use Elastica\Script\ScriptFields;
 use Elastica\Suggest\AbstractSuggest;
 
 /**
@@ -18,17 +18,10 @@ use Elastica\Suggest\AbstractSuggest;
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html
  */
 class Query extends Param
 {
-    /**
-     * Params.
-     *
-     * @var array Params
-     */
-    protected $_params = array();
-
     /**
      * Suggest query or not.
      *
@@ -70,11 +63,6 @@ class Query extends Param
                 return $query;
             case $query instanceof AbstractQuery:
                 return new self($query);
-            case $query instanceof AbstractFilter:
-                $newQuery = new self();
-                $newQuery->setPostFilter($query);
-
-                return $newQuery;
             case empty($query):
                 return new self(new MatchAll());
             case is_array($query):
@@ -120,30 +108,13 @@ class Query extends Param
     }
 
     /**
-     * Gets the query array.
+     * Gets the query object.
      *
-     * @return array
+     * @return \Elastica\Query\AbstractQuery
      **/
     public function getQuery()
     {
         return $this->getParam('query');
-    }
-
-    /**
-     * Set Filter.
-     *
-     * @param \Elastica\Filter\AbstractFilter $filter Filter object
-     *
-     * @return $this
-     *
-     * @link    https://github.com/elasticsearch/elasticsearch/issues/7422
-     * @deprecated
-     */
-    public function setFilter(AbstractFilter $filter)
-    {
-        trigger_error('Deprecated: Elastica\Query::setFilter() is deprecated. Use Elastica\Query::setPostFilter() instead.', E_USER_DEPRECATED);
-
-        return $this->setPostFilter($filter);
     }
 
     /**
@@ -166,7 +137,7 @@ class Query extends Param
      *
      * @return $this
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html
      */
     public function setSort(array $sortArgs)
     {
@@ -180,11 +151,25 @@ class Query extends Param
      *
      * @return $this
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html
      */
     public function addSort($sort)
     {
         return $this->addParam('sort', $sort);
+    }
+
+    /**
+     * Keep track of the scores when sorting results.
+     *
+     * @param bool $trackScores
+     *
+     * @return $this
+     *
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html#_track_scores
+     */
+    public function setTrackScores($trackScores = true)
+    {
+        return $this->setParam('track_scores', (bool) $trackScores);
     }
 
     /**
@@ -194,7 +179,7 @@ class Query extends Param
      *
      * @return $this
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-highlighting.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-highlighting.html
      */
     public function setHighlight(array $highlightArgs)
     {
@@ -208,7 +193,7 @@ class Query extends Param
      *
      * @return $this
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-highlighting.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-highlighting.html
      */
     public function addHighlight($highlight)
     {
@@ -228,27 +213,13 @@ class Query extends Param
     }
 
     /**
-     * Alias for setSize.
-     *
-     * @deprecated Use the setSize() method, this method will be removed in future releases
-     *
-     * @param int $limit OPTIONAL Maximal number of results for query (default = 10)
-     *
-     * @return $this
-     */
-    public function setLimit($limit = 10)
-    {
-        return $this->setSize($limit);
-    }
-
-    /**
      * Enables explain on the query.
      *
      * @param bool $explain OPTIONAL Enabled or disable explain (default = true)
      *
      * @return $this
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-explain.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-explain.html
      */
     public function setExplain($explain = true)
     {
@@ -262,7 +233,7 @@ class Query extends Param
      *
      * @return $this
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-version.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-version.html
      */
     public function setVersion($version = true)
     {
@@ -278,11 +249,11 @@ class Query extends Param
      *
      * @return $this
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-fields.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-fields.html
      */
-    public function setFields(array $fields)
+    public function setStoredFields(array $fields)
     {
-        return $this->setParam('fields', $fields);
+        return $this->setParam('stored_fields', $fields);
     }
 
     /**
@@ -296,17 +267,17 @@ class Query extends Param
      */
     public function setFieldDataFields(array $fieldDataFields)
     {
-        return $this->setParam('fielddata_fields', $fieldDataFields);
+        return $this->setParam('docvalue_fields', $fieldDataFields);
     }
 
     /**
      * Set script fields.
      *
-     * @param array|\Elastica\ScriptFields $scriptFields Script fields
+     * @param array|\Elastica\Script\ScriptFields $scriptFields Script fields
      *
      * @return $this
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-script-fields.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-script-fields.html
      */
     public function setScriptFields($scriptFields)
     {
@@ -320,50 +291,18 @@ class Query extends Param
     /**
      * Adds a Script to the query.
      *
-     * @param string                   $name
-     * @param \Elastica\AbstractScript $script Script object
+     * @param string                          $name
+     * @param \Elastica\Script\AbstractScript $script Script object
      *
      * @return $this
      */
     public function addScriptField($name, AbstractScript $script)
     {
-        $this->_params['script_fields'][$name] = $script;
-
-        return $this;
-    }
-
-    /**
-     * Sets all facets for this query object. Replaces existing facets.
-     *
-     * @param array $facets List of facet objects
-     *
-     * @return $this
-     *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-facets.html
-     * @deprecated Facets are deprecated and will be removed in a future release. You are encouraged to migrate to aggregations instead.
-     */
-    public function setFacets(array $facets)
-    {
-        $this->_params['facets'] = array();
-        foreach ($facets as $facet) {
-            $this->addFacet($facet);
+        if (isset($this->_params['script_fields'])) {
+            $this->_params['script_fields']->addScript($name, $script);
+        } else {
+            $this->setScriptFields([$name => $script]);
         }
-
-        return $this;
-    }
-
-    /**
-     * Adds a Facet to the query.
-     *
-     * @param \Elastica\Facet\AbstractFacet $facet Facet object
-     *
-     * @return $this
-     *
-     * @deprecated Facets are deprecated and will be removed in a future release. You are encouraged to migrate to aggregations instead.
-     */
-    public function addFacet(AbstractFacet $facet)
-    {
-        $this->_params['facets'][] = $facet;
 
         return $this;
     }
@@ -377,10 +316,6 @@ class Query extends Param
      */
     public function addAggregation(AbstractAggregation $agg)
     {
-        if (!array_key_exists('aggs', $this->_params)) {
-            $this->_params['aggs'] = array();
-        }
-
         $this->_params['aggs'][] = $agg;
 
         return $this;
@@ -395,10 +330,6 @@ class Query extends Param
     {
         if (!isset($this->_params['query']) && ($this->_suggest == 0)) {
             $this->setQuery(new MatchAll());
-        }
-
-        if (isset($this->_params['facets']) && 0 === count($this->_params['facets'])) {
-            unset($this->_params['facets']);
         }
 
         if (isset($this->_params['post_filter']) && 0 === count($this->_params['post_filter'])) {
@@ -458,7 +389,7 @@ class Query extends Param
     public function setRescore($rescore)
     {
         if (is_array($rescore)) {
-            $buffer = array();
+            $buffer = [];
 
             foreach ($rescore as $rescoreQuery) {
                 $buffer [] = $rescoreQuery;
@@ -477,7 +408,7 @@ class Query extends Param
      *
      * @return $this
      *
-     * @link   http://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-source-filtering.html
+     * @link   https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-source-filtering.html
      */
     public function setSource($params)
     {
@@ -487,18 +418,14 @@ class Query extends Param
     /**
      * Sets post_filter argument for the query. The filter is applied after the query has executed.
      *
-     * @param array|\Elastica\Filter\AbstractFilter $filter
+     * @param array|\Elastica\Query\AbstractQuery $filter
      *
      * @return $this
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-post-filter.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-post-filter.html
      */
-    public function setPostFilter($filter)
+    public function setPostFilter(AbstractQuery $filter)
     {
-        if (!($filter instanceof AbstractFilter)) {
-            trigger_error('Deprecated: Elastica\Query::setPostFilter() passing filter as array is deprecated. Pass instance of AbstractFilter instead.', E_USER_DEPRECATED);
-        }
-
         return $this->setParam('post_filter', $filter);
     }
 }

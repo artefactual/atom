@@ -6,7 +6,7 @@ namespace Elastica\Query;
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html
  */
 class Term extends AbstractQuery
 {
@@ -15,7 +15,7 @@ class Term extends AbstractQuery
      *
      * @param array $term OPTIONAL Calls setTerm with the given $term array
      */
-    public function __construct(array $term = array())
+    public function __construct(array $term = [])
     {
         $this->setRawTerm($term);
     }
@@ -44,6 +44,6 @@ class Term extends AbstractQuery
      */
     public function setTerm($key, $value, $boost = 1.0)
     {
-        return $this->setRawTerm(array($key => array('value' => $value, 'boost' => $boost)));
+        return $this->setRawTerm([$key => ['value' => $value, 'boost' => $boost]]);
     }
 }

@@ -3,7 +3,6 @@ namespace Elastica;
 
 use Elastica\Bulk\Action;
 use Elastica\Exception\InvalidException;
-use Elastica\Exception\NotImplementedException;
 
 /**
  * Single document stored in elastic search.
@@ -19,7 +18,7 @@ class Document extends AbstractUpdateAction
      *
      * @var array Document data
      */
-    protected $_data = array();
+    protected $_data = [];
 
     /**
      * Whether to use this document to upsert if the document does not exist.
@@ -38,10 +37,10 @@ class Document extends AbstractUpdateAction
      *
      * @param int|string   $id    OPTIONAL $id Id is create if empty
      * @param array|string $data  OPTIONAL Data array
-     * @param string       $type  OPTIONAL Type name
-     * @param string       $index OPTIONAL Index name
+     * @param Type|string  $type  OPTIONAL Type name
+     * @param Index|string $index OPTIONAL Index name
      */
-    public function __construct($id = '', $data = array(), $type = '', $index = '')
+    public function __construct($id = '', $data = [], $type = '', $index = '')
     {
         $this->setId($id);
         $this->setData($data);
@@ -148,21 +147,6 @@ class Document extends AbstractUpdateAction
     }
 
     /**
-     * Adds the given key/value pair to the document.
-     *
-     * @deprecated
-     *
-     * @param string $key   Document entry key
-     * @param mixed  $value Document entry value
-     *
-     * @return $this
-     */
-    public function add($key, $value)
-    {
-        return $this->set($key, $value);
-    }
-
-    /**
      * Adds a file to the index.
      *
      * To use this feature you have to call the following command in the
@@ -184,7 +168,7 @@ class Document extends AbstractUpdateAction
         $value = base64_encode(file_get_contents($filepath));
 
         if (!empty($mimeType)) {
-            $value = array('_content_type' => $mimeType, '_name' => $filepath, '_content' => $value);
+            $value = ['_content_type' => $mimeType, '_name' => $filepath, '_content' => $value];
         }
 
         $this->set($key, $value);
@@ -214,13 +198,13 @@ class Document extends AbstractUpdateAction
      * @param float  $latitude  Latitude value
      * @param float  $longitude Longitude value
      *
-     * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-geo-point-type.html
+     * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-geo-point-type.html
      *
      * @return $this
      */
     public function addGeoPoint($key, $latitude, $longitude)
     {
-        $value = array('lat' => $latitude, 'lon' => $longitude);
+        $value = ['lat' => $latitude, 'lon' => $longitude];
 
         $this->set($key, $value);
 
@@ -249,38 +233,6 @@ class Document extends AbstractUpdateAction
     public function getData()
     {
         return $this->_data;
-    }
-
-    /**
-     * @deprecated
-     *
-     * @param \Elastica\Script $data
-     *
-     * @throws NotImplementedException
-     */
-    public function setScript($data)
-    {
-        throw new NotImplementedException('setScript() is no longer available as of 0.90.2. See http://elastica.io/migration/0.90.2/upsert.html to migrate');
-    }
-
-    /**
-     * @throws NotImplementedException
-     *
-     * @deprecated
-     */
-    public function getScript()
-    {
-        throw new NotImplementedException('getScript() is no longer available as of 0.90.2. See http://elastica.io/migration/0.90.2/upsert.html to migrate');
-    }
-
-    /**
-     * @throws NotImplementedException
-     *
-     * @deprecated
-     */
-    public function hasScript()
-    {
-        throw new NotImplementedException('hasScript() is no longer available as of 0.90.2. See http://elastica.io/migration/0.90.2/upsert.html to migrate');
     }
 
     /**
@@ -347,10 +299,12 @@ class Document extends AbstractUpdateAction
     {
         if ($data instanceof self) {
             return $data;
-        } elseif (is_array($data)) {
-            return new self('', $data);
-        } else {
-            throw new InvalidException('Failed to create document. Invalid data passed.');
         }
+
+        if (is_array($data)) {
+            return new self('', $data);
+        }
+
+        throw new InvalidException('Failed to create document. Invalid data passed.');
     }
 }

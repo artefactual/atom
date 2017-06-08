@@ -6,7 +6,7 @@ namespace Elastica\Cluster\Health;
  *
  * @author Ray Ward <ray.ward@bigcommerce.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html
  */
 class Index
 {
@@ -127,7 +127,7 @@ class Index
      */
     public function getShards()
     {
-        $shards = array();
+        $shards = [];
         foreach ($this->_data['shards'] as $shardNumber => $shard) {
             $shards[] = new Shard($shardNumber, $shard);
         }

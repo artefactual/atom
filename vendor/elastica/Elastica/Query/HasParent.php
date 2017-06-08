@@ -6,7 +6,7 @@ use Elastica\Query as BaseQuery;
 /**
  * Returns child documents having parent docs matching the query.
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-has-parent-query.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-has-parent-query.html
  */
 class HasParent extends AbstractQuery
 {
@@ -43,7 +43,7 @@ class HasParent extends AbstractQuery
      */
     public function setType($type)
     {
-        return $this->setParam('type', $type);
+        return $this->setParam('parent_type', $type);
     }
 
     /**

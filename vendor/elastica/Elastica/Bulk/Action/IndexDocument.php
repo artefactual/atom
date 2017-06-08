@@ -32,19 +32,16 @@ class IndexDocument extends AbstractDocument
      */
     protected function _getMetadata(AbstractUpdateAction $action)
     {
-        $params = array(
+        $params = [
             'index',
             'type',
             'id',
             'version',
             'version_type',
             'routing',
-            'percolate',
             'parent',
-            'ttl',
-            'timestamp',
             'retry_on_conflict',
-        );
+        ];
 
         $metadata = $action->getOptions($params, true);
 

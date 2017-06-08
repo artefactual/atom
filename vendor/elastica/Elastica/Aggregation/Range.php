@@ -6,7 +6,7 @@ use Elastica\Exception\InvalidException;
 /**
  * Class Range.
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-range-aggregation.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-range-aggregation.html
  */
 class Range extends AbstractSimpleAggregation
 {
@@ -27,7 +27,7 @@ class Range extends AbstractSimpleAggregation
             throw new InvalidException('Either fromValue or toValue must be set. Both cannot be null.');
         }
 
-        $range = array();
+        $range = [];
 
         if (!is_null($fromValue)) {
             $range['from'] = $fromValue;

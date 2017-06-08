@@ -6,7 +6,7 @@ namespace Elastica\Query;
  *
  * @author Aurélien Le Grand <gnitg@yahoo.fr>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html
  */
 class Regexp extends AbstractQuery
 {
@@ -35,6 +35,6 @@ class Regexp extends AbstractQuery
      */
     public function setValue($key, $value, $boost = 1.0)
     {
-        return $this->setParam($key, array('value' => $value, 'boost' => $boost));
+        return $this->setParam($key, ['value' => $value, 'boost' => $boost]);
     }
 }
