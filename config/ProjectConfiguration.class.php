@@ -73,6 +73,7 @@ class ProjectConfiguration extends sfProjectConfiguration
 
     $loader->registerNamespaces(array(
       'Elastica' => $rootDir.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'elastica',
+      'Elasticsearch' => $rootDir.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'elastica',
       'Psr' => $rootDir.DIRECTORY_SEPARATOR.'vendor'));
 
     $loader->register();
