@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2016-04-19T21:22:30Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new archival description</source>
+        <target>เพิ่มคําอธิบายจดหมายเหตุใหม่</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>ไม่ระบุชื่อเรื่อง</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>แก้ไข%1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
+        <target>คำอธิบายจดหมายเหตุนี้หรือหนึ่งในระดับที่สูงกว่า, % 1%ต้องการ %2% อย่างน้อย%3% ผู้สร้าง %4%.หนึ่ง.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
+        <target>%1%วันที่%2% - ไม่สอดคล้องกับระดับที่สูงกว่า.</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Date(s)%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%วันที่%2% - นี่เป็นองค์ประกอบที่จำเป็น %3%%4%.</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>%1%Extent and medium%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%ขอบเขตและสื่อ%2% - นี่เป็นองค์ประกอบที่จำเป็น%3%%4%.</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Identifier%2% - นี่เป็นองค์ประกอบที่จำเป็น%3%%4%.</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>%1%Level of description%2% - Value "%value%" is not consistent with higher levels.</source>
+        <target>%1%ระดับของคําอธิบาย%2%"%ค่า%"ไม่สอดคล้องกับระดับที่สูงขึ้น.</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>%1%Level of description%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%ระดับของคําอธิบาย%2%นี่เป็นองค์ประกอบที่จำเป็น%3%%4%.</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>%1%Title%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%ชื่อเรื่อง%2% - นี้เป็นองค์ประกอบที่จำเป็น %3%%4%.</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Date(s)</source>
+        <target>วันที่</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>This is a mandatory element.</source>
+        <target>นี่คือองค์ประกอบที่จำเป็น.</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Type</source>
+        <target>ประเภท</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Date</source>
+        <target>วันที่</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Start</source>
+        <target>เริ่มต้น</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>End</source>
+        <target>สิ้นสุด</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Identity area</source>
+        <target>พื้นที่Identity</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Edit identity area</source>
+        <target>แก้ไขพื้นที่identity</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Reference code</source>
+        <target>รหัสอ้างอิง</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Title</source>
+        <target>ชื่อเรื่อง</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Level of description</source>
+        <target>ระดับlของคำอธิบาย</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Extent and medium</source>
+        <target>ขนาดและสื่อ</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Context area</source>
+        <target>ริบทของเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Edit context area</source>
+        <target>แก้ไขพื้นที่บริบท</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Related function</source>
+        <target>ฟังก์ชั่นที่เกี่ยวข้อง</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Repository</source>
+        <target>คลังเก็บ</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Archival history</source>
+        <target>ประวัติจดหมายเหตุ</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Immediate source of acquisition or transfer</source>
+        <target>แหล่งเอกสารหรือหน่วยงานหรือผู้มอบหรือโอนย้ายเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Content and structure area</source>
+        <target>เนื้อหาและโครงสร้างของเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Edit content and structure area</source>
+        <target>แก้ไขข้อมูลเนื้อหาโครงสร้างของเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Scope and content</source>
+        <target>ขอบเขตและเนื้อหา</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Appraisal, destruction and scheduling</source>
+        <target>การประเมินคุณค่าการทำลายและการกำหนดอายุการเก็บเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Accruals</source>
+        <target>การเพิ่มขึ้นของเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>System of arrangement</source>
+        <target>ระบบการจัดเรียงเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Conditions of access and use area</source>
+        <target>ข้อมูลเกี่ยวกับเงื่อนไขการเข้าถึงและการใช้เอกสาร</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Edit conditions of access and use area</source>
+        <target>แก้ไขเงื่อนไข้พื้นที่เข้าถึงและuse</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Conditions governing access</source>
+        <target>เงื่อนไขที่กำกับดูแลการเข้าถึง</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Conditions governing reproduction</source>
+        <target>งื่อนไขที่กำกับดูแลการทำสำเนา</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Language of material</source>
+        <target>ภาษาของเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Script of material</source>
+        <target>สคริปเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Language and script notes</source>
+        <target>หมายเหตุภาษาและตัวอักษร</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Physical characteristics and technical requirements</source>
+        <target>ลักษณะทางกายภาพและทางเทคนิคที่มีผลต่อการใช้เอกสาร</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Finding aids</source>
+        <target>เครื่องมือช่วยค้นเอกสารจดหมายเหตุ</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Allied materials area</source>
+        <target>ข้อมูลเกี่ยวกับสิ่งที่เกี่ยวข้อง</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Edit alied materials area</source>
+        <target>แก้ไขพื้นที่alied materials</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Existence and location of originals</source>
+        <target>สถานที่เก็บเอกสารต้นฉบับ</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Existence and location of copies</source>
+        <target>สถานที่เก็บเอกสารฉบับสำเนา</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Related units of description</source>
+        <target>หน่วยของคำอธิบายที่เกี่ยข้อง</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Publication note</source>
+        <target>พื้นที่การพิมพ</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Notes area</source>
+        <target>ส่วนหมายเหตุ</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Edit notes area</source>
+        <target>แก้ไขพื้นที่หมายเหตุ</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Note</source>
+        <target>หมายเหตุ</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Access points</source>
+        <target>จุดเชื่อมต่อ</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Edit access points</source>
+        <target>แก้ไขจุดเข้าถึง</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Description control area</source>
+        <target>พื้นที่ควบคุมการทำคำอธิบายเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Edit description control area</source>
+        <target>แก้ไขพื้นที่การควบคุมการทำคำอธิบายเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Description identifier</source>
+        <target>การทำคำอธิบายเอกสารidentifier</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Institution identifier</source>
+        <target>identifierของหน่วยงาน</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Rules and/or conventions used</source>
+        <target>กฎระเบียบและ / หรือข้อตกลง</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Status</source>
+        <target>สถานะ</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Level of detail</source>
+        <target>ระดับของคําอธิบาย</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Dates of creation revision deletion</source>
+        <target>วันที่สร้าง/แก้ไข/ลบ</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Language(s)</source>
+        <target>ภาษา</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Script(s)</source>
+        <target>สคริป</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Sources</source>
+        <target>แหล่ง</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Archivist's note</source>
+        <target>บันทึกของนักจดหมายเหตุ</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Rights area</source>
+        <target>พื้นที่สิทธ</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Accession area</source>
+        <target>พื้นที่การเข้าถึงเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>File list</source>
+        <target>รายการแฟ้ม</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>This is a duplicate of record %1%</source>
+        <target>นี่ซ้ำกับระเบียน% 1%</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
+        <target>ระบุรหัสอ้างอิงเฉพาะท้องถิ่น หมายเลขควบคุม หรือidentifierเฉพาะอื่นๆ. (ISAD 3.1.1)</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Identifier</source>
+        <target>ตัวระบุ</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
+        <target>ให้ทั้งชื่อที่เป็นทางการหรือชื่อผู้รัดกุมตามกฎของรายละเอียดหลายระดับและการประชุมระดับชาติ. (ISAD 3.1.2)</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Record the level of this unit of description. (ISAD 3.1.4)</source>
+        <target>บันทึกระดับของหน่วยของคำอธิบายนี้.(ISAD 3.1.4)</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (ISAD 3.1.5)</source>
+        <target>บันทึกขอบเขตของหน่วยของคำอธิบายโดยให้หมายเลขของหน่วยงานทางกายภาพหรือทางตรรกะเป็นอารบิคและหน่วยของการวัด ระบุสื่อที่เฉพาะเจาะจง(สื่อ) ของหน่วยของคำอธิบาย แยกmultiple extentsโดยใช้linebreak.(ISAD 3.1.5)</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Name of creator(s)</source>
+        <target>ชื่อของผู้สร้าง</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>This archival description, or one of its higher levels, requires at least one creator.</source>
+        <target>คำอธิบายจดหมายเหตุนี้หรือหนึ่งในระดับที่สูงกว่าต้องมีผู้ผลิตเอกสารหนึ่งอย่างน้อย.</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)</source>
+        <target>บันทึกชื่อขององค์กรหรือบุคคล ที่มีความรับผิดชอบในการสร้าง รวบรวมและการเก็บรักษาบันทึกของหน่วยของคำอธิบาย ค้นหาชื่อที่มีอยู่ในรายการควบคุม โดยการพิมพ์ตัวอักษรบางตัวของชื่อ หรือพิมพ์ชื่อใหม่เพื่อสร้างและเชื่อมโยงไปยังรายการควบคุมใหม่.(ISAD 3.2.1)</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
+        <target>บันทึกชื่อขององค์กรควบคุมดูแลของวัสดุจดหมายเหตุ ค้นหาชื่อที่มีอยู่ในหรายงานน่วยงานจดหมายเหตุ  โดยการพิมพ์ตัวอักษรบางตัวของชื่อหรือพิมพ์ชื่อใหม่เพื่อสร้างและเชื่อมโยงไปยังรายงานหน่วยงานจดหมายเหตุใหม่.</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Record the successive transfers of ownership, responsibility and/or custody of the unit of description and indicate those actions, such as history of the arrangement, production of contemporary finding aids, re-use of the records for other purposes or software migrations, that have contributed to its present structure and arrangement. Give the dates of these actions, insofar as they can be ascertained. If the archival history is unknown, record that information. (ISAD 3.2.3)</source>
+        <target> บันทึกการโอนต่อความเป็นเจ้าของ ความรับผิดชอบและ / หรือการดูแลของหน่วยของคำอธิบาย และระบุแอคชันเหล่านั้น เช่น ประวัติของการจัดเรียง ผลของการสร้างเครื่องช่วยในการค้นหา การนำบันทึกมาใช้ใหม่เพื่อวัตถุประสงค์อื่นๆ หรือการโยกย้ายซอฟต์แวร์ ซึ่งมีผลต่อโครงสร้างและการจัดเรียงในปัจจุบัน กรุณากรอกวันที่ของแอคชันเหล่านั้นเท่าที่มีการตรวจสอบ ในกรณีที่ไม่ทราบประวัติของจดหมายเหตุกรุณาแจ้งรายละเอียด.(ISAD 3.2.3)</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Record the source from which the unit of description was acquired and the date and/or method of acquisition if any or all of this information is not confidential. If the source is unknown, record that information. Optionally, add accession numbers or codes. (ISAD 3.2.4)</source>
+        <target>บันทึกแหล่งที่มาซึ่งหน่วยของคำอธิบายได้มา และวันที่และ / หรือวิธีได้มาในกรณีที่ข้อมูลนี้ไม่เป็นความลับ ในกรณีที่ไม่ทราบแหล่งที่มาคือกรุณบันทึกรายละเอียด หรืออาจเพิ่มหมายเลขเข้าถึงหรือรหัส. (ISAD 3.2.4)</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (ISAD 3.3.1)</source>
+        <target>กรุณากรอกข้อสรุปจากขอบเขต (เช่น ช่วงเวลา ภูมิศาสตร์) และเนื้อหา (เช่น รูปแบบสารคดี หัวเรื่อง กระบวนการบริหาร) ของหน่วยของคำอธิบายที่เหมาะสมกับระดับของคำอธิบาย (ISAD 3.3.1)</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material. (ISAD 3.3.2)</source>
+        <target>บันทึกการประเมิน การทำลาย และการวางกำหนดการในactionหรือการวางแผนสำหรับหน่วยของคำอธิบาย โดยเฉพาะอย่างยิ่งในกรณีที่ส่งผลต่อการแปลเอกสาร. (ISAD 3.3.2)</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Indicate if accruals are expected. Where appropriate, give an estimate of their quantity and frequency. (ISAD 3.3.3)</source>
+        <target>ปรดระบุในกรณีที่ต้องการเวลาสะสม ในกรณีที่เหมาะสมโปดกรอกค่าโดยประมาณของปริมาณและความถี่. (ISAD 3.3.3)</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Specify the internal structure, order and/or the system of classification of the unit of description. Note how these have been treated by the archivist. For electronic records, record or reference information on system design. (ISAD 3.3.4)</source>
+        <target>ระบุโครงสร้างภายใน, คำสั่งซื้อ และ/หรือ ระบบจำแนกประเภทของคำอธิบาย บันทึกวิธีการที่เอกสารเหล่านี้ถูกกระทำโดยผู้จัดจดหมายเหตุ สำหรับเอกสารประเภทอิเล็กทรอนิกส์, เอกสารหรือข้อมูลอ้างอิงในการออกแบบระบบ. (ISAD 3.3.4)</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
+        <target>ระบุกฎหมายหรือสถานะทางกฎหมาย,สัญญา, ระเบียบหรือนโยบาย,ที่มีผลต่อการเข้าถึงหน่วยของรายละเอียด ระบุขอบเขตของระยะเวลาการห้ามเผยแพร่และวันที่ที่เอกสารจะถูกเผยแพร่เมื่อถึงเวลาที่เหมาะสม. (ISAD 3.4.1)</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
+        <target>บันทึกภาษาของเอกสารที่ประกอบด้วยหน่วยของคำอธิบาย.(ISAD 3.4.3)</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
+        <target>บันทึกสคริปต์ของเอกสารที่ประกอบด้วยหน่วยของคำอธิบาย.(ISAD 3.4.3)</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
+        <target>หมายเหตุตัวอักษร,สคริปต์,์ระบบสัญลักษณ์หรือคำย่อที่ใช้ใด ๆ(ISAD 3.4.3)</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
+        <target>ระบุเงื่อนไขทางกายภาพที่สำคัญใดๆ เช่น การดูแลเก็บรักษาที่เหมาะสม ที่มีผลต่อการใช้งานของหน่วยของคำอธิบาย หมายเหตุ:ซอฟแวร์และ / หรือฮาร์ดแวร์ใดๆจำเป็นต้องเข้าถึงหน่วยของคำอธิบาย.</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Give information about any finding aids that the repository or records creator may have that provide information relating to the context and contents of the unit of description. If appropriate, include information on where to obtain a copy. (ISAD 3.4.5)</source>
+        <target>กรุณากรอกข้อมูลเกี่ยวกับอุปกรณ์ช่วยในการค้นหาซึ่ง repositoryหรือผู้สร้างบันทึกอาจจะให้ข้อมูลเกี่ยวกับบริบทและเนื้อหาของหน่วยของคำอธิบาย ในกรณีที่เหมาะสมอาจจะรวมถึงข้อมูลเกี่ยวกับสถานที่ที่จะทำการขอรับสำเนาได้(ISAD 3.4.5)</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>If the original of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. If the originals no longer exist, or their location is unknown, give that information. (ISAD 3.5.1)</source>
+        <target>หากต้นฉบับของหน่วยของคำอธิบายสามารถใช้ได้ (ทั้งในสถาบันหรือที่อื่นๆ) กรุณาบันทึกตำแหน่งของมันพร้อมกับหมายเลขควบคุมสำคัญใดๆ ในกรณีที่ต้นฉบับสาบสูญหรือไม่ทราบสถานที่ที่อยู่ของต้นฉบับ กรุณาของกรอกรายละเอียด.(ISAD 3.5.1)</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>If the copy of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. (ISAD 3.5.2)</source>
+        <target>หากสำเนาของหน่วยของคำอธิบายสามารถใช้ได้ (ทั้งภายในสถาบันหรือที่อื่นๆ) กรุณบันทึกที่อยู่ของมันพร้อมกับหมายเลขควบคุมสำคัญใดๆ.(ISAD 3.5.2)</target>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
+        <target>บันทึกข้อมูลเกี่ยวกับหน่วยของคำอธิบายในrepositoryเดียวกันหรือที่อื่นๆ ที่เกี่ยวข้องกับแหล่งที่มาหรือสมาคมอื่น ๆ ใช้ถ้ายคำเกริ่นนำที่เหมาะสมและอธิบายลักษณะของความสัมพันธ์ ในกรณีที่หน่วยของคำอธิบายที่เกี่ยวข้องเป็นเครื่องช่วยในการค้นหา ให้ใช้องค์ประกอบช่วยในการค้นหาจากคำอธิบาย (3.4.5) เพื่ออ้างอิง.(ISAD 3.5.3)</target>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Subject access points</source>
+        <target>จุดเชื่อมเรื่อง</target>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Place access points</source>
+        <target>จัดจุดเข้าถึง</target>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Name access points (subjects)</source>
+        <target>ชื่อจุดเข้าถึง(หัวเรื่อง)</target>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
+        <target>"บันทึกdescription identifierเฉพาะที่สอดคล้องกับข้อตกลงในระดับท้องถิ่นและ / หรือระดับชาติ ในกรณีทีคำอธิบายถูกใช้ในระดับสากลกรุณาบันทึกรหัสประเทศของประเทศที่คำอธิบายถูกสร้างขึ้นโดยให้สอดคล้องกับเวอร์ชันล่าสุดของ ISO 3166 Codes รหัสสำหรับแทนชื่อของประเทศ ในกรณีที่ผู้สร้างคำอธิบาย recordเป็นองค์กรระหว่างประเทศให้ระบุorganizational identifierแทนรหัสประเทศ".</target>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
+        <target>"บันทึกfullรูปแบบช่ือที่กําหนดใหใชไดของหน่วยงานที่รับผิดชอบในการสร้าง การปรับเปลี่ยน หรือเผยแพร่คำอธิบายหรือบันทึกรหัสของหน่วยงานตามมาตรฐานระดับชาติหรือระดับนานาชาติ ".</target>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
+        <target>บันทึกกฎหรือข้อกำหนดระหว่างประเทศ ระดับชาติ และ/หรือ ระดับท้องถิ่นตามการจัดทำคำอธิบาย. (ISAD 3.7.2)</target>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>Rules or conventions</source>
+        <target>กฎระเบียบหรือข้อตกลง</target>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
+        <target>บันทึกสถานะปัจจุบันของคำอธิบาย ระบุว่าเป็นการเขียนร่าง การตรวจสอบครี้งสุดท้าย และ /หรือ การแก้ไขหรือลบ.</target>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
+        <target>บันทึกคำอธิบายไม่ว่าคำอธิบายจะประกอบด้วยระดับเนื้อหาบางส่วนในระดับน้อยที่สุด หรือ รายละเอียดทั้งหมด ที่สอดคล้องกับความสัมพันธ์ระหว่างประเทศ และ/หรือ แนวทางปฏิบัติระดับชาติ และ/หรือ กฎ.</target>
+      </trans-unit>
+      <trans-unit id="117">
+        <source>Record the date(s) the entry was prepared and/or revised.</source>
+        <target>บันทึกวันที่ที่เอกวสนถูกจัดทำขึ้นและ/ หรือปรับปรุง.</target>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>Dates of creation, revision and deletion</source>
+        <target>วันที่สร้าง/แก้ไข/ลบ</target>
+      </trans-unit>
+      <trans-unit id="119">
+        <source>Indicate the language(s) used to create the description of the archival material.</source>
+        <target>ระบุภาษาที่ใช้ในการสร้างคำอธิบายของวัสดุจดหมายเหตุ.</target>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>Indicate the script(s) used to create the description of the archival material.</source>
+        <target>ระบุสคริปต์ที่ใช้ในการสร้างคำอธิบายของวัสดุจดหมายเหตุ.</target>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="128">
+        <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="129">
+        <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="130">
+        <source>Related descriptions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="131">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="132">
+        <source>Administrative / Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="133">
+        <source>Administrative history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="134">
+        <source>Biographical history</source>
+        <target>ประวัติศาสตร์ชีวประวัติ</target>
+      </trans-unit>
+      <trans-unit id="135">
+        <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="136">
+        <source>Genre access points</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

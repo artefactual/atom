@@ -1545,6 +1545,75 @@ QubitTerm:
       th: การสะสม
       vi: 'Tích lũy'
       zh: 累计
+
+  #Nobrade date of subjcet
+  QubitTerm_date_of_subject:
+      taxonomy_id: QubitTaxonomy_10
+      parent_id: QubitTerm_110
+      source_culture: en
+  	code: date_subject
+      name:
+        ca: 'Date of subject'
+        ca@valencia: 'Date of subject'
+        cy: 'Date of subject'
+        de: 'Date of subject'
+        de-CH: 'Date of subject'
+        en: 'Date of subject'
+        es: 'Date of subject'
+        eu: 'Date of subject'
+        fr: 'Date of subject'
+        gl: 'Date of subject'
+        hu: 'Date of subject'
+        id: 'Date of subject'
+        is: 'Date of subject'
+        it: 'Date of subject'
+        ja: 'Date of subject'
+        ka: 'Date of subject'
+        ko: 'Date of subject'
+        pl: 'Date of subject'
+        pt: 'Data assunto'
+        pt-BR: 'Data assunto'
+        pt_BR: 'Data assunto'
+        sl: 'Date of subject'
+        sr: 'Date of subject'
+        th: 'Date of subject'
+        vi: 'Date of subject'
+        zh: 'Date of subject'
+
+  #Nobrade inclusive (covering) dates
+  QubitTerm_inclusive_date:
+      taxonomy_id: QubitTaxonomy_10
+      parent_id: QubitTerm_110
+      source_culture: en
+  	code: inclusive_date
+      name:
+        ca: 'Inclusive dates'
+        ca@valencia: 'Inclusive dates'
+        cy: 'Inclusive dates'
+        de: 'Inclusive dates'
+        de-CH: 'Inclusive dates'
+        en: 'Inclusive dates'
+        es: 'Inclusive dates'
+        eu: 'Inclusive dates'
+        fr: 'Inclusive dates'
+        gl: 'Inclusive dates'
+        hu: 'Inclusive dates'
+        id: 'Inclusive dates'
+        is: 'Inclusive dates'
+        it: 'Inclusive dates'
+        ja: 'Inclusive dates'
+        ka: 'Inclusive dates'
+        ko: 'Inclusive dates'
+        pl: 'Inclusive dates'
+        pt: 'Data-limite'
+        pt-BR: 'Data-limite'
+        pt_BR: 'Data-limite'
+        sl: 'Inclusive dates'
+        sr: 'Inclusive dates'
+        th: 'Inclusive dates'
+        vi: 'Inclusive dates'
+        zh: 'Inclusive dates'
+
   QubitTerm_118:
     taxonomy_id: QubitTaxonomy_7
     parent_id: QubitTerm_110
@@ -2475,6 +2544,42 @@ QubitTerm:
       th: บันทึกของนักจดหมายเหตุ
       vi: 'Ghi chú của chuyên viên lưu trữ'
       zh: 档案管理员说明
+  #Nobrade notes on conservation 6.1
+  QubitTerm_nobrade_notes_on_conservation:
+      taxonomy_id: QubitTaxonomy_7 #37
+      parent_id: QubitTerm_110
+      code: nobrade_notes_conservation
+      source_culture: en
+      name:
+        ca: 'Notes on conservation'
+        ca@valencia: 'Notes on conservtion'
+        cy: 'Notes on conservtion'
+        de: 'Notes on conservtion'
+        de-CH: 'Notes on conservtion'
+        el: 'Notes on conservtion'
+        en: 'Notes on conservtion'
+        es: 'Notes on conservtion'
+        eu: 'Notes on conservtion'
+        fr: 'Notes on conservtion'
+        gl: 'Notes on conservtion'
+        hu: 'Notes on conservtion'
+        id: 'Notes on conservtion'
+        is: 'Notes on conservtion'
+        it: 'Notes on conservtion'
+        ja: 'Notes on conservtion'
+        ka: 'Notes on conservtion'
+        ko: 'Notes on conservtion'
+        nl: 'Notes on conservtion'
+        pl: 'Notes on conservtion'
+        pt: 'Nota sobre conservação'
+        pt-BR: 'Nota sobre conservação'
+        pt_BR: 'Nota sobre conservação'
+        ru: 'Notes on conservtion'
+        sl: 'Notes on conservtion'
+        sr: 'Notes on conservtion'
+        th: 'Notes on conservtion'
+        vi: 'Notes on conservtion'
+        zh: 'Notes on conservtion'
   QubitTerm_odd:
     taxonomy_id: QubitTaxonomy_7
     parent_id: QubitTerm_110
@@ -8500,6 +8605,38 @@ QubitTerm:
       sr: 'ISAD(G) – Општи међународни стандард за опис архивске грађе, 2. изд. Међународни савет архива'
       vi: 'ISAD(G), 2nd ed. International Council on Archives'
       zh: 'ISAD(G), 第二版. 国际档案理事会'
+  #Nobrade template
+  QubitTerm_template_nobrade:
+      taxonomy_id: 70
+      parent_id: QubitTerm_110
+      source_culture: en
+      code: nobrade
+      name:
+        ca: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        ca@valencia: 'NOBRADE, 1a ed. Brazilian Standard Archival Description'
+        cy: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        de: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        de-CH: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        el: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        en: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        es: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        eu: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        fr: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        gl: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        hr: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        hu: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        is: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        it: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        ka: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        ko: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        pl: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        pt: 'NOBRADE, 1a ed. Norma Brasileira de Descrição Archivística'
+        pt-BR: 'NOBRADE, 1a ed. Norma Brasileira de Descrição Archivística'
+        pt_BR: 'NOBRADE, 1a ed. Norma Brasileira de Descrição Archivística'
+        sl: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        sr: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        vi: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+        zh: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
   QubitTerm_template_dc:
     taxonomy_id: 70
     parent_id: QubitTerm_110

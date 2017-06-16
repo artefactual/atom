@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2016-04-19T21:25:50Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Untitled</source>
+        <target>Χωρίς τίτλο</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Administrative / Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Administrative history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Biographical history</source>
+        <target>Βιογραφικό/Διοικητική Ιστορία</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
+        <target>Η αρχειακή περιγραφή, ή ένα από τα υψηλότερα επίπεδα της, %1%χρειάζεται%2% τουλάχιστον έναν %3%δημιουργό%4%.  </target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
+        <target>Η %1%Ημερομηνία(-ες)%2% - δεν είναι σύμφωνες με αντίστοιχες στα %3%υψηλότερα επίπεδα%2%.</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>%1%Date(s)%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1% Ημερομηνία(-ες)%2% - Αυτό το στοιχείο είναι %3%υποχρεωτικό%4%.</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>%1%Extent and medium%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Μέγεθος και Υπόστρωμα%2% - Αυτό το στοιχείο είναι %3%υποχρεωτικό%4%.</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Κωδικός Αναγνώρισης%2% - Αυτό το στοιχείο είναι %3%υποχρεωτικό%4%.</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>%1%Level of description%2% - Value "%value%" is not consistent with higher levels.</source>
+        <target>%1%Επίπεδο Περιγραφής%2% - Η τιμή "%value%" δεν συμφωνεί με το υψηλότερο επίπεδο.</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>%1%Level of description%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Επίπεδο Περιγραφής%2% - Αυτό το στοιχείο είναι %3%υποχρεωτικό%4%.</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>%1%Title%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Τίτλος%2% - Αυτό το στοιχείο είναι %3%υποχρεωτικό%4%.</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Add new archival description</source>
+        <target>Προσθήκη νέας αρχειακής περιγραφής</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Edit %1%</source>
+        <target>Επεξεργασία %1%</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>File list</source>
+        <target>Κατάλογος αρχείων</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Reference code</source>
+        <target>Κωδικός αναγνώρισης</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Title</source>
+        <target>Τίτλος</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Date(s)</source>
+        <target>Ημερομηνία(ες)</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Conditions governing access</source>
+        <target>Όροι πρόσβασης</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>This is a duplicate of record %1%</source>
+        <target>Αυτό είναι αντίγραφο της εγγραφής %1% </target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Identity area</source>
+        <target>Πεδίο Αναγνώρισης</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
+        <target>Δώστε ένα συγκεκριμένο τοπικό κωδικό αναφοράς, αριθμό ελέγχου, ή άλλο μοναδικό αναγνωριστικό. Η χώρα και ο κωδικός αποθετηρίου θα προστεθεί αυτόματα από την εγγραφή αποθετηρίου, που συνδέονται, για να σχηματίσουν ένα πλήρη Κωδικό Αναγνώρισης. (ISAD 3.1.1)</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Identifier</source>
+        <target>Αναγνωριστικό</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>This is a mandatory element.</source>
+        <target>Αυτό το στοιχείο είναι υποχρεωτικό.</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
+        <target>Δώστε είτε τον επίσημο τίτλο είτε ένα συνοπτικό τίτλο που παρέχενται συμφωνα με τους κανόνες της πολυεπίπεδης περιγραφής και τους εθνικούς κανόνες.</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target>"Προσδιορίστε και καταγράψτε την χρονολογία(-ες) της ενότητας περιγραφής. Προσδιορίστε τον τύπο της ημερομηνίας που δίνεται. Καταγράψτε την ως μονή ή ως σειρά χρονολογιών ανάλογα με την περίπτωση". (ISAD 3.1.3). Tο πεδίο Χρονολογία μπορεί να χρησιμοποιηθεί για την προσθήκη σε μορφή ελεύθερου κειμένου, συμπεριλαμβανομένων τυπογραφικών στοιχείων που εκφράζουν κατά προσέγγιση, αβεβαιότητα, κ.α. Χρησιμοποιήστε τα πεδία Αρχή καί Τέλος για να κάνετε της Ημερομηνίες ανζητήσιμες. Μην χρησιμοποιείται δείκτες ή τυπογραφικά στοιχεία που εκφράζουν αβεβαιότητα. Οι αποδεκτές μορφές ημερομηνίας είναι ΕΕΕΕΜΜΗΗ, ΕΕΕΕ-ΜΜ-ΗΗ, ΕΕΕΕ-ΜΜ, ΕΕΕΕ.</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Record the level of this unit of description. (ISAD 3.1.4)</source>
+        <target>Καταγράψτε το επίπεδο αυτής της ενότητας περιγραφής. (ISAD 3.1.4)</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Level of description</source>
+        <target>Επίπεδο περιγραφής</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (ISAD 3.1.5)</source>
+        <target>Αναφέρουμε το μέγεθος της ενότητας περιγραφής δίνοντας την ποσότητα (µε αραβικούς αριθμούς), το είδος των φυσικών ενοτήτων και τη μονάδα μέτρησής τους. Δίνουμε επίσης το συγκεκριμένο υπόστρωμα της ενότητας περιγραφής. Χωρίστε πολλαπλά μεγέθη με πλάγια κάθετη (/). (ISAD 3.1.5)</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Extent and medium</source>
+        <target>Μέγεθος και Υπόστρωμα</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Context area</source>
+        <target>Πεδίο Πλαισίου Παραγωγής</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Name of creator(s)</source>
+        <target>Όνομα παραγωγού(ων)</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>This archival description, or one of its higher levels, requires at least one creator.</source>
+        <target>Η αρχειακή περιγραφή, ή ένα από τα υψηλότερα επίπεδα της, χρειάζεται τουλάχιστον έναν δημιουργό.  </target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)</source>
+        <target>Καταγράψτε το όνομα του οργανισμού(ών) ή του ατόμου(ων) που είναι υπεύθυνο για τη δημιουργία, τη συγκέντρωση και τη διατήρηση των εγγραφών στην ενότητα περιγραφής. Αναζητήστε για ένα υπάρχον όνομα στις καθιερωμένες εγγραφές, πληκτρολογώντας τους πρώτους χαρακτήρες του ονόματος. Εναλλακτικά, πληκτρολογήστε ένα νέο όνομα για να δημιουργήσετε και να συνδέσετε μια νέα καθιερωμένη εγγραφή. (ISAD 3.2.1)</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
+        <target>Καταγράψτε το όνομα του Οργανισμού που έχει την επιμέλεια του αρχειακού υλικού. Αναζητήστε για ένα υπάρχον όνομα στις εγγραφές του αρχειακού φορέα, πληκτρολογώντας τους πρώτους χαρακτήρες του ονόματος. Εναλλακτικά, πληκτρολογήστε ένα νέο όνομα για να δημιουργήσετε και να συνδέσετε σε μια νέα εγγραφή του αρχειακού φορέα.</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Record the successive transfers of ownership, responsibility and/or custody of the unit of description and indicate those actions, such as history of the arrangement, production of contemporary finding aids, re-use of the records for other purposes or software migrations, that have contributed to its present structure and arrangement. Give the dates of these actions, insofar as they can be ascertained. If the archival history is unknown, record that information. (ISAD 3.2.3)</source>
+        <target>Καταγράφουμε τις διαδοχικές μεταβιβάσεις κυριότητας, ευθύνης και/ή εποπτείας που αφορούν την ενότητα περιγραφής και επισημαίνουμε εκείνες τις διαδικασίες, όπως ιστορικό της ταξινόμησης, σύνταξη σύγχρονων εργαλείων έρευνας, χρήση των τεκμηρίων για άλλους εκτός της έρευνας σκοπούς ή διαφορετικές εφαρμογές λογισμικού, οι οποίες έχουν επηρεάσει την παρούσα διάρθρωση και ταξινόμηση της ενότητας. Δίνουμε τις χρονολογίες αυτών των ενεργειών, στο βαθμό που μπορούν να επαληθευτούν. Αν το ιστορικό της ενότητας περιγραφής µας είναι άγνωστο, το αναφέρουμε. (ISAD 3.2.3)</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Record the source from which the unit of description was acquired and the date and/or method of acquisition if any or all of this information is not confidential. If the source is unknown, record that information. Optionally, add accession numbers or codes. (ISAD 3.2.4)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Immediate source of acquisition or transfer</source>
+        <target>Διαδικασία Πρόσκτησης</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Content and structure area</source>
+        <target>Πεδίο Περιεχομένου και Διάρθρωσης</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (ISAD 3.3.1)</source>
+        <target>Δώστε μια σύντομη περίληψη του εύρους (π.χ. χρονική περίοδος, γεωγραφική περιοχή)  και του περιεχομένου (π.χ. τυπολογία  τεκμηρίων, θεματολογία, διοικητικές διαδικασίες) της ενότητας περιγραφής, ανάλογαµε το επίπεδο περιγραφής. (ISAD 3.3.1)</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material. (ISAD 3.3.2)</source>
+        <target>Αναφέρουμε όλες τις ενέργειες επιλογής, εκκαθαρίσεων και διατήρησης που έγιναν  ή  που  προγραμματίζονται  για  την  ενότητα  περιγραφής,  κυρίως  εάν επηρεάζουν την κατανόηση/ερμηνεία του υλικού. (ISAD 3.3.2)</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Appraisal, destruction and scheduling</source>
+        <target>Επιλογές, εκκαθαρίσεις και τελική διατήρηση</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Indicate if accruals are expected. Where appropriate, give an estimate of their quantity and frequency. (ISAD 3.3.3)</source>
+        <target>Σημειώνουμε εάν αναμένονται προσθήκες υλικού. Όταν χρειάζεται, δίνουμε µία εκτίμηση για την ποσότητα και τη συχνότητα των προσθηκών. (ISAD 3.3.3)</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Specify the internal structure, order and/or the system of classification of the unit of description. Note how these have been treated by the archivist. For electronic records, record or reference information on system design. (ISAD 3.3.4)</source>
+        <target>Προσδιορίζουμε την εσωτερική δομή, την τάξη και/ή το σύστημα ταξινόμησης της ενότητας περιγραφής. Σημειώνουμε τον τρόπο με τον οποίο την επεξεργάστηκε ο αρχειονόμος. Για τα ηλεκτρονικά αρχεία δίνουμε επεξηγηματικές πληροφορίες για το σχεδιασμό του συστήματος.(ISAD 3.3.4)</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>System of arrangement</source>
+        <target>Σύστημα Ταξινόμησης</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Conditions of access and use area</source>
+        <target>Πεδίο Όρων Πρόσβασης και Χρήσης</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
+        <target>Προσδιορίζουμε το νόμο ή το νομικό πλαίσιο, το ιδιωτικό συµφωνητικό, τις ρυθμίσεις ή την πολιτική που επηρεάζουν την πρόσβαση στην ενότητα περιγραφής. Δηλώνουμε το χρονικό περιορισμό στην πρόσβαση και τη χρονολογία κατά την οποία το υλικό θα ανοίξει και θα καταστεί προσβάσιμο.(ISAD 3.4.1)</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
+        <target>Δίνουμε πληροφορίες για τους όρους, όπως τα πνευματικά δικαιώματα, που διέπουν την αναπαραγωγή της ενότητας  περιγραφής μετά την παροχή πρόσβασης. Εάν η ύπαρξη τέτοιων όρων μας είναι άγνωστη, το καταγράφουμε. Εάν δεν υπάρχουν όροι, δεν είναι αναγκαία η δήλωση. (ISAD 3.4.2)</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Conditions governing reproduction</source>
+        <target>Όροι αναπαραγωγής</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
+        <target>Καταγράφουμε τη γλώσσα(ες) του αρχειακού υλικού που περιλαμβάνει η ενότητα περιγραφής. (ISAD 3.4.3)</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Language of material</source>
+        <target>Γλώσσα των Τεκμηρίων</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
+        <target>Καταγράφουμε τη μορφή γραφής(ων) του αρχειακού υλικού που περιλαμβάνει η ενότητα περιγραφής. (ISAD 3.4.3)</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Script of material</source>
+        <target>Γραφή του υλικού</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
+        <target>Σημειώνουμε κάθε ιδιαίτερο αλφάβητο, σύστημα γραφής και συµβόλων ή τις συντομογραφίες που χρησιμοποιούνται. (ISAD 3.4.3)</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Language and script notes</source>
+        <target>Σημειώσεις γλώσσας και γραφής</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
+        <target>Να αναφερθεί κάθε σημαντική πληροφορία σχετικά με τη φυσική κατάσταση, όπως είναι οι απαιτήσεις συντήρησης, που επηρεάζουν τη χρήση της ενότητας περιγραφής. Σημειώστε τυχόν λογισμικό και/ή εξοπλισμό που απαιτείται για την πρόσβαση της ενότητας περιγραφής</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Physical characteristics and technical requirements</source>
+        <target>Φυσικά Χαρακτηριστικά και Τεχνικές απαιτήσεις</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Give information about any finding aids that the repository or records creator may have that provide information relating to the context and contents of the unit of description. If appropriate, include information on where to obtain a copy. (ISAD 3.4.5)</source>
+        <target>Δίνουμε πληροφορίες για κάθε εργαλείο έρευνας που διαθέτει η αρχειακή υπηρεσία ή ο παραγωγός και μπορεί να δώσει πληροφορίες για το πλαίσιο και το περιεχόμενο της ενότητας περιγραφής. Αν είναι δυνατόν, αναφέρουμµε πληροφορίες για το πού μπορούμε να προμηθευτούµε αντίγραφο. (ISAD 3.4.5)</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Allied materials area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>If the original of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. If the originals no longer exist, or their location is unknown, give that information. (ISAD 3.5.1)</source>
+        <target>Αν υπάρχουν τα πρωτότυπα τεκμήρια της ενότητας περιγραφής (στον οικείο φορέα ή αλλού), καταγράφουμε τη θέση φύλαξης τους, μαζί με οποιαδήποτε άλλη σημαντική ένδειξη. Δίνουμε, επίσης, την πληροφορία στην περίπτωση που τα πρωτότυπα τεκμήρια δεν υπάρχουν ή είναι άγνωστος ο τόπος φύλαξης τους. (ISAD 3.5.1)</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Existence and location of originals</source>
+        <target>Εντοπισμός των πρωτότυπων</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>If the copy of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. (ISAD 3.5.2)</source>
+        <target>Αν  το  αντίγραφο της ενότητας περιγραφής είναι διαθέσιμο (στον οικείο φορέα ή αλλού) καταγράφουμε τη θέση φύλαξης μαζί με οποιαδήποτε άλλη σημαντική ένδειξη. (ISAD 3.5.2)</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Existence and location of copies</source>
+        <target>Εντοπισμός των αντιγράφων</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
+        <target>Καταγράφουμε πληροφορίες σχετικά με τις ενότητες περιγραφής που υπάρχουν στον οικείο φορέα ή αλλού, οι οποίες έχουν  κοινή προέλευση ή άλλη σχέση. Συντάσσουμε μια εισαγωγική παράγραφο εξηγώντας τη φύση της μεταξύ τους σχέσης. Στην περίπτωση που η σχετιζόμενη ενότητα περιγραφής είναι ένα εργαλείο έρευνας, χρησιμοποιούμε τα στοιχεία περιγραφής (3.4.5) των εργαλείων έρευνας για να κάνουμε την παραπομπή σ’ αυτό. (ISAD 3.5.3)</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Related units of description</source>
+        <target>Συνδεόμενες Ενότητες Περιγραφής</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Related descriptions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Notes area</source>
+        <target>Πεδίο Παρατηρήσεων</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Access points</source>
+        <target>Σημεία πρόσβαση</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Subject access points</source>
+        <target>Θέματα ως Σημεία πρόσβασης</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Place access points</source>
+        <target>Τοποθεσίες ως Σημεία πρόσβασης</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Name access points (subjects)</source>
+        <target>Όνοματα ως Σημεία πρόσβασης (Θέματα)</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Description control area</source>
+        <target>Πεδίο ελέγχου εργασιών της περιγραφής</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
+        <target>Καταγράψτε ένα μοναδικό Αναγνωριστικό Περιγραφής σύμφωνα με τις τοπικές ή/και εθνικές συμβάσεις. Αν η περιγραφή πρέπει να χρησιμοποιείται διεθνώς, καταγράψτε τον κωδικό της χώρας στην οποία η περιγραφή δημιουργήθηκε σύμφωνα με την τελευταία έκδοση του προτύπου ISO 3166 - Codes for the representation of names of countries. Όταν ο δημιουργός της περιγραφής είναι ένας διεθνής οργανισμός, δώστε το αναγνωριστικό του οργανισμού στη θέση του κωδικού της χώρας.</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Description identifier</source>
+        <target>Αναγνωριστικό περιγραφής</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
+        <target>Καταγράψτε την πλήρη εγκεκριμένη μορφή του ονόματος(ων) του οργανισμού(ων) που είναι υπεύθυνος για τη δημιουργία, την τροποποίηση ή τη διάδοση της περιγραφής ή, εναλλακτικά, καταγράψτε τον κωδικό για τον οργανισμό, σύμφωνα με την εθνική ή διεθνή υπηρεσία πρότυπων κωδικών.</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Institution identifier</source>
+        <target>Αναγνωριστικό φορέα τεκμηρίωσης</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
+        <target>Καταγράφουμε τους διεθνείς, εθνικούς και/ή τοπικούς κανόνες ή τα πρότυπα περιγραφής που ακολουθήθηκαν για τη σύνταξη της περιγραφής. (ISAD 3.7.2)</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Rules or conventions</source>
+        <target>Κανόνες ή Πρότυπα</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Status</source>
+        <target>Κατάσταση</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
+        <target>Καταγράψτε την τρέχουσα κατάσταση της περιγραφής, υποδεικνύοντας, αν είναι ένα σχέδιο, ολοκληρωμένη και / ή αναθεωρημένη ή διαγραμμένη.</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
+        <target>Καταγράψτε εάν η περιγραφή είναι σε ελάχιστο, μερικό ή πλήρη επίπεδο λεπτομέρειας, σύμφωνα με τις σχετικές διεθνείς και/ή εθνικές κατευθυντήριες γραμμές και/ή κανόνες.</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Level of detail</source>
+        <target>Επίπεδο λεπτομέρειας</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Record the date(s) the entry was prepared and/or revised.</source>
+        <target>Καταγράψτε την ημερομηνία(ες) κατά την οποία η εγγραφή συντάχθηκε και/ή αναθεωρήθηκε.</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Dates of creation, revision and deletion</source>
+        <target>Ημερομηνίες δημιουργίας, αναθεώρησης και διαγραφής</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Indicate the language(s) used to create the description of the archival material.</source>
+        <target>Αναφέρετε τη γλώσσα(ες) που χρησιμοποιούνται για τη δημιουργία της περιγραφής του αρχειακού υλικού.</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Language(s)</source>
+        <target>Γλώσσα(ες)</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Indicate the script(s) used to create the description of the archival material.</source>
+        <target>Αναφέρετε τη γραφή(ες) που χρησιμοποιούνται για τη δημιουργία της περιγραφής του αρχειακού υλικού.</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Script(s)</source>
+        <target>Γραφή(ες)</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
+        <target>Καταγράψτε αναφορές για κάθε εξωτερική πηγή που χρησιμοποιείται στην αρχειακή περιγραφή (όπως στα πεδία Παρουσίαση Περιεχομένου, Ιστορικό της ενότητας περιγραφής, ή Σημειώσεις).</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Sources</source>
+        <target>Πηγές</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Edit identity area</source>
+        <target>Επεξεργασία πεδίου αναγνώρισης</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Edit context area</source>
+        <target>Επεξεργασία Πεδίου Πλαισίου</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Related function</source>
+        <target>Συνδεόμενη Λειτουργία</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Repository</source>
+        <target>Αποθετήριο</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Archival history</source>
+        <target>Ιστορικό ενότητας περιγραφής</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Edit content and structure area</source>
+        <target>Επεξεργασία Πεδίου Περιεχομένου και Διάρθρωσης</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Scope and content</source>
+        <target>Παρουσίαση Περιεχόμενου</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Accruals</source>
+        <target>Προσθήκες Υλικού</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>Edit conditions of access and use area</source>
+        <target>Επεξεργασία πεδίου όρων πρόσβασης και χρήσης</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>Finding aids</source>
+        <target>Εργαλείο έρευνας</target>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Edit alied materials area</source>
+        <target>Επεξεργασία πεδίου συμπληρωματικών πηγών</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Publication note</source>
+        <target>Σημείωση δημοσίευσης</target>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Edit notes area</source>
+        <target>Επεξεργασία πεδίου σημειώσεων</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Note</source>
+        <target>Σημείωση</target>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Edit access points</source>
+        <target>Επεξεργασία Σημείων πρόσβασης</target>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Edit description control area</source>
+        <target>Επεξεργασία πεδίου ελέγχου εργασιών της περιγραφής</target>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Rules and/or conventions used</source>
+        <target>Χρησιμοποιούμενοι Κανόνες ή Πρότυπα Περιγραφής</target>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Dates of creation revision deletion</source>
+        <target>Ημερομηνίες δημιουργίας, αναθεώρησης και διαγραφής</target>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Archivist's note</source>
+        <target>Παρατηρήσεις και Όνομα Αρχειονόμου</target>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Rights area</source>
+        <target>Πεδίο δικαιωμάτων</target>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Accession area</source>
+        <target>Πεδίο Πρόσκτησης</target>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>Type</source>
+        <target>Τύπος</target>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>Date</source>
+        <target>Ημερομηνία</target>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Start</source>
+        <target>Έναρξη</target>
+      </trans-unit>
+      <trans-unit id="117">
+        <source>End</source>
+        <target>Τέλος</target>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>Genre access points</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

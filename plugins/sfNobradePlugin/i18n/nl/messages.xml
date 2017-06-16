@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2016-04-19T21:23:04Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new archival description</source>
+        <target>Voeg nieuwe archivistische beschrijving toe</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>Zonder titel</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>Bewerken %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
+        <target>Deze beschrijving of een van haar hogere niveaus, %1%vereist%2% tenminste een %3%archiefvormer%4%.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Date(s)%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>%1%Extent and medium%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>%1%Level of description%2% - Value "%value%" is not consistent with higher levels.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>%1%Level of description%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>%1%Title%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>This is a duplicate of record %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Identity area</source>
+        <target>Identificatie</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Reference code</source>
+        <target>referentie code</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
+        <target>Verschaf een specifieke plaatselijke referentie code, beheersnummer of andere unieke identificatie. Land- en bewaarplaatscode worden automatisch uit het gerelateerde bewaarplaatsrecord toegevoegd om een volledige referenbtiecode te vormen (ISAD 3.1.1)</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Identifier</source>
+        <target>Bestandsidentificatie </target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>This is a mandatory element.</source>
+        <target>Dit is een verplicht veld.</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
+        <target>Geef een formele titel of ken een beknopte titel toe in overeenstemming met de regels voor meer-niveaubeschrijving en de nationale beschrijvingsregels. (ISAD 3.1.2)</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Title</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Record the level of this unit of description. (ISAD 3.1.4)</source>
+        <target>Leg het niveau van deze beschrijvingseenheid vast.(ISAD 3.1.4)</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Level of description</source>
+        <target>Beschrijvingsniveau</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (ISAD 3.1.5)</source>
+        <target>Leg de omvang van de beschrijvingseenheid vast aan de hand van het aantal fysieke of logische eenheden in arabische cijfers en vermeld de maateenheid. Geef informatie over het medium van de beschrijvingseenheid.Scheid meervoudige fysieke vormen door middel van een harde return. (ISAD 3.1.5)</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Extent and medium</source>
+        <target>Omvang en medium</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Context area</source>
+        <target>Context</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Name of creator(s)</source>
+        <target>Naam van de archiefvormer(s)</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>This archival description, or one of its higher levels, requires at least one creator.</source>
+        <target>Deze beschrijving of een van haar hogere niveaus, vereist tenminste een archiefvormer.</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)</source>
+        <target>Leg de naam vast van de organisatie(s) of de individuele persoon (personen) verantwoordelijk voor het vormen, bijeenbrengen en beheren van de archiefstukken waaruit de eschrijvingseenheid bestaat. Zoek voor een bestaande naam door de eerste letters van de naam te typen. Alternatief: type een nieuwe naam om een nieuwe normbeschrijving voor de instelling te maken. (ISAD 3.2.1)</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
+        <target>Leg de naam van de organisatie vast die het archiefmateriaal beheert. Zoek voor een bestaande naam in de archiefinstellingen records door de eerste letters van de naam te typen. Alternatief: type een nieuwe naam om een nieuw record voor de instelling te maken.</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Record the successive transfers of ownership, responsibility and/or custody of the unit of description and indicate those actions, such as history of the arrangement, production of contemporary finding aids, re-use of the records for other purposes or software migrations, that have contributed to its present structure and arrangement. Give the dates of these actions, insofar as they can be ascertained. If the archival history is unknown, record that information. (ISAD 3.2.3)</source>
+        <target>Leg de achtereenvolgende overgangen van eigendom, verantwoordelijkheid en/of beheer van de beschrijvingseenheid vast. Vermeld de activiteiten die hebben geleid tot haar
+huidige structuur en ordening, zoals geschiedenis van de ordening, samenstelling van eigentijdse toegangen, hergebruik van de archiefstukken voor andere doeleinden, of migraties van programmatuur. Vermeld de data van deze activiteiten, voor zover deze kunnen worden vastgesteld.Indien de archiefgeschiedenis onbekend is, leg dan dat gegeven vast. (ISAD 3.2.3)</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Record the source from which the unit of description was acquired and the date and/or method of acquisition if any or all of this information is not confidential. If the source is unknown, record that information. Optionally, add accession numbers or codes. (ISAD 3.2.4)</source>
+        <target>Leg vast van wie de beschrijvingseenheid werd verworven en de datum en/of wijze van verwerving, voor zover deze gegevens niet vertrouwelijk zijn. Indien de bron onbekend is, leg dan dat gegeven vast. Optioneel, voeg aanwinstnummers of codes toe.(ISAD 3.2.4).</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Immediate source of acquisition or transfer</source>
+        <target>Directe bron van verwerving of overbrenging</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Content and structure area</source>
+        <target>Inhoud en structuur</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (ISAD 3.3.1)</source>
+        <target>Geef een samenvatting van het bereik (zoals periode, geografisch gebied) en inhoud (zoals redactionele vormen, onderwerp en administratieve processen) van de beschrijvingseenheid, passend bij het beschrijvingsniveau.(ISAD 3.3.1)</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material. (ISAD 3.3.2)</source>
+        <target>Leg alle uitgevoerde of geplande handelingen vast met betrekking tot waardering, vernietiging en planning van de vernietiging van de beschrijvingseenheid, in het bijzonder wanneer deze handelingen de interpretatie van het materiaal kunnen beïnvloeden. Leg, indien van toepassing, vast op wiens gezag de betreffende handeling is uitgevoerd. (ISAD 3.3.2)</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Appraisal, destruction and scheduling</source>
+        <target>Waardering, vernietiging en slectie</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Indicate if accruals are expected. Where appropriate, give an estimate of their quantity and frequency. (ISAD 3.3.3)</source>
+        <target>Geef aan of er aanvullingen worden verwacht. Indien van toepassing, geef een schatting van omvang en frequentie.</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Specify the internal structure, order and/or the system of classification of the unit of description. Note how these have been treated by the archivist. For electronic records, record or reference information on system design. (ISAD 3.3.4)</source>
+        <target>Beschrijf de interne structuur, ordening of het classificatiesysteem van de beschrijvingseenheid. Noteer hoe deze zijn behandeld door de archivaris. Geef voor digitaal archief informatie over het systeemontwerp. (ISAD 3.3.4)</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>System of arrangement</source>
+        <target>Ordeningstelsel</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Conditions of access and use area</source>
+        <target>Voorwaarden voor toegang en gebruik</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
+        <target>Specificeer de wet, juridische status, contract, regelgeving of beleid met betrekking tot toegang tot de beschrijvingseenheid. Geef, wanneer van toepassing, de nadere voorwaarden en periode waarna het materiaal opengesteld wordt. (ISAD 3.4.1) </target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Conditions governing access</source>
+        <target>Voorwaarden voor raadpleging</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Conditions governing reproduction</source>
+        <target>Voorwaarden voor reproductie</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
+        <target>Leg taal (talen) en/of schrift(en) vast van het materiaal waaruit de beschrijvingseenheid bestaat. Noteer de afwijkende alfabetten, schriften, tekensystemen of afkortingen die zijn gebruikt.(ISAD 3.4.3).</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
+        <target>Geef alle fysieke voorwaarden, zoals bewaringsvereisten, die het gebruik van de beschrijvingseenheid beïnvloeden. Noteer eventuele programmatuur en/of apparatuur die noodzakelijk is voor raadpleging van de beschrijvingseenheid.</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Physical characteristics and technical requirements</source>
+        <target>Fysieke eigenschappen en technische eisen</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Give information about any finding aids that the repository or records creator may have that provide information relating to the context and contents of the unit of description. If appropriate, include information on where to obtain a copy. (ISAD 3.4.5)</source>
+        <target>Geef informatie over eventuele toegangen die de archiefbewaarplaats of de archiefvormer ter beschikking heeft en die informatie kunnen verschaffen over de
+context en inhoud van de beschrijvingseenheid. Vermeld, indien van toepassing, waar een kopie verkrijgbaar is.(ISAD 3.4.5)</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Allied materials area</source>
+        <target>Verwante materialen</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>If the original of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. If the originals no longer exist, or their location is unknown, give that information. (ISAD 3.5.1)</source>
+        <target>Als het origineel van de beschrijvingseenheid beschikbaar is (in de eigen instelling of elders), leg dan zijn bewaarplaats vast, samen met de relevante nummers. Wanneer de originelen niet meer bestaan, of hun bewaarplaats onbekend is, vermeld dan dat gegeven.(ISAD 3.5.1)</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Existence and location of originals</source>
+        <target>Bestaan en verblifplaats van originelen</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>If the copy of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. (ISAD 3.5.2)</source>
+        <target>Als een kopie van een beschrijvingseenheid beschikbaar is (hetzij in de eigen instelling, hetzij elders) leg daarvan dan de bewaarplaats vast, samen met de relevante nummers. (ISAD 3.5.2)</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Existence and location of copies</source>
+        <target>Bestaan en verblijfplaats van kopieën</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
+        <target>Leg informatie vast over beschrijvingseenheden in dezelfde archiefbewaarplaats of elders, indien die beschrijvingseenheden door herkomst of anderszins gerelateerd zijn. Voeg passende inleidende informatie toe en verklaar de aard van de verwantschap. Als de verwante beschrijvingseenheid een toegang is, gebruik dan het beschrijvingselement Toegangen (3.4.5) om er aan te refereren. (ISAD 3.5.3)</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Related units of description</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Notes area</source>
+        <target>Aantekeningen</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Access points</source>
+        <target>Trefwoorden</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Subject access points</source>
+        <target>Onderwerp trefwoord</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Place access points</source>
+        <target>Geografische trefwoord</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Name access points (subjects)</source>
+        <target>Naam trefwoord</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
+        <target>Leg een unieke beschrijvingsidentificatie vast in overeenstemming met plaatselijke en/of nationale afspraken. Als de beschrijving internationaal gebruikt wordt, leg dan ook de code vastr van het land waarin de beschrijvinhg is gemaakt, in overeenstemming met de laatste versie van ISO 3166 - Codes voor representate van landnamen. Wanneer de maker van de beschrijving een internationale organisatie is, geef dan de identificatie van de organisatie in plaats van de landcode.</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Description identifier</source>
+        <target>Identificatie van de beschrijving</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
+        <target>Leg de volledige genormeerde naamsvorm vast van de organisatie(s) verantwoordelijk voor het maken, wijzigen en verspreiden van de beschrijving, of leg een code voor de organisatue vast, in overeenstemming met de nationale of internationale code standaard.</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Institution identifier</source>
+        <target>Identificatiecode van de instelling</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
+        <target>Leg de internationale, nationale en/of lokale regels of afspraken vast die bij het maken van de beschrijving zijn gevolgd.(ISAD 3.7.2).</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Rules or conventions</source>
+        <target>Regels of conventies</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
+        <target>Leg de status van de beschrijving vast, of ze concept, afgerond, herzien of vervallen is.</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Level of detail</source>
+        <target>Niveau van detaillering</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Record the date(s) the entry was prepared and/or revised.</source>
+        <target>Leg de datum vast waarop de beschrijving was gemaakt of herzien. </target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Dates of creation, revision and deletion</source>
+        <target>Datering van aanmaak, herziening of verwijdering</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Indicate the language(s) used to create the description of the archival material.</source>
+        <target>Geef de taal (talen) aan die gebruikt zijn voor het beschrijven van het archiefmateriaal. </target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Language(s)</source>
+        <target>Taal (talen)</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Indicate the script(s) used to create the description of the archival material.</source>
+        <target>Geef het schrift aan dat gebruikt is voor het beschrijven van het archiefmateriaal.</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Script(s)</source>
+        <target>Schrift(en)</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Rights area</source>
+        <target>Rechten</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Edit identity area</source>
+        <target>Bewerken identiteit area</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Date(s)</source>
+        <target>Datum(s)</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Edit context area</source>
+        <target>Bewerken context area</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Related function</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Repository</source>
+        <target>archiefbewaarplaats</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Archival history</source>
+        <target>Geschiedenis van het archief</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Edit content and structure area</source>
+        <target>Bewerken inhoud en structuur area</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Scope and content</source>
+        <target>Bereik en inhoud</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Accruals</source>
+        <target>Aanvullingen</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Edit conditions of access and use area</source>
+        <target>Bewerken voorwaarden voor toegang en gebruik area</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Language of material</source>
+        <target>Taal van het materiaal</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>Script of material</source>
+        <target>Schrift van het materiaal</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>Finding aids</source>
+        <target>Toegangen</target>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Edit alied materials area</source>
+        <target>Bewerken verwant materiaal area</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Publication note</source>
+        <target>Notitie Publicaties</target>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Edit notes area</source>
+        <target>Bewerken aantekeningen area</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Note</source>
+        <target>Aantekening</target>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Edit access points</source>
+        <target>Bewerk trefwoorden</target>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Description control area</source>
+        <target>Beschrijvingsbeheer</target>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Edit description control area</source>
+        <target>Bewerken beschrijvingsbeheer</target>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Rules and/or conventions used</source>
+        <target>Toegepaste regels en/of conventies</target>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Dates of creation revision deletion</source>
+        <target>Verwijdering van datering archiefvorming</target>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Sources</source>
+        <target>bronnen</target>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Archivist's note</source>
+        <target>Aantekeningen van de archivaris</target>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>Accession area</source>
+        <target>Voorwaarden voor raadpleging en gebruik</target>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Type</source>
+        <target>Soort</target>
+      </trans-unit>
+      <trans-unit id="117">
+        <source>Date</source>
+        <target>Datum</target>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>Start</source>
+        <target>Begin</target>
+      </trans-unit>
+      <trans-unit id="119">
+        <source>End</source>
+        <target>Einde</target>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>File list</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
+        <target>Leg vast uit welk schrift het materiaal van de beschrijvingseenheid bestaat. (ISAD 3.4.3)</target>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>Language and script notes</source>
+        <target>Taal en schrift aantekeningen</target>
+      </trans-unit>
+      <trans-unit id="125">
+        <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="126">
+        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="131">
+        <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="132">
+        <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="133">
+        <source>Related descriptions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="134">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="135">
+        <source>Administrative / Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="136">
+        <source>Administrative history</source>
+        <target>Institutionele geschiedenis</target>
+      </trans-unit>
+      <trans-unit id="137">
+        <source>Biographical history</source>
+        <target>Biografie</target>
+      </trans-unit>
+      <trans-unit id="138">
+        <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="139">
+        <source>Genre access points</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
