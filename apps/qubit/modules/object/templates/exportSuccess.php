@@ -61,10 +61,12 @@
                 <a href="#" class="generic-help-icon" aria-expanded="false"><i class="fa fa-question-circle pull-right"></i></a>
               </div>
 
-              <label>
-                <input name="includeDrafts" type="checkbox"/>
-                <?php echo __('Include draft records') ?>
-              </label>
+              <?php if ($sf_user->isAuthenticated()): ?>
+                <label>
+                  <input name="includeDrafts" type="checkbox"/>
+                  <?php echo __('Include draft records') ?>
+                </label>
+              <?php endif; ?>
               <label>
                 <input name="includeAllLevels" type="checkbox"/>
                 <?php echo __('Include all levels of description') ?>
@@ -79,7 +81,9 @@
 
             <div class="alert alert-info generic-help animateNicely">
               <p><?php echo __('Choosing "Include descendants" will include all lower-level records beneath those currently on the clipboard in the export.') ?></p>
-              <p><?php echo __('Choosing "Include draft records" will include those marked with a Draft publication status in the export. Note: if you do NOT choose this option, any descendants of a draft record will also be excluded, even if they are published.') ?></p>
+              <?php if ($sf_user->isAuthenticated()): ?>
+                <p><?php echo __('Choosing "Include draft records" will include those marked with a Draft publication status in the export. Note: if you do NOT choose this option, any descendants of a draft record will also be excluded, even if they are published.') ?></p>
+              <?php endif; ?>
             </div>
 
           </div>

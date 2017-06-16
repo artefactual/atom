@@ -144,7 +144,7 @@ class ObjectExportAction extends DefaultEditAction
 
       if ($this->context->user->isAuthenticated())
       {
-        $message = $this->context->i18n->__('%1%Export of descriptions initiated.%2% Check %3%job management%4% page to download the results when it has completed.', array(
+        $message = $this->context->i18n->__('%1%Export initiated.%2% Check %3%job management%4% page to download the results when it has completed.', array(
           '%1%' => '<strong>',
           '%2%' => '</strong>',
           '%3%' => sprintf('<a href="%s">', $this->context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'))),
@@ -152,7 +152,7 @@ class ObjectExportAction extends DefaultEditAction
       }
       else
       {
-        $message = $this->context->i18n->__('Export of description initiated. Progress will reported in a subsequent notification.');
+        $message = $this->context->i18n->__('Export initiated. Progress will be reported, and a download link provided, in a subsequent notification &mdash; <a href="javascript:location.reload();">refresh the page</a> for updates.');
       }
 
       $this->context->user->setFlash('notice', $message);

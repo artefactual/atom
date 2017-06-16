@@ -30,14 +30,17 @@ class DefaultAlertsComponent extends sfComponent
   {
     $this->conditionalAlerts = array();
 
-    // Display alert, linking to job status page, if anonymous jobs exist
+    // Display alert, linking to job status page, if user is unauthenticated and jobs exist for user
     $manager = new QubitUnauthenticatedUserJobManager($this->context->user);
 
     if (!$this->context->user->isAuthenticated() && count($jobs = $manager->getJobs()))
     {
-      if (!in_array($this->context->routing->getCurrentInternalUri(), array('jobs/browse', 'object/export')))
+      foreach ($jobs as $job)
       {
-        foreach ($jobs as $job)
+        // Skip first display of job status (actions creating jobs will provide initial notifications with more context)
+        $firstJobAlertSkipped = $this->getContext()->getUser()->getAttribute('unauthenticatedJobFirstStatusAlertSkipped', array());
+
+        if (isset($firstJobAlertSkipped[$job->id]))
         {
           // Assemble job description
           $message = $this->context->i18n->__('%1% (started: %2%, status: %3%).', array(
@@ -54,9 +57,24 @@ class DefaultAlertsComponent extends sfComponent
               '%3%' => hr_filesize(filesize($job->downloadPath))));
           }
 
+          // Determine alert type to show
+          $alertTypes = array(
+            QubitTerm::JOB_STATUS_IN_PROGRESS_ID => 'info',
+            QubitTerm::JOB_STATUS_COMPLETED_ID   => 'success',
+            QubitTerm::JOB_STATUS_ERROR_ID       => 'error'
+          );
+          $alertType = $alertTypes[$job->getStatusId()];
+
           // Add as conditional alert
           $deleteUrl = $this->context->controller->genUrl('jobs/delete?id='. $job->id);
-          array_push($this->conditionalAlerts, array('type' => 'info', 'message' => $message, 'deleteUrl' => $deleteUrl));
+          array_push($this->conditionalAlerts, array('type' => $alertType, 'message' => $message, 'deleteUrl' => $deleteUrl));
+
+        }
+        else
+        {
+          // Note that the first job status display was skipped
+          $firstJobAlertSkipped[$job->id] = true;
+          $this->getContext()->getUser()->setAttribute('unauthenticatedJobFirstStatusAlertSkipped', $firstJobAlertSkipped);
         }
       }
     }
