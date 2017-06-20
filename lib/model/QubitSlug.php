@@ -61,7 +61,7 @@ class QubitSlug extends BaseSlug
    * @param bool $dropArticles  Whether or not to drop English articles from the slug.
    *                            We can disable this when we generate slugs by identifier.
    */
-  public static function slugify($slug, $dropArticles = true)
+  public static function slugify($slug)
   {
     // Handle exotic characters gracefully.
     // TRANSLIT doesn't work in musl's iconv, see #9855.
@@ -80,14 +80,6 @@ class QubitSlug extends BaseSlug
     $slug = preg_replace('/[^0-9a-z]+/', '-', $slug);
 
     $slug = "-$slug-";
-
-    // Drop (English) articles
-    if ($dropArticles)
-    {
-      $slug = str_replace('-a-', '-', $slug);
-      $slug = str_replace('-an-', '-', $slug);
-      $slug = str_replace('-the-', '-', $slug);
-    }
 
     $slug = trim($slug, '-');
 

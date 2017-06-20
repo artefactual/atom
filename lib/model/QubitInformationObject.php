@@ -3230,7 +3230,7 @@ class QubitInformationObject extends BaseInformationObject
 
     // If we still have a blank or null value here, QubitObject will eventually create a random
     // slug for us. See QubitObject::insertSlug().
-    return QubitSlug::slugify($stringToSlugify, false);
+    return QubitSlug::slugify($stringToSlugify);
   }
 
   /**
