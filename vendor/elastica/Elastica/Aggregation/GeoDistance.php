@@ -6,7 +6,7 @@ use Elastica\Exception\InvalidException;
 /**
  * Class GeoDistance.
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-geodistance-aggregation.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-geodistance-aggregation.html
  */
 class GeoDistance extends AbstractAggregation
 {
@@ -65,7 +65,7 @@ class GeoDistance extends AbstractAggregation
             throw new InvalidException('Either fromValue or toValue must be set. Both cannot be null.');
         }
 
-        $range = array();
+        $range = [];
 
         if (!is_null($fromValue)) {
             $range['from'] = $fromValue;

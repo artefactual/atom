@@ -365,16 +365,18 @@ class sfInstall
     {
       $errors[] = sprintf("Can't connect to the server (%s).", curl_error($curl));
     }
-    curl_close($curl);
 
     if (0 < count($errors))
     {
       return $errors;
     }
 
-    if (200 !== $response->status)
+    $curlHttpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+
+    if (200 !== $curlHttpCode)
     {
-      $errors[] = "Elasticsearch error.";
+      $errors[] = "Elasticsearch error: " . $curlHttpCode;
     }
 
     if (0 < count($errors))

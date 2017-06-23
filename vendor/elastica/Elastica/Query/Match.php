@@ -7,7 +7,7 @@ namespace Elastica\Query;
  * @author F21
  * @author WONG Wing Lun <luiges90@gmail.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-match-query.html
  */
 class Match extends AbstractQuery
 {
@@ -50,7 +50,7 @@ class Match extends AbstractQuery
     public function setFieldParam($field, $key, $value)
     {
         if (!isset($this->_params[$field])) {
-            $this->_params[$field] = array();
+            $this->_params[$field] = [];
         }
 
         $this->_params[$field][$key] = $value;
@@ -78,9 +78,13 @@ class Match extends AbstractQuery
      * @param string $type
      *
      * @return $this
+     *
+     * @deprecated Replaced by Elastica\Query\MatchPhrase and Elastica\Query\MatchPhrasePrefix
      */
     public function setFieldType($field, $type)
     {
+        trigger_error('Deprecated: Elastica\Query\Match::setFieldType() is deprecated and will be removed in further Elastica releases. Use Elastica\Query\MatchPhrase and Elastica\Query\MatchPhrasePrefix instead.', E_USER_DEPRECATED);
+
         return $this->setFieldParam($field, 'type', $type);
     }
 
@@ -133,7 +137,7 @@ class Match extends AbstractQuery
      *
      * @return $this
      *
-     * @link Possible values for minimum_should_match http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-minimum-should-match.html
+     * @link Possible values for minimum_should_match https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-minimum-should-match.html
      */
     public function setFieldMinimumShouldMatch($field, $minimumShouldMatch)
     {
