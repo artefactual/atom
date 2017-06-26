@@ -102,11 +102,13 @@ class arBaseJob extends Net_Gearman_Job_Common
 
       Qubit::clearClassCaches();
 
-      if ($this->user->isAuthenticated())
-      {
-        $this->signIn();
-      }
-      else
+      // Attempt signIn based on job's user. Before calling signIn(), $this->
+      // user->isAuthenticated() will always evaluate to false - user object is
+      // assigned in signIn().
+      $this->signIn();
+
+      // Run un-authenticated job cleanup if this is an unauthenticated job.
+      if (!$this->user->isAuthenticated())
       {
         $this->deleteOldUnauthenticatedJobs();
       }
@@ -117,10 +119,7 @@ class arBaseJob extends Net_Gearman_Job_Common
 
       QubitSearch::getInstance()->flushBatch();
 
-      if ($this->user->isAuthenticated())
-      {
-        $this->signOut();
-      }
+      $this->signOut();
 
       $this->info($this->i18n->__('Job finished.'));
     }
@@ -297,8 +296,13 @@ class arBaseJob extends Net_Gearman_Job_Common
    */
   protected function signIn()
   {
-    $user = QubitUser::getById($this->job->userId);
-    $this->user->signIn($user);
+    // Unauthenticated jobs were introduced in 2.4.x. If getById()is called
+    // on an unauthenticated job it will return null since it will not have
+    // a valid user associated with it. Only run signIn() for valid users.
+    if (null !== $user = QubitUser::getById($this->job->userId))
+    {
+      $this->user->signIn($user);
+    }
   }
 
   /**
@@ -311,7 +315,10 @@ class arBaseJob extends Net_Gearman_Job_Common
     // Need to delete the ACL instance because we are in a gearman worker loop.
     // Calling destruct() forces a new QubitAcl instance for each job.
     QubitAcl::destruct();
-    $this->user->signOut();
+    if (null !== $user = QubitUser::getById($this->job->userId))
+    {
+      $this->user->signOut();
+    }
   }
 
   /**
