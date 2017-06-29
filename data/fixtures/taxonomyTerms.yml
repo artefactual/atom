@@ -1551,7 +1551,8 @@ QubitTerm:
       taxonomy_id: QubitTaxonomy_10
       parent_id: QubitTerm_110
       source_culture: en
-  	code: date_subject
+      #code: datesubject
+      id: 442
       name:
         ca: 'Date of subject'
         ca@valencia: 'Date of subject'
@@ -1585,7 +1586,8 @@ QubitTerm:
       taxonomy_id: QubitTaxonomy_10
       parent_id: QubitTerm_110
       source_culture: en
-  	code: inclusive_date
+      #code: inclusivedate
+      id: 443
       name:
         ca: 'Inclusive dates'
         ca@valencia: 'Inclusive dates'
@@ -2546,40 +2548,41 @@ QubitTerm:
       zh: 档案管理员说明
   #Nobrade notes on conservation 6.1
   QubitTerm_nobrade_notes_on_conservation:
-      taxonomy_id: QubitTaxonomy_7 #37
+      taxonomy_id: QubitTaxonomy_7
       parent_id: QubitTerm_110
-      code: nobrade_notes_conservation
+      #code: nobradenotesconservation
+      id: 441
       source_culture: en
       name:
         ca: 'Notes on conservation'
-        ca@valencia: 'Notes on conservtion'
-        cy: 'Notes on conservtion'
-        de: 'Notes on conservtion'
-        de-CH: 'Notes on conservtion'
-        el: 'Notes on conservtion'
-        en: 'Notes on conservtion'
-        es: 'Notes on conservtion'
-        eu: 'Notes on conservtion'
-        fr: 'Notes on conservtion'
-        gl: 'Notes on conservtion'
-        hu: 'Notes on conservtion'
-        id: 'Notes on conservtion'
-        is: 'Notes on conservtion'
-        it: 'Notes on conservtion'
-        ja: 'Notes on conservtion'
-        ka: 'Notes on conservtion'
-        ko: 'Notes on conservtion'
-        nl: 'Notes on conservtion'
-        pl: 'Notes on conservtion'
+        ca@valencia: 'Notes on conservation'
+        cy: 'Notes on conservation'
+        de: 'Notes on conservation'
+        de-CH: 'Notes on conservation'
+        el: 'Notes on conservation'
+        en: 'Notes on conservation'
+        es: 'Notes on conservation'
+        eu: 'Notes on conservation'
+        fr: 'Notes on conservation'
+        gl: 'Notes on conservation'
+        hu: 'Notes on conservation'
+        id: 'Notes on conservation'
+        is: 'Notes on conservation'
+        it: 'Notes on conservation'
+        ja: 'Notes on conservation'
+        ka: 'Notes on conservation'
+        ko: 'Notes on conservation'
+        nl: 'Notes on conservation'
+        pl: 'Notes on conservation'
         pt: 'Nota sobre conservação'
         pt-BR: 'Nota sobre conservação'
         pt_BR: 'Nota sobre conservação'
-        ru: 'Notes on conservtion'
-        sl: 'Notes on conservtion'
-        sr: 'Notes on conservtion'
-        th: 'Notes on conservtion'
-        vi: 'Notes on conservtion'
-        zh: 'Notes on conservtion'
+        ru: 'Notes on conservation'
+        sl: 'Notes on conservation'
+        sr: 'Notes on conservation'
+        th: 'Notes on conservation'
+        vi: 'Notes on conservation'
+        zh: 'Notes on conservation'
   QubitTerm_odd:
     taxonomy_id: QubitTaxonomy_7
     parent_id: QubitTerm_110
@@ -8605,12 +8608,14 @@ QubitTerm:
       sr: 'ISAD(G) – Општи међународни стандард за опис архивске грађе, 2. изд. Међународни савет архива'
       vi: 'ISAD(G), 2nd ed. International Council on Archives'
       zh: 'ISAD(G), 第二版. 国际档案理事会'
+
   #Nobrade template
   QubitTerm_template_nobrade:
       taxonomy_id: 70
       parent_id: QubitTerm_110
       source_culture: en
       code: nobrade
+      id: 440
       name:
         ca: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
         ca@valencia: 'NOBRADE, 1a ed. Brazilian Standard Archival Description'
@@ -8637,6 +8642,7 @@ QubitTerm:
         sr: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
         vi: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
         zh: 'NOBRADE, 1st ed. Brazilian Standard Archival Description'
+
   QubitTerm_template_dc:
     taxonomy_id: 70
     parent_id: QubitTerm_110

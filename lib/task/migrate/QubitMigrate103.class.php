@@ -782,12 +782,16 @@ class QubitMigrate103 extends QubitMigrate
       'CONTRIBUTION_ID',
       'COLLECTION_ID',
       'ACCUMULATION_ID',
+      'NOBRADE_INCLUSIVE_DATE_ID',
+      'NOBRADE_DATE_SUBJECT_ID',
+
     //NoteType taxonomy
       'TITLE_NOTE_ID',
       'PUBLICATION_NOTE_ID',
       'SOURCE_NOTE_ID',
       'SCOPE_NOTE_ID',
       'DISPLAY_NOTE_ID',
+      //'NOBRADE_CONSERVATION_NOTE_ID', CANELHAS
     //CollectionType taxonomy
       'ARCHIVAL_MATERIAL_ID',
       'FINDING_AIDS_ID',

@@ -37,7 +37,8 @@
                 <option value="title"<?php echo $item['field'] == 'title' ? ' selected="selected"' : '' ?>><?php echo __('Title') ?></option>
                 <?php if (($template == 'rad' && check_field_visibility('app_element_visibility_rad_archival_history'))
                   || ($template == 'isad' && check_field_visibility('app_element_visibility_isad_archival_history'))
-                  || ($template != 'isad' && $template != 'rad')): ?>
+                  || ($template == 'nobrade' && check_field_visibility('app_element_visibility_nobrade_archival_history'))
+                  || ($template != 'isad' && $template != 'rad' && $template != 'nobrade')): ?>
                   <option value="archivalHistory"<?php echo $item['field'] == 'archivalHistory' ? ' selected="selected"' : '' ?>><?php echo __('Archival history') ?></option>
                 <?php endif; ?>
                 <option value="scopeAndContent"<?php echo $item['field'] == 'scopeAndContent' ? ' selected="selected"' : '' ?>><?php echo __('Scope and content') ?></option>
@@ -80,7 +81,8 @@
             <option value="title"><?php echo __('Title') ?></option>
             <?php if (($template == 'rad' && check_field_visibility('app_element_visibility_rad_archival_history'))
               || ($template == 'isad' && check_field_visibility('app_element_visibility_isad_archival_history'))
-              || ($template != 'isad' && $template != 'rad')): ?>
+              || ($template == 'nobrade' && check_field_visibility('app_element_visibility_nobrade_archival_history'))
+              || ($template != 'isad' && $template != 'rad' && $template != 'nobrade')): ?>
               <option value="archivalHistory"><?php echo __('Archival history') ?></option>
             <?php endif; ?>
             <option value="scopeAndContent"><?php echo __('Scope and content') ?></option>

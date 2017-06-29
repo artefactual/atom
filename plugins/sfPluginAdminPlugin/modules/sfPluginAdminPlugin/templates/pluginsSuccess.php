@@ -37,6 +37,7 @@
               <?php if ($name == 'sfIsdiahPlugin'
                         || $name == 'sfIsaarPlugin'
                         || ($name == 'sfIsadPlugin' && $defaultTemplate =='isad')
+                        || ($name == 'sfNobradePlugin' && $defaultTemplate =='nobrade')
                         || ($name == 'sfRadPlugin' && $defaultTemplate == 'rad')
                         || ($name == 'sfDcPlugin' && $defaultTemplate == 'dc')
                         || ($name == 'sfModsPlugin' && $defaultTemplate == 'mods')): ?>

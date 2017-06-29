@@ -55,7 +55,15 @@ class arMigration0107
       'isad_allied_materials_area',
       'isad_notes_area',
       'isad_access_points_area',
-      'isad_description_control_area');
+      'isad_description_control_area',
+      'nobrade_identity_area',
+      'nobrade_context_area',
+      'nobrade_content_and_structure_area',
+      'nobrade_conditions_of_access_use_area',
+      'nobrade_allied_materials_area',
+      'nobrade_notes_area',
+      'nobrade_access_points_area',
+      'nobrade_description_control_area');
 
     // Add visibility settings
     foreach ($elements as $item)

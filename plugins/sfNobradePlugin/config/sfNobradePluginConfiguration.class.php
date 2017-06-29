@@ -17,10 +17,10 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class sfIsadPluginConfiguration extends sfPluginConfiguration
+class sfNobradePluginConfiguration extends sfPluginConfiguration
 {
   public static
-    $summary = 'Metadata standard plugin.  Enables data-entry and display using Brazilian Archival Standard Desciption - NOBRADE.',
+    $summary = 'Metadata standard plugin. Enables data-entry and display using Brazilian Archival Standard Description - NOBRADE.',
     $version = '1.0.0';
 
   /**

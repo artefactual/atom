@@ -467,6 +467,7 @@ class QubitMigrate109 extends QubitMigrate
     $standards = array(
       'dc' => 'Dublin Core Simple version 1.1',
       'isad' => 'ISAD(G) 2nd edition',
+      'nobrade' => 'NOBRADE 1st edition',
       'isaar' => 'ISAAR(CPF) 2nd edition',
       'isdiah' => 'ICA-ISDIAH 1st edition',
       'mods' => 'MODS version 3.3',

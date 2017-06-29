@@ -198,7 +198,7 @@ $t->is($info['action'], 'bar');
 # QubitMetadataResource
 #
 
-$ioTemplates = array('dc' => 'sfDcPlugin', 'isad' => 'sfIsadPlugin', 'mods' => 'sfModsPlugin', 'rad' => 'sfRadPlugin', 'dacs' => 'arDacsPlugin');
+$ioTemplates = array('dc' => 'sfDcPlugin', 'isad' => 'sfIsadPlugin', 'nobrade' => 'sfNobradePlugin', 'mods' => 'sfModsPlugin', 'rad' => 'sfRadPlugin', 'dacs' => 'arDacsPlugin');
 
 $defaultIoTemplateCode = sfConfig::get('app_default_template_informationobject');
 $defaultIoTemplateModule = $ioTemplates[$defaultIoTemplateCode];

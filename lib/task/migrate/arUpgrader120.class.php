@@ -373,7 +373,22 @@ class arUpgrader120
           'digital_object_mime_type',
           'digital_object_file_size',
           'digital_object_uploaded',
-          'physical_storage');
+          'physical_storage',
+          'nobrade_immediate_source',
+          'nobrade_appraisal_destruction',
+          'nobrade_notes',
+          //'nobrade_conservation_notes', //CANELHAS
+          'nobrade_physical_condition',
+          'nobrade_control_description_identifier',
+          'nobrade_control_institution_identifier',
+          'nobrade_control_rules_conventions',
+          'nobrade_control_status',
+          'nobrade_control_level_of_detail',
+          'nobrade_control_dates',
+          'nobrade_control_languages',
+          'nobrade_control_scripts',
+          'nobrade_control_sources',
+          'nobrade_control_archivists_notes');
 
         // Add visibility settings
         foreach ($elements as $item)

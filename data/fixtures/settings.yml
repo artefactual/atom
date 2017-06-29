@@ -867,6 +867,66 @@ QubitSetting:
     name: isad_archival_history
     scope: element_visibility
     value: 1
+  Qubit_Settings_visibleElements_NobradeImmediateSource:
+    name: nobrade_immediate_source
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_NobradeAppraisalDestruction:
+    name: nobrade_appraisal_destruction
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_NobradeNotes:
+    name: nobrade_notes
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_NobradePhysicalCondition:
+    name: nobrade_physical_condition
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_NobradeControlDescriptionIdentifier:
+    name: nobrade_control_description_identifier
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_NobradeControlInstitutionIdentifier:
+    name: nobrade_control_institution_identifier
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_NobradeControlRulesConventions:
+    name: nobrade_control_rules_conventions
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_NobradeControlStatus:
+    name: nobrade_control_status
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_NobradeControlLevelOfDetail:
+    name: nobrade_control_level_of_detail
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_NobradeControlDates:
+    name: nobrade_control_dates
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_NobradeControlLanguages:
+    name: nobrade_control_languages
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_NobradeControlScripts:
+    name: nobrade_control_scripts
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_NobradeControlSources:
+    name: nobrade_control_sources
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_NobradeControlArchivistsNotes:
+    name: nobrade_control_archivists_notes
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_NobradeArchivalHistory:
+    name: nobrade_archival_history
+    scope: element_visibility
+    value: 1
   Qubit_Settings_visibleElements_RadGeneralNotes:
     name: rad_general_notes
     scope: element_visibility
@@ -1029,6 +1089,38 @@ QubitSetting:
     value: 1
   Qubit_Settings_visibleElements_isadDescriptionControlArea:
     name: isad_description_control_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_nobradeIdentityArea:
+    name: nobrade_identity_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_nobradeContextArea:
+    name: nobrade_context_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_nobradeContentAndStructureArea:
+    name: nobrade_content_and_structure_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_nobradeConditionsOfAccessAndUseArea:
+    name: nobrade_conditions_of_access_use_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_nobradeAlliedMaterialsArea:
+    name: nobrade_allied_materials_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_nobradeNotesArea:
+    name: nobrade_notes_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_nobradeAccessPointsArea:
+    name: nobrade_access_points_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_nobradeDescriptionControlArea:
+    name: nobrade_description_control_area
     scope: element_visibility
     value: 1
   Qubit_Settings_findingAidFormat:

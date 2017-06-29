@@ -26,6 +26,7 @@ class QubitMetadataRoute extends sfRoute
       'eac'   => 'sfEacPlugin',
       'ead'   => 'sfEadPlugin',
       'isad'  => 'sfIsadPlugin',
+      'nobrade'  => 'sfNobradePlugin',
       'dc'    => 'sfDcPlugin',
       'skos'  => 'sfSkosPlugin',
       'rad'   => 'sfRadPlugin',
@@ -159,7 +160,7 @@ class QubitMetadataRoute extends sfRoute
             $default = $defaultSetting;
           }
 
-          $parameters['module'] = $this->getActionParameter(array('isad', 'dc', 'mods', 'rad', 'ead', 'dacs'), $default, $parameters);
+          $parameters['module'] = $this->getActionParameter(array('isad', 'nobrade', 'dc', 'mods', 'rad', 'ead', 'dacs'), $default, $parameters);
 
           break;
 

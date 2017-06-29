@@ -94,6 +94,7 @@ class sfPluginAdminPluginPluginsAction extends sfAction
             if (!($item == 'sfIsdiahPlugin'
                 || $item == 'sfIsaarPlugin'
                 || ($item == 'sfIsadPlugin' && $this->defaultTemplate =='isad')
+                || ($item == 'sfNobradePlugin' && $this->defaultTemplate == 'nobrade')
                 || ($item == 'sfRadPlugin' && $this->defaultTemplate == 'rad')
                 || ($item == 'sfDcPlugin' && $this->defaultTemplate == 'dc')
                 || ($item == 'sfModsPlugin' && $this->defaultTemplate == 'mods')))
