@@ -68,11 +68,11 @@
             ->renderRow() ?>
 
           <?php echo $form->startDate
-            ->help(__('The beginning date of the permission granted.'))
+            ->help(__('Enter the copyright start date, if known. Acceptable date format: YYYY-MM-DD.'))
             ->renderRow() ?>
 
           <?php echo $form->endDate
-            ->help(__('The ending date of the permission granted. Omit end date if the ending date is unknown.'))
+            ->help(__('Enter the copyright end date, if known. Acceptable date format: YYYY-MM-DD.'))
             ->renderRow() ?>
 
           <div class="form-item">
