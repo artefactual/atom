@@ -50,7 +50,9 @@ class sfDcPluginDcDatesComponent extends InformationObjectEventComponent
         $this->event = null;
         if (isset($item['id']))
         {
-          $this->resource->eventsRelatedByobjectId[] = $this->event = QubitEvent::getById($item['id']);
+          // Do not add exiting events to the eventsRelatedByobjectId
+          // array, as they could be deleted before saving the resource
+          $this->event = QubitEvent::getById($item['id']);
         }
         if (is_null($this->event))
         {
@@ -67,6 +69,13 @@ class sfDcPluginDcDatesComponent extends InformationObjectEventComponent
           {
             $this->processField($field);
           }
+        }
+
+        // Save existing events as they are not attached
+        // to the eventsRelatedByobjectId array
+        if (isset($this->event->id))
+        {
+          $this->event->save();
         }
       }
     }
