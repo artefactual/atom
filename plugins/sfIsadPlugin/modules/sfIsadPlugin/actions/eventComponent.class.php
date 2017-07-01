@@ -92,7 +92,10 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
         if (!isset($this->request->sourceId) && isset($item['id']))
         {
           $params = $this->context->routing->parse(Qubit::pathInfo($item['id']));
-          $this->resource->eventsRelatedByobjectId[] = $this->event = $params['_sf_route']->resource;
+
+          // Do not add exiting events to the eventsRelatedByobjectId
+          // array, as they could be deleted before saving the resource
+          $this->event = $params['_sf_route']->resource;
           array_push($finalEventIds, $this->event->id);
         }
         else
@@ -106,6 +109,13 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
           {
             $this->processField($field);
           }
+        }
+
+        // Save existing events as they are not attached
+        // to the eventsRelatedByobjectId array
+        if (isset($this->event->id))
+        {
+          $this->event->save();
         }
       }
     }

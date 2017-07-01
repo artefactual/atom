@@ -147,14 +147,9 @@ class EventEditComponent extends sfComponent
         {
           $params = $this->context->routing->parse(Qubit::pathInfo($item['id']));
 
-          if ($this->resource instanceof QubitActor)
-          {
-            $this->resource->events[] = $this->event = $params['_sf_route']->resource;
-          }
-          else
-          {
-            $this->resource->eventsRelatedByobjectId[] = $this->event = $params['_sf_route']->resource;
-          }
+          // Do not add exiting events to the eventsRelatedByobjectId or events
+          // array, as they could be deleted before saving the resource
+          $this->event = $params['_sf_route']->resource;
         }
         elseif ($this->resource instanceof QubitActor)
         {
@@ -171,6 +166,13 @@ class EventEditComponent extends sfComponent
           {
             $this->processField($field);
           }
+        }
+
+        // Save existing events as they are not attached
+        // to the eventsRelatedByobjectId or events array
+        if (isset($this->event->id))
+        {
+          $this->event->save();
         }
       }
     }
