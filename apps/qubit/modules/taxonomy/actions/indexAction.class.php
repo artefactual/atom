@@ -90,7 +90,7 @@ class TaxonomyIndexAction extends sfAction
     $culture = $this->context->user->getCulture();
 
     $this->query = new \Elastica\Query();
-    $this->query->setLimit($request->limit);
+    $this->query->setSize($request->limit);
 
     if (!empty($request->page))
     {

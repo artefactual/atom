@@ -209,7 +209,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     $this->repositoryTypes = QubitTerm::getEsTermsByTaxonomyId(QubitTaxonomy::REPOSITORY_TYPE_ID, $limit);
 
     $query = new \Elastica\Query(new \Elastica\Query\MatchAll);
-    $query->setLimit($limit);
+    $query->setSize($limit);
 
     $this->repositories = QubitSearch::getInstance()->index->getType('QubitRepository')->search($query);
   }

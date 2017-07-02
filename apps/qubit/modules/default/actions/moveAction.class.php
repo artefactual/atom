@@ -92,7 +92,7 @@ class DefaultMoveAction extends sfAction
     $this->parent = QubitObject::getBySlug($this->form->parent->getValue());
 
     $this->query = new \Elastica\Query();
-    $this->query->setLimit($request->limit);
+    $this->query->setSize($request->limit);
 
     if (!empty($request->page))
     {

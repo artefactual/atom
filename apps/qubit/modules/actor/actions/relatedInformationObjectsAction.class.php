@@ -94,7 +94,7 @@ class ActorRelatedInformationObjectsAction extends sfAction
       $query->setQuery($queryNested);
     }
 
-    $query->setLimit($limit);
+    $query->setSize($limit);
     $query->setFrom($limit * ($page - 1));
 
     $title = sprintf('i18n.%s.title.untouched', sfContext::getInstance()->user->getCulture());

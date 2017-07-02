@@ -36,7 +36,7 @@ class arElasticSearchPluginQuery
   public function __construct($limit = 10, $skip = 0)
   {
     $this->query = new \Elastica\Query();
-    $this->query->setLimit($limit);
+    $this->query->setSize($limit);
     $this->query->setFrom($skip);
 
     $this->queryBool = new \Elastica\Query\BoolQuery;

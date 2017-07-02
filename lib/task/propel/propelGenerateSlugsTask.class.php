@@ -301,7 +301,7 @@ EOF;
 
     $queryBool->addMust(new \Elastica\Query\Term(array('_id' => $id)));
     $query->setQuery($queryBool);
-    $query->setLimit(1);
+    $query->setSize(1);
 
     $results = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
 

@@ -37,7 +37,7 @@ class InformationObjectAutocompleteAction extends sfAction
     $culture = $this->context->user->getCulture();
 
     $this->query = new \Elastica\Query();
-    $this->query->setLimit($request->limit);
+    $this->query->setSize($request->limit);
     $this->query->setSort(array('levelOfDescriptionId' => 'asc', 'identifier' => 'asc', 'i18n.'.$culture.'.title' => 'asc'));
 
     $this->queryBool = new \Elastica\Query\BoolQuery;

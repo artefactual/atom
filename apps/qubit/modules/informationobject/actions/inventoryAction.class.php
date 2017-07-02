@@ -76,7 +76,7 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
   private static function getResults($resource, $limit = 10, $page = 1, $sort = null)
   {
     $query = new \Elastica\Query;
-    $query->setLimit($limit);
+    $query->setSize($limit);
     if (!empty($page))
     {
       $query->setFrom(($page - 1) * $limit);

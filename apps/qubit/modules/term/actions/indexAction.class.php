@@ -326,7 +326,7 @@ EOF;
     }
 
     $listQuery = new \Elastica\Query();
-    $listQuery->setLimit($request->listLimit);
+    $listQuery->setSize($request->listLimit);
     $listQuery->setSort(array(sprintf('i18n.%s.name.untouched', $this->culture) => 'asc'));
 
     if (!empty($request->listPage))

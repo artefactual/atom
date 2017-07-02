@@ -49,7 +49,7 @@ class UserClipboardClearAction extends sfAction
 
     // Get all descriptions added to the clipboard
     $query = new \Elastica\Query(new \Elastica\Query\Terms('slug', $slugs));
-    $query->setLimit(count($slugs));
+    $query->setSize(count($slugs));
 
     // Filter drafts in case they were manually added
     if ('QubitInformationObject' === $this->type)

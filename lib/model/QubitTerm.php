@@ -952,7 +952,7 @@ class QubitTerm extends BaseTerm
     $queryBool->addMust($queryTerm);
 
     $query = new \Elastica\Query($queryBool);
-    $query->setLimit($limit);
+    $query->setSize($limit);
 
     return QubitSearch::getInstance()->index->getType('QubitTerm')->search($query);
   }
