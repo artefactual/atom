@@ -80,7 +80,7 @@ class SearchAutocompleteAction extends sfAction
       $query = new \Elastica\Query();
       $query
         ->setSize(3)
-        ->setFields($item['fields']);
+        ->setSource($item['fields']);
 
       $queryBool = new \Elastica\Query\BoolQuery;
 
