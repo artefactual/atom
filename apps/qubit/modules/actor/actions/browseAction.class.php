@@ -135,12 +135,6 @@ class ActorBrowseAction extends DefaultBrowseAction
 
     $this->search->query->setQuery($this->search->queryBool);
 
-    // Set filter
-    if (0 < count($this->search->filterBool->toArray()))
-    {
-      $this->search->query->setPostFilter($this->search->filterBool);
-    }
-
     $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($this->search->query);
 
     $this->pager = new QubitSearchPager($resultSet);

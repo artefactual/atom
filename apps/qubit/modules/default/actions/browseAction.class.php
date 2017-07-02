@@ -79,23 +79,24 @@ class DefaultBrowseAction extends sfAction
           // Create and add a new one only with drafts filtered (only for information object queries)
           if ($this::INDEX_TYPE == 'QubitInformationObject')
           {
-            $this->filterBool = new \Elastica\Filter\BoolFilter;
-            QubitAclSearch::filterDrafts($this->filterBool);
+            $query = new \Elastica\Query\BoolQuery;
+            QubitAclSearch::filterDrafts($query);
 
-            if (0 < count($this->filterBool->toArray()))
+            // We need a postFilter in here to allow the use of a raw query
+            if (0 < count($query->toArray()))
             {
-              $this->search->query->setPostFilter($this->filterBool);
+              $this->search->query->setPostFilter($query);
             }
           }
 
           $resultSetWithoutLanguageFilter = QubitSearch::getInstance()->index->getType($this::INDEX_TYPE)->search($this->search->query);
 
-          $count= $resultSetWithoutLanguageFilter->getTotalHits();
+          $count = $resultSetWithoutLanguageFilter->getTotalHits();
         }
         // Without language filter the count equals the number of hits
         else
         {
-          $count= $resultSet->getTotalHits();
+          $count = $resultSet->getTotalHits();
         }
 
         $i18n = sfContext::getInstance()->i18n;

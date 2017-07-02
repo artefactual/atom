@@ -82,16 +82,14 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
       $query->setFrom(($page - 1) * $limit);
     }
 
-    $q = new \Elastica\Query\BoolQuery;
+    $queryBool = new \Elastica\Query\BoolQuery;
 
     $q1 = new \Elastica\Query\Term;
     $q1->setTerm('ancestors', $resource->id);
-    $q->addMust($q1);
+    $queryBool->addMust($q1);
     $q2 = new \Elastica\Query\Terms;
     $q2->setTerms('levelOfDescriptionId', self::getLevels());
-    $q->addMust($q2);
-
-    $query->setQuery($q);
+    $queryBool->addMust($q2);
 
     $i18n = sprintf('i18n.%s.', sfContext::getInstance()->getUser()->getCulture());
     switch ($sort)
@@ -150,14 +148,8 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
           array('order' => 'asc', 'ignore_unmapped' => true)));
     }
 
-
-    // Filter drafts
-    $filterBool = new \Elastica\Filter\BoolFilter;
-    QubitAclSearch::filterDrafts($filterBool);
-    if (0 < count($filterBool->toArray()))
-    {
-      $query->setPostFilter($filterBool);
-    }
+    QubitAclSearch::filterDrafts($queryBool);
+    $query->setQuery($queryBool);
 
     return QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
   }

@@ -21,7 +21,6 @@ class arElasticSearchPluginQuery
 {
   public $query,
          $queryBool,
-         $filterBool,
          $filters,
          $criteria;
 
@@ -40,7 +39,6 @@ class arElasticSearchPluginQuery
     $this->query->setFrom($skip);
 
     $this->queryBool = new \Elastica\Query\BoolQuery;
-    $this->filterBool = new \Elastica\Filter\BoolFilter;
   }
 
   /**
@@ -94,6 +92,7 @@ class arElasticSearchPluginQuery
         $facet->setSize($item['size']);
       }
 
+      /*
       $filter = new \Elastica\Filter\BoolFilter;
 
       // Sets a filter for this facet
@@ -112,6 +111,7 @@ class arElasticSearchPluginQuery
       {
         $facet->setFilter($filter);
       }
+      */
 
       $this->query->addFacet($facet);
     }
@@ -134,9 +134,9 @@ class arElasticSearchPluginQuery
     if (isset($facets['languages']) && isset($params['languages']))
     {
       $this->filters['languages'] = $params['languages'];
-      $term = new \Elastica\Filter\Term(array($facets['languages']['field'] => $params['languages']));
+      $term = new \Elastica\Query\Term(array($facets['languages']['field'] => $params['languages']));
 
-      $this->filterBool->addMust($term);
+      $this->queryBool->addMust($term);
     }
 
     // Add facet selections as search criteria
@@ -472,7 +472,7 @@ class arElasticSearchPluginQuery
         // (2) copyright status is not set.
         if (isset($term) && $term->id == $value)
         {
-          // Filtered query for documents without copyright status
+          // Query for documents without copyright status
           $exists = new \Elastica\Query\Exists('copyrightStatusId');
           $queryBoolMissing = new \Elastica\Query\BoolQuery;
           $queryBoolMissing->addMustNot($exists);
@@ -643,18 +643,12 @@ class arElasticSearchPluginQuery
       $this->queryBool->addMust(new \Elastica\Query\MatchAll);
     }
 
-    $this->query->setQuery($this->queryBool);
-
     if ($filterDrafts)
     {
-      QubitAclSearch::filterDrafts($this->filterBool);
+      QubitAclSearch::filterDrafts($this->queryBool);
     }
 
-    // Set filter
-    if (0 < count($this->filterBool->toArray()))
-    {
-      $this->query->setPostFilter($this->filterBool);
-    }
+    $this->query->setQuery($this->queryBool);
 
     return $this->query;
   }

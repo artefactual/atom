@@ -271,8 +271,6 @@ EOF;
           $this->search->queryBool->addMust($queryDirect);
         }
 
-        $this->search->query->setQuery($this->search->queryBool);
-
         switch ($request->sort)
         {
           case 'referenceCode':
@@ -293,14 +291,8 @@ EOF;
             $this->search->query->setSort(array('updatedAt' => 'desc'));
         }
 
-        // Filter drafts
-        QubitAclSearch::filterDrafts($this->search->filterBool);
-
-        // Set filter
-        if (0 < count($this->search->filterBool->toArray()))
-        {
-          $this->search->query->setPostFilter($this->search->filterBool);
-        }
+        QubitAclSearch::filterDrafts($this->search->queryBool);
+        $this->search->query->setQuery($this->search->queryBool);
 
         $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->query);
 

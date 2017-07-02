@@ -41,7 +41,6 @@ class InformationObjectAutocompleteAction extends sfAction
     $this->query->setSort(array('levelOfDescriptionId' => 'asc', 'identifier' => 'asc', 'i18n.'.$culture.'.title' => 'asc'));
 
     $this->queryBool = new \Elastica\Query\BoolQuery;
-    $this->filterBool = new \Elastica\Filter\BoolFilter;
 
     if (1 === preg_match('/^[\s\t\r\n]*$/', $request->query))
     {
@@ -67,16 +66,13 @@ class InformationObjectAutocompleteAction extends sfAction
       $this->queryBool->addMust($queryString);
     }
 
-    $this->query->setQuery($this->queryBool);
-
     // Filter results by parent
     if (!empty($request->parent) && ctype_digit($request->parent))
     {
       $queryTerm = new \Elastica\Query\Term;
       $queryTerm->setTerm('parentId', $request->parent);
 
-      $filter = new \Elastica\Filter\Query($queryTerm);
-      $this->filterBool->addMust($filter);
+      $this->queryBool->addMust($queryTerm);
     }
 
     // Filter results by repository
@@ -85,21 +81,16 @@ class InformationObjectAutocompleteAction extends sfAction
       $queryTerm = new \Elastica\Query\Term;
       $queryTerm->setTerm('repository.id', $request->repository);
 
-      $filter = new \Elastica\Filter\Query($queryTerm);
-      $this->filterBool->addMust($filter);
+      $this->queryBool->addMust($queryTerm);
     }
 
     // Filter drafts
     if (isset($request->filterDrafts) && $request->filterDrafts)
     {
-      QubitAclSearch::filterDrafts($this->filterBool);
+      QubitAclSearch::filterDrafts($this->queryBool);
     }
 
-    // Set filter
-    if (0 < count($this->filterBool->toArray()))
-    {
-      $this->query->setPostFilter($this->filterBool);
-    }
+    $this->query->setQuery($this->queryBool);
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
 
