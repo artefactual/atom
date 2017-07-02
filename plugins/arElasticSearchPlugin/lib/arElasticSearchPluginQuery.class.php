@@ -473,10 +473,9 @@ class arElasticSearchPluginQuery
         if (isset($term) && $term->id == $value)
         {
           // Filtered query for documents without copyright status
-          $queryAll = new \Elastica\Query\MatchAll();
-          $filter = new \Elastica\Filter\Missing;
-          $filter->setField('copyrightStatusId');
-          $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filter);
+          $exists = new \Elastica\Query\Exists('copyrightStatusId');
+          $queryBoolMissing = new \Elastica\Query\BoolQuery;
+          $queryBoolMissing->addMustNot($exists);
 
           // Query for unknown copyright status
           $query = new \Elastica\Query\Term;
@@ -484,7 +483,7 @@ class arElasticSearchPluginQuery
 
           $queryBool = new \Elastica\Query\BoolQuery;
           $queryBool->addShould($query);
-          $queryBool->addShould($filteredQuery);
+          $queryBool->addShould($queryBoolMissing);
 
           return $queryBool;
         }
@@ -512,18 +511,16 @@ class arElasticSearchPluginQuery
         switch ($value)
         {
           case 'yes':
-            $queryAll = new \Elastica\Query\MatchAll();
-            $filter = new \Elastica\Filter\Exists('findingAid.status');
-            $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filter);
+            $query = new \Elastica\Query\Exists('findingAid.status');
 
-            return $filteredQuery;
+            return $query;
 
           case 'no':
-            $queryAll = new \Elastica\Query\MatchAll();
-            $filter = new \Elastica\Filter\Missing('findingAid.status');
-            $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filter);
+            $exists = new \Elastica\Query\Exists('findingAid.status');
+            $query = new \Elastica\Query\BoolQuery;
+            $query->addMustNot($exists);
 
-            return $filteredQuery;
+            return $query;
 
           case 'generated':
             $query = new \Elastica\Query\Term;
@@ -572,12 +569,13 @@ class arElasticSearchPluginQuery
       if ($type == 'inclusive')
       {
         // Start date before range and end date missing
-        $queryStart = new \Elastica\Query\Range('dates.startDate', array('lt' => $params['startDate']));
-        $filter = new \Elastica\Filter\Missing;
-        $filter->setField('dates.endDate');
-        $filteredQuery = new \Elastica\Query\Filtered($queryStart, $filter);
+        $queryBool = new \Elastica\Query\BoolQuery;
+        $start = new \Elastica\Query\Range('dates.startDate', array('lt' => $params['startDate']));
+        $exists = new \Elastica\Query\Exists('dates.endDate');
+        $queryBool->addMust($start);
+        $queryBool->addMustNot($exists);
 
-        $query->addShould($filteredQuery);
+        $query->addShould($queryBool);
       }
     }
 
@@ -588,12 +586,13 @@ class arElasticSearchPluginQuery
       if ($type == 'inclusive')
       {
         // End date after range and start date missing
-        $queryEnd = new \Elastica\Query\Range('dates.endDate', array('gt' => $params['endDate']));
-        $filter = new \Elastica\Filter\Missing;
-        $filter->setField('dates.startDate');
-        $filteredQuery = new \Elastica\Query\Filtered($queryEnd, $filter);
+        $queryBool = new \Elastica\Query\BoolQuery;
+        $end = new \Elastica\Query\Range('dates.endDate', array('gt' => $params['endDate']));
+        $exists = new \Elastica\Query\Exists('dates.startDate');
+        $queryBool->addMust($end);
+        $queryBool->addMustNot($exists);
 
-        $query->addShould($filteredQuery);
+        $query->addShould($queryBool);
       }
     }
 
