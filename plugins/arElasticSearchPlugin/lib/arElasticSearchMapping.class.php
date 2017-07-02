@@ -238,7 +238,7 @@ class arElasticSearchMapping
             throw new sfException('No i18n_languages in database settings.');
           }
 
-          $this->setIfNotSet($typeProperties['properties'], 'sourceCulture', array('type' => 'text', 'index' => 'not_analyzed', 'include_in_all' => false));
+          $this->setIfNotSet($typeProperties['properties'], 'sourceCulture', array('type' => 'keyword', 'include_in_all' => false));
 
           // We are using the same mapping for all the i18n fields
           $nestedI18nFields = array();
@@ -264,10 +264,9 @@ class arElasticSearchMapping
             {
               $nestedI18nFields[$item]['fields']['autocomplete'] = array(
                 'type' => 'text',
-                'index' => 'analyzed',
                 'analyzer' => 'autocomplete',
                 'search_analyzer' => 'standard',
-                'store' => 'yes',
+                'store' => 'true',
                 'term_vector' => 'with_positions_offsets');
             }
           }
@@ -276,9 +275,7 @@ class arElasticSearchMapping
           {
             foreach ($typeProperties['_attributes']['rawFields'] as $item)
             {
-              $nestedI18nFields[$item]['fields']['untouched'] = array(
-                'type' => 'text',
-                'index' => 'not_analyzed');
+              $nestedI18nFields[$item]['fields']['untouched'] = array('type' => 'keyword');
             }
           }
 
@@ -351,7 +348,7 @@ class arElasticSearchMapping
       $mapping = $this->mapping[$foreignTypeNameCamelized];
 
       // Add id of the foreign resource
-      $mapping['properties']['id'] = array('type' => 'integer', 'index' => 'not_analyzed', 'include_in_all' => 'false');
+      $mapping['properties']['id'] = array('type' => 'integer', 'include_in_all' => 'false');
 
       $typeProperties['properties'][$fieldNameCamelized] = $mapping;
     }
@@ -381,7 +378,7 @@ class arElasticSearchMapping
         }
 
         // Add source culture propertie
-        $this->setIfNotSet($mapping['properties'], 'sourceCulture', array('type' => 'text', 'index' => 'not_analyzed', 'include_in_all' => false));
+        $this->setIfNotSet($mapping['properties'], 'sourceCulture', array('type' => 'keyword', 'include_in_all' => false));
 
         $nestedI18nFields = array();
         foreach ($mapping['_i18nFields'] as $i18nFieldName)
@@ -404,7 +401,7 @@ class arElasticSearchMapping
       }
 
       // Add id of the partial foreign resource
-      $mapping['properties']['id'] = array('type' => 'integer', 'index' => 'not_analyzed', 'include_in_all' => 'false');
+      $mapping['properties']['id'] = array('type' => 'integer', 'include_in_all' => 'false');
 
       $typeProperties['properties'][$fieldNameCamelized] = $mapping;
     }
@@ -476,9 +473,7 @@ class arElasticSearchMapping
     }
 
     // Create a list of languages for faceting
-    $mapping['languages'] = array(
-      'type' => 'text',
-      'index' => 'not_analyzed');
+    $mapping['languages'] = array('type' => 'keyword');
 
     return $mapping;
   }
