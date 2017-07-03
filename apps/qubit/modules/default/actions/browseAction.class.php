@@ -179,8 +179,8 @@ class DefaultBrowseAction extends sfAction
         $this->getParameters = $request->getGetParameters();
       }
 
-      $this->search->addFacets($this::$FACETS);
-      $this->search->addFacetFilters($this::$FACETS, $this->getParameters);
+      // $this->search->addFacets($this::$FACETS);
+      // $this->search->addFacetFilters($this::$FACETS, $this->getParameters);
     }
 
     if (isset($this->search->filters['languages']))

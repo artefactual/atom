@@ -29,7 +29,7 @@
 <?php endif; ?>
 
 <?php if (isset($pager) && $pager->hasResults() || sfConfig::get('app_enable_institutional_scoping')): ?>
-
+<!--
   <?php slot('sidebar') ?>
 
     <section id="facets">
@@ -126,7 +126,7 @@
     </section>
 
   <?php end_slot() ?>
-
+-->
 <?php endif; ?>
 
 <?php slot('before-content') ?>

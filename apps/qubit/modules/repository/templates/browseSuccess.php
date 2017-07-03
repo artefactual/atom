@@ -8,7 +8,7 @@
     <span class="sub" id="results-label"><?php echo sfConfig::get('app_ui_label_repository') ?></span>
   </div>
 <?php end_slot() ?>
-
+<!--
 <?php slot('sidebar') ?>
 
   <section id="facets">
@@ -71,7 +71,7 @@
   </section>
 
 <?php end_slot() ?>
-
+-->
 <?php slot('before-content') ?>
 
   <section class="header-options">

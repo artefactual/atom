@@ -33,7 +33,7 @@ class QubitSearchPager extends sfPager
     switch ($name)
     {
       case 'facets':
-        return $this->getFacets();
+        // return $this->getFacets();
 
         break;
     }

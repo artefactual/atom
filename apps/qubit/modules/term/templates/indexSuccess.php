@@ -9,7 +9,7 @@
     <?php else: ?>
 
       <?php echo get_component('term', 'treeView', array('browser' => false, 'tabs' => true, 'pager' => $listPager)) ?>
-
+<!--
       <section id="facets">
 
         <div class="visible-phone facets-header">
@@ -58,6 +58,7 @@
         </div>
 
       </section>
+-->
     <?php endif; ?>
 
  </div>

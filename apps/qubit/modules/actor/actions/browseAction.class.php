@@ -142,6 +142,6 @@ class ActorBrowseAction extends DefaultBrowseAction
     $this->pager->setMaxPerPage($this->limit);
     $this->pager->init();
 
-    $this->populateFacets($resultSet);
+    // $this->populateFacets($resultSet);
   }
 }

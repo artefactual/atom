@@ -302,7 +302,7 @@ EOF;
         $this->pager->setMaxPerPage($this->limit);
         $this->pager->init();
 
-        $this->populateFacets($resultSet);
+        // $this->populateFacets($resultSet);
 
         // Load list terms
         $this->loadListTerms($request);
