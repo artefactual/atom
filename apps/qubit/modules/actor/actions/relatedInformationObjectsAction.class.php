@@ -99,7 +99,7 @@ class ActorRelatedInformationObjectsAction extends sfAction
     $title = sprintf('i18n.%s.title.untouched', sfContext::getInstance()->user->getCulture());
 
     $query->setQuery($queryBool);
-    $query->setSort(array($title => array('order' => 'asc', 'ignore_unmapped' => true)));
+    $query->setSort(array($title => 'asc'));
     $query->setSize($limit);
     $query->setFrom($limit * ($page - 1));
 

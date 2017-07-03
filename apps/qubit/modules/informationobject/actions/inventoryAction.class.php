@@ -95,46 +95,41 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
     switch ($sort)
     {
       case 'identifierDown':
-        $query->setSort(array('identifier' =>
-          array('order' => 'desc', 'ignore_unmapped' => true)));
+        $query->setSort(array('identifier' => 'desc'));
 
         break;
 
       case 'titleUp':
-        $query->setSort(array($i18n.'title.untouched' =>
-          array('order' => 'asc', 'ignore_unmapped' => true)));
+        $query->setSort(array($i18n.'title.untouched' => 'asc'));
 
         break;
 
       case 'titleDown':
-        $query->setSort(array($i18n.'title.untouched' =>
-          array('order' => 'desc', 'ignore_unmapped' => true)));
+        $query->setSort(array($i18n.'title.untouched' => 'desc'));
 
         break;
 
       case 'levelUp':
-        $query->setSort(array('levelOfDescriptionId' =>
-          array('order' => 'asc', 'ignore_unmapped' => true)));
+        $query->setSort(array('levelOfDescriptionId' => 'asc'));
 
         break;
 
       case 'levelDown':
-        $query->setSort(array('levelOfDescriptionId' =>
-          array('order' => 'desc', 'ignore_unmapped' => true)));
+        $query->setSort(array('levelOfDescriptionId' => 'desc'));
 
         break;
 
       case 'dateUp':
         $query->setSort(array(
-          'dates.startDate' => array('order' => 'asc', 'ignore_unmapped' => true),
-          'dates.endDate' => array('order' => 'asc', 'ignore_unmapped' => true)));
+          'dates.startDate' => 'asc',
+          'dates.endDate' => 'asc'));
 
         break;
 
       case 'dateDown':
         $query->setSort(array(
-          'dates.startDate' => array('order' => 'desc', 'ignore_unmapped' => true),
-          'dates.endDate' => array('order' => 'desc', 'ignore_unmapped' => true)));
+          'dates.startDate' => 'desc',
+          'dates.endDate' => 'desc'));
 
         break;
 
@@ -144,8 +139,7 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
 
       case 'identifierUp':
       default:
-        $query->setSort(array('identifier' =>
-          array('order' => 'asc', 'ignore_unmapped' => true)));
+        $query->setSort(array('identifier' => 'asc'));
     }
 
     QubitAclSearch::filterDrafts($queryBool);

@@ -79,7 +79,7 @@ class RepositoryHoldingsAction extends sfAction
     $query->setFrom($limit * ($page - 1));
 
     $title = sprintf('i18n.%s.title.untouched', sfContext::getInstance()->user->getCulture());
-    $query->setSort(array($title => array('order' => 'asc', 'ignore_unmapped' => true)));
+    $query->setSort(array($title => 'asc'));
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
 

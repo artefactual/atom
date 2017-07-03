@@ -131,33 +131,27 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     switch ($request->sort)
     {
       case 'nameUp':
-        $this->search->query->setSort(array($i18n.'authorizedFormOfName.untouched' =>
-                              array('order' => 'asc', 'ignore_unmapped' => true)));
+        $this->search->query->setSort(array($i18n.'authorizedFormOfName.untouched' => 'asc'));
         break;
 
       case 'nameDown':
-        $this->search->query->setSort(array($i18n.'authorizedFormOfName.untouched' =>
-                              array('order' => 'desc', 'ignore_unmapped' => true)));
+        $this->search->query->setSort(array($i18n.'authorizedFormOfName.untouched' => 'desc'));
         break;
 
       case 'regionUp':
-        $this->search->query->setSort(array($i18n.'region.untouched' =>
-                              array('order' => 'asc', 'ignore_unmapped' => true)));
+        $this->search->query->setSort(array($i18n.'region.untouched' => 'asc'));
         break;
 
       case 'regionDown':
-        $this->search->query->setSort(array($i18n.'region.untouched' =>
-                              array('order' => 'desc', 'ignore_unmapped' => true)));
+        $this->search->query->setSort(array($i18n.'region.untouched' => 'desc'));
         break;
 
       case 'localityUp':
-        $this->search->query->setSort(array($i18n.'city.untouched' =>
-                              array('order' => 'asc', 'ignore_unmapped' => true)));
+        $this->search->query->setSort(array($i18n.'city.untouched' => 'asc'));
         break;
 
       case 'localityDown':
-        $this->search->query->setSort(array($i18n.'city.untouched' =>
-                              array('order' => 'desc', 'ignore_unmapped' => true)));
+        $this->search->query->setSort(array($i18n.'city.untouched' => 'desc'));
         break;
 
       case 'identifier':
