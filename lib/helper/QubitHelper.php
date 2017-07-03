@@ -609,9 +609,9 @@ function render_search_result_date($date)
 
   foreach ((array)$date as $item)
   {
-    $displayDate = get_search_i18n($item, 'date', array('culture' => $culture));
-    $startDate = $item['startDateString'];
-    $endDate = $item['endDateString'];
+    $displayDate = get_search_i18n($item, 'date');
+    $startDate = isset($item['startDateString']) ? $item['startDateString'] : null;
+    $endDate = isset($item['endDateString']) ? $item['endDateString'] : null;
 
     if (empty($displayDate) && empty($startDate) && empty($endDate))
     {

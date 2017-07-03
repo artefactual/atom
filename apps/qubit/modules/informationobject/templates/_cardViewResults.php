@@ -11,7 +11,7 @@
     <?php endif; ?>
 
       <a href="<?php echo url_for(array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>">
-        <?php if (!empty($doc['digitalObject']['thumbnailPath'])
+        <?php if (isset($doc['digitalObject']) && !empty($doc['digitalObject']['thumbnailPath'])
           && QubitAcl::check(QubitInformationObject::getById($hit->getId()), 'readThumbnail')
           && QubitGrantedRight::checkPremis($hit->getId(), 'readThumb')): ?>
 
@@ -19,7 +19,7 @@
             array('alt' => esc_entities($title, 100))),
             array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
 
-        <?php elseif (!empty($doc['digitalObject'])): // Show generic icon since no thumbnail present ?>
+        <?php elseif (isset($doc['digitalObject']) && !empty($doc['digitalObject']['mediaTypeId'])): // Show generic icon since no thumbnail present ?>
 
           <?php echo link_to(image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId']),
             array('alt' => esc_entities($title, 100))),

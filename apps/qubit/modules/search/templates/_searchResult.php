@@ -44,9 +44,11 @@
         <li class="level-description"><?php echo esc_specialchars(QubitCache::getLabel($doc['levelOfDescriptionId'], 'QubitTerm')) ?></li>
       <?php endif; ?>
 
-      <?php $date = render_search_result_date($doc['dates']) ?>
-      <?php if (!empty($date)): ?>
-        <li class="dates"><?php echo $date ?></li>
+      <?php if (isset($doc['dates'])): ?>
+        <?php $date = render_search_result_date($doc['dates']) ?>
+        <?php if (!empty($date)): ?>
+          <li class="dates"><?php echo $date ?></li>
+        <?php endif; ?>
       <?php endif; ?>
 
       <?php if (isset($doc['publicationStatusId']) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $doc['publicationStatusId']): ?>
