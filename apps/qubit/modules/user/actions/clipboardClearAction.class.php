@@ -48,8 +48,9 @@ class UserClipboardClearAction extends sfAction
     }
 
     // Get all descriptions added to the clipboard
-    $queryTerms = new \Elastica\Query(new \Elastica\Query\Terms('slug', $slugs));
-    $queryBool = new \Elastica\Query\QueryBool;
+    $query = new \Elastica\Query;
+    $queryTerms = new \Elastica\Query\Terms('slug', $slugs);
+    $queryBool = new \Elastica\Query\BoolQuery;
     $queryBool->addMust($queryTerms);
 
     if ($this->type == 'QubitInformationObject')
