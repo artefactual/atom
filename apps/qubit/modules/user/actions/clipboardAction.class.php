@@ -41,7 +41,7 @@ class UserClipboardAction extends DefaultBrowseAction
 
     if (!isset($allSlugs[$this->entityType]) || !count($allSlugs[$this->entityType]))
     {
-      $resultSet = new \Elastica\ResultSet(new Elastica\Response(null), new Elastica\Query);
+      $resultSet = new \Elastica\ResultSet(new Elastica\Response(null), new Elastica\Query, array());
     }
     else
     {
