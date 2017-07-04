@@ -20,7 +20,7 @@
 class arElasticSearchPluginConfiguration extends sfPluginConfiguration
 {
   public static
-    $summary = 'Search index plugin. Uses an ElasticSearch instance to provide advanced search features such as faceting, fuzzy search, etc.',
+    $summary = 'Search index plugin. Uses an ElasticSearch instance to provide advanced search features such as aggregations, fuzzy search, etc.',
     $version = '1.0.0',
 
     $configPath = 'config/search.yml',

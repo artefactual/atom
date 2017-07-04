@@ -472,7 +472,7 @@ class arElasticSearchMapping
         'properties' => $nestedI18nFields);
     }
 
-    // Create a list of languages for faceting
+    // Create a list of languages for aggregations
     $mapping['languages'] = array('type' => 'keyword');
 
     return $mapping;

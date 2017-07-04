@@ -30,9 +30,9 @@ class InformationObjectExportCsvAction extends sfAction
       }
       else
       {
-        // To keep the top level descriptions filter an facet in sync
+        // To keep the top level descriptions filter an agg in sync
         // the autocomplete value is converted to the resource id
-        // before the facet filters are added to the query
+        // before the agg filters are added to the query
         $getParameters = $request->getGetParameters();
         if (isset($getParameters['collection']) && !ctype_digit($getParameters['collection']))
         {

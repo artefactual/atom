@@ -46,7 +46,7 @@ class DefaultBrowseAction extends sfAction
 
       $this->aggs[$name] = $this->populateAgg($name, $agg['buckets']);
 
-      // Get unique descriptions count for languages facet
+      // Get unique descriptions count for languages aggregation
       if ($name == 'languages')
       {
         // If the query is being filtered by language we need to execute

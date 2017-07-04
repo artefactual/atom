@@ -305,8 +305,8 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
   protected function setHiddenFields($request)
   {
-    // Store current params (facets, sort, etc) to add them as hidden inputs
-    // in the form, to keep the selected facets and all on submit
+    // Store current params (aggs, sort, etc) to add them as hidden inputs
+    // in the form, to keep the selected aggs and all on submit
     $this->hiddenFields = array();
     foreach ($request->getGetParameters() as $key => $value)
     {
@@ -423,9 +423,9 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
   public function execute($request)
   {
-    // To keep the top level descriptions filter an facet in sync
+    // To keep the top level descriptions filter an agg in sync
     // the autocomplete value is converted to the resource id
-    // before the facet filters are added to the query
+    // before the agg filters are added to the query
     $this->getParameters = $request->getGetParameters();
     if (isset($this->getParameters['collection']) && !ctype_digit($this->getParameters['collection']))
     {
@@ -458,7 +458,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       $this->getParameters['sq0'] = $request->query;
     }
 
-    // Create the query and filter it with the selected facets
+    // Create the query and filter it with the selected aggs
     parent::execute($request);
 
     // Create advanced search form

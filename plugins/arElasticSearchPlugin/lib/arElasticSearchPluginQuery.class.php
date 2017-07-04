@@ -118,7 +118,7 @@ class arElasticSearchPluginQuery
       $this->queryBool->addMust($term);
     }
 
-    // Add facet selections as search criteria
+    // Add agg selections as search criteria
     foreach ($params as $param => $value)
     {
       if ('languages' == $param
@@ -134,7 +134,7 @@ class arElasticSearchPluginQuery
 
       $query = new \Elastica\Query\Term(array($aggs[$param]['field'] => $value));
 
-      // Collection facet must select all descendants and itself
+      // Collection agg must select all descendants and itself
       if ($param == 'collection')
       {
         $collection = QubitInformationObject::getById($value);
@@ -167,8 +167,8 @@ class arElasticSearchPluginQuery
     }
 
     // Process advanced search form fields
-    // Some of them have the same name as a facet, this creates query
-    // duplication but allows as to keep facets and adv. search form syncronized
+    // Some of them have the same name as a aggregation, this creates query
+    // duplication but allows as to keep aggs and adv. search form syncronized
     foreach ($fieldNames as $name)
     {
       if (isset($params[$name]) && strlen(trim($params[$name])) > 0
