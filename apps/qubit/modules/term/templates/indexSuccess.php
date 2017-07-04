@@ -21,16 +21,16 @@
 
         <div class="content">
 
-          <?php echo get_partial('search/facetLanguage', array(
-            'target' => '#facet-languages',
+          <?php echo get_partial('search/aggregation', array(
+            'id' => '#facet-languages',
             'label' => __('Language'),
-            'facet' => 'languages',
-            'pager' => $pager,
+            'name' => 'languages',
+            'aggs' => $aggs,
             'filters' => $search->filters)) ?>
 
           <?php if (QubitTaxonomy::PLACE_ID != $resource->taxonomyId): ?>
             <?php echo get_partial('search/aggregation', array(
-              'id' => '#agg-places',
+              'id' => '#facet-places',
               'label' => sfConfig::get('app_ui_label_place'),
               'name' => 'places',
               'aggs' => $aggs,
@@ -39,7 +39,7 @@
 
           <?php if (QubitTaxonomy::SUBJECT_ID != $resource->taxonomyId): ?>
             <?php echo get_partial('search/aggregation', array(
-              'id' => '#agg-subjects',
+              'id' => '#facet-subjects',
               'label' => sfConfig::get('app_ui_label_subject'),
               'name' => 'subjects',
               'aggs' => $aggs,
@@ -48,7 +48,7 @@
 
           <?php if (QubitTaxonomy::GENRE_ID != $resource->taxonomyId): ?>
             <?php echo get_partial('search/aggregation', array(
-              'id' => '#agg-genres',
+              'id' => '#facet-genres',
               'label' => sfConfig::get('app_ui_label_genre'),
               'name' => 'genres',
               'aggs' => $aggs,
