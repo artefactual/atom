@@ -29,7 +29,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
 
   // Arrays not allowed in class constants
   public static
-    $FACETS = array(
+    $AGGS = array(
       'languages' =>
         array('type' => 'term',
               'field' => 'i18n.languages',
@@ -55,35 +55,38 @@ class RepositoryBrowseAction extends DefaultBrowseAction
               'field' => 'thematicAreas',
               'size' => 10));
 
-  protected function populateFacet($name, $ids)
+  protected function populateAgg($name, $buckets)
   {
     switch ($name)
     {
       case 'types':
       case 'geographicSubregions':
       case 'thematicAreas':
+        $ids = array_column($buckets, 'key');
         $criteria = new Criteria;
-        $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
+        $criteria->add(QubitTerm::ID, $ids, Criteria::IN);
 
         foreach (QubitTerm::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->getName(array('cultureFallback' => true));
+          $buckets[array_search($item->id, $ids)]['display'] = $item->getName(array('cultureFallback' => true));
         }
 
         break;
 
       case 'regions':
       case 'locality':
-        foreach ($ids as $key => $count)
+        foreach ($buckets as $key => $bucket)
         {
-          $this->types[$key] = $key;
+          $buckets[$key]['display'] = $bucket['key'];
         }
 
         break;
 
       default:
-        parent::populateFacet($name, $ids);
+        return parent::populateAgg($name, $buckets);
     }
+
+    return $buckets;
   }
 
   public function execute($request)
@@ -175,7 +178,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     $this->pager->setMaxPerPage($this->limit);
     $this->pager->init();
 
-    // $this->populateFacets($resultSet);
+    $this->populateAggs($resultSet);
 
     if (isset($request->view) && in_array($request->view, $allowedViews))
     {

@@ -42,18 +42,18 @@ class arElasticSearchPluginQuery
   }
 
   /**
-   * Translate internal representation of facets to Elastica API, adding
-   * to query.
+   * Translate internal representation of aggregations
+   * to Elastica API, adding them to the query.
    *
-   * @param array $facets  search facets
+   * @param array $aggs  search aggregations
    *
    * @return void
    */
-  public function addFacets($facets)
+  public function addAggs($aggs)
   {
-    foreach ($facets as $name => $item)
+    foreach ($aggs as $name => $item)
     {
-      if (!is_array($item))
+      /*if (!is_array($item))
       {
         $facet = new \Elastica\Facet\Terms($item);
         $facet->setField($item);
@@ -62,79 +62,58 @@ class arElasticSearchPluginQuery
         $this->query->addFacet($facet);
 
         continue;
-      }
+      }*/
 
       switch ($item['type'])
       {
-        case 'range':
+        /*case 'range':
           $facet = new \Elastica\Facet\Range($name);
           $facet->setField($item['field']);
           $facet->addRange($item['from'], $item['to']);
 
-          break;
+          break;*/
 
         case 'term':
-          $facet = new \Elastica\Facet\Terms($name);
-          $facet->setField($item['field']);
+          $agg = new \Elastica\Aggregation\Terms($name);
+          $agg->setField($item['field']);
 
           break;
 
-        case 'query':
+        /*case 'query':
           $facet = new \Elastica\Facet\Query($name);
           $facet->setQuery(new \Elastica\Query\Term($item['field']));
 
-          break;
+          break;*/
       }
 
       // Sets the amount of terms to be returned
       if (isset($item['size']))
       {
-        $facet->setSize($item['size']);
+        $agg->setSize($item['size']);
       }
 
-      /*
-      $filter = new \Elastica\Filter\BoolFilter;
-
-      // Sets a filter for this facet
-      if (isset($item['filter']))
-      {
-        switch ($item['filter'])
-        {
-          case 'hideDrafts':
-            QubitAclSearch::filterDrafts($filter);
-            break;
-        }
-      }
-
-      // Apply facet filter if exists
-      if (0 < count($filter->toArray()))
-      {
-        $facet->setFilter($filter);
-      }
-      */
-
-      $this->query->addFacet($facet);
+      $this->query->addAggregation($agg);
     }
   }
 
   /**
-   * Add filters from facets to the query
+   * Add filters from aggregations to the query
    *
-   * @param array $facets  search facets
-   * @param array $params  search filters from facets
+   * @param array $aggs  search aggregations
+   * @param array $params  search filters from aggregations
    *
    * @return void
    */
-  public function addFacetFilters($facets, $params)
+  public function addAggFilters($aggs, $params)
   {
     $this->filters = array();
 
-    // Filter languages only if the languages facet is being used and languages is
-    // set in the request
-    if (isset($facets['languages']) && isset($params['languages']))
+    // Filter languages only if the languages aggregation
+    // is being used and languages is set in the request
+    if (isset($aggs['languages']) && isset($params['languages']))
     {
       $this->filters['languages'] = $params['languages'];
-      $term = new \Elastica\Query\Term(array($facets['languages']['field'] => $params['languages']));
+      $term = new \Elastica\Query\Term(array($aggs['languages']['field'] => $params['languages']));
 
       $this->queryBool->addMust($term);
     }
@@ -143,42 +122,34 @@ class arElasticSearchPluginQuery
     foreach ($params as $param => $value)
     {
       if ('languages' == $param
-        || !array_key_exists($param, $facets)
+        || !array_key_exists($param, $aggs)
         || ('repos' == $param && (!ctype_digit($value)
-        || null === QubitRepository::getById($value))))
+        || null === QubitRepository::getById($value)))
+        || 1 === preg_match('/^[\s\t\r\n]*$/', $value))
       {
         continue;
       }
 
-      foreach (explode(',', $value) as $facetValue)
+      $this->filters[$param] = $value;
+
+      $query = new \Elastica\Query\Term(array($aggs[$param]['field'] => $value));
+
+      // Collection facet must select all descendants and itself
+      if ($param == 'collection')
       {
-        // Don't include empty filters
-        if (1 === preg_match('/^[\s\t\r\n]*$/', $facetValue))
-        {
-          continue;
-        }
+        $collection = QubitInformationObject::getById($value);
 
-        $this->filters[$param][] = $facetValue;
+        $querySelf = new \Elastica\Query\Match;
+        $querySelf->setFieldQuery('slug', $collection->slug);
 
-        $query = new \Elastica\Query\Term(array($facets[$param]['field'] => $facetValue));
+        $queryBool = new \Elastica\Query\BoolQuery;
+        $queryBool->addShould($query);
+        $queryBool->addShould($querySelf);
 
-        // Collection facet must select all descendants and itself
-        if ($param == 'collection')
-        {
-          $collection = QubitInformationObject::getById($facetValue);
-
-          $querySelf = new \Elastica\Query\Match;
-          $querySelf->setFieldQuery('slug', $collection->slug);
-
-          $queryBool = new \Elastica\Query\BoolQuery;
-          $queryBool->addShould($query);
-          $queryBool->addShould($querySelf);
-
-          $query = $queryBool;
-        }
-
-        $this->queryBool->addMust($query);
+        $query = $queryBool;
       }
+
+      $this->queryBool->addMust($query);
     }
   }
 

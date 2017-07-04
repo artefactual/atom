@@ -43,56 +43,47 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       'findingAidStatus'
     ),
 
-    $FACETS = array(
+    $AGGS = array(
       'languages' =>
         array('type' => 'term',
               'field' => 'i18n.languages',
-              'filter' => 'hideDrafts',
               'size' => 10),
       'levels' =>
         array('type' => 'term',
               'field' => 'levelOfDescriptionId',
-              'filter' => 'hideDrafts',
               'size' => 10),
       'mediatypes' =>
         array('type' => 'term',
               'field' => 'digitalObject.mediaTypeId',
-              'filter' => 'hideDrafts',
               'size' => 10),
-      'digitalobjects' =>
+      /*'digitalobjects' =>
         array('type' => 'query',
               'field' => array('hasDigitalObject' => true),
               'filter' => 'hideDrafts',
-              'populate' => false),
+              'populate' => false),*/
       'repos' =>
         array('type' => 'term',
               'field' => 'repository.id',
-              'filter' => 'hideDrafts',
               'size' => 10),
       'places' =>
         array('type'   => 'term',
               'field'  => 'places.id',
-              'filter' => 'hideDrafts',
               'size'   => 10),
       'subjects' =>
         array('type'   => 'term',
               'field'  => 'subjects.id',
-              'filter' => 'hideDrafts',
               'size'   => 10),
       'genres' =>
         array('type'   => 'term',
               'field'  => 'genres.id',
-              'filter' => 'hideDrafts',
               'size'   => 10),
       'creators' =>
         array('type'   => 'term',
               'field'  => 'creators.id',
-              'filter' => 'hideDrafts',
               'size'   => 10),
       'names' =>
         array('type'   => 'term',
               'field'  => 'names.id',
-              'filter' => 'hideDrafts',
               'size'   => 10),
       'collection' =>
         array('type'   => 'term',
@@ -249,17 +240,18 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     }
   }
 
-  protected function populateFacet($name, $ids)
+  protected function populateAgg($name, $buckets)
   {
     switch ($name)
     {
       case 'repos':
+        $ids = array_column($buckets, 'key');
         $criteria = new Criteria;
-        $criteria->add(QubitRepository::ID, array_keys($ids), Criteria::IN);
+        $criteria->add(QubitRepository::ID, $ids, Criteria::IN);
 
         foreach (QubitRepository::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->__toString();
+          $buckets[array_search($item->id, $ids)]['display'] = $item->__toString();
         }
 
         break;
@@ -269,42 +261,47 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       case 'places':
       case 'subjects':
       case 'genres':
+        $ids = array_column($buckets, 'key');
         $criteria = new Criteria;
-        $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
+        $criteria->add(QubitTerm::ID, $ids, Criteria::IN);
 
         foreach (QubitTerm::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->getName(array('cultureFallback' => true));
+          $buckets[array_search($item->id, $ids)]['display'] = $item->getName(array('cultureFallback' => true));
         }
 
         break;
 
       case 'creators':
       case 'names':
+        $ids = array_column($buckets, 'key');
         $criteria = new Criteria;
-        $criteria->add(QubitActor::ID, array_keys($ids), Criteria::IN);
+        $criteria->add(QubitActor::ID, $ids, Criteria::IN);
 
         foreach (QubitActor::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->__toString();
+          $buckets[array_search($item->id, $ids)]['display'] = $item->__toString();
         }
 
         break;
 
       case 'collection':
+        $ids = array_column($buckets, 'key');
         $criteria = new Criteria;
-        $criteria->add(QubitInformationObject::ID, array_keys($ids), Criteria::IN);
+        $criteria->add(QubitInformationObject::ID, $ids, Criteria::IN);
 
         foreach (QubitInformationObject::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->__toString();
+          $buckets[array_search($item->id, $ids)]['display'] = $item->__toString();
         }
 
         break;
 
       default:
-        parent::populateFacet($name, $ids);
+        return parent::populateAgg($name, $buckets);
     }
+
+    return $buckets;
   }
 
   protected function setHiddenFields($request)
@@ -573,7 +570,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     $this->pager->setMaxPerPage($this->limit);
     $this->pager->init();
 
-    // $this->populateFacets($resultSet);
+    $this->populateAggs($resultSet);
   }
 
   /**

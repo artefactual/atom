@@ -9,7 +9,7 @@
     <?php else: ?>
 
       <?php echo get_component('term', 'treeView', array('browser' => false, 'tabs' => true, 'pager' => $listPager)) ?>
-<!--
+
       <section id="facets">
 
         <div class="visible-phone facets-header">
@@ -29,36 +29,36 @@
             'filters' => $search->filters)) ?>
 
           <?php if (QubitTaxonomy::PLACE_ID != $resource->taxonomyId): ?>
-            <?php echo get_partial('search/facet', array(
-              'target' => '#facet-places',
+            <?php echo get_partial('search/aggregation', array(
+              'id' => '#agg-places',
               'label' => sfConfig::get('app_ui_label_place'),
-              'facet' => 'places',
-              'pager' => $pager,
+              'name' => 'places',
+              'aggs' => $aggs,
               'filters' => $search->filters)) ?>
             <?php endif; ?>
 
           <?php if (QubitTaxonomy::SUBJECT_ID != $resource->taxonomyId): ?>
-            <?php echo get_partial('search/facet', array(
-              'target' => '#facet-subjects',
+            <?php echo get_partial('search/aggregation', array(
+              'id' => '#agg-subjects',
               'label' => sfConfig::get('app_ui_label_subject'),
-              'facet' => 'subjects',
-              'pager' => $pager,
+              'name' => 'subjects',
+              'aggs' => $aggs,
               'filters' => $search->filters)) ?>
           <?php endif; ?>
 
           <?php if (QubitTaxonomy::GENRE_ID != $resource->taxonomyId): ?>
-            <?php echo get_partial('search/facet', array(
-              'target' => '#facet-genres',
+            <?php echo get_partial('search/aggregation', array(
+              'id' => '#agg-genres',
               'label' => sfConfig::get('app_ui_label_genre'),
-              'facet' => 'genres',
-              'pager' => $pager,
+              'name' => 'genres',
+              'aggs' => $aggs,
               'filters' => $search->filters)) ?>
           <?php endif; ?>
 
         </div>
 
       </section>
--->
+
     <?php endif; ?>
 
  </div>
@@ -267,11 +267,11 @@
 
     <div id="content">
 
-      <?php if (!isset($sf_request->onlyDirect) && isset($pager->facets['direct']) && 0 < $pager->facets['direct']['count']): ?>
+      <?php if (!isset($sf_request->onlyDirect) && isset($aggs['direct']) && 0 < $aggs['direct']['count']): ?>
         <div class="search-result media-summary">
           <p>
             <?php echo __('%1% results directly related', array(
-              '%1%' => $pager->facets['direct']['count'])) ?>
+              '%1%' => $aggs['direct']['count'])) ?>
             <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
             <?php unset($params['page']) ?>
             <a href="<?php echo url_for(array($resource, 'module' => 'term') + $params + array('onlyDirect' => true)) ?>">
