@@ -79,11 +79,11 @@ class arElasticSearchPluginQuery
 
           break;
 
-        /*case 'query':
-          $facet = new \Elastica\Facet\Query($name);
-          $facet->setQuery(new \Elastica\Query\Term($item['field']));
+        case 'filter':
+          $agg = new \Elastica\Aggregation\Filter($name);
+          $agg->setFilter(new \Elastica\Query\Term($item['field']));
 
-          break;*/
+          break;
       }
 
       // Sets the amount of terms to be returned

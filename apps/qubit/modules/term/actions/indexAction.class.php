@@ -39,12 +39,11 @@ class TermIndexAction extends DefaultBrowseAction
       'genres' =>
         array('type'  => 'term',
               'field' => 'genres.id',
-              'size'  => 10)/*,
+              'size'  => 10),
       'direct' =>
-        array('type' => 'query',
+        array('type' => 'filter',
               'field'  => '',
-              'filter' => 'hideDrafts',
-              'populate' => false)*/);
+              'populate' => false));
 
   protected function populateAgg($name, $buckets)
   {
@@ -232,7 +231,7 @@ EOF;
         {
           case QubitTaxonomy::PLACE_ID:
             $query = new \Elastica\Query\Terms('places.id', array($this->resource->id));
-            //$this::$FACETS['direct']['field'] = array('directPlaces' => $this->resource->id);
+            $this::$AGGS['direct']['field'] = array('directPlaces' => $this->resource->id);
 
             if (isset($request->onlyDirect))
             {
@@ -243,7 +242,7 @@ EOF;
 
           case QubitTaxonomy::SUBJECT_ID:
             $query = new \Elastica\Query\Terms('subjects.id', array($this->resource->id));
-            //$this::$FACETS['direct']['field'] = array('directSubjects' => $this->resource->id);
+            $this::$AGGS['direct']['field'] = array('directSubjects' => $this->resource->id);
 
             if (isset($request->onlyDirect))
             {
@@ -254,7 +253,7 @@ EOF;
 
           case QubitTaxonomy::GENRE_ID:
             $query = new \Elastica\Query\Terms('genres.id', array($this->resource->id));
-            //$this::$FACETS['direct']['field'] = array('directGenres' => $this->resource->id);
+            $this::$AGGS['direct']['field'] = array('directGenres' => $this->resource->id);
 
             if (isset($request->onlyDirect))
             {

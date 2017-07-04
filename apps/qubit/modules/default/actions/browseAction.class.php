@@ -31,16 +31,16 @@ class DefaultBrowseAction extends sfAction
 
     foreach ($resultSet->getAggregations() as $name => $agg)
     {
-      // Pass if the aggregation is empty
-      if (!isset($agg['buckets']) || count($agg['buckets']) == 0)
+      if (isset($this::$AGGS[$name]['populate']) && !$this::$AGGS[$name]['populate'])
       {
+        $this->aggs[$name] = $agg;
+
         continue;
       }
 
-      if (isset($this::$AGGS[$name]['populate']) && false === $this::$AGGS[$name]['populate'])
+      // Pass if the aggregation is empty
+      if (!isset($agg['buckets']) || count($agg['buckets']) == 0)
       {
-        $aggs[$name] = $agg;
-
         continue;
       }
 

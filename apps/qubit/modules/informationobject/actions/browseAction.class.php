@@ -56,11 +56,10 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         array('type' => 'term',
               'field' => 'digitalObject.mediaTypeId',
               'size' => 10),
-      /*'digitalobjects' =>
-        array('type' => 'query',
+      'digitalobjects' =>
+        array('type' => 'filter',
               'field' => array('hasDigitalObject' => true),
-              'filter' => 'hideDrafts',
-              'populate' => false),*/
+              'populate' => false),
       'repos' =>
         array('type' => 'term',
               'field' => 'repository.id',

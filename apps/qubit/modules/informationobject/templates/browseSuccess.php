@@ -317,11 +317,11 @@
     </section>
 
     <div id="content" class="browse-content">
-      <?php if (!isset($sf_request->onlyMedia) && isset($aggs['digitalobjects']) && 0 < $aggs['digitalobjects']['count']): ?>
+      <?php if (!isset($sf_request->onlyMedia) && isset($aggs['digitalobjects']) && 0 < $aggs['digitalobjects']['doc_count']): ?>
         <div class="search-result media-summary">
           <p>
             <?php echo __('%1% results with digital objects', array(
-              '%1%' => $aggs['digitalobjects']['count'])) ?>
+              '%1%' => $aggs['digitalobjects']['doc_count'])) ?>
             <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
             <?php unset($params['page']) ?>
             <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params + array('onlyMedia' => true)) ?>">
