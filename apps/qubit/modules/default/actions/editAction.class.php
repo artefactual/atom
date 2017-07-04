@@ -201,7 +201,11 @@ class DefaultEditAction extends sfAction
 
     $this->form = new sfForm;
 
-    $this->earlyExecute();
+    // Call early execute logic, if defined by a child class
+    if (method_exists($this, 'earlyExecute'))
+    {
+      call_user_func(array($this, 'earlyExecute'));
+    }
 
     // Mainly used in autocomplete.js, this tells us that the user wants to
     // reuse existing objects instead of adding new ones.

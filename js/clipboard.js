@@ -31,6 +31,8 @@
       // Listener for wide buttons must be added like this
       // as they are dynamically loaded in fullWidthTreeView.js
       $(document).on('click', 'button.clipboard-wide', $.proxy(this.toggle, this, false));
+
+      this.updateAll();
     },
     toggle: function (reloadTooltip, event)
     {
@@ -185,6 +187,44 @@
 
         this.$menuHeaderCount.html(countText);
       }
+    },
+    updateAll: function()
+    {
+      // Create string representing currently displayed slugs, if any
+      var slugsDisplayed = [];
+
+      $('button').each(function ()
+        {
+          var slug = $(this).attr('data-clipboard-slug');
+
+          if (typeof slug !== typeof undefined && slug !== false)
+            {
+              slugsDisplayed.push($(this).attr('data-clipboard-slug'));
+            }
+        });
+
+      var slugsDisplayedString = slugsDisplayed.join(',');
+
+      // Send list of displayed slugs and get list of which ones are in user's clipboard, etc.
+      $.post(
+        this.$element.data('clipboard-status-url'),
+        {'slugs': slugsDisplayedString},
+        function (results)
+          {
+            // Indicate which items are in the clipboard
+            $('button.clipboard').each(function ()
+              {
+                if ($.inArray($(this).attr('data-clipboard-slug'), results.clipboard.slugs) != -1)
+                  {
+                    $(this).addClass('added');
+                  }
+              });
+
+            var clipboard = $('#clipboard-menu').data('clipboard');
+            clipboard.updateCounts(results.clipboard.count, JSON.stringify(results.clipboard.countByType));
+          },
+        'json'
+      );
     },
     showAlert: function()
     {

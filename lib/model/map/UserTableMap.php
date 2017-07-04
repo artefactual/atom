@@ -55,6 +55,7 @@ class UserTableMap extends TableMap {
     $this->addRelation('note', 'note', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), null, null);
     $this->addRelation('aclPermission', 'aclPermission', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), 'CASCADE', null);
     $this->addRelation('aclUserGroup', 'aclUserGroup', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), 'CASCADE', null);
+    $this->addRelation('clipboardSave', 'clipboardSave', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), 'SET NULL', null);
 	} // buildRelations()
 
 } // UserTableMap

@@ -200,6 +200,11 @@ abstract class BaseObject implements ArrayAccess
       return true;
     }
 
+    if ('clipboardSaveItems' == $name)
+    {
+      return true;
+    }
+
     if ('eventsRelatedByobjectId' == $name)
     {
       return true;
@@ -340,6 +345,23 @@ abstract class BaseObject implements ArrayAccess
       }
 
       return $this->refFkValues['jobsRelatedByobjectId'];
+    }
+
+    if ('clipboardSaveItems' == $name)
+    {
+      if (!isset($this->refFkValues['clipboardSaveItems']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['clipboardSaveItems'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['clipboardSaveItems'] = self::getclipboardSaveItemsById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['clipboardSaveItems'];
     }
 
     if ('eventsRelatedByobjectId' == $name)
@@ -896,6 +918,26 @@ abstract class BaseObject implements ArrayAccess
   public function addjobsRelatedByobjectIdCriteria(Criteria $criteria)
   {
     return self::addjobsRelatedByobjectIdCriteriaById($criteria, $this->id);
+  }
+
+  public static function addclipboardSaveItemsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitClipboardSaveItem::OBJECT_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getclipboardSaveItemsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addclipboardSaveItemsCriteriaById($criteria, $id);
+
+    return QubitClipboardSaveItem::get($criteria, $options);
+  }
+
+  public function addclipboardSaveItemsCriteria(Criteria $criteria)
+  {
+    return self::addclipboardSaveItemsCriteriaById($criteria, $this->id);
   }
 
   public static function addeventsRelatedByobjectIdCriteriaById(Criteria $criteria, $id)

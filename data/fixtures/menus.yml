@@ -1971,6 +1971,20 @@ QubitMenu:
       sr: 'Иди у међумеморију'
       sv: 'Gå till urklipp'
     path: user/clipboard
+  QubitMenu_clipboardloadmenu:
+    parent_id: QubitMenu_clipboardmenu
+    source_culture: en
+    name: loadClipboard
+    label:
+      en: 'Load clipboard'
+    path: user/clipboardLoad
+  QubitMenu_clipboardsavemenu:
+    parent_id: QubitMenu_clipboardmenu
+    source_culture: en
+    name: saveClipboard
+    label:
+      en: 'Save clipboard'
+    path: user/clipboardSave
   QubitMenu_browseinstitution_informationobjects:
     parent_id: QubitMenu_browseinstitution
     source_culture: en

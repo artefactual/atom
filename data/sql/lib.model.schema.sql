@@ -175,6 +175,48 @@ CREATE TABLE `job`
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
+#-- clipboard_save
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `clipboard_save`;
+
+
+CREATE TABLE `clipboard_save`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`user_id` INTEGER,
+	`password` VARCHAR(255),
+	`created_at` DATETIME,
+	PRIMARY KEY (`id`),
+	INDEX `clipboard_save_FI_1` (`user_id`),
+	CONSTRAINT `clipboard_save_FK_1`
+		FOREIGN KEY (`user_id`)
+		REFERENCES `user` (`id`)
+		ON DELETE SET NULL
+)Engine=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- clipboard_save_item
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `clipboard_save_item`;
+
+
+CREATE TABLE `clipboard_save_item`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`save_id` INTEGER,
+	`item_class_name` VARCHAR(255),
+	`slug` VARCHAR(255),
+	PRIMARY KEY (`id`),
+	INDEX `clipboard_save_item_FI_1` (`save_id`),
+	CONSTRAINT `clipboard_save_item_FK_1`
+		FOREIGN KEY (`save_id`)
+		REFERENCES `clipboard_save` (`id`)
+		ON DELETE CASCADE
+)Engine=InnoDB;
+
+#-----------------------------------------------------------------------------
 #-- contact_information
 #-----------------------------------------------------------------------------
 

@@ -40,17 +40,8 @@ class ObjectClipboardButtonComponent extends sfComponent
       $altTitle = $i18n->__('Remove from clipboard');
     }
 
-    if ($this->context->user->getClipboard()->has($this->slug))
-    {
-      $this->class .= ' added';
-      $this->title = $altTitle;
-      $this->altTitle = $title;
-    }
-    else
-    {
-      $this->title = $title;
-      $this->altTitle = $altTitle;
-    }
+    $this->title = $title;
+    $this->altTitle = $altTitle;
 
     // Mix in repository page specific styles
     if (!empty($this->repositoryOrDigitalObjBrowse))

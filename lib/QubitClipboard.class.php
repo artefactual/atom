@@ -79,6 +79,47 @@ class QubitClipboard
   }
 
   /**
+   * Add slugs to clipboard items
+   *
+   * @param  array $newItems Array with class name as key and slugs as values
+   *
+   * @return int Count of slugs added to the clipboard
+   */
+  public function addItems($newItems)
+  {
+    $addedCount = 0;
+
+    // Get actual items
+    $items = $this->getAllByClassName();
+
+    // Add each class's slugs
+    foreach($newItems as $className => $slugs)
+    {
+      // Create array for class, if need be
+      if (!isset($items[$className]))
+      {
+        $items[$className] = array();
+      }
+
+      // Add each item to class array, if need be
+      foreach($slugs as $slug)
+      {
+        if (!in_array($slug, $items[$className]))
+        {
+          array_push($items[$className], $slug);
+          $addedCount++;
+        }
+      }
+    }
+
+    // Save clipboard items in storage
+    $this->storage->write(self::CLIPBOARD_NAMESPACE, serialize($items));
+
+    return $addedCount;
+  }
+
+
+  /**
    * Gets the amount of information objects added to the clipboard
    *
    * @return int Count of information objects in the clipboard
@@ -99,7 +140,11 @@ class QubitClipboard
 
     foreach ($this->getAllByClassName() as $className => $slugArray)
     {
-      $counts[$className] = count($slugArray);
+      // Only include non-zero counts
+      if (count($slugArray))
+      {
+        $counts[$className] = count($slugArray);
+      }
     }
 
     return $counts;

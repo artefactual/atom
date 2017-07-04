@@ -54,6 +54,18 @@ propel:
     status_id: { type: integer, required: false, foreignTable: term, foreignReference: id, onDelete: setnull }
     output: longvarchar
 
+  clipboard_save:
+    id: { type: integer, primaryKey: true, autoIncrement: true, inheritanceKey: false }
+    user_id: { type: integer, required: false, foreignTable: user, foreignReference: id, onDelete: setnull  }
+    password: varchar(255)
+    created_at: timestamp
+
+  clipboard_save_item:
+    id: { type: integer, primaryKey: true, autoIncrement: true, inheritanceKey: false }
+    save_id: { type: integer, required: false, foreignTable: clipboard_save, foreignReference: id, onDelete: cascade }
+    item_class_name: varchar(255)
+    slug: varchar(255)
+
   contact_information:
     actor_id: { type: integer, required: true, foreignTable: actor, foreignReference: id, onDelete: cascade }
     primary_contact: boolean

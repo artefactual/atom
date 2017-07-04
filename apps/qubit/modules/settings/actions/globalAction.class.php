@@ -98,6 +98,7 @@ class SettingsGlobalAction extends sfAction
     $generateReportsAsPubUser = QubitSetting::getByName('generate_reports_as_pub_user');
     $enableInstitutionalScoping = QubitSetting::getByName('enable_institutional_scoping');
     $cacheXmlOnSave = QubitSetting::getByName('cache_xml_on_save');
+    $clipboardSaveMaxAge = QubitSetting::getByName('clipboard_save_max_age');
 
     // Set defaults for global form
     $this->globalForm->setDefaults(array(
@@ -129,6 +130,7 @@ class SettingsGlobalAction extends sfAction
       'generate_reports_as_pub_user' => (isset($generateReportsAsPubUser)) ? $generateReportsAsPubUser->getValue(array('sourceCulture'=>true)) : 1,
       'enable_institutional_scoping' => (isset($enableInstitutionalScoping)) ? intval($enableInstitutionalScoping->getValue(array('sourceCulture'=>true))) : 0,
       'cache_xml_on_save' => (isset($cacheXmlOnSave)) ? intval($cacheXmlOnSave->getValue(array('sourceCulture'=>true))) : 0,
+      'clipboard_save_max_age' => (isset($clipboardSaveMaxAge)) ? intval($clipboardSaveMaxAge->getValue(array('sourceCulture'=>true))) : 0,
     ));
   }
 
@@ -440,6 +442,18 @@ class SettingsGlobalAction extends sfAction
     }
 
     $setting->setValue($cacheXmlOnSave, array('sourceCulture' => true));
+    $setting->save();
+
+    // Saved clipboard maximum age
+    $clipboardSaveMaxAge = $thisForm->getValue('clipboard_save_max_age');
+
+    if (null === $setting = QubitSetting::getByName('clipboard_save_max_age'))
+    {
+      $setting = new QubitSetting;
+      $setting->name = 'clipboard_save_max_age';
+    }
+
+    $setting->setValue($clipboardSaveMaxAge, array('sourceCulture' => true));
     $setting->save();
 
     return $this;

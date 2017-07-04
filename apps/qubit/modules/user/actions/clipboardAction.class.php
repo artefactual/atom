@@ -27,9 +27,16 @@ class UserClipboardAction extends DefaultBrowseAction
 {
   public function execute($request)
   {
+    parent::execute($request);
+
     if ('print' == $request->getGetParameter('media'))
     {
       $this->getResponse()->addStylesheet('print-preview', 'last');
+      $maxPerPage = 10000; // Negate paging when printing
+    }
+    else
+    {
+      $maxPerPage = $this->limit;
     }
 
     // Get entity type name
@@ -65,7 +72,7 @@ class UserClipboardAction extends DefaultBrowseAction
     // Page results
     $this->pager = new QubitSearchPager($resultSet);
     $this->pager->setPage($request->page ? $request->page : 1);
-    $this->pager->setMaxPerPage($this->limit);
+    $this->pager->setMaxPerPage($maxPerPage);
     $this->pager->init();
 
     $this->uiLabels = array(
@@ -83,7 +90,6 @@ class UserClipboardAction extends DefaultBrowseAction
     $this->sortOptions = array(
       'lastUpdated' => $this->context->i18n->__('Most recent'),
       'alphabetic'  => $this->context->i18n->__('Alphabetic'),
-      'relevance'   => $this->context->i18n->__('Relevance'),
     );
 
     // IOs and Repos have identifier sort option in common

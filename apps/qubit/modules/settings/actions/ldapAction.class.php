@@ -27,11 +27,6 @@ class SettingsLdapAction extends DefaultEditAction
       'ldapBaseDn',
       'ldapBindAttribute');
 
-  protected function earlyExecute()
-  {
-
-  }
-
   protected function addField($name)
   {
     switch ($name)

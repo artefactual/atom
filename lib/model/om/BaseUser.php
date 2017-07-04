@@ -89,6 +89,11 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
       return true;
     }
 
+    if ('clipboardSaves' == $name)
+    {
+      return true;
+    }
+
     if ('notes' == $name)
     {
       return true;
@@ -140,6 +145,23 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
       }
 
       return $this->refFkValues['jobs'];
+    }
+
+    if ('clipboardSaves' == $name)
+    {
+      if (!isset($this->refFkValues['clipboardSaves']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['clipboardSaves'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['clipboardSaves'] = self::getclipboardSavesById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['clipboardSaves'];
     }
 
     if ('notes' == $name)
@@ -214,6 +236,26 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
   public function addjobsCriteria(Criteria $criteria)
   {
     return self::addjobsCriteriaById($criteria, $this->id);
+  }
+
+  public static function addclipboardSavesCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitClipboardSave::USER_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getclipboardSavesById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addclipboardSavesCriteriaById($criteria, $id);
+
+    return QubitClipboardSave::get($criteria, $options);
+  }
+
+  public function addclipboardSavesCriteria(Criteria $criteria)
+  {
+    return self::addclipboardSavesCriteriaById($criteria, $this->id);
   }
 
   public static function addnotesCriteriaById(Criteria $criteria, $id)
