@@ -53,26 +53,8 @@ class arElasticSearchPluginQuery
   {
     foreach ($aggs as $name => $item)
     {
-      /*if (!is_array($item))
-      {
-        $facet = new \Elastica\Facet\Terms($item);
-        $facet->setField($item);
-        $facet->setSize(10);
-
-        $this->query->addFacet($facet);
-
-        continue;
-      }*/
-
       switch ($item['type'])
       {
-        /*case 'range':
-          $facet = new \Elastica\Facet\Range($name);
-          $facet->setField($item['field']);
-          $facet->addRange($item['from'], $item['to']);
-
-          break;*/
-
         case 'term':
           $agg = new \Elastica\Aggregation\Terms($name);
           $agg->setField($item['field']);
