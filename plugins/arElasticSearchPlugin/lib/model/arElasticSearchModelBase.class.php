@@ -149,7 +149,7 @@ abstract class arElasticSearchModelBase
     // Expand all the i18n fields into their various cultures, add boost values
     $i18nBoostFields = arElasticSearchPluginUtil::getI18nFieldNames(
       array_keys($i18nFields),
-      $cultures,
+      null,
       $i18nFields
     );
 

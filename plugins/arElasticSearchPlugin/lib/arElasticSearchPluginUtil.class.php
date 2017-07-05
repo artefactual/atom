@@ -136,8 +136,13 @@ class arElasticSearchPluginUtil
   {
     // Create array with relations (hidden field => ES mapping field) for the actual template and cultures
     $relations = array();
+    $cultures = array();
+    foreach (QubitSetting::getByScope('i18n_languages') as $setting)
+    {
+      $cultures[] = $setting->getValue(array('sourceCulture' => true));
+    }
 
-    if (null !== $template = self::getTemplate())
+    if (null !== $template = self::getTemplate('informationObject'))
     {
       switch ($template)
       {
