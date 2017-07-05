@@ -71,7 +71,7 @@ class AccessionBrowseAction extends sfAction
     }
     else
     {
-      $queryString = new \Elastica\Query\QueryString($request->subquery);
+      $queryString = new \Elastica\Query\QueryString(arElasticSearchPluginUtil::escapeTerm($request->subquery));
 
       $boost = array(
         'donors.i18n.%s.authorizedFormOfName' => 10,

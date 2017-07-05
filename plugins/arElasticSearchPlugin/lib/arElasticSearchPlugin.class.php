@@ -495,7 +495,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
       throw new Exception('No search terms specified.');
     }
 
-    $query = new \Elastica\Query\QueryString($query);
+    $query = new \Elastica\Query\QueryString(arElasticSearchPluginUtil::escapeTerm($query));
     $query->setDefaultOperator('AND');
 
     return $query;

@@ -302,6 +302,8 @@ class arElasticSearchPluginQuery
 
   protected function queryField($field, $query, $archivalStandard)
   {
+    $query = arElasticSearchPluginUtil::escapeTerm($query);
+
     switch ($field)
     {
       case 'identifier':
