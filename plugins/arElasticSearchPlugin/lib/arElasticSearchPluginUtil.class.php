@@ -648,4 +648,44 @@ class arElasticSearchPluginUtil
       return $premisData;
     }
   }
+
+  /**
+   * Escapes the special chars specified in the "escape_queries" setting
+   *
+   * @param string $term Query term to escape
+   *
+   * @return string Escaped query term
+   */
+  public static function escapeTerm($term)
+  {
+    $specialChars = trim(sfConfig::get('app_escape_queries', '/'));
+
+    // Return term directly if the setting is empty
+    if (empty($specialChars))
+    {
+      return $term;
+    }
+
+    // Split into array removing whitespaces
+    $specialChars = preg_split('/\s*,\s*/', $specialChars);
+
+    // Escaping \ has to be first
+    if (in_array('\\', $specialChars))
+    {
+      $term = str_replace('\\', '\\\\', $term);
+    }
+
+    foreach ($specialChars as $char)
+    {
+      // Ignore empty chars and \
+      if (empty($char) || $char == '\\')
+      {
+        continue;
+      }
+
+      $term = str_replace($char, '\\' . $char, $term);
+    }
+
+    return $term;
+  }
 }
