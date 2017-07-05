@@ -82,6 +82,7 @@ class SettingsGlobalAction extends sfAction
     $identifierCounter = QubitSetting::getByName('identifier_counter');
     $separatorCharacter = QubitSetting::getByName('separator_character');
     $inheritCodeInformationObject = QubitSetting::getByName('inherit_code_informationobject');
+    $escapeQueries = QubitSetting::getByName('escape_queries');
     $sortBrowserUser = QubitSetting::getByName('sort_browser_user');
     $sortBrowserAnonymous = QubitSetting::getByName('sort_browser_anonymous');
     $defaultRepositoryView = QubitSetting::getByName('default_repository_browse_view');
@@ -113,6 +114,7 @@ class SettingsGlobalAction extends sfAction
       'identifier_counter' => (isset($identifierCounter)) ? intval($identifierCounter->getValue(array('sourceCulture'=>true))) : 1,
       'separator_character' => (isset($separatorCharacter)) ? $separatorCharacter->getValue(array('sourceCulture'=>true)) : null,
       'inherit_code_informationobject' => (isset($inheritCodeInformationObject)) ? intval($inheritCodeInformationObject->getValue(array('sourceCulture'=>true))) : 1,
+      'escape_queries' => (isset($escapeQueries)) ? $escapeQueries->getValue(array('sourceCulture'=>true)) : '/',
       'sort_browser_user' => (isset($sortBrowserUser)) ? $sortBrowserUser->getValue(array('sourceCulture'=>true)) : 0,
       'sort_browser_anonymous' => (isset($sortBrowserAnonymous)) ? $sortBrowserAnonymous->getValue(array('sourceCulture'=>true)) : 0,
       'default_repository_browse_view' => (isset($defaultRepositoryView)) ? $defaultRepositoryView->getValue(array('sourceCulture' => true)) : 'card',
@@ -272,6 +274,16 @@ class SettingsGlobalAction extends sfAction
       $setting->setValue($inheritCodeInformationObjectValue, array('sourceCulture'=>true));
       $setting->save();
     }
+
+    // Escape queries, add setting if it's not already created (to avoid adding it in a migration)
+    if (null === $setting = QubitSetting::getByName('escape_queries'))
+    {
+      $setting = QubitSetting::createNewSetting('escape_queries', null);
+    }
+
+    // Force sourceCulture update to prevent discrepency in settings between cultures
+    $setting->setValue($thisForm->getValue('escape_queries'), array('sourceCulture' => true));
+    $setting->save();
 
     // Sort Browser (for users)
     if (null !== $sortBrowserUser = $thisForm->getValue('sort_browser_user'))
