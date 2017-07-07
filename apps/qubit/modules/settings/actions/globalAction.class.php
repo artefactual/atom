@@ -114,7 +114,7 @@ class SettingsGlobalAction extends sfAction
       'identifier_counter' => (isset($identifierCounter)) ? intval($identifierCounter->getValue(array('sourceCulture'=>true))) : 1,
       'separator_character' => (isset($separatorCharacter)) ? $separatorCharacter->getValue(array('sourceCulture'=>true)) : null,
       'inherit_code_informationobject' => (isset($inheritCodeInformationObject)) ? intval($inheritCodeInformationObject->getValue(array('sourceCulture'=>true))) : 1,
-      'escape_queries' => (isset($escapeQueries)) ? $escapeQueries->getValue(array('sourceCulture'=>true)) : '/',
+      'escape_queries' => (isset($escapeQueries)) ? $escapeQueries->getValue(array('sourceCulture'=>true)) : null,
       'sort_browser_user' => (isset($sortBrowserUser)) ? $sortBrowserUser->getValue(array('sourceCulture'=>true)) : 0,
       'sort_browser_anonymous' => (isset($sortBrowserAnonymous)) ? $sortBrowserAnonymous->getValue(array('sourceCulture'=>true)) : 0,
       'default_repository_browse_view' => (isset($defaultRepositoryView)) ? $defaultRepositoryView->getValue(array('sourceCulture' => true)) : 'card',

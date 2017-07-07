@@ -25,12 +25,12 @@ $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'tes
 sfContext::createInstance($configuration);
 
 // Default setting
-sfConfig::set('app_escape_queries', '/');
-$t->is(arElasticSearchPluginUtil::escapeTerm('FO1/23-BAR\\456'), 'FO1\\/23-BAR\\456', 'Default setting, escapes only /');
-
-// Empty setting
 sfConfig::set('app_escape_queries', '');
-$t->is(arElasticSearchPluginUtil::escapeTerm('FO1/23-BAR\\456'), 'FO1/23-BAR\\456', 'Empty setting, doesn\'t escape');
+$t->is(arElasticSearchPluginUtil::escapeTerm('FO1/23-BAR\\456'), 'FO1/23-BAR\\456', 'Default setting, doesn\'t escape');
+
+// Setting with value
+sfConfig::set('app_escape_queries', '\\,/');
+$t->is(arElasticSearchPluginUtil::escapeTerm('FO1/23-BAR\\456'), 'FO1\\/23-BAR\\\\456', 'Setting with value, escapes the term');
 
 // Un-ordered setting
 sfConfig::set('app_escape_queries', '/,\\');

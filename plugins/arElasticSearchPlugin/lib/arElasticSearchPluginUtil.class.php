@@ -658,7 +658,7 @@ class arElasticSearchPluginUtil
    */
   public static function escapeTerm($term)
   {
-    $specialChars = trim(sfConfig::get('app_escape_queries', '/'));
+    $specialChars = trim(sfConfig::get('app_escape_queries', ''));
 
     // Return term directly if the setting is empty
     if (empty($specialChars))
