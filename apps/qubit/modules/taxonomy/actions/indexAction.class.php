@@ -106,7 +106,7 @@ class TaxonomyIndexAction extends sfAction
 
     if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->subquery))
     {
-      $queryString = new \Elastica\Query\QueryString($request->subquery);
+      $queryString = new \Elastica\Query\QueryString(arElasticSearchPluginUtil::escapeTerm($request->subquery));
 
       switch ($request->subqueryField)
       {

@@ -103,7 +103,7 @@ class DefaultMoveAction extends sfAction
 
     if (isset($request->query))
     {
-      $query = new \Elastica\Query\QueryString($request->query);
+      $query = new \Elastica\Query\QueryString(arElasticSearchPluginUtil::escapeTerm($request->query));
       $query->setDefaultOperator('AND');
       $query->setFields(array(
         'identifier',
