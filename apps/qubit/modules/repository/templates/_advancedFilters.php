@@ -48,7 +48,8 @@
           <option selected="selected"></option>
           <?php $regions = array() ?>
           <?php foreach ($repositories as $r): ?>
-            <?php $region = get_search_i18n($r->getData(), 'region', array('allowEmpty' => false, 'culture' => $this->selectedCulture, 'cultureFallback' => true)) ?>
+            <?php $region = get_search_i18n($r->getData(), 'region', array('allowEmpty' => true, 'culture' => $sf_user->getCulture(), 'cultureFallback' => false)) ?>
+
             <?php if ($region && !in_array($region, $regions)): ?>
               <?php $regions[] = $region ?>
               <option value="<?php echo $region ?>"><?php echo $region ?></option>
