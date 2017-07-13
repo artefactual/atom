@@ -40,7 +40,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
               'size' => 10),
       'regions' =>
         array('type' => 'term',
-              'field' => 'contactInformations.i18n.en.region.untouched',
+              'field' => 'contactInformations.i18n.%s.region.untouched',
               'size' => 10),
       'geographicSubregions' =>
         array('type' => 'term',
@@ -48,7 +48,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
               'size' => 10),
       'locality' =>
         array('type' => 'term',
-              'field' => 'contactInformations.i18n.en.city.untouched',
+              'field' => 'contactInformations.i18n.%s.city.untouched',
               'size' => 10),
       'thematicAreas' =>
         array('type' => 'term',
@@ -88,6 +88,9 @@ class RepositoryBrowseAction extends DefaultBrowseAction
 
   public function execute($request)
   {
+    // Must call this first as parent::execute() calls addFacets().
+    $this->setI18nFieldCultures();
+
     parent::execute($request);
 
     $this->cardView = 'card';
@@ -209,5 +212,20 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     $query->setLimit($limit);
 
     $this->repositories = QubitSearch::getInstance()->index->getType('QubitRepository')->search($query);
+  }
+
+  /**
+   * Set FACET i18n fields to the current culture. In the future, we'll want to implement culture fallback
+   * for these fields as well (see #11121).
+   */
+  private function setI18nFieldCultures()
+  {
+    foreach (self::$FACETS as $key => &$value)
+    {
+      if (false !== array_search('i18n.%s', $value['field']))
+      {
+        $value['field'] = sprintf($value['field'], $this->context->user->getCulture());
+      }
+    }
   }
 }
