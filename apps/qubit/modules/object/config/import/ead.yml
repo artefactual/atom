@@ -393,7 +393,7 @@ information_object:
       Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::MATERIAL_TYPE_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'createRelation' => true)"]
 
     controlaccess_genreform_genre:
-      XPath:   "(controlaccess/genreform[not(@source) and not(@encodinganalog='1.1C')] | controlaccess/controlaccess/genreform[not(@source) and not(@encodinganalog='1.1C')])"
+      XPath:   "(controlaccess/genreform[not(@source='RAD') and not(@encodinganalog='1.1C')] | controlaccess/controlaccess/genreform[not(@source='RAD') and not(@encodinganalog='1.1C')])"
       Method:  setTermRelationByName
       Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::GENRE_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'createRelation' => true)"]
 

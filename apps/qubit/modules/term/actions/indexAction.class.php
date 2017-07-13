@@ -252,11 +252,11 @@ EOF;
 
           case QubitTaxonomy::GENRE_ID:
             $query = new \Elastica\Query\Terms('genres.id', array($this->resource->id));
-            $this::$FACETS['direct']['field'] = array('directSubjects' => $this->resource->id);
+            $this::$FACETS['direct']['field'] = array('directGenres' => $this->resource->id);
 
             if (isset($request->onlyDirect))
             {
-              $queryDirect = new \Elastica\Query\Terms('directSubjects', array($this->resource->id));
+              $queryDirect = new \Elastica\Query\Terms('directGenres', array($this->resource->id));
             }
 
             break;

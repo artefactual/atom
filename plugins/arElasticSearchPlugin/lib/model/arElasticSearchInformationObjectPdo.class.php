@@ -1209,6 +1209,11 @@ class arElasticSearchInformationObjectPdo
       $serialized['genres'][] = $node->serialize();
     }
 
+    foreach ($this->getDirectlyRelatedTerms(QubitTaxonomy::GENRE_ID) as $item)
+    {
+      $serialized['directGenres'][] = $item->id;
+    }
+
     // Creators
     foreach ($this->getActors(array('typeId' => QubitTerm::CREATION_ID)) as $item)
     {
