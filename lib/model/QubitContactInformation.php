@@ -45,24 +45,17 @@ class QubitContactInformation extends BaseContactInformation
     }
   }
 
-  public function getContactInformationString(array $options = array())
+  public function getContactInformationString()
   {
     // TODO: This should be converted into a partial!
     sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
+    $cf = array('cultureFallback' => true);
 
-    $string = ($this->getStreetAddress()) ? esc_specialchars($this->getStreetAddress()).'<br/>' : '';
-    $string .= ($this->getCity()) ? esc_specialchars($this->getCity()) : '';
-    $string .= ($this->getRegion()) ? ', '.esc_specialchars($this->getRegion()) : '';
-    $string .= ($this->getCountryCode()) ? '<br/>'.esc_specialchars($this->getCountryCode()).'' : '';
-    $string .= ($this->getPostalCode()) ? '   '.esc_specialchars($this->getPostalCode()): '';
-
-    if (!isset($options['simple']))
-    {
-      $string .= ($this->getTelephone()) ? '<p>telephone number: '.esc_specialchars($this->getTelephone()).'<br/>' : '';
-      $string .= ($this->getFax()) ? 'fax number: '.esc_specialchars($this->getFax()).'<br/>' : '';
-      $string .= ($this->getEmail()) ? 'email: '.esc_specialchars($this->getEmail()).'<br/>' : '';
-      $string .= ($this->getWebsite()) ? 'website: <a href="'.esc_specialchars($this->getWebsite()).'">'.esc_specialchars($this->getWebsite()).'</a>' : '';
-    }
+    $string = ($this->getStreetAddress($cf)) ? esc_specialchars($this->getStreetAddress($cf)).'<br/>' : '';
+    $string .= ($this->getCity($cf)) ? esc_specialchars($this->getCity($cf)) : '';
+    $string .= ($this->getRegion($cf)) ? ', '.esc_specialchars($this->getRegion($cf)) : '';
+    $string .= ($this->getCountryCode($cf)) ? '<br/>'.esc_specialchars($this->getCountryCode($cf)) : '';
+    $string .= ($this->getPostalCode($cf)) ? '   '.esc_specialchars($this->getPostalCode($cf)): '';
 
     return $string;
   }
