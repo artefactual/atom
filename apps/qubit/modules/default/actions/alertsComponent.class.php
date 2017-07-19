@@ -65,8 +65,11 @@ class DefaultAlertsComponent extends sfComponent
           );
           $alertType = $alertTypes[$job->getStatusId()];
 
-          // Add as conditional alert
+          // If job is complete, allow it to be deleted by the user
           $deleteUrl = $this->context->controller->genUrl('jobs/delete?id='. $job->id);
+          $deleteUrl = ($job->getStatusId() == QubitTerm::JOB_STATUS_COMPLETED_ID) ? $deleteUrl : null;
+
+          // Add as conditional alert
           array_push($this->conditionalAlerts, array('type' => $alertType, 'message' => $message, 'deleteUrl' => $deleteUrl));
 
         }

@@ -49,6 +49,7 @@
       // Return deferred object
       return $.ajax({
         url: $button.data('clipboard-url'),
+        cache: false,
         data: { slug: $button.data('clipboard-slug') },
         context: this,
         beforeSend: function()
