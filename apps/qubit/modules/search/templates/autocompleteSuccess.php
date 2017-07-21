@@ -13,7 +13,7 @@
         </li>
       <?php endforeach; ?>
       <?php if ($descriptions->getTotalHits() > 3): ?>
-        <li class="showall"><?php echo link_to(__('all matching descriptions'), array('module' => 'informationobject', 'action' => 'browse', 'topLod' => '0') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?></li>
+        <li class="showall"><?php echo link_to(__('all matching descriptions'), array('module' => 'informationobject', 'action' => 'browse', 'topLod' => '0') + $allMatchingIoParams->getRawValue()) ?></li>
       <?php endif; ?>
     </ul>
   </section>
@@ -28,7 +28,7 @@
         <li><?php echo link_to(get_search_i18n($hit, 'authorizedFormOfName', array('flat' => true)), array('module' => 'repository', 'slug' => $doc->get('slug')->get(0))) ?></li>
       <?php endforeach; ?>
       <?php if ($repositories->getTotalHits() > 3): ?>
-        <li class="showall"><?php echo link_to(__('all matching institutions'), array('module' => 'repository', 'action' => 'browse') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?></li>
+        <li class="showall"><?php echo link_to(__('all matching institutions'), array('module' => 'repository', 'action' => 'browse') + $allMatchingParams->getRawValue()) ?></li>
       <?php endif; ?>
     </ul>
   </section>
@@ -43,7 +43,7 @@
         <li><?php echo link_to(get_search_i18n($hit, 'authorizedFormOfName', array('flat' => true)), array('module' => 'actor', 'slug' => $doc->get('slug')->get(0))) ?></li>
       <?php endforeach; ?>
       <?php if ($actors->getTotalHits() > 3): ?>
-        <li class="showall"><?php echo link_to(__('all matching people & organizations'), array('module' => 'actor', 'action' => 'browse') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?></li>
+        <li class="showall"><?php echo link_to(__('all matching people & organizations'), array('module' => 'actor', 'action' => 'browse') + $allMatchingParams->getRawValue()) ?></li>
       <?php endif; ?>
     </ul>
   </section>
@@ -58,7 +58,7 @@
         <li><?php echo link_to(get_search_i18n($hit, 'name', array('flat' => true)), array('module' => 'term', 'slug' => $doc->get('slug')->get(0))) ?></li>
       <?php endforeach; ?>
       <?php if ($places->getTotalHits() > 3): ?>
-        <li class="showall"><?php echo link_to(__('all places'), array('module' => 'taxonomy', 'slug' => 'places')) ?></li>
+        <li class="showall"><?php echo link_to(__('all matching places'), array('module' => 'taxonomy', 'action' => 'index', 'slug' => 'places', 'subqueryField' => 'allLabels') + $allMatchingParams->getRawValue()) ?></li>
       <?php endif; ?>
     </ul>
   </section>
@@ -73,7 +73,7 @@
         <li><?php echo link_to(get_search_i18n($hit, 'name', array('flat' => true)), array('module' => 'term', 'slug' => $doc->get('slug')->get(0))) ?></li>
       <?php endforeach; ?>
       <?php if ($subjects->getTotalHits() > 3): ?>
-        <li class="showall"><?php echo link_to(__('all subjects'), array('module' => 'taxonomy', 'slug' => 'subjects')) ?></li>
+        <li class="showall"><?php echo link_to(__('all matching subjects'), array('module' => 'taxonomy', 'action' => 'index', 'slug' => 'subjects', 'subqueryField' => 'allLabels') + $allMatchingParams->getRawValue()) ?></li>
       <?php endif; ?>
     </ul>
   </section>

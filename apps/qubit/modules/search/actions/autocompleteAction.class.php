@@ -143,6 +143,13 @@ class SearchAutocompleteAction extends sfAction
       $this->forward404();
     }
 
+    // Fix route params for "all matching ..." links, IO browse uses
+    // the query param but all the others use subquery
+    $this->allMatchingIoParams = $request->getParameterHolder()->getAll();
+    $this->allMatchingParams = $this->allMatchingIoParams;
+    $this->allMatchingParams['subquery'] = $this->allMatchingParams['query'];
+    unset($this->allMatchingParams['query'], $this->allMatchingParams['repos']);
+
     // Preload levels of descriptions
     if (0 < $this->descriptions->getTotalHits())
     {
