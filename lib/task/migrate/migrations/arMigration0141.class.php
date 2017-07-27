@@ -37,10 +37,6 @@ class arMigration0141
       $menu->path = 'informationobject/browse?view=card&onlyMedia=1&topLod=0';
       $menu->save();
     }
-    else
-    {
-      throw new sfException('Unable to retrieve setting "browseDigitalObjects" from database');
-    }
 
     return true;
   }
