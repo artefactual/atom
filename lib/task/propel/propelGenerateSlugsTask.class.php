@@ -60,27 +60,66 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    $tables = array(
-      'actor' => 'QubitActor',
-      'term' => 'QubitTerm',
-      'information_object' => 'QubitInformationObject',
-      'physical_object' => 'QubitPhysicalObject',
-      'event' => 'QubitEvent',
-      'accession' => 'QubitAccession'
+    $classesData = array(
+      'QubitAccession' => array(
+        'select'    => 'SELECT base.id, base.identifier',
+        'i18nQuery' => false),
+      'QubitActor' => array(
+        'select'    => 'SELECT base.id, i18n.authorized_form_of_name',
+        'i18nQuery' => true),
+      'QubitDeaccession' => array(
+        'select'    => 'SELECT base.id, base.identifier',
+        'i18nQuery' => false),
+      'QubitDigitalObject' => array(
+        'select'    => 'SELECT base.id, base.name',
+        'i18nQuery' => false),
+      'QubitEvent' => array(
+        'select'    => 'SELECT base.id, i18n.name',
+        'i18nQuery' => true),
+      'QubitFunction' => array(
+        'select'    => 'SELECT base.id, i18n.authorized_form_of_name',
+        'i18nQuery' => true),
+      'QubitInformationObject' => array(
+        'select'    => 'SELECT base.id, i18n.title',
+        'i18nQuery' => true),
+      'QubitPhysicalObject' => array(
+        'select'    => 'SELECT base.id, i18n.name',
+        'i18nQuery' => true),
+      'QubitRelation' => array(
+        'select'    => 'SELECT base.id',
+        'i18nQuery' => false),
+      'QubitRights' => array(
+        'select'    => 'SELECT base.id',
+        'i18nQuery' => false),
+      'QubitStaticPage' => array(
+        'select'    => 'SELECT base.id, i18n.title',
+        'i18nQuery' => true),
+      'QubitTaxonomy' => array(
+        'select'    => 'SELECT base.id, i18n.name',
+        'i18nQuery' => true),
+      'QubitTerm' => array(
+        'select'    => 'SELECT base.id, i18n.name',
+        'i18nQuery' => true)
     );
 
     // Optionally delete existing slugs
     if ($options['delete'])
     {
-      foreach ($tables as $table => $classname)
+      foreach ($classesData as $class => $data)
       {
+        $table = constant($class.'::TABLE_NAME');
         $this->logSection('propel', "Delete $table slugs...");
 
         $sql = "DELETE FROM slug WHERE object_id IN (SELECT id FROM $table)";
 
-        if (defined("$classname::ROOT_ID"))
+        if (defined("$class::ROOT_ID"))
         {
-          $sql .= ' AND object_id != '.$classname::ROOT_ID;
+          $sql .= " AND object_id != ".$class::ROOT_ID;
+        }
+
+        if ($class == 'QubitStaticPage')
+        {
+          $sql .= " AND slug NOT IN ('home','about')";
         }
 
         $conn->query($sql);
@@ -94,43 +133,33 @@ EOF;
       $this->slugs[$row[0]] = true;
     }
 
-    foreach ($tables as $table => $classname)
+    foreach ($classesData as $class => $data)
     {
+      $table = constant($class.'::TABLE_NAME');
+
       $this->logSection('propel', "Generate $table slugs...");
       $newRows = array(); // reset
 
-      switch ($table)
+      $sql = $data['select'].' FROM '.$table.' base';
+
+      if ($data['i18nQuery'])
       {
-        case 'actor':
-          $sql = 'SELECT base.id, i18n.authorized_form_of_name';
-          break;
+        $i18nTable = constant($class.'I18n::TABLE_NAME');
 
-        case 'information_object':
-          $sql = 'SELECT base.id, i18n.title';
-          break;
-
-        case 'accession':
-          $sql = 'SELECT base.id, base.identifier';
-          break;
-
-        default:
-          $sql = 'SELECT base.id, i18n.name';
+        $sql .= ' INNER JOIN '.$i18nTable.' i18n';
+        $sql .= '  ON base.id = i18n.id AND base.source_culture = i18n.culture';
       }
 
-      $sql .= ' FROM '.constant($classname.'::TABLE_NAME').' base';
-      $sql .= ' INNER JOIN '.constant($classname.'I18n::TABLE_NAME').' i18n';
-      $sql .= '  ON base.id = i18n.id';
       $sql .= ' LEFT JOIN '.QubitSlug::TABLE_NAME.' sl';
       $sql .= '  ON base.id = sl.object_id';
       $sql .= ' WHERE';
 
-      if (defined("$classname::ROOT_ID"))
+      if (defined("$class::ROOT_ID"))
       {
-        $sql .= '  base.id != '. $classname::ROOT_ID .' AND';
+        $sql .= '  base.id != '. $class::ROOT_ID .' AND';
       }
 
-      $sql .= '  base.source_culture = i18n.culture';
-      $sql .= '  AND sl.id is NULL';
+      $sql .= ' sl.id is NULL';
 
       foreach ($conn->query($sql, PDO::FETCH_NUM) as $row)
       {
