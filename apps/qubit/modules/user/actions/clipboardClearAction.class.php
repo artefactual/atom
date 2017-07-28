@@ -52,11 +52,14 @@ class UserClipboardClearAction extends sfAction
     $query->setLimit(count($slugs));
 
     // Filter drafts in case they were manually added
-    $filterBool = new \Elastica\Filter\BoolFilter;
-    QubitAclSearch::filterDrafts($filterBool);
-    if (0 < count($filterBool->toArray()))
+    if ('QubitInformationObject' === $this->type)
     {
-      $query->setPostFilter($filterBool);
+      $filterBool = new \Elastica\Filter\BoolFilter;
+      QubitAclSearch::filterDrafts($filterBool);
+      if (0 < count($filterBool->toArray()))
+      {
+        $query->setPostFilter($filterBool);
+      }
     }
 
     $this->resultSet = QubitSearch::getInstance()->index->getType($this->type)->search($query);
