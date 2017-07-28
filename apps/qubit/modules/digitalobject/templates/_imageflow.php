@@ -11,7 +11,13 @@
   <?php if (isset($limit) && $limit < $total): ?>
     <div class="result-count">
       <?php echo __('Results %1% to %2% of %3%', array('%1%' => 1, '%2%' => $limit, '%3%' => $total)) ?>
-      <a href="<?php echo url_for(array('module' => 'digitalobject', 'action' => 'browse', 'slug' => $resource->slug)) ?>"><?php echo __('Show all') ?></a>
+      <a href="<?php echo url_for(array(
+        'module' => 'informationobject',
+        'action' => 'browse',
+        'collection' => $resource->getCollectionRoot()->id,
+        'topLod' => false,
+        'view' => 'card',
+        'onlyMedia' => true)) ?>"><?php echo __('Show all') ?></a>
     </div>
   <?php endif ?>
 
