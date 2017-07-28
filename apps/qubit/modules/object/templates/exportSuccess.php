@@ -30,24 +30,15 @@
 
         <legend><?php echo __('Export options') ?></legend>
         <div class="form-item">
-          <label><?php echo __('Type') ?></label>
-          <select name="objectType">
-            <?php if (!isset($objectType)): ?>
-              <option value="informationObject"><?php echo sfConfig::get('app_ui_label_informationobject') ?></option>
-              <option value="actor"><?php echo sfConfig::get('app_ui_label_actor') ?></option>
-              <option value="repository"><?php echo sfConfig::get('app_ui_label_repository') ?></option>
-            <?php else: ?>
-              <option value="<?php echo $objectType ?>"><?php echo sfConfig::get('app_ui_label_'.strtolower($objectType)) ?></option>
-            <?php endif; ?>
-          </select>
+          <?php echo $form->objectType
+            ->label(__('Type'))
+            ->renderRow() ?>
         </div>
 
         <div class="form-item">
-          <label><?php echo __('Format') ?></label>
-          <select name="format">
-            <option value="csv"<?php echo ('xml' != $type) ? ' selected="selected"' : '' ?>><?php echo __('CSV') ?></option>
-            <option value="xml"<?php echo ('xml' == $type) ? ' selected="selected"' : '' ?>><?php echo __('XML') ?></option>
-          </select>
+          <?php echo $form->format
+            ->label(__('Format'))
+            ->renderRow() ?>
         </div>
 
         <div class="form-item">
