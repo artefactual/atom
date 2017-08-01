@@ -17,15 +17,18 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class deleteDescriptionTask extends sfBaseTask
+class deleteDescriptionTask extends arBaseTask
 {
+  private $nDeleted = 0;
+
   /**
    * @see sfTask
    */
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('slug', sfCommandArgument::REQUIRED, 'Slug.')
+      new sfCommandArgument('slug', sfCommandArgument::REQUIRED, 'Description slug to delete. '.
+                            'Note: if --repository is set, this is instead a repository slug whose descriptions we will target for deletion.')
     ));
 
     $this->addOptions(array(
@@ -33,6 +36,7 @@ class deleteDescriptionTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
       new sfCommandOption('no-confirmation', 'B', sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation'),
+      new sfCommandOption('repository', 'r', sfCommandOption::PARAMETER_NONE, 'Delete descriptions under repository specified by slug.'),
     ));
 
     $this->namespace = 'tools';
@@ -49,44 +53,115 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
-    $databaseManager = new sfDatabaseManager($this->configuration);
-    $conn = $databaseManager->getDatabase('propel')->getConnection();
-    sfContext::createInstance($this->configuration);
+    parent::execute($arguments, $options);
 
-    if (null === $informationObject = QubitInformationObject::getBySlug($arguments['slug']))
+    $this->resourceType = $options['repository'] ? 'QubitRepository' : 'QubitInformationObject';
+    $this->fetchResource($arguments['slug']);
+
+    if (!$this->confirmDeletion($options['no-confirmation']))
     {
-      throw new sfException('The description cannot be found in the database.');
+      $this->logSection(sprintf('[%s] Task aborted.', strftime('%r')));
+      return;
     }
 
-    $descriptions = $informationObject->descendants->andSelf()->orderBy('rgt');
-    $totalDescs = count($descriptions);
-
-    if (!$options['no-confirmation'])
+    // User wishes to proceed, delete targeted information objects.
+    switch ($this->resourceType)
     {
-      if (!$this->getConfirmation($informationObject->getTitle(array('cultureFallback' => true)), $totalDescs))
-      {
-        return;
-      }
+      case 'QubitRepository':
+        $this->deleteDescriptionsFromRepository();
+        break;
+      case 'QubitInformationObject':
+        $this->deleteDescriptions($this->resource);
+        break;
     }
 
-    $n = 0;
+    $this->logSection(sprintf('[%s] Finished: %d descriptions deleted.', strftime('%r'), $this->nDeleted));
+  }
+
+  /**
+   * Allow the user to bail out if they aren't sure they want to delete targeted descriptions.
+   *
+   * @param $noConfirmation  Whether or not to bypass the confirmation warning (true = bypass).
+   * @return bool  True if we want to proceed with the task, false if we want to abort.
+   */
+  private function confirmDeletion($noConfirmation)
+  {
+    switch ($this->resourceType)
+    {
+      case 'QubitRepository':
+        $confirmWarning = sprintf('WARNING: You are about to delete all the records under the repository "%s".',
+                                  $this->resource->getAuthorizedFormOfName(array('cultureFallback' => true)));
+        break;
+      case 'QubitInformationObject':
+        $confirmWarning = sprintf('WARNING: You are about to delete the record "%s" and %d descendant records.',
+                                  $this->resource->getTitle(array('cultureFallback' => true)),
+                                  max(0, count($this->resource->descendants->andSelf()) - 1));
+        break;
+    }
+
+    if ($noConfirmation || $this->askConfirmation(array($confirmWarning,
+      'Are you sure you want to proceed? (y/N)'), 'QUESTION_LARGE', false))
+    {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Get AtoM resource specified by resource type and slug.
+   *
+   * @param string $slug  String indicating the resource's slug.
+   */
+  private function fetchResource($slug)
+  {
+    $c = new Criteria;
+    $c->addJoin(constant("{$this->resourceType}::ID"), QubitSlug::OBJECT_ID);
+    $c->add(QubitSlug::SLUG, $slug);
+
+    if (null === $this->resource = call_user_func_array("{$this->resourceType}::getOne", array($c)))
+    {
+      throw new sfException(sprintf('Resource (slug: %s, type: %s) not found in database.',
+                                    $slug, $this->resourceType));
+    }
+  }
+
+  /**
+   * Delete specified description & its descendants from AtoM.
+   *
+   * @param $root  A top level QubitInformationObject which will be deleted along with its descendants.
+   */
+  private function deleteDescriptions($root)
+  {
+    $descriptions = $root->descendants->andSelf('rgt');
+    $this->logSection(sprintf('[%s] Deleting description "%s" (slug: %s, +%d descendants)', strftime('%r'),
+                              $root->getTitle(array('cultureFallback' => true)),
+                              $root->slug, max(0, count($descriptions) - 1)));
 
     foreach ($descriptions as $desc)
     {
-      $this->logSection('Deleting "'.$desc->getTitle(array('cultureFallback' => true)).
-                        '" ('.++$n.'/'.$totalDescs.')');
       $desc->delete();
+      $this->nDeleted++;
     }
-
-    $this->logSection('Finished!');
   }
 
-  private function getConfirmation($descTitle, $totalDescs)
+  /**
+   * Delete all top level descriptions in specified repository (selected by slug in CLI), as
+   * well as their descendants.
+   */
+  private function deleteDescriptionsFromRepository()
   {
-    return $this->askConfirmation(array(
-      'WARNING: You are about to delete the record "'.$descTitle.'" and '.($totalDescs - 1).
-      ' descendant records.', 'Are you sure you want to proceed? (y/N)'),
-      'QUESTION_LARGE', false
-    );
+    $this->logSection(sprintf('[%s] Removing descriptions from repository "%s" (slug: %s)...', strftime('%r'),
+                      $this->resource->getAuthorizedFormOfName(array('cultureFallback' => true)),
+                      $this->resource->slug));
+
+    $c = new Criteria;
+    $c->add(QubitInformationObject::REPOSITORY_ID, $this->resource->id);
+    $c->add(QubitInformationObject::PARENT_ID, QubitInformationObject::ROOT_ID);
+
+    foreach (QubitInformationObject::get($c) as $item)
+    {
+      $this->deleteDescriptions($item);
+    }
   }
 }
