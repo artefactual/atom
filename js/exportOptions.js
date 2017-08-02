@@ -17,6 +17,8 @@
       this.$exportSubmit = this.$element.find('input[id="exportSubmit"]');
       this.$exportDiv = this.$element.find('div[id="export-options"]');
       this.$formatSelect = this.$element.find('select[name="format"]');
+      this.formatDescriptionCsv = this.$formatSelect.find('option[value="csv"]').text();
+      this.formatDescriptionXml = this.$formatSelect.find('option[value="xml"]').text();;
       this.$genericHelpIcon = this.$element.find('a.generic-help-icon');
 
       this.init();
@@ -80,32 +82,45 @@
     onObjectTypeChange: function ()
     {
       /*
-        - no xml export option when exporting repos
-        - no csv export option when exporting auth recs
+        - Remove xml export option when exporting repos
+
+          Options are removed rather than hidden as hiding
+          select options is complicated in Internet Explorer
       */
+      var $csvOption = jQuery('<option value="csv"></option>');
+      $csvOption.text(this.formatDescriptionCsv);
+
+      var $xmlOption = jQuery('<option value="xml"></option>');
+      $xmlOption.text(this.formatDescriptionXml);
+
       switch (this.$objectType.val())
       {
         case 'informationObject':
+          // select csv
           this.$exportOptionsPanel.show();
+
+          this.$formatSelect.find('option').remove();
+          this.$formatSelect.append($csvOption);
+          this.$formatSelect.append($xmlOption);
           this.$formatSelect.find('option[value="csv"]').prop('selected', true);
-          this.$formatSelect.find('option[value="csv"]').show();
-          this.$formatSelect.find('option[value="xml"]').show();
           break;
 
         case 'actor':
+          // select xml
+          this.$formatSelect.find('option').remove();
+          this.$formatSelect.append($csvOption);
+          this.$formatSelect.append($xmlOption);
           this.$formatSelect.find('option[value="xml"]').prop('selected', true);
-          this.$formatSelect.find('option[value="csv"]').show();
-          this.$formatSelect.find('option[value="xml"]').show();
 
           this.$exportOptionsPanel.hide();
           this.resetExportOptionsPanel();
           break;
 
         case 'repository':
-          // hide xml option; select csv
+          // don't include xml option; select csv
+          this.$formatSelect.find('option').remove();
+          this.$formatSelect.append($csvOption);
           this.$formatSelect.find('option[value="csv"]').prop('selected', true);
-          this.$formatSelect.find('option[value="csv"]').show();
-          this.$formatSelect.find('option[value="xml"]').hide();
 
           this.$exportOptionsPanel.hide();
           this.resetExportOptionsPanel();
