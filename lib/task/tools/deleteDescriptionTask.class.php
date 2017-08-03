@@ -86,6 +86,11 @@ EOF;
    */
   private function confirmDeletion($noConfirmation)
   {
+    if ($noConfirmation)
+    {
+      return true;
+    }
+
     switch ($this->resourceType)
     {
       case 'QubitRepository':
@@ -95,12 +100,12 @@ EOF;
       case 'QubitInformationObject':
         $confirmWarning = sprintf('WARNING: You are about to delete the record "%s" and %d descendant records.',
                                   $this->resource->getTitle(array('cultureFallback' => true)),
-                                  max(0, count($this->resource->descendants->andSelf()) - 1));
+                                  count($this->resource->descendants));
         break;
     }
 
-    if ($noConfirmation || $this->askConfirmation(array($confirmWarning,
-      'Are you sure you want to proceed? (y/N)'), 'QUESTION_LARGE', false))
+    if ($this->askConfirmation(array($confirmWarning, 'Are you sure you want to proceed? (y/N)'),
+                               'QUESTION_LARGE', false))
     {
       return true;
     }
@@ -133,10 +138,10 @@ EOF;
    */
   private function deleteDescriptions($root)
   {
-    $descriptions = $root->descendants->andSelf('rgt');
+    $descriptions = $root->descendants->andSelf()->orderBy('rgt');
     $this->logSection(sprintf('[%s] Deleting description "%s" (slug: %s, +%d descendants)', strftime('%r'),
                               $root->getTitle(array('cultureFallback' => true)),
-                              $root->slug, max(0, count($descriptions) - 1)));
+                              $root->slug, count($root->descendants)));
 
     foreach ($descriptions as $desc)
     {
