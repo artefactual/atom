@@ -88,10 +88,20 @@ EOF;
 
   private function getImageFiles($pathToImages)
   {
-    // Get array of image files, removing "." and ".."
-    $imageFiles = scandir($pathToImages);
-    array_shift($imageFiles);
-    array_shift($imageFiles);
+    $imageFiles = array();
+
+    $pathToImages = realpath($pathToImages);
+    $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($pathToImages));
+
+    foreach ($objects as $filePath => $object)
+    {
+      if (!is_dir($filePath))
+      {
+        // Remove absolute path leading to image directory
+        $relativeFilePath = substr($filePath, strlen($pathToImages) + 1, strlen($filePath));
+        array_push($imageFiles, $relativeFilePath);
+      }
+    }
 
     return $imageFiles;
   }
