@@ -309,6 +309,7 @@ class QubitTerm extends BaseTerm
     {
       foreach ($children as $child)
       {
+        $child->disableNestedSetUpdating = $this->disableNestedSetUpdating;
         $child->delete($connection);
       }
     }
@@ -342,7 +343,24 @@ class QubitTerm extends BaseTerm
 
     QubitSearch::getInstance()->delete($this);
 
-    parent::delete($connection);
+    // Replicate parent class delete functionality, skipping nested set updating
+    if ($this->disableNestedSetUpdating === true)
+    {
+      if ($this->deleted)
+      {
+        throw new PropelException('This object has already been deleted.');
+      }
+
+      $this->clear();
+
+      // Call grandparent's delete method
+      $reflectionMethod = new ReflectionMethod(get_parent_class(get_parent_class($this)), 'delete');
+      $reflectionMethod->invoke($this);
+    }
+    else
+    {
+      parent::delete($connection);
+    }
   }
 
   public function getRole()
