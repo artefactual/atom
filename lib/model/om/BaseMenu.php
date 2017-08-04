@@ -721,7 +721,10 @@ abstract class BaseMenu implements ArrayAccess
     }
 
     $this->clear();
-    $this->deleteFromNestedSet($connection);
+    if (!property_exists($this, 'disableNestedSetUpdating') || $this->disableNestedSetUpdating !== true)
+    {
+      $this->deleteFromNestedSet($connection);
+    }
 
     $criteria = new Criteria;
     $criteria->add(QubitMenu::ID, $this->id);

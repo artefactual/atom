@@ -19,6 +19,8 @@
 
 class QubitMenu extends BaseMenu
 {
+  public $disableNestedSetUpdating = false;
+
   const
 
     // Root menu

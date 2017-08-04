@@ -25,6 +25,8 @@
  */
 class QubitActor extends BaseActor
 {
+  public $disableNestedSetUpdating = false;
+
   const
     ROOT_ID = 3;
 

@@ -399,7 +399,10 @@ abstract class BasePhysicalObject extends QubitObject implements ArrayAccess
     }
 
     $this->clear();
-    $this->deleteFromNestedSet($connection);
+    if (!property_exists($this, 'disableNestedSetUpdating') || $this->disableNestedSetUpdating !== true)
+    {
+      $this->deleteFromNestedSet($connection);
+    }
 
     parent::delete($connection);
 

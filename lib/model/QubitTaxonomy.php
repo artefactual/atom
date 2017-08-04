@@ -19,6 +19,8 @@
 
 class QubitTaxonomy extends BaseTaxonomy
 {
+  public $disableNestedSetUpdating = false;
+
   const
     ROOT_ID = 30,
     DESCRIPTION_DETAIL_LEVEL_ID = 31,
