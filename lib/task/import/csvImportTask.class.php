@@ -194,7 +194,7 @@ EOF;
     // Allow default parent ID to be overridden by CLI options
     if ($options['default-parent-slug'])
     {
-      $defaultParentId = getIdCorrespondingToSlug($options['default-parent-slug']);
+      $defaultParentId = QubitFlatfileImport::getIdCorrespondingToSlug($options['default-parent-slug']);
 
       if (!$options['quiet'])
       {
@@ -640,7 +640,7 @@ EOF;
 
         if (isset($self->rowStatusVars['qubitParentSlug']) && $self->rowStatusVars['qubitParentSlug'])
         {
-          $parentId = getIdCorrespondingToSlug($self->rowStatusVars['qubitParentSlug']);
+          $parentId = $self->getIdCorrespondingToSlug($self->rowStatusVars['qubitParentSlug']);
         }
         else
         {

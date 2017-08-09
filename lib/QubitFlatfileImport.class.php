@@ -2236,7 +2236,7 @@ class QubitFlatfileImport
     }
   }
 
-  public function getIdCorrespondingToSlug($slug)
+  public static function getIdCorrespondingToSlug($slug)
   {
     $query = "SELECT object_id FROM slug WHERE slug=?";
 
