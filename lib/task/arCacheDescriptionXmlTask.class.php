@@ -32,7 +32,7 @@ class arCacheDescriptionXmlTask extends arBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-      new sfCommandOption('skip', null, sfCommandOption::PARAMETER_OPTIONAL, 'Numble of information objects to skip', 0)
+      new sfCommandOption('skip', null, sfCommandOption::PARAMETER_OPTIONAL, 'Number of information objects to skip', 0)
     ));
 
     $this->namespace = 'cache';
