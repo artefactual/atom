@@ -62,8 +62,17 @@ class csvExportTermUsageTask extends exportBulkBaseTask
     $sf_context = sfContext::createInstance($configuration);
     $conn = $this->getDatabaseConnection();
 
+    $this->exportFileReplacePrompt($arguments['path']);
     $itemsExported = $this->exportToCsv($this->determineTaxonomyId($options), $arguments['path'], $options['items-until-update']);
-    $this->log(sprintf("\nExport complete (%d terms exported).", $itemsExported));
+
+    if ($itemsExported)
+    {
+      $this->log(sprintf("\nExport complete (%d terms exported).", $itemsExported));
+    }
+    else
+    {
+      $this->log("No term usages found to export.");
+    }
   }
 
   private function determineTaxonomyId($options)
@@ -100,6 +109,19 @@ class csvExportTermUsageTask extends exportBulkBaseTask
     throw new sfException('Either the taxonomy-id or taxonomy-name must be used to specifiy a taxonomy.');
   }
 
+  private function exportFileReplacePrompt($exportPath)
+  {
+    if (file_exists($exportPath))
+    {
+      if (strtolower(readline('The export file already exists. Do you want to replace it? [y/n*] ')) != 'y')
+      {
+        throw new sfException('Export file already exists: aborting.');
+      }
+
+      unlink(realpath($exportPath));
+    }
+  }
+
   private function exportToCsv($taxonomyId, $exportPath, $rowsUntilUpdate)
   {
     $itemsExported = 0;
@@ -117,20 +139,23 @@ class csvExportTermUsageTask extends exportBulkBaseTask
 
     $result = QubitPdo::prepareAndExecute($sql, array($taxonomyId));
 
-    // Instantiate CSV writer using "usage" column ordering
-    $writer = new QubitFlatfileExport($exportPath, 'usage');
-    $writer->loadResourceSpecificConfiguration('QubitTerm');
-
-    while($row = $result->fetch(PDO::FETCH_OBJ))
+    if ($result->rowCount())
     {
-      $resource = QubitTerm::getById($row->id);
-      $writer->setColumn('name', $resource->getName(array('cultureFallback' => true)));
-      $writer->setColumn('use_count', $row->use_count);
-      $writer->exportResource($resource);
+      // Instantiate CSV writer using "usage" column ordering
+      $writer = new QubitFlatfileExport($exportPath, 'usage');
+      $writer->loadResourceSpecificConfiguration('QubitTerm');
 
-      $this->indicateProgress($rowsUntilUpdate);
+      while ($row = $result->fetch(PDO::FETCH_OBJ))
+      {
+        $resource = QubitTerm::getById($row->id);
+        $writer->setColumn('name', $resource->getName(array('cultureFallback' => true)));
+        $writer->setColumn('use_count', $row->use_count);
+        $writer->exportResource($resource);
 
-      $itemsExported++;
+        $this->indicateProgress($rowsUntilUpdate);
+
+        $itemsExported++;
+      }
     }
 
     return $itemsExported;
