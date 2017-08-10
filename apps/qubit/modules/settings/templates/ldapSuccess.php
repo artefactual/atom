@@ -34,6 +34,10 @@
           ->label(__('Base DN'))
           ->renderRow() ?>
 
+        <?php echo $form->ldapBindAttribute
+          ->label(__('Bind Lookup Attribute'))
+          ->renderRow() ?>
+
       </fieldset>
 
     </div>

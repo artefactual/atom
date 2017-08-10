@@ -24,7 +24,8 @@ class SettingsLdapAction extends DefaultEditAction
     $NAMES = array(
       'ldapHost',
       'ldapPort',
-      'ldapBaseDn');
+      'ldapBaseDn',
+      'ldapBindAttribute');
 
   protected function earlyExecute()
   {
@@ -38,13 +39,25 @@ class SettingsLdapAction extends DefaultEditAction
       case 'ldapHost':
       case 'ldapPort':
       case 'ldapBaseDn':
-        $default = ($name == 'ldapPort') ? 389 : '';
+      case 'ldapBindAttribute':
+        // Determine and set field default value
         if (null !== $this->{$name} = QubitSetting::getByName($name))
         {
           $default = $this->{$name}->getValue(array('sourceCulture' => true));
         }
+        else
+        {
+          $defaults = array(
+            'ldapPort' => '389',
+            'ldapBindAttribute' => 'uid'
+          );
+
+          $default = (isset($defaults[$name])) ? $defaults[$name] : '';
+        }
+
         $this->form->setDefault($name, $default);
 
+        // Set validator and widget
         $validator = ($name == 'ldapPort') ? new sfValidatorInteger(array('min' => 1, 'max' => 65535)) : new sfValidatorPass;
         $this->form->setValidator($name, $validator);
         $this->form->setWidget($name, new sfWidgetFormInput);
@@ -60,6 +73,7 @@ class SettingsLdapAction extends DefaultEditAction
       case 'ldapHost':
       case 'ldapPort':
       case 'ldapBaseDn':
+      case 'ldapBindAttribute':
         if (null === $this->{$name})
         {
           $this->{$name} = new QubitSetting;

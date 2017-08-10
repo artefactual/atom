@@ -136,7 +136,8 @@ class ldapUser extends myUser implements Zend_Acl_Role_Interface
     if ($conn = $this->getLdapConnection())
     {
       $base_dn = (string)QubitSetting::getByName('ldapBaseDn');
-      $dn = 'uid='. $username .','. $base_dn;
+      $bind_attribute = (string)QubitSetting::getByName('ldapBindAttribute');
+      $dn = $bind_attribute .'='. $username .','. $base_dn;
 
       // The @ suppresses a warning if the auth fails
       $this->ldapBound = @ldap_bind($conn, $dn, $password);
