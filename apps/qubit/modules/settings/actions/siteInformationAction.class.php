@@ -115,7 +115,7 @@ class SettingsSiteInformationAction extends sfAction
     // Create new QubitSetting if site_description doesn't already exist
     if (null === $siteUrlSetting)
     {
-      $siteUrlSetting = QubitSetting::createNewSetting('siteBaseUrl', null, array('scope'=>'site_base_url', 'deleteable'=>false));
+      $siteUrlSetting = QubitSetting::createNewSetting('siteBaseUrl', null, array('deleteable'=>false));
     }
     $siteUrlSetting->setValue($siteBaseUrl);
     $siteUrlSetting->save();
