@@ -419,18 +419,13 @@ class arGenerateReportJob extends arBaseJob
   }
 
   /**
-   * Get creation dates given specified resource.
+   * Get first creation date given specified resource.
+   *
+   * @return QubitEvent specifying first creation date encountered, null otherwise.
    */
   private function getCreationDates($resource)
   {
-    $creationEvents = $resource->getCreationEvents();
-
-    if (!count($creationEvents) && isset($resource->parent))
-    {
-      return $this->getCreationDates($resource->parent);
-    }
-
-    foreach ($creationEvents as $item)
+    foreach ($resource->getCreationEvents() as $item)
     {
       if (null != $item->getDate(array('cultureFallback' => true)) || null != $item->startDate)
       {
