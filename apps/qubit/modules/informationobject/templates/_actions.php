@@ -14,7 +14,7 @@
         <li><?php echo link_to(__('Duplicate'), array('module' => 'informationobject', 'action' => 'copy', 'source' => $resource->id), array('class' => 'c-btn')) ?></li>
       <?php endif; ?>
 
-      <?php if (QubitAcl::check($resource, 'update') || (QubitAcl::check($resource, 'translate'))): ?>
+      <?php if (QubitAcl::check($resource, 'update')): ?>
 
         <li><?php echo link_to(__('Move'), array($resource, 'module' => 'default', 'action' => 'move'), array('class' => 'c-btn')) ?></li>
 
