@@ -3295,13 +3295,19 @@ class QubitInformationObject extends BaseInformationObject
 
   /**
    * Delete this information object as well as all children information objects.
+   *
+   * @return int  Number of QubitInformationObjects deleted.
    */
   public function deleteFullHierarchy()
   {
+    $n = 0;
     foreach ($this->descendants->andSelf()->orderBy('rgt') as $item)
     {
       $item->delete();
+      $n++;
     }
+
+    return $n;
   }
 
   /**

@@ -138,16 +138,11 @@ EOF;
    */
   private function deleteDescriptions($root)
   {
-    $descriptions = $root->descendants->andSelf()->orderBy('rgt');
     $this->logSection(sprintf('[%s] Deleting description "%s" (slug: %s, +%d descendants)', strftime('%r'),
                               $root->getTitle(array('cultureFallback' => true)),
                               $root->slug, count($root->descendants)));
 
-    foreach ($descriptions as $desc)
-    {
-      $desc->delete();
-      $this->nDeleted++;
-    }
+    $this->nDeleted += $root->deleteFullHierarchy();
   }
 
   /**
@@ -160,13 +155,23 @@ EOF;
                       $this->resource->getAuthorizedFormOfName(array('cultureFallback' => true)),
                       $this->resource->slug));
 
-    $c = new Criteria;
-    $c->add(QubitInformationObject::REPOSITORY_ID, $this->resource->id);
-    $c->add(QubitInformationObject::PARENT_ID, QubitInformationObject::ROOT_ID);
+    $rows = QubitPdo::fetchAll('SELECT id FROM information_object WHERE parent_id = ? AND repository_id = ?',
+                               array(QubitInformationObject::ROOT_ID, $this->resource->id));
 
-    foreach (QubitInformationObject::get($c) as $item)
+    //
+    // Loop over each top level description (TLD) id and fetch via getById, then delete each record
+    // hierarchy. We do it this way instead of a single ORM query since the nested set updates between
+    // TLD hierarchy deletions were leaving the iterators with outdated lft/rgt values resulting in them
+    // attempting to delete unrelated records.
+    //
+    foreach ($rows as $row)
     {
-      $this->deleteDescriptions($item);
+      if (null === $io = QubitInformationObject::getById($row->id))
+      {
+        throw new sfException("Failed to get information object {$row->id} in deleteDescriptionsFromRepository");
+      }
+
+      $this->deleteDescriptions($io);
     }
   }
 }
