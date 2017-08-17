@@ -640,7 +640,7 @@ class QubitAcl
   /**
    * Get a list of user permissions by action and class of resource
    *
-   * @param myUser $user - user session
+   * @param sfBasicSecurityUser $user - user session
    * @param string $action - requested ACL action
    * @param string $class - resource class
    *

@@ -210,7 +210,7 @@ class QubitJob extends BaseJob
 
   /**
    * Add a basic note to this job
-   * @param  myUser  $user  the currently logged in user.
+   * @param  sfBasicSecurityUser  $user  the currently logged in user.
    */
   public static function getJobsByUser($user)
   {
