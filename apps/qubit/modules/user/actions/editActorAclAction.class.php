@@ -26,10 +26,13 @@ class UserEditActorAclAction extends DefaultEditAction
   {
     $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
-    $this->resource = new QubitUser;
     if (isset($this->getRoute()->resource))
     {
       $this->resource = $this->getRoute()->resource;
+    }
+    else
+    {
+      $this->forward404();
     }
 
     // Always include root actor permissions

@@ -23,6 +23,11 @@ class UserIndexAction extends sfAction
   {
     $this->resource = $this->getRoute()->resource;
 
+    if (!isset($this->resource))
+    {
+      $this->forward404();
+    }
+
     foreach (array('restApiKey', 'oaiApiKey') as $key)
     {
       // Get API key value, if any
