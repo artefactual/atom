@@ -194,7 +194,7 @@ class QubitAcl
 
   public static function isAllowed($role, $resource, $action, $options = array())
   {
-    if (!($role instanceOf myUser))
+    if (!isset(class_implements($role)['Zend_Acl_Role_Interface']))
     {
       self::getInstance()->addRole($role);
     }
