@@ -25,6 +25,13 @@ class UserDeleteAction extends sfAction
 
     $this->resource = $this->getRoute()->resource;
 
+    if (!isset($this->resource))
+    {
+      $this->forward404();
+    }
+
+    // Check for existing notes since we don't allow user deletion if they've
+    // authored archivist notes in the past.
     if ($this->context->user->user === $this->resource || 0 < count($this->resource->notes))
     {
       QubitAcl::forwardUnauthorized();

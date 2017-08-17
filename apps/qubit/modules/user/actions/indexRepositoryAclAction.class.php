@@ -23,6 +23,11 @@ class UserIndexRepositoryAclAction extends sfAction
   {
     $this->resource = $this->getRoute()->resource;
 
+    if (!isset($this->resource))
+    {
+      $this->forward404();
+    }
+
     // Except for administrators, only allow users to see their own profile
     if (!$this->context->user->isAdministrator())
     {
