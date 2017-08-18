@@ -457,6 +457,10 @@ class sfModsConvertor extends QubitSaxParser {
     {
       $event = new QubitEvent();
       $event->objectId = $this->resource->id;
+
+      // Normalize create role name
+      $name['role'] = ($name['role'] == 'Creator') ? 'Creation' : $name['role'];
+
       $eventTypeTerm = QubitFlatfileImport::createOrFetchTerm(QubitTaxonomy::EVENT_TYPE_ID, $name['role']);
       $event->typeId = $eventTypeTerm->id;
 
