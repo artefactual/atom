@@ -52,13 +52,16 @@ class JobsDeleteAction extends sfAction
     {
       // Handle bulk deletion of jobs associated with an authorized user
       $jobs = QubitJob::getJobsByUser($this->context->user);
+      $this->deleteJobsNotInProgress($jobs);
 
-      foreach ($jobs as $job)
+      // Handle bulk deletion of CLI-created job, if user is an administrator 
+      if ($this->context->user->isAdministrator())
       {
-        if ($job->statusId != QubitTerm::JOB_STATUS_IN_PROGRESS_ID)
-        {
-          $job->delete();
-        }
+        $criteria = new Criteria;
+        $criteria->add(QubitJob::USER_ID, null, Criteria::ISNULL);
+
+        $jobs = QubitJob::get($criteria);
+        $this->deleteJobsNotInProgress($jobs);
       }
 
       $this->redirect(array('module' => 'jobs', 'action' => 'browse'));
@@ -66,6 +69,17 @@ class JobsDeleteAction extends sfAction
     else
     {
       QubitAcl::forwardUnauthorized();
+    }
+  }
+
+  private function deleteJobsNotInProgress($jobs)
+  {
+    foreach ($jobs as $job)
+    {
+      if ($job->statusId != QubitTerm::JOB_STATUS_IN_PROGRESS_ID)
+      {
+        $job->delete();
+      }
     }
   }
 }
