@@ -57,6 +57,9 @@ class DefaultAlertsComponent extends sfComponent
               '%3%' => hr_filesize(filesize($job->downloadPath))));
           }
 
+          // Add refresh link
+          $message .= ' &mdash; <a href="javascript:location.reload();">refresh the page</a> for updates.';
+
           // Determine alert type to show
           $alertTypes = array(
             QubitTerm::JOB_STATUS_IN_PROGRESS_ID => 'info',
