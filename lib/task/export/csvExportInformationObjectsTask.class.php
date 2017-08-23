@@ -75,6 +75,8 @@ class csvExportInformationObjectsTask extends exportBulkBaseTask
       $options['rows-per-file']
     );
 
+    $writer->setOptions($options);
+
     foreach ($rows as $row)
     {
       $sf_context->getUser()->setCulture($row['culture']);
