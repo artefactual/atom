@@ -139,43 +139,14 @@ EOF;
 
     $this->validateOptions($options);
 
-    $skipRows = ($options['skip-rows']) ? $options['skip-rows'] : 0;
-
-    // Source name can be specified so, if importing from multiple
-    // sources, you can accommodate legacy ID collisions in files
-    // you import from different places
-    $sourceName = ($options['source-name'])
-      ? $options['source-name']
-      : basename($arguments['filename']);
-
     if (false === $fh = fopen($arguments['filename'], 'rb'))
     {
       throw new sfException('You must specify a valid filename');
     }
 
-    $databaseManager = new sfDatabaseManager($this->configuration);
-    $conn = $databaseManager->getDatabase('propel')->getConnection();
-
-    // Set default publication status
-    $results = $conn->query('SELECT i18n.value
-      FROM setting INNER JOIN setting_i18n i18n ON setting.id = i18n.id
-      WHERE setting.name=\'defaultPubStatus\'');
-
-    if ($results)
-    {
-      $defaultStatusId = $results->fetchColumn();
-    }
-    else
-    {
-      $defaultStatusId = QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID;
-    }
-
-    // TODO: this may be unnecessary as it may now be part of Qubit trunk
-    // create note term if it doesn't yet exist
-    QubitFlatfileImport::createOrFetchTerm(
-      QubitTaxonomy::NOTE_TYPE_ID,
-      'Language note'
-    );
+    $skipRows = $options['skip-rows'] ?: 0;
+    $sourceName = $options['source-name'] ?: basename($arguments['filename']);
+    $defaultStatusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
 
     // Load taxonomies into variables to avoid use of magic numbers
     $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
@@ -190,41 +161,6 @@ EOF;
       QubitTaxonomy::COPYRIGHT_STATUS_ID         => 'copyrightStatusTypes',
       QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID     => 'physicalObjectTypes'
     ));
-
-    // Allow default parent ID to be overridden by CLI options
-    if ($options['default-parent-slug'])
-    {
-      $defaultParentId = QubitFlatfileImport::getIdCorrespondingToSlug($options['default-parent-slug']);
-
-      if (!$options['quiet'])
-      {
-        print 'Parent ID of slug "'. $options['default-parent-slug'] .'" is '. $defaultParentId;
-      }
-    }
-    else if ($options['default-legacy-parent-id'])
-    {
-      // Attempt to fetch keymap entry
-      $keyMapEntry = QubitFlatfileImport::fetchKeymapEntryBySourceAndTargetName(
-        $options['default-legacy-parent-id'],
-        $sourceName,
-        'information_object'
-      );
-
-      if ($keyMapEntry)
-      {
-        $defaultParentId = $keyMapEntry->target_id;
-      }
-      else
-      {
-        throw new sfException('Could not find Qubit ID corresponding to legacy ID.');
-      }
-
-      print 'Using default parent ID '. $defaultParentId .' (legacy parent ID '. $options['default-legacy-parent-id'] .")\n";
-    }
-    else
-    {
-      $defaultParentId = QubitInformationObject::ROOT_ID;
-    }
 
     // Define import
     $import = new QubitFlatfileImport(array(
@@ -248,7 +184,7 @@ EOF;
       'status' => array(
         'options'                => $options,
         'sourceName'             => $sourceName,
-        'defaultParentId'        => $defaultParentId,
+        'defaultParentId'        => $this->getDefaultParentId($sourceName, $options),
         'copyrightStatusTypes'   => $termData['copyrightStatusTypes'],
         'copyrightActTypes'      => $termData['copyrightActTypes'],
         'defaultStatusId'        => $defaultStatusId,
@@ -471,8 +407,7 @@ EOF;
       {
         // If keep-digital-objects is set and --update="match-and-update" is set,
         // skip this logic to delete digital objects.
-        if (((isset($self->rowStatusVars['digitalObjectPath']) && $self->rowStatusVars['digitalObjectPath'])
-          || (isset($self->rowStatusVars['digitalObjectURI']) && $self->rowStatusVars['digitalObjectURI']))
+        if ((!empty($self->rowStatusVars['digitalObjectPath']) || !empty($self->rowStatusVars['digitalObjectURI']))
           && !$self->keepDigitalObjects)
         {
           // Retrieve any digital objects that exist for this information object
@@ -489,9 +424,8 @@ EOF;
               //      - the checksum in the csv file matches what is in the database
               // then - do not re-load the digital object from the import file on UPDATE (leave existing recs as is)
               // else - reload the digital object in the import file (i.e. delete existing record below)
-              if (isset($self->rowStatusVars['digitalObjectChecksum'])
-                && $self->rowStatusVars['digitalObjectChecksum']
-                && 0 === strcmp($self->rowStatusVars['digitalObjectChecksum'], $do->getChecksum()))
+              if (!empty($self->rowStatusVars['digitalObjectChecksum'])
+                && $self->rowStatusVars['digitalObjectChecksum'] === $do->getChecksum())
               {
                 // if the checksum matches what is stored with digital object, do not import this digital object.
                 $deleteDigitalObject = false;
@@ -1049,7 +983,7 @@ EOF;
           try
           {
             $do->importFromURI($uri, $options);
-            $do->save($conn);
+            $do->save();
           }
           catch (Exception $e)
           {
@@ -1060,35 +994,13 @@ EOF;
         else if (($path = $self->rowStatusVars['digitalObjectPath'])
           && null === $self->object->getDigitalObject())
         {
-          $do = new QubitDigitalObject;
-          $do->usageId = QubitTerm::MASTER_ID;
-          $do->informationObject = $self->object;
-
-          // Don't create derivatives (reference, thumb)
-          if ($self->status['options']['skip-derivatives'])
-          {
-            $do->createDerivatives = false;
-          }
-
-          $do->assets[] = new QubitAsset($path);
-
-          try
-          {
-            $do->save($conn);
-          }
-          catch (Exception $e)
-          {
-            // Log error
-            $this->log($e->getMessage(), sfLogger::ERR);
-          }
+          $this->handleDigitalObjectPath($self, $path);
         }
       }
     ));
 
-    // Allow search indexing to be enabled via a CLI option
-    $import->searchIndexingDisabled = ($options['index']) ? false : true;
 
-    // Set update, limit and skip options
+    $import->searchIndexingDisabled = ($options['index']) ? false : true;
     $import->setUpdateOptions($options);
 
     // Convert content with | characters to a bulleted list
@@ -1141,6 +1053,82 @@ EOF;
       $buildNestedSet->setConfiguration($this->configuration);
       $ret = $buildNestedSet->run();
     }
+  }
+
+  /**
+   * Handle creating a digital object and linking it to our information object during import.
+   *
+   * @param QubitFlatfileImport $self  A reference to our flat file importer ($self->object refers to
+   *                                   the information object we're currently creating).
+   * @param string $path  Asset file path
+   */
+  private function handleDigitalObjectPath($self, $path)
+  {
+    if (!is_readable($path))
+    {
+      $this->log("Cannot read digital object path. Skipping creation of digital object ($path)");
+      return;
+    }
+
+    $do = new QubitDigitalObject;
+    $do->usageId = QubitTerm::MASTER_ID;
+    $do->informationObject = $self->object;
+
+    // Don't create derivatives (reference, thumb)
+    if ($self->status['options']['skip-derivatives'])
+    {
+      $do->createDerivatives = false;
+    }
+
+    $do->assets[] = new QubitAsset($path);
+
+    try
+    {
+      $do->save();
+    }
+    catch (Exception $e)
+    {
+      $this->log($e->getMessage(), sfLogger::ERR);
+    }
+  }
+
+  /**
+  * Return default parent id based on various CLI options.
+  *
+  * @param string $sourceName  The source name of this file
+  * @param array $options  CLI options
+  * @return mixed  The default parent id
+  */
+  private function getDefaultParentId($sourceName, $options)
+  {
+    // Allow default parent ID to be overridden by CLI options
+    if ($options['default-parent-slug'])
+    {
+      $parentId = QubitFlatfileImport::getIdCorrespondingToSlug($options['default-parent-slug']);
+
+      if (!$options['quiet'])
+      {
+        $this->log("Parent ID of slug {$options['default-parent-slug']} is $parentId");
+      }
+    }
+    else if ($options['default-legacy-parent-id'])
+    {
+      if (false === $keyMapEntry = QubitFlatfileImport::fetchKeymapEntryBySourceAndTargetName(
+          $options['default-legacy-parent-id'], $sourceName, 'information_object'))
+      {
+        throw new sfException('Could not find keymap entry for default legacy parent ID '.
+                              $options['default-legacy-parent-id']);
+      }
+
+      $parentId = $keyMapEntry->target_id;
+      $this->log("Using default parent ID $parentId (legacy parent ID {$options['default-legacy-parent-id']})");
+    }
+    else
+    {
+      $parentId = QubitInformationObject::ROOT_ID;
+    }
+
+    return $parentId;
   }
 }
 
