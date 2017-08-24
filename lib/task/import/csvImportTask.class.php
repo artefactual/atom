@@ -463,8 +463,7 @@ EOF;
       {
         // If keep-digital-objects is set and --update="match-and-update" is set,
         // skip this logic to delete digital objects.
-        if (((isset($self->rowStatusVars['digitalObjectPath']) && $self->rowStatusVars['digitalObjectPath'])
-          || (isset($self->rowStatusVars['digitalObjectURI']) && $self->rowStatusVars['digitalObjectURI']))
+        if ((!empty($self->rowStatusVars['digitalObjectPath']) || !empty($self->rowStatusVars['digitalObjectURI']))
           && !$self->keepDigitalObjects)
         {
           // Retrieve any digital objects that exist for this information object
@@ -481,9 +480,8 @@ EOF;
               //      - the checksum in the csv file matches what is in the database
               // then - do not re-load the digital object from the import file on UPDATE (leave existing recs as is)
               // else - reload the digital object in the import file (i.e. delete existing record below)
-              if (isset($self->rowStatusVars['digitalObjectChecksum'])
-                && $self->rowStatusVars['digitalObjectChecksum']
-                && 0 === strcmp($self->rowStatusVars['digitalObjectChecksum'], $do->getChecksum()))
+              if (!empty($self->rowStatusVars['digitalObjectChecksum'])
+                && $self->rowStatusVars['digitalObjectChecksum'] === $do->getChecksum())
               {
                 // if the checksum matches what is stored with digital object, do not import this digital object.
                 $deleteDigitalObject = false;
