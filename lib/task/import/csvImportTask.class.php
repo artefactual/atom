@@ -162,41 +162,6 @@ EOF;
       QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID     => 'physicalObjectTypes'
     ));
 
-    // Allow default parent ID to be overridden by CLI options
-    if ($options['default-parent-slug'])
-    {
-      $defaultParentId = QubitFlatfileImport::getIdCorrespondingToSlug($options['default-parent-slug']);
-
-      if (!$options['quiet'])
-      {
-        print 'Parent ID of slug "'. $options['default-parent-slug'] .'" is '. $defaultParentId;
-      }
-    }
-    else if ($options['default-legacy-parent-id'])
-    {
-      // Attempt to fetch keymap entry
-      $keyMapEntry = QubitFlatfileImport::fetchKeymapEntryBySourceAndTargetName(
-        $options['default-legacy-parent-id'],
-        $sourceName,
-        'information_object'
-      );
-
-      if ($keyMapEntry)
-      {
-        $defaultParentId = $keyMapEntry->target_id;
-      }
-      else
-      {
-        throw new sfException('Could not find Qubit ID corresponding to legacy ID.');
-      }
-
-      print 'Using default parent ID '. $defaultParentId .' (legacy parent ID '. $options['default-legacy-parent-id'] .")\n";
-    }
-    else
-    {
-      $defaultParentId = QubitInformationObject::ROOT_ID;
-    }
-
     // Define import
     $import = new QubitFlatfileImport(array(
       // Pass context
@@ -219,7 +184,7 @@ EOF;
       'status' => array(
         'options'                => $options,
         'sourceName'             => $sourceName,
-        'defaultParentId'        => $defaultParentId,
+        'defaultParentId'        => $this->getDefaultParentId($sourceName, $options),
         'copyrightStatusTypes'   => $termData['copyrightStatusTypes'],
         'copyrightActTypes'      => $termData['copyrightActTypes'],
         'defaultStatusId'        => $defaultStatusId,
@@ -1166,6 +1131,45 @@ EOF;
       $buildNestedSet->setConfiguration($this->configuration);
       $ret = $buildNestedSet->run();
     }
+  }
+
+  /**
+  * Return default parent id based on various CLI options.
+  *
+  * @param string $sourceName  The source name of this file
+  * @param array $options  CLI options
+  * @return mixed  The default parent id
+  */
+  private function getDefaultParentId($sourceName, $options)
+  {
+    // Allow default parent ID to be overridden by CLI options
+    if ($options['default-parent-slug'])
+    {
+      $parentId = QubitFlatfileImport::getIdCorrespondingToSlug($options['default-parent-slug']);
+
+      if (!$options['quiet'])
+      {
+        $this->log("Parent ID of slug {$options['default-parent-slug']} is $parentId");
+      }
+    }
+    else if ($options['default-legacy-parent-id'])
+    {
+      if (false === $keyMapEntry = QubitFlatfileImport::fetchKeymapEntryBySourceAndTargetName(
+          $options['default-legacy-parent-id'], $sourceName, 'information_object'))
+      {
+        throw new sfException('Could not find keymap entry for default legacy parent ID '.
+                              $options['default-legacy-parent-id']);
+      }
+
+      $parentId = $keyMapEntry->target_id;
+      $this->log("Using default parent ID $parentId (legacy parent ID {$options['default-legacy-parent-id']})");
+    }
+    else
+    {
+      $parentId = QubitInformationObject::ROOT_ID;
+    }
+
+    return $parentId;
   }
 }
 
