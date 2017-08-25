@@ -139,43 +139,14 @@ EOF;
 
     $this->validateOptions($options);
 
-    $skipRows = ($options['skip-rows']) ? $options['skip-rows'] : 0;
-
-    // Source name can be specified so, if importing from multiple
-    // sources, you can accommodate legacy ID collisions in files
-    // you import from different places
-    $sourceName = ($options['source-name'])
-      ? $options['source-name']
-      : basename($arguments['filename']);
-
     if (false === $fh = fopen($arguments['filename'], 'rb'))
     {
       throw new sfException('You must specify a valid filename');
     }
 
-    $databaseManager = new sfDatabaseManager($this->configuration);
-    $conn = $databaseManager->getDatabase('propel')->getConnection();
-
-    // Set default publication status
-    $results = $conn->query('SELECT i18n.value
-      FROM setting INNER JOIN setting_i18n i18n ON setting.id = i18n.id
-      WHERE setting.name=\'defaultPubStatus\'');
-
-    if ($results)
-    {
-      $defaultStatusId = $results->fetchColumn();
-    }
-    else
-    {
-      $defaultStatusId = QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID;
-    }
-
-    // TODO: this may be unnecessary as it may now be part of Qubit trunk
-    // create note term if it doesn't yet exist
-    QubitFlatfileImport::createOrFetchTerm(
-      QubitTaxonomy::NOTE_TYPE_ID,
-      'Language note'
-    );
+    $skipRows = $options['skip-rows'] ?: 0;
+    $sourceName = $options['source-name'] ?: basename($arguments['filename']);
+    $defaultStatusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
 
     // Load taxonomies into variables to avoid use of magic numbers
     $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
@@ -1103,7 +1074,7 @@ EOF;
           try
           {
             $do->importFromURI($uri, $options);
-            $do->save($conn);
+            $do->save();
           }
           catch (Exception $e)
           {
@@ -1128,7 +1099,7 @@ EOF;
 
           try
           {
-            $do->save($conn);
+            $do->save();
           }
           catch (Exception $e)
           {
