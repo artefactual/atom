@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2015-10-16T04:43:26Z" product-name="messages">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2017-08-25T18:50:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -14,7 +14,7 @@
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
-        <target/>
+        <target>Ubah %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>"Give the date(s) of creation of the unit being described either as a single date, or range of dates (for inclusive dates and/or predominant dates). Always give the inclusive dates. When providing predominant dates, specify them as such, preceded by the word predominant..." (RAD 1.4B2) Record probable and uncertain dates in square brackets, using the conventions described in 1.4B5.</source>
@@ -90,7 +90,7 @@
       </trans-unit>
       <trans-unit id="27">
         <source>General material designation</source>
-        <target/>
+        <target>Untuk bahan umum</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Parallel title</source>
@@ -118,7 +118,7 @@
       </trans-unit>
       <trans-unit id="34">
         <source>Reference code</source>
-        <target/>
+        <target>Kode referensi</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Edition area</source>
@@ -162,7 +162,7 @@
       </trans-unit>
       <trans-unit id="45">
         <source>Issuing jurisdiction and denomination (philatelic)</source>
-        <target/>
+        <target>Yurisdiksi dan denominasi yang menerbitkan (pilatelik)</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Dates of creation area</source>
@@ -246,7 +246,7 @@
       </trans-unit>
       <trans-unit id="66">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Sumber akuisisi langsung</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Arrangement</source>
@@ -282,7 +282,7 @@
       </trans-unit>
       <trans-unit id="75">
         <source>Finding aids</source>
-        <target/>
+        <target>Sarana temu balik</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Accruals</source>
@@ -298,7 +298,7 @@
       </trans-unit>
       <trans-unit id="81">
         <source>Standard number</source>
-        <target/>
+        <target>Nomor standar</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Access points</source>
@@ -322,7 +322,7 @@
       </trans-unit>
       <trans-unit id="87">
         <source>Institution identifier</source>
-        <target/>
+        <target>Kode unik lembaga</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Rules or conventions</source>
@@ -330,7 +330,7 @@
       </trans-unit>
       <trans-unit id="89">
         <source>Status</source>
-        <target/>
+        <target>Status</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Level of detail</source>
@@ -358,7 +358,7 @@
       </trans-unit>
       <trans-unit id="97">
         <source>Accession area</source>
-        <target/>
+        <target>Bagian akuisisi</target>
       </trans-unit>
       <trans-unit id="99">
         <source>This is a duplicate of record %1%</source>
@@ -610,23 +610,23 @@
       </trans-unit>
       <trans-unit id="170">
         <source>Edition statement - This is a mandatory element for published items if there are multiple editions.</source>
-        <target/>
+        <target>Pernyataan edisi - Ini merupakan elemen wajib untuk item-item yang dipublikasikan jika terdapat banyak edisi.</target>
       </trans-unit>
       <trans-unit id="171">
         <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
-        <target/>
+        <target>"Gunakan bagian ini hanya deskripsi pada tingkatan item untuk merekam pernyataan terkait dengan versi dari item yang memiliki dua atau beberapa versi atau status pada sebuah atau sejumlah kopi arsip." (RAD 1.2A1) "Informasikan pernyataan edisi terkait dengan item yang sedang dideskripsikan." (RAD 1.2B1) "JIka item yang dideskripsikan tidak memiliki pernyataan edisi namun diketahui mengandung perubahan yang signifikan dari edisi lainnya, berikan pernyataan singkat secukupnya dalam kolom bahasa dan tulisan dengan diberi tanda kurung siku." (RAD 1.2B3)</target>
       </trans-unit>
       <trans-unit id="172">
         <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
+        <target>"Berikan keterangan terhadap setiap huruf-huruf atau sistem simbol khusus yang digunakan." (RAD 1.8.B14) Pilih tulisan dari menu drop-down; ketikkan sejumlah huruf awal untuk mempersempit pilihan.</target>
       </trans-unit>
       <trans-unit id="178">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
-        <target/>
+        <target>"Berikan informasi mengenai bahasa dari unit arsip yang sedang dideskripsikan, kecuali jika informasi tersebut telah diberikan di tempat lain atau telah muncul dari elemen deskripsi lainnya. Berikan juga keterangan mengenai setiap huruf atau sistem-sistem simbol tertentu yang digunakan." (RAD 1.8B14). Jangan mengulangi informasi yang telah ditambahkan melalui menu drop-down pada kolom bahasa atau tulisan.</target>
       </trans-unit>
       <trans-unit id="179">
         <source>For terms governing use and reproduction, "Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c). For terms governing publication, "Give information on legal or donor restrictions that may affect publication of the material." (RAD 1.8B16d)</source>
-        <target/>
+        <target>Untuk persyaratan yang mengatur mengenai penggunaan dan reproduksi, "Berikan informasi mengenai status hukum atau pembatasan-pembatasan dari institusi yang menyerahkan (donor) yang dapat mempengaruhi penggunaan dan reproduksi terhadap bahan arsip." (RAD 1.8B16c). Untuk persyaratan yang mengatur mengenai reproduksi, "Berikan informasi mengenai status hukum atau pembatasan-pembatasan yang mungkin akan mempengaruhi publikasi dari bahan arsip." (RAD 1.8B16d)</target>
       </trans-unit>
       <trans-unit id="180">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
@@ -634,11 +634,11 @@
       </trans-unit>
       <trans-unit id="181">
         <source>Associated materials</source>
-        <target/>
+        <target>Bahan terkait</target>
       </trans-unit>
       <trans-unit id="182">
         <source>Related materials</source>
-        <target/>
+        <target>Bahan yang berkaitan</target>
       </trans-unit>
       <trans-unit id="183">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
@@ -646,7 +646,7 @@
       </trans-unit>
       <trans-unit id="184">
         <source>Administrative history / Biographical sketch</source>
-        <target/>
+        <target>Riwayat administratif / Sketsa biografi </target>
       </trans-unit>
       <trans-unit id="185">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
@@ -654,7 +654,7 @@
       </trans-unit>
       <trans-unit id="186">
         <source>Genre access points</source>
-        <target/>
+        <target>Akses poin genre</target>
       </trans-unit>
       <trans-unit id="187">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>

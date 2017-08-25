@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2016-04-19T21:22:07Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2017-08-25T18:50:38Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -129,7 +129,7 @@
       </trans-unit>
       <trans-unit id="861">
         <source>Names</source>
-        <target/>
+        <target>名称</target>
       </trans-unit>
       <trans-unit id="862">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>

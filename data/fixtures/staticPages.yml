@@ -54,7 +54,7 @@ QubitStaticPage:
       id: 'Tentang Kami'
       is: Um
       it: Riguardo
-      ja: ついて
+      ja: このウェブサイトについて
       ka: შესახებ
       ko: About
       nl: Over
@@ -65,6 +65,7 @@ QubitStaticPage:
       sl: 'O programu'
       sr: О
       sv: Om
+      uz: 'Ma''lumot'
       vi: Về
       zh: 关于
     content:

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="ur" datatype="plaintext" original="messages" date="2017-08-25T18:54:13Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Untitled</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Add new resource</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Select the type of activity that established the relation between the authority record and the resource.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>This is a duplicate of record %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Elements area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Contains a unique standard number or code that distinctively identifies a resource.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it. Choice and format of titles should be governed by a content standard such as the Anglo-American Cataloging Rules, 2nd edition (AACR2), Cataloguing Cultural Objects (CCO), or Describing Archives: A Content Standard (DACS). Details such as capitalization, choosing among the forms of titles presented on an item, and use of abbreviations should be determined based on the rules in a content standard. One standard should be chosen and used consistently for all records in a set.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Names and origin info</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Add new name and/or origin info</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Type of resource</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Add new child levels (if describing a collection)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Title</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Subject</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>A term or phrase representing the primary topic(s) on which a work is focused. Search for an existing term in the Subjects taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Places</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Names</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>An abstract, table of contents or description of the resource's scope and contents.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Description</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Edit elements area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Language</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Internet media type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Access condition</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>URL</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Physical location</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Rights area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Accession area</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

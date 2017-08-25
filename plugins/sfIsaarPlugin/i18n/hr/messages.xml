@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2015-10-16T04:43:21Z" product-name="messages">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2017-08-25T18:56:55Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -15,10 +15,6 @@
       <trans-unit id="3">
         <source>%1%Dates of existence%2% - This is a %3%mandatory%4% element.</source>
         <target>%1%Vrijeme nastanka%2% - Ovo je %3%obavezno%4% polje.</target>
-      </trans-unit>
-      <trans-unit id="4">
-        <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target>%1%Identifikator opisa%2% - Ovo je %3%obavezno%4% polje.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Type of entity%2% - This is a %3%mandatory%4% element.</source>
@@ -155,10 +151,6 @@
       <trans-unit id="38">
         <source>"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)</source>
         <target>"Zabilježiti jedinstvenu oznaku normiranog zapisa sukladno lokalnim i/ili nacionalnim konvencijama. Ukoliko će se normirani zapis koristiti na međunarodnoj razini, zabilježiti oznaku zemlje u kojoj je normirani zapis nastao, sukladno posljednjoj verziji ISO 3166 Oznake za predstavljanje naziva zemalja. U slučaju kada je priređivač normiranog zapisa međunarodna organizacija, umjesto oznake zemlje navesti oznaku organizacije." (ISAAR 5.4.1)</target>
-      </trans-unit>
-      <trans-unit id="39">
-        <source>Description identifier</source>
-        <target/>
       </trans-unit>
       <trans-unit id="40">
         <source>"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)</source>
@@ -423,6 +415,46 @@
       <trans-unit id="105">
         <source>"Provide any relevant dates for the related resources and/or the relationship between the corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
         <target>"Dati sve odgovarajuće nadnevke za povezane izvore i/ili nadnevke odnosa između pravne osobe, pojedinca ili obitelji i povezanih izvora, te navesti značenje tih nadnevaka." (ISAAR 6.4) Dati sve relevantne nadnevke za povezane izvore i/ili pravne osobe, pojedince ili obitelj. </target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>%1%Authority record identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Authority record identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Maintaining repository</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Clipboard</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Access points area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Edit access points area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Occupations</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>Note</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>Maintained by</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

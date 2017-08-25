@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2015-08-27T12:10:28Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2017-08-25T18:52:37Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -416,6 +416,14 @@
       </trans-unit>
       <trans-unit id="103">
         <source>Enter the digital longitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. -104.296984</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Clipboard</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Add description</source>
         <target/>
       </trans-unit>
     </body>

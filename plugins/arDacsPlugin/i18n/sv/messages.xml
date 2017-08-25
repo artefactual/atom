@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2016-04-19T21:28:22Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2017-08-25T18:50:44Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Utan titel</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative / Biographical history</source>
-        <target/>
+        <target>Administrativ historik/ Biografiska anmärkningar</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
@@ -18,7 +18,7 @@
       </trans-unit>
       <trans-unit id="4">
         <source>Biographical history</source>
-        <target/>
+        <target>Biografiska anmärkningar</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Identifier - This is a mandatory element.</source>
@@ -26,7 +26,7 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Name and location of repository - This is a mandatory element.</source>
-        <target/>
+        <target>Namn och placering på arkivinstitutionen - detta är ett obligatoriskt element.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Title - This is a mandatory element.</source>
@@ -34,7 +34,7 @@
       </trans-unit>
       <trans-unit id="8">
         <source>Date(s) - are not consistent with higher levels.</source>
-        <target/>
+        <target>Datum - överenstämmer inte med högre nivåer.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Date(s) - This is a mandatory element.</source>
@@ -42,11 +42,11 @@
       </trans-unit>
       <trans-unit id="10">
         <source>Extent - This is a mandatory element.</source>
-        <target/>
+        <target>Omfång - detta är ett obligatoriskt element.</target>
       </trans-unit>
       <trans-unit id="11">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
-        <target/>
+        <target>Arkivbeskrivningen, eller en av dess högre nivåer, kräver åtminstone en arkivbildare.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Scope and content - This is a mandatory element.</source>
@@ -54,7 +54,7 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Add new archival description</source>
-        <target/>
+        <target>Lägg till ny arkivbeskrivning</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Edit %1%</source>
@@ -66,11 +66,11 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Identity elements</source>
-        <target/>
+        <target>Identitetselement</target>
       </trans-unit>
       <trans-unit id="17">
         <source>At the highest level of a multilevel description or in a single level description, provide a unique identifier for the materials being described in accordance with the institution’s administrative control system. Optionally, devise unique identifiers at lower levels of a multilevel description. (DACS 2.1.3) The country and repository code will be automatically added from the linked repository record to form a full reference code.</source>
-        <target/>
+        <target>På den högsta nivån av flernivåbeskrivning eller i en enskild nivåbeskrivning, ange ett unikt signum för materialet som beskrivs i enlighet med institutionens administrativa kontrollsystem. Om du vill, skapa unika signum på lägre nivåer av en flernivåbeskrivning. (DACS 2.1.3) Lands- och arkivinstitutionskoden kommer automatiskt att läggas till från den länkade arkivinstitutionsposten för att forma en fullständig referenskod.</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Identifier</source>
@@ -82,15 +82,15 @@
       </trans-unit>
       <trans-unit id="20">
         <source>Name and location of repository</source>
-        <target/>
+        <target>Namn och placering på arkivinstitutionen</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
-        <target/>
+        <target>Uttryckligen ange namnet på arkivinstitutionen,  inklusive eventuella överordnade organ. (DACS 2.2.2). Sök efter ett befintligt namn i arkivinstitutionens poster genom att skriva de första tecknen i namnet. Alternativt, skriv ett nytt namn för att skapa och länka till en ny arkivinstitutionspost.</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Select a level of description from the drop-down menu. Follow any relevant local or institutional guidelines in selecting the proper level of description. See DACS (2013) Chapter 1 for further guidance.</source>
-        <target/>
+        <target>Välj en beskrivningsnivå från rullgardinsmenyn. Följ relevanta lokala eller institutionella riktlinjer när du väljer den rätta beskrivningsnivå. Se DACS (2013) kapitel 1 för ytterligare vägledning.</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Levels of description</source>
@@ -98,7 +98,7 @@
       </trans-unit>
       <trans-unit id="24">
         <source>In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material, normally consisting of a name segment, a term indicating the nature of the unit being described, and optionally a topical segment. Do not enclose devised titles in square brackets. (DACS 2.3.3)</source>
-        <target/>
+        <target>I avsaknad av en meningsfull formell titel, skapa en kort unik titel som identifierar materialet, normalt bestående av ett namnsegment, en term som indikerar den enhet som ska beskrivas natur, och valfritt ett aktuellt segment. Omge inte angiven titel med hakparantes. (DACS.2.3.3)</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Title</source>
@@ -106,15 +106,15 @@
       </trans-unit>
       <trans-unit id="26">
         <source>Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>Ange skapandedatum, journalföringsaktivitet, publicering eller utsändning såsom lämpligt för materialet som beskriv. (DACS 2.4.3). Visningsfältet för datum kan användas för att fylla i datuminformation i fritext, inklusive typografiska markeringar för att uttrycka uppskattning, osäkerhet eller egenskap. Använd start- och slutfälten för att göra datumen sökbara. Använd inte attribut eller typografiska symboler. Godkända datumformat: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Record the quantity of the material in terms of its physical extent as linear or cubic feet, number of items, or number of containers or carriers. (DACS 2.5.4). Optionally, record the quantity in terms of material type(s) (DACS 2.5.5), and/or qualify the statement of physical extent to hightlight the existence of material types that re important (DACS 2.5.6).</source>
-        <target/>
+        <target>Ange materialets volym i form av dess fysiska omfång i linjär- eller kubikmeter, antal objekt eller antal behållare/förvaringsenheter. (DACS 2.5.4). Om du vill, ange volymen i form av materialtyp(er) (DACS 2.5.5), och/eller stryk redogörelsen för det fysiska omfånget genom att belysa materialtyper som är viktiga. (DACS 2.5.6). </target>
       </trans-unit>
       <trans-unit id="28">
         <source>Extent</source>
-        <target/>
+        <target>Omfång</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Name of creator(s)</source>
@@ -122,19 +122,19 @@
       </trans-unit>
       <trans-unit id="30">
         <source>Record the name(s) of the creator(s) identified in the name element in the devised title of the materials using standardized vocabularies or with rules for formulating standardized names (DACS 2.6.4). Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target/>
+        <target>Ange namn på arkivbildaren/arkivbildarna identifierade i namnelementet i den uttänkta titeln på materialet genom att använda standardiserade ordförråd eller med regler för att formulera standardiserade namn (DACS 2.6.4). Sök efter ett befintligt namn i auktoritetsposten genom att skriva de första tecknen i namnet. Alternativt, skriv ett nytt namn för att skapa och länka till en ny auktoritetspost.</target>
       </trans-unit>
       <trans-unit id="31">
         <source>&lt;strong&gt;Identifier&lt;/strong&gt;&lt;br /&gt;Provide a unique identifier for the materials being described in accordance with the institution’s administrative control system.&lt;br /&gt;&lt;strong&gt;Level of description&lt;/strong&gt;&lt;br /&gt;Record the level of this unit of description.&lt;br /&gt;&lt;strong&gt;Title&lt;/strong&gt;&lt;br /&gt;In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material.&lt;br /&gt;&lt;strong&gt;Date&lt;/strong&gt;&lt;br /&gt;Record a date of creation.</source>
-        <target/>
+        <target>&lt;strong&gt;Signum&lt;/strong&gt;&lt;br /&gt;Ange ett unikt signum för materialet som beskrivs i enlighet med institutionens administrativa kontrollsystem.&lt;br /&gt;&lt;strong&gt;Beskrivningsnivå&lt;/strong&gt;&lt;br /&gt;Ange nivå för denna beskrivningsenhet.&lt;br /&gt;&lt;strong&gt;Titel&lt;/strong&gt;&lt;br /&gt;I avsaknad av en meningsful formell titel, komponera en kort titel som identifierar materialet.&lt;br /&gt;&lt;strong&gt;Datum&lt;/strong&gt;&lt;br /&gt;Ange ett skapandedatum.</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Content and structure elements</source>
-        <target/>
+        <target>Innehåll och strukturelement</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Record information about the nature of the materials and activities reflected in the unit being described to enable users to judge its potential relevance, including information about functions, activities, transations, and processes; documentary form(s) or intellectual characteristics; content dates; geographic areas and places; subject matter; completeness of the materials; or any other information that assists the user in evaluating the relevance of the materials. (DACS 3.1)</source>
-        <target/>
+        <target>Ange information om materialets natur och aktiviteter som är reflekterade i enheten som beskrivs för att tillåta användare att bedöma dess potentiella relevans, inklusive information om funktioner, aktiviteter, överföringar och processer; handlingstyp(er) eller intellektuella egenskaper; innehållsdatum; geografiska områden och platser; ämne; materialets fullständighet; eller övrig information som kan hjälpa användaren i att värdera materialets relevans. </target>
       </trans-unit>
       <trans-unit id="34">
         <source>Scope and content</source>
@@ -142,19 +142,19 @@
       </trans-unit>
       <trans-unit id="35">
         <source>Describe the current arrangement of the material in terms of the various aggregations within it and their relationships. (DACS 3.2.3)</source>
-        <target/>
+        <target>Beskriv den nuvarande ordningen på materialet, diverse grupperingar i det och deras relationer.</target>
       </trans-unit>
       <trans-unit id="36">
         <source>System of arrangement</source>
-        <target/>
+        <target>Uppordningssystem</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Conditions of access and use elements</source>
-        <target/>
+        <target>Element för villkor för tillgång och användning</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Give information about any restrictions on access to the unit being described (or parts thereof) as a result of the nature of the information therein or statutory/contractual requirements. As appropriate, specify the details of the restriction. If there are no restrictions, state that fact. (DACS 4.1.5)</source>
-        <target/>
+        <target>Ge information om begränsningar av tillgängligheten till enheten som beskrivs (eller delar därav) som ett resultat av informationens beskaffenhet däri eller lag/avtalsstipulerade krav. I förekommande fall, specificera detaljerna i begränsningarna.  Om det inte är några begränsningar, ange detta. (DACS 41.5)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Conditions governing access</source>
@@ -162,7 +162,7 @@
       </trans-unit>
       <trans-unit id="40">
         <source>Provide information about the physical characteristics or condition of the unit being described that limit access to it or restrict its use. (DACS 4.2.5)</source>
-        <target/>
+        <target>Ange information  om de fysiska egenskaperna eller tillståndet på enheten som beskrivs som begränsar tillgång eller användning. (DACS 4.2.5)</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Physical access</source>
@@ -170,15 +170,15 @@
       </trans-unit>
       <trans-unit id="42">
         <source>Provide information about any special equipment required to view or access the unit being described, if it is not clear from the Extent element. (DACS 4.3.5)</source>
-        <target/>
+        <target>Ange information om eventuell specialutrustning som behövs för att titta på eller få tillgång till enheten som beskrivs, om det inte framgår från omfångselementet. (DACS 4.3.5)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Technical access</source>
-        <target/>
+        <target>Teknisk åtkomst</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Give information about copyright status and any other conditions governing the reproduction, publication, and further use (e.g., display, public screening, broadcast, etc.) of the unit being described after access has been provided. (DACS 4.4.5)</source>
-        <target/>
+        <target>Ge information om upphovsrättsstatus och andra villkor som styr reproduktion, publicering och ytterligare användning (t. ex. förevisning, offentlig visning, utsändning, etc.) av enheten som beskrivs efter det att tillgång beviljats. (DACS 4.4.5)</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Conditions governing reproduction and use</source>
@@ -186,7 +186,7 @@
       </trans-unit>
       <trans-unit id="46">
         <source>Record the language(s) of the materials being described. (DACS 4.5.2)</source>
-        <target/>
+        <target>Ange språk för materialet som beskrivs. (DACS 4.5.2)</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Languages of the material</source>
@@ -194,79 +194,79 @@
       </trans-unit>
       <trans-unit id="48">
         <source>Record the scripts(s) of the materials being described.</source>
-        <target/>
+        <target>Ange skript(en) för materialet som beskrivs.</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Scripts of the material</source>
-        <target/>
+        <target>Materialskript</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Record information about any distinctive alphabets, scripts, symbol systems, or abbreviations employed (DACS 4.5.3). If there is no language content, record “no linguistic content.” (DACS 4.5.4)</source>
-        <target/>
+        <target>Ange eventuella utmärkande alfabet, skript, symbolsystem eller förkortningar i bruk (DACS 4.5.3). Om språkinnehåll saknas, ange "inget språkligt innehåll" (DACS 4.5.4)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Language and script notes</source>
-        <target/>
+        <target>Språk och skriptananmärkningar</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Record information about any existing finding aids that provide information relating to the context and contents of the unit being described... including any relevant information about its location or availability, and any other information necessary to assist the user in evaluating its usefulness. Include finding aids prepared by the creator (e.g., registers, indexes, etc.) that are part of the unit being described. (DACS 4.6.2)</source>
-        <target/>
+        <target>Ange information om befintliga sökhjälpmedel som ger information rörande kontext och innehåll för enheten som beskrivs...inklusive relevant information om placering eller tillgänglighet, och övrig information nödvändig för att hjälpa användaren i att värdera dess användbarhet. Inkludera framtagna sökhjälpmedel (t.ex. register, index, etc.) som är del av enheten som beskrivs. (DACS 4.6.2)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Acquisition and appraisal elements</source>
-        <target/>
+        <target>Förvärvs- och bevarande- och gallringselement</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Custodial history</source>
-        <target/>
+        <target>Förvaringshistorik</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Record the successive transfers of ownership, responsibility, or custody or control of the unit being described from the time it left the possession of the creator until its acquisition by the repository, along with the dates thereof, insofar as this information can be ascertained and is significant to the user’s understanding of the authenticity. (DACS 5.1.3)</source>
-        <target/>
+        <target>Ange den successiva överlämnanden av ägandeskap, ansvar, förvaringsansvar eller kontroll över enheten som beskrivs från tillfället då det donerades av arkivbildaren tills dess att den förvärvades av arkivinstitutionen tillsammans med motsvarande datum, i den mån denna information kan fastställas och är viktig i användarens förståelse av dess autencitet. (DACS 5.1.3)</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Record the source(s) from which the materials being described were acquired, the date(s) of acquisition, and the method of acquisition, if this information is not confidential. (DACS 5.2.3)</source>
-        <target/>
+        <target>Ange källa/källor för där materialet som beskrivs förvärvades, datum för förvärv, och förvärvsmetod, om denna information inte är hemlig. (DACS 5.2.3)</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Immediate source of acquisition or transfer</source>
-        <target/>
+        <target>Källa för förvärv eller överlämnande</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Where the destruction or retention of archival materials has a bearing on the interpretation and use of the unit being described, provide information about the materials destroyed or retained and provide the reason(s) for the appraisal decision(s), where known. (DACS 5.3.4)</source>
-        <target/>
+        <target>Där gallring eller leverans av arkivmaterial har betydelse för tolkningen och användningen av enheten som beskrivs, ange information om materialen som gallrats eller levererats och ange grunden/grunderna för beslutet/besluten. (DACS 5.3.4)</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Appraisal, destruction and scheduling information</source>
-        <target/>
+        <target>Information rörande bevarande- och gallringsvärdering och schemaläggning</target>
       </trans-unit>
       <trans-unit id="60">
         <source>If known, indicate whether or not further accruals are expected. When appropriate, indicate frequency and volume. (DACS 5.4.2)</source>
-        <target/>
+        <target>Om det är känt, ange huruvida ytterligare tillväxt är att förvänta. I förekommande fall, ange frekvens och volym. (DACS 5.4.2)</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Related materials elements</source>
-        <target/>
+        <target>Relaterade materialelement</target>
       </trans-unit>
       <trans-unit id="62">
         <source>If the materials being described are reproductions and the originals are located elsewhere, give the location of the originals (DACS 6.1.4). Record any identifying numbers that may help in locating the originals in the cited location (DACS 6.1.6).</source>
-        <target/>
+        <target>Om materialet som beskrivs är en kopia och originalen är placerade någon annanstans, ange originalens placering (DACS 6.1.4). Ange identifieringsnummer som kan hjälpa till att lokalisera originalen på den angivna platsen. (DACS 6.1.6)</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Existence and location of originals</source>
-        <target/>
+        <target>Existens och placering av original</target>
       </trans-unit>
       <trans-unit id="64">
         <source>If a copy of all or part of the material being described is available, in addition to the originals, record information about the medium and location of the copy, any identifying numbers, and any conditions on the use or availability of the copy. If a copy of only a part of the unit being described is available, indicate which part. If the materials being described are available via remote access (electronically or otherwise), provide the relevant information needed to access them. (DACS 6.2.3)</source>
-        <target/>
+        <target>Om en kopia på hela eller en del av materialet som beskrivs är tillgängligt, utöver originalen, ange information om medium och placering av kopian, identifieringsnummer och villkor rörande användning eller tillgänglighet av kopian. Om en kopia endast är en del av den enhet som har blivit beskriven är tillgänglig, ange vilken del. Om materialet som är beskrivet är tillgängligt via fjärranslutning (elektroniskt eller på annat sätt), ange den relevanta information som behövs för att få tillgång till dem. (DACS 6.2.3)</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Existence and location of copies</source>
-        <target/>
+        <target>Existensen och placering av kopior</target>
       </trans-unit>
       <trans-unit id="66">
         <source>If there are materials that have a direct and significant connection to those being described by reason of closely shared responsibility or sphere of activity, provide the title, location, and, optionally, the reference number(s) of the related materials and their relationship with the materials being described. (DACS 6.3.5)</source>
-        <target/>
+        <target>Om materialet som har en direkt och signifikant koppling till de som blivit beskrivna med anledning av närmast delat ansvar eller aktivitetsområde, ange titel, placering, och frivilligt, referensnummer för relaterat material och deras relation till det material som blivit beskrivet. (DACS 6.3.5)</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Related archival materials</source>
@@ -278,51 +278,51 @@
       </trans-unit>
       <trans-unit id="69">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target/>
+        <target>För att skapa en relation mellan denna förteckning och en annan förteckning som finns i AtoM, börja skriva namnet på den relaterade förteckningen och välj den från den autoavslutande rullgardinsmenyn när den visas nedan. Flera relationer kan inte skapas.</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Notes element</source>
-        <target/>
+        <target>Anmärkningselement</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Description control element</source>
-        <target/>
+        <target>Element för Förteckningskontroll </target>
       </trans-unit>
       <trans-unit id="72">
         <source>Record relevant information about sources consulted in establishing or revising the description. (DACS 8.1.3)</source>
-        <target/>
+        <target>Ange relevant information om de källor som använts i etablerandet eller revisionen av förteckningen. (DACS 8.1.3)</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Sources used</source>
-        <target/>
+        <target>Använda källor</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Record the international, national or local rules or conventions followed in preparing the description. (DACS 8.1.4)</source>
-        <target/>
+        <target>Ange de internationella, nationella eller de lokala regler eller standarder som följts i framtagningen av förteckningen. (DACS 8.1.4)</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Regler eller standarder </target>
       </trans-unit>
       <trans-unit id="76">
         <source>Access points</source>
-        <target/>
+        <target>Sökingångar</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Subject access points</source>
-        <target/>
+        <target>Sökingångar på  ämnesord</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Place access points</source>
-        <target/>
+        <target>Sökingångar på plats</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>Sökingång på namn (ämnesord)</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Edit identity elements</source>
-        <target/>
+        <target>Redigera identitetselement</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Reference code</source>
@@ -338,15 +338,15 @@
       </trans-unit>
       <trans-unit id="84">
         <source>Related function</source>
-        <target/>
+        <target>Relaterad funktion</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Edit context and structure elements</source>
-        <target/>
+        <target>Redigera kontext och strukturelement</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Edit conditions of access and use elements</source>
-        <target/>
+        <target>Redigera villkor för tillgång och användningselement</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Conditions governing reproduction</source>
@@ -354,15 +354,15 @@
       </trans-unit>
       <trans-unit id="88">
         <source>Finding aids</source>
-        <target/>
+        <target>Sökhjälpsmedel</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Edit acquisition and appraisal elements</source>
-        <target/>
+        <target>Redigera element för förvärv, bevarande- och gallringsvärdering</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Källa för förvärv</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Accruals</source>
@@ -370,7 +370,7 @@
       </trans-unit>
       <trans-unit id="92">
         <source>Edit related materials elements</source>
-        <target/>
+        <target>Redigera relaterat materialelement</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Publication notes</source>
@@ -378,39 +378,39 @@
       </trans-unit>
       <trans-unit id="94">
         <source>Edit notes element</source>
-        <target/>
+        <target>Redigera anmärkningselement</target>
       </trans-unit>
       <trans-unit id="95">
         <source>General note</source>
-        <target/>
+        <target>Allmän anmärkning</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Specialized notes</source>
-        <target/>
+        <target>Specialiserade anmärkningar</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Edit description control element</source>
-        <target/>
+        <target>Redigera förteckningskontrollelement</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Archivist's note</source>
-        <target/>
+        <target>Arkivariens anmärkning</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Edit access points</source>
-        <target/>
+        <target>Redigera sökingångar</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Rights area</source>
-        <target/>
+        <target>Rättigheter</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Accession area</source>
-        <target/>
+        <target>Accession</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Genre access points</source>
-        <target/>
+        <target>Sökingångar för handlingstyp</target>
       </trans-unit>
     </body>
   </file>

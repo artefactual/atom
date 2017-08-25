@@ -10,7 +10,7 @@ QubitTaxonomy:
       ca@valencia: 'Nivell de detall de la descripció'
       cy: 'Lefelau Manylion Disgrifiad'
       de: 'Detaillierungsgrad der Erschließung'
-      de-CH: 'Detaillierungsgrad der Erschließung'
+      de-CH: 'Detaillierungsgrad der Erschliessung'
       el: 'Περιγραφή Επιπέδων Λεπτομέρειας'
       en: 'Description Detail Levels'
       es: 'Nivel de detalle de la descripción'
@@ -30,7 +30,9 @@ QubitTaxonomy:
       pt_BR: 'Níveis de Detalhe da Descrição'
       sl: 'Stopnja podrobnosti popisa'
       sr: 'Ниво детаљности описа'
+      sv: 'Detaljnivåer för beskrivning'
       th: 'ระดับของรายละเอียด คำอธิบาย รายละเอียด ระดับ'
+      uz: 'Tavsif ma''lumot darajasi'
       vi: 'Levels chi tiết mô tả'
       zh: 著录细节层级
   QubitTaxonomy_2:
@@ -42,11 +44,11 @@ QubitTaxonomy:
       ca@valencia: 'Tipus d''Actor'
       cy: 'Mathau o Endid Actor'
       de: Rechtspersönlichkeit
-      de-CH: Rechtspersönlichkeit
+      de-CH: 'Entitätstypen Aktenbildner'
       en: 'Actor Entity Types'
       es: 'Tipos de Actor'
       eu: 'Aktore Erakunde Motak'
-      fr: 'Types d''entité acteurs'
+      fr: 'Types d''entités acteurs'
       hu: 'Iratképző entitás típusok'
       id: 'Tipe Entiti Aktor'
       it: 'Tipi di entità dell''Agente'
@@ -60,7 +62,9 @@ QubitTaxonomy:
       pt_BR: 'Tipos de Autores'
       sl: 'Vrste entitet delovalcev'
       sr: 'Врсте ентитета ствараоца'
+      sv: 'Entitetstyper för aktören'
       th: 'ชนิดActor Entity'
+      uz: 'Muallif &lpar;ijrochi&rpar; obyekt turi'
       vi: 'Loại thực thể Actor'
       zh: 执行者实体类型
   QubitTaxonomy_3:
@@ -72,7 +76,7 @@ QubitTaxonomy:
       ca@valencia: 'Estat de la descripció'
       cy: 'Statws Disgrifiad'
       de: Erschließungsstatus
-      de-CH: Erschließungsstatus
+      de-CH: Erschliessungsstati
       el: 'Περιγραφή κατάστασης'
       en: 'Description Statuses'
       es: 'Estado de la descripción'
@@ -92,7 +96,9 @@ QubitTaxonomy:
       pt_BR: 'Estado da descrição'
       sl: 'Statusi popisa'
       sr: 'Статуси описа'
+      sv: Förteckningsstatus
       th: สถานะของทำคำอธิบายเอกสาร
+      uz: 'Tavsif statuslari'
       vi: 'Mô tả địa vị'
       zh: 著录状态
   QubitTaxonomy_4:
@@ -104,18 +110,18 @@ QubitTaxonomy:
       ca@valencia: 'Nivells de descripció'
       cy: 'Lefelau disgrifiad'
       de: Erschließungsstufe
-      de-CH: Erschließungsstufe
+      de-CH: Erschliessungsstufe
       el: 'Επίπεδα περιγραφής'
       en: 'Levels of description'
       es: 'Niveles de descripción'
       eu: 'Deskribapen mailak'
-      fr: 'Niveau de description'
+      fr: 'Niveaux de description'
       gl: 'Niveis de descrición'
       hu: 'Leírási szintek'
       id: 'Level Deskripsi'
       is: 'Þrep lýsingar'
       it: 'livelli di descrizione'
-      ja: 医療のレベル
+      ja: 記述レベル
       ka: 'აღწერის დონეები'
       ko: '기술 계층'
       nl: Beschrijvingsniveaus
@@ -126,6 +132,7 @@ QubitTaxonomy:
       sr: 'Нивои описа'
       sv: Beskrivningsnivåer
       th: ระดับของคําอธิบาย
+      uz: 'Tavsif darajalari'
       vi: 'Level mô tả'
       zh: 描述层级
   QubitTaxonomy_5:
@@ -157,9 +164,10 @@ QubitTaxonomy:
       pt_BR: Assuntos
       ru: Темы
       sl: Osebe
-      sr: Предмет
-      sv: Ämnesområden
+      sr: Теме
+      sv: Ämnesord
       th: หัวข้อ
+      uz: Mavzular
       vi: 'Chủ đề'
       zh: 主题
   QubitTaxonomy_6:
@@ -171,7 +179,7 @@ QubitTaxonomy:
       ca@valencia: 'Tipus de Nom d''Actor'
       cy: 'Mathau o Enw Actor'
       de: Bezeichnung
-      de-CH: Bezeichnung
+      de-CH: 'Namenstypen Aktenbildner'
       en: 'Actor Name Types'
       es: 'Tipos de Nombre de Actor'
       eu: 'Aktore Izen Motak'
@@ -190,7 +198,9 @@ QubitTaxonomy:
       pt_BR: 'Tipos de Nomes de Autores'
       sl: 'Vrste imen delovalcev'
       sr: 'Врсте назива/имена ствараоца'
+      sv: 'Namntyper för aktören'
       th: ชนิดชื่อนักแสดง
+      uz: 'Muallif &lpar;ijrochi&rpar; nomi turi'
       vi: 'Loại tên actor'
       zh: 执行者名称类型
   QubitTaxonomy_7:
@@ -210,6 +220,7 @@ QubitTaxonomy:
       fr: 'Types de notes'
       gl: 'Tipos de nota'
       hu: 'Megjegyzés típusok'
+      id: 'Tipe catatan'
       is: 'Gerðir athugasemda'
       it: 'Tipi di nota'
       ja: 注記の種別
@@ -219,10 +230,12 @@ QubitTaxonomy:
       pt: 'Tipos de nota'
       pt-BR: 'Tipos de notas'
       pt_BR: 'Tipos de notas'
+      ru: 'Типы заметок'
       sl: 'Vrste opomb'
       sr: 'Врсте напомена'
-      sv: Anteckningstyper
+      sv: Anmärkningstyper
       th: ประเภทของหมายเหตุ
+      uz: 'Izoh turlari'
       vi: 'Loại ghi chú'
       zh: 说明类型
   QubitTaxonomy_8:
@@ -239,9 +252,10 @@ QubitTaxonomy:
       en: 'Repository Types'
       es: 'Tipos de Instituciones Archivísticas'
       eu: 'Errepositorio Motak'
-      fr: 'Types d''institution de conservation'
+      fr: 'Types de dépôts'
       gl: 'Tipos de repositorios'
       hu: 'Levéltár típusok'
+      id: 'Jenis repositori'
       is: 'Gerð varðveislustaðar'
       it: 'Tipologie di deposito'
       ja: リポジトリ種別
@@ -253,9 +267,10 @@ QubitTaxonomy:
       pt_BR: 'Tipos de Entidades Custodiadoras'
       ru: 'Типы Хранилища'
       sl: 'Vrste skladišča'
-      sr: 'Врсте архивa'
-      sv: Magasinstyper
+      sr: 'Врсте институција'
+      sv: Arkivinstitutionstyper
       th: ประเภทคลังเก็บ
+      uz: 'Muassasa turlari'
       vi: 'Loại repository'
       zh: 典藏库类型
   QubitTaxonomy_10:
@@ -267,7 +282,7 @@ QubitTaxonomy:
       ca@valencia: 'Tipus d''activitat'
       cy: 'Mathau o ddigwyddiad'
       de: Ereignistyp
-      de-CH: Ereignistyp
+      de-CH: Ereignistypen
       el: 'Τύποι Γεγονότων'
       en: 'Event Types'
       es: 'Tipos de Actividad'
@@ -288,6 +303,7 @@ QubitTaxonomy:
       ru: 'Типы Событий'
       sl: 'Vrste dogodka'
       sr: 'Врсте догађаја'
+      sv: Händelsetyper
       th: ประเภทของเหตุการณ์
       vi: 'Loại Event'
       zh: 事件类型
@@ -309,6 +325,7 @@ QubitTaxonomy:
       fr: 'Étiquettes des paramètres Qubit'
       gl: 'Etiquetas de configuración de Qubit'
       hu: 'Qubit beállítások címkéi'
+      id: 'Label Pengaturan Qubit'
       it: 'Etichette delle impostazioni di Qubit'
       ja: Qubit設定レベル
       ka: 'ქუბიტ პარამეტრების ეტიკეტები'
@@ -321,6 +338,7 @@ QubitTaxonomy:
       sl: 'Nastavitvene oznake orodja Qubit'
       sr: 'Ознаке подешавања Qubit'
       sv: 'Qubit Inställningsetiketter'
+      uz: 'Qubit sozlama yorliqlari'
       vi: 'Qubit các thiết lập nhãn'
       zh: 量子位设置标签
     note:
@@ -359,6 +377,7 @@ QubitTaxonomy:
       sr: Места
       sv: Platser
       th: สถานที
+      uz: Joylar
       vi: 'địa điểm'
       zh: 地点
   QubitTaxonomy_13:
@@ -378,6 +397,7 @@ QubitTaxonomy:
       gl: 'ISDF Tipos de Funcion'
       hr: 'ISDF vrste funkcija'
       hu: 'ISDF Funkció Típusok'
+      id: 'ISDF Function Types'
       it: 'Tipologie di funzioni ISDF'
       ja: 'ISDF 機能種別'
       ka: 'ISDF ფუნქციის ტიპები'
@@ -387,7 +407,8 @@ QubitTaxonomy:
       pt-BR: 'Tipos de função ISDF'
       pt_BR: 'Tipos de função ISDF'
       sl: 'Vrsta funkcij ISDF'
-      sr: 'Врсте функција ISDF'
+      sr: 'Врсте ISDF функција'
+      sv: 'ISDF funktionstyper'
       th: 'ISDF ฟังก์ชั่น ประเภท'
       vi: 'ISDF loại chức năng'
       zh: 'ISDF 功能类型'
@@ -408,6 +429,7 @@ QubitTaxonomy:
       fr: 'Événements historiques'
       gl: 'Acontecementos históricos'
       hu: 'Történelmi események'
+      id: 'Peristiwa Sejarah'
       is: 'Sögulegir viðburðir'
       it: 'Eventi storici'
       ja: 歴史的出来事
@@ -419,6 +441,7 @@ QubitTaxonomy:
       pt_BR: 'Eventos históricos'
       sl: 'Zgodovinski dogodki'
       sr: 'Историјски догађаји'
+      sv: 'Historiska händelser'
       th: ประวัติเหตุการณ
       vi: 'Sự kiện lịch sử'
       zh: 历史事件
@@ -474,6 +497,7 @@ QubitTaxonomy:
       fr: 'Types de supports'
       gl: 'Tipos de medio'
       hu: 'Média Típusok'
+      id: 'Jenis media'
       is: 'Gerðir miðla'
       it: 'Media Type'
       ja: メディア種別
@@ -488,6 +512,7 @@ QubitTaxonomy:
       sr: 'Врсте медија'
       sv: Mediatyper
       th: ประเภทสื่อ
+      uz: 'Media turlari'
       vi: 'Loại truyền thông'
       zh: 媒体类型
   QubitTaxonomy_17:
@@ -503,12 +528,12 @@ QubitTaxonomy:
       en: 'Digital Object Usages'
       es: 'Usos de los Objetivos Digitales'
       eu: 'Objektu Digitalaren Erabilerak'
-      fr: 'Usages d''objets numériques'
+      fr: 'Usages de documents numériques'
       gl: 'Usos dos obxectos dixitais'
       hu: 'Digitális objektum felhasználások'
       id: 'Penggunaan Objek Digital'
       it: 'Usi dell''oggetto digitale'
-      ja: デイジタルオブジェクトの使用法
+      ja: デジタルオブジェクトの使用法
       ka: 'ციფრული ობიექტის გამოყენება'
       ko: '디지털 객체 사용'
       nl: 'Gebruik digitaal object'
@@ -516,8 +541,10 @@ QubitTaxonomy:
       pt-BR: 'Usos do objeto digital'
       pt_BR: 'Usos do objeto digital'
       sl: 'Raba digitalnega objekta'
-      sr: 'Употребе дигиталног објекта'
+      sr: 'Употреба дигиталног објекта'
+      sv: 'Digitalt objekt-användningar'
       th: 'วัตถุดิจิตอล Usages'
+      uz: 'Raqamli resurs foydalanish ko`rsatkichi'
       vi: 'Cách đối đải digital object'
       zh: 数字对象使用量
   QubitTaxonomy_18:
@@ -551,6 +578,7 @@ QubitTaxonomy:
       sr: 'Врста физичког објекта'
       sv: 'Fysisk objekttyp'
       th: ประเภทวัตถุหางทางกายภาพ
+      uz: 'Fizik resurs turi'
       vi: 'Loại vật lý'
       zh: 物理藏品类型
   QubitTaxonomy_19:
@@ -566,13 +594,13 @@ QubitTaxonomy:
       en: 'Relation Type'
       es: 'Tipo de Relación'
       eu: 'Erlazio Mota'
-      fr: 'Type de relation'
+      fr: 'Type d''association'
       gl: 'Tipo de relación'
       hu: 'Kapcsolat típusa'
       id: 'Tipe Relasi'
       is: 'Gerð tengsla'
       it: 'Tipo di relazione'
-      ja: 関係種別
+      ja: 関係の種別
       ka: 'კავშირის, ურთიერთობის ტიპი'
       ko: '관련 유형'
       nl: 'Soorten relaties'
@@ -582,7 +610,9 @@ QubitTaxonomy:
       ro: 'Tipul de relatie'
       sl: 'Vrsta povezave'
       sr: 'Врсте односа'
+      sv: Relationstyp
       th: ประเภทความสัมพันธ์
+      uz: 'Munosabat turi'
       vi: 'Loại mối quan hệ'
       zh: 关系类型
   QubitTaxonomy_20:
@@ -601,7 +631,8 @@ QubitTaxonomy:
       eu: 'Material Mota'
       fr: 'Types de documents'
       gl: 'Tipo de material'
-      hu: 'Anyag Típus'
+      hu: 'Anyag típus'
+      id: 'Jenis bahan arsip'
       is: Efnisform
       it: 'Tipo di materiale'
       ja: 資料種別
@@ -609,12 +640,14 @@ QubitTaxonomy:
       ko: '자료 유형'
       nl: 'Soort materiaal'
       pt: 'Tipo de material'
-      pt-BR: 'Tipo de material'
+      pt-BR: 'Tipo de Material'
       pt_BR: 'Tipo de material'
       ru: 'Тип Материала'
       sl: 'Vrsta gradiva'
       sr: 'Врста грађе'
+      sv: Materialtyp
       th: ประเภทเอกสาร
+      uz: 'Material turi'
       vi: 'Loại tài liệu'
       zh: 资料类型
   QubitTaxonomy_21:
@@ -631,7 +664,9 @@ QubitTaxonomy:
       es: 'Nota de normas RAD'
       eu: 'RAD Oharra'
       fr: 'Note RDDA'
+      gl: 'Nota RAD'
       hu: 'RAD jegyzet'
+      id: 'RAD Catatan'
       is: 'RAD - Athugasemd'
       it: 'Nota (RAD)'
       ja: RAD注記
@@ -643,8 +678,9 @@ QubitTaxonomy:
       pt_BR: 'Nota RAD'
       sl: 'Opomba glede RAD'
       sr: 'RAD Напомена'
-      sv: RAD-anteckning
+      sv: RAD-anmärkning
       th: หมายเหตุRAD
+      uz: 'RAD izohi'
       vi: 'Ghi chú RAD'
       zh: 快速应用程序开发(RAD)说明
     note:
@@ -664,6 +700,7 @@ QubitTaxonomy:
       eu: 'RAD Izenburuaren Oharra'
       fr: 'Note de titre RDDA'
       hu: 'RAD Címsor'
+      id: 'RAD Catatan Judul'
       is: 'RAD - Athugasemd um titil'
       it: 'Nota al titolo (RAD)'
       ja: RADタイトル注記
@@ -675,7 +712,9 @@ QubitTaxonomy:
       pt_BR: 'Título da Nota RAD'
       sl: 'Opomba naslova v zvezi z RAD'
       sr: 'RAD Напомена о наслову'
+      sv: RAD-titelanmärkning
       th: หมายเหตุชื่อเรื่องRAD
+      uz: 'RAD Sarlavha izohi'
       vi: 'Ghi chú tiêu đề RAD'
       zh: 快速应用程序开发(RAD)标题说明
     note:
@@ -696,6 +735,7 @@ QubitTaxonomy:
       eu: 'MODS Baliabide Mota'
       fr: 'Types de ressources MODS'
       hu: 'MODS Forrás Típus'
+      id: 'MODS Resource Type'
       it: 'Tipo di risorsa MODS'
       ja: 'MODS リソース種別'
       ka: 'MODS რესურსის ტიპი'
@@ -705,6 +745,7 @@ QubitTaxonomy:
       pt_BR: 'Tipo de Recurso MODS'
       sl: 'Vrsta vira MODS'
       sr: 'Врста извора MODS'
+      sv: 'MODS resursrtyp'
       vi: 'Loại tài nguyên MODS'
       zh: 'MODS 资源类型'
     note:
@@ -725,6 +766,7 @@ QubitTaxonomy:
       fr: 'Types Dublin Core'
       gl: 'Tipos Dublin Core'
       hu: 'Dublin Core típusok'
+      id: 'Tipe Dublin Core'
       is: 'Dublin Core Tegund'
       it: 'Tipi Dublin Core'
       ja: ダブリンコア種別
@@ -736,6 +778,7 @@ QubitTaxonomy:
       sl: 'Vrste po standardu Dublin Core'
       sr: 'Врсте по стандарду Dublin Core'
       sv: 'Dublin Core Typer'
+      uz: 'Dublin Core'
       vi: 'Loại Dublin Core'
       zh: 都柏林核心类型
     note:
@@ -748,6 +791,8 @@ QubitTaxonomy:
       ca: 'Tipus de Relació amb l''Actor'
       ca@valencia: 'Tipus de Relació amb l''Actor'
       cy: 'Math o Berthynas Actor'
+      de: 'Art der Beziehung zum Akteur'
+      de-CH: 'Verwandtschaftstyp Aktenbildner'
       en: 'Actor Relation Type'
       es: 'Tipo de Relación con el Actor'
       eu: 'Aktore Erlazio Mota'
@@ -766,7 +811,9 @@ QubitTaxonomy:
       pt_BR: 'Tipo de Relação com o Autor'
       sl: 'Vrste povezav med delovalci'
       sr: 'Врсте односа ствараоца'
+      sv: 'Relationstyper för aktören'
       th: 'ชนิดActor Relation'
+      uz: 'Muallif &lpar;ijrochi&rpar; aloqa turi'
       vi: 'Loại liên quan Actor'
       zh: 执行者关系类型
     note:
@@ -782,19 +829,22 @@ QubitTaxonomy:
       en: 'Relation Note Types'
       es: 'Tipos de Notas sobre Relaciones'
       eu: 'Erlazio Ohar Motak'
-      fr: 'Types de note sur la relation'
+      fr: 'Types de note sur l''association'
       gl: 'Tipos de nota de relación'
       hu: 'Kapcsolat-megjegyzések típusai'
+      id: 'Jenis Catatan Relasi'
       it: 'Tipi di note sulla relazione'
       ja: 関連する注記の種別
       ka: 'კავშირების შენიშვნების ტიპები'
       ko: '관련 주기'
       pt: 'Notas aos tipos de relação'
-      pt-BR: 'Tipos de relação de notas'
+      pt-BR: 'Tipos de notas de relacionadas'
       pt_BR: 'Tipos de relação de notas'
       sl: 'Vrste opomb glede povezave'
       sr: 'Врсте односа напомена'
+      sv: Relationsanmärkningstyper
       th: ประเภทหมายเหตุความสัมพันธ์
+      uz: 'Munosabat izohi turlari'
       vi: 'Loại ghi chú quan hệ'
       zh: 关系说明类型
   QubitTaxonomy_term_relation_type:
@@ -809,12 +859,12 @@ QubitTaxonomy:
       en: 'Term Relation Types'
       es: 'Tipos de Términos de Relación'
       eu: 'Termino Erlazio Motak'
-      fr: 'Types de terme de relation'
+      fr: 'Types relation entre les termes'
       gl: 'Tipos de relación entre termos'
       hu: 'Kifejezés-viszonyok típusai'
       id: 'Tipe Relasi Istilah'
       it: 'Tipi di relazione fra termini'
-      ja: 用語関係種別
+      ja: 関係の種別に関する用語
       ka: 'ურთიერთობის ტიპების ვადები'
       ko: '용어 관계 유형'
       nl: 'Term relatie typen'
@@ -824,7 +874,9 @@ QubitTaxonomy:
       pt_BR: 'Tipos de Relação de Termos'
       sl: 'Vrste povezav med izrazi'
       sr: 'Врсте веза између термина'
+      sv: Termrelationstyper
       th: คำศัพท์ประเภทRelation
+      uz: 'Atamalar aloqa turlari'
       vi: 'Loại hạn Quan hệ'
       zh: 术语关系类型
   QubitTaxonomy_status_types:
@@ -851,12 +903,13 @@ QubitTaxonomy:
       ko: '상태 유형'
       nl: 'Status soorten'
       pt: 'Tipos de estatuto'
-      pt-BR: 'Tipos de Estado'
+      pt-BR: 'Tipos de status'
       pt_BR: 'Tipos de Estado'
       sl: 'Vrste statusa'
       sr: 'Врсте статуса'
       sv: Statustyper
       th: ประเภทสถานะ
+      uz: 'Status turlari'
       vi: 'Loại tình trạng'
       zh: 状态类型
   QubitTaxonomy_publication_status:
@@ -879,18 +932,19 @@ QubitTaxonomy:
       id: 'Status Publikasi'
       is: 'Staða skráningar'
       it: 'Stato della pubblicazione'
-      ja: 出版物のステータス
+      ja: 公開の状態
       ka: 'პუბლიკაციის სტატუსი'
       ko: '출판 상태'
       nl: 'Publicatie status'
       pl: 'Status publikacji'
       pt: 'Estado da publicação'
-      pt-BR: 'Estado da Publicação'
+      pt-BR: 'Status da Publicação'
       pt_BR: 'Estado da Publicação'
       sl: 'Status objave'
       sr: 'Статус видљивости записа'
-      sv: Publikationsstatus
+      sv: Publiceringsstatus
       th: สถานภาพการพิมพ
+      uz: 'Nashr statusi'
       vi: 'Tình trạng công khai'
       zh: 发布状态
   QubitTaxonomy_isdf_relation_type:
@@ -918,7 +972,8 @@ QubitTaxonomy:
       pt-BR: 'Tipo de Relação de Função'
       pt_BR: 'Tipo de Relação de Função'
       sl: 'Vrsta povezav med funkcijami'
-      sr: 'Врсте односа функције'
+      sr: 'Врста односа између функција'
+      sv: Funktionsrelationstyp
       th: 'ฟังก์ชั่น  ความสัมพันธ์ ประเภท'
       vi: 'Loại quan hệ các chức năng'
       zh: 功能关系类型
@@ -933,11 +988,11 @@ QubitTaxonomy:
       ca@valencia: 'Tipus de documentació d''ingressos'
       cy: 'Math o adnodd derbyn'
       de: 'Ressourcentyp der Akzession'
-      de-CH: 'Ressourcentyp der Akzession'
+      de-CH: 'Art des akzessionierten Objekts'
       en: 'Accession resource type'
       es: 'Tipo de documentación del ingreso'
       eu: 'Atxikimendu baliabide mota'
-      fr: 'Type de ressource versée'
+      fr: 'Type de ressource acquise'
       gl: 'Tipo de recurso de ingreso'
       hu: 'Gyarapodás/szerzemény forrásának típusa'
       id: 'Tipe sumber Informasi'
@@ -952,8 +1007,10 @@ QubitTaxonomy:
       pt-BR: 'Tipo de recurso de incorporação'
       pt_BR: 'Tipo de recurso de incorporação'
       sl: 'Vrsta vira prevzetega gradiva'
-      sr: 'Врста грађе преузетог извора'
+      sr: 'Врсте извора набавке'
+      sv: Accessionsresurstyp
       th: ประเภททรัพยากรการเข้าถึงเอกสาร
+      uz: 'Ro`yxatga olinayotgan hujjati turi'
       vi: 'Loại của tài nguyên truy cập'
       zh: 登记资源类型
   QubitTaxonomy_accession_acquisition_type:
@@ -969,7 +1026,7 @@ QubitTaxonomy:
       en: 'Accession acquisition type'
       es: 'Tipo de ingreso'
       eu: 'Atxikimendua eskuratze-mota'
-      fr: 'Type d''entrée'
+      fr: 'Type d''acquisition'
       gl: 'Tipo de ingreso'
       hu: 'Szerzemény irattárba kerülésének típusa'
       id: 'tipe akuisisi'
@@ -985,7 +1042,9 @@ QubitTaxonomy:
       pt_BR: 'Tipo de aquisição de incorporação'
       sl: 'Način prevzema pribobljenega gradiva'
       sr: 'Инвентар по врсти набавке'
+      sv: Accessionsförvärvstyp
       th: ชนิดการจัดหาเอกสารของการเข้าถึงเอกสาร
+      uz: 'Ro`yxatga olish turi'
       vi: 'Loại truy cập thu được'
       zh: 入藏登记类型
   QubitTaxonomy_accession_processing_priority:
@@ -997,12 +1056,12 @@ QubitTaxonomy:
       ca@valencia: 'Prioritat de tractament d''ingrés'
       cy: 'Blaenoriaeth prosesu derbyniad'
       de: 'Erschließungspriorität für die Akzession'
-      de-CH: 'Erschließungspriorität für die Akzession'
+      de-CH: 'Erschliessungspriorität für die Akzession'
       el: 'Προτεραιότητα πρόσκτησης'
       en: 'Accession processing priority'
       es: 'Prioridad de tratamiento del ingreso'
       eu: 'Atxikimenduaren prozesaketaren lehentasuna'
-      fr: 'Priorité du processus d''entrée'
+      fr: 'Priorité du processus d''acquisition'
       gl: 'Prioridade do proceso de ingreso'
       hu: 'Feldolgozás során elsőbbséget élvező gyarapodás/szerzemény'
       id: 'Prioritas proses'
@@ -1017,7 +1076,9 @@ QubitTaxonomy:
       pt_BR: 'Prioridade de processamento de incorporação'
       sl: 'Prednostna obdelava prevzetega gradiva'
       sr: 'Приоритет инвентарне обраде'
+      sv: 'Prioritering för accessionsbehandling'
       th: ลำดับความสำคัญที่ดำเนินการเข้าถึงเอกสาร
+      uz: 'Ro`yxatga olish jarayoni muhimligi'
       vi: 'Truy cập quyền ưu tiên chế biến'
       zh: 登记处理优先等级
   QubitTaxonomy_accession_processing_status:
@@ -1029,12 +1090,12 @@ QubitTaxonomy:
       ca@valencia: 'Estat de tractament d''ingrés'
       cy: 'Statws prosesu derbyniad'
       de: 'Erschließungsstatus der Akzession'
-      de-CH: 'Erschließungsstatus der Akzession'
+      de-CH: 'Erschliessungsstatus der Akzession'
       el: 'Κατάσταση πρόσκτησης'
       en: 'Accession processing status'
       es: 'Estado de tratamiento del ingreso'
       eu: 'Atxikimenduaren prozesaketa egoera'
-      fr: 'Statut du processus d''entrée'
+      fr: 'Statut du processus d''acquisition'
       gl: 'Estado do proceso de ingreso'
       hu: 'Gyarapodás/szerzemény feldolgozásának státusza'
       id: 'Status proses'
@@ -1049,7 +1110,9 @@ QubitTaxonomy:
       pt_BR: 'Estado de processamento de incorporação'
       sl: 'Status obdelave prevzetega gradiva'
       sr: 'Статус инвентарне обраде'
+      sv: 'Status för Accessionsbehandling'
       th: สถานภาพดำเนินการเข้าถึงเอกสาร
+      uz: 'Ro`yxatga olish jarayoni holati'
       vi: 'Truy cập chế biến địa vị'
       zh: 登记处理状态
   QubitTaxonomy_deaccession_scope:
@@ -1069,6 +1132,7 @@ QubitTaxonomy:
       fr: 'Portée de la sortie définitive'
       gl: 'Ámbito do expurgo'
       hu: 'Fogyási tárgy'
+      id: 'Lingkup de-aksesi'
       is: 'Umfang endurskila'
       it: 'Ambito dello scarto o del trasferimento'
       ja: 廃棄の範囲
@@ -1080,6 +1144,7 @@ QubitTaxonomy:
       pt_BR: 'Escopo de transferência'
       sl: 'Obseg prodaje'
       sr: 'Опсег излучене грађе'
+      sv: 'Omfattning av återlämning'
       th: เขตการทิ้งเอกสาร
       vi: 'Phạm vi Deaccession'
       zh: 注销范围
@@ -1099,6 +1164,7 @@ QubitTaxonomy:
       fr: 'Fondements des droits'
       gl: 'Dereitos básicos'
       hu: 'Jogosultság alapja'
+      id: 'Basis hak'
       is: 'Grundvöllur leyfis'
       it: 'Base dei diritti'
       ja: 権利の根拠
@@ -1111,7 +1177,9 @@ QubitTaxonomy:
       pt_BR: 'Direitos básicos'
       sl: 'Osnova za pravice'
       sr: 'Правна основа'
+      sv: Rättighetsgrund
       th: พื้นฐานสิทธ
+      uz: 'Huquqlar asosi'
       vi: 'Căn cư  quyềń'
       zh: 权利基础
   QubitTaxonomy_right_act:
@@ -1128,6 +1196,7 @@ QubitTaxonomy:
       fr: 'Actions liées aux droits'
       gl: 'Acta de dereitos'
       hu: 'Műveleti jogosultságok'
+      id: 'Tindakan hak'
       is: Leyfisréttindi
       it: Atto
       ja: 権利の行動
@@ -1140,7 +1209,9 @@ QubitTaxonomy:
       pt_BR: 'Atos de direitos'
       sl: 'Zakon o pravicah'
       sr: 'Акт о правима'
+      sv: Rättighetslag
       th: สิทธิact
+      uz: 'Huquqlar qonuni'
       vi: 'Hành quyền'
       zh: 权利行为
   QubitTaxonomy_copyright_status:
@@ -1169,12 +1240,14 @@ QubitTaxonomy:
       nl: 'Copyright status'
       pl: 'Status prawa autorskiego'
       pt: 'Estado dos direitos de autor'
-      pt-BR: 'Estado de direitos de autor'
+      pt-BR: 'Status dos direitos autorais'
       pt_BR: 'Estado de direitos de autor'
       ro: 'Statut drept de autor'
       sl: 'Status avtorskih pravic'
       sr: 'Статус ауторског права'
+      sv: Upphovsrättsstatus
       th: สถานภาพลิขสิทธิ์
+      uz: 'Mualliflik huquqi holati'
       vi: 'địa vị bản quyền'
       zh: 版权状态
   QubitTaxonomy_information_object_templates:
@@ -1186,20 +1259,23 @@ QubitTaxonomy:
       ca@valencia: 'Informació sobre les plantilles'
       cy: 'Templedau gwrthrych gwybodaeth'
       de: 'Vorlagen für Informationsobjekte'
+      de-CH: 'Vorlagen für ein Informationsobjekt'
       en: 'Information object templates'
       es: 'Información sobre las plantillas'
       eu: 'Informazio objektuaren txantiloiak'
       fr: 'Modèles de description archivistique'
       gl: 'Plantillas de obxectos de información'
       hu: 'Információs objektum minták'
+      id: 'Templat objek informasi'
       it: 'Modelli degli oggetti informativi'
       ko: '정보 객체 템플릿'
       pt: 'Modelos de objetos de informação'
-      pt-BR: 'Modelos de objetos de informação'
+      pt-BR: 'Modelos de descrição arquivística'
       pt_BR: 'Modelos de objetos de informação'
       sl: 'Predloge za informacijski objekt'
       sr: 'Шаблони за информационе објекте'
       sv: 'Mallar för informationsobjekt'
+      uz: 'Axborot obyekti shablonlari'
       vi: 'Mẫu Information object'
       zh: 信息藏品模板
   QubitTaxonomy_aip_types:
@@ -1213,7 +1289,9 @@ QubitTaxonomy:
       en: 'AIP types'
       es: 'Tipos de AIP'
       eu: 'AIP motak'
+      fr: 'Types d''AIP'
       hu: 'AIP típusok'
+      id: 'Tipe AIP'
       it: 'Tipi di AIP'
       ko: 'AIP 종류'
       pt: 'Tipos de AIP'
@@ -1222,6 +1300,7 @@ QubitTaxonomy:
       sl: 'AIP vrsta'
       sr: 'AIP врсте'
       sv: AIP-typer
+      uz: 'AIP turlari'
       vi: 'Loại AIP'
       zh: 'AIP 类型'
   QubitTaxonomy_thematic_areas:
@@ -1230,6 +1309,7 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       ca: 'Àrea temàtica'
+      cy: 'Ardal Thematig'
       de: 'Bereich "Themen"'
       de-CH: 'Bereich "Themen"'
       en: 'Thematic Area'
@@ -1237,6 +1317,7 @@ QubitTaxonomy:
       eu: 'Gai Eremua'
       fr: 'Domaine thématique'
       hu: 'Témakörök adatcsoport'
+      id: 'Bagian Tematik'
       it: 'Area tematica'
       ko: '주제 영역'
       pt: 'Área Temática'
@@ -1244,6 +1325,8 @@ QubitTaxonomy:
       pt_BR: 'Área Temática'
       sl: 'Tematsko Območje'
       sr: 'Тематско подручје'
+      sv: Tematik
+      uz: 'Predmet soha'
       vi: 'Diện tích chuyên đề'
       zh: 主题版块
     note:
@@ -1261,7 +1344,9 @@ QubitTaxonomy:
       es: 'Subregión geográfica'
       eu: 'Azpieskualde Geografikoa'
       fr: 'Sous-région géographique'
+      gl: 'Subrexión xeográfica'
       hu: 'Földrajzi alterület'
+      id: 'Subwilayah geografis'
       it: 'Sub-regione geografica'
       ko: '지리적으로 하위 지역'
       pt: 'Sub-região Geográfica'
@@ -1269,6 +1354,8 @@ QubitTaxonomy:
       pt_BR: 'Sub-região Geográfica'
       sl: 'Zemljepisno podobmočje'
       sr: 'Географски подрегион'
+      sv: 'Geografisk subregion'
+      uz: 'Geografik hudud'
       vi: 'Tiểu vùng địa lý'
       zh: 地理亚区域
     note:
@@ -1284,7 +1371,9 @@ QubitTaxonomy:
       es: 'Nota DACS'
       eu: 'DACS Oharra'
       fr: 'Notes DACS'
+      gl: 'Nota DACS'
       hu: 'DACS jegyzet'
+      id: 'Catatan DACS'
       it: '(DACS) Nota'
       ko: 'DACS 노트'
       pt: 'Nota DACS'
@@ -1292,6 +1381,7 @@ QubitTaxonomy:
       pt_BR: 'Nota DACS'
       sl: 'DACS opombe'
       sr: 'DACS напомена'
+      sv: 'DACS anmärkning'
       vi: 'Ghi chú DACS'
       zh: 档案描述內容标准(DACS)说明
     note:
@@ -1301,17 +1391,22 @@ QubitTaxonomy:
     id: 78
     parent_id: QubitTaxonomy_root
     name:
+      cy: Genre
       de: Genre
       de-CH: Genre
       en: Genre
       es: Tipo
+      fr: Genre
+      gl: Xénero
       hu: Műfaj
+      id: Genre
+      it: Genere
       pt: Género
       pt-BR: Gênero
       ru: Жанр
       sl: Zvrst
       sr: Жанр
-      sv: Genre
+      sv: Handlingstyp
       zh: 体裁
     note:
       en: 'Genre terms drawn from appropriate vocabularies; used as an optional access point in the RAD template. Default terms are from "Basic Genre Terms for Cultural Heritage Materials" (Library of Congress).'
@@ -1320,9 +1415,17 @@ QubitTaxonomy:
     id: 75
     parent_id: QubitTaxonomy_root
     name:
+      cy: 'Ystatudau Hawliau PREMIS'
       en: 'PREMIS Rights Statutes'
       es: 'Estatutos de derechos PREMIS'
-      sv: PREMIS-rättigheter
+      hu: 'PREMIS Jogi Státuszok'
+      id: 'PREMIS Rights Statutes'
+      it: 'Statuti dei diritti di PREMIS'
+      pt: 'Estatutos de direitos do PREMIS'
+      pt-BR: 'PREMIS Estatutos de direitos'
+      sr: 'PREMIS Rights Statutes'
+      sv: PREMIS-rättsregelverk
+      uz: 'PREMIS huquqlar nizomlari'
     note:
       en: 'Used to store Statute values when defining PREMIS rights statements with a statute Basis.'
   QubitTaxonomy_job_status:
@@ -1330,13 +1433,34 @@ QubitTaxonomy:
     id: 79
     parent_id: QubitTaxonomy_root
     name:
+      cy: 'Statws tasg'
+      de: Aufgabenstatus
+      de-CH: Auftragsstatus
       en: 'Job status'
+      es: 'Estado del proceso'
+      fr: 'État de la tâche'
+      hu: 'Feladat/munka állapota'
+      id: 'Status tugas'
+      it: 'Status dell''operazione'
+      pt: 'Estado do trabalho'
+      pt-BR: 'Status do trabalho'
+      ru: 'Статус задания'
+      sl: 'Status dela'
+      sr: 'Статус посла'
+      sv: Jobbstatus
+      zh: 作业状态
   QubitTaxonomy_actor_occupation:
     source_culture: en
     id: 80
     parent_id: QubitTaxonomy_root
     name:
+      cy: 'Galwedigaethau actor'
       en: 'Actor occupations'
+      it: 'Occupazioni dell''attore'
+      pt: 'Ocupações da pessoa'
+      pt-BR: 'Ocupações do registro de autoridade'
+      sr: 'Занимања ствараоца'
+      sv: 'Aktörens yrken'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -1358,7 +1482,8 @@ QubitTerm:
       eu: Sorkuntza
       fr: Production
       gl: Creación
-      hu: Létezés
+      hu: Keletkezés
+      id: Penciptaan
       is: Sköpun
       it: Creazione
       ja: 作成
@@ -1371,8 +1496,10 @@ QubitTerm:
       pt_BR: Produção
       ru: Создание
       sl: Ustvarjanje
-      sr: Стварање
+      sr: Креирање
+      sv: Skapelse
       th: การผลิต
+      uz: Yaratilgan
       vi: 'Năm tạo'
       zh: 创建
   QubitTerm_113:
@@ -1392,6 +1519,7 @@ QubitTerm:
       fr: Conservation
       gl: Custódia
       hu: Megőrzés
+      id: Kustodi
       is: Varðveisla
       it: Conservazione
       ja: 収蔵状況
@@ -1404,6 +1532,7 @@ QubitTerm:
       pt_BR: Custódia
       sl: Skrbništvo
       sr: Старање
+      sv: Förvaringsansvar
       th: การจัดเก็บเข้าคลัง
       vi: 'Lưu giữ'
       zh: 保管
@@ -1438,8 +1567,9 @@ QubitTerm:
       pt_BR: Publicação
       sl: Objava
       sr: Публикација
-      sv: Publikation
+      sv: Publicering
       th: การพิมพ์
+      uz: Nashr
       vi: 'ý công bố'
       zh: 发布
   QubitTerm_115:
@@ -1460,6 +1590,7 @@ QubitTerm:
       fr: Contribution
       gl: Contribución
       hu: Hozzászólás/hozzájárulás
+      id: Kontribusi
       is: Framlag
       it: Contributo
       ja: 貢献
@@ -1525,7 +1656,7 @@ QubitTerm:
       de: Bildung
       de-CH: Bildung
       en: Accumulation
-      es: Agregación
+      es: Acumulación
       eu: Pilaketa
       fr: Accumulation
       gl: Acumulación
@@ -1542,7 +1673,9 @@ QubitTerm:
       pt_BR: Acumulação
       sl: Zbiranje
       sr: Сакупљање
+      sv: Arkivbildning
       th: การสะสม
+      uz: Jamlash
       vi: 'Tích lũy'
       zh: 累计
   QubitTerm_118:
@@ -1560,7 +1693,7 @@ QubitTerm:
       en: 'Title note'
       es: 'Nota sobre el título'
       eu: 'Izenburu oharra'
-      fr: 'Note de titre'
+      fr: 'Note du titre'
       gl: 'Nota de título'
       hu: 'Jegyzet a címhez'
       id: 'Catatan Judul'
@@ -1576,7 +1709,9 @@ QubitTerm:
       pt_BR: 'Nota de título'
       sl: 'Opomba glede naslova'
       sr: 'Напомена о наслову'
+      sv: Titelanmärkning
       th: หมายเหตุชื่อเรื่อง
+      uz: 'Sarlavha yozuvi'
       vi: 'Ghi chú nhan đề'
       zh: 标题说明
   QubitTerm_language_note:
@@ -1609,7 +1744,7 @@ QubitTerm:
       pt_BR: 'Nota de idioma'
       sl: 'Opomba o jeziku'
       sr: 'Напомена о језику'
-      sv: Språknotering
+      sv: Språkanmärkning
       th: หมายเหตุภาษา
       vi: 'Ghi chú ngôn ngữ'
       zh: 语言说明
@@ -1643,9 +1778,10 @@ QubitTerm:
       pt-BR: 'Nota de publicação'
       pt_BR: 'Nota de publicação'
       sl: 'Opomba o objavi'
-      sr: 'Напомена о публикацији'
-      sv: Publikationsanteckning
+      sr: 'Напомена о објављивању'
+      sv: Publiceringsanmärkning
       th: พื้นที่การพิมพ
+      uz: 'Nashr izohi'
       vi: 'Lưu ý công bố'
       zh: 发布说明
   QubitTerm_120:
@@ -1679,8 +1815,9 @@ QubitTerm:
       pt_BR: 'Nota de fonte'
       sl: 'Opomba o viru'
       sr: 'Напомена о извору'
-      sv: Källanteckning
+      sv: Källanmärkning
       th: หมายเหตุแหล่งที่มา
+      uz: 'Manba izohi'
       vi: 'Ghi chú của nguồn'
       zh: 源说明
   QubitTerm_121:
@@ -1691,7 +1828,7 @@ QubitTerm:
     name:
       ca: 'Nota d''abast'
       ca@valencia: 'Nota sobre l''abast'
-      cy: 'Nodyn cwpas'
+      cy: 'Nodyn cwmpas'
       de: 'Anmerkung zum Umfang'
       de-CH: 'Anmerkung zum Umfang'
       el: 'Σημείωση περιεχομένου'
@@ -1699,7 +1836,7 @@ QubitTerm:
       es: 'Nota sobre el alcance'
       eu: 'Ohar esparrua'
       fa: 'محدوده نكته'
-      fr: 'Note sur l''utilisation'
+      fr: 'Note sur la portée et contenu'
       gl: 'Nota de alcance'
       hu: 'Tárgy - megjegyzés'
       id: 'Catatan Cakupan'
@@ -1716,7 +1853,9 @@ QubitTerm:
       ro: 'Nota domeniu de aplicare'
       sl: 'Opomba o obsegu'
       sr: 'Напомена о оквиру'
+      sv: Omfattningsanmärkning
       th: 'ขอบเขตและเนื้อหา - นี่เป็นองค์ประกอบที่จำเป็น'
+      uz: 'Qamrov izohi'
       vi: 'Ghi chú phạm vi'
       zh: 范围说明
   QubitTerm_122:
@@ -1736,6 +1875,7 @@ QubitTerm:
       fr: 'Note d''affichage'
       gl: 'Nota de despergue'
       hu: 'Megjelenítési jegyzet'
+      id: 'Catatan penayangan'
       is: 'Birta athugasemd'
       it: 'Mostra la nota'
       ja: 表示の注記
@@ -1746,7 +1886,8 @@ QubitTerm:
       pt-BR: 'Nota de exibição'
       pt_BR: 'Nota de exibição'
       sl: 'Prikaži opombo'
-      sr: 'Прикажи напомену'
+      sr: 'Напомена о приказу'
+      sv: Visningsfältsanmärkning
       th: หมายเหตุDisplay
       vi: 'Ghi chú hiển thị ngày'
       zh: 展示说明
@@ -1782,7 +1923,9 @@ QubitTerm:
       ru: 'Архивный материал'
       sl: 'Arhivsko gradivo'
       sr: 'Архивскa грађа'
+      sv: Arkivmaterial
       th: เอกสารจดหมายเหตุ
+      uz: 'Arxiv materiali'
       vi: 'Tài liệu lưu'
       zh: 文献资料
   QubitTerm_125:
@@ -1803,6 +1946,7 @@ QubitTerm:
       fr: 'Documents publiés'
       gl: 'Material publicado'
       hu: 'Közzétett anyag'
+      id: 'Bahan arsip yang dipublikasi'
       is: 'Útgefið efni'
       it: 'Materiale edito'
       ja: 出版資料
@@ -1814,9 +1958,10 @@ QubitTerm:
       pt-BR: 'Material publicado'
       pt_BR: 'Material publicado'
       sl: 'Objavljeno gradivo'
-      sr: 'Објављени материјал'
+      sr: 'Објављена грађа'
       sv: 'Publicerat material'
       th: เอกสารตีพิมพ์
+      uz: 'Nashr qilingan material'
       vi: 'Tài liệu xuất bản'
       zh: 已出版的资料
   QubitTerm_126:
@@ -1836,9 +1981,10 @@ QubitTerm:
       eu: 'Artefaktu materiala'
       fr: Artefact
       hu: 'Tárgyi lelet anyaga'
+      id: 'Bahan artefak'
       is: 'Efni tengt grip'
       it: Manufatti
-      ja: 芸術資料
+      ja: モノ資料
       ka: 'ხელნაწერი მასალა'
       ko: '가공 자료'
       nl: 'Artefact materiaal'
@@ -1847,8 +1993,10 @@ QubitTerm:
       pt-BR: 'Material do artefato'
       pt_BR: 'Material do artefato'
       sl: Artefakti
-      sr: 'Рукотворени материјал'
+      sr: 'Материјал артефакта'
+      sv: 'Artefakt material'
       th: เอกสารประดิษฐ
+      uz: 'Tarixiy asar'
       vi: 'Vật liệu Artefact'
       zh: 手工艺品资料
   QubitTerm_127:
@@ -1882,7 +2030,7 @@ QubitTerm:
       ro: 'Persoana juridica'
       sl: Korporacija
       sr: 'Правно лице'
-      sv: Organisation
+      sv: Institution
       th: นิติบุคคล
       vi: 'Đoàn thể'
       zh: 团体
@@ -1904,6 +2052,7 @@ QubitTerm:
       fr: Personne
       gl: Persoa
       hu: Személy
+      id: Orang
       is: Einstaklingur
       it: Persona
       ja: 個人
@@ -1916,9 +2065,10 @@ QubitTerm:
       pt_BR: Pessoa
       ru: Человек
       sl: Oseba
-      sr: Особа
+      sr: 'Физичко лице'
       sv: Person
       th: บุคคล
+      uz: Shaxs
       vi: Người
       zh: 个人
   QubitTerm_129:
@@ -1942,7 +2092,7 @@ QubitTerm:
       id: Kekerabatan
       is: Fjölskylda
       it: Famiglia
-      ja: 家族
+      ja: 家
       ka: ოჯახი
       ko: 가족
       nl: Familie
@@ -1974,9 +2124,10 @@ QubitTerm:
       fr: Audio
       gl: Audio
       hu: Hangfelvétel
+      id: Audio
       is: Hljóð
       it: Audio
-      ja: 視聴覚
+      ja: オーディオ
       ka: აუდიო
       ko: 오디오
       nl: Audio
@@ -1988,6 +2139,8 @@ QubitTerm:
       ru: Звук
       sl: Avdio
       sr: Звук
+      sv: Audio
+      uz: Audio
       vi: 'Âm thanh'
       zh: 音频
   QubitTerm_132:
@@ -2008,6 +2161,7 @@ QubitTerm:
       fr: Image
       gl: Imaxe
       hu: Kép
+      id: Gambar
       is: Mynd
       it: Immagine
       ja: イメージ
@@ -2018,8 +2172,10 @@ QubitTerm:
       pt-BR: Imagem
       pt_BR: Imagem
       ro: Imagine
+      ru: Изображение
       sl: Slika
       sr: Слика
+      sv: Bild
       vi: 'Những ảnh'
       zh: 图像
   QubitTerm_134:
@@ -2056,6 +2212,7 @@ QubitTerm:
       sl: Besedilo
       sr: Текст
       sv: Text
+      uz: Matn
       vi: 'Văn bản'
       zh: 文本
   QubitTerm_135:
@@ -2076,6 +2233,7 @@ QubitTerm:
       fr: Vidéo
       gl: Vídeo
       hu: Videófelvétel
+      id: Video
       is: Myndband
       it: Video
       ja: ビデオ
@@ -2090,6 +2248,7 @@ QubitTerm:
       sl: Video
       sr: Видео
       sv: Video
+      uz: Video
       vi: video
       zh: 视频
   QubitTerm_136:
@@ -2126,6 +2285,7 @@ QubitTerm:
       sr: Други
       sv: Annat
       th: อื่นๆ
+      uz: Boshqa
       vi: Khác
       zh: 其他
   QubitTerm_external_uri:
@@ -2146,6 +2306,7 @@ QubitTerm:
       fr: 'URI externe'
       gl: 'URI externo'
       hu: 'Külső URI'
+      id: 'External URI'
       it: 'URI esterno'
       ja: 外部URI
       ka: 'სივრცითი  URI'
@@ -2165,7 +2326,19 @@ QubitTerm:
     id: 186
     source_culture: en
     name:
-      en: 'Offline'
+      cy: all-lein
+      de: Offline
+      de-CH: Offline
+      en: Offline
+      fr: 'Hors ligne'
+      hu: 'Hálózat nélkül'
+      id: Offline
+      it: Offline
+      pt: Offline
+      pt-BR: Offline
+      sr: Офлајн
+      sv: Offline
+      uz: Oflayn
   QubitTerm_137:
     taxonomy_id: QubitTaxonomy_17
     parent_id: QubitTerm_110
@@ -2182,6 +2355,7 @@ QubitTerm:
       eu: Masterra
       fr: Matrice
       hu: Mester
+      id: Master
       it: Master
       ja: マスター
       ka: მფლობელი
@@ -2189,11 +2363,12 @@ QubitTerm:
       nl: Master
       pl: Nadrzędny
       pt: Matriz
-      pt-BR: Mestre
+      pt-BR: Master
       pt_BR: Mestre
       sl: 'Glavni dokument'
       sr: 'Главни документ'
       sv: Master
+      uz: 'Asosiy &lpar;Master&rpar;'
       vi: 'Tổng thể'
       zh: 原件
   QubitTerm_138:
@@ -2214,6 +2389,7 @@ QubitTerm:
       fr: Référence
       gl: Referencia
       hu: Referencia
+      id: Referensi
       is: Tilvísun
       it: Riferimento
       ja: レファレンス
@@ -2226,8 +2402,9 @@ QubitTerm:
       pt_BR: Referência
       sl: Referenca
       sr: Упутница
-      sv: Referens
+      sv: Hänvisning
       th: อ้างอิง
+      uz: Eslatma
       vi: 'Tham khảo'
       zh: 参考
   QubitTerm_139:
@@ -2244,9 +2421,10 @@ QubitTerm:
       en: Thumbnail
       es: Miniatura
       eu: Argazkitxo
-      fr: Imagette
+      fr: Vignette
       gl: Miniatura
       hu: Bélyegkép
+      id: Thumbnail
       is: Smámynd
       it: Miniatura
       ja: サムネイル
@@ -2260,6 +2438,7 @@ QubitTerm:
       sl: 'Predogledna sličica'
       sr: 'Умањени приказ'
       sv: Tumnagel
+      uz: 'Kichik surati'
       vi: 'Hình thu nhỏ'
       zh: 缩略图
   QubitTerm_compound_id:
@@ -2279,6 +2458,7 @@ QubitTerm:
       fr: Complexe
       gl: Composto
       hu: Összetétel
+      id: Majemuk
       is: Samsetning
       it: Composto
       ja: 複合
@@ -2328,6 +2508,7 @@ QubitTerm:
       ro: Locatia
       sl: Lokacija
       sr: Локација
+      sv: Plats
       th: ตำแหน่ง
       vi: 'Một vị trí'
       zh: 位置
@@ -2362,6 +2543,7 @@ QubitTerm:
       ru: Контейнер
       sl: 'Tehnična enota'
       sr: Контејнер
+      sv: Behållare
       th: ภาชนะ
       vi: 'Bao hàm'
       zh: 容器
@@ -2383,9 +2565,10 @@ QubitTerm:
       fr: Artefact
       gl: Artefacto
       hu: 'Tárgyi lelet'
+      id: Artefak
       is: Gripur
       it: Manufatto
-      ja: 芸術品
+      ja: モノ資料
       ka: არტეფაქტი
       ko: 가공물
       nl: Artefact
@@ -2395,9 +2578,10 @@ QubitTerm:
       pt_BR: Artefato
       ru: Артефакт
       sl: Artefakt
-      sr: Рукотворина
-      sv: Artefakt
+      sr: Артефакт
+      sv: Föremål
       th: สิ่งประดิษฐ(Artefact)์
+      uz: 'Tarixiy asar &lpar;Artefakt&rpar;'
       vi: Artefact
       zh: 手工艺品
   QubitTerm_143:
@@ -2410,7 +2594,7 @@ QubitTerm:
       ca@valencia: 'té Objecte Físic'
       cy: 'mae ganddo Gwrthrych Ffisegol'
       de: 'besitzt physisches Objekt (?)'
-      de-CH: 'besitzt physisches Objekt (?)'
+      de-CH: 'verfügt über ein physisches Objekt'
       en: 'has Physical Object'
       es: 'has Physical Object'
       eu: 'Objektu Fisikoa du'
@@ -2431,6 +2615,7 @@ QubitTerm:
       sr: 'има физички објекат'
       sv: 'har Fysiskt Objekt'
       th: วัตถุทางกายภาพ
+      uz: 'fizik obyekti mavjud'
       vi: 'có đối tượng vật lý'
       zh: 有物理藏品
   QubitTerm_maintaining_repository_relation:
@@ -2439,7 +2624,17 @@ QubitTerm:
     id: 187
     source_culture: en
     name:
+      cy: 'Cynnal lleoliad'
       en: 'Maintaining repository'
+      fr: 'Entretien du dépôt'
+      hu: 'Repozitórium fönntartása'
+      id: 'Repositori pemeliharaan'
+      it: 'Deposito che lo mantiene'
+      pt: 'Manutenção do repositório'
+      pt-BR: 'Manutenção da entidade custodiadora'
+      sr: 'Одржавање репозиторијума'
+      sv: 'Förvaltande arkivinstitution'
+      uz: 'Repozitoriyni nazorat qilish'
   QubitTerm_180:
     taxonomy_id: QubitTaxonomy_7
     parent_id: QubitTerm_110
@@ -2472,7 +2667,9 @@ QubitTerm:
       ru: 'Примечание архивиста'
       sl: 'Opomba arhivarja'
       sr: 'Архиваторска напомена'
+      sv: 'Arkivariens anmärkning'
       th: บันทึกของนักจดหมายเหตุ
+      uz: 'Arxivchi qaydi'
       vi: 'Ghi chú của chuyên viên lưu trữ'
       zh: 档案管理员说明
   QubitTerm_odd:
@@ -2505,6 +2702,7 @@ QubitTerm:
       sr: 'Други описни подаци'
       sv: 'Andra beskrivande data'
       th: ข้อมูลทางคำอธิบายอื่นๆ
+      uz: 'Boshqa tavsif ma''lumoti'
       vi: 'Dữ liệu mô tả khác'
       zh: 其他著录数据
   QubitTerm_181:
@@ -2537,6 +2735,7 @@ QubitTerm:
       pt_BR: 'Nota geral'
       sl: 'Splošna opomba'
       sr: 'Општа напомена'
+      sv: 'Allmän anmärkning'
       th: หมายเหตุทั่วไป
       vi: 'General note'
       zh: 一般说明
@@ -2572,6 +2771,7 @@ QubitTerm:
       sr: 'Упоредни облик'
       sv: Parallellform
       th: แบบฟอร์มเทียบเคียง
+      uz: 'Parallel shakli'
       vi: 'Hình thức song song'
       zh: 并列形式
   QubitTerm_other_form_of_name:
@@ -2605,7 +2805,9 @@ QubitTerm:
       ru: 'Другая форма'
       sl: 'Druga oblika'
       sr: 'Други облик'
+      sv: 'Andra former'
       th: แบบอื่นๆ
+      uz: 'Boshqa shakli'
       vi: 'Hình thức khác'
       zh: 其他形式
   QubitTerm_actor_relationship_hierarchical:
@@ -2638,9 +2840,10 @@ QubitTerm:
       pt_BR: hierárquica
       ro: Ierarhical
       sl: hierarhična
-      sr: хијерархијски
+      sr: хијерархијска
       sv: hierarkisk
       th: ลำดับชั้น
+      uz: iyerarxik
       vi: 'phân cấp'
       zh: 等级的
   QubitTerm_actor_relationship_temporal:
@@ -2658,13 +2861,13 @@ QubitTerm:
       en: temporal
       es: temporal
       eu: Tenporala
-      fr: temporelle
+      fr: temporel
       gl: temporal
       hu: ideiglenes
       id: sementara
       is: tímabundið
       it: temporale
-      ja: 一時的
+      ja: 時間的前後関係
       ka: დროებითი
       ko: 일시적인
       pl: świecki
@@ -2673,8 +2876,9 @@ QubitTerm:
       pt_BR: temporal
       ro: Temporal
       sl: začasna
-      sr: привремен
+      sr: временска
       sv: temporär
+      uz: vaqtincha
       vi: 'thời gian'
       zh: 临时的
   QubitTerm_actor_relationship_family:
@@ -2695,9 +2899,10 @@ QubitTerm:
       fr: famille
       gl: Familia
       hu: család
+      id: keluarga
       is: fjölskylda
       it: famiglia
-      ja: 家族
+      ja: 家
       ka: ოჯახი
       ko: 가족
       nl: Familie
@@ -2709,6 +2914,7 @@ QubitTerm:
       sr: породица
       sv: familj
       th: ครอบครัว
+      uz: oila
       vi: 'Gia đình'
       zh: 家庭
   QubitTerm_actor_relationship_associative:
@@ -2729,8 +2935,9 @@ QubitTerm:
       fr: 'd''association'
       gl: asociativo
       hu: társulási
+      id: asosiatif
       it: associativo
-      ja: 連合の
+      ja: その他の関係性
       ka: ასოციაციური
       ko: 연관있는
       pl: wiążący
@@ -2739,7 +2946,9 @@ QubitTerm:
       pt_BR: associativa
       ro: Asociativ.
       sl: povezovalna
-      sr: асоцијативан
+      sr: асоцијативана
+      sv: associativ
+      uz: birlashtiruvchi
       vi: 'kết hợp'
       zh: 相关的
   QubitTerm_actor_relation_description:
@@ -2772,8 +2981,9 @@ QubitTerm:
       pt_BR: descrição
       sl: opis
       sr: опис
-      sv: beskrivning
+      sv: förteckning
       th: editor
+      uz: tavsif
       vi: 'Mô tả'
       zh: 描述
   QubitTerm_actor_relation_date:
@@ -2804,7 +3014,9 @@ QubitTerm:
       pt_BR: 'exibir data'
       sl: 'prikaz datuma'
       sr: 'приказ датума'
+      sv: datumruta
       th: แสดงวันที่
+      uz: 'sanani ko`rsatish'
       vi: 'Hiển thị ngày'
       zh: 日期显示
   QubitTerm_term_alternate_label:
@@ -2824,6 +3036,7 @@ QubitTerm:
       fr: 'Autre libellé'
       gl: 'etiqueta alternativa'
       hu: 'alternatív címke'
+      id: 'label alternatif'
       it: 'Etichetta alternativa'
       ja: 他のラベル
       ka: 'ალტერნატიული ეტიკეტი'
@@ -2835,6 +3048,7 @@ QubitTerm:
       sl: 'alternativna oznaka'
       sr: 'алтернативне ознаке'
       sv: 'alternativ etikett'
+      uz: 'muqobil belgi'
       vi: 'Nhãn thay thế'
       zh: 其他可用标签
   QubitTerm_term_relation_associative:
@@ -2855,8 +3069,9 @@ QubitTerm:
       fr: 'd''association'
       gl: asociativo
       hu: társulási
+      id: asosiatif
       it: associativo
-      ja: 連合の
+      ja: その他の関係性
       ka: ასოციაციური
       ko: 연관있는
       pl: wiążący
@@ -2865,7 +3080,9 @@ QubitTerm:
       pt_BR: associativa
       ro: Asociativ.
       sl: povezovalna
-      sr: асоцијативан
+      sr: асоцијативана
+      sv: associativ
+      uz: birlashtiruvchi
       vi: 'kết hợp'
       zh: 相关的
   QubitTerm_term_relation_converse:
@@ -2874,12 +3091,15 @@ QubitTerm:
     id: 177
     source_culture: en
     name:
+      cy: 'Term gwrthwyneb'
       de: 'Entgegengesetzter Begriff'
       de-CH: 'Entgegengesetzter Begriff'
       en: 'Converse term'
       es: 'Antónimo relacional'
       eu: 'Contrako epea'
+      fr: 'Terme contraire'
       hu: 'Fordított (szak)kifejezés'
+      id: 'Istilah berlawanan'
       it: 'Termine opposto'
       ko: '반대 용어'
       pt: 'Converter termo'
@@ -2887,6 +3107,7 @@ QubitTerm:
       pt_BR: 'Antônimo relacional'
       sl: 'Nasproten izraz'
       sr: 'Супротан термин'
+      sv: 'Inverterat ömsesidig term'
       vi: 'Hạn nói chuyện'
       zh: 对话术语
   QubitTerm_status_type_publication:
@@ -2922,6 +3143,7 @@ QubitTerm:
       sr: публикација
       sv: publikation
       th: การพิมพ์
+      uz: nashr
       vi: 'ý công bố'
       zh: 发表
   QubitTerm_publication_status_draft:
@@ -2940,12 +3162,13 @@ QubitTerm:
       en: Draft
       es: Borrador
       eu: Zirriborroa
-      fr: Brouillon
+      fr: Ébauche
       gl: Borrador
       hu: Vázlat
+      id: Draf
       is: Uppkast
       it: Bozza
-      ja: 原稿
+      ja: 下書き
       ka: დრაფტი
       ko: 초안
       nl: Concept
@@ -2958,6 +3181,7 @@ QubitTerm:
       sl: Osnutek
       sr: Нацрт
       sv: Utkast
+      uz: Xomaki
       vi: 'Dự thảo'
       zh: 草稿
   QubitTerm_publication_status_published:
@@ -2981,7 +3205,7 @@ QubitTerm:
       id: Terpublikasi
       is: Útgefið
       it: Pubblicato
-      ja: 出版された
+      ja: 公表
       ka: გამოქვეყნებული
       ko: 출판된
       nl: Gepubliceerd
@@ -2990,9 +3214,10 @@ QubitTerm:
       pt-BR: Publicado
       pt_BR: Publicado
       sl: Objavljeno
-      sr: 'Завршен опис'
+      sr: Објављено
       sv: Publicerad
       th: ตีพิมพ์
+      uz: 'Taqdim etilgan'
       vi: 'Xuất bản'
       zh: 已发布
   QubitTerm_maintenance_note:
@@ -3004,15 +3229,16 @@ QubitTerm:
       ca: 'Nota de manteniment'
       ca@valencia: 'Nota de manteniment'
       cy: 'Nodyn cynnal a chadw'
-      de: 'Anmerkung zur Wartung'
+      de: 'Anmerkung zur Pflege'
       de-CH: 'Anmerkung zur Instandhaltung(?)'
       el: 'Σημειώσης συντήρησης'
       en: 'Maintenance note'
       es: 'Nota de mantenimiento'
       eu: 'Mantenimendu oharra'
-      fr: 'Notes relatives à la mise à jour de la description'
+      fr: 'Note relatives à la mise à jour de la notice'
       gl: 'Nota de mantención'
       hu: 'Karbantartásra vonatkozó megjegyzés'
+      id: 'Catatan pemeliharaan'
       it: 'Nota sulla manutenzione'
       ja: メンテナンス注記
       ka: 'მომსახურე, დამხმარე შენიშვნა'
@@ -3023,7 +3249,9 @@ QubitTerm:
       pt_BR: 'Nota de manutenção'
       sl: 'Opomba o vzdrževanju'
       sr: 'Напомена о одржавању'
+      sv: Förvaltningsanmärkning
       th: 'หมายเหตุการบำรุงรักษา(Maintenance notes)'
+      uz: 'Texnik ishlar izohi'
       vi: 'Ghi chú bảo trì'
       zh: 维护说明
   QubitTerm_name_access_point:
@@ -3035,14 +3263,15 @@ QubitTerm:
       ca: 'punts d''accés per autoritat'
       ca@valencia: 'punts d''accés per autoritat'
       cy: 'pwyntiau mynediad enw'
-      de: 'Zugriffspunkt (Name)'
+      de: 'Zugriffspunkte (Name)'
       de-CH: 'Zugriffspunkt (Name)'
       el: 'Όνοματα ως Σημεία πρόσβασης'
       en: 'name access points'
       es: 'puntos de acceso por autoridad'
       eu: 'Izen sarrera-puntuak'
       fa: 'دسترسي از طريق نام'
-      fr: 'points d''accès noms'
+      fr: 'mots-clés - noms'
+      gl: 'Puntos de acceso por autoridade'
       hu: 'név kapcsolódási pontok'
       id: 'Akses Point ''Nama'''
       is: nöfn
@@ -3057,7 +3286,8 @@ QubitTerm:
       pt_BR: 'ponto de acesso nome'
       sl: 'imenuj gesla'
       sr: 'приступне тачке назива/имена'
-      sv: 'namnge åtkomstpunkter'
+      sv: 'Sökingång på namn'
+      uz: nomlar
       vi: 'Tên điểm truy cập'
       zh: 名称检索点
   QubitTerm_accrual:
@@ -3078,15 +3308,18 @@ QubitTerm:
       fr: Accroissement
       gl: Acumulación
       hu: Gyarapodás
+      id: Akrual
       is: Viðbót
       it: Incremento
+      ja: 追加受入
       ko: '추가 이관'
       pt: Incorporações
       pt-BR: Incorporação
       pt_BR: Incorporação
       sl: 'Dopolnjevanje fondov'
       sr: Допуна
-      sv: Periodisering
+      sv: Tillväxt
+      uz: 'Kelib tushgan hujjat'
       vi: 'Số lượng tích lại'
       zh: 增加
   QubitTerm_accession:
@@ -3104,9 +3337,10 @@ QubitTerm:
       en: Accession
       es: Ingreso
       eu: Atxikimendua
-      fr: Entrée
+      fr: Acquisition
       gl: Ingreso
       hu: Gyarapodás
+      id: Akuisisi
       is: Afhending
       it: Acquisizione
       ja: 受入
@@ -3114,12 +3348,13 @@ QubitTerm:
       ko: 인수
       pl: Nabycie
       pt: Incorporação
-      pt-BR: Incorporação
+      pt-BR: Aquisição
       pt_BR: Incorporação
       sl: 'Prevzem gradiva'
       sr: 'Улазни инвентар'
       sv: Accession
       th: การเข้าถึงเอกสาร
+      uz: 'Ro`yxatga olish'
       vi: 'Truy cập'
       zh: 登记
   QubitTerm_right:
@@ -3155,6 +3390,7 @@ QubitTerm:
       sr: Право
       sv: Rättighet
       th: สิทธิ
+      uz: Huquq
       vi: Quyền
       zh: 权利
   QubitTerm_donor:
@@ -3168,7 +3404,7 @@ QubitTerm:
       cs: Dárce
       cy: Rhoddwr
       de: 'Geber, abgebende Stelle'
-      de-CH: Geber
+      de-CH: 'Abgebende Stelle/Person'
       el: Δωρητής
       en: Donor
       es: Donador
@@ -3176,6 +3412,7 @@ QubitTerm:
       fr: Donateur
       gl: Donante
       hu: Adományozó
+      id: Donor
       is: Gefandi
       it: Donatore
       ja: 寄贈者
@@ -3206,14 +3443,19 @@ QubitTerm:
       en: 'Related material descriptions'
       es: 'Descripciones de material relacionado'
       eu: 'Erlazionaturiko materialaren deskribapenak'
+      fr: 'Descriptions matérielles associées'
       hu: 'Kapcsolódó anyagok leírásai'
+      id: 'Deskripsi bahan arsip yang berkaitan'
       it: 'Descrizioni dei materiali collegati'
+      ja: 関連資料の記述
       ko: '관련 자료 기술'
       pt: 'Descrições de material relacionado'
       pt-BR: 'Descrições de materiais relacionados'
       pt_BR: 'Descrições de materiais relacionados'
       sl: 'Elementi povezanih popisov'
       sr: 'Опис повезане грађе'
+      sv: 'Relaterade materialbeskrivningar'
+      uz: 'Aloqador material tavsiflari'
       vi: 'Mô tả vật liệu liên quan'
       zh: 相关资料描述
   QubitTerm_isdf_relationship_hierarchical:
@@ -3246,9 +3488,10 @@ QubitTerm:
       pt_BR: hierárquica
       ro: Ierarhical
       sl: hierarhična
-      sr: хијерархијски
+      sr: хијерархијска
       sv: hierarkisk
       th: ลำดับชั้น
+      uz: iyerarxik
       vi: 'phân cấp'
       zh: 等级的
   QubitTerm_isdf_relationship_temporal:
@@ -3266,13 +3509,13 @@ QubitTerm:
       en: temporal
       es: temporal
       eu: Tenporala
-      fr: temporelle
+      fr: temporel
       gl: temporal
       hu: ideiglenes
       id: sementara
       is: tímabundið
       it: temporale
-      ja: 一時的
+      ja: 時間的前後関係
       ka: დროებითი
       ko: 일시적인
       pl: świecki
@@ -3281,8 +3524,9 @@ QubitTerm:
       pt_BR: temporal
       ro: Temporal
       sl: začasna
-      sr: привремен
+      sr: временска
       sv: temporär
+      uz: vaqtincha
       vi: 'thời gian'
       zh: 临时的
   QubitTerm_isdf_relationship_associative:
@@ -3303,8 +3547,9 @@ QubitTerm:
       fr: 'd''association'
       gl: asociativo
       hu: társulási
+      id: asosiatif
       it: associativo
-      ja: 連合の
+      ja: その他の関係性
       ka: ასოციაციური
       ko: 연관있는
       pl: wiążący
@@ -3313,7 +3558,9 @@ QubitTerm:
       pt_BR: associativa
       ro: Asociativ.
       sl: povezovalna
-      sr: асоцијативан
+      sr: асоцијативана
+      sv: associativ
+      uz: birlashtiruvchi
       vi: 'kết hợp'
       zh: 相关的
   QubitTerm_standardized_form_of_name:
@@ -3334,6 +3581,7 @@ QubitTerm:
       fr: 'Forme normalisée'
       gl: 'Forma normalizada'
       hu: 'Szabványosított alak'
+      id: 'Format baku'
       is: 'Staðlað form'
       it: 'Forma normalizzata'
       ja: 標準形式
@@ -3345,7 +3593,9 @@ QubitTerm:
       pt_BR: 'Forma normalizada'
       sl: 'Standardizirana oblika'
       sr: 'Стандардизована форма'
+      sv: 'Standardiserad form'
       th: รูปแบบมาตรฐาน
+      uz: 'Standartlashgan shakli'
       vi: 'Hình thức chuẩn'
       zh: 标准形式
   QubitTerm_right_basis_copyright:
@@ -3366,6 +3616,7 @@ QubitTerm:
       fr: 'Droit d''auteur'
       gl: Copyright
       hu: 'Szerzői jog'
+      id: Copyright
       is: Höfundarréttur
       it: Copyright
       ja: 著作権
@@ -3403,6 +3654,7 @@ QubitTerm:
       fr: Licence
       gl: Licenza
       hu: Engedély
+      id: Lisensi
       is: Leyfi
       it: Licenza
       ja: ライセンス
@@ -3436,6 +3688,7 @@ QubitTerm:
       fr: Réglementation
       gl: Estatuto
       hu: Rendelet
+      id: Statuta
       is: Lög
       it: Statuto
       ja: 法令
@@ -3443,12 +3696,14 @@ QubitTerm:
       ko: 규정
       nl: Statuut
       pt: Estatuto
-      pt-BR: Estatuto
+      pt-BR: Regulamento
       pt_BR: Estatuto
       ro: Statut
       sl: Statut
       sr: Пропис
+      sv: Regelverk
       th: บทกฎหมาย
+      uz: Nizom
       vi: 'Quy chế'
       zh: 法令
   QubitTerm_right_basis_policy:
@@ -3481,9 +3736,10 @@ QubitTerm:
       pt_BR: Política
       ro: Politica
       sl: Pravilo
-      sr: Правило
+      sr: Правилник
       sv: Policy
       th: นโยบาย
+      uz: Siyosat
       vi: 'Chính sách'
       zh: 政策
   QubitTerm_term_aip_relation:
@@ -3498,7 +3754,9 @@ QubitTerm:
       en: 'AIP relation'
       es: 'Relación AIP'
       eu: 'AIP erlazioa'
+      fr: 'Lien AIP'
       hu: 'AIP kapcsolat'
+      id: 'Relasi AIP'
       it: 'Relazione dell''AIP'
       ko: 'AIP 관계'
       pt: 'Relação AIP'
@@ -3507,6 +3765,7 @@ QubitTerm:
       sl: 'AIP povezava'
       sr: 'AIP веза'
       sv: AIP-relation
+      uz: 'AIP aloqasi'
       vi: 'Quan hệ AIP'
       zh: 'AIP 关系'
   QubitTerm_term_artwork_component:
@@ -3520,7 +3779,9 @@ QubitTerm:
       en: 'Artwork component'
       es: 'Elementos de la obra de arte'
       eu: 'Artelanaren osagaia'
+      fr: 'Composante de l''oeuvre'
       hu: 'Műalkotás alkotóeleme/i'
+      id: 'Komponen karya senia'
       is: 'Hluti listaverks'
       it: 'Elemento dell''oggetto d''arte'
       ko: '작품 구성'
@@ -3529,6 +3790,8 @@ QubitTerm:
       pt_BR: 'Componente da obra de arte'
       sl: 'Komponenta umetnine'
       sr: 'Саставни део уметнине'
+      sv: 'Konstverk kompotent'
+      uz: 'San''at asari tarkibi'
       vi: 'Thành phần tác phẩm nghệ thuật'
       zh: 艺术品元素
   QubitTerm_term_artwork_material:
@@ -3538,11 +3801,14 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'Material gràfic'
+      cy: 'Deunydd gwaith celf'
       de: 'Material eines Kunstwerkes'
       en: 'Artwork material'
       es: 'Material de la obra de arte'
       eu: 'Artelan materiala'
+      fr: 'Matériaux de l''oeuvre'
       hu: 'Műalkotás anyaga'
+      id: 'Bahan karya seni'
       is: 'Efni listaverks'
       it: 'Materiale dell''oggetto d''arte'
       ko: '작품 자료'
@@ -3550,7 +3816,9 @@ QubitTerm:
       pt-BR: 'Material da obra de arte'
       pt_BR: 'Material da obra de arte'
       sl: 'Umetniško gradivo'
-      sr: 'Материјал уметнине'
+      sr: Уметнине
+      sv: 'Konstverk material'
+      uz: 'San''at asari materiali'
       vi: 'Tài liệu Ảnh minh họa'
       zh: 艺术品资料
   QubitTerm_term_supporting_documentation:
@@ -3560,6 +3828,7 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'Documentació de suport'
+      cy: 'Dogfennaeth ategol'
       de: 'Unterstützende Dokumentation'
       de-CH: 'Unterstützende Dokumentation'
       en: 'Supporting documentation'
@@ -3567,13 +3836,16 @@ QubitTerm:
       eu: Laguntza-dokumentazioa
       fr: 'Documentation d''appui'
       hu: Segéddokumentáció
+      id: 'Dokumentasi pendukung'
       it: 'Documentazione di supporto'
       ko: '지원 문서'
       pt: 'Documentação de apoio'
       pt-BR: 'Documentação de apoio'
       pt_BR: 'Documentação de apoio'
       sl: 'Podporna dokumentacija'
-      sr: 'Подржавајућа докуметација'
+      sr: 'Пратећа докуметација'
+      sv: Stöddokumentation
+      uz: 'Qo`llanuvchi hujjatlar'
       vi: 'tài liệu hỗ trợ'
       zh: 辅助文件材料
   QubitTerm_term_supporting_technology:
@@ -3591,13 +3863,16 @@ QubitTerm:
       eu: Laguntza-teknologia
       fr: 'Technologie d''appui'
       hu: Segédtechnológia
+      id: 'Teknologi pendukung'
       it: 'Tecnologia di supporto'
       ko: '지원 기술'
       pt: 'Tecnologia de apoio'
       pt-BR: 'Tecnologia de apoio'
       pt_BR: 'Tecnologia de apoio'
       sl: 'Podporna tehnologija'
-      sr: 'Подржавајућа технологија'
+      sr: 'Пратећа технологија'
+      sv: Stödteknologi
+      uz: 'Qo`llanuvchi texnologiya'
       vi: 'Công nghệ hỗ trợ'
       zh: 辅助技术
   QubtTerm_job_status_in_progress:
@@ -3606,28 +3881,68 @@ QubitTerm:
     id: 183
     source_culture: en
     name:
+      cy: 'Ar y gweill'
+      de: 'In Bearbeitung'
+      de-CH: 'In Bearbeitung'
       en: 'In progress'
+      fr: 'En cours'
+      gl: 'En progeso'
+      hu: Folyamatban
+      id: 'Sedang dalam proses'
+      it: 'In corso'
+      pt: 'Em progresso'
+      pt-BR: 'Em progresso'
+      sr: 'У току'
+      sv: 'Under arbete'
   QubtTerm_job_status_in_completed:
     taxonomy_id: QubitTaxonomy_job_status
     parent_id: QubitTerm_110
     id: 184
     source_culture: en
     name:
-      en: 'Completed'
+      cy: Cwblhawyd
+      de: Abgeschlossen
+      de-CH: Fertig
+      en: Completed
+      fr: Complété
+      hu: Befejezve
+      it: Completato
+      pt: Completo
+      pt-BR: Completado
+      sr: Завршено
+      sv: Avslutad
   QubtTerm_job_status_error:
     taxonomy_id: QubitTaxonomy_job_status
     parent_id: QubitTerm_110
     id: 185
     source_culture: en
     name:
-      en: 'Error'
+      cy: Gwall
+      de: Fehler
+      de-CH: Fehler
+      en: Error
+      fr: Erreur
+      gl: Erro
+      hu: Hiba
+      id: Error
+      it: Errore
+      pt: Erro
+      pt-BR: Erro
+      sr: Грешка
+      sv: Fel
   QubtTerm_actor_occupation_note:
     taxonomy_id: QubitTaxonomy_7
     parent_id: QubitTerm_110
     id: 188
     source_culture: en
     name:
+      cy: 'Nodyn galwediageth actor'
       en: 'Actor occupation note'
+      it: 'Nota sull''occupazione dell''attore'
+      pt: 'Nota sobre ocupação da pessoa'
+      pt-BR: 'Nota da ocupação do registro de autoridade'
+      sr: 'Напомена о занимању ствараоца'
+      sv: 'Anmärkning rörande aktörens yrke'
   QubitTerm_actor_relationship_is_the_superior_of:
     taxonomy_id: QubitTaxonomy_actor_relation_type
     parent_id: QubitTerm_actor_relationship_hierarchical
@@ -3635,11 +3950,15 @@ QubitTerm:
     name:
       ca: 'és el cap de'
       cy: 'yw uwchradd'
+      de: 'ist der Vorgesetzte von'
+      de-CH: 'ist der Vorgsetzte von'
       en: 'is the superior of'
       es: 'es el superior de'
       eu: 'ondokoaren nagusia da:'
       fr: 'est le supérieur de'
+      gl: 'é o superior de'
       hu: alárendeltje
+      id: 'atasan dari'
       it: 'è il superiore di'
       ko: '전자는 후자의 상사다'
       pt: 'é o superior de'
@@ -3648,6 +3967,7 @@ QubitTerm:
       sl: 'je nadrejeni/-a od'
       sr: 'је надређен'
       sv: 'är överordnad'
+      uz: 'quyidagidan yuqori turadi:'
       vi: 'là cấp trên của'
       zh: 是上级
   QubitTerm_actor_relationship_is_the_subordinate_of:
@@ -3657,11 +3977,15 @@ QubitTerm:
     name:
       ca: 'és el subordinat de'
       cy: 'yw isradd'
+      de: 'ist der Untergebene von'
+      de-CH: 'ist der Untergebene von'
       en: 'is the subordinate of'
       es: 'es el subordinado de'
       eu: 'ondokoaren menpekoa da:'
       fr: 'est le/la subordonné(e) de'
+      gl: 'é o subordinado de'
       hu: fölérendeltje
+      id: 'bawahan dari'
       it: 'è subordinato/a a'
       ko: '전자는 후자의 부하직원이다'
       pt: 'é o subordinado de'
@@ -3670,6 +3994,7 @@ QubitTerm:
       sl: 'je podrejeni/-a od'
       sr: 'је подређен'
       sv: 'är underlydande till'
+      uz: 'quyidagiga bo`ysunadi:'
       vi: 'là cấp dưới của'
       zh: 是下属
   QubitTerm_actor_relationship_controls:
@@ -3684,8 +4009,10 @@ QubitTerm:
       en: controls
       es: Controles
       eu: kontrolak
-      fr: Contrôles
+      fr: contrôles
+      gl: controis
       hu: vezérlés
+      id: kontrol
       it: controlli
       ko: '관계 있음'
       pt: controla
@@ -3693,6 +4020,8 @@ QubitTerm:
       pt_BR: controles
       sl: nadzoruje
       sr: контролише
+      sv: kontroller
+      uz: 'nazorat qiladi'
       vi: 'Kiểm soát'
       zh: 控制
   QubitTerm_actor_relationship_is_controlled_by:
@@ -3701,12 +4030,15 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és controlat per'
+      cy: 'yn cael ei reoli gan'
       de: 'wird kontrolliert von'
       en: 'is controlled by'
       es: 'está controlado por'
       eu: 'ondokoak kontrolatzen du:'
       fr: 'est contrôlé par'
+      gl: 'está controlado por'
       hu: irányítója
+      id: 'dikontrol oleh'
       is: 'er stjórnað af'
       it: 'è controllato/a da'
       ko: '전자는 후자에 의해 제어된다'
@@ -3716,6 +4048,7 @@ QubitTerm:
       sl: 'nadzor s strani'
       sr: 'контролисао га је'
       sv: 'kontrolleras av'
+      uz: 'ning nazoratchisi:'
       vi: 'được điều khiển bởi'
       zh: 由控制
   QubitTerm_actor_relationship_is_the_owner_of:
@@ -3724,13 +4057,16 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és el propietari de'
+      cy: 'yw perchennog'
       de: 'ist der Eigentümer von'
       de-CH: 'ist der Eigentümer von'
       en: 'is the owner of'
       es: 'es el propietario de'
       eu: 'ondokoaren jabea da:'
       fr: 'est le propriétaire de'
+      gl: 'é o propietario/a de'
       hu: tulajdona
+      id: 'pemilik dari'
       is: 'er eigandi af'
       it: 'è proprietario di'
       ko: '전자는 후자의 소유주다'
@@ -3740,6 +4076,7 @@ QubitTerm:
       sl: 'je lastnik od'
       sr: 'је власник'
       sv: 'är ägare av'
+      uz: 'quyidagining egasi:'
       vi: 'là chủ sở hữu'
       zh: 是所有者
   QubitTerm_actor_relationship_is_owned_by:
@@ -3748,11 +4085,15 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és propietat de'
+      cy: 'yn eiddo i'
+      de-CH: gehört
       en: 'is owned by'
       es: 'es propiedad de'
       eu: 'ondokoarena da:'
       fr: 'appartient à'
+      gl: 'é propiedade de'
       hu: tulajdonosa
+      id: 'dimiliki oleh'
       is: 'er í eigu'
       it: 'è posseduto/a da'
       ko: '전자는 후자가 소유하고 있다'
@@ -3762,6 +4103,7 @@ QubitTerm:
       sl: 'v lasti'
       sr: 'је у власништву'
       sv: 'ägs av'
+      uz: 'ning egasi:'
       vi: 'thuộc sở hữu của'
       zh: 归所有
   QubitTerm_actor_relationship_is_the_predecessor_of:
@@ -3770,13 +4112,16 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és el predecessor de'
+      cy: 'yw rhagflaenydd'
       de: 'ist der Vorgänger von'
       de-CH: 'ist der Vorgänger von'
       en: 'is the predecessor of'
       es: 'es el predecesor de'
       eu: 'ondokoaren arbasoa da:'
       fr: 'est le prédécesseur de'
+      gl: 'é o predecesor/a de'
       hu: utódja
+      id: 'leluhur dari'
       is: 'er forveri'
       it: precede
       ko: '전자는 후자의 전임자다'
@@ -3786,6 +4131,7 @@ QubitTerm:
       sl: 'je predhodnik od'
       sr: 'је предак/претходник'
       sv: 'är föregångare till'
+      uz: 'quyidagining o`tmishdoshi:'
       vi: 'là tiền thân của'
       zh: 是前一任
   QubitTerm_actor_relationship_is_the_successor_of:
@@ -3794,13 +4140,16 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és el successor de'
+      cy: 'yw olynydd'
       de: 'ist der Nachfolger von'
       de-CH: 'ist der Nachfolger von'
       en: 'is the successor of'
       es: 'es el sucesor de'
       eu: 'ondokoaren oinordekoa da:'
       fr: 'est le successeur de'
+      gl: 'é o sucesor de'
       hu: elődje
+      id: 'pengganti dari'
       is: 'er eftirmaður'
       it: 'succede a'
       ko: '전자는 후자의 후임이다'
@@ -3810,6 +4159,7 @@ QubitTerm:
       sl: 'je naslednik/-ica od'
       sr: 'је наследник'
       sv: 'är efterföljare till'
+      uz: 'quyidagining davomchisi &lpar;vorisi&rpar;:'
       vi: 'là sự kế thừa của'
       zh: 是继承者
   QubitTerm_actor_relationship_is_the_provider_of:
@@ -3818,12 +4168,15 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és el proveïdor de'
+      cy: 'yw darparwr'
       de: 'ist der Anbieter von'
+      de-CH: 'ist der Anbieter von'
       en: 'is the provider of'
       es: 'es el proveedor de'
       eu: 'ondokoaren hornitzailea da:'
       fr: 'est le fournisseur de'
       hu: 'által rendelkezésre bocsátott'
+      id: 'penyelenggara dari'
       is: veitir
       it: 'è fornitore/fornitrice di'
       ko: '전자는 후자의 공급자다'
@@ -3831,8 +4184,9 @@ QubitTerm:
       pt-BR: 'é o fornecedor de'
       pt_BR: 'é o fornecedor de'
       sl: 'je skrbnik/-ica od'
-      sr: 'је старатељ од'
+      sr: 'је старатељ'
       sv: 'är leverantör av'
+      uz: 'quyidagining ta''minlovchisi:'
       vi: 'là nhà cung cấp'
       zh: 是提供者
   QubitTerm_actor_relationship_is_the_client_of:
@@ -3841,13 +4195,16 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és el client de'
+      cy: 'yw cleient'
       de: 'ist der Mandant von'
       de-CH: 'ist der Mandant von'
       en: 'is the client of'
       es: 'es el cliente de'
       eu: 'ondokoaren bezeroa da:'
       fr: 'est le client de'
+      gl: 'é o/a cliente de'
       hu: patrónusa
+      id: 'klien dari'
       is: 'er skjólstæðingur'
       it: 'è cliente di'
       ko: '전자는 후자의 고객이다'
@@ -3857,6 +4214,7 @@ QubitTerm:
       sl: 'je stranka od'
       sr: 'је клијент'
       sv: 'är klient till'
+      uz: 'quyidagining mijozi:'
       vi: 'là khách hàng của'
       zh: 是客户
   QubitTerm_actor_relationship_is_the_business_partner_of:
@@ -3865,13 +4223,16 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és el soci de negoci de'
+      cy: 'yw partner busnes'
       de: 'ist der Geschäftspartner von'
       de-CH: 'ist der Geschäftspartner von'
       en: 'is the business partner of'
       es: 'es el socio de negocios de'
       eu: 'ondokoaren negoziokidea da:'
       fr: 'est le partenaire d''affaire de'
+      gl: 'é o compañeiro/a de negocios de'
       hu: 'üzleti partnere'
+      id: 'adalah rekan bisnis dari'
       is: 'er viðskiptafélagi'
       it: 'è partner in affari di'
       ko: '둘은 사업상 동반자이다'
@@ -3881,6 +4242,7 @@ QubitTerm:
       sl: 'je poslovni partner od'
       sr: 'је пословни партнер'
       sv: 'är affärspartner till'
+      uz: 'quyidagining biznes hamkori:'
       vi: 'là đối tác kinh doanh của'
       zh: 是商业合作者
   QubitTerm_actor_relationship_is_the_associate_of:
@@ -3889,11 +4251,16 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és el soci de'
+      cy: 'yw cyswllt'
+      de: 'ist der Partner von'
+      de-CH: 'ist der Gesellschafter von'
       en: 'is the associate of'
       es: 'es el asociado de'
       eu: 'ondokoaren bazkidea da:'
       fr: 'est le collègue de'
+      gl: 'é a asociación de'
       hu: társa
+      id: 'adalah rekan dari'
       it: 'è socio/a di'
       ko: '둘은 동료다'
       pt: 'é o associado de'
@@ -3902,6 +4269,7 @@ QubitTerm:
       sl: 'je partner od'
       sr: 'је сарадник'
       sv: 'är kollega till'
+      uz: 'quyidagining xodimi:'
       vi: 'là công ty liên kết của'
       zh: 是助理
   QubitTerm_actor_relationship_is_the_friend_of:
@@ -3910,13 +4278,16 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és l''amic de'
+      cy: 'yw ffrind'
       de: 'ist der Freund von'
       de-CH: 'ist der Freund von'
       en: 'is the friend of'
       es: 'es el amigo de'
       eu: 'ondokoaren laguna da:'
       fr: 'est l''ami(e) de'
+      gl: 'é o amigo/a de'
       hu: barátja
+      id: 'teman dari'
       is: 'er vinur'
       it: 'è amico/a di'
       ko: '둘은 친구다'
@@ -3926,6 +4297,7 @@ QubitTerm:
       sl: 'je prijatelj/-ica od'
       sr: 'је пријатељ/пријатељица'
       sv: 'är vän till'
+      uz: 'quyidagining do`sti:'
       vi: 'là bạn của'
       zh: 是朋友
   QubitTerm_actor_relationship_is_the_parent_of:
@@ -3934,13 +4306,15 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és el pare de'
+      cy: 'yw rhiant'
       de: 'ist der Elter von'
-      de-CH: 'ist der Elter von'
+      de-CH: 'ist das Elternteil von'
       en: 'is the parent of'
       es: 'es el padre de'
       eu: 'ondokoaren aita da:'
       fr: 'est le parent de'
       hu: gyermeke
+      id: 'orang tua dari'
       is: 'er foreldri'
       it: 'è genitore di'
       ko: '전자는 후자의 부모다'
@@ -3950,6 +4324,7 @@ QubitTerm:
       sl: 'je mati/oče od'
       sr: 'је родитељ'
       sv: 'är förälder till'
+      uz: 'quyidagining ota-onasi:'
       vi: 'là cha của'
       zh: 是父集
   QubitTerm_actor_relationship_is_the_child_of:
@@ -3958,13 +4333,16 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és el fill de'
+      cy: 'yw plentyn'
       de: 'ist das Kind von'
       de-CH: 'ist das Kind von'
       en: 'is the child of'
       es: 'es el hijo de'
       eu: 'ondokoaren bigarren mailakoa da:'
       fr: 'est l''enfant de'
+      gl: 'é o fillo/a de'
       hu: szülője
+      id: 'anak dari'
       is: 'er barn'
       it: 'è figlio/a di'
       ko: '전자는 후자의 아이다'
@@ -3973,7 +4351,8 @@ QubitTerm:
       pt_BR: 'é o filho de'
       sl: 'je otrok od'
       sr: 'је дете'
-      sv: 'är barns till'
+      sv: 'är underordnat'
+      uz: 'quyidagining farzandi:'
       vi: 'là con của'
       zh: 是孩子
   QubitTerm_actor_relationship_is_the_sibling_of:
@@ -3982,13 +4361,15 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és el germanastre de'
+      cy: 'yw sibling'
       de: 'ist der Geschwisterteil von'
-      de-CH: 'ist der Geschwisterteil von'
+      de-CH: 'ist das Geschwisterteil von'
       en: 'is the sibling of'
       es: 'es el hermano de'
       eu: 'ondokoaren anaia edo ahizpa da:'
       fr: 'est le frère/la soeur de'
       hu: ikertestvére
+      id: 'saudara kandung dari'
       is: 'er systkini'
       it: 'è fratello/sorella di'
       ko: '둘은 형제다'
@@ -3998,6 +4379,7 @@ QubitTerm:
       sl: 'je brat/sestra od'
       sr: 'је брат/сестра од'
       sv: 'är syskon till'
+      uz: 'quyidagining qondoshi &lpar;aka-uka, opa-singil&rpar;:'
       vi: 'là anh chị em của'
       zh: 是兄弟姐妹
   QubitTerm_actor_relationship_is_the_spouse_of:
@@ -4006,13 +4388,16 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és la dona de'
+      cy: 'yw priod'
       de: 'ist der Ehepartner von'
       de-CH: 'ist der Ehepartner von'
       en: 'is the spouse of'
       es: 'es el cónyuge de'
       eu: 'ondokoaren ezkonlaguna da:'
       fr: 'est le/la conjoint(e) de'
+      gl: 'É a esposa de'
       hu: házastársa
+      id: 'pasangan dari'
       is: 'er maki'
       it: 'è coniuge di'
       ko: '둘은 부부다'
@@ -4022,6 +4407,7 @@ QubitTerm:
       sl: 'je zakonec od'
       sr: 'је супружник од'
       sv: 'är make till'
+      uz: 'quyidagining turmush o`rtog`i:'
       vi: 'là người phối ngẫu của'
       zh: 是配偶
   QubitTerm_actor_relationship_is_the_cousin_of:
@@ -4030,13 +4416,16 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és el cosí de'
+      cy: 'yw cefnder'
       de: 'ist der Cousin von'
       de-CH: 'ist der Cousin von'
       en: 'is the cousin of'
       es: 'es el primo de'
       eu: 'ondokoaren lehengusua da:'
       fr: 'est le cousin de'
+      gl: 'é o curmán/curmá de'
       hu: unokatestvére
+      id: 'sepupu dari'
       it: 'è cugino/a di'
       ko: '둘은 사촌이다'
       pt: 'é o primo de'
@@ -4045,6 +4434,7 @@ QubitTerm:
       sl: 'je bratranec/-ka od'
       sr: 'је рођак'
       sv: 'är kusin till'
+      uz: 'quyiudagining jiyani:'
       vi: 'là em họ của'
       zh: 是堂(表)兄弟姐妹
   QubitTerm_actor_relationship_is_the_grandparent_of:
@@ -4053,13 +4443,15 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és l''avi de'
+      cy: 'yw taid/nain'
       de: 'ist der Großelter von'
-      de-CH: 'ist der Großelter von'
+      de-CH: 'ist das Grosselternteil von'
       en: 'is the grandparent of'
       es: 'es el abuelo de'
       eu: 'ondokoaren aitona da:'
       fr: 'est le grand-parent de'
       hu: unokája
+      id: 'kakek dari'
       it: 'è nonno/a di'
       ko: '전자는 후자의 조부모다'
       pt: 'é o avô de'
@@ -4068,6 +4460,7 @@ QubitTerm:
       sl: 'je dedek/babica od'
       sr: 'је деда/баба'
       sv: 'är far/morförälder till'
+      uz: 'quyidagining bobo/buvisi:'
       vi: 'là ông bà của'
       zh: 是祖父集
   QubitTerm_actor_relationship_is_the_grandchild_of:
@@ -4076,13 +4469,16 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'és el net de'
+      cy: 'yw ŵyr'
       de: 'ist der Enkel von'
-      de-CH: 'ist der Enkel von'
+      de-CH: 'ist das Enkelkind von'
       en: 'is the grandchild of'
       es: 'es el nieto de'
       eu: 'ondokoaren biloba da:'
       fr: 'est le petit-enfant de'
+      gl: 'é o neto/a de'
       hu: nagyszülője
+      id: 'cucu dari'
       is: 'er barnabarn'
       it: 'è nipote di'
       ko: '전자는 후자의 손주다'
@@ -4091,7 +4487,8 @@ QubitTerm:
       pt_BR: 'é o neto de'
       sl: 'je vnuk/-inja od'
       sr: 'је унук/унука'
-      sv: 'är barnbarn till'
+      sv: 'är underordnat'
+      uz: 'quyidagining nabirasi:'
       vi: 'là cháu của'
       zh: 是孙辈
   QubitTerm_right_basis_donor:
@@ -4104,7 +4501,7 @@ QubitTerm:
       cs: Dárce
       cy: Rhoddwr
       de: 'Geber, abgebende Stelle'
-      de-CH: Geber
+      de-CH: 'Abgebende Stelle/Person'
       el: Δωρητής
       en: Donor
       es: Donador
@@ -4112,6 +4509,7 @@ QubitTerm:
       fr: Donateur
       gl: Donante
       hu: Adományozó
+      id: Donor
       is: Gefandi
       it: Donatore
       ja: 寄贈者
@@ -4159,6 +4557,7 @@ QubitTerm:
       sr: Умножавање
       sv: Reproduktion
       th: สำเนา
+      uz: Nusxalash
       vi: 'Sao lại'
       zh: 复制
   QubitTerm_148:
@@ -4177,6 +4576,7 @@ QubitTerm:
       fr: Distribution
       gl: Distribución
       hu: (F)elosztás/Osztályozás
+      id: Distribusi
       is: Dreifing
       it: Distribuzione
       ja: 頒布
@@ -4188,6 +4588,7 @@ QubitTerm:
       pt_BR: Distribuição
       sl: Distribuiranje
       sr: Дистрибуција
+      sv: Fördelning
       vi: 'phân phối'
       zh: 分配
   QubitTerm_149:
@@ -4205,6 +4606,7 @@ QubitTerm:
       eu: Broadcasting-a
       fr: 'Diffusion générale'
       hu: '(Rádió/Tv) Közvetítés'
+      id: Penyiaran
       is: Útsending
       it: Trasmissione
       ja: 放送
@@ -4216,6 +4618,7 @@ QubitTerm:
       pt_BR: Emissão
       sl: 'Oddajanje (radio)'
       sr: Емитовање
+      sv: Utsändning
       vi: 'phát thanh truyền hình'
       zh: 广播
   QubitTerm_150:
@@ -4234,18 +4637,21 @@ QubitTerm:
       fr: Fabrication
       gl: Industrial
       hu: Gyári
+      id: Manufaktur
       is: Framleiðsla
       it: Fabbricazione
       ja: 製作する
       ka: 'კეთება, დამუშავება'
       ko: 제조
       pt: Fabricação
-      pt-BR: Produção
+      pt-BR: Fabricação
       pt_BR: Produção
       ru: Производство
       sl: Proizveden
       sr: Производити
+      sv: Tillverkning
       th: การผลิต(Manufacturing)
+      uz: 'Ishlab chiqarish'
       vi: 'Sự đặc ra'
       zh: 制造
   QubitTerm_158:
@@ -4278,6 +4684,7 @@ QubitTerm:
       ru: Коробка
       sl: Škatla
       sr: Кутија
+      sv: Låda
       th: กล่อง
       vi: Hộp
       zh: 框
@@ -4296,6 +4703,7 @@ QubitTerm:
       eu: 'Kartoizko kutxa'
       fr: 'Boîte en carton'
       hu: Kartondoboz
+      id: 'Kotak kardus'
       is: Pappakassi
       it: 'Scatola di cartone'
       ja: ダンボール箱
@@ -4308,6 +4716,7 @@ QubitTerm:
       pt_BR: 'Caixa de papelão'
       sl: 'Kartonasta škatla'
       sr: 'Картонска кутија'
+      sv: Kartong
       th: กล่องกระดาษแข็ง
       vi: 'Hộp các tông'
       zh: 纸箱
@@ -4327,9 +4736,10 @@ QubitTerm:
       fr: 'Boîte Hollinger'
       gl: 'Caixa "Hollinger"'
       hu: 'Hollinger doboz'
+      id: 'Boks Hollinger'
       is: 'Hollinger box'
       it: 'Scatola Hollinger'
-      ja: Hollingerボックス
+      ja: 保存箱
       ka: 'საარქივო მასალებისთვის'
       ko: 'Hollinger 박스'
       nl: Ponskaartendoos
@@ -4338,6 +4748,7 @@ QubitTerm:
       pt_BR: 'Caixa de arquivo'
       sl: 'Hollingerjeva škatla'
       sr: 'Архивска кутија'
+      sv: Arkivbox
       vi: 'Hộp Hollinger'
       zh: 档案盒
   QubitTerm_161:
@@ -4357,6 +4768,7 @@ QubitTerm:
       fr: Chemise
       gl: Carpeta
       hu: Mappa
+      id: Folder
       is: Mál
       it: Busta
       ja: フォルダー
@@ -4368,7 +4780,8 @@ QubitTerm:
       pt_BR: Pasta
       ru: Папка
       sl: Mapa
-      sr: Директориј
+      sr: Директоријум
+      sv: Mapp
       th: โฟลเดอร์
       vi: 'Thư mục'
       zh: 文件夹
@@ -4387,18 +4800,20 @@ QubitTerm:
       eu: Artxibadorea
       fr: Classeur
       gl: Arquivador
-      hu: 'Filling?? szekrény'
+      hu: 'Irattartó szekrény'
+      id: 'Lemari berkas'
       is: Skjalaskápur
       it: Classificatore
-      ja: フアイルキャビネット
+      ja: ファイリングキャビネット
       ka: კარადა
       ko: '파일 캐비닛'
       nl: Dossierkast
       pt: Armário
-      pt-BR: 'Armário de arquivo'
+      pt-BR: Fichário
       pt_BR: 'Armário de arquivo'
       sl: 'Kartotečni predalnik'
       sr: Картотека
+      sv: Aktskåp
       th: ตู้เก็บเอกสาร
       vi: 'nội các nộp đơn'
       zh: 档案柜
@@ -4416,8 +4831,9 @@ QubitTerm:
       en: 'Map cabinet'
       es: Planero
       eu: 'Mapa kabinetea'
-      fr: 'Classeur pour cartes'
+      fr: 'Classeur à plan'
       hu: 'Térkép szekrény'
+      id: 'Kabinet peta'
       is: Kortaskápur
       it: 'Cassettiera per mappe'
       ja: 地図のキャビネット
@@ -4429,7 +4845,9 @@ QubitTerm:
       pt_BR: Mapoteca
       sl: 'Predalnik za zemljevide'
       sr: 'Орман за карте'
+      sv: Kartskåp
       th: ตู้แผนท
+      uz: 'Kabinet xaritasi'
       vi: 'Tủ bản đồ'
       zh: 地图柜
   QubitTerm_164:
@@ -4463,6 +4881,7 @@ QubitTerm:
       sr: Полица
       sv: Hylla
       th: หิ้ง
+      uz: Javon
       vi: 'Kệ tủ'
       zh: 架
   QubitTerm_167:
@@ -4479,9 +4898,10 @@ QubitTerm:
       en: Final
       es: Final
       eu: Azken
-      fr: Finale
+      fr: Final
       gl: Final
       hu: Végleges
+      id: Final
       is: Loka
       it: Finale
       ja: 最終
@@ -4530,6 +4950,7 @@ QubitTerm:
       sr: Исправљен
       sv: Omarbetad
       th: รับปรุง
+      uz: 'Qayta ko`rildi'
       vi: 'Sửa đổi'
       zh: 已修改的
   QubitTerm_169:
@@ -4547,12 +4968,13 @@ QubitTerm:
       en: Draft
       es: Borrador
       eu: Zirriborroa
-      fr: Brouillon
+      fr: Ébauche
       gl: Borrador
       hu: Vázlat
+      id: Draf
       is: Uppkast
       it: Bozza
-      ja: 原稿
+      ja: 下書き
       ka: დრაფტი
       ko: 초안
       nl: Concept
@@ -4565,6 +4987,7 @@ QubitTerm:
       sl: Osnutek
       sr: Нацрт
       sv: Utkast
+      uz: Xomaki
       vi: 'Dự thảo'
       zh: 草稿
   QubitTerm_170:
@@ -4584,9 +5007,10 @@ QubitTerm:
       fr: Complet
       gl: Completo
       hu: Teljes
+      id: Lengkap
       is: Fullt
       it: Massimo
-      ja: 全部
+      ja: 完結
       ka: სრული
       ko: 전체
       nl: Geheel
@@ -4620,7 +5044,7 @@ QubitTerm:
       id: Sebagian
       is: Hluti
       it: Intermedio
-      ja: 一部の
+      ja: 部分的
       ka: ნაწილობრივი
       ko: 일부의
       nl: Gedeeltelijk
@@ -4632,6 +5056,7 @@ QubitTerm:
       sr: Делимични
       sv: Partiell
       th: ซึ่งเป็นบางส่วน
+      uz: Qisman
       vi: 'Cục bộ'
       zh: 部分的
   QubitTerm_172:
@@ -4651,6 +5076,7 @@ QubitTerm:
       fr: Élémentaire
       gl: Mínimo
       hu: Minimális
+      id: Minimal
       is: Lágmarks
       it: Minimo
       ja: 最低限
@@ -4663,8 +5089,9 @@ QubitTerm:
       ro: Minim
       ru: Минимальный
       sl: Minimalen
-      sr: Најмањи
+      sr: Минимални
       sv: Minimal
+      uz: Minimal
       vi: 'Tối thiểu'
       zh: 最小的
   QubitTerm_173:
@@ -4681,9 +5108,10 @@ QubitTerm:
       en: Fonds
       es: Fondo
       eu: Fondoak
-      fr: collection
+      fr: Fonds
       gl: Fondos
       hu: Fond
+      id: Fonds
       is: Safn
       it: Fondo
       ja: フォンド
@@ -4697,7 +5125,8 @@ QubitTerm:
       ro: Fonduri
       ru: Фонды
       sl: Fondi
-      sr: Фонд
+      sr: Фондови
+      sv: Arkiv
       th: เอกสารระดับกลุ่ม
       vi: 'Các phông'
       zh: 宗卷
@@ -4710,7 +5139,7 @@ QubitTerm:
       ca@valencia: Subfons
       cy: Is-fonds
       de: Teilbestand
-      de-CH: Teilbestand
+      de-CH: Unterbestand
       el: Υποαρχείο
       en: Subfonds
       es: Subfondo
@@ -4718,6 +5147,7 @@ QubitTerm:
       fr: Sous-fonds
       gl: Sub-fondo
       hu: Állagok
+      id: Subfonds
       is: Undirsafn
       it: Sub-fondo
       ja: サブフォンド
@@ -4725,12 +5155,14 @@ QubitTerm:
       ko: '하위 퐁'
       nl: Deelarchief
       pt: Subarquivo
-      pt-BR: Subfundos
+      pt-BR: Seção
       pt_BR: Subfundos
       ro: Subfonduri
       sl: Podfondi
       sr: Подфонд
+      sv: delarkiv
       th: ระดับกลุ่มย่อย
+      uz: Fond-osti
       vi: Subfonds
       zh: 次宗卷
   QubitTerm_175:
@@ -4782,9 +5214,10 @@ QubitTerm:
       en: Series
       es: Serie
       eu: Serieak
-      fr: 'Série organique'
+      fr: Série
       gl: Series
       hu: Sorozat
+      id: Seri
       is: Skjalaflokkur
       it: Serie
       ja: シリーズ
@@ -4799,6 +5232,7 @@ QubitTerm:
       sr: Серија
       sv: Serie
       th: ระดับชุด
+      uz: Ro`yxat
       vi: Series
       zh: 系列
   QubitTerm_177:
@@ -4810,14 +5244,15 @@ QubitTerm:
       ca@valencia: Subsèrie
       cy: Is-gyfres
       de: Teilserie
-      de-CH: Teilserie
+      de-CH: Unterserien
       el: Υποσειρά
       en: Subseries
       es: Subserie
       eu: Azpiserie
-      fr: 'Sous-série organique'
+      fr: Sous-série
       gl: Sub-series
       hu: Alsorozat
+      id: Subseri
       is: Undirskjalaflokkur
       it: Sottoserie
       ja: サブシリーズ
@@ -4830,8 +5265,9 @@ QubitTerm:
       ro: Subserie
       sl: Podserija
       sr: Подсерија
-      sv: Delsamling
+      sv: Underserie
       th: ระดับชุดย่อย
+      uz: Ro`yxat-osti
       vi: Subseries
       zh: 次系列
   QubitTerm_178:
@@ -4843,7 +5279,7 @@ QubitTerm:
       ca@valencia: 'Unitat documental composta'
       cy: Ffeil
       de: Akt(e)
-      de-CH: Akt(e)
+      de-CH: Datei
       el: Αρχείο
       en: File
       es: 'Unidad documental compuesta'
@@ -4851,6 +5287,7 @@ QubitTerm:
       fr: Dossier
       gl: Dossier
       hu: Fájl
+      id: Berkas
       is: Málaflokkur
       it: 'Unità archivistica'
       ja: ファイル
@@ -4885,6 +5322,7 @@ QubitTerm:
       fr: Pièce
       gl: Item
       hu: Iratdarab
+      id: Item
       is: Eining
       it: 'Unità documentaria'
       ja: アイテム
@@ -4897,6 +5335,7 @@ QubitTerm:
       ro: Articol
       sl: Dokument
       sr: Јединица
+      sv: Objekt
       th: เรื่อง
       vi: Item
       zh: 物件
@@ -4910,24 +5349,27 @@ QubitTerm:
       cy: 'Gwrthrych gwybodaeth'
       de: Informationsobjekt
       de-CH: Informationsobjekt
+      el: 'Πληροφοριακό Αντικείμενο'
       en: 'Information object'
       es: 'Information object'
       eu: 'Informazio objektua'
       fr: 'Description archivistique'
       gl: 'Obxecto de información'
       hu: 'Információs objektum'
+      id: 'Objek informasi'
       it: 'Oggetto informativo'
       ja: 情報オブジェクト
       ka: 'საინფორმაციო ობიექტი'
       ko: '정보 객체'
       nl: 'Informatie object'
       pt: 'Objeto informacional'
-      pt-BR: 'Objeto de informação'
+      pt-BR: 'Descrição arquivística'
       pt_BR: 'Objeto de informação'
       sl: 'Informacijski objekt'
-      sr: 'Информациони објект'
+      sr: 'Информациони објекат'
       sv: Informationsobjekt
       th: วัตถุข้อมูล(ข้อมูลวัตถุ)
+      uz: 'Axborot obyekti'
       vi: 'đối tượng thông tin'
       zh: 信息藏品
   QubitTerm_184:
@@ -4939,7 +5381,7 @@ QubitTerm:
       ca@valencia: Persona/organització
       cy: Person/sefydliad
       de: Person/Einrichtung
-      de-CH: Person/Einrichtung
+      de-CH: Person/Organisation
       el: Άτομο/Οργανισμός
       en: Person/organization
       es: Persona/organización
@@ -4947,6 +5389,7 @@ QubitTerm:
       fr: Personne/organisme
       gl: Persoa/organización
       hu: Személy/szervezet
+      id: Orang/organisasi
       is: Einstaklingur/skipulagsheild
       it: Persona/Organizzazione
       ja: 個人/機関
@@ -4961,6 +5404,7 @@ QubitTerm:
       sr: Особа/организација
       sv: Person/organisation
       th: 'บุคคล / องค์การ'
+      uz: 'Shaxs / Tashkilot'
       vi: 'Người/tổ chức'
       zh: 个人/组织
   QubitTerm_185:
@@ -4994,6 +5438,7 @@ QubitTerm:
       ru: Создатель
       sl: Ustvaril
       sr: 'Стваралац архивске грађе'
+      sv: Arkivbildare
       th: ผู้ผลิตเอกสาร
       vi: 'người sáng tạo'
       zh: 创建者
@@ -5004,7 +5449,7 @@ QubitTerm:
     name:
       ca: 'Institució arxivística'
       ca@valencia: 'Institució arxivística'
-      cy: Cadwrfa
+      cy: Lleoliad
       de: Archiv
       de-CH: Archiv
       el: Αποθετήριο
@@ -5012,7 +5457,7 @@ QubitTerm:
       es: 'Institución archivística'
       eu: Errepositorioa
       fa: منبع
-      fr: 'Institution de conservation'
+      fr: Dépôt
       gl: Repositorio
       hu: Levéltár
       id: Repositori
@@ -5029,9 +5474,10 @@ QubitTerm:
       ro: Depozit
       ru: Хранилище
       sl: Skladišče
-      sr: Архив
-      sv: Magasin
+      sr: Институција
+      sv: Arkivinstitution
       th: คลังเก็บ
+      uz: 'Arxiv muassasasi'
       vi: Repository
       zh: 典藏库
   QubitTerm_187:
@@ -5065,6 +5511,7 @@ QubitTerm:
       sr: Термин
       sv: Term
       th: คำศัพท์
+      uz: Atama
       vi: Hạn
       zh: 术语
   QubitTerm_188:
@@ -5097,8 +5544,10 @@ QubitTerm:
       pt_BR: Assunto
       ru: Тема
       sl: Tematika
-      sr: Предмет
+      sr: Тема
+      sv: Ämnesord
       th: หัวข้อ
+      uz: Mavzu
       vi: Tượng
       zh: 主题
   QubitTerm_189:
@@ -5154,6 +5603,7 @@ QubitTerm:
       fr: Fonds
       gl: Fondos
       hu: Állomány
+      id: Khazanah
       is: Skjalamagn
       it: Patrimoni
       ja: 所蔵
@@ -5165,7 +5615,7 @@ QubitTerm:
       pt-BR: Acervo
       pt_BR: Acervo
       sl: 'Arhivsko gradivo'
-      sr: Збирка
+      sr: Колекције
       sv: Bestånd
       th: สถานที่เก็บเอกสาร
       vi: 'Ngắn về'
@@ -5187,7 +5637,7 @@ QubitTerm:
       eu: 'Artxibo deskribapena'
       fr: 'Description archivistique'
       gl: 'Descrición arquivística'
-      hu: 'Levéltári leírás'
+      hu: Iratleírás
       id: 'Deskripsi Arsip'
       is: 'Lýsandi samantekt'
       it: 'Descrizione archivistica'
@@ -5205,6 +5655,7 @@ QubitTerm:
       sr: 'Архивски опис'
       sv: Arkivbeskrivning
       th: คำอธิบายจดหมายเหตุ
+      uz: 'Arxiv tavsifi'
       vi: 'Mô tả lưu trữ'
       zh: 文献著录
   QubitTerm_192:
@@ -5221,7 +5672,7 @@ QubitTerm:
       en: 'Authority record'
       es: 'Registro de autoridad'
       eu: 'Autoretza erregistroa'
-      fr: 'Fichier d''autorité'
+      fr: 'Notice d''autorité'
       gl: 'Rexistro de autoridade'
       hu: Iratképző
       id: 'Pencipta Arsip'
@@ -5237,7 +5688,9 @@ QubitTerm:
       pt_BR: 'Registro de autoridade'
       sl: 'Zapis o ustvarjalcu'
       sr: 'Нормативни запис'
+      sv: Auktoritetspost
       th: รายการควบคุม
+      uz: 'Avtoritet yozuv'
       vi: 'Authority record'
       zh: 规范记录
   QubitTerm_193:
@@ -5254,9 +5707,10 @@ QubitTerm:
       en: Fonds
       es: Fondo
       eu: Fondoak
-      fr: collection
+      fr: Fonds
       gl: Fondos
       hu: Fond
+      id: Fonds
       is: Safn
       it: Fondo
       ja: フォンド
@@ -5270,7 +5724,8 @@ QubitTerm:
       ro: Fonduri
       ru: Фонды
       sl: Fondi
-      sr: Фонд
+      sr: Фондови
+      sv: Arkiv
       th: เอกสารระดับกลุ่ม
       vi: 'Các phông'
       zh: 宗卷
@@ -5289,7 +5744,7 @@ QubitTerm:
       es: 'Institución archivística'
       eu: 'Artxibo erakundea'
       fa: منبع
-      fr: 'Institution de conservation'
+      fr: 'Service d''archives'
       gl: 'Institución arquivística'
       hu: Levéltár
       id: 'Institusi Arsip'
@@ -5301,13 +5756,14 @@ QubitTerm:
       nl: Archiefinstelling
       pl: 'Instytucja archiwalna'
       pt: 'Instituição de arquivo'
-      pt-BR: 'Instituição arquivística'
+      pt-BR: 'Entidade custodiadora'
       pt_BR: 'Instituição arquivística'
       ru: 'Архивное учреждение'
       sl: 'Arhivska ustanova'
       sr: 'Архивска институција'
       sv: Arkivinstitution
       th: สถาบันจดหมายเหตุ
+      uz: 'Arxiv muassasasi'
       vi: 'Tổ chức lưu trữ'
       zh: 文献机构
   QubitTerm_195:
@@ -5327,6 +5783,7 @@ QubitTerm:
       fr: International
       gl: Internacional
       hu: nemzetközi
+      id: Internasional
       is: Alþjóðleg
       it: Internazionale
       ja: 国際的
@@ -5338,6 +5795,7 @@ QubitTerm:
       pt_BR: Internacional
       sl: Mednaroden
       sr: Међународни
+      sv: Internationell
       th: นานาชาติ
       vi: 'Quốc tế'
       zh: 国际的
@@ -5358,6 +5816,7 @@ QubitTerm:
       fr: National
       gl: Nacional
       hu: nemzeti
+      id: National
       is: Þjóðlegt
       it: Nazionale
       ja: 国家の
@@ -5372,6 +5831,7 @@ QubitTerm:
       sr: Национални
       sv: Nationell
       th: ประชาชาติ
+      uz: Milliy
       vi: 'Quốc gia'
       zh: 全国的
   QubitTerm_197:
@@ -5391,6 +5851,7 @@ QubitTerm:
       fr: Régional
       gl: Rexional
       hu: regionális
+      id: Regional
       is: Svæðisbundið
       it: Regionale
       ja: 地域の
@@ -5405,6 +5866,7 @@ QubitTerm:
       sr: Регионални
       sv: Regional
       th: ทางบริเวณ
+      uz: Hududiy
       vi: 'Khu vực'
       zh: 地区的
   QubitTerm_198:
@@ -5432,12 +5894,14 @@ QubitTerm:
       nl: Provinciaal
       pl: Lokalny/krajowy
       pt: Distrito
-      pt-BR: Estado
+      pt-BR: Estado/província
       pt_BR: Estado
       ru: Провинция/штат
       sl: Regionalni/državni
-      sr: Провинција/Држава
+      sr: Покрајински
+      sv: Regional/statlig
       th: 'ประจำจังหวัด / รัฐ'
+      uz: Shahar/Tuman
       vi: tỉnh/
       zh: 省的/州的
   QubitTerm_199:
@@ -5457,6 +5921,7 @@ QubitTerm:
       fr: Communautaire
       gl: Comunitario
       hu: közösségi
+      id: Komunitas
       is: Samfélag
       it: Comunità
       ja: コミュニティ
@@ -5494,7 +5959,7 @@ QubitTerm:
       id: Agama
       is: Trúarlegt
       it: Religioso
-      ja: 地域の
+      ja: 宗教的な
       ka: 'რელიგიური, სარწმუნოებრივი'
       ko: 종교적인
       nl: Religie
@@ -5505,6 +5970,7 @@ QubitTerm:
       sr: Религиозни
       sv: Religös
       th: เกี่ยวกับศาสนา
+      uz: Diniy
       vi: 'Tôn giáo'
       zh: 宗教的
   QubitTerm_201:
@@ -5537,9 +6003,10 @@ QubitTerm:
       pt_BR: Universidade
       ro: Universitate
       sl: Univeriteten
-      sr: Универзитет
+      sr: Високошколски
       sv: Universitet
       th: มหาวิทยาลัย
+      uz: Universitet
       vi: 'Trường đại học'
       zh: 大学
   QubitTerm_202:
@@ -5559,8 +6026,9 @@ QubitTerm:
       fr: Municipal
       gl: Municipal
       hu: városi
+      id: Kota
       it: Municipale
-      ja: 首都の
+      ja: 市町村の
       ka: 'მინიციპალური, საქალაქო'
       ko: 지방자치제의
       nl: Gemeentelijk
@@ -5569,7 +6037,9 @@ QubitTerm:
       pt_BR: Municipal
       sl: Občinski
       sr: Општински
+      sv: Kommunal
       th: เทศบาล
+      uz: Shahar
       vi: 'Thuộc về thành phố'
       zh: 市政的
   QubitTerm_203:
@@ -5599,7 +6069,9 @@ QubitTerm:
       pt-BR: Indígena
       pt_BR: Indígena
       sl: Staroselski
-      sr: Староседелац
+      sr: староседелачки
+      sv: Ursprung
+      uz: Mahalliy
       vi: Aboriginal
       zh: 原著民的
   QubitTerm_204:
@@ -5619,6 +6091,7 @@ QubitTerm:
       fr: Scolaire
       gl: Educativo
       hu: oktatási
+      id: Pendidikan
       is: Menntastofnun
       it: Educativo
       ja: 教育上の
@@ -5629,6 +6102,7 @@ QubitTerm:
       pt_BR: Educacional
       sl: Izobraževalen
       sr: Образовни
+      sv: Pedagogisk
       th: การศึกษา
       vi: 'Giáo dục'
       zh: 教育的
@@ -5649,6 +6123,7 @@ QubitTerm:
       fr: Médical
       gl: Médico
       hu: orvosi
+      id: Medis
       is: Læknisfræðilegt
       it: Medico
       ja: 医療の
@@ -5661,7 +6136,9 @@ QubitTerm:
       ru: Медицинский
       sl: Medicinski
       sr: Медицински
+      sv: Medicinsk
       th: ทางการแพทย์
+      uz: Tibbiy
       vi: 'Y học'
       zh: 医学的
   QubitTerm_206:
@@ -5681,6 +6158,7 @@ QubitTerm:
       fr: 'Forces armées'
       gl: Militar
       hu: hadi
+      id: Militer
       is: Hernaðarlegt
       it: 'Forze armate'
       ja: 軍事の
@@ -5696,6 +6174,7 @@ QubitTerm:
       sr: Војни
       sv: Militär
       th: ทหาร
+      uz: Harbiy
       vi: 'Quân sự'
       zh: 军事的
   QubitTerm_207:
@@ -5715,6 +6194,7 @@ QubitTerm:
       fr: Privé
       gl: Privado
       hu: magán
+      id: Privat
       is: Einka
       it: Privato
       ja: 個人的な
@@ -5723,12 +6203,13 @@ QubitTerm:
       nl: Privaat
       pl: Prywatny
       pt: Privado
-      pt-BR: Particular
+      pt-BR: Privado
       pt_BR: Particular
       sl: Zasebni
       sr: Приватни
       sv: Privat
       th: เอกชน
+      uz: Xususiy
       vi: 'Riêng tư'
       zh: 私下的
   QubitTerm_214:
@@ -5765,6 +6246,7 @@ QubitTerm:
       sr: Место
       sv: Plats
       th: จัด
+      uz: Joy
       vi: 'địa điểm'
       zh: 地点
   QubitTerm_215:
@@ -5800,7 +6282,9 @@ QubitTerm:
       ru: Имя
       sl: Ime
       sr: Назив/Име
+      sv: Namn
       th: ชื่อ
+      uz: Nomi
       vi: Tên
       zh: 名称
   QubitTerm_216:
@@ -5817,13 +6301,13 @@ QubitTerm:
       en: 'Digital object'
       es: 'Objeto digital'
       eu: 'Objektu digitala'
-      fr: 'Objet numérique'
+      fr: 'Document numérique'
       gl: 'Obxecto dixital'
       hu: 'Digitális objektum'
       id: 'Objek Digital'
       is: 'Stafræn eining'
       it: 'Oggetto digitale'
-      ja: ディジタルオブジェクト
+      ja: デジタルオブジェクト
       ka: 'ციფრული ობიექტი'
       ko: 디지털
       nl: 'Digitaal object'
@@ -5836,6 +6320,7 @@ QubitTerm:
       sr: 'Дигитални објект'
       sv: 'Digitalt objekt'
       th: วัตถุดิจิตอล
+      uz: 'Raqamli resurs'
       vi: 'Digital object'
       zh: 数字对象
   QubitTerm_217:
@@ -5852,7 +6337,7 @@ QubitTerm:
       en: 'Physical object'
       es: 'Physical object'
       eu: 'Objektu fisikoa'
-      fr: 'Objet physique'
+      fr: Contenant
       gl: 'Obxecto físico'
       hu: 'Fizikai objektum'
       id: 'Fisik Objek'
@@ -5869,6 +6354,7 @@ QubitTerm:
       sr: 'Физички објект'
       sv: 'Fysisikt objekt'
       th: วัตถทางกายภาพุ
+      uz: 'Fizik resurs'
       vi: 'Đối tượng vật lý'
       zh: 物理藏品
   QubitTerm_218:
@@ -5880,7 +6366,7 @@ QubitTerm:
       ca@valencia: 'Unitat de magatzematge'
       cy: 'Storfa ffisegol'
       de: Aufbewahrung
-      de-CH: Aufbewahrung
+      de-CH: Standort
       el: 'Χώρος Αποθήκευσης'
       en: 'Physical storage'
       es: 'Unidad de almacenaje'
@@ -5890,7 +6376,7 @@ QubitTerm:
       hu: Tárolóeszköz
       id: 'Penyimpanan Fisik'
       it: Deposito
-      ja: 物理的記憶
+      ja: 物理的な保管場所
       ka: 'ფიზიკური საცავი'
       ko: '물리적 보관장소'
       nl: 'Fysieke opslag'
@@ -5900,8 +6386,9 @@ QubitTerm:
       pt_BR: 'Depósito físico'
       sl: 'Fizična hramba'
       sr: Депо
-      sv: 'Fysisk lagring'
+      sv: 'Fysisk förvaringsplats'
       th: การเก็บเอกสารทางกายภาพ
+      uz: 'Fizik saqlov'
       vi: 'vật lý'
       zh: 物理储存
   QubitTerm_219:
@@ -5922,6 +6409,7 @@ QubitTerm:
       fr: 'Type de support'
       gl: 'Tipo de medio'
       hu: 'Média típus'
+      id: 'Jenis media'
       is: 'Gerð miðla'
       it: 'Tipo di supporto'
       ja: メディア種別
@@ -5936,8 +6424,9 @@ QubitTerm:
       ru: 'Тип носителя'
       sl: 'Vrsta medija'
       sr: 'Врста медија'
-      sv: Mediatyper
+      sv: Mediatyp
       th: ประเภทสื่อ
+      uz: 'Resurs turi'
       vi: 'Loại truyền thông'
       zh: 媒体类型
   QubitTerm_220:
@@ -5955,6 +6444,7 @@ QubitTerm:
       eu: 'Informazio Librearentzako Kudeaketa Tresnak'
       fr: 'Outil ouvert de gestion de l''information'
       hu: 'Nyissa meg az Információs Menedzsment Eszköztárat'
+      id: 'Open Information Management Toolkit'
       it: 'Open Information Management Toolkit'
       ja: 'Information Management Toolkitを開く'
       ka: 'გახსენით ინფორმაციის მენეჯმენტის კომპლექტი'
@@ -5965,6 +6455,8 @@ QubitTerm:
       pt_BR: 'Open Information Management Toolkit'
       sl: 'Orodje za upravljanje informacij javnega značaja'
       sr: 'Отвори алат за управљање информацијама'
+      sv: 'Öppet informationshanteringsverktyg'
+      uz: 'Ochiq axborotni boshqarish uskunasi'
       vi: 'Mở cửa Information Management Toolkit'
       zh: 打开信息管理工具箱
   QubitTerm_223:
@@ -5997,6 +6489,7 @@ QubitTerm:
       pt_BR: 'Nota de conservação'
       sl: 'Opomba glede zaščite'
       sr: 'Напомена о конзервацији'
+      sv: Konserveringsanmärkning
       th: หมายเหตุการอนุรักษ์
       vi: 'Ghi chú Conservation'
       zh: 保存说明
@@ -6032,6 +6525,7 @@ QubitTerm:
       sl: 'Arhitekturni načrt'
       sr: 'Архитектонски цртеж'
       sv: Arkitekturritning
+      uz: 'Me''moriy chizma'
       vi: 'đối với bản vẽ kiến ​​trúc'
       zh: 结构图
   QubitTerm_225:
@@ -6087,6 +6581,7 @@ QubitTerm:
       fr: 'Document iconographique'
       gl: 'Material gráfico'
       hu: 'Grafikus anyag'
+      id: 'Bahan grafis'
       is: 'Grafískt efni'
       it: 'Materiale grafico'
       ja: グラフィック資料
@@ -6099,6 +6594,7 @@ QubitTerm:
       ro: 'Materiale grafice'
       sl: 'Grafično gradivo'
       sr: 'Графички материјал'
+      sv: 'Grafiskt material'
       th: เอกสารภาพพิมพ์
       vi: 'Tài liệu đồ họa'
       zh: 图像资料
@@ -6119,9 +6615,10 @@ QubitTerm:
       fr: 'Images en mouvement'
       gl: 'Imaxes en movemento'
       hu: 'Mozgó képek'
+      id: 'Gambar bergerak'
       is: 'Flyt myndir'
       it: 'Immagini in movimento'
-      ja: 画像を移動する
+      ja: 動画
       ka: 'სურათების გადმოტანა'
       ko: 동영상
       nl: 'Bewegend beeld'
@@ -6131,6 +6628,8 @@ QubitTerm:
       ro: 'Imagini in miscare'
       sl: 'Gibljive slike'
       sr: 'Покретне слике'
+      sv: 'Rörliga bilder'
+      uz: 'Film &lpar;Animatsiya&rpar;'
       vi: 'Di chuyển hình ảnh'
       zh: 活动图像
   QubitTerm_228:
@@ -6149,6 +6648,7 @@ QubitTerm:
       eu: 'Media anitz'
       fr: 'Supports multiples'
       hu: 'Összetett média'
+      id: 'Banyak media'
       is: 'Mörg miðlunarform'
       it: 'Molteplici tipologie'
       ja: マルチメディア
@@ -6161,6 +6661,8 @@ QubitTerm:
       ro: 'Medii multiple'
       sl: 'Večkraten nosilec zapisa'
       sr: 'Вишеструки медији'
+      sv: 'Flera medier'
+      uz: 'Turli media'
       vi: 'Nhiều phương tiện truyền thông'
       zh: 多种媒体
   QubitTerm_229:
@@ -6180,6 +6682,7 @@ QubitTerm:
       fr: Objet
       gl: Obxecto
       hu: Tárgy
+      id: Objek
       is: Hlutur
       it: Oggetto
       ja: オブジェクト
@@ -6195,6 +6698,7 @@ QubitTerm:
       sr: Објект
       sv: Objekt
       th: วัตถุ
+      uz: Obyekt
       vi: 'Đối tượng'
       zh: 藏品
   QubitTerm_230:
@@ -6206,7 +6710,7 @@ QubitTerm:
       ca@valencia: 'Document filatèlic'
       cy: 'Cofnod ffilatelig'
       de: 'Philatelistisches Objekt (Briefmarke?)'
-      de-CH: 'Philatelistisches Objekt (Briefmarke?)'
+      de-CH: Briefmarke
       en: 'Philatelic record'
       es: 'Documento filatélico'
       eu: 'Erregistro filatelikoa'
@@ -6223,8 +6727,10 @@ QubitTerm:
       pt_BR: 'Documento filatélico'
       ro: 'Inregistrare filatelica'
       sl: 'Filatelističen zapis'
-      sr: 'Филателијски запис'
+      sr: 'Филателистички запис'
+      sv: 'Filatelisk post'
       th: การบันทึกหางสะสมแสตมป์ซึ่งเล่นดวงตราไปรษณีย์
+      uz: 'Filatelistik yozuv'
       vi: 'Kỷ lục tem'
       zh: 邮票文献
   QubitTerm_231:
@@ -6260,6 +6766,7 @@ QubitTerm:
       sr: 'Звучни запис'
       sv: Ljudinspelning
       th: การบันทึกเสียง
+      uz: Tovush
       vi: 'Ghi âm'
       zh: 声音记录
   QubitTerm_232:
@@ -6292,6 +6799,8 @@ QubitTerm:
       ro: 'Desen tehnic'
       sl: 'Tehnični načrt'
       sr: 'Технички цртеж'
+      sv: 'Teknisk ritning'
+      uz: 'Texnik chizma'
       vi: 'đối với bản vẽ kỹ thuật'
       zh: 技术制图
   QubitTerm_233:
@@ -6313,7 +6822,7 @@ QubitTerm:
       id: 'Arsip Teks'
       is: Textaskjal
       it: 'Documentazione testuale'
-      ja: テキストの記録
+      ja: 文字情報からなる記録
       ka: 'ტექსტური ჩანაწერი'
       ko: '원문 기록'
       nl: 'Tekst document'
@@ -6324,6 +6833,8 @@ QubitTerm:
       ro: 'Inregistrare text'
       sl: 'Besedilni zapis'
       sr: 'Текстуални запис'
+      sv: Texthandling
+      uz: 'Matnli yozuv'
       vi: 'Ghi lại văn bản'
       zh: 文本记录
   QubitTerm_238:
@@ -6355,6 +6866,7 @@ QubitTerm:
       pt_BR: Edição
       sl: Izdaja
       sr: Издање
+      sv: Upplaga
       th: ฉบับพิมพ์
       vi: 'Phiên bản'
       zh: 版本
@@ -6390,6 +6902,7 @@ QubitTerm:
       sr: 'Физички опис'
       sv: Omfång
       th: คำอธิบายทางกายภาพ
+      uz: 'Fizik tavsifi'
       vi: 'Mô tả vật lý'
       zh: 物理描述
   QubitTerm_240:
@@ -6422,6 +6935,7 @@ QubitTerm:
       pt_BR: Conservação
       sl: Zaščita
       sr: Конзервација
+      sv: Konservering
       th: การอนุรักษ์
       vi: Conservation
       zh: 保存
@@ -6454,7 +6968,9 @@ QubitTerm:
       pt_BR: 'Material complementar'
       sl: 'Spremljevalno gradivo'
       sr: 'Пропратна грађа'
+      sv: 'Medföljande material'
       th: เอกสารที่เพิ่มเติม
+      uz: 'Qo`shimcha material'
       vi: 'Các tài liệu kèm theo'
       zh: 相关资料
   QubitTerm_242:
@@ -6485,6 +7001,7 @@ QubitTerm:
       sl: 'Založnikove serije'
       sr: 'Издавачка целина'
       th: ซีรี่ย์ของผู้ตีพิมพ์
+      uz: 'Nashr qiluvchining seriya &lpar;ro`yxat&rpar; lari'
       vi: 'Series của nhà xuất bản'
       zh: 出版社连续出版物
   QubitTerm_243:
@@ -6504,6 +7021,7 @@ QubitTerm:
       fr: 'Désignations alphanumériques'
       gl: 'Designacións alfanuméricas'
       hu: 'Alfanumerikus jelölések'
+      id: 'Untuk alfa-numerik'
       it: 'Identificazioni alfanumeriche'
       ja: 文字-数字の指定
       ka: 'ანბანური ან ციფრობრივი აღნიშვნა'
@@ -6514,6 +7032,8 @@ QubitTerm:
       pt_BR: 'Designações alfanuméricas'
       sl: 'Črkovno-številčne označbe'
       sr: 'Словно-бројчане ознаке'
+      sv: 'Alfanumeriska typer'
+      uz: 'Belgili-raqamli grafika'
       vi: 'Alpha-numeric designations'
       zh: 字母-数字名称
   QubitTerm_244:
@@ -6549,6 +7069,7 @@ QubitTerm:
       sr: Права
       sv: Rättigheter
       th: สิทธิ
+      uz: Huquqlar
       vi: Quyền
       zh: 权利
   QubitTerm_246:
@@ -6579,6 +7100,8 @@ QubitTerm:
       pt_BR: 'Variações do título'
       sl: 'Variacije naslova'
       sr: 'Варијације у наслову'
+      sv: 'Variationer av titeln'
+      uz: 'Sarlavha turlari'
       vi: 'Các biến thể trong tiêu đề'
       zh: 其他标题
   QubitTerm_247:
@@ -6596,6 +7119,7 @@ QubitTerm:
       es: 'Fuente del título'
       fr: 'Source du titre propre'
       hu: 'A főcím forrása'
+      id: 'Sumber judul'
       is: 'Heimildir um samræmdan titil'
       it: 'Fonte del titolo proprio'
       ja: タイトルの情報源
@@ -6607,7 +7131,9 @@ QubitTerm:
       pt_BR: 'Fonte do título próprio'
       sl: 'Izvor dejanskega naslova'
       sr: 'Извор стварног наслова'
+      sv: 'Källa för förteckningstiteln'
       th: แหล่งชื่อเรื่อง
+      uz: 'Sarlavha manbasi'
       vi: 'Nguồn của nhan đề chính'
       zh: 正题名来源
   QubitTerm_248:
@@ -6639,7 +7165,9 @@ QubitTerm:
       pt_BR: 'Títulos paralelos e outra informação do título'
       sl: 'Vzporedni naslovi in drugi podatki o naslovu'
       sr: 'Упоредни наслови и подаци уз наслов'
+      sv: 'Parallella titlar och annan titelinformation'
       th: ชื่อเอกสารเทียบเคียงและข้อมูลชื่อเอกสารอื่นๆ
+      uz: 'Parallel sarlavha va boshqa sarlavhalar'
       vi: 'Nhan đề song song và thông tin nhan đề khác'
       zh: 并列标题及标题信息
   QubitTerm_249:
@@ -6671,6 +7199,7 @@ QubitTerm:
       pt_BR: 'Continuação do título'
       sl: 'Kontinuiteta naslova'
       sr: 'Наставак наслова'
+      sv: 'Fortsättning på titeln'
       th: ส่วนเพิ่มเติมของชื่อเอกสาร
       vi: 'Tiếp tục Nhan đề'
       zh: 标题的延续
@@ -6702,7 +7231,9 @@ QubitTerm:
       pt_BR: 'Declarações de responsabilidade'
       sl: 'Izjave o odgovornosti'
       sr: 'Подаци о одговорности'
+      sv: Ansvarsredogörelse
       th: สถานะความรับผิดชอบ
+      uz: 'Javobgarlik to`g`risida ma''lumotlar'
       vi: 'Minh xác về trách nhiệm'
       zh: 责任声明
   QubitTerm_251:
@@ -6721,6 +7252,7 @@ QubitTerm:
       fr: 'Attributions et conjectures'
       gl: 'Atribucións e conxeturas'
       hu: 'Tulajdonítások és következtetések'
+      id: 'Atribusi dan konjektur'
       it: 'Attibuzioni e congetture'
       ja: 帰属と推測
       ka: აბრევიატურები
@@ -6732,6 +7264,8 @@ QubitTerm:
       pt_BR: 'Atribuições e conjecturas'
       sl: 'Pripisovanja in domneve'
       sr: Атрибуција
+      sv: 'Attribution och conjecturer'
+      uz: 'Atributlar va farazlar'
       vi: 'Gán ghép và phỏng đoán'
       zh: 归因和推测
   QubitTerm_252:
@@ -6748,7 +7282,7 @@ QubitTerm:
       en: Part
       es: Parte
       eu: Parte
-      fr: Partiellement
+      fr: Partie
       gl: Parte
       hu: Rész
       id: Bagian
@@ -6768,6 +7302,7 @@ QubitTerm:
       sr: Део
       sv: Del
       th: บางส่วน
+      uz: Qism
       vi: 'Một phần'
       zh: 部分
   QubitTerm_mods_resource_type_text:
@@ -6802,6 +7337,7 @@ QubitTerm:
       sl: besedilo
       sr: текст
       sv: text
+      uz: matn
       vi: 'văn bản'
       zh: 文本
   QubitTerm_mods_resource_type_cartographic:
@@ -6832,9 +7368,10 @@ QubitTerm:
       pt-BR: cartográfico
       pt_BR: cartográfico
       sl: 'kartografsko gradivo'
-      sr: картографски
+      sr: картографска
       sv: kartografisk
       th: ทำแผนที่
+      uz: kartografik
       vi: 'Bản đồ'
       zh: 地图的
   QubitTerm_mods_resource_type_notated_music:
@@ -6845,12 +7382,14 @@ QubitTerm:
       ca: 'música anotada'
       ca@valencia: 'partitura/notació musical'
       cy: 'cerddoriaeth nodiant'
+      de-CH: Musiknotation
       en: 'notated music'
       es: 'partitura/notación musical'
       eu: 'idatzitako musika'
       fr: 'partitions musicales'
       gl: 'música anotada'
       hu: 'zenei kotta'
+      id: 'musik notasi'
       is: tónlist
       it: 'notazione musicale'
       ja: 表記された音楽
@@ -6863,6 +7402,7 @@ QubitTerm:
       sl: 'notirana glasba'
       sr: 'штампана музикалија'
       sv: 'noterad musik'
+      uz: notalar
       vi: 'ký hiệu âm nhạc'
       zh: 乐谱
   QubitTerm_mods_resource_type_sound_recording:
@@ -6879,13 +7419,13 @@ QubitTerm:
       en: 'sound recording'
       es: 'registro sonoro'
       eu: 'soinu grabaketa'
-      fr: 'Enregistrement sonore'
+      fr: 'enregistrement sonore'
       gl: 'gravación sonora'
       hu: hangfelvétel
       id: 'rekaman suara'
       is: hljóðupptaka
       it: 'registrazione sonora'
-      ja: 音声録音
+      ja: 録音
       ka: 'ხმის ჩაწერა'
       ko: '음성 기록'
       pl: 'nagrania dźwiękowe'
@@ -6896,6 +7436,7 @@ QubitTerm:
       sr: 'звучни запис'
       sv: ljudupptagning
       th: การบันทึกเสียง
+      uz: tovush
       vi: 'ghi âm'
       zh: 声音记录
   QubitTerm_mods_resource_type_sound_recording_musical:
@@ -6904,6 +7445,7 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'enregistrament sonor musical'
+      cy: 'recordiad sain-cerddorol'
       de: 'Tonaufnahme - Musik'
       de-CH: 'Tonaufnahme - Musik'
       en: 'sound recording-musical'
@@ -6911,9 +7453,9 @@ QubitTerm:
       fr: 'enregistrement sonore - musique'
       gl: 'gravación sonora - musical'
       hu: 'hangfelvétel, zenei'
-      id: 'rekaman suara - musik'
-      it: 'registrazione sonora - musicale'
-      ja: '音声録音 - 音楽'
+      id: 'rekaman suara-musikal'
+      it: 'registrazione sonora (musicale)'
+      ja: 録音-音楽
       ka: 'ხმის ჩაწერა- მუსიკალურად'
       pl: 'nagrania dźwiękowe - muzyczne'
       pt: 'registo sonoro - musical'
@@ -6923,6 +7465,7 @@ QubitTerm:
       sr: 'звучни запис-музички'
       sv: 'ljudupptagning - musik'
       th: 'การบันทึกเสียง - เกี่ยวกับดนตรี'
+      uz: 'tovush &lpar;musiqa&rpar;'
       zh: 声音记录-音乐
   QubitTerm_mods_resource_type_sound_recording_nonmusical:
     taxonomy_id: QubitTaxonomy_mods_resource_type
@@ -6930,6 +7473,7 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'enregistrament sonor no musical'
+      cy: 'recordiad sain-nid cerddoriaeth'
       de: 'Tonaufnahme - nicht musikalisch'
       de-CH: 'Tonaufnahme - nicht musikalisch'
       en: 'sound recording-nonmusical'
@@ -6937,9 +7481,9 @@ QubitTerm:
       fr: 'enregistrement sonore - non musical'
       gl: 'gravación sonora - non musical'
       hu: 'hangfelvétel, nem zenei'
-      id: 'rekaman suara - nonmusik'
-      it: 'registrazione sonora - non musicale'
-      ja: '音声録音 - 非音楽'
+      id: 'rekaman suara-nonmusikal'
+      it: 'registrazione sonora (non musicale)'
+      ja: 録音―音楽以外
       ka: 'ხმის ჩაწერა -არამუსიკალურად (არა მუსიკის)'
       pl: 'nagrania dźwiękowe - niemuzyczne'
       pt: 'registo sonoro - não musical'
@@ -6949,6 +7493,7 @@ QubitTerm:
       sr: 'звучни запис-немузички'
       sv: 'ljudupptagning - ej musik'
       th: 'การบันทึกเสียง - ไม่ใช่ดนตรี'
+      uz: 'tovush &lpar;musiqa emas&rpar;'
       zh: 声音记录-非音乐
   QubitTerm_mods_resource_type_sound_recording_stillimage:
     taxonomy_id: QubitTaxonomy_mods_resource_type
@@ -6969,7 +7514,7 @@ QubitTerm:
       id: 'gambar tetap'
       is: mynd
       it: 'immagine statica'
-      ja: 静的イメージ
+      ja: 静止画像
       ka: 'ისევ სურათი'
       ko: '스틸 이미지'
       pl: 'obrazy nieruchome'
@@ -6979,6 +7524,7 @@ QubitTerm:
       sl: 'statična slika'
       sr: 'непокретна слика'
       sv: stillbild
+      uz: surat
       vi: 'hình ảnh tĩnh'
       zh: 静态图像
   QubitTerm_mods_resource_type_sound_recording_movingimage:
@@ -7011,6 +7557,7 @@ QubitTerm:
       sl: 'gibljiva slika'
       sr: 'покретна слика'
       sv: 'rörlig bild'
+      uz: 'harakatlanuvchi suratlar'
       vi: 'Hình ảnh động'
       zh: 动态图像
   QubitTerm_mods_resource_type_sound_recording_three_dimensional_object:
@@ -7027,7 +7574,7 @@ QubitTerm:
       en: 'three dimensional object'
       es: 'objeto tridimensional'
       eu: 'hiru dimentsiotako objektua'
-      fr: 'objets tridimensionnels'
+      fr: 'objet tridimensionnel'
       gl: 'Obxecto tridimensional'
       hu: 'három dimenziós tárgy'
       id: 'objek tiga dimensi'
@@ -7043,6 +7590,7 @@ QubitTerm:
       sl: 'tridimenzionalen predmet'
       sr: 'тродимензионални објекат'
       sv: 'tredimensionellt föremål'
+      uz: 'uch o`lchamli obyekt'
       vi: 'ba đối tượng chiều'
       zh: 三维藏品
   QubitTerm_mods_resource_type_sound_recording_software_multimedia:
@@ -7062,6 +7610,7 @@ QubitTerm:
       fr: 'logiciels, multimedia'
       gl: 'software, multimedia'
       hu: 'szoftver, multimédia'
+      id: 'perangkat lunak, multimedia'
       is: 'hugbúnaður, margmiðlun'
       it: 'software, multimedia'
       ja: ソフト、マルチメデイア
@@ -7075,6 +7624,7 @@ QubitTerm:
       sr: 'рачунарски програм, мултимедија'
       sv: 'programvara, multimedia'
       th: 'ซอฟต์แวร์, มัลทิมีเดีย'
+      uz: 'dastur, multimedia'
       vi: 'phần mềm, đa phương tiện'
       zh: '软件, 多媒体'
   QubitTerm_mods_resource_type_sound_recording_software_mixed_material:
@@ -7107,6 +7657,7 @@ QubitTerm:
       sl: 'mešano gradivo'
       sr: 'мешовита грађа'
       sv: 'blandat material'
+      uz: 'aralash material'
       vi: 'Hỗn hợp vật liệu'
       zh: 混合资料
   QubitTerm_dc_type_collection:
@@ -7160,6 +7711,7 @@ QubitTerm:
       eu: 'data multzo'
       fr: 'ensemble de données'
       hu: adathalmaz
+      id: dataset
       is: gagnasett
       it: dataset
       ja: データセット
@@ -7172,6 +7724,7 @@ QubitTerm:
       sl: 'nabor podatkov'
       sr: 'скуп података'
       sv: dataset
+      uz: 'axborot majmui'
       vi: 'đặt dử kiện'
       zh: 数据集
   QubitTerm_dc_type_event:
@@ -7191,6 +7744,7 @@ QubitTerm:
       fr: événement
       gl: evento
       hu: esemény
+      id: tindakan
       is: atburður
       it: evento
       ja: イベント
@@ -7204,6 +7758,7 @@ QubitTerm:
       sr: догађај
       sv: händelse
       th: เหตุการณ์
+      uz: tadbir
       vi: 'sự kiện'
       zh: 事件
   QubitTerm_dc_type_image:
@@ -7238,6 +7793,7 @@ QubitTerm:
       sl: slika
       sr: слика
       sv: bild
+      uz: surat
       vi: 'hình ảnh'
       zh: 图像
   QubitTerm_dc_type_interactive_resource:
@@ -7249,7 +7805,7 @@ QubitTerm:
       ca@valencia: 'recurs interactiu'
       cy: 'adnodd rhyngweithiol'
       de: 'inaktive Ressource'
-      de-CH: 'inaktive Ressource'
+      de-CH: 'Interaktives Objekt'
       en: 'interactive resource'
       es: 'recurso interactivo'
       eu: 'baliabide interaktiboa'
@@ -7270,6 +7826,7 @@ QubitTerm:
       sr: 'интерактивни извор'
       sv: 'interaktiv resurs'
       th: ทรัพยากรinteractive
+      uz: 'interfaol resurs'
       vi: 'nguồn tài nguyên tương tác'
       zh: 交互资源
   QubitTerm_dc_type_moving_image:
@@ -7302,6 +7859,7 @@ QubitTerm:
       sl: 'gibljiva slika'
       sr: 'покретна слика'
       sv: 'rörlig bild'
+      uz: 'harakatlanuvchi suratlar'
       vi: 'Hình ảnh động'
       zh: 动态图像
   QubitTerm_dc_type_physical_object:
@@ -7336,6 +7894,7 @@ QubitTerm:
       sr: 'физички објект'
       sv: 'fysiskt objekt'
       th: วัตถุทางกายภาพ
+      uz: 'fizik obyekt'
       vi: 'Đối tượng vật lý'
       zh: 物理藏品
   QubitTerm_dc_type_service:
@@ -7369,6 +7928,7 @@ QubitTerm:
       sr: услуга
       sv: tjänst
       th: บริการ
+      uz: xizmat
       vi: 'dịch vụ'
       zh: 服务
   QubitTerm_dc_type_software:
@@ -7388,6 +7948,7 @@ QubitTerm:
       fr: logiciel
       gl: software
       hu: szoftver
+      id: 'perangkat lunak'
       is: hugbúnaður
       it: software
       ja: ソフトウエア
@@ -7401,6 +7962,7 @@ QubitTerm:
       sr: 'рачунарски програм'
       sv: programvara
       th: ซอฟต์แวร์
+      uz: dastur
       vi: 'phần mềm'
       zh: 软件
   QubitTerm_dc_type_sound:
@@ -7433,6 +7995,7 @@ QubitTerm:
       sl: zvok
       sr: звук
       sv: ljud
+      uz: tovush
       vi: 'âm thanh'
       zh: 声音
   QubitTerm_dc_type_still_image:
@@ -7454,7 +8017,7 @@ QubitTerm:
       id: 'gambar tetap'
       is: mynd
       it: 'immagine statica'
-      ja: 静的イメージ
+      ja: 静止画像
       ka: 'ისევ სურათი'
       ko: '스틸 이미지'
       pl: 'obrazy nieruchome'
@@ -7464,6 +8027,7 @@ QubitTerm:
       sl: 'statična slika'
       sr: 'непокретна слика'
       sv: stillbild
+      uz: surat
       vi: 'hình ảnh tĩnh'
       zh: 静态图像
   QubitTerm_dc_type_text:
@@ -7498,6 +8062,7 @@ QubitTerm:
       sl: besedilo
       sr: текст
       sv: text
+      uz: matn
       vi: 'văn bản'
       zh: 文本
   QubitTerm_function_function:
@@ -7514,7 +8079,7 @@ QubitTerm:
       en: Function
       es: Función
       eu: Funtzioa
-      fr: Fonctions
+      fr: Fonction
       gl: Función
       hu: Funkció
       id: Fungsi
@@ -7531,6 +8096,7 @@ QubitTerm:
       ro: Functia
       sl: Funkcija
       sr: Функција
+      sv: Funktion
       th: ฟังก์ชั่น
       vi: 'Các chức năng'
       zh: 功能
@@ -7551,6 +8117,7 @@ QubitTerm:
       fr: Sous-fonction
       gl: Subfunción
       hu: Alfunkció
+      id: Subfungsi
       is: Undirvirkni
       it: Sottofunzione
       ja: サブ機能
@@ -7563,7 +8130,9 @@ QubitTerm:
       ro: Subfunctie
       sl: Podfunkcija
       sr: Подфункција
+      sv: Underfunktion
       th: ฟังก์ชั่นย่อย
+      uz: Funksiya-osti
       vi: Subfunction
       zh: 次功能
   QubitTerm_function_business_process:
@@ -7584,7 +8153,7 @@ QubitTerm:
       hu: 'Üzleti folyamat'
       id: 'Bisnis Proses'
       it: Processo
-      ja: ビジネスの過程
+      ja: 業務過程
       ka: 'საქმიანი პროცესი'
       ko: '업무 과정'
       nl: Bedrijfsproces
@@ -7595,6 +8164,7 @@ QubitTerm:
       ro: 'Proces de afacere'
       sl: 'Delovni proces'
       sr: 'Пословни процес'
+      sv: Verksamhetsprocess
       vi: 'quá trình kinh doanh'
       zh: 公务程序
   QubitTerm_function_activity:
@@ -7631,6 +8201,7 @@ QubitTerm:
       sr: Активност
       sv: Aktivitet
       th: กิจกรรม
+      uz: Faoliyat
       vi: 'Hình hoạt động'
       zh: 行为
   QubitTerm_function_task:
@@ -7650,6 +8221,7 @@ QubitTerm:
       fr: Tâche
       gl: Tarea
       hu: Feladat
+      id: Tugas
       it: Compito
       ja: タスク
       ka: 'დავალება (ამოცანა)'
@@ -7663,6 +8235,7 @@ QubitTerm:
       sl: Naloga
       sr: Задатак
       sv: Uppgift
+      uz: Vazifa
       vi: 'Nhiệm vụ'
       zh: 任务
   QubitTerm_function_transaction:
@@ -7683,7 +8256,7 @@ QubitTerm:
       hu: Tranzakció
       id: Transaksi
       it: Operazione
-      ja: 取引
+      ja: 業務
       ka: 'ტრანზაქცია(საქმის წარმოება, შესრულება)'
       ko: 처리
       pl: Transakcja
@@ -7695,6 +8268,7 @@ QubitTerm:
       sr: Размена
       sv: Transaktion
       th: ธุรกรรม
+      uz: Tranzaksiya
       vi: 'Sự thực hiện;'
       zh: 交易
   QubitTerm_accession_resource_type_public:
@@ -7707,12 +8281,14 @@ QubitTerm:
       cy: 'Trosglwyddo cyhoeddus'
       de: 'Öffentlicher Transfer'
       de-CH: 'Öffentlicher Transfer'
+      el: 'Δημόσια μεταφορά'
       en: 'Public transfer'
       es: 'Transferencia pública'
       eu: 'Transferentzia publikoa'
       fr: 'Versement d''archives publiques'
       gl: 'Transferencia pública'
       hu: 'Nyilvános átadás'
+      id: 'Transfer publik'
       is: 'Opinber tilfærsla'
       it: 'Trasferimento pubblico'
       ja: 公共移転
@@ -7725,7 +8301,9 @@ QubitTerm:
       ro: 'Transfer public'
       sl: 'Javni prenos'
       sr: 'Јавни пренос'
+      sv: 'Offentligt överlämnande'
       th: โอนย้ายเอกสารสาธารณ
+      uz: 'Ommaviy ko`chirish'
       vi: 'Public transfer'
       zh: 公开转移
   QubitTerm_accession_resource_type_private:
@@ -7738,12 +8316,14 @@ QubitTerm:
       cy: 'Trosglwyddo preifat'
       de: 'Privater Transfer'
       de-CH: 'Privater Transfer'
+      el: 'Ιδιωτική μεταφορά'
       en: 'Private transfer'
       es: 'Transferencia privada'
       eu: 'Transferentzia pribatua'
       fr: 'Versement d''archives privées'
       gl: 'Transferencia privada'
       hu: 'Bizalmas átadás'
+      id: 'Transfer privat'
       is: Einkatilfærsla
       it: 'Trasferimento privato'
       ja: 個人的な移転
@@ -7756,8 +8336,9 @@ QubitTerm:
       ro: 'Transfer privat'
       sl: 'Zasebni prenos'
       sr: 'Приватни пренос'
-      sv: 'Privat överföring'
+      sv: 'Privat överlämnande'
       th: โอนย้ายเอกสารอกชน
+      uz: 'Xususiy ko`chirish'
       vi: 'Chuyển riêng tư'
       zh: 私下转移
   QubitTerm_accession_acquisition_type_deposit:
@@ -7767,6 +8348,7 @@ QubitTerm:
     name:
       ca: Dipòsit
       ca@valencia: Dipòsit
+      cy: Adnau
       de: Depositum
       en: Deposit
       es: Depósito
@@ -7774,6 +8356,7 @@ QubitTerm:
       fr: Dépôt
       gl: Depósito
       hu: Letét
+      id: Deposit
       is: 'Lagt inn'
       it: Deposito
       ja: デポジット
@@ -7788,6 +8371,8 @@ QubitTerm:
       ru: Вклад
       sl: Depozit
       sr: Архивирање
+      sv: Deposition
+      uz: Depozit
       vi: 'Tiền đặt cọc'
       zh: 缴存
   QubitTerm_accession_acquisition_type_gift:
@@ -7820,6 +8405,7 @@ QubitTerm:
       ro: Cadou
       sl: Darilo
       sr: Поклон
+      sv: Gåva
       th: บริจาค
       vi: Quà
       zh: 赠礼
@@ -7853,8 +8439,9 @@ QubitTerm:
       ro: Cumparare
       sl: Nakup
       sr: Куповина
-      sv: Inköp
+      sv: Köp
       th: จัดซื้อ
+      uz: 'Xarid qilish'
       vi: Mua
       zh: 购买
   QubitTerm_accession_acquisition_type_transfer:
@@ -7882,13 +8469,14 @@ QubitTerm:
       ko: 이관
       pl: Transfer
       pt: Transferência
-      pt-BR: Transferência
+      pt-BR: Transferir
       pt_BR: Transferência
       ro: Transfer
       sl: Prenos
       sr: Пренос
-      sv: Överför
+      sv: Överlämnande
       th: การโอน
+      uz: Ko`chirish
       vi: Chuyển
       zh: 移交
   QubitTerm_accession_processing_priority_high:
@@ -7907,6 +8495,7 @@ QubitTerm:
       fr: Haute
       gl: Alto
       hu: Magas
+      id: Tinggi
       is: Hátt
       it: Alto
       ja: 上位
@@ -7919,6 +8508,7 @@ QubitTerm:
       ro: Ridicat
       sl: Visoka
       sr: Висок
+      sv: Hög
       vi: Cao
       zh: 高
   QubitTerm_accession_processing_priority_medium:
@@ -7937,9 +8527,10 @@ QubitTerm:
       fr: Moyenne
       gl: Medio
       hu: Közepes
+      id: Medium
       is: Miðlungs
       it: Supporto
-      ja: 中間
+      ja: 媒体
       ka: საშუალო
       ko: 매체
       nl: Drager
@@ -7950,8 +8541,10 @@ QubitTerm:
       ro: Mediu
       ru: Средний
       sl: Srednja
-      sr: 'Носач записа'
+      sr: Средњи
+      sv: Medium
       th: สื่อ
+      uz: Tashuvchi
       vi: 'Phương tiện'
       zh: 媒介
   QubitTerm_accession_processing_priority_low:
@@ -7971,6 +8564,7 @@ QubitTerm:
       fr: Basse
       gl: Baixo
       hu: Alacsony
+      id: Rendah
       is: Lágt
       it: Basso
       ja: 低い
@@ -7984,6 +8578,7 @@ QubitTerm:
       ru: Низкий
       sl: Nizka
       sr: Низак
+      sv: Låg
       vi: Thấp
       zh: 低
   QubitTerm_accession_processing_status_complete:
@@ -8003,6 +8598,7 @@ QubitTerm:
       fr: Complet
       gl: Completo
       hu: Teljes
+      id: Selesai
       is: Lokið
       it: Completo
       ja: 完成する
@@ -8017,6 +8613,7 @@ QubitTerm:
       ru: Завершить
       sl: Dokončano
       sr: Завршено
+      sv: Avsluta
       th: ทั้งหมด
       vi: 'Hoàn thành'
       zh: 完整的
@@ -8036,6 +8633,7 @@ QubitTerm:
       fr: Incomplet
       gl: Incompleto
       hu: Befejezetlen
+      id: 'Tidak lengkap'
       is: Ólokið
       it: Incompleto
       ja: 不完全
@@ -8048,7 +8646,7 @@ QubitTerm:
       ro: Incomplet
       sl: Nedokončano
       sr: Недовршено
-      sv: 'Ej komplett'
+      sv: Inkomplett
       vi: 'Chưa đầy đủ'
       zh: 不完整的
   QubitTerm_accession_processing_status_inprogress:
@@ -8067,6 +8665,7 @@ QubitTerm:
       fr: 'En cours'
       gl: 'En proceso'
       hu: Folyamatban
+      id: 'Sedang dalam proses'
       is: 'Í vinnslu'
       it: 'In corso'
       ka: პროგრესში
@@ -8077,7 +8676,7 @@ QubitTerm:
       ro: Avansare
       sl: 'V teku'
       sr: 'У току'
-      sv: Pågår
+      sv: Pågående
       vi: In-Progress
       zh: 处理当中
   QubitTerm_deaccession_scope_whole:
@@ -8089,6 +8688,7 @@ QubitTerm:
       ca@valencia: Sencer
       cy: Cyfan
       de: Komplett
+      de-CH: Ganz
       el: Ολόκληρο
       en: Whole
       es: Entero
@@ -8110,6 +8710,7 @@ QubitTerm:
       sr: Цео
       sv: Hela
       th: ทั้งหมด
+      uz: Butun
       vi: 'Tổng số'
       zh: 整体
   QubitTerm_deaccession_scope_part:
@@ -8126,7 +8727,7 @@ QubitTerm:
       en: Part
       es: Parte
       eu: Parte
-      fr: Partiellement
+      fr: Partie
       gl: Parte
       hu: Rész
       id: Bagian
@@ -8146,6 +8747,7 @@ QubitTerm:
       sr: Део
       sv: Del
       th: บางส่วน
+      uz: Qism
       vi: 'Một phần'
       zh: 部分
   QubitTerm_right_act_delete:
@@ -8181,8 +8783,9 @@ QubitTerm:
       ru: Удалить
       sl: Izbriši
       sr: Обриши
-      sv: Radera
+      sv: 'Ta bort'
       th: ลบ
+      uz: 'O''chirish'
       vi: Xóa
       zh: 删除
   QubitTerm_right_act_discover:
@@ -8200,6 +8803,7 @@ QubitTerm:
       fr: Découvrir
       gl: Descubrir
       hu: Feltárás
+      id: Menemukan
       is: 'Nota á lestrarsal'
       it: Scopri
       ja: 発見する
@@ -8212,6 +8816,7 @@ QubitTerm:
       ru: Обнаружить
       sl: Odkrij
       sr: Открити
+      sv: Upptäck
       vi: 'Khám phá'
       zh: 发现
   QubitTerm_right_act_display:
@@ -8230,6 +8835,7 @@ QubitTerm:
       fr: Afficher
       gl: Despregue
       hu: Megjelenítés
+      id: Penayangan
       is: 'Nota á sýningu'
       it: Mostra
       ja: 表示する
@@ -8243,6 +8849,7 @@ QubitTerm:
       ru: Отображение
       sl: Prikaži
       sr: Прикажи
+      sv: Visningsfält
       vi: 'Hiển thị'
       zh: 展示
   QubitTerm_right_act_disseminate:
@@ -8260,6 +8867,7 @@ QubitTerm:
       fr: Diffuser
       gl: Diseminar
       hu: Teresztés
+      id: Diseminasi
       is: Dreifa
       it: Diffondi
       ja: 普及させる
@@ -8272,6 +8880,7 @@ QubitTerm:
       ro: Raspandire
       sl: Razširi
       sr: Рашири
+      sv: Sprida
       vi: 'phân phối'
       zh: 传播
   QubitTerm_right_act_migrate:
@@ -8291,9 +8900,10 @@ QubitTerm:
       fr: Migrer
       gl: Migración
       hu: Migrálás
+      id: Migrasikan
       is: Flytja
       it: Migra
-      ja: 移民
+      ja: マイグレーション
       ka: მიგრირება
       ko: 옮기다
       nl: Migreren
@@ -8303,8 +8913,9 @@ QubitTerm:
       pt_BR: Migrar
       ro: Migrare
       sl: Preseli
-      sr: Пресели
+      sr: Мигрирати
       sv: Migrera
+      uz: Ko`chirish
       vi: 'Di chuyển'
       zh: 移动
   QubitTerm_right_act_modify:
@@ -8324,6 +8935,7 @@ QubitTerm:
       fr: Modifier
       gl: Modificar
       hu: Módosítás
+      id: Ubah
       is: Breyta
       it: Modifica
       ja: 改変する
@@ -8337,6 +8949,8 @@ QubitTerm:
       ro: Modifica
       sl: Prilagodi
       sr: Измени
+      sv: Ändra
+      uz: O`zgartirish
       vi: 'Sửa đổi'
       zh: 修改
   QubitTerm_right_act_replicate:
@@ -8354,6 +8968,7 @@ QubitTerm:
       fr: Reproduire
       gl: Replicar
       hu: Replika
+      id: Mereplikasi
       is: Afrita
       it: Replica
       ja: 複製する
@@ -8365,8 +8980,9 @@ QubitTerm:
       ro: Replicare
       sl: Reproduciraj
       sr: Умножавање
-      sv: Replikera
+      sv: Återskapa
       th: ทำสำเนาใหม่
+      uz: Nusxalash
       vi: 'tái tạo'
       zh: 复制
   QubitTerm_copyright_status_under_copyright:
@@ -8388,7 +9004,7 @@ QubitTerm:
       id: 'Kewenangan Hak Cipta'
       is: 'Nýtur höfundarréttar'
       it: 'Soggetto a copyright'
-      ja: 著作権の下に
+      ja: 著作権で保護されています
       ka: 'საავტორო უფლებით'
       ko: '저작권 하에'
       pl: 'Podlega prawom autorskim'
@@ -8400,6 +9016,7 @@ QubitTerm:
       sr: 'Заштићено ауторским правом'
       sv: Upphovsrättsskyddad
       th: ดามลิขสิทธิ์
+      uz: 'Mualliflik huquqi ostida'
       vi: 'Theo bản quyền'
       zh: 受版权法的保护
   QubitTerm_copyright_status_public_domain:
@@ -8418,6 +9035,7 @@ QubitTerm:
       fr: 'Domaine public'
       gl: 'Dominio público'
       hu: 'Nyilvános tartomány'
+      id: 'Domain publik'
       it: 'Dominio pubblico'
       ja: パブリックドメイン
       ka: 'სახალხო ადგილი'
@@ -8430,8 +9048,9 @@ QubitTerm:
       ro: 'Domeniu public'
       ru: 'Всеобщее достояние'
       sl: 'Javna domena'
-      sr: 'Јавнo добро'
+      sr: 'Јавни домен'
       sv: 'Public domain'
+      uz: 'Ommaviy foydalanish &lpar;Public domain&rpar;'
       vi: 'Public domain'
       zh: 公共领域
   QubitTerm_copyright_status_unknown:
@@ -8467,6 +9086,7 @@ QubitTerm:
       sr: Непознат
       sv: Okänd
       th: ที่ไม่รู้
+      uz: 'Noma''lum'
       vi: 'Không biết'
       zh: 未知的
   QubitTerm_template_isad:
@@ -8488,6 +9108,7 @@ QubitTerm:
       gl: 'ISAD(G), 2da ed. Consello Internacional de Arquivos'
       hr: 'ISAD(G), 2 izdanje, Međunarodno arhivsko vijeće'
       hu: 'ISAD(G), 2. kiadás. Nemzetközi Levéltári Tanács'
+      id: 'ISAD(G), 2nd ed. International Council on Archives'
       is: 'ISAD(G), 2. útg. International Council on Archives'
       it: 'ISAD(G), 2nd ed. International Council on Archives'
       ka: 'ISAD(G), 2nd ed. საერთაშორისო საბჭო(ორგანიზაცია) არქივების'
@@ -8498,6 +9119,7 @@ QubitTerm:
       pt_BR: 'ISAD(G), Conselho Internacional de Arquivos, 2. ed.'
       sl: 'ISAD(G), 2. izdaja Splošnih mednarodnih standardov za arhivsko popisovanje, Mednarodni arhivski svet'
       sr: 'ISAD(G) – Општи међународни стандард за опис архивске грађе, 2. изд. Међународни савет архива'
+      sv: 'ISAD(G), 2nd ed. International Council on Archives'
       vi: 'ISAD(G), 2nd ed. International Council on Archives'
       zh: 'ISAD(G), 第二版. 国际档案理事会'
   QubitTerm_template_dc:
@@ -8518,6 +9140,7 @@ QubitTerm:
       fr: 'Dublin Core, version 1.1, Inititative de métadonnées Dublin Core'
       gl: 'Dublin Core, Versión 1.1 Iniciativa de Metadatos Dublin Core'
       hu: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
+      id: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       it: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       ka: 'დაბლინ კორ მეტამონაცემების ელემენტთა სიმრავლე, ვერსია 1.1 ის ინიციატივა'
       ko: '더블린코어(Dublin Core) 1.1판. 더블린코어 메타데이터 이니시에이티브(DCMI)'
@@ -8548,6 +9171,7 @@ QubitTerm:
       fr: 'MODS, version 3.3, Bibliothèque du Congrès'
       gl: 'MODS, Versión 3.3 Biblioteca do Congreso dos Estados Unidos'
       hu: 'MODS, 3.3.-as verzió. Egyesült Államok. Kongresszusi Könyvtár'
+      id: 'MODS, Version 3.3. U.S. Library of Congress'
       is: 'MODS, útgáfa 3.3. U.S. Library of Congres'
       it: 'MODS, Version 3.3. U.S. Library of Congress'
       ka: 'MODS, ვერსია 3.3 ა.შ.შ-ს კონგრესის ბიბლიოთეკა'
@@ -8559,6 +9183,7 @@ QubitTerm:
       ru: 'MODS, Версия 3.3. США Библиотека Конгресса'
       sl: 'MODS, verzija 3.3., ameriška kongresna knjižnica'
       sr: 'MODS, Version 3.3. U.S. Library of Congress'
+      sv: 'MODS, Version 3.3. U.S. Library of Congress'
       vi: 'MODS, Version 3.3. U.S. Library of Congress'
       zh: 'MODS, 版本 3.3. 美国国会图书馆'
   QubitTerm_template_rad:
@@ -8579,6 +9204,7 @@ QubitTerm:
       fr: 'RDDA, version de juillet 2008, Conseil canadien des archives'
       gl: 'RAD, versión Xullo 2008. Consello Canadiano de arquivos'
       hu: 'RAD, 2008 júliusi változat. Canadian Council of Archives'
+      id: 'RAD, versi Juli 2008. Canadian Council of Archives'
       is: 'RAD (júlí 2008). Canadian Council of Archives'
       it: 'RAD, July 2008 version. Canadian Council of Archives'
       ka: 'RAD 2008 წლის ვერსია'
@@ -8589,6 +9215,8 @@ QubitTerm:
       pt_BR: 'RAD, versão jul. 2008. Conselho de Arquivos Canadenses'
       sl: 'RAD, verzija iz julija 2008, Kanadski arhivski svet (Canadian Council of Archives)'
       sr: 'RAD, July 2008 version. Canadian Council of Archives'
+      sv: 'RAD, Juli 2008-version. Canadian Council of Archives'
+      uz: 'RAD, 2008 Iyul versiyasi. Kanada arxiv kengashi'
       vi: 'RAD, July 2008 version. Canadian Council of Archives'
       zh: '快速应用程序开发, 2008年七月版本. 加拿大档案理事会'
   QubitTerm_template_dacs:
@@ -8599,6 +9227,7 @@ QubitTerm:
     name:
       ca: 'DACS, 2a ed. Society of American Archivists'
       ca@valencia: 'DACS, 2nd ed. Society of American Archivists'
+      cy: 'DACS, 2nd ed. Society of American Archivists'
       de: 'DACS, 2. Aufl. Society of American Archivists'
       en: 'DACS, 2nd ed. Society of American Archivists'
       es: 'DACS, 2a ed. Society of American Archivists'
@@ -8606,6 +9235,7 @@ QubitTerm:
       fr: 'DACS, 2e éd., Société des archivistes américains'
       gl: 'DACS, 2nd ed. Society of American Archivists'
       hu: 'DACS, 2nd ed. Society of American Archivists'
+      id: 'DACS, 2nd ed. Society of American Archivists'
       is: 'DACS, 2. út. Society of American Archivists'
       it: 'DACS, 2nd ed. Society of American Archivists'
       ko: '보존 기록 기술 규칙 제 2 판. 미국 아키비스트 협회'
@@ -8615,6 +9245,7 @@ QubitTerm:
       ru: 'DACS, 2-е издание. Ассоциация Американских Архивистов'
       sl: 'Arhivsko popisovanje: vsebinski standard (DACS), 2. izdaja, Društvo ameriških arhivistov'
       sr: 'DACS, 2nd ed. Society of American Archivists'
+      sv: 'DACS, 2nd ed. Society of American Archivists'
       vi: 'DACS, 2nd ed. Society of American Archivists'
       zh: 'DACS, 第二版. 美国档案管理员协会'
   QubitTerm_thematic_areas_aboriginal:
@@ -8631,6 +9262,7 @@ QubitTerm:
       eu: 'Herrialde Aborigenak'
       fr: 'Peuples autochtones'
       hu: őslakosok
+      id: 'Masyarakat Aborigin'
       is: Frumbyggjar
       it: Aborigeni
       ko: 원주민
@@ -8638,7 +9270,9 @@ QubitTerm:
       pt-BR: 'Povos Indígenas'
       pt_BR: 'Povos Indígenas'
       sl: 'Staroselski prebivalci'
-      sr: 'Староседелачко становништво'
+      sr: Староседеоци
+      sv: Ursprungsbefolkning
+      uz: 'Mahalliy aholi'
       vi: 'Aboriginal Peoples'
       zh: 原著民
   QubitTerm_thematic_areas_agriculture:
@@ -8654,7 +9288,9 @@ QubitTerm:
       es: Agricultura
       eu: Nekazaritza
       fr: Agriculture
+      gl: Agricultura
       hu: Mezőgazdaság
+      id: Pertanian
       is: Landbúnaður
       it: Agricoltura
       ko: 농업
@@ -8665,6 +9301,7 @@ QubitTerm:
       sl: Kmetijstvo
       sr: Пољопривреда
       sv: Jordbruk
+      uz: 'Qishloq xo`jaligi'
       vi: 'nông nghiệp'
       zh: 农业
   QubitTerm_thematic_areas_arts:
@@ -8673,13 +9310,16 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'Art i Cultura'
+      cy: 'Celfyddydau a Diwylliant'
       de: 'Kunst und Kultur'
       de-CH: 'Kunst und Kultur'
       en: 'Arts and Culture'
       es: 'Arte y Cultura'
       eu: 'Artea eta Kultura'
       fr: 'Arts et culture'
+      gl: 'Artes e Cultura'
       hu: 'Művészetek és kultúra'
+      id: 'Seni dan Budaya'
       is: 'List og menning'
       it: 'Arte e cultura'
       ko: '예술 및 문화'
@@ -8689,6 +9329,8 @@ QubitTerm:
       ru: 'Искусство и Культура'
       sl: 'Umetnost in kultura'
       sr: 'Уметност и култура'
+      sv: 'Konst och Kultur'
+      uz: 'Madaniyat va san''at'
       vi: 'Nghệ thuật và Văn hóa'
       zh: 艺术和文化
   QubitTerm_thematic_areas_communication:
@@ -8697,6 +9339,7 @@ QubitTerm:
     source_culture: en
     name:
       ca: Comunicació
+      cy: Cyfathrebiad
       de: Kommunikation
       de-CH: Kommunikation
       el: Επικοινωνία
@@ -8704,7 +9347,9 @@ QubitTerm:
       es: Comunicación
       eu: Komunikazioa
       fr: Communication
+      gl: Comunicación
       hu: Kommunikáció
+      id: Komunikasi
       is: Samskipti
       it: Comunicazione
       ko: 소통
@@ -8729,7 +9374,9 @@ QubitTerm:
       es: Educación
       eu: Hezkuntza
       fr: Éducation
+      gl: Educación
       hu: Oktatás
+      id: Pendidikan
       is: Menntun
       it: Educazione
       ko: 교육
@@ -8738,6 +9385,7 @@ QubitTerm:
       pt_BR: Educação
       sl: Izobraževanje
       sr: Образовање
+      sv: Utbildning
       vi: 'Giáo dục'
       zh: 教育
   QubitTerm_thematic_areas_environment:
@@ -8754,6 +9402,7 @@ QubitTerm:
       eu: Ingurunea
       fr: Environnement
       hu: Környezet
+      id: Lingkungan
       is: Umhverfi
       it: Ambiente
       ko: 환경
@@ -8772,6 +9421,7 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'Familia / Vida domèstica'
+      cy: 'Bywyd Teuluol / Catrefol'
       de: Familie/Familienleben
       de-CH: Familie/Familienleben
       el: 'Οικογενειακή / Οικιακή ζωή'
@@ -8780,6 +9430,7 @@ QubitTerm:
       eu: 'Familia / Etxeko Bizitza'
       fr: 'Vie privée'
       hu: 'Család / Családi élet'
+      id: 'Kehidupan Keluarga / Rumah Tangga'
       is: 'Fjölskyldulíf / Heimilislif'
       it: 'Famiglia / Vita domestica'
       ko: '가족 / 가정 생활'
@@ -8788,6 +9439,7 @@ QubitTerm:
       pt_BR: 'Vida familiar / doméstica'
       sl: 'Družina / domače življenje'
       sr: 'Породица/Породични живот'
+      sv: Familj/Hemliv
       vi: 'Tác giả /Cuộc sống gia đình'
       zh: 家族/家庭生活
   QubitTerm_thematic_areas_genealogical:
@@ -8796,6 +9448,7 @@ QubitTerm:
     source_culture: en
     name:
       ca: Genealògic
+      cy: Achyddol
       de: Genealogisch
       de-CH: Genealogisch
       en: Genealogical
@@ -8803,6 +9456,7 @@ QubitTerm:
       eu: Genealogikoa
       fr: Généalogique
       hu: Leszármazási
+      id: Geneologi
       it: Genealogico
       ko: 족보의
       pt: Genealogia
@@ -8810,6 +9464,7 @@ QubitTerm:
       pt_BR: Genealógico
       sl: Rodosloven
       sr: Генеалошки
+      sv: Genealogisk
       vi: 'Phả hệ'
       zh: 宗谱的
   QubitTerm_thematic_areas_geography:
@@ -8825,7 +9480,9 @@ QubitTerm:
       es: Geografía
       eu: Geografia
       fr: Géographie
+      gl: Xeografía
       hu: Földrajz
+      id: Geografi
       it: Geografia
       ko: 지리
       pt: Geografia
@@ -8833,6 +9490,7 @@ QubitTerm:
       pt_BR: Geografia
       sl: Zemljepis
       sr: Географија
+      sv: Geografi
       vi: 'Địa lý'
       zh: 地理
   QubitTerm_thematic_areas_industry:
@@ -8847,7 +9505,9 @@ QubitTerm:
       es: 'Industria, Producción y Comercio'
       eu: 'Industria, Fabrikazioa eta Merkataritza'
       fr: 'Industries, fabrication, et commerce'
+      gl: 'Industria, Manufacturación e Comercio'
       hu: 'Ipar, Kézművesség és Kereskedelem'
+      id: 'Industri, Manufaktur dan Perdagangan'
       it: 'Industria, artigianato e commercio'
       ko: '산업, 제조업 및 상업'
       pt: 'Indústria, Manufatura e Comércio'
@@ -8872,6 +9532,7 @@ QubitTerm:
       eu: Egitekoa
       fr: Travail
       hu: Labor
+      id: Labor
       it: Lavoro
       ko: 노동
       pt: Trabalho
@@ -8879,6 +9540,7 @@ QubitTerm:
       pt_BR: Trabalho
       sl: Delo
       sr: Рад
+      sv: Arbete
       vi: 'Lao động'
       zh: 工作
   QubitTerm_thematic_areas_law:
@@ -8893,7 +9555,9 @@ QubitTerm:
       es: 'Ley y justicia'
       eu: 'Legea eta Justizia'
       fr: 'Droit et justice'
+      gl: 'Lei e Xustiza'
       hu: 'Jog és igazságszolgáltatás'
+      id: 'Hukum dan Keadilan'
       it: Legge
       ko: '법과 정의'
       pt: 'Lei e Justiça'
@@ -8901,6 +9565,7 @@ QubitTerm:
       pt_BR: 'Direito e Justiça'
       sl: 'Zakon in pravica'
       sr: 'Закон и правда'
+      sv: 'Lag och rätt'
       vi: 'Luật pháp và Tư pháp'
       zh: 法律和正义
   QubitTerm_thematic_areas_medicine:
@@ -8915,7 +9580,9 @@ QubitTerm:
       en: 'Medicine and Health'
       es: 'Medicina y salud'
       fr: 'Médecine et santé'
+      gl: 'Medicina e Saúde'
       hu: 'Orvostan és Egészség'
+      id: 'Obat dan Kesehatan'
       is: 'Læknisfræði og heilsa'
       it: 'Medicina e salute'
       ko: '의학 및 건강'
@@ -8924,7 +9591,9 @@ QubitTerm:
       pt_BR: 'Medicina e Saúde'
       ru: 'Медицина и Здоровье'
       sl: 'Medicina in delo'
-      sr: 'Медицина и здравље'
+      sr: 'Медицина и здравствена политика'
+      sv: 'Medicin och Hälsa'
+      uz: 'Sog`liqni saqlash'
       vi: 'Y tế và sức khỏe'
       zh: 药物和健康
   QubitTerm_thematic_areas_military:
@@ -8943,6 +9612,7 @@ QubitTerm:
       eu: Militarra
       fr: 'Forces armées'
       hu: hadi
+      id: Militer
       is: Hernaðarlegt
       it: 'Forze armate'
       ko: 군대
@@ -8953,6 +9623,7 @@ QubitTerm:
       sl: Vojaški
       sr: Војни
       sv: Militär
+      uz: Harbiy
       vi: 'Quân sự'
       zh: 军事的
   QubitTerm_thematic_areas_natural_resources:
@@ -8968,9 +9639,12 @@ QubitTerm:
       es: 'Recursos Naturales'
       eu: 'Baliabide Naturalak'
       fr: 'Richesses naturelles'
+      gl: 'Recursos naturais'
       hu: 'Természeti források'
+      id: 'Sumber Daya Alam'
       is: 'Náttúrulegar auðlindir'
       it: 'Risorse naturali'
+      ja: 天然資源
       ko: '천연 자원'
       pt: 'Recursos Naturais'
       pt-BR: 'Recursos Naturais'
@@ -8979,6 +9653,7 @@ QubitTerm:
       sl: 'Naravni viri'
       sr: 'Природни ресурси'
       sv: Naturresurser
+      uz: 'Tabiiy resurslar'
       vi: 'Tài nguyên tự nhiên'
       zh: 全国资源
   QubitTerm_thematic_areas_politics:
@@ -8996,6 +9671,7 @@ QubitTerm:
       eu: 'Politikak eta Gobernua'
       fr: 'Politique et gouvernement'
       hu: 'Politika és Közigazgatás'
+      id: 'Politik dan Pemerintah'
       it: 'Politica e governo'
       ko: '정치 및 정부'
       pt: 'Política e Governo'
@@ -9004,6 +9680,8 @@ QubitTerm:
       ru: 'Политики и Правительство'
       sl: 'Politika in vlada'
       sr: 'Политика и Влада'
+      sv: 'Politik och administration'
+      uz: 'Siyosat va hukumat'
       vi: 'Chính trị và Chính phủ'
       zh: 政治和政府
   QubitTerm_thematic_areas_populations:
@@ -9020,6 +9698,7 @@ QubitTerm:
       eu: Populazioak
       fr: Populations
       hu: Populációk
+      id: Populasi
       it: Popoli
       ko: 인구
       pt: População
@@ -9027,7 +9706,8 @@ QubitTerm:
       pt_BR: Populações
       ru: Население
       sl: Prebivalstvo
-      sr: Популацијe
+      sr: Становништво
+      uz: Jamiyat
       vi: 'Số dân'
       zh: 人口
   QubitTerm_thematic_areas_recreation:
@@ -9036,20 +9716,25 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'Recreació / Oci / Esports'
+      cy: 'Adloniant / Hamdden / Chwaraeon'
       de: Erholung/Vergnügen/Sport
       en: 'Recreation / Leisure / Sports'
       es: 'Recreación / Ocio / Deporte'
       eu: 'Jolasa / Aisialdia / Kirolak'
       fr: 'Loisirs et sports'
       hu: 'Kikapcsolódás / Pihenés / Sport'
+      id: 'Rekreasi / Hiburan / Olah Raga'
       is: 'Afþreying / Tómstundir / Íþróttir'
       it: 'Divertimento / Tempo libero / Sport'
+      ja: レクリエーション／レジャー／スポーツ
       ko: '레크레이션 / 여가 / 스포츠'
       pt: 'Passatempos / Lazer / Desportos'
       pt-BR: 'Recreação / Lazer / Esportes'
       pt_BR: 'Recreação / Lazer / Esportes'
       sl: 'Razvedrilo / Prosti čas / Šport'
       sr: Рекреација/Доколица/Спортови
+      sv: 'Rekreation / Fritid / Sport'
+      uz: 'Qayta tiklanish / Dam olish / Sport'
       vi: 'Giải Trí / Giải trí / Thể thao'
       zh: 娱乐/休闲/运动
   QubitTerm_thematic_areas_religion:
@@ -9066,8 +9751,11 @@ QubitTerm:
       es: Religión
       eu: Erlijioa
       fr: Religion
+      gl: Relixión
       hu: Vallás
+      id: Agama
       it: Religione
+      ja: 宗教
       ko: 종교
       pt: Religião
       pt-BR: Religião
@@ -9075,6 +9763,7 @@ QubitTerm:
       sl: Religija
       sr: Религија
       sv: Religion
+      uz: Din
       vi: 'Tôn giáo'
       zh: 宗教
   QubitTerm_thematic_areas_science:
@@ -9086,12 +9775,16 @@ QubitTerm:
       cy: 'Gwyddoniaeth a Thechnoleg'
       de: 'Wissenschaft und Technik'
       de-CH: 'Wissenschaft und Technik'
+      el: 'Επιστήμη και Τεχνολογία'
       en: 'Science and Technology'
       es: 'Ciencia y tecnología'
       eu: 'Zientzia eta teknologia'
       fr: 'Sciences et technologie'
+      gl: 'Ciencia e Tecnoloxía'
       hu: 'Tudomány és Technológia'
+      id: 'Ilmu Pengetahuan dan Teknologi'
       it: 'Scienza e tecnologia'
+      ja: 科学技術
       ko: '과학 및 기술'
       pt: 'Ciência e Tecnologia'
       pt-BR: 'Ciência e Tecnologia'
@@ -9099,6 +9792,8 @@ QubitTerm:
       ru: 'Наука и Технологии'
       sl: 'Znanost in tehnologija'
       sr: 'Наука и технологија'
+      sv: 'Vetenskap och teknologi'
+      uz: 'Fan va texnologiya'
       vi: 'Khoa học và Công nghệ'
       zh: 科技
   QubitTerm_thematic_areas_social_organizations:
@@ -9115,6 +9810,7 @@ QubitTerm:
       eu: 'Giza Erakundeak eta Jarduerak'
       fr: 'Vie sociale'
       hu: 'Társadalmi szervezetek és tevékenységek'
+      id: 'Organisasi dan Aktivitas Sosial'
       it: 'Attività e organizzazioni a carattere sociale'
       ko: '사회 단체 및 활동'
       pt: 'Organizações Sociais e Atividades'
@@ -9122,6 +9818,8 @@ QubitTerm:
       pt_BR: 'Organizações Sociais e Atividades'
       sl: 'Socialne organizacije in aktivnosti'
       sr: 'Друштвене организације и активности'
+      sv: 'Sociala organisationer och aktiviteter'
+      uz: 'Ijtimoiy tashkilotlar va faoliyatlar'
       vi: 'Tổ chức xã hội và các hoạt động'
       zh: 社会组织和活动
   QubitTerm_thematic_areas_transportation:
@@ -9130,6 +9828,7 @@ QubitTerm:
     source_culture: en
     name:
       ca: Transport
+      cy: Cludiant
       de: Transport
       de-CH: Transport
       en: Transportation
@@ -9137,6 +9836,7 @@ QubitTerm:
       eu: Garraioa
       fr: Transport
       hu: Szállítás
+      id: Transportasi
       it: Trasporti
       ko: 교통
       pt: Transportes
@@ -9145,6 +9845,7 @@ QubitTerm:
       sl: Transport
       sr: Транспорт
       sv: Transport
+      uz: 'Transportatsiya &lpar;Ko`chirish&rpar;'
       vi: 'Sự chuyên chở'
       zh: 交通
   QubitTerm_thematic_areas_travel:
@@ -9153,6 +9854,7 @@ QubitTerm:
     source_culture: en
     name:
       ca: 'Viatges i exploració'
+      cy: 'Teithio ac Archwilio'
       de: 'Reise und Entdeckung'
       de-CH: 'Reise und Entdeckung'
       en: 'Travel and Exploration'
@@ -9160,6 +9862,7 @@ QubitTerm:
       eu: 'Bidaia eta Esplorazioa'
       fr: 'Voyages et exploration'
       hu: 'Utazás és Felfedezés'
+      id: 'Perjalanan dan Eksplorasi'
       it: 'Viaggi ed esplorazioni'
       ko: '여행 및 탐험'
       pt: 'Viagens e Exploração'
@@ -9168,6 +9871,7 @@ QubitTerm:
       sl: 'Potovanje in raziskovanje'
       sr: 'Путовање и истраживање'
       sv: 'Resor och expeditioner'
+      uz: 'Sayohat va tadqiqot'
       vi: 'Du lịch và thăm dò'
       zh: 旅游和探寻
   QubitTerm_dacs_note_conservation:
@@ -9200,6 +9904,7 @@ QubitTerm:
       pt_BR: Conservação
       sl: Zaščita
       sr: Конзервација
+      sv: Konservering
       th: การอนุรักษ์
       vi: Conservation
       zh: 保存
@@ -9209,13 +9914,16 @@ QubitTerm:
     source_culture: en
     name:
       ca: Citació
+      cy: Dyfyniad
       de: Zitat
       de-CH: Zitat
       en: Citation
       es: Mención
       eu: Zitazioa
       fr: Citation
+      gl: Cita
       hu: Idézet
+      id: Kutipan
       is: Tilvitnun
       it: Citazione
       ko: 인용
@@ -9224,6 +9932,7 @@ QubitTerm:
       pt_BR: Citação
       sl: Navedek
       sr: Цитат
+      sv: Citering
       vi: 'Một trích dẫn'
       zh: 引用
   QubitTerm_dacs_note_alphanumeric_designations:
@@ -9240,6 +9949,7 @@ QubitTerm:
       eu: 'Izendapen alfanumerikoa'
       fr: 'Désignations alphanumériques'
       hu: 'Alfanumerikus jelölések'
+      id: 'Untuk alfanumerik'
       it: 'Identificazioni alfanumeriche'
       ko: '문자 및 숫자로된 명칭'
       pt: 'Designações alfanuméricas'
@@ -9247,6 +9957,8 @@ QubitTerm:
       pt_BR: 'Denominações alfanuméricas'
       sl: 'Črkovnoštevilčne označbe'
       sr: 'Словнобројчане ознаке'
+      sv: 'Alfanumeriska typer'
+      uz: 'Belgili-raqamli grafika'
       vi: 'Chỉ định chữ và số'
       zh: 字母数字名称
   QubitTerm_dacs_note_variant_title_information:
@@ -9263,13 +9975,15 @@ QubitTerm:
       eu: 'Izenburuaren informazioaren aldagaia'
       fr: 'Information à propos de la variante du titre'
       hu: 'Változó cím információ'
+      id: 'Informasi judul varian'
       it: 'Informazioni sulla variante del titolo'
       ko: '다양한 제목 정보'
       pt: 'Informação do título variável'
-      pt-BR: 'Informação de título variável'
+      pt-BR: 'Informação de variação do título'
       pt_BR: 'Informação de título variável'
       sl: 'Različni podatki o naslovu'
       sr: 'Информације о варијантном наслову'
+      uz: 'Sarlavha turlari haqida ma''lumot'
       vi: 'Thông tin nhan đề biến thể'
       zh: 其他标题信息
   QubitTerm_dacs_note_processing_information:
@@ -9280,12 +9994,13 @@ QubitTerm:
       ca: 'S''està processant informació'
       cy: 'Prosesu gwybodaeth'
       de: 'Informationen zur Erschließung'
-      de-CH: 'Informationen zur Erschließung'
+      de-CH: 'Informationen zur Erschliessung'
       en: 'Processing information'
       es: 'Procesamiento de la información'
       eu: 'Informazioa prozesatzen'
       fr: 'Information en traitement'
       hu: 'Információ feldolgozás'
+      id: 'Pengolahan informasi'
       it: 'Note sull''elaborazione'
       ko: '처리 정보'
       pt: 'Processamento de informação'
@@ -9293,6 +10008,8 @@ QubitTerm:
       pt_BR: 'Processando informação'
       sl: 'Obdelovanje informacij'
       sr: 'Информације о обради'
+      sv: Behandlingsinformation
+      uz: 'Qayta ishlash axboroti'
       vi: 'Chế biến thông tin'
       zh: 处理信息
   QubitTerm_event_type_record_keeping_activity:
@@ -9306,13 +10023,17 @@ QubitTerm:
       es: 'Actividad de mantenimiento de registros'
       eu: 'Erregistroen mantenimendurako aktibitatea'
       hu: 'Nyilvántartás készítés'
+      id: 'Aktivitas pengelolaan arsip'
       it: 'Tenuta documentale'
+      ja: レコードキーピング活動
       ko: '기록되는 동작'
       pt: 'Gestão documental'
       pt-BR: 'Atividade de manutenção de registros'
       pt_BR: 'Atividade de manutenção de registros'
       sl: 'Zapisi o nedavnih dejanjih'
       sr: 'Чување архивске грађе'
+      sv: Journalföringsaktivitet
+      uz: 'Ish yuritish faoliyati'
       vi: 'Hoạt động Record-keeping'
       zh: 记录-保存活动
   QubitTerm_genre_advertisements:
@@ -9326,12 +10047,17 @@ QubitTerm:
       en: Advertisements
       es: Anuncios
       fr: Publicités
+      gl: Avisos
       hu: Hirdetések
+      id: Advertensi
       is: Auglýsingar
+      it: Pubblicità
       pt: Anúncios
       pt-BR: Anúncios
       sl: Oglasi
       sr: Рекламе
+      sv: Annonser
+      uz: Reklama
       zh: 广告
   QubitTerm_genre_albums:
     taxonomy_id: QubitTaxonomy_genre
@@ -9345,25 +10071,31 @@ QubitTerm:
       es: Álbumes
       fr: Albums
       hu: Albumok
+      id: Album
       is: Albúm
+      it: Album
       pt: Álbuns
       pt-BR: Álbuns
       ru: Альбомы
       sl: Albumi
       sr: Албуми
       sv: Album
+      uz: Albomlar
       zh: 相册
   QubitTerm_genre_architecture:
     taxonomy_id: QubitTaxonomy_genre
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      cy: Pensaernïaeth
       de: Architektur
       de-CH: Architektur
       en: Architecture
       es: Arquitectura
       fr: Architecture
+      gl: Arquitectura
       hu: Építészet
+      id: Arsitektur
       is: Arkitektúr
       it: Architettura
       pt: Arquitectura
@@ -9372,23 +10104,28 @@ QubitTerm:
       sl: Arhitektura
       sr: Архитектура
       sv: Arkitektur
+      uz: Arxitektura
       zh: 结构
   QubitTerm_genre_blank_forms:
     taxonomy_id: QubitTaxonomy_genre
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      cy: 'Ffurflenni gwag'
       de: Leerformulare
       de-CH: Leerformulare
       en: 'Blank forms'
       es: 'Formularios en blanco'
       fr: 'Formulaires vierges'
       hu: 'Üres formák/formátumok'
+      id: 'Formulir kosong'
       is: 'Auð form'
+      it: 'Moduli non compilati'
       pt: 'Formulários em branco'
       pt-BR: 'Formulários em branco'
       sl: 'Prazna oblika'
       sr: Обрасци
+      sv: 'Tomma formulär'
       zh: 空白形式
   QubitTerm_genre_books:
     taxonomy_id: QubitTaxonomy_genre
@@ -9401,8 +10138,11 @@ QubitTerm:
       en: Books
       es: Libros
       fr: Livres
+      gl: Libros
       hu: Könyvek
+      id: Buku
       is: Bækur
+      it: Libri
       pt: Livros
       pt-BR: Livros
       ru: Книги
@@ -9417,9 +10157,13 @@ QubitTerm:
     name:
       cy: Ochrau
       de: Breitseiten
+      de-CH: Prospekte
       en: Broadsides
       es: Broadsides
+      fr: Bordées
       hu: 'Egylapos/egyoldalas nyomtatványok'
+      id: Broadsides
+      it: 'Materiale a stampa'
       pt: Bordos
       pt-BR: Panfletos
       sl: 'Reklamni letaki'
@@ -9430,15 +10174,19 @@ QubitTerm:
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      cy: 'Cartŵnau (Sylwebaeth)'
       en: 'Cartoons (Commentary)'
       es: 'Dibujos animados (Comentario)'
       fr: 'Dessins animés (commentaire)'
       hu: 'Képregények (kommentár)'
+      id: 'Kartun (Komentar)'
       is: 'Teiknimyndir (Skýringar)'
+      it: 'Fumetti (commento)'
       pt: 'Desenhos (Comentário)'
       pt-BR: 'Desenhos animados (Comentário)'
       sl: 'Karikature (komentar)'
       sr: 'Цртеж (Илустрације)'
+      sv: 'Tecknade serier (Kommentar)'
       zh: 卡通(评论)
   QubitTerm_genre_catalogs:
     taxonomy_id: QubitTaxonomy_genre
@@ -9451,7 +10199,9 @@ QubitTerm:
       en: Catalogs
       es: Catálogos
       fr: Catalogues
+      gl: Catálogos
       hu: Katalógusok
+      id: Katalog
       is: Skrár
       it: Cataloghi
       pt: Catálogos
@@ -9472,39 +10222,49 @@ QubitTerm:
       es: 'Paisajes urbanos'
       fr: 'Paysages urbains'
       hu: Városképek
+      id: Cityscapes
       is: Borgarsýn
+      it: 'Panorami urbani'
       pt: 'Paisagens urbanas'
       pt-BR: 'Paisagens urbanas'
       sl: 'Mestne pokrajine'
       sr: 'Панорама града'
+      sv: Stadsvyer
       zh: 城市景观
   QubitTerm_genre_clippings:
     taxonomy_id: QubitTaxonomy_genre
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      cy: Toriadau
+      de: Zwischenablage
       en: Clippings
       es: 'Recortes de prensa'
       fr: 'Coupures de presse'
       hu: (Újság)kivágások
+      id: Kliping
       is: Úrklippur
       it: Ritagli
       pt: Recortes
       pt-BR: 'Recortes de notícias'
       sl: 'Časopisni izrezki'
-      sr: Исечци
+      sr: 'Исечци из новина'
+      sv: Urklipp
       zh: 剪报
   QubitTerm_genre_correspondence:
     taxonomy_id: QubitTaxonomy_genre
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      cy: Gohebiaeth
       de: Korrespondenz
       de-CH: Korrespondenz
       en: Correspondence
       es: Correspondencia
       fr: Correspondance
+      gl: Correspondencia
       hu: Levelezés
+      id: Korespondensi
       it: Corrispondenza
       pt: Correspondência
       pt-BR: Correspondência
@@ -9523,7 +10283,9 @@ QubitTerm:
       en: Diaries
       es: Diarios
       fr: Agendas
+      gl: Diarios
       hu: Naplók
+      id: 'Buku harian'
       is: Dagbækur
       it: Diari
       pt: Diários
@@ -9531,19 +10293,23 @@ QubitTerm:
       ru: Дневники
       sl: Dnevniki
       sr: Дневници
+      sv: Diarier
       zh: 日记
   QubitTerm_genre_drawings:
     taxonomy_id: QubitTaxonomy_genre
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      cy: Lluniadau
       de: Zeichnungen
       de-CH: Zeichnungen
       en: Drawings
       es: Dibujos
       fr: Dessins
       hu: Rajzok
+      id: Gambar
       is: Teikningar
+      it: Disegni
       pt: Desenhos
       pt-BR: Desenhos
       sl: Risbe
@@ -9559,11 +10325,15 @@ QubitTerm:
       de: Ephemera
       en: Ephemera
       es: Efeméride
+      fr: Éphémère
       hu: Efemerek
+      id: Ephemera
+      it: 'Materiale effimero'
       pt: Efémera
       pt-BR: Efímero
       sl: 'Priložnostno gradivo'
       sr: Ефемера
+      sv: Vardagstryck
       zh: 非正式文献
   QubitTerm_genre_essays:
     taxonomy_id: QubitTaxonomy_genre
@@ -9575,47 +10345,57 @@ QubitTerm:
       de-CH: Essays
       en: Essays
       es: Ensayos
-      fr: Essaies
+      fr: Essais
       hu: Tanulmányok
+      id: Esay
       is: Ritgerðir
+      it: Saggi
       pt: Ensaios
-      pt-BR: Redação
+      pt-BR: Ensaios
       sl: Eseji
       sr: Есеји
+      sv: Uppsatser
       zh: 短文
   QubitTerm_genre_ethnography:
     taxonomy_id: QubitTaxonomy_genre
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      cy: Ethnograffeg
       de: Ethnographie
       de-CH: Ethnographie
       en: Ethnography
       es: Etnografía
       fr: Ethnographie
+      gl: Etnografía
       hu: Etnográfia
+      id: Etnografi
       is: Þjóðfræði
       it: Etnografia
       pt: Etnografia
       pt-BR: Etnografia
       sl: Etnografija
       sr: Етнографија
+      sv: Etnografi
       zh: 民族志
   QubitTerm_genre_fieldnotes:
     taxonomy_id: QubitTaxonomy_genre
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      cy: 'Nodiadau maes'
       de: 'Anmerkungen zu Feldern'
       en: Fieldnotes
       es: 'Notas de campo'
       fr: 'Notes de terrain'
       hu: 'Területre vonatkozó jegyzetek/feljegyzések'
+      id: 'Catatan field (kolom)'
+      it: 'Note di campo'
       pt: 'Anotações do campo'
       pt-BR: 'Notas de campo'
       sl: 'Zapiski s terena'
       sr: 'Теренске белешке'
-      sv: Fältnoteringar
+      sv: Fältanmärkning
       zh: 外业记录
   QubitTerm_genre_illustrations:
     taxonomy_id: QubitTaxonomy_genre
@@ -9627,29 +10407,40 @@ QubitTerm:
       de-CH: Illustrationen
       en: Illustrations
       es: Ilustraciones
+      fr: Illustrations
+      gl: Ilustracións
       hu: Ábrázolások
+      id: Ilustrasi
       is: Myndskreytingar
       it: Illustrazioni
       pt: Ilustrações
       pt-BR: Ilustrações
+      ru: Иллюстрации
       sl: Ilustracije
       sr: Илустрације
+      sv: Illustrationer
       zh: 配图
   QubitTerm_genre_interviews:
     taxonomy_id: QubitTaxonomy_genre
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      cy: Cyfweliadau
       de: Interviews
       de-CH: Interviews
+      el: Συνεντεύξεις
       en: Interviews
       es: Entrevistas
       fr: Entrevues
+      gl: Entrevistas
       hu: Interjúk
+      id: Wawancara
+      it: Interviste
       pt: Entrevistas
       pt-BR: Entrevistas
       sl: Intervjuji
       sr: Интервјуи
+      sv: Intervjuer
       zh: 访问
   QubitTerm_genre_landscapes:
     taxonomy_id: QubitTaxonomy_genre
@@ -9663,10 +10454,13 @@ QubitTerm:
       es: Paisajes
       fr: Paysages
       hu: Tájak
+      id: Lanskap
+      it: Panorami
       pt: Paisagens
       pt-BR: Paisagens
       sl: Pokrajine
       sr: Предели
+      sv: Landskap
       zh: 景观
   QubitTerm_genre_leaflets:
     taxonomy_id: QubitTaxonomy_genre
@@ -9677,11 +10471,15 @@ QubitTerm:
       de: Merkblätter
       en: Leaflets
       es: Folletos
+      fr: Dépliants
       hu: Brosúrák
+      id: Selebaran
+      it: 'Opuscoli e volantini'
       pt: Folhetos
       pt-BR: Folhetos
       sl: Letaki
       sr: Памфлети
+      sv: Folder
       zh: 传单
   QubitTerm_genre_manuscripts:
     taxonomy_id: QubitTaxonomy_genre
@@ -9695,7 +10493,9 @@ QubitTerm:
       en: Manuscripts
       es: Manuscriptos
       fr: Manuscrits
+      gl: Manuscritos
       hu: Kéziratok
+      id: Naskah
       is: Handrit
       it: Manoscritti
       pt: Manuscritos
@@ -9703,6 +10503,8 @@ QubitTerm:
       ru: Рукописи
       sl: Rokopisi
       sr: Рукописи
+      sv: Manuskript
+      uz: Qo`lyozmalar
       zh: 手稿
   QubitTerm_genre_maps:
     taxonomy_id: QubitTaxonomy_genre
@@ -9717,7 +10519,9 @@ QubitTerm:
       en: Maps
       es: Mapas
       fr: Cartes
+      gl: Mapas
       hu: Térképek
+      id: Peta
       is: Kort
       it: Mappe
       pt: Mapas
@@ -9726,6 +10530,7 @@ QubitTerm:
       sl: Zemljevidi
       sr: Карте
       sv: Kartor
+      uz: Xaritalar
       zh: 地图
   QubitTerm_genre_misc_documents:
     taxonomy_id: QubitTaxonomy_genre
@@ -9739,12 +10544,16 @@ QubitTerm:
       es: 'Documentos misceláneos'
       fr: 'Documents divers'
       hu: 'Vegyes Dokumentumok'
+      id: 'Dokumen lain-lain'
       is: 'Ýmis gögn'
+      it: 'Documenti miscellanei'
       pt: 'Documentos diversos'
       pt-BR: 'Documentos Diversos'
       ru: 'Разные Документы'
       sl: 'Različni dokumenti'
       sr: 'Мешовити документи'
+      sv: 'Diverse handlingar'
+      uz: 'Turli hujjatlar'
       zh: 多种多样的文献
   QubitTerm_genre_motion_pictures:
     taxonomy_id: QubitTaxonomy_genre
@@ -9758,11 +10567,16 @@ QubitTerm:
       es: Películas
       fr: 'Images en mouvement'
       hu: Mozgóképek
+      id: 'Gambar bergerak'
+      it: Film
+      ja: 映画
       pt: 'Imagens em movimento'
       pt-BR: 'Imagens em movimento'
       ru: Кинофильм
       sl: Filmi
       sr: Филм
+      sv: Spelfilm
+      uz: Kinofilm
       zh: 电影
   QubitTerm_genre_music:
     taxonomy_id: QubitTaxonomy_genre
@@ -9776,15 +10590,19 @@ QubitTerm:
       en: Music
       es: Música
       fr: Musique
+      gl: Música
       hu: Zene
+      id: Musik
       is: Tónlist
       it: Musica
+      ja: 音楽
       pt: Música
       pt-BR: Música
       ru: Музыка
       sl: Glasba
       sr: Музика
       sv: Musik
+      uz: Musiqa
       zh: 音乐
   QubitTerm_genre_narratives:
     taxonomy_id: QubitTaxonomy_genre
@@ -9796,14 +10614,19 @@ QubitTerm:
       de-CH: Erzählungen
       en: Narratives
       es: Narraciones
+      fr: Récits
+      gl: Narrativas
       hu: Narratívák
+      id: Naratif
       is: Frásagnir
+      it: 'Materiale di carattere narrativo'
       pt: Narrativas
       pt-BR: Narrativas
       ru: Примеры
       sl: Zgodbe
-      sr: Наративи
+      sr: Приче
       sv: Narrativ
+      uz: Hikoyalar
       zh: 叙述
   QubitTerm_genre_paintings:
     taxonomy_id: QubitTaxonomy_genre
@@ -9817,11 +10640,15 @@ QubitTerm:
       es: Pinturas
       fr: Peintures
       hu: Festmények
+      id: Lukisan
+      it: Dipinti
+      ja: 絵画
       pt: Pinturas
       pt-BR: Pinturas
       sl: Slike
       sr: Слике
       sv: Målningar
+      uz: Suratlar
       zh: 绘画
   QubitTerm_genre_pamphlets:
     taxonomy_id: QubitTaxonomy_genre
@@ -9835,12 +10662,15 @@ QubitTerm:
       es: Folleto
       fr: Dépliants
       hu: Röplapok
+      id: Pamflet
       it: Opuscoli
+      ja: パンフレット
       pt: Panfletos
       pt-BR: Panfletos
       sl: Brošure
       sr: Памфлети
       sv: Pamfletter
+      uz: 'Bukletlar &lpar;risolalar&rpar;'
       zh: 手册
   QubitTerm_genre_periodicals:
     taxonomy_id: QubitTaxonomy_genre
@@ -9853,13 +10683,16 @@ QubitTerm:
       es: 'Publicaciones periódicas'
       fr: Périodiques
       hu: Periodikák
+      id: Periodisasi
       it: Periodici
+      ja: 定期刊行物
       pt: Periódicos
       pt-BR: Periódicos
       ru: Периодика
       sl: Periodičen
       sr: 'Периодичне публикације'
       sv: Periodika
+      uz: 'Davriy nashrlar'
       zh: 期刊
   QubitTerm_genre_petitions:
     taxonomy_id: QubitTaxonomy_genre
@@ -9872,14 +10705,18 @@ QubitTerm:
       en: Petitions
       es: Peticiones
       fr: Pétitions
+      gl: Peticións
       hu: Petíciók
+      id: Petisi
       is: Beiðni
+      it: Istanze
       pt: Petições
       pt-BR: Petições
       ru: Петиции
       sl: Peticije
       sr: Петиције
       sv: Petitioner
+      uz: Arizalar
       zh: 请求
   QubitTerm_genre_photographs:
     taxonomy_id: QubitTaxonomy_genre
@@ -9893,14 +10730,18 @@ QubitTerm:
       en: Photographs
       es: Fotografía
       fr: Photographies
+      gl: Fotografías
       hu: Fényképek
+      id: Foto
       is: Ljósmyndir
       it: Fotografie
+      ja: 写真
       pt: Fotografias
       pt-BR: Fotografias
       sl: Fotografije
       sr: Фотографије
       sv: Fotografier
+      uz: Fotografiyalar
       zh: 照片
   QubitTerm_genre_physical_objects:
     taxonomy_id: QubitTaxonomy_genre
@@ -9914,13 +10755,18 @@ QubitTerm:
       en: 'Physical Objects'
       es: 'Objetos físicos'
       fr: 'Objets physiques'
+      gl: 'Obxectos físicos'
       hu: 'Fizikai objektumok'
+      id: 'Objek Fisik'
+      it: 'Oggetti materiali'
+      ja: 物理的オブジェクト
       pt: 'Objecto físico'
       pt-BR: 'Objetos Físicos'
       ru: 'Физические Объекты'
       sl: 'Fizični objekti'
       sr: 'Физички објекти'
       sv: 'Fysiska objekt'
+      uz: 'Fizik resurslar'
       zh: 物理藏品
   QubitTerm_genre_poetry:
     taxonomy_id: QubitTaxonomy_genre
@@ -9935,12 +10781,15 @@ QubitTerm:
       es: Poesía
       fr: Poésie
       hu: Költészet
+      id: Sajak
       it: Poesia
+      ja: 詩
       pt: Poesia
       pt-BR: Poesia
       sl: Poezija
       sr: Поезија
       sv: Poesi
+      uz: 'She''riyat'
       zh: 诗歌
   QubitTerm_genre_portraits:
     taxonomy_id: QubitTaxonomy_genre
@@ -9954,13 +10803,16 @@ QubitTerm:
       en: Portraits
       es: Retratos
       fr: Portraits
+      gl: Retratos
       hu: Arcképek
+      id: Potret
       it: Ritratti
       pt: Retratos
       pt-BR: Retratos
       sl: Portreti
       sr: Портрети
       sv: Porträtt
+      uz: Portretlar
       zh: 肖像
   QubitTerm_genre_postcards:
     taxonomy_id: QubitTaxonomy_genre
@@ -9974,13 +10826,18 @@ QubitTerm:
       en: Postcards
       es: 'Tarjetas Postales'
       fr: 'Cartes postales'
+      gl: Postais
       hu: Képeslapok
+      id: 'Kartu pos'
+      it: Cartoline
+      ja: はがき
       pt: Postais
-      pt-BR: Cartões
+      pt-BR: 'Cartões postais'
       ru: Открытки
       sl: Razglednice
       sr: Разгледнице
       sv: Vykort
+      uz: 'Pochta varaqasi'
       zh: 明信片
   QubitTerm_genre_posters:
     taxonomy_id: QubitTaxonomy_genre
@@ -9994,30 +10851,40 @@ QubitTerm:
       en: Posters
       es: Pósters
       fr: 'Affiches (posters)'
+      gl: Pósters
       hu: Poszterek
+      id: Poster
       it: Poster
+      ja: ポスター
       pt: Posters
       pt-BR: Pôsteres
       ru: Плакаты
       sl: Plakati
       sr: Постери
+      sv: Affischer
+      uz: Posterlar
       zh: 海报
   QubitTerm_genre_prints:
     taxonomy_id: QubitTaxonomy_genre
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      cy: Printiau
       de: Drucke
       de-CH: Drucke
+      el: Εκτυπώσεις
       en: Prints
       es: Impresiones
       fr: Affiches
       hu: Nyomtatások
+      id: Cetak
+      it: Stampe
       pt: Impressões
       pt-BR: Impressões
       sl: Natisi
-      sr: 'Штампана грађа'
+      sr: 'Штампани отисци'
       sv: 'Skriver ut'
+      uz: Nashrlar
       zh: 打印
   QubitTerm_genre_programs:
     taxonomy_id: QubitTaxonomy_genre
@@ -10030,13 +10897,17 @@ QubitTerm:
       en: Programs
       es: Programas
       fr: Programmes
+      gl: Programas
       hu: Programok
+      id: Program
       it: Programmi
       pt: Programas
       pt-BR: Programas
       ru: Программы
       sl: Programi
       sr: Програми
+      sv: Program
+      uz: Dasturlar
       zh: 项目
   QubitTerm_genre_recording_logs:
     taxonomy_id: QubitTaxonomy_genre
@@ -10049,10 +10920,14 @@ QubitTerm:
       es: 'Grabar registros'
       fr: 'Journaux d''enregistrements'
       hu: 'Nyilvántartó naplók'
+      id: 'Log perekaman'
+      it: 'Log delle registrazioni'
       pt: 'Gravar registos'
       pt-BR: 'Gravando log de dados'
       sl: 'Logaritem posnetka'
       sr: 'Евиденција снимања'
+      sv: Registreringsloggar
+      uz: 'Yozuv jurnali'
       zh: 记录日志
   QubitTerm_genre_scores:
     taxonomy_id: QubitTaxonomy_genre
@@ -10062,11 +10937,16 @@ QubitTerm:
       cy: Sgorau
       de: Partituren
       en: Scores
+      es: 'Signos musicales'
+      fr: Notes
       hu: Kották
+      id: Skor
+      it: 'Partiture musicali'
       pt: Resultados
       pt-BR: Pontuações
       sl: 'Filmske skladbe'
       sr: Партитуре
+      uz: Natijalar
       zh: 乐谱
   QubitTerm_genre_sheet_music:
     taxonomy_id: QubitTaxonomy_genre
@@ -10079,67 +10959,104 @@ QubitTerm:
       es: Partitura
       fr: 'Partition de musique'
       hu: Kotta
+      id: 'Sheet Music'
       it: Spartito
+      ja: 楽譜
       pt: 'Folha de música'
       pt-BR: Partitura
       sl: Partitura
       sr: 'Нотни лист'
+      sv: Noter
+      uz: Notalar
       zh: 散页乐谱
   QubitTerm_genre_timetables:
     taxonomy_id: QubitTaxonomy_genre
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      cy: Amserlenni
       de: Zeitpläne
       de-CH: Zeitpläne
       en: Timetables
       es: Horarios
+      fr: Calendriers
       hu: Időbeosztás
+      id: Jadwal
+      it: 'Tabelle orarie'
       pt: Horários
       pt-BR: Horários
       sl: 'Časovni načrt'
-      sr: 'Хронолошки приказ'
+      sr: Распоред
       sv: Tidtabeller
+      uz: 'Ish grafigi'
       zh: 时刻表
   QubitTerm_genre_transcriptions:
     taxonomy_id: QubitTaxonomy_genre
     source_culture: en
     parent_id: QubitTerm_110
     name:
+      cy: Trawsgrifiadau
       de: Transkriptionen
       de-CH: Transkriptionen
       en: Transcriptions
       es: Transcripciones
       fr: Transcriptions
       hu: Átiratok
+      id: Transkripsi
       it: Trascrizioni
       pt: Transcrições
       pt-BR: Transcrições
       sl: Prepisi
       sr: Преписи
       sv: Transkriberingar
+      uz: Transkripsiya
       zh: 抄录
   QubitTerm_signatures_note:
     taxonomy_id: QubitTaxonomy_21
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      cy: 'Nodyn arwyddiannau'
       en: 'Signatures note'
       es: 'Nota de firma'
+      fr: 'Note sur la signature'
+      hu: 'Aláírások jegyzet'
+      id: 'Catatan tanda tangan'
+      it: 'Nota sulle firme'
+      pt: 'Nota de estatuto'
+      pt-BR: 'Nota de assinaturas'
       sr: 'Напомена о сигнатури'
+      sv: Signaturanmärkning
+      uz: 'Imzo izohi'
   QubitTerm_cast_note:
     taxonomy_id: QubitTaxonomy_21
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      cy: 'Bwrw nodyn'
       en: 'Cast note'
+      fr: 'Note de l''équipe'
+      hu: 'Szereposztás jegyzet'
+      id: 'Memberi catatan'
+      it: 'Note sul cast'
+      pt: 'Nota de lançamento'
+      pt-BR: 'Nota da equipe'
+      sr: 'Напомена о извођачима'
   QubitTerm_credits_note:
     taxonomy_id: QubitTaxonomy_21
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      cy: 'Nodyn cydnabyddiaeth'
       en: 'Credits note'
       es: 'Nota de créditos'
+      fr: 'Note sur les crédits'
+      hu: 'Szerzőkre, készítőkre vonatkozó jegyzet'
+      id: 'Catatan mengenai kredit'
+      it: Credits
+      pt: 'Notas do arquivista'
+      pt-BR: 'Nota de créditos'
+      sr: 'Напомена о сарадницима'
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111
@@ -10173,6 +11090,7 @@ QubitNote:
       ru: Создатель
       sl: Ustvaril
       sr: 'Стваралац архивске грађе'
+      sv: Arkivbildare
       th: ผู้ผลิตเอกสาร
       vi: 'người sáng tạo'
       zh: 创建者
@@ -10230,8 +11148,9 @@ QubitNote:
       pt_BR: Editor
       sl: Založnik
       sr: Издавач
-      sv: Utgivare
+      sv: 'Förteckningen publicerad av'
       th: สำนักพิมพ์
+      uz: Nashriyot
       vi: 'Nhà xuất bản'
       zh: 出版社
   publicationSource:
@@ -10271,6 +11190,7 @@ QubitNote:
       pt_BR: Colaborador
       sl: Prispeval
       sr: Сарадник
+      sv: 'Användare med redigeringsbehörighet'
       th: ผู้บริจาค
       vi: 'Người góp phần'
       zh: 贡献者

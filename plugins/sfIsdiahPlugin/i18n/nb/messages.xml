@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="nb" datatype="plaintext" original="messages" date="2017-08-25T18:54:37Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Untitled</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Contact information%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Add new archival institution</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Edit %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>See ISDIAH 5.2 for contact area information and examples.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Enter the digital latitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. 49.459044</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Enter the digital longitude of the institution's physical location (rather than degrees, minutes and seconds), e.g. -104.296984</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Edit %1% - ISDIAH</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Identity area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Authorized form of name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>This is a mandatory element</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired from the drop-down menu; these values are drawn from the Repository Types taxonomy.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Contact area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Description area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>"Identify the geographical area the institution belongs to. Record any other relevant information about the cultural context of the institution." (ISDIAH 5.3.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Geographical and cultural context</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the institution, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISDIAH 5.3.3)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Mandates/Sources of authority</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>"Describe, in narrative form or using organisational charts, the current administrative structure of the institution." (ISDIAH 5.3.4)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Administrative structure</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>"Record information about the records management and collecting policies of the institution. Define the scope and nature of material which the institution accessions. Indicate whether the repository seeks to acquire archival materials by transfer, gift, purchase and/or loan. If the policy includes active survey and/or rescue work, this might be spelt out." (ISDIAH 5.3.5)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Records management and collecting policies</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>"Record information on the building(s) of the institution (general and architectural characteristics of the building, capacity of storage areas, etc). Where possible, provide information which can be used for generating statistics." (ISDIAH 5.3.6)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>"Record a short description of the holdings of the institution, describing how and when they were formed. Provide information on volume of holdings, media formats, thematic coverage, etc." (ISDIAH 5.3.7)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Archival and other holdings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>"Record the title and other pertinent details of the published and/or unpublished finding aids and guides prepared by the institution and of any other relevant publications. Use ISO 690 Information and documentation – Bibliographic references and other national or international cataloguing rules." (ISDIAH 5.3.8)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Finding aids, guides and publications</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Access area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>"Record the opening hours of the institution and annual, seasonal and public holidays, and any other planned closures. Record times associated with the availability and/or delivery of services (for example, exhibition spaces, reference services, etc.)." (ISDIAH 5.4.1)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Conditions and requirements</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>"Record information about travelling to the institution and details for users with disabilities, including building features, specialised equipment or tools, parking or lifts." (ISDIAH 5.4.3)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Accessibility</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Services area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>"Record information about the onsite services provided by the institution such as languages spoken by staff, research and consultation rooms, enquiry services, internal libraries, map, microfiches, audio-visual, computer rooms, etc. Record as well any relevant information about research services, such as research undertaken by the institution, and the fee charge if applicable." (ISDIAH 5.5.1)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>"Record information about reproduction services available to the public (microfilms, photocopies, photographs, digitised copies). Specify general conditions and restrictions to the services, including applicable fees and publication rules." (ISDIAH 5.5.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>"Record information about spaces available for public use (permanent or temporary exhibitions, free or charged internet connection, cash machines, cafeterias, restaurants, shops, etc.)." (ISDIAH 5.5.3)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Public areas</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Control area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISIAH 5.6.1)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Description identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>"Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard." (ISDIAH 5.6.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Institution identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>"Record the names, and, where useful, the editions or publication dates of the conventions or rules applied. Specify, separately, which rules have been applied for creating the Authorised form(s) of name. Include reference to any system(s) of dating used to identify dates in this description (e.g. ISO 8601)." (ISDIAH 5.6.3)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Rules and/or conventions used</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDIAH 5.6.4). Select Final, Revised or Draft from the drop-down menu.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal descriptions are those that consist only of the three essential elements of an ISIAH compliant description (see 4.7), while full records are those that convey information for all relevant ISDIAH elements of description." (ISDIAH 5.6.5)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>"Record the date the description was created and the dates of any revisions to the description." (ISDIAH 5.6.6)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Dates of creation, revision and deletion</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Last updated</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>"Record the sources consulted in establishing the description of the institution." (ISDIAH 5.6.8)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Sources</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Thematic area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Search for an existing term in the Thematic Areas taxonomy by typing the first few characters of the term name. This should be used to identify major collecting areas.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Geographic subregion</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Search for an existing term in the Geographic Subregion taxonomy by typing the first few characters of the term name.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Cancel</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Save</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Create</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Clipboard</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Primary contact</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Website</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Email</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Edit identity area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Parallel form(s) of name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Other form(s) of name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Edit contact area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Edit description area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>History</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Buildings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Holdings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Edit access area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Opening times</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Access conditions and requirements</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Edit services area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Research services</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Reproduction services</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Edit control area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Status</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Level of detail</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Language(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Script(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Maintenance notes</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Edit access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Access Points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>Edit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>Delete</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Add new</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Add description</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Edit theme</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

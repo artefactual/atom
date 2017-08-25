@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2015-10-16T04:43:25Z" product-name="messages">
+  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2017-08-25T18:50:40Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -182,7 +182,7 @@
       </trans-unit>
       <trans-unit id="45">
         <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
-        <target/>
+        <target>"Írjon át egy felelősségnyilatkozatot, amely a leírt egység egy vagy több kiadására, de nem minden kiadásra vonatkozik, közvetlenül a kiadási nyilatkozat után, amennyiben olyan létezik. (RAD 1.2.C1) "Az első kiadás leírásánál adjon meg minden felelősségnyilatkozatot a címben és a felelősségnyilatkozat mezőben. (RAD 1.2C2)</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Statement of responsibility relating to the edition</source>
@@ -202,7 +202,7 @@
       </trans-unit>
       <trans-unit id="50">
         <source>"Give the statement of projection if it is found on the prescribed source(s) of information." (RAD 5.3C1)</source>
-        <target/>
+        <target>"Adja meg a vetület ismertetését, amennyiben az megtalálható az információ leírt forrásában." (RAD 5.3C1)</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Statement of projection (cartographic)</source>
@@ -266,7 +266,7 @@
       </trans-unit>
       <trans-unit id="66">
         <source>"Transcribe parallel titles of a publisher's series as instructed in 1.1D." (RAD 1.6C1)</source>
-        <target/>
+        <target>"Írja át a kiadói sorozat párhuzamos címeit, az 1.1D alatt található utasítások szerint." (RAD 1.6C1)</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Parallel title of publisher's series</source>
@@ -290,7 +290,7 @@
       </trans-unit>
       <trans-unit id="72">
         <source>"Give the numbering of the item within a publisher's series in the terms given in the item." (RAD 1.6F1)</source>
-        <target/>
+        <target>"Adja meg az egység számozását a kiadói sorozaton belül, az egységben megadott terminológia szerint." (RAD 1.6F1)</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Numbering within publisher's series</source>
@@ -390,7 +390,7 @@
       </trans-unit>
       <trans-unit id="97">
         <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
-        <target/>
+        <target>"Adjon információt bármely korlátozásról, amely érinti a leírt egység (vagy annak egy része) elérését." (RAD 1.8B16a)</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Restrictions on access</source>

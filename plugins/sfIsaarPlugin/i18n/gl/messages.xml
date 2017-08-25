@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2014-09-19T13:20:15Z" product-name="messages">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2017-08-25T18:53:02Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -23,10 +23,6 @@
       <trans-unit id="5">
         <source>%1%Dates of existence%2% - This is a %3%mandatory%4% element.</source>
         <target>%1%Datas de existencia%2% - Este éche un elemento %3%obrigatorio%4%.</target>
-      </trans-unit>
-      <trans-unit id="6">
-        <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target>%1%Identificador de descrición%2% - Este éche un elemento %3%obrigatorio%4%.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>%1%Type of entity%2% - This is a %3%mandatory%4% element.</source>
@@ -187,10 +183,6 @@
       <trans-unit id="48">
         <source>Edit control area</source>
         <target>Editar área de control</target>
-      </trans-unit>
-      <trans-unit id="49">
-        <source>Description identifier</source>
-        <target>Identificador da descrición</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Institution identifier</source>
@@ -406,7 +398,7 @@
       </trans-unit>
       <trans-unit id="105">
         <source>Last updated</source>
-        <target/>
+        <target>Última actualización</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Category</source>
@@ -414,7 +406,7 @@
       </trans-unit>
       <trans-unit id="107">
         <source>Relationship type</source>
-        <target/>
+        <target>Tipo de relación</target>
       </trans-unit>
       <trans-unit id="108">
         <source>"Select a descriptive term from the drop-down menu to clarify the type of relationship between these two actors."</source>
@@ -422,6 +414,46 @@
       </trans-unit>
       <trans-unit id="109">
         <source>Type of relationship</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>%1%Authority record identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Authority record identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Maintaining repository</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>Clipboard</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>Access points area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Edit access points area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="117">
+        <source>Occupations</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>Note</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="119">
+        <source>Maintained by</source>
         <target/>
       </trans-unit>
     </body>

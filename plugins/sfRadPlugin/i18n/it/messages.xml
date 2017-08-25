@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2015-10-16T04:43:22Z" product-name="messages">
+  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2017-08-25T18:50:41Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -646,19 +646,19 @@
       </trans-unit>
       <trans-unit id="196">
         <source>Administrative history / Biographical sketch</source>
-        <target/>
+        <target>Quadro biografico / Storia amministrativa</target>
       </trans-unit>
       <trans-unit id="197">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
+        <target>Identificatore: Inserire un codice non ambiguo per identificare univocamente la descrizione. Livello: Selezionare un livello di descrizione dal menu a tendina. Vedere RAD 1.0A per le regole e le convenzioni relative alla selezione del livello di descrizione. Titolo: Inserire il titolo proprio, trascritto o attribuito. (RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="198">
         <source>Genre access points</source>
-        <target/>
+        <target>Punti d'accesso relativi al genere</target>
       </trans-unit>
       <trans-unit id="199">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
-        <target/>
+        <target>Cercare un termine esistente nella tassonomia del genere inserendo i primi caratteri del termine. In alternativa, inserire un nuovo termine per creare e collegare un nuovo termine di genere.</target>
       </trans-unit>
       <trans-unit id="200">
         <source>General note</source>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2015-12-18T08:52:13Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2017-08-25T18:50:44Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,31 +10,31 @@
       </trans-unit>
       <trans-unit id="2">
         <source>To make your password stronger:</source>
-        <target/>
+        <target>För att göra ditt lösenord starkare:</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Make it at least six characters</source>
-        <target/>
+        <target>Ange minst sex tecken</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Add lowercase letters</source>
-        <target/>
+        <target>Lägg till gemener</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Add uppercase letters</source>
-        <target/>
+        <target>Lägg till versaler</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Add numbers</source>
-        <target/>
+        <target>Lägg till nummer</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Add punctuation</source>
-        <target/>
+        <target>Lägg till skiljetecken</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Make it different from your username</source>
-        <target/>
+        <target>Gör det annorlunda från ditt användarnamn</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Yes</source>
@@ -46,15 +46,15 @@
       </trans-unit>
       <trans-unit id="11">
         <source>Passwords match:</source>
-        <target/>
+        <target>Lösenord matchar</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Access to this record is restricted because it contains personal or confidential information. Please contact the Reference Archivist for more information on accessing this record.</source>
-        <target/>
+        <target>Åtkomst till handlingen är begränsad därför att den innehåller känslig information. Var god kontakta jourhavande arkivarie för mer information om åtkomst till handlingen.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>This record has not yet been reviewed for personal or confidential information. Please contact the Reference Archivist to request access and initiate an access review.</source>
-        <target/>
+        <target>Denna handling har inte blivit granskad ang. personuppgifter eller hemlig information. Var god kontakta jourhavande arkivarie för att be om tillgång och påbörja en åtkomstgranskning.</target>
       </trans-unit>
     </body>
   </file>

@@ -1,25 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="tn" datatype="plaintext" original="messages" date="2015-08-27T12:09:21Z" product-name="messages">
+  <file source-language="en" target-language="tn" datatype="plaintext" original="messages" date="2017-08-25T18:51:49Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit id="1">
-        <source>Import completed</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="2">
-        <source>%1% terms imported in %2%s</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="3">
-        <source>View %1%</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="4">
-        <source>Import more %1%</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="5">
         <source>SKOS import</source>
         <target/>
@@ -30,6 +14,82 @@
       </trans-unit>
       <trans-unit id="7">
         <source>Import</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>The current term does not belong to the taxonomy chosen.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>You must select a source to continue.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Something wrong happened! Please check out the logs. Error: %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Import file initiated. Check %1%job %2%%3% to view the status of the import.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Import options</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Select source</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Or a remote resource</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Taxonomy with ID %1% could not be found</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Term with ID %1% could not be found</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Malformed URI.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Type of scheme: %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Taxonomy: %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Term ID: %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Unsupported scheme!</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>The graph is empty.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>The graph contains %1% concepts.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Unexpected concept, type received: %1%.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>The following languages are used in the dataset imported but not supported by AtoM: %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>A total of %1% concepts have been processed so far.</source>
         <target/>
       </trans-unit>
     </body>

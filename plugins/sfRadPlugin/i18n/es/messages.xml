@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2015-10-16T04:43:31Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2017-08-25T18:50:44Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -650,7 +650,7 @@
       </trans-unit>
       <trans-unit id="185">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
+        <target>Identificador: Introduzca un código inequívoco utilizado para identificar de forma única la descripción. Nivel: Seleccionar un nivel de descripción del menú desplegable. Ver RAD 1.0A reglas y convenciones sobre la selección de los niveles de descripción. Título: Introduzca el título propiamente dicho, ya sea transcrito o suministrado. (RAD 1.1B)</target>
       </trans-unit>
       <trans-unit id="186">
         <source>Genre access points</source>

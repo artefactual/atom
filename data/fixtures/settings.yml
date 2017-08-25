@@ -86,7 +86,7 @@ QubitSetting:
       eu: 'Artxibo deskribapena'
       fr: 'Description archivistique'
       gl: 'Descrición arquivística'
-      hu: 'Levéltári leírás'
+      hu: Iratleírás
       id: 'Deskripsi Arsip'
       is: 'Lýsandi samantekt'
       it: 'Descrizione archivistica'
@@ -104,6 +104,7 @@ QubitSetting:
       sr: 'Архивски опис'
       sv: Arkivbeskrivning
       th: คำอธิบายจดหมายเหตุ
+      uz: 'Arxiv tavsifi'
       vi: 'Mô tả lưu trữ'
       zh: 文献著录
   QubitSetting_12:
@@ -122,7 +123,7 @@ QubitSetting:
       en: 'Authority record'
       es: 'Registro de autoridad'
       eu: 'Autoretza erregistroa'
-      fr: 'Fichier d''autorité'
+      fr: 'Notice d''autorité'
       gl: 'Rexistro de autoridade'
       hu: Iratképző
       id: 'Pencipta Arsip'
@@ -138,7 +139,9 @@ QubitSetting:
       pt_BR: 'Registro de autoridade'
       sl: 'Zapis o ustvarjalcu'
       sr: 'Нормативни запис'
+      sv: Auktoritetspost
       th: รายการควบคุม
+      uz: 'Avtoritet yozuv'
       vi: 'Authority record'
       zh: 规范记录
   QubitSetting_13:
@@ -174,6 +177,7 @@ QubitSetting:
       ru: Создатель
       sl: Ustvaril
       sr: 'Стваралац архивске грађе'
+      sv: Arkivbildare
       th: ผู้ผลิตเอกสาร
       vi: 'người sáng tạo'
       zh: 创建者
@@ -194,7 +198,7 @@ QubitSetting:
       es: 'Institución archivística'
       eu: 'Artxibo erakundea'
       fa: منبع
-      fr: 'Institution de conservation'
+      fr: 'Service d''archives'
       gl: 'Institución arquivística'
       hu: Levéltár
       id: 'Institusi Arsip'
@@ -206,13 +210,14 @@ QubitSetting:
       nl: Archiefinstelling
       pl: 'Instytucja archiwalna'
       pt: 'Instituição de arquivo'
-      pt-BR: 'Instituição arquivística'
+      pt-BR: 'Entidade custodiadora'
       pt_BR: 'Instituição arquivística'
       ru: 'Архивное учреждение'
       sl: 'Arhivska ustanova'
       sr: 'Архивска институција'
       sv: Arkivinstitution
       th: สถาบันจดหมายเหตุ
+      uz: 'Arxiv muassasasi'
       vi: 'Tổ chức lưu trữ'
       zh: 文献机构
   QubitSetting_15:
@@ -231,7 +236,7 @@ QubitSetting:
       en: Function
       es: Función
       eu: Funtzioa
-      fr: Fonctions
+      fr: Fonction
       gl: Función
       hu: Funkció
       id: Fungsi
@@ -248,6 +253,7 @@ QubitSetting:
       ro: Functia
       sl: Funkcija
       sr: Функција
+      sv: Funktion
       th: ฟังก์ชั่น
       vi: 'Các chức năng'
       zh: 功能
@@ -284,6 +290,7 @@ QubitSetting:
       sr: Термин
       sv: Term
       th: คำศัพท์
+      uz: Atama
       vi: Hạn
       zh: 术语
   QubitSetting_17:
@@ -318,8 +325,10 @@ QubitSetting:
       pt_BR: Assunto
       ru: Тема
       sl: Tematika
-      sr: Предмет
+      sr: Тема
+      sv: Ämnesord
       th: หัวข้อ
+      uz: Mavzu
       vi: Tượng
       zh: 主题
   QubitSetting_18:
@@ -338,9 +347,10 @@ QubitSetting:
       en: Fonds
       es: Fondo
       eu: Fondoak
-      fr: collection
+      fr: Fonds
       gl: Fondos
       hu: Fond
+      id: Fonds
       is: Safn
       it: Fondo
       ja: フォンド
@@ -354,7 +364,8 @@ QubitSetting:
       ro: Fonduri
       ru: Фонды
       sl: Fondi
-      sr: Фонд
+      sr: Фондови
+      sv: Arkiv
       th: เอกสารระดับกลุ่ม
       vi: 'Các phông'
       zh: 宗卷
@@ -377,6 +388,7 @@ QubitSetting:
       fr: Fonds
       gl: Fondos
       hu: Állomány
+      id: Khazanah
       is: Skjalamagn
       it: Patrimoni
       ja: 所蔵
@@ -388,7 +400,7 @@ QubitSetting:
       pt-BR: Acervo
       pt_BR: Acervo
       sl: 'Arhivsko gradivo'
-      sr: Збирка
+      sr: Колекције
       sv: Bestånd
       th: สถานที่เก็บเอกสาร
       vi: 'Ngắn về'
@@ -429,6 +441,7 @@ QubitSetting:
       sr: Место
       sv: Plats
       th: จัด
+      uz: Joy
       vi: 'địa điểm'
       zh: 地点
   QubitSetting_21:
@@ -466,7 +479,9 @@ QubitSetting:
       ru: Имя
       sl: Ime
       sr: Назив/Име
+      sv: Namn
       th: ชื่อ
+      uz: Nomi
       vi: Tên
       zh: 名称
   QubitSetting_22:
@@ -485,13 +500,13 @@ QubitSetting:
       en: 'Digital object'
       es: 'Objeto digital'
       eu: 'Objektu digitala'
-      fr: 'Objet numérique'
+      fr: 'Document numérique'
       gl: 'Obxecto dixital'
       hu: 'Digitális objektum'
       id: 'Objek Digital'
       is: 'Stafræn eining'
       it: 'Oggetto digitale'
-      ja: ディジタルオブジェクト
+      ja: デジタルオブジェクト
       ka: 'ციფრული ობიექტი'
       ko: 디지털
       nl: 'Digitaal object'
@@ -504,6 +519,7 @@ QubitSetting:
       sr: 'Дигитални објект'
       sv: 'Digitalt objekt'
       th: วัตถุดิจิตอล
+      uz: 'Raqamli resurs'
       vi: 'Digital object'
       zh: 数字对象
   QubitSetting_23:
@@ -517,7 +533,7 @@ QubitSetting:
       ca@valencia: 'Unitat de magatzematge'
       cy: 'Storfa ffisegol'
       de: Aufbewahrung
-      de-CH: Aufbewahrung
+      de-CH: Standort
       el: 'Χώρος Αποθήκευσης'
       en: 'Physical storage'
       es: 'Unidad de almacenaje'
@@ -527,7 +543,7 @@ QubitSetting:
       hu: Tárolóeszköz
       id: 'Penyimpanan Fisik'
       it: Deposito
-      ja: 物理的記憶
+      ja: 物理的な保管場所
       ka: 'ფიზიკური საცავი'
       ko: '물리적 보관장소'
       nl: 'Fysieke opslag'
@@ -537,8 +553,9 @@ QubitSetting:
       pt_BR: 'Depósito físico'
       sl: 'Fizična hramba'
       sr: Депо
-      sv: 'Fysisk lagring'
+      sv: 'Fysisk förvaringsplats'
       th: การเก็บเอกสารทางกายภาพ
+      uz: 'Fizik saqlov'
       vi: 'vật lý'
       zh: 物理储存
   QubitSetting_24:
@@ -561,6 +578,7 @@ QubitSetting:
       fr: 'Type de support'
       gl: 'Tipo de medio'
       hu: 'Média típus'
+      id: 'Jenis media'
       is: 'Gerð miðla'
       it: 'Tipo di supporto'
       ja: メディア種別
@@ -575,8 +593,9 @@ QubitSetting:
       ru: 'Тип носителя'
       sl: 'Vrsta medija'
       sr: 'Врста медија'
-      sv: Mediatyper
+      sv: Mediatyp
       th: ประเภทสื่อ
+      uz: 'Resurs turi'
       vi: 'Loại truyền thông'
       zh: 媒体类型
   QubitSetting_25:
@@ -598,6 +617,7 @@ QubitSetting:
       fr: 'Type de document'
       gl: 'Tipo de material'
       hu: 'Anyag típus'
+      id: 'Jenis bahan arsip'
       is: Efnisform
       it: 'Tipo di materiale'
       ja: 資料種別
@@ -611,7 +631,9 @@ QubitSetting:
       ru: 'Тип материала'
       sl: 'Vrsta gradiva'
       sr: 'Врста грађе'
+      sv: Materialtyp
       th: ประเภทเอกสาร
+      uz: 'Material turi'
       vi: 'Loại tài liệu'
       zh: 资料类型
   QubitSetting_facets_title:
@@ -633,6 +655,7 @@ QubitSetting:
       fr: 'Affiner les résultats par :'
       gl: 'Refinar os resultados por:'
       hu: 'Találatok szűkítése:'
+      id: 'Hasil filter berdasarkan:'
       is: 'Þrengja niðurstöður:'
       it: 'Restringi i risultati per:'
       ko: '귀하의 검색 결과를 다음과 같이 좁히시오.:'
@@ -642,6 +665,7 @@ QubitSetting:
       sl: 'Omejite rezultate:'
       sr: 'Сузи резултате по:'
       sv: 'Avgränsa sökresultatet:'
+      uz: 'Natijalarni saralash:'
       vi: 'Thu hẹp kết quả của bạn bằng cách'
       zh: '通过 减少结果'
   QubitSetting_genre:
@@ -651,17 +675,22 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      cy: Genre
       de: Genre
       de-CH: Genre
       en: Genre
       es: Tipo
+      fr: Genre
+      gl: Xénero
       hu: Műfaj
+      id: Genre
+      it: Genere
       pt: Género
       pt-BR: Gênero
       ru: Жанр
       sl: Zvrst
       sr: Жанр
-      sv: Genre
+      sv: Handlingstyp
       zh: 体裁
   QubitSetting_globalSearch:
     name: globalSearch
@@ -670,7 +699,39 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: Cerca
+      ca@valencia: Cercar
+      cs: Hledat
+      cy: Chwilio
+      de: Suche
+      de-CH: Suche
+      el: Αναζήτηση
       en: Search
+      es: Búsqueda
+      eu: Bilatu
+      fa: جستجو
+      fr: Rechercher
+      gl: Búsqueda
+      hu: Keresés
+      id: Pencarian
+      is: Leit
+      it: Cerca
+      ja: 検索
+      ka: ძებნა
+      ko: 검색
+      nl: zoeken
+      pl: Szukaj
+      pt: Pesquisar
+      pt-BR: Pesquisar
+      ro: Cautati
+      ru: Поиск
+      sl: Išči
+      sr: Претражи
+      sv: Sök
+      th: ค้นหา
+      uz: Qidiruv
+      vi: 'Tìm kiếm'
+      zh: 搜索
   QubitSetting_institutionSearchHoldings:
     name: institutionSearchHoldings
     scope: ui_label
@@ -678,7 +739,17 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      en: Search our collection
+      cy: 'Chwiliwch ein casgliad'
+      de: 'Durchsuche: unsere Sammlungen'
+      de-CH: 'Unsere Bestände durchsuchen'
+      en: 'Search our collection'
+      fr: 'Chercher dans nos collections'
+      hu: 'Keresés a gyűjteményünkben'
+      it: 'Cerca la'
+      pt: 'Pesquise na nossa colecção'
+      pt-BR: 'Busque nossa coleção'
+      sr: 'Претражи наше збирке'
+      sv: 'Sök i vår samling'
   QubitSetting_26:
     name: en
     scope: i18n_languages
@@ -1095,7 +1166,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      en: %Y-%m-%d/#i
+      en: '%Y-%m-%d/#i'
   Qubit_Settings_identifierCounter:
     name: identifier_counter
     editable: 1

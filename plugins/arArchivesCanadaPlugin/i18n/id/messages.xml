@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2013-08-22T16:46:44Z" product-name="messages">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2017-08-25T18:50:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Browse by</source>
-        <target/>
+        <target>Ditelusur oleh</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Search %1%</source>
-        <target/>
+        <target>Pencarian %1%</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Search</source>
@@ -18,19 +18,19 @@
       </trans-unit>
       <trans-unit id="10">
         <source>Advanced search</source>
-        <target/>
+        <target>Pencarian lengkap</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Global search</source>
-        <target/>
+        <target>Pencarian menyeluruh</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Search &lt;span&gt;%1%&lt;/span&gt;</source>
-        <target/>
+        <target>Pencarian &lt;span&gt;%1%&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Virtual exhibits</source>
-        <target/>
+        <target>Pameran virtual</target>
       </trans-unit>
     </body>
   </file>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2016-04-19T21:24:29Z" product-name="messages">
+  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2017-08-25T18:50:40Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -474,7 +474,7 @@
       </trans-unit>
       <trans-unit id="118">
         <source>Genre access points</source>
-        <target/>
+        <target>Приступна тачка жанра</target>
       </trans-unit>
     </body>
   </file>

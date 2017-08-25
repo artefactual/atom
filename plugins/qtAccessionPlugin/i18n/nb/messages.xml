@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="nb" datatype="plaintext" original="messages" date="2017-08-25T18:54:37Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Untitled</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Authorized form of name - This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Add new donor</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Edit %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Are you sure you want to delete %1%?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Cancel</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Delete</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Edit donor</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Identity area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Authorized form of name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Contact area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Save</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Create</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>View donor</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Accession area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Related accession(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Edit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Add new</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>List donor</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Search donor</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Browse donor</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Search %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Alphabetic</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Most recent</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Updated</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Identifier - This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Date of acquisition - This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Scope - This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Description - This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Add new deaccession record</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Edit deaccession record</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Deaccession area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Deaccession number</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Scope</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Date of deaccession</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Date</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Identify what materials are being deaccessioned.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Description</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>The number of units as a whole number and the measurement of the records to be deaccessioned.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Provide a reason why the records are being deaccessioned.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>View deaccession record</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Extent</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Reason</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Acquisition date - This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Source of acquisition - This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Location information - This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Add new accession record</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Identifier available.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Identifier unavailable.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Accession number</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Title</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Acquisition date</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Relevance</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Name of creator</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Administrative history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>It has %1% deaccessions that will also be deleted:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>It has %1% accruals. They will not be deleted.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Related donors</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Related donor record</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Primary contact information</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Main</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Physical location</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Other details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>URL</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Region/province</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Country</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Edit accession record</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>You are creating an accrual to accession %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Basic info</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Loading...</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Server error while checking identifer availability.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Immediate source of acquisition</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>A description of the physical location in the repository where the accession can be found.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Location information</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Donor/Transferring body area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Administrative area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Term describing the type of accession transaction and referring to the way in which the accession was acquired.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Select the type of resource represented in the accession, either public or private.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>The title of the accession, usually the creator name and term describing the format of the accession materials.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Creators</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>The name of the creator of the accession or the name of the department that created the accession.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Information on the history of the accession. When the accession is acquired directly from the creator, do not record an archival history but record the information as the Immediate Source of Acquisition.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Archival/Custodial history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>A description of the intellectual content and document types represented in the accession.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Appraisal, destruction and scheduling</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Physical condition</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>The number of units as a whole number and the measurement of the received volume of records in the accession.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>An indicator of the accessioning process.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>Indicates the priority the repository assigns to completing the processing of the accession.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>%1% area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>View accession record</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Edit donor/transferring body area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Related donor</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Edit administrative area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Acquisition type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Resource type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Date(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Scope and content</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Received extent units</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Processing status</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>Processing priority</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>Processing notes</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Accruals</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="117">
+        <source>Accrual to</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>Rights area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="119">
+        <source>Edit rights area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>Deaccession</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>Add accrual</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="122">
+        <source>Create %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>More</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>Create new rights</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="125">
+        <source>Browse accession</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="126">
+        <source>This identifer is already in use.</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

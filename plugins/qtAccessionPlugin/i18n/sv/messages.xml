@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2016-04-19T21:21:00Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2017-08-25T18:56:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Utan titel</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Authorized form of name - This is a mandatory element.</source>
@@ -22,11 +22,11 @@
       </trans-unit>
       <trans-unit id="5">
         <source>Edit donor</source>
-        <target/>
+        <target>Redigera donator</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Identity area</source>
-        <target/>
+        <target>Identitet</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Authorized form of name</source>
@@ -38,7 +38,7 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Contact area</source>
-        <target/>
+        <target>Kontakt</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Cancel</source>
@@ -54,7 +54,7 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Are you sure you want to delete %1%?</source>
-        <target/>
+        <target>Är du säker på att du vill radera %1%?</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Delete</source>
@@ -66,7 +66,7 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Accession area</source>
-        <target/>
+        <target>Accession</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Related accession(s)</source>
@@ -82,7 +82,7 @@
       </trans-unit>
       <trans-unit id="20">
         <source>List donor</source>
-        <target/>
+        <target>Lista donator</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Search donor</source>
@@ -90,11 +90,11 @@
       </trans-unit>
       <trans-unit id="22">
         <source>Name</source>
-        <target/>
+        <target>Namn</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Browse donor</source>
-        <target/>
+        <target>Sök donatorer</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Search %1%</source>
@@ -122,11 +122,11 @@
       </trans-unit>
       <trans-unit id="30">
         <source>Source of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>Källa för förvärv - Detta är ett obligatoriskt element.</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Location information - This is a mandatory element.</source>
-        <target/>
+        <target>Platsinformation - detta är ett obligatoriskt element</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Accession number</source>
@@ -142,15 +142,15 @@
       </trans-unit>
       <trans-unit id="35">
         <source>Relevance</source>
-        <target/>
+        <target>Relevans</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Add new accession record</source>
-        <target/>
+        <target>Lägg till ny accessionspost</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Related donors</source>
-        <target/>
+        <target>Relaterade donatorer</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Related donor record</source>
@@ -158,7 +158,7 @@
       </trans-unit>
       <trans-unit id="39">
         <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
-        <target/>
+        <target>Detta är det rättsliga entitetsfältet som anger kontaktinformation för personen/personerna eller institutionen som har donerat eller överlämnat materialet. Fältet tillåter flera instanser och ger möjlighet att skapa mer än en kontaktpost med samma formulär.</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Primary contact information</source>
@@ -166,7 +166,7 @@
       </trans-unit>
       <trans-unit id="41">
         <source>Main</source>
-        <target/>
+        <target>Huvudsaklig</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Physical location</source>
@@ -190,11 +190,11 @@
       </trans-unit>
       <trans-unit id="47">
         <source>Edit accession record</source>
-        <target/>
+        <target>Redigera accessionspost</target>
       </trans-unit>
       <trans-unit id="48">
         <source>You are creating an accrual to accession %1%</source>
-        <target/>
+        <target>Du skapar ett tillägg till accession %1%</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Basic info</source>
@@ -202,83 +202,83 @@
       </trans-unit>
       <trans-unit id="50">
         <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
-        <target/>
+        <target>Accessionsnummer ska vara en kombination av värden angivna i fältet och bör vara ett unikt accessionsnummer för arkivinstitutionen.</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
-        <target/>
+        <target>Accessionsdatumet återger datumet då avtalet skrivits under och läggs till under donationsprocessen.</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
-        <target/>
+        <target>Identifiera  källa för förvärv eller överlämnande och datum och metod för förvärvet OM information INTE är hemlig.</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Källa för förvärv</target>
       </trans-unit>
       <trans-unit id="54">
         <source>A description of the physical location in the repository where the accession can be found.</source>
-        <target/>
+        <target>En beskrivning av accessionens placering i magasinet.</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Location information</source>
-        <target/>
+        <target>Platsinformation</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Donor/Transferring body area</source>
-        <target/>
+        <target>Donator/överlämnande organ</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Administrative area</source>
-        <target/>
+        <target>Administration</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Term describing the type of accession transaction and referring to the way in which the accession was acquired.</source>
-        <target/>
+        <target>Term som beskriver typen av accessionsöverföring och refererar till sättet som accessionen förvärvades.</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Select the type of resource represented in the accession, either public or private.</source>
-        <target/>
+        <target>Välj typen av resurs som är representerad i accessionen, antingen offentlig eller privat.</target>
       </trans-unit>
       <trans-unit id="60">
         <source>The title of the accession, usually the creator name and term describing the format of the accession materials.</source>
-        <target/>
+        <target>Accessionens titel, vanligenarkivbildarens namn och en term som beskriver formatet på accessionsmaterialet.</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Creators</source>
-        <target/>
+        <target>Arkivbildare</target>
       </trans-unit>
       <trans-unit id="62">
         <source>The name of the creator of the accession or the name of the department that created the accession.</source>
-        <target/>
+        <target>Namnet på skaparen av accessionen eller namnet på avdelningen som skapade accessionen. </target>
       </trans-unit>
       <trans-unit id="63">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>"Identifiera och ange datum för beskrivningsenheten. Identifiera typen av datum. Ange beroende på vilket som är lämpligt som ett enskilt datum eller en datumintervall. (ISAD 3.1.3). Visningsfältet för datum kan användas för att fylla i fritextdatum, inklusive typografiska tecken för att uttrycka uppskattning, osäkerhet eller egenskap. Använd start och slutfälten för att göra datumen sökbara. Använd inte attribut eller typografiska symboler för att uttrycka osäkerhet. Godkända datumformat: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY. </target>
       </trans-unit>
       <trans-unit id="64">
         <source>Information on the history of the accession. When the accession is acquired directly from the creator, do not record an archival history but record the information as the Immediate Source of Acquisition.</source>
-        <target/>
+        <target>Information om accessionens historik. När accessionen förvärvas direkt från arkivbildaren, ange inte en arkivhistorik utan ange informationen som källa för förvärv.</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Archival/Custodial history</source>
-        <target/>
+        <target>Arkiv/förvaringshistorik</target>
       </trans-unit>
       <trans-unit id="66">
         <source>A description of the intellectual content and document types represented in the accession.</source>
-        <target/>
+        <target>En beskrivning av det intellektuella innehållet och handlingstyper som ingår i accessionen.</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
-        <target/>
+        <target>Ange genomförd eller planerad bevarande- och gallringvärdering, och schemaläggningsåtgärder för beskrivningsenheten, speciellt om de kan påverka tolkning av materialet.</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Appraisal, destruction and scheduling</source>
-        <target/>
+        <target>Bevarande- och gallringsvärdering och schemaläggning</target>
       </trans-unit>
       <trans-unit id="69">
         <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
-        <target/>
+        <target>Beskrivning av det fysiska tillståndet på accessionen och om det behövs bevarandeåtgärder eller andra speciella åtgärder.</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Physical condition</source>
@@ -286,7 +286,7 @@
       </trans-unit>
       <trans-unit id="71">
         <source>The number of units as a whole number and the measurement of the received volume of records in the accession.</source>
-        <target/>
+        <target>Antalet enheter som ett helt nummer och mätningen av mängden handlingar i den mottagna accessionen.</target>
       </trans-unit>
       <trans-unit id="72">
         <source>An indicator of the accessioning process.</source>
@@ -294,11 +294,11 @@
       </trans-unit>
       <trans-unit id="73">
         <source>Indicates the priority the repository assigns to completing the processing of the accession.</source>
-        <target/>
+        <target>Anger prioriteringen som arkivinstitutionen tilldelar avslutandet av accessionsbehandlingen.</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
-        <target/>
+        <target>Anmärkningar om behandlingsplanen, som beskriver vad som behöver göras för att accessionen ska behandlas helt.</target>
       </trans-unit>
       <trans-unit id="75">
         <source>%1% area</source>
@@ -306,11 +306,11 @@
       </trans-unit>
       <trans-unit id="76">
         <source>It has %1% deaccessions that will also be deleted:</source>
-        <target/>
+        <target>Det har %1% återlämning som även kommer att raderas:</target>
       </trans-unit>
       <trans-unit id="77">
         <source>It has %1% accruals. They will not be deleted.</source>
-        <target/>
+        <target>Det har %1%tillägg. Det kommer inte att raderas.</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Name of creator</source>
@@ -322,15 +322,15 @@
       </trans-unit>
       <trans-unit id="80">
         <source>Biographical history</source>
-        <target/>
+        <target>Biografiska anmärkningar</target>
       </trans-unit>
       <trans-unit id="81">
         <source>View accession record</source>
-        <target/>
+        <target>Visa accessionspost</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Edit donor/transferring body area</source>
-        <target/>
+        <target>Redigera donator/överlämnande organ</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Related donor</source>
@@ -338,7 +338,7 @@
       </trans-unit>
       <trans-unit id="84">
         <source>Edit administrative area</source>
-        <target/>
+        <target>Redigera administration</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Acquisition type</source>
@@ -362,15 +362,15 @@
       </trans-unit>
       <trans-unit id="90">
         <source>Processing status</source>
-        <target/>
+        <target>Behandlingsstatus</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Processing priority</source>
-        <target/>
+        <target>Behandlingsprioritering</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Processing notes</source>
-        <target/>
+        <target>Behandlingsanmärkningar</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Accruals</source>
@@ -378,23 +378,23 @@
       </trans-unit>
       <trans-unit id="94">
         <source>Accrual to</source>
-        <target/>
+        <target>Tillägg till</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Rights area</source>
-        <target/>
+        <target>Rättigheter</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Edit rights area</source>
-        <target/>
+        <target>Redigera rättigheter</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Deaccession area</source>
-        <target/>
+        <target>Återlämning</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Deaccession</source>
-        <target/>
+        <target>Återlämning</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Add accrual</source>
@@ -414,7 +414,7 @@
       </trans-unit>
       <trans-unit id="103">
         <source>Browse accession</source>
-        <target/>
+        <target>Bläddra i accessionen</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Identifier - This is a mandatory element.</source>
@@ -422,7 +422,7 @@
       </trans-unit>
       <trans-unit id="105">
         <source>Date of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>Mottagningsdatum - Detta är ett obligatoriskt fält</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Scope - This is a mandatory element.</source>
@@ -430,23 +430,23 @@
       </trans-unit>
       <trans-unit id="107">
         <source>Description - This is a mandatory element.</source>
-        <target/>
+        <target>Förteckning - Detta är ett obligatoriskt element</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Add new deaccession record</source>
-        <target/>
+        <target>Lägg till ny återlämningspost</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Edit deaccession record</source>
-        <target/>
+        <target>Redigera återlämningspost</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Deaccession number</source>
-        <target/>
+        <target>Återlämningsnummer</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
-        <target/>
+        <target>Identifiera om hela accessionen är tillbakalämnad eller om det endast är delar av accessionen som återlämnats.</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Scope</source>
@@ -454,7 +454,7 @@
       </trans-unit>
       <trans-unit id="113">
         <source>Date of deaccession</source>
-        <target/>
+        <target>Återlämningsdatum</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Date</source>
@@ -462,7 +462,7 @@
       </trans-unit>
       <trans-unit id="115">
         <source>Identify what materials are being deaccessioned.</source>
-        <target/>
+        <target>Identifiera vilket material det är som återlämnas.</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Description</source>
@@ -470,23 +470,43 @@
       </trans-unit>
       <trans-unit id="117">
         <source>The number of units as a whole number and the measurement of the records to be deaccessioned.</source>
-        <target/>
+        <target>Antalet enheter som ett helt nummer och mätningen av mängden handlingar som ska återlämnas.</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Provide a reason why the records are being deaccessioned.</source>
-        <target/>
+        <target>Ange ett skäl för varför handlingarna ska återlämnas.</target>
       </trans-unit>
       <trans-unit id="119">
         <source>View deaccession record</source>
-        <target/>
+        <target>Visa återlämningspost</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Extent</source>
-        <target/>
+        <target>Omfång</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Reason</source>
         <target>Orsak</target>
+      </trans-unit>
+      <trans-unit id="122">
+        <source>Identifier available.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>Identifier unavailable.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>Loading...</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="125">
+        <source>Server error while checking identifer availability.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="126">
+        <source>This identifer is already in use.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

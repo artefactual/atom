@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2016-04-19T21:25:37Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2017-08-25T18:50:41Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -447,7 +447,7 @@ de description." (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="132">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
-        <target/>
+        <target>Indiquer les références des sources externes utilisées pour la description (comme dans la portée et contenu, l'histoire administrative ou les notes)</target>
       </trans-unit>
       <trans-unit id="133">
         <source>Related descriptions</source>
@@ -471,11 +471,11 @@ de description." (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="138">
         <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
-        <target/>
+        <target>Identifiant : Fournir un code d'identification local spécifique, un numéro de contrôle ou tout autre identifiant unique. Niveau de description : Enregistrer le niveau de cette unité de description. Intitulé : Fournir un intitulé formel ou un intitulé concis, fourni tel quel, conforme de description à plusieurs niveaux et aux conventions nationales.</target>
       </trans-unit>
       <trans-unit id="139">
         <source>Genre access points</source>
-        <target/>
+        <target>Mots-clés - Genre</target>
       </trans-unit>
     </body>
   </file>

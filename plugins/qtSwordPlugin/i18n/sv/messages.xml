@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2015-12-18T08:52:13Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2017-08-25T18:50:44Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,11 +10,11 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Bad request</source>
-        <target/>
+        <target>Felaktigt anrop</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Forbidden</source>
-        <target/>
+        <target>Förbjuden</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Not found</source>
@@ -22,11 +22,11 @@
       </trans-unit>
       <trans-unit id="5">
         <source>The supplied format is not supported by this server</source>
-        <target/>
+        <target>Det angivna formatet stöds inte av denna server</target>
       </trans-unit>
       <trans-unit id="6">
         <source>The supplied content type is not supported by this server</source>
-        <target/>
+        <target>Den angivna innehållstypen stöds inte av denna server</target>
       </trans-unit>
     </body>
   </file>

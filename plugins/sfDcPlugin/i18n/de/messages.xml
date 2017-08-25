@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2015-10-16T04:43:30Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2017-08-25T18:50:42Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -88,7 +88,7 @@
       </trans-unit>
       <trans-unit id="913">
         <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
-        <target/>
+        <target>Das Thema der Verzeichnungseinheit. Durchsuchen Sie die Liste der Begriffe in der Themen-Taxonomie, indem Sie die ersten Buchstaben des Begriffes eingeben. Alternativ können Sie auch ein neues Thema eingeben und die Verzeichnungseinheit damit verlinken.</target>
       </trans-unit>
       <trans-unit id="916">
         <source>Child levels (if describing a collection)</source>
@@ -104,7 +104,7 @@
       </trans-unit>
       <trans-unit id="924">
         <source>Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).</source>
-        <target/>
+        <target>Rechtliche Informationen über die Verzeichnungseinheit (z.B. Urheberrecht, Zugangsbestimmungen etc.).</target>
       </trans-unit>
       <trans-unit id="925">
         <source>Add new resource</source>

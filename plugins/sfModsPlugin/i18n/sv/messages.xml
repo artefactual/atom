@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2016-04-19T21:28:22Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2017-08-25T18:50:44Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Utan titel</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Add new resource</source>
-        <target/>
+        <target>Lägg till ny resurs</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
@@ -18,7 +18,7 @@
       </trans-unit>
       <trans-unit id="4">
         <source>Select the type of activity that established the relation between the authority record and the resource.</source>
-        <target/>
+        <target>Välj typen av aktivitet som etablerade relationen mellan auktoritetsposten och resursen.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>This is a duplicate of record %1%</source>
@@ -26,11 +26,11 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Elements area</source>
-        <target/>
+        <target>Elementfält</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Contains a unique standard number or code that distinctively identifies a resource.</source>
-        <target/>
+        <target>Innehåller ett unikt standardnummer eller kod som identifierar en källa.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it. Choice and format of titles should be governed by a content standard such as the Anglo-American Cataloging Rules, 2nd edition (AACR2), Cataloguing Cultural Objects (CCO), or Describing Archives: A Content Standard (DACS). Details such as capitalization, choosing among the forms of titles presented on an item, and use of abbreviations should be determined based on the rules in a content standard. One standard should be chosen and used consistently for all records in a set.</source>
@@ -38,23 +38,23 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Names and origin info</source>
-        <target/>
+        <target>Namn- och ursprungsinformation</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Add new name and/or origin info</source>
-        <target/>
+        <target>Lägg till nytt namn och/eller ursprungsinformation</target>
       </trans-unit>
       <trans-unit id="11">
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
-        <target/>
+        <target>En term som specificerar de huvudsakliga egenskaperna och innehållet i resursen. Ange så många typer som är tillämpbara. Alternativen för typen av resurs är begränsade till de värden som finns i högsta nivån i elementet för MODS typeOfResource.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Type of resource</source>
-        <target/>
+        <target>Resurstyp</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Add new child levels (if describing a collection)</source>
-        <target/>
+        <target>Lägg till nya underordnade nivåer (om det är en samling som beskrivs)</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Identifier</source>
@@ -66,19 +66,19 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
-        <target/>
+        <target>Använd dessa två fält för att lägga till lägre nivåer till en beskrivning på samlingsnivå. Tryck på Lägg till ny för att lägga till så många underordnade nivåer som nödvändigt. Signum: ange ett unikt standardnummer eller kod som identifierar just den resursen. Titel: Ange ett ord, fras, tecken eller grupp av tecken som förekommer i en resurs, som namnger den eller informationen som ingår i den.</target>
       </trans-unit>
       <trans-unit id="17">
         <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>
-        <target/>
+        <target>En redogörelse för resursens språk .  Välj så många språk som behövs.</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Subject</source>
-        <target/>
+        <target> Ämnesord</target>
       </trans-unit>
       <trans-unit id="19">
         <source>A term or phrase representing the primary topic(s) on which a work is focused. Search for an existing term in the Subjects taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
-        <target/>
+        <target>En term eller en fras som representerar de huvudsakliga ämnena för samlingen. Sök efter befintliga termer i ämnesordlistan genom att skriva de första bokstäverna av termen. Alternativt, skriv ett nytt namn för att skapa och länka till en ny ämnesterm.</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Places</source>
@@ -86,7 +86,7 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
-        <target/>
+        <target>Sök efter en befintlig term i taxonomin för plats genom att skriva de första tecknen i namnet. Alternativt, skriv ett nytt namn för att skapa och länka till en ny platsterm.</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Names</source>
@@ -98,15 +98,15 @@
       </trans-unit>
       <trans-unit id="24">
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
-        <target/>
+        <target>Information om begränsningar för åtkomst till en resurs. Se högsta nivåns element i MODS accessCondition för mer information om hur detta fält ska användas.</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.</source>
-        <target/>
+        <target>Identifierar institutionen eller arkivinstitutionen som förvaltar resursen. Sök efter en befintlig arkivinstitution genom att skriva in de första bokstäverna i namnet. Alternativt, skriv ett nytt namn för att skapa och länka till en ny arkivinstitution.</target>
       </trans-unit>
       <trans-unit id="26">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
-        <target/>
+        <target>En sammanfattning, innehållsförteckning eller beskrivning av materialets omfattning och innehåll</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Description</source>
@@ -114,7 +114,7 @@
       </trans-unit>
       <trans-unit id="32">
         <source>Edit elements area</source>
-        <target/>
+        <target>Redigera element</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Language</source>
@@ -122,7 +122,7 @@
       </trans-unit>
       <trans-unit id="34">
         <source>Internet media type</source>
-        <target/>
+        <target>Internetmediatyp</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Access condition</source>
@@ -138,11 +138,11 @@
       </trans-unit>
       <trans-unit id="38">
         <source>Rights area</source>
-        <target/>
+        <target>Rättigheter</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Accession area</source>
-        <target/>
+        <target>Accession</target>
       </trans-unit>
     </body>
   </file>

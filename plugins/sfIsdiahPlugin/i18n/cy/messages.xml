@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2015-10-16T04:43:29Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2017-08-25T18:53:27Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -276,7 +276,7 @@
       </trans-unit>
       <trans-unit id="67">
         <source>Thematic area</source>
-        <target/>
+        <target>Ardal thematig</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Search for an existing term in the Thematic Areas taxonomy by typing the first few characters of the term name. This should be used to identify major collecting areas.</source>
@@ -421,6 +421,14 @@
       <trans-unit id="103">
         <source>Edit theme</source>
         <target>Golygu thema</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Clipboard</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Add description</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

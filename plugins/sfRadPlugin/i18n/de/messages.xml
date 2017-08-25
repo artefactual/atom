@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2015-10-16T04:43:30Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2017-08-25T18:50:42Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -200,7 +200,7 @@
       </trans-unit>
       <trans-unit id="916">
         <source>Edit class of material specific details area</source>
-        <target/>
+        <target>Bearbeite Bereich "Materialspezifische Details"</target>
       </trans-unit>
       <trans-unit id="917">
         <source>Dates of creation area</source>
@@ -348,7 +348,7 @@
       </trans-unit>
       <trans-unit id="959">
         <source>Select the type of activity that established the relation between the authority record and the archival description (e.g. creation, accumulation, collection, publication, etc.)</source>
-        <target/>
+        <target>Art der Aktivität welche zur Beziehung zwischen der Normdatei und der Archivischen Beschreibung führte (z.B. Entstehung, Akkumulation, Sammlung, Publikation, etc.)</target>
       </trans-unit>
       <trans-unit id="960">
         <source>Date(s) - are not consistent with %1%higher levels%2%.</source>

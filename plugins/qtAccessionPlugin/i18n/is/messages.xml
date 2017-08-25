@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="is" datatype="plaintext" original="messages" date="2015-10-16T04:43:27Z" product-name="messages">
+  <file source-language="en" target-language="is" datatype="plaintext" original="messages" date="2017-08-25T18:53:09Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -487,6 +487,26 @@
       <trans-unit id="121">
         <source>Reason</source>
         <target>Ástæða</target>
+      </trans-unit>
+      <trans-unit id="122">
+        <source>Identifier available.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>Identifier unavailable.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>Loading...</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="125">
+        <source>Server error while checking identifer availability.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="126">
+        <source>This identifer is already in use.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

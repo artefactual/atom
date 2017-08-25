@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="nb" datatype="plaintext" original="messages" date="2017-08-25T18:54:38Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Untitled</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>%1%Identifier%2% - This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>%1%Title%2% - This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>%1%Relation%2% (%3%isLocatedAt%4%) - This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Add new resource</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>This is a duplicate of record %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Elements area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>The unambiguous reference code used to uniquely identify this resource.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>The name given to this resource.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Title</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Names and dates</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Subject</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>An abstract, table of contents or description of the resource's scope and contents.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Description</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>&lt;p&gt;The nature or genre of the resource.&lt;/p&gt;&lt;p&gt;Assign as many types as applicable. The &lt;em&gt;Type&lt;/em&gt; options are limited to the DCMI Type vocabulary.&lt;/p&gt;&lt;p&gt;Assign the &lt;em&gt;Collection&lt;/em&gt; value if this resource is the top-level for a set of lower-level (child) resources.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the &lt;em&gt;image&lt;/em&gt;, &lt;em&gt;text&lt;/em&gt;, &lt;em&gt;sound&lt;/em&gt; or &lt;em&gt;moving image&lt;/em&gt; types are added automatically upon output, so do not duplicate those values here.&lt;/p&gt;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Child levels (if describing a collection)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>&lt;p&gt;&lt;strong&gt;Child levels&lt;/strong&gt;&lt;br/&gt;Use these two fields to add lower levels to a collection level description. Click &lt;em&gt;Add new&lt;/em&gt; to create as many child levels as necessary.&lt;/p&gt;&lt;p&gt;These fields can also be used to add any number of intermediate levels of description (e.g. series, file, etc) between the top and bottom levels in a descriptive hierarchy. Use the hierarchy treeview to re-order hierarchy levels as necessary.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Identifier&lt;/em&gt;: The unambiguous reference code used to uniquely identify the child-level resource.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Title&lt;/em&gt;: The name given to the child-level resource.&lt;/p&gt;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>&lt;p&gt;The file format, physical medium, or dimensions of the resource.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the Internet Media Types (MIME) will be added automatically upon output, so don't duplicate those values here.&lt;/p&gt;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Format</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Related material(s) from which this resource is derived.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Source</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Language(s) of this resource.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Relation (isLocatedAt)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;&lt;p&gt;Search for an existing name in the organization records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new organization record.&lt;/p&gt;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Coverage (spatial)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource or relevant to its jurisdiction.&lt;/p&gt;&lt;p&gt;Search for an existing term in the Place taxonomy by typing the first few characters of the place name. Alternatively, type a new name to create and link to a new place.&lt;/p&gt;&lt;p&gt;Please note: if you entered a place of creation, publication or contribution that will be output automatically, so don’t repeat that place name here.&lt;/p&gt;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Rights</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Edit elements area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Creator</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Publisher</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Contributor</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Language</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Rights area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Accession area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Date(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Date</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Start</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>End</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Name(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Actor name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Identify and record the name(s) and type(s) of the unit of description.</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

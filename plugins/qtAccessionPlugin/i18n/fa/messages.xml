@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2015-10-16T04:43:26Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2017-08-25T18:53:58Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -486,6 +486,26 @@
       </trans-unit>
       <trans-unit id="140">
         <source>Create new rights</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="141">
+        <source>Identifier available.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="142">
+        <source>Identifier unavailable.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="143">
+        <source>Loading...</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="144">
+        <source>Server error while checking identifer availability.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="145">
+        <source>This identifer is already in use.</source>
         <target/>
       </trans-unit>
     </body>

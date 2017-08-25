@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2015-08-27T12:08:12Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2017-08-25T18:50:38Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -184,7 +184,7 @@
       </trans-unit>
       <trans-unit id="883">
         <source>Name(s)</source>
-        <target/>
+        <target>名称(複数可)</target>
       </trans-unit>
       <trans-unit id="884">
         <source>Actor name</source>

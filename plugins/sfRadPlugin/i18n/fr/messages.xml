@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2015-10-16T04:43:24Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2017-08-25T18:50:41Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -635,7 +635,7 @@ la reproduction des documents." (RDDA 1.8B16c). Pour les conditions de publicati
       </trans-unit>
       <trans-unit id="179">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target/>
+        <target>Indiquer les références des sources externes utilisées pour la description (comme dans la portée et contenu, l'historique de conservation ou les notes)</target>
       </trans-unit>
       <trans-unit id="180">
         <source>Associated materials</source>
@@ -655,15 +655,15 @@ la reproduction des documents." (RDDA 1.8B16c). Pour les conditions de publicati
       </trans-unit>
       <trans-unit id="184">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
+        <target>Identifiant: Entrer un code unique permettant d'identifier la description. Niveau: Sélectionner un niveau de description dans la liste déroulante (Voir RDDA 1.0A pour les règles au sujet de la sélection des niveaux de description). Titre: Entrer le titre propre, en le transcrivant ou en le créant. (RDDA 1.1B).</target>
       </trans-unit>
       <trans-unit id="185">
         <source>Genre access points</source>
-        <target/>
+        <target>Mots-clés - Genre</target>
       </trans-unit>
       <trans-unit id="186">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
-        <target/>
+        <target>Chercher un terme existant dans la taxonomie des Genres en tapant les premiers caractères de ce terme. Taper au besoin un nouveau terme pour le créer et y lier la notice.</target>
       </trans-unit>
       <trans-unit id="187">
         <source>General note</source>

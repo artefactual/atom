@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2016-04-19T21:28:22Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2017-08-25T18:50:45Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Utan titel</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative / Biographical history</source>
-        <target/>
+        <target>Administrativ historik/ Biografiska anmärkningar</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
@@ -18,15 +18,15 @@
       </trans-unit>
       <trans-unit id="4">
         <source>Biographical history</source>
-        <target/>
+        <target>Biografiska anmärkningar</target>
       </trans-unit>
       <trans-unit id="5">
         <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
-        <target/>
+        <target>Arkivbeskrivningen, eller en av dess högre nivåer, %1% kräver%2% åtminstone en %3% arkivbildare %4%.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
-        <target/>
+        <target>%1% Datum%2% - överensstämmer inte med %3% högre nivåer %2%.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>%1%Date(s)%2% - This is a %3%mandatory%4% element.</source>
@@ -34,7 +34,7 @@
       </trans-unit>
       <trans-unit id="8">
         <source>%1%Extent and medium%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1% Omfång och medium %2% - Detta är ett %3% obligatoriskt %4% element.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
@@ -42,19 +42,19 @@
       </trans-unit>
       <trans-unit id="10">
         <source>%1%Level of description%2% - Value "%value%" is not consistent with higher levels.</source>
-        <target/>
+        <target>%1% Beskrivningsnivå %2% - Värdet "%value%" överensstämmer inte med högre nivåer.</target>
       </trans-unit>
       <trans-unit id="11">
         <source>%1%Level of description%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1% Beskrivningsnivå %2% - Detta är ett %3% obligatoriskt %4% element.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>%1%Title%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1% Titel %2% - Detta är ett %3% obligatoriskt %4% element.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Add new archival description</source>
-        <target/>
+        <target>Lägg till ny arkivbeskrivning</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Edit %1%</source>
@@ -86,11 +86,11 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Identity area</source>
-        <target/>
+        <target>Identitet</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
-        <target/>
+        <target>Ange en specifik lokal referenskod, ett kontrollnummer eller ett unikt signum. Lands- och arkivinstitutionskoden kommer automatiskt att läggas till från den länkade arkivinstitutionsposten och skapa en fullständig referenskod. (ISAD 3.1.1) </target>
       </trans-unit>
       <trans-unit id="23">
         <source>Identifier</source>
@@ -102,15 +102,15 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
-        <target/>
+        <target>Ange antingen en formell titel eller en koncis försedd titel i enlighet med reglerna för flernivåsbeskrivning och nationella standarder. (ISAD 3.1.2) </target>
       </trans-unit>
       <trans-unit id="26">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>"Identifiera och ange datum för beskrivningsenheten. Identifiera typen av datum. Ange beroende på vilket som är lämpligt som ett enskilt datum eller en datumintervall. (ISAD 3.1.3). Visningsfältet för datum kan användas för att fylla i fritextdatum, inklusive typografiska tecken för att uttrycka uppskattning, osäkerhet eller egenskap. Använd start och slutfälten för att göra datumen sökbara. Använd inte attribut eller typografiska symboler för att uttrycka osäkerhet. Godkända datumformat: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY. </target>
       </trans-unit>
       <trans-unit id="27">
         <source>Record the level of this unit of description. (ISAD 3.1.4)</source>
-        <target/>
+        <target>Ange nivå för denna beskrivningsenhet. (ISAD 3.1.4)</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Level of description</source>
@@ -118,7 +118,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
-        <target/>
+        <target>Signum: Ange en specifik lokal referenskod, kontrollnummer eller annan unik identifierare. Beskrivningnivå: Ange nivån på den här beskrivningenheten. Titel: Ange antingen en formell titel eller en kortfattad given titel i enlighet med reglerna för flernivåbeskrivningar och nationella standarder.</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (ISAD 3.1.5)</source>
@@ -130,7 +130,7 @@
       </trans-unit>
       <trans-unit id="32">
         <source>Context area</source>
-        <target/>
+        <target>Sammanhang</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Name of creator(s)</source>
@@ -138,67 +138,67 @@
       </trans-unit>
       <trans-unit id="34">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
-        <target/>
+        <target>Arkivbeskrivningen, eller en av dess högre nivåer, kräver åtminstone en arkivbildare.</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)</source>
-        <target/>
+        <target>Ange namn på organisationen/organisationerna eller individen/individerna som är ansvariga för skapandet, arkivbildningen och förvaltning av handlingarna i beskrivningsenheten. Sök efter ett befintligt namn i auktoritetsposten genom att skriva de första tecknen i namnet. Alternativt, skriv ett nytt namn för att skapa och länka till en ny auktoritetspost. (ISAD 3.2.1)</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
-        <target/>
+        <target>Ange namnet på organisationen ansvarar för arkivmaterialet. Sök efter en befintlig term i arkivinstitutionsposten genom att skriva de första tecknen av namnet. Alternativt, skriv ett nytt namn för att skapa och länka till en ny arkivinstitutionspost.</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Record the successive transfers of ownership, responsibility and/or custody of the unit of description and indicate those actions, such as history of the arrangement, production of contemporary finding aids, re-use of the records for other purposes or software migrations, that have contributed to its present structure and arrangement. Give the dates of these actions, insofar as they can be ascertained. If the archival history is unknown, record that information. (ISAD 3.2.3)</source>
-        <target/>
+        <target>Ange successiva överlämnanden av ägandeskap, ansvar och/eller förvaringsansvar för beskrivningsenheten och indikera dessa åtgärder, såsom ordningshistoriken, skapandet av samtida sökhjälpmedel, återanvändning av handlingarna för andra ändamål eller mjukvarumigrationer som har bidragit till dess nuvarande struktur och ordning. Ange datum för dessa åtgärder, i den mån detta kan fastställas. Om arkivhistoriken är okänd, ange detta. (ISAD 3.2.3)</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Record the source from which the unit of description was acquired and the date and/or method of acquisition if any or all of this information is not confidential. If the source is unknown, record that information. Optionally, add accession numbers or codes. (ISAD 3.2.4)</source>
-        <target/>
+        <target>Ange källan där beskrivningsenhet förvärvades och datum och/eller förvärvsmetod om delar av eller all information inte är hemlig. Om källan är okänd, ange det. Om du vill, lägg till accessionsnummer eller koder. (ISAD 3.2.4)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Immediate source of acquisition or transfer</source>
-        <target/>
+        <target>Källa för förvärv eller överlämnande</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Content and structure area</source>
-        <target/>
+        <target>Innehåll och struktur</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (ISAD 3.3.1)</source>
-        <target/>
+        <target>Ge en sammanfattning av omfång (såsom tidsperioder, geografi) och innehåll, (såsom handlingstyper, ämne, administrativa processer) av beskrivningsenheten, passande för nivån av beskrivning. (ISAD 3.3.1)</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material. (ISAD 3.3.2)</source>
-        <target/>
+        <target>Ange genomförd eller planerad bevarande- och gallringvärdering,  och schemaläggningsåtgärder för beskrivningsenheten, speciellt om de kan påverka tolkning av materialet. (ISAD 3.3.2)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Appraisal, destruction and scheduling</source>
-        <target/>
+        <target>Bevarande- och gallringsvärdering och schemaläggning</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Indicate if accruals are expected. Where appropriate, give an estimate of their quantity and frequency. (ISAD 3.3.3)</source>
-        <target/>
+        <target>Ange om tillväxt är att förvänta. Om lämpligt, ange en uppskattning av kvantitet och frekvens. (ISAD 3.3.3)</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Specify the internal structure, order and/or the system of classification of the unit of description. Note how these have been treated by the archivist. For electronic records, record or reference information on system design. (ISAD 3.3.4)</source>
-        <target/>
+        <target>Specificera den interna strukturer, ordningen och/eller klassifikationssystemen för beskrivningsenheten. Ange hur dessa har behandlats av arkivarier. För elektroniska handlingar, ange eller hänvisa till information om systemdesign. (ISAD 3.3.4) </target>
       </trans-unit>
       <trans-unit id="46">
         <source>System of arrangement</source>
-        <target/>
+        <target>Uppordningssystem</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Conditions of access and use area</source>
-        <target/>
+        <target>Villkor för tillgång och användning</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
-        <target/>
+        <target>Specificera lagen eller rättsliga statusen, kontraktet, föreskriften eller policyn som påverkar tillgång till beskrivningsenheten. Indikera fristen för sekretess/stängning och datum då materialet kommer öppnas och bli tillgängligt. (ISAD 3.4.1)</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
-        <target/>
+        <target>Ge information om villkor, såsom upphovsrätt, som styr reproduktion av beskrivningsenheten efter man givit tillgång till materialet. Om existensen om sådana villkor är okända, ange detta. Om det inte finns några villkor, är ingen redogörelse nödvändig. (ISAD 3.4.2)</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Conditions governing reproduction</source>
@@ -206,63 +206,63 @@
       </trans-unit>
       <trans-unit id="51">
         <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
-        <target/>
+        <target>Ange språk för materialet som inbegriper beskrivningsenheten. (ISAD 3.4.3) </target>
       </trans-unit>
       <trans-unit id="52">
         <source>Language of material</source>
-        <target/>
+        <target>Materialspråk</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
-        <target/>
+        <target>Ange skript(en) för materialet som inbegriper beskrivningsenheten. (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Script of material</source>
-        <target/>
+        <target>Materialskript</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
-        <target/>
+        <target>Ange eventuella utmärkande alfabet, skript, symbolsystem eller förkortningar i bruk. (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Language and script notes</source>
-        <target/>
+        <target>Språk och skriptananmärkningar</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
-        <target/>
+        <target>Ange viktiga fysiska tillstånd, såsom bevarandekrav, som påverkar användandet av beskrivningsenheten. Ange mjukvara och/eller hårdvara som krävs för tillgång till beskrivningsenheten.</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Physical characteristics and technical requirements</source>
-        <target/>
+        <target>Fysiska egenskaper och tekniska krav</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Give information about any finding aids that the repository or records creator may have that provide information relating to the context and contents of the unit of description. If appropriate, include information on where to obtain a copy. (ISAD 3.4.5)</source>
-        <target/>
+        <target>Ge information om sökhjälpmedel som arkivinstitutionen eller arkivbildaren kan ha givit information rörande kontexten och innehållet av beskrivningsenheten. Om lämpligt, inkludera information om var man kan erhålla en kopia. (ISAD 3.4.5)</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Allied materials area</source>
-        <target/>
+        <target>Besläktat material</target>
       </trans-unit>
       <trans-unit id="61">
         <source>If the original of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. If the originals no longer exist, or their location is unknown, give that information. (ISAD 3.5.1)</source>
-        <target/>
+        <target>Om originalet för beskrivningsenheten är tillgängligt (antingen på institutionen eller någon annanstans) ange dess placering, tillsammans med signifikant kontrollnummer. Om originalen inte finns kvar, eller deras placering är okänd, ange denna information. (ISAD 3.5.1)</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Existence and location of originals</source>
-        <target/>
+        <target>Existens och placering av original</target>
       </trans-unit>
       <trans-unit id="63">
         <source>If the copy of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. (ISAD 3.5.2)</source>
-        <target/>
+        <target>Om kopian av beskrivningsenheten är tillgänglig (antingen på institutionen eller annanstans) ange dess plats tillsammans med annat signifikant kontrollnummer (ISAD 3.5.2)</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Existence and location of copies</source>
-        <target/>
+        <target>Existensen och placering av kopior</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
-        <target/>
+        <target>Ange information om beskrivningsenheter i samma arkivinstitution eller på annan plats som är relaterade genom proveniens eller andra associationer. Använd lämpliga introducerande formuleringar och beskriv relationernas natur. Om den relaterade beskrivningsenheten är ett sökhjälpmedel, använd beskrivningselementet för sökhjälpmedel (3.4.5) för att referera till det. (ISAD 3.5.3)</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Related units of description</source>
@@ -274,7 +274,7 @@
       </trans-unit>
       <trans-unit id="68">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target/>
+        <target>För att skapa en relation mellan denna förteckning och en annan förteckning som finns i AtoM, börja skriva namnet på den relaterade förteckningen och välj den från den autoavslutande rullgardinsmenyn när den visas nedan. Flera relationer kan inte skapas.</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Notes area</source>
@@ -282,47 +282,47 @@
       </trans-unit>
       <trans-unit id="70">
         <source>Access points</source>
-        <target/>
+        <target>Sökingångar</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Subject access points</source>
-        <target/>
+        <target>Sökingångar på  ämnesord</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Place access points</source>
-        <target/>
+        <target>Sökingångar på plats</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>Sökingång på namn (ämnesord)</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Description control area</source>
-        <target/>
+        <target>Förteckningskontroll</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
-        <target/>
+        <target>Ange ett unikt förteckningsssignum i enlighet med lokala och/eller nationella standarder. Om förteckningen ska användas internationellt, ange koden för det land där förteckningen skapades i enlighet med den senaste versionen av ISO 3166 - Codes for the representation of names of countries. Om skaparen av förteckningen är en internationell organisation, ange organisationssignum istället för landskoden.</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Description identifier</source>
-        <target/>
+        <target>Förteckningssignum</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
-        <target/>
+        <target>Ange den fullständiga auktoriserade formen av namn på organisationer som är ansvariga för att skapa, ändra och sprida förteckningen eller, alternativt, ange en erkänd kod för organisationen i enlighet med standardkoden för de nationella eller internationella organisationerna.</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Institution identifier</source>
-        <target/>
+        <target>Institutionssignum</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
-        <target/>
+        <target>Ange de internationella, nationella och/eller de lokala regler eller standarder som följts i framtagningen av förteckningen. (ISAD 3.7.2)</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Regler eller standarder </target>
       </trans-unit>
       <trans-unit id="81">
         <source>Status</source>
@@ -330,11 +330,11 @@
       </trans-unit>
       <trans-unit id="82">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
-        <target/>
+        <target>Ange aktuell status på förteckningen, som indikerar huruvida det är ett utkast, avslutat och/eller reviderat eller raderat.</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
-        <target/>
+        <target>Ange huruvida förteckningen består av minimi-, del- eller fullständig detaljnivå i beskrivningen i enlighet med relevanta internationella och/eller nationella riktlinjer och/eller regler.</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Level of detail</source>
@@ -342,15 +342,15 @@
       </trans-unit>
       <trans-unit id="85">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
-        <target/>
+        <target>Ange datum då registreringen togs fram och/eller reviderades.</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>Datum för tillkomst, revision och borttagande</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>Ange de språk som används för att skapa beskrivningen av arkivmaterialet.</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Language(s)</source>
@@ -358,15 +358,15 @@
       </trans-unit>
       <trans-unit id="89">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>Ange skriptet(en) som används för att skapa beskrivningen av arkivmaterialet.</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Script(s)</source>
-        <target/>
+        <target>Skript</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
-        <target/>
+        <target>Ange hänvisning till externa källor som används i arkivbeskrivningen (såsom innehåll-, arkivhistorik- eller anmärkningsfältet)</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Sources</source>
@@ -374,15 +374,15 @@
       </trans-unit>
       <trans-unit id="93">
         <source>Edit identity area</source>
-        <target/>
+        <target>Redigera identitet</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Edit context area</source>
-        <target/>
+        <target>Redigera kontext</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Related function</source>
-        <target/>
+        <target>Relaterad funktion</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Repository</source>
@@ -394,7 +394,7 @@
       </trans-unit>
       <trans-unit id="98">
         <source>Edit content and structure area</source>
-        <target/>
+        <target>Redigera innehåll och struktur</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Scope and content</source>
@@ -406,15 +406,15 @@
       </trans-unit>
       <trans-unit id="101">
         <source>Edit conditions of access and use area</source>
-        <target/>
+        <target>Redigera villkor för tillgång och användning</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Finding aids</source>
-        <target/>
+        <target>Sökhjälpsmedel</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Edit alied materials area</source>
-        <target/>
+        <target>Redigera närliggande material</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Publication note</source>
@@ -430,31 +430,31 @@
       </trans-unit>
       <trans-unit id="107">
         <source>Edit access points</source>
-        <target/>
+        <target>Redigera sökingångar</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Edit description control area</source>
-        <target/>
+        <target>Redigera förteckningskontroll</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>Regler och/eller standarder som används</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Dates of creation revision deletion</source>
-        <target/>
+        <target>Datum för tillkomst revision borttagande</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Archivist's note</source>
-        <target/>
+        <target>Arkivariens anmärkning</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Rights area</source>
-        <target/>
+        <target>Rättigheter</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Accession area</source>
-        <target/>
+        <target>Accession</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Type</source>
@@ -470,11 +470,11 @@
       </trans-unit>
       <trans-unit id="117">
         <source>End</source>
-        <target/>
+        <target>Avsluta</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Genre access points</source>
-        <target/>
+        <target>Sökingångar för handlingstyp</target>
       </trans-unit>
     </body>
   </file>
