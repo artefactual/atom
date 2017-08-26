@@ -1050,35 +1050,13 @@ EOF;
         else if (($path = $self->rowStatusVars['digitalObjectPath'])
           && null === $self->object->getDigitalObject())
         {
-          $do = new QubitDigitalObject;
-          $do->usageId = QubitTerm::MASTER_ID;
-          $do->informationObject = $self->object;
-
-          // Don't create derivatives (reference, thumb)
-          if ($self->status['options']['skip-derivatives'])
-          {
-            $do->createDerivatives = false;
-          }
-
-          $do->assets[] = new QubitAsset($path);
-
-          try
-          {
-            $do->save();
-          }
-          catch (Exception $e)
-          {
-            // Log error
-            $this->log($e->getMessage(), sfLogger::ERR);
-          }
+          $this->handleDigitalObjectPath($self, $path);
         }
       }
     ));
 
-    // Allow search indexing to be enabled via a CLI option
-    $import->searchIndexingDisabled = ($options['index']) ? false : true;
 
-    // Set update, limit and skip options
+    $import->searchIndexingDisabled = ($options['index']) ? false : true;
     $import->setUpdateOptions($options);
 
     // Convert content with | characters to a bulleted list
@@ -1130,6 +1108,43 @@ EOF;
       $buildNestedSet->setCommandApplication($this->commandApplication);
       $buildNestedSet->setConfiguration($this->configuration);
       $ret = $buildNestedSet->run();
+    }
+  }
+
+  /**
+   * Handle creating a digital object and linking it to our information object during import.
+   *
+   * @param QubitFlatfileImport $self  A reference to our flat file importer ($self->object refers to
+   *                                   the information object we're currently creating).
+   * @param string $path  Asset file path
+   */
+  private function handleDigitalObjectPath($self, $path)
+  {
+    if (!is_readable($path))
+    {
+      $this->log("Cannot read digital object path. Skipping creation of digital object ($path)");
+      return;
+    }
+
+    $do = new QubitDigitalObject;
+    $do->usageId = QubitTerm::MASTER_ID;
+    $do->informationObject = $self->object;
+
+    // Don't create derivatives (reference, thumb)
+    if ($self->status['options']['skip-derivatives'])
+    {
+      $do->createDerivatives = false;
+    }
+
+    $do->assets[] = new QubitAsset($path);
+
+    try
+    {
+      $do->save();
+    }
+    catch (Exception $e)
+    {
+      $this->log($e->getMessage(), sfLogger::ERR);
     }
   }
 
