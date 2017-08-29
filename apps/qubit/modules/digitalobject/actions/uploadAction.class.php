@@ -60,13 +60,8 @@ class DigitalObjectUploadAction extends sfAction
       $diskUsage = $repo->getDiskUsage();
     }
 
-    // Create tmp dir, if it doesn't exist already
+    Qubit::createUploadDirsIfNeeded();
     $tmpDir = sfConfig::get('sf_upload_dir').'/tmp';
-    if (!file_exists($tmpDir))
-    {
-      mkdir($tmpDir);
-      chmod($tmpDir, 0775);
-    }
 
     foreach ($_FILES as $file)
     {

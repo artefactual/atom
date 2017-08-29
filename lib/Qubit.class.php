@@ -324,13 +324,8 @@ class Qubit
    */
   public static function moveUploadFile($file)
   {
-    // Create tmp dir if it doesn't exist already.
+    Qubit::createUploadDirsIfNeeded();
     $tmpDir = sfConfig::get('sf_upload_dir').'/tmp';
-    if (!file_exists($tmpDir))
-    {
-      mkdir($tmpDir);
-      chmod($tmpDir, 0775);
-    }
 
     // Get a unique file name (to avoid clashing file names).
     do
@@ -350,5 +345,25 @@ class Qubit
 
     $file['tmp_name'] = $tmpFilePath;
     return $file;
+  }
+
+  /**
+   * Create "uploads/" and "uploads/tmp/" if they don't exist
+   */
+  public static function createUploadDirsIfNeeded()
+  {
+    $uploadsPath = sfConfig::get('sf_upload_dir');
+    $directories = array(
+      $uploadsPath,
+      $uploadsPath . DIRECTORY_SEPARATOR . 'tmp'
+    );
+
+    foreach ($directories as $dirPath)
+    {
+      if (!is_dir($dirPath))
+      {
+        mkdir($dirPath, 0755);
+      }
+    }
   }
 }

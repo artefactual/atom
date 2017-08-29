@@ -2951,13 +2951,9 @@ class QubitDigitalObject extends BaseDigitalObject
       return false;
     }
 
+    Qubit::createUploadDirsIfNeeded();
     $tmpDir = sfConfig::get('sf_upload_dir').'/tmp';
-    if (!file_exists($tmpDir))
-    {
-      mkdir($tmpDir);
-      chmod($tmpDir, 0775);
-    }
-
+    
     // Get a unique file name (to avoid clashing file names)
     $tmpFileName = null;
     $tmpFilePath = null;
