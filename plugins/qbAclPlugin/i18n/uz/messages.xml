@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2017-08-25T18:51:10Z" product-name="messages">
+  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2017-09-04T11:51:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,83 +10,83 @@
       </trans-unit>
       <trans-unit id="2">
         <source>All %1%</source>
-        <target/>
+        <target>Barcha %1% uchun</target>
       </trans-unit>
       <trans-unit id="3">
         <source>All privileges</source>
-        <target/>
+        <target>Barcha huquqlar</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Edit %1% permissions of %2%</source>
-        <target/>
+        <target>%2% ning %1% uchun huquqlari</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Permissions for all %1%</source>
-        <target/>
+        <target>Barcha %1% uchun huquqlari</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Permissions by %1%</source>
-        <target/>
+        <target>%1% huquqlari</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Action</source>
-        <target/>
+        <target>Harakat</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Permissions</source>
-        <target/>
+        <target>Huquqlar</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Grant</source>
-        <target/>
+        <target>Ruhsat</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Deny</source>
-        <target/>
+        <target>Rad qilish</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Inherit</source>
-        <target/>
+        <target>Meros oladi</target>
       </trans-unit>
       <trans-unit id="12">
         <source>%1% name</source>
-        <target/>
+        <target>%1% nomi</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Add permissions by %1%</source>
-        <target/>
+        <target>%1% bo'yicha huquq berish</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Add %1%</source>
-        <target/>
+        <target>%1% qo'shish</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Cancel</source>
-        <target/>
+        <target>Bekor qilish</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Save</source>
-        <target/>
+        <target>Saqlash</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Edit</source>
-        <target/>
+        <target>Tahrirlash</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Delete</source>
-        <target/>
+        <target>O'chirish</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Add new</source>
-        <target/>
+        <target>Yangi qo'shish</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Return to group list</source>
-        <target/>
+        <target>Guruhlar ro`yxatiga qaytish</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Are you sure you want to delete %1%?</source>
-        <target/>
+        <target>%1%ni o`chirishni tasdiqlaysizmi?</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Edit %1% permissions</source>
@@ -98,19 +98,19 @@
       </trans-unit>
       <trans-unit id="24">
         <source>Main area</source>
-        <target/>
+        <target>Asosiy soha</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Create</source>
-        <target/>
+        <target>Yaratish</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Permission</source>
-        <target/>
+        <target>Huquq</target>
       </trans-unit>
       <trans-unit id="27">
         <source>%1%: %2%</source>
-        <target/>
+        <target>%1%: %2%</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Group details</source>
@@ -118,31 +118,31 @@
       </trans-unit>
       <trans-unit id="29">
         <source>Name</source>
-        <target/>
+        <target>Nomi</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Description</source>
-        <target/>
+        <target>Tavsif</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Translate</source>
-        <target/>
+        <target>Tarjima</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Permissions by taxonomy</source>
-        <target/>
+        <target>Ma'lumotnoma huquqlari</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Taxonomy name</source>
-        <target/>
+        <target>Ma'lumotnoma nomi</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Add permissions by taxonomy</source>
-        <target/>
+        <target>Ma'lumotnoma huquqlari kiritish</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Add taxonomy</source>
-        <target/>
+        <target>Yangi ma'lumotnoma kiritish</target>
       </trans-unit>
       <trans-unit id="36">
         <source>List groups</source>
@@ -154,11 +154,11 @@
       </trans-unit>
       <trans-unit id="38">
         <source>Members</source>
-        <target/>
+        <target>A'zolar</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Taxonomy: %1%</source>
-        <target/>
+        <target>Ma'lumotnoma: %1%</target>
       </trans-unit>
     </body>
   </file>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2017-08-25T18:54:06Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2017-09-04T11:51:14Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -418,31 +418,31 @@
       </trans-unit>
       <trans-unit id="110">
         <source>%1%Authority record identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Identifiant de la notice d'autorité%2% - Cet élément est %3%obligatoire%4%.</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Access points</source>
-        <target/>
+        <target>Mots-clés</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Authority record identifier</source>
-        <target/>
+        <target>Identifiant de la notice d'autorité</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Maintaining repository</source>
-        <target/>
+        <target>Entretien du dépôt</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Clipboard</source>
-        <target/>
+        <target>Presse-papier</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Access points area</source>
-        <target/>
+        <target>Zone des points d'accès</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Edit access points area</source>
-        <target/>
+        <target>Modifier la zone des points d'accès</target>
       </trans-unit>
       <trans-unit id="117">
         <source>Occupations</source>
@@ -450,11 +450,11 @@
       </trans-unit>
       <trans-unit id="118">
         <source>Note</source>
-        <target/>
+        <target>Note</target>
       </trans-unit>
       <trans-unit id="119">
         <source>Maintained by</source>
-        <target/>
+        <target>Entretenu par</target>
       </trans-unit>
     </body>
   </file>

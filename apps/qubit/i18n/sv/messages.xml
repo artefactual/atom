@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2017-08-25T18:56:43Z" original="messages" product-name="messages" source-language="en" target-language="sv">
+  <file datatype="plaintext" date="2017-09-04T11:56:25Z" original="messages" product-name="messages" source-language="en" target-language="sv">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
@@ -21,7 +21,7 @@
       </trans-unit>
       <trans-unit id="a5162e31ab7277f79bebcb03364debdf5c0913b8">
         <source>"Record, when relevant, the start and the end date of the relationship." (ISDF 6.3) Enter the date as you would like it to appear in the show page for the function, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
-        <target>"Ange, i f&#xF6;rekommande fall, start- och slutdatum f&#xF6;r relationen." (ISDF 6.3) Fyll i datum s&#xE5; som du vill att det ska visa sig p&#xE5; visningssidan f&#xF6;r funktionen, genom att anv&#xE4;nda attribut och/eller typografiska symboler f&#xF6;r att uttrycka os&#xE4;kerhet om &#xF6;nskat.</target>
+        <target>"Ange, i f&#xF6;rekommande fall, start- och slutdatum f&#xF6;r relationen." (ISDF 6.3) Fyll i datum, s&#xE5; som du vill att det ska visa sig p&#xE5; visningssidan f&#xF6;r funktionen, genom att anv&#xE4;nda attribut och/eller typografiska symboler f&#xF6;r att uttrycka os&#xE4;kerhet om &#xF6;nskat.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/relation/actions/editComponent.class.php</note>
       </trans-unit>
       <trans-unit id="3308662b1f4c5a2c34a0e55b104e02ddcac6e5b8">
@@ -171,6 +171,7 @@
       </trans-unit>
       <trans-unit id="e3d1028b31fadd55009d342064c067a627b8cbc4">
         <source>%1%Export initiated.%2% Check %3%job management%4% page to download the results when it has completed.</source>
+        <target>%1%Export p&#xE5;b&#xF6;rjad.%2%Kolla%3%jobbhanterings%4%sidan f&#xF6;r att ladda ner resultaten n&#xE4;r exporten &#xE4;r slutf&#xF6;rd.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/actions/exportAction.class.php</note>
       </trans-unit>
       <trans-unit id="73c0f876111616e52a79975df6ee70518eb61b7a">
@@ -200,7 +201,7 @@
       </trans-unit>
       <trans-unit id="07c1e69f661a4419aa070bb8497aecfd199afba6">
         <source>&lt;strong&gt;Label:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
-        <target>&lt;strong&gt;Etikett:&lt;/strong&gt;Fyll i ett namn f&#xF6;r det alternativa signumf&#xE4;ltet som indikerar dess syfte och anv&#xE4;ndning.&lt;br/&gt;&lt;strong&gt;Signum:&lt;/strong&gt;Fyll i en tidigare g&#xE4;llande referenskod, alternativt signum , eller en annan alfanumerisk str&#xE4;ng associerad med handlingen.</target>
+        <target>&lt;strong&gt;Etikett:&lt;/strong&gt;Fyll i ett namn f&#xF6;r det alternativa signumf&#xE4;ltet som indikerar dess syfte och anv&#xE4;ndning.&lt;br/&gt;&lt;strong&gt;Signum:&lt;/strong&gt;Fyll i en tidigare g&#xE4;llande referenskod, alternativt signum, eller en annan alfanumerisk str&#xE4;ng associerad med handlingen.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_alternativeIdentifiers.php</note>
       </trans-unit>
       <trans-unit id="39c6fe6bbe18b341f05e967d01ffa968b9c550e1">
@@ -215,7 +216,7 @@
       </trans-unit>
       <trans-unit id="3e9664b32ca01b20a5fd36e87057ea6e742b937e">
         <source>A coded designation for the copyright status of the object at the time the rights statement is recorded.</source>
-        <target>En kodad beteckning p&#xE5; objektets upphovsr&#xE4;ttsstatus s&#xE5; l&#xE4;nge som r&#xE4;ttighetsredog&#xF6;relse anges.</target>
+        <target>En kodad beteckning p&#xE5; objektets upphovsr&#xE4;ttsstatus vid tillf&#xE4;llet d&#xE5; r&#xE4;ttighetsredog&#xF6;relsen dokumenteras.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/editSuccess.php</note>
       </trans-unit>
       <trans-unit id="4bc18f6bb33a2e46f543669342dc568810d5d3ce">
@@ -309,7 +310,7 @@
       </trans-unit>
       <trans-unit id="6532b5d200987d6a6d57789b15ccd9ece477c72c">
         <source>Actor name</source>
-        <target>Yrkesanm&#xE4;rkningar f&#xF6;r akt&#xF6;ren</target>
+        <target>Namn p&#xE5; akt&#xF6;r</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_event.php</note>
       </trans-unit>
       <trans-unit id="61cc55aa0453184734c3fa0b621eda6fa874bd83">
@@ -384,7 +385,7 @@
       </trans-unit>
       <trans-unit id="14add67826288a4f674635c7733cc295e32abec2">
         <source>Add new rights holder</source>
-        <target>L&#xE4;gg till ny r&#xE4;ttighetssinnehavare</target>
+        <target>L&#xE4;gg till ny r&#xE4;ttighetsinnehavare</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/rightsholder/actions/editAction.class.php</note>
       </trans-unit>
       <trans-unit id="6b0945fee3d9f475a481b589dad5ecc296293312">
@@ -578,7 +579,7 @@
       </trans-unit>
       <trans-unit id="521a4f60c4e5d71fe20bf4d3f69a6fd72133df1a">
         <source>Appraisal, destruction and scheduling information</source>
-        <target>Information r&#xF6;rande bevarande- och gallringsv&#xE4;rdering och schemal&#xE4;ggning</target>
+        <target>Information r&#xF6;rande bevarande- och gallringsv&#xE4;rdering samt schemal&#xE4;ggning</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="5e8cb87d756f0e0440b2aa5bdb04e73899bac924">
@@ -618,7 +619,7 @@
       </trans-unit>
       <trans-unit id="3d973d2e6ab5791a4af8f60b4a75b0d86fb46a61">
         <source>Are you sure you want to delete %1% and all its descendants?</source>
-        <target>&#xC4;r du s&#xE4;ker p&#xE5; att du vill ta bort %1% och alla dess underordnade niv&#xE5;er</target>
+        <target>&#xC4;r du s&#xE4;ker p&#xE5; att du vill ta bort %1% och alla dess underordnade niv&#xE5;er?</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/menu/templates/deleteSuccess.php</note>
       </trans-unit>
       <trans-unit id="0c4c3797f2c02ff2d8ff7d3025f42a44c526baba">
@@ -653,7 +654,6 @@
       </trans-unit>
       <trans-unit id="89d68168e981f63bb398b8bb04cab3a961f2b486">
         <source>Associated terms</source>
-        <target>Relaterade villkor</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/templates/indexSuccess.php</note>
       </trans-unit>
       <trans-unit id="fa8d5aa9d6ff1e12fb55ec352bbef9e9da721df6">
@@ -678,12 +678,12 @@
       </trans-unit>
       <trans-unit id="c6ac7dc32de58d2a3bed7d71f651215296b3e193">
         <source>Back to previous page</source>
-        <target>Tillbaka till f&#xF6;reg&#xE5;ende</target>
+        <target>Tillbaka till f&#xF6;reg&#xE5;ende sida</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/admin/templates/translatePermissionSuccess.php</note>
       </trans-unit>
       <trans-unit id="aa98926049679386ccb311e11a2c620586b7b531">
         <source>Back to previous page.</source>
-        <target>Tillbaka till f&#xF6;reg&#xE5;ende sida</target>
+        <target>Tillbaka till f&#xF6;reg&#xE5;ende sida.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/errorSuccess.php</note>
       </trans-unit>
       <trans-unit id="1a0371e373ff2700ab0c7bb696ff5d8fb3aad23d">
@@ -798,7 +798,7 @@
       </trans-unit>
       <trans-unit id="7d14933fe38af96c7e8042244abeb5bc8a1624ed">
         <source>Browse by</source>
-        <target>Utforska</target>
+        <target>Bl&#xE4;ddra p&#xE5;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/staticpage/templates/homeSuccess.php</note>
       </trans-unit>
       <trans-unit id="a536684c1acfd117ecdee92a812911a7b66e4502">
@@ -856,12 +856,12 @@
       </trans-unit>
       <trans-unit id="bc9b74855acc332d9879627ce1312c1d1ca22958">
         <source>Choosing "Include descendants" will include all lower-level records beneath those currently on the clipboard in the export.</source>
-        <target>V&#xE4;ljer du  "Inkludera underordnade niv&#xE5;er" kommer alla l&#xE4;gre niv&#xE5;er av poster under de aktuella i urklipp att inkluderas i exporten.</target>
+        <target>V&#xE4;ljer du "Inkludera underordnade niv&#xE5;er" kommer alla l&#xE4;gre niv&#xE5;er av poster under de aktuella i urklipp att inkluderas i exporten.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/exportSuccess.php</note>
       </trans-unit>
       <trans-unit id="172a3b6a149802a62c5013526250c882f1fd74ad">
         <source>Choosing "Include draft records" will include those marked with a Draft publication status in the export. Note: if you do NOT choose this option, any descendants of a draft record will also be excluded, even if they are published.</source>
-        <target>V&#xE4;ljer du "Inkludera utkastposter" kommer de som &#xE4;r markerade med publiceringsstatusen "utkast" f&#xF6;lja med i exporten. Notera: om du INTE v&#xE4;ljer detta alternativ, kommer underordnade niv&#xE5;er av en utkastpost ocks&#xE5; exkluderas, &#xE4;ven om de publiceras.</target>
+        <target>V&#xE4;ljer du "Inkludera utkastposter" kommer de som &#xE4;r markerade med publiceringsstatusen "utkast" f&#xF6;lja med i exporten. Notera: om du INTE v&#xE4;ljer detta alternativ, kommer underordnade niv&#xE5;er av en utkastpost ocks&#xE5; att exkluderas, &#xE4;ven om de &#xE4;r publicerade.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/exportSuccess.php</note>
       </trans-unit>
       <trans-unit id="4fee7bab4188929f417cffc894d785b5aa121349">
@@ -1086,7 +1086,7 @@
       </trans-unit>
       <trans-unit id="1215c026f51cb8089c74c71fb245d805be17437e">
         <source>DIP upload settings</source>
-        <target>Inst&#xE4;llningar DIP-uppladdning</target>
+        <target>Inst&#xE4;llningar f&#xF6;r DIP-uppladdning</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/dipUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="eb9a4bc1c0c153e4e4b042a79113b815b7e3021d">
@@ -1121,12 +1121,12 @@
       </trans-unit>
       <trans-unit id="ad2051102cc05b8a4116348d2b0a7d39f23b055d">
         <source>Dates of creation area</source>
-        <target>Datum f&#xF6;r tillkomst</target>
+        <target>Datum f&#xF6;r skapande</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="943cd90ea765a7f518e30f753c40ede79375d5d3">
         <source>Dates of creation, revision and deletion</source>
-        <target>Datum f&#xF6;r tillkomst, revision och borttagande</target>
+        <target>Datum f&#xF6;r skapande, revision och borttagande</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="7d3792fdcdf74f52b4f5e58d036fd4fb4f352046">
@@ -1136,7 +1136,7 @@
       </trans-unit>
       <trans-unit id="4bbded30b10f05b74c782c11c781e5d2e392c88b">
         <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads</source>
-        <target>Standard %1% uppladningsgr&#xE4;ns f&#xF6;r en ny %2%. Ett v&#xE4;rde p&#xE5; &amp;quot;0&amp;quot; (zero)  inaktiverar filuppladning. Ett v&#xE4;rde p&#xE5; &amp;quot;-1&amp;quot; till&#xE5;ter obegr&#xE4;nsad uppladdning.</target>
+        <target>Standard %1% uppladdningsgr&#xE4;ns f&#xF6;r en ny %2%. Ett v&#xE4;rde p&#xE5; &amp;quot;0&amp;quot; (zero) inaktiverar filuppladdning. Ett v&#xE4;rde p&#xE5; &amp;quot;-1&amp;quot; till&#xE5;ter obegr&#xE4;nsad uppladdning.</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="f255e4d2285844da586eed823a8fd90d24c49279">
@@ -1236,7 +1236,7 @@
       </trans-unit>
       <trans-unit id="1960d8900caf58abb54302c86ed8315cfbc2d3d3">
         <source>Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use</source>
-        <target>Avg&#xF6;r huruvida  syskon ska sorteras i tr&#xE4;dvyskontrollen f&#xF6;r informationsobjekt och, om s&#xE5; &#xE4;r fallet, vilka kriterier som ska anv&#xE4;ndas.</target>
+        <target>Avg&#xF6;r huruvida syskon ska sorteras i tr&#xE4;dvykontrollen f&#xF6;r informationsobjekt och, om s&#xE5; &#xE4;r fallet, vilka kriterier som ska anv&#xE4;ndas.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/treeviewSuccess.php</note>
       </trans-unit>
       <trans-unit id="c06c0afa72cfe94700e0c32481bbc96b96389502">
@@ -1301,7 +1301,7 @@
       </trans-unit>
       <trans-unit id="f685035ae35a8601c50a7e8020483324e95d0582">
         <source>Do not use any special characters or spaces in the slug - only lower case alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters will be stripped out or replaced. Editing the slug will not automatically update the other fields.</source>
-        <target>Anv&#xE4;nd inte s&#xE4;rskilda tecken eller mellanslag i sluggen- endast alfanumeriska gemener (a-z, 0-9), och bindestreck (-) kommer sparas. Andra tecken kommer att tas bort eller ers&#xE4;ttas. Redigering av sluggen kommer inte automatiskt uppdatera &#xF6;vriga f&#xE4;lt.</target>
+        <target>Anv&#xE4;nd inte s&#xE4;rskilda tecken eller mellanslag i sluggen - endast alfanumeriska gemener (a-z, 0-9), och bindestreck (-) kommer sparas. Andra tecken kommer att tas bort eller ers&#xE4;ttas. Redigering av sluggen kommer inte automatiskt uppdatera &#xF6;vriga f&#xE4;lt.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/renameSuccess.php</note>
       </trans-unit>
       <trans-unit id="49d010b43fef51e679bfa687236f9d9547b43de4">
@@ -1436,7 +1436,7 @@
       </trans-unit>
       <trans-unit id="71a1ca18209db3318a9dc4e4ed7ecc5a604fbc32">
         <source>Editing the description title will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.</source>
-        <target>Att redigera beskrivningstiteln kommer automatiskt uppdatera sluggf&#xE4;ltet om "Uppdatera slugg"-rutan &#xE4;r ikryssad - du kan fortfarande redigera den efter.</target>
+        <target>Att redigera beskrivningstiteln kommer automatiskt uppdatera sluggf&#xE4;ltet om "Uppdatera slugg"-rutan &#xE4;r ikryssad - du kan fortfarande redigera den d&#xE4;refter.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/renameSuccess.php</note>
       </trans-unit>
       <trans-unit id="2fad5704153f8466f8bf1af028b236b5251e1113">
@@ -1777,7 +1777,7 @@
       </trans-unit>
       <trans-unit id="8087e6de5ba40b121bf3ab59c8a49ad8ec90b83f">
         <source>Full width</source>
-        <target>Fullst&#xE4;ndig bredd bredd</target>
+        <target>Fullst&#xE4;ndig bredd</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/treeviewAction.class.php</note>
       </trans-unit>
       <trans-unit id="9239ee2cda84eca4c3440e2a7b50148af67da3d4">
@@ -1802,7 +1802,7 @@
       </trans-unit>
       <trans-unit id="4276a2f35e254deb45cfc0da4fe52600bf066261">
         <source>Generate Finding Aid as public user</source>
-        <target>Skapa S&#xF6;khj&#xE4;lpmedel som extern anv&#xE4;ndare</target>
+        <target>Skapa s&#xF6;khj&#xE4;lpmedel som extern anv&#xE4;ndare</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsFindingAidForm.class.php</note>
       </trans-unit>
       <trans-unit id="83943099c04cc659ec521820d9365f061042921d">
@@ -1817,7 +1817,7 @@
       </trans-unit>
       <trans-unit id="c2234604474ff2fb3b5f9f0869befcc2949ee34e">
         <source>Generate identifier</source>
-        <target>Generera signum</target>
+        <target>Skapa signum</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_identifierOptions.php</note>
       </trans-unit>
       <trans-unit id="8eefdd52ad2d9b9bb6ad00ddcd70e1821191b6cd">
@@ -1956,12 +1956,12 @@
       </trans-unit>
       <trans-unit id="af8b85ebb2b6c1a69de90ba4b95993b77dfbf6a9">
         <source>ISAD template - area headings</source>
-        <target>ISAD-all - omr&#xE5;desrubriker</target>
+        <target>ISAD-mall - omr&#xE5;desrubriker</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="4824cad04a5c00a035001a3763a5da098aa1cc49">
         <source>ISAD template - elements</source>
-        <target>ISAD mall - element</target>
+        <target>ISAD-mall - element</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="4804af7ec03e6a711bf53ba0a03b11280de6cd93">
@@ -2016,17 +2016,17 @@
       </trans-unit>
       <trans-unit id="ab55771c33fa1605dbc598fc79ff2ec47a2ecf27">
         <source>If job hasn't already completed, check %1% page to determine present status.</source>
-        <target>Om jobbet inte har slutf&#xF6;rts, kolla %1%sidan f&#xF6;r att best&#xE4;mma nuvarande status.</target>
+        <target>Om jobbet inte har slutf&#xF6;rts, kolla %1%sidan f&#xF6;r att best&#xE4;mma aktuell status.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/actions/moveAction.class.php</note>
       </trans-unit>
       <trans-unit id="f18616d6858c5afed733fffed6e2c7c70c695d02">
         <source>If the finding aid is an uploaded PDF, the transcript will be deleted too.</source>
-        <target>Om s&#xF6;khj&#xE4;lpmedlet &#xE4;r en uppladdad PDF, kommer &#xE4;ven avskriften raderas.</target>
+        <target>Om s&#xF6;khj&#xE4;lpmedlet &#xE4;r en uppladdad PDF, kommer &#xE4;ven avskriften att raderas.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/deleteFindingAidSuccess.php</note>
       </trans-unit>
       <trans-unit id="caeb0f968c54a0f7b51ffd2cb07f0d5ba29da724">
         <source>If the page number does not exist, the derivative will be generated from the previous closest one.</source>
-        <target>Om sidnumret inte finns, kommer h&#xE4;rledningen generas fr&#xE5;n det n&#xE4;rmast f&#xF6;reg&#xE5;ende.</target>
+        <target>Om sidnumret inte finns, kommer bearbetningen generas fr&#xE5;n det n&#xE4;rmast f&#xF6;reg&#xE5;ende.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/digitalObjectDerivativesSuccess.php</note>
       </trans-unit>
       <trans-unit id="1bc34d1ad9a60bd0c7632620c5133749b5c43a11">
@@ -2036,12 +2036,12 @@
       </trans-unit>
       <trans-unit id="9f718474ff9448b7c82b04a58d2feb9fec82b746">
         <source>Ignore matches and create new records on import</source>
-        <target>Bortse ifr&#xE5;n matchningar och skapa nya poster vid import.</target>
+        <target>Bortse fr&#xE5;n matchningar och skapa nya poster vid import.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/importSelectSuccess.php</note>
       </trans-unit>
       <trans-unit id="9c99bf2c75218af6f1a3069c538fac1aa3033130">
         <source>Ignore matches and import as new</source>
-        <target>Bortse ifr&#xE5;n matchningar och importera som ny</target>
+        <target>Bortse fr&#xE5;n matchningar och importera som ny</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/importSelectSuccess.php</note>
       </trans-unit>
       <trans-unit id="dda1218d0031499d2f2558561d0fcf5b3f592088">
@@ -2421,7 +2421,7 @@
       </trans-unit>
       <trans-unit id="83fce8327410848c9eb609acb21732c7c0fec96a">
         <source>Logo</source>
-        <target>Logo</target>
+        <target>Logotyp</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/repository/actions/editThemeAction.class.php</note>
       </trans-unit>
       <trans-unit id="6f9f011c5d36df6d431a68143636a75fbaa508bd">
@@ -2451,7 +2451,7 @@
       </trans-unit>
       <trans-unit id="62bce9422ff2d14f69ab80a154510232fc8a9afd">
         <source>Main</source>
-        <target>Huvudsaklig</target>
+        <target>Huvud</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_edit.php</note>
       </trans-unit>
       <trans-unit id="38ad1133f788da810e639f78eb53179fd4535d93">
@@ -2566,17 +2566,17 @@
       </trans-unit>
       <trans-unit id="20f7679b69f26893d66d8e33f1654f642aae38a9">
         <source>Move failed: </source>
-        <target>F&#xF6;rflyttning misslyckades:</target>
+        <target>Flyttning misslyckades:</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/fullWidthTreeViewMoveAction.class.php</note>
       </trans-unit>
       <trans-unit id="42ee19070c490cdcd3b6f0a266b720b2761238fa">
         <source>Move failed: new and old positions required as numbers</source>
-        <target>F&#xF6;rflyttning misslyckades: ny och gammal position m&#xE5;ste vara i sifferform</target>
+        <target>Flytt misslyckades: ny och gammal position m&#xE5;ste vara i sifferform</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/fullWidthTreeViewMoveAction.class.php</note>
       </trans-unit>
       <trans-unit id="0e80785e63281cdebb50c46db5d9de0098c1756e">
         <source>Move failed: resource not found</source>
-        <target>F&#xF6;rflyttning misslyckades: resurs kan ej hittas</target>
+        <target>Flytt misslyckades: resurs kan ej hittas</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/fullWidthTreeViewMoveAction.class.php</note>
       </trans-unit>
       <trans-unit id="d6f5b75c92e201012666c9d9865972c786decb4e">
@@ -2601,17 +2601,17 @@
       </trans-unit>
       <trans-unit id="3180f81f1cba3456db87bf31566a2a510ac91995">
         <source>Move not allowed: log in required</source>
-        <target>Ej till&#xE5;tet att flytta: inloggning kr&#xE4;vs</target>
+        <target>Flytt inte till&#xE5;ten: inloggning kr&#xE4;vs</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/fullWidthTreeViewMoveAction.class.php</note>
       </trans-unit>
       <trans-unit id="16f54870bd401584e24bcc3c72cf5e664d7e35e9">
         <source>Move not allowed: not enough permissions</source>
-        <target>Ej till&#xE5;tet att flytta: inte tillr&#xE4;ckliga beh&#xF6;righeter</target>
+        <target>Flytt inte till&#xE5;ten: inloggning kr&#xE4;vs, inte tillr&#xE4;ckliga beh&#xF6;righeter</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/fullWidthTreeViewMoveAction.class.php</note>
       </trans-unit>
       <trans-unit id="cf299204f2875b146fd69f85d91734ecf5a6240a">
         <source>Move not needed: new and old positions are the same</source>
-        <target>F&#xF6;rflyttning ej n&#xF6;dv&#xE4;ndig: ny och gammal position &#xE4;r samma</target>
+        <target>Flytt inte n&#xF6;dv&#xE4;ndig: ny och gammal position &#xE4;r samma</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/fullWidthTreeViewMoveAction.class.php</note>
       </trans-unit>
       <trans-unit id="b4f57cd0cd5c7d88461c1718646713dea47a36c9">
@@ -2716,7 +2716,7 @@
       </trans-unit>
       <trans-unit id="e7c3d2225afaba2338575edd35fc684a608bc519">
         <source>No. narrower terms</source>
-        <target>Nej. sn&#xE4;vare termer</target>
+        <target>Nej, sn&#xE4;vare termer</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/templates/_rightContextMenu.php</note>
       </trans-unit>
       <trans-unit id="6eef6648406c333a4035cd5e60d0bf2ecf2606d7">
@@ -2731,7 +2731,7 @@
       </trans-unit>
       <trans-unit id="5d617df124304970c2677920d0c3cffce2229fcf">
         <source>Not generated yet.</source>
-        <target>Inte genererad &#xE4;nnu.</target>
+        <target>Inte skapad &#xE4;nnu.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/indexSuccess.php</note>
       </trans-unit>
       <trans-unit id="2c924e3088204ee77ba681f72be3444357932fca">
@@ -2761,6 +2761,7 @@
       </trans-unit>
       <trans-unit id="3458691a052190f93fdb11ca8c6688960a10c66f">
         <source>Notes for this Rights Basis.</source>
+        <target>Anm&#xE4;rkningar f&#xF6;r denna r&#xE4;ttsgrund.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/editSuccess.php</note>
       </trans-unit>
       <trans-unit id="92cb19318d1451bdf32d678cd44c0c79fb1926dd">
@@ -2785,7 +2786,7 @@
       </trans-unit>
       <trans-unit id="1532d65ee8af467a28b22294d88943777e5db47f">
         <source>OAI repository identifier</source>
-        <target>OAI arkivsignum</target>
+        <target>OAI-arkivsignum</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsOaiRepositoryForm.class.php</note>
       </trans-unit>
       <trans-unit id="861120aa060acd9aeda0068dc82b7bdb52ca4063">
@@ -2835,7 +2836,7 @@
       </trans-unit>
       <trans-unit id="433f456fb46c810efb1c761208597a87d277d48a">
         <source>Oops, we couldn't find any %1 level descriptions.</source>
-        <target>Hoppsan, vi kunde inte hitta n&#xE5;gra  beskrivningar p&#xE5; %1 niv&#xE5;.</target>
+        <target>Hoppsan, vi kunde inte hitta n&#xE5;gra beskrivningar p&#xE5; %1 niv&#xE5;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/itemOrFileListError.php</note>
       </trans-unit>
       <trans-unit id="2e759cca2dbc1c9d5887b9a37cfdbaacded11cfe">
@@ -2905,17 +2906,17 @@
       </trans-unit>
       <trans-unit id="78a1eceb2840121f9b3c5f4e6a5b4e585a575909">
         <source>PDF page number for image derivative</source>
-        <target>PDF sidnummer f&#xF6;r bildderivat</target>
+        <target>PDF sidnummer f&#xF6;r bildbearbetning</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/digitalObjectDerivativesSuccess.php</note>
       </trans-unit>
       <trans-unit id="711ca5e1b2833adf77c758fc877e8989981c3b7e">
         <source>PREMIS access permissions</source>
-        <target>PREMIS &#xE5;tkomstbeh&#xF6;righeter</target>
+        <target>PREMIS-&#xE5;tkomstbeh&#xF6;righeter</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/permissionsSuccess.php</note>
       </trans-unit>
       <trans-unit id="53f2f7f9a21873078137f9cfa4c14d9294ae50ec">
         <source>PREMIS access statements</source>
-        <target>PREMIS tillg&#xE5;ngsf&#xF6;rklaring</target>
+        <target>PREMIS-tillg&#xE5;ngsf&#xF6;rklaring</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/permissionsSuccess.php</note>
       </trans-unit>
       <trans-unit id="bf1bc68dbbe999055ba5a5a51b94d977530fc57c">
@@ -3176,22 +3177,22 @@
       </trans-unit>
       <trans-unit id="601dcc1c87c313fd30ce84fe78d832c726dc750e">
         <source>Read only</source>
-        <target>Readonly</target>
+        <target>Read only</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/menu/templates/editSuccess.php</note>
       </trans-unit>
       <trans-unit id="ec177c36f9020b04d5735612ec19d256e5929b12">
         <source>Record a citation to, and/or information about a publication that is about or based on the use, study, or analysis of the unit of description. Include references to published facsimiles or transcriptions. (ISAD 3.5.4)</source>
-        <target>G&#xF6;r en citering till, och/eller information om en publikation som handlar om eller &#xE4;r baserad p&#xE5; anv&#xE4;ndningen, studien eller analys av beskrivningsenheten. Inkludera h&#xE4;nvisning till publicerade faksimiler eller transkriptioner. (ISAD 3.5.4)</target>
+        <target>G&#xF6;r en citering till, och/eller information om en publikation som handlar om eller &#xE4;r baserad p&#xE5; anv&#xE4;ndningen, studien eller analysen av beskrivningsenheten. Inkludera h&#xE4;nvisning till publicerade faksimiler eller transkriptioner. (ISAD 3.5.4)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/notesComponent.class.php</note>
       </trans-unit>
       <trans-unit id="5abafdf357f92215784bc8ce12a4ef41f2cf56cc">
         <source>Record a citation to, or information about, a publication that is about or is based on the use, study, or analysis of the materials being described. Provide sufficient information to indicate the relationship between the publication and the unit being described. This includes annotated editions. (DACS 6.4.4)</source>
-        <target>G&#xF6;r en citering till, och/eller information om en publikation som handlar om eller &#xE4;r baserad p&#xE5; anv&#xE4;ndningen, studien eller analys av materialet som anv&#xE4;nds. Ange tillr&#xE4;cklig information f&#xF6;r att indikera relationen mellan publikationen och enheten som beskrivs. Detta inkluderar annoterade upplagor. (DACS 6.4.4)</target>
+        <target>G&#xF6;r en citering till, och/eller information om en publikation som handlar om eller &#xE4;r baserad p&#xE5; anv&#xE4;ndningen, studien eller analysen av materialet som anv&#xE4;nds. Ange tillr&#xE4;cklig information f&#xF6;r att indikera relationen mellan publikationen och enheten som beskrivs. Detta inkluderar annoterade upplagor. (DACS 6.4.4)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/notesComponent.class.php</note>
       </trans-unit>
       <trans-unit id="b5ed865bd130aa9047b8cc4b5d512e2ca1ab7d23">
         <source>Record notes on sources consulted in preparing the description and who prepared it. (ISAD 3.7.1)</source>
-        <target>Ange information om k&#xE4;llor som anv&#xE4;nts f&#xF6;r att ta fram beskrivningen och vem som  tagit fram den. (ISAD 3.7.1)</target>
+        <target>Ange information om k&#xE4;llor som anv&#xE4;nts f&#xF6;r att ta fram f&#xF6;rteckningen och vem som tagit fram den. (ISAD 3.7.1)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/notesComponent.class.php</note>
       </trans-unit>
       <trans-unit id="53acccead279f0e87c4051db5cefa6dbe4ec049f">
@@ -3211,7 +3212,7 @@
       </trans-unit>
       <trans-unit id="b2acd6af73c4ceb26f6c5c2b296adafd8ee013d6">
         <source>Reference code</source>
-        <target>Referensnummer</target>
+        <target>Referenskod</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/templates/indexSuccess.php</note>
       </trans-unit>
       <trans-unit id="1b71aaeef4ba63eac38b64a29f4f2838bbdee13b">
@@ -3321,7 +3322,7 @@
       </trans-unit>
       <trans-unit id="663a0e390f868efcff5a6d14f0ddeaa4c15a0d05">
         <source>Report generation has started, please check the &lt;a href="%1"&gt;reports&lt;/a&gt; page again soon.</source>
-        <target>Generering av rapport har p&#xE5;b&#xF6;rjats, var god kolla &lt;a href="%1"&gt;rapporter&lt;/a&gt;sidan igen inom kort.</target>
+        <target>Skapande av rapport har p&#xE5;b&#xF6;rjats, var god kolla &lt;a href="%1"&gt;rapporter&lt;/a&gt;sidan igen inom kort.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/boxLabelAction.class.php</note>
       </trans-unit>
       <trans-unit id="88bc3fe3daddee139809d036f18b985fbe165957">
@@ -3341,7 +3342,7 @@
       </trans-unit>
       <trans-unit id="c18a4014c9074a532c87cb96494e272fd9c2448c">
         <source>Require API key authentication</source>
-        <target>Kr&#xE4;ver API-nyckelsautentisering </target>
+        <target>Kr&#xE4;ver API-nyckelautentisering </target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsOaiRepositoryForm.class.php</note>
       </trans-unit>
       <trans-unit id="a75dfe6efd6ee90b0cf31c7b23fb02f3c77ca7dd">
@@ -3361,7 +3362,7 @@
       </trans-unit>
       <trans-unit id="1adeeae8555a2b1ea4bcd3fc8c19acca3c3bcdb4">
         <source>Requirements: PNG format, 256K max. size.&lt;br /&gt;Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.</source>
-        <target>Krav: PNG-format, 256K max. storlek. &lt;br /&gt; Rekommenderade dimensioner p&#xE5; %1%x%2%px, den kommer besk&#xE4;ras om ImageMagick &#xE4;r installerad.</target>
+        <target>Krav: PNG-format, 256K max. storlek. &lt;br /&gt; Rekommenderade dimensioner p&#xE5; %1%x%2%px, den kommer att besk&#xE4;ras om ImageMagick &#xE4;r installerad.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/repository/actions/editThemeAction.class.php</note>
       </trans-unit>
       <trans-unit id="44c57abd888a66b36d4b7c902134063e4a097223">
@@ -3410,7 +3411,7 @@
       </trans-unit>
       <trans-unit id="d4504239e490946c5c5eba10229f1b132b794913">
         <source>Retrieval information</source>
-        <target>S&#xF6;ktr&#xE4;ffinformation</target>
+        <target>H&#xE4;mtningsinformation</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/itemOrFileListAction.class.php</note>
       </trans-unit>
       <trans-unit id="5dc13a2e758dc5cfb509a823c41a7a8db9519f97">
@@ -3593,7 +3594,7 @@
       </trans-unit>
       <trans-unit id="c416ec642ffcacb2ed39e45e39ae8edc619907d5">
         <source>Select a note type from the drop-down menu and enter note text in accordance with the following sections in RAD: 1.5E (Accompanying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (Rights).</source>
-        <target>V&#xE4;lj en anm&#xE4;rkningstyp fr&#xE5;n rullgardinsmenyn och fyll i anm&#xE4;rkningstext i enlighet med f&#xF6;ljande sektioner i RAD: 1.5E(Tillh&#xF6;rande material); 1.8 B11 (Alfanumerisk beteckning); 1.8B9b (Bevarande); 1.8B7 (Upplaga); 1.8B9 (Omf&#xE5;ng); 1.8B16b (R&#xE4;ttigheter).</target>
+        <target>V&#xE4;lj en anm&#xE4;rkningstyp fr&#xE5;n rullgardinsmenyn och fyll i anm&#xE4;rkningstext i enlighet med f&#xF6;ljande sektioner i RAD: 1.5E (Tillh&#xF6;rande material); 1.8 B11 (Alfanumerisk beteckning); 1.8B9b (Bevarande); 1.8B7 (Upplaga); 1.8B9 (Omf&#xE5;ng); 1.8B16b (R&#xE4;ttigheter).</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/notesComponent.class.php</note>
       </trans-unit>
       <trans-unit id="b35a38de2b87b224870761a8edeab25404313043">
@@ -3608,17 +3609,17 @@
       </trans-unit>
       <trans-unit id="9eed8d3863d9140182f5b227064d72436a10edcd">
         <source>Select new report to generate:</source>
-        <target>V&#xE4;lj ny rapport att generera:</target>
+        <target>V&#xE4;lj ny rapport att skapa:</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/reportsSuccess.php</note>
       </trans-unit>
       <trans-unit id="b3a9cf6ab62a9695c0d8e9d6d4625222b184c40c">
         <source>Select the levels of description to be included in the export. If no levels are selected, the export will fail. You can use the control (Mac &#x2318;) and/or shift keys to multi-select values from the Levels of description menu. Descriptions that are descendants of levels not included in the export will also be excluded.</source>
-        <target>V&#xE4;lj beskrivningsniv&#xE5;erna att inkludera i exporten. Om inga niv&#xE5;er &#xE4;r valda, kommer exporten att misslyckas. Du kan anv&#xE4;nda ctrl- (Mac &#x2318;) och/eller shifttangenten f&#xF6;r att v&#xE4;lja flera v&#xE4;rden fr&#xE5;n menyn f&#xF6;r beskrivningsniv&#xE5;er. Beskrivningar som &#xE4;r underordnade niv&#xE5;er till niv&#xE5;er som inte &#xE4;r inkluderade i exporten kommer ocks&#xE5; exkluderas.</target>
+        <target>V&#xE4;lj beskrivningsniv&#xE5;er att inkludera i exporten. Om inga niv&#xE5;er &#xE4;r valda, kommer exporten att misslyckas. Du kan anv&#xE4;nda ctrl- (Mac &#x2318;) och/eller shifttangenten f&#xF6;r att v&#xE4;lja flera v&#xE4;rden fr&#xE5;n menyn f&#xF6;r beskrivningsniv&#xE5;er. Beskrivningar som &#xE4;r underordnade niv&#xE5;er till niv&#xE5;er, som inte &#xE4;r inkluderade i exporten, kommer ocks&#xE5; att exkluderas.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/exportSuccess.php</note>
       </trans-unit>
       <trans-unit id="1f6cc2c4709987f2ef8ca994f495bf38069e7f6c">
         <source>Select the levels of description to be included in the inventory list. If no levels are selected, the inventory list link will not be displayed. You can use the control (Mac &#x2318;) and/or shift keys to multi-select values from the Levels of description menu.</source>
-        <target>V&#xE4;lj beskrivningniv&#xE5;er som ska ing&#xE5; i f&#xF6;rteckningslistan. Om inga niv&#xE5;er &#xE4;r valda, kommer f&#xF6;rteckningslistan inte visas. Du kan anv&#xE4;nda ctrl- (Mac &#x2318;) och/eller shiftnyckeln f&#xF6;r att v&#xE4;lja flera v&#xE4;rden fr&#xE5;n menyn f&#xF6;r beskrivningsniv&#xE5;er.</target>
+        <target>V&#xE4;lj beskrivningniv&#xE5;er som ska ing&#xE5; i f&#xF6;rteckningslistan. Om inga niv&#xE5;er &#xE4;r valda, kommer f&#xF6;rteckningslistan inte visas. Du kan anv&#xE4;nda ctrl- (Mac &#x2318;) och/eller shifttangenten f&#xF6;r att v&#xE4;lja flera v&#xE4;rden fr&#xE5;n menyn f&#xF6;r beskrivningsniv&#xE5;er.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/inventorySuccess.php</note>
       </trans-unit>
       <trans-unit id="43d5b3ac517e810204b4c085b88d03fc3f41f82d">
@@ -3632,7 +3633,7 @@
       </trans-unit>
       <trans-unit id="198ecaaed937aae1065e42692cbb4a00938a050d">
         <source>Set if you want to combine the current set of rights with any existing rights, or remove the existing rights and apply these new rights</source>
-        <target>Ange om du vill kombinera de nuvarande upps&#xE4;ttningar r&#xE4;ttigheter med andra befintliga r&#xE4;ttigheter, eller ta bort de befintliga r&#xE4;ttigheterna och till&#xE4;mpa dessa nya r&#xE4;ttigheter.</target>
+        <target>Ange om du vill kombinera nuvarande upps&#xE4;ttningar r&#xE4;ttigheter med andra befintliga r&#xE4;ttigheter, eller ta bort de befintliga r&#xE4;ttigheterna och till&#xE4;mpa dessa nya r&#xE4;ttigheter.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/manageSuccess.php</note>
       </trans-unit>
       <trans-unit id="9e7f0fff4642398e44450be436025cad2d260328">
@@ -3647,7 +3648,7 @@
       </trans-unit>
       <trans-unit id="307abbae0e929dbc03e352947c69881166ff60e6">
         <source>Set the upload limit for this %1%</source>
-        <target>Ange uppladdnings gr&#xE4;ns f&#xF6;r denna %1%</target>
+        <target>Ange uppladdningsgr&#xE4;ns f&#xF6;r denna %1%</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/repository/templates/_uploadLimit.php</note>
       </trans-unit>
       <trans-unit id="c65c9797dbb8027bc950e0ae9cbceb0e8bdb6d5c">
@@ -3692,7 +3693,7 @@
       </trans-unit>
       <trans-unit id="bd57ff68e1b63cef05530e55a5cfe03434fe2546">
         <source>Show tooltips</source>
-        <target>Visa tooltip</target>
+        <target>Visa verktygstips</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="4b01785d3fafbbde8ea1df111484b4b88cae7a5d">
@@ -3707,7 +3708,7 @@
       </trans-unit>
       <trans-unit id="82f726ee8d6d55d82e66c253ac3fe8841fb23723">
         <source>Site base URL (used in MODS and EAD exports)</source>
-        <target>Bas-URL (anv&#xE4;nds i MODS och EAD-export)</target>
+        <target>Bas-URL (anv&#xE4;nds i MODS och EAD-exporter)</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsSiteInformationForm.class.php</note>
       </trans-unit>
       <trans-unit id="447a35f8fee9d8e3e7424d40a01aeb1a3932ff71">
@@ -3762,12 +3763,12 @@
       </trans-unit>
       <trans-unit id="b21fa4c547923a71ed38042cc8e969215c5da158">
         <source>Sorry, this Term is locked</source>
-        <target>Denna term &#xE4;r  tyv&#xE4;rr l&#xE5;st</target>
+        <target>Denna term &#xE4;r tyv&#xE4;rr l&#xE5;st</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/admin/templates/termPermissionSuccess.php</note>
       </trans-unit>
       <trans-unit id="cc516036cd8ebb7042616f9c21b22243744ad210">
         <source>Sorry, this Term is locked and cannot be deleted</source>
-        <target>Denna term &#xE4;r  tyv&#xE4;rr l&#xE5;st och kan inte raderas</target>
+        <target>Denna term &#xE4;r tyv&#xE4;rr l&#xE5;st och kan inte raderas</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/admin/templates/termPermissionSuccess.php</note>
       </trans-unit>
       <trans-unit id="3d112158533315aafbb1da1dee975e6fbc64bd0a">
@@ -3842,7 +3843,7 @@
       </trans-unit>
       <trans-unit id="27c1fec3c024ff05b1b6b31d6308e1b9afb9307f">
         <source>Standard number area</source>
-        <target>Standarnummer</target>
+        <target>Standardnummer</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="952f375412e89ff213a8aca383d18e5691354347">
@@ -3901,17 +3902,17 @@
       </trans-unit>
       <trans-unit id="8d183dbdcea3b29906090bd83fa6fa37923cc8ec">
         <source>Subject</source>
-        <target> &#xC4;mnesord</target>
+        <target>&#xC4;mne</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/actor/actions/contextMenuComponent.class.php</note>
       </trans-unit>
       <trans-unit id="43f229ce767bff78035c8e5a860a84802f657179">
         <source>Subject access points</source>
-        <target>S&#xF6;king&#xE5;ngar p&#xE5;  &#xE4;mnesord</target>
+        <target>S&#xF6;king&#xE5;ngar p&#xE5; &#xE4;mne</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/_advancedSearch.php</note>
       </trans-unit>
       <trans-unit id="278947dee289782f78903bd4d2e463a039a517fd">
         <source>Subjects</source>
-        <target> &#xC4;mnesord</target>
+        <target>&#xC4;mnen</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_subjectAccessPoints.php</note>
       </trans-unit>
       <trans-unit id="da33d8906282e9d4e451c9ca29955b8061e181e9">
@@ -3941,7 +3942,7 @@
       </trans-unit>
       <trans-unit id="a06d0089552f980c9def53dc3cd9f2cfd1471f74">
         <source>Text describing the license or agreement by which permission was granted or link to full-text hosted online. This can contain the actual text of the license or agreement or a paraphrase or summary.</source>
-        <target>Text som beskriver licensen eller &#xF6;verenskommelsen som beviljade beh&#xF6;righet eller l&#xE4;nk till fulltext online. Detta kan inneh&#xE5;lla faktisk text f&#xF6;r licensen eller &#xF6;verenskommelsen, eller en parafras eller sammanfattning.</target>
+        <target>Text som beskriver licensen eller &#xF6;verenskommelsen som beviljade beh&#xF6;righet eller l&#xE4;nk till fulltext online. Detta kan inneh&#xE5;lla faktisk text f&#xF6;r licensen eller &#xF6;verenskommelsen, eller en parafras eller en sammanfattning.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/editSuccess.php</note>
       </trans-unit>
       <trans-unit id="e796635101e6392ac36200527699af4cad9643cd">
@@ -4009,7 +4010,7 @@
       </trans-unit>
       <trans-unit id="f19ac75efc1ab54cf37d987d1f0c343148ae36bf">
         <source>The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your AtoM system administrator to increase the available disk space.</source>
-        <target>Maximalt diskutrymme p&#xE5; %1% GB tillg&#xE4;ngligt f&#xF6;r uppladdning av digitala objekt har uppn&#xE5;tts. Var god kontakta systemadministrat&#xF6;ren f&#xF6;r AtoM f&#xF6;r att ut&#xF6;ka tillg&#xE4;ngligt diskutrymme.</target>
+        <target>Maximalt diskutrymme p&#xE5; %1% GB, tillg&#xE4;ngligt f&#xF6;r uppladdning av digitala objekt, har uppn&#xE5;tts. Var god kontakta systemadministrat&#xF6;ren f&#xF6;r AtoM f&#xF6;r att ut&#xF6;ka tillg&#xE4;ngligt diskutrymme.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/addDigitalObjectSuccess.php</note>
       </trans-unit>
       <trans-unit id="ca7f60bc12531ad3f9e59ab97c1431e7fb6cb815">
@@ -4019,7 +4020,7 @@
       </trans-unit>
       <trans-unit id="a37a330d1cb0b2a67dc1578506ff9f2aed320518">
         <source>The maximum width for derived reference images</source>
-        <target>Maximal bredd f&#xF6;r referensbilder</target>
+        <target>Maximal bredd f&#xF6;r bearbetade referensbilder</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="4c521db1a3e2911f9f0f96e94a6950180b992561">
@@ -4038,17 +4039,17 @@
       </trans-unit>
       <trans-unit id="15c449cdaaa7971534d5ce4ec9f2e0a1b17b6d4d">
         <source>The pdfinfo tool is required to use this functionality. Please contact your system administrator.</source>
-        <target>pdfinfo-verktyget kr&#xE4;vs f&#xF6;r att anv&#xE4;nda denna funktionalitet. Var god kontakta din systemadministrat&#xF6;r.</target>
+        <target>Pdfinfo-verktyget kr&#xE4;vs f&#xF6;r att anv&#xE4;nda denna funktionalitet. Var god kontakta din systemadministrat&#xF6;r.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/digitalObjectDerivativesSuccess.php</note>
       </trans-unit>
       <trans-unit id="ba4c2c69fd76c873fe920573ad314b3220313a35">
         <source>The related object(s) will &lt;strong&gt;not&lt;/strong&gt; be deleted</source>
-        <target>De relaterade objekten kommer &lt;strong&gt;inte&lt;/strong&gt;raderas</target>
+        <target>De relaterade objekten kommer &lt;strong&gt;inte&lt;/strong&gt;att raderas</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/templates/deleteSuccess.php</note>
       </trans-unit>
       <trans-unit id="ea9bdb7024dc3532a4d6be8b290953cd5d0cc0c8">
         <source>The system is currently in read-only mode. Please try again later.</source>
-        <target>Detta system &#xE4;r just nu skrivskyddat l&#xE4;ge. Var god f&#xF6;rs&#xF6;k igen senare.</target>
+        <target>Detta system &#xE4;r just nu i skrivskyddat l&#xE4;ge. Var god f&#xF6;rs&#xF6;k igen senare.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/readOnlySuccess.php</note>
       </trans-unit>
       <trans-unit id="7e4f9856b9c62bfe3143c722ce98ff561dfcc0e6">
@@ -4113,7 +4114,7 @@
       </trans-unit>
       <trans-unit id="0191a6141d0f117ad83678a3456c44a9900e248e">
         <source>This feature will not work until a Google Maps API key is specified on the %1%global%2% settings page.</source>
-        <target>Denna funktion kommer inte fungera tills en Google Maps API-nyckel &#xE4;r specificerad p&#xE5; sidan f&#xF6;r %1% globala%2% inst&#xE4;llningar.</target>
+        <target>Denna funktion kommer inte att fungera tills en Google Maps API-nyckel &#xE4;r specificerad p&#xE5; sidan f&#xF6;r %1% globala%2% inst&#xE4;llningar.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/pageElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="dedbaded6d5a4ed17eefa2e4ee3eee026b7d1d11">
@@ -4138,7 +4139,7 @@
       </trans-unit>
       <trans-unit id="05049eb92964565de3eaa925306da525726199a6">
         <source>This is an auto-generated setting that produces an OAI compliant repository identifier, which includes the OAI repository code value if it is set</source>
-        <target>Detta &#xE4;r en automatiskt genererad inst&#xE4;llning som producerar ett OAI-kompatibelt arkivsignum, vilket inkluderar OAI-arkivinstitutionskodv&#xE4;rden om den &#xE4;r inst&#xE4;lld.</target>
+        <target>Detta &#xE4;r en automatiskt genererad inst&#xE4;llning som producerar ett OAI-kompatibelt arkivsignum, vilket inkluderar OAI-arkivinstitutionskodv&#xE4;rden, om den &#xE4;r inst&#xE4;lld.</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsOaiRepositoryForm.class.php</note>
       </trans-unit>
       <trans-unit id="15040c2127a65f3987da8ec91b6b7350962a9fa7">
@@ -4153,12 +4154,12 @@
       </trans-unit>
       <trans-unit id="9aee7a8a9d414e8fd0e86f940e108f1fe676e49f">
         <source>This term is used in %1% descriptions. The term will be deleted from these descriptions.</source>
-        <target>Denna term anv&#xE4;nds i %1% beskrivningar. Termen kommer raderas fr&#xE5;n dessa beskrivningar.</target>
+        <target>Denna term anv&#xE4;nds i %1% beskrivningar. Termen kommer att raderas fr&#xE5;n dessa beskrivningar.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/templates/deleteSuccess.php</note>
       </trans-unit>
       <trans-unit id="e0b11377ac38712be06c421d2bf188df60a42562">
         <source>This user has %1% note(s) in the system. These notes will not be deleted, but their association with this user will be removed.</source>
-        <target>Denna anv&#xE4;ndare har %1% anm&#xE4;rkning(ar) i systemet. Dessa anm&#xE4;rkningar kommer inte raderas, men deras association med denna anv&#xE4;ndare kommer tas bort.</target>
+        <target>Denna anv&#xE4;ndare har %1% anm&#xE4;rkning(ar) i systemet. Dessa anm&#xE4;rkningar kommer inte att raderas, men deras association med denna anv&#xE4;ndare kommer att tas bort.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/deleteSuccess.php</note>
       </trans-unit>
       <trans-unit id="3a70a8b43589e3fe6afc33db59d796bd3f6db4a9">
@@ -4188,7 +4189,7 @@
       </trans-unit>
       <trans-unit id="3a740d26000f70fa0140bb946054524e3c748fd7">
         <source>This will permanently modify %1% records.</source>
-        <target>Detta kommer permanent &#xE4;ndra %1% poster.</target>
+        <target>Detta kommer att permanent &#xE4;ndra %1% poster.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/globalReplaceSuccess.php</note>
       </trans-unit>
       <trans-unit id="20f9b91fc58df0b324f87ed1d62b8357269c2545">
@@ -4203,7 +4204,7 @@
       </trans-unit>
       <trans-unit id="6be3badbbba74654b102c5a1056bacdf926b8570">
         <source>Title and statement of responsibility area</source>
-        <target>Titel och ansvarsredog&#xF6;relse</target>
+        <target>Titel- och ansvarsredog&#xF6;relse</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="8009886022460ab7e164154a06e1b7f04f12fc10">
@@ -4223,6 +4224,7 @@
       </trans-unit>
       <trans-unit id="cae0435c41e816c24f0838fdf4e76c044c8b4e00">
         <source>Top</source>
+        <target>&#xD6;ver</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/menu/actions/editAction.class.php</note>
       </trans-unit>
       <trans-unit id="e9afef074d0341b011c84b0d66e9ffecc5f4b4dd">
@@ -4317,6 +4319,7 @@
       </trans-unit>
       <trans-unit id="55aa2de73b4e70802873c0e985d1296adc1dbb7e">
         <source>Update publication status</source>
+        <target>Uppdatera publiceringsstatus</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/updatePublicationStatusSuccess.php</note>
       </trans-unit>
       <trans-unit id="eac2c8a422520349216ca1cb76504800f3dd6953">
@@ -4386,7 +4389,7 @@
       </trans-unit>
       <trans-unit id="e0f74e65d72f39a19b8de146125af8eecd897831">
         <source>Uploaded finding aid</source>
-        <target>Laddade upp s&#xF6;khj&#xE4;lpmedel</target>
+        <target>Uppladdat s&#xF6;khj&#xE4;lpmedel</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/findingAidLinkComponent.class.php</note>
       </trans-unit>
       <trans-unit id="da6a3de66f8bdcef072f2153417d99ff120e3b8c">
@@ -4421,7 +4424,7 @@
       </trans-unit>
       <trans-unit id="7f2c2029af462f4021d0d20994e9606eee38faf6">
         <source>Use the actor name field to link an authority record to this description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target>Anv&#xE4;nd akt&#xF6;rsnamnf&#xE4;ltet f&#xF6;r att l&#xE4;nka en auktoritetspost till denna f&#xF6;rteckning. S&#xF6;k efter en befintlig term i auktoritetsposterna genom att skriva de f&#xF6;rsta tecknen i namnet. Alternativt, skriv ett nytt namn f&#xF6;r att skapa och l&#xE4;nka till en ny auktoritetspost.</target>
+        <target>Anv&#xE4;nd namnf&#xE4;ltet f&#xF6;r akt&#xF6;r f&#xF6;r att l&#xE4;nka en auktoritetspost till denna f&#xF6;rteckning. S&#xF6;k efter en befintlig term i auktoritetsposterna genom att skriva de f&#xF6;rsta tecknen i namnet. Alternativt, skriv ett nytt namn f&#xF6;r att skapa och l&#xE4;nka till en ny auktoritetspost.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/eventComponent.class.php</note>
       </trans-unit>
       <trans-unit id="a982c978b55a9d92ebf50fc464c6fed71f638d9a">
@@ -4540,7 +4543,7 @@
       </trans-unit>
       <trans-unit id="2adff028b76aada6fd284b4151748d7d5111c8e3">
         <source>When set to &amp;quot;no&amp;quot;, the repository name is excluded from certain displays because it will be too repetitive</source>
-        <target>N&#xE4;r inst&#xE4;lld p&#xE5; &amp;quot;no&amp;quot;, kommer namnet p&#xE5; arkivinstitutionen exkluderas fr&#xE5;n vissa visningssidor d&#xE5; det annars kommer vara f&#xF6;r repetitivt. </target>
+        <target>N&#xE4;r inst&#xE4;lld p&#xE5; &amp;quot;no&amp;quot;, kommer namnet p&#xE5; arkivinstitutionen att exkluderas fr&#xE5;n vissa visningssidor d&#xE5; det annars kommer vara f&#xF6;r repetitivt. </target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="e7670de2a94b451d420c1ebcfdf3c41045ee5d9b">
@@ -4595,7 +4598,7 @@
       </trans-unit>
       <trans-unit id="917e570a8a4bd0ac7d268c641cecf74082508bb1">
         <source>You cannot show more than %max% hits per page</source>
-        <target>Du kan inte visa mer &#xE4;n  %max% tr&#xE4;ffar per sida</target>
+        <target>Du kan inte visa mer &#xE4;n %max% tr&#xE4;ffar per sida</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="effcd964457987df5627f005cd37b12c967032c1">
@@ -4615,7 +4618,7 @@
       </trans-unit>
       <trans-unit id="32a695f00e7eecfa1aefa9c0a9c090d03d1d4383">
         <source>You must enter your username</source>
-        <target>Du m&#xE5;ste ange anv&#xE4;ndarnamn</target>
+        <target>Du m&#xE5;ste ange ditt anv&#xE4;ndarnamn</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/loginAction.class.php</note>
       </trans-unit>
       <trans-unit id="5b8d7eb4c328e630fac3c1f8df87917cba800edd">
@@ -4640,7 +4643,7 @@
       </trans-unit>
       <trans-unit id="3ce21b73e93a6e6184c5b82162d8d2b7a5d5b4a4">
         <source>Your edits to this description have been saved and the description has reverted to Draft status. Please ask a user with sufficient permissions to publish the description again to make it publicly visible.</source>
-        <target>Dina redigeringar i denna f&#xF6;rteckning har sparats och f&#xF6;rteckningen har &#xE5;terg&#xE5;tt till utkaststatus. Var god fr&#xE5;ga en anv&#xE4;ndare med tillr&#xE4;ckliga beh&#xF6;righeter f&#xF6;r att publicera f&#xF6;rteckningen igen f&#xF6;r att g&#xF6;ra den offentligt synlig .</target>
+        <target>Dina redigeringar i denna f&#xF6;rteckning har sparats och f&#xF6;rteckningen har &#xE5;terg&#xE5;tt till utkaststatus. Var god fr&#xE5;ga en anv&#xE4;ndare med tillr&#xE4;ckliga beh&#xF6;righeter f&#xF6;r att publicera f&#xF6;rteckningen igen f&#xF6;r att g&#xF6;ra den offentligt synlig.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/editAction.class.php</note>
       </trans-unit>
       <trans-unit id="5971e540d1db1ad60fe77b3f97b48070aea20c28">

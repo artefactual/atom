@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2017-08-25T18:51:10Z" product-name="messages">
+  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2017-09-04T11:51:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Nomsiz</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative / Biographical history</source>
-        <target/>
+        <target>Ma'muriy / Biografik tarixi</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
-        <target/>
+        <target>Ma'muriy tarixi</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Biographical history</source>
-        <target/>
+        <target>Biografik tarixi</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Identifier - This is a mandatory element.</source>
@@ -26,19 +26,19 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Name and location of repository - This is a mandatory element.</source>
-        <target/>
+        <target>Arxiv muassasasi nomi va manzili - Bu majburiy element.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Title - This is a mandatory element.</source>
-        <target/>
+        <target>Sarlavha - majburiy element</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Date(s) - are not consistent with higher levels.</source>
-        <target/>
+        <target>Sana(lar) - yuqori daraja tavsiflari bilan mos emas.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Date(s) - This is a mandatory element.</source>
-        <target/>
+        <target>Sana(lar) - Bu majburiy element.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Extent - This is a mandatory element.</source>
@@ -46,23 +46,23 @@
       </trans-unit>
       <trans-unit id="11">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
-        <target/>
+        <target>Ushbu arxiv tavsifi yoki uning yuqori daraja tavsiflaridan kamida bittasi muallifga ega bo`lishi kerak.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Scope and content - This is a mandatory element.</source>
-        <target/>
+        <target>Qamrov va mazmun - Bu majburiy element.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Add new archival description</source>
-        <target/>
+        <target>Yangi arxiv tavsifini kiritish</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Edit %1%</source>
-        <target/>
+        <target>%1% sahifasini tahrirlash</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Bunday yozuv bazada mavjud: %1%</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Identity elements</source>
@@ -74,15 +74,15 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Identifier</source>
-        <target/>
+        <target>Kod</target>
       </trans-unit>
       <trans-unit id="19">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Bu majburiy element</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Name and location of repository</source>
-        <target/>
+        <target>Arxiv muassasasining nomi va markazi</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="23">
         <source>Levels of description</source>
-        <target/>
+        <target>Tavsif darajalari</target>
       </trans-unit>
       <trans-unit id="24">
         <source>In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material, normally consisting of a name segment, a term indicating the nature of the unit being described, and optionally a topical segment. Do not enclose devised titles in square brackets. (DACS 2.3.3)</source>
@@ -102,7 +102,7 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Title</source>
-        <target/>
+        <target>Sarlavha</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
@@ -118,7 +118,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>Name of creator(s)</source>
-        <target/>
+        <target>Yaratuvchi nom(lar)i</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Record the name(s) of the creator(s) identified in the name element in the devised title of the materials using standardized vocabularies or with rules for formulating standardized names (DACS 2.6.4). Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
@@ -138,7 +138,7 @@
       </trans-unit>
       <trans-unit id="34">
         <source>Scope and content</source>
-        <target/>
+        <target>Qamrov va mazmun</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Describe the current arrangement of the material in terms of the various aggregations within it and their relationships. (DACS 3.2.3)</source>
@@ -146,7 +146,7 @@
       </trans-unit>
       <trans-unit id="36">
         <source>System of arrangement</source>
-        <target/>
+        <target>Kelishuv tizimi</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Conditions of access and use elements</source>
@@ -166,7 +166,7 @@
       </trans-unit>
       <trans-unit id="41">
         <source>Physical access</source>
-        <target/>
+        <target>Fizik foydalanish</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Provide information about any special equipment required to view or access the unit being described, if it is not clear from the Extent element. (DACS 4.3.5)</source>
@@ -174,7 +174,7 @@
       </trans-unit>
       <trans-unit id="43">
         <source>Technical access</source>
-        <target/>
+        <target>Texnik foydalanish</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Give information about copyright status and any other conditions governing the reproduction, publication, and further use (e.g., display, public screening, broadcast, etc.) of the unit being described after access has been provided. (DACS 4.4.5)</source>
@@ -194,11 +194,11 @@
       </trans-unit>
       <trans-unit id="48">
         <source>Record the scripts(s) of the materials being described.</source>
-        <target/>
+        <target>Tavsif berilayotgan material grafikasi (alifbosi)</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Scripts of the material</source>
-        <target/>
+        <target>Hujjat grafikasi</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Record information about any distinctive alphabets, scripts, symbol systems, or abbreviations employed (DACS 4.5.3). If there is no language content, record “no linguistic content.” (DACS 4.5.4)</source>
@@ -214,7 +214,7 @@
       </trans-unit>
       <trans-unit id="53">
         <source>Acquisition and appraisal elements</source>
-        <target/>
+        <target>Jamlash va baholash elementlari</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Custodial history</source>
@@ -238,7 +238,7 @@
       </trans-unit>
       <trans-unit id="59">
         <source>Appraisal, destruction and scheduling information</source>
-        <target/>
+        <target>Baholash, o`chirish va rejalashtirish ma'lumoti</target>
       </trans-unit>
       <trans-unit id="60">
         <source>If known, indicate whether or not further accruals are expected. When appropriate, indicate frequency and volume. (DACS 5.4.2)</source>
@@ -246,7 +246,7 @@
       </trans-unit>
       <trans-unit id="61">
         <source>Related materials elements</source>
-        <target/>
+        <target>Aloqador material elementlari</target>
       </trans-unit>
       <trans-unit id="62">
         <source>If the materials being described are reproductions and the originals are located elsewhere, give the location of the originals (DACS 6.1.4). Record any identifying numbers that may help in locating the originals in the cited location (DACS 6.1.6).</source>
@@ -270,11 +270,11 @@
       </trans-unit>
       <trans-unit id="67">
         <source>Related archival materials</source>
-        <target/>
+        <target>Aloqador arxiv materiali</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Related descriptions</source>
-        <target/>
+        <target>Aloqador tavsiflari</target>
       </trans-unit>
       <trans-unit id="69">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
@@ -282,7 +282,7 @@
       </trans-unit>
       <trans-unit id="70">
         <source>Notes element</source>
-        <target/>
+        <target>Izohlar</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Description control element</source>
@@ -294,7 +294,7 @@
       </trans-unit>
       <trans-unit id="73">
         <source>Sources used</source>
-        <target/>
+        <target>Foydalanilgan manbalar</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Record the international, national or local rules or conventions followed in preparing the description. (DACS 8.1.4)</source>
@@ -302,27 +302,27 @@
       </trans-unit>
       <trans-unit id="75">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Qoidalar va kelishuvlar</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Access points</source>
-        <target/>
+        <target>Foydalanish nuqtalari</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Subject access points</source>
-        <target/>
+        <target>Mavzular</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Place access points</source>
-        <target/>
+        <target>Joylar</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Genre access points</source>
-        <target/>
+        <target>Turlari</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>Nomlar (mavzular)</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Edit identity elements</source>
@@ -330,23 +330,23 @@
       </trans-unit>
       <trans-unit id="82">
         <source>Reference code</source>
-        <target/>
+        <target>Murojaat kodi</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Level of description</source>
-        <target/>
+        <target>Tavsif darajasi</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Date(s)</source>
-        <target/>
+        <target>Sanalar</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Related function</source>
-        <target/>
+        <target>Aloqador funksiya</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Edit context and structure elements</source>
-        <target/>
+        <target>Kontekst va tarkibiy elementlarni tahrirlash</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Edit conditions of access and use elements</source>
@@ -370,7 +370,7 @@
       </trans-unit>
       <trans-unit id="92">
         <source>Accruals</source>
-        <target/>
+        <target>Kelib tushgan hujjatlar</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Edit related materials elements</source>
@@ -378,7 +378,7 @@
       </trans-unit>
       <trans-unit id="94">
         <source>Publication notes</source>
-        <target/>
+        <target>Nashr izohlari</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Edit notes element</source>
@@ -390,7 +390,7 @@
       </trans-unit>
       <trans-unit id="97">
         <source>Specialized notes</source>
-        <target/>
+        <target>Maxsus izohlar</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Edit description control element</source>
@@ -398,19 +398,19 @@
       </trans-unit>
       <trans-unit id="99">
         <source>Archivist's note</source>
-        <target/>
+        <target>Arxivchi qaydi</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Edit access points</source>
-        <target/>
+        <target>Foydalanish nuqtalarini tahrirlash</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Rights area</source>
-        <target/>
+        <target>Huquqlar sohasi</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Accession area</source>
-        <target/>
+        <target>Ro`yxatga olish sohasi</target>
       </trans-unit>
     </body>
   </file>

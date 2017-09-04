@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2017-08-25T18:56:43Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2017-09-04T11:51:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="5">
@@ -18,79 +18,79 @@
       </trans-unit>
       <trans-unit id="8">
         <source>The current term does not belong to the taxonomy chosen.</source>
-        <target/>
+        <target>Aktuell term hör inte till vald taxonomi</target>
       </trans-unit>
       <trans-unit id="9">
         <source>You must select a source to continue.</source>
-        <target/>
+        <target>Du måste välja en källa för att fortsätta.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Something wrong happened! Please check out the logs. Error: %1%</source>
-        <target/>
+        <target>Ett fel inträffade! Vänligen kolla loggarna. Fel: %1%</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Import file initiated. Check %1%job %2%%3% to view the status of the import.</source>
-        <target/>
+        <target>Import av fil initierad. Kolla %1% jobb%2%%3%för att se statusen på importen.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Import options</source>
-        <target/>
+        <target>Importalternativ</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Select source</source>
-        <target/>
+        <target>Välj källa</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Or a remote resource</source>
-        <target/>
+        <target>Eller en extern resurs</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Taxonomy with ID %1% could not be found</source>
-        <target/>
+        <target>Taxonomi med ID %1% kunde inte hittas.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Term with ID %1% could not be found</source>
-        <target/>
+        <target>Term med ID %1% kunde inte hittas</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Malformed URI.</source>
-        <target/>
+        <target>Felformad URI.</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Type of scheme: %1%</source>
-        <target/>
+        <target>Schematyp: %1%</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Taxonomy: %1%</source>
-        <target/>
+        <target>Taxonomi: %1%</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Term ID: %1%</source>
-        <target/>
+        <target>Term ID: %1%</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Unsupported scheme!</source>
-        <target/>
+        <target>Schema utan stöd!</target>
       </trans-unit>
       <trans-unit id="22">
         <source>The graph is empty.</source>
-        <target/>
+        <target>Grafen är tom.</target>
       </trans-unit>
       <trans-unit id="23">
         <source>The graph contains %1% concepts.</source>
-        <target/>
+        <target>Grafen innehåller %1% koncept.</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Unexpected concept, type received: %1%.</source>
-        <target/>
+        <target>Oväntat koncept, typ mottaget: %1%.</target>
       </trans-unit>
       <trans-unit id="25">
         <source>The following languages are used in the dataset imported but not supported by AtoM: %1%</source>
-        <target/>
+        <target>Följande språk används i datasetet som importerats men inte stöds av AtoM: %1%</target>
       </trans-unit>
       <trans-unit id="26">
         <source>A total of %1% concepts have been processed so far.</source>
-        <target/>
+        <target>Totalt %1% av begrepp har hittills behandlats.</target>
       </trans-unit>
     </body>
   </file>

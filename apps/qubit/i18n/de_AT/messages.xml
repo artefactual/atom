@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2017-08-25T18:53:43Z" original="messages" product-name="messages" source-language="en" target-language="de-AT">
+  <file datatype="plaintext" date="2017-09-04T11:56:36Z" original="messages" product-name="messages" source-language="en" target-language="de-AT">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
@@ -3835,6 +3835,10 @@
       <trans-unit id="8af56de68279cb6f5ed022f31af18b9fcdcc2e92">
         <source>you</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1">
+        <source>Bind Lookup Attribute</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

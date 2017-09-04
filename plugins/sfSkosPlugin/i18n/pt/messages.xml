@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2017-08-25T18:55:43Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2017-09-04T11:51:18Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="2">
@@ -18,79 +18,79 @@
       </trans-unit>
       <trans-unit id="14">
         <source>The current term does not belong to the taxonomy chosen.</source>
-        <target/>
+        <target>O termo corrente não pertence à taxonomia escolhida.</target>
       </trans-unit>
       <trans-unit id="15">
         <source>You must select a source to continue.</source>
-        <target/>
+        <target>Deve seleccionar uma fonte para continuar.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Something wrong happened! Please check out the logs. Error: %1%</source>
-        <target/>
+        <target>Ups! Verifique os registos. Erro %1%</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Import file initiated. Check %1%job %2%%3% to view the status of the import.</source>
-        <target/>
+        <target>Iniciada a importação do ficheiro. Verifique %1%trabalho %2%%3% para ver o estado da importação.</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Import options</source>
-        <target/>
+        <target>Opções de importação</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Select source</source>
-        <target/>
+        <target>Selecionar fonte</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Or a remote resource</source>
-        <target/>
+        <target>Ou outro item</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Taxonomy with ID %1% could not be found</source>
-        <target/>
+        <target>Não foi possível encontrar a taxonomia com o ID %1%.</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Term with ID %1% could not be found</source>
-        <target/>
+        <target>Não foi possível encontrar o termo com o ID %1%</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Malformed URI.</source>
-        <target/>
+        <target>URI malformado.</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Type of scheme: %1%</source>
-        <target/>
+        <target>Tipo do esquema : %1%</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Taxonomy: %1%</source>
-        <target/>
+        <target>Taxonomia: %1%</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Term ID: %1%</source>
-        <target/>
+        <target>ID do termo: %1%</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Unsupported scheme!</source>
-        <target/>
+        <target>Esquema não suportado!</target>
       </trans-unit>
       <trans-unit id="28">
         <source>The graph is empty.</source>
-        <target/>
+        <target>O gráfico está vazio.</target>
       </trans-unit>
       <trans-unit id="29">
         <source>The graph contains %1% concepts.</source>
-        <target/>
+        <target>O gráfico contém %1% de conceitos</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Unexpected concept, type received: %1%.</source>
-        <target/>
+        <target>Conceito não esperado, tipo recebido: %1%.</target>
       </trans-unit>
       <trans-unit id="31">
         <source>The following languages are used in the dataset imported but not supported by AtoM: %1%</source>
-        <target/>
+        <target>Os seguintes idiomas são usados no conjunto de dados importado mas não suportados pelo AtoM: %1%</target>
       </trans-unit>
       <trans-unit id="32">
         <source>A total of %1% concepts have been processed so far.</source>
-        <target/>
+        <target>Um total de 1%1% conceitos foram processados até agora.</target>
       </trans-unit>
     </body>
   </file>

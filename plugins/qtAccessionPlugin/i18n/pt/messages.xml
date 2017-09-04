@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2017-08-25T18:55:43Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2017-09-04T11:51:18Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -499,23 +499,23 @@ Formatos aceitáveis ​​de data: AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.&lt;/str
       </trans-unit>
       <trans-unit id="141">
         <source>Identifier available.</source>
-        <target/>
+        <target>Identificador disponível.</target>
       </trans-unit>
       <trans-unit id="142">
         <source>Identifier unavailable.</source>
-        <target/>
+        <target>Identificador indisponível.</target>
       </trans-unit>
       <trans-unit id="143">
         <source>Loading...</source>
-        <target/>
+        <target>Carregando...</target>
       </trans-unit>
       <trans-unit id="144">
         <source>Server error while checking identifer availability.</source>
-        <target/>
+        <target>Erro do servidor ao verificar a disponibilidade de identificador.</target>
       </trans-unit>
       <trans-unit id="145">
         <source>This identifer is already in use.</source>
-        <target/>
+        <target>Este identificador já está a ser utilizado.</target>
       </trans-unit>
     </body>
   </file>

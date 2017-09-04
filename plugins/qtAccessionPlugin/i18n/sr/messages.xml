@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2017-08-25T18:53:20Z" product-name="messages">
+  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2017-09-04T11:51:15Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -490,23 +490,23 @@
       </trans-unit>
       <trans-unit id="122">
         <source>Identifier available.</source>
-        <target/>
+        <target>Идентификатор доступан.</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Identifier unavailable.</source>
-        <target/>
+        <target>Идентификатор недоступан.</target>
       </trans-unit>
       <trans-unit id="124">
         <source>Loading...</source>
-        <target/>
+        <target>Учитавање...</target>
       </trans-unit>
       <trans-unit id="125">
         <source>Server error while checking identifer availability.</source>
-        <target/>
+        <target>Грешка на серверу током провере доступности идентификатора.</target>
       </trans-unit>
       <trans-unit id="126">
         <source>This identifer is already in use.</source>
-        <target/>
+        <target>Овај идентификатор је већ у употреби.</target>
       </trans-unit>
     </body>
   </file>

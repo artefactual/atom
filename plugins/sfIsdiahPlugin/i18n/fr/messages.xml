@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2017-08-25T18:54:06Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2017-09-04T11:51:14Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -418,11 +418,11 @@
       </trans-unit>
       <trans-unit id="108">
         <source>Clipboard</source>
-        <target/>
+        <target>Presse-papier</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Add description</source>
-        <target/>
+        <target>Ajouter une description</target>
       </trans-unit>
     </body>
   </file>

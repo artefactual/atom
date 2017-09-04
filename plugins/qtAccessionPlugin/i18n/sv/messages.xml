@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2017-08-25T18:56:43Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2017-09-04T11:51:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -290,7 +290,7 @@
       </trans-unit>
       <trans-unit id="72">
         <source>An indicator of the accessioning process.</source>
-        <target/>
+        <target>En indikator för bearbetningen av accessionen.</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Indicates the priority the repository assigns to completing the processing of the accession.</source>
@@ -490,23 +490,23 @@
       </trans-unit>
       <trans-unit id="122">
         <source>Identifier available.</source>
-        <target/>
+        <target>Signum tillgängligt.</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Identifier unavailable.</source>
-        <target/>
+        <target>Signum otillgängligt</target>
       </trans-unit>
       <trans-unit id="124">
         <source>Loading...</source>
-        <target/>
+        <target>Laddar...</target>
       </trans-unit>
       <trans-unit id="125">
         <source>Server error while checking identifer availability.</source>
-        <target/>
+        <target>Serverfel vid kontroll av signumtillgänglighet</target>
       </trans-unit>
       <trans-unit id="126">
         <source>This identifer is already in use.</source>
-        <target/>
+        <target>Detta signum är redan i bruk.</target>
       </trans-unit>
     </body>
   </file>

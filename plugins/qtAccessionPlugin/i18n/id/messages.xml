@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2017-08-25T18:55:17Z" product-name="messages">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2017-09-04T11:51:16Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -490,23 +490,23 @@
       </trans-unit>
       <trans-unit id="133">
         <source>Identifier available.</source>
-        <target/>
+        <target>Kode unik tersedia.</target>
       </trans-unit>
       <trans-unit id="134">
         <source>Identifier unavailable.</source>
-        <target/>
+        <target>Kode unik tidak tersedia.</target>
       </trans-unit>
       <trans-unit id="135">
         <source>Loading...</source>
-        <target/>
+        <target>Sedang memuat...</target>
       </trans-unit>
       <trans-unit id="136">
         <source>Server error while checking identifer availability.</source>
-        <target/>
+        <target>Server error saat mengecek ketersediaan kode unik.</target>
       </trans-unit>
       <trans-unit id="137">
         <source>This identifer is already in use.</source>
-        <target/>
+        <target>Kode unik ini telah digunakan.</target>
       </trans-unit>
     </body>
   </file>

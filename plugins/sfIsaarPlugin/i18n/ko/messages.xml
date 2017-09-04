@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2017-08-25T18:56:07Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2017-09-04T11:51:15Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -427,7 +427,7 @@
       </trans-unit>
       <trans-unit id="111">
         <source>Access points</source>
-        <target/>
+        <target>접근점</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Authority record identifier</source>
@@ -455,7 +455,7 @@
       </trans-unit>
       <trans-unit id="118">
         <source>Note</source>
-        <target/>
+        <target>주기(노트)</target>
       </trans-unit>
       <trans-unit id="119">
         <source>Maintained by</source>

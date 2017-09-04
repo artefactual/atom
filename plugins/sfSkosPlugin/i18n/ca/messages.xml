@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2017-08-25T18:51:32Z" product-name="messages">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2017-09-04T11:51:18Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="5">
@@ -62,7 +62,7 @@
       </trans-unit>
       <trans-unit id="19">
         <source>Taxonomy: %1%</source>
-        <target/>
+        <target>Taxonomia: %1%</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Term ID: %1%</source>

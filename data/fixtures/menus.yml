@@ -444,7 +444,7 @@ QubitMenu:
       pt_BR: 'Registros de incorporação'
       sl: 'Zapisi o prevzemu'
       sr: 'Записник о преузимању'
-      sv: 'Dokumentation rörande accessionen.'
+      sv: Accessionsposter
       th: รายงานการเข้าถึงเอกสาร
       uz: 'Ro`yxatga olish yozuvlari'
       vi: 'Kỷ lục truy cập'
@@ -886,6 +886,7 @@ QubitMenu:
       id: 'Ijin lembaga kearsipan'
       is: 'Heimildir vörslustofnunar'
       it: 'Permessi dell''istituto archivistico'
+      ja: アーカイブズ機関の許可
       ko: '기록관리기관 접근권한'
       pt: 'Permissões da instituição arquivística'
       pt-BR: 'Permissões de entidades custodiadoras'
@@ -1085,6 +1086,7 @@ QubitMenu:
       id: 'Ijin lembaga kearsipan'
       is: 'Heimildir vörslustofnunar'
       it: 'Permessi dell''istituto archivistico'
+      ja: アーカイブズ機関の許可
       ko: '기록관리기관 접근권한'
       pt: 'Permissões da instituição arquivística'
       pt-BR: 'Permissões de entidades custodiadoras'
@@ -1764,7 +1766,7 @@ QubitMenu:
       ru: Темы
       sl: Osebe
       sr: Теме
-      sv: Ämnesord
+      sv: Ämnen
       th: หัวข้อ
       uz: Mavzular
       vi: 'Chủ đề'

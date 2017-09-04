@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2017-08-25T18:51:10Z" product-name="messages">
+  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2017-09-04T11:51:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Nomsiz</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Add new resource</source>
-        <target/>
+        <target>Yangi resurs kiritish</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
-        <target/>
+        <target>%1% sahifasini tahrirlash</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Select the type of activity that established the relation between the authority record and the resource.</source>
@@ -22,11 +22,11 @@
       </trans-unit>
       <trans-unit id="5">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Bunday yozuv bazada mavjud: %1%</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Elements area</source>
-        <target/>
+        <target>Elementlar sohasi</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Contains a unique standard number or code that distinctively identifies a resource.</source>
@@ -38,31 +38,31 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Names and origin info</source>
-        <target/>
+        <target>Nomi va kelib chiqish ma'lumotlari</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Add new name and/or origin info</source>
-        <target/>
+        <target>Yangi nom va/yoki kelib chiqish ma'lumotini kiritish</target>
       </trans-unit>
       <trans-unit id="11">
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
-        <target/>
+        <target>Resurs mazmunining xususiyati va umumiy shaklini anglatuvchi so`z. Tegishli bo`lgan barcha turlarini kiriting. Resurs turi qiymatlari MODSning typeOfResource yuqori daraja elementi qiymati bo`yicha cheklangan.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Type of resource</source>
-        <target/>
+        <target>Resurs turi</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Add new child levels (if describing a collection)</source>
-        <target/>
+        <target>Quyi daraja tavsiflarini qo`shish (fond yoki jamlanma tavsifi vaqtida)</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Identifier</source>
-        <target/>
+        <target>Kod</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Title</source>
-        <target/>
+        <target>Sarlavha</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
@@ -70,19 +70,19 @@
       </trans-unit>
       <trans-unit id="17">
         <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>
-        <target/>
+        <target>Hujjat matnining tili. Tegishli tillarni tanlang.</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Subject</source>
-        <target/>
+        <target>Mavzu</target>
       </trans-unit>
       <trans-unit id="19">
         <source>A term or phrase representing the primary topic(s) on which a work is focused. Search for an existing term in the Subjects taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
-        <target/>
+        <target>Hujjatning asosiy mavzu(lar)ini aks ettiruvchi atama va so`zlar. Mavzular ma'lumotnomasidagi mavjud atamani tanlash uchun uning  ilk harflarini kiriting va ochilgan ro`yhatdan tanlang. Yoki yangi so`z kiriting va Mavzular ma'lumotnomasiga kiritiladi.</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Places</source>
-        <target/>
+        <target>Joylar</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
@@ -90,7 +90,7 @@
       </trans-unit>
       <trans-unit id="22">
         <source>Names</source>
-        <target/>
+        <target>Nomlar</target>
       </trans-unit>
       <trans-unit id="23">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
@@ -106,11 +106,11 @@
       </trans-unit>
       <trans-unit id="26">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
-        <target/>
+        <target>Annotatsiya, mundarija yoki resurs qamrov sohasi va mazmuni.</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Description</source>
-        <target/>
+        <target>Tavsif</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Edit elements area</source>
@@ -118,7 +118,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>Language</source>
-        <target/>
+        <target>Til</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Internet media type</source>
@@ -126,23 +126,23 @@
       </trans-unit>
       <trans-unit id="31">
         <source>Access condition</source>
-        <target/>
+        <target>Ro`yxatga olish holati</target>
       </trans-unit>
       <trans-unit id="32">
         <source>URL</source>
-        <target/>
+        <target>URL</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Physical location</source>
-        <target/>
+        <target>Fizik joylashuvi</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Rights area</source>
-        <target/>
+        <target>Huquqlar sohasi</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Accession area</source>
-        <target/>
+        <target>Ro`yxatga olish sohasi</target>
       </trans-unit>
     </body>
   </file>

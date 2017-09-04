@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2017-08-25T18:55:31Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2017-09-04T11:51:15Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -395,43 +395,43 @@ registos completos são os que fornecem informação para todos os elementos de 
       </trans-unit>
       <trans-unit id="103">
         <source>%1%Authority record identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Identificador do registro de autoridade%2% - É em%3%elemento%4% obrigatório.</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Access points</source>
-        <target/>
+        <target>Pontos de acesso</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Authority record identifier</source>
-        <target/>
+        <target>Identificador do registro de autoridade</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Maintaining repository</source>
-        <target/>
+        <target>Manutenção da entidade custodiadora</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Clipboard</source>
-        <target/>
+        <target>Área de Transferência</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Access points area</source>
-        <target/>
+        <target>Área de ponto de acesso</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Edit access points area</source>
-        <target/>
+        <target>Editar área de ponto de acesso</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Occupations</source>
-        <target/>
+        <target>Ocupações</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Note</source>
-        <target/>
+        <target>Nota</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Maintained by</source>
-        <target/>
+        <target>Mantido por</target>
       </trans-unit>
     </body>
   </file>

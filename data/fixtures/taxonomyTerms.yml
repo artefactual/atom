@@ -62,7 +62,7 @@ QubitTaxonomy:
       pt_BR: 'Tipos de Autores'
       sl: 'Vrste entitet delovalcev'
       sr: 'Врсте ентитета ствараоца'
-      sv: 'Entitetstyper för aktören'
+      sv: 'Entitetstyper för aktör'
       th: 'ชนิดActor Entity'
       uz: 'Muallif &lpar;ijrochi&rpar; obyekt turi'
       vi: 'Loại thực thể Actor'
@@ -165,7 +165,7 @@ QubitTaxonomy:
       ru: Темы
       sl: Osebe
       sr: Теме
-      sv: Ämnesord
+      sv: Ämnen
       th: หัวข้อ
       uz: Mavzular
       vi: 'Chủ đề'
@@ -198,7 +198,7 @@ QubitTaxonomy:
       pt_BR: 'Tipos de Nomes de Autores'
       sl: 'Vrste imen delovalcev'
       sr: 'Врсте назива/имена ствараоца'
-      sv: 'Namntyper för aktören'
+      sv: 'Namntyper för aktör'
       th: ชนิดชื่อนักแสดง
       uz: 'Muallif &lpar;ijrochi&rpar; nomi turi'
       vi: 'Loại tên actor'
@@ -745,7 +745,7 @@ QubitTaxonomy:
       pt_BR: 'Tipo de Recurso MODS'
       sl: 'Vrsta vira MODS'
       sr: 'Врста извора MODS'
-      sv: 'MODS resursrtyp'
+      sv: 'MODS resurstyp'
       vi: 'Loại tài nguyên MODS'
       zh: 'MODS 资源类型'
     note:
@@ -811,7 +811,7 @@ QubitTaxonomy:
       pt_BR: 'Tipo de Relação com o Autor'
       sl: 'Vrste povezav med delovalci'
       sr: 'Врсте односа ствараоца'
-      sv: 'Relationstyper för aktören'
+      sv: 'Relationstyper för aktör'
       th: 'ชนิดActor Relation'
       uz: 'Muallif &lpar;ijrochi&rpar; aloqa turi'
       vi: 'Loại liên quan Actor'
@@ -1110,7 +1110,7 @@ QubitTaxonomy:
       pt_BR: 'Estado de processamento de incorporação'
       sl: 'Status obdelave prevzetega gradiva'
       sr: 'Статус инвентарне обраде'
-      sv: 'Status för Accessionsbehandling'
+      sv: 'Status för bearbetning av accessionen'
       th: สถานภาพดำเนินการเข้าถึงเอกสาร
       uz: 'Ro`yxatga olish jarayoni holati'
       vi: 'Truy cập chế biến địa vị'
@@ -1457,10 +1457,11 @@ QubitTaxonomy:
       cy: 'Galwedigaethau actor'
       en: 'Actor occupations'
       it: 'Occupazioni dell''attore'
+      ja: 主体者の職業
       pt: 'Ocupações da pessoa'
       pt-BR: 'Ocupações do registro de autoridade'
       sr: 'Занимања ствараоца'
-      sv: 'Aktörens yrken'
+      sv: 'Yrken för aktör'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -1994,7 +1995,7 @@ QubitTerm:
       pt_BR: 'Material do artefato'
       sl: Artefakti
       sr: 'Материјал артефакта'
-      sv: 'Artefakt material'
+      sv: Artefaktmaterial
       th: เอกสารประดิษฐ
       uz: 'Tarixiy asar'
       vi: 'Vật liệu Artefact'
@@ -2092,7 +2093,7 @@ QubitTerm:
       id: Kekerabatan
       is: Fjölskylda
       it: Famiglia
-      ja: 家
+      ja: 家系
       ka: ოჯახი
       ko: 가족
       nl: Familie
@@ -3014,7 +3015,7 @@ QubitTerm:
       pt_BR: 'exibir data'
       sl: 'prikaz datuma'
       sr: 'приказ датума'
-      sv: datumruta
+      sv: 'visningsfält för datum'
       th: แสดงวันที่
       uz: 'sanani ko`rsatish'
       vi: 'Hiển thị ngày'
@@ -3784,13 +3785,14 @@ QubitTerm:
       id: 'Komponen karya senia'
       is: 'Hluti listaverks'
       it: 'Elemento dell''oggetto d''arte'
+      ja: 芸術作品の構成要素
       ko: '작품 구성'
       pt: 'Componente da obra de arte'
       pt-BR: 'Componente da obra de arte'
       pt_BR: 'Componente da obra de arte'
       sl: 'Komponenta umetnine'
       sr: 'Саставни део уметнине'
-      sv: 'Konstverk kompotent'
+      sv: 'Konstverk komponent'
       uz: 'San''at asari tarkibi'
       vi: 'Thành phần tác phẩm nghệ thuật'
       zh: 艺术品元素
@@ -3811,13 +3813,14 @@ QubitTerm:
       id: 'Bahan karya seni'
       is: 'Efni listaverks'
       it: 'Materiale dell''oggetto d''arte'
+      ja: 芸術作品の素材
       ko: '작품 자료'
       pt: 'Material da obra de arte'
       pt-BR: 'Material da obra de arte'
       pt_BR: 'Material da obra de arte'
       sl: 'Umetniško gradivo'
       sr: Уметнине
-      sv: 'Konstverk material'
+      sv: Konstverksmaterial
       uz: 'San''at asari materiali'
       vi: 'Tài liệu Ảnh minh họa'
       zh: 艺术品资料
@@ -3939,10 +3942,11 @@ QubitTerm:
       cy: 'Nodyn galwediageth actor'
       en: 'Actor occupation note'
       it: 'Nota sull''occupazione dell''attore'
+      ja: 主体者の職業に関する注記
       pt: 'Nota sobre ocupação da pessoa'
       pt-BR: 'Nota da ocupação do registro de autoridade'
       sr: 'Напомена о занимању ствараоца'
-      sv: 'Anmärkning rörande aktörens yrke'
+      sv: 'Anmärkning rörande aktörsyrke'
   QubitTerm_actor_relationship_is_the_superior_of:
     taxonomy_id: QubitTaxonomy_actor_relation_type
     parent_id: QubitTerm_actor_relationship_hierarchical
@@ -4351,7 +4355,7 @@ QubitTerm:
       pt_BR: 'é o filho de'
       sl: 'je otrok od'
       sr: 'је дете'
-      sv: 'är underordnat'
+      sv: 'är barn till'
       uz: 'quyidagining farzandi:'
       vi: 'là con của'
       zh: 是孩子
@@ -4459,7 +4463,7 @@ QubitTerm:
       pt_BR: 'é o avô de'
       sl: 'je dedek/babica od'
       sr: 'је деда/баба'
-      sv: 'är far/morförälder till'
+      sv: 'är mor-/farförälder till'
       uz: 'quyidagining bobo/buvisi:'
       vi: 'là ông bà của'
       zh: 是祖父集
@@ -5160,7 +5164,7 @@ QubitTerm:
       ro: Subfonduri
       sl: Podfondi
       sr: Подфонд
-      sv: delarkiv
+      sv: Delarkiv
       th: ระดับกลุ่มย่อย
       uz: Fond-osti
       vi: Subfonds
@@ -5545,7 +5549,7 @@ QubitTerm:
       ru: Тема
       sl: Tematika
       sr: Тема
-      sv: Ämnesord
+      sv: Ämne
       th: หัวข้อ
       uz: Mavzu
       vi: Tượng
@@ -6352,7 +6356,7 @@ QubitTerm:
       ru: 'Физический объект'
       sl: 'Fizični objekt'
       sr: 'Физички објект'
-      sv: 'Fysisikt objekt'
+      sv: 'Fysiskt objekt'
       th: วัตถทางกายภาพุ
       uz: 'Fizik resurs'
       vi: 'Đối tượng vật lý'
@@ -6728,7 +6732,7 @@ QubitTerm:
       ro: 'Inregistrare filatelica'
       sl: 'Filatelističen zapis'
       sr: 'Филателистички запис'
-      sv: 'Filatelisk post'
+      sv: 'Filatelistisk post'
       th: การบันทึกหางสะสมแสตมป์ซึ่งเล่นดวงตราไปรษณีย์
       uz: 'Filatelistik yozuv'
       vi: 'Kỷ lục tem'
@@ -6968,7 +6972,7 @@ QubitTerm:
       pt_BR: 'Material complementar'
       sl: 'Spremljevalno gradivo'
       sr: 'Пропратна грађа'
-      sv: 'Medföljande material'
+      sv: 'Tillhörande material'
       th: เอกสารที่เพิ่มเติม
       uz: 'Qo`shimcha material'
       vi: 'Các tài liệu kèm theo'
@@ -7100,7 +7104,7 @@ QubitTerm:
       pt_BR: 'Variações do título'
       sl: 'Variacije naslova'
       sr: 'Варијације у наслову'
-      sv: 'Variationer av titeln'
+      sv: Titelvariationer
       uz: 'Sarlavha turlari'
       vi: 'Các biến thể trong tiêu đề'
       zh: 其他标题
@@ -7264,7 +7268,7 @@ QubitTerm:
       pt_BR: 'Atribuições e conjecturas'
       sl: 'Pripisovanja in domneve'
       sr: Атрибуција
-      sv: 'Attribution och conjecturer'
+      sv: 'Tillskrivningar och antaganden'
       uz: 'Atributlar va farazlar'
       vi: 'Gán ghép và phỏng đoán'
       zh: 归因和推测
@@ -7622,7 +7626,7 @@ QubitTerm:
       pt_BR: 'software, multimídia'
       sl: 'programska oprema, multimedija'
       sr: 'рачунарски програм, мултимедија'
-      sv: 'programvara, multimedia'
+      sv: 'mjukvara, multimedia'
       th: 'ซอฟต์แวร์, มัลทิมีเดีย'
       uz: 'dastur, multimedia'
       vi: 'phần mềm, đa phương tiện'
@@ -8359,7 +8363,7 @@ QubitTerm:
       id: Deposit
       is: 'Lagt inn'
       it: Deposito
-      ja: デポジット
+      ja: 寄託
       ka: დეპოზიტი
       ko: 위탁
       nl: Deponeer
@@ -9293,6 +9297,7 @@ QubitTerm:
       id: Pertanian
       is: Landbúnaður
       it: Agricoltura
+      ja: 農業
       ko: 농업
       pt: Agricultura
       pt-BR: Agricultura
@@ -9322,6 +9327,7 @@ QubitTerm:
       id: 'Seni dan Budaya'
       is: 'List og menning'
       it: 'Arte e cultura'
+      ja: 芸術と文化
       ko: '예술 및 문화'
       pt: 'Artes e Cultura'
       pt-BR: 'Artes e Cultura'
@@ -9680,7 +9686,7 @@ QubitTerm:
       ru: 'Политики и Правительство'
       sl: 'Politika in vlada'
       sr: 'Политика и Влада'
-      sv: 'Politik och administration'
+      sv: 'Politik och statsförvaltning'
       uz: 'Siyosat va hukumat'
       vi: 'Chính trị và Chính phủ'
       zh: 政治和政府
@@ -9926,6 +9932,7 @@ QubitTerm:
       id: Kutipan
       is: Tilvitnun
       it: Citazione
+      ja: 引用
       ko: 인용
       pt: Citação
       pt-BR: Citação
@@ -9983,6 +9990,7 @@ QubitTerm:
       pt_BR: 'Informação de título variável'
       sl: 'Različni podatki o naslovu'
       sr: 'Информације о варијантном наслову'
+      sv: 'Information om titelvariationer'
       uz: 'Sarlavha turlari haqida ma''lumot'
       vi: 'Thông tin nhan đề biến thể'
       zh: 其他标题信息
@@ -10008,7 +10016,7 @@ QubitTerm:
       pt_BR: 'Processando informação'
       sl: 'Obdelovanje informacij'
       sr: 'Информације о обради'
-      sv: Behandlingsinformation
+      sv: Bearbetningsinformation
       uz: 'Qayta ishlash axboroti'
       vi: 'Chế biến thông tin'
       zh: 处理信息
@@ -10074,6 +10082,7 @@ QubitTerm:
       id: Album
       is: Albúm
       it: Album
+      ja: アルバム
       pt: Álbuns
       pt-BR: Álbuns
       ru: Альбомы
@@ -10098,6 +10107,7 @@ QubitTerm:
       id: Arsitektur
       is: Arkitektúr
       it: Architettura
+      ja: 建築
       pt: Arquitectura
       pt-BR: Arquitetura
       ru: Архитектура
@@ -10121,6 +10131,7 @@ QubitTerm:
       id: 'Formulir kosong'
       is: 'Auð form'
       it: 'Moduli non compilati'
+      ja: 空のフォーム
       pt: 'Formulários em branco'
       pt-BR: 'Formulários em branco'
       sl: 'Prazna oblika'
@@ -10143,6 +10154,7 @@ QubitTerm:
       id: Buku
       is: Bækur
       it: Libri
+      ja: 書籍
       pt: Livros
       pt-BR: Livros
       ru: Книги
@@ -10204,6 +10216,7 @@ QubitTerm:
       id: Katalog
       is: Skrár
       it: Cataloghi
+      ja: カタログ
       pt: Catálogos
       pt-BR: Catálogos
       ru: Каталоги
@@ -10225,6 +10238,7 @@ QubitTerm:
       id: Cityscapes
       is: Borgarsýn
       it: 'Panorami urbani'
+      ja: 都市景観
       pt: 'Paisagens urbanas'
       pt-BR: 'Paisagens urbanas'
       sl: 'Mestne pokrajine'
@@ -10715,7 +10729,7 @@ QubitTerm:
       ru: Петиции
       sl: Peticije
       sr: Петиције
-      sv: Petitioner
+      sv: Framställningar
       uz: Arizalar
       zh: 请求
   QubitTerm_genre_photographs:

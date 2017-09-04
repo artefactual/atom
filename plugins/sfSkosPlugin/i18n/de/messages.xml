@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2017-08-25T18:52:55Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2017-09-04T11:51:13Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="2">
@@ -22,7 +22,7 @@
       </trans-unit>
       <trans-unit id="15">
         <source>You must select a source to continue.</source>
-        <target/>
+        <target>Sie müssen eine Quelle auswählen um fortfahren zu können.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Something wrong happened! Please check out the logs. Error: %1%</source>
@@ -34,11 +34,11 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Import options</source>
-        <target/>
+        <target>Optionen für den Import</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Select source</source>
-        <target/>
+        <target>Quelle auswählen</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Or a remote resource</source>
@@ -62,7 +62,7 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Taxonomy: %1%</source>
-        <target/>
+        <target>Taxonomie: %1%</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Term ID: %1%</source>
@@ -70,11 +70,11 @@
       </trans-unit>
       <trans-unit id="27">
         <source>Unsupported scheme!</source>
-        <target/>
+        <target>Nicht unterstütztes Schema!</target>
       </trans-unit>
       <trans-unit id="28">
         <source>The graph is empty.</source>
-        <target/>
+        <target>Der Graph ist leer.</target>
       </trans-unit>
       <trans-unit id="29">
         <source>The graph contains %1% concepts.</source>

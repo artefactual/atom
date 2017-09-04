@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2017-08-25T18:52:46Z" product-name="messages">
+  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2017-09-04T11:51:14Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -423,23 +423,23 @@
       </trans-unit>
       <trans-unit id="106">
         <source>%1%Authority record identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Iratképző azonosító%2% - Ez egy %3%kötelező%4% elem.</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Access points</source>
-        <target/>
+        <target>Kapcsolódási pontok</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Authority record identifier</source>
-        <target/>
+        <target>Iratképző azonosító</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Maintaining repository</source>
-        <target/>
+        <target>Repozitórium fönntartása</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Clipboard</source>
-        <target/>
+        <target>Vágólap</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Access points area</source>
@@ -455,11 +455,11 @@
       </trans-unit>
       <trans-unit id="114">
         <source>Note</source>
-        <target/>
+        <target>Megjegyzés</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Maintained by</source>
-        <target/>
+        <target>Fönntartva általa:</target>
       </trans-unit>
     </body>
   </file>

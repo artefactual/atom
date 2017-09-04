@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2017-08-25T18:53:28Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2017-09-04T11:51:13Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="5">
@@ -18,79 +18,79 @@
       </trans-unit>
       <trans-unit id="8">
         <source>The current term does not belong to the taxonomy chosen.</source>
-        <target/>
+        <target>Nid yw'r term bresennol yn perthyn i'r tacsonomi a ddewisiwyd.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>You must select a source to continue.</source>
-        <target/>
+        <target>Mae'n rhaid i chi ddewis ffynhonnell i barhau.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Something wrong happened! Please check out the logs. Error: %1%</source>
-        <target/>
+        <target>Rhywbeth anghywir wedi digwydd! Edrychwch ar y logiau. Gwall: %1%</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Import file initiated. Check %1%job %2%%3% to view the status of the import.</source>
-        <target/>
+        <target>Cychwynwyd mewnforio ffeil. Gwiriwch %1% swydd %2%%3% i weld statws y mewnforio.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Import options</source>
-        <target/>
+        <target>Opsiynau mewnforio</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Select source</source>
-        <target/>
+        <target>Dewiswch adnoddau</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Or a remote resource</source>
-        <target/>
+        <target>Neu'n adnodd bell</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Taxonomy with ID %1% could not be found</source>
-        <target/>
+        <target>Ni ellid ddod o hyd i'r tacsonomi gyda ID %1%</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Term with ID %1% could not be found</source>
-        <target/>
+        <target>Ni ellid ddod o hyd i'r term gyda ID %1%</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Malformed URI.</source>
-        <target/>
+        <target>URI wedi ei gamffurfio</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Type of scheme: %1%</source>
-        <target/>
+        <target>Math o batrwm: %1%</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Taxonomy: %1%</source>
-        <target/>
+        <target>Tacsonomeg: %1%</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Term ID: %1%</source>
-        <target/>
+        <target>Term ID: %1%</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Unsupported scheme!</source>
-        <target/>
+        <target>Patrwm heb gefnogaeth!</target>
       </trans-unit>
       <trans-unit id="22">
         <source>The graph is empty.</source>
-        <target/>
+        <target>Mae'r graff yn wag.</target>
       </trans-unit>
       <trans-unit id="23">
         <source>The graph contains %1% concepts.</source>
-        <target/>
+        <target>Mae'r graff yn cynnwys %1% o gysyniadau.</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Unexpected concept, type received: %1%.</source>
-        <target/>
+        <target>Cysyniad annisgwyl, y math a dderbyniwyd: %1%.</target>
       </trans-unit>
       <trans-unit id="25">
         <source>The following languages are used in the dataset imported but not supported by AtoM: %1%</source>
-        <target/>
+        <target>Mae'r ieithoedd canlynol yn cael eu defnyddio yn y set ddata a fewnforiwyd ond nid ydynt yn cael eu cefnogi gan AtoM: %1%</target>
       </trans-unit>
       <trans-unit id="26">
         <source>A total of %1% concepts have been processed so far.</source>
-        <target/>
+        <target>Cyfanswm o %1% o gysyniadau wedi cael eu prosesu hyd yn hyn.</target>
       </trans-unit>
     </body>
   </file>

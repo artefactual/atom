@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2017-08-25T18:50:38Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2017-09-04T11:51:18Z" product-name="messages">
     <body>
       <trans-unit id="44">
         <source>Reference code</source>
@@ -634,7 +634,7 @@
       </trans-unit>
       <trans-unit id="980">
         <source>Associated materials</source>
-        <target/>
+        <target>関連する素材</target>
       </trans-unit>
       <trans-unit id="981">
         <source>Related materials</source>
@@ -646,7 +646,7 @@
       </trans-unit>
       <trans-unit id="983">
         <source>Administrative history / Biographical sketch</source>
-        <target/>
+        <target>管理の履歴／伝記の素描</target>
       </trans-unit>
       <trans-unit id="984">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>

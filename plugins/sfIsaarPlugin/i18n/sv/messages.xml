@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2017-08-25T18:56:43Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2017-09-04T11:51:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -419,43 +419,43 @@ Beskriv familjeförhållanden (t.ex. genom släktträd) på ett sätt som visar 
       </trans-unit>
       <trans-unit id="106">
         <source>%1%Authority record identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1% Auktoritetspostsignum %2% - Detta är ett %3% obligatoriskt %4% element.</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Access points</source>
-        <target/>
+        <target>Sökingångar</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Authority record identifier</source>
-        <target/>
+        <target>Auktoritetspostsignum</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Maintaining repository</source>
-        <target/>
+        <target>Förvaltande arkivinstitution</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Clipboard</source>
-        <target/>
+        <target>Urklipp</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Access points area</source>
-        <target/>
+        <target>Sökingångar</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Edit access points area</source>
-        <target/>
+        <target>Redigera sökingångar</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Occupations</source>
-        <target/>
+        <target>Yrken</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Note</source>
-        <target/>
+        <target>Anmärkning</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Maintained by</source>
-        <target/>
+        <target>Förvaltas av </target>
       </trans-unit>
     </body>
   </file>
