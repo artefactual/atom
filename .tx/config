@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[atom.ui-atom-24x]
+[atom.ui-atom-25x]
 file_filter = .tx/i18n/<lang>/messages.xml
 source_lang = en
 source_file = .tx/i18n/en/messages.xml
