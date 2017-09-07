@@ -21,10 +21,9 @@ require_once dirname(__FILE__).'/../vendor/symfony/lib/autoload/sfCoreAutoload.c
 sfCoreAutoload::register();
 
 require_once __DIR__.'/../vendor/symfony2/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
-require_once __DIR__.'/../vendor/symfony2/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
+require_once __DIR__.'/../lib/QubitApcUniversalClassLoader.php';
 
 use Symfony\Component\ClassLoader\UniversalClassLoader;
-use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
 
 class ProjectConfiguration extends sfProjectConfiguration
 {
@@ -60,11 +59,11 @@ class ProjectConfiguration extends sfProjectConfiguration
     $rootDir = sfConfig::get('sf_root_dir');
 
     // Use APC when available to cache the location of namespaced classes
-    if (extension_loaded('apc'))
+    if (extension_loaded('apcu')|| extension_loaded('apc'))
     {
       // Use unique prefix to avoid cache clashing
       $prefix = sprintf('atom:%s:', md5($rootDir));
-      $loader = new ApcUniversalClassLoader($prefix);
+      $loader = new QubitApcUniversalClassLoader($prefix);
     }
     else
     {
