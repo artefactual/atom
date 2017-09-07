@@ -31,9 +31,9 @@ class sfAPCCache extends sfCache
   {
     parent::initialize($options);
 
-    if (!function_exists('apc_store') || !ini_get('apc.enabled'))
+    if (!function_exists('apcu_store') || !ini_get('apc.enabled'))
     {
-      throw new sfInitializationException('You must have APC installed and enabled to use sfAPCCache class.');
+      throw new sfInitializationException('You must have APCu installed and enabled to use sfAPCCache class.');
     }
 
     // APCu compatibility issues (solved in v4.0.7).
@@ -43,9 +43,13 @@ class sfAPCCache extends sfCache
     // - https://projects.artefactual.com/issues/7850
     // - https://projects.artefactual.com/issues/10064
     $this->infoKey = 'info';
+    $this->createTimeKey = 'creation_time';
+    $this->modTimeKey = 'modification_time';
     if (extension_loaded('apcu') && version_compare(phpversion('apc'), '4.0.7') === -1)
     {
       $this->infoKey = 'key';
+      $this->createTimeKey = 'ctime';
+      $this->modTimeKey = 'mtime';
     }
   }
 
@@ -70,7 +74,7 @@ class sfAPCCache extends sfCache
   private function fetch($key, &$success)
   {
     $has = null;
-    $value = apc_fetch($key, $has);
+    $value = apcu_fetch($key, $has);
     // the second argument was added in APC 3.0.17. If it is still null we fall back to the value returned
     if (null !== $has)
     {
@@ -89,7 +93,7 @@ class sfAPCCache extends sfCache
    */
   public function set($key, $data, $lifetime = null)
   {
-    return apc_store($this->getOption('prefix').$key, $data, $this->getLifetime($lifetime));
+    return apcu_store($this->getOption('prefix').$key, $data, $this->getLifetime($lifetime));
   }
 
   /**
@@ -97,7 +101,7 @@ class sfAPCCache extends sfCache
    */
   public function remove($key)
   {
-    return apc_delete($this->getOption('prefix').$key);
+    return apcu_delete($this->getOption('prefix').$key);
   }
 
   /**
@@ -107,7 +111,7 @@ class sfAPCCache extends sfCache
   {
     if (sfCache::ALL === $mode)
     {
-      return apc_clear_cache('user');
+      return apcu_clear_cache();
     }
   }
 
@@ -118,7 +122,7 @@ class sfAPCCache extends sfCache
   {
     if ($info = $this->getCacheInfo($key))
     {
-      return $info['creation_time'] + $info['ttl'] > time() ? $info['mtime'] : 0;
+      return $info[$this->createTimeKey] + $info['ttl'] > time() ? $info[$this->modTimeKey] : 0;
     }
 
     return 0;
@@ -131,7 +135,7 @@ class sfAPCCache extends sfCache
   {
     if ($info = $this->getCacheInfo($key))
     {
-      return $info['creation_time'] + $info['ttl'] > time() ? $info['creation_time'] + $info['ttl'] : 0;
+      return $info[$this->createTimeKey] + $info['ttl'] > time() ? $info[$this->createTimeKey] + $info['ttl'] : 0;
     }
 
     return 0;
@@ -142,7 +146,7 @@ class sfAPCCache extends sfCache
    */
   public function removePattern($pattern)
   {
-    $infos = apc_cache_info('user');
+    $infos = apcu_cache_info();
 
     if (!is_array($infos['cache_list']))
     {
@@ -155,14 +159,14 @@ class sfAPCCache extends sfCache
     {
       if (preg_match($regexp, $info[$this->infoKey]))
       {
-        apc_delete($info[$this->infoKey]);
+        apcu_delete($info[$this->infoKey]);
       }
     }
   }
 
   protected function getCacheInfo($key)
   {
-    $infos = apc_cache_info('user');
+    $infos = apcu_cache_info();
 
     if (is_array($infos['cache_list']))
     {

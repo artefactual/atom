@@ -244,9 +244,9 @@ class sfInstall
     {
       opcache_reset();
     }
-    if (function_exists('apc_clear_cache'))
+    if (function_exists('apcu_clear_cache'))
     {
-      apc_clear_cache();
+      apcu_clear_cache();
     }
 
     return $settingsYml;
@@ -306,10 +306,6 @@ class sfInstall
     if (function_exists('opcache_invalidate'))
     {
       $e = opcache_invalidate($configFile, true);
-    }
-    if (function_exists('apc_delete_file'))
-    {
-      $e = apc_delete_file($configFile);
     }
 
     $databaseManager = sfContext::getInstance()->databaseManager;
