@@ -248,7 +248,7 @@ function render_treeview_node($item, array $classes = array(), array $options = 
 
     if (isset($options['numSiblingsLeft']))
     {
-      $node .= abs($options['numSiblingsLeft']) . ' more';
+      $node .= sfContext::getInstance()->i18n->__('%1% more', array('%1%' => abs($options['numSiblingsLeft'])));
     }
 
     $node .= '...</a>';
