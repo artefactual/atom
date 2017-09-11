@@ -30,19 +30,15 @@ class SearchErrorAction extends sfAction
 
     if ($exception instanceof Elastica\Exception\ResponseException)
     {
-      $reasonParams = array('%1%' => sprintf('%s (%s)', $exceptionName, $exception->getElasticsearchException()->getExceptionName()));
-
       $this->error = $exception->getResponse()->getError();
     }
     else
     {
-      $reasonParams = array('%1%' => $exceptionName);
-
       $this->error = $exception->getMessage();
     }
 
     // $this->reason is going to be logged and shown in the template
-    $this->reason = $context->i18n->__('Elasticsearch error: %1%', $reasonParams);
+    $this->reason = $context->i18n->__('Elasticsearch error: %1%', array('%1%' => $exceptionName));
 
     $message = sprintf("%s - %s", $this->reason, $this->error);
     $this->logMessage($message, 'err');

@@ -56,7 +56,7 @@ class arInformationObjectCsvExportJob extends arBaseJob
     }
     else
     {
-      $this->search->addFacetFilters(InformationObjectBrowseAction::$FACETS, $this->params['params']);
+      $this->search->addAggFilters(InformationObjectBrowseAction::$AGGS, $this->params['params']);
       $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $this->params['params'], $this->archivalStandard);
     }
 

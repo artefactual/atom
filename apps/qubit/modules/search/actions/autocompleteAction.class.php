@@ -80,7 +80,7 @@ class SearchAutocompleteAction extends sfAction
       $query = new \Elastica\Query();
       $query
         ->setSize(3)
-        ->setFields($item['fields']);
+        ->setSource($item['fields']);
 
       $queryBool = new \Elastica\Query\BoolQuery;
 
@@ -108,24 +108,13 @@ class SearchAutocompleteAction extends sfAction
         $this->context->user->removeAttribute('search-realm');
       }
 
-      $query->setQuery($queryBool);
-      $search->setQuery($query);
-
       if ('QubitInformationObject' == $item['type'])
       {
-        // Filter
-        $filter = new \Elastica\Filter\BoolFilter;
-
-        // Filter drafts
-        QubitAclSearch::filterDrafts($filter);
-
-        // Set filter when needed
-        if (0 < count($filter->toArray()))
-        {
-          $query->setPostFilter($filter);
-        }
+        QubitAclSearch::filterDrafts($queryBool);
       }
 
+      $query->setQuery($queryBool);
+      $search->setQuery($query);
       $mSearch->addSearch($search);
     }
 

@@ -70,43 +70,38 @@ class ActorRelatedInformationObjectsAction extends sfAction
   public static function getRelatedInformationObjects($actorId, $page, $limit, $eventTypeId = null)
   {
     $query = new \Elastica\Query;
+    $queryBool = new \Elastica\Query\BoolQuery;
 
     if (!isset($eventTypeId))
     {
       // Get subject of IOs (name access points)
       $queryTerm = new \Elastica\Query\Term(array('names.id' => $actorId));
 
-      $query->setQuery($queryTerm);
+      $queryBool->addMust($queryTerm);
     }
     else
     {
       // Get related by event IOs 
-      $queryBool = new \Elastica\Query\BoolQuery;
-      $queryBool->addMust(new \Elastica\Query\Term(array('dates.actorId' => $actorId)));
-      $queryBool->addMust(new \Elastica\Query\Term(array('dates.typeId' => $eventTypeId)));
+      $queryBoolDates = new \Elastica\Query\BoolQuery;
+      $queryBoolDates->addMust(new \Elastica\Query\Term(array('dates.actorId' => $actorId)));
+      $queryBoolDates->addMust(new \Elastica\Query\Term(array('dates.typeId' => $eventTypeId)));
 
       // Use nested query and mapping object to allow querying
       // over the actor and event ids from the same event
       $queryNested = new \Elastica\Query\Nested();
       $queryNested->setPath('dates');
-      $queryNested->setQuery($queryBool);
+      $queryNested->setQuery($queryBoolDates);
 
-      $query->setQuery($queryNested);
+      $queryBool->addMust($queryNested);
     }
 
-    $query->setLimit($limit);
-    $query->setFrom($limit * ($page - 1));
-
+    QubitAclSearch::filterDrafts($queryBool);
     $title = sprintf('i18n.%s.title.untouched', sfContext::getInstance()->user->getCulture());
-    $query->setSort(array($title => array('order' => 'asc', 'ignore_unmapped' => true)));
 
-    $filter = new \Elastica\Filter\BoolFilter;
-    QubitAclSearch::filterDrafts($filter);
-
-    if (0 < count($filter->toArray()))
-    {
-      $query->setPostFilter($filter);
-    }
+    $query->setQuery($queryBool);
+    $query->setSort(array($title => 'asc'));
+    $query->setSize($limit);
+    $query->setFrom($limit * ($page - 1));
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
 

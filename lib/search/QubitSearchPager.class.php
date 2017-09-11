@@ -28,17 +28,6 @@ class QubitSearchPager extends sfPager
     $this->resultSet = $resultSet;
   }
 
-  public function __get($name)
-  {
-    switch ($name)
-    {
-      case 'facets':
-        return $this->getFacets();
-
-        break;
-    }
-  }
-
   /**
    * @see sfPager
    */
@@ -84,27 +73,5 @@ class QubitSearchPager extends sfPager
     $this->init();
 
     return 0 < $this->getNbResults();
-  }
-
-  public function getFacets()
-  {
-    return $this->resultSet->getFacets();
-  }
-
-  public function getFacet($facet)
-  {
-    $facets = $this->resultSet->getFacets();
-
-    if (!isset($facets[$facet]))
-    {
-      return null;
-    }
-
-    return $facets[$facet];
-  }
-
-  public function hasFacets()
-  {
-    return $this->resultSet->hasFacets();
   }
 }

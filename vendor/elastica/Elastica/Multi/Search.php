@@ -11,19 +11,19 @@ use Elastica\Search as BaseSearch;
  *
  * @author munkie
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html
  */
 class Search
 {
     /**
-     * @var array|\Elastica\Search[]
+     * @const string[] valid header options
      */
-    protected $_searches = array();
-
+    private static $HEADER_OPTIONS = ['index', 'types', 'search_type',
+                                      'routing', 'preference', ];
     /**
-     * @var array
+     * @var MultiBuilderInterface
      */
-    protected $_options = array();
+    private $_builder;
 
     /**
      * @var \Elastica\Client
@@ -31,13 +31,25 @@ class Search
     protected $_client;
 
     /**
+     * @var array
+     */
+    protected $_options = [];
+
+    /**
+     * @var array|\Elastica\Search[]
+     */
+    protected $_searches = [];
+
+    /**
      * Constructs search object.
      *
-     * @param \Elastica\Client $client Client object
+     * @param \Elastica\Client      $client  Client object
+     * @param MultiBuilderInterface $builder
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, MultiBuilderInterface $builder = null)
     {
-        $this->setClient($client);
+        $this->_builder = $builder ?: new MultiBuilder();
+        $this->_client = $client;
     }
 
     /**
@@ -49,23 +61,11 @@ class Search
     }
 
     /**
-     * @param \Elastica\Client $client
-     *
-     * @return $this
-     */
-    public function setClient(Client $client)
-    {
-        $this->_client = $client;
-
-        return $this;
-    }
-
-    /**
      * @return $this
      */
     public function clearSearches()
     {
-        $this->_searches = array();
+        $this->_searches = [];
 
         return $this;
     }
@@ -145,10 +145,11 @@ class Search
             '_msearch',
             Request::POST,
             $data,
-            $this->_options
+            $this->_options,
+        Request::NDJSON_CONTENT_TYPE
         );
 
-        return new ResultSet($response, $this->getSearches());
+        return $this->_builder->buildMultiResultSet($response, $this->getSearches());
     }
 
     /**
@@ -172,11 +173,15 @@ class Search
     protected function _getSearchData(BaseSearch $search)
     {
         $header = $this->_getSearchDataHeader($search);
+
         $header = (empty($header)) ? new \stdClass() : $header;
         $query = $search->getQuery();
 
+        // Keep other query options as part of the search body
+        $queryOptions = array_diff_key($search->getOptions(), array_flip(self::$HEADER_OPTIONS));
+
         $data = JSON::stringify($header)."\n";
-        $data .= JSON::stringify($query->toArray())."\n";
+        $data .= JSON::stringify($query->toArray() + $queryOptions)."\n";
 
         return $data;
     }
@@ -198,6 +203,7 @@ class Search
             $header['types'] = $search->getTypes();
         }
 
-        return $header;
+        // Filter options accepted in the "header"
+        return array_intersect_key($header, array_flip(self::$HEADER_OPTIONS));
     }
 }

@@ -48,19 +48,18 @@ class UserClipboardClearAction extends sfAction
     }
 
     // Get all descriptions added to the clipboard
-    $query = new \Elastica\Query(new \Elastica\Query\Terms('slug', $slugs));
-    $query->setLimit(count($slugs));
+    $query = new \Elastica\Query;
+    $queryTerms = new \Elastica\Query\Terms('slug', $slugs);
+    $queryBool = new \Elastica\Query\BoolQuery;
+    $queryBool->addMust($queryTerms);
 
-    // Filter drafts in case they were manually added
-    if ('QubitInformationObject' === $this->type)
+    if ($this->type == 'QubitInformationObject')
     {
-      $filterBool = new \Elastica\Filter\BoolFilter;
-      QubitAclSearch::filterDrafts($filterBool);
-      if (0 < count($filterBool->toArray()))
-      {
-        $query->setPostFilter($filterBool);
-      }
+      QubitAclSearch::filterDrafts($queryBool);
     }
+
+    $query->setQuery($queryBool);
+    $query->setSize(count($slugs));
 
     $this->resultSet = QubitSearch::getInstance()->index->getType($this->type)->search($query);
 

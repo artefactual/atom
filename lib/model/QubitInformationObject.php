@@ -2759,7 +2759,7 @@ class QubitInformationObject extends BaseInformationObject
     $queryBool->addMust(new \Elastica\Query\Term(array(sprintf('repository.i18n.%s.authorizedFormOfName.untouched', $currentCulture) => $repoName)));
 
     $query = new \Elastica\Query($queryBool);
-    $query->setLimit(1);
+    $query->setSize(1);
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
 
     if ($resultSet->count())

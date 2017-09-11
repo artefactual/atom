@@ -23,50 +23,51 @@ class TermIndexAction extends DefaultBrowseAction
 
   // Arrays not allowed in class constants
   public static
-    $FACETS = array(
+    $AGGS = array(
       'languages' =>
-        array('type' => 'term',
+        array('type'  => 'term',
               'field' => 'i18n.languages',
-              'filter' => 'hideDrafts',
-              'size' => 10),
+              'size'  => 10),
       'places' =>
-        array('type'   => 'term',
-              'field'  => 'places.id',
-              'size'   => 10),
+        array('type'  => 'term',
+              'field' => 'places.id',
+              'size'  => 10),
       'subjects' =>
-        array('type'   => 'term',
-              'field'  => 'subjects.id',
-              'size'   => 10),
+        array('type'  => 'term',
+              'field' => 'subjects.id',
+              'size'  => 10),
       'genres' =>
-        array('type'   => 'term',
-              'field'  => 'genres.id',
-              'size'   => 10),
+        array('type'  => 'term',
+              'field' => 'genres.id',
+              'size'  => 10),
       'direct' =>
-        array('type' => 'query',
+        array('type' => 'filter',
               'field'  => '',
-              'filter' => 'hideDrafts',
               'populate' => false));
 
-  protected function populateFacet($name, $ids)
+  protected function populateAgg($name, $buckets)
   {
     switch ($name)
     {
       case 'places':
       case 'subjects':
       case 'genres':
+        $ids = array_column($buckets, 'key');
         $criteria = new Criteria;
-        $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
+        $criteria->add(QubitTerm::ID, $ids, Criteria::IN);
 
         foreach (QubitTerm::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->getName(array('cultureFallback' => true));
+          $buckets[array_search($item->id, $ids)]['display'] = $item->getName(array('cultureFallback' => true));
         }
 
         break;
 
       default:
-        parent::populateFacet($name, $ids);
+        return parent::populateAgg($name, $buckets);
     }
+
+    return $buckets;
   }
 
   public function checkForRepeatedNames($validator, $value)
@@ -230,7 +231,7 @@ EOF;
         {
           case QubitTaxonomy::PLACE_ID:
             $query = new \Elastica\Query\Terms('places.id', array($this->resource->id));
-            $this::$FACETS['direct']['field'] = array('directPlaces' => $this->resource->id);
+            $this::$AGGS['direct']['field'] = array('directPlaces' => $this->resource->id);
 
             if (isset($request->onlyDirect))
             {
@@ -241,7 +242,7 @@ EOF;
 
           case QubitTaxonomy::SUBJECT_ID:
             $query = new \Elastica\Query\Terms('subjects.id', array($this->resource->id));
-            $this::$FACETS['direct']['field'] = array('directSubjects' => $this->resource->id);
+            $this::$AGGS['direct']['field'] = array('directSubjects' => $this->resource->id);
 
             if (isset($request->onlyDirect))
             {
@@ -252,7 +253,7 @@ EOF;
 
           case QubitTaxonomy::GENRE_ID:
             $query = new \Elastica\Query\Terms('genres.id', array($this->resource->id));
-            $this::$FACETS['direct']['field'] = array('directGenres' => $this->resource->id);
+            $this::$AGGS['direct']['field'] = array('directGenres' => $this->resource->id);
 
             if (isset($request->onlyDirect))
             {
@@ -270,8 +271,6 @@ EOF;
         {
           $this->search->queryBool->addMust($queryDirect);
         }
-
-        $this->search->query->setQuery($this->search->queryBool);
 
         switch ($request->sort)
         {
@@ -293,14 +292,8 @@ EOF;
             $this->search->query->setSort(array('updatedAt' => 'desc'));
         }
 
-        // Filter drafts
-        QubitAclSearch::filterDrafts($this->search->filterBool);
-
-        // Set filter
-        if (0 < count($this->search->filterBool->toArray()))
-        {
-          $this->search->query->setPostFilter($this->search->filterBool);
-        }
+        QubitAclSearch::filterDrafts($this->search->queryBool);
+        $this->search->query->setQuery($this->search->queryBool);
 
         $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->query);
 
@@ -310,7 +303,7 @@ EOF;
         $this->pager->setMaxPerPage($this->limit);
         $this->pager->init();
 
-        $this->populateFacets($resultSet);
+        $this->populateAggs($resultSet);
 
         // Load list terms
         $this->loadListTerms($request);
@@ -326,7 +319,7 @@ EOF;
     }
 
     $listQuery = new \Elastica\Query();
-    $listQuery->setLimit($request->listLimit);
+    $listQuery->setSize($request->listLimit);
     $listQuery->setSort(array(sprintf('i18n.%s.name.untouched', $this->culture) => 'asc'));
 
     if (!empty($request->listPage))

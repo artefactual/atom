@@ -19,116 +19,99 @@
 
 class DefaultBrowseAction extends sfAction
 {
-  protected function populateFacets($resultSet)
+  protected function populateAggs($resultSet)
   {
-    // Stop if no facets available
-    if (!$resultSet->hasFacets())
+    $this->aggs = array();
+
+    // Stop if no aggregations available
+    if (!$resultSet->hasAggregations())
     {
       return;
     }
 
-    // Create a map of facets containing the id and its string representation
-    $this->types = array();
-
-    $facets = array();
-
-    foreach ($resultSet->getFacets() as $name => $facet)
+    foreach ($resultSet->getAggregations() as $name => $agg)
     {
-      // Pass if the facet is empty
-      if (!isset($facet['terms']) && !isset($facet['count']))
+      if (isset($this::$AGGS[$name]['populate']) && !$this::$AGGS[$name]['populate'])
       {
-        continue;
-      }
-
-      if (isset($this::$FACETS[$name]['populate']) && false === $this::$FACETS[$name]['populate'])
-      {
-        $facets[$name] = $facet;
+        $this->aggs[$name] = $agg;
 
         continue;
       }
 
-      // Build a map of facet results
-      $ids = array();
-      foreach ($facet['terms'] as $item)
+      // Pass if the aggregation is empty
+      if (!isset($agg['buckets']) || count($agg['buckets']) == 0)
       {
-        $ids[$item['term']] = $item['count'];
+        continue;
       }
 
-      $this->populateFacet($name, $ids);
+      $this->aggs[$name] = $this->populateAgg($name, $agg['buckets']);
 
-      foreach ($facet['terms'] as $term)
-      {
-        $facets[$name]['terms'][$term['term']] = array(
-          'count' => $term['count'],
-          'term' => $this->types[$term['term']]);
-      }
-
-      // Get unique descriptions count for languages facet
+      // Get unique descriptions count for languages aggregation
       if ($name == 'languages')
       {
         // If the query is being filtered by language we need to execute
-        // the same query again without language filter to get the count
+        // the same query again without language clause to get the count
         if (isset($this->search->filters['languages']))
         {
-          // We're only filtering draft descriptions and other languages, so:
-          // Remove old filter (with language)
-          $queryParams = $this->search->query->getParams();
-          unset($queryParams['filter']);
-          $this->search->query->setRawQuery($queryParams);
+          // Find an remove language clause from the query
+          $queryParams = $this->search->query->toArray();
+          $mustClauses = array();
 
-          // Create and add a new one only with drafts filtered (only for information object queries)
-          if ($this::INDEX_TYPE == 'QubitInformationObject')
+          foreach ($queryParams['query']['bool']['must'] as $mustClause)
           {
-            $this->filterBool = new \Elastica\Filter\BoolFilter;
-            QubitAclSearch::filterDrafts($this->filterBool);
-
-            if (0 < count($this->filterBool->toArray()))
+            if (isset($mustClause['term']['i18n.languages']))
             {
-              $this->search->query->setPostFilter($this->filterBool);
+              continue;
             }
+
+            $mustClauses[] = $mustClause;
           }
+
+          $queryParams['query']['bool']['must'] = $mustClauses;
+
+          $this->search->query->setRawQuery($queryParams);
 
           $resultSetWithoutLanguageFilter = QubitSearch::getInstance()->index->getType($this::INDEX_TYPE)->search($this->search->query);
 
-          $count= $resultSetWithoutLanguageFilter->getTotalHits();
+          $count = $resultSetWithoutLanguageFilter->getTotalHits();
         }
         // Without language filter the count equals the number of hits
         else
         {
-          $count= $resultSet->getTotalHits();
+          $count = $resultSet->getTotalHits();
         }
 
         $i18n = sfContext::getInstance()->i18n;
 
         $uniqueTerm = array(
-          'unique' => array(
-            'count' => $count,
-            'term' => $i18n->__('Unique records')));
+          'key' => 'unique_language',
+          'display' => $i18n->__('Unique records'),
+          'doc_count' => $count);
 
         // Add unique term at the biginning of the array
         // only when there are other terms
-        if (isset($facets[$name]) && count($facets[$name]['terms']))
+        if (!empty($this->aggs[$name]))
         {
-          $facets[$name]['terms'] = $uniqueTerm + $facets[$name]['terms'];
+          $this->aggs[$name] = array_merge(array($uniqueTerm), $this->aggs[$name]);
         }
       }
     }
-
-    $this->pager->facets = $facets;
   }
 
-  protected function populateFacet($name, $ids)
+  protected function populateAgg($name, $buckets)
   {
     switch ($name)
     {
       case 'languages':
-        foreach ($ids as $code => $count)
+        foreach ($buckets as $key => $bucket)
         {
-          $this->types[$code] = ucfirst(sfCultureInfo::getInstance(sfContext::getInstance()->user->getCulture())->getLanguage($code));
+          $buckets[$key]['display'] = ucfirst(sfCultureInfo::getInstance(sfContext::getInstance()->user->getCulture())->getLanguage($bucket['key']));
         }
 
         break;
     }
+
+    return $buckets;
   }
 
   public function execute($request)
@@ -171,15 +154,15 @@ class DefaultBrowseAction extends sfAction
 
     $this->search = new arElasticSearchPluginQuery($this->limit, $skip);
 
-    if (property_exists($this, 'FACETS'))
+    if (property_exists($this, 'AGGS'))
     {
       if (!isset($this->getParameters))
       {
         $this->getParameters = $request->getGetParameters();
       }
 
-      $this->search->addFacets($this::$FACETS);
-      $this->search->addFacetFilters($this::$FACETS, $this->getParameters);
+      $this->search->addAggs($this::$AGGS);
+      $this->search->addAggFilters($this::$AGGS, $this->getParameters);
     }
 
     if (isset($this->search->filters['languages']))

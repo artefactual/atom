@@ -148,11 +148,9 @@ License:   New BSD
 
 Elastica
 --------
-Used in plugins/arElasticSearchPlugin
-
 Url:       http://ruflin.github.com/Elastica/
 Copyright: Nicolas Ruflin <spam@ruflin.com>
-License:   Apache 2.0
+License:   MIT
 
 password_compat
 ---------------
@@ -208,3 +206,15 @@ EasyRdf
 Url: http://www.easyrdf.org/
 Copyright: Nicholas Humfrey <nicholas.humfrey@bbc.co.uk>
 License: https://github.com/njh/easyrdf/blob/master/LICENSE.md
+
+php-fig/log
+-----------
+Url: https://github.com/php-fig/log
+Copyright: PHP Framework Interoperability Group <info@php-fig.org>
+License: MIT
+
+elasticsearch-php
+-----------------
+Url: https://github.com/elastic/elasticsearch-php
+Copyright: 2013-2016 Elasticsearch
+License: Apache 2.0 and LGPL v2.1

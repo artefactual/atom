@@ -1,12 +1,14 @@
 <?php
 namespace Elastica\Query;
 
+use Elastica\Document;
+
 /**
  * More Like This query.
  *
  * @author Raul Martinez, Jr <juneym@gmail.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-mlt-query.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-mlt-query.html
  */
 class MoreLikeThis extends AbstractQuery
 {
@@ -23,29 +25,15 @@ class MoreLikeThis extends AbstractQuery
     }
 
     /**
-     * Set document ids for the mlt query.
+     * Set the "like" value.
      *
-     * @param array $ids Document ids
-     *
-     * @return \Elastica\Query\MoreLikeThis Current object
-     */
-    public function setIds(array $ids)
-    {
-        return $this->setParam('ids', $ids);
-    }
-
-    /**
-     * Set the "like_text" value.
-     *
-     * @param string $likeText
+     * @param string|Document $like
      *
      * @return $this
      */
-    public function setLikeText($likeText)
+    public function setLike($like)
     {
-        $likeText = trim($likeText);
-
-        return $this->setParam('like_text', $likeText);
+        return $this->setParam('like', $like);
     }
 
     /**
@@ -70,20 +58,6 @@ class MoreLikeThis extends AbstractQuery
     public function setMaxQueryTerms($maxQueryTerms)
     {
         return $this->setParam('max_query_terms', (int) $maxQueryTerms);
-    }
-
-    /**
-     * Set percent terms to match.
-     *
-     * @param float $percentTermsToMatch Percentage
-     *
-     * @return $this
-     *
-     * @deprecated Option "percent_terms_to_match" deprecated as of ES 1.5. Use "minimum_should_match" instead.
-     */
-    public function setPercentTermsToMatch($percentTermsToMatch)
-    {
-        return $this->setParam('percent_terms_to_match', (float) $percentTermsToMatch);
     }
 
     /**
@@ -194,5 +168,26 @@ class MoreLikeThis extends AbstractQuery
     public function setMinimumShouldMatch($minimumShouldMatch)
     {
         return $this->setParam('minimum_should_match', $minimumShouldMatch);
+    }
+
+    public function toArray()
+    {
+        $array = parent::toArray();
+
+        // If _id is provided, perform MLT on an existing document from the index
+        // If _source is provided, perform MLT on a document provided as an input
+        if (!empty($array['more_like_this']['like']['_id'])) {
+            $doc = $array['more_like_this']['like'];
+            $doc = array_intersect_key($doc, ['_index' => 1, '_type' => 1, '_id' => 1]);
+            $array['more_like_this']['like'] = $doc;
+        } elseif (!empty($array['more_like_this']['like']['_source'])) {
+            $doc = $array['more_like_this']['like'];
+            $doc['doc'] = $array['more_like_this']['like']['_source'];
+            unset($doc['_id']);
+            unset($doc['_source']);
+            $array['more_like_this']['like'] = $doc;
+        }
+
+        return $array;
     }
 }

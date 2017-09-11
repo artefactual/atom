@@ -24,46 +24,46 @@
 
       <h2><?php echo sfConfig::get('app_ui_label_facetstitle') ?></h2>
 
-      <?php echo get_partial('search/facetLanguage', array(
-        'target' => '#facet-languages',
+      <?php echo get_partial('search/aggregation', array(
+        'id' => '#facet-languages',
         'label' => __('Language'),
-        'facet' => 'languages',
-        'pager' => $pager,
+        'name' => 'languages',
+        'aggs' => $aggs,
         'filters' => $search->filters)) ?>
 
-      <?php echo get_partial('search/facet', array(
-        'target' => '#facet-archivetype',
+      <?php echo get_partial('search/aggregation', array(
+        'id' => '#facet-archivetype',
         'label' => __('Archive type'),
-        'facet' => 'types',
-        'pager' => $pager,
+        'name' => 'types',
+        'aggs' => $aggs,
         'filters' => $search->filters)) ?>
 
-      <?php echo get_partial('search/facet', array(
-        'target' => '#facet-province',
+      <?php echo get_partial('search/aggregation', array(
+        'id' => '#facet-province',
         'label' => __('Geographic Region'),
-        'facet' => 'regions',
-        'pager' => $pager,
+        'name' => 'regions',
+        'aggs' => $aggs,
         'filters' => $search->filters)) ?>
 
-      <?php echo get_partial('search/facet', array(
-        'target' => '#facet-geographicsubregion',
+      <?php echo get_partial('search/aggregation', array(
+        'id' => '#facet-geographicsubregion',
         'label' => __('Geographic Subregion'),
-        'facet' => 'geographicSubregions',
-        'pager' => $pager,
+        'name' => 'geographicSubregions',
+        'aggs' => $aggs,
         'filters' => $search->filters)) ?>
 
-      <?php echo get_partial('search/facet', array(
-        'target' => '#facet-locality',
+      <?php echo get_partial('search/aggregation', array(
+        'id' => '#facet-locality',
         'label' => __('Locality'),
-        'facet' => 'locality',
-        'pager' => $pager,
+        'name' => 'locality',
+        'aggs' => $aggs,
         'filters' => $search->filters)) ?>
 
-      <?php echo get_partial('search/facet', array(
-        'target' => '#facet-thematicarea',
+      <?php echo get_partial('search/aggregation', array(
+        'id' => '#facet-thematicarea',
         'label' => __('Thematic Area'),
-        'facet' => 'thematicAreas',
-        'pager' => $pager,
+        'name' => 'thematicAreas',
+        'aggs' => $aggs,
         'filters' => $search->filters)) ?>
 
     </div>

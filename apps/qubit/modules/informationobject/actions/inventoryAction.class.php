@@ -76,67 +76,60 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
   private static function getResults($resource, $limit = 10, $page = 1, $sort = null)
   {
     $query = new \Elastica\Query;
-    $query->setLimit($limit);
+    $query->setSize($limit);
     if (!empty($page))
     {
       $query->setFrom(($page - 1) * $limit);
     }
 
-    $q = new \Elastica\Query\BoolQuery;
+    $queryBool = new \Elastica\Query\BoolQuery;
 
     $q1 = new \Elastica\Query\Term;
     $q1->setTerm('ancestors', $resource->id);
-    $q->addMust($q1);
+    $queryBool->addMust($q1);
     $q2 = new \Elastica\Query\Terms;
     $q2->setTerms('levelOfDescriptionId', self::getLevels());
-    $q->addMust($q2);
-
-    $query->setQuery($q);
+    $queryBool->addMust($q2);
 
     $i18n = sprintf('i18n.%s.', sfContext::getInstance()->getUser()->getCulture());
     switch ($sort)
     {
       case 'identifierDown':
-        $query->setSort(array('identifier' =>
-          array('order' => 'desc', 'ignore_unmapped' => true)));
+        $query->setSort(array('identifier' => 'desc'));
 
         break;
 
       case 'titleUp':
-        $query->setSort(array($i18n.'title.untouched' =>
-          array('order' => 'asc', 'ignore_unmapped' => true)));
+        $query->setSort(array($i18n.'title.untouched' => 'asc'));
 
         break;
 
       case 'titleDown':
-        $query->setSort(array($i18n.'title.untouched' =>
-          array('order' => 'desc', 'ignore_unmapped' => true)));
+        $query->setSort(array($i18n.'title.untouched' => 'desc'));
 
         break;
 
       case 'levelUp':
-        $query->setSort(array('levelOfDescriptionId' =>
-          array('order' => 'asc', 'ignore_unmapped' => true)));
+        $query->setSort(array('levelOfDescriptionId' => 'asc'));
 
         break;
 
       case 'levelDown':
-        $query->setSort(array('levelOfDescriptionId' =>
-          array('order' => 'desc', 'ignore_unmapped' => true)));
+        $query->setSort(array('levelOfDescriptionId' => 'desc'));
 
         break;
 
       case 'dateUp':
         $query->setSort(array(
-          'dates.startDate' => array('order' => 'asc', 'ignore_unmapped' => true),
-          'dates.endDate' => array('order' => 'asc', 'ignore_unmapped' => true)));
+          'dates.startDate' => 'asc',
+          'dates.endDate' => 'asc'));
 
         break;
 
       case 'dateDown':
         $query->setSort(array(
-          'dates.startDate' => array('order' => 'desc', 'ignore_unmapped' => true),
-          'dates.endDate' => array('order' => 'desc', 'ignore_unmapped' => true)));
+          'dates.startDate' => 'desc',
+          'dates.endDate' => 'desc'));
 
         break;
 
@@ -146,18 +139,11 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
 
       case 'identifierUp':
       default:
-        $query->setSort(array('identifier' =>
-          array('order' => 'asc', 'ignore_unmapped' => true)));
+        $query->setSort(array('identifier' => 'asc'));
     }
 
-
-    // Filter drafts
-    $filterBool = new \Elastica\Filter\BoolFilter;
-    QubitAclSearch::filterDrafts($filterBool);
-    if (0 < count($filterBool->toArray()))
-    {
-      $query->setPostFilter($filterBool);
-    }
+    QubitAclSearch::filterDrafts($queryBool);
+    $query->setQuery($queryBool);
 
     return QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
   }

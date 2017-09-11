@@ -181,7 +181,7 @@ class SearchDescriptionUpdatesAction extends sfAction
     $limit = sfConfig::get('app_hits_per_page', 10);
     $page = $this->request->getParameter('page', 1);
 
-    $query->setLimit($limit);
+    $query->setSize($limit);
     $query->setFrom($limit * ($page - 1));
     $query->setSort(array('createdAt' => 'desc'));
 

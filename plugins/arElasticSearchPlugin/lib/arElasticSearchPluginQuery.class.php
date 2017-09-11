@@ -21,7 +21,6 @@ class arElasticSearchPluginQuery
 {
   public $query,
          $queryBool,
-         $filterBool,
          $filters,
          $criteria;
 
@@ -36,54 +35,35 @@ class arElasticSearchPluginQuery
   public function __construct($limit = 10, $skip = 0)
   {
     $this->query = new \Elastica\Query();
-    $this->query->setLimit($limit);
+    $this->query->setSize($limit);
     $this->query->setFrom($skip);
 
     $this->queryBool = new \Elastica\Query\BoolQuery;
-    $this->filterBool = new \Elastica\Filter\BoolFilter;
   }
 
   /**
-   * Translate internal representation of facets to Elastica API, adding
-   * to query.
+   * Translate internal representation of aggregations
+   * to Elastica API, adding them to the query.
    *
-   * @param array $facets  search facets
+   * @param array $aggs  search aggregations
    *
    * @return void
    */
-  public function addFacets($facets)
+  public function addAggs($aggs)
   {
-    foreach ($facets as $name => $item)
+    foreach ($aggs as $name => $item)
     {
-      if (!is_array($item))
-      {
-        $facet = new \Elastica\Facet\Terms($item);
-        $facet->setField($item);
-        $facet->setSize(10);
-
-        $this->query->addFacet($facet);
-
-        continue;
-      }
-
       switch ($item['type'])
       {
-        case 'range':
-          $facet = new \Elastica\Facet\Range($name);
-          $facet->setField($item['field']);
-          $facet->addRange($item['from'], $item['to']);
-
-          break;
-
         case 'term':
-          $facet = new \Elastica\Facet\Terms($name);
-          $facet->setField($item['field']);
+          $agg = new \Elastica\Aggregation\Terms($name);
+          $agg->setField($item['field']);
 
           break;
 
-        case 'query':
-          $facet = new \Elastica\Facet\Query($name);
-          $facet->setQuery(new \Elastica\Query\Term($item['field']));
+        case 'filter':
+          $agg = new \Elastica\Aggregation\Filter($name);
+          $agg->setFilter(new \Elastica\Query\Term($item['field']));
 
           break;
       }
@@ -91,94 +71,67 @@ class arElasticSearchPluginQuery
       // Sets the amount of terms to be returned
       if (isset($item['size']))
       {
-        $facet->setSize($item['size']);
+        $agg->setSize($item['size']);
       }
 
-      $filter = new \Elastica\Filter\BoolFilter;
-
-      // Sets a filter for this facet
-      if (isset($item['filter']))
-      {
-        switch ($item['filter'])
-        {
-          case 'hideDrafts':
-            QubitAclSearch::filterDrafts($filter);
-            break;
-        }
-      }
-
-      // Apply facet filter if exists
-      if (0 < count($filter->toArray()))
-      {
-        $facet->setFilter($filter);
-      }
-
-      $this->query->addFacet($facet);
+      $this->query->addAggregation($agg);
     }
   }
 
   /**
-   * Add filters from facets to the query
+   * Add filters from aggregations to the query
    *
-   * @param array $facets  search facets
-   * @param array $params  search filters from facets
+   * @param array $aggs  search aggregations
+   * @param array $params  search filters from aggregations
    *
    * @return void
    */
-  public function addFacetFilters($facets, $params)
+  public function addAggFilters($aggs, $params)
   {
     $this->filters = array();
 
-    // Filter languages only if the languages facet is being used and languages is
-    // set in the request
-    if (isset($facets['languages']) && isset($params['languages']))
+    // Filter languages only if the languages aggregation
+    // is being used and languages is set in the request
+    if (isset($aggs['languages']) && isset($params['languages']))
     {
       $this->filters['languages'] = $params['languages'];
-      $term = new \Elastica\Filter\Term(array($facets['languages']['field'] => $params['languages']));
+      $term = new \Elastica\Query\Term(array($aggs['languages']['field'] => $params['languages']));
 
-      $this->filterBool->addMust($term);
+      $this->queryBool->addMust($term);
     }
 
-    // Add facet selections as search criteria
+    // Add agg selections as search criteria
     foreach ($params as $param => $value)
     {
       if ('languages' == $param
-        || !array_key_exists($param, $facets)
+        || !array_key_exists($param, $aggs)
         || ('repos' == $param && (!ctype_digit($value)
-        || null === QubitRepository::getById($value))))
+        || null === QubitRepository::getById($value)))
+        || 1 === preg_match('/^[\s\t\r\n]*$/', $value))
       {
         continue;
       }
 
-      foreach (explode(',', $value) as $facetValue)
+      $this->filters[$param] = $value;
+
+      $query = new \Elastica\Query\Term(array($aggs[$param]['field'] => $value));
+
+      // Collection agg must select all descendants and itself
+      if ($param == 'collection')
       {
-        // Don't include empty filters
-        if (1 === preg_match('/^[\s\t\r\n]*$/', $facetValue))
-        {
-          continue;
-        }
+        $collection = QubitInformationObject::getById($value);
 
-        $this->filters[$param][] = $facetValue;
+        $querySelf = new \Elastica\Query\Match;
+        $querySelf->setFieldQuery('slug', $collection->slug);
 
-        $query = new \Elastica\Query\Term(array($facets[$param]['field'] => $facetValue));
+        $queryBool = new \Elastica\Query\BoolQuery;
+        $queryBool->addShould($query);
+        $queryBool->addShould($querySelf);
 
-        // Collection facet must select all descendants and itself
-        if ($param == 'collection')
-        {
-          $collection = QubitInformationObject::getById($facetValue);
-
-          $querySelf = new \Elastica\Query\Match;
-          $querySelf->setFieldQuery('slug', $collection->slug);
-
-          $queryBool = new \Elastica\Query\BoolQuery;
-          $queryBool->addShould($query);
-          $queryBool->addShould($querySelf);
-
-          $query = $queryBool;
-        }
-
-        $this->queryBool->addMust($query);
+        $query = $queryBool;
       }
+
+      $this->queryBool->addMust($query);
     }
   }
 
@@ -196,8 +149,8 @@ class arElasticSearchPluginQuery
     }
 
     // Process advanced search form fields
-    // Some of them have the same name as a facet, this creates query
-    // duplication but allows as to keep facets and adv. search form syncronized
+    // Some of them have the same name as a aggregation, this creates query
+    // duplication but allows as to keep aggs and adv. search form syncronized
     foreach ($fieldNames as $name)
     {
       if (isset($params[$name]) && strlen(trim($params[$name])) > 0
@@ -472,11 +425,10 @@ class arElasticSearchPluginQuery
         // (2) copyright status is not set.
         if (isset($term) && $term->id == $value)
         {
-          // Filtered query for documents without copyright status
-          $queryAll = new \Elastica\Query\MatchAll();
-          $filter = new \Elastica\Filter\Missing;
-          $filter->setField('copyrightStatusId');
-          $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filter);
+          // Query for documents without copyright status
+          $exists = new \Elastica\Query\Exists('copyrightStatusId');
+          $queryBoolMissing = new \Elastica\Query\BoolQuery;
+          $queryBoolMissing->addMustNot($exists);
 
           // Query for unknown copyright status
           $query = new \Elastica\Query\Term;
@@ -484,7 +436,7 @@ class arElasticSearchPluginQuery
 
           $queryBool = new \Elastica\Query\BoolQuery;
           $queryBool->addShould($query);
-          $queryBool->addShould($filteredQuery);
+          $queryBool->addShould($queryBoolMissing);
 
           return $queryBool;
         }
@@ -512,18 +464,16 @@ class arElasticSearchPluginQuery
         switch ($value)
         {
           case 'yes':
-            $queryAll = new \Elastica\Query\MatchAll();
-            $filter = new \Elastica\Filter\Exists('findingAid.status');
-            $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filter);
+            $query = new \Elastica\Query\Exists('findingAid.status');
 
-            return $filteredQuery;
+            return $query;
 
           case 'no':
-            $queryAll = new \Elastica\Query\MatchAll();
-            $filter = new \Elastica\Filter\Missing('findingAid.status');
-            $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filter);
+            $exists = new \Elastica\Query\Exists('findingAid.status');
+            $query = new \Elastica\Query\BoolQuery;
+            $query->addMustNot($exists);
 
-            return $filteredQuery;
+            return $query;
 
           case 'generated':
             $query = new \Elastica\Query\Term;
@@ -572,12 +522,13 @@ class arElasticSearchPluginQuery
       if ($type == 'inclusive')
       {
         // Start date before range and end date missing
-        $queryStart = new \Elastica\Query\Range('dates.startDate', array('lt' => $params['startDate']));
-        $filter = new \Elastica\Filter\Missing;
-        $filter->setField('dates.endDate');
-        $filteredQuery = new \Elastica\Query\Filtered($queryStart, $filter);
+        $queryBool = new \Elastica\Query\BoolQuery;
+        $start = new \Elastica\Query\Range('dates.startDate', array('lt' => $params['startDate']));
+        $exists = new \Elastica\Query\Exists('dates.endDate');
+        $queryBool->addMust($start);
+        $queryBool->addMustNot($exists);
 
-        $query->addShould($filteredQuery);
+        $query->addShould($queryBool);
       }
     }
 
@@ -588,12 +539,13 @@ class arElasticSearchPluginQuery
       if ($type == 'inclusive')
       {
         // End date after range and start date missing
-        $queryEnd = new \Elastica\Query\Range('dates.endDate', array('gt' => $params['endDate']));
-        $filter = new \Elastica\Filter\Missing;
-        $filter->setField('dates.startDate');
-        $filteredQuery = new \Elastica\Query\Filtered($queryEnd, $filter);
+        $queryBool = new \Elastica\Query\BoolQuery;
+        $end = new \Elastica\Query\Range('dates.endDate', array('gt' => $params['endDate']));
+        $exists = new \Elastica\Query\Exists('dates.startDate');
+        $queryBool->addMust($end);
+        $queryBool->addMustNot($exists);
 
-        $query->addShould($filteredQuery);
+        $query->addShould($queryBool);
       }
     }
 
@@ -644,18 +596,12 @@ class arElasticSearchPluginQuery
       $this->queryBool->addMust(new \Elastica\Query\MatchAll);
     }
 
-    $this->query->setQuery($this->queryBool);
-
     if ($filterDrafts)
     {
-      QubitAclSearch::filterDrafts($this->filterBool);
+      QubitAclSearch::filterDrafts($this->queryBool);
     }
 
-    // Set filter
-    if (0 < count($this->filterBool->toArray()))
-    {
-      $this->query->setPostFilter($this->filterBool);
-    }
+    $this->query->setQuery($this->queryBool);
 
     return $this->query;
   }

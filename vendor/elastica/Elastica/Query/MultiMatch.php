@@ -8,7 +8,7 @@ namespace Elastica\Query;
  * @author Wong Wing Lun <luiges90@gmail.com>
  * @author Tristan Maindron <tmaindron@gmail.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html
  */
 class MultiMatch extends AbstractQuery
 {
@@ -23,6 +23,8 @@ class MultiMatch extends AbstractQuery
 
     const ZERO_TERM_NONE = 'none';
     const ZERO_TERM_ALL = 'all';
+
+    const FUZZINESS_AUTO = 'AUTO';
 
     /**
      * Sets the query.
@@ -43,7 +45,7 @@ class MultiMatch extends AbstractQuery
      *
      * @return $this
      */
-    public function setFields($fields = array())
+    public function setFields($fields = [])
     {
         return $this->setParam('fields', $fields);
     }
@@ -85,7 +87,7 @@ class MultiMatch extends AbstractQuery
      *
      * @return $this
      */
-    public function setOperator($operator = 'or')
+    public function setOperator($operator = self::OPERATOR_OR)
     {
         return $this->setParam('operator', $operator);
     }
@@ -111,7 +113,7 @@ class MultiMatch extends AbstractQuery
      *
      * @return $this
      */
-    public function setZeroTermsQuery($zeroTermQuery = 'none')
+    public function setZeroTermsQuery($zeroTermQuery = self::ZERO_TERM_NONE)
     {
         return $this->setParam('zero_terms_query', $zeroTermQuery);
     }
@@ -143,13 +145,13 @@ class MultiMatch extends AbstractQuery
     /**
      * Set fuzziness.
      *
-     * @param float $fuzziness
+     * @param float|string $fuzziness
      *
      * @return $this
      */
     public function setFuzziness($fuzziness)
     {
-        return $this->setParam('fuzziness', (float) $fuzziness);
+        return $this->setParam('fuzziness', $fuzziness);
     }
 
     /**

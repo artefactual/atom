@@ -2,6 +2,8 @@
 namespace Elastica;
 
 use Elastica\Exception\InvalidException;
+use Elastica\ResultSet\BuilderInterface;
+use Elastica\ResultSet\DefaultBuilder;
 
 /**
  * Elastica search object.
@@ -23,33 +25,38 @@ class Search
     const OPTION_SCROLL = 'scroll';
     const OPTION_SCROLL_ID = 'scroll_id';
     const OPTION_QUERY_CACHE = 'query_cache';
+    const OPTION_TERMINATE_AFTER = 'terminate_after';
+    const OPTION_SHARD_REQUEST_CACHE = 'request_cache';
+    const OPTION_FILTER_PATH = 'filter_path';
 
     /*
      * Search types
      */
-    const OPTION_SEARCH_TYPE_COUNT = 'count';
-    const OPTION_SEARCH_TYPE_SCAN = 'scan';
     const OPTION_SEARCH_TYPE_DFS_QUERY_THEN_FETCH = 'dfs_query_then_fetch';
     const OPTION_SEARCH_TYPE_DFS_QUERY_AND_FETCH = 'dfs_query_and_fetch';
     const OPTION_SEARCH_TYPE_QUERY_THEN_FETCH = 'query_then_fetch';
     const OPTION_SEARCH_TYPE_QUERY_AND_FETCH = 'query_and_fetch';
     const OPTION_SEARCH_TYPE_SUGGEST = 'suggest';
-    const OPTION_SEARCH_TYPE_SCROLL = 'scroll';
     const OPTION_SEARCH_IGNORE_UNAVAILABLE = 'ignore_unavailable';
+
+    /**
+     * @var BuilderInterface
+     */
+    private $_builder;
 
     /**
      * Array of indices.
      *
      * @var array
      */
-    protected $_indices = array();
+    protected $_indices = [];
 
     /**
      * Array of types.
      *
      * @var array
      */
-    protected $_types = array();
+    protected $_types = [];
 
     /**
      * @var \Elastica\Query
@@ -59,7 +66,7 @@ class Search
     /**
      * @var array
      */
-    protected $_options = array();
+    protected $_options = [];
 
     /**
      * Client object.
@@ -71,10 +78,12 @@ class Search
     /**
      * Constructs search object.
      *
-     * @param \Elastica\Client $client Client object
+     * @param \Elastica\Client $client  Client object
+     * @param BuilderInterface $builder
      */
-    public function __construct(Client $client)
+    public function __construct(Client $client, BuilderInterface $builder = null)
     {
+        $this->_builder = $builder ?: new DefaultBuilder();
         $this->_client = $client;
     }
 
@@ -109,7 +118,7 @@ class Search
      *
      * @return $this
      */
-    public function addIndices(array $indices = array())
+    public function addIndices(array $indices = [])
     {
         foreach ($indices as $index) {
             $this->addIndex($index);
@@ -149,7 +158,7 @@ class Search
      *
      * @return $this
      */
-    public function addTypes(array $types = array())
+    public function addTypes(array $types = [])
     {
         foreach ($types as $type) {
             $this->addType($type);
@@ -159,7 +168,7 @@ class Search
     }
 
     /**
-     * @param string|array|\Elastica\Query|\Elastica\Suggest|\Elastica\Query\AbstractQuery|\Elastica\Filter\AbstractFilter $query|
+     * @param string|array|\Elastica\Query|\Elastica\Suggest|\Elastica\Query\AbstractQuery $query
      *
      * @return $this
      */
@@ -206,7 +215,7 @@ class Search
      */
     public function clearOptions()
     {
-        $this->_options = array();
+        $this->_options = [];
 
         return $this;
     }
@@ -220,10 +229,6 @@ class Search
     public function addOption($key, $value)
     {
         $this->_validateOption($key);
-
-        if (!isset($this->_options[$key])) {
-            $this->_options[$key] = array();
-        }
 
         $this->_options[$key][] = $value;
 
@@ -286,6 +291,9 @@ class Search
             case self::OPTION_SEARCH_TYPE_SUGGEST:
             case self::OPTION_SEARCH_IGNORE_UNAVAILABLE:
             case self::OPTION_QUERY_CACHE:
+            case self::OPTION_TERMINATE_AFTER:
+            case self::OPTION_SHARD_REQUEST_CACHE:
+            case self::OPTION_FILTER_PATH:
                 return true;
         }
 
@@ -456,12 +464,12 @@ class Search
             $params
         );
 
-        return ResultSet::create($response, $query);
+        return $this->_builder->buildResultSet($response, $query);
     }
 
     /**
      * @param mixed $query
-     * @param $fullResult (default = false) By default only the total hit count is returned. If set to true, the full ResultSet including aggregations is returned.
+     * @param $fullResult (default = false) By default only the total hit count is returned. If set to true, the full ResultSet including aggregations is returned
      *
      * @return int|ResultSet
      */
@@ -469,16 +477,18 @@ class Search
     {
         $this->setOptionsAndQuery(null, $query);
 
-        $query = $this->getQuery();
+        // Clone the object as we do not want to modify the original query.
+        $query = clone $this->getQuery();
+        $query->setSize(0);
         $path = $this->getPath();
 
         $response = $this->getClient()->request(
             $path,
             Request::GET,
             $query->toArray(),
-            array(self::OPTION_SEARCH_TYPE => self::OPTION_SEARCH_TYPE_COUNT)
+            [self::OPTION_SEARCH_TYPE => self::OPTION_SEARCH_TYPE_QUERY_THEN_FETCH]
         );
-        $resultSet = ResultSet::create($response, $query);
+        $resultSet = $this->_builder->buildResultSet($response, $query);
 
         return $fullResult ? $resultSet : $resultSet->getTotalHits();
     }
@@ -519,7 +529,7 @@ class Search
      */
     public function setSuggest(Suggest $suggest)
     {
-        return $this->setOptionsAndQuery(array(self::OPTION_SEARCH_TYPE_SUGGEST => 'suggest'), $suggest);
+        return $this->setOptionsAndQuery([self::OPTION_SEARCH_TYPE_SUGGEST => 'suggest'], $suggest);
     }
 
     /**
@@ -537,17 +547,10 @@ class Search
     }
 
     /**
-     * Returns the ScanAndScroll Iterator.
-     *
-     * @see Elastica\ScanAndScroll
-     *
-     * @param string $expiryTime
-     * @param int    $sizePerShard
-     *
-     * @return ScanAndScroll
+     * @return BuilderInterface
      */
-    public function scanAndScroll($expiryTime = '1m', $sizePerShard = 1000)
+    public function getResultSetBuilder()
     {
-        return new ScanAndScroll($this, $expiryTime, $sizePerShard);
+        return $this->_builder;
     }
 }

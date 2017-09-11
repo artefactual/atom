@@ -68,11 +68,11 @@ class RepositoryMaintainedActorsAction extends sfAction
     $queryTerm = new \Elastica\Query\Term(array('maintainingRepositoryId' => $repositoryId));
     $query->setQuery($queryTerm);
 
-    $query->setLimit($limit);
+    $query->setSize($limit);
     $query->setFrom($limit * ($page - 1));
 
     $field = sprintf('i18n.%s.authorizedFormOfName.untouched', sfContext::getInstance()->user->getCulture());
-    $query->setSort(array($field => array('order' => 'asc', 'ignore_unmapped' => true)));
+    $query->setSort(array($field => 'asc'));
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($query);
 

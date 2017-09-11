@@ -41,7 +41,7 @@ class UserClipboardAction extends DefaultBrowseAction
 
     if (!isset($allSlugs[$this->entityType]) || !count($allSlugs[$this->entityType]))
     {
-      $resultSet = new \Elastica\ResultSet(new Elastica\Response(null), new Elastica\Query);
+      $resultSet = new \Elastica\ResultSet(new Elastica\Response(null), new Elastica\Query, array());
     }
     else
     {
@@ -52,8 +52,12 @@ class UserClipboardAction extends DefaultBrowseAction
       $this->setSortOptions();
       $this->setESSort($request);
 
+      if ('QubitInformationObject' == $this->entityType)
+      {
+        QubitAclSearch::filterDrafts($this->search->queryBool);
+      }
+
       $this->search->query->setQuery($this->search->queryBool);
-      $this->setFilters();
 
       $resultSet = QubitSearch::getInstance()->index->getType($this->entityType)->search($this->search->query);
     }
@@ -148,27 +152,6 @@ class UserClipboardAction extends DefaultBrowseAction
       case 'lastUpdated':
       default:
         $this->search->query->setSort(array('updatedAt' => 'desc'));
-    }
-  }
-
-
-  /**
-   * Filter drafts in case they were manually added to the clipboard.
-   * This currently only applies to information objects.
-   */
-  private function setFilters()
-  {
-    if ('QubitInformationObject' !== $this->entityType)
-    {
-      return;
-    }
-
-    QubitAclSearch::filterDrafts($this->search->filterBool);
-
-    // Set filter
-    if (0 < count($this->search->filterBool->toArray()))
-    {
-      $this->search->query->setPostFilter($this->search->filterBool);
     }
   }
 }

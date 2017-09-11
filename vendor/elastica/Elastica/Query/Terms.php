@@ -7,8 +7,9 @@ use Elastica\Exception\InvalidException;
  * Terms query.
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
+ * @author Roberto Nygaard <roberto@nygaard.es>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-terms-query.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-terms-query.html
  */
 class Terms extends AbstractQuery
 {
@@ -17,21 +18,14 @@ class Terms extends AbstractQuery
      *
      * @var array Terms
      */
-    protected $_terms = array();
-
-    /**
-     * Params.
-     *
-     * @var array Params
-     */
-    protected $_params = array();
+    protected $_terms;
 
     /**
      * Terms key.
      *
      * @var string Terms key
      */
-    protected $_key = '';
+    protected $_key;
 
     /**
      * Construct terms query.
@@ -39,7 +33,7 @@ class Terms extends AbstractQuery
      * @param string $key   OPTIONAL Terms key
      * @param array  $terms OPTIONAL Terms list
      */
-    public function __construct($key = '', array $terms = array())
+    public function __construct($key = '', array $terms = [])
     {
         $this->setTerms($key, $terms);
     }
@@ -77,13 +71,13 @@ class Terms extends AbstractQuery
     /**
      * Sets the minimum matching values.
      *
-     * @param int $minimum Minimum value
+     * @param int|string $minimum Minimum value
      *
      * @return $this
      */
     public function setMinimumMatch($minimum)
     {
-        return $this->setParam('minimum_match', (int) $minimum);
+        return $this->setParam('minimum_match', $minimum);
     }
 
     /**

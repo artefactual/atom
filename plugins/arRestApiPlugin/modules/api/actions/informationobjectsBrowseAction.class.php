@@ -50,7 +50,7 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
     }
 
     $this->search = new arElasticSearchPluginQuery($limit, $skip);
-    $this->search->addFacetFilters(InformationObjectBrowseAction::$FACETS, $getParameters);
+    $this->search->addAggFilters(InformationObjectBrowseAction::$AGGS, $getParameters);
     $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $getParameters, $archivalStandard);
 
     // Determin sort field and default order

@@ -19,9 +19,7 @@
 
 /**
  * Filter search query objects based in the access lists. The queries are
- * instances of the \Elastica\Query class and they will be filtered using
- * \Elastica\Filter. Filters can be much faster compared to queries since they
- * don’t perform any scoring, especially when they are cached.
+ * instances of the \Elastica\Query class.
  *
  * @package    AccesstoMemory
  * @subpackage qbAclPlugin
@@ -52,23 +50,25 @@ class QubitAclSearch
       {
         if ('*' == $repo['id'])
         {
+          $queryBool = new \Elastica\Query\BoolQuery;
+
+          $query = new \Elastica\Query\Term;
+          $query->setTerm('repositoryId', $repo['id']);
+          
           if (QubitAcl::DENY == $repo['access'])
           {
             // Require repos to be specifically allowed (all others prohibited)
             // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
-            $filter = new \Elastica\Filter\Term;
-            $filter->setTerm('repositoryId', $repo['id']);
+            $queryBool->addMust($query);
           }
           else
           {
             // Prohibit specified repos (all others allowed)
             // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), false);
-            $filterTerm = new \Elastica\Filter\Term;
-            $filterTerm->setTerm('repositoryId', $repo['id']);
-            $filter = new \Elastica\Filter\Not($filterTerm);
+            $queryBool->addMustNot($query);
           }
 
-          $query->setPostFilter($filter);
+          $query->setPostFilter($queryBool);
         }
       }
     }
@@ -127,9 +127,10 @@ class QubitAclSearch
 
       if (0 < count($ids))
       {
-        $filter = new \Elastica\Filter\Ids;
-        $filter->setIds($ids);
-        $query->setPostFilter($filter);
+        $queryIds = new \Elastica\Query\Ids;
+        $queryIds->setIds($ids);
+
+        $query->setPostFilter($queryIds);
       }
     }
 
@@ -147,11 +148,13 @@ class QubitAclSearch
 
       if (0 < count($ids))
       {
-        $filterIds = new \Elastica\Filter\Ids;
-        $filterIds->setIds($ids);
-        $filter = new \Elastica\Filter\Not($filterIds);
+        $queryIds = new \Elastica\Query\Ids;
+        $queryIds->setIds($ids);
 
-        $query->setPostFilter($filter);
+        $queryBool = new \Elastica\Query\BoolQuery;
+        $queryBool->addMustNot($ids);
+
+        $query->setPostFilter($queryIds);
       }
     }
 
@@ -161,9 +164,9 @@ class QubitAclSearch
   /**
    * Filter search query by resource specific ACL
    *
-   * @param  \Elastica\Filter\BoolFilter $filterBool Search query object
+   * @param  \Elastica\Query\BoolQuery $queryBool Search query object
    */
-  public static function filterDrafts(\Elastica\Filter\BoolFilter $filterBool)
+  public static function filterDrafts(\Elastica\Query\BoolQuery $queryBool)
   {
     // Filter out 'draft' items by repository
     $repositoryViewDrafts = QubitAcl::getRepositoryAccess('viewDraft');
@@ -172,10 +175,10 @@ class QubitAclSearch
       if (QubitAcl::DENY == $repositoryViewDrafts[0]['access'])
       {
         // Don't show *any* draft info objects
-        $filter = new \Elastica\Filter\Term();
-        $filter->setTerm('publicationStatusId', QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
+        $query = new \Elastica\Query\Term();
+        $query->setTerm('publicationStatusId', QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
 
-        $filterBool->addMust($filter);
+        $queryBool->addMust($query);
       }
     }
     else
@@ -185,22 +188,24 @@ class QubitAclSearch
       // preceeding rules will be "ALLOW" rules)
       $globalRule = array_pop($repositoryViewDrafts);
 
-      $filter = new \Elastica\Filter\BoolFilter;
+      $query = new \Elastica\Query\BoolQuery;
 
       while ($repo = array_shift($repositoryViewDrafts))
       {
-        $filter->addShould(new \Elastica\Filter\Term(array('repository.id' => (int)$repo['id'])));
+        $query->addShould(new \Elastica\Query\Term(array('repository.id' => (int)$repo['id'])));
       }
 
-      $filter->addShould(new \Elastica\Filter\Term(array('publicationStatusId' => QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)));
+      $query->addShould(new \Elastica\Query\Term(array('publicationStatusId' => QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)));
 
       // Does this ever happen in AtoM?
       if ($globalRule['access'] == QubitAcl::GRANT)
       {
-        $filter = new \Elastica\Filter\BoolNot($filter);
+        $queryBool->addMustNot($query);
       }
-
-      $filterBool->addMust($filter);
+      else
+      {
+        $queryBool->addMust($query);
+      }
     }
   }
 }

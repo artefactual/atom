@@ -314,14 +314,6 @@ function check_field_visibility($fieldName, $options = array())
 
 function get_search_i18n($hit, $fieldName, $options = array())
 {
-  // If the fields requested to Elasticserach have been manually specified the
-  // fields will be flatterned, e.g. $r['i18n.es.title'] vs $r['i18n']['es']['title']
-  $flat = false;
-  if (isset($options['flat']))
-  {
-    $flat = $options['flat'];
-  }
-
   // The default is to return "Untitled" unless allowEmpty is true
   $allowEmpty = true;
   if (isset($options['allowEmpty']))
@@ -362,40 +354,26 @@ function get_search_i18n($hit, $fieldName, $options = array())
     $hit = $hit->getData(); // type=sfOutputEscaperArrayDecorator
   }
 
-  $accessField = function($culture) use ($hit, $fieldName, $flat)
+  $accessField = function($culture) use ($hit, $fieldName)
   {
-    if ($flat)
+    if (is_object($hit) && 'sfOutputEscaperArrayDecorator' === get_class($hit))
     {
-      $key = sprintf("i18n.%s.%s", $culture, $fieldName);
-      $r = $hit->get($key)->get(0);
-      if (empty($r))
+      $i18nRaw = $hit->getRaw('i18n');
+      if (empty($i18nRaw[$culture][$fieldName]))
       {
         return false;
       }
 
-      return $r;
+      return $hit->get('i18n')->get($culture)->get($fieldName);
     }
     else
     {
-      if (is_object($hit) && 'sfOutputEscaperArrayDecorator' === get_class($hit))
+      if (empty($hit['i18n'][$culture][$fieldName]))
       {
-        $i18nRaw = $hit->getRaw('i18n');
-        if (empty($i18nRaw[$culture][$fieldName]))
-        {
-          return false;
-        }
-
-        return $hit->get('i18n')->get($culture)->get($fieldName);
+        return false;
       }
-      else
-      {
-        if (empty($hit['i18n'][$culture][$fieldName]))
-        {
-          return false;
-        }
 
-        return $hit['i18n'][$culture][$fieldName];
-      }
+      return $hit['i18n'][$culture][$fieldName];
     }
   };
 

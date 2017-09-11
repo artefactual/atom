@@ -72,21 +72,14 @@ class RepositoryHoldingsAction extends sfAction
     $queryBool->addMust(new \Elastica\Query\Term(array('parentId' => QubitInformationObject::ROOT_ID)));
     $queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $id)));
 
+    QubitAclSearch::filterDrafts($queryBool);
     $query = new \Elastica\Query($queryBool);
 
-    $query->setLimit($limit);
+    $query->setSize($limit);
     $query->setFrom($limit * ($page - 1));
 
     $title = sprintf('i18n.%s.title.untouched', sfContext::getInstance()->user->getCulture());
-    $query->setSort(array($title => array('order' => 'asc', 'ignore_unmapped' => true)));
-
-    $filter = new \Elastica\Filter\BoolFilter;
-    QubitAclSearch::filterDrafts($filter);
-
-    if (0 < count($filter->toArray()))
-    {
-      $query->setPostFilter($filter);
-    }
+    $query->setSort(array($title => 'asc'));
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
 

@@ -24,32 +24,32 @@
 
       <h2><?php echo sfConfig::get('app_ui_label_facetstitle') ?></h2>
 
-      <?php echo get_partial('search/facetLanguage', array(
-        'target' => '#facet-languages',
+      <?php echo get_partial('search/aggregation', array(
+        'id' => '#facet-languages',
         'label' => __('Language'),
-        'facet' => 'languages',
-        'pager' => $pager,
+        'name' => 'languages',
+        'aggs' => $aggs,
         'filters' => $search->filters)) ?>
 
-      <?php echo get_partial('search/facet', array(
-        'target' => '#facet-entitytype',
+      <?php echo get_partial('search/aggregation', array(
+        'id' => '#facet-entitytype',
         'label' => __('Entity type'),
-        'facet' => 'types',
-        'pager' => $pager,
+        'name' => 'types',
+        'aggs' => $aggs,
         'filters' => $search->filters)) ?>
 
-      <?php echo get_partial('search/facet', array(
-        'target' => '#facet-maintainingrepository',
+      <?php echo get_partial('search/aggregation', array(
+        'id' => '#facet-maintainingrepository',
         'label' => __('Maintained by'),
-        'facet' => 'maintainingRepository',
-        'pager' => $pager,
+        'name' => 'maintainingRepository',
+        'aggs' => $aggs,
         'filters' => $search->filters)) ?>
 
-      <?php echo get_partial('search/facet', array(
-        'target' => '#facet-occupation',
+      <?php echo get_partial('search/aggregation', array(
+        'id' => '#facet-occupation',
         'label' => __('Occupation'),
-        'facet' => 'occupation',
-        'pager' => $pager,
+        'name' => 'occupation',
+        'aggs' => $aggs,
         'filters' => $search->filters)) ?>
 
     </div>

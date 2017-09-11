@@ -32,7 +32,7 @@ class ActorBrowseAction extends DefaultBrowseAction
 
   // Arrays not allowed in class constants
   public static
-    $FACETS = array(
+    $AGGS = array(
       'languages' =>
         array('type' => 'term',
               'field' => 'i18n.languages',
@@ -50,36 +50,40 @@ class ActorBrowseAction extends DefaultBrowseAction
               'field' => 'occupations.id',
               'size' => 10));
 
-  protected function populateFacet($name, $ids)
+  protected function populateAgg($name, $buckets)
   {
     switch ($name)
     {
       case 'types':
       case 'occupation':
+        $ids = array_column($buckets, 'key');
         $criteria = new Criteria;
-        $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
+        $criteria->add(QubitTerm::ID, $ids, Criteria::IN);
 
         foreach (QubitTerm::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->getName(array('cultureFallback' => true));
+          $buckets[array_search($item->id, $ids)]['display'] = $item->getName(array('cultureFallback' => true));
         }
 
         break;
 
       case 'maintainingRepository':
+        $ids = array_column($buckets, 'key');
         $criteria = new Criteria;
-        $criteria->add(QubitActor::ID, array_keys($ids), Criteria::IN);
+        $criteria->add(QubitActor::ID, $ids, Criteria::IN);
 
         foreach (QubitActor::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->getAuthorizedFormOfName(array('cultureFallback' => true));
+          $buckets[array_search($item->id, $ids)]['display'] = $item->getAuthorizedFormOfName(array('cultureFallback' => true));
         }
 
         break;
 
       default:
-        parent::populateFacet($name, $ids);
+        return parent::populateAgg($name, $buckets);
     }
+
+    return $buckets;
   }
 
   public function execute($request)
@@ -135,12 +139,6 @@ class ActorBrowseAction extends DefaultBrowseAction
 
     $this->search->query->setQuery($this->search->queryBool);
 
-    // Set filter
-    if (0 < count($this->search->filterBool->toArray()))
-    {
-      $this->search->query->setPostFilter($this->search->filterBool);
-    }
-
     $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($this->search->query);
 
     $this->pager = new QubitSearchPager($resultSet);
@@ -148,6 +146,6 @@ class ActorBrowseAction extends DefaultBrowseAction
     $this->pager->setMaxPerPage($this->limit);
     $this->pager->init();
 
-    $this->populateFacets($resultSet);
+    $this->populateAggs($resultSet);
   }
 }

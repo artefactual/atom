@@ -7,6 +7,7 @@ use Elastica\Exception\ResponseException;
 use Elastica\JSON;
 use Elastica\Request as ElasticaRequest;
 use Elastica\Response as ElasticaResponse;
+use Elastica\Util;
 use Ivory\HttpAdapter\HttpAdapterInterface;
 use Ivory\HttpAdapter\Message\Request as HttpAdapterRequest;
 use Ivory\HttpAdapter\Message\Response as HttpAdapterResponse;
@@ -64,14 +65,14 @@ class HttpAdapter extends AbstractTransport
         $httpAdapterResponse = $this->httpAdapter->sendRequest($httpAdapterRequest);
         $end = microtime(true);
 
-        $elasticaResponse = $this->_createElasticaResponse($httpAdapterResponse, $connection);
+        $elasticaResponse = $this->_createElasticaResponse($httpAdapterResponse);
         $elasticaResponse->setQueryTime($end - $start);
 
         $elasticaResponse->setTransferInfo(
-            array(
+            [
                 'request_header' => $httpAdapterRequest->getMethod(),
                 'http_code' => $httpAdapterResponse->getStatusCode(),
-            )
+            ]
         );
 
         if ($elasticaResponse->hasError()) {
@@ -106,7 +107,7 @@ class HttpAdapter extends AbstractTransport
         $data = $elasticaRequest->getData();
         $body = null;
         $method = $elasticaRequest->getMethod();
-        $headers = $connection->hasConfig('headers') ?: array();
+        $headers = $connection->hasConfig('headers') ?: [];
         if (!empty($data) || '0' === $data) {
             if ($method == ElasticaRequest::GET) {
                 $method = ElasticaRequest::POST;
@@ -118,7 +119,7 @@ class HttpAdapter extends AbstractTransport
             }
 
             if (is_array($data)) {
-                $body = JSON::stringify($data, 'JSON_ELASTICSEARCH');
+                $body = JSON::stringify($data, JSON_UNESCAPED_UNICODE);
             } else {
                 $body = $data;
             }
@@ -146,7 +147,12 @@ class HttpAdapter extends AbstractTransport
             $baseUri = $this->_scheme.'://'.$connection->getHost().':'.$connection->getPort().'/'.$connection->getPath();
         }
 
-        $baseUri .= $request->getPath();
+        $requestPath = $request->getPath();
+        if (!Util::isDateMathEscaped($requestPath)) {
+            $requestPath = Util::escapeDateMath($requestPath);
+        }
+
+        $baseUri .= $requestPath;
 
         $query = $request->getQuery();
 

@@ -69,7 +69,7 @@
 
     toggleReposFilter: function (event)
     {
-      // Disable repository filter and facet if top-level description selected.
+      // Disable repository filter and agg if top-level description selected.
       if (this.$reposFilter.length && this.$collectionFilter.val() != '')
       {
         this.$reposFilter.attr("disabled", "disabled");

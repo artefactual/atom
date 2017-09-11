@@ -3,11 +3,12 @@ namespace Elastica;
 
 use Elastica\Exception\NotFoundException;
 use Elastica\Exception\ResponseException;
+use Elasticsearch\Endpoints\Snapshot\Restore;
 
 /**
  * Class Snapshot.
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-snapshots.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-snapshots.html
  */
 class Snapshot
 {
@@ -33,12 +34,12 @@ class Snapshot
      *
      * @return Response
      */
-    public function registerRepository($name, $type, $settings = array())
+    public function registerRepository($name, $type, $settings = [])
     {
-        $data = array(
+        $data = [
             'type' => $type,
             'settings' => $settings,
-        );
+        ];
 
         return $this->request($name, Request::PUT, $data);
     }
@@ -88,9 +89,9 @@ class Snapshot
      *
      * @return Response
      */
-    public function createSnapshot($repository, $name, $options = array(), $waitForCompletion = false)
+    public function createSnapshot($repository, $name, $options = [], $waitForCompletion = false)
     {
-        return $this->request($repository.'/'.$name, Request::PUT, $options, array('wait_for_completion' => $waitForCompletion));
+        return $this->request($repository.'/'.$name, Request::PUT, $options, ['wait_for_completion' => $waitForCompletion]);
     }
 
     /**
@@ -154,9 +155,15 @@ class Snapshot
      *
      * @return Response
      */
-    public function restoreSnapshot($repository, $name, $options = array(), $waitForCompletion = false)
+    public function restoreSnapshot($repository, $name, $options = [], $waitForCompletion = false)
     {
-        return $this->request($repository.'/'.$name.'/_restore', Request::POST, $options, array('wait_for_completion' => $waitForCompletion));
+        $endpoint = new Restore();
+        $endpoint->setRepository($repository);
+        $endpoint->setSnapshot($name);
+        $endpoint->setBody($options);
+        $endpoint->setParams(['wait_for_completion' => $waitForCompletion]);
+
+        return $this->_client->requestEndpoint($endpoint);
     }
 
     /**
@@ -169,8 +176,8 @@ class Snapshot
      *
      * @return Response
      */
-    public function request($path, $method = Request::GET, $data = array(), array $query = array())
+    public function request($path, $method = Request::GET, $data = [], array $query = [])
     {
-        return $this->_client->request('/_snapshot/'.$path, $method, $data, $query);
+        return $this->_client->request('_snapshot/'.$path, $method, $data, $query);
     }
 }

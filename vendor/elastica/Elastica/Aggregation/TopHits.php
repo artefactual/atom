@@ -1,13 +1,13 @@
 <?php
 namespace Elastica\Aggregation;
 
-use Elastica\Script;
-use Elastica\ScriptFields;
+use Elastica\Script\AbstractScript;
+use Elastica\Script\ScriptFields;
 
 /**
  * Class TopHits.
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-top-hits-aggregation.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-top-hits-aggregation.html
  */
 class TopHits extends AbstractAggregation
 {
@@ -66,13 +66,13 @@ class TopHits extends AbstractAggregation
     /**
      * Allows to control how the _source field is returned with every hit.
      *
-     * @param array $fields
+     * @param array|bool $params Fields to be returned or false to disable source
      *
      * @return $this
      */
-    public function setSource(array $fields)
+    public function setSource($params)
     {
-        return $this->setParam('_source', $fields);
+        return $this->setParam('_source', $params);
     }
 
     /**
@@ -102,7 +102,7 @@ class TopHits extends AbstractAggregation
     /**
      * Set script fields.
      *
-     * @param array|\Elastica\ScriptFields $scriptFields
+     * @param array|\Elastica\Script\ScriptFields $scriptFields
      *
      * @return $this
      */
@@ -118,12 +118,12 @@ class TopHits extends AbstractAggregation
     /**
      * Adds a Script to the aggregation.
      *
-     * @param string           $name
-     * @param \Elastica\Script $script
+     * @param string                          $name
+     * @param \Elastica\Script\AbstractScript $script
      *
      * @return $this
      */
-    public function addScriptField($name, Script $script)
+    public function addScriptField($name, AbstractScript $script)
     {
         if (!isset($this->_params['script_fields'])) {
             $this->_params['script_fields'] = new ScriptFields();
@@ -155,6 +155,6 @@ class TopHits extends AbstractAggregation
      */
     public function setFieldDataFields(array $fields)
     {
-        return $this->setParam('fielddata_fields', $fields);
+        return $this->setParam('docvalue_fields', $fields);
     }
 }

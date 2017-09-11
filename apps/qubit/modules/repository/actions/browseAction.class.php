@@ -29,7 +29,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
 
   // Arrays not allowed in class constants
   public static
-    $FACETS = array(
+    $AGGS = array(
       'languages' =>
         array('type' => 'term',
               'field' => 'i18n.languages',
@@ -55,35 +55,38 @@ class RepositoryBrowseAction extends DefaultBrowseAction
               'field' => 'thematicAreas',
               'size' => 10));
 
-  protected function populateFacet($name, $ids)
+  protected function populateAgg($name, $buckets)
   {
     switch ($name)
     {
       case 'types':
       case 'geographicSubregions':
       case 'thematicAreas':
+        $ids = array_column($buckets, 'key');
         $criteria = new Criteria;
-        $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
+        $criteria->add(QubitTerm::ID, $ids, Criteria::IN);
 
         foreach (QubitTerm::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->getName(array('cultureFallback' => true));
+          $buckets[array_search($item->id, $ids)]['display'] = $item->getName(array('cultureFallback' => true));
         }
 
         break;
 
       case 'regions':
       case 'locality':
-        foreach ($ids as $key => $count)
+        foreach ($buckets as $key => $bucket)
         {
-          $this->types[$key] = $key;
+          $buckets[$key]['display'] = $bucket['key'];
         }
 
         break;
 
       default:
-        parent::populateFacet($name, $ids);
+        return parent::populateAgg($name, $buckets);
     }
+
+    return $buckets;
   }
 
   public function execute($request)
@@ -131,33 +134,27 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     switch ($request->sort)
     {
       case 'nameUp':
-        $this->search->query->setSort(array($i18n.'authorizedFormOfName.untouched' =>
-                              array('order' => 'asc', 'ignore_unmapped' => true)));
+        $this->search->query->setSort(array($i18n.'authorizedFormOfName.untouched' => 'asc'));
         break;
 
       case 'nameDown':
-        $this->search->query->setSort(array($i18n.'authorizedFormOfName.untouched' =>
-                              array('order' => 'desc', 'ignore_unmapped' => true)));
+        $this->search->query->setSort(array($i18n.'authorizedFormOfName.untouched' => 'desc'));
         break;
 
       case 'regionUp':
-        $this->search->query->setSort(array($i18n.'region.untouched' =>
-                              array('order' => 'asc', 'ignore_unmapped' => true)));
+        $this->search->query->setSort(array($i18n.'region.untouched' => 'asc'));
         break;
 
       case 'regionDown':
-        $this->search->query->setSort(array($i18n.'region.untouched' =>
-                              array('order' => 'desc', 'ignore_unmapped' => true)));
+        $this->search->query->setSort(array($i18n.'region.untouched' => 'desc'));
         break;
 
       case 'localityUp':
-        $this->search->query->setSort(array($i18n.'city.untouched' =>
-                              array('order' => 'asc', 'ignore_unmapped' => true)));
+        $this->search->query->setSort(array($i18n.'city.untouched' => 'asc'));
         break;
 
       case 'localityDown':
-        $this->search->query->setSort(array($i18n.'city.untouched' =>
-                              array('order' => 'desc', 'ignore_unmapped' => true)));
+        $this->search->query->setSort(array($i18n.'city.untouched' => 'desc'));
         break;
 
       case 'identifier':
@@ -174,12 +171,6 @@ class RepositoryBrowseAction extends DefaultBrowseAction
 
     $this->search->query->setQuery($this->search->queryBool);
 
-    // Set filter
-    if (0 < count($this->search->filterBool->toArray()))
-    {
-      $this->search->query->setPostFilter($this->search->filterBool);
-    }
-
     $resultSet = QubitSearch::getInstance()->index->getType('QubitRepository')->search($this->search->query);
 
     $this->pager = new QubitSearchPager($resultSet);
@@ -187,7 +178,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     $this->pager->setMaxPerPage($this->limit);
     $this->pager->init();
 
-    $this->populateFacets($resultSet);
+    $this->populateAggs($resultSet);
 
     if (isset($request->view) && in_array($request->view, $allowedViews))
     {
@@ -209,7 +200,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     $this->repositoryTypes = QubitTerm::getEsTermsByTaxonomyId(QubitTaxonomy::REPOSITORY_TYPE_ID, $limit);
 
     $query = new \Elastica\Query(new \Elastica\Query\MatchAll);
-    $query->setLimit($limit);
+    $query->setSize($limit);
 
     $this->repositories = QubitSearch::getInstance()->index->getType('QubitRepository')->search($query);
   }
@@ -220,7 +211,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
    */
   private function setI18nFieldCultures()
   {
-    foreach (self::$FACETS as $key => &$value)
+    foreach (self::$AGGS as $key => &$value)
     {
       if (false !== array_search('i18n.%s', $value['field']))
       {

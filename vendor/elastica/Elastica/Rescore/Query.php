@@ -8,7 +8,7 @@ use Elastica\Query as BaseQuery;
  *
  * @author Jason Hu <mjhu91@gmail.com>
  *
- * @link http://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-rescore.html
+ * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-rescore.html
  */
 class Query extends AbstractRescore
 {
@@ -19,7 +19,7 @@ class Query extends AbstractRescore
      */
     public function __construct($query = null)
     {
-        $this->setParam('query', array());
+        $this->setParam('query', []);
         $this->setRescoreQuery($query);
     }
 

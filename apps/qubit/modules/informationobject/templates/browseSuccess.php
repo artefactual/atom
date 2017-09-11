@@ -49,76 +49,76 @@
 
         <h2><?php echo sfConfig::get('app_ui_label_facetstitle') ?></h2>
 
-        <?php echo get_partial('search/facetLanguage', array(
-          'target' => '#facet-languages',
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-languages',
           'label' => __('Language'),
-          'facet' => 'languages',
-          'pager' => $pager,
+          'name' => 'languages',
+          'aggs' => $aggs,
           'filters' => $search->filters)) ?>
 
-        <?php echo get_partial('search/facet', array(
-          'target' => '#facet-collection',
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-collection',
           'label' => __('Part of'),
-          'facet' => 'collection',
-          'pager' => $pager,
+          'name' => 'collection',
+          'aggs' => $aggs,
           'filters' => $search->filters)) ?>
 
         <?php if (sfConfig::get('app_multi_repository')): ?>
-          <?php echo get_partial('search/facet', array(
-            'target' => '#facet-repository',
+          <?php echo get_partial('search/aggregation', array(
+            'id' => '#facet-repository',
             'label' => sfConfig::get('app_ui_label_repository'),
-            'facet' => 'repos',
-            'pager' => $pager,
+            'name' => 'repos',
+            'aggs' => $aggs,
             'filters' => $search->filters)) ?>
         <?php endif; ?>
 
-        <?php echo get_partial('search/facet', array(
-          'target' => '#facet-names',
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-names',
           'label' => sfConfig::get('app_ui_label_creator'),
-          'facet' => 'creators',
-          'pager' => $pager,
+          'name' => 'creators',
+          'aggs' => $aggs,
           'filters' => $search->filters)) ?>
 
-        <?php echo get_partial('search/facet', array(
-          'target' => '#facet-names',
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-names',
           'label' => sfConfig::get('app_ui_label_name'),
-          'facet' => 'names',
-          'pager' => $pager,
+          'name' => 'names',
+          'aggs' => $aggs,
           'filters' => $search->filters)) ?>
 
-        <?php echo get_partial('search/facet', array(
-          'target' => '#facet-places',
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-places',
           'label' => sfConfig::get('app_ui_label_place'),
-          'facet' => 'places',
-          'pager' => $pager,
+          'name' => 'places',
+          'aggs' => $aggs,
           'filters' => $search->filters)) ?>
 
-        <?php echo get_partial('search/facet', array(
-          'target' => '#facet-subjects',
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-subjects',
           'label' => sfConfig::get('app_ui_label_subject'),
-          'facet' => 'subjects',
-          'pager' => $pager,
+          'name' => 'subjects',
+          'aggs' => $aggs,
           'filters' => $search->filters)) ?>
 
-        <?php echo get_partial('search/facet', array(
-          'target' => '#facet-genres',
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-genres',
           'label' => sfConfig::get('app_ui_label_genre'),
-          'facet' => 'genres',
-          'pager' => $pager,
+          'name' => 'genres',
+          'aggs' => $aggs,
           'filters' => $search->filters)) ?>
 
-        <?php echo get_partial('search/facet', array(
-          'target' => '#facet-levelOfDescription',
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-levelOfDescription',
           'label' => __('Level of description'),
-          'facet' => 'levels',
-          'pager' => $pager,
+          'name' => 'levels',
+          'aggs' => $aggs,
           'filters' => $search->filters)) ?>
 
-        <?php echo get_partial('search/facet', array(
-          'target' => '#facet-mediaTypes',
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-mediaTypes',
           'label' => sfConfig::get('app_ui_label_mediatype'),
-          'facet' => 'mediatypes',
-          'pager' => $pager,
+          'name' => 'mediatypes',
+          'aggs' => $aggs,
           'filters' => $search->filters)) ?>
 
       </div>
@@ -317,11 +317,11 @@
     </section>
 
     <div id="content" class="browse-content">
-      <?php if (!isset($sf_request->onlyMedia) && isset($pager->facets['digitalobjects']) && 0 < $pager->facets['digitalobjects']['count']): ?>
+      <?php if (!isset($sf_request->onlyMedia) && isset($aggs['digitalobjects']) && 0 < $aggs['digitalobjects']['doc_count']): ?>
         <div class="search-result media-summary">
           <p>
             <?php echo __('%1% results with digital objects', array(
-              '%1%' => $pager->facets['digitalobjects']['count'])) ?>
+              '%1%' => $aggs['digitalobjects']['doc_count'])) ?>
             <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
             <?php unset($params['page']) ?>
             <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params + array('onlyMedia' => true)) ?>">
