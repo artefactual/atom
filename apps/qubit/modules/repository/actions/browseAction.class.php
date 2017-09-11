@@ -211,7 +211,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
    */
   private function setI18nFieldCultures()
   {
-    foreach (self::$FACETS as $key => &$value)
+    foreach (self::$AGGS as $key => &$value)
     {
       if (false !== array_search('i18n.%s', $value['field']))
       {
