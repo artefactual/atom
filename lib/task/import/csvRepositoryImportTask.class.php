@@ -126,6 +126,7 @@ EOF;
       // Import columns that map directory to QubitRepository properties
       'standardColumns' => array(
         'identifier',
+        'descIdentifier',
         'uploadLimit',
         'authorizedFormOfName',
         'geoculturalContext',
@@ -168,15 +169,19 @@ EOF;
         'notes',
         # TODO: Parse the below fields
         'legacyId',
-        'parallelFormsOfName',
-        'otherFormsOfName',
-        'types',
-        'languages',
-        'scripts',
-        'thematicAreas',
-        'geographicSubregions',
         'descStatus',
         'descDetail'
+      ),
+
+      // These values get exploded and stored to the rowStatusVars array
+      'arrayColumns' => array(
+        'types' => '|',
+        'parallelFormsOfName' => '|',
+        'otherFormsOfName' => '|',
+        'geographicSubregions' => '|',
+        'thematicAreas' => '|',
+        'language' => '|',
+        'script' => '|'
       ),
 
       // Import logic to execute before saving QubitRepository
@@ -192,6 +197,57 @@ EOF;
       // Import logic to execute after saving QubitRepository
       'postSaveLogic' => function(&$self)
       {
+        // Handle languages/scripts
+        $self->createLanguageSerializedProperty('language', $self->rowStatusVars['language']);
+        $self->createScriptSerializedProperty('script', $self->rowStatusVars['script']);
+
+        // Handle access points
+        $accessPointColumns = array(
+          'geographicSubregions' => QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID,
+          'thematicAreas' => QubitTaxonomy::THEMATIC_AREA_ID
+        );
+
+        foreach ($accessPointColumns as $columnName => $taxonomyId)
+        {
+          foreach ($self->rowStatusVars[$columnName] as $value)
+          {
+            $self->createAccessPoint($taxonomyId, $value);
+          }
+        }
+
+        // Handle types
+        if (isset($self->rowStatusVars['types']))
+        {
+          foreach ($self->rowStatusVars['types'] as $typeName)
+          {
+            $typeTerm = $self->createOrFetchTerm(QubitTaxonomy::REPOSITORY_TYPE_ID, $typeName, $self->columnValue('culture'));
+            $self->createObjectTermRelation($self->object->id, $typeTerm->id);
+          }
+        }
+
+        // Handle alternate forms of name
+        $typeIds = array(
+          'parallel'     => QubitTerm::PARALLEL_FORM_OF_NAME_ID,
+          'other'        => QubitTerm::OTHER_FORM_OF_NAME_ID
+        );
+
+        foreach ($typeIds as $typeName => $typeId)
+        {
+          $columnName = $typeName .'FormsOfName';
+          $aliases = $self->rowStatusVars[$columnName];
+
+          foreach($aliases as $alias)
+          {
+            // Add other name
+            $otherName = new QubitOtherName;
+            $otherName->objectId = $self->object->id;
+            $otherName->name     = $alias;
+            $otherName->typeId   = $typeId; #QubitTerm::PARALLEL_FORM_OF_NAME_ID;
+            $otherName->culture  = $self->columnValue('culture');
+            $otherName->save();
+          }
+        }
+
         // Check if any contact information data exists
         $addContactInfo = false;
         $contactInfoFields = array('contactPerson', 'streetAddress', 'telephone', 'email', 'fax', 'website');
@@ -227,6 +283,7 @@ EOF;
             }
           }
 
+          $contactInfo->culture = $self->columnValue('culture');
           $contactInfo->save();
         }
 
@@ -246,6 +303,7 @@ EOF;
           }
 
           $note->content = $self->rowStatusVars['maintenanceNote'];
+          $note->culture = $self->columnValue('culture');
           $note->save();
         }
       }
