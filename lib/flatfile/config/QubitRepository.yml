@@ -1,46 +1,47 @@
+# All columns that can be either imported or exported
 columnNames:
-  - authorizedFormOfName
-  - identifier
-  - culture
-  - openingTimes
-  - geoculturalContext
-  - holdings
-  - findingAids
+  - legacyId
   - uploadLimit
+  - identifier
+  - authorizedFormOfName
+  - parallelFormsOfName
+  - otherFormsOfName
+  - types
+  - contactPerson
+  - streetAddress
+  - telephone
+  - fax
+  - email
+  - website
   - history
+  - geoculturalContext
   - mandates
   - internalStructures
   - collectingPolicies
   - buildings
+  - holdings
+  - findingAids
+  - openingTimes
   - accessConditions
   - disabledAccess
   - researchServices
   - reproductionServices
   - publicFacilities
-  - descIdentifier
-  - descInstitutionIdentifier
-  - descRules
-  - descRevisionHistory
-  - descSources
-
-  # Non-direct columns
-  - parallelFormsOfName
-  - otherFormsOfName
-  - types
-  - languages
-  - scripts
-  - thematicAreas
+  - descriptionIdentifier
+  - institutionIdentifier
+  - descriptionRules
+  - descriptionStatus
+  - levelOfDetail
+  - descriptionRevisionHistory
+  - language
+  - script
+  - descriptionSources
+  - maintenanceNote
   - geographicSubregions
-  - descStatus
-  - descDetail
-  - contactPerson
-  - streetAddress
-  - phone
-  - email
-  - fax
-  - website
-  - legacyId
+  - thematicAreas
+  - culture
 
+# Columns that map directly to information object properties
 direct:
   - authorizedFormOfName
   - identifier
@@ -60,8 +61,13 @@ direct:
   - researchServices
   - reproductionServices
   - publicFacilities
-  - descIdentifier
-  - descInstitutionIdentifier
-  - descRules
-  - descRevisionHistory
-  - descSources
+  - language
+  - script
+
+# Columns that map to information object properties
+map:
+  descIdentifier: descriptionIdentifier
+  descInstitutionIdentifier: institutionIdentifier
+  descRules: descriptionRules
+  descRevisionHistory: descriptionRevisionHistory
+  descSources: descriptionSources

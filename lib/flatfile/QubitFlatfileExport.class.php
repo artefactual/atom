@@ -316,6 +316,30 @@ class QubitFlatfileExport
   }
 
   /**
+   * Set column value in current row to store notes if the column's being exported
+   *
+   * @param string $column  column name
+   * @param int $noteTypeId  ID of the type of note to store
+   *
+   * @return void
+   */
+
+  public function setColumnToNotes($column, $noteTypeId)
+  {
+    $noteContent = array();
+
+    foreach ($this->resource->getNotesByType(array('noteTypeId' => $noteTypeId)) as $note)
+    {
+      $noteContent[] = $note->content;
+    }
+
+    if (count($noteContent))
+    {
+      $this->setColumn($column, $noteContent);
+    }
+  }
+
+  /**
    * If an array is provided as a value, implode it
    *
    * @param string $value  value
