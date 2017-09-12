@@ -2179,6 +2179,65 @@ class QubitFlatfileImport
   }
 
   /**
+   * Add a property to the imported object containing a serialized array of
+   * language values
+   *
+   * @param string $propertyName  Name of QubitProperty to create
+   * @param array $values  values to serialize and store
+   *
+   * @return void
+   */
+  public function createLanguageSerializedProperty($propertyName, $values)
+  {
+    $languages = array_keys(sfCultureInfo::getInstance()->getLanguages());
+    $this->createSerializedPropertyFromControlledVocabulary($propertyName, $values, $languages);
+  }
+
+  /**
+   * Add a property to the imported object containing a serialized array of
+   * script values
+   *
+   * @param string $propertyName  Name of QubitProperty to create
+   * @param array $values  values to serialize and store
+   *
+   * @return void
+   */
+  public function createScriptSerializedProperty($propertyName, $values)
+  {
+    $scripts = array_keys(sfCultureInfo::getInstance()->getScripts());
+    $this->createSerializedPropertyFromControlledVocabulary($propertyName, $values, $scripts);
+  }
+
+  /**
+   * Add a property to the imported object containing a serialized array of
+   * values from a controlled vocabulary
+   *
+   * @param string $propertyName  Name of QubitProperty to create
+   * @param array $values  values to serialize and store
+   * @param string $vocabulary  allowable values
+   *
+   * @return void
+   */
+  private function createSerializedPropertyFromControlledVocabulary($propertyName, $values, $vocabulary)
+  {
+    // Validate and normalize values
+    foreach ($values as $valueIndex => $value)
+    {
+      // Fail on invalid value (normalizing by case when checking value validity)
+      if (false === $vocabularyIndex = array_search(strtolower($value), array_map('strtolower', $vocabulary)))
+      {
+        throw new sfException(sprintf('Invalid %s: %s', $propertyName, $value));
+      }
+
+      // Normalize case of value
+      $values[$valueIndex] = $vocabulary[$vocabularyIndex];
+    }
+
+    // Serialize values and store as property
+    $this->object->addProperty($propertyName, serialize($values));
+  }
+
+  /**
    * Fetch keymap an entity's Qubit object ID (target ID) by looking up its
    * legacy ID (source ID), the name of the import where it was mapped (source
    * name), and the type of entity (target name)
