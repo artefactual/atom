@@ -38,7 +38,7 @@ services:
       - "net_search"
 
   percona:
-    image: "percona:5.7"
+    image: "percona:5.6"
     environment:
       - "MYSQL_ROOT_PASSWORD=my-secret-pw"
       - "MYSQL_DATABASE=atom"
@@ -62,8 +62,7 @@ services:
       - "net_jobs"
 
   gearmand:
-    image: "sevein/gearmand"
-    command: "--queue-type=libmemcached --libmemcached-servers=memcached:11211 --listen=0.0.0.0 --port=4730 --log-file=stderr"
+    image: "artefactual/gearmand"
     expose:
       - "4730"
     networks:
