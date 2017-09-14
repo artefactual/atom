@@ -27,15 +27,15 @@ columnNames:
   - parallelFormsOfName
   - otherFormsOfName
   - types
-  - languages
-  - scripts
+  - language
+  - script
   - thematicAreas
   - geographicSubregions
   - descStatus
   - descDetail
   - contactPerson
   - streetAddress
-  - phone
+  - telephone
   - email
   - fax
   - website
