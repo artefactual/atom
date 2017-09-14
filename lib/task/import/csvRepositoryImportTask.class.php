@@ -103,6 +103,12 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
+    // Load taxonomies into variables to avoid use of magic numbers
+    $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
+      QubitTaxonomy::DESCRIPTION_STATUS_ID       => 'descriptionStatusTypes',
+      QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID => 'levelOfDetailTypes'
+    ));
+
     // Define import
     $import = new QubitFlatfileImport(array(
       // Pass context
@@ -120,7 +126,9 @@ EOF;
       // the status array is a place to put data that should be accessible
       // from closure logic using the getStatus method
       'status' => array(
-        'options' => $options
+        'options'                => $options,
+        'descriptionStatusTypes' => $termData['descriptionStatusTypes'],
+        'levelOfDetailTypes'     => $termData['levelOfDetailTypes']
       ),
 
       // Import columns that map directory to QubitRepository properties
@@ -156,6 +164,7 @@ EOF;
 
       // Import columns that can be added as QubitNote objects
       'noteMap' => array(
+        'maintenanceNote' => array('typeId' => QubitTerm::MAINTENANCE_NOTE_ID)
       ),
 
       // These values get stored to the rowStatusVars array
@@ -167,10 +176,10 @@ EOF;
         'fax',
         'website',
         'notes',
+        'descriptionStatus',
+        'levelOfDetail',`
         # TODO: Parse the below fields
-        'legacyId',
-        'descStatus',
-        'descDetail'
+        'legacyId'
       ),
 
       // These values get exploded and stored to the rowStatusVars array
@@ -192,6 +201,22 @@ EOF;
         {
           $self->object->uploadLimit = $opts['upload-limit'];
         }
+
+        // Handle description status
+        $self->object->descStatusId = $self->translateNameToTermId(
+          'description status',
+          $self->rowStatusVars['descriptionStatus'],
+          array(),
+          $self->status['descriptionStatusTypes'][$self->columnValue('culture')]
+        );
+
+        // Handle description detail
+        $self->object->descDetailId = $self->translateNameToTermId(
+          'description detail',
+          $self->rowStatusVars['levelOfDetail'],
+          array(),
+          $self->status['levelOfDetailTypes'][$self->columnValue('culture')]
+        );
       },
 
       // Import logic to execute after saving QubitRepository
@@ -285,26 +310,6 @@ EOF;
 
           $contactInfo->culture = $self->columnValue('culture');
           $contactInfo->save();
-        }
-
-        // Add note
-        if (!empty($self->rowStatusVars['maintenanceNote']))
-        {
-          $criteria = new Criteria;
-          $criteria->add(QubitNote::OBJECT_ID, $self->object->id);
-          $criteria->add(QubitNote::TYPE_ID, QubitTerm::MAINTENANCE_NOTE_ID);
-          $note = QubitNote::getOne($criteria);
-
-          if (!isset($note))
-          {
-            $note = new QubitNote;
-            $note->typeId = QubitTerm::MAINTENANCE_NOTE_ID;
-            $note->objectId = $self->object->id;
-          }
-
-          $note->content = $self->rowStatusVars['maintenanceNote'];
-          $note->culture = $self->columnValue('culture');
-          $note->save();
         }
       }
     ));
