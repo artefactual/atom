@@ -177,7 +177,7 @@ EOF;
         'website',
         'notes',
         'descriptionStatus',
-        'levelOfDetail',`
+        'levelOfDetail',
         # TODO: Parse the below fields
         'legacyId'
       ),

@@ -31,8 +31,8 @@ columnNames:
   - script
   - thematicAreas
   - geographicSubregions
-  - descStatus
-  - descDetail
+  - descriptionStatus
+  - levelOfDetail
   - contactPerson
   - streetAddress
   - telephone

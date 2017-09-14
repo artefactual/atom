@@ -55,12 +55,12 @@ class csvRepositoryExport extends QubitFlatfileExport
 
     if (isset($this->resource->descStatus))
     {
-      $this->setColumn('descStatus', $this->resource->descStatus->name);
+      $this->setColumn('descriptionStatus', $this->resource->descStatus->name);
     }
 
     if (isset($this->resource->descDetail))
     {
-      $this->setColumn('descDetail', $this->resource->descDetail->name);
+      $this->setColumn('levelOfDetail', $this->resource->descDetail->name);
     }
 
     $this->setContactInfo();
