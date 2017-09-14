@@ -26,19 +26,23 @@ networks:
 services:
 
   elasticsearch:
-    image: "elasticsearch:1.7"
-    # chown only seems to be solving a problem only happeing with osx+boot2docker and vboxsf
-    command: "bash -c 'chown -R elasticsearch:elasticsearch /elasticsearch-data && elasticsearch -Des.network.host=0.0.0.0 -Des.path.data=/elasticsearch-data'"
+    image: "docker.elastic.co/elasticsearch/elasticsearch:5.6.0"
+    environment:
+      - "bootstrap.memory_lock=true"
+      - "xpack.security.enabled=false"
+      - "ES_JAVA_OPTS=-Xms640m -Xmx640m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    mem_limit: 1g
     volumes:
-      - "elasticsearch_data:/elasticsearch-data:rw"
-    expose:
-      - "9200"
-      - "9300"
+      - "elasticsearch_data:/usr/share/elasticsearch/data"
     networks:
       - "net_search"
 
   percona:
-    image: "percona:5.7"
+    image: "percona:5.6"
     environment:
       - "MYSQL_ROOT_PASSWORD=my-secret-pw"
       - "MYSQL_DATABASE=atom"
@@ -62,8 +66,7 @@ services:
       - "net_jobs"
 
   gearmand:
-    image: "sevein/gearmand"
-    command: "--queue-type=libmemcached --libmemcached-servers=memcached:11211 --listen=0.0.0.0 --port=4730 --log-file=stderr"
+    image: "artefactual/gearmand"
     expose:
       - "4730"
     networks:

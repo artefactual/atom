@@ -1,6 +1,6 @@
 FROM php:7-fpm-alpine
 
-ARG GIT_BRANCH=qa/2.4.x
+ARG GIT_BRANCH=qa/2.5.x
 
 ENV FOP_HOME /usr/share/fop-2.1
 
