@@ -95,6 +95,13 @@ EOF;
 
     $skipRows = ($options['skip-rows']) ? $options['skip-rows'] : 0;
 
+    // Source name can be specified so, if importing from multiple
+    // sources, you can accommodate legacy ID collisions in files
+    // you import from different places
+    $sourceName = ($options['source-name'])
+      ? $options['source-name']
+      : basename($arguments['filename']);
+
     if (false === $fh = fopen($arguments['filename'], 'rb'))
     {
       throw new sfException('You must specify a valid filename');
@@ -127,6 +134,7 @@ EOF;
       // from closure logic using the getStatus method
       'status' => array(
         'options'                => $options,
+        'sourceName'             => $sourceName,
         'descriptionStatusTypes' => $termData['descriptionStatusTypes'],
         'levelOfDetailTypes'     => $termData['levelOfDetailTypes']
       ),
@@ -178,7 +186,6 @@ EOF;
         'notes',
         'descriptionStatus',
         'levelOfDetail',
-        # TODO: Parse the below fields
         'legacyId'
       ),
 
@@ -310,6 +317,17 @@ EOF;
 
           $contactInfo->culture = $self->columnValue('culture');
           $contactInfo->save();
+        }
+
+        // Add keymap entry
+        if (!empty($self->rowStatusVars['legacyId']))
+        {
+          $keymap = new QubitKeymap;
+          $keymap->sourceId   = $self->rowStatusVars['legacyId'];
+          $keymap->sourceName = $self->getStatus('sourceName');
+          $keymap->targetId   = $self->object->id;
+          $keymap->targetName = 'repository';
+          $keymap->save();
         }
       }
     ));
