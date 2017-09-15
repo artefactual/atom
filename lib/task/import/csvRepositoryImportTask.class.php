@@ -232,10 +232,11 @@ EOF;
         $self->createLanguageSerializedProperty('language', $self->rowStatusVars['language']);
         $self->createScriptSerializedProperty('script', $self->rowStatusVars['script']);
 
-        // Handle access points
+        // Handle access points/types
         $accessPointColumns = array(
           'geographicSubregions' => QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID,
-          'thematicAreas' => QubitTaxonomy::THEMATIC_AREA_ID
+          'thematicAreas'        => QubitTaxonomy::THEMATIC_AREA_ID,
+          'types'                => QubitTaxonomy::REPOSITORY_TYPE_ID
         );
 
         foreach ($accessPointColumns as $columnName => $taxonomyId)
@@ -243,16 +244,6 @@ EOF;
           foreach ($self->rowStatusVars[$columnName] as $value)
           {
             $self->createAccessPoint($taxonomyId, $value);
-          }
-        }
-
-        // Handle types
-        if (isset($self->rowStatusVars['types']))
-        {
-          foreach ($self->rowStatusVars['types'] as $typeName)
-          {
-            $typeTerm = $self->createOrFetchTerm(QubitTaxonomy::REPOSITORY_TYPE_ID, $typeName, $self->columnValue('culture'));
-            $self->createObjectTermRelation($self->object->id, $typeTerm->id);
           }
         }
 
