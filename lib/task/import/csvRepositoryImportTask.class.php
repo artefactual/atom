@@ -142,7 +142,6 @@ EOF;
       // Import columns that map directory to QubitRepository properties
       'standardColumns' => array(
         'identifier',
-        'descIdentifier',
         'uploadLimit',
         'authorizedFormOfName',
         'geoculturalContext',
@@ -159,15 +158,15 @@ EOF;
         'researchServices',
         'reproductionServices',
         'publicFacilities',
-        'descIdentifier',
-        'descInstitutionIdentifier',
-        'descRules',
-        'descRevisionHistory',
-        'descSources',
         'culture'
       ),
 
       'columnMap' => array(
+        'descriptionIdentifier'      => 'descIdentifier',
+        'institutionIdentifier'      => 'descInstitutionIdentifier',
+        'descriptionRules'           => 'descRules',
+        'descriptionRevisionHistory' => 'descRevisionHistory',
+        'descriptionSources'         => 'descSources'
       ),
 
       // Import columns that can be added as QubitNote objects
