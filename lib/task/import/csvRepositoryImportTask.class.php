@@ -95,6 +95,13 @@ EOF;
 
     $skipRows = ($options['skip-rows']) ? $options['skip-rows'] : 0;
 
+    // Source name can be specified so, if importing from multiple
+    // sources, you can accommodate legacy ID collisions in files
+    // you import from different places
+    $sourceName = ($options['source-name'])
+      ? $options['source-name']
+      : basename($arguments['filename']);
+
     if (false === $fh = fopen($arguments['filename'], 'rb'))
     {
       throw new sfException('You must specify a valid filename');
@@ -102,6 +109,12 @@ EOF;
 
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
+
+    // Load taxonomies into variables to avoid use of magic numbers
+    $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
+      QubitTaxonomy::DESCRIPTION_STATUS_ID       => 'descriptionStatusTypes',
+      QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID => 'levelOfDetailTypes'
+    ));
 
     // Define import
     $import = new QubitFlatfileImport(array(
@@ -120,7 +133,10 @@ EOF;
       // the status array is a place to put data that should be accessible
       // from closure logic using the getStatus method
       'status' => array(
-        'options' => $options
+        'options'                => $options,
+        'sourceName'             => $sourceName,
+        'descriptionStatusTypes' => $termData['descriptionStatusTypes'],
+        'levelOfDetailTypes'     => $termData['levelOfDetailTypes']
       ),
 
       // Import columns that map directory to QubitRepository properties
@@ -142,19 +158,20 @@ EOF;
         'researchServices',
         'reproductionServices',
         'publicFacilities',
-        'descIdentifier',
-        'descInstitutionIdentifier',
-        'descRules',
-        'descRevisionHistory',
-        'descSources',
         'culture'
       ),
 
       'columnMap' => array(
+        'descriptionIdentifier'      => 'descIdentifier',
+        'institutionIdentifier'      => 'descInstitutionIdentifier',
+        'descriptionRules'           => 'descRules',
+        'descriptionRevisionHistory' => 'descRevisionHistory',
+        'descriptionSources'         => 'descSources'
       ),
 
       // Import columns that can be added as QubitNote objects
       'noteMap' => array(
+        'maintenanceNote' => array('typeId' => QubitTerm::MAINTENANCE_NOTE_ID)
       ),
 
       // These values get stored to the rowStatusVars array
@@ -166,17 +183,20 @@ EOF;
         'fax',
         'website',
         'notes',
-        # TODO: Parse the below fields
-        'legacyId',
-        'parallelFormsOfName',
-        'otherFormsOfName',
-        'types',
-        'languages',
-        'scripts',
-        'thematicAreas',
-        'geographicSubregions',
-        'descStatus',
-        'descDetail'
+        'descriptionStatus',
+        'levelOfDetail',
+        'legacyId'
+      ),
+
+      // These values get exploded and stored to the rowStatusVars array
+      'arrayColumns' => array(
+        'types' => '|',
+        'parallelFormsOfName' => '|',
+        'otherFormsOfName' => '|',
+        'geographicSubregions' => '|',
+        'thematicAreas' => '|',
+        'language' => '|',
+        'script' => '|'
       ),
 
       // Import logic to execute before saving QubitRepository
@@ -187,11 +207,69 @@ EOF;
         {
           $self->object->uploadLimit = $opts['upload-limit'];
         }
+
+        // Handle description status
+        $self->object->descStatusId = $self->translateNameToTermId(
+          'description status',
+          $self->rowStatusVars['descriptionStatus'],
+          array(),
+          $self->status['descriptionStatusTypes'][$self->columnValue('culture')]
+        );
+
+        // Handle description detail
+        $self->object->descDetailId = $self->translateNameToTermId(
+          'description detail',
+          $self->rowStatusVars['levelOfDetail'],
+          array(),
+          $self->status['levelOfDetailTypes'][$self->columnValue('culture')]
+        );
       },
 
       // Import logic to execute after saving QubitRepository
       'postSaveLogic' => function(&$self)
       {
+        // Handle languages/scripts
+        $self->createLanguageSerializedProperty('language', $self->rowStatusVars['language']);
+        $self->createScriptSerializedProperty('script', $self->rowStatusVars['script']);
+
+        // Handle access points/types
+        $accessPointColumns = array(
+          'geographicSubregions' => QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID,
+          'thematicAreas'        => QubitTaxonomy::THEMATIC_AREA_ID,
+          'types'                => QubitTaxonomy::REPOSITORY_TYPE_ID
+        );
+
+        foreach ($accessPointColumns as $columnName => $taxonomyId)
+        {
+          foreach ($self->rowStatusVars[$columnName] as $value)
+          {
+            $self->createAccessPoint($taxonomyId, $value);
+          }
+        }
+
+        // Handle alternate forms of name
+        $typeIds = array(
+          'parallel'     => QubitTerm::PARALLEL_FORM_OF_NAME_ID,
+          'other'        => QubitTerm::OTHER_FORM_OF_NAME_ID
+        );
+
+        foreach ($typeIds as $typeName => $typeId)
+        {
+          $columnName = $typeName .'FormsOfName';
+          $aliases = $self->rowStatusVars[$columnName];
+
+          foreach($aliases as $alias)
+          {
+            // Add other name
+            $otherName = new QubitOtherName;
+            $otherName->objectId = $self->object->id;
+            $otherName->name     = $alias;
+            $otherName->typeId   = $typeId; #QubitTerm::PARALLEL_FORM_OF_NAME_ID;
+            $otherName->culture  = $self->columnValue('culture');
+            $otherName->save();
+          }
+        }
+
         // Check if any contact information data exists
         $addContactInfo = false;
         $contactInfoFields = array('contactPerson', 'streetAddress', 'telephone', 'email', 'fax', 'website');
@@ -227,26 +305,19 @@ EOF;
             }
           }
 
+          $contactInfo->culture = $self->columnValue('culture');
           $contactInfo->save();
         }
 
-        // Add note
-        if (!empty($self->rowStatusVars['maintenanceNote']))
+        // Add keymap entry
+        if (!empty($self->rowStatusVars['legacyId']))
         {
-          $criteria = new Criteria;
-          $criteria->add(QubitNote::OBJECT_ID, $self->object->id);
-          $criteria->add(QubitNote::TYPE_ID, QubitTerm::MAINTENANCE_NOTE_ID);
-          $note = QubitNote::getOne($criteria);
-
-          if (!isset($note))
-          {
-            $note = new QubitNote;
-            $note->typeId = QubitTerm::MAINTENANCE_NOTE_ID;
-            $note->objectId = $self->object->id;
-          }
-
-          $note->content = $self->rowStatusVars['maintenanceNote'];
-          $note->save();
+          $keymap = new QubitKeymap;
+          $keymap->sourceId   = $self->rowStatusVars['legacyId'];
+          $keymap->sourceName = $self->getStatus('sourceName');
+          $keymap->targetId   = $self->object->id;
+          $keymap->targetName = 'repository';
+          $keymap->save();
         }
       }
     ));

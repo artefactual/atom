@@ -410,10 +410,6 @@ EOF;
         'publicationStatus',
         'levelOfDetail',
         'repository',
-        'language',
-        'script',
-        'languageOfDescription',
-        'scriptOfDescription',
         'physicalObjectName',
         'physicalObjectLocation',
         'physicalObjectType',
@@ -445,6 +441,11 @@ EOF;
         'eventStartDates'      => '|',
         'eventEndDates'        => '|',
         'eventDescriptions'    => '|',
+
+        'language'              => '|',
+        'script'                => '|',
+        'languageOfDescription' => '|',
+        'scriptOfDescription'   => '|',
 
         // These columns are for backwards compatibility
         'creators'           => '|',
@@ -532,58 +533,10 @@ EOF;
         }
 
         // Store language-related properties as serialized data and check for incorrect values
-        $languageProperties = array(
-          'language',
-          'script',
-          'languageOfDescription',
-          'scriptOfDescription'
-        );
-
-        foreach ($languageProperties as $serializeProperty)
-        {
-          if (isset($self->rowStatusVars[$serializeProperty]) && 0 < strlen($self->rowStatusVars[$serializeProperty]))
-          {
-            $data = explode('|', $self->rowStatusVars[$serializeProperty]);
-
-            // Normalize and validate language values
-            if (0 === strpos('language', $serializeProperty))
-            {
-              $languages = array_keys(sfCultureInfo::getInstance()->getLanguages());
-
-              foreach ($data as $index => $value)
-              {
-                // Fail on invalid language value
-                if (false === $languageIndex = array_search(strtolower($data[$index]), array_map('strtolower', $languages)))
-                {
-                  throw new sfException(sprintf('Invalid language: %s', $data[$index]));
-                }
-
-                // Normalize case of language
-                $data[$index] = $languages[$languageIndex];
-              }
-            }
-
-            // Normalize and validate script values
-            if (0 === strpos('script', $serializeProperty))
-            {
-              foreach ($data as $index => $value)
-              {
-                $originalValue = $data[$index];
-
-                // Normalize case of script
-                $data[$index] = ucwords(strtolower($data[$index]));
-
-                // Fail on invalid script value
-                if (false === array_search($data[$index], array_keys(sfCultureInfo::getInstance()->getScripts())))
-                {
-                  throw new sfException(sprintf('Invalid script: %s', $originalValue));
-                }
-              }
-            }
-
-            $self->object->addProperty($serializeProperty, serialize($data));
-          }
-        }
+        $self->createLanguageSerializedProperty('language', $self->rowStatusVars['language']);
+        $self->createScriptSerializedProperty('script', $self->rowStatusVars['script']);
+        $self->createLanguageSerializedProperty('languageOfDescription', $self->rowStatusVars['languageOfDescription']);
+        $self->createScriptSerializedProperty('scriptOfDescription', $self->rowStatusVars['scriptOfDescription']);
 
         // Add alternative identifiers
         if (array_key_exists('alternativeIdentifiers', $self->rowStatusVars) &&
