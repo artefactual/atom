@@ -1,0 +1,31 @@
+# All columns that can be either imported or exported
+columnNames:
+  - appraisal
+  - archivalHistory
+  - acquisitionDate
+  - locationInformation
+  - processingNotes
+  - receivedExtentUnits
+  - scopeAndContent
+  - sourceOfAcquisition
+  - title
+  - eventActors
+  - eventActorHistories
+  - eventTypes
+  - eventPlaces
+  - eventDates
+  - eventStartDates
+  - eventEndDates
+  - eventDescriptions
+  - creators
+  - creatorHistories
+  - creatorDates
+  - creatorDatesStart
+  - creatorDatesEnd
+  - creatorDateNotes
+  - creationDates
+  - creationDatesStart
+  - creationDatesEnd
+  - creationDateNotes
+  - creationDatesType
+  - physicalCondition

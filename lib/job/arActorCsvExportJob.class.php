@@ -88,7 +88,7 @@ class arActorCsvExportJob extends arBaseJob
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($this->search->getQuery(false, false));
 
-    $writer = new csvActorExport($path, 'atom', 10000);
+    $writer = new csvActorExport($path, null, 10000);
     $writer->setOptions($this->params);
     $writer->loadResourceSpecificConfiguration('QubitActor');
 

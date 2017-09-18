@@ -1,3 +1,28 @@
+# All columns that can be either imported or exported
+columnNames:
+  - culture
+  - typeOfEntity
+  - authorizedFormOfName
+  - corporateBodyIdentifiers
+  - datesOfExistence
+  - history
+  - places
+  - legalStatus
+  - functions
+  - mandates
+  - internalStructures
+  - generalContext
+  - descriptionIdentifier
+  - institutionIdentifier
+  - rules
+  - status
+  - levelOfDetail
+  - revisionHistory
+  - sources
+  - maintenanceNotes
+  - actorOccupations
+  - actorOccupationNotes
+
 direct:
   - culture
   - authorizedFormOfName

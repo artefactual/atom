@@ -63,7 +63,8 @@ class csvActorExport extends QubitFlatfileExport
    */
   private function exportCompanionFile($type, $resource)
   {
-    $filename = sprintf('%s/%s_%s_%s.csv', $this->path, $this->standard,
+    $filenamePrepend = ($this->standard !== null) ? $this->standard .'_' : '';
+    $filename = sprintf('%s/%s%s_%s.csv', $this->path, $filenamePrepend,
                         str_pad($this->fileIndex, 10, '0', STR_PAD_LEFT), $type);
     switch ($type)
     {

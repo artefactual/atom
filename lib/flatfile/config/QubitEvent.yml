@@ -1,0 +1,6 @@
+# All columns that can be either imported or exported
+columnNames:
+  - legacyId
+  - eventActorName
+  - eventType
+  - culture

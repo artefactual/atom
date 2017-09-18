@@ -1,3 +1,12 @@
+# All columns that can be either imported or exported
+columnNames:
+  - id
+  - parentId
+  - taxonomyId
+  - name
+  - sourceCulture
+  - culture
+
 # Columns that map directly to term properties
 direct:
   - id

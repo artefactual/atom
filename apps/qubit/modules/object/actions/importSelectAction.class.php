@@ -154,6 +154,14 @@ class ObjectImportSelectAction extends DefaultEditAction
       $this->redirect($importSelectRoute);
     }
 
+    // Redirect user if they are attempting to upload an invalid CSV file
+    if ($importType == 'csv' && !$this->checkForValidCsvFile($request, $file['tmp_name']))
+    {
+      $errorMessage = $this->context->i18n->__('Not a CSV file (or CSV columns not recognized).');
+      $this->context->user->setFlash('error', $errorMessage);
+      $this->redirect($importSelectRoute);
+    }
+
     // if we got here without a file upload, go to file selection
     if (0 == count($file) || empty($file['tmp_name']))
     {
@@ -234,5 +242,42 @@ class ObjectImportSelectAction extends DefaultEditAction
           break;
       }
     }
+  }
+
+  private function checkForValidCsvFile($request, $fileName)
+  {
+    $importOjectClassNames = array(
+      'informationObject' => 'QubitInformationObject',
+      'accession'         => 'QubitAccession',
+      'authorityRecord'   => 'QubitActor',
+      'event'             => 'QubitEvent',
+      'repository'        => 'QubitRepository'
+    );
+
+    $className = $importOjectClassNames[$request->getParameter('objectType')];
+
+    return $this->countValidColumnsInCsvFileForExportType($fileName, $className);
+  }
+
+  private function countValidColumnsInCsvFileForExportType($fileName, $className)
+  {
+    $validColumnCount = 0;
+
+    $exportTypeConfig = QubitFlatfileExport::loadResourceConfigFile($className .'.yml');
+
+    // Get first row of possible CSV file
+    $fh = fopen($fileName, 'rb');
+    $firstCsvRow = fgetcsv($fh, 60000);
+
+    // Count valid columns found
+    foreach ($firstCsvRow as $column)
+    {
+      if (in_array($column, $exportTypeConfig['columnNames']))
+      {
+        $validColumnCount++;
+      }
+    }
+
+    return $validColumnCount;
   }
 }
