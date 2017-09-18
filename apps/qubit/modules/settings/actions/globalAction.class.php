@@ -72,7 +72,6 @@ class SettingsGlobalAction extends sfAction
     }
 
     $checkForUpdates = QubitSetting::getByName('check_for_updates');
-    $refImageMaxWidth = QubitSetting::getByName('reference_image_maxwidth');
     $hitsPerPage = QubitSetting::getByName('hits_per_page');
     $accessionMaskEnabled = QubitSetting::getByName('accession_mask_enabled');
     $accessionMask = QubitSetting::getByName('accession_mask');
@@ -104,7 +103,6 @@ class SettingsGlobalAction extends sfAction
     $this->globalForm->setDefaults(array(
       'version' => $version,
       'check_for_updates' => (isset($checkForUpdates)) ? intval($checkForUpdates->getValue(array('sourceCulture'=>true))) : 1,
-      'reference_image_maxwidth' => (isset($refImageMaxWidth)) ? $refImageMaxWidth->getValue(array('sourceCulture'=>true)) : null,
       'hits_per_page' => (isset($hitsPerPage)) ? $hitsPerPage->getValue(array('sourceCulture'=>true)) : null,
       'accession_mask_enabled' => (isset($accessionMaskEnabled)) ? intval($accessionMaskEnabled->getValue(array('sourceCulture'=>true))) : 1,
       'accession_mask' => (isset($accessionMask)) ? $accessionMask->getValue(array('sourceCulture'=>true)) : null,
@@ -156,19 +154,6 @@ class SettingsGlobalAction extends sfAction
       // Force sourceCulture update to prevent discrepency in settings between cultures
       $setting->setValue($checkForUpdates, array('sourceCulture' => true));
       $setting->save();
-    }
-
-    // Reference image max width
-    if (null !== $refMaxWidth = $thisForm->getValue('reference_image_maxwidth'))
-    {
-      if (intval($refMaxWidth) && $refMaxWidth > 0)
-      {
-        $setting = QubitSetting::getByName('reference_image_maxwidth');
-
-        // Force sourceCulture update to prevent discrepency in settings between cultures
-        $setting->setValue($refMaxWidth, array('sourceCulture'=>true));
-        $setting->save();
-      }
     }
 
     // Hits per page

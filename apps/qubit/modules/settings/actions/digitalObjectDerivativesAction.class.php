@@ -22,11 +22,15 @@ class SettingsDigitalObjectDerivativesAction extends DefaultEditAction
   // Arrays not allowed in class constants
   public static
     $NAMES = array(
-      'pdfPageNumber');
+      'pdfPageNumber',
+      'refImageMaxWidth');
+
+  protected static $refImageMaxWidthMin = 100;
+  protected static $refImageMaxWidthMax = 2000;
 
   protected function earlyExecute()
   {
-
+    $this->i18n = sfContext::getInstance()->i18n;
   }
 
   protected function addField($name)
@@ -40,9 +44,23 @@ class SettingsDigitalObjectDerivativesAction extends DefaultEditAction
           $default = $this->settingPdfPageNumber->getValue(array('sourceCulture' => true));
         }
         $this->form->setDefault('pdfPageNumber', $default);
-
         $this->form->setValidator('pdfPageNumber', new sfValidatorInteger(array('min' => 1)));
         $this->form->setWidget('pdfPageNumber', new sfWidgetFormInput);
+
+        break;
+
+      case 'refImageMaxWidth':
+        $default = null;
+        if (null !== $this->settingRefImageMaxWidth = QubitSetting::getByName('reference_image_maxwidth'))
+        {
+          $default = $this->settingRefImageMaxWidth->getValue(array('sourceCulture' => true));
+        }
+        $this->form->setDefault('refImageMaxWidth', $default);
+        $this->form->setValidator('refImageMaxWidth', new sfValidatorInteger(
+          array('min' => self::$refImageMaxWidthMin, 'max' => self::$refImageMaxWidthMax),
+          array('min' => $this->i18n->__('This value must be at least %min% pixels'), 'max' => $this->i18n->__('This value can not be greater than %max% pixels'))
+        ));
+        $this->form->setWidget('refImageMaxWidth', new sfWidgetFormInput);
 
         break;
     }
@@ -60,7 +78,18 @@ class SettingsDigitalObjectDerivativesAction extends DefaultEditAction
         }
         $this->settingPdfPageNumber->setValue($field->getValue(), array('culture' => 'en'));
         $this->settingPdfPageNumber->save();
+        break;
 
+      case 'refImageMaxWidth':
+        if (null === $this->settingRefImageMaxWidth)
+        {
+          $this->settingRefImageMaxWidth = new QubitSetting;
+          $this->settingRefImageMaxWidth->name = 'reference_image_maxwidth';
+        }
+
+
+        $this->settingRefImageMaxWidth->setValue($field->getValue(), array('culture' => 'en'));
+        $this->settingRefImageMaxWidth->save();
         break;
     }
   }

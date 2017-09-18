@@ -27,9 +27,6 @@
  */
 class SettingsGlobalForm extends sfForm
 {
-  protected static $refImageMaxWidthMin = 100;
-  protected static $refImageMaxWidthMax = 2000;
-
   protected static $hitsPerPageMin = 5;
   protected static $hitsPerPageMax = 100;
 
@@ -41,7 +38,6 @@ class SettingsGlobalForm extends sfForm
     $this->setWidgets(array(
       'version' => new sfWidgetFormInput(array(), array('class' => 'disabled', 'disabled' => true)),
       'check_for_updates' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
-      'reference_image_maxwidth' => new sfWidgetFormInput,
       'hits_per_page' => new sfWidgetFormInput,
       'accession_mask_enabled' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'accession_mask' => new sfWidgetFormInput,
@@ -75,7 +71,6 @@ class SettingsGlobalForm extends sfForm
     $this->widgetSchema->setLabels(array(
       'version' => $this->i18n->__('Application version'),
       'check_for_updates' => $this->i18n->__('Check for updates'),
-      'reference_image_maxwidth' => $this->i18n->__('Maximum image width (pixels)'),
       'hits_per_page' => $this->i18n->__('Results per page'),
       'accession_mask_enabled' => $this->i18n->__('Accession mask enabled'),
       'accession_mask' => $this->i18n->__('Accession mask'),
@@ -111,7 +106,6 @@ class SettingsGlobalForm extends sfForm
     $this->widgetSchema->setHelps(array(
       'version' => $this->i18n->__('The current version of the application'),
       'check_for_updates' => $this->i18n->__('Enable automatic update notification'),
-      'reference_image_maxwidth' => $this->i18n->__('The maximum width for derived reference images'),
       'hits_per_page' => $this->i18n->__('The number of records shown per page on list pages'),
       // 'accession_mask' => $this->i18n->__(''),
       // 'accession_counter' => $this->i18n->__(''),
@@ -129,20 +123,6 @@ class SettingsGlobalForm extends sfForm
       // 'show_tooltips' => $this->i18n->__('')
       // 'sword_deposit_dir' => $this->i18n->__('')
     ));
-
-    // Reference image max. width validator
-    $this->validatorSchema['reference_image_maxwidth'] = new sfValidatorInteger(
-      array(
-        'required' => true,
-        'min' => self::$refImageMaxWidthMin,
-        'max' => self::$refImageMaxWidthMax
-      ),
-      array(
-        'required' => $this->i18n->__('This field is required'),
-        'min' => $this->i18n->__('This value must be at least %min% pixels'),
-        'max' => $this->i18n->__('This value can not be greater than %max% pixels')
-      )
-    );
 
     // Hits per page validator
     $this->validatorSchema['hits_per_page'] = new sfValidatorInteger(
@@ -176,7 +156,6 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['identifier_mask_enabled'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['identifier_mask'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['identifier_counter'] = new sfValidatorString(array('required' => false));
-
     $this->validatorSchema['repository_quota'] = new sfValidatorNumber(
       array('required' => true, 'min' => -1),
       array('min' => $this->i18n->__('Minimum value is "%min%"')));
