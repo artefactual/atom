@@ -31,7 +31,12 @@
           <div class="messages error">
             <?php echo __('The pdfinfo tool is required to use this functionality. Please contact your system administrator.') ?>
           </div>
-        <?php endif; ?>
+        <?php endif; ?><br />
+
+        <?php echo $form->refImageMaxWidth
+          ->label(__('Maximum image width (pixels)'))
+          ->help(__('The maximum width for derived reference images.'))
+          ->renderRow() ?>
 
       </fieldset>
 
