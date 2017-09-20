@@ -13,19 +13,12 @@
 
 <?php slot('content') ?>
 
-  <?php if ($sf_user->hasFlash('error')): ?>
-    <div class="messages error">
-      <h3><?php echo __('Error encountered') ?></h3>
-      <div><?php echo $sf_user->getFlash('error', ESC_RAW) ?></div>
-    </div>
-  <?php endif; ?>
-
   <?php echo $form->renderFormTag(url_for(array('module' => 'object', 'action' => 'export'))) ?>
 
     <?php echo $form->renderHiddenFields() ?>
 
     <section id="content">
-      <div id="export-options" data-export-toggle="tooltip" data-export-title="<?php echo __('Export') ?>" data-export-alert-message="<?php echo __('Error: You must have at least one %1%Level of description%2% selected or choose %1%Include all levels of description%2% to proceed.', array('%1%' => '<strong>', '%2%' => '</strong>')) ?>">
+      <div id="export-options" data-export-toggle="tooltip" data-export-title="<?php echo __('Export') ?>" data-export-alert-message="<?php echo __('Error: You must have at least one %1%Level of description%2% selected or choose %1%Include all descendant levels of description%2% to proceed.', array('%1%' => '<strong>', '%2%' => '</strong>')) ?>">
       <fieldset class="collapsible">
 
         <legend><?php echo __('Export options') ?></legend>
@@ -60,13 +53,15 @@
               <?php endif; ?>
               <label>
                 <input name="includeAllLevels" type="checkbox"/>
-                <?php echo __('Include all levels of description') ?>
+                <?php echo __('Include all descendant levels of description') ?>
               </label>
               <div class="hidden" id="exportLevels">
                 <?php echo $form->levels
-                  ->label(__('Levels of description'))
-                  ->help(__('Select the levels of description to be included in the export. If no levels are selected, the export will fail. You can use the control (Mac ⌘) and/or shift keys to multi-select values from the Levels of description menu. Descriptions that are descendants of levels not included in the export will also be excluded.'))
-                  ->renderRow() ?>
+                  ->renderLabel(__('Select levels of descendant descriptions for inclusion'), array('style' => 'font-weight: bold')) ?>
+                <?php echo $form->levels
+                  ->help(__('If no levels are selected, the export will fail. You can use the control (Mac ⌘) and/or shift keys to multi-select values from the Levels of description menu. It is necessary to include the level(s) above the desired export level, up to and including the level contained in the clipboard. Otherwise, no records will be included in the export.'))
+                  ->renderHelp() ?>
+                <?php echo $form->levels->render() ?>
               </div>
             </div>
 

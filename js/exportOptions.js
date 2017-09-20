@@ -54,7 +54,7 @@
     {
       if (this.$includeDescendants.prop('checked'))
       {
-        this.$includeAllLevels.attr('disabled', false);
+        this.$includeAllLevels.parent().show();
       }
       else
       {
@@ -64,7 +64,7 @@
 
     resetLevelsOptions: function()
     {
-      this.$includeAllLevels.attr('disabled', true);
+      this.$includeAllLevels.parent().hide();
       this.$includeAllLevels.attr('checked', true);
       this.$levelDiv.addClass('hidden');
       this.$levelSelect.val('');
@@ -137,7 +137,7 @@
     {
       this.$includeDescendants.attr('checked', false);
       this.$includeDrafts.attr('checked', false);
-      this.$includeAllLevels.attr('disabled', true);
+      this.$includeAllLevels.parent().hide();
       this.$levelDiv.addClass('hidden');
       this.$includeAllLevels.attr('checked', true);
       this.$levelSelect.val('');
