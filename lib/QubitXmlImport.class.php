@@ -1106,7 +1106,8 @@ class QubitXmlImport
         $matchId = QubitInformationObject::getByTitleIdentifierAndRepo(
           $resource->identifier,
           $resource->title,
-          $resource->repository->authorizedFormOfName
+          // EAD XML does not include repo in child recs - Use parent's repo.
+          ($this->rootObject !== $resource) ? $this->rootObject->repository->authorizedFormOfName : $resource->repository->authorizedFormOfName
         );
 
         if ($matchId)
