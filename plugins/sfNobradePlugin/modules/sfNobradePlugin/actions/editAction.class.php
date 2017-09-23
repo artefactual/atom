@@ -107,6 +107,10 @@ class sfNobradePluginEditAction extends InformationObjectEditAction
         $this->archivistsNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
         $this->archivistsNotesComponent->resource = $this->resource;
         $this->archivistsNotesComponent->execute($this->request, $options = array('type' => 'nobradeArchivistsNotes'));
+
+        $this->conservationNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+        $this->conservationNotesComponent->resource = $this->resource;
+        $this->conservationNotesComponent->execute($this->request, $options = array('type' => 'nobradeConservationNotes'));
     }
 
     protected function addField($name)
@@ -211,6 +215,8 @@ class sfNobradePluginEditAction extends InformationObjectEditAction
         $this->publicationNotesComponent->processForm();
 
         $this->notesComponent->processForm();
+
+        $this->conservationNotesComponent->processForm(); //canelhas
 
         $this->archivistsNotesComponent->processForm();
 

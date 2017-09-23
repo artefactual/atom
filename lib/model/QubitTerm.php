@@ -53,7 +53,7 @@ class QubitTerm extends BaseTerm
     GENERAL_NOTE_ID = 125,
     OTHER_DESCRIPTIVE_DATA_ID = 126,
     MAINTENANCE_NOTE_ID = 127,
-    //NOBRADE_CONSERVATION_NOTE_ID = 441, CANELHAS
+    NOBRADE_CONSERVATION_NOTE_ID = 441, //CANELHAS
 
     // Collection type taxonomy
     ARCHIVAL_MATERIAL_ID = 128,
@@ -211,7 +211,7 @@ class QubitTerm extends BaseTerm
       QubitTerm::MAINTENANCE_NOTE_ID,
       QubitTerm::MASTER_ID,
       QubitTerm::NAME_ACCESS_POINT_ID,
-      ##QubitTerm::NOBRADE_CONSERVATION_NOTE_ID, CANELHAS
+      QubitTerm::NOBRADE_CONSERVATION_NOTE_ID,
       QubitTerm::NOBRADE_DATE_SUBJECT_ID,
       QubitTerm::NOBRADE_INCLUSIVE_DATE_ID,
       QubitTerm::OTHER_DESCRIPTIVE_DATA_ID,

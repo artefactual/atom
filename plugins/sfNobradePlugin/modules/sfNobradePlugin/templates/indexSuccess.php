@@ -207,9 +207,15 @@
         <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Notes area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'notesArea', 'title' => __('Edit notes area'))) ?>
     <?php endif; ?>
 
+    <?php if (check_field_visibility('app_element_visibility_nobrade_conservation_notes')): ?>
+        <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::NOBRADE_CONSERVATION_NOTE_ID)) as $item): ?>
+            <?php echo render_show(__('Notes on conservation'), render_value($item->getContent(array('cultureFallback' => true))), array('fieldLabel' => 'conservationNote')) ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
     <?php if (check_field_visibility('app_element_visibility_nobrade_notes')): ?>
         <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)) as $item): ?>
-            <?php echo render_show(__('Note'), render_value($item->getContent(array('cultureFallback' => true))), array('fieldLabel' => 'generalNote')) ?>
+            <?php echo render_show(__('General note'), render_value($item->getContent(array('cultureFallback' => true))), array('fieldLabel' => 'generalNote')) ?>
         <?php endforeach; ?>
     <?php endif; ?>
 
@@ -248,32 +254,32 @@
     <?php endif; ?>
 
     <?php if (check_field_visibility('app_element_visibility_nobrade_control_description_identifier')): ?>
-        <?php echo render_show(__('Description identifier'), render_value($resource->getDescriptionIdentifier(array('cultureFallback' => true))), array('fieldLabel' => 'descriptionIdentifier')) ?>
+        <?php echo render_show(__('Description\'s reference code'), render_value($resource->getDescriptionIdentifier(array('cultureFallback' => true))), array('fieldLabel' => 'descriptionIdentifier')) ?>
     <?php endif; ?>
 
     <?php if (check_field_visibility('app_element_visibility_nobrade_control_institution_identifier')): ?>
-        <?php echo render_show(__('Institution identifier'), render_value($resource->getInstitutionResponsibleIdentifier(array('cultureFallback' => true))), array('fieldLabel' => 'institutionIdentifier')) ?>
+        <?php echo render_show(__('Descriptor institution\'s reference code'), render_value($resource->getInstitutionResponsibleIdentifier(array('cultureFallback' => true))), array('fieldLabel' => 'institutionIdentifier')) ?>
     <?php endif; ?>
 
     <?php if (check_field_visibility('app_element_visibility_nobrade_control_rules_conventions')): ?>
-        <?php echo render_show(__('Rules and/or conventions used'), render_value($resource->getRules(array('cultureFallback' => true))), array('fieldLabel' => 'rulesAndOrConventionsUsed')) ?>
+        <?php echo render_show(__('Description\'s rules or conventions used'), render_value($resource->getRules(array('cultureFallback' => true))), array('fieldLabel' => 'rulesAndOrConventionsUsed')) ?>
     <?php endif; ?>
 
     <?php if (check_field_visibility('app_element_visibility_nobrade_control_status')): ?>
-        <?php echo render_show(__('Status'), render_value($resource->descriptionStatus), array('fieldLabel' => 'descriptionStatus')) ?>
+        <?php echo render_show(__('Description\'s status'), render_value($resource->descriptionStatus), array('fieldLabel' => 'descriptionStatus')) ?>
     <?php endif; ?>
 
     <?php if (check_field_visibility('app_element_visibility_nobrade_control_level_of_detail')): ?>
-        <?php echo render_show(__('Level of detail'), render_value($resource->descriptionDetail), array('fieldLabel' => 'levelOfDetail')) ?>
+        <?php echo render_show(__('Nível de detalhamento da descrição'), render_value($resource->descriptionDetail), array('fieldLabel' => 'levelOfDetail')) ?>
     <?php endif; ?>
 
     <?php if (check_field_visibility('app_element_visibility_nobrade_control_dates')): ?>
-        <?php echo render_show(__('Dates of creation revision deletion'), render_value($resource->getRevisionHistory(array('cultureFallback' => true))), array('fieldLabel' => 'datesOfCreationRevisionDeletion')) ?>
+        <?php echo render_show(__('Dates of creation, revision and deletion'), render_value($resource->getRevisionHistory(array('cultureFallback' => true))), array('fieldLabel' => 'datesOfCreationRevisionDeletion')) ?>
     <?php endif; ?>
 
     <?php if (check_field_visibility('app_element_visibility_nobrade_control_languages')): ?>
         <div class="field">
-            <h3><?php echo __('Language(s)') ?></h3>
+            <h3><?php echo __('Description\'s language(s)') ?></h3>
             <div class="languages">
                 <ul>
                     <?php foreach ($resource->languageOfDescription as $code): ?>
@@ -286,7 +292,7 @@
 
     <?php if (check_field_visibility('app_element_visibility_nobrade_control_scripts')): ?>
         <div class="field">
-            <h3><?php echo __('Script(s)') ?></h3>
+            <h3><?php echo __('Description\'s script(s)') ?></h3>
             <div class="scripts">
                 <ul>
                     <?php foreach ($resource->scriptOfDescription as $code): ?>
@@ -298,7 +304,7 @@
     <?php endif; ?>
 
     <?php if (check_field_visibility('app_element_visibility_nobrade_control_sources')): ?>
-        <?php echo render_show(__('Sources'), render_value($resource->getSources(array('cultureFallback' => true))), array('fieldLabel' => 'sources')) ?>
+        <?php echo render_show(__('Sources used in the description'), render_value($resource->getSources(array('cultureFallback' => true))), array('fieldLabel' => 'sources')) ?>
     <?php endif; ?>
 
     <?php if (check_field_visibility('app_element_visibility_nobrade_control_archivists_notes')): ?>

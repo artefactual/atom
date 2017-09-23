@@ -37,7 +37,11 @@ class sfNobradePluginEventComponent extends InformationObjectEventComponent
                 {
                     $eventTypes = arDacsPlugin::eventTypes();
                 }
-                else
+                if ('sfIsadPlugin' == $this->request->module)
+                {
+                    $eventTypes = sfIsadPlugin::eventTypes();
+                }
+                if ('sfNobradePlugin' == $this->request->module)
                 {
                     $eventTypes = sfNobradePlugin::eventTypes();
                 }

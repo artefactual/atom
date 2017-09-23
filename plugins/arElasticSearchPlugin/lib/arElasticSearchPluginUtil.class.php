@@ -169,6 +169,7 @@ class arElasticSearchPluginUtil
             'nobrade_immediate_source' => self::getI18nFieldNames('i18n.%s.acquisition', $cultures),
             'nobrade_appraisal_destruction' => self::getI18nFieldNames('i18n.%s.appraisal', $cultures),
             'nobrade_notes' => '',
+            'nobrade_conservation_notes' => '',
             'nobrade_physical_condition' => self::getI18nFieldNames('i18n.%s.physicalCharacteristics', $cultures),
             'nobrade_control_description_identifier' => '',
             'nobrade_control_institution_identifier' => self::getI18nFieldNames('i18n.%s.institutionResponsibleIdentifier', $cultures),

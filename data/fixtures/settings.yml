@@ -879,6 +879,10 @@ QubitSetting:
     name: nobrade_notes
     scope: element_visibility
     value: 1
+  Qubit_Settings_visibleElements_NobradeConservationNotes:
+      name: nobrade_conservation_notes
+      scope: element_visibility
+      value: 1
   Qubit_Settings_visibleElements_NobradePhysicalCondition:
     name: nobrade_physical_condition
     scope: element_visibility

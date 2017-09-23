@@ -791,7 +791,7 @@ class QubitMigrate103 extends QubitMigrate
       'SOURCE_NOTE_ID',
       'SCOPE_NOTE_ID',
       'DISPLAY_NOTE_ID',
-      //'NOBRADE_CONSERVATION_NOTE_ID', CANELHAS
+      'NOBRADE_CONSERVATION_NOTE_ID',
     //CollectionType taxonomy
       'ARCHIVAL_MATERIAL_ID',
       'FINDING_AIDS_ID',

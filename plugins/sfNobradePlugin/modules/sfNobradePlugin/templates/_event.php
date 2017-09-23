@@ -8,13 +8,13 @@
         <thead>
         <tr>
             <th style="width: 25%">
-                <?php echo __('Type') ?>
+                <?php echo __('Type Date') ?>
             </th><th style="width: 30%">
-                <?php echo __('Date') ?>
+                <?php echo __('Date Date') ?>
             </th><th style="width: 20%">
-                <?php echo __('Start') ?>
+                <?php echo __('Start Date') ?>
             </th><th style="width: 20%">
-                <?php echo __('End') ?>
+                <?php echo __('End Date') ?>
             </th>
         </tr>
         </thead><tbody>

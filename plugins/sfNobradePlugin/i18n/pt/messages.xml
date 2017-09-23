@@ -280,7 +280,7 @@
       </trans-unit>
       <trans-unit id="943">
         <source>Name of creator(s)</source>
-        <target>Nome de produtor(s)</target>
+        <target>Nome de produtor(es)</target>
       </trans-unit>
       <trans-unit id="944">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>

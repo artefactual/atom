@@ -1,18 +1,18 @@
 <div class="section">
 
-  <h3><?php echo __('Add New Child Levels') ?></h3>
+  <h3><?php echo __('Add new child levels') ?></h3>
 
   <table class="table table-bordered multiRow" id="childsTable">
     <thead>
       <tr>
         <th style="width: 15%">
-          <?php echo __('Child Reference Code') ?>
+          <?php echo __('Child\'s reference code') ?>
         </th><th style="width: 15%">
-          <?php echo __('Child Level') ?>
+          <?php echo __('Child\'s level') ?>
         </th><th style="width: 50%">
-          <?php echo __('Child Title') ?>
+          <?php echo __('Child\'s title') ?>
         </th><th style="width: 20%">
-          <?php echo __('Child Date') ?>
+          <?php echo __('Child\'s date') ?>
         </th>
       </tr>
     </thead><tbody>

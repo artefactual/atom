@@ -377,7 +377,7 @@ class arUpgrader120
           'nobrade_immediate_source',
           'nobrade_appraisal_destruction',
           'nobrade_notes',
-          //'nobrade_conservation_notes', //CANELHAS
+          'nobrade_conservation_notes',
           'nobrade_physical_condition',
           'nobrade_control_description_identifier',
           'nobrade_control_institution_identifier',

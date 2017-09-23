@@ -2547,10 +2547,9 @@ QubitTerm:
       vi: 'Ghi chú của chuyên viên lưu trữ'
       zh: 档案管理员说明
   #Nobrade notes on conservation 6.1
-  QubitTerm_nobrade_notes_on_conservation:
+  QubitTerm_nobrade_conservation_notes:
       taxonomy_id: QubitTaxonomy_7
       parent_id: QubitTerm_110
-      #code: nobradenotesconservation
       id: 441
       source_culture: en
       name:

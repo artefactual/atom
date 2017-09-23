@@ -49,7 +49,7 @@ class sfNobradePluginIndexAction extends InformationObjectIndexAction
 
         // Set creator history label
         $this->creatorHistoryLabels = array(
-            NULL => $this->context->i18n->__('Administrative / Biographical history'),
+            NULL => $this->context->i18n->__('Administrative / biographical history'),
             QubitTerm::CORPORATE_BODY_ID => $this->context->i18n->__('Administrative history'),
             QubitTerm::PERSON_ID => $this->context->i18n->__('Biographical history'),
             QubitTerm::FAMILY_ID => $this->context->i18n->__('Biographical history')
@@ -89,7 +89,7 @@ class sfNobradePluginIndexAction extends InformationObjectIndexAction
 
             $validatorSchema->identifier = new sfValidatorString(array(
                 'required' => true), array(
-                'required' => $this->context->i18n->__('%1%Identifier%2% - This is a %3%mandatory%4% element.', array('%1%' => '<a href="http://www.conarq.arquivonacional.gov.br/images/publicacoes_textos/nobrade.pdf">', '%2%' => '</a>', '%3%' => '<a href="http://www.conarq.arquivonacional.gov.br/images/publicacoes_textos/nobrade.pdf">', '%4%' => '</a>'))));
+                'required' => $this->context->i18n->__('%1%Reference code%2% - This is a %3%mandatory%4% element.', array('%1%' => '<a href="http://www.conarq.arquivonacional.gov.br/images/publicacoes_textos/nobrade.pdf">', '%2%' => '</a>', '%3%' => '<a href="http://www.conarq.arquivonacional.gov.br/images/publicacoes_textos/nobrade.pdf">', '%4%' => '</a>'))));
             $values['identifier'] = $this->resource->identifier;
 
             $this->addField($validatorSchema, 'levelOfDescription');

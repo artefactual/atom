@@ -104,7 +104,7 @@
           'nobrade_immediate_source' => __('Immediate Source of Acquisition or Transfer'),
           'nobrade_appraisal_destruction' => __('Appraisal, Destruction and Scheduling Information'),
           'nobrade_notes' => __(' General Notes'),
-          //'nobrade_conservation_notes' => __('Notes on conservation'), //CANELHAS
+          'nobrade_conservation_notes' => __('Notes on conservation'),
           'nobrade_physical_condition' => __('Physical Characteristics and Technical Requirements'),
           'nobrade_control_description_identifier' => __('Description Identifier'),
           'nobrade_control_institution_identifier' => __('Institution Identifier'),

@@ -68,7 +68,7 @@ class InformationObjectNotesComponent extends sfComponent
           $this->hiddenType = true;
           $this->hiddenTypeId = QubitTerm::PUBLICATION_NOTE_ID;
           $this->allNotes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
-          $this->tableName = $this->context->i18n->__('Publication Notes');
+          $this->tableName = $this->context->i18n->__('Publication notes');
           $this->arrayName = 'nobradePublicationNotes';
           $this->help = $this->context->i18n->__('Record a citation to, and/or information about a publication that is about or based on the use, study, or analysis of the unit of description. Include references to published facsimiles or transcriptions. (NOBRADE 5.4)');
 
@@ -108,7 +108,7 @@ class InformationObjectNotesComponent extends sfComponent
           $this->hiddenType = true;
           $this->hiddenTypeId = QubitTerm::GENERAL_NOTE_ID;
           $this->allNotes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
-          $this->tableName = $this->context->i18n->__('General Notes');
+          $this->tableName = $this->context->i18n->__('General notes');
           $this->arrayName = 'nobradeNotes';
           $this->help = $this->context->i18n->__('Record specialized or other important information not accommodated by any of the defined elements of description. (NOBRADE 6.2)');
 
@@ -150,13 +150,13 @@ class InformationObjectNotesComponent extends sfComponent
           $this->hiddenType = true;
           $this->hiddenTypeId = QubitTerm::ARCHIVIST_NOTE_ID;
           $this->allNotes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
-          $this->tableName = $this->context->i18n->__('Archivist\'s Notes');
+          $this->tableName = $this->context->i18n->__('Archivist\'s notes');
           $this->arrayName = 'nobradeArchivistsNotes';
           $this->help = $this->context->i18n->__('Record notes on sources consulted in preparing the description and who prepared it. (NOBRADE 7.1)');
 
           break;
 
-        /*case 'nobradeConservationNotes':
+        case 'nobradeConservationNotes':
           $this->hiddenType = true;
           $this->hiddenTypeId = QubitTerm::NOBRADE_CONSERVATION_NOTE_ID;
           $this->allNotes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
@@ -164,7 +164,7 @@ class InformationObjectNotesComponent extends sfComponent
           $this->arrayName = 'nobradeConservationNotes';
           $this->help = $this->context->i18n->__('Record information on the conservation status of the unit of description as well as conservation and/or restoration measures that have been, are being or should be taken in relation to it. (NOBRADE 6.1)');
 
-          break;*/ //CANELHAS
+          break;
 
         case 'dacsArchivistsNotes':
           $this->hiddenType = true;

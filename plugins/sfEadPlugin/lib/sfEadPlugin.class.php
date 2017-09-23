@@ -65,7 +65,7 @@ class sfEadPlugin
         'note'                  => '3.6.1',
         'bioghist'              => '3.2.2',
         'origination'           => '3.2.1'),
-      'nobrade' => array( //canelhas
+      'nobrade' => array(
         'relatedencoding'       => 'NOBRADEv1',
         'eadid'                 => 'identifier',
         'titleproper'           => 'title',
@@ -97,7 +97,8 @@ class sfEadPlugin
         'unitdateDefault'       => '1.3',
         'extent'                => '1.5',
         'langmaterial'          => '4.3',
-        'note'                  => '6.1',
+        'note'                  => '6.2',
+        'conservationNote'      => '6.1',
         'bioghist'              => '2.2',
         'origination'           => '2.1'),
       'rad' => array(
