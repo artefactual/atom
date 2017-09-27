@@ -52,7 +52,7 @@ class QubitMigrate108 extends QubitMigrate
       case 3:
 
         // Enable new plugins
-        $plugins = array('sfDcPlugin', 'sfEadPlugin', 'sfIsadPlugin', 'sfModsPlugin', 'sfRadPlugin');
+        $plugins = array('sfDcPlugin', 'sfEadPlugin', 'sfIsadPlugin', 'sfNobradePlugin','sfModsPlugin', 'sfRadPlugin');
 
         // Find setting
         $found = false;

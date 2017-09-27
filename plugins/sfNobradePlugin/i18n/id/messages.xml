@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2016-04-19T21:26:58Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new archival description</source>
+        <target>Tambahkan Deskripsi Arsip</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>tanpa judul</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
+        <target>Deskripsi arsip, atau satu dari level yang lebih tinggi %1%membutuhkan%2% paling tidak satu %3%pencipta%4%.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
+        <target>%1%Tanggal%2% - tidak konsisten dengan %3%level yang lebih tinggi%2%.</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Date(s)%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Tanggal%2% - Bagian ini merupakan elemen yang  %3%diperintahkan untuk diisi%4%.</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>%1%Extent and medium%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Ukuran dan media%2% - Bagian ini merupakan elemen yang  %3%diperintahkan untuk diisi%4%.</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Identifier%2% - Bagian ini merupakan elemen yang  %3%diperintahkan untuk diisi%4%.</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>%1%Level of description%2% - Value "%value%" is not consistent with higher levels.</source>
+        <target>%1%Level deskripsi%2% - nilai "%value%" yang diberikan tidak konsisten dengan level yang lebih tinggi.</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>%1%Level of description%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Level deskripsi%2% - Bagian ini merupakan elemen yang  %3%diperintahkan untuk diisi%4%.</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>%1%Title%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Judul%2% - Bagian ini merupakan elemen yang  %3%diperintahkan untuk diisi%4%.</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Date(s)</source>
+        <target>Tanggal</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>This is a mandatory element.</source>
+        <target>Bagian ini merupakan elemen yang harus diisi.</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Type</source>
+        <target>Tipe</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Date</source>
+        <target>Tanggal</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Start</source>
+        <target>Awal</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>End</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Identity area</source>
+        <target>Area Identitas</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Edit identity area</source>
+        <target>Edit Area Identitas</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Reference code</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Title</source>
+        <target>Judul</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Level of description</source>
+        <target>Level Deskripsi</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Extent and medium</source>
+        <target>Ukuran dan Media</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Context area</source>
+        <target>Area Konteks</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Edit context area</source>
+        <target>Edit area konteks</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Related function</source>
+        <target>Fungsi yang berkaitan</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Repository</source>
+        <target>Repositori</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Archival history</source>
+        <target>Nilai Sejarah Arsip</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Immediate source of acquisition or transfer</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Content and structure area</source>
+        <target>Area Isi dan Struktur</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Edit content and structure area</source>
+        <target>Edit area konten dan struktur</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Scope and content</source>
+        <target>Cakupan dan isi</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Appraisal, destruction and scheduling</source>
+        <target>Penilaian, pemusnahan dan jadwal retensi</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Accruals</source>
+        <target>Akrual</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>System of arrangement</source>
+        <target>Sistem Penataan</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Conditions of access and use area</source>
+        <target>Kondisi dari area akses dan penggunaan</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Edit conditions of access and use area</source>
+        <target>Edit area kondisi akses dan penggunaan</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Conditions governing access</source>
+        <target>Penentuan Kondisi Akses</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Conditions governing reproduction</source>
+        <target>Penentuan Kondisi reproduksi</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Language of material</source>
+        <target>Bahasa dari material</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Script of material</source>
+        <target>Naskah Material Arsip</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Language and script notes</source>
+        <target>Catatan Bahasan dan Naskah</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Physical characteristics and technical requirements</source>
+        <target>Karakter fisik dan persyaratan teknis</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Finding aids</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Allied materials area</source>
+        <target>Area Materi Arsip Sekutu</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Edit alied materials area</source>
+        <target>Edit material terkait</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Existence and location of originals</source>
+        <target>Keberadaan dan lokasi dari original</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Existence and location of copies</source>
+        <target>Keberadaan dan lokasi dari salinan</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Related units of description</source>
+        <target>Berkas Arsip yang berkaitan</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Publication note</source>
+        <target>Catatan Publikasi</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Notes area</source>
+        <target>Area Catatan</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Edit notes area</source>
+        <target>Edit area catatan</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Note</source>
+        <target>Catatan</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Access points</source>
+        <target>Titik Temu</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Edit access points</source>
+        <target>Edit titik temu</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Description control area</source>
+        <target>Deskripsi Area Kontrol</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Edit description control area</source>
+        <target>Edit area kontrol deskripsi</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Description identifier</source>
+        <target>Deskripsi Identifier</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Institution identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Rules and/or conventions used</source>
+        <target>Aturan dan/ atau konvensi yang digunakan</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Status</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Level of detail</source>
+        <target>Level tingkat kedetailan</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Dates of creation revision deletion</source>
+        <target>Tanggal penciptaan revisi pemusnahan</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Language(s)</source>
+        <target>Bahasa</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Script(s)</source>
+        <target>Naskah</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Sources</source>
+        <target>Sumber</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Archivist's note</source>
+        <target>Catatan Arsiparis</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Rights area</source>
+        <target>Area Pemegang Hak</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Accession area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>File list</source>
+        <target>Daftar file</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>This is a duplicate of record %1%</source>
+        <target>Ini adalah duplikasi dari arsip %1%</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
+        <target>Berikan kode referensi yang spesifik, suatu nomor kontrol, atau identifier unik lainnya. Kode negara dan repositori akan secara automatis ditambahkan dari repositori yang terkait dan membentuk kode referensi. (ISAD 3.1.1)</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
+        <target>Berikan salah satu dari judul formal arsip atau singkatan judul yang sesuai dengan aturan dari level deskripsi bertingkat dan konvensi nasional. (ISAD 3.1.2)</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Record the level of this unit of description. (ISAD 3.1.4)</source>
+        <target>Berikan informasi tentang level deskripsi arsip. (ISAD 3.1.4)</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (ISAD 3.1.5)</source>
+        <target>Berikan informasi jumlah atau ukuran dari berkas arsip dengan memberikan nomor dari jumlah fisik atau nomor arab dan satuan ukuran yang digunakan. Berikan penjelasan mengenai media yang digunakan oleh berkas arsip. Pisahkan ukuran/ jumlah yang beragam dengan garis baru. (ISAD 3.1.5)</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Name of creator(s)</source>
+        <target>Nama Pencipta</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>This archival description, or one of its higher levels, requires at least one creator.</source>
+        <target>Deskripsi arsip, atau satu dari level yang lebih tinggi, membutuhkan paling tidak satu pencipta.</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)</source>
+        <target>Berikan nama organisasi yang melakukan proses penyimpanan arsip tersebut. Cari nama organisasi yang sudah ada dengan ketik beberapa kata. Atau, ketik nama baru untuk menciptakan nama baru yang mewakili institusi arsip. (ISAD 3.2.1)</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
+        <target>Berikan nama organisasi yang melakukan proses penyimpanan arsip tersebut. Cari nama organisasi yang sudah ada dengan ketik beberapa kata. Atau, ketik nama baru untuk menciptakan nama baru yang mewakili institusi arsip.</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Record the successive transfers of ownership, responsibility and/or custody of the unit of description and indicate those actions, such as history of the arrangement, production of contemporary finding aids, re-use of the records for other purposes or software migrations, that have contributed to its present structure and arrangement. Give the dates of these actions, insofar as they can be ascertained. If the archival history is unknown, record that information. (ISAD 3.2.3)</source>
+        <target>Berikan informasi sejarah arsip tersebut seperti kepemilikan, transfer, penanggungjawab dan/ atau tempat penyimpanan berkas dan indikasikan hal tersebut, seperti sejarah penataannya atau sistem pemberkasannya, produksi finding aids, penggunaan kembali dari berkas arsip untuk tujuan lain atau proses migrasi data, yang memiliki kontribusi langsung terhadap struktur dan penataan yang berlaku saat ini. Berikan tanggal dari kegiatan-kegiatan yang dijelaskan, apabila tanggal tersebut bisa dijelaskan dengan baik. Jika sejarah arsip tidak diketahui, berikan catatan atas hal tersebut. (ISAD 3.2.3)</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Record the source from which the unit of description was acquired and the date and/or method of acquisition if any or all of this information is not confidential. If the source is unknown, record that information. Optionally, add accession numbers or codes. (ISAD 3.2.4)</source>
+        <target>Berikan informasi mengenai sumber arsip yaitu darimana arsip diperoleh dan tanggal dan/ atau metode akuisisi jika informasi tersebut tidak rahasia. Jika sumber diperolehnya arsip tidak diketahui, catat informasi tersebut. Atau, tambahkan nomor atau kode akuisisi. (ISAD 3.2.4)</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (ISAD 3.3.1)</source>
+        <target>Berikan ringkasan dari cakupan (seperti, periode waktu, geografi) dan isi, (seperti format dokumentasi, subjek permasalahan, proses administrasi) dari berkas yang sedang dideskripsikan, disesuaikan dengan level deskripsi. (ISAD 3.3.1)</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material. (ISAD 3.3.2)</source>
+        <target>Berikan informasi mengenai penilaian arsip, pemusnahan, dan jadwal kegiatan atau perencanaan yang berkaitan dengan berkas tersebut, terutama apabila diketahui bahwa informasi tersebut mungkin akan menimbulkan interpretasi dari material arsip. (ISAD 3.3.2) </target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Indicate if accruals are expected. Where appropriate, give an estimate of their quantity and frequency. (ISAD 3.3.3)</source>
+        <target>Indikasikan tentang perkiraan suatu akumulasi, Jika diperlukan, berikan informasi mengenai perkiraan jumlah dan frekuensi. (ISAD 3.3.3)</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Specify the internal structure, order and/or the system of classification of the unit of description. Note how these have been treated by the archivist. For electronic records, record or reference information on system design. (ISAD 3.3.4)</source>
+        <target>Jelaskan mengenai struktur internal, penyusunan dan/ atau sistem klasifikasi dari berkas yang sedang dideskripsikan. Catat bagaimana berkas ini diperlakukan oleh arsiparis. Untuk arsip elektronik, berikan informasi atau referensi desain sistem. (ISAD 3.3.4)</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
+        <target>Jelaskan informasi hukum atau legalitas, kontrak, regulasi atau kebijakan yang mempengaruhi akses terhadap berkas. Indikasikan berapa lama periode penutupan arsip dan tanggal bisa dibuka kembali. (ISAD 3.4.1)</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
+        <target>Berikan informasi mengenai bahasa yang digunakan oleh berkas arsip yang sedang dideskripsikan. (ISAD 3.4.3)</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
+        <target>Berikan informasi mengenai tulisan atau naskah yang digunakan oleh berkas arsip. (ISAD 3.4.3)</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
+        <target>Catat karakter istimewa baik alfabet, tulisan, simbol suatu sistem atau singkatan yang digunakan. (ISAD 3.4.3)</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
+        <target>Indikasikan kondisi penting mengenai fisik arsip, seperti persyaratan preservasi, yang mungkin mempengaruhi dalam penggunaan berkas arsip. Berikan catatan berupa software ataupun hardware yang diperlukan untuk mengakses berkas arsip.</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Give information about any finding aids that the repository or records creator may have that provide information relating to the context and contents of the unit of description. If appropriate, include information on where to obtain a copy. (ISAD 3.4.5)</source>
+        <target>Berikan informasi tentang finding aids atau daftar pencarian arsip yang disediakan oleh repositori atau pencipta arsip mencakup konteks dan konten dari berkas yang sedang dideskripsikan. Jika diperlukan, cantumkan informasi dimana bisa mendapatkan salinannya. (ISAD 3.4.5)</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>If the original of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. If the originals no longer exist, or their location is unknown, give that information. (ISAD 3.5.1)</source>
+        <target>Jika versi original atau asli dari berkas yang sedang dideskripsikan tersedia (baik itu diinstitusi tersebut atau diluar) berikan informasi lokasinya, beserta jika ada nomor kontrol yang penting. Jika versi original atau asli tidak lagi tersedia, atau lokasinya tidak diketahui, berikan informasi tersebut. (ISAD 3.5.1)</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>If the copy of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. (ISAD 3.5.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
+        <target>Berikan informasi mengenai berkas yang sedang dideskripsikan pada repositori yang sama atau ditempat lain yang memiliki hubungan berdasarkan prinsip provenance atau keterkaitan lainnya. Gunakan penggunaan kata pendahuluan yang sesuai dan jelaskan hubungan relasi berkas tersebut. Jika Berkas yang dimaksud adalah sebuah finding aid, gunakan elemen deskripsi finding aid (3.4.5) untuk membuat referensi terhadap hal tersebut. (ISAD 3.5.3)</target>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Subject access points</source>
+        <target>Akses Poin Subjek</target>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Place access points</source>
+        <target>Tempat akses poin</target>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Name access points (subjects)</source>
+        <target>Nama Akses Poin (subjek)</target>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
+        <target>Berikan deskripsi identifier yang unik sesuai dengan konvensi lokal dan/ atau nasional. Jika deskripsi akan digunakan secara internasional, berikan kode negara pada deskripsi dengan mengikuti versi terakhir ISO 3166 - 'Codes for the representation of names of countries'. Jika pencipta berkas arsip adalah organisasi internasional, berikan identifier organisasi pada bagian kode negara.</target>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
+        <target>Berikan informasi mengenai nama agensi/ unit yang bertanggung jawab dalam penciptaan, modifikasi atau penyebaran deskripsi, atau berikan kode agensi atau unit yang dimaksud sesuai standar kode nasional atau internasional untuk agensi/ unit tersebut.</target>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
+        <target>Berikan informasi mengenai konvensi yang digunakan dalam proses pendeskripsian berkas arsip baik peraturan internsional, nasional, dan/ atau lokal. (ISAD 3.7.2)</target>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>Rules or conventions</source>
+        <target>Peraturan atau Konvensi</target>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
+        <target>Berikan informasi terkini mengenai status deskripsi arsip, indikasikan apakah draft, final, dan/ atau revisi atau dihapus.</target>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
+        <target>Cantumkan apakah deskripsi memberikan informasi secara minimal, partial atau full berdasarkan pedoman dan/ atau aturan internasional dan/ atau nasional.</target>
+      </trans-unit>
+      <trans-unit id="117">
+        <source>Record the date(s) the entry was prepared and/or revised.</source>
+        <target>Berikan informasi mengenai tanggal yang menjelaskan saat data disiapkan dan/ atau revisi.</target>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>Dates of creation, revision and deletion</source>
+        <target>Tanggal untuk penciptaan, revisi, dan pemusnahan</target>
+      </trans-unit>
+      <trans-unit id="119">
+        <source>Indicate the language(s) used to create the description of the archival material.</source>
+        <target>bahasa yang digunakan untuk menciptakan deskripsi arsip.</target>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>Indicate the script(s) used to create the description of the archival material.</source>
+        <target>Tulisan atau naskah yang digunakan untuk mendeskripsikan arsip.</target>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="128">
+        <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="129">
+        <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="130">
+        <source>Related descriptions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="131">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="132">
+        <source>Administrative / Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="133">
+        <source>Administrative history</source>
+        <target>Sejarah Administratif</target>
+      </trans-unit>
+      <trans-unit id="134">
+        <source>Biographical history</source>
+        <target>Sejarah Biografi</target>
+      </trans-unit>
+      <trans-unit id="135">
+        <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="136">
+        <source>Genre access points</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

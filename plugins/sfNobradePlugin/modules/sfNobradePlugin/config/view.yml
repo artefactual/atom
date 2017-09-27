@@ -1,0 +1,40 @@
+editSuccess:
+  stylesheets:
+    /vendor/imageflow/imageflow.packed.css: { position: first }
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/textarea:
+    /vendor/yui/connection/connection-min:
+    /vendor/yui/datasource/datasource-min:
+    /vendor/yui/container/container-min:
+    /vendor/yui/autocomplete/autocomplete-min:
+    /vendor/imageflow/imageflow.packed.js:
+    /js/generateIdentifier.js:
+    autocomplete:
+    blank:
+    imageflow:
+    multiInstanceInput:
+    multiRow:
+    select:
+    treeView:
+
+fileListSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
+
+indexSuccess:
+  stylesheets:
+    /vendor/imageflow/imageflow.packed.css: { position: first }
+  javascripts:
+    /vendor/imageflow/imageflow.packed.js:
+    blank:
+    imageflow:
+    treeView:
+
+all:
+  components:
+    css:
+      [sfIsadPlugin, stylesheet]

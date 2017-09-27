@@ -167,6 +167,28 @@ class arElasticSearchPluginUtil
 
           break;
 
+        case 'nobrade':
+
+          $relations = array(
+            'nobrade_archival_history' => self::getI18nFieldNames('i18n.%s.archivalHistory', $cultures),
+            'nobrade_immediate_source' => self::getI18nFieldNames('i18n.%s.acquisition', $cultures),
+            'nobrade_appraisal_destruction' => self::getI18nFieldNames('i18n.%s.appraisal', $cultures),
+            'nobrade_notes' => '',
+            'nobrade_conservation_notes' => '',
+            'nobrade_physical_condition' => self::getI18nFieldNames('i18n.%s.physicalCharacteristics', $cultures),
+            'nobrade_control_description_identifier' => '',
+            'nobrade_control_institution_identifier' => self::getI18nFieldNames('i18n.%s.institutionResponsibleIdentifier', $cultures),
+            'nobrade_control_rules_conventions' => self::getI18nFieldNames('i18n.%s.rules', $cultures),
+            'nobrade_control_status' => '',
+            'nobrade_control_level_of_detail' => '',
+            'nobrade_control_dates' => self::getI18nFieldNames('i18n.%s.revisionHistory', $cultures),
+            'nobrade_control_languages' => '',
+            'nobrade_control_scripts' => '',
+            'nobrade_control_sources' => self::getI18nFieldNames('i18n.%s.sources', $cultures),
+            'nobrade_control_archivists_notes' => '');
+
+          break;
+
         case 'rad':
 
           $relations = array(

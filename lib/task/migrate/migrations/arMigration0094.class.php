@@ -62,6 +62,7 @@ class arMigration0094
     // Add also the available templates
     foreach (array(
       'isad'  => 'ISAD(G), 2nd ed. International Council on Archives',
+      'nobrade'  => 'NOBRADE, 1st ed. Conselho Nacional de Arquivos',
       'dc'    => 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative',
       'mods'  => 'MODS, Version 3.3. U.S. Library of Congress',
       'rad'   => 'RAD, July 2008 version. Canadian Council of Archives') as $key => $value)

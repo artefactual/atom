@@ -152,6 +152,8 @@ note:
     publicationNote:                        Publication note
     generalNote:                            General note
     archivistNote:                          Archivist's note
+  nobrade:
+    nobradeConservationNote:                Notes on conservation
   rad:
     radNoteCast:                            Cast note
     radNoteCredits:                         Credits note

@@ -1,0 +1,656 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2017-05-21T19:20:28Z" product-name="messages">
+    <body>
+
+      <!--IDENTITY AREA-->
+      <trans-unit id="1">
+        <source>Identity area</source>
+        <target>Área de identificação</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Edit identity area</source>
+        <target>Editar área de identificação</target>
+      </trans-unit>
+
+      <!--NOBRADE 1.1-->
+      <trans-unit id="3">
+        <source>Reference code</source>
+        <target>Código de referência</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (NOBRADE 1.1)</source>
+        <target>Identificar a unidade de descrição. Registre, obrigatoriamente, o código do país (BR), o código da entidade custodiadora e o código específico da unidade de descrição. (NOBRADE 1.1)</target>
+      </trans-unit>
+      <!--NOBRADE 1.1 WARNING MESSAGE-->
+      <trans-unit id="5">
+        <source>%1%Reference code%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Código de referencia%2% - É um  %3%campo de preenchimento%4% obrigatório.</target>
+      </trans-unit>
+
+      <!--NOBRADE 1.2-->
+      <trans-unit id="6">
+        <source>Title</source>
+        <target>Título</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (NOBRADE 1.2)</source>
+        <target>Registre o título formal ou conciso da unidade de descrição de acordo com as regras multiníveis. (NOBRADE 1.2)</target>
+      </trans-unit>
+      <!--NOBRADE 1.2 WARNING MESSAGE-->
+      <trans-unit id="8">
+        <source>%1%Title%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Título%2% - É um  %3%campo de preenchimento%4% obrigatório.</target>
+      </trans-unit>
+
+      <!--NOBRADE 1.3-->
+      <trans-unit id="9">
+        <source>Date(s)</source>
+        <target>Data(s)</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Type</source>
+        <target>Tipo de Data</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Date</source>
+        <target>Datas</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Start</source>
+        <target>Início</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>End</source>
+        <target>Fim</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (NOBRADE 1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target>Forneça obrigatoriamente a(s) data(s) de produção da unidade de descrição. Opcionalmente, registre outras datas crônicas pertinentes, como data(s) de acumulação ou data(s)-assunto. Caso seja relevante, registre também a(s) data(s) tópica(s) de produção da unidade de descrição no item Pontos de Acesso - Lugares. (NOBRADE 1.3). Use os campos início e fim para fazer com que as datas sejam pesquisáveis - formatos aceitáveis:  AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.</target>
+      </trans-unit>
+      <!--NOBRADE 1.3 WARNING MESSAGES-->
+      <trans-unit id="15">
+        <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
+        <target>%1%Data(s)%2% - não é consistente com %3%níveis superiores%2%.</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>%1%Date(s)%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Data(s)%2% - Este é um %3%campo de preenchimento%4% obrigatório.</target>
+      </trans-unit>
+
+      <!--NOBRADE 1.4-->
+      <trans-unit id="17">
+        <source>Level of description</source>
+        <target>Nível de descrição</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Record the level of this unit of description. (NOBRADE 1.4)</source>
+        <target>Registre o nível da unidade de descrição. (NOBRADE 1.4)</target>
+      </trans-unit>
+      <!--NOBRADE 1.4 WARNING MESSAGES-->
+      <trans-unit id="19">
+        <source>%1%Level of description%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Nível de descrição%2% - É um  %3%campo de preenchimento%4% obrigatório.</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>%1%Level of description%2% - Value "%value%" is not consistent with higher levels.</source>
+        <target>%1%Nível de descrição%2% - Valor "%value%" não é consistente com níveis superiores.</target>
+      </trans-unit>
+
+      <!--CHILD LEVELS-->
+      <trans-unit id="127">
+        <source>Add new child levels</source>
+        <target>Adicionar novos níveis subordinados</target>
+      </trans-unit>
+      <trans-unit id="128">
+        <source>Child's reference Code</source>
+        <target>Código de referência do subordinado</target>
+      </trans-unit>
+      <trans-unit id="129">
+        <source>Child's level</source>
+        <target>Nível do subordinado</target>
+      </trans-unit>
+      <trans-unit id="130">
+        <source>Child's title</source>
+        <target>Título do subordinado</target>
+      </trans-unit>
+      <trans-unit id="131">
+        <source>Child's date</source>
+        <target>Data do subordinado</target>
+      </trans-unit>
+      <trans-unit id="132">
+        <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
+        <target>Identificador: Fornecer um código de referência local específico, número de controle ou outro identificador exclusivo. Nível de descrição: Registre o nível desta unidade de descrição. Título: Fornecer um título formal ou um título conciso fornecido de acordo com as regras de descrição multinível e convenções nacionais.</target>
+      </trans-unit>
+
+      <!--NOBRADE 1.5-->
+      <trans-unit id="21">
+        <source>Extent and medium</source>
+        <target>Dimensão e suporte</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (NOBRADE 1.5)</source>
+        <target>Registre a dimensão física ou lógica da unidade de descrição, relacionando esse dado ao respsctivo suporte. (NOBRADE 1.5)</target>
+      </trans-unit>
+      <!--NOBRADE 1.5 WARNING MESSAGE-->
+      <trans-unit id="23">
+        <source>%1%Extent and medium%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Dimensão e suporte%2% - É um  %3%elemento%4% obrigatório.</target>
+      </trans-unit>
+
+      <!--CONTEXT AREA-->
+      <trans-unit id="24">
+        <source>Context area</source>
+        <target>Área de contextualização</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Edit Context Area</source>
+        <target>Editar área de contextualização</target>
+      </trans-unit>
+
+      <!--NOBRADE 2.1-->
+      <trans-unit id="26">
+        <source>Name of creator(s)</source>
+        <target>Nome(s) do(s) produtor(es)</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Record the name of the organization which has custody of the archival material. (NOBRADE 2.1) Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
+        <target>Registre a(s) forma(s) normalizada(s) do(s) nome(s) da(s) entidade(s) produtora(s) da unidade de descrição. (NOBRADE 2.1) Pesquisar a lista de entidades arquívisticas digitando alguns caracteres ou, alternativamente, digitar o novo nome para criar uma nova entrada.</target>
+      </trans-unit>
+      <!--NOBRADE 2.1 WARNING MESSAGE-->
+      <trans-unit id="28">
+        <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
+        <target>Esta descrição arquivística, ou um de seus níveis mais altos, %1%requer%2% pelo menos um %3%produtor%4%.</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>This archival description, or one of its higher levels, requires at least one creator.</source>
+        <target>Esta descrição arquivística, ou um de seus níveis mais altos, requer pelo menos um produtor.</target>
+      </trans-unit>
+
+      <!--REPOSITORY - NOT ON NOBRADE'S RULES, BUT NEEDED IN ATOM-->
+      <trans-unit id="30">
+        <source>Repository</source>
+        <target>Entidade custodiadora</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. (NOBRADE 2.1) Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (NOBRADE 2.1)</source>
+        <target>Registre a(s) forma(s) normalizada(s) do(s) nome(s) da(s) entidade(s) produtora(s) da unidade de descrição. (NOBRADE 2.1) Pesquisar a lista de autoridades arquívisticas digitando alguns caracteres ou, alternativamente, digitar o novo nome para criar uma nova entrada.</target>
+      </trans-unit>
+
+      <!--NOBRADE 2.2--> <!--INDEX ACTION CLASS - execute FUNCTION-->
+      <trans-unit id="32">
+        <source>Administrative / biographical history</source>
+        <target>História administrativa / biografia</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Administrative history</source>
+        <target>História administrativa</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Biographical history</source>
+        <target>Biografia</target>
+      </trans-unit>
+
+      <!--NOBRADE 2.3-->
+      <trans-unit id="35">
+        <source>Archival history</source>
+        <target>História arquivística</target>
+      </trans-unit>
+
+      <trans-unit id="36">
+        <source>Record the successive transfers of ownership, responsibility and/or custody of the unit of description and indicate those actions, such as history of the arrangement, production of contemporary finding aids, re-use of the records for other purposes or software migrations, that have contributed to its present structure and arrangement. Give the dates of these actions, insofar as they can be ascertained. If the archival history is unknown, record that information. (NOBRADE 2.3)</source>
+        <target>Identifique a natureza da acumulação do acervo e registre sucessivas transferências de propriedade e custódia, intervenções técnicas ao longo do tempo, dispersões e sinistros relacionados à unidade de descrição. (NOBRADE 2.3)</target>
+      </trans-unit>
+
+      <!--NOBRADE 2.4-->
+      <trans-unit id="37">
+        <source>Immediate source of acquisition or transfer</source>
+        <target>Procedência</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Record the source from which the unit of description was acquired and the date and/or method of acquisition if any or all of this information is not confidential. If the source is unknown, record that information. Optionally, add accession numbers or codes. (NOBRADE 2.4)</source>
+        <target>Registre a origem imediata da unidade de descrição (nome da entidade que encaminhou), a forma e data de aquisição, se possível com as referências pertinentes (instrumento formal de encaminhamento e/ou recebimento como uma correspondência, o número e data da mesma, números ou códigos de entrada da unidade de descrição etc.). Se a origem for desconhecida, recorra à expressão "dado não disponível". (NOBRADE 2.4)</target>
+      </trans-unit>
+
+      <!--CONTENT AND STRUCTURE AREA-->
+      <trans-unit id="39">
+        <source>Content and structure area</source>
+        <target>Área de conteúdo e estrutura</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Edit content and structure area</source>
+        <target>Editar área de conteúdo e estrutura</target>
+      </trans-unit>
+
+      <!--NOBRADE 3.1-->
+      <trans-unit id="41">
+        <source>Scope and content</source>
+        <target>Âmbito e conteúdo</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (NOBRADE 3.1)</source>
+        <target>Forneça aos usuários informações relevantes ou complementaress ao Título (NOBRADE 1.2) da unidade de descrição. Informe, de acordo com o nível, o âmbito (contexto histórico e geográfico) e o conteúdo (tipologia documental, assunto e estrutura da informação) da unidade de descrição (NOBRADE 3.1)</target>
+      </trans-unit>
+
+      <!--NOBRADE 3.2-->
+      <trans-unit id="43">
+        <source>Appraisal, Destruction and Scheduling</source>
+        <target>Avaliação, eliminação e temporalidade</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material. (NOBRADE 3.2)</source>
+        <target>Registre quaisquer ações e critérios adotados para avaliação, seleção e eliminação ocorridas ou planejadas para a unidade de descrição (NOBRADE 3.2)</target>
+      </trans-unit>
+
+      <!--NOBRADE 3.3-->
+      <trans-unit id="45">
+        <source>Accruals</source>
+        <target>Incorporações</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Indicate if accruals are expected. Where appropriate, give an estimate of their quantity and frequency. (NOBRADE 3.3)</source>
+        <target>Informe o usuário sobre acréscimos previstos à unidade de descrição, registrando uma estimativa de suas quantidades e frequência (a periodicidade ou data, conteúdo e dimensão). (NOBRADE 3.3)</target>
+      </trans-unit>
+
+      <!--NOBRADE 3.4-->
+      <trans-unit id="47">
+        <source>System of arrangement</source>
+        <target>Sistema de arranjo</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Specify the internal structure, order and/or the system of classification of the unit of description. Note how these have been treated by the archivist. For electronic records, record or reference information on system design. (NOBRADE 3.4)</source>
+        <target>Informe sobre a organização da unidade de descrição, especialmente quanto ao estágio de tratamento técnico, à estrutura de organização ou sistema de arranjo e à ordenação (NOBRADE 3.4)</target>
+      </trans-unit>
+
+      <!--CONDITION OF ACCESS AND USE AREA-->
+      <trans-unit id="49">
+        <source>Conditions of access and use area</source>
+        <target>Área de condições de acesso e uso</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Edit conditions of access and use area</source>
+        <target>Editar área de condições de acesso e uso</target>
+      </trans-unit>
+
+      <!--NOBRADE 4.1-->
+      <trans-unit id="51">
+        <source>Conditions governing access</source>
+        <target>Condições de acesso</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (NOBRADE 4.1)</source>
+        <target>Informe se existem ou não restrições de acesso à unidade de descrição. Em caso afirmativo, indique o tipo de restrição, a norma legal ou administrativa em que se baseia e, se for o caso, o período de duração da restrição. Quando a restrição for relativa a uma parte da unidade que está sendo descrita, identifique, ainda que sumariamente, a parcela que sofre restrição. (NOBRADE 4.1)</target>
+      </trans-unit>
+
+      <!--NOBRADE 4.2-->
+      <trans-unit id="53">
+        <source>Conditions governing reproduction</source>
+        <target>Condições de reprodução</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (NOBRADE 4.2)</source>
+        <target>O usuário deve ser informado da existência de restrições gerais ou específicas quanto à reprodução, uso ou divulgação da unidade de descrição. Caso seja necessário um pedido de autorização, o usuário deve ser instruído a quem e como se dirigir.. (NOBRADE 4.2)</target>
+      </trans-unit>
+
+      <!--NOBRADE 4.3-->
+      <trans-unit id="55">
+        <source>Language of material</source>
+        <target>Idioma da unidade de descrição</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Record the language(s) of the materials comprising the unit of description. (NOBRADE 4.3)</source>
+        <target>Informe o(s) idioma(s) da unidade de descrição. (NOBRADE 4.3)</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Script of material</source>
+        <target>Sistema de escrita da unidade de descrição</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Record the script(s) of the materials comprising the unit of description. (NOBRADE 4.3)</source>
+        <target>Informe o(s) sistema(s) de escrita da unidade de descrição. (NOBRADE 4.3)</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Language and script notes of material</source>
+        <target>Notas sobre os idiomas e os sistemas de escrita do material</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (NOBRADE 4.3)</source>
+        <target>Registre a existência de documentos cifrados ou de abreviaturas incomuns.</target>
+      </trans-unit>
+
+      <!--NOBRADE 4.4-->
+      <trans-unit id="61">
+        <source>Physical characteristics and technical requirements</source>
+        <target>Características físicas e requisitos Técnicos</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description. (NOBRADE 4.4)</source>
+        <target>Informe características físicas, requisitos técnicos e problemas decorrentes do estado de conservação que afetem o uso da unidade de descrição. (NOBRADE 4.4)</target>
+      </trans-unit>
+
+      <!--NOBRADE 4.5-->
+      <trans-unit id="63">
+        <source>Finding aids</source>
+        <target>Instrumentos de pesquisa</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Give information about any finding aids that the repository or records creator may have that provide information relating to the context and contents of the unit of description. If appropriate, include information on where to obtain a copy. (NOBRADE 4.5)</source>
+        <target>Identificar os instrumentos de pesquisa relativos à unidade de descrição. Nos níveis de descrição 0 a 3, registre a existência de instrumentos de pesquisa, publicados ou não e/ou eletrônicos, utilizando a norma da ABNT – NBR 6023. (NOBRADE 4.5)</target>
+      </trans-unit>
+
+      <!--ALLIED MATERIALS AREA-->
+      <trans-unit id="65">
+        <source>Allied materials area</source>
+        <target>Área de documentação associada</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Edit alied materials area</source>
+        <target>Editar área de documentação associada</target>
+      </trans-unit>
+
+      <!--NOBRADE 5.1-->
+      <trans-unit id="67">
+        <source>Existence and location of originals</source>
+        <target>Existência e localização dos originais</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>If the original of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. If the originals no longer exist, or their location is unknown, give that information. (NOBRADE 5.1)</source>
+        <target>Registre a localização do original da unidade de descrição, bem como quaisquer números de controle significativos, se o original pertencer à entidade custodiadora ou a outra entidade. No caso dos originais não existirem ou ser desconhecida a sua localização, registre essa informação. (NOBRADE 5.1)</target>
+      </trans-unit>
+
+      <!--NOBRADE 5.2-->
+      <trans-unit id="69">
+        <source>Existence and location of copies</source>
+        <target>Existência e localização de cópias</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>If the copy of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. (NOBRADE 5.2)</source>
+        <target>Registre a existência de cópia na entidade custodiadora, fornecendo a referência de controle pela qual seja recuperada. Se existir cópia em outra entidade, registre a forma autorizada do nome da entidade custodiadora e sua localização geográfica, como, por exemplo, a cidade, bem como outros elementos que facilitem sua recuperação, como seu sítio na internet e endereço eletrônico. (NOBRADE 5.2)</target>
+      </trans-unit>
+
+      <!--NOBRADE 5.3-->
+      <trans-unit id="71">
+        <source>Related units of description</source>
+        <target>Unidades de descrição relacionadas</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (4.5) to make the reference to it. (NOBRADE 5.3)</source>
+        <target>Registre informação sobre a existência de unidades de descrição que sejam relacionadas por proveniência ou outra(s) forma(s) de associação na mesma entidade custodiadora ou em qualquer outra. Se necessário, justifique essa relação. (NOBRADE 5.3)</target>
+      </trans-unit>
+
+      <!--RELATED DESCRIPTIONS - NOT ON NOBRADE'S RULES, BUT NEEDED IN ATOM-->
+      <trans-unit id="73">
+        <source>Related descriptions</source>
+        <target>Descrição relacionadas</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target>Para criar uma relação entre esta descrição e outra descrição realizada previamente no AtoM, comece a digitar o nome da descrição relacionada e selecione-a no menu suspenso de preenchimento automático quando aparecer abaixo. Vários relacionamentos podem ser criados.</target>
+      </trans-unit>
+
+      <!--NOBRADE 5.4-->
+      <trans-unit id="75">
+        <source>Publication notes</source>
+        <target>Nota sobre publicação</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Record a citation to, and/or information about a publication that is about or based on the use, study, or analysis of the unit of description. Include references to published facsimiles or transcriptions. (NOBRADE 5.4)</source>
+        <target>Registre as referências bibliográficas de publicações sobre a unidade de descrição ou elaboradas com base no seu uso, estudo e análise, bem como as que a referenciem, transcrevam ou reproduzam. (NOBRADE 5.4)</target>
+      </trans-unit>
+
+      <!--NOTES AREA-->
+      <trans-unit id="77">
+        <source>Notes area</source>
+        <target>Área de notas</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Edit notes area</source>
+        <target>Editar área de notas</target>
+      </trans-unit>
+
+      <!--NOBRADE 6.2-->
+      <trans-unit id="79">
+        <source>Record specialized or other important information not accommodated by any of the defined elements of description. (NOBRADE 6.2)</source>
+        <target>Registre neste elemento informação que, por sua especificidade, não é pertinente a nenhum dos elementos de descrição definidos, ou complete informações que já tenham sido fornecidas, devendo, neste caso, ser indicado o elemento de descrição ao qual se faz referência. (NOBRADE 6.2)</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/notesComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>General notes</source>
+        <target>Notas gerais</target>
+      </trans-unit>
+
+      <!--NOBRADE 6.1-->
+      <trans-unit id="81">
+        <source>Record information on the conservation status of the unit of description as well as conservation and/or restoration measures that have been, are being or should be taken in relation to it. (NOBRADE 6.1)</source>
+        <target>Registre informações sobre o estado de conservação da unidade de descrição, bem como medidas de conservação e/ou restauro que foram, estão sendo ou devam ser tomadas em relação a ela. (NOBRADE 6.1)</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Notes on conservation</source>
+        <target>Notas sobre conservação</target>
+      </trans-unit>
+
+      <!--ACCESS POINTS AREA-->
+      <trans-unit id="83">
+        <source>Access points area</source>
+        <target>Área de pontos de acesso</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Edit access points area</source>
+        <target>Editar área de pontos de acesso</target>
+      </trans-unit>
+
+      <trans-unit id="85">
+        <source>Subject access points</source>
+        <target>Pontos de acesso - assunto</target>
+      </trans-unit>
+
+      <trans-unit id="86">
+        <source>Place access points</source>
+        <target>Pontos de acesso - lugares</target>
+      </trans-unit>
+
+      <trans-unit id="87">
+        <source>Genre access points</source>
+        <target>Pontos de acesso - gênero</target>
+      </trans-unit>
+
+      <trans-unit id="88">
+        <source>Name access points (subjects)</source>
+        <target>Pontos de acesso (pessoas/entidades relacionadas)</target>
+      </trans-unit>
+
+      <!--DESCRIPTION CONTROL AREA-->
+      <trans-unit id="89">
+        <source>Description control area</source>
+        <target>Área de controle da descrição</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Edit description control area</source>
+        <target>Editar área de controle da descrição </target>
+      </trans-unit>
+
+
+      <trans-unit id="91">
+        <source>Description's reference code</source>
+        <target>Código de referência da descrição</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
+        <target>Registrar, se necessário para a sua identificação única, os seguintes elementos: o código do país, de acordo com a última versão da ISO 3166: Codes for the representation of names of countries;  o código da entidade detentora, de acordo com a norma nacional de codificação das entidades detentoras, ou outro identificador específico de localização; Um código de referência local único, um número de controlo, ou outro identificador único.</target>
+      </trans-unit>
+
+      <trans-unit id="93">
+        <source>Descriptor institution's reference code</source>
+        <target>Identificador da instituição descritora</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
+        <target>Registrar a forma autorizada do nome da agência responsável pela criação, modificação e divulgação da descrição ou, alternativamente, o código normalizado da agência de acordo com as convenções internacionais ou nacionais.</target>
+      </trans-unit>
+
+      <!--NOBRADE 7.2-->
+      <trans-unit id="95">
+        <source>Description's rules or conventions used</source>
+        <target>Regras ou convenções utilizadas na descrição</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Record the international, national and/or local rules or conventions followed in preparing the description. (NOBRADE 7.2)</source>
+        <target>Registre as regras e/ou convenções internacionais, nacionais, locais e/ou institucionais seguidas na preparação da descrição. (NOBRADE 7.2)</target>
+      </trans-unit>
+
+      <trans-unit id="97">
+        <source>Description's status</source>
+        <target>Status da descrição</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
+        <target>Registrar o estado da descrição, indicando se está em elaboração, concluida e/ou revista ou eliminada.</target>
+      </trans-unit>
+
+      <trans-unit id="99">
+        <source>Description's level of detail</source>
+        <target>Nível de detalhamento da descrição</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
+        <target>Indicar o nível de detalhe da descrição (mínima, parcial ou completa) de acordo com as regras ou diretrizes nacionais e internacionais.</target>
+      </trans-unit>
+
+      <!--NOBRADE 7.3-->
+      <trans-unit id="101">
+        <source>Dates of Creation, revision and deletion</source>
+        <target>Data(s) da(s) descrição(ões) - criação, revisão e eliminação</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>Record the date(s) the entry was prepared and/or revised. (NOBRADE 7.3)</source>
+        <target>Registre a(s) data(s) em que a descrição foi preparada e/ou revisada. (NOBRADE 7.3) </target>
+      </trans-unit>
+
+      <trans-unit id="103">
+        <source>Description's language(s)</source>
+        <target>Idioma(s) da descrição</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Indicate the language(s) used to create the description of the archival material.</source>
+        <target>Indicar o(s) idioma(s) utilizado(s) para descrever o documento arquivístico.</target>
+      </trans-unit>
+
+      <trans-unit id="105">
+        <source>Description's script(s)</source>
+        <target>Sistema(s) de escrita(s) da descrição</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Indicate the script(s) used to create the description of the archival material.</source>
+        <target>Indicar o(s) sistema(s) escrita(s) utilizado(s) para descrever o documento arquivístico.</target>
+      </trans-unit>
+
+      <trans-unit id="107">
+        <source>Sources used in the description</source>
+        <target>Fontes utilizadas para a descrição</target>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
+        <target>Registre as citações usadas de qualquer fonte externa para a descrição arquivística (como os de Escopo e Contéudo, Arquivo Histórico, ou Campos de notas).</target>
+      </trans-unit>
+
+      <trans-unit id="109">
+        <source>Archivist's notes</source>
+        <target>Nota do arquivista</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Record notes on sources consulted in preparing the description and who prepared it. (NOBRADE 7.1)</source>
+        <target>Registre as fontes consultadas para elaboração da descrição, bem como os nomes das pessoas envolvidas no trabalho. (NOBRADE 7.1)</target>
+      </trans-unit>
+
+      <!--ADMINISTRATION AREA-->
+
+
+      <!--OTHERS-->
+      <trans-unit id="110">
+        <source>Add new archival description</source>
+        <target>Adicionar nova descrição arquivística</target>
+      </trans-unit>
+
+      <trans-unit id="111">
+        <source>Untitled</source>
+        <target>Sem título</target>
+      </trans-unit>
+
+      <trans-unit id="112">
+        <source>Edit %1%</source>
+        <target>Editar %1%</target>
+      </trans-unit>
+
+      <trans-unit id="113">
+        <source>Note</source>
+        <target>Nota</target>
+      </trans-unit>
+   
+      <trans-unit id="114">
+        <source>Date(s) of description</source>
+        <target>Data(s) da(s) descrição(ões)</target>
+      </trans-unit>
+      
+      <trans-unit id="115">
+        <source>Identifier</source>
+        <target>Código de referência</target>
+      </trans-unit>
+         
+      <trans-unit id="116">
+        <source>File list</source>
+        <target>Lista de pastas</target>
+      </trans-unit>
+
+      <trans-unit id="117">
+        <source>Related function</source>
+        <target>Funções relacionadas</target>
+      </trans-unit>
+           
+      <trans-unit id="118">
+        <source>Rules or conventions used</source>
+        <target>Regras ou convenções utilizadas</target>
+      </trans-unit>     
+      
+      <trans-unit id="119">
+        <source>This is a duplicate of record %1%</source>
+        <target>Esta é uma cópia de documento% 1%</target>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>This is a mandatory element.</source>
+        <target>É um elemento obrigatório.</target>
+      </trans-unit>
+                
+      <trans-unit id="121">
+        <source>Rights area</source>
+        <target>Área de direitos</target>
+      </trans-unit>
+      
+      <trans-unit id="122">
+        <source>Accession area</source>
+        <target>Área de acesso</target>
+      </trans-unit>
+      
+      <trans-unit id="123">
+        <source>Label</source>
+        <target>Tipo</target>
+      </trans-unit>
+      
+      <trans-unit id="124">
+        <source>Add alternative reference code(s)</source>
+        <target>Adicionar código(s) de referência alternativo(s)</target>
+      </trans-unit>
+      
+      <trans-unit id="125">
+        <source>Add new</source>
+        <target>Adicionar</target>
+      </trans-unit>
+
+      <trans-unit id="126">
+        <source><strong>Label:</strong> Enter a name for the alternative reference code field that indicates its purpose and usage.<br/><strong>Reference Code:</strong> Enter a legacy reference code, alternative reference code, or any other alpha-numeric string associated with the record.</source>
+        <target>Tipo: Digite um nome para o código de referência alternativo que indique seu propósito e uso. <br/> Código de referência: insira um código de referência legal, alternativo ou qualquer outra cadeia alfanumérica associada ao registro.</target>
+      </trans-unit>
+
+    </body>
+  </file>
+</xliff>

@@ -39,6 +39,10 @@ class SettingsDefaultTemplateForm extends sfForm
     {
       $informationObjectTemplates['isad'] = $i18n->__('ISAD(G), 2nd ed. International Council on Archives');
     }
+    if ($configuration->isPluginEnabled('sfNobradePlugin'))
+    {
+      $informationObjectTemplates['nobrade'] = $i18n->__('NOBRADE, 1st ed. Conselho Nacional de Arquivos');
+    }
     if ($configuration->isPluginEnabled('sfDcPlugin'))
     {
       $informationObjectTemplates['dc'] = $i18n->__('Dublin Core, Version 1.1. Dublin Core Metadata Initiative');

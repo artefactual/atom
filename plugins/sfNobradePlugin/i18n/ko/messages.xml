@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2016-04-19T21:27:46Z" product-name="messages">
+    <body>
+      <trans-unit id="43">
+        <source>Identity area</source>
+        <target>식별 영역</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Reference code</source>
+        <target>참조코드</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Identifier</source>
+        <target>식별자</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Title</source>
+        <target>제목</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Level of description</source>
+        <target>기술 계층</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Context area</source>
+        <target>맥락 영역</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Repository</source>
+        <target>기록보존소</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Conditions governing access</source>
+        <target>접근 조건</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Note</source>
+        <target>주기(노트)</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Subject access points</source>
+        <target>주제 접근점</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Place access points</source>
+        <target>장소 접근점</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Institution identifier</source>
+        <target>전거레코드 책임기관 식별자</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Status</source>
+        <target>전거레코드 현지위</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Level of detail</source>
+        <target>전거레코드 상세정도</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Dates of creation, revision and deletion</source>
+        <target>생산 수정 삭제 일자</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Sources</source>
+        <target>자료</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Date</source>
+        <target>일자</target>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Type</source>
+        <target>형태</target>
+      </trans-unit>
+      <trans-unit id="133">
+        <source>Description identifier</source>
+        <target>기술 식별자</target>
+      </trans-unit>
+      <trans-unit id="403">
+        <source>Date(s)</source>
+        <target>일자(시기)</target>
+      </trans-unit>
+      <trans-unit id="697">
+        <source>Edit identity area</source>
+        <target>식별 영역 편집</target>
+      </trans-unit>
+      <trans-unit id="698">
+        <source>Edit context area</source>
+        <target>맥락 영역 편집</target>
+      </trans-unit>
+      <trans-unit id="732">
+        <source>Rules or conventions</source>
+        <target>규칙 혹은 표준규정 </target>
+      </trans-unit>
+      <trans-unit id="747">
+        <source>Appraisal, destruction and scheduling</source>
+        <target>평가 폐기 보존기간 책정</target>
+      </trans-unit>
+      <trans-unit id="750">
+        <source>System of arrangement</source>
+        <target>정리 시스템</target>
+      </trans-unit>
+      <trans-unit id="754">
+        <source>Conditions governing reproduction</source>
+        <target>복사조건</target>
+      </trans-unit>
+      <trans-unit id="756">
+        <source>Physical characteristics and technical requirements</source>
+        <target>물리적 특성과 기술적 요구사항</target>
+      </trans-unit>
+      <trans-unit id="759">
+        <source>Existence and location of originals</source>
+        <target>원본 존재와 소장위치</target>
+      </trans-unit>
+      <trans-unit id="761">
+        <source>Existence and location of copies</source>
+        <target>복사본의 존재와 소장위치</target>
+      </trans-unit>
+      <trans-unit id="763">
+        <source>Related units of description</source>
+        <target>관련 기술 단위</target>
+      </trans-unit>
+      <trans-unit id="828">
+        <source>Untitled</source>
+        <target>제목없음</target>
+      </trans-unit>
+      <trans-unit id="829">
+        <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
+        <target>이 기록물 기술 또는 상위 계층 요소, %1%는 %2% 적어도 하나의 %3% 생산자%4%정보가 필요합니다</target>
+      </trans-unit>
+      <trans-unit id="830">
+        <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
+        <target>%1%날짜(들)%2% - 가 상위 계층과 일치하지 않습니다. %3%%2%.</target>
+      </trans-unit>
+      <trans-unit id="831">
+        <source>%1%Date(s)%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%날짜(들)%2% - 이 항목은 %3%필수%4% 요소입니다.</target>
+      </trans-unit>
+      <trans-unit id="832">
+        <source>%1%Extent and medium%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%규모와 유형%2% - 이 항목은 %3%필수%4% 요소입니다.</target>
+      </trans-unit>
+      <trans-unit id="833">
+        <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%참조코드%2% - 이 항목은 %3%필수%4% 요소입니다.</target>
+      </trans-unit>
+      <trans-unit id="834">
+        <source>%1%Level of description%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%기술 계층%2% - 이 항목은 %3%필수%4% 요소입니다.</target>
+      </trans-unit>
+      <trans-unit id="835">
+        <source>%1%Title%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%제목%2% - 이 항목은 %3%필수%4% 요소입니다.</target>
+      </trans-unit>
+      <trans-unit id="836">
+        <source>%1%Level of description%2% - Value "%value%" is not consistent with higher levels.</source>
+        <target>%1%기술 계층%2% - 입력값 "%value%" 이 상위 계층과 일치하지 않습니다.</target>
+      </trans-unit>
+      <trans-unit id="838">
+        <source>File list</source>
+        <target>파일 목록</target>
+      </trans-unit>
+      <trans-unit id="841">
+        <source>Extent and medium</source>
+        <target>규모 및 매체</target>
+      </trans-unit>
+      <trans-unit id="842">
+        <source>Related function</source>
+        <target>관련 기능</target>
+      </trans-unit>
+      <trans-unit id="843">
+        <source>Archival history</source>
+        <target>기록물 이력</target>
+      </trans-unit>
+      <trans-unit id="844">
+        <source>Immediate source of acquisition or transfer</source>
+        <target>수집/이관의 직접적 출처
+</target>
+      </trans-unit>
+      <trans-unit id="845">
+        <source>Content and structure area</source>
+        <target>내용과 구조 영역</target>
+      </trans-unit>
+      <trans-unit id="846">
+        <source>Edit content and structure area</source>
+        <target>내용과 구조 영역 편집하기</target>
+      </trans-unit>
+      <trans-unit id="847">
+        <source>Scope and content</source>
+        <target>범위와 내용</target>
+      </trans-unit>
+      <trans-unit id="848">
+        <source>Accruals</source>
+        <target>추가 이관</target>
+      </trans-unit>
+      <trans-unit id="849">
+        <source>Conditions of access and use area</source>
+        <target>열람 및 이용 조건 영역</target>
+      </trans-unit>
+      <trans-unit id="850">
+        <source>Edit conditions of access and use area</source>
+        <target>열람 및 이용 조건 영역 편집하기</target>
+      </trans-unit>
+      <trans-unit id="851">
+        <source>Language of material</source>
+        <target>기록물의 언어</target>
+      </trans-unit>
+      <trans-unit id="852">
+        <source>Script of material</source>
+        <target>자료 규약</target>
+      </trans-unit>
+      <trans-unit id="853">
+        <source>Finding aids</source>
+        <target>검색도구</target>
+      </trans-unit>
+      <trans-unit id="854">
+        <source>Allied materials area</source>
+        <target>연관자료 영역</target>
+      </trans-unit>
+      <trans-unit id="855">
+        <source>Edit alied materials area</source>
+        <target>연관자료 영역 편집하기</target>
+      </trans-unit>
+      <trans-unit id="856">
+        <source>Publication note</source>
+        <target>출판주기</target>
+      </trans-unit>
+      <trans-unit id="857">
+        <source>Notes area</source>
+        <target>주기사항</target>
+      </trans-unit>
+      <trans-unit id="858">
+        <source>Edit notes area</source>
+        <target>주기사항 영역 편집하기</target>
+      </trans-unit>
+      <trans-unit id="859">
+        <source>Access points</source>
+        <target>접근점</target>
+      </trans-unit>
+      <trans-unit id="860">
+        <source>Edit access points</source>
+        <target>접근점 편집</target>
+      </trans-unit>
+      <trans-unit id="861">
+        <source>Description control area</source>
+        <target>기술통제영역</target>
+      </trans-unit>
+      <trans-unit id="862">
+        <source>Edit description control area</source>
+        <target>기술 통제 영역 편집하기</target>
+      </trans-unit>
+      <trans-unit id="863">
+        <source>Rules and/or conventions used</source>
+        <target>규칙 및 협약</target>
+      </trans-unit>
+      <trans-unit id="864">
+        <source>Dates of creation revision deletion</source>
+        <target>작성, 수정, 삭제일자</target>
+      </trans-unit>
+      <trans-unit id="865">
+        <source>Language(s)</source>
+        <target>언어(들)</target>
+      </trans-unit>
+      <trans-unit id="866">
+        <source>Script(s)</source>
+        <target>규약(들)</target>
+      </trans-unit>
+      <trans-unit id="867">
+        <source>Archivist's note</source>
+        <target>아키비스트 주기</target>
+      </trans-unit>
+      <trans-unit id="869">
+        <source>This is a duplicate of record %1%</source>
+        <target>중복된 기록입니다.'%1%'</target>
+      </trans-unit>
+      <trans-unit id="870">
+        <source>This is a mandatory element.</source>
+        <target>이 항목은 필수 요소입니다.</target>
+      </trans-unit>
+      <trans-unit id="875">
+        <source>Name of creator(s)</source>
+        <target>생산자명</target>
+      </trans-unit>
+      <trans-unit id="876">
+        <source>This archival description, or one of its higher levels, requires at least one creator.</source>
+        <target>이 기록물 기술 또는 상위 계층 요소는 적어도 한명의 생산자 정보가 필요합니다.</target>
+      </trans-unit>
+      <trans-unit id="886">
+        <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
+        <target>기술 단위의 이용에 영향을 끼칠 수 있는 보존 필요사항 같은 중요한 물리적 조건을 명시하시오. 기술 단위를 이용하는데 필요한 소프트웨어 및/또는 하드웨어가 있다면 이를 기입하시오.</target>
+      </trans-unit>
+      <trans-unit id="895">
+        <source>Add new archival description</source>
+        <target>기록물 기술정보 추가</target>
+      </trans-unit>
+      <trans-unit id="896">
+        <source>Edit %1%</source>
+        <target>%1% 편집</target>
+      </trans-unit>
+      <trans-unit id="897">
+        <source>Start</source>
+        <target>시작</target>
+      </trans-unit>
+      <trans-unit id="898">
+        <source>End</source>
+        <target>종료</target>
+      </trans-unit>
+      <trans-unit id="905">
+        <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
+        <target>기록 자료를 관리하는 조직의 이름을 기록하시오. 이름의 처음 몇 문자를 입력하여 기록보존소 기록물에 존재하는 이름을 검색하시오. 그렇지 않으면, 생성할 새로운 이름을 입력하고 새로운 기록 보존소 기록물에 링크하시오.</target>
+      </trans-unit>
+      <trans-unit id="910">
+        <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
+        <target>지역 및/또는 국가의 규정에 따라 고유한 기술 식별자를 기록하시오. 만약 기술이 국제적으로 사용된다면, 국가명에 대한 ISO 3166를 따라 국가코드를 기록하시오. 기술의 생산자가 국제기구일 경우, 국가코드에 조직 식별자를 기입하시오.</target>
+      </trans-unit>
+      <trans-unit id="911">
+        <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
+        <target>기술사항을 생성, 수정 또는 배포함에 있어 책임을 지는 기관(들)의 공식명칭(들)을 기록하거나, 국내 또는 국제기관 표준 코드를에 따른 기관의 코드를 기록하시오.</target>
+      </trans-unit>
+      <trans-unit id="912">
+        <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
+        <target>현재 기록물 기술의 상태, 즉  초안인지 최종본인지, 수정, 삭제 여부가 있는지에 대해 기술하시오. </target>
+      </trans-unit>
+      <trans-unit id="913">
+        <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
+        <target>기술이 관련 있는 국제 및/또는 국가적 지침 및/또는 규칙에 따라 세부사항의 최소, 일부 또는 최대 계층으로 구성되어있는지 여부를 기록하시오.</target>
+      </trans-unit>
+      <trans-unit id="914">
+        <source>Record the date(s) the entry was prepared and/or revised.</source>
+        <target>항목이 작성 되었거나 수정된 일자(들)를 기록하시오.</target>
+      </trans-unit>
+      <trans-unit id="915">
+        <source>Indicate the language(s) used to create the description of the archival material.</source>
+        <target>기록물을 기술하는데 사용된 언어(들)을 기입하시오.</target>
+      </trans-unit>
+      <trans-unit id="916">
+        <source>Indicate the script(s) used to create the description of the archival material.</source>
+        <target>기록 자료의 기술을 만드는 데 사용되는 스크립트(들)을 밝히시오.</target>
+      </trans-unit>
+      <trans-unit id="919">
+        <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
+        <target>특정지역참조코드, 통제번호, 다른 유일한 식별자를 제공하라. 국가코드, 보존소 코드는 완전한 참조코드의 형태로 연결된 보존소 코드로부터 자동적으로 추가될 것이다. (ISAD 3.1.1)
+</target>
+      </trans-unit>
+      <trans-unit id="920">
+        <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
+        <target>다계층 기술 규칙과 국가적인 협약에 따라 공식제목 뿐만 아니라 간단한 부제목울 제공한다. (ISAD 3.1.2)	
+</target>
+      </trans-unit>
+      <trans-unit id="921">
+        <source>Record the level of this unit of description. (ISAD 3.1.4)</source>
+        <target>기술단위의 계층을 기록한다. (ISAD 3.1.4)	
+</target>
+      </trans-unit>
+      <trans-unit id="922">
+        <source>Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (ISAD 3.1.5)</source>
+        <target>물리적이거나 논리적인 단위의 수와 측정단위를 아라비아 숫자로 써서 기술 단위의 규모를 기록하라. 기술단위의 구체적 유형을 제시하라. (ISAD 3.1.5)
+</target>
+      </trans-unit>
+      <trans-unit id="923">
+        <source>Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)</source>
+        <target>기술 단위에 속한 기록의 생산, 유지, 축적에 책임이 있는 기관이나 개인의 이름을 기록하라. 이름의 처음 몇 자를 입력하여 전거레코드에 존재하는 이름을 검색하라. 검색이 안 되면, 새 이름을 입력하여 새로운 전거레코드와 연결한다.(ISAD 3.2.1)
+</target>
+      </trans-unit>
+      <trans-unit id="924">
+        <source>Record the successive transfers of ownership, responsibility and/or custody of the unit of description and indicate those actions, such as history of the arrangement, production of contemporary finding aids, re-use of the records for other purposes or software migrations, that have contributed to its present structure and arrangement. Give the dates of these actions, insofar as they can be ascertained. If the archival history is unknown, record that information. (ISAD 3.2.3)</source>
+        <target>기술단위의 소유권, 책임 그리고 보관에 관한 계속되는 이전을 기록하고 기록의 현재 구조나 정리 상태에 영향을 미친 정리연혁, 최신검색도구의 제작, 다른 목적을 위한 기록 재사용이나 소프트웨어 마이그레이션 등과 같은 활동을 나타내라. 확인할 수 있다면, 이러한 활동이 일어난 날짜를 기입하라. 만약 기록의 이력을 알 수 없다면, 그 내용을 기록하라. (ISAD 3.2.3)
+</target>
+      </trans-unit>
+      <trans-unit id="925">
+        <source>Record the source from which the unit of description was acquired and the date and/or method of acquisition if any or all of this information is not confidential. If the source is unknown, record that information. Optionally, add accession numbers or codes. (ISAD 3.2.4)</source>
+        <target>정보의 전부 또는 일부가 비밀이 아니라면 기술단위 수집 정보원과 날짜, 수집방법을 기록하라. 정보원(source)을 확인할 수 없다면, 그 내용을 기록하라. 선택적으로, 이관번호와 코드를 추가하라. (ISAD 3.2.4)	
+</target>
+      </trans-unit>
+      <trans-unit id="926">
+        <source>Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (ISAD 3.3.1)</source>
+        <target>기술계층에 맞게 기술단위의 범위(시기와 지명 등)와 내용(문서양식, 주제, 행정절차 등)을 요약 기술한다. (ISAD 3.3.1)	</target>
+      </trans-unit>
+      <trans-unit id="927">
+        <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material. (ISAD 3.3.2)</source>
+        <target>계획되었거나 또는 이미 수행된 기술단위의 평가, 폐기, 처리일정이 특히 자료 판단에 영향을 미치는 것이라면 그것을 기록하라. (ISAD 3.3.2)
+</target>
+      </trans-unit>
+      <trans-unit id="928">
+        <source>Indicate if accruals are expected. Where appropriate, give an estimate of their quantity and frequency. (ISAD 3.3.3)</source>
+        <target>추가 이관이 예상된다면 표시하여라. 빈도와 양의 추정치를 적절하게 기입하라. (ISAD 3.3.3)
+</target>
+      </trans-unit>
+      <trans-unit id="929">
+        <source>Specify the internal structure, order and/or the system of classification of the unit of description. Note how these have been treated by the archivist. For electronic records, record or reference information on system design. (ISAD 3.3.4)</source>
+        <target>기술단위의 내부 구조, 질서 혹은 분류체계를 기입하라. 이것이 아키비스트에 의해 어떻게 처리되었는지에 대해서도 기재하라. 전자기록의 경우, 시스템 디자인에 관한 정보를 기록하거나 참조사항을 기록하라. (ISAD 3.3.4)	
+</target>
+      </trans-unit>
+      <trans-unit id="930">
+        <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
+        <target>해당 기술단위를 열람하는데 영향을 미치는 법적 상태, 계약, 규정 또는 정책을 구체적으로 제시하라. 기록 열람의 제한기간과 열람 가능 날짜를 표시하라. (ISAD 3.4.1)	
+</target>
+      </trans-unit>
+      <trans-unit id="932">
+        <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
+        <target>기술단위를 구성하는 기록의 언어를 기록하라. (ISAD 3.4.3)
+</target>
+      </trans-unit>
+      <trans-unit id="934">
+        <source>Give information about any finding aids that the repository or records creator may have that provide information relating to the context and contents of the unit of description. If appropriate, include information on where to obtain a copy. (ISAD 3.4.5)</source>
+        <target>보존소나 기록 생산자가 가지고 있는, 기술단위의 맥락과 내용에 관한 정보를 제공하는 모든 검색도구에 관한 정보를 제시하여라. 경우에 따라 어디에서 사본을 얻을 수 있는지에 대한 정보도 포함하라. (ISAD 3.4.5)</target>
+      </trans-unit>
+      <trans-unit id="935">
+        <source>If the original of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. If the originals no longer exist, or their location is unknown, give that information. (ISAD 3.5.1)</source>
+        <target>기술단위의 원본을 (기관 내부 또는 그 외의 장소에서) 이용할 수 있다면 중요한 관리번호와 함께 그 위치를 기록하라. 원본이 더 이상 존재하지 않거나 그 위치를 알 수 없을 때는 해당 정보를 기록하라. (ISAD 3.5.1)	
+</target>
+      </trans-unit>
+      <trans-unit id="936">
+        <source>If the copy of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. (ISAD 3.5.2)</source>
+        <target>기술단위의 사본을 (기관 내부 또는 그 외의 장소에서) 이용할 수 있다면 위치와 주요 관리번호를 기록하라. (ISAD 3.5.2)</target>
+      </trans-unit>
+      <trans-unit id="937">
+        <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
+        <target>출처나 다른 단체와 관련이 있는 같은 보존소나 다른 곳에 있는 기술단위에 관한 정보를 기록하라. 적절한 안내서로 관계 속성을 설명하라. 관련된 기술단위가 검색도구이면, 그것을 참조하기 위해 기술요소(3.4.5)로 검색도구를 사용하라. (ISAD 3.5.3)	
+</target>
+      </trans-unit>
+      <trans-unit id="940">
+        <source>Name access points (subjects)</source>
+        <target>이름 접근점 (주제)</target>
+      </trans-unit>
+      <trans-unit id="941">
+        <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
+        <target>기술물을 작성할 때 따른 국제적, 국가적 또는 지역적 규칙이나 협약을 기록하라. (ISAD 3.7.2)	
+</target>
+      </trans-unit>
+      <trans-unit id="943">
+        <source>Rights area</source>
+        <target>권한 영역</target>
+      </trans-unit>
+      <trans-unit id="945">
+        <source>Accession area</source>
+        <target>인수 영역</target>
+      </trans-unit>
+      <trans-unit id="949">
+        <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
+        <target>기술단위를 구성하는 기록의 규약(script)을 기록하라. (ISAD 3.4.3)	
+</target>
+      </trans-unit>
+      <trans-unit id="950">
+        <source>Language and script notes</source>
+        <target>기록물의 언어 및 규약</target>
+      </trans-unit>
+      <trans-unit id="951">
+        <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
+        <target>사용된 특정 알파벳, 규약, 기호체계 또는 약어를 표기하라. (ISAD 3.4.3)	
+</target>
+      </trans-unit>
+      <trans-unit id="952">
+        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
+        <target>열람이 제공된 이후 기술단위의 재생산 조건을 통제하는 저작권 정보를 기재하라. 그러한 조건을 알 수 없는 경우 이러한 사실을 기재한다. 아무런 조건이 없다면 기재할 필요가 없다. (ISAD 3.4.2)</target>
+      </trans-unit>
+      <trans-unit id="957">
+        <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target>"기술단위의 날짜를 확인하고 기록하라. 주어진 날짜의 유형을 확인하라. (기록물과 기술단계에) 적절한 날짜를 적어도 한 개 정도 기록하라." (ISAD 3.1.3). 날짜 표시 필드는 추정이거나 불확실한 날짜, 혹은 조건이 있는 날짜라는 것을 표시하는 기호를 포함한 정보를 자유롭게 입력하는 데에 사용될 수 있다. 시작과 종료 필드는 날짜를 검색할 수 있도록 만드는 데에 사용하라. 수용가능한 날짜 포맷은 다음과 같다. : YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
+      </trans-unit>
+      <trans-unit id="958">
+        <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
+        <target>기록 기술에서 외부 자원을 사용했다면 이에 대한 인용사항을 기록하시오 (범위와 내용, 보관 이력 또는 주기 필드 등).</target>
+      </trans-unit>
+      <trans-unit id="959">
+        <source>Related descriptions</source>
+        <target>관련 기술</target>
+      </trans-unit>
+      <trans-unit id="960">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target>이 기술과 AtoM의 다른 기술 간의 관계를 설정하려면, 관련 기술명을 몇 자 입력하고 그 아래 나타나는 자동완성 드롭다운 메뉴에서 선택하세요. 2개 이상의 관계 설정이 가능합니다.</target>
+      </trans-unit>
+      <trans-unit id="961">
+        <source>Administrative / Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="962">
+        <source>Administrative history</source>
+        <target>행정 연혁</target>
+      </trans-unit>
+      <trans-unit id="963">
+        <source>Biographical history</source>
+        <target>개인 이력</target>
+      </trans-unit>
+      <trans-unit id="964">
+        <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="965">
+        <source>Genre access points</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
