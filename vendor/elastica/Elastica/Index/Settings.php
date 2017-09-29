@@ -22,6 +22,10 @@ class Settings
 {
     const DEFAULT_REFRESH_INTERVAL = '1s';
 
+    const DEFAULT_NUMBER_OF_REPLICAS = 1;
+
+    const DEFAULT_NUMBER_OF_SHARDS = 5;
+
     /**
      * Response.
      *
@@ -131,6 +135,42 @@ class Settings
     public function setNumberOfReplicas($replicas)
     {
         return $this->set(['number_of_replicas' => (int) $replicas]);
+    }
+
+    /**
+     * Returns the number of replicas.
+     *
+     * If no number of replicas is set, the default number is returned
+     *
+     * @return int The number of replicas
+     */
+    public function getNumberOfReplicas()
+    {
+        $replicas = $this->get('number_of_replicas');
+
+        if (null === $replicas) {
+            $replicas = self::DEFAULT_NUMBER_OF_REPLICAS;
+        }
+
+        return $replicas;
+    }
+
+    /**
+     * Returns the number of shards.
+     *
+     * If no number of shards is set, the default number is returned
+     *
+     * @return int The number of shards
+     */
+    public function getNumberOfShards()
+    {
+        $shards = $this->get('number_of_shards');
+
+        if (null === $shards) {
+            $shards = self::DEFAULT_NUMBER_OF_SHARDS;
+        }
+
+        return $shards;
     }
 
     /**
