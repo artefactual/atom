@@ -47,8 +47,8 @@ class arInformationObjectCsvExportJob extends arBaseJob
       $this->archivalStandard = 'rad';
     }
 
-    // Create query increasing limit from default
-    $this->search = new arElasticSearchPluginQuery(1000000000);
+    // Create query setting limit for scrolling
+    $this->search = new arElasticSearchPluginQuery(1000);
 
     if ($this->params['params']['fromClipboard'])
     {
@@ -124,41 +124,45 @@ class arInformationObjectCsvExportJob extends arBaseJob
     array_unshift($writer->columnNames, 'referenceCode');
     array_unshift($writer->standardColumns, 'referenceCode');
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->getQuery(false, false));
+    $search = QubitSearch::getInstance()->index->getType('QubitInformationObject')->createSearch($this->search->getQuery(false, false));
+    $scroll = new \Elastica\Scroll($search);
 
-    foreach ($resultSet as $hit)
+    foreach ($scroll as $resultSet)
     {
-      $resource = QubitInformationObject::getById($hit->getId());
-
-      // If ElasticSearch document is stale (corresponding MySQL data deleted), ignore
-      if ($resource !== null)
+      foreach ($resultSet as $hit)
       {
-        // Don't export draft descriptions with public option.
-        // Don't export records if level of description is not in list of selected LODs.
-        if (($public && $resource->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID) ||
-          (0 < $numLevels && !array_key_exists($resource->levelOfDescriptionId, $levels)))
-        {
-          continue;
-        }
+        $resource = QubitInformationObject::getById($hit->getId());
 
-        $writer->exportResource($resource);
-
-        // export descendants if configured
-        if (!$this->params['current-level-only'])
+        // If ElasticSearch document is stale (corresponding MySQL data deleted), ignore
+        if ($resource !== null)
         {
-          foreach ($resource->getDescendantsForExport($this->params) as $descendant)
+          // Don't export draft descriptions with public option.
+          // Don't export records if level of description is not in list of selected LODs.
+          if (($public && $resource->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID) ||
+            (0 < $numLevels && !array_key_exists($resource->levelOfDescriptionId, $levels)))
           {
-            $writer->exportResource($descendant);
+            continue;
           }
-        }
 
-        // Log progress every 1000 rows
-        if ($itemsExported && ($itemsExported % 1000 == 0))
-        {
-          $this->info($this->i18n->__('%1 items exported.', array('%1' => $itemsExported)));
-        }
+          $writer->exportResource($resource);
 
-        $itemsExported++;
+          // export descendants if configured
+          if (!$this->params['current-level-only'])
+          {
+            foreach ($resource->getDescendantsForExport($this->params) as $descendant)
+            {
+              $writer->exportResource($descendant);
+            }
+          }
+
+          // Log progress every 1000 rows
+          if ($itemsExported && ($itemsExported % 1000 == 0))
+          {
+            $this->info($this->i18n->__('%1 items exported.', array('%1' => $itemsExported)));
+          }
+
+          $itemsExported++;
+        }
       }
     }
 
