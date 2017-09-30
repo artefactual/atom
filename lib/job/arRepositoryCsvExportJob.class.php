@@ -37,7 +37,7 @@ class arRepositoryCsvExportJob extends arBaseJob
     $this->params = $parameters;
 
     // Create query increasing limit from default
-    $this->search = new arElasticSearchPluginQuery(1000000000);
+    $this->search = new arElasticSearchPluginQuery(arElasticSearchPluginUtil::SCROLL_SIZE);
     $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
 
     $this->downloadFileExtension = 'csv';
@@ -73,16 +73,17 @@ class arRepositoryCsvExportJob extends arBaseJob
   {
     $itemsExported = 0;
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitRepository')->search($this->search->getQuery(false, false));
+    $search = QubitSearch::getInstance()->index->getType('QubitRepository')->createSearch($this->search->getQuery(false, false));
 
     $writer = new csvRepositoryExport($path, null, 10000);
     $writer->loadResourceSpecificConfiguration('QubitRepository');
 
-    foreach ($resultSet as $hit)
+    // Scroll through results then iterate through resulting IDs
+    foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id)
     {
-      if (null === $resource = QubitRepository::getById($hit->getId()))
+      if (null === $resource = QubitRepository::getById($id))
       {
-        $this->error($this->i18n->__('Cannot fetch repository, id: '.$hit->getId()));
+        $this->error($this->i18n->__('Cannot fetch repository, id: %1', array('%1' => $id)));
         return -1;
       }
 

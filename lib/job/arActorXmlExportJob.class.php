@@ -36,7 +36,7 @@ class arActorXmlExportJob extends arBaseJob
   public function runJob($parameters)
   {
     // Create query increasing limit from default
-    $this->search = new arElasticSearchPluginQuery(1000000000);
+    $this->search = new arElasticSearchPluginQuery(arElasticSearchPluginUtil::SCROLL_SIZE);
     $this->params = $parameters;
 
     $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
@@ -84,11 +84,12 @@ class arActorXmlExportJob extends arBaseJob
 
     exportBulkBaseTask::includeXmlExportClassesAndHelpers();
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($this->search->getQuery(false, false));
+    $search = QubitSearch::getInstance()->index->getType('QubitActor')->createSearch($this->search->getQuery(false, false));
 
-    foreach ($resultSet as $hit)
+    // Scroll through results then iterate through resulting IDs
+    foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id)
     {
-      if (null === $resource = QubitActor::getById($hit->getId()))
+      if (null === $resource = QubitActor::getById($id))
       {
         continue;
       }

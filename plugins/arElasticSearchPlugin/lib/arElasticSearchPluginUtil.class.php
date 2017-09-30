@@ -25,6 +25,11 @@
  */
 class arElasticSearchPluginUtil
 {
+  /**
+   * Scroll per-page limit to use for bulk queries
+   */
+  const SCROLL_SIZE = 1000;
+
   public static function convertDate($date)
   {
     if (is_null($date))
@@ -687,5 +692,36 @@ class arElasticSearchPluginUtil
     }
 
     return $term;
+  }
+
+  /**
+   * Scroll through search, returning hit IDs as an array
+   *
+   * Scrolled queries are a way to return search result sets larger than the limit
+   * index.max_result_window sets. Scrolled results, however, by default expire
+   * fairly quickly to free Elasticsearch resources. Returning these results as an
+   * array allows the results to be processed even after the scroll result expires.
+   *
+   * @param \Elastica\Search $search Search to cache
+   *
+   * @return array Array of IDs
+   */
+  public static function getScrolledSearchResultIdentifiers($search)
+  {
+    $hitIds = array();
+
+    // Create scroll of search
+    $scroll = new \Elastica\Scroll($search);
+
+    // Scroll and add hit IDs to array
+    foreach ($scroll as $resultSet)
+    {
+      foreach ($resultSet as $hit)
+      {
+       array_push($hitIds, $hit->getId()); 
+      }
+    }
+
+    return $hitIds;
   }
 }

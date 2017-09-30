@@ -38,7 +38,7 @@ class arActorCsvExportJob extends arBaseJob
     $this->params = $parameters;
 
     // Create query increasing limit from default
-    $this->search = new arElasticSearchPluginQuery(1000000000);
+    $this->search = new arElasticSearchPluginQuery(arElasticSearchPluginUtil::SCROLL_SIZE);
     $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
 
     // Create temp directory in which CSV export files will be written
@@ -86,17 +86,18 @@ class arActorCsvExportJob extends arBaseJob
   {
     $itemsExported = 0;
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($this->search->getQuery(false, false));
+    $search = QubitSearch::getInstance()->index->getType('QubitActor')->createSearch($this->search->getQuery(false, false));
 
     $writer = new csvActorExport($path, null, 10000);
     $writer->setOptions($this->params);
     $writer->loadResourceSpecificConfiguration('QubitActor');
 
-    foreach ($resultSet as $hit)
+    // Scroll through results then iterate through resulting IDs
+    foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id)
     {
-      if (null === $resource = QubitActor::getById($hit->getId()))
+      if (null === $resource = QubitActor::getById($id))
       {
-        $this->error($this->i18n->__('Cannot fetch actor, id: '.$hit->getId()));
+        $this->error($this->i18n->__('Cannot fetch actor, id: %1', array('%1' => $id)));
         return -1;
       }
 

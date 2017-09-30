@@ -48,7 +48,7 @@ class arInformationObjectCsvExportJob extends arBaseJob
     }
 
     // Create query increasing limit from default
-    $this->search = new arElasticSearchPluginQuery(1000000000);
+    $this->search = new arElasticSearchPluginQuery(arElasticSearchPluginUtil::SCROLL_SIZE);
 
     if ($this->params['params']['fromClipboard'])
     {
@@ -124,11 +124,12 @@ class arInformationObjectCsvExportJob extends arBaseJob
     array_unshift($writer->columnNames, 'referenceCode');
     array_unshift($writer->standardColumns, 'referenceCode');
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->search->getQuery(false, false));
+    $search = QubitSearch::getInstance()->index->getType('QubitInformationObject')->createSearch($this->search->getQuery(false, false));
 
-    foreach ($resultSet as $hit)
+    // Scroll through results then iterate through resulting IDs
+    foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id)
     {
-      $resource = QubitInformationObject::getById($hit->getId());
+      $resource = QubitInformationObject::getById($id);
 
       // If ElasticSearch document is stale (corresponding MySQL data deleted), ignore
       if ($resource !== null)
