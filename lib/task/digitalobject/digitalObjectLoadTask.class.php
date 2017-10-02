@@ -90,7 +90,7 @@ EOF;
       QubitSearch::disable();
     }
 
-    $this->logSection("Load digital objects from {$arguments['filename']}...");
+    $this->logSection('digital-object', "Load digital objects from {$arguments['filename']}...");
 
     // Get header (first) row
     $header = fgetcsv($fh, 1000);
@@ -223,12 +223,12 @@ EOF;
       $importedCount++;
     }
 
-    $this->logSection('Successfully Loaded '.self::$count.' digital objects.');
+    $this->logSection('digital-object', 'Successfully Loaded '.self::$count.' digital objects.');
 
     // Warn user to manually update search index
     if (!$options['index'])
     {
-      $this->logSection('Please update the search index manually to reflect any changes');
+      $this->logSection('digital-object', 'Please update the search index manually to reflect any changes');
     }
   }
 

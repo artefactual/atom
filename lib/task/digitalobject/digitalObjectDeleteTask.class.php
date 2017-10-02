@@ -70,7 +70,7 @@ EOF;
 
     foreach ($ios as $io)
     {
-      $this->logSection(sprintf('(%d of %d) deleting digital object for: %s',
+      $this->logSection('digital-object', sprintf('(%d of %d) deleting digital object for: %s',
                         ++$nDeleted, count($ios), $io->getTitle(array('cultureFallback' => true))));
 
       // Remove appropriate digital object files, empty directories left behind, and db entries
@@ -82,7 +82,7 @@ EOF;
       }
     }
 
-    $this->logSection(sprintf('%d digital objects deleted successfully (%.2fs elapsed)', $nDeleted, $t->elapsed()));
+    $this->logSection('digital-object', sprintf('%d digital objects deleted successfully (%.2fs elapsed)', $nDeleted, $t->elapsed()));
   }
 
   private function deleteDigitalObjectFiles($digitalObject)

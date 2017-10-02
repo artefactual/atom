@@ -117,14 +117,14 @@ EOF;
 
     // Set path to DIP objects
     $objectsPath = rtrim($this->dipDir, '/') .'/objects';
-    $this->logSection(sprintf("Looking for objects in: %s", $this->dipDir));
+    $this->logSection('dip-import', sprintf('Looking for objects in: %s', $this->dipDir));
 
     // Parse CSV file and import/audit objects
     $digitalObjects = $this->parseCsvData($this->openFirstCsvFile($objectsPath), $objectsPath);
     $count = $this->importDigitalObjects($digitalObjects, $options['audit'], $undoLog);
 
     $verb = ($options['audit']) ? 'audited' : 'processed';
-    $this->logSection(sprintf('Successfully %s %d digital objects.', $verb, $count));
+    $this->logSection('dip-import', sprintf('Successfully %s %d digital objects.', $verb, $count));
   }
 
   /**
@@ -320,7 +320,7 @@ EOF;
     foreach ($digitalObjects as $key => $item)
     {
       $opDescription = ($auditMode) ? 'Auditing' : 'Importing to';
-      $this->logSection(sprintf("%s '$key'...", $opDescription));
+      $this->logSection('dip-import', sprintf("%s '$key'...", $opDescription));
 
       if ($auditMode)
       {
@@ -560,7 +560,7 @@ EOF;
     }
 
     // If UUIDs found, inform user and return first UUID found
-    $this->logSection("UUID found: ". $matches[0][0] ." in ". $subject);
+    $this->logSection('dip-import', 'UUID found: '. $matches[0][0] ." in ". $subject);
 
     return $matches[0][0];
   }

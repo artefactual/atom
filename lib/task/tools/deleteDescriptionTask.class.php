@@ -60,7 +60,7 @@ EOF;
 
     if (!$this->confirmDeletion($options['no-confirmation']))
     {
-      $this->logSection(sprintf('[%s] Task aborted.', strftime('%r')));
+      $this->logSection('delete-description', sprintf('[%s] Task aborted.', strftime('%r')));
       return;
     }
 
@@ -75,7 +75,7 @@ EOF;
         break;
     }
 
-    $this->logSection(sprintf('[%s] Finished: %d descriptions deleted.', strftime('%r'), $this->nDeleted));
+    $this->logSection('delete-description', sprintf('[%s] Finished: %d descriptions deleted.', strftime('%r'), $this->nDeleted));
   }
 
   /**
@@ -138,9 +138,9 @@ EOF;
    */
   private function deleteDescriptions($root)
   {
-    $this->logSection(sprintf('[%s] Deleting description "%s" (slug: %s, +%d descendants)', strftime('%r'),
-                              $root->getTitle(array('cultureFallback' => true)),
-                              $root->slug, count($root->descendants)));
+    $this->logSection('delete-description', sprintf('[%s] Deleting description "%s" (slug: %s, +%d descendants)', strftime('%r'),
+      $root->getTitle(array('cultureFallback' => true)),
+      $root->slug, count($root->descendants)));
 
     $this->nDeleted += $root->deleteFullHierarchy();
   }
@@ -151,9 +151,9 @@ EOF;
    */
   private function deleteDescriptionsFromRepository()
   {
-    $this->logSection(sprintf('[%s] Removing descriptions from repository "%s" (slug: %s)...', strftime('%r'),
-                      $this->resource->getAuthorizedFormOfName(array('cultureFallback' => true)),
-                      $this->resource->slug));
+    $this->logSection('delete-description', sprintf('[%s] Removing descriptions from repository "%s" (slug: %s)...', strftime('%r'),
+      $this->resource->getAuthorizedFormOfName(array('cultureFallback' => true)),
+      $this->resource->slug));
 
     $rows = QubitPdo::fetchAll('SELECT id FROM information_object WHERE parent_id = ? AND repository_id = ?',
                                array(QubitInformationObject::ROOT_ID, $this->resource->id));

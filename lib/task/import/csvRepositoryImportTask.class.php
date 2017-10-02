@@ -91,7 +91,7 @@ EOF;
 
     $this->validateOptions($options);
 
-    $this->logSection("Importing repository objects from CSV to AtoM");
+    $this->logSection('repository-import', 'Importing repository objects from CSV to AtoM');
 
     $skipRows = ($options['skip-rows']) ? $options['skip-rows'] : 0;
 
@@ -318,6 +318,6 @@ EOF;
     $import->setUpdateOptions($options);
 
     $import->csv($fh, $skipRows);
-    $this->logSection("Imported repositories successfully!");
+    $this->logSection('repository-import', 'Imported repositories successfully!');
   }
 }
