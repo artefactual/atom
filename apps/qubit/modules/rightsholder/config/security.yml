@@ -1,0 +1,20 @@
+browse:
+  credentials: administrator
+
+delete:
+  credentials: administrator
+
+edit:
+  credentials: administrator
+
+list:
+  credentials: administrator
+
+autocomplete:
+  is_secure: false
+
+index:
+  is_secure: false
+
+all:
+  is_secure: true

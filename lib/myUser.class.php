@@ -25,6 +25,10 @@ class myUser extends sfBasicSecurityUser implements Zend_Acl_Role_Interface
   // storage to save a list of selected information objects
   private $clipboard = null;
 
+  // Module-specific permissions get temporarily stored here for access checks
+  protected
+    $security = array();
+
   /**
    * Required for Zend_Acl_Role_Interface
    */
@@ -205,6 +209,67 @@ class myUser extends sfBasicSecurityUser implements Zend_Acl_Role_Interface
     {
       return QubitAclGroup::getById(QubitAclGroup::ANONYMOUS_ID);
     }
+  }
+
+  /**
+   * Checks whether or not a user, based on security.yml settings, has access
+   * to a module's action
+   *
+   * This method uses the checkConfig method, used in other permission checks
+   * in Symfony, that returns the name of a file containing PHP code derived
+   * from YAML files. The file is generated if it doesn't yet exist. This
+   * is done for performance reasons (to avoid the performance hit of parsing
+   * the YAML repeatedly).
+   *
+   * @param string $module  Name of module to check
+   * @param string $action  Name of action to check
+   *
+   * @return boolean
+   */
+  public function checkModuleActionAccess($module, $action)
+  {
+    // Set security property to module's security configuration
+    $securityFilePath = 'modules/'. $module .'/config/security.yml';
+    if ($file = sfContext::getInstance()->getConfigCache()->checkConfig($securityFilePath, true))
+    {
+      require($file);
+    }
+
+    // Get credentials, using security.yml parsing convention
+    $credentials = $this->getModuleSecurityValue($action, 'credentials');
+
+    // Allow access if action isn't secured or user has appropriate credentials
+    return (!$this->getModuleSecurityValue($action, 'is_secure', false) || $this->hasCredential($credentials));
+  }
+
+  /**
+   * Get action-specific security setting value, if available, or, if not,
+   * global or default value
+   *
+   * @param string $action  Name of module action to check
+   * @param string $securitySetting  Security property to check
+   *
+   * @return boolean
+   */
+  public function getModuleSecurityValue($action, $securitySetting, $default = null)
+  {
+    // These values get lower-cased when security.yml's rendered to PHP
+    $action = strtolower($action);
+    $securitySetting = strtolower($securitySetting);
+
+    // If a property's specifically set for the action, return it
+    if (isset($this->security[$action][$securitySetting]))
+    {
+      return $this->security[$action][$securitySetting];
+    }
+
+    // If a property's set for all actions that don't override it, return it
+    if (isset($this->security['all'][$securitySetting]))
+    {
+      return $this->security['all'][$securitySetting];
+    }
+
+    return $default;
   }
 
   /**

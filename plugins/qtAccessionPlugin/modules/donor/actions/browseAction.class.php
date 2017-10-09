@@ -21,11 +21,6 @@ class DonorBrowseAction extends sfAction
 {
   public function execute($request)
   {
-    if (!$this->context->user->hasCredential(array('contributor', 'editor', 'administrator'), false))
-    {
-      QubitAcl::forwardUnauthorized();
-    }
-
     if (!isset($request->limit))
     {
       $request->limit = sfConfig::get('app_hits_per_page');

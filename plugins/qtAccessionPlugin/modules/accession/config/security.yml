@@ -1,0 +1,7 @@
+browse:
+  credentials: [[ contributor, editor, administrator ]]
+  is_secure: true
+
+edit:
+  credentials: [[ translator, editor, administrator ]]
+  is_secure: true

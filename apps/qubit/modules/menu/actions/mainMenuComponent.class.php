@@ -34,17 +34,22 @@ class MenuMainMenuComponent extends sfComponent
       return sfView::NONE;
     }
 
-    /*
-    // Get menu objects
-    $this->mainMenu = QubitMenu::getById(QubitMenu::MAIN_MENU_ID);
+    // Only include menu for adding content if user is in an appropriate group
+    $this->addMenu = false;
 
-    if (!$this->mainMenu instanceof QubitMenu)
+    // Specify what groups can add content
+    $groupsAllowedToAddContent = array(
+      QubitAclGroup::CONTRIBUTOR_ID,
+      QubitAclGroup::EDITOR_ID,
+      QubitAclGroup::ADMINISTRATOR_ID
+    );
+
+    // Add, if applicable, menu for adding content
+    if ($this->context->user->hasGroup($groupsAllowedToAddContent))
     {
-      return sfView::NONE;
+      $this->addMenu = QubitMenu::getById(QubitMenu::ADD_EDIT_ID);
     }
-    */
 
-    $this->addMenu = QubitMenu::getById(QubitMenu::ADD_EDIT_ID);
     $this->manageMenu = QubitMenu::getById(QubitMenu::MANAGE_ID);
     $this->importMenu = QubitMenu::getById(QubitMenu::IMPORT_ID);
     $this->adminMenu = QubitMenu::getById(QubitMenu::ADMIN_ID);

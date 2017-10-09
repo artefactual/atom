@@ -1,3 +1,6 @@
+browse:
+  credentials: administrator
+
 delete:
   credentials: [[ contributor, editor, administrator ]]
   is_secure: true

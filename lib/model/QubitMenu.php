@@ -406,6 +406,18 @@ class QubitMenu extends BaseMenu
 
       // Declare some options for the link for this node
       $anchorPath = $child->getPath(array('getUrl' => true, 'resolveAlias' => true));
+
+      // Parse module and action from path
+      $routeProperties = sfContext::getInstance()->getRouting()->findRoute($anchorPath);
+      $module = $routeProperties['parameters']['module'];
+      $action = $routeProperties['parameters']['action'];
+
+      // Skip menu item if user doesn't have access to action due to security.yml rules
+      if (!sfContext::getInstance()->getUser()->checkModuleActionAccess($module, $action))
+      {
+        continue;
+      }
+
       $anchorLabel = $child->getLabel(array('cultureFallback' => true));
       $anchorOptions = array();
       if ($continueHierarchy)
