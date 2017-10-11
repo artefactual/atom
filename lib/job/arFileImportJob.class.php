@@ -165,8 +165,8 @@ class arFileImportJob extends arBaseJob
           $this->info($this->i18n->__('Collection: %1', array('%1' => $parameters['collectionSlug'])));
           $importer->limit = $parameters['collectionSlug'];
           break;
-        case 'parent':
-          $importer->setParent($parameters['parent']);
+        case 'parentId':
+          $importer->setParent($parameters['parentId']);
           break;
       }
     }
@@ -222,8 +222,8 @@ class arFileImportJob extends arBaseJob
           $this->info($this->i18n->__('Collection: %1', array('%1' => $parameters['collectionSlug'])));
           $options['limit'] = $parameters['collectionSlug'];
           break;
-        case 'parent':
-          $importer->setParent($parameters['parent']);
+        case 'parentId':
+          $importer->setParent($parameters['parentId']);
           break;
       }
     }
