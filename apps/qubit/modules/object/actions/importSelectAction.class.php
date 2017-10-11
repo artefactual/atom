@@ -113,9 +113,6 @@ class ObjectImportSelectAction extends DefaultEditAction
         }
 
         break;
-
-      default:
-        return parent::processField($field);
     }
   }
 
@@ -164,7 +161,7 @@ class ObjectImportSelectAction extends DefaultEditAction
                      'doCsvTransform' => ($request->getParameter('doCsvTransform') == 'on') ? true : false,
                      'skip-unmatched' => ($request->getParameter('skipUnmatched') == 'on') ? true : false,
                      'skip-matched' => ($request->getParameter('skipMatched') == 'on') ? true : false,
-                     'parent' => (isset($this->getRoute()->resource) ? $this->getRoute()->resource : null),
+                     'parentId' => (isset($this->getRoute()->resource) ? $this->getRoute()->resource->id : null),
                      'objectType' => $request->getParameter('objectType'),
                      // Choose import type based on importType parameter
                      // This decision used to be based in the file extension but some users

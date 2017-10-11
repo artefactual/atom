@@ -263,12 +263,10 @@ class QubitCsvImport
   }
 
   /**
-   * Get the root object for the import
-   *
-   * @return mixed the root object (object type depends on import type)
+   * Set the parent QubitObject for the import
    */
-  public function setParent($parent)
+  public function setParent($parentId)
   {
-    return $this->parent = $parent;
+    $this->parent = QubitObject::getById($parentId);
   }
 }
