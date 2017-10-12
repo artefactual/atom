@@ -111,15 +111,16 @@ class QubitSaxParser
     $this->storeAncestorIfNesting();
     $this->lastTagStartLevel = $this->level;
 
-    // Store current tag data
-    $this->tag = $tag;
+    // Store current tag data, concatenate namespace
+    // with '_' instead of ':' to allow function calls
+    $this->tag = str_replace(':', '_', $tag);
     unset($this->data);
 
     array_push($this->attrStack, $attr);
 
     // Methods that end with "StartTag" are handlers for specific tags...
     // Call tag handler, if it exists, or generic tag handler
-    $this->callOptionalTagHandlers($tag, 'TagInit', 'startTagHandler');
+    $this->callOptionalTagHandlers($this->tag, 'TagInit', 'startTagHandler');
   }
 
   /**
@@ -238,6 +239,9 @@ class QubitSaxParser
       array_pop($this->ancestors);
     }
     $this->lastTagEndLevel = $this->level;
+
+    // Concatenate namespace with '_' instead of ':' to allow function calls
+    $tag = str_replace(':', '_', $tag);
 
     // Methods that end with "EndTag" are handlers for specific tags...
     // Call tag handler, if it exists, or generic tag handler
