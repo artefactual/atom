@@ -35,7 +35,7 @@ class QubitMetsParser
   public function getStructMap()
   {
     // Check first for logical structMap
-    $structMap = $this->document->xpath('//m:structMap[@TYPE="logical"]');
+    $structMap = $this->document->xpath('//m:structMap[@TYPE="logical" and @LABEL="Hierarchical"]');
 
     if (false !== $structMap && 0 < count($structMap))
     {
