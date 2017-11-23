@@ -351,6 +351,13 @@ class sfEadPlugin
    */
   public static function renderLOD($resource, $eadLevels)
   {
+    // Mapping of EAD levels to possible AtoM LOD names
+    $variations = array(
+      'recordgrp' => array('record-group', 'record group', 'recordgroup'),
+      'subfonds' => array('sous fonds', 'sous-fonds', 'sousfonds', 'sub-fonds', 'sub fonds'),
+      'subgrp' => array('subgroup', 'sub-group', 'sub group'),
+      'subseries' => array('sub-series', 'sub series')
+    );
     $defaultLevel = 'otherlevel';
     $renderedLOD = '';
     $levelOfDescription = $defaultLevel;
@@ -358,6 +365,18 @@ class sfEadPlugin
     if ($resource->levelOfDescriptionId)
     {
       $levelOfDescription = strtolower($resource->getLevelOfDescription()->getName(array('culture' => 'en')));
+
+      // Check EAD levels variations
+      foreach ($variations as $eadLevel => $lods)
+      {
+        // Use EAD level if LOD is one of its variations
+        if (in_array($levelOfDescription, $lods))
+        {
+          $levelOfDescription = $eadLevel;
+
+          break;
+        }
+      }
 
       if (!in_array($levelOfDescription, $eadLevels))
       {
