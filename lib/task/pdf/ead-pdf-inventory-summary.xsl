@@ -682,7 +682,7 @@
                         <xsl:apply-templates select="ead:physloc" mode="overview"/>
                         <xsl:apply-templates select="ead:langmaterial/ead:language" mode="overview"/>
                         <xsl:call-template name="summaryInfoOtherField">
-                            <xsl:with-param name="path" select="//ead:processinfo/ead:date"/>
+                            <xsl:with-param name="path" select="//ead:processinfo/ead:p/ead:date"/>
                             <xsl:with-param name="label" select="'Dates of creation, revision and deletion'"/>
                         </xsl:call-template>
                         <xsl:apply-templates select="ead:note" mode="overview"/>
