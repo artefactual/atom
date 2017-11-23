@@ -458,8 +458,11 @@ class arElasticSearchPluginUtil
           $fields = array_merge($fields, $foreignObjectFields);
         }
         // Get string fields included in _all
-        else if ((!isset($propertyProperties['include_in_all']) || $propertyProperties['include_in_all'])
-          && (isset($propertyProperties['type']) && $propertyProperties['type'] == 'string'))
+        else if ((!isset($propertyProperties['include_in_all'])
+          || $propertyProperties['include_in_all'])
+          && (isset($propertyProperties['type'])
+          && ($propertyProperties['type'] == 'text'
+          || $propertyProperties['type'] == 'keyword')))
         {
           self::handleNonI18nStringFields($rootIndexType, $fields, $prefix, $propertyName, $foreignType);
         }
