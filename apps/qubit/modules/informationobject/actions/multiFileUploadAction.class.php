@@ -87,6 +87,8 @@ class InformationObjectMultiFileUploadAction extends sfAction
   public function processForm()
   {
     $tmpPath = sfConfig::get('sf_upload_dir').'/tmp';
+    // Original file in PHP temp dir.
+    $phpTmpPath = sys_get_temp_dir();
 
     // Upload files
     $i = 0;
@@ -120,13 +122,13 @@ class InformationObjectMultiFileUploadAction extends sfAction
       // Save description
       $informationObject->save();
 
-      if (file_exists("$tmpPath/$file[tmpName]"))
+      if (file_exists("$phpTmpPath/$file[tmpName]"))
       {
         // Upload asset and create digital object
         $digitalObject = new QubitDigitalObject;
         $digitalObject->informationObject = $informationObject;
         $digitalObject->usageId = QubitTerm::MASTER_ID;
-        $digitalObject->assets[] = new QubitAsset($file['name'], file_get_contents("$tmpPath/$file[tmpName]"));
+        $digitalObject->assets[] = new QubitAsset($file['name'], file_get_contents("$phpTmpPath/$file[tmpName]"));
 
         $digitalObject->save();
       }
@@ -134,9 +136,9 @@ class InformationObjectMultiFileUploadAction extends sfAction
       $thumbnailIsGeneric = (bool) strstr($file['thumb'], 'generic-icons');
 
       // Clean up temp files
-      if (file_exists("$tmpPath/$file[tmpName]"))
+      if (file_exists("$phpTmpPath/$file[tmpName]"))
       {
-        unlink("$tmpPath/$file[tmpName]");
+        unlink("$phpTmpPath/$file[tmpName]");
       }
       if (!$thumbnailIsGeneric && file_exists("$tmpPath/$file[thumb]"))
       {
