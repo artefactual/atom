@@ -86,7 +86,8 @@ class DigitalObjectUploadAction extends sfAction
       {
         $uniqueString = substr(md5(time().$file['name']), 0, 8);
         $tmpFileName = "TMP$uniqueString$extension";
-        $tmpFilePath = "$tmpDir/$tmpFileName";
+        // Original file in PHP tmp dir.
+        $tmpFilePath = sys_get_temp_dir()."/$tmpFileName";
       }
       while (file_exists($tmpFilePath));
 
