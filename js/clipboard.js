@@ -206,17 +206,18 @@
       var slugsDisplayedString = slugsDisplayed.join(',');
 
       // Send list of displayed slugs and get list of which ones are in user's clipboard, etc.
+      var self = this;
       $.post(
         this.$element.data('clipboard-status-url'),
         {'slugs': slugsDisplayedString},
         function (results)
           {
             // Indicate which items are in the clipboard
-            $('button.clipboard').each(function ()
+            $('button.clipboard,button.clipboard-wide').each(function ()
               {
                 if ($.inArray($(this).attr('data-clipboard-slug'), results.clipboard.slugs) != -1)
                   {
-                    $(this).addClass('added');
+                    self.updateButton($(this), true, true);
                   }
               });
 
