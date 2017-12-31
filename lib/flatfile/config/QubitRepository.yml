@@ -9,6 +9,10 @@ columnNames:
   - types
   - contactPerson
   - streetAddress
+  - city
+  - region
+  - country
+  - postalCode
   - telephone
   - fax
   - email
