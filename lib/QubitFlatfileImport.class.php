@@ -2253,4 +2253,25 @@ class QubitFlatfileImport
       throw new sfException('Could not find object matching slug "'. $slug .'"');
     }
   }
+
+  /**
+   * Get country code using input that's either a country code or country name
+   *
+   * @param string $value  country code or country name
+   *
+   * @return string  country code
+   */
+  public static function normalizeCountryAsCountryCode($value)
+  {
+    $countries = sfCultureInfo::getInstance()->getCountries();
+
+    if (isset($countries[strtoupper($value)]))
+    {
+      return $value; // Value was a country code
+    }
+    else if ($countryCode = array_search($value, $countries))
+    {
+      return $countryCode; // Value was a country name
+    }
+  }
 }

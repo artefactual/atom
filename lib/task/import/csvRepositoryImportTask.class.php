@@ -161,6 +161,10 @@ EOF;
       'variableColumns' => array(
         'contactPerson',
         'streetAddress',
+        'city',
+        'region',
+        'country',
+        'postalCode',
         'telephone',
         'email',
         'fax',
@@ -194,7 +198,7 @@ EOF;
       {
         // Check if any contact information data exists
         $addContactInfo = false;
-        $contactInfoFields = array('contactPerson', 'streetAddress', 'telephone', 'email', 'fax', 'website');
+        $contactInfoFields = array('contactPerson', 'streetAddress', 'city', 'region', 'postalCode', 'country', 'telephone', 'email', 'fax', 'website');
         foreach ($contactInfoFields as $field)
         {
           if (!empty($self->rowStatusVars[$field]))
@@ -207,7 +211,7 @@ EOF;
 
         if ($addContactInfo)
         {
-          // Try to get existing contanct information
+          // Try to get existing contact information
           $criteria = new Criteria;
           $criteria->add(QubitContactInformation::ACTOR_ID, $self->object->id);
           $contactInfo = QubitContactInformation::getOne($criteria);
@@ -223,7 +227,22 @@ EOF;
             // Don't overwrite/add blank fields
             if (!empty($self->rowStatusVars[$field]))
             {
-              $contactInfo->$field = $self->rowStatusVars[$field];
+              if ($field == 'country')
+              {
+                $countryCode = QubitFlatfileImport::normalizeCountryAsCountryCode($self->rowStatusVars[$field]);
+                if ($countryCode === null)
+                {
+                  print sprintf("Could not find country or country code matching '%s'\n", $self->rowStatusVars[$field]);
+                }
+                else
+                {
+                  $contactInfo->countryCode = $countryCode;
+                }
+              }
+              else
+              {
+                $contactInfo->$field = $self->rowStatusVars[$field];
+              }
             }
           }
 
