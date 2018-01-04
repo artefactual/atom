@@ -182,7 +182,10 @@ class ObjectExportAction extends DefaultEditAction
 
     try
     {
-      if (!arInformationObjectCsvExportJob::exportOrCheckForResults($options))
+      // Preview export before attempting, if job supports this
+      $exportPreviewSupported = method_exists($this->getJobNameString(), 'exportOrCheckForResults');
+
+      if ($exportPreviewSupported && !call_user_func(array($this->getJobNameString(), 'exportOrCheckForResults'), $options))
       {
         throw new sfException('Export complete - no records were exported.');
       }
