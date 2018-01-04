@@ -182,26 +182,36 @@ class ObjectExportAction extends DefaultEditAction
 
     try
     {
-      $job = QubitJob::runJob($this->getJobNameString(), $options);
+      // Preview export before attempting, if job supports this
+      $exportPreviewSupported = method_exists($this->getJobNameString(), 'exportOrCheckForResults');
 
-      // If anonymous user, store job ID in session
-      if (!$this->context->user->isAuthenticated())
+      if ($exportPreviewSupported && !call_user_func(array($this->getJobNameString(), 'exportOrCheckForResults'), $options))
       {
-        $manager = new QubitUnauthenticatedUserJobManager($this->context->user);
-        $manager->addJobAssociation($job);
-      }
-
-      if ($this->context->user->isAuthenticated())
-      {
-        $message = $this->context->i18n->__('%1%Export initiated.%2% Check %3%job management%4% page to download the results when it has completed.', array(
-          '%1%' => '<strong>',
-          '%2%' => '</strong>',
-          '%3%' => sprintf('<a href="%s">', $this->context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'))),
-          '%4%' => '</a>'));
+        throw new sfException('Export complete - no records were exported.');
       }
       else
       {
-        $message = $this->context->i18n->__('Export initiated. Progress will be reported, and a download link provided, in a subsequent notification &mdash; <a href="javascript:location.reload();">refresh the page</a> for updates.');
+        $job = QubitJob::runJob($this->getJobNameString(), $options);
+
+        // If anonymous user, store job ID in session
+        if (!$this->context->user->isAuthenticated())
+        {
+          $manager = new QubitUnauthenticatedUserJobManager($this->context->user);
+          $manager->addJobAssociation($job);
+        }
+
+        if ($this->context->user->isAuthenticated())
+        {
+          $message = $this->context->i18n->__('%1%Export initiated.%2% Check %3%job management%4% page to download the results when it has completed.', array(
+            '%1%' => '<strong>',
+            '%2%' => '</strong>',
+            '%3%' => sprintf('<a href="%s">', $this->context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'))),
+            '%4%' => '</a>'));
+        }
+        else
+        {
+          $message = $this->context->i18n->__('Export initiated. Progress will be reported, and a download link provided, in a subsequent notification &mdash; <a href="javascript:location.reload();">refresh the page</a> for updates.');
+        }
       }
 
       $this->context->user->setFlash('notice', $message);

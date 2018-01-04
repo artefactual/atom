@@ -29,6 +29,7 @@ class arRepositoryCsvExportJob extends arBaseJob
   /**
    * @see arBaseJob::$requiredParameters
    */
+  protected $downloadFileExtension = 'zip';
   protected $search;
   protected $params = array();
 
@@ -40,23 +41,28 @@ class arRepositoryCsvExportJob extends arBaseJob
     $this->search = new arElasticSearchPluginQuery(1000000000);
     $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
 
-    $this->downloadFileExtension = 'csv';
-    $path = $this->getDownloadRelativeFilePath();
+    // Create temp directory in which CSV export files will be written
+    $tempPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'repository_export_'. $this->job->id;
+    mkdir($tempPath);
 
     // Export CSV to temp directory
-    $this->info($this->i18n->__('Starting export to %1', array('%1' => $path)));
+    $this->info($this->i18n->__('Starting export to %1', array('%1' => $tempPath)));
 
-    if (-1 === $itemsExported = $this->exportResults($path))
+    if (-1 === $itemsExported = $this->exportResults($tempPath))
     {
       return false;
     }
 
     $this->info($this->i18n->__('Exported %1 repositories.', array('%1' => $itemsExported)));
 
+    // Compress CSV export files as a ZIP archive
+    $this->info($this->i18n->__('Creating ZIP file %1', array('%1' => $this->getDownloadFilePath())));
+    $success = $this->createZipForDownload($tempPath);
+
     // Mark job as complete and set download path
     $this->info($this->i18n->__('Export and archiving complete.'));
     $this->job->setStatusCompleted();
-    $this->job->downloadPath = $path;
+    $this->job->downloadPath = $this->getDownloadRelativeFilePath();
     $this->job->save();
 
     return true;
