@@ -23,8 +23,7 @@ class SettingsadAction extends DefaultEditAction
   public static
     $NAMES = array(
       'ldapHost',
-      'ldapBaseDn',
-      'ldapBindAttribute');
+      'ldapBaseDn');
 
   protected function earlyExecute()
   {
