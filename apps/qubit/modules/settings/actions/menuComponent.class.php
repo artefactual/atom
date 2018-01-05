@@ -91,6 +91,16 @@ class SettingsMenuComponent extends sfComponent
       ));
     }
 
+    // Only show Active Directory authentication settings if Active Directory authentication's used
+    if ($this->context->user instanceof adUser)
+    {
+      array_push($this->nodes, array(
+        'label' => $i18n->__('Active Directory Authentication'),
+        'action' => 'ad'
+      ));
+    }
+
+    
     foreach ($this->nodes as $i => &$node)
     {
       // Remove hidden nodes
