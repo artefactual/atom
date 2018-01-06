@@ -81,10 +81,11 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
         // Descend hierarchy
         if (1 < ($item->rgt - $item->lft))
         {
-          // Pass ancestors and repository down to descendants
+          // Pass ancestors, repository and creators down to descendants
           $this->recursivelyAddInformationObjects($item->id, $totalRows, array(
             'ancestors'  => array_merge($node->getAncestors(), array($node)),
-            'repository' => $node->getRepository()));
+            'repository' => $node->getRepository(),
+            'inheritedCreators' => array_merge($node->inheritedCreators, $node->creators)));
         }
       }
       catch (sfException $e)

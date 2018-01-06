@@ -30,7 +30,9 @@ class arElasticSearchInformationObjectPdo
     $ancestors,
     $doc,
     $repository,
-    $sourceCulture;
+    $sourceCulture,
+    $creators = array(),
+    $inheritedCreators = array();
 
   protected
     $data = array(),
@@ -67,6 +69,21 @@ class arElasticSearchInformationObjectPdo
     if (isset($options['repository']) && !$this->__isset('repository_id'))
     {
       $this->repository = $options['repository'];
+    }
+
+    // Get inherited creators
+    if (isset($options['inheritedCreators']))
+    {
+      $this->inheritedCreators = $options['inheritedCreators'];
+    }
+
+    // Get creators
+    $this->creators = $this->getActors(array('typeId' => QubitTerm::CREATION_ID));
+
+    // Remove inherited creators if there are directly related creators
+    if (count($this->creators) > 0)
+    {
+      $this->inheritedCreators = array();
     }
   }
 
@@ -1215,10 +1232,17 @@ class arElasticSearchInformationObjectPdo
     }
 
     // Creators
-    foreach ($this->getActors(array('typeId' => QubitTerm::CREATION_ID)) as $item)
+    foreach ($this->creators as $item)
     {
       $node = new arElasticSearchActorPdo($item->id);
       $serialized['creators'][] = $node->serialize();
+    }
+
+    // Inherited creators
+    foreach ($this->inheritedCreators as $item)
+    {
+      $node = new arElasticSearchActorPdo($item->id);
+      $serialized['inheritedCreators'][] = $node->serialize();
     }
 
     // Physical objects

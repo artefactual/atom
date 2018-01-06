@@ -412,6 +412,7 @@ mapping:
         - creators.otherNames.name
         - creators.parallelNames.name
         - creators.standardizedNames.name
+        - inheritedCreators.authorizedFormOfName
         - subjects.name
         - places.name
         - genres.name
@@ -431,6 +432,7 @@ mapping:
       repository: repository
       names: actor
       creators: actor
+      inherited_creators: actor
       subjects: term
       places: term
       genres: term
