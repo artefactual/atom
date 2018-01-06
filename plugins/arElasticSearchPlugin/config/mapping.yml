@@ -408,6 +408,7 @@ mapping:
         - names.parallelNames.name
         - names.standardizedNames.name
         - creators.authorizedFormOfName
+        - creators.history
         - creators.otherNames.name
         - creators.parallelNames.name
         - creators.standardizedNames.name
