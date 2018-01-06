@@ -115,9 +115,14 @@
         $('#main-column > div.messages.error').remove();
         $('#main-column .breadcrumb').after($(response.find('#main-column > div.messages.error')));
 
-
         // Attach the Drupal Behaviour so blank.js does its thing
         Drupal.attachBehaviors(document)
+
+        // Update clipboard buttons
+        if (jQuery('#clipboard-menu').data('clipboard') !== undefined)
+        {
+          jQuery('#clipboard-menu').data('clipboard').updateAll();
+        }
 
         // Update the url, TODO save the state
         window.history.pushState(null, null, url);
