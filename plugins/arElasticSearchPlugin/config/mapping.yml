@@ -414,6 +414,11 @@ mapping:
         - subjects.name
         - places.name
         - genres.name
+        - generalNotes.content
+        - alphaNumericNotes.content
+        - conservationNotes.content
+        - physicalDescriptionNotes.content
+        - continuationOfTitleNotes.content
     _partial_foreign_types:
       part_of:
         _i18nFields: [title]
