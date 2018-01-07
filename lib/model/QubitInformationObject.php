@@ -3200,14 +3200,8 @@ class QubitInformationObject extends BaseInformationObject
    */
   private function generateSlug()
   {
-    if (null === $slugBasis = QubitSetting::getByName('slug_basis_informationobject'))
-    {
-      $slugBasis = QubitSlug::SLUG_BASIS_TITLE; // Fall back to title as slug basis
-    }
-    else
-    {
-      $slugBasis = $slugBasis->getValue();
-    }
+    // Fall back to title as slug basis
+    $slugBasis = sfConfig::get('app_slug_basis_informationobject', QubitSlug::SLUG_BASIS_TITLE);
 
     $stringToSlugify = null;
 
