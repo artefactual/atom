@@ -258,14 +258,10 @@ EOF;
    */
   private function getInformationObjectStringToSlugify($row)
   {
-    if (null === $basis = QubitSetting::getByName('slug_basis_informationobject'))
-    {
-      return $row[1]; // Fall back to title as the slug basis if no setting present
-    }
-
     // Note: pull reference codes from ES, as hydrating an ORM object and building the inherited
     // reference code on-the-fly is not performant.
-    switch ($basis->getValue())
+    // Fall back to title as the slug basis if no setting present
+    switch (sfConfig::get('app_slug_basis_informationobject', QubitSlug::SLUG_BASIS_TITLE))
     {
       case QubitSlug::SLUG_BASIS_REFERENCE_CODE:
         return $this->getSlugStringFromES($row[0], 'referenceCode');
