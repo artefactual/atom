@@ -95,14 +95,14 @@ class QubitFlatfileExport
   {
     // Load type-specific base export configuration
     $resourceTypeBaseConfigFile = $resourceClass .'.yml';
-    $config = $this->loadResourceConfigFile($resourceTypeBaseConfigFile, 'base');
+    $config = self::loadResourceConfigFile($resourceTypeBaseConfigFile, 'base');
 
     if ($this->standard)
     {
       // Load archival standard-specific export configuration for type
       // (this can augment and/or override the base configuration)
       $resourceTypeStandardConfigFile = $resourceClass .'-'. $this->standard .'.yml';
-      $standardConfig = $this->loadResourceConfigFile($resourceTypeStandardConfigFile, 'archival standard');
+      $standardConfig = self::loadResourceConfigFile($resourceTypeStandardConfigFile, 'archival standard');
 
       // Allow standard-specific export configuration to override base config
       $this->overrideConfigData($config, $standardConfig);
@@ -152,7 +152,7 @@ class QubitFlatfileExport
    *
    * @return void
    */
-  protected function loadResourceConfigFile($file, $roleDescription)
+  public static function loadResourceConfigFile($file, $roleDescription)
   {
     // First try a custom version of resource-specific export configuration
     $configFilePath = 'config/'. $file;
@@ -316,6 +316,30 @@ class QubitFlatfileExport
   }
 
   /**
+   * Set column value in current row to store notes if the column's being exported
+   *
+   * @param string $column  column name
+   * @param int $noteTypeId  ID of the type of note to store
+   *
+   * @return void
+   */
+
+  public function setColumnToNotes($column, $noteTypeId)
+  {
+    $noteContent = array();
+
+    foreach ($this->resource->getNotesByType(array('noteTypeId' => $noteTypeId)) as $note)
+    {
+      $noteContent[] = $note->content;
+    }
+
+    if (count($noteContent))
+    {
+      $this->setColumn($column, $noteContent);
+    }
+  }
+
+  /**
    * If an array is provided as a value, implode it
    *
    * @param string $value  value
@@ -363,7 +387,8 @@ class QubitFlatfileExport
 
       // Generate filename
       // Pad fileIndex with zeros so filenames can be sorted in creation order for imports
-      $filename = sprintf('%s_%s.csv', $this->standard, str_pad($this->fileIndex, 10, '0', STR_PAD_LEFT));
+      $filenamePrepend = ($this->standard !== null) ? $this->standard .'_' : '';
+      $filename = sprintf('%s%s.csv', $filenamePrepend, str_pad($this->fileIndex, 10, '0', STR_PAD_LEFT));
       $filePath = $this->path .'/'. $filename;
     }
     else
