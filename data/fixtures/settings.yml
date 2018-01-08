@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 158
+    value: 159
   milestone:
     name: milestone
     editable: 0
@@ -1150,6 +1150,12 @@ QubitSetting:
       en: 0
   Qubit_Settings_slugBasisInformationObject:
     name: slug_basis_informationobject
+    source_culture: en
+    value:
+      en: 0
+  Qubit_Settings_permissiveSlugCreation:
+    name: permissive_slug_creation
+    editable: 1
     source_culture: en
     value:
       en: 0
