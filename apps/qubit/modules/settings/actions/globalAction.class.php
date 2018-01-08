@@ -95,6 +95,7 @@ class SettingsGlobalAction extends sfAction
     $swordDepositDir = QubitSetting::getByName('sword_deposit_dir');
     $googleMapsApiKey = QubitSetting::getByName('google_maps_api_key');
     $slugTypeInformationObject = QubitSetting::getByName('slug_basis_informationobject');
+    $permissiveSlugCreation = QubitSetting::getByName('permissive_slug_creation');
     $generateReportsAsPubUser = QubitSetting::getByName('generate_reports_as_pub_user');
     $enableInstitutionalScoping = QubitSetting::getByName('enable_institutional_scoping');
     $cacheXmlOnSave = QubitSetting::getByName('cache_xml_on_save');
@@ -122,6 +123,7 @@ class SettingsGlobalAction extends sfAction
       'repository_quota' => (isset($repositoryQuota)) ? $repositoryQuota->getValue(array('sourceCulture'=>true)) : 0,
       'explode_multipage_files' => (isset($explodeMultipageFiles)) ? intval($explodeMultipageFiles->getValue(array('sourceCulture'=>true))) : 1,
       'slug_basis_informationobject' => (isset($slugTypeInformationObject)) ? intval($slugTypeInformationObject->getValue(array('sourceCulture'=>true))) : QubitSlug::SLUG_BASIS_TITLE,
+      'permissive_slug_creation' => (isset($permissiveSlugCreation)) ? intval($permissiveSlugCreation->getValue(array('sourceCulture'=>true))) : 0,
       'show_tooltips' => (isset($showTooltips)) ? intval($showTooltips->getValue(array('sourceCulture'=>true))) : 1,
       'defaultPubStatus' => (isset($defaultPubStatus)) ? $defaultPubStatus->getValue(array('sourceCulture'=>true)) : QubitTerm::PUBLICATION_STATUS_DRAFT_ID,
       'draft_notification_enabled' => (isset($draftNotificationEnabled)) ? intval($draftNotificationEnabled->getValue(array('sourceCulture'=>true))) : 0,
@@ -362,6 +364,15 @@ class SettingsGlobalAction extends sfAction
 
       // Force sourceCulture update to prevent discrepency in settings between cultures
       $setting->setValue($slugTypeInformationObject, array('sourceCulture' => true));
+      $setting->save();
+    }
+
+    if (null !== $permissiveSlugCreation = $thisForm->getValue('permissive_slug_creation'))
+    {
+      $setting = QubitSetting::getByName('permissive_slug_creation');
+
+      // Force sourceCulture update to prevent discrepency in settings between cultures
+      $setting->setValue($permissiveSlugCreation, array('sourceCulture' => true));
       $setting->save();
     }
 

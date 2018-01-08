@@ -59,6 +59,7 @@ class SettingsGlobalForm extends sfForm
       'explode_multipage_files' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'show_tooltips' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'slug_basis_informationobject' => $this->getSlugBasisInformationObjectWidget(),
+      'permissive_slug_creation' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'defaultPubStatus' => new sfWidgetFormSelectRadio(array('choices' => array(QubitTerm::PUBLICATION_STATUS_DRAFT_ID => $this->i18n->__('Draft'), QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID => $this->i18n->__('Published'))), array('class' => 'radio')),
       'draft_notification_enabled' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'sword_deposit_dir' => new sfWidgetFormInput,
@@ -97,6 +98,7 @@ class SettingsGlobalForm extends sfForm
       'sword_deposit_dir' => $this->i18n->__('SWORD deposit directory'),
       'require_ssl_admin' => $this->i18n->__('Require SSL for all administrator funcionality'),
       'slug_basis_informationobject' => $this->i18n->__('Generate description permalinks from'),
+      'permissive_slug_creation' => $this->i18n->__('Use any valid URI path segment and uppercase character in slugs'),
       'require_strong_passwords' => $this->i18n->__('Require strong passwords'),
       'google_maps_api_key' => $this->i18n->__('Google Maps Javascript API key (for displaying dynamic maps)'),
       'generate_reports_as_pub_user' => $this->i18n->__('Generate archival description reports as public user'),
@@ -121,6 +123,7 @@ class SettingsGlobalForm extends sfForm
       'repository_quota' => $this->i18n->__('Default %1% upload limit for a new %2%.  A value of &quot;0&quot; (zero) disables file upload.  A value of &quot;-1&quot; allows unlimited uploads', array('%1%' => strtolower(sfConfig::get('app_ui_label_digitalobject')), '%2%' => strtolower(sfConfig::get('app_ui_label_repository')))),
       'defaultPubStatus' => $this->i18n->__('Default publication status for newly created or imported %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))),
       'slug_basis_informationobject' => $this->i18n->__('Choose whether permalinks for descriptions are generated from reference code or title'),
+      'permissive_slug_creation' => $this->i18n->__('Allow any valid URI PATH segment character to appear in a slug, including UTF-8 glyphs. Restricted IRI characters ( /?#{} ) and literal spaces will be replaced with dashes'),
       // 'explode_multipage_files' => $this->i18n->__('')
       // 'show_tooltips' => $this->i18n->__('')
       // 'sword_deposit_dir' => $this->i18n->__('')
@@ -156,6 +159,7 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['default_repository_browse_view'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['default_archival_description_browse_view'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['slug_basis_informationobject'] = $this->getSlugBasisInformationObjectValidator();
+    $this->validatorSchema['permissive_slug_creation'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['identifier_mask_enabled'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['identifier_mask'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['identifier_counter'] = new sfValidatorString(array('required' => false));
