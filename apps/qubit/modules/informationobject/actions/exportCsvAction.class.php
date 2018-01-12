@@ -59,7 +59,11 @@ class InformationObjectExportCsvAction extends sfAction
           $getParameters['sq0'] = $request->query;
         }
 
-        $options = array('params' => $getParameters);
+        // Do not add descendants in search results
+        $options = array(
+          'params' => $getParameters,
+          'current-level-only' => true
+        );
       }
 
       QubitJob::runJob('arInformationObjectCsvExportJob', $options);
