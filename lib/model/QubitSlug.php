@@ -23,7 +23,10 @@ class QubitSlug extends BaseSlug
     SLUG_BASIS_TITLE = 0,
     SLUG_BASIS_REFERENCE_CODE = 1,
     SLUG_BASIS_REFERENCE_CODE_NO_COUNTRY_REPO = 2,
-    SLUG_BASIS_IDENTIFIER = 3;
+    SLUG_BASIS_IDENTIFIER = 3,
+
+    SLUG_RESTRICTIVE = 0,
+    SLUG_PERMISSIVE = 1;
 
   public static function random($length = 12)
   {
