@@ -421,6 +421,8 @@ class sfInstall
   {
     QubitSearch::disable();
 
+    self::modifySql();
+
     $object = new QubitInformationObject;
     $object->id = QubitInformationObject::ROOT_ID;
     $object->save();
@@ -530,5 +532,18 @@ class sfInstall
     }
 
     return $symlinks;
+  }
+
+  /**
+   * Make any additional sql changes that cannot be made via schema.yml.
+   * Needs to be run for new installs and the tools:purge task.
+   *
+   * @return null
+   */
+  public static function modifySql()
+  {
+    // Propel version is unable to set column collation from schema.yml.
+    $sql = "ALTER TABLE `slug` MODIFY `slug` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin";
+    QubitPdo::modify($sql);
   }
 }

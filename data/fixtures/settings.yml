@@ -1155,6 +1155,7 @@ QubitSetting:
       en: 0
   Qubit_Settings_permissiveSlugCreation:
     name: permissive_slug_creation
+    editable: 1
     source_culture: en
     value:
       en: 0

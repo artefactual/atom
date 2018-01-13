@@ -40,11 +40,14 @@ class arMigration0159
     {
       $setting = new QubitSetting;
       $setting->name = 'permissive_slug_creation';
-      $setting->value = 0;
+      $setting->value = QubitSlug::SLUG_RESTRICTIVE;
       $setting->editable = 1;
       $setting->culture = 'en';
       $setting->save();
     }
+
+    $sql = "ALTER TABLE `slug` MODIFY `slug` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin";
+    QubitPdo::modify($sql);
 
     return true;
   }

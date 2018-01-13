@@ -64,23 +64,39 @@ class QubitSlug extends BaseSlug
    * @param bool $dropArticles  Whether or not to drop English articles from the slug.
    *                            We can disable this when we generate slugs by identifier.
    */
-  public static function slugify($slug)
+  public static function slugify($slug, $creationType = null)
   {
-    // Handle exotic characters gracefully.
-    // TRANSLIT doesn't work in musl's iconv, see #9855.
-    if ((false !== $result = iconv('utf-8', 'ascii//TRANSLIT', $slug)) || (false !== $result = iconv('utf-8', 'ascii', $slug)))
+    // 0, 1, or null
+    $slugCreation = (null === $creationType) ? sfConfig::get('app_permissive_slug_creation', QubitSlug::SLUG_RESTRICTIVE) : $creationType;
+
+    switch ($slugCreation)
     {
-      $slug = $result;
+      case QubitSlug::SLUG_PERMISSIVE:
+        // Remove apostrophes
+        $slug = preg_replace('/\'/', '', $slug);
+        // Whitelist - ASCII A-Za-z0-9, unicode letters, unicode numbers, - _ ~ : ; , = * @
+        $slug = preg_replace('/[^\p{L}\p{Nd}-_~\:;,=\*@]+/u', '-', $slug);
+        // Remove repeating dashes - replace with single dash.
+        $slug = preg_replace('/-+/u', '-', $slug);
+
+        break;
+
+      case QubitSlug::SLUG_RESTRICTIVE:
+      default:
+        // Handle exotic characters gracefully.
+        // TRANSLIT doesn't work in musl's iconv, see #9855.
+        if ((false !== $result = iconv('utf-8', 'ascii//TRANSLIT', $slug)) || (false !== $result = iconv('utf-8', 'ascii', $slug)))
+        {
+          $slug = $result;
+        }
+
+        // Remove apostrophes
+        $slug = preg_replace('/\'/', '', $slug);
+        $slug = strtolower($slug);
+        // Allow only digits, letters, and dashes.  Replace sequences of other
+        // characters with dash
+        $slug = preg_replace('/[^0-9a-z]+/', '-', $slug);
     }
-
-    $slug = strtolower($slug);
-
-    // Remove apostrophes
-    $slug = preg_replace('/\'/', '', $slug);
-
-    // Allow only digits, letters, and dashes.  Replace sequences of other
-    // characters with dash
-    $slug = preg_replace('/[^0-9a-z]+/', '-', $slug);
 
     $slug = "-$slug-";
 
