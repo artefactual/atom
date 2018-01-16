@@ -13,10 +13,11 @@ RUN set -xe \
 			libmemcached-dev \
 			autoconf \
 			build-base \
+		&& pecl install mcrypt-1.0.1 \
+		&& docker-php-ext-enable mcrypt \			
 		&& docker-php-ext-install \
 			gettext \
 			mbstring \
-			mcrypt \
 			mysqli \
 			opcache \
 			pdo_mysql \
@@ -44,6 +45,7 @@ RUN set -xe \
 			ghostscript \
 			poppler-utils \
 			nodejs \
+			nodejs-npm \			
 			make \
 			bash \
 		&& npm install -g "less@<2.0.0" \
