@@ -34,28 +34,21 @@ class SettingsadAction extends DefaultEditAction
   {
     switch ($name)
     {
-
       case 'ldapHost':
       case 'ldapBaseDn':
-        // Determine and set field default value
-        if (null !== $this->{$name} = QubitSetting::getByName($name))
-        {
-          $default = $this->{$name}->getValue(array('sourceCulture' => true));
-        }
-        else
-        {
-
-          $default = (isset($defaults[$name])) ? $defaults[$name] : '';
-        }
-
-        $this->form->setDefault($name, $default);
-
-        // Set validator and widget
-        //$validator = ($name == 'ldapPort') ? new sfValidatorInteger(array('min' => 1, 'max' => 65535)) : new sfValidatorPass;
-        //$this->form->setValidator($name, $validator);
-        $this->form->setWidget($name, new sfWidgetFormInput);
-
-        break;
+      // Determine and set field default value
+      if (null !== $this->{$name} = QubitSetting::getByName($name))
+      {
+        $default = $this->{$name}->getValue(array('sourceCulture' => true));
+      }
+      else
+      {
+        $default = (isset($defaults[$name])) ? $defaults[$name] : '';
+      }
+      $this->form->setDefault($name, $default);
+      // Set validator and widget
+      $this->form->setWidget($name, new sfWidgetFormInput);
+      break;
     }
   }
 
@@ -63,18 +56,17 @@ class SettingsadAction extends DefaultEditAction
   {
     switch ($name = $field->getName())
     {
-		case 'ldapHost':
+      case 'ldapHost':
       case 'ldapBaseDn':
-        if (null === $this->{$name})
-        {
-          $this->{$name} = new QubitSetting;
-          $this->{$name}->name = $name;
-          $this->{$name}->scope = 'ad';
-        }
-        $this->{$name}->setValue($field->getValue(), array('sourceCulture' => true));
-        $this->{$name}->save();
-
-        break;
+      if (null === $this->{$name})
+      {
+        $this->{$name} = new QubitSetting;
+        $this->{$name}->name = $name;
+        $this->{$name}->scope = 'ad';
+      }
+      $this->{$name}->setValue($field->getValue(), array('sourceCulture' => true));
+      $this->{$name}->save();
+      break;
     }
   }
 
@@ -85,13 +77,10 @@ class SettingsadAction extends DefaultEditAction
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getPostParameters());
-
       if ($this->form->isValid())
       {
         $this->processForm();
-
         QubitCache::getInstance()->removePattern('settings:i18n:*');
-
         $this->redirect(array('module' => 'settings', 'action' => 'ad'));
       }
     }
