@@ -29,7 +29,6 @@
         <?php echo $form->ldapBaseDn
           ->label(__('Base DN'))
           ->renderRow() ?>
-
 		  
       </fieldset>
 
