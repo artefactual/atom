@@ -99,7 +99,6 @@ class SettingsMenuComponent extends sfComponent
         'action' => 'ad'
       ));
     }
-
     
     foreach ($this->nodes as $i => &$node)
     {
