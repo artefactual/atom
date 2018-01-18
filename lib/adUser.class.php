@@ -19,7 +19,7 @@
 
 include sfConfig::get('sf_root_dir') .'/vendor/password_compat/password.php';
 
-class adUser extends myUser implements Zend_Acl_Role_Interface
+class ADUser extends myUser implements Zend_Acl_Role_Interface
 {
   protected $ldapConnection;
   protected $ldapBound;
@@ -31,7 +31,7 @@ class adUser extends myUser implements Zend_Acl_Role_Interface
 
     if (!extension_loaded('ldap'))
     {
-      throw new sfConfigurationException('ldapUser class needs the "ldap" extension to be loaded.');
+      throw new sfConfigurationException('ADUser class needs the "ldap" extension to be loaded.');
     }
   }
 
