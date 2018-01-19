@@ -241,6 +241,32 @@ class arBaseJob extends Net_Gearman_Job_Common
   }
 
   /**
+   * Create job temporary directory where the files will be added before
+   * they are compressed and added to the downloads folder. Use a MD5 hash
+   * created from instance info, job id and the current Epoch time to avoid
+   * collisions when multiple AtoM instances are available on the same machine
+   * and in instances where the database is regenerated from another dump (like
+   * it's done in sites with public and private instances), where the job id
+   * could be repeated, adding the export results to an existing export folder.
+   *
+   * @return string  Temporary directory path
+   */
+  protected function createJobTempDir()
+  {
+    $name = md5(
+      sfConfig::get('app_siteTitle') .
+      sfConfig::get('app_siteBaseUrl') .
+      sfConfig::get('sf_root_dir') .
+      $this->job->id .
+      date_timestamp_get()
+    );
+    $path = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $name;
+    mkdir($path);
+
+    return $path;
+  }
+
+  /**
    * Create jobs download directory, a subdirectory of main AtoM downloads
    * directory, if it doesn't already exist.
    *
