@@ -41,9 +41,7 @@ class arActorXmlExportJob extends arBaseJob
 
     $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
 
-    // Create temp directory in which CSV export files will be written
-    $tempPath = sys_get_temp_dir().'/actor_clipboard_export_'.$this->job->id;
-    mkdir($tempPath);
+    $tempPath = $this->createJobTempDir();
 
     // Export CSV to temp directory
     $this->info($this->i18n->__('Starting export to %1.', array('%1' => $tempPath)));
