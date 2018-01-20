@@ -337,10 +337,12 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       $this->repos = QubitRepository::getById($request->repos);
 
       // Add repo to the user session as realm
-      $this->context->user->setAttribute('search-realm', $request->repos);
+      if (sfConfig::get('app_enable_institutional_scoping'))
+      {
+        $this->context->user->setAttribute('search-realm', $request->repos);
+      }
     }
-    else if (sfConfig::get('app_enable_institutional_scoping') &&
-      !(isset($request->collection) && ctype_digit($request->collection)))
+    else if (sfConfig::get('app_enable_institutional_scoping'))
     {
       // Remove realm
       $this->context->user->removeAttribute('search-realm');
@@ -422,6 +424,11 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
           break;
       }
+    }
+
+    if (isset($request->ancestor) && ctype_digit($request->ancestor))
+    {
+      $this->ancestor = QubitInformationObject::getById($request->ancestor);
     }
   }
 

@@ -14,7 +14,7 @@
       <a href="<?php echo url_for(array(
         'module' => 'informationobject',
         'action' => 'browse',
-        'collection' => $resource->getCollectionRoot()->id,
+        'ancestor' => $resource->id,
         'topLod' => false,
         'view' => 'card',
         'onlyMedia' => true)) ?>"><?php echo __('Show all') ?></a>

@@ -269,10 +269,18 @@
         <?php echo $findingAidStatusTag ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['findingAidStatus']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
       </span>
     <?php endif; ?>
 
+    <?php if (isset($ancestor)): ?>
+      <span class="search-filter">
+        <?php echo $ancestor->__toString() ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+        <?php unset($params['ancestor']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
+      </span>
+    <?php endif; ?>
   </section>
 
 <?php end_slot() ?>

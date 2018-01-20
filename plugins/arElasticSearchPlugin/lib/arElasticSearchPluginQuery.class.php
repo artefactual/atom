@@ -235,6 +235,12 @@ class arElasticSearchPluginQuery
 
       $this->queryBool->addMust($queryNested);
     }
+
+    // Show descendants from resource
+    if (isset($params['ancestor']) && ctype_digit($params['ancestor']))
+    {
+      $this->queryBool->addMust(new \Elastica\Query\Term(array('ancestors' => $params['ancestor'])));
+    }
   }
 
   /**
