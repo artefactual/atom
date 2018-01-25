@@ -196,17 +196,20 @@ EOF;
       $inc = 1000;
       for ($i = 0; $i < count($newRows); $i += $inc)
       {
+        $values = array();
         $sql = "INSERT INTO slug (object_id, slug) VALUES ";
 
         $last = min($i+$inc, count($newRows));
         for ($j = $i; $j < $last; $j++)
         {
-          $sql .= sprintf('("%s", "%s"), ', $newRows[$j][0], $newRows[$j][1]);
+          // Use PDO param/value binding - ensures special chars are escaped on DB insert.
+          $sql .= "(?, ?), ";
+          array_push($values, $newRows[$j][0], $newRows[$j][1]);
         }
 
-        $sql = substr($sql, 0, -2).';';
-
-        $conn->exec($sql);
+        $sql = substr($sql, 0, -2);
+        $stmt = QubitPdo::prepare($sql);
+        $stmt->execute($values);
       }
     }
 
