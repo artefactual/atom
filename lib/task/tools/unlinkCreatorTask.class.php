@@ -26,6 +26,9 @@
  */
 class unlinkCreatorTask extends sfBaseTask
 {
+  protected
+    $actor = null;
+
   protected function configure()
   {
     $this->addOptions(array(
@@ -41,6 +44,12 @@ class unlinkCreatorTask extends sfBaseTask
     $this->briefDescription = 'Unlink creators from descriptions so creator inheritance can be used.';
     $this->detailedDescription = <<<EOF
 Unlink creators from descriptions so creator inheritance can be used.
+
+This Task will examine a description's creators and compare them to the
+description's ancestors. If the identical ancestors are found on an ancestor
+description such that creator inheritance could be used instead of directly
+linking a creator to a description, the creator will be unlinked from the
+description.
 EOF;
   }
 
@@ -56,11 +65,14 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    self::unlinkCreators($options);
+    self::unlinkCreators(self::getCriteria($options));
     $this->log('Done!');
   }
 
-  private function unlinkCreators($options = array())
+  /**
+   * Parse out the params and set the criteria that will drive the data lookup.
+   */
+  private function getCriteria($options = array())
   {
     // Get actor records from slug if supplied.
     if ($options['creator-slug'])
@@ -68,8 +80,8 @@ EOF;
       $criteria = new Criteria;
       $criteria->addJoin(QubitActor::ID, QubitSlug::OBJECT_ID);
       $criteria->add(QubitSlug::SLUG, $options['creator-slug']);
-      $actor = QubitActor::getOne($criteria);
-      if (null === $actor)
+      $this->actor = QubitActor::getOne($criteria);
+      if (null === $this->actor)
       {
         throw new Exception('Actor slug supplied but not found');
       }
@@ -101,9 +113,9 @@ EOF;
     $criteria->addGroupByColumn(QubitInformationObject::ID);
 
     // limit to a specific actor
-    if (null !== $actor)
+    if (null !== $this->actor)
     {
-      $criteria->add(QubitActor::ID, $actor->id, Criteria::EQUAL);
+      $criteria->add(QubitActor::ID, $this->actor->id, Criteria::EQUAL);
     }
     // limit to specific information object hierarchy
     if (null !== $io)
@@ -111,6 +123,15 @@ EOF;
       $criteria->add(QubitInformationObject::ID, $ioList, Criteria::IN);
     }
 
+    return $criteria;
+  }
+
+  /**
+   * Determine if creators can be removed from descriptions to be replaced
+   * with creator inheritance.
+   */
+  private function unlinkCreators($criteria)
+  {
     // Loop over hierarchy of this Information Object from the top down.
     // Higher levels of IO must be corrected before lower nodes.
     foreach (QubitInformationObject::get($criteria)->orderBy('lft') as $io)
@@ -136,7 +157,7 @@ EOF;
       // If an actor was specified as params, that is the only actor we can remove.
       // If > 1 actor on this IO, we can't remove only one or the inheritance
       // will not work properly so if this is case - skip.
-      if (null !== $actor && 1 < count($creatorIds))
+      if (null !== $this->actor && 1 < count($creatorIds))
       {
         continue;
       }
@@ -192,6 +213,9 @@ EOF;
     }
   }
 
+  /**
+   * Remove creators from this description.
+   */
   private function removeCreator($infoObj = null, $creatorIds)
   {
     // This will unlink this Actor from all creation events on this IO.
@@ -204,7 +228,10 @@ EOF;
         unset($event->actor);
         $event->save();
         // Delete the event record too if there aren't any dates/times on it.
-        if (null == $event->getPlace()->name && null == $event->date && null == $event->name && null == $event->description && null == $event->startDate && null == $event->endDate && null == $event->startTime && null == $event->endTime)
+        if (null == $event->getPlace()->name && null == $event->date &&
+            null == $event->name && null == $event->description &&
+            null == $event->startDate && null == $event->endDate &&
+            null == $event->startTime && null == $event->endTime)
         {
           $event->delete();
         }
