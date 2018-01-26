@@ -611,6 +611,13 @@ class QubitFlatfileImport
     {
       if ($this->status['rows'] >= $skipRows)
       {
+        // Skip blank rows, but keep track of rows parsed
+        if (!$this->rowContainsData($item))
+        {
+          $this->status['rows']++;
+          continue;
+        }
+
         if (!$timerStarted)
         {
           $this->startTimer();
@@ -651,6 +658,24 @@ class QubitFlatfileImport
 
     // add ability to define cleanup, etc. logic
     $this->executeClosurePropertyIfSet('completeLogic');
+  }
+
+  /**
+   * Filter out elements containing blank strings and check if any elements
+   * remain
+   *
+   * @param array $row  Array of column values
+   *
+   * @return bool  True if non-blank strings exist in row
+   */
+  private function rowContainsData($row)
+  {
+    // Filter out empty strings
+    $result = array_filter($row, function($columnValue) {
+      return is_string($columnValue) && trim($columnValue) != '';
+    });
+
+    return count($result) > 0;
   }
 
   /**
