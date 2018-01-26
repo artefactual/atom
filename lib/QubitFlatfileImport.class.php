@@ -50,7 +50,10 @@ class QubitFlatfileImport
   public $standardColumns = array(); // columns in CSV are object properties
   public $columnMap       = array(); // columns in CSV that map to object properties
   public $propertyMap     = array(); // columns in CSV that map to Qubit properties
+  public $termRelations   = array(); // columns in CSV that map to terms in a given taxonomy
   public $noteMap         = array(); // columns in CSV that should become notes
+  public $languageMap     = array(); // columns in CSV that map to serialized language Qubit properties
+  public $scriptMap       = array(); // columns in CSV that map to serialized script Qubit properties
   public $handlers        = array(); // columns in CSV paired with custom handling logic
   public $variableColumns = array(); // columns in CSV to be later referenced by logic
   public $arrayColumns    = array(); // columns in CSV to explode and later reference
@@ -1233,6 +1236,16 @@ class QubitFlatfileImport
   {
     $this->forEachRowColumn($row, function(&$self, $index, $columnName, $value)
     {
+      // Create/relate terms
+      if (isset($self->termRelations) && isset($self->termRelations[$columnName]) && $value)
+      {
+        foreach (explode('|', $value) as $name)
+        {
+          $self->createOrFetchTermAndAddRelation($self->termRelations[$columnName], $name);
+        }
+      }
+
+      // Create/update notes
       if (isset($self->noteMap) && isset($self->noteMap[$columnName]) && $value)
       {
         // otherwise, if maps to a note, create it
@@ -1244,6 +1257,18 @@ class QubitFlatfileImport
           explode('|', $value),
           $transformationLogic
         );
+      }
+
+      // Add language properties
+      if (isset($self->languageMap) && isset($self->languageMap[$columnName]) && $value)
+      {
+        $self->createLanguageSerializedProperty($self->languageMap[$columnName], explode('|', $value));
+      }
+
+      // Add script properties
+      if (isset($self->scriptMap) && isset($self->scriptMap[$columnName]) && $value)
+      {
+        $self->createScriptSerializedProperty($self->scriptMap[$columnName], explode('|', $value));
       }
     });
   }
@@ -2076,32 +2101,22 @@ class QubitFlatfileImport
   }
 
   /**
-   * Create a term and relate it to an object
+   * Create or fetch a term and relate it to an object
    *
    * @param integer $taxonomyId  taxonomy ID
    * @param string $name  name of term
-   * @param string $culture  culture code (defaulting to English)
+   * @param string $culture  culture code (defaulting to row's current culture)
    *
    * @return void
    */
-  public function createAccessPoint($taxonomyId, $name, $culture = null)
+  public function createOrFetchTermAndAddRelation($taxonomyId, $name, $culture = null)
   {
-    if (null === $culture)
-    {
-      $culture = sfContext::getInstance()->user->getCulture();
-    }
+    $culture = ($culture !== null) ? $culture : $this->columnValue('culture');
 
-    $query = "SELECT t.id FROM term t \r
-      LEFT JOIN term_i18n ti ON t.id=ti.id \r
-      WHERE t.taxonomy_id=? AND ti.name=? AND ti.culture=?";
-    $statement = $this->sqlQuery($query, array($taxonomyId, $name, $culture));
-
-    if (!($term = $statement->fetch(PDO::FETCH_OBJ)))
-    {
-      $term = $this->createTerm($taxonomyId, $name, $culture);
-    }
-
+    $term = $this->createOrFetchTerm($taxonomyId, $name, $culture);
     self::createObjectTermRelation($this->object->id, $term->id);
+
+    return $term;
   }
 
   /**
@@ -2176,6 +2191,99 @@ class QubitFlatfileImport
     return $this->createRelation($this->object->id, $right->id, QubitTerm::RIGHT_ID);
 
     return $relation;
+  }
+
+  /**
+   * Add a property to the imported object containing a serialized array of
+   * language values
+   *
+   * @param string $propertyName  Name of QubitProperty to create
+   * @param array $values  values to serialize and store
+   *
+   * @return void
+   */
+  public function createLanguageSerializedProperty($propertyName, $values)
+  {
+    $languages = array_keys(sfCultureInfo::getInstance()->getLanguages());
+    $this->createSerializedPropertyFromControlledVocabulary($propertyName, $values, $languages);
+  }
+
+  /**
+   * Add a property to the imported object containing a serialized array of
+   * script values
+   *
+   * @param string $propertyName  Name of QubitProperty to create
+   * @param array $values  values to serialize and store
+   *
+   * @return void
+   */
+  public function createScriptSerializedProperty($propertyName, $values)
+  {
+    $scripts = array_keys(sfCultureInfo::getInstance()->getScripts());
+    $this->createSerializedPropertyFromControlledVocabulary($propertyName, $values, $scripts);
+  }
+
+  /**
+   * Add a property to the imported object containing a serialized array of
+   * values from a controlled vocabulary
+   *
+   * @param string $propertyName  Name of QubitProperty to create
+   * @param array $values  values to serialize and store
+   * @param string $vocabulary  allowable values
+   *
+   * @return void
+   */
+  private function createSerializedPropertyFromControlledVocabulary($propertyName, $values, $vocabulary)
+  {
+    // Validate and normalize values
+    foreach ($values as $valueIndex => $value)
+    {
+      // Fail on invalid value (normalizing by case when checking value validity)
+      if (false === $vocabularyIndex = array_search(strtolower($value), array_map('strtolower', $vocabulary)))
+      {
+        throw new sfException(sprintf('Invalid %s: %s', $propertyName, $value));
+      }
+
+      // Normalize case of value
+      $values[$valueIndex] = $vocabulary[$vocabularyIndex];
+    }
+
+    // Creation property manually rather than using addProperty model methods
+    // as they are implemented inconsistently
+    $property = new QubitProperty;
+    $property->objectId = $this->object->id;
+    $property->name = $propertyName;
+    $property->setValue(serialize($values), array('sourceCulture' => true));
+    $property->indexOnSave = !$this->searchIndexingDisabled;
+    $property->save();
+  }
+
+  /**
+   * Create keymap entry for object
+   *
+   * @param string $sourceName  Name of source data
+   * @param int $sourceId  ID from source data
+   * @param object $object  Object to create entry for
+   *
+   * @return void
+   */
+  public function createKeymapEntry($sourceName, $sourceId, $object = null)
+  {
+    // Default to imported object
+    if ($object == null)
+    {
+      $object = $this->object;
+    }
+
+    // Determine target name using object class
+    $targetName = sfInflector::underscore(str_replace('Qubit', '', get_class($object)));
+
+    $keymap = new QubitKeymap;
+    $keymap->sourceName = $sourceName;
+    $keymap->sourceId   = $sourceId;
+    $keymap->targetId   = $object->id;
+    $keymap->targetName = $targetName;
+    $keymap->save();
   }
 
   /**

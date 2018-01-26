@@ -798,7 +798,7 @@ EOF;
                   $scope = $self->rowStatusVars['subjectAccessPointScopes'][$index];
                 }
 
-                $self->createAccessPoint($taxonomyId, $subject);
+                $self->createOrFetchTermAndAddRelation($taxonomyId, $subject);
 
                 if ($scope)
                 {
