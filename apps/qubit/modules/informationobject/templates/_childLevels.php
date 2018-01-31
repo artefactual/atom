@@ -35,6 +35,13 @@
         </td>
       </tr>
     </tbody>
+
+    <tfoot>
+      <tr>
+        <td colspan="5"><a href="#" class="multiRowAddButton"><?php echo __('Add new') ?></a></td>
+      </tr>
+    </tfoot>
+
   </table>
 
   <?php if (isset($help)): ?>
