@@ -106,7 +106,12 @@
             // TODO: use append + live or delegate, embed addNewRow
             .each(function()
               {
-                $('<tfoot><tr><td colspan=' + ($(this).find('tbody tr:first td').length + 1) + '><a href="#" onclick="Qubit.multiRow.addNewRow(this); return false;">Add new</a></td></tr></tfoot>').appendTo(this);
+                $(this).find('.multiRowAddButton').click(function()
+                  {
+                    Qubit.multiRow.addNewRow(this);
+                    return false;
+                  }
+                );
               })
 
             // If user press enter, add new row

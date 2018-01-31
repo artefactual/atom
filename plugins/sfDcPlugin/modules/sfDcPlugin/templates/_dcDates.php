@@ -60,6 +60,13 @@
       </tr>
 
     </tbody>
+
+    <tfoot>
+      <tr>
+        <td colspan="4"><a href="#" class="multiRowAddButton"><?php echo __('Add new') ?></a></td>
+      </tr>
+    </tfoot>
+
   </table>
 
   <div class="description">

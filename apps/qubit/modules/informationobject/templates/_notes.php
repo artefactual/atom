@@ -68,6 +68,13 @@
       </tr>
 
     </tbody>
+
+    <tfoot>
+      <tr>
+        <td colspan="<?php echo $hiddenType ? 2 : 3 ?>"><a href="#" class="multiRowAddButton"><?php echo __('Add new') ?></a></td>
+      </tr>
+    </tfoot>
+
   </table>
 
   <div class="description">
