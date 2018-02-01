@@ -19,7 +19,7 @@
 
 require_once dirname(__FILE__).'/../bootstrap/unit.php';
 
-$t = new lime_test(18, new lime_output_color);
+$t = new lime_test(20, new lime_output_color);
 
 /*
  * QubitSlug::slugify
@@ -33,9 +33,10 @@ $t = new lime_test(18, new lime_output_color);
    array('Test Slug 123', 'test-slug-123'),
 
    array('Test \'Slug\'', 'test-slug'),
-   array('test ~`!@#$%^&*()_{}[]+=-;:"<>,.\\/? slug', 'test-slug'),
+   array('test ~\'`!@#$%^&*()_{}[]+=-;:"<>,.\\/? slug', 'test-slug'),
    array('Tést Slug', 'test-slug'),
    array('Tést SLÜG', 'test-slug'),
+   array('TEST АБВ абв', 'test'),
  );
 
 $testsPermissive = array(
@@ -47,9 +48,10 @@ $testsPermissive = array(
   array('Test Slug 123', 'Test-Slug-123'),
 
   array('Test \'Slug\'', 'Test-Slug'),
-  array('test ~`|!@#$%^&*()_{}[]+=-;:"<>,.\\/? slug', 'test-~-!@-$-*()_-=-;:-,-slug'),
+  array('test ~\'`|!@#$%^&*()_{}[]+=-;:"<>,.\\/? slug', 'test-~-@-*-_-=-;:-,-slug'),
   array('Tést Slug', 'Tést-Slug'),
   array('Tést SLÜG', 'Tést-SLÜG'),
+  array('TEST АБВ абв', 'TEST-АБВ-абв'),
 );
 
 

@@ -147,12 +147,6 @@ class QubitSlug extends BaseSlug
   public static function getRfc3987Set()
   {
     // From RFC 3987 IRI allowed chars. Not guaranteed to match \p{L}\p{Nd}.
-    // %xA0-D7FF / %xF900-FDCF / %xFDF0-FFEF
-    // %x10000-1FFFD / %x20000-2FFFD / %x30000-3FFFD
-    // %x40000-4FFFD / %x50000-5FFFD / %x60000-6FFFD
-    // %x70000-7FFFD / %x80000-8FFFD / %x90000-9FFFD
-    // %xA0000-AFFFD / %xB0000-BFFFD / %xC0000-CFFFD
-    // %xD0000-DFFFD / %xE1000-EFFFD
     return ('\x{00A0}-\x{D7FF}'.'\x{F900}-\x{FDCF}'.'\x{FDF0}-\x{FFEF}'.
             '\x{10000}-\x{1FFFD}'.'\x{20000}-\x{2FFFD}'.'\x{30000}-\x{3FFFD}'.
             '\x{40000}-\x{4FFFD}'.'\x{50000}-\x{5FFFD}'.'\x{60000}-\x{6FFFD}'.
