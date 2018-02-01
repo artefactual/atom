@@ -18,7 +18,7 @@
  */
 
 /*
- * Add new setting for enabling institutional scoping.
+ * Add new setting for permissive slug generation. DB column collation change.
  *
  * @package    AccesstoMemory
  * @subpackage migration
@@ -42,7 +42,8 @@ class arMigration0159
       $setting->name = 'permissive_slug_creation';
       $setting->value = QubitSlug::SLUG_RESTRICTIVE;
       $setting->editable = 1;
-      $setting->culture = 'en';
+      $setting->source_culture = 'en';
+      $setting->setValue(QubitSlug::SLUG_RESTRICTIVE, array('culture' => 'en'));
       $setting->save();
     }
 
