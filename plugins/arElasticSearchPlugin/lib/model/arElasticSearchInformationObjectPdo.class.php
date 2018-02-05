@@ -559,12 +559,6 @@ class arElasticSearchInformationObjectPdo
       $names[$item->id] = $item;
     }
 
-    // Get actors linked via the "event" table (e.g. creators)
-    foreach ($this->getActors() as $item)
-    {
-      $names[$item->id] = $item;
-    }
-
     return $names;
   }
 
