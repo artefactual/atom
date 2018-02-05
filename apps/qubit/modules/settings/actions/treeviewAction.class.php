@@ -23,6 +23,7 @@ class SettingsTreeviewAction extends DefaultEditAction
   public static
     $NAMES = array(
       'type',
+      'showBrowseHierarchyPage',
       'ioSort',
       'showIdentifier',
       'showLevelOfDescription',
@@ -45,6 +46,17 @@ class SettingsTreeviewAction extends DefaultEditAction
           'fullWidth' => $this->i18n->__('Full width'));
 
         $this->addSettingRadioButtonsField($this->typeSetting, $name, $default, $options);
+
+        break;
+
+      case 'showBrowseHierarchyPage':
+        $this->showBrowseHierarchyPageSetting = QubitSetting::getByName('treeview_show_browse_hierarchy_page');
+        $default = 'no';
+        $options = array(
+          'no' => $this->i18n->__('No'),
+          'yes' => $this->i18n->__('Yes'));
+
+        $this->addSettingRadioButtonsField($this->showBrowseHierarchyPageSetting, $name, $default, $options);
 
         break;
 
@@ -115,6 +127,11 @@ class SettingsTreeviewAction extends DefaultEditAction
     {
       case 'type':
         $this->createOrUpdateSetting($this->typeSetting, 'treeview_type', $field->getValue());
+
+        break;
+
+      case 'showBrowseHierarchyPage':
+        $this->createOrUpdateSetting($this->showBrowseHierarchyPageSetting, 'treeview_show_browse_hierarchy_page', $field->getValue());
 
         break;
 

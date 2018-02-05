@@ -22,9 +22,22 @@
 
         <legend><?php echo __('General') ?></legend>
 
-        <?php echo $form->type
-          ->label(__('Type'))
-          ->renderRow() ?>
+        <div class="row">
+
+          <div class="span4">
+            <?php echo $form->type
+              ->label(__('Type'))
+              ->renderRow() ?>
+          </div>
+
+          <div class="span4">
+            <?php echo $form->showBrowseHierarchyPage
+              ->label(__('Show browse hierarchy page'))
+              ->help(__('Determines whether to show a link to the browse hierarchy page on the information objects browse/search pages'))
+              ->renderRow() ?>
+           </div>
+
+        </div>
 
       </fieldset>
 
