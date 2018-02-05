@@ -58,3 +58,20 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.hierarchy > .container > input[type="button"] {
+  margin-top: 14px;
+  float: right;
+}
+
+#fullwidth-treeview-more-button {
+  display: none;
+  margin-right: 6px;
+}
+
+#fullwidth-treeview-activity-indicator {
+  display: none;
+  float: right;
+  margin-top: 22px;
+  margin-right: 12px;
+}

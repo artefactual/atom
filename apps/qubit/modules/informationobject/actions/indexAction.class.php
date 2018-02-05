@@ -118,6 +118,7 @@ class InformationObjectIndexAction extends sfAction
     {
       $this->getResponse()->addStylesheet('fullWidthTreeView', 'last');
       $this->getResponse()->addStylesheet('/vendor/jstree/themes/default/style.min.css', 'last');
+      $this->getResponse()->addJavascript('treeviewTypes', 'last');
       $this->getResponse()->addJavascript('fullWidthTreeView', 'last');
       $this->getResponse()->addJavascript('/vendor/jstree/jstree.min.js', 'last');
     }

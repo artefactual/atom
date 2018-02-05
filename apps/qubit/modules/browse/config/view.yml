@@ -1,0 +1,9 @@
+hierarchySuccess:
+  stylesheets:
+    /vendor/jstree/themes/default/style.min.css:
+    fullWidthTreeView:
+  javascripts:
+    /vendor/jstree/jstree.min.js:
+    treeviewTypes:
+    pager:
+    hierarchy:

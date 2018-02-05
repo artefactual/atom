@@ -301,6 +301,13 @@
     <section class="browse-options">
       <?php echo get_partial('default/printPreviewButton') ?>
 
+      <?php if (sfConfig::get('app_treeview_show_browse_hierarchy_page', 'no') === 'yes'): ?>
+        <a href="<?php echo url_for(array('module' => 'browse', 'action' => 'hierarchy')) ?>">
+          <i class="fa fa-sitemap"></i>
+          Hierarchy
+        </a>
+      <?php endif; ?>
+
       <?php if ($sf_user->isAuthenticated()): ?>
         <a href="<?php echo url_for(array_merge($sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('module' => 'informationobject', 'action' => 'exportCsv'))) ?>">
           <i class="fa fa-upload"></i>
