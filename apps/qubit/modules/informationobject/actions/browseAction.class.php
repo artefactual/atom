@@ -309,18 +309,25 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
   protected function setHiddenFields($request)
   {
-    // Store current params (facets, sort, etc) to add them as hidden inputs
-    // in the form, to keep the selected facets and all on submit
+    // Store current params to add them as hidden inputs
+    // in the form, to keep GET and POST params in sync
     $this->hiddenFields = array();
     foreach ($request->getGetParameters() as $key => $value)
     {
-      // Ignore:
-      // - Params that exists in the form
-      // - Criteria fields
-      // - 'query' param (added to the criteria)
-      // - 'showAdvanced' param (always added)
-      if (in_array($key, $this::$NAMES) || 1 === preg_match('/^(sq|sf|so)\d+$/', $key)
-        || in_array($key, array('query', 'showAdvanced')))
+      // Keep control of what is added to avoid
+      // Cross-Site Scripting vulnerability. Only allow:
+      // - Facets
+      // - Sort, view and media options
+      // - actorId, eventTypeId and ancestor params
+      // But ignore facets already included in the form:
+      // - repos, collection and levels
+      $allowed = array_merge(
+        array_keys($this::$FACETS),
+        array('view', 'sort', 'media'),
+        array('actorId', 'eventTypeId', 'ancestor')
+      );
+      $ignored = array('repos', 'collection', 'levels');
+      if (!in_array($key, $allowed) || in_array($key, $ignored))
       {
         continue;
       }

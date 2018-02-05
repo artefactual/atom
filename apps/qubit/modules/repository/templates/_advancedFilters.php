@@ -1,7 +1,7 @@
 <form method="get">
 
-  <?php foreach ($params as $paramName => $paramValue): ?>
-    <?php echo '<input type="hidden" name="'.$paramName.'" value="'.$paramValue.'">' ?>
+  <?php foreach ($hiddenFields as $name => $value): ?>
+    <input type="hidden" name="<?php echo $name ?>" value="<?php echo $value ?>"/>
   <?php endforeach; ?>
 
   <div class="advanced-repository-filters-content">

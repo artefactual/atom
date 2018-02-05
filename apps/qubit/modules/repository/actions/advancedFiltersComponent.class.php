@@ -21,10 +21,29 @@ class RepositoryAdvancedFiltersComponent extends sfComponent
 {
   public function execute($request)
   {
-    $this->params = $request->getGetParameters();
+    // Store current params to add them as hidden inputs
+    // in the form, to keep GET and POST params in sync
+    $this->hiddenFields = array();
+    foreach ($request->getGetParameters() as $key => $value)
+    {
+      // Keep control of what is added to avoid
+      // Cross-Site Scripting vulnerability. Only allow:
+      // - Facets
+      // - Sort and view options
+      // - subquery param
+      // But ignore facets already included in the form:
+      // - thematicAreas, types and regions
+      $allowed = array_merge(
+        array_keys(RepositoryBrowseAction::$FACETS),
+        array('view', 'sort', 'subquery')
+      );
+      $ignored = array('thematicAreas', 'types', 'regions');
+      if (!in_array($key, $allowed) || in_array($key, $ignored))
+      {
+        continue;
+      }
 
-    unset($this->params['thematicAreas']);
-    unset($this->params['types']);
-    unset($this->params['regions']);
+      $this->hiddenFields[$key] = $value;
+    }
   }
 }
