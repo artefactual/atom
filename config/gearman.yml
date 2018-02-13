@@ -29,3 +29,5 @@ all:
       - arActorXmlExportJob
     repository_csv_export:
       - arRepositoryCsvExportJob
+    update_descendants:
+      - arUpdateDescendantsJob

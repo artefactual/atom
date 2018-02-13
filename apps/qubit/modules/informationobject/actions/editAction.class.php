@@ -597,6 +597,8 @@ class InformationObjectEditAction extends DefaultEditAction
       $this->getUser()->setFlash('notice', $message);
     }
 
+    QubitJob::runJob('arUpdateDescendantsJob', array('tldId' => $this->resource->id));
+
     $this->deleteNotes();
     $this->updateChildLevels();
     $this->removeDuplicateRepositoryAssociations();

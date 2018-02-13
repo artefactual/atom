@@ -41,13 +41,31 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     $this->count = QubitPdo::fetchColumn($sql, array(QubitInformationObject::ROOT_ID));
 
     // Recursively descend down hierarchy
-    $this->recursivelyAddInformationObjects(QubitInformationObject::ROOT_ID, $this->count);
+    $this->recursivelyUpdateInformationObjects(QubitInformationObject::ROOT_ID, $this->count, 'updateAllFields');
 
     return $this->errors;
   }
 
-  public function recursivelyAddInformationObjects($parentId, $totalRows, $options = array())
+  /**
+   * Descends an archival description hierarchy and calls a specified update function on each description to update it
+   * in the ES index.
+   *
+   * @param int $parentId  The parent archival description of the current one.
+   * @param int $totalRows The total archival description count in the hierarchy
+   *
+   * @param string $updateFunc The string indicating the name of the update function within $this class instance.
+   *                           The update function takes the returned row object from the getChildren query and
+   *                           returns an instance of arElasticSearchInformationObjectPdo for the current description.
+   *
+   * @param array $options  An array which we use to pass down 'inherited' fields like repository and inheritedCreators.
+   */
+  public function recursivelyUpdateInformationObjects($parentId, $totalRows, $updateFunc, $options = array())
   {
+    if (!isset(self::$conn))
+    {
+      self::$conn = Propel::getConnection();
+    }
+
     // Get information objects
     if (!isset(self::$statements['getChildren']))
     {
@@ -69,20 +87,13 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     {
       try
       {
-        $node = new arElasticSearchInformationObjectPdo($item->id, $options);
-        $data = $node->serialize();
-
-        QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
-
-        self::$counter++;
-
-        $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
+        $node = $this->$updateFunc($item, $options);
 
         // Descend hierarchy
         if (1 < ($item->rgt - $item->lft))
         {
           // Pass ancestors, repository and creators down to descendants
-          $this->recursivelyAddInformationObjects($item->id, $totalRows, array(
+          $this->recursivelyUpdateInformationObjects($item->id, $totalRows, $updateFunc, array(
             'ancestors'  => array_merge($node->getAncestors(), array($node)),
             'repository' => $node->getRepository(),
             'inheritedCreators' => array_merge($node->inheritedCreators, $node->creators)));
@@ -92,6 +103,56 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
       {
         $this->errors[] = $e->getMessage();
       }
+    }
+  }
+
+  private function updateAllFields($item, $options = array())
+  {
+    $node = new arElasticSearchInformationObjectPdo($item->id, $options);
+    $data = $node->serialize();
+
+    QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
+
+    self::$counter++;
+    $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
+
+    return $node;
+  }
+
+  /**
+   * Update ES fields descendants inherit from their ancestors.
+   */
+  private function updateInheritedFields($item, $options = array())
+  {
+    $node = new arElasticSearchInformationObjectPdo($item->id, $options);
+    $data = array();
+
+    if (isset($options['repository']) && null !== $repository = $node->getRepository())
+    {
+      $data['repository'] = arElasticSearchRepository::serialize($repository);
+    }
+
+    if (isset($options['inheritedCreators']))
+    {
+      $data['inheritedCreators'] = array();
+
+      foreach ($options['inheritedCreators'] as $creator)
+      {
+        $creatorNode = new arElasticSearchActorPdo($creator->id);
+        $data['inheritedCreators'][] = $creatorNode->serialize();
+      }
+    }
+
+    // Add "Part of" title if this isn't a top level description
+    if (null !== $partOf = $node->getPartOf())
+    {
+      $data['partOf'] = $partOf;
+    }
+
+    if ($data)
+    {
+      $data['_id'] = $item->id;
+      QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
     }
   }
 
