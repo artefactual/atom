@@ -48,6 +48,10 @@ class SettingsSiteInformationAction extends sfAction
         {
           // Do update and redirect to avoid repeat submit wackiness
           $this->updateSiteInformationSettings();
+
+          $notice = sfContext::getInstance()->i18n->__('Site information saved.');
+          $this->getUser()->setFlash('notice', $notice);
+
           $this->redirect('settings/siteInformation');
         }
       }

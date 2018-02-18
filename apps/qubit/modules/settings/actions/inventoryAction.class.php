@@ -109,6 +109,9 @@ class SettingsInventoryAction extends DefaultEditAction
 
         QubitCache::getInstance()->removePattern('settings:i18n:*');
 
+        $notice = sfContext::getInstance()->i18n->__('Inventory settings saved.');
+        $this->getUser()->setFlash('notice', $notice);
+
         $this->redirect(array('module' => 'settings', 'action' => 'inventory'));
       }
     }

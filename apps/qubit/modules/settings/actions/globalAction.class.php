@@ -51,6 +51,10 @@ class SettingsGlobalAction extends sfAction
         {
           // Do update and redirect to avoid repeat submit wackiness
           $this->updateGlobalSettings();
+
+          $notice = sfContext::getInstance()->i18n->__('Global settings saved.');
+          $this->getUser()->setFlash('notice', $notice);
+
           $this->redirect('settings/global');
         }
       }

@@ -46,6 +46,10 @@ class SettingsTemplateAction extends sfAction
         {
           // Do update and redirect to avoid repeat submit wackiness
           $this->updateDefaultTemplateSettings($this->defaultTemplateForm);
+
+          $notice = sfContext::getInstance()->i18n->__('Default templates saved.');
+          $this->getUser()->setFlash('notice', $notice);
+
           $this->redirect('settings/template');
         }
       }

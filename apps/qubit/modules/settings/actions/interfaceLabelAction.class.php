@@ -53,6 +53,10 @@ class SettingsInterfaceLabelAction extends sfAction
         {
           // Do update and redirect to avoid repeat submit wackiness
           $this->updateUiLabelSettings($this->uiLabelForm);
+
+          $notice = sfContext::getInstance()->i18n->__('User interface labels saved.');
+          $this->getUser()->setFlash('notice', $notice);
+
           $this->redirect('settings/interfaceLabel');
         }
       }

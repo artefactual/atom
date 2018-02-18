@@ -59,6 +59,9 @@ class SettingsLanguageAction extends sfAction
         $setting->sourceCulture = 'en';
 
         $setting->save();
+
+        $notice = sfContext::getInstance()->i18n->__('Language saved.');
+        $this->getUser()->setFlash('notice', $notice);
       }
     }
 

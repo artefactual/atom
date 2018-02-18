@@ -43,6 +43,10 @@ class SettingsFindingAidAction extends sfAction
         {
           // Do update and redirect to avoid repeat submit wackiness
           $this->updateFindingAidSettings();
+
+          $notice = sfContext::getInstance()->i18n->__('Finding aid settings saved.');
+          $this->getUser()->setFlash('notice', $notice);
+
           $this->redirect('settings/findingAid');
         }
       }

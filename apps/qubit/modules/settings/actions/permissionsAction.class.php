@@ -137,6 +137,9 @@ class SettingsPermissionsAction extends sfAction
         }
       }
 
+      $notice = sfContext::getInstance()->i18n->__('Permissions saved.');
+      $this->getUser()->setFlash('notice', $notice);
+
       $this->redirect('settings/permissions');
     }
   }

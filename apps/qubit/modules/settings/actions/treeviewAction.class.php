@@ -167,6 +167,8 @@ class SettingsTreeviewAction extends DefaultEditAction
 
         QubitCache::getInstance()->removePattern('settings:i18n:*');
 
+        $this->getUser()->setFlash('notice', $this->i18n->__('Treeview settings saved.'));
+
         $this->redirect(array('module' => 'settings', 'action' => 'treeview'));
       }
     }

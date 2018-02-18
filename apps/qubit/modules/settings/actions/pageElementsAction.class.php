@@ -95,6 +95,9 @@ class SettingsPageElementsAction extends sfAction
 
       QubitCache::getInstance()->removePattern('settings:i18n:*');
 
+      $notice = sfContext::getInstance()->i18n->__('Default page elements saved.');
+      $this->getUser()->setFlash('notice', $notice);
+
       // Redirect to display changes in the interface
       // because the settings are added to sfConfig in a filter
       $this->redirect(array('module' => 'settings', 'action' => 'pageElements'));

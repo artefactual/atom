@@ -46,6 +46,10 @@ class SettingsSecurityAction extends sfAction
         {
           // Do update and redirect to avoid repeat submit wackiness
           $this->updateSecuritySettings($this->securityForm);
+
+          $notice = sfContext::getInstance()->i18n->__('Security settings saved.');
+          $this->getUser()->setFlash('notice', $notice);
+
           $this->redirect('settings/security');
         }
       }
