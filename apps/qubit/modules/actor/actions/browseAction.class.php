@@ -106,7 +106,7 @@ class ActorBrowseAction extends DefaultBrowseAction
     else
     {
       $queryText = new \Elastica\Query\QueryString(arElasticSearchPluginUtil::escapeTerm($request->subquery));
-      $queryText->setDefaultOperator('OR');
+      $queryText->setDefaultOperator('AND');
       arElasticSearchPluginUtil::setFields($queryText, 'actor');
 
       $this->search->queryBool->addMust($queryText);
