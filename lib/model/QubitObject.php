@@ -190,6 +190,8 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
       // Compute unique slug adding contiguous numeric suffix
       $suffix = 2;
       $triedQuery = false;
+      $stem = $this->slug;
+
       do
       {
         try
@@ -200,8 +202,6 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
         // Collision? Try next suffix
         catch (PDOException $e)
         {
-          $stem = preg_replace('/-\d+$/', '', $this->slug, 1);
-
           if (!$triedQuery)
           {
             $triedQuery = true;
