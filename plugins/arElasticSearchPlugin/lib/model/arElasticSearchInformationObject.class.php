@@ -28,11 +28,6 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
   public function populate()
   {
-    if (!isset(self::$conn))
-    {
-      self::$conn = Propel::getConnection();
-    }
-
     // Get count of all information objects
     $sql  = 'SELECT COUNT(*)';
     $sql .= ' FROM '.QubitInformationObject::TABLE_NAME;
@@ -44,6 +39,21 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     $this->recursivelyUpdateInformationObjects(QubitInformationObject::ROOT_ID, $this->count, 'updateAllFields');
 
     return $this->errors;
+  }
+
+  /**
+   * Return a sql connection singleton.
+   *
+   * @return A Propel sql connection.
+   */
+  private static function getSqlConnection()
+  {
+    if (!isset(self::$conn))
+    {
+      self::$conn = Propel::getConnection();
+    }
+
+    return self::$conn;
   }
 
   /**
@@ -61,11 +71,6 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
    */
   public function recursivelyUpdateInformationObjects($parentId, $totalRows, $updateFunc, $options = array())
   {
-    if (!isset(self::$conn))
-    {
-      self::$conn = Propel::getConnection();
-    }
-
     // Get information objects
     if (!isset(self::$statements['getChildren']))
     {
@@ -77,7 +82,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
       $sql .= ' WHERE io.parent_id = ?';
       $sql .= ' ORDER BY io.lft';
 
-      self::$statements['getChildren'] = self::$conn->prepare($sql);
+      self::$statements['getChildren'] = self::getSqlConnection()->prepare($sql);
     }
 
     self::$statements['getChildren']->execute(array($parentId));
