@@ -19,7 +19,6 @@
 
 /**
  *
- *
  * @package    symfony
  * @subpackage jobs
  */
@@ -43,8 +42,6 @@ class arUpdateDescendantsJob extends arBaseJob
     $searchIo = new arElasticSearchInformationObject;
     $searchIo->recursivelyUpdateInformationObjects($parameters['tldId'], count($this->topLevelDesc->descendants),
       'updateInheritedFields');
-
-
     $this->info($this->i18n->__('Update(s) completed.'));
     $this->job->setStatusCompleted();
     $this->job->save();
