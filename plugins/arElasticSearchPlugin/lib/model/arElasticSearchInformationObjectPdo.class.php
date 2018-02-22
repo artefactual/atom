@@ -1066,11 +1066,10 @@ class arElasticSearchInformationObjectPdo
   /**
    * Get an array outlining which top level description the current description is part of.
    *
-   * @param int $collectionRootId  The id for the top level description in this hierarchy.
    * @return array  An array containing the id and various i18n titles of the top level description.
    *                If this description is already a TLD or another issue occurs, return null.
    */
-  public function getPartOf($collectionRootId)
+  public function getPartOf()
   {
     $collectionRootId = $this->getCollectionRootId();
 
@@ -1377,7 +1376,7 @@ class arElasticSearchInformationObjectPdo
         array('fields' => array('title'))
       );
 
-      if (null !== $partOf = $this->getPartOf($collectionRootId))
+      if (null !== $partOf = $this->getPartOf())
       {
         $serialized['partOf'] = $partOf;
       }
