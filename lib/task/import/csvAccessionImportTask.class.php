@@ -303,7 +303,7 @@ EOF;
       }
     ));
 
-    $import->addColumnHandler('acquisitionDate', function(&$self, $data)
+    $import->addColumnHandler('acquisitionDate', function($self, $data)
     {
       if ($data)
       {
@@ -318,7 +318,7 @@ EOF;
       }
     });
 
-    $import->addColumnHandler('resourceType', function(&$self, $data)
+    $import->addColumnHandler('resourceType', function($self, $data)
     {
       setObjectPropertyToTermIdLookedUpFromTermNameArray(
         $self,
@@ -329,7 +329,7 @@ EOF;
       );
     });
 
-    $import->addColumnHandler('acquisitionType', function(&$self, $data)
+    $import->addColumnHandler('acquisitionType', function($self, $data)
     {
       setObjectPropertyToTermIdLookedUpFromTermNameArray(
         $self,
@@ -340,7 +340,7 @@ EOF;
       );
     });
 
-    $import->addColumnHandler('processingStatus', function(&$self, $data)
+    $import->addColumnHandler('processingStatus', function($self, $data)
     {
       setObjectPropertyToTermIdLookedUpFromTermNameArray(
         $self,
@@ -351,7 +351,7 @@ EOF;
       );
     });
 
-    $import->addColumnHandler('processingPriority', function(&$self, $data)
+    $import->addColumnHandler('processingPriority', function($self, $data)
     {
       setObjectPropertyToTermIdLookedUpFromTermNameArray(
         $self,
