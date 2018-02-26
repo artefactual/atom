@@ -54,6 +54,34 @@ class TaxonomyIndexAction extends sfAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
+    if (!isset($request->page))
+    {
+      $request->page = 1;
+    }
+
+    // Avoid pagination over 10000 records
+    if ((int)$request->limit * (int)$request->page > 10000)
+    {
+      // Don't show alert or redirect in XHR requests made
+      // from the list tab in the terms index page. It requires
+      // to go one by one to the page over 10,000 records.
+      // Returning nothing doesn't break the list but it doesn't
+      // show any notice.
+      if ($request->isXmlHttpRequest())
+      {
+        return;
+      }
+
+      // Show alert
+      $message = $this->context->i18n->__("We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. To view the last records in the current result set, try changing the sort direction.");
+      $this->getUser()->setFlash('notice', $message);
+
+      // Redirect to fist page
+      $params = $request->getParameterHolder()->getAll();
+      unset($params['page']);
+      $this->redirect($params);
+    }
+
     if ($this->getUser()->isAuthenticated())
     {
       $this->sortSetting = sfConfig::get('app_sort_browser_user');
@@ -91,11 +119,7 @@ class TaxonomyIndexAction extends sfAction
 
     $this->query = new \Elastica\Query();
     $this->query->setSize($request->limit);
-
-    if (!empty($request->page))
-    {
-      $this->query->setFrom(($request->page - 1) * $request->limit);
-    }
+    $this->query->setFrom(($request->page - 1) * $request->limit);
 
     $this->queryBool = new \Elastica\Query\BoolQuery;
 
