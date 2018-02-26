@@ -152,6 +152,19 @@ class DefaultBrowseAction extends sfAction
       $skip = ($request->page - 1) * $this->limit;
     }
 
+    // Avoid pagination over 10000 records
+    if ((int)$this->limit + (int)$skip > 10000)
+    {
+      // Show alert
+      $message = $this->context->i18n->__("We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. To view the last records in the current result set, try changing the sort direction.");
+      $this->getUser()->setFlash('notice', $message);
+
+      // Redirect to fist page
+      $params = $request->getParameterHolder()->getAll();
+      unset($params['page']);
+      $this->redirect($params);
+    }
+
     $this->search = new arElasticSearchPluginQuery($this->limit, $skip);
 
     if (property_exists($this, 'AGGS'))
