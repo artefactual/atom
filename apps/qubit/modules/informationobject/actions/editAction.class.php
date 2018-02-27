@@ -823,6 +823,11 @@ class InformationObjectEditAction extends DefaultEditAction
    */
   private function updateDescendantInheritedFields()
   {
+    if ($this->resource->rgt - $this->resource->lft <= 1)
+    {
+      return;
+    }
+
     $job = QubitJob::runJob('arUpdateDescendantsJob', array('tldId' => $this->resource->id));
 
     $params = array(
