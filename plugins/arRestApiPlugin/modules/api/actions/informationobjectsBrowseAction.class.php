@@ -43,6 +43,14 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
       $skip = $request->skip;
     }
 
+    // Avoid pagination over 10000 records
+    if ((int)$limit + (int)$skip > 10000)
+    {
+      // Return 400 response with error message
+      $message = $this->context->i18n->__("Pagination limit reached. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. Please, narrow down your results.");
+      throw new QubitApiBadRequestException($message);
+    }
+
     // Default to show all level descriptions
     if (!isset($request->topLod) || !filter_var($request->topLod, FILTER_VALIDATE_BOOLEAN))
     {
