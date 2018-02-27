@@ -36,17 +36,37 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
     $title = render_title($this->resource, false);
     $this->response->setTitle("$title - Inventory list - {$this->response->getTitle()}");
 
-    if (empty($request->limit))
+    $limit = sfConfig::get('app_hits_per_page');
+    if (isset($request->limit) && ctype_digit($request->limit))
     {
-      $request->limit = sfConfig::get('app_hits_per_page');
+      $limit = $request->limit;
     }
 
-    $resultSet = self::getResults($this->resource, $request->limit, $request->page, $request->sort);
+    $page = 1;
+    if (isset($request->page) && ctype_digit($request->page))
+    {
+      $page = $request->page;
+    }
+
+    // Avoid pagination over 10000 records
+    if ((int)$limit * $page > 10000)
+    {
+      // Show alert
+      $message = $this->context->i18n->__("We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. To view the last records in the current result set, try changing the sort direction.");
+      $this->getUser()->setFlash('notice', $message);
+
+      // Redirect to fist page
+      $params = $request->getParameterHolder()->getAll();
+      unset($params['page']);
+      $this->redirect($params);
+    }
+
+    $resultSet = self::getResults($this->resource, $limit, $page, $request->sort);
 
     // Page results
     $this->pager = new QubitSearchPager($resultSet);
-    $this->pager->setPage($request->page ? $request->page : 1);
-    $this->pager->setMaxPerPage($request->limit);
+    $this->pager->setPage($page);
+    $this->pager->setMaxPerPage($limit);
     $this->pager->init();
   }
 
