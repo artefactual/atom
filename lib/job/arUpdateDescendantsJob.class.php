@@ -41,7 +41,9 @@ class arUpdateDescendantsJob extends arBaseJob
     $this->info($this->i18n->__("Updating child descriptions' inherited fields from ancestors (id: %1)", array('%1' => $this->topLevelDesc->id)));
     $searchIo = new arElasticSearchInformationObject;
     $searchIo->recursivelyUpdateInformationObjects($parameters['tldId'], count($this->topLevelDesc->descendants),
-      'updateInheritedFields');
+      'updateInheritedFields', array('repository' => $this->topLevelDesc->getRepository(),
+      'inheritedCreators' => $this->topLevelDesc->getCreators()));
+
     $this->info($this->i18n->__('Update(s) completed.'));
     $this->job->setStatusCompleted();
     $this->job->save();

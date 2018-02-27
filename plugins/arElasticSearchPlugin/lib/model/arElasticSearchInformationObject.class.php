@@ -125,7 +125,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
   }
 
   /**
-   * Update ES fields descendants inherit from their ancestors.
+   * Update ES fields descendants inherit from their ancestors. This assumes QubitInformationObject atm.
    */
   private function updateInheritedFields($item, $options = array())
   {
@@ -139,10 +139,13 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
     if (isset($options['inheritedCreators']))
     {
-      $data['inheritedCreators'] = array();
-
       foreach ($options['inheritedCreators'] as $creator)
       {
+        if (!isset($data['inheritedCreators']))
+        {
+          $data['inheritedCreators'] = array();
+        }
+
         $creatorNode = new arElasticSearchActorPdo($creator->id);
         $data['inheritedCreators'][] = $creatorNode->serialize();
       }
@@ -154,10 +157,10 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
       $data['partOf'] = $partOf;
     }
 
-    if ($data)
+    // If any of the inherited fields have been set to other than null, do partial update
+    if (array_filter($data))
     {
-      $data['_id'] = $item->id;
-      QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
+      QubitSearch::getInstance()->partialUpdate(QubitInformationObject::getById($item->id), $data);
     }
   }
 
