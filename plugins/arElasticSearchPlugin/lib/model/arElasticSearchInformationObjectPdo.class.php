@@ -1082,11 +1082,7 @@ class arElasticSearchInformationObjectPdo
       }
 
       $rootSourceCulture = QubitPdo::fetchColumn('SELECT source_culture FROM information_object WHERE id=?',
-                                                array($collectionRootId));
-      if (!$rootSourceCulture)
-      {
-        throw new sfException("No source culture found for information object $collectionRootId");
-      }
+                                                 array($collectionRootId));
 
       $i18nFields = arElasticSearchModelBase::serializeI18ns(
         $collectionRootId,
@@ -1094,12 +1090,18 @@ class arElasticSearchInformationObjectPdo
         array('fields' => array('title'))
       );
 
-      return array(
+      $result = array(
         'id' => $collectionRootId,
-        'sourceCulture' => $rootSourceCulture,
         'slug' => $rootSlug,
         'i18n' => $i18nFields,
       );
+
+      if ($rootSourceCulture)
+      {
+        $result['sourceCulture'] = $rootSourceCulture;
+      }
+
+      return $result;
     }
 
     return null;
