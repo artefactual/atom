@@ -91,13 +91,34 @@ class DefaultMoveAction extends sfAction
 
     $this->parent = QubitObject::getBySlug($this->form->parent->getValue());
 
-    $this->query = new \Elastica\Query();
-    $this->query->setSize($request->limit);
-
-    if (!empty($request->page))
+    $limit = sfConfig::get('app_hits_per_page', 10);
+    if (isset($request->limit) && ctype_digit($request->limit))
     {
-      $this->query->setFrom(($request->page - 1) * $request->limit);
+      $limit = $request->limit;
     }
+
+    $page = 1;
+    if (isset($request->page) && ctype_digit($request->page))
+    {
+      $page = $request->page;
+    }
+
+    // Avoid pagination over 10000 records
+    if ((int)$limit * $page > 100)
+    {
+      // Show alert
+      $message = $this->context->i18n->__("We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. Please, narrow down your results.");
+      $this->getUser()->setFlash('notice', $message);
+
+      // Redirect to fist page
+      $params = $request->getParameterHolder()->getAll();
+      unset($params['page']);
+      $this->redirect($params);
+    }
+
+    $this->query = new \Elastica\Query();
+    $this->query->setSize($limit);
+    $this->query->setFrom(($page - 1) * $limit);
 
     $this->queryBool = new \Elastica\Query\BoolQuery;
 
@@ -132,8 +153,8 @@ class DefaultMoveAction extends sfAction
 
     // Page results
     $this->pager = new QubitSearchPager($resultSet);
-    $this->pager->setPage($request->page ? $request->page : 1);
-    $this->pager->setMaxPerPage($request->limit);
+    $this->pager->setPage($page);
+    $this->pager->setMaxPerPage($limit);
     $this->pager->init();
 
     $slugs = array();

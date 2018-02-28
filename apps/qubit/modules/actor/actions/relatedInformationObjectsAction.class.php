@@ -33,6 +33,13 @@ class ActorRelatedInformationObjectsAction extends sfAction
     $limit = sfConfig::get('app_hits_per_page', 10);
     $culture = $this->context->user->getCulture();
 
+    // Avoid pagination over 10000 records
+    if ((int)$limit * (int)$request->page > 1000)
+    {
+      // Return nothing to not break the list
+      return;
+    }
+
     $resultSet = self::getRelatedInformationObjects($request->actorId, $request->page, $limit, $request->eventTypeId);
 
     $pager = new QubitSearchPager($resultSet);
@@ -81,7 +88,7 @@ class ActorRelatedInformationObjectsAction extends sfAction
     }
     else
     {
-      // Get related by event IOs 
+      // Get related by event IOs
       $queryBoolDates = new \Elastica\Query\BoolQuery;
       $queryBoolDates->addMust(new \Elastica\Query\Term(array('dates.actorId' => $actorId)));
       $queryBoolDates->addMust(new \Elastica\Query\Term(array('dates.typeId' => $eventTypeId)));

@@ -52,8 +52,6 @@ class UserClipboardAction extends DefaultBrowseAction
     }
     else
     {
-      parent::execute($request);
-
       $slugs = $allSlugs[$this->entityType];
       $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $slugs));
       $this->setSortOptions();

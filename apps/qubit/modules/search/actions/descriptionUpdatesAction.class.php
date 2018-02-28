@@ -178,8 +178,31 @@ class SearchDescriptionUpdatesAction extends sfAction
     $this->addDateRangeQuery($queryBool, $this->form->getValue('dateOf'));
 
     $query = new \Elastica\Query($queryBool);
+
     $limit = sfConfig::get('app_hits_per_page', 10);
-    $page = $this->request->getParameter('page', 1);
+    if (isset($this->request->limit) && ctype_digit($this->request->limit))
+    {
+      $limit = $this->request->limit;
+    }
+
+    $page = 1;
+    if (isset($this->request->page) && ctype_digit($this->request->page))
+    {
+      $page = $this->request->page;
+    }
+
+    // Avoid pagination over 10000 records
+    if ((int)$limit * $page > 10000)
+    {
+      // Show alert
+      $message = $this->context->i18n->__("We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. Please, narrow down your results.");
+      $this->getUser()->setFlash('notice', $message);
+
+      // Redirect to fist page
+      $params = $this->request->getParameterHolder()->getAll();
+      unset($params['page']);
+      $this->redirect($params);
+    }
 
     $query->setSize($limit);
     $query->setFrom($limit * ($page - 1));
@@ -190,7 +213,7 @@ class SearchDescriptionUpdatesAction extends sfAction
     // Page results
     $this->pager = new QubitSearchPager($resultSet);
     $this->pager->setMaxPerPage($limit);
-    $this->pager->setPage($this->request->getParameter('page', 1));
+    $this->pager->setPage($page);
   }
 
   private function addDateRangeQuery($queryBool, $dateOf)

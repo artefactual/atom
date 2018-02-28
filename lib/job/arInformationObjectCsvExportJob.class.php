@@ -38,30 +38,6 @@ class arInformationObjectCsvExportJob extends arBaseJob
 
   public function runJob($parameters)
   {
-    $this->params = $parameters;
-
-    // If not using RAD, default to ISAD CSV export format
-    $this->archivalStandard = 'isad';
-    if (QubitSetting::getByNameAndScope('informationobject', 'default_template') == 'rad')
-    {
-      $this->archivalStandard = 'rad';
-    }
-
-    // Create query increasing limit from default
-    $this->search = new arElasticSearchPluginQuery(arElasticSearchPluginUtil::SCROLL_SIZE);
-
-    if ($this->params['params']['fromClipboard'])
-    {
-      $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
-    }
-    else
-    {
-      $this->search->addAggFilters(InformationObjectBrowseAction::$AGGS, $this->params['params']);
-      $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $this->params['params'], $this->archivalStandard);
-    }
-
-    $this->search->query->setSort(array('lft' => 'asc'));
-
     $tempPath = $this->createJobTempDir();
 
     // Export CSV to temp directory
@@ -122,8 +98,8 @@ class arInformationObjectCsvExportJob extends arBaseJob
    */
   static public function searchFromParameters($parameters)
   {
-    // Create query increasing limit from default
-    $search = new arElasticSearchPluginQuery(10000);
+    // Create query
+    $search = new arElasticSearchPluginQuery(arElasticSearchPluginUtil::SCROLL_SIZE);
 
     if ($parameters['params']['fromClipboard'])
     {
@@ -131,7 +107,7 @@ class arInformationObjectCsvExportJob extends arBaseJob
     }
     else
     {
-      $search->addAggFilters(InformationObjectBrowseAction::$AGGS, $this->params['params']);
+      $search->addAggFilters(InformationObjectBrowseAction::$AGGS, $parameters['params']);
       $search->addAdvancedSearchFilters(
         InformationObjectBrowseAction::$NAMES,
         $parameters['params'],
