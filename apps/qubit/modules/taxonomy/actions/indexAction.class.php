@@ -49,6 +49,17 @@ class TaxonomyIndexAction extends sfAction
       $this->forward404();
     }
 
+    // Restrict access (except to places and subject taxonomies)
+    $unrestrictedTaxonomies = array(QubitTaxonomy::GENRE_ID, QubitTaxonomy::PLACE_ID, QubitTaxonomy::SUBJECT_ID);
+    $allowedGroups = array(QubitAclGroup::EDITOR_ID, QubitAclGroup::ADMINISTRATOR_ID);
+
+    if (!in_array($this->resource->id,  $unrestrictedTaxonomies)
+       && !$this->context->user->hasGroup($allowedGroups))
+    {
+      $this->getResponse()->setStatusCode(403);
+      return sfView::HEADER_ONLY;
+    }
+
     if (!isset($request->limit))
     {
       $request->limit = sfConfig::get('app_hits_per_page');

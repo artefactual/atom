@@ -1,11 +1,11 @@
 browse:
   credentials: [[ editor, administrator ]]
 
-index:
-  credentials: [[ editor, administrator ]]
-
 list:
   credentials: [[ editor, administrator ]]
+
+index:
+  is_secure: false
 
 autocomplete:
   is_secure: false

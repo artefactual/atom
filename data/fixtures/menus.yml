@@ -1771,7 +1771,7 @@ QubitMenu:
       uz: Mavzular
       vi: 'Chủ đề'
       zh: 主题
-    path: 'taxonomy/browse?id=35'
+    path: 'taxonomy/index?id=35'
   QubitMenu_browse_places:
     parent_id: QubitMenu_browse
     source_culture: en
@@ -1809,7 +1809,7 @@ QubitMenu:
       uz: Joylar
       vi: 'địa điểm'
       zh: 地点
-    path: 'taxonomy/browse?id=42'
+    path: 'taxonomy/index?id=42'
   QubitMenu_browse_digital_objects:
     parent_id: QubitMenu_browse
     source_culture: en
