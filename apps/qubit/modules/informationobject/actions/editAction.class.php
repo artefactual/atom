@@ -451,12 +451,25 @@ class InformationObjectEditAction extends DefaultEditAction
               break;
 
             case 'relatedMaterialDescriptions':
-              $relation->typeId = QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID;
+              // Don't allow self-relations
+              if (!isset($this->resource->id) || ($this->resource->id != $item->id))
+              {
+                $relation->typeId = QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID;
+              }
+              else
+              {
+                $message = $this->context->i18n->__('Self-relation ignored.');
+                $this->getUser()->setFlash('notice', $message);
+              }
 
               break;
           }
 
-          $this->resource->relationsRelatedBysubjectId[] = $relation;
+          // Don't create if no relation type has been set
+          if (isset($relation->typeId))
+          {
+            $this->resource->relationsRelatedBysubjectId[] = $relation;
+          }
         }
 
         break;
