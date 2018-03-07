@@ -56,6 +56,9 @@ $rowTemplate = json_encode(<<<value
 value
 );
 
+$submitText = __('Submit');
+$cancelText = __('Cancel');
+$addNewText = __('Add new');
 echo javascript_tag(<<<content
 
 Drupal.behaviors.contactInformation = {
@@ -64,7 +67,10 @@ Drupal.behaviors.contactInformation = {
       // Define dialog
       var dialog = new QubitDialog('contactInformationRelation', {
         'displayTable': 'contactInformations',
-        'newRowTemplate': $rowTemplate });
+        'newRowTemplate': $rowTemplate,
+        'submitText': '$submitText',
+        'cancelText': '$cancelText',
+        'addNewText': '$addNewText' });
 
       // Add edit button to rows
       jQuery('#contactInformations tr[id]', context)
@@ -98,15 +104,25 @@ content
 
         <div id="contactInformationRelation_Tab1">
 
-          <?php echo $form->primaryContact->renderRow() ?>
+          <?php echo $form->primaryContact
+            ->label(__('Primary contract'))
+            ->renderRow() ?>
 
-          <?php echo $form->contactPerson->renderRow() ?>
+          <?php echo $form->contactPerson
+            ->label(__('Contact person'))
+            ->renderRow() ?>
 
-          <?php echo $form->telephone->renderRow() ?>
+          <?php echo $form->telephone
+            ->label(__('Phone'))
+            ->renderRow() ?>
 
-          <?php echo $form->fax->renderRow() ?>
+          <?php echo $form->fax
+            ->label(__('Fax'))
+            ->renderRow() ?>
 
-          <?php echo $form->email->renderRow() ?>
+          <?php echo $form->email
+            ->label(__('Email'))
+            ->renderRow() ?>
 
           <?php echo $form->website
             ->label(__('URL'))
@@ -116,7 +132,9 @@ content
 
         <div id="contactInformationRelation_Tab2">
 
-          <?php echo $form->streetAddress->renderRow() ?>
+          <?php echo $form->streetAddress
+            ->label(__('Street address'))
+            ->renderRow() ?>
 
           <?php echo $form->region
             ->label(__('Region/province'))
@@ -126,21 +144,33 @@ content
             ->label(__('Country'))
             ->renderRow() ?>
 
-          <?php echo $form->postalCode->renderRow() ?>
+          <?php echo $form->postalCode
+            ->label(__('Postal code'))
+            ->renderRow() ?>
 
-          <?php echo $form->city->renderRow() ?>
+          <?php echo $form->city
+            ->label(__('City'))
+            ->renderRow() ?>
 
-          <?php echo $form->latitude->renderRow() ?>
+          <?php echo $form->latitude
+            ->label(__('Latitude'))
+            ->renderRow() ?>
 
-          <?php echo $form->longitude->renderRow() ?>
+          <?php echo $form->longitude
+            ->label(__('Longitude'))
+            ->renderRow() ?>
 
         </div>
 
         <div id="contactInformationRelation_Tab3">
 
-          <?php echo $form->contactType->renderRow() ?>
+          <?php echo $form->contactType
+            ->label(__('Contact type'))
+            ->renderRow() ?>
 
-          <?php echo $form->note->renderRow() ?>
+          <?php echo $form->note
+            ->label(__('Note'))
+            ->renderRow() ?>
 
         </div>
 
