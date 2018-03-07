@@ -241,4 +241,20 @@ abstract class csvImportBaseTask extends arBaseTask
       $import->createOrUpdateEvent($eventTypeId, $eventData);
     }
   }
+
+  static function setObjectPropertyToTermIdLookedUpFromTermNameArray(&$self, $property, $propertyDescription, $termName, $termNameArray)
+  {
+    if ($termName)
+    {
+      if (isset($self->object) && is_object($self->object))
+      {
+        $self->object->$property = $self->translateNameToTermId(
+          $propertyDescription,
+          $termName,
+          array(),
+          $termNameArray
+        );
+      }
+    }
+  }
 }

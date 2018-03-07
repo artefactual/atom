@@ -320,7 +320,7 @@ EOF;
 
     $import->addColumnHandler('resourceType', function($self, $data)
     {
-      setObjectPropertyToTermIdLookedUpFromTermNameArray(
+      $this->setObjectPropertyToTermIdLookedUpFromTermNameArray(
         $self,
         'resourceTypeId',
         'resource type',
@@ -331,7 +331,7 @@ EOF;
 
     $import->addColumnHandler('acquisitionType', function($self, $data)
     {
-      setObjectPropertyToTermIdLookedUpFromTermNameArray(
+      $this->setObjectPropertyToTermIdLookedUpFromTermNameArray(
         $self,
         'acquisitionTypeId',
         'acquisition type',
@@ -342,7 +342,7 @@ EOF;
 
     $import->addColumnHandler('processingStatus', function($self, $data)
     {
-      setObjectPropertyToTermIdLookedUpFromTermNameArray(
+      $this->setObjectPropertyToTermIdLookedUpFromTermNameArray(
         $self,
         'processingStatusId',
         'processing status',
@@ -353,7 +353,7 @@ EOF;
 
     $import->addColumnHandler('processingPriority', function($self, $data)
     {
-      setObjectPropertyToTermIdLookedUpFromTermNameArray(
+      $this->setObjectPropertyToTermIdLookedUpFromTermNameArray(
         $self,
         'processingPriorityId',
         'processing priority',
@@ -366,21 +366,5 @@ EOF;
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
 
     $import->csv($fh, $skipRows);
-  }
-}
-
-function setObjectPropertyToTermIdLookedUpFromTermNameArray(&$self, $property, $propertyDescription, $termName, $termNameArray)
-{
-  if ($termName)
-  {
-    if (isset($self->object) && is_object($self->object))
-    {
-      $self->object->$property = $self->translateNameToTermId(
-        $propertyDescription,
-        $termName,
-        array(),
-        $termNameArray
-      );
-    }
   }
 }
