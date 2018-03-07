@@ -58,7 +58,8 @@
           });
 
         // Bind click event to "Add" link
-        $('<a class="btn btn-small" href="#">Add new</a>')
+        var addNewText = (this.options.addNewText === undefined) ? 'Add new' : options.addNewText;
+        $('<a class="btn btn-small" href="#">' + addNewText + '</a>')
           .click(function (event)
             {
               // Prevent default action, "go to top of page"
@@ -127,9 +128,11 @@
             thisDialog.clear(); // Clear dialog fields
           }
 
+        var submitText = (this.options.submitText === undefined) ? 'Submit' : options.submitText;
+        var cancelText = (this.options.cancelText === undefined) ? 'Cancel' : options.cancelText;
         this.yuiDialog = new YAHOO.widget.Dialog($yuiDialogWrapper[0], {
-          buttons: [{ text: 'Submit', handler: handleYuiSubmit, isDefault: true },
-            { text: 'Cancel', handler: handleYuiCancel }],
+          buttons: [{ text: submitText, handler: handleYuiSubmit, isDefault: true },
+            { text: cancelText, handler: handleYuiCancel }],
           fixedcenter: true,
           modal: true,
           postmethod: 'none',
