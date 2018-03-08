@@ -331,6 +331,10 @@ table.sticky-header thead th {
   border-left: 1px solid #ddd;
 }
 
+table.repos-table {
+  margin-top: 20px;
+}
+
 // Fix magin bottom for tables under content div
 
 div#content > table.table {
@@ -1239,6 +1243,10 @@ section .vcard:last-child > .field:last-child > div {
   width: 100%;
   line-height: 30px;
 
+  .btn-group {
+    vertical-align: top;
+  }
+
   > a {
     padding-right: 10px;
 
@@ -1304,9 +1312,13 @@ section .vcard:last-child > .field:last-child > div {
   line-height: 30px;
 }
 
+.pickers {
+  float: right;
+}
+
 #sort-header {
 
-  float: right;
+  float: left;
   text-align: right;
 
   &.shared {
@@ -1354,7 +1366,7 @@ section .vcard:last-child > .field:last-child > div {
       z-index: 2;
       background: transparent;
       display: none;
-      padding-top: 17px;
+      padding-top: 25px;
     }
 
     li {
@@ -1387,7 +1399,7 @@ section .vcard:last-child > .field:last-child > div {
       right: 0;
       display: block;
       width: 18px;
-      height: 22px;
+      height: 30px;
       background: @white;
       border: 1px solid #ddd;
       border-bottom: 1px solid #fff;

@@ -13,14 +13,17 @@
 <?php slot('before-content') ?>
   <section class="browse-options">
     <?php echo get_partial('default/printPreviewButton', array('class' => 'clipboard-print')) ?>
-    <?php if ($pager->hasResults()): ?>
-      <?php echo get_partial('default/sortPicker', array('options' => $sortOptions)) ?>
-      &nbsp;
-    <?php endif; ?>
-    <?php echo get_partial('default/genericPicker', array(
-      'options' => $uiLabels,
-      'label' => __('Entity type'),
-      'param' => 'type')) ?>
+
+    <div class="pickers">
+      <?php echo get_partial('default/genericPicker', array(
+        'options' => $uiLabels,
+        'label' => __('Entity type'),
+        'param' => 'type')) ?>
+
+      <?php if ($pager->hasResults()): ?>
+        <?php echo get_partial('default/sortPickers', array('options' => $sortOptions)) ?>
+      <?php endif; ?>
+    </div>
   </section>
 <?php end_slot() ?>
 

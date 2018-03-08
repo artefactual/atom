@@ -122,22 +122,36 @@ class DefaultBrowseAction extends sfAction
       $this->forward404();
     }
 
+    // If we're searching, by default sort by relevance
     if (array_key_exists('query', $request->getGetParameters()))
     {
-      $this->sortSetting = 'relevance'; // If we're searching, by default sort by relevance
+      $sortSetting = 'relevance';
     }
     else if ($this->getUser()->isAuthenticated())
     {
-      $this->sortSetting = sfConfig::get('app_sort_browser_user');
+      $sortSetting = sfConfig::get('app_sort_browser_user');
     }
     else
     {
-      $this->sortSetting = sfConfig::get('app_sort_browser_anonymous');
+      $sortSetting = sfConfig::get('app_sort_browser_anonymous');
     }
 
     if (!isset($request->sort))
     {
-      $request->sort = $this->sortSetting;
+      $request->sort = $sortSetting;
+    }
+
+    // Default sort direction
+    $sortDir = 'asc';
+    if (in_array($request->sort, array('lastUpdated', 'relevance', 'endDate')))
+    {
+      $sortDir = 'desc';
+    }
+
+    // Set default sort direction in request if not present or not valid
+    if (!isset($request->sortDir) || !in_array($request->sortDir, array('asc', 'desc')))
+    {
+      $request->sortDir = $sortDir;
     }
 
     $this->limit = sfConfig::get('app_hits_per_page');

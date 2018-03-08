@@ -538,39 +538,39 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     {
       // Sort by highest ES score
       case 'relevance':
-        $this->search->query->addSort(array('_score' => 'desc'));
+        $this->search->query->addSort(array('_score' => $request->sortDir));
 
         break;
 
       case 'identifier':
-        $this->search->query->addSort(array('identifier' => 'asc'));
+        $this->search->query->addSort(array('identifier' => $request->sortDir));
 
         break;
 
       case 'referenceCode':
-        $this->search->query->addSort(array('referenceCode.untouched' => 'asc'));
+        $this->search->query->addSort(array('referenceCode.untouched' => $request->sortDir));
 
         break;
 
       case 'alphabetic':
         $field = sprintf('i18n.%s.title.untouched', $this->selectedCulture);
-        $this->search->query->addSort(array($field => 'asc'));
+        $this->search->query->addSort(array($field => $request->sortDir));
 
         break;
 
       case 'startDate':
-        $this->search->query->setSort(array('dates.startDate' => 'asc'));
+        $this->search->query->setSort(array('dates.startDate' => $request->sortDir));
 
         break;
 
       case 'endDate':
-        $this->search->query->setSort(array('dates.endDate' => 'desc'));
+        $this->search->query->setSort(array('dates.endDate' => $request->sortDir));
 
         break;
 
       case 'lastUpdated':
       default:
-        $this->search->query->setSort(array('updatedAt' => 'desc'));
+        $this->search->query->setSort(array('updatedAt' => $request->sortDir));
     }
 
     $this->setView($request);

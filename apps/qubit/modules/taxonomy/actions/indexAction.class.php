@@ -96,6 +96,19 @@ class TaxonomyIndexAction extends sfAction
       $request->sort = $this->sortSetting;
     }
 
+    // Default sort direction
+    $sortDir = 'asc';
+    if (in_array($request->sort, array('lastUpdated', 'relevance')))
+    {
+      $sortDir = 'desc';
+    }
+
+    // Set default sort direction in request if not present or not valid
+    if (!isset($request->sortDir) || !in_array($request->sortDir, array('asc', 'desc')))
+    {
+      $request->sortDir = $sortDir;
+    }
+
     $this->resource = $this->getRoute()->resource;
 
     $this->addResultsColumn = false;
@@ -167,13 +180,13 @@ class TaxonomyIndexAction extends sfAction
       // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
         $field = sprintf('i18n.%s.name.untouched', $culture);
-        $this->query->setSort(array($field => 'asc'));
+        $this->query->setSort(array($field => $request->sortDir));
 
         break;
 
       case 'lastUpdated':
       default:
-        $this->query->setSort(array('updatedAt' => 'desc'));
+        $this->query->setSort(array('updatedAt' => $request->sortDir));
     }
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitTerm')->search($this->query);

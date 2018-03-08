@@ -313,15 +313,17 @@
           'tableView' => $tableView, 'module' => 'informationobject')) ?>
       </span>
 
-      <?php echo get_partial('default/sortPicker', array(
-        'options' => array(
-          'lastUpdated'   => __('Most recent'),
-          'alphabetic'    => __('Alphabetic'),
-          'relevance'     => __('Relevance'),
-          'identifier'    => __('Identifier'),
-          'referenceCode' => __('Reference code'),
-          'startDate'     => __('Start date'),
-          'endDate'       => __('End date')))) ?>
+      <div class="pickers">
+        <?php echo get_partial('default/sortPickers', array(
+          'options' => array(
+            'lastUpdated'   => __('Date modified'),
+            'alphabetic'    => __('Title'),
+            'relevance'     => __('Relevance'),
+            'identifier'    => __('Identifier'),
+            'referenceCode' => __('Reference code'),
+            'startDate'     => __('Start date'),
+            'endDate'       => __('End date')))) ?>
+      </div>
     </section>
 
     <div id="content" class="browse-content">

@@ -45,7 +45,7 @@ class AccessionBrowseAction extends sfAction
     }
 
     $this->sortOptions = array(
-      'lastUpdated' => $this->context->i18n->__('Most recent'),
+      'lastUpdated' => $this->context->i18n->__('Date modified'),
       'accessionNumber' => $this->context->i18n->__('Accession number'),
       'title' => $this->context->i18n->__('Title'),
       'acquisitionDate' => $this->context->i18n->__('Acquisition date'));
@@ -64,6 +64,19 @@ class AccessionBrowseAction extends sfAction
       {
         $request->sort = sfConfig::get('app_sort_browser_anonymous');
       }
+    }
+
+    // Default sort direction
+    $sortDir = 'asc';
+    if ($request->sort == 'lastUpdated')
+    {
+      $sortDir = 'desc';
+    }
+
+    // Set default sort direction in request if not present or not valid
+    if (!isset($request->sortDir) || !in_array($request->sortDir, array('asc', 'desc')))
+    {
+      $request->sortDir = $sortDir;
     }
 
     $culture = $this->context->user->getCulture();
@@ -122,19 +135,19 @@ class AccessionBrowseAction extends sfAction
     {
       case 'identifier': // For backward compatibility
       case 'accessionNumber':
-        $this->query->setSort(array('identifier' => 'asc'));
+        $this->query->setSort(array('identifier' => $request->sortDir));
 
         break;
 
       case 'title':
       case 'alphabetic': // For backward compatibility
         $field = sprintf('i18n.%s.title.untouched', $this->context->user->getCulture());
-        $this->query->addSort(array($field => 'asc'));
+        $this->query->addSort(array($field => $request->sortDir));
 
         break;
 
       case 'acquisitionDate':
-        $this->query->addSort(array('date' => array('order' => 'asc', 'missing' => '_last')));
+        $this->query->addSort(array('date' => array('order' => $request->sortDir, 'missing' => '_last')));
 
         break;
 
@@ -144,7 +157,7 @@ class AccessionBrowseAction extends sfAction
 
       case 'lastUpdated':
       default:
-        $this->query->setSort(array('updatedAt' => 'desc'));
+        $this->query->setSort(array('updatedAt' => $request->sortDir));
 
         break;
     }

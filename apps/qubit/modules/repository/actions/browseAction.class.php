@@ -158,15 +158,15 @@ class RepositoryBrowseAction extends DefaultBrowseAction
         break;
 
       case 'identifier':
-        $this->search->query->addSort(array('identifier' => 'asc'));
+        $this->search->query->addSort(array('identifier' => $request->sortDir));
       case 'alphabetic':
-        $this->search->query->addSort(array($i18n.'authorizedFormOfName.untouched' => 'asc'));
+        $this->search->query->addSort(array($i18n.'authorizedFormOfName.untouched' => $request->sortDir));
 
         break;
 
       case 'lastUpdated':
       default:
-        $this->search->query->setSort(array('updatedAt' => 'desc'));
+        $this->search->query->setSort(array('updatedAt' => $request->sortDir));
     }
 
     $this->search->query->setQuery($this->search->queryBool);

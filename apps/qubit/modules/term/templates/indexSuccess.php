@@ -243,26 +243,24 @@
     <h1><?php echo __('%1% Results for %2%', array('%1%' => $pager->getNbResults(), '%2%' => render_title($resource))) ?></h1>
 
     <section class="header-options">
+      <?php if (isset($sf_request->onlyDirect)): ?>
+        <span class="search-filter">
+          <?php echo __('Only results directly related') ?>
+          <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+          <?php unset($params['onlyDirect']) ?>
+          <?php unset($params['page']) ?>
+          <a href="<?php echo url_for(array($resource, 'module' => 'term') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
+        </span>
+      <?php endif; ?>
 
-          <?php if (isset($sf_request->onlyDirect)): ?>
-            <span class="search-filter">
-              <?php echo __('Only results directly related') ?>
-              <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-              <?php unset($params['onlyDirect']) ?>
-              <?php unset($params['page']) ?>
-              <a href="<?php echo url_for(array($resource, 'module' => 'term') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-            </span>
-          <?php endif; ?>
-
-        <div id="sort-header">
-          <?php echo get_partial('default/sortPicker', array(
-            'options' => array(
-              'lastUpdated' => __('Most recent'),
-              'alphabetic'  => __('Alphabetic'),
-              'referenceCode'  => __('Reference code'),
-              'date'        => __('Date')))) ?>
-        </div>
-
+      <div class="pickers">
+        <?php echo get_partial('default/sortPickers', array(
+          'options' => array(
+            'lastUpdated' => __('Date modified'),
+            'alphabetic'  => __('Title'),
+            'referenceCode'  => __('Reference code'),
+            'date'        => __('Start date')))) ?>
+      </div>
     </section>
 
     <div id="content">

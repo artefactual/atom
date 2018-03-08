@@ -74,36 +74,35 @@
 
 <?php slot('before-content') ?>
 
-  <section class="header-options">
+  <section class="browse-options">
     <div class="row">
-      <div class="span5">
+      <div class="span4">
         <?php echo get_component('search', 'inlineSearch', array(
           'label' => __('Search %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))))) ?>
       </div>
 
-      <div class="span2">
-        <?php echo get_partial('default/viewPicker', array('view' => $view, 'cardView' => $cardView,
-          'tableView' => $tableView, 'module' => 'repository')) ?>
-      </div>
-      <div class="span2">
-        <?php echo get_partial('default/sortPicker',
+      <?php echo get_partial('default/viewPicker', array('view' => $view, 'cardView' => $cardView,
+        'tableView' => $tableView, 'module' => 'repository')) ?>
+
+      <div class="pickers">
+        <?php echo get_partial('default/sortPickers',
           array(
             'options' => array(
-              'lastUpdated' => __('Most recent'),
-              'alphabetic' => __('Alphabetic'),
+              'lastUpdated' => __('Date modified'),
+              'alphabetic' => __('Name'),
               'identifier' => __('Identifier')))) ?>
       </div>
     </div>
+  </section>
 
-    <section class="advanced-search-section">
-      <a href="#" id="toggle-advanced-filters" class="advanced-search-toggle"><?php echo __('Advanced search options') ?></a>
-      <div id="advanced-repository-filters" class="advanced-search">
-        <?php echo get_component('repository', 'advancedFilters', array(
-          'thematicAreas' => $thematicAreas,
-          'repositories' => $repositories,
-          'repositoryTypes' => $repositoryTypes) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?>
-      </div>
-    </section>
+  <section class="advanced-search-section">
+    <a href="#" id="toggle-advanced-filters" class="advanced-search-toggle"><?php echo __('Advanced search options') ?></a>
+    <div id="advanced-repository-filters" class="advanced-search">
+      <?php echo get_component('repository', 'advancedFilters', array(
+        'thematicAreas' => $thematicAreas,
+        'repositories' => $repositories,
+        'repositoryTypes' => $repositoryTypes) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?>
+    </div>
   </section>
 
 <?php end_slot() ?>

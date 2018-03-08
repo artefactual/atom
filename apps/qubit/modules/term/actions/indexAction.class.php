@@ -275,21 +275,21 @@ EOF;
         switch ($request->sort)
         {
           case 'referenceCode':
-            $this->search->query->setSort(array('referenceCode.untouched' => 'asc'));
+            $this->search->query->setSort(array('referenceCode.untouched' => $request->sortDir));
             break;
 
           case 'alphabetic':
             $field = sprintf('i18n.%s.title.untouched', $this->culture);
-            $this->search->query->setSort(array($field => 'asc'));
+            $this->search->query->setSort(array($field => $request->sortDir));
             break;
 
           case 'date':
-            $this->search->query->setSort(array('dates.startDate' => 'asc'));
+            $this->search->query->setSort(array('dates.startDate' => $request->sortDir));
             break;
 
           case 'lastUpdated':
           default:
-            $this->search->query->setSort(array('updatedAt' => 'desc'));
+            $this->search->query->setSort(array('updatedAt' => $request->sortDir));
         }
 
         QubitAclSearch::filterDrafts($this->search->queryBool);

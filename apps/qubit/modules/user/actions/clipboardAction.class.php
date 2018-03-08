@@ -86,8 +86,8 @@ class UserClipboardAction extends DefaultBrowseAction
   private function setSortOptions()
   {
     $this->sortOptions = array(
-      'lastUpdated' => $this->context->i18n->__('Most recent'),
-      'alphabetic'  => $this->context->i18n->__('Alphabetic'),
+      'lastUpdated' => $this->context->i18n->__('Date modified'),
+      'alphabetic'  => $this->context->i18n->__('Name'),
     );
 
     // IOs and Repos have identifier sort option in common
@@ -99,6 +99,7 @@ class UserClipboardAction extends DefaultBrowseAction
     // IO specific sort options
     if ('QubitInformationObject' === $this->entityType)
     {
+      $this->sortOptions['alphabetic'] = $this->context->i18n->__('Title');
       $this->sortOptions['referenceCode'] = $this->context->i18n->__('Reference code');
       $this->sortOptions['startDate'] = $this->context->i18n->__('Start date');
       $this->sortOptions['endDate'] = $this->context->i18n->__('End date');
@@ -121,17 +122,17 @@ class UserClipboardAction extends DefaultBrowseAction
     {
       // Sort by highest ES score
       case 'relevance':
-        $this->search->query->addSort(array('_score' => 'desc'));
+        $this->search->query->addSort(array('_score' => $request->sortDir));
 
         break;
 
       case 'identifier':
-        $this->search->query->addSort(array('identifier' => 'asc'));
+        $this->search->query->addSort(array('identifier' => $request->sortDir));
 
         break;
 
       case 'referenceCode':
-        $this->search->query->addSort(array('referenceCode.untouched' => 'asc'));
+        $this->search->query->addSort(array('referenceCode.untouched' => $request->sortDir));
 
         break;
 
@@ -139,23 +140,23 @@ class UserClipboardAction extends DefaultBrowseAction
       case 'alphabetic':
         $fieldName = 'QubitInformationObject' === $this->entityType ? 'title' : 'authorizedFormOfName';
         $field = sprintf('i18n.%s.%s.untouched', $this->selectedCulture, $fieldName);
-        $this->search->query->addSort(array($field => 'asc'));
+        $this->search->query->addSort(array($field => $request->sortDir));
 
         break;
 
       case 'startDate':
-        $this->search->query->setSort(array('dates.startDate' => 'asc'));
+        $this->search->query->setSort(array('dates.startDate' => $request->sortDir));
 
         break;
 
       case 'endDate':
-        $this->search->query->setSort(array('dates.endDate' => 'desc'));
+        $this->search->query->setSort(array('dates.endDate' => $request->sortDir));
 
         break;
 
       case 'lastUpdated':
       default:
-        $this->search->query->setSort(array('updatedAt' => 'desc'));
+        $this->search->query->setSort(array('updatedAt' => $request->sortDir));
     }
   }
 }

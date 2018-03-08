@@ -123,18 +123,18 @@ class ActorBrowseAction extends DefaultBrowseAction
       // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
         $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->selectedCulture);
-        $this->search->query->setSort(array($field => 'asc'));
+        $this->search->query->setSort(array($field => $request->sortDir));
 
         break;
 
       case 'identifier':
-        $this->search->query->setSort(array('descriptionIdentifier' => 'asc'));
+        $this->search->query->setSort(array('descriptionIdentifier' => $request->sortDir));
 
         break;
 
       case 'lastUpdated':
       default:
-        $this->search->query->setSort(array('updatedAt' => 'desc'));
+        $this->search->query->setSort(array('updatedAt' => $request->sortDir));
     }
 
     $this->search->query->setQuery($this->search->queryBool);

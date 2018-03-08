@@ -38,6 +38,26 @@ class RightsHolderBrowseAction extends sfAction
       }
     }
 
+    // Default sort direction
+    $sortDir = 'asc';
+    if ($request->sort == 'lastUpdated')
+    {
+      $sortDir = 'desc';
+    }
+
+    // Set default sort direction in request if not present or not valid
+    if (!isset($request->sortDir) || !in_array($request->sortDir, array('asc', 'desc')))
+    {
+      $request->sortDir = $sortDir;
+    }
+
+    // Determine sorting function based on sort direction
+    $sortFunction = 'addAscendingOrderByColumn';
+    if ($request->sortDir == 'desc')
+    {
+      $sortFunction = 'addDescendingOrderByColumn';
+    }
+
     $criteria = new Criteria;
 
     // Do source culture fallback
@@ -53,16 +73,16 @@ class RightsHolderBrowseAction extends sfAction
     switch ($request->sort)
     {
       case 'identifier':
-      $criteria->addAscendingOrderByColumn(QubitActor::DESCRIPTION_IDENTIFIER);
-      // and continue to sort by alphabetic
+        $criteria->$sortFunction(QubitActor::DESCRIPTION_IDENTIFIER);
+        // And continue to sort by alphabetic
       case 'alphabetic':
-        $criteria->addAscendingOrderByColumn('authorized_form_of_name');
+        $criteria->$sortFunction('authorized_form_of_name');
 
         break;
 
       case 'lastUpdated':
       default:
-        $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
+        $criteria->$sortFunction(QubitObject::UPDATED_AT);
 
         break;
     }

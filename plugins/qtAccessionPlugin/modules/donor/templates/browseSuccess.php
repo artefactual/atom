@@ -13,12 +13,13 @@
         <?php echo get_component('search', 'inlineSearch', array(
           'label' => __('Search %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_donor')))))) ?>
       </div>
-      <div class="span6">
-        <?php echo get_partial('default/sortPicker',
+
+      <div class="pickers">
+        <?php echo get_partial('default/sortPickers',
           array(
             'options' => array(
-              'alphabetic' => __('Alphabetic'),
-              'lastUpdated' => __('Most recent'),
+              'alphabetic' => __('Name'),
+              'lastUpdated' => __('Date modified'),
               'identifier' => __('Identifier')))) ?>
       </div>
     </div>

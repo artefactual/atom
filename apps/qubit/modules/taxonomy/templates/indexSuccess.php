@@ -33,12 +33,13 @@
             'preferredLabel' => __('Preferred label'),
             'useForLabels' => __('"Use for" labels')))) ?>
       </div>
-      <div class="span4">
-        <?php echo get_partial('default/sortPicker',
+
+      <div class="pickers">
+        <?php echo get_partial('default/sortPickers',
           array(
             'options' => array(
-              'lastUpdated' => __('Most recent'),
-              'alphabetic' => __('Alphabetic')))) ?>
+              'lastUpdated' => __('Date modified'),
+              'alphabetic' => __('Name')))) ?>
       </div>
     </div>
   </section>

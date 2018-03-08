@@ -13,8 +13,9 @@
         <?php echo get_component('search', 'inlineSearch', array(
           'label' => __('Search %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_accession')))))) ?>
       </div>
-      <div class="span6">
-        <?php echo get_partial('default/sortPicker', array('options' => $sortOptions)) ?>
+
+      <div class="pickers">
+        <?php echo get_partial('default/sortPickers', array('options' => $sortOptions)) ?>
       </div>
     </div>
   </section>

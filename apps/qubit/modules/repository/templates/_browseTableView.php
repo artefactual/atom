@@ -1,4 +1,4 @@
-<table class="table table-bordered sticky-enabled">
+<table class="table table-bordered sticky-enabled repos-table">
   <thead class="tableheader-processed">
     <tr>
       <th class="sortable" style="width: 40%">
