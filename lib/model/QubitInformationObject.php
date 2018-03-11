@@ -3327,22 +3327,6 @@ class QubitInformationObject extends BaseInformationObject
   public static function generateIdentiferFromMask()
   {
     $counter = self::getIdentifierCounter();
-
-    return preg_replace_callback('/([#%])([A-z]+)/', function($match) use ($counter)
-    {
-      if ('%' == $match[1])
-      {
-        return strftime('%'.$match[2]);
-      }
-      else if ('#' == $match[1])
-      {
-        if (0 < preg_match('/^i+$/', $match[2], $matches))
-        {
-          return str_pad($counter->value, strlen($matches[0]), 0, STR_PAD_LEFT);
-        }
-
-        return $match[2];
-      }
-    }, sfConfig::get('app_identifier_mask', ''));
+    return Qubit::generateIdentifierFromCounterAndMask($counter->value, sfConfig::get('app_identifier_mask', ''));
   }
 }
