@@ -366,4 +366,32 @@ class Qubit
       }
     }
   }
+
+  /**
+   * Generate an identifier using a counter value and a mask
+   *
+   * @param int $counter  current counter value
+   * @param string $mask  mask
+   *
+   * @return string
+   */
+  public static function generateIdentifierFromCounterAndMask($counter, $mask)
+  {
+    return preg_replace_callback('/([#%])([A-z]+)/', function($match) use ($counter)
+    {
+      if ('%' == $match[1])
+      {
+        return strftime('%'. $match[2]);
+      }
+      else if ('#' == $match[1])
+      {
+        if (0 < preg_match('/^i+$/', $match[2], $matches))
+        {
+          return str_pad($counter, strlen($matches[0]), 0, STR_PAD_LEFT);
+        }
+
+        return $match[2];
+      }
+    }, $mask);
+  }
 }

@@ -28,22 +28,26 @@ class QubitValidatorAccessionIdentifier extends sfValidatorBase
 
   protected function doClean($value)
   {
-    // Before allowing use of proposed identifier, we'll check if it has been used
-    $criteria = new Criteria;
-    $criteria->add(QubitAccession::IDENTIFIER, $value);
-
-    // If accession isn't new, make sure no accession other than it is using proposed identifier
-    if (isset($this->getOption('resource')->id))
-    {
-      // If accession isn't new, make sure no accession other than it is using proposed identifier
-      $criteria->add(QubitAccession::ID, $this->getOption('resource')->id, Criteria::NOT_EQUAL);      
-    }
-
-    if (0 == count(QubitAccession::get($criteria)))
+    // Before allowing use of proposed identifier, make sure it's available for use
+    if (self::identifierCanBeUsed($value, $this->getOption('resource')))
     {
       return $value;
     }
 
     throw new sfValidatorError($this, sfContext::getInstance()->i18n->__('This identifer is already in use.'), array('value' => $value));
+  }
+
+  public static function identifierCanBeUsed($identifier, $byResource = null)
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitAccession::IDENTIFIER, $identifier);
+
+    // If accession isn't new, make sure no accession other than it is using proposed identifier
+    if ($byResource !== null && isset($byResource->id))
+    {
+      $criteria->add(QubitAccession::ID, $byResource->id, Criteria::NOT_EQUAL);
+    }
+
+    return (0 == count(QubitAccession::get($criteria)));
   }
 }

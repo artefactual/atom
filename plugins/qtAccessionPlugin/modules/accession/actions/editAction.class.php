@@ -189,7 +189,7 @@ class AccessionEditAction extends DefaultEditAction
         if (!isset($this->resource->id) && $accessionMaskEnabled)
         {
           $dt = new DateTime;
-          $this->form->setDefault('identifier', QubitAccession::generateAccessionIdentifier());
+          $this->form->setDefault('identifier', QubitAccession::nextAvailableIdentifier());
         }
 
         $this->form->setValidator('identifier', new QubitValidatorAccessionIdentifier(array('required' => true, 'resource' => $this->resource)));
