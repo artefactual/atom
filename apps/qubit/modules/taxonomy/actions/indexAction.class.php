@@ -120,8 +120,6 @@ class TaxonomyIndexAction extends sfAction
       $request->sortDir = $sortDir;
     }
 
-    $this->resource = $this->getRoute()->resource;
-
     $this->addResultsColumn = false;
 
     switch ($this->resource->id)
