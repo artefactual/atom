@@ -375,58 +375,19 @@ class QubitMetsParser
 
       if ($creation['date'])
       {
-        $date = $creation['date'];
+        // Save value without modification in free text field
+        $event->date = trim($creation['date']);
 
         // Normalize expression of date range
-        $date = str_replace('/', '|', $date);
-        $date = str_replace(' - ', '|', $date);
+        $date = str_replace(' - ', '|', $event->date);
+        $dates = explode('|', $date);
 
-        if (substr_count($date, '|'))
+        // If date is a range, set start and end dates
+        if (count($dates) == 2)
         {
-          // Date is a range
-          $dates = explode('|', $date);
-
-          // If date is a range, set start/end dates
-          if (count($dates) == 2)
-          {
-            $parsedDates = array();
-
-            // Parse each component date
-            foreach($dates as $dateItem)
-            {
-              array_push($parsedDates, QubitFlatfileImport::parseDate($dateItem));
-            }
-
-            $event->startDate = $parsedDates[0];
-            $event->endDate = $parsedDates[1];
-
-            // if date range is similar to ISO 8601 then make it a normal date range
-            if (Qubit::likeISO8601Date(trim($dates[0])))
-            {
-              if ($event->startDate == $event->endDate)
-              {
-                $date = $event->startDate;
-              }
-              else
-              {
-                $date = $event->startDate.'|'.$event->endDate;
-              }
-            }
-          }
-
-          // If date is a single ISO 8601 date then truncate off time
-          if (Qubit::likeISO8601Date(trim($event->date)))
-          {
-            $date = substr(trim($event->date), 0, 10);
-          }
-
-          // Make date range indicator friendly
-          $event->date = str_replace('|', ' - ', $date);
-        }
-        else
-        {
-          // Date isn't a range
-          $event->date = QubitFlatfileImport::parseDate($date);
+          // Parse each component date
+          $event->startDate = Qubit::parseDate($dates[0]);
+          $event->endDate = Qubit::parseDate($dates[1]);
         }
       }
 

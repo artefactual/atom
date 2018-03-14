@@ -309,10 +309,14 @@ EOF;
       {
         if (isset($self->object) && is_object($self->object))
         {
-          $parsedDate = $self->parseDateLoggingErrors($data);
+          $parsedDate = Qubit::parseDate($data);
           if ($parsedDate)
           {
             $self->object->date = $parsedDate;
+          }
+          else
+          {
+            $self->logError('Could not parse date: ' . $data);
           }
         }
       }

@@ -86,6 +86,47 @@ class Qubit
     }
   }
 
+  /**
+   * Attempt to parse date from non-machine-readable text,
+   * returning false upon failure.
+   *
+   * @param string $dateText  description of date
+   *
+   * @return string/void  date in Y-MM-DD, Y-MM or Y format or nothing
+   */
+  public static function parseDate($dateText)
+  {
+    // Trim and replace slashes by dashes
+    $dateText = trim(str_replace('/', '-', $dateText));
+
+    // Avoid appending first day (and month) to Y and Y-MM dates
+    if (preg_match('/^\d{1,4}(-((0[1-9])|(1[0-2])))?$/', $dateText))
+    {
+      return $dateText;
+    }
+
+    // Try to parse everything else, date_parse adds default
+    // values to month and day if they're missing.
+    $dateData = date_parse($dateText);
+
+    // Return nothing if the date is not parseable
+    if (!$dateData['year'] || !$dateData['month'] || !$dateData['day'])
+    {
+      return;
+    }
+
+    // Turn back to string removing time data
+    $dateString = $dateData['year'] .'-'
+      . $dateData['month'] .'-'
+      . $dateData['day'];
+
+    // Format to pad with leading zeros
+    $date = new DateTime($dateString);
+    $formattedDate = $date->format('Y-m-d');
+
+    return $formattedDate;
+  }
+
   public static function saveTemporaryFile($name, $contents)
   {
     // Set temporary directory path
