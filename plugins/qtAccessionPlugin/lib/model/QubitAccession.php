@@ -112,6 +112,8 @@ class QubitAccession extends BaseAccession
         $identifier = self::nextAvailableIdentifier();
       }
 
+      $con->commit();
+
       return $identifier;
     }
     catch (PropelException $e)
