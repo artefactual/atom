@@ -1,3 +1,3 @@
-accessionNumber,date,scope,description,extent,reason,culture
-Example Accession Number,2012-02-15,Part,Example Deaccession Description,Example Extent,Example Reason,en
-Example Accession Number,2015-11-06,Whole,Example Deaccession Description,Example Extent,Example Reason,en
+accessionNumber,deaccessionNumber,date,scope,description,extent,reason,culture
+Example Accession Number,Example Deaccession Number,2012-02-15,Part,Example Deaccession Description,Example Extent,Example Reason,en
+Example Accession Number,Example Deaccession Number,2015-11-06,Whole,Example Deaccession Description,Example Extent,Example Reason,en
