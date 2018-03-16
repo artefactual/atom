@@ -97,7 +97,7 @@ EOF;
       ),
 
       'columnMap' => array(
-        'accessionNumber' => 'identifier',
+        'deaccessionNumber' => 'identifier',
       ),
 
       // These values get stored to the rowStatusVars array
@@ -150,7 +150,7 @@ EOF;
             " AND deaccession_i18n.description=?" .
             " AND deaccession_i18n.extent=?" .
             " AND deaccession_i18n.reason=?" .
-            " and deaccession.source_culture=?",
+            " AND deaccession.source_culture=?",
             $params = array($self->object->identifier,
               $self->object->date,
               $self->object->scopeId,
@@ -170,7 +170,7 @@ EOF;
         if (!$createDeaccession)
         {
           $self->object = null;
-          $error = "Skipping duplicate deaccession: ". $accessionIdentifier;
+          $error = "Skipping duplicate deaccession: ". $self->rowStatusVars['accessionNumber'];
           print $self->logError($error);
         }
       },
