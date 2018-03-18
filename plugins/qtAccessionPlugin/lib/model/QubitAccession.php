@@ -26,10 +26,21 @@ class QubitAccession extends BaseAccession
 
   protected function insert($connection = null)
   {
-    // If no identifier has been specified, use next available one
-    if (!$this->identifier)
+    // If identifier has been specified and the mask is enabled, increment the counter
+    if (!empty($this->identifier) && self::maskEnabled())
     {
-      $this->identifier = self::nextAvailableIdentifier();
+      $con = Propel::getConnection();
+      try
+      {
+        $con->beginTransaction();
+        self::incrementAccessionCounter();
+        $con->commit();
+      }
+      catch (PropelException $e)
+      {
+        $con->rollback();
+        throw $e;
+      }
     }
 
     if (!isset($this->slug))
@@ -79,6 +90,12 @@ class QubitAccession extends BaseAccession
     $criteria->add(QubitRelation::SUBJECT_ID, $this->id);
 
     return 0 < count(QubitRelation::get($criteria));
+  }
+
+  public static function maskEnabled()
+  {
+    $setting = QubitSetting::getByName('accession_mask_enabled');
+    return (null === $setting || boolval($setting->getValue(array('sourceCulture' => true))));
   }
 
   public static function nextAccessionNumber()

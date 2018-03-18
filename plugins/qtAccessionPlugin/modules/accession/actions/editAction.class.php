@@ -183,10 +183,7 @@ class AccessionEditAction extends DefaultEditAction
         $this->form->setDefault('identifier', $this->resource['identifier']);
 
         // If accession mask enable setting isn't set or is set to on, then populate default with mask value
-        $accessionMaskEnabledSetting = QubitSetting::getByName('accession_mask_enabled');
-        $accessionMaskEnabled = (null === $accessionMaskEnabledSetting || boolval($accessionMaskEnabledSetting->getValue(array('sourceCulture'=>true))));
-
-        if (!isset($this->resource->id) && $accessionMaskEnabled)
+        if (!isset($this->resource->id) && QubitAccession::maskEnabled())
         {
           $dt = new DateTime;
           $this->form->setDefault('identifier', QubitAccession::nextAvailableIdentifier());
