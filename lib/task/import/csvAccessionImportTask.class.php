@@ -30,7 +30,7 @@ class csvAccessionImportTask extends csvImportBaseTask
   protected $name                = 'accession-import';
   protected $briefDescription    = 'Import csv acession data';
   protected $detailedDescription = <<<EOF
-Import CSV data
+Import CSV accession data
 EOF;
 
   /**
@@ -51,6 +51,12 @@ EOF;
         null,
         sfCommandOption::PARAMETER_NONE,
         "Index for search during import."
+      ),
+      new sfCommandOption(
+        'assign-id',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        "Assign identifier, based on mask and counter, if no accession number specified in row."
       )
     ));
   }
@@ -60,6 +66,8 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
+    parent::execute($arguments, $options);
+
     $this->validateOptions($options);
 
     $skipRows = ($options['skip-rows']) ? $options['skip-rows'] : 0;
@@ -102,7 +110,8 @@ EOF;
         'acquisitionTypes'   => $termData['acquisitionTypes'],
         'resourceTypes'      => $termData['resourceTypes'],
         'processingStatus'   => $termData['processingStatus'],
-        'processingPriority' => $termData['processingPriority']
+        'processingPriority' => $termData['processingPriority'],
+        'assignId'           => $options['assign-id']
       ),
 
       'standardColumns' => array(
@@ -192,23 +201,33 @@ EOF;
         $result = $statement->fetch(PDO::FETCH_OBJ);
         if ($result)
         {
-          print 'Found '. $result->id ."\n";
+          print $self->logError(sprintf('Found accession ID %d', $result->id));
           $self->object = QubitAccession::getById($result->id);
+        }
+        else if (!empty($accessionNumber))
+        {
+          print $self->logError(sprintf('Could not find accession # %s, creating.', $accessionNumber));
+          $self->object = new QubitAccession();
+          $self->object->identifier = $accessionNumber;
+        }
+        else if ($self->getStatus('assignId'))
+        {
+          $identifier = QubitAccession::nextAvailableIdentifier();
+          print $self->logError(sprintf('No accession number, creating accession with identifier %s', $identifier));
+          $self->object = new QubitAccession();
+          $self->object->identifier = $identifier;
         }
         else
         {
-          $self->object = false;
-          $error = "Couldn't find accession # ". $accessionNumber .'... creating.';
-          print $error ."\n";
-          $self->object = new QubitAccession();
-          $self->object->identifier = $accessionNumber;
+          print $self->logError('No accession number, skipping');
         }
       },
 
       // Import logic to save accession
       'saveLogic' => function(&$self)
       {
-        if(isset($self->object) && is_object($self->object))
+        // If row was skipped due to not having an accession number, don't attempt to save
+        if (isset($self->object) && $self->object instanceof QubitAccession)
         {
           $self->object->save();
         }
@@ -217,7 +236,8 @@ EOF;
       // Create related objects
       'postSaveLogic' => function(&$self)
       {
-        if(isset($self->object) && is_object($self->object))
+        // If row was skipped due to not having an accession number, don't create related objects
+        if (isset($self->object) && $self->object instanceof QubitAccession && isset($self->object->id))
         {
           // Add creators
           if (isset($self->rowStatusVars['creators'])
