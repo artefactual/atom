@@ -612,6 +612,7 @@ class InformationObjectEditAction extends DefaultEditAction
 
     $this->deleteNotes();
     $this->updateChildLevels();
+    $this->updateDescendantInheritedFields();
     $this->removeDuplicateRepositoryAssociations();
     $this->incrementMaskCounter();
   }
@@ -828,5 +829,27 @@ class InformationObjectEditAction extends DefaultEditAction
     $counter = QubitInformationObject::getIdentifierCounter();
     $counter->value++;
     $counter->save();
+  }
+
+  /**
+   * Trigger a job to update inherited fields in descendant records. Flash job started message to user.
+   */
+  private function updateDescendantInheritedFields()
+  {
+    if ($this->resource->rgt - $this->resource->lft <= 1)
+    {
+      return;
+    }
+
+    $job = QubitJob::runJob('arUpdateDescendantsJob', array('tldId' => $this->resource->id));
+
+    $params = array(
+      '%1%' => sprintf('<a href="%s">', $this->context->routing->generate(null, array('module' => 'jobs', 'action' => 'report', 'id' => $job->id))),
+      '%2%' => $job->id,
+      '%3%' => '</a>'
+    );
+
+    $message = $this->context->i18n->__('Updating inherited fields for descendants. Check %1%job %2%%3% to view the status of the job.', $params);
+    $this->getUser()->setFlash('notice', $message);
   }
 }

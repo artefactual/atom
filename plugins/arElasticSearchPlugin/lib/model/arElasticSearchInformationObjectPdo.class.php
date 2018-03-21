@@ -1063,6 +1063,50 @@ class arElasticSearchInformationObjectPdo
     return $actRights;
   }
 
+  /**
+   * Get an array outlining which top level description the current description is part of.
+   *
+   * @return array  An array containing the id and various i18n titles of the top level description.
+   *                If this description is already a TLD or another issue occurs, return null.
+   */
+  public function getPartOf()
+  {
+    $collectionRootId = $this->getCollectionRootId();
+
+    if ($collectionRootId && $collectionRootId != $this->id)
+    {
+      $rootSlug = QubitPdo::fetchColumn('SELECT slug FROM slug WHERE object_id=?', array($collectionRootId));
+      if (!$rootSlug)
+      {
+        throw new sfException("No slug found for information object $collectionRootId");
+      }
+
+      $rootSourceCulture = QubitPdo::fetchColumn('SELECT source_culture FROM information_object WHERE id=?',
+                                                 array($collectionRootId));
+
+      $i18nFields = arElasticSearchModelBase::serializeI18ns(
+        $collectionRootId,
+        array('QubitInformationObject'),
+        array('fields' => array('title'))
+      );
+
+      $result = array(
+        'id' => $collectionRootId,
+        'slug' => $rootSlug,
+        'i18n' => $i18nFields,
+      );
+
+      if ($rootSourceCulture)
+      {
+        $result['sourceCulture'] = $rootSourceCulture;
+      }
+
+      return $result;
+    }
+
+    return null;
+  }
+
   public function serialize()
   {
     $serialized = array();
@@ -1334,10 +1378,10 @@ class arElasticSearchInformationObjectPdo
         array('fields' => array('title'))
       );
 
-      $serialized['partOf']['id'] = $collectionRootId;
-      $serialized['partOf']['sourceCulture'] = $rootSourceCulture;
-      $serialized['partOf']['slug'] = $rootSlug;
-      $serialized['partOf']['i18n'] = $i18nFields;
+      if (null !== $partOf = $this->getPartOf())
+      {
+        $serialized['partOf'] = $partOf;
+      }
     }
 
     return $serialized;

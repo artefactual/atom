@@ -28,11 +28,6 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
   public function populate()
   {
-    if (!isset(self::$conn))
-    {
-      self::$conn = Propel::getConnection();
-    }
-
     // Get count of all information objects
     $sql  = 'SELECT COUNT(*)';
     $sql .= ' FROM '.QubitInformationObject::TABLE_NAME;
@@ -41,12 +36,40 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     $this->count = QubitPdo::fetchColumn($sql, array(QubitInformationObject::ROOT_ID));
 
     // Recursively descend down hierarchy
-    $this->recursivelyAddInformationObjects(QubitInformationObject::ROOT_ID, $this->count);
+    $this->recursivelyUpdateInformationObjects(QubitInformationObject::ROOT_ID, $this->count, 'updateAllFields');
 
     return $this->errors;
   }
 
-  public function recursivelyAddInformationObjects($parentId, $totalRows, $options = array())
+  /**
+   * Return a sql connection singleton.
+   *
+   * @return A Propel sql connection.
+   */
+  private static function getSqlConnection()
+  {
+    if (!isset(self::$conn))
+    {
+      self::$conn = Propel::getConnection();
+    }
+
+    return self::$conn;
+  }
+
+  /**
+   * Descends an archival description hierarchy and calls a specified update function on each description to update it
+   * in the ES index.
+   *
+   * @param int $parentId  The parent archival description of the current one.
+   * @param int $totalRows The total archival description count in the hierarchy
+   *
+   * @param string $updateFunc The string indicating the name of the update function within $this class instance.
+   *                           The update function takes the returned row object from the getChildren query and
+   *                           returns an instance of arElasticSearchInformationObjectPdo for the current description.
+   *
+   * @param array $options  An array which we use to pass down 'inherited' fields like repository and inheritedCreators.
+   */
+  public function recursivelyUpdateInformationObjects($parentId, $totalRows, $updateFunc, $options = array())
   {
     // Get information objects
     if (!isset(self::$statements['getChildren']))
@@ -59,7 +82,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
       $sql .= ' WHERE io.parent_id = ?';
       $sql .= ' ORDER BY io.lft';
 
-      self::$statements['getChildren'] = self::$conn->prepare($sql);
+      self::$statements['getChildren'] = self::getSqlConnection()->prepare($sql);
     }
 
     self::$statements['getChildren']->execute(array($parentId));
@@ -69,20 +92,13 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     {
       try
       {
-        $node = new arElasticSearchInformationObjectPdo($item->id, $options);
-        $data = $node->serialize();
-
-        QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
-
-        self::$counter++;
-
-        $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
+        $node = $this->$updateFunc($item, $options);
 
         // Descend hierarchy
         if (1 < ($item->rgt - $item->lft))
         {
           // Pass ancestors, repository and creators down to descendants
-          $this->recursivelyAddInformationObjects($item->id, $totalRows, array(
+          $this->recursivelyUpdateInformationObjects($item->id, $totalRows, $updateFunc, array(
             'ancestors'  => array_merge($node->getAncestors(), array($node)),
             'repository' => $node->getRepository(),
             'inheritedCreators' => array_merge($node->inheritedCreators, $node->creators)));
@@ -92,6 +108,59 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
       {
         $this->errors[] = $e->getMessage();
       }
+    }
+  }
+
+  private function updateAllFields($item, $options = array())
+  {
+    $node = new arElasticSearchInformationObjectPdo($item->id, $options);
+    $data = $node->serialize();
+
+    QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
+
+    self::$counter++;
+    $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
+
+    return $node;
+  }
+
+  /**
+   * Update ES fields descendants inherit from their ancestors. This assumes QubitInformationObject atm.
+   */
+  private function updateInheritedFields($item, $options = array())
+  {
+    $node = new arElasticSearchInformationObjectPdo($item->id, $options);
+    $data = array();
+
+    if (isset($options['repository']) && null !== $repository = $node->getRepository())
+    {
+      $data['repository'] = arElasticSearchRepository::serialize($repository);
+    }
+
+    if (isset($options['inheritedCreators']))
+    {
+      foreach ($options['inheritedCreators'] as $creator)
+      {
+        if (!isset($data['inheritedCreators']))
+        {
+          $data['inheritedCreators'] = array();
+        }
+
+        $creatorNode = new arElasticSearchActorPdo($creator->id);
+        $data['inheritedCreators'][] = $creatorNode->serialize();
+      }
+    }
+
+    // Add "Part of" title if this isn't a top level description
+    if (null !== $partOf = $node->getPartOf())
+    {
+      $data['partOf'] = $partOf;
+    }
+
+    // If any of the inherited fields have been set to other than null, do partial update
+    if (array_filter($data))
+    {
+      QubitSearch::getInstance()->partialUpdate(QubitInformationObject::getById($item->id), $data);
     }
   }
 

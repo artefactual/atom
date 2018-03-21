@@ -721,7 +721,7 @@ class arElasticSearchPluginUtil
     {
       foreach ($resultSet as $hit)
       {
-       array_push($hitIds, $hit->getId()); 
+       array_push($hitIds, $hit->getId());
       }
     }
 
