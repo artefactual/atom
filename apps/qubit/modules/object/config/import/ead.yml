@@ -45,10 +45,13 @@ information_object:
       Parameters: ["array('typeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID, 'statusId' => sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID))"]
 
     # each of the following XPath expressions are relative to the current matched node:
-
     title:
       XPath: "did/unittitle[not(@type)]"
       Method:  setTitle
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     level:
       XPath:  "@level"
@@ -113,6 +116,10 @@ information_object:
     edition:
       XPath:   "did/unittitle[not(@type)]/edition"
       Method:  setEdition
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     edition_statement_of_responsibility:
       XPath:   "did/unittitle[@type='statRep']/edition"
@@ -338,6 +345,10 @@ information_object:
       XPath:  "(note | descgrp/note | did/note[not(@type='sourcesDescription')])"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::GENERAL_NOTE_ID)"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     sources:
       XPath:  "did/note[@type='sourcesDescription']"
@@ -347,6 +358,10 @@ information_object:
       XPath:  "(bioghist | descgrp/bioghist)"
       Method: importBioghistEadData
       Parameters: ["$domNode2", "$key"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     # this will overwrite any values entered for <abstract>
     scopeandcontent:
@@ -439,6 +454,10 @@ information_object:
       XPath:  "../eadheader/filedesc/titlestmt/author[@encodinganalog='creator']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     revision_history:
       XPath:  "(processinfo/date | processinfo/p/date | descgrp/processinfo/date | descgrp/processinfo/p/date | ../eadheader/filedesc/publicationstmt/date)"
