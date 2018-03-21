@@ -5,12 +5,12 @@
   <?php if (isset($link)): ?>
     <?php echo link_to(image_tag($representation->getFullPath(), array('alt' => __('Open original %1%', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))), $link) ?>
   <?php else: ?>
-    <?php echo image_tag($representation->getFullPath(), array('alt' => '')) ?>
+    <?php echo image_tag($representation->getFullPath(), array('alt' => __('Original %1% not accessible', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))) ?>
   <?php endif; ?>
 
 <?php else: ?>
 
-  <?php if ($iconOnly): ?>
+  <?php if ($iconOnly && isset($link)): ?>
 
     <?php echo link_to(image_tag($representation->getFullPath(), array('alt' => __('Open original %1%', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))), $link) ?>
 
@@ -21,7 +21,7 @@
       <?php if (isset($link)): ?>
         <?php echo link_to(image_tag($representation->getFullPath(), array('alt' => __('Open original %1%', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))), $link) ?>
       <?php else: ?>
-        <?php echo image_tag($representation->getFullPath(), array('alt' => '')) ?>
+        <?php echo image_tag($representation->getFullPath(), array('alt' => __('Original %1% is not accessible', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))) ?>
       <?php endif; ?>
 
       <?php echo wrap_text($digitalObject->name, 15) ?>

@@ -14,7 +14,7 @@
     <?php echo link_to(__('Download audio'), $link, array('class' => 'download')) ?>
   <?php endif; ?>
 
-<?php elseif (QubitTerm::THUMBNAIL_ID == $usageType): ?>
+<?php elseif (QubitTerm::THUMBNAIL_ID == $usageType && isset($link)): ?>
 
   <?php if ($iconOnly): ?>
 
@@ -35,5 +35,13 @@
     </div>
 
   <?php endif; ?>
+
+<?php else: ?>
+
+  <div class="resource">
+
+    <?php echo image_tag('play', array('alt' => __('Original %1% not accessible', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))) ?>
+
+  </div>
 
 <?php endif; ?>

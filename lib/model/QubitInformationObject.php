@@ -1416,31 +1416,31 @@ class QubitInformationObject extends BaseInformationObject
   {
     // Set digital object URL
     $do = $this->digitalObjects[0];
-
-    if (isset($do))
+    if (!isset($do))
     {
-      $path = $do->getFullPath();
-
-      // if path is external, it's absolute so return it
-      if (QubitTerm::EXTERNAL_URI_ID == $do->usageId)
-      {
-        return $path;
-      }
-      else if (QubitTerm::OFFLINE_ID === $do->usageId)
-      {
-        throw new sfException('getDigitalObjectPublicUrl() is not available for offline digital objects');
-      }
-      else
-      {
-        if (!QubitAcl::check($this, 'readMaster') && null !== $do->reference &&
-            QubitAcl::check($this, 'readReference'))
-        {
-          $path = $do->reference->getFullPath();
-        }
-
-        return rtrim(QubitSetting::getByName('siteBaseUrl'), '/').'/'.ltrim($path, '/');
-      }
+      return;
     }
+
+    if (QubitTerm::OFFLINE_ID == $do->usageId)
+    {
+      return;
+    }
+    
+    $path = $do->getFullPath();
+
+    // If path is external, it's absolute so return it
+    if (QubitTerm::EXTERNAL_URI_ID == $do->usageId)
+    {
+      return $path;
+    }
+
+    if (!QubitAcl::check($this, 'readMaster') && null !== $do->reference &&
+        QubitAcl::check($this, 'readReference'))
+    {
+      $path = $do->reference->getFullPath();
+    }
+
+    return rtrim(QubitSetting::getByName('siteBaseUrl'), '/').'/'.ltrim($path, '/');
   }
 
   /****************
@@ -3169,9 +3169,9 @@ class QubitInformationObject extends BaseInformationObject
     }
 
     $digitalObject = $this->digitalObjects[0];
-    if (QubitTerm::OFFLINE_ID === $digitalObject->usageId)
+    if (QubitTerm::OFFLINE_ID == $digitalObject->usageId)
     {
-      throw new sfException('getDigitalObjectLink() is not available for offline digital objects');
+      return;
     }
 
     $isText = in_array($digitalObject->mediaTypeId, array(QubitTerm::TEXT_ID));
