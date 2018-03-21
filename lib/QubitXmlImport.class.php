@@ -601,6 +601,12 @@ class QubitXmlImport
               // Take note that this node has been processed
               $processed[$domNode2->getNodePath()] = true;
 
+              // Additional node processing. Define filters in the schema file.
+              if (!empty($methodMap['Filters']))
+              {
+                $nodeValue = self::runFilters($domNode2, $methodMap['Filters']);
+              }
+
               // normalize the node text; NB: this will strip any child elements, eg. HTML tags
               $nodeValue = self::normalizeNodeValue($domNode2);
 
@@ -809,31 +815,6 @@ class QubitXmlImport
       $doc->xpath->registerNamespace($pre, $uri);
     }
 
-/*
-    if (!isset($doc->namespaces['']))
-    {
-      $doc->namespaces[''] = $doc->documentElement->lookupnamespaceURI(null);
-    }
-
-    if ($xsi)
-    {
-      $doc->schemaLocations = array();
-      $lst = $doc->xpath->query('//@$xsi:schemaLocation');
-      foreach ($lst as $el)
-      {
-        $re = "{[\\s\n\r]*([^\\s\n\r]+)[\\s\n\r]*([^\\s\n\r]+)}";
-        preg_match_all($re, $el->nodeValue, $mat);
-        for ($i = 0; $i < count($mat[0]); $i++)
-        {
-          $value = $mat[2][$i];
-          $doc->schemaLocations[$mat[1][$i]] = $value;
-        }
-      }
-
-      // validate document against default namespace schema
-      $doc->schemaValidate($doc->schemaLocations[$doc->namespaces['']]);
-    }
-*/
     return $doc;
   }
 
@@ -948,6 +929,40 @@ class QubitXmlImport
     for ($i = 0; $i < $nodes->length; $i++)
     {
       $nodes->item($i)->parentNode->removeChild($nodes->item($i));
+    }
+  }
+
+  /**
+   * Run filter methods based on Filters array specified per node in the template
+   * .yml file config.
+   *
+   * @return node value filtered
+   */
+  public static function runFilters(&$node, $filterParam)
+  {
+    foreach ($filterParam as $filters)
+    {
+      foreach ($filters as $eadTag => $object)
+      {
+        // Check childnodes for presence of filter node
+        foreach ($node->childNodes as $child)
+        {
+          // Determine if filtered EAD tag present in child node.
+          if ($child->nodeName == $eadTag)
+          {
+            // If so, run specified EAD filter.
+            foreach ($object as $object => $method)
+            {
+              if (is_callable(array($object, $method)))
+              {
+                $parameters[] = $eadTag;
+                $parameters[] = $child;
+                $child->nodeValue = call_user_func_array(array( & $object, $method), $parameters);
+              }
+            }
+          }
+        }
+      }
     }
   }
 
