@@ -80,10 +80,20 @@ class arElasticSearchInformationObjectPdo
     // Get creators
     $this->creators = $this->getActors(array('typeId' => QubitTerm::CREATION_ID));
 
-    // Remove inherited creators if there are directly related creators
+    // Ignore inherited creators if there are directly related creators
     if (count($this->creators) > 0)
     {
       $this->inheritedCreators = array();
+    }
+    // Otherwise, get them from the options
+    elseif (isset($options['inheritedCreators']))
+    {
+      $this->inheritedCreators = $options['inheritedCreators'];
+    }
+    // Or from the closest ancestor
+    else
+    {
+      $this->inheritedCreators = $this->getClosestCreators();
     }
   }
 
@@ -256,6 +266,44 @@ class arElasticSearchInformationObjectPdo
     }
 
     return $this->repository;
+  }
+
+  public function getClosestCreators()
+  {
+    $inheritedCreators = array();
+
+    if (!is_array($this->getAncestors()) || count($this->getAncestors()) == 0)
+    {
+      return $inheritedCreators;
+    }
+
+    if (!isset(self::$statements['inheritedCreators']))
+    {
+      $sql  = 'SELECT
+                  event.actor_id as id';
+      $sql .= ' FROM '.QubitEvent::TABLE_NAME.' event';
+      $sql .= ' WHERE event.object_id = ?';
+      $sql .= ' AND event.type_id = ?';
+
+      self::$statements['inheritedCreators'] = self::$conn->prepare($sql);
+    }
+
+    foreach (array_reverse($this->getAncestors()) as $ancestor)
+    {
+      self::$statements['inheritedCreators']->execute(array($ancestor->id, QubitTerm::CREATION_ID));
+
+      foreach (self::$statements['inheritedCreators']->fetchAll(PDO::FETCH_OBJ) as $creator)
+      {
+        $inheritedCreators[] = $creator;
+      }
+
+      if (count($inheritedCreators) > 0)
+      {
+        break;
+      }
+    }
+
+    return $inheritedCreators;
   }
 
   /**
