@@ -47,14 +47,21 @@ class QubitEvent extends BaseEvent
 
     if ($this->indexOnSave)
     {
+      // Update IO descendants in creation events
+      $options = array();
+      if ($this->typeId == QubitTerm::CREATION_ID)
+      {
+        $options['updateDescendants'] = true;
+      }
+
       if ($this->objectId != $cleanObjectId && null !== QubitObject::getById($cleanObjectId))
       {
-        QubitSearch::getInstance()->update(QubitObject::getById($cleanObjectId));
+        QubitSearch::getInstance()->update(QubitObject::getById($cleanObjectId), $options);
       }
 
       if (isset($this->object))
       {
-        QubitSearch::getInstance()->update($this->object);
+        QubitSearch::getInstance()->update($this->object, $options);
       }
     }
 
@@ -74,7 +81,14 @@ class QubitEvent extends BaseEvent
 
     if (isset($this->object))
     {
-      QubitSearch::getInstance()->update($this->getObject());
+      // Update IO descendants in creation events
+      $options = array();
+      if ($this->typeId == QubitTerm::CREATION_ID)
+      {
+        $options['updateDescendants'] = true;
+      }
+
+      QubitSearch::getInstance()->update($this->getObject(), $options);
     }
   }
 

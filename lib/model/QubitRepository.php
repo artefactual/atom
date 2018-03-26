@@ -116,10 +116,51 @@ class QubitRepository extends BaseRepository
 
     QubitSearch::getInstance()->update($this);
 
+    $this->updateRelatedIos();
+
     // Remove adv. search repository options from cache
     QubitCache::getInstance()->removePattern('search:list-of-repositories:*');
 
     return $this;
+  }
+
+  public function updateRelatedIos()
+  {
+    $ioIds = array();
+    $context = sfContext::getInstance();
+    $env = $context->getConfiguration()->getEnvironment();
+
+    foreach ($this->informationObjects as $io)
+    {
+      // Update synchronously in CLI tasks and jobs
+      if (in_array($env, array('cli', 'worker')))
+      {
+        QubitSearch::getInstance()->update($io, array('updateDescendants' => true));
+      }
+      else
+      {
+        // Otherwise save id to update asynchronously
+        $ioIds[] = $io->id;
+      }
+    }
+
+    if (count($ioIds) == 0)
+    {
+      return;
+    }
+
+    // Update asynchronously the saved IOs ids
+    $jobOptions = array(
+      'ioIds' => $ioIds,
+      'updateIos' => true,
+      'updateDescendants' => true
+    );
+    QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
+
+    // Let user know related descriptions update has started
+    $jobsUrl = $context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'));
+    $message = $context->i18n->__('Your repository has been updated. Its related descriptions are being updated asynchronously – check the <a href="%1">job scheduler page</a> for status and details.', array('%1' => $jobsUrl));
+    $context->user->setFlash('notice', $message);
   }
 
   /**

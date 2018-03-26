@@ -21,18 +21,13 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 {
   protected static
     $conn,
-    $statements,
+    $statement,
     $counter = 0;
 
   protected $errors = array();
 
   public function populate()
   {
-    if (!isset(self::$conn))
-    {
-      self::$conn = Propel::getConnection();
-    }
-
     // Get count of all information objects
     $sql  = 'SELECT COUNT(*)';
     $sql .= ' FROM '.QubitInformationObject::TABLE_NAME;
@@ -48,24 +43,8 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
   public function recursivelyAddInformationObjects($parentId, $totalRows, $options = array())
   {
-    // Get information objects
-    if (!isset(self::$statements['getChildren']))
-    {
-      $sql  = 'SELECT
-                  io.id,
-                  io.lft,
-                  io.rgt';
-      $sql .= ' FROM '.QubitInformationObject::TABLE_NAME.' io';
-      $sql .= ' WHERE io.parent_id = ?';
-      $sql .= ' ORDER BY io.lft';
-
-      self::$statements['getChildren'] = self::$conn->prepare($sql);
-    }
-
-    self::$statements['getChildren']->execute(array($parentId));
-
-    // Loop through results, and add to search index
-    foreach (self::$statements['getChildren']->fetchAll(PDO::FETCH_OBJ) as $item)
+    // Loop through children and add to search index
+    foreach (self::getChildren($parentId) as $item)
     {
       try
       {
@@ -95,13 +74,77 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     }
   }
 
-  public static function update($object)
+  public static function update($object, $options = array())
   {
+    // Update description
     $node = new arElasticSearchInformationObjectPdo($object->id);
-
     QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitInformationObject');
 
-    return true;
+    // Update descendants if requested and they exists
+    if ($options['updateDescendants'] && $object->rgt - $object->lft > 1)
+    {
+      self::updateDescendants($object);
+    }
+  }
+
+  public static function updateDescendants($object)
+  {
+    // Update synchronously in CLI tasks and jobs
+    $context = sfContext::getInstance();
+    $env = $context->getConfiguration()->getEnvironment();
+    if (in_array($env, array('cli', 'worker')))
+    {
+      foreach (self::getChildren($object->id) as $child)
+      {
+        // TODO: Use partial updates to only get and add
+        // the fields that are inherited from the ancestors.
+        // Be aware that transient descendants are entirely
+        // added the first time to the search index in here
+        // and they will require a complete update.
+        self::update($child, array('updateDescendants' => true));
+      }
+
+      return;
+    }
+
+    // Update asynchronously in other environments
+    $jobOptions = array(
+      'ioIds' => array($object->id),
+      'updateIos' => false,
+      'updateDescendants' => true
+    );
+    QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
+
+    // Let user know descendants update has started
+    $jobsUrl = $context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'));
+    $message = $context->i18n->__('Your description has been updated. Its descendants are being updated asynchronously – check the <a href="%1">job scheduler page</a> for status and details.', array('%1' => $jobsUrl));
+    $context->user->setFlash('notice', $message);
+  }
+
+  public static function getChildren($parentId)
+  {
+    if (!isset(self::$conn))
+    {
+      self::$conn = Propel::getConnection();
+    }
+
+    if (!isset(self::$statement))
+    {
+      $sql  = 'SELECT
+                  io.id,
+                  io.lft,
+                  io.rgt';
+      $sql .= ' FROM '.QubitInformationObject::TABLE_NAME.' io';
+      $sql .= ' WHERE io.parent_id = ?';
+      $sql .= ' ORDER BY io.lft';
+
+      self::$statement = self::$conn->prepare($sql);
+    }
+
+    self::$statement->execute(array($parentId));
+    $children = self::$statement->fetchAll(PDO::FETCH_OBJ);
+
+    return $children;
   }
 
   /**

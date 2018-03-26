@@ -577,14 +577,38 @@ class TermEditAction extends DefaultEditAction
 
   protected function updateLinkedInfoObjects()
   {
+    // Only update related IOs of terms that are fully added to the IOs in ES
+    $allowedTaxonomyIds = array(QubitTaxonomy::PLACE_ID, QubitTaxonomy::SUBJECT_ID, QubitTaxonomy::GENRE_ID);
+    if (!isset($this->resource->taxonomyId) || !in_array($this->resource->taxonomyId, $allowedTaxonomyIds))
+    {
+      return;
+    }
+
+    $ioIds = array();
     foreach ($this->resource->objectTermRelations as $item)
     {
       if ($item->object instanceof QubitInformationObject)
       {
-        QubitSearch::getInstance()->update($item->object);
+        $ioIds[] = $item->objectId;
       }
     }
 
-    return $this;
+    if (count($ioIds) == 0)
+    {
+      return;
+    }
+
+    // Update asynchronously the linked IOs
+    $jobOptions = array(
+      'ioIds' => $ioIds,
+      'updateIos' => true,
+      'updateDescendants' => false
+    );
+    QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
+
+    // Let user know related descriptions update has started
+    $jobsUrl = $this->context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'));
+    $message = $this->context->i18n->__('Your term has been updated. Its related descriptions are being updated asynchronously – check the <a href="%1">job scheduler page</a> for status and details.', array('%1' => $jobsUrl));
+    $this->context->user->setFlash('notice', $message);
   }
 }

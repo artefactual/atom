@@ -215,7 +215,11 @@ class QubitInformationObject extends BaseInformationObject
     // Save child information objects
     foreach ($this->informationObjectsRelatedByparentId->transient as $item)
     {
-      // TODO Needed if $this is new, should be transparent
+      // TODO Needed if $this is new, should be transparent.
+      // Do not add them to the search index on creation as
+      // they will be added when $this is updated as part of
+      // their descendants in arElasticSearchInformationObject.
+      $item->indexOnSave = false;
       $item->parent = $this;
       $item->save($connection);
     }
@@ -285,7 +289,7 @@ class QubitInformationObject extends BaseInformationObject
 
     if ($this->indexOnSave)
     {
-      QubitSearch::getInstance()->update($this);
+      QubitSearch::getInstance()->update($this, array('updateDescendants' => true));
     }
 
     return $this;
@@ -1425,7 +1429,7 @@ class QubitInformationObject extends BaseInformationObject
     {
       return;
     }
-    
+
     $path = $do->getFullPath();
 
     // If path is external, it's absolute so return it

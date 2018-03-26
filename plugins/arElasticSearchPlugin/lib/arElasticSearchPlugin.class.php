@@ -546,7 +546,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
     }
   }
 
-  public function update($object)
+  public function update($object, $options = array())
   {
     if (!$this->enabled)
     {
@@ -560,6 +560,14 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
     $className = 'arElasticSearch'.str_replace('Qubit', '', get_class($object));
 
-    return call_user_func(array($className, 'update'), $object);
+    // Pass options only to information object update
+    if ($object instanceof QubitInformationObject)
+    {
+      call_user_func(array($className, 'update'), $object, $options);
+
+      return;
+    }
+
+    call_user_func(array($className, 'update'), $object);
   }
 }

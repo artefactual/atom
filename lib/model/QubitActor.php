@@ -143,13 +143,68 @@ class QubitActor extends BaseActor
 
     parent::save($connection);
 
+    $creationIoIds = $otherIoIds = array();
+    $context = sfContext::getInstance();
+    $env = $context->getConfiguration()->getEnvironment();
+
     // Save related event objects
     foreach ($this->events as $event)
     {
-      // Update search index for related info object
-      $event->indexOnSave = true;
+      $event->indexOnSave = false;
+
+      // Update search index for related info object, update them
+      // in QubitEvent synchronously in CLI tasks and jobs
+      if (in_array($env, array('cli', 'worker')))
+      {
+        $event->indexOnSave = true;
+      }
+      elseif (isset($event->objectId))
+      {
+        // Otherwise, do not update in QubitEvent,
+        // but save ids to update asynchronously
+        if (isset($event->typeId) && $event->typeId == QubitTerm::CREATION_ID)
+        {
+          $creationIoIds[] = $event->objectId;
+        }
+        else
+        {
+          $otherIoIds[] = $event->objectId;
+        }
+      }
+
       $event->actor = $this;
       $event->save();
+    }
+
+    // Update asynchronously the saved IOs ids, two jobs may
+    // be launched in here as creation events require updating
+    // the descendants but other events don't.
+    if (count($creationIoIds) > 0 || count($otherIoIds) > 0)
+    {
+      if (count($creationIoIds) > 0)
+      {
+        $jobOptions = array(
+          'ioIds' => $creationIoIds,
+          'updateIos' => true,
+          'updateDescendants' => true
+        );
+        QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
+      }
+
+      if (count($otherIoIds) > 0)
+      {
+        $jobOptions = array(
+          'ioIds' => $otherIoIds,
+          'updateIos' => true,
+          'updateDescendants' => false
+        );
+        QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
+      }
+
+      // Let user know related descriptions update has started
+      $jobsUrl = $context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'));
+      $message = $context->i18n->__('Your actor has been updated. Its related descriptions are being updated asynchronously – check the <a href="%1">job scheduler page</a> for status and details.', array('%1' => $jobsUrl));
+      $context->user->setFlash('notice', $message);
     }
 
     // Save related contact information objects
