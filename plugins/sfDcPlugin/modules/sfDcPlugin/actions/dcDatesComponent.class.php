@@ -75,6 +75,7 @@ class sfDcPluginDcDatesComponent extends InformationObjectEventComponent
         // to the eventsRelatedByobjectId array
         if (isset($this->event->id))
         {
+          $this->event->indexOnSave = false;
           $this->event->save();
         }
       }
@@ -84,6 +85,7 @@ class sfDcPluginDcDatesComponent extends InformationObjectEventComponent
     {
       if (false === array_search($item->id, $dontDeleteIds))
       {
+        $item->indexOnSave = false;
         $item->delete();
       }
     }

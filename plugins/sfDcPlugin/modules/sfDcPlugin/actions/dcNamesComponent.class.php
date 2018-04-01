@@ -67,6 +67,14 @@ class sfDcPluginDcNamesComponent extends InformationObjectEventComponent
             $this->processField($field);
           }
         }
+
+        // Save existing events as they are not attached
+        // to the eventsRelatedByobjectId array
+        if (isset($this->event->id))
+        {
+          $this->event->indexOnSave = false;
+          $this->event->save();
+        }
       }
     }
 
@@ -74,6 +82,7 @@ class sfDcPluginDcNamesComponent extends InformationObjectEventComponent
     {
       if (isset($item->actor) && false === array_search($item->id, $dontDeleteIds))
       {
+        $item->indexOnSave = false;
         $item->delete();
       }
     }

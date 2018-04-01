@@ -115,6 +115,7 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
         // to the eventsRelatedByobjectId array
         if (isset($this->event->id))
         {
+          $this->event->indexOnSave = false;
           $this->event->save();
         }
       }
@@ -126,6 +127,7 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
     {
       if (isset($item->id) && false === array_search($item->id, $finalEventIds))
       {
+        $item->indexOnSave = false;
         $item->delete();
       }
     }

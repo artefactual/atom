@@ -172,6 +172,7 @@ class EventEditComponent extends sfComponent
         // to the eventsRelatedByobjectId or events array
         if (isset($this->event->id))
         {
+          $this->event->indexOnSave = false;
           $this->event->save();
         }
       }
@@ -188,7 +189,9 @@ class EventEditComponent extends sfComponent
       foreach ($this->request->deleteEvents as $item)
       {
         $params = $this->context->routing->parse(Qubit::pathInfo($item));
-        $params['_sf_route']->resource->delete();
+        $event = $params['_sf_route']->resource;
+        $event->indexOnSave = false;
+        $event->delete();
       }
     }
   }

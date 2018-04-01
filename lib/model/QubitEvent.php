@@ -77,9 +77,14 @@ class QubitEvent extends BaseEvent
 
   public function delete($connection = null)
   {
+    // Get related object
+    $object = $this->getObject();
+
+    // Delete event
     parent::delete($connection);
 
-    if (isset($this->object))
+    // Update object
+    if (isset($object) && $this->indexOnSave)
     {
       // Update IO descendants in creation events
       $options = array();
@@ -88,7 +93,7 @@ class QubitEvent extends BaseEvent
         $options['updateDescendants'] = true;
       }
 
-      QubitSearch::getInstance()->update($this->getObject(), $options);
+      QubitSearch::getInstance()->update($object, $options);
     }
   }
 
