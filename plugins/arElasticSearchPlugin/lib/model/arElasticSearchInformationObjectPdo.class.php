@@ -282,7 +282,8 @@ class arElasticSearchInformationObjectPdo
       $sql  = 'SELECT
                   event.actor_id as id';
       $sql .= ' FROM '.QubitEvent::TABLE_NAME.' event';
-      $sql .= ' WHERE event.object_id = ?';
+      $sql .= ' WHERE event.actor_id IS NOT NULL';
+      $sql .= ' AND event.object_id = ?';
       $sql .= ' AND event.type_id = ?';
 
       self::$statements['inheritedCreators'] = self::$conn->prepare($sql);
