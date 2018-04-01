@@ -238,6 +238,35 @@ abstract class csvImportBaseTask extends arBaseTask
       // Add row culture to fetch place term in event creation/update
       $eventData['culture'] = $import->columnValue('culture');
 
+      // If in update mode and CSV event data references an existing actor,
+      // see if the event seems like it should be updated rather than created.
+      if ($import->matchAndUpdate && !empty($eventData['actorName'])
+          && null != $actor = QubitActor::getByAuthorizedFormOfName($eventData['actorName']))
+      {
+        // Check events to determine whether event should be updated rather than created
+        $criteria = new Criteria;
+        $criteria->add(QubitEvent::TYPE_ID, $eventTypeId);
+        $criteria->add(QubitEvent::OBJECT_ID, $import->object->id);
+        $criteria->add(QubitEvent::ACTOR_ID, $actor->id);
+
+        foreach(QubitEvent::get($criteria) as $event)
+        {
+          // Work out whether all CSV date fields are empty
+          $dateFieldsEmpty = empty($eventData['date']) && empty($eventData['startDate']) && empty($eventData['endDate']);
+
+          // Work out whether CSV date fields are different than what's currently stored
+          $datesDifferent = $event->date != $eventData['data'] || $event->startDate != $eventData['startDate']
+             || $event->endDate != $eventData['endDate'];
+
+          // Update is actor bio populated or if CSV fields empty or different from stored
+          if (!empty($eventData['actorHistory']) || $dateFieldsEmpty || $datesDifferent)
+          { 
+            $eventData['eventId'] = $event->id;
+            break;
+          }
+        }
+      }
+
       $import->createOrUpdateEvent($eventTypeId, $eventData);
     }
   }
