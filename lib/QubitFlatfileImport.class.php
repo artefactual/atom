@@ -1197,13 +1197,13 @@ class QubitFlatfileImport
       // Add language properties
       if (isset($self->languageMap) && isset($self->languageMap[$columnName]) && $value)
       {
-        $self->createLanguageSerializedProperty($self->languageMap[$columnName], explode('|', $value));
+        $self->storeLanguageSerializedProperty($self->languageMap[$columnName], explode('|', $value));
       }
 
       // Add script properties
       if (isset($self->scriptMap) && isset($self->scriptMap[$columnName]) && $value)
       {
-        $self->createScriptSerializedProperty($self->scriptMap[$columnName], explode('|', $value));
+        $self->storeScriptSerializedProperty($self->scriptMap[$columnName], explode('|', $value));
       }
     });
   }
@@ -2129,7 +2129,7 @@ class QubitFlatfileImport
   }
 
   /**
-   * Add a property to the imported object containing a serialized array of
+   * Store a property of the imported object containing a serialized array of
    * language values
    *
    * @param string $propertyName  Name of QubitProperty to create
@@ -2137,14 +2137,14 @@ class QubitFlatfileImport
    *
    * @return void
    */
-  public function createLanguageSerializedProperty($propertyName, $values)
+  public function storeLanguageSerializedProperty($propertyName, $values)
   {
     $languages = array_keys(sfCultureInfo::getInstance()->getLanguages());
-    $this->createSerializedPropertyFromControlledVocabulary($propertyName, $values, $languages);
+    $this->storeSerializedPropertyUsingControlledVocabulary($propertyName, $values, $languages);
   }
 
   /**
-   * Add a property to the imported object containing a serialized array of
+   * Store a property of the imported object containing a serialized array of
    * script values
    *
    * @param string $propertyName  Name of QubitProperty to create
@@ -2152,14 +2152,14 @@ class QubitFlatfileImport
    *
    * @return void
    */
-  public function createScriptSerializedProperty($propertyName, $values)
+  public function storeScriptSerializedProperty($propertyName, $values)
   {
     $scripts = array_keys(sfCultureInfo::getInstance()->getScripts());
-    $this->createSerializedPropertyFromControlledVocabulary($propertyName, $values, $scripts);
+    $this->storeSerializedPropertyUsingControlledVocabulary($propertyName, $values, $scripts);
   }
 
   /**
-   * Add a property to the imported object containing a serialized array of
+   * Store a property of the imported object containing a serialized array of
    * values from a controlled vocabulary
    *
    * @param string $propertyName  Name of QubitProperty to create
@@ -2168,7 +2168,7 @@ class QubitFlatfileImport
    *
    * @return void
    */
-  private function createSerializedPropertyFromControlledVocabulary($propertyName, $values, $vocabulary)
+  private function storeSerializedPropertyUsingControlledVocabulary($propertyName, $values, $vocabulary)
   {
     // Validate and normalize values
     foreach ($values as $valueIndex => $value)
@@ -2183,12 +2183,21 @@ class QubitFlatfileImport
       $values[$valueIndex] = $vocabulary[$vocabularyIndex];
     }
 
-    // Creation property manually rather than using addProperty model methods
-    // as they are implemented inconsistently
-    $property = new QubitProperty;
-    $property->objectId = $this->object->id;
-    $property->name = $propertyName;
-    $property->setValue(serialize($values), array('sourceCulture' => true));
+    $criteria = new Criteria;
+    $criteria->add(QubitProperty::OBJECT_ID, $this->object->id);
+    $criteria->add(QubitProperty::NAME, $propertyName);
+
+    // Get property if it exists
+    if (null === $property = QubitProperty::getOne($criteria))
+    {
+      // Create property manually rather than using addProperty model methods
+      // as they are implemented inconsistently
+      $property = new QubitProperty;
+      $property->objectId = $this->object->id;
+      $property->name = $propertyName;
+    }
+
+    $property->setValue(serialize(array_unique($values)), array('sourceCulture' => true));
     $property->indexOnSave = !$this->searchIndexingDisabled;
     $property->save();
   }
