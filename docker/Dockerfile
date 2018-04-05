@@ -14,6 +14,7 @@ RUN set -xe \
 			autoconf \
 			build-base \
 		&& docker-php-ext-install \
+			calendar \
 			gettext \
 			mbstring \
 			mcrypt \
