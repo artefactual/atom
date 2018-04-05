@@ -283,7 +283,7 @@ class sfRoute implements Serializable
         case 'variable':
           if (!$optional || !isset($this->defaults[$token[3]]) || $parameters[$token[3]] != $this->defaults[$token[3]])
           {
-            $url[] = urlencode($parameters[$token[3]]);
+            $url[] = QubitRoute::urlencode3986($parameters[$token[3]]);
             $optional = false;
           }
           break;
@@ -577,7 +577,7 @@ class sfRoute implements Serializable
         throw new InvalidArgumentException(sprintf('Unable to parse "%s" route near "%s".', $this->pattern, $buffer));
       }
     }
-    
+
     // check for suffix
     if ($this->suffix)
     {
