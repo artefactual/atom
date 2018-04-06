@@ -9,12 +9,6 @@ volumes:
   percona_data:
     driver: "local"
 
-  atom_uploads:
-    driver: "local"
-
-  atom_downloads:
-    driver: "local"
-
 networks:
 
   net_cache:
@@ -76,8 +70,6 @@ services:
     command: "fpm"
     volumes:
       - "../:/atom/src:rw"
-      - "atom_uploads:/atom/src/uploads:rw"
-      - "atom_downloads:/atom/src/downloads:rw"
     networks:
       - "net_cache"
       - "net_db"
@@ -100,8 +92,6 @@ services:
     command: "worker"
     volumes:
       - "../:/atom/src:rw"
-      - "atom_uploads:/atom/src/uploads:rw"
-      - "atom_downloads:/atom/src/downloads:rw"
     networks:
       - "net_cache"
       - "net_db"
@@ -123,8 +113,6 @@ services:
     volumes:
       - "../:/atom/src:ro"
       - "./etc/nginx/prod.conf:/etc/nginx/nginx.conf:ro"
-      - "atom_uploads:/atom/src/uploads:ro"
-      - "atom_downloads:/atom/src/downloads:ro"
     networks:
       - "net_http"
     depends_on:
