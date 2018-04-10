@@ -21,7 +21,7 @@
       <?php echo include_partial('default/breadcrumb', array('resource' => $resource, 'objects' => $resource->getAncestors()->andSelf()->orderBy('lft'))) ?>
     <?php endif; ?>
 
-    <?php if ($pager->hasResults()): ?>
+    <?php if ($pager->getNbResults()): ?>
 
       <table class="table table-bordered table-striped">
         <tr>

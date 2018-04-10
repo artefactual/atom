@@ -158,8 +158,67 @@ class SearchDescriptionUpdatesAction extends sfAction
     $this->showForm = $this->request->getParameter('showForm');
   }
 
+  public function doAuditLogSearch()
+  {
+    // Criteria to fetch user actions
+    $criteria = new Criteria;
+    $criteria->addJoin(QubitAuditLog::OBJECT_ID, QubitInformationObject::ID);
+
+    // Add publication status filtering, if specified
+    if ($this->form->getValue('publicationStatus') != 'all')
+    {
+      $criteria->addJoin(QubitAuditLog::OBJECT_ID, QubitStatus::OBJECT_ID);
+      $criteria->add(QubitStatus::STATUS_ID, $this->form->getValue('publicationStatus'));
+    }
+
+    // Add user action type filtering, if specified
+    if ($this->form->getValue('dateOf') != 'both')
+    {
+      switch($this->form->getValue('dateOf'))
+      {
+        case 'CREATED_AT':
+          $criteria->add(QubitAuditLog::ACTION_TYPE_ID, QubitTerm::USER_ACTION_CREATION_ID);
+          break;
+
+        case 'UPDATED_AT':
+          $criteria->add(QubitAuditLog::ACTION_TYPE_ID, QubitTerm::USER_ACTION_MODIFICATION_ID);
+          break;
+      }
+    }
+
+    // Add repository restriction, if specified
+    if (null !== $this->form->getValue('repository'))
+    {
+      $criteria->add(QubitInformationObject::REPOSITORY_ID, $this->form->getValue('repository'));
+    }
+
+    // Add date restriction
+    $criteria->add(QubitAuditLog::CREATED_AT , $this->form->getValue('startDate'), Criteria::GREATER_EQUAL);
+    $endDateTime = new DateTime($this->form->getValue('endDate'));
+    $criteria->add(QubitAuditLog::CREATED_AT, $endDateTime->modify('+1 day')->format('Y-m-d'), Criteria::LESS_THAN);
+
+    // Sort in reverse chronological order
+    $criteria->addDescendingOrderByColumn(QubitAuditLog::CREATED_AT);
+
+    // Page results
+    $limit = sfConfig::get('app_hits_per_page');
+    $page = (isset($request->page) && ctype_digit($request->page)) ? $request->page : 1;
+
+    $this->pager = new QubitPager('QubitAuditLog');
+    $this->pager->setCriteria($criteria);
+    $this->pager->setPage($page);
+    $this->pager->setMaxPerPage($limit);
+
+    $this->pager->init();
+  }
+
   public function doSearch()
   {
+    if ('QubitInformationObject' == $this->className && sfConfig::get('app_audit_log_enabled', false))
+    {
+      return $this->doAuditLogSearch();
+    }
+
     $queryBool = new \Elastica\Query\BoolQuery;
 
     if ('QubitInformationObject' == $this->className)
@@ -190,7 +249,8 @@ class SearchDescriptionUpdatesAction extends sfAction
     // Page results
     $this->pager = new QubitSearchPager($resultSet);
     $this->pager->setMaxPerPage($limit);
-    $this->pager->setPage($this->request->getParameter('page', 1));
+    $this->pager->setPage($page);
+    $this->pager->init();
   }
 
   private function addDateRangeQuery($queryBool, $dateOf)

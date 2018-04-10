@@ -84,6 +84,11 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
     {
     }
 
+    if ('auditLogs' == $name)
+    {
+      return true;
+    }
+
     if ('jobs' == $name)
     {
       return true;
@@ -123,6 +128,23 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
     }
     catch (sfException $e)
     {
+    }
+
+    if ('auditLogs' == $name)
+    {
+      if (!isset($this->refFkValues['auditLogs']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['auditLogs'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['auditLogs'] = self::getauditLogsById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['auditLogs'];
     }
 
     if ('jobs' == $name)
@@ -194,6 +216,26 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
     }
 
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
+  }
+
+  public static function addauditLogsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitAuditLog::USER_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getauditLogsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addauditLogsCriteriaById($criteria, $id);
+
+    return QubitAuditLog::get($criteria, $options);
+  }
+
+  public function addauditLogsCriteria(Criteria $criteria)
+  {
+    return self::addauditLogsCriteriaById($criteria, $this->id);
   }
 
   public static function addjobsCriteriaById(Criteria $criteria, $id)

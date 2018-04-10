@@ -55,6 +55,7 @@ class ObjectTableMap extends TableMap {
     $this->addRelation('actor', 'actor', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('aipRelatedByid', 'aip', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('aipRelatedBypartOf', 'aip', RelationMap::ONE_TO_MANY, array('id' => 'part_of', ), 'SET NULL', null);
+    $this->addRelation('auditLog', 'auditLog', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
     $this->addRelation('jobRelatedByid', 'job', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('jobRelatedByobjectId', 'job', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'SET NULL', null);
     $this->addRelation('digitalObject', 'digitalObject', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);

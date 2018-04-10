@@ -89,6 +89,7 @@ class SettingsGlobalAction extends sfAction
     $defaultArchivalDescriptionView = QubitSetting::getByName('default_archival_description_browse_view');
     $multiRepository = QubitSetting::getByName('multi_repository');
     $repositoryQuota = QubitSetting::getByName('repository_quota');
+    $auditLogEnabled = QubitSetting::getByName('audit_log_enabled');
     $explodeMultipageFiles = QubitSetting::getByName('explode_multipage_files');
     $showTooltips = QubitSetting::getByName('show_tooltips');
     $defaultPubStatus = QubitSetting::getByName('defaultPubStatus');
@@ -121,6 +122,7 @@ class SettingsGlobalAction extends sfAction
       'default_archival_description_browse_view' => (isset($defaultArchivalDescriptionView)) ? $defaultArchivalDescriptionView->getValue(array('sourceCulture' => true)) : 'table',
       'multi_repository' => (isset($multiRepository)) ? intval($multiRepository->getValue(array('sourceCulture'=>true))) : 1,
       'repository_quota' => (isset($repositoryQuota)) ? $repositoryQuota->getValue(array('sourceCulture'=>true)) : 0,
+      'audit_log_enabled' => (isset($auditLogEnabled)) ? intval($auditLogEnabled->getValue(array('sourceCulture'=>true))) : 0,
       'explode_multipage_files' => (isset($explodeMultipageFiles)) ? intval($explodeMultipageFiles->getValue(array('sourceCulture'=>true))) : 1,
       'slug_basis_informationobject' => (isset($slugTypeInformationObject)) ? intval($slugTypeInformationObject->getValue(array('sourceCulture'=>true))) : QubitSlug::SLUG_BASIS_TITLE,
       'show_tooltips' => (isset($showTooltips)) ? intval($showTooltips->getValue(array('sourceCulture'=>true))) : 1,
@@ -356,6 +358,20 @@ class SettingsGlobalAction extends sfAction
 
       // Force sourceCulture update to prevent discrepency in settings between cultures
       $setting->setValue($multiRepositoryValue, array('sourceCulture'=>true));
+      $setting->save();
+    }
+
+    // Audit log enabled
+    if (null !== $auditLogEnabled = $thisForm->getValue('audit_log_enabled'))
+    {
+      if (null === $setting = QubitSetting::getByName('audit_log_enabled'))
+      {
+        $setting = new QubitSetting;
+        $setting->name = 'audit_log_enabled';
+      }
+
+      // Force sourceCulture update to prevent discrepency in settings between cultures
+      $setting->setValue($auditLogEnabled, array('sourceCulture' => true));
       $setting->save();
     }
 

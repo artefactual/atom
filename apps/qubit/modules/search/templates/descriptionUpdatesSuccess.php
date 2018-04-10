@@ -7,13 +7,13 @@
   <div class="multiline-header">
     <?php echo image_tag('/images/icons-large/icon-new.png', array('width' => '42', 'height' => '42', 'alt' => '')) ?>
     <h1 aria-describedby="results-label">
-      <?php if (isset($pager) && $pager->hasResults()): ?>
+      <?php if (isset($pager) && $pager->getNbResults()): ?>
         <?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?>
       <?php else: ?>
         <?php echo __('No results') ?>
       <?php endif; ?>
     </h1>
-    <?php if (isset($pager) && $pager->hasResults()): ?>
+    <?php if (isset($pager) && $pager->getNbResults()): ?>
       <span class="sub" id="results-label"><?php echo __('Newest additions') ?></span>
     <?php endif; ?>
   </div>
@@ -26,31 +26,78 @@
     'form'         => $form,
     'show'         => $showForm)) ?>
 
-  <?php if (isset($pager) && $pager->hasResults()): ?>
+  <?php if ('QubitInformationObject' == $className && sfConfig::get('app_audit_log_enabled', false)): ?>
 
     <table class="table table-bordered table-striped sticky-enabled" id="clipboardButtonNode">
       <thead>
         <tr>
-          <th><?php echo __($nameColumnDisplay); ?></th>
-          <?php if ('QubitInformationObject' == $className && 0 < sfConfig::get('app_multi_repository')): ?>
-            <th><?php echo __('Repository') ?></th>
-          <?php elseif ('QubitTerm' == $className): ?>
-            <th><?php echo __('Taxonomy'); ?></th>
-          <?php endif; ?>
+          <th>
+            <?php echo __('Title') ?>
+          </th>
+          <th>
+            <?php echo __('Repository') ?>
+          </th>
           <?php if ('CREATED_AT' != $form->getValue('dateOf')): ?>
             <th style="width: 110px"><?php echo __('Updated'); ?></th>
           <?php else: ?>
             <th style="width: 110px"><?php echo __('Created'); ?></th>
           <?php endif; ?>
-          <?php if ('QubitInformationObject' == $className || 'QubitActor' == $className || 'QubitRepository' == $className): ?>
             <th style="width: 110px">
               <a href="#" class="all">All</a>
               <div class="separator" style="display: inline;">/</div>
               <a href="#" class="none">None</a>
             </th>
-          <?php endif; ?>
         </tr>
-      </thead><tbody>
+      </thead>
+      <tbody>
+      <?php foreach ($pager->getResults() as $result): ?>
+        <?php $io = QubitInformationObject::getById($result->objectId) ?>
+        <tr>
+          <td>
+            <?php echo link_to(render_title($io), array('slug' => $io->slug, 'module' => 'informationobject')) ?>
+          </td>
+          <td>
+            <?php if (!empty($io->repository)): ?>
+              <?php echo link_to(render_title($io->repository->authorizedFormOfName), array('slug' => $io->repository->slug, 'module' => 'repository')) ?>
+            <?php endif; ?>
+          </td>
+          <td>
+            <?php echo format_date($result->createdAt, 'f') ?>
+          </td>
+          <td>
+            <?php echo get_component('object', 'clipboardButton', array('slug' => $io->slug, 'wide' => true)) ?>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+      </tbody>
+    </table>
+
+  <?php else: ?>
+    <?php if (isset($pager) && $pager->getNbResults()): ?>
+
+      <table class="table table-bordered table-striped sticky-enabled" id="clipboardButtonNode">
+        <thead>
+          <tr>
+            <th><?php echo __($nameColumnDisplay); ?></th>
+            <?php if ('QubitInformationObject' == $className && 0 < sfConfig::get('app_multi_repository')): ?>
+              <th><?php echo __('Repository') ?></th>
+            <?php elseif ('QubitTerm' == $className): ?>
+              <th><?php echo __('Taxonomy'); ?></th>
+            <?php endif; ?>
+            <?php if ('CREATED_AT' != $form->getValue('dateOf')): ?>
+              <th style="width: 110px"><?php echo __('Updated'); ?></th>
+            <?php else: ?>
+              <th style="width: 110px"><?php echo __('Created'); ?></th>
+            <?php endif; ?>
+            <?php if ('QubitInformationObject' == $className || 'QubitActor' == $className || 'QubitRepository' == $className): ?>
+              <th style="width: 110px">
+                <a href="#" class="all">All</a>
+                <div class="separator" style="display: inline;">/</div>
+                <a href="#" class="none">None</a>
+              </th>
+            <?php endif; ?>
+          </tr>
+        </thead><tbody>
         <?php foreach ($pager->getResults() as $result): ?>
 
           <?php $doc = $result->getData() ?>
@@ -118,6 +165,7 @@
         <?php endforeach; ?>
       </tbody>
     </table>
+    <?php endif; ?>
   <?php endif; ?>
 
 <?php end_slot() ?>
