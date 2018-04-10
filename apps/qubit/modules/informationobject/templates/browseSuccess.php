@@ -1,4 +1,4 @@
-<?php if (isset($pager) && $pager->hasResults() || sfConfig::get('app_enable_institutional_scoping')): ?>
+<?php if (isset($pager) && $pager->getNbResults() || sfConfig::get('app_enable_institutional_scoping')): ?>
   <?php decorate_with('layout_2col') ?>
 <?php else: ?>
   <?php decorate_with('layout_1col') ?>
@@ -12,7 +12,7 @@
   <div class="multiline-header">
     <?php echo image_tag('/images/icons-large/icon-archival.png', array('alt' => '')) ?>
     <h1 aria-describedby="results-label">
-      <?php if (isset($pager) && $pager->hasResults()): ?>
+      <?php if (isset($pager) && $pager->getNbResults()): ?>
         <?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?>
       <?php else: ?>
         <?php echo __('No results found') ?>
@@ -28,7 +28,7 @@
   </div>
 <?php endif; ?>
 
-<?php if (isset($pager) && $pager->hasResults() || sfConfig::get('app_enable_institutional_scoping')): ?>
+<?php if (isset($pager) && $pager->getNbResults() || sfConfig::get('app_enable_institutional_scoping')): ?>
 
   <?php slot('sidebar') ?>
 
@@ -296,7 +296,7 @@
     'rangeType'    => $rangeType,
     'hiddenFields' => $hiddenFields)) ?>
 
-  <?php if (isset($pager) && $pager->hasResults()): ?>
+  <?php if (isset($pager) && $pager->getNbResults()): ?>
 
     <section class="browse-options">
       <?php echo get_partial('default/printPreviewButton') ?>

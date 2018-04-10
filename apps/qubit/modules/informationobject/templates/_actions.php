@@ -56,6 +56,12 @@
               <?php if ($resource->hasChildren()): ?>
                 <li><?php echo link_to(__('Manage rights inheritance'), array($resource,  'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'manage')) ?></li>
               <?php endif; ?>
+
+              <?php if (sfConfig::get('app_audit_log_enabled', false)): ?>
+                <li class="divider"></li>
+
+                <li><?php echo link_to(__('View modification history'), array($resource, 'module' => 'informationobject', 'action' => 'modifications')) ?></li>
+              <?php endif; ?>
             </ul>
           </div>
         </li>

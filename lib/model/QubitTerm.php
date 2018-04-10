@@ -168,8 +168,11 @@ class QubitTerm extends BaseTerm
     // Relation type taxonomy
     MAINTAINING_REPOSITORY_RELATION_ID = 187,
 
-    ACTOR_OCCUPATION_NOTE_ID = 188;
+    ACTOR_OCCUPATION_NOTE_ID = 188,
 
+    // User action taxonomy
+    USER_ACTION_CREATION_ID = 439,
+    USER_ACTION_MODIFICATION_ID = 440;
 
   public static function isProtected($id)
   {

@@ -62,16 +62,4 @@ class QubitSearchPager extends sfPager
   {
     return array_slice($this->getResults, $offset, 1);
   }
-
-  /**
-   * Returns true if the current query has any results
-   *
-   * @return boolean
-   */
-  public function hasResults()
-  {
-    $this->init();
-
-    return 0 < $this->getNbResults();
-  }
 }

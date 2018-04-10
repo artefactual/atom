@@ -195,12 +195,12 @@ abstract class BaseObject implements ArrayAccess
       return true;
     }
 
-    if ('jobsRelatedByobjectId' == $name)
+    if ('auditLogs' == $name)
     {
       return true;
     }
 
-    if ('clipboardSaveItems' == $name)
+    if ('jobsRelatedByobjectId' == $name)
     {
       return true;
     }
@@ -330,6 +330,23 @@ abstract class BaseObject implements ArrayAccess
       return $this->refFkValues['aipsRelatedBypartOf'];
     }
 
+    if ('auditLogs' == $name)
+    {
+      if (!isset($this->refFkValues['auditLogs']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['auditLogs'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['auditLogs'] = self::getauditLogsById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['auditLogs'];
+    }
+
     if ('jobsRelatedByobjectId' == $name)
     {
       if (!isset($this->refFkValues['jobsRelatedByobjectId']))
@@ -345,23 +362,6 @@ abstract class BaseObject implements ArrayAccess
       }
 
       return $this->refFkValues['jobsRelatedByobjectId'];
-    }
-
-    if ('clipboardSaveItems' == $name)
-    {
-      if (!isset($this->refFkValues['clipboardSaveItems']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['clipboardSaveItems'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['clipboardSaveItems'] = self::getclipboardSaveItemsById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['clipboardSaveItems'];
     }
 
     if ('eventsRelatedByobjectId' == $name)
@@ -900,6 +900,26 @@ abstract class BaseObject implements ArrayAccess
     return self::addaipsRelatedBypartOfCriteriaById($criteria, $this->id);
   }
 
+  public static function addauditLogsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitAuditLog::OBJECT_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getauditLogsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addauditLogsCriteriaById($criteria, $id);
+
+    return QubitAuditLog::get($criteria, $options);
+  }
+
+  public function addauditLogsCriteria(Criteria $criteria)
+  {
+    return self::addauditLogsCriteriaById($criteria, $this->id);
+  }
+
   public static function addjobsRelatedByobjectIdCriteriaById(Criteria $criteria, $id)
   {
     $criteria->add(QubitJob::OBJECT_ID, $id);
@@ -918,26 +938,6 @@ abstract class BaseObject implements ArrayAccess
   public function addjobsRelatedByobjectIdCriteria(Criteria $criteria)
   {
     return self::addjobsRelatedByobjectIdCriteriaById($criteria, $this->id);
-  }
-
-  public static function addclipboardSaveItemsCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitClipboardSaveItem::OBJECT_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getclipboardSaveItemsById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addclipboardSaveItemsCriteriaById($criteria, $id);
-
-    return QubitClipboardSaveItem::get($criteria, $options);
-  }
-
-  public function addclipboardSaveItemsCriteria(Criteria $criteria)
-  {
-    return self::addclipboardSaveItemsCriteriaById($criteria, $this->id);
   }
 
   public static function addeventsRelatedByobjectIdCriteriaById(Criteria $criteria, $id)

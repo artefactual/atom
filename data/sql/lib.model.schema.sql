@@ -136,6 +136,39 @@ CREATE TABLE `aip`
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
+#-- audit_log
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `audit_log`;
+
+
+CREATE TABLE `audit_log`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`object_id` INTEGER  NOT NULL,
+	`user_id` INTEGER,
+	`user_name` VARCHAR(255),
+	`action_type_id` INTEGER,
+	`created_at` DATETIME,
+	PRIMARY KEY (`id`),
+	INDEX `audit_log_FI_1` (`object_id`),
+	CONSTRAINT `audit_log_FK_1`
+		FOREIGN KEY (`object_id`)
+		REFERENCES `object` (`id`)
+		ON DELETE CASCADE,
+	INDEX `audit_log_FI_2` (`user_id`),
+	CONSTRAINT `audit_log_FK_2`
+		FOREIGN KEY (`user_id`)
+		REFERENCES `user` (`id`)
+		ON DELETE SET NULL,
+	INDEX `audit_log_FI_3` (`action_type_id`),
+	CONSTRAINT `audit_log_FK_3`
+		FOREIGN KEY (`action_type_id`)
+		REFERENCES `term` (`id`)
+		ON DELETE SET NULL
+)Engine=InnoDB;
+
+#-----------------------------------------------------------------------------
 #-- job
 #-----------------------------------------------------------------------------
 

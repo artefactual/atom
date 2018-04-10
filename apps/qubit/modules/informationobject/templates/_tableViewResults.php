@@ -1,4 +1,4 @@
-<?php if ($pager->hasResults()): ?>
+<?php if ($pager->getNbResults()): ?>
   <?php foreach ($pager->getResults() as $hit): ?>
     <?php echo get_partial('search/searchResult', array('hit' => $hit, 'culture' => $selectedCulture)) ?>
   <?php endforeach; ?>

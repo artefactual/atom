@@ -67,7 +67,8 @@ editTermAclSuccess:
 
 indexSuccess:
   javascripts:
-     blank:
+    editingHistory:
+    blank:
 
 indexActorAclSuccess:
   javascripts:

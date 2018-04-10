@@ -154,6 +154,11 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       return true;
     }
 
+    if ('auditLogs' == $name)
+    {
+      return true;
+    }
+
     if ('jobs' == $name)
     {
       return true;
@@ -484,6 +489,23 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       }
 
       return $this->refFkValues['aips'];
+    }
+
+    if ('auditLogs' == $name)
+    {
+      if (!isset($this->refFkValues['auditLogs']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['auditLogs'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['auditLogs'] = self::getauditLogsById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['auditLogs'];
     }
 
     if ('jobs' == $name)
@@ -1351,6 +1373,26 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
   public function addaipsCriteria(Criteria $criteria)
   {
     return self::addaipsCriteriaById($criteria, $this->id);
+  }
+
+  public static function addauditLogsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitAuditLog::ACTION_TYPE_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getauditLogsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addauditLogsCriteriaById($criteria, $id);
+
+    return QubitAuditLog::get($criteria, $options);
+  }
+
+  public function addauditLogsCriteria(Criteria $criteria)
+  {
+    return self::addauditLogsCriteriaById($criteria, $this->id);
   }
 
   public static function addjobsCriteriaById(Criteria $criteria, $id)

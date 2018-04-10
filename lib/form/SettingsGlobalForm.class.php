@@ -48,6 +48,7 @@ class SettingsGlobalForm extends sfForm
       'enable_institutional_scoping' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
       'repository_quota' => new sfWidgetFormInput,
       'upload_quota' => new arWidgetFormUploadQuota,
+      'audit_log_enabled' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'explode_multipage_files' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'show_tooltips' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'slug_basis_informationobject' => $this->getSlugBasisInformationObjectWidget(),
@@ -75,6 +76,7 @@ class SettingsGlobalForm extends sfForm
       'enable_institutional_scoping' => $this->i18n->__('Enable institutional scoping'),
       'repository_quota' => $this->i18n->__('Default %1% upload limit (GB)', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))),
       'upload_quota' => $this->i18n->__('Total space available for uploads'),
+      'audit_log_enabled' => $this->i18n->__('Enable description change logging'),
       'explode_multipage_files' => $this->i18n->__('Upload multi-page files as multiple descriptions'),
       'show_tooltips' => $this->i18n->__('Show tooltips'),
       'defaultPubStatus' => $this->i18n->__('Default publication status'),
@@ -106,6 +108,7 @@ class SettingsGlobalForm extends sfForm
       'defaultPubStatus' => $this->i18n->__('Default publication status for newly created or imported %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))),
       'slug_basis_informationobject' => $this->i18n->__('Choose whether permalinks for descriptions are generated from reference code or title'),
       'permissive_slug_creation' => $this->i18n->__('Allow any valid URI PATH segment character to appear in a slug, including UTF-8 glyphs. Restricted IRI characters ( /?#{} ) and literal spaces will be replaced with dashes'),
+      'audit_log_enabled' => $this->i18n->__('Log creation and change of descriptions'),
       // 'explode_multipage_files' => $this->i18n->__('')
       // 'show_tooltips' => $this->i18n->__('')
       // 'sword_deposit_dir' => $this->i18n->__('')
@@ -140,6 +143,7 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['repository_quota'] = new sfValidatorNumber(
       array('required' => true, 'min' => -1),
       array('min' => $this->i18n->__('Minimum value is "%min%"')));
+    $this->validatorSchema['audit_log_enabled'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['explode_multipage_files'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['show_tooltips'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['defaultPubStatus'] = new sfValidatorChoice(array('choices' => array(QubitTerm::PUBLICATION_STATUS_DRAFT_ID, QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)));

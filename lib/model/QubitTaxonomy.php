@@ -88,7 +88,9 @@ class QubitTaxonomy extends BaseTaxonomy
 
     JOB_STATUS_ID = 79,
 
-    ACTOR_OCCUPATION_ID = 80;
+    ACTOR_OCCUPATION_ID = 80,
+
+    USER_ACTION_ID = 81;
 
   public static
     $lockedTaxonomies = array(

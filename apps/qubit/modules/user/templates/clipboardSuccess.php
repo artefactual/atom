@@ -20,7 +20,7 @@
         'label' => __('Entity type'),
         'param' => 'type')) ?>
 
-      <?php if ($pager->hasResults()): ?>
+      <?php if ($pager->getNbResults()): ?>
         <?php echo get_partial('default/sortPickers', array('options' => $sortOptions)) ?>
       <?php endif; ?>
     </div>
@@ -30,7 +30,7 @@
 <?php slot('content') ?>
   <div id="content">
     <div class="text-section">
-      <?php if (!isset($pager) || !$pager->hasResults()): ?>
+      <?php if (!isset($pager) || !$pager->getNbResults()): ?>
         <?php echo __('No results for this entity type.') ?>
       <?php endif; ?>
     </div>
@@ -49,7 +49,7 @@
   <section class="actions">
     <ul>
       <li><?php echo link_to(__('Clear %1 clipboard', array('%1' => lcfirst($uiLabels[$type]))), array('module' => 'user', 'action' => 'clipboardClear', 'type' => $entityType), array('class' => 'c-btn c-btn-delete')) ?></li>
-      <?php if (isset($pager) && $pager->hasResults()): ?>
+      <?php if (isset($pager) && $pager->getNbResults()): ?>
         <li><?php echo link_to(__('Save'), array('module' => 'user', 'action' => 'clipboardSave'), array('class' => 'c-btn')) ?></li>
         <li><?php echo link_to(__('Export'), array('module' => 'object', 'action' => 'export', 'objectType' => $type), array('class' => 'c-btn')) ?></li>
       <?php endif; ?>

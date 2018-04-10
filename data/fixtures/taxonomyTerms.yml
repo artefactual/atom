@@ -1462,6 +1462,12 @@ QubitTaxonomy:
       pt-BR: 'Ocupações do registro de autoridade'
       sr: 'Занимања ствараоца'
       sv: 'Yrken för aktör'
+  QubitTaxonomy_user_actions:
+    source_culture: en
+    id: 81
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'User actions'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -11071,6 +11077,20 @@ QubitTerm:
       pt: 'Notas do arquivista'
       pt-BR: 'Nota de créditos'
       sr: 'Напомена о сарадницима'
+  QubitTerm_user_action_creation:
+    id: 439
+    taxonomy_id: QubitTaxonomy_user_actions
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: 'Creation'
+  QubitTerm_user_action_modification:
+    id: 440
+    taxonomy_id: QubitTaxonomy_user_actions
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: 'Modification'
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111
