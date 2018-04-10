@@ -106,5 +106,6 @@
 
     <?php echo get_component('informationobject', 'findingAid', array('resource' => $resource)) ?>
 
+    <?php echo get_component('informationobject', 'calculateDatesLink', array('resource' => $resource)) ?>
   </ul>
 </section>
