@@ -48,6 +48,10 @@ class SettingsMenuComponent extends sfComponent
         'action' => 'language'
       ),
       array(
+        'label' => $i18n->__('Identifiers'),
+        'action' => 'identifier'
+      ),
+      array(
         'label' => $i18n->__('OAI repository'),
         'action' => 'oai',
         'hide' => !$this->context->getConfiguration()->isPluginEnabled('arOaiPlugin')

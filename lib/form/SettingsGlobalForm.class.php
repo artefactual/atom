@@ -39,14 +39,6 @@ class SettingsGlobalForm extends sfForm
       'version' => new sfWidgetFormInput(array(), array('class' => 'disabled', 'disabled' => true)),
       'check_for_updates' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'hits_per_page' => new sfWidgetFormInput,
-      'accession_mask_enabled' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
-      'accession_mask' => new sfWidgetFormInput,
-      'accession_counter' => new sfWidgetFormInput,
-      'identifier_mask_enabled' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
-      'identifier_mask' => new sfWidgetFormInput,
-      'identifier_counter' => new sfWidgetFormInput,
-      'separator_character' => new sfWidgetFormInput(array(), array('maxlength' => 1)),
-      'inherit_code_informationobject' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'escape_queries' => new sfWidgetFormInput,
       'sort_browser_user' => new sfWidgetFormSelectRadio(array('choices' => array('alphabetic' => $this->i18n->__('title/name'), 'lastUpdated' => $this->i18n->__('date modified'), 'identifier' => $this->i18n->__('identifier'), 'referenceCode' => $this->i18n->__('reference code'))), array('class' => 'radio')),
       'sort_browser_anonymous' => new sfWidgetFormSelectRadio(array('choices' => array('alphabetic' => $this->i18n->__('title/name'), 'lastUpdated' => $this->i18n->__('date modified'), 'identifier' => $this->i18n->__('identifier'), 'referenceCode' => $this->i18n->__('reference code'))), array('class' => 'radio')),
@@ -74,14 +66,6 @@ class SettingsGlobalForm extends sfForm
       'version' => $this->i18n->__('Application version'),
       'check_for_updates' => $this->i18n->__('Check for updates'),
       'hits_per_page' => $this->i18n->__('Results per page'),
-      'accession_mask_enabled' => $this->i18n->__('Accession mask enabled'),
-      'accession_mask' => $this->i18n->__('Accession mask'),
-      'accession_counter' => $this->i18n->__('Accession counter'),
-      'identifier_mask_enabled' => $this->i18n->__('Identifier mask enabled'),
-      'identifier_mask' => $this->i18n->__('Identifier mask'),
-      'identifier_counter' => $this->i18n->__('Identifier counter'),
-      'separator_character' => $this->i18n->__('Reference code separator'),
-      'inherit_code_informationobject' => $this->i18n->__('Inherit reference code (information object)'),
       'escape_queries' => $this->i18n->__('Escape special chars from searches'),
       'sort_browser_user' => $this->i18n->__('Sort browser (users)'),
       'sort_browser_anonymous' => $this->i18n->__('Sort browser (anonymous)'),
@@ -111,8 +95,6 @@ class SettingsGlobalForm extends sfForm
       'version' => $this->i18n->__('The current version of the application'),
       'check_for_updates' => $this->i18n->__('Enable automatic update notification'),
       'hits_per_page' => $this->i18n->__('The number of records shown per page on list pages'),
-      // 'accession_mask' => $this->i18n->__(''),
-      // 'accession_counter' => $this->i18n->__(''),
       'default_repository_browse_view' => $this->i18n->__('Set the default view template when browsing repositories'),
       'default_archival_description_browse_view' => $this->i18n->__('Set the default view template when browsing archival descriptions'),
       'separator_character' => $this->i18n->__('The character separating hierarchical elements in a reference code'),
@@ -146,11 +128,6 @@ class SettingsGlobalForm extends sfForm
 
     $this->validatorSchema['version'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['check_for_updates'] = new sfValidatorString(array('required' => false));
-    $this->validatorSchema['accession_mask_enabled'] = new sfValidatorInteger(array('required' => false));
-    $this->validatorSchema['accession_mask'] = new sfValidatorString(array('required' => false));
-    $this->validatorSchema['separator_character'] = new sfValidatorString(array('required' => false));
-    $this->validatorSchema['accession_counter'] = new sfValidatorString(array('required' => false));
-    $this->validatorSchema['inherit_code_informationobject'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['escape_queries'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['sort_browser_user'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['sort_browser_anonymous'] = new sfValidatorString(array('required' => false));
@@ -160,9 +137,6 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['default_archival_description_browse_view'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['slug_basis_informationobject'] = $this->getSlugBasisInformationObjectValidator();
     $this->validatorSchema['permissive_slug_creation'] = new sfValidatorInteger(array('required' => false));
-    $this->validatorSchema['identifier_mask_enabled'] = new sfValidatorInteger(array('required' => false));
-    $this->validatorSchema['identifier_mask'] = new sfValidatorString(array('required' => false));
-    $this->validatorSchema['identifier_counter'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['repository_quota'] = new sfValidatorNumber(
       array('required' => true, 'min' => -1),
       array('min' => $this->i18n->__('Minimum value is "%min%"')));
