@@ -294,6 +294,7 @@ CREATE TABLE `digital_object`
 	`checksum_type` VARCHAR(50),
 	`parent_id` INTEGER,
 	PRIMARY KEY (`id`),
+	KEY `path`(`path`),
 	CONSTRAINT `digital_object_FK_1`
 		FOREIGN KEY (`id`)
 		REFERENCES `object` (`id`)
@@ -475,6 +476,7 @@ CREATE TABLE `information_object`
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `information_object_U_1` (`oai_local_identifier`),
 	KEY `lft`(`lft`),
+	KEY `rgt`(`rgt`),
 	CONSTRAINT `information_object_FK_1`
 		FOREIGN KEY (`id`)
 		REFERENCES `object` (`id`)
