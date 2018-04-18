@@ -3,12 +3,12 @@
   <?php if (check_field_visibility('app_element_visibility_physical_storage', $options)): ?>
     <?php $objects = $$resourceVar->getPhysicalObjects() ?>
     <?php foreach ($objects as $object): ?>
-      <?php if (0 < strlen($object->location)): ?>
-        <physloc id="<?php echo 'physloc'.str_pad(++$$counterVar, 4, '0', STR_PAD_LEFT) ?>"><?php echo escape_dc(esc_specialchars($object->location)) ?></physloc>
+      <?php if (0 < strlen($location = $object->getLocation(array('cultureFallback' => true)))): ?>
+        <physloc id="<?php echo 'physloc'.str_pad(++$$counterVar, 4, '0', STR_PAD_LEFT) ?>"><?php echo escape_dc(esc_specialchars($location)) ?></physloc>
       <?php endif; ?>
-      <container <?php echo $ead->getEadContainerAttributes($object) ?><?php if (0 < strlen($object->location)): ?> parent="<?php echo 'physloc'.str_pad($$counterVar, 4, '0', STR_PAD_LEFT) ?>"<?php endif; ?>>
-        <?php if (0 < strlen($object->name)): ?>
-          <?php echo escape_dc(esc_specialchars($object->name)) ?>
+      <container <?php echo $ead->getEadContainerAttributes($object) ?><?php if (0 < strlen($location)): ?> parent="<?php echo 'physloc'.str_pad($$counterVar, 4, '0', STR_PAD_LEFT) ?>"<?php endif; ?>>
+        <?php if (0 < strlen($name = $object->getName(array('cultureFallback' => true)))): ?>
+          <?php echo escape_dc(esc_specialchars($name)) ?>
         <?php endif; ?>
       </container>
     <?php endforeach; ?>
