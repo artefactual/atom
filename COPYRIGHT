@@ -218,3 +218,15 @@ elasticsearch-php
 Url: https://github.com/elastic/elasticsearch-php
 Copyright: 2013-2016 Elasticsearch
 License: Apache 2.0 and LGPL v2.1
+
+Parsedown
+---------
+Url: https://github.com/erusev/parsedown
+Copyright: Emanuil Rusev, erusev.com
+License: MIT
+
+Parsedown Extra
+---------------
+Url: https://github.com/erusev/parsedown-extra
+Copyright: Emanuil Rusev, erusev.com
+License: MIT
