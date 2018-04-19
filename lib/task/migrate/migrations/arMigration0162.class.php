@@ -45,6 +45,8 @@ class arMigration0162
       $setting->save();
     }
 
+    QubitCache::getInstance()->removePattern('settings:i18n:*');
+
     return true;
   }
 }
