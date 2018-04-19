@@ -59,6 +59,7 @@ class SettingsGlobalForm extends sfForm
       'generate_reports_as_pub_user' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'cache_xml_on_save' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'clipboard_save_max_age' => new sfWidgetFormInput,
+      'markdown_enabled' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
     ));
 
     // Add labels
@@ -88,6 +89,7 @@ class SettingsGlobalForm extends sfForm
       'generate_reports_as_pub_user' => $this->i18n->__('Generate archival description reports as public user'),
       'cache_xml_on_save' => $this->i18n->__('Cache description XML exports upon creation/modification'),
       'clipboard_save_max_age' => $this->i18n->__('Saved clipboard maximum age (in days)'),
+      'markdown_enabled' => $this->i18n->__('Enable Markdown support'),
     ));
 
     // Add helper text
@@ -110,6 +112,7 @@ class SettingsGlobalForm extends sfForm
       // 'show_tooltips' => $this->i18n->__('')
       // 'sword_deposit_dir' => $this->i18n->__('')
       'clipboard_save_max_age' => $this->i18n->__('The number of days a saved clipboard should be retained before it is eligible for deletion'),
+      'markdown_enabled' => $this->i18n->__('Enable/disable Markdown support'),
     ));
 
     // Hits per page validator
@@ -149,6 +152,7 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['generate_reports_as_pub_user'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['cache_xml_on_save'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['clipboard_save_max_age'] = new sfValidatorInteger(array('required' => false));
+    $this->validatorSchema['markdown_enabled'] = new sfValidatorInteger(array('required' => false));
 
     // Set decorator
     $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);

@@ -96,6 +96,7 @@ class SettingsGlobalAction extends sfAction
     $enableInstitutionalScoping = QubitSetting::getByName('enable_institutional_scoping');
     $cacheXmlOnSave = QubitSetting::getByName('cache_xml_on_save');
     $clipboardSaveMaxAge = QubitSetting::getByName('clipboard_save_max_age');
+    $markdownEnabled = QubitSetting::getByName('markdown_enabled');
 
     // Set defaults for global form
     $this->globalForm->setDefaults(array(
@@ -121,6 +122,7 @@ class SettingsGlobalAction extends sfAction
       'enable_institutional_scoping' => (isset($enableInstitutionalScoping)) ? intval($enableInstitutionalScoping->getValue(array('sourceCulture'=>true))) : 0,
       'cache_xml_on_save' => (isset($cacheXmlOnSave)) ? intval($cacheXmlOnSave->getValue(array('sourceCulture'=>true))) : 0,
       'clipboard_save_max_age' => (isset($clipboardSaveMaxAge)) ? intval($clipboardSaveMaxAge->getValue(array('sourceCulture'=>true))) : 0,
+      'markdown_enabled' => (isset($markdownEnabled)) ? intval($markdownEnabled->getValue(array('sourceCulture'=>true))) : 1,
     ));
   }
 
@@ -362,6 +364,18 @@ class SettingsGlobalAction extends sfAction
     }
 
     $setting->setValue($clipboardSaveMaxAge, array('sourceCulture' => true));
+    $setting->save();
+
+    // Markdown support
+    $markdownEnabled = $thisForm->getValue('markdown_enabled');
+
+    if (null === $setting = QubitSetting::getByName('markdown_enabled'))
+    {
+      $setting = new QubitSetting;
+      $setting->name = 'markdown_enabled';
+    }
+
+    $setting->setValue($markdownEnabled, array('sourceCulture' => true));
     $setting->save();
 
     return $this;
