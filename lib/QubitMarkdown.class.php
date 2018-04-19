@@ -27,11 +27,50 @@
 class QubitMarkdown
 {
   protected static
+    $instance = null,
     $markdownMap = array(
       'bolditalic' => '___',
       'italic' => '_',
       'bold' => '__',
     );
+
+  private
+    $enabled;
+
+  protected function __construct()
+  {
+    $this->enabled = sfConfig::get('app_markdown_enabled', true);
+
+    if (!$this->enabled)
+    {
+      return;
+    }
+
+    $this->parsedown = new ParsedownExtra();
+  }
+
+  static public function getInstance()
+  {
+    if (!isset(self::$instance))
+    {
+      self::$instance = new QubitMarkdown;
+    }
+
+    return self::$instance;
+  }
+
+  public function parse($content, $safeMode = true)
+  {
+    if (!$this->enabled)
+    {
+      return $content;
+    }
+
+    $this->parsedown->setSafeMode($safeMode);
+    $content = $this->parsedown->text($content);
+
+    return $content;
+  }
 
   /**
    * Convert an EAD markup tag to it's corresponding markdown symbols.

@@ -140,22 +140,16 @@ function render_title($value, $html = true)
   return ($html ? '<em>' : '').sfContext::getInstance()->i18n->__('Untitled').($html ? '</em>' : '');
 }
 
-function render_value($value)
+function render_value($value, $safeMode = true)
 {
-  $value = qubit_auto_link_text($value);
+  // Value is parsed using Parsedown text method, which
+  // adds paragraphs when two linebreaks are together.
+  $value = QubitMarkdown::getInstance()->parse($value, $safeMode);
 
-  // Simple lists
-  $value = preg_replace('/(?:^\*.*\r?\n)*(?:^\*.*)/m', "<ul>\n$0\n</ul>", $value);
-  $value = preg_replace('/(?:^-.*\r?\n)*(?:^-.*)/m', "<ul>\n$0\n</ul>", $value);
-  $value = preg_replace('/^(?:\*|-)\s*(.*)(?:\r?\n)?/m', '<li>$1</li>', $value);
-
-  $value = preg_replace('/(?:\r?\n){2,}/', "</p><p>", $value, -1, $count);
-  if (0 < $count)
-  {
-    $value = "<p>$value</p>";
-  }
-
-  $value = preg_replace('/\r?\n/', '<br/>', $value);
+  // Maintain linebreaks not surrounded by tags. Parsedown
+  // doesn't add linebreaks using the known but unofficial
+  // ways to do it (two spaces or \).
+  $value = preg_replace('/(?!>)\r?\n(?!<)/', '<br/>', $value);
 
   return $value;
 }
