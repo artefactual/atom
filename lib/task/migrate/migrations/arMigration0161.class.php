@@ -66,6 +66,8 @@ sql;
       QubitPdo::modify($sql);
     }
 
+    QubitCache::getInstance()->removePattern('settings:i18n:*');
+
     return true;
   }
 }
