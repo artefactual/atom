@@ -27,5 +27,6 @@ class RepositoryContextMenuComponent extends sfComponent
     }
 
     $this->resource = $request->getAttribute('sf_route')->resource;
+    $this->class = get_class($this->resource);
   }
 }

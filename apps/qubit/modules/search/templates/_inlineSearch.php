@@ -18,7 +18,7 @@
         <div class="btn-group">
           <button class="btn dropdown-toggle" data-toggle="dropdown">
             <?php if (isset($sf_request->subqueryField) && 0 < strlen($sf_request->subqueryField)): ?>
-              <?php echo $fields->getRaw($sf_request->subqueryField) ?>
+              <?php echo $sf_data->getRaw('fields')[$sf_request->subqueryField] ?>
             <?php else: ?>
               <?php echo array_values($sf_data->getRaw('fields'))[0] ?>
             <?php endif; ?>

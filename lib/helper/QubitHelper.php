@@ -350,25 +350,12 @@ function get_search_i18n($hit, $fieldName, $options = array())
 
   $accessField = function($culture) use ($hit, $fieldName)
   {
-    if (is_object($hit) && 'sfOutputEscaperArrayDecorator' === get_class($hit))
+    if (empty($hit['i18n'][$culture][$fieldName]))
     {
-      $i18nRaw = $hit->getRaw('i18n');
-      if (empty($i18nRaw[$culture][$fieldName]))
-      {
-        return false;
-      }
-
-      return $hit->get('i18n')->get($culture)->get($fieldName);
+      return false;
     }
-    else
-    {
-      if (empty($hit['i18n'][$culture][$fieldName]))
-      {
-        return false;
-      }
 
-      return $hit['i18n'][$culture][$fieldName];
-    }
+    return $hit['i18n'][$culture][$fieldName];
   };
 
   if (isset($options['culture']))
@@ -419,10 +406,10 @@ function get_search_creation_details($hit, $culture = null)
   $details = array();
 
   // Get creators
-  $creators = $hit->get('creators');
+  $creators = $hit['creators'];
   if (null !== $creators && 0 < count($creators))
   {
-    $details[] = get_search_i18n($creators->get(0), 'authorizedFormOfName', array('allowEmpty' => false, 'cultureFallback' => true));
+    $details[] = get_search_i18n($creators[0], 'authorizedFormOfName', array('allowEmpty' => false, 'cultureFallback' => true));
   }
 
   // WIP, we are not showing labels for now. See #5202.

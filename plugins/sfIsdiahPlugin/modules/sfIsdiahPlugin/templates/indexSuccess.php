@@ -17,7 +17,8 @@
     <div class="messages error">
       <ul>
         <?php foreach ($errorSchema as $error): ?>
-          <li><?php echo $error->getMessage(ESC_RAW) ?></li>
+          <?php $error = sfOutputEscaper::unescape($error) ?>
+          <li><?php echo $error->getMessage() ?></li>
         <?php endforeach; ?>
       </ul>
     </div>
