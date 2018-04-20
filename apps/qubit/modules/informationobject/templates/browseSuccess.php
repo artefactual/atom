@@ -22,12 +22,6 @@
   </div>
 <?php end_slot() ?>
 
-<?php if ($sf_user->hasFlash('notice')): ?>
-  <div class="messages">
-    <div><?php echo $sf_user->getFlash('notice', ESC_RAW) ?></div>
-  </div>
-<?php endif; ?>
-
 <?php if (isset($pager) && $pager->hasResults() || sfConfig::get('app_enable_institutional_scoping')): ?>
 
   <?php slot('sidebar') ?>
