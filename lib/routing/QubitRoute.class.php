@@ -80,14 +80,68 @@ class QubitRoute extends sfRoute
 
   /**
    * @see sfRoute
+   *
+   * Overridden from sfRoute to call customized generateWithTokens() below.
+   * (AtoM ticket 11761).
+   *
    */
   public function generate($params, $context = array(), $absolute = false)
   {
-    return parent::generate($this->filterParams($params), $context, $absolute);
+    $params = $this->filterParams($params);
+
+    if (!$this->compiled)
+    {
+      $this->compile();
+    }
+
+    $url = $this->pattern;
+
+    $defaults = $this->mergeArrays($this->getDefaultParameters(), $this->defaults);
+    $tparams = $this->mergeArrays($defaults, $params);
+
+    // All params must be given.
+    if ($diff = array_diff_key($this->variables, $tparams))
+    {
+      throw new InvalidArgumentException(sprintf('The "%s" route has some missing mandatory parameters (%s).', $this->pattern, implode(', ', $diff)));
+    }
+
+    if ($this->options['generate_shortest_url'] || $this->customToken)
+    {
+      $url = $this->generateWithTokens($tparams);
+    }
+    else
+    {
+      $variables = $this->variables;
+      uasort($variables, array('sfRoute', 'generateCompareVarsByStrlen'));
+      foreach ($variables as $variable => $value)
+      {
+        $url = str_replace($value, urlencode($tparams[$variable]), $url);
+      }
+
+      if(!in_array($this->suffix, $this->options['segment_separators']))
+      {
+        $url .= $this->suffix;
+      }
+    }
+
+    $url = $this->generateStarParameter($url, $defaults, $params);
+
+    if ($this->options['extra_parameters_as_query_string'] && !$this->hasStarParameter())
+    {
+      if ($extra = array_diff_assoc(array_diff_key($params, $this->variables), $this->defaults))
+      {
+        $url .= '?'.http_build_query($extra);
+      }
+    }
+
+    return $url;
   }
 
   /**
    * Generates a URL for the given parameters by using the route tokens.
+   *
+   * Overridden from sfRoute to allow customization to call urlencode3986()
+   * (AtoM ticket 11761).
    *
    * @param array $parameters An array of parameters
    */
