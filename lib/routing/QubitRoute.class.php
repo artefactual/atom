@@ -83,7 +83,61 @@ class QubitRoute extends sfRoute
    */
   public function generate($params, $context = array(), $absolute = false)
   {
-    return parent::generate($this->filterParams($params), $context, $absolute);
+    $params = $this->filterParams($params);
+
+    if (!$this->compiled)
+    {
+      $this->compile();
+    }
+
+    $url = $this->pattern;
+
+    $defaults = $this->mergeArrays($this->getDefaultParameters(), $this->defaults);
+    $tparams = $this->mergeArrays($defaults, $params);
+
+    // all params must be given
+    if ($diff = array_diff_key($this->variables, $tparams))
+    {
+      throw new InvalidArgumentException(sprintf('The "%s" route has some missing mandatory parameters (%s).', $this->pattern, implode(', ', $diff)));
+    }
+
+    if ($this->options['generate_shortest_url'] || $this->customToken)
+    {
+      $url = $this->generateWithTokens($tparams);
+    }
+    else
+    {
+      // replace variables
+      $variables = $this->variables;
+      uasort($variables, array('sfRoute', 'generateCompareVarsByStrlen'));
+      foreach ($variables as $variable => $value)
+      {
+        $url = str_replace($value, urlencode($tparams[$variable]), $url);
+      }
+
+      if(!in_array($this->suffix, $this->options['segment_separators']))
+      {
+        $url .= $this->suffix;
+      }
+    }
+
+    // replace extra parameters if the route contains *
+
+    // http://trac.symfony-project.org/ticket/7314
+    $url = $this->generateStarParameter($url, $defaults, $params);
+
+    if ($this->options['extra_parameters_as_query_string'] && !$this->hasStarParameter())
+    {
+      // add a query string if needed
+
+      // http://trac.symfony-project.org/ticket/7123
+      if ($extra = array_diff_assoc(array_diff_key($params, $this->variables), $this->defaults))
+      {
+        $url .= '?'.http_build_query($extra);
+      }
+    }
+
+    return $url;
   }
 
   /**
