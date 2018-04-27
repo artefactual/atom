@@ -134,10 +134,12 @@ function render_title($value, $html = true)
 
   if (0 < strlen($value))
   {
-    $options = array('inline' => true);
-    $value = QubitMarkdown::getInstance()->parse((string)$value, $options);
+    if (!$html)
+    {
+      return $value;
+    }
 
-    return $value;
+    return render_value($value, array('inline' => true));
   }
 
   return ($html ? '<em>' : '').sfContext::getInstance()->i18n->__('Untitled').($html ? '</em>' : '');
