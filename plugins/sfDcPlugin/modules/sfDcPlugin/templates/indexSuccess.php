@@ -95,13 +95,13 @@
   <?php echo get_partial('informationobject/dates', array('resource' => $resource)) ?>
 
   <?php foreach ($resource->getSubjectAccessPoints() as $item): ?>
-    <?php echo render_show(__('Subject'), link_to($item->term, array($item->term, 'module' => 'term'))) ?>
+    <?php echo render_show(__('Subject'), link_to(render_title($item->term), array($item->term, 'module' => 'term'))) ?>
   <?php endforeach; ?>
 
   <?php echo render_show(__('Description'), render_value($resource->getScopeAndContent(array('cultureFallback' => true)))) ?>
 
   <?php foreach ($dc->type as $item): ?>
-    <?php echo render_show(__('Type'), $item) ?>
+    <?php echo render_show(__('Type'), render_value($item)) ?>
   <?php endforeach; ?>
 
   <?php foreach ($dc->format as $item): ?>

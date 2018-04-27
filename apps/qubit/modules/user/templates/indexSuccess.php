@@ -18,7 +18,7 @@
 
     <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('User details').'</h2>', array($resource, 'module' => 'user', 'action' => 'edit')) ?>
 
-    <?php echo render_show(__('User name'), $resource->username.($sf_user->user === $resource ? ' ('.__('you').')' : '')) ?>
+    <?php echo render_show(__('User name'), render_value($resource->username.($sf_user->user === $resource ? ' ('.__('you').')' : ''))) ?>
 
     <?php echo render_show(__('Email'), $resource->email) ?>
 

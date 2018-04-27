@@ -12,7 +12,7 @@
 
   <div>
 
-    <?php echo render_show(__('Filename'), $representation->name) ?>
+    <?php echo render_show(__('Filename'), render_value($representation->name)) ?>
 
     <?php echo render_show(__('Filesize'), hr_filesize($representation->byteSize)) ?>
 

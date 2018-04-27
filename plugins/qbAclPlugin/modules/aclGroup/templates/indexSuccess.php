@@ -8,11 +8,11 @@
 
     <?php echo link_to_if(QubitAcl::check($group, 'update'), '<h2>'.__('Group details').'</h2>', array($group, 'module' => 'aclGroup', 'action' => 'edit')) ?>
 
-    <?php echo render_show(__('Name'), $group->name) ?>
+    <?php echo render_show(__('Name'), render_value($group->name)) ?>
 
-    <?php echo render_show(__('Description'), $group->description) ?>
+    <?php echo render_show(__('Description'), render_value($group->description)) ?>
 
-    <?php echo render_show(__('Translate'), __($translate)) ?>
+    <?php echo render_show(__('Translate'), render_value(__($translate))) ?>
 
   </section>
 

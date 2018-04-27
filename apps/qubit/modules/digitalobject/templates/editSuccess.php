@@ -27,7 +27,7 @@
 
         <legend><?php echo __('Master') ?></legend>
 
-        <?php echo render_show(__('Filename'), $resource->name) ?>
+        <?php echo render_show(__('Filename'), render_value($resource->name)) ?>
 
         <?php echo render_show(__('Filesize'), hr_filesize($resource->byteSize)) ?>
 

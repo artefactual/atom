@@ -64,7 +64,7 @@
   <?php echo get_partial('informationobject/dates', array('resource' => $resource)) ?>
 
   <?php foreach ($mods->typeOfResource as $item): ?>
-    <?php echo render_show(__('Type of resource'), $item->term) ?>
+    <?php echo render_show(__('Type of resource'), render_value($item->term)) ?>
   <?php endforeach; ?>
 
   <?php foreach ($resource->language as $code): ?>
@@ -72,7 +72,7 @@
   <?php endforeach; ?>
 
   <?php if (0 < count($resource->digitalObjects)): ?>
-    <?php echo render_show(__('Internet media type'), $resource->digitalObjects[0]->mimeType) ?>
+    <?php echo render_show(__('Internet media type'), render_value($resource->digitalObjects[0]->mimeType)) ?>
   <?php endif; ?>
 
   <?php echo get_partial('informationobject/subjectAccessPoints', array('resource' => $resource, 'mods' => true)) ?>

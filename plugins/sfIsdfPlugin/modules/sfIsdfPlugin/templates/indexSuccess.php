@@ -83,7 +83,7 @@
 
         <?php echo render_show(__('Authorized form of name'), link_to(render_title($item->getOpposedObject($resource->id)), array($item->getOpposedObject($resource->id), 'module' => 'function'))) ?>
 
-        <?php echo render_show(__('Identifier'), $item->getOpposedObject($resource->id)->getDescriptionIdentifier(array('cultureFallback' => true))) ?>
+        <?php echo render_show(__('Identifier'), render_value($item->getOpposedObject($resource->id)->getDescriptionIdentifier(array('cultureFallback' => true)))) ?>
 
         <?php echo render_show(__('Type'), render_value($item->getOpposedObject($resource->id)->type)) ?>
 
@@ -91,7 +91,7 @@
 
         <?php echo render_show(__('Description of relationship'), render_value($item->description)) ?>
 
-        <?php echo render_show(__('Dates of relationship'), Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)) ?>
+        <?php echo render_show(__('Dates of relationship'), render_value(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate))) ?>
 
       </div>
     </div>
@@ -110,7 +110,7 @@
           <?php echo render_show(__('Nature of relationship'), render_value($item->description)) ?>
         <?php endif; ?>
 
-        <?php echo render_show(__('Dates of the relationship'), Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)) ?>
+        <?php echo render_show(__('Dates of the relationship'), render_value(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate))) ?>
 
       </div>
     </div>
@@ -124,13 +124,13 @@
 
         <?php echo render_show(__('Title'), link_to(render_title($item->object->getTitle(array('cultureFallback' => true))), array($item->object, 'module' => 'informationobject'))) ?>
 
-        <?php $isad = new sfIsadPlugin($item->object); echo render_show(__('Identifier'), $isad->referenceCode) ?>
+        <?php $isad = new sfIsadPlugin($item->object); echo render_show(__('Identifier'), render_value($isad->referenceCode)) ?>
 
         <?php if (null !== $item->description): ?>
           <?php echo render_show(__('Nature of relationship'), render_value($item->description)) ?>
         <?php endif; ?>
 
-        <?php echo render_show(__('Dates of the relationship'), Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)) ?>
+        <?php echo render_show(__('Dates of the relationship'), render_value(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate))) ?>
 
       </div>
     </div>

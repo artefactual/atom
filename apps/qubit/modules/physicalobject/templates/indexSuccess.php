@@ -12,9 +12,9 @@
   <?php echo get_component('default', 'translationLinks', array('resource' => $resource)) ?>
 <?php end_slot() ?>
 
-<?php echo render_show(__('Type'), $resource->type) ?>
+<?php echo render_show(__('Type'), render_value($resource->type)) ?>
 
-<?php echo render_show(__('Location'), $resource->getLocation(array('cultureFallback' => true))) ?>
+<?php echo render_show(__('Location'), render_value($resource->getLocation(array('cultureFallback' => true)))) ?>
 
 <div class="field">
   <h3><?php echo __('Related resources') ?></h3>
