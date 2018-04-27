@@ -579,6 +579,6 @@ function render_search_result_date($date)
       continue;
     }
 
-    return Qubit::renderDateStartEnd($displayDate, $startDate, $endDate);
+    return render_value(Qubit::renderDateStartEnd($displayDate, $startDate, $endDate), array('inline' => true));
   }
 }
