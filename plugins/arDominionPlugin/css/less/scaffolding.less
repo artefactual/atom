@@ -767,7 +767,8 @@ div#content > table.table {
   .box-shadow(0 1px 1px rgba(0, 0, 0, .2));
 
   // Section title
-  h2 {
+  section > span > h2,
+  section > a > h2 {
     font-size: @baseFontSize * 1.10;
     line-height: 38px;
     color: @orange;
@@ -1827,4 +1828,10 @@ body.login #content {
   &+ .multiline-header {
     margin-top: 45px;
   }
+}
+
+// Maintain font size in blockquotes
+
+blockquote p {
+  font-size: inherit;
 }
