@@ -211,12 +211,12 @@ function render_treeview_node($item, array $classes = array(), array $options = 
 
     if (isset($item->levelOfDescription))
     {
-      $dataTitle[] = esc_entities($item->levelOfDescription->__toString());
+      $dataTitle[] = render_value($item->levelOfDescription->__toString(), array('inline' => true));
     }
 
     if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId)
     {
-      $dataTitle[] = esc_entities($item->getPublicationStatus()->__toString());
+      $dataTitle[] = render_value($item->getPublicationStatus()->__toString(), array('inline' => true));
     }
 
     if (0 < count($dataTitle))
@@ -259,14 +259,14 @@ function render_treeview_node($item, array $classes = array(), array $options = 
       // Level of description
       if (null !== $levelOfDescription = QubitTerm::getById($item->levelOfDescriptionId))
       {
-        $node .= '<span class="levelOfDescription">'.esc_specialchars($levelOfDescription->getName()).'</span>';
+        $node .= '<span class="levelOfDescription">'.render_value($levelOfDescription->getName(), array('inline' => true)).'</span>';
       }
 
       // Title
       $title = '';
       if ($item->identifier)
       {
-        $title = $item->identifier . "&nbsp;-&nbsp;";
+        $title = render_value($item->identifier, array('inline' => true)) . "&nbsp;-&nbsp;";
       }
       $title .= render_title($item);
 
@@ -276,7 +276,7 @@ function render_treeview_node($item, array $classes = array(), array $options = 
       // Publication status
       if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId)
       {
-        $node .= '<span class="pubStatus">('.$status->__toString().')</span>';
+        $node .= '<span class="pubStatus">('.render_value($status->__toString(), array('inline' => true)).')</span>';
       }
     }
     else if ($rawItem instanceof QubitTerm)
