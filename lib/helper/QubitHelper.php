@@ -140,11 +140,10 @@ function render_title($value, $html = true)
   return ($html ? '<em>' : '').sfContext::getInstance()->i18n->__('Untitled').($html ? '</em>' : '');
 }
 
-function render_value($value, $safeMode = true)
+function render_value($value, $options = array())
 {
-  // Value is parsed using Parsedown text method, which
-  // adds paragraphs when two linebreaks are together.
-  $value = QubitMarkdown::getInstance()->parse($value, $safeMode);
+  // Parse using Parsedown
+  $value = QubitMarkdown::getInstance()->parse($value, $options);
 
   // Maintain linebreaks not surrounded by tags. Parsedown
   // doesn't add linebreaks using the known but unofficial

@@ -59,15 +59,30 @@ class QubitMarkdown
     return self::$instance;
   }
 
-  public function parse($content, $safeMode = true)
+  public function parse($content, $options = array())
   {
     if (!$this->enabled)
     {
       return $content;
     }
 
+    // Use safe mode by default
+    $safeMode = true;
+    if (isset($options['safeMode']))
+    {
+      $safeMode = $options['safeMode'];
+    }
+
+    // Use text method by default,
+    // which adds paragraph elements.
+    $method = 'text';
+    if ($options['inline'])
+    {
+      $method = 'line';
+    }
+
     $this->parsedown->setSafeMode($safeMode);
-    $content = $this->parsedown->text($content);
+    $content = $this->parsedown->$method($content);
 
     return $content;
   }
