@@ -329,7 +329,7 @@ function get_search_i18n($hit, $fieldName, $options = array())
   {
     if (null !== $value || 0 < count($value))
     {
-      return $value->get(0);
+      return $value[0];
     }
 
     if ($allowEmpty)
