@@ -26,7 +26,7 @@
           <ul>
             <?php foreach ($item->getDates() as $date): ?>
               <li>
-                <?php echo render_value(Qubit::renderDateStartEnd($date->getDate(array('cultureFallback' => true)), $date->startDate, $date->endDate), array('inline' => true)) ?> (<?php echo $date->getType(array('cultureFallback' => true)) ?>)
+                <?php echo render_value_inline(Qubit::renderDateStartEnd($date->getDate(array('cultureFallback' => true)), $date->startDate, $date->endDate)) ?> (<?php echo $date->getType(array('cultureFallback' => true)) ?>)
                 <?php if (isset($date->actor)): ?>
                   <?php echo link_to(render_title($date->actor), array($date->actor, 'module' => 'actor')) ?>
                 <?php endif; ?>

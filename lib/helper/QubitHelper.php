@@ -139,21 +139,39 @@ function render_title($value, $html = true)
       return $value;
     }
 
-    return render_value($value, array('inline' => true));
+    return render_value_inline($value);
   }
 
   return ($html ? '<em>' : '').sfContext::getInstance()->i18n->__('Untitled').($html ? '</em>' : '');
 }
 
-function render_value($value, $options = array())
+function render_value($value)
 {
-  // Parse using Parsedown
-  $value = QubitMarkdown::getInstance()->parse($value, $options);
+  // Parse using Parsedown's text method in safe mode
+  $value = QubitMarkdown::getInstance()->parse($value);
 
   // Maintain linebreaks not surrounded by tags. Parsedown
   // doesn't add linebreaks using the known but unofficial
   // ways to do it (two spaces or \).
   $value = preg_replace('/(?!>)\r?\n(?!<)/', '<br/>', $value);
+
+  return $value;
+}
+
+function render_value_inline($value)
+{
+  // Parse using Parsedown's inline method in safe mode
+  $options = array('inline' => true);
+  $value = QubitMarkdown::getInstance()->parse($value, $options);
+
+  return $value;
+}
+
+function render_value_html($value)
+{
+  // Parse using Parsedown's text method in unsafe mode
+  $options = array('safeMode' => false);
+  $value = QubitMarkdown::getInstance()->parse($value, $options);
 
   return $value;
 }
@@ -211,12 +229,12 @@ function render_treeview_node($item, array $classes = array(), array $options = 
 
     if (isset($item->levelOfDescription))
     {
-      $dataTitle[] = render_value($item->levelOfDescription->__toString(), array('inline' => true));
+      $dataTitle[] = render_value_inline($item->levelOfDescription->__toString());
     }
 
     if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId)
     {
-      $dataTitle[] = render_value($item->getPublicationStatus()->__toString(), array('inline' => true));
+      $dataTitle[] = render_value_inline($item->getPublicationStatus()->__toString());
     }
 
     if (0 < count($dataTitle))
@@ -259,14 +277,14 @@ function render_treeview_node($item, array $classes = array(), array $options = 
       // Level of description
       if (null !== $levelOfDescription = QubitTerm::getById($item->levelOfDescriptionId))
       {
-        $node .= '<span class="levelOfDescription">'.render_value($levelOfDescription->getName(), array('inline' => true)).'</span>';
+        $node .= '<span class="levelOfDescription">'.render_value_inline($levelOfDescription->getName()).'</span>';
       }
 
       // Title
       $title = '';
       if ($item->identifier)
       {
-        $title = render_value($item->identifier, array('inline' => true)) . "&nbsp;-&nbsp;";
+        $title = render_value_inline($item->identifier) . "&nbsp;-&nbsp;";
       }
       $title .= render_title($item);
 
@@ -276,7 +294,7 @@ function render_treeview_node($item, array $classes = array(), array $options = 
       // Publication status
       if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId)
       {
-        $node .= '<span class="pubStatus">('.render_value($status->__toString(), array('inline' => true)).')</span>';
+        $node .= '<span class="pubStatus">('.render_value_inline($status->__toString()).')</span>';
       }
     }
     else if ($rawItem instanceof QubitTerm)

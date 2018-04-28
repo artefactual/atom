@@ -25,7 +25,7 @@
 <?php end_slot() ?>
 
 <div class="page">
-  <?php echo render_value($sf_data->getRaw('content'), array('safeMode' => false)) ?>
+  <?php echo render_value_html($sf_data->getRaw('content')) ?>
 </div>
 
 <?php if (QubitAcl::check($resource, 'update')): ?>

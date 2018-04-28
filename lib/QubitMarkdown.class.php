@@ -76,7 +76,7 @@ class QubitMarkdown
     // Use text method by default,
     // which adds paragraph elements.
     $method = 'text';
-    if ($options['inline'])
+    if (isset($options['inline']) && $options['inline'])
     {
       $method = 'line';
     }

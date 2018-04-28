@@ -91,7 +91,7 @@
 
         <?php echo render_show(__('Description of relationship'), render_value($item->description)) ?>
 
-        <?php echo render_show(__('Dates of relationship'), render_value(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate), array('inline' => true))) ?>
+        <?php echo render_show(__('Dates of relationship'), render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate))) ?>
 
       </div>
     </div>
@@ -110,7 +110,7 @@
           <?php echo render_show(__('Nature of relationship'), render_value($item->description)) ?>
         <?php endif; ?>
 
-        <?php echo render_show(__('Dates of the relationship'), render_value(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate), array('inline' => true))) ?>
+        <?php echo render_show(__('Dates of the relationship'), render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate))) ?>
 
       </div>
     </div>
@@ -130,7 +130,7 @@
           <?php echo render_show(__('Nature of relationship'), render_value($item->description)) ?>
         <?php endif; ?>
 
-        <?php echo render_show(__('Dates of the relationship'), render_value(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate), array('inline' => true))) ?>
+        <?php echo render_show(__('Dates of the relationship'), render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate))) ?>
 
       </div>
     </div>

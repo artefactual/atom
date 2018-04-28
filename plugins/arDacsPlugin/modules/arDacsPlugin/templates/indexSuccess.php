@@ -73,7 +73,7 @@
       <ul>
         <?php foreach ($resource->getDates() as $item): ?>
           <li>
-            <?php echo render_value(Qubit::renderDateStartEnd($item->getDate(array('cultureFallback' => true)), $item->startDate, $item->endDate), array('inline' => true)) ?> (<?php echo $item->getType(array('cultureFallback' => true)) ?>)
+            <?php echo render_value_inline(Qubit::renderDateStartEnd($item->getDate(array('cultureFallback' => true)), $item->startDate, $item->endDate)) ?> (<?php echo $item->getType(array('cultureFallback' => true)) ?>)
           </li>
         <?php endforeach; ?>
       </ul>

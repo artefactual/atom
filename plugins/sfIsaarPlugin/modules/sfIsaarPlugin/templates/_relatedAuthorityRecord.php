@@ -50,7 +50,7 @@
               <?php endif; ?>
             <?php endif; ?>
           </td><td>
-            <?php echo render_value(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate), array('inline' => true)) ?>
+            <?php echo render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)) ?>
           </td><td>
             <?php echo $item->description ?>
           </td><td style="text-align: center">

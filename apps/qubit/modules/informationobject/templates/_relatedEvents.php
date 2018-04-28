@@ -36,7 +36,7 @@
           </div>
         </td><td>
           <div>
-            <?php echo render_value(Qubit::renderDateStartEnd($item->getDate(array('cultureFallback' => true)), $item->startDate, $item->endDate), array('inline' => true)) ?>
+            <?php echo render_value_inline(Qubit::renderDateStartEnd($item->getDate(array('cultureFallback' => true)), $item->startDate, $item->endDate)) ?>
           </div>
         </td><td style="text-align: right">
           <input class="multiDelete" name="deleteEvents[]" type="checkbox" value="<?php echo url_for(array($item, 'module' => 'event')) ?>"/>

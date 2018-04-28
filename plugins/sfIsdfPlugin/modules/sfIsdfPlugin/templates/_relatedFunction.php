@@ -38,7 +38,7 @@
           </td><td>
             <?php echo $item->description ?>
           </td><td>
-            <?php echo render_value(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate), array('inline' => true)) ?>
+            <?php echo render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)) ?>
           </td><td style="text-align: center">
             <input class="multiDelete" name="deleteRelations[]" type="checkbox" value="<?php echo url_for(array($item, 'module' => 'relation')) ?>"/>
           </td>
