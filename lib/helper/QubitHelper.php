@@ -150,12 +150,7 @@ function render_value($value)
   // Parse using Parsedown's text method in safe mode
   $value = QubitMarkdown::getInstance()->parse($value);
 
-  // Maintain linebreaks not surrounded by tags. Parsedown
-  // doesn't add linebreaks using the known but unofficial
-  // ways to do it (two spaces or \).
-  $value = preg_replace('/(?!>)\r?\n(?!<)/', '<br/>', $value);
-
-  return $value;
+  return add_paragraphs_and_linebreaks($value);
 }
 
 function render_value_inline($value)
@@ -172,6 +167,21 @@ function render_value_html($value)
   // Parse using Parsedown's text method in unsafe mode
   $options = array('safeMode' => false);
   $value = QubitMarkdown::getInstance()->parse($value, $options);
+
+  return add_paragraphs_and_linebreaks($value);
+}
+
+function add_paragraphs_and_linebreaks($value)
+{
+  // Add paragraphs
+  $value = preg_replace('/(?:\r?\n){2,}/', "</p><p>", $value, -1, $count);
+  if (0 < $count)
+  {
+    $value = "<p>$value</p>";
+  }
+
+  // Maintain linebreaks not surrounded by tags
+  $value = preg_replace('/(?!>)\r?\n(?!<)/', '<br/>', $value);
 
   return $value;
 }
