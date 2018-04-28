@@ -39,7 +39,7 @@ class QubitMarkdown
 
   protected function __construct()
   {
-    $this->enabled = sfConfig::get('app_markdown_enabled', true);
+    $this->enabled = sfConfig::get('app_markdown_enabled', false);
 
     if (!$this->enabled)
     {

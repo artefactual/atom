@@ -122,7 +122,7 @@ class SettingsGlobalAction extends sfAction
       'enable_institutional_scoping' => (isset($enableInstitutionalScoping)) ? intval($enableInstitutionalScoping->getValue(array('sourceCulture'=>true))) : 0,
       'cache_xml_on_save' => (isset($cacheXmlOnSave)) ? intval($cacheXmlOnSave->getValue(array('sourceCulture'=>true))) : 0,
       'clipboard_save_max_age' => (isset($clipboardSaveMaxAge)) ? intval($clipboardSaveMaxAge->getValue(array('sourceCulture'=>true))) : 0,
-      'markdown_enabled' => (isset($markdownEnabled)) ? intval($markdownEnabled->getValue(array('sourceCulture'=>true))) : 1,
+      'markdown_enabled' => (isset($markdownEnabled)) ? intval($markdownEnabled->getValue(array('sourceCulture'=>true))) : 0,
     ));
   }
 
