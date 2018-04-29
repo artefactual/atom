@@ -54,7 +54,7 @@ class InformationObjectFullWidthTreeViewAction extends DefaultFullTreeViewAction
       if ($this->showIdentifier === 'referenceCode')
       {
         // On first load, get the base reference code from the ORM
-        $baseReferenceCode = $collectionRoot->getInheritedReferenceCode();
+        $baseReferenceCode = render_value_inline($collectionRoot->getInheritedReferenceCode());
       }
 
       $data = $this->getNodeOrChildrenNodes($collectionRoot->id, $baseReferenceCode);
@@ -68,7 +68,7 @@ class InformationObjectFullWidthTreeViewAction extends DefaultFullTreeViewAction
         if (empty($baseReferenceCode))
         {
           // Or get it from the ORM
-          $baseReferenceCode = $this->resource->getInheritedReferenceCode();
+          $baseReferenceCode = render_value_inline($this->resource->getInheritedReferenceCode());
         }
       }
 
