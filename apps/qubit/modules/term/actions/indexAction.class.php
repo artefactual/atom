@@ -156,7 +156,7 @@ class TermIndexAction extends DefaultBrowseAction
           return;
         }
 
-        sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
+        sfContext::getInstance()->getConfiguration()->loadHelpers('Url', 'Qubit');
 
         $response = array('results' => array());
         foreach ($this->listResultSet->getResults() as $item)
@@ -165,7 +165,7 @@ class TermIndexAction extends DefaultBrowseAction
 
           $result = array(
             'url' => url_for(array('module' => 'term', 'slug' => $data['slug'])),
-            'title' => $data['i18n'][$this->culture]['name']);
+            'title' => render_title(get_search_i18n($data, 'name')));
 
           $response['results'][] = $result;
         }

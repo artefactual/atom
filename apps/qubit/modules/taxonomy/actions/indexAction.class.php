@@ -211,7 +211,7 @@ class TaxonomyIndexAction extends sfAction
         return;
       }
 
-      sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
+      sfContext::getInstance()->getConfiguration()->loadHelpers('Url', 'Qubit');
 
       $response = array('results' => array());
       foreach ($resultSet->getResults() as $item)
@@ -220,7 +220,7 @@ class TaxonomyIndexAction extends sfAction
 
         $result = array(
           'url' => url_for(array('module' => 'term', 'slug' => $data['slug'])),
-          'title' => $data['i18n'][$culture]['name'],
+          'title' => render_title(get_search_i18n($data, 'name')),
           'identifier' => '',
           'level' => '');
 

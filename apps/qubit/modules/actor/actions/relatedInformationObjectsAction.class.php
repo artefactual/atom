@@ -55,7 +55,7 @@ class ActorRelatedInformationObjectsAction extends sfAction
       $doc = $item->getData();
       $results[] = array(
         'url' => url_for(array('module' => 'informationobject', 'slug' => $doc['slug'])),
-        'title' => get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture, 'cultureFallback' => true))
+        'title' => render_title(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture, 'cultureFallback' => true)))
       );
     }
 
