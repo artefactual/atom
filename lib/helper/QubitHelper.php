@@ -239,17 +239,17 @@ function render_treeview_node($item, array $classes = array(), array $options = 
 
     if (isset($item->levelOfDescription))
     {
-      $dataTitle[] = render_value_inline($item->levelOfDescription->__toString());
+      $dataTitle[] = render_title($item->levelOfDescription);
     }
 
     if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId)
     {
-      $dataTitle[] = render_value_inline($item->getPublicationStatus()->__toString());
+      $dataTitle[] = render_title($item->getPublicationStatus());
     }
 
     if (0 < count($dataTitle))
     {
-      $node .= ' data-title="'.esc_entities(implode(' - ', $dataTitle)).'"';
+      $node .= ' data-title="'.strip_tags((implode(' - ', $dataTitle))).'"';
     }
   }
   else if ($item instanceof QubitTerm)
@@ -257,7 +257,7 @@ function render_treeview_node($item, array $classes = array(), array $options = 
     $node .= ' data-title="'.esc_entities(sfConfig::get('app_ui_label_term')).'"';
   }
 
-  $node .= ' data-content="'.esc_entities(render_title($item)).'"';
+  $node .= ' data-content="'.strip_tags(render_title($item)).'"';
 
   // Close tag
   $node .= '>';
