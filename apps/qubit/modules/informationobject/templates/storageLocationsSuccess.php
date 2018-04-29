@@ -17,7 +17,7 @@
   <h1 class="do-print"><?php echo $this->i18n->__('Physical storage locations') ?></h1>
 
   <h1 class="label">
-    <?php echo $resource->getTitle(array('cultureFallback' => true)) ?>
+    <?php echo render_title($resource) ?>
   </h1>
 
   <table class="sticky-enabled">
@@ -39,11 +39,11 @@
           <td>
             <?php echo $row++ ?>
           </td><td>
-            <?php echo link_to($item->name, sfConfig::get('app_siteBaseUrl').'/'.$item->slug) ?>
+            <?php echo link_to(render_value_inline($item->name), sfConfig::get('app_siteBaseUrl').'/'.$item->slug) ?>
           </td><td>
-            <?php echo $item->location ?>
+            <?php echo render_value_inline($item->location) ?>
           </td><td>
-            <?php echo $item->type->__toString() ?>
+            <?php echo render_title($item->type) ?>
           </td>
         </tr>
       <?php endforeach; ?>

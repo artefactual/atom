@@ -23,7 +23,7 @@
       <?php foreach ($actors as $item): ?>
         <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
           <td>
-            <?php echo link_to(render_title($item), array($item, 'module' => 'actor')) ?>
+            <?php echo link_to($item, array($item, 'module' => 'actor')) ?>
           </td><td>
             <?php echo $item->entityType ?>
           </td>

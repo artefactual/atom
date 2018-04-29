@@ -24,7 +24,7 @@
           (!isset($filters[$name]) && $bucket['key'] == 'unique_language')) ?>
 
         <li <?php if ($active) echo 'class="active"' ?>>
-          <?php echo link_to(__($bucket['display']) . '<span>, ' . $bucket['doc_count'] . ' ' . __('results') . '</span>',
+          <?php echo link_to(__(render_value_inline($bucket['display'])) . '<span>, ' . $bucket['doc_count'] . ' ' . __('results') . '</span>',
             array('page' => null, $name => $bucket['key'] == 'unique_language' ? null : $bucket['key']) +
             $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('title' => '')) ?>
           <span class="facet-count" aria-hidden="true"><?php echo $bucket['doc_count'] ?></span>

@@ -21,7 +21,7 @@
     <?php foreach ($informationObjects as $item): ?>
       <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
         <td>
-          <?php echo link_to(render_title($item), array($item, 'module' => 'informationobject')) ?><?php if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $item->getPublicationStatus()->status->id): ?> <span class="publicationStatus"><?php echo $item->getPublicationStatus()->status ?></span><?php endif; ?>
+          <?php echo link_to(render_title($item), array($item, 'module' => 'informationobject')) ?><?php if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $item->getPublicationStatus()->status->id): ?> <span class="publicationStatus"><?php echo render_title($item->getPublicationStatus()->status) ?></span><?php endif; ?>
         </td><td>
           <?php if (sfConfig::get('app_multi_repository')): ?>
             <?php if (isset($item->repository)): ?>

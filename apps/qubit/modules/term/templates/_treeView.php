@@ -125,9 +125,9 @@
 
             <li>
               <?php if ($doc['isProtected']): ?>
-                <?php echo link_to(get_search_i18n($doc, 'name', array('allowEmpty' => false)), array('module' => 'term', 'slug' => $doc['slug']), array('class' => 'readOnly')) ?>
+                <?php echo link_to(render_title(get_search_i18n($doc, 'name', array('allowEmpty' => false))), array('module' => 'term', 'slug' => $doc['slug']), array('class' => 'readOnly')) ?>
               <?php else: ?>
-                <?php echo link_to(get_search_i18n($doc, 'name', array('allowEmpty' => false)), array('module' => 'term', 'slug' => $doc['slug'])) ?>
+                <?php echo link_to(render_title(get_search_i18n($doc, 'name', array('allowEmpty' => false))), array('module' => 'term', 'slug' => $doc['slug'])) ?>
               <?php endif; ?>
             </li>
 

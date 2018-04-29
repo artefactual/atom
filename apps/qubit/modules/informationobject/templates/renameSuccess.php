@@ -8,7 +8,7 @@
 
 <?php slot('title') ?>
 
-  <h1><?php echo $resource->title ?></h1>
+  <h1><?php echo render_title($resource) ?></h1>
 
 <?php end_slot() ?>
 
@@ -47,7 +47,7 @@
 
         <div class="rename-form-field-toggle"><input id="rename_enable_title" type="checkbox" checked="checked" /> <?php echo __('Update title') ?></div>
         <br />
- 
+
         <?php echo render_field($form->title
           ->label(__('Title'))
           ->help(__('Editing the description title will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.'))) ?>

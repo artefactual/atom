@@ -340,7 +340,7 @@ function check_field_visibility($fieldName, $options = array())
 
 function get_search_i18n($hit, $fieldName, $options = array())
 {
-  // The default is to return "Untitled" unless allowEmpty is true
+  // Return empty string by default or "Untitled" if allowEmpty is false
   $allowEmpty = true;
   if (isset($options['allowEmpty']))
   {

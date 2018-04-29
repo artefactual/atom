@@ -202,7 +202,7 @@
       <div>
         <ul>
           <?php foreach ($resource->getNotesByTaxonomy(array('taxonomyId' => QubitTaxonomy::DACS_NOTE_ID)) as $item): ?>
-            <li><?php echo $item->type ?>: <?php echo $item->getContent(array('cultureFallback' => true)) ?></li>
+            <li><?php echo render_value_inline($item->type) ?>: <?php echo render_value_inline($item->getContent(array('cultureFallback' => true))) ?></li>
           <?php endforeach; ?>
         </ul>
       </div>

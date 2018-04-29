@@ -1,6 +1,6 @@
 <?php use_helper('Text') ?>
 
-<h1><?php echo esc_entities($title) ?></h1>
+<h1><?php echo render_title($title) ?></h1>
 
 <?php if (isset($pager)): ?>
     <?php $form->pager = true; ?>

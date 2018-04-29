@@ -5,10 +5,10 @@
       <?php foreach ($descriptions->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
         <li>
-          <?php echo link_to(get_search_i18n($doc, 'title'), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
+          <?php echo link_to(render_title(get_search_i18n($doc, 'title')), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
           <?php $lodId = $doc['levelOfDescriptionId'] ?>
           <?php if (null !== $lodId): ?>
-            <?php echo $levelsOfDescription[$lodId] ?>
+            <?php echo render_value_inline($levelsOfDescription[$lodId]) ?>
           <?php endif; ?>
         </li>
       <?php endforeach; ?>
@@ -25,7 +25,7 @@
     <ul>
       <?php foreach ($repositories->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
-        <li><?php echo link_to(get_search_i18n($doc, 'authorizedFormOfName'), array('module' => 'repository', 'slug' => $doc['slug'])) ?></li>
+        <li><?php echo link_to(render_title(get_search_i18n($doc, 'authorizedFormOfName')), array('module' => 'repository', 'slug' => $doc['slug'])) ?></li>
       <?php endforeach; ?>
       <?php if ($repositories->getTotalHits() > 3): ?>
         <li class="showall"><?php echo link_to(__('all matching institutions'), array('module' => 'repository', 'action' => 'browse') + $sf_data->getRaw('allMatchingParams')) ?></li>
@@ -40,7 +40,7 @@
     <ul>
       <?php foreach ($actors->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
-        <li><?php echo link_to(get_search_i18n($doc, 'authorizedFormOfName'), array('module' => 'actor', 'slug' => $doc['slug'])) ?></li>
+        <li><?php echo link_to(render_title(get_search_i18n($doc, 'authorizedFormOfName')), array('module' => 'actor', 'slug' => $doc['slug'])) ?></li>
       <?php endforeach; ?>
       <?php if ($actors->getTotalHits() > 3): ?>
         <li class="showall"><?php echo link_to(__('all matching people & organizations'), array('module' => 'actor', 'action' => 'browse') + $sf_data->getRaw('allMatchingParams')) ?></li>
@@ -55,7 +55,7 @@
     <ul>
       <?php foreach ($places->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
-        <li><?php echo link_to(get_search_i18n($doc, 'name'), array('module' => 'term', 'slug' => $doc['slug'])) ?></li>
+        <li><?php echo link_to(render_title(get_search_i18n($doc, 'name')), array('module' => 'term', 'slug' => $doc['slug'])) ?></li>
       <?php endforeach; ?>
       <?php if ($places->getTotalHits() > 3): ?>
         <li class="showall"><?php echo link_to(__('all matching places'), array('module' => 'taxonomy', 'action' => 'index', 'slug' => 'places', 'subqueryField' => 'allLabels') + $sf_data->getRaw('allMatchingParams')) ?></li>
@@ -70,7 +70,7 @@
     <ul>
       <?php foreach ($subjects->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
-        <li><?php echo link_to(get_search_i18n($doc, 'name'), array('module' => 'term', 'slug' => $doc['slug'])) ?></li>
+        <li><?php echo link_to(render_title(get_search_i18n($doc, 'name')), array('module' => 'term', 'slug' => $doc['slug'])) ?></li>
       <?php endforeach; ?>
       <?php if ($subjects->getTotalHits() > 3): ?>
         <li class="showall"><?php echo link_to(__('all matching subjects'), array('module' => 'taxonomy', 'action' => 'index', 'slug' => 'subjects', 'subqueryField' => 'allLabels') + $sf_data->getRaw('allMatchingParams')) ?></li>

@@ -19,7 +19,7 @@
     <?php foreach ($informationObjects as $item): ?>
       <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
         <td>
-          <?php $isad = new sfIsadPlugin($item); echo render_value($isad->referenceCode) ?>
+          <?php $isad = new sfIsadPlugin($item); echo render_value_inline($isad->referenceCode) ?>
         </td><td>
           <?php echo link_to(render_title($item), array($item, 'module' => 'informationobject')) ?>
         </td><td>
@@ -34,7 +34,7 @@
             <?php endforeach; ?>
           </ul>
         </td><td>
-          <?php echo render_value($item->getAccessConditions(array('cultureFallback' => true))) ?>
+          <?php echo render_value_inline($item->getAccessConditions(array('cultureFallback' => true))) ?>
         </td>
       </tr>
     <?php endforeach; ?>

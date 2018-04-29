@@ -62,7 +62,7 @@
   <?php if (isset($primaryContact)): ?>
     <section id="primary-contact">
       <h4><?php echo __('Primary contact') ?></h4>
-      <?php echo $sf_data->getRaw('primaryContact')->getContactInformationString(array('simple' => true)) ?>
+      <?php echo render_title($sf_data->getRaw('primaryContact')->getContactInformationString(array('simple' => true))) ?>
       <div class="context-actions">
         <?php if (null !== $website = $primaryContact->getWebsite()): ?>
           <?php if (null === parse_url($website, PHP_URL_SCHEME)): ?>

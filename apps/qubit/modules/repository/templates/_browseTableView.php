@@ -59,16 +59,16 @@
       </td>
 
       <td>
-        <?php echo get_search_i18n($doc, 'region', array('allowEmpty' => true, 'culture' => $selectedCulture, 'cultureFallback' => true)) ?>
+        <?php echo render_value_inline(get_search_i18n($doc, 'region', array('allowEmpty' => true, 'culture' => $selectedCulture, 'cultureFallback' => true))) ?>
       </td>
       <td>
-        <?php echo get_search_i18n($doc, 'city', array('allowEmpty' => true, 'culture' => $selectedCulture, 'cultureFallback' => true)) ?>
+        <?php echo render_value_inline(get_search_i18n($doc, 'city', array('allowEmpty' => true, 'culture' => $selectedCulture, 'cultureFallback' => true))) ?>
       </td>
 
       <td>
         <?php if (isset($doc['thematicAreas'])): ?>
           <?php foreach ($doc['thematicAreas'] as $areaTerm): ?>
-            <li><?php echo render_value(QubitTerm::getById($areaTerm)) ?></li>
+            <li><?php echo render_title(QubitTerm::getById($areaTerm)) ?></li>
           <?php endforeach; ?>
         <?php endif; ?>
       </td>

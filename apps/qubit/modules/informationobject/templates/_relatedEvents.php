@@ -26,7 +26,7 @@
           </div>
         </td><td>
           <div>
-            <?php echo $item->type ?>
+            <?php echo render_title($item->type) ?>
           </div>
         </td><td>
           <div>

@@ -57,7 +57,7 @@
         <?php foreach ($results as $item): ?>
           <tr>
             <td width="15%">
-              <?php echo $item->identifier ?>
+              <?php echo render_value_inline($item->identifier) ?>
             </td>
             <td width="85%">
               <?php echo link_to_if($resource->lft > $item->lft || $resource->rgt < $item->rgt, render_title($item), array($resource, 'module' => 'default', 'action' => 'move', 'parent' => $item->slug)) ?>

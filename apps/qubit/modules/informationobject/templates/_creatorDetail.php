@@ -15,7 +15,7 @@
 
         <?php if (isset($item->datesOfExistence)): ?>
           <div class="datesOfExistence">
-            (<?php echo $item->getDatesOfExistence(array('cultureFallback' => true)) ?>)
+            (<?php echo render_value_inline($item->getDatesOfExistence(array('cultureFallback' => true))) ?>)
           </div>
         <?php endif; ?>
 

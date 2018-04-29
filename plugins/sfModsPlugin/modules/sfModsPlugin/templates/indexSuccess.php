@@ -93,7 +93,7 @@
       <?php if (isset($resource->repository)): ?>
 
         <?php if (isset($resource->repository->identifier)): ?>
-          <?php echo $resource->repository->identifier ?> -
+          <?php echo render_value_inline($resource->repository->identifier) ?> -
         <?php endif; ?>
 
         <?php echo link_to(render_title($resource->repository), array($resource->repository, 'module' => 'repository')) ?>
@@ -101,11 +101,11 @@
         <?php if (null !== $contact = $resource->repository->getPrimaryContact()): ?>
 
           <?php if (isset($contact->city)): ?>
-            <?php echo $contact->city ?>
+            <?php echo render_value_inline($contact->city) ?>
           <?php endif; ?>
 
           <?php if (isset($contact->region)): ?>
-            <?php echo $contact->region ?>
+            <?php echo render_value_inline($contact->region) ?>
           <?php endif; ?>
 
           <?php if (isset($contact->countryCode)): ?>

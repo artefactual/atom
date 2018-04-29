@@ -68,7 +68,7 @@
     <div class="generalMaterialDesignation">
       <ul>
         <?php foreach ($resource->getMaterialTypes() as $materialType): ?>
-          <li><?php echo $materialType->term ?></li>
+          <li><?php echo render_title($materialType->term) ?></li>
         <?php endforeach; ?>
       </ul>
     </div>
@@ -86,7 +86,7 @@
     <div class="titleNotes">
       <ul>
         <?php foreach ($resource->getNotesByTaxonomy(array('taxonomyId' => QubitTaxonomy::RAD_TITLE_NOTE_ID)) as $item): ?>
-          <li><?php echo $item->type ?>: <?php echo $item->getContent(array('cultureFallback' => true)) ?></li>
+          <li><?php echo render_title($item->type) ?>: <?php echo render_value_inline($item->getContent(array('cultureFallback' => true))) ?></li>
         <?php endforeach; ?>
       </ul>
     </div>
@@ -269,7 +269,7 @@
     <?php endif; ?>
 
     <div class="field">
-      <h3><?php echo __($item->type) ?></h3>
+      <h3><?php echo __(render_title($item->type)) ?></h3>
       <div class="radNote">
         <?php echo render_value($item->getContent(array('cultureFallback' => true))) ?>
       </div>

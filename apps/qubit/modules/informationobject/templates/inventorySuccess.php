@@ -42,7 +42,7 @@
             <td>
               <?php echo $doc['identifier'] ?>
             </td>
-            <td><?php echo link_to(get_search_i18n($doc, 'title'), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></td>
+            <td><?php echo link_to(render_value_inline(get_search_i18n($doc, 'title')), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></td>
             <td>
               <?php $level = QubitTerm::getById($doc['levelOfDescriptionId']) ?>
               <?php if ($level !== null): ?>
@@ -50,7 +50,7 @@
               <?php endif; ?>
             </td>
             <td>
-              <?php echo render_search_result_date($doc['dates']) ?>
+              <?php echo render_value_inline(render_search_result_date($doc['dates'])) ?>
             </td>
             <td>
               <?php if ($doc['hasDigitalObject']): ?>
