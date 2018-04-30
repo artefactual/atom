@@ -125,8 +125,7 @@ function render_show_repository($label, $resource)
 
 function render_title($value, $html = true)
 {
-  // TODO Workaround for PHP bug, http://bugs.php.net/bug.php?id=47522
-  // Also, method_exists is very slow if a string is passed (class lookup), use is_object
+  // Use is_object as method_exists is very slow if a string is passed
   if (is_object($value) && method_exists($value, '__toString'))
   {
     $value = $value->__toString();
@@ -188,8 +187,7 @@ function add_paragraphs_and_linebreaks($value)
 
 function strip_markdown($value)
 {
-  // TODO Workaround for PHP bug, http://bugs.php.net/bug.php?id=47522
-  // Also, method_exists is very slow if a string is passed (class lookup), use is_object
+  // Use is_object as method_exists is very slow if a string is passed
   if (is_object($value) && method_exists($value, '__toString'))
   {
     $value = $value->__toString();
