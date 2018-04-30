@@ -267,7 +267,7 @@ function render_treeview_node($item, array $classes = array(), array $options = 
     $node .= ' data-title="'.esc_entities(sfConfig::get('app_ui_label_term')).'"';
   }
 
-  $node .= ' data-content="'.strip_tags(render_title($item)).'"';
+  $node .= ' data-content="'.strip_markdown($item).'"';
 
   // Close tag
   $node .= '>';
