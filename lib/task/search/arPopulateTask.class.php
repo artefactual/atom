@@ -52,6 +52,7 @@ EOF;
   public function execute($arguments = array(), $options = array())
   {
     sfContext::createInstance($this->configuration);
+    sfConfig::add(QubitSetting::getSettingsArray());
 
     // If show-types flag set, show types available to index
     if (!empty($options['show-types']))

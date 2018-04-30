@@ -170,6 +170,16 @@ class arElasticSearchPlugin extends QubitSearchEngine
       // If the index has not been initialized, create it
       if ($e instanceof \Elastica\Exception\ResponseException)
       {
+        // Based on the markdown_enabled setting, add a new filter to strip Markdown tags
+        if (sfConfig::get('app_markdown_enabled', false)
+          && isset($this->config['index']['configuration']['analysis']['char_filter']['strip_md']))
+        {
+          foreach ($this->config['index']['configuration']['analysis']['analyzer'] as $key => $analyzer)
+          {
+            $this->config['index']['configuration']['analysis']['analyzer'][$key]['char_filter'] = array('strip_md');
+          }
+        }
+
         $this->index->create($this->config['index']['configuration'],
           array('recreate' => true));
       }
