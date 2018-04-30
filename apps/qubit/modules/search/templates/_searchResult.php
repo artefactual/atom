@@ -15,10 +15,10 @@
                     QubitAcl::check(QubitInformationObject::getById($hit->getId()), 'readThumbnail') &&
                     QubitGrantedRight::checkPremis($hit->getId(), 'readThumb')): ?>
             <?php echo image_tag($doc['digitalObject']['thumbnailPath'],
-              array('alt' => esc_entities(truncate_text(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture)), 100)))) ?>
+              array('alt' => truncate_text(strip_markdown(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))), 100))) ?>
           <?php else: ?>
             <?php echo image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId']),
-              array('alt' => esc_entities(truncate_text(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture)), 100)))) ?>
+              array('alt' => truncate_text(strip_markdown(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))), 100))) ?>
           <?php endif; ?>
         </div>
       </a>

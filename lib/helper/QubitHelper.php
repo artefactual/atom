@@ -188,6 +188,13 @@ function add_paragraphs_and_linebreaks($value)
 
 function strip_markdown($value)
 {
+  // TODO Workaround for PHP bug, http://bugs.php.net/bug.php?id=47522
+  // Also, method_exists is very slow if a string is passed (class lookup), use is_object
+  if (is_object($value) && method_exists($value, '__toString'))
+  {
+    $value = $value->__toString();
+  }
+
   return QubitMarkdown::getInstance()->strip($value);
 }
 
