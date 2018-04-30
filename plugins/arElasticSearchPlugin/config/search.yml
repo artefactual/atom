@@ -232,10 +232,10 @@ all:
           # in this example: https://github.com/stiang/remove-markdown.
           # But processing all those regex could run very slowly, so
           # we're replacing the following punctuation chars by spaces:
-          #     !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+          #     *_#![]()->`+\~:|^=
           strip_md:
             type: pattern_replace
-            pattern: \p{Punct}
+            pattern: '[\*_#!\[\]\(\)\->`\+\\~:\|\^=]'
             replacement: ' '
 
       # Disable dynamic creation of mappings for unmapped types
