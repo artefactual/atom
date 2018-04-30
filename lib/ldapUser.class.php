@@ -16,9 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
-
-include sfConfig::get('sf_root_dir') .'/vendor/password_compat/password.php';
-
 class ldapUser extends myUser implements Zend_Acl_Role_Interface
 {
   protected $ldapConnection;
