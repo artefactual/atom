@@ -186,6 +186,11 @@ function add_paragraphs_and_linebreaks($value)
   return $value;
 }
 
+function strip_markdown($value)
+{
+  return QubitMarkdown::getInstance()->strip($value);
+}
+
 /**
  * Return a human readable file size, using the appropriate SI prefix
  *

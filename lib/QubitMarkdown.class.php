@@ -87,6 +87,33 @@ class QubitMarkdown
     return $content;
   }
 
+  public function strip($content)
+  {
+    if (!$this->enabled)
+    {
+      return $content;
+    }
+
+    // TODO: Parsedown has been recently updated to 1.8.0-beta-1,
+    // but ParsedownExtra still have some issues with that version,
+    // so we're still using the 1.7.1 version. Once both libraries
+    // are in a more stable version, we should extend them in a new
+    // QubitParsedownExtra class, where we should create an strip
+    // method that extends both text methods from the libraries.
+    // This method should use the new `$Elements` variable, added in
+    // 1.8.x in the Parsedown text method, to get the text value from
+    // the elements before they are converted to markup.
+
+    // Convert Markdown to HTML
+    $this->parsedown->setSafeMode(true);
+    $content = $this->parsedown->text($content);
+
+    // Remove all tags
+    $content = strip_tags($content);
+
+    return $content;
+  }
+
   /**
    * Convert an EAD markup tag to it's corresponding markdown symbols.
    *
