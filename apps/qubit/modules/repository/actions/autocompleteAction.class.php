@@ -24,7 +24,16 @@ class RepositoryAutocompleteAction extends sfAction
     $criteria = new Criteria;
     $criteria->addJoin(QubitActor::ID, QubitActorI18n::ID);
     $criteria->add(QubitActor::PARENT_ID, QubitRepository::ROOT_ID);
-    $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, "$request->query%", Criteria::LIKE);
+
+    if (sfConfig::get('app_markdown_enabled', false))
+    {
+      $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, "%$request->query%", Criteria::LIKE);
+    }
+    else
+    {
+      $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, "$request->query%", Criteria::LIKE);
+    }
+
     $criteria->addAscendingOrderByColumn('authorized_form_of_name');
     $criteria->setDistinct();
     $criteria->setLimit(sfConfig::get('app_hits_per_page', 10));

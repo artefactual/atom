@@ -53,6 +53,7 @@ class InformationObjectAutocompleteAction extends sfAction
     {
       $queryString = new \Elastica\Query\QueryString(arElasticSearchPluginUtil::escapeTerm($request->query));
       $queryString->setDefaultOperator('AND');
+      $queryString->setAnalyzer('autocomplete');
 
       // Search for referenceCode or identifier, and title
       if (1 == sfConfig::get('app_inherit_code_informationobject', 1))
