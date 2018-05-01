@@ -51,6 +51,7 @@ class BrowseHierarchyDataAction extends DefaultFullTreeViewAction
     // Do ordering during query as we need to page through the results
     $options = array(
       'orderColumn' => 'current_i18n.title',
+      'memorySort' => true,
       'skip' => $request->skip,
       'limit' => $request->nodeLimit
     );
