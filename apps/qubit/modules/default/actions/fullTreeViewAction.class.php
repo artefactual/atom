@@ -130,7 +130,6 @@ class DefaultFullTreeViewAction extends sfAction
           // Append result identifier to the base reference code if we're not loading the collection root
           //if ($result['parent'] != QubitInformationObject::ROOT_ID && !empty($result['identifier']))
 
-// TODO what if a child identifer doesn't exist? How does previous version handle this?
           // Append result identifier, if it exists, to the reference passed to the function
           if (!empty($result['identifier']))
           {
@@ -237,7 +236,7 @@ class DefaultFullTreeViewAction extends sfAction
     }
 
     // If not ordered in SQL, order in-memory by "text" attribute of each node
-    if (!isset($options['orderColumn']))
+    if (!empty($options['memorySort']))
     {
       $titles = array();
       foreach ($data as $key => $node)
@@ -245,7 +244,7 @@ class DefaultFullTreeViewAction extends sfAction
         $titles[$key] = $node['text'];
       }
 
-      array_multisort($titles, SORT_ASC, $data);
+      usort($data, function($el1, $el2) { return strnatcmp( $el1[‘text’], $el2[‘text’]); });
     }
 
     return array('nodes' => $data, 'total' => $totalCount);
