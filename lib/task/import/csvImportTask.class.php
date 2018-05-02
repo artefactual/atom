@@ -510,7 +510,7 @@ EOF;
         {
           $pubStatusTermId = array_search_case_insensitive(
             $self->rowStatusVars['publicationStatus'],
-            $self->status['pubStatusTypes'][$self->columnValue('culture')]
+            $self->status['pubStatusTypes'][trim($self->columnValue('culture'))]
           );
 
           if (!$pubStatusTermId)
@@ -1011,7 +1011,7 @@ EOF;
 
     $import->addColumnHandler('levelOfDescription', function($self, $data)
     {
-      $self->object->setLevelOfDescriptionByName($data);
+      $self->object->setLevelOfDescriptionByName(trim($data));
     });
 
     // Map value to taxonomy term name and take note of taxonomy term's ID
@@ -1019,7 +1019,7 @@ EOF;
     {
       if ($data)
       {
-        $data = explode('|', $data);
+        $data = array_map('trim', explode('|', $data));
 
         foreach ($data as $value)
         {

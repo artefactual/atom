@@ -179,11 +179,11 @@ class QubitFlatfileImport
   {
     if ($this->contentFilterLogic)
     {
-      return call_user_func_array($this->contentFilterLogic, array($text));
+      return trim(call_user_func_array($this->contentFilterLogic, array($text)));
     }
     else
     {
-      return $text;
+      return trim($text);
     }
   }
 
@@ -225,7 +225,7 @@ class QubitFlatfileImport
     {
       if ($value === false)
       {
-        return $this->status['row'][$columnIndex];
+        return trim($this->status['row'][$columnIndex]);
       }
       else
       {
@@ -1119,6 +1119,9 @@ class QubitFlatfileImport
     // process import columns that don't produce child data
     $this->forEachRowColumn($row, function(&$self, $index, $columnName, $value)
     {
+      // Trim whitespace
+      $value = trim($value);
+
       if (
         isset($self->columnNames[$index])
         && in_array($self->columnNames[$index], $self->variableColumns)
@@ -1204,6 +1207,9 @@ class QubitFlatfileImport
   {
     $this->forEachRowColumn($row, function(&$self, $index, $columnName, $value)
     {
+      // Trim whitespace
+      $value = trim($value);
+
       // Create/relate terms
       if (isset($self->termRelations) && isset($self->termRelations[$columnName]) && $value)
       {
@@ -1380,7 +1386,7 @@ class QubitFlatfileImport
   {
     if ($value)
     {
-      $this->rowStatusVars[$column] = explode($delimiter, $value);
+      $this->rowStatusVars[$column] = array_map('trim', explode($delimiter, $value));
     }
   }
 
