@@ -51,6 +51,7 @@ $CONFIG = array(
   'atom.mysql_dsn'          => getenv_or_fail('ATOM_MYSQL_DSN'),
   'atom.mysql_username'     => getenv_or_fail('ATOM_MYSQL_USERNAME'),
   'atom.mysql_password'     => getenv_or_fail('ATOM_MYSQL_PASSWORD'),
+  'atom.debug_ip'           => getenv_default('ATOM_DEBUG_IP', ''),
   'php.max_execution_time'  => getenv_default('ATOM_PHP_MAX_EXECUTION_TIME', '120'),
   'php.max_input_time'      => getenv_default('ATOM_PHP_MAX_INPUT_TIME', '120'),
   'php.memory_limit'        => getenv_default('ATOM_PHP_MEMORY_LIMIT', '512M'),
@@ -290,6 +291,7 @@ pm.max_children = 5
 pm.start_servers = 2
 pm.min_spare_servers = 1
 pm.max_spare_servers = 3
+env[ATOM_DEBUG_IP] = ${CONFIG['atom.debug_ip']}
 
 EOT;
 
