@@ -25,8 +25,9 @@ services:
     command: "bash -c 'chown -R elasticsearch:elasticsearch /elasticsearch-data && elasticsearch -Des.network.host=0.0.0.0 -Des.path.data=/elasticsearch-data'"
     volumes:
       - "elasticsearch_data:/elasticsearch-data:rw"
+    ports:
+      - "63002:9200"
     expose:
-      - "9200"
       - "9300"
     networks:
       - "net_search"
@@ -84,6 +85,7 @@ services:
       - "ATOM_MYSQL_DSN=mysql:host=percona;port=3306;dbname=atom;charset=utf8"
       - "ATOM_MYSQL_USERNAME=atom"
       - "ATOM_MYSQL_PASSWORD=atom_12345"
+      - "ATOM_DEBUG_IP=172.22.0.1"
 
   atom_worker:
     build:
@@ -109,7 +111,7 @@ services:
   nginx:
     image: "nginx:latest"
     ports:
-      - "80"
+      - "63001:80"
     volumes:
       - "../:/atom/src:ro"
       - "./etc/nginx/prod.conf:/etc/nginx/nginx.conf:ro"
