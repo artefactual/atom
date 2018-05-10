@@ -639,10 +639,18 @@ class QubitFlatfileImport
       return;
     }
 
+    // Event caching interferes with duplicate detection
+    QubitEvent::clearCache();
+
+    // Get related events
+    $criteria = new Criteria;
+    $criteria->add(QubitEvent::OBJECT_ID, $this->object->id);
+
+    // Compare fields of the event in question with each associated event
     $fields = array('startDate', 'startTime', 'endDate', 'endTime', 'typeId', 'objectId', 'actorId', 'name',
                     'description', 'date', 'culture');
 
-    foreach ($this->object->eventsRelatedByobjectId as $existingEvent)
+    foreach (QubitEvent::get($criteria) as $existingEvent)
     {
       $match = true;
 

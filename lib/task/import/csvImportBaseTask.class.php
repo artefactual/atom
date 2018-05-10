@@ -255,7 +255,7 @@ abstract class csvImportBaseTask extends arBaseTask
           $dateFieldsEmpty = empty($eventData['date']) && empty($eventData['startDate']) && empty($eventData['endDate']);
 
           // Work out whether CSV date fields are different than what's currently stored
-          $datesDifferent = $event->date != $eventData['data'] || $event->startDate != $eventData['startDate']
+          $datesDifferent = $event->date != $eventData['date'] || $event->startDate != $eventData['startDate']
              || $event->endDate != $eventData['endDate'];
 
           // Update is actor bio populated or if CSV fields empty or different from stored
@@ -264,6 +264,23 @@ abstract class csvImportBaseTask extends arBaseTask
             $eventData['eventId'] = $event->id;
             break;
           }
+        }
+      }
+      else if ($import->matchAndUpdate && empty($eventData['actorName']))
+      {
+        // Check events to determine whether event should be updated rather than created
+        $criteria = new Criteria;
+        $criteria->add(QubitEvent::TYPE_ID, $eventTypeId);
+        $criteria->add(QubitEvent::OBJECT_ID, $import->object->id);
+        $criteria->add(QubitEvent::ACTOR_ID, null, Criteria::ISNULL);
+        $criteria->addJoin(QubitEvent::ID, QubitEventI18n::ID);
+        $criteria->add(QubitEventI18n::DATE, $eventData['date']);
+        $criteria->add(QubitEventI18n::CULTURE, $eventData['culture']);
+
+        if ((null !== $event = QubitEvent::getOne($criteria))
+           && ($event->startDate != $eventData['startDate'] || $event->endDate != $eventData['endDate']))
+        {
+          $eventData['eventId'] = $event->id;
         }
       }
 
