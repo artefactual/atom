@@ -22,6 +22,8 @@ all:
 
   # Google Analitycs
   # google_analytics_api_key: ...
+  # google_analytics_institutions_dimension_index: 1
+
 
   # htmlpurifier is used in static pages, disabled by default
   htmlpurifier_enabled: false

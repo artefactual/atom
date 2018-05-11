@@ -348,3 +348,5 @@
 <?php slot('after-content') ?>
   <?php echo get_partial('informationobject/actions', array('resource' => $resource, 'renameForm' => $renameForm)) ?>
 <?php end_slot() ?>
+
+<?php echo get_component('object', 'gaInstitutionsDimension', array('resource' => $resource)) ?>
