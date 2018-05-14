@@ -256,3 +256,5 @@
   </section>
 
 <?php end_slot() ?>
+
+<?php echo get_component('object', 'gaInstitutionsDimension', array('resource' => $resource)) ?>

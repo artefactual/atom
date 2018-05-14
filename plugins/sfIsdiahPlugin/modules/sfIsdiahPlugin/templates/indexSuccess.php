@@ -5,10 +5,6 @@
   <?php include_component('repository', 'maintainedActors', array('resource' => $resource)) ?>
 <?php end_slot() ?>
 
-<?php slot('google_analytics') ?>
-  _gaq.push(['_setCustomVar', 1, 'repository', '<?php echo $resource->slug ?>']);
-<?php end_slot() ?>
-
 <?php slot('title') ?>
 
   <h1><?php echo render_title($resource) ?></h1>
@@ -272,3 +268,5 @@
   <?php end_slot() ?>
 
 <?php endif; ?>
+
+<?php echo get_component('object', 'gaInstitutionsDimension', array('resource' => $resource)) ?>

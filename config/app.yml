@@ -20,8 +20,15 @@ all:
   # by and environment variable called "ATOM_READ_ONLY"
   read_only: false
 
-  # Google Analitycs
-  # google_analytics_api_key: ...
+  # Google Analitycs:
+  # Set a GA property API key to track page view hits.
+  # E.g.: UA-1234567-89
+  google_analytics_api_key:
+  # Set a GA custom dimension index numver (from the same property)
+  # to track the repository name as a dimension in page view hits
+  # of IOs, actors and repos index pages.
+  # E.g.: 1
+  google_analytics_institutions_dimension_index:
 
   # htmlpurifier is used in static pages, disabled by default
   htmlpurifier_enabled: false
