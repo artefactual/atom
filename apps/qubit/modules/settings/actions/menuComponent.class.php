@@ -87,6 +87,10 @@ class SettingsMenuComponent extends sfComponent
       array(
         'label' => $i18n->__('Markdown'),
         'action' => 'markdown'
+      ),
+      array(
+        'label' => $i18n->__('Privacy Notification'),
+        'action' => 'privacyNotification'
       )
     );
 
