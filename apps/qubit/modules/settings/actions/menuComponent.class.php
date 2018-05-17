@@ -79,6 +79,10 @@ class SettingsMenuComponent extends sfComponent
       array(
         'label' => $i18n->__('Treeview'),
         'action' => 'treeview'
+      ),
+      array(
+        'label' => $i18n->__('Privacy Notification'),
+        'action' => 'privacyNotification'
       )
     );
 

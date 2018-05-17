@@ -878,6 +878,16 @@ QubitSetting:
   QubitSetting_limitAdminIp:
     name: limit_admin_ip
     value: ''
+  QubitSetting_privacyNotificationEnabled:
+    name: privacy_notification_enabled
+    value: 1
+  QubitSetting_privacyNotification:
+    name: privacy_notification
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'This website uses cookies to enhance your ability to browse and load content. [More Info.](/privacy)'
   Qubit_Settings_visibleElements_IsadImmediateSource:
     name: isad_immediate_source
     scope: element_visibility
