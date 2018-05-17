@@ -12,16 +12,16 @@
   <?php echo get_component('default', 'translationLinks', array('resource' => $resource)) ?>
 <?php end_slot() ?>
 
-<?php echo render_show(__('Type'), $resource->type) ?>
+<?php echo render_show(__('Type'), render_value($resource->type)) ?>
 
-<?php echo render_show(__('Location'), $resource->getLocation(array('cultureFallback' => true))) ?>
+<?php echo render_show(__('Location'), render_value($resource->getLocation(array('cultureFallback' => true)))) ?>
 
 <div class="field">
   <h3><?php echo __('Related resources') ?></h3>
   <div>
     <ul>
       <?php foreach (QubitRelation::getRelatedObjectsBySubjectId('QubitInformationObject', $resource->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID)) as $item): ?>
-        <li><?php echo link_to(esc_entities(render_title($item)), array($item, 'module' => 'informationobject')) ?></li>
+        <li><?php echo link_to(render_title($item), array($item, 'module' => 'informationobject')) ?></li>
       <?php endforeach; ?>
     </ul>
   </div>

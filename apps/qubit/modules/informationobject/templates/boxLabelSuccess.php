@@ -41,16 +41,16 @@
           <td>
             <?php echo $row++ ?>
           </td><td>
-            <?php echo $item['referenceCode'] ?>
+            <?php echo render_value_inline($item['referenceCode']) ?>
           </td><td>
-            <?php echo $item['physicalObjectName'] ?>
+            <?php echo render_value_inline($item['physicalObjectName']) ?>
           </td><td>
-            <?php echo $item['title'] ?>
+            <?php echo render_value_inline($item['title']) ?>
           </td><td>
             <?php if ($item['creationDates']): ?>
               <ul>
                 <?php foreach (explode('|', $item['creationDates']) as $creationDate): ?>
-                  <li><?php echo $creationDate ?></li>
+                  <li><?php echo render_value_inline($creationDate) ?></li>
                 <?php endforeach; ?>
               </ul>
             <?php endif; ?>

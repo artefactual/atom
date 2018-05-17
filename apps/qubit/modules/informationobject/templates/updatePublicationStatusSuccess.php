@@ -8,7 +8,7 @@
 
 <?php slot('title') ?>
 
-  <h1><?php echo $resource->title ?></h1>
+  <h1><?php echo render_title($resource) ?></h1>
 
 <?php end_slot() ?>
 
@@ -25,11 +25,11 @@
         <legend><?php echo __('Update publication status') ?></legend>
 
         <?php echo $form->publicationStatus->label(__('Publication status'))->renderRow() ?>
-        
+
         <?php if ($resource->rgt - $resource->lft > 1): ?>
           <?php echo $form->updateDescendants->label(__('Update descendants'))->renderRow() ?>
         <?php endif; ?>
-        
+
       </fieldset>
 
     </div>

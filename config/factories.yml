@@ -16,7 +16,7 @@ test:
       session_path: %SF_TEST_CACHE_DIR%/sessions
 
   response:
-    class: sfWebResponse
+    class: QubitWebResponse
     param:
       send_http_headers: false
 
@@ -57,6 +57,9 @@ all:
           cache_dir: %SF_TEMPLATE_CACHE_DIR%
           lifetime: 86400
           prefix: %SF_APP_DIR%/template
+
+  response:
+    class: QubitWebResponse
 
   routing:
     class: QubitPatternRouting

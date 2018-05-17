@@ -25,7 +25,7 @@
       <?php foreach ($resource->contactInformations as $item): ?>
         <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?> related_obj_<?php echo $item->id ?>" id="<?php echo url_for(array($item, 'module' => 'contactinformation')) ?>">
           <td>
-            <?php echo $item->contactPerson ?>
+            <?php echo render_title($item->contactPerson) ?>
           </td><td>
             <input type="checkbox"<?php echo $item->primaryContact ? " checked=\"checked\"" : "" ?> disabled="disabled" />
           </td><td style="text-align: center">

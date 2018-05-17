@@ -103,6 +103,15 @@ class QubitSetting extends BaseSetting
       $settings[$key.'__source'] = $qubitSetting->value_source;
     }
 
+    // Disable Symfony escaping strategy if Markdown is enabled to allow
+    // parsing tags like blockquote ('>'). Parsedown is used in safe mode
+    // to escape the content while parsing when necesary in QubitMarkdown.
+    // Markdown is enabled by default if the setting doesn't exists.
+    if (!isset($settings['app_markdown_enabled']) || $settings['app_markdown_enabled'])
+    {
+      $settings['sf_escaping_strategy'] = false;
+    }
+
     return $settings;
   }
 

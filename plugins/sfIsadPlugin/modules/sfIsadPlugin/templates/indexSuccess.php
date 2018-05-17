@@ -12,7 +12,8 @@
     <div class="messages error">
       <ul>
         <?php foreach ($errorSchema as $error): ?>
-          <li><?php echo $error->getMessage(ESC_RAW) ?></li>
+          <?php $error = sfOutputEscaper::unescape($error) ?>
+          <li><?php echo $error->getMessage() ?></li>
         <?php endforeach; ?>
       </ul>
     </div>
@@ -62,7 +63,7 @@
 
   <?php echo render_show(__('Reference code'), render_value($isad->referenceCode), array('fieldLabel' => 'referenceCode')) ?>
 
-  <?php echo render_show(__('Title'), render_value($resource->getTitle(array('cultureFallback' => true))), array('fieldLabel' => 'title')) ?>
+  <?php echo render_show(__('Title'), render_title($resource), array('fieldLabel' => 'title')) ?>
 
   <div class="field">
     <h3><?php echo __('Date(s)') ?></h3>
@@ -70,7 +71,7 @@
       <ul>
         <?php foreach ($resource->getDates() as $item): ?>
           <li>
-            <?php echo Qubit::renderDateStartEnd($item->getDate(array('cultureFallback' => true)), $item->startDate, $item->endDate) ?> (<?php echo $item->getType(array('cultureFallback' => true)) ?>)
+            <?php echo render_value_inline(Qubit::renderDateStartEnd($item->getDate(array('cultureFallback' => true)), $item->startDate, $item->endDate)) ?> (<?php echo $item->getType(array('cultureFallback' => true)) ?>)
           </li>
         <?php endforeach; ?>
       </ul>

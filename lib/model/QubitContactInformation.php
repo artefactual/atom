@@ -51,10 +51,10 @@ class QubitContactInformation extends BaseContactInformation
     sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
     $cf = array('cultureFallback' => true);
 
-    $string = ($this->getStreetAddress($cf)) ? esc_specialchars($this->getStreetAddress($cf)).'<br/>' : '';
+    $string = ($this->getStreetAddress($cf)) ? esc_specialchars($this->getStreetAddress($cf))."\n" : '';
     $string .= ($this->getCity($cf)) ? esc_specialchars($this->getCity($cf)) : '';
     $string .= ($this->getRegion($cf)) ? ', '.esc_specialchars($this->getRegion($cf)) : '';
-    $string .= ($this->getCountryCode($cf)) ? '<br/>'.esc_specialchars($this->getCountryCode($cf)) : '';
+    $string .= ($this->getCountryCode($cf)) ? "\n".esc_specialchars($this->getCountryCode($cf)) : '';
     $string .= ($this->getPostalCode($cf)) ? '   '.esc_specialchars($this->getPostalCode($cf)): '';
 
     return $string;

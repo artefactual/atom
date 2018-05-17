@@ -22,12 +22,6 @@
   </div>
 <?php end_slot() ?>
 
-<?php if ($sf_user->hasFlash('notice')): ?>
-  <div class="messages">
-    <div><?php echo $sf_user->getFlash('notice', ESC_RAW) ?></div>
-  </div>
-<?php endif; ?>
-
 <?php if (isset($pager) && $pager->getNbResults() || sfConfig::get('app_enable_institutional_scoping')): ?>
 
   <?php slot('sidebar') ?>
@@ -144,7 +138,7 @@
 
     <?php if (isset($collection)): ?>
       <span class="search-filter">
-        <?php echo $collection->__toString() ?>
+        <?php echo render_title($collection) ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['collection']) ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
@@ -153,7 +147,7 @@
 
     <?php if (isset($creators)): ?>
       <span class="search-filter">
-        <?php echo $creators->__toString() ?>
+        <?php echo render_title($creators) ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['creators']) ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
@@ -162,7 +156,7 @@
 
     <?php if (isset($names)): ?>
       <span class="search-filter">
-        <?php echo $names->__toString() ?>
+        <?php echo render_title($names) ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['names']) ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
@@ -171,7 +165,7 @@
 
     <?php if (isset($places)): ?>
       <span class="search-filter">
-        <?php echo $places->__toString() ?>
+        <?php echo render_title($places) ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['places']) ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
@@ -180,7 +174,7 @@
 
     <?php if (isset($levels)): ?>
       <span class="search-filter">
-        <?php echo $levels->__toString() ?>
+        <?php echo render_title($levels) ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['levels']) ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
@@ -189,7 +183,7 @@
 
     <?php if (isset($subjects)): ?>
       <span class="search-filter">
-        <?php echo $subjects->__toString() ?>
+        <?php echo render_title($subjects) ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['subjects']) ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
@@ -198,7 +192,7 @@
 
     <?php if (isset($mediatypes)): ?>
       <span class="search-filter">
-        <?php echo $mediatypes->__toString() ?>
+        <?php echo render_title($mediatypes) ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['mediatypes']) ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
@@ -207,7 +201,7 @@
 
     <?php if (isset($copyrightStatus)): ?>
       <span class="search-filter">
-        <?php echo $copyrightStatus->__toString() ?>
+        <?php echo render_title($copyrightStatus) ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['copyrightStatus']) ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
@@ -216,7 +210,7 @@
 
     <?php if (isset($materialType)): ?>
       <span class="search-filter">
-        <?php echo $materialType->__toString() ?>
+        <?php echo render_title($materialType) ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['materialType']) ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
@@ -266,7 +260,7 @@
 
     <?php if (isset($findingAidStatusTag)): ?>
       <span class="search-filter">
-        <?php echo $findingAidStatusTag ?>
+        <?php echo render_value_inline($findingAidStatusTag) ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['findingAidStatus']) ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
@@ -275,7 +269,7 @@
 
     <?php if (isset($ancestor)): ?>
       <span class="search-filter">
-        <?php echo $ancestor->__toString() ?>
+        <?php echo render_title($ancestor) ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['ancestor']) ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>

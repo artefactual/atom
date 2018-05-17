@@ -34,7 +34,15 @@ class PhysicalObjectAutocompleteAction extends sfAction
     $criteria = new Criteria;
     $criteria->addJoin(QubitPhysicalObject::ID, QubitPhysicalObjectI18n::ID);
     $criteria->add(QubitPhysicalObjectI18n::CULTURE, $this->context->user->getCulture());
-    $criteria->add(QubitPhysicalObjectI18n::NAME, "$request->query%", Criteria::LIKE);
+
+    if (sfConfig::get('app_markdown_enabled', true))
+    {
+      $criteria->add(QubitPhysicalObjectI18n::NAME, "%$request->query%", Criteria::LIKE);
+    }
+    else
+    {
+      $criteria->add(QubitPhysicalObjectI18n::NAME, "$request->query%", Criteria::LIKE);
+    }
 
     $criteria->addAscendingOrderByColumn(QubitPhysicalObjectI18n::NAME);
 

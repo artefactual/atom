@@ -33,7 +33,7 @@
       <?php foreach ($pager->getResults() as $item): ?>
         <tr>
           <td>
-            <?php echo link_to(render_title($item->getAuthorizedFormOfName(array('cultureFallback' => true))), $item) ?>
+            <?php echo link_to(render_title($item), $item) ?>
           </td><td>
             <?php echo format_date($item->updatedAt, 'f') ?>
           </td>

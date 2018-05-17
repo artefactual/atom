@@ -28,9 +28,9 @@
           <td>
             <?php echo render_title($item->object) ?>
           </td><td>
-            <?php echo $item->type ?>
+            <?php echo render_value_inline($item->type) ?>
           </td><td>
-            <?php echo Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate) ?>
+            <?php echo render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)) ?>
           </td><td style="text-align: right">
             <input class="multiDelete" name="deleteEvents[]" type="checkbox" value="<?php echo url_for(array($item, 'module' => 'event')) ?>"/>
           </td>

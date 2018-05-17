@@ -29,7 +29,14 @@ class TaxonomyAutocompleteAction extends sfAction
     // Narrow results by query
     if (0 < strlen($request->query))
     {
-      $criteria->add(QubitTaxonomyI18n::NAME, "$request->query%", Criteria::LIKE);
+      if (sfConfig::get('app_markdown_enabled', true))
+      {
+        $criteria->add(QubitTaxonomyI18n::NAME, "%$request->query%", Criteria::LIKE);
+      }
+      else
+      {
+        $criteria->add(QubitTaxonomyI18n::NAME, "$request->query%", Criteria::LIKE);
+      }
     }
 
     // Limit results by ACL

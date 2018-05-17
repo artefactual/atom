@@ -1,7 +1,7 @@
 <?php decorate_with('layout_1col') ?>
 
 <?php slot('title') ?>
-  <h1><?php echo render_title(__('Job report')) ?></h1>
+  <h1><?php echo __('Job report') ?></h1>
 <?php end_slot() ?>
 
 <section id="report-overview-area">

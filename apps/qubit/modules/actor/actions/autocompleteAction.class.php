@@ -45,7 +45,14 @@ class ActorAutocompleteAction extends sfAction
 
     if (isset($request->query))
     {
-      $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, "$request->query%", Criteria::LIKE);
+      if (sfConfig::get('app_markdown_enabled', true))
+      {
+        $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, "%$request->query%", Criteria::LIKE);
+      }
+      else
+      {
+        $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, "$request->query%", Criteria::LIKE);
+      }
     }
 
     // Exclude the calling actor from the list

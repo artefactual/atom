@@ -12,7 +12,8 @@
     <div class="messages error">
       <ul>
         <?php foreach ($errorSchema as $error): ?>
-          <li><?php echo $error->getMessage(ESC_RAW) ?></li>
+          <?php $error = sfOutputEscaper::unescape($error) ?>
+          <li><?php echo $error->getMessage() ?></li>
         <?php endforeach; ?>
       </ul>
     </div>
@@ -63,7 +64,7 @@
   <?php echo get_partial('informationobject/dates', array('resource' => $resource)) ?>
 
   <?php foreach ($mods->typeOfResource as $item): ?>
-    <?php echo render_show(__('Type of resource'), $item->term) ?>
+    <?php echo render_show(__('Type of resource'), render_value($item->term)) ?>
   <?php endforeach; ?>
 
   <?php foreach ($resource->language as $code): ?>
@@ -71,7 +72,7 @@
   <?php endforeach; ?>
 
   <?php if (0 < count($resource->digitalObjects)): ?>
-    <?php echo render_show(__('Internet media type'), $resource->digitalObjects[0]->mimeType) ?>
+    <?php echo render_show(__('Internet media type'), render_value($resource->digitalObjects[0]->mimeType)) ?>
   <?php endif; ?>
 
   <?php echo get_partial('informationobject/subjectAccessPoints', array('resource' => $resource, 'mods' => true)) ?>
@@ -92,7 +93,7 @@
       <?php if (isset($resource->repository)): ?>
 
         <?php if (isset($resource->repository->identifier)): ?>
-          <?php echo $resource->repository->identifier ?> -
+          <?php echo render_value_inline($resource->repository->identifier) ?> -
         <?php endif; ?>
 
         <?php echo link_to(render_title($resource->repository), array($resource->repository, 'module' => 'repository')) ?>
@@ -100,11 +101,11 @@
         <?php if (null !== $contact = $resource->repository->getPrimaryContact()): ?>
 
           <?php if (isset($contact->city)): ?>
-            <?php echo $contact->city ?>
+            <?php echo render_value_inline($contact->city) ?>
           <?php endif; ?>
 
           <?php if (isset($contact->region)): ?>
-            <?php echo $contact->region ?>
+            <?php echo render_value_inline($contact->region) ?>
           <?php endif; ?>
 
           <?php if (isset($contact->countryCode)): ?>

@@ -39,7 +39,14 @@ class FunctionAutocompleteAction extends sfAction
 
     if (isset($request->query))
     {
-      $criteria->add(QubitFunctionI18n::AUTHORIZED_FORM_OF_NAME, "$request->query%", Criteria::LIKE);
+      if (sfConfig::get('app_markdown_enabled', true))
+      {
+        $criteria->add(QubitFunctionI18n::AUTHORIZED_FORM_OF_NAME, "%$request->query%", Criteria::LIKE);
+      }
+      else
+      {
+        $criteria->add(QubitFunctionI18n::AUTHORIZED_FORM_OF_NAME, "$request->query%", Criteria::LIKE);
+      }
     }
 
     // Exclude the calling function from the list

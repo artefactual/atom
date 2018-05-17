@@ -45,10 +45,10 @@
             <?php echo link_to(render_title($item), array($item, 'module' => 'physicalobject')) ?>
           </td>
           <td>
-            <?php echo $item->location ?>
+            <?php echo render_value_inline($item->location) ?>
           </td>
           <td>
-            <?php echo $item->type?>
+            <?php echo render_value_inline($item->type) ?>
           </td>
         </tr>
       <?php endforeach; ?>

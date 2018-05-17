@@ -26,17 +26,17 @@
           </div>
         </td><td>
           <div>
-            <?php echo $item->type ?>
+            <?php echo render_value_inline($item->type) ?>
           </div>
         </td><td>
           <div>
             <?php if (null !== $relation = QubitObjectTermRelation::getOneByObjectId($item->id)): ?>
-              <?php echo render_title($relation->term) ?>
+              <?php echo render_value_inline($relation->term) ?>
             <?php endif; ?>
           </div>
         </td><td>
           <div>
-            <?php echo Qubit::renderDateStartEnd($item->getDate(array('cultureFallback' => true)), $item->startDate, $item->endDate) ?>
+            <?php echo render_value_inline(Qubit::renderDateStartEnd($item->getDate(array('cultureFallback' => true)), $item->startDate, $item->endDate)) ?>
           </div>
         </td><td style="text-align: right">
           <input class="multiDelete" name="deleteEvents[]" type="checkbox" value="<?php echo url_for(array($item, 'module' => 'event')) ?>"/>

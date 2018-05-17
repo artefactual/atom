@@ -37,22 +37,22 @@
             <?php endif; ?>
           </td><td>
             <?php if ($item->type->parentId == QubitTerm::ROOT_ID): ?>
-              <?php echo $item->type ?>
+              <?php echo render_value_inline($item->type) ?>
             <?php else: ?>
-              <?php echo $item->type->parent ?>
+              <?php echo render_title($item->type->parent) ?>
             <?php endif; ?>
           </td><td>
             <?php if ($item->type->parentId != QubitTerm::ROOT_ID): ?>
               <?php if ($resource->id != $item->objectId): ?>
-                <?php echo $item->type.' '.render_title($resource) ?>
+                <?php echo render_title($item->type).' '.render_title($resource) ?>
               <?php elseif (0 < count($converseTerms = QubitRelation::getBySubjectOrObjectId($item->type->id, array('typeId' => QubitTerm::CONVERSE_TERM_ID)))): ?>
-                <?php echo $converseTerms[0]->getOpposedObject($item->type).' '.render_title($resource) ?>
+                <?php echo render_title($converseTerms[0]->getOpposedObject($item->type)).' '.render_title($resource) ?>
               <?php endif; ?>
             <?php endif; ?>
           </td><td>
-            <?php echo Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate) ?>
+            <?php echo render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)) ?>
           </td><td>
-            <?php echo $item->description ?>
+            <?php echo render_value_inline($item->description) ?>
           </td><td style="text-align: center">
             <input class="multiDelete" name="deleteRelations[]" type="checkbox" value="<?php echo url_for(array($item, 'module' => 'relation')) ?>"/>
           </td>

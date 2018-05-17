@@ -83,6 +83,10 @@ class SettingsMenuComponent extends sfComponent
       array(
         'label' => $i18n->__('Treeview'),
         'action' => 'treeview'
+      ),
+      array(
+        'label' => $i18n->__('Markdown'),
+        'action' => 'markdown'
       )
     );
 
@@ -106,5 +110,10 @@ class SettingsMenuComponent extends sfComponent
       // Active bool
       $node['active'] = $this->context->getActionName() === $node['action'];
     }
+
+    // Sort alphabetically
+    usort($this->nodes, function($el1, $el2) {
+      return strnatcmp( $el1['label'], $el2['label']);
+    });
   }
 }

@@ -13,7 +13,8 @@
     <div class="messages error">
       <ul>
         <?php foreach ($errorSchema as $error): ?>
-          <li><?php echo $error->getMessage(ESC_RAW) ?></li>
+          <?php $error = sfOutputEscaper::unescape($error) ?>
+          <li><?php echo $error->getMessage() ?></li>
         <?php endforeach; ?>
       </ul>
     </div>
@@ -57,7 +58,7 @@
   <?php if (isset($primaryContact)): ?>
     <section id="primary-contact">
       <h4><?php echo __('Primary contact') ?></h4>
-      <?php echo $sf_data->getRaw('primaryContact')->getContactInformationString(array('simple' => true)) ?>
+      <?php echo render_value($sf_data->getRaw('primaryContact')->getContactInformationString(array('simple' => true))) ?>
       <div class="context-actions">
         <?php if (null !== $website = $primaryContact->getWebsite()): ?>
           <?php if (null === parse_url($website, PHP_URL_SCHEME)): ?>
@@ -230,10 +231,10 @@
     <div>
       <ul>
         <?php foreach ($resource->getTermRelations(QubitTaxonomy::THEMATIC_AREA_ID) as $item): ?>
-          <li><?php echo __(render_value($item->term)) ?> (Thematic area)</li>
+          <li><?php echo __(render_value_inline($item->term)) ?> (Thematic area)</li>
         <?php endforeach; ?>
         <?php foreach ($resource->getTermRelations(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID) as $item): ?>
-          <li><?php echo __(render_value($item->term)) ?> (Geographic subregion)</li>
+          <li><?php echo __(render_value_inline($item->term)) ?> (Geographic subregion)</li>
         <?php endforeach; ?>
       </ul>
     </div>

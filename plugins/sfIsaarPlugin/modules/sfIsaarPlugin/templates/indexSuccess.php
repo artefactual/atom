@@ -12,7 +12,8 @@
     <div class="messages error">
       <ul>
         <?php foreach ($errorSchema as $error): ?>
-          <li><?php echo $error->getMessage(ESC_RAW) ?></li>
+          <?php $error = sfOutputEscaper::unescape($error) ?>
+          <li><?php echo $error->getMessage() ?></li>
         <?php endforeach; ?>
       </ul>
     </div>
@@ -150,7 +151,7 @@
           <?php endif; ?>
         <?php endif; ?>
 
-        <?php echo render_show(__('Dates of the relationship'), Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)) ?>
+        <?php echo render_show(__('Dates of the relationship'), render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate))) ?>
 
         <?php echo render_show(__('Description of relationship'), render_value($item->description)) ?>
 

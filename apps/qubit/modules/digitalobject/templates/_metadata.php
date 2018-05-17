@@ -18,21 +18,21 @@
     <?php endif; ?>
   <?php else: ?>
     <?php if (check_field_visibility('app_element_visibility_digital_object_file_name') && !$denyFileNameByPremis): ?>
-      <?php echo render_show(__('Filename'), $resource->name, array('fieldLabel' => 'filename')) ?>
+      <?php echo render_show(__('Filename'), render_value($resource->name), array('fieldLabel' => 'filename')) ?>
     <?php endif; ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_digital_object_geolocation')): ?>
-    <?php echo render_show(__('Latitude'), $latitude, array('fieldLabel' => 'latitude')) ?>
-    <?php echo render_show(__('Longitude'), $longitude, array('fieldLabel' => 'longitude')) ?>
+    <?php echo render_show(__('Latitude'), render_value($latitude), array('fieldLabel' => 'latitude')) ?>
+    <?php echo render_show(__('Longitude'), render_value($longitude), array('fieldLabel' => 'longitude')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_digital_object_media_type')): ?>
-    <?php echo render_show(__('Media type'), $resource->mediaType, array('fieldLabel' => 'mediaType')) ?>
+    <?php echo render_show(__('Media type'), render_value($resource->mediaType), array('fieldLabel' => 'mediaType')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_digital_object_mime_type')): ?>
-    <?php echo render_show(__('Mime-type'), $resource->mimeType, array('fieldLabel' => 'mimeType')) ?>
+    <?php echo render_show(__('Mime-type'), render_value($resource->mimeType), array('fieldLabel' => 'mimeType')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_digital_object_file_size')): ?>
@@ -44,12 +44,12 @@
   <?php endif; ?>
 
   <?php if ($sf_user->isAuthenticated()): ?>
-    <?php echo render_show(__('Object UUID'), $resource->informationObject->objectUUID, array('fieldLabel' => 'objectUUID')) ?>
-    <?php echo render_show(__('AIP UUID'), $resource->informationObject->aipUUID, array('fieldLabel' => 'aipUUID')) ?>
-    <?php echo render_show(__('Format name'), $resource->informationObject->formatName, array('fieldLabel' => 'formatName')) ?>
-    <?php echo render_show(__('Format version'), $resource->informationObject->formatVersion, array('fieldLabel' => 'formatVersion')) ?>
-    <?php echo render_show(__('Format registry key'), $resource->informationObject->formatRegistryKey, array('fieldLabel' => 'formatRegistryKey')) ?>
-    <?php echo render_show(__('Format registry name'), $resource->informationObject->formatRegistryName, array('fieldLabel' => 'formatRegistryName')) ?>
+    <?php echo render_show(__('Object UUID'), render_value($resource->informationObject->objectUUID), array('fieldLabel' => 'objectUUID')) ?>
+    <?php echo render_show(__('AIP UUID'), render_value($resource->informationObject->aipUUID), array('fieldLabel' => 'aipUUID')) ?>
+    <?php echo render_show(__('Format name'), render_value($resource->informationObject->formatName), array('fieldLabel' => 'formatName')) ?>
+    <?php echo render_show(__('Format version'), render_value($resource->informationObject->formatVersion), array('fieldLabel' => 'formatVersion')) ?>
+    <?php echo render_show(__('Format registry key'), render_value($resource->informationObject->formatRegistryKey), array('fieldLabel' => 'formatRegistryKey')) ?>
+    <?php echo render_show(__('Format registry name'), render_value($resource->informationObject->formatRegistryName), array('fieldLabel' => 'formatRegistryName')) ?>
   <?php endif; ?>
 
 </section>

@@ -222,6 +222,10 @@ EOF;
     // Store the milestone in settings, we're going to need that in further upgrades!
     // Use case: a user running 1.x for a long period after 2.x release, then upgrades
     $this->updateMilestone();
+
+    // Clear settings cache to reload them in sfConfig on the first request
+    // after the upgrade in QubitSettingsFilter.
+    QubitCache::getInstance()->removePattern('settings:i18n:*');
   }
 
   /**

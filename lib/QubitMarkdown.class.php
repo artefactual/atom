@@ -18,7 +18,7 @@
  */
 
 /**
- * Import an XML document into Qubit.
+ * Instantiable class for Markdown operations.
  *
  * @package    AccesstoMemory
  * @subpackage library
@@ -27,11 +27,144 @@
 class QubitMarkdown
 {
   protected static
+    $instance = null,
     $markdownMap = array(
       'bolditalic' => '___',
       'italic' => '_',
       'bold' => '__',
     );
+
+  private
+    $enabled;
+
+  protected function __construct()
+  {
+    $this->enabled = sfConfig::get('app_markdown_enabled', true);
+
+    if (!$this->enabled)
+    {
+      return;
+    }
+
+    $this->parsedown = new ParsedownExtra();
+  }
+
+  static public function getInstance()
+  {
+    if (!isset(self::$instance))
+    {
+      self::$instance = new QubitMarkdown;
+    }
+
+    return self::$instance;
+  }
+
+  /**
+   * Based on the app_markdown_enabled setting, parses the string value
+   * of the sent content to convert Markdown syntax to HTML. Returns the
+   * value without parsing when the setting is not enabled and parses the
+   * content in safe mode by default when it's enabled. Safe mode can be
+   * disabled with an option to parse existing HTML content, like in the
+   * static pages. It uses Parsedown `text` method by default, which adds
+   * paragraphs, but this can be changed with the `inline` option, to use
+   * Parsedown `line` method.
+   *
+   * @param mixed $content  Object/String to parse.
+   * @param array $options  Set of options (safe mode and inline).
+   * @return string  Parsed content.
+   */
+  public function parse($content, $options = array())
+  {
+    $content = $this->getString($content);
+
+    if (!$this->enabled || strlen($content) == 0)
+    {
+      return $content;
+    }
+
+    // Use safe mode by default
+    $safeMode = true;
+    if (isset($options['safeMode']))
+    {
+      $safeMode = $options['safeMode'];
+    }
+
+    // Use text method by default,
+    // which adds paragraph elements.
+    $method = 'text';
+    if (isset($options['inline']) && $options['inline'])
+    {
+      $method = 'line';
+    }
+
+    $this->parsedown->setSafeMode($safeMode);
+    $content = $this->parsedown->$method($content);
+
+    return $content;
+  }
+
+  /**
+   * Based on the app_markdown_enabled setting, removes the Markdown and
+   * HTML tags of the sent content. Returns the string value of the content
+   * like it is when the setting is not enabled, otherwise it parses it to
+   * HTML using Parsedown `text` method and then removes all tags with PHP
+   * `strip_tags` function.
+   *
+   * @param mixed $content  Object/String to parse.
+   * @return string  Stripped content.
+   */
+  public function strip($content)
+  {
+    $content = $this->getString($content);
+
+    if (!$this->enabled || strlen($content) == 0)
+    {
+      return $content;
+    }
+
+    // TODO: Parsedown has been recently updated to 1.8.0-beta-1,
+    // but ParsedownExtra still have some issues with that version,
+    // so we're still using the 1.7.1 version. Once both libraries
+    // are in a more stable version, we should extend them in a new
+    // QubitParsedownExtra class, where we should create an strip
+    // method that extends both text methods from the libraries.
+    // This method should use the new `$Elements` variable, added in
+    // 1.8.x in the Parsedown text method, to get the text value from
+    // the elements before they are converted to markup.
+
+    // Convert Markdown to HTML
+    $this->parsedown->setSafeMode(true);
+    $content = $this->parsedown->text($content);
+
+    // Remove all tags
+    $content = strip_tags($content);
+
+    return $content;
+  }
+
+  /**
+   * Returns the string value of the content. If content is an object
+   * it calls `__toString` only if that method exists, otherwise it
+   * returns an empty string, like it does with everything else that
+   * is not an object or a string.
+   *
+   * @param mixed $content  Object/String to normalize.
+   * @return string  String value of content or empty string.
+   */
+  protected function getString($content)
+  {
+    if (is_string($content))
+    {
+      return $content;
+    }
+
+    if (is_object($content) && method_exists($content, '__toString'))
+    {
+      return $content->__toString();
+    }
+
+    return '';
+  }
 
   /**
    * Convert an EAD markup tag to it's corresponding markdown symbols.
@@ -40,6 +173,12 @@ class QubitMarkdown
    */
   public static function eadTagToMarkdown($eadTag, $node)
   {
+    // Don't convert if Markdown is not enabled
+    if (!sfConfig::get('app_markdown_enabled', true))
+    {
+      return $node->nodeValue;
+    }
+
     switch ($eadTag)
     {
       // EAD tags that we want to convert to markdown.

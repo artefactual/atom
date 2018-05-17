@@ -61,6 +61,7 @@ class arBaseJob extends Net_Gearman_Job_Common
     $this->i18n = $context->i18n;
     $this->user = $context->user;
     $this->dispatcher = $context->getEventDispatcher();
+    sfConfig::add(QubitSetting::getSettingsArray());
 
     $this->checkRequiredParameters($parameters);
 

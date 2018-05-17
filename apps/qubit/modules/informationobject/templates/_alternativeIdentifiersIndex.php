@@ -4,7 +4,7 @@
 
   <div>
     <?php foreach ($resource->getProperties(null, 'alternativeIdentifiers') as $item): ?>
-      <?php echo render_show(render_value($item->name), render_value($item->getValue(array('cultureFallback' => true)))) ?>
+      <?php echo render_show(render_value_inline($item->name), render_value_inline($item->getValue(array('cultureFallback' => true)))) ?>
     <?php endforeach; ?>
   </div>
 

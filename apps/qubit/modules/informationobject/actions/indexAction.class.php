@@ -126,8 +126,8 @@ class InformationObjectIndexAction extends sfAction
     $scopeAndContent = $this->resource->getScopeAndContent(array('cultureFallback' => true));
     if (!empty($scopeAndContent))
     {
-      $this->getContext()->getConfiguration()->loadHelpers(array('Text'));
-      $this->response->addMeta('description', truncate_text($scopeAndContent, 150));
+      $this->getContext()->getConfiguration()->loadHelpers(array('Text', 'Qubit'));
+      $this->response->addMeta('description', truncate_text(strip_markdown($scopeAndContent), 150));
     }
 
     $this->digitalObjectLink = $this->resource->getDigitalObjectLink();

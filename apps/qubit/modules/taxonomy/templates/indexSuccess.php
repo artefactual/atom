@@ -66,9 +66,9 @@
         <tr>
           <td>
             <?php if ($doc['isProtected']): ?>
-              <?php echo link_to(get_search_i18n($doc, 'name', array('allowEmpty' => false)), array('module' => 'term', 'slug' => $doc['slug']), array('class' => 'readOnly')) ?>
+              <?php echo link_to(render_title(get_search_i18n($doc, 'name', array('allowEmpty' => false))), array('module' => 'term', 'slug' => $doc['slug']), array('class' => 'readOnly')) ?>
             <?php else: ?>
-              <?php echo link_to(get_search_i18n($doc, 'name', array('allowEmpty' => false)), array('module' => 'term', 'slug' => $doc['slug'])) ?>
+              <?php echo link_to(render_title(get_search_i18n($doc, 'name', array('allowEmpty' => false))), array('module' => 'term', 'slug' => $doc['slug'])) ?>
             <?php endif; ?>
 
             <?php if (0 < $doc['numberOfDescendants']): ?>
@@ -81,7 +81,7 @@
                 <?php echo __('Use for: ') ?>
 
                 <?php foreach ($doc['useFor'] as $label): ?>
-                  <?php $labels[] = get_search_i18n($label, 'name', array('allowEmpty' => false)) ?>
+                  <?php $labels[] = render_value_inline(get_search_i18n($label, 'name', array('allowEmpty' => false))) ?>
                 <?php endforeach; ?>
 
                 <?php echo implode(', ', $labels) ?>
@@ -92,7 +92,7 @@
             <?php if (isset($doc['scopeNotes']) && count($doc['scopeNotes']) > 0): ?>
               <ul>
                 <?php foreach ($doc['scopeNotes'] as $note): ?>
-                  <li><?php echo get_search_i18n($note, 'content') ?></li>
+                  <li><?php echo render_value_inline(get_search_i18n($note, 'content')) ?></li>
                 <?php endforeach; ?>
               </ul>
             <?php endif; ?>

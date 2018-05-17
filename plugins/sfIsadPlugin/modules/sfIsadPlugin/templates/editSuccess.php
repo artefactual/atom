@@ -36,7 +36,7 @@
 
         <legend><?php echo __('Identity area') ?></legend>
 
-        <?php echo render_show(__('Reference code'), $isad->referenceCode) ?>
+        <?php echo render_show(__('Reference code'), render_value($isad->referenceCode)) ?>
 
         <?php echo $form->identifier
           ->help(__('Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)'))

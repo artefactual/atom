@@ -3,7 +3,7 @@
 <entry xmlns="http://www.w3.org/2005/Atom"
        xmlns:sword="http://purl.org/net/sword/">
 
-  <title><?php echo render_title($informationObject, false) ?></title>
+  <title><?php echo strip_tags(render_title($informationObject)) ?></title>
 
   <?php
     // For unknown reasons the type of the createdAt property is not always a DateTime but a string

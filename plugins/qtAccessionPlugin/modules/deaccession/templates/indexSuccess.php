@@ -26,7 +26,7 @@
 <div class="field">
   <h3>Accession record</h3>
   <div class="value">
-    <?php echo link_to($resource->accession->__toString(), array($resource->accession, 'module' => 'accession')) ?>
+    <?php echo link_to(render_title($resource->accession), array($resource->accession, 'module' => 'accession')) ?>
   </div>
 </div>
 

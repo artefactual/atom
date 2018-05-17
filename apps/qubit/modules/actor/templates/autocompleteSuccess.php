@@ -25,7 +25,7 @@
           <td>
             <?php echo link_to(render_title($item), array($item, 'module' => 'actor')) ?>
           </td><td>
-            <?php echo $item->entityType ?>
+            <?php echo render_value_inline($item->entityType) ?>
           </td>
         </tr>
       <?php endforeach; ?>

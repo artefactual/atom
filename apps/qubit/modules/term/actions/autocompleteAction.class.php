@@ -57,7 +57,14 @@ class TermAutocompleteAction extends sfAction
       // Narrow results by query
       if (isset($request->query))
       {
-        $criteria->add(QubitTermI18n::NAME, "$request->query%", Criteria::LIKE);
+        if (sfConfig::get('app_markdown_enabled', true))
+        {
+          $criteria->add(QubitTermI18n::NAME, "%$request->query%", Criteria::LIKE);
+        }
+        else
+        {
+          $criteria->add(QubitTermI18n::NAME, "$request->query%", Criteria::LIKE);
+        }
       }
 
       // Sort by name

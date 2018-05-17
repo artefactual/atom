@@ -13,14 +13,6 @@
 
 <?php slot('content') ?>
 
-
-  <?php if ($sf_user->hasFlash('error')): ?>
-    <div class="messages error">
-      <h3><?php echo __('Error encountered') ?></h3>
-      <div><?php echo $sf_user->getFlash('error', ESC_RAW) ?></div>
-    </div>
-  <?php endif; ?>
-
   <?php if (isset($resource)): ?>
     <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'object', 'action' => 'importSelect')), array('enctype' => 'multipart/form-data')) ?>
   <?php else: ?>

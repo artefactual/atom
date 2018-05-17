@@ -222,6 +222,22 @@ all:
             type: stop
             stopwords: _turkish_
 
+
+        char_filter:
+
+          # This char_filter is added to all analyzers when the index
+          # is created in arElasticSearchPlugin initialize when the
+          # app_markdown_enabled setting is set to true. Ideally, the
+          # Markdown tags should be removed with several regex like
+          # in this example: https://github.com/stiang/remove-markdown.
+          # But processing all those regex could run very slowly, so
+          # we're replacing the following punctuation chars by spaces:
+          #     *_#![]()->`+\~:|^=
+          strip_md:
+            type: pattern_replace
+            pattern: '[\*_#!\[\]\(\)\->`\+\\~:\|\^=]'
+            replacement: ' '
+
       # Disable dynamic creation of mappings for unmapped types
       mapper:
         dynamic: false

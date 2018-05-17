@@ -8,7 +8,7 @@
 
 <?php slot('title') ?>
 
-  <h1><?php echo $resource->title ?></h1>
+  <h1><?php echo render_title($resource) ?></h1>
 
 <?php end_slot() ?>
 
@@ -33,7 +33,7 @@
         <?php endif; ?>
 
         <?php echo $form->file->label(__('%1% file', array('%1%' => strtoupper($format))))->renderRow() ?>
-        
+
       </fieldset>
 
     </div>

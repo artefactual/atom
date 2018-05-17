@@ -17,16 +17,18 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class RepositoryContextMenuComponent extends sfComponent
-{
-  public function execute($request)
-  {
-    if (!isset($request->getAttribute('sf_route')->resource))
-    {
-      return sfView::NONE;
-    }
-
-    $this->resource = $request->getAttribute('sf_route')->resource;
-    $this->class = get_class($this->resource);
-  }
-}
+ class QubitWebResponse extends sfWebResponse
+ {
+   /**
+    * Sets title for the current web response.
+    *
+    * @param string  $title   Title name
+    * @param bool    $escape  true, for escaping the title
+    */
+   public function setTitle($title, $escape = true)
+   {
+     // Remove Markdown from title
+     $title = QubitMarkdown::getInstance()->strip($title);
+     $this->addMeta('title', $title, true, $escape);
+   }
+ }

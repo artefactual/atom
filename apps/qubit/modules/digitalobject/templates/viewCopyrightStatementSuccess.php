@@ -8,7 +8,7 @@
     </div>
   <?php endif; ?>
 
-  <h1><?php echo render_title($resource->getTitle(array('cultureFallback' => true))) ?></h1>
+  <h1><?php echo render_title($resource) ?></h1>
 
 <?php end_slot() ?>
 

@@ -28,6 +28,8 @@ class DefaultFullTreeViewAction extends sfAction
 {
   public function execute($request)
   {
+    ProjectConfiguration::getActive()->loadHelpers('Qubit');
+
     // Get show identifier setting to prepare the reference code if necessary
     $this->showIdentifier = sfConfig::get('app_treeview_show_identifier', 'no');
 
@@ -39,7 +41,15 @@ class DefaultFullTreeViewAction extends sfAction
   {
     $i18n = sfContext::getInstance()->i18n;
     $culture = $this->getUser()->getCulture();
-    $untitled = $i18n->__('Untitled');
+
+    if (sfConfig::get('app_markdown_enabled', true))
+    {
+      $untitled = '_'.$i18n->__('Untitled').'_';
+    }
+    else
+    {
+      $untitled = '<em>'.$i18n->__('Untitled').'</em>';
+    }
 
     // Remove drafts for unauthenticated users
     $draftsSql = !$this->getUser()->user ? 'AND status.status_id <> ' . QubitTerm::PUBLICATION_STATUS_DRAFT_ID : '' ;
@@ -66,7 +76,7 @@ class DefaultFullTreeViewAction extends sfAction
       io.source_culture,
       io.identifier,
       current_i18n.title AS current_title,
-      IFNULL(source_i18n.title, '<i>$untitled</i>') as text,
+      IFNULL(source_i18n.title, '$untitled') as text,
       io.parent_id AS parent,
       slug.slug,
       IFNULL(lod.name, '') AS lod,
@@ -101,16 +111,18 @@ class DefaultFullTreeViewAction extends sfAction
 
     foreach ($results as $result)
     {
+      $result['text'] = render_value_inline($result['text']);
+
       // Overwrite source culture title if the current culture title is populated
       if ($this->getUser()->getCulture() != $result['source_culture'] && !empty($result['current_title']))
       {
-        $result['text'] = $result['current_title'];
+        $result['text'] = render_value_inline($result['current_title']);
       }
 
       // Add identifier based on setting
       if ($this->showIdentifier === 'identifier' && !empty($result['identifier']))
       {
-        $result['text'] = "{$result['identifier']} - {$result['text']}";
+        $result['text'] = render_value_inline($result['identifier']).' - '.render_value_inline($result['text']);
       }
 
       // Add reference code based on setting
@@ -120,7 +132,7 @@ class DefaultFullTreeViewAction extends sfAction
         {
           // If this is a top-level node, the passed reference will be "true" so
           // replace it with the description identifier
-          $result['referenceCode'] = $result['identifier'];
+          $result['referenceCode'] = render_value_inline($result['identifier']);
         }
         else
         {
@@ -133,7 +145,7 @@ class DefaultFullTreeViewAction extends sfAction
           // Append result identifier, if it exists, to the reference passed to the function
           if (!empty($result['identifier']))
           {
-            $result['referenceCode'] = $result['referenceCode'] . sfConfig::get('app_separator_character', '-') . $result['identifier'];
+            $result['referenceCode'] = $result['referenceCode'] . sfConfig::get('app_separator_character', '-') . render_value_inline($result['identifier']);
           }
         }
 
@@ -144,7 +156,8 @@ class DefaultFullTreeViewAction extends sfAction
       // Add level of description based on setting
       if (sfConfig::get('app_treeview_show_level_of_description', 'yes') === 'yes' && strlen($result['lod']) > 0)
       {
-        $result['text'] = "[{$result['lod']}] {$result['text']}";
+        $lod = render_value_inline($result['lod']);
+        $result['text'] = "[{$lod}] {$result['text']}";
       }
 
       // Add dates based on setting
@@ -181,7 +194,7 @@ class DefaultFullTreeViewAction extends sfAction
             continue;
           }
 
-          $date = Qubit::renderDateStartEnd($event['display_date'], $event['start_date'], $event['end_date']);
+          $date = render_value_inline(Qubit::renderDateStartEnd($event['display_date'], $event['start_date'], $event['end_date']));
           $result['text'] = "{$result['text']}, {$date}";
 
           break;
@@ -190,7 +203,8 @@ class DefaultFullTreeViewAction extends sfAction
 
       if ($result['status_id'] == QubitTerm::PUBLICATION_STATUS_DRAFT_ID)
       {
-        $result['text'] = "({$result['status']}) {$result['text']}";
+        $status = render_value_inline($result['status']);
+        $result['text'] = "({$status}) {$result['text']}";
       }
 
       // Some special flags on our current selected item
@@ -207,7 +221,7 @@ class DefaultFullTreeViewAction extends sfAction
       }
 
       // Add node link attributes
-      $result['a_attr']['title'] = $result['text'];
+      $result['a_attr']['title'] = strip_tags($result['text']);
       $result['a_attr']['href'] = $this->generateUrl('slug', array('slug' => $result['slug']));
 
       // Set children to true for lazy loading or, if we are loading

@@ -33,7 +33,7 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
 
     // Set title header
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('Qubit'));
-    $title = render_title($this->resource, false);
+    $title = strip_markdown($this->resource);
     $this->response->setTitle("$title - Inventory list - {$this->response->getTitle()}");
 
     $limit = sfConfig::get('app_hits_per_page');

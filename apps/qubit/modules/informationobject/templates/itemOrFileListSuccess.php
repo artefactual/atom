@@ -58,12 +58,12 @@
                 <?php endif; ?>
               </td>
             <?php endif; ?>
-            <td><?php echo $item['referenceCode'] ?></td>
-            <td><?php echo $item['title'] ?></td>
-            <td><?php echo $item['dates'] ?></td>
+            <td><?php echo render_value_inline($item['referenceCode']) ?></td>
+            <td><?php echo render_value_inline($item['title']) ?></td>
+            <td><?php echo render_value_inline($item['dates']) ?></td>
             <td><?php echo isset($item['accessConditions']) ? $item['accessConditions'] : $this->i18n->__('None') ?></td>
             <?php if (0 == sfConfig::get('app_generate_reports_as_pub_user', 1)): ?>
-              <td><?php echo $item['locations'] ?></td>
+              <td><?php echo render_value_inline($item['locations']) ?></td>
             <?php endif; ?>
           </tr>
         <?php endforeach; ?>

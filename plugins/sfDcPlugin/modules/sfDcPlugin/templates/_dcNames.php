@@ -27,7 +27,7 @@
               </div>
             </td><td>
               <div class="animateNicely">
-                <?php echo $item->getType(array('cultureFallback' => true)) ?>
+                <?php echo render_value_inline($item->type) ?>
               </div>
             </td>
           </tr>

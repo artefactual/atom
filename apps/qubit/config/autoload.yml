@@ -16,3 +16,6 @@ autoload:
   EasyRdf:
     path: %SF_ROOT_DIR%/vendor/easyrdf/EasyRdf
     recursive: on
+
+  ParseDown:
+    path: %SF_ROOT_DIR%/vendor/parsedown

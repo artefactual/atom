@@ -123,41 +123,62 @@ function render_show_repository($label, $resource)
   }
 }
 
-function render_title($value, $html = true)
+function render_title($value)
 {
-  // TODO Workaround for PHP bug, http://bugs.php.net/bug.php?id=47522
-  // Also, method_exists is very slow if a string is passed (class lookup), use is_object
-  if (is_object($value) && method_exists($value, '__toString'))
-  {
-    $value = $value->__toString();
-  }
+  $value = render_value_inline($value);
 
   if (0 < strlen($value))
   {
-    return (string) $value;
+    return $value;
   }
 
-  return ($html ? '<em>' : '').sfContext::getInstance()->i18n->__('Untitled').($html ? '</em>' : '');
+  return '<em>'.sfContext::getInstance()->i18n->__('Untitled').'</em>';
 }
 
 function render_value($value)
 {
-  $value = qubit_auto_link_text($value);
+  // Parse using Parsedown's text method in safe mode
+  $value = QubitMarkdown::getInstance()->parse($value);
 
-  // Simple lists
-  $value = preg_replace('/(?:^\*.*\r?\n)*(?:^\*.*)/m', "<ul>\n$0\n</ul>", $value);
-  $value = preg_replace('/(?:^-.*\r?\n)*(?:^-.*)/m', "<ul>\n$0\n</ul>", $value);
-  $value = preg_replace('/^(?:\*|-)\s*(.*)(?:\r?\n)?/m', '<li>$1</li>', $value);
+  return add_paragraphs_and_linebreaks($value);
+}
 
+function render_value_inline($value)
+{
+  // Parse using Parsedown's inline method in safe mode
+  $options = array('inline' => true);
+  $value = QubitMarkdown::getInstance()->parse($value, $options);
+
+  return $value;
+}
+
+function render_value_html($value)
+{
+  // Parse using Parsedown's text method in unsafe mode
+  $options = array('safeMode' => false);
+  $value = QubitMarkdown::getInstance()->parse($value, $options);
+
+  return add_paragraphs_and_linebreaks($value);
+}
+
+function add_paragraphs_and_linebreaks($value)
+{
+  // Add paragraphs
   $value = preg_replace('/(?:\r?\n){2,}/', "</p><p>", $value, -1, $count);
   if (0 < $count)
   {
     $value = "<p>$value</p>";
   }
 
-  $value = preg_replace('/\r?\n/', '<br/>', $value);
+  // Maintain linebreaks not surrounded by tags
+  $value = preg_replace('/(?!>)\r?\n(?!<)/', '<br/>', $value);
 
   return $value;
+}
+
+function strip_markdown($value)
+{
+  return QubitMarkdown::getInstance()->strip($value);
 }
 
 /**
@@ -213,17 +234,17 @@ function render_treeview_node($item, array $classes = array(), array $options = 
 
     if (isset($item->levelOfDescription))
     {
-      $dataTitle[] = esc_entities($item->levelOfDescription->__toString());
+      $dataTitle[] = render_title($item->levelOfDescription);
     }
 
     if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId)
     {
-      $dataTitle[] = esc_entities($item->getPublicationStatus()->__toString());
+      $dataTitle[] = render_title($item->getPublicationStatus());
     }
 
     if (0 < count($dataTitle))
     {
-      $node .= ' data-title="'.esc_entities(implode(' - ', $dataTitle)).'"';
+      $node .= ' data-title="'.strip_tags((implode(' - ', $dataTitle))).'"';
     }
   }
   else if ($item instanceof QubitTerm)
@@ -231,7 +252,7 @@ function render_treeview_node($item, array $classes = array(), array $options = 
     $node .= ' data-title="'.esc_entities(sfConfig::get('app_ui_label_term')).'"';
   }
 
-  $node .= ' data-content="'.esc_entities(render_title($item)).'"';
+  $node .= ' data-content="'.strip_markdown($item).'"';
 
   // Close tag
   $node .= '>';
@@ -261,14 +282,14 @@ function render_treeview_node($item, array $classes = array(), array $options = 
       // Level of description
       if (null !== $levelOfDescription = QubitTerm::getById($item->levelOfDescriptionId))
       {
-        $node .= '<span class="levelOfDescription">'.esc_specialchars($levelOfDescription->getName()).'</span>';
+        $node .= '<span class="levelOfDescription">'.render_value_inline($levelOfDescription->getName()).'</span>';
       }
 
       // Title
       $title = '';
       if ($item->identifier)
       {
-        $title = $item->identifier . "&nbsp;-&nbsp;";
+        $title = render_value_inline($item->identifier) . "&nbsp;-&nbsp;";
       }
       $title .= render_title($item);
 
@@ -278,7 +299,7 @@ function render_treeview_node($item, array $classes = array(), array $options = 
       // Publication status
       if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId)
       {
-        $node .= '<span class="pubStatus">('.$status->__toString().')</span>';
+        $node .= '<span class="pubStatus">('.render_value_inline($status->__toString()).')</span>';
       }
     }
     else if ($rawItem instanceof QubitTerm)
@@ -314,7 +335,7 @@ function check_field_visibility($fieldName, $options = array())
 
 function get_search_i18n($hit, $fieldName, $options = array())
 {
-  // The default is to return "Untitled" unless allowEmpty is true
+  // Return empty string by default or "Untitled" if allowEmpty is false
   $allowEmpty = true;
   if (isset($options['allowEmpty']))
   {
@@ -333,7 +354,7 @@ function get_search_i18n($hit, $fieldName, $options = array())
   {
     if (null !== $value || 0 < count($value))
     {
-      return $value->get(0);
+      return $value[0];
     }
 
     if ($allowEmpty)
@@ -356,25 +377,12 @@ function get_search_i18n($hit, $fieldName, $options = array())
 
   $accessField = function($culture) use ($hit, $fieldName)
   {
-    if (is_object($hit) && 'sfOutputEscaperArrayDecorator' === get_class($hit))
+    if (empty($hit['i18n'][$culture][$fieldName]))
     {
-      $i18nRaw = $hit->getRaw('i18n');
-      if (empty($i18nRaw[$culture][$fieldName]))
-      {
-        return false;
-      }
-
-      return $hit->get('i18n')->get($culture)->get($fieldName);
+      return false;
     }
-    else
-    {
-      if (empty($hit['i18n'][$culture][$fieldName]))
-      {
-        return false;
-      }
 
-      return $hit['i18n'][$culture][$fieldName];
-    }
+    return $hit['i18n'][$culture][$fieldName];
   };
 
   if (isset($options['culture']))
@@ -425,10 +433,10 @@ function get_search_creation_details($hit, $culture = null)
   $details = array();
 
   // Get creators
-  $creators = $hit->get('creators');
+  $creators = $hit['creators'];
   if (null !== $creators && 0 < count($creators))
   {
-    $details[] = get_search_i18n($creators->get(0), 'authorizedFormOfName', array('allowEmpty' => false, 'cultureFallback' => true));
+    $details[] = get_search_i18n($creators[0], 'authorizedFormOfName', array('allowEmpty' => false, 'cultureFallback' => true));
   }
 
   // WIP, we are not showing labels for now. See #5202.

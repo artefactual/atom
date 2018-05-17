@@ -20,7 +20,7 @@
     var url  = '/informationobject/fullWidthTreeView';
     var $fwTreeView = $('<div id="fullwidth-treeview"></div>');
     var $fwTreeViewRow = $('<div id="fullwidth-treeview-row"></div>');
-    var $mainHeader = $('#main-column h1');
+    var $mainHeader = $('#main-column h1').first();
 
     // Add tree-view divs after main header, animate and allow resize
     $mainHeader.after(
