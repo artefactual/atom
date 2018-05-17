@@ -273,9 +273,6 @@ abstract class csvImportBaseTask extends arBaseTask
         $criteria->add(QubitEvent::TYPE_ID, $eventTypeId);
         $criteria->add(QubitEvent::OBJECT_ID, $import->object->id);
         $criteria->add(QubitEvent::ACTOR_ID, null, Criteria::ISNULL);
-        $criteria->addJoin(QubitEvent::ID, QubitEventI18n::ID);
-        $criteria->add(QubitEventI18n::DATE, $eventData['date']);
-        $criteria->add(QubitEventI18n::CULTURE, $eventData['culture']);
 
         if ((null !== $event = QubitEvent::getOne($criteria))
            && ($event->startDate != $eventData['startDate'] || $event->endDate != $eventData['endDate']))
