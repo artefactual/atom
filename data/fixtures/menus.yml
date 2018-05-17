@@ -1447,6 +1447,13 @@ QubitMenu:
       vi: Về
       zh: 关于
     path: 'staticpage/index?slug=about'
+  QubitMenu_quicklinks_privacy:
+    parent_id: QubitMenu_quicklinks
+    source_culture: en
+    name: privacy
+    label:
+      en: Privacy Policy
+    path: 'staticpage/index?slug=privacy'
   QubitMenu_quicklinks_help:
     parent_id: QubitMenu_quicklinks
     source_culture: en
