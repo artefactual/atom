@@ -1143,6 +1143,7 @@ EOF;
 
     // Allow search indexing to be enabled via a CLI option
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
+    $import->disableNestedSetUpdating = ($options['skip-nested-set-build']) ? true : false;
 
     // Set update, limit and skip options
     $import->setUpdateOptions($options);
@@ -1188,15 +1189,6 @@ EOF;
     });
 
     $import->csv($fh, $skipRows);
-
-    // Build nested set if desired
-    if (!$options['skip-nested-set-build'])
-    {
-      $buildNestedSet = new propelBuildNestedSetTask($this->dispatcher, $this->formatter);
-      $buildNestedSet->setCommandApplication($this->commandApplication);
-      $buildNestedSet->setConfiguration($this->configuration);
-      $ret = $buildNestedSet->run();
-    }
   }
 }
 
