@@ -999,8 +999,9 @@ EOF;
       }
     ));
 
-
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
+    $import->disableNestedSetUpdating = ($options['skip-nested-set-build']) ? true : false;
+
     $import->setUpdateOptions($options);
 
     // Convert content with | characters to a bulleted list
@@ -1044,15 +1045,6 @@ EOF;
     });
 
     $import->csv($fh, $skipRows);
-
-    // Build nested set if desired
-    if (!$options['skip-nested-set-build'])
-    {
-      $buildNestedSet = new propelBuildNestedSetTask($this->dispatcher, $this->formatter);
-      $buildNestedSet->setCommandApplication($this->commandApplication);
-      $buildNestedSet->setConfiguration($this->configuration);
-      $ret = $buildNestedSet->run();
-    }
   }
 
   /**

@@ -32,13 +32,14 @@ class QubitFlatfileImport
   public $displayProgress = true;    // display progress by default
   public $rowsUntilProgressDisplay;  // optional display progress every n rows
 
-  public $searchIndexingDisabled = true;  // disable per-object search indexing by default
-  public $matchAndUpdate         = false; // Match existing records & update them
-  public $deleteAndReplace       = false; // Delete matching records & replace them
-  public $skipMatched            = false; // Skip creating new record if matching one is found
-  public $skipUnmatched          = false; // Skip creating new record if matching one is not found
-  public $keepDigitalObjects     = false; // Skip deletion of DOs when set. Works when --update set.
-  public $limitToId              = 0;     // Id of repository or TLD to limit our update matching under
+  public $searchIndexingDisabled   = true;  // disable per-object search indexing by default
+  public $disableNestedSetUpdating = false; // update nested set on object creation
+  public $matchAndUpdate           = false; // match existing records & update them
+  public $deleteAndReplace         = false; // delete matching records & replace them
+  public $skipMatched              = false; // skip creating new record if matching one is found
+  public $skipUnmatched            = false; // skip creating new record if matching one is not found
+  public $keepDigitalObjects       = false; // skip deletion of DOs when set. Works when --update set.
+  public $limitToId                = 0;     // id of repository or TLD to limit our update matching under
   public $status          = array(); // place to store data related to overall import
   public $rowStatusVars   = array(); // place to store data related to current row
 
@@ -774,7 +775,7 @@ class QubitFlatfileImport
 
       if (property_exists(get_class($this->object), 'disableNestedSetUpdating'))
       {
-        $this->object->disableNestedSetUpdating = $this->searchIndexingDisabled;
+        $this->object->disableNestedSetUpdating = $this->disableNestedSetUpdating;
       }
     }
     else
