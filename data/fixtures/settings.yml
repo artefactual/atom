@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 164
+    value: 165
   milestone:
     name: milestone
     editable: 0
@@ -887,7 +887,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      en: 'PRIVACY STATEMENT: This site uses cookies.'
+      en: 'This website uses cookies to enhance your ability to browse and load content. [More Info.](/privacy)'
   Qubit_Settings_visibleElements_IsadImmediateSource:
     name: isad_immediate_source
     scope: element_visibility
