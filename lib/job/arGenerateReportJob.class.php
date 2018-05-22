@@ -377,7 +377,7 @@ class arGenerateReportJob extends arBaseJob
       return;
     }
 
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'Tag', 'Url'));
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Asset', 'Tag', 'Url', 'Qubit'));
 
     if (null === $fh = fopen($this->filename, 'w'))
     {
