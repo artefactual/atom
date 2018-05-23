@@ -18,97 +18,21 @@
  */
 
 /**
- * Remove HTML tags from various i18n information object fields.
+ * Remove HTML tags from various i18n table fields.
  *
  * @package    symfony
  * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  * @author     Mike Gale <mikeg@artefactual.com>
  */
-class i18nRemoveHtmlTagsTask extends sfBaseTask
+class i18nRemoveHtmlTagsTask extends i18nTransformBaseTask
 {
-  public static $tables = array(
-    'information_object_i18n' => array(
-      'title',
-      'alternate_title',
-      'edition',
-      'extent_and_medium',
-      'archival_history',
-      'acquisition',
-      'scope_and_content',
-      'appraisal',
-      'accruals',
-      'arrangement',
-      'access_conditions',
-      'reproduction_conditions',
-      'physical_characteristics',
-      'finding_aids',
-      'location_of_originals',
-      'location_of_copies',
-      'related_units_of_description',
-      'institution_responsible_identifier',
-      'rules',
-      'sources',
-      'revision_history',
-    ),
-    'actor_i18n' => array(
-      'authorized_form_of_name',
-      'dates_of_existence',
-      'history',
-      'places',
-      'legal_status',
-      'functions',
-      'mandates',
-      'internal_structures',
-      'general_context',
-      'institution_responsible_identifier',
-      'rules',
-      'sources',
-      'revision_history',
-    ),
-    'note_i18n' => array(
-      'note_i18n',
-    ),
-    'repository_i18n' => array(
-      'geocultural_context',
-      'collecting_policies',
-      'buildings',
-      'holdings',
-      'finding_aids',
-      'opening_times',
-      'access_conditions',
-      'disabled_access',
-      'research_services',
-      'reproduction_services',
-      'public_facilities',
-      'desc_institution_identifier',
-      'desc_rules',
-      'desc_sources',
-      'desc_revision_history',
-    ),
-    'rights_i18n' => array(
-      'rights_note',
-      'copyright_note',
-      'identifier_value',
-      'identifier_type',
-      'identifier_role',
-      'license_terms',
-      'license_note',
-      'statute_jurisdiction',
-      'statute_note',
-    ),
-  );
-
   /**
    * @see sfTask
    */
   protected function configure()
   {
-    $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-    ));
+    parent::configure();
 
     $this->namespace = 'i18n';
     $this->name = 'remove-html-tags';
@@ -121,68 +45,9 @@ EOF;
   }
 
   /**
-   * @see sfTask
+   * @see i18nProcessColumnsBaseTask
    */
-  public function execute($arguments = array(), $options = array())
-  {
-    $rowCount           = 0;
-    $changedCount       = 0;
-    $columnsChangedCount = 0;
-
-    $rootIds = implode(', ', array(QubitInformationObject::ROOT_ID, QubitActor::ROOT_ID,
-                       QubitRepository::ROOT_ID));
-
-    foreach (i18nRemoveHtmlTagsTask::$tables as $tableName => $columns)
-    {
-      // Fetch all information object i18n rows
-      $query = 'SELECT * FROM '.$tableName.' WHERE id NOT IN ('.$rootIds.')';
-      $statement = QubitPdo::prepareAndExecute($query);
-
-      while ($io = $statement->fetch(PDO::FETCH_OBJ))
-      {
-        // Process HTML in row's columns
-        $columnsChanged = $this->processI18nHtml($io, $tableName, $columns);
-
-        // Update total column values changed
-        if ($columnsChanged)
-        {
-          $changedCount++;
-          $columnsChangedCount += $columnsChanged;
-        }
-
-        // Report progress
-        $message = 'Processed object '.$io->id;
-
-        if ($columnsChanged)
-        {
-          $message .= ' ('. $columnsChanged . ' changes)';
-        }
-
-        $this->logSection('i18n', $message);
-        $rowCount++;
-      }
-    }
-
-    // Report summary of processing
-    $message = 'Processed '. $rowCount .' objects.';
-
-    if ($changedCount)
-    {
-      $message .= ' Changed '. $changedCount .' objects';
-      $message .= ' ('. $columnsChangedCount .' field values changed).';
-    }
-
-    $this->logSection('i18n', $message);
-  }
-
-  /**
-   * Determine which i18n columns are populated and update them.
-   *
-   * @param stdClass $io  row of information object i18n data
-   *
-   * @return integer  number of columns changed
-   */
-  private function processI18nHtml(&$io, $tableName, $columns)
+  protected function processRow($row, $tableName, $columns)
   {
     // Determine what column values contain HTML
     $columnValues = array();
@@ -190,56 +55,16 @@ EOF;
     foreach ($columns as $column)
     {
       // Store column name/value for processing if it contains tags
-      if ($io->{$column} && (($io->{$column} != strip_tags($io->{$column})) || ($io->{$column} != html_entity_decode($io->{$column}))))
+      if ($row->$column && (($row->$column != strip_tags($row->$column)) || ($row->$column != html_entity_decode($row->$column))))
       {
-        $columnValues[$column] = $io->{$column};
+        $columnValues[$column] = $this->transformHtmlToText($row->$column);
       }
     }
 
     // Update database with transformed column values
-    $this->transformHtmlInI18nTableColumns($tableName, $io->id, $io->culture, $columnValues);
+    $this->updateRow($tableName, $row->id, $row->culture, $columnValues);
 
     return count($columnValues);
-  }
-
-  /**
-   * Transform HTML column values into text and update specified i18n table row
-   *
-   * @param string  i18n table name
-   * @param integer $id  ID of row in an i18n table
-   * @param string $culture  culture code of a row in an i18n table
-   * @param array $columnValues  key/value array of column/value data to process
-   *
-   * @return void
-   */
-  private function transformHtmlInI18nTableColumns($table, $id, $culture, $columnValues)
-  {
-    // Assemble query and note parsed column values
-    $values = array();
-
-    $query = 'UPDATE '. $table .' SET ';
-
-    foreach ($columnValues as $column => $value)
-    {
-      // Only update if tags or HTML entities are found
-      if ($value != strip_tags($value) || $value != html_entity_decode($value))
-      {
-        $transformedValue = $this->transformHtmlToText($value);
-
-        $query .= (count($values)) ? ', ' : '';
-
-        $query .= $column ."=?";
-
-        $values[] = $transformedValue;
-      }
-    }
-
-    $query .= " WHERE id='". $id ."' AND culture='". $culture ."'";
-
-    if (count($values))
-    {
-      QubitPdo::prepareAndExecute($query, $values);
-    }
   }
 
   /**
@@ -302,8 +127,8 @@ EOF;
 
       if ($linkHref)
       {
-        // Convert <a href="url">label</a> link to Redmine style "label":url link.
-        $linkText = sprintf('"%s":%s', $linkText, $linkHref);
+        // Convert <a href="url">label</a> link to Markdown style [label](url) link.
+        $linkText = sprintf('[%s](%s)', $linkText, $linkHref);
       }
 
       $newTextNode = $doc->createTextNode($linkText);
@@ -347,8 +172,7 @@ EOF;
   }
 
   /**
-   * Transform description list-related tags, removing description
-   * terms and enclosing the description text in <p> tags
+   * Transform description list-related tags
    *
    * @param DOMDocument  $doc  DOM document
    *
@@ -356,28 +180,35 @@ EOF;
    */
   private function transformDocumentDescriptionLists(&$doc)
   {
+    // Remove <dl> tags and whitespaces between their children
+    foreach ($doc->getElementsByTagName('dl') as $definitionList)
+    {
+      $content = preg_replace('/>[\s\t\r\n]*</', '><', $doc->saveXML($definitionList));
+      $fragment = $doc->createDocumentFragment();
+      $fragment->appendXML($content);
+      $definitionList->parentNode->replaceChild($fragment, $definitionList);
+    }
+
     $termList = $doc->getElementsByTagName('dt');
 
-    // Loop through each <dt> tag and remove it
+    // Loop through each <dt> and replace by text node
     while ($termList->length > 0)
     {
       $termNode = $termList->item(0);
-      $termNode->parentNode->removeChild($termNode);
+
+      $newTextNode = $doc->createTextNode(trim($termNode->textContent)."\n");
+      $termNode->parentNode->replaceChild($newTextNode, $termNode);
     }
 
     $descriptionList = $doc->getElementsByTagName('dd');
 
-    // Look through each <dd> element and change to a <p> element
+    // Look through each <dd> element and replace by text node
     while ($descriptionList->length > 0)
     {
       $descriptionNode = $descriptionList->item(0);
 
-      // Create <p> node with description's text
-      $newParaNode = $doc->createElement('p');
-      $newTextNode = $doc->createTextNode($descriptionNode->textContent);
-      $newParaNode->appendChild($newTextNode);
-
-      $descriptionNode->parentNode->replaceChild($newParaNode, $descriptionNode);
+      $newTextNode = $doc->createTextNode(': '.trim($descriptionNode->textContent)."\n\n");
+      $descriptionNode->parentNode->replaceChild($newTextNode, $descriptionNode);
     }
   }
 
