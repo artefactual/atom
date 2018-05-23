@@ -336,6 +336,19 @@ class arElasticSearchPluginQuery
 
         break;
 
+      case 'creator':
+        $queryField = new \Elastica\Query\BoolQuery;
+
+        $queryCreatorTerm = new \Elastica\Query\QueryString($query);
+        $queryCreatorTerm->setFields(arElasticSearchPluginUtil::getI18nFieldNames('creators.i18n.%s.authorizedFormOfName'));
+        $queryField->addShould($queryCreatorTerm);
+
+        $queryInheritedCreatorTerm = new \Elastica\Query\QueryString($query);
+        $queryInheritedCreatorTerm->setFields(arElasticSearchPluginUtil::getI18nFieldNames('inheritedCreators.i18n.%s.authorizedFormOfName'));
+        $queryField->addShould($queryInheritedCreatorTerm);
+
+        break;
+
       case 'place':
         $queryField = new \Elastica\Query\BoolQuery;
 

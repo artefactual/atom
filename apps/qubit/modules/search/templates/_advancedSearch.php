@@ -50,6 +50,7 @@
                 <option value="referenceCode"<?php echo $item['field'] == 'referenceCode' ? ' selected="selected"' : '' ?>><?php echo __('Reference code') ?></option>
                 <option value="digitalObjectTranscript"<?php echo $item['field'] == 'digitalObjectTranscript' ? ' selected="selected"' : '' ?>><?php echo __('Digital object text') ?></option>
                 <option value="findingAidTranscript"<?php echo $item['field'] == 'findingAidTranscript' ? ' selected="selected"' : '' ?>><?php echo __('Finding aid text') ?></option>
+                <option value="creator"<?php echo $item['field'] == 'creator' ? ' selected="selected"' : '' ?>><?php echo __('Creator') ?></option>
                 <option value="allExceptFindingAidTranscript"<?php echo $item['field'] == 'allExceptFindingAidTranscript' ? ' selected="selected"' : '' ?>><?php echo __('Any field except finding aid text') ?></option>
               </select>
 
@@ -93,6 +94,7 @@
             <option value="referenceCode"><?php echo __('Reference code') ?></option>
             <option value="digitalObjectTranscript"><?php echo __('Digital object text') ?></option>
             <option value="findingAidTranscript"><?php echo __('Finding aid text') ?></option>
+            <option value="creator"><?php echo __('Creator') ?></option>
             <option value="allExceptFindingAidTranscript"><?php echo __('Any field except finding aid text') ?></option>
           </select>
 
