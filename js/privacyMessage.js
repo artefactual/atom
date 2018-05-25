@@ -21,7 +21,8 @@
 
     onPrivacyMessageButton: function ()
     {
-      this.$privacyMessageBlock.hide();
+      this.$privacyMessageBlock.slideUp(100);
+      $.get('/default/privacyMessageDismiss');
     }
   };
 
