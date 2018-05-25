@@ -15,6 +15,23 @@
     <div id="content">
 
       <fieldset class="collapsible collapsed">
+        <legend><?php echo __('Global') ?></legend>
+
+        <?php foreach (array(
+          'global_login_button' => __('Login button')) as $key => $value): ?>
+
+          <div class="form-item form-item-checkbox">
+            <?php echo $form[$key] ?>
+            <?php echo $form[$key]
+              ->label($value)
+              ->renderLabel() ?>
+          </div>
+
+        <?php endforeach; ?>
+
+      </fieldset>
+
+      <fieldset class="collapsible collapsed">
         <legend><?php echo __('ISAD template - area headings') ?></legend>
 
         <?php foreach (array(

@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 163
+    value: 164
   milestone:
     name: milestone
     editable: 0
@@ -1100,6 +1100,10 @@ QubitSetting:
     value: 1
   Qubit_Settings_visibleElements_isadDescriptionControlArea:
     name: isad_description_control_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_globalLoginButton:
+    name: global_login_button
     scope: element_visibility
     value: 1
   Qubit_Settings_findingAidFormat:

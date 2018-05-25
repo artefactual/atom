@@ -2,7 +2,9 @@
 
   <div id="user-menu">
 
+    <?php if ($sf_user->isAuthenticated() || check_field_visibility('app_element_visibility_global_login_button')): ?>
     <button class="top-item top-dropdown" data-toggle="dropdown" data-target="#" aria-expanded="false"><?php echo __('Log in') ?></button>
+    <?php endif; ?>
 
     <div class="top-dropdown-container">
 
