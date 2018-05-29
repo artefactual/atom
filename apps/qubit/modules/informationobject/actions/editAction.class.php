@@ -826,7 +826,8 @@ class InformationObjectEditAction extends DefaultEditAction
     }
 
     $counter = QubitInformationObject::getIdentifierCounter();
-    $counter->value++;
+    $counterValue = $counter->getValue(array('sourceCulture' => true));
+    $counter->setValue($counterValue + 1, array('sourceCulture' => true));
     $counter->save();
   }
 }

@@ -3327,6 +3327,7 @@ class QubitInformationObject extends BaseInformationObject
   public static function generateIdentiferFromMask()
   {
     $counter = self::getIdentifierCounter();
-    return Qubit::generateIdentifierFromCounterAndMask($counter->value, sfConfig::get('app_identifier_mask', ''));
+    $counterValue = $counter->getValue(array('sourceCulture' => true));
+    return Qubit::generateIdentifierFromCounterAndMask($counterValue, sfConfig::get('app_identifier_mask', ''));
   }
 }
