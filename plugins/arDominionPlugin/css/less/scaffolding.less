@@ -1552,6 +1552,37 @@ body.login #content {
   }
 }
 
+// GDPR Privacy Message banner
+@media (max-width: 767px) {
+  #privacy-message {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}
+
+#privacy-message > .alert {
+  margin-bottom: 0px;
+  margin-top: 0px;
+  text-align: center;
+  padding: 8px 35px 18px 14px !important;
+
+  #privacy-message-content {
+    margin-left: 45px;
+    margin-right: 65px;
+    color: @blueDark;
+    a:not(.btn) {
+      color: @gray;
+    }
+    a:hover {
+      color: darken(@linkColorHover, 10%);
+    }
+  }
+
+  #privacy-message > .alert > button {
+    position: relative;
+  }
+}
+
 // Plugin manager (sfPluginAdminPlugin/plugins)
 
 .plugin-name {
