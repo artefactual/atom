@@ -80,7 +80,7 @@ class InformationObjectReportsAction extends sfAction
           }
 
           $this->existingReports[] = array(
-            'path' => sfConfig::get('siteBaseUrl').'/'.$path,
+            'path' => sfConfig::get('app_siteBaseUrl').'/'.$path,
             'type' => $this->typeLabels[$type],
             'format' => strtoupper($format),
           );
