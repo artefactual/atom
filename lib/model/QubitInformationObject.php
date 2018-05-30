@@ -647,7 +647,7 @@ class QubitInformationObject extends BaseInformationObject
   {
     if ($this->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID && file_exists($this->pathToEadExport()))
     {
-      return sfConfig::get('siteBaseUrl') .'/'. $this->pathToEadExport();
+      return sfConfig::get('app_siteBaseUrl') .'/'. $this->pathToEadExport();
     }
     else
     {
@@ -676,7 +676,7 @@ class QubitInformationObject extends BaseInformationObject
   {
     if ($this->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID && file_exists($this->pathToDcExport()))
     {
-      return sfConfig::get('siteBaseUrl') .'/'. $this->pathToDcExport();
+      return sfConfig::get('app_siteBaseUrl') .'/'. $this->pathToDcExport();
     }
     else
     {
