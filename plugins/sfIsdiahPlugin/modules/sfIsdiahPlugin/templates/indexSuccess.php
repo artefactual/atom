@@ -93,7 +93,7 @@
     <div>
       <ul>
         <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID)) as $item): ?>
-          <li><?php echo render_value($item->__toString()) ?></li>
+          <li><?php echo render_value_inline($item->__toString()) ?></li>
         <?php endforeach; ?>
       </ul>
     </div>
@@ -104,7 +104,7 @@
     <div>
       <ul>
         <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::OTHER_FORM_OF_NAME_ID)) as $item): ?>
-          <li><?php echo render_value($item->__toString()) ?></li>
+          <li><?php echo render_value_inline($item->__toString()) ?></li>
         <?php endforeach; ?>
       </ul>
     </div>
@@ -115,7 +115,7 @@
     <div>
       <ul>
         <?php foreach ($resource->getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $item): ?>
-          <li><?php echo render_value($item->term->__toString()) ?></li>
+          <li><?php echo render_value_inline($item->term->__toString()) ?></li>
         <?php endforeach; ?>
       </ul>
     </div>

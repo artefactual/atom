@@ -71,7 +71,7 @@
     <div>
       <ul>
         <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID)) as $item): ?>
-          <li><?php echo render_value($item->__toString()) ?></li>
+          <li><?php echo render_value_inline($item->__toString()) ?></li>
         <?php endforeach; ?>
       </ul>
     </div>
@@ -82,7 +82,7 @@
     <div>
       <ul>
         <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::STANDARDIZED_FORM_OF_NAME_ID)) as $item): ?>
-          <li><?php echo render_value($item->__toString()) ?></li>
+          <li><?php echo render_value_inline($item->__toString()) ?></li>
         <?php endforeach; ?>
       </ul>
     </div>
@@ -93,7 +93,7 @@
     <div>
       <ul>
         <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::OTHER_FORM_OF_NAME_ID)) as $item): ?>
-          <li><?php echo render_value($item->__toString()) ?></li>
+          <li><?php echo render_value_inline($item->__toString()) ?></li>
         <?php endforeach; ?>
       </ul>
     </div>
@@ -135,14 +135,14 @@
       <h3><?php echo __('Related entity') ?></h3>
       <div>
 
-        <?php echo link_to(render_title($relatedEntity), array($relatedEntity, 'module' => ('QubitRepository' == $relatedEntity->className) ? 'repository' : 'actor')) ?><?php if (isset($relatedEntity->datesOfExistence)): ?> <span class="note2">(<?php echo render_value($relatedEntity->getDatesOfExistence(array('cultureFallback' => true))) ?>)</span><?php endif; ?>
+        <?php echo link_to(render_title($relatedEntity), array($relatedEntity, 'module' => ('QubitRepository' == $relatedEntity->className) ? 'repository' : 'actor')) ?><?php if (isset($relatedEntity->datesOfExistence)): ?> <span class="note2">(<?php echo render_value_inline($relatedEntity->getDatesOfExistence(array('cultureFallback' => true))) ?>)</span><?php endif; ?>
 
-        <?php echo render_show(__('Identifier of the related entity'), render_value($relatedEntity->descriptionIdentifier)) ?>
+        <?php echo render_show(__('Identifier of the related entity'), render_value_inline($relatedEntity->descriptionIdentifier)) ?>
 
         <?php if ($item->type->parentId == QubitTerm::ROOT_ID): ?>
-          <?php echo render_show(__('Category of the relationship'), render_value($item->type)) ?>
+          <?php echo render_show(__('Category of the relationship'), render_value_inline($item->type)) ?>
         <?php else: ?>
-          <?php echo render_show(__('Category of the relationship'), render_value($item->type->parent)) ?>
+          <?php echo render_show(__('Category of the relationship'), render_value_inline($item->type->parent)) ?>
 
           <?php if ($resource->id != $item->objectId): ?>
             <?php echo render_show(__('Type of relationship'), link_to(render_title($relatedEntity), array($relatedEntity, 'module' => ('QubitRepository' == $relatedEntity->className) ? 'repository' : 'actor')) .' '. render_value($item->type) .' '. render_value($resource->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?>
@@ -153,7 +153,7 @@
 
         <?php echo render_show(__('Dates of the relationship'), render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate))) ?>
 
-        <?php echo render_show(__('Description of relationship'), render_value($item->description)) ?>
+        <?php echo render_show(__('Description of relationship'), render_value_inline($item->description)) ?>
 
       </div>
     </div>

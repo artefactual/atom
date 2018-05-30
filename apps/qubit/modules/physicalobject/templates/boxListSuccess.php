@@ -48,7 +48,7 @@
           <?php endif; ?>
         </td><td>
         <?php if (null != ($accessConditions = $item->getAccessConditions(array('cultureFallback' => true)))): ?>
-          <?php echo render_value($accessConditions) ?>
+          <?php echo render_value_inline($accessConditions) ?>
         <?php else: ?>
           <?php echo __('None') ?>
         <?php endif; ?>

@@ -126,7 +126,7 @@
             <?php if ($item->sourceCulture != $sf_user->getCulture()): ?>
               <?php continue; ?>
             <?php endif; ?>
-            <li><?php echo render_value($item->getContent(array('cultureFallback' => true))) ?></li>
+            <li><?php echo render_value_inline($item->getContent(array('cultureFallback' => true))) ?></li>
           <?php endforeach; ?>
         </ul>
       </div>
@@ -137,7 +137,7 @@
       <div>
         <ul>
           <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::SOURCE_NOTE_ID)) as $item): ?>
-            <li><?php echo render_value($item->getContent(array('cultureFallback' => true))) ?></li>
+            <li><?php echo render_value_inline($item->getContent(array('cultureFallback' => true))) ?></li>
           <?php endforeach; ?>
         </ul>
       </div>
@@ -148,7 +148,7 @@
       <div>
         <ul>
           <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::DISPLAY_NOTE_ID)) as $item): ?>
-            <li><?php echo render_value($item->getContent(array('cultureFallback' => true))) ?></li>
+            <li><?php echo render_value_inline($item->getContent(array('cultureFallback' => true))) ?></li>
           <?php endforeach; ?>
         </ul>
       </div>
