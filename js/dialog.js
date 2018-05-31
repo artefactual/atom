@@ -289,6 +289,12 @@
 
             this.loadData(this.id, function ()
               {
+                // Optionally execute logic before opening dialog
+                if (thisDialog.options.beforeOpeningLogic != null)
+                {
+                  thisDialog.options.beforeOpeningLogic(thisDialog);
+                }
+
                 thisDialog.yuiDialog.show();
               });
           }

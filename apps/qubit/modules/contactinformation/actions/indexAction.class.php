@@ -108,6 +108,32 @@ class ContactInformationIndexAction extends sfAction
       $value['contactType'] = $this->resource->contactType;
     }
 
+    // Add source culture information if necessary
+    $culture = sfContext::getInstance()->user->getCulture();
+
+    if ($culture != $this->resource->sourceCulture)
+    {
+      $sourceCultureData = array('fields' => array());
+
+      // Add source culture text direction, if different from user's culture,
+      // so source culture value can be displayed appropriately (some languages
+      // display text from right to left: Arabic and Chinese for example)
+      $sourceCultureDirection = sfCultureInfo::getInstance($this->resource->sourceCulture)->direction;
+      if (sfCultureInfo::getInstance($culture)->direction != $sourceCultureDirection)
+      {
+        $sourceCultureData['direction'] = $sourceCultureDirection;
+      }
+
+      // Add source culture field values
+      foreach(array('contactType', 'city', 'region', 'note') as $propertyName)
+      {
+        $propertyGetMethod = 'get'. ucwords($propertyName);
+        $sourceCultureData['fields'][$propertyName] = $this->resource->$propertyGetMethod(array('sourceCulture' => true));
+      }
+
+      $value['_sourceCulture'] = $sourceCultureData;
+    }
+
     return $this->renderText(json_encode($value));
   }
 }
