@@ -65,12 +65,42 @@ Drupal.behaviors.contactInformation = {
   attach: function (context)
     {
       // Define dialog
+      var beforeOpeningLogic = function(thisDialog)
+        {
+          // Display source culture values, if provided
+          if ('editContactInformation[_sourceCulture]' in thisDialog.data[thisDialog.id])
+          { 
+            var sourceCultureData = thisDialog.data[thisDialog.id]['editContactInformation[_sourceCulture]'];
+
+            // Add source culture values, for each field, before corresponding form fields
+            for (var field in sourceCultureData['fields'])
+            { 
+              // Create DIV to display source culture value in
+              var defaultTranslationDivEl = jQuery('<div class="default-translation"></div>');
+
+              // Set source culture language direction, if specified
+              if ('direction' in sourceCultureData)
+              {
+                defaultTranslationDivEl.attr('dir', sourceCultureData['direction']);
+              }
+
+              // Set text of DIV to source culture value
+              defaultTranslationDivEl.text(sourceCultureData['fields'][field]);
+
+              // Remove existing source culture value DIV and add DIV using current data
+              jQuery(thisDialog.getField(field)).parent().find('.default-translation').remove();
+              jQuery(thisDialog.getField(field)).parent().find('label').append(defaultTranslationDivEl);
+            }
+          }
+        };
+
       var dialog = new QubitDialog('contactInformationRelation', {
         'displayTable': 'contactInformations',
         'newRowTemplate': $rowTemplate,
         'submitText': '$submitText',
         'cancelText': '$cancelText',
-        'addNewText': '$addNewText' });
+        'addNewText': '$addNewText',
+        'beforeOpeningLogic': beforeOpeningLogic });
 
       // Add edit button to rows
       jQuery('#contactInformations tr[id]', context)
