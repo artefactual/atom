@@ -1338,6 +1338,14 @@ class arElasticSearchInformationObjectPdo
       }
     }
 
+    if (null !== $termId = $this->getTermIdByNameAndTaxonomy("Archivist's note", QubitTaxonomy::NOTE_TYPE_ID))
+    {
+      foreach ($this->getNotesByType($termId) as $item)
+      {
+        $serialized['archivistsNotes'][] = arElasticSearchNote::serialize($item);
+      }
+    }
+
     if (false !== $item = $this->getProperty('titleStatementOfResponsibility'))
     {
       $serialized['titleStatementOfResponsibility'] = arElasticSearchProperty::serialize($item);
