@@ -18,7 +18,7 @@
  */
 
 /**
- * Check for updates component
+ * Display privacy message component
  *
  * @package AccesstoMemory
  * @subpackage default
@@ -28,14 +28,14 @@ class DefaultPrivacyMessageComponent extends sfComponent
 {
   public function execute($request)
   {
-    if ((null !== $this->privacyMessageDismissed = $this->context->user->getAttribute('privacy_message_dismissed')) ||
+    // Do not display the banner if it has previously been dismissed or is deactivated.
+    if ((null !== $this->context->user->getAttribute('privacy_message_dismissed')) ||
       !sfConfig::get('app_privacy_notification_enabled', true))
     {
       return sfView::NONE;
     }
-    else
-    {
-      $this->notificationMessage = sfConfig::get('app_privacy_notification');
-    }
+
+    // Set the notification message content for the privacy banner.
+    $this->notificationMessage = QubitSetting::getByName('privacy_notification');
   }
 }

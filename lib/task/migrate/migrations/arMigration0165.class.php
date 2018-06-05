@@ -18,7 +18,7 @@
  */
 
 /*
- * Add taxonomy and terms for user actions
+ * Add menu and settings for GDPR Privacy notification banner and static page.
  *
  * @package    AccesstoMemory
  * @subpackage migration
