@@ -23,7 +23,8 @@
 
           <h6>
             <?php echo __('Note: While the date range update is running, the selected description should not be edited.') ?>
-            <?php echo __('You can check the job page to determine the current status of the update job.') ?>
+            <?php echo __('You can check %1% page to determine the current status of the update job.',
+              array('%1%' => link_to(__('Manage jobs'), array('module' => 'jobs', 'action' => 'browse')))) ?>
           </h6>
 
         </div>
