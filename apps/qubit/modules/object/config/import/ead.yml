@@ -64,54 +64,98 @@ information_object:
     repository:
       XPath:   "(did/repository[not(*)] | did/repository/corpname | did/repository/name)[1]"
       Method:  setRepositoryByName
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     origination:
       XPath:  "(did/origination|origination)"
       Method:  importOriginationEadData
       Parameters: [$domNode2]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     alternate_title:
       XPath: "did/unittitle[@type='parallel']"
       Method:  setAlternateTitle
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     edition_statement:
       XPath: "did/unittitle[@type='editionStat']"
       Method:  setEdition
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     other_title:
       XPath: "did/unittitle[@type='otherInfo']"
       Method:  addProperty
       Parameters: ["otherTitleInformation", $nodeValue]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     publishers_series_title:
       XPath:   "did/unittitle/bibseries/title[not(@type)]"
       Method:  addProperty
       Parameters: ["titleProperOfPublishersSeries", $nodeValue]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     publishers_series_title_parallel:
       XPath:   "did/unittitle/bibseries/title[@type='parallel']"
       Method:  addProperty
       Parameters: ["parallelTitleOfPublishersSeries", $nodeValue]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     publishers_series_title_other_info:
       XPath:   "did/unittitle/bibseries/title[@type='otherInfo']"
       Method:  addProperty
       Parameters: ["otherTitleInformationOfPublishersSeries", $nodeValue]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     publishers_series_statement_of_responsibility:
       XPath:   "did/unittitle/bibseries/title[@type='statRep']"
       Method:  addProperty
       Parameters: ["statementOfResponsibilityRelatingToPublishersSeries", $nodeValue]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     publishers_series_numbering:
       XPath:   "did/unittitle/bibseries/num"
       Method:  addProperty
       Parameters: ["numberingWithinPublishersSeries", $nodeValue]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     statement_of_responsibility:
       XPath:   "did/unittitle[@type='statRep' and not(*)]"
       Method:  addProperty
       Parameters: ["titleStatementOfResponsibility", $nodeValue]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     edition:
       XPath:   "did/unittitle[not(@type)]/edition"
@@ -125,31 +169,55 @@ information_object:
       XPath:   "did/unittitle[@type='statRep']/edition"
       Method: addProperty
       Parameters: ["editionStatementOfResponsibility", $nodeValue]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     cartographic:
       XPath:   "did/materialspec[@type='cartographic']"
       Method:  addProperty
       Parameters: ["statementOfScaleCartographic", $nodeValue]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     projection:
       XPath:   "did/materialspec[@type='projection']"
       Method:  addProperty
       Parameters: ["statementOfProjection", $nodeValue]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     coordinates:
       XPath:   "did/materialspec[@type='coordinates']"
       Method:  addProperty
       Parameters: ["statementOfCoordinates", $nodeValue]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     architectural:
       XPath:   "did/materialspec[@type='architectural']"
       Method:  addProperty
       Parameters: ["statementOfScaleArchitectural", $nodeValue]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     philatelic:
       XPath:   "did/materialspec[@type='philatelic']"
       Method:  addProperty
       Parameters: ["issuingJurisdictionAndDenomination", $nodeValue]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     digital_object:
       XPath:   "(did/dao[1]/@href | did/daogrp[1]/daoloc[1]/@href)[1]"
@@ -274,14 +342,26 @@ information_object:
       XPath:  "did/unitdate"
       Method: setDates
       Parameters: [$nodeValue, "$options = array('normalized_dates' => $importDOM->xpath->query('@normal', $domNode2)->item(0)->nodeValue, 'date_type' => $importDOM->xpath->query('@datechar', $domNode2)->item(0)->nodeValue)"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     physdesc:
       XPath:  "did/physdesc"
       Method: setExtentAndMedium
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     abstract:
       XPath:   "did/abstract"
       Method:  setScopeAndContent
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
   ##physloc
     ##if no container is given, save as a 'location' note, otherwise save to the container's location information
@@ -290,6 +370,10 @@ information_object:
     container:
       XPath:  "did/container"
       Method: importPhysicalObject
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     #container:
     #  XPath:  "did/container"
@@ -300,36 +384,64 @@ information_object:
     repositoryAddress:
       XPath:   "did/repository/address"
       Method:  setRepositoryAddress
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     identifier:
       XPath:   "did/unitid[not(@type)]"
       Method:  setIdentifierWithCodes
       Parameters: [$nodeValue, "$options = array('countrycode' => $importDOM->xpath->query('@countrycode', $domNode2)->item(0)->nodeValue, 'repositorycode' => $importDOM->xpath->query('@repositorycode', $domNode2)->item(0)->nodeValue)"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     alternative_identifiers:
       XPath:  "did/unitid[@type!='standard' and @label]"
       Method:  addProperty
       Parameters: ["$importDOM->xpath->query('@label', $domNode2)->item(0)->nodeValue", $nodeValue, "$options = array('scope' => 'alternativeIdentifiers')"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     alternative_identifiers_2:
       XPath:  "did/unitid[@type!='standard' and not(@label)]"
       Method:  addProperty
       Parameters: ["$importDOM->xpath->query('@type', $domNode2)->item(0)->nodeValue", $nodeValue, "$options = array('scope' => 'alternativeIdentifiers')"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     standard_number:
       XPath:  "did/unitid[@type='standard']"
       Method:  addProperty
       Parameters: ["standardNumber", $nodeValue]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     langusage:
       XPath:  "../eadheader/profiledesc/langusage"
       Method: importLangusageEadData
       Parameters: ["$domNode2"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     langmaterial:
       XPath:  "did/langmaterial"
       Method: importLangmaterialEadData
       Parameters: ["$domNode2"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     phystech:
       XPath:  "(phystech | descgrp/phystech)"
@@ -367,6 +479,10 @@ information_object:
     scopeandcontent:
       XPath:   "scopecontent"
       Method:  setScopeAndContent
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     arrangement:
       XPath:   "(arrangement | descgrp/arrangement)"
@@ -376,45 +492,81 @@ information_object:
       XPath:  "(controlaccess/name | controlaccess/controlaccess/name)"
       Method: setActorByName
       Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID, 'createRelation' => !substr($domNode2->getAttribute('id'), 0, 4) == 'atom')"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     controlaccess_corpname:
       XPath:   "(controlaccess/corpname | controlaccess/controlaccess/corpname)"
       Method:  setActorByName
       Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID, 'entity_type_id' => QubitTerm::CORPORATE_BODY_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'rules' => $importDOM->xpath->query('@rules', $domNode2)->item(0)->nodeValue, 'createRelation' => !substr($domNode2->getAttribute('id'), 0, 4) == 'atom')"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     controlaccess_persname:
       XPath:   "(controlaccess/persname | controlaccess/controlaccess/persname)"
       Method:  setActorByName
       Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID, 'entity_type_id' => QubitTerm::PERSON_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'rules' => $importDOM->xpath->query('@rules', $domNode2)->item(0)->nodeValue, 'createRelation' => !substr($domNode2->getAttribute('id'), 0, 4) == 'atom')"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     controlaccess_famname:
       XPath:   "(controlaccess/famname | controlaccess/controlaccess/famname)"
       Method:  setActorByName
       Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID, 'entity_type_id' => QubitTerm::FAMILY_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'rules' => $importDOM->xpath->query('@rules', $domNode2)->item(0)->nodeValue, 'createRelation' => !substr($domNode2->getAttribute('id'), 0, 4) == 'atom')"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     controlaccess_geogname:
       XPath:   "(controlaccess/geogname | controlaccess/controlaccess/geogname)"
       Method:  setTermRelationByName
       Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::PLACE_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'createRelation' => !substr($domNode2->getAttribute('id'), 0, 4) == 'atom')"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     controlaccess_subject:
       XPath:   "(controlaccess/subject | controlaccess/controlaccess/subject)"
       Method:  setTermRelationByName
       Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'createRelation' => true)"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     controlaccess_genreform_material_type:
       XPath:   "(controlaccess/genreform[@source='rad'] | controlaccess/controlaccess/genreform[@source='rad'] | controlaccess/genreform[@encodinganalog='1.1C'] | controlaccess/controlaccess/genreform[@encodinganalog='1.1C'])"
       Method:  setTermRelationByName
       Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::MATERIAL_TYPE_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'createRelation' => true)"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     controlaccess_genreform_genre:
       XPath:   "(controlaccess/genreform[not(@source='RAD') and not(@encodinganalog='1.1C')] | controlaccess/controlaccess/genreform[not(@source='RAD') and not(@encodinganalog='1.1C')])"
       Method:  setTermRelationByName
       Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::GENRE_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'createRelation' => true)"]
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     accessrestrict:
       XPath:   "(accessrestrict | descgrp/accessrestrict)"
       Method:  setAccessConditions
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     accruals:
       XPath:   "(accruals | descgrp/accruals)"
@@ -423,6 +575,10 @@ information_object:
     rules:
       XPath:   "../eadheader/profiledesc/descrules"
       Method:  setRules
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     acqinfor:
       XPath:   "(acqinfo | descgrp/acqinfo)"
@@ -439,6 +595,10 @@ information_object:
     custodhist:
       XPath:   "(custodhist | descgrp/custodhist)"
       Method:  setArchivalHistory
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     prefercite:
       XPath: "prefercite"
@@ -462,10 +622,18 @@ information_object:
     revision_history:
       XPath:  "(processinfo/date | processinfo/p/date | descgrp/processinfo/date | descgrp/processinfo/p/date | ../eadheader/filedesc/publicationstmt/date)"
       Method:  setRevisionHistory
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     userestrict:
       XPath:   "(userestrict | descgrp/userestrict)"
       Method:  setReproductionConditions
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     relatedunitsofdescription:
       XPath:   "(relatedmaterial | descgrp/relatedmaterial | separatedmaterial | descgrp/separatedmaterial)"
@@ -474,6 +642,10 @@ information_object:
     otherfindaid:
       XPath:   "(otherfindaid | descgrp/otherfindaid)"
       Method:  setFindingAids
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
 
     bibliography:
       XPath:   "(bibliography | descgrp/bibliography)"
