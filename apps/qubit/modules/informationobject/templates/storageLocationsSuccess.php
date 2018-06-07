@@ -40,11 +40,11 @@
           <td>
             <?php echo $row++ ?>
           </td><td>
-            <?php echo link_to(render_title($item['name']), sfConfig::get('app_siteBaseUrl').'/'.$item['slug']) ?>
+            <?php echo link_to(render_title($item->getName(array('cultureFallback' => true))), sfConfig::get('app_siteBaseUrl').'/'.$item->slug) ?>
           </td><td>
-            <?php echo render_value_inline($item['location']) ?>
+            <?php echo render_value_inline($item->getLocation(array('cultureFallback' => true))) ?>
           </td><td>
-            <?php echo render_value_inline($item['type']) ?>
+            <?php echo render_value_inline($item->getType(array('cultureFallback' => true))) ?>
           </td>
         </tr>
       <?php endforeach; ?>

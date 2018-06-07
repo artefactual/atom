@@ -155,19 +155,7 @@ class arGenerateReportJob extends arBaseJob
     $criteria->addJoin(QubitRelation::OBJECT_ID, QubitInformationObject::ID);
     $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitPhysicalObject::ID);
 
-    $storageLocations = QubitPhysicalObject::get($criteria);
-    $results = array();
-
-    foreach($storageLocations as $item)
-    {
-      $results[] = array(
-        'name' => isset($item->name) ? $item->getName(array('cultureFallback' => true)) : '',
-        'slug' => isset($item->slug) ? $item->slug : '',
-        'location' => isset($item->location) ? $item->getLocation(array('cultureFallback' => true)) : '',
-        'type' => isset($item->type) ? $item->type : '',
-      );
-    }
-    return $results;
+    return QubitPhysicalObject::get($criteria);
   }
 
   /**
