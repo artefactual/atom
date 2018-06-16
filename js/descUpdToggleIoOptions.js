@@ -8,7 +8,7 @@
   var DescUpdToggleIoOptions = function ()
     {
       this.$className = $('select#className');
-      this.$ioOptions = $('#io-options');
+      this.$ioOptions = $('.io-options');
       this.init();
     };
 

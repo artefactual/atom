@@ -33,7 +33,8 @@ class SearchDescriptionUpdatesAction extends sfAction
       'endDate',
       'dateOf',
       'publicationStatus',
-      'repository'
+      'repository',
+      'user'
     );
 
   protected function addField($name)
@@ -123,11 +124,24 @@ class SearchDescriptionUpdatesAction extends sfAction
         $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
 
         break;
+
+      case 'user':
+        $this->form->setValidator($name, new sfValidatorString);
+        $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => array()), array('class' => 'form-autocomplete')));
+
+        break;
     }
   }
 
   public function execute($request)
   {
+    // Store user and user URL for convenience
+    if (!empty($userUrl = $request->getGetParameter('user')))
+    {
+      $params = $this->context->routing->parse($userUrl);
+      $this->user = $params['_sf_route']->resource;
+    }
+
     $this->form = new sfForm;
     $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
@@ -142,7 +156,8 @@ class SearchDescriptionUpdatesAction extends sfAction
       'endDate' => date('Y-m-d'),
       'dateOf' => 'CREATED_AT',
       'publicationStatus' => 'all',
-      'repository' => null
+      'repository' => null,
+      'user' => null
     );
 
     $this->form->bind($request->getGetParameters() + $defaults);
@@ -190,6 +205,12 @@ class SearchDescriptionUpdatesAction extends sfAction
     if (null !== $this->form->getValue('repository'))
     {
       $criteria->add(QubitInformationObject::REPOSITORY_ID, $this->form->getValue('repository'));
+    }
+
+    // Add user restriction, if specified
+    if (isset($this->user) && $this->user instanceof QubitUser)
+    {
+      $criteria->add(QubitAuditLog::USER_ID, $this->user->getId());
     }
 
     // Add date restriction
