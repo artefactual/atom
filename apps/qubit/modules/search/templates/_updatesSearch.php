@@ -34,7 +34,7 @@
 
         </div>
 
-        <div class="filter-row double" id="io-options">
+        <div class="filter-row double io-options">
 
           <?php if (sfConfig::get('app_multi_repository')): ?>
             <div class="filter-left">
@@ -59,6 +59,23 @@
 
         </div>
 
+        <?php if (sfConfig::get('app_audit_log_enabled', false)): ?>
+          <div class="filter-row io-options">
+            <div class="filter-left">
+              <?php echo $form->user
+                ->label(__('User'))
+                ->renderLabel() ?>
+              <?php echo $form->user->render(array('class' => 'form-autocomplete')) ?>
+              <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'user', 'action' => 'autocomplete')) ?>"/>
+
+              <?php if (isset($user)): ?>
+                <div class="filter-description">
+                  <?php echo __('Currently displaying:') ?> <?php echo $user->getUsername() ?></em>
+                </div>
+              <?php endif; ?>
+            </div>
+          </div>
+        <?php endif; ?>
       </div>
 
       <p><?php echo __('Filter by date range:') ?></p>
