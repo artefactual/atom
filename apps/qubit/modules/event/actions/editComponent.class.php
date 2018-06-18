@@ -124,6 +124,14 @@ class EventEditComponent extends sfComponent
       $params = $this->request->editEvents;
     }
 
+    // Events should index the related resource only when
+    // they are managed from the actors form.
+    $indexOnSave = false;
+    if ($this->resource instanceof QubitActor)
+    {
+      $indexOnSave = true;
+    }
+
     foreach ($params as $item)
     {
       // Continue only if user typed something
@@ -172,7 +180,7 @@ class EventEditComponent extends sfComponent
         // to the eventsRelatedByobjectId or events array
         if (isset($this->event->id))
         {
-          $this->event->indexOnSave = false;
+          $this->event->indexOnSave = $indexOnSave;
           $this->event->save();
         }
       }
@@ -190,7 +198,7 @@ class EventEditComponent extends sfComponent
       {
         $params = $this->context->routing->parse(Qubit::pathInfo($item));
         $event = $params['_sf_route']->resource;
-        $event->indexOnSave = false;
+        $event->indexOnSave = $indexOnSave;
         $event->delete();
       }
     }
