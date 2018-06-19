@@ -67,6 +67,8 @@ editTermAclSuccess:
 
 indexSuccess:
   javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     editingHistory:
     blank:
 

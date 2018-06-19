@@ -53,15 +53,18 @@
         });
 
         // Hide or show previous page button
-        $('#previousButton').toggle(page > 1);
+        $('#previousButton').toggleClass('hidden', page <= 1);
+
+        // Hide of show next page button
+        $('#nextButton').toggleClass('hidden', data.pages <= page);
 
         // Hide or show next page button
         $('#nextButton').toggle(data.pages > page);
 
-        // Only show "View editing history" button if data exists
+        // Only show link to expand editing history section if data exists
         if (data.pages)
         {
-          $('#editingHistoryViewButton').removeClass('hidden');
+          $('#editingHistory').removeClass('hidden');
         }
 
         endActivity();

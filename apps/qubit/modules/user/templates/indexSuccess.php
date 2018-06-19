@@ -88,39 +88,41 @@
     <?php endif; ?>
 
     <?php if (sfConfig::get('app_audit_log_enabled', false)): ?>
-      <div class="text-right">
-        <?php echo image_tag('/vendor/jstree/themes/default/throbber.gif', array('id' => 'editingHistoryActivityIndicator', 'class' => 'hidden', 'alt' => __('Loading ...'))) ?>
-        <button id="editingHistoryViewButton" class="btn hidden" data-toggle="collapse" data-target="#editingHistoryTable">View editing history</button>
-      </div>
+      <div id="editing-history-wrapper">
+        <fieldset class="collapsible collapsed hidden" id="editingHistory">
+          <legend>
+            <?php echo __('Editing history') ?>
+            <?php echo image_tag('/vendor/jstree/themes/default/throbber.gif', array('id' => 'editingHistoryActivityIndicator', 'class' => 'hidden', 'alt' => __('Loading ...'))) ?>
+          </legend>
 
-      <div id="editingHistoryTable" class="collapse">
-        <table class="table table-bordered table-striped sticky-enabled">
-          <thead>
-            <tr>
-              <th>
-                <?php echo __('Title') ?>
-              </th>
-              <th>
-                <?php echo __('Date') ?>
-              </th>
-              <th>
-                <?php echo __('Type') ?>
-              </th>
-            </tr>
-          </thead>
-          <tbody id="editingHistoryRows">
-          </tbody>
-        </table>
+          <table class="table table-bordered table-striped sticky-enabled">
+            <thead>
+              <tr>
+                <th>
+                  <?php echo __('Title') ?>
+                </th>
+                <th>
+                  <?php echo __('Date') ?>
+                </th>
+                <th>
+                  <?php echo __('Type') ?>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="editingHistoryRows">
+            </tbody>
+          </table>
 
-        <div class="text-right">
-          <input class="btn" type="button" id='previousButton' value='<?php echo __('Previous') ?>'>
-          <input class="btn" type="button" id='nextButton' value='<?php echo __('Next') ?>'>
-        </div>
+          <div class="text-right">
+            <input class="btn" type="button" id='previousButton' value='<?php echo __('Previous') ?>'>
+            <input class="btn" type="button" id='nextButton' value='<?php echo __('Next') ?>'>
+          </div>
+
+        </fieldset>
       </div>
     <?php endif; ?>
 
   </section>
-
 </section>
 
 <?php echo get_partial('showActions', array('resource' => $resource)) ?>
