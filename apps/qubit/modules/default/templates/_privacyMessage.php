@@ -5,7 +5,7 @@
     <div class="alert alert-info">
         <button type="button" class="c-btn c-btn-submit c-btn-right-align privacy-message-button">Ok</button>
       <div id="privacy-message-content">
-        <?php echo render_value_inline($notificationMessage) ?>
+        <?php echo render_value($notificationMessage) ?>
       </div>
     </div>
 

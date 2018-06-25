@@ -37,5 +37,9 @@ class DefaultPrivacyMessageComponent extends sfComponent
 
     // Set the notification message content for the privacy banner.
     $this->notificationMessage = QubitSetting::getByName('privacy_notification');
+    if (empty($this->notificationMessage))
+    {
+      $this->notificationMessage = $this->context->i18n->__("Please run the GDPR setup script as indicated in the 2.4.1 release notes.\nYou can also turn off this banner in Admin > Settings > Privacy Notification.");
+    }
   }
 }

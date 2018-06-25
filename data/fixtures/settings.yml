@@ -887,7 +887,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      en: 'This website uses cookies to enhance your ability to browse and load content. [More Info.](/privacy)'
+      en: 'This website uses cookies to enhance your ability to browse and load content. More Info: http://10.10.10.10/privacy'
   Qubit_Settings_visibleElements_IsadImmediateSource:
     name: isad_immediate_source
     scope: element_visibility
