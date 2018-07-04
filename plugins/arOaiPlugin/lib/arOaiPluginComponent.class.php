@@ -148,6 +148,12 @@ abstract class arOaiPluginComponent extends sfComponent
     return file_exists(QubitInformationObjectXmlCache::resourceExportFilePath($resource, $format, true));
   }
 
+  public static function checkDisplayCachedMetadata($resource, $metadataPrefix)
+  {
+    $xmlCachingEnabled = sfConfig::get('app_cache_xml_on_save', false);
+    return $xmlCachingEnabled && self::cachedMetadataExists($resource, $metadataPrefix);
+  }
+
   public static function includeCachedMetadata($resource, $metadataPrefix)
   {
     $format = self::parseXmlFormatFromMetadataPrefix($metadataPrefix);
