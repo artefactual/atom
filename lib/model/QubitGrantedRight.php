@@ -267,4 +267,14 @@ class QubitGrantedRight extends BaseGrantedRight
   {
     return count(self::getByObjectIdAndAct($id)) > 0;
   }
+
+  /**
+   * Gets whether or not granted right has been deleted.
+   *
+   * @return bool  True if granted right has been deleted, false otherwise
+   */
+  public function isDeleted()
+  {
+    return $this->deleted;
+  }
 }
