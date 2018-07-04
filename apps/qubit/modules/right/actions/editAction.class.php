@@ -237,23 +237,11 @@ class RightEditAction extends sfAction
     // to the new/existing rights object
     foreach ($this->form as $field)
     {
-      // Delay processing of granted rights so there's not an attempt to save
-      // granted rights that have been deleted
-      if ($field->getName() != 'grantedRights')
-      {
-        $this->processField($field);
-      }
-      else
-      {
-         $grantRightsField = $field;
-      }
+      $this->processField($field);
     }
 
     // in theory we can save the Right now.
     $this->right->save();
-
-    // Process granted rights
-    $this->processField($grantRightsField);
 
     // if new right, then create QubitRelation
     // to associate it to the resource

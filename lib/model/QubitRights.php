@@ -87,9 +87,12 @@ class QubitRights extends BaseRights
     // Save updated grantedRights
     foreach ($this->grantedRights as $grantedRight)
     {
-      $grantedRight->indexOnSave = false;
-      $grantedRight->rights = $this;
-      $grantedRight->save();
+      if (!$grantedRight->isDeleted())
+      {
+        $grantedRight->indexOnSave = false;
+        $grantedRight->rights = $this;
+        $grantedRight->save();
+      }
     }
   }
 
