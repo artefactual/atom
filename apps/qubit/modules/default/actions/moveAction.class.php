@@ -38,7 +38,7 @@ class DefaultMoveAction extends sfAction
     }
 
     // Check authorization
-    if (!QubitAcl::check($this->resource, 'update'))
+    if (!QubitAcl::check($this->resource, 'update') && !$this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID))
     {
       QubitAcl::forwardUnauthorized();
     }

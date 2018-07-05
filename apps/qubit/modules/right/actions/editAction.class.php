@@ -368,7 +368,7 @@ class RightEditAction extends sfAction
     }
 
     // Check user authorization
-    if (!QubitAcl::check($this->informationObject, 'update'))
+    if (!QubitAcl::check($this->informationObject, 'update') && !$this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID))
     {
       QubitAcl::forwardUnauthorized();
     }

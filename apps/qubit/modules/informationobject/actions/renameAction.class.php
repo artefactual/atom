@@ -31,8 +31,7 @@ class InformationObjectRenameAction extends DefaultEditAction
     $this->resource = $this->getRoute()->resource;
 
     // Check user authorization
-    if (!sfContext::getInstance()->user->isAuthenticated()
-      || !QubitAcl::check($this->resource, 'update'))
+    if (!QubitAcl::check($this->resource, 'update') && !$this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID))
     {
       QubitAcl::forwardUnauthorized();
     }
