@@ -32,7 +32,7 @@ class InformationObjectMultiFileUploadAction extends sfAction
     }
 
     // Check user authorization
-    if (!QubitAcl::check($this->resource, 'update'))
+    if (!QubitAcl::check($this->resource, 'update') && !$this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID))
     {
       QubitAcl::forwardUnauthorized();
     }
