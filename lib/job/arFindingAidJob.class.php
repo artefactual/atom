@@ -78,10 +78,6 @@ class arFindingAidJob extends arBaseJob
 
     $appRoot = rtrim(sfConfig::get('sf_root_dir'), '/');
 
-    // Determine language(s) used in the export
-    $exportLanguage = sfContext::getInstance()->user->getCulture();
-    $sourceLanguage = $this->resource->getSourceCulture();
-
     $eadFileHandle = tmpfile();
     $foFileHandle = tmpfile();
 
