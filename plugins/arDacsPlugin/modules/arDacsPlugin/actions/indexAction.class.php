@@ -60,7 +60,7 @@ class arDacsPluginIndexAction extends InformationObjectIndexAction
       $validatorSchema->repository = new QubitValidatorCountable(array(
         'required' => true), array(
         'required' => $this->context->i18n->__('Name and location of repository - This is a mandatory element.')));
-      if (null !== $repository = $this->resource->repository)
+      if (null !== $repository = $this->resource->getRepository(array('inherit' => true)))
       {
         $values['repository'] = $repository;
       }
