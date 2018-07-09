@@ -372,6 +372,12 @@ class QubitInformationObject extends BaseInformationObject
     // Delete any keymap entries
     $this->removeKeymapEntries();
 
+    // Delete finding aid
+    if (null !== $path = arFindingAidJob::getFindingAidPathForDownload($this->id))
+    {
+      unlink($path);
+    }
+
     QubitSearch::getInstance()->delete($this);
 
     parent::delete($connection);
