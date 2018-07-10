@@ -48,5 +48,9 @@ class MenuUserMenuComponent extends sfComponent
         25,
         urlencode(public_path('/images/gravatar-anonymous.png', false)));
     }
+
+    $this->logInMenu = QubitMenu::getByName('login');
+    $this->logOutMenu = QubitMenu::getByName('logout');
+    $this->profileMenu = QubitMenu::getByName('myProfile');
   }
 }
