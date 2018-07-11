@@ -47,7 +47,7 @@ class arUpdatePublicationStatusJob extends arBaseJob
       return false;
     }
 
-    $message = $this->i18n->__('Updating publication status for the descendants of "%1" to "%2".', array('%1' => $resource->title, '%2' => $publicationStatus->name));
+    $message = $this->i18n->__('Updating publication status for the descendants of "%1" to "%2".', array('%1' => $resource->getTitle(array('cultureFallback' => true)), '%2' => $publicationStatus->name));
     $this->job->addNoteText($message);
     $this->info($message);
 
