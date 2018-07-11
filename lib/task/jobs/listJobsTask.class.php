@@ -77,7 +77,21 @@ EOF;
       print " Status: " . $job->getStatusString() . "\n";
       print " Started: " . $job->getCreationDateString() . "\n";
       print " Completed: " . $job->getCompletionDateString() . "\n";
-      print " User: " . QubitJob::getUserString($job) . "\n\n";
+      print " User: " . QubitJob::getUserString($job) . "\n";
+
+      // Add notes (indented for readability)
+      if (count($notes = $job->getNotes()) > 0)
+      {
+        $notesLabel = " Notes: ";
+
+        foreach ($notes as $note)
+        {
+          print $notesLabel . $note ."\n";
+          $notesLabel = "        ";
+        }
+      }
+
+      print "\n";
     }
   }
 }
