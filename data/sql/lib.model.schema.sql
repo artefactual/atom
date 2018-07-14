@@ -617,6 +617,8 @@ CREATE TABLE `menu`
 	`parent_id` INTEGER,
 	`name` VARCHAR(255),
 	`path` VARCHAR(255),
+	`renameable` TINYINT default 1,
+	`deleteable` TINYINT default 1,
 	`lft` INTEGER  NOT NULL,
 	`rgt` INTEGER  NOT NULL,
 	`created_at` DATETIME  NOT NULL,

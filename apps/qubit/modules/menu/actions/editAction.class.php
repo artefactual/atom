@@ -98,7 +98,11 @@ class MenuEditAction extends sfAction
         break;
 
       default:
-        $this->menu[$field->getName()] = $this->form->getValue($field->getName());
+        // Don't allow non-renameable menus to be renamed
+        if ($name != 'name' || $this->menu->renameable)
+        {
+          $this->menu[$field->getName()] = $this->form->getValue($field->getName());
+        }
     }
   }
 

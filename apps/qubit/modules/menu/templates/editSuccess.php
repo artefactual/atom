@@ -31,16 +31,14 @@
           <?php echo __('Main area') ?>
         </legend>
 
-        <?php if ($menu->isProtected()): ?>
-          <p><?php echo __('Read only') ?></p>
+        <?php if ($menu->renameable): ?>
+          <div class="form-item">
+            <?php echo $form->name
+              ->help(__('Provide an internal menu name.  This is not visible to users.'))
+              ->label(__('Name'))
+              ->renderRow() ?>
+          </div>
         <?php endif; ?>
-
-        <div class="form-item">
-          <?php echo $form->name
-            ->help(__('Provide an internal menu name.  This is not visible to users.'))
-            ->label(__('Name'))
-            ->renderRow() ?>
-        </div>
 
         <?php echo render_field($form['label']
           ->help(__('Provide a menu label for users.  For menu items that are not visible (i.e. are organizational only) this should be left blank.'))

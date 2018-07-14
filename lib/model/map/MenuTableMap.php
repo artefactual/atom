@@ -39,6 +39,8 @@ class MenuTableMap extends TableMap {
 		$this->addForeignKey('PARENT_ID', 'parentId', 'INTEGER', 'menu', 'ID', false, null, null);
 		$this->addColumn('NAME', 'name', 'VARCHAR', false, 255, null);
 		$this->addColumn('PATH', 'path', 'VARCHAR', false, 255, null);
+		$this->addColumn('RENAMEABLE', 'renameable', 'BOOLEAN', false, null, true);
+		$this->addColumn('DELETEABLE', 'deleteable', 'BOOLEAN', false, null, true);
 		$this->addColumn('LFT', 'lft', 'INTEGER', true, null, null);
 		$this->addColumn('RGT', 'rgt', 'INTEGER', true, null, null);
 		$this->addColumn('CREATED_AT', 'createdAt', 'TIMESTAMP', true, null, null);

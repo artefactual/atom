@@ -202,6 +202,8 @@ propel:
     parent_id: { type: integer, foreignTable: menu, foreignReference: id, onDelete: cascade }
     name: varchar(255)
     path: varchar(255)
+    renameable: { type: boolean, default: true }
+    deleteable: { type: boolean, default: true }
     lft: { type: integer, required: true, nestedSetLeftKey: true }
     rgt: { type: integer, required: true, nestedSetRightKey: true }
     created_at:

@@ -10,6 +10,8 @@ abstract class BaseMenu implements ArrayAccess
     PARENT_ID = 'menu.PARENT_ID',
     NAME = 'menu.NAME',
     PATH = 'menu.PATH',
+    RENAMEABLE = 'menu.RENAMEABLE',
+    DELETEABLE = 'menu.DELETEABLE',
     LFT = 'menu.LFT',
     RGT = 'menu.RGT',
     CREATED_AT = 'menu.CREATED_AT',
@@ -23,6 +25,8 @@ abstract class BaseMenu implements ArrayAccess
     $criteria->addSelectColumn(QubitMenu::PARENT_ID);
     $criteria->addSelectColumn(QubitMenu::NAME);
     $criteria->addSelectColumn(QubitMenu::PATH);
+    $criteria->addSelectColumn(QubitMenu::RENAMEABLE);
+    $criteria->addSelectColumn(QubitMenu::DELETEABLE);
     $criteria->addSelectColumn(QubitMenu::LFT);
     $criteria->addSelectColumn(QubitMenu::RGT);
     $criteria->addSelectColumn(QubitMenu::CREATED_AT);
@@ -44,7 +48,7 @@ abstract class BaseMenu implements ArrayAccess
   public static function getFromRow(array $row)
   {
     $keys = array();
-    $keys['id'] = $row[8];
+    $keys['id'] = $row[10];
 
     $key = serialize($keys);
     if (!isset(self::$menus[$key]))
