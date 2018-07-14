@@ -121,7 +121,7 @@ class QubitMenu extends BaseMenu
    */
   public function isProtected()
   {
-    return in_array($this->id, array(
+    return $this->name == 'myProfile' || in_array($this->id, array(
       QubitMenu::ROOT_ID,
       QubitMenu::MAIN_MENU_ID,
       QubitMenu::QUICK_LINKS_ID,
