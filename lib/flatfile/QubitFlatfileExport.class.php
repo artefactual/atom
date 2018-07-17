@@ -394,6 +394,12 @@ class QubitFlatfileExport
     else
     {
       $filePath = $this->path;
+
+      // Replace file if it already exists, yet we haven't exported any rows
+      if (file_exists($filePath) && !$this->rowsExported)
+      {
+        unlink($filePath);
+      }
     }
 
     // If file doesn't yet exist, write headers
