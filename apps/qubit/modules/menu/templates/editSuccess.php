@@ -31,7 +31,7 @@
           <?php echo __('Main area') ?>
         </legend>
 
-        <?php if ($menu->renameable): ?>
+        <?php if (!isset($menu->id) || $menu->renameable): ?>
           <div class="form-item">
             <?php echo $form->name
               ->help(__('Provide an internal menu name.  This is not visible to users.'))

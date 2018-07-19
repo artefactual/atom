@@ -22,6 +22,8 @@ QubitMenu:
     parent_id: QubitMenu_root
     source_culture: en
     name: browse
+    renameable: false
+    deleteable: false
     label:
       ca: Explora
       ca@valencia: Navegar
@@ -97,6 +99,8 @@ QubitMenu:
     parent_id: QubitMenu_mainmenu
     source_culture: en
     name: manage
+    renameable: false
+    deleteable: false
     label:
       ca: Administra
       ca@valencia: Administrar
@@ -135,6 +139,8 @@ QubitMenu:
     parent_id: QubitMenu_root
     source_culture: en
     name: browseInstitution
+    renameable: false
+    deleteable: false
     label:
       cy: 'Porwch ein casgliad'
       de: 'Sammlung durchsuchen'
@@ -151,6 +157,8 @@ QubitMenu:
     parent_id: QubitMenu_mainmenu_manage
     source_culture: en
     name: accessions
+    renameable: false
+    deleteable: false
     label:
       ca: Ingressos
       ca@valencia: Ingressos
@@ -223,6 +231,8 @@ QubitMenu:
     parent_id: QubitMenu_mainmenu_manage
     source_culture: en
     name: jobs
+    renameable: false
+    deleteable: false
     label:
       cy: Tasgau
       de: Aufgaben
@@ -316,6 +326,8 @@ QubitMenu:
     parent_id: QubitMenu_mainmenu_manage
     source_culture: en
     name: taxonomies
+    renameable: false
+    deleteable: false
     label:
       ca: Taxonomies
       ca@valencia: Taxonomies
@@ -352,6 +364,8 @@ QubitMenu:
     parent_id: QubitMenu_mainmenu
     source_culture: en
     name: import
+    renameable: false
+    deleteable: false
     label:
       ca: Importa
       ca@valencia: Importar
@@ -708,6 +722,8 @@ QubitMenu:
     parent_id: QubitMenu_mainmenu_import
     source_culture: en
     name: importSkos
+    renameable: false
+    deleteable: false
     label:
       ca: SKOS
       ca@valencia: SKOS
@@ -741,6 +757,8 @@ QubitMenu:
     parent_id: QubitMenu_mainmenu_admin
     source_culture: en
     name: users
+    renameable: false
+    deleteable: false
     label:
       ca: Usuaris
       ca@valencia: Usuaris
@@ -944,6 +962,8 @@ QubitMenu:
     parent_id: QubitMenu_mainmenu_admin
     source_culture: en
     name: groups
+    renameable: false
+    deleteable: false
     label:
       ca: Grups
       ca@valencia: Grups
@@ -1215,6 +1235,8 @@ QubitMenu:
     parent_id: QubitMenu_mainmenu_admin
     source_culture: en
     name: plugins
+    renameable: false
+    deleteable: false
     label:
       ca: Connectors
       ca@valencia: Plugins
@@ -1285,6 +1307,8 @@ QubitMenu:
     parent_id: QubitMenu_mainmenu_admin
     source_culture: en
     name: settings
+    renameable: false
+    deleteable: false
     label:
       ca: Paràmetres
       ca@valencia: Configuració
@@ -1356,6 +1380,8 @@ QubitMenu:
     parent_id: QubitMenu_mainmenu_admin
     source_culture: en
     name: globalReplace
+    renameable: false
+    deleteable: false
     label:
       ca: 'Cerca/reemplaça a nivell global'
       ca@valencia: 'Cercar/reemplaçar global'
@@ -1461,6 +1487,8 @@ QubitMenu:
     parent_id: QubitMenu_quicklinks
     source_culture: en
     name: privacy
+    renameable: false
+    deleteable: false
     label:
       en: Privacy Policy
     path: 'staticpage/index?slug=privacy'
@@ -1543,6 +1571,8 @@ QubitMenu:
     parent_id: QubitMenu_quicklinks
     source_culture: en
     name: login
+    renameable: false
+    deleteable: false
     label:
       ca: 'Inicieu sessió'
       ca@valencia: Entrar
@@ -1582,6 +1612,8 @@ QubitMenu:
     parent_id: QubitMenu_quicklinks
     source_culture: en
     name: logout
+    renameable: false
+    deleteable: false
     label:
       ca: 'Tanca la sessió'
       ca@valencia: 'Tancar sessió'
@@ -1759,6 +1791,8 @@ QubitMenu:
     parent_id: QubitMenu_browse
     source_culture: en
     name: browseSubjects
+    renameable: false
+    deleteable: false
     label:
       ca: Matèries
       ca@valencia: Matèries
@@ -1833,6 +1867,8 @@ QubitMenu:
     parent_id: QubitMenu_browse
     source_culture: en
     name: browseDigitalObjects
+    renameable: false
+    deleteable: false
     label:
       ca: 'Objectes digitals'
       ca@valencia: 'Objectes digitals'
@@ -1905,6 +1941,8 @@ QubitMenu:
     parent_id: QubitMenu_root
     source_culture: en
     name: staticPagesMenu
+    renameable: false
+    deleteable: false
     label:
       ca: 'Pàgines estàtiques'
       ca@valencia: 'Pàgines estàtiques'
@@ -1939,6 +1977,8 @@ QubitMenu:
     parent_id: QubitMenu_root
     source_culture: en
     name: clipboard
+    renameable: false
+    deleteable: false
     label:
       cy: Clipfwrdd
       de: Zwischenablage

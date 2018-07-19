@@ -99,7 +99,7 @@ class MenuEditAction extends sfAction
 
       default:
         // Don't allow non-renameable menus to be renamed
-        if ($name != 'name' || $this->menu->renameable)
+        if ($name != 'name' || !isset($this->menu->id) || $this->menu->renameable)
         {
           $this->menu[$field->getName()] = $this->form->getValue($field->getName());
         }
@@ -146,7 +146,7 @@ class MenuEditAction extends sfAction
     {
       $this->form->bind($request->getPostParameters());
 
-      if ($this->form->isValid())
+      if ($this->form->isValid() && $this->checkIfNameIsUnique())
       {
         $this->processForm();
 
@@ -164,5 +164,27 @@ class MenuEditAction extends sfAction
     }
 
     QubitDescription::addAssets($this->response);
+  }
+
+  private function checkIfNameIsUnique()
+  {
+    // Only do this check for new menu items or menu items that can be renamed
+    if (!isset($this->id) || $this->renameable)
+    {
+      $criteria = new Criteria;
+      $criteria->add(QubitMenu::NAME, $this->form->getValue('name'));
+
+      // Name is valid if it isn't yet used or if it's used by the menu item being edited
+      $nameIsValid = (null === $menu = QubitMenu::getOne($criteria)) || $this->menu->id == $menu->id;
+
+      if (!$nameIsValid)
+      {
+        $this->getUser()->setFlash('error', $this->context->i18n->__('This name has already been used. Please use another.'));
+      }
+
+      return $nameIsValid;
+    }
+
+    return true;
   }
 }
