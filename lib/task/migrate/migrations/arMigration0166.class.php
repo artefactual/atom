@@ -18,7 +18,7 @@
  */
 
 /*
- * Add column to determine whether a menu item is deleteable
+ * Store info related to menu locking
  *
  * @package    AccesstoMemory
  * @subpackage migration
@@ -36,38 +36,48 @@ class arMigration0166
    */
   public function up($configuration)
   {
-    if (false === QubitPdo::fetchOne("SHOW COLUMNS IN ". QubitMenu::TABLE_NAME." LIKE ?", array('deleteable')))
-    {
-      QubitMigrate::addColumn(QubitMenu::TABLE_NAME, 'renameable TINYINT default 1');
-      QubitMigrate::addColumn(QubitMenu::TABLE_NAME, 'deleteable TINYINT default 1');
-
-      // Prevent renaming and deletion of "myProfile" menu item
-      $criteria = new Criteria;
-      $criteria->add(QubitMenu::NAME, 'myProfile');
-
-      foreach(QubitMenu::get($criteria) as $menu)
-      {
-        $menu->renameable = false;
-        $menu->deleteable = false;
-        $menu->save();
-      }
-
-      // Prevent renaming and deletion of existing protected menu items with established IDs
-      $protected = array(
+    $lockedMenus = array(
+      'byName' => array(
+        'accessions',
+        'browseDigitalObjects',
+        'browseInstitution',
+        'browseSubjects',
+        'clipboard',
+        'globalReplace',
+        'groups',
+        'importSkos',
+        'jobs',
+        'login',
+        'logout',
+        'myProfile',
+        'plugins',
+        'privacy',
+        'settings',
+        'staticPagesMenu',
+        'taxonomies',
+        'users'
+      ),
+      'byId' => array(
         QubitMenu::ROOT_ID,
+        QubitMenu::BROWSE_ID,
+        QubitMenu::IMPORT_ID,
         QubitMenu::MAIN_MENU_ID,
+        QubitMenu::MANAGE_ID,
         QubitMenu::QUICK_LINKS_ID,
         QubitMenu::ADD_EDIT_ID,
         QubitMenu::ADMIN_ID
-      );
+      )
+    );
 
-      foreach($protected as $id)
-      {
-        $menu = QubitMenu::getById($id);
-        $menu->renameable = false;
-        $menu->deleteable = false;
-        $menu->save();
-      }
+    if (null === QubitSetting::getByName('menu_locking_info'))
+    {
+      $setting = new QubitSetting;
+      $setting->name = 'menu_locking_info';
+      $setting->value = serialize($lockedMenus);
+      $setting->culture = 'en';
+      $setting->editable = 0;
+      $setting->deleteable = 0;
+      $setting->save();
     }
 
     return true;

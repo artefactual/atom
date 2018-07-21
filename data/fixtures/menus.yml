@@ -1,22 +1,16 @@
 QubitMenu:
   QubitMenu_root:
     id: 1
-    renameable: false
-    deleteable: false
   QubitMenu_mainmenu:
     id: 2
     parent_id: QubitMenu_root
     source_culture: en
     name: mainMenu
-    renameable: false
-    deleteable: false
   QubitMenu_quicklinks:
     id: 3
     parent_id: QubitMenu_root
     source_culture: en
     name: quickLinks
-    renameable: false
-    deleteable: false
   QubitMenu_browse:
     id: 4
     parent_id: QubitMenu_root
@@ -56,8 +50,6 @@ QubitMenu:
     parent_id: QubitMenu_mainmenu
     source_culture: en
     name: add
-    renameable: false
-    deleteable: false
     label:
       ca: Afegeix
       ca@valencia: Agregar
@@ -390,8 +382,6 @@ QubitMenu:
     parent_id: QubitMenu_mainmenu
     source_culture: en
     name: admin
-    renameable: false
-    deleteable: false
     label:
       ca: Administrador
       ca@valencia: Administrador
@@ -1504,8 +1494,6 @@ QubitMenu:
     parent_id: QubitMenu_quicklinks
     source_culture: en
     name: myProfile
-    renameable: false
-    deleteable: false
     label:
       ca: 'El meu perfil'
       ca@valencia: 'El meu perfil'

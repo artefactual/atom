@@ -121,7 +121,22 @@ class QubitMenu extends BaseMenu
    */
   public function isProtected()
   {
-    return !$this->deleteable;
+    if (!isset($this->id))
+    {
+      return false;
+    }
+
+    $lockInfo = unserialize(sfConfig::get('app_menu_locking_info', array()));
+
+    // If lock info isn't empty and the menu's ID or name indicates it should be locked, then lock it
+    if (count($lockInfo) && (in_array($this->id, $lockInfo['byId']) || in_array($this->name, $lockInfo['byName'])))
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
   /**

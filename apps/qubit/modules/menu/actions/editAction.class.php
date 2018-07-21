@@ -39,6 +39,18 @@ class MenuEditAction extends sfAction
     switch ($name)
     {
       case 'name':
+        // Don't allow locked menus to be renamed
+        if ($this->menu->isProtected())
+        {
+          break;
+        }
+
+        $this->form->setDefault($name, $this->menu[$name]);
+        $this->form->setValidator($name, new QubitValidatorMenuName(array('required' => true, 'resource' => $this->menu)));
+        $this->form->setWidget($name, new sfWidgetFormInput);
+
+        break;
+
       case 'path':
         $this->form->setDefault($name, $this->menu[$name]);
         $this->form->setValidator($name, new sfValidatorString(array('required' => true)));
@@ -98,11 +110,13 @@ class MenuEditAction extends sfAction
         break;
 
       default:
-        // Don't allow non-renameable menus to be renamed
-        if ($name != 'name' || $this->menu->renameable)
+        // Don't allow locked menus to be renamed
+        if ($name == 'name' && $this->menu->isProtected())
         {
-          $this->menu[$field->getName()] = $this->form->getValue($field->getName());
+          break;
         }
+
+        $this->menu[$field->getName()] = $this->form->getValue($field->getName());
     }
   }
 
