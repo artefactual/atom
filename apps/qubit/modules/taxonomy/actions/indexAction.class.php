@@ -135,6 +135,11 @@ class TaxonomyIndexAction extends sfAction
         $this->addResultsColumn = true;
 
         break;
+
+      case QubitTaxonomy::GENRE_ID:
+        $this->addResultsColumn = true;
+
+        break;
     }
 
     $culture = $this->context->user->getCulture();
