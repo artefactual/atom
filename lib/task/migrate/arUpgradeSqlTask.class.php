@@ -217,6 +217,16 @@ EOF;
       }
     }
 
+    // Delete cache files (for menus, etc.)
+    foreach (sfFinder::type('file')->name('*.cache')->in(sfConfig::get('sf_cache_dir')) as $cacheFile)
+    {
+      unlink($cacheFile);
+    }
+
+    // Do standard cache clear
+    $cacheClear = new sfCacheClearTask(sfContext::getInstance()->getEventDispatcher(), new sfAnsiColorFormatter);
+    $cacheClear->run();
+
     $this->logSection('upgrade-sql', sprintf('Successfully upgraded to Release %s v%s', qubitConfiguration::VERSION, $version));
 
     // Store the milestone in settings, we're going to need that in further upgrades!
