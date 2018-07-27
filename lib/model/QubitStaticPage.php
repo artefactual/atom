@@ -69,6 +69,6 @@ class QubitStaticPage extends BaseStaticPage
 
   public function isProtected()
   {
-    return $this->slug == 'about' || $this->slug == 'home';
+    return $this->slug == 'home';
   }
 }
