@@ -53,7 +53,8 @@ class MenuEditAction extends sfAction
 
       case 'path':
         $this->form->setDefault($name, $this->menu[$name]);
-        $this->form->setValidator($name, new sfValidatorString(array('required' => true)));
+        $pathRequired = ($this->menu->parentId == QubitMenu::ROOT_ID) ? false : true;
+        $this->form->setValidator($name, new sfValidatorString(array('required' => $pathRequired)));
         $this->form->setWidget($name, new sfWidgetFormInput);
 
         break;
