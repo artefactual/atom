@@ -165,6 +165,8 @@ class arDacsPluginEditAction extends InformationObjectEditAction
           }
           else if (!isset($this->request->sourceId))
           {
+            // Will be indexed when description is saved
+            $item->indexOnSave = false;
             $item->delete();
           }
         }

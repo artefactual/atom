@@ -173,7 +173,20 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
           }
           else if (!isset($this->request->sourceId))
           {
-            $item->delete();
+            // Will be indexed when description is saved
+            $item->indexOnSave = false;
+
+            // Only delete event if it has no associated date and start/end date
+            if (null === $item->date && null === $item->startDate && null === $item->endDate)
+            {
+              $item->delete();
+            }
+            else
+            {
+              // Handle specially as data wasn't created using ISAD template
+              $item->actor = null;
+              $item->save();
+            }
           }
         }
 
