@@ -1248,7 +1248,16 @@ class QubitDigitalObject extends BaseDigitalObject
       // Delete digital asset
       if (file_exists($this->getAbsolutePath()))
       {
-        unlink($this->getAbsolutePath());
+        // Check, before deleting file, to make sure it's not also used by
+        // another digital object
+        $criteria = new Criteria;
+        $criteria->add(QubitDigitalObject::PATH, $this->path);
+        $criteria->add(QubitDigitalObject::NAME, $this->name);
+
+        if (count(QubitDigitalObject::get($criteria)) <= 1)
+        {
+          unlink($this->getAbsolutePath());
+        }
       }
 
       // Prune asset directory, if empty
