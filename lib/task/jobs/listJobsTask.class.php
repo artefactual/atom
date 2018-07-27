@@ -24,7 +24,7 @@
  * @subpackage task
  * @author     Mike Gale <mikeg@artefactual.com>
  */
-class listJobsTask extends sfBaseTask
+class listJobsTask extends arBaseTask
 {
     protected $namespace        = 'jobs';
     protected $name             = 'list';
@@ -53,8 +53,9 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
+    parent::execute($arguments, $options);
+
     // initialized data connection in case it's needed
-    $sf_context = sfContext::createInstance($this->configuration);
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
