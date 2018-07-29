@@ -4,14 +4,17 @@ Drupal.behaviors.deleteBasisRightAction = {
     jQuery('#content').on('click', '.deleteRightBasis', function(event){
       event.preventDefault();
 
-      var $this = jQuery(this);
-      var href = $this.attr('href');
+      if (confirm(jQuery('.relatedRights').data('confirm-message')))
+      {
+        var $this = jQuery(this);
+        var href = $this.attr('href');
 
-      var success = function(){
-        $this.parent().slideUp();
+        var success = function(){
+          $this.parent().slideUp();
+        }
+
+        jQuery.get(href, success($this));
       }
-
-      jQuery.get(href, success($this));
 
       return false;
     });

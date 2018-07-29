@@ -1,3 +1,4 @@
+<div class="relatedRights" data-confirm-message="<?php echo __('Are you sure you want to delete this right?') ?>">
 <?php if ($className === 'QubitInformationObject'): ?>
 
   <?php foreach ($resource->getRights() as $right): ?>
@@ -23,3 +24,4 @@
   <?php endforeach; ?>
 
 <?php endif; ?>
+</div>
