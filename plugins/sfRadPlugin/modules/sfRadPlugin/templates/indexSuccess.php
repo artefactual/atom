@@ -385,9 +385,7 @@
 
     <h2><?php echo __('Rights area') ?> </h2>
 
-    <div class="relatedRights">
-      <?php echo get_component('right', 'relatedRights', array('resource' => $resource)) ?>
-    </div>
+    <?php echo get_component('right', 'relatedRights', array('resource' => $resource)) ?>
 
   </section> <!-- /section#rightsArea -->
 
