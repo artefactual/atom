@@ -295,36 +295,33 @@ class sfModsConvertor extends QubitSaxParser {
     }
   }
 
-  // <url usage="primary display">
-  protected function urlTag()
+  // <electronicLocator>
+  protected function electronicLocatorTag()
   {
-    if ($this->attr('usage') == 'primary display')
+    // Download/copy URL to temp file
+    $curlSession = curl_init();
+    curl_setopt($curlSession, CURLOPT_URL, $this->data());
+    curl_setopt($curlSession, CURLOPT_BINARYTRANSFER, true);
+    curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
+
+    $tempFile = tempnam(sys_get_temp_dir(), 'atomFile');
+    file_put_contents($tempFile, curl_exec($curlSession));
+
+    curl_close($curlSession);
+
+    // Add temp file to digital object import queue
+    $pathParts = pathinfo($this->data());
+
+    if (0 === filesize($tempFile))
     {
-      // Download/copy URL to temp file
-      $curlSession = curl_init();
-      curl_setopt($curlSession, CURLOPT_URL, $this->data());
-      curl_setopt($curlSession, CURLOPT_BINARYTRANSFER, true);
-      curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
-
-      $tempFile = tempnam(sys_get_temp_dir(), 'atomFile');
-      file_put_contents($tempFile, curl_exec($curlSession));
-
-      curl_close($curlSession);
-
-      // Add temp file to digital object import queue
-      $pathParts = pathinfo($this->data());
-
-      if (0 === filesize($tempFile))
-      {
-        sfContext::getInstance()->getLogger()->info('Digital object file is empty.');
-      }
-      else
-      {
-        $this->digitalObjects[] = array(
-          'filename' => $pathParts['basename'],
-          'tempFile' => $tempFile
-        );
-      }
+      sfContext::getInstance()->getLogger()->info('Digital object file is empty.');
+    }
+    else
+    {
+      $this->digitalObjects[] = array(
+        'filename' => $pathParts['basename'],
+        'tempFile' => $tempFile
+      );
     }
   }
 

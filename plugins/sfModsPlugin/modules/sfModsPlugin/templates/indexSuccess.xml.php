@@ -115,7 +115,11 @@
 
   <?php if (isset($resource->digitalObjects[0])): ?>
     <location>
-      <url usage="primary display"><?php echo esc_specialchars($resource->getDigitalObjectPublicUrl()) ?></url>
+      <holdingSimple>
+        <copyInformation>
+          <electronicLocator><?php echo esc_specialchars($resource->getDigitalObjectPublicUrl()) ?></electronicLocator>
+        </copyInformation>
+      </holdingSimple>
     </location>
   <?php endif; ?>
 
