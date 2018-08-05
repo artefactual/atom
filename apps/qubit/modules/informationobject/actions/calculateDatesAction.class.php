@@ -22,7 +22,8 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
   // Arrays not allowed in class constants
   public static
     $NAMES = array(
-      'eventId');
+      'eventId',
+      'eventTypeId');
 
   protected function addField($name)
   {
@@ -48,6 +49,21 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
         $this->form->getWidgetSchema()->$name->setLabel($label);
 
         break;
+
+      case 'eventTypeId':
+        // This field is only needed if no events exist for the target resource
+        if (!count($this->events))
+        {
+          $eventTypes = array(
+            QubitTerm::CREATION_ID     => $this->i18n->__('Creation'),
+            QubitTerm::ACCUMULATION_ID => $this->i18n->__('Accumulation')
+          );
+
+          $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $eventTypes)));
+          $this->form->setValidator($name, new sfValidatorInteger);
+        }
+
+        break;
     }
   }
 
@@ -57,6 +73,11 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
     {
       case 'eventId':
         $this->eventId = $field->getValue();
+
+        break;
+
+      case 'eventTypeId':
+        $this->eventTypeId = $field->getValue();
 
         break;
     }
@@ -99,8 +120,12 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
       }
     }
 
-    $message = $this->i18n->__('Warning: Selected date range for the specified event will be overwritten.');
-    $this->getUser()->setFlash('notice', $message);
+    // Only show this notification if event(s) exist to select
+    if (count($this->event))
+    {
+      $message = $this->i18n->__('Warning: Selected date range for the specified event will be overwritten.');
+      $this->getUser()->setFlash('notice', $message);
+    }
   }
 
   protected function beginDateCalculation()
@@ -108,7 +133,8 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
     // Specify parameters for job
     $params = array(
       'objectId' => $this->resource->id,
-      'eventId' => $this->eventId
+      'eventId' => $this->eventId,
+      'eventTypeId' => $this->eventTypeId
     );
 
     // Catch no Gearman worker available exception

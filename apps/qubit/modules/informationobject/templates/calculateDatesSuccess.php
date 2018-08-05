@@ -19,7 +19,11 @@
       <fieldset class="collapsible">
         <div class="fieldset-wrapper">
 
-          <?php echo $form->eventId->renderRow() ?>
+          <?php if (count($events)): ?>
+            <?php echo $form->eventId->renderRow() ?>
+          <?php else: ?>
+            <?php echo $form->eventTypeId->renderRow() ?>
+          <?php endif; ?>
 
           <h6>
             <?php echo __('Note: While the date range update is running, the selected description should not be edited.') ?>

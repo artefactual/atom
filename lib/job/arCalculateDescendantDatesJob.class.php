@@ -30,24 +30,47 @@ class arCalculateDescendantDatesJob extends arBaseJob
   /**
    * @see arBaseJob::$requiredParameters
    */
-  protected $extraRequiredParameters = array('objectId', 'eventId');
+  protected $extraRequiredParameters = array('objectId');
 
   public function runJob($parameters)
   {
+    if (empty($parameters['eventId']) && empty($parameters['eventTypeId']))
+    {
+      throw new sfException('Either the eventId or eventTypeId parameter must be specified.');
+    }
+
+    // Output job description (whether an existing event will be modified or a new event, of a given type, created)
+    $eventTargetDescription = (empty($parameters['eventId'])) ? 'event type' : 'event ID';
+    $eventTargetId = (empty($parameters['eventId'])) ? $parameters['eventTypeId'] : $parameters['eventId'];
     $this->info($this->i18n->__(
-      'Calculating dates for information object (ID: %1, event ID: %2)',
-      array('%1' => $parameters['objectId'], '%2' => $parameters['eventId'])
+      'Calculating dates for information object (ID: %1, %2: %3)',
+      array('%1' => $parameters['objectId'], '%2' => $eventTargetDescription, '%3' => $eventTargetId)
     ));
 
-    // Load related objects
+    // Load information object
     $io = QubitInformationObject::getById($parameters['objectId']);
-    $event = QubitEvent::getById($parameters['eventId']);
 
-    // Describe original dates
-    $this->info($this->i18n->__(
-      'Original start date of event is %1 and end date is %2.',
-      array('%1' => $this->describeDate($event->startDate), '%2' => $this->describeDate($event->endDate))
-    ));
+    // Create or load target event
+    if (empty($parameters['eventId']))
+    {
+      $event = new QubitEvent;
+      $event->objectId = $parameters['objectId'];
+      $event->typeId = $parameters['eventTypeId'];
+    }
+    else
+    {
+      $event = QubitEvent::getById($parameters['eventId']);
+    }
+
+    // Describe original dates if replacing date data in an existing event
+    if (!empty($parameters['eventId']))
+    {
+      // Describe original dates
+      $this->info($this->i18n->__(
+        'Original start date of event is %1 and end date is %2.',
+        array('%1' => $this->describeDate($event->startDate), '%2' => $this->describeDate($event->endDate))
+      ));
+    }
 
     // Determine earliest start date and lastest end date of descendent events
     // sharing type with provided event
@@ -80,7 +103,7 @@ class arCalculateDescendantDatesJob extends arBaseJob
     {
       // Describe new dates
       $this->info($this->i18n->__(
-        'Changing start date of event to %1 and end date to %2.',
+        'Setting start date of event to %1 and end date to %2.',
         array('%1' => $this->describeDate($eventData->min), '%2' => $this->describeDate($eventData->max))
       ));
 
