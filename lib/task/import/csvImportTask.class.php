@@ -103,6 +103,13 @@ EOF;
         'Limit --update matching to under a specified top level description or repository via slug.'
       ),
       new sfCommandOption(
+        'user-id',
+        null,
+        sfCommandOption::PARAMETER_OPTIONAL,
+        'User ID to run import as',
+        null
+      ),
+      new sfCommandOption(
         'keep-digital-objects',
         null,
         sfCommandOption::PARAMETER_NONE,
@@ -177,6 +184,11 @@ EOF;
       'Language note'
     );
 
+    if (!empty($options['user-id']) && (null !== $user = QubitUser::getById($options['user-id'])))
+    {
+      $this->context->getUser()->signIn($user);
+    }
+
     // Load taxonomies into variables to avoid use of magic numbers
     $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
       QubitTaxonomy::DESCRIPTION_STATUS_ID       => 'descriptionStatusTypes',
@@ -229,7 +241,7 @@ EOF;
     // Define import
     $import = new QubitFlatfileImport(array(
       // Pass context
-      'context' => sfContext::createInstance($this->configuration),
+      'context' => $this->context,
 
       // What type of object are we importing?
       'className' => 'QubitInformationObject',
