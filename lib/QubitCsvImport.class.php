@@ -98,6 +98,9 @@ class QubitCsvImport
     // Figure out whether indexing flag should be added to command.
     $commandIndexFlag = ($taskClassName != 'csv:event-import' && $this->indexDuringImport) ? '--index' : '';
 
+    // Figure out whether user option should be added to command
+    $commandUser = ($taskClassName == 'csv:import') ? sprintf('--user-id="%s"', sfContext::getInstance()->getUser()->getUserId()) : '';
+
     if ('' !== $this->updateType)
     {
       switch ($this->updateType)
@@ -123,7 +126,7 @@ class QubitCsvImport
     if (isset($this->parent))
     {
       // Example: php symfony csv:import --default-parent-slug="$sourceName" /tmp/foobar
-      $command = sprintf('php %s %s %s %s %s %s %s --quiet --source-name=%s --default-parent-slug=%s %s',
+      $command = sprintf('php %s %s %s %s %s %s %s --quiet --source-name=%s %s --default-parent-slug=%s %s',
         escapeshellarg(sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'symfony'),
         escapeshellarg($taskClassName),
         $commandIndexFlag,
@@ -131,6 +134,7 @@ class QubitCsvImport
         $commandUpdate,
         $commandSkipUnmatched,
         $commandSkipMatched,
+        $commandUser,
         escapeshellarg($csvOrigFileName),
         escapeshellarg($this->parent->slug),
         escapeshellarg($transformedFile ? $transformedFile : $csvFile));
@@ -138,7 +142,7 @@ class QubitCsvImport
     else
     {
       // Example: php symfony csv:import /tmp/foobar
-      $command = sprintf('php %s %s %s %s %s %s %s --quiet --source-name=%s %s',
+      $command = sprintf('php %s %s %s %s %s %s %s --quiet %s --source-name=%s %s',
         escapeshellarg(sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'symfony'),
         escapeshellarg($taskClassName),
         $commandIndexFlag,
@@ -146,6 +150,7 @@ class QubitCsvImport
         $commandUpdate,
         $commandSkipUnmatched,
         $commandSkipMatched,
+        $commandUser,
         escapeshellarg($csvOrigFileName),
         escapeshellarg($transformedFile ? $transformedFile : $csvFile));
     }

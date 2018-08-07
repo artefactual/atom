@@ -103,6 +103,13 @@ EOF;
         'Limit --update matching to under a specified top level description or repository via slug.'
       ),
       new sfCommandOption(
+        'user-id',
+        null,
+        sfCommandOption::PARAMETER_OPTIONAL,
+        'User ID to run import as',
+        null
+      ),
+      new sfCommandOption(
         'keep-digital-objects',
         null,
         sfCommandOption::PARAMETER_NONE,
@@ -144,6 +151,11 @@ EOF;
       throw new sfException('You must specify a valid filename');
     }
 
+    if (!empty($options['user-id']) && (null !== $user = QubitUser::getById($options['user-id'])))
+    {
+      $this->context->getUser()->signIn($user);
+    }
+
     $skipRows = $options['skip-rows'] ?: 0;
     $sourceName = $options['source-name'] ?: basename($arguments['filename']);
     $defaultStatusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
@@ -165,7 +177,7 @@ EOF;
     // Define import
     $import = new QubitFlatfileImport(array(
       // Pass context
-      'context' => sfContext::createInstance($this->configuration),
+      'context' => $this->context,
 
       // What type of object are we importing?
       'className' => 'QubitInformationObject',
