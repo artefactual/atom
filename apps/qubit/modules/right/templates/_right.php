@@ -2,7 +2,7 @@
   <h3><?php echo __('Related right') ?></h3>
   <?php if (QubitAcl::check($relatedObject, 'update')): ?>
     <a href="<?php echo url_for(array('module' => 'right', 'action' => 'edit', 'slug' => $resource->slug)) ?>">&nbsp;Edit</a> |
-    <a href="<?php echo url_for(array('module' => 'right', 'action' => 'delete', 'slug' => $resource->slug)) ?>"  class="deleteRightBasis">Delete</a>
+    <a href="<?php echo url_for(array('module' => 'right', 'action' => 'delete', 'slug' => $resource->slug)) ?>">Delete</a>
   <?php endif; ?>
 
   <div>

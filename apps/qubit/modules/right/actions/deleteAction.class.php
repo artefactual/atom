@@ -22,16 +22,21 @@ class RightDeleteAction extends sfAction
   public function execute($request)
   {
     $this->right = $this->getRoute()->resource;
-    $relatedObject = $this->right->relationsRelatedByobjectId[0]->subject;
+    $this->relatedObject = $this->right->relationsRelatedByobjectId[0]->subject;
 
     // Check user authorization against the related object
-    if (!QubitAcl::check($relatedObject, 'delete'))
+    if (!QubitAcl::check($this->relatedObject, 'delete'))
     {
       QubitAcl::forwardUnauthorized();
     }
 
-    $this->right->delete();
+    if ($request->isMethod('delete'))
+    {
+      $this->right->delete();
 
-    return $this->redirect(array($relatedObject));
+      return $this->redirect(array($this->relatedObject));
+    }
+
+    $this->form = new sfForm;
   }
 }

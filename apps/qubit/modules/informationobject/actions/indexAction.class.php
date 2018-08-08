@@ -109,11 +109,6 @@ class InformationObjectIndexAction extends sfAction
 
     $this->dispatcher->notify(new sfEvent($this, 'access_log.view', array('object' => $this->resource)));
 
-    // Specified here instead of view.yml so plugins calling
-    // calling inheriting and calling parent::execute also
-    // automatically load the file(s)
-    $this->getResponse()->addJavascript('deleteBasisRight.js', 'last');
-
     if (sfConfig::get('app_treeview_type__source', 'sidebar') == 'fullWidth')
     {
       $this->getResponse()->addStylesheet('fullWidthTreeView', 'last');
