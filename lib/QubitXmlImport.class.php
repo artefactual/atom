@@ -740,7 +740,8 @@ class QubitXmlImport
   protected function loadXML($xmlFile, $options = array())
   {
     libxml_use_internal_errors(true);
-
+    libxml_clear_errors();
+    
     // FIXME: trap possible load validation errors (just suppress for now)
     $err_level = error_reporting(0);
     $doc = new DOMDocument('1.0', 'UTF-8');
