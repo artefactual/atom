@@ -30,37 +30,27 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
     switch ($name)
     {
       case 'eventId':
-        if (count($this->events) == 1)
+        if (count($this->events))
         {
-          // If there's only one event with data range data, display its description
-          // via the form label and relay its ID via a hidden field
-          $this->form->setDefault($name, key($this->events));
-          $this->form->setWidget($name, new sfWidgetFormInputHidden);
-          $label = current($this->events);
-        }
-        else
-        {
-          // Otherwise, display the events using a SELECT element
-          $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $this->events)));
-          $label = $this->i18n->__('Event');
-        }
+          $eventIdChoices = array(0 => $this->i18n->__('--Select--')) + $this->events;
+          $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $eventIdChoices)));
 
-        $this->form->setValidator($name, new sfValidatorInteger);
-        $this->form->getWidgetSchema()->$name->setLabel($label);
+          $label = $this->i18n->__('Event');
+          $this->form->setValidator($name, new sfValidatorInteger);
+          $this->form->getWidgetSchema()->$name->setLabel($label);
+        }
 
         break;
 
       case 'eventTypeId':
-        // This field is only needed if no events exist for the target resource
-        if (!count($this->events))
+        if (count($this->descendantEventTypes))
         {
-          $eventTypes = array(
-            QubitTerm::CREATION_ID     => $this->i18n->__('Creation'),
-            QubitTerm::ACCUMULATION_ID => $this->i18n->__('Accumulation')
-          );
+          $eventTypeChoices = array(0 => $this->i18n->__('--Select--')) + $this->descendantEventTypes;
+          $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $eventTypeChoices)));
 
-          $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $eventTypes)));
+          $label = $this->i18n->__('Event type');
           $this->form->setValidator($name, new sfValidatorInteger);
+          $this->form->getWidgetSchema()->$name->setLabel($label);
         }
 
         break;
@@ -87,7 +77,8 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
   {
     $this->i18n = $this->context->i18n;
     $this->resource = $this->getRoute()->resource;
-    $this->events = self::getResourceEventsWithDateRangeSet($this->resource);
+    $this->descendantEventTypes = self::getDescendantDateTypes($this->resource);
+    $this->events = $this->getResourceEventsWithDateRangeSet($this->resource, $this->descendantEventTypes);
   }
 
   public function execute($request)
@@ -115,17 +106,32 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
       if ($this->form->isValid())
       {
         $this->processForm();
-        $this->beginDateCalculation();
-        $this->redirect(array($this->resource, 'module' => 'informationobject'));
+
+        // Display error if neither an event ID nor an event type ID has been specified (or if both have)
+        if (!$this->validCalculationSelectionCheck())
+        {
+          $message = $this->i18n->__("Warning: Please make a valid selection.");
+          $this->getUser()->setFlash('error', $message);
+        }
+        else
+        {
+          $this->beginDateCalculation();
+          $this->redirect(array($this->resource, 'module' => 'informationobject'));
+        }
       }
     }
 
     // Only show this notification if event(s) exist to select
-    if (count($this->event))
+    if (count($this->events))
     {
-      $message = $this->i18n->__('Warning: Selected date range for the specified event will be overwritten.');
+      $message = $this->i18n->__("Warning: If selecting an event, rather than an event type, the selected event's date range will be overwritten.");
       $this->getUser()->setFlash('notice', $message);
     }
+  }
+
+  protected function validCalculationSelectionCheck()
+  {
+    return $this->eventId xor $this->eventTypeId;
   }
 
   protected function beginDateCalculation()
@@ -153,8 +159,39 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
     }
   }
 
-  static public function getResourceEventsWithDateRangeSet($resource)
+  static public function getDescendantDateTypes($resource)
   {
+    $eventTypes = array();
+
+    $sql = "SELECT
+      DISTINCT e.type_id
+      FROM
+        information_object i
+        INNER JOIN event e ON i.id=e.object_id
+      WHERE
+        i.lft > :lft
+        AND i.rgt < :rgt";
+
+    $params = array(
+      ':lft' => $resource->lft,
+      ':rgt' => $resource->rgt
+    );
+
+    $eventData = QubitPdo::fetchAll($sql, $params, array('fetchMode' => PDO::FETCH_ASSOC));
+
+    foreach($eventData as $event)
+    {
+      $eventTypeTerm = QubitTerm::getById($event['type_id']);
+      $eventTypes[($event['type_id'])] = $eventTypeTerm->getName(array('cultureFallback' => true));
+    }
+
+    return $eventTypes;
+  }
+
+  protected function getResourceEventsWithDateRangeSet($resource, $validEventTypes = null)
+  {
+    $validEventTypes = (is_null($validEventTypes)) ? self::getDescendentDateTypes($resource) : $validEventTypes;
+
     $events = array();
 
     $criteria = new Criteria;
@@ -163,7 +200,7 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
     // Assemble array of descriptions for any events containing date information
     foreach(QubitEvent::get($criteria) as $event)
     {
-      if ((!empty($event->date) || !empty($event->startDate) || !empty($event->endDate)) && null !== $event->typeId)
+      if ($this->eventHasDateAndDateRangeSet($event) && null !== $event->typeId && isset($validEventTypes[$event->typeId]))
       {
         $eventTypeName = $event->type->getName(array('cultureFallback' => true));
         $eventRange = Qubit::renderDateStartEnd($event->getDate(array('cultureFallback' => true)), $event->startDate, $event->endDate);
@@ -172,5 +209,10 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
     }
 
     return $events;
+  }
+
+  protected function eventHasDateAndDateRangeSet($event)
+  {
+    return !empty($event->date) || !empty($event->startDate) || !empty($event->endDate);
   }
 }

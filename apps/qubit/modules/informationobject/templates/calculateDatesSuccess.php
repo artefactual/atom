@@ -20,8 +20,12 @@
         <div class="fieldset-wrapper">
 
           <?php if (count($events)): ?>
+            <p>Please select either an event or an event type:</p>
+
             <?php echo $form->eventId->renderRow() ?>
-          <?php else: ?>
+          <?php endif; ?>
+
+          <?php if (count($eventTypes)): ?>
             <?php echo $form->eventTypeId->renderRow() ?>
           <?php endif; ?>
 
