@@ -122,7 +122,7 @@ class DefaultFullTreeViewAction extends sfAction
       // Add identifier based on setting
       if ($this->showIdentifier === 'identifier' && !empty($result['identifier']))
       {
-        $result['text'] = render_value_inline($result['identifier']).' - '.render_value_inline($result['text']);
+        $result['text'] = render_value_inline($result['identifier']).' - '.$result['text'];
       }
 
       // Add reference code based on setting
