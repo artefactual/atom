@@ -22,35 +22,18 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
   // Arrays not allowed in class constants
   public static
     $NAMES = array(
-      'eventId',
-      'eventTypeId');
+      'eventIdOrTypeId');
 
   protected function addField($name)
   {
     switch ($name)
     {
-      case 'eventId':
-        if (count($this->events))
+      case 'eventIdOrTypeId':
+        if (count($this->events) || count($this->descendantEventTypes))
         {
-          $eventIdChoices = array(0 => $this->i18n->__('--Select--')) + $this->events;
+          $eventIdChoices = $this->events + $this->descendantEventTypes;
           $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $eventIdChoices)));
-
-          $label = $this->i18n->__('Event');
-          $this->form->setValidator($name, new sfValidatorInteger);
-          $this->form->getWidgetSchema()->$name->setLabel($label);
-        }
-
-        break;
-
-      case 'eventTypeId':
-        if (count($this->descendantEventTypes))
-        {
-          $eventTypeChoices = array(0 => $this->i18n->__('--Select--')) + $this->descendantEventTypes;
-          $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $eventTypeChoices)));
-
-          $label = $this->i18n->__('Event type');
-          $this->form->setValidator($name, new sfValidatorInteger);
-          $this->form->getWidgetSchema()->$name->setLabel($label);
+          $this->form->setValidator($name, new sfValidatorInteger(array('required' => true)));
         }
 
         break;
@@ -61,13 +44,24 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
   {
     switch ($name = $field->getName())
     {
-      case 'eventId':
-        $this->eventId = $field->getValue();
+      case 'eventIdOrTypeId':
+        $this->eventIdOrTypeId = $field->getValue();
 
-        break;
+        // Determine whether ID belongs to an event or a type (term)
+        $criteria = new Criteria;
+        $criteria->add(QubitObject::ID, $this->eventIdOrTypeId);
 
-      case 'eventTypeId':
-        $this->eventTypeId = $field->getValue();
+        if (null !== $object = QubitObject::getOne($criteria))
+        {
+          if ($object->className == 'QubitEvent')
+          {
+            $this->eventId = $object->id;
+          }
+          else
+          {
+            $this->eventTypeId = $object->id;
+          }
+        }
 
         break;
     }
@@ -106,32 +100,15 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
       if ($this->form->isValid())
       {
         $this->processForm();
-
-        // Display error if neither an event ID nor an event type ID has been specified (or if both have)
-        if (!$this->validCalculationSelectionCheck())
-        {
-          $message = $this->i18n->__("Warning: Please make a valid selection.");
-          $this->getUser()->setFlash('error', $message);
-        }
-        else
-        {
-          $this->beginDateCalculation();
-          $this->redirect(array($this->resource, 'module' => 'informationobject'));
-        }
+        $this->beginDateCalculation();
+        $this->redirect(array($this->resource, 'module' => 'informationobject'));
+      }
+      else
+      {
+        $message = $this->i18n->__('Please make a selection.');
+        $this->context->user->setFlash('error', $message);
       }
     }
-
-    // Only show this notification if event(s) exist to select
-    if (count($this->events))
-    {
-      $message = $this->i18n->__("Warning: If selecting an event, rather than an event type, the selected event's date range will be overwritten.");
-      $this->getUser()->setFlash('notice', $message);
-    }
-  }
-
-  protected function validCalculationSelectionCheck()
-  {
-    return $this->eventId xor $this->eventTypeId;
   }
 
   protected function beginDateCalculation()
