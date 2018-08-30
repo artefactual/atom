@@ -17,28 +17,48 @@
     <div id="content">
 
       <fieldset class="collapsible">
-        <div class="fieldset-wrapper">
 
-          <?php if (count($events)): ?>
-            <p>Please select either an event or an event type:</p>
+        <?php if (count($events)): ?>
+          <legend class="collapse-processed"><?php echo __('Update an existing date range') ?></legend>
 
-            <?php echo $form->eventId->renderRow() ?>
-          <?php endif; ?>
+          <div class="fieldset-wrapper">
 
-          <?php if (count($eventTypes)): ?>
-            <?php echo $form->eventTypeId->renderRow() ?>
-          <?php endif; ?>
+            <p><?php echo __('Select a date range to overwrite:') ?></p>
 
-          <h6>
-            <?php echo __('Note: While the date range update is running, the selected description should not be edited.') ?>
-            <?php echo __('You can check %1% page to determine the current status of the update job.',
-              array('%1%' => link_to(__('Manage jobs'), array('module' => 'jobs', 'action' => 'browse')))) ?>
-          </h6>
+            <?php foreach ($events as $eventId => $eventName): ?>
+              <p><input type="radio" name="eventIdOrTypeId" value="<?php echo $eventId ?>"><?php echo $eventName ?></p>
+            <?php endforeach; ?>
 
-        </div>
+            <div class="alert alert-notice">
+              <?php echo __('Updating an existing date range will permanently overwrite the current dates.') ?>
+            </div>
+
+          </div>
+        <?php endif; ?>
+
+        <?php if (count($descendantEventTypes)): ?>
+          <legend class="collapse-processed"><?php echo __('or, create a new date range') ?></legend>
+
+          <div class="fieldset-wrapper">
+
+            <p><?php echo __('Select the new date type:') ?></p>
+
+            <?php foreach ($descendantEventTypes as $eventTypeId => $eventTypeName): ?>
+              <p><input type="radio" name="eventIdOrTypeId" value="<?php echo $eventTypeId ?>"><?php echo $eventTypeName ?></p>
+            <?php endforeach; ?>
+
+          </div>
+        <?php endif; ?>
+
       </fieldset>
 
     </div>
+          <div class="alert alert-info">
+            <?php echo __('Note: While the date range update is running, the selected description should not be edited.') ?>
+            <?php echo __('You can check %1% page to determine the current status of the update job.',
+              array('%1%' => link_to(__('Manage jobs'), array('module' => 'jobs', 'action' => 'browse')))) ?>
+          </div>
+
 
     <section class="actions">
       <ul>
