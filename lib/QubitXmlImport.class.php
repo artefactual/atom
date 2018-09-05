@@ -245,10 +245,11 @@ class QubitXmlImport
         {
           throw new sfException($this->i18n->__('The SKOS plugin is not enabled'));
         }
-
-        $importTerms = sfSkosPlugin::parse($importDOM, $options);
-        $this->rootObject = QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID);
-        $this->count = count($importTerms);
+        $this->rootObject = QubitTaxonomy::getById($options['taxonomy']);
+        $importer = new sfSkosPlugin($options['taxonomy'], $options);
+        // 'file' scheme required during SKOS file validation.
+        $importer->load(is_file($xmlFile) ? "file://$xmlFile" : $xmlFile);
+        $importer->importGraph();
 
         return $this;
 
@@ -741,7 +742,7 @@ class QubitXmlImport
   {
     libxml_use_internal_errors(true);
     libxml_clear_errors();
-    
+
     // FIXME: trap possible load validation errors (just suppress for now)
     $err_level = error_reporting(0);
     $doc = new DOMDocument('1.0', 'UTF-8');
@@ -1302,6 +1303,20 @@ class QubitXmlImport
     if ($this->options['update'] && $this->options['update'] !== 'delete-and-replace')
     {
       throw new sfException($this->i18n->__('EAD import currently only supports %mode% update mode.', array('%mode%' => '"delete-and-replace"')));
+    }
+  }
+
+  public static function includeClassesAndHelpers()
+  {
+    $appRoot = sfConfig::get('sf_root_dir');
+
+    $includes = array(
+      '/plugins/sfSkosPlugin/lib/sfSkosPlugin.class.php',
+    );
+
+    foreach ($includes as $include)
+    {
+      include_once $appRoot.$include;
     }
   }
 }

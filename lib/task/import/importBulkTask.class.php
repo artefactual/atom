@@ -122,8 +122,8 @@ EOF;
       elseif ('xml' == pathinfo($file, PATHINFO_EXTENSION))
       {
         $importer = new QubitXmlImport;
+        $importer->includeClassesAndHelpers();
         $options['strictXmlParsing'] = false;
-
         $importer->import($file, $options);
       }
       else
