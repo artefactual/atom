@@ -3953,6 +3953,20 @@ QubitTerm:
       pt-BR: 'Nota da ocupação do registro de autoridade'
       sr: 'Напомена о занимању ствараоца'
       sv: 'Anmärkning rörande aktörsyrke'
+  QubitTerm_user_action_creation:
+    id: 189
+    taxonomy_id: QubitTaxonomy_user_actions
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: 'Creation'
+  QubitTerm_user_action_modification:
+    id: 190
+    taxonomy_id: QubitTaxonomy_user_actions
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: 'Modification'
   QubitTerm_actor_relationship_is_the_superior_of:
     taxonomy_id: QubitTaxonomy_actor_relation_type
     parent_id: QubitTerm_actor_relationship_hierarchical
@@ -11077,20 +11091,6 @@ QubitTerm:
       pt: 'Notas do arquivista'
       pt-BR: 'Nota de créditos'
       sr: 'Напомена о сарадницима'
-  QubitTerm_user_action_creation:
-    id: 439
-    taxonomy_id: QubitTaxonomy_user_actions
-    parent_id: QubitTerm_110
-    source_culture: en
-    name:
-      en: 'Creation'
-  QubitTerm_user_action_modification:
-    id: 440
-    taxonomy_id: QubitTaxonomy_user_actions
-    parent_id: QubitTerm_110
-    source_culture: en
-    name:
-      en: 'Modification'
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111
