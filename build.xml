@@ -201,15 +201,34 @@
   </target>
 
   <target name="i18n-cleanup">
-    <foreach param="lang" target="i18n-cleanup-subtask">
+    <!-- The extract task is part of Symfony, but fails if a plugin doesn't have an i18n subdirectory -->
+    <foreach param="plugin" target="i18n-cleanup-create-plugin-subdirs-subtask">
+      <fileset dir="plugins/">
+        <type type="dir"/>
+        <depth max="0" min="0"/>
+      </fileset>
+    </foreach>
+    <foreach param="lang" target="i18n-cleanup-extract-subtask">
       <fileset dir="apps/qubit/i18n/">
         <type type="dir"/>
         <depth max="0" min="0"/>
       </fileset>
     </foreach>
+    <foreach param="plugin" target="i18n-cleanup-remove-empty-plugin-subdirs-subtask">
+      <fileset dir="plugins/">
+        <type type="dir"/>
+        <depth max="0" min="0"/>
+      </fileset>
+    </foreach>
   </target>
-  <target name="i18n-cleanup-subtask">
+  <target name="i18n-cleanup-create-plugin-subdirs-subtask">
+    <exec command="mkdir plugins/${plugin}/i18n" dir="${phing.dir}"/>
+  </target>
+  <target name="i18n-cleanup-extract-subtask">
     <exec command="php symfony i18n:extract --auto-save --auto-delete --plugins ${lang}" dir="${phing.dir}" checkreturn="true"/>
+  </target>
+  <target name="i18n-cleanup-remove-empty-plugin-subdirs-subtask">
+    <exec command="rmdir plugins/${plugin}/i18n" dir="${phing.dir}"/>
   </target>
 
 </project>
