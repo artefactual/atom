@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="tn" datatype="plaintext" original="messages" date="2015-08-27T12:09:20Z" product-name="messages">
+  <file source-language="en" target-language="tn" datatype="plaintext" original="messages" date="2018-09-09T08:24:13Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -194,6 +194,10 @@
       </trans-unit>
       <trans-unit id="48">
         <source>Accession area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Add new</source>
         <target/>
       </trans-unit>
     </body>

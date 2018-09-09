@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2015-08-27T12:08:20Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2018-09-09T08:14:58Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -192,6 +192,10 @@
       </trans-unit>
       <trans-unit id="878">
         <source>Identify and record the name(s) and type(s) of the unit of description.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="879">
+        <source>Add new</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2017-09-04T11:51:14Z" product-name="messages">
+  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2018-09-09T08:09:16Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="5">
@@ -18,19 +18,19 @@
       </trans-unit>
       <trans-unit id="8">
         <source>The current term does not belong to the taxonomy chosen.</source>
-        <target/>
+        <target>Az aktuális kifejezés nem tartozik a választott taxonómiához</target>
       </trans-unit>
       <trans-unit id="9">
         <source>You must select a source to continue.</source>
-        <target/>
+        <target>Választania kell egy forrást a folytatáshoz.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Something wrong happened! Please check out the logs. Error: %1%</source>
-        <target/>
+        <target>Hiba történt! Kérem, nézze meg a naplót. Hiba: %1%</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Import file initiated. Check %1%job %2%%3% to view the status of the import.</source>
-        <target/>
+        <target>Az import fájl vizsgálata megkezdődött. Az import aktuális állapota a%1%feladatnál %2%%3%tekinthető meg.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Import options</source>
@@ -38,19 +38,19 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Select source</source>
-        <target/>
+        <target>Forrás kiválasztása</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Or a remote resource</source>
-        <target/>
+        <target>Vagy egy távoli forrás</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Taxonomy with ID %1% could not be found</source>
-        <target/>
+        <target>Az %1%azonosítójú taxonómia nem található.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Term with ID %1% could not be found</source>
-        <target/>
+        <target>A %1%azonosítószámú kifejezés nem található</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Malformed URI.</source>
@@ -58,7 +58,7 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Type of scheme: %1%</source>
-        <target/>
+        <target>A rendszer típusa: %1%</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Taxonomy: %1%</source>
@@ -70,23 +70,23 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Unsupported scheme!</source>
-        <target/>
+        <target>Nem támogatott rendszer!</target>
       </trans-unit>
       <trans-unit id="22">
         <source>The graph is empty.</source>
-        <target/>
+        <target>A grafika üres.</target>
       </trans-unit>
       <trans-unit id="23">
         <source>The graph contains %1% concepts.</source>
-        <target/>
+        <target>A grafika %1%koncepcót tartalmaz.</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Unexpected concept, type received: %1%.</source>
-        <target/>
+        <target>Váratlan koncepció, gépelje a kapott %1%.</target>
       </trans-unit>
       <trans-unit id="25">
         <source>The following languages are used in the dataset imported but not supported by AtoM: %1%</source>
-        <target/>
+        <target>Az impotrált adatkészlet olyan nyelveket használ, amelyeket az AtoM nem támogat: %1%</target>
       </trans-unit>
       <trans-unit id="26">
         <source>A total of %1% concepts have been processed so far.</source>

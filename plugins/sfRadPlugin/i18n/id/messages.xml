@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2017-08-25T18:50:43Z" product-name="messages">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2018-09-09T08:09:18Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -630,7 +630,7 @@
       </trans-unit>
       <trans-unit id="180">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target/>
+        <target>Berikan informasi kutipan dari sumber-sumber eksternal yang digunakan dalam pendeskripsian arsip (misalnya dalam field Cakupan dan Isi, Riwayat Kustodi, atau Keterangan).</target>
       </trans-unit>
       <trans-unit id="181">
         <source>Associated materials</source>
@@ -658,7 +658,7 @@
       </trans-unit>
       <trans-unit id="187">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
-        <target/>
+        <target>Cari istilah yang sudah ada pada daftar taksonomi Genre dengan cara mengetik beberapa huruf awal dari istilah tersebut. Atau, ketik istilah baru untuk menciptakan link ke istilah genre yang baru.</target>
       </trans-unit>
       <trans-unit id="188">
         <source>General note</source>

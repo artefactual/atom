@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="de_AT" datatype="plaintext" original="messages" date="2018-09-09T08:22:42Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Your description has been updated. Its descendants are being updated asynchronously – check the &lt;a href="%1"&gt;job scheduler page&lt;/a&gt; for status and details.</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

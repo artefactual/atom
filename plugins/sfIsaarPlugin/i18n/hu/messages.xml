@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2017-09-04T11:51:14Z" product-name="messages">
+  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2018-09-09T08:09:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -443,15 +443,15 @@
       </trans-unit>
       <trans-unit id="111">
         <source>Access points area</source>
-        <target/>
+        <target>Kapcsolódási pontok adatcsoport</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Edit access points area</source>
-        <target/>
+        <target>Hozzáférési pontok adatcsoport szerkesztése</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Occupations</source>
-        <target/>
+        <target>Elfoglaltságok</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Note</source>

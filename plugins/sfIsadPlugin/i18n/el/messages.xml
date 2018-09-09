@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2016-04-19T21:25:50Z" product-name="messages">
+  <file source-language="en" target-language="el" datatype="plaintext" original="messages" date="2018-09-09T08:19:11Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -274,7 +274,7 @@
       </trans-unit>
       <trans-unit id="68">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target/>
+        <target>Για να δημιουργήσετε μια σχέση μεταξύ αυτής της περιγραφής με κάποια άλλη που περιέχεται στο AtoM, ξεκινήστε να πληκτρολογείται το όνομα της σχετιζόμενης περιγραφής και επιλέξτε την από το αυτό-συμπληρώμενο αναδιπλούμενο μενού όταν εμφανιστεί. Πολλαπλές σχέσεις είναι εφικτό να δημιουργηθούν.</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Notes area</source>
@@ -474,6 +474,10 @@
       </trans-unit>
       <trans-unit id="118">
         <source>Genre access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="119">
+        <source>Add new</source>
         <target/>
       </trans-unit>
     </body>

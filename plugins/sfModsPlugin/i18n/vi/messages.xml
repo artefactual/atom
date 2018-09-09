@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2016-04-19T21:23:28Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2018-09-09T08:24:34Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -149,6 +149,10 @@ Tìm kiếm tên có sẵn bằng cách gõ một vài ký tự đầu của tê
       <trans-unit id="40">
         <source>Description</source>
         <target>Mô tả </target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Add new</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

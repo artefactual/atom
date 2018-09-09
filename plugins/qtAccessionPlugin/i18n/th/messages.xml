@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2017-08-25T18:51:58Z" product-name="messages">
+  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2018-09-09T08:18:03Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -167,10 +167,6 @@
       <trans-unit id="43">
         <source>Search donor</source>
         <target>ค้นหาผู้บริจาค</target>
-      </trans-unit>
-      <trans-unit id="47">
-        <source>Alphabetic</source>
-        <target/>
       </trans-unit>
       <trans-unit id="48">
         <source>Browse donor</source>
@@ -438,10 +434,6 @@
         <source>Search %1%</source>
         <target/>
       </trans-unit>
-      <trans-unit id="120">
-        <source>Most recent</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="121">
         <source>Relevance</source>
         <target/>
@@ -508,6 +500,14 @@
       </trans-unit>
       <trans-unit id="137">
         <source>This identifer is already in use.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="138">
+        <source>Date modified</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="139">
+        <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. To view the last records in the current result set, try changing the sort direction.</source>
         <target/>
       </trans-unit>
     </body>

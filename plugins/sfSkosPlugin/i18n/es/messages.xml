@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2017-09-04T11:51:13Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2018-09-09T08:09:13Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="2">
@@ -18,11 +18,11 @@
       </trans-unit>
       <trans-unit id="11">
         <source>The current term does not belong to the taxonomy chosen.</source>
-        <target/>
+        <target>El término actual no pertenece a la taxonomía elegida.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>You must select a source to continue.</source>
-        <target/>
+        <target>Debe seleccionar una fuente para continuar.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Something wrong happened! Please check out the logs. Error: %1%</source>
@@ -74,11 +74,11 @@
       </trans-unit>
       <trans-unit id="25">
         <source>The graph is empty.</source>
-        <target/>
+        <target>El grafo está vacío.</target>
       </trans-unit>
       <trans-unit id="26">
         <source>The graph contains %1% concepts.</source>
-        <target/>
+        <target>El grafo contiene %1% conceptos.</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Unexpected concept, type received: %1%.</source>
@@ -90,7 +90,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>A total of %1% concepts have been processed so far.</source>
-        <target/>
+        <target>Un total de %1% conceptos han sido procesados hasta ahora.</target>
       </trans-unit>
     </body>
   </file>
