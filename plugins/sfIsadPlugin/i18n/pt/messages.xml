@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2017-08-25T18:50:43Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2018-09-18T15:14:39Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -489,6 +489,10 @@ Formatos aceitáveis ​​de data: AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.&lt;/str
       <trans-unit id="1033">
         <source>Genre access points</source>
         <target>Pontos de acesso de género</target>
+      </trans-unit>
+      <trans-unit id="1034">
+        <source>Add new</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2015-08-27T12:10:12Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2018-09-18T15:12:41Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -177,6 +177,10 @@
       <trans-unit id="945">
         <source>Identify and record the name(s) and type(s) of the unit of description.</source>
         <target>Identifique e registre os nome(s) e tipo(s) da unidade de descrição</target>
+      </trans-unit>
+      <trans-unit id="946">
+        <source>Add new</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

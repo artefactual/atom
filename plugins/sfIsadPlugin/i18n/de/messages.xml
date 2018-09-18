@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2017-08-25T18:50:40Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2018-09-18T15:01:57Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -474,6 +474,10 @@ Für elektronische Akten ist festzuhalten oder zu verweisen auf Informationen zu
       <trans-unit id="1032">
         <source>Genre access points</source>
         <target>Zugriffspunkte (Genre)</target>
+      </trans-unit>
+      <trans-unit id="1033">
+        <source>Add new</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

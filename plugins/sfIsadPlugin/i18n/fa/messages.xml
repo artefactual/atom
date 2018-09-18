@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2016-04-19T21:25:25Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2018-09-18T15:06:06Z" product-name="messages">
     <body>
       <trans-unit id="43">
         <source>Identity area</source>
@@ -472,6 +472,10 @@
       </trans-unit>
       <trans-unit id="958">
         <source>Genre access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="959">
+        <source>Add new</source>
         <target/>
       </trans-unit>
     </body>

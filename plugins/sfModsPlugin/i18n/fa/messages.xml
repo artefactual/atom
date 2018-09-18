@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2016-04-19T21:25:25Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2018-09-18T15:06:06Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -141,6 +141,10 @@
       <trans-unit id="857">
         <source>Description</source>
         <target>&#x62A;&#x648;&#x636;&#x64A;&#x62D;</target>
+      </trans-unit>
+      <trans-unit id="858">
+        <source>Add new</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

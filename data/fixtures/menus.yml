@@ -55,6 +55,7 @@ QubitMenu:
       ca@valencia: Agregar
       cy: Ychwanegu
       de: Hinzufügen
+      de-AT: Hinzufügen
       de-CH: Hinzufügen
       el: Εισαγωγή
       en: Add
@@ -242,6 +243,7 @@ QubitMenu:
       ca@valencia: 'Unitat de magatzematge'
       cy: 'Storfa ffisegol'
       de: Aufbewahrung
+      de-AT: Aufbewahrung
       de-CH: Standort
       el: 'Χώρος Αποθήκευσης'
       en: 'Physical storage'
@@ -349,6 +351,7 @@ QubitMenu:
       ca@valencia: Importar
       cy: Mewnforio
       de: Importieren
+      de-AT: Importieren
       de-CH: Importieren
       el: Εισαγωγή
       en: Import
@@ -638,6 +641,7 @@ QubitMenu:
       ca@valencia: XML
       cy: XML
       de: XML
+      de-AT: XML
       de-CH: XML
       el: XML
       en: XML
@@ -671,6 +675,7 @@ QubitMenu:
       ca@valencia: CSV
       cy: CSV
       de: CSV
+      de-AT: CSV
       de-CH: CSV
       el: CSV
       en: CSV
@@ -703,6 +708,7 @@ QubitMenu:
       ca@valencia: SKOS
       cy: SKOS
       de: SKOS
+      de-AT: SKOS
       de-CH: SKOS
       el: SKOS
       en: SKOS
@@ -776,6 +782,7 @@ QubitMenu:
       ca@valencia: Perfil
       cy: Proffil
       de: Profil
+      de-AT: Profil
       de-CH: Profil
       en: Profile
       es: Perfil
@@ -976,6 +983,7 @@ QubitMenu:
       ca@valencia: Perfil
       cy: Proffil
       de: Profil
+      de-AT: Profil
       de-CH: Profil
       en: Profile
       es: Perfil
@@ -1351,6 +1359,7 @@ QubitMenu:
       ca@valencia: 'Cercar/reemplaçar global'
       cy: 'Chwilio/amnewid traws-systemol'
       de: 'Allgemeines Suchen/Ersetzen'
+      de-AT: 'Allgemeines Suchen/Ersetzen'
       de-CH: 'Allgemeines Suchen/Ersetzen'
       el: 'Γενική αναζήτηση/αντικατάσταση'
       en: 'Global search/replace'
@@ -1384,6 +1393,7 @@ QubitMenu:
       ca@valencia: Inici
       cy: Hafan
       de: Startseite
+      de-AT: Startseite
       de-CH: Startseite
       el: Αρχική
       en: Home
@@ -1530,6 +1540,7 @@ QubitMenu:
       cs: 'Přihlásit se'
       cy: Mewngofnodi
       de: Anmelden
+      de-AT: Anmelden
       de-CH: Anmelden
       el: Σύνδεση
       en: 'Log in'
@@ -1569,6 +1580,7 @@ QubitMenu:
       cs: 'Odhlásit se'
       cy: Allgofnodi
       de: Abmelden
+      de-AT: Abmelden
       de-CH: Abmelden
       el: Αποσύνδεση
       en: 'Log out'
@@ -1745,6 +1757,7 @@ QubitMenu:
       ca@valencia: Matèries
       cy: Pynciau
       de: Themen
+      de-AT: Themen
       de-CH: Themen
       el: Θέματα
       en: Subjects
@@ -1781,6 +1794,7 @@ QubitMenu:
       ca@valencia: Llocs
       cy: Lleoedd
       de: Orte
+      de-AT: Orte
       de-CH: Orte
       el: Τοποθεσίες
       en: Places
@@ -1819,6 +1833,7 @@ QubitMenu:
       ca@valencia: 'Objectes digitals'
       cy: 'Gwrthrychau digidol'
       de: 'Digitales Objekt'
+      de-AT: 'Digitales Objekt'
       de-CH: 'Digitale Objekte'
       el: 'Ψηφιακά αντικείμενα'
       en: 'Digital objects'
@@ -1856,6 +1871,7 @@ QubitMenu:
       ca@valencia: 'Elements visibles'
       cy: 'Elfennau gweladwy'
       de: 'Sichtbare Elemente'
+      de-AT: 'Sichtbare Elemente'
       de-CH: 'Sichtbare Elemente'
       el: 'Ορατά στοιχεία'
       en: 'Visible elements'
@@ -1923,6 +1939,7 @@ QubitMenu:
     label:
       cy: Clipfwrdd
       de: Zwischenablage
+      de-AT: Zwischenablage
       de-CH: Zwischenablage
       en: Clipboard
       es: Portapapeles
@@ -2015,6 +2032,7 @@ QubitMenu:
       ca@valencia: 'Objectes digitals'
       cy: 'Gwrthrychau digidol'
       de: 'Digitales Objekt'
+      de-AT: 'Digitales Objekt'
       de-CH: 'Digitale Objekte'
       el: 'Ψηφιακά αντικείμενα'
       en: 'Digital objects'
