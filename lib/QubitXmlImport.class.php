@@ -1344,6 +1344,8 @@ class QubitXmlImport
 
     $includes = array(
       '/plugins/sfSkosPlugin/lib/sfSkosPlugin.class.php',
+      '/plugins/sfSkosPlugin/lib/sfSkosPluginException.class.php',
+      '/plugins/sfSkosPlugin/lib/sfSkosUniqueRelations.class.php',
     );
 
     foreach ($includes as $include)
