@@ -155,6 +155,7 @@ QubitSetting:
       ca@valencia: Productor
       cy: Crëwr
       de: Urheber/Bestandsbildner
+      de-AT: Urheber/Bestandsbildner
       de-CH: Urheber/Bestandsbildner
       el: Παραγωγός
       en: Creator
@@ -304,6 +305,7 @@ QubitSetting:
       ca@valencia: Matèria
       cy: Pwnc
       de: Gegenstand
+      de-AT: Gegenstand
       de-CH: Gegenstand
       el: Θέμα
       en: Subject
@@ -380,6 +382,7 @@ QubitSetting:
       ca@valencia: Fons
       cy: Daliadau
       de: Bestände
+      de-AT: Bestände
       de-CH: Bestände
       en: Holdings
       es: Fondos
@@ -416,6 +419,7 @@ QubitSetting:
       ca@valencia: Lloc
       cy: Lle
       de: Ort
+      de-AT: Ort
       de-CH: Ort
       el: Τόπος
       en: Place
@@ -455,6 +459,7 @@ QubitSetting:
       ca@valencia: Nom
       cy: Enw
       de: Name
+      de-AT: Name
       de-CH: Name
       el: Όνομα
       en: Name
@@ -533,6 +538,7 @@ QubitSetting:
       ca@valencia: 'Unitat de magatzematge'
       cy: 'Storfa ffisegol'
       de: Aufbewahrung
+      de-AT: Aufbewahrung
       de-CH: Standort
       el: 'Χώρος Αποθήκευσης'
       en: 'Physical storage'
@@ -569,6 +575,7 @@ QubitSetting:
       ca@valencia: 'Tipus de suport'
       cy: 'Math o gyfrwng'
       de: Medienart
+      de-AT: Medienart
       de-CH: Medienart
       el: 'Τύπος μέσου'
       en: 'Media type'
@@ -704,6 +711,7 @@ QubitSetting:
       cs: Hledat
       cy: Chwilio
       de: Suche
+      de-AT: Suche
       de-CH: Suche
       el: Αναζήτηση
       en: Search

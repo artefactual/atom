@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2015-08-27T12:08:51Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2018-09-18T16:43:24Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -193,6 +193,10 @@
       <trans-unit id="885">
         <source>Identify and record the name(s) and type(s) of the unit of description.</source>
         <target>기술단위 유형(들)과 이름(들)을 기록하고 식별하시오.</target>
+      </trans-unit>
+      <trans-unit id="886">
+        <source>Add new</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

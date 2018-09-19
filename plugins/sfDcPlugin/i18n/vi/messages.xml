@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2015-08-27T12:10:28Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2018-09-18T16:33:54Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -199,6 +199,10 @@ Hiệu</target>
       <trans-unit id="53">
         <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
         <target>Xác định và ghi ngày tháng của các đơn vị mô tả. Xác định các loại ngày nhất định. Ghi lại  như một ngày hoặc một chuỗi các ngày phù hợp. </target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Add new</source>
+        <target/>
       </trans-unit>
     </body>
   </file>
