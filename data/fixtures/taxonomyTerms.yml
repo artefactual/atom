@@ -64,7 +64,7 @@ QubitTaxonomy:
       sr: 'Врсте ентитета ствараоца'
       sv: 'Entitetstyper för aktör'
       th: 'ชนิดActor Entity'
-      uz: 'Muallif &lpar;ijrochi&rpar; obyekt turi'
+      uz: 'Muallif ijrochi obyekt turi'
       vi: 'Loại thực thể Actor'
       zh: 执行者实体类型
   QubitTaxonomy_3:
@@ -110,6 +110,7 @@ QubitTaxonomy:
       ca@valencia: 'Nivells de descripció'
       cy: 'Lefelau disgrifiad'
       de: Erschließungsstufe
+      de-AT: Erschließungsstufe
       de-CH: Erschliessungsstufe
       el: 'Επίπεδα περιγραφής'
       en: 'Levels of description'
@@ -144,6 +145,7 @@ QubitTaxonomy:
       ca@valencia: Matèries
       cy: Pynciau
       de: Themen
+      de-AT: Themen
       de-CH: Themen
       el: Θέματα
       en: Subjects
@@ -200,7 +202,7 @@ QubitTaxonomy:
       sr: 'Врсте назива/имена ствараоца'
       sv: 'Namntyper för aktör'
       th: ชนิดชื่อนักแสดง
-      uz: 'Muallif &lpar;ijrochi&rpar; nomi turi'
+      uz: 'Muallif ijrochi nomi turi'
       vi: 'Loại tên actor'
       zh: 执行者名称类型
   QubitTaxonomy_7:
@@ -352,6 +354,7 @@ QubitTaxonomy:
       ca@valencia: Llocs
       cy: Lleoedd
       de: Orte
+      de-AT: Orte
       de-CH: Orte
       el: Τοποθεσίες
       en: Places
@@ -813,7 +816,7 @@ QubitTaxonomy:
       sr: 'Врсте односа ствараоца'
       sv: 'Relationstyper för aktör'
       th: 'ชนิดActor Relation'
-      uz: 'Muallif &lpar;ijrochi&rpar; aloqa turi'
+      uz: 'Muallif ijrochi aloqa turi'
       vi: 'Loại liên quan Actor'
       zh: 执行者关系类型
     note:
@@ -1157,6 +1160,7 @@ QubitTaxonomy:
       ca@valencia: 'Fonaments de drets'
       cy: 'Sail hawliau'
       de: Rechtsgrundlagen
+      de-AT: Rechtsgrundlagen
       de-CH: Rechtsgrundlagen
       en: 'Rights basis'
       es: 'Fundamentos de derechos'
@@ -1223,6 +1227,7 @@ QubitTaxonomy:
       ca@valencia: 'Règim de drets d''autor'
       cy: 'Statws hawlfraint'
       de: Urheberrechtsstatus
+      de-AT: Urheberrechtsstatus
       de-CH: 'Copyright Status'
       el: 'Κατάσταση Πνευματικών Δικαιωμάτων'
       en: 'Copyright status'
@@ -1311,6 +1316,7 @@ QubitTaxonomy:
       ca: 'Àrea temàtica'
       cy: 'Ardal Thematig'
       de: 'Bereich "Themen"'
+      de-AT: 'Bereich "Themen"'
       de-CH: 'Bereich "Themen"'
       en: 'Thematic Area'
       es: 'Área temática'
@@ -1339,6 +1345,7 @@ QubitTaxonomy:
       ca: 'Subregió geogràfica'
       cy: 'Isranbarth daearyddol'
       de: 'Geografische Teilregion'
+      de-AT: 'Geografische Teilregion'
       de-CH: 'Geografische Teilregion'
       en: 'Geographic Subregion'
       es: 'Subregión geográfica'
@@ -1435,6 +1442,7 @@ QubitTaxonomy:
     name:
       cy: 'Statws tasg'
       de: Aufgabenstatus
+      de-AT: Aufgabenstatus
       de-CH: Auftragsstatus
       en: 'Job status'
       es: 'Estado del proceso'
@@ -1476,6 +1484,7 @@ QubitTerm:
       ca@valencia: Creació
       cy: Creadigaeth
       de: Anlage
+      de-AT: Anlage
       de-CH: Anlage
       el: Δημιουργία
       en: Creation
@@ -1759,6 +1768,7 @@ QubitTerm:
       ca@valencia: 'Nota de publicació'
       cy: 'Nodyn cyhoeddiad'
       de: 'Anmerkung zur Veröffentlichung'
+      de-AT: 'Anmerkung zur Veröffentlichung'
       de-CH: 'Anmerkung zur Veröffentlichung'
       el: 'Σημείωση δημοσίευσης'
       en: 'Publication note'
@@ -1779,8 +1789,8 @@ QubitTerm:
       pt-BR: 'Nota de publicação'
       pt_BR: 'Nota de publicação'
       sl: 'Opomba o objavi'
-      sr: 'Напомена о објављивању'
-      sv: Publiceringsanmärkning
+      sr: 'Напомена о публикацији'
+      sv: Publikationsanteckning
       th: พื้นที่การพิมพ
       uz: 'Nashr izohi'
       vi: 'Lưu ý công bố'
@@ -1831,6 +1841,7 @@ QubitTerm:
       ca@valencia: 'Nota sobre l''abast'
       cy: 'Nodyn cwmpas'
       de: 'Anmerkung zum Umfang'
+      de-AT: 'Anmerkung zum Umfang'
       de-CH: 'Anmerkung zum Umfang'
       el: 'Σημείωση περιεχομένου'
       en: 'Scope note'
@@ -2350,6 +2361,7 @@ QubitTerm:
       ca@valencia: 'Exemplar original'
       cy: Meistr
       de: Original
+      de-AT: Original
       de-CH: Original
       en: Master
       es: 'Ejemplar original'
@@ -2369,7 +2381,7 @@ QubitTerm:
       sl: 'Glavni dokument'
       sr: 'Главни документ'
       sv: Master
-      uz: 'Asosiy &lpar;Master&rpar;'
+      uz: 'Asosiy Master'
       vi: 'Tổng thể'
       zh: 原件
   QubitTerm_138:
@@ -2418,6 +2430,7 @@ QubitTerm:
       ca@valencia: Thumbnail
       cy: Bodlun
       de: Thumbnail
+      de-AT: Thumbnail
       de-CH: Thumbnail
       en: Thumbnail
       es: Miniatura
@@ -2486,6 +2499,7 @@ QubitTerm:
       ca@valencia: Localització
       cy: Lleoliad
       de: Standort
+      de-AT: Standort
       de-CH: Standort
       el: Τοποθεσία
       en: Location
@@ -2582,7 +2596,7 @@ QubitTerm:
       sr: Артефакт
       sv: Föremål
       th: สิ่งประดิษฐ(Artefact)์
-      uz: 'Tarixiy asar &lpar;Artefakt&rpar;'
+      uz: 'Tarixiy asar Artefakt'
       vi: Artefact
       zh: 手工艺品
   QubitTerm_143:
@@ -2646,6 +2660,7 @@ QubitTerm:
       ca@valencia: 'Nota de l''arxiver'
       cy: 'Nodyn yr archifydd'
       de: 'Anmerkung des Archivars/der Archivarin'
+      de-AT: 'Anmerkung des Archivars/der Archivarin'
       de-CH: 'Anmerkung des Archivars/der Archivarin'
       el: 'Παρατηρήσεις και Όνομα Αρχειονόμου'
       en: 'Archivist''s note'
@@ -2716,6 +2731,7 @@ QubitTerm:
       ca@valencia: 'Nota general'
       cy: 'Nodyn cyffredinol'
       de: 'Allgemeine Anmerkung'
+      de-AT: 'Allgemeine Anmerkung'
       de-CH: 'Allgemeine Anmerkung'
       el: 'Γενική σημείωση'
       en: 'General note'
@@ -3094,6 +3110,7 @@ QubitTerm:
     name:
       cy: 'Term gwrthwyneb'
       de: 'Entgegengesetzter Begriff'
+      de-AT: 'Entgegengesetzter Begriff'
       de-CH: 'Entgegengesetzter Begriff'
       en: 'Converse term'
       es: 'Antónimo relacional'
@@ -3158,6 +3175,7 @@ QubitTerm:
       cs: Návrh
       cy: Drafft
       de: Entwurf
+      de-AT: Entwurf
       de-CH: Entwurf
       el: Σχέδιο
       en: Draft
@@ -3195,6 +3213,7 @@ QubitTerm:
       ca@valencia: Publicat
       cy: Cyhoeddwyd
       de: Veröffentlicht
+      de-AT: Veröffentlicht
       de-CH: Veröffentlicht
       el: Δημοσιοποιήθηκε
       en: Published
@@ -3333,6 +3352,7 @@ QubitTerm:
       ca@valencia: Adhesió
       cy: Derbyn
       de: Akzession
+      de-AT: Akzession
       de-CH: Akzession
       el: Πρόσκτηση
       en: Accession
@@ -3886,6 +3906,7 @@ QubitTerm:
     name:
       cy: 'Ar y gweill'
       de: 'In Bearbeitung'
+      de-AT: 'In Bearbeitung'
       de-CH: 'In Bearbeitung'
       en: 'In progress'
       fr: 'En cours'
@@ -3922,6 +3943,7 @@ QubitTerm:
     name:
       cy: Gwall
       de: Fehler
+      de-AT: Fehler
       de-CH: Fehler
       en: Error
       fr: Erreur
@@ -4163,7 +4185,7 @@ QubitTerm:
       sl: 'je naslednik/-ica od'
       sr: 'је наследник'
       sv: 'är efterföljare till'
-      uz: 'quyidagining davomchisi &lpar;vorisi&rpar;:'
+      uz: 'quyidagining davomchisi vorisi:'
       vi: 'là sự kế thừa của'
       zh: 是继承者
   QubitTerm_actor_relationship_is_the_provider_of:
@@ -4383,7 +4405,7 @@ QubitTerm:
       sl: 'je brat/sestra od'
       sr: 'је брат/сестра од'
       sv: 'är syskon till'
-      uz: 'quyidagining qondoshi &lpar;aka-uka, opa-singil&rpar;:'
+      uz: 'quyidagining qondoshi aka-uka, opa-singil:'
       vi: 'là anh chị em của'
       zh: 是兄弟姐妹
   QubitTerm_actor_relationship_is_the_spouse_of:
@@ -4967,6 +4989,7 @@ QubitTerm:
       cs: Návrh
       cy: Drafft
       de: Entwurf
+      de-AT: Entwurf
       de-CH: Entwurf
       el: Σχέδιο
       en: Draft
@@ -5318,6 +5341,7 @@ QubitTerm:
       ca@valencia: 'Unitat documental simple'
       cy: Eitem
       de: Objekt
+      de-AT: Objekt
       de-CH: Objekt
       el: Τεκμήριο
       en: Item
@@ -5420,6 +5444,7 @@ QubitTerm:
       ca@valencia: Productor
       cy: Crëwr
       de: Urheber/Bestandsbildner
+      de-AT: Urheber/Bestandsbildner
       de-CH: Urheber/Bestandsbildner
       el: Παραγωγός
       en: Creator
@@ -5455,6 +5480,7 @@ QubitTerm:
       ca@valencia: 'Institució arxivística'
       cy: Lleoliad
       de: Archiv
+      de-AT: Archiv
       de-CH: Archiv
       el: Αποθετήριο
       en: Repository
@@ -5527,6 +5553,7 @@ QubitTerm:
       ca@valencia: Matèria
       cy: Pwnc
       de: Gegenstand
+      de-AT: Gegenstand
       de-CH: Gegenstand
       el: Θέμα
       en: Subject
@@ -5599,6 +5626,7 @@ QubitTerm:
       ca@valencia: Fons
       cy: Daliadau
       de: Bestände
+      de-AT: Bestände
       de-CH: Bestände
       en: Holdings
       es: Fondos
@@ -6225,6 +6253,7 @@ QubitTerm:
       ca@valencia: Lloc
       cy: Lle
       de: Ort
+      de-AT: Ort
       de-CH: Ort
       el: Τόπος
       en: Place
@@ -6262,6 +6291,7 @@ QubitTerm:
       ca@valencia: Nom
       cy: Enw
       de: Name
+      de-AT: Name
       de-CH: Name
       el: Όνομα
       en: Name
@@ -6370,6 +6400,7 @@ QubitTerm:
       ca@valencia: 'Unitat de magatzematge'
       cy: 'Storfa ffisegol'
       de: Aufbewahrung
+      de-AT: Aufbewahrung
       de-CH: Standort
       el: 'Χώρος Αποθήκευσης'
       en: 'Physical storage'
@@ -6404,6 +6435,7 @@ QubitTerm:
       ca@valencia: 'Tipus de suport'
       cy: 'Math o gyfrwng'
       de: Medienart
+      de-AT: Medienart
       de-CH: Medienart
       el: 'Τύπος μέσου'
       en: 'Media type'
@@ -6633,7 +6665,7 @@ QubitTerm:
       sl: 'Gibljive slike'
       sr: 'Покретне слике'
       sv: 'Rörliga bilder'
-      uz: 'Film &lpar;Animatsiya&rpar;'
+      uz: 'Film Animatsiya'
       vi: 'Di chuyển hình ảnh'
       zh: 活动图像
   QubitTerm_228:
@@ -6883,6 +6915,7 @@ QubitTerm:
       ca@valencia: 'Descripció física'
       cy: 'Disgrifiad ffisegol'
       de: 'Physische Beschreibung'
+      de-AT: 'Physische Beschreibung'
       de-CH: 'Physische Beschreibung'
       el: 'Φυσική περιγραφή'
       en: 'Physical description'
@@ -7005,7 +7038,7 @@ QubitTerm:
       sl: 'Založnikove serije'
       sr: 'Издавачка целина'
       th: ซีรี่ย์ของผู้ตีพิมพ์
-      uz: 'Nashr qiluvchining seriya &lpar;ro`yxat&rpar; lari'
+      uz: 'Nashr qiluvchining seriya ro`yxat lari'
       vi: 'Series của nhà xuất bản'
       zh: 出版社连续出版物
   QubitTerm_243:
@@ -7049,6 +7082,7 @@ QubitTerm:
       ca@valencia: Drets
       cy: Hawliau
       de: Rechte
+      de-AT: Rechte
       de-CH: Rechte
       el: Διακιώματα
       en: Rights
@@ -7469,7 +7503,7 @@ QubitTerm:
       sr: 'звучни запис-музички'
       sv: 'ljudupptagning - musik'
       th: 'การบันทึกเสียง - เกี่ยวกับดนตรี'
-      uz: 'tovush &lpar;musiqa&rpar;'
+      uz: 'tovush musiqa'
       zh: 声音记录-音乐
   QubitTerm_mods_resource_type_sound_recording_nonmusical:
     taxonomy_id: QubitTaxonomy_mods_resource_type
@@ -7497,7 +7531,7 @@ QubitTerm:
       sr: 'звучни запис-немузички'
       sv: 'ljudupptagning - ej musik'
       th: 'การบันทึกเสียง - ไม่ใช่ดนตรี'
-      uz: 'tovush &lpar;musiqa emas&rpar;'
+      uz: 'tovush musiqa emas'
       zh: 声音记录-非音乐
   QubitTerm_mods_resource_type_sound_recording_stillimage:
     taxonomy_id: QubitTaxonomy_mods_resource_type
@@ -8763,6 +8797,7 @@ QubitTerm:
       ca@valencia: Esborrar
       cy: Dileu
       de: Löschen
+      de-AT: Löschen
       de-CH: Löschen
       el: Διαγραφή
       en: Delete
@@ -9054,7 +9089,7 @@ QubitTerm:
       sl: 'Javna domena'
       sr: 'Јавни домен'
       sv: 'Public domain'
-      uz: 'Ommaviy foydalanish &lpar;Public domain&rpar;'
+      uz: 'Ommaviy foydalanish Public domain'
       vi: 'Public domain'
       zh: 公共领域
   QubitTerm_copyright_status_unknown:
@@ -9066,6 +9101,7 @@ QubitTerm:
       ca@valencia: Desconegut
       cy: Anhysbys
       de: Unbekannt
+      de-AT: Unbekannt
       de-CH: Unbekannt
       el: Άγνωστο
       en: Unknown
@@ -9103,6 +9139,7 @@ QubitTerm:
       ca@valencia: 'ISAD(G), 2nd ed. Consell Internacional d''Arxius'
       cy: 'ISAD(G), 2nd ed. International Council on Archives'
       de: 'ISAD(G), 2. Ausg. Hg. Internationaler Archivrat'
+      de-AT: 'ISAD(G), 2. Ausg. Hg. Internationaler Archivrat'
       de-CH: 'ISAD(G), 2. Ausg. Hg. Internationaler Archivrat'
       el: 'ISAD(G), 2nd ed. International Council on Archives'
       en: 'ISAD(G), 2nd ed. International Council on Archives'
@@ -9136,6 +9173,7 @@ QubitTerm:
       ca@valencia: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       cy: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       de: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
+      de-AT: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       de-CH: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       el: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       en: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
@@ -9167,6 +9205,7 @@ QubitTerm:
       ca@valencia: 'MODS, Version 3.3. U.S. Library of Congress'
       cy: 'MODS, Fersiwn 3.3. U.S. Llyfrgell y Gyngres'
       de: 'MODS, Version 3.3. U.S. Library of Congress'
+      de-AT: 'MODS, Version 3.3. U.S. Library of Congress'
       de-CH: 'MODS, Version 3.3. U.S. Library of Congress'
       el: 'MODS, Version 3.3. U.S. Library of Congress'
       en: 'MODS, Version 3.3. U.S. Library of Congress'
@@ -9200,6 +9239,7 @@ QubitTerm:
       ca@valencia: 'RAD, versió Julio 2008. Consell Canadenc d''Arxius'
       cy: 'RAD, July 2008 version. Canadian Council of Archives'
       de: 'RAD, July 2008 version. Canadian Council of Archives'
+      de-AT: 'RAD, July 2008 version. Canadian Council of Archives'
       de-CH: 'RAD, July 2008 version. Canadian Council of Archives'
       el: 'RAD, July 2008 version. Canadian Council of Archives'
       en: 'RAD, July 2008 version. Canadian Council of Archives'
@@ -9233,6 +9273,7 @@ QubitTerm:
       ca@valencia: 'DACS, 2nd ed. Society of American Archivists'
       cy: 'DACS, 2nd ed. Society of American Archivists'
       de: 'DACS, 2. Aufl. Society of American Archivists'
+      de-AT: 'DACS, 2. Aufl. Society of American Archivists'
       en: 'DACS, 2nd ed. Society of American Archivists'
       es: 'DACS, 2a ed. Society of American Archivists'
       eu: 'DACS, Society of American Archivists-en 2. edizioa'
@@ -9851,7 +9892,7 @@ QubitTerm:
       sl: Transport
       sr: Транспорт
       sv: Transport
-      uz: 'Transportatsiya &lpar;Ko`chirish&rpar;'
+      uz: 'Transportatsiya Ko`chirish'
       vi: 'Sự chuyên chở'
       zh: 交通
   QubitTerm_thematic_areas_travel:
@@ -10684,7 +10725,7 @@ QubitTerm:
       sl: Brošure
       sr: Памфлети
       sv: Pamfletter
-      uz: 'Bukletlar &lpar;risolalar&rpar;'
+      uz: 'Bukletlar risolalar'
       zh: 手册
   QubitTerm_genre_periodicals:
     taxonomy_id: QubitTaxonomy_genre
@@ -11082,6 +11123,7 @@ QubitNote:
       ca@valencia: Productor
       cy: Crëwr
       de: Urheber/Bestandsbildner
+      de-AT: Urheber/Bestandsbildner
       de-CH: Urheber/Bestandsbildner
       el: Παραγωγός
       en: Creator
@@ -11141,6 +11183,7 @@ QubitNote:
       ca@valencia: Editorial
       cy: Cyhoeddwr
       de: Herausgeber
+      de-AT: Herausgeber
       de-CH: Herausgeber
       el: Εκδότης
       en: Publisher
@@ -11162,7 +11205,7 @@ QubitNote:
       pt_BR: Editor
       sl: Založnik
       sr: Издавач
-      sv: 'Förteckningen publicerad av'
+      sv: Utgivare
       th: สำนักพิมพ์
       uz: Nashriyot
       vi: 'Nhà xuất bản'
@@ -11183,6 +11226,7 @@ QubitNote:
       ca@valencia: Contribuent
       cy: Cyfrannwr
       de: Beitragender
+      de-AT: Beitragender
       de-CH: Beitragender
       el: Συνεργάτης
       en: Contributor
