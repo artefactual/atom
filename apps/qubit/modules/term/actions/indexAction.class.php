@@ -99,6 +99,13 @@ class TermIndexAction extends DefaultBrowseAction
       $this->forward404();
     }
 
+    // Disallow access to locked taxonomies
+    if (in_array($this->resource->taxonomyId, QubitTaxonomy::$lockedTaxonomies))
+    {
+      $this->getResponse()->setStatusCode(403);
+      return sfView::NONE;
+    }
+
     if (sfConfig::get('app_enable_institutional_scoping'))
     {
       // Remove search-realm

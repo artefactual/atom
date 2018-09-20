@@ -38,6 +38,13 @@ class TaxonomyIndexAction extends sfAction
       $this->resource = $this->getRoute()->resource;
     }
 
+    // Disallow access to locked taxonomies
+    if (in_array($this->resource->id, QubitTaxonomy::$lockedTaxonomies))
+    {
+      $this->getResponse()->setStatusCode(403);
+      return sfView::NONE;
+    }
+
     if (!$this->resource instanceof QubitTaxonomy)
     {
       $this->redirect(array('module' => 'taxonomy', 'action' => 'list'));
