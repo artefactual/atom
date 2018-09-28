@@ -91,6 +91,12 @@ class SettingsPermissionsAction extends sfAction
         foreach ($values as $key => $value)
         {
           $setting = QubitSetting::getByNameAndScope($key, 'access_statement');
+          if (null === $setting)
+          {
+            $setting = new QubitSetting;
+            $setting->name = $key;
+            $setting->scope = 'access_statement';
+          }
           $setting->setValue($value);
           $setting->save();
         }
