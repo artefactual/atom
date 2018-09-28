@@ -60,9 +60,6 @@ class DigitalObjectUploadAction extends sfAction
       $diskUsage = $repo->getDiskUsage();
     }
 
-    Qubit::createUploadDirsIfNeeded();
-    $tmpDir = sfConfig::get('sf_upload_dir').'/tmp';
-
     foreach ($_FILES as $file)
     {
       if (null != $repo && 0 <= $uploadLimit && $uploadLimit < $diskUsage + $file['size'])
@@ -78,34 +75,25 @@ class DigitalObjectUploadAction extends sfAction
         continue;
       }
 
-      // Get file extension
-      $extension = substr($file['name'], strrpos($file['name'], '.'));
-
-      // Get a unique file name (to avoid clashing file names)
-      do
+      try
       {
-        $uniqueString = substr(md5(time().$file['name']), 0, 8);
-        $tmpFileName = "TMP$uniqueString$extension";
-        // Original file in PHP tmp dir.
-        $tmpFilePath = sys_get_temp_dir()."/$tmpFileName";
+        $file = Qubit::moveUploadFile($file);
       }
-      while (file_exists($tmpFilePath));
-
-      // Thumbnail name
-      $thumbName = "THB$uniqueString.jpg";
-      $thumbPath = "$tmpDir/$thumbName";
-
-      // Move file to web/uploads/tmp directory
-      if (!move_uploaded_file($file['tmp_name'], $tmpFilePath))
+      catch (Exception $e)
       {
-        $errorMessage = $this->context->i18n->__('File %1% could not be moved to %2%', array('%1%' => $file['name'], '%2%' => $tmpDir));
-        $uploadFiles = array('error' => $errorMessage);
+        $uploadFile = array('error' => $e->getMessage());
 
         continue;
       }
 
-      $tmpFileMd5sum = md5_file($tmpFilePath);
+      // Temp file characteristics
+      $tmpFilePath = $file['tmp_name'];
+      $tmpFileName = basename($tmpFilePath);
       $tmpFileMimeType = QubitDigitalObject::deriveMimeType($tmpFileName);
+
+      // Thumbnail name and path
+      $thumbName = pathinfo($tmpFileName, PATHINFO_FILENAME) .".jpg";
+      $thumbPath = dirname($tmpFilePath) ."/". $thumbName;
 
       if ($canThumbnail = QubitDigitalObject::canThumbnailMimeType($tmpFileMimeType) || QubitDigitalObject::isVideoFile($tmpFilePath))
       {
@@ -139,7 +127,7 @@ class DigitalObjectUploadAction extends sfAction
       $uploadFiles = array(
         'canThumbnail' => $canThumbnail,
         'name' => $file['name'],
-        'md5sum' => $tmpFileMd5sum,
+        'md5sum' => md5_file($tmpFilePath),
         'size' => hr_filesize($file['size']),
         'thumb' => $thumbName,
         'tmpName' => $tmpFileName,

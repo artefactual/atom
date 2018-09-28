@@ -368,12 +368,17 @@ class Qubit
     Qubit::createUploadDirsIfNeeded();
     $tmpDir = sfConfig::get('sf_upload_dir').'/tmp';
 
+    // Get file extension (or filename if no extension exists)
+    $extension = substr($file['name'], strrpos($file['name'], '.'));
+
     // Get a unique file name (to avoid clashing file names).
     do
     {
       $uniqueString = substr(md5(time().$file['name']), 0, 8);
       $tmpFileName = "TMP$uniqueString";
-      $tmpFilePath = "$tmpDir/$tmpFileName";
+
+      // Add temp filename, preserving extension (if any)
+      $tmpFilePath = "$tmpDir/$tmpFileName$extension";
     }
     while (file_exists($tmpFilePath));
 
