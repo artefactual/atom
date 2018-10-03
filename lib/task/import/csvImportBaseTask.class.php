@@ -224,7 +224,7 @@ abstract class csvImportBaseTask extends arBaseTask
       if (!isset($eventData['type']))
       {
         // Creation is the default event type. Cast variable as string to avoid
-        // a type mismatch when testing if it's a duplicate event in 
+        // a type mismatch when testing if it's a duplicate event in
         // QubitFlatfileImport::hasDuplicateEvent()
         $eventTypeId = (string) QubitTerm::CREATION_ID;
       }
@@ -237,9 +237,9 @@ abstract class csvImportBaseTask extends arBaseTask
         unset($eventData['type']);
       }
 
-      // If in update mode, check if the import event data matches an existing 
+      // If in update mode, check if the import event data matches an existing
       // event
-      if ($import->matchAndUpdate && 
+      if ($import->matchAndUpdate &&
         null !== $event = self::matchExistingEvent($import->object->id, $eventTypeId, $eventData['actorName']))
       {
         $eventData['eventId'] = $event->id;
@@ -258,7 +258,7 @@ abstract class csvImportBaseTask extends arBaseTask
     $criteria = new Criteria;
     $criteria->add(QubitEvent::TYPE_ID, $typeId);
     $criteria->add(QubitEvent::OBJECT_ID, $objectId);
-    
+
     // Search for a related event linked to the provided actor name
     if (!isset($actorName))
     {
