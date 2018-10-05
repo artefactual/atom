@@ -105,7 +105,7 @@ propel:
     name: { type: varchar(1024), required: true }
     path: { type: varchar(1024), required: true }
     sequence: integer
-    byte_size: integer
+    byte_size: bigint
     checksum: varchar(255)
     checksum_type: type: varchar(50)
     parent_id: { type: integer, foreignTable: digital_object, foreignReference: id }
@@ -282,7 +282,7 @@ propel:
     filename: varchar(1024)
     last_modified: timestamp
     date_ingested: bu_date
-    size: integer
+    size: bigint
     mime_type: varchar(255)
 
   property:

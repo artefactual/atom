@@ -44,7 +44,7 @@ class DigitalObjectTableMap extends TableMap {
 		$this->addColumn('NAME', 'name', 'VARCHAR', true, 1024, null);
 		$this->addColumn('PATH', 'path', 'VARCHAR', true, 1024, null);
 		$this->addColumn('SEQUENCE', 'sequence', 'INTEGER', false, null, null);
-		$this->addColumn('BYTE_SIZE', 'byteSize', 'INTEGER', false, null, null);
+		$this->addColumn('BYTE_SIZE', 'byteSize', 'BIGINT', false, null, null);
 		$this->addColumn('CHECKSUM', 'checksum', 'VARCHAR', false, 255, null);
 		$this->addColumn('CHECKSUM_TYPE', 'checksumType', 'VARCHAR', false, 50, null);
 		$this->addForeignKey('PARENT_ID', 'parentId', 'INTEGER', 'digital_object', 'ID', false, null, null);

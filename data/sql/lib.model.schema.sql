@@ -322,7 +322,7 @@ CREATE TABLE `digital_object`
 	`name` VARCHAR(1024)  NOT NULL,
 	`path` VARCHAR(1024)  NOT NULL,
 	`sequence` INTEGER,
-	`byte_size` INTEGER,
+	`byte_size` BIGINT,
 	`checksum` VARCHAR(255),
 	`checksum_type` VARCHAR(50),
 	`parent_id` INTEGER,
@@ -916,7 +916,7 @@ CREATE TABLE `premis_object`
 	`filename` VARCHAR(1024),
 	`last_modified` DATETIME,
 	`date_ingested` DATE,
-	`size` INTEGER,
+	`size` BIGINT,
 	`mime_type` VARCHAR(255),
 	PRIMARY KEY (`id`),
 	CONSTRAINT `premis_object_FK_1`

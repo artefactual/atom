@@ -42,7 +42,7 @@ class PremisObjectTableMap extends TableMap {
 		$this->addColumn('FILENAME', 'filename', 'VARCHAR', false, 1024, null);
 		$this->addColumn('LAST_MODIFIED', 'lastModified', 'TIMESTAMP', false, null, null);
 		$this->addColumn('DATE_INGESTED', 'dateIngested', 'DATE', false, null, null);
-		$this->addColumn('SIZE', 'size', 'INTEGER', false, null, null);
+		$this->addColumn('SIZE', 'size', 'BIGINT', false, null, null);
 		$this->addColumn('MIME_TYPE', 'mimeType', 'VARCHAR', false, 255, null);
 		// validators
 	} // initialize()
