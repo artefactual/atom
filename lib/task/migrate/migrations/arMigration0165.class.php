@@ -58,7 +58,7 @@ class arMigration0165
     {
       $setting = new QubitSetting;
       $setting->name = 'privacy_notification_enabled';
-      $setting->value = 1;
+      $setting->value = 0;
       $setting->editable = 1;
       $setting->source_culture = 'en';
       $setting->save();

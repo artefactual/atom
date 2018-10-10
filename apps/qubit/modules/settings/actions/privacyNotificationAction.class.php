@@ -39,7 +39,6 @@
          $default = (null !== $this->$name = QubitSetting::getByName($name))
            ? $this->$name->getValue()
            : '';
-           
          $this->form->setDefault($name, $default);
          $this->form->setValidator($name, new sfValidatorString(array('required' => true)));
          $this->form->setWidget($name, new sfWidgetFormInput);
@@ -48,7 +47,7 @@
 
        case 'privacy_notification_enabled':
          // Determine default value
-         $defaults = array('privacy_notification_enabled' => 1);
+         $defaults = array('privacy_notification_enabled' => 0);
 
          $default = (null !== $this->$name = QubitSetting::getByName($name))
            ? $this->$name->getValue(array('sourceCulture' => true))
