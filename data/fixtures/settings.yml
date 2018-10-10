@@ -888,7 +888,7 @@ QubitSetting:
     value: ''
   QubitSetting_privacyNotificationEnabled:
     name: privacy_notification_enabled
-    value: 1
+    value: 0
   QubitSetting_privacyNotification:
     name: privacy_notification
     editable: 1

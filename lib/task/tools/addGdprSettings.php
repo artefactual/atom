@@ -5,7 +5,7 @@
 
 updateSettings();
 
-print("Script complete - GDPR settings added.\n");
+print("Script completed.\n");
 
 function updateSettings()
 {
@@ -35,7 +35,7 @@ function updateSettings()
   {
     $setting = new QubitSetting;
     $setting->name = 'privacy_notification_enabled';
-    $setting->value = 1;
+    $setting->value = 0;
     $setting->editable = 1;
     $setting->source_culture = 'en';
     $setting->save();
@@ -43,7 +43,7 @@ function updateSettings()
 
   if (null === QubitSetting::getByName('privacy_notification'))
   {
-    $privacy_statement = 'This website uses cookies to enhance your ability to browse and load content. This website uses cookies to enhance your ability to browse and load content. More Info: http://10.10.10.10/privacy';
+    $privacy_statement = 'This website uses cookies to enhance your ability to browse and load content. More Info: http://10.10.10.10/privacy';
     $setting = new QubitSetting;
     $setting->name = 'privacy_notification';
     $setting->value = $privacy_statement;
