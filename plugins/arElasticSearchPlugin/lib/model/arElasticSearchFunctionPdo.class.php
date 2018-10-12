@@ -114,9 +114,9 @@ class arElasticSearchFunctionPdo
 
     $serialized['id'] = $this->id;
     $serialized['slug'] = $this->slug;
-    $serialized['decriptionStatusId'] = $this->description_status_id;
-    $serialized['decriptionDetailId'] = $this->description_detail_id;
-    $serialized['decriptionIdentifier'] = $this->description_identifier;
+    $serialized['descriptionStatusId'] = $this->description_status_id;
+    $serialized['descriptionDetailId'] = $this->description_detail_id;
+    $serialized['descriptionIdentifier'] = $this->description_identifier;
 
     $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
     foreach (QubitPdo::fetchAll($sql, array($this->id, QubitTerm::OTHER_FORM_OF_NAME_ID)) as $item)

@@ -128,7 +128,7 @@ class ActorBrowseAction extends DefaultBrowseAction
         break;
 
       case 'identifier':
-        $this->search->query->setSort(array('descriptionIdentifier' => $request->sortDir));
+        $this->search->query->setSort(array('descriptionIdentifier.untouched' => $request->sortDir));
 
         break;
 

@@ -94,6 +94,7 @@ class AccessionBrowseAction extends sfAction
     else
     {
       $queryString = new \Elastica\Query\QueryString(arElasticSearchPluginUtil::escapeTerm($request->subquery));
+      $queryString->setDefaultOperator('AND');
 
       $boost = array(
         'donors.i18n.%s.authorizedFormOfName' => 10,
@@ -135,7 +136,7 @@ class AccessionBrowseAction extends sfAction
     {
       case 'identifier': // For backward compatibility
       case 'accessionNumber':
-        $this->query->setSort(array('identifier' => $request->sortDir));
+        $this->query->setSort(array('identifier.untouched' => $request->sortDir));
 
         break;
 

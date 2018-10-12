@@ -543,7 +543,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         break;
 
       case 'identifier':
-        $this->search->query->addSort(array('identifier' => $request->sortDir));
+        $this->search->query->addSort(array('identifier.untouched' => $request->sortDir));
 
         break;
 

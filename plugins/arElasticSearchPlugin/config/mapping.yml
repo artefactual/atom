@@ -342,7 +342,11 @@ mapping:
     dynamic: strict
     properties:
       slug: { type: keyword }
-      description_identifier: { type: keyword }
+      description_identifier:
+        type: text
+        fields:
+          untouched:
+            type: keyword
       corporate_body_identifiers: { type: keyword }
       entity_type_id: { type: integer, include_in_all: false }
       maintaining_repository_id: { type: integer, include_in_all: false }
@@ -356,7 +360,11 @@ mapping:
     dynamic: strict
     properties:
       slug: { type: keyword }
-      identifier: { type: keyword }
+      identifier:
+        type: text
+        fields:
+          untouched:
+            type: keyword
       date: { type: date, include_in_all: false }
 
   repository:
@@ -373,7 +381,11 @@ mapping:
     dynamic: strict
     properties:
       slug: { type: keyword }
-      identifier: { type: keyword }
+      identifier:
+        type: text
+        fields:
+          untouched:
+            type: keyword
       types: { type: integer, include_in_all: false }
       geographic_subregions: { type: integer, include_in_all: false }
       thematic_areas: { type: integer, include_in_all: false }
@@ -390,9 +402,13 @@ mapping:
     dynamic: strict
     properties:
       slug: { type: keyword }
-      decriptionStatusId: { type: integer }
-      decriptionDetailId: { type: integer }
-      decriptionIdentifier: { type: keyword }
+      description_status_id: { type: integer }
+      description_detail_id: { type: integer }
+      description_identifier:
+        type: text
+        fields:
+          untouched:
+            type: keyword
 
   information_object:
     _attributes:
@@ -453,7 +469,11 @@ mapping:
     dynamic: strict
     properties:
       slug: { type: keyword }
-      identifier: { type: keyword }
+      identifier:
+        type: text
+        fields:
+          untouched:
+            type: keyword
       reference_code_without_country_and_repo: { type: keyword }
       level_of_description_id: { type: integer }
       lft: { type: integer }
@@ -484,7 +504,7 @@ mapping:
         type: object
         properties:
           label: { type: text }
-          identifier: { type: keyword }
+          identifier: { type: text }
       reference_code:
         type: text
         fields:

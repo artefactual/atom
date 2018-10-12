@@ -115,7 +115,7 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
     switch ($sort)
     {
       case 'identifierDown':
-        $query->setSort(array('identifier' => 'desc'));
+        $query->setSort(array('identifier.untouched' => 'desc'));
 
         break;
 
@@ -159,7 +159,7 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
 
       case 'identifierUp':
       default:
-        $query->setSort(array('identifier' => 'asc'));
+        $query->setSort(array('identifier.untouched' => 'asc'));
     }
 
     QubitAclSearch::filterDrafts($queryBool);

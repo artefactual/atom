@@ -40,7 +40,7 @@ class InformationObjectAutocompleteAction extends sfAction
     $this->query->setSize($request->limit);
     $this->query->setSort(array(
       'levelOfDescriptionId' => 'asc',
-      'identifier' => 'asc',
+      'identifier.untouched' => 'asc',
       'i18n.'.$culture.'.title.untouched' => 'asc'));
 
     $this->queryBool = new \Elastica\Query\BoolQuery;
