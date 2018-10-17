@@ -19,15 +19,22 @@
 
 class arElasticSearchRepository extends arElasticSearchModelBase
 {
-  public function populate()
+  public function load()
   {
-    $errors = array();
-
     $criteria = new Criteria;
     $criteria->add(QubitRepository::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
     $repositories = QubitRepository::get($criteria);
 
     $this->count = count($repositories);
+
+    return $repositories;
+  }
+
+  public function populate()
+  {
+    $errors = array();
+
+    $repositories = $this->load();
 
     foreach ($repositories as $key => $repository)
     {

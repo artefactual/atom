@@ -18,10 +18,10 @@
  */
 
 /**
- * arElasticSearchPlugin main class
+ * Populate search index.
  *
  * @package     AccesstoMemory
- * @subpackage  search
+ * @subpackage  task
  */
 class arSearchPopulateTask extends sfBaseTask
 {

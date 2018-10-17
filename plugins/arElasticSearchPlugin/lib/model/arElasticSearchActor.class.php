@@ -19,10 +19,8 @@
 
 class arElasticSearchActor extends arElasticSearchModelBase
 {
-  public function populate()
+  public function load()
   {
-    $errors = array();
-
     $sql  = 'SELECT actor.id';
     $sql .= ' FROM '.QubitActor::TABLE_NAME.' actor';
     $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON actor.id = object.id';
@@ -33,8 +31,15 @@ class arElasticSearchActor extends arElasticSearchModelBase
 
     $this->count = count($actors);
 
+    return $actors;
+  }
+
+  public function populate()
+  {
+    $errors = array();
+
     // Loop through results, and add to search index
-    foreach ($actors as $key => $item)
+    foreach ($this->load() as $key => $item)
     {
       try
       {

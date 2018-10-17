@@ -26,7 +26,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
   protected $errors = array();
 
-  public function populate()
+  public function load()
   {
     // Get count of all information objects
     $sql  = 'SELECT COUNT(*)';
@@ -34,6 +34,11 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     $sql .= ' WHERE id > ?';
 
     $this->count = QubitPdo::fetchColumn($sql, array(QubitInformationObject::ROOT_ID));
+  }
+
+  public function populate()
+  {
+    $this->load();
 
     // Recursively descend down hierarchy
     $this->recursivelyAddInformationObjects(QubitInformationObject::ROOT_ID, $this->count);

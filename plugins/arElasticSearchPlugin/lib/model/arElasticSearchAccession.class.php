@@ -19,15 +19,20 @@
 
 class arElasticSearchAccession extends arElasticSearchModelBase
 {
-  public function populate()
+  public function load()
   {
-    $errors = array();
-
     $accessions = QubitAccession::getAll();
 
     $this->count = count($accessions);
 
-    foreach ($accessions as $key => $accession)
+    return $accessions;
+  }
+
+  public function populate()
+  {
+    $errors = array();
+
+    foreach ($this->load() as $key => $accession)
     {
       try
       {

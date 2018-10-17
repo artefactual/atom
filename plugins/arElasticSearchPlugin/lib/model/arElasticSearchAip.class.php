@@ -19,10 +19,8 @@
 
 class arElasticSearchAip extends arElasticSearchModelBase
 {
-  public function populate()
+  public function load()
   {
-    $errors = array();
-
     $sql  = 'SELECT id';
     $sql .= ' FROM '.QubitAip::TABLE_NAME;
 
@@ -30,8 +28,15 @@ class arElasticSearchAip extends arElasticSearchModelBase
 
     $this->count = count($aips);
 
+    return $aips;
+  }
+
+  public function populate()
+  {
+    $errors = array();
+
     // Loop through results, and add to search index
-    foreach ($aips as $key => $item)
+    foreach ($this->load() as $key => $item)
     {
       try
       {

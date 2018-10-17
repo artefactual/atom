@@ -19,10 +19,8 @@
 
 class arElasticSearchTerm extends arElasticSearchModelBase
 {
-  public function populate()
+  public function load()
   {
-    $errors = array();
-
     $sql  = 'SELECT term.id';
     $sql .= ' FROM '.QubitTerm::TABLE_NAME.' term';
     $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON term.id = object.id';
@@ -33,8 +31,15 @@ class arElasticSearchTerm extends arElasticSearchModelBase
 
     $this->count = count($terms);
 
+    return $terms;
+  }
+
+  public function populate()
+  {
+    $errors = array();
+
     // Loop through results, and add to search index
-    foreach ($terms as $key => $item)
+    foreach ($this->load() as $key => $item)
     {
       try
       {
