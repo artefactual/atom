@@ -1503,6 +1503,7 @@ class QubitFlatfileImport
 
     $note->content = $this->content($text);
     $note->culture = $this->columnValue('culture');
+    $note->indexOnSave = !$this->searchIndexingDisabled;
     $note->save();
 
     return $note;
@@ -1522,15 +1523,14 @@ class QubitFlatfileImport
    */
   private function checkNoteExists($objectId, $typeId, $content, $culture)
   {
-    $c = new Criteria;
-    $c->add(QubitNote::OBJECT_ID, $objectId);
-    $c->add(QubitNote::TYPE_ID, $typeId);
-
-    $c->addJoin(QubitNote::ID, QubitNoteI18n::ID);
-    $c->add(QubitNoteI18n::CONTENT, $content);
-    $c->add(QubitNoteI18n::CULTURE, $culture);
-
-    return null !== QubitNote::getOne($c);
+    $query = "SELECT n.id FROM note n
+      INNER JOIN note_i18n i ON n.id=i.id
+      WHERE n.object_id=?
+      AND n.type_id=?
+      AND i.content=?
+      AND i.culture=?";
+    $statement = self::sqlQuery($query, array($objectId, $typeId, $content, $culture));
+    return false !== $statement->fetch(PDO::FETCH_OBJ);
   }
 
   /**
@@ -1613,6 +1613,7 @@ class QubitFlatfileImport
       return; // Skip creating / updating events if this exact one already exists.
     }
 
+    $event->indexOnSave = !$this->searchIndexingDisabled;
     $event->save();
 
     // Add relation with place
@@ -1625,7 +1626,7 @@ class QubitFlatfileImport
       }
 
       $placeTerm = $this->createOrFetchTerm(QubitTaxonomy::PLACE_ID, $options['place'], $culture);
-      self::createObjectTermRelation($event->id, $placeTerm->id);
+      self::createObjectTermRelation($event->id, $placeTerm->id, $this->searchIndexingDisabled);
     }
   }
 
@@ -2013,6 +2014,7 @@ class QubitFlatfileImport
     $relation->subjectId = $subjectId;
     $relation->objectId  = $objectId;
     $relation->typeId    = $typeId;
+    $relation->indexOnSave = !$this->searchIndexingDisabled;
     $relation->save();
     return $relation;
   }
@@ -2025,7 +2027,7 @@ class QubitFlatfileImport
    *
    * @return QubitObjectTermRelation  created relation
    */
-  public static function createObjectTermRelation($objectId, $termId)
+  public static function createObjectTermRelation($objectId, $termId, $searchIndexingDisabled = false)
   {
     // Prevent duplicate object-term relations.
     if (self::objectTermRelationExists($objectId, $termId))
@@ -2036,6 +2038,7 @@ class QubitFlatfileImport
     $relation = new QubitObjectTermRelation;
     $relation->termId = $termId;
     $relation->objectId = $objectId;
+    $relation->indexOnSave = !$searchIndexingDisabled;
     $relation->save();
 
     return $relation;
@@ -2089,7 +2092,7 @@ class QubitFlatfileImport
     $culture = ($culture !== null) ? $culture : $this->columnValue('culture');
 
     $term = $this->createOrFetchTerm($taxonomyId, $name, $culture);
-    self::createObjectTermRelation($this->object->id, $term->id);
+    self::createObjectTermRelation($this->object->id, $term->id, $this->searchIndexingDisabled);
 
     return $term;
   }
