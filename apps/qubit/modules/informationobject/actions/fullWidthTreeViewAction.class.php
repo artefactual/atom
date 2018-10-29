@@ -44,7 +44,19 @@ class InformationObjectFullWidthTreeViewAction extends DefaultFullTreeViewAction
       QubitAcl::forwardUnauthorized();
     }
 
+    // Impose limit to what nodeLimit parameter can be set to
+    if (!ctype_digit($request->nodeLimit) || $request->nodeLimit > 1000)
+    {
+      $request->nodeLimit = 1000;
+    }
+
     $baseReferenceCode = '';
+
+    // Allow the ability to page through children
+    $options = array(
+      'skip' => $request->skip,
+      'limit' => $request->nodeLimit
+    );
 
     // On first load, retrieve the ancestors of the selected resource, the resource
     // and its children, otherwise get only the resource's children
@@ -57,7 +69,7 @@ class InformationObjectFullWidthTreeViewAction extends DefaultFullTreeViewAction
         $baseReferenceCode = render_value_inline($collectionRoot->getInheritedReferenceCode());
       }
 
-      $data = $this->getNodeOrChildrenNodes($collectionRoot->id, $baseReferenceCode);
+      $data = $this->getNodeOrChildrenNodes($collectionRoot->id, $baseReferenceCode, $children = false, $options);
     }
     else
     {
@@ -72,9 +84,9 @@ class InformationObjectFullWidthTreeViewAction extends DefaultFullTreeViewAction
         }
       }
 
-      $data = $this->getNodeOrChildrenNodes($this->resource->id, $baseReferenceCode, $children = true);
+      $data = $this->getNodeOrChildrenNodes($this->resource->id, $baseReferenceCode, $children = true, $options);
     }
 
-    return $this->renderText(json_encode($data['nodes']));
+    return $this->renderText(json_encode($data));
   }
 }

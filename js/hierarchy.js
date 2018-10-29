@@ -4,8 +4,6 @@
 
   $(loadTreeView);
 
-  var pager = new Qubit.Pager(50);
-
   function startActivity()
   {
     $('#fullwidth-treeview-activity-indicator').show();
@@ -16,44 +14,6 @@
     $('#fullwidth-treeview-activity-indicator').hide();
   }
 
-  function getAndAppendNodes(treeEl, url, skip, limit, cb)
-  {
-    // Assemble query and creation queue
-    var queryString = "?skip=" + skip + "&nodeLimit=" + limit;
-    var pagedUrl = window.location.pathname + url + queryString;
-    var createQueue = [];
-
-    // Get and append additional nodes
-    startActivity();
-    $.ajax({
-      url: pagedUrl,
-      success: function(results) {
-        // Add nodes to creation queue
-        results.nodes.forEach(function(node) {
-          createQueue.push(node);
-        });
-
-        var next = function()
-        {
-          if (createQueue.length)
-          {
-            // Queue isn't empty: create node
-            var node = createQueue.shift();
-            treeEl.jstree(true).create_node("#", node, "last", next);
-          }
-          else
-          {
-            // Queue is empty so excute cleanup logic
-            endActivity();
-            cb();
-          };
-        };
-
-        next();
-      }
-    });
-  }
-
   function loadTreeView ()
   {
     var url  = 'Data';
@@ -62,6 +22,9 @@
     var $fwTreeViewRow = $('<div id="fullwidth-treeview-row"></div>');
     var $mainHeader = $('#main-column');
     var $moreButton = $('#fullwidth-treeview-more-button');
+    var $resetButton = $('#fullwidth-treeview-reset-button');
+
+    var pager = new Qubit.TreeviewPager(50, $fwTreeView, window.location.pathname + url);
 
     // True until a node is selected manually (not by state restoration)
     var refresh = true;
@@ -74,30 +37,6 @@
         .append($fwTreeView)
         .animate({height: height}, 500)
     );
-
-    // Update count of remaining nodes, etc.
-    function updateMoreLink()
-    {
-      var moreLabel = $moreButton.data('label');
-
-      if (pager.getRemaining() > 0)
-      {
-        // Update count shown in paging button
-        $moreButton.show();
-        $('#fullwidth-treeview-more-button').val(moreLabel.replace('%1%', pager.getRemaining()));
-      }
-      else
-      {
-        // Hide paging button
-        $moreButton.hide();
-      }
-
-      // Scroll to last item in tree
-      if ($('li.jstree-node:last').length)
-      {
-        $('li.jstree-node:last')[0].scrollIntoView(true);
-      }
-    }
 
     // Declare jsTree options
     var options = {
@@ -157,7 +96,7 @@
         // Update the "more" link, restore the state, and indicate that page
         // has finished refreshing
         $fwTreeView.jstree(true).restore_state();
-        updateMoreLink();
+        pager.updateMoreLink($moreButton, $resetButton);
         refresh = false;
         endActivity();
     };
@@ -184,27 +123,18 @@
     // Clicking "more" will add next page of results to tree
     $moreButton.click(function() {
       pager.next();
-      getAndAppendNodes($fwTreeView, url, pager.getSkip(), pager.getLimit(), function() {
+      startActivity();
+      pager.getAndAppendNodes(function() {
         // Queue is empty so update paging link
-        updateMoreLink();
+        endActivity();
+        pager.updateMoreLink($moreButton, $resetButton);
       });
     });
 
     // Clicking reset link will reset paging and tree state
     $('#fullwidth-treeview-reset-button').click(function()
     {
-      pager.setSkip(0);
-
-      // Only reset tree if it already exists
-      if ($fwTreeView.jstree(true) !== false)
-      {
-        $fwTreeView.jstree(true).clear_state();
-        $fwTreeView.jstree(true).refresh(true, true);
-      }
-
-      // Update paging button and scroll treeview window to first node
-      updateMoreLink();
-      $('li.jstree-node:first')[0].scrollIntoView(true);
+      pager.reset($moreButton, $resetButton);
     });
   }
 })(jQuery);

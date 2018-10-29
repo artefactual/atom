@@ -1,26 +1,19 @@
+"use strict";
+
 (function ($) {
-
-    // Handle older browser using hash/anchor urls
-    if (window.location.hash)
-    {
-      var url = window.location.hash.match("\/([^?]*)");
-      if (url[1].length)
-      {
-        window.location = url[1];
-        return;
-      }
-    }
-
-  "use strict";
 
   $(loadTreeView);
 
   function loadTreeView ()
   {
-    var url  = '/informationobject/fullWidthTreeView';
+    var collectionUrl = $('#fullwidth-treeview-collection-url').data('collection-url');
+    var pathToApi  = '/informationobject/fullWidthTreeView';
     var $fwTreeView = $('<div id="fullwidth-treeview"></div>');
     var $fwTreeViewRow = $('<div id="fullwidth-treeview-row"></div>');
-    var $mainHeader = $('#main-column h1').first();
+    var $mainHeader = $('#main-column h1');
+    var $moreButton = $('#fullwidth-treeview-more-button');
+    var $resetButton = $('#fullwidth-treeview-reset-button');
+    var pager = new Qubit.TreeviewPager(50, $fwTreeView, collectionUrl + pathToApi);
 
     // Add tree-view divs after main header, animate and allow resize
     $mainHeader.after(
@@ -29,6 +22,9 @@
         .animate({height: '200px'}, 500)
         .resizable({handles: 's'})
     );
+
+    $mainHeader.before($resetButton);
+    $mainHeader.before($moreButton);
 
     // Declare jsTree options
     var options = {
@@ -50,24 +46,52 @@
       'core': {
         'data': {
           'url': function (node) {
+            // Get results
+            var queryString = "?nodeLimit=" + (pager.getSkip() + pager.getLimit());
+
             return node.id === '#' ?
-              window.location.pathname.match("^[^;]*")[0] + url :
+              window.location.pathname.match("^[^;]*")[0] + pathToApi + queryString :
               node.a_attr.href + url;
           },
           'data': function (node) {
             return node.id === '#' ?
               {'firstLoad': true} :
               {'firstLoad': false, 'referenceCode': node.original.referenceCode};
-          }
+          },
+
+          'dataFilter': function (response) {
+            // Data from the initial request for hierarchy data contains
+            // additional data relating to paging so we need to parse to
+            // differentiate it.
+            var data = JSON.parse(response);
+
+            // Note root node's href and set number of available items to page through
+            if (pager.rootId == '#')
+            {
+              pager.rootId = data.nodes[0].id;
+              pager.setTotal(data.nodes[0].total);
+            }
+
+            // Allow for both styles of nodes
+            if (typeof data.nodes === "undefined") {
+              // Data is an array of jsTree node definitions
+              return JSON.stringify(data);
+            } else {
+              // Data includes both nodes and the total number of available nodes
+              return JSON.stringify(data.nodes);
+            }
+          },
         },
         'check_callback': function (operation, node, node_parent, node_position, more) {
           // Operations allowed:
           // - Before and after drag and drop between siblings
           // - Move core operations (node drop event)
-          return operation === 'move_node'
-            && (more.core || (more.dnd
-            && node.parent === more.ref.parent
-            && more.pos !== 'i'));
+          return operation === 'create_node' ||
+            (operation === 'move_node'
+              && (more.core || (more.dnd
+              && node.parent === more.ref.parent
+              && more.pos !== 'i'))
+            );
         }
       }
     };
@@ -82,6 +106,8 @@
         $activeNode.scrollIntoView(true);
         $('body')[0].scrollIntoView(true);
       }
+
+      pager.updateMoreLink($moreButton, $resetButton);
     };
 
     // On node selection: load the informationobject's page and insert the current page
@@ -194,6 +220,21 @@
       .bind('hover_node.jstree', hoverNodeListener)
       .bind('open_node.jstree', openNodeListener)
       .bind('move_node.jstree', moveNodeListener);
+
+    // Clicking "more" will add next page of results to tree
+    $moreButton.click(function() {
+      pager.next();
+      pager.getAndAppendNodes(function() {
+        // Queue is empty so update paging link
+        pager.updateMoreLink($moreButton, $resetButton);
+      });
+    });
+
+    // Clicking reset link will reset paging and tree state
+    $('#fullwidth-treeview-reset-button').click(function()
+    {
+      pager.reset($moreButton, $resetButton);
+    });
 
     // TODO restore window.history states
     $(window).bind('popstate', function() {});

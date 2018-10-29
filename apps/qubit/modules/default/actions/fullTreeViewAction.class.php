@@ -60,11 +60,13 @@ class DefaultFullTreeViewAction extends sfAction
     // Determine ordering
     $orderColumn = (isset($options['orderColumn'])) ? $options['orderColumn'] : 'io.lft';
 
-    // Assemble LIMIT clause, if applicable
+    // If we're currently fetching children and paging options are set,
+    // use paging options to assemble LIMIT clause
     $limitClause = "";
     $skip = (isset($options['skip'])) ? $options['skip'] : null;
     $limit = (isset($options['limit'])) ? $options['limit'] : null;
-    if (ctype_digit($skip) || ctype_digit($limit))
+
+    if ($children && (ctype_digit($skip) || ctype_digit($limit)))
     {
       $limitClause = "LIMIT ";
       $limitClause .= (ctype_digit($skip)) ? $skip : "0";
@@ -224,12 +226,13 @@ class DefaultFullTreeViewAction extends sfAction
       $result['a_attr']['title'] = strip_tags($result['text']);
       $result['a_attr']['href'] = $this->generateUrl('slug', array('slug' => $result['slug']));
 
-      // Set children to true for lazy loading or, if we are loading
-      // an ancestor of the resource or the resource, load all children
+      // If not a leaf node, indicate node has children
       if ($result['rgt'] - $result['lft'] > 1)
       {
+        // Set children to default of true for lazy loading
         $result['children'] = true;
 
+        // If loading an ancestor of the resource, fetch children
         if ($result['lft'] <= $this->resource->lft && $result['rgt'] >= $this->resource->rgt)
         {
           $refCode = '';
@@ -238,8 +241,18 @@ class DefaultFullTreeViewAction extends sfAction
             $refCode = $result['referenceCode'];
           }
 
-          $childData = $this->getNodeOrChildrenNodes($result['id'], $refCode, $children = true);
+          // If we're not currently fetching children and paging options are set,
+          // use paging options when fetching children
+          $childOptions = array();
+          if (!$children && (isset($options['skip']) || isset($options['limit'])))
+          {
+            $childOptions = array('skip' => $options['skip'], 'limit' => $options['limit']);
+          }
+
+          // Fetch children and note total number of children that exist (useful for paging through children)
+          $childData = $this->getNodeOrChildrenNodes($result['id'], $refCode, $children = true, $childOptions);
           $result['children'] = $childData['nodes'];
+          $result['total'] = $childData['total'];
         }
       }
 

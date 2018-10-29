@@ -59,14 +59,14 @@
   text-overflow: ellipsis;
 }
 
-.hierarchy > .container > input[type="button"] {
+.hierarchy > .container > input[type="button"], #main-column > input[type="button"] {
   margin-top: 14px;
+  margin-left: 6px;
   float: right;
 }
 
 #fullwidth-treeview-more-button {
   display: none;
-  margin-right: 6px;
 }
 
 #fullwidth-treeview-activity-indicator {

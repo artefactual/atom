@@ -6,4 +6,5 @@ hierarchySuccess:
     /vendor/jstree/jstree.min.js:
     treeviewTypes:
     pager:
+    treeViewPager:
     hierarchy:
