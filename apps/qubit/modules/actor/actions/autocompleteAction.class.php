@@ -32,7 +32,7 @@ class ActorAutocompleteAction extends sfAction
     $criteria->addJoin(QubitActor::ID, QubitObject::ID);
 
     // Filter out non-authority Actors
-    $filteredObjects = array('QubitUser', 'QubitDonor', 'QubitRightsHolder');
+    $filteredObjects = array('QubitUser', 'QubitDonor', 'QubitRightsHolder', 'QubitRepository');
     $criteria->add(QubitObject::CLASS_NAME, $filteredObjects, Criteria::NOT_IN);
 
     // Sort alphabetically by name
