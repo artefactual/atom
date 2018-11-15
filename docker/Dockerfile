@@ -1,4 +1,4 @@
-FROM php:7.0-fpm-alpine
+FROM php:7-fpm-alpine
 
 ARG GIT_BRANCH=qa/2.5.x
 
@@ -7,7 +7,6 @@ ENV FOP_HOME /usr/share/fop-2.1
 RUN set -xe \
 		&& apk add --no-cache --virtual .phpext-builddeps \
 			gettext-dev \
-			libmcrypt-dev \
 			libxslt-dev \
 			zlib-dev \
 			libmemcached-dev \
@@ -17,7 +16,6 @@ RUN set -xe \
 			calendar \
 			gettext \
 			mbstring \
-			mcrypt \
 			mysqli \
 			opcache \
 			pdo_mysql \
@@ -32,7 +30,6 @@ RUN set -xe \
 		&& rm -rf /pecl-memcache-NON_BLOCKING_IO_php7 \
 		&& apk add --virtual .phpext-rundeps \
 			gettext \
-			libmcrypt \
 			libxslt \
 			libmemcached-libs \
 		&& apk del .phpext-builddeps
@@ -44,6 +41,7 @@ RUN set -xe \
 			imagemagick \
 			ghostscript \
 			poppler-utils \
+			nodejs-npm \
 			nodejs \
 			make \
 			bash \
