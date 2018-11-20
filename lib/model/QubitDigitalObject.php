@@ -2074,6 +2074,12 @@ class QubitDigitalObject extends BaseDigitalObject
         break;
     }
 
+    // Remove temp file
+    if (file_exists($this->getLocalPath()))
+    {
+      unlink($this->getLocalPath());
+    }
+
     return $this;
   }
 
