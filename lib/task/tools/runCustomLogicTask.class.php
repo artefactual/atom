@@ -24,7 +24,7 @@
  * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
-class runCustomLogicTask extends sfBaseTask
+class runCustomLogicTask extends arBaseTask
 {
     protected $namespace        = 'tools';
     protected $name             = 'run';
@@ -39,7 +39,11 @@ EOF;
    */
   protected function configure()
   {
+    $logFileDefault = sfConfig::get('sf_log_dir') . '/tools_run.log';
+
     $this->addOptions(array(
+      new sfCommandOption('log', null, sfCommandOption::PARAMETER_NONE, 'Log execution of PHP file'),
+      new sfCommandOption('log_file', null, sfCommandOption::PARAMETER_OPTIONAL, 'File to log to', $logFileDefault),
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
@@ -57,16 +61,20 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
+    parent::execute($arguments, $options);
+
     if (false === $fh = fopen($arguments['filename'], 'rb'))
     {
       throw new sfException('You must specify a valid filename');
     }
 
-    // initialized data connection in case it's needed
-    $sf_context = sfContext::createInstance($this->configuration);
-    $databaseManager = new sfDatabaseManager($this->configuration);
-    $conn = $databaseManager->getDatabase('propel')->getConnection();
-
     include($arguments['filename']);
+
+    // Optionally log script execution
+    if ($options['log'])
+    {
+      $custom_logger = new sfFileLogger(new sfEventDispatcher(), array('file' => $options['log_file']));
+      $custom_logger->info($arguments['filename']);
+    }
   }
 }
