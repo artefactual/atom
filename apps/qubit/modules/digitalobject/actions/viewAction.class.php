@@ -125,7 +125,8 @@ class DigitalObjectViewAction extends sfAction
     // Using X-Accel-Redirect (Nginx) unless ATOM_XSENDFILE is set
     if (false === filter_var($_SERVER['ATOM_XSENDFILE'], FILTER_VALIDATE_BOOLEAN))
     {
-      $this->response->setHttpHeader('X-Accel-Redirect', '/private'.$this->resource->getFullPath());
+      $urlPath = preg_replace('\/?[^\/]+\.php$', '', $_SERVER['SCRIPT_NAME']);
+      $this->response->setHttpHeader('X-Accel-Redirect', $urlPath . '/private' . $this->resource->getFullPath());
     }
     else
     {
