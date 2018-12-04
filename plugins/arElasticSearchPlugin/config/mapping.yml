@@ -333,6 +333,8 @@ mapping:
       other_names: other_name
       parallel_names: other_name
       standardized_names: other_name
+      subjects: term
+      places: term
     _partial_foreign_types:
       occupations:
         _i18nFields: [name, content]
@@ -350,6 +352,8 @@ mapping:
       corporate_body_identifiers: { type: keyword }
       entity_type_id: { type: integer, include_in_all: false }
       maintaining_repository_id: { type: integer, include_in_all: false }
+      direct_subjects: { type: integer, include_in_all: false }
+      direct_places: { type: integer, include_in_all: false }
 
   accession:
     _attributes:

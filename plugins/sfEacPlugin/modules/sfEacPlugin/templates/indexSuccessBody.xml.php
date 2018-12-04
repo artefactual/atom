@@ -51,6 +51,14 @@
       </localControl>
     <?php endif; ?>
 
+    <?php if (count($subjects = $resource->getSubjectAccessPoints()) > 0): ?>
+      <?php foreach ($subjects as $item): ?>
+        <localControl localType="subjectAccessPoint">
+          <term vocalularySource="<?php echo url_for(array($item->term, 'module' => 'term'), true) ?>"><?php echo esc_specialchars($item->term->getName(array('cultureFallback' => true))) ?></term>
+        </localControl>
+      <?php endforeach; ?>
+    <?php endif; ?>
+
     <?php if (!empty($eac->maintenanceHistory)): ?>
       <maintenanceHistory><?php echo $eac->maintenanceHistory ?></maintenanceHistory>
     <?php endif; ?>
@@ -132,7 +140,7 @@
         <?php endif; ?>
 
         <?php if (!empty($resource->places)): ?>
-          <place>
+          <place localType="isaar-5.2.3">
             <placeEntry><?php echo esc_specialchars($resource->places) ?></placeEntry>
           </place>
         <?php endif; ?>
@@ -181,13 +189,22 @@
                 <?php $note = $item->getNotesByType(array('noteTypeId' => QubitTerm::ACTOR_OCCUPATION_NOTE_ID))->offsetGet(0) ?>
                 <?php if (isset($note)): ?>
                   <descriptiveNote>
-                    <?php echo render_value('<p>'.$note->getContent(array('cultureFallback' => true))).'</p>' ?>
+                    <?php echo render_value($note->getContent(array('cultureFallback' => true))) ?>
                   </descriptiveNote>
                 <?php endif; ?>
               </occupation>
             <?php endforeach; ?>
           </occupations>
         <?php endif; ?>
+
+        <?php if (count($places = $resource->getPlaceAccessPoints()) > 0): ?>
+          <?php foreach ($places as $item): ?>
+            <place localType="placeAccessPoint">
+              <placeEntry vocabularySource="<?php echo url_for(array($item->term, 'module' => 'term'), true) ?>"><?php echo esc_specialchars($item->term->getName(array('cultureFallback' => true))) ?></placeEntry>
+            </place>
+          <?php endforeach; ?>
+        <?php endif; ?>
+
       </description>
     <?php endif; ?>
 

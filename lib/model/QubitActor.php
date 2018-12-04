@@ -607,4 +607,45 @@ class QubitActor extends BaseActor
 
     return QubitObjectTermRelation::get($criteria);
   }
+
+  public function getSubjectAccessPoints()
+  {
+    return $this->getTermRelations(QubitTaxonomy::SUBJECT_ID);
+  }
+
+  public function getPlaceAccessPoints()
+  {
+    $criteria = new Criteria;
+
+    $criteria->add(QubitObjectTermRelation::OBJECT_ID, $this->id);
+    $criteria->addJoin(QubitObjectTermRelation::TERM_ID, QubitTerm::ID);
+    $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::PLACE_ID);
+
+    return QubitObjectTermRelation::get($criteria);
+  }
+
+  public static function setTermRelationByName($name, $options = array())
+  {
+    $criteria = new Criteria;
+    $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+    $criteria->add(QubitTerm::TAXONOMY_ID, $options['taxonomyId']);
+    $criteria->add(QubitTermI18n::NAME, $name);
+
+    $culture = (isset($options['culture'])) ? $options['culture'] : sfContext::getInstance()->user->getCulture();
+    $criteria->add(QubitTermI18n::CULTURE, $culture);
+
+    if (null === $term = QubitTerm::getOne($criteria))
+    {
+      if (!QubitAcl::check(QubitTaxonomy::getById($options['taxonomyId']), 'createTerm'))
+      {
+        return;
+      }
+      QubitFlatfileImport::createTerm($options['taxonomyId'], $name, $culture);
+    }
+
+    $relation = new QubitObjectTermRelation;
+    $relation->term = $term;
+
+    return $relation;
+  }
 }

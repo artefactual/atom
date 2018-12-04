@@ -31,11 +31,11 @@
 
   <?php echo get_partial('informationobject/actionIcons', array('resource' => $resource)) ?>
 
-  <?php echo get_partial('informationobject/subjectAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+  <?php echo get_partial('object/subjectAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
 
   <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
 
-  <?php echo get_partial('informationobject/placeAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+  <?php echo get_partial('object/placeAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
 
   <?php echo get_partial('informationobject/genreAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
 
@@ -300,11 +300,11 @@
   <?php endif; ?>
 
   <div class="subjectAccessPoints">
-    <?php echo get_partial('informationobject/subjectAccessPoints', array('resource' => $resource)) ?>
+    <?php echo get_partial('object/subjectAccessPoints', array('resource' => $resource)) ?>
   </div>
 
   <div class="placeAccessPoints">
-    <?php echo get_partial('informationobject/placeAccessPoints', array('resource' => $resource)) ?>
+    <?php echo get_partial('object/placeAccessPoints', array('resource' => $resource)) ?>
   </div>
 
   <div class="nameAccessPoints">

@@ -52,6 +52,20 @@
         'aggs' => $aggs,
         'filters' => $search->filters)) ?>
 
+      <?php echo get_partial('search/aggregation', array(
+        'id' => '#facet-places',
+        'label' => sfConfig::get('app_ui_label_place'),
+        'name' => 'places',
+        'aggs' => $aggs,
+        'filters' => $search->filters)) ?>
+
+      <?php echo get_partial('search/aggregation', array(
+        'id' => '#facet-subjects',
+        'label' => sfConfig::get('app_ui_label_subject'),
+        'name' => 'subjects',
+        'aggs' => $aggs,
+        'filters' => $search->filters)) ?>
+
     </div>
 
   </section>

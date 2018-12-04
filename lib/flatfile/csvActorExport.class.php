@@ -172,6 +172,8 @@ class csvActorExport extends QubitFlatfileExport
   {
     $this->setMaintenanceNote();
     $this->setOccupations();
+    $this->setPlaceAccessPoints();
+    $this->setSubjectAccessPoints();
   }
 
   private function setMaintenanceNote()
@@ -216,5 +218,53 @@ class csvActorExport extends QubitFlatfileExport
     {
       $this->setColumn('actorOccupationNotes', implode('|', $actorOccupationNotes));
     }
+  }
+
+  /*
+   * Get place access point data
+   *
+   * @return void
+   */
+  private function setPlaceAccessPoints()
+  {
+
+    $accessPoints = $this->resource->getPlaceAccessPoints();
+
+    $data          = array();
+    $data['names'] = array();
+
+    foreach ($accessPoints as $accessPoint)
+    {
+      if ($accessPoint->term->name)
+      {
+        $data['names'][] = $accessPoint->term->name;
+      }
+    }
+
+    $this->setColumn('placeAccessPoints', implode('|', $data['names']));
+  }
+
+  /*
+   * Get subject access point data
+   *
+   * @return void
+   */
+  private function setSubjectAccessPoints()
+  {
+
+    $accessPoints = $this->resource->getSubjectAccessPoints();
+
+    $data = array();
+    $data['names'] = array();
+
+    foreach ($accessPoints as $accessPoint)
+    {
+      if ($accessPoint->term->name)
+      {
+        $data['names'][] = $accessPoint->term->name;
+      }
+    }
+
+    $this->setColumn('subjectAccessPoints', implode('|', $data['names']));
   }
 }
