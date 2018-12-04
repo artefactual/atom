@@ -49,11 +49,13 @@ class sfIsaarPluginEditAction extends ActorEditAction
       'otherName',
       'parallelName',
       'places',
+      'placeAccessPoints',
       'revisionHistory',
       'rules',
       'script',
       'sources',
-      'standardizedName');
+      'standardizedName',
+      'subjectAccessPoints');
 
   protected function earlyExecute()
   {
@@ -110,6 +112,39 @@ class sfIsaarPluginEditAction extends ActorEditAction
     {
       case 'maintenanceNotes':
         $this->isaar->maintenanceNotes = $this->form->getValue('maintenanceNotes');
+
+        break;
+
+      case 'subjectAccessPoints':
+      case 'placeAccessPoints':
+        $value = $filtered = array();
+        foreach ($this->form->getValue($field->getName()) as $item)
+        {
+          $params = $this->context->routing->parse(Qubit::pathInfo($item));
+          $resource = $params['_sf_route']->resource;
+          $value[$resource->id] = $filtered[$resource->id] = $resource;
+        }
+
+        foreach ($this[$field->getName()] as $item)
+        {
+          if (isset($value[$item->term->id]))
+          {
+            unset($filtered[$item->term->id]);
+          }
+          else
+          {
+            $item->indexObjectOnDelete = false;
+            $item->delete();
+          }
+        }
+
+        foreach ($filtered as $item)
+        {
+          $relation = new QubitObjectTermRelation;
+          $relation->term = $item;
+
+          $this->resource->objectTermRelationsRelatedByobjectId[] = $relation;
+        }
 
         break;
 

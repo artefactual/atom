@@ -607,4 +607,20 @@ class QubitActor extends BaseActor
 
     return QubitObjectTermRelation::get($criteria);
   }
+
+  public function getSubjectAccessPoints()
+  {
+    return $this->getTermRelations(QubitTaxonomy::SUBJECT_ID);
+  }
+
+  public function getPlaceAccessPoints(/*array $options = array('events' => false)*/)
+  {
+    $criteria = new Criteria;
+
+    $criteria->add(QubitObjectTermRelation::OBJECT_ID, $this->id);
+    $criteria->addJoin(QubitObjectTermRelation::TERM_ID, QubitTerm::ID);
+    $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::PLACE_ID);
+
+    return QubitObjectTermRelation::get($criteria);
+  }
 }

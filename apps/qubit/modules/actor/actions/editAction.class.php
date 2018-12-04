@@ -132,6 +132,36 @@ class ActorEditAction extends DefaultEditAction
 
         break;
 
+        case 'subjectAccessPoints':
+        case 'placeAccessPoints':
+          $criteria = new Criteria;
+          $criteria->add(QubitObjectTermRelation::OBJECT_ID, $this->resource->id);
+          $criteria->addJoin(QubitObjectTermRelation::TERM_ID, QubitTerm::ID);
+          switch ($name)
+          {
+            case 'subjectAccessPoints':
+              $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::SUBJECT_ID);
+
+              break;
+
+            case 'placeAccessPoints':
+              $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::PLACE_ID);
+
+              break;
+          }
+
+          $value = $choices = array();
+          foreach ($this[$name] = QubitObjectTermRelation::get($criteria) as $item)
+          {
+            $choices[$value[] = $this->context->routing->generate(null, array($item->term, 'module' => 'term'))] = $item->term;
+          }
+
+          $this->form->setDefault($name, $value);
+          $this->form->setValidator($name, new sfValidatorPass);
+          $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices, 'multiple' => true)));
+
+          break;
+
       default:
 
         return parent::addField($name);

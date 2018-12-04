@@ -104,6 +104,29 @@
 
         <legend><?php echo __('Access points') ?></legend>
 
+
+        <div class="form-item">
+          <?php echo $form->subjectAccessPoints
+            ->label(__('Subject access points'))
+            ->renderLabel() ?>
+          <?php echo $form->subjectAccessPoints->render(array('class' => 'form-autocomplete')) ?>
+          <?php if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID), 'createTerm')): ?>
+            <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID), 'module' => 'taxonomy')))) ?> #name"/>
+          <?php endif; ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID), 'module' => 'taxonomy')))) ?>"/>
+        </div>
+
+        <div class="form-item">
+          <?php echo $form->placeAccessPoints
+            ->label(__('Place access points'))
+            ->renderLabel() ?>
+          <?php echo $form->placeAccessPoints->render(array('class' => 'form-autocomplete')) ?>
+          <?php if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'createTerm')): ?>
+            <input class="add" type="hidden" data-link-existing="true" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'module' => 'taxonomy')))) ?> #name"/>
+          <?php endif; ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'module' => 'taxonomy')))) ?>"/>
+        </div>
+
         <?php echo get_partial('actor/occupations', $sf_data->getRaw('occupationsComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset>
