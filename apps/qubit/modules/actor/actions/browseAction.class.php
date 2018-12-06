@@ -48,7 +48,15 @@ class ActorBrowseAction extends DefaultBrowseAction
       'occupation' =>
         array('type' => 'term',
               'field' => 'occupations.id',
-              'size' => 10));
+              'size' => 10),
+      'places' =>
+        array('type'   => 'term',
+              'field'  => 'places.id',
+              'size'   => 10),
+      'subjects' =>
+        array('type'   => 'term',
+              'field'  => 'subjects.id',
+              'size'   => 10));
 
   protected function populateAgg($name, $buckets)
   {
@@ -56,6 +64,8 @@ class ActorBrowseAction extends DefaultBrowseAction
     {
       case 'types':
       case 'occupation':
+      case 'places':
+      case 'subjects':
         $ids = array_column($buckets, 'key');
         $criteria = new Criteria;
         $criteria->add(QubitTerm::ID, $ids, Criteria::IN);
