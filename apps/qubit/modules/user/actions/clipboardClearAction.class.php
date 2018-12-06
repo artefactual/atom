@@ -38,16 +38,23 @@ class UserClipboardClearAction extends sfAction
     }
 
     $allSlugs = $this->context->user->getClipboard()->getAllByClassName();
-    $slugs = $allSlugs[$this->type];
-    $this->typeLabel = $this->getTypeLabel();
+    $slugs = (isset($allSlugs[$this->type])) ? $allSlugs[$this->type] : array();
 
     // Redirect to clipboard page if the clipboard is empty
     if (count($slugs) == 0)
     {
+      if (empty($this->type))
+      {
+        $message = $this->context->i18n->__("No entity type specified.");
+        $this->context->getUser()->setFlash('error', $message);
+      }
+
       $this->redirect(array('module' => 'user', 'action' => 'clipboard'));
     }
 
-    // Get all descriptions added to the clipboard
+    // Determine label for type and get data about all entities added to the clipboard
+    $this->typeLabel = $this->getTypeLabel();
+
     $query = new \Elastica\Query;
     $queryTerms = new \Elastica\Query\Terms('slug', $slugs);
     $queryBool = new \Elastica\Query\BoolQuery;
