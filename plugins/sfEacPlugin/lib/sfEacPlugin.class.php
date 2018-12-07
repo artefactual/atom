@@ -597,7 +597,7 @@ return;
     // TODO <address/>, <addressLine/>, <date/>, <dateRange/>, <dateSet/>,
     // <descriptiveNote/>, <placeRole/>, <term/>, @accuracy, @altitude,
     // @countryCode, @latitude, @longitude, @vocabularySource
-    $this->resource->places = $fd->find('eac:cpfDescription/eac:description/eac:place/eac:placeEntry|eac:cpfDescription/eac:description/eac:places/eac:place/eac:placeEntry')->text();
+    $this->resource->places = $fd->find('eac:cpfDescription/eac:description/eac:place[@localType!="placeAccessPoint"]/eac:placeEntry|eac:cpfDescription/eac:description/eac:places/eac:place[@localType!="placeAccessPoint"]/eac:placeEntry')->text();
 
     // TODO <date/>, <dateRange/>, <dateSet/>, <descriptiveNote/>,
     // <placeEntry/>, <term/>
@@ -792,41 +792,51 @@ return;
         continue;
       }
 
-      $criteria = new Criteria;
-      $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-      $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::ACTOR_OCCUPATION_ID);
-      $criteria->add(QubitTermI18n::NAME, $termName);
-      $criteria->add(QubitTermI18n::CULTURE, sfContext::getInstance()->user->getCulture());
-
-      $term = QubitTerm::getOne($criteria);
-      if (!isset($term))
+      if (null !== $relation = QubitObjectTermRelation::setTermRelationByName($termName, $options = array('taxonomyId' => QubitTaxonomy::ACTOR_OCCUPATION_ID)))
       {
-        if (!QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::ACTOR_OCCUPATION_ID), 'createTerm'))
+        $noteContent = trim($fd->spawn()->add($node)->find('eac:descriptiveNote')->text());
+
+        if (!empty($noteContent))
         {
-          continue;
+          $note = new QubitNote;
+          $note->typeId = QubitTerm::ACTOR_OCCUPATION_NOTE_ID;
+          $note->content = $noteContent;
+
+          $relation->notes[] = $note;
         }
 
-        $term = new QubitTerm;
-        $term->name = $termName;
-        $term->taxonomyId = QubitTaxonomy::ACTOR_OCCUPATION_ID;
-        $term->save();
+        $this->resource->objectTermRelationsRelatedByobjectId[] = $relation;
       }
+    }
 
-      $relation = new QubitObjectTermRelation;
-      $relation->term = $term;
+    foreach ($fd->find('eac:cpfDescription/eac:description/eac:place[@localType="placeAccessPoint"]|eac:cpfDescription/eac:description/eac:places/eac:place[@localType="placeAccessPoint"]') as $node)
+    {
+      $termName = trim($fd->spawn()->add($node)->find('eac:placeEntry')->text());
 
-      $noteContent = trim($fd->spawn()->add($node)->find('eac:descriptiveNote')->text());
-
-      if (!empty($noteContent))
+      if (empty($termName))
       {
-        $note = new QubitNote;
-        $note->typeId = QubitTerm::ACTOR_OCCUPATION_NOTE_ID;
-        $note->content = $noteContent;
-
-        $relation->notes[] = $note;
+        continue;
       }
 
-      $this->resource->objectTermRelationsRelatedByobjectId[] = $relation;
+      if (null !== $relation = QubitObjectTermRelation::setTermRelationByName($termName, $options = array('taxonomyId' => QubitTaxonomy::PLACE_ID)))
+      {
+        $this->resource->objectTermRelationsRelatedByobjectId[] = $relation;
+      }
+    }
+
+    foreach ($fd->find('eac:control/eac:localControl[@localType="subjectAccessPoint"]') as $node)
+    {
+      $termName = trim($fd->spawn()->add($node)->find('eac:term')->text());
+
+      if (empty($termName))
+      {
+        continue;
+      }
+
+      if (null !== $relation = QubitObjectTermRelation::setTermRelationByName($termName, $options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID)))
+      {
+        $this->resource->objectTermRelationsRelatedByobjectId[] = $relation;
+      }
     }
 
     // TODO <alternativeSet/>

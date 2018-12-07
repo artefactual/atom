@@ -51,6 +51,9 @@
           </a>
         </li>
 
+        <?php echo get_partial('actor/subjectAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+        <?php echo get_partial('actor/placeAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+
       </ul>
     </section>
 
