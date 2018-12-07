@@ -52,6 +52,16 @@
         <?php endforeach; // scopeNotes ?>
       <?php endif; ?>
 
+      <?php if (0 < count($sourceNotes = $term->getNotesByType(array('noteTypeId' => QubitTerm::SOURCE_NOTE_ID)))): ?>
+        <?php foreach ($sourceNotes as $sourceNote): ?>
+          <?php foreach ($sourceNote->noteI18ns as $i18n): ?>
+            <?php if (isset($i18n->content)): ?>
+              <skos:note xml:lang="<?php echo $i18n->culture ?>"><?php echo $i18n->content ?></skos:note>
+            <?php endif; ?>
+          <?php endforeach; // i18ns ?>
+        <?php endforeach; // sourceNotes ?>
+      <?php endif; ?>
+
       <?php if (QubitTerm::ROOT_ID != $term->parentId): ?>
         <?php if (!(isset($selectedTerm) && $selectedTerm->id == $term->id)): ?>
           <skos:broader rdf:resource="<?php echo url_for(array($term->parent, 'module' => 'term'), true) ?>"/>
