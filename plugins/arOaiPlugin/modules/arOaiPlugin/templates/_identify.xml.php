@@ -1,5 +1,5 @@
   <Identify>
-    <repositoryName><?php echo $title ?></repositoryName>
+    <repositoryName><?php echo esc_specialchars($title) ?></repositoryName>
     <baseURL><?php echo QubitOai::getBaseUrl() ?></baseURL>
     <protocolVersion><?php echo $protocolVersion ?></protocolVersion>
     <?php foreach ($adminEmails as $email): ?>
