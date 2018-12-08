@@ -5,6 +5,7 @@
   <form action="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse')) ?>" data-autocomplete="<?php echo url_for(array('module' => 'search', 'action' => 'autocomplete')) ?>" autocomplete="off">
 
     <input type="hidden" name="topLod" value="0"/>
+    <input type="hidden" name="sort" value="relevance"/>
 
     <?php if (isset($repository) && !sfConfig::get('app_enable_institutional_scoping')): ?>
       <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo $sf_request->query ?>" placeholder="<?php echo __('Search %1%', array('%1%' => strip_markdown($repository))) ?>"/>
