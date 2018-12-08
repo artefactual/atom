@@ -22,6 +22,8 @@ columnNames:
   - maintenanceNotes
   - actorOccupations
   - actorOccupationNotes
+  - subjectAccessPoints
+  - placeAccessPoints
 
 direct:
   - culture

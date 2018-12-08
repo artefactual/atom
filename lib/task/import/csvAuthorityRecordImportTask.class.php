@@ -254,7 +254,9 @@ EOF;
         'streetAddress',
         'region',
         'actorOccupations',
-        'actorOccupationNotes'
+        'actorOccupationNotes',
+        'placeAccessPoints',
+        'subjectAccessPoints'
       ),
 
       // Import logic to execute before saving actor
@@ -382,6 +384,44 @@ EOF;
             $info->save();
           }
 
+          // Add placeAccessPoints
+          if (!empty($self->rowStatusVars['placeAccessPoints']))
+          {
+            $places = explode('|', $self->rowStatusVars['placeAccessPoints']);
+            for ($i = 0; $i < count($places); $i++)
+            {
+              if (empty($places[$i]))
+              {
+                continue;
+              }
+
+              if (null !== $relation = QubitObjectTermRelation::setTermRelationByName($places[$i], $options = array('taxonomyId' => QubitTaxonomy::PLACE_ID)))
+              {
+                $relation->object = $self->object;
+                $relation->save();
+              }
+            }
+          }
+
+          // Add subjectAccessPoints
+          if (!empty($self->rowStatusVars['subjectAccessPoints']))
+          {
+            $subjects = explode('|', $self->rowStatusVars['subjectAccessPoints']);
+            for ($i = 0; $i < count($subjects); $i++)
+            {
+              if (empty($subjects[$i]))
+              {
+                continue;
+              }
+
+              if (null !== $relation = QubitObjectTermRelation::setTermRelationByName($subjects[$i], $options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID)))
+              {
+                $relation->object = $self->object;
+                $relation->save();
+              }
+            }
+          }
+
           // Add occupations
           if (!empty($self->rowStatusVars['actorOccupations']))
           {
@@ -400,38 +440,19 @@ EOF;
                 continue;
               }
 
-              $criteria = new Criteria;
-              $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-              $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::ACTOR_OCCUPATION_ID);
-              $criteria->add(QubitTermI18n::NAME, $occupations[$i]);
-              $criteria->add(QubitTermI18n::CULTURE, sfContext::getInstance()->user->getCulture());
-
-              $term = QubitTerm::getOne($criteria);
-              if (!isset($term))
+              if (null !== $relation = QubitObjectTermRelation::setTermRelationByName($occupations[$i], $options = array('taxonomyId' => QubitTaxonomy::ACTOR_OCCUPATION_ID)))
               {
-                if (!QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::ACTOR_OCCUPATION_ID), 'createTerm'))
+                $relation->object = $self->object;
+                $relation->save();
+
+                if (!empty($occupationNotes[$i]) && $occupationNotes[$i] !== 'NULL')
                 {
-                  continue;
+                  $note = new QubitNote;
+                  $note->typeId = QubitTerm::ACTOR_OCCUPATION_NOTE_ID;
+                  $note->content = $occupationNotes[$i];
+                  $note->object = $relation;
+                  $note->save();
                 }
-
-                $term = new QubitTerm;
-                $term->name = $occupations[$i];
-                $term->taxonomyId = QubitTaxonomy::ACTOR_OCCUPATION_ID;
-                $term->save();
-              }
-
-              $relation = new QubitObjectTermRelation;
-              $relation->term = $term;
-              $relation->object = $self->object;
-              $relation->save();
-
-              if (!empty($occupationNotes[$i]) && $occupationNotes[$i] !== 'NULL')
-              {
-                $note = new QubitNote;
-                $note->typeId = QubitTerm::ACTOR_OCCUPATION_NOTE_ID;
-                $note->content = $occupationNotes[$i];
-                $note->object = $relation;
-                $note->save();
               }
             }
           }
