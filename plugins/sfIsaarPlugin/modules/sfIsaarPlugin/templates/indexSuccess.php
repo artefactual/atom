@@ -51,8 +51,8 @@
           </a>
         </li>
 
-        <?php echo get_partial('actor/subjectAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
-        <?php echo get_partial('actor/placeAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+        <?php echo get_partial('object/subjectAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+        <?php echo get_partial('object/placeAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
 
       </ul>
     </section>
@@ -173,11 +173,11 @@
   <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Access points area').'</h2>', array($resource, 'module' => 'actor', 'action' => 'edit'), array('anchor' => 'accessPointsArea', 'title' => __('Edit access points area'))) ?>
 
   <div class="subjectAccessPoints">
-    <?php echo get_partial('actor/subjectAccessPoints', array('resource' => $resource)) ?>
+    <?php echo get_partial('object/subjectAccessPoints', array('resource' => $resource)) ?>
   </div>
 
   <div class="placeAccessPoints">
-    <?php echo get_partial('actor/placeAccessPoints', array('resource' => $resource)) ?>
+    <?php echo get_partial('object/placeAccessPoints', array('resource' => $resource)) ?>
   </div>
 
   <div class="field">

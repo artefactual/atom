@@ -31,11 +31,11 @@
 
   <?php echo get_partial('informationobject/actionIcons', array('resource' => $resource)) ?>
 
-  <?php echo get_partial('informationobject/subjectAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+  <?php echo get_partial('object/subjectAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
 
   <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
 
-  <?php echo get_partial('informationobject/placeAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+  <?php echo get_partial('object/placeAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
 
   <?php if (check_field_visibility('app_element_visibility_physical_storage')): ?>
     <?php echo get_component('physicalobject', 'contextMenu', array('resource' => $resource)) ?>
@@ -75,9 +75,9 @@
     <?php echo render_show(__('Internet media type'), render_value($resource->digitalObjects[0]->mimeType)) ?>
   <?php endif; ?>
 
-  <?php echo get_partial('informationobject/subjectAccessPoints', array('resource' => $resource, 'mods' => true)) ?>
+  <?php echo get_partial('object/subjectAccessPoints', array('resource' => $resource, 'mods' => true)) ?>
 
-  <?php echo get_partial('informationobject/placeAccessPoints', array('resource' => $resource, 'mods' => true)) ?>
+  <?php echo get_partial('object/placeAccessPoints', array('resource' => $resource, 'mods' => true)) ?>
 
   <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource, 'mods' => true)) ?>
 

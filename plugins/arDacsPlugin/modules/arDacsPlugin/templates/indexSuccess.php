@@ -31,13 +31,13 @@
 
   <?php echo get_partial('informationobject/actionIcons', array('resource' => $resource)) ?>
 
-  <?php echo get_partial('informationobject/subjectAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+  <?php echo get_partial('object/subjectAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
 
   <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
 
   <?php echo get_partial('informationobject/genreAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
 
-  <?php echo get_partial('informationobject/placeAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+  <?php echo get_partial('object/placeAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
 
   <?php if (check_field_visibility('app_element_visibility_physical_storage')): ?>
     <?php echo get_component('physicalobject', 'contextMenu', array('resource' => $resource)) ?>
@@ -240,9 +240,9 @@
 
   <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Access points').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'accessPointsArea', 'title' => __('Edit access points'))) ?>
 
-  <?php echo get_partial('informationobject/subjectAccessPoints', array('resource' => $resource)) ?>
+  <?php echo get_partial('object/subjectAccessPoints', array('resource' => $resource)) ?>
 
-  <?php echo get_partial('informationobject/placeAccessPoints', array('resource' => $resource)) ?>
+  <?php echo get_partial('object/placeAccessPoints', array('resource' => $resource)) ?>
 
   <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource)) ?>
 
