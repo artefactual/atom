@@ -241,7 +241,7 @@
   </section>
 
   <?php if ($addBrowseElements): ?>
-    <h1><?php echo __('%1% Results for %2%', array('%1%' => $pager->getNbResults(), '%2%' => render_title($resource))) ?></h1>
+    <h1><?php echo __('%1% %2% results for %3%', array('%1%' => $pager->getNbResults(), '%2%' => sfConfig::get('app_ui_label_informationobject'), '%3%' => render_title($resource))) ?></h1>
 
     <section class="header-options">
       <?php if (isset($sf_request->onlyDirect)): ?>
