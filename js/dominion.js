@@ -507,8 +507,12 @@
             break;
 
           case 38: // Up arrow
-            e.preventDefault();
-            this.move(-1);
+            // If charCode is 38 then, in Chrome, it's an ampersand
+            if (e.charCode == 0)
+            {
+              e.preventDefault();
+              this.move(-1);
+            }
             break;
 
           case 40: // Down arrow
