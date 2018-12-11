@@ -70,40 +70,4 @@ class QubitObjectTermRelation extends BaseObjectTermRelation
 
     return QubitObjectTermRelation::getOne($c);
   }
-
-  public static function setTermRelationByName($name, $options)
-  {
-    // see if subject term already exists
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-    $criteria->add(QubitTerm::TAXONOMY_ID, $options['taxonomyId']);
-    $criteria->add(QubitTermI18n::NAME, $name);
-    if (null === $term = QubitTerm::getOne($criteria))
-    {
-      if (!QubitAcl::check(QubitTaxonomy::getById($options['taxonomyId']), 'createTerm'))
-      {
-        return;
-      }
-
-      $term = new QubitTerm;
-      $term->setTaxonomyId($options['taxonomyId']);
-      $term->setName($name);
-      $term->setRoot();
-      $term->save();
-      if (isset($options['source']))
-      {
-        $note = new QubitNote;
-        $note->content = $options['source'];
-        $note->typeId = QubitTerm::SOURCE_NOTE_ID;
-        $note->userId = sfContext::getInstance()->user->getAttribute('user_id');
-
-        $term->notes[] = $note;
-      }
-    }
-
-    $relation = new QubitObjectTermRelation;
-    $relation->term = $term;
-
-    return $relation;
-  }
 }

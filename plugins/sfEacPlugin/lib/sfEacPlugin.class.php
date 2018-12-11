@@ -792,7 +792,7 @@ return;
         continue;
       }
 
-      if (null !== $relation = QubitObjectTermRelation::setTermRelationByName($termName, $options = array('taxonomyId' => QubitTaxonomy::ACTOR_OCCUPATION_ID)))
+      if (null !== $relation = QubitActor::setTermRelationByName($termName, $options = array('taxonomyId' => QubitTaxonomy::ACTOR_OCCUPATION_ID, 'culture' => $this->from6392($node2->getAttribute('xml:lang')))))
       {
         $noteContent = trim($fd->spawn()->add($node)->find('eac:descriptiveNote')->text());
 
@@ -818,7 +818,7 @@ return;
         continue;
       }
 
-      if (null !== $relation = QubitObjectTermRelation::setTermRelationByName($termName, $options = array('taxonomyId' => QubitTaxonomy::PLACE_ID)))
+      if (null !== $relation = QubitActor::setTermRelationByName($termName, $options = array('taxonomyId' => QubitTaxonomy::PLACE_ID, 'culture' => $this->from6392($node2->getAttribute('xml:lang')))))
       {
         $this->resource->objectTermRelationsRelatedByobjectId[] = $relation;
       }
@@ -833,7 +833,7 @@ return;
         continue;
       }
 
-      if (null !== $relation = QubitObjectTermRelation::setTermRelationByName($termName, $options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID)))
+      if (null !== $relation = QubitActor::setTermRelationByName($termName, $options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID, 'culture' => $this->from6392($node2->getAttribute('xml:lang')))))
       {
         $this->resource->objectTermRelationsRelatedByobjectId[] = $relation;
       }

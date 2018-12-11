@@ -395,7 +395,7 @@ EOF;
                 continue;
               }
 
-              if (null !== $relation = QubitObjectTermRelation::setTermRelationByName($places[$i], $options = array('taxonomyId' => QubitTaxonomy::PLACE_ID)))
+              if (null !== $relation = QubitActor::setTermRelationByName($places[$i], $options = array('taxonomyId' => QubitTaxonomy::PLACE_ID, 'culture' => $self->columnValue('culture'))))
               {
                 $relation->object = $self->object;
                 $relation->save();
@@ -414,7 +414,7 @@ EOF;
                 continue;
               }
 
-              if (null !== $relation = QubitObjectTermRelation::setTermRelationByName($subjects[$i], $options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID)))
+              if (null !== $relation = QubitActor::setTermRelationByName($subjects[$i], $options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID, 'culture' => $self->columnValue('culture'))))
               {
                 $relation->object = $self->object;
                 $relation->save();
@@ -440,7 +440,7 @@ EOF;
                 continue;
               }
 
-              if (null !== $relation = QubitObjectTermRelation::setTermRelationByName($occupations[$i], $options = array('taxonomyId' => QubitTaxonomy::ACTOR_OCCUPATION_ID)))
+              if (null !== $relation = QubitActor::setTermRelationByName($occupations[$i], $options = array('taxonomyId' => QubitTaxonomy::ACTOR_OCCUPATION_ID, 'culture' => $self->columnValue('culture'))))
               {
                 $relation->object = $self->object;
                 $relation->save();
