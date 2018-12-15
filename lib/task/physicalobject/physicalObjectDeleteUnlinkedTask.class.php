@@ -71,6 +71,12 @@ EOF;
     // Disable search index
     QubitSearch::disable();
 
+    // Remind user they are in dry run mode
+    if ($options['dry-run'])
+    {
+      $this->log('*** DRY RUN (no changes will be made to the database) ***');
+    }
+
     // Display initial count of physical objects
     $physicalObjectsCountBefore = $this->getPhysicalObjectCount();
 
