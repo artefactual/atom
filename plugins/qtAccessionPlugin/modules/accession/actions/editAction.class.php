@@ -315,9 +315,9 @@ class AccessionEditAction extends DefaultEditAction
 
         foreach ($this->informationObjects as $item)
         {
-          if (isset($value[$item->objectId]))
+          if (isset($value[$item->subjectId]))
           {
-            unset($filtered[$item->objectId]);
+            unset($filtered[$item->subjectId]);
           }
           else
           {
