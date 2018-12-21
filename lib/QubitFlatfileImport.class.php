@@ -1635,14 +1635,17 @@ class QubitFlatfileImport
    *
    * @param string $name  name of physical object
    * @param string $location  location of physical object
+   * @param integer $typeId  type ID of physical object
    *
    * @return QubitPhysicalObject  created or fetched physical object
    */
   public function createOrFetchPhysicalObject($name, $location, $typeId)
   {
-    $query = "SELECT id FROM physical_object_i18n WHERE name=? AND location=?";
+    $query = "SELECT p.id FROM physical_object p
+      INNER JOIN physical_object_i18n pi ON p.id=pi.id
+      WHERE pi.name=? AND pi.location=? AND p.type_id=?";
 
-    $statement = QubitFlatfileImport::sqlQuery($query, array($name, $location));
+    $statement = QubitFlatfileImport::sqlQuery($query, array($name, $location, $typeId));
     $result = $statement->fetch(PDO::FETCH_OBJ);
 
     if ($result)
