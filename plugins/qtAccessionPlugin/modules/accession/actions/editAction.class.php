@@ -315,9 +315,9 @@ class AccessionEditAction extends DefaultEditAction
 
         foreach ($this->informationObjects as $item)
         {
-          if (isset($value[$item->objectId]))
+          if (isset($value[$item->subjectId]))
           {
-            unset($filtered[$item->objectId]);
+            unset($filtered[$item->subjectId]);
           }
           else
           {
@@ -330,6 +330,7 @@ class AccessionEditAction extends DefaultEditAction
           $relation = new QubitRelation;
           $relation->subject = $item;
           $relation->typeId = QubitTerm::ACCESSION_ID;
+          $relation->indexOnSave = false;
 
           $this->resource->relationsRelatedByobjectId[] = $relation;
         }
