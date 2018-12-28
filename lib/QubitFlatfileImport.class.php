@@ -1444,6 +1444,11 @@ class QubitFlatfileImport
       }
     }
 
+    // Get existing notes content as array - do this once per CSV row to reduce DB requests.
+    // Update array with note->content being added so values within CSV are also
+    // checked as they are added.
+    $existingNotes = $this->getExistingNotes($this->object->id, $typeId, $this->columnValue('culture'));
+
     foreach ($textArray as $i => $text)
     {
       $options = array();
@@ -1459,7 +1464,7 @@ class QubitFlatfileImport
       }
 
       // checkNoteExists will prevent note duplication.
-      if (!$this->checkNoteExists($this->object->id, $typeId, $this->content($text), $this->columnValue('culture')))
+      if (!$this->checkNoteExists($existingNotes, $this->content($text)))
       {
         $this->createOrUpdateNote($typeId, $text, $options);
       }
@@ -1510,27 +1515,60 @@ class QubitFlatfileImport
   }
 
   /**
+   * Return an array containing all note content for the object, type and culture.
+   *
+   * This function is used to build a list to match against existing to prevent
+   * creating duplicate notes when updating descriptions.
+   *
+   * @param int $objectId  Object id for object that the note belongs to.
+   * @param int $typeId  Note type id indicating note type.
+   * @param string $culture  Note culture to check against.
+   *
+   * @return bool  Array of all note content.
+   */
+  private function getExistingNotes($objectId, $typeId,  $culture)
+  {
+    $existingNotes = array();
+
+    $query = "SELECT n.id, i.content FROM note n
+      INNER JOIN note_i18n i ON n.id=i.id
+      WHERE n.object_id=?
+      AND n.type_id=?
+      AND i.culture=?";
+
+    $statement = self::sqlQuery($query, array($objectId, $typeId,  $culture));
+
+    foreach ($statement->fetchAll(PDO::FETCH_OBJ) as $row)
+    {
+      $existingNotes[] = $row->content;
+    }
+    return $existingNotes;
+  }
+
+  /**
    * Return whether a note already exists given specified parameters.
    *
    * This function is to prevent creating duplicate notes when updating descriptions.
    *
-   * @param int $objectId  Object id for object that the note belongs to.
-   * @param int $typeId  Note type id indicating note type.
+   * @param array $existingNotes  Notes already found in the database for this
    * @param string $content  Note content to check against.
-   * @param string $culture  Note culture to check against.
    *
    * @return bool  True if the same note exists, false otherwise.
    */
-  private function checkNoteExists($objectId, $typeId, $content, $culture)
+  private function checkNoteExists(&$existingNotes, $content)
   {
-    $query = "SELECT n.id FROM note n
-      INNER JOIN note_i18n i ON n.id=i.id
-      WHERE n.object_id=?
-      AND n.type_id=?
-      AND i.content=?
-      AND i.culture=?";
-    $statement = self::sqlQuery($query, array($objectId, $typeId, $content, $culture));
-    return false !== $statement->fetch(PDO::FETCH_OBJ);
+    // Try to match this note against list of notes from the database for this object.
+    foreach ($existingNotes as $note)
+    {
+      if ($content == $note)
+      {
+        return true;
+      }
+    }
+    // If we do not match the note, add it to the list to match against the next note.
+    // This is to prevent performing another DB lookup to re-grab all the notes.
+    $existingNotes[] = $content;
+    return false;
   }
 
   /**
