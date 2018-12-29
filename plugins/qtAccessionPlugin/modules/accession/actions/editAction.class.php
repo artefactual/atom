@@ -330,6 +330,7 @@ class AccessionEditAction extends DefaultEditAction
           $relation = new QubitRelation;
           $relation->subject = $item;
           $relation->typeId = QubitTerm::ACCESSION_ID;
+          $relation->indexOnSave = false;
 
           $this->resource->relationsRelatedByobjectId[] = $relation;
         }
