@@ -51,7 +51,7 @@
 
             return node.id === '#' ?
               window.location.pathname.match("^[^;]*")[0] + pathToApi + queryString :
-              node.a_attr.href + url;
+              node.a_attr.href + pathToApi;
           },
           'data': function (node) {
             return node.id === '#' ?
