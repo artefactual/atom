@@ -1464,7 +1464,7 @@ class QubitFlatfileImport
       }
 
       // checkNoteExists will prevent note duplication.
-      if (!$this->checkNoteExists($existingNotes, $this->object->id, $typeId, $this->content($text), $this->columnValue('culture')))
+      if (!$this->checkNoteExists($existingNotes, $this->content($text)))
       {
         $this->createOrUpdateNote($typeId, $text, $options);
       }
@@ -1551,14 +1551,11 @@ class QubitFlatfileImport
    * This function is to prevent creating duplicate notes when updating descriptions.
    *
    * @param array $existingNotes  Notes already found in the database for this
-   * @param int $objectId  Object id for object that the note belongs to.
-   * @param int $typeId  Note type id indicating note type.
    * @param string $content  Note content to check against.
-   * @param string $culture  Note culture to check against.
    *
    * @return bool  True if the same note exists, false otherwise.
    */
-  private function checkNoteExists(&$existingNotes, $objectId, $typeId, $content, $culture)
+  private function checkNoteExists(&$existingNotes, $content)
   {
     // Try to match this note against list of notes from the database for this object.
     foreach ($existingNotes as $note)
