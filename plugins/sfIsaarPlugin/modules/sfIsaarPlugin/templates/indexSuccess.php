@@ -50,12 +50,11 @@
             <?php echo __('EAC') ?>
           </a>
         </li>
-
-        <?php echo get_partial('object/subjectAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
-        <?php echo get_partial('object/placeAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
-
       </ul>
     </section>
+
+    <?php echo get_partial('object/subjectAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+    <?php echo get_partial('object/placeAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
 
   <?php endif; ?>
 
