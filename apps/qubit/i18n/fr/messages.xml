@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2018-09-09T08:22:23Z" original="messages" product-name="messages" source-language="en" target-language="fr">
+  <file datatype="plaintext" date="2018-12-06T22:40:42Z" original="messages" product-name="messages" source-language="en" target-language="fr">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
@@ -701,12 +701,12 @@
       </trans-unit>
       <trans-unit id="1a0371e373ff2700ab0c7bb696ff5d8fb3aad23d">
         <source>Background color</source>
-        <target>Couleur de fond</target>
+        <target>Couleur de fond EN FRANCAIS DAMN!</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/repository/templates/editThemeSuccess.php</note>
       </trans-unit>
       <trans-unit id="c8af83fb4c1ea103238bcdedb758767604d9423c">
         <source>Banner</source>
-        <target>Banni&#xE8;re</target>
+        <target>Banni&#xE8;re EN FRANCAIS WOW</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/repository/actions/editThemeAction.class.php</note>
       </trans-unit>
       <trans-unit id="caeef13930f0be27ce1a2f747aeafa3dee338d8a">
@@ -729,13 +729,9 @@
         <target>Base pour les autorisations ou pour les restrictions de droits</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/editSuccess.php</note>
       </trans-unit>
-      <trans-unit id="23fda70b6be2e72e7a8739da8feab5f4302718bd">
-        <source>Bind Lookup Attribute</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/ldapSuccess.php</note>
-      </trans-unit>
       <trans-unit id="bafa13b789066310abe28577644115741da38ed8">
         <source>Biographical history</source>
-        <target>Notice biographique</target>
+        <target>FRANCAIS BIO DUDE!</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_creatorDetail.php</note>
       </trans-unit>
       <trans-unit id="6da7a483d9707ad46258f9cfd24993462c3c50bb">
@@ -827,10 +823,6 @@
         <source>CSV export</source>
         <target>exportation en format CSV</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/actions/exportAction.class.php</note>
-      </trans-unit>
-      <trans-unit id="37de6dc5ff70e0bef344db7a7465025677c58ef8">
-        <source>Cache description XML exports upon creation/modification</source>
-        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="c2f7ded18f69796b981cb853f42764f7beb96084">
         <source>Calculate dates</source>
@@ -1607,10 +1599,6 @@
         <target>Activer la journalisation des modifications de description</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
-      <trans-unit id="d6395f068ba11d205da4a6492fefdd088ee4ecea">
-        <source>Enable institutional scoping</source>
-        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
-      </trans-unit>
       <trans-unit id="fd2fd26a6dc130f42bca70c8faa57e4fb944c582">
         <source>Enable or disable the display of certain page elements. Unless they have been overridden by a specific theme, these settings will be used site wide.</source>
         <target>Activer ou d&#xE9;sactiver l'affichage de certains &#xE9;l&#xE9;ments de la page. Ces r&#xE9;glages s'appliqueront &#xE0; l'ensemble du site sauf s'ils ont &#xE9;t&#xE9; annul&#xE9;s par un th&#xE8;me sp&#xE9;cifique.</target>
@@ -1765,11 +1753,6 @@
         <source>Fax</source>
         <target>Fax</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_edit.php</note>
-      </trans-unit>
-      <trans-unit id="683c3c8242be11848752d09c4cf5658ac3952fb0">
-        <source>File %1% could not be moved to %2%</source>
-        <target>Le fichier %1% n'a pas pu &#xEA;tre d&#xE9;plac&#xE9; vers %2%</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/actions/uploadAction.class.php</note>
       </trans-unit>
       <trans-unit id="0f230379c9271ada8ac8ebacbde117e640ffb428">
         <source>File %1% could not be thumbnailed</source>
@@ -5148,12 +5131,12 @@
       </trans-unit>
       <trans-unit id="3c6de1b7dd91465d437ef415f94f36afc1fbc8a8">
         <source>title</source>
-        <target>titre</target>
+        <target>NOMNOMNOM</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="49ba520416570e6cc876ecfbb174e1d370ae7626">
         <source>title/name</source>
-        <target>titre/nom</target>
+        <target>titre/nom EN FRANCAIS WOW!</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="8af56de68279cb6f5ed022f31af18b9fcdcc2e92">
@@ -5161,29 +5144,9 @@
         <target>vous</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/indexSuccess.php</note>
       </trans-unit>
-      <trans-unit id="1">
-        <source>Please make a selection.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="2">
-        <source>Update an existing date range</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="3">
-        <source>Select a date range to overwrite:</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="4">
-        <source>Updating an existing date range will permanently overwrite the current dates.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="5">
-        <source>or, create a new date range</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="6">
+      <trans-unit id="c6328f0c08059e2984280e71ef824e40f5761f9e">
         <source>Select the new date type:</source>
-        <target/>
+        <target state="translated">CHOOSE YOUR DATE FIGHTER EN FRANCAIS:</target>
       </trans-unit>
     </body>
   </file>
