@@ -177,22 +177,20 @@ EOF;
     $this->log(sprintf(' - %d physical object relations', $relationsCount));
   }
 
-  private function criteriaForPhysicalObjectsBySourceCulture()
+  private function sqlForPhysicalObjectsBySourceCulture()
   {
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitPhysicalObject::ID, QubitPhysicalObjectI18n::ID);
-    $criteria->addJoin(QubitPhysicalObject::SOURCE_CULTURE, QubitPhysicalObjectI18n::CULTURE);
-
-    return $criteria;
+    return "SELECT p.id, p.type_id, pi.name, pi.location
+      FROM physical_object p
+      INNER JOIN physical_object_i18n pi
+      ON p.id=pi.id AND p.source_culture=pi.culture";
   }
 
   private function checkAllPhysicalObjectsByNameOnlyAndNormalizeRelations($dryRun)
   {
-    // Get physical objects without locations 
-    $criteria = $this->criteriaForPhysicalObjectsBySourceCulture();
-    $criteria->add(QubitPhysicalObjectI18n::NAME, null, Criteria::ISNOTNULL);
+    $sql = $this->sqlForPhysicalObjectsBySourceCulture();
+    $sql .= ' WHERE pi.name IS NOT NULL';
 
-    foreach (QubitPhysicalObject::get($criteria) as $physicalObject)
+    foreach (QubitPdo::fetchAll($sql) as $physicalObject)
     {
       if (in_array($physicalObject->id, $this->toDelete))
       {
@@ -200,24 +198,23 @@ EOF;
         continue;
       }
 
-      $name = $physicalObject->getName(array('sourceCulture' => true));
-
       // Find duplicates
-      $criteria = $this->criteriaForPhysicalObjectsBySourceCulture();
-      $criteria->add(QubitPhysicalObjectI18n::NAME, $name);
+      $sql = $this->sqlForPhysicalObjectsBySourceCulture();
+      $sql .= ' WHERE pi.name=:name';
 
-      $this->findAndMarkDuplicates($criteria, $physicalObject->id, $dryRun);
+      $params = array(':name' => $physicalObject->name);
+
+      $this->findAndMarkDuplicates($sql, $params, $physicalObject->id, $dryRun);
     }
   }
 
   private function checkPhysicalObjectsWithLocationsAndNormalizeRelations($dryRun = false)
   {
     // Get physical objects with location
-    $criteria = $this->criteriaForPhysicalObjectsBySourceCulture();
-    $criteria->add(QubitPhysicalObjectI18n::NAME, null, Criteria::ISNOTNULL);
-    $criteria->add(QubitPhysicalObjectI18n::LOCATION, null, Criteria::ISNOTNULL);
+    $sql = $this->sqlForPhysicalObjectsBySourceCulture();
+    $sql .= ' WHERE pi.name IS NOT NULL AND pi.location IS NOT NULL';
 
-    foreach (QubitPhysicalObject::get($criteria) as $physicalObject)
+    foreach (QubitPdo::fetchAll($sql) as $physicalObject)
     {
       if (in_array($physicalObject->id, $this->toDelete))
       {
@@ -225,27 +222,27 @@ EOF;
         continue;
       }
 
-      $name = $physicalObject->getName(array('sourceCulture' => true));
-      $location = $physicalObject->getLocation(array('sourceCulture' => true));
-
       // Find duplicates
-      $criteria = $this->criteriaForPhysicalObjectsBySourceCulture();
-      $criteria->add(QubitPhysicalObject::TYPE_ID, $physicalObject->typeId);
-      $criteria->add(QubitPhysicalObjectI18n::NAME, $name);
-      $criteria->add(QubitPhysicalObjectI18n::LOCATION, $location);
+      $sql = $this->sqlForPhysicalObjectsBySourceCulture();
+      $sql .= ' WHERE p.type_id=:type_id AND pi.name=:name AND pi.location=:location';
 
-      $this->findAndMarkDuplicates($criteria, $physicalObject->id, $dryRun);
+      $params = array(
+        ':type_id'  => $physicalObject->type_id,
+        ':name'     => $physicalObject->name,
+        ':location' => $physicalObject->location
+      );
+
+      $this->findAndMarkDuplicates($sql, $params, $physicalObject->id, $dryRun);
     }
   }
 
   private function checkPhysicalObjectsWithoutLocationsAndNormalizeRelations($dryRun)
   {
     // Get physical objects without locations 
-    $criteria = $this->criteriaForPhysicalObjectsBySourceCulture();
-    $criteria->add(QubitPhysicalObjectI18n::NAME, null, Criteria::ISNOTNULL);
-    $criteria->add(QubitPhysicalObjectI18n::LOCATION, null, Criteria::ISNULL);
+    $sql = $this->sqlForPhysicalObjectsBySourceCulture();
+    $sql .= ' WHERE pi.name IS NOT NULL AND pi.location IS NULL';
 
-    foreach (QubitPhysicalObject::get($criteria) as $physicalObject)
+    foreach (QubitPdo::fetchAll($sql) as $physicalObject)
     {
       if (in_array($physicalObject->id, $this->toDelete))
       {
@@ -253,20 +250,19 @@ EOF;
         continue;
       }
 
-      $name = $physicalObject->getName(array('sourceCulture' => true));
-
       // Find duplicates
-      $criteria = $this->criteriaForPhysicalObjectsBySourceCulture();
-      $criteria->add(QubitPhysicalObjectI18n::NAME, $name);
-      $criteria->add(QubitPhysicalObjectI18n::LOCATION, null, Criteria::ISNULL);
+      $sql = $this->sqlForPhysicalObjectsBySourceCulture();
+      $sql .= ' WHERE pi.name=:name AND pi.location IS NULL';
 
-      $this->findAndMarkDuplicates($criteria, $physicalObject->id, $dryRun);
+      $params = array(':name' => $physicalObject->name);
+
+      $this->findAndMarkDuplicates($sql, $params, $physicalObject->id, $dryRun);
     }
   }
 
-  private function findAndMarkDuplicates($criteria, $physicalObjectId, $dryRun)
+  private function findAndMarkDuplicates($sql, $params, $physicalObjectId, $dryRun)
   {
-    foreach (QubitPhysicalObject::get($criteria) as $duplicate)
+    foreach (QubitPdo::fetchAll($sql, $params) as $duplicate)
     {
       if ($duplicate->id == $physicalObjectId)
       {
@@ -301,8 +297,10 @@ EOF;
     }
   }
 
-  private function describePhysicalObject($po)
+  private function describePhysicalObject($physicalObject)
   {
+    $po = QubitPhysicalObject::getById($physicalObject->id);
+
     $description = sprintf("Name: '%s'", $po->getName(array('cultureFallback' => true)));
 
     if (!empty($location = $po->getLocation(array('cultureFallback' => true))))

@@ -156,7 +156,9 @@ EOF;
   {
     $toDelete = array();
 
-    foreach(QubitPhysicalObject::getAll() as $physicalObject)
+    $sql = "SELECT id FROM physical_object";
+
+    foreach (QubitPdo::fetchAll($sql) as $physicalObject)
     {
       // Get relations to physical object
       $relations = QubitRelation::getRelationsBySubjectId($physicalObject->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID));
