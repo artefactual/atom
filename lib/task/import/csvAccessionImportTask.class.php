@@ -320,6 +320,12 @@ EOF;
             }
           }
         }
+
+        // Add keymap entry
+        if (!empty($self->rowStatusVars['accessionNumber']))
+        {
+          $self->createKeymapEntry($self->getStatus('sourceName'), $self->rowStatusVars['accessionNumber']);
+        }
       }
     ));
 
