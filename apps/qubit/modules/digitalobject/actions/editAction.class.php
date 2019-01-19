@@ -46,9 +46,9 @@ class DigitalObjectEditAction extends sfAction
     // Only display "compound digital object" toggle if we have a child with a
     // digital object
     $this->showCompoundObjectToggle = false;
-    foreach ($this->informationObject->getChildren() as $item)
+    foreach ($this->object->getChildren() as $item)
     {
-      if (null !== $item->getDigitalObject())
+      if (null !== $item->getDigitalObjectRelatedByobjectId())
       {
         $this->showCompoundObjectToggle = true;
 
@@ -132,10 +132,10 @@ class DigitalObjectEditAction extends sfAction
       $this->forward404();
     }
 
-    $this->informationObject = $this->resource->informationObject;
+    $this->object = $this->resource->object;
 
     // Check user authorization
-    if (!QubitAcl::check($this->informationObject, 'update') && !$this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID))
+    if (!QubitAcl::check($this->object, 'update') && !$this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID))
     {
       QubitAcl::forwardUnauthorized();
     }
@@ -162,9 +162,9 @@ class DigitalObjectEditAction extends sfAction
         $this->processForm();
 
         $this->resource->save();
-        $this->informationObject->updateXmlExports();
+        $this->object->updateXmlExports();
 
-        $this->redirect(array($this->informationObject, 'module' => 'informationobject'));
+        $this->redirect(array($this->object, 'module' => 'informationobject'));
       }
     }
   }

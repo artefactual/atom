@@ -56,9 +56,9 @@
     <?php endforeach; ?>
   <?php endif; ?>
 
-  <?php if (isset($resource->digitalObjects[0]->mimeType)): ?>
+  <?php if (isset($resource->digitalObjectsRelatedByobjectId[0]->mimeType)): ?>
     <physicalDescription>
-      <internetMediaType><?php echo $resource->digitalObjects[0]->mimeType ?></internetMediaType>
+      <internetMediaType><?php echo $resource->digitalObjectsRelatedByobjectId[0]->mimeType ?></internetMediaType>
     </physicalDescription>
   <?php endif; ?>
 
@@ -113,7 +113,7 @@
     <accessCondition type="use and reproduction"></accessCondition>
   <?php endif; ?>
 
-  <?php if (isset($resource->digitalObjects[0])): ?>
+  <?php if (isset($resource->digitalObjectsRelatedByobjectId[0])): ?>
     <location>
       <holdingSimple>
         <copyInformation>

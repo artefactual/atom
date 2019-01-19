@@ -101,7 +101,7 @@
               var fileId = parseHtmlId($(this).closest('.multiFileUploadItem').attr('id'));
 
               // Upload it
-              uploader.upload('file' + fileId, Qubit.multiFileUpload.uploadResponsePath, 'POST', { informationObjectId: Qubit.multiFileUpload.informationObjectId });
+              uploader.upload('file' + fileId, Qubit.multiFileUpload.uploadResponsePath, 'POST', { objectId: Qubit.multiFileUpload.objectId });
 
               return false;
             });
@@ -209,7 +209,7 @@
                 uploader.setSimUploadLimit(1);
 
                 // Start upload!
-                uploader.uploadAll(Qubit.multiFileUpload.uploadResponsePath, 'POST', { informationObjectId: Qubit.multiFileUpload.informationObjectId });
+                uploader.uploadAll(Qubit.multiFileUpload.uploadResponsePath, 'POST', { objectId: Qubit.multiFileUpload.objectId });
               }
             });
 
@@ -349,4 +349,3 @@
         }
     }
   })(jQuery);
-

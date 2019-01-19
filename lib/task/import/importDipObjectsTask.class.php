@@ -143,7 +143,7 @@ EOF;
       throw new sfException('You must specify a DIP directory');
     }
 
-    // If undo log directory specified, make sure it's a valid directory 
+    // If undo log directory specified, make sure it's a valid directory
     if (!empty($options['undo-log-dir']) && !is_dir($options['undo-log-dir']))
     {
       throw new sfException('Undo log directory does not exist.');
@@ -465,7 +465,7 @@ EOF;
     $do->assets[] = new QubitAsset($filepath);
 
     // Add digital object to information object
-    $informationObject->digitalObjects[] = $do;
+    $informationObject->digitalObjectsRelatedByobjectId[] = $do;
 
     // Add DIP UUID as aipUUID information object property
     if (null !== $dipUUID = $this->getUUID(basename($this->dipDir)))

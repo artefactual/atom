@@ -10,7 +10,7 @@
     </div>
   <?php endif;?>
 
-  <?php if (isset($link) && QubitAcl::check($resource->informationObject, 'readMaster')): ?>
+  <?php if (isset($link) && QubitAcl::check($resource->object, 'readMaster')): ?>
     <?php echo link_to(__('Download audio'), $link, array('class' => 'download')) ?>
   <?php endif; ?>
 

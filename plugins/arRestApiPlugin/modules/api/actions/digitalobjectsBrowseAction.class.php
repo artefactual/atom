@@ -75,7 +75,7 @@ class ApiDigitalObjectsBrowseAction extends QubitApiAction
       {
         $criteria = new Criteria;
         $criteria->add(QubitProperty::NAME, $propertyName);
-        $criteria->add(QubitProperty::OBJECT_ID, $do->informationObjectId);
+        $criteria->add(QubitProperty::OBJECT_ID, $do->objectId);
 
         if (null !== ($uuidProperty = QubitProperty::getOne($criteria))) { $fields[$apiFieldLabel] = $uuidProperty->value; }
       }

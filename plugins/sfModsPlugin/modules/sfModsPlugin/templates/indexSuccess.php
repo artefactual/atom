@@ -53,8 +53,8 @@
 
   <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Elements area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'mainArea', 'title' => __('Edit elements area'))) ?>
 
-  <?php if (0 < count($resource->digitalObjects)): ?>
-    <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjects[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
+  <?php if (0 < count($resource->digitalObjectsRelatedByobjectId)): ?>
+    <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjectsRelatedByobjectId[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
   <?php endif; ?>
 
   <?php echo render_show(__('Identifier'), render_value($resource->identifier)) ?>
@@ -71,8 +71,8 @@
     <?php echo render_show(__('Language'), format_language($code)) ?>
   <?php endforeach; ?>
 
-  <?php if (0 < count($resource->digitalObjects)): ?>
-    <?php echo render_show(__('Internet media type'), render_value($resource->digitalObjects[0]->mimeType)) ?>
+  <?php if (0 < count($resource->digitalObjectsRelatedByobjectId)): ?>
+    <?php echo render_show(__('Internet media type'), render_value($resource->digitalObjectsRelatedByobjectId[0]->mimeType)) ?>
   <?php endif; ?>
 
   <?php echo get_partial('object/subjectAccessPoints', array('resource' => $resource, 'mods' => true)) ?>
@@ -83,7 +83,7 @@
 
   <?php echo render_show(__('Access condition'), render_value($resource->getAccessConditions(array('cultureFallback' => true)))) ?>
 
-  <?php if (0 < count($resource->digitalObjects)): ?>
+  <?php if (0 < count($resource->digitalObjectsRelatedByobjectId)): ?>
     <?php echo render_show(__('URL'), link_to(null, $resource->getDigitalObjectPublicUrl())) ?>
   <?php endif; ?>
 
@@ -136,11 +136,11 @@
 
 <?php endif; ?>
 
-<?php if (0 < count($resource->digitalObjects)): ?>
+<?php if (0 < count($resource->digitalObjectsRelatedByobjectId)): ?>
 
-  <?php echo get_component('digitalobject', 'metadata', array('resource' => $resource->digitalObjects[0], 'infoObj' => $resource)) ?>
+  <?php echo get_component('digitalobject', 'metadata', array('resource' => $resource->digitalObjectsRelatedByobjectId[0], 'infoObj' => $resource)) ?>
 
-  <?php echo get_partial('digitalobject/rights', array('resource' => $resource->digitalObjects[0])) ?>
+  <?php echo get_partial('digitalobject/rights', array('resource' => $resource->digitalObjectsRelatedByobjectId[0])) ?>
 
 <?php endif; ?>
 

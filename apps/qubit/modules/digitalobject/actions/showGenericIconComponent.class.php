@@ -35,6 +35,6 @@ class DigitalObjectShowGenericIconComponent extends sfComponent
   public function execute($request)
   {
     $this->representation = QubitDigitalObject::getGenericRepresentation($this->resource->mimeType, $this->resource->usageId);
-    $this->canReadMaster = QubitAcl::check($this->resource->informationObject, 'readMaster');
+    $this->canReadMaster = QubitAcl::check($this->resource->object, 'readMaster');
   }
 }

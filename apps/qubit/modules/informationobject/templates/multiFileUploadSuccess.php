@@ -124,7 +124,7 @@ YAHOO.widget.Uploader.SWFURL = '$uploadSwfPath';
 Qubit.multiFileUpload.maxUploadSize = '$maxUploadSize';
 Qubit.multiFileUpload.uploadTmpDir = '$uploadTmpDir';
 Qubit.multiFileUpload.uploadResponsePath = '$uploadResponsePath';
-Qubit.multiFileUpload.informationObjectId = '$resource->id';
+Qubit.multiFileUpload.objectId = '$resource->id';
 Qubit.multiFileUpload.thumbWidth = 150;
 
 Qubit.multiFileUpload.i18nUploading = '{$sf_context->i18n->__('Uploading...')}';

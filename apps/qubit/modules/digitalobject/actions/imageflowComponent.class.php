@@ -43,7 +43,7 @@ class DigitalObjectImageflowComponent extends sfComponent
 
     // Add thumbs
     $criteria = new Criteria;
-    $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::INFORMATION_OBJECT_ID);
+    $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::OBJECT_ID);
     $criteria->add(QubitInformationObject::LFT, $this->resource->lft, Criteria::GREATER_THAN);
     $criteria->add(QubitInformationObject::RGT, $this->resource->rgt, Criteria::LESS_THAN);
 
@@ -65,8 +65,8 @@ class DigitalObjectImageflowComponent extends sfComponent
       else
       {
         // Ensure the user has permissions to see a thumbnail
-        if (!QubitAcl::check($item->informationObject, 'readThumbnail') ||
-            !QubitGrantedRight::checkPremis($item->informationObject->id, 'readThumb'))
+        if (!QubitAcl::check($item->object, 'readThumbnail') ||
+            !QubitGrantedRight::checkPremis($item->object->id, 'readThumb'))
         {
           $thumbnail = QubitDigitalObject::getGenericRepresentation($item->mimeType);
           $thumbnail->setParent($item);

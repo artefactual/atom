@@ -157,7 +157,7 @@ EOF;
 
     // Set up prepared query based on identifier type
     $sql = 'SELECT io.id, do.id FROM '.QubitInformationObject::TABLE_NAME.' io
-      LEFT JOIN '.QubitDigitalObject::TABLE_NAME.' do ON io.id = do.information_object_id';
+      LEFT JOIN '.QubitDigitalObject::TABLE_NAME.' do ON io.id = do.object_id';
 
     if ($idType == 'id')
     {
@@ -232,7 +232,7 @@ EOF;
     }
   }
 
-  protected function addDigitalObject($ioId, $path, $options = array())
+  protected function addDigitalObject($objectId, $path, $options = array())
   {
     $this->curObjNum++;
 
@@ -264,7 +264,7 @@ EOF;
 
     // Create digital object
     $do = new QubitDigitalObject;
-    $do->informationObjectId = $ioId;
+    $do->objectId = $objectId;
     $do->usageId = QubitTerm::MASTER_ID;
     $do->assets[] = new QubitAsset($filename, $content);
     $do->save($options['conn']);

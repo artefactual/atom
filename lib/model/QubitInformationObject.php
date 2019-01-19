@@ -254,12 +254,12 @@ class QubitInformationObject extends BaseInformationObject
 
     // Save new digital objects
     // TODO Allow adding additional digital objects as derivatives
-    foreach ($this->digitalObjects as $item)
+    foreach ($this->digitalObjectsRelatedByobjectId as $item)
     {
       $item->indexOnSave = false;
 
       // TODO Needed if $this is new, should be transparent
-      $item->informationObject = $this;
+      $item->object = $this;
       $item->save($connection);
 
       break; // Save only one digital object per information object
@@ -324,10 +324,10 @@ class QubitInformationObject extends BaseInformationObject
   public function delete($connection = null)
   {
     // Delete related digitalObjects
-    foreach ($this->digitalObjects as $digitalObject)
+    foreach ($this->digitalObjectsRelatedByobjectId as $digitalObject)
     {
       // Set IO to null to avoid ES document update
-      $digitalObject->informationObjectId = null;
+      $digitalObject->objectId = null;
       $digitalObject->delete();
     }
 
@@ -1391,7 +1391,7 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function getDigitalObject()
   {
-    $digitalObjects = $this->getDigitalObjects();
+    $digitalObjects = $this->getDigitalObjectRelatedByobjectId();
     if (count($digitalObjects) > 0)
     {
       return $digitalObjects[0];
@@ -1409,7 +1409,7 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function getDigitalObjectChecksum()
   {
-    if (null !== $do = $this->getDigitalObject())
+    if (null !== $do = $this->getDigitalObjectRelatedByobjectId())
     {
       return $do->getChecksum();
     }
@@ -1425,7 +1425,7 @@ class QubitInformationObject extends BaseInformationObject
   {
     $sql = '
       SELECT COUNT(d.id) FROM information_object i
-      INNER JOIN digital_object d ON i.id=d.information_object_id
+      INNER JOIN digital_object d ON i.id=d.object_id
       WHERE i.lft > ? and i.rgt < ?
     ';
 
@@ -1442,7 +1442,7 @@ class QubitInformationObject extends BaseInformationObject
   public function getDigitalObjectPublicUrl()
   {
     // Set digital object URL
-    $do = $this->digitalObjects[0];
+    $do = $this->digitalObjectsRelatedByobjectId[0];
     if (!isset($do))
     {
       return;
@@ -1517,7 +1517,7 @@ class QubitInformationObject extends BaseInformationObject
           continue;
         }
 
-        $infoObject->digitalObjects[] = $digitalObject;
+        $infoObject->digitalObjectsRelatedByobjectId[] = $digitalObject;
         $infoObject->title = $digitalObject->name;
 
         if (isset($pubStatus))
@@ -1541,7 +1541,7 @@ class QubitInformationObject extends BaseInformationObject
       try
       {
         $digitalObject->importFromUri($uris);
-        $this->digitalObjects[] = $digitalObject;
+        $this->digitalObjectsRelatedByobjectId[] = $digitalObject;
       }
       catch (sfException $e)
       {
@@ -1567,7 +1567,7 @@ class QubitInformationObject extends BaseInformationObject
     $digitalObject->usageId = QubitTerm::MASTER_ID;
     $digitalObject->importFromBase64($encodedString, $filename);
 
-    $this->digitalObjects[] = $digitalObject;
+    $this->digitalObjectsRelatedByobjectId[] = $digitalObject;
   }
 
   public function setRepositoryByName($name)
@@ -3190,12 +3190,12 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function getDigitalObjectLink()
   {
-    if (count($this->digitalObjects) <= 0)
+    if (count($this->digitalObjectsRelatedByobjectId) <= 0)
     {
       return;
     }
 
-    $digitalObject = $this->digitalObjects[0];
+    $digitalObject = $this->digitalObjectsRelatedByobjectId[0];
     if (QubitTerm::OFFLINE_ID == $digitalObject->usageId)
     {
       return;

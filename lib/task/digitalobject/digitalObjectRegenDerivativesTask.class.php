@@ -82,7 +82,7 @@ EOF;
 
     // Get all master digital objects
     $query = 'SELECT do.id
-      FROM digital_object do JOIN information_object io ON do.information_object_id = io.id';
+      FROM digital_object do JOIN information_object io ON do.object_id = io.id';
 
     // Limit to a branch
     if ($options['slug'])

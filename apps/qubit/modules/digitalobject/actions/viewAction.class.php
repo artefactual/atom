@@ -42,10 +42,10 @@ class DigitalObjectViewAction extends sfAction
       $this->forward404();
     }
 
-    list($infoObj, $action) = $this->getInfoObjAndAction();
+    list($obj, $action) = $this->getObjAndAction();
 
     // Do appropriate ACL check(s). Master copy of text objects are always allowed for reading
-    if ((!QubitAcl::check($infoObj, $action) || !QubitGrantedRight::checkPremis($infoObj->id, $action))
+    if ((!QubitAcl::check($obj, $action) || !QubitGrantedRight::checkPremis($obj->id, $action))
       && !($action == 'readMaster' && $this->resource->mediaTypeId == QubitTerm::TEXT_ID))
     {
       $this->forward404();
@@ -53,7 +53,7 @@ class DigitalObjectViewAction extends sfAction
 
     if ($this->needsPopup($action))
     {
-      $this->resource = $this->resource->informationObject;
+      $this->resource = $this->resource->object;
 
       $this->accessToken = bin2hex(random_bytes(32)); # URL friendly
       $this->context->user->setAttribute("token-$this->digitalObjectId", $this->accessToken, 'symfony/user/sfUser/copyrightStatementTmpAccess');
@@ -90,18 +90,18 @@ class DigitalObjectViewAction extends sfAction
     // the Rights Act). We don't need to show the popup otherwise.
     $sql = 'SELECT EXISTS(
       SELECT 1
-        FROM '.QubitInformationObject::TABLE_NAME.' io
-        JOIN '.QubitRelation::TABLE_NAME.' rel ON (rel.subject_id = io.id)
+        FROM '.QubitObject::TABLE_NAME.' o
+        JOIN '.QubitRelation::TABLE_NAME.' rel ON (rel.subject_id = o.id)
         JOIN '.QubitGrantedRight::TABLE_NAME.' gr ON (rel.object_id = gr.rights_id)
         JOIN '.QubitRights::TABLE_NAME.' r ON (gr.rights_id = r.id)
       WHERE
-        io.id = ? AND
+        o.id = ? AND
         rel.type_id = ? AND
         gr.restriction = ? AND
         r.basis_id = ?
       LIMIT 1) AS has';
     $r = QubitPdo::fetchOne($sql, array(
-      $this->resource->informationObject->id,
+      $this->resource->object->id,
       QubitTerm::RIGHT_ID,
       QubitGrantedRight::CONDITIONAL_RIGHT,
       QubitTerm::RIGHT_BASIS_COPYRIGHT_ID));
@@ -136,30 +136,30 @@ class DigitalObjectViewAction extends sfAction
     }
   }
 
-  private function getInfoObjAndAction()
+  private function getObjAndAction()
   {
     switch ($this->resource->usageId)
     {
       case QubitTerm::MASTER_ID:
         $action = 'readMaster';
-        $infoObj = $this->resource->informationObject;
+        $obj = $this->resource->object;
         break;
 
       case QubitTerm::REFERENCE_ID:
         $action = 'readReference';
-        $infoObj = $this->resource->parent->informationObject;
+        $obj = $this->resource->parent->object;
         break;
 
       case QubitTerm::THUMBNAIL_ID:
         $action = 'readThumbnail';
-        $infoObj = $this->resource->parent->informationObject;
+        $obj = $this->resource->parent->object;
         break;
 
       default:
         throw new sfException("Invalid usageId given in digitalobject/view: {$this->resource->usageId}");
     }
 
-    return array($infoObj, $action);
+    return array($obj, $action);
   }
 
   private function isAccessTokenValid()

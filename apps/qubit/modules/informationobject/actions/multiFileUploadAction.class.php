@@ -124,7 +124,7 @@ class InformationObjectMultiFileUploadAction extends sfAction
       {
         // Upload asset and create digital object
         $digitalObject = new QubitDigitalObject;
-        $digitalObject->informationObject = $informationObject;
+        $digitalObject->object = $informationObject;
         $digitalObject->usageId = QubitTerm::MASTER_ID;
         $digitalObject->assets[] = new QubitAsset($file['name'], file_get_contents("$tmpPath/$file[tmpName]"));
 

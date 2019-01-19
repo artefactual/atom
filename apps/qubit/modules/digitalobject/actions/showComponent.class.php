@@ -41,7 +41,7 @@ class DigitalObjectShowComponent extends sfComponent
       $this->usageType = QubitTerm::THUMBNAIL_ID;
     }
 
-    if (QubitTerm::MASTER_ID == $this->usageType && !QubitAcl::check($this->resource->informationObject, 'readMaster'))
+    if (QubitTerm::MASTER_ID == $this->usageType && !QubitAcl::check($this->resource->object, 'readMaster'))
     {
       return sfView::NONE;
     }
@@ -77,7 +77,7 @@ class DigitalObjectShowComponent extends sfComponent
   private function checkShowGenericIcon()
   {
     $curUser = sfContext::getInstance()->getUser();
-    $curInfoObjectId = $this->resource->informationObject->id;
+    $curInfoObjectId = $this->resource->object->id;
 
     switch ($this->usageType)
     {
@@ -89,10 +89,10 @@ class DigitalObjectShowComponent extends sfComponent
         }
 
         // Authenticated, check regular ACL rules...
-        return !QubitAcl::check($this->resource->informationObject, 'readReference');
+        return !QubitAcl::check($this->resource->object, 'readReference');
 
       case QubitTerm::THUMBNAIL_ID:
-        return !QubitAcl::check($this->resource->informationObject, 'readThumbnail');
+        return !QubitAcl::check($this->resource->object, 'readThumbnail');
     }
   }
 
@@ -102,11 +102,11 @@ class DigitalObjectShowComponent extends sfComponent
    */
   private function getAccessWarning()
   {
-    $curInfoObjectId = $this->resource->informationObject->id;
+    $curInfoObjectId = $this->resource->object->id;
     $denyReason = '';
 
     if (!QubitGrantedRight::checkPremis($curInfoObjectId, 'readReference', $denyReason) ||
-        !QubitAcl::check($this->resource->informationObject, 'readReference'))
+        !QubitAcl::check($this->resource->object, 'readReference'))
     {
       return $denyReason;
     }
