@@ -43,7 +43,7 @@ class InformationObjectRenameAction extends DefaultEditAction
     {
       if ($name == 'filename')
       {
-        $this->form->setDefault($name, $this->resource->digitalObjects[0]->name);
+        $this->form->setDefault($name, $this->resource->digitalObjectsRelatedByobjectId[0]->name);
       }
       else
       {
@@ -124,13 +124,13 @@ class InformationObjectRenameAction extends DefaultEditAction
     }
 
     // Update digital object filename, if filename sent
-    if ((null !== $postedFilename) && count($this->resource->digitalObjects))
+    if ((null !== $postedFilename) && count($this->resource->digitalObjectsRelatedByobjectId))
     {
       // Parse filename so special characters can be removed
       $fileParts = pathinfo($postedFilename);
       $filename = QubitSlug::slugify($fileParts['filename']) .'.'. QubitSlug::slugify($fileParts['extension']);
 
-      $digitalObject = $this->resource->digitalObjects[0];
+      $digitalObject = $this->resource->digitalObjectsRelatedByobjectId[0];
 
       // Rename master file
       $basePath = sfConfig::get('sf_web_dir') . $digitalObject->path;

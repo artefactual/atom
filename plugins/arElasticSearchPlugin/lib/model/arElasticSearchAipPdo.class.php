@@ -108,7 +108,7 @@ class arElasticSearchAipPdo
                 obj.updated_at';
     $sql .= ' FROM '.QubitDigitalObject::TABLE_NAME.' do';
     $sql .= ' JOIN '.QubitRelation::TABLE_NAME.' relation
-                ON do.information_object_id = relation.object_id';
+                ON do.object_id = relation.object_id';
     $sql .= ' JOIN '.QubitObject::TABLE_NAME.' obj
                 ON do.id = obj.id';
     $sql .= ' WHERE relation.subject_id = ?

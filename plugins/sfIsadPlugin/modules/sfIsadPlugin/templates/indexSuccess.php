@@ -51,8 +51,8 @@
 
 <?php end_slot() ?>
 
-<?php if (0 < count($resource->digitalObjects)): ?>
-  <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjects[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
+<?php if (0 < count($resource->digitalObjectsRelatedByobjectId)): ?>
+  <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjectsRelatedByobjectId[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
 <?php endif; ?>
 
 <section id="identityArea">
@@ -324,14 +324,14 @@
 
 <?php endif; ?>
 
-<?php if (0 < count($resource->digitalObjects)): ?>
+<?php if (0 < count($resource->digitalObjectsRelatedByobjectId)): ?>
 
   <div class="digitalObjectMetadata">
-    <?php echo get_component('digitalobject', 'metadata', array('resource' => $resource->digitalObjects[0], 'infoObj' => $resource)) ?>
+    <?php echo get_component('digitalobject', 'metadata', array('resource' => $resource->digitalObjectsRelatedByobjectId[0], 'infoObj' => $resource)) ?>
   </div>
 
   <div class="digitalObjectRights">
-    <?php echo get_partial('digitalobject/rights', array('resource' => $resource->digitalObjects[0])) ?>
+    <?php echo get_partial('digitalobject/rights', array('resource' => $resource->digitalObjectsRelatedByobjectId[0])) ?>
   </div>
 
 <?php endif; ?>

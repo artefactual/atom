@@ -154,7 +154,7 @@ class arElasticSearchInformationObjectPdo
        JOIN '.QubitStatus::TABLE_NAME.' pubstat
          ON io.id = pubstat.object_id
        LEFT JOIN '.QubitDigitalObject::TABLE_NAME.' do
-         ON io.id = do.information_object_id
+         ON io.id = do.object_id
        WHERE io.id = :id';
 
       self::$statements['informationObject'] = self::$conn->prepare($sql);

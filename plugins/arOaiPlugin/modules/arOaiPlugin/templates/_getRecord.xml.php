@@ -16,7 +16,7 @@
             <?php arOaiPluginComponent::includeCachedMetadata($record, $metadataPrefix) ?>
           <?php endif; ?>
         </metadata>
-        <?php if (count($record->digitalObjects)): ?>
+        <?php if (count($record->digitalObjectsRelatedByobjectId)): ?>
           <?php include('_about.xml.php') ?>
         <?php endif; ?>
       </record>

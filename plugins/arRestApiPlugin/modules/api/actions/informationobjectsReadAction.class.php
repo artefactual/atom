@@ -118,7 +118,7 @@ class ApiInformationObjectsReadAction extends QubitApiAction
         {
           $this->addItemToArray($ioData, 'repository', $ancestor->repository->getAuthorizedFormOfName(array('cultureFallback' => true)));
           $this->addItemToArray($ioData, 'repository_inherited_from', $ancestor->getTitle(array('cultureFallback' => true)));
-        
+
           break;
         }
       }
@@ -193,7 +193,7 @@ class ApiInformationObjectsReadAction extends QubitApiAction
         $relatedDescriptions[] = $item->subject->getTitle(array('cultureFallback' => true));
       }
     }
-    
+
     $this->addItemToArray($ioData, 'related_descriptions', $relatedDescriptions);
 
     $publicationNotes = array();
@@ -201,7 +201,7 @@ class ApiInformationObjectsReadAction extends QubitApiAction
     {
       $publicationNotes[] = $item->getContent(array('cultureFallback' => true));
     }
-    
+
     $this->addItemToArray($ioData, 'publication_notes', $publicationNotes);
 
     if (sfConfig::get('app_element_visibility_isad_notes', false))
@@ -211,7 +211,7 @@ class ApiInformationObjectsReadAction extends QubitApiAction
       {
         $notes[] = $item->getContent(array('cultureFallback' => true));
       }
-      
+
       $this->addItemToArray($ioData, 'notes', $notes);
     }
 
@@ -316,8 +316,8 @@ class ApiInformationObjectsReadAction extends QubitApiAction
       {
         $archivistsNotes[] = $item->getContent(array('cultureFallback' => true));
       }
-      
-      $this->addItemToArray($ioData, 'archivists_notes', $archivistsNotes);      
+
+      $this->addItemToArray($ioData, 'archivists_notes', $archivistsNotes);
     }
 
     $rights = array();
@@ -328,10 +328,10 @@ class ApiInformationObjectsReadAction extends QubitApiAction
 
       if (isset($right->basis))
       {
-        $this->addItemToArray($rightData, 'basis', $right->basis->getName(array('cultureFallback' => true)));      
+        $this->addItemToArray($rightData, 'basis', $right->basis->getName(array('cultureFallback' => true)));
       }
 
-      $this->addItemToArray($rightData, 'start_date', $right->startDate);      
+      $this->addItemToArray($rightData, 'start_date', $right->startDate);
       $this->addItemToArray($rightData, 'end_date', $right->endDate);
       $this->addItemToArray($rightData, 'documentation_identifier_type', $right->getIdentifierType(array('cultureFallback' => true)));
       $this->addItemToArray($rightData, 'documentation_identifier_value', $right->getIdentifierValue(array('cultureFallback' => true)));
@@ -339,7 +339,7 @@ class ApiInformationObjectsReadAction extends QubitApiAction
 
       if (isset($right->rightsHolder))
       {
-        $this->addItemToArray($rightData, 'rights_holder', $right->rightsHolder->getAuthorizedFormOfName(array('cultureFallback' => true)));      
+        $this->addItemToArray($rightData, 'rights_holder', $right->rightsHolder->getAuthorizedFormOfName(array('cultureFallback' => true)));
       }
 
       $this->addItemToArray($rightData, 'rights_note', $right->getRightsNote(array('cultureFallback' => true)));
@@ -349,7 +349,7 @@ class ApiInformationObjectsReadAction extends QubitApiAction
       {
         if (isset($right->copyrightStatus))
         {
-          $this->addItemToArray($rightData, 'copyright_status', $right->copyrightStatus->getName(array('cultureFallback' => true)));      
+          $this->addItemToArray($rightData, 'copyright_status', $right->copyrightStatus->getName(array('cultureFallback' => true)));
         }
 
         $this->addItemToArray($rightData, 'copyright_status_date', $right->copyrightStatusDate);
@@ -368,7 +368,7 @@ class ApiInformationObjectsReadAction extends QubitApiAction
 
         if (isset($right->statuteCitation))
         {
-          $this->addItemToArray($rightData, 'statute_citation', $right->statuteCitation->getName(array('cultureFallback' => true)));      
+          $this->addItemToArray($rightData, 'statute_citation', $right->statuteCitation->getName(array('cultureFallback' => true)));
         }
 
         $this->addItemToArray($rightData, 'statute_determination_date', $right->statuteDeterminationDate);
@@ -382,10 +382,10 @@ class ApiInformationObjectsReadAction extends QubitApiAction
 
         if (isset($grantedRight->act))
         {
-          $this->addItemToArray($grantedRightData, 'act', $grantedRight->act->getName(array('cultureFallback' => true)));      
+          $this->addItemToArray($grantedRightData, 'act', $grantedRight->act->getName(array('cultureFallback' => true)));
         }
 
-        $this->addItemToArray($grantedRightData, 'restriction', QubitGrantedRight::getRestrictionString($grantedRight->restriction));      
+        $this->addItemToArray($grantedRightData, 'restriction', QubitGrantedRight::getRestrictionString($grantedRight->restriction));
         $this->addItemToArray($grantedRightData, 'start_date', $grantedRight->startDate);
         $this->addItemToArray($grantedRightData, 'end_date', $grantedRight->endDate);
         $this->addItemToArray($grantedRightData, 'notes', $grantedRight->notes);
@@ -398,11 +398,11 @@ class ApiInformationObjectsReadAction extends QubitApiAction
       $rights[] = $rightData;
     }
 
-    $this->addItemToArray($ioData, 'rights', $rights);      
+    $this->addItemToArray($ioData, 'rights', $rights);
 
-    if (0 < count($this->resource->digitalObjects))
+    if (0 < count($this->resource->digitalObjectsRelatedByobjectId))
     {
-      $digitalObject = $this->resource->digitalObjects[0];
+      $digitalObject = $this->resource->digitalObjectsRelatedByobjectId[0];
       $doData = array();
 
       if (sfConfig::get('app_element_visibility_digital_object_file_name', false))

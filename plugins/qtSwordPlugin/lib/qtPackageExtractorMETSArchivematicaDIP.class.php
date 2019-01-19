@@ -56,7 +56,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     // Initialice METS parser, used in addDigitalObjects to add
     // the required data from the METS file to the digital objects
     $this->metsParser = new QubitMetsParser($this->document);
-    
+
     // Stop if there isn't a proper structMap
     if (null === $structMap = $this->metsParser->getStructMap())
     {
@@ -226,7 +226,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         $digitalObject = new QubitDigitalObject;
         $digitalObject->assets[] = new QubitAsset($data['absolutePathWithinDip']);
         $digitalObject->usageId = QubitTerm::MASTER_ID;
-        $child->digitalObjects[] = $digitalObject;
+        $child->digitalObjectsRelatedByobjectId[] = $digitalObject;
       }
 
       // Create relation with AIP
@@ -305,7 +305,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           $digitalObject = new QubitDigitalObject;
           $digitalObject->assets[] = new QubitAsset($absolutePathWithinDip);
           $digitalObject->usageId = QubitTerm::MASTER_ID;
-          $child->digitalObjects[] = $digitalObject;
+          $child->digitalObjectsRelatedByobjectId[] = $digitalObject;
         }
 
         // Process metatadata from METS file

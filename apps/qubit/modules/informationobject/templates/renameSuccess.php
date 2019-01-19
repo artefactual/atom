@@ -63,7 +63,7 @@
 
         <p><?php echo __('Original slug') ?>: <em><?php echo $resource->slug ?></em></p>
 
-        <?php if (count($resource->digitalObjects) > 0): ?>
+        <?php if (count($resource->digitalObjectsRelatedByobjectId) > 0): ?>
 
           <div class="rename-form-field-toggle"><input id="rename_enable_filename" type="checkbox" /> <?php echo __('Update filename') ?></div>
           <br />
@@ -72,7 +72,7 @@
           ->label(__('Filename'))
           ->help(__('Do not use any special characters or spaces in the filename - only lower case alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters will be stripped out or replaced. Editing the filename will not automatically update the other fields.')), $resource) ?>
 
-          <p><?php echo __('Original filename') ?>: <em><?php echo $resource->digitalObjects[0]->name ?></em></p>
+          <p><?php echo __('Original filename') ?>: <em><?php echo $resource->digitalObjectsRelatedByobjectId[0]->name ?></em></p>
 
         <?php endif; ?>
 

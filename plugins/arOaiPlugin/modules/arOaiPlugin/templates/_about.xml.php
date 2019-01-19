@@ -1,7 +1,7 @@
-      <?php if (count($record->digitalObjects)): ?>
+      <?php if (count($record->digitalObjectsRelatedByobjectId)): ?>
         <about>
           <feed xmlns="http://www.w3.org/2005/Atom">
-            <?php foreach ($record->digitalObjects as $digitalObject): ?>
+            <?php foreach ($record->digitalObjectsRelatedByobjectId as $digitalObject): ?>
               <?php if ($digitalObject->usageId == QubitTerm::OFFLINE_ID): ?>
                 <?php continue; ?>
               <?php endif; ?>

@@ -8,7 +8,7 @@
     <div id="front-map" class="simple-map" data-key="<?php echo $googleMapsApiKey ?>" data-latitude="<?php echo $latitude ?>" data-longitude="<?php echo $longitude ?>"></div>
   <?php endif; ?>
 
-  <?php if (!QubitAcl::check($resource->informationObject, 'readReference')): ?>
+  <?php if (!QubitAcl::check($resource->object, 'readReference')): ?>
     <?php echo render_show(__('Access'), __('Restricted')) ?>
   <?php endif; ?>
 
@@ -44,12 +44,12 @@
   <?php endif; ?>
 
   <?php if ($sf_user->isAuthenticated()): ?>
-    <?php echo render_show(__('Object UUID'), render_value($resource->informationObject->objectUUID), array('fieldLabel' => 'objectUUID')) ?>
-    <?php echo render_show(__('AIP UUID'), render_value($resource->informationObject->aipUUID), array('fieldLabel' => 'aipUUID')) ?>
-    <?php echo render_show(__('Format name'), render_value($resource->informationObject->formatName), array('fieldLabel' => 'formatName')) ?>
-    <?php echo render_show(__('Format version'), render_value($resource->informationObject->formatVersion), array('fieldLabel' => 'formatVersion')) ?>
-    <?php echo render_show(__('Format registry key'), render_value($resource->informationObject->formatRegistryKey), array('fieldLabel' => 'formatRegistryKey')) ?>
-    <?php echo render_show(__('Format registry name'), render_value($resource->informationObject->formatRegistryName), array('fieldLabel' => 'formatRegistryName')) ?>
+    <?php echo render_show(__('Object UUID'), render_value($resource->object->objectUUID), array('fieldLabel' => 'objectUUID')) ?>
+    <?php echo render_show(__('AIP UUID'), render_value($resource->object->aipUUID), array('fieldLabel' => 'aipUUID')) ?>
+    <?php echo render_show(__('Format name'), render_value($resource->object->formatName), array('fieldLabel' => 'formatName')) ?>
+    <?php echo render_show(__('Format version'), render_value($resource->object->formatVersion), array('fieldLabel' => 'formatVersion')) ?>
+    <?php echo render_show(__('Format registry key'), render_value($resource->object->formatRegistryKey), array('fieldLabel' => 'formatRegistryKey')) ?>
+    <?php echo render_show(__('Format registry name'), render_value($resource->object->formatRegistryName), array('fieldLabel' => 'formatRegistryName')) ?>
   <?php endif; ?>
 
 </section>

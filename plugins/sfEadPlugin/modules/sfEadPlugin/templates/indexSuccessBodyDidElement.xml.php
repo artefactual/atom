@@ -180,7 +180,7 @@
     <materialspec type='philatelic' <?php if (0 < strlen($encoding = $ead->getMetadataParameter('philatelic'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></materialspec>
   <?php endif; ?>
 
-  <?php if (null !== $digitalObject = $$resourceVar->digitalObjects[0]): ?>
+  <?php if (null !== $digitalObject = $$resourceVar->digitalObjectsRelatedByobjectId[0]): ?>
     <?php if (QubitTerm::OFFLINE_ID != $digitalObject->usageId): ?>
       <?php if (QubitAcl::check($$resourceVar, 'readMaster') && 0 < strlen($url = QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId ? $digitalObject->getPath() : $ead->getAssetPath($digitalObject))): ?>
         <dao linktype="simple" href="<?php echo $url ?>" role="master" actuate="onrequest" show="embed"/>

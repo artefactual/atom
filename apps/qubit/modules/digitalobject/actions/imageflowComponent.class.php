@@ -43,7 +43,7 @@ class DigitalObjectImageflowComponent extends sfComponent
 
     // Add thumbs
     $criteria = new Criteria;
-    $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::INFORMATION_OBJECT_ID);
+    $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::OBJECT_ID);
     $criteria->add(QubitInformationObject::LFT, $this->resource->lft, Criteria::GREATER_THAN);
     $criteria->add(QubitInformationObject::RGT, $this->resource->rgt, Criteria::LESS_THAN);
 
