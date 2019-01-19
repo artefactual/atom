@@ -185,6 +185,11 @@ abstract class BaseObject implements ArrayAccess
       }
     }
 
+    if ('aclPermissions' == $name)
+    {
+      return true;
+    }
+
     if ('accessLogs' == $name)
     {
       return true;
@@ -201,6 +206,11 @@ abstract class BaseObject implements ArrayAccess
     }
 
     if ('jobsRelatedByobjectId' == $name)
+    {
+      return true;
+    }
+
+    if ('digitalObjectsRelatedByobjectId' == $name)
     {
       return true;
     }
@@ -250,11 +260,6 @@ abstract class BaseObject implements ArrayAccess
       return true;
     }
 
-    if ('aclPermissions' == $name)
-    {
-      return true;
-    }
-
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
   }
 
@@ -294,6 +299,23 @@ abstract class BaseObject implements ArrayAccess
 
         $offset++;
       }
+    }
+
+    if ('aclPermissions' == $name)
+    {
+      if (!isset($this->refFkValues['aclPermissions']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['aclPermissions'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['aclPermissions'] = self::getaclPermissionsById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['aclPermissions'];
     }
 
     if ('accessLogs' == $name)
@@ -362,6 +384,23 @@ abstract class BaseObject implements ArrayAccess
       }
 
       return $this->refFkValues['jobsRelatedByobjectId'];
+    }
+
+    if ('digitalObjectsRelatedByobjectId' == $name)
+    {
+      if (!isset($this->refFkValues['digitalObjectsRelatedByobjectId']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['digitalObjectsRelatedByobjectId'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['digitalObjectsRelatedByobjectId'] = self::getdigitalObjectsRelatedByobjectIdById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['digitalObjectsRelatedByobjectId'];
     }
 
     if ('eventsRelatedByobjectId' == $name)
@@ -515,23 +554,6 @@ abstract class BaseObject implements ArrayAccess
       }
 
       return $this->refFkValues['statuss'];
-    }
-
-    if ('aclPermissions' == $name)
-    {
-      if (!isset($this->refFkValues['aclPermissions']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['aclPermissions'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['aclPermissions'] = self::getaclPermissionsById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['aclPermissions'];
     }
 
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
@@ -860,6 +882,26 @@ abstract class BaseObject implements ArrayAccess
 		$this->setid($key);
 	}
 
+  public static function addaclPermissionsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitAclPermission::OBJECT_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getaclPermissionsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addaclPermissionsCriteriaById($criteria, $id);
+
+    return QubitAclPermission::get($criteria, $options);
+  }
+
+  public function addaclPermissionsCriteria(Criteria $criteria)
+  {
+    return self::addaclPermissionsCriteriaById($criteria, $this->id);
+  }
+
   public static function addaccessLogsCriteriaById(Criteria $criteria, $id)
   {
     $criteria->add(QubitAccessLog::OBJECT_ID, $id);
@@ -938,6 +980,26 @@ abstract class BaseObject implements ArrayAccess
   public function addjobsRelatedByobjectIdCriteria(Criteria $criteria)
   {
     return self::addjobsRelatedByobjectIdCriteriaById($criteria, $this->id);
+  }
+
+  public static function adddigitalObjectsRelatedByobjectIdCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitDigitalObject::OBJECT_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getdigitalObjectsRelatedByobjectIdById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::adddigitalObjectsRelatedByobjectIdCriteriaById($criteria, $id);
+
+    return QubitDigitalObject::get($criteria, $options);
+  }
+
+  public function adddigitalObjectsRelatedByobjectIdCriteria(Criteria $criteria)
+  {
+    return self::adddigitalObjectsRelatedByobjectIdCriteriaById($criteria, $this->id);
   }
 
   public static function addeventsRelatedByobjectIdCriteriaById(Criteria $criteria, $id)
@@ -1118,26 +1180,6 @@ abstract class BaseObject implements ArrayAccess
   public function addstatussCriteria(Criteria $criteria)
   {
     return self::addstatussCriteriaById($criteria, $this->id);
-  }
-
-  public static function addaclPermissionsCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitAclPermission::OBJECT_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getaclPermissionsById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addaclPermissionsCriteriaById($criteria, $id);
-
-    return QubitAclPermission::get($criteria, $options);
-  }
-
-  public function addaclPermissionsCriteria(Criteria $criteria)
-  {
-    return self::addaclPermissionsCriteriaById($criteria, $this->id);
   }
 
   public function __call($name, $args)

@@ -125,11 +125,6 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
     {
     }
 
-    if ('digitalObjects' == $name)
-    {
-      return true;
-    }
-
     if ('informationObjectsRelatedByparentId' == $name)
     {
       return true;
@@ -187,23 +182,6 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
     }
     catch (sfException $e)
     {
-    }
-
-    if ('digitalObjects' == $name)
-    {
-      if (!isset($this->refFkValues['digitalObjects']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['digitalObjects'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['digitalObjects'] = self::getdigitalObjectsById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['digitalObjects'];
     }
 
     if ('informationObjectsRelatedByparentId' == $name)
@@ -518,26 +496,6 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
     $criteria->addJoin(QubitInformationObject::DISPLAY_STANDARD_ID, QubitTerm::ID);
 
     return $criteria;
-  }
-
-  public static function adddigitalObjectsCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitDigitalObject::INFORMATION_OBJECT_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getdigitalObjectsById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::adddigitalObjectsCriteriaById($criteria, $id);
-
-    return QubitDigitalObject::get($criteria, $options);
-  }
-
-  public function adddigitalObjectsCriteria(Criteria $criteria)
-  {
-    return self::adddigitalObjectsCriteriaById($criteria, $this->id);
   }
 
   public static function addinformationObjectsRelatedByparentIdCriteriaById(Criteria $criteria, $id)

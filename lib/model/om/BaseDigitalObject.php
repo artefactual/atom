@@ -8,7 +8,7 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
     TABLE_NAME = 'digital_object',
 
     ID = 'digital_object.ID',
-    INFORMATION_OBJECT_ID = 'digital_object.INFORMATION_OBJECT_ID',
+    OBJECT_ID = 'digital_object.OBJECT_ID',
     USAGE_ID = 'digital_object.USAGE_ID',
     MIME_TYPE = 'digital_object.MIME_TYPE',
     MEDIA_TYPE_ID = 'digital_object.MEDIA_TYPE_ID',
@@ -27,7 +27,7 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
     $criteria->addJoin(QubitDigitalObject::ID, QubitObject::ID);
 
     $criteria->addSelectColumn(QubitDigitalObject::ID);
-    $criteria->addSelectColumn(QubitDigitalObject::INFORMATION_OBJECT_ID);
+    $criteria->addSelectColumn(QubitDigitalObject::OBJECT_ID);
     $criteria->addSelectColumn(QubitDigitalObject::USAGE_ID);
     $criteria->addSelectColumn(QubitDigitalObject::MIME_TYPE);
     $criteria->addSelectColumn(QubitDigitalObject::MEDIA_TYPE_ID);
@@ -142,9 +142,9 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
   }
 
-  public static function addJoininformationObjectCriteria(Criteria $criteria)
+  public static function addJoinobjectCriteria(Criteria $criteria)
   {
-    $criteria->addJoin(QubitDigitalObject::INFORMATION_OBJECT_ID, QubitInformationObject::ID);
+    $criteria->addJoin(QubitDigitalObject::OBJECT_ID, QubitObject::ID);
 
     return $criteria;
   }

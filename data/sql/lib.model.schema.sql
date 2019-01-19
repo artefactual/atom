@@ -315,7 +315,7 @@ DROP TABLE IF EXISTS `digital_object`;
 CREATE TABLE `digital_object`
 (
 	`id` INTEGER  NOT NULL,
-	`information_object_id` INTEGER,
+	`object_id` INTEGER,
 	`usage_id` INTEGER,
 	`mime_type` VARCHAR(255),
 	`media_type_id` INTEGER,
@@ -332,10 +332,11 @@ CREATE TABLE `digital_object`
 		FOREIGN KEY (`id`)
 		REFERENCES `object` (`id`)
 		ON DELETE CASCADE,
-	INDEX `digital_object_FI_2` (`information_object_id`),
+	INDEX `digital_object_FI_2` (`object_id`),
 	CONSTRAINT `digital_object_FK_2`
-		FOREIGN KEY (`information_object_id`)
-		REFERENCES `information_object` (`id`),
+		FOREIGN KEY (`object_id`)
+		REFERENCES `object` (`id`)
+		ON DELETE CASCADE,
 	INDEX `digital_object_FI_3` (`usage_id`),
 	CONSTRAINT `digital_object_FK_3`
 		FOREIGN KEY (`usage_id`)

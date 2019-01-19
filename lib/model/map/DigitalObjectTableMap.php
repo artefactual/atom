@@ -37,7 +37,7 @@ class DigitalObjectTableMap extends TableMap {
 		$this->setUseIdGenerator(false);
 		// columns
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'object', 'ID', true, null, null);
-		$this->addForeignKey('INFORMATION_OBJECT_ID', 'informationObjectId', 'INTEGER', 'information_object', 'ID', false, null, null);
+		$this->addForeignKey('OBJECT_ID', 'objectId', 'INTEGER', 'object', 'ID', false, null, null);
 		$this->addForeignKey('USAGE_ID', 'usageId', 'INTEGER', 'term', 'ID', false, null, null);
 		$this->addColumn('MIME_TYPE', 'mimeType', 'VARCHAR', false, 255, null);
 		$this->addForeignKey('MEDIA_TYPE_ID', 'mediaTypeId', 'INTEGER', 'term', 'ID', false, null, null);
@@ -56,8 +56,8 @@ class DigitalObjectTableMap extends TableMap {
 	 */
 	public function buildRelations()
 	{
-    $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
-    $this->addRelation('informationObject', 'informationObject', RelationMap::MANY_TO_ONE, array('information_object_id' => 'id', ), null, null);
+    $this->addRelation('objectRelatedByid', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('objectRelatedByobjectId', 'object', RelationMap::MANY_TO_ONE, array('object_id' => 'id', ), 'CASCADE', null);
     $this->addRelation('termRelatedByusageId', 'term', RelationMap::MANY_TO_ONE, array('usage_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('termRelatedBymediaTypeId', 'term', RelationMap::MANY_TO_ONE, array('media_type_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('digitalObjectRelatedByparentId', 'digitalObject', RelationMap::MANY_TO_ONE, array('parent_id' => 'id', ), null, null);
