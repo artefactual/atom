@@ -157,7 +157,7 @@ EOF;
 
     // Set up prepared query based on identifier type
     $sql = 'SELECT io.id, do.id FROM '.QubitInformationObject::TABLE_NAME.' io
-      LEFT JOIN '.QubitDigitalObject::TABLE_NAME.' do ON io.id = do.information_object_id';
+      LEFT JOIN '.QubitDigitalObject::TABLE_NAME.' do ON io.id = do.object_id';
 
     if ($idType == 'id')
     {

@@ -74,7 +74,7 @@ EOF;
                         ++$nDeleted, count($ios), $io->getTitle(array('cultureFallback' => true))));
 
       // Remove appropriate digital object files, empty directories left behind, and db entries
-      foreach ($io->digitalObjects as $do)
+      foreach ($io->digitalObjectsRelatedByobjectId as $do)
       {
         $this->deleteDigitalObjectFiles($do);
         QubitDigitalObject::pruneEmptyDirs(dirname($do->getAbsolutePath()));
