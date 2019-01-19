@@ -339,6 +339,15 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     return QubitNote::get($criteria);
   }
 
+  public function getDigitalObjectRelatedByobjectId()
+  {
+    $digitalObjects = $this->getDigitalObjectsRelatedByobjectId();
+    if (0 < count($digitalObjects))
+    {
+      return $digitalObjects[0];
+    }
+  }
+
   /********************
        Other names
   *********************/

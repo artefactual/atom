@@ -1143,8 +1143,8 @@ class QubitDigitalObject extends BaseDigitalObject
 
   public function save($connection = null)
   {
-    // TODO: $cleanInformationObject = $this->informationObject->clean;
-    $cleanInformationObjectId = $this->__get('informationObjectId', array('clean' => true));
+    // TODO: $cleanObject = $this->object->clean;
+    $cleanObjectId = $this->__get('objectId', array('clean' => true));
 
     // Write assets to storage device
     if (0 < count($this->assets))
@@ -1202,17 +1202,17 @@ class QubitDigitalObject extends BaseDigitalObject
       exec($command);
     }
 
-    // Update search index for related info object
+    // Update search index for related object
     if ($this->indexOnSave)
     {
-      if ($this->informationObjectId != $cleanInformationObjectId && null !== QubitInformationObject::getById($cleanInformationObjectId))
+      if ($this->objectId != $cleanObjectId && null !== QubitObject::getById($cleanObjectId))
       {
-        QubitSearch::getInstance()->update(QubitInformationObject::getById($cleanInformationObjectId));
+        QubitSearch::getInstance()->update(QubitObject::getById($cleanObjectId));
       }
 
-      if (isset($this->informationObject))
+      if (isset($this->object))
       {
-        QubitSearch::getInstance()->update($this->informationObject);
+        QubitSearch::getInstance()->update($this->object);
       }
     }
 
@@ -1270,10 +1270,10 @@ class QubitDigitalObject extends BaseDigitalObject
     }
 
     // Update search index before deleting self
-    if (!empty($this->informationObjectId))
+    if (!empty($this->objectId))
     {
-      $this->deleteFromAssociatedInformationObject();
-      QubitSearch::getInstance()->update($this->getInformationObject());
+      $this->deleteFromAssociatedObject();
+      QubitSearch::getInstance()->update($this->getObject());
     }
 
     // Delete self
@@ -1281,14 +1281,14 @@ class QubitDigitalObject extends BaseDigitalObject
   }
 
   /**
-   * If we have an associated information object, ensure this digital object is cleared
+   * If we have an associated object, ensure this digital object is cleared
    * from its digitalObjects property.
    */
-  private function deleteFromAssociatedInformationObject()
+  private function deleteFromAssociatedObject()
   {
-    if ((null !== $io = $this->getInformationObject()) && isset($io->refFkValues['digitalObjects']))
+    if ((null !== $object = $this->getObject()) && isset($object->refFkValues['digitalObjectsRelatedByobjectId']))
     {
-      unset($io->refFkValues['digitalObjects']);
+      unset($object->refFkValues['digitalObjectsRelatedByobjectId']);
     }
   }
 
@@ -1318,7 +1318,7 @@ class QubitDigitalObject extends BaseDigitalObject
   /**
    * Create a digital object representation of an asset
    *
-   * @param mixed parent object (digital object or information object)
+   * @param mixed parent object (digital object or object)
    * @param QubitAsset asset to represent
    * @param array options array of optional paramaters
    * @return QubitDigitalObject
@@ -1346,10 +1346,10 @@ class QubitDigitalObject extends BaseDigitalObject
       $cleanFileName .= '.'.$newFileExtension;
     }
 
-    // Upload paths for this information object / digital object
-    $infoObjectPath = $this->getAssetPath($asset->getChecksum());
-    $filePath       = sfConfig::get('sf_web_dir').$infoObjectPath.'/';
-    $relativePath   = $infoObjectPath.'/';
+    // Upload paths for this object / digital object
+    $objectPath     = $this->getAssetPath($asset->getChecksum());
+    $filePath       = sfConfig::get('sf_web_dir').$objectPath.'/';
+    $relativePath   = $objectPath.'/';
     $filePathName   = $filePath.$cleanFileName;
 
     // make the target directory if necessary
@@ -1379,7 +1379,7 @@ class QubitDigitalObject extends BaseDigitalObject
     if ($this->getChecksum() != $asset->getChecksum())
     {
       unlink($filePathName);
-      rmdir($infoObjectPath);
+      rmdir($objectPath);
 
       throw new sfException('Checksum values did not validate: '. $filePathName);
     }
@@ -1392,7 +1392,7 @@ class QubitDigitalObject extends BaseDigitalObject
 
     // Iterate through new directories and set permissions (mkdir() won't do this properly)
     $pathToDir = sfConfig::get('sf_web_dir');
-    foreach (explode('/', $infoObjectPath) as $dir)
+    foreach (explode('/', $objectPath) as $dir)
     {
       $pathToDir .= '/'.$dir;
       @chmod($pathToDir, 0755);
@@ -1563,13 +1563,14 @@ class QubitDigitalObject extends BaseDigitalObject
   /**
    * Get count of digital objects by media-type
    */
-  public static function getCount($mediaTypeId)
+  public static function getCount($mediaTypeId, $options = array())
   {
     $criteria = new Criteria;
     $criteria->add(QubitDigitalObject::PARENT_ID, null, Criteria::ISNULL);
 
     $criteria->add(QubitDigitalObject::MEDIA_TYPE_ID, $mediaTypeId);
-    $criteria->addJoin(QubitDigitalObject::INFORMATION_OBJECT_ID, QubitInformationObject::ID);
+    // TODO: Add $options with filter type
+    $criteria->addJoin(QubitDigitalObject::OBJECT_ID, QubitObject::ID);
     $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
 
     return BasePeer::doCount($criteria)->fetchColumn(0);
@@ -1701,7 +1702,7 @@ class QubitDigitalObject extends BaseDigitalObject
   /**
    * Get this object's top ancestor, or self if it is the top of the branch
    *
-   * return QubitInformationObject  Closest InformationObject ancestor
+   * return QubitObject  Closest Object ancestor
    */
   public function getTopAncestorOrSelf()
   {
@@ -1805,10 +1806,10 @@ class QubitDigitalObject extends BaseDigitalObject
   /**
    * Derive file path for a digital object asset
    *
-   * All digital object paths are keyed by information object id that is the
+   * All digital object paths are keyed by object id that is the
    * nearest ancestor of the current digital object. Because we may not know
    * the id of the current digital object yet (i.e. it hasn't been saved to the
-   * database yet), we pass the parent digital object or information object.
+   * database yet), we pass the parent digital object or object.
    *
    * The directory structure is based on the checksum of the master digital object.
    *
@@ -1816,27 +1817,30 @@ class QubitDigitalObject extends BaseDigitalObject
    */
   public function getAssetPath($checksum)
   {
-    if (isset($this->informationObject))
+    sfContext::getInstance()->getLogger()->err('SBSBSB A: '.$checksum);
+    if (isset($this->object))
     {
-      $infoObject = $this->informationObject;
+      sfContext::getInstance()->getLogger()->err('SBSBSB B');
+      $object = $this->object;
     }
     else if (isset($this->parent))
     {
-      $infoObject = $this->parent->informationObject;
+      sfContext::getInstance()->getLogger()->err('SBSBSB C');
+      $object = $this->parent->object;
     }
 
-    if (!isset($infoObject))
+    if (!isset($object))
     {
-      throw new sfException('Couldn\'t find related information object for digital object');
+      throw new sfException('Couldn\'t find related object for digital object');
     }
 
     if ($this->usageId == QubitTerm::MASTER_ID || $this->parent->usageId == QubitTerm::EXTERNAL_URI_ID)
     {
-      $id = (string) $infoObject->id;
+      $id = (string) $object->id;
 
       // determine path for current repository
       $repoDir = '';
-      if (null !== ($repo = $infoObject->getRepository(array('inherit' => true))))
+      if (null !== ($repo = $object->getRepository(array('inherit' => true))))
       {
         $repoDir = $repo->slug;
       }
@@ -2143,12 +2147,12 @@ class QubitDigitalObject extends BaseDigitalObject
       return (integer) $pageCount->getValue();
     }
   }
-
+  // TODO: add $options for filter
   public function getPage($index)
   {
     $criteria = new Criteria;
-    $criteria->add(QubitInformationObject::PARENT_ID, $this->informationObject->id);
-    $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::INFORMATION_OBJECT_ID);
+    $criteria->add(QubitInformationObject::PARENT_ID, $this->object->id);
+    $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::OBJECT_ID);
     $criteria->setLimit(1);
     $criteria->setOffset($index);
 
@@ -2202,7 +2206,7 @@ class QubitDigitalObject extends BaseDigitalObject
    *
    * For digital objects that describe a multi-page digital asset (e.g. a
    * multi-page tif image), create a derived asset for each page, create a child
-   * information object and linked child digital object and move the derived
+   * object and linked child digital object and move the derived
    * asset to the appropriate directory for the new (child) info object
    *
    * NOTE: Requires the Imagemagick library for creating derivative assets
@@ -2223,15 +2227,15 @@ class QubitDigitalObject extends BaseDigitalObject
     {
       // Create a new information object
       $newInfoObject = new QubitInformationObject;
-      $newInfoObject->parentId = $this->getInformationObject()->id;
-      $newInfoObject->setTitle($this->getInformationObject()->getTitle().' ('.($i + 1).')');
+      $newInfoObject->parentId = $this->getObject()->id;
+      $newInfoObject->setTitle($this->getObject()->getTitle().' ('.($i + 1).')');
       $newInfoObject->setPublicationStatus(sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID));
       $newInfoObject->save($connection);
 
       // Create and link a new digital object
       $newDigiObject = new QubitDigitalObject;
       $newDigiObject->parentId = $this->id;
-      $newDigiObject->setInformationObjectId($newInfoObject->id);
+      $newDigiObject->setObjectId($newInfoObject->id);
       $newDigiObject->save($connection);
 
       // Derive new file path based on newInfoObject
@@ -2968,7 +2972,7 @@ class QubitDigitalObject extends BaseDigitalObject
 
     Qubit::createUploadDirsIfNeeded();
     $tmpDir = sfConfig::get('sf_upload_dir').'/tmp';
-    
+
     // Get a unique file name (to avoid clashing file names)
     $tmpFileName = null;
     $tmpFilePath = null;
@@ -3196,7 +3200,7 @@ class QubitDigitalObject extends BaseDigitalObject
   {
     // Return false if this digital object is not linked directly to an
     // information object
-    if (null === $this->informationObjectId)
+    if (null === $this->objectId)
     {
       return false;
     }
@@ -3210,8 +3214,8 @@ class QubitDigitalObject extends BaseDigitalObject
 
     // Return false if this object has no children with digital objects
     $criteria = new Criteria;
-    $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::INFORMATION_OBJECT_ID);
-    $criteria->add(QubitInformationObject::PARENT_ID, $this->informationObjectId);
+    $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::OBJECT_ID);
+    $criteria->add(QubitInformationObject::PARENT_ID, $this->ObjectId);
 
     if (0 === count(QubitDigitalObject::get($criteria)))
     {
