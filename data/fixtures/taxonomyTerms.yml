@@ -11186,6 +11186,12 @@ QubitTerm:
       pt-BR: 'Nota de créditos'
       sr: 'Напомена о сарадницима'
       sv: 'Anmärkning gällande upphovsperson'
+  QubitTerm_record_group_level_of_description:
+    taxonomy_id: QubitTaxonomy_4
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: 'Record group'
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111
