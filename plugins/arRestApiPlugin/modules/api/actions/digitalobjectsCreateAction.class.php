@@ -46,7 +46,7 @@ class ApiDigitalObjectsCreateAction extends QubitApiAction
     }
 
     // Associate properties with information object
-    if (!empty($this->do->informationObjectId))
+    if (!empty($this->do->objectId))
     {
       $props = array(
         'file_uuid' => 'objectUUID',
@@ -65,7 +65,7 @@ class ApiDigitalObjectsCreateAction extends QubitApiAction
         }
 
         $property = new QubitProperty;
-        $property->objectId = $this->do->informationObjectId;
+        $property->objectId = $this->do->objectId;
         $property->name = $pval;
         $property->value = $payload->$pkey;
         $property->save();
@@ -101,7 +101,7 @@ class ApiDigitalObjectsCreateAction extends QubitApiAction
 
         if (null !== $slug)
         {
-          $this->do->informationObjectId = $slug->objectId;
+          $this->do->objectId = $slug->objectId;
         }
         break;
 
@@ -115,7 +115,7 @@ class ApiDigitalObjectsCreateAction extends QubitApiAction
         $io->setLevelOfDescriptionByName('item');
         $io->save();
 
-        $this->do->informationObjectId = $io->id;
+        $this->do->objectId = $io->id;
         break;
 
       case 'media_type':

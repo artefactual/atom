@@ -35,7 +35,7 @@ class DigitalObjectShowCompoundComponent extends sfComponent
   {
     // Find all digital objects of child information objects
     $criteria = new Criteria;
-    $criteria->add(QubitInformationObject::PARENT_ID, $this->resource->informationObject->id);
+    $criteria->add(QubitInformationObject::PARENT_ID, $this->resource->object->id);
     $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::OBJECT_ID);
 
     // Show two results on page with pager

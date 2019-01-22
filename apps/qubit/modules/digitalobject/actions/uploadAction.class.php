@@ -28,15 +28,15 @@ class DigitalObjectUploadAction extends sfAction
     $uploadFiles = array();
     $warning = null;
 
-    $this->informationObject = QubitInformationObject::getById($request->informationObjectId);
+    $this->object = QubitInformationObject::getById($request->objectId);
 
-    if (!isset($this->informationObject))
+    if (!isset($this->object))
     {
       $this->forward404();
     }
 
     // Check user authorization
-    if (!QubitAcl::check($this->informationObject, 'update'))
+    if (!QubitAcl::check($this->object, 'update'))
     {
       throw new sfException;
     }
@@ -47,7 +47,7 @@ class DigitalObjectUploadAction extends sfAction
       QubitAcl::forwardToSecureAction();
     }
 
-    $repo = $this->informationObject->getRepository(array('inherit' => true));
+    $repo = $this->object->getRepository(array('inherit' => true));
 
     if (isset($repo))
     {

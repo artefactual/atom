@@ -41,7 +41,7 @@ class DigitalObjectShowComponent extends sfComponent
       $this->usageType = QubitTerm::THUMBNAIL_ID;
     }
 
-    if (QubitTerm::MASTER_ID == $this->usageType && !QubitAcl::check($this->resource->informationObject, 'readMaster'))
+    if (QubitTerm::MASTER_ID == $this->usageType && !QubitAcl::check($this->resource->object, 'readMaster'))
     {
       return sfView::NONE;
     }

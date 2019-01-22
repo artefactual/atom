@@ -37,19 +37,19 @@ class DigitalObjectDeleteAction extends sfAction
     $parent = $this->resource->parent;
     if (isset($parent))
     {
-      $this->informationObject = $parent->informationObject;
+      $this->object = $parent->object;
     }
     else
     {
-      $this->informationObject = $this->resource->informationObject;
-      if (!isset($this->informationObject))
+      $this->object = $this->resource->object;
+      if (!isset($this->object))
       {
         $this->forward404();
       }
     }
 
     // Check user authorization
-    if (!QubitAcl::check($this->informationObject, 'delete'))
+    if (!QubitAcl::check($this->object, 'delete'))
     {
       QubitAcl::forwardUnauthorized();
     }
@@ -58,8 +58,8 @@ class DigitalObjectDeleteAction extends sfAction
     {
       // Delete the digital object record from the database
       $this->resource->delete();
-      QubitSearch::getInstance()->update($this->informationObject);
-      $this->informationObject->updateXmlExports();
+      QubitSearch::getInstance()->update($this->object);
+      $this->object->updateXmlExports();
 
       // Redirect to edit page for parent Info Object
       if (isset($parent))
@@ -68,7 +68,7 @@ class DigitalObjectDeleteAction extends sfAction
       }
       else
       {
-        $this->redirect(array($this->informationObject, 'module' => 'informationobject'));
+        $this->redirect(array($this->object, 'module' => 'informationobject'));
       }
     }
   }

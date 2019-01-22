@@ -430,8 +430,8 @@ class ApiInformationObjectsReadAction extends QubitApiAction
         $this->addItemToArray($doData, 'uploaded_at', format_date($digitalObject->createdAt, 'f'));
       }
 
-      $this->addItemToArray($doData, 'object_uuid', $digitalObject->informationObject->objectUUID);
-      $this->addItemToArray($doData, 'aip_uuid', $digitalObject->informationObject->aipUUID);
+      $this->addItemToArray($doData, 'object_uuid', $digitalObject->object->objectUUID);
+      $this->addItemToArray($doData, 'aip_uuid', $digitalObject->object->aipUUID);
 
       if (sfConfig::get('app_element_visibility_digital_object_url', false))
       {
