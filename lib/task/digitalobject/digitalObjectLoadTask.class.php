@@ -232,7 +232,7 @@ EOF;
     }
   }
 
-  protected function addDigitalObject($ioId, $path, $options = array())
+  protected function addDigitalObject($objectId, $path, $options = array())
   {
     $this->curObjNum++;
 
@@ -264,7 +264,7 @@ EOF;
 
     // Create digital object
     $do = new QubitDigitalObject;
-    $do->informationObjectId = $ioId;
+    $do->objectId = $objectId;
     $do->usageId = QubitTerm::MASTER_ID;
     $do->assets[] = new QubitAsset($filename, $content);
     $do->save($options['conn']);

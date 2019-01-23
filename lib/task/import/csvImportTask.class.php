@@ -978,7 +978,7 @@ EOF;
           && null === $self->object->getDigitalObject())
         {
           $do = new QubitDigitalObject;
-          $do->informationObject = $self->object;
+          $do->object = $self->object;
 
           if ($self->status['options']['skip-derivatives'])
           {
@@ -1076,7 +1076,7 @@ EOF;
 
     $do = new QubitDigitalObject;
     $do->usageId = QubitTerm::MASTER_ID;
-    $do->informationObject = $self->object;
+    $do->object = $self->object;
 
     // Don't create derivatives (reference, thumb)
     if ($self->status['options']['skip-derivatives'])
