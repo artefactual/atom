@@ -66,8 +66,10 @@ $CONFIG = array(
 # /apps/qubit/config/settings.yml
 #
 
-copy(_ATOM_DIR.'/apps/qubit/config/settings.yml.tmpl', _ATOM_DIR.'/apps/qubit/config/settings.yml');
-
+if (!file_exists(_ATOM_DIR.'/apps/qubit/config/settings.yml'))
+{
+  copy(_ATOM_DIR.'/apps/qubit/config/settings.yml.tmpl', _ATOM_DIR.'/apps/qubit/config/settings.yml');
+}
 
 #
 # /config/propel.ini
@@ -95,8 +97,10 @@ file_put_contents(_ATOM_DIR.'/apps/qubit/config/gearman.yml', $gearman_yml);
 # /apps/qubit/config/app.yml
 #
 
-$parts = get_host_and_port($CONFIG['atom.memcached_host'], 11211);
-$app_yml = <<<EOT
+if (!file_exists(_ATOM_DIR.'/apps/qubit/config/app.yml'))
+{
+  $parts = get_host_and_port($CONFIG['atom.memcached_host'], 11211);
+  $app_yml = <<<EOT
 all:
   upload_limit: -1
   download_timeout: 10
@@ -111,16 +115,17 @@ all:
   htmlpurifier_enabled: false
 EOT;
 
-@unlink(_ATOM_DIR.'/apps/qubit/config/app.yml');
-file_put_contents(_ATOM_DIR.'/apps/qubit/config/app.yml', $app_yml);
-
+  file_put_contents(_ATOM_DIR.'/apps/qubit/config/app.yml', $app_yml);
+}
 
 #
 # /apps/qubit/config/factories.yml
 #
 
-$parts = get_host_and_port($CONFIG['atom.memcached_host'], 11211);
-$factories_yml = <<<EOT
+if (!file_exists(_ATOM_DIR.'/apps/qubit/config/factories.yml'))
+{
+  $parts = get_host_and_port($CONFIG['atom.memcached_host'], 11211);
+  $factories_yml = <<<EOT
 prod:
   storage:
     class: QubitCacheSessionStorage
@@ -131,8 +136,8 @@ prod:
       cache:
         class: sfMemcacheCache
         param:
-          host: memcached
-          port: 11211
+          host: ${parts['host']}
+          port: ${parts['port']}
           prefix: atom
           storeCacheInfo: true
           persistent: true
@@ -147,16 +152,16 @@ dev:
       cache:
         class: sfMemcacheCache
         param:
-          host: memcached
-          port: 11211
+          host: ${parts['host']}
+          port: ${parts['port']}
           prefix: atom
           storeCacheInfo: true
           persistent: true
 
 EOT;
 
-@unlink(_ATOM_DIR.'/apps/qubit/config/factories.yml');
-file_put_contents(_ATOM_DIR.'/apps/qubit/config/factories.yml', $factories_yml);
+  file_put_contents(_ATOM_DIR.'/apps/qubit/config/factories.yml', $factories_yml);
+}
 
 
 #
