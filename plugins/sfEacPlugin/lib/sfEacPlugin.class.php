@@ -363,7 +363,7 @@ return;
     switch ($name)
     {
       case 'biogHist':
-        $this->resource->history = self::fromDiscursiveSet($value);
+        $this->resource->history = trim(self::fromDiscursiveSet($value));
 
         return $this;
 
@@ -392,7 +392,7 @@ return;
       case 'existDates':
 
         // TODO <date/>, <dateRange/>, <dateSet/>, <descriptiveNote/>
-        $this->resource->datesOfExistence = $value->text();
+        $this->resource->datesOfExistence = trim($value->text());
 
         return $this;
 
@@ -792,7 +792,7 @@ return;
         continue;
       }
 
-      if (null !== $relation = QubitActor::setTermRelationByName($termName, $options = array('taxonomyId' => QubitTaxonomy::ACTOR_OCCUPATION_ID, 'culture' => $this->from6392($node->getAttribute('xml:lang')))))
+      if (null !== $relation = QubitActor::setTermRelationByName($termName, $options = array('taxonomyId' => QubitTaxonomy::ACTOR_OCCUPATION_ID, 'culture' => sfContext::getInstance()->user->getCulture())))
       {
         $noteContent = trim($fd->spawn()->add($node)->find('eac:descriptiveNote')->text());
 
@@ -818,7 +818,7 @@ return;
         continue;
       }
 
-      if (null !== $relation = QubitActor::setTermRelationByName($termName, $options = array('taxonomyId' => QubitTaxonomy::PLACE_ID, 'culture' => $this->from6392($node->getAttribute('xml:lang')))))
+      if (null !== $relation = QubitActor::setTermRelationByName($termName, $options = array('taxonomyId' => QubitTaxonomy::PLACE_ID, 'culture' => sfContext::getInstance()->user->getCulture())))
       {
         $this->resource->objectTermRelationsRelatedByobjectId[] = $relation;
       }
@@ -833,7 +833,7 @@ return;
         continue;
       }
 
-      if (null !== $relation = QubitActor::setTermRelationByName($termName, $options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID, 'culture' => $this->from6392($node->getAttribute('xml:lang')))))
+      if (null !== $relation = QubitActor::setTermRelationByName($termName, $options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID, 'culture' => sfContext::getInstance()->user->getCulture())))
       {
         $this->resource->objectTermRelationsRelatedByobjectId[] = $relation;
       }
