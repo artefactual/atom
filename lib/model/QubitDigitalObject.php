@@ -1817,15 +1817,12 @@ class QubitDigitalObject extends BaseDigitalObject
    */
   public function getAssetPath($checksum)
   {
-    sfContext::getInstance()->getLogger()->err('SBSBSB A: '.$checksum);
     if (isset($this->object))
     {
-      sfContext::getInstance()->getLogger()->err('SBSBSB B');
       $object = $this->object;
     }
     else if (isset($this->parent))
     {
-      sfContext::getInstance()->getLogger()->err('SBSBSB C');
       $object = $this->parent->object;
     }
 

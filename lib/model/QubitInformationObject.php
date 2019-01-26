@@ -327,7 +327,7 @@ class QubitInformationObject extends BaseInformationObject
     foreach ($this->digitalObjectsRelatedByobjectId as $digitalObject)
     {
       // Set IO to null to avoid ES document update
-      $digitalObject->informationObjectId = null;
+      $digitalObject->objectId = null;
       $digitalObject->delete();
     }
 
