@@ -48,7 +48,7 @@ class DigitalObjectEditAction extends sfAction
     $this->showCompoundObjectToggle = false;
     foreach ($this->object->getChildren() as $item)
     {
-      if (null !== $item->getDigitalObjectRelatedByobjectId())   //digitalObjectRelatedByobjectId
+      if (null !== $item->getDigitalObjectRelatedByobjectId())
       {
         $this->showCompoundObjectToggle = true;
 
