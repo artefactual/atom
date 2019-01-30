@@ -330,6 +330,7 @@ mapping:
       autocompleteFields: [authorizedFormOfName]
       rawFields:  [authorizedFormOfName]
     _foreign_types:
+      maintenance_notes: note
       other_names: other_name
       parallel_names: other_name
       standardized_names: other_name
@@ -354,6 +355,7 @@ mapping:
       maintaining_repository_id: { type: integer, include_in_all: false }
       direct_subjects: { type: integer, include_in_all: false }
       direct_places: { type: integer, include_in_all: false }
+      has_digital_object: { type: boolean, include_in_all: false }
 
   accession:
     _attributes:

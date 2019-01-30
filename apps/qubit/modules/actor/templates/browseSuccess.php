@@ -1,102 +1,157 @@
-<?php decorate_with('layout_2col') ?>
+<?php if (isset($pager) && $pager->getNbResults()): ?>
+  <?php decorate_with('layout_2col') ?>
+<?php else: ?>
+  <?php decorate_with('layout_1col') ?>
+<?php endif; ?>
+
 <?php use_helper('Date') ?>
 
 <?php slot('title') ?>
   <div class="multiline-header">
     <?php echo image_tag('/images/icons-large/icon-people.png', array('alt' => '')) ?>
-    <h1 aria-describedby="results-label"><?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?></h1>
+    <h1 aria-describedby="results-label">
+      <?php if (isset($pager) && $pager->getNbResults()): ?>
+        <?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?>
+      <?php else: ?>
+        <?php echo __('No results found') ?>
+      <?php endif; ?>
+    </h1>
     <span class="sub" id="results-label"><?php echo sfConfig::get('app_ui_label_actor') ?></span>
   </div>
 <?php end_slot() ?>
 
-<?php slot('sidebar') ?>
+<?php if (isset($pager) && $pager->getNbResults()): ?>
 
-  <section id="facets">
+  <?php slot('sidebar') ?>
 
-    <div class="visible-phone facets-header">
-      <a class="x-btn btn-wide">
-        <i class="fa fa-filter"></i>
-        <?php echo __('Filters') ?>
-      </a>
-    </div>
+    <section id="facets">
 
-    <div class="content">
+      <div class="visible-phone facets-header">
+        <a class="x-btn btn-wide">
+          <i class="fa fa-filter"></i>
+          <?php echo __('Filters') ?>
+        </a>
+      </div>
 
-      <h2><?php echo sfConfig::get('app_ui_label_facetstitle') ?></h2>
+      <div class="content">
 
-      <?php echo get_partial('search/aggregation', array(
-        'id' => '#facet-languages',
-        'label' => __('Language'),
-        'name' => 'languages',
-        'aggs' => $aggs,
-        'filters' => $search->filters)) ?>
+        <h2><?php echo sfConfig::get('app_ui_label_facetstitle') ?></h2>
 
-      <?php echo get_partial('search/aggregation', array(
-        'id' => '#facet-entitytype',
-        'label' => __('Entity type'),
-        'name' => 'types',
-        'aggs' => $aggs,
-        'filters' => $search->filters)) ?>
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-languages',
+          'label' => __('Language'),
+          'name' => 'languages',
+          'aggs' => $aggs,
+          'filters' => $search->filters)) ?>
 
-      <?php echo get_partial('search/aggregation', array(
-        'id' => '#facet-maintainingrepository',
-        'label' => __('Maintained by'),
-        'name' => 'maintainingRepository',
-        'aggs' => $aggs,
-        'filters' => $search->filters)) ?>
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-entitytype',
+          'label' => __('Entity type'),
+          'name' => 'entityType',
+          'aggs' => $aggs,
+          'filters' => $search->filters)) ?>
 
-      <?php echo get_partial('search/aggregation', array(
-        'id' => '#facet-occupation',
-        'label' => __('Occupation'),
-        'name' => 'occupation',
-        'aggs' => $aggs,
-        'filters' => $search->filters)) ?>
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-maintainingrepository',
+          'label' => __('Maintained by'),
+          'name' => 'repository',
+          'aggs' => $aggs,
+          'filters' => $search->filters)) ?>
 
-      <?php echo get_partial('search/aggregation', array(
-        'id' => '#facet-places',
-        'label' => sfConfig::get('app_ui_label_place'),
-        'name' => 'places',
-        'aggs' => $aggs,
-        'filters' => $search->filters)) ?>
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-occupation',
+          'label' => __('Occupation'),
+          'name' => 'occupation',
+          'aggs' => $aggs,
+          'filters' => $search->filters)) ?>
 
-      <?php echo get_partial('search/aggregation', array(
-        'id' => '#facet-subjects',
-        'label' => sfConfig::get('app_ui_label_subject'),
-        'name' => 'subjects',
-        'aggs' => $aggs,
-        'filters' => $search->filters)) ?>
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-places',
+          'label' => sfConfig::get('app_ui_label_place'),
+          'name' => 'places',
+          'aggs' => $aggs,
+          'filters' => $search->filters)) ?>
 
-    </div>
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-subjects',
+          'label' => sfConfig::get('app_ui_label_subject'),
+          'name' => 'subjects',
+          'aggs' => $aggs,
+          'filters' => $search->filters)) ?>
 
-  </section>
-<?php end_slot() ?>
+      </div>
+
+    </section>
+  <?php end_slot() ?>
+
+<?php endif; ?>
 
 <?php slot('before-content') ?>
 
   <section class="header-options">
+    <?php if (isset($sf_request->hasDigitalObject)): ?>
+      <span class="search-filter">
+        <?php if (filter_var($sf_request->hasDigitalObject, FILTER_VALIDATE_BOOLEAN)): ?>
+          <?php echo __('With digital objects') ?>
+        <?php else: ?>
+          <?php echo __('Without digital objects') ?>
+        <?php endif; ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+        <?php unset($params['hasDigitalObject']) ?>
+        <a href="<?php echo url_for(array('module' => 'actor', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
+      </span>
+    <?php endif; ?>
+
+    <?php echo get_component('search', 'filter', array('object' => @$repository, 'param' => 'repository')) ?>
+    <?php echo get_component('search', 'filter', array('object' => @$entityType, 'param' => 'entityType')) ?>
+    <?php echo get_component('search', 'filter', array('object' => @$occupation, 'param' => 'occupation')) ?>
+    <?php echo get_component('search', 'filter', array('object' => @$places, 'param' => 'places')) ?>
+    <?php echo get_component('search', 'filter', array('object' => @$subjects, 'param' => 'subjects')) ?>
+
     <div class="row">
       <div class="span5">
         <?php echo get_component('search', 'inlineSearch', array(
           'label' => __('Search %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_actor')))))) ?>
       </div>
+    </div>
+
+  </section>
+
+<?php end_slot() ?>
+
+<?php slot('content') ?>
+
+  <?php echo get_partial('actor/advancedSearch', array(
+    'criteria'     => $search->criteria,
+    'form'         => $form,
+    'fieldOptions' => $fieldOptions,
+    'hiddenFields' => $hiddenFields)) ?>
+
+  <?php if (isset($pager) && $pager->getNbResults()): ?>
+    <section class="browse-options">
 
       <div class="pickers">
         <?php echo get_partial('default/sortPickers',
           array(
             'options' => array(
               'lastUpdated' => __('Date modified'),
-              'alphabetic' => __('Name'),
-              'identifier' => __('Identifier')))) ?>
+              'alphabetic'  => __('Name'),
+              'identifier'  => __('Identifier')))) ?>
       </div>
+
+    </section>
+
+    <div id="content" class="browse-content">
+
+      <?php foreach ($pager->getResults() as $hit): ?>
+        <?php $doc = $hit->getData() ?>
+        <?php echo include_partial('actor/searchResult', array('doc' => $doc, 'pager' => $pager, 'culture' => $selectedCulture)) ?>
+      <?php endforeach; ?>
+
     </div>
-  </section>
+  <?php endif; ?>
 
 <?php end_slot() ?>
-
-<?php foreach ($pager->getResults() as $hit): ?>
-  <?php $doc = $hit->getData() ?>
-  <?php echo include_partial('actor/searchResult', array('doc' => $doc, 'pager' => $pager, 'culture' => $selectedCulture)) ?>
-<?php endforeach; ?>
 
 <?php slot('after-content') ?>
   <?php echo get_partial('default/pager', array('pager' => $pager)) ?>

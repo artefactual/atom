@@ -1,4 +1,7 @@
 browseSuccess:
+  stylesheets:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/ui/ui.all.css:
   javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/ui/ui.datepicker.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:

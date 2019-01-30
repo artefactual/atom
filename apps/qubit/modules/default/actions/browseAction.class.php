@@ -114,6 +114,25 @@ class DefaultBrowseAction extends sfAction
     return $buckets;
   }
 
+  protected function setHiddenFields($request, $allowed, $ignored)
+  {
+    // Store current params to add them as hidden inputs
+    // in the form, to keep GET and POST params in sync
+    $this->hiddenFields = array();
+
+    // Keep control of what is added to avoid
+    // Cross-Site Scripting vulnerability.
+    foreach ($request->getGetParameters() as $key => $value)
+    {
+      if (!in_array($key, $allowed) || in_array($key, $ignored))
+      {
+        continue;
+      }
+
+      $this->hiddenFields[$key] = $value;
+    }
+  }
+
   public function execute($request)
   {
     // Force subclassing

@@ -707,7 +707,7 @@
     checkReposFilter: function (event)
     {
       // Disable repository filter and facet if top-level description selected
-      if (this.$reposFilter.length && this.$collectionFilter.val() != '')
+      if (typeof($collectionFilter) !== 'undefined' && this.$reposFilter.length && this.$collectionFilter.val() != '')
       {
         this.$reposFilter.attr("disabled", "disabled");
         this.$reposFilter.val('');
@@ -844,7 +844,7 @@
   $(function ()
     {
       // Find search for if on an appropriate page
-      var $advancedSearch = $('body.informationobject.browse,body.search.descriptionUpdates');
+      var $advancedSearch = $('body.informationobject.browse,body.actor.browse,body.search.descriptionUpdates');
       if (0 < $advancedSearch.length)
       {
         new AdvancedSearch($advancedSearch.get(0));

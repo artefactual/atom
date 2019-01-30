@@ -32,16 +32,23 @@ class ActorBrowseAction extends DefaultBrowseAction
 
   // Arrays not allowed in class constants
   public static
+    $NAMES = array(
+      'repository',
+      'hasDigitalObject',
+      'entityType',
+      'emptyField'
+    ),
+
     $AGGS = array(
       'languages' =>
         array('type' => 'term',
               'field' => 'i18n.languages',
               'size' => 10),
-      'types' =>
+      'entityType' =>
         array('type' => 'term',
               'field' => 'entityTypeId',
               'size' => 10),
-      'maintainingRepository' =>
+      'repository' =>
         array('type' => 'term',
               'field' => 'maintainingRepositoryId',
               'size' => 10),
@@ -49,23 +56,129 @@ class ActorBrowseAction extends DefaultBrowseAction
         array('type' => 'term',
               'field' => 'occupations.id',
               'size' => 10),
-      'places' =>
+      'place' =>
         array('type'   => 'term',
               'field'  => 'places.id',
               'size'   => 10),
-      'subjects' =>
+      'subject' =>
         array('type'   => 'term',
               'field'  => 'subjects.id',
               'size'   => 10));
+
+  protected function addField($name, $request)
+  {
+    switch ($name)
+    {
+      case 'repository':
+        // Get list of repositories
+        $criteria = new Criteria;
+
+        // Do source culture fallback
+        $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitActor');
+
+        // Ignore root repository
+        $criteria->add(QubitActor::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
+
+        $criteria->addAscendingOrderByColumn('authorized_form_of_name');
+
+        $cache = QubitCache::getInstance();
+        $cacheKey = 'search:list-of-repositories:'. $this->context->user->getCulture();
+        if ($cache->has($cacheKey))
+        {
+          $choices = $cache->get($cacheKey);
+        }
+        else
+        {
+          $choices = array();
+          $choices[null] = null;
+          foreach (QubitRepository::get($criteria) as $repository)
+          {
+            $choices[$repository->id] = $repository->__toString();
+          }
+
+          $cache->set($cacheKey, $choices, 3600);
+        }
+
+        $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
+        $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
+
+        // Set field defaults based on filter data values
+        if (!empty($this->repository))
+        {
+          $this->form->setDefault('repository', $this->repository->id);
+        }
+
+        break;
+
+      case 'hasDigitalObject':
+        $choices = array(
+          ''  => '',
+          '1' => $this->context->i18n->__('Yes'),
+          '0' => $this->context->i18n->__('No')
+        );
+
+        $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
+        $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
+
+        if (isset($request->hasDigitalObject))
+        {
+          $this->form->setDefault('hasDigitalObject', $request->hasDigitalObject);
+        }
+
+        break;
+
+      case 'entityType':
+        $this->form->setValidator($name, new sfValidatorString);
+
+        $choices = array();
+        $choices[null] = null;
+
+        foreach (QubitTaxonomy::getTaxonomyTerms(QubitTaxonomy::ACTOR_ENTITY_TYPE_ID) as $item)
+        {
+          $choices[$item->id] = $item->__toString();
+        }
+
+        $this->form->setValidator($name, new sfValidatorString);
+        $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
+
+        if (!empty($this->entityType))
+        {
+          $this->form->setDefault('entityType', $this->entityType->id);
+        }
+
+        break;
+
+      case 'emptyField':
+        $this->form->setValidator($name, new sfValidatorString);
+
+        $choices = array();
+        $choices[null] = null;
+
+        foreach ($this->fieldOptions as $field => $label)
+        {
+          $choices[$field] = $label;
+        }
+
+        $this->form->setValidator($name, new sfValidatorString);
+        $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
+
+        if (!empty($request->emptyField))
+        {
+          $this->form->setDefault('emptyField', $request->emptyField);
+        }
+
+        break;
+    }
+  }
 
   protected function populateAgg($name, $buckets)
   {
     switch ($name)
     {
-      case 'types':
+      case 'entityType':
       case 'occupation':
-      case 'places':
-      case 'subjects':
+      case 'place':
+      case 'subject':
         $ids = array_column($buckets, 'key');
         $criteria = new Criteria;
         $criteria->add(QubitTerm::ID, $ids, Criteria::IN);
@@ -77,7 +190,7 @@ class ActorBrowseAction extends DefaultBrowseAction
 
         break;
 
-      case 'maintainingRepository':
+      case 'repository':
         $ids = array_column($buckets, 'key');
         $criteria = new Criteria;
         $criteria->add(QubitActor::ID, $ids, Criteria::IN);
@@ -96,16 +209,17 @@ class ActorBrowseAction extends DefaultBrowseAction
     return $buckets;
   }
 
-  public function execute($request)
+  protected function setFilterTags($request)
   {
-    parent::execute($request);
-
-    if (isset($request->repos) && ctype_digit($request->repos))
+    if (isset($request->repository) && ctype_digit($request->repository))
     {
-      $this->repos = QubitRepository::getById($request->repos);
+      $this->repository = QubitRepository::getById($request->repository);
 
       // Add repo to the user session as realm
-      $this->context->user->setAttribute('search-realm', $request->repos);
+      if (sfConfig::get('app_enable_institutional_scoping'))
+      {
+        $this->context->user->setAttribute('search-realm', $request->repository);
+      }
     }
     else if (sfConfig::get('app_enable_institutional_scoping'))
     {
@@ -113,21 +227,29 @@ class ActorBrowseAction extends DefaultBrowseAction
       $this->context->user->removeAttribute('search-realm');
     }
 
-    if (1 === preg_match('/^[\s\t\r\n]*$/', $request->subquery))
+    if (isset($request->entityType) && ctype_digit($request->entityType))
     {
-      $this->search->queryBool->addMust(new \Elastica\Query\MatchAll());
-    }
-    else
-    {
-      $queryText = new \Elastica\Query\QueryString(arElasticSearchPluginUtil::escapeTerm($request->subquery));
-      $queryText->setDefaultOperator('AND');
-      arElasticSearchPluginUtil::setFields($queryText, 'actor');
-
-      $this->search->queryBool->addMust($queryText);
+      $this->entityType = QubitTerm::getById($request->entityType);
     }
 
-    $this->search->query = QubitAclSearch::filterByResource($this->search->query, QubitActor::getById(QubitActor::ROOT_ID));
+    if (isset($request->occupation) && ctype_digit($request->occupation))
+    {
+      $this->occupation = QubitTerm::getById($request->occupation);
+    }
 
+    if (isset($request->place) && ctype_digit($request->place))
+    {
+      $this->place = QubitTerm::getById($request->place);
+    }
+
+    if (isset($request->subject) && ctype_digit($request->subject))
+    {
+      $this->subject = QubitTerm::getById($request->subject);
+    }
+  }
+
+  protected function setSort($request)
+  {
     switch ($request->sort)
     {
       // I don't think that this is going to scale, but let's leave it for now
@@ -146,10 +268,152 @@ class ActorBrowseAction extends DefaultBrowseAction
       default:
         $this->search->query->setSort(array('updatedAt' => $request->sortDir));
     }
+  }
+
+  protected function setFiltersAndForm($request)
+  {
+    $this->setFilterTags($request);
+
+    // Set up form, using the request, and data fetched by filter tags, to provide defaults
+    $this->form = new sfForm;
+    $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
+
+    foreach ($this::$NAMES as $name)
+    {
+      $this->addField($name, $request);
+    }
+
+    // Set which values will be relayed via the advanced search form
+    $allowed = array_merge(
+      array_keys($this::$AGGS),
+      array('sort', 'sortDir')
+    );
+
+    $ignored = array('repository', 'entityType');
+
+    $this->setHiddenFields($request, $allowed, $ignored);
+  }
+
+  protected function doSearch($request)
+  {
+    $this->setSort($request);
+
+    // Add advanced form filter to the query
+    $this->search->addAdvancedSearchFilters($this::$NAMES + array_keys($this->fieldOptions), $this->request->getParameterHolder()->getAll(), 'isaar');
+
+    // Filter by whether or not an actor has a digital object attached
+    if (isset($this->request->hasDigitalObject))
+    {
+      $queryField = new \Elastica\Query\Term;
+      $queryField->setTerm('hasDigitalObject', $this->request->hasDigitalObject);
+      $this->search->queryBool->addMust($queryField);
+    }
+
+    // Filter out results if a specific field isn't empty
+    if (!empty($request->emptyField))
+    {
+      foreach($this->getEsFields($request->emptyField) as $esField)
+      {
+        $this->search->queryBool->addMustNot(new \Elastica\Query\Exists($esField));
+      }
+    }
 
     $this->search->query->setQuery($this->search->queryBool);
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($this->search->query);
+    return QubitSearch::getInstance()->index->getType('QubitActor')->search($this->search->getQuery(false));
+  }
+
+  /**
+   * Return ElasticSearch field(s) for a given "friendly" field name
+   *
+   * We do this as we don't want to expose our ElasticSearch schema.
+   *
+   * @return array  Array containing ElasticSearch fields
+   */
+  public function getEsFields($field)
+  {
+    $esFields = array();
+
+    switch ($field)
+    {
+      case 'authorizedFormOfName':
+      case 'datesOfExistence':
+      case 'history':
+      case 'legalStatus':
+      case 'places':
+      case 'generalContext':
+      case 'institutionResponsibleIdentifier':
+      case 'sources':
+        $esFields = arElasticSearchPluginUtil::getI18nFieldNames(sprintf('i18n.%%s.%s', $field));
+        break;
+
+      case 'parallelNames':
+      case 'otherNames':
+      case 'occupations':
+        $esFields = arElasticSearchPluginUtil::getI18nFieldNames(sprintf('%s.i18n.%%s.name', $field));
+        break;
+
+      case 'subject':
+        $esFields = arElasticSearchPluginUtil::getI18nFieldNames('subjects.i18n.%s.name');
+        break;
+
+      case 'place':
+        $esFields = arElasticSearchPluginUtil::getI18nFieldNames('places.i18n.%s.name');
+        break;
+
+      case 'occupationNotes':
+        $esFields = arElasticSearchPluginUtil::getI18nFieldNames('occupations.i18n.%s.content');
+        break;
+
+      case 'maintenanceNotes':
+        $esFields = arElasticSearchPluginUtil::getI18nFieldNames('maintenanceNotes.i18n.%s.content');
+        break;
+
+      case 'descriptionIdentifier':
+        $esFields = array('descriptionIdentifier');
+        break;
+    }
+
+    return $esFields;
+  }
+
+  public function execute($request)
+  {
+    // Translate field labels
+    $i18n = $this->context->i18n;
+
+    $this->fieldOptions = array(
+      'authorizedFormOfName'             => $i18n->__('Authorized form of name'),
+      'parallelNames'                    => $i18n->__('Parallel form(s) of name'),
+      'otherNames'                       => $i18n->__('Other form(s) of name'),
+      'datesOfExistence'                 => $i18n->__('Dates of existence'),
+      'history'                          => $i18n->__('History'),
+      'legalStatus'                      => $i18n->__('Legal status'),
+      'places'                           => $i18n->__('Places'),
+      'generalContext'                   => $i18n->__('General context'),
+      'occupations'                      => $i18n->__('Occupation access points'),
+      'occupationNotes'                  => $i18n->__('Occupation access point notes'),
+      'subject'                          => $i18n->__('Subject access points'),
+      'place'                            => $i18n->__('Place access points'),
+      'descriptionIdentifier'            => $i18n->__('Authority record identifier'),
+      'institutionResponsibleIdentifier' => $i18n->__('Institution identifier'),
+      'sources'                          => $i18n->__('Sources'),
+      'maintenanceNotes'                 => $i18n->__('Maintenance notes')
+    );
+
+    // If a global search has been requested, translate that into an advanced search
+    if (isset($request->subquery))
+    {
+      $request->sq0 = $request->subquery;
+    }
+
+    parent::execute($request);
+
+    // Prepare filters, form, and hidden fields/values
+    $this->setFiltersAndForm($request);
+
+    // Perform search and paging
+    $resultSet = $this->doSearch($request);
 
     $this->pager = new QubitSearchPager($resultSet);
     $this->pager->setPage($request->page ? $request->page : 1);
@@ -157,5 +421,11 @@ class ActorBrowseAction extends DefaultBrowseAction
     $this->pager->init();
 
     $this->populateAggs($resultSet);
+
+    // If an advanced search has been requested of all fields, put the query text into the global search field
+    if (!isset($request->subquery) && isset($request->sq0) && !isset($request->sf0))
+    {
+      $request->subquery = $request->sq0;
+    }
   }
 }

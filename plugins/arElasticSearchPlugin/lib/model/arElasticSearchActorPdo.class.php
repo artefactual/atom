@@ -100,12 +100,15 @@ class arElasticSearchActorPdo
                 actor.*,
                 slug.slug,
                 object.created_at,
-                object.updated_at
+                object.updated_at,
+                do.media_type_id
               FROM '.QubitActor::TABLE_NAME.' actor
               JOIN '.QubitSlug::TABLE_NAME.' slug
                 ON actor.id = slug.object_id
               JOIN '.QubitObject::TABLE_NAME.' object
                 ON actor.id = object.id
+              LEFT JOIN '.QubitDigitalObject::TABLE_NAME.' do
+                ON actor.id = do.object_id
               WHERE actor.id = :id';
 
       self::$statements['actor'] = self::$conn->prepare($sql);
@@ -179,6 +182,7 @@ class arElasticSearchActorPdo
     $serialized['slug'] = $this->slug;
 
     $serialized['entityTypeId'] = $this->entity_type_id;
+    $serialized['hasDigitalObject'] = !is_null($this->media_type_id);
 
     $serialized['descriptionIdentifier'] = $this->description_identifier;
     $serialized['corporateBodyIdentifiers'] = $this->corporate_body_identifiers;
@@ -253,6 +257,13 @@ class arElasticSearchActorPdo
     foreach ($this->getDirectlyRelatedTerms(QubitTaxonomy::SUBJECT_ID) as $item)
     {
       $serialized['directSubjects'][] = $item->id;
+    }
+
+    // Maintenance notes
+    $sql = 'SELECT id, source_culture FROM '.QubitNote::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
+    foreach (QubitPdo::fetchAll($sql, array($this->id, QubitTerm::MAINTENANCE_NOTE_ID)) as $item)
+    {
+      $serialized['maintenanceNotes'][] = arElasticSearchNote::serialize($item);
     }
 
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);
