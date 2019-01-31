@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2018-09-09T08:14:58Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2019-01-31T15:02:29Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -144,7 +144,7 @@
       </trans-unit>
       <trans-unit id="858">
         <source>Add new</source>
-        <target/>
+        <target> &#x627;&#x641;&#x632;&#x648;&#x62F;&#x646; &#x622;&#x64A;&#x62A;&#x645; &#x62C;&#x62F;&#x64A;&#x62F; </target>
       </trans-unit>
     </body>
   </file>

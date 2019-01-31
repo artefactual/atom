@@ -81,6 +81,7 @@ QubitMenu:
       sr: Додај
       sv: 'Lägg till'
       th: เพิ่ม
+      tr: Ekle
       uz: 'Yangi qo''shish'
       vi: Thêm
       zh: 添加
@@ -227,7 +228,7 @@ QubitMenu:
       en: Jobs
       es: Proceso
       fr: Tâches
-      hu: Állások
+      hu: Feladatok
       id: Tugas
       it: Operazioni
       pt: Tarefas
@@ -976,6 +977,7 @@ QubitMenu:
       sr: Групе
       sv: Grupper
       th: กลุ่ม
+      tr: Gruplar
       vi: Nhóm
       zh: 群
     path: aclGroup/list
@@ -1352,7 +1354,7 @@ QubitMenu:
       pt_BR: 'Atualizações da descrição'
       sl: 'Posodobitve popisa'
       sr: 'Ажурирањe описа'
-      sv: Förteckningsuppdateringar
+      sv: Beskrivningsuppdateringar
       th: อับเดตคำอธิบาย
       vi: 'Cập nhật mô tả'
       zh: 描述更新
@@ -1472,6 +1474,7 @@ QubitMenu:
       en: 'Privacy Policy'
       fr: 'Politique de confidentialité'
       id: 'Kebijakan Privasi'
+      sv: Sekretesspolicy
     path: 'staticpage/index?slug=privacy'
   QubitMenu_quicklinks_help:
     parent_id: QubitMenu_quicklinks
@@ -1506,6 +1509,7 @@ QubitMenu:
       sl: Pomoč
       sr: Помоћ
       sv: Hjälp
+      tr: Yardım
       vi: Help
       zh: 帮助
     path: 'http://docs.accesstomemory.org/'
@@ -1836,6 +1840,7 @@ QubitMenu:
       sr: Места
       sv: Platser
       th: สถานที
+      tr: Mekanlar
       uz: Joylar
       vi: 'địa điểm'
       zh: 地点
@@ -2012,7 +2017,10 @@ QubitMenu:
     label:
       en: 'Load clipboard'
       fr: 'Charge le presse-papier'
+      hu: 'Vágólap betöltése'
       id: 'Muat clipboard'
+      sr: 'Учитај међумеморију'
+      sv: 'Ladda urklipp'
     path: user/clipboardLoad
   QubitMenu_clipboardsavemenu:
     parent_id: QubitMenu_clipboardmenu
@@ -2021,7 +2029,9 @@ QubitMenu:
     label:
       en: 'Save clipboard'
       fr: 'Sauvegarder le presse-papier'
+      hu: 'Vágólap mentése'
       id: 'Simpan clipboard'
+      sv: 'Spara urklipp'
     path: user/clipboardSave
   QubitMenu_browseinstitution_informationobjects:
     parent_id: QubitMenu_browseinstitution

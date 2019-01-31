@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="uk" datatype="plaintext" original="messages" date="2017-08-25T18:55:01Z" product-name="messages">
+  <file source-language="en" target-language="uk" datatype="plaintext" original="messages" date="2019-01-31T15:19:33Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -454,6 +454,14 @@
       </trans-unit>
       <trans-unit id="115">
         <source>Maintained by</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Subject access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="117">
+        <source>Place access points</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2018-09-09T08:17:16Z" original="messages" product-name="messages" source-language="en" target-language="ja">
+  <file datatype="plaintext" date="2019-01-31T15:26:27Z" original="messages" product-name="messages" source-language="en" target-language="ja">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
@@ -59,10 +59,6 @@
       <trans-unit id="9983e5053a98c4b009392604495e478eaa356381">
         <source>%1% (started: %2%, status: %3%).</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/actions/alertsComponent.class.php</note>
-      </trans-unit>
-      <trans-unit id="4cad7ae1524e5624abbf53ae9c15b5f44a27bb3f">
-        <source>%1% Results for %2%</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/templates/indexSuccess.php</note>
       </trans-unit>
       <trans-unit id="3a384f7678e560bfd3a9f7f13fe54b8a04efedde">
         <source>%1% available</source>
@@ -475,6 +471,7 @@
       </trans-unit>
       <trans-unit id="20a61b49fb16be8008aef5aad33e3f6c1c0ebf5b">
         <source>Allow any valid URI PATH segment character to appear in a slug, including UTF-8 glyphs. Restricted IRI characters ( /?#{} ) and literal spaces will be replaced with dashes</source>
+        <target>UTF-8&#x306E;&#x7D75;&#x6587;&#x5B57;&#x3092;&#x542B;&#x3080;&#x3001;&#x6709;&#x52B9;&#x306A;URI PATH&#x30BB;&#x30B0;&#x30E1;&#x30F3;&#x30C8;&#x6587;&#x5B57;&#x3092;&#x30B9;&#x30E9;&#x30C3;&#x30B0;&#x306B;&#x542B;&#x3081;&#x308B;&#x3053;&#x3068;&#x3092;&#x8A31;&#x53EF;&#x3057;&#x307E;&#x3059;&#x3002; &#x5236;&#x9650;&#x3055;&#x308C;&#x305F;IRI&#x6587;&#x5B57;&#xFF08;/&#xFF1F;&#xFF03;{}&#xFF09;&#x3068;&#x30EA;&#x30C6;&#x30E9;&#x30EB;&#x30B9;&#x30DA;&#x30FC;&#x30B9;&#x306F;&#x30C0;&#x30C3;&#x30B7;&#x30E5;&#x306B;&#x7F6E;&#x304D;&#x63DB;&#x3048;&#x3089;&#x308C;&#x307E;&#x3059;</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="19c2371f978067e85c99e10fecb57b3438930f2f">
@@ -494,6 +491,7 @@
       </trans-unit>
       <trans-unit id="11e7d8d6de94bea14bfdfbb135dc8706bb55f0c2">
         <source>An API key must be sent in the HTTP request ZZZ header to authenticate requests</source>
+        <target>&#x30EA;&#x30AF;&#x30A8;&#x30B9;&#x30C8;&#x3092;&#x8A8D;&#x8A3C;&#x3059;&#x308B;&#x306B;&#x306F;&#x3001;HTTP&#x30EA;&#x30AF;&#x30A8;&#x30B9;&#x30C8;&#x306E;ZZZ&#x30D8;&#x30C3;&#x30C0;&#x30FC;&#x3067;API&#x30AD;&#x30FC;&#x3092;&#x9001;&#x4FE1;&#x3059;&#x308B;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsOaiRepositoryForm.class.php</note>
       </trans-unit>
       <trans-unit id="b7063e1e7db18c362696dec9cf8da2c9a4f40444">
@@ -503,6 +501,7 @@
       </trans-unit>
       <trans-unit id="a01e33f4dcdb6ba1ae9f34a97cf8f6deeedf1a8d">
         <source>And</source>
+        <target>&#x305D;&#x3057;&#x3066;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/_advancedSearch.php</note>
       </trans-unit>
       <trans-unit id="9665559bfe1a016183d2dabf7b1043e3b3e11714">
@@ -512,6 +511,7 @@
       </trans-unit>
       <trans-unit id="43336f4179e74b181e42a3075d44ecb4c1a4e999">
         <source>Any field except finding aid text</source>
+        <target>&#x691C;&#x7D22;&#x624B;&#x6BB5;&#x30C6;&#x30AD;&#x30B9;&#x30C8;&#x306E;&#x4EE5;&#x5916;&#x306E;&#x3059;&#x3079;&#x3066;&#x306E;&#x30D5;&#x30A3;&#x30FC;&#x30EB;&#x30C9;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/_advancedSearch.php</note>
       </trans-unit>
       <trans-unit id="ea25fb97b8a139d560e774dd21b304d01e297bdf">
@@ -1236,10 +1236,12 @@
       </trans-unit>
       <trans-unit id="1741a668553c515066042775674b3064bc022560">
         <source>Digital object derivative settings saved.</source>
+        <target>&#x30C7;&#x30B8;&#x30BF;&#x30EB;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x6D3E;&#x751F;&#x8A2D;&#x5B9A;&#x304C;&#x4FDD;&#x5B58;&#x3055;&#x308C;&#x307E;&#x3057;&#x305F;&#x3002;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/digitalObjectDerivativesAction.class.php</note>
       </trans-unit>
       <trans-unit id="0220efa7f6f7ee2f1b714ebea0cf93b5b559c8d8">
         <source>Digital object derivatives</source>
+        <target>&#x30C7;&#x30B8;&#x30BF;&#x30EB;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x6D3E;&#x751F;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/menuComponent.class.php</note>
       </trans-unit>
       <trans-unit id="366a5a96a43c0e2df8f86f1651a25cea0d5578fd">
@@ -1271,6 +1273,7 @@
       </trans-unit>
       <trans-unit id="8f88058b234ef92f0ea73af6b1fe6c05f2b0f937">
         <source>Display Privacy Notification on first visit to site</source>
+        <target>&#x6700;&#x521D;&#x306E;&#x30B5;&#x30A4;&#x30C8;&#x8A2A;&#x554F;&#x6642;&#x306B;&#x30D7;&#x30E9;&#x30A4;&#x30D0;&#x30B7;&#x30FC;&#x901A;&#x77E5;&#x3092;&#x8868;&#x793A;&#x3059;&#x308B;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/privacyNotificationSuccess.php</note>
       </trans-unit>
       <trans-unit id="43e9abb9ac6de66f3cddd4c5c2ec2c72f2b1241b">
@@ -1328,6 +1331,7 @@
       </trans-unit>
       <trans-unit id="7ffd845f50a6aceea12548671d0a9884ecdb1d44">
         <source>Download path</source>
+        <target>&#x30C0;&#x30A6;&#x30F3;&#x30ED;&#x30FC;&#x30C9;&#x5834;&#x6240;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/jobs/templates/reportSuccess.php</note>
       </trans-unit>
       <trans-unit id="23d33e22acfcb9ecddb4a85f10607dc4ff49e23c">
@@ -1337,10 +1341,12 @@
       </trans-unit>
       <trans-unit id="d9a71452d45343449c8c6bc92a11b9d123f7abd2">
         <source>Dublin Core 1.1 XML</source>
+        <target>Dublin Core 1.1 XML</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_actionIcons.php</note>
       </trans-unit>
       <trans-unit id="6e6e3ecd2006e8852970e6ddfdfd086ab5a762f9">
         <source>Dublin Core, Version 1.1. Dublin Core Metadata Initiative</source>
+        <target>Dublin Core, Version 1.1. Dublin Core Metadata Initiative</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsDefaultTemplateForm.class.php</note>
       </trans-unit>
       <trans-unit id="972d57379db3e5be76d4ead709fef1ad71ff03d6">
@@ -1350,14 +1356,17 @@
       </trans-unit>
       <trans-unit id="ae1bcbfe41db9013a9828799a099d621e79f7691">
         <source>EAC CPF</source>
+        <target>EAC CPF</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/importSelectSuccess.php</note>
       </trans-unit>
       <trans-unit id="3819eb13a0faf9735ea1f747c262d916bf0358fc">
         <source>EAD 2002</source>
+        <target>EAD 2002</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/importSelectSuccess.php</note>
       </trans-unit>
       <trans-unit id="ab561566cf9e98197dabde2ced0c87bb530b9826">
         <source>EAD 2002 XML</source>
+        <target>EAD 2002 XML</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_actionIcons.php</note>
       </trans-unit>
       <trans-unit id="5301648dcf6b53cefc9ed52999aaa92d4603cae0">
@@ -1372,11 +1381,12 @@
       </trans-unit>
       <trans-unit id="9d52f885d375fa93d8f34e51cf81527d73671b45">
         <source>Edit %1% permissions</source>
-        <target> %1% &#x7DE8;&#x96C6;&#x3059;&#x308B;&#x6A29;&#x9650;</target>
+        <target> %1% &#x6A29;&#x9650;&#x3092;&#x7DE8;&#x96C6;&#x3059;&#x308B;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/editRepositoryAclSuccess.php</note>
       </trans-unit>
       <trans-unit id="fcd7c816ea9ecc1f36f9bb688fd555fb507fb5a0">
         <source>Edit %1% permissions of %2%</source>
+        <target> %2%&#x306E;%1%&#x6A29;&#x9650;&#x3092;&#x7DE8;&#x96C6;&#x3059;&#x308B;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/editActorAclSuccess.php</note>
       </trans-unit>
       <trans-unit id="1d8623444e68ce2d3afac8c3f2add4f298725f43">
@@ -1608,11 +1618,6 @@
         <source>Fax</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_edit.php</note>
       </trans-unit>
-      <trans-unit id="683c3c8242be11848752d09c4cf5658ac3952fb0">
-        <source>File %1% could not be moved to %2%</source>
-        <target>%1%&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x306F;%2%&#x3078;&#x79FB;&#x52D5;&#x3067;&#x304D;&#x307E;&#x305B;&#x3093;</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/actions/uploadAction.class.php</note>
-      </trans-unit>
       <trans-unit id="0f230379c9271ada8ac8ebacbde117e640ffb428">
         <source>File %1% could not be thumbnailed</source>
         <target>%1%&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x306F;&#x4E00;&#x89A7;&#x3067;&#x304D;&#x307E;&#x305B;&#x3093;</target>
@@ -1693,6 +1698,7 @@
       </trans-unit>
       <trans-unit id="92063e2c3fb1b5332c8546a21f7b263fc6a58472">
         <source>Finding aid</source>
+        <target>&#x691C;&#x7D22;&#x624B;&#x6BB5;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/_advancedSearch.php</note>
       </trans-unit>
       <trans-unit id="2d48b2766a8bf798e0fbe5cc6ab3a34a3924dbf2">
@@ -4662,6 +4668,14 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Select the new date type:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>No entity type specified.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>%1% %2% results for %3%</source>
         <target/>
       </trans-unit>
     </body>

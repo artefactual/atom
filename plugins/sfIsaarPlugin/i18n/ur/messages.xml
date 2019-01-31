@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ur" datatype="plaintext" original="messages" date="2017-08-25T18:54:14Z" product-name="messages">
+  <file source-language="en" target-language="ur" datatype="plaintext" original="messages" date="2019-01-31T15:26:07Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -454,6 +454,14 @@
       </trans-unit>
       <trans-unit id="113">
         <source>"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>Subject access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>Place access points</source>
         <target/>
       </trans-unit>
     </body>

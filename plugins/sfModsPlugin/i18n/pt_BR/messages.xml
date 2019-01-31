@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2018-09-09T08:17:39Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2019-01-31T15:02:41Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -112,7 +112,7 @@
       </trans-unit>
       <trans-unit id="921">
         <source>Add new</source>
-        <target/>
+        <target>Adicionar Novo</target>
       </trans-unit>
     </body>
   </file>

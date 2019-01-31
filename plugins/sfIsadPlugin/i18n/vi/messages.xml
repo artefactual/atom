@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2018-09-09T08:24:34Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2019-01-31T15:02:33Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -483,7 +483,7 @@ phù hợp với các tiêu chuẩn đang cơ quan quốc gia hoặc quốc tế
       </trans-unit>
       <trans-unit id="125">
         <source>Add new</source>
-        <target/>
+        <target>Thêm mới</target>
       </trans-unit>
     </body>
   </file>

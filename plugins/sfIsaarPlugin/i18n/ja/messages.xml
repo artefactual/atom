@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2017-09-04T11:51:18Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2019-01-31T15:26:28Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -394,7 +394,7 @@
       </trans-unit>
       <trans-unit id="104">
         <source>EAC</source>
-        <target/>
+        <target>EAC</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Last updated</source>
@@ -442,7 +442,7 @@
       </trans-unit>
       <trans-unit id="116">
         <source>Edit access points area</source>
-        <target/>
+        <target>アクセスポイントエリアを編集する</target>
       </trans-unit>
       <trans-unit id="117">
         <source>Occupations</source>
@@ -454,6 +454,14 @@
       </trans-unit>
       <trans-unit id="119">
         <source>Maintained by</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>Subject access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>Place access points</source>
         <target/>
       </trans-unit>
     </body>

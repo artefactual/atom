@@ -96,7 +96,7 @@ QubitTaxonomy:
       pt_BR: 'Estado da descrição'
       sl: 'Statusi popisa'
       sr: 'Статуси описа'
-      sv: Förteckningsstatus
+      sv: Beskrivningsstatus
       th: สถานะของทำคำอธิบายเอกสาร
       uz: 'Tavsif statuslari'
       vi: 'Mô tả địa vị'
@@ -380,6 +380,7 @@ QubitTaxonomy:
       sr: Места
       sv: Platser
       th: สถานที
+      tr: Mekanlar
       uz: Joylar
       vi: 'địa điểm'
       zh: 地点
@@ -1252,6 +1253,7 @@ QubitTaxonomy:
       sr: 'Статус ауторског права'
       sv: Upphovsrättsstatus
       th: สถานภาพลิขสิทธิ์
+      tr: 'Telif hakkı durumu'
       uz: 'Mualliflik huquqi holati'
       vi: 'địa vị bản quyền'
       zh: 版权状态
@@ -1414,6 +1416,7 @@ QubitTaxonomy:
       sl: Zvrst
       sr: жанр
       sv: Handlingstyp
+      tr: Tür
       zh: 体裁
     note:
       en: 'Genre terms drawn from appropriate vocabularies; used as an optional access point in the RAD template. Default terms are from "Basic Genre Terms for Cultural Heritage Materials" (Library of Congress).'
@@ -1449,7 +1452,7 @@ QubitTaxonomy:
       en: 'Job status'
       es: 'Estado del proceso'
       fr: 'État de la tâche'
-      hu: 'Feladat/munka állapota'
+      hu: 'Feladat állapota'
       id: 'Status tugas'
       it: 'Status dell''operazione'
       pt: 'Estado do trabalho'
@@ -1483,6 +1486,7 @@ QubitTaxonomy:
       en: 'User actions'
       fr: 'Actions des utilisateurs'
       id: 'Tindakan pengguna'
+      sv: Användaråtgärder
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -1520,7 +1524,7 @@ QubitTerm:
       ru: Создание
       sl: Ustvarjanje
       sr: Стварање
-      sv: Skapelse
+      sv: Skapande
       th: การผลิต
       uz: Yaratish
       vi: 'Năm tạo'
@@ -1769,6 +1773,7 @@ QubitTerm:
       sr: 'Напомена о језику'
       sv: Språkanmärkning
       th: หมายเหตุภาษา
+      tr: 'Dil notu'
       vi: 'Ghi chú ngôn ngữ'
       zh: 语言说明
   QubitTerm_119:
@@ -2129,6 +2134,7 @@ QubitTerm:
       sr: Породица
       sv: Familj
       th: ครอบครัว
+      tr: Aile
       vi: 'Tác giả'
       zh: 家族
   QubitTerm_131:
@@ -2363,6 +2369,7 @@ QubitTerm:
       pt-BR: Offline
       sr: Офлајн
       sv: Offline
+      tr: Çevrimdışı
       uz: Oflayn
   QubitTerm_137:
     taxonomy_id: QubitTaxonomy_17
@@ -2394,6 +2401,7 @@ QubitTerm:
       sl: 'Glavni dokument'
       sr: 'Главни документ'
       sv: Master
+      tr: Usta
       uz: 'Asosiy Master'
       vi: 'Tổng thể'
       zh: 原件
@@ -2539,6 +2547,7 @@ QubitTerm:
       sr: Локација
       sv: Plats
       th: ตำแหน่ง
+      tr: Lokasyon
       vi: 'Một vị trí'
       zh: 位置
   QubitTerm_141:
@@ -2656,13 +2665,13 @@ QubitTerm:
       cy: 'Cynnal lleoliad'
       en: 'Maintaining repository'
       fr: 'Entretien du dépôt'
-      hu: 'Repozitórium fönntartása'
+      hu: 'Kezelő levéltár'
       id: 'Repositori pemeliharaan'
       it: 'Deposito che lo mantiene'
       pt: 'Manutenção do repositório'
       pt-BR: 'Manutenção da entidade custodiadora'
       sr: 'Одржавање репозиторијума'
-      sv: 'Förvaltande arkivinstitution'
+      sv: 'Förvaltande institution'
       uz: 'Repozitoriyni nazorat qilish'
   QubitTerm_180:
     taxonomy_id: QubitTaxonomy_7
@@ -3668,6 +3677,7 @@ QubitTerm:
       sr: 'Ауторско право'
       sv: Upphovsrätt
       th: ลิขสิทธ
+      tr: 'Telif hakkı'
       vi: 'Bản quyền'
       zh: 版权
   QubitTerm_right_basis_license:
@@ -3973,6 +3983,7 @@ QubitTerm:
       pt-BR: Erro
       sr: Грешка
       sv: Fel
+      tr: Hata
   QubtTerm_actor_occupation_note:
     taxonomy_id: QubitTaxonomy_7
     parent_id: QubitTerm_110
@@ -4022,7 +4033,7 @@ QubitTerm:
       ru: Создание
       sl: Ustvarjanje
       sr: Стварање
-      sv: Skapelse
+      sv: Skapande
       th: การผลิต
       uz: Yaratish
       vi: 'Năm tạo'
@@ -4036,6 +4047,9 @@ QubitTerm:
       en: Modification
       fr: Modification
       id: Pengubahan
+      pt-BR: Modificação
+      sr: Промена
+      sv: Modifiering
   QubitTerm_actor_relationship_is_the_superior_of:
     taxonomy_id: QubitTaxonomy_actor_relation_type
     parent_id: QubitTerm_actor_relationship_hierarchical
@@ -4050,7 +4064,7 @@ QubitTerm:
       eu: 'ondokoaren nagusia da:'
       fr: 'est le supérieur de'
       gl: 'é o superior de'
-      hu: alárendeltje
+      hu: fölérendeltje
       id: 'atasan dari'
       it: 'è il superiore di'
       ko: '전자는 후자의 상사다'
@@ -4077,7 +4091,7 @@ QubitTerm:
       eu: 'ondokoaren menpekoa da:'
       fr: 'est le/la subordonné(e) de'
       gl: 'é o subordinado de'
-      hu: fölérendeltje
+      hu: alárendeltje
       id: 'bawahan dari'
       it: 'è subordinato/a a'
       ko: '전자는 후자의 부하직원이다'
@@ -4139,7 +4153,7 @@ QubitTerm:
       pt-BR: 'é controlado por'
       pt_BR: 'é controlado por'
       sl: 'nadzor s strani'
-      sr: 'контролисао га је'
+      sr: 'је контролисан од'
       sv: 'kontrolleras av'
       uz: 'ning nazoratchisi:'
       vi: 'được điều khiển bởi'
@@ -4222,7 +4236,7 @@ QubitTerm:
       pt-BR: 'é o antecessor de'
       pt_BR: 'é o antecessor de'
       sl: 'je predhodnik od'
-      sr: 'је предак/претходник'
+      sr: 'је предак/претходник од'
       sv: 'är föregångare till'
       uz: 'quyidagining o`tmishdoshi:'
       vi: 'là tiền thân của'
@@ -4250,7 +4264,7 @@ QubitTerm:
       pt-BR: 'é o sucessor de'
       pt_BR: 'é o sucessor de'
       sl: 'je naslednik/-ica od'
-      sr: 'је наследник'
+      sr: 'је наследник од'
       sv: 'är efterföljare till'
       uz: 'quyidagining davomchisi vorisi:'
       vi: 'là sự kế thừa của'
@@ -4277,7 +4291,7 @@ QubitTerm:
       pt-BR: 'é o fornecedor de'
       pt_BR: 'é o fornecedor de'
       sl: 'je skrbnik/-ica od'
-      sr: 'је старатељ'
+      sr: 'је старатељ од'
       sv: 'är leverantör av'
       uz: 'quyidagining ta''minlovchisi:'
       vi: 'là nhà cung cấp'
@@ -4305,7 +4319,7 @@ QubitTerm:
       pt-BR: 'é o cliente de'
       pt_BR: 'é o cliente de'
       sl: 'je stranka od'
-      sr: 'је клијент'
+      sr: 'је клијент од'
       sv: 'är klient till'
       uz: 'quyidagining mijozi:'
       vi: 'là khách hàng của'
@@ -4333,7 +4347,7 @@ QubitTerm:
       pt-BR: 'é o parceiro de negócios de'
       pt_BR: 'é o parceiro de negócios de'
       sl: 'je poslovni partner od'
-      sr: 'је пословни партнер'
+      sr: 'је пословни партнер од'
       sv: 'är affärspartner till'
       uz: 'quyidagining biznes hamkori:'
       vi: 'là đối tác kinh doanh của'
@@ -4360,7 +4374,7 @@ QubitTerm:
       pt-BR: 'é o associado de'
       pt_BR: 'é o associado de'
       sl: 'je partner od'
-      sr: 'је сарадник'
+      sr: 'је сарадник од'
       sv: 'är kollega till'
       uz: 'quyidagining xodimi:'
       vi: 'là công ty liên kết của'
@@ -4388,7 +4402,7 @@ QubitTerm:
       pt-BR: 'é o amigo de'
       pt_BR: 'é o amigo de'
       sl: 'je prijatelj/-ica od'
-      sr: 'је пријатељ/пријатељица'
+      sr: 'је пријатељ/пријатељица од'
       sv: 'är vän till'
       uz: 'quyidagining do`sti:'
       vi: 'là bạn của'
@@ -4415,7 +4429,7 @@ QubitTerm:
       pt-BR: 'é o pai de'
       pt_BR: 'é o pai de'
       sl: 'je mati/oče od'
-      sr: 'је родитељ'
+      sr: 'је родитељ од'
       sv: 'är förälder till'
       uz: 'quyidagining ota-onasi:'
       vi: 'là cha của'
@@ -4443,7 +4457,7 @@ QubitTerm:
       pt-BR: 'é o filho de'
       pt_BR: 'é o filho de'
       sl: 'je otrok od'
-      sr: 'је дете'
+      sr: 'је дете од'
       sv: 'är barn till'
       uz: 'quyidagining farzandi:'
       vi: 'là con của'
@@ -4551,7 +4565,7 @@ QubitTerm:
       pt-BR: 'é o avô de'
       pt_BR: 'é o avô de'
       sl: 'je dedek/babica od'
-      sr: 'је деда/баба'
+      sr: 'је деда/баба од'
       sv: 'är mor-/farförälder till'
       uz: 'quyidagining bobo/buvisi:'
       vi: 'là ông bà của'
@@ -4579,7 +4593,7 @@ QubitTerm:
       pt-BR: 'é o neto de'
       pt_BR: 'é o neto de'
       sl: 'je vnuk/-inja od'
-      sr: 'је унук/унука'
+      sr: 'је унук/унука од'
       sv: 'är underordnat'
       uz: 'quyidagining nabirasi:'
       vi: 'là cháu của'
@@ -4779,6 +4793,7 @@ QubitTerm:
       sr: Кутија
       sv: Låda
       th: กล่อง
+      tr: Kutu
       vi: Hộp
       zh: 框
   QubitTerm_159:
@@ -5009,6 +5024,7 @@ QubitTerm:
       sr: Коначни
       sv: Slutgiltig
       th: ฉบับสุดท้าย
+      tr: Final
       vi: 'Cuối cùng'
       zh: 最终
   QubitTerm_168:
@@ -5394,7 +5410,7 @@ QubitTerm:
       ro: Fisier
       ru: Файл
       sl: Datoteka
-      sr: Датотека
+      sr: Досије
       sv: Fil
       th: ไฟล์
       vi: 'Tập tin'
@@ -5432,6 +5448,7 @@ QubitTerm:
       sr: Јединица
       sv: Objekt
       th: เรื่อง
+      tr: Eşya
       vi: Item
       zh: 物件
   QubitTerm_183:
@@ -5536,6 +5553,7 @@ QubitTerm:
       sr: 'Стваралац архивске грађе'
       sv: Arkivbildare
       th: ผู้ผลิตเอกสาร
+      tr: Yaratıcı
       vi: 'người sáng tạo'
       zh: 创建者
   QubitTerm_186:
@@ -6203,6 +6221,7 @@ QubitTerm:
       sr: Образовни
       sv: Pedagogisk
       th: การศึกษา
+      tr: Eğitimsel
       vi: 'Giáo dục'
       zh: 教育的
   QubitTerm_205:
@@ -6346,6 +6365,7 @@ QubitTerm:
       sr: Место
       sv: Plats
       th: จัด
+      tr: Mekan
       uz: Joy
       vi: 'địa điểm'
       zh: 地点
@@ -6801,6 +6821,7 @@ QubitTerm:
       sr: Објект
       sv: Objekt
       th: วัตถุ
+      tr: Obje
       uz: Obyekt
       vi: 'Đối tượng'
       zh: 藏品
@@ -7370,7 +7391,7 @@ QubitTerm:
       pt_BR: 'Atribuições e conjecturas'
       sl: 'Pripisovanja in domneve'
       sr: Атрибуција
-      sv: 'Tillskrivningar och antaganden'
+      sv: 'Tillskrivningar och uppskattningar'
       uz: 'Atributlar va farazlar'
       vi: 'Gán ghép và phỏng đoán'
       zh: 归因和推测
@@ -8307,6 +8328,7 @@ QubitTerm:
       sr: Активност
       sv: Aktivitet
       th: กิจกรรม
+      tr: Aktivite
       uz: Faoliyat
       vi: 'Hình hoạt động'
       zh: 行为
@@ -8513,6 +8535,7 @@ QubitTerm:
       sr: Поклон
       sv: Gåva
       th: บริจาค
+      tr: Hediye
       vi: Quà
       zh: 赠礼
   QubitTerm_accession_acquisition_type_purchase:
@@ -8892,6 +8915,7 @@ QubitTerm:
       sr: Обриши
       sv: 'Ta bort'
       th: ลบ
+      tr: Sil
       uz: 'O''chirish'
       vi: Xóa
       zh: 删除
@@ -8924,6 +8948,7 @@ QubitTerm:
       sl: Odkrij
       sr: Открити
       sv: Upptäck
+      tr: Keşfetmek
       vi: 'Khám phá'
       zh: 发现
   QubitTerm_right_act_display:
@@ -8957,6 +8982,7 @@ QubitTerm:
       sl: Prikaži
       sr: Прикажи
       sv: Visningsfält
+      tr: Ekran
       vi: 'Hiển thị'
       zh: 展示
   QubitTerm_right_act_disseminate:
@@ -9057,6 +9083,7 @@ QubitTerm:
       sl: Prilagodi
       sr: Измени
       sv: Ändra
+      tr: Modifiye
       uz: O`zgartirish
       vi: 'Sửa đổi'
       zh: 修改
@@ -9252,6 +9279,7 @@ QubitTerm:
       hu: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       id: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       it: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
+      ja: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       ka: 'დაბლინ კორ მეტამონაცემების ელემენტთა სიმრავლე, ვერსია 1.1 ის ინიციატივა'
       ko: '더블린코어(Dublin Core) 1.1판. 더블린코어 메타데이터 이니시에이티브(DCMI)'
       pl: 'Dublin Core, Wersja 1.1. Dublin Core Metadata Initiative'
@@ -9501,6 +9529,7 @@ QubitTerm:
       sl: Izobraževanje
       sr: Образовање
       sv: Utbildning
+      tr: Eğitim
       vi: 'Giáo dục'
       zh: 教育
   QubitTerm_thematic_areas_environment:
@@ -9528,6 +9557,7 @@ QubitTerm:
       sl: Okolje
       sr: Окружење
       sv: Miljö
+      tr: Çevre
       vi: 'Môi trường'
       zh: 环境
   QubitTerm_thematic_areas_family:
@@ -10068,6 +10098,7 @@ QubitTerm:
       hu: 'Alfanumerikus jelölések'
       id: 'Untuk alfanumerik'
       it: 'Identificazioni alfanumeriche'
+      ja: 文字-数字の指定
       ko: '문자 및 숫자로된 명칭'
       pt: 'Designações alfanuméricas'
       pt-BR: 'Denominações alfanuméricas'
@@ -10248,6 +10279,7 @@ QubitTerm:
       sl: 'Prazna oblika'
       sr: Обрасци
       sv: 'Tomma formulär'
+      tr: 'Boş formlar'
       zh: 空白形式
   QubitTerm_genre_books:
     taxonomy_id: QubitTaxonomy_genre
@@ -10272,6 +10304,7 @@ QubitTerm:
       sl: Knjige
       sr: Књиге
       sv: Böcker
+      tr: Kitaplar
       zh: 书
   QubitTerm_genre_broadsides:
     taxonomy_id: QubitTaxonomy_genre
@@ -10656,6 +10689,7 @@ QubitTerm:
       sl: Zemljevidi
       sr: Карте
       sv: Kartor
+      tr: Haritalar
       uz: Xaritalar
       zh: 地图
   QubitTerm_genre_misc_documents:
@@ -11228,6 +11262,7 @@ QubitNote:
       sr: 'Стваралац архивске грађе'
       sv: Arkivbildare
       th: ผู้ผลิตเอกสาร
+      tr: Yaratıcı
       vi: 'người sáng tạo'
       zh: 创建者
   creationSource:

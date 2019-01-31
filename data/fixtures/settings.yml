@@ -180,6 +180,7 @@ QubitSetting:
       sr: 'Стваралац архивске грађе'
       sv: Arkivbildare
       th: ผู้ผลิตเอกสาร
+      tr: Yaratıcı
       vi: 'người sáng tạo'
       zh: 创建者
   QubitSetting_14:
@@ -445,6 +446,7 @@ QubitSetting:
       sr: Место
       sv: Plats
       th: จัด
+      tr: Mekan
       uz: Joy
       vi: 'địa điểm'
       zh: 地点
@@ -698,6 +700,7 @@ QubitSetting:
       sl: Zvrst
       sr: жанр
       sv: Handlingstyp
+      tr: Tür
       zh: 体裁
   QubitSetting_globalSearch:
     name: globalSearch

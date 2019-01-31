@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2018-09-09T08:13:59Z" product-name="messages">
+  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2019-01-31T15:02:26Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -506,7 +506,7 @@
       </trans-unit>
       <trans-unit id="128">
         <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. To view the last records in the current result set, try changing the sort direction.</source>
-        <target/>
+        <target>Átirányítottuk az eredmények első oldalára. Hogy elkerülje nagy mennyiségű memória fölhasználását, az AtoM limitálja a lapszámozást 10 000 rekordra. Ahhoz, hogy lássa a találati eredményhalmaz utolsó elemét, próbálja megváltoztatni a rendezés irányát.</target>
       </trans-unit>
     </body>
   </file>

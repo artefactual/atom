@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2018-09-09T08:22:23Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2019-01-31T15:02:37Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -479,7 +479,7 @@ de description." (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="140">
         <source>Add new</source>
-        <target/>
+        <target>Ajouter</target>
       </trans-unit>
     </body>
   </file>

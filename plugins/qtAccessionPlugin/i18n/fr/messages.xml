@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2018-09-09T08:22:23Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2019-01-31T15:02:38Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -503,11 +503,11 @@ Il permet de saisir plusieurs entrées et de créer plusieurs contacts en utilis
       </trans-unit>
       <trans-unit id="141">
         <source>Date modified</source>
-        <target/>
+        <target>Date modifiée</target>
       </trans-unit>
       <trans-unit id="142">
         <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. To view the last records in the current result set, try changing the sort direction.</source>
-        <target/>
+        <target>Nous vous avons redirigé sur la première page des résultats. Pour éviter d'utiliser de grandes quantités de mémoire, AtoM limite la pagination à 10'000 enregistrements. Veuillez affiner vos résultats. Pour voir les derniers enregistrements du résultat actuel, essayez de changer l'ordre de tri.</target>
       </trans-unit>
     </body>
   </file>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="id" datatype="plaintext" original="messages" date="2018-09-09T08:15:16Z" product-name="messages">
+  <file source-language="en" target-language="id" datatype="plaintext" original="messages" date="2019-01-31T15:02:40Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Pagination limit reached. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. Please, narrow down your results.</source>
-        <target/>
+        <target>Sudah mencapai batas maksimal halaman. Agar tidak menggunakan jumlah memori yang besar, Aplikasi SIKN membatasi halaman hingga 10.000 rekod. Kurangi jumlah halaman untuk hasil pencarian Anda.</target>
       </trans-unit>
     </body>
   </file>

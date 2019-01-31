@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2018-09-09T08:23:58Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2019-01-31T15:02:38Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -198,7 +198,7 @@ Procure um termo existente na taxonomia &lt;em&gt;Locais&lt;/em&gt; digitando os
       </trans-unit>
       <trans-unit id="954">
         <source>Add new</source>
-        <target/>
+        <target>Adicionar novo</target>
       </trans-unit>
     </body>
   </file>

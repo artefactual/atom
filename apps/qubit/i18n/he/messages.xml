@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2018-09-09T08:23:37Z" original="messages" product-name="messages" source-language="en" target-language="he">
+  <file datatype="plaintext" date="2019-01-31T15:14:34Z" original="messages" product-name="messages" source-language="en" target-language="he">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
@@ -55,10 +55,6 @@
       <trans-unit id="9983e5053a98c4b009392604495e478eaa356381">
         <source>%1% (started: %2%, status: %3%).</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/actions/alertsComponent.class.php</note>
-      </trans-unit>
-      <trans-unit id="4cad7ae1524e5624abbf53ae9c15b5f44a27bb3f">
-        <source>%1% Results for %2%</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/templates/indexSuccess.php</note>
       </trans-unit>
       <trans-unit id="3a384f7678e560bfd3a9f7f13fe54b8a04efedde">
         <source>%1% available</source>
@@ -1415,10 +1411,6 @@
       <trans-unit id="b67fad2e2edf27045555eadaf1e4a848ab242206">
         <source>Fax</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_edit.php</note>
-      </trans-unit>
-      <trans-unit id="683c3c8242be11848752d09c4cf5658ac3952fb0">
-        <source>File %1% could not be moved to %2%</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/actions/uploadAction.class.php</note>
       </trans-unit>
       <trans-unit id="0f230379c9271ada8ac8ebacbde117e640ffb428">
         <source>File %1% could not be thumbnailed</source>
@@ -4154,6 +4146,14 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Select the new date type:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>No entity type specified.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>%1% %2% results for %3%</source>
         <target/>
       </trans-unit>
     </body>
