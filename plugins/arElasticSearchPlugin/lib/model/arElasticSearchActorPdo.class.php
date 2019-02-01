@@ -101,7 +101,10 @@ class arElasticSearchActorPdo
                 slug.slug,
                 object.created_at,
                 object.updated_at,
-                do.media_type_id
+                do.id as digital_object_id,
+                do.media_type_id as media_type_id,
+                do.usage_id as usage_id,
+                do.name as filename
               FROM '.QubitActor::TABLE_NAME.' actor
               JOIN '.QubitSlug::TABLE_NAME.' slug
                 ON actor.id = slug.object_id
@@ -128,6 +131,36 @@ class arElasticSearchActorPdo
     self::$statements['actor']->closeCursor();
 
     return $this;
+  }
+
+  public function getMimeType()
+  {
+    if (!$this->__isset('digital_object_id'))
+    {
+      return;
+    }
+
+    if (null !== $digitalObject = QubitDigitalObject::getById($this->__get('digital_object_id')))
+    {
+      return $digitalObject->getMimeType();
+    }
+  }
+
+  public function getThumbnailPath()
+  {
+    if (!$this->__isset('digital_object_id'))
+    {
+      return;
+    }
+
+    $criteria = new Criteria;
+    $criteria->add(QubitDigitalObject::PARENT_ID, $this->__get('digital_object_id'));
+    $criteria->add(QubitDigitalObject::USAGE_ID, QubitTerm::THUMBNAIL_ID);
+
+    if (null !== $thumbnail = QubitDigitalObject::getOne($criteria))
+    {
+      return $thumbnail->getFullPath();
+    }
   }
 
   protected function getMaintainingRepositoryId()
@@ -259,11 +292,27 @@ class arElasticSearchActorPdo
       $serialized['directSubjects'][] = $item->id;
     }
 
+<<<<<<< HEAD
     // Maintenance notes
     $sql = 'SELECT id, source_culture FROM '.QubitNote::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
     foreach (QubitPdo::fetchAll($sql, array($this->id, QubitTerm::MAINTENANCE_NOTE_ID)) as $item)
     {
       $serialized['maintenanceNotes'][] = arElasticSearchNote::serialize($item);
+=======
+    // Media
+    if ($this->media_type_id)
+    {
+      $serialized['digitalObject']['mediaTypeId'] = $this->media_type_id;
+      $serialized['digitalObject']['usageId'] = $this->usage_id;
+      $serialized['digitalObject']['filename'] = $this->filename;
+      $serialized['digitalObject']['thumbnailPath'] = $this->getThumbnailPath();
+
+      $serialized['hasDigitalObject'] = true;
+    }
+    else
+    {
+      $serialized['hasDigitalObject'] = false;
+>>>>>>> Auth DO update ES Actor indexing, refs #12650
     }
 
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);

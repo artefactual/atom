@@ -356,6 +356,13 @@ mapping:
       direct_subjects: { type: integer, include_in_all: false }
       direct_places: { type: integer, include_in_all: false }
       has_digital_object: { type: boolean, include_in_all: false }
+      digital_object:
+        type: object
+        properties:
+          media_type_id: { type: integer, include_in_all: false }
+          usage_id: { type: integer, include_in_all: false }
+          thumbnail_path: { type: keyword }
+          filename: { type: text }
 
   accession:
     _attributes:
