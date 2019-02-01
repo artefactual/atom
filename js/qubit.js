@@ -17,7 +17,7 @@ window.log = function()
 Drupal.behaviors.expander = {
   attach: function (context)
     {
-      jQuery('div.field:not(:has(div.field)) > div, article.search-result .scope-and-content').each(function (index, element) {
+      jQuery('div.field:not(:has(div.field)) > div, article.search-result .scope-and-content, article.search-result .history').each(function (index, element) {
         var $element = jQuery(element);
         // Don't apply expander to fields with only one child, if that child is a list
         if ($element.children().length !== 1 || !$element.children().first().is('ul')) {

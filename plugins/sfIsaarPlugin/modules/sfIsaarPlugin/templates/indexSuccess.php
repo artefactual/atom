@@ -60,6 +60,10 @@
 
 <?php end_slot() ?>
 
+<?php if (0 < count($resource->digitalObjectsRelatedByobjectId)): ?>
+  <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjectsRelatedByobjectId[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
+<?php endif; ?>
+
 <section id="identityArea">
 
   <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Identity area').'</h2>', array($resource, 'module' => 'actor', 'action' => 'edit'), array('anchor' => 'identityArea', 'title' => __('Edit identity area'))) ?>
@@ -244,6 +248,14 @@
 
 </section> <!-- /section#controlArea -->
 
+<?php if (0 < count($resource->digitalObjectsRelatedByobjectId)): ?>
+
+  <div class="digitalObjectMetadata">
+    <?php echo get_component('digitalobject', 'metadata', array('resource' => $resource->digitalObjectsRelatedByobjectId[0], 'object' => $resource)) ?>
+  </div>
+
+<?php endif; ?>
+
 <?php slot('after-content') ?>
 
   <section class="actions">
@@ -262,6 +274,26 @@
           <li><?php echo link_to(__('Add new'), array('module' => 'actor', 'action' => 'add'), array('class' => 'c-btn', 'title' => __('Add new'))) ?></li>
         <?php endif; ?>
 
+        <?php if (QubitAcl::check($resource, 'update') || sfContext::getInstance()->getUser()->hasGroup(QubitAclGroup::EDITOR_ID)): ?>
+        <li class="divider"></li>
+
+        <li>
+          <div class="btn-group dropup">
+            <a class="c-btn dropdown-toggle" data-toggle="dropdown" href="#">
+              <?php echo __('More') ?>
+              <span class="caret"></span>
+            </a>
+
+            <ul class="dropdown-menu">
+              <?php if (0 < count($resource->digitalObjectsRelatedByobjectId) && QubitDigitalObject::isUploadAllowed()): ?>
+                <li><?php echo link_to(__('Edit %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))), array($resource->digitalObjectsRelatedByobjectId[0], 'module' => 'digitalobject', 'action' => 'edit')) ?></li>
+              <?php elseif (QubitDigitalObject::isUploadAllowed()): ?>
+                <li><?php echo link_to(__('Link %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))), array($resource, 'module' => 'object', 'action' => 'addDigitalObject')) ?></li>
+              <?php endif; // has digital object ?>
+            </ul>
+          </div>
+        </li>
+        <?php endif; // user has update permission ?>
     </ul>
 
   </section>

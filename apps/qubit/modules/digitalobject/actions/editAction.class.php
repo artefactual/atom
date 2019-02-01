@@ -46,13 +46,16 @@ class DigitalObjectEditAction extends sfAction
     // Only display "compound digital object" toggle if we have a child with a
     // digital object
     $this->showCompoundObjectToggle = false;
-    foreach ($this->object->getChildren() as $item)
+    if ($this->object instanceof QubitInformationObject)
     {
-      if (null !== $item->getDigitalObjectRelatedByobjectId())
+      foreach ($this->object->getChildren() as $item)
       {
-        $this->showCompoundObjectToggle = true;
+        if (null !== $item->getDigitalObjectRelatedByobjectId())
+        {
+          $this->showCompoundObjectToggle = true;
 
-        break;
+          break;
+        }
       }
     }
 
@@ -73,6 +76,13 @@ class DigitalObjectEditAction extends sfAction
       {
         $this->form->setDefault('displayAsCompound', $compoundProperty->getValue(array('sourceCulture' => true)));
       }
+    }
+
+    $this->form->setValidator('digitalObjectAltText', new sfValidatorString);
+    $this->form->setWidget('digitalObjectAltText', new sfWidgetFormTextarea);
+    if (null !== $this->digitalObjectAltText = $this->resource->getDigitalObjectAltText())
+    {
+      $this->form->setDefault('digitalObjectAltText', $this->digitalObjectAltText);
     }
 
     $maxUploadSize = QubitDigitalObject::getMaxUploadSize();
@@ -135,7 +145,8 @@ class DigitalObjectEditAction extends sfAction
     $this->object = $this->resource->object;
 
     // Check user authorization
-    if (!QubitAcl::check($this->object, 'update') && !$this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID))
+    if (!QubitAcl::check($this->object, 'update') &&
+      !$this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID))
     {
       QubitAcl::forwardUnauthorized();
     }
@@ -162,7 +173,11 @@ class DigitalObjectEditAction extends sfAction
         $this->processForm();
 
         $this->resource->save();
-        $this->object->updateXmlExports();
+
+        if ($this->object instanceOf QubitInformationObject)
+        {
+          $this->object->updateXmlExports();
+        }
 
         $this->redirect(array($this->object, 'module' => 'informationobject'));
       }
@@ -178,6 +193,8 @@ class DigitalObjectEditAction extends sfAction
   {
     // Set property 'displayAsCompound'
     $this->resource->setDisplayAsCompoundObject($this->form->getValue('displayAsCompound'));
+
+    $this->resource->setDigitalObjectAltText($this->form->getValue('digitalObjectAltText'));
 
     // Update media type
     $this->resource->mediaTypeId = $this->form->getValue('mediaType');

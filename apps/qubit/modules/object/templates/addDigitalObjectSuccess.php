@@ -3,7 +3,12 @@
 <?php slot('title') ?>
   <h1 class="multiline">
     <?php echo __('Link %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))) ?>
-    <span class="sub"><?php echo render_title(new sfIsadPlugin($resource)) ?></span>
+
+    <?php if ($resource instanceof QubitActor): ?>
+      <span class="sub"><?php echo render_title(new sfIsaarPlugin($resource)) ?></span>
+    <?php elseif ($resource instanceof QubitInformationObject): ?>
+      <span class="sub"><?php echo render_title(new sfIsadPlugin($resource)) ?></span>
+    <?php endif; ?>
   </h1>
 <?php end_slot() ?>
 
@@ -20,7 +25,7 @@
 
     <section class="actions">
       <ul>
-        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
+        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => $sf_request->module), array('class' => 'c-btn')) ?></li>
       </ul>
     </section>
 
@@ -32,7 +37,7 @@
 
     <?php echo $form->renderGlobalErrors() ?>
 
-    <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'addDigitalObject')), array('id' => 'uploadForm')) ?>
+    <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'object', 'action' => 'addDigitalObject')), array('id' => 'uploadForm')) ?>
 
       <?php echo $form->renderHiddenFields() ?>
 
@@ -79,7 +84,7 @@
 
       <section class="actions">
         <ul>
-          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
+          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => $sf_request->module), array('class' => 'c-btn')) ?></li>
           <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
         </ul>
       </section>

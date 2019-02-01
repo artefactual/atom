@@ -28,15 +28,17 @@ class DigitalObjectMetadataComponent extends sfComponent
 {
   public function execute($request)
   {
-    $id = $this->infoObj->id;
+    $id = $this->object->id;
     $this->denyFileNameByPremis = false;
 
     // Special case: If all digital object representations are
     // denied by premis, we will hide the filename when displaying
-    // the digital object metadata for security reasons.
+    // the digital object metadata for security reasons. Only check
+    // rights for info obj linked digital objects.
     if (!QubitGrantedRight::checkPremis($id, 'readThumb') &&
         !QubitGrantedRight::checkPremis($id, 'readReference') &&
-        !QubitGrantedRight::checkPremis($id, 'readMaster'))
+        !QubitGrantedRight::checkPremis($id, 'readMaster') &&
+        $this->object instanceOf QubitInformationObject)
     {
       $this->denyFileNameByPremis = true;
     }
@@ -45,11 +47,11 @@ class DigitalObjectMetadataComponent extends sfComponent
     $this->googleMapsApiKey = sfConfig::get('app_google_maps_api_key');
 
     // Provide latitude to template
-    $latitudeProperty = $this->infoObj->digitalObjectsRelatedByobjectId[0]->getPropertyByName('latitude');
+    $latitudeProperty = $this->object->digitalObjectsRelatedByobjectId[0]->getPropertyByName('latitude');
     $this->latitude = $latitudeProperty->value;
 
     // Provide longitude to template
-    $longitudeProperty = $this->infoObj->digitalObjectsRelatedByobjectId[0]->getPropertyByName('longitude');
+    $longitudeProperty = $this->object->digitalObjectsRelatedByobjectId[0]->getPropertyByName('longitude');
     $this->longitude = $longitudeProperty->value;
   }
 }

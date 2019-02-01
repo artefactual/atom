@@ -1167,10 +1167,11 @@ class QubitDigitalObject extends BaseDigitalObject
     // Create child objects (derivatives)
     if (0 < count($this->assets) && $this->createDerivatives)
     {
-      if (sfConfig::get('app_explode_multipage_files') && $this->getPageCount() > 1)
+      if (sfConfig::get('app_explode_multipage_files') && $this->getPageCount() > 1 &&
+        $this->getObject() instanceOf QubitInformationObject)
       {
-        // If DO is a compound object, then create child objects and set to
-        // display as compound object (with pager)
+        // If DO is a compound object and attached to informationObject, then
+        // create child objects and set to display as compound object (with pager)
         $this->createCompoundChildren($connection);
 
         // Set parent digital object to be displayed as compound
@@ -1837,7 +1838,11 @@ class QubitDigitalObject extends BaseDigitalObject
 
       // determine path for current repository
       $repoDir = '';
-      if (null !== ($repo = $object->getRepository(array('inherit' => true))))
+      if ($object instanceof QubitInformationObject && null !== ($repo = $object->getRepository(array('inherit' => true))))
+      {
+        $repoDir = $repo->slug;
+      }
+      else if ($object instanceof QubitActor && null !== ($repo = $object->getMaintainingRepository()))
       {
         $repoDir = $repo->slug;
       }
@@ -3151,7 +3156,7 @@ class QubitDigitalObject extends BaseDigitalObject
    * Setter for "displayAsCompound" property
    *
    * @param string $value new value for property
-   * @return QubitInformationObject this object
+   * @return QubitDigitalObject this object
    */
   public function setDisplayAsCompoundObject($value)
   {
@@ -3188,6 +3193,52 @@ class QubitDigitalObject extends BaseDigitalObject
   }
 
   /**
+   * Setter for "digitalObjectAltText" property
+   *
+   * @param string $value new value for property
+   * @return QubitDigitalObject this object
+   */
+  public function setDigitalObjectAltText($value)
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitProperty::OBJECT_ID, $this->id);
+    $criteria->add(QubitProperty::NAME, 'digitalObjectAltText');
+
+    $digitalObjectAltText = QubitProperty::getOne($criteria);
+    if (is_null($digitalObjectAltText))
+    {
+      $digitalObjectAltText = new QubitProperty;
+      $digitalObjectAltText->setObjectId($this->id);
+      $digitalObjectAltText->setName('digitalObjectAltText');
+    }
+
+    $digitalObjectAltText->setValue($value, array('sourceCulture' => true));
+    $digitalObjectAltText->save();
+
+    return $this;
+  }
+
+  /**
+   * Getter for related "digitalObjectAltText" property. Called during ES indexing
+   * and from DO module templates. Search results thumbs get alt text from ES.
+   *
+   * @return string property value
+   */
+  public function getDigitalObjectAltText()
+  {
+    // This is most likely going to be a derivative so check by parentId first.
+    if (null !== $digitalObjectAltText = QubitProperty::getOneByObjectIdAndName($this->parentId, 'digitalObjectAltText'))
+    {
+      return $digitalObjectAltText->getValue(array('sourceCulture' => true));
+    }
+
+    if (null !== $digitalObjectAltText = QubitProperty::getOneByObjectIdAndName($this->id, 'digitalObjectAltText'))
+    {
+      return $digitalObjectAltText->getValue(array('sourceCulture' => true));
+    }
+  }
+
+  /**
    * Decide whether to show child digital objects as a compound object based
    * on 'displayAsCompound' toggle and available digital objects.
    *
@@ -3212,8 +3263,7 @@ class QubitDigitalObject extends BaseDigitalObject
     // Return false if this object has no children with digital objects
     $criteria = new Criteria;
     $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::OBJECT_ID);
-    $criteria->add(QubitInformationObject::PARENT_ID, $this->ObjectId);
-
+    $criteria->add(QubitInformationObject::PARENT_ID, $this->objectId);
     if (0 === count(QubitDigitalObject::get($criteria)))
     {
       return false;

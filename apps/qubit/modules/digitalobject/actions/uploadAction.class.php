@@ -28,7 +28,7 @@ class DigitalObjectUploadAction extends sfAction
     $uploadFiles = array();
     $warning = null;
 
-    $this->object = QubitInformationObject::getById($request->objectId);
+    $this->object = QubitObject::getById($request->objectId);
 
     if (!isset($this->object))
     {

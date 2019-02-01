@@ -54,19 +54,6 @@ class arElasticSearchActorPdo
     }
 
     $this->loadData($id, $options);
-/*
-    // Get inherited ancestors
-    if (isset($options['ancestors']))
-    {
-      $this->ancestors = $options['ancestors'];
-    }
-
-    // Get inherited repository, unless a repository is set at current level
-    if (isset($options['repository']) && !$this->__isset('repository_id'))
-    {
-      $this->repository = $options['repository'];
-    }
-*/
   }
 
   public function __isset($name)
@@ -101,7 +88,10 @@ class arElasticSearchActorPdo
                 slug.slug,
                 object.created_at,
                 object.updated_at,
-                do.media_type_id
+                do.id as digital_object_id,
+                do.media_type_id as media_type_id,
+                do.usage_id as usage_id,
+                do.name as filename
               FROM '.QubitActor::TABLE_NAME.' actor
               JOIN '.QubitSlug::TABLE_NAME.' slug
                 ON actor.id = slug.object_id
@@ -128,6 +118,52 @@ class arElasticSearchActorPdo
     self::$statements['actor']->closeCursor();
 
     return $this;
+  }
+
+  public function getMimeType()
+  {
+    if (!$this->__isset('digital_object_id'))
+    {
+      return;
+    }
+
+    if (null !== $digitalObject = QubitDigitalObject::getById($this->__get('digital_object_id')))
+    {
+      return $digitalObject->getMimeType();
+    }
+  }
+
+  public function getThumbnailPath()
+  {
+    if (!$this->__isset('digital_object_id'))
+    {
+      return;
+    }
+
+    $criteria = new Criteria;
+    $criteria->add(QubitDigitalObject::PARENT_ID, $this->__get('digital_object_id'));
+    $criteria->add(QubitDigitalObject::USAGE_ID, QubitTerm::THUMBNAIL_ID);
+
+    if (null !== $thumbnail = QubitDigitalObject::getOne($criteria))
+    {
+      return $thumbnail->getFullPath();
+    }
+  }
+
+  public function getDigitalObjectAltText()
+  {
+    if (!$this->__isset('digital_object_id'))
+    {
+      return;
+    }
+
+    $criteria = new Criteria;
+    $criteria->add(QubitDigitalObject::PARENT_ID, $this->__get('digital_object_id'));
+
+    if (null !== $do = QubitDigitalObject::getOne($criteria))
+    {
+      return $do->getDigitalObjectAltText();
+    }
   }
 
   protected function getMaintainingRepositoryId()
@@ -266,6 +302,22 @@ class arElasticSearchActorPdo
       $serialized['maintenanceNotes'][] = arElasticSearchNote::serialize($item);
     }
 
+    // Media
+    if ($this->media_type_id)
+    {
+      $serialized['digitalObject']['mediaTypeId'] = $this->media_type_id;
+      $serialized['digitalObject']['usageId'] = $this->usage_id;
+      $serialized['digitalObject']['filename'] = $this->filename;
+      $serialized['digitalObject']['thumbnailPath'] = $this->getThumbnailPath();
+      $serialized['digitalObject']['digitalObjectAltText'] = $this->getDigitalObjectAltText();
+
+      $serialized['hasDigitalObject'] = true;
+    }
+    else
+    {
+      $serialized['hasDigitalObject'] = false;
+    }
+
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);
     $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($this->updated_at);
 
@@ -321,5 +373,19 @@ class arElasticSearchActorPdo
     self::$statements['relatedTerms']->execute(array($this->__get('id'), $typeId));
 
     return self::$statements['relatedTerms']->fetchAll(PDO::FETCH_OBJ);
+  }
+
+  protected function getProperty($name)
+  {
+    $sql  = 'SELECT
+                prop.id, prop.source_culture';
+    $sql .= ' FROM '.QubitProperty::TABLE_NAME.' prop';
+    $sql .= ' WHERE prop.object_id = ?
+                AND prop.name = ?';
+
+    self::$statements['property'] = self::$conn->prepare($sql);
+    self::$statements['property']->execute(array($this->__get('id'), $name));
+
+    return self::$statements['property']->fetch(PDO::FETCH_OBJ);
   }
 }

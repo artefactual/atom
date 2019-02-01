@@ -1,13 +1,13 @@
 <?php use_helper('Text') ?>
 
 <?php $doc = $hit->getData() ?>
-<?php if (isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject']): ?>
+<?php if (!empty($doc['hasDigitalObject'])): ?>
   <article class="search-result has-preview">
 <?php else: ?>
   <article class="search-result">
 <?php endif; ?>
 
-  <?php if (isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject']): ?>
+  <?php if (!empty($doc['hasDigitalObject'])): ?>
     <div class="search-result-preview">
       <a href="<?php echo url_for(array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>">
         <div class="preview-container">
@@ -15,10 +15,10 @@
                     QubitAcl::check(QubitInformationObject::getById($hit->getId()), 'readThumbnail') &&
                     QubitGrantedRight::checkPremis($hit->getId(), 'readThumb')): ?>
             <?php echo image_tag($doc['digitalObject']['thumbnailPath'],
-              array('alt' => truncate_text(strip_markdown(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))), 100))) ?>
+              array('alt' => isset($doc['digitalObject']['digitalObjectAltText']) ? $doc['digitalObject']['digitalObjectAltText'] : truncate_text(strip_markdown(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))), 100))) ?>
           <?php else: ?>
             <?php echo image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId']),
-              array('alt' => truncate_text(strip_markdown(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))), 100))) ?>
+              array('alt' => isset($doc['digitalObject']['digitalObjectAltText']) ? $doc['digitalObject']['digitalObjectAltText'] : truncate_text(strip_markdown(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))), 100))) ?>
           <?php endif; ?>
         </div>
       </a>

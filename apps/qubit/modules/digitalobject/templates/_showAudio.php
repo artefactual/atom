@@ -18,14 +18,14 @@
 
   <?php if ($iconOnly): ?>
 
-    <?php echo link_to(image_tag('play', array('alt' => __('Open original %1%', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))), $link) ?>
+    <?php echo link_to(image_tag('play', array('alt' => __($resource->getDigitalObjectAltText() ?: 'Open original %1%', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))), $link) ?>
 
   <?php else: ?>
 
     <div class="resource">
 
       <div class="resourceRep">
-        <?php echo link_to(image_tag('play', array('alt' => __('Open original %1%', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))), $link) ?>
+        <?php echo link_to(image_tag('play', array('alt' => __($resource->getDigitalObjectAltText() ?: 'Open original %1%', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))), $link) ?>
       </div>
 
       <div class="resourceDesc">
@@ -40,7 +40,7 @@
 
   <div class="resource">
 
-    <?php echo image_tag('play', array('alt' => __('Original %1% not accessible', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))) ?>
+    <?php echo image_tag('play', array('alt' => __($resource->getDigitalObjectAltText() ?: 'Original %1% not accessible', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))) ?>
 
   </div>
 

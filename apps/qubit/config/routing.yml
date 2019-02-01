@@ -46,12 +46,16 @@ add:
 
 # -------------------------------------------------------- </QubitMetadataRoute>
 
+slug/default:
+  url: /:slug/:module/:action
+  class: QubitResourceRoute
+
 informationobject/action:
   url: /:slug/:action
   class: QubitResourceRoute
   param:
     module: informationobject
-    action: { pattern: 'addDigitalObject|fileList|multiFileUpload|rename|reports|slugPreview|modifications|calculateDates' }
+    action: { pattern: 'fileList|multiFileUpload|rename|reports|slugPreview|modifications|calculateDates' }
 
 oai:
   url: /;oai

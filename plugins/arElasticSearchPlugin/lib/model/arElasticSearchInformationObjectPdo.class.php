@@ -777,6 +777,22 @@ class arElasticSearchInformationObjectPdo
     }
   }
 
+  public function getDigitalObjectAltText()
+  {
+    if (!$this->__isset('digital_object_id'))
+    {
+      return;
+    }
+
+    $criteria = new Criteria;
+    $criteria->add(QubitDigitalObject::PARENT_ID, $this->__get('digital_object_id'));
+
+    if (null !== $do = QubitDigitalObject::getOne($criteria))
+    {
+      return $do->getDigitalObjectAltText();
+    }
+  }
+
   public function getMaterialTypeId()
   {
     return $this->getObjectTermRelations('materialType', QubitTaxonomy::MATERIAL_TYPE_ID);
@@ -1193,6 +1209,7 @@ class arElasticSearchInformationObjectPdo
       $serialized['digitalObject']['usageId'] = $this->usage_id;
       $serialized['digitalObject']['filename'] = $this->filename;
       $serialized['digitalObject']['thumbnailPath'] = $this->getThumbnailPath();
+      $serialized['digitalObject']['digitalObjectAltText'] = $this->getDigitalObjectAltText();
 
       $serialized['hasDigitalObject'] = true;
     }

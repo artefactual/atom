@@ -24,7 +24,7 @@
  * @subpackage digital object
  * @author     david juhasz <david@artefactual.com>
  */
-class InformationObjectAddDigitalObjectAction extends sfAction
+class ObjectAddDigitalObjectAction extends sfAction
 {
   protected function addFields($request)
   {
@@ -54,7 +54,14 @@ class InformationObjectAddDigitalObjectAction extends sfAction
     $this->resource = $this->getRoute()->resource;
 
     // Get repository to test upload limits
-    $this->repository = $this->resource->getRepository(array('inherit' => true));
+    if ($this->resource instanceOf QubitInformationObject)
+    {
+      $this->repository = $this->resource->getRepository(array('inherit' => true));
+    }
+    else if ($this->resource instanceof QubitActor)
+    {
+      $this->repository = $this->resource->getMaintainingRepository();
+    }
 
     // Check that object exists and that it is not the root
     if (!isset($this->resource) || !isset($this->resource->parent))
@@ -92,9 +99,12 @@ class InformationObjectAddDigitalObjectAction extends sfAction
         $this->processForm();
 
         $this->resource->save();
-        $this->resource->updateXmlExports();
 
-        $this->redirect(array($this->resource, 'module' => 'informationobject'));
+        if ($this->resource instanceOf QubitInformationObject)
+        {
+          $this->resource->updateXmlExports();
+        }
+        $this->redirect(array($this->resource, 'module' => 'object'));
       }
     }
   }
@@ -113,7 +123,6 @@ class InformationObjectAddDigitalObjectAction extends sfAction
     {
       $name = $this->form->getValue('file')->getOriginalName();
       $content = file_get_contents($this->form->getValue('file')->getTempName());
-
       $digitalObject->assets[] = new QubitAsset($name, $content);
       $digitalObject->usageId = QubitTerm::MASTER_ID;
     }
