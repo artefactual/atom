@@ -18,7 +18,11 @@
  */
 
 /*
- * Add new term to the levels of description taxonomy
+ * Change Digital Object fk relationship.
+ *
+ * Historically, digital objects were related to the information object table
+ * directly. This change alters the FK relationship such that DO's can be
+ * linked to any object type via fk linking to the object table.
  *
  * @package    AccesstoMemory
  * @subpackage migration
