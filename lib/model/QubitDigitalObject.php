@@ -1837,7 +1837,11 @@ class QubitDigitalObject extends BaseDigitalObject
 
       // determine path for current repository
       $repoDir = '';
-      if (null !== ($repo = $object->getRepository(array('inherit' => true))))
+      if ($object instanceof QubitInformationObject && null !== ($repo = $object->getRepository(array('inherit' => true))))
+      {
+        $repoDir = $repo->slug;
+      }
+      else if ($object instanceof QubitActor && null !== ($repo = $object->getMaintainingRepository()))
       {
         $repoDir = $repo->slug;
       }
