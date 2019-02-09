@@ -43,7 +43,7 @@
     <?php echo render_show(__('Uploaded'), format_date($resource->createdAt, 'f'), array('fieldLabel' => 'uploaded')) ?>
   <?php endif; ?>
 
-  <?php if ($sf_user->isAuthenticated()): ?>
+  <?php if ($sf_user->isAuthenticated() && $resource->object instanceOf QubitInformationObject): ?>
     <?php echo render_show(__('Object UUID'), render_value($resource->object->objectUUID), array('fieldLabel' => 'objectUUID')) ?>
     <?php echo render_show(__('AIP UUID'), render_value($resource->object->aipUUID), array('fieldLabel' => 'aipUUID')) ?>
     <?php echo render_show(__('Format name'), render_value($resource->object->formatName), array('fieldLabel' => 'formatName')) ?>

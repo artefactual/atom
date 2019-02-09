@@ -248,6 +248,14 @@
 
 </section> <!-- /section#controlArea -->
 
+<?php if (0 < count($resource->digitalObjectsRelatedByobjectId)): ?>
+
+  <div class="digitalObjectMetadata">
+    <?php echo get_component('digitalobject', 'metadata', array('resource' => $resource->digitalObjectsRelatedByobjectId[0], 'object' => $resource)) ?>
+  </div>
+
+<?php endif; ?>
+
 <?php slot('after-content') ?>
 
   <section class="actions">
