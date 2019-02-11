@@ -58,6 +58,11 @@ class ObjectAddDigitalObjectAction extends sfAction
     {
       $this->repository = $this->resource->getRepository(array('inherit' => true));
     }
+    else if ($this->resource instanceof QubitActor)
+    {
+      $this->repository = $this->resource->getMaintainingRepository();
+    }
+
     // Check that object exists and that it is not the root
     if (!isset($this->resource) || !isset($this->resource->parent))
     {
