@@ -41,7 +41,11 @@ class DigitalObjectShowComponent extends sfComponent
       $this->usageType = QubitTerm::THUMBNAIL_ID;
     }
 
-    if (QubitTerm::MASTER_ID == $this->usageType && !QubitAcl::check($this->resource->object, 'readMaster'))
+    if ((QubitTerm::MASTER_ID == $this->usageType &&
+      !QubitAcl::check($this->resource->object, 'readMaster') &&
+      $this->resource->object instanceOf QubitInformationObject) ||
+      $this->resource->object instanceOf QubitActor &&
+      !QubitAcl::check($this->resource->object, 'read'))
     {
       return sfView::NONE;
     }
@@ -77,15 +81,20 @@ class DigitalObjectShowComponent extends sfComponent
   private function checkShowGenericIcon()
   {
     $curUser = sfContext::getInstance()->getUser();
-    $curInfoObjectId = $this->resource->object->id;
+    $curObjectId = $this->resource->object->id;
+
+    if ($this->resource->object instanceOf QubitActor)
+    {
+      return !QubitAcl::check($this->resource->object, 'read');
+    }
 
     switch ($this->usageType)
     {
       case QubitTerm::REFERENCE_ID:
         // Non-authenticated user: check against PREMIS rules.
-        if (!$curUser->isAuthenticated() && QubitGrantedRight::hasGrantedRights($curInfoObjectId))
+        if (!$curUser->isAuthenticated() && QubitGrantedRight::hasGrantedRights($curObjectId))
         {
-          return !QubitGrantedRight::checkPremis($curInfoObjectId, 'readReference');
+          return !QubitGrantedRight::checkPremis($curObjectId, 'readReference');
         }
 
         // Authenticated, check regular ACL rules...
@@ -102,10 +111,15 @@ class DigitalObjectShowComponent extends sfComponent
    */
   private function getAccessWarning()
   {
-    $curInfoObjectId = $this->resource->object->id;
+    $curObjectId = $this->resource->object->id;
     $denyReason = '';
 
-    if (!QubitGrantedRight::checkPremis($curInfoObjectId, 'readReference', $denyReason) ||
+    if ($this->resource->object instanceOf QubitActor)
+    {
+      return false;
+    }
+
+    if (!QubitGrantedRight::checkPremis($curObjectId, 'readReference', $denyReason) ||
         !QubitAcl::check($this->resource->object, 'readReference'))
     {
       return $denyReason;
@@ -121,7 +135,7 @@ class DigitalObjectShowComponent extends sfComponent
     {
       case QubitTerm::IMAGE_ID:
 
-        if ($this->resource->showAsCompoundDigitalObject())
+        if ($this->resource->showAsCompoundDigitalObject() && $this->resource->object instanceOf QubitInformationObject)
         {
           $this->showComponent = 'showCompound';
         }
@@ -148,7 +162,7 @@ class DigitalObjectShowComponent extends sfComponent
 
       case QubitTerm::TEXT_ID:
 
-        if ($this->resource->showAsCompoundDigitalObject())
+        if ($this->resource->showAsCompoundDigitalObject() && $this->resource->object instanceOf QubitInformationObject)
         {
           $this->showComponent = 'showCompound';
         }

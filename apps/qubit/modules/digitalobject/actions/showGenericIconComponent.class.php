@@ -35,6 +35,15 @@ class DigitalObjectShowGenericIconComponent extends sfComponent
   public function execute($request)
   {
     $this->representation = QubitDigitalObject::getGenericRepresentation($this->resource->mimeType, $this->resource->usageId);
-    $this->canReadMaster = QubitAcl::check($this->resource->object, 'readMaster');
+
+    if ($this->resource->object instanceOf QubitInformationObject)
+    {
+      $this->canReadMaster = QubitAcl::check($this->resource->object, 'readMaster');
+    }
+    else if ($this->resource->object instanceOf QubitActor &&
+      $this->context->user->isAuthenticated())
+    {
+      $this->canReadMaster = QubitAcl::check($this->resource->object, 'read');;
+    }
   }
 }

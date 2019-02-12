@@ -32,8 +32,7 @@ class DigitalObjectDeleteAction extends sfAction
 
     $this->resource = $this->getRoute()->resource;
 
-    // Get related information object by first grabbing top-level digital
-    // object
+    // Get related object by first grabbing top-level digital object
     $parent = $this->resource->parent;
     if (isset($parent))
     {
@@ -59,16 +58,27 @@ class DigitalObjectDeleteAction extends sfAction
       // Delete the digital object record from the database
       $this->resource->delete();
       QubitSearch::getInstance()->update($this->object);
-      $this->object->updateXmlExports();
 
-      // Redirect to edit page for parent Info Object
+      if ($this->object instanceOf QubitInformationObject)
+      {
+        $this->object->updateXmlExports();
+      }
+
+      // Redirect to edit page for parent Object
       if (isset($parent))
       {
         $this->redirect(array($parent, 'module' => 'digitalobject', 'action' => 'edit'));
       }
       else
       {
-        $this->redirect(array($this->object, 'module' => 'informationobject'));
+        if ($this->object instanceOf QubitInformationObject)
+        {
+          $this->redirect(array($this->object, 'module' => 'informationobject'));
+        }
+        else if ($this->object instanceOf QubitActor)
+        {
+          $this->redirect(array($this->object, 'module' => 'actor'));
+        }
       }
     }
   }

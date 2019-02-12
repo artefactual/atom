@@ -2,7 +2,11 @@
 
 <section>
 
-  <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('%1% metadata', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))).'</h2>', array($resource, 'module' => 'digitalobject', 'action' => 'edit'), array('title' => __('Edit %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))))) ?>
+  <?php if ($resource->object instanceOf QubitInformationObject): ?>
+    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationobject'), '<h2>'.__('%1% metadata', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))).'</h2>', array($resource, 'module' => 'digitalobject', 'action' => 'edit'), array('title' => __('Edit %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))))) ?>
+  <?php elseif ($resource->object instanceOf QubitActor): ?>
+    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'actor'), '<h2>'.__('%1% metadata', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))).'</h2>', array($resource, 'module' => 'digitalobject', 'action' => 'edit'), array('title' => __('Edit %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))))) ?>
+  <?php endif; ?>
 
   <?php if (sfConfig::get('app_toggleDigitalObjectMap') && is_numeric($latitude) && is_numeric($longitude) && $googleMapsApiKey): ?>
     <div id="front-map" class="simple-map" data-key="<?php echo $googleMapsApiKey ?>" data-latitude="<?php echo $latitude ?>" data-longitude="<?php echo $longitude ?>"></div>

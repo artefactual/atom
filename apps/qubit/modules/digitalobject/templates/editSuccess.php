@@ -3,7 +3,12 @@
 <?php slot('title') ?>
   <h1 class="multiline">
     <?php echo __('Edit %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))) ?>
-    <span class="sub"><?php echo render_title(QubitInformationObject::getStandardsBasedInstance($informationObject)) ?></span>
+
+    <?php if ($resource->object instanceOf QubitInformationObject): ?>
+      <span class="sub"><?php echo render_title(QubitInformationObject::getStandardsBasedInstance($informationObject)) ?></span>
+    <?php elseif ($resource->object instanceOf QubitActor): ?>
+      <span class="sub"><?php echo render_title($object) ?></span>
+    <?php endif; ?>
   </h1>
 <?php end_slot() ?>
 
@@ -80,7 +85,7 @@
         <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
           <li><?php echo link_to(__('Delete'), array($resource, 'module' => 'digitalobject', 'action' => 'delete'), array('class' => 'c-btn c-btn-delete')) ?></li>
         <?php endif; ?>
-        <li><?php echo link_to(__('Cancel'), array($informationObject, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
+        <li><?php echo link_to(__('Cancel'), array($object, 'module' => $sf_request->module), array('class' => 'c-btn')) ?></li>
         <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
       </ul>
     </section>
