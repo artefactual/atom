@@ -45,6 +45,9 @@
 
     </ul>
 
+    <?php if (null !== $history = get_search_i18n($doc, 'history', array('culture' => $culture))): ?>
+      <div class="history"><?php echo render_value($history) ?></div>
+    <?php endif; ?>
   </div>
 
 </article>
