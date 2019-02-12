@@ -1,6 +1,27 @@
 <?php use_helper('Text') ?>
 
-<article class="search-result">
+<?php if (isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject']): ?>
+  <article class="search-result has-preview">
+<?php else: ?>
+  <article class="search-result">
+<?php endif; ?>
+
+  <?php if (isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject']): ?>
+    <div class="search-result-preview">
+      <a href="<?php echo url_for(array('module' => 'actor', 'slug' => $doc['slug'])) ?>">
+        <div class="preview-container">
+          <?php if (isset($doc['digitalObject']['thumbnailPath'])): ?>
+            <?php echo image_tag($doc['digitalObject']['thumbnailPath'],
+              array('alt' => truncate_text(strip_markdown(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))), 100))) ?>
+          <?php else: ?>
+            <?php echo image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId']),
+              array('alt' => truncate_text(strip_markdown(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))), 100))) ?>
+          <?php endif; ?>
+        </div>
+      </a>
+    </div>
+  <?php endif; ?>
+
 
   <div class="search-result-description">
 
