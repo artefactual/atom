@@ -1167,10 +1167,11 @@ class QubitDigitalObject extends BaseDigitalObject
     // Create child objects (derivatives)
     if (0 < count($this->assets) && $this->createDerivatives)
     {
-      if (sfConfig::get('app_explode_multipage_files') && $this->getPageCount() > 1)
+      if (sfConfig::get('app_explode_multipage_files') && $this->getPageCount() > 1 &&
+        $this->getObject() instanceOf QubitInformationObject)
       {
-        // If DO is a compound object, then create child objects and set to
-        // display as compound object (with pager)
+        // If DO is a compound object and attached to informationObject, then
+        // create child objects and set to display as compound object (with pager)
         $this->createCompoundChildren($connection);
 
         // Set parent digital object to be displayed as compound
@@ -3216,8 +3217,7 @@ class QubitDigitalObject extends BaseDigitalObject
     // Return false if this object has no children with digital objects
     $criteria = new Criteria;
     $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::OBJECT_ID);
-    $criteria->add(QubitInformationObject::PARENT_ID, $this->ObjectId);
-
+    $criteria->add(QubitInformationObject::PARENT_ID, $this->objectId);
     if (0 === count(QubitDigitalObject::get($criteria)))
     {
       return false;

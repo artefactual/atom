@@ -141,6 +141,19 @@ class QubitActor extends BaseActor
       $this->parentId = QubitRepository::ROOT_ID;
     }
 
+    // Save new digital objects
+    // TODO Allow adding additional digital objects as derivatives
+    foreach ($this->digitalObjectsRelatedByobjectId as $item)
+    {
+      $item->indexOnSave = false;
+
+      // TODO Needed if $this is new, should be transparent
+      $item->object = $this;
+      $item->save($connection);
+
+      break; // Save only one digital object per information object
+    }
+
     parent::save($connection);
 
     $creationIoIds = $otherIoIds = array();
@@ -226,6 +239,14 @@ class QubitActor extends BaseActor
 
   public function delete($connection = null)
   {
+    // Delete related digitalObjects
+    foreach ($this->digitalObjectsRelatedByobjectId as $digitalObject)
+    {
+      // Set IO to null to avoid ES document update
+      $digitalObject->objectId = null;
+      $digitalObject->delete();
+    }
+
     foreach ($this->events as $item)
     {
       if (isset($item->object) && isset($item->type))
@@ -647,5 +668,136 @@ class QubitActor extends BaseActor
     $relation->term = $term;
 
     return $relation;
+  }
+
+  /****************
+   Import methods
+  *****************/
+  /**
+   * Wrapper for QubitDigitalObject::importFromUri() method
+   *
+   * @param array $uris URIs of remote files
+   * @return QubitActor $this
+   *
+   * @TODO allow for different usage types
+   */
+  public function importDigitalObjectFromUri($uris, &$errors)
+  {
+    if (is_array($uris) && 1 < count($uris))
+    {
+      // Get publication status from current object
+      $pubStatus = null;
+      if (isset($this->statuss) && 0 < count($this->statuss))
+      {
+        foreach ($this->statuss as $status)
+        {
+          if (QubitTerm::STATUS_TYPE_PUBLICATION_ID == $status->typeId)
+          {
+            $pubStatus = $status->statusId;
+            break;
+          }
+        }
+      }
+
+      foreach ($uris as $uri)
+      {
+        $actor = new QubitActor;
+
+        $digitalObject = new QubitDigitalObject;
+        $digitalObject->usageId = QubitTerm::MASTER_ID;
+
+        try
+        {
+          $digitalObject->importFromUri($uri);
+        }
+        catch (sfException $e)
+        {
+          $errors[] = sfContext::getInstance()->i18n->__('Encountered error fetching external resource: '.$uri);
+          continue;
+        }
+
+        $actor->digitalObjectsRelatedByobjectId[] = $digitalObject;
+        $actor->title = $digitalObject->name;
+
+        $this->informationObjectsRelatedByparentId[] = $infoObject;
+      }
+    }
+    else
+    {
+      $digitalObject = new QubitDigitalObject;
+      $digitalObject->usageId = QubitTerm::MASTER_ID;
+
+      if (is_array($uris))
+      {
+        $uris = array_shift($uris);
+      }
+
+      try
+      {
+        $digitalObject->importFromUri($uris);
+        $this->digitalObjectsRelatedByobjectId[] = $digitalObject;
+      }
+      catch (sfException $e)
+      {
+        $errors[] = sfContext::getInstance()->i18n->__('Encountered error fetching external resource: '.$uris);
+      }
+    }
+
+    return $this;
+  }
+
+  /**
+   * Wrapper for QubitDigitalObject::importFromBase64() method
+   *
+   * @param string $encodedString base-64 encoded data
+   * @param string $filename name of destination file
+   * @return QubitActor $this
+   *
+   * @TODO allow for different usage types
+   */
+  public function importDigitalObjectFromBase64($encodedString, $filename)
+  {
+    $digitalObject = new QubitDigitalObject;
+    $digitalObject->usageId = QubitTerm::MASTER_ID;
+    $digitalObject->importFromBase64($encodedString, $filename);
+
+    $this->digitalObjectsRelatedByobjectId[] = $digitalObject;
+  }
+
+  /**
+   * Return the absolute link to the digital object master unless the user has
+   * no permission (readMaster). Text objects are always allowed for reading.
+   *
+   * @return string Absolute link to the digital object master
+   */
+  public function getDigitalObjectLink()
+  {
+    if (count($this->digitalObjectsRelatedByobjectId) <= 0)
+    {
+      return;
+    }
+
+    $digitalObject = $this->digitalObjectsRelatedByobjectId[0];
+    if (QubitTerm::OFFLINE_ID == $digitalObject->usageId)
+    {
+      return;
+    }
+
+    $isText = in_array($digitalObject->mediaTypeId, array(QubitTerm::TEXT_ID));
+
+    $hasReadMaster = sfContext::getInstance()->user->isAuthenticated();
+    if ($hasReadMaster || $isText)
+    {
+      if (QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId)
+      {
+        return $digitalObject->path;
+      }
+      else
+      {
+        $request = sfContext::getInstance()->getRequest();
+        return $request->getUriPrefix().$request->getRelativeUrlRoot().
+          $digitalObject->getFullPath();
+      }
+    }
   }
 }
