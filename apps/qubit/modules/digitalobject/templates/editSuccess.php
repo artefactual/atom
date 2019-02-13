@@ -5,7 +5,7 @@
     <?php echo __('Edit %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))) ?>
 
     <?php if ($resource->object instanceOf QubitInformationObject): ?>
-      <span class="sub"><?php echo render_title(QubitInformationObject::getStandardsBasedInstance($informationObject)) ?></span>
+      <span class="sub"><?php echo render_title(QubitInformationObject::getStandardsBasedInstance($object)) ?></span>
     <?php elseif ($resource->object instanceOf QubitActor): ?>
       <span class="sub"><?php echo render_title($object) ?></span>
     <?php endif; ?>
@@ -37,6 +37,8 @@
         <?php echo render_show(__('Filesize'), hr_filesize($resource->byteSize)) ?>
 
         <?php echo $form->mediaType->renderRow() ?>
+
+        <?php echo $form->digitalObjectAltText->label(__('Alt text'))->renderRow() ?>
 
         <?php if ($showCompoundObjectToggle): ?>
           <?php echo $form->displayAsCompound

@@ -78,6 +78,13 @@ class DigitalObjectEditAction extends sfAction
       }
     }
 
+    $this->form->setValidator('digitalObjectAltText', new sfValidatorString);
+    $this->form->setWidget('digitalObjectAltText', new sfWidgetFormTextarea);
+    if (null !== $this->digitalObjectAltText = $this->resource->getDigitalObjectAltText())
+    {
+      $this->form->setDefault('digitalObjectAltText', $this->digitalObjectAltText);
+    }
+
     $maxUploadSize = QubitDigitalObject::getMaxUploadSize();
 
     ProjectConfiguration::getActive()->loadHelpers('Qubit');
@@ -137,15 +144,6 @@ class DigitalObjectEditAction extends sfAction
 
     $this->object = $this->resource->object;
 
-
-/*
-if (($this->object instanceOf QubitInformationObject) &&
-  !QubitAcl::check($this->object, 'update') &&
-  !$this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID) ||
-  ($this->object instanceOf QubitActor &&
-  //!$this->context->user->isAdministrator()))
-  !QubitAcl::check($this->object, 'update')))
-*/
     // Check user authorization
     if (!QubitAcl::check($this->object, 'update') &&
       !$this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID))
@@ -195,6 +193,8 @@ if (($this->object instanceOf QubitInformationObject) &&
   {
     // Set property 'displayAsCompound'
     $this->resource->setDisplayAsCompoundObject($this->form->getValue('displayAsCompound'));
+
+    $this->resource->setDigitalObjectAltText($this->form->getValue('digitalObjectAltText'));
 
     // Update media type
     $this->resource->mediaTypeId = $this->form->getValue('mediaType');
