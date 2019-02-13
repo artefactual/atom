@@ -363,6 +363,7 @@ mapping:
           usage_id: { type: integer, include_in_all: false }
           thumbnail_path: { type: keyword }
           filename: { type: text }
+          digital_object_alt_text: { type: text }
 
   accession:
     _attributes:
@@ -513,6 +514,7 @@ mapping:
           usage_id: { type: integer, include_in_all: false }
           thumbnail_path: { type: keyword }
           filename: { type: text }
+          digital_object_alt_text: { type: text }
       alternative_identifiers:
         type: object
         properties:

@@ -163,6 +163,22 @@ class arElasticSearchActorPdo
     }
   }
 
+  public function getDigitalObjectAltText()
+  {
+    if (!$this->__isset('digital_object_id'))
+    {
+      return;
+    }
+
+    $criteria = new Criteria;
+    $criteria->add(QubitDigitalObject::PARENT_ID, $this->__get('digital_object_id'));
+
+    if (null !== $do = QubitDigitalObject::getOne($criteria))
+    {
+      return $do->getDigitalObjectAltText();
+    }
+  }
+
   protected function getMaintainingRepositoryId()
   {
     if (!isset(self::$statements['maintainingRepository']))
@@ -306,6 +322,7 @@ class arElasticSearchActorPdo
       $serialized['digitalObject']['usageId'] = $this->usage_id;
       $serialized['digitalObject']['filename'] = $this->filename;
       $serialized['digitalObject']['thumbnailPath'] = $this->getThumbnailPath();
+      $serialized['digitalObject']['digitalObjectAltText'] = $this->getDigitalObjectAltText();
 
       $serialized['hasDigitalObject'] = true;
     }
@@ -370,5 +387,19 @@ class arElasticSearchActorPdo
     self::$statements['relatedTerms']->execute(array($this->__get('id'), $typeId));
 
     return self::$statements['relatedTerms']->fetchAll(PDO::FETCH_OBJ);
+  }
+
+  protected function getProperty($name)
+  {
+    $sql  = 'SELECT
+                prop.id, prop.source_culture';
+    $sql .= ' FROM '.QubitProperty::TABLE_NAME.' prop';
+    $sql .= ' WHERE prop.object_id = ?
+                AND prop.name = ?';
+
+    self::$statements['property'] = self::$conn->prepare($sql);
+    self::$statements['property']->execute(array($this->__get('id'), $name));
+
+    return self::$statements['property']->fetch(PDO::FETCH_OBJ);
   }
 }
