@@ -3156,7 +3156,7 @@ class QubitDigitalObject extends BaseDigitalObject
    * Setter for "displayAsCompound" property
    *
    * @param string $value new value for property
-   * @return QubitInformationObject this object
+   * @return QubitDigitalObject this object
    */
   public function setDisplayAsCompoundObject($value)
   {
@@ -3189,6 +3189,52 @@ class QubitDigitalObject extends BaseDigitalObject
     if (null !== $displayAsCompoundProp)
     {
       return $displayAsCompoundProp->getValue(array('sourceCulture' => true));
+    }
+  }
+
+  /**
+   * Setter for "digitalObjectAltText" property
+   *
+   * @param string $value new value for property
+   * @return QubitDigitalObject this object
+   */
+  public function setDigitalObjectAltText($value)
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitProperty::OBJECT_ID, $this->id);
+    $criteria->add(QubitProperty::NAME, 'digitalObjectAltText');
+
+    $digitalObjectAltText = QubitProperty::getOne($criteria);
+    if (is_null($digitalObjectAltText))
+    {
+      $digitalObjectAltText = new QubitProperty;
+      $digitalObjectAltText->setObjectId($this->id);
+      $digitalObjectAltText->setName('digitalObjectAltText');
+    }
+
+    $digitalObjectAltText->setValue($value, array('sourceCulture' => true));
+    $digitalObjectAltText->save();
+
+    return $this;
+  }
+
+  /**
+   * Getter for related "digitalObjectAltText" property. Called during ES indexing
+   * and from DO module templates. Search results thumbs get alt text from ES.
+   *
+   * @return string property value
+   */
+  public function getDigitalObjectAltText()
+  {
+    // This is most likely going to be a derivative so check by parentId first.
+    if (null !== $digitalObjectAltText = QubitProperty::getOneByObjectIdAndName($this->parentId, 'digitalObjectAltText'))
+    {
+      return $digitalObjectAltText->getValue(array('sourceCulture' => true));
+    }
+
+    if (null !== $digitalObjectAltText = QubitProperty::getOneByObjectIdAndName($this->id, 'digitalObjectAltText'))
+    {
+      return $digitalObjectAltText->getValue(array('sourceCulture' => true));
     }
   }
 
