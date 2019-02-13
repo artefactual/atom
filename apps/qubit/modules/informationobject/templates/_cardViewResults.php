@@ -18,13 +18,13 @@
           && QubitGrantedRight::checkPremis($hit->getId(), 'readThumb')): ?>
 
           <?php echo link_to(image_tag($doc['digitalObject']['thumbnailPath'],
-            array('alt' => truncate_text(strip_markdown($title), 100))),
+            array('alt' => isset($doc['digitalObject']['digitalObjectAltText']) ? $doc['digitalObject']['digitalObjectAltText'] : truncate_text(strip_markdown($title), 100))),
             array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
 
         <?php elseif (isset($doc['digitalObject']) && !empty($doc['digitalObject']['mediaTypeId'])): // Show generic icon since no thumbnail present ?>
 
           <?php echo link_to(image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId']),
-            array('alt' => truncate_text(strip_markdown($title), 100))),
+            array('alt' => isset($doc['digitalObject']['digitalObjectAltText']) ? $doc['digitalObject']['digitalObjectAltText'] : truncate_text(strip_markdown($title), 100))),
             array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
 
         <?php else: // No digital object, just display description title ?>
