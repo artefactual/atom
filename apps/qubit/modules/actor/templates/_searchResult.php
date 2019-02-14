@@ -1,12 +1,12 @@
 <?php use_helper('Text') ?>
 
-<?php if (isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject']): ?>
+<?php if (!empty($doc['hasDigitalObject'])): ?>
   <article class="search-result has-preview">
 <?php else: ?>
   <article class="search-result">
 <?php endif; ?>
 
-  <?php if (isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject']): ?>
+  <?php if (!empty($doc['hasDigitalObject'])): ?>
     <div class="search-result-preview">
       <a href="<?php echo url_for(array('module' => 'actor', 'slug' => $doc['slug'])) ?>">
         <div class="preview-container">
@@ -21,7 +21,6 @@
       </a>
     </div>
   <?php endif; ?>
-
 
   <div class="search-result-description">
 

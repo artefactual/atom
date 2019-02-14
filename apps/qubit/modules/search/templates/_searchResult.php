@@ -1,13 +1,13 @@
 <?php use_helper('Text') ?>
 
 <?php $doc = $hit->getData() ?>
-<?php if (isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject']): ?>
+<?php if (!empty($doc['hasDigitalObject'])): ?>
   <article class="search-result has-preview">
 <?php else: ?>
   <article class="search-result">
 <?php endif; ?>
 
-  <?php if (isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject']): ?>
+  <?php if (!empty($doc['hasDigitalObject'])): ?>
     <div class="search-result-preview">
       <a href="<?php echo url_for(array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>">
         <div class="preview-container">
