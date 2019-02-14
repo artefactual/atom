@@ -54,19 +54,6 @@ class arElasticSearchActorPdo
     }
 
     $this->loadData($id, $options);
-/*
-    // Get inherited ancestors
-    if (isset($options['ancestors']))
-    {
-      $this->ancestors = $options['ancestors'];
-    }
-
-    // Get inherited repository, unless a repository is set at current level
-    if (isset($options['repository']) && !$this->__isset('repository_id'))
-    {
-      $this->repository = $options['repository'];
-    }
-*/
   }
 
   public function __isset($name)
@@ -308,13 +295,13 @@ class arElasticSearchActorPdo
       $serialized['directSubjects'][] = $item->id;
     }
 
-<<<<<<< HEAD
     // Maintenance notes
     $sql = 'SELECT id, source_culture FROM '.QubitNote::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
     foreach (QubitPdo::fetchAll($sql, array($this->id, QubitTerm::MAINTENANCE_NOTE_ID)) as $item)
     {
       $serialized['maintenanceNotes'][] = arElasticSearchNote::serialize($item);
-=======
+    }
+
     // Media
     if ($this->media_type_id)
     {
@@ -329,7 +316,6 @@ class arElasticSearchActorPdo
     else
     {
       $serialized['hasDigitalObject'] = false;
->>>>>>> Auth DO update ES Actor indexing, refs #12650
     }
 
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);
