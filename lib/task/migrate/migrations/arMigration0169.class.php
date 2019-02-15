@@ -45,7 +45,7 @@ CHANGE COLUMN `information_object_id` `object_id` INT(11) NULL DEFAULT NULL ;
 ALTER TABLE `atom`.`digital_object`
 ADD CONSTRAINT `digital_object_FK_2`
   FOREIGN KEY (`object_id`)
-  REFERENCES `atom`.`information_object` (`id`);
+  REFERENCES `atom`.`object` (`id`);
 
 sql;
 
