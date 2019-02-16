@@ -44,6 +44,10 @@ class ActorBrowseAction extends DefaultBrowseAction
         array('type' => 'term',
               'field' => 'i18n.languages',
               'size' => 10),
+      'mediatypes' =>
+        array('type' => 'term',
+              'field' => 'digitalObject.mediaTypeId',
+              'size' => 10),
       'entityType' =>
         array('type' => 'term',
               'field' => 'entityTypeId',
@@ -175,6 +179,7 @@ class ActorBrowseAction extends DefaultBrowseAction
   {
     switch ($name)
     {
+      case 'mediatypes':
       case 'entityType':
       case 'occupation':
       case 'place':
@@ -245,6 +250,11 @@ class ActorBrowseAction extends DefaultBrowseAction
     if (isset($request->subject) && ctype_digit($request->subject))
     {
       $this->subject = QubitTerm::getById($request->subject);
+    }
+
+    if (isset($request->mediatypes) && ctype_digit($request->mediatypes))
+    {
+      $this->mediatypes = QubitTerm::getById($request->mediatypes);
     }
   }
 

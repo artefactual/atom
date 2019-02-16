@@ -79,6 +79,13 @@
           'aggs' => $aggs,
           'filters' => $search->filters)) ?>
 
+        <?php echo get_partial('search/aggregation', array(
+          'id' => '#facet-mediaTypes',
+          'label' => sfConfig::get('app_ui_label_mediatype'),
+          'name' => 'mediatypes',
+          'aggs' => $aggs,
+          'filters' => $search->filters)) ?>
+
       </div>
 
     </section>
@@ -107,6 +114,16 @@
     <?php echo get_component('search', 'filter', array('object' => @$occupation, 'param' => 'occupation')) ?>
     <?php echo get_component('search', 'filter', array('object' => @$places, 'param' => 'places')) ?>
     <?php echo get_component('search', 'filter', array('object' => @$subjects, 'param' => 'subjects')) ?>
+    <?php echo get_component('search', 'filter', array('object' => @$mediatypes, 'param' => 'mediatypes')) ?>
+
+    <?php if (isset($sf_request->emptyField)): ?>
+      <span class="search-filter">
+        <?php echo __('Empty: %1%', array('%1%' => $fieldOptions[$sf_request->emptyField])) ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+        <?php unset($params['emptyField']) ?>
+        <a href="<?php echo url_for(array('module' => 'actor', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
+      </span>
+    <?php endif; ?>
 
     <div class="row">
       <div class="span5">
