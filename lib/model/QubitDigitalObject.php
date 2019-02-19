@@ -1503,12 +1503,51 @@ class QubitDigitalObject extends BaseDigitalObject
     // If not creating derivatives right now, don't download the resource
     if (!$this->createDerivatives)
     {
-      return $self;
+      return;
     }
 
     // Download the remote resource bitstream
     $contents = $this->downloadExternalObject($uri, $options);
+    $this->saveAndAttachFileContent($filename, $contents);
+  }
 
+  /**
+   * Populate a digital object from a file, but don't store the master
+   *
+   * @param string $filepath path to digital object
+   * @param array $options Optional arguments
+   *
+   * @return QubitDigitalObject this object
+   */
+  public function importFromFile($filepath, $options = array())
+  {
+    $filename = basename($filepath);
+
+    // Set general properties that don't require downloading the asset
+    $this->usageId = QubitTerm::EXTERNAL_FILE_ID;
+    $this->name = $filename;
+    $this->path = $filepath;
+    $this->setMimeAndMediaType();
+
+    // If not creating derivatives right now, don't download the resource
+    if (!$this->createDerivatives)
+    {
+      return;
+    }
+
+    // Download the remote resource bitstream
+    $contents = file_get_contents($filepath);
+    $this->saveAndAttachFileContent($filename, $contents);
+  }
+
+  /**
+   * Save data as file and attach as an asset
+   *
+   * @param string $filename name of file
+   * @param string $contents data to save
+   */
+  protected function saveAndAttachFileContent($filename, $contents)
+  {
     // Save downloaded bitstream to a temp file
     if (false === $this->localPath = Qubit::saveTemporaryFile($filename, $contents))
     {
@@ -1523,8 +1562,6 @@ class QubitDigitalObject extends BaseDigitalObject
     $this->checksum = $asset->getChecksum();
     $this->checksumType = $asset->getChecksumAlgorithm();
     $this->byteSize = strlen($contents);
-
-    return $self;
   }
 
   /**
@@ -1578,13 +1615,23 @@ class QubitDigitalObject extends BaseDigitalObject
   }
 
   /**
+   * Check whether the master is stored within AtoM
+   *
+   * @return boolean  whether or not master is stored
+   */
+  public function masterStored($usageId)
+  {
+    return QubitTerm::EXTERNAL_URI_ID != $usageId && QubitTerm::EXTERNAL_FILE_ID != $usageId;
+  }
+
+  /**
    * Get path to asset, relative to sf_web_dir
    *
    * @return string  path to asset
    */
   public function getFullPath()
   {
-    if (QubitTerm::EXTERNAL_URI_ID != $this->usageId)
+    if ($this->masterStored($this->usageId))
     {
       return $this->getPath().$this->getName();
     }
@@ -1604,7 +1651,7 @@ class QubitDigitalObject extends BaseDigitalObject
    */
   public function getPublicPath()
   {
-    if ($this->usageId == QubitTerm::EXTERNAL_URI_ID)
+    if (!$this->masterStored($this->usageId))
     {
       return $this->getPath();
     }
@@ -1832,7 +1879,7 @@ class QubitDigitalObject extends BaseDigitalObject
       throw new sfException('Couldn\'t find related object for digital object');
     }
 
-    if ($this->usageId == QubitTerm::MASTER_ID || $this->parent->usageId == QubitTerm::EXTERNAL_URI_ID)
+    if ($this->usageId == QubitTerm::MASTER_ID || !$this->masterStored($this->parent->usageId))
     {
       $id = (string) $object->id;
 
@@ -2013,7 +2060,7 @@ class QubitDigitalObject extends BaseDigitalObject
         // Scale images and create derivatives
         if ($this->canThumbnail())
         {
-          if ($usageId == QubitTerm::EXTERNAL_URI_ID || $usageId == QubitTerm::MASTER_ID)
+          if (!$this->masterStored($usageId) || $usageId == QubitTerm::MASTER_ID)
           {
             $this->createReferenceImage($connection);
             $this->createThumbnail($connection);
@@ -2033,7 +2080,7 @@ class QubitDigitalObject extends BaseDigitalObject
       case QubitTerm::TEXT_ID:
         if ($this->canThumbnail())
         {
-          if ($usageId == QubitTerm::EXTERNAL_URI_ID || $usageId == QubitTerm::MASTER_ID)
+          if (!$this->masterStored($usageId) || $usageId == QubitTerm::MASTER_ID)
           {
             // Thumbnail PDFs (may add other formats in future)
             $this->createReferenceImage($connection);
@@ -2055,7 +2102,7 @@ class QubitDigitalObject extends BaseDigitalObject
         break;
 
       case QubitTerm::VIDEO_ID:
-        if ($usageId == QubitTerm::EXTERNAL_URI_ID || $usageId == QubitTerm::MASTER_ID)
+        if (!$this->masterStore($usageId) || $usageId == QubitTerm::MASTER_ID)
         {
           $this->createVideoDerivative(QubitTerm::REFERENCE_ID, $connection);
           $this->createVideoDerivative(QubitTerm::THUMBNAIL_ID, $connection);
@@ -2070,6 +2117,7 @@ class QubitDigitalObject extends BaseDigitalObject
       case QubitTerm::AUDIO_ID:
         if (in_array($usageId, array(
           QubitTerm::EXTERNAL_URI_ID,
+          QubitTerm::EXTERNAL_FILE_ID,
           QubitTerm::MASTER_ID,
           QubitTerm::REFERENCE_ID
         )))
@@ -2100,7 +2148,7 @@ class QubitDigitalObject extends BaseDigitalObject
   {
     if ($this->canThumbnail() && self::hasImageMagick())
     {
-      $filename = (QubitTerm::EXTERNAL_URI_ID == $this->usageId) ? $this->getLocalPath() : $this->getAbsolutePath();
+      $filename = (!$this->masterStored($this->usageId)) ? $this->getLocalPath() : $this->getAbsolutePath();
 
       $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
@@ -2172,7 +2220,7 @@ class QubitDigitalObject extends BaseDigitalObject
 
     if ($pageCount > 1 && $this->canThumbnail())
     {
-      if (QubitTerm::EXTERNAL_URI_ID == $this->usageId)
+      if (!$this->masterStored($this->usageId))
       {
         $path = $this->localPath;
       }
@@ -2381,6 +2429,13 @@ class QubitDigitalObject extends BaseDigitalObject
       $this->localPath = Qubit::saveTemporaryFile($filename, $contents);
     }
 
+    if (null === $this->localPath && QubitTerm::EXTERNAL_FILE_ID == $this->usageId)
+    {
+      $filename = basename($this->path);
+      $contents = file_get_contents($this->path);
+      $this->localPath = Qubit::saveTemporaryFile($filename, $contents);
+    }
+
     return $this->localPath;
   }
 
@@ -2396,7 +2451,7 @@ class QubitDigitalObject extends BaseDigitalObject
     $maxDimensions = self::getImageMaxDimensions($usageId);
 
     // Build new filename and path
-    if (QubitTerm::EXTERNAL_URI_ID == $this->usageId)
+    if (!$this->masterStored($this->usageId))
     {
       $originalFullPath = $this->getLocalPath();
     }
@@ -2699,7 +2754,7 @@ class QubitDigitalObject extends BaseDigitalObject
       return false;
     }
 
-    if (QubitTerm::EXTERNAL_URI_ID == $this->usageId)
+    if (!$this->masterStored($this->usageId))
     {
       $originalFullPath = $this->getLocalPath();
 
@@ -3044,7 +3099,7 @@ class QubitDigitalObject extends BaseDigitalObject
       return;
     }
 
-    if (QubitTerm::EXTERNAL_URI_ID == $this->usageId)
+    if (!$this->masterStored($this->usageId))
     {
       $path = $this->localPath;
 

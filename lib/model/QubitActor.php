@@ -778,7 +778,7 @@ class QubitActor extends BaseActor
     }
 
     $digitalObject = $this->digitalObjectsRelatedByobjectId[0];
-    if (QubitTerm::OFFLINE_ID == $digitalObject->usageId)
+    if (QubitTerm::OFFLINE_ID == $digitalObject->usageId || QubitTerm::EXTERNAL_FILE_ID == $digitalObject->usageId)
     {
       return;
     }

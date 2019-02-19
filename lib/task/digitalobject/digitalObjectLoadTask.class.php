@@ -46,6 +46,7 @@ class digitalObjectLoadTask extends sfBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+      new sfCommandOption('link-source', 's', sfCommandOption::PARAMETER_NONE, 'Link source', null),
       new sfCommandOption('path', 'p', sfCommandOption::PARAMETER_OPTIONAL, 'Path prefix for digital objects', null),
       new sfCommandOption('limit', 'l', sfCommandOption::PARAMETER_OPTIONAL, 'Limit number of digital objects imported to n', null),
       new sfCommandOption('index', 'i', sfCommandOption::PARAMETER_NONE, 'Update search index (defaults to false)', null),
@@ -241,14 +242,6 @@ EOF;
       $path = $options['path'].$path;
     }
 
-    // read file contents
-    if (false === $content = file_get_contents($path))
-    {
-      $this->log("Couldn't read file '$path'");
-
-      return;
-    }
-
     $filename = basename($path);
 
     $remainingImportCount = $this->totalObjCount - $this->skippedCount - $importedCount;
@@ -265,8 +258,25 @@ EOF;
     // Create digital object
     $do = new QubitDigitalObject;
     $do->objectId = $objectId;
-    $do->usageId = QubitTerm::MASTER_ID;
-    $do->assets[] = new QubitAsset($filename, $content);
+
+    if ($options['link-source'])
+    {
+      $do->importFromFile($path);
+    }
+    else
+    {
+      // Read file contents
+      if (false === $content = file_get_contents($path))
+      {
+        $this->log("Couldn't read file '$path'");
+
+        return;
+      }
+
+      $do->usageId = QubitTerm::MASTER_ID;
+      $do->assets[] = new QubitAsset($filename, $content);
+    }
+
     $do->save($options['conn']);
 
     self::$count++;

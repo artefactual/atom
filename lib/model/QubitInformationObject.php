@@ -1448,7 +1448,7 @@ class QubitInformationObject extends BaseInformationObject
       return;
     }
 
-    if (QubitTerm::OFFLINE_ID == $do->usageId)
+    if (QubitTerm::OFFLINE_ID == $do->usageId || QubitTerm::EXTERNAL_FILE_ID == $digitalObject->usageId)
     {
       return;
     }
@@ -3196,7 +3196,7 @@ class QubitInformationObject extends BaseInformationObject
     }
 
     $digitalObject = $this->digitalObjectsRelatedByobjectId[0];
-    if (QubitTerm::OFFLINE_ID == $digitalObject->usageId)
+    if (QubitTerm::OFFLINE_ID == $digitalObject->usageId || QubitTerm::EXTERNAL_FILE_ID == $digitalObject->usageId)
     {
       return;
     }
