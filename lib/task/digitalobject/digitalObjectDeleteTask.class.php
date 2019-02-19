@@ -107,7 +107,7 @@ EOF;
 
   private function deleteDigitalObject($digitalObject)
   {
-    if ($digitalObject->usageId == QubitTerm::EXTERNAL_URI_ID || $digitalObject->usageId == QubitTerm::OFFLINE_ID)
+    if ($digitalObject->derivativesGeneratedFromExternalMaster() || $digitalObject->usageId == QubitTerm::OFFLINE_ID)
     {
       return;
     }

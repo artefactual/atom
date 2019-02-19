@@ -213,7 +213,14 @@ EOF;
         break;
 
       default:
-        $usageId = $digitalObject->usageId; // MASTER_ID or EXTERNAL_URI_ID
+        $usageId = $digitalObject->usageId; // MASTER_ID or EXTERNAL_URI_ID or EXTERNAL_FILE_ID
+    }
+
+    // If master isn't stored in AtoM, attempt to cache external resource before deleting
+    // existing derivatives (an unavailable resource will result in an exception)
+    if ($digitalObject->derivativesGeneratedFromExternalMaster($digitalObject->usageId))
+    {
+      $digitalObject->getLocalPath();
     }
 
     // Delete existing derivatives

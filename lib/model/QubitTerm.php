@@ -172,7 +172,10 @@ class QubitTerm extends BaseTerm
 
     // User action taxonomy
     USER_ACTION_CREATION_ID = 189,
-    USER_ACTION_MODIFICATION_ID = 190;
+    USER_ACTION_MODIFICATION_ID = 190,
+
+    // Digital object usage taxonomy (addition)
+    EXTERNAL_FILE_ID = 191;
 
   public static function isProtected($id)
   {

@@ -2511,6 +2511,13 @@ QubitTerm:
       th: ประกอบ
       vi: 'điều đình'
       zh: 混合物
+  QubitTerm_local_file_id:
+    taxonomy_id: QubitTaxonomy_17
+    parent_id: QubitTerm_110
+    id: 191
+    source_culture: en
+    name:
+      en: External file
   QubitTerm_140:
     taxonomy_id: QubitTaxonomy_18
     parent_id: QubitTerm_110
