@@ -34,6 +34,7 @@ class ProjectConfiguration extends sfProjectConfiguration
     $plugins = array(
       'qbAclPlugin',
       'qtAccessionPlugin',
+      'qtSwordPlugin',
       'sfDrupalPlugin',
       'sfFormExtraPlugin',
       'sfHistoryPlugin',
