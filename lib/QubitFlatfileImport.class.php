@@ -1211,13 +1211,10 @@ class QubitFlatfileImport
       // Trim whitespace
       $value = trim($value);
 
-      // Create/relate terms
+      // Create/relate terms from array of term names.
       if (isset($self->termRelations) && isset($self->termRelations[$columnName]) && $value)
       {
-        foreach (explode('|', $value) as $name)
-        {
-          $self->createOrFetchTermAndAddRelation($self->termRelations[$columnName], $name);
-        }
+        $self->createOrFetchTermAndAddRelation($self->termRelations[$columnName], explode('|', $value));
       }
 
       // Create/update notes
@@ -1917,32 +1914,77 @@ class QubitFlatfileImport
   }
 
   /**
-   * Create a Qubit term or, if it already exists, fetch it
+   * Create or fetch Qubit terms from array, depending on if they already exist
+   * Must all be from same taxonomy.
    *
    * @param integer $taxonomyId  term taxonomy
-   * @param string $name  name of term
+   * @param mixed  $names Can be passed as single term name string
+   *                      or array of term names.
    * @param string $culture  culture code (defaulting to English)
    *
-   * @return object  created term or fetched object containing term data
+   * @return mixed created terms or fetched objects containing term data. Depending
+   *               on what was provided on input - string or array is returned.
    */
-  public static function createOrFetchTerm($taxonomyId, $name, $culture = 'en')
+  public static function createOrFetchTerm($taxonomyId, $names, $culture = 'en')
   {
-    $query = "SELECT t.id FROM term t LEFT JOIN term_i18n ti ON t.id=ti.id \r
-      WHERE t.taxonomy_id=? AND ti.name=? AND ti.culture=?";
-
-    $statement = QubitFlatfileImport::sqlQuery(
-      $query,
-      array($taxonomyId, $name, $culture)
-    );
-
-    $result = $statement->fetch(PDO::FETCH_OBJ);
-    if ($result)
+    if (!is_array($names))
     {
-      return QubitTerm::getById($result->id);
+      $notArray = true;
+      $names = array($names);
     }
-    else
+
+    // Retrieve terms in taxonomy from the term table once only for this taxonomy.
+    $query = "SELECT t.id, ti.name FROM term t LEFT JOIN term_i18n ti ON t.id=ti.id \r
+      WHERE t.taxonomy_id=? AND ti.culture=?";
+
+    $rows = QubitPdo::fetchAll($query, array($taxonomyId, $culture), array('fetchMode' => PDO::FETCH_ASSOC));
+
+    // Check if each term in array exists.
+    foreach($names as $name)
     {
-      return QubitFlatfileImport::createTerm($taxonomyId, $name, $culture);
+      if (null !== $key = QubitFlatfileImport::getTermIndex($rows, $name))
+      {
+        $terms[] = QubitTerm::getById($rows[$key]['id']);
+      }
+      else
+      {
+        $termsToCreate[] = $name;
+      }
+    }
+
+    if (isset($termsToCreate))
+    {
+      // Don't create duplicates
+      $termsToCreate = array_unique($termsToCreate);
+      foreach ($termsToCreate as $newterm)
+      {
+        $terms[] = QubitFlatfileImport::createTerm($taxonomyId, $newterm, $culture);
+      }
+    }
+
+    if (isset($notArray))
+    {
+      return $terms[0];
+    }
+    return $terms;
+  }
+
+  /**
+   * Retrieve term index from PDO terms query response.
+   * Must all be from same taxonomy.
+   *
+   * @param array  $rows  Results array from term query lookup
+   * @param string $name  Term name
+   *
+   * @return integer Index value if $name is found otherwise null
+   */
+  private static function getTermIndex($rows, $name)
+  {
+    foreach ($rows as $index => $row) {
+      if ($row['name'] == $name)
+      {
+        return $index;
+      }
     }
   }
 
@@ -2128,14 +2170,17 @@ class QubitFlatfileImport
    *
    * @return void
    */
-  public function createOrFetchTermAndAddRelation($taxonomyId, $name, $culture = null)
+  public function createOrFetchTermAndAddRelation($taxonomyId, $names, $culture = null)
   {
     $culture = ($culture !== null) ? $culture : $this->columnValue('culture');
 
-    $term = $this->createOrFetchTerm($taxonomyId, $name, $culture);
-    self::createObjectTermRelation($this->object->id, $term->id, $this->searchIndexingDisabled);
+    $termArray = $this->createOrFetchTerm($taxonomyId, $names, $culture);
 
-    return $term;
+    foreach($termArray as $term)
+    {
+      self::createObjectTermRelation($this->object->id, $term->id, $this->searchIndexingDisabled);
+    }
+    return $termArray;
   }
 
   /**
