@@ -682,6 +682,9 @@ EOF;
         {
           if (isset($self->rowStatusVars[$columnName]))
           {
+            // Create/relate terms from array of term names.
+            $self->createOrFetchTermAndAddRelation($taxonomyId, $self->rowStatusVars[$columnName]);
+
             $index = 0;
             foreach ($self->rowStatusVars[$columnName] as $subject)
             {
@@ -692,8 +695,6 @@ EOF;
                 {
                   $scope = $self->rowStatusVars['subjectAccessPointScopes'][$index];
                 }
-
-                $self->createOrFetchTermAndAddRelation($taxonomyId, $subject);
 
                 if ($scope)
                 {
