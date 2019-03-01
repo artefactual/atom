@@ -114,6 +114,30 @@ class DefaultBrowseAction extends sfAction
     return $buckets;
   }
 
+  protected function populateFilterTags($request)
+  {
+    $this->filterTags = $this::$FILTERTAGS;
+
+    // Get model objects needed by filter tags
+    foreach($this->filterTags as $name => $config)
+    {
+      if (isset($config['model']))
+      {
+        $this->filterTags[$name]['object'] = $config['model']::getById($request->$name);
+      }
+    }
+  }
+
+  protected function getFilterTagObject($filterTag)
+  {
+    return $this->filterTags[$filterTag]['object'];
+  }
+
+  protected function setFilterTagLabel($filterTag, $label)
+  {
+    $this->filterTags[$filterTag]['label'] = $label;
+  }
+
   protected function setHiddenFields($request, $allowed, $ignored)
   {
     // Store current params to add them as hidden inputs

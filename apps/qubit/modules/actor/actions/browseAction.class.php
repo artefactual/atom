@@ -39,6 +39,17 @@ class ActorBrowseAction extends DefaultBrowseAction
       'emptyField'
     ),
 
+    $FILTERTAGS = array(
+      'hasDigitalObject' => array(),
+      'repository'       => array('model' => 'QubitRepository'),
+      'entityType'       => array('model' => 'QubitTerm'),
+      'occupation'       => array('model' => 'QubitTerm'),
+      'place'            => array('model' => 'QubitTerm'),
+      'subject'          => array('model' => 'QubitTerm'),
+      'mediatypes'       => array('model' => 'QubitTerm'),
+      'emptyField'       => array()
+    ),
+
     $AGGS = array(
       'languages' =>
         array('type' => 'term',
@@ -107,9 +118,9 @@ class ActorBrowseAction extends DefaultBrowseAction
         $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
 
         // Set field defaults based on filter data values
-        if (!empty($this->repository))
+        if (!empty($this->getFilterTagObject('repository')))
         {
-          $this->form->setDefault('repository', $this->repository->id);
+          $this->form->setDefault('repository', $this->getFilterTagObject('repository')->id);
         }
 
         break;
@@ -145,9 +156,9 @@ class ActorBrowseAction extends DefaultBrowseAction
         $this->form->setValidator($name, new sfValidatorString);
         $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
 
-        if (!empty($this->entityType))
+        if (!empty($this->getFilterTagObject('entityType')))
         {
-          $this->form->setDefault('entityType', $this->entityType->id);
+          $this->form->setDefault('entityType', $this->getFilterTagObject('entityType')->id);
         }
 
         break;
@@ -216,45 +227,23 @@ class ActorBrowseAction extends DefaultBrowseAction
 
   protected function setFilterTags($request)
   {
-    if (isset($request->repository) && ctype_digit($request->repository))
-    {
-      $this->repository = QubitRepository::getById($request->repository);
+    $this->populateFilterTags($request);
 
-      // Add repo to the user session as realm
-      if (sfConfig::get('app_enable_institutional_scoping'))
-      {
-        $this->context->user->setAttribute('search-realm', $request->repository);
-      }
-    }
-    else if (sfConfig::get('app_enable_institutional_scoping'))
+    // Set label for has digital object filter tag
+    if (filter_var($request->hasDigitalObject, FILTER_VALIDATE_BOOLEAN))
     {
-      // Remove search realm
-      $this->context->user->removeAttribute('search-realm');
+      $this->setFilterTagLabel('hasDigitalObject', $this->i18n->__('With digital objects'));
+    }
+    else
+    {
+      $this->setFilterTagLabel('hasDigitalObject', $this->i18n->__('Without digital objects'));
     }
 
-    if (isset($request->entityType) && ctype_digit($request->entityType))
+    if (!empty($request->emptyField))
     {
-      $this->entityType = QubitTerm::getById($request->entityType);
-    }
-
-    if (isset($request->occupation) && ctype_digit($request->occupation))
-    {
-      $this->occupation = QubitTerm::getById($request->occupation);
-    }
-
-    if (isset($request->place) && ctype_digit($request->place))
-    {
-      $this->place = QubitTerm::getById($request->place);
-    }
-
-    if (isset($request->subject) && ctype_digit($request->subject))
-    {
-      $this->subject = QubitTerm::getById($request->subject);
-    }
-
-    if (isset($request->mediatypes) && ctype_digit($request->mediatypes))
-    {
-      $this->mediatypes = QubitTerm::getById($request->mediatypes);
+      // Set label for empty field filter tag
+      $labelText = $this->i18n->__('Empty: %1%', array('%1%' => $this->fieldOptions[$request->emptyField]));
+      $this->setFilterTagLabel('emptyField', $labelText);
     }
   }
 
@@ -280,9 +269,24 @@ class ActorBrowseAction extends DefaultBrowseAction
     }
   }
 
-  protected function setFiltersAndForm($request)
+  protected function setFilterTagsAndForm($request)
   {
     $this->setFilterTags($request);
+
+    // Set search realm, if needed
+    if (isset($request->repository) && ctype_digit($request->repository))
+    {
+      // Add repo to the user session as realm
+      if (sfConfig::get('app_enable_institutional_scoping'))
+      {
+        $this->context->user->setAttribute('search-realm', $request->repository);
+      }
+    }
+    else if (sfConfig::get('app_enable_institutional_scoping'))
+    {
+      // Remove search realm
+      $this->context->user->removeAttribute('search-realm');
+    }
 
     // Set up form, using the request, and data fetched by filter tags, to provide defaults
     $this->form = new sfForm;
@@ -390,25 +394,25 @@ class ActorBrowseAction extends DefaultBrowseAction
   public function execute($request)
   {
     // Translate field labels
-    $i18n = $this->context->i18n;
+    $this->i18n = $this->context->i18n;
 
     $this->fieldOptions = array(
-      'authorizedFormOfName'             => $i18n->__('Authorized form of name'),
-      'parallelNames'                    => $i18n->__('Parallel form(s) of name'),
-      'otherNames'                       => $i18n->__('Other form(s) of name'),
-      'datesOfExistence'                 => $i18n->__('Dates of existence'),
-      'history'                          => $i18n->__('History'),
-      'legalStatus'                      => $i18n->__('Legal status'),
-      'places'                           => $i18n->__('Places'),
-      'generalContext'                   => $i18n->__('General context'),
-      'occupations'                      => $i18n->__('Occupation access points'),
-      'occupationNotes'                  => $i18n->__('Occupation access point notes'),
-      'subject'                          => $i18n->__('Subject access points'),
-      'place'                            => $i18n->__('Place access points'),
-      'descriptionIdentifier'            => $i18n->__('Authority record identifier'),
-      'institutionResponsibleIdentifier' => $i18n->__('Institution identifier'),
-      'sources'                          => $i18n->__('Sources'),
-      'maintenanceNotes'                 => $i18n->__('Maintenance notes')
+      'authorizedFormOfName'             => $this->i18n->__('Authorized form of name'),
+      'parallelNames'                    => $this->i18n->__('Parallel form(s) of name'),
+      'otherNames'                       => $this->i18n->__('Other form(s) of name'),
+      'datesOfExistence'                 => $this->i18n->__('Dates of existence'),
+      'history'                          => $this->i18n->__('History'),
+      'legalStatus'                      => $this->i18n->__('Legal status'),
+      'places'                           => $this->i18n->__('Places'),
+      'generalContext'                   => $this->i18n->__('General context'),
+      'occupations'                      => $this->i18n->__('Occupation access points'),
+      'occupationNotes'                  => $this->i18n->__('Occupation access point notes'),
+      'subject'                          => $this->i18n->__('Subject access points'),
+      'place'                            => $this->i18n->__('Place access points'),
+      'descriptionIdentifier'            => $this->i18n->__('Authority record identifier'),
+      'institutionResponsibleIdentifier' => $this->i18n->__('Institution identifier'),
+      'sources'                          => $this->i18n->__('Sources'),
+      'maintenanceNotes'                 => $this->i18n->__('Maintenance notes')
     );
 
     // If a global search has been requested, translate that into an advanced search
@@ -419,8 +423,8 @@ class ActorBrowseAction extends DefaultBrowseAction
 
     parent::execute($request);
 
-    // Prepare filters, form, and hidden fields/values
-    $this->setFiltersAndForm($request);
+    // Prepare filter tags, form, and hidden fields/values
+    $this->setFilterTagsAndForm($request);
 
     // Perform search and paging
     $resultSet = $this->doSearch($request);

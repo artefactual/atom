@@ -68,14 +68,14 @@
         <?php echo get_partial('search/aggregation', array(
           'id' => '#facet-places',
           'label' => sfConfig::get('app_ui_label_place'),
-          'name' => 'places',
+          'name' => 'place',
           'aggs' => $aggs,
           'filters' => $search->filters)) ?>
 
         <?php echo get_partial('search/aggregation', array(
           'id' => '#facet-subjects',
           'label' => sfConfig::get('app_ui_label_subject'),
-          'name' => 'subjects',
+          'name' => 'subject',
           'aggs' => $aggs,
           'filters' => $search->filters)) ?>
 
@@ -96,34 +96,8 @@
 <?php slot('before-content') ?>
 
   <section class="header-options">
-    <?php if (isset($sf_request->hasDigitalObject)): ?>
-      <span class="search-filter">
-        <?php if (filter_var($sf_request->hasDigitalObject, FILTER_VALIDATE_BOOLEAN)): ?>
-          <?php echo __('With digital objects') ?>
-        <?php else: ?>
-          <?php echo __('Without digital objects') ?>
-        <?php endif; ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['hasDigitalObject']) ?>
-        <a href="<?php echo url_for(array('module' => 'actor', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
 
-    <?php echo get_component('search', 'filter', array('object' => @$repository, 'param' => 'repository')) ?>
-    <?php echo get_component('search', 'filter', array('object' => @$entityType, 'param' => 'entityType')) ?>
-    <?php echo get_component('search', 'filter', array('object' => @$occupation, 'param' => 'occupation')) ?>
-    <?php echo get_component('search', 'filter', array('object' => @$places, 'param' => 'places')) ?>
-    <?php echo get_component('search', 'filter', array('object' => @$subjects, 'param' => 'subjects')) ?>
-    <?php echo get_component('search', 'filter', array('object' => @$mediatypes, 'param' => 'mediatypes')) ?>
-
-    <?php if (isset($sf_request->emptyField)): ?>
-      <span class="search-filter">
-        <?php echo __('Empty: %1%', array('%1%' => $fieldOptions[$sf_request->emptyField])) ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['emptyField']) ?>
-        <a href="<?php echo url_for(array('module' => 'actor', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
+    <?php echo get_partial('search/filterTags', array('filterTags' => $filterTags)) ?>
 
     <div class="row">
       <div class="span5">

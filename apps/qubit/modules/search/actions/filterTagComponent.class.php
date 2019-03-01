@@ -17,18 +17,20 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class SearchFilterComponent extends sfComponent
+class SearchFilterTagComponent extends sfComponent
 {
   public function execute($request)
   {
-    // Display nothing unless any object have been provided
-    if (!isset($this->object))
+    $this->params = $request->getGetParameters();
+
+    // If filter param isn't set in the request, or filter is model-based yet no object
+    // has been stored, display nothing
+    if (!isset($this->params[$this->param]) || (isset($this->model) && !isset($this->object)))
     {
       return sfView::NONE;
     }
 
     // Remove selected parameter from the current GET parameters
-    $this->params = $request->getGetParameters();
     unset($this->params[$this->param]);
 
     // Default module and action to the current module/action
