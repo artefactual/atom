@@ -149,6 +149,10 @@ EOF;
           }
         ));
       }
+
+      // Allow search indexing to be enabled via a CLI option
+      $import->searchIndexingDisabled = ($options['index']) ? false : true;
+
       $import->csv($fh);
       $aliases = $import->getStatus('aliases');
     }
@@ -558,6 +562,9 @@ EOF;
             }
           }
         ));
+
+        // Allow search indexing to be enabled via a CLI option
+        $import->searchIndexingDisabled = ($options['index']) ? false : true;
 
         $import->csv($fh);
       }
