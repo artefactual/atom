@@ -43,6 +43,24 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       'findingAidStatus'
     ),
 
+    $FILTERTAGS = array(
+      'repos'            => array('model' => 'QubitRepository'),
+      'collection'       => array('model' => 'QubitInformationObject'),
+      'creators'         => array('model' => 'QubitActor'),
+      'names'            => array('model' => 'QubitActor'),
+      'places'           => array('model' => 'QubitTerm'),
+      'levels'           => array('model' => 'QubitTerm'),
+      'subjects'         => array('model' => 'QubitTerm'),
+      'mediatypes'       => array('model' => 'QubitTerm'),
+      'copyrightStatus'  => array('model' => 'QubitTerm'),
+      'materialType'     => array('model' => 'QubitTerm'),
+      'onlyMedia'        => array(),
+      'languages'        => array(),
+      'dateRange'        => array('params' => array('startDate', 'endDate'), 'operator' => 'or'),
+      'findingAidStatus' => array(),
+      'ancestor'         => array('model' => 'QubitInformationObject')
+    ),
+
     $AGGS = array(
       'languages' =>
         array('type' => 'term',
@@ -334,11 +352,13 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
   protected function setFilterTags($request)
   {
-    // Store data for search-filters
+    $this->populateFilterTags($request);
+
+    $i18n = $this->context->i18n;
+
+    // Set search realm, if needed
     if (isset($request->repos) && ctype_digit($request->repos))
     {
-      $this->repos = QubitRepository::getById($request->repos);
-
       // Add repo to the user session as realm
       if (sfConfig::get('app_enable_institutional_scoping'))
       {
@@ -351,87 +371,41 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       $this->context->user->removeAttribute('search-realm');
     }
 
-    if (isset($request->creators) && ctype_digit($request->creators))
+    // Set label for has digital object filter tag
+    if (filter_var($request->onlyMedia, FILTER_VALIDATE_BOOLEAN))
     {
-      $this->creators = QubitActor::getById($request->creators);
+      $this->setFilterTagLabel('onlyMedia', $i18n->__('With digital objects'));
+    }
+    else
+    {
+      $this->setFilterTagLabel('onlyMedia', $i18n->__('Without digital objects'));
     }
 
-    if (isset($request->names) && ctype_digit($request->names))
+    // Set label for languages filter tag
+    if (!empty($request->languages))
     {
-      $this->names = QubitActor::getById($request->names);
+      $language = ucfirst(sfCultureInfo::getInstance($this->context->user->getCulture())->getLanguage($request->languages));
+      $this->setFilterTagLabel('languages', $language);
     }
 
-    if (isset($request->places) && ctype_digit($request->places))
-    {
-      $this->places = QubitTerm::getById($request->places);
-    }
-
-    if (isset($request->subjects) && ctype_digit($request->subjects))
-    {
-      $this->subjects = QubitTerm::getById($request->subjects);
-    }
-
-    if (isset($request->levels) && ctype_digit($request->levels))
-    {
-      $this->levels = QubitTerm::getById($request->levels);
-    }
-
-    if (isset($request->mediatypes) && ctype_digit($request->mediatypes))
-    {
-      $this->mediatypes = QubitTerm::getById($request->mediatypes);
-    }
-
-    if (isset($request->copyrightStatus) && ctype_digit($request->copyrightStatus))
-    {
-      $this->copyrightStatus = QubitTerm::getById($request->copyrightStatus);
-    }
-
-    if (isset($request->copyrightStatus) && ctype_digit($request->copyrightStatus))
-    {
-      $this->copyrightStatus = QubitTerm::getById($request->copyrightStatus);
-    }
-
-    if (isset($request->materialType) && ctype_digit($request->materialType))
-    {
-      $this->materialType = QubitTerm::getById($request->materialType);
-    }
-
+    // Set label for date range
     if (isset($request->startDate) || isset($request->endDate))
     {
-      $this->dateRange = '[ '.$request->startDate.' - '.$request->endDate.' ]';
+      $dateRangeLabel = '[ '.$request->startDate.' - '.$request->endDate.' ]';
+      $this->setFilterTagLabel('dateRange', $dateRangeLabel);
     }
 
+    // Set label for finding aid status
     if (!empty($request->findingAidStatus))
     {
-      $i18n = $this->context->i18n;
+      $labels = array(
+        'yes'       => $i18n->__('With finding aid'),
+        'no'        => $i18n->__('Without finding aid'),
+        'generated' => $i18n->__('With generated finding aid'),
+        'uploaded'  => $i18n->__('With uploaded finding aid')
+      );
 
-      switch ($request->findingAidStatus)
-      {
-        case 'yes':
-          $this->findingAidStatusTag = $i18n->__('With finding aid');
-
-          break;
-
-        case 'no':
-          $this->findingAidStatusTag = $i18n->__('Without finding aid');
-
-          break;
-
-        case 'generated':
-          $this->findingAidStatusTag = $i18n->__('With generated finding aid');
-
-          break;
-
-        case 'uploaded':
-          $this->findingAidStatusTag = $i18n->__('With uploaded finding aid');
-
-          break;
-      }
-    }
-
-    if (isset($request->ancestor) && ctype_digit($request->ancestor))
-    {
-      $this->ancestor = QubitInformationObject::getById($request->ancestor);
+      $this->setFilterTagLabel('findingAidStatus', $labels[$request->findingAidStatus]);
     }
   }
 
@@ -456,6 +430,21 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     else if (isset($this->getParameters['collection']) && ctype_digit($this->getParameters['collection']))
     {
       $this->collection = QubitInformationObject::getById($this->getParameters['collection']);
+    }
+
+    // Set search realm if searching by repository
+    if (isset($request->repos) && ctype_digit($request->repos))
+    {
+      // Add repo to the user session as realm
+      if (sfConfig::get('app_enable_institutional_scoping'))
+      {
+        $this->context->user->setAttribute('search-realm', $request->repos);
+      }
+    }
+    else if (sfConfig::get('app_enable_institutional_scoping'))
+    {
+      // Remove realm
+      $this->context->user->removeAttribute('search-realm');
     }
 
     // Add first criterion to the search box if it's over any field

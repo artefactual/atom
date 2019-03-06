@@ -127,109 +127,6 @@
 
   <section class="header-options">
 
-    <?php if (isset($repos)): ?>
-      <span class="search-filter">
-        <?php echo render_title($repos) ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['repos']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
-
-    <?php if (isset($collection)): ?>
-      <span class="search-filter">
-        <?php echo render_title($collection) ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['collection']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
-
-    <?php if (isset($creators)): ?>
-      <span class="search-filter">
-        <?php echo render_title($creators) ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['creators']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
-
-    <?php if (isset($names)): ?>
-      <span class="search-filter">
-        <?php echo render_title($names) ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['names']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
-
-    <?php if (isset($places)): ?>
-      <span class="search-filter">
-        <?php echo render_title($places) ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['places']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
-
-    <?php if (isset($levels)): ?>
-      <span class="search-filter">
-        <?php echo render_title($levels) ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['levels']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
-
-    <?php if (isset($subjects)): ?>
-      <span class="search-filter">
-        <?php echo render_title($subjects) ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['subjects']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
-
-    <?php if (isset($mediatypes)): ?>
-      <span class="search-filter">
-        <?php echo render_title($mediatypes) ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['mediatypes']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
-
-    <?php if (isset($copyrightStatus)): ?>
-      <span class="search-filter">
-        <?php echo render_title($copyrightStatus) ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['copyrightStatus']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
-
-    <?php if (isset($materialType)): ?>
-      <span class="search-filter">
-        <?php echo render_title($materialType) ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['materialType']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
-
-    <?php if (isset($sf_request->onlyMedia)): ?>
-      <span class="search-filter">
-        <?php if (filter_var($sf_request->onlyMedia, FILTER_VALIDATE_BOOLEAN)): ?>
-          <?php echo __('With digital objects') ?>
-        <?php else: ?>
-          <?php echo __('Without digital objects') ?>
-        <?php endif; ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['onlyMedia']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
-
     <?php if ($topLod): ?>
       <span class="search-filter">
         <?php echo __('Only top-level descriptions') ?>
@@ -239,42 +136,8 @@
       </span>
     <?php endif; ?>
 
-    <?php if (isset($sf_request->languages)): ?>
-      <span class="search-filter">
-        <?php echo ucfirst(sfCultureInfo::getInstance($sf_user->getCulture())->getLanguage($sf_request->languages)) ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['languages']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
+    <?php echo get_partial('search/filterTags', array('filterTags' => $filterTags)) ?>
 
-    <?php if (isset($dateRange)): ?>
-      <span class="search-filter">
-        <?php echo $dateRange ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['startDate']) ?>
-        <?php unset($params['endDate']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
-
-    <?php if (isset($findingAidStatusTag)): ?>
-      <span class="search-filter">
-        <?php echo render_value_inline($findingAidStatusTag) ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['findingAidStatus']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
-
-    <?php if (isset($ancestor)): ?>
-      <span class="search-filter">
-        <?php echo render_title($ancestor) ?>
-        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
-        <?php unset($params['ancestor']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="fa fa-times"></i></a>
-      </span>
-    <?php endif; ?>
   </section>
 
 <?php end_slot() ?>
