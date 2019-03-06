@@ -1946,19 +1946,11 @@ class QubitFlatfileImport
       {
         $terms[] = QubitTerm::getById($rows[$key]['id']);
       }
-      else
+      else if (!isset($termsCreated) || !in_array($name, $termsCreated))
       {
-        $termsToCreate[] = $name;
-      }
-    }
-
-    if (isset($termsToCreate))
-    {
-      // Don't create duplicates
-      $termsToCreate = array_unique($termsToCreate);
-      foreach ($termsToCreate as $newterm)
-      {
-        $terms[] = QubitFlatfileImport::createTerm($taxonomyId, $newterm, $culture);
+        $terms[] = QubitFlatfileImport::createTerm($taxonomyId, $name, $culture);
+        // Don't create duplicates
+        $termsCreated[] = $name;
       }
     }
 
