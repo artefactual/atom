@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 169
+    value: 170
   milestone:
     name: milestone
     editable: 0
@@ -966,6 +966,10 @@ QubitSetting:
     value: 1
   Qubit_Settings_visibleElements_RadConservationNotes:
     name: rad_conservation_notes
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_RadRightsNotes:
+    name: rad_rights_notes
     scope: element_visibility
     value: 1
   Qubit_Settings_visibleElements_RadPhysicalCondition:

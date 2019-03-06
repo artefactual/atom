@@ -125,6 +125,7 @@
           'rad_immediate_source' => __('Immediate source of acquisition'),
           'rad_general_notes' => __('General note(s)'),
           'rad_conservation_notes' => __('Conservation note(s)'),
+          'rad_rights_notes' => __('Rights note(s)'),
           'rad_control_description_identifier' => __('Description identifier'),
           'rad_control_institution_identifier' => __('Institution identifier'),
           'rad_control_rules_conventions' => __('Rules or conventions'),

@@ -268,6 +268,10 @@
       <?php continue; ?>
     <?php endif; ?>
 
+    <?php if ('Rights' == $type && !check_field_visibility('app_element_visibility_rad_rights_notes')): ?>
+      <?php continue; ?>
+    <?php endif; ?>
+
     <div class="field">
       <h3><?php echo __(render_value_inline($item->type)) ?></h3>
       <div class="radNote">
