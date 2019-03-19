@@ -18,7 +18,7 @@ CREATE TABLE `acl_group`
 	`rgt` INTEGER  NOT NULL,
 	`created_at` DATETIME  NOT NULL,
 	`updated_at` DATETIME  NOT NULL,
-	`source_culture` VARCHAR(7)  NOT NULL,
+	`source_culture` VARCHAR(16)  NOT NULL,
 	`serial_number` INTEGER default 0 NOT NULL,
 	PRIMARY KEY (`id`),
 	INDEX `acl_group_FI_1` (`parent_id`),
@@ -40,7 +40,7 @@ CREATE TABLE `acl_group_i18n`
 	`name` VARCHAR(255),
 	`description` TEXT,
 	`id` INTEGER  NOT NULL,
-	`culture` VARCHAR(7)  NOT NULL,
+	`culture` VARCHAR(16)  NOT NULL,
 	PRIMARY KEY (`id`,`culture`),
 	CONSTRAINT `acl_group_i18n_FK_1`
 		FOREIGN KEY (`id`)

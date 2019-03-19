@@ -21,7 +21,7 @@ CREATE TABLE `accession`
 	`resource_type_id` INTEGER,
 	`created_at` DATETIME  NOT NULL,
 	`updated_at` DATETIME  NOT NULL,
-	`source_culture` VARCHAR(7)  NOT NULL,
+	`source_culture` VARCHAR(16)  NOT NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `accession_U_1` (`identifier`),
 	CONSTRAINT `accession_FK_1`
@@ -69,7 +69,7 @@ CREATE TABLE `accession_i18n`
 	`source_of_acquisition` TEXT,
 	`title` VARCHAR(255),
 	`id` INTEGER  NOT NULL,
-	`culture` VARCHAR(7)  NOT NULL,
+	`culture` VARCHAR(16)  NOT NULL,
 	PRIMARY KEY (`id`,`culture`),
 	CONSTRAINT `accession_i18n_FK_1`
 		FOREIGN KEY (`id`)
@@ -93,7 +93,7 @@ CREATE TABLE `deaccession`
 	`scope_id` INTEGER,
 	`created_at` DATETIME  NOT NULL,
 	`updated_at` DATETIME  NOT NULL,
-	`source_culture` VARCHAR(7)  NOT NULL,
+	`source_culture` VARCHAR(16)  NOT NULL,
 	PRIMARY KEY (`id`),
 	CONSTRAINT `deaccession_FK_1`
 		FOREIGN KEY (`id`)
@@ -124,7 +124,7 @@ CREATE TABLE `deaccession_i18n`
 	`extent` TEXT,
 	`reason` TEXT,
 	`id` INTEGER  NOT NULL,
-	`culture` VARCHAR(7)  NOT NULL,
+	`culture` VARCHAR(16)  NOT NULL,
 	PRIMARY KEY (`id`,`culture`),
 	CONSTRAINT `deaccession_i18n_FK_1`
 		FOREIGN KEY (`id`)
