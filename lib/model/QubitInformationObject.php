@@ -2286,10 +2286,26 @@ class QubitInformationObject extends BaseInformationObject
 
   public function setLevelOfDescriptionByName($name)
   {
-    // don't proceed with empty $name, or if 'otherlevel' value is passed
+    // Normalize name of "Record group" level of description (for EAD imports)
+    if ($name == 'recordgrp')
+    {
+      // See if Level of Description term already exists, if so link to it
+      $criteria = new Criteria;
+      $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID);
+      $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+      $criteria->add(QubitTermI18n::CULTURE, 'en');
+      $criteria->add(QubitTermI18n::NAME, 'Record group');
+
+      if ($term = QubitTermI18n::getOne($criteria))
+      {
+        $name = $term->getName(array('cultureFallback' => true));
+      }
+    }
+
+    // Don't proceed with empty $name, or if 'otherlevel' value is passed
     if (0 < strlen($name) && $name !== 'otherlevel')
     {
-      // see if Level of Description term already exists, if so link to it
+      // See if Level of Description term already exists, if so link to it
       $criteria = new Criteria;
       $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID);
       $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
@@ -2302,7 +2318,7 @@ class QubitInformationObject extends BaseInformationObject
       }
       else
       {
-        // if the Level of Description term does not already exist, create a new Level and link to it
+        // If the Level of Description term does not already exist, create a new Level and link to it
         $term = new QubitTerm;
         $term->setTaxonomyId(QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID);
         $term->setName($name);
