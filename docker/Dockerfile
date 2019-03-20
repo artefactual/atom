@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine
+FROM php:7.0-fpm-alpine
 
 ARG GIT_BRANCH=qa/2.5.x
 
@@ -7,8 +7,8 @@ ENV FOP_HOME /usr/share/fop-2.1
 RUN set -xe \
 		&& apk add --no-cache --virtual .phpext-builddeps \
 			gettext-dev \
+			libmcrypt-dev \
 			libxslt-dev \
-			libzip-dev \
 			zlib-dev \
 			libmemcached-dev \
 			autoconf \
@@ -17,17 +17,14 @@ RUN set -xe \
 			calendar \
 			gettext \
 			mbstring \
+			mcrypt \
 			mysqli \
 			opcache \
 			pdo_mysql \
 			sockets \
 			xsl \
 			zip \
-		# libzip required for PHP > 7.2
-		&& docker-php-ext-configure zip --with-libzip \
-		&& docker-php-ext-install zip \
 		# https://bugs.php.net/bug.php?id=70751
-		# Memcache config below will not work with Alpine PHP > 7.2
 		&& curl -Ls https://github.com/websupport-sk/pecl-memcache/archive/NON_BLOCKING_IO_php7.tar.gz | tar xz -C / \
 		&& cd /pecl-memcache-NON_BLOCKING_IO_php7 \
 		&& phpize && ./configure && make && make install \
@@ -35,6 +32,7 @@ RUN set -xe \
 		&& rm -rf /pecl-memcache-NON_BLOCKING_IO_php7 \
 		&& apk add --virtual .phpext-rundeps \
 			gettext \
+			libmcrypt \
 			libxslt \
 			libmemcached-libs \
 		&& apk del .phpext-builddeps
@@ -46,7 +44,6 @@ RUN set -xe \
 			imagemagick \
 			ghostscript \
 			poppler-utils \
-			nodejs-npm \
 			nodejs \
 			make \
 			bash \
