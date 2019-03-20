@@ -707,7 +707,7 @@
     checkReposFilter: function (event)
     {
       // Disable repository filter and facet if top-level description selected
-      if (typeof($collectionFilter) !== 'undefined' && this.$reposFilter.length && this.$collectionFilter.val() != '')
+      if (typeof(this.$collectionFilter) !== 'undefined' && this.$reposFilter.length && this.$collectionFilter.val() != '')
       {
         this.$reposFilter.attr("disabled", "disabled");
         this.$reposFilter.val('');
