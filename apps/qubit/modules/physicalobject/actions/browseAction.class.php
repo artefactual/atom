@@ -39,9 +39,23 @@ class PhysicalObjectBrowseAction extends sfAction
 
     if (isset($request->subquery))
     {
+      // Get physical object data for culture
       $criteria->addJoin(QubitPhysicalObject::ID, QubitPhysicalObjectI18n::ID);
       $criteria->add(QubitPhysicalObjectI18n::CULTURE, $this->context->user->getCulture());
-      $criteria->add(QubitPhysicalObjectI18n::NAME, "$request->subquery%", Criteria::LIKE);
+
+      // Get physical object's type term data for culture
+      $criteria->addJoin(QubitPhysicalObject::TYPE_ID, QubitTerm::ID);
+      $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+      $criteria->add(QubitTermI18n::CULTURE, $this->context->user->getCulture());
+
+      // Match search query to either physical object name, location, or type
+      $c1 = $criteria->getNewCriterion(QubitPhysicalObjectI18n::NAME, "%$request->subquery%", Criteria::LIKE);
+      $c2 = $criteria->getNewCriterion(QubitPhysicalObjectI18n::LOCATION, "%$request->subquery%", Criteria::LIKE);
+      $c1->addOr($c2);
+      $c3 = $criteria->getNewCriterion(QubitTermI18n::NAME, "%$request->subquery%", Criteria::LIKE);
+      $c1->addOr($c3);
+
+      $criteria->add($c1);
     }
 
     switch ($request->sort)
