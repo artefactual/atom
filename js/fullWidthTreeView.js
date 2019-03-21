@@ -10,7 +10,7 @@
     var pathToApi  = '/informationobject/fullWidthTreeView';
     var $fwTreeView = $('<div id="fullwidth-treeview"></div>');
     var $fwTreeViewRow = $('<div id="fullwidth-treeview-row"></div>');
-    var $mainHeader = $('#main-column h1');
+    var $mainHeader = $('#main-column h1').first();
     var $moreButton = $('#fullwidth-treeview-more-button');
     var $resetButton = $('#fullwidth-treeview-reset-button');
     var pager = new Qubit.TreeviewPager(50, $fwTreeView, collectionUrl + pathToApi);
@@ -124,7 +124,7 @@
         response = $(response);
 
         // Insert new content into page
-        $('#main-column h1').replaceWith($(response.find('#main-column h1')));
+        $('#main-column h1').first().replaceWith($(response.find('#main-column h1').first()));
         $('#main-column .breadcrumb').replaceWith($(response.find('#main-column .breadcrumb')));
         $('#main-column .row').replaceWith($(response.find('#main-column .row')));
 
