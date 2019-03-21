@@ -51,16 +51,6 @@ EOF;
 
     foreach ($columns as $column)
     {
-      $callback = '
-        if (!empty($matches[1]))
-        {
-          return "[$matches[1]](".($matches[2] == "www." ? "http://www." : $matches[2]).trim($matches[3]).")";
-        }
-        else
-        {
-          return "[$matches[2]".trim($matches[3])."](".($matches[2] == "www." ? "http://www." : $matches[2]).trim($matches[3]).")";
-        }';
-
       $regex = '~
         (?:
           (?:&quot;|\")(.*?)(?:\&quot;|\")\:            # Double quote and colon
@@ -80,7 +70,17 @@ EOF;
         )
         ~x';
 
-      $transformedValue = preg_replace_callback($regex, create_function('$matches', $callback), $row->$column);
+      $transformedValue = preg_replace_callback($regex, function ($matches)
+      {
+        if (!empty($matches[1]))
+        {
+          return "[$matches[1]](".($matches[2] == "www." ? "http://www." : $matches[2]).trim($matches[3]).")";
+        }
+        else
+        {
+          return "[$matches[2]".trim($matches[3])."](".($matches[2] == "www." ? "http://www." : $matches[2]).trim($matches[3]).")";
+        }
+      }, $row->$column);
 
       // Save changed values
       if ($row->$column != $transformedValue)

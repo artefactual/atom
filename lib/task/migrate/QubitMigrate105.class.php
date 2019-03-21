@@ -192,7 +192,10 @@ class QubitMigrate105 extends QubitMigrate
     {
       if ($page['permalink'] == 'homepage' || $page['permalink'] == 'about')
       {
-        array_walk($this->data['QubitStaticPage'][$key]['content'], create_function('&$x', '$x=str_replace(\'1.0.5\', \'1.0.6\', $x);'));
+        array_walk($this->data['QubitStaticPage'][$key]['content'], function(&$x)
+        {
+          $x = str_replace('1.0.5', '1.0.6', $x);
+        });
       }
     }
 

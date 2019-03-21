@@ -958,7 +958,7 @@ class QubitMigrate108 extends QubitMigrate
     {
       $group_id = $row['group_id'];
 
-      // If group_id points to a QubitAclGroup row, then use `id` column from 
+      // If group_id points to a QubitAclGroup row, then use `id` column from
       // that row
       if (isset($this->data['QubitAclGroup'][$row['group_id']]))
       {
@@ -1482,7 +1482,10 @@ class QubitMigrate108 extends QubitMigrate
     {
       if ($page['permalink'] == 'homepage' || $page['permalink'] == 'about')
       {
-        array_walk($this->data['QubitStaticPage'][$key]['content'], create_function('&$x', '$x=preg_replace(\'/1\\.0\\.8(\\.1)?/\', \'1.0.9\', $x);'));
+        array_walk($this->data['QubitStaticPage'][$key]['content'], function(&$x)
+        {
+          $x = preg_replace('/1\.0\.8(\.1)?/', '1.0.9', $x);
+        });
       }
     }
 
