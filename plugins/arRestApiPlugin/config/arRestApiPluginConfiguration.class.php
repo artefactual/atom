@@ -139,7 +139,7 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     }
 
     // Add route before slug;default_index
-    $this->routing->insertRouteBefore('slug;default_index', $name,
+    $this->routing->insertRouteBefore('slug/default', $name,
       new sfRequestRoute($pattern, $defaults, $requirements));
   }
 

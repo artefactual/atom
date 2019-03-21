@@ -83,10 +83,6 @@ slug;default_index:
   param:
     action: index
 
-slug/default:
-  url: /:slug/:module/:action
-  class: QubitResourceRoute
-
 id/default:
   url: /:module/:action/id/:id
   class: QubitRoute
