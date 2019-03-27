@@ -61,12 +61,12 @@ class arMigration0172
     foreach($i18nTables as $table)
     {
       // Increase size of i18n table's culture column
-      $sql = "ALTER TABLE `atom`.`%s` CHANGE `culture` `culture` VARCHAR(16)";
+      $sql = "ALTER TABLE `%s` CHANGE `culture` `culture` VARCHAR(16)";
       QubitPdo::modify(sprintf($sql, $table));
 
       // Increase size of base table's source_culture column
       $baseTable = str_replace('_i18n', '', $table);
-      $sql = "ALTER TABLE `atom`.`%s` CHANGE `source_culture` `source_culture` VARCHAR(16)";
+      $sql = "ALTER TABLE `%s` CHANGE `source_culture` `source_culture` VARCHAR(16)";
       QubitPdo::modify(sprintf($sql, $baseTable));
     }
 

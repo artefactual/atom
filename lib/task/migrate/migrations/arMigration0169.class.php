@@ -38,14 +38,13 @@ class arMigration0169
     // Add object_id to digital_object with fk relationship
     $sql = <<<sql
 
-ALTER TABLE `atom`.`digital_object`
-DROP FOREIGN KEY `digital_object_FK_2`;
-ALTER TABLE `atom`.`digital_object`
-CHANGE COLUMN `information_object_id` `object_id` INT(11) NULL DEFAULT NULL ;
-ALTER TABLE `atom`.`digital_object`
+ALTER TABLE `digital_object` DROP FOREIGN KEY `digital_object_FK_2`;
+ALTER TABLE `digital_object`
+  CHANGE COLUMN `information_object_id` `object_id` INT(11) NULL DEFAULT NULL ;
+ALTER TABLE `digital_object`
 ADD CONSTRAINT `digital_object_FK_2`
   FOREIGN KEY (`object_id`)
-  REFERENCES `atom`.`object` (`id`);
+  REFERENCES `object` (`id`);
 
 sql;
 
