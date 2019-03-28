@@ -147,13 +147,16 @@ class csvActorExport extends QubitFlatfileExport
       return;
     }
 
-    if (false === $fh = fopen($filename, 'w'))
+    if (false === $fh = fopen($filename, 'a'))
     {
       throw new sfException("Failed to create file $filename");
     }
 
-    // Write header
-    fputcsv($fh, array_keys($rows[0]));
+    if (!filesize($filename))
+    {
+      // Write header
+      fputcsv($fh, array_keys($rows[0]));
+    }
 
     foreach ($rows as $row)
     {
