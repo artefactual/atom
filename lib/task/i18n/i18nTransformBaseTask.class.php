@@ -132,7 +132,7 @@ abstract class i18nTransformBaseTask extends arBaseTask
       $query = 'SELECT * FROM '.$tableName.' WHERE id NOT IN ('.$rootIds.')';
       $statement = QubitPdo::prepareAndExecute($query);
 
-      while ($row = $statement->fetch(PDO::FETCH_OBJ))
+      while ($row = $statement->fetch(PDO::FETCH_ASSOC))
       {
         // Process row in subclasses
         $columnsChanged = $this->processRow($row, $tableName, $columns);
@@ -145,7 +145,7 @@ abstract class i18nTransformBaseTask extends arBaseTask
         }
 
         // Report progress
-        $message = 'Processed '.$tableName.' row '.$row->id.' ('.$row->culture.')';
+        $message = 'Processed '.$tableName.' row '.$row['id'].' ('.$row['culture'].')';
 
         if ($columnsChanged)
         {

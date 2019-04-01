@@ -80,17 +80,17 @@ EOF;
         {
           return "[$matches[2]".trim($matches[3])."](".($matches[2] == "www." ? "http://www." : $matches[2]).trim($matches[3]).")";
         }
-      }, $row->$column);
+      }, $row[$column]);
 
       // Save changed values
-      if ($row->$column != $transformedValue)
+      if ($row[$column] != $transformedValue)
       {
         $columnValues[$column] = $transformedValue;
       }
     }
 
     // Update row
-    $this->updateRow($tableName, $row->id, $row->culture, $columnValues);
+    $this->updateRow($tableName, $row['id'], $row['culture'], $columnValues);
 
     return count($columnValues);
   }
