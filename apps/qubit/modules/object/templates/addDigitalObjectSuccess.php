@@ -5,7 +5,7 @@
     <?php echo __('Link %1%', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')))) ?>
 
     <?php if ($resource instanceof QubitActor): ?>
-      <span class="sub"><?php echo render_title(new sfIsaarPlugin($resource)) ?></span>
+      <span class="sub"><?php echo render_title($resource) ?></span>
     <?php elseif ($resource instanceof QubitInformationObject): ?>
       <span class="sub"><?php echo render_title(new sfIsadPlugin($resource)) ?></span>
     <?php endif; ?>
