@@ -125,6 +125,13 @@
 
         // Insert new content into page
         $('#main-column h1').first().replaceWith($(response.find('#main-column h1').first()));
+
+        // Add empty breadcrumb section if current page has none, but response does
+        if (!$('#main-column .breadcrumb').length && $(response.find('#main-column .breadcrumb').length))
+        {
+          $('#fullwidth-treeview-row').after($('<section>', {class: 'breadcrumb'}));
+        }
+
         $('#main-column .breadcrumb').replaceWith($(response.find('#main-column .breadcrumb')));
         $('#main-column .row').replaceWith($(response.find('#main-column .row')));
 
