@@ -92,7 +92,7 @@ class DigitalObjectUploadAction extends sfAction
       $tmpFileMimeType = QubitDigitalObject::deriveMimeType($tmpFileName);
 
       // Thumbnail name and path
-      $thumbName = pathinfo($tmpFileName, PATHINFO_FILENAME) .".jpg";
+      $thumbName = pathinfo('THUMB'. $tmpFileName, PATHINFO_FILENAME) .".jpg";
       $thumbPath = dirname($tmpFilePath) ."/". $thumbName;
 
       if ($canThumbnail = QubitDigitalObject::canThumbnailMimeType($tmpFileMimeType) || QubitDigitalObject::isVideoFile($tmpFilePath))
