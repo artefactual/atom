@@ -38,15 +38,11 @@ class QubitDeaccession extends BaseDeaccession
   {
     parent::save($connection);
 
-    QubitSearch::getInstance()->update($this->accession);
-
     return $this;
   }
 
   public function delete($connection = null)
   {
-    QubitSearch::getInstance()->delete($this->accession);
-
     return parent::delete($connection);
   }
 }
