@@ -193,11 +193,6 @@ class sfEadPlugin
 
       if (null !== $agency = $this->resource->getRepository(array('inherit' => true))->getIdentifier())
       {
-        if (isset($country))
-        {
-          $agency = $country.'-'.$agency;
-        }
-
         $mainAgencyCode = " mainagencycode=\"$agency\"";
       }
     }
