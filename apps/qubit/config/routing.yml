@@ -46,6 +46,18 @@ add:
 
 # -------------------------------------------------------- </QubitMetadataRoute>
 
+sword/action/slug:
+  url: /sword/:action/:slug
+  class: QubitResourceRoute
+  param:
+    module: qtSwordPlugin
+    throw404: false
+
+sword:
+  url: /sword/:action
+  param:
+    module: qtSwordPlugin
+
 slug/default:
   url: /:slug/:module/:action
   class: QubitResourceRoute
@@ -62,18 +74,6 @@ oai:
   param:
     module: arOaiPlugin
     action: index
-
-sword/action/slug:
-  url: /sword/:action/:slug
-  class: QubitResourceRoute
-  param:
-    module: qtSwordPlugin
-    throw404: false
-
-sword:
-  url: /sword/:action
-  param:
-    module: qtSwordPlugin
 
 # ------------------------------------------------------------------------------
 
