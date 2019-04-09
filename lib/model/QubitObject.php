@@ -196,12 +196,23 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
       {
         try
         {
+          if (in_array($this->slug, array('api', 'sword')))
+          {
+            throw new RuntimeException('Reserved slug');
+          }
+
           $statement->execute(array($this->id, $this->slug));
           unset($suffix);
         }
         // Collision? Try next suffix
-        catch (PDOException $e)
+        catch (Exception $e)
         {
+          // If exception is unexpected re-throw it
+          if (!($e instanceof RuntimeException || $e instanceof PdoException))
+          {
+            throw $e;
+          }
+
           if (!$triedQuery)
           {
             $triedQuery = true;
