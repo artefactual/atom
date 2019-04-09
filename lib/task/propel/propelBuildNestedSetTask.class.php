@@ -114,7 +114,7 @@ EOF;
         // There seems to be some limit on how many rows we can update with one
         // exec() statement, so chunk the update rows
         $incr = 4000;
-        for ($i=0; $i <= count($this->rows); $i+=$incr)
+        for ($i=0; $i < count($this->rows); $i+=$incr)
         {
           $sql = implode("\n", array_slice($this->rows, $i, $incr));
           $conn->exec($sql);
