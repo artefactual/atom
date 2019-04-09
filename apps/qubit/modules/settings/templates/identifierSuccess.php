@@ -14,6 +14,12 @@
 
 <?php slot('content') ?>
 
+  <div class="alert alert-info">
+    <p><?php echo __('Please clear the application cache and rebuild the search index if you are changing the reference code separator setting.') ?></p>
+    <pre>$ php symfony cc</pre>
+    <pre>$ php symfony search:populate</pre>
+  </div>
+
   <?php echo $form->renderFormTag(url_for(array('module' => 'settings', 'action' => 'identifier'))) ?>
 
     <div id="content">
