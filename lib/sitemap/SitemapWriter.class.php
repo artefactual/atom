@@ -18,7 +18,7 @@
  */
 
 /**
- * SitemapWriter 
+ * SitemapWriter
  */
 class SitemapWriter
 {
@@ -89,9 +89,6 @@ class SitemapWriter
 
     $this->loadConfiguration();
 
-    // __destructor() doesn't get called on fatal errors
-    register_shutdown_function(array($this, 'end'));
-
     $this->writer = new XMLWriter;
     $this->writer->openUri($this->file);
     $this->writer->setIndent($this->indent);
@@ -121,6 +118,7 @@ class SitemapWriter
     {
       $this->getSitemap()->add($item);
     }
+    $this->sitemap->flush();
   }
 
   /**
@@ -145,8 +143,7 @@ class SitemapWriter
   private function addSitemap()
   {
     $this->sitemapIndex++;
-    $this->sitemap = new SitemapWriterSection($this->file, $this->sitemapIndex, $this->baseUrl, $this->indent, $this->compress);    
-
+    $this->sitemap = new SitemapWriterSection($this->file, $this->sitemapIndex, $this->baseUrl, $this->indent, $this->compress);
     $this->writer->startElement('sitemap');
     $this->writer->writeElement('loc', $this->sitemap->getLocation());
     $this->writer->writeElement('lastmod', date('c'));

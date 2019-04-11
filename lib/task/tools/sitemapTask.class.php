@@ -123,6 +123,7 @@ EOF;
     $writer->addSet(new SitemapActorSet);
     $this->log('Indexing static pages');
     $writer->addSet(new SitemapStaticPageSet);
+    $writer->end();
 
     // Sitemap submission
     if ($options['ping'])

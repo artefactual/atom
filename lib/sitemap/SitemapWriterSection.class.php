@@ -133,7 +133,7 @@ class SitemapWriterSection
     return $this->baseUrl.'/'.basename($this->file).$ext;
   }
 
-  private function flush()
+  public function flush()
   {
     if ($this->bufferSize === 0)
     {
