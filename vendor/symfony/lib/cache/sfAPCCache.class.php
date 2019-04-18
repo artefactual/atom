@@ -45,7 +45,7 @@ class sfAPCCache extends sfCache
     $this->infoKey = 'info';
     $this->createTimeKey = 'creation_time';
     $this->modTimeKey = 'modification_time';
-    if (extension_loaded('apcu') && version_compare(phpversion('apc'), '4.0.7') === -1)
+    if (extension_loaded('apcu') && version_compare(phpversion('apcu'), '4.0.7') === -1)
     {
       $this->infoKey = 'key';
       $this->createTimeKey = 'ctime';
