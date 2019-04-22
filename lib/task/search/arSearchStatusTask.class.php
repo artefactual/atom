@@ -52,7 +52,7 @@ EOF;
     $this->log(sprintf(" - Host: %s", $config['server']['host']));
     $this->log(sprintf(" - port: %s", $config['server']['port']));
     $this->log(sprintf(" - Index name: %s", $config['index']['name']));
-    $this->log();
+    $this->log(null);
 
     // Display how many objects are indexed versus how many are available
     $this->log("Document indexing status:");
