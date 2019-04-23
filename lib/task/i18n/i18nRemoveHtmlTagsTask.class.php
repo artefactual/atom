@@ -55,14 +55,14 @@ EOF;
     foreach ($columns as $column)
     {
       // Store column name/value for processing if it contains tags
-      if ($row->$column && (($row->$column != strip_tags($row->$column)) || ($row->$column != html_entity_decode($row->$column))))
+      if ($row[$column] && (($row[$column] != strip_tags($row[$column])) || ($row[$column] != html_entity_decode($row[$column]))))
       {
-        $columnValues[$column] = $this->transformHtmlToText($row->$column);
+        $columnValues[$column] = $this->transformHtmlToText($row[$column]);
       }
     }
 
     // Update database with transformed column values
-    $this->updateRow($tableName, $row->id, $row->culture, $columnValues);
+    $this->updateRow($tableName, $row['id'], $row['culture'], $columnValues);
 
     return count($columnValues);
   }
