@@ -90,7 +90,7 @@ EOF;
     $this->log(sprintf(' - %d physical objects marked for deletion', count($toDelete)));
 
     // Delete unlinked physical objects if not conducting a dry run
-    $this->log();
+    $this->log(null);
     $this->log('Deleting unlinked physical objects...');
 
     foreach ($toDelete as $id)
@@ -133,7 +133,7 @@ EOF;
       $physicalObjectsCountAfter = $physicalObjectsCountBefore - count($toDelete);
     }
 
-    $this->log();
+    $this->log(null);
     $this->displayPhysicalObjectCount('after', $physicalObjectsCountAfter);
 
     // Enable search index
