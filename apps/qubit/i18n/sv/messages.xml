@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2019-01-31T15:10:10Z" original="messages" product-name="messages" source-language="en" target-language="sv">
+  <file datatype="plaintext" date="2019-04-15T15:38:10Z" original="messages" product-name="messages" source-language="en" target-language="sv">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
@@ -3070,11 +3070,6 @@
         <target>Hoppsan, vi kunde inte hitta n&#xE5;gon fysisk f&#xF6;rvaringsplats f&#xF6;r den aktuella resursen.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/storageLocationsError.php</note>
       </trans-unit>
-      <trans-unit id="de0c88a71f5f3fdf9d226d3348cc37b859e1a810">
-        <source>Open original %1%</source>
-        <target>&#xD6;ppna original %1%</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_showAudio.php</note>
-      </trans-unit>
       <trans-unit id="e72184f55cc026514b7160d78c3c5aef63c2a050">
         <source>Or</source>
         <target>Eller</target>
@@ -3084,16 +3079,6 @@
         <source>Or, create a new container</source>
         <target>Eller skapa en ny beh&#xE5;llare</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/editPhysicalObjectsSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="31bd6206c279ae86b6f39c3eda1b26d9e16ff61e">
-        <source>Original %1% is not accessible</source>
-        <target>Original %1% kan inte n&#xE5;s.</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_showDownload.php</note>
-      </trans-unit>
-      <trans-unit id="e63184eeb6ceb13b0f092286b2d86ce397e12e63">
-        <source>Original %1% not accessible</source>
-        <target>Original %1% kan inte n&#xE5;s</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_showAudio.php</note>
       </trans-unit>
       <trans-unit id="01a63c03cb6a42aa67250456e3a4c786f24ba3a6">
         <source>Original filename</source>
@@ -5154,38 +5139,6 @@
         <source>you</source>
         <target>du</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/indexSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="1">
-        <source>Please make a selection.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="2">
-        <source>Update an existing date range</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="3">
-        <source>Select a date range to overwrite:</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="4">
-        <source>Updating an existing date range will permanently overwrite the current dates.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="5">
-        <source>or, create a new date range</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="6">
-        <source>Select the new date type:</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="7">
-        <source>No entity type specified.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="8">
-        <source>%1% %2% results for %3%</source>
-        <target/>
       </trans-unit>
     </body>
   </file>

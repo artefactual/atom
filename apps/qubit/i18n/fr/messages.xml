@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2019-01-31T15:21:39Z" original="messages" product-name="messages" source-language="en" target-language="fr">
+  <file datatype="plaintext" date="2019-04-15T15:38:44Z" original="messages" product-name="messages" source-language="en" target-language="fr">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
@@ -724,10 +724,6 @@
         <target>Base pour les autorisations ou pour les restrictions de droits</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/editSuccess.php</note>
       </trans-unit>
-      <trans-unit id="23fda70b6be2e72e7a8739da8feab5f4302718bd">
-        <source>Bind Lookup Attribute</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/ldapSuccess.php</note>
-      </trans-unit>
       <trans-unit id="bafa13b789066310abe28577644115741da38ed8">
         <source>Biographical history</source>
         <target>Notice biographique</target>
@@ -822,10 +818,6 @@
         <source>CSV export</source>
         <target>exportation en format CSV</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/actions/exportAction.class.php</note>
-      </trans-unit>
-      <trans-unit id="37de6dc5ff70e0bef344db7a7465025677c58ef8">
-        <source>Cache description XML exports upon creation/modification</source>
-        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="c2f7ded18f69796b981cb853f42764f7beb96084">
         <source>Calculate dates</source>
@@ -1600,10 +1592,6 @@
       <trans-unit id="050b73babb390d98d6e0c6435784060a843927a1">
         <source>Enable description change logging</source>
         <target>Activer la journalisation des modifications de description</target>
-        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
-      </trans-unit>
-      <trans-unit id="d6395f068ba11d205da4a6492fefdd088ee4ecea">
-        <source>Enable institutional scoping</source>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="fd2fd26a6dc130f42bca70c8faa57e4fb944c582">
@@ -3066,11 +3054,6 @@
         <target>Aie, aucune localisation physique n'a pu &#xEA;tre trouv&#xE9;e pour cette ressource.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/storageLocationsError.php</note>
       </trans-unit>
-      <trans-unit id="de0c88a71f5f3fdf9d226d3348cc37b859e1a810">
-        <source>Open original %1%</source>
-        <target>Ouvrir %1% originale</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_showAudio.php</note>
-      </trans-unit>
       <trans-unit id="e72184f55cc026514b7160d78c3c5aef63c2a050">
         <source>Or</source>
         <target>Ou</target>
@@ -3080,16 +3063,6 @@
         <source>Or, create a new container</source>
         <target>Ou cr&#xE9;er un nouveau contenant</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/editPhysicalObjectsSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="31bd6206c279ae86b6f39c3eda1b26d9e16ff61e">
-        <source>Original %1% is not accessible</source>
-        <target>L'original %1% n'est pas accessible</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_showDownload.php</note>
-      </trans-unit>
-      <trans-unit id="e63184eeb6ceb13b0f092286b2d86ce397e12e63">
-        <source>Original %1% not accessible</source>
-        <target>Original %1% inaccessible</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_showAudio.php</note>
       </trans-unit>
       <trans-unit id="01a63c03cb6a42aa67250456e3a4c786f24ba3a6">
         <source>Original filename</source>
@@ -5150,38 +5123,6 @@
         <source>you</source>
         <target>vous</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/indexSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="1">
-        <source>Please make a selection.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="2">
-        <source>Update an existing date range</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="3">
-        <source>Select a date range to overwrite:</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="4">
-        <source>Updating an existing date range will permanently overwrite the current dates.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="5">
-        <source>or, create a new date range</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="6">
-        <source>Select the new date type:</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="7">
-        <source>No entity type specified.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="8">
-        <source>%1% %2% results for %3%</source>
-        <target/>
       </trans-unit>
     </body>
   </file>
