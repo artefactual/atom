@@ -180,35 +180,26 @@ EOF;
    */
   private function transformDocumentDescriptionLists(&$doc)
   {
-    // Remove <dl> tags and whitespaces between their children
-    foreach ($doc->getElementsByTagName('dl') as $definitionList)
-    {
-      $content = preg_replace('/>[\s\t\r\n]*</', '><', $doc->saveXML($definitionList));
-      $fragment = $doc->createDocumentFragment();
-      $fragment->appendXML($content);
-      $definitionList->parentNode->replaceChild($fragment, $definitionList);
-    }
-
     $termList = $doc->getElementsByTagName('dt');
 
-    // Loop through each <dt> and replace by text node
+    // Loop through each <dt> tag and remove it
     while ($termList->length > 0)
     {
       $termNode = $termList->item(0);
-
-      $newTextNode = $doc->createTextNode(trim($termNode->textContent)."\n");
-      $termNode->parentNode->replaceChild($newTextNode, $termNode);
+      $termNode->parentNode->removeChild($termNode);
     }
 
     $descriptionList = $doc->getElementsByTagName('dd');
 
-    // Look through each <dd> element and replace by text node
+    // Look through each <dd> element and change to a <p> element
     while ($descriptionList->length > 0)
     {
       $descriptionNode = $descriptionList->item(0);
-
-      $newTextNode = $doc->createTextNode(': '.trim($descriptionNode->textContent)."\n\n");
-      $descriptionNode->parentNode->replaceChild($newTextNode, $descriptionNode);
+      // Create <p> node with description's text
+      $newParaNode = $doc->createElement('p');
+      $newTextNode = $doc->createTextNode($descriptionNode->textContent);
+      $newParaNode->appendChild($newTextNode);
+      $descriptionNode->parentNode->replaceChild($newParaNode, $descriptionNode);
     }
   }
 
