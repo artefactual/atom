@@ -71,6 +71,7 @@ class InformationObjectUploadFindingAidAction extends sfAction
       $i18n = $this->context->i18n;
 
       // Move temporary file before it's deleted at the end of the request
+      arFindingAidJob::checkDownloadsExistsAndCreate();
       $path = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR . arFindingAidJob::getFindingAidPath($this->resource->id);
 
       if (!move_uploaded_file($file->getTempName(), $path))
