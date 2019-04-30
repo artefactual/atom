@@ -414,6 +414,18 @@ class Qubit
   }
 
   /**
+   * Create "downloads/" directory if it doesn't exist
+   */
+  public static function createDownloadsDirIfNeeded()
+  {
+    $downloadsPath = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR . 'downloads';
+    if (!is_dir($downloadsPath))
+    {
+      mkdir($downloadsPath, 0755);
+    }
+  }
+
+  /**
    * Generate an identifier using a counter value and a mask
    *
    * @param int $counter  current counter value

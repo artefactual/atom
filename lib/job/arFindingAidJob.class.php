@@ -46,7 +46,7 @@ class arFindingAidJob extends arBaseJob
       return false;
     }
 
-    self::checkDownloadsExistsAndCreate();
+    Qubit::createDownloadsDirIfNeeded();
 
     if (isset($parameters['delete']) && $parameters['delete'])
     {
@@ -366,15 +366,6 @@ class arFindingAidJob extends arBaseJob
     $meta_data = stream_get_meta_data($handle);
 
     return $meta_data['uri'];
-  }
-
-  public static function checkDownloadsExistsAndCreate()
-  {
-    $dlPath = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR . 'downloads';
-    if (!is_dir($dlPath))
-    {
-      mkdir($dlPath, 0755);
-    }
   }
 
   public static function getStatus($id)

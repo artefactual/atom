@@ -71,11 +71,22 @@ class sfInstall
       mkdir(sfConfig::get('sf_log_dir'), 0777, true);
     }
 
+    Qubit::createUploadDirsIfNeeded();
+    Qubit::createDownloadsDirIfNeeded();
+
     $writablePaths = array();
 
     $finder = sfFinder::type('any');
 
-    foreach (array(sfConfig::get('sf_cache_dir'), sfConfig::get('sf_data_dir'), sfConfig::get('sf_log_dir')) as $path)
+    $pathsToCheck = array(
+      sfConfig::get('sf_cache_dir'),
+      sfConfig::get('sf_data_dir'),
+      sfConfig::get('sf_log_dir'),
+      sfConfig::get('sf_upload_dir'),
+      sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR . 'downloads'
+    );
+
+    foreach ($pathsToCheck as $path)
     {
       // TODO sfFinder::in() does not include the argument path
       if (!is_writable($path))
