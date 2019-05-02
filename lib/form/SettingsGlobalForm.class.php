@@ -59,7 +59,6 @@ class SettingsGlobalForm extends sfForm
       'google_maps_api_key' => new sfWidgetFormInput,
       'generate_reports_as_pub_user' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'cache_xml_on_save' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
-      'clipboard_save_max_age' => new sfWidgetFormInput,
     ));
 
     // Add labels
@@ -89,7 +88,6 @@ class SettingsGlobalForm extends sfForm
       'google_maps_api_key' => $this->i18n->__('Google Maps Javascript API key (for displaying dynamic maps)'),
       'generate_reports_as_pub_user' => $this->i18n->__('Generate archival description reports as public user'),
       'cache_xml_on_save' => $this->i18n->__('Cache description XML exports upon creation/modification'),
-      'clipboard_save_max_age' => $this->i18n->__('Saved clipboard maximum age (in days)'),
     ));
 
     // Add helper text
@@ -112,7 +110,6 @@ class SettingsGlobalForm extends sfForm
       // 'explode_multipage_files' => $this->i18n->__('')
       // 'show_tooltips' => $this->i18n->__('')
       // 'sword_deposit_dir' => $this->i18n->__('')
-      'clipboard_save_max_age' => $this->i18n->__('The number of days a saved clipboard should be retained before it is eligible for deletion'),
     ));
 
     // Hits per page validator
@@ -152,7 +149,6 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['google_maps_api_key'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['generate_reports_as_pub_user'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['cache_xml_on_save'] = new sfValidatorInteger(array('required' => false));
-    $this->validatorSchema['clipboard_save_max_age'] = new sfValidatorInteger(array('required' => false));
 
     // Set decorator
     $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
