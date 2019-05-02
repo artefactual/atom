@@ -91,6 +91,10 @@ class SettingsMenuComponent extends sfComponent
       array(
         'label' => $i18n->__('Privacy Notification'),
         'action' => 'privacyNotification'
+      ),
+      array(
+        'label' => $i18n->__('Clipboard'),
+        'action' => 'clipboard'
       )
     );
 
