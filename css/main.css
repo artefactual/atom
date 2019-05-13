@@ -184,20 +184,6 @@ body,
   position: static;
 }
 
-/* Flowplayer width and height */
-
-.flowplayer
-{
-  display: block;
-  height: 300px;
-  width: 435px;
-}
-
-.audio
-{
-  height: 24px;
-}
-
 /* odd&even divs */
 .odd {
   background-color: #edf5fa;

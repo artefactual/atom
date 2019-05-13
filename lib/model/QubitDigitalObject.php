@@ -2880,9 +2880,9 @@ class QubitDigitalObject extends BaseDigitalObject
     switch ($usageId)
     {
       case QubitTerm::REFERENCE_ID:
-        $derivativeName = $originalNameNoExtension.'_'.$usageId.'.flv';
+        $derivativeName = $originalNameNoExtension.'_'.$usageId.'.mp4';
         $derivativeFullPath = sfConfig::get('sf_web_dir').$this->getPath().$derivativeName;
-        self::convertVideoToFlash($originalFullPath, $derivativeFullPath);
+        self::convertVideoToMp4($originalFullPath, $derivativeFullPath);
         break;
       case QubitTerm::THUMBNAIL_ID:
       default:
@@ -2914,9 +2914,9 @@ class QubitDigitalObject extends BaseDigitalObject
     switch ($usageId)
     {
       case QubitTerm::REFERENCE_ID:
-        $derivativeName = $originalNameNoExtension.'_'.$usageId.'.flv';
+        $derivativeName = $originalNameNoExtension.'_'.$usageId.'.mp4';
         $derivativeFullPath = sfConfig::get('sf_web_dir').$this->getPath().$derivativeName;
-        self::convertVideoToFlash($originalFullPath, $derivativeFullPath);
+        self::convertVideoToMp4($originalFullPath, $derivativeFullPath);
         break;
       case QubitTerm::THUMBNAIL_ID:
       default:
@@ -2958,7 +2958,7 @@ class QubitDigitalObject extends BaseDigitalObject
   }
 
   /**
-   * Create a flash video derivative using the FFmpeg library.
+   * Create a mp4 video derivative using the FFmpeg library.
    *
    * @param string  $originalPath path to original video
    * @param string  $newPath      path to derivative video
@@ -2969,7 +2969,7 @@ class QubitDigitalObject extends BaseDigitalObject
    *
    * @todo implement $maxwidth and $maxheight constraints on video
    */
-  public static function convertVideoToFlash($originalPath, $newPath, $width=null, $height=null)
+  public static function convertVideoToMp4($originalPath, $newPath, $width=null, $height=null)
   {
     // Test for FFmpeg library
     if (!self::hasFfmpeg())
@@ -2977,7 +2977,7 @@ class QubitDigitalObject extends BaseDigitalObject
       return false;
     }
 
-    $command = 'ffmpeg -y -i '.$originalPath.' -ar 44100 '.$newPath.' 2>&1';
+    $command = 'ffmpeg -y -i '.$originalPath.' -ar 44100 -c:v libx264 -pix_fmt yuv420p -c:a aac -movflags +faststart '.$newPath.' 2>&1';
     exec($command, $output, $status);
 
     chmod($newPath, 0644);
@@ -2986,7 +2986,7 @@ class QubitDigitalObject extends BaseDigitalObject
   }
 
   /**
-   * Create a flash video derivative using the FFmpeg library.
+   * Create a video thumbnail using the FFmpeg library.
    *
    * @param string  $originalPath path to original video
    * @param string  $newPath      path to derivative video

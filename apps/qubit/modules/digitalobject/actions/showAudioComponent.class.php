@@ -43,13 +43,14 @@ class DigitalObjectShowAudioComponent extends sfComponent
       $this->representation = $parent->getRepresentationByUsage($this->usageType);
     }
 
-    // Set up display of video in flowplayer
+    // Set up display of video in mediaelement
     if ($this->representation)
     {
       $this->showFlashPlayer = true;
 
-      $this->response->addJavaScript('/vendor/flowplayer/example/flowplayer-3.1.4.min.js');
-      $this->response->addJavaScript('flowplayer');
+      $this->response->addJavaScript('/vendor/mediaelement/mediaelement-and-player.min.js');
+      $this->response->addJavaScript('mediaelement');
+      $this->response->addStyleSheet('/vendor/mediaelement/mediaelementplayer.min.css');
     }
     else
     {

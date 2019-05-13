@@ -59,11 +59,11 @@ Url:       http://drupal.org/
 Copyright: Original authors - see http://association.drupal.org/about/copyright
 License:   GPL version 2 - see LICENSE.txt file
 
-Flowplayer
-----------
-Url:       http://flowplayer.org/
-Copyright: Copyright (c) 2012 Flowplayer Ltd
-License:   GPL version 3
+MediaElement.js
+---------------
+Url:       http://mediaelementjs.com/
+Copyright: Copyright (c) 2018 MediaElement
+License:   MIT
 
 FluentDOM
 ---------
