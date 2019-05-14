@@ -35,6 +35,7 @@ class digitalObjectRegenDerivativesTask extends arBaseTask
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
       new sfCommandOption('slug', 'l', sfCommandOption::PARAMETER_OPTIONAL, 'Information object slug', null),
       new sfCommandOption('type', 'd', sfCommandOption::PARAMETER_OPTIONAL, 'Derivative type ("reference" or "thumbnail")', null),
+      new sfCommandOption('media-type', 'm', sfCommandOption::PARAMETER_OPTIONAL, 'Limit regenerating derivatives to a specific media type (e.g. "audio" or "image" or "text" or "video). "Other" is not supported', null),
       new sfCommandOption('index', 'i', sfCommandOption::PARAMETER_NONE, 'Update search index (defaults to false)', null),
       new sfCommandOption('force', 'f', sfCommandOption::PARAMETER_NONE, 'No confirmation message', null),
       new sfCommandOption('only-externals', 'o', sfCommandOption::PARAMETER_NONE, 'Only external objects', null),
@@ -67,6 +68,22 @@ EOF;
       // If value is not valid, show message and return error code 1
       error_log(sprintf('Invalid value for "type", must be one of (%s)',
         implode(',', $this->validTypes)));
+
+      exit(1);
+    }
+
+    // Validate "media-type" value
+    $validMediaTypes = array(
+      'audio' => QubitTerm::AUDIO_ID,
+      'image' => QubitTerm::IMAGE_ID,
+      'text'  => QubitTerm::TEXT_ID,
+      'video' => QubitTerm::VIDEO_ID
+    );
+    if ($options['media-type'] && !array_key_exists($options['media-type'], $validMediaTypes))
+    {
+      // If value is not valid, show message and return error code 1
+      error_log(sprintf('Invalid value for "media-type", must be one of (%s)',
+        implode(',', array_keys($validMediaTypes))));
 
       exit(1);
     }
@@ -107,6 +124,12 @@ EOF;
       $query .= ' AND do.usage_id = '.QubitTerm::EXTERNAL_URI_ID;
     }
 
+    // Only regenerate derivatives for digital objects of specific media type
+    if ($options['media-type'])
+    {
+      $query .= ' AND do.media_type_id = '.$validMediaTypes[$options['media-type']];
+    }
+
     // Limit ids for regeneration by json list
     if ($options['json'])
     {
@@ -127,14 +150,16 @@ EOF;
     {
       $confirm = array();
 
+      $changed = $options['media-type'] ? $options['media-type'] : 'ALL';
+
       if ($options['slug'])
       {
-        $confirm[] = 'Continuing will regenerate the derivatives for ALL descendants of';
+        $confirm[] = 'Continuing will regenerate the derivatives for '.$changed.' descendants of';
         $confirm[] = '"'.$options['slug'].'"';
       }
       else
       {
-        $confirm[] = 'Continuing will regenerate the dervivatives for ALL digital objects';
+        $confirm[] = 'Continuing will regenerate the derivatives for '.$changed.' digital objects';
       }
 
       $confirm[] = 'This will PERMANENTLY DELETE existing derivatives you chose to regenerate';
