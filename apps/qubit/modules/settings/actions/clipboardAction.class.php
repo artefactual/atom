@@ -39,7 +39,7 @@ class SettingsClipboardAction extends SettingsEditAction
       'clipboard_save_max_age' => '0',
       'clipboard_send_enabled' => '0',
       'clipboard_send_button_text' => $this->i18n->__('Send'),
-      'clipboard_send_message_html' => $this->i18n->__('%1%Sending...%2%', array('%1%' => '<h1>', '%2%' => '</h1>')),
+      'clipboard_send_message_html' => $this->i18n->__('Sending...'),
       'clipboard_send_http_method' => 'POST'
     );
   }

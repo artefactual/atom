@@ -15,7 +15,7 @@
     <input name="base_url" type="hidden" value="<?php echo $siteBaseUrl ?>" />
 
     <?php foreach ($allSlugs as $className => $slugs): ?>
-      <input name="<?php echo $classSlugFieldNames[$className] ?>" value="<?php echo esc_entities(json_encode($slugs)) ?>" />
+      <input name="<?php echo $classSlugFieldNames[$className] ?>" type="hidden" value="<?php echo esc_entities(json_encode($slugs)) ?>" />
     <?php endforeach; ?>
 
     <input id="sendFormSubmit" type="submit" value="<?php echo __('Send') ?>">

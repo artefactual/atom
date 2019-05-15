@@ -42,7 +42,7 @@ class UserClipboardSendAction extends sfAction
     else
     {
       // Set message shown to user while message is sent
-      $sendMessageHtml = $this->context->i18n->__('%1%Sending...%2%', array('%1%' => '<h1>', '%2%' => '</h1>'));
+      $sendMessageHtml = $this->context->i18n->__('Sending...');
       $this->sendMessageHtml = sfConfig::get('app_clipboard_send_message_html', $sendMessageHtml);
 
       // Set where and how data is to be sent
