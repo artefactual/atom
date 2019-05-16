@@ -203,6 +203,14 @@ EOF;
           continue;
         }
 
+        if (!file_exists($path = self::getPath($item)))
+        {
+          $this->log(sprintf("Couldn't read file '$item'"));
+          $this->skippedCount++;
+
+          continue;
+        }
+
         self::addDigitalObject($results[0], $item, $options);
       }
       else
@@ -210,6 +218,14 @@ EOF;
         // If more than one digital object linked to this information object
         for ($i=0; $i < count($item); $i++)
         {
+          if (!file_exists($path = self::getPath($item[$i])))
+          {
+            $this->log(sprintf("Couldn't read file '$item[$i]'"));
+            $this->skippedCount++;
+
+            continue;
+          }
+
           // Create new information objects, to maintain one-to-one
           // relationship with digital objects
           $informationObject = new QubitInformationObject;
@@ -233,19 +249,31 @@ EOF;
     }
   }
 
-  protected function addDigitalObject($objectId, $path, $options = array())
+  protected function getPath($path)
   {
-    $this->curObjNum++;
-
     if (isset($options['path']))
     {
       $path = $options['path'].$path;
     }
+    return $path;
+  }
+
+  protected function addDigitalObject($objectId, $path, $options = array())
+  {
+    $this->curObjNum++;
+
+    $path = self::getPath($path);
 
     $filename = basename($path);
 
     $remainingImportCount = $this->totalObjCount - $this->skippedCount - $importedCount;
     $message = "Loading '$filename' " . "({$this->curObjNum} of {$remainingImportCount} remaining";
+
+    if (!file_exists($path))
+    {
+      $this->log("Couldn't read file '$path'");
+      return;
+    }
 
     if (isset($options['limit']))
     {
@@ -261,15 +289,16 @@ EOF;
 
     if ($options['link-source'])
     {
-      $do->importFromFile($path);
+      if (false === $do->importFromFile($path))
+      {
+        return;
+      }
     }
     else
     {
       // Read file contents
       if (false === $content = file_get_contents($path))
       {
-        $this->log("Couldn't read file '$path'");
-
         return;
       }
 

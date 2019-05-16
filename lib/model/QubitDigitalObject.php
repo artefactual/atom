@@ -1473,9 +1473,8 @@ class QubitDigitalObject extends BaseDigitalObject
         return $contents;
       }
     }
-
-    // Throw exception on failure
-    throw new sfException(sprintf('Error reading file or file is empty.', $filepath));
+    // Return false on failure so CLI task will log an error and continue importing.
+    return false;
   }
 
   /**
@@ -1553,8 +1552,12 @@ class QubitDigitalObject extends BaseDigitalObject
     }
 
     // Download the remote resource bitstream
-    $contents = $this->file_get_contents_if_not_empty($filepath);
+    if (false === $contents = $this->file_get_contents_if_not_empty($filepath))
+    {
+      return false;
+    }
     $this->saveAndAttachFileContent($filename, $contents);
+    return $contents;
   }
 
   /**
@@ -2455,7 +2458,10 @@ class QubitDigitalObject extends BaseDigitalObject
     if (null === $this->localPath && QubitTerm::EXTERNAL_FILE_ID == $this->usageId)
     {
       $filename = basename($this->path);
-      $contents = $this->file_get_contents_if_not_empty($this->path);
+      if (false === $contents = $this->file_get_contents_if_not_empty($this->path))
+      {
+        throw new sfException(sprintf('Error reading file or file is empty.', $filepath));
+      }
       $this->localPath = Qubit::saveTemporaryFile($filename, $contents);
     }
 
