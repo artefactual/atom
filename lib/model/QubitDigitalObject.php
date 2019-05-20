@@ -3011,8 +3011,18 @@ class QubitDigitalObject extends BaseDigitalObject
       return false;
     }
 
+    // Get the duration of the video and calculate the position of its thumbnail at 50%
+    $thumbnailPosition = 0;
+    $command = "ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $originalPath";
+    exec($command, $output, $status);
+    if (0 === $status && is_array($output) && 1 === count($output))
+    {
+      // ffprobe outputs duration as SS.MICROSECONDS
+      $thumbnailPosition = intval(floatval($output[0])/2);
+    }
+
     // Do conversion to jpeg
-    $command = "ffmpeg -itsoffset -30 -i $originalPath -vframes 1 -vf \"scale='min($width,iw):-1'\" $newPath";
+    $command = "ffmpeg -ss $thumbnailPosition -i $originalPath -vframes 1 -vf \"scale='min($width,iw):-1'\" $newPath";
     exec($command.' 2>&1', $output, $status);
 
     chmod($newPath, 0644);
@@ -3070,10 +3080,7 @@ class QubitDigitalObject extends BaseDigitalObject
     }
 
     // Do conversion to jpeg
-    $command = 'ffmpeg -i '.$originalPath.' -vframes 1 -an -f image2 -s '.$width.'x'.$height.' '.$tmpFilePath.' 2>&1';
-    exec($command, $output, $status);
-
-    chmod($tmpFilePath, 0644);
+    self::convertVideoToThumbnail($originalPath, $tmpFilePath, $width, $height);
 
     return file_get_contents($tmpFilePath);
   }

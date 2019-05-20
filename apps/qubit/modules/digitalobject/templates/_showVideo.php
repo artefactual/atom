@@ -11,7 +11,7 @@
 <?php elseif ($usageType == QubitTerm::REFERENCE_ID): ?>
 
   <?php if ($showFlashPlayer): ?>
-    <video class="mediaelement-player" src="<?php echo public_path($representation->getFullPath()) ?>"></video>
+    <video preload="metadata" class="mediaelement-player" src="<?php echo public_path($representation->getFullPath()) ?>"></video>
   <?php else: ?>
     <div style="text-align: center">
       <?php echo image_tag($representation->getFullPath(), array('style' => 'border: #999 1px solid', 'alt' => __($resource->getDigitalObjectAltText() ?: 'Original %1% not accessible', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))) ?>
