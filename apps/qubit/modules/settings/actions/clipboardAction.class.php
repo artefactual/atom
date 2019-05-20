@@ -27,11 +27,16 @@ class SettingsClipboardAction extends SettingsEditAction
       'clipboard_send_url',
       'clipboard_send_button_text',
       'clipboard_send_message_html',
-      'clipboard_send_http_method');
+      'clipboard_send_http_method'),
+
+    $I18N = array(
+      'clipboard_send_button_text',
+      'clipboard_send_message_html'
+    );
 
   public function earlyExecute()
   {
-    parent::earlyExecute($request);
+    parent::earlyExecute();
 
     $this->updateMessage = $this->i18n->__('Clipboard settings saved.');
 

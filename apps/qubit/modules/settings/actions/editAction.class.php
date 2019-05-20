@@ -19,16 +19,16 @@
 
 class SettingsEditAction extends DefaultEditAction
 {
-  protected $settings = array();
-
   protected function earlyExecute()
   {
+    $this->settings = array();
+    $this->culture = $this->context->user->getCulture();
     $this->i18n = sfContext::getInstance()->i18n;
 
     // Load setting for each field name
     foreach ($this::$NAMES as $name)
     {
-      $this->settings[$name] = QubitSetting::getByName($name);
+      $this->settings[$name] = (null !== $$name = QubitSetting::getByName($name)) ? $$name : new QubitSetting;
     }
   }
 
@@ -39,8 +39,10 @@ class SettingsEditAction extends DefaultEditAction
       ? $this->settingDefaults[$name] : '';
 
     // Default setting value in form will be current setting value or, if none exists, settings default
+    $settingGetOptions = (in_array($name, $this::$I18N)) ? array('culture' => $this->culture) : array('cultureFallback' => true);
+
     $settingValue = (null !== $this->settings[$name])
-      ? $this->settings[$name]->getValue(array('sourceCulture' => true)) : $settingDefault;
+      ? $this->settings[$name]->getValue($settingGetOptions) : $settingDefault;
 
     $this->form->setDefault($name, $settingValue);
   }
@@ -56,7 +58,10 @@ class SettingsEditAction extends DefaultEditAction
         $this->settings[$name] = new QubitSetting;
         $this->settings[$name]->name = $name;
       }
-      $this->settings[$name]->setValue($field->getValue(), array('sourceCulture' => true));
+
+      $settingSetOptions = (in_array($name, $this::$I18N)) ? array('culture' => $this->culture) : array('sourceCulture' => true);
+      $this->settings[$name]->setValue($field->getValue(), $settingSetOptions);
+
       $this->settings[$name]->save();
     }
   }
