@@ -202,7 +202,7 @@ EOF;
 
   protected function dir_tree($dir)
   {
-    $path = '';
+    $path = array();
     $stack[] = $dir;
 
     while ($stack)
