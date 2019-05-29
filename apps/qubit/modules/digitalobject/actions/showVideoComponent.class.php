@@ -46,8 +46,8 @@ class DigitalObjectShowVideoComponent extends sfComponent
     // Set up display of video in mediaelement
     if ($this->representation)
     {
-      $this->response->addJavaScript('/vendor/mediaelement/mediaelement-and-player.min.js');
-      $this->response->addJavaScript('mediaelement');
+      $this->response->addJavaScript('/vendor/mediaelement/mediaelement-and-player.min.js', 'last');
+      $this->response->addJavaScript('mediaelement', 'last');
       $this->response->addStyleSheet('/vendor/mediaelement/mediaelementplayer.min.css');
 
       // If this is a reference movie, get the thumbnail representation for the

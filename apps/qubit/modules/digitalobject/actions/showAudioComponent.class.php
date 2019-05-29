@@ -48,8 +48,8 @@ class DigitalObjectShowAudioComponent extends sfComponent
     {
       $this->showFlashPlayer = true;
 
-      $this->response->addJavaScript('/vendor/mediaelement/mediaelement-and-player.min.js');
-      $this->response->addJavaScript('mediaelement');
+      $this->response->addJavaScript('/vendor/mediaelement/mediaelement-and-player.min.js', 'last');
+      $this->response->addJavaScript('mediaelement', 'last');
       $this->response->addStyleSheet('/vendor/mediaelement/mediaelementplayer.min.css');
     }
     else
