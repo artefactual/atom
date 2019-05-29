@@ -51,8 +51,6 @@ class SettingsClipboardAction extends SettingsEditAction
 
   protected function addField($name)
   {
-    $this->setFormFieldDefault($name);
-
     // Set form field format
     switch ($name)
     {

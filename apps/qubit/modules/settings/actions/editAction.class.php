@@ -41,7 +41,8 @@ class SettingsEditAction extends DefaultEditAction
     // Default setting value in form will be current setting value or, if none exists, settings default
     $settingGetOptions = (in_array($name, $this::$I18N)) ? array('culture' => $this->culture) : array('cultureFallback' => true);
 
-    $settingValue = (null !== $this->settings[$name])
+    // Use setting default if setting hasn't been saved yet
+    $settingValue = (null !== $this->settings[$name]->id)
       ? $this->settings[$name]->getValue($settingGetOptions) : $settingDefault;
 
     $this->form->setDefault($name, $settingValue);
@@ -53,10 +54,10 @@ class SettingsEditAction extends DefaultEditAction
 
     if (in_array($name, $this::$NAMES))
     {
-      if (null === $this->settings[$name])
+      if (null === $this->settings[$name]->id)
       {
-        $this->settings[$name] = new QubitSetting;
         $this->settings[$name]->name = $name;
+        $this->settings[$name]->culture = $this->culture;
       }
 
       $settingSetOptions = (in_array($name, $this::$I18N)) ? array('culture' => $this->culture) : array('sourceCulture' => true);
@@ -70,6 +71,7 @@ class SettingsEditAction extends DefaultEditAction
   {
     parent::execute($request);
 
+    // Handle posted data
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getPostParameters());
@@ -87,6 +89,12 @@ class SettingsEditAction extends DefaultEditAction
 
         $this->redirect(array('module' => 'settings', 'action' => $this->getContext()->getActionName()));
       }
+    }
+
+    // Set form field defaults
+    foreach ($this::$NAMES as $name)
+    {
+      $this->setFormFieldDefault($name);
     }
   }
 }
