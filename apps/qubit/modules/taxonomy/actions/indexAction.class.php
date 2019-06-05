@@ -38,6 +38,9 @@ class TaxonomyIndexAction extends sfAction
       $this->resource = $this->getRoute()->resource;
     }
 
+    // Explicitly add resource to sf_route to make it available to components 
+    $request->getAttribute('sf_route')->resource = $this->resource;
+
     // Disallow access to locked taxonomies
     if (in_array($this->resource->id, QubitTaxonomy::$lockedTaxonomies))
     {
