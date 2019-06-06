@@ -15,7 +15,7 @@
 <div class="page">
 
   <div>
-    <?php echo render_value($sf_data->getRaw('copyrightStatement')) ?>
+    <?php echo render_value_html($sf_data->getRaw('copyrightStatement')) ?>
   </div>
 
 </div>
