@@ -469,6 +469,18 @@
         {
           case 40: // Down arrow
           case 38: // Up arrow
+            // Firefox 65 and higher handle arrows with keyup, not keypress
+            if (YAHOO.env.ua.gecko >= 65)
+            {
+              if (e.keyCode == 38)
+              {
+                this.move(-1);
+              }
+              else
+              {
+                this.move(1);
+              }
+            }
             break;
 
           case 27: // Escape
