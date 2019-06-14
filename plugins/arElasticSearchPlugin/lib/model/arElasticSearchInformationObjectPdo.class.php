@@ -1245,7 +1245,15 @@ class arElasticSearchInformationObjectPdo
     // Repository
     if (null !== $repository = $this->getRepository())
     {
-      $serialized['repository'] = arElasticSearchRepository::serialize($repository);
+      $serialized['repository']['id'] = $this->repository->id;
+      $serialized['repository']['slug'] = $this->repository->slug;
+      $serialized['repository']['identifier'] = $this->repository->identifier;
+
+      $serialized['repository']['i18n'] = arElasticSearchModelBase::serializeI18ns(
+        $repository->id,
+        array('QubitActor'),
+        array('fields' => array('authorized_form_of_name'))
+      );
     }
 
     // Places
