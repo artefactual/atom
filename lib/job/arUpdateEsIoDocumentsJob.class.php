@@ -56,8 +56,11 @@ class arUpdateEsIoDocumentsJob extends arBaseJob
     $this->job->addNoteText($message);
     $this->info($message);
 
+    $count = 0;
     foreach ($parameters['ioIds'] as $id)
     {
+      $count++;
+
       if (null === $object = QubitInformationObject::getById($id))
       {
         $this->info($this->i18n->__('Invalid archival description id: %1', array('%1' => $id)));
@@ -65,26 +68,31 @@ class arUpdateEsIoDocumentsJob extends arBaseJob
         continue;
       }
 
-      $title = $object->getTitle(array('cultureFallback' => true));
-
       if ($parameters['updateIos'] && $parameters['updateDescendants'])
       {
         arElasticSearchInformationObject::update($object, array('updateDescendants' => true));
-        $message = $this->i18n->__('Updating "%1" and descendants.', array('%1' => $title));
+        $message = $this->i18n->__('Updated %1 description(s) and their descendants.', array('%1' => $count));
       }
       elseif ($parameters['updateIos'])
       {
         arElasticSearchInformationObject::update($object);
-        $message = $this->i18n->__('Updating "%1".', array('%1' => $title));
+        $message = $this->i18n->__('Updated %1 description(s).', array('%1' => $count));
       }
       else
       {
         arElasticSearchInformationObject::updateDescendants($object);
-        $message = $this->i18n->__('Updating descendants of "%1".', array('%1' => $title));
+        $message = $this->i18n->__('Updating descendant of %1 description(s).', array('%1' => $count));
       }
 
-      $this->info($message);
+      // Status update every 100 descriptions
+      if (0 == $count % 100)
+      {
+        $this->info($message);
+      }
     }
+
+    // Final status update
+    $this->info($message);
 
     $this->job->setStatusCompleted();
     $this->job->save();
