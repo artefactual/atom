@@ -59,14 +59,15 @@ class arUpdateEsIoDocumentsJob extends arBaseJob
     $count = 0;
     foreach ($parameters['ioIds'] as $id)
     {
-      $count++;
-
       if (null === $object = QubitInformationObject::getById($id))
       {
         $this->info($this->i18n->__('Invalid archival description id: %1', array('%1' => $id)));
 
         continue;
       }
+      
+      // Don't count invalid description ids
+      $count++;
 
       if ($parameters['updateIos'] && $parameters['updateDescendants'])
       {
@@ -91,8 +92,11 @@ class arUpdateEsIoDocumentsJob extends arBaseJob
       }
     }
 
-    // Final status update
-    $this->info($message);
+    // Final status update, if total count is not a multiple of 100
+    if (0 != $count % 100)
+    {
+      $this->info($message);
+    }
 
     $this->job->setStatusCompleted();
     $this->job->save();
