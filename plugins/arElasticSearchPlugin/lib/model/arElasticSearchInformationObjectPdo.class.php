@@ -1284,7 +1284,20 @@ class arElasticSearchInformationObjectPdo
     foreach ($this->getNameAccessPoints() as $item)
     {
       $node = new arElasticSearchActorPdo($item->id);
-      $serialized['names'][] = $node->serialize();
+
+      $names = array(
+        'id' => $node->id,
+        'i18n' => arElasticSearchModelBase::serializeI18ns(
+          $node->id,
+          array('QubitActor'),
+          array('fields' => array('authorized_form_of_name'))
+        )
+      );
+
+      // Add other names, parallel names, and standardized names
+      $names += $node->serializeAltNames();
+
+      $serialized['names'][] = $names;
     }
 
     // Genres
