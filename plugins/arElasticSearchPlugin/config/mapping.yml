@@ -471,6 +471,10 @@ mapping:
         dynamic: strict
         properties:
           id: { type: integer }
+        _foreign_types:
+          other_names: other_name
+          parallel_names: other_name
+          standardized_names: other_name
     _foreign_types:
       creators: actor
       inherited_creators: actor
