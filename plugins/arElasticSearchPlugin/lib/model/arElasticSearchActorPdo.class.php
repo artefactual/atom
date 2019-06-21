@@ -223,23 +223,8 @@ class arElasticSearchActorPdo
     $serialized['descriptionIdentifier'] = $this->description_identifier;
     $serialized['corporateBodyIdentifiers'] = $this->corporate_body_identifiers;
 
-    $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
-    foreach (QubitPdo::fetchAll($sql, array($this->id, QubitTerm::OTHER_FORM_OF_NAME_ID)) as $item)
-    {
-      $serialized['otherNames'][] = arElasticSearchOtherName::serialize($item);
-    }
-
-    $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
-    foreach (QubitPdo::fetchAll($sql, array($this->id, QubitTerm::PARALLEL_FORM_OF_NAME_ID)) as $item)
-    {
-      $serialized['parallelNames'][] = arElasticSearchOtherName::serialize($item);
-    }
-
-    $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
-    foreach (QubitPdo::fetchAll($sql, array($this->id, QubitTerm::STANDARDIZED_FORM_OF_NAME_ID)) as $item)
-    {
-      $serialized['standardizedNames'][] = arElasticSearchOtherName::serialize($item);
-    }
+    // Add other names, parallel names, and standardized names
+    $serialized += $this->serializeAltNames();
 
     if (false !== $maintainingRepositoryId = $this->getMaintainingRepositoryId())
     {
@@ -323,6 +308,31 @@ class arElasticSearchActorPdo
 
     $serialized['sourceCulture'] = $this->source_culture;
     $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($this->id, array('QubitActor'));
+
+    return $serialized;
+  }
+
+  public function serializeAltNames()
+  {
+    $serialized = array();
+
+    $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
+    foreach (QubitPdo::fetchAll($sql, array($this->id, QubitTerm::OTHER_FORM_OF_NAME_ID)) as $item)
+    {
+      $serialized['otherNames'][] = arElasticSearchOtherName::serialize($item);
+    }
+
+    $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
+    foreach (QubitPdo::fetchAll($sql, array($this->id, QubitTerm::PARALLEL_FORM_OF_NAME_ID)) as $item)
+    {
+      $serialized['parallelNames'][] = arElasticSearchOtherName::serialize($item);
+    }
+
+    $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
+    foreach (QubitPdo::fetchAll($sql, array($this->id, QubitTerm::STANDARDIZED_FORM_OF_NAME_ID)) as $item)
+    {
+      $serialized['standardizedNames'][] = arElasticSearchOtherName::serialize($item);
+    }
 
     return $serialized;
   }

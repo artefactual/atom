@@ -459,9 +459,23 @@ mapping:
         properties:
           id: { type: integer }
           slug: { type: keyword }
+      repository:
+        _i18nFields: [authorizedFormOfName]
+        dynamic: strict
+        properties:
+          id: { type: integer }
+          slug: { type: keyword }
+          identifier: { type: keyword }
+      names:
+        _i18nFields: [authorizedFormOfName]
+        dynamic: strict
+        properties:
+          id: { type: integer }
+        _foreign_types:
+          other_names: other_name
+          parallel_names: other_name
+          standardized_names: other_name
     _foreign_types:
-      repository: repository
-      names: actor
       creators: actor
       inherited_creators: actor
       subjects: term
