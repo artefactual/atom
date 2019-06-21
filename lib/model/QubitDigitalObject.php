@@ -3183,7 +3183,9 @@ class QubitDigitalObject extends BaseDigitalObject
         $property->scope = 'Text extracted from source PDF file\'s text layer using pdftotext';
       }
 
-      $property->value = $text;
+      // Silently truncate PDF text to <16KB to fit in `property.value` (TEXT)
+      // column
+      $property->value = mb_strcut($text, 0, 2^16-1);
       $property->indexOnSave = false;
 
       $property->save($connection);
