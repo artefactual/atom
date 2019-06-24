@@ -3169,6 +3169,9 @@ class QubitDigitalObject extends BaseDigitalObject
     {
       $text = implode(PHP_EOL, $output);
 
+      // Truncate PDF text to <64KB to fit in `property.value` column
+      $text = mb_strcut($text, 0, 65535);
+
       // Update or create 'transcript' property
       $criteria = new Criteria;
       $criteria->add(QubitProperty::OBJECT_ID, $this->id);
