@@ -87,6 +87,8 @@ class SettingsVisibleElementsAction extends sfAction
 
       QubitCache::getInstance()->removePattern('settings:i18n:*');
 
+      $this->getUser()->setFlash('notice', sfContext::getInstance()->i18n->__('Visible elements configuration saved.'));
+
       $this->redirect('settings/visibleElements');
     }
   }
