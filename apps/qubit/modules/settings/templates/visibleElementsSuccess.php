@@ -148,6 +148,48 @@
       </fieldset>
 
       <fieldset class="collapsible collapsed">
+        <legend><?php echo __('DACS template - area headings') ?></legend>
+
+        <?php foreach (array(
+          'dacs_identity_area' => __('Identity area'),
+          'dacs_content_area' => __('Content and structure area'),
+          'dacs_conditions_of_access_area' => __('Conditions of access and use area'),
+          'dacs_acquisition_area' => __('Acquisition and appraisal area'),
+          'dacs_materials_area' => __('Related materials area'),
+          'dacs_notes_area' => __('Notes area'),
+          'dacs_control_area' => __('Description control area'),
+          'dacs_access_points_area' => __('Access points')) as $key => $value): ?>
+
+          <div class="form-item form-item-checkbox">
+            <?php echo $form[$key] ?>
+            <?php echo $form[$key]
+              ->label($value)
+              ->renderLabel() ?>
+          </div>
+
+        <?php endforeach; ?>
+
+      </fieldset>
+
+      <fieldset class="collapsible collapsed">
+
+        <legend><?php echo __('DACS template - elements') ?></legend>
+
+        <?php foreach (array(
+          'dacs_physical_access' => __('Physical access')) as $key => $value): ?>
+
+          <div class="form-item form-item-checkbox">
+            <?php echo $form[$key] ?>
+            <?php echo $form[$key]
+              ->label($value)
+              ->renderLabel() ?>
+          </div>
+
+        <?php endforeach; ?>
+
+      </fieldset>
+
+      <fieldset class="collapsible collapsed">
 
         <legend><?php echo __('%1% metadata area', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))) ?></legend>
 
