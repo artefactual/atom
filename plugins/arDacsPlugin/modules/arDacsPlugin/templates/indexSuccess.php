@@ -113,7 +113,7 @@
 
   <?php echo render_show(__('Conditions governing access'), render_value($resource->getAccessConditions(array('cultureFallback' => true)))) ?>
 
-  <?php if (check_field_visibility('app_element_visibility_isad_physical_condition')): ?>
+  <?php if (check_field_visibility('app_element_visibility_dacs_physical_access')): ?>
     <?php echo render_show(__('Physical access'), render_value($resource->getPhysicalCharacteristics(array('cultureFallback' => true)))) ?>
   <?php endif; ?>
 

@@ -149,6 +149,24 @@
 
       <fieldset class="collapsible collapsed">
 
+        <legend><?php echo __('DACS template - elements') ?></legend>
+
+        <?php foreach (array(
+          'dacs_physical_access' => __('Physical access')) as $key => $value): ?>
+
+          <div class="form-item form-item-checkbox">
+            <?php echo $form[$key] ?>
+            <?php echo $form[$key]
+              ->label($value)
+              ->renderLabel() ?>
+          </div>
+
+        <?php endforeach; ?>
+
+      </fieldset>
+
+      <fieldset class="collapsible collapsed">
+
         <legend><?php echo __('%1% metadata area', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))) ?></legend>
 
         <?php foreach (array(
