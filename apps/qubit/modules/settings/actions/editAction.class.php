@@ -19,6 +19,10 @@
 
 class SettingsEditAction extends DefaultEditAction
 {
+  // Arrays not allowed in class constants
+  public static
+    $I18N = array();
+
   protected function earlyExecute()
   {
     $this->settings = array();
@@ -45,6 +49,10 @@ class SettingsEditAction extends DefaultEditAction
     $settingValue = (null !== $this->settings[$name]->id)
       ? $this->settings[$name]->getValue($settingGetOptions) : $settingDefault;
 
+    // Turn empty values to false for checkboxes
+    $settingValue = ($this->form[$name]->getWidget() instanceof sfWidgetFormInputCheckbox && empty($settingValue))
+      ? false : $settingValue;
+
     $this->form->setDefault($name, $settingValue);
   }
 
@@ -61,7 +69,18 @@ class SettingsEditAction extends DefaultEditAction
       }
 
       $settingSetOptions = (in_array($name, $this::$I18N)) ? array('culture' => $this->culture) : array('sourceCulture' => true);
-      $this->settings[$name]->setValue($field->getValue(), $settingSetOptions);
+
+      // Checkbox submissions get handled differently
+      if ($field->getWidget() instanceof sfWidgetFormInputCheckbox)
+      {
+        $value = isset($this->request[$name]) ? $field->getValue() : '';
+      }
+      else
+      {
+        $value = $field->getValue();
+      }
+
+      $this->settings[$name]->setValue($value, $settingSetOptions);
 
       $this->settings[$name]->save();
     }
