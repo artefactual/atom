@@ -244,9 +244,6 @@ class arFindingAidJob extends arBaseJob
       {
         $text = implode(PHP_EOL, $output);
 
-        // Truncate PDF text to <64KB to fit in `property.value` column
-        $text = mb_strcut($text, 0, 65535);
-
         // Update or create 'findingAidTranscript' property
         $criteria = new Criteria;
         $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
