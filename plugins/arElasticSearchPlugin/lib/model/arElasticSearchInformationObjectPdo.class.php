@@ -1245,15 +1245,7 @@ class arElasticSearchInformationObjectPdo
     // Repository
     if (null !== $repository = $this->getRepository())
     {
-      $serialized['repository']['id'] = $this->repository->id;
-      $serialized['repository']['slug'] = $this->repository->slug;
-      $serialized['repository']['identifier'] = $this->repository->identifier;
-
-      $serialized['repository']['i18n'] = arElasticSearchModelBase::serializeI18ns(
-        $repository->id,
-        array('QubitActor'),
-        array('fields' => array('authorized_form_of_name'))
-      );
+      $serialized['repository'] = arElasticSearchRepository::serialize($repository);
     }
 
     // Places
@@ -1284,20 +1276,7 @@ class arElasticSearchInformationObjectPdo
     foreach ($this->getNameAccessPoints() as $item)
     {
       $node = new arElasticSearchActorPdo($item->id);
-
-      $names = array(
-        'id' => $node->id,
-        'i18n' => arElasticSearchModelBase::serializeI18ns(
-          $node->id,
-          array('QubitActor'),
-          array('fields' => array('authorized_form_of_name'))
-        )
-      );
-
-      // Add other names, parallel names, and standardized names
-      $names += $node->serializeAltNames();
-
-      $serialized['names'][] = $names;
+      $serialized['names'][] = $node->serialize();
     }
 
     // Genres

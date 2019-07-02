@@ -400,11 +400,6 @@ class arElasticSearchMapping
           'properties' => $nestedI18nObjects));
       }
 
-      if (isset($mapping['_foreign_types']))
-      {
-        $this->processForeignTypes($mapping);
-      }
-
       // Add id of the partial foreign resource
       $mapping['properties']['id'] = array('type' => 'integer', 'include_in_all' => 'false');
 
