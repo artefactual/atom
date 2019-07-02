@@ -17,70 +17,33 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * DIP Upload settings
- *
- * @package    AccesstoMemory
- * @subpackage settings
- */
-
-class SettingsDipUploadAction extends sfAction
+class SettingsDipUploadAction extends SettingsEditAction
 {
-  public function execute($request)
+  // Arrays not allowed in class constants
+  public static
+    $NAMES = array(
+      'stripExtensions');
+
+  public function earlyExecute()
   {
-    $this->dipUploadForm = new SettingsDipUploadForm;
+    parent::earlyExecute();
 
-    // Handle POST data (form submit)
-    if ($request->isMethod('post'))
-    {
-      QubitCache::getInstance()->removePattern('settings:i18n:*');
+    $this->updateMessage = $this->i18n->__('DIP upload settings saved.');
 
-      // Handle DIP Upload form submission
-      if (null !== $request->dip_upload)
-      {
-        $this->dipUploadForm->bind($request->dip_upload);
-        if ($this->dipUploadForm->isValid())
-        {
-          // Do update and redirect to avoid repeat submit wackiness
-          $this->updateDipUploadSettings();
-
-          $notice = sfContext::getInstance()->i18n->__('DIP upload settings saved.');
-          $this->getUser()->setFlash('notice', $notice);
-
-          $this->redirect('settings/dipUpload');
-        }
-      }
-    }
-
-    $this->populateDipUploadForm();
+    $this->settingDefaults = array(
+      'stripExtensions' => '0'
+    );
   }
 
-  /**
-   * Populate the DIP Upload form
-   */
-  protected function populateDipUploadForm()
+  protected function addField($name)
   {
-    $stripExtensions = QubitSetting::getByName('stripExtensions');
-
-    $this->dipUploadForm->setDefaults(array(
-      'strip_extensions' => (isset($stripExtensions)) ? $stripExtensions->getValue(array('sourceCulture'=>true)) : 1
-    ));
-  }
-
-  /**
-   * Update the DIP upload settings
-   */
-  protected function updateDipUploadSettings()
-  {
-    $thisForm = $this->dipUploadForm;
-
-    if (null !== $stripExtensions = $thisForm->getValue('strip_extensions'))
+    switch ($name)
     {
-      $setting = QubitSetting::getByName('stripExtensions');
-      $setting->setValue($stripExtensions, array('sourceCulture' => true));
-      $setting->save();
-    }
+      case 'stripExtensions':
+        $this->form->setWidget($name, new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')));
+        $this->form->setValidator($name, new sfValidatorInteger(array('required' => false)));
 
-    return $this;
+        break;
+    }
   }
 }
