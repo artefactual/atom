@@ -823,7 +823,17 @@ class QubitFlatfileImport
     // any matching against existing information objects.
     if (!$this->isUpdating() && !$this->skipMatched)
     {
-      $this->object = new QubitInformationObject;
+      // Allow translations to be imported
+      if (!empty($this->status['lastLegacyId']) && $this->columnValue('legacyId') == $this->status['lastLegacyId'])
+      {
+        $this->object = new QubitInformationObjectI18n;
+        $this->object->id = $this->status['lastId'];
+      }
+      else
+      {
+        $this->object = new QubitInformationObject;
+      }
+
       return false;
     }
 
@@ -1243,6 +1253,10 @@ class QubitFlatfileImport
         $self->storeScriptSerializedProperty($self->scriptMap[$columnName], explode('|', $value));
       }
     });
+
+    // Take note of legacy ID and ID
+    $this->status['lastLegacyId'] = $this->columnExists('legacyId') ? trim($this->columnValue('legacyId')) : null;
+    $this->status['lastId'] = $this->object->id;
   }
 
   /**
@@ -1426,6 +1440,12 @@ class QubitFlatfileImport
    */
   public function createOrUpdateNotes($typeId, $textArray, $transformationLogic = false)
   {
+    // If importing a translation row we currently don't handle notes
+    if (!property_exists(get_class($this->object), 'sourceCulture'))
+    {
+      return;
+    }
+
     $noteIds = array();
 
     // I18n row handler
