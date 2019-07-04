@@ -486,8 +486,10 @@ EOF;
       // Import logic to execute before saving information object
       'preSaveLogic' => function(&$self)
       {
-        // Set repository
-        if (isset($self->rowStatusVars['repository']) && $self->rowStatusVars['repository'])
+        $notImportingTranslation = $self->object instanceof QubitInformationObject;
+
+        // Set repository if not importing an QubitInformationObjectI18n translation row
+        if ($notImportingTranslation && isset($self->rowStatusVars['repository']) && $self->rowStatusVars['repository'])
         {
           $repository = $self->createOrFetchRepository($self->rowStatusVars['repository']);
           $self->object->repositoryId = $repository->id;
@@ -577,8 +579,8 @@ EOF;
         {
           if (!isset($self->rowStatusVars['parentId']) || !$self->rowStatusVars['parentId'])
           {
-            // Don't overwrite valid parentId when adding an i18n row
-            if (!isset($self->object->parentId))
+            // Don't overwrite valid parentId when importing an QubitInformationObjectI18n translation row
+            if ($notImportingTranslation && !isset($self->object->parentId))
             {
               $parentId = $self->status['defaultParentId'];
             }
@@ -602,12 +604,17 @@ EOF;
                                $self->rowStatusVars['legacyId'], $self->rowStatusVars['parentId']);
 
               print $self->logError($error);
-              $self->object->parentId = QubitInformationObject::ROOT_ID;
+
+              // Set parent if not importing an QubitInformationObjectI18n translation row
+              if ($notImportingTranslation)
+              {
+                $self->object->parentId = QubitInformationObject::ROOT_ID;
+              }
             }
           }
         }
 
-        if (isset($parentId))
+        if (isset($parentId) && $notImportingTranslation)
         {
           $self->object->parentId = $parentId;
         }
@@ -627,8 +634,8 @@ EOF;
           $self->createKeymapEntry($self->getStatus('sourceName'), $self->rowStatusVars['legacyId']);
         }
 
-        // Inherit repository instead of duplicating the association to it if applicable
-        if ($self->object->canInheritRepository($self->object->repositoryId))
+        // Inherit repository, instead of duplicating the association to it, if applicable
+        if ($self->object instanceof QubitInformationObject && $self->object->canInheritRepository($self->object->repositoryId))
         {
           // Use raw SQL since we don't want an entire save() here.
           $sql = 'UPDATE information_object SET repository_id = NULL WHERE id = ?';
