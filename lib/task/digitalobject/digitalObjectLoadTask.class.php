@@ -50,6 +50,7 @@ class digitalObjectLoadTask extends sfBaseTask
       new sfCommandOption('path', 'p', sfCommandOption::PARAMETER_OPTIONAL, 'Path prefix for digital objects', null),
       new sfCommandOption('limit', 'l', sfCommandOption::PARAMETER_OPTIONAL, 'Limit number of digital objects imported to n', null),
       new sfCommandOption('index', 'i', sfCommandOption::PARAMETER_NONE, 'Update search index (defaults to false)', null),
+      new sfCommandOption('attach-only', 'a', sfCommandOption::PARAMETER_NONE, 'Always attach digital objects instead of linking', null),
     ));
 
     $this->namespace = 'digitalobject';
@@ -192,7 +193,10 @@ EOF;
       // Fetch results
       $results = $ioQuery->fetch();
 
-      if (!is_array($item))
+      // If attach-only is set, the task will attach the new DO via a new
+      // information obj regardless of whether there is one vs more in the
+      // import CSV.
+      if (!is_array($item) && !$options['attach-only'])
       {
         // Skip if this information object already has a digital object attached
         if ($results[1] !== null)
@@ -215,25 +219,33 @@ EOF;
       }
       else
       {
-        // If more than one digital object linked to this information object
-        for ($i=0; $i < count($item); $i++)
+        if (!is_array($item))
         {
-          if (!file_exists($path = self::getPath($item[$i])))
+          if (!file_exists($path = self::getPath($item)))
           {
-            $this->log(sprintf("Couldn't read file '$item[$i]'"));
+            $this->log(sprintf("Couldn't read file '$item'"));
             $this->skippedCount++;
 
             continue;
           }
 
-          // Create new information objects, to maintain one-to-one
-          // relationship with digital objects
-          $informationObject = new QubitInformationObject;
-          $informationObject->parent = QubitInformationObject::getById($results[0]);
-          $informationObject->title = basename($item[$i]);
-          $informationObject->save($options['conn']);
+          self::attachDigitalObject($item, $results[0]);
+        }
+        else
+        {
+          // If more than one digital object linked to this information object
+          for ($i=0; $i < count($item); $i++)
+          {
+            if (!file_exists($path = self::getPath($item[$i])))
+            {
+              $this->log(sprintf("Couldn't read file '$item[$i]'"));
+              $this->skippedCount++;
 
-          self::addDigitalObject($informationObject->id, $item[$i], $options);
+              continue;
+            }
+
+            self::attachDigitalObject($item[$i], $results[0]);
+          }
         }
       }
 
@@ -247,6 +259,18 @@ EOF;
     {
       $this->logSection('digital-object', 'Please update the search index manually to reflect any changes');
     }
+  }
+
+  protected function attachDigitalObject($item, $informationObjectId)
+  {
+    // Create new information objects, to maintain one-to-one
+    // relationship with digital objects
+    $informationObject = new QubitInformationObject;
+    $informationObject->parent = QubitInformationObject::getById($informationObjectId);
+    $informationObject->title = basename($item);
+    $informationObject->save($options['conn']);
+
+    self::addDigitalObject($informationObject->id, $item, $options);
   }
 
   protected function getPath($path)
