@@ -26,7 +26,7 @@
           </tr>
         </thead>
         <tbody>
-          <?php echo $securityForm ?>
+          <?php echo $form ?>
         </tbody>
       </table>
 
