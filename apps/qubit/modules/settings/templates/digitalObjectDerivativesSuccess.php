@@ -23,7 +23,7 @@
         <legend><?php echo __('%1% derivatives settings', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))) ?></legend>
 
         <?php if ($pdfinfoAvailable): ?>
-          <?php echo $form->pdfPageNumber
+          <?php echo $form->digital_object_derivatives_pdf_page_number
             ->label(__('PDF page number for image derivative'))
             ->help(__('If the page number does not exist, the derivative will be generated from the previous closest one.'))
             ->renderRow() ?>
@@ -33,7 +33,7 @@
           </div>
         <?php endif; ?><br />
 
-        <?php echo $form->refImageMaxWidth
+        <?php echo $form->reference_image_maxwidth
           ->label(__('Maximum image width (pixels)'))
           ->help(__('The maximum width for derived reference images.'))
           ->renderRow() ?>
