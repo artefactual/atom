@@ -41,43 +41,16 @@ class MenuUserMenuComponent extends sfComponent
       'required' => $this->context->i18n->__('You must enter your password'))));
     $this->form->setWidget('password', new sfWidgetFormInputPassword);
 
-    $this->showLogin = false;
     if ($this->context->user->isAuthenticated())
     {
       $this->gravatar = sprintf('https://www.gravatar.com/avatar/%s?s=%s',
         md5(strtolower(trim($this->context->user->user->email))),
         25,
         urlencode(public_path('/images/gravatar-anonymous.png', false)));
-
-      $this->menuLabels = array(
-        'logout' => $this->getMenuLabel('logout'),
-        'myProfile' => $this->getMenuLabel('myProfile')
-      );
-    }
-    elseif (check_field_visibility('app_element_visibility_global_login_button'))
-    {
-      $this->showLogin = true;
-      $this->menuLabels = array('login' => $this->getMenuLabel('login'));
-    }
-  }
-
-  protected function getMenuLabel($name)
-  {
-    if (null !== $menu = QubitMenu::getByName($name))
-    {
-      return $menu->getLabel(array('cultureFallback' => true));
     }
 
-    switch($name)
-    {
-      case 'login':
-        return  $this->context->getI18n()->__('Log in');
-
-      case 'logout':
-        return  $this->context->getI18n()->__('Log out');
-
-      case 'myProfile':
-        return  $this->context->getI18n()->__('Profile');
-    }
+    $this->logInMenu = QubitMenu::getByName('login');
+    $this->logOutMenu = QubitMenu::getByName('logout');
+    $this->profileMenu = QubitMenu::getByName('myProfile');
   }
 }
