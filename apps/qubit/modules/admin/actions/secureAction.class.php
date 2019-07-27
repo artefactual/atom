@@ -21,5 +21,6 @@ class AdminSecureAction extends sfAction
 {
   public function execute($request)
   {
+    $this->getResponse()->setStatusCode(403);
   }
 }
