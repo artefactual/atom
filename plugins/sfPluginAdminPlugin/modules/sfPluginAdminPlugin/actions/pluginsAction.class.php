@@ -82,6 +82,8 @@ class sfPluginAdminPluginPluginsAction extends sfAction
 
         $settings = unserialize($setting->getValue(array('sourceCulture' => true)));
 
+        $swordEnabled = in_array('qtSwordPlugin', $settings);
+
         foreach (array_keys($this->plugins) as $item)
         {
           if (in_array($item, (array)$this->form->getValue('enabled')))
@@ -111,6 +113,13 @@ class sfPluginAdminPluginPluginsAction extends sfAction
         // Clear cache
         $cacheClear = new sfCacheClearTask(sfContext::getInstance()->getEventDispatcher(), new sfFormatter());
         $cacheClear->run();
+
+        // Notify use if SWORD setting has been changed
+        if ($swordEnabled != in_array('qtSwordPlugin', $settings))
+        {
+          $message = $this->context->i18n->__('SWORD plugin setting changed: the AtoM worker must be restarted for this change to take effect.');
+          $this->getUser()->setFlash('info', $message);
+        }
 
         $this->redirect(array('module' => 'sfPluginAdminPlugin', 'action' => 'plugins'));
       }
