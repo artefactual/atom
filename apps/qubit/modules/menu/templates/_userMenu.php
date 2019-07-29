@@ -1,10 +1,10 @@
-<?php if (!$sf_user->isAuthenticated()): ?>
+<?php if ($showLogin): ?>
 
   <div id="user-menu">
-
-    <?php if ($sf_user->isAuthenticated() || check_field_visibility('app_element_visibility_global_login_button')): ?>
-    <button class="top-item top-dropdown" data-toggle="dropdown" data-target="#" aria-expanded="false"><?php echo $logInMenu->getLabel(array('cultureFallback' => true)) ?></button>
-    <?php endif; ?>
+    <button class="top-item top-dropdown" data-toggle="dropdown" data-target="#"
+      aria-expanded="false">
+        <?php echo $menuLabels['login'] ?>
+    </button>
 
     <div class="top-dropdown-container">
 
@@ -26,7 +26,7 @@
 
           <?php echo $form->password->renderRow(array('autocomplete' => 'off')) ?>
 
-          <button type="submit"><?php echo $logInMenu->getLabel(array('cultureFallback' => true)) ?></button>
+          <button type="submit"><?php echo $menuLabels['login'] ?></button>
 
         </form>
 
@@ -35,10 +35,9 @@
       <div class="top-dropdown-bottom"></div>
 
     </div>
-
   </div>
 
-<?php else: ?>
+<?php elseif($sf_user->isAuthenticated()): ?>
 
   <div id="user-menu">
 
@@ -60,8 +59,10 @@
       <div class="top-dropdown-body">
 
         <ul>
-          <li><?php echo link_to($profileMenu->getLabel(array('cultureFallback' => true)), array($sf_user->user, 'module' => 'user')) ?></li>
-          <li><?php echo link_to($logOutMenu->getLabel(array('cultureFallback' => true)), array('module' => 'user', 'action' => 'logout')) ?></li>
+          <li><?php echo link_to($menuLabels['myProfile'], array(
+            $sf_user->user, 'module' => 'user')) ?></li>
+          <li><?php echo link_to($menuLabels['logout'], array(
+            'module' => 'user', 'action' => 'logout')) ?></li>
         </ul>
 
       </div>
