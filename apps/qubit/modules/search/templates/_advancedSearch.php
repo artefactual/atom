@@ -7,7 +7,7 @@
     <?php echo $form->renderFormTag(url_for(array('module' => 'informationobject', 'action' => 'browse')), array('name' => 'advanced-search-form', 'method' => 'get')) ?>
 
       <?php foreach ($hiddenFields as $name => $value): ?>
-        <input type="hidden" name="<?php echo $name ?>" value="<?php echo $value ?>"/>
+        <input type="hidden" name="<?php echo $name ?>" value="<?php echo esc_entities($value) ?>"/>
       <?php endforeach; ?>
 
       <p><?php echo __('Find results with:') ?></p>
