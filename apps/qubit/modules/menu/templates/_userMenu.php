@@ -36,9 +36,8 @@
 
     </div>
   </div>
-<?php endif; ?>
 
-<?php if($sf_user->isAuthenticated()): ?>
+<?php elseif($sf_user->isAuthenticated()): ?>
 
   <div id="user-menu">
 
