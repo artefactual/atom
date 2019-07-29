@@ -1451,7 +1451,7 @@
             <xsl:when test="@level='subcollection' or @level='subgrp' or @level='series'
                 or @level='subseries' or @level='collection'or @level='fonds' or
                 @level='recordgrp' or @level='subfonds' or @level='class' or
-                (@level='otherlevel' and not(child::ead:did/ead:container))">
+                (@level='otherlevel' and not(parent::ead:c[@level='series']))">
 
                 <fo:table-row background-color="#ffffff" border-bottom="1pt solid #000"
                               border-top="1pt solid #000"  text-align="left">
@@ -1614,9 +1614,18 @@
     <xsl:template match="ead:did" mode="dsc">
         <fo:block margin-bottom="0">
             <xsl:if test="parent::ead:c[@level]">
-                <xsl:call-template name="ucfirst">
-                    <xsl:with-param name="value" select="parent::ead:c/@level"/>
-                </xsl:call-template>
+                <xsl:choose>
+                    <xsl:when test="@level = 'otherlevel'">
+                        <xsl:call-template name="ucfirst">
+                            <xsl:with-param name="value" select="parent::ead:c/@otherlevel"/>
+                        </xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="ucfirst">
+                            <xsl:with-param name="value" select="parent::ead:c/@level"/>
+                        </xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:if>
             - <xsl:apply-templates select="ead:unittitle"/>
         </fo:block>
