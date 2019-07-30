@@ -32,6 +32,7 @@ class digitalObjectLoadTask extends sfBaseTask
   private $curObjNum = 0;
   private $totalObjCount = 0;
   private $skippedCount = 0;
+  private $disableNestedSetUpdating = false;
 
   /**
    * @see sfTask
@@ -49,8 +50,9 @@ class digitalObjectLoadTask extends sfBaseTask
       new sfCommandOption('link-source', 's', sfCommandOption::PARAMETER_NONE, 'Link source', null),
       new sfCommandOption('path', 'p', sfCommandOption::PARAMETER_OPTIONAL, 'Path prefix for digital objects', null),
       new sfCommandOption('limit', 'l', sfCommandOption::PARAMETER_OPTIONAL, 'Limit number of digital objects imported to n', null),
-      new sfCommandOption('index', 'i', sfCommandOption::PARAMETER_NONE, 'Update search index (defaults to false)', null),
       new sfCommandOption('attach-only', 'a', sfCommandOption::PARAMETER_NONE, 'Always attach digital objects instead of linking', null),
+      new sfCommandOption('index', 'i', sfCommandOption::PARAMETER_NONE, 'Update search index (defaults to false)', null),
+      new sfCommandOption('skip-nested-set-build', null, sfCommandOption::PARAMETER_NONE, "Don't build the nested set upon import completion.", null),
     ));
 
     $this->namespace = 'digitalobject';
@@ -91,6 +93,8 @@ EOF;
     {
       QubitSearch::disable();
     }
+
+    $this->disableNestedSetUpdating = ($options['skip-nested-set-build']) ? true : false;
 
     $this->logSection('digital-object', "Load digital objects from {$arguments['filename']}...");
 
@@ -267,6 +271,7 @@ EOF;
     $informationObject = new QubitInformationObject;
     $informationObject->parent = QubitInformationObject::getById($informationObjectId);
     $informationObject->title = basename($item);
+    $informationObject->disableNestedSetUpdating = $this->disableNestedSetUpdating;
     $informationObject->save($options['conn']);
 
     self::addDigitalObject($informationObject->id, $item, $options);
