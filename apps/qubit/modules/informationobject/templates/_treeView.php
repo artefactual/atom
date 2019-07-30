@@ -103,6 +103,12 @@
 
     </ul>
 
+  <?php else: ?>
+
+    <input type="button" id="fullwidth-treeview-reset-button" class="c-btn c-btn-submit" value="<?php echo __('Reset') ?>" />
+    <input type="button" id="fullwidth-treeview-more-button" class="c-btn c-btn-submit" data-label="<?php echo __('%1% more') ?>" value="" />
+    <span id="fullwidth-treeview-collection-url" data-collection-url="<?php echo url_for(array($resource->getCollectionRoot(), 'module' => 'informationobject')) ?>"></span>
+
   <?php endif; ?>
 
 </div>
