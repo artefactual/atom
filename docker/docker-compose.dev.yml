@@ -2,127 +2,65 @@
 version: "2"
 
 volumes:
-
   elasticsearch_data:
-    driver: "local"
-
   percona_data:
-    driver: "local"
-
-networks:
-
-  net_cache:
-  net_db:
-  net_jobs:
-  net_http:
-  net_search:
 
 services:
 
+  atom:
+    build: ..
+    env_file: etc/environment
+    volumes:
+      - ..:/atom/src:rw
+
+  atom_worker:
+    build: ..
+    command: worker
+    env_file: etc/environment
+    depends_on:
+      - gearmand
+      - percona
+    restart: on-failure:5
+    volumes:
+      - ..:/atom/src:rw
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ..:/atom/src:ro
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "63001:80"
+
   elasticsearch:
-    image: "docker.elastic.co/elasticsearch/elasticsearch:5.6.0"
-    environment:
-      - "bootstrap.memory_lock=true"
-      - "xpack.security.enabled=false"
-      - "ES_JAVA_OPTS=-Xms640m -Xmx640m"
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.16
+    env_file: etc/environment
     ulimits:
       memlock:
         soft: -1
         hard: -1
     mem_limit: 1g
-    ports:
-      - "63002:9200"
-    expose:
-      - "9300"
     volumes:
-      - "elasticsearch_data:/usr/share/elasticsearch/data"
-    networks:
-      - "net_search"
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+      - "127.0.0.1:63002:9200"
 
   percona:
-    image: "percona:5.6"
-    environment:
-      - "MYSQL_ROOT_PASSWORD=my-secret-pw"
-      - "MYSQL_DATABASE=atom"
-      - "MYSQL_USER=atom"
-      - "MYSQL_PASSWORD=atom_12345"
+    image: percona:5.7
+    env_file: etc/environment
     volumes:
-      - "percona_data:/var/lib/mysql:rw"
-      - "./etc/mysql/conf.d/:/etc/mysql/conf.d:ro"
-    expose:
-      - "3306"
-    networks:
-      - "net_db"
+      - percona_data:/var/lib/mysql:rw
+      - ./etc/mysql/mysqld.cnf:/etc/my.cnf.d/mysqld.cnf:ro
+    ports:
+      - "127.0.0.1:63003:3306"
 
   memcached:
-    image: "memcached"
-    command: "-p 11211 -m 128 -u memcache"
-    expose:
-      - "11211"
-    networks:
-      - "net_cache"
-      - "net_jobs"
+    image: memcached
+    command: -p 11211 -m 128 -u memcache
+    ports:
+      - "127.0.0.1:63004:11211"
 
   gearmand:
-    image: "artefactual/gearmand"
-    expose:
-      - "4730"
-    networks:
-      - "net_cache"
-      - "net_jobs"
-
-  atom:
-    build:
-      context: "../"
-      dockerfile: "./docker/Dockerfile"
-    command: "fpm"
-    volumes:
-      - "../:/atom/src:rw"
-    networks:
-      - "net_cache"
-      - "net_db"
-      - "net_http"
-      - "net_jobs"
-      - "net_search"
-    environment:
-      - "ATOM_DEVELOPMENT_MODE=on"
-      - "ATOM_ELASTICSEARCH_HOST=elasticsearch"
-      - "ATOM_MEMCACHED_HOST=memcached"
-      - "ATOM_GEARMAND_HOST=gearmand"
-      - "ATOM_MYSQL_DSN=mysql:host=percona;port=3306;dbname=atom;charset=utf8"
-      - "ATOM_MYSQL_USERNAME=atom"
-      - "ATOM_MYSQL_PASSWORD=atom_12345"
-      - "ATOM_DEBUG_IP=172.22.0.1"
-
-  atom_worker:
-    build:
-      context: "../"
-      dockerfile: "./docker/Dockerfile"
-    command: "worker"
-    volumes:
-      - "../:/atom/src:rw"
-    networks:
-      - "net_cache"
-      - "net_db"
-      - "net_jobs"
-      - "net_search"
-    environment:
-      - "ATOM_DEVELOPMENT_MODE=on"
-      - "ATOM_ELASTICSEARCH_HOST=elasticsearch"
-      - "ATOM_MEMCACHED_HOST=memcached"
-      - "ATOM_GEARMAND_HOST=gearmand"
-      - "ATOM_MYSQL_DSN=mysql:host=percona;port=3306;dbname=atom;charset=utf8"
-      - "ATOM_MYSQL_USERNAME=atom"
-      - "ATOM_MYSQL_PASSWORD=atom_12345"
-
-  nginx:
-    image: "nginx:latest"
+    image: artefactual/gearmand
     ports:
-      - "63001:80"
-    volumes:
-      - "../:/atom/src:ro"
-      - "./etc/nginx/prod.conf:/etc/nginx/nginx.conf:ro"
-    networks:
-      - "net_http"
-    depends_on:
-      - "atom"
+      - "127.0.0.1:63005:4730"
