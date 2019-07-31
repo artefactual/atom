@@ -1,0 +1,21 @@
+# Elasticsearch
+bootstrap.memory_lock=true
+xpack.security.enabled=false
+cluster.routing.allocation.disk.threshold_enabled=false
+ES_JAVA_OPTS=-Xms640m -Xmx640m
+
+# MySQL
+MYSQL_ROOT_PASSWORD=my-secret-pw
+MYSQL_DATABASE=atom
+MYSQL_USER=atom
+MYSQL_PASSWORD=atom_12345
+
+# AtoM and AtoM worker
+ATOM_DEVELOPMENT_MODE=on
+ATOM_ELASTICSEARCH_HOST=elasticsearch
+ATOM_MEMCACHED_HOST=memcached
+ATOM_GEARMAND_HOST=gearmand
+ATOM_MYSQL_DSN=mysql:host=percona;port=3306;dbname=atom;charset=utf8
+ATOM_MYSQL_USERNAME=atom
+ATOM_MYSQL_PASSWORD=atom_12345
+ATOM_DEBUG_IP=172.22.0.1

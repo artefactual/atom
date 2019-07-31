@@ -36,6 +36,9 @@ case $1 in
         exit 0
         ;;
     'worker')
+        # Give some extra time to MySQL and Gearman to start
+        # and add some interval in between restarts.
+        sleep 10
         php ${__dir}/../symfony jobs:worker
         exit 0
         ;;
