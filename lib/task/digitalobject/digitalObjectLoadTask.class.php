@@ -210,7 +210,7 @@ EOF;
           continue;
         }
 
-        if (!file_exists($path = self::getPath($item)))
+        if (!file_exists($path = self::getPath($item, $options)))
         {
           $this->log(sprintf("Couldn't read file '$item'"));
           $this->skippedCount++;
@@ -224,7 +224,7 @@ EOF;
       {
         if (!is_array($item))
         {
-          if (!file_exists($path = self::getPath($item)))
+          if (!file_exists($path = self::getPath($item, $options)))
           {
             $this->log(sprintf("Couldn't read file '$item'"));
             $this->skippedCount++;
@@ -232,14 +232,14 @@ EOF;
             continue;
           }
 
-          self::attachDigitalObject($item, $results[0]);
+          self::attachDigitalObject($item, $results[0], $options);
         }
         else
         {
           // If more than one digital object linked to this information object
           for ($i=0; $i < count($item); $i++)
           {
-            if (!file_exists($path = self::getPath($item[$i])))
+            if (!file_exists($path = self::getPath($item[$i], $options)))
             {
               $this->log(sprintf("Couldn't read file '$item[$i]'"));
               $this->skippedCount++;
@@ -247,7 +247,7 @@ EOF;
               continue;
             }
 
-            self::attachDigitalObject($item[$i], $results[0]);
+            self::attachDigitalObject($item[$i], $results[0], $options);
           }
         }
       }
@@ -264,7 +264,7 @@ EOF;
     }
   }
 
-  protected function attachDigitalObject($item, $informationObjectId)
+  protected function attachDigitalObject($item, $informationObjectId, $options = array())
   {
     // Create new information objects, to maintain one-to-one
     // relationship with digital objects
@@ -277,7 +277,7 @@ EOF;
     self::addDigitalObject($informationObject->id, $item, $options);
   }
 
-  protected function getPath($path)
+  protected function getPath($path, $options = array())
   {
     if (isset($options['path']))
     {
@@ -290,7 +290,7 @@ EOF;
   {
     $this->curObjNum++;
 
-    $path = self::getPath($path);
+    $path = self::getPath($path, $options);
 
     $filename = basename($path);
 
