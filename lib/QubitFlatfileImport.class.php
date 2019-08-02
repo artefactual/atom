@@ -38,6 +38,7 @@ class QubitFlatfileImport
   public $deleteAndReplace         = false; // delete matching records & replace them
   public $skipMatched              = false; // skip creating new record if matching one is found
   public $skipUnmatched            = false; // skip creating new record if matching one is not found
+  public $roundtrip                = false; // treat legacy ID as internal ID
   public $keepDigitalObjects       = false; // skip deletion of DOs when set. Works when --update set.
   public $limitToId                = 0;     // id of repository or TLD to limit our update matching under
   public $status          = array(); // place to store data related to overall import
@@ -162,6 +163,7 @@ class QubitFlatfileImport
 
     $this->skipMatched = $options['skip-matched'];
     $this->skipUnmatched = $options['skip-unmatched'];
+    $this->roundtrip = $options['roundtrip'];
   }
 
   /*
@@ -829,20 +831,28 @@ class QubitFlatfileImport
 
     $legacyId = $this->columnExists('legacyId') ? trim($this->columnValue('legacyId')) : null;
 
-    // Try to match on legacyId in keymap
-    $this->setInformationObjectByKeymap($legacyId);
-
-    if (null === $this->object)
+    // Allow roundtripping (treating legacyId as an existing AtoM ID)
+    if ($this->roundtrip && null === $this->object)
     {
-      // No match found in keymap, try to match on title, repository and identifier.
-      $this->setInformationObjectByFields();
+      $this->object = QubitInformationObject::getById($legacyId);
+    }
+    else
+    {
+      // Try to match on legacyId in keymap
+      $this->setInformationObjectByKeymap($legacyId);
+
+      if (null === $this->object)
+      {
+        // No match found in keymap, try to match on title, repository and identifier.
+        $this->setInformationObjectByFields();
+      }
     }
 
     $this->checkInformationObjectMatchLimit(); // Handle --limit option.
 
     if (null === $this->object)
     {
-      // Still no match found, create information object if --skip-unmatched is not set in options.
+      // Still no match found, create IO if not roundtripping or if --skip-unmatched is not set in options.
       return $this->createNewInformationObject();
     }
 
@@ -917,7 +927,7 @@ class QubitFlatfileImport
    */
   private function createNewInformationObject()
   {
-    if ($this->skipUnmatched)
+    if ($this->skipUnmatched || $this->roundtrip)
     {
       $msg = sprintf('Unable to match row. Skipping record: %s (id: %s)',
                       $this->columnExists('title') ? trim($this->columnValue('title')) : '',

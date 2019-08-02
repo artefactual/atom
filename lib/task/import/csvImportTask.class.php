@@ -114,6 +114,18 @@ EOF;
         null,
         sfCommandOption::PARAMETER_NONE,
         'Skip the deletion of existing digital objects and their derivatives when using --update with "match-and-update".'
+      ),
+      new sfCommandOption(
+        'roundtrip',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        'Treat legacy IDs as internal IDs.'
+      ),
+      new sfCommandOption(
+        'no-confirmation',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        'Do not ask for confirmation'
       )
     ));
   }
@@ -173,6 +185,25 @@ EOF;
       QubitTaxonomy::COPYRIGHT_STATUS_ID         => 'copyrightStatusTypes',
       QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID     => 'physicalObjectTypes'
     ));
+
+    if (
+      $options['roundtrip']
+      &&
+      !$options['no-confirmation']
+      &&
+      !$this->askConfirmation(array(
+          'WARNING: In round trip mode legacy IDs will be treated as internal IDs.',
+          'Please back-up your database manually before you proceed.',
+          '',
+          'Have you done a manual backup and wish to proceed? (y/N)'
+        ),
+        'QUESTION_LARGE', false)
+    )
+    {
+      $this->log('Task aborted.');
+
+      return 1;
+    }
 
     // Define import
     $import = new QubitFlatfileImport(array(
@@ -590,8 +621,11 @@ EOF;
           throw new sfException('Information object save failed');
         }
 
-        // Add keymap entry
-        $self->createKeymapEntry($self->getStatus('sourceName'), $self->rowStatusVars['legacyId']);
+        // Add keymap entry if not in round trip mode
+        if (!$self->roundtrip)
+        {
+          $self->createKeymapEntry($self->getStatus('sourceName'), $self->rowStatusVars['legacyId']);
+        }
 
         // Inherit repository instead of duplicating the association to it if applicable
         if ($self->object->canInheritRepository($self->object->repositoryId))
