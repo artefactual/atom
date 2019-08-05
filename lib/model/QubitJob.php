@@ -315,13 +315,12 @@ class QubitJob extends BaseJob
 
   /**
    * Get a unique identifier to associate a job with a particular AtoM install.
-   * This is used to prevent workers from other AtoM installs on the same system
-   * from taking the jobs from AtoM instances they don't belong to.
+   * See workers_key in config/app.yml for more information.
    */
   public static function getJobPrefix()
   {
     // Deliberately avoiding spaces, tabs, etc by using md5 hashing, see #9648.
-    $key = sfConfig::get('app_siteTitle').sfConfig::get('app_siteBaseUrl').sfConfig::get('sf_root_dir');
+    $key = sfConfig::get('sf_root_dir').sfConfig::get('app_workers_key', '');
     return md5($key).'-';
   }
 

@@ -36,3 +36,12 @@ all:
   # Specify a CSV Transform script that can be automatically applied from
   # the CSV Import Page in AtoM
   # csv_transform_script_name: /full/path/to/transformscript
+
+  # The workers_key is concatenated alongside the project folder absolute path
+  # to generate an unique hash that is used to associate the worker(s) abilities
+  # with the corresponding AtoM instance. The workers_key will normally be empty,
+  # unless multiple AtoM instances running on the same path are connected to the
+  # same Gearman server, in which case, each instance's workers_key must be set
+  # to a different string value to make sure the proper workers take the job for
+  # their related instance.
+  workers_key:

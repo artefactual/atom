@@ -255,9 +255,8 @@ class arBaseJob extends Net_Gearman_Job_Common
   protected function createJobTempDir()
   {
     $name = md5(
-      sfConfig::get('app_siteTitle') .
-      sfConfig::get('app_siteBaseUrl') .
       sfConfig::get('sf_root_dir') .
+      sfConfig::get('app_workers_key', '') .
       $this->job->id .
       date_timestamp_get()
     );
