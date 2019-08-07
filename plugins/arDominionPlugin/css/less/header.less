@@ -19,8 +19,15 @@
 @topBarButtonHoverColor: @orange;
 
 #top-bar {
-  height: 50px;
   background-color: @topBarBackgroundColor;
+
+  // Hack to always wrap the header content
+  // without disrupting themes extending this one.
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
 }
 
 header #logo {
@@ -363,6 +370,7 @@ nav > div {
 }
 
 #search-bar #search-form-wrapper {
+  padding-bottom: 10px;
 
   h2 {
     .hide();
@@ -436,11 +444,6 @@ nav > div {
 
 @media (max-width: 979px) {
 
-  // Increase height of the bar
-  #top-bar {
-    height: 150px;
-  }
-
   // Hide buttons
   nav {
     clear: both;
@@ -492,7 +495,6 @@ nav > div {
   #top-bar {
     margin: 0 -20px;
     height: auto;
-    padding-bottom: 10px;
   }
 
   #site-name {
