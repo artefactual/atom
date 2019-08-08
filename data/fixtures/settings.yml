@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 173
+    value: 174
   milestone:
     name: milestone
     editable: 0
@@ -762,6 +762,22 @@ QubitSetting:
       pt-BR: 'Busque nossa coleção'
       sr: 'Претражи наше збирке'
       sv: 'Sök i vår samling'
+  QubitSetting_fullTreeviewCollapseOpenedButtonText:
+    name: fullTreeviewCollapseOpenedButtonText
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: Hide hierarchy
+  QubitSetting_fullTreeviewCollapseClosedButtonText:
+    name: fullTreeviewCollapseClosedButtonText
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: Show hierarchy
   QubitSetting_26:
     name: en
     scope: i18n_languages

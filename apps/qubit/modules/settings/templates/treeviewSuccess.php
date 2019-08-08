@@ -39,6 +39,12 @@
 
         </div>
 
+        <p>
+          <?php echo $form->allowFullWidthTreeviewCollapse
+            ->label(__('Make full width treeview collapsible on description pages'))
+            ->renderRow() ?>
+        </p>
+
       </fieldset>
 
       <fieldset class="collapsible">

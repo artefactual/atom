@@ -4,9 +4,46 @@
 
   $(loadTreeView);
 
+  function makeFullTreeviewCollapsible ($treeViewConfig, $mainHeader, $fwTreeViewRow)
+  {
+    var $wrapper = $('<section class="full-treeview-section"></section>');
+    var $toggleButton = $('<a href="#" class="fullview-treeview-toggle"></a>');
+
+    // Adjust bottom margins
+    var bottomMargin = $fwTreeViewRow.css('margin-bottom');
+    $fwTreeViewRow.css('margin-bottom', '0px');
+    $wrapper.css('margin-bottom', bottomMargin);
+
+    // Set toggle button text and add to wrapper
+    $toggleButton.text($treeViewConfig.data('closed-text'));
+    $toggleButton.appendTo($wrapper);
+
+    // Add wrapper to the DOM then hide the treeview and add it to the wrapper
+    $mainHeader.after($wrapper);
+    $fwTreeViewRow.hide();
+    $fwTreeViewRow.appendTo($wrapper);
+
+    // Activate toggle button
+    $toggleButton.click(function() {
+      // Determine appropriate toggle button text
+      var toggleText = $treeViewConfig.data('opened-text');
+
+      if ($fwTreeViewRow.css('display') != 'none')
+      {
+        toggleText = $treeViewConfig.data('closed-text');
+      }
+
+      // Toggle treeview and set toggle button text
+      $fwTreeViewRow.toggle(400);
+      $toggleButton.text(toggleText);
+    });
+  }
+
   function loadTreeView ()
   {
-    var collectionUrl = $('#fullwidth-treeview-collection-url').data('collection-url');
+    var $treeViewConfig = $('#fullwidth-treeview-configuration');
+    var treeViewCollapseEnabled = $treeViewConfig.data('collapse-enabled') == 'yes';
+    var collectionUrl = $treeViewConfig.data('collection-url');
     var pathToApi  = '/informationobject/fullWidthTreeView';
     var $fwTreeView = $('<div id="fullwidth-treeview"></div>');
     var $fwTreeViewRow = $('<div id="fullwidth-treeview-row"></div>');
@@ -25,6 +62,12 @@
 
     $mainHeader.before($resetButton);
     $mainHeader.before($moreButton);
+
+    // Optionally wrap treeview in a collapsible container
+    if (treeViewCollapseEnabled)
+    {
+      makeFullTreeviewCollapsible($treeViewConfig, $mainHeader, $fwTreeViewRow);
+    }
 
     // Declare jsTree options
     var options = {
@@ -129,7 +172,11 @@
         // Add empty breadcrumb section if current page has none, but response does
         if (!$('#main-column .breadcrumb').length && $(response.find('#main-column .breadcrumb').length))
         {
-          $('#fullwidth-treeview-row').after($('<section>', {class: 'breadcrumb'}));
+          var breadcrumbDestinationSelector = (treeViewCollapseEnabled)
+            ? '.full-treeview-section'
+            : '#fullwidth-treeview-row';
+
+          $(breadcrumbDestinationSelector).after($('<section>', {class: 'breadcrumb'}));
         }
 
         $('#main-column .breadcrumb').replaceWith($(response.find('#main-column .breadcrumb')));

@@ -107,7 +107,11 @@
 
     <input type="button" id="fullwidth-treeview-reset-button" class="c-btn c-btn-submit" value="<?php echo __('Reset') ?>" />
     <input type="button" id="fullwidth-treeview-more-button" class="c-btn c-btn-submit" data-label="<?php echo __('%1% more') ?>" value="" />
-    <span id="fullwidth-treeview-collection-url" data-collection-url="<?php echo url_for(array($resource->getCollectionRoot(), 'module' => 'informationobject')) ?>"></span>
+    <span id="fullwidth-treeview-configuration"
+      data-collection-url="<?php echo url_for(array($resource->getCollectionRoot(), 'module' => 'informationobject')) ?>"
+      data-collapse-enabled="<?php echo $collapsible ?>"
+      data-opened-text="<?php echo sfConfig::get('app_ui_label_fullTreeviewCollapseOpenedButtonText') ?>"
+      data-closed-text="<?php echo sfConfig::get('app_ui_label_fullTreeviewCollapseClosedButtonText') ?>"></span>
 
   <?php endif; ?>
 

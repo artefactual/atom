@@ -26,6 +26,8 @@ class InformationObjectTreeViewComponent extends sfComponent
     $this->treeviewType = sfConfig::get('app_treeview_type__source', 'sidebar');
     if ($this->treeviewType != 'sidebar')
     {
+      $this->collapsible = sfConfig::get('app_treeview_allow_full_width_collapse');
+
       return sfView::SUCCESS;
     }
 
