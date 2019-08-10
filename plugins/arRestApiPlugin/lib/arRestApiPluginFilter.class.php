@@ -48,7 +48,7 @@ class arRestApiPluginFilter extends sfFilter
     $response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
 
     // Translate exception into response data
-    $response->setStatusCode($e->getStatusCode);
+    $response->setStatusCode($e->getStatusCode());
 
     $responseData = array(
       'id' => $e->getId(),
