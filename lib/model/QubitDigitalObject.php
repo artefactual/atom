@@ -1162,6 +1162,13 @@ class QubitDigitalObject extends BaseDigitalObject
       }
     }
 
+    // The path is a not null column but it's not being set in some cases,
+    // like offline digital objects created in the metadata only DIP upload.
+    if (!isset($this->path))
+    {
+      $this->path = '';
+    }
+
     parent::save($connection);
 
     // Create child objects (derivatives)
