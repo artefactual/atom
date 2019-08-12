@@ -53,5 +53,8 @@ class DigitalObjectMetadataComponent extends sfComponent
     // Provide longitude to template
     $longitudeProperty = $this->object->digitalObjectsRelatedByobjectId[0]->getPropertyByName('longitude');
     $this->longitude = $longitudeProperty->value;
+
+    // Check related object type to display IO properties in the template
+    $this->relatedToIo = $this->resource->object instanceOf QubitInformationObject;
   }
 }
