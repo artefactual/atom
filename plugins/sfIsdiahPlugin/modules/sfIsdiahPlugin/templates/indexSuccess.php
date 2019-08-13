@@ -38,7 +38,7 @@
   <?php if ($sf_data->getRaw('htmlSnippet')): ?>
     <div class="row" id="repository-html-snippet">
       <div class="span7">
-        <?php echo $sf_data->getRaw('htmlSnippet') // Using htmlpurifier ?>
+        <?php echo render_value_html($sf_data->getRaw('htmlSnippet')) ?>
       </div>
     </div>
   <?php endif; ?>
