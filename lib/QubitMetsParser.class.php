@@ -26,10 +26,27 @@ class QubitMetsParser
     // Load document
     $this->document = $document;
 
-    // Register namespaces
-    $this->document->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
-    $this->document->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
-    $this->document->registerXPathNamespace('f', 'http://hul.harvard.edu/ois/xml/ns/fits/fits_output');
+    // Get declared namespaces in the document
+    $this->namespaces = $this->document->getDocNamespaces(true);
+
+    // For backwards compatibility, add default namespaces as they
+    // were declared without name in the METS file (fits still is).
+    $defaultNamespaces = array(
+      'mets' => 'http://www.loc.gov/METS/',
+      'premis' => 'info:lc/xmlns/premis-v2',
+      'fits' => 'http://hul.harvard.edu/ois/xml/ns/fits/fits_output',
+    );
+    foreach ($defaultNamespaces as $name => $uri)
+    {
+      // Do not overwrite the ones declared in the METS file
+      if (!isset($this->namespaces[$name]))
+      {
+        $this->namespaces[$name] = $uri;
+      }
+    }
+
+    // Register namespaces for XPath queries made directly over the document
+    $this->registerNamespaces($this->document, array('m' => 'mets', 'p' => 'premis', 'f' => 'fits'));
   }
 
   public function getStructMap()
@@ -58,7 +75,7 @@ class QubitMetsParser
     // LOD mapping (only for hierarchical DIP upload over logical structMap)
     if ($structMap['TYPE'] == 'logical')
     {
-      $structMap->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+      $this->registerNamespaces($structMap, array('m' => 'mets'));
 
       foreach ($structMap->xpath('.//m:div') as $item)
       {
@@ -92,7 +109,7 @@ class QubitMetsParser
     // FILEID to DMD mapping
     foreach ($this->document->xpath('//m:structMap[@TYPE="logical" or @TYPE="physical"]//m:div') as $item)
     {
-      $item->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+      $this->registerNamespaces($item, array('m' => 'mets'));
 
       if (0 < count($fptr = $item->xpath('m:fptr')))
       {
@@ -116,7 +133,7 @@ class QubitMetsParser
         // Find UUID type
         foreach ($identifiers as $item)
         {
-          $item->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
+          $this->registerNamespaces($item, array('p' => 'premis'));
 
           if (count($type = $item->xpath('p:objectIdentifierType')) > 0
             && count($value = $item->xpath('p:objectIdentifierValue')) > 0
@@ -137,49 +154,49 @@ class QubitMetsParser
 
   public function getMainDmdSec()
   {
-    foreach ($this->document->xpath('//m:structMap[@TYPE="logical" or @TYPE="physical"]') as $item)
+    $structMap = $this->document->xpath('//m:structMap[@TYPE="physical"]');
+    if (count($structMap) == 0)
     {
-      if (!isset($item['TYPE']))
-      {
-        continue;
-      }
-
-      $item->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
-
-      switch ((string)$item['TYPE'])
-      {
-        case 'logical':
-          $divs = $item->xpath('m:div');
-
-          break;
-
-        case 'physical':
-          $divs = $item->xpath('m:div/m:div');
-
-          break;
-      }
-
-      if (count($divs) > 0)
-      {
-        $dmdId = $divs[0]['DMDID'];
-      }
-
-      if (null === $dmdId)
-      {
-        continue;
-      }
-
-      return $this->getDmdSec((string)$dmdId);
+      return;
     }
+
+    $structMap = $structMap[0];
+    $this->registerNamespaces($structMap, array('m' => 'mets'));
+    $divs = $structMap->xpath('m:div/m:div');
+    if (count($divs) == 0 || !isset($divs[0]['DMDID']))
+    {
+      return;
+    }
+
+    return $this->getDmdSec((string)$divs[0]['DMDID']);
   }
 
   public function getDmdSec($dmdId)
   {
-    $dmdSec = $this->document->xpath('//m:dmdSec[@ID="'.$dmdId.'"]');
-    if (0 < count($dmdSec))
+    // The DMDID attribute can contain one or more DMD section ids
+    // (e.g.: DMDID="dmdSec_2 dmdSec_3"). When multiple DMD sections
+    // are associated with the same file/dir we'll try to return the
+    // latest one created.
+    $latestDmdSec = null;
+    $latestDate = '';
+    foreach (explode(' ', $dmdId) as $id)
     {
-      return $dmdSec[0];
+      $dmdSecs = $this->document->xpath('//m:dmdSec[@ID="'.$id.'"]');
+      if (count($dmdSecs) == 0)
+      {
+        continue;
+      }
+
+      $dmdSec = $dmdSecs[0];
+      $date = $dmdSec['CREATED'];
+      if (!isset($latestDmdSec) || (isset($date) && $date > $latestDate))
+      {
+        $latestDmdSec = $dmdSec;
+        $latestDate = isset($date) ? $date : '';
+      }
     }
+
+    return $latestDmdSec;
   }
 
   /**
@@ -193,7 +210,7 @@ class QubitMetsParser
       && (false !== $xmlData = $this->document->xpath('//m:amdSec[@ID="'.(string)$admId.'"]/m:techMD/m:mdWrap/m:xmlData')))
     {
       $xmlData = simplexml_load_string($xmlData[0]->asXML());
-      $xmlData->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
+      $this->registerNamespaces($xmlData, array('p' => 'premis'));
 
       if (false !== $originalName = $xmlData->xpath('//p:object//p:originalName'))
       {
@@ -217,7 +234,7 @@ class QubitMetsParser
 
     foreach ($this->document->xpath('//m:amdSec/m:techMD/m:mdWrap[@MDTYPE="PREMIS:OBJECT"]/m:xmlData') as $xmlData)
     {
-      $xmlData->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
+      $this->registerNamespaces($xmlData, array('p' => 'premis'));
 
       if (0 < count($size = $xmlData->xpath('p:object/p:objectCharacteristics/p:size')))
       {
@@ -244,10 +261,10 @@ class QubitMetsParser
 
   public function processDmdSec($xml, $informationObject)
   {
-    $xml->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
-    $xml->registerXPathNamespace('dc', 'http://purl.org/dc/terms/');
+    $this->registerNamespaces($xml, array('m' => 'mets'));
 
-    $dublincore = $xml->xpath('.//m:mdWrap/m:xmlData/dc:dublincore/*');
+    // Use the local name to accept no namespace and dc or dcterms namespaces
+    $dublincore = $xml->xpath('.//m:mdWrap/m:xmlData/*[local-name()="dublincore"]/*');
 
     $creation = array();
 
@@ -259,6 +276,7 @@ class QubitMetsParser
         continue;
       }
 
+      // Strip namespaces from element names
       switch (str_replace(array('dcterms:', 'dc:'), '', $item->getName()))
       {
         case 'title':
@@ -839,7 +857,7 @@ class QubitMetsParser
 
     foreach ($mediainfoTracks as $track)
     {
-      $track->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
+      $this->registerNamespaces($track, array('p' => 'premis'));
 
       $esTrack = array();
 
@@ -944,7 +962,7 @@ class QubitMetsParser
     // Get all events
     foreach ($this->document->xpath('//m:amdSec[@ID="'.$amdSecId.'"]/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:EVENT"]/m:xmlData/p:event') as $item)
     {
-      $item->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
+      $this->registerNamespaces($item, array('p' => 'premis'));
 
       $event = array();
 
@@ -961,7 +979,7 @@ class QubitMetsParser
       // Get all event linking agent identifiers
       foreach ($item->xpath('p:linkingAgentIdentifier') as $linkingAgent)
       {
-        $linkingAgent->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
+        $this->registerNamespaces($linkingAgent, array('p' => 'premis'));
 
         $linkingAgentIdentifier = array();
 
@@ -1018,7 +1036,7 @@ class QubitMetsParser
 
     foreach ($this->document->xpath('//m:amdSec[@ID="'.$amdSecId.'"]/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:AGENT"]/m:xmlData/m:agent') as $item)
     {
-      $item->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+      $this->registerNamespaces($item, array('m' => 'mets'));
 
       $agent = array();
 
@@ -1089,6 +1107,17 @@ class QubitMetsParser
             return (string)$item;
           }
         }
+    }
+  }
+
+  public function registerNamespaces($element, $namespaces)
+  {
+    foreach ($namespaces as $key => $name)
+    {
+      if (isset($this->namespaces[$name]))
+      {
+        $element->registerXPathNamespace($key, $this->namespaces[$name]);
+      }
     }
   }
 }
