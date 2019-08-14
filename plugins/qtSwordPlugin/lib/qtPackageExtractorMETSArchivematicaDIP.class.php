@@ -254,11 +254,11 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
   protected function recursivelyAddChildsFromLogicalStructMapDiv($structMapDiv, $parent)
   {
-    $structMapDiv->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+    $this->metsParser->registerNamespaces($structMapDiv, array('m' => 'mets'));
 
     foreach ($structMapDiv->xpath('m:div') as $item)
     {
-      $item->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+      $this->metsParser->registerNamespaces($item, array('m' => 'mets'));
 
       // Directory
       if (count($fptr = $item->xpath('m:fptr')) == 0)
