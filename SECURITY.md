@@ -22,7 +22,7 @@ If you would like to report a vulnerability or have a security concern
 regarding AtoM, **please do not file a public issue in our GitHub
 repository.** Instead, please email a report to:
 
-* [security@accesstomemory.org](mailto:security@accesstomemory.org)
+* [security@artefactual.com](mailto:security@artefactual.com)
 
 We will be better able to evaluate and respond to your report if it includes
 all the details needed for us to reproduce the issue locally. Please include
