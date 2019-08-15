@@ -39,8 +39,8 @@ issue locally. This includes:
 * If there are any error logs related to the issue, please include the
   relevant parts as well
 
-You can find more useful information on how to find this information in the
-Troubleshooting page in our documentation:
+You can find useful tips on how to find this information in the Troubleshooting 
+page in our documentation:
 
 * https://www.accesstomemory.org/docs/latest/admin-manual/maintenance/troubleshooting/
 
