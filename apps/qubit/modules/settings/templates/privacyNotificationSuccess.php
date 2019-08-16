@@ -26,7 +26,12 @@
           ->label(__('Display Privacy Notification on first visit to site'))
           ->renderRow() ?>
 
-        <?php echo render_field($form->privacy_notification->label(__('Privacy Notification Message')), $privacy_notification, array('name' => 'value', 'class' => 'resizable')) ?>
+        <?php echo get_partial('settings/i18n_form_field',
+          array(
+            'name' => 'privacy_notification',
+            'label' => __('Privacy Notification Message'),
+            'settings' => $settings,
+            'form' => $form)) ?>
 
       </fieldset>
 
