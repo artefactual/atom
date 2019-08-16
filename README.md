@@ -56,4 +56,4 @@ maintain two development environments:
 
 Thank you for your interest in contributing to the AtoM project! 
 
-Please see our [contributing guidelines][CONTRIBUTING.md] file for more information. 
+Please see our [contributing guidelines](CONTRIBUTING.md) file for more information. 
