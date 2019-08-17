@@ -56,7 +56,7 @@
 
                 .bind('blur click keydown', function (event)
                   {
-                    if ($(this).val() && ('keydown' != event.type || 9 == event.keyCode))
+                    if ($(this).val() && ('keydown' != event.type || 9 == event.which))
                     {
                       // Cancel default action so as not to loose focus
                       if ('keydown' == event.type)

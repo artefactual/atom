@@ -115,9 +115,9 @@
               })
 
             // If user press enter, add new row
-            .find('input, select').live('keypress', function(event)
+            .find('input, select').live('keydown', function(event)
               {
-                if (event.keyCode == 13 || event.charCode == 13)
+                if (event.which == 13)
                 {
                   var table = $(this).parents('table:first');
 

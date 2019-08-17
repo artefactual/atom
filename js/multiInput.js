@@ -31,8 +31,8 @@
                     // Don't fire on keydown other than tab (9) or enter (13)
                     if ($(this).val()
                         && ('keydown' !== event.type
-                          || 9 === event.keyCode
-                          || 13 === event.keyCode))
+                          || 9 === event.which
+                          || 13 === event.which))
                     {
                       // Cancel default action so as not to loose focus
                       if ('keydown' === event.type)

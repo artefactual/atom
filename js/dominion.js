@@ -248,13 +248,7 @@
         this.$element
           .on('focus', $.proxy(this.focus, this))
           .on('blur', $.proxy(this.blur, this))
-          .on('keypress', $.proxy(this.keypress, this))
-          .on('keyup', $.proxy(this.keyup, this));
-
-        if ($.browser.webkit || $.browser.msie)
-        {
-          this.$element.on('keydown', $.proxy(this.keypress, this));
-        }
+          .on('keydown', $.proxy(this.keydown, this));
 
         this.$menu.on('mouseenter', 'li', $.proxy(this.mouseenter, this));
         this.$menu.on('mouseleave', 'li', $.proxy(this.mouseleave, this));
@@ -463,24 +457,20 @@
         }
       },
 
-    keyup: function (e)
+    keydown: function (e)
       {
-        switch (e.keyCode)
+        switch (e.which)
         {
           case 40: // Down arrow
           case 38: // Up arrow
-            // Firefox 65 and higher handle arrows with keyup, not keypress
-            if (YAHOO.env.ua.gecko >= 65)
-            {
-              if (e.keyCode == 38)
-              {
-                this.move(-1);
-              }
-              else
-              {
-                this.move(1);
-              }
-            }
+              this.move((e.which == 38) ? -1 : 1);
+
+            break;
+
+          case 13: // Enter
+            e.preventDefault();
+            this.select();
+
             break;
 
           case 27: // Escape
@@ -500,44 +490,6 @@
                 self.lookup();
               }, this.timeout);
         }
-
-        e.stopPropagation();
-        e.preventDefault();
-      },
-
-    keypress: function (e)
-      {
-        switch (e.keyCode)
-        {
-          case 27: // Escape
-            e.preventDefault();
-            break;
-
-          case 13: // Enter
-            e.preventDefault();
-            this.select();
-            break;
-
-          case 38: // Up arrow
-            // If charCode is 38 then, in Chrome, it's an ampersand
-            if (e.charCode == 0)
-            {
-              e.preventDefault();
-              this.move(-1);
-            }
-            break;
-
-          case 40: // Down arrow
-            // If charCode is 40 then, in Chrome/IE, it's an open parenthesis
-            if (e.charCode == 0)
-            {
-              e.preventDefault();
-              this.move(1);
-            }
-            break;
-        }
-
-        e.stopPropagation();
       },
 
     blur: function (e)
@@ -886,7 +838,7 @@
             $inlineSearch.find('#subqueryField')
               .val($this.data('subquery-field-value'));
           })
-        .on('keypress', 'input', function(e)
+        .on('keydown', 'input', function(e)
           {
             if (e.which == 13)
             {

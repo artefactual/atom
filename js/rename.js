@@ -85,8 +85,8 @@
     enableFields();
 
     // Submit when users hits the enter key
-    $renameForm.on('keypress', function (e) {
-      if (e.keyCode == 13) {
+    $renameForm.on('keydown', function (e) {
+      if (e.which == 13) {
         e.preventDefault();
 
         // If user pressing enter from title field, update slug if enabled
