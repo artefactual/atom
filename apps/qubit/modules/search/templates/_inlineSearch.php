@@ -33,7 +33,7 @@
       <?php endif; ?>
 
       <?php if (isset($sf_request->subquery)): ?>
-        <input type="text" name="subquery" value="<?php echo $sf_request->subquery ?>" />
+        <input type="text" name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>" />
         <a class="btn" href="<?php echo $cleanRoute ?>">
           <i class="fa fa-times"></i>
         </a>
