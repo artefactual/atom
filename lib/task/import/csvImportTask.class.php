@@ -488,6 +488,12 @@ EOF;
       {
         $notImportingTranslation = $self->object instanceof QubitInformationObject;
 
+        // If importing a translation, don't import related data
+        if (!$notImportingTranslation)
+        {
+          return;
+        }
+
         // Set repository if not importing an QubitInformationObjectI18n translation row
         if ($notImportingTranslation && isset($self->rowStatusVars['repository']) && $self->rowStatusVars['repository'])
         {
