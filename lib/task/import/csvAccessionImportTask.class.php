@@ -150,22 +150,6 @@ EOF;
         'creationDatesType'  => '|'
       ),
 
-      // Import columns that should be redirected to QubitAccession
-      // properties (and optionally transformed). Example:
-      // 'columnMap' => array(
-      //   'Archival History' => 'archivalHistory',
-      //   'Revision history' => array(
-      //     'column' => 'revision',
-      //     'transformationLogic' => function(&$self, $text)
-      //     {
-      //       return $self->appendWithLineBreakIfNeeded(
-      //         $self->object->revision,
-      //         $text
-      //       );
-      //     }
-      //   )
-      // ),
-
       'columnMap' => array(
         'physicalCondition' => 'physicalCharacteristics'
       ),
@@ -184,6 +168,7 @@ EOF;
         'donorCountry',
         'donorTelephone',
         'donorEmail',
+        'donorNote',
         'qubitParentSlug'
       ),
 
@@ -201,7 +186,7 @@ EOF;
         $result = $statement->fetch(PDO::FETCH_OBJ);
         if ($result)
         {
-          print $self->logError(sprintf('Found accession ID %d', $result->id));
+          print $self->logError(sprintf('Found accession ID %d with identifier %s', $result->id, $accessionNumber));
           $self->object = QubitAccession::getById($result->id);
         }
         else if (!empty($accessionNumber))
@@ -269,7 +254,8 @@ EOF;
               'donorStreetAddress' => 'streetAddress',
               'donorCity'          => 'city',
               'donorRegion'        => 'region',
-              'donorPostalCode'    => 'postalCode'
+              'donorPostalCode'    => 'postalCode',
+              'donorNote'          => 'note'
             );
 
             // Set up creation of contact infomation
@@ -350,24 +336,50 @@ EOF;
 
     $import->addColumnHandler('resourceType', function($self, $data)
     {
-      $this->setObjectPropertyToTermIdLookedUpFromTermNameArray(
-        $self,
-        'resourceTypeId',
-        'resource type',
-        $data,
-        $self->status['resourceTypes'][$self->columnValue('culture')]
-      );
+      if ($data)
+      {
+        $data = trim($data);
+        $resourceTypeId = array_search_case_insensitive($data, $self->status['resourceTypes'][$self->columnValue('culture')]);
+
+        if ($resourceTypeId === false)
+        {
+          print "\nTerm $data not found in resource type taxonomy, creating it...\n";
+          $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::ACCESSION_RESOURCE_TYPE_ID, $data, $self->columnValue('culture'));
+          $self->status['resourceTypes'] = refreshTaxonomyTerms(QubitTaxonomy::ACCESSION_RESOURCE_TYPE_ID);
+        }
+
+        $this->setObjectPropertyToTermIdLookedUpFromTermNameArray(
+          $self,
+          'resourceTypeId',
+          'resource type',
+          $data,
+          $self->status['resourceTypes'][$self->columnValue('culture')]
+        );
+      }
     });
 
     $import->addColumnHandler('acquisitionType', function($self, $data)
     {
-      $this->setObjectPropertyToTermIdLookedUpFromTermNameArray(
-        $self,
-        'acquisitionTypeId',
-        'acquisition type',
-        $data,
-        $self->status['acquisitionTypes'][$self->columnValue('culture')]
-      );
+      if ($data)
+      {
+        $data = trim($data);
+        $acquisitionTypeId = array_search_case_insensitive($data, $self->status['acquisitionTypes'][$self->columnValue('culture')]);
+
+        if ($acquisitionTypeId === false)
+        {
+          print "\nTerm $data not found in acquisition type taxonomy, creating it...\n";
+          $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::ACCESSION_ACQUISITION_TYPE_ID, $data, $self->columnValue('culture'));
+          $self->status['acquisitionTypes'] = refreshTaxonomyTerms(QubitTaxonomy::ACCESSION_ACQUISITION_TYPE_ID);
+        }
+
+        $this->setObjectPropertyToTermIdLookedUpFromTermNameArray(
+          $self,
+          'acquisitionTypeId',
+          'acquisition type',
+          $data,
+          $self->status['acquisitionTypes'][$self->columnValue('culture')]
+        );
+      }
     });
 
     $import->addColumnHandler('processingStatus', function($self, $data)

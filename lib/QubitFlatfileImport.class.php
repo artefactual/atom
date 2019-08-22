@@ -1934,7 +1934,8 @@ class QubitFlatfileImport
       'city',
       'region',
       'postalCode',
-      'countryCode'
+      'countryCode',
+      'note'
     );
 
     $this->setPropertiesFromArray($info, $options, $allowedProperties);
