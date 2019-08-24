@@ -181,6 +181,7 @@
 
         $('#main-column .breadcrumb').replaceWith($(response.find('#main-column .breadcrumb')));
         $('#main-column .row').replaceWith($(response.find('#main-column .row')));
+        $('.translation-links').replaceWith($(response.find('.translation-links')));
 
         $('#main-column > div.messages.error').remove();
         $('#main-column .breadcrumb').after($(response.find('#main-column > div.messages.error')));
