@@ -1022,6 +1022,13 @@ EOF;
         {
           $this->handleDigitalObjectPath($self, $path);
         }
+
+        // If importing a translation, re-save entire information object so translation will be indexed
+        if ($self->object instanceof QubitInformationObjectI18n && !$self->searchIndexingDisabled)
+        {
+          $io = QubitInformationObject::getByid($self->object->id);
+          $io->save();
+        }
       }
     ));
 
