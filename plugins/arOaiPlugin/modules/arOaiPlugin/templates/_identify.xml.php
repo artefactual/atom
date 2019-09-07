@@ -1,6 +1,6 @@
   <Identify>
     <repositoryName><?php echo esc_specialchars($title) ?></repositoryName>
-    <baseURL><?php echo QubitOai::getBaseUrl() ?></baseURL>
+    <baseURL><?php echo $baseUrl ?></baseURL>
     <protocolVersion><?php echo $protocolVersion ?></protocolVersion>
     <?php foreach ($adminEmails as $email): ?>
       <adminEmail><?php echo trim($email) ?></adminEmail>

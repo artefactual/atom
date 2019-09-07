@@ -170,29 +170,6 @@ class QubitOai
   }
 
   /**
-   * Extracts the port and script name, and derives the scheme, from the _SERVER global.
-   * Then, combines those with the user-defined siteBaseUrl setting to form the base URL.
-   *
-   * @return string base URL
-   */
-  public static function getBaseUrl()
-  {
-    $scheme = $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
-    
-    $siteBaseUrl = QubitSetting::getByName('siteBaseUrl')->getValue(array('cultureFallback' => true));
-    $host = QubitOai::parseUrlHost($siteBaseUrl);
-    
-    $baseURL = $scheme.$host;
-    if ($_SERVER['SERVER_PORT'] != '80')
-    {
-      $baseURL .= ':'.$_SERVER['SERVER_PORT'];
-    }
-    $baseURL .= $_SERVER['SCRIPT_NAME'];
-    
-    return $baseURL;
-  }
-
-  /**
    * Returns formated date
    *
    * @param string  $date optional date value

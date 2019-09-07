@@ -35,6 +35,7 @@ class arOaiPluginIdentifyComponent extends arOaiPluginComponent
     list ($this->earliestDatestamp) = Propel::getConnection()->query('SELECT MIN('.QubitObject::UPDATED_AT.') FROM '.QubitObject::TABLE_NAME)->fetch();
     $this->earliestDatestamp = date_format(date_create($this->earliestDatestamp), 'Y-m-d\TH:i:s\Z');
 
+    $this->baseUrl = QubitSetting::getByName('siteBaseUrl')->getValue(array('sourceCulture' => true));
     $this->granularity = 'YYYY-MM-DDThh:mm:ssZ';
     $this->deletedRecord = 'no';
     $this->compression = 'gzip';
