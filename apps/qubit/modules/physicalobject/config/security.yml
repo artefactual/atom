@@ -1,13 +1,20 @@
-browse:
-  credentials: administrator
-
-delete:
-  credentials: [[ contributor, editor, administrator ]]
-  is_secure: true
-
-edit:
-  credentials: [[ contributor, editor, administrator, translator ]]
-  is_secure: true
-
 all:
   is_secure: true
+
+autocomplete:
+  credentials: [[ administrator, contributor, editor ]]
+
+boxList:
+  credentials: [[ administrator, editor ]]
+
+browse:
+  credentials: [[ administrator, editor, translator ]]
+
+delete:
+  credentials: [[ administrator, editor ]]
+
+edit:
+  credentials: [[ administrator, editor, translator ]]
+
+index:
+  credentials: [[ administrator, contributor, editor, translator ]]
