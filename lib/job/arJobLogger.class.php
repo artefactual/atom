@@ -47,8 +47,9 @@ class arJobLogger extends sfLogger
       $message);
 
     // TEXT type cannot have a default (i.e. ''), so use CONCAT_WS because it can work with null values
-    // and coerce them into a string with an empty string separater.
-    $sql = 'UPDATE job SET output = CONCAT_WS("", output, ?, "\n") WHERE id = ?';
+    // and coerce them into a string with an empty string separater. Truncate the result of the concat
+    // so it fits in column limit.
+    $sql = 'UPDATE job SET output = SUBSTR(CONCAT_WS("", output, ?, "\n"), 1, 65534) WHERE id = ?';
     QubitPdo::prepareAndExecute($sql, array($fMessage, $this->job->id));
 
     // Forward to `gearman.worker.log` observers, jobWorkerTask will log to console via sfTask.
