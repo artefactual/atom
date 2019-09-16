@@ -61,7 +61,7 @@ renameSuccess:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /vendor/yui/container/container-min:
     /vendor/yui/connection/connection-min:
-    repositoryHoldings:
+    sidebarPaginatedList:
     description:
     rename:
 
@@ -71,7 +71,7 @@ updatePublicationStatusSuccess:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /vendor/yui/container/container-min:
     /vendor/yui/connection/connection-min:
-    repositoryHoldings:
+    sidebarPaginatedList:
 
 uploadFindingAidSuccess:
   javascripts:
@@ -79,7 +79,7 @@ uploadFindingAidSuccess:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /vendor/yui/connection/connection-min:
     /vendor/yui/container/container-min:
-    repositoryHoldings:
+    sidebarPaginatedList:
 
 all:
   components:
