@@ -38,7 +38,7 @@ class RepositoryHoldingsAction extends sfAction
       // Return nothing to not break the list
       return;
     }
-    
+
     $resultSet = self::getHoldings($request->id, $request->page, $limit);
 
     $pager = new QubitSearchPager($resultSet);
@@ -85,7 +85,7 @@ class RepositoryHoldingsAction extends sfAction
     $query->setSize($limit);
     $query->setFrom($limit * ($page - 1));
 
-    $title = sprintf('i18n.%s.title.untouched', sfContext::getInstance()->user->getCulture());
+    $title = sprintf('i18n.%s.title.alphasort', sfContext::getInstance()->user->getCulture());
     $query->setSort(array($title => 'asc'));
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);

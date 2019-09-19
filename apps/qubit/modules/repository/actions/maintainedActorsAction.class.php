@@ -78,7 +78,7 @@ class RepositoryMaintainedActorsAction extends sfAction
     $query->setSize($limit);
     $query->setFrom($limit * ($page - 1));
 
-    $field = sprintf('i18n.%s.authorizedFormOfName.untouched', sfContext::getInstance()->user->getCulture());
+    $field = sprintf('i18n.%s.authorizedFormOfName.alphasort', sfContext::getInstance()->user->getCulture());
     $query->setSort(array($field => 'asc'));
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($query);

@@ -315,6 +315,7 @@ mapping:
       timestamp: true
       autocompleteFields: [name]
       rawFields:  [name]
+      sortFields: [name]
     _foreign_types: { use_for: other_name, scope_notes: note }
     dynamic: strict
     properties:
@@ -329,6 +330,7 @@ mapping:
       timestamp: true
       autocompleteFields: [authorizedFormOfName]
       rawFields:  [authorizedFormOfName]
+      sortFields: [authorizedFormOfName]
     _foreign_types:
       maintenance_notes: note
       other_names: other_name
@@ -370,6 +372,7 @@ mapping:
       i18n: true
       timestamp: true
       rawFields:  [title]
+      sortFields: [title]
     _foreign_types: { donors: donor, creators: actor }
     dynamic: strict
     properties:
@@ -388,6 +391,7 @@ mapping:
       timestamp: true
       autocompleteFields: [authorizedFormOfName]
       rawFields:  [authorizedFormOfName, region, city]
+      sortFields: [authorizedFormOfName]
     _foreign_types:
       contact_informations: contact_information
       other_names: other_name
@@ -430,6 +434,7 @@ mapping:
       timestamp: true
       autocompleteFields: [title]
       rawFields:  [title]
+      sortFields: [title]
       # Select which foreign type i18n fields we'll include when searching _all
       i18nIncludeInAll:
         - repository.authorizedFormOfName

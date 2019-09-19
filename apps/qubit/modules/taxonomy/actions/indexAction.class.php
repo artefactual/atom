@@ -38,7 +38,7 @@ class TaxonomyIndexAction extends sfAction
       $this->resource = $this->getRoute()->resource;
     }
 
-    // Explicitly add resource to sf_route to make it available to components 
+    // Explicitly add resource to sf_route to make it available to components
     $request->getAttribute('sf_route')->resource = $this->resource;
 
     // Disallow access to locked taxonomies
@@ -203,7 +203,7 @@ class TaxonomyIndexAction extends sfAction
     {
       // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
-        $field = sprintf('i18n.%s.name.untouched', $culture);
+        $field = sprintf('i18n.%s.name.alphasort', $culture);
         $this->query->setSort(array($field => $request->sortDir));
 
         break;

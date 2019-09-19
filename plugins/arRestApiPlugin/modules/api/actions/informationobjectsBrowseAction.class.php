@@ -71,7 +71,7 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
 
       // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
-        $field = sprintf('i18n.%s.title.untouched', sfContext::getInstance()->user->getCulture());
+        $field = sprintf('i18n.%s.title.alphasort', sfContext::getInstance()->user->getCulture());
         $order = 'asc';
         break;
 

@@ -279,6 +279,8 @@ class arElasticSearchMapping
             }
           }
 
+          $nestedI18nFields = $this->addSortFields($nestedI18nFields, $typeProperties);
+
           // i18n documents (one per culture)
           $nestedI18nObjects = $this->getNestedI18nObjects($languages, $nestedI18nFields);
 
@@ -481,5 +483,30 @@ class arElasticSearchMapping
     $mapping['languages'] = array('type' => 'keyword');
 
     return $mapping;
+  }
+
+  /**
+   * Add "alphasort" Elasticsearch fields
+   *
+   * Add i18n "alphasort" keyword field that is lowercase, has punctation
+   * stripped, and is ASCII folded to allow more natural alphabetic sorting
+   */
+  protected function addSortFields($nestedI18nFields, $typeProperties)
+  {
+    if (!isset($typeProperties['_attributes']['sortFields']))
+    {
+      return $nestedI18nFields;
+    }
+
+    foreach ($typeProperties['_attributes']['sortFields'] as $item)
+    {
+      $nestedI18nFields[$item]['fields']['alphasort'] = array(
+        'type' => 'keyword',
+        'normalizer' => 'alphasort',
+        'include_in_all' => false,
+      );
+    }
+
+    return $nestedI18nFields;
   }
 }

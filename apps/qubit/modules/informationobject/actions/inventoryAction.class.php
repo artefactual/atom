@@ -120,12 +120,12 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
         break;
 
       case 'titleUp':
-        $query->setSort(array($i18n.'title.untouched' => 'asc'));
+        $query->setSort(array($i18n.'title.alphasort' => 'asc'));
 
         break;
 
       case 'titleDown':
-        $query->setSort(array($i18n.'title.untouched' => 'desc'));
+        $query->setSort(array($i18n.'title.alphasort' => 'desc'));
 
         break;
 

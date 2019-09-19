@@ -103,7 +103,7 @@ class ActorRelatedInformationObjectsAction extends sfAction
     }
 
     QubitAclSearch::filterDrafts($queryBool);
-    $title = sprintf('i18n.%s.title.untouched', sfContext::getInstance()->user->getCulture());
+    $title = sprintf('i18n.%s.title.alphasort', sfContext::getInstance()->user->getCulture());
 
     $query->setQuery($queryBool);
     $query->setSort(array($title => 'asc'));

@@ -286,7 +286,7 @@ EOF;
             break;
 
           case 'alphabetic':
-            $field = sprintf('i18n.%s.title.untouched', $this->culture);
+            $field = sprintf('i18n.%s.title.alphasort', $this->culture);
             $this->search->query->setSort(array($field => $request->sortDir));
             break;
 
@@ -327,7 +327,7 @@ EOF;
 
     $listQuery = new \Elastica\Query();
     $listQuery->setSize($request->listLimit);
-    $listQuery->setSort(array(sprintf('i18n.%s.name.untouched', $this->culture) => 'asc'));
+    $listQuery->setSort(array(sprintf('i18n.%s.name.alphasort', $this->culture) => 'asc'));
 
     if (!empty($request->listPage))
     {

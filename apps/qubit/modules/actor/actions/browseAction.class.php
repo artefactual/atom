@@ -253,7 +253,7 @@ class ActorBrowseAction extends DefaultBrowseAction
     {
       // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
-        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->selectedCulture);
+        $field = sprintf('i18n.%s.authorizedFormOfName.alphasort', $this->selectedCulture);
         $this->search->query->setSort(array($field => $request->sortDir));
 
         break;

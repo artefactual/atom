@@ -542,7 +542,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         break;
 
       case 'alphabetic':
-        $field = sprintf('i18n.%s.title.untouched', $this->selectedCulture);
+        $field = sprintf('i18n.%s.title.alphasort', $this->selectedCulture);
         $this->search->query->addSort(array($field => $request->sortDir));
 
         break;

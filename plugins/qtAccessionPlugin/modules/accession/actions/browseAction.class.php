@@ -142,7 +142,7 @@ class AccessionBrowseAction extends sfAction
 
       case 'title':
       case 'alphabetic': // For backward compatibility
-        $field = sprintf('i18n.%s.title.untouched', $this->context->user->getCulture());
+        $field = sprintf('i18n.%s.title.alphasort', $this->context->user->getCulture());
         $this->query->addSort(array($field => $request->sortDir));
 
         break;

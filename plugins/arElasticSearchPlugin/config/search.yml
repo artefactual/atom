@@ -126,6 +126,14 @@ all:
             tokenizer: standard
             filter: [lowercase, turkish_stop, preserved_asciifolding]
 
+        normalizer:
+          # Custom normalizer that lowercases text, removes punctation, and
+          # does ascii folding for more natural alphabetic sorting
+          alphasort:
+            type: custom
+            filter: [lowercase, preserved_asciifolding]
+            char_filter: [punctuation_filter]
+
         filter:
           engram:
             type: edgeNGram
@@ -222,7 +230,6 @@ all:
             type: stop
             stopwords: _turkish_
 
-
         char_filter:
 
           # This char_filter is added to all analyzers when the index
@@ -237,6 +244,12 @@ all:
             type: pattern_replace
             pattern: '[\*_#!\[\]\(\)\->`\+\\~:\|\^=]'
             replacement: ' '
+
+          # Strip punctation from a string
+          punctuation_filter:
+            type: pattern_replace
+            pattern: '["''_\-\?!\.\(\)\[\]#\*`:;]'
+            replacement: ''
 
       # Disable dynamic creation of mappings for unmapped types
       mapper:
