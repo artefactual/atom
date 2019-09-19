@@ -38,44 +38,23 @@ class sfIsadPlugin implements ArrayAccess
 
   public function __toString()
   {
-    $string = array();
+    $string = '';
 
-    $levelOfDescriptionAndIdentifier = array();
-
-    if (isset($this->resource->levelOfDescription))
-    {
-      $levelOfDescriptionAndIdentifier[] = $this->resource->levelOfDescription->__toString();
-    }
-
-    if (isset($this->resource->identifier))
-    {
-      $levelOfDescriptionAndIdentifier[] = $this->resource->identifier;
-    }
-
-    if (0 < count($levelOfDescriptionAndIdentifier))
-    {
-      $string[] = implode($levelOfDescriptionAndIdentifier, ' ');
-    }
-
-    $titleAndPublicationStatus = array();
-
+    // Add title if set
     if (0 < strlen($title = $this->resource->__toString()))
     {
-      $titleAndPublicationStatus[] = $title;
+      $string .= $title;
     }
 
+    // Add publication status
     $publicationStatus = $this->resource->getPublicationStatus();
     if (isset($publicationStatus) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $publicationStatus->statusId)
     {
-      $titleAndPublicationStatus[] = "({$publicationStatus->status->__toString()})";
+      $string .= (!empty($string)) ? ' ' : '';
+      $string .= "({$publicationStatus->status->__toString()})";
     }
 
-    if (0 < count($titleAndPublicationStatus))
-    {
-      $string[] = implode($titleAndPublicationStatus, ' ');
-    }
-
-    return implode(' - ', $string);
+    return $string;
   }
 
   public function __get($name)

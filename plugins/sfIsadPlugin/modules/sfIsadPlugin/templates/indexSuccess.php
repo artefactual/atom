@@ -6,7 +6,7 @@
 
 <?php slot('title') ?>
 
-  <h1><?php echo render_title($isad) ?></h1>
+  <?php echo get_component('informationobject', 'header', array('resource' => $resource, 'title' => (string)$isad)) ?>
 
   <?php if (isset($errorSchema)): ?>
     <div class="messages error">
@@ -61,7 +61,7 @@
     <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Identity area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'identityArea', 'title' => __('Edit identity area'))) ?>
   <?php endif; ?>
 
-  <?php echo render_show(__('Reference code'), render_value($isad->referenceCode), array('fieldLabel' => 'referenceCode')) ?>
+  <?php echo render_show(__('Reference code'), $isad->referenceCode, array('fieldLabel' => 'referenceCode')) ?>
 
   <?php echo render_show(__('Title'), render_title($resource), array('fieldLabel' => 'title')) ?>
 
@@ -249,11 +249,11 @@
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_control_description_identifier')): ?>
-    <?php echo render_show(__('Description identifier'), render_value($resource->getDescriptionIdentifier(array('cultureFallback' => true))), array('fieldLabel' => 'descriptionIdentifier')) ?>
+    <?php echo render_show(__('Description identifier'), $resource->getDescriptionIdentifier(array('cultureFallback' => true)), array('fieldLabel' => 'descriptionIdentifier')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_control_institution_identifier')): ?>
-    <?php echo render_show(__('Institution identifier'), render_value($resource->getInstitutionResponsibleIdentifier(array('cultureFallback' => true))), array('fieldLabel' => 'institutionIdentifier')) ?>
+    <?php echo render_show(__('Institution identifier'), $resource->getInstitutionResponsibleIdentifier(array('cultureFallback' => true)), array('fieldLabel' => 'institutionIdentifier')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_control_rules_conventions')): ?>

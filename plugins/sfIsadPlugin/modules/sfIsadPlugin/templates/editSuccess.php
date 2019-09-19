@@ -8,7 +8,7 @@
 <?php end_slot() ?>
 
 <?php slot('title') ?>
-  <h1><?php echo render_title($isad) ?></h1>
+  <?php echo get_component('informationobject', 'header', array('resource' => $resource, 'title' => (string)$isad)) ?>
 
   <?php if (isset($sf_request->source)): ?>
     <div class="messages status">

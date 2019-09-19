@@ -37,32 +37,23 @@ class sfDcPlugin implements ArrayAccess
 
   public function __toString()
   {
-    $string = array();
+    $string = '';
 
-    if (isset($this->resource->identifier))
-    {
-      $string[] = $this->resource->identifier;
-    }
-
-    $resourceAndPublicationStatus = array();
-
+    // Add title if set
     if (0 < strlen($title = $this->resource->__toString()))
     {
-      $resourceAndPublicationStatus[] = $title;
+      $string .= $title;
     }
 
+    // Add publication status
     $publicationStatus = $this->resource->getPublicationStatus();
     if (isset($publicationStatus) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $publicationStatus->statusId)
     {
-      $resourceAndPublicationStatus[] = "({$publicationStatus->status->__toString()})";
+      $string .= (!empty($string)) ? ' ' : '';
+      $string .= "({$publicationStatus->status->__toString()})";
     }
 
-    if (0 < count($resourceAndPublicationStatus))
-    {
-      $string[] = implode($resourceAndPublicationStatus, ' ');
-    }
-
-    return implode(' - ', $string);
+    return $string;
   }
 
   public function offsetExists($offset)

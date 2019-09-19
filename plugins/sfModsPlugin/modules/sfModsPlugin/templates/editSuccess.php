@@ -9,7 +9,7 @@
 
 <?php slot('title') ?>
 
-  <h1><?php echo render_title($mods) ?></h1>
+  <?php echo get_component('informationobject', 'header', array('resource' => $resource, 'title' => (string)$mods)) ?>
 
   <?php if (isset($sf_request->source)): ?>
     <div class="messages status">

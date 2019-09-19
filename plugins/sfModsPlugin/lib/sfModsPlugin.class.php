@@ -37,44 +37,41 @@ class sfModsPlugin implements ArrayAccess
 
   public function __toString()
   {
-    $string = array();
+    $string = '';
 
-    $levelOfDescriptionAndIdentifier = array();
+    // Add title if set
+    if (0 < strlen($title = $this->resource->__toString()))
+    {
+      $string .= $title;
+    }
+
+    // Add publication status
+    $publicationStatus = $this->resource->getPublicationStatus();
+    if (isset($publicationStatus) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $publicationStatus->statusId)
+    {
+      $string .= (!empty($string)) ? ' ' : '';
+      $string .= "({$publicationStatus->status->__toString()})";
+    }
+
+    return $string;
+  }
+
+  public function levelOfDescriptionAndIdentifier()
+  {
+    $string = '';
 
     if (isset($this->resource->levelOfDescription))
     {
-      $levelOfDescriptionAndIdentifier[] = $this->resource->levelOfDescription->__toString();
+      $string .= $this->resource->levelOfDescription->__toString();
     }
 
     if (isset($this->resource->identifier))
     {
-      $levelOfDescriptionAndIdentifier[] = $this->resource->identifier;
+      $string .= (!empty($string)) ? ' ' : '';
+      $string .= $this->resource->identifier;
     }
 
-    if (0 < count($levelOfDescriptionAndIdentifier))
-    {
-      $string[] = implode($levelOfDescriptionAndIdentifier, ' ');
-    }
-
-    $resourceAndPublicationStatus = array();
-
-    if (0 < strlen($title = $this->resource->__toString()))
-    {
-      $resourceAndPublicationStatus[] = $title;
-    }
-
-    $publicationStatus = $this->resource->getPublicationStatus();
-    if (isset($publicationStatus) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $publicationStatus->statusId)
-    {
-      $resourceAndPublicationStatus[] = "({$publicationStatus->status->__toString()})";
-    }
-
-    if (0 < count($resourceAndPublicationStatus))
-    {
-      $string[] = implode($resourceAndPublicationStatus, ' ');
-    }
-
-    return implode(' - ', $string);
+    return $string;
   }
 
   public function offsetExists($offset)

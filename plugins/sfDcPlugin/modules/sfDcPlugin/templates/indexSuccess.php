@@ -6,7 +6,7 @@
 
 <?php slot('title') ?>
 
-  <h1><?php echo render_title($dc) ?></h1>
+  <?php echo get_component('informationobject', 'header', array('resource' => $resource, 'title' => (string)$dc, 'hideLevelOfDescription' => true)) ?>
 
   <?php if (isset($errorSchema)): ?>
     <div class="messages error">
@@ -57,7 +57,7 @@
 
   <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Elements area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'mainArea', 'title' => __('Edit elements area'))) ?>
 
-  <?php echo render_show(__('Identifier'), render_value($resource->identifier)) ?>
+  <?php echo render_show(__('Identifier'), $resource->identifier) ?>
 
   <?php echo render_show(__('Title'), render_value($resource->getTitle(array('cultureFallback' => true)))) ?>
 

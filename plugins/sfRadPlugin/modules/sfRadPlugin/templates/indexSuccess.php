@@ -6,7 +6,7 @@
 
 <?php slot('title') ?>
 
-  <h1><?php echo render_title($rad) ?></h1>
+  <?php echo get_component('informationobject', 'header', array('resource' => $resource, 'title' => (string)$rad)) ?>
 
   <?php if (isset($errorSchema)): ?>
     <div class="messages error">
@@ -98,7 +98,7 @@
     <?php echo render_show_repository(__('Repository'), $resource) ?>
   </div>
 
-  <?php echo render_show(__('Reference code'), render_value($rad->__get('referenceCode', array('cultureFallback' => true))), array('fieldLabel' => 'referenceCode')) ?>
+  <?php echo render_show(__('Reference code'), $rad->__get('referenceCode', array('cultureFallback' => true)), array('fieldLabel' => 'referenceCode')) ?>
 
 </section> <!-- /section#titleAndStatementOfResponsibilityArea -->
 
@@ -328,11 +328,11 @@
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_rad_control_description_identifier')): ?>
-    <?php echo render_show(__('Description record identifier'), render_value($resource->descriptionIdentifier), array('fieldLabel' => 'descriptionRecordIdentifier')) ?>
+    <?php echo render_show(__('Description record identifier'), $resource->descriptionIdentifier, array('fieldLabel' => 'descriptionRecordIdentifier')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_rad_control_institution_identifier')): ?>
-    <?php echo render_show(__('Institution identifier'), render_value($resource->getInstitutionResponsibleIdentifier(array('cultureFallback' => true))), array('fieldLabel' => 'institutionIdentifier')) ?>
+    <?php echo render_show(__('Institution identifier'), $resource->getInstitutionResponsibleIdentifier(array('cultureFallback' => true)), array('fieldLabel' => 'institutionIdentifier')) ?>
   <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_rad_control_rules_conventions')): ?>

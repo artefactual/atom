@@ -6,7 +6,7 @@
 
 <?php slot('title') ?>
 
-  <h1><?php echo render_title($mods) ?></h1>
+  <?php echo get_component('informationobject', 'header', array('resource' => $resource, 'title' => (string)$mods)) ?>
 
   <?php if (isset($errorSchema)): ?>
     <div class="messages error">
@@ -57,7 +57,7 @@
     <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjectsRelatedByobjectId[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
   <?php endif; ?>
 
-  <?php echo render_show(__('Identifier'), render_value($resource->identifier)) ?>
+  <?php echo render_show(__('Identifier'), $resource->identifier) ?>
 
   <?php echo render_show(__('Title'), render_value($resource->getTitle(array('cultureFallback' => true)))) ?>
 

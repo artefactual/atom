@@ -9,7 +9,7 @@
 
 <?php slot('title') ?>
 
-  <h1><?php echo render_title($rad) ?></h1>
+  <?php echo get_component('informationobject', 'header', array('resource' => $resource, 'title' => (string)$rad)) ?>
 
   <?php if (isset($sf_request->source)): ?>
     <div class="messages status">
@@ -84,7 +84,7 @@
         <?php echo get_partial('informationobject/identifierOptions', array('mask' => $mask)) ?>
         <?php echo get_partial('informationobject/alternativeIdentifiers', $sf_data->getRaw('alternativeIdentifiersComponent')->getVarHolder()->getAll()) ?>
 
-        <?php echo render_show(__('Reference code'), render_value($rad->referenceCode)) ?>
+        <?php echo render_show(__('Reference code'), $rad->referenceCode) ?>
 
       </fieldset> <!-- #titleAndStatementOfResponsibilityArea -->
 
