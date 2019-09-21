@@ -76,6 +76,9 @@ class sfDcPlugin implements ArrayAccess
   {
     switch ($name)
     {
+      case 'creators':
+        return $this->resource->getActors(array('eventTypeId' => QubitTerm::CREATION_ID, 'inherit' => true));
+
       case '_event':
 
         // Because simple Dublin Core cannot qualify the <date/> or <coverage/>

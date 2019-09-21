@@ -9,7 +9,7 @@
     <dc:title><?php echo esc_specialchars(strval($resource->title)) ?></dc:title>
   <?php endif; ?>
 
-  <?php foreach ($resource->getCreators() as $item): ?>
+  <?php foreach ($dc->creators as $item): ?>
     <dc:creator><?php echo esc_specialchars(strval($item)) ?></dc:creator>
   <?php endforeach; ?>
 
