@@ -27,39 +27,46 @@
         </thead>
         <tbody>
           <tr>
-            <td><?php echo $siteInformationForm['site_title']->renderLabel(null,
-              array('title' => __('The name of the website for display in the header'))) ?></td>
             <td>
-              <?php if (strlen($error = $siteInformationForm['site_title']->renderError())): ?>
-                <?php echo $error ?>
-              <?php elseif ($sourceCultureHelper = $siteTitle->getSourceCultureHelper($culture)): ?>
-                <div class="default-translation"><?php echo $sourceCultureHelper ?></div>
-              <?php endif; ?>
-              <?php echo $siteInformationForm['site_title']->render() ?>
+              <?php echo $form->siteTitle->renderLabel(
+                           'Site title', array('title' => 'The name of the website for display in the header')) ?>
+            </td>
+            <td>
+              <?php echo get_partial('settings/i18n_form_field',
+                array(
+                  'name' => 'siteTitle',
+                  'label' => null,
+                  'settings' => $settings,
+                  'form' => $form)) ?>
             </td>
           </tr>
           <tr>
-            <td><?php echo $siteInformationForm['site_description']->renderLabel(null,
-              array('title' => __('A brief site description or &quot;tagline&quot; for the header'))) ?></td>
             <td>
-              <?php if (strlen($error = $siteInformationForm['site_description']->renderError())): ?>
-                <?php echo $error ?>
-              <?php elseif ($sourceCultureHelper = $siteDescription->getSourceCultureHelper($culture)): ?>
-                <div class="default-translation"><?php echo $sourceCultureHelper ?></div>
-              <?php endif; ?>
-              <?php echo $siteInformationForm['site_description']->render() ?>
+              <?php echo $form->siteDescription->renderLabel(
+                           'Site description', array('title' => 'A brief site description or &quot;tagline&quot; for the header')) ?>
+            </td>
+            <td>
+              <?php echo get_partial('settings/i18n_form_field',
+                array(
+                  'name' => 'siteDescription',
+                  'label' => null,
+                  'settings' => $settings,
+                  'form' => $form)) ?>
             </td>
           </tr>
           <tr>
-            <td><?php echo $siteInformationForm['site_base_url']->renderLabel(null,
-              array('title' => __('Used to create absolute URLs, pointing to resources, in XML exports'))) ?></td>
             <td>
-              <?php if (strlen($error = $siteInformationForm['site_base_url']->renderError())): ?>
-                <?php echo $error ?>
-              <?php elseif ($sourceCultureHelper = $siteBaseUrl->getSourceCultureHelper($culture)): ?>
-                <div class="default-translation"><?php echo $sourceCultureHelper ?></div>
-              <?php endif; ?>
-              <?php echo $siteInformationForm['site_base_url']->render() ?>
+              <?php echo $form->siteBaseUrl->renderLabel(
+                           'Site base URL (used in MODS and EAD exports)',
+                           array('title' => 'Used to create absolute URLs, pointing to resources, in XML exports')) ?>
+            </td>
+            <td>
+              <?php echo get_partial('settings/i18n_form_field',
+                array(
+                  'name' => 'siteBaseUrl',
+                  'label' => null,
+                  'settings' => $settings,
+                  'form' => $form)) ?>
             </td>
           </tr>
         </tbody>

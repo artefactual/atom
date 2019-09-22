@@ -27,103 +27,57 @@
  * @author     David Juhasz <david@artefactual.com>
  */
 
-class SettingsSiteInformationAction extends sfAction
+class SettingsSiteInformationAction extends SettingsEditAction
 {
-  public function execute($request)
+  // Arrays not allowed in class constants
+  public static
+    $NAMES = array(
+      'siteTitle',
+      'siteDescription',
+      'siteBaseUrl'),
+
+    $I18N = array(
+      'siteTitle',
+      'siteDescription',
+      'siteBaseUrl');
+
+  public function earlyExecute()
   {
-    $this->culture = $this->context->user->getCulture();
+    parent::earlyExecute();
 
-    $this->siteInformationForm = new SettingsSiteInformationForm;
+    $this->updateMessage = $this->i18n->__('Site information saved.');
 
-    // Handle POST data (form submit)
-    if ($request->isMethod('post'))
-    {
-      QubitCache::getInstance()->removePattern('settings:i18n:*');
-
-      // Handle site information form submission
-      if (null !== $request->site_information)
-      {
-        $this->siteInformationForm->bind($request->site_information);
-        if ($this->siteInformationForm->isValid())
-        {
-          // Do update and redirect to avoid repeat submit wackiness
-          $this->updateSiteInformationSettings();
-
-          $notice = sfContext::getInstance()->i18n->__('Site information saved.');
-          $this->getUser()->setFlash('notice', $notice);
-
-          $this->redirect('settings/siteInformation');
-        }
-      }
-    }
-
-    $this->populateSiteInformationForm();
+    // Set form decorator
+    $decorator = new QubitWidgetFormSchemaFormatterList($this->form->getWidgetSchema());
+    $this->form->getWidgetSchema()->addFormFormatter('list', $decorator);
+    $this->form->getWidgetSchema()->setFormFormatterName('list');
   }
 
-  /**
-   * Populate the site information settings from the database (localized)
-   */
-  protected function populateSiteInformationForm()
+  protected function addField($name)
   {
-    // Get site information settings
-    $this->siteTitle = (null !== $siteTitle = QubitSetting::getByName('siteTitle')) ? $siteTitle : new QubitSetting;
-    $this->siteDescription = (null !== $siteDescription = QubitSetting::getByName('siteDescription')) ? $siteDescription : new QubitSetting;
-    $this->siteBaseUrl = (null !== $siteBaseUrl = QubitSetting::getByName('siteBaseUrl')) ? $siteBaseUrl : new QubitSetting;
-
-    // Set defaults values
-    $this->siteInformationForm->setDefaults(array(
-      'site_title' => $this->siteTitle->getValue(array('culture' => $this->culture)),
-      'site_description' => $this->siteDescription->getValue(array('culture' => $this->culture)),
-      'site_base_url' => $this->siteBaseUrl->getValue(array('culture' => $this->culture))
-    ));
-
-    return $this;
-  }
-
-  /**
-   * Update site information settings (localized)
-   */
-  protected function updateSiteInformationSettings()
-  {
-    $thisForm = $this->siteInformationForm;
-
-    // Get Site Title
-    $siteTitle = $thisForm->getValue('site_title');
-    $siteTitleSetting = QubitSetting::getByName('siteTitle');
-
-    // Create new QubitSetting if site_title doesn't already exist
-    if (null === $siteTitleSetting)
+    switch ($name)
     {
-      $siteTitleSetting = QubitSetting::createNewSetting('siteTitle', null, array('scope'=>'site_information', 'deleteable'=>false));
+      case 'siteTitle':
+        $this->form->setWidget($name, new sfWidgetFormInput);
+        $this->form->setValidator($name, new sfValidatorString(array('required' => false)));
+        $this->form->getWidgetSchema()->$name->setLabel($this->i18n->__('Site title'));
+
+        break;
+
+      case 'siteDescription':
+        $this->form->setWidget($name, new sfWidgetFormInput);
+        $this->form->setValidator($name, new sfValidatorString(array('required' => false)));
+        $this->form->getWidgetSchema()->$name->setLabel($this->i18n->__('Site description'));
+
+        break;
+
+      case 'siteBaseUrl':
+        $this->form->setWidget($name, new sfWidgetFormInput);
+        $this->form->setValidator($name, new sfValidatorString(array('required' => false)));
+        $this->form->getWidgetSchema()->$name->setLabel(
+          $this->i18n->__('Site base URL (used in MODS and EAD exports)'));
+
+        break;
     }
-    $siteTitleSetting->setValue($siteTitle);
-    $siteTitleSetting->save();
-
-    // Save Site Description
-    $siteDescription = $thisForm->getValue('site_description');
-    $siteDescSetting = QubitSetting::getByName('siteDescription');
-
-
-    // Create new QubitSetting if site_description doesn't already exist
-    if (null === $siteDescSetting)
-    {
-      $siteDescSetting = QubitSetting::createNewSetting('siteDescription', null, array('scope'=>'site_information', 'deleteable'=>false));
-    }
-    $siteDescSetting->setValue($siteDescription);
-    $siteDescSetting->save();
-
-    // Save Site Base URL
-    $siteBaseUrl = $thisForm->getValue('site_base_url');
-    $siteUrlSetting = QubitSetting::getByName('siteBaseUrl');
-
-    // Create new QubitSetting if site_description doesn't already exist
-    if (null === $siteUrlSetting)
-    {
-      $siteUrlSetting = QubitSetting::createNewSetting('siteBaseUrl', null, array('deleteable'=>false));
-    }
-    $siteUrlSetting->setValue($siteBaseUrl);
-    $siteUrlSetting->save();
-
-    return $this;
   }
 }
