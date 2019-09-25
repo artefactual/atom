@@ -1,0 +1,17 @@
+<phpunit bootstrap="test/bootstrap/phpunit.php">
+  <testsuites>
+    <testsuite name="unit">
+      <directory>test/phpunit</directory>
+    </testsuite>
+  </testsuites>
+  <filter>
+    <whitelist processUncoveredFilesFromWhitelist="true">
+      <directory suffix=".php">lib</directory>
+      <exclude>
+        <directory suffix=".php">lib/propel</directory>
+        <file>lib/QubitTestFunctional.class.php</file>
+        <file>lib/task/import/example/transformation/example.transform.php</file>
+      </exclude>
+    </whitelist>
+  </filter>
+</phpunit>

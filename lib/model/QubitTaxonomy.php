@@ -172,4 +172,54 @@ class QubitTaxonomy extends BaseTaxonomy
 
     return QubitTerm::get($criteria);
   }
+
+  /**
+   * Get an associative array of terms
+   */
+  public function getTermsAsArray($connection = null)
+  {
+    if (!isset($connection))
+    {
+      $connection = Propel::getConnection();
+    }
+
+    $sql = <<<SQL
+      SELECT
+        term.id AS `id`,
+        term_i18n.name AS `name`,
+        term_i18n.culture as `culture`
+      FROM term INNER JOIN term_i18n ON term.id = term_i18n.id
+      WHERE term.taxonomy_id = ?
+      ORDER BY term_i18n.culture ASC, term_i18n.name ASC;
+SQL;
+
+    $statement = $connection->prepare($sql);
+    $statement->execute([$this->id]);
+
+    return  $statement->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public function getTermIdLookupTable($connection = null)
+  {
+    $idLookupTable = array();
+
+    $terms = $this->getTermsAsArray($connection);
+
+    if (!is_array($terms) || count($terms) == 0)
+    {
+      return;
+    }
+
+    foreach ($terms as $term)
+    {
+      // Trim and lowercase values for lookup
+      $term = array_map(function ($str) {
+        return trim(strtolower($str));
+      }, $term);
+
+      $idLookupTable[$term['culture']][$term['name']] = $term['id'];
+    }
+
+    return $idLookupTable;
+  }
 }
