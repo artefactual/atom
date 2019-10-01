@@ -8,9 +8,9 @@
     <input type="hidden" name="sort" value="relevance"/>
 
     <?php if (isset($repository) && !sfConfig::get('app_enable_institutional_scoping')): ?>
-      <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo esc_entities($sf_request->query) ?>" placeholder="<?php echo __('Search %1%', array('%1%' => strip_markdown($repository))) ?>"/>
+      <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo $sf_request->query ?>" placeholder="<?php echo __('Search %1%', array('%1%' => strip_markdown($repository))) ?>"/>
     <?php else: ?>
-      <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php if (!$sf_user->getAttribute('search-realm') || !sfConfig::get('app_enable_institutional_scoping')) echo esc_entities($sf_request->query) ?>" placeholder="<?php echo __('%1%', array('%1%' => sfConfig::get('app_ui_label_globalSearch'))) ?>"/>
+      <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php if (!$sf_user->getAttribute('search-realm') || !sfConfig::get('app_enable_institutional_scoping')) echo $sf_request->query ?>" placeholder="<?php echo __('%1%', array('%1%' => sfConfig::get('app_ui_label_globalSearch'))) ?>"/>
     <?php endif; ?>
 
     <button><span><?php echo __('Search') ?></span></button>

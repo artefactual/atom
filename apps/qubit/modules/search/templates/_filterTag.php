@@ -1,6 +1,6 @@
 <span class="search-filter">
   <?php if (!empty($label)): ?>
-    <?php echo esc_entities($label) ?>
+    <?php echo $label ?>
   <?php else: ?>
     <?php echo render_title($object) ?>
   <?php endif; ?>

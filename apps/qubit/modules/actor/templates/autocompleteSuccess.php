@@ -38,7 +38,7 @@
 
 <div class="search">
   <form action="<?php echo url_for(array('module' => 'actor', 'action' => 'list')) ?>">
-    <input name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>"/>
+    <input name="subquery" value="<?php echo $sf_request->subquery ?>"/>
     <input class="form-submit" type="submit" value="<?php echo __('Search %1%', array('%1%' => sfConfig::get('app_ui_label_actor'))) ?>"/>
   </form>
 </div>
