@@ -3,6 +3,8 @@
 <?php $sf_response->addJavaScript('/vendor/yui/container/container-min') ?>
 <?php $sf_response->addJavaScript('dialog') ?>
 <?php $sf_response->addJavaScript('multiDelete') ?>
+<?php $sf_response->addJavaScript('pager') ?>
+<?php $sf_response->addJavaScript('/plugins/sfIsaarPlugin/js/actorEvents') ?>
 
 <?php use_helper('Javascript') ?>
 
@@ -22,91 +24,33 @@
         </th><th style="text-align: center; width: 10%">
         </th>
       </tr>
-    </thead><tbody>
-      <?php foreach ($resource->getEvents() as $item): ?>
-        <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?> related_obj_<?php echo $item->id ?>" id="<?php echo url_for(array($item, 'module' => 'event')) ?>">
-          <td>
-            <?php echo render_title($item->object) ?>
-          </td><td>
-            <?php echo render_value_inline($item->type) ?>
-          </td><td>
-            <?php echo render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)) ?>
-          </td><td style="text-align: right">
-            <input class="multiDelete" name="deleteEvents[]" type="checkbox" value="<?php echo url_for(array($item, 'module' => 'event')) ?>"/>
-          </td>
-        </tr>
-      <?php endforeach; ?>
+    </thead><tbody id="actorEvents">
     </tbody>
   </table>
 
-<?php
+  <a id="actorEventsNextButton" class="btn btn-small pull-right invisible" data-slug="<?php echo $resource->slug ?>">More</a>
 
-// Template for new display table rows
-$editHtml = image_tag('pencil', array('alt' => __('Edit'), 'style' => 'align: top'));
+  <!-- Template for edit button -->
+  <div id="editButtonTemplate" style="display: none">
+    <?php echo image_tag('pencil', array('alt' => __('Edit'), 'style' => 'align: top')) ?>
+  </div>
 
-$rowTemplate = json_encode(<<<value
-<tr id="{{$form->getWidgetSchema()->generateName('id')}}">
-  <td>
-    {{$form->informationObject->renderName()}}
-  </td><td>
-    {{$form->type->renderName()}}
-  </td><td>
-    {{$form->date->renderName()}}
-  </td><td style="text-align: right">
-    $editHtml <button class="delete-small" name="delete" type="button"/>
-  </td>
-</tr>
-
-value
-);
-
-echo javascript_tag(<<<content
-Drupal.behaviors.event = {
-  attach: function (context)
-    {
-      // Add special rendering rules
-      var handleFieldRender = function (fname)
-        {
-          if (-1 !== fname.indexOf('date')
-              && 1 > this.getField('date').value.length
-              && (0 < this.getField('startDate').value.length
-                || 0 < this.getField('endDate').value.length))
-          {
-            return this.getField('startDate').value + ' - ' + this.getField('endDate').value;
-          }
-
-          return this.renderField(fname);
-        }
-
-      // Add validator to make sure that an information object is selected
-      var validator = function (data)
-        {
-          var informationObject = data['editEvent[informationObject]'];
-          if (!informationObject.length)
-          {
-            return false;
-          }
-        }
-
-      // Define dialog
-      var dialog = new QubitDialog('resourceRelation', {
-        'displayTable': 'relatedEvents',
-        'handleFieldRender': handleFieldRender,
-        'newRowTemplate': $rowTemplate,
-        'validator': validator });
-
-      // Add edit button to rows
-      jQuery('#relatedEvents tr[id]', context)
-        .click(function ()
-          {
-            dialog.open(this.id);
-          })
-        .find('td:last')
-        .prepend('$editHtml');
-    } }
-
-content
-) ?>
+  <!-- Template for new rows created by YUI dialog -->
+  <table style="display: none">
+    <tbody id="dialogNewRowTemplate">
+      <tr>
+        <td>
+          {<?php echo $form->informationObject->renderName() ?>}
+        </td><td>
+          {<?php echo $form->type->renderName() ?>}
+        </td><td>
+          {<?php echo $form->date->renderName() ?>}
+        </td><td style="text-align: right">
+          <?php echo image_tag('pencil', array('alt' => __('Edit'), 'style' => 'align: top')) ?> <button class="delete-small" name="delete" type="button"/>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
   <!-- NOTE dialog.js wraps this *entire* table in a YUI dialog -->
   <div class="date section" id="resourceRelation">
