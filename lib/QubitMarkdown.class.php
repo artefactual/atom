@@ -75,7 +75,7 @@ class QubitMarkdown
    */
   public function parse($content, $options = array())
   {
-    $content = $this->getString($content);
+    $content = $this->getUnescapedString($content);
 
     if (!$this->enabled || strlen($content) == 0)
     {
@@ -115,7 +115,7 @@ class QubitMarkdown
    */
   public function strip($content)
   {
-    $content = $this->getString($content);
+    $content = $this->getUnescapedString($content);
 
     if (!$this->enabled || strlen($content) == 0)
     {
@@ -148,11 +148,16 @@ class QubitMarkdown
    * returns an empty string, like it does with everything else that
    * is not an object or a string.
    *
+   * We normally reach this function from the templates and, with the
+   * escaping strategy enabled by default, the content will be escaped.
+   *
    * @param mixed $content  Object/String to normalize.
    * @return string  String value of content or empty string.
    */
-  protected function getString($content)
+  protected function getUnescapedString($content)
   {
+    $content = sfOutputEscaper::unescape($content);
+
     if (is_string($content))
     {
       return $content;

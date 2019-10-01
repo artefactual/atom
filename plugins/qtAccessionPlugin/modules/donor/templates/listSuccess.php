@@ -8,7 +8,7 @@
   <div class="nav">
     <div class="search">
       <form action="<?php echo url_for(array('module' => 'donor', 'action' => 'list')) ?>">
-        <input name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>"/>
+        <input name="subquery" value="<?php echo $sf_request->subquery ?>"/>
         <input class="form-submit" type="submit" value="<?php echo __('Search donor') ?>"/>
       </form>
     </div>
