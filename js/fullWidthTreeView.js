@@ -178,11 +178,20 @@
 
           $(breadcrumbDestinationSelector).after($('<section>', {class: 'breadcrumb'}));
         }
-
         $('#main-column .breadcrumb').replaceWith($(response.find('#main-column .breadcrumb')));
+
+        // Replace description content
         $('#main-column .row').replaceWith($(response.find('#main-column .row')));
+
+        // If translation links exist in the response page, create element, if necessary,
+        // and replace translation links in the current page with them
+        if (response.find('.translation-links').length && !$('.translation-links').length)
+        {
+          $('section.breadcrumb').after($('<div class="btn-group translation-links"></div>'));
+        }
         $('.translation-links').replaceWith($(response.find('.translation-links')));
 
+        // Replace error message
         $('#main-column > div.messages.error').remove();
         $('#main-column .breadcrumb').after($(response.find('#main-column > div.messages.error')));
 
