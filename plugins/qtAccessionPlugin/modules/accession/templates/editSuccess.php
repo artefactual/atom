@@ -110,7 +110,8 @@
           ->label(__('Physical condition')), $resource, array('class' => 'resizable')) ?>
 
         <?php echo render_field($form->receivedExtentUnits
-          ->help(__('The number of units as a whole number and the measurement of the received volume of records in the accession.')), $resource) ?>
+          ->help(__('The number of units as a whole number and the measurement of the received volume of records in the accession.'))
+          ->label(__('Received extent units')), $resource, array('class' => 'resizable')) ?>
 
         <?php echo $form->processingStatus
           ->help(__('An indicator of the accessioning process.'))

@@ -202,7 +202,6 @@ class AccessionEditAction extends DefaultEditAction
 
         break;
 
-      case 'receivedExtentUnits':
       case 'title':
         $this->form->setDefault($name, $this->resource[$name]);
         $this->form->setValidator($name, new sfValidatorString);
@@ -215,6 +214,7 @@ class AccessionEditAction extends DefaultEditAction
       case 'locationInformation':
       case 'physicalCharacteristics':
       case 'processingNotes':
+      case 'receivedExtentUnits':
       case 'scopeAndContent':
       case 'sourceOfAcquisition':
         $this->form->setDefault($name, $this->resource[$name]);
