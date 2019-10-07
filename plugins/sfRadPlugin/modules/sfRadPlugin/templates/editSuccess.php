@@ -9,7 +9,7 @@
 
 <?php slot('title') ?>
 
-  <?php echo get_component('informationobject', 'header', array('resource' => $resource, 'title' => (string)$rad)) ?>
+  <?php echo get_component('informationobject', 'descriptionHeader', array('resource' => $resource, 'title' => (string)$rad)) ?>
 
   <?php if (isset($sf_request->source)): ?>
     <div class="messages status">

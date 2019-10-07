@@ -17,14 +17,14 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class InformationObjectHeaderComponent extends sfComponent
+class InformationObjectDescriptionHeaderComponent extends sfComponent
 {
   public function execute($request)
   {
     $this->levelOfDescriptionAndIdentifier = $this->assemblelevelOfDescriptionAndIdentifierText();
   }
 
-  public function assemblelevelOfDescriptionAndIdentifierText($resource)
+  private function assemblelevelOfDescriptionAndIdentifierText()
   {
     $string = '';
 
