@@ -68,7 +68,22 @@ class sfDcPlugin implements ArrayAccess
     switch ($name)
     {
       case 'creators':
-        return $this->resource->getActors(array('eventTypeId' => QubitTerm::CREATION_ID, 'inherit' => true));
+        $creators = null;
+
+        foreach ($this->resource->ancestors->andSelf()->orderBy('rgt') as $ancestor)
+        {
+          if ($ancestor->id == QubitInformationObject::ROOT_ID)
+          {
+            break;
+          }
+
+          if (0 < count($creators = $ancestor->getCreators()))
+          {
+            break;
+          }
+        }
+
+        return $creators;
 
       case '_event':
 
