@@ -35,18 +35,15 @@ class MenuMainMenuComponent extends sfComponent
     }
 
     // Only include menu for adding content if user is in an appropriate group
-    // or has create permission for a relevant content type
     $this->addMenu = false;
 
     // Specify what groups can add content
     $groupsAllowedToAddContent = array(
-      QubitAclGroup::CONTRIBUTOR_ID,
-      QubitAclGroup::EDITOR_ID,
-      QubitAclGroup::ADMINISTRATOR_ID
+      QubitAclGroup::AUTHENTICATED_ID,
     );
 
     // Add, if applicable, menu for adding content
-    if ($this->context->user->hasGroup($groupsAllowedToAddContent) || $this->userCanCreate())
+    if ($this->context->user->hasGroup($groupsAllowedToAddContent))
     {
       $this->addMenu = QubitMenu::getById(QubitMenu::ADD_EDIT_ID);
     }
@@ -54,13 +51,5 @@ class MenuMainMenuComponent extends sfComponent
     $this->manageMenu = QubitMenu::getById(QubitMenu::MANAGE_ID);
     $this->importMenu = QubitMenu::getById(QubitMenu::IMPORT_ID);
     $this->adminMenu = QubitMenu::getById(QubitMenu::ADMIN_ID);
-  }
-
-  private function userCanCreate()
-  {
-    return QubitAcl::check(QubitInformationObject::getById(QubitInformationObject::ROOT_ID), 'create')
-           || QubitAcl::check(QubitActor::getById(QubitActor::ROOT_ID), 'create')
-           || QubitAcl::check(QubitRepository::getById(QubitRepository::ROOT_ID), 'create')
-           || QubitAcl::check(QubitTerm::getById(QubitTerm::ROOT_ID), 'create');
   }
 }
