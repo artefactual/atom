@@ -1178,10 +1178,14 @@ class QubitFlatfileImport
         && $value
       )
       {
-        $self->object->addProperty(
-          $self->propertyMap[$columnName],
-          $self->content($value)
-        );
+        // Ignore property coluns if importing a translation
+        if (!substr_count(get_class($self->object), 'I18n'))
+        {
+          $self->object->addProperty(
+            $self->propertyMap[$columnName],
+            $self->content($value)
+          );
+        }
       }
       else if (
         isset($self->columnNames[$index])
