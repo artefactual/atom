@@ -488,9 +488,40 @@ EOF;
       {
         $notImportingTranslation = $self->object instanceof QubitInformationObject;
 
-        // If importing a translation, don't import related data
+        // If importing a translation, warn of values in inappropriate columns and don't import related data
         if (!$notImportingTranslation)
         {
+          // Determine which possible columns are allowable
+          $translationObjectProperties = array();
+          $dbMap = Propel::getDatabaseMap(QubitInformationObjectI18n::DATABASE_NAME);
+          $translationTable = $dbMap->getTable(QubitInformationObjectI18n::TABLE_NAME);
+          $columns = $translationTable->getColumns();
+
+          foreach($columns as $column)
+          {
+            array_push($translationObjectProperties, $column->getPhpName());
+          }
+
+          // Determine which columns being used should be ignored
+          $allowedColumns = array('legacyId') + $translationObjectProperties;
+          $ignoredColumns = array();
+
+          foreach ($self->rowStatusVars as $columnName => $value)
+          {
+            if (!empty($value) && array_search($columnName, $allowedColumns) === false)
+            {
+              array_push($ignoredColumns, $columnName);
+            }
+          }
+
+          // Show warning about ignored columns
+          if (count($ignoredColumns))
+          {
+            $errorMessage = "Ignoring values in column(s) incompatible with translation rows: ";
+            $errorMessage .= implode(' ', $ignoredColumns);
+            print $self->logError($errorMessage);
+          }
+
           return;
         }
 
@@ -632,6 +663,12 @@ EOF;
         if (!$self->object->id)
         {
           throw new sfException('Information object save failed');
+        }
+
+        // If importing a translation row, don't deal with related data
+        if ($self->object instanceof QubitInformationObjectI18n)
+        {
+          return;
         }
 
         // Add keymap entry if not in round trip mode
