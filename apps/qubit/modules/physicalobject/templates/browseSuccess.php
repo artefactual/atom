@@ -45,7 +45,7 @@
             <?php echo link_to(render_title($item), array($item, 'module' => 'physicalobject')) ?>
           </td>
           <td>
-            <?php echo render_value_inline($item->location) ?>
+            <?php echo render_value_inline($item->getLocation(array('cultureFallback' => true))) ?>
           </td>
           <td>
             <?php echo render_value_inline($item->type) ?>
