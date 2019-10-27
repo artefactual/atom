@@ -658,7 +658,7 @@ class QubitXmlImport
                         if (null !== ($node = eval('return '.$str.';')))
                         {
                           // Substitute node value for search string
-                          $parameter = str_replace($match, '\''.$node->nodeValue.'\'', $parameter);
+                          $parameter = str_replace($match, '\''.addcslashes($node->nodeValue, "'").'\'', $parameter);
                         }
                         else
                         {
