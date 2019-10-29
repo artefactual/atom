@@ -1614,7 +1614,7 @@
         <fo:block margin-bottom="0">
             <xsl:if test="parent::ead:c[@level]">
                 <xsl:choose>
-                    <xsl:when test="@level = 'otherlevel'">
+                    <xsl:when test="parent::ead:c/@otherlevel">
                         <xsl:call-template name="ucfirst">
                             <xsl:with-param name="value" select="parent::ead:c/@otherlevel"/>
                         </xsl:call-template>
