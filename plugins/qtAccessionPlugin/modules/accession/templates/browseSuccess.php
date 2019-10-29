@@ -47,7 +47,7 @@
         <?php $doc = $hit->getData() ?>
         <tr>
           <td width="20%">
-            <?php echo link_to(render_value_inline($doc['identifier']), array('module' => 'accession', 'slug' => $doc['slug'])) ?>
+            <?php echo link_to($doc['identifier'], array('module' => 'accession', 'slug' => $doc['slug'])) ?>
           </td>
           <td>
             <?php echo link_to(render_title(get_search_i18n($doc, 'title')), array('module' => 'accession', 'slug' => $doc['slug'])) ?>

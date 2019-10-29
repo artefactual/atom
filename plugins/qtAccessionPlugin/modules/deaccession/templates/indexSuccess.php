@@ -26,11 +26,11 @@
 <div class="field">
   <h3>Accession record</h3>
   <div class="value">
-    <?php echo link_to(render_title($resource->accession), array($resource->accession, 'module' => 'accession')) ?>
+    <?php echo link_to(render_title($resource->accession, false), array($resource->accession, 'module' => 'accession')) ?>
   </div>
 </div>
 
-<?php echo render_show(__('Deaccession number'), render_value($resource->identifier)) ?>
+<?php echo render_show(__('Deaccession number'), $resource->identifier) ?>
 
 <?php echo render_show(__('Scope'), render_value($resource->scope)) ?>
 

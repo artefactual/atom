@@ -35,9 +35,9 @@
 
       <?php if ('1' == sfConfig::get('app_inherit_code_informationobject', 1)
         && isset($doc['referenceCode']) && !empty($doc['referenceCode'])) : ?>
-          <li class="reference-code"><?php echo render_value_inline($doc['referenceCode']) ?></li>
+          <li class="reference-code"><?php echo $doc['referenceCode'] ?></li>
       <?php elseif (isset($doc['identifier']) && !empty($doc['identifier'])) : ?>
-          <li class="reference-code"><?php echo render_value_inline($doc['identifier']) ?></li>
+          <li class="reference-code"><?php echo $doc['identifier'] ?></li>
       <?php endif; ?>
 
       <?php if (isset($doc['levelOfDescriptionId']) && !empty($doc['levelOfDescriptionId'])): ?>

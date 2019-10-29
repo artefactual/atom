@@ -54,7 +54,7 @@
     </div>
   </div>
 
-  <?php echo render_show(__('Classification'), render_value($resource->getClassification(array('cultureFallback' => true)))) ?>
+  <?php echo render_show(__('Classification'), $resource->getClassification(array('cultureFallback' => true))) ?>
 
 </div> <!-- /.section#identityArea -->
 

@@ -23,7 +23,7 @@
 
 <?php end_slot() ?>
 
-<?php echo render_show(__('Accession number'), render_value($resource->identifier)) ?>
+<?php echo render_show(__('Accession number'), $resource->identifier) ?>
 
 <?php echo render_show(__('Acquisition date'), render_value(Qubit::renderDate($resource->date))) ?>
 
@@ -160,7 +160,7 @@
     <div class="field">
       <h3><?php echo __('Deaccession') ?></h3>
       <div>
-        <?php echo link_to(render_title($item), array($item, 'module' => 'deaccession')) ?>
+        <?php echo link_to(render_title($item, false), array($item, 'module' => 'deaccession')) ?>
       </div>
     </div>
 

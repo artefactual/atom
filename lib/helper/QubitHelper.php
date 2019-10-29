@@ -123,9 +123,9 @@ function render_show_repository($label, $resource)
   }
 }
 
-function render_title($value)
+function render_title($value, $renderMarkdown = true)
 {
-  $value = render_value_inline($value);
+  $value = ($renderMarkdown) ? render_value_inline($value) : $value;
 
   if (0 < strlen($value))
   {
@@ -289,7 +289,7 @@ function render_treeview_node($item, array $classes = array(), array $options = 
       $title = '';
       if ($item->identifier)
       {
-        $title = render_value_inline($item->identifier) . "&nbsp;-&nbsp;";
+        $title = $item->identifier . "&nbsp;-&nbsp;";
       }
       $title .= render_title($item);
 
@@ -449,7 +449,7 @@ function get_search_creation_details($hit, $culture = null)
   return implode(', ', $details);
 }
 
-function get_search_autocomplete_string($hit)
+function render_autocomplete_string($hit)
 {
   if ($hit instanceof sfOutputEscaperObjectDecorator && 'Elastica\Result' == $hit->getClass())
   {
@@ -484,7 +484,7 @@ function get_search_autocomplete_string($hit)
 
   if (null !== $title = get_search_i18n($hit, 'title'))
   {
-    $titleAndPublicationStatus[] = $title;
+    $titleAndPublicationStatus[] = render_value_inline($title);
   }
 
   if (isset($hit['publicationStatusId']) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $hit['publicationStatusId'])

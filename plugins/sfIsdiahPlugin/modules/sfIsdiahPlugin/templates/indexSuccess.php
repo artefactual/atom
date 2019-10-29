@@ -84,7 +84,7 @@
 
   <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'repository'), '<h2>'.__('Identity area').'</h2>', array($resource, 'module' => 'repository', 'action' => 'edit'), array('anchor' => 'identityArea', 'title' => __('Edit identity area'))) ?>
 
-  <?php echo render_show(__('Identifier'), render_value($resource->identifier)) ?>
+  <?php echo render_show(__('Identifier'), $resource->identifier) ?>
 
   <?php echo render_show(__('Authorized form of name'), render_value($resource)) ?>
 
