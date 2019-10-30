@@ -21,13 +21,59 @@ namespace AccessToMemory\test\mock;
 
 class QubitPhysicalObject
 {
-  public $name;
-  public $typeId;
-  public $location;
-  public $culture;
+  public
+    $id,
+    $name,
+    $typeId,
+    $location,
+    $culture;
 
   public function save($dbcon = null)
   {
     return \QubitQuery::create();
+  }
+
+  public static function getByName($name, $options = array())
+  {
+    $results = new \ArrayIterator;
+
+    switch ($name)
+    {
+      case 'DJ001':
+        $object = new self;
+        $object->id       = 111111;
+        $object->name     = 'DJ001';
+        $object->typeId   = 1;
+        $object->location = 'unknown';
+        $object->culture  = 'de';
+
+        $results->append($object);
+
+        break;
+
+      case 'DJ002':
+        // Simulate a match on two existing records with the same name
+        $object = new self;
+        $object->id       = 222222;
+        $object->name     = 'DJ003';
+        $object->typeId   = 2;
+        $object->location = 'boîte 20191031';
+        $object->culture  = 'fr';
+
+        $results->append($object);
+
+        $object = new self;
+        $object->id       = 333333;
+        $object->name     = 'DJ003';
+        $object->typeId   = 1;
+        $object->location = 'Aisle 11, Shelf 31';
+        $object->culture  = 'en';
+
+        $results->append($object);
+
+        break;
+    }
+
+    return $results;
   }
 }

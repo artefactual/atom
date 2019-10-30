@@ -143,6 +143,29 @@ class QubitPhysicalObject extends BasePhysicalObject
   }
 
   /**
+   * Get physical objects by name
+   *
+   * @param name    The name of the physical object
+   * @param options Array of optional paramaters
+   *
+   * @return QubitQuery A collection of matching physicalobject objects
+   */
+  public static function getByName($name, $options = array())
+  {
+    $criteria = new Criteria;
+
+    $criteria->addJoin(QubitPhysicalObject::ID, QubitPhysicalObjectI18n::ID);
+    $criteria->add(QubitPhysicalObjectI18n::NAME, $name);
+
+    if (isset($options['culture']))
+    {
+      $criteria->add(QubitPhysicalObjectI18n::CULTURE, $options['culture']);
+    }
+
+    return QubitPhysicalObject::get($criteria);
+  }
+
+  /**
    * Get whether or not a physical object matching name/location/type
    * exists in the current collection already.
    *

@@ -69,6 +69,10 @@ class csvPhysicalobjectImportTask extends arBaseTask
       new sfCommandOption('source-name', null,
         sfCommandOption::PARAMETER_REQUIRED,
         'Source name to use when inserting keymap entries'),
+      new sfCommandOption('update', null,
+        sfCommandOption::PARAMETER_NONE,
+        'Update existing record if name matches imported name.'
+      ),
     ));
 
     $this->namespace = 'csv';
@@ -137,6 +141,7 @@ EOF;
       'index'       => 'updateSearchIndex',
       'skip-rows'   => 'offset',
       'source-name' => 'sourceName',
+      'update'      => 'updateOnMatch'
     ];
 
     foreach ($keymap as $oldkey => $newkey)
@@ -146,16 +151,7 @@ EOF;
         continue;
       }
 
-      switch($oldkey)
-      {
-        // Update search index while importing data?
-        case 'index':
-          $opts[$newkey] = isset($options[$oldkey]) ? true : false;
-          break;
-
-        default:
-          $opts[$newkey] = $options[$oldkey];
-      }
+      $opts[$newkey] = $options[$oldkey];
     }
 
     return $opts;

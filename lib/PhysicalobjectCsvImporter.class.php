@@ -42,6 +42,8 @@ class PhysicalObjectCsvImporter
   protected $dbcon;
   protected $errorLogHandle;
   protected $filename;
+  protected $updateOnMatch       = false;
+  protected $matchedExisting;
   protected $multiValueDelimiter = '|';
   protected $offset              = 0;
   protected $options             = [];
@@ -53,7 +55,6 @@ class PhysicalObjectCsvImporter
   protected $rowsTotal           = 0;
   protected $typeIdLookupTable;
   protected $updateSearchIndex   = false;
-
 
   public function __construct(sfContext $context = null, $dbcon = null,
     $options = array())
@@ -186,6 +187,11 @@ class PhysicalObjectCsvImporter
 
         break;
 
+      case 'updateOnMatch':
+        $this->setUpdateOnMatch($value);
+
+        break;
+
       case 'updateSearchIndex':
         $this->setUpdateSearchIndex($value);
 
@@ -206,6 +212,16 @@ class PhysicalObjectCsvImporter
     {
       return basename($this->filename);
     }
+  }
+
+  public function setUpdateOnMatch($value)
+  {
+    $this->updateOnMatch = (bool) $value;
+  }
+
+  public function getUpdateOnMatch()
+  {
+    return $this->updateOnMatch;
   }
 
   public function setUpdateSearchIndex($value)
@@ -405,8 +421,13 @@ EOL;
     // to prevent creating an empty i18n row with culture 'en'
     sfPropel::setDefaultCulture($data['culture']);
 
-    $physobj = new $this->ormClasses['physicalObject'];
-    $physobj->name     = $data['name'];
+    if (null === $physobj = $this->searchForMatchingName($data))
+    {
+      // Create a new db object, if no match is found
+      $physobj = new $this->ormClasses['physicalObject'];
+      $physobj->name = $data['name'];
+    }
+
     $physobj->typeId   = $data['typeId'];
     $physobj->location = $data['location'];
 
@@ -473,8 +494,15 @@ EOL;
 
     if (1 == $freq)
     {
-      $this->log(sprintf('Imported row [%u/%u]: name "%s"',
-        $this->offset, $this->rowsTotal, $data['name']));
+      if (0 == $this->matchedExisting)
+      {
+        $msg = 'Row [%u/%u]: name "%s" imported';
+      }
+      else {
+        $msg = 'Row [%u/%u]: Matched existing record named "%s" - updating';
+      }
+
+      $this->log(sprintf($msg, $this->offset, $this->rowsTotal, $data['name']));
     }
     else if ($freq > 1 && 0 == $this->rowsImported % $freq)
     {
@@ -655,5 +683,47 @@ EOL;
     }
 
     return $this->typeIdLookupTable;
+  }
+
+  protected function searchForMatchingName($data)
+  {
+    $this->matchedExisting = 0;
+
+    if (!$this->updateOnMatch)
+    {
+      return null;
+    }
+
+    $matches = $this->ormClasses['physicalObject']::getByName(
+      $data['name'],
+      array('culture' => $data['culture'])
+    );
+
+    if (0 == count($matches))
+    {
+      return null;
+    }
+    else if (1 == count($matches))
+    {
+      $this->matchedExisting = 1;
+
+      return $matches->current();
+    }
+    else
+    {
+      return $this->handleMultipleMatches($matches);
+    }
+  }
+
+  protected function handleMultipleMatches($matches)
+  {
+    $this->matchedExisting = count($matches);
+
+    /**
+     * TODO: implement --skip-multimatch behaviour
+     */
+
+    // By default return only the first record matched
+    return $matches->current();
   }
 }

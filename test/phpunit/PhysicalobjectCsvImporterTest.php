@@ -34,6 +34,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
       '"B10101 "," DJ001","Folder "," Aisle 25,Shelf D"," en","test-fonds-1 | test-collection"',
       '"","","Chemise","","fr",""',
       '"", "DJ002", "Boîte Hollinger", "Voûte, étagère 0074", "fr", "Mixed-Case-Fonds|no-match|"',
+      '"", "DJ003", "Hollinger box", "Aisle 11, Shelf J", "en", ""',
     );
 
     $this->typeIdLookupTableFixture = [
@@ -53,7 +54,8 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
       'windows.csv' => $this->csvHeader."\r\n".implode("\r\n", $this->csvData)
         ."\r\n",
       'noheader.csv' => implode("\n", $this->csvData)."\n",
-      'invalid.csv' => 'containerName,'."\n".implode("\n", $this->csvData),
+      'duplicate.csv' => $this->csvHeader."\n".implode("\n",
+        $this->csvData + $this->csvData),
       'root.csv' => $this->csvData[0],
       'error.log' => '',
     ];
@@ -259,6 +261,18 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $importer->setOptions(new stdClass);
   }
 
+  public function testSetAndGetUpdateOnMatch()
+  {
+    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
+
+    $importer->setUpdateOnMatch(true);
+    $this->assertSame(true, $importer->getUpdateOnMatch());
+
+    // Test boolean casting
+    $importer->setUpdateOnMatch(0);
+    $this->assertSame(false, $importer->getUpdateOnMatch());
+  }
+
   public function testSetUpdateSearchIndex()
   {
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
@@ -389,8 +403,8 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
 
     $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
     $this->assertSame($this->getCsvRowAsAssocArray(), $importer->getRow(0));
-    $this->assertSame(2, $importer->countRowsImported());
-    $this->assertSame(3, $importer->countRowsTotal());
+    $this->assertSame(3, $importer->countRowsImported());
+    $this->assertSame(4, $importer->countRowsTotal());
   }
 
   public function testDoImportWithWindowsNewlinesAndErrorLog()
@@ -405,8 +419,8 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
 
     $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
     $this->assertSame($this->getCsvRowAsAssocArray(), $importer->getRow(0));
-    $this->assertSame(2, $importer->countRowsImported());
-    $this->assertSame(3, $importer->countRowsTotal());
+    $this->assertSame(3, $importer->countRowsImported());
+    $this->assertSame(4, $importer->countRowsTotal());
   }
 
   public function testDoImportWithOffset()
@@ -421,11 +435,11 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
 
     $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
     $this->assertSame($this->getCsvRowAsAssocArray(1), $importer->getRow(1));
-    $this->assertSame(1, $importer->countRowsImported());
-    $this->assertSame(3, $importer->countRowsTotal());
+    $this->assertSame(2, $importer->countRowsImported());
+    $this->assertSame(4, $importer->countRowsTotal());
   }
 
-  public function testDoImportWithHeader()
+  public function testDoImportWithSetHeader()
   {
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
     $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
@@ -436,8 +450,24 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
 
     $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
     $this->assertSame($this->getCsvRowAsAssocArray(0), $importer->getRow(0));
-    $this->assertSame(2, $importer->countRowsImported());
-    $this->assertSame(3, $importer->countRowsTotal());
+    $this->assertSame(3, $importer->countRowsImported());
+    $this->assertSame(4, $importer->countRowsTotal());
+  }
+
+  public function testDoImportWithUpdateOnMatch()
+  {
+    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon,
+      ['updateOnMatch' => true]);
+    $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
+    $importer->setOrmClasses($this->ormClasses);
+
+    $importer->doImport($this->vfs->url().'/unix.csv');
+
+    $this->assertSame(true, $importer->getUpdateOnMatch());
+    $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
+    $this->assertSame($this->getCsvRowAsAssocArray(), $importer->getRow(0));
+    $this->assertSame(3, $importer->countRowsImported());
+    $this->assertSame(4, $importer->countRowsTotal());
   }
 
   /**
