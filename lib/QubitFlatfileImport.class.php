@@ -1455,7 +1455,7 @@ class QubitFlatfileImport
   public function createOrUpdateNotes($typeId, $textArray, $transformationLogic = false)
   {
     // If importing a translation row we currently don't handle notes
-    if (!property_exists(get_class($this->object), 'sourceCulture'))
+    if (!defined(get_class($this->object).'::SOURCE_CULTURE'))
     {
       return;
     }
