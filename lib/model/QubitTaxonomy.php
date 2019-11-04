@@ -108,6 +108,16 @@ class QubitTaxonomy extends BaseTaxonomy
       self::INFORMATION_OBJECT_TEMPLATE_ID,
       self::JOB_STATUS_ID);
 
+  public function __construct($id = null)
+  {
+    parent::__construct();
+
+    if (!empty($id))
+    {
+      $this->id = $id;
+    }
+  }
+
   public function __toString()
   {
     if (!$this->getName())
@@ -178,6 +188,11 @@ class QubitTaxonomy extends BaseTaxonomy
    */
   public function getTermsAsArray($connection = null)
   {
+    if (empty($this->id))
+    {
+      throw new sfException('Invalid taxonomy id');
+    }
+
     if (!isset($connection))
     {
       $connection = Propel::getConnection();
@@ -186,6 +201,12 @@ class QubitTaxonomy extends BaseTaxonomy
     $sql = <<<SQL
       SELECT
         term.id AS `id`,
+        term.taxonomy_id AS `taxonomy_id`,
+        term.code AS `code`,
+        term.parent_id AS `parent_id`,
+        term.lft AS `lft`,
+        term.rgt AS `rgt`,
+        term.source_culture AS `source_culture`,
         term_i18n.name AS `name`,
         term_i18n.culture as `culture`
       FROM term INNER JOIN term_i18n ON term.id = term_i18n.id
@@ -199,10 +220,8 @@ SQL;
     return  $statement->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function getTermIdLookupTable($connection = null)
+  public function getTermNameToIdLookupTable($connection = null)
   {
-    $idLookupTable = array();
-
     $terms = $this->getTermsAsArray($connection);
 
     if (!is_array($terms) || count($terms) == 0)

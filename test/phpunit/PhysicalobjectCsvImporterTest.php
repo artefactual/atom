@@ -558,11 +558,11 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
   public function testGetTypeIdLookupTable()
   {
     $stub = $this->createStub(QubitTaxonomy::class);
-    $stub->method('getTermIdLookupTable')
+    $stub->method('getTermNameToIdLookupTable')
          ->willReturn($this->typeIdLookupTableFixture);
 
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-    $importer->physicalObjectTypeTaxonomy = $stub;
+    $importer->setPhysicalObjectTypeTaxonomy($stub);
 
     $this->assertEquals($this->typeIdLookupTableFixture,
       $importer->typeIdLookupTable);
@@ -571,11 +571,11 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
   public function testGetTypeIdLookupTableExceptionGettingTerms()
   {
     $stub = $this->createStub(QubitTaxonomy::class);
-    $stub->method('getTermIdLookupTable')
+    $stub->method('getTermNameToIdLookupTable')
          ->willReturn(null);
 
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-    $importer->physicalObjectTypeTaxonomy = $stub;
+    $importer->setPhysicalObjectTypeTaxonomy($stub);
 
     $this->expectException(sfException::class);
     $importer->typeIdLookupTable;
@@ -586,8 +586,8 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $stub = $this->createStub(QubitTaxonomy::class);
 
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-    $importer->physicalObjectTypeTaxonomy = $stub;
+    $importer->setPhysicalObjectTypeTaxonomy($stub);
 
-    $this->assertSame($stub, $importer->physicalObjectTypeTaxonomy);
+    $this->assertSame($stub, $importer->getPhysicalObjectTypeTaxonomy());
   }
 }

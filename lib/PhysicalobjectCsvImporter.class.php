@@ -71,6 +71,9 @@ class PhysicalObjectCsvImporter
       'relation'          => QubitRelation::class,
     ]);
 
+    $this->physicalObjectTypeTaxonomy = new QubitTaxonomy(
+      QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID);
+
     $this->context = $context;
     $this->dbcon   = $dbcon;
     $this->setOptions($options);
@@ -96,11 +99,6 @@ class PhysicalObjectCsvImporter
 
         break;
 
-      case 'physicalObjectTypeTaxonomy':
-        return $this->getPhysicalObjectTypeTaxonomy();
-
-        break;
-
       case 'typeIdLookupTable':
         return $this->getTypeIdLookupTable();
 
@@ -117,7 +115,6 @@ class PhysicalObjectCsvImporter
     {
       case 'dbcon':
       case 'multiValueDelimiter':
-      case 'physicalObjectTypeTaxonomy':
       case 'typeIdLookupTable':
         $this->$name = $value;
 
@@ -212,6 +209,16 @@ class PhysicalObjectCsvImporter
     {
       return basename($this->filename);
     }
+  }
+
+  public function setPhysicalObjectTypeTaxonomy(QubitTaxonomy $object)
+  {
+    $this->physicalObjectTypeTaxonomy = $object;
+  }
+
+  public function getPhysicalObjectTypeTaxonomy()
+  {
+    return $this->physicalObjectTypeTaxonomy;
   }
 
   public function setUpdateOnMatch($value)
@@ -398,21 +405,6 @@ EOL;
     }
 
     throw new UnexpectedValueException('Couldn\'t determine row culture');
-  }
-
-  public function getPhysicalObjectTypeTaxonomy()
-  {
-    if (null === $this->physicalObjectTypeTaxonomy)
-    {
-      // @codeCoverageIgnoreStart
-      $this->physicalObjectTypeTaxonomy = QubitTaxonomy::getById(
-        QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID,
-        array('connection' => $this->getDbConnection())
-      );
-      // @codeCoverageIgnoreEnd
-    }
-
-    return $this->physicalObjectTypeTaxonomy;
   }
 
   public function savePhysicalobject($data)
@@ -673,7 +665,7 @@ EOL;
     {
       $this->typeIdLookupTable = $this
         ->getPhysicalObjectTypeTaxonomy()
-        ->getTermIdLookupTable($this->getDbConnection());
+        ->getTermNameToIdLookupTable($this->getDbConnection());
 
       if (null === $this->typeIdLookupTable)
       {
