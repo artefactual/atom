@@ -278,7 +278,7 @@ EOM;
     {
       if (!array_key_exists($name, self::$columnMap))
       {
-        throw new sfException(sprintf('Column name "%s" in header is invalid.',
+        throw new sfException(sprintf('Column name "%s" in header is invalid',
           $name));
       }
     }
@@ -357,7 +357,7 @@ EOL;
       }
       catch (UnexpectedValueException $e)
       {
-        $this->logError(sprintf('Warning! Skipped row [%u/%u]: %s',
+        $this->logError(sprintf('Warning! skipped row [%u/%u]: %s',
           $this->offset, $this->rowsTotal, $e->getMessage()));
 
         continue;
@@ -417,6 +417,13 @@ EOL;
 
     if (null === $physobj = $this->searchForMatchingName($data))
     {
+      if ($this->getOption('noInsert'))
+      {
+        throw new UnexpectedValueException(sprintf(
+          'Couldn\'t match name "%s"', $data['name']
+        ));
+      }
+
       // Create a new db object, if no match is found
       $physobj = new $this->ormClasses['physicalObject'];
       $physobj->name = $data['name'];
@@ -491,7 +498,7 @@ EOL;
         $msg = 'Row [%u/%u]: name "%s" imported';
       }
       else {
-        $msg = 'Row [%u/%u]: Matched existing record named "%s" - updating';
+        $msg = 'Row [%u/%u]: Matched and updated name "%s"';
       }
 
       $this->log(sprintf($msg, $this->offset, $this->rowsTotal, $data['name']));
@@ -605,7 +612,7 @@ EOL;
       if (null === $infobj)
       {
         $this->logError(sprintf(
-          'Warning row [%u/%u]: Couldn\'t find a description with slug "%s".',
+          'Notice on row [%u/%u]: Ignored unknown description slug "%s"',
           $this->offset, $this->rowsTotal, $val)
         );
 

@@ -470,6 +470,22 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $this->assertSame(4, $importer->countRowsTotal());
   }
 
+  public function testDoImportWithUpdateOnMatchAndNoInsert()
+  {
+    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon,
+      ['updateOnMatch' => true, 'noInsert' => true]);
+    $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
+    $importer->setOrmClasses($this->ormClasses);
+
+    $importer->doImport($this->vfs->url().'/unix.csv');
+
+    $this->assertSame(true, $importer->getUpdateOnMatch());
+    $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
+    $this->assertSame($this->getCsvRowAsAssocArray(), $importer->getRow(0));
+    $this->assertSame(2, $importer->countRowsImported());
+    $this->assertSame(4, $importer->countRowsTotal());
+  }
+
   /**
    * @dataProvider processRowProvider
    */

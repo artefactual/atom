@@ -66,6 +66,9 @@ class csvPhysicalobjectImportTask extends arBaseTask
         sfCommandOption::PARAMETER_REQUIRED,
         'Skip [n] rows before importing',
         0),
+      new sfCommandOption('skip-unmatched', null,
+        sfCommandOption::PARAMETER_NONE,
+        'Skips unmatched records during update instead of creating new records'),
       new sfCommandOption('source-name', null,
         sfCommandOption::PARAMETER_REQUIRED,
         'Source name to use when inserting keymap entries'),
@@ -132,16 +135,19 @@ EOF;
 
   protected function setImportOptions($options)
   {
+    $this->validateOptions($options);
+
     $opts = array();
 
     $keymap = [
-      'culture'     => 'defaultCulture',
-      'error-log'   => 'errorLog',
-      'header'      => 'header',
-      'index'       => 'updateSearchIndex',
-      'skip-rows'   => 'offset',
-      'source-name' => 'sourceName',
-      'update'      => 'updateOnMatch'
+      'culture'        => 'defaultCulture',
+      'error-log'      => 'errorLog',
+      'header'         => 'header',
+      'index'          => 'updateSearchIndex',
+      'skip-rows'      => 'offset',
+      'skip-unmatched' => 'noInsert',
+      'source-name'    => 'sourceName',
+      'update'         => 'updateOnMatch'
     ];
 
     foreach ($keymap as $oldkey => $newkey)
@@ -155,5 +161,17 @@ EOF;
     }
 
     return $opts;
+  }
+
+  protected function validateOptions($options)
+  {
+    if ($options['skip-unmatched'] && !$options['update'])
+    {
+      $msg = <<<EOM
+The --skip-unmatched option can not be used without the --update option.
+EOM;
+
+      throw new sfException($msg);
+    }
   }
 }
