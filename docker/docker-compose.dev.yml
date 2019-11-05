@@ -49,7 +49,7 @@ services:
       - "127.0.0.1:63002:9200"
 
   percona:
-    image: percona:5.7
+    image: percona:8.0
     env_file: etc/environment
     volumes:
       - percona_data:/var/lib/mysql:rw

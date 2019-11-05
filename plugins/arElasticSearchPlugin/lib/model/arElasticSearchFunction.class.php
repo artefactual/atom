@@ -21,11 +21,11 @@ class arElasticSearchFunction extends arElasticSearchModelBase
 {
   public function load()
   {
-    $sql  = 'SELECT function.id';
-    $sql .= ' FROM '.QubitFunction::TABLE_NAME.' function';
-    $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON function.id = object.id';
+    $sql  = 'SELECT func.id';
+    $sql .= ' FROM `'.QubitFunction::TABLE_NAME.'` func';
+    $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON func.id = object.id';
     $sql .= ' WHERE object.class_name = ?';
-    $sql .= ' ORDER BY function.lft';
+    $sql .= ' ORDER BY func.lft';
 
     $actors = QubitPdo::fetchAll($sql, array('QubitFunction'));
 
