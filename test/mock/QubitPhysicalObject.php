@@ -76,4 +76,14 @@ class QubitPhysicalObject
 
     return $results;
   }
+
+  public function addInfobjRelations(array $infobjIds = null)
+  {
+    return;
+  }
+
+  public function updateInfobjRelations(array $infobjIds = null)
+  {
+    return;
+  }
 }

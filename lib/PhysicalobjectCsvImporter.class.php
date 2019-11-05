@@ -413,32 +413,32 @@ EOL;
     // to prevent creating an empty i18n row with culture 'en'
     sfPropel::setDefaultCulture($data['culture']);
 
+    $new = false;
+
     if (null === $physobj = $this->searchForMatchingName($data))
     {
       // Create a new db object, if no match is found
       $physobj = new $this->ormClasses['physicalObject'];
       $physobj->name = $data['name'];
+
+      $new = true;
     }
 
-    $physobj->typeId   = $data['typeId'];
-    $physobj->location = $data['location'];
+    $physobj->typeId      = $data['typeId'];
+    $physobj->location    = $data['location'];
+    $physobj->indexOnSave = $this->updateSearchIndex;
 
     $physobj->save($this->dbcon);
 
     $this->createKeymapEntry($physobj, $data);
 
-    // Write physical object to info object relations
-    foreach ($data['informationObjectIds'] as $objectId)
+    if ($new)
     {
-      $relation = new $this->ormClasses['relation'];
-      $relation->objectId  = $objectId;
-      $relation->subjectId = $physobj->id;
-      $relation->typeId    = QubitTerm::HAS_PHYSICAL_OBJECT_ID;
-
-      // Update search index?
-      $relation->indexOnSave = $this->updateSearchIndex;
-
-      $relation->save($this->dbcon);
+      $physobj->addInfobjRelations($data['informationObjectIds']);
+    }
+    else
+    {
+      $physobj->updateInfobjRelations($data['informationObjectIds']);
     }
   }
 
