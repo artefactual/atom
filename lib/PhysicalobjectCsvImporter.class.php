@@ -209,6 +209,8 @@ class PhysicalObjectCsvImporter
     {
       return basename($this->filename);
     }
+
+    return null;
   }
 
   public function setPhysicalObjectTypeTaxonomy(QubitTaxonomy $object)
@@ -476,6 +478,54 @@ EOL;
     $keymap->save();
   }
 
+  public function searchForMatchingName($data)
+  {
+    $this->matchedExisting = 0;
+
+    if (!$this->updateOnMatch)
+    {
+      return null;
+    }
+
+    $matches = $this->ormClasses['physicalObject']::getByName(
+      $data['name'],
+      array('culture' => $data['culture'])
+    );
+
+    if (0 == count($matches))
+    {
+      return null;
+    }
+    else if (1 == count($matches))
+    {
+      $this->matchedExisting = 1;
+
+      return $matches->current();
+    }
+    else
+    {
+      return $this->handleMultipleMatches($data['name'], $matches);
+    }
+  }
+
+  public function handleMultipleMatches($name, $matches)
+  {
+    $this->matchedExisting = count($matches);
+
+    if ('skip' == $this->getOption('onMultiMatch'))
+    {
+      throw new UnexpectedValueException(sprintf(
+        'name "%s" matched %u existing records', $name, $this->matchedExisting
+      ));
+    }
+
+    if ('first' == $this->getOption('onMultiMatch'))
+    {
+      // Return first match
+      return $matches->current();
+    }
+  }
+
   protected function log($msg)
   {
     // Just echo to STDOUT for now
@@ -682,47 +732,5 @@ EOL;
     }
 
     return $this->typeIdLookupTable;
-  }
-
-  protected function searchForMatchingName($data)
-  {
-    $this->matchedExisting = 0;
-
-    if (!$this->updateOnMatch)
-    {
-      return null;
-    }
-
-    $matches = $this->ormClasses['physicalObject']::getByName(
-      $data['name'],
-      array('culture' => $data['culture'])
-    );
-
-    if (0 == count($matches))
-    {
-      return null;
-    }
-    else if (1 == count($matches))
-    {
-      $this->matchedExisting = 1;
-
-      return $matches->current();
-    }
-    else
-    {
-      return $this->handleMultipleMatches($matches);
-    }
-  }
-
-  protected function handleMultipleMatches($matches)
-  {
-    $this->matchedExisting = count($matches);
-
-    /**
-     * TODO: implement --skip-multimatch behaviour
-     */
-
-    // By default return only the first record matched
-    return $matches->current();
   }
 }

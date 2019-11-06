@@ -58,6 +58,12 @@ class csvPhysicalobjectImportTask extends arBaseTask
       new sfCommandOption('index', 'i',
         sfCommandOption::PARAMETER_NONE,
         'Update search index during import'),
+      new sfCommandOption('multi-match', null,
+        sfCommandOption::PARAMETER_REQUIRED,
+        'Action when matching more than one existing record:
+                        "skip" : don\'t update any records
+                        "first": update first matching record',
+        'skip'),
       new sfCommandOption('rows-until-update', 'p',
         sfCommandOption::PARAMETER_REQUIRED,
         'Show import progress every [n] rows (n=0: errors only)',
@@ -146,6 +152,7 @@ EOF;
       'index'          => 'updateSearchIndex',
       'skip-rows'      => 'offset',
       'skip-unmatched' => 'noInsert',
+      'multi-match'    => 'onMultiMatch',
       'source-name'    => 'sourceName',
       'update'         => 'updateOnMatch'
     ];

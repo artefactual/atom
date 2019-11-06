@@ -30,7 +30,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $this->csvHeader = 'legacyId,name,type,location,culture,descriptionSlugs';
 
     $this->csvData = array(
-      // Note: leading and trailing whitespace first rowis intentional
+      // Note: leading and trailing whitespace in first row is intentional
       '"B10101 "," DJ001","Folder "," Aisle 25,Shelf D"," en","test-fonds-1 | test-collection"',
       '"","","Chemise","","fr",""',
       '"", "DJ002", "Boîte Hollinger", "Voûte, étagère 0074", "fr", "Mixed-Case-Fonds|no-match|"',
@@ -261,6 +261,16 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $importer->setOptions(new stdClass);
   }
 
+  public function testSetAndGetPhysicalObjectTypeTaxonomy()
+  {
+    $stub = $this->createStub(QubitTaxonomy::class);
+
+    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
+    $importer->setPhysicalObjectTypeTaxonomy($stub);
+
+    $this->assertSame($stub, $importer->getPhysicalObjectTypeTaxonomy());
+  }
+
   public function testSetAndGetUpdateOnMatch()
   {
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
@@ -482,7 +492,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $this->assertSame(true, $importer->getUpdateOnMatch());
     $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
     $this->assertSame($this->getCsvRowAsAssocArray(), $importer->getRow(0));
-    $this->assertSame(2, $importer->countRowsImported());
+    $this->assertSame(1, $importer->countRowsImported());
     $this->assertSame(4, $importer->countRowsTotal());
   }
 
@@ -562,6 +572,36 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $importer->getRecordCulture();
   }
 
+  public function testSearchForMatchingNameWithMultipleMatchesGetFirstMatch()
+  {
+    $mock = new $this->ormClasses['physicalObject'];
+    $mock->id       = 222222;
+    $mock->name     = 'DJ002';
+    $mock->typeId   = 2;
+    $mock->location = 'boîte 20191031';
+    $mock->culture  = 'fr';
+
+    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
+    $importer->setOrmClasses($this->ormClasses);
+    $importer->setOptions(['updateOnMatch' => true, 'onMultiMatch' => 'first']);
+
+    $this->assertEquals(
+      $mock,
+      $importer->searchForMatchingName(['name' => 'DJ002', 'culture' => 'en'])
+    );
+  }
+
+  public function testSearchForMatchingNameThrowsExceptionOnMultiMatch()
+  {
+    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
+    $importer->setOrmClasses($this->ormClasses);
+    $importer->setOptions(['updateOnMatch' => true, 'onMultiMatch' => 'skip']);
+
+    $this->expectException(UnexpectedValueException::class);
+
+    $importer->searchForMatchingName(['name' => 'DJ002', 'culture' => 'en']);
+  }
+
   public function testTypeIdLookupTableSetAndGet()
   {
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
@@ -595,15 +635,5 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
 
     $this->expectException(sfException::class);
     $importer->typeIdLookupTable;
-  }
-
-  public function testGetPhysicalObjectTypeTaxonomy()
-  {
-    $stub = $this->createStub(QubitTaxonomy::class);
-
-    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-    $importer->setPhysicalObjectTypeTaxonomy($stub);
-
-    $this->assertSame($stub, $importer->getPhysicalObjectTypeTaxonomy());
   }
 }
