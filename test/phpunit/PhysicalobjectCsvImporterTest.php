@@ -86,23 +86,23 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
       'defaultCulture'      => 'en',
       'errorLog'            => null,
       'header'              => null,
-      'matchingStrategy'    => 'name-full',
+      'partialMatches'      => false,
       'multiValueDelimiter' => '|',
-      'noInsert'            => false,
+      'insertNew'           => true,
       'onMultiMatch'        => 'skip',
       'progressFrequency'   => 1,
       'sourceName'          => null,
       'updateSearchIndex'   => false,
-      'updateOnMatch'       => false,
+      'updateExisting'      => false,
     ];
 
     $inputs = [
       null,
       array(),
       [
-        'noInsert'      => true,
-        'onMultiMatch'  => 'first',
-        'updateOnMatch' => true,
+        'insertNew'      => false,
+        'onMultiMatch'   => 'first',
+        'updateExisting' => true,
       ],
     ];
 
@@ -113,14 +113,14 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
         'defaultCulture'      => 'en',
         'errorLog'            => null,
         'header'              => null,
-        'matchingStrategy'    => 'name-full',
+        'partialMatches'      => false,
         'multiValueDelimiter' => '|',
-        'noInsert'            => true,
+        'insertNew'           => false,
         'onMultiMatch'        => 'first',
         'progressFrequency'   => 1,
         'sourceName'          => null,
         'updateSearchIndex'   => false,
-        'updateOnMatch'       => true,
+        'updateExisting'      => true,
       ],
     ];
 
@@ -299,16 +299,16 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $this->assertSame($stub, $importer->getPhysicalObjectTypeTaxonomy());
   }
 
-  public function testSetAndGetUpdateOnMatch()
+  public function testSetAndGetUpdateExisting()
   {
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
 
-    $importer->setOption('updateOnMatch', true);
-    $this->assertSame(true, $importer->getOption('updateOnMatch'));
+    $importer->setOption('updateExisting', true);
+    $this->assertSame(true, $importer->getOption('updateExisting'));
 
     // Test boolean casting
-    $importer->setOption('updateOnMatch', 0);
-    $this->assertSame(false, $importer->getOption('updateOnMatch'));
+    $importer->setOption('updateExisting', 0);
+    $this->assertSame(false, $importer->getOption('updateExisting'));
   }
 
   public function testSetAndGetUpdateSearchIndexOption()
@@ -365,6 +365,9 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
       ['name', 'location', 'type', 'culture'],
       $importer->getHeader()
     );
+
+    $importer->setHeader(null);
+    $this->assertSame(null, null);
   }
 
   public function testSetHeaderThrowsExceptionOnEmptyHeader()
@@ -477,32 +480,32 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $this->assertSame(4, $importer->countRowsTotal());
   }
 
-  public function testDoImportWithUpdateOnMatch()
+  public function testDoImportWithUpdateExisting()
   {
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon,
-      ['updateOnMatch' => true]);
+      ['updateExisting' => true]);
     $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
     $importer->setOrmClasses($this->ormClasses);
 
     $importer->doImport($this->vfs->url().'/unix.csv');
 
-    $this->assertSame(true, $importer->getOption('updateOnMatch'));
+    $this->assertSame(true, $importer->getOption('updateExisting'));
     $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
     $this->assertSame($this->getCsvRowAsAssocArray(), $importer->getRow(0));
     $this->assertSame(2, $importer->countRowsImported());
     $this->assertSame(4, $importer->countRowsTotal());
   }
 
-  public function testDoImportWithUpdateOnMatchAndNoInsert()
+  public function testDoImportWithUpdateExistingAndInsertNew()
   {
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon,
-      ['updateOnMatch' => true, 'noInsert' => true]);
+      ['updateExisting' => true, 'insertNew' => false]);
     $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
     $importer->setOrmClasses($this->ormClasses);
 
     $importer->doImport($this->vfs->url().'/unix.csv');
 
-    $this->assertSame(true, $importer->getOption('updateOnMatch'));
+    $this->assertSame(true, $importer->getOption('updateExisting'));
     $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
     $this->assertSame($this->getCsvRowAsAssocArray(), $importer->getRow(0));
     $this->assertSame(1, $importer->countRowsImported());
@@ -570,9 +573,9 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $this->assertSame('de', $importer->getRecordCulture());
 
     // Get culture from sfConfig
-    sfConfig::set('default_culture', 'en');
-    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-    $this->assertSame('en', $importer->getRecordCulture());
+    sfConfig::set('default_culture', 'nl');
+    $importer->setOption('defaultCulture', null);
+    $this->assertSame('nl', $importer->getRecordCulture());
   }
 
   public function testGetRecordCultureThrowsExceptionWhenCantDetermineCulture()
@@ -586,7 +589,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $importer->getRecordCulture();
   }
 
-  public function testSearchForMatchingNameWithMultipleMatchesGetFirstMatch()
+  public function testMatchExistingRecordsWithMultipleMatchesGetFirstMatch()
   {
     $mock = new $this->ormClasses['physicalObject'];
     $mock->id       = 222222;
@@ -597,23 +600,38 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
 
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
     $importer->setOrmClasses($this->ormClasses);
-    $importer->setOptions(['updateOnMatch' => true, 'onMultiMatch' => 'first']);
+    $importer->setOptions(['updateExisting' => true, 'onMultiMatch' => 'first']);
 
     $this->assertEquals(
-      $mock,
-      $importer->searchForMatchingName(['name' => 'DJ002', 'culture' => 'en'])
+      [$mock],
+      $importer->matchExistingRecords(['name' => 'DJ002', 'culture' => 'en'])
     );
   }
 
-  public function testSearchForMatchingNameThrowsExceptionOnMultiMatch()
+  public function testMatchExistingRecordsWithPartialNameMatching()
   {
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
     $importer->setOrmClasses($this->ormClasses);
-    $importer->setOptions(['updateOnMatch' => true, 'onMultiMatch' => 'skip']);
+    $importer->setOptions([
+      'updateExisting' => true,
+      'onMultiMatch'   => 'all',
+      'partialMatches' => true,
+    ]);
+
+    $this->assertEquals(2, count($importer->matchExistingRecords(
+      ['name' => 'DJ003', 'culture' => 'en']))
+    );
+  }
+
+  public function testMatchExistingRecordsThrowsExceptionOnMultiMatch()
+  {
+    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
+    $importer->setOrmClasses($this->ormClasses);
+    $importer->setOptions(['updateExisting' => true, 'onMultiMatch' => 'skip']);
 
     $this->expectException(UnexpectedValueException::class);
 
-    $importer->searchForMatchingName(['name' => 'DJ002', 'culture' => 'en']);
+    $importer->matchExistingRecords(['name' => 'DJ002', 'culture' => 'en']);
   }
 
   public function testTypeIdLookupTableSetAndGet()

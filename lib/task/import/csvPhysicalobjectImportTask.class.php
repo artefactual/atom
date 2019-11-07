@@ -58,13 +58,17 @@ class csvPhysicalobjectImportTask extends arBaseTask
       new sfCommandOption('index', 'i',
         sfCommandOption::PARAMETER_NONE,
         'Update search index during import'),
+      new sfCommandOption('partial-matches', 'p',
+        sfCommandOption::PARAMETER_NONE,
+        'Match existing records if first part of name matches import name'),
       new sfCommandOption('multi-match', null,
         sfCommandOption::PARAMETER_REQUIRED,
         'Action when matching more than one existing record:
                         "skip" : don\'t update any records
-                        "first": update first matching record',
+                        "first": update first matching record,
+                        "all"  : update all matching records',
         'skip'),
-      new sfCommandOption('rows-until-update', 'p',
+      new sfCommandOption('rows-until-update', 'r',
         sfCommandOption::PARAMETER_REQUIRED,
         'Show import progress every [n] rows (n=0: errors only)',
         1),
@@ -105,12 +109,6 @@ EOF;
       $this->context, $this->getDbConnection(), $importOptions);
     $importer->setFilename($arguments['filename']);
 
-    // Set frequency of progress updates
-    if (isset($options['rows-until-update']))
-    {
-      $importer->setProgressFrequency($options['rows-until-update']);
-    }
-
     $this->log(sprintf('Importing physical object data from %s...'.PHP_EOL,
       $importer->getFilename()));
 
@@ -146,15 +144,17 @@ EOF;
     $opts = array();
 
     $keymap = [
-      'culture'        => 'defaultCulture',
-      'error-log'      => 'errorLog',
-      'header'         => 'header',
-      'index'          => 'updateSearchIndex',
-      'skip-rows'      => 'offset',
-      'skip-unmatched' => 'noInsert',
-      'multi-match'    => 'onMultiMatch',
-      'source-name'    => 'sourceName',
-      'update'         => 'updateOnMatch'
+      'culture'           => 'defaultCulture',
+      'error-log'         => 'errorLog',
+      'header'            => 'header',
+      'index'             => 'updateSearchIndex',
+      'skip-rows'         => 'offset',
+      'skip-unmatched'    => 'insertNew',
+      'partial-matches'   => 'partialMatches',
+      'multi-match'       => 'onMultiMatch',
+      'rows-until-update' => 'progressFrequency',
+      'source-name'       => 'sourceName',
+      'update'            => 'updateExisting'
     ];
 
     foreach ($keymap as $oldkey => $newkey)
@@ -162,6 +162,12 @@ EOF;
       if (empty($options[$oldkey]))
       {
         continue;
+      }
+
+      // Invert value of skip-unmatched
+      if ('skip-unmatched' == $oldkey)
+      {
+        $opts['insertNew'] = !$options[$oldkey];
       }
 
       $opts[$newkey] = $options[$oldkey];

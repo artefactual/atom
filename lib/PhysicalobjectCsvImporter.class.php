@@ -43,12 +43,12 @@ class PhysicalObjectCsvImporter
   protected $errorLogHandle;
   protected $filename;
   protected $matchedExisting;
-  protected $offset              = 0;
+  protected $offset             = 0;
   protected $ormClasses;
   protected $physicalObjectTypeTaxonomy;
   protected $reader;
-  protected $rowsImported        = 0;
-  protected $rowsTotal           = 0;
+  protected $rowsImported       = 0;
+  protected $rowsTotal          = 0;
   protected $typeIdLookupTable;
 
   // Default options
@@ -56,13 +56,14 @@ class PhysicalObjectCsvImporter
     'defaultCulture'      => 'en',
     'errorLog'            => null,
     'header'              => null,
+    'partialMatches'      => false,
     'multiValueDelimiter' => '|',
-    'noInsert'            => false,
+    'insertNew'           => true,
     'onMultiMatch'        => 'skip',
     'progressFrequency'   => 1,
     'sourceName'          => null,
     'updateSearchIndex'   => false,
-    'updateOnMatch'       => false,
+    'updateExisting'      => false,
   ];
 
   public function __construct(sfContext $context = null, $dbcon = null,
@@ -196,9 +197,10 @@ class PhysicalObjectCsvImporter
         break;
 
       // boolean options
-      case 'updateOnMatch':
+      case 'partialMatches':
+      case 'updateExisting':
       case 'updateSearchIndex':
-      case 'noInsert':
+      case 'insertNew':
         $this->options[$name] = (bool) $value;
 
         break;
@@ -340,7 +342,7 @@ EOL;
       try
       {
         $data = $this->processRow($record);
-        $this->savePhysicalobject($data);
+        $this->savePhysicalobjects($data);
       }
       catch (UnexpectedValueException $e)
       {
@@ -394,46 +396,60 @@ EOL;
     throw new UnexpectedValueException('Couldn\'t determine row culture');
   }
 
-  public function savePhysicalobject($data)
+  public function savePhysicalobjects($data)
   {
     // Setting the propel::defaultCulture is necessary for non-English rows
     // to prevent creating an empty i18n row with culture 'en'
     sfPropel::setDefaultCulture($data['culture']);
 
-    $new = false;
+    $matches = $this->matchExistingRecords($data);
 
-    if (null === $physobj = $this->searchForMatchingName($data))
+    if (null === $matches)
     {
-      if ($this->getOption('noInsert'))
-      {
-        throw new UnexpectedValueException(sprintf(
-          'Couldn\'t match name "%s"', $data['name']
-        ));
-      }
+      $this->insertPhysicalObject($data);
 
-      // Create a new db object, if no match is found
-      $physobj = new $this->ormClasses['physicalObject'];
-      $physobj->name = $data['name'];
-
-      $new = true;
+      return;
     }
 
+    foreach ($matches as $item)
+    {
+      $this->updatePhysicalObject($item, $data);
+    }
+  }
+
+  protected function insertPhysicalObject($data)
+  {
+    if (!$this->getOption('insertNew'))
+    {
+      throw new UnexpectedValueException(sprintf(
+        'Couldn\'t match name "%s"', $data['name']
+      ));
+    }
+
+    // Create a new db object, if no match is found
+    $physobj = new $this->ormClasses['physicalObject'];
+
+    $physobj->name        = $data['name'];
     $physobj->typeId      = $data['typeId'];
     $physobj->location    = $data['location'];
     $physobj->indexOnSave = $this->getOption('updateSearchIndex');
-
     $physobj->save($this->dbcon);
 
     $this->createKeymapEntry($physobj, $data);
 
-    if ($new)
-    {
-      $physobj->addInfobjRelations($data['informationObjectIds']);
-    }
-    else
-    {
-      $physobj->updateInfobjRelations($data['informationObjectIds']);
-    }
+    $physobj->addInfobjRelations($data['informationObjectIds']);
+  }
+
+  protected function updatePhysicalObject($physobj, $data)
+  {
+    $physobj->typeId      = $data['typeId'];
+    $physobj->location    = $data['location'];
+    $physobj->indexOnSave = $this->getOption('updateSearchIndex');
+    $physobj->save($this->dbcon);
+
+    $this->createKeymapEntry($physobj, $data);
+
+    $physobj->updateInfobjRelations($data['informationObjectIds']);
   }
 
   /**
@@ -463,19 +479,23 @@ EOL;
     $keymap->save();
   }
 
-  public function searchForMatchingName($data)
+  public function matchExistingRecords($data)
   {
     $this->matchedExisting = 0;
+    $options = ['culture' => $data['culture']];
 
-    if (!$this->getOption('updateOnMatch'))
+    if (!$this->getOption('updateExisting'))
     {
       return null;
     }
 
+    if ($this->getOption('partialMatches'))
+    {
+      $options = $options + ['partialMatch' => 'begin'];
+    }
+
     $matches = $this->ormClasses['physicalObject']::getByName(
-      $data['name'],
-      array('culture' => $data['culture'])
-    );
+      $data['name'], $options);
 
     if (0 == count($matches))
     {
@@ -485,7 +505,7 @@ EOL;
     {
       $this->matchedExisting = 1;
 
-      return $matches->current();
+      return [$matches->current()];
     }
     else
     {
@@ -506,9 +526,10 @@ EOL;
 
     if ('first' == $this->getOption('onMultiMatch'))
     {
-      // Return first match
-      return $matches->current();
+      $matches = [$matches->current()];
     }
+
+    return $matches;
   }
 
   protected function log($msg)

@@ -72,6 +72,33 @@ class QubitPhysicalObject
         $results->append($object);
 
         break;
+
+      case 'DJ003':
+        if (
+          isset($options['partialMatch'])
+          && 'begin' == $options['partialMatch']
+        ) {
+          // Simulate partial match on start of name
+          $object = new self;
+          $object->id       = 444444;
+          $object->name     = 'DJ003 folders 1-6';
+          $object->typeId   = 1;
+          $object->location = '200-A-19';
+          $object->culture  = 'en';
+
+          $results->append($object);
+
+          $object = new self;
+          $object->id       = 555555;
+          $object->name     = 'DJ003 folders 7-12';
+          $object->typeId   = 1;
+          $object->location = '200-B-01';
+          $object->culture  = 'en';
+
+          $results->append($object);
+        }
+
+        break;
     }
 
     return $results;

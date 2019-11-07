@@ -157,7 +157,15 @@ class QubitPhysicalObject extends BasePhysicalObject
     $criteria = new Criteria;
 
     $criteria->addJoin(QubitPhysicalObject::ID, QubitPhysicalObjectI18n::ID);
-    $criteria->add(QubitPhysicalObjectI18n::NAME, $name);
+
+    if (isset($options['partialMatch']) && 'begin' == $options['partialMatch'])
+    {
+      $criteria->add(QubitPhysicalObjectI18n::NAME, $name.'%', Criteria::LIKE);
+    }
+    else
+    {
+      $criteria->add(QubitPhysicalObjectI18n::NAME, $name);
+    }
 
     if (isset($options['culture']))
     {
