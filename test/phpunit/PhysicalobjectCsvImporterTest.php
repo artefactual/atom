@@ -82,17 +82,52 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
 
   public function setOptionsProvider()
   {
+    $defaultOptions = [
+      'defaultCulture'      => 'en',
+      'errorLog'            => null,
+      'header'              => null,
+      'matchingStrategy'    => 'name-full',
+      'multiValueDelimiter' => '|',
+      'noInsert'            => false,
+      'onMultiMatch'        => 'skip',
+      'progressFrequency'   => 1,
+      'sourceName'          => null,
+      'updateSearchIndex'   => false,
+      'updateOnMatch'       => false,
+    ];
+
+    $inputs = [
+      null,
+      array(),
+      [
+        'noInsert'      => true,
+        'onMultiMatch'  => 'first',
+        'updateOnMatch' => true,
+      ],
+    ];
+
+    $outputs = [
+      $defaultOptions,
+      $defaultOptions,
+      [
+        'defaultCulture'      => 'en',
+        'errorLog'            => null,
+        'header'              => null,
+        'matchingStrategy'    => 'name-full',
+        'multiValueDelimiter' => '|',
+        'noInsert'            => true,
+        'onMultiMatch'        => 'first',
+        'progressFrequency'   => 1,
+        'sourceName'          => null,
+        'updateSearchIndex'   => false,
+        'updateOnMatch'       => true,
+      ],
+    ];
+
     return [
-      [
-        ['option1' => 'value1'],
-        ['option1' => 'value1'],
-      ],
-      [
-        ['option1' => 'value1', 'option2' => 'value2'],
-        ['option1' => 'value1', 'option2' => 'value2'],
-      ],
-      [null, array()],
-      [array(), array()],
+      [$inputs[0], $outputs[0]],
+      [$inputs[1], $outputs[1]],
+      [$inputs[2], $outputs[2]],
     ];
   }
 
@@ -208,13 +243,6 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $importer->foo = 'blah';
   }
 
-  public function testSetAndGetMultiValueDelimiter()
-  {
-    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-    $importer->multiValueDelimiter = '/';
-    $this->assertSame('/', $importer->multiValueDelimiter);
-  }
-
   public function testSetFilenameFileNotFoundException()
   {
     $this->expectException(sfException::class);
@@ -275,35 +303,20 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
   {
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
 
-    $importer->setUpdateOnMatch(true);
-    $this->assertSame(true, $importer->getUpdateOnMatch());
+    $importer->setOption('updateOnMatch', true);
+    $this->assertSame(true, $importer->getOption('updateOnMatch'));
 
     // Test boolean casting
-    $importer->setUpdateOnMatch(0);
-    $this->assertSame(false, $importer->getUpdateOnMatch());
+    $importer->setOption('updateOnMatch', 0);
+    $this->assertSame(false, $importer->getOption('updateOnMatch'));
   }
 
-  public function testSetUpdateSearchIndex()
+  public function testSetAndGetUpdateSearchIndexOption()
   {
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
+    $importer->setOption('updateSearchIndex', true);
 
-    $importer->setUpdateSearchIndex(true);
-    $this->assertSame(true, $importer->getUpdateSearchIndex());
-
-    // Test boolean casting
-    $importer->setUpdateSearchIndex(1);
-    $this->assertSame(true, $importer->getUpdateSearchIndex());
-
-    $importer->setUpdateSearchIndex(null);
-    $this->assertSame(false, $importer->getUpdateSearchIndex());
-  }
-
-  public function testSetUpdateSearchIndexFromOptions()
-  {
-    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-    $importer->setOptions(['updateSearchIndex' => true]);
-
-    $this->assertSame(true, $importer->getUpdateSearchIndex());
+    $this->assertSame(true, $importer->getOption('updateSearchIndex'));
   }
 
   public function testSetAndGetOption()
@@ -326,7 +339,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
 
     $this->assertSame(1, $importer->getOffset());
     $this->assertSame('test-002', $importer->getOption('sourceName'));
-    $this->assertSame(true, $importer->getUpdateSearchIndex());
+    $this->assertSame(true, $importer->getOption('updateSearchIndex'));
     $this->assertSame(
       ['name', 'location', 'type', 'culture'],
       $importer->getHeader()
@@ -373,10 +386,10 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
   public function testSetAndGetProgressFrequency()
   {
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-    $this->assertSame(1, $importer->getProgressFrequency());
+    $this->assertSame(1, $importer->getOption('progressFrequency'));
 
-    $importer->setProgressFrequency(10);
-    $this->assertSame(10, $importer->getProgressFrequency());
+    $importer->setOption('progressFrequency', 10);
+    $this->assertSame(10, $importer->getOption('progressFrequency'));
   }
 
   public function testSourceNameDefaultsToFilename()
@@ -423,7 +436,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
     $importer->setOrmClasses($this->ormClasses);
     $importer->setOption('errorLog', $this->vfs->url().'/error.log');
-    $importer->setProgressFrequency(2);
+    $importer->setOption('progressFrequency', 2);
 
     $importer->doImport($this->vfs->url().'/windows.csv');
 
@@ -439,7 +452,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
     $importer->setOrmClasses($this->ormClasses);
     $importer->setOffset(1);
-    $importer->setProgressFrequency(0);
+    $importer->setOption('progressFrequency', 0);
 
     $importer->doImport($this->vfs->url().'/unix.csv');
 
@@ -473,10 +486,10 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
 
     $importer->doImport($this->vfs->url().'/unix.csv');
 
-    $this->assertSame(true, $importer->getUpdateOnMatch());
+    $this->assertSame(true, $importer->getOption('updateOnMatch'));
     $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
     $this->assertSame($this->getCsvRowAsAssocArray(), $importer->getRow(0));
-    $this->assertSame(3, $importer->countRowsImported());
+    $this->assertSame(2, $importer->countRowsImported());
     $this->assertSame(4, $importer->countRowsTotal());
   }
 
@@ -489,7 +502,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
 
     $importer->doImport($this->vfs->url().'/unix.csv');
 
-    $this->assertSame(true, $importer->getUpdateOnMatch());
+    $this->assertSame(true, $importer->getOption('updateOnMatch'));
     $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
     $this->assertSame($this->getCsvRowAsAssocArray(), $importer->getRow(0));
     $this->assertSame(1, $importer->countRowsImported());
@@ -568,7 +581,8 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
 
     sfConfig::set('default_culture', '');
 
-    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
+    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon,
+      ['defaultCulture' => null]);
     $importer->getRecordCulture();
   }
 

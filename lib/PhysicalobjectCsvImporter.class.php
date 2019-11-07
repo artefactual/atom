@@ -42,19 +42,28 @@ class PhysicalObjectCsvImporter
   protected $dbcon;
   protected $errorLogHandle;
   protected $filename;
-  protected $updateOnMatch       = false;
   protected $matchedExisting;
-  protected $multiValueDelimiter = '|';
   protected $offset              = 0;
-  protected $options             = [];
   protected $ormClasses;
   protected $physicalObjectTypeTaxonomy;
-  protected $progressFrequency   = 1;
   protected $reader;
   protected $rowsImported        = 0;
   protected $rowsTotal           = 0;
   protected $typeIdLookupTable;
-  protected $updateSearchIndex   = false;
+
+  // Default options
+  protected $options = [
+    'defaultCulture'      => 'en',
+    'errorLog'            => null,
+    'header'              => null,
+    'multiValueDelimiter' => '|',
+    'noInsert'            => false,
+    'onMultiMatch'        => 'skip',
+    'progressFrequency'   => 1,
+    'sourceName'          => null,
+    'updateSearchIndex'   => false,
+    'updateOnMatch'       => false,
+  ];
 
   public function __construct(sfContext $context = null, $dbcon = null,
     $options = array())
@@ -76,6 +85,7 @@ class PhysicalObjectCsvImporter
 
     $this->context = $context;
     $this->dbcon   = $dbcon;
+
     $this->setOptions($options);
   }
 
@@ -89,7 +99,6 @@ class PhysicalObjectCsvImporter
     switch ($name)
     {
       case 'context':
-      case 'multiValueDelimiter':
         return $this->$name;
 
         break;
@@ -114,7 +123,6 @@ class PhysicalObjectCsvImporter
     switch ($name)
     {
       case 'dbcon':
-      case 'multiValueDelimiter':
       case 'typeIdLookupTable':
         $this->$name = $value;
 
@@ -152,10 +160,8 @@ class PhysicalObjectCsvImporter
 
   public function setOptions(array $options = null)
   {
-    if (null === $options || 0 == count($options))
+    if (empty($options))
     {
-      $this->options = [];
-
       return;
     }
 
@@ -184,13 +190,16 @@ class PhysicalObjectCsvImporter
 
         break;
 
-      case 'updateOnMatch':
-        $this->setUpdateOnMatch($value);
+      case 'progressFrequency':
+        $this->setProgressFrequency($value);
 
         break;
 
+      // boolean options
+      case 'updateOnMatch':
       case 'updateSearchIndex':
-        $this->setUpdateSearchIndex($value);
+      case 'noInsert':
+        $this->options[$name] = (bool) $value;
 
         break;
 
@@ -223,26 +232,6 @@ class PhysicalObjectCsvImporter
     return $this->physicalObjectTypeTaxonomy;
   }
 
-  public function setUpdateOnMatch($value)
-  {
-    $this->updateOnMatch = (bool) $value;
-  }
-
-  public function getUpdateOnMatch()
-  {
-    return $this->updateOnMatch;
-  }
-
-  public function setUpdateSearchIndex($value)
-  {
-    $this->updateSearchIndex = (bool) $value;
-  }
-
-  public function getUpdateSearchIndex()
-  {
-    return $this->updateSearchIndex;
-  }
-
   public function setOffset(int $value)
   {
     $this->offset = $value;
@@ -253,8 +242,15 @@ class PhysicalObjectCsvImporter
     return $this->offset;
   }
 
-  public function setHeader(String $str)
+  public function setHeader(String $str = null)
   {
+    if (null === $str)
+    {
+      $this->options['header'] = null;
+
+      return;
+    }
+
     $columnNames = explode(',', trim($str));
 
     // Trim whitespace
@@ -315,17 +311,6 @@ EOM;
   public function countRowsTotal()
   {
     return $this->rowsTotal;
-  }
-
-  public function setProgressFrequency(int $freq)
-  {
-    // Note: $progressFrequency == 0 turns off logging
-    $this->progressFrequency = ($freq > 0) ? $freq : 0;
-  }
-
-  public function getProgressFrequency()
-  {
-    return $this->progressFrequency;
   }
 
   public function doImport($filename = null)
@@ -435,7 +420,7 @@ EOL;
 
     $physobj->typeId      = $data['typeId'];
     $physobj->location    = $data['location'];
-    $physobj->indexOnSave = $this->updateSearchIndex;
+    $physobj->indexOnSave = $this->getOption('updateSearchIndex');
 
     $physobj->save($this->dbcon);
 
@@ -482,7 +467,7 @@ EOL;
   {
     $this->matchedExisting = 0;
 
-    if (!$this->updateOnMatch)
+    if (!$this->getOption('updateOnMatch'))
     {
       return null;
     }
@@ -537,9 +522,15 @@ EOL;
     fwrite($this->getErrorLogHandle(), $msg.PHP_EOL);
   }
 
+  protected function setProgressFrequency(int $freq)
+  {
+    // Note: $progressFrequency == 0 turns off logging
+    $this->options['progressFrequency'] = ($freq > 0) ? $freq : 0;
+  }
+
   protected function progressUpdate($data)
   {
-    $freq = $this->getProgressFrequency();
+    $freq = $this->getOption('progressFrequency');
 
     if (1 == $freq)
     {
@@ -682,7 +673,7 @@ EOL;
       return [];
     }
 
-    $values = explode($this->multiValueDelimiter, $str);
+    $values = explode($this->getOption('multiValueDelimiter'), $str);
     $values = array_map('trim', $values);
 
     // Remove empty strings from array
