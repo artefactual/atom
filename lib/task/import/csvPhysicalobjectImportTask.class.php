@@ -169,7 +169,9 @@ EOF;
       // Invert value of skip-unmatched
       if ('skip-unmatched' == $oldkey)
       {
-        $opts['insertNew'] = !$options[$oldkey];
+        $opts[$newkey] = !$options[$oldkey];
+
+        continue;
       }
 
       $opts[$newkey] = $options[$oldkey];
