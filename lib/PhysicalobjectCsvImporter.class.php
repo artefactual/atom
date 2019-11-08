@@ -37,6 +37,8 @@ class PhysicalObjectCsvImporter
     'descriptionSlugs' => 'informationObjectIds',
   ];
 
+  public $timer;
+
   protected $context;
   protected $data;
   protected $dbcon;
@@ -317,6 +319,8 @@ EOM;
 
   public function doImport($filename = null)
   {
+    $this->timer = new QubitTimer;
+
     if (null !== $filename)
     {
       $this->setFilename($filename);
@@ -557,18 +561,24 @@ EOL;
     {
       if (0 == $this->matchedExisting)
       {
-        $msg = 'Row [%u/%u]: name "%s" imported';
+        $msg = 'Row [%u/%u]: name "%s" imported (%01.2fs)';
       }
       else {
-        $msg = 'Row [%u/%u]: Matched and updated name "%s"';
+        $msg = 'Row [%u/%u]: Matched and updated name "%s" (%01.2fs)';
       }
 
-      $this->log(sprintf($msg, $this->offset, $this->rowsTotal, $data['name']));
+      $this->log(sprintf(
+        $msg,
+        $this->offset,
+        $this->rowsTotal,
+        $data['name'],
+        $this->timer->elapsed()
+      ));
     }
     else if ($freq > 1 && 0 == $this->rowsImported % $freq)
     {
-      $this->log(sprintf('Imported %u of %u rows...',
-        $this->rowsImported, $this->rowsTotal));
+      $this->log(sprintf('Imported %u of %u rows (%01.2fs)...',
+        $this->rowsImported, $this->rowsTotal, $this->timer->elapsed()));
     }
   }
 

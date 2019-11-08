@@ -126,8 +126,10 @@ EOF;
 
     $importer->doImport();
 
-    $this->log(sprintf(PHP_EOL.'Done! Imported %u of %u rows.',
-      $importer->countRowsImported(), $importer->countRowsTotal()));
+    $this->log(sprintf(PHP_EOL.'Done! Imported %u of %u rows in %01.2fs.',
+      $importer->countRowsImported(),
+      $importer->countRowsTotal(),
+      $importer->timer->elapsed()));
   }
 
   protected function getDbConnection()
