@@ -64,8 +64,9 @@ class PhysicalObjectCsvImporter
     'onMultiMatch'        => 'skip',
     'progressFrequency'   => 1,
     'sourceName'          => null,
-    'updateSearchIndex'   => false,
     'updateExisting'      => false,
+    'overwriteWithEmpty'  => false,
+    'updateSearchIndex'   => false,
   ];
 
   public function __construct(sfContext $context = null, $dbcon = null,
@@ -201,6 +202,7 @@ class PhysicalObjectCsvImporter
       // boolean options
       case 'partialMatches':
       case 'updateExisting':
+      case 'overwriteWithEmpty':
       case 'updateSearchIndex':
       case 'insertNew':
         $this->options[$name] = (bool) $value;
@@ -446,14 +448,25 @@ EOL;
 
   protected function updatePhysicalObject($physobj, $data)
   {
-    $physobj->typeId      = $data['typeId'];
-    $physobj->location    = $data['location'];
+    if ($this->shouldUpdateDb($data['typeId']))
+    {
+      $physobj->typeId = $data['typeId'];
+    }
+
+    if ($this->shouldUpdateDb($data['location']))
+    {
+      $physobj->location = $data['location'];
+    }
+
     $physobj->indexOnSave = $this->getOption('updateSearchIndex');
     $physobj->save($this->dbcon);
 
     $this->createKeymapEntry($physobj, $data);
 
-    $physobj->updateInfobjRelations($data['informationObjectIds']);
+    if ($this->shouldUpdateDb($data['informationObjectIds']))
+    {
+      $physobj->updateInfobjRelations($data['informationObjectIds']);
+    }
   }
 
   /**
@@ -754,5 +767,20 @@ EOL;
     }
 
     return $this->typeIdLookupTable;
+  }
+
+  /**
+   * Check if $value should update the current db data
+   */
+  protected function shouldUpdateDb($value)
+  {
+    // If $value is empty, we shouldn't overwrite the existing DB data, *unless*
+    // overwriteWithEmpty option is true
+    if (empty($value) && !$this->getOption('overwriteWithEmpty'))
+    {
+      return false;
+    }
+
+    return true;
   }
 }

@@ -33,7 +33,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
       // Note: leading and trailing whitespace in first row is intentional
       '"B10101 "," DJ001","Folder "," Aisle 25,Shelf D"," en","test-fonds-1 | test-collection"',
       '"","","Chemise","","fr",""',
-      '"", "DJ002", "Boîte Hollinger", "Voûte, étagère 0074", "fr", "Mixed-Case-Fonds|no-match|"',
+      '"", "DJ002", "", "Voûte, étagère 0074", "", ""',
       '"", "DJ003", "Hollinger box", "Aisle 11, Shelf J", "en", ""',
     );
 
@@ -86,14 +86,15 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
       'defaultCulture'      => 'en',
       'errorLog'            => null,
       'header'              => null,
-      'partialMatches'      => false,
-      'multiValueDelimiter' => '|',
       'insertNew'           => true,
+      'multiValueDelimiter' => '|',
       'onMultiMatch'        => 'skip',
+      'overwriteWithEmpty'  => false,
+      'partialMatches'      => false,
       'progressFrequency'   => 1,
       'sourceName'          => null,
-      'updateSearchIndex'   => false,
       'updateExisting'      => false,
+      'updateSearchIndex'   => false,
     ];
 
     $inputs = [
@@ -113,14 +114,15 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
         'defaultCulture'      => 'en',
         'errorLog'            => null,
         'header'              => null,
-        'partialMatches'      => false,
-        'multiValueDelimiter' => '|',
         'insertNew'           => false,
+        'multiValueDelimiter' => '|',
         'onMultiMatch'        => 'first',
+        'overwriteWithEmpty'  => false,
+        'partialMatches'      => false,
         'progressFrequency'   => 1,
         'sourceName'          => null,
-        'updateSearchIndex'   => false,
         'updateExisting'      => true,
+        'updateSearchIndex'   => false,
       ],
     ];
 
@@ -480,10 +482,10 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $this->assertSame(4, $importer->countRowsTotal());
   }
 
-  public function testDoImportWithUpdateExisting()
+  public function testDoImportWithUpdateExistingAndMultiMatchFirst()
   {
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon,
-      ['updateExisting' => true]);
+      ['updateExisting' => true, 'onMultiMatch' => 'first']);
     $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
     $importer->setOrmClasses($this->ormClasses);
 
@@ -492,7 +494,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $this->assertSame(true, $importer->getOption('updateExisting'));
     $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
     $this->assertSame($this->getCsvRowAsAssocArray(), $importer->getRow(0));
-    $this->assertSame(2, $importer->countRowsImported());
+    $this->assertSame(3, $importer->countRowsImported());
     $this->assertSame(4, $importer->countRowsTotal());
   }
 
