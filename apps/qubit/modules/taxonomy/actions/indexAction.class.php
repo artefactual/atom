@@ -226,7 +226,7 @@ class TaxonomyIndexAction extends sfAction
         return;
       }
 
-      sfContext::getInstance()->getConfiguration()->loadHelpers('Url', 'Qubit');
+      sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url', 'Qubit'));
 
       $response = array('results' => array());
       foreach ($resultSet->getResults() as $item)
