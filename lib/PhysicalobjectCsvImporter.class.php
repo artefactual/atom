@@ -58,14 +58,14 @@ class PhysicalObjectCsvImporter
     'defaultCulture'      => 'en',
     'errorLog'            => null,
     'header'              => null,
-    'partialMatches'      => false,
-    'multiValueDelimiter' => '|',
     'insertNew'           => true,
+    'multiValueDelimiter' => '|',
     'onMultiMatch'        => 'skip',
+    'overwriteWithEmpty'  => false,
+    'partialMatches'      => false,
     'progressFrequency'   => 1,
     'sourceName'          => null,
     'updateExisting'      => false,
-    'overwriteWithEmpty'  => false,
     'updateSearchIndex'   => false,
   ];
 
