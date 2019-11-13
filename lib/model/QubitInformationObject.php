@@ -3349,8 +3349,24 @@ class QubitInformationObject extends BaseInformationObject
   public function deleteFullHierarchy()
   {
     $n = 0;
+
     foreach ($this->descendants->andSelf()->orderBy('rgt') as $item)
     {
+      // Avoid nested set update until the last deletion:
+      // The queries used to update the nested may be time expensive
+      // as they update all the descriptions above the deleted description,
+      // including those outside the deleted tree and those that are inside and
+      // will be deleted after. When the `deleteFromNestedSet` function from
+      // `BaseInformationObject` is called, the delta used to update the LFT and
+      // RGT values is calculated from the resource's RGT -LFT difference.
+      // Considering that this operation is normally run inside a transaction
+      // (otherwise it should), updating the nested set only once at the end
+      // should be enough.
+      if ($this->id !== $item->id)
+      {
+        $item->disableNestedSetUpdating = true;
+      }
+
       $item->delete();
       $n++;
     }
