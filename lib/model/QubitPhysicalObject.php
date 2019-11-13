@@ -19,7 +19,9 @@
 
 class QubitPhysicalObject extends BasePhysicalObject
 {
-  public $disableNestedSetUpdating = false;
+  public
+    $disableNestedSetUpdating = false,
+    $indexOnSave              = false;
 
   /**
    * Call this function when casting object instance as type string
@@ -143,6 +145,37 @@ class QubitPhysicalObject extends BasePhysicalObject
   }
 
   /**
+   * Get physical objects by name
+   *
+   * @param name    The name of the physical object
+   * @param options Array of optional paramaters
+   *
+   * @return QubitQuery A collection of matching physicalobject objects
+   */
+  public static function getByName($name, $options = array())
+  {
+    $criteria = new Criteria;
+
+    $criteria->addJoin(QubitPhysicalObject::ID, QubitPhysicalObjectI18n::ID);
+
+    if (isset($options['partialMatch']) && 'begin' == $options['partialMatch'])
+    {
+      $criteria->add(QubitPhysicalObjectI18n::NAME, $name.'%', Criteria::LIKE);
+    }
+    else
+    {
+      $criteria->add(QubitPhysicalObjectI18n::NAME, $name);
+    }
+
+    if (isset($options['culture']))
+    {
+      $criteria->add(QubitPhysicalObjectI18n::CULTURE, $options['culture']);
+    }
+
+    return QubitPhysicalObject::get($criteria);
+  }
+
+  /**
    * Get whether or not a physical object matching name/location/type
    * exists in the current collection already.
    *
@@ -188,5 +221,109 @@ class QubitPhysicalObject extends BasePhysicalObject
         return $physObj;
       }
     }
+  }
+
+  /**
+   * Add new information object relations
+   *
+   * @param array newInfobjIds array of new information object ids to link
+   */
+  public function addInfobjRelations(array $newInfobjIds)
+  {
+    if (empty($this->id))
+    {
+      throw new sfException('Invalid QubitPhysicalObject id');
+    }
+
+    foreach ($newInfobjIds as $infobjId)
+    {
+      $relation = new QubitRelation;
+      $relation->subjectId = $this->id;
+      $relation->objectId  = $infobjId;
+      $relation->typeId    = QubitTerm::HAS_PHYSICAL_OBJECT_ID;
+
+      $relation->indexOnSave = $this->indexOnSave;
+
+      $relation->save();
+    }
+  }
+
+  /**
+   * Update
+   */
+  public function updateInfobjRelations(array $relatedInfobjIds)
+  {
+    $existingRelations = [];
+
+    if (empty($this->id))
+    {
+      throw new sfException('Invalid QubitPhysicalObject id');
+    }
+
+    // Find existing relations
+    if (null !== $relations = $this->getRelationsAsArray(
+      QubitTerm::HAS_PHYSICAL_OBJECT_ID))
+    {
+      foreach ($relations as $row)
+      {
+        $existingRelations[$row['id']] = $row['object_id'];
+      }
+    }
+
+    // Save any new relations
+    if (false != $newInfobjIds = array_diff($relatedInfobjIds,
+      $existingRelations))
+    {
+      $this->addInfobjRelations($newInfobjIds);
+    }
+
+    // Delete any obsolete relations
+    $obsoleteInfobjIds = array_diff($existingRelations, $relatedInfobjIds);
+
+    foreach ($obsoleteInfobjIds as $infobjId)
+    {
+      $relationId = array_search($infobjId, $existingRelations);
+
+      if (false === $relationId ||
+        null === $relation = QubitRelation::getById($relationId))
+      {
+        continue;
+      }
+
+      $relation->indexOnSave = $this->indexOnSave;
+      $relation->delete();
+    }
+  }
+
+  public function getRelationsAsArray(int $typeId = null)
+  {
+    if (empty($this->id))
+    {
+      throw new sfException('Invalid QubitPhysicalObject id');
+    }
+
+    $sql = <<<SQL
+      SELECT
+        id,
+        subject_id,
+        object_id,
+        type_id,
+        start_date,
+        end_date,
+        source_culture
+      FROM relation WHERE subject_id = :id
+SQL;
+
+    if (isset($typeId))
+    {
+      $sql .= ' AND type_id = :typeId';
+    }
+
+    $results = QubitPdo::prepareAndExecute($sql, array(
+      ':id' => $this->id,
+      ':typeId' => $typeId,
+    ));
+
+    return $results->fetchAll(PDO::FETCH_ASSOC);
   }
 }

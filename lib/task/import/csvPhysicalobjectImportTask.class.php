@@ -38,36 +38,70 @@ class csvPhysicalobjectImportTask extends arBaseTask
 
     $this->addOptions(array(
       new sfCommandOption('application', null,
-        sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
+        sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'
+      ),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED,
-        'The environment', 'cli'),
+        'The environment', 'cli'
+      ),
       new sfCommandOption('connection', null,
-        sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+        sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'
+      ),
 
       // Import options
       new sfCommandOption('culture', null,
-        sfCommandOption::PARAMETER_OPTIONAL,
+        sfCommandOption::PARAMETER_REQUIRED,
         'ISO 639-1 Code for rows without an explicit culture',
-        'en'),
-      new sfCommandOption('error-log', null,
-        sfCommandOption::PARAMETER_OPTIONAL,
+        'en'
+      ),
+      new sfCommandOption('empty-overwrite', 'e',
+        sfCommandOption::PARAMETER_NONE,
+        'When set an empty CSV value will overwrite existing data (update only)'
+      ),
+      new sfCommandOption('error-log', 'l',
+        sfCommandOption::PARAMETER_REQUIRED,
         'Log errors to indicated file'),
       new sfCommandOption('header', null,
-        sfCommandOption::PARAMETER_OPTIONAL,
-        'Provide column names (CSV format) and import first row of file as data'),
-      new sfCommandOption('index', null,
+        sfCommandOption::PARAMETER_REQUIRED,
+        'Provide column names (CSV format) and import first row of file as data'
+      ),
+      new sfCommandOption('index', 'i',
         sfCommandOption::PARAMETER_NONE,
-        'Update search index during import'),
-      new sfCommandOption('rows-until-update', null,
-        sfCommandOption::PARAMETER_OPTIONAL,
+        'Update search index during import'
+      ),
+      new sfCommandOption('multi-match', null,
+        sfCommandOption::PARAMETER_REQUIRED,
+        'Action when matching more than one existing record:
+                        "skip" : don\'t update any records
+                        "first": update first matching record,
+                        "all"  : update all matching records',
+        'skip'
+      ),
+      new sfCommandOption('partial-matches', 'p',
+        sfCommandOption::PARAMETER_NONE,
+        'Match existing records if first part of name matches import name'
+      ),
+      new sfCommandOption('rows-until-update', 'r',
+        sfCommandOption::PARAMETER_REQUIRED,
         'Show import progress every [n] rows (n=0: errors only)',
-        1),
-      new sfCommandOption('skip-rows', null,
-        sfCommandOption::PARAMETER_OPTIONAL,
-        'Skip [n] rows before importing'),
+        1
+      ),
+      new sfCommandOption('skip-rows', 'o',
+        sfCommandOption::PARAMETER_REQUIRED,
+        'Skip [n] rows before importing',
+        0
+      ),
+      new sfCommandOption('skip-unmatched', 's',
+        sfCommandOption::PARAMETER_NONE,
+        'Skip unmatched records during update instead of creating new records'
+      ),
       new sfCommandOption('source-name', null,
-        sfCommandOption::PARAMETER_OPTIONAL,
-        'Source name to use when inserting keymap entries'),
+        sfCommandOption::PARAMETER_REQUIRED,
+        'Source name to use when inserting keymap entries'
+      ),
+      new sfCommandOption('update', 'u',
+        sfCommandOption::PARAMETER_NONE,
+        'Update existing record if name matches imported name.'
+      ),
     ));
 
     $this->namespace = 'csv';
@@ -91,12 +125,6 @@ EOF;
       $this->context, $this->getDbConnection(), $importOptions);
     $importer->setFilename($arguments['filename']);
 
-    // Set frequency of progress updates
-    if (isset($options['rows-until-update']))
-    {
-      $importer->setProgressFrequency($options['rows-until-update']);
-    }
-
     $this->log(sprintf('Importing physical object data from %s...'.PHP_EOL,
       $importer->getFilename()));
 
@@ -114,8 +142,10 @@ EOF;
 
     $importer->doImport();
 
-    $this->log(sprintf(PHP_EOL.'Done! Imported %u of %u rows.',
-      $importer->countRowsImported(), $importer->countRowsTotal()));
+    $this->log(sprintf(PHP_EOL.'Done! Imported %u of %u rows in %01.2fs.',
+      $importer->countRowsImported(),
+      $importer->countRowsTotal(),
+      $importer->timer->elapsed()));
   }
 
   protected function getDbConnection()
@@ -127,15 +157,23 @@ EOF;
 
   protected function setImportOptions($options)
   {
+    $this->validateOptions($options);
+
     $opts = array();
 
     $keymap = [
-      'culture'     => 'defaultCulture',
-      'error-log'   => 'errorLog',
-      'header'      => 'header',
-      'index'       => 'updateSearchIndex',
-      'skip-rows'   => 'offset',
-      'source-name' => 'sourceName',
+      'culture'           => 'defaultCulture',
+      'empty-overwrite'   => 'overwriteWithEmpty',
+      'error-log'         => 'errorLog',
+      'header'            => 'header',
+      'index'             => 'updateSearchIndex',
+      'skip-rows'         => 'offset',
+      'skip-unmatched'    => 'insertNew',
+      'partial-matches'   => 'partialMatches',
+      'multi-match'       => 'onMultiMatch',
+      'rows-until-update' => 'progressFrequency',
+      'source-name'       => 'sourceName',
+      'update'            => 'updateExisting'
     ];
 
     foreach ($keymap as $oldkey => $newkey)
@@ -145,18 +183,29 @@ EOF;
         continue;
       }
 
-      switch($oldkey)
+      // Invert value of skip-unmatched
+      if ('skip-unmatched' == $oldkey)
       {
-        // Update search index while importing data?
-        case 'index':
-          $opts[$newkey] = isset($options[$oldkey]) ? true : false;
-          break;
+        $opts[$newkey] = !$options[$oldkey];
 
-        default:
-          $opts[$newkey] = $options[$oldkey];
+        continue;
       }
+
+      $opts[$newkey] = $options[$oldkey];
     }
 
     return $opts;
+  }
+
+  protected function validateOptions($options)
+  {
+    if ($options['skip-unmatched'] && !$options['update'])
+    {
+      $msg = <<<EOM
+The --skip-unmatched option can not be used without the --update option.
+EOM;
+
+      throw new sfException($msg);
+    }
   }
 }

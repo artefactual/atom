@@ -37,23 +37,37 @@ class PhysicalObjectCsvImporter
     'descriptionSlugs' => 'informationObjectIds',
   ];
 
+  public $timer;
+
   protected $context;
   protected $data;
   protected $dbcon;
   protected $errorLogHandle;
   protected $filename;
-  protected $multiValueDelimiter = '|';
-  protected $offset              = 0;
-  protected $options             = [];
+  protected $matchedExisting;
+  protected $offset             = 0;
   protected $ormClasses;
   protected $physicalObjectTypeTaxonomy;
-  protected $progressFrequency   = 1;
   protected $reader;
-  protected $rowsImported        = 0;
-  protected $rowsTotal           = 0;
+  protected $rowsImported       = 0;
+  protected $rowsTotal          = 0;
   protected $typeIdLookupTable;
-  protected $updateSearchIndex   = false;
 
+  // Default options
+  protected $options = [
+    'defaultCulture'      => 'en',
+    'errorLog'            => null,
+    'header'              => null,
+    'insertNew'           => true,
+    'multiValueDelimiter' => '|',
+    'onMultiMatch'        => 'skip',
+    'overwriteWithEmpty'  => false,
+    'partialMatches'      => false,
+    'progressFrequency'   => 1,
+    'sourceName'          => null,
+    'updateExisting'      => false,
+    'updateSearchIndex'   => false,
+  ];
 
   public function __construct(sfContext $context = null, $dbcon = null,
     $options = array())
@@ -70,8 +84,12 @@ class PhysicalObjectCsvImporter
       'relation'          => QubitRelation::class,
     ]);
 
+    $this->physicalObjectTypeTaxonomy = new QubitTaxonomy(
+      QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID);
+
     $this->context = $context;
     $this->dbcon   = $dbcon;
+
     $this->setOptions($options);
   }
 
@@ -85,18 +103,12 @@ class PhysicalObjectCsvImporter
     switch ($name)
     {
       case 'context':
-      case 'multiValueDelimiter':
         return $this->$name;
 
         break;
 
       case 'dbcon':
         return $this->getDbConnection();
-
-        break;
-
-      case 'physicalObjectTypeTaxonomy':
-        return $this->getPhysicalObjectTypeTaxonomy();
 
         break;
 
@@ -115,8 +127,6 @@ class PhysicalObjectCsvImporter
     switch ($name)
     {
       case 'dbcon':
-      case 'multiValueDelimiter':
-      case 'physicalObjectTypeTaxonomy':
       case 'typeIdLookupTable':
         $this->$name = $value;
 
@@ -154,10 +164,8 @@ class PhysicalObjectCsvImporter
 
   public function setOptions(array $options = null)
   {
-    if (null === $options || 0 == count($options))
+    if (empty($options))
     {
-      $this->options = [];
-
       return;
     }
 
@@ -186,8 +194,18 @@ class PhysicalObjectCsvImporter
 
         break;
 
+      case 'progressFrequency':
+        $this->setProgressFrequency($value);
+
+        break;
+
+      // boolean options
+      case 'partialMatches':
+      case 'updateExisting':
+      case 'overwriteWithEmpty':
       case 'updateSearchIndex':
-        $this->setUpdateSearchIndex($value);
+      case 'insertNew':
+        $this->options[$name] = (bool) $value;
 
         break;
 
@@ -206,16 +224,18 @@ class PhysicalObjectCsvImporter
     {
       return basename($this->filename);
     }
+
+    return null;
   }
 
-  public function setUpdateSearchIndex($value)
+  public function setPhysicalObjectTypeTaxonomy(QubitTaxonomy $object)
   {
-    $this->updateSearchIndex = (bool) $value;
+    $this->physicalObjectTypeTaxonomy = $object;
   }
 
-  public function getUpdateSearchIndex()
+  public function getPhysicalObjectTypeTaxonomy()
   {
-    return $this->updateSearchIndex;
+    return $this->physicalObjectTypeTaxonomy;
   }
 
   public function setOffset(int $value)
@@ -228,8 +248,15 @@ class PhysicalObjectCsvImporter
     return $this->offset;
   }
 
-  public function setHeader(String $str)
+  public function setHeader(String $str = null)
   {
+    if (null === $str)
+    {
+      $this->options['header'] = null;
+
+      return;
+    }
+
     $columnNames = explode(',', trim($str));
 
     // Trim whitespace
@@ -255,7 +282,7 @@ EOM;
     {
       if (!array_key_exists($name, self::$columnMap))
       {
-        throw new sfException(sprintf('Column name "%s" in header is invalid.',
+        throw new sfException(sprintf('Column name "%s" in header is invalid',
           $name));
       }
     }
@@ -292,19 +319,10 @@ EOM;
     return $this->rowsTotal;
   }
 
-  public function setProgressFrequency(int $freq)
-  {
-    // Note: $progressFrequency == 0 turns off logging
-    $this->progressFrequency = ($freq > 0) ? $freq : 0;
-  }
-
-  public function getProgressFrequency()
-  {
-    return $this->progressFrequency;
-  }
-
   public function doImport($filename = null)
   {
+    $this->timer = new QubitTimer;
+
     if (null !== $filename)
     {
       $this->setFilename($filename);
@@ -330,11 +348,11 @@ EOL;
       try
       {
         $data = $this->processRow($record);
-        $this->savePhysicalobject($data);
+        $this->savePhysicalobjects($data);
       }
       catch (UnexpectedValueException $e)
       {
-        $this->logError(sprintf('Warning! Skipped row [%u/%u]: %s',
+        $this->logError(sprintf('Warning! skipped row [%u/%u]: %s',
           $this->offset, $this->rowsTotal, $e->getMessage()));
 
         continue;
@@ -384,48 +402,70 @@ EOL;
     throw new UnexpectedValueException('Couldn\'t determine row culture');
   }
 
-  public function getPhysicalObjectTypeTaxonomy()
-  {
-    if (null === $this->physicalObjectTypeTaxonomy)
-    {
-      // @codeCoverageIgnoreStart
-      $this->physicalObjectTypeTaxonomy = QubitTaxonomy::getById(
-        QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID,
-        array('connection' => $this->getDbConnection())
-      );
-      // @codeCoverageIgnoreEnd
-    }
-
-    return $this->physicalObjectTypeTaxonomy;
-  }
-
-  public function savePhysicalobject($data)
+  public function savePhysicalobjects($data)
   {
     // Setting the propel::defaultCulture is necessary for non-English rows
     // to prevent creating an empty i18n row with culture 'en'
     sfPropel::setDefaultCulture($data['culture']);
 
-    $physobj = new $this->ormClasses['physicalObject'];
-    $physobj->name     = $data['name'];
-    $physobj->typeId   = $data['typeId'];
-    $physobj->location = $data['location'];
+    $matches = $this->matchExistingRecords($data);
 
+    if (null === $matches)
+    {
+      $this->insertPhysicalObject($data);
+
+      return;
+    }
+
+    foreach ($matches as $item)
+    {
+      $this->updatePhysicalObject($item, $data);
+    }
+  }
+
+  protected function insertPhysicalObject($data)
+  {
+    if (!$this->getOption('insertNew'))
+    {
+      throw new UnexpectedValueException(sprintf(
+        'Couldn\'t match name "%s"', $data['name']
+      ));
+    }
+
+    // Create a new db object, if no match is found
+    $physobj = new $this->ormClasses['physicalObject'];
+
+    $physobj->name        = $data['name'];
+    $physobj->typeId      = $data['typeId'];
+    $physobj->location    = $data['location'];
+    $physobj->indexOnSave = $this->getOption('updateSearchIndex');
     $physobj->save($this->dbcon);
 
     $this->createKeymapEntry($physobj, $data);
 
-    // Write physical object to info object relations
-    foreach ($data['informationObjectIds'] as $objectId)
+    $physobj->addInfobjRelations($data['informationObjectIds']);
+  }
+
+  protected function updatePhysicalObject($physobj, $data)
+  {
+    if ($this->shouldUpdateDb($data['typeId']))
     {
-      $relation = new $this->ormClasses['relation'];
-      $relation->objectId  = $objectId;
-      $relation->subjectId = $physobj->id;
-      $relation->typeId    = QubitTerm::HAS_PHYSICAL_OBJECT_ID;
+      $physobj->typeId = $data['typeId'];
+    }
 
-      // Update search index?
-      $relation->indexOnSave = $this->updateSearchIndex;
+    if ($this->shouldUpdateDb($data['location']))
+    {
+      $physobj->location = $data['location'];
+    }
 
-      $relation->save($this->dbcon);
+    $physobj->indexOnSave = $this->getOption('updateSearchIndex');
+    $physobj->save($this->dbcon);
+
+    $this->createKeymapEntry($physobj, $data);
+
+    if ($this->shouldUpdateDb($data['informationObjectIds']))
+    {
+      $physobj->updateInfobjRelations($data['informationObjectIds']);
     }
   }
 
@@ -456,6 +496,59 @@ EOL;
     $keymap->save();
   }
 
+  public function matchExistingRecords($data)
+  {
+    $this->matchedExisting = 0;
+    $options = ['culture' => $data['culture']];
+
+    if (!$this->getOption('updateExisting'))
+    {
+      return null;
+    }
+
+    if ($this->getOption('partialMatches'))
+    {
+      $options = $options + ['partialMatch' => 'begin'];
+    }
+
+    $matches = $this->ormClasses['physicalObject']::getByName(
+      $data['name'], $options);
+
+    if (0 == count($matches))
+    {
+      return null;
+    }
+    else if (1 == count($matches))
+    {
+      $this->matchedExisting = 1;
+
+      return [$matches->current()];
+    }
+    else
+    {
+      return $this->handleMultipleMatches($data['name'], $matches);
+    }
+  }
+
+  public function handleMultipleMatches($name, $matches)
+  {
+    $this->matchedExisting = count($matches);
+
+    if ('skip' == $this->getOption('onMultiMatch'))
+    {
+      throw new UnexpectedValueException(sprintf(
+        'name "%s" matched %u existing records', $name, $this->matchedExisting
+      ));
+    }
+
+    if ('first' == $this->getOption('onMultiMatch'))
+    {
+      $matches = [$matches->current()];
+    }
+
+    return $matches;
+  }
+
   protected function log($msg)
   {
     // Just echo to STDOUT for now
@@ -467,19 +560,38 @@ EOL;
     fwrite($this->getErrorLogHandle(), $msg.PHP_EOL);
   }
 
+  protected function setProgressFrequency(int $freq)
+  {
+    // Note: $progressFrequency == 0 turns off logging
+    $this->options['progressFrequency'] = ($freq > 0) ? $freq : 0;
+  }
+
   protected function progressUpdate($data)
   {
-    $freq = $this->getProgressFrequency();
+    $freq = $this->getOption('progressFrequency');
 
     if (1 == $freq)
     {
-      $this->log(sprintf('Imported row [%u/%u]: name "%s"',
-        $this->offset, $this->rowsTotal, $data['name']));
+      if (0 == $this->matchedExisting)
+      {
+        $msg = 'Row [%u/%u]: name "%s" imported (%01.2fs)';
+      }
+      else {
+        $msg = 'Row [%u/%u]: Matched and updated name "%s" (%01.2fs)';
+      }
+
+      $this->log(sprintf(
+        $msg,
+        $this->offset,
+        $this->rowsTotal,
+        $data['name'],
+        $this->timer->elapsed()
+      ));
     }
     else if ($freq > 1 && 0 == $this->rowsImported % $freq)
     {
-      $this->log(sprintf('Imported %u of %u rows...',
-        $this->rowsImported, $this->rowsTotal));
+      $this->log(sprintf('Imported %u of %u rows (%01.2fs)...',
+        $this->rowsImported, $this->rowsTotal, $this->timer->elapsed()));
     }
   }
 
@@ -585,7 +697,7 @@ EOL;
       if (null === $infobj)
       {
         $this->logError(sprintf(
-          'Warning row [%u/%u]: Couldn\'t find a description with slug "%s".',
+          'Notice on row [%u/%u]: Ignored unknown description slug "%s"',
           $this->offset, $this->rowsTotal, $val)
         );
 
@@ -605,7 +717,7 @@ EOL;
       return [];
     }
 
-    $values = explode($this->multiValueDelimiter, $str);
+    $values = explode($this->getOption('multiValueDelimiter'), $str);
     $values = array_map('trim', $values);
 
     // Remove empty strings from array
@@ -645,7 +757,7 @@ EOL;
     {
       $this->typeIdLookupTable = $this
         ->getPhysicalObjectTypeTaxonomy()
-        ->getTermIdLookupTable($this->getDbConnection());
+        ->getTermNameToIdLookupTable($this->getDbConnection());
 
       if (null === $this->typeIdLookupTable)
       {
@@ -655,5 +767,20 @@ EOL;
     }
 
     return $this->typeIdLookupTable;
+  }
+
+  /**
+   * Check if $value should update the current db data
+   */
+  protected function shouldUpdateDb($value)
+  {
+    // If $value is empty, we shouldn't overwrite the existing DB data, *unless*
+    // overwriteWithEmpty option is true
+    if (empty($value) && !$this->getOption('overwriteWithEmpty'))
+    {
+      return false;
+    }
+
+    return true;
   }
 }
