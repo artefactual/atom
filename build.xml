@@ -72,8 +72,15 @@
   <target name="prepare" depends="debug">
     <delete dir="${build.dir}"/>
     <mkdir dir="${build.dir}"/>
+
+    <echo>Install production dependencies with composer</echo>
+    <exec command="composer install --no-dev" dir="${phing.dir}" checkreturn="true"/>
+
+    <echo>Compile css with less</echo>
     <exec command="make" dir="${phing.dir}/plugins/arDominionPlugin" checkreturn="true"/>
     <exec command="make" dir="${phing.dir}/plugins/arArchivesCanadaPlugin" checkreturn="true"/>
+
+    <echo>Run symfony release task</echo>
     <exec command="php symfony release --no-confirmation ${package.version} stable" dir="${phing.dir}" checkreturn="true"/>
   </target>
 
