@@ -21,7 +21,7 @@ class UserClipboardSendAction extends sfAction
 {
   public function execute($request)
   {
-    if (!sfConfig::get('app_clipboard_send_enabled', false))
+    if (empty(sfConfig::get('app_clipboard_send_enabled', false)) || empty(sfConfig::get('app_clipboard_send_url', '')))
     {
       // 403 - Forbidden
       $this->getResponse()->setStatusCode(403);
@@ -29,9 +29,9 @@ class UserClipboardSendAction extends sfAction
       return sfView::HEADER_ONLY;
     }
 
-    $this->allSlugs = $this->context->user->getClipboard()->getAllByClassName();
+    $slugsByClass = $this->context->user->getClipboard()->getAllByClassName();
 
-    if (!count($this->allSlugs))
+    if (!count($slugsByClass))
     {
       // Inform user that there's nothing to send and return to clipboard page
       $message = $this->context->i18n->__('No items in clipboard to send.');
@@ -51,12 +51,16 @@ class UserClipboardSendAction extends sfAction
 
       // Set payload data (site base URL and slugs in clipboard)
       $this->siteBaseUrl = sfConfig::get('app_siteBaseUrl');
-      $this->classSlugFieldNames = array();
 
-      // Create human-friendly form input names based on clipboard item's class name
-      foreach ($this->allSlugs as $className => $slugs)
+      // Create human-friendly form input names based on clipboard item's class
+      // name and serialize slugs
+      $this->classSlugFieldNames = array();
+      $this->serializedSlugs = array();
+
+      foreach ($slugsByClass as $className => $slugs)
       {
         $this->classSlugFieldNames[$className] = sfInflector::underscore(str_replace('Qubit', '', $className)) .'_slugs';
+        $this->serializedSlugs[$className] = json_encode($slugs);
       }
     }
   }
