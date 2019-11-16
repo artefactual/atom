@@ -1454,7 +1454,7 @@ CREATE TABLE `user`
 	`id` INTEGER  NOT NULL,
 	`username` VARCHAR(255),
 	`email` VARCHAR(255),
-	`sha1_password` VARCHAR(255),
+	`password_hash` VARCHAR(255),
 	`salt` VARCHAR(255),
 	`active` TINYINT default 1,
 	PRIMARY KEY (`id`),

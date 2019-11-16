@@ -39,7 +39,7 @@ class UserTableMap extends TableMap {
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'actor', 'ID', true, null, null);
 		$this->addColumn('USERNAME', 'username', 'VARCHAR', false, 255, null);
 		$this->addColumn('EMAIL', 'email', 'VARCHAR', false, 255, null);
-		$this->addColumn('SHA1_PASSWORD', 'sha1Password', 'VARCHAR', false, 255, null);
+		$this->addColumn('PASSWORD_HASH', 'passwordHash', 'VARCHAR', false, 255, null);
 		$this->addColumn('SALT', 'salt', 'VARCHAR', false, 255, null);
 		$this->addColumn('ACTIVE', 'active', 'BOOLEAN', false, null, true);
 		// validators

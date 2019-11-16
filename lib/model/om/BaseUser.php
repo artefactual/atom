@@ -10,7 +10,7 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
     ID = 'user.ID',
     USERNAME = 'user.USERNAME',
     EMAIL = 'user.EMAIL',
-    SHA1_PASSWORD = 'user.SHA1_PASSWORD',
+    PASSWORD_HASH = 'user.PASSWORD_HASH',
     SALT = 'user.SALT',
     ACTIVE = 'user.ACTIVE';
 
@@ -23,7 +23,7 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
     $criteria->addSelectColumn(QubitUser::ID);
     $criteria->addSelectColumn(QubitUser::USERNAME);
     $criteria->addSelectColumn(QubitUser::EMAIL);
-    $criteria->addSelectColumn(QubitUser::SHA1_PASSWORD);
+    $criteria->addSelectColumn(QubitUser::PASSWORD_HASH);
     $criteria->addSelectColumn(QubitUser::SALT);
     $criteria->addSelectColumn(QubitUser::ACTIVE);
 

@@ -173,7 +173,7 @@ class ldapUser extends myUser implements Zend_Acl_Role_Interface
     }
 
     // Cache entry
-    $hash = password_hash($password, PASSWORD_BCRYPT, array('cost' => 10));
+    $hash = QubitUser::generatePasswordHash($password);
     $cache->set($cacheKey, $hash, 120);
 
     return true;

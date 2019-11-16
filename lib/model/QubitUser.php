@@ -63,9 +63,21 @@ class QubitUser extends BaseUser
 
   public function setPassword($password)
   {
+    // Hash password first as SHA-1 (and salt) for backwards data compatibility
     $salt = md5(rand(100000, 999999).$this->getEmail());
     $this->setSalt($salt);
-    $this->setSha1Password(sha1($salt.$password));
+    $sha1Hash = sha1($salt . $password);
+
+    // Re-hash using more secure algorithm
+    $this->setPasswordHash(self::generatePasswordHash($sha1Hash));
+  }
+
+  public static function generatePasswordHash($password)
+  {
+    $hashAlgo = constant(sfConfig::get('app_password_hash_algorithm', 'PASSWORD_ARGON2I'));
+    $hashAlgoOptions = json_decode(sfConfig::get('app_password_hash_algorithm_options', '{}'), true);
+
+    return password_hash($password, $hashAlgo, $hashAlgoOptions);
   }
 
   public function getAclGroups()
@@ -115,8 +127,9 @@ class QubitUser extends BaseUser
         return null;
       }
 
-      // password is OK?
-      if (sha1($user->getSalt().$password) == $user->getSha1Password())
+      // Check password, hashed with salt using SHA-1, against stored hash
+      // (hash algorithm, options, and salt get detected from stored hash)
+      if (password_verify(sha1($user->getSalt() . $password), $user->getPasswordHash()))
       {
         $validCreds = true;
       }

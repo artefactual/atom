@@ -417,6 +417,6 @@ propel:
     id: { type: integer, required: true, primaryKey: true, foreignTable: actor, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     username: varchar(255)
     email: varchar(255)
-    sha1_password: varchar(255)
+    password_hash: varchar(255)
     salt: varchar(255)
     active: { type: boolean, default: true }
