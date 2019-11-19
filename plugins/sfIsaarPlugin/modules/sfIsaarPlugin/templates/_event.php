@@ -28,7 +28,7 @@
     </tbody>
   </table>
 
-  <a id="actorEventsNextButton" class="btn btn-small pull-right invisible" data-slug="<?php echo $resource->slug ?>">More</a>
+  <a id="actorEventsNextButton" class="btn btn-small pull-right invisible" data-slug="<?php echo $resource->slug ?>">Show more</a>
 
   <!-- Template for edit button -->
   <div id="editButtonTemplate" style="display: none">
