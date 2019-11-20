@@ -111,7 +111,8 @@
       data-collection-url="<?php echo url_for(array($resource->getCollectionRoot(), 'module' => 'informationobject')) ?>"
       data-collapse-enabled="<?php echo $collapsible ?>"
       data-opened-text="<?php echo sfConfig::get('app_ui_label_fullTreeviewCollapseOpenedButtonText') ?>"
-      data-closed-text="<?php echo sfConfig::get('app_ui_label_fullTreeviewCollapseClosedButtonText') ?>"></span>
+      data-closed-text="<?php echo sfConfig::get('app_ui_label_fullTreeviewCollapseClosedButtonText') ?>"
+      data-items-per-page="<?php echo $itemsPerPage ?>"></span>
 
   <?php endif; ?>
 

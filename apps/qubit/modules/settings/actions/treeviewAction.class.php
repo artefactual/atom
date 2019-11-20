@@ -28,7 +28,8 @@ class SettingsTreeviewAction extends DefaultEditAction
       'ioSort',
       'showIdentifier',
       'showLevelOfDescription',
-      'showDates');
+      'showDates',
+      'fullItemsPerPage');
 
   protected function earlyExecute()
   {
@@ -117,6 +118,21 @@ class SettingsTreeviewAction extends DefaultEditAction
         $this->addSettingRadioButtonsField($this->showDatesSetting, $name, $default, $options);
 
         break;
+
+      case 'fullItemsPerPage':
+        $this->fullItemsPerPageSetting = QubitSetting::getByName('treeview_full_items_per_page');
+
+        $default = 50;
+        if (isset($this->fullItemsPerPageSetting))
+        {
+          $default = $this->fullItemsPerPageSetting->getValue(array('sourceCulture' => true));
+        }
+        $this->form->setDefault($name, $default);
+
+        $this->form->setValidator($name, new sfValidatorInteger(array('min' => 10, 'max' => 1000)));
+        $this->form->setWidget($name, new sfWidgetFormInput);
+
+        break;
     }
   }
 
@@ -169,6 +185,11 @@ class SettingsTreeviewAction extends DefaultEditAction
 
       case 'showDates':
         $this->createOrUpdateSetting($this->showDatesSetting, 'treeview_show_dates', $field->getValue());
+
+        break;
+
+      case 'fullItemsPerPage':
+        $this->createOrUpdateSetting($this->fullItemsPerPageSetting, 'treeview_full_items_per_page', $field->getValue());
 
         break;
     }

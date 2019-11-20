@@ -44,13 +44,14 @@
     var $treeViewConfig = $('#fullwidth-treeview-configuration');
     var treeViewCollapseEnabled = $treeViewConfig.data('collapse-enabled') == 'yes';
     var collectionUrl = $treeViewConfig.data('collection-url');
+    var itemsPerPage = $treeViewConfig.data('items-per-page');
     var pathToApi  = '/informationobject/fullWidthTreeView';
     var $fwTreeView = $('<div id="fullwidth-treeview"></div>');
     var $fwTreeViewRow = $('<div id="fullwidth-treeview-row"></div>');
     var $mainHeader = $('#main-column h1').first();
     var $moreButton = $('#fullwidth-treeview-more-button');
     var $resetButton = $('#fullwidth-treeview-reset-button');
-    var pager = new Qubit.TreeviewPager(50, $fwTreeView, collectionUrl + pathToApi);
+    var pager = new Qubit.TreeviewPager(itemsPerPage, $fwTreeView, collectionUrl + pathToApi);
 
     // Add tree-view divs after main header, animate and allow resize
     $mainHeader.after(
@@ -144,13 +145,15 @@
     var readyListener = function ()
     {
       var $activeNode = $('li[selected_on_load="true"]')[0];
+
+      pager.updateMoreLink($moreButton, $resetButton);
+
+      // Override default scrolling
       if ($activeNode !== undefined)
       {
         $activeNode.scrollIntoView(true);
         $('body')[0].scrollIntoView(true);
       }
-
-      pager.updateMoreLink($moreButton, $resetButton);
     };
 
     // On node selection: load the informationobject's page and insert the current page

@@ -84,6 +84,13 @@
 
         </div>
 
+        <p>
+            <?php echo $form->fullItemsPerPage
+              ->label(__('Items per page'))
+              ->help(__('Items per page can be a minimum of 10 and a maximum of 1000'))
+              ->renderRow() ?>
+        </p>
+
       </fieldset>
 
     </div>
