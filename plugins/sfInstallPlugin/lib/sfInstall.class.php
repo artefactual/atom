@@ -45,9 +45,16 @@ class sfInstall
 
     // Check if a minimum PHP version is defined, and if it is less than our
     // current version
-    if (0 < strlen($min = $fd->find('p:dependencies/p:required/p:php/p:min')) && 0 > version_compare(PHP_VERSION, $min))
+    $nodes = $fd->find('p:dependencies/p:required/p:php/p:min');
+
+    if (count($nodes))
     {
-      $dependencies['php']['min'] = $min;
+      $min = $nodes[0]->textContent;
+
+      if (0 > version_compare(PHP_VERSION, $min))
+      {
+        $dependencies['php']['min'] = $min;
+      }
     }
 
     foreach ($fd->find('p:dependencies/*/p:extension/p:name') as $node)
