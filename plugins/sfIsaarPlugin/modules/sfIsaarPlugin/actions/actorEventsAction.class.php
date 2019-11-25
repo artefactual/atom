@@ -27,6 +27,13 @@ class sfIsaarPluginActorEventsAction extends sfAction
 {
   public function execute($request)
   {
+    if (empty($request->slug))
+    {
+      $this->response->setStatusCode(400);
+      $errorMessage = sfContext::getInstance()->i18n->__('Slug must be provided');
+      return $this->renderText(json_encode(array('error' => $errorMessage)));
+    }
+
     $actor = QubitActor::getBySlug($request->slug);
 
     $criteria = new Criteria;
