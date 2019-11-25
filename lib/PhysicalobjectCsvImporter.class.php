@@ -64,6 +64,7 @@ class PhysicalObjectCsvImporter
     'overwriteWithEmpty'  => false,
     'partialMatches'      => false,
     'progressFrequency'   => 1,
+    'quiet'               => false,
     'sourceName'          => null,
     'updateExisting'      => false,
     'updateSearchIndex'   => false,
@@ -200,11 +201,12 @@ class PhysicalObjectCsvImporter
         break;
 
       // boolean options
-      case 'partialMatches':
-      case 'updateExisting':
-      case 'overwriteWithEmpty':
-      case 'updateSearchIndex':
       case 'insertNew':
+      case 'overwriteWithEmpty':
+      case 'partialMatches':
+      case 'quiet':
+      case 'updateExisting':
+      case 'updateSearchIndex':
         $this->options[$name] = (bool) $value;
 
         break;
@@ -551,13 +553,19 @@ EOL;
 
   protected function log($msg)
   {
-    // Just echo to STDOUT for now
-    echo $msg.PHP_EOL;
+    if (!$this->getOption('quiet'))
+    {
+      echo $msg.PHP_EOL;
+    }
   }
 
   protected function logError($msg)
   {
-    fwrite($this->getErrorLogHandle(), $msg.PHP_EOL);
+    // Write to error log (but not STDERR) even in quiet mode
+    if (!$this->getOption('quiet') || STDERR != $this->getErrorLogHandle())
+    {
+      fwrite($this->getErrorLogHandle(), $msg.PHP_EOL);
+    }
   }
 
   protected function setProgressFrequency(int $freq)

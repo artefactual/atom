@@ -169,8 +169,9 @@ EOF;
       'index'             => 'updateSearchIndex',
       'skip-rows'         => 'offset',
       'skip-unmatched'    => 'insertNew',
-      'partial-matches'   => 'partialMatches',
       'multi-match'       => 'onMultiMatch',
+      'partial-matches'   => 'partialMatches',
+      'quiet'             => 'quiet',
       'rows-until-update' => 'progressFrequency',
       'source-name'       => 'sourceName',
       'update'            => 'updateExisting'

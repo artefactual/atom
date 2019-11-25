@@ -92,6 +92,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
       'overwriteWithEmpty'  => false,
       'partialMatches'      => false,
       'progressFrequency'   => 1,
+      'quiet'               => false,
       'sourceName'          => null,
       'updateExisting'      => false,
       'updateSearchIndex'   => false,
@@ -120,6 +121,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
         'overwriteWithEmpty'  => false,
         'partialMatches'      => false,
         'progressFrequency'   => 1,
+        'quiet'               => false,
         'sourceName'          => null,
         'updateExisting'      => true,
         'updateSearchIndex'   => false,
@@ -426,6 +428,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
     $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
     $importer->setOrmClasses($this->ormClasses);
+    $importer->setOption('quiet', true);
 
     $importer->doImport($this->vfs->url().'/unix.csv');
 
@@ -442,6 +445,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $importer->setOrmClasses($this->ormClasses);
     $importer->setOption('errorLog', $this->vfs->url().'/error.log');
     $importer->setOption('progressFrequency', 2);
+    $importer->setOption('quiet', true);
 
     $importer->doImport($this->vfs->url().'/windows.csv');
 
@@ -458,6 +462,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $importer->setOrmClasses($this->ormClasses);
     $importer->setOffset(1);
     $importer->setOption('progressFrequency', 0);
+    $importer->setOption('quiet', true);
 
     $importer->doImport($this->vfs->url().'/unix.csv');
 
@@ -473,6 +478,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
     $importer->setOrmClasses($this->ormClasses);
     $importer->setHeader($this->csvHeader);
+    $importer->setOption('quiet', true);
 
     $importer->doImport($this->vfs->url().'/noheader.csv');
 
@@ -488,6 +494,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
       ['updateExisting' => true, 'onMultiMatch' => 'first']);
     $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
     $importer->setOrmClasses($this->ormClasses);
+    $importer->setOption('quiet', true);
 
     $importer->doImport($this->vfs->url().'/unix.csv');
 
@@ -504,6 +511,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
       ['updateExisting' => true, 'insertNew' => false]);
     $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
     $importer->setOrmClasses($this->ormClasses);
+    $importer->setOption('quiet', true);
 
     $importer->doImport($this->vfs->url().'/unix.csv');
 
@@ -523,6 +531,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
       ['defaultCulture' => 'en']);
     $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
     $importer->setOrmClasses($this->ormClasses);
+    $importer->setOption('quiet', true);
 
     $result = $importer->processRow($data);
 
