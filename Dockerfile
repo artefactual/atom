@@ -1,6 +1,8 @@
 FROM php:7.2-fpm-alpine
 
-ENV FOP_HOME /usr/share/fop-2.1
+ENV FOP_HOME=/usr/share/fop-2.1 COMPOSER_ALLOW_SUPERUSER=1
+
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 COPY . /atom/src
 
@@ -47,7 +49,8 @@ RUN set -xe \
 		&& curl -Ls https://archive.apache.org/dist/xmlgraphics/fop/binaries/fop-2.1-bin.tar.gz | tar xz -C /usr/share \
 		&& ln -sf /usr/share/fop-2.1/fop /usr/local/bin/fop \
 		&& make -C /atom/src/plugins/arDominionPlugin \
-		&& make -C /atom/src/plugins/arArchivesCanadaPlugin
+		&& make -C /atom/src/plugins/arArchivesCanadaPlugin \
+		&& composer install -d /atom/src
 
 WORKDIR /atom/src
 
