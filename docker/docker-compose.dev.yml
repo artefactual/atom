@@ -4,6 +4,7 @@ version: "2"
 volumes:
   elasticsearch_data:
   percona_data:
+  composer_deps:
 
 services:
 
@@ -11,6 +12,7 @@ services:
     build: ..
     env_file: etc/environment
     volumes:
+      - composer_deps:/atom/src/vendor/composer
       - ..:/atom/src:rw
 
   atom_worker:
@@ -22,6 +24,7 @@ services:
       - percona
     restart: on-failure:5
     volumes:
+      - composer_deps:/atom/src/vendor/composer
       - ..:/atom/src:rw
 
   nginx:
