@@ -62,6 +62,11 @@
     function draw() {
       var urlWithArgs = url + "?slug=" + slug + "&skip={skip}&limit={limit}";
 
+      // Do nothing if no slug provided
+      if (slug == "") {
+        return;
+      }
+
       $.ajax({
         url: pager.replaceUrlTags(urlWithArgs),
         success: function(data) {
