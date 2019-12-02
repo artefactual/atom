@@ -327,7 +327,7 @@ CREATE TABLE `digital_object`
 	`checksum_type` VARCHAR(50),
 	`parent_id` INTEGER,
 	PRIMARY KEY (`id`),
-	KEY `path`(`path`),
+	KEY `path`(`path`(768)),
 	CONSTRAINT `digital_object_FK_1`
 		FOREIGN KEY (`id`)
 		REFERENCES `object` (`id`)

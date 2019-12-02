@@ -554,7 +554,8 @@ class sfInstall
   public static function modifySql()
   {
     // Propel version is unable to set column collation from schema.yml.
-    $sql = "ALTER TABLE `slug` MODIFY `slug` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin";
+    // Keep PAD SPACE collation `utf8mb4_bin` (instead of new `utf8mb4_0900_bin`).
+    $sql = "ALTER TABLE `slug` MODIFY `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin";
     QubitPdo::modify($sql);
   }
 }

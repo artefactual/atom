@@ -110,7 +110,7 @@ propel:
     checksum_type: type: varchar(50)
     parent_id: { type: integer, foreignTable: digital_object, foreignReference: id }
     _indexes:
-      path: [path]
+      path: [path(768)]
 
   event:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
