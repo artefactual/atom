@@ -414,13 +414,13 @@ CREATE TABLE `event_i18n`
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- function
+#-- function_object
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `function`;
+DROP TABLE IF EXISTS `function_object`;
 
 
-CREATE TABLE `function`
+CREATE TABLE `function_object`
 (
 	`id` INTEGER  NOT NULL,
 	`type_id` INTEGER,
@@ -433,36 +433,36 @@ CREATE TABLE `function`
 	`rgt` INTEGER,
 	`source_culture` VARCHAR(16)  NOT NULL,
 	PRIMARY KEY (`id`),
-	CONSTRAINT `function_FK_1`
+	CONSTRAINT `function_object_FK_1`
 		FOREIGN KEY (`id`)
 		REFERENCES `object` (`id`)
 		ON DELETE CASCADE,
-	INDEX `function_FI_2` (`type_id`),
-	CONSTRAINT `function_FK_2`
+	INDEX `function_object_FI_2` (`type_id`),
+	CONSTRAINT `function_object_FK_2`
 		FOREIGN KEY (`type_id`)
 		REFERENCES `term` (`id`),
-	INDEX `function_FI_3` (`parent_id`),
-	CONSTRAINT `function_FK_3`
+	INDEX `function_object_FI_3` (`parent_id`),
+	CONSTRAINT `function_object_FK_3`
 		FOREIGN KEY (`parent_id`)
-		REFERENCES `function` (`id`),
-	INDEX `function_FI_4` (`description_status_id`),
-	CONSTRAINT `function_FK_4`
+		REFERENCES `function_object` (`id`),
+	INDEX `function_object_FI_4` (`description_status_id`),
+	CONSTRAINT `function_object_FK_4`
 		FOREIGN KEY (`description_status_id`)
 		REFERENCES `term` (`id`),
-	INDEX `function_FI_5` (`description_detail_id`),
-	CONSTRAINT `function_FK_5`
+	INDEX `function_object_FI_5` (`description_detail_id`),
+	CONSTRAINT `function_object_FK_5`
 		FOREIGN KEY (`description_detail_id`)
 		REFERENCES `term` (`id`)
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- function_i18n
+#-- function_object_i18n
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `function_i18n`;
+DROP TABLE IF EXISTS `function_object_i18n`;
 
 
-CREATE TABLE `function_i18n`
+CREATE TABLE `function_object_i18n`
 (
 	`authorized_form_of_name` VARCHAR(1024),
 	`classification` VARCHAR(1024),
@@ -477,9 +477,9 @@ CREATE TABLE `function_i18n`
 	`id` INTEGER  NOT NULL,
 	`culture` VARCHAR(16)  NOT NULL,
 	PRIMARY KEY (`id`,`culture`),
-	CONSTRAINT `function_i18n_FK_1`
+	CONSTRAINT `function_object_i18n_FK_1`
 		FOREIGN KEY (`id`)
-		REFERENCES `function` (`id`)
+		REFERENCES `function_object` (`id`)
 		ON DELETE CASCADE
 )Engine=InnoDB;
 

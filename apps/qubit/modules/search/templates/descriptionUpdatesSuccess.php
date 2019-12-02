@@ -118,7 +118,7 @@
                 <?php $name = render_title(get_search_i18n($doc, 'authorizedFormOfName', array('allowEmpty' => false))) ?>
                 <?php echo link_to($name, array('slug' => $doc['slug'], 'module' => 'actor')) ?>
 
-              <?php elseif ('QubitFunction' == $className): ?>
+              <?php elseif ('QubitFunctionObject' == $className): ?>
 
                 <?php $name = render_title(get_search_i18n($doc, 'authorizedFormOfName', array('allowEmpty' => false))) ?>
                 <?php echo link_to($name, array('slug' => $doc['slug'], 'module' => 'function')) ?>

@@ -409,7 +409,7 @@ mapping:
       thematic_areas: { type: integer, include_in_all: false }
       logo_path: { type: keyword, include_in_all: false }
 
-  function:
+  function_object:
     _attributes:
       i18n: true
       timestamp: true

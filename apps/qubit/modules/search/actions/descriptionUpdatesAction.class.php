@@ -47,7 +47,7 @@ class SearchDescriptionUpdatesAction extends sfAction
           'QubitActor' => sfConfig::get('app_ui_label_actor'),
           'QubitRepository' => sfConfig::get('app_ui_label_repository'),
           'QubitTerm' => sfConfig::get('app_ui_label_term'),
-          'QubitFunction' => sfConfig::get('app_ui_label_function'));
+          'QubitFunctionObject' => sfConfig::get('app_ui_label_function'));
 
         $this->form->setValidator($name, new sfValidatorString);
         $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));

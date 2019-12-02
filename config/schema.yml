@@ -127,10 +127,10 @@ propel:
     description: longvarchar
     date: varchar(1024)
 
-  function:
+  function_object:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     type_id: { type: integer, foreignTable: term, foreignReference: id }
-    parent_id: { type: integer, foreignTable: function, foreignReference: id }
+    parent_id: { type: integer, foreignTable: function_object, foreignReference: id }
     description_status_id: { type: integer, foreignTable: term, foreignReference: id }
     description_detail_id: { type: integer, foreignTable: term, foreignReference: id }
     description_identifier: varchar(1024)
@@ -138,7 +138,7 @@ propel:
     lft: integer
     rgt: integer
 
-  function_i18n:
+  function_object_i18n:
     authorized_form_of_name: varchar(1024)
     classification: varchar(1024)
     dates: varchar(1024)

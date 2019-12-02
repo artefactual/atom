@@ -74,15 +74,15 @@ class FunctionBrowseAction extends sfAction
 
     if (isset($request->subquery))
     {
-      $criteria->addJoin(QubitFunction::ID, QubitFunctionI18n::ID);
-      $criteria->add(QubitFunctionI18n::CULTURE, $this->context->user->getCulture());
-      $criteria->add(QubitFunctionI18n::AUTHORIZED_FORM_OF_NAME, "%$request->subquery%", Criteria::LIKE);
+      $criteria->addJoin(QubitFunctionObject::ID, QubitFunctionObjectI18n::ID);
+      $criteria->add(QubitFunctionObjectI18n::CULTURE, $this->context->user->getCulture());
+      $criteria->add(QubitFunctionObjectI18n::AUTHORIZED_FORM_OF_NAME, "%$request->subquery%", Criteria::LIKE);
     }
 
     switch ($request->sort)
     {
       case 'identifier':
-        $criteria->$sortFunction(QubitFunction::DESCRIPTION_IDENTIFIER);
+        $criteria->$sortFunction(QubitFunctionObject::DESCRIPTION_IDENTIFIER);
         // And then back to authorized form of name
       case 'alphabetic':
         $criteria->$sortFunction('authorized_form_of_name');
@@ -97,10 +97,10 @@ class FunctionBrowseAction extends sfAction
     }
 
     // Do source culture fallback
-    $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitFunction');
+    $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitFunctionObject');
 
     // Page results
-    $this->pager = new QubitPager('QubitFunction');
+    $this->pager = new QubitPager('QubitFunctionObject');
     $this->pager->setCriteria($criteria);
     $this->pager->setMaxPerPage($request->limit);
     $this->pager->setPage($request->page);

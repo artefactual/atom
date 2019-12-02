@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitFunction extends BaseFunction
+class QubitFunctionObject extends BaseFunctionObject
 {
   public function save($connection = null)
   {
@@ -72,7 +72,7 @@ class QubitFunction extends BaseFunction
         return array();
     }
 
-    return call_user_func_array(array($this, 'BaseFunction::__get'), $args);
+    return call_user_func_array(array($this, 'BaseFunctionObject::__get'), $args);
   }
 
   public function __set($name, $value)
@@ -113,7 +113,7 @@ class QubitFunction extends BaseFunction
         return $this;
     }
 
-    return call_user_func_array(array($this, 'BaseFunction::__set'), $args);
+    return call_user_func_array(array($this, 'BaseFunctionObject::__set'), $args);
   }
 
   protected function insert($connection = null)

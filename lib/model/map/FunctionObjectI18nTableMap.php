@@ -2,7 +2,7 @@
 
 
 /**
- * This class defines the structure of the 'function_i18n' table.
+ * This class defines the structure of the 'function_object_i18n' table.
  *
  *
  *
@@ -13,12 +13,12 @@
  *
  * @package    lib.model.map
  */
-class FunctionI18nTableMap extends TableMap {
+class FunctionObjectI18nTableMap extends TableMap {
 
 	/**
 	 * The (dot-path) name of this class
 	 */
-	const CLASS_NAME = 'lib.model.map.FunctionI18nTableMap';
+	const CLASS_NAME = 'lib.model.map.FunctionObjectI18nTableMap';
 
 	/**
 	 * Initialize the table attributes, columns and validators
@@ -30,9 +30,9 @@ class FunctionI18nTableMap extends TableMap {
 	public function initialize()
 	{
 	  // attributes
-		$this->setName('function_i18n');
-		$this->setPhpName('functionI18n');
-		$this->setClassname('QubitFunctionI18n');
+		$this->setName('function_object_i18n');
+		$this->setPhpName('functionObjectI18n');
+		$this->setClassname('QubitFunctionObjectI18n');
 		$this->setPackage('lib.model');
 		$this->setUseIdGenerator(false);
 		// columns
@@ -46,7 +46,7 @@ class FunctionI18nTableMap extends TableMap {
 		$this->addColumn('REVISION_HISTORY', 'revisionHistory', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('RULES', 'rules', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('SOURCES', 'sources', 'LONGVARCHAR', false, null, null);
-		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'function', 'ID', true, null, null);
+		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'function_object', 'ID', true, null, null);
 		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 7, null);
 		// validators
 	} // initialize()
@@ -56,7 +56,7 @@ class FunctionI18nTableMap extends TableMap {
 	 */
 	public function buildRelations()
 	{
-    $this->addRelation('function', 'function', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('functionObject', 'functionObject', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
 	} // buildRelations()
 
-} // FunctionI18nTableMap
+} // FunctionObjectI18nTableMap

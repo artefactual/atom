@@ -24,7 +24,7 @@
  * @subpackage arElasticSearchPlugin
  * @author     Mike Cantelon <mike@artefactual.com>
  */
-class arElasticSearchFunctionPdo
+class arElasticSearchFunctionObjectPdo
 {
   public
     $i18ns;
@@ -82,7 +82,7 @@ class arElasticSearchFunctionPdo
                 slug.slug,
                 object.created_at,
                 object.updated_at
-              FROM `'.QubitFunction::TABLE_NAME.'` func
+              FROM `'.QubitFunctionObject::TABLE_NAME.'` func
               JOIN '.QubitSlug::TABLE_NAME.' slug
                 ON func.id = slug.object_id
               JOIN '.QubitObject::TABLE_NAME.' object
@@ -134,7 +134,7 @@ class arElasticSearchFunctionPdo
     $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($this->updated_at);
 
     $serialized['sourceCulture'] = $this->source_culture;
-    $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($this->id, array('QubitFunction'));
+    $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($this->id, array('QubitFunctionObject'));
 
     return $serialized;
   }

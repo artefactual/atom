@@ -38,9 +38,9 @@ class FunctionListAction extends sfAction
 
     if (isset($request->subquery))
     {
-      $criteria->addJoin(QubitFunction::ID, QubitFunctionI18n::ID);
-      $criteria->add(QubitFunctionI18n::CULTURE, $this->context->user->getCulture());
-      $criteria->add(QubitFunctionI18n::AUTHORIZED_FORM_OF_NAME, "%$request->subquery%", Criteria::LIKE);
+      $criteria->addJoin(QubitFunctionObject::ID, QubitFunctionObjectI18n::ID);
+      $criteria->add(QubitFunctionObjectI18n::CULTURE, $this->context->user->getCulture());
+      $criteria->add(QubitFunctionObjectI18n::AUTHORIZED_FORM_OF_NAME, "%$request->subquery%", Criteria::LIKE);
     }
     else
     {
@@ -48,7 +48,7 @@ class FunctionListAction extends sfAction
     }
 
     // Page results
-    $this->pager = new QubitPager('QubitFunction');
+    $this->pager = new QubitPager('QubitFunctionObject');
     $this->pager->setCriteria($criteria);
     $this->pager->setMaxPerPage($request->limit);
     $this->pager->setPage($request->page);

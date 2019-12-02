@@ -30,7 +30,7 @@ class FunctionEditAction extends DefaultEditAction
   {
     $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
-    $this->resource = new QubitFunction;
+    $this->resource = new QubitFunctionObject;
     if (isset($this->getRoute()->resource))
     {
       $this->resource = $this->getRoute()->resource;

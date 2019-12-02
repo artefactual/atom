@@ -39,9 +39,9 @@ class ActorIndexAction extends sfAction
 
     $criteria = new Criteria;
     $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
-    $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitFunction::ID);
+    $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitFunctionObject::ID);
 
-    $this->functions = QubitFunction::get($criteria);
+    $this->functions = QubitFunctionObject::get($criteria);
 
     $this->digitalObjectLink = $this->resource->getDigitalObjectLink();
   }

@@ -71,9 +71,9 @@ class DefaultTranslationLinksComponent extends sfComponent
 
         break;
 
-      case 'QubitFunction':
+      case 'QubitFunctionObject':
         $this->module = 'function';
-        $i18ns = $this->resource->functionI18ns;
+        $i18ns = $this->resource->functionObjectI18ns;
         $propertyName = 'authorizedFormOfName';
         $sourceCultureProperty = $this->resource->getAuthorizedFormOfName(array('sourceCulture' => true));
 
