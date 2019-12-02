@@ -502,13 +502,13 @@ class QubitMigrate
         // From the list of columns that the codebase is giving us, it may happen that some of them are
         // not available yet in the database since we are still running the migration. If this is the case,
         // ignore it, otherwise the UPDATE will fail.
-        if (false === QubitPdo::fetchOne("SHOW COLUMNS FROM `$item[table]` LIKE ?", array($item['column'])))
+        if (false === QubitPdo::fetchOne("SHOW COLUMNS FROM $item[table] LIKE ?", array($item['column'])))
         {
           continue;
         }
 
         QubitPdo::modify(
-          "UPDATE `$item[table]` SET $item[column] = ? WHERE $item[column] = ?", array(
+          "UPDATE $item[table] SET $item[column] = ? WHERE $item[column] = ?", array(
             $last,
             $id));
       }

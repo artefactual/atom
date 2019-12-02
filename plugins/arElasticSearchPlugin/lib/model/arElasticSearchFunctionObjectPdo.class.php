@@ -82,7 +82,7 @@ class arElasticSearchFunctionObjectPdo
                 slug.slug,
                 object.created_at,
                 object.updated_at
-              FROM `'.QubitFunctionObject::TABLE_NAME.'` func
+              FROM '.QubitFunctionObject::TABLE_NAME.' func
               JOIN '.QubitSlug::TABLE_NAME.' slug
                 ON func.id = slug.object_id
               JOIN '.QubitObject::TABLE_NAME.' object

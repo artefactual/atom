@@ -22,7 +22,7 @@ class arElasticSearchFunctionObject extends arElasticSearchModelBase
   public function load()
   {
     $sql  = 'SELECT func.id';
-    $sql .= ' FROM `'.QubitFunctionObject::TABLE_NAME.'` func';
+    $sql .= ' FROM '.QubitFunctionObject::TABLE_NAME.' func';
     $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON func.id = object.id';
     $sql .= ' WHERE object.class_name = ?';
     $sql .= ' ORDER BY func.lft';
