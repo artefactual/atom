@@ -101,6 +101,8 @@ class arInformationObjectXmlExportJob extends arBaseJob
 
     $search = QubitSearch::getInstance()->index->getType('QubitInformationObject')->createSearch($this->search->getQuery(false, false));
 
+    $xmlCachingEnabled = sfConfig::get('app_cache_xml_on_save', false);
+
     // Scroll through results then iterate through resulting IDs
     foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id)
     {
@@ -117,7 +119,7 @@ class arInformationObjectXmlExportJob extends arBaseJob
           continue;
         }
 
-        $this->exportResource($resource, $path);
+        $this->exportResource($resource, $path, $xmlCachingEnabled);
 
         // Log progress every 1000 rows
         if ($itemsExported && ($itemsExported % 1000 == 0))
@@ -136,26 +138,44 @@ class arInformationObjectXmlExportJob extends arBaseJob
   /**
    * Export XML to file
    *
-   * @param object  information object to be export
-   * @param string  xml export path
+   * @param object   information object to be exported
+   * @param string   xml export path
+   * @param boolean  whether to use XML cache files
    *
    * @return null
    */
-  protected function exportResource($resource, $path)
+  protected function exportResource($resource, $path, $useCacheFiles)
   {
-    try
+    $xml = null;
+
+    // If XML file caching is enabled then check to see if the XML has been cached
+    if ($useCacheFiles)
     {
-      // Print warnings/notices here too, as they are often important.
-      $errLevel = error_reporting(E_ALL);
+      $cachedXmlFilePath = QubitInformationObjectXmlCache::resourceExportFilePath($resource, $this->params['format']);
 
-      $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput($resource, $this->params['format'], $this->params);
-      $xml = Qubit::tidyXml($rawXml);
-
-      error_reporting($errLevel);
+      if (file_exists($cachedXmlFilePath))
+      {
+        $xml = file_get_contents($cachedXmlFilePath);
+      }
     }
-    catch (Exception $e)
+
+    // If no cached XML has been fetched then generate XML on the fly
+    if (empty($xml))
     {
-      throw new sfException($this->i18n->__('Invalid XML generated for object %1%.', array('%1%' => $row['id'])));
+      try
+      {
+        // Print warnings/notices here too, as they are often important.
+        $errLevel = error_reporting(E_ALL);
+
+        $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput($resource, $this->params['format'], $this->params);
+        $xml = Qubit::tidyXml($rawXml);
+
+        error_reporting($errLevel);
+      }
+      catch (Exception $e)
+      {
+        throw new sfException($this->i18n->__('Invalid XML generated for object %1%.', array('%1%' => $row['id'])));
+      }
     }
 
     $filename = exportBulkBaseTask::generateSortableFilename($resource, 'xml', $this->params['format']);
