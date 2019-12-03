@@ -100,6 +100,7 @@ EOF;
     // Get all master digital objects
     $query = 'SELECT do.id
       FROM digital_object do JOIN information_object io ON do.object_id = io.id';
+    $whereClauses = array();
 
     // Limit to a branch
     if ($options['slug'])
@@ -115,7 +116,7 @@ EOF;
         throw new sfException("Invalid slug");
       }
 
-      $query .= ' WHERE io.lft >= '.$row->lft.' and io.rgt <= '.$row->rgt;
+      array_push($whereClauses, sprintf('io.lft >= %d AND io.rgt <= %d', $row->lft, $row->rgt));
     }
 
     // Only regenerate derivatives for remote digital objects
@@ -142,7 +143,7 @@ EOF;
     if ($options['no-overwrite'])
     {
       $query .= ' LEFT JOIN digital_object child ON do.id = child.parent_id';
-      $query .= ' WHERE do.parent_id IS NULL AND child.id IS NULL';
+      array_push($whereClauses, 'do.parent_id IS NULL AND child.id IS NULL');
     }
 
     // Final confirmation (skip if no-overwrite)
@@ -172,6 +173,12 @@ EOF;
 
         return 1;
       }
+    }
+
+    // Add WHERE clauses to SQL query
+    if (count($whereClauses))
+    {
+      $query .= sprintf(' WHERE %s', implode(' AND ', $whereClauses));
     }
 
     // Do work
