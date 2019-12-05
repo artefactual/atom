@@ -86,16 +86,28 @@ class arMigration0177
         array(':column_name' => $data['column'])
       );
 
-      // Rename if found
-      if ($result && $result->Key_name)
+      // Stop if the index is missing
+      if (!$result || !$result->Key_name)
       {
-        QubitPdo::modify(sprintf(
-          'ALTER TABLE %s RENAME INDEX %s TO %s;',
-          $data['table'],
-          $result->Key_name,
-          $data['index'])
-        );
+        throw new Exception(sprintf(
+          "Could not find index for '%s' column on '%s' table.",
+          $data['column'],
+          $data['table']
+        ));
       }
+
+      // Skip if the index already has the expected name
+      if ($result->Key_name == $data['index'])
+      {
+        continue;
+      }
+
+      QubitPdo::modify(sprintf(
+        'ALTER TABLE %s RENAME INDEX %s TO %s;',
+        $data['table'],
+        $result->Key_name,
+        $data['index']
+      ));
     }
 
     // Fix foreign keys:
@@ -130,28 +142,34 @@ class arMigration0177
         ':ref_table_name' => $foreignKey['refTableName'],
       ));
 
-      // Recreate if found
-      if ($oldConstraintName)
+      // Stop if the foreign key is missing
+      if (!$oldConstraintName)
       {
-        // Having the same name requires to drop and add in two statements
-        $sql = 'ALTER TABLE %s DROP FOREIGN KEY %s;';
-        QubitPdo::modify(sprintf(
-          $sql,
-          $foreignKey['tableName'],
-          $oldConstraintName
-        ));
-
-        $sql = 'ALTER TABLE %s ADD CONSTRAINT %s FOREIGN KEY (%s) ';
-        $sql .= 'REFERENCES %s (id) %s;';
-        QubitPdo::modify(sprintf(
-          $sql,
-          $foreignKey['tableName'],
-          $foreignKey['newConstraintName'],
+        throw new Exception(sprintf(
+          "Could not find foreign key for '%s' column on '%s' table.",
           $foreignKey['columnName'],
-          $foreignKey['refTableName'],
-          $foreignKey['onDelete']
+          $foreignKey['tableName']
         ));
       }
+
+      // Having the same name requires to drop and add in two statements
+      $sql = 'ALTER TABLE %s DROP FOREIGN KEY %s;';
+      QubitPdo::modify(sprintf(
+        $sql,
+        $foreignKey['tableName'],
+        $oldConstraintName
+      ));
+
+      $sql = 'ALTER TABLE %s ADD CONSTRAINT %s FOREIGN KEY (%s) ';
+      $sql .= 'REFERENCES %s (id) %s;';
+      QubitPdo::modify(sprintf(
+        $sql,
+        $foreignKey['tableName'],
+        $foreignKey['newConstraintName'],
+        $foreignKey['columnName'],
+        $foreignKey['refTableName'],
+        $foreignKey['onDelete']
+      ));
     }
 
     // Restore NOT NULL constraint on culture columns (removed on migration 172)

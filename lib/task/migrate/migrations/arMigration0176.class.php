@@ -63,12 +63,23 @@ class arMigration0176
       $sql = 'SHOW INDEX FROM function_object WHERE Column_name=:column_name;';
       $result = QubitPdo::fetchOne($sql, array(':column_name' => $columnName));
 
-      // Rename if found
-      if ($result && $result->Key_name)
+      // Stop if the index is missing
+      if (!$result || !$result->Key_name)
       {
-        $sql = 'ALTER TABLE function_object RENAME INDEX %s TO %s;';
-        QubitPdo::modify(sprintf($sql, $result->Key_name, $indexName));
+        throw new Exception(sprintf(
+          "Could not find index for '%s' column on 'function_object' table.",
+          $columnName
+        ));
       }
+
+      // Skip if the index already has the expected name
+      if ($result->Key_name == $indexName)
+      {
+        continue;
+      }
+
+      $sql = 'ALTER TABLE function_object RENAME INDEX %s TO %s;';
+      QubitPdo::modify(sprintf($sql, $result->Key_name, $indexName));
     }
 
     // Recreate foreign keys to match a new install
@@ -129,22 +140,28 @@ class arMigration0176
         ':ref_table_name' => $foreignKey['refTableName'],
       ));
 
-      // Recreate if found
-      if ($oldConstraintName)
+      // Stop if the foreign key is missing
+      if (!$oldConstraintName)
       {
-        $sql = 'ALTER TABLE %s DROP FOREIGN KEY %s,';
-        $sql .= 'ADD CONSTRAINT %s FOREIGN KEY (%s) ';
-        $sql .= 'REFERENCES %s (id) %s;';
-        QubitPdo::modify(sprintf(
-          $sql,
-          $foreignKey['tableName'],
-          $oldConstraintName,
-          $foreignKey['newConstraintName'],
+        throw new Exception(sprintf(
+          "Could not find foreign key for '%s' column on '%s' table.",
           $foreignKey['columnName'],
-          $foreignKey['refTableName'],
-          $foreignKey['onDelete']
+          $foreignKey['tableName']
         ));
       }
+
+      $sql = 'ALTER TABLE %s DROP FOREIGN KEY %s,';
+      $sql .= 'ADD CONSTRAINT %s FOREIGN KEY (%s) ';
+      $sql .= 'REFERENCES %s (id) %s;';
+      QubitPdo::modify(sprintf(
+        $sql,
+        $foreignKey['tableName'],
+        $oldConstraintName,
+        $foreignKey['newConstraintName'],
+        $foreignKey['columnName'],
+        $foreignKey['refTableName'],
+        $foreignKey['onDelete']
+      ));
     }
 
     return true;
