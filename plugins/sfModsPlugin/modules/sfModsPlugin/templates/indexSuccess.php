@@ -79,7 +79,7 @@
 
   <?php echo get_partial('object/placeAccessPoints', array('resource' => $resource, 'mods' => true)) ?>
 
-  <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource, 'mods' => true)) ?>
+  <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource, 'mods' => true, 'showActorEvents' => true)) ?>
 
   <?php echo render_show(__('Access condition'), render_value($resource->getAccessConditions(array('cultureFallback' => true)))) ?>
 

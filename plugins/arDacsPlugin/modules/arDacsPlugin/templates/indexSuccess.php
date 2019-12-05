@@ -260,7 +260,7 @@
 
   <?php echo get_partial('object/placeAccessPoints', array('resource' => $resource)) ?>
 
-  <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource)) ?>
+  <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource, 'showActorEvents' => true)) ?>
 
   <?php echo get_partial('informationobject/genreAccessPoints', array('resource' => $resource)) ?>
 

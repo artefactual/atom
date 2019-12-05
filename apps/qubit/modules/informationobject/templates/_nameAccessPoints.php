@@ -10,12 +10,14 @@
 
   <div>
     <ul>
-      <?php if (isset($sidebar)): ?>
+      <?php if (isset($showActorEvents) || isset($sidebar)): ?>
         <?php $actorsShown = array(); ?>
         <?php foreach ($resource->getActorEvents() as $item): ?>
-          <?php if (isset($item->actor) && !isset($actorsShown[$item->actor->id])): ?>
-            <li><?php echo link_to(render_title($item->actor), array($item->actor)) ?> <span class="note2">(<?php echo render_value_inline($item->type->getRole()) ?>)</span></li>
-            <?php $actorsShown[$item->actor->id] = true; ?>
+          <?php if (isset($sidebar) || $item->type->id != QubitTerm::CREATION_ID): ?>
+            <?php if (isset($item->actor) && !isset($actorsShown[$item->actor->id])): ?>
+              <li><?php echo link_to(render_title($item->actor), array($item->actor)) ?> <span class="note2">(<?php echo render_value_inline($item->type->getRole()) ?>)</span></li>
+              <?php $actorsShown[$item->actor->id] = true; ?>
+            <?php endif; ?>
           <?php endif; ?>
         <?php endforeach; ?>
       <?php endif; ?>
