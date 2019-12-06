@@ -46,8 +46,6 @@ class arMigration0178
     // - Use MODIFY over each column instead of a single CONVERT because the
     //   later transforms TEXT columns to MEDIUMTEXT.
     // - Reduce DO path index size for the extra byte.
-    // - Restore the NOT NULL constraint on slug and culture columns (removed
-    //   on migrations 159 and 172).
     $sql = <<<sql
 ALTER TABLE `access_log`
 CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
