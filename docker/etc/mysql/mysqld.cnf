@@ -3,6 +3,7 @@ character-set-server=utf8mb4
 collation-server=utf8mb4_0900_ai_ci
 skip-character-set-client-handshake
 init_connect="SET collation_connection = utf8mb4_0900_ai_ci;SET NAMES utf8mb4"
+# Removed from default sql_mode: NO_ZERO_DATE,NO_ZERO_IN_DATE,ONLY_FULL_GROUP_BY
 sql_mode=STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
 optimizer_switch='block_nested_loop=off'
 default_authentication_plugin=mysql_native_password
