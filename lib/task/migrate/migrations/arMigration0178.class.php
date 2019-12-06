@@ -46,578 +46,351 @@ class arMigration0178
     // - Use MODIFY over each column instead of a single CONVERT because the
     //   later transforms TEXT columns to MEDIUMTEXT.
     // - Reduce DO path index size for the extra byte.
-    $sql = <<<sql
-ALTER TABLE `access_log`
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+    $alterTables = array(
+      'ALTER TABLE `access_log` %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `actor`
-MODIFY `corporate_body_identifiers` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `description_identifier` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_standard` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `actor` %1$s, '.
+      'MODIFY `corporate_body_identifiers` VARCHAR(1024) %1$s, '.
+      'MODIFY `description_identifier` VARCHAR(1024) %1$s, '.
+      'MODIFY `source_standard` VARCHAR(1024) %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `actor_i18n`
-MODIFY `authorized_form_of_name` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `dates_of_existence` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `history` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `places` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `legal_status` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `functions` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `mandates` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `internal_structures` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `general_context` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `institution_responsible_identifier` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `rules` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `sources` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `revision_history` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `actor_i18n` %1$s, '.
+      'MODIFY `authorized_form_of_name` VARCHAR(1024) %1$s, '.
+      'MODIFY `dates_of_existence` VARCHAR(1024) %1$s, '.
+      'MODIFY `history` TEXT %1$s, '.
+      'MODIFY `places` TEXT %1$s, '.
+      'MODIFY `legal_status` TEXT %1$s, '.
+      'MODIFY `functions` TEXT %1$s, '.
+      'MODIFY `mandates` TEXT %1$s, '.
+      'MODIFY `internal_structures` TEXT %1$s, '.
+      'MODIFY `general_context` TEXT %1$s, '.
+      'MODIFY `institution_responsible_identifier` VARCHAR(1024) %1$s, '.
+      'MODIFY `rules` TEXT %1$s, '.
+      'MODIFY `sources` TEXT %1$s, '.
+      'MODIFY `revision_history` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `aip`
-MODIFY `uuid` VARCHAR(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `filename` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `aip` %1$s, '.
+      'MODIFY `uuid` VARCHAR(36) %1$s, '.
+      'MODIFY `filename` VARCHAR(1024) %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `audit_log`
-MODIFY `user_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `audit_log` %1$s, '.
+      'MODIFY `user_name` VARCHAR(255) %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `job`
-MODIFY `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `download_path` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `output` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `job` %1$s, '.
+      'MODIFY `name` VARCHAR(255) %1$s, '.
+      'MODIFY `download_path` TEXT %1$s, '.
+      'MODIFY `output` TEXT %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `clipboard_save`
-MODIFY `password` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `clipboard_save` %1$s, '.
+      'MODIFY `password` VARCHAR(255) %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `clipboard_save_item`
-MODIFY `item_class_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `clipboard_save_item` %1$s, '.
+      'MODIFY `item_class_name` VARCHAR(255) %1$s, '.
+      'MODIFY `slug` VARCHAR(255) %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `contact_information`
-MODIFY `contact_person` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `street_address` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `website` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `telephone` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `fax` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `postal_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `country_code` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `contact_information` %1$s, '.
+      'MODIFY `contact_person` VARCHAR(1024) %1$s, '.
+      'MODIFY `street_address` TEXT %1$s, '.
+      'MODIFY `website` VARCHAR(1024) %1$s, '.
+      'MODIFY `email` VARCHAR(255) %1$s, '.
+      'MODIFY `telephone` VARCHAR(255) %1$s, '.
+      'MODIFY `fax` VARCHAR(255) %1$s, '.
+      'MODIFY `postal_code` VARCHAR(255) %1$s, '.
+      'MODIFY `country_code` VARCHAR(255) %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `contact_information_i18n`
-MODIFY `contact_type` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `city` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `region` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `contact_information_i18n` %1$s, '.
+      'MODIFY `contact_type` VARCHAR(1024) %1$s, '.
+      'MODIFY `city` VARCHAR(1024) %1$s, '.
+      'MODIFY `region` VARCHAR(1024) %1$s, '.
+      'MODIFY `note` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `digital_object`
-DROP INDEX `path`, ADD INDEX `path`(`path`(768)),
-MODIFY `mime_type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `name` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-MODIFY `path` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-MODIFY `checksum` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `checksum_type` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `digital_object` %1$s, '.
+      'DROP INDEX `path`, ADD INDEX `path`(`path`(768)), '.
+      'MODIFY `mime_type` VARCHAR(255) %1$s, '.
+      'MODIFY `name` VARCHAR(1024) %1$s NOT NULL, '.
+      'MODIFY `path` VARCHAR(1024) %1$s NOT NULL, '.
+      'MODIFY `checksum` VARCHAR(255) %1$s, '.
+      'MODIFY `checksum_type` VARCHAR(50) %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `event`
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `event` %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `event_i18n`
-MODIFY `name` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `date` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `event_i18n` %1$s, '.
+      'MODIFY `name` VARCHAR(1024) %1$s, '.
+      'MODIFY `description` TEXT %1$s, '.
+      'MODIFY `date` VARCHAR(1024) %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `function_object`
-MODIFY `description_identifier` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_standard` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `function_object` %1$s, '.
+      'MODIFY `description_identifier` VARCHAR(1024) %1$s, '.
+      'MODIFY `source_standard` VARCHAR(1024) %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `function_object_i18n`
-MODIFY `authorized_form_of_name` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `classification` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `dates` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `history` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `legislation` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `institution_identifier` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `revision_history` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `rules` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `sources` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `function_object_i18n` %1$s, '.
+      'MODIFY `authorized_form_of_name` VARCHAR(1024) %1$s, '.
+      'MODIFY `classification` VARCHAR(1024) %1$s, '.
+      'MODIFY `dates` VARCHAR(1024) %1$s, '.
+      'MODIFY `description` TEXT %1$s, '.
+      'MODIFY `history` TEXT %1$s, '.
+      'MODIFY `legislation` TEXT %1$s, '.
+      'MODIFY `institution_identifier` TEXT %1$s, '.
+      'MODIFY `revision_history` TEXT %1$s, '.
+      'MODIFY `rules` TEXT %1$s, '.
+      'MODIFY `sources` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `information_object`
-MODIFY `identifier` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `description_identifier` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_standard` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `information_object` %1$s, '.
+      'MODIFY `identifier` VARCHAR(1024) %1$s, '.
+      'MODIFY `description_identifier` VARCHAR(1024) %1$s, '.
+      'MODIFY `source_standard` VARCHAR(1024) %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `information_object_i18n`
-MODIFY `title` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `alternate_title` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `edition` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `extent_and_medium` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `archival_history` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `acquisition` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `scope_and_content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `appraisal` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `accruals` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `arrangement` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `access_conditions` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `reproduction_conditions` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `physical_characteristics` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `finding_aids` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `location_of_originals` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `location_of_copies` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `related_units_of_description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `institution_responsible_identifier` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `rules` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `sources` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `revision_history` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `information_object_i18n` %1$s, '.
+      'MODIFY `title` VARCHAR(1024) %1$s, '.
+      'MODIFY `alternate_title` VARCHAR(1024) %1$s, '.
+      'MODIFY `edition` VARCHAR(1024) %1$s, '.
+      'MODIFY `extent_and_medium` TEXT %1$s, '.
+      'MODIFY `archival_history` TEXT %1$s, '.
+      'MODIFY `acquisition` TEXT %1$s, '.
+      'MODIFY `scope_and_content` TEXT %1$s, '.
+      'MODIFY `appraisal` TEXT %1$s, '.
+      'MODIFY `accruals` TEXT %1$s, '.
+      'MODIFY `arrangement` TEXT %1$s, '.
+      'MODIFY `access_conditions` TEXT %1$s, '.
+      'MODIFY `reproduction_conditions` TEXT %1$s, '.
+      'MODIFY `physical_characteristics` TEXT %1$s, '.
+      'MODIFY `finding_aids` TEXT %1$s, '.
+      'MODIFY `location_of_originals` TEXT %1$s, '.
+      'MODIFY `location_of_copies` TEXT %1$s, '.
+      'MODIFY `related_units_of_description` TEXT %1$s, '.
+      'MODIFY `institution_responsible_identifier` VARCHAR(1024) %1$s, '.
+      'MODIFY `rules` TEXT %1$s, '.
+      'MODIFY `sources` TEXT %1$s, '.
+      'MODIFY `revision_history` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `keymap`
-MODIFY `source_id` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_name` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `target_name` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `keymap` %1$s, '.
+      'MODIFY `source_id` TEXT %1$s, '.
+      'MODIFY `source_name` TEXT %1$s, '.
+      'MODIFY `target_name` TEXT %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `menu`
-MODIFY `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `path` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `menu` %1$s, '.
+      'MODIFY `name` VARCHAR(255) %1$s, '.
+      'MODIFY `path` VARCHAR(255) %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `menu_i18n`
-MODIFY `label` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `menu_i18n` %1$s, '.
+      'MODIFY `label` VARCHAR(255) %1$s, '.
+      'MODIFY `description` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `note`
-MODIFY `scope` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `note` %1$s, '.
+      'MODIFY `scope` VARCHAR(1024) %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `note_i18n`
-MODIFY `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `note_i18n` %1$s, '.
+      'MODIFY `content` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `oai_harvest`
-MODIFY `metadataPrefix` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `set` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `oai_harvest` %1$s, '.
+      'MODIFY `metadataPrefix` VARCHAR(255) %1$s, '.
+      'MODIFY `set` VARCHAR(1024) %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `oai_repository`
-MODIFY `name` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `uri` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `admin_email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `oai_repository` %1$s, '.
+      'MODIFY `name` VARCHAR(1024) %1$s, '.
+      'MODIFY `uri` VARCHAR(1024) %1$s, '.
+      'MODIFY `admin_email` VARCHAR(255) %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `object`
-MODIFY `class_name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `object` %1$s, '.
+      'MODIFY `class_name` VARCHAR(255) %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `object_term_relation`
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `object_term_relation` %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `other_name`
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `other_name` %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `other_name_i18n`
-MODIFY `name` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `note` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `dates` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `other_name_i18n` %1$s, '.
+      'MODIFY `name` VARCHAR(1024) %1$s, '.
+      'MODIFY `note` VARCHAR(1024) %1$s, '.
+      'MODIFY `dates` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `physical_object`
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `physical_object` %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `physical_object_i18n`
-MODIFY `name` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `location` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `physical_object_i18n` %1$s, '.
+      'MODIFY `name` VARCHAR(1024) %1$s, '.
+      'MODIFY `description` TEXT %1$s, '.
+      'MODIFY `location` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `premis_object`
-MODIFY `puid` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `filename` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `mime_type` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `premis_object` %1$s, '.
+      'MODIFY `puid` VARCHAR(255) %1$s, '.
+      'MODIFY `filename` VARCHAR(1024) %1$s, '.
+      'MODIFY `mime_type` VARCHAR(255) %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `property`
-MODIFY `scope` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `name` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `property` %1$s, '.
+      'MODIFY `scope` VARCHAR(1024) %1$s, '.
+      'MODIFY `name` VARCHAR(1024) %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `property_i18n`
-MODIFY `value` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `property_i18n` %1$s, '.
+      'MODIFY `value` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `relation`
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `relation` %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `relation_i18n`
-MODIFY `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `date` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `relation_i18n` %1$s, '.
+      'MODIFY `description` TEXT %1$s, '.
+      'MODIFY `date` VARCHAR(1024) %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `repository`
-MODIFY `identifier` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `desc_identifier` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `repository` %1$s, '.
+      'MODIFY `identifier` VARCHAR(1024) %1$s, '.
+      'MODIFY `desc_identifier` VARCHAR(1024) %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `repository_i18n`
-MODIFY `geocultural_context` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `collecting_policies` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `buildings` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `holdings` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `finding_aids` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `opening_times` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `access_conditions` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `disabled_access` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `research_services` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `reproduction_services` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `public_facilities` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `desc_institution_identifier` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `desc_rules` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `desc_sources` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `desc_revision_history` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `repository_i18n` %1$s, '.
+      'MODIFY `geocultural_context` TEXT %1$s, '.
+      'MODIFY `collecting_policies` TEXT %1$s, '.
+      'MODIFY `buildings` TEXT %1$s, '.
+      'MODIFY `holdings` TEXT %1$s, '.
+      'MODIFY `finding_aids` TEXT %1$s, '.
+      'MODIFY `opening_times` TEXT %1$s, '.
+      'MODIFY `access_conditions` TEXT %1$s, '.
+      'MODIFY `disabled_access` TEXT %1$s, '.
+      'MODIFY `research_services` TEXT %1$s, '.
+      'MODIFY `reproduction_services` TEXT %1$s, '.
+      'MODIFY `public_facilities` TEXT %1$s, '.
+      'MODIFY `desc_institution_identifier` VARCHAR(1024) %1$s, '.
+      'MODIFY `desc_rules` TEXT %1$s, '.
+      'MODIFY `desc_sources` TEXT %1$s, '.
+      'MODIFY `desc_revision_history` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `rights`
-MODIFY `copyright_jurisdiction` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `rights` %1$s, '.
+      'MODIFY `copyright_jurisdiction` VARCHAR(1024) %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `granted_right`
-MODIFY `notes` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `granted_right` %1$s, '.
+      'MODIFY `notes` TEXT %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `rights_i18n`
-MODIFY `rights_note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `copyright_note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `identifier_value` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `identifier_type` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `identifier_role` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `license_terms` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `license_note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `statute_jurisdiction` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `statute_note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `rights_i18n` %1$s, '.
+      'MODIFY `rights_note` TEXT %1$s, '.
+      'MODIFY `copyright_note` TEXT %1$s, '.
+      'MODIFY `identifier_value` TEXT %1$s, '.
+      'MODIFY `identifier_type` TEXT %1$s, '.
+      'MODIFY `identifier_role` TEXT %1$s, '.
+      'MODIFY `license_terms` TEXT %1$s, '.
+      'MODIFY `license_note` TEXT %1$s, '.
+      'MODIFY `statute_jurisdiction` TEXT %1$s, '.
+      'MODIFY `statute_note` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `rights_holder`
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+      'ALTER TABLE `rights_holder` %1$s;',
 
-ALTER TABLE `setting`
-MODIFY `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `scope` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `setting` %1$s, '.
+      'MODIFY `name` VARCHAR(255) %1$s, '.
+      'MODIFY `scope` VARCHAR(255) %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `setting_i18n`
-MODIFY `value` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `setting_i18n` %1$s, '.
+      'MODIFY `value` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `slug`
-MODIFY `slug` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `slug` %1$s, '.
+      'MODIFY `slug` VARCHAR(255) '.
+      'CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `static_page`
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+      'ALTER TABLE `static_page` %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-ALTER TABLE `static_page_i18n`
-MODIFY `title` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `static_page_i18n` %1$s, '.
+      'MODIFY `title` VARCHAR(1024) %1$s, '.
+      'MODIFY `content` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `status`
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `status` %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `taxonomy`
-MODIFY `usage` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `taxonomy` %1$s, '.
+      'MODIFY `usage` VARCHAR(1024) %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `taxonomy_i18n`
-MODIFY `name` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `note` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `taxonomy_i18n` %1$s, '.
+      'MODIFY `name` VARCHAR(1024) %1$s, '.
+      'MODIFY `note` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `term`
-MODIFY `code` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `term` %1$s, '.
+      'MODIFY `code` VARCHAR(1024) %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `term_i18n`
-MODIFY `name` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `term_i18n` %1$s, '.
+      'MODIFY `name` VARCHAR(1024) %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `user`
-MODIFY `username` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `email` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `password_hash` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `salt` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `user` %1$s, '.
+      'MODIFY `username` VARCHAR(255) %1$s, '.
+      'MODIFY `email` VARCHAR(255) %1$s, '.
+      'MODIFY `password_hash` VARCHAR(255) %1$s, '.
+      'MODIFY `salt` VARCHAR(255) %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `acl_group`
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `acl_group` %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `acl_group_i18n`
-MODIFY `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `acl_group_i18n` %1$s, '.
+      'MODIFY `name` VARCHAR(255) %1$s, '.
+      'MODIFY `description` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `acl_permission`
-MODIFY `action` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `conditional` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `constants` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `acl_permission` %1$s, '.
+      'MODIFY `action` VARCHAR(255) %1$s, '.
+      'MODIFY `conditional` TEXT %1$s, '.
+      'MODIFY `constants` TEXT %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `acl_user_group`
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `acl_user_group` %1$s;',
 
-    $sql = <<<sql
-ALTER TABLE `accession`
-MODIFY `identifier` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `accession` %1$s, '.
+      'MODIFY `identifier` VARCHAR(255) %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `accession_i18n`
-MODIFY `appraisal` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `archival_history` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `location_information` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `physical_characteristics` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `processing_notes` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `received_extent_units` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `scope_and_content` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_of_acquisition` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `accession_i18n` %1$s, '.
+      'MODIFY `appraisal` TEXT %1$s, '.
+      'MODIFY `archival_history` TEXT %1$s, '.
+      'MODIFY `location_information` TEXT %1$s, '.
+      'MODIFY `physical_characteristics` TEXT %1$s, '.
+      'MODIFY `processing_notes` TEXT %1$s, '.
+      'MODIFY `received_extent_units` TEXT %1$s, '.
+      'MODIFY `scope_and_content` TEXT %1$s, '.
+      'MODIFY `source_of_acquisition` TEXT %1$s, '.
+      'MODIFY `title` VARCHAR(255) %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `deaccession`
-MODIFY `identifier` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `source_culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `deaccession` %1$s, '.
+      'MODIFY `identifier` VARCHAR(255) %1$s, '.
+      'MODIFY `source_culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `deaccession_i18n`
-MODIFY `description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `extent` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `reason` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
-MODIFY `culture` VARCHAR(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `deaccession_i18n` %1$s, '.
+      'MODIFY `description` TEXT %1$s, '.
+      'MODIFY `extent` TEXT %1$s, '.
+      'MODIFY `reason` TEXT %1$s, '.
+      'MODIFY `culture` VARCHAR(16) %1$s NOT NULL;',
 
-    $sql = <<<sql
-ALTER TABLE `donor`
-CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-sql;
-    QubitPdo::modify($sql);
+      'ALTER TABLE `donor` %1$s;',
+    );
+
+    foreach ($alterTables as $sql)
+    {
+      QubitPdo::modify(sprintf(
+        $sql,
+        'CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci'
+      ));
+    }
 
     return true;
   }
