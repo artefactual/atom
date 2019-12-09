@@ -1,0 +1,28 @@
+---
+version: "2"
+
+services:
+
+  percona:
+    volumes:
+      - ./etc/mysql/pmm.cnf:/etc/my.cnf.d/pmm.cnf:ro
+
+  pmm_server:
+    image: percona/pmm-server
+    ports:
+      - "127.0.0.1:63006:80"
+    environment:
+      - SERVER_USER=pmm
+      - SERVER_PASSWORD=pmm
+
+  pmm_client:
+    image: perconalab/pmm-client
+    environment:
+      - PMM_SERVER=pmm_server
+      - PMM_USER=pmm
+      - PMM_PASSWORD=pmm
+      - DB_TYPE=mysql
+      - DB_HOST=percona
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=my-secret-pw
