@@ -170,7 +170,7 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
 
   public static function showInventory($resource)
   {
-    if (count(self::getLevels()) == 0)
+    if (!is_array(self::getLevels()) || count(self::getLevels()) == 0)
     {
       return false;
     }

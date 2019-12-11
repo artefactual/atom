@@ -306,34 +306,37 @@ class TermEditAction extends DefaultEditAction
           }
         }
 
-        foreach ($filtered as $item)
+        if (is_array($filtered))
         {
-          if (!$item)
+          foreach ($filtered as $item)
           {
-            continue;
+            if (!$item)
+            {
+              continue;
+            }
+
+            $note = new QubitNote;
+            $note->content = $item;
+            switch ($field->getName())
+            {
+              case 'scopeNote':
+                $note->typeId = QubitTerm::SCOPE_NOTE_ID;
+
+                break;
+
+              case 'sourceNote':
+                $note->typeId = QubitTerm::SOURCE_NOTE_ID;
+
+                break;
+
+              case 'displayNote':
+                $note->typeId = QubitTerm::DISPLAY_NOTE_ID;
+
+                break;
+            }
+
+            $this->resource->notes[] = $note;
           }
-
-          $note = new QubitNote;
-          $note->content = $item;
-          switch ($field->getName())
-          {
-            case 'scopeNote':
-              $note->typeId = QubitTerm::SCOPE_NOTE_ID;
-
-              break;
-
-            case 'sourceNote':
-              $note->typeId = QubitTerm::SOURCE_NOTE_ID;
-
-              break;
-
-            case 'displayNote':
-              $note->typeId = QubitTerm::DISPLAY_NOTE_ID;
-
-              break;
-          }
-
-          $this->resource->notes[] = $note;
         }
 
         break;
@@ -367,30 +370,33 @@ class TermEditAction extends DefaultEditAction
 
       case 'narrowTerms':
 
-        foreach ($this->form->getValue('narrowTerms') as $item)
+        if (is_array($formNarrowTerms = $this->form->getValue('narrowTerms')))
         {
-          if (1 > strlen($item = trim($item)))
+          foreach ($formNarrowTerms as $item)
           {
-            continue;
+            if (1 > strlen($item = trim($item)))
+            {
+              continue;
+            }
+
+            // Test to make sure term doesn't already exist
+            $criteria = new Criteria;
+            $criteria->add(QubitTerm::TAXONOMY_ID, $this->resource->taxonomyId);
+            $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+            $criteria->add(QubitTermI18n::CULTURE, $this->context->user->getCulture());
+            $criteria->add(QubitTermI18n::NAME, $item);
+            if (0 < count(QubitTermI18n::get($criteria)))
+            {
+              continue;
+            }
+
+            // Add term as child
+            $term = new QubitTerm;
+            $term->name = $item;
+            $term->taxonomyId = $this->resource->taxonomyId;
+
+            $this->resource->termsRelatedByparentId[] = $term;
           }
-
-          // Test to make sure term doesn't already exist
-          $criteria = new Criteria;
-          $criteria->add(QubitTerm::TAXONOMY_ID, $this->resource->taxonomyId);
-          $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-          $criteria->add(QubitTermI18n::CULTURE, $this->context->user->getCulture());
-          $criteria->add(QubitTermI18n::NAME, $item);
-          if (0 < count(QubitTermI18n::get($criteria)))
-          {
-            continue;
-          }
-
-          // Add term as child
-          $term = new QubitTerm;
-          $term->name = $item;
-          $term->taxonomyId = $this->resource->taxonomyId;
-
-          $this->resource->termsRelatedByparentId[] = $term;
         }
 
         break;

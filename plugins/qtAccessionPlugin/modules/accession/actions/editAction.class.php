@@ -254,11 +254,15 @@ class AccessionEditAction extends DefaultEditAction
     {
       case 'creators':
         $value = $filtered = array();
-        foreach ($this->form->getValue('creators') as $item)
+
+        if (is_array($formCreators = $this->form->getValue('creators')))
         {
-          $params = $this->context->routing->parse(Qubit::pathInfo($item));
-          $resource = $params['_sf_route']->resource;
-          $value[$resource->id] = $filtered[$resource->id] = $resource;
+          foreach ($formCreators as $item)
+          {
+            $params = $this->context->routing->parse(Qubit::pathInfo($item));
+            $resource = $params['_sf_route']->resource;
+            $value[$resource->id] = $filtered[$resource->id] = $resource;
+          }
         }
 
         foreach ($this->creators as $item)
@@ -306,12 +310,16 @@ class AccessionEditAction extends DefaultEditAction
 
       case 'informationObjects':
         $value = $filtered = array();
-        foreach ($this->form->getValue('informationObjects') as $item)
+
+        if (is_array($formInformationObjects = $this->form->getValue('informationObjects')))
         {
-          $params = $this->context->routing->parse(Qubit::pathInfo($item));
-          $resource = $params['_sf_route']->resource;
-          $value[$resource->id] = $filtered[$resource->id] = $resource;
-        }
+          foreach ($formInformationObjects as $item)
+          {
+            $params = $this->context->routing->parse(Qubit::pathInfo($item));
+            $resource = $params['_sf_route']->resource;
+            $value[$resource->id] = $filtered[$resource->id] = $resource;
+          }
+	}
 
         foreach ($this->informationObjects as $item)
         {

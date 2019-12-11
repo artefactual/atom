@@ -87,7 +87,10 @@ class sfSessionStorage extends sfStorage
       session_cache_limiter($this->options['session_cache_limiter']);
     }
 
-    if ($this->options['auto_start'] && !self::$sessionStarted)
+    if (
+      session_status() !== PHP_SESSION_ACTIVE
+      && (!isset($this->options['timeout']) || ini_get('session.gc_maxlifetime') < $this->options['timeout'])
+    )
     {
       session_start();
       self::$sessionStarted = true;

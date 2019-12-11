@@ -53,7 +53,7 @@ class sfWidgetFormInput extends sfWidgetForm
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
     // http://trac.symfony-project.org/ticket/7726
-    if (0 < count($errors))
+    if (is_array($errors) && 0 < count($errors))
     {
       $attributes += array('class' => 'error');
     }

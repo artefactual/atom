@@ -385,11 +385,15 @@ class InformationObjectEditAction extends DefaultEditAction
       case 'subjectAccessPoints':
       case 'placeAccessPoints':
         $value = $filtered = array();
-        foreach ($this->form->getValue($field->getName()) as $item)
+
+        if (is_array($formItems = $this->form->getValue($field->getName())))
         {
-          $params = $this->context->routing->parse(Qubit::pathInfo($item));
-          $resource = $params['_sf_route']->resource;
-          $value[$resource->id] = $filtered[$resource->id] = $resource;
+          foreach ($formItems as $item)
+          {
+            $params = $this->context->routing->parse(Qubit::pathInfo($item));
+            $resource = $params['_sf_route']->resource;
+            $value[$resource->id] = $filtered[$resource->id] = $resource;
+          }
         }
 
         foreach ($this[$field->getName()] as $item)
@@ -418,11 +422,15 @@ class InformationObjectEditAction extends DefaultEditAction
       case 'nameAccessPoints':
       case 'relatedMaterialDescriptions':
         $value = $filtered = array();
-        foreach ($this->form->getValue($field->getName()) as $item)
+
+        if (is_array($formItems = $this->form->getValue($field->getName())))
         {
-          $params = $this->context->routing->parse(Qubit::pathInfo($item));
-          $resource = $params['_sf_route']->resource;
-          $value[$resource->id] = $filtered[$resource->id] = $resource;
+          foreach ($formItems as $item)
+          {
+            $params = $this->context->routing->parse(Qubit::pathInfo($item));
+            $resource = $params['_sf_route']->resource;
+            $value[$resource->id] = $filtered[$resource->id] = $resource;
+          }
         }
 
         foreach ($this->{$field->getName()} as $item)

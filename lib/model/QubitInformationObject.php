@@ -393,7 +393,7 @@ class QubitInformationObject extends BaseInformationObject
     $criteria->add(QubitKeymap::TARGET_ID, $this->id);
     $criteria->add(QubitKeymap::TARGET_NAME, 'information_object');
 
-    if ($objectKeymap = QubitKeymap::get($criteria))
+    if ($objectKeymap = QubitKeymap::get($criteria) && $objectKeymap !== null)
     {
       foreach ($objectKeymap as $item)
       {
@@ -1392,7 +1392,7 @@ class QubitInformationObject extends BaseInformationObject
   public function getDigitalObject()
   {
     $digitalObjects = $this->getDigitalObjectRelatedByobjectId();
-    if (count($digitalObjects) > 0)
+    if (is_array($digitalObjects) && count($digitalObjects) > 0)
     {
       return $digitalObjects[0];
     }

@@ -121,7 +121,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitInformationObject');
 
     // Update descendants if requested and they exists
-    if ($options['updateDescendants'] && $object->rgt - $object->lft > 1)
+    if (isset($options['updateDescendants']) && $options['updateDescendants'] && $object->rgt - $object->lft > 1)
     {
       self::updateDescendants($object);
     }

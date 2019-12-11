@@ -158,11 +158,15 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
     {
       case 'creators':
         $value = $filtered = array();
-        foreach ($this->form->getValue('creators') as $item)
+
+        if (is_array($formCreators = $this->form->getValue('creators')))
         {
-          $params = $this->context->routing->parse(Qubit::pathInfo($item));
-          $resource = $params['_sf_route']->resource;
-          $value[$resource->id] = $filtered[$resource->id] = $resource;
+          foreach ($formCreators as $item)
+          {
+            $params = $this->context->routing->parse(Qubit::pathInfo($item));
+            $resource = $params['_sf_route']->resource;
+            $value[$resource->id] = $filtered[$resource->id] = $resource;
+          }
         }
 
         foreach ($this->events as $item)

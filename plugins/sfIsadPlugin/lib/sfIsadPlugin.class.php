@@ -82,7 +82,7 @@ class sfIsadPlugin implements ArrayAccess
       case 'languageNotes':
 
         $note = $this->resource->getNotesByType(array('noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID))->offsetGet(0);
-        $missingNote = count($note) === 0;
+        $missingNote = !is_array($note)|| count($note) === 0;
 
         if (0 == strlen($value))
         {

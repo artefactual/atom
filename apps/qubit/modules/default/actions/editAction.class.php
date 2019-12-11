@@ -144,33 +144,36 @@ class DefaultEditAction extends sfAction
           }
         }
 
-        foreach ($filtered as $item)
+        if (is_array($filtered))
         {
-          if (!$item)
+          foreach ($filtered as $item)
           {
-            continue;
+            if (!$item)
+            {
+              continue;
+            }
+
+            $otherName = new QubitOtherName;
+            $otherName->name = $item;
+
+            switch ($field->getName())
+            {
+              case 'parallelName':
+                $otherName->typeId = QubitTerm::PARALLEL_FORM_OF_NAME_ID;
+
+                break;
+
+              case 'standardizedName':
+                $otherName->typeId = QubitTerm::STANDARDIZED_FORM_OF_NAME_ID;
+
+                break;
+
+              default:
+                $otherName->typeId = QubitTerm::OTHER_FORM_OF_NAME_ID;
+            }
+
+            $this->resource->otherNames[] = $otherName;
           }
-
-          $otherName = new QubitOtherName;
-          $otherName->name = $item;
-
-          switch ($field->getName())
-          {
-            case 'parallelName':
-              $otherName->typeId = QubitTerm::PARALLEL_FORM_OF_NAME_ID;
-
-              break;
-
-            case 'standardizedName':
-              $otherName->typeId = QubitTerm::STANDARDIZED_FORM_OF_NAME_ID;
-
-              break;
-
-            default:
-              $otherName->typeId = QubitTerm::OTHER_FORM_OF_NAME_ID;
-          }
-
-          $this->resource->otherNames[] = $otherName;
         }
 
         break;

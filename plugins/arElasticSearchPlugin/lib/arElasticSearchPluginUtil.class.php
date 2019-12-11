@@ -541,44 +541,47 @@ class arElasticSearchPluginUtil
     $statement = $conn->prepare($sql);
     $statement->execute(array($ioId));
 
-    foreach ($statement->fetch() as $field => $value)
+    if (is_array($results = $statement->fetch()))
     {
-      if (empty($value))
+      foreach ($results as $field => $value)
       {
-        continue;
-      }
+        if (empty($value))
+        {
+          continue;
+        }
 
-      switch ($field)
-      {
-        case 'last_modified':
-          $premisData['lastModified'] =  arElasticSearchPluginUtil::convertDate($value);
+        switch ($field)
+        {
+          case 'last_modified':
+            $premisData['lastModified'] =  arElasticSearchPluginUtil::convertDate($value);
 
-          break;
+            break;
 
-        case 'date_ingested':
-          $premisData['dateIngested'] =  arElasticSearchPluginUtil::convertDate($value);
+          case 'date_ingested':
+            $premisData['dateIngested'] =  arElasticSearchPluginUtil::convertDate($value);
 
-          break;
+            break;
 
-        case 'mime_type':
-          $premisData['mimeType'] = $value;
+          case 'mime_type':
+            $premisData['mimeType'] = $value;
 
-          break;
+            break;
 
-        case 'size':
-          $premisData['size'] = $value;
+          case 'size':
+            $premisData['size'] = $value;
 
-          break;
+            break;
 
-        case 'filename':
-          $premisData['filename'] = $value;
+          case 'filename':
+            $premisData['filename'] = $value;
 
-          break;
+            break;
 
-        case 'puid':
-          $premisData['puid'] = $value;
+          case 'puid':
+            $premisData['puid'] = $value;
 
-          break;
+            break;
+        }
       }
     }
 
