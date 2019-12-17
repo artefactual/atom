@@ -62,8 +62,17 @@ information_object:
       Method: SetLevelOfDescriptionByName
 
     repository:
-      XPath:   "(did/repository[not(*)] | did/repository/corpname | did/repository/name)[1]"
+      XPath:   "(did/repository/corpname | did/repository/name)[1]"
       Method:  setRepositoryByName
+      Filters:
+        -
+          emph:
+            QubitMarkdown: eadTagToMarkdown
+
+    repository_alternate:
+      XPath:   "did/repository[not(corpname) and not(name)]"
+      Method:  setRepositoryByName
+      IgnoreChildElementText: yes
       Filters:
         -
           emph:

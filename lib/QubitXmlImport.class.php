@@ -610,7 +610,7 @@ class QubitXmlImport
               }
 
               // normalize the node text; NB: this will strip any child elements, eg. HTML tags
-              $nodeValue = self::normalizeNodeValue($domNode2);
+              $nodeValue = self::normalizeNodeValue($domNode2, $methodMap);
 
               // if you want the full XML from the node, use this
               $nodeXML = $domNode2->ownerDocument->saveXML($domNode2);
@@ -878,7 +878,7 @@ class QubitXmlImport
    *
    * @return node value without linebreaks tags
    */
-  public static function replaceLineBreaks($node)
+  public static function replaceLineBreaks($node, $methodMap = array())
   {
     $nodeValue = '';
     $fieldsArray = array('extent', 'physfacet', 'dimensions');
@@ -905,7 +905,10 @@ class QubitXmlImport
       }
       else
       {
-        $nodeValue .= preg_replace('/[\n\r\s]+/', ' ', $child->nodeValue);
+        if (empty($methodMap['IgnoreChildElementText']) || !($child instanceOf DOMElement))
+        {
+          $nodeValue .= preg_replace('/[\n\r\s]+/', ' ', $child->nodeValue);
+        }
       }
     }
 
@@ -989,7 +992,7 @@ class QubitXmlImport
    *
    * @return node value normalized
    */
-  public static function normalizeNodeValue($node)
+  public static function normalizeNodeValue($node, $methodMap = array())
   {
     $nodeValue = '';
 
@@ -1004,17 +1007,17 @@ class QubitXmlImport
         {
           if ($i++ == 0)
           {
-            $nodeValue .= self::replaceLineBreaks($pNode);
+            $nodeValue .= self::replaceLineBreaks($pNode, $methodMap);
           }
           else
           {
-            $nodeValue .= "\n\n" . self::replaceLineBreaks($pNode);
+            $nodeValue .= "\n\n" . self::replaceLineBreaks($pNode, $methodMap);
           }
         }
       }
       else
       {
-        $nodeValue .= self::replaceLineBreaks($node);
+        $nodeValue .= self::replaceLineBreaks($node, $methodMap);
       }
     }
     else
