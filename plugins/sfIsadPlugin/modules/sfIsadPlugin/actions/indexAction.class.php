@@ -43,7 +43,7 @@ class sfIsadPluginIndexAction extends InformationObjectIndexAction
     // Function relations
     $criteria = new Criteria;
     $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
-    $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitFunction::ID);
+    $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitFunctionObject::ID);
 
     $this->functionRelations = QubitRelation::get($criteria);
 

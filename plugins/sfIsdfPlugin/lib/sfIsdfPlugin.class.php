@@ -26,7 +26,7 @@ class sfIsdfPlugin implements ArrayAccess
     $relatedResource,
     $maintenanceNote;
 
-  public function __construct(QubitFunction $resource)
+  public function __construct(QubitFunctionObject $resource)
   {
     $this->resource = $resource;
   }
@@ -97,9 +97,9 @@ class sfIsdfPlugin implements ArrayAccess
           $criteria = new Criteria;
           $criteria->add($criteria->getNewCriterion(QubitRelation::OBJECT_ID, $this->resource->id)
             ->addOr($criteria->getNewCriterion(QubitRelation::SUBJECT_ID, $this->resource->id)));
-          $criteria->addAlias('ro', QubitFunction::TABLE_NAME);
+          $criteria->addAlias('ro', QubitFunctionObject::TABLE_NAME);
           $criteria->addJoin(QubitRelation::OBJECT_ID, 'ro.id');
-          $criteria->addAlias('rs', QubitFunction::TABLE_NAME);
+          $criteria->addAlias('rs', QubitFunctionObject::TABLE_NAME);
           $criteria->addJoin(QubitRelation::SUBJECT_ID, 'rs.id');
           $criteria->addAscendingOrderByColumn(QubitRelation::TYPE_ID);
 

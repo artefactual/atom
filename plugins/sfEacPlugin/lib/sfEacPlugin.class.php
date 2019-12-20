@@ -334,7 +334,7 @@ return;
         $criteria->addAlias('subj', QubitObject::TABLE_NAME);
         $criteria->addJoin(QubitRelation::SUBJECT_ID, 'subj.id');
         $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
-        $criteria->add('subj.class_name', 'QubitFunction');
+        $criteria->add('subj.class_name', 'QubitFunctionObject');
 
         return QubitRelation::get($criteria);
 
@@ -768,7 +768,7 @@ return;
       // Otherwise, create the new resource
       if (!isset($item))
       {
-        $item = new QubitFunction;
+        $item = new QubitFunctionObject;
         $item->authorizedFormOfName = $fd->spawn()->add($node)->find('eac:relationEntry')->text();
 
         // TODO Cascade save through QubitEvent

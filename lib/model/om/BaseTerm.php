@@ -154,17 +154,17 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       return true;
     }
 
-    if ('functionsRelatedBytypeId' == $name)
+    if ('functionObjectsRelatedBytypeId' == $name)
     {
       return true;
     }
 
-    if ('functionsRelatedBydescriptionStatusId' == $name)
+    if ('functionObjectsRelatedBydescriptionStatusId' == $name)
     {
       return true;
     }
 
-    if ('functionsRelatedBydescriptionDetailId' == $name)
+    if ('functionObjectsRelatedBydescriptionDetailId' == $name)
     {
       return true;
     }
@@ -491,55 +491,55 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       return $this->refFkValues['events'];
     }
 
-    if ('functionsRelatedBytypeId' == $name)
+    if ('functionObjectsRelatedBytypeId' == $name)
     {
-      if (!isset($this->refFkValues['functionsRelatedBytypeId']))
+      if (!isset($this->refFkValues['functionObjectsRelatedBytypeId']))
       {
         if (!isset($this->id))
         {
-          $this->refFkValues['functionsRelatedBytypeId'] = QubitQuery::create();
+          $this->refFkValues['functionObjectsRelatedBytypeId'] = QubitQuery::create();
         }
         else
         {
-          $this->refFkValues['functionsRelatedBytypeId'] = self::getfunctionsRelatedBytypeIdById($this->id, array('self' => $this) + $options);
+          $this->refFkValues['functionObjectsRelatedBytypeId'] = self::getfunctionObjectsRelatedBytypeIdById($this->id, array('self' => $this) + $options);
         }
       }
 
-      return $this->refFkValues['functionsRelatedBytypeId'];
+      return $this->refFkValues['functionObjectsRelatedBytypeId'];
     }
 
-    if ('functionsRelatedBydescriptionStatusId' == $name)
+    if ('functionObjectsRelatedBydescriptionStatusId' == $name)
     {
-      if (!isset($this->refFkValues['functionsRelatedBydescriptionStatusId']))
+      if (!isset($this->refFkValues['functionObjectsRelatedBydescriptionStatusId']))
       {
         if (!isset($this->id))
         {
-          $this->refFkValues['functionsRelatedBydescriptionStatusId'] = QubitQuery::create();
+          $this->refFkValues['functionObjectsRelatedBydescriptionStatusId'] = QubitQuery::create();
         }
         else
         {
-          $this->refFkValues['functionsRelatedBydescriptionStatusId'] = self::getfunctionsRelatedBydescriptionStatusIdById($this->id, array('self' => $this) + $options);
+          $this->refFkValues['functionObjectsRelatedBydescriptionStatusId'] = self::getfunctionObjectsRelatedBydescriptionStatusIdById($this->id, array('self' => $this) + $options);
         }
       }
 
-      return $this->refFkValues['functionsRelatedBydescriptionStatusId'];
+      return $this->refFkValues['functionObjectsRelatedBydescriptionStatusId'];
     }
 
-    if ('functionsRelatedBydescriptionDetailId' == $name)
+    if ('functionObjectsRelatedBydescriptionDetailId' == $name)
     {
-      if (!isset($this->refFkValues['functionsRelatedBydescriptionDetailId']))
+      if (!isset($this->refFkValues['functionObjectsRelatedBydescriptionDetailId']))
       {
         if (!isset($this->id))
         {
-          $this->refFkValues['functionsRelatedBydescriptionDetailId'] = QubitQuery::create();
+          $this->refFkValues['functionObjectsRelatedBydescriptionDetailId'] = QubitQuery::create();
         }
         else
         {
-          $this->refFkValues['functionsRelatedBydescriptionDetailId'] = self::getfunctionsRelatedBydescriptionDetailIdById($this->id, array('self' => $this) + $options);
+          $this->refFkValues['functionObjectsRelatedBydescriptionDetailId'] = self::getfunctionObjectsRelatedBydescriptionDetailIdById($this->id, array('self' => $this) + $options);
         }
       }
 
-      return $this->refFkValues['functionsRelatedBydescriptionDetailId'];
+      return $this->refFkValues['functionObjectsRelatedBydescriptionDetailId'];
     }
 
     if ('informationObjectsRelatedBylevelOfDescriptionId' == $name)
@@ -1375,64 +1375,64 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
     return self::addeventsCriteriaById($criteria, $this->id);
   }
 
-  public static function addfunctionsRelatedBytypeIdCriteriaById(Criteria $criteria, $id)
+  public static function addfunctionObjectsRelatedBytypeIdCriteriaById(Criteria $criteria, $id)
   {
-    $criteria->add(QubitFunction::TYPE_ID, $id);
+    $criteria->add(QubitFunctionObject::TYPE_ID, $id);
 
     return $criteria;
   }
 
-  public static function getfunctionsRelatedBytypeIdById($id, array $options = array())
+  public static function getfunctionObjectsRelatedBytypeIdById($id, array $options = array())
   {
     $criteria = new Criteria;
-    self::addfunctionsRelatedBytypeIdCriteriaById($criteria, $id);
+    self::addfunctionObjectsRelatedBytypeIdCriteriaById($criteria, $id);
 
-    return QubitFunction::get($criteria, $options);
+    return QubitFunctionObject::get($criteria, $options);
   }
 
-  public function addfunctionsRelatedBytypeIdCriteria(Criteria $criteria)
+  public function addfunctionObjectsRelatedBytypeIdCriteria(Criteria $criteria)
   {
-    return self::addfunctionsRelatedBytypeIdCriteriaById($criteria, $this->id);
+    return self::addfunctionObjectsRelatedBytypeIdCriteriaById($criteria, $this->id);
   }
 
-  public static function addfunctionsRelatedBydescriptionStatusIdCriteriaById(Criteria $criteria, $id)
+  public static function addfunctionObjectsRelatedBydescriptionStatusIdCriteriaById(Criteria $criteria, $id)
   {
-    $criteria->add(QubitFunction::DESCRIPTION_STATUS_ID, $id);
+    $criteria->add(QubitFunctionObject::DESCRIPTION_STATUS_ID, $id);
 
     return $criteria;
   }
 
-  public static function getfunctionsRelatedBydescriptionStatusIdById($id, array $options = array())
+  public static function getfunctionObjectsRelatedBydescriptionStatusIdById($id, array $options = array())
   {
     $criteria = new Criteria;
-    self::addfunctionsRelatedBydescriptionStatusIdCriteriaById($criteria, $id);
+    self::addfunctionObjectsRelatedBydescriptionStatusIdCriteriaById($criteria, $id);
 
-    return QubitFunction::get($criteria, $options);
+    return QubitFunctionObject::get($criteria, $options);
   }
 
-  public function addfunctionsRelatedBydescriptionStatusIdCriteria(Criteria $criteria)
+  public function addfunctionObjectsRelatedBydescriptionStatusIdCriteria(Criteria $criteria)
   {
-    return self::addfunctionsRelatedBydescriptionStatusIdCriteriaById($criteria, $this->id);
+    return self::addfunctionObjectsRelatedBydescriptionStatusIdCriteriaById($criteria, $this->id);
   }
 
-  public static function addfunctionsRelatedBydescriptionDetailIdCriteriaById(Criteria $criteria, $id)
+  public static function addfunctionObjectsRelatedBydescriptionDetailIdCriteriaById(Criteria $criteria, $id)
   {
-    $criteria->add(QubitFunction::DESCRIPTION_DETAIL_ID, $id);
+    $criteria->add(QubitFunctionObject::DESCRIPTION_DETAIL_ID, $id);
 
     return $criteria;
   }
 
-  public static function getfunctionsRelatedBydescriptionDetailIdById($id, array $options = array())
+  public static function getfunctionObjectsRelatedBydescriptionDetailIdById($id, array $options = array())
   {
     $criteria = new Criteria;
-    self::addfunctionsRelatedBydescriptionDetailIdCriteriaById($criteria, $id);
+    self::addfunctionObjectsRelatedBydescriptionDetailIdCriteriaById($criteria, $id);
 
-    return QubitFunction::get($criteria, $options);
+    return QubitFunctionObject::get($criteria, $options);
   }
 
-  public function addfunctionsRelatedBydescriptionDetailIdCriteria(Criteria $criteria)
+  public function addfunctionObjectsRelatedBydescriptionDetailIdCriteria(Criteria $criteria)
   {
-    return self::addfunctionsRelatedBydescriptionDetailIdCriteriaById($criteria, $this->id);
+    return self::addfunctionObjectsRelatedBydescriptionDetailIdCriteriaById($criteria, $this->id);
   }
 
   public static function addinformationObjectsRelatedBylevelOfDescriptionIdCriteriaById(Criteria $criteria, $id)

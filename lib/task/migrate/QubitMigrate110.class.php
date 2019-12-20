@@ -1098,7 +1098,7 @@ class QubitMigrate110 extends QubitMigrate
       'QubitInformationObject',
       'QubitDigitalObject',
       'QubitEvent',
-      'QubitFunction',
+      'QubitFunctionObject',
       'QubitPhysicalObject',
       'QubitStaticPage',
       'QubitUser',

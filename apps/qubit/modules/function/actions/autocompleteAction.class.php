@@ -34,18 +34,18 @@ class FunctionAutocompleteAction extends sfAction
     }
 
     $criteria = new Criteria;
-    $criteria->addJoin(QubitFunction::ID, QubitFunctionI18n::ID);
-    $criteria->add(QubitFunctionI18n::CULTURE, $this->context->user->getCulture());
+    $criteria->addJoin(QubitFunctionObject::ID, QubitFunctionObjectI18n::ID);
+    $criteria->add(QubitFunctionObjectI18n::CULTURE, $this->context->user->getCulture());
 
     if (isset($request->query))
     {
       if (sfConfig::get('app_markdown_enabled', true))
       {
-        $criteria->add(QubitFunctionI18n::AUTHORIZED_FORM_OF_NAME, "%$request->query%", Criteria::LIKE);
+        $criteria->add(QubitFunctionObjectI18n::AUTHORIZED_FORM_OF_NAME, "%$request->query%", Criteria::LIKE);
       }
       else
       {
-        $criteria->add(QubitFunctionI18n::AUTHORIZED_FORM_OF_NAME, "$request->query%", Criteria::LIKE);
+        $criteria->add(QubitFunctionObjectI18n::AUTHORIZED_FORM_OF_NAME, "$request->query%", Criteria::LIKE);
       }
     }
 
@@ -54,11 +54,11 @@ class FunctionAutocompleteAction extends sfAction
     $resource = $params['_sf_route']->resource;
     if (isset($resource->id))
     {
-      $criteria->add(QubitFunction::ID, $resource->id, Criteria::NOT_EQUAL);
+      $criteria->add(QubitFunctionObject::ID, $resource->id, Criteria::NOT_EQUAL);
     }
 
     // Page results
-    $this->pager = new QubitPager('QubitFunction');
+    $this->pager = new QubitPager('QubitFunctionObject');
     $this->pager->setCriteria($criteria);
     $this->pager->setMaxPerPage($request->limit);
     $this->pager->setPage(1);

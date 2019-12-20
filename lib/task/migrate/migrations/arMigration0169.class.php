@@ -35,19 +35,17 @@ class arMigration0169
 
   public function up($configuration)
   {
-    // Add object_id to digital_object with fk relationship
-    $sql = <<<sql
+    // Add object_id to digital_object with fk relationship.
+    // Use separated statements, otherwise errors are not raised.
+    $sql = 'ALTER TABLE digital_object DROP FOREIGN KEY digital_object_FK_2;';
+    QubitPdo::modify($sql);
 
-ALTER TABLE `digital_object` DROP FOREIGN KEY `digital_object_FK_2`;
-ALTER TABLE `digital_object`
-  CHANGE COLUMN `information_object_id` `object_id` INT(11) NULL DEFAULT NULL ;
-ALTER TABLE `digital_object`
-ADD CONSTRAINT `digital_object_FK_2`
-  FOREIGN KEY (`object_id`)
-  REFERENCES `object` (`id`);
+    $sql = 'ALTER TABLE digital_object CHANGE COLUMN information_object_id ';
+    $sql .= 'object_id INT(11) NULL DEFAULT NULL;';
+    QubitPdo::modify($sql);
 
-sql;
-
+    $sql = 'ALTER TABLE digital_object ADD CONSTRAINT digital_object_FK_2 ';
+    $sql .= 'FOREIGN KEY (object_id) REFERENCES object (id);';
     QubitPdo::modify($sql);
 
     return true;

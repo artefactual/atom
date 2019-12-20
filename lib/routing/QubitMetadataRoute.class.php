@@ -136,7 +136,7 @@ class QubitMetadataRoute extends QubitRoute
 
           break;
 
-        case $this->resource instanceof QubitFunction:
+        case $this->resource instanceof QubitFunctionObject:
           $parameters['module'] = 'sfIsdfPlugin';
 
           break;

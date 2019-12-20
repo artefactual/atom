@@ -76,7 +76,7 @@ EOF;
       'QubitEvent' => array(
         'select'    => 'SELECT base.id, i18n.name',
         'i18nQuery' => true),
-      'QubitFunction' => array(
+      'QubitFunctionObject' => array(
         'select'    => 'SELECT base.id, i18n.authorized_form_of_name',
         'i18nQuery' => true),
       'QubitInformationObject' => array(

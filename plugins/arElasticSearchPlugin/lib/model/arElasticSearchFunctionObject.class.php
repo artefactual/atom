@@ -17,17 +17,17 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class arElasticSearchFunction extends arElasticSearchModelBase
+class arElasticSearchFunctionObject extends arElasticSearchModelBase
 {
   public function load()
   {
-    $sql  = 'SELECT function.id';
-    $sql .= ' FROM '.QubitFunction::TABLE_NAME.' function';
-    $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON function.id = object.id';
+    $sql  = 'SELECT func.id';
+    $sql .= ' FROM '.QubitFunctionObject::TABLE_NAME.' func';
+    $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON func.id = object.id';
     $sql .= ' WHERE object.class_name = ?';
-    $sql .= ' ORDER BY function.lft';
+    $sql .= ' ORDER BY func.lft';
 
-    $actors = QubitPdo::fetchAll($sql, array('QubitFunction'));
+    $actors = QubitPdo::fetchAll($sql, array('QubitFunctionObject'));
 
     $this->count = count($actors);
 
@@ -43,10 +43,10 @@ class arElasticSearchFunction extends arElasticSearchModelBase
     {
       try
       {
-        $node = new arElasticSearchFunctionPdo($item->id);
+        $node = new arElasticSearchFunctionObjectPdo($item->id);
         $data = $node->serialize();
 
-        QubitSearch::getInstance()->addDocument($data, 'QubitFunction');
+        QubitSearch::getInstance()->addDocument($data, 'QubitFunctionObject');
 
         $this->logEntry($data['i18n'][$data['sourceCulture']]['authorizedFormOfName'], $key + 1);
       }
@@ -61,9 +61,9 @@ class arElasticSearchFunction extends arElasticSearchModelBase
 
   public static function update($object)
   {
-    $node = new arElasticSearchFunctionPdo($object->id);
+    $node = new arElasticSearchFunctionObjectPdo($object->id);
 
-    QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitFunction');
+    QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitFunctionObject');
 
     return true;
   }

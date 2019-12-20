@@ -63,9 +63,9 @@ class TermTableMap extends TableMap {
     $this->addRelation('digitalObjectRelatedByusageId', 'digitalObject', RelationMap::ONE_TO_MANY, array('id' => 'usage_id', ), 'SET NULL', null);
     $this->addRelation('digitalObjectRelatedBymediaTypeId', 'digitalObject', RelationMap::ONE_TO_MANY, array('id' => 'media_type_id', ), 'SET NULL', null);
     $this->addRelation('event', 'event', RelationMap::ONE_TO_MANY, array('id' => 'type_id', ), 'CASCADE', null);
-    $this->addRelation('functionRelatedBytypeId', 'function', RelationMap::ONE_TO_MANY, array('id' => 'type_id', ), null, null);
-    $this->addRelation('functionRelatedBydescriptionStatusId', 'function', RelationMap::ONE_TO_MANY, array('id' => 'description_status_id', ), null, null);
-    $this->addRelation('functionRelatedBydescriptionDetailId', 'function', RelationMap::ONE_TO_MANY, array('id' => 'description_detail_id', ), null, null);
+    $this->addRelation('functionObjectRelatedBytypeId', 'functionObject', RelationMap::ONE_TO_MANY, array('id' => 'type_id', ), null, null);
+    $this->addRelation('functionObjectRelatedBydescriptionStatusId', 'functionObject', RelationMap::ONE_TO_MANY, array('id' => 'description_status_id', ), null, null);
+    $this->addRelation('functionObjectRelatedBydescriptionDetailId', 'functionObject', RelationMap::ONE_TO_MANY, array('id' => 'description_detail_id', ), null, null);
     $this->addRelation('informationObjectRelatedBylevelOfDescriptionId', 'informationObject', RelationMap::ONE_TO_MANY, array('id' => 'level_of_description_id', ), 'SET NULL', null);
     $this->addRelation('informationObjectRelatedBycollectionTypeId', 'informationObject', RelationMap::ONE_TO_MANY, array('id' => 'collection_type_id', ), null, null);
     $this->addRelation('informationObjectRelatedBydescriptionStatusId', 'informationObject', RelationMap::ONE_TO_MANY, array('id' => 'description_status_id', ), 'SET NULL', null);

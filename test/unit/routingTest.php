@@ -54,9 +54,9 @@ $repository->parentId = QubitRepository::ROOT_ID;
 $repository->slug = 'repository-12345';
 $repository->save();
 
-$t->diag('Create QubitFunction "function-12345"');
+$t->diag('Create QubitFunctionObject "function-12345"');
 if (null !== $function = QubitObject::getBySlug('function-12345')) $function->delete();
-$function = new QubitFunction;
+$function = new QubitFunctionObject;
 $function->slug = 'function-12345';
 $function->save();
 

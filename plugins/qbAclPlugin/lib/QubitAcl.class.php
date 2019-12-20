@@ -168,7 +168,7 @@ class QubitAcl
       case 'QubitAccession':
       case 'QubitDeaccession':
       case 'QubitDonor':
-      case 'QubitFunction':
+      case 'QubitFunctionObject':
       case 'QubitRightsHolder':
         $hasAccess = $user->isAuthenticated() && ($user->hasGroup(QubitAclGroup::ADMINISTRATOR_ID) ||
                      $user->hasGroup(QubitAclGroup::EDITOR_ID));

@@ -30,7 +30,7 @@ class sfInstallDatabaseConfigHandler extends sfDatabaseConfigHandler
         'propel' => array(
           'class' => 'sfPropelDatabase',
           'param' => array(
-            'encoding'   => 'utf8',
+            'encoding'   => 'utf8mb4',
             'persistent' => true,
             'pooling'    => true
           )
