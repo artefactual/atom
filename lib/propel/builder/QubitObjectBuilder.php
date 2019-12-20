@@ -1929,11 +1929,35 @@ script;
 
   protected function addAddAncestorsCriteria(&$script)
   {
+    $selfFkTableName = $this->selfFk->getTableName();
+    $selfFkColName = $this->selfFk->getLocalColumns()[0];
+    $selfFkRefColName = $this->selfFk->getForeignColumns()[0];
+    $selfFkPhpName = $this->getTable()->getColumn($selfFkColName)->getPhpName();
+
     $script .= <<<script
 
   public function addAncestorsCriteria(Criteria \$criteria)
   {
-    return \$criteria->add({$this->getColumnConstant($this->nestedSetLeftColumn)}, \$this->{$this->getColumnVarName($this->nestedSetLeftColumn)}, Criteria::LESS_THAN)->add({$this->getColumnConstant($this->nestedSetRightColumn)}, \$this->{$this->getColumnVarName($this->nestedSetRightColumn)}, Criteria::GREATER_THAN);
+    if (isset(\$this->{$selfFkPhpName}))
+    {
+      \$condition = '= '.\$this->{$selfFkPhpName};
+    }
+    else
+    {
+      \$condition = 'IS NULL';
+    }
+
+    \$subquery = "{$selfFkTableName}.{$selfFkRefColName} IN (
+    	WITH RECURSIVE cte AS
+    	(
+    	  SELECT tb1.{$selfFkRefColName}, tb1.{$selfFkColName} FROM {$selfFkTableName} tb1 WHERE tb1.{$selfFkRefColName} \$condition
+    	  UNION ALL
+    	  SELECT tb2.{$selfFkRefColName}, tb2.{$selfFkColName} FROM {$selfFkTableName} tb2 JOIN cte ON cte.{$selfFkColName}=tb2.{$selfFkRefColName}
+    	)
+    	SELECT {$selfFkRefColName} FROM cte
+    )";
+
+    return \$criteria->add('', \$subquery, Criteria::CUSTOM);
   }
 
 script;

@@ -491,7 +491,26 @@ abstract class BasePhysicalObject extends QubitObject implements ArrayAccess
 
   public function addAncestorsCriteria(Criteria $criteria)
   {
-    return $criteria->add(QubitPhysicalObject::LFT, $this->lft, Criteria::LESS_THAN)->add(QubitPhysicalObject::RGT, $this->rgt, Criteria::GREATER_THAN);
+    if (isset($this->parentId))
+    {
+      $condition = '= '.$this->parentId;
+    }
+    else
+    {
+      $condition = 'IS NULL';
+    }
+
+    $subquery = "physical_object.id IN (
+    	WITH RECURSIVE cte AS
+    	(
+    	  SELECT tb1.id, tb1.parent_id FROM physical_object tb1 WHERE tb1.id $condition
+    	  UNION ALL
+    	  SELECT tb2.id, tb2.parent_id FROM physical_object tb2 JOIN cte ON cte.parent_id=tb2.id
+    	)
+    	SELECT id FROM cte
+    )";
+
+    return $criteria->add('', $subquery, Criteria::CUSTOM);
   }
 
   public function addDescendantsCriteria(Criteria $criteria)
