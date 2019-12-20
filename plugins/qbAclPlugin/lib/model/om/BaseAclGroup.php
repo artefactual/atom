@@ -911,7 +911,26 @@ abstract class BaseAclGroup implements ArrayAccess
 
   public function addAncestorsCriteria(Criteria $criteria)
   {
-    return $criteria->add(QubitAclGroup::LFT, $this->lft, Criteria::LESS_THAN)->add(QubitAclGroup::RGT, $this->rgt, Criteria::GREATER_THAN);
+    if (isset($this->parentId))
+    {
+      $condition = '= '.$this->parentId;
+    }
+    else
+    {
+      $condition = 'IS NULL';
+    }
+
+    $subquery = "acl_group.id IN (
+    	WITH RECURSIVE cte AS
+    	(
+    	  SELECT tb1.id, tb1.parent_id FROM acl_group tb1 WHERE tb1.id $condition
+    	  UNION ALL
+    	  SELECT tb2.id, tb2.parent_id FROM acl_group tb2 JOIN cte ON cte.parent_id=tb2.id
+    	)
+    	SELECT id FROM cte
+    )";
+
+    return $criteria->add('', $subquery, Criteria::CUSTOM);
   }
 
   public function addDescendantsCriteria(Criteria $criteria)
