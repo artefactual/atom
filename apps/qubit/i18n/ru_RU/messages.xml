@@ -1,7 +1,7 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2019-04-15T15:38:01Z" original="messages" product-name="messages" source-language="en" target-language="ru-RU">
+  <file datatype="plaintext" date="2019-12-29T19:05:07Z" original="messages" product-name="messages" source-language="en" target-language="ru-RU">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
@@ -163,10 +163,6 @@
       <trans-unit id="39c6fe6bbe18b341f05e967d01ffa968b9c550e1">
         <source>A %1%release %2%%3% upgrade is available.</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/templates/_updateCheck.php</note>
-      </trans-unit>
-      <trans-unit id="fb6f7c24d375f7b302caa158d4c4790e5a8393c6">
-        <source>A brief site description or &amp;quot;tagline&amp;quot; for the header</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/siteInformationSuccess.php</note>
       </trans-unit>
       <trans-unit id="3e9664b32ca01b20a5fd36e87057ea6e742b937e">
         <source>A coded designation for the copyright status of the object at the time the rights statement is recorded.</source>
@@ -2680,10 +2676,6 @@
         <source>Privacy Notification Settings</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/privacyNotificationSuccess.php</note>
       </trans-unit>
-      <trans-unit id="a6666d5d41294a44cbbc8d4ffb91d707008aff7f">
-        <source>Privacy Notification settings saved.</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/privacyNotificationAction.class.php</note>
-      </trans-unit>
       <trans-unit id="e9da9b827e60dc37063ef8b128c7d0534691727b">
         <source>Provide a brief description of the menu and it's purpose.</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/menu/templates/editSuccess.php</note>
@@ -3464,10 +3456,6 @@
         <source>The maximum width for derived reference images.</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/digitalObjectDerivativesSuccess.php</note>
       </trans-unit>
-      <trans-unit id="4c521db1a3e2911f9f0f96e94a6950180b992561">
-        <source>The name of the website for display in the header</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/siteInformationSuccess.php</note>
-      </trans-unit>
       <trans-unit id="abb070bd1017157ec14de810edd0afb6d7753ed9">
         <source>The number of days a saved clipboard should be retained before it is eligible for deletion</source>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
@@ -3807,10 +3795,6 @@
       <trans-unit id="6b647f96fc712dc598e4e9dea145df439f07fe84">
         <source>Use this interface to update the description title, slug (permalink), and/or %1% filename.</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/renameSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="92e03ff1b889abb086d29b7aa5e82549cdd0696b">
-        <source>Used to create absolute URLs, pointing to resources, in XML exports</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/siteInformationSuccess.php</note>
       </trans-unit>
       <trans-unit id="9f8a2389a20ca0752aa9e95093515517e90e194c">
         <source>User</source>
