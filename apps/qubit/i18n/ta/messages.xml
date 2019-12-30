@@ -1,8 +1,4205 @@
-<?xml version="1.0"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
   <file source-language="en" target-language="ta" datatype="plaintext" original="messages" date="2019-04-15T15:38:54Z" product-name="messages">
     <header/>
-    <body/>
+    <body>
+      <trans-unit id="1">
+        <source>Please configure your site base URL</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2" approved="no">
+        <source>Home</source>
+        <target state="translated">முகப்பு</target>
+      </trans-unit>
+      <trans-unit id="3" approved="no">
+        <source>Printed: %d%</source>
+        <target state="translated">அச்சிடப்பட்டது: %d%</target>
+      </trans-unit>
+      <trans-unit id="4" approved="no">
+        <source>%1% upload is disabled</source>
+        <target state="translated">%1% பதிவேற்றம் செயலிழக்கச் செய்யப்பட்டுள்ளது'</target>
+      </trans-unit>
+      <trans-unit id="5" approved="no">
+        <source>Unlimited</source>
+        <target state="translated">வரையறையற்றது</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>The uploads directory has not been created yet.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7" approved="no">
+        <source>%1% used of %2%</source>
+        <target state="translated">%2% இல் %1% பயன்படுத்தப்பட்டுள்ளது'</target>
+      </trans-unit>
+      <trans-unit id="8" approved="no">
+        <source>title/name</source>
+        <target state="translated">தலைப்பு/பெயர்</target>
+      </trans-unit>
+      <trans-unit id="9" approved="no">
+        <source>date modified</source>
+        <target state="translated">திகதி மாற்றியமைக்கப்பட்டுள்ளது</target>
+      </trans-unit>
+      <trans-unit id="10" approved="no">
+        <source>identifier</source>
+        <target state="translated">அடையாளம்காட்டி</target>
+      </trans-unit>
+      <trans-unit id="11" approved="no">
+        <source>reference code</source>
+        <target state="translated">உசாத்துணைக் குறி</target>
+      </trans-unit>
+      <trans-unit id="12" approved="no">
+        <source>card</source>
+        <target state="translated">அட்டை</target>
+      </trans-unit>
+      <trans-unit id="13" approved="no">
+        <source>table</source>
+        <target state="translated">அட்டவணை</target>
+      </trans-unit>
+      <trans-unit id="14" approved="no">
+        <source>Draft</source>
+        <target state="translated">முன்வரைவு</target>
+      </trans-unit>
+      <trans-unit id="15" approved="no">
+        <source>Published</source>
+        <target state="translated">வெளியிடப்பட்டது</target>
+      </trans-unit>
+      <trans-unit id="16" approved="no">
+        <source>Application version</source>
+        <target state="translated">பயன்பாட்டுச் செயலி பதிப்புரு?</target>
+      </trans-unit>
+      <trans-unit id="17" approved="no">
+        <source>Check for updates</source>
+        <target state="translated">இற்றைகளை சரிபார்க்குக</target>
+      </trans-unit>
+      <trans-unit id="18" approved="no">
+        <source>Results per page</source>
+        <target state="translated">ஒரு பக்கத்துக்கான முடிவுகள்</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Escape special chars from searches</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="20" approved="no">
+        <source>Sort browser (users)</source>
+        <target state="translated">உலாவி (பயனர்களை) வகைப்படுத்துக</target>
+      </trans-unit>
+      <trans-unit id="21" approved="no">
+        <source>Sort browser (anonymous)</source>
+        <target state="translated">உலாவி (அடையாளமற்றோரை) வகைப்படுத்துக</target>
+      </trans-unit>
+      <trans-unit id="22" approved="no">
+        <source>Default repository browse view</source>
+        <target state="translated">இயல் சேமக உலவு உருத்தோற்றம்</target>
+      </trans-unit>
+      <trans-unit id="23" approved="no">
+        <source>Default archival description browse view</source>
+        <target state="translated">இயல்/ இயற் தேர்வு ஆவண விவரிப்பு உலவு உருத்தோற்றம்?</target>
+      </trans-unit>
+      <trans-unit id="24" approved="no">
+        <source>Multiple repositories</source>
+        <target state="translated">பல் சேமகங்கள்</target>
+      </trans-unit>
+      <trans-unit id="25" approved="no">
+        <source>Enable institutional scoping</source>
+        <target state="translated">நிறுவன செயற்பரப்பை இயல்வி?</target>
+      </trans-unit>
+      <trans-unit id="26" approved="no">
+        <source>Default %1% upload limit (GB)</source>
+        <target state="translated">இயல்பிருப்பு %1% பதிவேற்ற வரம்பு (GB)</target>
+      </trans-unit>
+      <trans-unit id="27" approved="no">
+        <source>Total space available for uploads</source>
+        <target state="translated">பதிவேற்றங்களுக்கு கிடைப்பிலுள்ள மொத்த வெளி</target>
+      </trans-unit>
+      <trans-unit id="28" approved="no">
+        <source>Enable description change logging</source>
+        <target state="translated">விவரண மாற்ற பதிவிடலை இயல்வி</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Upload multi-page files as multiple descriptions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Show tooltips</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="31" approved="no">
+        <source>Default publication status</source>
+        <target state="translated">இயல் வெளியீட்டு நிகழ்நிலை?</target>
+      </trans-unit>
+      <trans-unit id="32" approved="no">
+        <source>Show available drafts notification upon user login</source>
+        <target state="translated">பயனர் புகுபதிகையின் பிற்பாடு கிடைப்பிலுள்ள வரைவுகள் அறிவிக்கையைக் காண்பி</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>SWORD deposit directory</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Require SSL for all administrator funcionality</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="35" approved="no">
+        <source>Generate description permalinks from</source>
+        <target state="translated">நிரந்தர விவரிப்பு தொடுப்புகளை தோற்றுவி?</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Use any valid URI path segment and uppercase character in slugs</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="37" approved="no">
+        <source>Require strong passwords</source>
+        <target state="translated">வலிமையான கடவுச்சொற்கள் வேண்டியுள்ளது</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Google Maps Javascript API key (for displaying dynamic maps)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="39" approved="no">
+        <source>Generate archival description reports as public user</source>
+        <target state="translated">பொதுப் பயனராக ஆவண விவரிப்பு அறிக்கைகள் தோற்றுவி</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Cache description XML exports upon creation/modification</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="41" approved="no">
+        <source>Saved clipboard maximum age (in days)</source>
+        <target state="translated">சேமிக்கப்பட்ட நகல்நினைவி வயது உச்சவரம்பு (நாட்களில்)</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>The current version of the application</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="43" approved="no">
+        <source>Enable automatic update notification</source>
+        <target state="translated">தானியங்கு இற்றை அறிவிக்கை இயல்வி</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>The number of records shown per page on list pages</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Set the default view template when browsing repositories</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Set the default view template when browsing archival descriptions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>The character separating hierarchical elements in a reference code</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>When set to &amp;quot;yes&amp;quot;, the reference code string will be built using the information object identifier plus the identifiers of all its ancestors</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>A list of special chars, separated by coma, to be escaped in string queries</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>When set to &amp;quot;no&amp;quot;, the repository name is excluded from certain displays because it will be too repetitive</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Applies to multi-repository sites only. When set to &amp;quot;yes&amp;quot;, additional search and browse options will be available at the repository level</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Default publication status for newly created or imported %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Choose whether permalinks for descriptions are generated from reference code or title</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Allow any valid URI PATH segment character to appear in a slug, including UTF-8 glyphs. Restricted IRI characters ( /?#{} ) and literal spaces will be replaced with dashes</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="56" approved="no">
+        <source>Log creation and change of descriptions</source>
+        <target state="translated">உருவாக்கத்தையும் விவரண மாற்றங்களையும் பதிக</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>The number of days a saved clipboard should be retained before it is eligible for deletion</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>This field is required</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>You must show at least %min% hits per page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>You cannot show more than %max% hits per page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Minimum value is "%min%"</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="62" approved="no">
+        <source>title</source>
+        <target state="translated">தலைப்பு</target>
+      </trans-unit>
+      <trans-unit id="63" approved="no">
+        <source>reference code (repository identifier &amp; country code not included)</source>
+        <target state="translated">உசாத்துணைக் குறி (சேமக அடையாளம்காட்டியும் நாட்டுக் குறியெண்ணும் உள்ளடக்கப்படாதது)</target>
+      </trans-unit>
+      <trans-unit id="64" approved="no">
+        <source>reference code (repository identifier &amp; country code included)</source>
+        <target state="translated">உசாத்துணைக் குறி (சேமக அடையாளம்காட்டியும் நாட்டுக் குறியெண்ணும் உள்ளடக்கப்பட்டது)</target>
+      </trans-unit>
+      <trans-unit id="65" approved="no">
+        <source>Finding Aid format</source>
+        <target state="translated">உதவு கருவி வடிவமை</target>
+      </trans-unit>
+      <trans-unit id="66" approved="no">
+        <source>Finding Aid model</source>
+        <target state="translated">உதவு கருவி ஒப்புரு</target>
+      </trans-unit>
+      <trans-unit id="67" approved="no">
+        <source>Generate Finding Aid as public user</source>
+        <target state="translated">பொதுப் பயனராக உதவு கருவி தோற்றுவி</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Finding Aid model: 'Inventory summary' will include only key details for lower-level descriptions (file, item, part) in a table. 'Full details' includes full lower-level descriptions in the same format used throughout the finding aid.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Site title</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Site description</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Site base URL (used in MODS and EAD exports)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>ISAD(G), 2nd ed. International Council on Archives</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Dublin Core, Version 1.1. Dublin Core Metadata Initiative</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>MODS, Version 3.3. U.S. Library of Congress</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>RAD, July 2008 version. Canadian Council of Archives</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>DACS, 2nd ed. Society of American Archivists</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>ISAAR(CPF), 2nd ed. International Council on Archives</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>ISDIAH, 1st ed. International Council on Archives</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Limit administrator functionality to one or more IP addresses, separated by semicolons.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Require SSL for all administrator functionality</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Strip file extensions from information object names</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Require API key authentication</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>OAI repository code</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="84" approved="no">
+        <source>Administrator email(s)</source>
+        <target state="translated">நிர்வாகியின் மின்னஞ்சல்</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>OAI repository identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="86" approved="no">
+        <source>Sample OAI identifier</source>
+        <target state="translated">மாதிரி OAI [திறந்த ஆவணக முன்னெடுப்பு] அடையாளம்காட்டி</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Resumption token limit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Enable additional OAI sets</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>An API key must be sent in the HTTP request ZZZ header to authenticate requests</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Add an alpha-numeric code to uniquely identify this particular OAI repository within its network domain to create a unique, OAI-compliant identifier, e.g. oai:foo.org:repositorycode_10001</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Enter the email address(es) of at least one administrator for the repository. Multiple addresses can be entered, separated by commas. The address(es) will be exposed as part of a response to an Identify request.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>This is an auto-generated setting that produces an OAI compliant repository identifier, which includes the OAI repository code value if it is set</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>This is an example of the auto-generated, OAI compliant identifier which is created for each item in this particular OAI repository</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>The number of entities to include in a single OAI response list before inserting a resumption token</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>If "no", just show one OAI set per collection</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>This value must be at least %min%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>This value cannot be more than %max%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>The code can only contain letters and numbers</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="99" approved="no">
+        <source>Top</source>
+        <target state="translated">மேலே</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>You must enter your email address</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>This isn't a valid email address</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>You must enter your password</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Are you sure you want to delete %1% and all its descendants?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="104" approved="no">
+        <source>Cancel</source>
+        <target state="translated">நீக்கு</target>
+      </trans-unit>
+      <trans-unit id="105" approved="no">
+        <source>Delete</source>
+        <target state="translated">அழி</target>
+      </trans-unit>
+      <trans-unit id="106" approved="no">
+        <source>Language</source>
+        <target state="translated">மொழி</target>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Site menu list</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Hierarchical list of menus for the site, first column</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="109" approved="no">
+        <source>Name</source>
+        <target state="translated">பெயர்</target>
+      </trans-unit>
+      <trans-unit id="110" approved="no">
+        <source>Label</source>
+        <target state="translated">சிட்டை</target>
+      </trans-unit>
+      <trans-unit id="111" approved="no">
+        <source>Move up</source>
+        <target state="translated">மேல் நோக்கி இடம்பெயர்</target>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Move item up in list</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="113" approved="no">
+        <source>Move down</source>
+        <target state="translated">கீழே இடம்பெயர்க்க</target>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>Move item down in list</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="115" approved="no">
+        <source>Edit menu</source>
+        <target state="translated">பட்டியைத் தொகு</target>
+      </trans-unit>
+      <trans-unit id="116" approved="no">
+        <source>Add new</source>
+        <target state="translated">புதிதை/ புதியதை இணை?</target>
+      </trans-unit>
+      <trans-unit id="117" approved="no">
+        <source>Quick links</source>
+        <target state="translated">துரித தொடுப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="118" approved="no">
+        <source>Have an account?</source>
+        <target state="translated">கணக்கு வைத்திருக்கிறீர்களா?</target>
+      </trans-unit>
+      <trans-unit id="119" approved="no">
+        <source>Hi, %1%</source>
+        <target state="translated">வணக்கம், %1%</target>
+      </trans-unit>
+      <trans-unit id="120" approved="no">
+        <source>Clipboard</source>
+        <target state="translated">கிளிப்போர்டு</target>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>Note: clipboard items unclipped in this page will be removed from the clipboard when the page is refreshed. You can re-select them now, or reload the page to remove them completely. Using the sort or print preview buttons will also cause a page reload - so anything currently deselected will be lost!</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="122" approved="no">
+        <source>Add new menu</source>
+        <target state="translated">புது வகைப்பட்டி/ பட்டியலை இணை?</target>
+      </trans-unit>
+      <trans-unit id="123" approved="no">
+        <source>Main area</source>
+        <target state="translated">முதன்மைப் பரப்பு</target>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>Provide an internal menu name.  This is not visible to users.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="125">
+        <source>Provide a menu label for users.  For menu items that are not visible (i.e. are organizational only) this should be left blank.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="126">
+        <source>Provide a link to an external website or an internal, symfony path (module/action).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="127" approved="no">
+        <source>Path</source>
+        <target state="translated">வழி/ செல்நெறி?</target>
+      </trans-unit>
+      <trans-unit id="128">
+        <source>Provide a brief description of the menu and it's purpose.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="129" approved="no">
+        <source>Description</source>
+        <target state="translated">விவரிப்பு/ விபரிப்பு?</target>
+      </trans-unit>
+      <trans-unit id="130" approved="no">
+        <source>Save</source>
+        <target state="translated">சேமி</target>
+      </trans-unit>
+      <trans-unit id="131" approved="no">
+        <source>Untitled</source>
+        <target state="translated">தலைப்பற்றது</target>
+      </trans-unit>
+      <trans-unit id="132" approved="no">
+        <source>Add new page</source>
+        <target state="translated">புதிய பக்கம் இணை</target>
+      </trans-unit>
+      <trans-unit id="133" approved="no">
+        <source>Edit %1%</source>
+        <target state="translated">%1% தொகு</target>
+      </trans-unit>
+      <trans-unit id="134">
+        <source>Mustn't contain ";"</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="135">
+        <source>Are you sure you want to delete %1%?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="136" approved="no">
+        <source>List pages</source>
+        <target state="translated">பக்கங்களை பட்டியலிடுக</target>
+      </trans-unit>
+      <trans-unit id="137" approved="no">
+        <source>Title</source>
+        <target state="translated">தலைப்பு</target>
+      </trans-unit>
+      <trans-unit id="138">
+        <source>Slug</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="139" approved="no">
+        <source>Browse by</source>
+        <target state="translated">இற்றால் உலாவு?</target>
+      </trans-unit>
+      <trans-unit id="140" approved="no">
+        <source>Edit</source>
+        <target state="translated">தொகு/ திருத்து</target>
+      </trans-unit>
+      <trans-unit id="141" approved="no">
+        <source>Edit this page</source>
+        <target state="translated">இப்பக்கத்தைத் தொகு</target>
+      </trans-unit>
+      <trans-unit id="142" approved="no">
+        <source>Edit page</source>
+        <target state="translated">பக்கம் தொகு</target>
+      </trans-unit>
+      <trans-unit id="143" approved="no">
+        <source>Elements area</source>
+        <target state="translated">தனிமங்கள் பரப்பு</target>
+      </trans-unit>
+      <trans-unit id="144" approved="no">
+        <source>Create</source>
+        <target state="translated">ஆக்குக</target>
+      </trans-unit>
+      <trans-unit id="145">
+        <source>Enter free-text information, including qualifiers or typographical symbols to express uncertainty, to change the way the date displays. If this field is not used, the default will be the start and end years only.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="146">
+        <source>Enter the end year. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="147" approved="no">
+        <source>End</source>
+        <target state="translated">முடிவு</target>
+      </trans-unit>
+      <trans-unit id="148">
+        <source>Enter the start year. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="149" approved="no">
+        <source>Start</source>
+        <target state="translated">ஆரம்பம்</target>
+      </trans-unit>
+      <trans-unit id="150" approved="no">
+        <source>List %1%</source>
+        <target state="translated">பட்டியல் %1%</target>
+      </trans-unit>
+      <trans-unit id="151" approved="no">
+        <source>Search %1%</source>
+        <target state="translated">தேடல் %1%</target>
+      </trans-unit>
+      <trans-unit id="152" approved="no">
+        <source>Updated</source>
+        <target state="translated">இற்றைப்படுத்தப்பட்டது</target>
+      </trans-unit>
+      <trans-unit id="153">
+        <source>Showing %1% results</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="154" approved="no">
+        <source>Date modified</source>
+        <target state="translated">திகதி மாற்றியமைக்கப்பட்டுள்ளது</target>
+      </trans-unit>
+      <trans-unit id="155" approved="no">
+        <source>Identifier</source>
+        <target state="translated">அடையாளம்காட்டி</target>
+      </trans-unit>
+      <trans-unit id="156" approved="no">
+        <source>Type</source>
+        <target state="translated">வகை</target>
+      </trans-unit>
+      <trans-unit id="157">
+        <source>DIP upload settings saved.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="158">
+        <source>This value must be at least %min% pixels</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="159">
+        <source>This value can not be greater than %max% pixels</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="160">
+        <source>Digital object derivative settings saved.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="161" approved="no">
+        <source>No</source>
+        <target state="translated">இல்லை</target>
+      </trans-unit>
+      <trans-unit id="162" approved="no">
+        <source>Yes</source>
+        <target state="translated">ஆம்</target>
+      </trans-unit>
+      <trans-unit id="163" approved="no">
+        <source>Identifier settings saved.</source>
+        <target state="translated">அடையாளம்காட்டி அமைப்புகள் சேமிக்கப்பட்டது.</target>
+      </trans-unit>
+      <trans-unit id="164" approved="no">
+        <source>Security settings saved.</source>
+        <target state="translated">பாதுகாப்பு அமைப்புகள் சேமிக்கப்பட்டது.</target>
+      </trans-unit>
+      <trans-unit id="165" approved="no">
+        <source>Default page elements saved.</source>
+        <target state="translated">இயற் பக்கத் தனிமங்கள் சேமிக்கப்பட்டது.?</target>
+      </trans-unit>
+      <trans-unit id="166" approved="no">
+        <source>Default templates saved.</source>
+        <target state="translated">இயல் வார்ப்புரு சேமிக்கப்பட்டது.</target>
+      </trans-unit>
+      <trans-unit id="167" approved="no">
+        <source>Global settings saved.</source>
+        <target state="translated">உலகளாவிய தேடல் அமைப்புகள் சேமிக்கப்பட்டது.</target>
+      </trans-unit>
+      <trans-unit id="168">
+        <source>Markdown settings saved.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="169" approved="no">
+        <source>Privacy Notification settings saved.</source>
+        <target state="translated">தகவல் பாதுகாப்பு அறிவிக்கை அமைப்புகள் சேமிக்கப்பட்டது.</target>
+      </trans-unit>
+      <trans-unit id="170" approved="no">
+        <source>Sidebar</source>
+        <target state="translated">சிறு தகவல் பட்டை</target>
+      </trans-unit>
+      <trans-unit id="171" approved="no">
+        <source>Full width</source>
+        <target state="translated">முழு அகலம்</target>
+      </trans-unit>
+      <trans-unit id="172" approved="no">
+        <source>Manual</source>
+        <target state="translated">கையேடு</target>
+      </trans-unit>
+      <trans-unit id="173" approved="no">
+        <source>Identifier - Title</source>
+        <target state="translated">அடையாளம்காட்டி- தலைப்பு</target>
+      </trans-unit>
+      <trans-unit id="174">
+        <source>Inherit reference code</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="175" approved="no">
+        <source>Treeview settings saved.</source>
+        <target state="translated">கிளைத்தோற்ற அமைப்புகள் சேமிக்கப்பட்டுள்ளது.</target>
+      </trans-unit>
+      <trans-unit id="176" approved="no">
+        <source>Inventory settings saved.</source>
+        <target state="translated">கணக்கெடுப்பு அமைப்புகள் சேமிக்கப்பட்டது.</target>
+      </trans-unit>
+      <trans-unit id="177">
+        <source>Site information saved.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="178" approved="no">
+        <source>Global</source>
+        <target state="translated">உலகளாவிய</target>
+      </trans-unit>
+      <trans-unit id="179">
+        <source>Site information</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="180" approved="no">
+        <source>Default page elements</source>
+        <target state="translated">இயற் பக்கத் தனிமங்கள்?</target>
+      </trans-unit>
+      <trans-unit id="181" approved="no">
+        <source>Default template</source>
+        <target state="translated">இயல் வார்ப்புரு</target>
+      </trans-unit>
+      <trans-unit id="182" approved="no">
+        <source>User interface labels</source>
+        <target state="translated">பயனர் இடைமுக சிட்டைகள்</target>
+      </trans-unit>
+      <trans-unit id="183" approved="no">
+        <source>I18n languages</source>
+        <target state="translated">I18n மொழிகள்</target>
+      </trans-unit>
+      <trans-unit id="184" approved="no">
+        <source>Identifiers</source>
+        <target state="translated">அடையாளம்காட்டிகள்</target>
+      </trans-unit>
+      <trans-unit id="185">
+        <source>OAI repository</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="186" approved="no">
+        <source>Finding Aid</source>
+        <target state="translated">உதவு கருவி</target>
+      </trans-unit>
+      <trans-unit id="187" approved="no">
+        <source>Security</source>
+        <target state="translated">பாதுகாப்பு</target>
+      </trans-unit>
+      <trans-unit id="188" approved="no">
+        <source>Permissions</source>
+        <target state="translated">அனுமதிகள்</target>
+      </trans-unit>
+      <trans-unit id="189" approved="no">
+        <source>Inventory</source>
+        <target state="translated">கணக்கெடுப்பு</target>
+      </trans-unit>
+      <trans-unit id="190">
+        <source>Digital object derivatives</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="191">
+        <source>DIP upload</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="192" approved="no">
+        <source>Treeview</source>
+        <target state="translated">கிளைத் தோற்றம்</target>
+      </trans-unit>
+      <trans-unit id="193">
+        <source>Markdown</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="194" approved="no">
+        <source>Privacy Notification</source>
+        <target state="translated">தகவல் பாதுகாப்பு அறிவிக்கை</target>
+      </trans-unit>
+      <trans-unit id="195">
+        <source>LDAP Authentication</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="196" approved="no">
+        <source>Language saved.</source>
+        <target state="translated">மொழி சேமிக்கப்பட்டது</target>
+      </trans-unit>
+      <trans-unit id="197" approved="no">
+        <source>User interface labels saved.</source>
+        <target state="translated">பயனர் இடைமுக சிட்டைகள் சேமிக்கப்பட்டது.</target>
+      </trans-unit>
+      <trans-unit id="198" approved="no">
+        <source>Finding aid settings saved.</source>
+        <target state="translated">உதவு கருவி அமைப்புகள் சேமிக்கப்பட்டது.</target>
+      </trans-unit>
+      <trans-unit id="199" approved="no">
+        <source>Permissions saved.</source>
+        <target state="translated">அனுமதிகள் சேமிக்கப்பட்டது.</target>
+      </trans-unit>
+      <trans-unit id="200">
+        <source>Value</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="201">
+        <source>The name of the website for display in the header</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="202">
+        <source>A brief site description or &amp;quot;tagline&amp;quot; for the header</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="203">
+        <source>Used to create absolute URLs, pointing to resources, in XML exports</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="204" approved="no">
+        <source>Identifier-related</source>
+        <target state="translated">அடையாளம்காட்டி தொடர்பான?</target>
+      </trans-unit>
+      <trans-unit id="205" approved="no">
+        <source>Identifier settings</source>
+        <target state="translated">அடையாளம்காட்டி அமைப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="206" approved="no">
+        <source>Accession mask enabled</source>
+        <target state="translated">சேர்வு மறைப்பான் இயல்வி?</target>
+      </trans-unit>
+      <trans-unit id="207" approved="no">
+        <source>Accession mask</source>
+        <target state="translated">சேர்வு மறைப்பான்?</target>
+      </trans-unit>
+      <trans-unit id="208" approved="no">
+        <source>Accession counter</source>
+        <target state="translated">சேர்வு முகப்பு/ எண்ணகம்?</target>
+      </trans-unit>
+      <trans-unit id="209" approved="no">
+        <source>Identifier mask enabled</source>
+        <target state="translated">அடையாளம்காட்டி மறைப்பான் இயல்வி</target>
+      </trans-unit>
+      <trans-unit id="210" approved="no">
+        <source>Identifier mask</source>
+        <target state="translated">அடையாளம்காட்டி மறைப்பான்</target>
+      </trans-unit>
+      <trans-unit id="211" approved="no">
+        <source>Identifier counter</source>
+        <target state="translated">அடையாளம்காட்டி- எண்ணகம்/ சேவை முகப்பு?</target>
+      </trans-unit>
+      <trans-unit id="212" approved="no">
+        <source>Reference code separator</source>
+        <target state="translated">உசாத்துணைக் குறி பிரிப்பான்</target>
+      </trans-unit>
+      <trans-unit id="213">
+        <source>Inherit reference code (information object)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="214" approved="no">
+        <source>I18n language</source>
+        <target state="translated">I18n மொழி</target>
+      </trans-unit>
+      <trans-unit id="215">
+        <source>Please rebuild the search index if you are adding new languages.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="216" approved="no">
+        <source>Add</source>
+        <target state="translated">இணை</target>
+      </trans-unit>
+      <trans-unit id="217" approved="no">
+        <source>Inventory settings</source>
+        <target state="translated">கணக்கெடுப்பு அமைப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="218">
+        <source>Unknown value detected.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="219" approved="no">
+        <source>Levels of description</source>
+        <target state="translated">விவரிப்பு மட்டங்கள்</target>
+      </trans-unit>
+      <trans-unit id="220">
+        <source>Select the levels of description to be included in the inventory list. If no levels are selected, the inventory list link will not be displayed. You can use the control (Mac ⌘) and/or shift keys to multi-select values from the Levels of description menu.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="221">
+        <source>Review the current terms in the Levels of description taxonomy.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="222" approved="no">
+        <source>User interface label</source>
+        <target state="translated">பயனர் இடைமுக சிட்டை</target>
+      </trans-unit>
+      <trans-unit id="223">
+        <source>Enable or disable the display of certain page elements. Unless they have been overridden by a specific theme, these settings will be used site wide.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="224">
+        <source>This feature will not work until a Google Maps API key is specified on the %1%global%2% settings page.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="225">
+        <source>LDAP authentication</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="226">
+        <source>LDAP authentication settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="227" approved="no">
+        <source>Host</source>
+        <target state="translated">வழங்கி</target>
+      </trans-unit>
+      <trans-unit id="228" approved="no">
+        <source>Port</source>
+        <target state="translated">துறை</target>
+      </trans-unit>
+      <trans-unit id="229">
+        <source>Base DN</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="230">
+        <source>Bind Lookup Attribute</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="231" approved="no">
+        <source>Treeview settings</source>
+        <target state="translated">கிளைத்தோற்ற அமைப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="232" approved="no">
+        <source>General</source>
+        <target state="translated">பொதுவான</target>
+      </trans-unit>
+      <trans-unit id="233" approved="no">
+        <source>Show browse hierarchy page</source>
+        <target state="translated">உலாவியின் படிநிலை அமைப்பைக் காண்பி</target>
+      </trans-unit>
+      <trans-unit id="234">
+        <source>Determines whether to show a link to the browse hierarchy page on the information objects browse/search pages</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="235" approved="no">
+        <source>Sort (information object)</source>
+        <target state="translated">(தகவற் பொருளை) வகைப்படுத்துக</target>
+      </trans-unit>
+      <trans-unit id="236">
+        <source>Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="237" approved="no">
+        <source>Show identifier</source>
+        <target state="translated">அடையாளம்காட்டியைக் காண்பி</target>
+      </trans-unit>
+      <trans-unit id="238" approved="no">
+        <source>Show level of description</source>
+        <target state="translated">விவரண மட்டத்தைக் காண்பி</target>
+      </trans-unit>
+      <trans-unit id="239" approved="no">
+        <source>Show dates</source>
+        <target state="translated">திகதிகளைக் காண்பி</target>
+      </trans-unit>
+      <trans-unit id="240">
+        <source>PREMIS access permissions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="241">
+        <source>PREMIS act</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="242">
+        <source>PREMIS access statements</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="243" approved="no">
+        <source>Disallow statement</source>
+        <target state="translated">அறிக்கை அனுமதி மறு</target>
+      </trans-unit>
+      <trans-unit id="244" approved="no">
+        <source>Conditional statement</source>
+        <target state="translated">நிபந்தனைக்குட்பட்ட/ நிபந்தனைசார் அறிக்கை</target>
+      </trans-unit>
+      <trans-unit id="245" approved="no">
+        <source>Copyright statement</source>
+        <target state="translated">காப்புரிமை அறிக்கை</target>
+      </trans-unit>
+      <trans-unit id="246" approved="no">
+        <source>Enable copyright statement</source>
+        <target state="translated">காப்புரிமை அறிக்கையை இயல்வி</target>
+      </trans-unit>
+      <trans-unit id="247">
+        <source>When enabled the following text will appear whenever a user tries to download a %1% master with an associated rights statement where the Basis = copyright and the Restriction = conditional. You can style and customize the text as in a static page.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="248" approved="no">
+        <source>Preview</source>
+        <target state="translated">முன்காட்சி</target>
+      </trans-unit>
+      <trans-unit id="249" approved="no">
+        <source>Global settings</source>
+        <target state="translated">உலகளாவிய தேடல் அமைப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="250" approved="no">
+        <source>Privacy Notification Settings</source>
+        <target state="translated">தகவல் பாதுகாப்பு அறிவிக்கை அமைப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="251">
+        <source>Display Privacy Notification on first visit to site</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="252" approved="no">
+        <source>Privacy Notification Message</source>
+        <target state="translated">தகவல் பாதுகாப்பு அறிவிக்கை தூதுரை</target>
+      </trans-unit>
+      <trans-unit id="253">
+        <source>%1% derivatives</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="254">
+        <source>%1% derivatives settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="255">
+        <source>PDF page number for image derivative</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="256">
+        <source>If the page number does not exist, the derivative will be generated from the previous closest one.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="257">
+        <source>The pdfinfo tool is required to use this functionality. Please contact your system administrator.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="258">
+        <source>Maximum image width (pixels)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="259">
+        <source>The maximum width for derived reference images.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="260">
+        <source>Please rebuild the search index if you are enabling/disabling Markdown support.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="261">
+        <source>Enable Markdown support</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="262" approved="no">
+        <source>Finding Aid settings</source>
+        <target state="translated">உதவு கருவி அமைப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="263" approved="no">
+        <source>Security settings</source>
+        <target state="translated">பாதுகாப்பு அமைப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="264">
+        <source>OAI repository settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="265">
+        <source>The OAI-PMH API can be secured, optionally, by requiring API requests authenticate using API keys (granted to specific users).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="266">
+        <source>Visible elements</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="267" approved="no">
+        <source>Login button</source>
+        <target state="translated">புகுபதிகை விசை?</target>
+      </trans-unit>
+      <trans-unit id="268">
+        <source>ISAD template - area headings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="269" approved="no">
+        <source>Identity area</source>
+        <target state="translated">அடையாளப் பரப்பு</target>
+      </trans-unit>
+      <trans-unit id="270" approved="no">
+        <source>Context area</source>
+        <target state="translated">சூழமைவுப் பரப்பு</target>
+      </trans-unit>
+      <trans-unit id="271" approved="no">
+        <source>Content and structure area</source>
+        <target state="translated">உள்ளடக்கம், கட்டமைவுப் பரப்பு?</target>
+      </trans-unit>
+      <trans-unit id="272" approved="no">
+        <source>Conditions of access and use area</source>
+        <target state="translated">அணுக்கம், பயன் பரப்பு நிபந்தனைகள்?</target>
+      </trans-unit>
+      <trans-unit id="273" approved="no">
+        <source>Allied materials area</source>
+        <target state="translated">தொடர்புடைய பொருட் பரப்பு</target>
+      </trans-unit>
+      <trans-unit id="274" approved="no">
+        <source>Notes area</source>
+        <target state="translated">குறிப்புகள் பரப்பு</target>
+      </trans-unit>
+      <trans-unit id="275" approved="no">
+        <source>Access points</source>
+        <target state="translated">அணுக்க நுழைவாயில்கள்/ அணுகுமுனைகள்?</target>
+      </trans-unit>
+      <trans-unit id="276" approved="no">
+        <source>Description control area</source>
+        <target state="translated">கட்டுப்பாட்டுப் பரப்பின் விவரிப்பு</target>
+      </trans-unit>
+      <trans-unit id="277">
+        <source>ISAD template - elements</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="278" approved="no">
+        <source>Archival history</source>
+        <target state="translated">ஆவண வரலாறு</target>
+      </trans-unit>
+      <trans-unit id="279">
+        <source>Immediate source of acquisition or transfer</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="280" approved="no">
+        <source>Appraisal, destruction and scheduling information</source>
+        <target state="translated">மதிப்பீடு, அழிவு, தகவல் காலவரையீடு</target>
+      </trans-unit>
+      <trans-unit id="281" approved="no">
+        <source>Notes</source>
+        <target state="translated">குறிப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="282" approved="no">
+        <source>Physical characteristics and technical requirements</source>
+        <target state="translated">இயற்பியல் சிறப்பியல்புகளும் தொழில்நுட்பத் தேவைகளும்</target>
+      </trans-unit>
+      <trans-unit id="283" approved="no">
+        <source>Description identifier</source>
+        <target state="translated">விவரிப்பு அடையாளம்காட்டி</target>
+      </trans-unit>
+      <trans-unit id="284" approved="no">
+        <source>Institution identifier</source>
+        <target state="translated">நிறுவன அடையாளம்காட்டி</target>
+      </trans-unit>
+      <trans-unit id="285" approved="no">
+        <source>Rules or conventions</source>
+        <target state="translated">விதிகளும் மரபுநெறிகளும்</target>
+      </trans-unit>
+      <trans-unit id="286" approved="no">
+        <source>Status</source>
+        <target state="translated">நிகழ்நிலை</target>
+      </trans-unit>
+      <trans-unit id="287" approved="no">
+        <source>Level of detail</source>
+        <target state="translated">நுண் விவர மட்டம்</target>
+      </trans-unit>
+      <trans-unit id="288" approved="no">
+        <source>Dates of creation, revision and deletion</source>
+        <target state="translated">ஆக்க, சீராய்வு, நீக்கத் திகதிகள்</target>
+      </trans-unit>
+      <trans-unit id="289" approved="no">
+        <source>Language(s)</source>
+        <target state="translated">மொழிகள்</target>
+      </trans-unit>
+      <trans-unit id="290" approved="no">
+        <source>Script(s)</source>
+        <target state="translated">வரிவடிவங்கள்</target>
+      </trans-unit>
+      <trans-unit id="291" approved="no">
+        <source>Sources</source>
+        <target state="translated">மூலங்கள்</target>
+      </trans-unit>
+      <trans-unit id="292" approved="no">
+        <source>Archivist's notes</source>
+        <target state="translated">ஆவணக் காப்பாளரின் குறிப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="293">
+        <source>RAD template - area headings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="294" approved="no">
+        <source>Title and statement of responsibility area</source>
+        <target state="translated">தலைப்பும் அறிக்கை பொறுப்புப் பரப்பும்</target>
+      </trans-unit>
+      <trans-unit id="295" approved="no">
+        <source>Edition area</source>
+        <target state="translated">பதிப்பு பரப்பு</target>
+      </trans-unit>
+      <trans-unit id="296">
+        <source>Class of material specific details area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="297" approved="no">
+        <source>Dates of creation area</source>
+        <target state="translated">ஆக்கப் பரப்பு திகதிகள்</target>
+      </trans-unit>
+      <trans-unit id="298" approved="no">
+        <source>Physical description area</source>
+        <target state="translated">இயல் விவரப் பரப்பு</target>
+      </trans-unit>
+      <trans-unit id="299" approved="no">
+        <source>Publisher's series area</source>
+        <target state="translated">வெளியீட்டாளர் தொகுதிப் பரப்பு?</target>
+      </trans-unit>
+      <trans-unit id="300" approved="no">
+        <source>Archival description area</source>
+        <target state="translated">ஆவண விவரிப்பு பரப்பு</target>
+      </trans-unit>
+      <trans-unit id="301" approved="no">
+        <source>Standard number area</source>
+        <target state="translated">தகுதர எண் பரப்பு</target>
+      </trans-unit>
+      <trans-unit id="302" approved="no">
+        <source>Control area</source>
+        <target state="translated">கட்டுப்பாட்டுப் பரப்பு</target>
+      </trans-unit>
+      <trans-unit id="303">
+        <source>RAD template - elements</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="304" approved="no">
+        <source>Custodial history</source>
+        <target state="translated">பாதுகாவல் வரலாறு?</target>
+      </trans-unit>
+      <trans-unit id="305" approved="no">
+        <source>Physical condition</source>
+        <target state="translated">இயல்/ புற நிலைமை</target>
+      </trans-unit>
+      <trans-unit id="306">
+        <source>Immediate source of acquisition</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="307" approved="no">
+        <source>General note(s)</source>
+        <target state="translated">பொதுக் குறிப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="308" approved="no">
+        <source>Conservation note(s)</source>
+        <target state="translated">அழிவின்மைப் பேணுகைக் குறிப்புகள்?</target>
+      </trans-unit>
+      <trans-unit id="309" approved="no">
+        <source>Rights note(s)</source>
+        <target state="translated">உரிமக் குறிப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="310" approved="no">
+        <source>Script</source>
+        <target state="translated">வரிவடிவம்</target>
+      </trans-unit>
+      <trans-unit id="311">
+        <source>%1% metadata area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="312" approved="no">
+        <source>URL</source>
+        <target state="translated">முகவரி</target>
+      </trans-unit>
+      <trans-unit id="313" approved="no">
+        <source>File name</source>
+        <target state="translated">கோப்பின் பெயர்</target>
+      </trans-unit>
+      <trans-unit id="314" approved="no">
+        <source>Latitude and longitude</source>
+        <target state="translated">அகலாங்கும் நெட்டாங்கும்</target>
+      </trans-unit>
+      <trans-unit id="315" approved="no">
+        <source>Media type</source>
+        <target state="translated">ஊடக வகை</target>
+      </trans-unit>
+      <trans-unit id="316">
+        <source>MIME type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="317" approved="no">
+        <source>File size</source>
+        <target state="translated">கோப்பின் அளவு</target>
+      </trans-unit>
+      <trans-unit id="318" approved="no">
+        <source>Uploaded</source>
+        <target state="translated">பதிவேற்றப்பட்டது</target>
+      </trans-unit>
+      <trans-unit id="319" approved="no">
+        <source>Physical storage</source>
+        <target state="translated">இயற்பொருள் சேமகம்</target>
+      </trans-unit>
+      <trans-unit id="320">
+        <source>DIP upload settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="321" approved="no">
+        <source>Related contact information</source>
+        <target state="translated">தொடர்புடைய தொடர்பாளர் விவரம்</target>
+      </trans-unit>
+      <trans-unit id="322" approved="no">
+        <source>Contact person</source>
+        <target state="translated">தொடர்புக்குரியவர்</target>
+      </trans-unit>
+      <trans-unit id="323" approved="no">
+        <source>Primary</source>
+        <target state="translated">முதன்மையான</target>
+      </trans-unit>
+      <trans-unit id="324" approved="no">
+        <source>Submit</source>
+        <target state="translated">சமர்ப்பி</target>
+      </trans-unit>
+      <trans-unit id="325" approved="no">
+        <source>Main</source>
+        <target state="translated">முதன்மையான?</target>
+      </trans-unit>
+      <trans-unit id="326" approved="no">
+        <source>Physical location</source>
+        <target state="translated">இயல் அமைவிடம்</target>
+      </trans-unit>
+      <trans-unit id="327" approved="no">
+        <source>Other details</source>
+        <target state="translated">ஏனைய விவரங்கள்</target>
+      </trans-unit>
+      <trans-unit id="328" approved="no">
+        <source>Primary contract</source>
+        <target state="translated">முதன்மை ஒப்பந்தம்</target>
+      </trans-unit>
+      <trans-unit id="329" approved="no">
+        <source>Phone</source>
+        <target state="translated">தொலைபேசி</target>
+      </trans-unit>
+      <trans-unit id="330" approved="no">
+        <source>Fax</source>
+        <target state="translated">தொலைநகலி</target>
+      </trans-unit>
+      <trans-unit id="331" approved="no">
+        <source>Email</source>
+        <target state="translated">மின்னஞ்சல்</target>
+      </trans-unit>
+      <trans-unit id="332" approved="no">
+        <source>Street address</source>
+        <target state="translated">வீதி முகவரி</target>
+      </trans-unit>
+      <trans-unit id="333" approved="no">
+        <source>Region/province</source>
+        <target state="translated">பிராந்தியம்/மாகாணம்</target>
+      </trans-unit>
+      <trans-unit id="334" approved="no">
+        <source>Country</source>
+        <target state="translated">நாடு</target>
+      </trans-unit>
+      <trans-unit id="335" approved="no">
+        <source>Postal code</source>
+        <target state="translated">அஞ்சல் குறியீடு/ குறிமுறை?</target>
+      </trans-unit>
+      <trans-unit id="336" approved="no">
+        <source>City</source>
+        <target state="translated">நகரம்</target>
+      </trans-unit>
+      <trans-unit id="337" approved="no">
+        <source>Latitude</source>
+        <target state="translated">அகலாங்கு</target>
+      </trans-unit>
+      <trans-unit id="338" approved="no">
+        <source>Longitude</source>
+        <target state="translated">நெட்டாங்கு</target>
+      </trans-unit>
+      <trans-unit id="339" approved="no">
+        <source>Contact type</source>
+        <target state="translated">தொடர்பு வகை</target>
+      </trans-unit>
+      <trans-unit id="340" approved="no">
+        <source>Note</source>
+        <target state="translated">குறிப்பு</target>
+      </trans-unit>
+      <trans-unit id="341" approved="no">
+        <source>Primary contact</source>
+        <target state="translated">முதன்மைத் தொடர்பாளர்</target>
+      </trans-unit>
+      <trans-unit id="342" approved="no">
+        <source>Address</source>
+        <target state="translated">முகவரி</target>
+      </trans-unit>
+      <trans-unit id="343" approved="no">
+        <source>Locality</source>
+        <target state="translated">இடம்</target>
+      </trans-unit>
+      <trans-unit id="344" approved="no">
+        <source>Region</source>
+        <target state="translated">பிராந்தியம்</target>
+      </trans-unit>
+      <trans-unit id="345" approved="no">
+        <source>Country name</source>
+        <target state="translated">நாட்டின் பெயர்</target>
+      </trans-unit>
+      <trans-unit id="346" approved="no">
+        <source>Telephone</source>
+        <target state="translated">தொலைபேசி</target>
+      </trans-unit>
+      <trans-unit id="347" approved="no">
+        <source>Maintainer of</source>
+        <target state="translated">இதன் பராமரிப்பாளர்/ காப்பாளர்?</target>
+      </trans-unit>
+      <trans-unit id="348">
+        <source>Only hexadecimal color value</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="349" approved="no">
+        <source>Banner</source>
+        <target state="translated">பதாகை</target>
+      </trans-unit>
+      <trans-unit id="350">
+        <source>Requirements: PNG format, 256K max. size.&lt;br /&gt;Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="351" approved="no">
+        <source>Logo</source>
+        <target state="translated">குறியம்</target>
+      </trans-unit>
+      <trans-unit id="352" approved="no">
+        <source>Style</source>
+        <target state="translated">பாணி</target>
+      </trans-unit>
+      <trans-unit id="353" approved="no">
+        <source>Background color</source>
+        <target state="translated">பின்புல நிறம்</target>
+      </trans-unit>
+      <trans-unit id="354" approved="no">
+        <source>Page content</source>
+        <target state="translated">பக்க உள்ளடக்கம்</target>
+      </trans-unit>
+      <trans-unit id="355">
+        <source>Content in this area will appear below an uploaded banner and above the institution's description areas. It can be used to offer a summary of the institution's mandate, include a tag line or important information, etc. HTML and inline CSS can be used to style the contents.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="356" approved="no">
+        <source>Browse %1% holdings</source>
+        <target state="translated">%1% உடமைகளை உலாவு</target>
+      </trans-unit>
+      <trans-unit id="357" approved="no">
+        <source>Loading ...</source>
+        <target state="translated">நிரலேற்றப்படுகிறது...</target>
+      </trans-unit>
+      <trans-unit id="358" approved="no">
+        <source>Search holdings</source>
+        <target state="translated">உடமைகளைத் தேடுக?</target>
+      </trans-unit>
+      <trans-unit id="359" approved="no">
+        <source>Go to %1%</source>
+        <target state="translated">%1% க்குச் செல்க</target>
+      </trans-unit>
+      <trans-unit id="360" approved="no">
+        <source>Search</source>
+        <target state="translated">தேடல்</target>
+      </trans-unit>
+      <trans-unit id="361" approved="no">
+        <source>Thematic area:</source>
+        <target state="translated">கருப்பொருள்/ ஆய்வுப்பொருள் பரப்பு</target>
+      </trans-unit>
+      <trans-unit id="362" approved="no">
+        <source>Archive type:</source>
+        <target state="translated">ஆவண வகை:</target>
+      </trans-unit>
+      <trans-unit id="363" approved="no">
+        <source>Regions:</source>
+        <target state="translated">பிராந்தியங்கள்:</target>
+      </trans-unit>
+      <trans-unit id="364" approved="no">
+        <source>Set filters</source>
+        <target state="translated">வடிகட்டிகளை நிறுவுக</target>
+      </trans-unit>
+      <trans-unit id="365" approved="no">
+        <source>Sort</source>
+        <target state="translated">வகைப்படுத்துக</target>
+      </trans-unit>
+      <trans-unit id="366" approved="no">
+        <source>Sort ascending</source>
+        <target state="translated">ஏறுவரிசையில் வகைப்படுத்துக</target>
+      </trans-unit>
+      <trans-unit id="367" approved="no">
+        <source>Sort descending</source>
+        <target state="translated">இறங்குவரிசையில் வகைப்படுத்துக</target>
+      </trans-unit>
+      <trans-unit id="368" approved="no">
+        <source>Thematic area</source>
+        <target state="translated">கருப்பொருள்/ ஆய்வுப்பொருள் பரப்பு</target>
+      </trans-unit>
+      <trans-unit id="369" approved="no">
+        <source>Upload limit exceeded</source>
+        <target state="translated">பதிவேற்ற வரம்பு கடக்கப்பட்டுள்ளது</target>
+      </trans-unit>
+      <trans-unit id="370">
+        <source>The upload limit of %1% GB for &lt;a href="%2%"&gt;%3%&lt;/a&gt; has been exceeded (%4% GB currently used)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="371" approved="no">
+        <source>To upload a new %1%</source>
+        <target state="translated">ஒரு புதிய %1% பதிவேற்றுவதற்கு</target>
+      </trans-unit>
+      <trans-unit id="372">
+        <source>Email your &lt;a href="mailto:%1%"&gt;system administrator&lt;/a&gt; and request a larger upload limit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="373" approved="no">
+        <source>Delete an existing %1% to reduce disk usage</source>
+        <target state="translated">வட்டின் பயன்பாட்டைக் குறைக்க நடப்பிலுள்ள %1% அழி</target>
+      </trans-unit>
+      <trans-unit id="374" approved="no">
+        <source>Back</source>
+        <target state="translated">பின்னோக்கிய?</target>
+      </trans-unit>
+      <trans-unit id="375" approved="no">
+        <source>Filters</source>
+        <target state="translated">வடிகட்டிகள்</target>
+      </trans-unit>
+      <trans-unit id="376" approved="no">
+        <source>Archive type</source>
+        <target state="translated">ஆவண வகை</target>
+      </trans-unit>
+      <trans-unit id="377" approved="no">
+        <source>Geographic Region</source>
+        <target state="translated">புவியியற் பிராந்தியம்</target>
+      </trans-unit>
+      <trans-unit id="378" approved="no">
+        <source>Geographic Subregion</source>
+        <target state="translated">புவியியற் துணைப் பிராந்தியம்</target>
+      </trans-unit>
+      <trans-unit id="379" approved="no">
+        <source>Thematic Area</source>
+        <target state="translated">கருப்பொருள்/ ஆய்வுப்பொருள் பரப்பு?</target>
+      </trans-unit>
+      <trans-unit id="380" approved="no">
+        <source>Advanced search options</source>
+        <target state="translated">உயர்நிலைத் தேடல் இடப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="381" approved="no">
+        <source>Browse %1% results</source>
+        <target state="translated">%1% முடிவுகளை உலாவு</target>
+      </trans-unit>
+      <trans-unit id="382" approved="no">
+        <source>Upload limit</source>
+        <target state="translated">பதிவேற்ற வரம்பு</target>
+      </trans-unit>
+      <trans-unit id="383">
+        <source>for %repo%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="384">
+        <source>%du% of %limit% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; (%percent%%)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="385" approved="no">
+        <source>Upload is disabled</source>
+        <target state="translated">பதிவேற்றம் செயலிழக்கச் செய்யப்பட்டுள்ளது</target>
+      </trans-unit>
+      <trans-unit id="386">
+        <source>%du% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; of &lt;em&gt;Unlimited&lt;/em&gt;&amp;nbsp;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="387" approved="no">
+        <source>Edit upload limit</source>
+        <target state="translated">பதிவேற்ற வரம்பைத் தொகு</target>
+      </trans-unit>
+      <trans-unit id="388" approved="no">
+        <source>Set the upload limit for this %1%</source>
+        <target state="translated">இந்த %1% க்கான பதிவேற்ற வரம்பை நிறுவுக</target>
+      </trans-unit>
+      <trans-unit id="389" approved="no">
+        <source>Disable uploads</source>
+        <target state="translated">பதிவேற்றங்களை செயலிழக்கச் செய்</target>
+      </trans-unit>
+      <trans-unit id="390">
+        <source>Limit uploads to %1% GB</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="391" approved="no">
+        <source>Allow unlimited uploads</source>
+        <target state="translated">வரையிடா பதிவேற்றங்களை அனுமதி</target>
+      </trans-unit>
+      <trans-unit id="392" approved="no">
+        <source>Update successful</source>
+        <target state="translated">இற்றாக்கம் வெற்றியார்ந்தது?</target>
+      </trans-unit>
+      <trans-unit id="393" approved="no">
+        <source>With digital objects</source>
+        <target state="translated">எண்ணிமப் பொருட்கள் உடன்</target>
+      </trans-unit>
+      <trans-unit id="394" approved="no">
+        <source>Without digital objects</source>
+        <target state="translated">எண்ணிமப் பொருட்கள் இன்றி</target>
+      </trans-unit>
+      <trans-unit id="395" approved="no">
+        <source>Empty: %1%</source>
+        <target state="translated">வெறுமை: %1%</target>
+      </trans-unit>
+      <trans-unit id="396" approved="no">
+        <source>Authorized form of name</source>
+        <target state="translated">பெயரின் ஒப்பிய உருவடிவம்</target>
+      </trans-unit>
+      <trans-unit id="397" approved="no">
+        <source>Parallel form(s) of name</source>
+        <target state="translated">பெயரின் இணை வடிவங்கள்</target>
+      </trans-unit>
+      <trans-unit id="398" approved="no">
+        <source>Other form(s) of name</source>
+        <target state="translated">பெயரின் வேறு வடிவங்கள்</target>
+      </trans-unit>
+      <trans-unit id="399">
+        <source>Dates of existence</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="400" approved="no">
+        <source>History</source>
+        <target state="translated">வரலாறு</target>
+      </trans-unit>
+      <trans-unit id="401" approved="no">
+        <source>Legal status</source>
+        <target state="translated">சட்ட தகுநிலை</target>
+      </trans-unit>
+      <trans-unit id="402" approved="no">
+        <source>Places</source>
+        <target state="translated">இடங்கள்</target>
+      </trans-unit>
+      <trans-unit id="403" approved="no">
+        <source>General context</source>
+        <target state="translated">பொதுச் சூழமைவு</target>
+      </trans-unit>
+      <trans-unit id="404" approved="no">
+        <source>Occupation access points</source>
+        <target state="translated">பணி அணுக்க நுழைவாயில்கள்</target>
+      </trans-unit>
+      <trans-unit id="405" approved="no">
+        <source>Occupation access point notes</source>
+        <target state="translated">பணி அணுக்க நுழைவாயில் குறிப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="406" approved="no">
+        <source>Subject access points</source>
+        <target state="translated">பொருட்துறை அணுக்க நுழைவாயில்கள்</target>
+      </trans-unit>
+      <trans-unit id="407" approved="no">
+        <source>Place access points</source>
+        <target state="translated">இட அணுக்க நுழைவாயில்கள்</target>
+      </trans-unit>
+      <trans-unit id="408" approved="no">
+        <source>Authority record identifier</source>
+        <target state="translated">அதிகாரப் பதிவுரு அடையாளம்காட்டி?</target>
+      </trans-unit>
+      <trans-unit id="409" approved="no">
+        <source>Maintenance notes</source>
+        <target state="translated">பராமரிப்பு குறிப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="410" approved="no">
+        <source>Subject</source>
+        <target state="translated">பொருட்துறை</target>
+      </trans-unit>
+      <trans-unit id="411" approved="no">
+        <source>Find results with:</source>
+        <target state="translated">முடிவுகளை [இதன்] உடன் கண்டுபிடி:</target>
+      </trans-unit>
+      <trans-unit id="412" approved="no">
+        <source>and</source>
+        <target state="translated">மற்றும்</target>
+      </trans-unit>
+      <trans-unit id="413" approved="no">
+        <source>or</source>
+        <target state="translated">அல்லது</target>
+      </trans-unit>
+      <trans-unit id="414" approved="no">
+        <source>not</source>
+        <target state="translated">அல்ல</target>
+      </trans-unit>
+      <trans-unit id="415" approved="no">
+        <source>in</source>
+        <target state="translated">உள்</target>
+      </trans-unit>
+      <trans-unit id="416" approved="no">
+        <source>Any field</source>
+        <target state="translated">எப்புலமாயினும்</target>
+      </trans-unit>
+      <trans-unit id="417" approved="no">
+        <source>Add new criteria</source>
+        <target state="translated">புது கட்டளை விதியை இணை</target>
+      </trans-unit>
+      <trans-unit id="418" approved="no">
+        <source>And</source>
+        <target state="translated">மற்றும்</target>
+      </trans-unit>
+      <trans-unit id="419" approved="no">
+        <source>Or</source>
+        <target state="translated">அல்லது</target>
+      </trans-unit>
+      <trans-unit id="420" approved="no">
+        <source>Not</source>
+        <target state="translated">அல்ல</target>
+      </trans-unit>
+      <trans-unit id="421">
+        <source>Limit results to:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="422" approved="no">
+        <source>Repository</source>
+        <target state="translated">சேமகம்?</target>
+      </trans-unit>
+      <trans-unit id="423" approved="no">
+        <source>Filter results by:</source>
+        <target state="translated">முடிவுகளை [இதன்] படி வடிகட்டுக:</target>
+      </trans-unit>
+      <trans-unit id="424">
+        <source>%1% available</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="425" approved="no">
+        <source>Entity type</source>
+        <target state="translated">உள்பொருள் வகை</target>
+      </trans-unit>
+      <trans-unit id="426" approved="no">
+        <source>Empty field</source>
+        <target state="translated">வெறுமைப் புலம்</target>
+      </trans-unit>
+      <trans-unit id="427" approved="no">
+        <source>Reset</source>
+        <target state="translated">மீளமைக்குக</target>
+      </trans-unit>
+      <trans-unit id="428">
+        <source>%1% of</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="429" approved="no">
+        <source>Occupation</source>
+        <target state="translated">பணி</target>
+      </trans-unit>
+      <trans-unit id="430" approved="no">
+        <source>No results found</source>
+        <target state="translated">உங்கள் [வினவலுக்கான] முடிவுகள் எதுவும் இல்லை</target>
+      </trans-unit>
+      <trans-unit id="431" approved="no">
+        <source>Maintained by</source>
+        <target state="translated">ஆல் பராமரிக்கப்பட்டது</target>
+      </trans-unit>
+      <trans-unit id="432">
+        <source>Apply to all descendants</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="433">
+        <source>Apply only to %1% descendants</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="434">
+        <source>Delete current rights in descendants and replace with parent rights.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="435">
+        <source>Keep current rights in descendants and add parent rights.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="436" approved="no">
+        <source>Inherit rights</source>
+        <target state="translated">மரபுரிம உரிமங்கள்</target>
+      </trans-unit>
+      <trans-unit id="437">
+        <source>Children inheriting rights from record: </source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="438" approved="no">
+        <source>Copyright status determination date</source>
+        <target state="translated">காப்புரிமை தகுதரம் நிர்ணய திகதி</target>
+      </trans-unit>
+      <trans-unit id="439" approved="no">
+        <source>Allow</source>
+        <target state="translated">அனுமதி/ இசைவளி</target>
+      </trans-unit>
+      <trans-unit id="440" approved="no">
+        <source>Conditional</source>
+        <target state="translated">நிபந்தனைக்குட்பட்டது</target>
+      </trans-unit>
+      <trans-unit id="441" approved="no">
+        <source>Disallow</source>
+        <target state="translated">அனுமதி மறு</target>
+      </trans-unit>
+      <trans-unit id="442">
+        <source>Are you sure you want to delete this right?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="443" approved="no">
+        <source>Manage rights inheritance</source>
+        <target state="translated">மரபுரிம உரிமங்களை நிர்வகி</target>
+      </trans-unit>
+      <trans-unit id="444" approved="no">
+        <source>Inheritance options</source>
+        <target state="translated">மரபுரிம தேர்வுகள்/ இடப்புகள்?</target>
+      </trans-unit>
+      <trans-unit id="445">
+        <source>All descendants or just digital objects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="446">
+        <source>Set if you want to combine the current set of rights with any existing rights, or remove the existing rights and apply these new rights</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="447" approved="no">
+        <source>Overwrite or combine rights</source>
+        <target state="translated">மேலெழுதுக அல்லது உரிமங்களை ஒருங்கிணைக்குக</target>
+      </trans-unit>
+      <trans-unit id="448" approved="no">
+        <source>Apply</source>
+        <target state="translated">பிரயோகி?</target>
+      </trans-unit>
+      <trans-unit id="449" approved="no">
+        <source>Related right</source>
+        <target state="translated">தொடர்புடைய உரிமம்</target>
+      </trans-unit>
+      <trans-unit id="450">
+        <source>Inherited from %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="451" approved="no">
+        <source>Basis</source>
+        <target state="translated">அடிப்படையானது?</target>
+      </trans-unit>
+      <trans-unit id="452" approved="no">
+        <source>Start date</source>
+        <target state="translated">ஆரம்பத் திகதி</target>
+      </trans-unit>
+      <trans-unit id="453" approved="no">
+        <source>End date</source>
+        <target state="translated">முடிவு திகதி</target>
+      </trans-unit>
+      <trans-unit id="454" approved="no">
+        <source>Documentation Identifier Type</source>
+        <target state="translated">ஆவண அடையாளம்காட்டி வகை</target>
+      </trans-unit>
+      <trans-unit id="455" approved="no">
+        <source>Documentation Identifier Value</source>
+        <target state="translated">ஆவண அடையாளம்காட்டி மதிப்பு</target>
+      </trans-unit>
+      <trans-unit id="456" approved="no">
+        <source>Documentation Identifier Role</source>
+        <target state="translated">ஆவண அடையாளம்காட்டி வகிபாகம்</target>
+      </trans-unit>
+      <trans-unit id="457" approved="no">
+        <source>Rights holder</source>
+        <target state="translated">காப்புரிமையாளர்</target>
+      </trans-unit>
+      <trans-unit id="458" approved="no">
+        <source>Copyright status</source>
+        <target state="translated">காப்புரிமை தகுதரம்</target>
+      </trans-unit>
+      <trans-unit id="459" approved="no">
+        <source>Copyright jurisdiction</source>
+        <target state="translated">காப்புரிமை சட்ட ஆட்சி எல்லை</target>
+      </trans-unit>
+      <trans-unit id="460" approved="no">
+        <source>Copyright note</source>
+        <target state="translated">காப்புரிமை குறிப்பு</target>
+      </trans-unit>
+      <trans-unit id="461" approved="no">
+        <source>License identifier</source>
+        <target state="translated">உரிம அடையாளம்காட்டி</target>
+      </trans-unit>
+      <trans-unit id="462" approved="no">
+        <source>License terms</source>
+        <target state="translated">உரிம நியதிகள்</target>
+      </trans-unit>
+      <trans-unit id="463" approved="no">
+        <source>License note</source>
+        <target state="translated">உரிமக் குறிப்பு</target>
+      </trans-unit>
+      <trans-unit id="464" approved="no">
+        <source>Statute jurisdiction</source>
+        <target state="translated">நியதிச் சட்ட ஆட்சி அதிகார எல்லை</target>
+      </trans-unit>
+      <trans-unit id="465" approved="no">
+        <source>Statute citation</source>
+        <target state="translated">நியதிச் சட்ட மேற்கோள்</target>
+      </trans-unit>
+      <trans-unit id="466" approved="no">
+        <source>Statute determination date</source>
+        <target state="translated">நியதிச் சட்ட நிர்ணய திகதி</target>
+      </trans-unit>
+      <trans-unit id="467" approved="no">
+        <source>Statute note</source>
+        <target state="translated">நியதிச் சட்ட குறிப்பு</target>
+      </trans-unit>
+      <trans-unit id="468" approved="no">
+        <source>Act</source>
+        <target state="translated">சட்டம்</target>
+      </trans-unit>
+      <trans-unit id="469" approved="no">
+        <source>Restriction</source>
+        <target state="translated">கட்டுப்பாடு</target>
+      </trans-unit>
+      <trans-unit id="470" approved="no">
+        <source>Rights management</source>
+        <target state="translated">உரிம முகாமைத்துவம்</target>
+      </trans-unit>
+      <trans-unit id="471" approved="no">
+        <source>Rights basis</source>
+        <target state="translated">உரிம அடிப்படை</target>
+      </trans-unit>
+      <trans-unit id="472" approved="no">
+        <source>Basis for the permissions granted or for the restriction of rights</source>
+        <target state="translated">அனுமதிகள் வழங்கல் அல்லது உரிமக் கட்டுப்பாடுகளுக்கான அடிப்படை</target>
+      </trans-unit>
+      <trans-unit id="473">
+        <source>A coded designation for the copyright status of the object at the time the rights statement is recorded.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="474">
+        <source>The date the copyright status applies.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="475">
+        <source>The country whose copyright laws apply.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="476" approved="no">
+        <source>Notes regarding the copyright.</source>
+        <target state="translated">காப்புரிமை தொடர்பான குறிப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="477">
+        <source>Text describing the license or agreement by which permission was granted or link to full-text hosted online. This can contain the actual text of the license or agreement or a paraphrase or summary.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="478">
+        <source>Additional information about the license, such as contact persons, action dates, or interpretations. The note may also indicated the location of the license, if it is available online or embedded in the object itself.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="479">
+        <source>The country or other political body that has enacted the statute.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="480">
+        <source>An identifying designation for the statute. Use standard citation form when applicable, e.g. bibliographic citation.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="481">
+        <source>Date that the decision to ascribe the right to this statute was made. As context for any future review/re-interpretation.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="482" approved="no">
+        <source>Additional information about the statute.</source>
+        <target state="translated">நியதிச் சட்டம் தொடர்பான மேலதிக தகவல்</target>
+      </trans-unit>
+      <trans-unit id="483">
+        <source>Enter the copyright start date, if known. Acceptable date format: YYYY-MM-DD.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="484">
+        <source>Enter the copyright end date, if known. Acceptable date format: YYYY-MM-DD.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="485">
+        <source>Name of the person(s) or organization(s) which has the authority to grant permissions or set rights restrictions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="486" approved="no">
+        <source>Notes for this Rights Basis.</source>
+        <target state="translated">இந்த உரிம அடிப்படைக்கான குறிப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="487">
+        <source>Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses). Used to identify the granting agreement uniquely within the repository system.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="488" approved="no">
+        <source>Act / Granted rights</source>
+        <target state="translated">சட்டம்/ வழங்கப்பட்ட உரிமைகள்</target>
+      </trans-unit>
+      <trans-unit id="489" approved="no">
+        <source>Granted right </source>
+        <target state="translated">வழங்கு உரிமை</target>
+      </trans-unit>
+      <trans-unit id="490">
+        <source>The action which is permitted or restricted.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="491">
+        <source>A condition or limitation on the act.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="492">
+        <source>The beginning date of the permission granted.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="493">
+        <source>The ending date of the permission granted. Omit end date if the ending date is unknown.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="494" approved="no">
+        <source>Notes for this granted right.</source>
+        <target state="translated">வழங்கப்பட்ட இந்தப் புது உரிமைக்கான குறிப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="495" approved="no">
+        <source>Blank item</source>
+        <target state="translated">வெற்று உருப்படி</target>
+      </trans-unit>
+      <trans-unit id="496" approved="no">
+        <source>Add granted right</source>
+        <target state="translated">வழங்கு உரிமையை இணை</target>
+      </trans-unit>
+      <trans-unit id="497" approved="no">
+        <source>New granted right</source>
+        <target state="translated">வழங்கப்பட்ட புது உரிமை</target>
+      </trans-unit>
+      <trans-unit id="498">
+        <source>"Record, when relevant, the start and the end date of the relationship." (ISDF 6.3) Enter the date as you would like it to appear in the show page for the function, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="499">
+        <source>Enter the end year. Do not use any qualifiers or typographical symbols to express uncertainty. If the start and end years are the same, enter data only in the "Date" field and leave the "End date" blank.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="500">
+        <source>Enter the start year. Do not use any qualifiers or typographical symbols to express uncertainty.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="501">
+        <source>Describe the nature of the relationship between the function and the related resource. (ISDF 6.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="502" approved="no">
+        <source>Generated</source>
+        <target state="translated">தோற்றுவிக்கப்பட்டது</target>
+      </trans-unit>
+      <trans-unit id="503" approved="no">
+        <source>With finding aid</source>
+        <target state="translated">உதவு கருவி உடன்</target>
+      </trans-unit>
+      <trans-unit id="504" approved="no">
+        <source>Without finding aid</source>
+        <target state="translated">உதவு கருவி இன்றி</target>
+      </trans-unit>
+      <trans-unit id="505" approved="no">
+        <source>With generated finding aid</source>
+        <target state="translated">தோற்றுவித்த உதவு கருவி உடன்</target>
+      </trans-unit>
+      <trans-unit id="506" approved="no">
+        <source>With uploaded finding aid</source>
+        <target state="translated">பதிவேற்றப்பட்ட உதவு கருவி உடன்</target>
+      </trans-unit>
+      <trans-unit id="507" approved="no">
+        <source>Box label</source>
+        <target state="translated">பெட்டியின் சிட்டை?</target>
+      </trans-unit>
+      <trans-unit id="508">
+        <source>Report generation has started, please check the &lt;a href="%1"&gt;reports&lt;/a&gt; page again soon.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="509" approved="no">
+        <source>Never</source>
+        <target state="translated">ஒருபோதுமில்லை</target>
+      </trans-unit>
+      <trans-unit id="510" approved="no">
+        <source>In progress</source>
+        <target state="translated">நடப்பு நகர்வில் உள்ளது?</target>
+      </trans-unit>
+      <trans-unit id="511">
+        <source>Your description has been updated. Lower level descriptions are being updated now – check the &lt;a href="%1"&gt;job scheduler page&lt;/a&gt; for status and details.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="512" approved="no">
+        <source>Description updated.</source>
+        <target state="translated">விவரிப்பு இற்றைப்படுத்தப்பட்டது</target>
+      </trans-unit>
+      <trans-unit id="513">
+        <source>Slug was adjusted to remove special characters or because it has already been used for another description.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="514" approved="no">
+        <source>Generating finding aid for: %1%</source>
+        <target state="translated">ஆதலால் உதவு கருவி தோற்றுவிக்கப்பட்டது: %1%</target>
+      </trans-unit>
+      <trans-unit id="515" approved="no">
+        <source>Item</source>
+        <target state="translated">உருப்படி</target>
+      </trans-unit>
+      <trans-unit id="516" approved="no">
+        <source>Reference code</source>
+        <target state="translated">உசாத்துணைக் குறி</target>
+      </trans-unit>
+      <trans-unit id="517" approved="no">
+        <source>Date (based on start date)</source>
+        <target state="translated">திகதி (ஆரம்ப திகதியின் அடிப்படையில்)</target>
+      </trans-unit>
+      <trans-unit id="518" approved="no">
+        <source>Retrieval information</source>
+        <target state="translated">மீட்பு தகவல்</target>
+      </trans-unit>
+      <trans-unit id="519" approved="no">
+        <source>File list</source>
+        <target state="translated">கோப்புப் பட்டியல்</target>
+      </trans-unit>
+      <trans-unit id="520" approved="no">
+        <source>Item list</source>
+        <target state="translated">உருப்படிப் பட்டியல்</target>
+      </trans-unit>
+      <trans-unit id="521" approved="no">
+        <source>Physical storage locations</source>
+        <target state="translated">இயற்பொருள் சேமக அமைவிடங்கள்</target>
+      </trans-unit>
+      <trans-unit id="522" approved="no">
+        <source>Generated finding aid</source>
+        <target state="translated">உதவு கருவி தோற்றுவிக்கப்பட்டது</target>
+      </trans-unit>
+      <trans-unit id="523" approved="no">
+        <source>Uploaded finding aid</source>
+        <target state="translated">உதவு கருவி பதிவேற்றப்பட்டுள்ளது</target>
+      </trans-unit>
+      <trans-unit id="524" approved="no">
+        <source>Finding aid</source>
+        <target state="translated">உதவு கருவி</target>
+      </trans-unit>
+      <trans-unit id="525" approved="no">
+        <source>Please make a selection.</source>
+        <target state="translated">தயந்து ஒரு தெரிவைச் செய்யவும்.</target>
+      </trans-unit>
+      <trans-unit id="526" approved="no">
+        <source>Date calculation started.</source>
+        <target state="translated">திகதி கணிப்பு ஆரம்பம்/ ஆரம்பிக்கப்பட்டுள்ளது.</target>
+      </trans-unit>
+      <trans-unit id="527" approved="no">
+        <source>Calculation failed</source>
+        <target state="translated">கணிப்பு தோல்வி?</target>
+      </trans-unit>
+      <trans-unit id="528">
+        <source>Self-relation ignored.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="529">
+        <source>Your edits to this description have been saved and the description has reverted to Draft status. Please ask a user with sufficient permissions to publish the description again to make it publicly visible.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="530">
+        <source>Use the actor name field to link an authority record to this description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="531">
+        <source>Search for an existing term in the places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="532" approved="no">
+        <source>Title notes</source>
+        <target state="translated">தலைப்பு குறிப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="533">
+        <source>Select a note type from the drop-down menu and enter note text in accordance with RAD 1.8B1 through 1.8B6.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="534" approved="no">
+        <source>Other notes</source>
+        <target state="translated">ஏனைய குறிப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="535">
+        <source>Select a note type from the drop-down menu and enter note text in accordance with the following sections in RAD: 1.5E (Accompanying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (Rights).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="536" approved="no">
+        <source>Publication notes</source>
+        <target state="translated">வெளியீட்டு குறிப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="537">
+        <source>Record a citation to, and/or information about a publication that is about or based on the use, study, or analysis of the unit of description. Include references to published facsimiles or transcriptions. (ISAD 3.5.4)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="538">
+        <source>Record a citation to, or information about, a publication that is about or is based on the use, study, or analysis of the materials being described. Provide sufficient information to indicate the relationship between the publication and the unit being described. This includes annotated editions. (DACS 6.4.4)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="539">
+        <source>"Use this note to record any other descriptive information considered important but not falling within the definitions of the other notes." (RAD 1.8B21)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="540">
+        <source>Record specialized or other important information not accommodated by any of the defined elements of description. (ISAD 3.6.1)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="541">
+        <source>Record, as needed, information not accommodated by any of the defined elements of description. (DACS 7.1.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="542" approved="no">
+        <source>Specialized note(s)</source>
+        <target state="translated">சிறப்பு முறையான குறிப்பு(கள்)?</target>
+      </trans-unit>
+      <trans-unit id="543">
+        <source>Select a note type from the drop-down menu and record, as needed, specialized information not accommodated by any of the defined elements of description, including Conservation (DACS 7.1.3), Citation (DACS 7.1.5), Alphanumeric designations (DACS 7.1.6), Variant title information (DACS 7.1.7), or Processing information (DACS 7.1.8).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="544">
+        <source>Record notes on sources consulted in preparing the description and who prepared it. (ISAD 3.7.1)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="545" approved="no">
+        <source>Archivist and date</source>
+        <target state="translated">ஆவணக் காப்பாளரும் திகதியும்</target>
+      </trans-unit>
+      <trans-unit id="546">
+        <source>Record the name(s) of the person(s) who created or revised the description, as well as the creation or revision date. (DACS 8.1.5)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="547" approved="no">
+        <source>Deleting finding aid for: %1%</source>
+        <target state="translated">உதவு கருவி %1% ஆக அழிக்கப்படுகிறது</target>
+      </trans-unit>
+      <trans-unit id="548">
+        <source>Uploaded finding aid could not be moved to the downloads directory.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="549" approved="no">
+        <source>Uploading finding aid for: %1%</source>
+        <target state="translated">உதவு கருவி பதிவேற்றப்பட்டுக்கொண்டிருக்கிறது: %1%</target>
+      </trans-unit>
+      <trans-unit id="550">
+        <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. To view the last records in the current result set, try changing the sort direction.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="551" approved="no">
+        <source>Move failed: resource not found</source>
+        <target state="translated">இடம்பெயர்வு தோல்வியடைந்தது: வளம் கண்டுபிடிக்கப்படவில்லை?</target>
+      </trans-unit>
+      <trans-unit id="552">
+        <source>Move not allowed: log in required</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="553">
+        <source>Move not allowed: not enough permissions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="554">
+        <source>Move failed: new and old positions required as numbers</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="555">
+        <source>Move not needed: new and old positions are the same</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="556" approved="no">
+        <source>Move failed: </source>
+        <target state="translated">இடம்பெயர்வு தோல்வியடைந்தது:</target>
+      </trans-unit>
+      <trans-unit id="557" approved="no">
+        <source>job management</source>
+        <target state="translated">பணி முகாமைத்துவம்</target>
+      </trans-unit>
+      <trans-unit id="558" approved="no">
+        <source>Move initiated.</source>
+        <target state="translated">இடம்பெயர்வு ஆரம்பிக்கப்பட்டுள்ளது.?</target>
+      </trans-unit>
+      <trans-unit id="559">
+        <source>Check the %1% page to determine present status. You can keep moving nodes if you don't reload the page. Once the page is reloaded, if a move job hasn't ended, your recent change(s) may not yet be displayed and new changes may fail. After the move job ends and the page is reloaded, the treeview will be back to a stable status.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="560" approved="no">
+        <source>Error</source>
+        <target state="translated">பிழை</target>
+      </trans-unit>
+      <trans-unit id="561" approved="no">
+        <source>File missing</source>
+        <target state="translated">தவறிய கோப்பு?</target>
+      </trans-unit>
+      <trans-unit id="562" approved="no">
+        <source>Unknown</source>
+        <target state="translated">உரூடி</target>
+      </trans-unit>
+      <trans-unit id="563">
+        <source>It has %1% descendants that will also be deleted:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="564">
+        <source>Only %1% descriptions were shown.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="565">
+        <source>View the full list of descendants.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="566" approved="no">
+        <source>Creator(s)</source>
+        <target state="translated">ஆக்கியோர்</target>
+      </trans-unit>
+      <trans-unit id="567" approved="no">
+        <source>Actions</source>
+        <target state="translated">செயற்பாடுகள்</target>
+      </trans-unit>
+      <trans-unit id="568" approved="no">
+        <source>Duplicate</source>
+        <target state="translated">மறு நகல் எடு</target>
+      </trans-unit>
+      <trans-unit id="569" approved="no">
+        <source>Move</source>
+        <target state="translated">இடம்பெயர்</target>
+      </trans-unit>
+      <trans-unit id="570" approved="no">
+        <source>More</source>
+        <target state="translated">மேலும்</target>
+      </trans-unit>
+      <trans-unit id="571" approved="no">
+        <source>Rename</source>
+        <target state="translated">மறு பெயரிடுக</target>
+      </trans-unit>
+      <trans-unit id="572" approved="no">
+        <source>Update publication status</source>
+        <target state="translated">வெளியீட்டு நிகழ்நிலையை இற்றைப்படுத்துக</target>
+      </trans-unit>
+      <trans-unit id="573" approved="no">
+        <source>Link physical storage</source>
+        <target state="translated">இயற்பொருள் சேமகத்தை இணை</target>
+      </trans-unit>
+      <trans-unit id="574" approved="no">
+        <source>Link %1%</source>
+        <target state="translated">தொடுப்பு %1%</target>
+      </trans-unit>
+      <trans-unit id="575">
+        <source>Import digital objects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="576" approved="no">
+        <source>Create new rights</source>
+        <target state="translated">புது உரிமைகளை ஆக்குக</target>
+      </trans-unit>
+      <trans-unit id="577">
+        <source>View modification history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="578">
+        <source>%1% more</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="579">
+        <source>%1 - report criteria</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="580" approved="no">
+        <source>Format</source>
+        <target state="translated">வடிவமை</target>
+      </trans-unit>
+      <trans-unit id="581" approved="no">
+        <source>Continue</source>
+        <target state="translated">தொடர்க</target>
+      </trans-unit>
+      <trans-unit id="582" approved="no">
+        <source>Tasks</source>
+        <target state="translated">பணிகள்</target>
+      </trans-unit>
+      <trans-unit id="583">
+        <source>Click 'Calculate dates' to recalculate the start and end dates of a parent-level description. A job runs in the background, accounting for the earliest and most recent dates across all the child descriptions. The results display in the Start and End fields of the edit page.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="584" approved="no">
+        <source>Calculate dates</source>
+        <target state="translated">திகதிகளை கணிக்குக</target>
+      </trans-unit>
+      <trans-unit id="585" approved="no">
+        <source>Last run:</source>
+        <target state="translated">இறுதி ஓட்டம்/ இயக்கம்:?</target>
+      </trans-unit>
+      <trans-unit id="586" approved="no">
+        <source>Alternative identifier(s)</source>
+        <target state="translated">மாற்று அடையாளம்காட்டிகள்/ இனங்காணி?</target>
+      </trans-unit>
+      <trans-unit id="587">
+        <source>&lt;strong&gt;Label:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="588" approved="no">
+        <source>Inventory list</source>
+        <target state="translated">பொருள் விவரப் பட்டியல்</target>
+      </trans-unit>
+      <trans-unit id="589" approved="no">
+        <source>Return to archival description &amp;raquo;</source>
+        <target state="translated">ஆவண விவரிப்புக்குத் திரும்புக &amp;raquo;</target>
+      </trans-unit>
+      <trans-unit id="590" approved="no">
+        <source>Level of description</source>
+        <target state="translated">விவரிப்பு மட்டம்</target>
+      </trans-unit>
+      <trans-unit id="591" approved="no">
+        <source>Date</source>
+        <target state="translated">திகதி</target>
+      </trans-unit>
+      <trans-unit id="592" approved="no">
+        <source>View</source>
+        <target state="translated">காட்சி/ தோற்றம்?</target>
+      </trans-unit>
+      <trans-unit id="593">
+        <source>We couldn't find any results matching your search.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="594" approved="no">
+        <source>Role/event</source>
+        <target state="translated">பங்கு/நிகழ்வு</target>
+      </trans-unit>
+      <trans-unit id="595" approved="no">
+        <source>Place</source>
+        <target state="translated">இடம்</target>
+      </trans-unit>
+      <trans-unit id="596" approved="no">
+        <source>Date(s)</source>
+        <target state="translated">திகதி</target>
+      </trans-unit>
+      <trans-unit id="597">
+        <source>Add new child levels</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="598" approved="no">
+        <source>Level</source>
+        <target state="translated">மட்டம்</target>
+      </trans-unit>
+      <trans-unit id="599" approved="no">
+        <source>Holdings</source>
+        <target state="translated">உடமைகள்</target>
+      </trans-unit>
+      <trans-unit id="600" approved="no">
+        <source>Quick search</source>
+        <target state="translated">துரித தேடல்</target>
+      </trans-unit>
+      <trans-unit id="601" approved="no">
+        <source>No results found.</source>
+        <target state="translated">உங்கள் [வினவலுக்கான] முடிவுகள் எதுவும் இல்லை.</target>
+      </trans-unit>
+      <trans-unit id="602">
+        <source>%1 list</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="603" approved="no">
+        <source>No results</source>
+        <target state="translated">முடிவுகள் எதுவுமில்லை</target>
+      </trans-unit>
+      <trans-unit id="604">
+        <source>Oops, we couldn't find any %1 level descriptions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="605">
+        <source>%1 list - report criteria</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="606" approved="no">
+        <source>Sort by</source>
+        <target state="translated">ஆல் வகைப்படுத்துக</target>
+      </trans-unit>
+      <trans-unit id="607" approved="no">
+        <source>Include thumbnails</source>
+        <target state="translated">சிறுபடங்களை உள்ளடக்குக</target>
+      </trans-unit>
+      <trans-unit id="608" approved="no">
+        <source>Modifications</source>
+        <target state="translated">மாற்றமைவுகள்</target>
+      </trans-unit>
+      <trans-unit id="609" approved="no">
+        <source>User</source>
+        <target state="translated">பயனர்</target>
+      </trans-unit>
+      <trans-unit id="610" approved="no">
+        <source>Explore</source>
+        <target state="translated">கண்டறி</target>
+      </trans-unit>
+      <trans-unit id="611" approved="no">
+        <source>Reports</source>
+        <target state="translated">அறிக்கைகள்</target>
+      </trans-unit>
+      <trans-unit id="612" approved="no">
+        <source>Browse as list</source>
+        <target state="translated">பட்டியலாக உலாவு</target>
+      </trans-unit>
+      <trans-unit id="613" approved="no">
+        <source>Browse digital objects</source>
+        <target state="translated">எண்ணிம ஆவணங்களை உலாவு?</target>
+      </trans-unit>
+      <trans-unit id="614">
+        <source>Import</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="615">
+        <source>XML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="616">
+        <source>CSV</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="617">
+        <source>Export</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="618">
+        <source>Dublin Core 1.1 XML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="619">
+        <source>EAD 2002 XML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="620">
+        <source>MODS 3.5 XML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="621" approved="no">
+        <source>Note type</source>
+        <target state="translated">குறிப்பு வகை</target>
+      </trans-unit>
+      <trans-unit id="622" approved="no">
+        <source>Upload finding aid</source>
+        <target state="translated">உதவு கருவியைப் பதிவேற்றுக</target>
+      </trans-unit>
+      <trans-unit id="623">
+        <source>%1% file</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="624" approved="no">
+        <source>Upload</source>
+        <target state="translated">பதிவேற்று</target>
+      </trans-unit>
+      <trans-unit id="625">
+        <source>Import multiple digital objects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="626">
+        <source>Your browser does not support JavaScript. See %1%minimum requirements%2%.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="627">
+        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="https://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="628">
+        <source>The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your system administrator to increase the available disk space.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="629">
+        <source>The "&lt;strong&gt;%dd%&lt;/strong&gt;" placeholder will be replaced with a incremental number (e.g. 'image &lt;strong&gt;01&lt;/strong&gt;', 'image &lt;strong&gt;02&lt;/strong&gt;')</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="630" approved="no">
+        <source>Digital objects</source>
+        <target state="translated">எண்மப் பொருட்கள்/ ஆவணங்கள்?</target>
+      </trans-unit>
+      <trans-unit id="631" approved="no">
+        <source>Uploading...</source>
+        <target state="translated">பதிவேற்றப்பட்டுக்கொண்டிருக்கிறது...</target>
+      </trans-unit>
+      <trans-unit id="632" approved="no">
+        <source>Loading preview...</source>
+        <target state="translated">முன்னோட்டம் நிரலேற்றப்படுகிறது...</target>
+      </trans-unit>
+      <trans-unit id="633">
+        <source>Waiting...</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="634" approved="no">
+        <source>Upload error, retry?</source>
+        <target state="translated">பதிவேற்ற வழு, மீள் முயல்க?</target>
+      </trans-unit>
+      <trans-unit id="635" approved="no">
+        <source>Filename</source>
+        <target state="translated">கோப்பின் பெயர்</target>
+      </trans-unit>
+      <trans-unit id="636" approved="no">
+        <source>Filesize</source>
+        <target state="translated">கோப்பின் அளவு</target>
+      </trans-unit>
+      <trans-unit id="637">
+        <source>Warning: duplicate of %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="638">
+        <source>This file couldn\\'t be uploaded because of file size upload limits</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="639">
+        <source>Oops, we couldn't find any physical storage locations for the current resource.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="640" approved="no">
+        <source>Existing reports:</source>
+        <target state="translated">நடப்பு அறிக்கைகள்:</target>
+      </trans-unit>
+      <trans-unit id="641" approved="no">
+        <source>Select new report to generate:</source>
+        <target state="translated">புதிய அறிக்கையைத் தோற்றுவிப்பதற்குத் தெரிவு செய்க:</target>
+      </trans-unit>
+      <trans-unit id="642" approved="no">
+        <source>There are no relevant reports for this item</source>
+        <target state="translated">இந்த உருப்படியுடன் தொடர்புடைய அறிக்கைகள் எதுவும் இல்லை</target>
+      </trans-unit>
+      <trans-unit id="643" approved="no">
+        <source>Add alternative identifier(s)</source>
+        <target state="translated">மாற்று அடையாளம்காட்டி(கள்) இணை</target>
+      </trans-unit>
+      <trans-unit id="644" approved="no">
+        <source>Generate identifier</source>
+        <target state="translated">அடையாளம்காட்டி தோற்றுவி</target>
+      </trans-unit>
+      <trans-unit id="645" approved="no">
+        <source>Related materials</source>
+        <target state="translated">தொடர்புடைய பொருட்கள்</target>
+      </trans-unit>
+      <trans-unit id="646" approved="no">
+        <source>Related descriptions</source>
+        <target state="translated">தொடர்புடைய விவரணங்கள்</target>
+      </trans-unit>
+      <trans-unit id="647" approved="no">
+        <source>Containers</source>
+        <target state="translated">கொள்கலன்கள்</target>
+      </trans-unit>
+      <trans-unit id="648" approved="no">
+        <source>Add container links (duplicate links will be ignored)</source>
+        <target state="translated">கொள்கலன் தொடுப்புகளை இணை (நகல் தொடுப்புகள் புறக்கணிக்கப்படும்)?</target>
+      </trans-unit>
+      <trans-unit id="649" approved="no">
+        <source>Or, create a new container</source>
+        <target state="translated">அல்லது, புதிய கொள்கலன் ஒன்றை உருவாக்குக</target>
+      </trans-unit>
+      <trans-unit id="650" approved="no">
+        <source> report</source>
+        <target state="translated">அறிக்கை</target>
+      </trans-unit>
+      <trans-unit id="651">
+        <source>%1% hierarchy</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="652" approved="no">
+        <source>#</source>
+        <target state="translated">#</target>
+      </trans-unit>
+      <trans-unit id="653" approved="no">
+        <source>Thumbnail</source>
+        <target state="translated">சிறுபடம்</target>
+      </trans-unit>
+      <trans-unit id="654" approved="no">
+        <source>Dates</source>
+        <target state="translated">திகதிகள்</target>
+      </trans-unit>
+      <trans-unit id="655" approved="no">
+        <source>Access restrictions</source>
+        <target state="translated">அணுக்க வரையறைகள்</target>
+      </trans-unit>
+      <trans-unit id="656" approved="no">
+        <source>N/A</source>
+        <target state="translated">பொருந்தாத</target>
+      </trans-unit>
+      <trans-unit id="657" approved="no">
+        <source>None</source>
+        <target state="translated">எதுவுமில்லை</target>
+      </trans-unit>
+      <trans-unit id="658" approved="no">
+        <source>Location</source>
+        <target state="translated">இட அமைவு</target>
+      </trans-unit>
+      <trans-unit id="659" approved="no">
+        <source>Status: %1</source>
+        <target state="translated">நிகழ்நிலை: %1</target>
+      </trans-unit>
+      <trans-unit id="660" approved="no">
+        <source>Generate</source>
+        <target state="translated">தோற்றுவி</target>
+      </trans-unit>
+      <trans-unit id="661" approved="no">
+        <source>Download</source>
+        <target state="translated">தரவிறக்கம்</target>
+      </trans-unit>
+      <trans-unit id="662" approved="no">
+        <source>Name of creator</source>
+        <target state="translated">ஆக்கியவரின் பெயர்</target>
+      </trans-unit>
+      <trans-unit id="663" approved="no">
+        <source>Administrative history</source>
+        <target state="translated">நிர்வாக வரலாறு</target>
+      </trans-unit>
+      <trans-unit id="664" approved="no">
+        <source>Biographical history</source>
+        <target state="translated">வாழ்க்கை வரலாற்று வரலாறு?</target>
+      </trans-unit>
+      <trans-unit id="665" approved="no">
+        <source>Event</source>
+        <target state="translated">நிகழ்வு</target>
+      </trans-unit>
+      <trans-unit id="666">
+        <source>Actor name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="667" approved="no">
+        <source>Event type</source>
+        <target state="translated">நிகழ்வு வகை</target>
+      </trans-unit>
+      <trans-unit id="668" approved="no">
+        <source>Event note</source>
+        <target state="translated">நிகழ்வு குறிப்பு</target>
+      </trans-unit>
+      <trans-unit id="669" approved="no">
+        <source>Related genres</source>
+        <target state="translated">தொடர்புடைய வகைமைகள்</target>
+      </trans-unit>
+      <trans-unit id="670" approved="no">
+        <source>Genres</source>
+        <target state="translated">வகைமைகள்</target>
+      </trans-unit>
+      <trans-unit id="671" approved="no">
+        <source>Genre access points</source>
+        <target state="translated">வகைமை அணுக்க நுழைவாயில்கள்?</target>
+      </trans-unit>
+      <trans-unit id="672" approved="no">
+        <source>Part of</source>
+        <target state="translated">[இதன்] பகுதியான</target>
+      </trans-unit>
+      <trans-unit id="673">
+        <source>Only top-level descriptions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="674">
+        <source>Export CSV</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="675" approved="no">
+        <source>Relevance</source>
+        <target state="translated">பொருத்தம்/இயைபு?</target>
+      </trans-unit>
+      <trans-unit id="676">
+        <source>%1% results with digital objects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="677" approved="no">
+        <source>Show results with digital objects</source>
+        <target state="translated">முடிவுகளை எண்ணிமப் பொருட்களுடன் காண்பி</target>
+      </trans-unit>
+      <trans-unit id="678" approved="no">
+        <source>Update an existing date range</source>
+        <target state="translated">நடப்பிலுள்ள திகதி வரிசையொன்றை இற்றைப்படுத்துக</target>
+      </trans-unit>
+      <trans-unit id="679" approved="no">
+        <source>Select a date range to overwrite:</source>
+        <target state="translated">திகதி வரிசை ஒன்றை மேலெழுதுவதற்குத் தெரிவு செய்க:</target>
+      </trans-unit>
+      <trans-unit id="680">
+        <source>Updating an existing date range will permanently overwrite the current dates.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="681" approved="no">
+        <source>or, create a new date range</source>
+        <target state="translated">அல்லது, புதிய திகதி வரிசை ஒன்றை உருவாக்குக</target>
+      </trans-unit>
+      <trans-unit id="682" approved="no">
+        <source>Select the new date type:</source>
+        <target state="translated">புதிய திகதி வகையைத் தெரிவு செய்க:</target>
+      </trans-unit>
+      <trans-unit id="683">
+        <source>Note: While the date range update is running, the selected description should not be edited.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="684">
+        <source>You can check %1% page to determine the current status of the update job.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="685" approved="no">
+        <source>Manage jobs</source>
+        <target state="translated">பணிகளை நிர்வகி</target>
+      </trans-unit>
+      <trans-unit id="686">
+        <source>Slug in use</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="687">
+        <source>A slug based on this title already exists so a number has been added to pad the slug.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="688" approved="no">
+        <source>Close</source>
+        <target state="translated">மூடுக</target>
+      </trans-unit>
+      <trans-unit id="689">
+        <source>Use this interface to update the description title, slug (permalink), and/or %1% filename.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="690" approved="no">
+        <source>Update title</source>
+        <target state="translated">தலைப்பை இற்றைப்படுத்து</target>
+      </trans-unit>
+      <trans-unit id="691">
+        <source>Editing the description title will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="692" approved="no">
+        <source>Original title</source>
+        <target state="translated">மூல தலைப்பு</target>
+      </trans-unit>
+      <trans-unit id="693">
+        <source>Update slug</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="694">
+        <source>Do not use any special characters or spaces in the slug - only lower case alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters will be stripped out or replaced. Editing the slug will not automatically update the other fields.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="695">
+        <source>Original slug</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="696" approved="no">
+        <source>Update filename</source>
+        <target state="translated">கோப்பின் பெயரை இற்றைப்படுத்துக</target>
+      </trans-unit>
+      <trans-unit id="697">
+        <source>Do not use any special characters or spaces in the filename - only lower case alphanumeric characters (a-z, 0-9) and dashes (-) will be saved. Other characters will be stripped out or replaced. Editing the filename will not automatically update the other fields.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="698" approved="no">
+        <source>Original filename</source>
+        <target state="translated">மூல கோப்புப் பெயர்</target>
+      </trans-unit>
+      <trans-unit id="699" approved="no">
+        <source>Update</source>
+        <target state="translated">இற்றாக்கம்</target>
+      </trans-unit>
+      <trans-unit id="700" approved="no">
+        <source>Box labels</source>
+        <target state="translated">பெட்டியின் சிட்டைகள்</target>
+      </trans-unit>
+      <trans-unit id="701" approved="no">
+        <source>Physical object name</source>
+        <target state="translated">இயற்பொருளின் பெயர்</target>
+      </trans-unit>
+      <trans-unit id="702" approved="no">
+        <source>Creation date(s)</source>
+        <target state="translated">ஆக்கத் திகதிகள்</target>
+      </trans-unit>
+      <trans-unit id="703">
+        <source>Are you sure you want to delete the finding aid of %1%?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="704">
+        <source>The following file will be deleted from the file system:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="705">
+        <source>If the finding aid is an uploaded PDF, the transcript will be deleted too.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="706" approved="no">
+        <source>Administration area</source>
+        <target state="translated">நிர்வாகப் பரப்பு</target>
+      </trans-unit>
+      <trans-unit id="707" approved="no">
+        <source>Source language</source>
+        <target state="translated">மூல மொழி</target>
+      </trans-unit>
+      <trans-unit id="708" approved="no">
+        <source>Last updated</source>
+        <target state="translated">இறுதியாக இற்றைப்படுத்தப்பட்டது</target>
+      </trans-unit>
+      <trans-unit id="709" approved="no">
+        <source>Source name</source>
+        <target state="translated">மூலப் பெயர்</target>
+      </trans-unit>
+      <trans-unit id="710" approved="no">
+        <source>Display standard</source>
+        <target state="translated">காட்சிமுறை தகுதரம்</target>
+      </trans-unit>
+      <trans-unit id="711">
+        <source>Make this selection the new default for existing children</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="712" approved="no">
+        <source>Related people and organizations</source>
+        <target state="translated">தொடர்புடைய நபர்களும் நிறுவனங்களும்</target>
+      </trans-unit>
+      <trans-unit id="713" approved="no">
+        <source>Names</source>
+        <target state="translated">பெயர்கள்</target>
+      </trans-unit>
+      <trans-unit id="714" approved="no">
+        <source>Name access points</source>
+        <target state="translated">பெயர் அணுக்க நுழைவாயில்கள்</target>
+      </trans-unit>
+      <trans-unit id="715" approved="no">
+        <source>Publication status</source>
+        <target state="translated">வெளியீட்டு நிகழ்நிலை</target>
+      </trans-unit>
+      <trans-unit id="716" approved="no">
+        <source>Update descendants</source>
+        <target state="translated">மரபினரை இற்றைப்படுத்துக?</target>
+      </trans-unit>
+      <trans-unit id="717">
+        <source>Max. size ~%1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="718">
+        <source>%1% upload limit of %2% GB exceeded for %3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="719">
+        <source>File %1% could not be thumbnailed</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="720">
+        <source>Are you sure you want to delete this reference/thumbnail representation?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="721">
+        <source>Are you sure you want to delete the %1% linked to %2%?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="722" approved="no">
+        <source>Download movie</source>
+        <target state="translated">நிகழ்படத்தை தரவிறக்குக</target>
+      </trans-unit>
+      <trans-unit id="723" approved="no">
+        <source>Results %1% to %2% of %3%</source>
+        <target state="translated">முடிவுகள் %1% இலிருந்து %2% இன் %3% வரை</target>
+      </trans-unit>
+      <trans-unit id="724" approved="no">
+        <source>Show all</source>
+        <target state="translated">அனைத்தையும் காண்பி</target>
+      </trans-unit>
+      <trans-unit id="725">
+        <source>%1% metadata</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="726" approved="no">
+        <source>Access</source>
+        <target state="translated">அணுக்கம்</target>
+      </trans-unit>
+      <trans-unit id="727" approved="no">
+        <source>Restricted</source>
+        <target state="translated">கட்டுப்படுத்தப்பட்டது</target>
+      </trans-unit>
+      <trans-unit id="728">
+        <source>Mime-type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="729">
+        <source>Object UUID</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="730">
+        <source>AIP UUID</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="731" approved="no">
+        <source>Format name</source>
+        <target state="translated">வடிவமையின் பெயர்</target>
+      </trans-unit>
+      <trans-unit id="732" approved="no">
+        <source>Format version</source>
+        <target state="translated">வடிவமை பதிப்பு</target>
+      </trans-unit>
+      <trans-unit id="733" approved="no">
+        <source>Format registry key</source>
+        <target state="translated">வடிவமைப் பதிவக திறவி</target>
+      </trans-unit>
+      <trans-unit id="734" approved="no">
+        <source>Format registry name</source>
+        <target state="translated">வடிவமைப் பதிவகப் பெயர்</target>
+      </trans-unit>
+      <trans-unit id="735" approved="no">
+        <source>Download audio</source>
+        <target state="translated">ஒலியம் தரவிறக்குக</target>
+      </trans-unit>
+      <trans-unit id="736">
+        <source>%1% (%2%) rights area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="737" approved="no">
+        <source>Copyright statement preview</source>
+        <target state="translated">காப்புரிமை அறிக்கை முன்னோட்டம்</target>
+      </trans-unit>
+      <trans-unit id="738" approved="no">
+        <source>Agree</source>
+        <target state="translated">இணங்கு</target>
+      </trans-unit>
+      <trans-unit id="739">
+        <source>Master</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="740">
+        <source>Alt text</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="741">
+        <source>View children as a compound %1%?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="742">
+        <source>%1% representation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="743" approved="no">
+        <source>Select a %1% to upload</source>
+        <target state="translated">%1% இனை பதிவேற்றலுக்குத் தேர்க/ தெரிவு செய்க/ தெரிக?</target>
+      </trans-unit>
+      <trans-unit id="744">
+        <source>View full size</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="745" approved="no">
+        <source>Download %1%</source>
+        <target state="translated">தரவிறக்கம் %1%</target>
+      </trans-unit>
+      <trans-unit id="746" approved="no">
+        <source>Hierarchy</source>
+        <target state="translated">படிநிலை</target>
+      </trans-unit>
+      <trans-unit id="747" approved="no">
+        <source>No entity type specified.</source>
+        <target state="translated">உள்பொருள் வகை குறிப்பிடப்படவில்லை.</target>
+      </trans-unit>
+      <trans-unit id="748" approved="no">
+        <source>No items in clipboard to save.</source>
+        <target state="translated">சேமிப்பதற்கு நகல்நினைவியில் உருப்படிகள் இல்லை.</target>
+      </trans-unit>
+      <trans-unit id="749" approved="no">
+        <source>Clipboard ID generation failure. Please try again.</source>
+        <target state="translated">நகல்நினைவி அடையாள ஆவண உருவாக்க வழு. தயந்து மீண்டும் முயற்சிக்கவும்.</target>
+      </trans-unit>
+      <trans-unit id="750">
+        <source>You must enter your username</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="751">
+        <source>%1% draft(s) available (visit %2%newest additions%3% page to browse them)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="752">
+        <source>Your password confirmation did not match your password.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="753">
+        <source>Your password is not strong enough.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="754">
+        <source>Your password is not strong enough (too short).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="755">
+        <source>-- Select action --</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="756" approved="no">
+        <source>(Re)generate API key</source>
+        <target state="translated">பயன்பாட்டு நிரலாக்க இடைமுகத் திறவியை (மீள்)தோற்றுவி</target>
+      </trans-unit>
+      <trans-unit id="757" approved="no">
+        <source>Delete API key</source>
+        <target state="translated">பயன்பாட்டு நிரலாக்க இடைமுகத் திறவியை அழி</target>
+      </trans-unit>
+      <trans-unit id="758">
+        <source>The username or e-mail address you entered is already in use</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="759">
+        <source>Merge saved clipboard with existing clipboard results</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="760" approved="no">
+        <source>Replace existing clipboard results with saved clipboard</source>
+        <target state="translated">சேமிக்கப்பட்ட நகல்நினைவி முடிவுகளை நடப்பிலுள்ள நகல்நினைவி முடிவுகளுக்குப் பதில் மாற்றீடு செய்க</target>
+      </trans-unit>
+      <trans-unit id="761">
+        <source>Incorrect clipboard ID for saved clipboard.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="762" approved="no">
+        <source>added</source>
+        <target state="translated">இணைக்கப்பட்டது</target>
+      </trans-unit>
+      <trans-unit id="763" approved="no">
+        <source>merged with current clipboard</source>
+        <target state="translated">நிகழ் நகல்நினைவியுடன் ஒன்றிணைக்குக</target>
+      </trans-unit>
+      <trans-unit id="764" approved="no">
+        <source>Clipboard %1% loaded, %2% records %3%.</source>
+        <target state="translated">நகல்நினைவி %1% நிரலேற்றப்பட்டது, %2% பதிவுருக்கள் %3%.</target>
+      </trans-unit>
+      <trans-unit id="765">
+        <source>This user has %1% note(s) in the system. These notes will not be deleted, but their association with this user will be removed.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="766" approved="no">
+        <source>Please log in to access that page</source>
+        <target state="translated">அப்பக்கத்தை அணுகுவதற்கு தயந்து புகுபதிகை செய்யவும்</target>
+      </trans-unit>
+      <trans-unit id="767" approved="no">
+        <source>Log in</source>
+        <target state="translated">புகுபதிகை</target>
+      </trans-unit>
+      <trans-unit id="768" approved="no">
+        <source>List users</source>
+        <target state="translated">பயனர்களைப் பட்டியலிடுக</target>
+      </trans-unit>
+      <trans-unit id="769" approved="no">
+        <source>Search users</source>
+        <target state="translated">பயனர்களைத் தேடுக</target>
+      </trans-unit>
+      <trans-unit id="770" approved="no">
+        <source>Show active only</source>
+        <target state="translated">இயக்கத்திலுள்ளதை மட்டும் காண்பி</target>
+      </trans-unit>
+      <trans-unit id="771" approved="no">
+        <source>Show inactive only</source>
+        <target state="translated">இயக்கமற்றதை மட்டும் காண்பி</target>
+      </trans-unit>
+      <trans-unit id="772" approved="no">
+        <source>User name</source>
+        <target state="translated">பயனர் பெயர்</target>
+      </trans-unit>
+      <trans-unit id="773" approved="no">
+        <source>User groups</source>
+        <target state="translated">பயனர் குழுக்கள்</target>
+      </trans-unit>
+      <trans-unit id="774" approved="no">
+        <source>inactive</source>
+        <target state="translated">செயற்படாத</target>
+      </trans-unit>
+      <trans-unit id="775" approved="no">
+        <source>you</source>
+        <target state="translated">நீங்கள்</target>
+      </trans-unit>
+      <trans-unit id="776" approved="no">
+        <source>Edit %1% permissions of %2%</source>
+        <target state="translated">%1% அனுமதிகளைத் தொகு</target>
+      </trans-unit>
+      <trans-unit id="777" approved="no">
+        <source>Permissions for all %1%</source>
+        <target state="translated">அனைத்து %1% அனுமதிகள்</target>
+      </trans-unit>
+      <trans-unit id="778" approved="no">
+        <source>Add permissions by %1%</source>
+        <target state="translated">%1% ஆல் அனுமதிகளை இணை</target>
+      </trans-unit>
+      <trans-unit id="779" approved="no">
+        <source>Add %1%</source>
+        <target state="translated">%1% இணை</target>
+      </trans-unit>
+      <trans-unit id="780" approved="no">
+        <source>Edit %1% permissions</source>
+        <target state="translated">%1% அனுமதிகளைத் தொகு</target>
+      </trans-unit>
+      <trans-unit id="781" approved="no">
+        <source>Edit permissions</source>
+        <target state="translated">அனுமதிகளைத் தொகு</target>
+      </trans-unit>
+      <trans-unit id="782" approved="no">
+        <source>Reset password</source>
+        <target state="translated">கடவுச்சொல்லை மீளமைக்குக</target>
+      </trans-unit>
+      <trans-unit id="783" approved="no">
+        <source>Password strength:</source>
+        <target state="translated">கடவுச்சொல் வலிமை:</target>
+      </trans-unit>
+      <trans-unit id="784" approved="no">
+        <source>To make your password stronger:</source>
+        <target state="translated">உங்கள் கடவுச்சொல்லை வலிமைப்படுத்துவதற்கு:</target>
+      </trans-unit>
+      <trans-unit id="785" approved="no">
+        <source>Make it at least six characters</source>
+        <target state="translated">குறைந்தபட்சம் ஆறு வரியுருக்களையாவது உருவாக்குக?</target>
+      </trans-unit>
+      <trans-unit id="786" approved="no">
+        <source>Add lowercase letters</source>
+        <target state="translated">கீழெழுத்துக்களை இணை</target>
+      </trans-unit>
+      <trans-unit id="787" approved="no">
+        <source>Add uppercase letters</source>
+        <target state="translated">பெரிய எழுத்துக்களை இணை</target>
+      </trans-unit>
+      <trans-unit id="788" approved="no">
+        <source>Add numbers</source>
+        <target state="translated">எண்கள் இணை</target>
+      </trans-unit>
+      <trans-unit id="789" approved="no">
+        <source>Add punctuation</source>
+        <target state="translated">நிறுத்தற்குறி இணை</target>
+      </trans-unit>
+      <trans-unit id="790">
+        <source>Make it different from your username</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="791" approved="no">
+        <source>Passwords match:</source>
+        <target state="translated">கடவுச்சொல் ஒப்புமை:</target>
+      </trans-unit>
+      <trans-unit id="792" approved="no">
+        <source>Edit your password</source>
+        <target state="translated">கடவுச்சொல்லைத் தொகு</target>
+      </trans-unit>
+      <trans-unit id="793" approved="no">
+        <source>New password</source>
+        <target state="translated">புதிய கடவுச்சொல்</target>
+      </trans-unit>
+      <trans-unit id="794" approved="no">
+        <source>Confirm password</source>
+        <target state="translated">கடவுச்சொல்லை உறுதி செய்க</target>
+      </trans-unit>
+      <trans-unit id="795" approved="no">
+        <source>Return to user list</source>
+        <target state="translated">பயனர் பட்டியலுக்குத் திரும்புக</target>
+      </trans-unit>
+      <trans-unit id="796">
+        <source>Enter the ID of the saved clipboard you would like to load.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="797">
+        <source>In the "Action" selector, indicate whether you want to &lt;strong&gt;merge&lt;/strong&gt; the saved clipboard with the entries on the current clipboard or &lt;strong&gt;replace&lt;/strong&gt; (overwrite) the current clipboard with the saved one.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="798" approved="no">
+        <source>Load clipboard</source>
+        <target state="translated">நகல்நினைவியை நிரலேற்றுக</target>
+      </trans-unit>
+      <trans-unit id="799" approved="no">
+        <source>Clipboard ID</source>
+        <target state="translated">நகல்நினைவி அடையாள ஆவணம்</target>
+      </trans-unit>
+      <trans-unit id="800" approved="no">
+        <source>Action</source>
+        <target state="translated">செயல்</target>
+      </trans-unit>
+      <trans-unit id="801" approved="no">
+        <source>Load</source>
+        <target state="translated">நிரலேற்றல்</target>
+      </trans-unit>
+      <trans-unit id="802">
+        <source>User %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="803" approved="no">
+        <source>All %1%</source>
+        <target state="translated">%1% அனைத்தும்</target>
+      </trans-unit>
+      <trans-unit id="804" approved="no">
+        <source>All privileges</source>
+        <target state="translated">அனைத்து சிறப்புரிமைகளும்</target>
+      </trans-unit>
+      <trans-unit id="805" approved="no">
+        <source>No results for this entity type.</source>
+        <target state="translated">இவ் உள்பொருள் வகைக்கு முடிவுகள் இல்லை.</target>
+      </trans-unit>
+      <trans-unit id="806" approved="no">
+        <source>Clear %1 clipboard</source>
+        <target state="translated">%1 நகல்நினைவியை அழி/ நீக்கு</target>
+      </trans-unit>
+      <trans-unit id="807" approved="no">
+        <source>Taxonomy: %1%</source>
+        <target state="translated">பகுப்பியல்: %1%</target>
+      </trans-unit>
+      <trans-unit id="808" approved="no">
+        <source>Permissions by %1%</source>
+        <target state="translated">%1% ஆல் அனுமதிகள்</target>
+      </trans-unit>
+      <trans-unit id="809" approved="no">
+        <source>Grant</source>
+        <target state="translated">வழங்கு</target>
+      </trans-unit>
+      <trans-unit id="810" approved="no">
+        <source>Deny</source>
+        <target state="translated">மறு</target>
+      </trans-unit>
+      <trans-unit id="811" approved="no">
+        <source>Inherit</source>
+        <target state="translated">மரபுரிமம்?</target>
+      </trans-unit>
+      <trans-unit id="812">
+        <source>%1% name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="813">
+        <source>Are you sure you want to clear the %1 clipboard ?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="814" approved="no">
+        <source>There is one item added:</source>
+        <target state="translated">ஓர் உருப்படி இணைக்கப்பட்டுள்ளது:</target>
+      </trans-unit>
+      <trans-unit id="815" approved="no">
+        <source>There are %1% items added:</source>
+        <target state="translated">%1% உருப்படிகள் இணைக்கப்பட்டுள்ளன:</target>
+      </trans-unit>
+      <trans-unit id="816" approved="no">
+        <source>Clear</source>
+        <target state="translated">அழி/ நீக்கு?</target>
+      </trans-unit>
+      <trans-unit id="817">
+        <source>This user is inactive</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="818" approved="no">
+        <source>User details</source>
+        <target state="translated">பயனர் விபரங்கள்</target>
+      </trans-unit>
+      <trans-unit id="819" approved="no">
+        <source>Password</source>
+        <target state="translated">கடவுச்சொல்</target>
+      </trans-unit>
+      <trans-unit id="820" approved="no">
+        <source>Repository affiliation</source>
+        <target state="translated">சேமக கூட்டுறவு?</target>
+      </trans-unit>
+      <trans-unit id="821">
+        <source>REST API key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="822">
+        <source>Not generated yet.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="823">
+        <source>OAI-PMH API key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="824" approved="no">
+        <source>Editing history</source>
+        <target state="translated">தொகுப்பு வரலாறு</target>
+      </trans-unit>
+      <trans-unit id="825" approved="no">
+        <source>Previous</source>
+        <target state="translated">முந்திய</target>
+      </trans-unit>
+      <trans-unit id="826" approved="no">
+        <source>Next</source>
+        <target state="translated">அடுத்து</target>
+      </trans-unit>
+      <trans-unit id="827" approved="no">
+        <source>Basic info</source>
+        <target state="translated">அடிப்படைத் தகவல்</target>
+      </trans-unit>
+      <trans-unit id="828" approved="no">
+        <source>Change password</source>
+        <target state="translated">கடவுச்சொல் மாற்றுக</target>
+      </trans-unit>
+      <trans-unit id="829" approved="no">
+        <source>Active</source>
+        <target state="translated">இயங்கும்/ ஆற்றுமை?</target>
+      </trans-unit>
+      <trans-unit id="830" approved="no">
+        <source>Access control</source>
+        <target state="translated">அணுக்கக் கட்டுப்பாடு</target>
+      </trans-unit>
+      <trans-unit id="831" approved="no">
+        <source>Allowed languages for translation</source>
+        <target state="translated">மொழிபெயர்ப்புக்கு அனுமதிக்கப்பட்ட மொழிகள்</target>
+      </trans-unit>
+      <trans-unit id="832">
+        <source>REST API access key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="833">
+        <source>OAI-PMH API access key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="834" approved="no">
+        <source>Read only</source>
+        <target state="translated">வாசிப்பு மட்டும்</target>
+      </trans-unit>
+      <trans-unit id="835">
+        <source>The system is currently in read-only mode. Please try again later.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="836" approved="no">
+        <source>Back to previous page</source>
+        <target state="translated">முந்தைய பக்கத்துக்குச் செல்</target>
+      </trans-unit>
+      <trans-unit id="837" approved="no">
+        <source>Go to homepage</source>
+        <target state="translated">முகப்புக்குச் செல்க</target>
+      </trans-unit>
+      <trans-unit id="838">
+        <source>Name - A term with this name already exists.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="839">
+        <source>Add new term</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="840" approved="no">
+        <source>This is a mandatory element.</source>
+        <target state="translated">இது ஒரு கட்டாயத் தனிமம்.</target>
+      </trans-unit>
+      <trans-unit id="841">
+        <source>Your term has been updated. Its related descriptions are being updated asynchronously – check the &lt;a href="%1"&gt;job scheduler page&lt;/a&gt; for status and details.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="842">
+        <source>SKOS</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="843">
+        <source>This term is used in %1% descriptions. The term will be deleted from these descriptions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="844">
+        <source>The related object(s) will &lt;strong&gt;not&lt;/strong&gt; be deleted</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="845">
+        <source>It's used in %1% events that will also be deleted</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="846">
+        <source>It has %1% descendants that will also be deleted</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="847" approved="no">
+        <source>List</source>
+        <target state="translated">பட்டியல்</target>
+      </trans-unit>
+      <trans-unit id="848" approved="no">
+        <source>All labels</source>
+        <target state="translated">அனைத்து சிட்டைகளும்</target>
+      </trans-unit>
+      <trans-unit id="849" approved="no">
+        <source>Preferred label</source>
+        <target state="translated">விருப்பத் தேர்வுச் சிட்டை</target>
+      </trans-unit>
+      <trans-unit id="850">
+        <source>'Use for' labels</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="851" approved="no">
+        <source>Results</source>
+        <target state="translated">முடிவுகள்</target>
+      </trans-unit>
+      <trans-unit id="852">
+        <source>Broader term</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="853">
+        <source>No. narrower terms</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="854">
+        <source>Related terms</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="855" approved="no">
+        <source>Taxonomy hierarchy</source>
+        <target state="translated">பகுப்பியல் படிநிலை</target>
+      </trans-unit>
+      <trans-unit id="856" approved="no">
+        <source>Taxonomy</source>
+        <target state="translated">பகுப்பியல்</target>
+      </trans-unit>
+      <trans-unit id="857" approved="no">
+        <source>Code</source>
+        <target state="translated">குறிமுறை</target>
+      </trans-unit>
+      <trans-unit id="858" approved="no">
+        <source>Map of %1%</source>
+        <target state="translated">%1% இன் வரைபடம்</target>
+      </trans-unit>
+      <trans-unit id="859" approved="no">
+        <source>Scope note(s)</source>
+        <target state="translated">நோக்கக் குறிப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="860" approved="no">
+        <source>Source note(s)</source>
+        <target state="translated">மூலக் குறிப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="861" approved="no">
+        <source>Display note(s)</source>
+        <target state="translated">காட்சிமுறை/ காட்சியமைவு குறிப்புகள்?</target>
+      </trans-unit>
+      <trans-unit id="862" approved="no">
+        <source>Hierarchical terms</source>
+        <target state="translated">படிநிலை வரையீடுகள்</target>
+      </trans-unit>
+      <trans-unit id="863">
+        <source>BT %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="864">
+        <source>NT %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="865" approved="no">
+        <source>Equivalent terms</source>
+        <target state="translated">இணைமாற்று நியதிகள்?</target>
+      </trans-unit>
+      <trans-unit id="866">
+        <source>UF %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="867" approved="no">
+        <source>Converse term</source>
+        <target state="translated">மறுதலை சொல்?</target>
+      </trans-unit>
+      <trans-unit id="868">
+        <source>Associated terms</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="869">
+        <source>RT %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="870">
+        <source>%1% %2% results for %3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="871">
+        <source>Only results directly related</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="872">
+        <source>%1% results directly related</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="873">
+        <source>Exclude narrower terms</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="874">
+        <source>Term %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="875" approved="no">
+        <source>Use for</source>
+        <target state="translated">இதற்குப் பயன்படுத்தவும்</target>
+      </trans-unit>
+      <trans-unit id="876" approved="no">
+        <source>Relationships</source>
+        <target state="translated">உறவுகள்</target>
+      </trans-unit>
+      <trans-unit id="877">
+        <source>Broad term</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="878">
+        <source>Related term(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="879" approved="no">
+        <source>Self-reciprocal</source>
+        <target state="translated">தன் ஏற்றெதிர்மை</target>
+      </trans-unit>
+      <trans-unit id="880">
+        <source>Add new narrow terms</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="881" approved="no">
+        <source>Add new physical storage</source>
+        <target state="translated">புது இயற்பொருள் சேமகத்தை இணை</target>
+      </trans-unit>
+      <trans-unit id="882">
+        <source>Click Confirm to delete this physical storage from the system. This will also remove the physical storage location from the following records:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="883" approved="no">
+        <source>Print preview</source>
+        <target state="translated">அச்சு முன்காட்சி</target>
+      </trans-unit>
+      <trans-unit id="884" approved="no">
+        <source>Conditions governing access</source>
+        <target state="translated">அணுக்க ஆளுகை நிபந்தனைகள்?</target>
+      </trans-unit>
+      <trans-unit id="885" approved="no">
+        <source>Browse %1%</source>
+        <target state="translated">%1% உலாவு</target>
+      </trans-unit>
+      <trans-unit id="886" approved="no">
+        <source>Search physical objects</source>
+        <target state="translated">இயற் பொருட்களைத் தேடுக</target>
+      </trans-unit>
+      <trans-unit id="887" approved="no">
+        <source>Print</source>
+        <target state="translated">அச்சிடு</target>
+      </trans-unit>
+      <trans-unit id="888" approved="no">
+        <source>View %1%</source>
+        <target state="translated">%1% தோற்றம்?</target>
+      </trans-unit>
+      <trans-unit id="889" approved="no">
+        <source>Related resources</source>
+        <target state="translated">தொடர்புடைய வளங்கள்</target>
+      </trans-unit>
+      <trans-unit id="890">
+        <source>Sorry, you do not have permission to make %1% language translations</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="891">
+        <source>Sorry, page not found</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="892" approved="no">
+        <source>Did you type the URL correctly?</source>
+        <target state="translated">நீங்கள் உரலியை/ இணையத்தள முகவரியை சரியாக தட்டச்சிட்டீர்களா?</target>
+      </trans-unit>
+      <trans-unit id="893" approved="no">
+        <source>Did you follow a broken link?</source>
+        <target state="translated">நீங்கள் அறுபட்ட ஒரு தொடுப்பைத் பின்தொடர்ந்தீர்களா?</target>
+      </trans-unit>
+      <trans-unit id="894">
+        <source>Sorry, you do not have permission to access that page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="895">
+        <source>Sorry, this Term is locked and cannot be deleted</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="896">
+        <source>The existing term values are required by the application to operate correctly</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="897">
+        <source>Sorry, this Term is locked</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="898">
+        <source>This is a non-preferred term and cannot be edited - please use &lt;a href="%1%"&gt;%2%&lt;/a&gt;.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="899">
+        <source>Elasticsearch error: %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="900" approved="no">
+        <source>Global search/replace</source>
+        <target state="translated">உலகளாவிய தேடல்/ மாற்றீடு</target>
+      </trans-unit>
+      <trans-unit id="901" approved="no">
+        <source>Both source and replacement fields are required.</source>
+        <target state="translated">மூல மற்றும் மாற்றீட்டு புலங்கள் இரண்டும் இன்றியமையாதது/ கோரப்படுகிறது?</target>
+      </trans-unit>
+      <trans-unit id="902">
+        <source>Are you sure you want to replace "%1%" with "%2%" in %3%?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="903" approved="no">
+        <source>Invalid start date</source>
+        <target state="translated">செல்லுபடியற்ற ஆரம்பத் திகதி</target>
+      </trans-unit>
+      <trans-unit id="904" approved="no">
+        <source>Invalid end date</source>
+        <target state="translated">செல்லுபடியற்ற முடிவுத் திகதி</target>
+      </trans-unit>
+      <trans-unit id="905" approved="no">
+        <source>Creation</source>
+        <target state="translated">ஆக்கம்</target>
+      </trans-unit>
+      <trans-unit id="906" approved="no">
+        <source>Revision</source>
+        <target state="translated">சீராய்வு</target>
+      </trans-unit>
+      <trans-unit id="907" approved="no">
+        <source>Both</source>
+        <target state="translated">இரண்டும்</target>
+      </trans-unit>
+      <trans-unit id="908" approved="no">
+        <source>All</source>
+        <target state="translated">அனைத்தும்</target>
+      </trans-unit>
+      <trans-unit id="909">
+        <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. Please, narrow down your results.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="910" approved="no">
+        <source>Browse all descriptions</source>
+        <target state="translated">அனைத்து விவரிப்புகளையும் உலாவு?</target>
+      </trans-unit>
+      <trans-unit id="911" approved="no">
+        <source>Filter options</source>
+        <target state="translated">வடிகட்டி இடப்புகள்</target>
+      </trans-unit>
+      <trans-unit id="912" approved="no">
+        <source>Date of</source>
+        <target state="translated">திகதி உடைய/இல்/இன்?</target>
+      </trans-unit>
+      <trans-unit id="913" approved="no">
+        <source>Currently displaying:</source>
+        <target state="translated">தற்போதைய காட்சிமுறை:</target>
+      </trans-unit>
+      <trans-unit id="914" approved="no">
+        <source>Filter by date range:</source>
+        <target state="translated">திகதி வரிசை/ ஒழுங்குப் படி வடிகட்டுக</target>
+      </trans-unit>
+      <trans-unit id="915" approved="no">
+        <source>Scope and content</source>
+        <target state="translated">நோக்கமும் உள்ளடக்கமும்</target>
+      </trans-unit>
+      <trans-unit id="916" approved="no">
+        <source>Extent and medium</source>
+        <target state="translated">அளவும் ஊடகமும்</target>
+      </trans-unit>
+      <trans-unit id="917" approved="no">
+        <source>Digital object text</source>
+        <target state="translated">எண்மப் பொருள் உரை</target>
+      </trans-unit>
+      <trans-unit id="918" approved="no">
+        <source>Finding aid text</source>
+        <target state="translated">உதவு கருவி உரை?</target>
+      </trans-unit>
+      <trans-unit id="919" approved="no">
+        <source>Creator</source>
+        <target state="translated">ஆக்குனர்</target>
+      </trans-unit>
+      <trans-unit id="920" approved="no">
+        <source>Any field except finding aid text</source>
+        <target state="translated">உதவு கருவி உரை தவிர்ந்த எப்புலமாயினும்</target>
+      </trans-unit>
+      <trans-unit id="921" approved="no">
+        <source>Top-level description</source>
+        <target state="translated">உயர்மட்ட விவரணம்</target>
+      </trans-unit>
+      <trans-unit id="922" approved="no">
+        <source>General material designation</source>
+        <target state="translated">பொதுப் பொருட் பெயர்/ பெயர்க்குறிப்பு?</target>
+      </trans-unit>
+      <trans-unit id="923" approved="no">
+        <source>Top-level descriptions</source>
+        <target state="translated">உயர்மட்ட விவரணங்கள்</target>
+      </trans-unit>
+      <trans-unit id="924" approved="no">
+        <source>All descriptions</source>
+        <target state="translated">அனைத்து விவரிப்புகளும்</target>
+      </trans-unit>
+      <trans-unit id="925" approved="no">
+        <source>Overlapping</source>
+        <target state="translated">மேற்படிவான</target>
+      </trans-unit>
+      <trans-unit id="926" approved="no">
+        <source>Exact</source>
+        <target state="translated">துல்லியமான</target>
+      </trans-unit>
+      <trans-unit id="927">
+        <source>Use these options to specify how the date range returns results. "Exact" means that the start and end dates of descriptions returned must fall entirely within the date range entered. "Overlapping" means that any description whose start or end dates touch or overlap the target date range will be returned.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="928">
+        <source>This will permanently modify %1% records.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="929" approved="no">
+        <source>This action cannot be undone!</source>
+        <target state="translated">இச்செயல் மாற்றப்பட முடியாதது!</target>
+      </trans-unit>
+      <trans-unit id="930" approved="no">
+        <source>Newest additions</source>
+        <target state="translated">மிகப் புதிய சேர்க்கைகள்</target>
+      </trans-unit>
+      <trans-unit id="931" approved="no">
+        <source>Created</source>
+        <target state="translated">ஆக்கப்பட்டது?</target>
+      </trans-unit>
+      <trans-unit id="932" approved="no">
+        <source>Search error encountered</source>
+        <target state="translated">தேடல் வழு எதிர்ப்பட்டுள்ளது</target>
+      </trans-unit>
+      <trans-unit id="933" approved="no">
+        <source>Back to previous page.</source>
+        <target state="translated">முந்தைய பக்கத்துக்குச் செல்</target>
+      </trans-unit>
+      <trans-unit id="934" approved="no">
+        <source>results</source>
+        <target state="translated">முடிவுகள்</target>
+      </trans-unit>
+      <trans-unit id="935" approved="no">
+        <source>Part of </source>
+        <target state="translated">[இதன்] பகுதியான</target>
+      </trans-unit>
+      <trans-unit id="936" approved="no">
+        <source>all matching descriptions</source>
+        <target state="translated">அனைத்து இணை விவரிப்புகளும்</target>
+      </trans-unit>
+      <trans-unit id="937" approved="no">
+        <source>all matching institutions</source>
+        <target state="translated">அனைத்து இணை நிறுவனங்களும்</target>
+      </trans-unit>
+      <trans-unit id="938" approved="no">
+        <source>all matching people &amp; organizations</source>
+        <target state="translated">அனைத்து இணை மக்களும் அமைப்புகளும்</target>
+      </trans-unit>
+      <trans-unit id="939" approved="no">
+        <source>all matching places</source>
+        <target state="translated">அனைத்து இணை இடங்களும்</target>
+      </trans-unit>
+      <trans-unit id="940" approved="no">
+        <source>all matching subjects</source>
+        <target state="translated">அனைத்து இணைத் துறைகளும்</target>
+      </trans-unit>
+      <trans-unit id="941">
+        <source>%1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="942" approved="no">
+        <source>Global search</source>
+        <target state="translated">உலகளாவிய தேடல்</target>
+      </trans-unit>
+      <trans-unit id="943" approved="no">
+        <source>Search &lt;span&gt;%1%&lt;/span&gt;</source>
+        <target state="translated">தேடல் &lt;span&gt;%1%&lt;/span&gt;</target>
+      </trans-unit>
+      <trans-unit id="944" approved="no">
+        <source>Advanced search</source>
+        <target state="translated">உயர்நிலைத் தேடல்</target>
+      </trans-unit>
+      <trans-unit id="945" approved="no">
+        <source>Remove</source>
+        <target state="translated">நீக்கு</target>
+      </trans-unit>
+      <trans-unit id="946" approved="no">
+        <source>Add to clipboard</source>
+        <target state="translated">நகல்நினைவி இணை</target>
+      </trans-unit>
+      <trans-unit id="947" approved="no">
+        <source>Remove from clipboard</source>
+        <target state="translated">நகல்நினைவியிலிருந்து நீக்குக</target>
+      </trans-unit>
+      <trans-unit id="948">
+        <source>CSV export</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="949">
+        <source>XML export</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="950">
+        <source>%1%Export initiated.%2% Check %3%job management%4% page to download the results when it has completed.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="951">
+        <source>Export initiated. Progress will be reported, and a download link provided, in a subsequent notification &amp;mdash; &lt;a href="javascript:location.reload();"&gt;refresh the page&lt;/a&gt; for updates.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="952">
+        <source>Not a CSV file (or CSV columns not recognized).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="953">
+        <source>Import file initiated. Check %1%job %2%%3% to view the status of the import.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="954">
+        <source>Import CSV</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="955">
+        <source>Import XML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="956" approved="no">
+        <source>Related places</source>
+        <target state="translated">தொடர்புடைய இடங்கள்</target>
+      </trans-unit>
+      <trans-unit id="957">
+        <source>The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your AtoM system administrator to increase the available disk space.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="958" approved="no">
+        <source>Upload a %1%</source>
+        <target state="translated">%1% இனைப் பதிவேற்று</target>
+      </trans-unit>
+      <trans-unit id="959">
+        <source>Uploads for &lt;a href="%1%"&gt;%2%&lt;/a&gt; are disabled</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="960">
+        <source>The upload limit of %1% GB for &lt;a href="%2%"&gt;%3%&lt;/a&gt; has been reached</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="961" approved="no">
+        <source>Link to an external %1%</source>
+        <target state="translated">வெளிப்புற %1% க்கு இணை</target>
+      </trans-unit>
+      <trans-unit id="962">
+        <source>Import options</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="963" approved="no">
+        <source>Accession</source>
+        <target state="translated">சேர்வு</target>
+      </trans-unit>
+      <trans-unit id="964">
+        <source>EAD 2002</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="965">
+        <source>EAC CPF</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="966">
+        <source>MODS</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="967">
+        <source>DC</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="968">
+        <source>If you are importing a SKOS file to a taxonomy other than subjects, please go to the %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="969">
+        <source>SKOS import page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="970" approved="no">
+        <source>Update behaviours</source>
+        <target state="translated">நடத்தைகளை இற்றைப்படுத்துக?</target>
+      </trans-unit>
+      <trans-unit id="971">
+        <source>Ignore matches and create new records on import</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="972">
+        <source>Update matches ignoring blank fields in CSV</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="973">
+        <source>Delete matches and replace with imported records</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="974">
+        <source>Ignore matches and import as new</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="975">
+        <source>Delete matches and replace with imports</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="976">
+        <source>Skip unmatched records</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="977">
+        <source>Limit matches to:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="978">
+        <source>Skip matched records</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="979">
+        <source>Do not index imported items</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="980" approved="no">
+        <source>Include transformation script</source>
+        <target state="translated">உருமாற்றீட்டுப் பிரதியை உள்ளடக்குக</target>
+      </trans-unit>
+      <trans-unit id="981" approved="no">
+        <source>Select file</source>
+        <target state="translated">கோப்பைத் தெரிவு செய்க</target>
+      </trans-unit>
+      <trans-unit id="982" approved="no">
+        <source>Select a file to import</source>
+        <target state="translated">இறக்குமதிக்காகக் கோப்பொன்றைத் தெரிவு செய்க</target>
+      </trans-unit>
+      <trans-unit id="983" approved="no">
+        <source>Related subjects</source>
+        <target state="translated">தொடர்புடைய பொருட்துறைகள்</target>
+      </trans-unit>
+      <trans-unit id="984" approved="no">
+        <source>Subjects</source>
+        <target state="translated">பொருட்துறைகள்</target>
+      </trans-unit>
+      <trans-unit id="985">
+        <source>Import initiated</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="986">
+        <source>Error: You must have at least one %1%Level of description%2% selected or choose %1%Include all descendant levels of description%2% to proceed.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="987">
+        <source>Export options</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="988">
+        <source>Include descendants</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="989" approved="no">
+        <source>Include draft records</source>
+        <target state="translated">வரைவுப் பதிவுருக்களை உள்ளடக்குக</target>
+      </trans-unit>
+      <trans-unit id="990">
+        <source>Include all descendant levels of description</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="991">
+        <source>Select levels of descendant descriptions for inclusion</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="992">
+        <source>If no levels are selected, the export will fail. You can use the control (Mac ⌘) and/or shift keys to multi-select values from the Levels of description menu. It is necessary to include the level(s) above the desired export level, up to and including the level contained in the clipboard. Otherwise, no records will be included in the export.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="993">
+        <source>Choosing "Include descendants" will include all lower-level records beneath those currently on the clipboard in the export.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="994">
+        <source>Choosing "Include draft records" will include those marked with a Draft publication status in the export. Note: if you do NOT choose this option, any descendants of a draft record will also be excluded, even if they are published.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="995">
+        <source>Browse all terms</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="996" approved="no">
+        <source>List taxonomies</source>
+        <target state="translated">பகுப்பியலைப் பட்டியலிடுக</target>
+      </trans-unit>
+      <trans-unit id="997" approved="no">
+        <source>Browse %1%:</source>
+        <target state="translated">%1% உலாவு:</target>
+      </trans-unit>
+      <trans-unit id="998" approved="no">
+        <source>"Use for" labels</source>
+        <target state="translated">சிட்டைகளுக்குப் "பயன்படுத்தவும்"</target>
+      </trans-unit>
+      <trans-unit id="999">
+        <source>%1% term</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1000" approved="no">
+        <source>Scope note</source>
+        <target state="translated">நோக்கக் குறிப்பு</target>
+      </trans-unit>
+      <trans-unit id="1001" approved="no">
+        <source>Use for: </source>
+        <target state="translated">இதற்குப் பயன்படுத்தவும்:</target>
+      </trans-unit>
+      <trans-unit id="1002" approved="no">
+        <source>Job report</source>
+        <target state="translated">பணி அறிக்கை</target>
+      </trans-unit>
+      <trans-unit id="1003" approved="no">
+        <source>Overview</source>
+        <target state="translated">மீள்பார்வை</target>
+      </trans-unit>
+      <trans-unit id="1004" approved="no">
+        <source>Id</source>
+        <target state="translated">அடையாள ஆவணம்</target>
+      </trans-unit>
+      <trans-unit id="1005" approved="no">
+        <source>Creation date</source>
+        <target state="translated">ஆக்கத் திகதி</target>
+      </trans-unit>
+      <trans-unit id="1006" approved="no">
+        <source>Completion date</source>
+        <target state="translated">நிறைவு திகதி</target>
+      </trans-unit>
+      <trans-unit id="1007" approved="no">
+        <source>Associated record</source>
+        <target state="translated">இணைப் பதிவுரு?</target>
+      </trans-unit>
+      <trans-unit id="1008" approved="no">
+        <source>Link</source>
+        <target state="translated">தொடுப்பு</target>
+      </trans-unit>
+      <trans-unit id="1009" approved="no">
+        <source>Download path</source>
+        <target state="translated">தரவிறக்க வழி</target>
+      </trans-unit>
+      <trans-unit id="1010" approved="no">
+        <source>Log</source>
+        <target state="translated">குறிப்பேடு/ பதிவேடு?</target>
+      </trans-unit>
+      <trans-unit id="1011" approved="no">
+        <source>Empty</source>
+        <target state="translated">வெறுமையான?</target>
+      </trans-unit>
+      <trans-unit id="1012" approved="no">
+        <source>Return to jobs management page</source>
+        <target state="translated">பணிகள் முகாமைத்துவப் பக்கத்துக்குத் திரும்புக</target>
+      </trans-unit>
+      <trans-unit id="1013" approved="no">
+        <source>All jobs</source>
+        <target state="translated">அனைத்து பணிகளும்</target>
+      </trans-unit>
+      <trans-unit id="1014" approved="no">
+        <source>Active jobs</source>
+        <target state="translated">செயற்படு பணிகள்</target>
+      </trans-unit>
+      <trans-unit id="1015" approved="no">
+        <source>Job name</source>
+        <target state="translated">பணியின் பெயர்</target>
+      </trans-unit>
+      <trans-unit id="1016" approved="no">
+        <source>Job status</source>
+        <target state="translated">பணி நிகழ்நிலை</target>
+      </trans-unit>
+      <trans-unit id="1017" approved="no">
+        <source>Info</source>
+        <target state="translated">தகவல்</target>
+      </trans-unit>
+      <trans-unit id="1018" approved="no">
+        <source>Full report</source>
+        <target state="translated">முழு அறிக்கை</target>
+      </trans-unit>
+      <trans-unit id="1019">
+        <source>You may only clear jobs belonging to you.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1020" approved="no">
+        <source>There are no jobs to report on.</source>
+        <target state="translated">அறிவிப்பதற்கு எதுவித பணிகளும் இல்லை.</target>
+      </trans-unit>
+      <trans-unit id="1021" approved="no">
+        <source>Refresh</source>
+        <target state="translated">புதுப்பி</target>
+      </trans-unit>
+      <trans-unit id="1022" approved="no">
+        <source> Auto refresh</source>
+        <target state="translated">தன் புதுப்பி?</target>
+      </trans-unit>
+      <trans-unit id="1023">
+        <source>Export history CSV</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1024" approved="no">
+        <source>Clear inactive jobs</source>
+        <target state="translated">செயற்படா பணிகளை அழி/ நீக்கு</target>
+      </trans-unit>
+      <trans-unit id="1025" approved="no">
+        <source>Authorized form of name - This is a mandatory element.</source>
+        <target state="translated">பெயரின் ஒப்பிய உருவடிவம் - இது ஒரு தவிர்க்கலகாதத் தனிமம்.</target>
+      </trans-unit>
+      <trans-unit id="1026" approved="no">
+        <source>Add new rights holder</source>
+        <target state="translated">புது காப்புரிமையாளரை இணை</target>
+      </trans-unit>
+      <trans-unit id="1027" approved="no">
+        <source>List rights holder</source>
+        <target state="translated">காப்புரிமையாளர்களைப் பட்டியலிடுக</target>
+      </trans-unit>
+      <trans-unit id="1028" approved="no">
+        <source>Search rights holder</source>
+        <target state="translated">காப்புரிமையாளரைத் தேடுக</target>
+      </trans-unit>
+      <trans-unit id="1029">
+        <source>View rights holder</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1030" approved="no">
+        <source>Contact area</source>
+        <target state="translated">தொடு பரப்பு</target>
+      </trans-unit>
+      <trans-unit id="1031" approved="no">
+        <source>Edit rights holder</source>
+        <target state="translated">காப்புரிமையாளரைத் தொகு</target>
+      </trans-unit>
+      <trans-unit id="1032" approved="no">
+        <source>Unique records</source>
+        <target state="translated">தனித்தன்மையான பதிவுருக்கள்</target>
+      </trans-unit>
+      <trans-unit id="1033">
+        <source>If job hasn't already completed, check %1% page to determine present status.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1034">
+        <source>%1% (started: %2%, status: %3%).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1035">
+        <source> %1%Download%2% (%3% b)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1036">
+        <source>View:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1037" approved="no">
+        <source>Go to page %1%</source>
+        <target state="translated">%1% பக்கத்துக்குச் செல்க</target>
+      </trans-unit>
+      <trans-unit id="1038" approved="no">
+        <source>Other languages available</source>
+        <target state="translated">கிடைப்பிலுள்ள வேறு மொழிகள்</target>
+      </trans-unit>
+      <trans-unit id="1039" approved="no">
+        <source>Popular this week</source>
+        <target state="translated">இவ்வாரம் பிரபலமானது</target>
+      </trans-unit>
+      <trans-unit id="1040">
+        <source>%1% visits</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1041">
+        <source>Results &lt;span class="result-start"&gt;%1%&lt;/span&gt; to &lt;span class="result-end"&gt;%2%&lt;/span&gt; of %3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1042" approved="no">
+        <source>Move %1%</source>
+        <target state="translated">இடம்பெயர் %1%</target>
+      </trans-unit>
+      <trans-unit id="1043" approved="no">
+        <source>Search title or identifier</source>
+        <target state="translated">தலைப்பு அல்லது அடையாளம்காட்டி தேடல்</target>
+      </trans-unit>
+      <trans-unit id="1044" approved="no">
+        <source>Move here</source>
+        <target state="translated">இங்கே இடம்பெயர்க்க</target>
+      </trans-unit>
+      <trans-unit id="1045">
+        <source>A %1%release %2%%3% upgrade is available.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1046" approved="no">
+        <source>Ascending</source>
+        <target state="translated">ஏறுமுகமான/ ஏறுநிரை?</target>
+      </trans-unit>
+      <trans-unit id="1047" approved="no">
+        <source>Descending</source>
+        <target state="translated">இறங்குமுகமான</target>
+      </trans-unit>
+      <trans-unit id="1048" approved="no">
+        <source>Direction</source>
+        <target state="translated">திசை/ நோக்கம்/ ஏவுரை?</target>
+      </trans-unit>
+      <trans-unit id="1049">
+        <source>Please clear the application cache and rebuild the search index if you are changing the reference code separator setting.</source>
+        <target/>
+      </trans-unit>
+    </body>
   </file>
 </xliff>
