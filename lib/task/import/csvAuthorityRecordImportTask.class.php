@@ -535,29 +535,53 @@ EOF;
               }
               else
               {
-                $relation = new QubitRelation;
-                $relation->subjectId = $sourceActorId;
-                $relation->objectId  = $targetActorId;
-                $relation->typeId    = $relationTypeId;
+                // Check for pre-existing relationship before adding
+                $sql = "SELECT id FROM relation \r
+                  WHERE subject_id = :subject_id \r
+                  AND object_id = :object_id \r
+                  AND type_id = :type_id";
 
-                if ($self->rowStatusVars['date'])
-                {
-                  $relation->date = $self->rowStatusVars['date'];
-                }
-                if ($self->rowStatusVars['startDate'])
-                {
-                  $relation->startDate = $self->rowStatusVars['startDate'];
-                }
-                if ($self->rowStatusVars['endDate'])
-                {
-                  $relation->endDate = $self->rowStatusVars['endDate'];
-                }
-                if ($self->rowStatusVars['description'])
-                {
-                  $relation->description = $self->rowStatusVars['description'];
-                }
+                $params = array(
+                  ':subject_id' => $sourceActorId,
+                  ':object_id' => $targetActorId,
+                  ':type_id' => $relationTypeId
+                );
 
-                $relation->save();
+                $paramsVariant = array(
+                  ':subject_id' => $targetActorId,
+                  ':object_id' => $sourceActorId,
+                  ':type_id' => $relationTypeId
+                );
+
+		if (
+                  QubitPdo::fetchOne($sql, $params) === false
+                  && QubitPdo::fetchOne($sql, $paramsVariant) === false
+                )
+                {
+                  $relation = new QubitRelation;
+                  $relation->subjectId = $sourceActorId;
+                  $relation->objectId  = $targetActorId;
+                  $relation->typeId    = $relationTypeId;
+
+                  if ($self->rowStatusVars['date'])
+                  {
+                    $relation->date = $self->rowStatusVars['date'];
+                  }
+                  if ($self->rowStatusVars['startDate'])
+                  {
+                    $relation->startDate = $self->rowStatusVars['startDate'];
+                  }
+                  if ($self->rowStatusVars['endDate'])
+                  {
+                    $relation->endDate = $self->rowStatusVars['endDate'];
+                  }
+                  if ($self->rowStatusVars['description'])
+                  {
+                    $relation->description = $self->rowStatusVars['description'];
+                  }
+
+                  $relation->save();
+                }
               }
             }
           }
