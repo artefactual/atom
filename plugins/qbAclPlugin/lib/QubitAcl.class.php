@@ -343,9 +343,9 @@ class QubitAcl
     }
 
     // Add resource hierarchy
-    if (is_object($resource) && 0 < count($resources = $resource->ancestors->andSelf()->orderBy('lft')))
+    if (is_object($resource))
     {
-      foreach ($resources as $r)
+      foreach ($resource->ancestors->andSelf()->orderBy('lft') as $r)
       {
         if (!in_array($r->id, $this->_resources))
         {
