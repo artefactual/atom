@@ -100,7 +100,7 @@ EOF;
       case 'QubitInformationObject':
         $confirmWarning = sprintf('WARNING: You are about to delete the record "%s" and %d descendant records.',
                                   $this->resource->getTitle(array('cultureFallback' => true)),
-                                  count($this->resource->descendants));
+                                  ($this->resource->rgt - $this->resource->lft - 1) / 2);
         break;
     }
 
@@ -140,7 +140,7 @@ EOF;
   {
     $this->logSection('delete-description', sprintf('[%s] Deleting description "%s" (slug: %s, +%d descendants)', strftime('%r'),
       $root->getTitle(array('cultureFallback' => true)),
-      $root->slug, count($root->descendants)));
+      $root->slug, ($root->rgt - $root->lft - 1) / 2));
 
     $this->nDeleted += $root->deleteFullHierarchy();
   }

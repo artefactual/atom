@@ -87,7 +87,7 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
 
     // Set response to 403 forbidden if attempting to calculate dates using
     // non-existant descendants
-    if (!count($this->resource->descendants))
+    if ($this->resource->rgt - $this->resource->lft == 1)
     {
       $this->getResponse()->setStatusCode(403);
       return sfView::NONE;
