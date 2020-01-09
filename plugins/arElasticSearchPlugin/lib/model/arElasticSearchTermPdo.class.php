@@ -107,16 +107,6 @@ class arElasticSearchTermPdo
     return $this;
   }
 
-  public function getNumberOfDescendants()
-  {
-    $sql  = 'SELECT COUNT(*) AS count';
-    $sql .= ' FROM '.QubitTerm::TABLE_NAME;
-    $sql .= ' WHERE lft > :lft';
-    $sql .= ' AND rgt < :rgt';
-
-    return QubitPdo::fetchOne($sql, array(':lft' => $this->lft, ':rgt' => $this->rgt))->count;
-  }
-
   public function serialize()
   {
     $serialized = array();
@@ -139,7 +129,7 @@ class arElasticSearchTermPdo
     }
 
     $serialized['isProtected'] = QubitTerm::isProtected($this->id);
-    $serialized['numberOfDescendants'] = $this->getNumberOfDescendants();
+    $serialized['numberOfDescendants'] = ($this->rgt - $this->lft - 1) / 2;
 
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);
     $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($this->updated_at);

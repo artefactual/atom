@@ -60,5 +60,7 @@ class TermDeleteAction extends sfAction
 
       $this->redirect(array('module' => 'taxonomy', 'action' => 'list'));
     }
+
+    $this->descendantsCount = ($this->resource->rgt - $this->resource->lft - 1) / 2;
   }
 }

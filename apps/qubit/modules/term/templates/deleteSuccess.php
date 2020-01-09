@@ -30,8 +30,8 @@
         </div>
       <?php endif; ?>
 
-      <?php if (0 < count($resource->descendants)): ?>
-        <h2><?php echo __('It has %1% descendants that will also be deleted', array('%1%' => count($resource->descendants))) ?><h2>
+      <?php if (0 < $descendantsCount): ?>
+        <h2><?php echo __('It has %1% descendants that will also be deleted', array('%1%' => $descendantsCount)) ?><h2>
         <div class="delete-list">
           <ul>
             <?php foreach ($resource->descendants as $item): ?>
