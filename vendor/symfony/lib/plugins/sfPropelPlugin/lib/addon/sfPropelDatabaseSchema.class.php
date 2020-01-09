@@ -589,7 +589,7 @@ class sfPropelDatabaseSchema
 	  // Add source_culture column to main table
 	  $this->setIfNotSet($this->database[$main_table], 'source_culture', array(
 	    'required' => true,
-	    'size' => 7,
+	    'size' => 16,
 	    'type' => 'varchar'));
 
           // set id and culture columns for i18n table
@@ -604,7 +604,7 @@ class sfPropelDatabaseSchema
           $this->setIfNotSet($this->database[$i18n_table], 'culture', array(
             'isCulture'  => true,
             'type'       => 'varchar',
-            'size'       => '7',
+            'size'       => 16,
             'required'   => true,
             'primaryKey' => true,
           ));
