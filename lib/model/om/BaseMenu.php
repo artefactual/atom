@@ -855,7 +855,18 @@ abstract class BaseMenu implements ArrayAccess
 
   public function addDescendantsCriteria(Criteria $criteria)
   {
-    return $criteria->add(QubitMenu::LFT, $this->lft, Criteria::GREATER_THAN)->add(QubitMenu::RGT, $this->rgt, Criteria::LESS_THAN);
+    $criterion = $criteria->getNewCriterion(
+      QubitMenu::LFT,
+      $this->lft,
+      Criteria::GREATER_THAN
+    );
+    $criterion->addAnd($criteria->getNewCriterion(
+      QubitMenu::LFT,
+      $this->rgt,
+      Criteria::LESS_THAN
+    ));
+
+    return $criteria->add($criterion);
   }
 
   protected function updateNestedSet($connection = null)

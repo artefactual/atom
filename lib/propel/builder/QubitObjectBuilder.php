@@ -1969,7 +1969,18 @@ script;
 
   public function addDescendantsCriteria(Criteria \$criteria)
   {
-    return \$criteria->add({$this->getColumnConstant($this->nestedSetLeftColumn)}, \$this->{$this->getColumnVarName($this->nestedSetLeftColumn)}, Criteria::GREATER_THAN)->add({$this->getColumnConstant($this->nestedSetRightColumn)}, \$this->{$this->getColumnVarName($this->nestedSetRightColumn)}, Criteria::LESS_THAN);
+    \$criterion = \$criteria->getNewCriterion(
+      {$this->getColumnConstant($this->nestedSetLeftColumn)},
+      \$this->{$this->getColumnVarName($this->nestedSetLeftColumn)},
+      Criteria::GREATER_THAN
+    );
+    \$criterion->addAnd(\$criteria->getNewCriterion(
+      {$this->getColumnConstant($this->nestedSetLeftColumn)},
+      \$this->{$this->getColumnVarName($this->nestedSetRightColumn)},
+      Criteria::LESS_THAN
+    ));
+
+    return \$criteria->add(\$criterion);
   }
 
 script;

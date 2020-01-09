@@ -935,7 +935,18 @@ abstract class BaseAclGroup implements ArrayAccess
 
   public function addDescendantsCriteria(Criteria $criteria)
   {
-    return $criteria->add(QubitAclGroup::LFT, $this->lft, Criteria::GREATER_THAN)->add(QubitAclGroup::RGT, $this->rgt, Criteria::LESS_THAN);
+    $criterion = $criteria->getNewCriterion(
+      QubitAclGroup::LFT,
+      $this->lft,
+      Criteria::GREATER_THAN
+    );
+    $criterion->addAnd($criteria->getNewCriterion(
+      QubitAclGroup::LFT,
+      $this->rgt,
+      Criteria::LESS_THAN
+    ));
+
+    return $criteria->add($criterion);
   }
 
   protected function updateNestedSet($connection = null)

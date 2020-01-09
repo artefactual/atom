@@ -207,7 +207,7 @@ class QubitPhysicalObject extends BasePhysicalObject
       $sql = 'SELECT rel.id FROM relation rel
         INNER JOIN information_object io ON rel.object_id = io.id
         WHERE rel.subject_id = :id AND rel.type_id = :typeId
-        AND io.lft >= :lft AND io.rgt <= :rgt;';
+        AND io.lft >= :lft AND io.lft <= :rgt;';
 
       $params = array(
         ':id' => $physObj->id,

@@ -86,7 +86,7 @@ class arCalculateDescendantDatesJob extends arBaseJob
         INNER JOIN event e ON i.id=e.object_id
       WHERE
         i.lft > :lft
-        AND i.rgt < :rgt
+        AND i.lft < :rgt
         AND e.type_id=:eventType
         AND (e.start_date IS NOT NULL OR e.end_date IS NOT NULL)";
 

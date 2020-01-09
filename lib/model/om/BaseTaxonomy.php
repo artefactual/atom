@@ -550,7 +550,18 @@ abstract class BaseTaxonomy extends QubitObject implements ArrayAccess
 
   public function addDescendantsCriteria(Criteria $criteria)
   {
-    return $criteria->add(QubitTaxonomy::LFT, $this->lft, Criteria::GREATER_THAN)->add(QubitTaxonomy::RGT, $this->rgt, Criteria::LESS_THAN);
+    $criterion = $criteria->getNewCriterion(
+      QubitTaxonomy::LFT,
+      $this->lft,
+      Criteria::GREATER_THAN
+    );
+    $criterion->addAnd($criteria->getNewCriterion(
+      QubitTaxonomy::LFT,
+      $this->rgt,
+      Criteria::LESS_THAN
+    ));
+
+    return $criteria->add($criterion);
   }
 
   protected function updateNestedSet($connection = null)

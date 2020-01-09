@@ -116,7 +116,7 @@ EOF;
         throw new sfException("Invalid slug");
       }
 
-      array_push($whereClauses, sprintf('io.lft >= %d AND io.rgt <= %d', $row->lft, $row->rgt));
+      array_push($whereClauses, sprintf('io.lft >= %d AND io.lft <= %d', $row->lft, $row->rgt));
     }
 
     // Only regenerate derivatives for remote digital objects

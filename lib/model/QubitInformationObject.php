@@ -868,7 +868,7 @@ class QubitInformationObject extends BaseInformationObject
     $sql = "
       SELECT 1 FROM information_object
       INNER JOIN term_i18n on term_i18n.id = information_object.level_of_description_id
-      WHERE information_object.lft > ? and information_object.rgt < ?
+      WHERE information_object.lft > ? and information_object.lft < ?
       AND term_i18n.culture = ? AND term_i18n.name = ?
       LIMIT 1
     ";
@@ -1426,7 +1426,7 @@ class QubitInformationObject extends BaseInformationObject
     $sql = '
       SELECT COUNT(d.id) FROM information_object i
       INNER JOIN digital_object d ON i.id=d.object_id
-      WHERE i.lft > ? and i.rgt < ?
+      WHERE i.lft > ? and i.lft < ?
     ';
 
     $params = array($this->lft, $this->rgt);

@@ -515,7 +515,18 @@ abstract class BasePhysicalObject extends QubitObject implements ArrayAccess
 
   public function addDescendantsCriteria(Criteria $criteria)
   {
-    return $criteria->add(QubitPhysicalObject::LFT, $this->lft, Criteria::GREATER_THAN)->add(QubitPhysicalObject::RGT, $this->rgt, Criteria::LESS_THAN);
+    $criterion = $criteria->getNewCriterion(
+      QubitPhysicalObject::LFT,
+      $this->lft,
+      Criteria::GREATER_THAN
+    );
+    $criterion->addAnd($criteria->getNewCriterion(
+      QubitPhysicalObject::LFT,
+      $this->rgt,
+      Criteria::LESS_THAN
+    ));
+
+    return $criteria->add($criterion);
   }
 
   protected function updateNestedSet($connection = null)

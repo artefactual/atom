@@ -1987,7 +1987,18 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
 
   public function addDescendantsCriteria(Criteria $criteria)
   {
-    return $criteria->add(QubitTerm::LFT, $this->lft, Criteria::GREATER_THAN)->add(QubitTerm::RGT, $this->rgt, Criteria::LESS_THAN);
+    $criterion = $criteria->getNewCriterion(
+      QubitTerm::LFT,
+      $this->lft,
+      Criteria::GREATER_THAN
+    );
+    $criterion->addAnd($criteria->getNewCriterion(
+      QubitTerm::LFT,
+      $this->rgt,
+      Criteria::LESS_THAN
+    ));
+
+    return $criteria->add($criterion);
   }
 
   protected function updateNestedSet($connection = null)

@@ -147,7 +147,7 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
         INNER JOIN event e ON i.id=e.object_id
       WHERE
         i.lft > :lft
-        AND i.rgt < :rgt";
+        AND i.lft < :rgt";
 
     $params = array(
       ':lft' => $resource->lft,
