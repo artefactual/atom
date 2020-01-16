@@ -60,6 +60,10 @@
           ->label(__('Inherit reference code (information object)'))
           ->renderRow() ?>
 
+        <?php echo $form->inherit_code_dc_xml
+          ->label(__('Inherit reference code (DC XML)'))
+          ->renderRow() ?>
+
       </fieldset>
 
     </div>
