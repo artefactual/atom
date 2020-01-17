@@ -265,16 +265,8 @@ EOF;
     }
     else
     {
-      // Read file contents
-      if (false === $content = file_get_contents($path))
-      {
-        $this->log("Couldn't read file '$path'");
-
-        return;
-      }
-
       $do->usageId = QubitTerm::MASTER_ID;
-      $do->assets[] = new QubitAsset($filename, $content);
+      $do->assets[] = new QubitAsset($path);
     }
 
     $do->save($options['conn']);
