@@ -69,6 +69,25 @@ class ObjectAddDigitalObjectAction extends sfAction
       $this->forward404();
     }
 
+    // Assemble resource description
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Qubit'));
+
+    if ($this->resource instanceof QubitActor)
+    {
+       $this->resourceDescription = render_title($this->resource);
+    }
+    elseif ($this->resource instanceof QubitInformationObject)
+    {
+      $this->resourceDescription = '';
+
+      if (isset($this->resource->identifier))
+      {
+        $this->resourceDescription .= $this->resource->identifier . ' - ';
+      }
+
+      $this->resourceDescription .= render_title(new sfIsadPlugin($this->resource));
+    }
+
     // Check if already exists a digital object
     if (null !== $digitalObject = $this->resource->getDigitalObjectRelatedByobjectId())
     {
