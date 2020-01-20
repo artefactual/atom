@@ -84,6 +84,7 @@ class QubitInformationObjectXmlCache
   public function exportAll($options = array())
   {
     $skip = isset($options['skip']) ? $options['skip'] : 0;
+    $limit = isset($options['limit']) ? $options['limit'] : 0;
 
     // Get not-root and published information objects
     $criteria = new Criteria;
@@ -91,6 +92,7 @@ class QubitInformationObjectXmlCache
     $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
     $criteria->addAscendingOrderByColumn(QubitInformationObject::ID); // sort so optional skip will be consistent
     $criteria->setOffset($skip);
+    $criteria->setLimit($limit);
 
     $results = QubitInformationObject::get($criteria);
 
