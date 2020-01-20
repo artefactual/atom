@@ -84,24 +84,37 @@ class QubitInformationObjectXmlCache
   public function exportAll($options = array())
   {
     $skip = isset($options['skip']) ? $options['skip'] : 0;
+    $limit = isset($options['limit']) ? $options['limit'] : 0;
 
-    // Get not-root and published information objects
-    $criteria = new Criteria;
-    $criteria->add(QubitInformationObject::ID, QubitInformationObject::ROOT_ID, Criteria::NOT_EQUAL);
-    $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
-    $criteria->addAscendingOrderByColumn(QubitInformationObject::ID); // sort so optional skip will be consistent
-    $criteria->setOffset($skip);
-
-    $results = QubitInformationObject::get($criteria);
+    // Get not-root and published information objects (sorted by ID so optional
+    // skip/limit will be consistent)
+    $sql = "SELECT i.id FROM ". QubitInformationObject::TABLE_NAME ." i \r
+      INNER JOIN status s ON i.id=s.object_id \r
+      WHERE i.id != :root_id \r
+      AND s.status_id=:status_id AND s.type_id=:type_id \r
+      ORDER BY i.id";
+ 
+    $params = array(
+      ':status_id' => QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID,
+      ':type_id' => QubitTerm::STATUS_TYPE_PUBLICATION_ID,
+      ':root_id' => QubitInformationObject::ROOT_ID,
+    );
 
     $exporting = 0;
+
+    // Apply skip/limit and fetch results
+    Propel::getDB()->applyLimit($sql, $skip, $limit);
+    $results = QubitPdo::fetchAll($sql, $params);
 
     if (count($results))
     {
       $this->logger->info($this->i18n->__('%1% published information objects found.', array('%1%' => count($results))));
 
-      foreach ($results as $io)
+      // Export each information object
+      foreach ($results as $row)
       {
+        $io = QubitInformationObject::getById($row->id);
+
         $exporting++;
         $this->logger->info($this->i18n->__('Exporting information object ID %1% (%2% of %3%)', array('%1%' => $io->id, '%2%' => $exporting, '%3%' => count($results))));
         $this->export($io);

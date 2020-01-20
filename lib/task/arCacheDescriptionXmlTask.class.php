@@ -32,7 +32,8 @@ class arCacheDescriptionXmlTask extends arBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-      new sfCommandOption('skip', null, sfCommandOption::PARAMETER_OPTIONAL, 'Number of information objects to skip', 0)
+      new sfCommandOption('skip', null, sfCommandOption::PARAMETER_OPTIONAL, 'Number of information objects to skip', 0),
+      new sfCommandOption('limit', null, sfCommandOption::PARAMETER_OPTIONAL, 'Number of information objects to export', 0)
     ));
 
     $this->namespace = 'cache';
@@ -56,7 +57,7 @@ EOF;
     $logger->log('Caching XML representations of information objects...');
 
     $cache = new QubitInformationObjectXmlCache(array('logger' => $logger));
-    $cache->exportAll(array('skip' => $options['skip']));
+    $cache->exportAll(array('skip' => $options['skip'], 'limit' => $options['limit']));
 
     $logger->log('Done.');
   }
