@@ -1277,6 +1277,25 @@ class arElasticSearchInformationObjectPdo
     foreach ($this->events as $event)
     {
       $serialized['dates'][] = arElasticSearchEvent::serialize($event);
+
+      // The dates indexed above are nested objects and that complicates sorting.
+      // Additionally, we only show the first populated dates on the search
+      // results. Indexing the first populated dates on different fields makes
+      // sorting easier and more intuitive.
+      if (isset($serialized['startDateSort']) || isset($serialized['endDateSort']))
+      {
+        continue;
+      }
+
+      if (!empty($event->start_date))
+      {
+        $serialized['startDateSort'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrDay($event->start_date);
+      }
+
+      if (!empty($event->end_date))
+      {
+        $serialized['endDateSort'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrDay($event->end_date, true);
+      }
     }
 
     // Transcript
