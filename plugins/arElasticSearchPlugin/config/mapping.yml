@@ -531,3 +531,6 @@ mapping:
             store: true
             search_analyzer: standard
             term_vector: with_positions_offsets
+      # Not nested date fields for sorting
+      start_date_sort: { type: date, include_in_all: false }
+      end_date_sort: { type: date, include_in_all: false }

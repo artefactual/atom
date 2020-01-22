@@ -141,15 +141,15 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
 
       case 'dateUp':
         $query->setSort(array(
-          'dates.startDate' => 'asc',
-          'dates.endDate' => 'asc'));
+          'startDateSort' => 'asc',
+          'endDateSort' => 'asc'));
 
         break;
 
       case 'dateDown':
         $query->setSort(array(
-          'dates.startDate' => 'desc',
-          'dates.endDate' => 'desc'));
+          'startDateSort' => 'desc',
+          'endDateSort' => 'desc'));
 
         break;
 

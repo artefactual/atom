@@ -76,7 +76,7 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
         break;
 
       case 'date':
-        $field = 'dates.startDate';
+        $field = 'startDateSort';
         $order = 'asc';
         break;
 

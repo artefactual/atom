@@ -291,7 +291,7 @@ EOF;
             break;
 
           case 'date':
-            $this->search->query->setSort(array('dates.startDate' => $request->sortDir));
+            $this->search->query->setSort(array('startDateSort' => $request->sortDir));
             break;
 
           case 'lastUpdated':
