@@ -31,7 +31,7 @@
     <ul class="result-details">
 
       <?php if (!empty($doc['descriptionIdentifier'])): ?>
-        <li class="reference-code"><?php echo render_value_inline($doc['descriptionIdentifier']) ?></li>
+        <li class="reference-code"><?php echo $doc['descriptionIdentifier'] ?></li>
       <?php endif; ?>
 
       <?php if (!empty($doc['entityTypeId']) && null !== $term = QubitTerm::getById($doc['entityTypeId'])): ?>

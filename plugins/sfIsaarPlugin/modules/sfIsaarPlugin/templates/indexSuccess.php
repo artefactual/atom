@@ -105,7 +105,7 @@
     </div>
   </div>
 
-  <?php echo render_show(__('Identifiers for corporate bodies'), render_value($resource->corporateBodyIdentifiers)) ?>
+  <?php echo render_show(__('Identifiers for corporate bodies'), $resource->corporateBodyIdentifiers) ?>
 
 </section> <!-- /section#identityArea -->
 
@@ -204,7 +204,7 @@
 
   <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Control area').'</h2>', array($resource, 'module' => 'actor', 'action' => 'edit'), array('anchor' => 'controlArea', 'title' => __('Edit control area'))) ?>
 
-  <?php echo render_show(__('Authority record identifier'), render_value($resource->descriptionIdentifier)) ?>
+  <?php echo render_show(__('Authority record identifier'), $resource->descriptionIdentifier) ?>
 
   <?php if (null !== $repository = $resource->getMaintainingRepository()): ?>
     <?php echo render_show(__('Maintained by'), link_to(render_title($repository), array($repository, 'module' => 'repository'))) ?>
