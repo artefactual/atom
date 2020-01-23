@@ -350,6 +350,25 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     return QubitNote::get($criteria);
   }
 
+  /**
+   * Get the digital object related to this resource. The resource to
+   * digitalObject relationship is "one to zero or one".
+   *
+   * @return mixed QubitDigitalObject or null
+   */
+  public function getDigitalObject()
+  {
+    $digitalObjects = $this->getDigitalObjectRelatedByobjectId();
+    if (count($digitalObjects) > 0)
+    {
+      return $digitalObjects[0];
+    }
+    else
+    {
+      return null;
+    }
+  }
+
   public function getDigitalObjectRelatedByobjectId()
   {
     $digitalObjects = $this->getDigitalObjectsRelatedByobjectId();

@@ -1384,25 +1384,6 @@ class QubitInformationObject extends BaseInformationObject
   ******************/
 
   /**
-   * Get the digital object related to this information object. The
-   * informationObject to digitalObject relationship is "one to zero or one".
-   *
-   * @return mixed QubitDigitalObject or null
-   */
-  public function getDigitalObject()
-  {
-    $digitalObjects = $this->getDigitalObjectRelatedByobjectId();
-    if (count($digitalObjects) > 0)
-    {
-      return $digitalObjects[0];
-    }
-    else
-    {
-      return null;
-    }
-  }
-
-  /**
    * Get the digital object's checksum value
    *
    * @return string  digital object checksum or null
