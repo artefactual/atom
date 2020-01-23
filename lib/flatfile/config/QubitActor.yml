@@ -24,6 +24,8 @@ columnNames:
   - actorOccupationNotes
   - subjectAccessPoints
   - placeAccessPoints
+  - digitalObjectURI
+  - digitalObjectChecksum
 
 direct:
   - culture

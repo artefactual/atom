@@ -84,11 +84,23 @@ EOF;
         "When importing records with --update, skip creating new records if no existing records match."
       ),
       new sfCommandOption(
+        'skip-derivatives',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        "Skip creation of digital object derivatives."
+      ),
+      new sfCommandOption(
+        'keep-digital-objects',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        'Skip the deletion of existing digital objects and their derivatives when using --update with "match-and-update".'
+      ),
+      new sfCommandOption(
         'limit',
         null,
         sfCommandOption::PARAMETER_REQUIRED,
         'Limit --update matching to under a specified maintaining repository via slug.'
-      )
+      ),
     ));
   }
 
@@ -260,8 +272,16 @@ EOF;
         'actorOccupations',
         'actorOccupationNotes',
         'placeAccessPoints',
-        'subjectAccessPoints'
+        'subjectAccessPoints',
+        'digitalObjectPath',
+        'digitalObjectURI',
+        'digitalObjectChecksum'
       ),
+
+      'updatePreparationLogic' => function(&$self)
+      {
+        $this->deleteDigitalObjectIfUpdatingAndNotKeeping($self);
+      },
 
       // Import logic to execute before saving actor
       'preSaveLogic' => function(&$self)
@@ -460,6 +480,9 @@ EOF;
               }
             }
           }
+
+          // Add digital object
+          $this->importDigitalObject($self);
         }
       }
     ));
