@@ -1384,38 +1384,6 @@ class QubitInformationObject extends BaseInformationObject
   ******************/
 
   /**
-   * Get the digital object related to this information object. The
-   * informationObject to digitalObject relationship is "one to zero or one".
-   *
-   * @return mixed QubitDigitalObject or null
-   */
-  public function getDigitalObject()
-  {
-    $digitalObjects = $this->getDigitalObjectRelatedByobjectId();
-    if (count($digitalObjects) > 0)
-    {
-      return $digitalObjects[0];
-    }
-    else
-    {
-      return null;
-    }
-  }
-
-  /**
-   * Get the digital object's checksum value
-   *
-   * @return string  digital object checksum or null
-   */
-  public function getDigitalObjectChecksum()
-  {
-    if (null !== $do = $this->getDigitalObjectRelatedByobjectId())
-    {
-      return $do->getChecksum();
-    }
-  }
-
-  /**
    * Get the total digital object count for this & all descendents to this
    * information object.
    *
@@ -1432,42 +1400,6 @@ class QubitInformationObject extends BaseInformationObject
     $params = array($this->lft, $this->rgt);
 
     return QubitPdo::fetchColumn($sql, $params);
-  }
-
-  /**
-   * Get the digital object's public URL
-   *
-   * @return string  digital object URL or null
-   */
-  public function getDigitalObjectPublicUrl()
-  {
-    // Set digital object URL
-    $do = $this->digitalObjectsRelatedByobjectId[0];
-    if (!isset($do))
-    {
-      return;
-    }
-
-    if (!$do->masterAccessibleViaUrl())
-    {
-      return;
-    }
-
-    $path = $do->getFullPath();
-
-    // If path is external, it's absolute so return it
-    if (QubitTerm::EXTERNAL_URI_ID == $do->usageId)
-    {
-      return $path;
-    }
-
-    if (!QubitAcl::check($this, 'readMaster') && null !== $do->reference &&
-        QubitAcl::check($this, 'readReference'))
-    {
-      $path = $do->reference->getFullPath();
-    }
-
-    return rtrim(QubitSetting::getByName('siteBaseUrl'), '/').'/'.ltrim($path, '/');
   }
 
   /****************

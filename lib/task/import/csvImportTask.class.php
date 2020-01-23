@@ -1059,40 +1059,7 @@ EOF;
         // only remove the DO if the checksums differ.  If they are removed
         // because the checksums are different, the following code will
         // recreate them from the CSV file.
-        if (($uri = $self->rowStatusVars['digitalObjectURI'])
-          && null === $self->object->getDigitalObject())
-        {
-          $do = new QubitDigitalObject;
-          $do->object = $self->object;
-
-          if ($self->status['options']['skip-derivatives'])
-          {
-            // Don't download remote resource or create derivatives
-            $do->createDerivatives = false;
-          }
-          else
-          {
-            // Try downloading external object up to three times (2 retries)
-            $options = array('downloadRetries' => 2);
-          }
-
-          // Catch digital object import errors to avoid killing whole import
-          try
-          {
-            $do->importFromURI($uri, $options);
-            $do->save();
-          }
-          catch (Exception $e)
-          {
-            // Log error
-            $this->log($e->getMessage(), sfLogger::ERR);
-          }
-        }
-        else if (($path = $self->rowStatusVars['digitalObjectPath'])
-          && null === $self->object->getDigitalObject())
-        {
-          $this->handleDigitalObjectPath($self, $path);
-        }
+        $this->importDigitalObject($self);
 
         // If importing a translation, re-save entire information object so translation will be indexed
         if ($self->object instanceof QubitInformationObjectI18n && !$self->searchIndexingDisabled)
@@ -1149,43 +1116,6 @@ EOF;
     });
 
     $import->csv($fh, $skipRows);
-  }
-
-  /**
-   * Handle creating a digital object and linking it to our information object during import.
-   *
-   * @param QubitFlatfileImport $self  A reference to our flat file importer ($self->object refers to
-   *                                   the information object we're currently creating).
-   * @param string $path  Asset file path
-   */
-  private function handleDigitalObjectPath($self, $path)
-  {
-    if (!is_readable($path))
-    {
-      $this->log("Cannot read digital object path. Skipping creation of digital object ($path)");
-      return;
-    }
-
-    $do = new QubitDigitalObject;
-    $do->usageId = QubitTerm::MASTER_ID;
-    $do->object = $self->object;
-
-    // Don't create derivatives (reference, thumb)
-    if ($self->status['options']['skip-derivatives'])
-    {
-      $do->createDerivatives = false;
-    }
-
-    $do->assets[] = new QubitAsset($path);
-
-    try
-    {
-      $do->save();
-    }
-    catch (Exception $e)
-    {
-      $this->log($e->getMessage(), sfLogger::ERR);
-    }
   }
 
   /**

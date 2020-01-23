@@ -260,7 +260,9 @@ EOF;
         'actorOccupations',
         'actorOccupationNotes',
         'placeAccessPoints',
-        'subjectAccessPoints'
+        'subjectAccessPoints',
+        'digitalObjectPath',
+        'digitalObjectURI'
       ),
 
       // Import logic to execute before saving actor
@@ -460,6 +462,9 @@ EOF;
               }
             }
           }
+
+          // Add digital object
+          $this->importDigitalObject($self);
         }
       }
     ));
