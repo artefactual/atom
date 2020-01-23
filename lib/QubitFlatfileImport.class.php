@@ -1109,6 +1109,9 @@ class QubitFlatfileImport
       $this->status['updated']++;
       $this->object = call_user_func(array($this->className, 'getById'), $result->id);
 
+      // Execute ad-hoc row pre-update logic (remove related data, etc.)
+      $this->executeClosurePropertyIfSet('updatePreparationLogic');
+
       // Match and update: update current object
       if ($this->matchAndUpdate)
       {

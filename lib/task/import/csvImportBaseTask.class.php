@@ -130,6 +130,146 @@ abstract class csvImportBaseTask extends arBaseTask
   }
 
   /**
+   * If updating, delete existing digital object if updating, a path or UI has
+   * been specified, and not keeping digial objects.
+   *
+   * @param QubitFlatfileImport $self  A reference to our flat file importer.
+   */
+  public function deleteDigitalObjectIfUpdatingAndNotKeeping($self)
+  {
+    // If keep-digital-objects is set and --update="match-and-update" is set,
+    // skip this logic to delete digital objects.
+    if ((!empty($self->rowStatusVars['digitalObjectPath']) || !empty($self->rowStatusVars['digitalObjectURI']))
+      && !$self->keepDigitalObjects)
+    {
+      // Retrieve any digital objects that exist for this information object
+      $do = $self->object->getDigitalObjectRelatedByobjectId();
+
+      if (null !== $do)
+      {
+        $deleteDigitalObject = true;
+
+        if ($self->isUpdating())
+        {
+          // if   - there is a checksum in the import file
+          //      - the checksum is non-blank
+          //      - the checksum in the csv file matches what is in the database
+          // then - do not re-load the digital object from the import file on UPDATE (leave existing recs as is)
+          // else - reload the digital object in the import file (i.e. delete existing record below)
+          if (!empty($self->rowStatusVars['digitalObjectChecksum'])
+            && $self->rowStatusVars['digitalObjectChecksum'] === $do->getChecksum())
+          {
+            // if the checksum matches what is stored with digital object, do not import this digital object.
+            $deleteDigitalObject = false;
+          }
+        }
+
+        if ($deleteDigitalObject)
+        {
+          $this->log('Deleting existing digital object.');
+          $do->delete();
+        }
+      }
+    }
+  }
+
+  /**
+   * If getDigitalObject() is null, and a digital object URI or path
+   * is specified, then attempt to import single digital object.
+   *
+   * If both a URI and path are provided, the former is preferred.
+   *
+   * @param QubitFlatfileImport $self  A reference to our flat file importer.
+   */
+  public function importDigitalObject($self)
+  {
+    if (null === $self->object->getDigitalObject())
+    {
+      if ($uri = $self->rowStatusVars['digitalObjectURI'])
+      {
+        $this->addDigitalObjectFromURI($self, $uri);
+      }
+      else if ($path = $self->rowStatusVars['digitalObjectPath'])
+      {
+        $this->addDigitalObjectFromPath($self, $path);
+      }
+    }
+  }
+
+  /**
+   * Create new digital object from a URI and link it to a resource.
+   *
+   * @param QubitFlatfileImport $self  A reference to our flat file importer ($self->object refers to
+   *                                   the resource we're currently importing)
+   * @param string $uri  Asset URI
+   */
+  public function addDigitalObjectFromURI($self, $uri)
+  {
+    $do = new QubitDigitalObject;
+    $do->object = $self->object;
+
+    if ($self->status['options']['skip-derivatives'])
+    {
+      // Don't download remote resource or create derivatives
+      $do->createDerivatives = false;
+    }
+    else
+    {
+      // Try downloading external object up to three times (2 retries)
+      $options = array('downloadRetries' => 2);
+    }
+
+    // Catch digital object import errors to avoid killing whole import
+    try
+    {
+      $do->importFromURI($uri, $options);
+      $do->save();
+    }
+    catch (Exception $e)
+    {
+      // Log error
+      $this->log($e->getMessage(), sfLogger::ERR);
+    }
+  }
+
+  /**
+   * Create new digital object from a path and link it to a resource.
+   *
+   * @param QubitFlatfileImport $self  A reference to our flat file importer ($self->object refers to
+   *                                   the resource we're currently importing).
+   * @param string $path  Asset file path
+   */
+  public function addDigitalObjectFromPath($self, $path)
+  {
+    if (!is_readable($path))
+    {
+      $this->log("Cannot read digital object path. Skipping creation of digital object ($path)");
+      return;
+    }
+
+    $do = new QubitDigitalObject;
+    $do->usageId = QubitTerm::MASTER_ID;
+    $do->object = $self->object;
+
+    // Don't create derivatives (reference, thumb)
+    if ($self->status['options']['skip-derivatives'])
+    {
+      $do->createDerivatives = false;
+    }
+
+    $do->assets[] = new QubitAsset($path);
+
+    try
+    {
+      $do->save();
+    }
+    catch (Exception $e)
+    {
+      $this->log($e->getMessage(), sfLogger::ERR);
+    }
+  }
+
+  /**
    * Import events
    */
   static function importEvents(&$import)
