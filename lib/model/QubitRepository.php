@@ -124,43 +124,54 @@ class QubitRepository extends BaseRepository
     return $this;
   }
 
+  public function getRelatedInformationObjectIds()
+  {
+    $sql = "SELECT id FROM ". QubitInformationObject::TABLE_NAME ." WHERE repository_id=:repository_id";
+
+    $params = array(':repository_id' => $this->id);
+
+    return QubitPdo::fetchAll($sql, $params, array('fetchMode' => PDO::FETCH_COLUMN));
+  }
+
   public function updateRelatedIos()
   {
-    $ioIds = array();
-    $context = sfContext::getInstance();
-    $env = $context->getConfiguration()->getEnvironment();
+    $ioIds = $this->getRelatedInformationObjectIds();
 
-    foreach ($this->informationObjects as $io)
-    {
-      // Update synchronously in CLI tasks and jobs
-      if (in_array($env, array('cli', 'worker')))
-      {
-        QubitSearch::getInstance()->update($io, array('updateDescendants' => true));
-      }
-      else
-      {
-        // Otherwise save id to update asynchronously
-        $ioIds[] = $io->id;
-      }
-    }
-
-    if (count($ioIds) == 0)
+    if (empty($ioIds))
     {
       return;
     }
 
-    // Update asynchronously the saved IOs ids
-    $jobOptions = array(
-      'ioIds' => $ioIds,
-      'updateIos' => true,
-      'updateDescendants' => true
-    );
-    QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
+    // Handle web request asynchronously
+    $context = sfContext::getInstance();
 
-    // Let user know related descriptions update has started
-    $jobsUrl = $context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'));
-    $message = $context->i18n->__('Your repository has been updated. Its related descriptions are being updated asynchronously – check the <a href="%1">job scheduler page</a> for status and details.', array('%1' => $jobsUrl));
-    $context->user->setFlash('notice', $message);
+    if (!in_array($context->getConfiguration()->getEnvironment(), array('cli', 'worker')))
+    {
+      // Let user know related descriptions update has started
+      $jobsUrl = $context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'));
+      $message = $context->i18n->__('Your repository has been updated. Its related descriptions are being updated asynchronously – check the <a href="%1">job scheduler page</a> for status and details.', array('%1' => $jobsUrl));
+      $context->user->setFlash('notice', $message);
+
+      // Update asynchronously the saved IOs ids
+      $jobOptions = array(
+        'ioIds' => $ioIds,
+        'updateIos' => true,
+        'updateDescendants' => true
+      );
+      QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
+
+      return;
+    }
+
+    // Handle CLI and worker requests synchronously
+    foreach ($ioIds as $id)
+    {
+      $io = QubitInformationObject::getById($id);
+      QubitSearch::getInstance()->update($io, array('updateDescendants' => true));
+
+      // Keep caches clear to prevent memory use from ballooning
+      Qubit::clearClassCaches();
+    }
   }
 
   /**
@@ -192,11 +203,16 @@ class QubitRepository extends BaseRepository
     // Remove adv. search repository options from cache
     QubitCache::getInstance()->removePattern('search:list-of-repositories:*');
 
-    foreach ($this->informationObjects as $item)
+    foreach ($this->getRelatedInformationObjectIds() as $id)
     {
+      $item = QubitInformationObject::getById($id);
+
       unset($item->repository);
 
       $item->save();
+
+      // Keep caches clear to prevent memory use from ballooning
+      Qubit::clearClassCaches();
     }
 
     // Events, relations and the Elasticsearch document are deleted in QubitActor
