@@ -1596,12 +1596,12 @@
 
     <xsl:template match="ead:did" mode="itemDsc">
         <fo:block margin-top="6pt">
-            <xsl:apply-templates select="ead:origination" mode="itemDsc"/>
             <xsl:apply-templates select="ead:materialspec" mode="itemDsc"/>
-            <xsl:apply-templates select="ead:abstract" mode="itemDsc"/>
-            <xsl:apply-templates select="ead:note" mode="itemDsc"/>
+            <xsl:apply-templates select="ead:origination" mode="itemDsc"/>
             <xsl:apply-templates select="../ead:scopecontent" mode="itemDsc"/>
             <xsl:apply-templates select="../ead:userestrict" mode="itemDsc"/>
+            <xsl:apply-templates select="ead:note" mode="itemDsc"/>
+            <xsl:apply-templates select="ead:physloc" mode="itemDsc"/>
         </fo:block>
     </xsl:template>
 
@@ -1662,7 +1662,7 @@
 
     <!-- Special formatting for file/item table elements -->
     <xsl:template match="ead:origination | ead:scopecontent | ead:materialspec
-        | ead:abstract | ead:note | ead:userestrict" mode="itemDsc">
+        | ead:physloc | ead:note | ead:userestrict" mode="itemDsc">
         <fo:block>
             <fo:inline font-style="italic">
                 <xsl:choose>
