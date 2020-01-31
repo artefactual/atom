@@ -116,7 +116,9 @@ class QubitRepository extends BaseRepository
 
     QubitSearch::getInstance()->update($this);
 
-    $this->updateRelatedIos();
+    // Trigger updating of associated information objects, if any
+    $operationDescription = sfContext::getInstance()->i18n->__('updated');
+    $this->updateInformationObjects($this->getRelatedInformationObjectIds(), $operationDescription);
 
     // Remove adv. search repository options from cache
     QubitCache::getInstance()->removePattern('search:list-of-repositories:*');
@@ -133,10 +135,8 @@ class QubitRepository extends BaseRepository
     return QubitPdo::fetchAll($sql, $params, array('fetchMode' => PDO::FETCH_COLUMN));
   }
 
-  public function updateRelatedIos()
+  public function updateInformationObjects($ioIds, $operationDescription)
   {
-    $ioIds = $this->getRelatedInformationObjectIds();
-
     if (empty($ioIds))
     {
       return;
@@ -149,7 +149,8 @@ class QubitRepository extends BaseRepository
     {
       // Let user know related descriptions update has started
       $jobsUrl = $context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'));
-      $message = $context->i18n->__('Your repository has been updated. Its related descriptions are being updated asynchronously – check the <a href="%1">job scheduler page</a> for status and details.', array('%1' => $jobsUrl));
+      $messageParams = array('%1' => $operationDescription, '%2' => $jobsUrl);
+      $message = $context->i18n->__('Your repository has been %1. Its related descriptions are being updated asynchronously – check the <a href="%2">job scheduler page</a> for status and details.', $messageParams);
       $context->user->setFlash('notice', $message);
 
       // Update asynchronously the saved IOs ids
@@ -203,16 +204,21 @@ class QubitRepository extends BaseRepository
     // Remove adv. search repository options from cache
     QubitCache::getInstance()->removePattern('search:list-of-repositories:*');
 
-    foreach ($this->getRelatedInformationObjectIds() as $id)
+    // Get IDs of any associated information objects
+    $ioIds = $this->getRelatedInformationObjectIds();
+
+    if (!empty($ioIds))
     {
-      $item = QubitInformationObject::getById($id);
+      // Remove associations between this repository and information objects
+      $sql = "UPDATE " . QubitInformationObject::TABLE_NAME . " \r
+              SET repository_id=NULL \r
+              WHERE repository_id=:repository_id";
 
-      unset($item->repository);
+      QubitPdo::modify($sql, array(':repository_id' => $this->id));
 
-      $item->save();
-
-      // Keep caches clear to prevent memory use from ballooning
-      Qubit::clearClassCaches();
+      // Trigger updating of the information objects
+      $operationDescription = sfContext::getInstance()->i18n->__('deleted');
+      $this->updateInformationObjects($ioIds, $operationDescription);
     }
 
     // Events, relations and the Elasticsearch document are deleted in QubitActor
