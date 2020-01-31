@@ -85,6 +85,9 @@ class arUpdateEsIoDocumentsJob extends arBaseJob
         $message = $this->i18n->__('Updating descendant of %1 description(s).', array('%1' => $count));
       }
 
+      // Minimize memory use in case we're dealing with a large number of information objects
+      Qubit::clearClassCaches();
+
       // Status update every 100 descriptions
       if (0 == $count % 100)
       {
