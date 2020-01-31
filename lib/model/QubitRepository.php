@@ -203,16 +203,44 @@ class QubitRepository extends BaseRepository
     // Remove adv. search repository options from cache
     QubitCache::getInstance()->removePattern('search:list-of-repositories:*');
 
-    foreach ($this->getRelatedInformationObjectIds() as $id)
+    // Get IDs of all associated information objects then remove associations
+    $ioIds = $this->getRelatedInformationObjectIds();
+
+    if (!empty($ioIds))
     {
-      $item = QubitInformationObject::getById($id);
+      $sql = "UPDATE information_object SET repository_id=NULL WHERE repository_id=:repository_id";
+      QubitPdo::modify($sql, array(':repository_id' => $this->id));
 
-      unset($item->repository);
+      // Handle web request asynchronously
+      $context = sfContext::getInstance();
 
-      $item->save();
+      if (!in_array($context->getConfiguration()->getEnvironment(), array('cli', 'worker')))
+      {
+        // Let user know related descriptions update has started
+        $jobsUrl = $context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'));
+        $message = $context->i18n->__('Your repository has been deleted. Its related descriptions are being updated asynchronously – check the <a href="%1">job scheduler page</a> for status and details.', array('%1' => $jobsUrl));
+        $context->user->setFlash('notice', $message);
 
-      // Keep caches clear to prevent memory use from ballooning
-      Qubit::clearClassCaches();
+        // Update asynchronously the saved IOs ids
+        $jobOptions = array(
+          'ioIds' => $ioIds,
+          'updateIos' => true,
+          'updateDescendants' => true
+        );
+        QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
+      }
+      else
+      {
+        // Handle CLI and worker requests synchronously
+        foreach ($ioIds as $id)
+        {
+          $io = QubitInformationObject::getById($id);
+          QubitSearch::getInstance()->update($io, array('updateDescendants' => true));
+
+          // Keep caches clear to prevent memory use from ballooning
+          Qubit::clearClassCaches();
+        }
+      }
     }
 
     // Events, relations and the Elasticsearch document are deleted in QubitActor
