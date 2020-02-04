@@ -1391,7 +1391,7 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function getDigitalObject()
   {
-    $digitalObjects = $this->getDigitalObjectRelatedByobjectId();
+    $digitalObjects = $this->getDigitalObjectsRelatedByobjectId();
     if (count($digitalObjects) > 0)
     {
       return $digitalObjects[0];
