@@ -33,7 +33,8 @@ class arSearchPopulateTask extends sfBaseTask
       new sfCommandOption('slug', null, sfCommandOption::PARAMETER_OPTIONAL, 'Slug of resource to index (ignoring exclude-types option).'),
       new sfCommandOption('ignore-descendants', null, sfCommandOption::PARAMETER_NONE, "Don't index resource's descendants (applies to --slug option only)."),
       new sfCommandOption('exclude-types', null, sfCommandOption::PARAMETER_OPTIONAL, 'Exclude document type(s) (command-separated) from indexing'),
-      new sfCommandOption('show-types', null, sfCommandOption::PARAMETER_NONE, 'Show available document type(s), that can be excluded, before indexing')));
+      new sfCommandOption('show-types', null, sfCommandOption::PARAMETER_NONE, 'Show available document type(s), that can be excluded, before indexing'),
+      new sfCommandOption('update', null, sfCommandOption::PARAMETER_NONE, "Don't delete existing records before indexing.")));
 
     $this->namespace = 'search';
     $this->name = 'populate';
@@ -73,9 +74,11 @@ EOF;
     }
     else
     {
-      $excludeTypes = (!empty($options['exclude-types'])) ? explode(',', strtolower($options['exclude-types'])) : null;
+      $populateOptions = array();
+      $populateOptions['excludeTypes'] = (!empty($options['exclude-types'])) ? explode(',', strtolower($options['exclude-types'])) : null;
+      $populateOptions['update'] = $options['update'];
 
-      QubitSearch::getInstance()->populate($excludeTypes);
+      QubitSearch::getInstance()->populate($populateOptions);
     }
   }
 
