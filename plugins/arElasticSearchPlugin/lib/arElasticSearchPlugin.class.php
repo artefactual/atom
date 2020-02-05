@@ -312,12 +312,14 @@ class arElasticSearchPlugin extends QubitSearchEngine
   /**
    * Populate index
    */
-  public function populate($excludeTypes = null)
+  public function populate($options = array())
   {
-    $excludeTypes = (!empty($excludeTypes)) ? $excludeTypes : array();
+    $excludeTypes = (!empty($options['excludeTypes'])) ? $options['excludeTypes'] : array();
+    $update = (!empty($options['update'])) ? $options['update'] : false;
 
-    // Delete index and initialize again if all document types are to be indexed
-    if (!count($excludeTypes))
+    // Delete index and initialize again if all document types are to be
+    // indexed and not updating
+    if (!count($excludeTypes) && !$update)
     {
       $this->flush();
       $this->log('Index erased.');
@@ -349,8 +351,9 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $camelizedTypeName = sfInflector::camelize($typeName);
         $className = 'arElasticSearch'.$camelizedTypeName;
 
-        // If excluding types then index as a whole hasn't been flushed: delete type's documents
-        if (count($excludeTypes))
+        // If excluding types then index as a whole hasn't been flushed: delete
+        // type's documents if not updating
+        if (count($excludeTypes) && !$update)
         {
           $this->index->getType('Qubit'. $camelizedTypeName)->deleteByQuery(new \Elastica\Query\MatchAll);
         }
