@@ -53,6 +53,10 @@ class csvPhysicalobjectImportTask extends arBaseTask
         'ISO 639-1 Code for rows without an explicit culture',
         'en'
       ),
+      new sfCommandOption('debug', 'd',
+        sfCommandOption::PARAMETER_NONE,
+        'Enable debug mode'
+      ),
       new sfCommandOption('empty-overwrite', 'e',
         sfCommandOption::PARAMETER_NONE,
         'When set an empty CSV value will overwrite existing data (update only)'
@@ -142,10 +146,12 @@ EOF;
 
     $importer->doImport();
 
-    $this->log(sprintf(PHP_EOL.'Done! Imported %u of %u rows in %01.2fs.',
+    $this->log(sprintf(PHP_EOL.'Done! Imported %u of %u rows.'.PHP_EOL,
       $importer->countRowsImported(),
-      $importer->countRowsTotal(),
-      $importer->timer->elapsed()));
+      $importer->countRowsTotal())
+    );
+
+    $this->log($importer->reportTimes());
   }
 
   protected function getDbConnection()
@@ -163,6 +169,7 @@ EOF;
 
     $keymap = [
       'culture'           => 'defaultCulture',
+      'debug'             => 'debug',
       'empty-overwrite'   => 'overwriteWithEmpty',
       'error-log'         => 'errorLog',
       'header'            => 'header',

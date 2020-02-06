@@ -55,7 +55,7 @@ class QubitPhysicalObject extends BasePhysicalObject
 
     if ($this->type)
     {
-      $label .= $this->type.': ';
+      $label .= $this->type . ': ';
     }
 
     $label .= $this->__toString();
@@ -67,7 +67,7 @@ class QubitPhysicalObject extends BasePhysicalObject
 
     if (0 < strlen($location))
     {
-      $label .= ' - '.$location;
+      $label .= ' - ' . $location;
     }
 
     return $label;
@@ -160,7 +160,8 @@ class QubitPhysicalObject extends BasePhysicalObject
 
     if (isset($options['partialMatch']) && 'begin' == $options['partialMatch'])
     {
-      $criteria->add(QubitPhysicalObjectI18n::NAME, $name.'%', Criteria::LIKE);
+      $criteria->add(QubitPhysicalObjectI18n::NAME, $name . '%',
+        Criteria::LIKE);
     }
     else
     {
@@ -325,5 +326,91 @@ SQL;
     ));
 
     return $results->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  /**
+   * An quick update of an existing physical_object database row
+   *
+   * If passed data wouldn't alter the current db data, return false without
+   * writing to the database
+   *
+   * Currently only updates the following columns:
+   * - object.updated_at
+   * - physical_object.type_id
+   * - physical_object_i18n.location
+   *
+   * @param array $data a keyed array (column => value)
+   * @param PropelPDO $connection a connection object
+   */
+  public function quickUpdate(array $data, $connection = null)
+  {
+    $doUpdate = false;
+    $newvals  = [];
+
+    $updateCols = [
+      'typeId',
+      'location',
+    ];
+
+    if (!isset($connection))
+    {
+      $connection = QubitTransactionFilter::getConnection();
+    }
+
+    foreach ($updateCols as $name)
+    {
+      if (!empty($data[$name]) && $data[$name] != $this->$name)
+      {
+        $doUpdate = true;
+        $newvals[$name] = $data[$name];
+      }
+      else
+      {
+        $newvals[$name] = $this->$name;
+      }
+    }
+
+    if (!$doUpdate)
+    {
+      // The incoming data matches the data already in the database, so avoid
+      // unnecessary db queries
+
+      return false;
+    }
+
+    $connection->beginTransaction();
+
+    // Update object.updated_at column with current timestamp
+    $this->updateUpdatedAt($connection);
+
+    // Update physical_object.type_id
+    $sth = $connection->prepare('UPDATE ' . self::TABLE_NAME
+      . ' SET ' . self::TYPE_ID
+      . ' = :typeId WHERE `id` = :id'
+    );
+
+    $result = $sth->execute([
+      ':typeId'   => $newvals['typeId'],
+      ':id'       => $this->id,
+    ]);
+
+    if (!$result) {
+      return $result;
+    }
+
+    // Update physical_object_i18n.location
+    $sth = $connection->prepare('UPDATE ' . QubitPhysicalObjectI18n::TABLE_NAME
+      . ' SET ' . QubitPhysicalObjectI18n::LOCATION
+      . ' = :location WHERE `id` = :id'
+    );
+
+    $result = $sth->execute([
+      ':location' => $newvals['location'],
+      ':id'       => $this->id,
+    ]);
+
+    $connection->commit();
+
+    return $result;
   }
 }
