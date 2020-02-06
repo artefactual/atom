@@ -37,8 +37,6 @@ class PhysicalObjectCsvImporter
     'descriptionSlugs' => 'informationObjectIds',
   ];
 
-  public $timer;
-
   protected $context;
   protected $data;
   protected $dbcon;
@@ -51,10 +49,12 @@ class PhysicalObjectCsvImporter
   protected $reader;
   protected $rowsImported       = 0;
   protected $rowsTotal          = 0;
+  protected $timers;
   protected $typeIdLookupTable;
 
   // Default options
   protected $options = [
+    'debug'               => false,
     'defaultCulture'      => 'en',
     'errorLog'            => null,
     'header'              => null,
@@ -69,6 +69,11 @@ class PhysicalObjectCsvImporter
     'updateExisting'      => false,
     'updateSearchIndex'   => false,
   ];
+
+
+  #
+  # Public methods
+  #
 
   public function __construct(sfContext $context = null, $dbcon = null,
     $options = array())
@@ -150,6 +155,11 @@ class PhysicalObjectCsvImporter
 
   public function validateFilename($filename)
   {
+    if (empty($filename))
+    {
+      throw new sfException('Please specify a filename for import');
+    }
+
     if (!file_exists($filename))
     {
       throw new sfException("Can not find file $filename");
@@ -201,6 +211,7 @@ class PhysicalObjectCsvImporter
         break;
 
       // boolean options
+      case 'debug':
       case 'insertNew':
       case 'overwriteWithEmpty':
       case 'partialMatches':
@@ -304,13 +315,6 @@ EOM;
     }
   }
 
-  public function getRow($offset)
-  {
-    $stmt = (new \League\Csv\Statement)->offset($offset);
-
-    return $this->getRecords($stmt)->fetchOne();
-  }
-
   public function countRowsImported()
   {
     return $this->rowsImported;
@@ -323,25 +327,14 @@ EOM;
 
   public function doImport($filename = null)
   {
-    $this->timer = new QubitTimer;
+    $timer = $this->startTimer('total');
 
     if (null !== $filename)
     {
       $this->setFilename($filename);
     }
 
-    if (null === $this->filename)
-    {
-      $msg = <<<EOL
-Please use setFilename(\$filename) or doImport(\$filename) to specify the CSV
-file you wish to import.
-EOL;
-      throw new sfException($msg);
-    }
-
-    $this->reader = $this->readCsvFile($this->filename);
-    $stmt = (new \League\Csv\Statement)->offset($this->offset);
-    $records = $this->getRecords($stmt);
+    $records = $this->loadCsvData($this->filename);
 
     foreach ($records as $record)
     {
@@ -361,12 +354,33 @@ EOL;
       }
 
       $this->rowsImported++;
-      $this->progressUpdate($data);
+      $this->log($this->progressUpdate($this->rowsImported, $data));
     }
+
+    $timer->add();
+  }
+
+  public function loadCsvData($filename)
+  {
+    $timer = $this->startTimer('loadCsv');
+
+    $this->validateFileName($filename);
+
+    $this->reader = $this->readCsvFile($filename);
+    $stmt = (new \League\Csv\Statement)->offset($this->offset);
+    $records = $this->getRecords($stmt);
+
+    $this->rowsTotal = count($records);
+
+    $timer->add();
+
+    return $records;
   }
 
   public function processRow($data)
   {
+    $timer = $this->startTimer('processRow');
+
     if (0 == strlen($data['name']) && 0 == strlen($data['location']))
     {
       throw new UnexpectedValueException('No name or location defined');
@@ -378,6 +392,8 @@ EOL;
     {
       $prow[$newkey] = $this->processColumn($oldkey, $data[$oldkey], $culture);
     }
+
+    $timer->add();
 
     return $prow;
   }
@@ -406,11 +422,15 @@ EOL;
 
   public function savePhysicalobjects($data)
   {
+    $saveTimer = $this->startTimer('save');
+
     // Setting the propel::defaultCulture is necessary for non-English rows
     // to prevent creating an empty i18n row with culture 'en'
     sfPropel::setDefaultCulture($data['culture']);
 
+    $timer = $this->startTimer('matchExisting');
     $matches = $this->matchExistingRecords($data);
+    $timer->add();
 
     if (null === $matches)
     {
@@ -421,54 +441,189 @@ EOL;
 
     foreach ($matches as $item)
     {
+      $timer = $this->startTimer('updateExisting');
       $this->updatePhysicalObject($item, $data);
+      $timer->add();
     }
+
+    $saveTimer->add();
   }
 
-  protected function insertPhysicalObject($data)
+  public function progressUpdate($count, $data)
   {
+    $timer = $this->startTimer('progress');
+    $freq = $this->getOption('progressFrequency');
+
+    if (1 == $freq)
+    {
+      if (0 == $this->matchedExisting)
+      {
+        $msg = 'Row [%u/%u]: name "%s" imported (%01.2fs)';
+      }
+      else {
+        $msg = 'Row [%u/%u]: Matched and updated name "%s" (%01.2fs)';
+      }
+
+      $output = sprintf($msg,
+        $this->offset,
+        $this->rowsTotal,
+        $data['name'],
+        $this->getElapsedTime('total')
+      );
+    }
+    else if ($freq > 1 && 0 == $count % $freq)
+    {
+      $output = sprintf('Imported %u of %u rows (%01.2fs)...',
+        $count, $this->rowsTotal, $this->getElapsedTime('total'));
+    }
+
+    $timer->add();
+
+    return $output;
+  }
+
+  public function reportTimes()
+  {
+    if (!$this->getOption('debug'))
+    {
+      return sprintf('Total import time: %01.2fs',
+        $this->getElapsedTime('total')) . PHP_EOL;
+    }
+
+    $msg = 'Elapsed times:' . PHP_EOL;
+
+    $times = [
+      [
+        'Load CSV file:            %01.2fs',
+        $this->getElapsedTime('loadCsv')
+      ],
+      [
+        'Process row:              %01.2fs',
+        $this->getElapsedTime('processRow')
+      ],
+      [
+        'Save data:                %01.2fs',
+        $this->getElapsedTime('save')
+      ],
+      [
+        '  Match existing:         %01.2fs',
+        $this->getElapsedTime('matchExisting')
+      ],
+      [
+        '  Insert new rows:        %01.2fs',
+        $this->getElapsedTime('insertNew')
+      ],
+      [
+        '  Update existing rows:   %01.2fs',
+        $this->getElapsedTime('updateExisting')],
+      [
+        '    Save physical object: %01.2fs',
+        $this->getElapsedTime('physobjSave')
+      ],
+      [
+        '    Save keymap:          %01.2fs',
+        $this->getElapsedTime('keymapSave')
+      ],
+      [
+        '    Update IO relations:  %01.2fs',
+        $this->getElapsedTime('updateInfObjRelations')
+      ],
+      [
+        'Progress reporting:       %01.2fs',
+        $this->getElapsedTime('progress')
+      ],
+    ];
+
+    foreach ($times as $val)
+    {
+      $msg .= '  ' . sprintf($val[0], (float) $val[1]) . PHP_EOL;
+    }
+
+    $msg .= '---------------------------------' . PHP_EOL;
+    $msg .= sprintf('Total import time:          %01.2fs',
+      $this->getElapsedTime('total')) . PHP_EOL;
+
+    return $msg;
+  }
+
+
+  #
+  # Protected methods
+  #
+
+  protected function insertPhysicalObject($csvdata)
+  {
+    $timer = $this->startTimer('insertNew');
+
     if (!$this->getOption('insertNew'))
     {
       throw new UnexpectedValueException(sprintf(
-        'Couldn\'t match name "%s"', $data['name']
+        'Couldn\'t match name "%s"', $csvdata['name']
       ));
     }
 
     // Create a new db object, if no match is found
     $physobj = new $this->ormClasses['physicalObject'];
 
-    $physobj->name        = $data['name'];
-    $physobj->typeId      = $data['typeId'];
-    $physobj->location    = $data['location'];
+    $physobj->name        = $csvdata['name'];
+    $physobj->typeId      = $csvdata['typeId'];
+    $physobj->location    = $csvdata['location'];
     $physobj->indexOnSave = $this->getOption('updateSearchIndex');
     $physobj->save($this->dbcon);
 
-    $this->createKeymapEntry($physobj, $data);
+    $this->createKeymapEntry($physobj->id, $csvdata);
 
-    $physobj->addInfobjRelations($data['informationObjectIds']);
+    $physobj->addInfobjRelations($csvdata['informationObjectIds']);
+
+    $timer->add();
   }
 
-  protected function updatePhysicalObject($physobj, $data)
+  protected function updatePhysicalObject($physobj, $csvdata)
   {
-    if ($this->shouldUpdateDb($data['typeId']))
+    $updates = [];
+
+    if ($this->shouldUpdateDb($csvdata['typeId']))
     {
-      $physobj->typeId = $data['typeId'];
+      $updates['typeId'] = $csvdata['typeId'];
     }
 
-    if ($this->shouldUpdateDb($data['location']))
+    if ($this->shouldUpdateDb($csvdata['location']))
     {
-      $physobj->location = $data['location'];
+      $updates['location'] = $csvdata['location'];
     }
 
+    // Only do update if $updates array is populated
+    if (!empty($updates))
+    {
+      $timer = $this->startTimer('physobjSave');
+      $updated = $physobj->quickUpdate($updates, $this->getDbConnection());
+      $timer->add();
+
+      if ($updated)
+      {
+        $this->createKeymapEntry($physobj->id, $csvdata);
+      }
+    }
+
+    if ($this->shouldUpdateDb($csvdata['informationObjectIds']))
+    {
+      $this->updateInfoObjRelations($physobj, $csvdata['informationObjectIds']);
+    }
+  }
+
+  protected function updateInfoObjRelations($physobj, $informationObjectIds)
+  {
+    $timer->startTimer('updateInfObjRelations');
+
+    // Update the search index of related information objects
     $physobj->indexOnSave = $this->getOption('updateSearchIndex');
-    $physobj->save($this->dbcon);
 
-    $this->createKeymapEntry($physobj, $data);
-
-    if ($this->shouldUpdateDb($data['informationObjectIds']))
+    if (isset($updates['informationObjectIds']))
     {
-      $physobj->updateInfobjRelations($data['informationObjectIds']);
+      $physobj->updateInfobjRelations($informationObjectIds);
     }
+
+    $timer->add();
   }
 
   /**
@@ -480,22 +635,24 @@ EOL;
    *
    * @return void
    */
-  public function createKeymapEntry($object, $csvdata)
+  public function createKeymapEntry($objectId, $csvdata)
   {
-    $keymap = new $this->ormClasses['keymap'];
-    $keymap->sourceName = $this->getOption('sourceName');
+    $timer = $this->startTimer('keymapSave');
 
-    if (!empty($csvdata['legacyId']))
-    {
-      $keymap->sourceId = $csvdata['legacyId'];
-    }
+    $query = <<<EOQ
+INSERT INTO keymap (`source_name`, `source_id`, `target_name`, `target_id`)
+VALUES (:sourceName, :sourceId, :targetName, :targetId);
+EOQ;
 
-    // Determine target name using object class
-    $keymap->targetName = sfInflector::underscore(
-      str_replace('Qubit', '', get_class($object)));
-    $keymap->targetId   = $object->id;
+    $sth = $this->dbcon->prepare($query);
+    $sth->execute([
+      ':sourceName' => $this->getOption('sourceName'),
+      ':sourceId'   => $csvdata['legacyId'],
+      ':targetName' => 'physical_object',
+      ':targetId'   =>  $objectId
+    ]);
 
-    $keymap->save();
+    $timer->add();
   }
 
   public function matchExistingRecords($data)
@@ -555,7 +712,7 @@ EOL;
   {
     if (!$this->getOption('quiet'))
     {
-      echo $msg.PHP_EOL;
+      echo $msg . PHP_EOL;
     }
   }
 
@@ -564,7 +721,7 @@ EOL;
     // Write to error log (but not STDERR) even in quiet mode
     if (!$this->getOption('quiet') || STDERR != $this->getErrorLogHandle())
     {
-      fwrite($this->getErrorLogHandle(), $msg.PHP_EOL);
+      fwrite($this->getErrorLogHandle(), $msg . PHP_EOL);
     }
   }
 
@@ -572,35 +729,6 @@ EOL;
   {
     // Note: $progressFrequency == 0 turns off logging
     $this->options['progressFrequency'] = ($freq > 0) ? $freq : 0;
-  }
-
-  protected function progressUpdate($data)
-  {
-    $freq = $this->getOption('progressFrequency');
-
-    if (1 == $freq)
-    {
-      if (0 == $this->matchedExisting)
-      {
-        $msg = 'Row [%u/%u]: name "%s" imported (%01.2fs)';
-      }
-      else {
-        $msg = 'Row [%u/%u]: Matched and updated name "%s" (%01.2fs)';
-      }
-
-      $this->log(sprintf(
-        $msg,
-        $this->offset,
-        $this->rowsTotal,
-        $data['name'],
-        $this->timer->elapsed()
-      ));
-    }
-    else if ($freq > 1 && 0 == $this->rowsImported % $freq)
-    {
-      $this->log(sprintf('Imported %u of %u rows (%01.2fs)...',
-        $this->rowsImported, $this->rowsTotal, $this->timer->elapsed()));
-    }
   }
 
   protected function getDbConnection()
@@ -637,8 +765,6 @@ EOL;
       // Use first row of CSV file as header
       $reader->setHeaderOffset(0);
     }
-
-    $this->rowsTotal = count($reader);
 
     return $reader;
   }
@@ -790,5 +916,29 @@ EOL;
     }
 
     return true;
+  }
+
+  protected function startTimer($name)
+  {
+    if (!isset($this->timers[$name]))
+    {
+      $this->timers[$name] = new QubitTimer;
+    }
+    else
+    {
+      $this->timers[$name]->start();
+    }
+
+    return $this->timers[$name];
+  }
+
+  protected function getElapsedTime($name)
+  {
+    if (!isset($this->timers[$name]))
+    {
+      return 0;
+    }
+
+    return $this->timers[$name]->elapsed();
   }
 }

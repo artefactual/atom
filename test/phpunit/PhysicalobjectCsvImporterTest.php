@@ -50,11 +50,11 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
 
     // define virtual file system
     $directory = [
-      'unix.csv' => $this->csvHeader."\n".implode("\n", $this->csvData),
-      'windows.csv' => $this->csvHeader."\r\n".implode("\r\n", $this->csvData)
-        ."\r\n",
-      'noheader.csv' => implode("\n", $this->csvData)."\n",
-      'duplicate.csv' => $this->csvHeader."\n".implode("\n",
+      'unix.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvData),
+      'windows.csv' => $this->csvHeader . "\r\n" .
+        implode("\r\n", $this->csvData) . "\r\n",
+      'noheader.csv' => implode("\n", $this->csvData) . "\n",
+      'duplicate.csv' => $this->csvHeader . "\n" . implode("\n",
         $this->csvData + $this->csvData),
       'root.csv' => $this->csvData[0],
       'error.log' => '',
@@ -83,6 +83,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
   public function setOptionsProvider()
   {
     $defaultOptions = [
+      'debug'               => false,
       'defaultCulture'      => 'en',
       'errorLog'            => null,
       'header'              => null,
@@ -112,6 +113,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
       $defaultOptions,
       $defaultOptions,
       [
+        'debug'               => false,
         'defaultCulture'      => 'en',
         'errorLog'            => null,
         'header'              => null,
@@ -258,20 +260,22 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
   {
     $this->expectException(sfException::class);
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-    $importer->setFilename($this->vfs->url().'/root.csv');
+    $importer->setFilename($this->vfs->url() . '/root.csv');
   }
 
   public function testSetFilenameSuccess()
   {
     // Explicit method call
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-    $importer->setFilename($this->vfs->url().'/unix.csv');
-    $this->assertSame($this->vfs->url().'/unix.csv', $importer->getFilename());
+    $importer->setFilename($this->vfs->url() . '/unix.csv');
+    $this->assertSame($this->vfs->url() . '/unix.csv',
+      $importer->getFilename());
 
     // Magic __set
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-    $importer->setFilename($this->vfs->url().'/windows.csv');
-    $this->assertSame($this->vfs->url().'/windows.csv', $importer->getFilename());
+    $importer->setFilename($this->vfs->url() . '/windows.csv');
+    $this->assertSame($this->vfs->url() . '/windows.csv',
+      $importer->getFilename());
   }
 
   /**
@@ -401,7 +405,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
 
   public function testSourceNameDefaultsToFilename()
   {
-    $filename = $this->vfs->url().'/unix.csv';
+    $filename = $this->vfs->url() . '/unix.csv';
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
     $importer->setFilename($filename);
 
@@ -423,102 +427,29 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     $importer->doImport();
   }
 
-  public function testDoImportWithUnixNewlines()
+  public function testLoadCsvDataWithOffset()
   {
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-    $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
-    $importer->setOrmClasses($this->ormClasses);
-    $importer->setOption('quiet', true);
-
-    $importer->doImport($this->vfs->url().'/unix.csv');
-
-    $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
-    $this->assertSame($this->getCsvRowAsAssocArray(), $importer->getRow(0));
-    $this->assertSame(3, $importer->countRowsImported());
-    $this->assertSame(4, $importer->countRowsTotal());
-  }
-
-  public function testDoImportWithWindowsNewlinesAndErrorLog()
-  {
-    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-    $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
-    $importer->setOrmClasses($this->ormClasses);
-    $importer->setOption('errorLog', $this->vfs->url().'/error.log');
-    $importer->setOption('progressFrequency', 2);
-    $importer->setOption('quiet', true);
-
-    $importer->doImport($this->vfs->url().'/windows.csv');
-
-    $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
-    $this->assertSame($this->getCsvRowAsAssocArray(), $importer->getRow(0));
-    $this->assertSame(3, $importer->countRowsImported());
-    $this->assertSame(4, $importer->countRowsTotal());
-  }
-
-  public function testDoImportWithOffset()
-  {
-    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-    $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
-    $importer->setOrmClasses($this->ormClasses);
     $importer->setOffset(1);
-    $importer->setOption('progressFrequency', 0);
     $importer->setOption('quiet', true);
 
-    $importer->doImport($this->vfs->url().'/unix.csv');
+    $records = $importer->loadCsvData($this->vfs->url() . '/unix.csv');
 
     $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
-    $this->assertSame($this->getCsvRowAsAssocArray(1), $importer->getRow(1));
-    $this->assertSame(2, $importer->countRowsImported());
-    $this->assertSame(4, $importer->countRowsTotal());
+    $this->assertSame($this->getCsvRowAsAssocArray(1), $records->fetchOne());
+    $this->assertSame(3, $importer->countRowsTotal());
   }
 
-  public function testDoImportWithSetHeader()
+  public function testLoadCsvDataWithSetHeader()
   {
     $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-    $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
-    $importer->setOrmClasses($this->ormClasses);
     $importer->setHeader($this->csvHeader);
     $importer->setOption('quiet', true);
 
-    $importer->doImport($this->vfs->url().'/noheader.csv');
+    $records = $importer->loadCsvData($this->vfs->url() . '/noheader.csv');
 
     $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
-    $this->assertSame($this->getCsvRowAsAssocArray(0), $importer->getRow(0));
-    $this->assertSame(3, $importer->countRowsImported());
-    $this->assertSame(4, $importer->countRowsTotal());
-  }
-
-  public function testDoImportWithUpdateExistingAndMultiMatchFirst()
-  {
-    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon,
-      ['updateExisting' => true, 'onMultiMatch' => 'first']);
-    $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
-    $importer->setOrmClasses($this->ormClasses);
-    $importer->setOption('quiet', true);
-
-    $importer->doImport($this->vfs->url().'/unix.csv');
-
-    $this->assertSame(true, $importer->getOption('updateExisting'));
-    $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
-    $this->assertSame($this->getCsvRowAsAssocArray(), $importer->getRow(0));
-    $this->assertSame(3, $importer->countRowsImported());
-    $this->assertSame(4, $importer->countRowsTotal());
-  }
-
-  public function testDoImportWithUpdateExistingAndInsertNew()
-  {
-    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon,
-      ['updateExisting' => true, 'insertNew' => false]);
-    $importer->typeIdLookupTable = $this->typeIdLookupTableFixture;
-    $importer->setOrmClasses($this->ormClasses);
-    $importer->setOption('quiet', true);
-
-    $importer->doImport($this->vfs->url().'/unix.csv');
-
-    $this->assertSame(true, $importer->getOption('updateExisting'));
-    $this->assertSame(explode(',', $this->csvHeader), $importer->getHeader());
-    $this->assertSame($this->getCsvRowAsAssocArray(), $importer->getRow(0));
-    $this->assertSame(1, $importer->countRowsImported());
+    $this->assertSame($this->getCsvRowAsAssocArray(0), $records->fetchOne());
     $this->assertSame(4, $importer->countRowsTotal());
   }
 
@@ -644,6 +575,67 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
 
     $importer->matchExistingRecords(['name' => 'DJ002', 'culture' => 'en']);
   }
+
+  public function testReportTimesNoDebug()
+  {
+    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
+    $this->assertSame(
+      'Total import time: 0.00s' . PHP_EOL,
+      $importer->reportTimes()
+    );
+  }
+
+  public function testReportTimesWithDebug()
+  {
+    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
+    $importer->setOption('debug', true);
+
+    $expectedOutput = <<<EOM
+Elapsed times:
+  Load CSV file:            0.00s
+  Process row:              0.00s
+  Save data:                0.00s
+    Match existing:         0.00s
+    Insert new rows:        0.00s
+    Update existing rows:   0.00s
+      Save physical object: 0.00s
+      Save keymap:          0.00s
+      Update IO relations:  0.00s
+  Progress reporting:       0.00s
+---------------------------------
+Total import time:          0.00s
+
+EOM;
+
+    $this->assertSame($expectedOutput, $importer->reportTimes());
+  }
+
+  public function testProgressUpdateFreqOne()
+  {
+    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
+    $importer->setOption('progressFrequency', 1);
+    $data = $importer->processRow(['name' => 'foo', 'culture' => 'en']);
+
+    $this->assertSame(
+      'Row [0/0]: name "foo" imported (0.00s)',
+      $importer->progressUpdate(0, $data)
+    );
+  }
+
+  public function testProgressUpdateFreqTwo()
+  {
+    $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
+    $importer->setOption('progressFrequency', 2);
+
+    $this->assertSame(
+      'Imported 2 of 0 rows (0.00s)...',
+      $importer->progressUpdate(2, [])
+    );
+  }
+
+  #
+  # Protected method tests
+  #
 
   public function testTypeIdLookupTableSetAndGet()
   {

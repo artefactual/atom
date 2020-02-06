@@ -286,6 +286,26 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     return $this->id;
   }
 
+  public function updateUpdatedAt($connection = null)
+  {
+    if (!isset($connection))
+    {
+      $connection = QubitTransactionFilter::getConnection(
+        QubitObject::DATABASE_NAME);
+    }
+
+    if (!isset($this->id))
+    {
+      throw new sfException('QubitObject->id must be set');
+    }
+
+    $sth = $connection->prepare('UPDATE ' . self::TABLE_NAME
+      . ' SET ' . self::UPDATED_AT . ' = NOW() WHERE id = :id'
+    );
+
+    return $sth->execute([':id' => $this->id]);
+  }
+
   /********************
         Status
   *********************/

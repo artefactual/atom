@@ -52,14 +52,19 @@ class QubitTimer
 
   public function elapsed($rnd = 2)
   {
-    $end = (isset($this->end)) ? $this->end : microtime(true);
+    if (empty($this->end))
+    {
+      $this->add(true);
+    }
 
-    return round($end - $this->start, $rnd);
+    return round($this->total, $rnd);
   }
 
   public function add($continue = false)
   {
-    $this->total += $this->stop()->elapsed();
+    $this->stop();
+
+    $this->total += $this->end - $this->start;
 
     if ($continue)
     {
