@@ -223,6 +223,8 @@ class SearchDescriptionUpdatesAction extends sfAction
 
     // Page results
     $limit = sfConfig::get('app_hits_per_page');
+
+    $request = $this->getRequest();
     $page = (isset($request->page) && ctype_digit($request->page)) ? $request->page : 1;
 
     $this->pager = new QubitPager('QubitAuditLog');
