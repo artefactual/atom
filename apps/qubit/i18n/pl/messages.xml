@@ -4,17 +4,17 @@
   <file datatype="plaintext" date="2019-04-15T15:38:02Z" original="messages" product-name="messages" source-language="en" target-language="pl">
     <header/>
     <body>
-      <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
+      <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb" approved="no">
         <source> %1%Download%2% (%3% b)</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/actions/alertsComponent.class.php</note>
+        <target state="translated">%1%Pobierz%2% (%3% b)</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/actions/alertsComponent.class.php</note>
       </trans-unit>
-      <trans-unit id="8ee4c4cda03a4eae9fe64773376c582df3f9f8bf">
+      <trans-unit id="8ee4c4cda03a4eae9fe64773376c582df3f9f8bf" approved="no">
         <source> Auto refresh</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/jobs/templates/browseSuccess.php</note>
+        <target state="translated">Auto odświeżanie</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/jobs/templates/browseSuccess.php</note>
       </trans-unit>
-      <trans-unit id="c283db127dc03106098aff291505eaf3c767d1af">
+      <trans-unit id="c283db127dc03106098aff291505eaf3c767d1af" approved="no">
         <source> report</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/itemOrFileListSuccess.php</note>
+        <target state="translated">raport</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/itemOrFileListSuccess.php</note>
       </trans-unit>
       <trans-unit id="a5162e31ab7277f79bebcb03364debdf5c0913b8" approved="yes" translated="yes">
         <source>"Record, when relevant, the start and the end date of the relationship." (ISDF 6.3) Enter the date as you would like it to appear in the show page for the function, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>

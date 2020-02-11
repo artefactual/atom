@@ -219,19 +219,19 @@
       </trans-unit>
       <trans-unit id="0ce06899dd3df3731cde9ae09d1fccfc68c461cc" approved="yes">
         <source>Accession</source>
-        <target state="translated">Akvizicija/pribavljena građa</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/importSelectSuccess.php</note>
+        <target state="translated">Akvizicija/pribavljeno gradivo</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/importSelectSuccess.php</note>
       </trans-unit>
       <trans-unit id="377e7551fae8a7c156e47224e07b4560f6ddd2c7" approved="yes">
         <source>Accession counter</source>
-        <target state="translated">Brojač za pribavljenju građu</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/identifierSuccess.php</note>
+        <target state="translated">Brojač za pribavljeno gradivo</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/identifierSuccess.php</note>
       </trans-unit>
       <trans-unit id="dc94c7dd428fc7f45da026ba9b3c16e8b0a2cbb9" approved="yes">
         <source>Accession mask</source>
-        <target state="translated">Maska za pribavljenu građu</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/identifierSuccess.php</note>
+        <target state="translated">Maska za pribavljeno gradivo</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/identifierSuccess.php</note>
       </trans-unit>
       <trans-unit id="03d8af3f341ba381c5c2f254fb24097203321a52" approved="yes">
         <source>Accession mask enabled</source>
-        <target state="translated">Maska za pribavljenu građu omogućena</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/identifierSuccess.php</note>
+        <target state="translated">Maska za pribavljeno gradivo omogućena</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/identifierSuccess.php</note>
       </trans-unit>
       <trans-unit id="138a104b733f5424727a30db2adbf5fb72f3cc6b" approved="yes">
         <source>Act</source>
@@ -459,7 +459,7 @@
       </trans-unit>
       <trans-unit id="8dd88b3266c10c2a096d659753d26f838e562031" approved="yes">
         <source>Applies to multi-repository sites only. When set to &amp;quot;yes&amp;quot;, additional search and browse options will be available at the repository level</source>
-        <target state="translated">Primijenjuje se samo na web mjesta s višestrukim spremištima. Kad je postavljeno na „da”, dodatne mogućnosti za pretraživanje i pregledavanje bit će dostupne na ovoj razini spremišta</target><note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+        <target state="translated">Primjenjuje se samo na web mjesta s višestrukim spremištima. Kad je postavljeno na „da”, dodatne mogućnosti za pretraživanje i pregledavanje bit će dostupne na ovoj razini spremišta</target><note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="cfea419c3b4e8b02ee586e70a28bf846e44cdda4" approved="yes">
         <source>Apply</source>
@@ -479,11 +479,11 @@
       </trans-unit>
       <trans-unit id="5e8cb87d756f0e0440b2aa5bdb04e73899bac924" approved="yes">
         <source>Archival description area</source>
-        <target state="translated">Područje za opis arhivske građe</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
+        <target state="translated">Područje za opis arhivskog gradiva</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="daa72ca0a8406bd4455723d9050fd4ca728253aa" approved="yes">
         <source>Archival history</source>
-        <target state="translated">Kronologija arhivske građe</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
+        <target state="translated">Kronologija arhivskog gradiva</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="add9915f36921cbb6871cf73f5ec4a26974d2340" approved="yes">
         <source>Archive type</source>
@@ -635,7 +635,7 @@
       </trans-unit>
       <trans-unit id="0d83fd488d449ec8ef6ad5f4da7801e1aa505153" approved="yes">
         <source>Browse %1% holdings</source>
-        <target state="translated">Pregledaj %1% arhivske građe</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/repository/templates/_holdingsList.php</note>
+        <target state="translated">Pregledaj %1% arhivskog gradiva</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/repository/templates/_holdingsList.php</note>
       </trans-unit>
       <trans-unit id="38a9abceed22da7f809faa0426ed59841a3d8cc2" approved="yes">
         <source>Browse %1% results</source>
@@ -727,7 +727,7 @@
       </trans-unit>
       <trans-unit id="4fee7bab4188929f417cffc894d785b5aa121349" approved="yes">
         <source>Class of material specific details area</source>
-        <target state="translated">Područje za klasu pojedinosti određene građe</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
+        <target state="translated">Područje za klasu pojedinosti određenog gradiva</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="719ea396ad92e01b4757ec2b93bb1e5f270f771d" approved="yes">
         <source>Clear</source>
@@ -983,7 +983,7 @@
       </trans-unit>
       <trans-unit id="f255e4d2285844da586eed823a8fd90d24c49279" approved="yes">
         <source>Default archival description browse view</source>
-        <target state="translated">Standardni prikaz za pregledavanje opisa arhivske građe</target><note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+        <target state="translated">Standardni prikaz za pregledavanje opisa arhivskog gradiva</target><note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="1da02ea734093bf0ebea985668dfdf3587b10259" approved="yes">
         <source>Default page elements</source>
@@ -1152,7 +1152,7 @@
       </trans-unit>
       <trans-unit id="67e5257bb5d4c214c752587fb7c7cb31c6b0ad42" approved="yes">
         <source>Documentation Identifier Value</source>
-        <target state="translated">Vrijednost identifikatora dokumentiacije</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/_right.php</note>
+        <target state="translated">Vrijednost identifikatora dokumentacije</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/_right.php</note>
       </trans-unit>
       <trans-unit id="a479c9c34e878d07b4d67a73a48f432ad7dc53c8" approved="yes">
         <source>Download</source>
@@ -1540,7 +1540,7 @@
       </trans-unit>
       <trans-unit id="3f6649bb637b44918d364f4b16dfe4a6c8d5bc95" approved="yes">
         <source>General material designation</source>
-        <target state="translated">Opća oznaka građe</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/_advancedSearch.php</note>
+        <target state="translated">Opća oznaka gradiva</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/_advancedSearch.php</note>
       </trans-unit>
       <trans-unit id="56b1b4ae2973d57bb6522d81dd4f6a944302bfd6" approved="yes">
         <source>General note(s)</source>
@@ -1556,7 +1556,7 @@
       </trans-unit>
       <trans-unit id="83943099c04cc659ec521820d9365f061042921d" approved="yes">
         <source>Generate archival description reports as public user</source>
-        <target state="translated">Izradi izvještaje o opisu arhivske građe kao javni korisnik</target><note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+        <target state="translated">Izradi izvještaje o opisu arhivskog gradiva kao javni korisnik</target><note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="fe30ba52b3b4d528aebf46574a8063e20b51e8d5" approved="yes">
         <source>Generate description permalinks from</source>
@@ -1660,7 +1660,7 @@
       </trans-unit>
       <trans-unit id="72f9d3399791989fdf85898ef348becf26b66e90" approved="yes">
         <source>Holdings</source>
-        <target state="translated">Arhivska građa</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_treeView.php</note>
+        <target state="translated">Arhivsko gradivo</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_treeView.php</note>
       </trans-unit>
       <trans-unit id="70f8bb9a8a5393ef080507a89e4b98d139000d65" approved="yes">
         <source>Home</source>
@@ -2836,7 +2836,7 @@
       </trans-unit>
       <trans-unit id="9da84032417a5a6421f13aa8249e79f3e86c3790" approved="yes">
         <source>Related materials</source>
-        <target state="translated">Srodna građa</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_relatedMaterialDescriptions.php</note>
+        <target state="translated">Srodno gradivo</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_relatedMaterialDescriptions.php</note>
       </trans-unit>
       <trans-unit id="eb2d383efa10e189289395d07a40bd3779103529" approved="yes">
         <source>Related people and organizations</source>
@@ -2968,7 +2968,7 @@
       </trans-unit>
       <trans-unit id="5dc13a2e758dc5cfb509a823c41a7a8db9519f97" approved="yes">
         <source>Return to archival description &amp;raquo;</source>
-        <target state="translated">Vrati se na opis arhivske građe &amp;raquo;</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/inventorySuccess.php</note>
+        <target state="translated">Vrati se na opis arhivskog gradiva &amp;raquo;</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/inventorySuccess.php</note>
       </trans-unit>
       <trans-unit id="0a419de40e98c320a4eefff8953fce4fdfb651f4" approved="yes">
         <source>Return to jobs management page</source>
@@ -3160,7 +3160,7 @@
       </trans-unit>
       <trans-unit id="9e7f0fff4642398e44450be436025cad2d260328" approved="yes">
         <source>Set the default view template when browsing archival descriptions</source>
-        <target state="translated">Postavi standardni predložak prikaza za pregledavanje opisa arhivske građe</target><note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+        <target state="translated">Postavi standardni predložak prikaza za pregledavanje opisa arhivskog gradiva</target><note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="72e5df6aa2e5bba6fe3df1d5c607ea1f65d7d338" approved="yes">
         <source>Set the default view template when browsing repositories</source>
