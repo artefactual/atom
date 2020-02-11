@@ -1,7 +1,7 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2019-04-15T15:38:05Z" original="messages" product-name="messages" source-language="en" target-language="fil">
+  <file datatype="plaintext" date="2020-02-11T11:41:39Z" original="messages" product-name="messages" source-language="en" target-language="fil">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
@@ -163,10 +163,6 @@
       <trans-unit id="39c6fe6bbe18b341f05e967d01ffa968b9c550e1">
         <source>A %1%release %2%%3% upgrade is available.</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/templates/_updateCheck.php</note>
-      </trans-unit>
-      <trans-unit id="fb6f7c24d375f7b302caa158d4c4790e5a8393c6">
-        <source>A brief site description or &amp;quot;tagline&amp;quot; for the header</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/siteInformationSuccess.php</note>
       </trans-unit>
       <trans-unit id="3e9664b32ca01b20a5fd36e87057ea6e742b937e">
         <source>A coded designation for the copyright status of the object at the time the rights statement is recorded.</source>
@@ -2680,10 +2676,6 @@
         <source>Privacy Notification Settings</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/privacyNotificationSuccess.php</note>
       </trans-unit>
-      <trans-unit id="a6666d5d41294a44cbbc8d4ffb91d707008aff7f">
-        <source>Privacy Notification settings saved.</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/privacyNotificationAction.class.php</note>
-      </trans-unit>
       <trans-unit id="e9da9b827e60dc37063ef8b128c7d0534691727b">
         <source>Provide a brief description of the menu and it's purpose.</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/menu/templates/editSuccess.php</note>
@@ -3464,10 +3456,6 @@
         <source>The maximum width for derived reference images.</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/digitalObjectDerivativesSuccess.php</note>
       </trans-unit>
-      <trans-unit id="4c521db1a3e2911f9f0f96e94a6950180b992561">
-        <source>The name of the website for display in the header</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/siteInformationSuccess.php</note>
-      </trans-unit>
       <trans-unit id="abb070bd1017157ec14de810edd0afb6d7753ed9">
         <source>The number of days a saved clipboard should be retained before it is eligible for deletion</source>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
@@ -3807,10 +3795,6 @@
       <trans-unit id="6b647f96fc712dc598e4e9dea145df439f07fe84">
         <source>Use this interface to update the description title, slug (permalink), and/or %1% filename.</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/renameSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="92e03ff1b889abb086d29b7aa5e82549cdd0696b">
-        <source>Used to create absolute URLs, pointing to resources, in XML exports</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/siteInformationSuccess.php</note>
       </trans-unit>
       <trans-unit id="9f8a2389a20ca0752aa9e95093515517e90e194c">
         <source>User</source>
@@ -4198,6 +4182,110 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Alt text</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1">
+        <source>Log out</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>No items in clipboard to send.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Sending...</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Send</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Clipboard settings saved.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Privacy notification settings saved.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Visible elements configuration saved.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Make full width treeview collapsible on description pages</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Items per page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Items per page can be a minimum of 10 and a maximum of 1000</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Clipboard settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Clipboard saving</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Clipboard sending</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Enable clipboard send functionality</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>External URL to send clipboard contents to</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Send button text</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Text or HTML to display when sending clipboard contents</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>HTTP method to use when sending clipboard contents</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Inherit reference code (DC XML)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Note: Incorrect security settings can result in the AtoM web UI becoming inaccessible.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>DACS template - area headings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Acquisition and appraisal area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Related materials area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>DACS template - elements</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Physical access</source>
         <target/>
       </trans-unit>
     </body>

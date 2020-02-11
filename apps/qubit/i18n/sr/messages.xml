@@ -1,7 +1,7 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2019-04-15T15:39:07Z" original="messages" product-name="messages" source-language="en" target-language="sr">
+  <file datatype="plaintext" date="2020-02-11T11:42:06Z" original="messages" product-name="messages" source-language="en" target-language="sr">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb" approved="yes" translated="yes">
@@ -203,11 +203,6 @@
         <source>A %1%release %2%%3% upgrade is available.</source>
         <target>%1%верзија %2%%3% ажурирањe је доступнo.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/templates/_updateCheck.php</note>
-      </trans-unit>
-      <trans-unit id="fb6f7c24d375f7b302caa158d4c4790e5a8393c6" approved="yes" translated="yes">
-        <source>A brief site description or &amp;quot;tagline&amp;quot; for the header</source>
-        <target>Кратки опис стране или "tagline" за заглавље</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/siteInformationSuccess.php</note>
       </trans-unit>
       <trans-unit id="3e9664b32ca01b20a5fd36e87057ea6e742b937e" approved="yes" translated="yes">
         <source>A coded designation for the copyright status of the object at the time the rights statement is recorded.</source>
@@ -506,7 +501,8 @@
       </trans-unit>
       <trans-unit id="20a61b49fb16be8008aef5aad33e3f6c1c0ebf5b" approved="yes">
         <source>Allow any valid URI PATH segment character to appear in a slug, including UTF-8 glyphs. Restricted IRI characters ( /?#{} ) and literal spaces will be replaced with dashes</source>
-        <target state="translated">Дозволи да се било који дозвољени знак сегмента URI низа појави у кратком URI називу, укључујући UTF-8 графеме. Недозвољени IRI знакови (/?#{}) и дословни размаци ће бити замењени цртицама</target><note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+        <target state="translated">Дозволи да се било који дозвољени знак сегмента URI низа појави у кратком URI називу, укључујући UTF-8 графеме. Недозвољени IRI знакови (/?#{}) и дословни размаци ће бити замењени цртицама</target>
+        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="19c2371f978067e85c99e10fecb57b3438930f2f" approved="yes" translated="yes">
         <source>Allow unlimited uploads</source>
@@ -725,7 +721,8 @@
       </trans-unit>
       <trans-unit id="23fda70b6be2e72e7a8739da8feab5f4302718bd" approved="yes">
         <source>Bind Lookup Attribute</source>
-        <target state="translated">Атрибут претраживања веза</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/ldapSuccess.php</note>
+        <target state="translated">Атрибут претраживања веза</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/ldapSuccess.php</note>
       </trans-unit>
       <trans-unit id="bafa13b789066310abe28577644115741da38ed8" approved="yes" translated="yes">
         <source>Biographical history</source>
@@ -924,15 +921,18 @@
       </trans-unit>
       <trans-unit id="e0430318d894a1b1321393ccf8c88c953c882b91" approved="yes">
         <source>Clipboard %1% loaded, %2% records %3%.</source>
-        <target state="translated">Међумеморија %1% учитана, %2% описа %3%.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardLoadAction.class.php</note>
+        <target state="translated">Међумеморија %1% учитана, %2% описа %3%.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardLoadAction.class.php</note>
       </trans-unit>
       <trans-unit id="9899cad5e99d55528b1f277029682b32c3595dd9" approved="yes">
         <source>Clipboard ID</source>
-        <target state="translated">ID међумеморије</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/clipboardLoadSuccess.php</note>
+        <target state="translated">ID међумеморије</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/clipboardLoadSuccess.php</note>
       </trans-unit>
       <trans-unit id="5bffb86ad1aec4b385d9ffad5b982fd6c6470aa3" approved="yes">
         <source>Clipboard ID generation failure. Please try again.</source>
-        <target state="translated">ID међумеморије није креиран. Покушајте поново.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardSaveAction.class.php</note>
+        <target state="translated">ID међумеморије није креиран. Покушајте поново.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardSaveAction.class.php</note>
       </trans-unit>
       <trans-unit id="bbfa773e5a63a5ea58c9b6207e608ca0120e592a" approved="yes" translated="yes">
         <source>Close</source>
@@ -1141,7 +1141,8 @@
       </trans-unit>
       <trans-unit id="cba10501958b88d3898d4628b83793d3586deebd" approved="yes">
         <source>DIP upload settings saved.</source>
-        <target state="translated">Подешавање DIP отпремања је сачувано.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/dipUploadAction.class.php</note>
+        <target state="translated">Подешавање DIP отпремања је сачувано.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/dipUploadAction.class.php</note>
       </trans-unit>
       <trans-unit id="eb9a4bc1c0c153e4e4b042a79113b815b7e3021d" approved="yes" translated="yes">
         <source>Date</source>
@@ -1315,7 +1316,8 @@
       </trans-unit>
       <trans-unit id="a062a7b2869f26c0d3fc4bbd38941f3aa5be9457" approved="yes">
         <source>Determines whether to show a link to the browse hierarchy page on the information objects browse/search pages</source>
-        <target state="translated">Одређује да ли ће се приказати линк ка страни прегледа хијерархије на страни прегледа/претраге архивских описа</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/treeviewSuccess.php</note>
+        <target state="translated">Одређује да ли ће се приказати линк ка страни прегледа хијерархије на страни прегледа/претраге архивских описа</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/treeviewSuccess.php</note>
       </trans-unit>
       <trans-unit id="1960d8900caf58abb54302c86ed8315cfbc2d3d3" approved="yes" translated="yes">
         <source>Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use</source>
@@ -1334,7 +1336,8 @@
       </trans-unit>
       <trans-unit id="1741a668553c515066042775674b3064bc022560" approved="yes">
         <source>Digital object derivative settings saved.</source>
-        <target state="translated">Подешавања изведених дигиталних објеката су сачувана.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/digitalObjectDerivativesAction.class.php</note>
+        <target state="translated">Подешавања изведених дигиталних објеката су сачувана.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/digitalObjectDerivativesAction.class.php</note>
       </trans-unit>
       <trans-unit id="0220efa7f6f7ee2f1b714ebea0cf93b5b559c8d8" approved="yes" translated="yes">
         <source>Digital object derivatives</source>
@@ -1353,7 +1356,8 @@
       </trans-unit>
       <trans-unit id="fd8e45bac7d354790ec0a82d8a61341bf8acd055" approved="yes">
         <source>Direction</source>
-        <target state="translated">Смер</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/templates/_sortPickers.php</note>
+        <target state="translated">Смер</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/templates/_sortPickers.php</note>
       </trans-unit>
       <trans-unit id="7ba52a7256660fcb753fc9900913da818132a682" approved="yes" translated="yes">
         <source>Disable uploads</source>
@@ -1372,7 +1376,8 @@
       </trans-unit>
       <trans-unit id="8f88058b234ef92f0ea73af6b1fe6c05f2b0f937" approved="yes">
         <source>Display Privacy Notification on first visit to site</source>
-        <target state="translated">Прикажи Политику приватности приликом прве посете страни</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/privacyNotificationSuccess.php</note>
+        <target state="translated">Прикажи Политику приватности приликом прве посете страни</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/privacyNotificationSuccess.php</note>
       </trans-unit>
       <trans-unit id="43e9abb9ac6de66f3cddd4c5c2ec2c72f2b1241b" approved="yes" translated="yes">
         <source>Display note(s)</source>
@@ -1531,11 +1536,13 @@
       </trans-unit>
       <trans-unit id="ec2e306ec0869a064528aa5f9180d82f5d7a8cd1" approved="no">
         <source>Editing history</source>
-        <target state="translated">Хронологија уређивања</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/indexSuccess.php</note>
+        <target state="translated">Хронологија уређивања</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/indexSuccess.php</note>
       </trans-unit>
       <trans-unit id="71a1ca18209db3318a9dc4e4ed7ecc5a604fbc32" approved="yes">
         <source>Editing the description title will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.</source>
-        <target state="translated">Уређивањем наслова описа ће се поље кратког URL назива аутоматски ажурирати, ако је одабрано "Ажурирај кратки URL назив". Може се и накнадно уредити.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/renameSuccess.php</note>
+        <target state="translated">Уређивањем наслова описа ће се поље кратког URL назива аутоматски ажурирати, ако је одабрано "Ажурирај кратки URL назив". Може се и накнадно уредити.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/renameSuccess.php</note>
       </trans-unit>
       <trans-unit id="2fad5704153f8466f8bf1af028b236b5251e1113" approved="yes" translated="yes">
         <source>Edition area</source>
@@ -1589,7 +1596,8 @@
       </trans-unit>
       <trans-unit id="050b73babb390d98d6e0c6435784060a843927a1" approved="yes">
         <source>Enable description change logging</source>
-        <target state="translated">Омогући дневник измена описа</target><note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+        <target state="translated">Омогући дневник измена описа</target>
+        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="d6395f068ba11d205da4a6492fefdd088ee4ecea" approved="yes" translated="yes">
         <source>Enable institutional scoping</source>
@@ -1618,7 +1626,8 @@
       </trans-unit>
       <trans-unit id="04d1793779ef72e8e27870b9470275cc18616ea7" approved="yes">
         <source>Enter the ID of the saved clipboard you would like to load.</source>
-        <target state="translated">Унесите ID сачуване међумеморије који би желели да учитате.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/clipboardLoadSuccess.php</note>
+        <target state="translated">Унесите ID сачуване међумеморије који би желели да учитате.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/clipboardLoadSuccess.php</note>
       </trans-unit>
       <trans-unit id="d186bd7f7c43e70b908e186473d02190ade84297" approved="yes" translated="yes">
         <source>Enter the copyright end date, if known. Acceptable date format: YYYY-MM-DD.</source>
@@ -1677,7 +1686,8 @@
       </trans-unit>
       <trans-unit id="be5d240ee357271eba10fb02d39f20137df4e479" approved="no">
         <source>Escape special chars from searches</source>
-        <target state="translated">Изузми специјалне знакове из претраге</target><note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+        <target state="translated">Изузми специјалне знакове из претраге</target>
+        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="ad8919ace091b14011c6439cfd5e1707b58f5abd" approved="yes" translated="yes">
         <source>Event</source>
@@ -2136,7 +2146,8 @@
       </trans-unit>
       <trans-unit id="649d2864df18704de32e689e69e63f2483e8b76e" approved="no">
         <source>Identifiers</source>
-        <target state="translated">Идентификатори</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/menuComponent.class.php</note>
+        <target state="translated">Идентификатори</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/menuComponent.class.php</note>
       </trans-unit>
       <trans-unit id="20d9c9c5fffabec39cefaf8e72e140a7cf144cba" approved="yes" translated="yes">
         <source>Identity area</source>
@@ -2155,7 +2166,8 @@
       </trans-unit>
       <trans-unit id="781c959c92fe9cb5304dcef617e3998def02cc66" approved="no">
         <source>If no levels are selected, the export will fail. You can use the control (Mac ⌘) and/or shift keys to multi-select values from the Levels of description menu. It is necessary to include the level(s) above the desired export level, up to and including the level contained in the clipboard. Otherwise, no records will be included in the export.</source>
-        <target state="translated">Ако ниједан ниво није одабран, пренос неће успети. Можете користити контролну типку (Mac ⌘) или типку Shift за избор вишеструких вредности у менију Ниво описа. Неопходно је укључити нивое изнад жељеног нивоа преноса, укључујући и ниво који се налази у међумеморији. У супротном, ниједан опис неће бити укључен у пренос.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/exportSuccess.php</note>
+        <target state="translated">Ако ниједан ниво није одабран, пренос неће успети. Можете користити контролну типку (Mac ⌘) или типку Shift за избор вишеструких вредности у менију Ниво описа. Неопходно је укључити нивое изнад жељеног нивоа преноса, укључујући и ниво који се налази у међумеморији. У супротном, ниједан опис неће бити укључен у пренос.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/exportSuccess.php</note>
       </trans-unit>
       <trans-unit id="f18616d6858c5afed733fffed6e2c7c70c695d02" approved="yes" translated="yes">
         <source>If the finding aid is an uploaded PDF, the transcript will be deleted too.</source>
@@ -2239,7 +2251,8 @@
       </trans-unit>
       <trans-unit id="46ac7d4191ce56511942267ed3fddd6d980fe7a6" approved="no">
         <source>In the "Action" selector, indicate whether you want to &lt;strong&gt;merge&lt;/strong&gt; the saved clipboard with the entries on the current clipboard or &lt;strong&gt;replace&lt;/strong&gt; (overwrite) the current clipboard with the saved one.</source>
-        <target state="translated">У менију "Радња" наведите, желите ли &lt;strong&gt;спојити&lt;/strong&gt;сачувану међумеморију са уносима у тренутној међумеморији или &lt;strong&gt;спојити&lt;/strong&gt; (заменити) тренутну међумеморију са сачуваном.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/clipboardLoadSuccess.php</note>
+        <target state="translated">У менију "Радња" наведите, желите ли &lt;strong&gt;спојити&lt;/strong&gt;сачувану међумеморију са уносима у тренутној међумеморији или &lt;strong&gt;спојити&lt;/strong&gt; (заменити) тренутну међумеморију са сачуваном.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/clipboardLoadSuccess.php</note>
       </trans-unit>
       <trans-unit id="1563c715de23e28b53c68ea7aac835dbcf5d7e3b" approved="yes" translated="yes">
         <source>Include all descendant levels of description</source>
@@ -2268,7 +2281,8 @@
       </trans-unit>
       <trans-unit id="3f27c48f72c9ee913e10505d303672a33985c64b" approved="no">
         <source>Incorrect clipboard ID for saved clipboard.</source>
-        <target state="translated">Погрешан ID међумеморије за сачувану међумеморију.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardLoadAction.class.php</note>
+        <target state="translated">Погрешан ID међумеморије за сачувану међумеморију.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardLoadAction.class.php</note>
       </trans-unit>
       <trans-unit id="4b631f69842530d659306c8f06dbad594a6b1807" approved="yes" translated="yes">
         <source>Info</source>
@@ -2422,7 +2436,8 @@
       </trans-unit>
       <trans-unit id="32261df5e59a0d8648c5f02a29ec40d297eb62fe" approved="no">
         <source>Last run:</source>
-        <target state="translated">Последње покренуто:</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_calculateDatesLink.php</note>
+        <target state="translated">Последње покренуто:</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_calculateDatesLink.php</note>
       </trans-unit>
       <trans-unit id="583c9e23574a88177a3d4dee17f36f82081ab201" approved="yes" translated="yes">
         <source>Last updated</source>
@@ -2711,7 +2726,8 @@
       </trans-unit>
       <trans-unit id="93598a5ee127ffd8f725e92bb5f1f20ce26a2211" approved="no">
         <source>Merge saved clipboard with existing clipboard results</source>
-        <target state="translated">Споји сачувану међумеморију са тренутним резултатима у међумеморији</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardLoadAction.class.php</note>
+        <target state="translated">Споји сачувану међумеморију са тренутним резултатима у међумеморији</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardLoadAction.class.php</note>
       </trans-unit>
       <trans-unit id="14e7b612c404e9aba4f153eabdb3fbc2d2273dcc" approved="yes" translated="yes">
         <source>Mime-type</source>
@@ -2755,7 +2771,8 @@
       </trans-unit>
       <trans-unit id="42ee19070c490cdcd3b6f0a266b720b2761238fa" approved="no">
         <source>Move failed: new and old positions required as numbers</source>
-        <target state="translated">Померање није успело: нови и стари положај морају бити бројеви</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/fullWidthTreeViewMoveAction.class.php</note>
+        <target state="translated">Померање није успело: нови и стари положај морају бити бројеви</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/fullWidthTreeViewMoveAction.class.php</note>
       </trans-unit>
       <trans-unit id="0e80785e63281cdebb50c46db5d9de0098c1756e" approved="yes" translated="yes">
         <source>Move failed: resource not found</source>
@@ -2884,7 +2901,8 @@
       </trans-unit>
       <trans-unit id="5f837da7d6b9d15a8cf041d7ae07dbad8c93306b" approved="no">
         <source>No items in clipboard to save.</source>
-        <target state="translated">У међумеморији нема јединица које би се могле сачувати.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardSaveAction.class.php</note>
+        <target state="translated">У међумеморији нема јединица које би се могле сачувати.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardSaveAction.class.php</note>
       </trans-unit>
       <trans-unit id="b993b0c537190bfc94b21360ac5abe51e56be36f" approved="yes" translated="yes">
         <source>No results</source>
@@ -3103,7 +3121,8 @@
       </trans-unit>
       <trans-unit id="78a1eceb2840121f9b3c5f4e6a5b4e585a575909" approved="no">
         <source>PDF page number for image derivative</source>
-        <target state="translated">Број стране PDF-а за деривате слике</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/digitalObjectDerivativesSuccess.php</note>
+        <target state="translated">Број стране PDF-а за деривате слике</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/digitalObjectDerivativesSuccess.php</note>
       </trans-unit>
       <trans-unit id="711ca5e1b2833adf77c758fc877e8989981c3b7e" approved="yes" translated="yes">
         <source>PREMIS access permissions</source>
@@ -3312,19 +3331,18 @@
       </trans-unit>
       <trans-unit id="967f58aa5fa1e2e9c37d6a264176556f49d0f56a" approved="no">
         <source>Privacy Notification</source>
-        <target state="translated">Политика приватности</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/menuComponent.class.php</note>
+        <target state="translated">Политика приватности</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/menuComponent.class.php</note>
       </trans-unit>
       <trans-unit id="3c5af5352e8b122e77cc2d7d09e5a77d613be138" approved="no">
         <source>Privacy Notification Message</source>
-        <target state="translated">Обавештење о Политици приватности</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/privacyNotificationSuccess.php</note>
+        <target state="translated">Обавештење о Политици приватности</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/privacyNotificationSuccess.php</note>
       </trans-unit>
       <trans-unit id="1c342232bc8618e1802d231aa3d3f46a7beac4c1" approved="no">
         <source>Privacy Notification Settings</source>
-        <target state="translated">Подешавања за Политику приватности</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/privacyNotificationSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="a6666d5d41294a44cbbc8d4ffb91d707008aff7f" approved="no">
-        <source>Privacy Notification settings saved.</source>
-        <target state="translated">Подешавања за Политику приватности су сачувана.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/privacyNotificationAction.class.php</note>
+        <target state="translated">Подешавања за Политику приватности</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/privacyNotificationSuccess.php</note>
       </trans-unit>
       <trans-unit id="e9da9b827e60dc37063ef8b128c7d0534691727b" approved="yes" translated="yes">
         <source>Provide a brief description of the menu and it's purpose.</source>
@@ -3553,7 +3571,8 @@
       </trans-unit>
       <trans-unit id="6acb16803398b7de29fa6648c822e2108ac3cbe5" approved="no">
         <source>Replace existing clipboard results with saved clipboard</source>
-        <target state="translated">Замени резултате у постојеће међумеморији са сачуваном међумеморијом</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardLoadAction.class.php</note>
+        <target state="translated">Замени резултате у постојеће међумеморији са сачуваном међумеморијом</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardLoadAction.class.php</note>
       </trans-unit>
       <trans-unit id="663a0e390f868efcff5a6d14f0ddeaa4c15a0d05" approved="yes" translated="yes">
         <source>Report generation has started, please check the &lt;a href="%1"&gt;reports&lt;/a&gt; page again soon.</source>
@@ -3732,7 +3751,8 @@
       </trans-unit>
       <trans-unit id="1a41058b2f5f7be2a263699df0fe0049b749d666" approved="no">
         <source>Saved clipboard maximum age (in days)</source>
-        <target state="translated">Максимална старост сачуване међумеморије (у данима)</target><note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+        <target state="translated">Максимална старост сачуване међумеморије (у данима)</target>
+        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="ea2e6e20f4f7538609fcd6718e80dbb14019b0e1" approved="yes" translated="yes">
         <source>Scope and content</source>
@@ -3876,7 +3896,8 @@
       </trans-unit>
       <trans-unit id="d863e693b8096c6873088ffd3df60cc628f92720" approved="no">
         <source>Self-relation ignored.</source>
-        <target state="translated">Самоповезаност је занемарена.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/editAction.class.php</note>
+        <target state="translated">Самоповезаност је занемарена.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/editAction.class.php</note>
       </trans-unit>
       <trans-unit id="5ef94982e058992188a2c47a46f5efd610fb9e50" approved="yes" translated="yes">
         <source>Set filters</source>
@@ -3920,7 +3941,8 @@
       </trans-unit>
       <trans-unit id="52a870be7cc257f36e6778e4eb1b610bac4a6182" approved="no">
         <source>Show browse hierarchy page</source>
-        <target state="translated">Прикажи страну хијерархијског прегледа</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/treeviewSuccess.php</note>
+        <target state="translated">Прикажи страну хијерархијског прегледа</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/treeviewSuccess.php</note>
       </trans-unit>
       <trans-unit id="d0370998c1078dfecd6c669e9bfd77272f55d691" approved="yes" translated="yes">
         <source>Show dates</source>
@@ -4297,14 +4319,10 @@
         <target>Максимална ширина за изведене референтне слике.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/digitalObjectDerivativesSuccess.php</note>
       </trans-unit>
-      <trans-unit id="4c521db1a3e2911f9f0f96e94a6950180b992561" approved="yes" translated="yes">
-        <source>The name of the website for display in the header</source>
-        <target>Назив веб презентације за приказ у заглављу</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/siteInformationSuccess.php</note>
-      </trans-unit>
       <trans-unit id="abb070bd1017157ec14de810edd0afb6d7753ed9" approved="no">
         <source>The number of days a saved clipboard should be retained before it is eligible for deletion</source>
-        <target state="translated">Број дана за чување похрањене међумеморије, пре него се сме обрисати</target><note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+        <target state="translated">Број дана за чување похрањене међумеморије, пре него се сме обрисати</target>
+        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="3ab07fd72084a41c6e00b34400c064ebb306d856" approved="yes" translated="yes">
         <source>The number of entities to include in a single OAI response list before inserting a resumption token</source>
@@ -4698,7 +4716,8 @@
       </trans-unit>
       <trans-unit id="092d0ed59fe536042926fc15385011125304c187" approved="no">
         <source>Use any valid URI path segment and uppercase character in slugs</source>
-        <target state="translated">Користи било који исправни сегмент URL путање и велика слова у кратким URL називима</target><note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+        <target state="translated">Користи било који исправни сегмент URL путање и велика слова у кратким URL називима</target>
+        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="5065b95ee85a13e6526f2ef80a03f69f8a1bcc3b" approved="yes" translated="yes">
         <source>Use for</source>
@@ -4724,11 +4743,6 @@
         <source>Use this interface to update the description title, slug (permalink), and/or %1% filename.</source>
         <target>Кроз овај интерфејс ажурирај назив описа, кратког URL назива (сталну везу), и/или %1% назив датотеке дигиталног објекта.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/renameSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="92e03ff1b889abb086d29b7aa5e82549cdd0696b" approved="yes" translated="yes">
-        <source>Used to create absolute URLs, pointing to resources, in XML exports</source>
-        <target>Употребити за креирање апсолутних URL-ова, који упућују на изворе, у XML извозу</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/siteInformationSuccess.php</note>
       </trans-unit>
       <trans-unit id="9f8a2389a20ca0752aa9e95093515517e90e194c" approved="yes" translated="yes">
         <source>User</source>
@@ -4837,11 +4851,13 @@
       </trans-unit>
       <trans-unit id="7a129995ed80dee2128ca4c8430a2702cab22186" approved="no">
         <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. Please, narrow down your results.</source>
-        <target state="translated">Преусмерени сте на прву страну резултата претраге. Да би се избегло коришћење велике количине меморије ограничени сте на приказ 10,000 описа. Молимо вас ограничите своју претрагу.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/actions/descriptionUpdatesAction.class.php</note>
+        <target state="translated">Преусмерени сте на прву страну резултата претраге. Да би се избегло коришћење велике количине меморије ограничени сте на приказ 10,000 описа. Молимо вас ограничите своју претрагу.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/actions/descriptionUpdatesAction.class.php</note>
       </trans-unit>
       <trans-unit id="fdc6ec75108f737217101f9588c9ab55a4860aee" approved="no">
         <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. To view the last records in the current result set, try changing the sort direction.</source>
-        <target state="translated">Преусмерени сте на прву страну резултата претраге. Да би се избегло коришћење велике количине меморије ограничени сте на приказ 10,000 описа. За приказ последњих описа у овом скупу резултата покушајте променити смер разврставања.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/taxonomy/actions/indexAction.class.php</note>
+        <target state="translated">Преусмерени сте на прву страну резултата претраге. Да би се избегло коришћење велике количине меморије ограничени сте на приказ 10,000 описа. За приказ последњих описа у овом скупу резултата покушајте променити смер разврставања.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/taxonomy/actions/indexAction.class.php</note>
       </trans-unit>
       <trans-unit id="40d418bc31781a74944b309e740c43c749195d10" approved="yes" translated="yes">
         <source>When enabled the following text will appear whenever a user tries to download a %1% master with an associated rights statement where the Basis = copyright and the Restriction = conditional. You can style and customize the text as in a static page.</source>
@@ -4905,7 +4921,8 @@
       </trans-unit>
       <trans-unit id="eed3e4f531667474ddcdc4d60a3cd06255e86513" approved="no">
         <source>You can check %1% page to determine the current status of the update job.</source>
-        <target state="translated">Можете проверити %1% страну да би проверили статус посла након ажурирања.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/calculateDatesSuccess.php</note>
+        <target state="translated">Можете проверити %1% страну да би проверили статус посла након ажурирања.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/calculateDatesSuccess.php</note>
       </trans-unit>
       <trans-unit id="917e570a8a4bd0ac7d268c641cecf74082508bb1" approved="yes" translated="yes">
         <source>You cannot show more than %max% hits per page</source>
@@ -4974,11 +4991,13 @@
       </trans-unit>
       <trans-unit id="d484ca1af029569ba4320ae1286878ab286bcde1" approved="no">
         <source>Your term has been updated. Its related descriptions are being updated asynchronously – check the &lt;a href="%1"&gt;job scheduler page&lt;/a&gt; for status and details.</source>
-        <target state="translated">Ваш термин је ажуриран. Његови повезани описи се ажурирају асинхроно - за стање и детаље провери &lt;a href="%1"&gt;страну планера послова&lt;/a&gt;.</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/actions/editAction.class.php</note>
+        <target state="translated">Ваш термин је ажуриран. Његови повезани описи се ажурирају асинхроно - за стање и детаље провери &lt;a href="%1"&gt;страну планера послова&lt;/a&gt;.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/actions/editAction.class.php</note>
       </trans-unit>
       <trans-unit id="172415f02e562cd029620c3db12fb3cbb83c4208" approved="no">
         <source>added</source>
-        <target state="translated">додато</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardLoadAction.class.php</note>
+        <target state="translated">додато</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardLoadAction.class.php</note>
       </trans-unit>
       <trans-unit id="4b7f6892e0134e4041bca5153ccf325f8954bc08" approved="yes" translated="yes">
         <source>all matching descriptions</source>
@@ -5047,7 +5066,8 @@
       </trans-unit>
       <trans-unit id="7f3cd5fcb66799ef036d1d8109dff20db80c0447" approved="no">
         <source>merged with current clipboard</source>
-        <target state="translated">спојено са тренутном међумеморијом</target><note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardLoadAction.class.php</note>
+        <target state="translated">спојено са тренутном међумеморијом</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardLoadAction.class.php</note>
       </trans-unit>
       <trans-unit id="557f255516719ea16f8f4a0aae1166054e2c9b43" approved="yes" translated="yes">
         <source>not</source>
@@ -5186,6 +5206,110 @@
       <trans-unit id="f978200b112084eef0c088e1d0075ad2fbca39cf" approved="no">
         <source>Alt text</source>
         <target state="translated">Алтернативни текст</target>
+      </trans-unit>
+      <trans-unit id="1">
+        <source>Log out</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>No items in clipboard to send.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Sending...</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Send</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Clipboard settings saved.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Privacy notification settings saved.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Visible elements configuration saved.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Make full width treeview collapsible on description pages</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Items per page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Items per page can be a minimum of 10 and a maximum of 1000</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Clipboard settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Clipboard saving</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Clipboard sending</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Enable clipboard send functionality</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>External URL to send clipboard contents to</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Send button text</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Text or HTML to display when sending clipboard contents</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>HTTP method to use when sending clipboard contents</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Inherit reference code (DC XML)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Note: Incorrect security settings can result in the AtoM web UI becoming inaccessible.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>DACS template - area headings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Acquisition and appraisal area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Related materials area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>DACS template - elements</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Physical access</source>
+        <target/>
       </trans-unit>
     </body>
   </file>
