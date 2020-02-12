@@ -367,6 +367,11 @@ class AccessionEditAction extends DefaultEditAction
       }
     }
 
+    // Handle alternative identifiers
+    $this->alternativeIdentifiersComponent = new AccessionAlternativeIdentifiersComponent($this->context, 'accession', 'alternativeIdentifiers');
+    $this->alternativeIdentifiersComponent->resource = $this->resource;
+    $this->alternativeIdentifiersComponent->execute($this->request);
+
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getPostParameters());
@@ -398,6 +403,8 @@ class AccessionEditAction extends DefaultEditAction
         $this->processForm();
 
         $this->resource->save();
+
+        $this->alternativeIdentifiersComponent->processForm();
 
         $this->redirect(array($this->resource, 'module' => 'accession'));
       }

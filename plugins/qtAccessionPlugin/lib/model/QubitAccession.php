@@ -200,4 +200,24 @@ class QubitAccession extends BaseAccession
 
     return QubitEvent::get($criteria);
   }
+
+  /**
+   * Get alternative identifiers
+   */
+  public function getAlternativeIdentifiers()
+  {
+    $otherNames = [];
+
+    $criteria = new Criteria;
+    $criteria->add(QubitOtherName::OBJECT_ID, $this->id);
+    $criteria->addJoin(QubitOtherName::TYPE_ID, QubitTerm::ID);
+    $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::ACCESSION_ALTERNATIVE_IDENTIFIER_TYPE_ID);
+
+    foreach (QubitOtherName::get($criteria) as $otherName)
+    {
+      $otherNames[] = $otherName;
+    }
+
+    return $otherNames;
+  }
 }

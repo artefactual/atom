@@ -1487,6 +1487,12 @@ QubitTaxonomy:
       fr: 'Actions des utilisateurs'
       id: 'Tindakan pengguna'
       sv: Användaråtgärder
+  QubitTaxonomy_accession_alternative_identifier:
+    source_culture: en
+    id: 82
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'Accession alternative identifier type'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -4057,6 +4063,13 @@ QubitTerm:
       pt-BR: Modificação
       sr: Промена
       sv: Modifiering
+  QubitTerm_accession_alternative_identifier:
+    id: 192
+    taxonomy_id: QubitTaxonomy_accession_alternative_identifier
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: 'Accession alternative identifier'
   QubitTerm_actor_relationship_is_the_superior_of:
     taxonomy_id: QubitTaxonomy_actor_relation_type
     parent_id: QubitTerm_actor_relationship_hierarchical

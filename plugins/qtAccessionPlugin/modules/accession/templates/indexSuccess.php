@@ -25,6 +25,8 @@
 
 <?php echo render_show(__('Accession number'), $resource->identifier) ?>
 
+<?php echo get_partial('accession/alternativeIdentifiersIndex', array('resource' => $resource)) ?>
+
 <?php echo render_show(__('Acquisition date'), render_value(Qubit::renderDate($resource->date))) ?>
 
 <?php echo render_show(__('Immediate source of acquisition'), render_value($resource->getSourceOfAcquisition(array('cultureFallback' => true)))) ?>

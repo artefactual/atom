@@ -40,6 +40,9 @@
 
         <div id="identifier-check-server-error" class="alert alert-danger hidden"><?php echo __('Server error while checking identifer availability.') ?></div>
 
+        <?php echo get_partial('informationobject/identifierOptions', array('hideGenerateButton' => true)) ?>
+        <?php echo get_component('accession', 'alternativeIdentifiers', array('resource' => $resource)) ?>
+
         <?php echo $form->date
           ->help(__('Accession date represents the date of receipt of the materials and is added during the donation process.'))
           ->label(__('Acquisition date').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
