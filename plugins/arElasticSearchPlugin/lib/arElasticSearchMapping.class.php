@@ -232,7 +232,7 @@ class arElasticSearchMapping
       switch ($attributeName)
       {
         case 'i18n':
-          $languages = QubitSetting::getByScope('i18n_languages');
+          $languages = sfConfig::get('app_i18n_languages');
           if (1 > count($languages))
           {
             throw new sfException('No i18n_languages in database settings.');
@@ -371,7 +371,7 @@ class arElasticSearchMapping
 
       if (isset($mapping['_i18nFields']))
       {
-        $languages = QubitSetting::getByScope('i18n_languages');
+        $languages = sfConfig::get('app_i18n_languages');
         if (1 > count($languages))
         {
           throw new sfException('The database settings don\'t content any language.');
@@ -450,10 +450,8 @@ class arElasticSearchMapping
   protected function getNestedI18nObjects($languages, $nestedI18nFields)
   {
     $mapping = array();
-    foreach ($languages as $setting)
+    foreach ($languages as $culture)
     {
-      $culture = $setting->getValue(array('sourceCulture' => true));
-
       // Iterate each field and assign a custom standard analyzer (e.g.
       // std_french in search.yml) based in the language being used. The default
       // analyzer is standard, which does not provide a stopwords list.

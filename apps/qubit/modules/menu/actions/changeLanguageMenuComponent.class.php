@@ -21,34 +21,10 @@ class MenuChangeLanguageMenuComponent extends sfComponent
 {
   public function execute($request)
   {
-    // The following snippet populates a list of language codes based on the
-    // languages that the administrator have made available via settings. We're
-    // using sfConfig as it's a cached source. An alternative would be to cache
-    // the component and use QubitSetting instead but we discarded that option
-    // in the past for some reason that I can't remember now.
-
-    $this->langCodes = array();
-
-    $prefix = 'app_i18n_languages';
-    $prefixLength = strlen($prefix);
-    $suffix = '__source';
-    $suffixLength = strlen($suffix);
-
-    foreach (sfConfig::getAll() as $name => $value)
-    {
-      // Omit if prefix does not match
-      if ($prefix !== substr($name, 0, $prefixLength))
-      {
-        continue;
-      }
-
-      // Omit if suffix does not match
-      if (substr_compare($name, $suffix, strlen($name) - $suffixLength, $suffixLength) === 0)
-      {
-        continue;
-      }
-
-      $this->langCodes[] = $value;
-    }
+    // While we could access sfConfig directly in the template now,
+    // we were collecting the enabled languages in here and we'll
+    // keep this assignment to avoid changes in existing themes
+    // that overwrite the related partial.
+    $this->langCodes = sfConfig::get('app_i18n_languages');
   }
 }

@@ -97,22 +97,6 @@ class arElasticSearchPluginUtil
   }
 
   /**
-   * Get all available language codes that are enabled in the administrator settings.
-   *
-   * @return array  An array containing the above language codes as strings.
-   */
-  private static function getAvailableLanguages()
-  {
-    $cultures = array();
-    foreach (QubitSetting::getByScope('i18n_languages') as $setting)
-    {
-      $cultures[] = $setting->getValue(array('sourceCulture' => true));
-    }
-
-    return $cultures;
-  }
-
-  /**
    * Retrieve the default template type given a specified ES index type.
    *
    * @return string  The default template (e.g. isad)
@@ -141,11 +125,7 @@ class arElasticSearchPluginUtil
   {
     // Create array with relations (hidden field => ES mapping field) for the actual template and cultures
     $relations = array();
-    $cultures = array();
-    foreach (QubitSetting::getByScope('i18n_languages') as $setting)
-    {
-      $cultures[] = $setting->getValue(array('sourceCulture' => true));
-    }
+    $cultures = sfConfig::get('app_i18n_languages');
 
     if (null !== $template = self::getTemplate('informationObject'))
     {
@@ -230,7 +210,7 @@ class arElasticSearchPluginUtil
       throw new sfException('Unrecognized index type: ' . $indexType);
     }
 
-    $cultures = self::getAvailableLanguages();
+    $cultures = sfConfig::get('app_i18n_languages');
     $i18nIncludeInAll = null;
 
     if ($indexType === 'informationObject')
@@ -488,17 +468,7 @@ class arElasticSearchPluginUtil
     // Get all available cultures if $cultures isn't set
     if (empty($cultures))
     {
-      $cultures = array();
-      foreach (QubitSetting::getByScope('i18n_languages') as $setting)
-      {
-        $cultures[] = $setting->getValue(array('sourceCulture' => true));
-      }
-    }
-
-    // Make sure cultures is an array
-    if (!is_array($cultures))
-    {
-      $cultures = array($cultures);
+      $cultures = sfConfig::get('app_i18n_languages');
     }
 
     // Make sure fields is an array

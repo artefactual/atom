@@ -119,10 +119,8 @@ class arElasticSearchRepository extends arElasticSearchModelBase
    */
   private static function addExtraSortInfo(&$i18n, $object)
   {
-    foreach (QubitSetting::getByScope('i18n_languages') as $setting)
+    foreach (sfConfig::get('app_i18n_languages') as $lang)
     {
-      $lang = $setting->getValue(array('sourceCulture' => true));
-
       if ($object->getCity(array('culture' => $lang)))
       {
         $i18n[$lang]['city'] = $object->getCity(array('culture' => $lang));
