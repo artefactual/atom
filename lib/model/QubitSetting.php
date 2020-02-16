@@ -84,13 +84,21 @@ class QubitSetting extends BaseSetting
       LEFT JOIN '.QubitSettingI18n::TABLE_NAME.' source
         ON (setting.ID = source.id AND source.CULTURE = setting.SOURCE_CULTURE)';
 
-    $settings = array();
+    $settings = $i18nLanguages = array();
     $culture = sfContext::getInstance()->user->getCulture();
 
     foreach (QubitPdo::fetchAll($sql, array($culture)) as $qubitSetting)
     {
       if ($qubitSetting->scope)
       {
+        // Collect enabled languages into a single setting
+        if ($qubitSetting->scope == 'i18n_languages')
+        {
+          $i18nLanguages[] = $qubitSetting->value_source;
+
+          continue;
+        }
+
         $key = 'app_'.$qubitSetting->scope.'_'.$qubitSetting->name;
       }
       else
@@ -102,6 +110,8 @@ class QubitSetting extends BaseSetting
 
       $settings[$key.'__source'] = $qubitSetting->value_source;
     }
+
+    $settings['app_i18n_languages'] = $i18nLanguages;
 
     return $settings;
   }

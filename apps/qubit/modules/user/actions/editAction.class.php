@@ -154,14 +154,11 @@ class UserEditAction extends DefaultEditAction
       case 'translate':
         $c = sfCultureInfo::getInstance($this->context->user->getCulture());
         $languages = $c->getLanguages();
-
         $choices = array();
-        if (0 < count($langSettings = QubitSetting::getByScope('i18n_languages')))
+
+        foreach (sfConfig::get('app_i18n_languages') as $item)
         {
-          foreach ($langSettings as $item)
-          {
-            $choices[$item->name] = $languages[$item->name];
-          }
+          $choices[$item] = $languages[$item];
         }
 
         // Find existing translate permissions

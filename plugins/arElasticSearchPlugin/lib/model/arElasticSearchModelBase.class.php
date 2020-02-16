@@ -70,12 +70,8 @@ abstract class arElasticSearchModelBase
       throw new sfException('At least one class name must be passed.');
     }
 
-    // Build an array of i18n languages
-    $allowedLanguages = array();
-    foreach (QubitSetting::getByScope('i18n_languages') as $setting)
-    {
-      $allowedLanguages[] = $setting->getValue(array('sourceCulture' => true));
-    }
+    // Get an array of i18n languages
+    $allowedLanguages = sfConfig::get('app_i18n_languages');
 
     // Properties
     $i18ns = array();

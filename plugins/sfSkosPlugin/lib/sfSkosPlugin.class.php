@@ -64,11 +64,7 @@ class sfSkosPlugin
 
     $this->graph = new EasyRdf_Graph;
 
-    $this->languages = array();
-    foreach (QubitSetting::getByScope('i18n_languages') as $item)
-    {
-      $this->languages[] = $item->getName();
-    }
+    $this->languages = sfConfig::get('app_i18n_languages');
   }
 
   public static function import($resource, $taxonomyId, $parentId = null)

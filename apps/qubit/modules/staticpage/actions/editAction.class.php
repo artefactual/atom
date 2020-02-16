@@ -115,8 +115,7 @@ class StaticPageEditAction extends DefaultEditAction
         // Invalidate static page content cache entry
         if (!$this->new && null !== $cache = QubitCache::getInstance())
         {
-          $languages = QubitSetting::getByScope('i18n_languages');
-          foreach ($languages as $culture)
+          foreach (sfConfig::get('app_i18n_languages') as $culture)
           {
             $cacheKey = 'staticpage:'.$this->resource->id.':'.$culture;
             $cache->remove($cacheKey);
