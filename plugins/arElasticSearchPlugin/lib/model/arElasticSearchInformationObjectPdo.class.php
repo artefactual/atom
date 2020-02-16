@@ -314,19 +314,6 @@ class arElasticSearchInformationObjectPdo
     return $inheritedCreators;
   }
 
-  /**
-   * Get the top level description id of this tree.
-   */
-  private function getCollectionRootId()
-  {
-    $sql = '
-      SELECT id FROM information_object
-      WHERE parent_id = ? AND lft < ? AND rgt > ?
-    ';
-
-    return QubitPdo::fetchColumn($sql, array(QubitInformationObject::ROOT_ID, $this->lft, $this->rgt));
-  }
-
   public function getLevelOfDescription($culture)
   {
     if (!isset(self::$lookups['levelOfDescription']))
@@ -1479,12 +1466,12 @@ class arElasticSearchInformationObjectPdo
     $serialized['sourceCulture'] = $this->source_culture;
     $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($this->id, array('QubitInformationObject'));
 
-    // Add "Part of" title if this isn't a top level description
-    $collectionRootId = $this->getCollectionRootId();
-
-    if ($collectionRootId && $collectionRootId != $this->id)
+    // Add "Part of" information if this isn't a top level description
+    if (count($this->ancestors) > 1)
     {
+      $collectionRootId = $this->ancestors[1]->id;
       $rootSlug = QubitPdo::fetchColumn('SELECT slug FROM slug WHERE object_id=?', array($collectionRootId));
+
       if (!$rootSlug)
       {
         throw new sfException("No slug found for information object $collectionRootId");
