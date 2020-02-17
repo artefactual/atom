@@ -824,31 +824,6 @@ class arElasticSearchInformationObjectPdo
     }
   }
 
-  public function getMaterialTypeId()
-  {
-    return $this->getObjectTermRelations('materialType', QubitTaxonomy::MATERIAL_TYPE_ID);
-  }
-
-  protected function getObjectTermRelations($statementType, $taxonomyId)
-  {
-    if (!isset(self::$statements[$statementType]))
-    {
-      $sql  = 'SELECT otr.term_id as id';
-      $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
-      $sql .= ' WHERE otr.object_id = :id';
-      $sql .= ' AND otr.term_id IN';
-      $sql .= ' (SELECT term.id';
-      $sql .= ' FROM '.QubitTerm::TABLE_NAME.' term';
-      $sql .= ' WHERE term.taxonomy_id = :taxonomyId)';
-
-      self::$statements[$statementType] = self::$conn->prepare($sql);
-    }
-
-    self::$statements[$statementType]->execute(array(':id' => $this->__get('id'), ':taxonomyId' => $taxonomyId));
-
-    return self::$statements[$statementType]->fetchAll(PDO::FETCH_ASSOC);
-  }
-
   public function getStorageNames()
   {
     $names = array();
@@ -1221,7 +1196,7 @@ class arElasticSearchInformationObjectPdo
     }
 
     // Material type
-    foreach ($this->getMaterialTypeId() as $item)
+    foreach ($this->getDirectlyRelatedTerms(QubitTaxonomy::MATERIAL_TYPE_ID) as $item)
     {
       $serialized['materialTypeId'][] = $item['id'];
     }
