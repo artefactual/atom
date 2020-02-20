@@ -24,7 +24,7 @@
  * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
-class purgeTask extends sfBaseTask
+class purgeTask extends arBaseTask
 {
   /**
    * @see sfTask
@@ -63,6 +63,8 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
+    parent::execute($arguments, $options);
+
     if (!$options['demo'] && !function_exists('readline'))
     {
       $needed = array('title', 'description', 'url', 'email', 'username', 'password');
@@ -106,9 +108,6 @@ EOF;
         }
       }
     }
-
-    $configuration = ProjectConfiguration::getApplicationConfiguration($options['application'], $options['env'], false);
-    $sf_context = sfContext::createInstance($configuration);
 
     QubitSearch::disable();
 
