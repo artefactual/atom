@@ -67,6 +67,16 @@ class arElasticSearchAccession extends arElasticSearchModelBase
     $serialized['sourceCulture'] = $object->sourceCulture;
     $serialized['i18n'] = self::serializeI18ns($object->id, array('QubitAccession'));
 
+    $sql = "SELECT o.id, o.source_culture FROM ".QubitOtherName::TABLE_NAME." o \r
+              INNER JOIN ".QubitTerm::TABLE_NAME." t ON o.type_id=t.id \r
+              WHERE o.object_id = ? AND t.taxonomy_id= ?";
+
+    $params = array($object->id, QubitTaxonomy::ACCESSION_ALTERNATIVE_IDENTIFIER_TYPE_ID);
+    foreach (QubitPdo::fetchAll($sql, $params) as $item)
+    {
+      $serialized['alternativeIdentifiers'][] = arElasticSearchOtherName::serialize($item);
+    }
+
     foreach (QubitRelation::getRelationsBySubjectId($object->id, array('typeId' => QubitTerm::DONOR_ID)) as $item)
     {
       $serialized['donors'][] = arElasticSearchDonor::serialize($item->object);

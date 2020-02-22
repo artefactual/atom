@@ -373,7 +373,10 @@ mapping:
       timestamp: true
       rawFields:  [title]
       sortFields: [title]
-    _foreign_types: { donors: donor, creators: actor }
+    _foreign_types:
+      alternative_identifiers: other_name
+      donors: donor
+      creators: actor
     dynamic: strict
     properties:
       slug: { type: keyword }
