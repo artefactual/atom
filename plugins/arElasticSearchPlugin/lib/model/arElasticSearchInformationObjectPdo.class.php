@@ -194,21 +194,19 @@ class arElasticSearchInformationObjectPdo
     if (!isset($this->ancestors))
     {
       // Find ancestors
-      $sql  = 'SELECT
-                  node.id,
-                  identifier,
-                  repository_id,
-                  slug';
+      $sql  = 'SELECT id, identifier, repository_id';
       $sql .= ' FROM '.QubitInformationObject::TABLE_NAME.' node';
-      $sql .= ' JOIN '.QubitSlug::TABLE_NAME.' slug
-                  ON node.id = slug.object_id';
       $sql .= ' WHERE node.lft < ? AND node.rgt > ?';
       $sql .= ' ORDER BY lft';
 
-      $this->ancestors = QubitPdo::fetchAll($sql, array($this->__get('lft'), $this->__get('rgt')));
+      $this->ancestors = QubitPdo::fetchAll(
+        $sql,
+        array($this->__get('lft'), $this->__get('rgt')),
+        array('fetchMode' => PDO::FETCH_ASSOC)
+      );
     }
 
-    if (!isset($this->ancestors) || 0 == count($this->ancestors))
+    if (!isset($this->ancestors) || empty($this->ancestors))
     {
       throw new sfException(sprintf("%s: Couldn't find ancestors, please make sure lft and rgt values are correct", get_class($this)));
     }
@@ -257,9 +255,9 @@ class arElasticSearchInformationObjectPdo
         {
           foreach (array_reverse($this->getAncestors()) as $item)
           {
-            if (isset($item->repository_id))
+            if (isset($item['repository_id']))
             {
-              $this->repository = QubitRepository::getById($item->repository_id);
+              $this->repository = QubitRepository::getById($item['repository_id']);
 
               break;
             }
@@ -298,7 +296,7 @@ class arElasticSearchInformationObjectPdo
 
     foreach (array_reverse($this->getAncestors()) as $ancestor)
     {
-      self::$statements['inheritedCreators']->execute(array($ancestor->id, QubitTerm::CREATION_ID));
+      self::$statements['inheritedCreators']->execute(array($ancestor['id'], QubitTerm::CREATION_ID));
 
       foreach (self::$statements['inheritedCreators']->fetchAll(PDO::FETCH_OBJ) as $creator)
       {
@@ -402,14 +400,18 @@ class arElasticSearchInformationObjectPdo
     }
 
     $identifiers = array();
-    $this->ancestors = $this->getAncestors();
 
-    foreach (array_merge(is_array($this->ancestors) ? $this->ancestors : array(), array($this)) as $item)
+    foreach ($this->getAncestors() as $item)
     {
-      if (isset($item->identifier))
+      if (isset($item['identifier']))
       {
-        $identifiers[] = $item->identifier;
+        $identifiers[] = $item['identifier'];
       }
+    }
+
+    if (isset($this->identifier))
+    {
+      $identifiers[] = $this->identifier;
     }
 
     $refcode .= implode(sfConfig::get('app_separator_character', '-'), $identifiers);
@@ -1151,7 +1153,7 @@ class arElasticSearchInformationObjectPdo
 
     $serialized['id'] = $this->id;
     $serialized['slug'] = $this->slug;
-
+    $serialized['parentId'] = $this->parent_id;
     $serialized['identifier'] = $this->identifier;
     $serialized['referenceCode'] = $this->getReferenceCode();
     $serialized['referenceCodeWithoutCountryAndRepo'] = $this->getReferenceCode(false);
@@ -1167,12 +1169,7 @@ class arElasticSearchInformationObjectPdo
     }
 
     // NB: this will include the ROOT_ID
-    foreach ($this->getAncestors() as $ancestor)
-    {
-      $serialized['ancestors'][] = $ancestor->id;
-    }
-
-    $serialized['parentId'] = $this->ancestors[count($this->ancestors)-1]->id;
+    $serialized['ancestors'] = array_column($this->getAncestors(), 'id');
 
     // NB: this should be an ordered array
     foreach ($this->getChildren() as $child)
@@ -1412,7 +1409,7 @@ class arElasticSearchInformationObjectPdo
     // Add "Part of" information if this isn't a top level description
     if (count($this->ancestors) > 1)
     {
-      $collectionRootId = $this->ancestors[1]->id;
+      $collectionRootId = $this->ancestors[1]['id'];
       $rootSlug = QubitPdo::fetchColumn('SELECT slug FROM slug WHERE object_id=?', array($collectionRootId));
 
       if (!$rootSlug)
