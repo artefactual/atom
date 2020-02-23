@@ -68,6 +68,10 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     // Loop through children and add to search index
     foreach (self::getChildren($parentId) as $item)
     {
+      $ancestors = $inheritedCreators = array();
+      $repository = null;
+      self::$counter++;
+
       try
       {
         $node = new arElasticSearchInformationObjectPdo($item->id, array_merge($options, array('terms' => self::$termParentList)));
@@ -75,23 +79,26 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
         QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
 
-        self::$counter++;
-
         $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
 
-        // Descend hierarchy
-        if (1 < ($item->rgt - $item->lft))
-        {
-          // Pass ancestors, repository and creators down to descendants
-          $this->recursivelyAddInformationObjects($item->id, $totalRows, array(
-            'ancestors'  => array_merge($node->getAncestors(), array($node)),
-            'repository' => $node->getRepository(),
-            'inheritedCreators' => array_merge($node->inheritedCreators, $node->creators)));
-        }
+        $ancestors = array_merge($node->getAncestors(), array($node));
+        $repository = $node->getRepository();
+        $inheritedCreators = array_merge($node->inheritedCreators, $node->creators);
       }
       catch (sfException $e)
       {
         $this->errors[] = $e->getMessage();
+      }
+
+      // Descend hierarchy
+      if (1 < ($item->rgt - $item->lft))
+      {
+        // Pass ancestors, repository and creators down to descendants
+        $this->recursivelyAddInformationObjects($item->id, $totalRows, array(
+          'ancestors'  => $ancestors,
+          'repository' => $repository,
+          'inheritedCreators' => $inheritedCreators
+        ));
       }
     }
   }
