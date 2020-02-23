@@ -57,8 +57,19 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     $this->load();
     self::$termParentList = self::loadTermParentList(array('taxonomyIds' => array(QubitTaxonomy::SUBJECT_ID, QubitTaxonomy::PLACE_ID, QubitTaxonomy::GENRE_ID)));
 
+    // Pass root data to top-levels to avoid ancestors query
+    $ancestors = array(array(
+      'id' => QubitInformationObject::ROOT_ID,
+      'identifier' => null,
+      'repository_id' => null
+    ));
+
     // Recursively descend down hierarchy
-    $this->recursivelyAddInformationObjects(QubitInformationObject::ROOT_ID, $this->count);
+    $this->recursivelyAddInformationObjects(
+      QubitInformationObject::ROOT_ID,
+      $this->count,
+      array('ancestors' => $ancestors)
+    );
 
     return $this->errors;
   }
@@ -81,7 +92,11 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
         $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
 
-        $ancestors = array_merge($node->getAncestors(), array($node));
+        $ancestors = array_merge($node->getAncestors(), array(array(
+          'id' => $node->id,
+          'identifier' => $node->identifier,
+          'repository_id' => $node->repository_id
+        )));
         $repository = $node->getRepository();
         $inheritedCreators = array_merge($node->inheritedCreators, $node->creators);
       }
