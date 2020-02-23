@@ -618,7 +618,7 @@ class arElasticSearchInformationObjectPdo
     // Add actors in related, non-creation events
     foreach ($this->events as $event)
     {
-      if ($event->type_id != QubitTerm::CREATION_ID)
+      if (isset($event->actor_id) && $event->type_id != QubitTerm::CREATION_ID)
       {
         $actor = new stdClass;
         $actor->id = $event->actor_id;
