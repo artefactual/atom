@@ -191,17 +191,21 @@ class arElasticSearchInformationObjectPdo
    */
   public function getAncestors()
   {
-    if (!isset($this->ancestors))
+    if (!isset($this->ancestors) && isset($this->parent_id))
     {
-      // Find ancestors
-      $sql  = 'SELECT id, identifier, repository_id';
-      $sql .= ' FROM '.QubitInformationObject::TABLE_NAME.' node';
-      $sql .= ' WHERE node.lft < ? AND node.rgt > ?';
-      $sql .= ' ORDER BY lft';
+      $sql = 'WITH RECURSIVE cte AS
+      	(
+      	  SELECT io1.id, io1.parent_id, io1.identifier, io1.repository_id, io1.lft
+          FROM information_object io1 WHERE io1.id = ?
+      	  UNION ALL
+      	  SELECT io2.id, io2.parent_id, io2.identifier, io2.repository_id, io2.lft
+          FROM information_object io2 JOIN cte ON cte.parent_id=io2 .id
+      	)
+      	SELECT id, identifier, repository_id FROM cte ORDER BY lft';
 
       $this->ancestors = QubitPdo::fetchAll(
         $sql,
-        array($this->__get('lft'), $this->__get('rgt')),
+        array($this->parent_id),
         array('fetchMode' => PDO::FETCH_ASSOC)
       );
     }
