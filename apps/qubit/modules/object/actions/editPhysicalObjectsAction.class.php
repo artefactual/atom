@@ -24,14 +24,19 @@
  * @subpackage digitalObject
  * @author     david juhasz <david@artefactual.com>
  */
-class InformationObjectEditPhysicalObjectsAction extends DefaultEditAction
+class ObjectEditPhysicalObjectsAction extends DefaultEditAction
 {
   public static
     $NAMES = array(
       'containers',
       'location',
       'name',
-      'type');
+      'type'),
+
+    $MODEL_MODULE = array(
+      'QubitInformationObject' => 'informationobject',
+      'QubitAccession' => 'accession'
+    );
 
   protected function earlyExecute()
   {
@@ -39,8 +44,14 @@ class InformationObjectEditPhysicalObjectsAction extends DefaultEditAction
 
     $this->resource = $this->getRoute()->resource;
 
+    // Check that resource is an allowed type
+    if (empty($this->moduleForAllowedResource()))
+    {
+      $this->forward404();
+    }
+
     // Check that this isn't the root
-    if (!isset($this->resource->parent))
+    if (property_exists($this->resource, 'parent') && !isset($this->resource->parent))
     {
       $this->forward404();
     }
@@ -113,6 +124,11 @@ class InformationObjectEditPhysicalObjectsAction extends DefaultEditAction
     }
   }
 
+  private function moduleForAllowedResource()
+  {
+    return @self::$MODEL_MODULE[get_class($this->resource)];
+  }
+
   public function execute($request)
   {
     parent::execute($request);
@@ -128,7 +144,7 @@ class InformationObjectEditPhysicalObjectsAction extends DefaultEditAction
 
         $this->resource->save();
 
-        $this->redirect(array($this->resource, 'module' => 'informationobject'));
+        $this->redirect(array($this->resource, 'module' => $this->moduleForAllowedResource()));
       }
     }
   }

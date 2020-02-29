@@ -11,7 +11,7 @@
 
   <?php echo $form->renderGlobalErrors() ?>
 
-  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'editPhysicalObjects'))) ?>
+  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => $sf_context->getModuleName(), 'action' => 'editPhysicalObjects'))) ?>
 
     <?php echo $form->renderHiddenFields() ?>
 
@@ -49,7 +49,7 @@
         <div class="form-item">
           <?php echo $form->containers->renderLabel() ?>
           <?php echo $form->containers->render(array('class' => 'form-autocomplete', 'data-autocomplete-delay' => 0.3)) ?>
-          <input class="add" type="hidden" data-link-existing="false" value="<?php echo url_for(array($resource, 'module' => 'informationobject', 'action' => 'editPhysicalObjects')) ?> #name"/>
+          <input class="add" type="hidden" data-link-existing="false" value="<?php echo url_for(array($resource, 'module' => $sf_context->getModuleName(), 'action' => 'editPhysicalObjects')) ?> #name"/>
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'physicalobject', 'action' => 'autocomplete')) ?>"/>
         </div>
 
@@ -71,7 +71,7 @@
 
     <section class="actions">
       <ul>
-        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
+        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => $sf_context->getModuleName()), array('class' => 'c-btn')) ?></li>
         <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
       </ul>
     </section>

@@ -1,10 +1,18 @@
-<?php decorate_with('layout_1col.php') ?>
+<?php decorate_with('layout_3col.php') ?>
 
 <?php slot('title') ?>
   <h1 class="multiline">
     <?php echo __('View accession record') ?>
     <span class="sub"><?php echo render_title($resource) ?></span>
   </h1>
+<?php end_slot() ?>
+
+<?php slot('context-menu') ?>
+
+  <?php if (check_field_visibility('app_element_visibility_physical_storage')): ?>
+    <?php echo get_component('physicalobject', 'contextMenu', array('resource' => $resource)) ?>
+  <?php endif; ?>
+
 <?php end_slot() ?>
 
 <?php slot('before-content') ?>
@@ -197,6 +205,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><?php echo link_to(__('Create new rights'), array($resource,  'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'edit')) ?></li>
+            <li><?php echo link_to(__('Link physical storage'), array($resource, 'module' => 'object', 'action' => 'editPhysicalObjects')) ?></li>
           </ul>
         </div>
       </li>

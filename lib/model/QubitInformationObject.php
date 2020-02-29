@@ -1325,59 +1325,6 @@ class QubitInformationObject extends BaseInformationObject
     return $nameAccessPointString;
   }
 
-  /********************
-    Physical Objects
-  *********************/
-
-  /**
-   * Add a relation from this info object to a phyical object. Check to make
-   * sure the relationship is unique.
-   *
-   * @param QubitPhysicalObject $physicalObject Subject of relationship
-   * @return QubitInformationObject this object
-   */
-  public function addPhysicalObject($physicalObject)
-  {
-    // Verify that $physicalObject is really a Physical Object and
-    // Don't add an identical info object -> physical object relationship
-    if (get_class($physicalObject) == 'QubitPhysicalObject' && $this->getPhysicalObject($physicalObject->id) === null)
-    {
-      $relation = new QubitRelation;
-      $relation->setSubject($physicalObject);
-      $relation->setTypeId(QubitTerm::HAS_PHYSICAL_OBJECT_ID);
-
-      $this->relationsRelatedByobjectId[] = $relation;
-    }
-
-    return $this;
-  }
-
-  /**
-   * Get a specific physical object related to this info object
-   *
-   * @param integer $physicalObjectId the id of the related physical object
-   * @return mixed the QubitRelation object on success, null if no match found
-   */
-  public function getPhysicalObject($physicalObjectId)
-  {
-    $criteria = new Criteria;
-    $criteria->add(QubitRelation::OBJECT_ID, $this->id);
-    $criteria->add(QubitRelation::SUBJECT_ID, $physicalObjectId);
-
-    return QubitRelation::getOne($criteria);
-  }
-
-  /**
-   * Get all physical objects related to this info object
-   *
-   */
-  public function getPhysicalObjects()
-  {
-    $relatedPhysicalObjects = QubitRelation::getRelatedSubjectsByObjectId('QubitPhysicalObject', $this->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID));
-
-    return $relatedPhysicalObjects;
-  }
-
 
   /******************
     Digital Objects

@@ -656,72 +656,7 @@ EOF;
         }
 
         // Add physical objects
-        if (isset($self->rowStatusVars['physicalObjectName']) &&
-            $self->rowStatusVars['physicalObjectName'])
-        {
-          $names = explode('|', $self->rowStatusVars['physicalObjectName']);
-          $locations = explode('|', $self->rowStatusVars['physicalObjectLocation']);
-          $types = (isset($self->rowStatusVars['physicalObjectType']))
-            ? explode('|', $self->rowStatusVars['physicalObjectType'])
-            : array();
-
-          foreach ($names as $index => $name)
-          {
-            // If location column populated
-            if ($self->rowStatusVars['physicalObjectLocation'])
-            {
-              // If current index applicable
-              if (isset($locations[$index]))
-              {
-                $location = $locations[$index];
-              }
-              else
-              {
-                $location = $locations[0];
-              }
-            }
-            else
-            {
-              $location = '';
-            }
-
-            // If object type column populated
-            if ($self->rowStatusVars['physicalObjectType'])
-            {
-              // If current index applicable
-              if (isset($types[$index]))
-              {
-                $type = $types[$index];
-              }
-              else
-              {
-                $type = $types[0];
-              }
-            }
-            else
-            {
-              $type = 'Box';
-            }
-
-            $physicalObjectTypeId = array_search_case_insensitive($type, $self->status['physicalObjectTypes'][$self->columnValue('culture')]);
-
-            // Create new physical object type if not found
-            if ($physicalObjectTypeId === false)
-            {
-              print "\nTerm $type not found in physical object type taxonomy, creating it...\n";
-
-              $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID, $type, $self->columnValue('culture'));
-              $self->status['physicalObjectTypes'] = refreshTaxonomyTerms(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID);
-
-              $physicalObjectTypeId = $newTerm->id;
-            }
-
-            $container = $self->createOrFetchPhysicalObject($name, $location, $physicalObjectTypeId);
-
-            // Associate container with information object
-            $self->createRelation($container->id, $self->object->id, QubitTerm::HAS_PHYSICAL_OBJECT_ID);
-          }
-        }
+        csvImportBaseTask::importPhysicalObjects($self);
 
         // Add subject access points
         $accessPointColumns = array(

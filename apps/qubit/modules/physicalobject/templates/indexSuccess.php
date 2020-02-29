@@ -27,6 +27,17 @@
   </div>
 </div>
 
+<div class="field">
+  <h3><?php echo __('Related accessions') ?></h3>
+  <div>
+    <ul>
+      <?php foreach (QubitRelation::getRelatedObjectsBySubjectId('QubitAccession', $resource->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID)) as $item): ?>
+        <li><?php echo link_to(render_title($item), array($item, 'module' => 'accession')) ?></li>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+</div>
+
 <?php slot('after-content') ?>
   <section class="actions">
     <ul>

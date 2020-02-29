@@ -36,7 +36,7 @@
 
               <li class="divider"></li>
 
-              <li><?php echo link_to(__('Link physical storage'), array($resource, 'module' => 'informationobject', 'action' => 'editPhysicalObjects')) ?></li>
+              <li><?php echo link_to(__('Link physical storage'), array($resource, 'module' => 'object', 'action' => 'editPhysicalObjects')) ?></li>
 
               <li class="divider"></li>
 

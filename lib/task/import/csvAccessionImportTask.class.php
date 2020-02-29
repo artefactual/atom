@@ -90,7 +90,8 @@ EOF;
       QubitTaxonomy::ACCESSION_RESOURCE_TYPE_ID       => 'resourceTypes',
       QubitTaxonomy::ACCESSION_PROCESSING_STATUS_ID   => 'processingStatus',
       QubitTaxonomy::ACCESSION_PROCESSING_PRIORITY_ID => 'processingPriority',
-      QubitTaxonomy::ACCESSION_ALTERNATIVE_IDENTIFIER_TYPE_ID => 'alternativeIdentifierTypes'
+      QubitTaxonomy::ACCESSION_ALTERNATIVE_IDENTIFIER_TYPE_ID => 'alternativeIdentifierTypes',
+      QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID          => 'physicalObjectTypes'
     ));
 
     // Define import
@@ -107,12 +108,13 @@ EOF;
       // The status array is a place to put data that should be accessible
       // from closure logic using the getStatus method
       'status' => array(
-        'sourceName'         => $sourceName,
-        'acquisitionTypes'   => $termData['acquisitionTypes'],
-        'resourceTypes'      => $termData['resourceTypes'],
-        'processingStatus'   => $termData['processingStatus'],
-        'processingPriority' => $termData['processingPriority'],
-        'assignId'           => $options['assign-id']
+        'sourceName'          => $sourceName,
+        'acquisitionTypes'    => $termData['acquisitionTypes'],
+        'resourceTypes'       => $termData['resourceTypes'],
+        'physicalObjectTypes' => $termData['physicalObjectTypes'],
+        'processingStatus'    => $termData['processingStatus'],
+        'processingPriority'  => $termData['processingPriority'],
+        'assignId'            => $options['assign-id']
       ),
 
       'standardColumns' => array(
@@ -164,6 +166,9 @@ EOF;
         'accessionNumber',
         'acquisitionType',
         'resourceType',
+        'physicalObjectName',
+        'physicalObjectLocation',
+        'physicalObjectType',
         'donorName',
         'donorStreetAddress',
         'donorCity',
@@ -269,7 +274,7 @@ EOF;
                   if (empty($typeId = array_search_case_insensitive($typeName, $self->status['alternativeIdentifierTypes'][$self->columnValue('culture')])))
                   {
                     $term = new QubitTerm;
-                    $term->parentId = QubitTerm::ROOT_ID; 
+                    $term->parentId = QubitTerm::ROOT_ID;
                     $term->taxonomyId = QubitTaxonomy::ACCESSION_ALTERNATIVE_IDENTIFIER_TYPE_ID;
                     $term->setName($typeName, array('culture' => $self->columnValue('culture')));
                     $term->sourceCulture = $self->columnValue('culture');
@@ -294,6 +299,9 @@ EOF;
               }
             }
           }
+
+          // Add physical objects
+          csvImportBaseTask::importPhysicalObjects($self);
 
           // Add events
           csvImportBaseTask::importEvents($self);
