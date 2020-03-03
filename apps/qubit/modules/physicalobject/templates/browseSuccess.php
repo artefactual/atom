@@ -63,6 +63,7 @@
     <section class="actions">
       <ul>
         <li><?php echo link_to(__('Add new'), array('module' => 'physicalobject', 'action' => 'add'), array('class' => 'c-btn')) ?></li>
+        <li><?php echo link_to(__('Export storage report'), array('module' => 'physicalobject', 'action' => 'holdingsReportExport'), array('class' => 'c-btn')) ?></li>
       </ul>
     </section>
   <?php endif; ?>

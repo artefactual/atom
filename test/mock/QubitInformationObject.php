@@ -29,6 +29,14 @@ class QubitInformationObject
     'Mixed-Case-Fonds' => 333333,
   ];
 
+  public static function getById($id)
+  {
+    $obj = new self();
+    $obj->id = $id;
+
+    return $obj;
+  }
+
   public static function getBySlug($slug)
   {
 
@@ -39,5 +47,20 @@ class QubitInformationObject
 
       return $obj;
     }
+  }
+
+  public static function getTitle($options)
+  {
+    return "Information Object";
+  }
+
+  public static function getIdentifier()
+  {
+    return "IDENTIFIER";
+  }
+
+  public static function getSlug()
+  {
+    return "information-object";
   }
 }

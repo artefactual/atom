@@ -33,3 +33,5 @@ all:
       - arRepositoryCsvExportJob
     update_io_es_documents:
       - arUpdateEsIoDocumentsJob
+    holdings_report:
+      - arPhysicalObjectCsvHoldingsReportJob

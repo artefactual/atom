@@ -21,3 +21,8 @@ indexSuccess:
 browseSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
+
+holdingsReportExportSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
