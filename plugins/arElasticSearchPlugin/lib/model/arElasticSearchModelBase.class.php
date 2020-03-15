@@ -25,7 +25,8 @@ abstract class arElasticSearchModelBase
 
   protected static
     $conn,
-    $termParentList;
+    $termParentList,
+    $allowedLanguages;
 
   public function __construct()
   {
@@ -66,16 +67,19 @@ abstract class arElasticSearchModelBase
 
   public static function serializeI18ns($id, array $classes, $options = array())
   {
-    if (1 > count($classes))
+    if (empty($classes))
     {
       throw new sfException('At least one class name must be passed.');
     }
 
     // Get an array of i18n languages
-    $allowedLanguages = sfConfig::get('app_i18n_languages');
+    if (!isset(self::$allowedLanguages))
+    {
+      self::$allowedLanguages = sfConfig::get('app_i18n_languages');
+    }
 
     // Properties
-    $i18ns = array();
+    $i18ns = array('languages' => array());
 
     // Allow merging i18n fields, used for partial foreign types
     // when different object fields are included in the same object
@@ -84,27 +88,35 @@ abstract class arElasticSearchModelBase
       $i18ns = $options['merge'];
     }
 
-    // Tableize class name
-    foreach ($classes as &$class)
+    foreach ($classes as $class)
     {
-      $class = str_replace('Qubit', '', $class);
-      $class = sfInflector::tableize($class);
-      $class .= '_i18n';
+      // Tableize class name
+      $table = str_replace('Qubit', '', $class);
+      $table = sfInflector::tableize($table);
+      $table .= '_i18n';
 
-      // Build SQL query per table. I tried with joins but for some reason the
-      // culture value appears empty although it workes in the command line
-      $sql  = sprintf('SELECT * FROM %s WHERE id = ? ORDER BY culture ASC', $class);
+      // Build SQL query per table. Tried with joins but for some reason the
+      // culture value appears empty. The statement can't be reused as it's
+      // not possible to bind and use a variable for the table name.
+      $rows = QubitPdo::fetchAll(
+        sprintf('SELECT * FROM %s WHERE id = ?', $table),
+        array($id),
+        array('fetchMode' => PDO::FETCH_ASSOC)
+      );
 
-      foreach (QubitPdo::fetchAll($sql, array($id)) as $item)
+      foreach ($rows as $row)
       {
         // Any i18n record within a culture previously not configured will
         // be ignored since the search engine will only accept known languages
-        if (!in_array($item->culture, $allowedLanguages))
+        if (!in_array($row['culture'], self::$allowedLanguages))
         {
           continue;
         }
 
-        foreach (get_object_vars($item) as $key => $value)
+        // Collect cultures added
+        $i18ns['languages'][] = $row['culture'];
+
+        foreach ($row as $key => $value)
         {
           // Pass if the column is unneeded or null, or if it's not set in options fields
           if (in_array($key, array('id', 'culture')) || is_null($value)
@@ -114,14 +126,13 @@ abstract class arElasticSearchModelBase
           }
 
           $camelized = lcfirst(sfInflector::camelize($key));
-
-          $i18ns[$item->culture][$camelized] = $value;
+          $i18ns[$row['culture']][$camelized] = $value;
         }
       }
     }
 
-    // Avoid including languages key inside languages when the merge option is set
-    $i18ns['languages'] = array_values(array_diff(array_keys($i18ns), array('languages')));
+    // Remove duplicated cultures
+    $i18ns['languages'] = array_unique($i18ns['languages']);
 
     return $i18ns;
   }
