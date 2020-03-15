@@ -37,7 +37,6 @@ class arElasticSearchInformationObjectPdo
   protected
     $data = array(),
     $events,
-    $termParentList = array(),
     $languages = array(),
     $scripts = array();
 
@@ -64,12 +63,6 @@ class arElasticSearchInformationObjectPdo
     if (isset($options['ancestors']))
     {
       $this->ancestors = $options['ancestors'];
-    }
-
-    // Get system term id hierarchy
-    if (isset($options['terms']))
-    {
-      $this->termParentList = $options['terms'];
     }
 
     // Get inherited repository, unless a repository is set at current level
@@ -622,91 +615,6 @@ class arElasticSearchInformationObjectPdo
     return $names;
   }
 
-  /*
-   * Prepare term query.
-   */
-  protected function prepareRelatedTermsQuery()
-  {
-    if (!isset(self::$statements['relatedTerms']))
-    {
-      $sql  = 'SELECT
-                  DISTINCT current.id';
-      $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
-      $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' current
-                  ON otr.term_id = current.id';
-      $sql .= ' WHERE otr.object_id = :id
-                  AND current.taxonomy_id = :taxonomyId';
-
-      self::$statements['relatedTerms'] = self::$conn->prepare($sql);
-    }
-  }
-
-  /*
-   * Get related terms plus any ancestors
-   */
-  protected function getRelatedTerms($typeId)
-  {
-    $relatedTerms = array();
-
-    $this->prepareRelatedTermsQuery();
-
-    self::$statements['relatedTerms']->execute(array(':id' => $this->__get('id'), ':taxonomyId' => $typeId));
-
-    // Get directly related terms.
-    $rows = self::$statements['relatedTerms']->fetchAll(PDO::FETCH_ASSOC);
-
-    if (0 == count($rows))
-    {
-      return $relatedTerms;
-    }
-
-    // Iterate over each directly related term, adding all ancestors of each
-    foreach($rows as $row)
-    {
-      $relatedTerms = array_merge($relatedTerms, $this->recursivelyGetParentTerms($row['id']));
-    }
-
-    $relatedTerms = array_unique($relatedTerms);
-
-    return $relatedTerms;
-  }
-
-  /**
-   * Recursively find all parent terms for any given term. Subject, Place and
-   * Genre terms are preloaded in array $this->termParentList. The import array $ids is
-   * appended to for every parent that is added on each recursive call.
-   *
-   * @param array $id  The term id to find the parents for.
-   * @return array  Array with directly related term first, followed by
-   *                any parents found, in child to top parent order.
-   */
-  private function recursivelyGetParentTerms($id)
-  {
-    if (null === $parent = $this->termParentList[$id])
-    {
-      return array($id);
-    }
-
-    // Do not include root term id.
-    if (QubitTerm::ROOT_ID == $parent)
-    {
-      return array($id);
-    }
-
-    return array_merge(array($id), $this->recursivelyGetParentTerms($parent));
-  }
-
-  /*
-   * Get directly related terms
-   */
-  protected function getDirectlyRelatedTerms($typeId)
-  {
-    $this->prepareRelatedTermsQuery();
-    self::$statements['relatedTerms']->execute(array(':id' => $this->__get('id'), ':taxonomyId' => $typeId));
-
-    return self::$statements['relatedTerms']->fetchAll(PDO::FETCH_ASSOC);
-  }
-
   protected function getLanguagesAndScripts()
   {
     // Find langs and scripts
@@ -1207,12 +1115,6 @@ class arElasticSearchInformationObjectPdo
       $serialized['copyrightStatusId'] = $statusId;
     }
 
-    // Material type
-    foreach ($this->getDirectlyRelatedTerms(QubitTaxonomy::MATERIAL_TYPE_ID) as $item)
-    {
-      $serialized['materialTypeId'][] = $item['id'];
-    }
-
     // Make sure that media_type_id gets a value in case that one was not
     // assigned, which seems to be a possibility when using the offline usage.
     if (null === $this->media_type_id && $this->usage_id == QubitTerm::OFFLINE_ID)
@@ -1293,28 +1195,66 @@ class arElasticSearchInformationObjectPdo
       );
     }
 
-    // Places
-    foreach ($this->getRelatedTerms(QubitTaxonomy::PLACE_ID) as $item)
+    // Related terms
+    $relatedTerms = arElasticSearchModelBase::getRelatedTerms(
+      $this->id,
+      array(
+        QubitTaxonomy::MATERIAL_TYPE_ID,
+        QubitTaxonomy::PLACE_ID,
+        QubitTaxonomy::SUBJECT_ID,
+        QubitTaxonomy::GENRE_ID
+      )
+    );
+
+    // Material types
+    if (isset($relatedTerms[QubitTaxonomy::MATERIAL_TYPE_ID]))
     {
-      $node = new arElasticSearchTermPdo($item);
-      $serialized['places'][] = $node->serialize();
+      $serialized['materialTypeId'] = $relatedTerms[QubitTaxonomy::MATERIAL_TYPE_ID];
     }
 
-    foreach ($this->getDirectlyRelatedTerms(QubitTaxonomy::PLACE_ID) as $item)
+    // Places
+    if (isset($relatedTerms[QubitTaxonomy::PLACE_ID]))
     {
-      $serialized['directPlaces'][] = $item['id'];
+      $serialized['directPlaces'] = $relatedTerms[QubitTaxonomy::PLACE_ID];
+      $extendedPlaceIds = arElasticSearchModelBase::extendRelatedTerms(
+        $relatedTerms[QubitTaxonomy::PLACE_ID]
+      );
+
+      foreach ($extendedPlaceIds as $id)
+      {
+        $node = new arElasticSearchTermPdo($id);
+        $serialized['places'][] = $node->serialize();
+      }
     }
 
     // Subjects
-    foreach ($this->getRelatedTerms(QubitTaxonomy::SUBJECT_ID) as $item)
+    if (isset($relatedTerms[QubitTaxonomy::SUBJECT_ID]))
     {
-      $node = new arElasticSearchTermPdo($item);
-      $serialized['subjects'][] = $node->serialize();
+      $serialized['directSubjects'] = $relatedTerms[QubitTaxonomy::SUBJECT_ID];
+      $extendedSubjectIds = arElasticSearchModelBase::extendRelatedTerms(
+        $relatedTerms[QubitTaxonomy::SUBJECT_ID]
+      );
+
+      foreach ($extendedSubjectIds as $id)
+      {
+        $node = new arElasticSearchTermPdo($id);
+        $serialized['subjects'][] = $node->serialize();
+      }
     }
 
-    foreach ($this->getDirectlyRelatedTerms(QubitTaxonomy::SUBJECT_ID) as $item)
+    // Genres
+    if (isset($relatedTerms[QubitTaxonomy::GENRE_ID]))
     {
-      $serialized['directSubjects'][] = $item['id'];
+      $serialized['directGenres'] = $relatedTerms[QubitTaxonomy::GENRE_ID];
+      $extendedGenreIds = arElasticSearchModelBase::extendRelatedTerms(
+        $relatedTerms[QubitTaxonomy::GENRE_ID]
+      );
+
+      foreach ($extendedGenreIds as $id)
+      {
+        $node = new arElasticSearchTermPdo($id);
+        $serialized['genres'][] = $node->serialize();
+      }
     }
 
     // Name access points
@@ -1335,18 +1275,6 @@ class arElasticSearchInformationObjectPdo
       $names += $node->serializeAltNames();
 
       $serialized['names'][] = $names;
-    }
-
-    // Genres
-    foreach ($this->getRelatedTerms(QubitTaxonomy::GENRE_ID) as $item)
-    {
-      $node = new arElasticSearchTermPdo($item);
-      $serialized['genres'][] = $node->serialize();
-    }
-
-    foreach ($this->getDirectlyRelatedTerms(QubitTaxonomy::GENRE_ID) as $item)
-    {
-      $serialized['directGenres'][] = $item['id'];
     }
 
     // Creators

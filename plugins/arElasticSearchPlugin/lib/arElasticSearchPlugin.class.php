@@ -336,6 +336,28 @@ class arElasticSearchPlugin extends QubitSearchEngine
     // Display what types will be indexed
     $this->displayTypesToIndex($excludeTypes);
 
+    // If we're indexing IOs or Actors we'll cache a term id => parent id
+    // array with all terms from the needed taxonomies in sfConfig. This
+    // array will be used to obtain the related terms ancestor ids without
+    // hitting the DB in arElasticSearchModelBase.
+    $indexingIos = !in_array('informationobject', $excludeTypes);
+    $indexingActors = !in_array('actor', $excludeTypes);
+
+    if ($indexingIos || $indexingActors)
+    {
+      $taxonomies = array(QubitTaxonomy::SUBJECT_ID, QubitTaxonomy::PLACE_ID);
+
+      if ($indexingIos)
+      {
+        $taxonomies[] = QubitTaxonomy::GENRE_ID;
+      }
+
+      sfConfig::set(
+        'term_parent_list',
+        QubitTerm::loadTermParentList($taxonomies)
+      );
+    }
+
     $this->log('Populating index...');
 
     // Document counter, timer and errors

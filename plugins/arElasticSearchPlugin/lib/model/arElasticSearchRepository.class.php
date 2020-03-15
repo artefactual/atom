@@ -63,19 +63,29 @@ class arElasticSearchRepository extends arElasticSearchModelBase
     $serialized['slug'] = $object->slug;
     $serialized['identifier'] = $object->identifier;
 
-    foreach ($object->getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $relation)
+    // Related terms
+    $relatedTerms = arElasticSearchModelBase::getRelatedTerms(
+      $object->id,
+      array(
+        QubitTaxonomy::REPOSITORY_TYPE_ID,
+        QubitTaxonomy::THEMATIC_AREA_ID,
+        QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID
+      )
+    );
+
+    if (isset($relatedTerms[QubitTaxonomy::REPOSITORY_TYPE_ID]))
     {
-      $serialized['types'][] = $relation->termId;
+      $serialized['types'] = $relatedTerms[QubitTaxonomy::REPOSITORY_TYPE_ID];
     }
 
-    foreach ($object->getTermRelations(QubitTaxonomy::THEMATIC_AREA_ID) as $relation)
+    if (isset($relatedTerms[QubitTaxonomy::THEMATIC_AREA_ID]))
     {
-      $serialized['thematicAreas'][] = $relation->termId;
+      $serialized['thematicAreas'] = $relatedTerms[QubitTaxonomy::THEMATIC_AREA_ID];
     }
 
-    foreach ($object->getTermRelations(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID) as $relation)
+    if (isset($relatedTerms[QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID]))
     {
-      $serialized['geographicSubregions'][] = $relation->termId;
+      $serialized['geographicSubregions'] = $relatedTerms[QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID];
     }
 
     foreach ($object->contactInformations as $contactInformation)

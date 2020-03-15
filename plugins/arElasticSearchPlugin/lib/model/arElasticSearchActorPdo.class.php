@@ -256,28 +256,40 @@ class arElasticSearchActorPdo
       $serialized['occupations'][] = $occupationArray;
     }
 
-    // Places
-    foreach ($this->getRelatedTerms(QubitTaxonomy::PLACE_ID) as $item)
-    {
-      $node = new arElasticSearchTermPdo($item->id);
-      $serialized['places'][] = $node->serialize();
-    }
+    // Related terms
+    $relatedTerms = arElasticSearchModelBase::getRelatedTerms(
+      $this->id,
+      array(QubitTaxonomy::PLACE_ID, QubitTaxonomy::SUBJECT_ID)
+    );
 
-    foreach ($this->getDirectlyRelatedTerms(QubitTaxonomy::PLACE_ID) as $item)
+    // Places
+    if (isset($relatedTerms[QubitTaxonomy::PLACE_ID]))
     {
-      $serialized['directPlaces'][] = $item->id;
+      $serialized['directPlaces'] = $relatedTerms[QubitTaxonomy::PLACE_ID];
+      $extendedPlaceIds = arElasticSearchModelBase::extendRelatedTerms(
+        $relatedTerms[QubitTaxonomy::PLACE_ID]
+      );
+
+      foreach ($extendedPlaceIds as $id)
+      {
+        $node = new arElasticSearchTermPdo($id);
+        $serialized['places'][] = $node->serialize();
+      }
     }
 
     // Subjects
-    foreach ($this->getRelatedTerms(QubitTaxonomy::SUBJECT_ID) as $item)
+    if (isset($relatedTerms[QubitTaxonomy::SUBJECT_ID]))
     {
-      $node = new arElasticSearchTermPdo($item->id);
-      $serialized['subjects'][] = $node->serialize();
-    }
+      $serialized['directSubjects'] = $relatedTerms[QubitTaxonomy::SUBJECT_ID];
+      $extendedSubjectIds = arElasticSearchModelBase::extendRelatedTerms(
+        $relatedTerms[QubitTaxonomy::SUBJECT_ID]
+      );
 
-    foreach ($this->getDirectlyRelatedTerms(QubitTaxonomy::SUBJECT_ID) as $item)
-    {
-      $serialized['directSubjects'][] = $item->id;
+      foreach ($extendedSubjectIds as $id)
+      {
+        $node = new arElasticSearchTermPdo($id);
+        $serialized['subjects'][] = $node->serialize();
+      }
     }
 
     // Maintenance notes
@@ -335,54 +347,6 @@ class arElasticSearchActorPdo
     }
 
     return $serialized;
-  }
-
-  /*
-   * Get related terms and its ancestors
-   */
-  protected function getRelatedTerms($typeId)
-  {
-    $sql  = 'SELECT
-                DISTINCT term.id,
-                term.taxonomy_id,
-                term.source_culture,
-                slug.slug,
-                i18n.name';
-    $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
-    $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' current
-                ON otr.term_id = current.id';
-    $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' term
-                ON term.lft <= current.lft AND term.rgt >= current.rgt';
-    $sql .= ' JOIN '.QubitTermI18n::TABLE_NAME.' i18n
-                ON term.id = i18n.id';
-    $sql .= ' JOIN '.QubitSlug::TABLE_NAME.' slug
-                ON term.id = slug.object_id';
-    $sql .= ' WHERE otr.object_id = ?
-               AND term.taxonomy_id = ?';
-
-    self::$statements['relatedTerms'] = self::$conn->prepare($sql);
-    self::$statements['relatedTerms']->execute(array($this->__get('id'), $typeId));
-
-    return self::$statements['relatedTerms']->fetchAll(PDO::FETCH_OBJ);
-  }
-
-  /*
-   * Get directly related terms
-   */
-  protected function getDirectlyRelatedTerms($typeId)
-  {
-    $sql  = 'SELECT
-                DISTINCT current.id';
-    $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
-    $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' current
-                ON otr.term_id = current.id';
-    $sql .= ' WHERE otr.object_id = ?
-                AND current.taxonomy_id = ?';
-
-    self::$statements['relatedTerms'] = self::$conn->prepare($sql);
-    self::$statements['relatedTerms']->execute(array($this->__get('id'), $typeId));
-
-    return self::$statements['relatedTerms']->fetchAll(PDO::FETCH_OBJ);
   }
 
   protected function getProperty($name)

@@ -965,4 +965,26 @@ class QubitTerm extends BaseTerm
 
     return QubitSearch::getInstance()->index->getType('QubitTerm')->search($query);
   }
+
+  /**
+   * Get an array of term id => parent id excluding the root
+   * and optionally filtering by taxonomies.
+   */
+  public static function loadTermParentList($taxonomyIds = array())
+  {
+    $sql  = 'SELECT term.id, term.parent_id';
+    $sql .= ' FROM '.QubitTerm::TABLE_NAME.' term';
+    $sql .= ' WHERE term.parent_id != ?';
+
+    if (is_array($taxonomyIds) && count($taxonomyIds) > 0)
+    {
+      $sql .= ' AND term.taxonomy_id IN ('.implode(',', $taxonomyIds).')';
+    }
+
+    return QubitPdo::fetchAll(
+      $sql,
+      array(self::ROOT_ID),
+      array('fetchMode' => PDO::FETCH_KEY_PAIR)
+    );
+  }
 }

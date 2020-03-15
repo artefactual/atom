@@ -22,8 +22,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
   protected static
     $conn,
     $statement,
-    $counter = 0,
-    $termParentList = array();
+    $counter = 0;
 
   protected
     $errors = array();
@@ -38,24 +37,9 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     $this->count = QubitPdo::fetchColumn($sql, array(QubitInformationObject::ROOT_ID));
   }
 
-  static function loadTermParentList($options = array())
-  {
-    $sql  = 'SELECT term.id, term.parent_id';
-    $sql .= ' FROM '.QubitTerm::TABLE_NAME;
-
-    if (isset($options['taxonomyIds']) && is_array($options['taxonomyIds']))
-    {
-      $sql .= ' WHERE '.QubitTerm::TABLE_NAME.'.taxonomy_id IN ('.implode(',',$options['taxonomyIds']).')';
-    }
-    $rows = QubitPdo::fetchAll($sql, array() ,array('fetchMode' => PDO::FETCH_KEY_PAIR));
-
-    return $rows;
-  }
-
   public function populate()
   {
     $this->load();
-    self::$termParentList = self::loadTermParentList(array('taxonomyIds' => array(QubitTaxonomy::SUBJECT_ID, QubitTaxonomy::PLACE_ID, QubitTaxonomy::GENRE_ID)));
 
     // Pass root data to top-levels to avoid ancestors query
     $ancestors = array(array(
@@ -85,7 +69,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
       try
       {
-        $node = new arElasticSearchInformationObjectPdo($item->id, array_merge($options, array('terms' => self::$termParentList)));
+        $node = new arElasticSearchInformationObjectPdo($item->id, $options);
         $data = $node->serialize();
 
         QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
@@ -120,26 +104,8 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
   public static function update($object, $options = array())
   {
-    if (!isset(self::$conn))
-    {
-      self::$conn = Propel::getConnection();
-    }
-
-    $sql  = 'SELECT DISTINCT otr.term_id as id';
-    $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
-    $sql .= ' WHERE otr.object_id = :id';
-
-    $rows = QubitPdo::fetchAll($sql, array(':id' => $object->id), array('fetchMode' => PDO::FETCH_ASSOC));
-
-    if (count($rows) > 0 && empty(self::$termParentList))
-    {
-      self::$termParentList = self::loadTermParentList(array('taxonomyIds' => array(QubitTaxonomy::SUBJECT_ID, QubitTaxonomy::PLACE_ID, QubitTaxonomy::GENRE_ID)));
-    }
-
     // Update description
-    $node = new arElasticSearchInformationObjectPdo($object->id,
-      array('terms' => self::$termParentList));
-
+    $node = new arElasticSearchInformationObjectPdo($object->id);
     QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitInformationObject');
 
     // Update descendants if requested and they exists

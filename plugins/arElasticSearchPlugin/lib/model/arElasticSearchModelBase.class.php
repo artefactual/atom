@@ -24,7 +24,8 @@ abstract class arElasticSearchModelBase
     $count = 0;
 
   protected static
-    $conn;
+    $conn,
+    $termParentList;
 
   public function __construct()
   {
@@ -171,5 +172,92 @@ abstract class arElasticSearchModelBase
         }
       }
     }
+  }
+
+  public static function getRelatedTerms($objectId, $taxonomyIds)
+  {
+    // We can't reuse this statement as there is no way to bind
+    // arrays with unknown length to use them in an IN condition.
+    $sql  = 'SELECT term.taxonomy_id, term.id
+      FROM object_term_relation otr
+      JOIN term ON otr.term_id = term.id
+      WHERE otr.object_id = ?
+      AND term.taxonomy_id IN ('.implode(',', $taxonomyIds).')';
+
+    // Use FETCH_GROUP and FETCH_COLUMN combined to get
+    // an array of term ids grouped by taxonomy.
+    return QubitPdo::fetchAll(
+      $sql,
+      array($objectId),
+      array('fetchMode' => PDO::FETCH_GROUP|PDO::FETCH_COLUMN)
+    );
+  }
+
+  public static function extendRelatedTerms($termIds)
+  {
+    if (empty($termIds))
+    {
+      return array();
+    }
+
+    // Try to get term parent list from sfConfig, added in
+    // the populate process when it includes terms and/or IOs.
+    if (!isset(self::$termParentList))
+    {
+      self::$termParentList = sfConfig::get('term_parent_list', null);
+    }
+
+    // If the term parent list is populated, recursively extend the terms
+    if (isset(self::$termParentList))
+    {
+      $relatedTerms = array();
+
+      // Iterate over each directly related term, adding all ancestors of each
+      foreach($termIds as $id)
+      {
+        $relatedTerms = array_merge(
+          $relatedTerms,
+          self::recursivelyGetParentTerms($id)
+        );
+      }
+
+      return array_unique($relatedTerms);
+    }
+
+    // Otherwise, get the extended terms from the database.
+    // We can't reuse this statement as there is no way to bind
+    // arrays with unknown length to use them in an IN condition.
+    $sql = 'WITH RECURSIVE cte AS
+    	(
+    	  SELECT term1.id, term1.parent_id
+        FROM term term1 WHERE term1.id IN ('.implode(',', $termIds).')
+    	  UNION ALL
+    	  SELECT term2.id, term2.parent_id
+        FROM term term2 JOIN cte ON cte.parent_id=term2.id
+        WHERE term2.id != ?
+    	)
+    	SELECT DISTINCT id FROM cte';
+
+    return QubitPdo::fetchAll(
+      $sql,
+      array(QubitTerm::ROOT_ID),
+      array('fetchMode' => PDO::FETCH_COLUMN)
+    );
+  }
+
+  /**
+   * Recursively find all ancestors (except the root) for a term.
+   *
+   * @param array $id  The term id to find the ancestors for.
+   * @return array  Ids of the ancestors and self.
+   */
+  private static function recursivelyGetParentTerms($id)
+  {
+    if (!isset(self::$termParentList) || null === $parent = self::$termParentList[$id])
+    {
+      return array($id);
+    }
+
+    return array_merge(array($id), self::recursivelyGetParentTerms($parent));
   }
 }
