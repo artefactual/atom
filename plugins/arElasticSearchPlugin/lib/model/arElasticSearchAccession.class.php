@@ -19,28 +19,34 @@
 
 class arElasticSearchAccession extends arElasticSearchModelBase
 {
+  protected static $statements;
+
   public function load()
   {
-    $accessions = QubitAccession::getAll();
+    $accessionIds = QubitPdo::fetchAll(
+      'SELECT id FROM '.QubitAccession::TABLE_NAME,
+      array(),
+      array('fetchMode' => PDO::FETCH_COLUMN)
+    );
 
-    $this->count = count($accessions);
+    $this->count = count($accessionIds);
 
-    return $accessions;
+    return $accessionIds;
   }
 
   public function populate()
   {
     $errors = array();
 
-    foreach ($this->load() as $key => $accession)
+    foreach ($this->load() as $key => $id)
     {
       try
       {
-        $data = self::serialize($accession);
+        $data = self::serialize($id);
 
         $this->search->addDocument($data, 'QubitAccession');
 
-        $this->logEntry($accession->__toString(), $key + 1);
+        $this->logEntry($data['identifier'], $key + 1);
       }
       catch (sfException $e)
       {
@@ -51,38 +57,57 @@ class arElasticSearchAccession extends arElasticSearchModelBase
     return $errors;
   }
 
-  public static function serialize($object)
+  private static function serialize($id)
   {
+    if (!isset(self::$conn))
+    {
+      self::$conn = Propel::getConnection();
+    }
+
+    if (!isset(self::$statements['accession']))
+    {
+      $sql = 'SELECT acc.*, slug.slug
+        FROM '.QubitAccession::TABLE_NAME.' acc
+        JOIN '.QubitSlug::TABLE_NAME.' slug ON acc.id = slug.object_id
+        WHERE acc.id = :id';
+
+      self::$statements['accession'] = self::$conn->prepare($sql);
+    }
+
+    self::$statements['accession']->execute(array(':id' => $id));
+    $data = self::$statements['accession']->fetch(PDO::FETCH_ASSOC);
+
+    if (false === $data)
+    {
+      throw new sfException("Couldn't find accession (id: $id)");
+    }
+
     $serialized = array();
-
-    $serialized['id'] = $object->id;
-    $serialized['slug'] = $object->slug;
-
-    $serialized['identifier'] = $object->identifier;
-
-    $serialized['date'] = arElasticSearchPluginUtil::convertDate($object->date);
-    $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->createdAt);
-    $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updatedAt);
-
-    $serialized['sourceCulture'] = $object->sourceCulture;
-    $serialized['i18n'] = self::serializeI18ns($object->id, array('QubitAccession'));
+    $serialized['id'] = $id;
+    $serialized['slug'] = $data['slug'];
+    $serialized['identifier'] = $data['identifier'];
+    $serialized['date'] = arElasticSearchPluginUtil::convertDate($data['date']);
+    $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($data['created_at']);
+    $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($data['updated_at']);
+    $serialized['sourceCulture'] = $data['source_culture'];
+    $serialized['i18n'] = self::serializeI18ns($id, array('QubitAccession'));
 
     $sql = "SELECT o.id, o.source_culture FROM ".QubitOtherName::TABLE_NAME." o \r
               INNER JOIN ".QubitTerm::TABLE_NAME." t ON o.type_id=t.id \r
               WHERE o.object_id = ? AND t.taxonomy_id= ?";
+    $params = array($id, QubitTaxonomy::ACCESSION_ALTERNATIVE_IDENTIFIER_TYPE_ID);
 
-    $params = array($object->id, QubitTaxonomy::ACCESSION_ALTERNATIVE_IDENTIFIER_TYPE_ID);
     foreach (QubitPdo::fetchAll($sql, $params) as $item)
     {
       $serialized['alternativeIdentifiers'][] = arElasticSearchOtherName::serialize($item);
     }
 
-    foreach (QubitRelation::getRelationsBySubjectId($object->id, array('typeId' => QubitTerm::DONOR_ID)) as $item)
+    foreach (QubitRelation::getRelationsBySubjectId($id, array('typeId' => QubitTerm::DONOR_ID)) as $item)
     {
       $serialized['donors'][] = arElasticSearchDonor::serialize($item->object);
     }
 
-    foreach (QubitRelation::getRelationsByObjectId($object->id, array('typeId' => QubitTerm::CREATION_ID)) as $item)
+    foreach (QubitRelation::getRelationsByObjectId($id, array('typeId' => QubitTerm::CREATION_ID)) as $item)
     {
       $node = new arElasticSearchActorPdo($item->subject->id);
       $serialized['creators'][] = $node->serialize();
@@ -93,7 +118,7 @@ class arElasticSearchAccession extends arElasticSearchModelBase
 
   public static function update($object)
   {
-    $data = self::serialize($object);
+    $data = self::serialize($object->id);
 
     QubitSearch::getInstance()->addDocument($data, 'QubitAccession');
 
