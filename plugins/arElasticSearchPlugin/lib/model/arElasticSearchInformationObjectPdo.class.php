@@ -36,13 +36,10 @@ class arElasticSearchInformationObjectPdo
 
   protected
     $data = array(),
-    $events,
-    $languages = array(),
-    $scripts = array();
+    $events;
 
   protected static
     $conn,
-    $lookups,
     $statements;
 
   public function __construct($id, $options = array())
@@ -81,7 +78,7 @@ class arElasticSearchInformationObjectPdo
     $this->creators = $this->getActors(array('typeId' => QubitTerm::CREATION_ID));
 
     // Ignore inherited creators if there are directly related creators
-    if (count($this->creators) > 0)
+    if (!empty($this->creators))
     {
       $this->inheritedCreators = array();
     }
@@ -248,21 +245,14 @@ class arElasticSearchInformationObjectPdo
       }
       else
       {
-        if (is_array($this->getAncestors()) && count($this->getAncestors()) > 0)
+        foreach (array_reverse($this->getAncestors()) as $item)
         {
-          foreach (array_reverse($this->getAncestors()) as $item)
+          if (isset($item['repository_id']))
           {
-            if (isset($item['repository_id']))
-            {
-              $this->repository = QubitRepository::getById($item['repository_id']);
+            $this->repository = QubitRepository::getById($item['repository_id']);
 
-              break;
-            }
+            break;
           }
-        }
-        else
-        {
-          $this->repository = null;
         }
       }
     }
@@ -273,11 +263,6 @@ class arElasticSearchInformationObjectPdo
   public function getClosestCreators()
   {
     $inheritedCreators = array();
-
-    if (!is_array($this->getAncestors()) || count($this->getAncestors()) == 0)
-    {
-      return $inheritedCreators;
-    }
 
     if (!isset(self::$statements['inheritedCreators']))
     {
@@ -300,71 +285,13 @@ class arElasticSearchInformationObjectPdo
         $inheritedCreators[] = $creator;
       }
 
-      if (count($inheritedCreators) > 0)
+      if (!empty($inheritedCreators))
       {
         break;
       }
     }
 
     return $inheritedCreators;
-  }
-
-  public function getLevelOfDescription($culture)
-  {
-    if (!isset(self::$lookups['levelOfDescription']))
-    {
-      $criteria = new Criteria;
-      $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID);
-      foreach (QubitTerm::get($criteria) as $item)
-      {
-        self::$lookups['levelOfDescription'][$item->id] = $item;
-      }
-    }
-
-    if (isset(self::$lookups['levelOfDescription'][$this->__get('level_of_description_id')]))
-    {
-      return self::$lookups['levelOfDescription'][$this->__get('level_of_description_id')]->getName(array(
-        'culture' => $culture,
-        'fallback' => true));
-    }
-  }
-
-  public function getMediaTypeName($culture)
-  {
-    if (!$this->__isset('media_type_id'))
-    {
-      return;
-    }
-
-    if (0 == count(self::$lookups['mediaType']))
-    {
-      $criteria = new Criteria;
-      $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::MEDIA_TYPE_ID);
-      foreach (QubitTerm::get($criteria) as $item)
-      {
-        self::$lookups['mediaType'][$item->id] = $item;
-      }
-    }
-
-    if (isset(self::$lookups['mediaType'][$this->__get('media_type_id')]))
-    {
-      return self::$lookups['mediaType'][$this->__get('media_type_id')]->getName(array(
-        'culture' => $culture,
-        'fallback' => true));
-    }
-  }
-
-  public function getMimeType()
-  {
-    if (!$this->__isset('digital_object_id'))
-    {
-      return;
-    }
-
-    if (null !== $digitalObject = QubitDigitalObject::getById($this->__get('digital_object_id')))
-    {
-      return $digitalObject->getMimeType();
-    }
   }
 
   /**
@@ -467,71 +394,6 @@ class arElasticSearchInformationObjectPdo
     return $this->events;
   }
 
-  protected function getDates($field, $culture)
-  {
-    $dates = array();
-
-    if (0 < count($this->events))
-    {
-      foreach ($this->events as $item)
-      {
-        switch($field)
-        {
-          case 'start_date':
-          case 'end_date':
-            if (isset($item->$field))
-            {
-              $date = new DateTime($item->$field);
-              $dates[] = $date->format('Ymd');
-            }
-
-            break;
-
-          case 'date':
-            if (isset($item->dates[$culture]))
-            {
-              $dates[] = $item->dates[$culture];
-            }
-            else if (isset($item->start_date) || isset($item->end_date))
-            {
-              $dates[] = Qubit::renderDateStartEnd(null, $item->start_date, $item->end_date);
-            }
-
-            break;
-
-          case 'array':
-
-            $tmp = array();
-
-            if (isset($item->date) && isset($item->dates[$culture]))
-            {
-              $tmp['date'] = $item->dates[$culture];
-            }
-
-            if (isset($item->start_date))
-            {
-              $tmp['startDate'] = arElasticSearchPluginUtil::convertDate($item->start_date);
-              $tmp['startDateString'] = Qubit::renderDate($item->start_date);
-            }
-
-            if (isset($item->end_date))
-            {
-              $tmp['endDate'] = arElasticSearchPluginUtil::convertDate($item->end_date);
-              $tmp['endDateString'] = Qubit::renderDate($item->end_date);
-            }
-
-            $tmp['typeId'] = $item->type_id;
-
-            $dates[] = $tmp;
-
-            break;
-        }
-      }
-    }
-
-    return $dates;
-  }
-
   public function getActors($options = array())
   {
     $actors = array();
@@ -550,7 +412,7 @@ class arElasticSearchInformationObjectPdo
       self::$statements['actor'] = self::$conn->prepare($sql);
     }
 
-    if (0 < count($this->events))
+    if (!empty($this->events))
     {
       foreach ($this->events as $item)
       {
@@ -615,86 +477,6 @@ class arElasticSearchInformationObjectPdo
     return $names;
   }
 
-  protected function getLanguagesAndScripts()
-  {
-    // Find langs and scripts
-    if (!isset(self::$statements['langAndScript']))
-    {
-      $sql  = 'SELECT
-                  node.name,
-                  i18n.value';
-      $sql .= ' FROM '.QubitProperty::TABLE_NAME.' node';
-      $sql .= ' JOIN '.QubitPropertyI18n::TABLE_NAME.' i18n
-                  ON node.id = i18n.id';
-      $sql .= ' WHERE node.source_culture = i18n.culture
-                  AND node.object_id = ?
-                  AND (node.name = ? OR node.name = ?)';
-
-      self::$statements['langAndScript'] = self::$conn->prepare($sql);
-    }
-
-    self::$statements['langAndScript']->execute(array(
-      $this->__get('id'),
-      'language',
-      'script'));
-
-    // Add to arrays
-    foreach (self::$statements['langAndScript']->fetchAll(PDO::FETCH_OBJ) as $item)
-    {
-      $codes = unserialize($item->value);
-
-      if (0 < count($codes))
-      {
-        switch ($item->name)
-        {
-          case 'language':
-            $this->languages = $codes;
-
-            break;
-
-          case 'script':
-            $this->scripts = $codes;
-
-            break;
-        }
-      }
-    }
-
-    return $this;
-  }
-
-  public function getNotes()
-  {
-    $notes = array();
-
-    // Subject relations
-    if (!isset(self::$statements['note']))
-    {
-      $sql  = 'SELECT
-                  i18n.content';
-      $sql .= ' FROM '.QubitNote::TABLE_NAME.' note';
-      $sql .= ' WHERE note.object_id = ?';
-
-      self::$statements['note'] = self::$conn->prepare($sql);
-    }
-
-    self::$statements['note']->execute(array(
-      $this->__get('id')));
-
-    foreach (self::$statements['note']->fetchAll(PDO::FETCH_OBJ) as $item)
-    {
-      if (0 < strlen($item->content))
-      {
-        $notes[] = $item->content;
-      }
-    }
-
-    if (0 < count($notes))
-    {
-      return implode(' ', $notes);
-    }
-  }
-
   public function getNotesByType($typeId)
   {
     $sql = 'SELECT
@@ -746,39 +528,6 @@ class arElasticSearchInformationObjectPdo
     if (null !== $do = QubitDigitalObject::getOne($criteria))
     {
       return $do->getDigitalObjectAltText();
-    }
-  }
-
-  public function getStorageNames()
-  {
-    $names = array();
-
-    // Subject relations
-    if (!isset(self::$statements['storageName']))
-    {
-      $sql  = 'SELECT i18n.name';
-      $sql .= ' FROM '.QubitRelation::TABLE_NAME.' rel';
-      $sql .= ' WHERE rel.object_id = :resource_id';
-      $sql .= '   AND rel.type_id = :type_id';
-
-      self::$statements['storageName'] = self::$conn->prepare($sql);
-    }
-
-    self::$statements['storageName']->execute(array(
-      ':resource_id' => $this->__get('id'),
-      ':type_id' => QubitTerm::HAS_PHYSICAL_OBJECT_ID));
-
-    foreach (self::$statements['storageName']->fetchAll(PDO::FETCH_OBJ) as $item)
-    {
-      if (0 < strlen($item->name))
-      {
-        $names[] = $item->name;
-      }
-    }
-
-    if (0 < count($names))
-    {
-      return implode(' ', $names);
     }
   }
 
@@ -935,27 +684,6 @@ class arElasticSearchInformationObjectPdo
     return $alternativeIdentifiers;
   }
 
-  protected function getPropertyValue($name)
-  {
-    $sql  = 'SELECT
-                i18n.value';
-    $sql .= ' FROM '.QubitProperty::TABLE_NAME.' node';
-    $sql .= ' JOIN '.QubitPropertyI18n::TABLE_NAME.' i18n
-                ON node.id = i18n.id';
-    $sql .= ' WHERE node.source_culture = i18n.culture
-                AND node.object_id = ?
-                AND node.name = ?';
-
-    self::$statements['propertyValue'] = self::$conn->prepare($sql);
-    self::$statements['propertyValue']->execute(array($this->__get('id'), $name));
-    $result = self::$statements['propertyValue']->fetch(PDO::FETCH_ASSOC);
-
-    if(false !== $result)
-    {
-      return $result['value'];
-    }
-  }
-
   protected function getProperty($name)
   {
     $sql  = 'SELECT
@@ -1086,7 +814,7 @@ class arElasticSearchInformationObjectPdo
 
     // Alternative identifiers
     $alternativeIdentifiers = $this->getAlternativeIdentifiers();
-    if (0 < count($alternativeIdentifiers))
+    if (!empty($alternativeIdentifiers))
     {
       $serialized['alternativeIdentifiers'] = $alternativeIdentifiers;
     }
