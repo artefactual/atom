@@ -500,16 +500,16 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
   *********************/
 
   /**
-   * Add a relation from this info object to a phyical object. Check to make
+   * Add a relation from this object to a physical object. Check to make
    * sure the relationship is unique.
    *
-   * @param QubitPhysicalObject $physicalObject Subject of relationship
-   * @return QubitInformationObject this object
+   * @param QubitPhysicalObject  $physicalObject Subject of relationship
+   * @return QubitObject  this object
    */
   public function addPhysicalObject($physicalObject)
   {
     // Verify that $physicalObject is really a Physical Object and
-    // Don't add an identical info object -> physical object relationship
+    // Don't add an identical object -> physical object relationship
     if (get_class($physicalObject) == 'QubitPhysicalObject' && $this->getPhysicalObject($physicalObject->id) === null)
     {
       $relation = new QubitRelation;
@@ -523,10 +523,10 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
   }
 
   /**
-   * Get a specific physical object related to this info object
+   * Get a specific physical object related to this object
    *
-   * @param integer $physicalObjectId the id of the related physical object
-   * @return mixed the QubitRelation object on success, null if no match found
+   * @param integer $physicalObjectId  the id of the related physical object
+   * @return mixed  the QubitRelation object on success, null if no match found
    */
   public function getPhysicalObject($physicalObjectId)
   {
@@ -538,13 +538,11 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
   }
 
   /**
-   * Get all physical objects related to this info object
+   * Get all physical objects related to this object
    *
    */
   public function getPhysicalObjects()
   {
-    $relatedPhysicalObjects = QubitRelation::getRelatedSubjectsByObjectId('QubitPhysicalObject', $this->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID));
-
-    return $relatedPhysicalObjects;
+    return QubitRelation::getRelatedSubjectsByObjectId('QubitPhysicalObject', $this->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID));
   }
 }

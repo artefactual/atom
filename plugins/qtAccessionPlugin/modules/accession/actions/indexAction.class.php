@@ -51,8 +51,10 @@ class AccessionIndexAction extends sfAction
         'required' => $this->context->i18n->__('Source of acquisition - This is a mandatory element.')));
       $values['sourceOfAcquisition'] = $this->resource->getSourceOfAcquisition(array('culltureFallback' => true));
 
+      // Only require location information if there are no linked physical objects
+      $locationRequired = 0 == count($this->resource->getPhysicalObjects());
       $validatorSchema->locationInformation = new sfValidatorString(array(
-        'required' => true), array(
+        'required' => $locationRequired), array(
         'required' => $this->context->i18n->__('Location information - This is a mandatory element.')));
       $values['locationInformation'] = $this->resource->getLocationInformation(array('culltureFallback' => true));
 

@@ -31,7 +31,7 @@ class PhysicalObjectContextMenuComponent extends sfComponent
     $this->resource = $request->getAttribute('sf_route')->resource;
 
     $this->physicalObjects = array();
-    foreach (QubitRelation::getRelatedSubjectsByObjectId('QubitPhysicalObject', $this->resource->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID)) as $item)
+    foreach ($this->resource->getPhysicalObjects() as $item)
     {
       $this->physicalObjects[$item->id] = $item;
     }
