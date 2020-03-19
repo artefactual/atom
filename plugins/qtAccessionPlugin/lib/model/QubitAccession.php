@@ -19,6 +19,9 @@
 
 class QubitAccession extends BaseAccession
 {
+  // Flag for updating search index on save
+  public $indexOnSave = true;
+
   public function __toString()
   {
     return (string) $this->identifier;
@@ -66,7 +69,10 @@ class QubitAccession extends BaseAccession
       $item->save($connection);
     }
 
-    QubitSearch::getInstance()->update($this);
+    if ($indexOnSave)
+    {
+      QubitSearch::getInstance()->update($this);
+    }
 
     return $this;
   }

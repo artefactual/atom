@@ -402,9 +402,13 @@ class AccessionEditAction extends DefaultEditAction
 
         $this->processForm();
 
+        // Postpone search indexing until alternative IDs are added
+        $this->resource->indexOnSave = false;
         $this->resource->save();
 
         $this->alternativeIdentifiersComponent->processForm();
+
+        QubitSearch::getInstance()->update($this->resource);
 
         $this->redirect(array($this->resource, 'module' => 'accession'));
       }
