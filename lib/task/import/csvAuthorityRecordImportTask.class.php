@@ -42,12 +42,6 @@ EOF;
 
     $this->addOptions(array(
       new sfCommandOption(
-        'alias-file',
-        null,
-        sfCommandOption::PARAMETER_OPTIONAL,
-        'CSV file containing aliases.'
-      ),
-      new sfCommandOption(
         'relation-file',
         null,
         sfCommandOption::PARAMETER_OPTIONAL,
@@ -116,58 +110,6 @@ EOF;
     $sourceName = ($options['source-name'])
       ? $options['source-name']
       : basename($arguments['filename']);
-
-    // If alias file option set, load aliases from CSV
-    $aliases = array();
-
-    if ($options['alias-file'])
-    {
-      // Open alias CSV file
-      if (false === $fh = fopen($options['alias-file'], 'rb'))
-      {
-        throw new sfException('You must specify a valid filename');
-      }
-      else
-      {
-        print "Reading aliases\n";
-
-        // Import name aliases, if specified
-        $import = new QubitFlatfileImport(array(
-          // Pass context
-          'context' => sfContext::createInstance($this->configuration),
-
-          'status' => array(
-            'aliases' => array()
-          ),
-          'variableColumns' => array(
-            'parentAuthorizedFormOfName',
-            'alternateForm',
-            'formType'
-          ),
-          'saveLogic' => function(&$self)
-          {
-            if (trim($self->rowStatusVars['alternateForm']))
-            {
-              $aliases = $self->getStatus('aliases');
-
-              $aliases[] = array(
-                'parentAuthorizedFormOfName' => $self->rowStatusVars['parentAuthorizedFormOfName'],
-                'alternateForm'              => $self->rowStatusVars['alternateForm'],
-                'formType'                   => $self->rowStatusVars['formType']
-              );
-
-              $self->setStatus('aliases', $aliases);
-            }
-          }
-        ));
-      }
-
-      // Allow search indexing to be enabled via a CLI option
-      $import->searchIndexingDisabled = ($options['index']) ? false : true;
-
-      $import->csv($fh);
-      $aliases = $import->getStatus('aliases');
-    }
 
     if (false === $fh = fopen($arguments['filename'], 'rb'))
     {
@@ -278,6 +220,14 @@ EOF;
         'digitalObjectChecksum'
       ),
 
+      // These values get exploded and stored to the rowStatusVars array
+      'arrayColumns' => array(
+        'parallelFormsOfName' => '|',
+        'standardizedFormsOfName' => '|',
+        'otherFormsOfName' => '|',
+        'script' => '|'
+      ),
+
       'updatePreparationLogic' => function(&$self)
       {
         $this->deleteDigitalObjectIfUpdatingAndNotKeeping($self);
@@ -337,38 +287,7 @@ EOF;
           // Note actor name for optional relationship import phase
           $self->status['actorNames'][$self->object->id] = $self->object->authorizedFormOfName;
 
-          // Cycle through aliases looking for other names
-          $otherNames = array();
-
-          $aliases = $self->getStatus('aliases');
-
-          foreach($aliases as $alias)
-          {
-            if ($self->object->authorizedFormOfName == $alias['parentAuthorizedFormOfName'])
-            {
-              $typeIds = array(
-                'parallel'     => QubitTerm::PARALLEL_FORM_OF_NAME_ID,
-                'standardized' => QubitTerm::STANDARDIZED_FORM_OF_NAME_ID,
-                'other'        => QubitTerm::OTHER_FORM_OF_NAME_ID
-              );
-
-              $normalizedType = strtolower($alias['formType']);
-
-              if ($typeIds[$normalizedType])
-              {
-                $typeId = $typeIds[$normalizedType];
-              } else {
-                throw new sfException('Invalid alias type"'. $alias['formType'] .'".');
-              }
-
-              // Add other name
-              $otherName = new QubitOtherName;
-              $otherName->objectId = $self->object->id;
-              $otherName->name     = $alias['alternateForm'];
-              $otherName->typeId   = $typeId;
-              $otherName->save();
-            }
-          }
+          csvImportBaseTask::importAlternateFormsOfName($self);
 
           // Add contact information, if applicable
           $contactVariables = array(
@@ -576,7 +495,7 @@ EOF;
                   ':type_id' => $relationTypeId
                 );
 
-		if (
+                if (
                   QubitPdo::fetchOne($sql, $params) === false
                   && QubitPdo::fetchOne($sql, $paramsVariant) === false
                 )

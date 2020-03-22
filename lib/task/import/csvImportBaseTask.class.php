@@ -269,6 +269,36 @@ abstract class csvImportBaseTask extends arBaseTask
     }
   }
 
+  static function importAlternateFormsOfName($self)
+  {
+    $typeIds = array(
+      'parallel'     => QubitTerm::PARALLEL_FORM_OF_NAME_ID,
+      'standardized' => QubitTerm::STANDARDIZED_FORM_OF_NAME_ID,
+      'other'        => QubitTerm::OTHER_FORM_OF_NAME_ID
+    );
+
+    foreach ($typeIds as $typeName => $typeId)
+    {
+      $columnName = $typeName .'FormsOfName';
+
+      if (!empty($self->arrayColumns[$columnName]))
+      {
+        $aliases = $self->rowStatusVars[$columnName];
+
+        foreach($aliases as $alias)
+        {
+          // Add other name
+          $otherName = new QubitOtherName;
+          $otherName->objectId = $self->object->id;
+          $otherName->name     = $alias;
+          $otherName->typeId   = $typeId;
+          $otherName->culture  = $self->columnValue('culture');
+          $otherName->save();
+        }
+      }
+    }
+  }
+
   /**
    * Import physical objects
    */

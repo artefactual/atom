@@ -245,28 +245,7 @@ EOF;
       // Import logic to execute after saving QubitRepository
       'postSaveLogic' => function(&$self)
       {
-        // Handle alternate forms of name
-        $typeIds = array(
-          'parallel'     => QubitTerm::PARALLEL_FORM_OF_NAME_ID,
-          'other'        => QubitTerm::OTHER_FORM_OF_NAME_ID
-        );
-
-        foreach ($typeIds as $typeName => $typeId)
-        {
-          $columnName = $typeName .'FormsOfName';
-          $aliases = $self->rowStatusVars[$columnName];
-
-          foreach($aliases as $alias)
-          {
-            // Add other name
-            $otherName = new QubitOtherName;
-            $otherName->objectId = $self->object->id;
-            $otherName->name     = $alias;
-            $otherName->typeId   = $typeId;
-            $otherName->culture  = $self->columnValue('culture');
-            $otherName->save();
-          }
-        }
+        csvImportBaseTask::importAlternateFormsOfName($self);
 
         // Check if any contact information data exists
         $addContactInfo = false;
