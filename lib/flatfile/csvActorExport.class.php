@@ -45,67 +45,12 @@ class csvActorExport extends QubitFlatfileExport
   {
     parent::exportResource($resource);
 
-    $companionFileTypes = array('aliases', 'relations');
-
-    foreach ($companionFileTypes as $type)
-    {
-      if (!empty($this->options[$type]))
-      {
-        $this->exportCompanionFile($type, $resource);
-      }
-    }
-  }
-
-  /**
-   * Export companion files with this resource. In this case, actor aliases or relations.
-   *
-   * @param string $type  The type of companion file,
-   */
-  private function exportCompanionFile($type, $resource)
-  {
+    // Export relations
     $filenamePrepend = ($this->standard !== null) ? $this->standard .'_' : '';
     $filename = sprintf('%s/%s%s_%s.csv', $this->path, $filenamePrepend,
-                        str_pad($this->fileIndex, 10, '0', STR_PAD_LEFT), $type);
-    switch ($type)
-    {
-      case 'aliases':
-        $this->exportAliases($filename, $resource);
-        break;
+                        str_pad($this->fileIndex, 10, '0', STR_PAD_LEFT), 'relations');
 
-      case 'relations':
-        $this->exportRelations($filename, $resource);
-        break;
-
-      default:
-        throw new sfException("Invalid companion file type in csvActorExport::exportCompanionFile - $type given.");
-    }
-  }
-
-  private function exportAliases($filename, $resource)
-  {
-    $formTypes = array('other', 'standardized', 'parallel');
-    $rows = array();
-
-    foreach ($formTypes as $type)
-    {
-      if (null === $typeId = constant('QubitTerm::'.strtoupper($type).'_FORM_OF_NAME_ID'))
-      {
-        throw new sfException("Unknown constant type in exportAliases: $type");
-      }
-
-      // Get other names for STANDARDIZED_FORM_OF_NAME_ID, PARALLEL_FORM_OF_NAME_ID & OTHER_FORM_OF_NAME_ID
-      foreach ($resource->getOtherNames(array('typeId' => $typeId)) as $name)
-      {
-        $rows[] = array(
-          'parentAuthorizedFormOfName' => $resource->authorizedFormOfName,
-          'alternateForm'              => (string)$name,
-          'formType'                   => $type,
-          'culture'                    => $resource->culture
-        );
-      }
-    }
-
-    $this->writeCompanionCsv($filename, $rows);
+    $this->exportRelations($filename, $resource);
   }
 
   private function exportRelations($filename, $resource)
@@ -173,6 +118,10 @@ class csvActorExport extends QubitFlatfileExport
    */
   protected function modifyRowBeforeExport()
   {
+    $this->setColumn('parallelFormsOfName', $this->getNames(QubitTerm::PARALLEL_FORM_OF_NAME_ID));
+    $this->setColumn('standardizedFormsOfName', $this->getNames(QubitTerm::STANDARDIZED_FORM_OF_NAME_ID));
+    $this->setColumn('otherFormsOfName', $this->getNames(QubitTerm::OTHER_FORM_OF_NAME_ID));
+
     $this->setMaintenanceNote();
     $this->setOccupations();
     $this->setPlaceAccessPoints();
@@ -275,5 +224,22 @@ class csvActorExport extends QubitFlatfileExport
     }
 
     $this->setColumn('subjectAccessPoints', implode('|', $data['names']));
+  }
+
+  /*
+   * Get alternative forms of name
+   *
+   * @return array  List of names
+   */
+  private function getNames($typeId)
+  {
+    $results = array();
+
+    foreach ($this->resource->getOtherNames(array('typeId' => $typeId)) as $name)
+    {
+      $results[] = $name->getName();
+    }
+
+    return $results;
   }
 }

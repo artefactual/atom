@@ -54,7 +54,7 @@ EOF;
 
     // Prepare CSV exporter
     $writer = new csvActorExport($arguments['path']);
-    $writer->setOptions(array('aliases' => true, 'relations' => true));
+    $writer->setOptions(array('relations' => true));
 
     // Export actors and, optionally, related data
     $itemsExported = 0;

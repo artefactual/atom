@@ -3,6 +3,9 @@ columnNames:
   - culture
   - typeOfEntity
   - authorizedFormOfName
+  - parallelFormsOfName
+  - standardizedFormsOfName
+  - otherFormsOfName
   - corporateBodyIdentifiers
   - datesOfExistence
   - history
