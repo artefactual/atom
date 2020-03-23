@@ -1,2 +1,2 @@
-sourceAuthorizedFormOfName,targetAuthorizedFormOfName,category,description,date,startDate,endDate,culture
-Example Organization,Example Person,hierarchical,Example person worked at example organization.,2011-01-29,2011-01-29,2011-05-15,en
+legacyId,objectAuthorizedFormOfName,subjectAuthorizedFormOfName,relationType,description,date,startDate,endDate,culture
+10,Example Organization,Example Person,controls,Example person worked at example organization.,2011-01-29,2011-01-29,2011-05-15,en

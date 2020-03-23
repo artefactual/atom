@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 179
+    value: 180
   milestone:
     name: milestone
     editable: 0
@@ -778,6 +778,14 @@ QubitSetting:
     source_culture: en
     value:
       en: Show hierarchy
+  QubitSetting_authority_record_relationships:
+    name: authority_record_relationships
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: Authority record relationships
   QubitSetting_26:
     name: en
     scope: i18n_languages

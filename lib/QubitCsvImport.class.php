@@ -78,6 +78,11 @@ class QubitCsvImport
 
         break;
 
+      case 'authorityRecordRelationship':
+        $taskClassName = 'csv:authority-relation-import';
+
+        break;
+
       case 'event':
         $taskClassName = 'csv:event-import';
 

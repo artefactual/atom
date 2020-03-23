@@ -36,6 +36,7 @@
               <option value="informationObject"><?php echo sfConfig::get('app_ui_label_informationobject') ?></option>
               <option value="accession"><?php echo sfConfig::get('app_ui_label_accession', __('Accession')) ?></option>
               <option value="authorityRecord"><?php echo sfConfig::get('app_ui_label_actor') ?></option>
+              <option value="authorityRecordRelationship"><?php echo sfConfig::get('app_ui_label_authority_record_relationships') ?></option>
               <option value="event"><?php echo sfConfig::get('app_ui_label_event', __('Event')) ?></option>
               <option value="repository"><?php echo sfConfig::get('app_ui_label_repository', __('Repository')) ?></option>
             </select>
