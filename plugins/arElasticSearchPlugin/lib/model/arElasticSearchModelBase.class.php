@@ -90,16 +90,11 @@ abstract class arElasticSearchModelBase
 
     foreach ($classes as $class)
     {
-      // Tableize class name
-      $table = str_replace('Qubit', '', $class);
-      $table = sfInflector::tableize($table);
-      $table .= '_i18n';
-
       // Build SQL query per table. Tried with joins but for some reason the
       // culture value appears empty. The statement can't be reused as it's
       // not possible to bind and use a variable for the table name.
       $rows = QubitPdo::fetchAll(
-        sprintf('SELECT * FROM %s WHERE id = ?', $table),
+        sprintf('SELECT * FROM %s WHERE id = ?', ($class.'I18n')::TABLE_NAME),
         array($id),
         array('fetchMode' => PDO::FETCH_ASSOC)
       );
