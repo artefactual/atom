@@ -38,6 +38,7 @@ class QubitPhysicalObjectCsvHoldingsReport
     'holdingType',
     'holdingIdentifier',
     'holdingTitle',
+    'levelOfDescription',
     'holdingSlug',
   ];
 
@@ -183,7 +184,12 @@ class QubitPhysicalObjectCsvHoldingsReport
 
   public function export(Object $writer)
   {
-    $sql = "SELECT id FROM " . $this->ormClasses['physicalobject']::TABLE_NAME;
+    $sql = "SELECT p.id \r
+              FROM " . $this->ormClasses['physicalobject']::TABLE_NAME . " p \r
+              INNER JOIN physical_object_i18n pi \r
+              ON p.id=pi.id \r
+              WHERE p.source_culture=pi.culture \r
+              ORDER BY pi.name";
 
     $physObjects = QubitPdo::fetchAll($sql, [], ['fetchMode' => PDO::FETCH_COLUMN]);
 
@@ -277,13 +283,12 @@ class QubitPhysicalObjectCsvHoldingsReport
 
   public function writePhysicalObjectAndHoldings(Object $writer, Array $row, Array $holdingsData)
   {
-    // If a specific holding type is selected make sure no other types are in
-    // the container
+    // If a specific holding type is selected remove data for other types
     foreach ($holdingsData['types'] as $className => $typeData)
     {
       if (!empty($this->getHoldingType()) && $this->getHoldingType() != $className)
       {
-        return;
+        unset($holdingsData['types'][$className]);
       }
     }
 
@@ -296,9 +301,16 @@ class QubitPhysicalObjectCsvHoldingsReport
 
         $holdingRow = $row;
 
+        $levelOfDescription = '';
+        if (substr_count(get_class($resource), 'InformationObject') && !empty($resource->getLevelOfDescription()))
+        {
+          $levelOfDescription = $resource->getLevelOfDescription()->getName(['cultureFallback' => true]);
+        }
+
         $holdingRow[] = array_search($className, $this->typeMap);
         $holdingRow[] = $resource->getIdentifier();
         $holdingRow[] = $resource->getTitle(['cultureFallback' => true]);
+        $holdingRow[] = $levelOfDescription;
         $holdingRow[] = $resource->getSlug();
 
         $writer->insertOne($holdingRow);

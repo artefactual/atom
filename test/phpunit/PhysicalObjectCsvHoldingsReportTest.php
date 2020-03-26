@@ -235,10 +235,10 @@ class PhysicalObjectCsvHoldingsReportTest extends \PHPUnit\Framework\TestCase
     $report->writePhysicalObjectAndHoldings($writer, $rowStart, $holdingsData);
 
     $expectedOutput = <<<EOM
-"Example Box","Example Box Location",Box,description,IDENTIFIER,"Information Object",information-object
-"Example Box","Example Box Location",Box,description,IDENTIFIER,"Information Object",information-object
-"Example Box","Example Box Location",Box,accession,IDENTIFIER,Accession,accession
-"Example Box","Example Box Location",Box,accession,IDENTIFIER,Accession,accession\n
+"Example Box","Example Box Location",Box,description,IDENTIFIER,"Information Object",Term,information-object
+"Example Box","Example Box Location",Box,description,IDENTIFIER,"Information Object",Term,information-object
+"Example Box","Example Box Location",Box,accession,IDENTIFIER,Accession,,accession
+"Example Box","Example Box Location",Box,accession,IDENTIFIER,Accession,,accession\n
 EOM;
 
     $this->assertSame($expectedOutput, $writer->getContent());
@@ -247,23 +247,59 @@ EOM;
   /**
    * @dataProvider mixedHoldingsDataProvider
    */
-  public function testWritePhysicalObjectAndMixedHoldingsForDifferentHoldingTypes($holdingsData)
+  public function testWritePhysicalObjectAndMixedHoldingsForInformationObjectHoldingType($holdingsData)
   {
+    $writer = \League\Csv\Writer::createFromString('');
     $report = new QubitPhysicalObjectCsvHoldingsReport();
+    $report->setOrmClasses($this->ormClasses);
     $report->setTypeMap($this->typeMap);
+    $report->setOption('holdingType', \AccessToMemory\test\mock\QubitInformationObject::class);
+    $rowStart = ['Example Box', 'Example Box Location', 'Box'];
+    $report->writePhysicalObjectAndHoldings($writer, $rowStart, $holdingsData);
 
-    foreach ($report->allowedHoldingTypes() as $holdingType)
-    {
-      $writer = \League\Csv\Writer::createFromString('');
-      $report = new QubitPhysicalObjectCsvHoldingsReport();
-      $report->setOrmClasses($this->ormClasses);
-      $report->setTypeMap($this->typeMap);
-      $report->setOption('holdingType', $holdingType);
-      $rowStart = ['Example Box', 'Example Box Location', 'Box'];
-      $report->writePhysicalObjectAndHoldings($writer, $rowStart, $holdingsData);
+    $expectedOutput = <<<EOM
+"Example Box","Example Box Location",Box,description,IDENTIFIER,"Information Object",Term,information-object
+"Example Box","Example Box Location",Box,description,IDENTIFIER,"Information Object",Term,information-object\n
+EOM;
 
-      $this->assertSame('', $writer->getContent());
-    }
+    $this->assertSame($expectedOutput, $writer->getContent());
+  }
+
+  /**
+   * @dataProvider mixedHoldingsDataProvider
+   */
+  public function testWritePhysicalObjectAndMixedHoldingsForAccessionHoldingType($holdingsData)
+  {
+    $writer = \League\Csv\Writer::createFromString('');
+    $report = new QubitPhysicalObjectCsvHoldingsReport();
+    $report->setOrmClasses($this->ormClasses);
+    $report->setTypeMap($this->typeMap);
+    $report->setOption('holdingType', \AccessToMemory\test\mock\QubitAccession::class);
+    $rowStart = ['Example Box', 'Example Box Location', 'Box'];
+    $report->writePhysicalObjectAndHoldings($writer, $rowStart, $holdingsData);
+
+    $expectedOutput = <<<EOM
+"Example Box","Example Box Location",Box,accession,IDENTIFIER,Accession,,accession
+"Example Box","Example Box Location",Box,accession,IDENTIFIER,Accession,,accession\n
+EOM;
+
+    $this->assertSame($expectedOutput, $writer->getContent());
+  }
+
+  /**
+   * @dataProvider mixedHoldingsDataProvider
+   */
+  public function testWritePhysicalObjectAndMixedHoldingsForNoneHoldingType($holdingsData)
+  {
+    $writer = \League\Csv\Writer::createFromString('');
+    $report = new QubitPhysicalObjectCsvHoldingsReport();
+    $report->setOrmClasses($this->ormClasses);
+    $report->setTypeMap($this->typeMap);
+    $report->setOption('holdingType', 'none');
+    $rowStart = ['Example Box', 'Example Box Location', 'Box'];
+    $report->writePhysicalObjectAndHoldings($writer, $rowStart, $holdingsData);
+
+    $this->assertSame('', $writer->getContent());
   }
 
   /**
@@ -280,8 +316,8 @@ EOM;
     $report->writePhysicalObjectAndHoldings($writer, $rowStart, $holdingsData);
 
     $expectedOutput = <<<EOM
-"Example Box","Example Box Location",Box,description,IDENTIFIER,"Information Object",information-object
-"Example Box","Example Box Location",Box,description,IDENTIFIER,"Information Object",information-object\n
+"Example Box","Example Box Location",Box,description,IDENTIFIER,"Information Object",Term,information-object
+"Example Box","Example Box Location",Box,description,IDENTIFIER,"Information Object",Term,information-object\n
 EOM;
 
     $this->assertSame($expectedOutput, $writer->getContent());

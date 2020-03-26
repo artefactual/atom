@@ -19,14 +19,13 @@
 
 namespace AccessToMemory\test\mock;
 
-class QubitInformationObject
+class QubitAccession
 {
   public $id;
 
   protected static $slugToIdMap = [
-    'test-fonds-1'     => 111111,
-    'test-collection'  => 222222,
-    'Mixed-Case-Fonds' => 333333,
+    'accession-1' => 444,
+    'accession-2' => 555,
   ];
 
   public static function getById($id)
@@ -39,7 +38,6 @@ class QubitInformationObject
 
   public static function getBySlug($slug)
   {
-
     if (array_key_exists($slug, self::$slugToIdMap))
     {
       $obj = new self();
@@ -51,7 +49,7 @@ class QubitInformationObject
 
   public static function getTitle($options)
   {
-    return "Information Object";
+    return "Accession";
   }
 
   public static function getIdentifier()
@@ -59,15 +57,8 @@ class QubitInformationObject
     return "IDENTIFIER";
   }
 
-  public static function getLevelOfDescription()
+  public function getSlug()
   {
-    $term = new QubitTerm();
-
-    return $term;
-  }
-
-  public static function getSlug()
-  {
-    return "information-object";
+    return "accession";
   }
 }

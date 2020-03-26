@@ -34,7 +34,7 @@ class arPhysicalObjectCsvHoldingsReportJob extends arBaseJob
   public function runJob($parameters)
   {
     // Indicate beginning of export and describe parameters provided
-    $this->info($this->i18n->__('Starting physical object holdings report CSV export.'));
+    $this->info($this->i18n->__('Starting physical storage holdings report CSV export.'));
 
     if (!empty($parameters['suppressEmpty']))
     {
@@ -44,7 +44,7 @@ class arPhysicalObjectCsvHoldingsReportJob extends arBaseJob
     if (!empty($parameters['holdingType']))
     {
       $this->info($this->i18n->__(
-        'Only including physical storage exclusively containing holding type: %1.',
+        'Including physical storage containing holding type: %1.',
         ['%1' => $parameters['holdingType']]));
     }
 
