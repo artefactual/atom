@@ -103,6 +103,8 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
+    parent::execute($arguments, $options);
+
     $this->validateOptions($options);
 
     $skipRows = ($options['skip-rows']) ? $options['skip-rows'] : 0;
