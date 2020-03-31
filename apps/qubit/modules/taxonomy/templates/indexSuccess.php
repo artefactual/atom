@@ -56,8 +56,11 @@
         </th><th>
           <?php echo __('Scope note') ?>
         </th>
-        <?php if ($addResultsColumn): ?>
-          <th><?php echo __('Results') ?></th>
+        <?php if ($addIoCountColumn): ?>
+          <th><?php echo __('Descriptions') ?></th>
+        <?php endif; ?>
+        <?php if ($addActorCountColumn): ?>
+          <th><?php echo __('Authorities') ?></th>
         <?php endif; ?>
       </tr>
     </thead><tbody>
@@ -98,8 +101,11 @@
             <?php endif; ?>
 
           </td>
-          <?php if ($addResultsColumn): ?>
+          <?php if ($addIoCountColumn): ?>
             <td><?php echo QubitTerm::countRelatedInformationObjects($hit->getId()) ?></td>
+          <?php endif; ?>
+          <?php if ($addActorCountColumn): ?>
+            <td><?php echo TermNavigateRelatedComponent::getEsDocsRelatedToTermCount('QubitActor', $hit->getId()) ?></td>
           <?php endif; ?>
         </tr>
       <?php endforeach; ?>

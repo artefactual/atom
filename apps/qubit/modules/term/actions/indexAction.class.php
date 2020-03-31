@@ -87,17 +87,7 @@ class TermIndexAction extends DefaultBrowseAction
 
   public function execute($request)
   {
-    $this->resource = $this->getRoute()->resource;
-    if (!$this->resource instanceof QubitTerm)
-    {
-      $this->forward404();
-    }
-
-    // Check that this isn't the root
-    if (!isset($this->resource->parent))
-    {
-      $this->forward404();
-    }
+    $this->setAndCheckResource();
 
     // Disallow access to locked taxonomies
     if (in_array($this->resource->taxonomyId, QubitTaxonomy::$lockedTaxonomies))
@@ -112,14 +102,7 @@ class TermIndexAction extends DefaultBrowseAction
       $this->context->user->removeAttribute('search-realm');
     }
 
-    if (isset($request->languages))
-    {
-      $this->culture = $request->languages;
-    }
-    else
-    {
-      $this->culture = $this->context->user->getCulture();
-    }
+    $this->setCulture($request);
 
     if (1 > strlen($title = $this->resource->__toString()))
     {
@@ -315,6 +298,35 @@ EOF;
         // Load list terms
         $this->loadListTerms($request);
       }
+    }
+  }
+
+  protected function setAndCheckResource()
+  {
+    $this->resource = $this->getRoute()->resource;
+
+    // Make sure resource is a term
+    if (!$this->resource instanceof QubitTerm)
+    {
+      $this->forward404();
+    }
+
+    // Make sure resource isn't the root term
+    if (!isset($this->resource->parent))
+    {
+      $this->forward404();
+    }
+  }
+
+  protected function setCulture($request)
+  {
+    if (isset($request->languages))
+    {
+      $this->culture = $request->languages;
+    }
+    else
+    {
+      $this->culture = $this->context->user->getCulture();
     }
   }
 

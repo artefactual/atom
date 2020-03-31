@@ -69,6 +69,13 @@ informationobject/action:
     module: informationobject
     action: { pattern: 'fileList|multiFileUpload|rename|reports|slugPreview|modifications|calculateDates' }
 
+term/action:
+  url: /:slug/:action
+  class: QubitResourceRoute
+  param:
+    module: term
+    action: { pattern: 'relatedAuthorities' }
+
 oai:
   url: /;oai
   param:

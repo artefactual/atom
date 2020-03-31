@@ -745,11 +745,10 @@ class QubitTerm extends BaseTerm
   }
 
   /**
-   * Get a count of objects related via q_object_term_relation that have a
-   * class_name = $objectClassName (i.e. only 'QubitInformationObject's)
+   * Get a count of related information objects
    *
-   * @param string $objectClassName related object class_name column value
-   * @return integer count of related object.
+   * @param integer  ID of term
+   * @return integer  count of related information objects
    */
   public static function countRelatedInformationObjects($id)
   {

@@ -22,3 +22,7 @@ listSuccess:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
+
+relatedAuthoritiesSuccess:
+  javascripts:
+    blank:
