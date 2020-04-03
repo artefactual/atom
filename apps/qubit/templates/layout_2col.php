@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="<?php echo $sf_user->getCulture() ?>" dir="<?php echo sfCultureInfo::getInstance($sf_user->getCulture())->direction ?>">
   <head>
+    <?php echo get_component('default', 'tagManager', array('code' => 'script')) ?>
     <?php include_http_metas() ?>
     <?php include_metas() ?>
     <?php include_title() ?>
@@ -15,6 +16,8 @@
     <?php include_javascripts() ?>
   </head>
   <body class="yui-skin-sam <?php echo $sf_context->getModuleName() ?> <?php echo $sf_context->getActionName() ?>">
+
+    <?php echo get_component('default', 'tagManager', array('code' => 'noscript')) ?>
 
     <?php echo get_partial('header') ?>
 

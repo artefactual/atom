@@ -29,6 +29,9 @@ all:
   # of IOs, actors and repos index pages.
   # E.g.: 1
   google_analytics_institutions_dimension_index:
+  # Set a Google Tag Manager container ID
+  # E.g.: GTM-1234
+  google_tag_manager_container_id:
 
   # htmlpurifier is used in static pages, disabled by default
   htmlpurifier_enabled: false
