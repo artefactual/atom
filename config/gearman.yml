@@ -7,6 +7,8 @@ all:
       - arFindingAidJob
     acl:
       - arInheritRightsJob
+    actor_relations:
+      - arUpdateEsActorRelationsJob
     calculate_dates:
       - arCalculateDescendantDatesJob
     move:

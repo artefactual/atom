@@ -36,13 +36,16 @@ class ActorBrowseAction extends DefaultBrowseAction
       'repository',
       'hasDigitalObject',
       'entityType',
-      'emptyField'
+      'emptyField',
+      'relatedType',
+      'relatedAuthority'
     ),
 
     $FILTERTAGS = array(
       'hasDigitalObject' => array(),
       'repository'       => array('model' => 'QubitRepository'),
       'entityType'       => array('model' => 'QubitTerm'),
+      'relatedType'      => array('model' => 'QubitTerm'),
       'occupation'       => array('model' => 'QubitTerm'),
       'place'            => array('model' => 'QubitTerm'),
       'subject'          => array('model' => 'QubitTerm'),
@@ -104,8 +107,8 @@ class ActorBrowseAction extends DefaultBrowseAction
         }
         else
         {
-          $choices = array();
-          $choices[null] = null;
+          $choices = array(null => null);
+
           foreach (QubitRepository::get($criteria) as $repository)
           {
             $choices[$repository->id] = $repository->__toString();
@@ -143,17 +146,14 @@ class ActorBrowseAction extends DefaultBrowseAction
         break;
 
       case 'entityType':
-        $this->form->setValidator($name, new sfValidatorString);
-
-        $choices = array();
-        $choices[null] = null;
+        $choices = array(null => null);
 
         foreach (QubitTaxonomy::getTaxonomyTerms(QubitTaxonomy::ACTOR_ENTITY_TYPE_ID) as $item)
         {
           $choices[$item->id] = $item->__toString();
         }
 
-        $this->form->setValidator($name, new sfValidatorString);
+        $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
         $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
 
         if (!empty($this->getFilterTagObject('entityType')))
@@ -164,23 +164,55 @@ class ActorBrowseAction extends DefaultBrowseAction
         break;
 
       case 'emptyField':
-        $this->form->setValidator($name, new sfValidatorString);
-
-        $choices = array();
-        $choices[null] = null;
+        $choices = array(null => null);
 
         foreach ($this->fieldOptions as $field => $label)
         {
           $choices[$field] = $label;
         }
 
-        $this->form->setValidator($name, new sfValidatorString);
+        $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
         $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
 
         if (!empty($request->emptyField))
         {
           $this->form->setDefault('emptyField', $request->emptyField);
         }
+
+        break;
+
+      case 'relatedType':
+        $choices = array(null => null);
+
+        foreach (QubitTaxonomy::getTaxonomyTerms(QubitTaxonomy::ACTOR_RELATION_TYPE_ID) as $item)
+        {
+          // Omit category terms
+          if ($item->parentId != QubitTerm::ROOT_ID)
+          {
+            $choices[$item->id] = $item->__toString();
+          }
+        }
+
+        $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
+        $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
+
+        if (!empty($this->getFilterTagObject($name)))
+        {
+          $this->form->setDefault($name, $this->getFilterTagObject($name)->id);
+        }
+
+        break;
+
+      case 'relatedAuthority':
+        $defaultChoices = array();
+
+        if (!empty($this->relatedAuthority))
+        {
+          $defaultChoices = array($request->$name => $this->relatedAuthority->getAuthorizedFormOfName(array('cultureFallback' => true)));
+        }
+
+        $this->form->setValidator($name, new sfValidatorString);
+        $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $defaultChoices)));
 
         break;
     }
@@ -297,15 +329,26 @@ class ActorBrowseAction extends DefaultBrowseAction
       $this->addField($name, $request);
     }
 
-    // Set which values will be relayed via the advanced search form
+    // Set which values will be relayed as hidden fields via the advanced search form
     $allowed = array_merge(
       array_keys($this::$AGGS),
       array('sort', 'sortDir')
     );
 
-    $ignored = array('repository', 'entityType');
+    // These get relayed as form field default values
+    $ignored = array('repository', 'entityType', 'relatedType', 'relatedAuthority');
 
     $this->setHiddenFields($request, $allowed, $ignored);
+  }
+
+  private function getRelatedAuthorityUsingSlug($slug)
+  {
+    if (!empty($slug))
+    {
+      $params = $this->context->routing->parse(Qubit::pathInfo($slug));
+
+      return get_class($params['_sf_route']->resource) == 'QubitActor' ? $params['_sf_route']->resource : null;
+    }
   }
 
   protected function doSearch($request)
@@ -323,6 +366,43 @@ class ActorBrowseAction extends DefaultBrowseAction
       $this->search->queryBool->addMust($queryField);
     }
 
+    // Filter by related authority and/or relation type
+    if (!empty($this->relatedAuthority) && !empty($request->relatedType))
+    {
+      // Include actors that relate to the specified actor and have a relation
+      // of the specified type
+      $queryBool = new \Elastica\Query\BoolQuery;
+
+      $queryBool->addMust($this->actorRelationsQueryForActor($this->relatedAuthority->id));
+      $queryBool->addMust($this->actorRelationsQueryForType($this->request->relatedType));
+
+      $this->search->queryBool->addMust($this->actorRelationsNestedQuery($queryBool));
+
+      // Omit the specified actor
+      $this->search->queryBool->addMust($this->actorExcludeQuery($this->relatedAuthority->id));
+    }
+    else if (!empty($this->relatedAuthority))
+    {
+      // Include actors that relate to the specified actor
+      $queryBool = new \Elastica\Query\BoolQuery;
+
+      $queryBool->addMust($this->actorRelationsQueryForActor($this->relatedAuthority->id));
+
+      $this->search->queryBool->addMust($this->actorRelationsNestedQuery($queryBool));
+
+      // Omit the specified actor
+      $this->search->queryBool->addMust($this->actorExcludeQuery($this->relatedAuthority->id));
+    }
+    else if (!empty($this->request->relatedType))
+    {
+      // Include actors with a relation of a specified type
+      $queryBool = new \Elastica\Query\BoolQuery;
+
+      $queryBool->addMust($this->actorRelationsQueryForType($this->request->relatedType));
+
+      $this->search->queryBool->addMust($this->actorRelationsNestedQuery($queryBool));
+    }
+
     // Filter out results if a specific field isn't empty
     if (!empty($request->emptyField))
     {
@@ -335,6 +415,66 @@ class ActorBrowseAction extends DefaultBrowseAction
     $this->search->query->setQuery($this->search->queryBool);
 
     return QubitSearch::getInstance()->index->getType('QubitActor')->search($this->search->getQuery(false));
+  }
+
+  private function actorRelationsQueryForActor($actorId)
+  {
+    // Result relations must have either a related object or subject ID
+    $queryRelatedBool = new \Elastica\Query\BoolQuery;
+
+    $queryField = new \Elastica\Query\Term;
+    $queryField->setTerm('actorRelations.objectId', $actorId);
+    $queryRelatedBool->addShould($queryField);
+
+    $queryField = new \Elastica\Query\Term;
+    $queryField->setTerm('actorRelations.subjectId', $actorId);
+    $queryRelatedBool->addShould($queryField);
+
+    return $queryRelatedBool;
+  }
+
+  private function actorRelationsQueryForType($typeId)
+  {
+    $queryTypeBool = new \Elastica\Query\BoolQuery;
+
+    $queryField = new \Elastica\Query\Term;
+    $queryField->setTerm('actorRelations.typeId', $typeId);
+    $queryTypeBool->addShould($queryField);
+
+    $relationTerm = QubitTerm::getById($typeId);
+
+    // Look for converse term as well if one exists
+    $converseTerm = $relationTerm->getConverseActorRelationTerm();
+
+    if ($converseTerm !== null && $typeId != $converseTerm->id)
+    {
+      $queryField = new \Elastica\Query\Term;
+      $queryField->setTerm('actorRelations.typeId', $converseTerm->id);
+      $queryTypeBool->addShould($queryField);
+    }
+
+    return $queryTypeBool;
+  }
+
+  private function actorRelationsNestedQuery($query)
+  {
+    $queryNested = new \Elastica\Query\Nested();
+    $queryNested->setPath('actorRelations');
+    $queryNested->setQuery($query);
+
+    return $queryNested;
+  }
+
+  private function actorExcludeQuery($actorId)
+  {
+    // Omit the actor that the others are related to
+    $queryBool = new \Elastica\Query\BoolQuery;
+
+    $queryField = new \Elastica\Query\Term;
+    $queryField->setTerm('_id', $actorId);
+    $queryBool->addMustNot($queryField);
+
+    return $queryBool;
   }
 
   /**
@@ -422,6 +562,9 @@ class ActorBrowseAction extends DefaultBrowseAction
     }
 
     parent::execute($request);
+
+    // Look up related authority, if specified
+    $this->relatedAuthority = $this->getRelatedAuthorityUsingSlug($request->relatedAuthority);
 
     // Prepare filter tags, form, and hidden fields/values
     $this->setFilterTagsAndForm($request);

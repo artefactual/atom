@@ -262,6 +262,9 @@ class arElasticSearchActorPdo
       array(QubitTaxonomy::PLACE_ID, QubitTaxonomy::SUBJECT_ID)
     );
 
+    // Related objects
+    $serialized['actorRelations'] = self::serializeObjectRelations($this->id);
+
     // Places
     if (isset($relatedTerms[QubitTaxonomy::PLACE_ID]))
     {
@@ -347,6 +350,17 @@ class arElasticSearchActorPdo
     }
 
     return $serialized;
+  }
+
+  public static function serializeObjectRelations($actorId)
+  {
+    $sql = "SELECT r.object_id AS objectId, r.subject_id AS subjectId, r.type_id AS typeId
+             FROM ".QubitRelation::TABLE_NAME." r
+             INNER JOIN ".QubitTerm::TABLE_NAME." t ON r.type_id=t.id
+             WHERE t.taxonomy_id=".QubitTaxonomy::ACTOR_RELATION_TYPE_ID."
+             AND object_id=? OR r.subject_id=?";
+
+    return QubitPdo::fetchAll($sql, array($actorId, $actorId), array('fetchMode' => PDO::FETCH_ASSOC));
   }
 
   protected function getProperty($name)

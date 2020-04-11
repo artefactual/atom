@@ -5,3 +5,8 @@ browseSuccess:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/ui/ui.datepicker.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
+
+    /vendor/yui/connection/connection-min:
+    /vendor/yui/datasource/datasource-min:
+    /vendor/yui/autocomplete/autocomplete-min:
+    autocomplete:

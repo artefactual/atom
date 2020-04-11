@@ -132,6 +132,14 @@ class QubitActor extends BaseActor
 
   public function save($connection = null)
   {
+    if ('QubitActor' == $this->className)
+    {
+      // Take note of which actors are related to the actor about to be updated
+      $previouslyRelatedActorIds = !empty($this->id)
+        ? arUpdateEsActorRelationsJob::previousRelationActorIds($this->id)
+        : [];
+    }
+
     if (QubitActor::ROOT_ID != $this->id && !isset($this->parentId) && 'QubitActor' == $this->className)
     {
       $this->parentId = QubitActor::ROOT_ID;
@@ -232,6 +240,10 @@ class QubitActor extends BaseActor
     if ('QubitActor' == $this->className)
     {
       QubitSearch::getInstance()->update($this);
+
+      // Update, in Elasticsearch, the actors previously or currently related to the actor
+      $actorsToUpdate = array_unique(array_merge($previouslyRelatedActorIds, arUpdateEsActorRelationsJob::relationActorIds($this->id)));
+      $this->updateRelations($actorsToUpdate);
     }
 
     return $this;
@@ -239,6 +251,15 @@ class QubitActor extends BaseActor
 
   public function delete($connection = null)
   {
+    if ('QubitActor' == $this->className)
+    {
+      // Take note of which actors are related to the actor about to be updated
+      $previouslyRelatedActorIds = arUpdateEsActorRelationsJob::relationActorIds($this->id);
+
+      // Remove ID of this actor given it's going to be deleted and won't need relations updated
+      unset($previouslyRelatedActorIds[array_search($this->id, $previouslyRelatedActorIds)]);
+    }
+
     // Delete related digitalObjects
     foreach ($this->digitalObjectsRelatedByobjectId as $digitalObject)
     {
@@ -271,7 +292,33 @@ class QubitActor extends BaseActor
       QubitSearch::getInstance()->delete($this);
     }
 
+    if ('QubitActor' == $this->className)
+    {
+      $this->updateRelations($previouslyRelatedActorIds);
+    }
+
     return parent::delete($connection);
+  }
+
+  private function updateRelations($actorIds)
+  {
+    if (!empty($actorIds))
+    {
+      // Update, in Elasticsearch, relations of actors previously related to actor
+      if (!in_array(sfContext::getInstance()->getConfiguration()->getEnvironment(), array('cli', 'worker')))
+      {
+        QubitJob::runJob('arUpdateEsActorRelationsJob', ['actorIds' => $actorIds]);
+      }
+      else
+      {
+        foreach ($actorIds as $actorId)
+        {
+          $actor = QubitActor::getById($actorId);
+          arUpdateEsActorRelationsJob::updateActorRelationships($actor);
+          Qubit::clearClassCaches();
+        }
+      }
+    }
   }
 
   public static function getRoot()

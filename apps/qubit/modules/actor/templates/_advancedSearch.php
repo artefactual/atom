@@ -127,6 +127,29 @@
         </div>
       </div>
 
+      <p><?php echo __('Find results where:') ?></p>
+
+      <div class="criteria">
+
+        <div class="filter-row">
+
+          <div class="filter-left relation">
+            <?php echo $form->relatedType
+              ->label(__('Relationship'))
+              ->renderRow() ?>
+          </div>
+
+          <div class="filter-right relation">
+            <?php echo $form->relatedAuthority
+              ->label(__('Related [%1%]', array('%1%' => sfConfig::get('app_ui_label_actor'))))
+              ->renderLabel() ?>
+            <?php echo $form->relatedAuthority->render(array('class' => 'form-autocomplete')) ?>
+            <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'autocomplete')) ?>"/>
+          </div>
+
+        </div>
+      </div>
+
       <section class="actions">
         <input type="submit" class="c-btn c-btn-submit" value="<?php echo __('Search') ?>"/>
         <input type="button" class="reset c-btn c-btn-delete" value="<?php echo __('Reset') ?>"/>
