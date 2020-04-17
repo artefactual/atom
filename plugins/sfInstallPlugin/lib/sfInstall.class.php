@@ -531,6 +531,9 @@ class sfInstall
 
   public static function populateSearchIndex()
   {
+    // Populate config with settings
+    sfConfig::add(QubitSetting::getSettingsArray());
+
     QubitSearch::enable();
     QubitSearch::getInstance()->populate();
   }
