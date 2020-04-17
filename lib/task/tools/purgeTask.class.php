@@ -115,9 +115,9 @@ EOF;
     // Populate config with settings
     sfConfig::add(QubitSetting::getSettingsArray());
 
-    // Flush search index
-    QubitSearch::getInstance()->flush();
-    $this->logSection('purge', 'The search index has been deleted.');
+    // Recreate search index
+    QubitSearch::getInstance()->populate();
+    $this->logSection('purge', 'The search index has been recreated.');
 
     // set, or prompt for, site title configuration information
     $siteTitle = (isset($options['title'])) ? $options['title'] : '';
