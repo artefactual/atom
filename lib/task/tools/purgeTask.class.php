@@ -24,7 +24,7 @@
  * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
-class purgeTask extends arBaseTask
+class purgeTask extends sfBaseTask
 {
   /**
    * @see sfTask
@@ -63,8 +63,6 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
-    parent::execute($arguments, $options);
-
     if (!$options['demo'] && !function_exists('readline'))
     {
       $needed = array('title', 'description', 'url', 'email', 'username', 'password');
@@ -75,9 +73,6 @@ EOF;
           'and/or password.');
       }
     }
-
-    $databaseManager = new sfDatabaseManager($this->configuration);
-    $conn = $databaseManager->getDatabase('propel')->getConnection();
 
     $insertSql = new sfPropelInsertSqlTask($this->dispatcher, $this->formatter);
     $insertSql->setCommandApplication($this->commandApplication);
@@ -109,11 +104,16 @@ EOF;
       }
     }
 
+    sfContext::createInstance($this->configuration);
+
     QubitSearch::disable();
 
     sfInstall::loadData();
 
     QubitSearch::enable();
+
+    // Populate config with settings
+    sfConfig::add(QubitSetting::getSettingsArray());
 
     // Flush search index
     QubitSearch::getInstance()->flush();
