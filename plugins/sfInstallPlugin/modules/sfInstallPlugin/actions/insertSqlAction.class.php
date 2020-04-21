@@ -17,19 +17,12 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class sfInstallPluginLoadDataAction extends sfAction
+class sfInstallPluginInsertSqlAction extends sfAction
 {
   public function execute($request)
   {
-    // Reload ES configuration after processing the configureSearch
-    // form. In this context, the configuration is obtained from the
-    // cache, which gets the default configuration if it's not reloaded.
-    $configuration = $this->context->getConfiguration();
-    arElasticSearchPluginConfiguration::reloadConfig($configuration);
+    sfInstall::insertSql();
 
-    sfInstall::loadData();
-    sfInstall::populateSearchIndex();
-
-    $this->redirect(array('module' => 'sfInstallPlugin', 'action' => 'configureSite'));
+    $this->redirect(array('module' => 'sfInstallPlugin', 'action' => 'configureSearch'));
   }
 }

@@ -7,4 +7,8 @@
   <p>
     You may now visit <?php echo link_to('your new site', $sf_request->getRelativeUrlRoot().'/index.php') ?>.
   </p>
+
+  <div class="messages error">
+    IMPORTANT: Please remember to restart the AtoM worker before using your site.
+  </div>
 </div>

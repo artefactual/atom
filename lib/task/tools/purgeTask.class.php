@@ -108,6 +108,8 @@ EOF;
 
     QubitSearch::disable();
 
+    sfInstall::modifySql();
+
     sfInstall::loadData();
 
     QubitSearch::enable();
