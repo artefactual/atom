@@ -426,13 +426,13 @@ class sfInstall
 
     $insertSql = new sfPropelInsertSqlTask($dispatcher, $formatter);
     $insertSql->run($arguments, $options);
+
+    self::modifySql();
   }
 
   public static function loadData()
   {
     QubitSearch::disable();
-
-    self::modifySql();
 
     $object = new QubitInformationObject;
     $object->id = QubitInformationObject::ROOT_ID;

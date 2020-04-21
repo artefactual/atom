@@ -44,7 +44,7 @@ class sfInstallPluginConfigureDatabaseAction extends sfAction
     $this->form->setValidator('databasePort', new sfValidatorString);
     $this->form->setWidget('databasePort', new sfWidgetFormInput);
 
-    $this->form->setDefault('databaseUsername', 'root');
+    $this->form->setDefault('databaseUsername', 'atom');
     $this->form->setValidator('databaseUsername', new sfValidatorString);
     $this->form->setWidget('databaseUsername', new sfWidgetFormInput);
 
@@ -59,7 +59,7 @@ class sfInstallPluginConfigureDatabaseAction extends sfAction
         {
           $symlinks = sfInstall::addSymlinks();
 
-          $this->redirect(array('module' => 'sfInstallPlugin', 'action' => 'configureSearch'));
+          $this->redirect(array('module' => 'sfInstallPlugin', 'action' => 'insertSql'));
         }
       }
     }

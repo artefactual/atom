@@ -47,9 +47,14 @@ class arElasticSearchPluginConfiguration extends sfPluginConfiguration
     else
     {
       // Live parsing (task context)
-      $configPaths = $this->configuration->getConfigPaths(self::$configPath);
-
-      self::$config = arElasticSearchConfigHandler::getConfiguration($configPaths);
+      self::reloadConfig($this->configuration);
     }
+  }
+
+  public static function reloadConfig($configuration)
+  {
+    $configPaths = $configuration->getConfigPaths(self::$configPath);
+
+    self::$config = arElasticSearchConfigHandler::getConfiguration($configPaths);
   }
 }
