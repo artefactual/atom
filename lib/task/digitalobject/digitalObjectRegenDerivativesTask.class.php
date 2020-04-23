@@ -27,15 +27,13 @@ class digitalObjectRegenDerivativesTask extends arBaseTask
       'thumbnail'
     );
 
-    //$this->addArguments(array());
-
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
       new sfCommandOption('slug', 'l', sfCommandOption::PARAMETER_OPTIONAL, 'Information object slug', null),
       new sfCommandOption('type', 'd', sfCommandOption::PARAMETER_OPTIONAL, 'Derivative type ("reference" or "thumbnail")', null),
-      new sfCommandOption('media-type', 'm', sfCommandOption::PARAMETER_OPTIONAL, 'Limit regenerating derivatives to a specific media type (e.g. "audio" or "image" or "text" or "video). "Other" is not supported', null),
+      new sfCommandOption('media-type', null, sfCommandOption::PARAMETER_OPTIONAL, 'Limit regenerating derivatives to a specific media type (e.g. "audio" or "image" or "text" or "video). "Other" is not supported', null),
       new sfCommandOption('index', 'i', sfCommandOption::PARAMETER_NONE, 'Update search index (defaults to false)', null),
       new sfCommandOption('force', 'f', sfCommandOption::PARAMETER_NONE, 'No confirmation message', null),
       new sfCommandOption('only-externals', 'o', sfCommandOption::PARAMETER_NONE, 'Only external objects', null),
