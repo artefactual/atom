@@ -26,6 +26,9 @@
 
     var pager = new Qubit.TreeviewPager(50, $fwTreeView, window.location.pathname + url);
 
+    // Show always reset button in hierarchy browse page
+    $resetButton.show();
+
     // True until a node is selected manually (not by state restoration)
     var refresh = true;
     startActivity();
@@ -96,7 +99,7 @@
         // Update the "more" link, restore the state, and indicate that page
         // has finished refreshing
         $fwTreeView.jstree(true).restore_state();
-        pager.updateMoreLink($moreButton, $resetButton);
+        pager.updateMoreLink($moreButton);
         refresh = false;
         endActivity();
     };
@@ -127,14 +130,14 @@
       pager.getAndAppendNodes(function() {
         // Queue is empty so update paging link
         endActivity();
-        pager.updateMoreLink($moreButton, $resetButton);
+        pager.updateMoreLink($moreButton);
       });
     });
 
     // Clicking reset link will reset paging and tree state
-    $('#fullwidth-treeview-reset-button').click(function()
+    $resetButton.click(function()
     {
-      pager.reset($moreButton, $resetButton);
+      pager.reset($moreButton);
     });
   }
 })(jQuery);
