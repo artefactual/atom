@@ -69,8 +69,17 @@
               // Data is an array of jsTree node definitions
               return JSON.stringify(data);
             } else {
-              // Data includes both nodes and the total number of available nodes
-              pager.setTotal(data.total);
+              // Data includes both nodes and total.
+              // Workaround to only update the pager's total on the first load.
+              // This data filter is used in all responses and it can't be used
+              // to determine the node from where the request was triggered.
+              // On the first load the total will be updated and, if that total
+              // is still 0 after the first load, this will never be reached.
+              if (pager.total === 0)
+              {
+                pager.setTotal(data.total);
+              }
+
               return JSON.stringify(data.nodes);
             }
           },
