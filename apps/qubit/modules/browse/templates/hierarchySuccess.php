@@ -10,5 +10,6 @@
 <?php slot('content') ?>
 
 <div id='main-column'></div>
+<span id="fullwidth-treeview-configuration" data-items-per-page="<?php echo $itemsPerPage ?>"></span>
 
 <?php end_slot() ?>

@@ -9,5 +9,7 @@ class BrowseHierarchyAction extends sfAction
     {
       QubitAcl::forwardUnauthorized();
     }
+
+    $this->itemsPerPage = sfConfig::get('app_treeview_full_items_per_page', 50);
   }
 }

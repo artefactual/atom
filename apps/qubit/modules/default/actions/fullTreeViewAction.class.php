@@ -271,7 +271,7 @@ class DefaultFullTreeViewAction extends sfAction
         $titles[$key] = $node['text'];
       }
 
-      usort($data, function($el1, $el2) { return strnatcmp( $el1[‘text’], $el2[‘text’]); });
+      usort($data, function($el1, $el2) { return strnatcmp($el1['text'], $el2['text']); });
     }
 
     return array('nodes' => $data, 'total' => $totalCount);

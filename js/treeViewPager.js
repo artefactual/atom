@@ -66,13 +66,16 @@
       $moreButton.hide();
     }
 
-    if (this.getSkip())
+    if ($resetButton !== undefined)
     {
-      $resetButton.show();
-    }
-    else
-    {
-      $resetButton.hide();
+      if (this.getSkip())
+      {
+        $resetButton.show();
+      }
+      else
+      {
+        $resetButton.hide();
+      }
     }
 
     // Scroll to last item in tree
