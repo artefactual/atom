@@ -104,7 +104,10 @@ EOF;
       }
     }
 
-    sfContext::createInstance($this->configuration);
+    $configuration = ProjectConfiguration::getApplicationConfiguration(
+      $options['application'], $options['env'], false
+    );
+    sfContext::createInstance($configuration);
 
     QubitSearch::disable();
 
@@ -150,8 +153,6 @@ EOF;
     $this->createSetting('siteTitle', $siteTitle);
     $this->createSetting('siteDescription', $siteDescription);
     $this->createSetting('siteBaseUrl', $siteBaseUrl);
-
-    print "\n";
 
     addSuperuserTask::addSuperUser($options['username'], $options);
 
