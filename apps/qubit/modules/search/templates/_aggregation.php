@@ -1,4 +1,4 @@
-<?php if (!isset($aggs[$name]) || (!isset($filters[$name]) && count($aggs[$name]) < 2)) return ?>
+<?php if (!isset($aggs[$name]) || (!isset($filters[$name]) && (count($aggs[$name]) < 2 || ($name == 'languages' && count($aggs[$name]) < 3)))) return ?>
 <?php $openned = (isset($sf_request->$name) || (isset($open) && $open && 0 < count($aggs[$name]))) ?>
 
 <section class="facet <?php if ($openned) echo 'open' ?>">
