@@ -108,13 +108,14 @@ EOF;
       // The status array is a place to put data that should be accessible
       // from closure logic using the getStatus method
       'status' => array(
-        'sourceName'          => $sourceName,
-        'acquisitionTypes'    => $termData['acquisitionTypes'],
-        'resourceTypes'       => $termData['resourceTypes'],
-        'physicalObjectTypes' => $termData['physicalObjectTypes'],
-        'processingStatus'    => $termData['processingStatus'],
-        'processingPriority'  => $termData['processingPriority'],
-        'assignId'            => $options['assign-id']
+        'sourceName'                  => $sourceName,
+        'acquisitionTypes'            => $termData['acquisitionTypes'],
+        'resourceTypes'               => $termData['resourceTypes'],
+        'physicalObjectTypes'         => $termData['physicalObjectTypes'],
+        'processingStatus'            => $termData['processingStatus'],
+        'processingPriority'          => $termData['processingPriority'],
+        'alternativeIdentifierTypes'  => $termData['alternativeIdentifierTypes'],
+        'assignId'                    => $options['assign-id']
       ),
 
       'standardColumns' => array(
