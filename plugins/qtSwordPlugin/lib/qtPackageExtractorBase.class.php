@@ -234,6 +234,9 @@ class qtPackageExtractorBase
   {
     preg_match_all('/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/', $subject, $matches);
 
-    return @end(@$matches[0]);
+    if (isset($matches[0]) && is_array($matches[0]))
+    {
+      return end($matches[0]);
+    }
   }
 }
