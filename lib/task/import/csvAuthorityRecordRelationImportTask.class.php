@@ -113,14 +113,15 @@ EOF;
           $self->columnValue('subjectAuthorizedFormOfName'), ['culture' => $self->columnValue('culture')]);
 
         // Determine type ID of relationship type
-        $relationTypeId = array_search(
+        $relationTypeId = array_search_case_insensitive(
           $self->columnValue('relationType'),
           $self->status['actorRelationTypes'][$self->columnValue('culture')]
         );
 
         if (!$relationTypeId)
         {
-          throw new sfException(sprintf('Unknown relationship type %s:', $self->columnValue('relationType')));
+          $error = sprintf('Unknown relationship type "%s"... skipping row.', $self->columnValue('relationType'));
+          print $self->logError($error);
         }
         else
         {
@@ -132,7 +133,7 @@ EOF;
               ? $self->columnValue('objectAuthorizedFormOfName')
               : $self->columnValue('subjectAuthorizedFormOfName');
 
-            $error = sprintf('Actor "%s" does not exist', $badActor);
+            $error = sprintf('Actor "%s" does not exist... skipping row.', $badActor);
             print $self->logError($error);
           }
           else
