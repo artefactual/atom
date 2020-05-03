@@ -57,35 +57,47 @@ class csvActorExport extends QubitFlatfileExport
   {
     $rows = array();
 
-    foreach ($resource->getActorRelations() as $item)
+    foreach ($resource->getActorRelations() as $relation)
     {
-      $relatedEntity = $item->getOpposedObject($resource->id);
+      $relatedEntity = $relation->getOpposedObject($resource->id);
 
-      if (QubitTerm::ROOT_ID == $item->type->parentId)
+      // Take note of relationship type
+      $relationType = $relation->type;
+
+      /* If the current actor being exported is the subject, rather than object, of a
+         relation then we check for a converse relationship type, if any, to put in
+         the "relationType" column.
+
+         For example if the current actor is the subject of a "controls" type relation
+         (where the object "controls" the subject) then the converse relationship type
+         would be "is controlled by".
+
+         Some relation types like "is the sibling of", however, are reciprical and
+         don't have converse types. A lookup of the converse type for this relation type
+         will return null.
+      */
+      if ($relation->subjectId == $resource->id)
       {
-        $category = $item->type;
-      }
-      else
-      {
-        $category = $item->type->parent;
+        $converseRelation = $relationType->getConverseActorRelationTerm();
+        $relationType = (empty($converseRelation)) ? $relationType : $converseRelation;
       }
 
       $rows[] = array(
-        'sourceAuthorizedFormOfName' => $resource->authorizedFormOfName,
-        'targetAuthorizedFormOfName' => $relatedEntity->authorizedFormOfName,
-        'category'                   => (string)$category, // Return string representation for QubitTerm
-        'description'                => $item->description,
-        'date'                       => $item->date,
-        'startDate'                  => $item->startDate,
-        'endDate'                    => $item->endDate,
-        'culture'                    => $resource->culture
+        'objectAuthorizedFormOfName'  => $resource->authorizedFormOfName,
+        'subjectAuthorizedFormOfName' => $relatedEntity->authorizedFormOfName,
+        'relationType'                => (string)$relationType, // Return string representation for QubitTerm
+        'description'                 => $relation->description,
+        'date'                        => $relation->date,
+        'startDate'                   => $relation->startDate,
+        'endDate'                     => $relation->endDate,
+        'culture'                     => $resource->culture
       );
     }
 
-    $this->writeCompanionCsv($filename, $rows);
+    $this->appendToCompanionCsv($filename, $rows);
   }
 
-  private function writeCompanionCsv($filename, array $rows)
+  private function appendToCompanionCsv($filename, array $rows)
   {
     if (empty($rows))
     {
@@ -94,12 +106,12 @@ class csvActorExport extends QubitFlatfileExport
 
     if (false === $fh = fopen($filename, 'a'))
     {
-      throw new sfException("Failed to create file $filename");
+      throw new sfException("Failed to create/open file $filename");
     }
 
     if (!filesize($filename))
     {
-      // Write header
+      // Write header if file's newly created
       fputcsv($fh, array_keys($rows[0]));
     }
 

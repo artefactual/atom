@@ -987,4 +987,23 @@ class QubitTerm extends BaseTerm
       array('fetchMode' => PDO::FETCH_KEY_PAIR)
     );
   }
+
+  /**
+   * Get a term's converse actor relation term (or null if none exists).
+   *
+   * @return mixed  QubitTerm or null
+   */
+  public function getConverseActorRelationTerm()
+  {
+    // Get any converse relations to the term
+    $converseTerms = QubitRelation::getBySubjectOrObjectId(
+      $this->id, array('typeId' => QubitTerm::CONVERSE_TERM_ID)
+    );
+
+    // If converse relations exist, return related term ID of first found
+    if (count($converseTerms))
+    {
+      return $converseTerms[0]->getOpposedObject($this->id);
+    }
+  }
 }
