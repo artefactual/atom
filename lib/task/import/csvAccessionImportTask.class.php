@@ -178,6 +178,7 @@ EOF;
         'donorPostalCode',
         'donorCountry',
         'donorTelephone',
+        'donorFax',
         'donorEmail',
         'donorNote',
         'qubitParentSlug'
@@ -317,6 +318,7 @@ EOF;
             $columnToProperty = array(
               'donorEmail'         => 'email',
               'donorTelephone'     => 'telephone',
+              'donorFax'           => 'fax',
               'donorStreetAddress' => 'streetAddress',
               'donorCity'          => 'city',
               'donorRegion'        => 'region',

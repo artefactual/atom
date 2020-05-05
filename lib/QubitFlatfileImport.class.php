@@ -1942,6 +1942,7 @@ class QubitFlatfileImport
       'region',
       'postalCode',
       'countryCode',
+      'fax',
       'note'
     );
 
