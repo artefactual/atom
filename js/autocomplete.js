@@ -13,17 +13,196 @@
           if (1 > --count) {
             $form
 
-              // Unbind submit listeners to avoid triggering again
+              // Unbind submit listener so it doesn't preventDefault()
               .unbind('submit')
 
               .submit();
           }
         }
 
+        // Fire preSubmit events, then let done() call the actual form submit
+        $form.submit(function (event) {
+          event.preventDefault();
+
+          // Trigger all "preSubmit" listeners
+          $form.trigger('preSubmit');
+
+          // If no preSubmits fired, then unbind this submit handler, and fire a
+          // new submit event
+          if (count == 0) {
+            $form.off('submit');
+            $form.submit();
+          }
+        });
+
         $('select.form-autocomplete', this).each(createYuiDiv);
 
         // Use $(document).on('loadFunctions') to add function in new rows created with multiRow.js
         $(document).on('loadFunctions', 'select.form-autocomplete', createYuiDiv);
+
+        function createIFrame($src, $dest, uri, targetInput) {
+          // Add hidden <iframe/> (This is the usual behaviour)
+          var $iframe = $('<iframe src="' + uri + '"/>')
+            .width(0)
+            .height(0)
+            .css('border', 0);
+
+          // One submit handler for each new choice, use
+          // named function so it can be unbound if choice is
+          // removed
+          var submit = function () {
+            // Increment counter
+            count++;
+
+            // After iframe is submitted, wait for "load" event
+            $iframe.one('load', function () {
+              // Add the resulting page URI (e.g. "/newSubjectName") of the
+              // response to the $bindTo element
+              $dest.val(this.contentWindow.document.location).trigger('change');
+
+              // Submit $form when all preSubmit iframes have submitted, and
+              // reloaded
+              done();
+            });
+
+            // Find iframe > form > input via targetInput and update
+            // value of selected element with text of the new choice
+            var $input = $iframe.contents().find(targetInput);
+            $input.val($src.val());
+
+            // submit iframe form containing target <input />
+            $($input[0].form).submit();
+          }
+
+          // Track targetInput and submitCallback for this iframe
+          $iframe
+            .data('targetInput', targetInput)
+            .data('submitCallback', submit)
+
+          // Add preSubmit listener
+          $form.one('preSubmit', submit);
+
+          return $iframe;
+        }
+
+        // This function help us to know if a .multiple select has
+        // already a given value and highlight it if wished
+        function multipleSelectHasMatches($listitems, val, opts) {
+          var found = false;
+          val = val.trim().toLowerCase();
+          opts = opts || {};
+
+          $listitems.each(function (i) {
+            var $li = $(this);
+            var text = $li.find('span').text() || $li.find('input[type=text]').val();
+
+            if (val === text.trim().toLowerCase()) {
+              found = true;
+
+              if (opts.hasOwnProperty('highlight') || opts.highlight === true) {
+                var $span = $('span', this);
+                if ($span) {
+                  $span.css('background', 'yellow');
+                  setTimeout(function () {
+                    $span.css('background', 'none');
+                  }, 1000);
+                }
+              }
+
+              // Stop .each()
+              return false;
+            }
+          });
+
+          return found;
+        }
+
+        function addMultiSelectItem($select, $ul, data) {
+          // Only if not found we are adding a new item to the list
+          if (multipleSelectHasMatches($ul.children('li'), data[0], { highlight: true })) {
+            return;
+          }
+
+          // Make <li/> of hidden <input/> with item value, and
+          // <span/> with item HTML
+          //
+          // Use XML() constructor to insert parsed HTML, works
+          // for strings without an <element/> and strings with
+          // one root <element/>, but not, I suspect, for
+          // strings with multiple root <element/>s or text
+          // outside the root <element/>
+          var $li = $('<li title="Remove item">')
+            .click(function () {
+              // On click, remove <li/>
+              $(this).hide('fast', function () {
+                $(this).remove();
+
+                // Toggle <ul/> based on children length
+                // jQuery.toggle() expects a boolean parameter
+                $ul.toggle(!!$ul.children().length);
+              });
+            });
+
+          $li.appendTo($ul);
+
+          // Use hidden input to store and POST URI of related resource
+          var $hidden = $('<input name="' + $select.attr('name') + '" type="hidden" />');
+
+          if (data[1]) {
+            // If an existing resource was selected from the YUI autocomplete
+            // $select then data[0] is the resource name, and data[1] is the URI
+            $hidden.val(data[1]);  // Hidden URI
+            $('<span>' + data[0] + '</span>').appendTo($li); // User-friendly label
+          } else {
+            // If a new "unmatched" value was entered in the YUI autocomplete,
+            // then data[0] will be the string entered by the user
+
+            // Clear hidden <input /> value, it will be set from the iframe
+            // response
+            $hidden.val('')
+
+            // Make a new visible <input/> to display the user entered string
+            var $input = $('<input type="text" class="yui-ac-input" />');
+            $input
+              // Set value to user entered string
+              .val(data[0])
+
+              // On blur
+              .blur(function () {
+                var $this = $(this);
+                var val = $(this).val();
+                if (multipleSelectHasMatches($li.siblings(), val)) {
+                  val = '';
+                }
+
+                // if text is empty, remove <li/> and cancel addition of
+                // new choice
+                if (!val) {
+                  $li.hide('fast', function () {
+                    $(this).remove();
+                  });
+
+                  // Cancel preSubmit listener
+                  $form.off($iframe.data('submitCallback'));
+                }
+              })
+
+              .click((function (event) {
+                // Prevent parent <li /> click event from firing and removing
+                // the element
+                event.stopPropagation();
+              }))
+
+              .appendTo($li);
+          }
+
+          $hidden.appendTo($li);
+
+          // Reveal the <ul />
+          $ul.show()
+
+          return $li;
+        }
 
         // Use named function so it can be bound to events
         function createYuiDiv() {
@@ -81,10 +260,12 @@
           // the specified URI
           var value = $(this).siblings('.list').val(); // $('~ .list', this) stopped working in jQuery 1.4.4
           if (value) {
-            // Split into URI and selector like jQuery load()
-            var components = value.split(' ', 2);
+            var uri, targetInput;
 
-            var dataSource = new YAHOO.util.XHRDataSource(components[0]);
+            // Split into URI and selector like jQuery load()
+            [uri, targetInput] = value.split(' ', 2);
+
+            var dataSource = new YAHOO.util.XHRDataSource(uri);
 
             // Cache at least one query so autocomplete items are only
             // requested if the value of the autocomplete <input/>
@@ -192,38 +373,6 @@
             };
           }
 
-          // This function help us to know if a .multiple select has
-          // already a given value and highlight it if wished
-          var multipleSelectHasMatches = function (li, val, opts) {
-            var found = false;
-            val = val.trim().toLowerCase();
-            opts = opts || {};
-
-            $('li', $ul).not(li).each(function (i) {
-              var $li = $(this);
-              var text = $li.find('span').text() || $li.find('input[type=text]').val();
-
-              if (val === text.trim().toLowerCase()) {
-                found = true;
-
-                if (opts.hasOwnProperty('highlight') || opts.highlight === true) {
-                  var $span = $('span', this);
-                  if ($span) {
-                    $span.css('background', 'yellow');
-                    setTimeout(function () {
-                      $span.css('background', 'none');
-                    }, 1000);
-                  }
-                }
-
-                // Stop .each()
-                return false;
-              }
-            });
-
-            return found;
-          }
-
           // Start throbbing when first query is sent, stop throbbing
           // when the last query to be sent is complete
           //
@@ -256,47 +405,7 @@
                 event.preventDefault();
               }
 
-              // If this item is already selected, highlight it,
-              // otherwise add it to list of selected items
-              if (!
-                // For unknown reasons, this selector isn't working, see issue 2004
-                // $('li:has(input[value=' + data[1] + '])', $ul)
-                $('li', $ul)
-                  .filter(function () {
-                    return data[1] == $(this).find('input').val();
-                  })
-                  .each(function () {
-                    // Make background yellow for one second
-                    //
-                    // TODO Use CSS class
-                    var $span = $('span', this).css('background', 'yellow');
-
-                    setTimeout(function () {
-                      $span.css('background', 'none');
-                    }, 1000);
-                  })
-                  .length) {
-                // Make <li/> of hidden <input/> with item value, and
-                // <span/> with item HTML
-                //
-                // Use XML() constructor to insert parsed HTML, works
-                // for strings without an <element/> and strings with
-                // one root <element/>, but not, I suspect, for
-                // strings with multiple root <element/>s or text
-                // outside the root <element/>
-                $('<li title="Remove item"><input name="' + $select.attr('name') + '" type="hidden" value="' + data[1] + '"/><span>' + data[0] + '</span></li>')
-                  .click(function () {
-                    // On click, remove <li/>
-                    $(this).hide('fast', function () {
-                      $(this).remove();
-
-                      // Toggle <ul/> based on children length
-                      // jQuery.toggle() expects a boolean parameter
-                      $ul.toggle(!!$ul.children().length);
-                    });
-                  })
-                  .appendTo($ul.show());
-              }
+              addMultiSelectItem($select, $ul, data);
 
               // Select autocomplete <input/> contents so typing will
               // replace it
@@ -373,10 +482,6 @@
           // selecting existing item, but not changing focus
           $input.click(sendQuery);
 
-          // Function assignment instead of function declaration,
-          // http://piecesofrakesh.blogspot.com/2008/12/function-declaration-vs-function.html
-          var submit;
-
           // A following sibling with class .add and a value specifies
           // that new choices can be added to this input with a form at
           // the specified URI, by copying the value of the
@@ -392,58 +497,68 @@
           var value = $add.val();
           if (value) {
             // Split into URI and selector like jQuery load()
-            var components = value.split(' ', 2);
+            var uri, targetInput;
+
+            [uri, targetInput] = value.split(' ', 2);
 
             // Support for data-link-existing="true"
             if ($add.data('link-existing') === true) {
-              var uri = new URI(components[0]);
-              uri.addQuery('linkExisting', true);
-              components[0] = uri.toString();
+              var u = new URI(uri);
+              u.addQuery('linkExisting', true);
+              uri = u.toString();
             }
 
-            var $iframe;
+            // The following applies to both single and multiple <select/>
+            autoComplete.unmatchedItemSelectEvent.subscribe(function () {
+              var $iframe;
+
+              // Stop throbbing
+              $input.removeClass('throbbing');
+
+              if ($input.val()) {
+                if (!$select.attr('multiple')) {
+                  // Create iframe which will be submitted to create a new
+                  // related resource from the "unmatched" value
+                  $iframe = createIFrame($input, $hidden, uri, targetInput);
+                } else {
+                  // Cancel default action of saved DOM event so as
+                  // not to loose focus when selecting multiple items
+                  if (event) {
+                    event.preventDefault();
+                  }
+
+                  var $li = addMultiSelectItem($select, $ul, [$input.val()]);
+
+                  // Select autocomplete <input/> contents so typing
+                  // will replace it
+                  $input.select();
+
+                  // Create $iframe bound to $clone <input \>
+                  $iframe = createIFrame(
+                    $li.find('input[type=text]'),
+                    $li.find('input[type=hidden]'),
+                    uri,
+                    targetInput
+                  );
+                }
+
+                // Add $iframe to bottom of HTML DOM
+                $iframe.appendTo('body');
+              }
+              else {
+                $hidden.val('').trigger('change');
+
+                // If unmatched item is empty, cancel preSumbit listener
+                $form.off($iframe.data('submitCallback'));
+              }
+            });
 
             if (!$select.attr('multiple')) {
-              // Add hidden <iframe/>, set width, height, and border to
-              // zero, don't use display: none, i.e. hide() because it
-              // might get ignored by some browsers,
-              // http://developer.apple.com/internet/webcontent/iframe.html
-              //
-              // Append to <body/> instead of insert after <select/> to
-              // avoid interfering with tabbing between inputs
-              $iframe = $('<iframe src="' + components[0] + '"/>')
-                .width(0)
-                .height(0)
-                .css('border', 0)
-                .appendTo('body');
-
-              // One submit handler per single <select/>, use named
-              // function so it can be unbound on item select
-              submit = function (event) {
-                // Delay submit till all listeners done
-                event.preventDefault();
-                count++;
-
-                $iframe.one('load', function () {
-                  // Update value of this input with URI of new
-                  // resource
-                  $hidden.val(this.contentWindow.document.location).trigger('change');
-
-                  // Decrement count of listeners and submit if all
-                  // done
-                  done();
-                });
-
-                // Apply selector to <iframe/> contents, update value
-                // of selected element with value of the autocomplete
-                // <input/>, and submit selected element's form
-                $($(components[1], $iframe[0].contentWindow.document).val($input.val())[0].form).submit();
-              }
-
               // Selecting existing item cancels addition of a new
               // choice
               autoComplete.itemSelectEvent.subscribe(function () {
-                $form.unbind('submit', submit);
+                // Cancel preSubmit listener
+                $form.off($iframe.data('submitCallback'));
 
                 // Trigger event to load item data if it's needed
                 $input.trigger({
@@ -452,146 +567,6 @@
                 });
               });
             }
-
-            // The following applies to both single and multiple
-            // <select/>
-
-            autoComplete.unmatchedItemSelectEvent.subscribe(function () {
-              // Stop throbbing
-              $input.removeClass('throbbing');
-
-              var $iframe;
-
-              if ($input.val()) {
-                if ($select.attr('multiple')) {
-                  // Cancel default action of saved DOM event so as
-                  // not to loose focus when selecting multiple items
-                  if (event) {
-                    event.preventDefault();
-                  }
-
-                  // Only if not found we are adding a new item to the list
-                  var found = multipleSelectHasMatches($input.parent(), $input.val(), { highlight: true });
-                  if (!found) {
-                    // Add hidden <iframe/> for each new choice
-                    $iframe = $('<iframe src="' + components[0] + '"/>')
-                      .width(0)
-                      .height(0)
-                      .css('border', 0)
-                      .appendTo('body');
-
-                    // One submit handler for each new choice, use
-                    // named function so it can be unbound if choice is
-                    // removed
-                    submit = function (event) {
-                      // Delay submit till all listeners done
-                      event.preventDefault();
-                      count++;
-
-                      $iframe.one('load', function () {
-                        // Make <input/> with URI of new resource as
-                        // its value
-                        $('<input name="' + $select.attr('name') + '" type="hidden" value="' + this.contentWindow.document.location + '"/>').appendTo($li);
-
-                        // Decrement count of listeners and submit if
-                        // all done
-                        done();
-                      });
-
-                      // Apply selector to <iframe/> contents, update
-                      // value of selected element with text of the new
-                      // choice, and submit selected element's form
-                      $($(components[1], $iframe[0].contentWindow.document).val($clone.val())[0].form).submit();
-                    }
-
-                    // Make <li/>
-                    var $li = $('<li title="Remove item"/>')
-                      .click(function (event) {
-                        // On click, remove <li/> and cancel addition
-                        // of new choice, unless user clicked on new
-                        // choice <input/>
-                        if ($clone[0] != event.target) {
-                          $(this).hide('fast', function () {
-                            $(this).remove();
-
-                            // Toggle <ul/> based on children length
-                            // jQuery.toggle() expects a boolean parameter
-                            $ul.toggle(!!$ul.children().length);
-                          });
-
-                          // Cancel addition of new choice
-                          $form.unbind('submit', submit);
-                        }
-                      })
-                      .appendTo($ul.show());
-
-                    // Make new choice <input/> by cloning autocomplete
-                    // <input/>
-                    var $clone = $input
-                      .clone()
-
-                      // Remove class to hide throbber
-                      .removeClass('form-autocomplete')
-
-                      .blur(function () {
-                        var $this = $(this);
-                        var val = $(this).val();
-                        if (multipleSelectHasMatches($this.parent(), val)) {
-                          val = '';
-                        }
-
-                        // On blur, remove <li/> and cancel addition
-                        // of new choice, if text of the new choice
-                        // was cleared
-                        if (!val) {
-                          $li.hide('fast', function () {
-                            $(this).remove();
-                          });
-
-                          // Cancel addition of new choice
-                          $form.unbind('submit', submit);
-                        }
-                      })
-                      .appendTo($li);
-
-                    // Select autocomplete <input/> contents so typing
-                    // will replace it
-                    $input.select();
-                  }
-                }
-
-                // Listen for form submit
-                //
-                // Trick, if single <select/>, listener will be from
-                // parent scope. If multiple <select/>, listener will
-                // be from this scope, where it's wrapped in, if
-                // ($select.attr('multiple')) ...
-                //
-                // This is because listeners have the same name in
-                // each scope, and it will get overridden if the if
-                // statement evaluates
-                if (!$input.parents('div.yui-dialog').length) {
-                  $form.submit(submit);
-                }
-                else {
-                  // Clear hidden field value when selecting an un-
-                  // matched value in a dialog
-                  $hidden.val('').trigger('change');
-
-                  // Link input to iframe for dialog submit behaviour
-                  if (undefined == $input.data('iframe')) {
-                    $input.data('iframe', $iframe);
-                  }
-                }
-              }
-              else {
-                $hidden.val('').trigger('change');
-
-                // If unmatched item is empty, cancel addition of new
-                // single <select/> choice
-                $form.unbind('submit', submit);
-              }
-            });
           }
           else {
             // Otherwise new choices can't be added to this input,
