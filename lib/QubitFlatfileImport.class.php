@@ -1943,7 +1943,8 @@ class QubitFlatfileImport
       'postalCode',
       'countryCode',
       'fax',
-      'note'
+      'note',
+      'contactPerson'
     );
 
     $this->setPropertiesFromArray($info, $options, $allowedProperties);

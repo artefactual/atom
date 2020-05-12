@@ -179,6 +179,7 @@ EOF;
         'donorCountry',
         'donorTelephone',
         'donorFax',
+        'donorContactPerson',
         'donorEmail',
         'donorNote',
         'qubitParentSlug'
@@ -323,7 +324,8 @@ EOF;
               'donorCity'          => 'city',
               'donorRegion'        => 'region',
               'donorPostalCode'    => 'postalCode',
-              'donorNote'          => 'note'
+              'donorNote'          => 'note',
+              'donorContactPerson' => 'contactPerson'
             );
 
             // Set up creation of contact infomation
