@@ -31,16 +31,6 @@ vendor/symfony/licenses
 
 Access to Memory (AtoM) also uses the following symfony plugins:
 
-sfLucenePlugin
---------------
-Copyright: Carl Vondrick
-License:   MIT
-
-sfSearchPlugin
---------------
-Copyright: Carl Vondrick
-License:   MIT
-
 sfThumbnailPlugin
 -----------------
 Copyright: Fabien Potencer

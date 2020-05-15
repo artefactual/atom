@@ -38,8 +38,6 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
     <file name="uploads//*" role="data"/>
     <file name="downloads//*" role="data"/>
     <file name="plugins/sfDrupalPlugin//*" role="data"/>
-    <file name="plugins/sfLucenePlugin//*" role="data"/>
-    <file name="plugins/sfSearchPlugin//*" role="data"/>
     <file name="plugins/sfFormExtraPlugin//*" role="data"/>
     <file name="plugins/sfWebBrowserPlugin//*" role="data"/>
     <file name="plugins/sfThumbnailPlugin//*" role="data"/>
