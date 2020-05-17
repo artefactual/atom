@@ -126,8 +126,8 @@ abstract class arElasticSearchModelBase
       }
     }
 
-    // Remove duplicated cultures
-    $i18ns['languages'] = array_unique($i18ns['languages']);
+    // Remove duplicated cultures from language values
+    $i18ns['languages'] = array_unique(array_values($i18ns['languages']));
 
     return $i18ns;
   }

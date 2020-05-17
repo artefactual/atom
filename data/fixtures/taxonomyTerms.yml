@@ -1543,6 +1543,12 @@ QubitTaxonomy:
     name:
       en: 'Accession alternative identifier type'
       pt_BR: 'Incorporação do tipo de identificador alternativo'
+  QubitTaxonomy_accession_event_types:
+    id: 83
+    parent_id: QubitTaxonomy_root
+    source_culture: en
+    name:
+      en: 'Accession event type'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -4203,6 +4209,20 @@ QubitTerm:
     name:
       en: 'Accession alternative identifier'
       pt_BR: 'Incorporação de identificador alternativo'
+  QubitTerm_accession_event_type_physical_transfer:
+    id: 193
+    parent_id: QubitTerm_110
+    taxonomy_id: QubitTaxonomy_accession_event_types
+    source_culture: en
+    name:
+      en: 'Physical transfer'
+  QubitTerm_accession_event_note:
+    id: 194
+    parent_id: QubitTerm_110
+    taxonomy_id: QubitTaxonomy_7
+    source_culture: en
+    name:
+      en: 'Accession event note'
   QubitTerm_actor_relationship_is_the_superior_of:
     taxonomy_id: QubitTaxonomy_actor_relation_type
     parent_id: QubitTerm_actor_relationship_hierarchical

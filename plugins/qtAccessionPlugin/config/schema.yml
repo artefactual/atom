@@ -23,6 +23,15 @@ propel:
     source_of_acquisition: longvarchar
     title: varchar(255)
 
+  accession_event:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    accession_id: { type: integer, foreignTable: accession, foreignReference: id, onDelete: cascade }
+    date: bu_date
+
+  accession_event_i18n:
+    agent: varchar(255)
+
   deaccession:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     accession_id: { type: integer, foreignTable: accession, foreignReference: id, onDelete: cascade }

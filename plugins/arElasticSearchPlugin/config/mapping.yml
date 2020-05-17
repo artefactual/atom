@@ -74,6 +74,22 @@ mapping:
       subject_id: { type: integer, include_in_all: false }
       type_id: { type: integer, include_in_all: false }
 
+  accession_event:
+    _attributes:
+      i18n: true
+      nested_only: true
+    _partial_foreign_types:
+      type:
+        _i18nFields: [name]
+        dynamic: strict
+      notes:
+        _i18nFields: [content]
+        dynamic: strict
+    dynamic: strict
+    properties:
+      date: { type: date, include_in_all: false }
+      date_string: { type: keyword }
+
   donor:
     _attributes:
       i18nExtra: [actor]
@@ -386,6 +402,7 @@ mapping:
       rawFields:  [title]
       sortFields: [title]
     _foreign_types:
+      accession_events: accession_event
       alternative_identifiers: other_name
       donors: donor
       creators: actor

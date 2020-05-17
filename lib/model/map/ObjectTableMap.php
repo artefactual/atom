@@ -50,6 +50,7 @@ class ObjectTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('accession', 'accession', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('accessionEvent', 'accessionEvent', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('deaccession', 'deaccession', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('aclPermission', 'aclPermission', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
     $this->addRelation('accessLog', 'accessLog', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);

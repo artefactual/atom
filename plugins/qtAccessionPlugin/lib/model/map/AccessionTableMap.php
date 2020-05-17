@@ -60,6 +60,7 @@ class AccessionTableMap extends TableMap {
     $this->addRelation('termRelatedByprocessingStatusId', 'term', RelationMap::MANY_TO_ONE, array('processing_status_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('termRelatedByresourceTypeId', 'term', RelationMap::MANY_TO_ONE, array('resource_type_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('accessionI18n', 'accessionI18n', RelationMap::ONE_TO_MANY, array('id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('accessionEvent', 'accessionEvent', RelationMap::ONE_TO_MANY, array('id' => 'accession_id', ), 'CASCADE', null);
     $this->addRelation('deaccession', 'deaccession', RelationMap::ONE_TO_MANY, array('id' => 'accession_id', ), 'CASCADE', null);
 	} // buildRelations()
 

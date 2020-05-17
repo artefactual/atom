@@ -372,6 +372,11 @@ class AccessionEditAction extends DefaultEditAction
     $this->alternativeIdentifiersComponent->resource = $this->resource;
     $this->alternativeIdentifiersComponent->execute($this->request);
 
+    // Handle accession events
+    $this->eventsComponent = new AccessionEventsComponent($this->context, 'accession', 'events');
+    $this->eventsComponent->resource = $this->resource;
+    $this->eventsComponent->execute($this->request);
+
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getPostParameters());
@@ -407,6 +412,7 @@ class AccessionEditAction extends DefaultEditAction
         $this->resource->save();
 
         $this->alternativeIdentifiersComponent->processForm();
+        $this->eventsComponent->processForm();
 
         QubitSearch::getInstance()->update($this->resource);
 

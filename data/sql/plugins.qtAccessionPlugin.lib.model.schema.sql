@@ -78,6 +78,56 @@ CREATE TABLE `accession_i18n`
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
+#-- accession_event
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `accession_event`;
+
+
+CREATE TABLE `accession_event`
+(
+	`id` INTEGER  NOT NULL,
+	`type_id` INTEGER,
+	`accession_id` INTEGER,
+	`date` DATE,
+	`source_culture` VARCHAR(16)  NOT NULL,
+	PRIMARY KEY (`id`),
+	CONSTRAINT `accession_event_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `object` (`id`)
+		ON DELETE CASCADE,
+	INDEX `accession_event_FI_2` (`type_id`),
+	CONSTRAINT `accession_event_FK_2`
+		FOREIGN KEY (`type_id`)
+		REFERENCES `term` (`id`)
+		ON DELETE SET NULL,
+	INDEX `accession_event_FI_3` (`accession_id`),
+	CONSTRAINT `accession_event_FK_3`
+		FOREIGN KEY (`accession_id`)
+		REFERENCES `accession` (`id`)
+		ON DELETE CASCADE
+)Engine=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- accession_event_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `accession_event_i18n`;
+
+
+CREATE TABLE `accession_event_i18n`
+(
+	`agent` VARCHAR(255),
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(16)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `accession_event_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `accession_event` (`id`)
+		ON DELETE CASCADE
+)Engine=InnoDB;
+
+#-----------------------------------------------------------------------------
 #-- deaccession
 #-----------------------------------------------------------------------------
 

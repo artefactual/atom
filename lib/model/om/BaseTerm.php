@@ -129,6 +129,11 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       return true;
     }
 
+    if ('accessionEvents' == $name)
+    {
+      return true;
+    }
+
     if ('deaccessions' == $name)
     {
       return true;
@@ -404,6 +409,23 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       }
 
       return $this->refFkValues['accessionsRelatedByresourceTypeId'];
+    }
+
+    if ('accessionEvents' == $name)
+    {
+      if (!isset($this->refFkValues['accessionEvents']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['accessionEvents'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['accessionEvents'] = self::getaccessionEventsById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['accessionEvents'];
     }
 
     if ('deaccessions' == $name)
@@ -1273,6 +1295,26 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
   public function addaccessionsRelatedByresourceTypeIdCriteria(Criteria $criteria)
   {
     return self::addaccessionsRelatedByresourceTypeIdCriteriaById($criteria, $this->id);
+  }
+
+  public static function addaccessionEventsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitAccessionEvent::TYPE_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getaccessionEventsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addaccessionEventsCriteriaById($criteria, $id);
+
+    return QubitAccessionEvent::get($criteria, $options);
+  }
+
+  public function addaccessionEventsCriteria(Criteria $criteria)
+  {
+    return self::addaccessionEventsCriteriaById($criteria, $this->id);
   }
 
   public static function adddeaccessionsCriteriaById(Criteria $criteria, $id)

@@ -58,6 +58,7 @@ class TermTableMap extends TableMap {
     $this->addRelation('accessionRelatedByprocessingPriorityId', 'accession', RelationMap::ONE_TO_MANY, array('id' => 'processing_priority_id', ), 'SET NULL', null);
     $this->addRelation('accessionRelatedByprocessingStatusId', 'accession', RelationMap::ONE_TO_MANY, array('id' => 'processing_status_id', ), 'SET NULL', null);
     $this->addRelation('accessionRelatedByresourceTypeId', 'accession', RelationMap::ONE_TO_MANY, array('id' => 'resource_type_id', ), 'SET NULL', null);
+    $this->addRelation('accessionEvent', 'accessionEvent', RelationMap::ONE_TO_MANY, array('id' => 'type_id', ), 'SET NULL', null);
     $this->addRelation('deaccession', 'deaccession', RelationMap::ONE_TO_MANY, array('id' => 'scope_id', ), 'SET NULL', null);
     $this->addRelation('actorRelatedByentityTypeId', 'actor', RelationMap::ONE_TO_MANY, array('id' => 'entity_type_id', ), 'SET NULL', null);
     $this->addRelation('actorRelatedBydescriptionStatusId', 'actor', RelationMap::ONE_TO_MANY, array('id' => 'description_status_id', ), 'SET NULL', null);
