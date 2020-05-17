@@ -92,7 +92,9 @@ class QubitTaxonomy extends BaseTaxonomy
 
     USER_ACTION_ID = 81,
 
-    ACCESSION_ALTERNATIVE_IDENTIFIER_TYPE_ID = 82;
+    ACCESSION_ALTERNATIVE_IDENTIFIER_TYPE_ID = 82,
+
+    ACCESSION_EVENT_TYPE_ID = 83;
 
   public static
     $lockedTaxonomies = array(

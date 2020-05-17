@@ -95,6 +95,23 @@
     </div>
   </div>
 
+  <div class="field">
+    <h3><?php echo __('Event(s)') ?></h3>
+    <div>
+      <ul>
+        <?php foreach ($resource->accessionEvents as $event): ?>
+          <li>
+            <?php echo $event->getDate() ?> (<?php echo $event->type->getName(array('cultureFallback' => true)) ?>): <?php echo $event->getAgent(array('cultureFallback' => true)) ?>
+            <?php $note = $event->getNote() ?>
+            <?php if ($note !== null && !empty($noteText = $note->getContent(array('cultureFallback' => true)))): ?>
+              <p><?php echo $noteText ?></p>
+            <?php endif; ?>
+          </li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+  </div>
+
   <?php echo render_show(__('Archival/Custodial history'), render_value($resource->getArchivalHistory(array('cultureFallback' => true)))) ?>
 
   <?php echo render_show(__('Scope and content'), render_value($resource->getScopeAndContent(array('cultureFallback' => true)))) ?>

@@ -119,10 +119,14 @@ class AccessionBrowseAction extends sfAction
         'alternativeIdentifiers.i18n.%s.name',
         'creators.i18n.%s.authorizedFormOfName',
         'alternativeIdentifiers.i18n.%s.note',
-        'alternativeIdentifiers.type.i18n.%s.name'), null, $boost);
+        'alternativeIdentifiers.type.i18n.%s.name'),
+        'accessionEvents.i18n.%s.agent',
+        'accessionEvents.type.i18n.%s.name',
+        'accessionEvents.notes.i18n.%s.content'), null, $boost);
 
       $fields[] = 'identifier^10';
       $fields[] = 'donors.contactInformations.contactPerson';
+      $fields[] = 'accessionEvents.dateString';
 
       $queryString->setFields($fields);
 

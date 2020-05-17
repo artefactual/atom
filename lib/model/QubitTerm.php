@@ -178,7 +178,13 @@ class QubitTerm extends BaseTerm
     EXTERNAL_FILE_ID = 191,
 
     // Accession alternative identifier taxonomy
-    ACCESSION_ALTERNATIVE_IDENTIFIER_DEFAULT_TYPE_ID = 192;
+    ACCESSION_ALTERNATIVE_IDENTIFIER_DEFAULT_TYPE_ID = 192,
+
+    // Accession event type: physical transfer
+    ACCESSION_EVENT_PHYSICAL_TRANSFER_ID = 193,
+
+    // Accession event note
+    ACCESSION_EVENT_NOTE_ID = 194;
 
   public static function isProtected($id)
   {
@@ -248,7 +254,9 @@ class QubitTerm extends BaseTerm
       QubitTerm::JOB_STATUS_IN_PROGRESS_ID,
       QubitTerm::JOB_STATUS_COMPLETED_ID,
       QubitTerm::JOB_STATUS_ERROR_ID,
-      QubitTerm::ACTOR_OCCUPATION_NOTE_ID));
+      QubitTerm::ACTOR_OCCUPATION_NOTE_ID,
+      QubitTerm::ACCESSION_EVENT_PHYSICAL_TRANSFER_ID,
+      QubitTerm::ACCESSION_EVENT_NOTE_ID));
   }
 
   public function __toString()
