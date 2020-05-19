@@ -39,7 +39,7 @@ class TaxonomyI18nTableMap extends TableMap {
 		$this->addColumn('NAME', 'name', 'VARCHAR', false, 1024, null);
 		$this->addColumn('NOTE', 'note', 'LONGVARCHAR', false, null, null);
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'taxonomy', 'ID', true, null, null);
-		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 7, null);
+		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

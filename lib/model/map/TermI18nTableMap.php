@@ -38,7 +38,7 @@ class TermI18nTableMap extends TableMap {
 		// columns
 		$this->addColumn('NAME', 'name', 'VARCHAR', false, 1024, null);
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'term', 'ID', true, null, null);
-		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 7, null);
+		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

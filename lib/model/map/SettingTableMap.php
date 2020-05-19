@@ -40,7 +40,7 @@ class SettingTableMap extends TableMap {
 		$this->addColumn('SCOPE', 'scope', 'VARCHAR', false, 255, null);
 		$this->addColumn('EDITABLE', 'editable', 'BOOLEAN', false, null, false);
 		$this->addColumn('DELETEABLE', 'deleteable', 'BOOLEAN', false, null, false);
-		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 7, null);
+		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 16, null);
 		$this->addPrimaryKey('ID', 'id', 'INTEGER', true, null, null);
 		$this->addColumn('SERIAL_NUMBER', 'serialNumber', 'INTEGER', true, null, 0);
 		// validators

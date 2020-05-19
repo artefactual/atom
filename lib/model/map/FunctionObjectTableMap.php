@@ -45,7 +45,7 @@ class FunctionObjectTableMap extends TableMap {
 		$this->addColumn('SOURCE_STANDARD', 'sourceStandard', 'VARCHAR', false, 1024, null);
 		$this->addColumn('LFT', 'lft', 'INTEGER', false, null, null);
 		$this->addColumn('RGT', 'rgt', 'INTEGER', false, null, null);
-		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 7, null);
+		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

@@ -50,7 +50,7 @@ class ActorI18nTableMap extends TableMap {
 		$this->addColumn('SOURCES', 'sources', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('REVISION_HISTORY', 'revisionHistory', 'LONGVARCHAR', false, null, null);
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'actor', 'ID', true, null, null);
-		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 7, null);
+		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

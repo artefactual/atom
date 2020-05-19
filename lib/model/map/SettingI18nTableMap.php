@@ -38,7 +38,7 @@ class SettingI18nTableMap extends TableMap {
 		// columns
 		$this->addColumn('VALUE', 'value', 'LONGVARCHAR', false, null, null);
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'setting', 'ID', true, null, null);
-		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 7, null);
+		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

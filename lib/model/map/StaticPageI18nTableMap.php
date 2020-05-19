@@ -39,7 +39,7 @@ class StaticPageI18nTableMap extends TableMap {
 		$this->addColumn('TITLE', 'title', 'VARCHAR', false, 1024, null);
 		$this->addColumn('CONTENT', 'content', 'LONGVARCHAR', false, null, null);
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'static_page', 'ID', true, null, null);
-		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 7, null);
+		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

@@ -42,7 +42,7 @@ class RelationTableMap extends TableMap {
 		$this->addForeignKey('TYPE_ID', 'typeId', 'INTEGER', 'term', 'ID', false, null, null);
 		$this->addColumn('START_DATE', 'startDate', 'DATE', false, null, null);
 		$this->addColumn('END_DATE', 'endDate', 'DATE', false, null, null);
-		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 7, null);
+		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

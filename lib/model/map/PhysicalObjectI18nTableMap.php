@@ -40,7 +40,7 @@ class PhysicalObjectI18nTableMap extends TableMap {
 		$this->addColumn('DESCRIPTION', 'description', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('LOCATION', 'location', 'LONGVARCHAR', false, null, null);
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'physical_object', 'ID', true, null, null);
-		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 7, null);
+		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

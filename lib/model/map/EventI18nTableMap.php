@@ -40,7 +40,7 @@ class EventI18nTableMap extends TableMap {
 		$this->addColumn('DESCRIPTION', 'description', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('DATE', 'date', 'VARCHAR', false, 1024, null);
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'event', 'ID', true, null, null);
-		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 7, null);
+		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

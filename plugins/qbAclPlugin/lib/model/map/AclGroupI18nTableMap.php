@@ -39,7 +39,7 @@ class AclGroupI18nTableMap extends TableMap {
 		$this->addColumn('NAME', 'name', 'VARCHAR', false, 255, null);
 		$this->addColumn('DESCRIPTION', 'description', 'LONGVARCHAR', false, null, null);
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'acl_group', 'ID', true, null, null);
-		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 7, null);
+		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

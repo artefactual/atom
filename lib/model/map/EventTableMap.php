@@ -44,7 +44,7 @@ class EventTableMap extends TableMap {
 		$this->addForeignKey('TYPE_ID', 'typeId', 'INTEGER', 'term', 'ID', true, null, null);
 		$this->addForeignKey('OBJECT_ID', 'objectId', 'INTEGER', 'object', 'ID', false, null, null);
 		$this->addForeignKey('ACTOR_ID', 'actorId', 'INTEGER', 'actor', 'ID', false, null, null);
-		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 7, null);
+		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

@@ -39,7 +39,7 @@ class MenuI18nTableMap extends TableMap {
 		$this->addColumn('LABEL', 'label', 'VARCHAR', false, 255, null);
 		$this->addColumn('DESCRIPTION', 'description', 'LONGVARCHAR', false, null, null);
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'menu', 'ID', true, null, null);
-		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 7, null);
+		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

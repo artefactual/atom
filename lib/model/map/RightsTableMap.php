@@ -46,7 +46,7 @@ class RightsTableMap extends TableMap {
 		$this->addColumn('COPYRIGHT_JURISDICTION', 'copyrightJurisdiction', 'VARCHAR', false, 1024, null);
 		$this->addColumn('STATUTE_DETERMINATION_DATE', 'statuteDeterminationDate', 'DATE', false, null, null);
 		$this->addForeignKey('STATUTE_CITATION_ID', 'statuteCitationId', 'INTEGER', 'term', 'ID', false, null, null);
-		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 7, null);
+		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

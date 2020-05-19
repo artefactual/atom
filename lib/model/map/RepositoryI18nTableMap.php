@@ -52,7 +52,7 @@ class RepositoryI18nTableMap extends TableMap {
 		$this->addColumn('DESC_SOURCES', 'descSources', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('DESC_REVISION_HISTORY', 'descRevisionHistory', 'LONGVARCHAR', false, null, null);
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'repository', 'ID', true, null, null);
-		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 7, null);
+		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

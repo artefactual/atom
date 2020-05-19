@@ -40,7 +40,7 @@ class OtherNameI18nTableMap extends TableMap {
 		$this->addColumn('NOTE', 'note', 'VARCHAR', false, 1024, null);
 		$this->addColumn('DATES', 'dates', 'LONGVARCHAR', false, null, null);
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'other_name', 'ID', true, null, null);
-		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 7, null);
+		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

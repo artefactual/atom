@@ -46,7 +46,7 @@ class AccessionI18nTableMap extends TableMap {
 		$this->addColumn('SOURCE_OF_ACQUISITION', 'sourceOfAcquisition', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('TITLE', 'title', 'VARCHAR', false, 255, null);
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'accession', 'ID', true, null, null);
-		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 7, null);
+		$this->addPrimaryKey('CULTURE', 'culture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

@@ -41,7 +41,7 @@ class PhysicalObjectTableMap extends TableMap {
 		$this->addForeignKey('PARENT_ID', 'parentId', 'INTEGER', 'physical_object', 'ID', false, null, null);
 		$this->addColumn('LFT', 'lft', 'INTEGER', true, null, null);
 		$this->addColumn('RGT', 'rgt', 'INTEGER', true, null, null);
-		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 7, null);
+		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()
 

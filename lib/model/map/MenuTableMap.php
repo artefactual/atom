@@ -43,7 +43,7 @@ class MenuTableMap extends TableMap {
 		$this->addColumn('RGT', 'rgt', 'INTEGER', true, null, null);
 		$this->addColumn('CREATED_AT', 'createdAt', 'TIMESTAMP', true, null, null);
 		$this->addColumn('UPDATED_AT', 'updatedAt', 'TIMESTAMP', true, null, null);
-		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 7, null);
+		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 16, null);
 		$this->addPrimaryKey('ID', 'id', 'INTEGER', true, null, null);
 		$this->addColumn('SERIAL_NUMBER', 'serialNumber', 'INTEGER', true, null, 0);
 		// validators
