@@ -1,2 +1,2 @@
-legacyId,objectAuthorizedFormOfName,subjectAuthorizedFormOfName,relationType,description,date,startDate,endDate,culture
-10,Example Organization,Example Person,controls,Example person worked at example organization.,2011-01-29,2011-01-29,2011-05-15,en
+legacyId,subjectAuthorizedFormOfName,relationType,objectAuthorizedFormOfName,description,date,startDate,endDate,culture
+1,Example person (ISAAR 5.1.2),is controlled by,Example Corporation (ISAAR 5.1.2),Example Person worked at Example Corporation (ISAAR 5.3.3),2010 - 2015 (ISAAR 5.3.4),2010-01-01,2015-12-31,en

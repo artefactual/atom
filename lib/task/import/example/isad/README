@@ -1,4 +1,0 @@
-The "qubitParentSlug" column, not included in the example_information_objects_isad.csv
-spreadsheet, may be used instead of the "parentId" to indicate a parent relationship.
-
-Please see https://www.accesstomemory.org/wiki/CSV_import for more details.
