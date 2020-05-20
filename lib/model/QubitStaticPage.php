@@ -38,7 +38,7 @@ class QubitStaticPage extends BaseStaticPage
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitStaticPage::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     $statement = $connection->prepare('

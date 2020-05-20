@@ -111,7 +111,7 @@ class QubitSlug extends BaseSlug
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitObject::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     // Try a max of 10 times before giving up (avoid infinite loops when
