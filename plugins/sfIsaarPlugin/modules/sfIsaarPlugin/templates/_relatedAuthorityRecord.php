@@ -167,7 +167,7 @@ content
           ->label(__('Relationship type'))
           ->renderLabel() ?>
         <?php echo $form->subType->render(array('class' => 'form-autocomplete', 'disabled' => 'true')) ?>
-        <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::ACTOR_RELATION_TYPE_ID), 'module' => 'taxonomy')), 'addWords' => render_title($resource))) ?>"/>
+        <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::ACTOR_RELATION_TYPE_ID), 'module' => 'taxonomy')), 'addWords' => isset($resource->id) ? render_title($resource) : '')) ?>"/>
         <?php echo $form->subType
           ->help(__('"Select a descriptive term from the drop-down menu to clarify the type of relationship between these two actors."'))
           ->renderHelp() ?>
