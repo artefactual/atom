@@ -141,7 +141,7 @@
 
           <div class="filter-right relation">
             <?php echo $form->relatedAuthority
-              ->label(__('Related [%1%]', array('%1%' => sfConfig::get('app_ui_label_actor'))))
+              ->label(__('Related %1%', array('%1%' => sfConfig::get('app_ui_label_actor'))))
               ->renderLabel() ?>
             <?php echo $form->relatedAuthority->render(array('class' => 'form-autocomplete')) ?>
             <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'autocomplete')) ?>"/>
