@@ -83,6 +83,7 @@ class csvActorExport extends QubitFlatfileExport
       }
 
       $rows[] = array(
+        'legacyId'                    => $relation->id,
         'objectAuthorizedFormOfName'  => $resource->authorizedFormOfName,
         'subjectAuthorizedFormOfName' => $relatedEntity->authorizedFormOfName,
         'relationType'                => (string)$relationType, // Return string representation for QubitTerm
