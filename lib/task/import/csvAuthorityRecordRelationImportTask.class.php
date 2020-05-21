@@ -118,6 +118,7 @@ EOF;
           $self->status['actorRelationTypes'][$self->columnValue('culture')]
         );
 
+        // Skip invalid relationships
         if (!$relationTypeId)
         {
           $error = sprintf('Unknown relationship type "%s"... skipping row.', $self->columnValue('relationType'));
@@ -157,6 +158,17 @@ EOF;
 
               $relation->save();
 
+              // Keep track of actor IDs so actor relationships in Elasticsearch can be updated
+              if (!in_array($sourceActor->id, $self->status['actorIds']))
+              {
+                $self->status['actorIds'][] = $sourceActor->id;
+              }
+
+              if (!in_array($targetActor->id, $self->status['actorIds']))
+              {
+                $self->status['actorIds'][] = $targetActor->id;
+              }
+
               // Add keymap entry
               if (!empty($self->columnValue('legacyId')))
               {
@@ -172,6 +184,19 @@ EOF;
     $import->searchIndexingDisabled = !$indexDuringImport;
 
     $import->csv($fh);
+
+    // Update actor relationships in Elasticsearch
+    if ($indexDuringImport)
+    {
+      $this->log('Updating Elasticsearch actor relation data...');
+
+      foreach ($import->status['actorIds'] as $actorId)
+      {
+        $actor = QubitActor::getById($actorId);
+        arUpdateEsActorRelationsJob::updateActorRelationships($actor);
+        Qubit::clearClassCaches();
+      }
+    }
   }
 
   private function relationshipExists($sourceActorId, $targetActorId, $relationTypeId)
