@@ -5,8 +5,6 @@ propel:
     _attributes:    { phpName: aclGroup }
     id:             ~
     parent_id:      { type: integer, foreignTable: acl_group, foreignReference: id, onDelete: cascade }
-    lft:            { type: integer, required: true, nestedSetLeftKey: true }
-    rgt:            { type: integer, required: true, nestedSetRightKey: true }
     created_at:
     updated_at:
 

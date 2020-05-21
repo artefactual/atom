@@ -25,7 +25,7 @@ class AclGroupIndexInformationObjectAclAction extends sfAction
     $this->forward404Unless($this->group);
 
     $this->groups = array();
-    foreach ($this->group->ancestors->andSelf()->orderBy('lft') as $group)
+    foreach ($this->group->getAncestorsAndSelfForAcl() as $group)
     {
       if (QubitAclGroup::ROOT_ID < $group->id)
       {

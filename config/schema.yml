@@ -16,8 +16,6 @@ propel:
     description_identifier: varchar(1024)
     source_standard: varchar(1024)
     parent_id: { type: integer, foreignTable: actor, foreignReference: id }
-    lft: { type: integer, required: true, nestedSetLeftKey: true }
-    rgt: { type: integer, required: true, nestedSetRightKey: true }
 
   actor_i18n:
     authorized_form_of_name: varchar(1024)
@@ -130,13 +128,10 @@ propel:
   function_object:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     type_id: { type: integer, foreignTable: term, foreignReference: id }
-    parent_id: { type: integer, foreignTable: function_object, foreignReference: id }
     description_status_id: { type: integer, foreignTable: term, foreignReference: id }
     description_detail_id: { type: integer, foreignTable: term, foreignReference: id }
     description_identifier: varchar(1024)
     source_standard: varchar(1024)
-    lft: integer
-    rgt: integer
 
   function_object_i18n:
     authorized_form_of_name: varchar(1024)
@@ -266,9 +261,6 @@ propel:
   physical_object:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
-    parent_id: { type: integer, foreignTable: physical_object, foreignReference: id }
-    lft: { type: integer, required: true, nestedSetLeftKey: true }
-    rgt: { type: integer, required: true, nestedSetRightKey: true }
 
   physical_object_i18n:
     name: varchar(1024)
@@ -393,8 +385,6 @@ propel:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     usage: varchar(1024)
     parent_id: { type: integer, foreignTable: taxonomy, foreignReference: id }
-    lft: { type: integer, required: true, nestedSetLeftKey: true }
-    rgt: { type: integer, required: true, nestedSetRightKey: true }
 
   taxonomy_i18n:
     name: varchar(1024)

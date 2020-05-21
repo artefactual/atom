@@ -61,8 +61,8 @@ EOF;
 
     $tables = array(
       'information_object' => 'QubitInformationObject',
-      'actor' => 'QubitActor',
-      'term' => 'QubitTerm'
+      'term' => 'QubitTerm',
+      'menu' => 'QubitMenu'
     );
 
     foreach ($tables as $table => $classname)

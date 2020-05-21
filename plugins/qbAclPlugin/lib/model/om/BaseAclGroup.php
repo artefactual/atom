@@ -9,8 +9,6 @@ abstract class BaseAclGroup implements ArrayAccess
 
     ID = 'acl_group.ID',
     PARENT_ID = 'acl_group.PARENT_ID',
-    LFT = 'acl_group.LFT',
-    RGT = 'acl_group.RGT',
     CREATED_AT = 'acl_group.CREATED_AT',
     UPDATED_AT = 'acl_group.UPDATED_AT',
     SOURCE_CULTURE = 'acl_group.SOURCE_CULTURE',
@@ -20,8 +18,6 @@ abstract class BaseAclGroup implements ArrayAccess
   {
     $criteria->addSelectColumn(QubitAclGroup::ID);
     $criteria->addSelectColumn(QubitAclGroup::PARENT_ID);
-    $criteria->addSelectColumn(QubitAclGroup::LFT);
-    $criteria->addSelectColumn(QubitAclGroup::RGT);
     $criteria->addSelectColumn(QubitAclGroup::CREATED_AT);
     $criteria->addSelectColumn(QubitAclGroup::UPDATED_AT);
     $criteria->addSelectColumn(QubitAclGroup::SOURCE_CULTURE);
@@ -110,23 +106,6 @@ abstract class BaseAclGroup implements ArrayAccess
     $affectedRows += BasePeer::doDelete($criteria, $connection);
 
     return $affectedRows;
-  }
-
-  public static function addOrderByPreorder(Criteria $criteria, $order = Criteria::ASC)
-  {
-    if ($order == Criteria::DESC)
-    {
-      return $criteria->addDescendingOrderByColumn(QubitAclGroup::LFT);
-    }
-
-    return $criteria->addAscendingOrderByColumn(QubitAclGroup::LFT);
-  }
-
-  public static function addRootsCriteria(Criteria $criteria)
-  {
-    $criteria->add(QubitAclGroup::PARENT_ID);
-
-    return $criteria;
   }
 
   protected
@@ -237,16 +216,6 @@ abstract class BaseAclGroup implements ArrayAccess
     }
     catch (sfException $e)
     {
-    }
-
-    if ('ancestors' == $name)
-    {
-      return true;
-    }
-
-    if ('descendants' == $name)
-    {
-      return true;
     }
 
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
@@ -369,46 +338,6 @@ abstract class BaseAclGroup implements ArrayAccess
     }
     catch (sfException $e)
     {
-    }
-
-    if ('ancestors' == $name)
-    {
-      if (!isset($this->values['ancestors']))
-      {
-        if ($this->new)
-        {
-          $this->values['ancestors'] = QubitQuery::create(array('self' => $this) + $options);
-        }
-        else
-        {
-          $criteria = new Criteria;
-          $this->addAncestorsCriteria($criteria);
-          $this->addOrderByPreorder($criteria);
-          $this->values['ancestors'] = self::get($criteria, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->values['ancestors'];
-    }
-
-    if ('descendants' == $name)
-    {
-      if (!isset($this->values['descendants']))
-      {
-        if ($this->new)
-        {
-          $this->values['descendants'] = QubitQuery::create(array('self' => $this) + $options);
-        }
-        else
-        {
-          $criteria = new Criteria;
-          $this->addDescendantsCriteria($criteria);
-          $this->addOrderByPreorder($criteria);
-          $this->values['descendants'] = self::get($criteria, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->values['descendants'];
     }
 
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
@@ -625,8 +554,6 @@ abstract class BaseAclGroup implements ArrayAccess
 
   protected function insert($connection = null)
   {
-    $this->updateNestedSet($connection);
-
     if (!isset($connection))
     {
       $connection = Propel::getConnection();
@@ -679,33 +606,6 @@ abstract class BaseAclGroup implements ArrayAccess
 
   protected function update($connection = null)
   {
-    // Update nested set keys only if parent id has changed
-    if (isset($this->values['parentId']))
-    {
-      // Get the "original" parentId before any updates
-      $offset = 0;
-      $originalParentId = null;
-      foreach ($this->tables as $table)
-      {
-        foreach ($table->getColumns() as $column)
-        {
-          if ('parentId' == $column->getPhpName())
-          {
-            $originalParentId = $this->row[$offset];
-            break;
-          }
-          $offset++;
-        }
-      }
-
-      // If updated value of parentId is different then original value,
-      // update the nested set
-      if ($originalParentId != $this->values['parentId'])
-      {
-        $this->updateNestedSet($connection);
-      }
-    }
-
     if (!isset($connection))
     {
       $connection = Propel::getConnection();
@@ -758,12 +658,6 @@ abstract class BaseAclGroup implements ArrayAccess
     if ($this->deleted)
     {
       throw new PropelException('This object has already been deleted.');
-    }
-
-    $this->clear();
-    if (!property_exists($this, 'disableNestedSetUpdating') || $this->disableNestedSetUpdating !== true)
-    {
-      $this->deleteFromNestedSet($connection);
     }
 
     $criteria = new Criteria;
@@ -904,345 +798,32 @@ abstract class BaseAclGroup implements ArrayAccess
     return $aclGroupI18ns[$options['culture']];
   }
 
-  public function hasChildren()
+  public function getAncestorsAndSelfForAcl()
   {
-    return ($this->rgt - $this->lft) > 1;
-  }
-
-  public function addAncestorsCriteria(Criteria $criteria)
-  {
-    if (isset($this->parentId))
+    if (!isset($this->values['ancestorsAndSelfForAcl']))
     {
-      $condition = '= '.$this->parentId;
-    }
-    else
-    {
-      $condition = 'IS NULL';
-    }
+      $cte = "(
+      	WITH RECURSIVE aas AS
+      	(
+      	  SELECT tb1.id, tb1.parent_id, 1 as lev
+          FROM acl_group tb1
+          WHERE tb1.id=$this->id
+      	  UNION ALL
+      	  SELECT tb2.id, tb2.parent_id, aas.lev + 1
+          FROM acl_group tb2
+          JOIN aas ON aas.parent_id=tb2.id
+      	)
+      	SELECT id, lev FROM aas
+      )";
 
-    $subquery = "acl_group.id IN (
-    	WITH RECURSIVE cte AS
-    	(
-    	  SELECT tb1.id, tb1.parent_id FROM acl_group tb1 WHERE tb1.id $condition
-    	  UNION ALL
-    	  SELECT tb2.id, tb2.parent_id FROM acl_group tb2 JOIN cte ON cte.parent_id=tb2.id
-    	)
-    	SELECT id FROM cte
-    )";
+      $criteria = new Criteria;
+      $criteria->addJoin(QubitAclGroup::ID, 'cte.id', "RIGHT JOIN $cte");
+      $criteria->addDescendingOrderByColumn('lev');
 
-    return $criteria->add('', $subquery, Criteria::CUSTOM);
-  }
-
-  public function addDescendantsCriteria(Criteria $criteria)
-  {
-    $criterion = $criteria->getNewCriterion(
-      QubitAclGroup::LFT,
-      $this->lft,
-      Criteria::GREATER_THAN
-    );
-    $criterion->addAnd($criteria->getNewCriterion(
-      QubitAclGroup::LFT,
-      $this->rgt,
-      Criteria::LESS_THAN
-    ));
-
-    return $criteria->add($criterion);
-  }
-
-  protected function updateNestedSet($connection = null)
-  {
-// HACK Try to prevent modifying left and right values anywhere except in this
-// method.  Perhaps it would be more logical to use protected visibility for
-// these values?
-unset($this->values['lft']);
-unset($this->values['rgt']);
-    if (!isset($connection))
-    {
-      $connection = Propel::getConnection();
+      $this->values['ancestorsAndSelfForAcl'] = self::get($criteria);
     }
 
-    if (!isset($this->lft) || !isset($this->rgt))
-    {
-      $delta = 2;
-    }
-    else
-    {
-      $delta = $this->rgt - $this->lft + 1;
-    }
-
-    if (null === $parent = $this->__get('parent', array('connection' => $connection)))
-    {
-      $statement = $connection->prepare('
-        SELECT MAX('.QubitAclGroup::RGT.')
-        FROM '.QubitAclGroup::TABLE_NAME);
-      $statement->execute();
-      $row = $statement->fetch();
-      $max = $row[0];
-
-      if (!isset($this->lft) || !isset($this->rgt))
-      {
-        $this->lft = $max + 1;
-        $this->rgt = $max + 2;
-
-        return $this;
-      }
-
-      $shift = $max + 1 - $this->lft;
-    }
-    else
-    {
-      $parent->clear();
-
-      if (isset($this->lft) && isset($this->rgt) && $this->lft <= $parent->lft && $this->rgt >= $parent->rgt)
-      {
-        throw new PropelException('An object cannot be a descendant of itself.');
-      }
-
-      $statement = $connection->prepare('
-        UPDATE '.QubitAclGroup::TABLE_NAME.'
-        SET '.QubitAclGroup::LFT.' = '.QubitAclGroup::LFT.' + ?
-        WHERE '.QubitAclGroup::LFT.' >= ?');
-      $statement->execute(array($delta, $parent->rgt));
-
-      $statement = $connection->prepare('
-        UPDATE '.QubitAclGroup::TABLE_NAME.'
-        SET '.QubitAclGroup::RGT.' = '.QubitAclGroup::RGT.' + ?
-        WHERE '.QubitAclGroup::RGT.' >= ?');
-      $statement->execute(array($delta, $parent->rgt));
-
-      if (!isset($this->lft) || !isset($this->rgt))
-      {
-        $this->lft = $parent->rgt;
-        $this->rgt = $parent->rgt + 1;
-        $parent->rgt += 2;
-
-        return $this;
-      }
-
-      if ($this->lft > $parent->rgt)
-      {
-        $this->lft += $delta;
-        $this->rgt += $delta;
-      }
-
-      $shift = $parent->rgt - $this->lft;
-    }
-
-    $statement = $connection->prepare('
-      UPDATE '.QubitAclGroup::TABLE_NAME.'
-      SET '.QubitAclGroup::LFT.' = '.QubitAclGroup::LFT.' + ?, '.QubitAclGroup::RGT.' = '.QubitAclGroup::RGT.' + ?
-      WHERE '.QubitAclGroup::LFT.' >= ?
-      AND '.QubitAclGroup::RGT.' <= ?');
-    $statement->execute(array($shift, $shift, $this->lft, $this->rgt));
-
-    $this->deleteFromNestedSet($connection);
-
-    if ($shift > 0)
-    {
-      $this->lft -= $delta;
-      $this->rgt -= $delta;
-    }
-
-    $this->lft += $shift;
-    $this->rgt += $shift;
-
-    return $this;
-  }
-
-  protected function deleteFromNestedSet($connection = null)
-  {
-    if (!isset($connection))
-    {
-      $connection = Propel::getConnection();
-    }
-
-    $delta = $this->rgt - $this->lft + 1;
-
-    $statement = $connection->prepare('
-      UPDATE '.QubitAclGroup::TABLE_NAME.'
-      SET '.QubitAclGroup::LFT.' = '.QubitAclGroup::LFT.' - ?
-      WHERE '.QubitAclGroup::LFT.' >= ?');
-    $statement->execute(array($delta, $this->rgt));
-
-    $statement = $connection->prepare('
-      UPDATE '.QubitAclGroup::TABLE_NAME.'
-      SET '.QubitAclGroup::RGT.' = '.QubitAclGroup::RGT.' - ?
-      WHERE '.QubitAclGroup::RGT.' >= ?');
-    $statement->execute(array($delta, $this->rgt));
-
-    return $this;
-  }
-
-  public function isInTree()
-  {
-    return $this->lft > 0 && $this->rgt > $this->lft;
-  }
-
-  public function isRoot()
-  {
-      return $this->isInTree() && $this->lft == 1;
-  }
-
-  public function isDescendantOf($parent)
-  {
-    return $this->isInTree() && $this->lft > $parent->lft && $this->rgt < $parent->rgt;
-  }
-
-  public function moveToFirstChildOf($parent, PropelPDO $con = null)
-  {
-    if ($parent->isDescendantOf($this))
-    {
-      throw new PropelException('Cannot move a node as child of one of its subtree nodes.');
-    }
-
-    $this->moveSubtreeTo($parent->lft + 1, $con);
-
-    return $this;
-  }
-
-  public function moveToLastChildOf($parent, PropelPDO $con = null)
-  {
-    if ($parent->isDescendantOf($this))
-    {
-      throw new PropelException('Cannot move a node as child of one of its subtree nodes.');
-    }
-
-    $this->moveSubtreeTo($parent->rgt, $con);
-
-    return $this;
-  }
-
-  public function moveToPrevSiblingOf($sibling, PropelPDO $con = null)
-  {
-    if (!$this->isInTree())
-    {
-      throw new PropelException('This object must be already in the tree to be moved. Use the insertAsPrevSiblingOf() instead.');
-    }
-
-    if ($sibling->isRoot())
-    {
-      throw new PropelException('Cannot move to previous sibling of a root node.');
-    }
-
-    if ($sibling->isDescendantOf($this))
-    {
-      throw new PropelException('Cannot move a node as sibling of one of its subtree nodes.');
-    }
-
-    $this->moveSubtreeTo($sibling->lft, $con);
-
-    return $this;
-  }
-
-  public function moveToNextSiblingOf($sibling, PropelPDO $con = null)
-  {
-    if (!$this->isInTree())
-    {
-      throw new PropelException('This object must be already in the tree to be moved. Use the insertAsPrevSiblingOf() instead.');
-    }
-
-    if ($sibling->isRoot())
-    {
-      throw new PropelException('Cannot move to previous sibling of a root node.');
-    }
-
-    if ($sibling->isDescendantOf($this))
-    {
-      throw new PropelException('Cannot move a node as sibling of one of its subtree nodes.');
-    }
-
-    $this->moveSubtreeTo($sibling->rgt + 1, $con);
-
-    return $this;
-  }
-
-  protected function moveSubtreeTo($destLeft, PropelPDO $con = null)
-  {
-    $left  = $this->lft;
-    $right = $this->rgt;
-
-    $treeSize = $right - $left +1;
-
-    if ($con === null)
-    {
-      $con = Propel::getConnection();
-    }
-
-    $con->beginTransaction();
-
-    try
-    {
-      // make room next to the target for the subtree
-      self::shiftRLValues($treeSize, $destLeft, null, $con);
-
-      if ($left >= $destLeft) // src was shifted too?
-      {
-        $left += $treeSize;
-        $right += $treeSize;
-      }
-
-      // move the subtree to the target
-      self::shiftRLValues($destLeft - $left, $left, $right, $con);
-
-      // remove the empty room at the previous location of the subtree
-      self::shiftRLValues(-$treeSize, $right + 1, null, $con);
-
-      // update all loaded nodes
-      // self::updateLoadedNodes(null, $con);
-
-      $con->commit();
-    }
-    catch (PropelException $e)
-    {
-      $con->rollback();
-
-      throw $e;
-    }
-  }
-
-  /**
-   * Adds $delta to all L and R values that are >= $first and <= $last.
-   * '$delta' can also be negative.
-   *
-   * @param int $delta Value to be shifted by, can be negative
-   * @param int $first First node to be shifted
-   * @param int $last Last node to be shifted (optional)
-   * @param PropelPDO $con Connection to use.
-   */
-  protected function shiftRLValues($delta, $first, $last = null, PropelPDO $con = null)
-  {
-    if ($con === null)
-    {
-      $con = Propel::getConnection();
-    }
-
-    // Shift left column values
-    $whereCriteria = new Criteria;
-    $criterion = $whereCriteria->getNewCriterion(QubitAclGroup::LFT, $first, Criteria::GREATER_EQUAL);
-    if (null !== $last)
-    {
-      $criterion->addAnd($whereCriteria->getNewCriterion(QubitAclGroup::LFT, $last, Criteria::LESS_EQUAL));
-    }
-    $whereCriteria->add($criterion);
-
-    $valuesCriteria = new Criteria;
-    $valuesCriteria->add(QubitAclGroup::LFT, array('raw' => QubitAclGroup::LFT . ' + ?', 'value' => $delta), Criteria::CUSTOM_EQUAL);
-
-    BasePeer::doUpdate($whereCriteria, $valuesCriteria, $con);
-
-    // Shift right column values
-    $whereCriteria = new Criteria;
-    $criterion = $whereCriteria->getNewCriterion(QubitAclGroup::RGT, $first, Criteria::GREATER_EQUAL);
-    if (null !== $last)
-    {
-      $criterion->addAnd($whereCriteria->getNewCriterion(QubitAclGroup::RGT, $last, Criteria::LESS_EQUAL));
-    }
-    $whereCriteria->add($criterion);
-
-    $valuesCriteria = new Criteria;
-    $valuesCriteria->add(QubitAclGroup::RGT, array('raw' => QubitAclGroup::RGT . ' + ?', 'value' => $delta), Criteria::CUSTOM_EQUAL);
-
-    BasePeer::doUpdate($whereCriteria, $valuesCriteria, $con);
+    return $this->values['ancestorsAndSelfForAcl'];
   }
 
   public function __call($name, $args)

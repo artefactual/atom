@@ -202,7 +202,7 @@ class arElasticSearchInformationObjectPdo
 
     if (!isset($this->ancestors) || empty($this->ancestors))
     {
-      throw new sfException(sprintf("%s: Couldn't find ancestors, please make sure lft and rgt values are correct", get_class($this)));
+      throw new sfException(sprintf("%s: Couldn't find ancestors, please make sure parent_id values are correct", get_class($this)));
     }
 
     return $this->ancestors;

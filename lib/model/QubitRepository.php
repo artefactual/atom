@@ -254,7 +254,6 @@ class QubitRepository extends BaseRepository
     $criteria->addJoin(QubitNote::TYPE_ID, QubitTerm::ID);
     $criteria->add(QubitNote::OBJECT_ID, $this->id);
     $criteria->add(QubitNote::SCOPE, 'QubitRepository');
-    QubitNote::addOrderByPreorder($criteria);
 
     return QubitNote::get($criteria);
   }

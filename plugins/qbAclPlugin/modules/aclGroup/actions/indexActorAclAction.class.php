@@ -32,7 +32,7 @@ class AclGroupIndexActorAclAction extends sfAction
 
     // Add roles
     $this->roles = array();
-    foreach ($this->group->ancestors->andSelf()->orderBy('lft') as $group)
+    foreach ($this->group->getAncestorsAndSelfForAcl() as $group)
     {
       // Omit ROOT group
       if (1 < $group->id)

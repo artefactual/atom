@@ -25,7 +25,6 @@ class arElasticSearchActor extends arElasticSearchModelBase
     $sql .= ' FROM '.QubitActor::TABLE_NAME.' actor';
     $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON actor.id = object.id';
     $sql .= ' WHERE actor.id != ? AND object.class_name = ?';
-    $sql .= ' ORDER BY actor.lft';
 
     $actors = QubitPdo::fetchAll($sql, array(QubitActor::ROOT_ID, 'QubitActor'));
 

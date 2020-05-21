@@ -1301,29 +1301,6 @@ class QubitDigitalObject extends BaseDigitalObject
   }
 
   /**
-   * The nested set is disabled for QubitDigitalObject
-   */
-  protected function updateNestedSet($connection = null)
-  {
-  }
-
-  /**
-   * The nested set is disabled for QubitDigitalObject
-   */
-  protected function deleteFromNestedSet($connection = null)
-  {
-  }
-
-  /**
-   * Get descendants based on parent id instead via lft/rgt,
-   * since the nested set is disabled.
-   */
-  public function addDescendantsCriteria(Criteria $criteria)
-  {
-    return $criteria->add(QubitDigitalObject::PARENT_ID, $this->id);
-  }
-
-  /**
    * Create a digital object representation of an asset
    *
    * @param mixed parent object (digital object or object)
@@ -1778,17 +1755,6 @@ class QubitDigitalObject extends BaseDigitalObject
     }
 
     $this->mediaTypeId = $mediaTypeId;
-  }
-
-  /**
-   * Get this object's top ancestor, or self if it is the top of the branch
-   *
-   * return QubitObject  Closest Object ancestor
-   */
-  public function getTopAncestorOrSelf()
-  {
-    // Get the ancestor at array index "0"
-    return $this->getAncestors()->andSelf()->offsetGet(0);
   }
 
   /**

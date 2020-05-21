@@ -14,8 +14,6 @@ CREATE TABLE `acl_group`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`parent_id` INTEGER,
-	`lft` INTEGER  NOT NULL,
-	`rgt` INTEGER  NOT NULL,
 	`created_at` DATETIME  NOT NULL,
 	`updated_at` DATETIME  NOT NULL,
 	`source_culture` VARCHAR(16)  NOT NULL,

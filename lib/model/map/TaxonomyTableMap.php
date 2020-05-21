@@ -39,8 +39,6 @@ class TaxonomyTableMap extends TableMap {
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'object', 'ID', true, null, null);
 		$this->addColumn('USAGE', 'usage', 'VARCHAR', false, 1024, null);
 		$this->addForeignKey('PARENT_ID', 'parentId', 'INTEGER', 'taxonomy', 'ID', false, null, null);
-		$this->addColumn('LFT', 'lft', 'INTEGER', true, null, null);
-		$this->addColumn('RGT', 'rgt', 'INTEGER', true, null, null);
 		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 16, null);
 		// validators
 	} // initialize()

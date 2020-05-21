@@ -579,6 +579,34 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
     return $informationObjectI18ns[$options['culture']];
   }
 
+  public function getAncestorsAndSelfForAcl()
+  {
+    if (!isset($this->values['ancestorsAndSelfForAcl']))
+    {
+      $cte = "(
+      	WITH RECURSIVE aas AS
+      	(
+      	  SELECT tb1.id, tb1.parent_id, 1 as lev
+          FROM information_object tb1
+          WHERE tb1.id=$this->id
+      	  UNION ALL
+      	  SELECT tb2.id, tb2.parent_id, aas.lev + 1
+          FROM information_object tb2
+          JOIN aas ON aas.parent_id=tb2.id
+      	)
+      	SELECT id, lev FROM aas
+      )";
+
+      $criteria = new Criteria;
+      $criteria->addJoin(QubitInformationObject::ID, 'cte.id', "RIGHT JOIN $cte");
+      $criteria->addDescendingOrderByColumn('lev');
+
+      $this->values['ancestorsAndSelfForAcl'] = self::get($criteria);
+    }
+
+    return $this->values['ancestorsAndSelfForAcl'];
+  }
+
   public function hasChildren()
   {
     return ($this->rgt - $this->lft) > 1;

@@ -38,8 +38,6 @@ class AclGroupTableMap extends TableMap {
 		// columns
 		$this->addPrimaryKey('ID', 'id', 'INTEGER', true, null, null);
 		$this->addForeignKey('PARENT_ID', 'parentId', 'INTEGER', 'acl_group', 'ID', false, null, null);
-		$this->addColumn('LFT', 'lft', 'INTEGER', true, null, null);
-		$this->addColumn('RGT', 'rgt', 'INTEGER', true, null, null);
 		$this->addColumn('CREATED_AT', 'createdAt', 'TIMESTAMP', true, null, null);
 		$this->addColumn('UPDATED_AT', 'updatedAt', 'TIMESTAMP', true, null, null);
 		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 16, null);

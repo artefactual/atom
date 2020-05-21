@@ -269,7 +269,7 @@ class QubitAcl
     {
       if (!in_array($role->id, $this->_roles))
       {
-        foreach ($role->ancestors->andSelf()->orderBy('lft') as $ancestor)
+        foreach ($role->getAncestorsAndSelfForAcl() as $ancestor)
         {
           if (!in_array($ancestor->id, $this->_roles))
           {
@@ -345,7 +345,7 @@ class QubitAcl
     // Add resource hierarchy
     if (is_object($resource))
     {
-      foreach ($resource->ancestors->andSelf()->orderBy('lft') as $r)
+      foreach ($resource->getAncestorsAndSelfForAcl() as $r)
       {
         if (!in_array($r->id, $this->_resources))
         {

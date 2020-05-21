@@ -252,6 +252,11 @@ script;
       $this->addI18nMethods($script);
     }
 
+    if (isset($this->selfFk) && $this->selfFk->getLocalColumns()[0] == 'parent_id')
+    {
+      $this->addGetAncestorsAndSelfForAcl($script);
+    }
+
     if (isset($this->nestedSetLeftColumn) && isset($this->nestedSetRightColumn))
     {
       $this->addHasChildren($script);
@@ -1922,6 +1927,46 @@ script;
   public function hasChildren()
   {
     return (\$this->{$this->getColumnVarName($this->nestedSetRightColumn)} - \$this->{$this->getColumnVarName($this->nestedSetLeftColumn)}) > 1;
+  }
+
+script;
+  }
+
+  protected function addGetAncestorsAndSelfForAcl(&$script)
+  {
+    $selfFkTableName = $this->selfFk->getTableName();
+    $selfFkColName = $this->selfFk->getLocalColumns()[0];
+    $selfFkRefColName = $this->selfFk->getForeignColumns()[0];
+    $selfFkRefColCons = $this->getColumnConstant($this->getTable()->getColumn($selfFkRefColName));
+
+    $script .= <<<script
+
+  public function getAncestorsAndSelfForAcl()
+  {
+    if (!isset(\$this->values['ancestorsAndSelfForAcl']))
+    {
+      \$cte = "(
+      	WITH RECURSIVE aas AS
+      	(
+      	  SELECT tb1.{$selfFkRefColName}, tb1.{$selfFkColName}, 1 as lev
+          FROM {$selfFkTableName} tb1
+          WHERE tb1.{$selfFkRefColName}=\$this->id
+      	  UNION ALL
+      	  SELECT tb2.{$selfFkRefColName}, tb2.{$selfFkColName}, aas.lev + 1
+          FROM {$selfFkTableName} tb2
+          JOIN aas ON aas.{$selfFkColName}=tb2.{$selfFkRefColName}
+      	)
+      	SELECT {$selfFkRefColName}, lev FROM aas
+      )";
+
+      \$criteria = new Criteria;
+      \$criteria->addJoin({$selfFkRefColCons}, 'cte.id', "RIGHT JOIN \$cte");
+      \$criteria->addDescendingOrderByColumn('lev');
+
+      \$this->values['ancestorsAndSelfForAcl'] = self::get(\$criteria);
+    }
+
+    return \$this->values['ancestorsAndSelfForAcl'];
   }
 
 script;

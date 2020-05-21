@@ -25,7 +25,6 @@ class arElasticSearchFunctionObject extends arElasticSearchModelBase
     $sql .= ' FROM '.QubitFunctionObject::TABLE_NAME.' func';
     $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON func.id = object.id';
     $sql .= ' WHERE object.class_name = ?';
-    $sql .= ' ORDER BY func.lft';
 
     $actors = QubitPdo::fetchAll($sql, array('QubitFunctionObject'));
 

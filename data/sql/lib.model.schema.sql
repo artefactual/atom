@@ -41,8 +41,6 @@ CREATE TABLE `actor`
 	`description_identifier` VARCHAR(1024),
 	`source_standard` VARCHAR(1024),
 	`parent_id` INTEGER,
-	`lft` INTEGER  NOT NULL,
-	`rgt` INTEGER  NOT NULL,
 	`source_culture` VARCHAR(16)  NOT NULL,
 	PRIMARY KEY (`id`),
 	CONSTRAINT `actor_FK_1`
@@ -424,13 +422,10 @@ CREATE TABLE `function_object`
 (
 	`id` INTEGER  NOT NULL,
 	`type_id` INTEGER,
-	`parent_id` INTEGER,
 	`description_status_id` INTEGER,
 	`description_detail_id` INTEGER,
 	`description_identifier` VARCHAR(1024),
 	`source_standard` VARCHAR(1024),
-	`lft` INTEGER,
-	`rgt` INTEGER,
 	`source_culture` VARCHAR(16)  NOT NULL,
 	PRIMARY KEY (`id`),
 	CONSTRAINT `function_object_FK_1`
@@ -441,16 +436,12 @@ CREATE TABLE `function_object`
 	CONSTRAINT `function_object_FK_2`
 		FOREIGN KEY (`type_id`)
 		REFERENCES `term` (`id`),
-	INDEX `function_object_FI_3` (`parent_id`),
+	INDEX `function_object_FI_3` (`description_status_id`),
 	CONSTRAINT `function_object_FK_3`
-		FOREIGN KEY (`parent_id`)
-		REFERENCES `function_object` (`id`),
-	INDEX `function_object_FI_4` (`description_status_id`),
-	CONSTRAINT `function_object_FK_4`
 		FOREIGN KEY (`description_status_id`)
 		REFERENCES `term` (`id`),
-	INDEX `function_object_FI_5` (`description_detail_id`),
-	CONSTRAINT `function_object_FK_5`
+	INDEX `function_object_FI_4` (`description_detail_id`),
+	CONSTRAINT `function_object_FK_4`
 		FOREIGN KEY (`description_detail_id`)
 		REFERENCES `term` (`id`)
 )Engine=InnoDB;
@@ -861,9 +852,6 @@ CREATE TABLE `physical_object`
 (
 	`id` INTEGER  NOT NULL,
 	`type_id` INTEGER,
-	`parent_id` INTEGER,
-	`lft` INTEGER  NOT NULL,
-	`rgt` INTEGER  NOT NULL,
 	`source_culture` VARCHAR(16)  NOT NULL,
 	PRIMARY KEY (`id`),
 	CONSTRAINT `physical_object_FK_1`
@@ -874,11 +862,7 @@ CREATE TABLE `physical_object`
 	CONSTRAINT `physical_object_FK_2`
 		FOREIGN KEY (`type_id`)
 		REFERENCES `term` (`id`)
-		ON DELETE SET NULL,
-	INDEX `physical_object_FI_3` (`parent_id`),
-	CONSTRAINT `physical_object_FK_3`
-		FOREIGN KEY (`parent_id`)
-		REFERENCES `physical_object` (`id`)
+		ON DELETE SET NULL
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -1356,8 +1340,6 @@ CREATE TABLE `taxonomy`
 	`id` INTEGER  NOT NULL,
 	`usage` VARCHAR(1024),
 	`parent_id` INTEGER,
-	`lft` INTEGER  NOT NULL,
-	`rgt` INTEGER  NOT NULL,
 	`source_culture` VARCHAR(16)  NOT NULL,
 	PRIMARY KEY (`id`),
 	CONSTRAINT `taxonomy_FK_1`

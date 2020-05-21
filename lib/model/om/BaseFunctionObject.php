@@ -9,13 +9,10 @@ abstract class BaseFunctionObject extends QubitObject implements ArrayAccess
 
     ID = 'function_object.ID',
     TYPE_ID = 'function_object.TYPE_ID',
-    PARENT_ID = 'function_object.PARENT_ID',
     DESCRIPTION_STATUS_ID = 'function_object.DESCRIPTION_STATUS_ID',
     DESCRIPTION_DETAIL_ID = 'function_object.DESCRIPTION_DETAIL_ID',
     DESCRIPTION_IDENTIFIER = 'function_object.DESCRIPTION_IDENTIFIER',
     SOURCE_STANDARD = 'function_object.SOURCE_STANDARD',
-    LFT = 'function_object.LFT',
-    RGT = 'function_object.RGT',
     SOURCE_CULTURE = 'function_object.SOURCE_CULTURE';
 
   public static function addSelectColumns(Criteria $criteria)
@@ -26,13 +23,10 @@ abstract class BaseFunctionObject extends QubitObject implements ArrayAccess
 
     $criteria->addSelectColumn(QubitFunctionObject::ID);
     $criteria->addSelectColumn(QubitFunctionObject::TYPE_ID);
-    $criteria->addSelectColumn(QubitFunctionObject::PARENT_ID);
     $criteria->addSelectColumn(QubitFunctionObject::DESCRIPTION_STATUS_ID);
     $criteria->addSelectColumn(QubitFunctionObject::DESCRIPTION_DETAIL_ID);
     $criteria->addSelectColumn(QubitFunctionObject::DESCRIPTION_IDENTIFIER);
     $criteria->addSelectColumn(QubitFunctionObject::SOURCE_STANDARD);
-    $criteria->addSelectColumn(QubitFunctionObject::LFT);
-    $criteria->addSelectColumn(QubitFunctionObject::RGT);
     $criteria->addSelectColumn(QubitFunctionObject::SOURCE_CULTURE);
 
     return $criteria;
@@ -98,11 +92,6 @@ abstract class BaseFunctionObject extends QubitObject implements ArrayAccess
     {
     }
 
-    if ('functionObjectsRelatedByparentId' == $name)
-    {
-      return true;
-    }
-
     if ('functionObjectI18ns' == $name)
     {
       return true;
@@ -140,23 +129,6 @@ abstract class BaseFunctionObject extends QubitObject implements ArrayAccess
     }
     catch (sfException $e)
     {
-    }
-
-    if ('functionObjectsRelatedByparentId' == $name)
-    {
-      if (!isset($this->refFkValues['functionObjectsRelatedByparentId']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['functionObjectsRelatedByparentId'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['functionObjectsRelatedByparentId'] = self::getfunctionObjectsRelatedByparentIdById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['functionObjectsRelatedByparentId'];
     }
 
     if ('functionObjectI18ns' == $name)
@@ -257,13 +229,6 @@ abstract class BaseFunctionObject extends QubitObject implements ArrayAccess
     return $criteria;
   }
 
-  public static function addJoinparentCriteria(Criteria $criteria)
-  {
-    $criteria->addJoin(QubitFunctionObject::PARENT_ID, QubitFunctionObject::ID);
-
-    return $criteria;
-  }
-
   public static function addJoindescriptionStatusCriteria(Criteria $criteria)
   {
     $criteria->addJoin(QubitFunctionObject::DESCRIPTION_STATUS_ID, QubitTerm::ID);
@@ -276,26 +241,6 @@ abstract class BaseFunctionObject extends QubitObject implements ArrayAccess
     $criteria->addJoin(QubitFunctionObject::DESCRIPTION_DETAIL_ID, QubitTerm::ID);
 
     return $criteria;
-  }
-
-  public static function addfunctionObjectsRelatedByparentIdCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitFunctionObject::PARENT_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getfunctionObjectsRelatedByparentIdById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addfunctionObjectsRelatedByparentIdCriteriaById($criteria, $id);
-
-    return QubitFunctionObject::get($criteria, $options);
-  }
-
-  public function addfunctionObjectsRelatedByparentIdCriteria(Criteria $criteria)
-  {
-    return self::addfunctionObjectsRelatedByparentIdCriteriaById($criteria, $this->id);
   }
 
   public static function addfunctionObjectI18nsCriteriaById(Criteria $criteria, $id)

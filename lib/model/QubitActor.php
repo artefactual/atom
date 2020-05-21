@@ -454,7 +454,6 @@ class QubitActor extends BaseActor
     $criteria->addJoin(QubitNote::TYPE_ID, QubitTerm::ID);
     $criteria->add(QubitNote::OBJECT_ID, $this->id);
     $criteria->add(QubitNote::SCOPE, 'QubitActor');
-    QubitNote::addOrderByPreorder($criteria);
 
     return QubitNote::get($criteria);
   }
