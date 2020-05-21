@@ -136,6 +136,16 @@ EOF;
       return 1;
     }
 
+    // Modify sql_mode for the migration process.
+    // MySQL 5.7 included STRICT_TRANS_TABLES in the sql_mode by default and,
+    // during the migration process, the database and the model declaration
+    // are not totally in sync. For example, the removal of the nested from the
+    // QubitTaxonomy model caused problems in the upgrade, as new taxonomies
+    // are created in the migrations without lft and rgt values while the
+    // database is expecting those columns.
+    $sqlMode = QubitPdo::fetchColumn('SELECT @@sql_mode');
+    QubitPdo::modify("SET sql_mode='ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'");
+
     // Find all the upgrade classes in lib/task/migrate
     $version = $this->initialVersion;
 
@@ -224,6 +234,9 @@ EOF;
         }
       }
     }
+
+    // Restore sql_mode
+    QubitPdo::modify("SET sql_mode='$sqlMode'");
 
     // Delete cache files (for menus, etc.)
     foreach (sfFinder::type('file')->name('*.cache')->in(sfConfig::get('sf_cache_dir')) as $cacheFile)
