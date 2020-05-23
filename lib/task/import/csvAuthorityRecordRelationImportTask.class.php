@@ -24,8 +24,10 @@
  * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
-class csvAuthorityRecordRelationImportTask extends arBaseTask
+class csvAuthorityRecordRelationImportTask extends csvImportBaseTask
 {
+  private $import;
+
   /**
    * @see sfTask
    */
@@ -47,6 +49,9 @@ class csvAuthorityRecordRelationImportTask extends arBaseTask
         sfCommandOption::PARAMETER_OPTIONAL, 'Source name to use when inserting keymap entries.'),
       new sfCommandOption('index', null,
         sfCommandOption::PARAMETER_NONE, 'Index for search during import.'),
+      new sfCommandOption('update', null,
+        sfCommandOption::PARAMETER_REQUIRED, 'Attempt to update if relation has already been imported. Valid option values are "match-and-update" & "delete-and-replace".'
+      ),
     ]);
 
     $this->namespace = 'csv';
@@ -64,15 +69,17 @@ EOF;
   {
     parent::execute($arguments, $options);
 
+    $this->validateUpdateOptions($options);
+
     $this->log('Importing relations...');
 
     $sourceName = $options['source-name'] ?: basename($arguments['filename']);
-    $this->import($arguments['filename'], $sourceName, $options['index']);
+    $this->import($arguments['filename'], $sourceName, $options['index'], $options['update']);
 
     $this->log('Done.');
   }
 
-  private function import($filepath, $sourceName, $indexDuringImport = false)
+  private function import($filepath, $sourceName, $indexDuringImport = false, $updateMode = false)
   {
     if (false === $fh = fopen($filepath, 'rb'))
     {
@@ -84,10 +91,11 @@ EOF;
       QubitTaxonomy::ACTOR_RELATION_TYPE_ID => 'actorRelationTypes',
     ]);
 
-    $import = new QubitFlatfileImport([
+    $this->import = new QubitFlatfileImport([
       'context' => sfContext::createInstance($this->configuration),
 
       'status' => [
+        'updateMode'         => $updateMode,
         'sourceName'         => $sourceName,
         'actorRelationTypes' => $termData['actorRelationTypes'],
         'actorIds'           => [],
@@ -139,40 +147,36 @@ EOF;
           }
           else
           {
-            // Add relationship if it doesn't yet exist
-            if (!$this->relationshipExists($sourceActor->id, $targetActor->id, $relationTypeId))
+            if ($self->status['updateMode'] == 'match-and-update')
             {
-              $relation = new QubitRelation;
-              $relation->objectId  = $sourceActor->id;
-              $relation->subjectId = $targetActor->id;
-              $relation->typeId    = $relationTypeId;
-
-              // Set relationship properties from column values
-              foreach (['date', 'startDate', 'endDate', 'description'] as $property)
+              // If a relationship between the two, of any type, exists then update it rather than add it
+              if ($relation = $this->getRelation($sourceActor->id, $targetActor->id))
               {
-                if (!empty($self->columnValue($property)))
-                {
-                  $relation->$property = $self->columnValue($property);
-                }
+                $this->updateRelation($relation->id, $sourceActor, $targetActor, $relationTypeId);
+              }
+              else
+              {
+                $this->addRelation($sourceActor, $targetActor, $relationTypeId);
+              }
+            }
+            else if ($self->status['updateMode'] == 'delete-and-replace')
+            {
+              // Delete existing relationships between the two actors
+              foreach ($this->getRelations($sourceActor->id, $targetActor->id) as $row)
+              {
+                $relation = QubitRelation::getById($row->id);
+                $relation->delete();
               }
 
-              $relation->save();
-
-              // Keep track of actor IDs so actor relationships in Elasticsearch can be updated
-              if (!in_array($sourceActor->id, $self->status['actorIds']))
+              // Add relationship
+              $this->addRelation($sourceActor, $targetActor, $relationTypeId);
+            }
+            else
+            {
+              // Add relationship if one of the same type doesn't yet exist
+              if (!$this->relationshipAndTypeExists($sourceActor->id, $targetActor->id, $relationTypeId))
               {
-                $self->status['actorIds'][] = $sourceActor->id;
-              }
-
-              if (!in_array($targetActor->id, $self->status['actorIds']))
-              {
-                $self->status['actorIds'][] = $targetActor->id;
-              }
-
-              // Add keymap entry
-              if (!empty($self->columnValue('legacyId')))
-              {
-                $self->createKeymapEntry($self->getStatus('sourceName'), $self->columnValue('legacyId'), $relation);
+                $this->addRelation($sourceActor, $targetActor, $relationTypeId);
               }
             }
           }
@@ -181,16 +185,16 @@ EOF;
     ]);
 
     // Allow search indexing to be enabled via a CLI option
-    $import->searchIndexingDisabled = !$indexDuringImport;
+    $this->import->searchIndexingDisabled = !$indexDuringImport;
 
-    $import->csv($fh);
+    $this->import->csv($fh);
 
     // Update actor relationships in Elasticsearch
     if ($indexDuringImport)
     {
       $this->log('Updating Elasticsearch actor relation data...');
 
-      foreach ($import->status['actorIds'] as $actorId)
+      foreach ($this->import->status['actorIds'] as $actorId)
       {
         $actor = QubitActor::getById($actorId);
         arUpdateEsActorRelationsJob::updateActorRelationships($actor);
@@ -199,11 +203,40 @@ EOF;
     }
   }
 
-  private function relationshipExists($sourceActorId, $targetActorId, $relationTypeId)
+  private function getRelation($sourceActorId, $targetActorId)
   {
-    $sql = "SELECT id FROM relation \r
-      WHERE subject_id = :subject_id \r
-      AND object_id = :object_id \r
+    return $this->getRelations($sourceActorId, $targetActorId, 'fetchOne');
+  }
+
+  private function getRelations($sourceActorId, $targetActorId, $fetchMethod = 'fetchAll')
+  {
+    $sql = "SELECT id FROM relation
+      WHERE subject_id = :subject_id
+      AND object_id = :object_id";
+
+    $params = [
+      ':subject_id' => $sourceActorId,
+      ':object_id' => $targetActorId
+    ];
+
+    $paramsVariant = [
+      ':subject_id' => $targetActorId,
+      ':object_id' => $sourceActorId
+    ];
+
+    if ($results = QubitPdo::$fetchMethod($sql, $params))
+    {
+      return $results;
+    }
+
+    return QubitPdo::$fetchMethod($sql, $paramsVariant);
+  }
+
+  private function relationshipAndTypeExists($sourceActorId, $targetActorId, $relationTypeId)
+  {
+    $sql = "SELECT id FROM relation
+      WHERE subject_id = :subject_id
+      AND object_id = :object_id
       AND type_id = :type_id";
 
     $params = [
@@ -220,5 +253,59 @@ EOF;
 
     return QubitPdo::fetchOne($sql, $params) !== false
       || QubitPdo::fetchOne($sql, $paramsVariant) !== false;
+  }
+
+  private function addRelation($sourceActor, $targetActor, $relationTypeId)
+  {
+    $relation = new QubitRelation;
+    $this->setRelationFields($relation, $sourceActor->id, $targetActor->id, $relationTypeId);
+    $relation->save();
+
+    $this->noteActorIds($sourceActor->id, $targetActor->id);
+
+    // Add keymap entry
+    if (!empty($this->import->columnValue('legacyId')))
+    {
+      $this->import->createKeymapEntry($this->import->getStatus('sourceName'), $this->import->columnValue('legacyId'), $relation);
+    }
+  }
+
+  private function updateRelation($relationId, $sourceActor, $targetActor, $relationTypeId)
+  {
+    $relation = QubitRelation::getById($relationId);
+    $this->setRelationFields($relation, $sourceActor->id, $targetActor->id, $relationTypeId);
+    $relation->save();
+
+    $this->noteActorIds($sourceActor->id, $targetActor->id);
+  }
+
+  private function setRelationFields(&$relation, $sourceActorId, $targetActorId, $relationTypeId)
+  {
+    $relation->objectId  = $sourceActorId;
+    $relation->subjectId = $targetActorId;
+    $relation->typeId    = $relationTypeId;
+
+    // Set relationship properties from column values
+    foreach (['date', 'startDate', 'endDate', 'description'] as $property)
+    {
+      if (!empty($this->import->columnValue($property)))
+      {
+        $relation->$property = $this->import->columnValue($property);
+      }
+    }
+  }
+
+  private function noteActorIds($sourceActorId, $targetActorId)
+  {
+    // Keep track of actor IDs so actor relationships in Elasticsearch can be updated
+    if (!in_array($sourceActorId, $this->import->status['actorIds']))
+    {
+      $this->import->status['actorIds'][] = $sourceActorId;
+    }
+
+    if (!in_array($targetActorId, $this->import->status['actorIds']))
+    {
+      $this->import->status['actorIds'][] = $targetActorId;
+    }
   }
 }
