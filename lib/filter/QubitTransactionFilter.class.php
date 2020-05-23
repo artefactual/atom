@@ -20,19 +20,8 @@
 class QubitTransactionFilter extends sfFilter
 {
   protected static
-    $connection = null,
     $retry = 0,
     $retryLimit = 3;
-
-  public static function getConnection()
-  {
-    if (!isset(self::$connection))
-    {
-      self::$connection = Propel::getConnection();
-    }
-
-    return self::$connection;
-  }
 
   protected function retry()
   {
@@ -63,10 +52,6 @@ class QubitTransactionFilter extends sfFilter
     $filterChain = new sfFilterChain();
     $filterChain->loadConfiguration($actionInstance);
 
-    $this->context->getEventDispatcher()->notify(
-      new sfEvent($this, 'transaction.retry')
-    );
-
     // Execute whole filter chain again
     $filterChain->execute();
 
@@ -77,7 +62,7 @@ class QubitTransactionFilter extends sfFilter
   {
     try
     {
-      $conn = self::getConnection();
+      $conn = Propel::getConnection();
       $conn->beginTransaction();
     }
     catch (PropelException $e)

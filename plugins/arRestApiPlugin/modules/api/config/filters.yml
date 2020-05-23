@@ -1,5 +1,4 @@
 # Inherit filters, cascade mechanism
-transaction: ~
 history: ~
 rendering: ~
 security: ~
@@ -13,5 +12,6 @@ QubitLimitResults: ~
 restApiFilter:
   class: arRestApiPluginFilter
 
+QubitTransaction: ~
 cache: ~
 execution: ~

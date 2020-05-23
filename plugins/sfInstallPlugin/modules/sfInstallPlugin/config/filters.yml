@@ -1,4 +1,3 @@
-transaction: ~
 history: ~
 rendering: ~
 security: ~
@@ -18,5 +17,6 @@ QubitMeta:
 QubitLimitResults:
   enabled: false
 
+QubitTransaction: ~
 cache: ~
 execution: ~
