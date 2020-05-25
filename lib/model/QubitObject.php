@@ -150,11 +150,6 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
 
   protected function insert($connection = null)
   {
-    if (!isset($connection))
-    {
-      $connection = QubitTransactionFilter::getConnection(QubitObject::DATABASE_NAME);
-    }
-
     parent::insert($connection);
 
     self::insertSlug($connection);
@@ -162,11 +157,11 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     return $this;
   }
 
-  public function insertSlug($connection)
+  public function insertSlug($connection = null)
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitObject::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     if (isset($this->slug))
@@ -249,9 +244,10 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitObject::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
+    // Delete slug
     $statement = $connection->prepare('
       DELETE FROM '.QubitSlug::TABLE_NAME.'
       WHERE '.QubitSlug::OBJECT_ID.' = ?');
@@ -290,8 +286,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(
-        QubitObject::DATABASE_NAME);
+      $connection = Propel::getConnection();
     }
 
     if (!isset($this->id))

@@ -354,7 +354,7 @@ SQL;
 
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection();
+      $connection = Propel::getConnection();
     }
 
     foreach ($updateCols as $name)

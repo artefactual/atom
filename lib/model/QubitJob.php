@@ -275,7 +275,7 @@ class QubitJob extends BaseJob
       // so the resources modified are persisted before the assigned worker starts
       // processing the task. If we don't do this now the transaction will be committed
       // once this request is processed but not before the worker hits the database.
-      $connection = QubitTransactionFilter::getConnection();
+      $connection = Propel::getConnection();
       $connection->commit();
 
       // Start a new transaction as there might be more database work within the
