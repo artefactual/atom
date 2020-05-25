@@ -61,15 +61,15 @@ class InformationObjectTableMap extends TableMap {
 	{
     $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('termRelatedBylevelOfDescriptionId', 'term', RelationMap::MANY_TO_ONE, array('level_of_description_id' => 'id', ), 'SET NULL', null);
-    $this->addRelation('termRelatedBycollectionTypeId', 'term', RelationMap::MANY_TO_ONE, array('collection_type_id' => 'id', ), null, null);
-    $this->addRelation('repository', 'repository', RelationMap::MANY_TO_ONE, array('repository_id' => 'id', ), null, null);
-    $this->addRelation('informationObjectRelatedByparentId', 'informationObject', RelationMap::MANY_TO_ONE, array('parent_id' => 'id', ), null, null);
+    $this->addRelation('termRelatedBycollectionTypeId', 'term', RelationMap::MANY_TO_ONE, array('collection_type_id' => 'id', ), 'SET NULL', null);
+    $this->addRelation('repository', 'repository', RelationMap::MANY_TO_ONE, array('repository_id' => 'id', ), 'SET NULL', null);
+    $this->addRelation('informationObjectRelatedByparentId', 'informationObject', RelationMap::MANY_TO_ONE, array('parent_id' => 'id', ), 'CASCADE', null);
     $this->addRelation('termRelatedBydescriptionStatusId', 'term', RelationMap::MANY_TO_ONE, array('description_status_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('termRelatedBydescriptionDetailId', 'term', RelationMap::MANY_TO_ONE, array('description_detail_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('termRelatedBydisplayStandardId', 'term', RelationMap::MANY_TO_ONE, array('display_standard_id' => 'id', ), 'SET NULL', null);
-    $this->addRelation('informationObjectRelatedByparentId', 'informationObject', RelationMap::ONE_TO_MANY, array('id' => 'parent_id', ), null, null);
+    $this->addRelation('informationObjectRelatedByparentId', 'informationObject', RelationMap::ONE_TO_MANY, array('id' => 'parent_id', ), 'CASCADE', null);
     $this->addRelation('informationObjectI18n', 'informationObjectI18n', RelationMap::ONE_TO_MANY, array('id' => 'id', ), 'CASCADE', null);
-    $this->addRelation('premisObject', 'premisObject', RelationMap::ONE_TO_MANY, array('id' => 'information_object_id', ), null, null);
+    $this->addRelation('premisObject', 'premisObject', RelationMap::ONE_TO_MANY, array('id' => 'information_object_id', ), 'CASCADE', null);
 	} // buildRelations()
 
 } // InformationObjectTableMap

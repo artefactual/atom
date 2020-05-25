@@ -54,7 +54,7 @@ class RepositoryTableMap extends TableMap {
     $this->addRelation('actor', 'actor', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('termRelatedBydescStatusId', 'term', RelationMap::MANY_TO_ONE, array('desc_status_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('termRelatedBydescDetailId', 'term', RelationMap::MANY_TO_ONE, array('desc_detail_id' => 'id', ), 'SET NULL', null);
-    $this->addRelation('informationObject', 'informationObject', RelationMap::ONE_TO_MANY, array('id' => 'repository_id', ), null, null);
+    $this->addRelation('informationObject', 'informationObject', RelationMap::ONE_TO_MANY, array('id' => 'repository_id', ), 'SET NULL', null);
     $this->addRelation('repositoryI18n', 'repositoryI18n', RelationMap::ONE_TO_MANY, array('id' => 'id', ), 'CASCADE', null);
 	} // buildRelations()
 

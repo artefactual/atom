@@ -56,10 +56,10 @@ class arMigration0177
       QubitPdo::modify(sprintf('DROP TABLE IF EXISTS `%s`;', $table));
     }
 
-    // Rename indexes
-    // - IO `display_standard_id` (unnamed on migration 94)
-    // - Job `user_id` and `object_id` (misnamed on migration 111)
-    $indexes = array(
+    // Rename indexes:
+    // - IO `display_standard_id` (unnamed on migration 94).
+    // - Job `user_id` and `object_id` (misnamed on migration 111).
+    QubitMigrate::updateIndexes(array(
       array(
         'table' => 'information_object',
         'column' => 'display_standard_id',
@@ -75,102 +75,27 @@ class arMigration0177
         'column' => 'object_id',
         'index' => 'job_FI_3',
       ),
-    );
-
-    foreach ($indexes as $data)
-    {
-      // Get actual index name
-      $sql = 'SHOW INDEX FROM %s WHERE Column_name=:column_name;';
-      $result = QubitPdo::fetchOne(
-        sprintf($sql, $data['table']),
-        array(':column_name' => $data['column'])
-      );
-
-      // Stop if the index is missing
-      if (!$result || !$result->Key_name)
-      {
-        throw new Exception(sprintf(
-          "Could not find index for '%s' column on '%s' table.",
-          $data['column'],
-          $data['table']
-        ));
-      }
-
-      // Skip if the index already has the expected name
-      if ($result->Key_name == $data['index'])
-      {
-        continue;
-      }
-
-      QubitPdo::modify(sprintf(
-        'ALTER TABLE %s RENAME INDEX %s TO %s;',
-        $data['table'],
-        $result->Key_name,
-        $data['index']
-      ));
-    }
+    ));
 
     // Fix foreign keys:
     // - Restore ON DELETE CASCADE on DO `object_id` (missing on migration 169).
-    // - Rename IO `display_standard_id` constraint (unnamed on migration 94)
-    $foreignKeys = array(
+    // - Rename IO `display_standard_id` constraint (unnamed on migration 94).
+    QubitMigrate::updateForeignKeys(array(
       array(
-        'tableName' => 'digital_object',
-        'columnName' => 'object_id',
-        'refTableName' => 'object',
-        'newConstraintName' => 'digital_object_FK_2',
+        'table' => 'digital_object',
+        'column' => 'object_id',
+        'refTable' => 'object',
+        'constraint' => 'digital_object_FK_2',
         'onDelete' => 'ON DELETE CASCADE',
       ),
       array(
-        'tableName' => 'information_object',
-        'columnName' => 'display_standard_id',
-        'refTableName' => 'term',
-        'newConstraintName' => 'information_object_FK_8',
+        'table' => 'information_object',
+        'column' => 'display_standard_id',
+        'refTable' => 'term',
+        'constraint' => 'information_object_FK_8',
         'onDelete' => 'ON DELETE SET NULL',
       ),
-    );
-
-    foreach ($foreignKeys as $foreignKey)
-    {
-      // Get actual contraint name
-      $sql = 'SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE ';
-      $sql .= 'WHERE TABLE_NAME=:table_name AND COLUMN_NAME=:column_name ';
-      $sql .= 'AND REFERENCED_TABLE_NAME=:ref_table_name;';
-      $oldConstraintName = QubitPdo::fetchColumn($sql, array(
-        ':table_name' => $foreignKey['tableName'],
-        ':column_name' => $foreignKey['columnName'],
-        ':ref_table_name' => $foreignKey['refTableName'],
-      ));
-
-      // Stop if the foreign key is missing
-      if (!$oldConstraintName)
-      {
-        throw new Exception(sprintf(
-          "Could not find foreign key for '%s' column on '%s' table.",
-          $foreignKey['columnName'],
-          $foreignKey['tableName']
-        ));
-      }
-
-      // Having the same name requires to drop and add in two statements
-      $sql = 'ALTER TABLE %s DROP FOREIGN KEY %s;';
-      QubitPdo::modify(sprintf(
-        $sql,
-        $foreignKey['tableName'],
-        $oldConstraintName
-      ));
-
-      $sql = 'ALTER TABLE %s ADD CONSTRAINT %s FOREIGN KEY (%s) ';
-      $sql .= 'REFERENCES %s (id) %s;';
-      QubitPdo::modify(sprintf(
-        $sql,
-        $foreignKey['tableName'],
-        $foreignKey['newConstraintName'],
-        $foreignKey['columnName'],
-        $foreignKey['refTableName'],
-        $foreignKey['onDelete']
-      ));
-    }
+    ));
 
     // Restore NOT NULL constraint on culture columns (removed on migration 172)
     $i18nTables = array(

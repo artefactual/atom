@@ -49,8 +49,8 @@ class TaxonomyTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
-    $this->addRelation('taxonomyRelatedByparentId', 'taxonomy', RelationMap::MANY_TO_ONE, array('parent_id' => 'id', ), null, null);
-    $this->addRelation('taxonomyRelatedByparentId', 'taxonomy', RelationMap::ONE_TO_MANY, array('id' => 'parent_id', ), null, null);
+    $this->addRelation('taxonomyRelatedByparentId', 'taxonomy', RelationMap::MANY_TO_ONE, array('parent_id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('taxonomyRelatedByparentId', 'taxonomy', RelationMap::ONE_TO_MANY, array('id' => 'parent_id', ), 'CASCADE', null);
     $this->addRelation('taxonomyI18n', 'taxonomyI18n', RelationMap::ONE_TO_MANY, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('term', 'term', RelationMap::ONE_TO_MANY, array('id' => 'taxonomy_id', ), 'CASCADE', null);
 	} // buildRelations()

@@ -55,122 +55,54 @@ class arMigration0181
     // Fix function_object table indexes and foreign keys.
     // Needed after removing the parent_id column to keep them
     // in sync. with the ones from a new install.
-    $indexes = array(
+    QubitMigrate::updateIndexes(array(
       array(
+        'table' => 'function_object',
         'column' => 'type_id',
         'index' => 'function_object_FI_2',
       ),
       array(
+        'table' => 'function_object',
         'column' => 'description_status_id',
         'index' => 'function_object_FI_3',
       ),
       array(
+        'table' => 'function_object',
         'column' => 'description_detail_id',
         'index' => 'function_object_FI_4',
       ),
-    );
+    ));
 
-    foreach ($indexes as $data)
-    {
-      // Get actual index name
-      $sql = 'SHOW INDEX FROM %s WHERE Column_name=:column_name;';
-      $result = QubitPdo::fetchOne(
-        sprintf($sql, 'function_object'),
-        array(':column_name' => $data['column'])
-      );
-
-      // Stop if the index is missing
-      if (!$result || !$result->Key_name)
-      {
-        throw new Exception(sprintf(
-          "Could not find index for '%s' column on '%s' table.",
-          $data['column'],
-          'function_object'
-        ));
-      }
-
-      // Skip if the index already has the expected name
-      if ($result->Key_name == $data['index'])
-      {
-        continue;
-      }
-
-      QubitPdo::modify(sprintf(
-        'ALTER TABLE %s RENAME INDEX %s TO %s;',
-        'function_object',
-        $result->Key_name,
-        $data['index']
-      ));
-    }
-
-    $foreignKeys = array(
+    QubitMigrate::updateForeignKeys(array(
       array(
-        'columnName' => 'id',
-        'refTableName' => 'object',
-        'newConstraintName' => 'function_object_FK_1',
-        'onDelete' => ' ON DELETE CASCADE',
+        'table' => 'function_object',
+        'column' => 'id',
+        'refTable' => 'object',
+        'constraint' => 'function_object_FK_1',
+        'onDelete' => 'ON DELETE CASCADE',
       ),
       array(
-        'columnName' => 'type_id',
-        'refTableName' => 'term',
-        'newConstraintName' => 'function_object_FK_2',
+        'table' => 'function_object',
+        'column' => 'type_id',
+        'refTable' => 'term',
+        'constraint' => 'function_object_FK_2',
         'onDelete' => '',
       ),
       array(
-        'columnName' => 'description_status_id',
-        'refTableName' => 'term',
-        'newConstraintName' => 'function_object_FK_3',
+        'table' => 'function_object',
+        'column' => 'description_status_id',
+        'refTable' => 'term',
+        'constraint' => 'function_object_FK_3',
         'onDelete' => '',
       ),
       array(
-        'columnName' => 'description_detail_id',
-        'refTableName' => 'term',
-        'newConstraintName' => 'function_object_FK_4',
+        'table' => 'function_object',
+        'column' => 'description_detail_id',
+        'refTable' => 'term',
+        'constraint' => 'function_object_FK_4',
         'onDelete' => '',
       ),
-    );
-
-    foreach ($foreignKeys as $foreignKey)
-    {
-      // Get actual contraint name
-      $sql = 'SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE ';
-      $sql .= 'WHERE TABLE_NAME=:table_name AND COLUMN_NAME=:column_name ';
-      $sql .= 'AND REFERENCED_TABLE_NAME=:ref_table_name;';
-      $oldConstraintName = QubitPdo::fetchColumn($sql, array(
-        ':table_name' => 'function_object',
-        ':column_name' => $foreignKey['columnName'],
-        ':ref_table_name' => $foreignKey['refTableName'],
-      ));
-
-      // Stop if the foreign key is missing
-      if (!$oldConstraintName)
-      {
-        throw new Exception(sprintf(
-          "Could not find foreign key for '%s' column on '%s' table.",
-          $foreignKey['columnName'],
-          'function_object'
-        ));
-      }
-
-      // Having the same name requires to drop and add in two statements
-      $sql = 'ALTER TABLE %s DROP FOREIGN KEY %s;';
-      QubitPdo::modify(sprintf(
-        $sql,
-        'function_object',
-        $oldConstraintName
-      ));
-
-      $sql = 'ALTER TABLE %s ADD CONSTRAINT %s FOREIGN KEY (%s) ';
-      $sql .= 'REFERENCES %s (id)%s;';
-      QubitPdo::modify(sprintf(
-        $sql,
-        'function_object',
-        $foreignKey['newConstraintName'],
-        $foreignKey['columnName'],
-        $foreignKey['refTableName'],
-        $foreignKey['onDelete']
-      ));
-    }
+    ));
 
     return true;
   }

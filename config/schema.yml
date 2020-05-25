@@ -15,7 +15,7 @@ propel:
     description_detail_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     description_identifier: varchar(1024)
     source_standard: varchar(1024)
-    parent_id: { type: integer, foreignTable: actor, foreignReference: id }
+    parent_id: { type: integer, foreignTable: actor, foreignReference: id, onDelete: cascade }
 
   actor_i18n:
     authorized_form_of_name: varchar(1024)
@@ -106,7 +106,7 @@ propel:
     byte_size: bigint
     checksum: varchar(255)
     checksum_type: type: varchar(50)
-    parent_id: { type: integer, foreignTable: digital_object, foreignReference: id }
+    parent_id: { type: integer, foreignTable: digital_object, foreignReference: id, onDelete: cascade }
     _indexes:
       path: [path(768)]
 
@@ -118,7 +118,7 @@ propel:
     end_time: time
     type_id: { type: integer, required: true, foreignTable: term, foreignReference: id, onDelete: cascade }
     object_id: { type: integer, foreignTable: object, foreignReference: id, onDelete: cascade }
-    actor_id:
+    actor_id: { type: integer, foreignTable: actor, foreignReference: id, onDelete: setnull }
 
   event_i18n:
     name: varchar(1024)
@@ -127,9 +127,9 @@ propel:
 
   function_object:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
-    type_id: { type: integer, foreignTable: term, foreignReference: id }
-    description_status_id: { type: integer, foreignTable: term, foreignReference: id }
-    description_detail_id: { type: integer, foreignTable: term, foreignReference: id }
+    type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    description_status_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    description_detail_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     description_identifier: varchar(1024)
     source_standard: varchar(1024)
 
@@ -150,9 +150,9 @@ propel:
     identifier: varchar(1024)
     oai_local_identifier: { type: integer, index: unique, required: true, autoIncrement: true }
     level_of_description_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
-    collection_type_id: { type: integer, foreignTable: term, foreignReference: id }
-    repository_id:
-    parent_id: { type: integer, foreignTable: information_object, foreignReference: id }
+    collection_type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    repository_id: { type: integer, foreignTable: repository, foreignReference: id, onDelete: setnull }
+    parent_id: { type: integer, foreignTable: information_object, foreignReference: id, onDelete: cascade }
     description_status_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     description_detail_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     description_identifier: varchar(1024)
@@ -210,7 +210,7 @@ propel:
     object_id: { type: integer, required: true, foreignTable: object, foreignReference: id, onDelete: cascade }
     type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     scope: varchar(1024)
-    user_id:
+    user_id: { type: integer, foreignTable: user, foreignReference: id, onDelete: setnull }
 
   note_i18n:
     content: longvarchar
@@ -269,7 +269,7 @@ propel:
 
   premis_object:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
-    information_object_id:
+    information_object_id: { type: integer, foreignTable: information_object, foreignReference: id, onDelete: cascade }
     puid: varchar(255)
     filename: varchar(1024)
     last_modified: timestamp
@@ -287,9 +287,9 @@ propel:
 
   relation:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
-    subject_id: { type: integer, required: true, foreignTable: object, foreignReference: id }
-    object_id: { type: integer, required: true, foreignTable: object, foreignReference: id }
-    type_id: { type: integer, foreignTable: term, foreignReference: id }
+    subject_id: { type: integer, required: true, foreignTable: object, foreignReference: id, onDelete: cascade }
+    object_id: { type: integer, required: true, foreignTable: object, foreignReference: id, onDelete: cascade }
+    type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: cascade }
     start_date: bu_date
     end_date: bu_date
 
@@ -384,7 +384,7 @@ propel:
   taxonomy:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     usage: varchar(1024)
-    parent_id: { type: integer, foreignTable: taxonomy, foreignReference: id }
+    parent_id: { type: integer, foreignTable: taxonomy, foreignReference: id, onDelete: cascade }
 
   taxonomy_i18n:
     name: varchar(1024)
@@ -394,7 +394,7 @@ propel:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     taxonomy_id: { type: integer, required: true, foreignTable: taxonomy, foreignReference: id, onDelete: cascade }
     code: varchar(1024)
-    parent_id: { type: integer, foreignTable: term, foreignReference: id }
+    parent_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: cascade }
     lft: { type: integer, required: true, nestedSetLeftKey: true }
     rgt: { type: integer, required: true, nestedSetRightKey: true }
     _indexes:

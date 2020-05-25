@@ -52,9 +52,9 @@ class RelationTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('objectRelatedByid', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
-    $this->addRelation('objectRelatedBysubjectId', 'object', RelationMap::MANY_TO_ONE, array('subject_id' => 'id', ), null, null);
-    $this->addRelation('objectRelatedByobjectId', 'object', RelationMap::MANY_TO_ONE, array('object_id' => 'id', ), null, null);
-    $this->addRelation('term', 'term', RelationMap::MANY_TO_ONE, array('type_id' => 'id', ), null, null);
+    $this->addRelation('objectRelatedBysubjectId', 'object', RelationMap::MANY_TO_ONE, array('subject_id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('objectRelatedByobjectId', 'object', RelationMap::MANY_TO_ONE, array('object_id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('term', 'term', RelationMap::MANY_TO_ONE, array('type_id' => 'id', ), 'CASCADE', null);
     $this->addRelation('relationI18n', 'relationI18n', RelationMap::ONE_TO_MANY, array('id' => 'id', ), 'CASCADE', null);
 	} // buildRelations()
 

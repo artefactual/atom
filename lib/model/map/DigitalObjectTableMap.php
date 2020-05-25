@@ -60,8 +60,8 @@ class DigitalObjectTableMap extends TableMap {
     $this->addRelation('objectRelatedByobjectId', 'object', RelationMap::MANY_TO_ONE, array('object_id' => 'id', ), 'CASCADE', null);
     $this->addRelation('termRelatedByusageId', 'term', RelationMap::MANY_TO_ONE, array('usage_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('termRelatedBymediaTypeId', 'term', RelationMap::MANY_TO_ONE, array('media_type_id' => 'id', ), 'SET NULL', null);
-    $this->addRelation('digitalObjectRelatedByparentId', 'digitalObject', RelationMap::MANY_TO_ONE, array('parent_id' => 'id', ), null, null);
-    $this->addRelation('digitalObjectRelatedByparentId', 'digitalObject', RelationMap::ONE_TO_MANY, array('id' => 'parent_id', ), null, null);
+    $this->addRelation('digitalObjectRelatedByparentId', 'digitalObject', RelationMap::MANY_TO_ONE, array('parent_id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('digitalObjectRelatedByparentId', 'digitalObject', RelationMap::ONE_TO_MANY, array('id' => 'parent_id', ), 'CASCADE', null);
 	} // buildRelations()
 
 } // DigitalObjectTableMap

@@ -66,6 +66,7 @@ CREATE TABLE `actor`
 	CONSTRAINT `actor_FK_5`
 		FOREIGN KEY (`parent_id`)
 		REFERENCES `actor` (`id`)
+		ON DELETE CASCADE
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -349,6 +350,7 @@ CREATE TABLE `digital_object`
 	CONSTRAINT `digital_object_FK_5`
 		FOREIGN KEY (`parent_id`)
 		REFERENCES `digital_object` (`id`)
+		ON DELETE CASCADE
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -388,6 +390,7 @@ CREATE TABLE `event`
 	CONSTRAINT `event_FK_4`
 		FOREIGN KEY (`actor_id`)
 		REFERENCES `actor` (`id`)
+		ON DELETE SET NULL
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -435,15 +438,18 @@ CREATE TABLE `function_object`
 	INDEX `function_object_FI_2` (`type_id`),
 	CONSTRAINT `function_object_FK_2`
 		FOREIGN KEY (`type_id`)
-		REFERENCES `term` (`id`),
+		REFERENCES `term` (`id`)
+		ON DELETE SET NULL,
 	INDEX `function_object_FI_3` (`description_status_id`),
 	CONSTRAINT `function_object_FK_3`
 		FOREIGN KEY (`description_status_id`)
-		REFERENCES `term` (`id`),
+		REFERENCES `term` (`id`)
+		ON DELETE SET NULL,
 	INDEX `function_object_FI_4` (`description_detail_id`),
 	CONSTRAINT `function_object_FK_4`
 		FOREIGN KEY (`description_detail_id`)
 		REFERENCES `term` (`id`)
+		ON DELETE SET NULL
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -514,15 +520,18 @@ CREATE TABLE `information_object`
 	INDEX `information_object_FI_3` (`collection_type_id`),
 	CONSTRAINT `information_object_FK_3`
 		FOREIGN KEY (`collection_type_id`)
-		REFERENCES `term` (`id`),
+		REFERENCES `term` (`id`)
+		ON DELETE SET NULL,
 	INDEX `information_object_FI_4` (`repository_id`),
 	CONSTRAINT `information_object_FK_4`
 		FOREIGN KEY (`repository_id`)
-		REFERENCES `repository` (`id`),
+		REFERENCES `repository` (`id`)
+		ON DELETE SET NULL,
 	INDEX `information_object_FI_5` (`parent_id`),
 	CONSTRAINT `information_object_FK_5`
 		FOREIGN KEY (`parent_id`)
-		REFERENCES `information_object` (`id`),
+		REFERENCES `information_object` (`id`)
+		ON DELETE CASCADE,
 	INDEX `information_object_FI_6` (`description_status_id`),
 	CONSTRAINT `information_object_FK_6`
 		FOREIGN KEY (`description_status_id`)
@@ -675,6 +684,7 @@ CREATE TABLE `note`
 	CONSTRAINT `note_FK_3`
 		FOREIGN KEY (`user_id`)
 		REFERENCES `user` (`id`)
+		ON DELETE SET NULL
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -912,6 +922,7 @@ CREATE TABLE `premis_object`
 	CONSTRAINT `premis_object_FK_2`
 		FOREIGN KEY (`information_object_id`)
 		REFERENCES `information_object` (`id`)
+		ON DELETE CASCADE
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -980,15 +991,18 @@ CREATE TABLE `relation`
 	INDEX `relation_FI_2` (`subject_id`),
 	CONSTRAINT `relation_FK_2`
 		FOREIGN KEY (`subject_id`)
-		REFERENCES `object` (`id`),
+		REFERENCES `object` (`id`)
+		ON DELETE CASCADE,
 	INDEX `relation_FI_3` (`object_id`),
 	CONSTRAINT `relation_FK_3`
 		FOREIGN KEY (`object_id`)
-		REFERENCES `object` (`id`),
+		REFERENCES `object` (`id`)
+		ON DELETE CASCADE,
 	INDEX `relation_FI_4` (`type_id`),
 	CONSTRAINT `relation_FK_4`
 		FOREIGN KEY (`type_id`)
 		REFERENCES `term` (`id`)
+		ON DELETE CASCADE
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -1350,6 +1364,7 @@ CREATE TABLE `taxonomy`
 	CONSTRAINT `taxonomy_FK_2`
 		FOREIGN KEY (`parent_id`)
 		REFERENCES `taxonomy` (`id`)
+		ON DELETE CASCADE
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -1403,6 +1418,7 @@ CREATE TABLE `term`
 	CONSTRAINT `term_FK_3`
 		FOREIGN KEY (`parent_id`)
 		REFERENCES `term` (`id`)
+		ON DELETE CASCADE
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------

@@ -891,4 +891,97 @@ class QubitMigrate
       }
     }
   }
+
+  public static function updateIndexes($indexes)
+  {
+    foreach ($indexes as $data)
+    {
+      // Get actual index name
+      $sql = 'SHOW INDEX FROM %s WHERE Column_name=:column;';
+      $result = QubitPdo::fetchOne(
+        sprintf($sql, $data['table']),
+        array(':column' => $data['column'])
+      );
+
+      // Stop if the index is missing
+      if (!$result || !$result->Key_name)
+      {
+        throw new Exception(sprintf(
+          "Could not find index for '%s' column on '%s' table.",
+          $data['column'],
+          $data['table']
+        ));
+      }
+
+      // Skip if the index already has the expected name
+      if ($result->Key_name == $data['index'])
+      {
+        continue;
+      }
+
+      QubitPdo::modify(sprintf(
+        'ALTER TABLE %s RENAME INDEX %s TO %s;',
+        $data['table'],
+        $result->Key_name,
+        $data['index']
+      ));
+    }
+  }
+
+  public static function updateForeignKeys($foreignKeys)
+  {
+    foreach ($foreignKeys as $foreignKey)
+    {
+      // Get actual contraint name
+      $sql = 'SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE ';
+      $sql .= 'WHERE TABLE_NAME=:table AND COLUMN_NAME=:column ';
+      $sql .= 'AND REFERENCED_TABLE_NAME=:refTable;';
+      $oldConstraintName = QubitPdo::fetchColumn($sql, array(
+        ':table' => $foreignKey['table'],
+        ':column' => $foreignKey['column'],
+        ':refTable' => $foreignKey['refTable'],
+      ));
+
+      // Stop if the foreign key is missing
+      if (!$oldConstraintName)
+      {
+        throw new Exception(sprintf(
+          "Could not find foreign key for '%s' column on '%s' table.",
+          $foreignKey['column'],
+          $foreignKey['table']
+        ));
+      }
+
+      // Having the same name requires to drop and add in two statements
+      $sql = 'ALTER TABLE %s DROP FOREIGN KEY %s;';
+      QubitPdo::modify(sprintf(
+        $sql,
+        $foreignKey['table'],
+        $oldConstraintName
+      ));
+
+      try
+      {
+        $sql = 'ALTER TABLE %s ADD CONSTRAINT %s FOREIGN KEY (%s) ';
+        $sql .= 'REFERENCES %s (id) %s;';
+        QubitPdo::modify(sprintf(
+          $sql,
+          $foreignKey['table'],
+          $foreignKey['constraint'],
+          $foreignKey['column'],
+          $foreignKey['refTable'],
+          $foreignKey['onDelete']
+        ));
+      }
+      catch (Exception $e)
+      {
+        throw new Exception(sprintf(
+          "Could not alter foreign key for '%s' column on '%s' table.\n%s",
+          $foreignKey['column'],
+          $foreignKey['table'],
+          $e->getMessage()
+        ));
+      }
+    }
+  }
 }
