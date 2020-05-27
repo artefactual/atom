@@ -57,10 +57,10 @@
           <?php echo __('Scope note') ?>
         </th>
         <?php if ($addIoCountColumn): ?>
-          <th><?php echo __('Descriptions') ?></th>
+          <th><?php echo __('%1 count', array('%1' => sfConfig::get('app_ui_label_informationobject'))) ?></th>
         <?php endif; ?>
         <?php if ($addActorCountColumn): ?>
-          <th><?php echo __('Authorities') ?></th>
+          <th><?php echo __('%1 count', array('%1' => sfConfig::get('app_ui_label_actor'))) ?></th>
         <?php endif; ?>
       </tr>
     </thead><tbody>
