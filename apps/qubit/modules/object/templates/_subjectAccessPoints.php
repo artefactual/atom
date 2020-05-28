@@ -17,7 +17,11 @@
             <?php if (1 < $key): ?>
               &raquo;
             <?php endif; ?>
-            <?php echo link_to(render_title($subject), array($subject, 'module' => 'term')) ?>
+            <?php if ($resource->getClass() == 'QubitActor'): ?>
+              <?php echo link_to(render_title($subject), array($subject, 'module' => 'term', 'action' => 'relatedAuthorities')) ?>
+            <?php else: ?>
+              <?php echo link_to(render_title($subject), array($subject, 'module' => 'term')) ?>
+            <?php endif; ?>
           <?php endforeach; ?>
         </li>
       <?php endforeach; ?>
