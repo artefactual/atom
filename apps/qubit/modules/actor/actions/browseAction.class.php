@@ -395,12 +395,11 @@ class ActorBrowseAction extends DefaultBrowseAction
     }
     else if (!empty($this->request->relatedType))
     {
-      // Include actors with a relation of a specified type
-      $queryBool = new \Elastica\Query\BoolQuery;
+      // Include actors with a direct relation of a specified type
+      $queryField = new \Elastica\Query\Term;
+      $queryField->setTerm('actorDirectRelationTypes', $request->relatedType);
 
-      $queryBool->addMust($this->actorRelationsQueryForType($this->request->relatedType));
-
-      $this->search->queryBool->addMust($this->actorRelationsNestedQuery($queryBool));
+      $this->search->queryBool->addMust($queryField);
     }
 
     // Filter out results if a specific field isn't empty

@@ -36,7 +36,8 @@ class arElasticSearchActorPdo
   protected static
     $conn,
     $lookups,
-    $statements;
+    $statements,
+    $converseTermIds;
 
   /**
    * METHODS
@@ -264,6 +265,7 @@ class arElasticSearchActorPdo
 
     // Related objects
     $serialized['actorRelations'] = self::serializeObjectRelations($this->id);
+    $serialized['actorDirectRelationTypes'] = self::serializeObjectDirectRelationTypes($this->id, $serialized['actorRelations']);
 
     // Places
     if (isset($relatedTerms[QubitTaxonomy::PLACE_ID]))
@@ -350,6 +352,58 @@ class arElasticSearchActorPdo
     }
 
     return $serialized;
+  }
+
+  protected function serializeObjectDirectRelationTypes($actorId, $relationData)
+  {
+    $relationTypeIds = [];
+
+    // Cycle through each relation an actor's involved in
+    foreach ($relationData as $relation)
+    {
+      $typeId = $relation['typeId'];
+
+      if ($relation['objectId'] == $actorId)
+      {
+        // Add type ID to array if it hasn't already been added
+        if (!in_array($typeId, $relationTypeIds))
+        {
+          $relationTypeIds[] = $typeId;
+        }
+      }
+      else
+      {
+        // If actor is the subject of the relation then look up the converse of the type
+        if (isset(self::$converseTermIds[$typeId]))
+        {
+          // Get cached type ID
+          $converseTermId = self::$converseTermIds[$typeId];
+        }
+        else
+        {
+          // Look up converse term, if any
+          $sql = "SELECT IF(object_id=?, subject_id, object_id) AS converse_id
+                    FROM relation
+                    WHERE (object_id=? or subject_id=?)
+                    AND type_id=?";
+
+          $result = QubitPdo::fetchColumn($sql, array($typeId, $typeId, $typeId, QubitTerm::CONVERSE_TERM_ID));
+
+          $converseTermId = ($result !== null) ? $result : $typeId;
+
+          // Cache result
+          self::$converseTermIds[$typeId] = $converseTermId;
+        }
+
+        // Add type ID to array if it hasn't already been added
+        if (!in_array($converseTermId, $relationTypeIds))
+        {
+          $relationTypeIds[] = $converseTermId;
+        }
+      }
+    }
+
+    return $relationTypeIds;
   }
 
   public static function serializeObjectRelations($actorId)

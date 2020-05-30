@@ -368,6 +368,7 @@ mapping:
       maintaining_repository_id: { type: integer, include_in_all: false }
       direct_subjects: { type: integer, include_in_all: false }
       direct_places: { type: integer, include_in_all: false }
+      actor_direct_relation_types: { type: integer, include_in_all: false }
       has_digital_object: { type: boolean, include_in_all: false }
       digital_object:
         type: object
