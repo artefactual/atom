@@ -540,4 +540,45 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
   {
     return QubitRelation::getRelatedSubjectsByObjectId('QubitPhysicalObject', $this->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID));
   }
+
+  /**
+   * Delete this resource and its descendants from bottom to top, updating the
+   * nested set values only at the end and doing it within a transaction.
+   *
+   * @return int  Number of resources deleted.
+   */
+  public function deleteFullHierarchy()
+  {
+    $allowedModels = array('QubitInformationObject', 'QubitTerm');
+
+    if (!in_array(get_class($this), $allowedModels))
+    {
+      throw new sfException(
+        'deleteFullHierarchy() can only be called from QubitInformationObject and QubitTerm.'
+      );
+    }
+
+    $n = 0;
+
+    foreach ($this->descendants->andSelf()->orderBy('rgt') as $item)
+    {
+      // Avoid nested set update until the last deletion:
+      // The queries used to update the nested may be time expensive as
+      // they update all the resources above the deleted one, including
+      // those outside the deleted tree and those that are inside and will
+      // be deleted after. When the `deleteFromNestedSet` function is called,
+      // the delta used to update the nested set values is calculated from
+      // the resource's RGT - LFT difference. Running the deletion in a
+      // transaction, the nested set can be updated only once at the end.
+      if ($this->id !== $item->id)
+      {
+        $item->disableNestedSetUpdating = true;
+      }
+
+      $item->delete();
+      $n++;
+    }
+
+    return $n;
+  }
 }

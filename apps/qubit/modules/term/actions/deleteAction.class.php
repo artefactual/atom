@@ -45,13 +45,7 @@ class TermDeleteAction extends sfAction
 
     if ($request->isMethod('delete'))
     {
-      foreach ($this->resource->descendants->andSelf()->orderBy('rgt') as $item)
-      {
-        if (QubitAcl::check($item, 'delete'))
-        {
-          $item->delete();
-        }
-      }
+      $this->resource->deleteFullHierarchy();
 
       if (isset($this->resource->taxonomy))
       {
@@ -61,6 +55,10 @@ class TermDeleteAction extends sfAction
       $this->redirect(array('module' => 'taxonomy', 'action' => 'list'));
     }
 
-    $this->descendantsCount = ($this->resource->rgt - $this->resource->lft - 1) / 2;
+    // Apparently we can't slice a QubitQuery. `previewSize` is shared with
+    // the template so we can break the loop when desired.
+    $this->count = ($this->resource->rgt - $this->resource->lft - 1) / 2;
+    $this->previewSize = (int)sfConfig::get('app_hits_per_page', 10);
+    $this->previewIsLimited = $this->count > $this->previewSize;
   }
 }

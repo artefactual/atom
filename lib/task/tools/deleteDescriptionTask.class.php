@@ -142,7 +142,21 @@ EOF;
       $root->getTitle(array('cultureFallback' => true)),
       $root->slug, ($root->rgt - $root->lft - 1) / 2));
 
-    $this->nDeleted += $root->deleteFullHierarchy();
+    $conn = Propel::getConnection();
+    $conn->beginTransaction();
+
+    try
+    {
+      $this->nDeleted += $root->deleteFullHierarchy();
+
+      $conn->commit();
+    }
+    catch (Exception $e)
+    {
+      $conn->rollBack();
+
+      throw $e;
+    }
   }
 
   /**

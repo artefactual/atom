@@ -30,14 +30,24 @@
         </div>
       <?php endif; ?>
 
-      <?php if (0 < $descendantsCount): ?>
-        <h2><?php echo __('It has %1% descendants that will also be deleted', array('%1%' => $descendantsCount)) ?><h2>
+      <?php if (0 < $count): ?>
+        <h2><?php echo __('It has %1% descendants that will also be deleted', array('%1%' => $count)) ?></h2>
         <div class="delete-list">
+
           <ul>
-            <?php foreach ($resource->descendants as $item): ?>
+            <?php foreach ($resource->descendants as $index => $item): ?>
               <li><?php echo link_to(render_title($item), array($item, 'module' => 'term')) ?></li>
+              <?php if ($index + 1 == $previewSize) break; ?>
             <?php endforeach; ?>
           </ul>
+
+          <?php if ($previewIsLimited): ?>
+            <hr />
+            <p>
+              <?php echo __('Only %1% terms were shown.', array('%1%' => $previewSize)) ?>
+            </p>
+          <?php endif; ?>
+
         </div>
       <?php endif; ?>
 
