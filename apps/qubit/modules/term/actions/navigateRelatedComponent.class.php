@@ -41,8 +41,8 @@ class TermNavigateRelatedComponent extends sfComponent
     }
 
     // Take note of counts of Elasticsearch documents related to term
-    $this->relatedIoCount    = self::getEsDocsRelatedToTerm('QubitInformationObject', $this->resource)->count();
-    $this->relatedActorCount = self::getEsDocsRelatedToTerm('QubitActor', $this->resource)->count();
+    $this->relatedIoCount    = self::getEsDocsRelatedToTerm('QubitInformationObject', $this->resource)->getTotalHits();
+    $this->relatedActorCount = self::getEsDocsRelatedToTerm('QubitActor', $this->resource)->getTotalHits();
   }
 
   static function getEsDocsRelatedToTerm($relatedModelClass, $term, $options = [])
