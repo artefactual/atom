@@ -13,7 +13,7 @@
     <div id="content">
 
       <?php if (0 < $resource->getRelatedObjectCount()): ?>
-        <h2><?php echo __('This term is used in %1% descriptions. The term will be deleted from these descriptions.', array('%1%' => $resource->getRelatedObjectCount())) ?></h2>
+        <h2><?php echo __('This term is used in %1% records. The term will be deleted from these records.', array('%1%' => $resource->getRelatedObjectCount())) ?></h2>
         <div class="text-section">
           <?php echo __('The related object(s) will <strong>not</strong> be deleted') ?>
         </div>
