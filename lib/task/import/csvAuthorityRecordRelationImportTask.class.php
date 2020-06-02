@@ -289,8 +289,9 @@ EOF;
    */
   private function setRelationFields(&$relation, $sourceActorId, $targetActorId, $relationTypeId)
   {
-    $relation->objectId  = $sourceActorId;
-    $relation->subjectId = $targetActorId;
+    // Note that the column names don't map to the internal representation
+    $relation->objectId  = $targetActorId;
+    $relation->subjectId = $sourceActorId;
     $relation->typeId    = $relationTypeId;
 
     // Set relationship properties from column values
