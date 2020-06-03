@@ -140,13 +140,27 @@ class arOaiPluginIndexAction extends sfAction
         $this->forward('arOaiPlugin', 'error');
       }
 
-      // If 'identifier' parameter is provided, make sure it refers to an existing record
-      if ($this->request->identifier && null === QubitInformationObject::getRecordByOaiID(QubitOai::getOaiIdNumber($this->request->identifier)))
+      // If 'identifier' parameter is provided
+      if ($this->request->identifier)
       {
-        $request->setParameter('errorCode', 'idDoesNotExist');
-        $request->setParameter('errorMsg', 'The value of the identifier argument is unknown or illegal in this repository.');
+        // Make sure it refers to an existing record, that it's
+        // not the root nor draft and check ACL.
+        $resource = QubitInformationObject::getRecordByOaiID(
+          QubitOai::getOaiIdNumber($this->request->identifier)
+        );
 
-        $this->forward('arOaiPlugin', 'error');
+        if (
+          !isset($resource) ||
+          !isset($resource->parent) ||
+          $resource->getPublicationStatus()->statusId != QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID ||
+          !QubitAcl::check($resource, 'read')
+        )
+        {
+          $request->setParameter('errorCode', 'idDoesNotExist');
+          $request->setParameter('errorMsg', 'The value of the identifier argument is unknown or illegal in this repository.');
+  
+          $this->forward('arOaiPlugin', 'error');
+        }
       }
 
       switch ($this->request->verb)
