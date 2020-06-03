@@ -42,7 +42,6 @@ services:
       memlock:
         soft: -1
         hard: -1
-    mem_limit: 1g
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
     ports:
