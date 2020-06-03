@@ -389,7 +389,7 @@ class arElasticSearchActorPdo
 
           $result = QubitPdo::fetchColumn($sql, array($typeId, $typeId, $typeId, QubitTerm::CONVERSE_TERM_ID));
 
-          $converseTermId = ($result !== null) ? $result : $typeId;
+          $converseTermId = !empty($result) ? $result : $typeId;
 
           // Cache result
           self::$converseTermIds[$typeId] = $converseTermId;
