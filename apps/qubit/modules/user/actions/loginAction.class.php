@@ -84,6 +84,12 @@ class UserLoginAction extends sfAction
 
         $this->form->getErrorSchema()->addError(new sfValidatorError(new sfValidatorPass, 'Sorry, unrecognized email or password'));
       }
+
+      // In some templates (language menu for example) the links are generated
+      // with all the request params (including POST) which appends the password
+      // and email to them when the login does not succeed.
+      unset($request['email']);
+      unset($request['password']);
     }
   }
 
