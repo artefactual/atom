@@ -98,19 +98,28 @@
 
   <target name="i18n-prepare">
     <mkdir dir=".tx/i18n"/>
-    <exec command="which tx" returnProperty="return_code" outputProperty="tx.path"/>
-    <if>
-      <equals arg1="${return_code}" arg2="1" />
-      <then>
-        <fail message="You need to install transifex-client before!"/>
-      </then>
-    </if>
     <exec command="git diff --quiet" returnProperty="return_code"/>
     <if>
       <equals arg1="${return_code}" arg2="0" />
-      <then><echo>You are good to go!</echo></then>
-      <else><fail message="For your safety, this target won't work if you have unstaged changes in your git tree."/></else>
+      <then>
+        <echo>You are good to go!</echo>
+      </then>
+      <else>
+        <input propertyName="cont" defaultValue="n" promptChar="?" validArgs="y,n">
+          You have unstaged changes in your git tree. Are you sure you want to continue?
+        </input>
+        <if>
+          <equals arg1="${cont}" arg2="n"/>
+          <then>
+            <fail message="Exiting without changes..."/>
+          </then>
+        </if>
+      </else>
     </if>
+  </target>
+
+  <target name="i18n-clean-tx">
+    <exec command="rm -rf .tx/*"/>
   </target>
 
   <target name="i18n-extract">
@@ -126,12 +135,12 @@
   </target>
 
   <!-- ===================================================================== -->
-  <!-- i18n-push-sources target, push source strings to Transifex            -->
+  <!-- i18n-push-sources target, extract 'en' source strings to XLIFF        -->
   <!-- ===================================================================== -->
 
   <target name="i18n-push-sources"
-    depends="i18n-prepare, i18n-extract-sources, i18n-consolidate-sources, i18n-send-sources"
-    description="Push source strings to Transifex"/>
+    depends="i18n-clean-tx, i18n-prepare, i18n-extract-sources, i18n-consolidate-sources, i18n-cleanup-sources"
+    description="Extract 'en' source strings from AtoM"/>
 
   <target name="i18n-extract-sources">
     <exec command="php symfony i18n:extract --plugins --auto-delete --auto-save en" dir="${phing.dir}" checkreturn="true"/>
@@ -141,18 +150,17 @@
     <exec command="php symfony i18n:consolidate en .tx/i18n/" dir="${phing.dir}" checkreturn="true"/>
   </target>
 
-  <target name="i18n-send-sources">
-    <exec command="tx push --source" dir="${phing.dir}" checkreturn="true" logoutput="true" passthru="true"/>
-    <exec command="find . -wholename &quot;*i18n/en&quot; | xargs -IF rm -rf F"/>
+  <target name="i18n-cleanup-sources">
+    <exec command="find . -not -path &quot;*/\.*&quot; -wholename &quot;*i18n/en&quot; -not \( -name &quot;.tx&quot; -prune \) | xargs -IF rm -rf F"/>
   </target>
 
   <!-- ===================================================================== -->
-  <!-- i18n-push-translations target, push translations to Transifex         -->
+  <!-- i18n-push-translations target, extract translations to XLIFF          -->
   <!-- ===================================================================== -->
 
   <target name="i18n-push-translations"
-    depends="i18n-prepare, i18n-extract, i18n-consolidate-translations, i18n-send-translations"
-    description="Push translations to Transifex"/>
+    depends="i18n-clean-tx, i18n-prepare, i18n-extract, i18n-consolidate-translations"
+    description="Extract translations from AtoM"/>
 
   <target name="i18n-consolidate-translations">
     <foreach param="lang" target="i18n-consolidate-translations-subtask">
@@ -166,20 +174,15 @@
     <exec command="php symfony i18n:consolidate ${lang} .tx/i18n/" dir="${phing.dir}" checkreturn="true" level="debug"/>
   </target>
 
-  <target name="i18n-send-translations">
-    <exec command="tx push --translations" dir="${phing.dir}" checkreturn="true" logoutput="true" passthru="true"/>
-  </target>
-
   <!-- ===================================================================== -->
-  <!-- i18n-pull-translations target, pull translations from Transifex       -->
+  <!-- i18n-pull-translations target, import translations from .tx folder    -->
   <!-- ===================================================================== -->
 
   <target name="i18n-pull-translations"
     depends="i18n-prepare, i18n-fetch, i18n-rectify, i18n-update-fixtures, i18n-cleanup"
-    description="Pull translations from Transifex, ready to be committed"/>
+    description="Import translations into AtoM, ready to be committed"/>
 
   <target name="i18n-fetch">
-    <exec command="tx pull --all" dir="${phing.dir}" checkreturn="true" logoutput="true" passthru="true"/>
     <foreach param="lang" absparam="directory" target="i18n-fetch-subtask">
       <fileset dir=".tx/i18n">
         <type type="dir"/>
