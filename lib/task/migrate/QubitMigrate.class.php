@@ -952,6 +952,27 @@ class QubitMigrate
         ));
       }
 
+      // Update/delete rows with foreign keys pointing to non existing rows
+      if (strtoupper(trim($foreignKey['onDelete'])) == "ON DELETE SET NULL")
+      {
+        $sql = "UPDATE {$foreignKey['table']} tb1
+                LEFT JOIN {$foreignKey['refTable']} tb2
+                ON tb1.{$foreignKey['column']}=tb2.id
+                SET tb1.{$foreignKey['column']}=NULL";
+      }
+      else
+      {
+        $sql = "DELETE tb1
+                FROM {$foreignKey['table']} tb1
+                LEFT JOIN {$foreignKey['refTable']} tb2
+                ON tb1.{$foreignKey['column']}=tb2.id";
+      }
+
+      $sql .= " WHERE tb1.{$foreignKey['column']} IS NOT NULL
+                AND tb2.id IS NULL";
+
+      QubitPdo::modify($sql);
+
       // Having the same name requires to drop and add in two statements
       $sql = 'ALTER TABLE %s DROP FOREIGN KEY %s;';
       QubitPdo::modify(sprintf(
