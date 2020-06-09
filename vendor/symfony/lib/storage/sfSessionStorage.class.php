@@ -4,7 +4,7 @@
  * This file is part of the symfony package.
  * (c) 2004-2006 Fabien Potencier <fabien.potencier@symfony-project.com>
  * (c) 2004-2006 Sean Kerr <sean@code-box.org>
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -57,6 +57,7 @@ class sfSessionStorage extends sfStorage
       'auto_start'              => true,
       'session_cookie_lifetime' => $cookieDefaults['lifetime'],
       'session_cookie_domain'   => $cookieDefaults['domain'],
+      'session_cookie_path'     => $cookieDefaults['path'],
       'session_cookie_secure'   => $cookieDefaults['secure'],
       'session_cookie_httponly' => isset($cookieDefaults['httponly']) ? $cookieDefaults['httponly'] : false,
       'session_cache_limiter'   => null,

@@ -321,33 +321,24 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     return $buckets;
   }
 
-  protected function setHiddenFields($request)
+  protected function addHiddenFields($request)
   {
-    // Store current params to add them as hidden inputs
-    // in the form, to keep GET and POST params in sync
-    $this->hiddenFields = array();
-    foreach ($request->getGetParameters() as $key => $value)
-    {
-      // Keep control of what is added to avoid
-      // Cross-Site Scripting vulnerability. Only allow:
-      // - Aggregations
-      // - Sort, view and media options
-      // - actorId, eventTypeId and ancestor params
-      // But ignore aggs already included in the form:
-      // - repos, collection and levels
-      $allowed = array_merge(
-        array_keys($this::$AGGS),
-        array('view', 'sort', 'media'),
-        array('actorId', 'eventTypeId', 'ancestor')
-      );
-      $ignored = array('repos', 'collection', 'levels');
-      if (!in_array($key, $allowed) || in_array($key, $ignored))
-      {
-        continue;
-      }
+    // Keep control of which hidden fields are added to avoid
+    // Cross-Site Scripting vulnerability. Only allow:
+    // - Aggregations
+    // - Sort, view and media options
+    // - actorId, eventTypeId and ancestor params
+    $allowed = array_merge(
+      array_keys($this::$AGGS),
+      array('view', 'sort', 'media'),
+      array('actorId', 'eventTypeId', 'ancestor')
+    );
 
-      $this->hiddenFields[$key] = $value;
-    }
+    // But ignore aggs already included in the form:
+    // - repos, collection and levels
+    $ignored = array('repos', 'collection', 'levels');
+
+    $this->setHiddenFields($request, $allowed, $ignored);
   }
 
   protected function setFilterTags($request)
@@ -508,7 +499,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       $this->rangeType = $request->rangeType;
     }
 
-    $this->setHiddenFields($request);
+    $this->addHiddenFields($request);
     $this->setFilterTags($request);
 
     // Add advanced form filter to the query

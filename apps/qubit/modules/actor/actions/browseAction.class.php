@@ -578,6 +578,12 @@ class ActorBrowseAction extends DefaultBrowseAction
 
     $this->populateAggs($resultSet);
 
+    // Default to hide the advanced search panel
+    $this->showAdvanced = filter_var(
+      $request->showAdvanced,
+      FILTER_VALIDATE_BOOLEAN
+    );
+
     // If an advanced search has been requested of all fields, put the query text into the global search field
     if (!isset($request->subquery) && isset($request->sq0) && !isset($request->sf0))
     {
