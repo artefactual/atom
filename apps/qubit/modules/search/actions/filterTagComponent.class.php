@@ -30,6 +30,12 @@ class SearchFilterTagComponent extends sfComponent
       return sfView::NONE;
     }
 
+    // If filter has neither a label nor an object, display nothing
+    if (empty($this->options['label']) && empty($this->options['object']))
+    {
+      return sfView::NONE;
+    }
+
     // Remove selected parameter from the current GET parameters
     $this->unsetParams();
 
