@@ -350,13 +350,8 @@ function get_search_i18n($hit, $fieldName, $options = array())
   }
 
   // Filter return value if empty
-  $showUntitled = function($value = null) use ($allowEmpty)
+  $showUntitled = function() use ($allowEmpty)
   {
-    if (null !== $value || 0 < count($value))
-    {
-      return $value[0];
-    }
-
     if ($allowEmpty)
     {
       return '';

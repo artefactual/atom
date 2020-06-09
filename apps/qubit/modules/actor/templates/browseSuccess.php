@@ -112,11 +112,15 @@
 
 <?php slot('content') ?>
 
-  <?php echo get_partial('actor/advancedSearch', array(
-    'criteria'     => $search->criteria,
-    'form'         => $form,
-    'fieldOptions' => $fieldOptions,
-    'hiddenFields' => $hiddenFields)) ?>
+  <?php echo get_partial('actor/advancedSearch',
+    array(
+      'criteria'     => $search->criteria,
+      'form'         => $form,
+      'fieldOptions' => $fieldOptions,
+      'hiddenFields' => $hiddenFields,
+      'show'         => $showAdvanced,
+    )
+  ) ?>
 
   <?php if (isset($pager) && $pager->getNbResults()): ?>
     <section class="browse-options">
