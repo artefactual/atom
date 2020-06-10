@@ -151,7 +151,7 @@ class QubitI18nConsolidatedExtract extends sfI18nApplicationExtract
         $comment = $this->sourceFiles[$key];
       }
 
-      $this->messagesTarget->update($key, $item[0], $comment);
+      $this->messagesTarget->update($key, htmlspecialchars($item[0], ENT_XML1, 'UTF-8'), $comment);
     }
   }
 
