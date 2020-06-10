@@ -76,6 +76,6 @@ class TermNavigateRelatedComponent extends sfComponent
 
     $resultSet = self::getEsDocsRelatedToTerm($relatedModelClass, $term, $search);
 
-    return $resultSet->count();
+    return $resultSet->getTotalHits();
   }
 }
