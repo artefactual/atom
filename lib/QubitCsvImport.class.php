@@ -66,6 +66,8 @@ class QubitCsvImport
     }
 
     // Find the proper task
+    $sourceNameAllowed = true;
+
     switch ($type)
     {
       case 'accession':
@@ -80,6 +82,7 @@ class QubitCsvImport
 
       case 'authorityRecordRelationship':
         $taskClassName = 'csv:authority-relation-import';
+        $sourceNameAllowed = false;
 
         break;
 
@@ -147,7 +150,11 @@ class QubitCsvImport
     else
     {
       // Example: php symfony csv:import /tmp/foobar
-      $command = sprintf('php %s %s %s %s %s %s %s --quiet %s --source-name=%s %s',
+      $commandTemplate = 'php %s %s %s %s %s %s %s --quiet %s ';
+      $commandTemplate .= $sourceNameAllowed ? sprintf('--source-name=%s ', escapeshellarg($csvOrigFileName)) : '';
+      $commandTemplate .= ' %s';
+
+      $command = sprintf($commandTemplate,
         escapeshellarg(sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'symfony'),
         escapeshellarg($taskClassName),
         $commandIndexFlag,
@@ -156,7 +163,6 @@ class QubitCsvImport
         $commandSkipUnmatched,
         $commandSkipMatched,
         $commandUser,
-        escapeshellarg($csvOrigFileName),
         escapeshellarg($transformedFile ? $transformedFile : $csvFile));
     }
 

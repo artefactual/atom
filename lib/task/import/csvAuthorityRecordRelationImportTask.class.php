@@ -45,8 +45,6 @@ class csvAuthorityRecordRelationImportTask extends csvImportBaseTask
       new sfCommandOption('connection', null,
         sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
 
-      new sfCommandOption('source-name', null,
-        sfCommandOption::PARAMETER_OPTIONAL, 'Source name to use when inserting keymap entries.'),
       new sfCommandOption('index', null,
         sfCommandOption::PARAMETER_NONE, 'Index for search during import.'),
       new sfCommandOption('update', null,
@@ -73,13 +71,12 @@ EOF;
 
     $this->log('Importing relations...');
 
-    $sourceName = $options['source-name'] ?: basename($arguments['filename']);
-    $this->import($arguments['filename'], $sourceName, $options['index'], $options['update']);
+    $this->import($arguments['filename'], $options['index'], $options['update']);
 
     $this->log('Done.');
   }
 
-  private function import($filepath, $sourceName, $indexDuringImport = false, $updateMode = false)
+  private function import($filepath, $indexDuringImport = false, $updateMode = false)
   {
     if (false === $fh = fopen($filepath, 'rb'))
     {
@@ -96,13 +93,11 @@ EOF;
 
       'status' => [
         'updateMode'         => $updateMode,
-        'sourceName'         => $sourceName,
         'actorRelationTypes' => $termData['actorRelationTypes'],
         'actorIds'           => [],
       ],
 
       'variableColumns' => [
-        'legacyId',
         'objectAuthorizedFormOfName',
         'subjectAuthorizedFormOfName',
         'relationType',
@@ -254,12 +249,6 @@ EOF;
     $relation->save();
 
     $this->addUpdatedActorIds([$sourceActorId, $targetActorId]);
-
-    // Add keymap entry
-    if (!empty($this->import->columnValue('legacyId')))
-    {
-      $this->import->createKeymapEntry($this->import->getStatus('sourceName'), $this->import->columnValue('legacyId'), $relation);
-    }
   }
 
   /**

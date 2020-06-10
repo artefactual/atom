@@ -1,6 +1,5 @@
 # Columns that should be included in the actor relation import
 columnNames:
- - legacyId
  - objectAuthorizedFormOfName
  - subjectAuthorizedFormOfName
  - relationType
