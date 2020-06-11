@@ -5,34 +5,44 @@
         // Share <form/> with nested scopes
         var $form = $(this);
 
-        // Support multiple submit listeners which must all complete
-        // before form is submitted
-        var count = 0;
-        function done() {
-          // Decrement count of listeners and submit if all done
-          if (1 > --count) {
-            $form
+        // Keep a list of new releated resource forms that must be submitted
+        // before $form so we can get the URIs after they are created
+        var newRelatedResourceForms = [];
 
-              // Unbind submit listener so it doesn't preventDefault()
-              .unbind('submit')
+        function done($iframeForm) {
+          var i = newRelatedResourceForms.indexOf($iframeForm);
 
-              .submit();
+          // Remove $form from newRelatedResourceForms stack
+          if (i > -1) {
+            newRelatedResourceForms.splice(i, 1);
+          }
+
+          // If stack is empty, submit the main $form
+          if (0 == newRelatedResourceForms.length) {
+            $form.submit();
           }
         }
 
-        // Fire preSubmit events, then let done() call the actual form submit
-        $form.submit(function (event) {
-          event.preventDefault();
-
-          // Trigger all "preSubmit" listeners
-          $form.trigger('preSubmit');
-
-          // If no preSubmits fired, then unbind this submit handler, and fire a
-          // new submit event
-          if (count == 0) {
-            $form.off('submit');
-            $form.submit();
+        // Submit forms to create new related resources (e.g. subjects)
+        function submitRelatedResourceForms() {
+          if (0 == newRelatedResourceForms.length) {
+            // Return true to continue with form submit
+            return true;
           }
+
+          for (var i = 0; i < newRelatedResourceForms.length; i++) {
+            newRelatedResourceForms[i].submit();
+          }
+
+          // Prevent $form.submit() from continuing - final submit will be
+          // triggered by done() function above
+          return false;
+        }
+
+        // Submit any related resource forms and wait for response before
+        // submitting the main $form
+        $form.submit(function (event) {
+          return submitRelatedResourceForms();
         });
 
         $('select.form-autocomplete', this).each(createYuiDiv);
@@ -40,47 +50,57 @@
         // Use $(document).on('loadFunctions') to add function in new rows created with multiRow.js
         $(document).on('loadFunctions', 'select.form-autocomplete', createYuiDiv);
 
-        function createIFrame($src, $dest, uri, targetInput) {
-          // Add hidden <iframe/> (This is the usual behaviour)
-          var $iframe = $('<iframe src="' + uri + '"/>')
+        function createIFrame($src, $dest, uri, targetInputId) {
+          // Add hidden <iframe/>
+          var $iframe = $('<iframe/>')
             .width(0)
             .height(0)
             .css('border', 0);
 
-          // One submit handler for each new choice, use
-          // named function so it can be unbound if choice is
-          // removed
-          var submit = function () {
-            // Increment counter
-            count++;
+          // Wait until iframe contents have loaded so $input and $iframeForm
+          // selectors work
+          $iframe.one('load', function () {
+            // Get iframe > form > input using targetInputId, and parent form
+            var $input = $iframe.contents().find(targetInputId);
 
-            // After iframe is submitted, wait for "load" event
-            $iframe.one('load', function () {
-              // Add the resulting page URI (e.g. "/newSubjectName") of the
-              // response to the $bindTo element
-              $dest.val(this.contentWindow.document.location).trigger('change');
+            // $($input[0].form) should be faster than $input.closest("form")
+            var $iframeForm = $($input[0].form);
 
-              // Submit $form when all preSubmit iframes have submitted, and
-              // reloaded
-              done();
-            });
+            // Add one submit handler for each new choice. Use a named function
+            // so it can be unbound if the choice is removed
+            var submitCallback = function () {
+              // After iframe form is submitted, wait for HTTP response to trigger
+              // "load" event
+              $iframe.one('load', function () {
+                // Add the resulting page URI (e.g. "/newSubjectName") of the
+                // response to the $dest element
+                $dest.val(this.contentWindow.document.location).trigger('change');
 
-            // Find iframe > form > input via targetInput and update
-            // value of selected element with text of the new choice
-            var $input = $iframe.contents().find(targetInput);
-            $input.val($src.val());
+                // Submit $form when all newRelatedResourceForms have returned and
+                // $dest has been updated with the new URI
+                done($iframeForm);
+              });
 
-            // submit iframe form containing target <input />
-            $($input[0].form).submit();
-          }
+              // Update the target input's value with the entered text
+              $input.val($src.val());
 
-          // Track targetInput and submitCallback for this iframe
-          $iframe
-            .data('targetInput', targetInput)
-            .data('submitCallback', submit)
+              $iframeForm.submit();
+            }
 
-          // Add preSubmit listener
-          $form.one('preSubmit', submit);
+            // Bind submit handler to fire once on first form submit
+            $iframeForm.one('submit', submitCallback);
+
+            // Add $iframeForm to stack
+            newRelatedResourceForms.push($iframeForm);
+
+            // Track targetInputId and submitCallback for this iframe
+            $iframe
+              .data('targetInputId', targetInputId)
+              .data('submitCallback', submitCallback)
+          });
+
+          // Set iframe source to load page *after* defining onload handler
+          $iframe.attr('src', uri);
 
           return $iframe;
         }
@@ -258,12 +278,14 @@
           // A following sibling with class .list and a value specifies
           // that autocomplete items can be requested dynamically from
           // the specified URI
-          var value = $(this).siblings('.list').val(); // $('~ .list', this) stopped working in jQuery 1.4.4
+          //
+          // NOTE: $('~ .list', this) stopped working in jQuery 1.4.4
+          var value = $(this).siblings('.list').val();
           if (value) {
-            var uri, targetInput;
+            var uri, targetInputId;
 
             // Split into URI and selector like jQuery load()
-            [uri, targetInput] = value.split(' ', 2);
+            [uri, targetInputId] = value.split(' ', 2);
 
             var dataSource = new YAHOO.util.XHRDataSource(uri);
 
@@ -497,9 +519,9 @@
           var value = $add.val();
           if (value) {
             // Split into URI and selector like jQuery load()
-            var uri, targetInput;
+            var uri, targetInputId;
 
-            [uri, targetInput] = value.split(' ', 2);
+            [uri, targetInputId] = value.split(' ', 2);
 
             // Support for data-link-existing="true"
             if ($add.data('link-existing') === true) {
@@ -519,7 +541,7 @@
                 if (!$select.attr('multiple')) {
                   // Create iframe which will be submitted to create a new
                   // related resource from the "unmatched" value
-                  $iframe = createIFrame($input, $hidden, uri, targetInput);
+                  $iframe = createIFrame($input, $hidden, uri, targetInputId);
                 } else {
                   // Cancel default action of saved DOM event so as
                   // not to loose focus when selecting multiple items
@@ -538,7 +560,7 @@
                     $li.find('input[type=text]'),
                     $li.find('input[type=hidden]'),
                     uri,
-                    targetInput
+                    targetInputId
                   );
                 }
 
@@ -548,7 +570,7 @@
               else {
                 $hidden.val('').trigger('change');
 
-                // If unmatched item is empty, cancel preSumbit listener
+                // If unmatched item is empty, cancel iframe submit listener
                 $form.off($iframe.data('submitCallback'));
               }
             });
@@ -557,7 +579,7 @@
               // Selecting existing item cancels addition of a new
               // choice
               autoComplete.itemSelectEvent.subscribe(function () {
-                // Cancel preSubmit listener
+                // Cancel iframe submit listener
                 $form.off($iframe.data('submitCallback'));
 
                 // Trigger event to load item data if it's needed
