@@ -51,6 +51,7 @@ QubitMenu:
     source_culture: en
     name: add
     label:
+      ar: أضف
       ca: Afegeix
       ca@valencia: Agregar
       cy: Ychwanegu
@@ -64,6 +65,7 @@ QubitMenu:
       fa: افزودن
       fr: Ajouter
       gl: Engadir
+      hr: Dodaj
       hu: Új
       id: Tambah
       is: 'Bæta við'
@@ -80,6 +82,7 @@ QubitMenu:
       sl: Dodaj
       sr: Додај
       sv: 'Lägg till'
+      ta: இணை
       th: เพิ่ม
       tr: Ekle
       uz: 'Yangi qo''shish'
@@ -244,6 +247,7 @@ QubitMenu:
     source_culture: en
     name: browsePhysicalObjects
     label:
+      ar: 'التخزين الفعلي'
       ca: 'Unitat d''instal·lació'
       ca@valencia: 'Unitat de magatzematge'
       cy: 'Storfa ffisegol'
@@ -256,6 +260,7 @@ QubitMenu:
       eu: 'Biltegi fisikoa'
       fr: 'Localisation physique'
       gl: 'Almacenamento físico'
+      hr: 'Fizičko spremište'
       hu: Tárolóeszköz
       id: 'Penyimpanan Fisik'
       it: Deposito
@@ -270,6 +275,7 @@ QubitMenu:
       sl: 'Fizična hramba'
       sr: Депо
       sv: 'Fysisk förvaringsplats'
+      ta: 'இயற்பொருள் சேமகம்'
       th: การเก็บเอกสารทางกายภาพ
       uz: 'Fizik saqlov'
       vi: 'vật lý'
@@ -352,6 +358,7 @@ QubitMenu:
     source_culture: en
     name: import
     label:
+      ar: استيراد
       ca: Importa
       ca@valencia: Importar
       cy: Mewnforio
@@ -365,6 +372,7 @@ QubitMenu:
       fa: 'وارد كردن'
       fr: Importer
       gl: Importar
+      hr: Uvoz
       hu: Importálás
       id: Impor
       is: 'Hlaða inn'
@@ -642,6 +650,7 @@ QubitMenu:
     source_culture: en
     name: importXml
     label:
+      ar: XML
       ca: XML
       ca@valencia: XML
       cy: XML
@@ -654,6 +663,7 @@ QubitMenu:
       eu: XML
       fr: XML
       gl: XML
+      hr: XML
       hu: XML
       id: XML
       is: XML
@@ -676,6 +686,7 @@ QubitMenu:
     source_culture: en
     name: importCsv
     label:
+      ar: CSV
       ca: CSV
       ca@valencia: CSV
       cy: CSV
@@ -688,6 +699,7 @@ QubitMenu:
       eu: CSV
       fr: CSV
       gl: CSV
+      hr: CSV
       hu: CSV
       id: CSV
       is: CSV
@@ -710,6 +722,7 @@ QubitMenu:
     source_culture: en
     name: importSkos
     label:
+      ar: SKOS
       ca: SKOS
       ca@valencia: SKOS
       cy: SKOS
@@ -722,6 +735,7 @@ QubitMenu:
       eu: SKOS
       fr: SKOS
       gl: SKOS
+      hr: SKOS
       hu: SKOS
       id: SKOS
       is: SKOS
@@ -1364,6 +1378,7 @@ QubitMenu:
     source_culture: en
     name: globalReplace
     label:
+      ar: 'البحث الشامل / استبدال'
       ca: 'Cerca/reemplaça a nivell global'
       ca@valencia: 'Cercar/reemplaçar global'
       cy: 'Chwilio/amnewid traws-systemol'
@@ -1376,6 +1391,7 @@ QubitMenu:
       eu: 'Bilaketa/ordezkatze globala'
       fr: 'Recherche et remplacement généraux'
       gl: 'Búsqueda global/Reemprazar'
+      hr: 'Globalna pretraga/zamjena'
       hu: 'Keresés/csere a teljes adatbázisban'
       id: 'Pencarian/penggantian menyeluruh'
       is: 'Víðvær leit/skipti'
@@ -1389,6 +1405,7 @@ QubitMenu:
       sl: 'Išči/zamenjaj v celotnem programu'
       sr: 'Општа претрага/замена'
       sv: 'Global sök/ersätt'
+      ta: 'உலகளாவிய தேடல்/ மாற்றீடு'
       th: 'ค้นหา / แทน ทั่วโลก'
       vi: 'Tìm hiểu phạm vi quốc tế/ thay thế'
       zh: 全局搜索/替代
@@ -1398,6 +1415,7 @@ QubitMenu:
     source_culture: en
     name: home
     label:
+      ar: 'الصفحة الرئيسية'
       ca: Inici
       ca@valencia: Inici
       cy: Hafan
@@ -1411,6 +1429,7 @@ QubitMenu:
       fa: 'صفحه اصلي'
       fr: Accueil
       gl: Inicio
+      hr: 'Početna stranica'
       hu: Kezdőlap
       id: Beranda
       is: Heim
@@ -1426,6 +1445,7 @@ QubitMenu:
       sl: Domov
       sr: 'Почетна страна'
       sv: Hem
+      ta: முகப்பு
       uz: 'Bosh sahifa'
       vi: 'Trang chủ'
       zh: 主页
@@ -1555,6 +1575,7 @@ QubitMenu:
     source_culture: en
     name: login
     label:
+      ar: 'تسجيل الدخول'
       ca: 'Inicieu sessió'
       ca@valencia: Entrar
       cs: 'Přihlásit se'
@@ -1569,6 +1590,7 @@ QubitMenu:
       fa: 'ورود به سيستم'
       fr: 'Ouverture de session'
       gl: 'Iniciar sesión'
+      hr: Prijava
       hu: Bejelentkezés
       id: 'Log in'
       is: Innskráning
@@ -1585,6 +1607,7 @@ QubitMenu:
       sl: Prijava
       sr: 'Пријави се'
       sv: 'Logga in'
+      ta: புகுபதிகை
       th: เข้าสู่ระบบ
       uz: Kirish
       vi: 'Đăng nhập'
@@ -1773,6 +1796,7 @@ QubitMenu:
     source_culture: en
     name: browseSubjects
     label:
+      ar: المواضيع
       ca: Matèries
       ca@valencia: Matèries
       cy: Pynciau
@@ -1785,6 +1809,7 @@ QubitMenu:
       eu: Gaiak
       fr: Sujets
       gl: Materias
+      hr: Predmeti
       hu: Témák
       id: Subjek
       is: Viðfangsefni
@@ -1800,6 +1825,7 @@ QubitMenu:
       sl: Osebe
       sr: Теме
       sv: Ämnen
+      ta: பொருட்துறைகள்
       th: หัวข้อ
       uz: Mavzular
       vi: 'Chủ đề'
@@ -1810,6 +1836,7 @@ QubitMenu:
     source_culture: en
     name: browsePlaces
     label:
+      ar: أماكن
       ca: Llocs
       ca@valencia: Llocs
       cy: Lleoedd
@@ -1823,6 +1850,7 @@ QubitMenu:
       fa: 'مكان ها'
       fr: Lieux
       gl: Lugares
+      hr: Mjesta
       hu: Helyek
       id: Tempat
       is: Staðir
@@ -1839,6 +1867,7 @@ QubitMenu:
       sl: Kraji
       sr: Места
       sv: Platser
+      ta: இடங்கள்
       th: สถานที
       tr: Mekanlar
       uz: Joylar
@@ -1850,6 +1879,7 @@ QubitMenu:
     source_culture: en
     name: browseDigitalObjects
     label:
+      ar: 'الكائنات الرقمية'
       ca: 'Objectes digitals'
       ca@valencia: 'Objectes digitals'
       cy: 'Gwrthrychau digidol'
@@ -1862,6 +1892,7 @@ QubitMenu:
       eu: 'Objektu digitalak'
       fr: 'Documents numériques'
       gl: 'Obxectos dixitais'
+      hr: 'Digitalni objekti'
       hu: 'Digitális obkektumok'
       id: 'Objek Digital'
       is: 'Stafrænar einingar'
@@ -1878,6 +1909,7 @@ QubitMenu:
       sl: 'Digitalni predmeti'
       sr: 'Дигитални објекти'
       sv: 'Digitala objekt'
+      ta: 'எண்மப் பொருட்கள்/ ஆவணங்கள்?'
       th: วัตถุดิจิตอล
       uz: 'Raqamli resurslar'
       vi: 'Tượng kỹ thuật số'
@@ -1888,6 +1920,7 @@ QubitMenu:
     source_culture: en
     name: visibleElements
     label:
+      ar: 'عناصر مرئية'
       ca: 'Elements públics'
       ca@valencia: 'Elements visibles'
       cy: 'Elfennau gweladwy'
@@ -1900,6 +1933,7 @@ QubitMenu:
       eu: 'Ikusgai dauden elementuak'
       fr: 'Éléments visibles'
       gl: 'Elementos visíbeis'
+      hr: 'Vidljivi elementi'
       hu: 'Látható elemek'
       id: 'Elemen terlihat'
       is: 'Sýnileg hylki'
@@ -1958,6 +1992,8 @@ QubitMenu:
     source_culture: en
     name: clipboard
     label:
+      ar: الحافظة
+      ca: Portaretalls
       cy: Clipfwrdd
       de: Zwischenablage
       de-AT: Zwischenablage
@@ -1965,6 +2001,7 @@ QubitMenu:
       en: Clipboard
       es: Portapapeles
       fr: Presse-papier
+      hr: Međuspremnik
       hu: Vágólap
       id: Clipboard
       it: 'Area di lavoro'
@@ -1972,6 +2009,7 @@ QubitMenu:
       pt-BR: 'Área de Transferência'
       sr: Међумеморија
       sv: Urklipp
+      ta: கிளிப்போர்டு
   QubitMenu_clipboardclearmenu:
     parent_id: QubitMenu_clipboardmenu
     source_culture: en
@@ -2015,12 +2053,20 @@ QubitMenu:
     source_culture: en
     name: loadClipboard
     label:
+      ar: 'تحميل الحافظة'
+      ca: 'Carregar portaretalls'
+      cy: 'Llwytho''r clipfwrdd'
       en: 'Load clipboard'
       fr: 'Charge le presse-papier'
+      hr: 'Učitaj međuspremnik'
       hu: 'Vágólap betöltése'
       id: 'Muat clipboard'
+      it: 'Carica l''area di lavoro'
+      pt: 'Carregar Área de Transferência'
+      pt-BR: 'Carregar Área de Transferência'
       sr: 'Учитај међумеморију'
       sv: 'Ladda urklipp'
+      ta: 'நகல்நினைவியை நிரலேற்றுக'
     path: user/clipboardLoad
   QubitMenu_clipboardsavemenu:
     parent_id: QubitMenu_clipboardmenu
@@ -2073,6 +2119,7 @@ QubitMenu:
     source_culture: en
     name: browseDigitalObjectsInstitution
     label:
+      ar: 'الكائنات الرقمية'
       ca: 'Objectes digitals'
       ca@valencia: 'Objectes digitals'
       cy: 'Gwrthrychau digidol'
@@ -2085,6 +2132,7 @@ QubitMenu:
       eu: 'Objektu digitalak'
       fr: 'Documents numériques'
       gl: 'Obxectos dixitais'
+      hr: 'Digitalni objekti'
       hu: 'Digitális obkektumok'
       id: 'Objek Digital'
       is: 'Stafrænar einingar'
@@ -2101,6 +2149,7 @@ QubitMenu:
       sl: 'Digitalni predmeti'
       sr: 'Дигитални објекти'
       sv: 'Digitala objekt'
+      ta: 'எண்மப் பொருட்கள்/ ஆவணங்கள்?'
       th: วัตถุดิจิตอล
       uz: 'Raqamli resurslar'
       vi: 'Tượng kỹ thuật số'

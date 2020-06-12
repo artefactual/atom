@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="tr" datatype="plaintext" original="messages" date="2019-01-31T15:03:05Z" product-name="messages">
+  <file source-language="en" target-language="tr" datatype="plaintext" original="messages" date="2020-06-12T18:56:54Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -206,7 +206,7 @@
       </trans-unit>
       <trans-unit id="51">
         <source>Language(s)</source>
-        <target/>
+        <target>Dil(ler)</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Script(s)</source>
@@ -222,7 +222,7 @@
       </trans-unit>
       <trans-unit id="55">
         <source>Delete</source>
-        <target/>
+        <target>Sil</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Add new</source>
@@ -314,7 +314,7 @@
       </trans-unit>
       <trans-unit id="78">
         <source>Cancel</source>
-        <target/>
+        <target>İptal</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Save</source>

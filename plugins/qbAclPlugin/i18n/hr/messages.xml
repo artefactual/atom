@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2017-08-25T18:56:55Z" product-name="messages">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2020-06-12T18:56:57Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,7 +10,7 @@
       </trans-unit>
       <trans-unit id="2">
         <source>All %1%</source>
-        <target/>
+        <target>Sve %1%</target>
       </trans-unit>
       <trans-unit id="3">
         <source>%1%: %2%</source>
@@ -18,43 +18,43 @@
       </trans-unit>
       <trans-unit id="4">
         <source>All privileges</source>
-        <target/>
+        <target>Sve privilegije</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Edit %1% permissions of %2%</source>
-        <target/>
+        <target>Uredi %1% dozvole od %2%</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Edit</source>
-        <target/>
+        <target>Uredi</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Delete</source>
-        <target/>
+        <target>Izbriši</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Add new</source>
-        <target/>
+        <target>Dodaj novo</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Permissions for all %1%</source>
-        <target/>
+        <target>Dozvole za sve  %1%</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Add permissions by %1%</source>
-        <target/>
+        <target>Dodaj dozvole prema %1%</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Add %1%</source>
-        <target/>
+        <target>Dodaj %1%</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Cancel</source>
-        <target/>
+        <target>Odustani</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Save</source>
-        <target/>
+        <target>Spremi</target>
       </trans-unit>
       <trans-unit id="14">
         <source>%1% name</source>
@@ -62,43 +62,43 @@
       </trans-unit>
       <trans-unit id="15">
         <source>Action</source>
-        <target/>
+        <target>Radnja</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Permissions</source>
-        <target/>
+        <target>Dozvole</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Grant</source>
-        <target/>
+        <target>Odobrenje</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Deny</source>
-        <target/>
+        <target>Zabrani</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Inherit</source>
-        <target/>
+        <target>Naslijedi</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Edit %1% permissions</source>
-        <target/>
+        <target>Uredi  %1% dozvole</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Edit permissions</source>
-        <target/>
+        <target>Uredi dozvole</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Main area</source>
-        <target/>
+        <target>Glavno područje</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Create</source>
-        <target/>
+        <target>Stvori</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Are you sure you want to delete %1%?</source>
-        <target/>
+        <target>Sigurno želiš izbrisati %1%?</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Permission</source>
@@ -122,7 +122,7 @@
       </trans-unit>
       <trans-unit id="30">
         <source>Permissions by %1%</source>
-        <target/>
+        <target>Dozvole %1%</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Group details</source>
@@ -130,11 +130,11 @@
       </trans-unit>
       <trans-unit id="32">
         <source>Name</source>
-        <target/>
+        <target>Ime</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Description</source>
-        <target/>
+        <target>Opis</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Translate</source>
@@ -154,7 +154,7 @@
       </trans-unit>
       <trans-unit id="38">
         <source>Taxonomy: %1%</source>
-        <target/>
+        <target>Sistematika: %1%</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Return to group list</source>

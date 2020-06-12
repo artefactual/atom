@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2015-08-27T12:05:56Z" product-name="messages">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2020-06-12T18:56:57Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Bez naslova</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative history / Biographical sketch</source>
@@ -14,7 +14,7 @@
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
-        <target/>
+        <target>Administrativna kronologija</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Biographical sketch</source>
@@ -78,7 +78,7 @@
       </trans-unit>
       <trans-unit id="19">
         <source>Edit %1%</source>
-        <target/>
+        <target>Uredi  %1%</target>
       </trans-unit>
       <trans-unit id="20">
         <source>"Give the date(s) of creation of the unit being described either as a single date, or range of dates (for inclusive dates and/or predominant dates). Always give the inclusive dates. When providing predominant dates, specify them as such, preceded by the word predominant..." (RAD 1.4B2) Record probable and uncertain dates in square brackets, using the conventions described in 1.4B5.</source>
@@ -98,7 +98,7 @@
       </trans-unit>
       <trans-unit id="24">
         <source>Title and statement of responsibility area</source>
-        <target/>
+        <target>Naslov i izjava za područje odgovornosti</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
@@ -110,7 +110,7 @@
       </trans-unit>
       <trans-unit id="27">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Ovo je obavezni element.</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
@@ -118,7 +118,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>General material designation</source>
-        <target/>
+        <target>Opća oznaka gradiva</target>
       </trans-unit>
       <trans-unit id="30">
         <source>"[W]hen applicable, transcribe parallel titles that appear in conjunction with the formal title proper..." (RAD 1.1D)</source>
@@ -150,7 +150,7 @@
       </trans-unit>
       <trans-unit id="37">
         <source>Level of description</source>
-        <target/>
+        <target>Razina opisa</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
@@ -166,11 +166,11 @@
       </trans-unit>
       <trans-unit id="41">
         <source>Reference code</source>
-        <target/>
+        <target>Signatura</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Edition area</source>
-        <target/>
+        <target>Područje za izdanja</target>
       </trans-unit>
       <trans-unit id="43">
         <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
@@ -190,7 +190,7 @@
       </trans-unit>
       <trans-unit id="47">
         <source>Class of material specific details area</source>
-        <target/>
+        <target>Područje za klasu pojedinosti određenog gradiva</target>
       </trans-unit>
       <trans-unit id="48">
         <source>"Give the scale of the unit being described...as a representative fraction (RF) expressed as a ratio (1: ). Precede the ratio by Scale. Give the scale even if it is already recorded as part of the title proper or other title information." (RAD 5.3B1)</source>
@@ -234,7 +234,7 @@
       </trans-unit>
       <trans-unit id="58">
         <source>Dates of creation area</source>
-        <target/>
+        <target>Područje za datume stvaranja</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Add new name and/or date(s)</source>
@@ -242,7 +242,7 @@
       </trans-unit>
       <trans-unit id="60">
         <source>Physical description area</source>
-        <target/>
+        <target>Područje za fizički opis</target>
       </trans-unit>
       <trans-unit id="61">
         <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
@@ -254,7 +254,7 @@
       </trans-unit>
       <trans-unit id="63">
         <source>Publisher's series area</source>
-        <target/>
+        <target>Područje serije izdavača</target>
       </trans-unit>
       <trans-unit id="64">
         <source>"At the item level of description, transcribe a title proper of the publisher's series as instructed in 1.1B1." (RAD 1.6B)</source>
@@ -306,7 +306,7 @@
       </trans-unit>
       <trans-unit id="76">
         <source>Archival description area</source>
-        <target/>
+        <target>Područje za opis arhivskog gradiva</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Edit authority record</source>
@@ -318,7 +318,7 @@
       </trans-unit>
       <trans-unit id="79">
         <source>Custodial history</source>
-        <target/>
+        <target>Kronologija nadzora</target>
       </trans-unit>
       <trans-unit id="80">
         <source>"At the fonds, series, and collection levels of description, and when necessary at the file and the item levels of description, indicate the level being described and give information about the scope and the internal structure of or arrangement of the records, and about their contents." (RAD 1.7D) "For the scope of the unit being described, give information about the functions and/or kinds of activities generating the records, the period of time, the subject matter, and the geographical area to which they pertain. For the content of the unit being described, give information about its internal structure by indicating its arrangement, organization, and/or enumerating its next lowest level of description. Summarize the principal documentary forms (e.g., reports, minutes, correspondence, drawings, speeches)." (RAD 1.7D1)</source>
@@ -326,11 +326,11 @@
       </trans-unit>
       <trans-unit id="81">
         <source>Scope and content</source>
-        <target/>
+        <target>Opseg i sadržaj</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Notes area</source>
-        <target/>
+        <target>Područje za napomene</target>
       </trans-unit>
       <trans-unit id="83">
         <source>"Make notes on the physical condition of the unit being described if that condition materially affects the clarity or legibility of the records." (RAD 1.8B9a)</source>
@@ -338,7 +338,7 @@
       </trans-unit>
       <trans-unit id="84">
         <source>Physical condition</source>
-        <target/>
+        <target>Fizičko stanje</target>
       </trans-unit>
       <trans-unit id="85">
         <source>"Record the donor or source (i.e., the immediate prior custodian) from whom the unit being described was acquired, and the date and method of acquisition, as well as the source/donor's relationship to the material, if any or all of this information is not confidential. If the source/donor is unknown, record that information." (RAD 1.8B12)</source>
@@ -346,7 +346,7 @@
       </trans-unit>
       <trans-unit id="86">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Neposredni izvor prikupljenog gradiva</target>
       </trans-unit>
       <trans-unit id="87">
         <source>"Make notes on the arrangement of the unit being described which contribute significantly to its understanding but cannot be put in the Scope and content (see 1.7D), e.g., about reorganisation(s) by the creator, arrangement by the archivist, changes in the classification scheme, or reconstitution of original order." (RAD 1.8B13)</source>
@@ -418,7 +418,7 @@
       </trans-unit>
       <trans-unit id="104">
         <source>Related materials</source>
-        <target/>
+        <target>Srodno gradivo</target>
       </trans-unit>
       <trans-unit id="105">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
@@ -430,7 +430,7 @@
       </trans-unit>
       <trans-unit id="107">
         <source>Standard number area</source>
-        <target/>
+        <target>Područje za standardne brojeve</target>
       </trans-unit>
       <trans-unit id="108">
         <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
@@ -438,11 +438,11 @@
       </trans-unit>
       <trans-unit id="109">
         <source>Access points</source>
-        <target/>
+        <target>Točke pristupa</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Subject access points</source>
-        <target/>
+        <target>Točke pristupa predmeta</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
@@ -450,7 +450,7 @@
       </trans-unit>
       <trans-unit id="112">
         <source>Place access points</source>
-        <target/>
+        <target>Točke pristupa mjesta</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
@@ -458,7 +458,7 @@
       </trans-unit>
       <trans-unit id="114">
         <source>Genre access points</source>
-        <target/>
+        <target>Točke pristupa žanra</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>
@@ -474,7 +474,7 @@
       </trans-unit>
       <trans-unit id="118">
         <source>Control area</source>
-        <target/>
+        <target>Područje za kontrolu</target>
       </trans-unit>
       <trans-unit id="119">
         <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
@@ -482,7 +482,7 @@
       </trans-unit>
       <trans-unit id="120">
         <source>Description identifier</source>
-        <target/>
+        <target>Identifikator opisa</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
@@ -490,7 +490,7 @@
       </trans-unit>
       <trans-unit id="122">
         <source>Institution identifier</source>
-        <target/>
+        <target>Identifikator ustanove</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description.</source>
@@ -498,11 +498,11 @@
       </trans-unit>
       <trans-unit id="124">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Pravila ili konvencije</target>
       </trans-unit>
       <trans-unit id="125">
         <source>Status</source>
-        <target/>
+        <target>Stanje</target>
       </trans-unit>
       <trans-unit id="126">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
@@ -514,7 +514,7 @@
       </trans-unit>
       <trans-unit id="128">
         <source>Level of detail</source>
-        <target/>
+        <target>Razina pojedinosti</target>
       </trans-unit>
       <trans-unit id="129">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
@@ -522,7 +522,7 @@
       </trans-unit>
       <trans-unit id="130">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>Datumi stvaranja, izmjene i brisanja</target>
       </trans-unit>
       <trans-unit id="131">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
@@ -530,7 +530,7 @@
       </trans-unit>
       <trans-unit id="132">
         <source>Language</source>
-        <target/>
+        <target>Jezik</target>
       </trans-unit>
       <trans-unit id="133">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
@@ -538,7 +538,7 @@
       </trans-unit>
       <trans-unit id="134">
         <source>Script</source>
-        <target/>
+        <target>Skripta</target>
       </trans-unit>
       <trans-unit id="135">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
@@ -546,7 +546,7 @@
       </trans-unit>
       <trans-unit id="136">
         <source>Sources</source>
-        <target/>
+        <target>Izvori</target>
       </trans-unit>
       <trans-unit id="137">
         <source>Edit title and statement of responsibility area</source>
@@ -562,11 +562,11 @@
       </trans-unit>
       <trans-unit id="140">
         <source>Title notes</source>
-        <target/>
+        <target>Napomene o naslovu</target>
       </trans-unit>
       <trans-unit id="141">
         <source>Repository</source>
-        <target/>
+        <target>Spremište</target>
       </trans-unit>
       <trans-unit id="142">
         <source>Edit edition area</source>

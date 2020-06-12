@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2019-01-31T15:20:24Z" product-name="messages">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2020-06-12T18:56:57Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -434,7 +434,7 @@
       </trans-unit>
       <trans-unit id="110">
         <source>Clipboard</source>
-        <target/>
+        <target>Portaretalls</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Access points area</source>
@@ -454,15 +454,27 @@
       </trans-unit>
       <trans-unit id="115">
         <source>Maintained by</source>
-        <target/>
+        <target>Mantingut per</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Subject access points</source>
-        <target/>
+        <target>Punts d'accés per matèria </target>
       </trans-unit>
       <trans-unit id="117">
         <source>Place access points</source>
+        <target>Punts d'accés per lloc</target>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>Slug must be provided</source>
         <target/>
+      </trans-unit>
+      <trans-unit id="119">
+        <source>More</source>
+        <target>Més</target>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>Link %1%</source>
+        <target>Enllaç %1%</target>
       </trans-unit>
     </body>
   </file>

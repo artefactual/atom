@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="tr" datatype="plaintext" original="messages" date="2019-01-31T15:03:05Z" product-name="messages">
+  <file source-language="en" target-language="tr" datatype="plaintext" original="messages" date="2020-06-12T18:56:54Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,7 +10,7 @@
       </trans-unit>
       <trans-unit id="2">
         <source>%1% name</source>
-        <target/>
+        <target>%1% isim</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Action</source>
@@ -18,7 +18,7 @@
       </trans-unit>
       <trans-unit id="4">
         <source>Permissions</source>
-        <target/>
+        <target>İzinler</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Grant</source>
@@ -38,11 +38,11 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Cancel</source>
-        <target/>
+        <target>İptal</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Delete</source>
-        <target/>
+        <target>Sil</target>
       </trans-unit>
       <trans-unit id="11">
         <source>List groups</source>
@@ -66,7 +66,7 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Permissions for all %1%</source>
-        <target/>
+        <target>Hepsi için izinler %1%</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Add permissions by %1%</source>
@@ -82,7 +82,7 @@
       </trans-unit>
       <trans-unit id="20">
         <source>Edit permissions</source>
-        <target/>
+        <target>İzinleri düzenle</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Edit</source>
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="23">
         <source>All %1%</source>
-        <target/>
+        <target>Tüm %1%</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Permission</source>

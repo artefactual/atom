@@ -151,6 +151,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: منشئ
       ca: Productor
       ca@valencia: Productor
       cy: Crëwr
@@ -163,6 +164,7 @@ QubitSetting:
       eu: Sortzailea
       fr: Producteur
       gl: Creador
+      hr: Stvaratelj
       hu: Iratképző
       id: Pencipta
       is: Skjalamyndari
@@ -179,6 +181,7 @@ QubitSetting:
       sl: Ustvaril
       sr: 'Стваралац архивске грађе'
       sv: Arkivbildare
+      ta: ஆக்குனர்
       th: ผู้ผลิตเอกสาร
       tr: Yaratıcı
       vi: 'người sáng tạo'
@@ -302,6 +305,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: الموضوع
       ca: Matèria
       ca@valencia: Matèria
       cy: Pwnc
@@ -314,6 +318,7 @@ QubitSetting:
       eu: Gaia
       fr: Sujet
       gl: Tema
+      hr: Predmet
       hu: Tárgy
       id: Subjek
       is: Viðfangsefni
@@ -330,6 +335,7 @@ QubitSetting:
       sl: Tematika
       sr: Тема
       sv: Ämne
+      ta: பொருட்துறை
       th: หัวข้อ
       uz: Mavzu
       vi: Tượng
@@ -379,6 +385,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: الممتلكات
       ca: Fons
       ca@valencia: Fons
       cy: Daliadau
@@ -391,6 +398,7 @@ QubitSetting:
       fa: دربرگيرندگي
       fr: Fonds
       gl: Fondos
+      hr: 'Arhivsko gradivo'
       hu: Állomány
       id: Khazanah
       is: Skjalamagn
@@ -406,6 +414,7 @@ QubitSetting:
       sl: 'Arhivsko gradivo'
       sr: Колекције
       sv: Bestånd
+      ta: உடமைகள்
       th: สถานที่เก็บเอกสาร
       vi: 'Ngắn về'
       zh: 藏品
@@ -416,6 +425,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: المكان
       ca: Lloc
       ca@valencia: Lloc
       cy: Lle
@@ -429,6 +439,7 @@ QubitSetting:
       fa: مكان
       fr: Lieu
       gl: Lugar
+      hr: Mjesto
       hu: Hely
       id: Tempat
       is: Staður
@@ -445,6 +456,7 @@ QubitSetting:
       sl: Kraj
       sr: Место
       sv: Plats
+      ta: இடம்
       th: จัด
       tr: Mekan
       uz: Joy
@@ -457,6 +469,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: الاسم
       ca: Nom
       ca@valencia: Nom
       cy: Enw
@@ -470,6 +483,7 @@ QubitSetting:
       fa: نام
       fr: Nom
       gl: Nome
+      hr: Ime
       hu: Név
       id: Nama
       is: Nafn
@@ -487,6 +501,7 @@ QubitSetting:
       sl: Ime
       sr: Назив/Име
       sv: Namn
+      ta: பெயர்
       th: ชื่อ
       uz: Nomi
       vi: Tên
@@ -536,6 +551,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: 'التخزين الفعلي'
       ca: 'Unitat d''instal·lació'
       ca@valencia: 'Unitat de magatzematge'
       cy: 'Storfa ffisegol'
@@ -548,6 +564,7 @@ QubitSetting:
       eu: 'Biltegi fisikoa'
       fr: 'Localisation physique'
       gl: 'Almacenamento físico'
+      hr: 'Fizičko spremište'
       hu: Tárolóeszköz
       id: 'Penyimpanan Fisik'
       it: Deposito
@@ -562,6 +579,7 @@ QubitSetting:
       sl: 'Fizična hramba'
       sr: Депо
       sv: 'Fysisk förvaringsplats'
+      ta: 'இயற்பொருள் சேமகம்'
       th: การเก็บเอกสารทางกายภาพ
       uz: 'Fizik saqlov'
       vi: 'vật lý'
@@ -573,6 +591,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: 'نوع الوسيط'
       ca: 'Tipus de suport'
       ca@valencia: 'Tipus de suport'
       cy: 'Math o gyfrwng'
@@ -586,6 +605,7 @@ QubitSetting:
       fa: 'نوع رسانه'
       fr: 'Type de support'
       gl: 'Tipo de medio'
+      hr: 'Vrsta medija'
       hu: 'Média típus'
       id: 'Jenis media'
       is: 'Gerð miðla'
@@ -603,6 +623,7 @@ QubitSetting:
       sl: 'Vrsta medija'
       sr: 'Врста медија'
       sv: Mediatyp
+      ta: 'ஊடக வகை'
       th: ประเภทสื่อ
       uz: 'Resurs turi'
       vi: 'Loại truyền thông'
@@ -709,6 +730,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ar: بحث
       ca: Cerca
       ca@valencia: Cercar
       cs: Hledat
@@ -723,6 +745,7 @@ QubitSetting:
       fa: جستجو
       fr: Rechercher
       gl: Búsqueda
+      hr: Traži
       hu: Keresés
       id: Pencarian
       is: Leit
@@ -739,6 +762,7 @@ QubitSetting:
       sl: Išči
       sr: Претражи
       sv: Sök
+      ta: தேடல்
       th: ค้นหา
       uz: Qidiruv
       vi: 'Tìm kiếm'
@@ -769,7 +793,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      en: Hide hierarchy
+      en: 'Hide hierarchy'
   QubitSetting_fullTreeviewCollapseClosedButtonText:
     name: fullTreeviewCollapseClosedButtonText
     scope: ui_label
@@ -777,7 +801,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      en: Show hierarchy
+      en: 'Show hierarchy'
   QubitSetting_authority_record_relationships:
     name: authority_record_relationships
     scope: ui_label
@@ -785,7 +809,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      en: Authority record relationships
+      en: 'Authority record relationships'
   QubitSetting_26:
     name: en
     scope: i18n_languages

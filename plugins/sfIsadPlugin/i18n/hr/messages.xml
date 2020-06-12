@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2018-09-09T08:14:17Z" product-name="messages">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2020-06-12T18:56:57Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>Bez naslova</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative / Biographical history</source>
@@ -14,11 +14,11 @@
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
-        <target/>
+        <target>Administrativna kronologija</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Biographical history</source>
-        <target/>
+        <target>Biografska kronologija</target>
       </trans-unit>
       <trans-unit id="5">
         <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
@@ -58,27 +58,27 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Edit %1%</source>
-        <target/>
+        <target>Uredi  %1%</target>
       </trans-unit>
       <trans-unit id="15">
         <source>File list</source>
-        <target/>
+        <target>Popis datoteka</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Reference code</source>
-        <target/>
+        <target>Signatura</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Title</source>
-        <target/>
+        <target>Naslov</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Date(s)</source>
-        <target/>
+        <target>Datum(i)</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Conditions governing access</source>
-        <target/>
+        <target>Uvjeti koji određuju pristup</target>
       </trans-unit>
       <trans-unit id="20">
         <source>This is a duplicate of record %1%</source>
@@ -86,7 +86,7 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Identity area</source>
-        <target/>
+        <target>Područje identifikacije</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
@@ -94,11 +94,11 @@
       </trans-unit>
       <trans-unit id="23">
         <source>Identifier</source>
-        <target/>
+        <target>Identifikator</target>
       </trans-unit>
       <trans-unit id="24">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Ovo je obavezni element.</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
@@ -114,7 +114,7 @@
       </trans-unit>
       <trans-unit id="28">
         <source>Level of description</source>
-        <target/>
+        <target>Razina opisa</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
@@ -126,11 +126,11 @@
       </trans-unit>
       <trans-unit id="31">
         <source>Extent and medium</source>
-        <target/>
+        <target>Obujam i medij</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Context area</source>
-        <target/>
+        <target>Područje konteksta</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Name of creator(s)</source>
@@ -158,11 +158,11 @@
       </trans-unit>
       <trans-unit id="39">
         <source>Immediate source of acquisition or transfer</source>
-        <target/>
+        <target>Neposredni izvor prikupljenog gradiva ili prijenos</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Content and structure area</source>
-        <target/>
+        <target>Područje sadržaja i ustroja</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (ISAD 3.3.1)</source>
@@ -190,7 +190,7 @@
       </trans-unit>
       <trans-unit id="47">
         <source>Conditions of access and use area</source>
-        <target/>
+        <target>Uvjeti pristupa i područje korištenja</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
@@ -234,7 +234,7 @@
       </trans-unit>
       <trans-unit id="58">
         <source>Physical characteristics and technical requirements</source>
-        <target/>
+        <target>Fizičke karakteristike i tehnički preduvjeti</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Give information about any finding aids that the repository or records creator may have that provide information relating to the context and contents of the unit of description. If appropriate, include information on where to obtain a copy. (ISAD 3.4.5)</source>
@@ -242,7 +242,7 @@
       </trans-unit>
       <trans-unit id="60">
         <source>Allied materials area</source>
-        <target/>
+        <target>Područje za zajednički materijal</target>
       </trans-unit>
       <trans-unit id="61">
         <source>If the original of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. If the originals no longer exist, or their location is unknown, give that information. (ISAD 3.5.1)</source>
@@ -270,7 +270,7 @@
       </trans-unit>
       <trans-unit id="67">
         <source>Related descriptions</source>
-        <target/>
+        <target>Srodni opisi</target>
       </trans-unit>
       <trans-unit id="68">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
@@ -278,19 +278,19 @@
       </trans-unit>
       <trans-unit id="69">
         <source>Notes area</source>
-        <target/>
+        <target>Područje za napomene</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Access points</source>
-        <target/>
+        <target>Točke pristupa</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Subject access points</source>
-        <target/>
+        <target>Točke pristupa predmeta</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Place access points</source>
-        <target/>
+        <target>Točke pristupa mjesta</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Name access points (subjects)</source>
@@ -298,7 +298,7 @@
       </trans-unit>
       <trans-unit id="74">
         <source>Description control area</source>
-        <target/>
+        <target>Područje kontrole opisa</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
@@ -306,7 +306,7 @@
       </trans-unit>
       <trans-unit id="76">
         <source>Description identifier</source>
-        <target/>
+        <target>Identifikator opisa</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
@@ -314,7 +314,7 @@
       </trans-unit>
       <trans-unit id="78">
         <source>Institution identifier</source>
-        <target/>
+        <target>Identifikator ustanove</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
@@ -322,11 +322,11 @@
       </trans-unit>
       <trans-unit id="80">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Pravila ili konvencije</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Status</source>
-        <target/>
+        <target>Stanje</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
@@ -338,7 +338,7 @@
       </trans-unit>
       <trans-unit id="84">
         <source>Level of detail</source>
-        <target/>
+        <target>Razina pojedinosti</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
@@ -346,7 +346,7 @@
       </trans-unit>
       <trans-unit id="86">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>Datumi stvaranja, izmjene i brisanja</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
@@ -354,7 +354,7 @@
       </trans-unit>
       <trans-unit id="88">
         <source>Language(s)</source>
-        <target/>
+        <target>Jezici</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
@@ -362,7 +362,7 @@
       </trans-unit>
       <trans-unit id="90">
         <source>Script(s)</source>
-        <target/>
+        <target>Skripta</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
@@ -370,7 +370,7 @@
       </trans-unit>
       <trans-unit id="92">
         <source>Sources</source>
-        <target/>
+        <target>Izvori</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Edit identity area</source>
@@ -386,11 +386,11 @@
       </trans-unit>
       <trans-unit id="96">
         <source>Repository</source>
-        <target/>
+        <target>Spremište</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Archival history</source>
-        <target/>
+        <target>Kronologija arhivskog gradiva</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Edit content and structure area</source>
@@ -398,7 +398,7 @@
       </trans-unit>
       <trans-unit id="99">
         <source>Scope and content</source>
-        <target/>
+        <target>Opseg i sadržaj</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Accruals</source>
@@ -426,7 +426,7 @@
       </trans-unit>
       <trans-unit id="106">
         <source>Note</source>
-        <target/>
+        <target>Napomena</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Edit access points</source>
@@ -458,27 +458,27 @@
       </trans-unit>
       <trans-unit id="114">
         <source>Type</source>
-        <target/>
+        <target>Vrsta</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Date</source>
-        <target/>
+        <target>Datum</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Start</source>
-        <target/>
+        <target>Početak</target>
       </trans-unit>
       <trans-unit id="117">
         <source>End</source>
-        <target/>
+        <target>Kraj</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Genre access points</source>
-        <target/>
+        <target>Točke pristupa žanra</target>
       </trans-unit>
       <trans-unit id="119">
         <source>Add new</source>
-        <target/>
+        <target>Dodaj novo</target>
       </trans-unit>
     </body>
   </file>

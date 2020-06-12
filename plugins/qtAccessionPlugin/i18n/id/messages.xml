@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2019-01-31T15:02:40Z" product-name="messages">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2020-06-12T18:57:00Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -507,6 +507,26 @@
       <trans-unit id="139">
         <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. To view the last records in the current result set, try changing the sort direction.</source>
         <target>Kami telah mengarahkan kembali Anda ke halaman pertama hasil. Untuk menghindari penggunaan memori yang besar, Aplikasi SIKN membatasi paginasi hingga 10.000 rekod. Untuk melihat rekod terakhir dalam hasil yang ada, coba ubah arah sortir.</target>
+      </trans-unit>
+      <trans-unit id="140">
+        <source>Notes</source>
+        <target>Catatan</target>
+      </trans-unit>
+      <trans-unit id="141">
+        <source>Alternative identifier(s)</source>
+        <target>Kode unik alternatif</target>
+      </trans-unit>
+      <trans-unit id="142">
+        <source>Link physical storage</source>
+        <target>Link Lokasi Fisik</target>
+      </trans-unit>
+      <trans-unit id="143">
+        <source>Type</source>
+        <target>Tipe</target>
+      </trans-unit>
+      <trans-unit id="144">
+        <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

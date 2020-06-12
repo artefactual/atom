@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2019-04-15T15:37:58Z" original="messages" product-name="messages" source-language="en" target-language="hu">
+  <file datatype="plaintext" date="2020-06-12T18:57:42Z" original="messages" product-name="messages" source-language="en" target-language="hu">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
@@ -28,6 +28,11 @@
         <source>"Use for" labels</source>
         <target>"Erre haszn&#xE1;land&#xF3;" c&#xED;mk&#xE9;k</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/taxonomy/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="64fd8c42c5f1e293434c6df28ed6b3aaa8b66ce0">
+        <source>"Use this note to record any other descriptive information considered important but not falling within the definitions of the other notes." (RAD 1.8B21)</source>
+        <target state="translated">"Haszn&#xE1;lja ezt jegyzetet, hogy f&#xF6;ljegyezzen b&#xE1;rmilyen m&#xE1;s, fontosnak &#xED;t&#xE9;lt, de m&#xE1;s jegyzetek def&#xED;nici&#xF3;j&#xE1;ba bele nem f&#xE9;r&#x151;, le&#xED;r&#xF3; inform&#xE1;ci&#xF3;t." (RAD 1.8B21)</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/notesComponent.class.php</note>
       </trans-unit>
       <trans-unit id="d08f88df745fa7950b104e4a707a31cfce7b5841">
         <source>#</source>
@@ -198,11 +203,6 @@
         <source>A %1%release %2%%3% upgrade is available.</source>
         <target>M&#xE1;r el&#xE9;rhet&#x151; az AtoM %1%%2% sz&#xE1;m&#xFA; &#xFA;j verzi&#xF3;ja%3%.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/templates/_updateCheck.php</note>
-      </trans-unit>
-      <trans-unit id="fb6f7c24d375f7b302caa158d4c4790e5a8393c6">
-        <source>A brief site description or &amp;quot;tagline&amp;quot; for the header</source>
-        <target>A honlap r&#xF6;vid le&#xED;r&#xE1;sa vagy "c&#xED;msor" a fejl&#xE9;chez</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/siteInformationSuccess.php</note>
       </trans-unit>
       <trans-unit id="3e9664b32ca01b20a5fd36e87057ea6e742b937e">
         <source>A coded designation for the copyright status of the object at the time the rights statement is recorded.</source>
@@ -499,6 +499,11 @@ P&#xE9;ld&#xE1;ul: oai:foo.org:repositorycode_10001</target>
         <source>Allow</source>
         <target>Enged&#xE9;lyez</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="20a61b49fb16be8008aef5aad33e3f6c1c0ebf5b">
+        <source>Allow any valid URI PATH segment character to appear in a slug, including UTF-8 glyphs. Restricted IRI characters ( /?#{} ) and literal spaces will be replaced with dashes</source>
+        <target state="translated">B&#xE1;rmely &#xE9;rv&#xE9;nyes webc&#xED;m (URI) &#xFA;tvonal szegmens karakter megjelenhet a csupasz c&#xED;mben, bele&#xE9;rtve UTF-8 karaktereket is. A tiltott ( /?#{} ) &#xE9;s sz&#xF3;k&#xF6;z karaktereket k&#xF6;t&#x151;jelek helyettes&#xED;tik.</target>
+        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="19c2371f978067e85c99e10fecb57b3438930f2f">
         <source>Allow unlimited uploads</source>
@@ -903,6 +908,11 @@ reference/thumbnail representation?</target>
         <target>Inakt&#xED;v munk&#xE1;k/feladatok t&#xF6;rl&#xE9;se</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/jobs/templates/browseSuccess.php</note>
       </trans-unit>
+      <trans-unit id="b7b743f536d97b8573750e05b4ac448792b8f3bf">
+        <source>Click 'Calculate dates' to recalculate the start and end dates of a parent-level description. A job runs in the background, accounting for the earliest and most recent dates across all the child descriptions. The results display in the Start and End fields of the edit page.</source>
+        <target state="translated">Kattintson a 'D&#xE1;tumok kisz&#xE1;mol&#xE1;s&#xE1;ra', hogy &#xFA;jrasz&#xE1;molja a fels&#x151;bb szint&#x171; le&#xED;r&#xE1;s kezd&#x151; &#xE9;s befejez&#x151; d&#xE1;tumait. A feladat a h&#xE1;tt&#xE9;rben fut, megkeresi a legkor&#xE1;bbi &#xE9;s legk&#xE9;s&#x151;bbi d&#xE1;tumokat az als&#xF3;bb szint&#x171; le&#xED;r&#xE1;sokban. Az eredm&#xE9;ny a szerkeszt&#x151;i fel&#xFC;let 'Kezdet' &#xE9;s 'Befejez&#x151; d&#xE1;tum' mez&#x151;iben jelenik meg.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_calculateDatesLink.php</note>
+      </trans-unit>
       <trans-unit id="8018bc225b776673ea47049f6cd786103ef99324">
         <source>Click Confirm to delete this physical storage from the system. This will also remove the physical storage location from the following records:</source>
         <target>Kattintson a 'meger&#x151;s&#xED;t&#xE9;s' gombra a t&#xE1;rol&#xF3;eszk&#xF6;z rendszerb&#x151;l val&#xF3; t&#xF6;rl&#xE9;s&#xE9;hez. Ezzel a t&#xE1;rol&#xF3;eszk&#xF6;z az al&#xE1;bbi feljegyz&#xE9;sekb&#x151;l is elt&#xE1;vol&#xED;tja:</target>
@@ -1133,6 +1143,11 @@ reference/thumbnail representation?</target>
         <target>DIP felt&#xF6;lt&#xE9;s be&#xE1;ll&#xED;t&#xE1;sok</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/dipUploadSuccess.php</note>
       </trans-unit>
+      <trans-unit id="cba10501958b88d3898d4628b83793d3586deebd">
+        <source>DIP upload settings saved.</source>
+        <target state="translated">DIP fel&#xF6;lt&#xE9;si be&#xE1;ll&#xED;t&#xE1;sok elmentve</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/dipUploadAction.class.php</note>
+      </trans-unit>
       <trans-unit id="eb9a4bc1c0c153e4e4b042a79113b815b7e3021d">
         <source>Date</source>
         <target>D&#xE1;tum</target>
@@ -1142,6 +1157,16 @@ reference/thumbnail representation?</target>
         <source>Date (based on start date)</source>
         <target>D&#xE1;tum (a kezd&#x151;d&#xE1;tum alapj&#xE1;n)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/itemOrFileListAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="f40b04215da44b7efbff8487752bdfb118ff634f">
+        <source>Date calculation started.</source>
+        <target state="translated">A d&#xE1;tumok kisz&#xE1;m&#xED;t&#xE1;sa megkezd&#x151;d&#xF6;tt.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/calculateDatesAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="dcef8297cd84445acb4ad6b84e674163d3d9765e">
+        <source>Date modified</source>
+        <target state="translated">A d&#xE1;tum m&#xF3;dosult</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/templates/indexSuccess.php</note>
       </trans-unit>
       <trans-unit id="e7524489c7d79906fb0745b5b75b75931ba172c8">
         <source>Date of</source>
@@ -1193,6 +1218,11 @@ reference/thumbnail representation?</target>
         <target>Alap&#xE9;rtelmezett oldal elemek</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/menuComponent.class.php</note>
       </trans-unit>
+      <trans-unit id="0d87d25d35fcc7ae2c75ba5bf7045732c1e9f408">
+        <source>Default page elements saved.</source>
+        <target state="translated">Az oldal alap&#xE9;rtelmezett elemei mentve vannak.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/pageElementsAction.class.php</note>
+      </trans-unit>
       <trans-unit id="7b11c709db14804c8850e83c01b6e7433423e830">
         <source>Default publication status</source>
         <target>Alap&#xE9;rtelmezett k&#xF6;zz&#xE9;t&#xE9;teli &#xE1;llapot</target>
@@ -1212,6 +1242,11 @@ reference/thumbnail representation?</target>
         <source>Default template</source>
         <target>Alap&#xE9;rtelmezett &#x171;rlap</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/menuComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="2147a217c9f8f4d56b0b2e236ab2ae0f34662e5a">
+        <source>Default templates saved.</source>
+        <target state="translated">Az alap&#xE9;rtelmezett &#x171;rlapok mentve vannak.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/templateAction.class.php</note>
       </trans-unit>
       <trans-unit id="f6fdbe48dc54dd86f63097a03bd24094dedd713a">
         <source>Delete</source>
@@ -1253,6 +1288,11 @@ reference/thumbnail representation?</target>
         <target>Megtagad</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/editInformationObjectAclSuccess.php</note>
       </trans-unit>
+      <trans-unit id="36377adf43984d298439110cf96f95529471c501">
+        <source>Descending</source>
+        <target state="translated">Ereszked&#x151;</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/templates/_sortPickers.php</note>
+      </trans-unit>
       <trans-unit id="a838ddbafbc0a8995e1379a957b61128964ffe4c">
         <source>Describe the nature of the relationship between the function and the related resource. (ISDF 6.2)</source>
         <target>&#x201E;Ismertess&#xFC;k a funkci&#xF3; &#xE9;s a kapcsol&#xF3;d&#xF3; forr&#xE1;s k&#xF6;z&#xF6;tti kapcsolat jelleg&#xE9;t.&#x201D; (ISDF 6.2)</target>
@@ -1278,6 +1318,11 @@ reference/thumbnail representation?</target>
         <target>A le&#xED;r&#xE1;s friss&#xED;tve van.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/renameAction.class.php</note>
       </trans-unit>
+      <trans-unit id="a062a7b2869f26c0d3fc4bbd38941f3aa5be9457">
+        <source>Determines whether to show a link to the browse hierarchy page on the information objects browse/search pages</source>
+        <target state="translated">Meghat&#xE1;rozza, hogy mutasson-e link a lev&#xE9;lt&#xE1;ri strukt&#xFA;ra b&#xF6;ng&#xE9;sz&#xE9;si oldalra az inform&#xE1;ci&#xF3;s objektumok b&#xF6;ng&#xE9;sz&#xE9;si/keres&#xE9;si oldalain.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/treeviewSuccess.php</note>
+      </trans-unit>
       <trans-unit id="1960d8900caf58abb54302c86ed8315cfbc2d3d3">
         <source>Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use</source>
         <target>Meghat&#xE1;rozza, hogy sz&#xFC;ks&#xE9;g van-e a "siblingek" csoportos&#xED;t&#xE1;s&#xE1;ra/kiv&#xE1;logat&#xE1;s&#xE1;ra az inform&#xE1;ci&#xF3;s objektum ellen&#x151;rz&#xE9;sre szolg&#xE1;l&#xF3; fa n&#xE9;zet&#xE9;ben &#xE9;s ha igen, akkor ez milyen krit&#xE9;riumok alapj&#xE1;n t&#xF6;rt&#xE9;njen.</target>
@@ -1292,6 +1337,11 @@ reference/thumbnail representation?</target>
         <source>Did you type the URL correctly?</source>
         <target>Bitzos, hogy helyesen g&#xE9;pelte be az URL-t?</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/admin/templates/error404Success.php</note>
+      </trans-unit>
+      <trans-unit id="1741a668553c515066042775674b3064bc022560">
+        <source>Digital object derivative settings saved.</source>
+        <target state="translated">A digit&#xE1;lis objektum sz&#xE1;rmaztatott be&#xE1;ll&#xED;t&#xE1;sai mentve vannak.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/digitalObjectDerivativesAction.class.php</note>
       </trans-unit>
       <trans-unit id="0220efa7f6f7ee2f1b714ebea0cf93b5b559c8d8">
         <source>Digital object derivatives</source>
@@ -1308,6 +1358,11 @@ reference/thumbnail representation?</target>
         <target>Digit&#xE1;lis obkektumok</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
+      <trans-unit id="fd8e45bac7d354790ec0a82d8a61341bf8acd055">
+        <source>Direction</source>
+        <target state="translated">Ir&#xE1;ny</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/templates/_sortPickers.php</note>
+      </trans-unit>
       <trans-unit id="7ba52a7256660fcb753fc9900913da818132a682">
         <source>Disable uploads</source>
         <target>Felt&#xF6;lt&#xE9;sek letilt&#xE1;sa</target>
@@ -1322,6 +1377,11 @@ reference/thumbnail representation?</target>
         <source>Disallow statement</source>
         <target>Enged&#xE9;ly visszavon&#xE1;si nyilatkozat</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/permissionsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="8f88058b234ef92f0ea73af6b1fe6c05f2b0f937">
+        <source>Display Privacy Notification on first visit to site</source>
+        <target state="translated">Megjelen&#xED;ti a szem&#xE9;lyis&#xE9;gi jogi figyelmeztet&#xE9;st az oldal els&#x151; l&#xE1;togat&#xE1;sakor.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/privacyNotificationSuccess.php</note>
       </trans-unit>
       <trans-unit id="43e9abb9ac6de66f3cddd4c5c2ec2c72f2b1241b">
         <source>Display note(s)</source>
@@ -1478,6 +1538,11 @@ reference/thumbnail representation?</target>
         <target>Jelsz&#xF3; szerkeszt&#xE9;se/Szerkessze jelszav&#xE1;t!</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/passwordEditSuccess.php</note>
       </trans-unit>
+      <trans-unit id="ec2e306ec0869a064528aa5f9180d82f5d7a8cd1">
+        <source>Editing history</source>
+        <target state="translated">Szerkeszt&#xE9;si t&#xF6;rt&#xE9;net</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/indexSuccess.php</note>
+      </trans-unit>
       <trans-unit id="71a1ca18209db3318a9dc4e4ed7ecc5a604fbc32">
         <source>Editing the description title will automatically update the slug field if the "Update slug" checkbox is selected - you can still edit it after.</source>
         <target>Ha "csupasz c&#xED;m jav&#xED;t&#xE1;sa" doboz ki van jel&#xF6;lve, a lev&#xE9;lt&#xE1;ri le&#xED;r&#xE1;s c&#xED;m&#xE9;nek szerkeszt&#xE9;se sor&#xE1;n a csupasz c&#xED;m mez&#x151; is automatikusan fel&#xFC;l&#xED;r&#xF3;dik. Ezt azonban k&#xE9;s&#x151;bb m&#xE9;g szerkesztheti.</target>
@@ -1513,6 +1578,11 @@ reference/thumbnail representation?</target>
         <target>&#xDC;res</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/jobs/templates/reportSuccess.php</note>
       </trans-unit>
+      <trans-unit id="f01229120c68d5a8dd7826c901229cb90155096b">
+        <source>Enable Markdown support</source>
+        <target state="translated">Markdown t&#xE1;mogat&#xE1;s lehet&#x151;v&#xE9; t&#xE9;tele</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/markdownSuccess.php</note>
+      </trans-unit>
       <trans-unit id="703d28e72d95e4b8a8ffd46f41a8d51e0905532e">
         <source>Enable additional OAI sets</source>
         <target>Kieg&#xE9;sz&#xED;t&#x151; OAI k&#xE9;szletek lehet&#x151;v&#xE9; t&#xE9;tele</target>
@@ -1527,6 +1597,11 @@ reference/thumbnail representation?</target>
         <source>Enable copyright statement</source>
         <target>Szerz&#x151;i jogi nyilatkozat &#xE9;rv&#xE9;nyes&#xED;t&#xE9;se</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/permissionsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="050b73babb390d98d6e0c6435784060a843927a1">
+        <source>Enable description change logging</source>
+        <target state="translated">Le&#xED;r&#xE1;si v&#xE1;ltoz&#xE1;sok napl&#xF3;z&#xE1;s&#xE1;nak lehet&#x151;v&#xE9; t&#xE9;tele</target>
+        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="d6395f068ba11d205da4a6492fefdd088ee4ecea">
         <source>Enable institutional scoping</source>
@@ -1612,6 +1687,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>Error</source>
         <target>Hiba</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/findingAidComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="9affd41f809d36eca8804dd972e7421228270fa0">
+        <source>Error: You must have at least one %1%Level of description%2% selected or choose %1%Include all descendant levels of description%2% to proceed.</source>
+        <target state="translated">Hiba: l&#xE9;teznie kell legal&#xE1;bb egy kiv&#xE1;lasztott %1%Le&#xED;r&#xE1;si szint%2% le&#xED;r&#xE1;si szintnek vagy v&#xE1;lassza a %1%Minden als&#xF3;bb le&#xED;r&#xE1;si szinttel egy&#xFC;tt%2% opci&#xF3;t.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/exportSuccess.php</note>
       </trans-unit>
       <trans-unit id="be5d240ee357271eba10fb02d39f20137df4e479">
         <source>Escape special chars from searches</source>
@@ -1778,6 +1858,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Seg&#xE9;dlet</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/_advancedSearch.php</note>
       </trans-unit>
+      <trans-unit id="2d48b2766a8bf798e0fbe5cc6ab3a34a3924dbf2">
+        <source>Finding aid settings saved.</source>
+        <target state="translated">A seg&#xE9;dlet be&#xE1;ll&#xED;t&#xE1;sok mentve vannak.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/findingAidAction.class.php</note>
+      </trans-unit>
       <trans-unit id="2c6e6fed8ab01635afb31ca592297498170c5e7d">
         <source>Finding aid text</source>
         <target>Seg&#xE9;dlet sz&#xF6;vege</target>
@@ -1913,6 +1998,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Teljes adatb&#xE1;zisra vonatkoz&#xF3; be&#xE1;ll&#xED;t&#xE1;sok</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/globalSuccess.php</note>
       </trans-unit>
+      <trans-unit id="d81513dec60d34e27cb432c8e53c98e241b76225">
+        <source>Global settings saved.</source>
+        <target state="translated">A glob&#xE1;lis be&#xE1;ll&#xED;t&#xE1;sok mentve vannak.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/globalAction.class.php</note>
+      </trans-unit>
       <trans-unit id="4c864cb10a96b34f4b4cf1ea187104a657158402">
         <source>Go to %1%</source>
         <target>Menj ide: %1%</target>
@@ -1962,6 +2052,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>Hierarchical terms</source>
         <target>Hierarchikus kulcszavak</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="bda1b9ddd2a172cd6fc2bdd66737451d25b6f867">
+        <source>Hierarchy</source>
+        <target state="translated">Lev&#xE9;lt&#xE1;ri strukt&#xFA;ra</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/browse/templates/hierarchySuccess.php</note>
       </trans-unit>
       <trans-unit id="72f9d3399791989fdf85898ef348becf26b66e90">
         <source>Holdings</source>
@@ -2043,6 +2138,26 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Azonos&#xED;t&#xF3; maszk enged&#xE9;lyezve</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/identifierSuccess.php</note>
       </trans-unit>
+      <trans-unit id="77460ad0ab7f5f545bac2f729abf33e8b50cd322">
+        <source>Identifier settings</source>
+        <target state="translated">Azonos&#xED;t&#xF3; be&#xE1;ll&#xED;t&#xE1;sok</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/identifierSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="e1ccfc8c273d28eb192119e9124064818c568233">
+        <source>Identifier settings saved.</source>
+        <target state="translated">Az azonos&#xED;t&#xF3; be&#xE1;ll&#xED;t&#xE1;sok mentve vannak.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/identifierAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="e057026030ab8d3892a0ba2794e790549c6704e4">
+        <source>Identifier-related</source>
+        <target state="translated">Azonos&#xED;t&#xF3;val kapcsolatos</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/identifierSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="649d2864df18704de32e689e69e63f2483e8b76e">
+        <source>Identifiers</source>
+        <target state="translated">Azonos&#xED;t&#xF3;k</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/menuComponent.class.php</note>
+      </trans-unit>
       <trans-unit id="20d9c9c5fffabec39cefaf8e72e140a7cf144cba">
         <source>Identity area</source>
         <target>Azonos&#xED;t&#xE1;si adatcsoport</target>
@@ -2057,6 +2172,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>If job hasn't already completed, check %1% page to determine present status.</source>
         <target>Ha a feladat m&#xE9;g nem fejez&#x151;d&#xF6;tt be, n&#xE9;zze meg a a jelenlegi &#xE1;llapotot a %1% oldalon.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/actions/moveAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="781c959c92fe9cb5304dcef617e3998def02cc66">
+        <source>If no levels are selected, the export will fail. You can use the control (Mac &#x2318;) and/or shift keys to multi-select values from the Levels of description menu. It is necessary to include the level(s) above the desired export level, up to and including the level contained in the clipboard. Otherwise, no records will be included in the export.</source>
+        <target state="translated">Ha nem v&#xE1;lasztott ki egy szintet sem, az export meghi&#xFA;sul.  T&#xF6;bb &#xE9;rt&#xE9;k egyidej&#x171; kiv&#xE1;laszt&#xE1;s&#xE1;ra a 'Le&#xED;r&#xE1;si szintek' men&#xFC;b&#x151;l haszn&#xE1;lja a control (Mac &#x2318;) &#xE9;s/vagy a shift billenty&#x171;ket. A k&#xED;v&#xE1;nt export&#xE1;l&#xE1;si szint f&#xF6;l&#xF6;tti szint kiv&#xE1;laszt&#xE1;sa sz&#xFC;ks&#xE9;ges, bel&#xE9;rtve a v&#xE1;g&#xF3;lapon tal&#xE1;lhat&#xF3; szintet is. K&#xFC;l&#xF6;nben nem lesz egy sor sem az exportban.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/exportSuccess.php</note>
       </trans-unit>
       <trans-unit id="f18616d6858c5afed733fffed6e2c7c70c695d02">
         <source>If the finding aid is an uploaded PDF, the transcript will be deleted too.</source>
@@ -2137,6 +2257,16 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>In progress</source>
         <target>Folyamatban</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/calculateDatesLinkComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="46ac7d4191ce56511942267ed3fddd6d980fe7a6">
+        <source>In the "Action" selector, indicate whether you want to &lt;strong&gt;merge&lt;/strong&gt; the saved clipboard with the entries on the current clipboard or &lt;strong&gt;replace&lt;/strong&gt; (overwrite) the current clipboard with the saved one.</source>
+        <target state="translated">A "M&#x171;velet" kapcsol&#xF3;val meghat&#xE1;rozhat&#xF3;, hogy vajon a mentett v&#xE1;g&#xF3;lapot a jelenlegi v&#xE1;g&#xF3;lappal &lt;strong&gt;&#xF6;sszeolvasztani&lt;/strong&gt; vagy azt &lt;strong&gt;helyettes&#xED;teni&lt;/strong&gt; (&#xE1;t&#xED;rni) akarja.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/clipboardLoadSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1563c715de23e28b53c68ea7aac835dbcf5d7e3b">
+        <source>Include all descendant levels of description</source>
+        <target state="translated">Minden als&#xF3;bb le&#xED;r&#xE1;si szinttel egy&#xFC;tt</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/exportSuccess.php</note>
       </trans-unit>
       <trans-unit id="6a3a406e4bb13f7409892a6b2de4b09ab663482d">
         <source>Include descendants</source>
@@ -2228,6 +2358,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Lelt&#xE1;r be&#xE1;ll&#xED;t&#xE1;sok</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/inventorySuccess.php</note>
       </trans-unit>
+      <trans-unit id="b34a74b83e4040fe91d34e64ddd70838deebbe4f">
+        <source>Inventory settings saved.</source>
+        <target state="translated">A lelt&#xE1;r be&#xE1;ll&#xED;t&#xE1;sok mentve vannak.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/inventoryAction.class.php</note>
+      </trans-unit>
       <trans-unit id="d77f41b47d186a8dda07c9dafa237fc1fe2b4e37">
         <source>It has %1% descendants that will also be deleted</source>
         <target>%1% hozz&#xE1; tartoz&#xF3; al&#xE1;rendelt egys&#xE9;g van, amely szint&#xE9;n t&#xF6;r&#xF6;lve lesz</target>
@@ -2308,6 +2443,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Nyelv(ek)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
+      <trans-unit id="32261df5e59a0d8648c5f02a29ec40d297eb62fe">
+        <source>Last run:</source>
+        <target state="translated">Utols&#xF3; fut&#xE1;s:</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_calculateDatesLink.php</note>
+      </trans-unit>
       <trans-unit id="583c9e23574a88177a3d4dee17f36f82081ab201">
         <source>Last updated</source>
         <target>Utolj&#xE1;ra friss&#xED;tve</target>
@@ -2357,6 +2497,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>License terms</source>
         <target>Enged&#xE9;ly felt&#xE9;telek</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="0aec43eb4c2b031ef28ef83c23dc31ce14b31192">
+        <source>Limit administrator functionality to one or more IP addresses, separated by semicolons.</source>
+        <target state="translated">Korl&#xE1;tozza az adminisztr&#xE1;tor funkci&#xF3;kat egy vagy t&#xF6;bb, pontosvessz&#x151;vel elv&#xE1;lasztott IP c&#xED;mre.</target>
+        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsSecurityForm.class.php</note>
       </trans-unit>
       <trans-unit id="c9a63a518c70a777f5be69334e81ea8c972ca31d">
         <source>Limit matches to:</source>
@@ -2458,10 +2603,20 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Napl&#xF3;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/jobs/templates/reportSuccess.php</note>
       </trans-unit>
+      <trans-unit id="43167fa327b2e9d201119a843a207aca9c2baafc">
+        <source>Log creation and change of descriptions</source>
+        <target state="translated">Napl&#xF3;zza a le&#xED;r&#xE1;sok l&#xE9;trehoz&#xE1;s&#xE1;t &#xE9;s v&#xE1;ltoz&#xE1;sait.</target>
+        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
       <trans-unit id="f7c400ed695f898b8ee9d21664aa17b5bb693828">
         <source>Log in</source>
         <target>Bejelentkez&#xE9;s</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/loginSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="3c6c2baa46acb5ee9c31492ffebb9dd0f3cd24dc">
+        <source>Login button</source>
+        <target state="translated">Bel&#xE9;p&#xE9;si gomb.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="83fce8327410848c9eb609acb21732c7c0fec96a">
         <source>Logo</source>
@@ -2548,6 +2703,16 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>%1% t&#xE9;rk&#xE9;pe</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/templates/indexSuccess.php</note>
       </trans-unit>
+      <trans-unit id="23e67fceae0d77dd571dd25695fc0499faf1bb77">
+        <source>Markdown</source>
+        <target state="translated">Markdown</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/menuComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="b38564a34406cb19dbafbb09eedad8ea29c36f30">
+        <source>Markdown settings saved.</source>
+        <target state="translated">A Markdown be&#xE1;ll&#xED;t&#xE1;sok mentve vannak.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/markdownAction.class.php</note>
+      </trans-unit>
       <trans-unit id="78f3842f0201c993fec13905f2ff9ec3fdd39056">
         <source>Master</source>
         <target>Mester</target>
@@ -2582,6 +2747,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>Minimum value is "%min%"</source>
         <target>A minim&#xE1;lis &#xE9;rt&#xE9;k "%min%"</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="405f45092d843a1d3838d8a5b8852228db0dfbb7">
+        <source>Modifications</source>
+        <target state="translated">M&#xF3;dos&#xED;t&#xE1;sok</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/modificationsSuccess.php</note>
       </trans-unit>
       <trans-unit id="4bab2d8fe13fa6ab57f80098b414f0f734c5dd25">
         <source>More</source>
@@ -2708,6 +2878,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Nevek</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_nameAccessPoints.php</note>
       </trans-unit>
+      <trans-unit id="80c3052d33ccdee15ffaaa110c5c39072495fe63">
+        <source>Never</source>
+        <target state="translated">Soha</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/calculateDatesLinkComponent.class.php</note>
+      </trans-unit>
       <trans-unit id="831ab2c47aa148a9e4b124e1a68c64e9ad308c67">
         <source>New granted right</source>
         <target>Enged&#xE9;lyezett &#xFA;j jog</target>
@@ -2773,6 +2948,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Nem</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/_advancedSearch.php</note>
       </trans-unit>
+      <trans-unit id="a3752ec29207194651ff1f8696e3e86808b151f1">
+        <source>Not a CSV file (or CSV columns not recognized).</source>
+        <target state="translated">Nem CSV f&#xE1;jl (vagy CSV oszlopok nem felismerhet&#x151;k).</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/actions/importSelectAction.class.php</note>
+      </trans-unit>
       <trans-unit id="5d617df124304970c2677920d0c3cffce2229fcf">
         <source>Not generated yet.</source>
         <target>M&#xE9;g nincsen gener&#xE1;lva.</target>
@@ -2787,6 +2967,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>Note type</source>
         <target>Megjegyz&#xE9;s t&#xED;pus</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_notes.php</note>
+      </trans-unit>
+      <trans-unit id="e4275c04480ee72cc6c53655ed8a839e05de00bc">
+        <source>Note: While the date range update is running, the selected description should not be edited.</source>
+        <target state="translated">Megjegyz&#xE9;s: Am&#xED;g az id&#x151;k&#xF6;r fel&#xFC;lvizsg&#xE1;lata folyik, a kiv&#xE1;lasztott le&#xED;r&#xE1;s nem szerkeszthet&#x151;.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/calculateDatesSuccess.php</note>
       </trans-unit>
       <trans-unit id="03915c8a77a4b0f90d32770b849637edf0af1f6b">
         <source>Note: clipboard items unclipped in this page will be removed from the clipboard when the page is refreshed. You can re-select them now, or reload the page to remove them completely. Using the sort or print preview buttons will also cause a page reload - so anything currently deselected will be lost!</source>
@@ -3013,6 +3198,16 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Jogosults&#xE1;g minden %1% r&#xE9;sz&#xE9;re</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/editActorAclSuccess.php</note>
       </trans-unit>
+      <trans-unit id="43d535c21db47a33a894d059428d4a5d773a730f">
+        <source>Permissions saved.</source>
+        <target state="translated">Az enged&#xE9;lyek mentve vannak.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/permissionsAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="77064d5265236e0ac252f3fc4a5ba7b274b6a583">
+        <source>Phone</source>
+        <target state="translated">Telefon</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_edit.php</note>
+      </trans-unit>
       <trans-unit id="9af882e944ff8b14a6937e57e1a46b46c1b9a589">
         <source>Physical characteristics and technical requirements</source>
         <target>Fizikai jellemz&#x151;k, technikai k&#xF6;vetelm&#xE9;nyek</target>
@@ -3078,6 +3273,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>K&#xE9;rem friss&#xED;tse a keres&#x151;indexeket ha &#xFA;j nyelvet ad hozz&#xE1;.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/languageSuccess.php</note>
       </trans-unit>
+      <trans-unit id="3578c9ef128de65383a1951b2cbeb0e0873d8698">
+        <source>Please rebuild the search index if you are enabling/disabling Markdown support.</source>
+        <target state="translated">K&#xE9;rem &#xE9;p&#xED;tse &#xFA;jra a keres&#xE9;si indexet, ha bekapcsolja vagy kikapcsolja a Markdown t&#xE1;mogat&#xE1;st.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/markdownSuccess.php</note>
+      </trans-unit>
       <trans-unit id="c0b5556d773c85d08ec3aaf77ac5f08010130b38">
         <source>Popular this week</source>
         <target>E h&#xE9;ten a legn&#xE9;pszer&#x171;bbek</target>
@@ -3118,6 +3318,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Els&#x151;dleges kapcsolattart&#xF3;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
       </trans-unit>
+      <trans-unit id="487b19b411631ca1a19742f365becbcac67042ec">
+        <source>Primary contract</source>
+        <target state="translated">Els&#x151;dleges szerz&#x151;d&#xE9;s</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_edit.php</note>
+      </trans-unit>
       <trans-unit id="5b221e9c2a451799d8f37e2b9874409d5e03ab05">
         <source>Print</source>
         <target>Nyomtat&#xE1;s</target>
@@ -3132,6 +3337,21 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>Printed: %d%</source>
         <target>%d% kinyomtatva.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/templates/_footer.php</note>
+      </trans-unit>
+      <trans-unit id="967f58aa5fa1e2e9c37d6a264176556f49d0f56a">
+        <source>Privacy Notification</source>
+        <target state="translated">Szem&#xE9;lyis&#xE9;gi jogi figyelmeztet&#xE9;s</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/menuComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="3c5af5352e8b122e77cc2d7d09e5a77d613be138">
+        <source>Privacy Notification Message</source>
+        <target state="translated">Szem&#xE9;lyis&#xE9;gi jogi fogyelmeztet&#xE9;s</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/privacyNotificationSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1c342232bc8618e1802d231aa3d3f46a7beac4c1">
+        <source>Privacy Notification Settings</source>
+        <target state="translated">Szem&#xE9;lyis&#xE9;gi jogi be&#xE1;ll&#xED;t&#xE1;sok</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/privacyNotificationSuccess.php</note>
       </trans-unit>
       <trans-unit id="e9da9b827e60dc37063ef8b128c7d0534691727b">
         <source>Provide a brief description of the menu and it's purpose.</source>
@@ -3628,6 +3848,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Biztons&#xE1;gi be&#xE1;ll&#xED;t&#xE1;sok</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/securitySuccess.php</note>
       </trans-unit>
+      <trans-unit id="d143531462d4d87047092f70571c3d3bbe146ccb">
+        <source>Security settings saved.</source>
+        <target state="translated">A biztons&#xE1;gi be&#xE1;ll&#xED;t&#xE1;sok mentve vannak.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/securityAction.class.php</note>
+      </trans-unit>
       <trans-unit id="b9760a5584370c8dfbf07e5131471909931fc475">
         <source>Select a %1% to upload</source>
         <target>V&#xE1;lasszon ki egy %1%-t felt&#xF6;lt&#xE9;sre</target>
@@ -3658,6 +3883,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>V&#xE1;lassza ki a f&#xE1;jlot</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/importSelectSuccess.php</note>
       </trans-unit>
+      <trans-unit id="5bbd6f15ea72530160fed9d3ee41b54ea5451a72">
+        <source>Select levels of descendant descriptions for inclusion</source>
+        <target state="translated">V&#xE1;lassza ki az egy&#xFC;tt kezelend&#x151; als&#xF3;bb sz&#xED;nt&#x171; le&#xED;r&#xE1;sokat</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/exportSuccess.php</note>
+      </trans-unit>
       <trans-unit id="9eed8d3863d9140182f5b227064d72436a10edcd">
         <source>Select new report to generate:</source>
         <target>V&#xE1;lasszon ki &#xFA;j, l&#xE9;trehozand&#xF3; jelent&#xE9;st</target>
@@ -3672,6 +3902,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>Self-reciprocal</source>
         <target>K&#xF6;lcs&#xF6;n&#xF6;s</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="d863e693b8096c6873088ffd3df60cc628f92720">
+        <source>Self-relation ignored.</source>
+        <target state="translated">&#xD6;nmag&#xE1;ra utal&#xE1;s figyelmen k&#xED;v&#xFC;l hagy&#xE1;sa</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/editAction.class.php</note>
       </trans-unit>
       <trans-unit id="5ef94982e058992188a2c47a46f5efd610fb9e50">
         <source>Set filters</source>
@@ -3712,6 +3947,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>Show available drafts notification upon user login</source>
         <target>Felhaszn&#xE1;l&#xF3;i bel&#xE9;p&#xE9;sn&#xE9;l mutassa meg a rendelkez&#xE9;sre &#xE1;ll&#xF3; v&#xE1;zlatokat</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="52a870be7cc257f36e6778e4eb1b610bac4a6182">
+        <source>Show browse hierarchy page</source>
+        <target state="translated">Mutassa a lev&#xE9;lt&#xE1;ri strukt&#xFA;ra b&#xF6;ng&#xE9;sz&#x151; oldalt</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/treeviewSuccess.php</note>
       </trans-unit>
       <trans-unit id="d0370998c1078dfecd6c669e9bfd77272f55d691">
         <source>Show dates</source>
@@ -3767,6 +4007,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>Site information</source>
         <target>Honlap inform&#xE1;ci&#xF3;k</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/menuComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="46014c119268d008829a7f64391712bac884f8a6">
+        <source>Site information saved.</source>
+        <target state="translated">A honlap inform&#xE1;ci&#xF3;k mente vannak.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/siteInformationAction.class.php</note>
       </trans-unit>
       <trans-unit id="1bf9fa392429c4d539d4808dd4dae99e4c60b0e3">
         <source>Site menu list</source>
@@ -3963,6 +4208,16 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>T&#xE9;m&#xE1;k</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_subjectAccessPoints.php</note>
       </trans-unit>
+      <trans-unit id="2dacf65959849884a011f36f76a04eebea94c5ea">
+        <source>Submit</source>
+        <target state="translated">Bevitel</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/contactinformation/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="090ec5f560fc50377fcd95e5cda128e91b276e98">
+        <source>Tasks</source>
+        <target state="translated">Feladatok</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_calculateDatesLink.php</note>
+      </trans-unit>
       <trans-unit id="da33d8906282e9d4e451c9ca29955b8061e181e9">
         <source>Taxonomy</source>
         <target>Taxon&#xF3;mia</target>
@@ -4068,10 +4323,10 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>A digit&#xE1;lis objektumok felt&#xF6;lt&#xE9;s&#xE9;re el&#xE9;rhet&#x151; maximum %1% GB lemezter&#xFC;let betelt. K&#xE9;rj&#xFC;k, l&#xE9;pjen kapcsolatba rendszergazd&#xE1;j&#xE1;val az el&#xE9;rhet&#x151; lemezter&#xFC;let n&#xF6;vel&#xE9;s&#xE9;hez.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
-      <trans-unit id="4c521db1a3e2911f9f0f96e94a6950180b992561">
-        <source>The name of the website for display in the header</source>
-        <target>A honlap fejl&#xE9;cben megjelen&#x151; neve</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/siteInformationSuccess.php</note>
+      <trans-unit id="1868000288b22c58b9cef7ca738317a8b8025970">
+        <source>The maximum width for derived reference images.</source>
+        <target state="translated">A sz&#xE1;rmaztatott referencia k&#xE9;pek maxim&#xE1;lis sz&#xE9;less&#xE9;ge</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/digitalObjectDerivativesSuccess.php</note>
       </trans-unit>
       <trans-unit id="abb070bd1017157ec14de810edd0afb6d7753ed9">
         <source>The number of days a saved clipboard should be retained before it is eligible for deletion</source>
@@ -4202,11 +4457,6 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>This isn't a valid email address</source>
         <target>Ez nem &#xE9;rv&#xE9;nyes e-mail c&#xED;m.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/menu/actions/userMenuComponent.class.php</note>
-      </trans-unit>
-      <trans-unit id="9aee7a8a9d414e8fd0e86f940e108f1fe676e49f">
-        <source>This term is used in %1% descriptions. The term will be deleted from these descriptions.</source>
-        <target>Ez a kifejez&#xE9;s %1% le&#xED;r&#xE1;sban szerepel. A kifejez&#xE9;s t&#xF6;rl&#x151;dik ebb&#x151;l a le&#xED;r&#xE1;sb&#xF3;l.</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/templates/deleteSuccess.php</note>
       </trans-unit>
       <trans-unit id="e0b11377ac38712be06c421d2bf188df60a42562">
         <source>This user has %1% note(s) in the system. These notes will not be deleted, but their association with this user will be removed.</source>
@@ -4468,6 +4718,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>&lt;a href="%1%"&gt;%2%&lt;/a&gt;: a felt&#xF6;lt&#xE9;s letiltva</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/addDigitalObjectSuccess.php</note>
       </trans-unit>
+      <trans-unit id="092d0ed59fe536042926fc15385011125304c187">
+        <source>Use any valid URI path segment and uppercase character in slugs</source>
+        <target state="translated">A csupasz c&#xED;mekben haszn&#xE1;lhat&#xF3; b&#xE1;rmilyen &#xE9;rv&#xE9;nyes webc&#xED;m (URI) &#xFA;tvonal szegmens &#xE9;s nagybet&#x171;s karakter.</target>
+        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
       <trans-unit id="5065b95ee85a13e6526f2ef80a03f69f8a1bcc3b">
         <source>Use for</source>
         <target>Felhaszn&#xE1;lhat&#xF3;:</target>
@@ -4492,11 +4747,6 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>Use this interface to update the description title, slug (permalink), and/or %1% filename.</source>
         <target>Ezt a fel&#xFC;letet haszn&#xE1;lja a le&#xED;r&#xE1;s c&#xED;m&#xE9;nek, csupasz c&#xED;m&#xE9;nek (permalink) &#xE9;s/vagy a %1% f&#xE1;jln&#xE9;v friss&#xED;t&#xE9;s&#xE9;re.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/renameSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="92e03ff1b889abb086d29b7aa5e82549cdd0696b">
-        <source>Used to create absolute URLs, pointing to resources, in XML exports</source>
-        <target>Abszol&#xFA;t URL-eket hoz l&#xE9;tre, ami forr&#xE1;sokra mutatnak XML exportokban. </target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/siteInformationSuccess.php</note>
       </trans-unit>
       <trans-unit id="9f8a2389a20ca0752aa9e95093515517e90e194c">
         <source>User</source>
@@ -4528,6 +4778,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Felhaszn&#xE1;l&#xF3;i fel&#xFC;let c&#xED;mk&#xE9;k</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/menuComponent.class.php</note>
       </trans-unit>
+      <trans-unit id="52a82ca355e8a5b5074006f62145edb220d33e5f">
+        <source>User interface labels saved.</source>
+        <target state="translated">A felhaszn&#xE1;l&#xF3;i fel&#xFC;let c&#xED;mk&#xE9;i mentve vannak.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/interfaceLabelAction.class.php</note>
+      </trans-unit>
       <trans-unit id="542fc71480dec743e60c20434ec6dd5838fc4b52">
         <source>User name</source>
         <target>Felhaszn&#xE1;l&#xF3;n&#xE9;v</target>
@@ -4557,6 +4812,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>View full size</source>
         <target>Teljes m&#xE9;ret megtekint&#xE9;se</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_showCompound.php</note>
+      </trans-unit>
+      <trans-unit id="f3bae0fd036a59a47dfaabba269faa0cd93a285a">
+        <source>View modification history</source>
+        <target state="translated">M&#xF3;dos&#xED;t&#xE1;si t&#xF6;rt&#xE9;net mutat&#xE1;sa</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_actions.php</note>
       </trans-unit>
       <trans-unit id="18fcc7d5b0dd71e2fd7486a4e2e21b6adb88e54b">
         <source>View rights holder</source>
@@ -4663,6 +4923,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Igen</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/actions/treeviewAction.class.php</note>
       </trans-unit>
+      <trans-unit id="eed3e4f531667474ddcdc4d60a3cd06255e86513">
+        <source>You can check %1% page to determine the current status of the update job.</source>
+        <target state="translated">Ellen&#x151;rizhet %1% oldalt, hogy meghat&#xE1;rozza a friss&#xED;t&#xE9;si feladat aktu&#xE1;lis &#xE1;ll&#xE1;s&#xE1;t.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/calculateDatesSuccess.php</note>
+      </trans-unit>
       <trans-unit id="917e570a8a4bd0ac7d268c641cecf74082508bb1">
         <source>You cannot show more than %max% hits per page</source>
         <target>Oldalank&#xE9;nt legfeljebb %max% tal&#xE1;lat mutathat&#xF3;.</target>
@@ -4728,6 +4993,16 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>A jelszava nem el&#xE9;g er&#x151;s.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/passwordEditAction.class.php</note>
       </trans-unit>
+      <trans-unit id="d484ca1af029569ba4320ae1286878ab286bcde1">
+        <source>Your term has been updated. Its related descriptions are being updated asynchronously &#x2013; check the &lt;a href="%1"&gt;job scheduler page&lt;/a&gt; for status and details.</source>
+        <target state="translated">A kifejez&#xE9;s fel&#xFC;l lett &#xED;rva. A kapcsol&#xF3;d&#xF3; le&#xED;r&#xE1;sok aszinkronikusan friss&#xFC;lnek &#x2013; ellen&#x151;rizze a &lt;a href="%1"&gt;feladat id&#x151;z&#xED;t&#x151; oldalt&lt;/a&gt; az aktu&#xE1;lis helyzet&#xE9;rt &#xE9;s r&#xE9;szletek&#xE9;rt.</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="172415f02e562cd029620c3db12fb3cbb83c4208">
+        <source>added</source>
+        <target state="translated">hozz&#xE1;adva</target>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardLoadAction.class.php</note>
+      </trans-unit>
       <trans-unit id="4b7f6892e0134e4041bca5153ccf325f8954bc08">
         <source>all matching descriptions</source>
         <target>minden megfelel&#x151; le&#xED;r&#xE1;s</target>
@@ -4761,6 +5036,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
       <trans-unit id="2ab0591dbcf5fefdad65f3a10ae4155b91890fed">
         <source>card</source>
         <target>k&#xE1;rtya</target>
+        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="47d577aed7c41621eb696f60ef92f41db33b9495">
+        <source>date modified</source>
+        <target state="translated">d&#xE1;tum m&#xF3;dos&#xED;tva</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="731dc4dc120c8926b60a9ee890a1c480f6095346">
@@ -4833,10 +5113,259 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>c&#xED;m</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
+      <trans-unit id="49ba520416570e6cc876ecfbb174e1d370ae7626">
+        <source>title/name</source>
+        <target state="translated">c&#xED;m/n&#xE9;v</target>
+        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
       <trans-unit id="8af56de68279cb6f5ed022f31af18b9fcdcc2e92">
         <source>you</source>
         <target>&#xD6;n</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="b09c13d9215513e4ac66885d96eeef266a0ba0b8">
+        <source>Please make a selection.</source>
+        <target state="translated">K&#xE9;rem v&#xE1;lasszon ki valamit.</target>
+      </trans-unit>
+      <trans-unit id="2a6b62e341e9619ada4d7b5545cde10e2d84aa07">
+        <source>Update an existing date range</source>
+        <target state="translated">&#xCD;rjon fel&#xFC;l egy l&#xE9;tez&#x151; id&#x151;k&#xF6;rt.</target>
+      </trans-unit>
+      <trans-unit id="7da6e95c1b0869b6ebd19f3fe65e838aa569cc34">
+        <source>Select a date range to overwrite:</source>
+        <target state="translated">V&#xE1;lasszon ki egy fel&#xFC;l&#xED;rand&#xF3; id&#x151;k&#x151;rt:</target>
+      </trans-unit>
+      <trans-unit id="809193e142e7b213b8853749f78aa4d47f200436">
+        <source>Updating an existing date range will permanently overwrite the current dates.</source>
+        <target state="translated">Egy l&#xE9;tez&#x151; id&#x151;k&#xF6;r fel&#xFC;l&#xED;r&#xE1;sa v&#xE9;glegesen t&#xF6;r&#xF6;lni fogja a jelenlegi d&#xE1;tumokat.</target>
+      </trans-unit>
+      <trans-unit id="1627dc1d38a74d13aae0d602bc56d416d0e53133">
+        <source>or, create a new date range</source>
+        <target state="translated">vagy adjon meg egy &#xFA;j id&#x151;k&#xF6;rt</target>
+      </trans-unit>
+      <trans-unit id="c6328f0c08059e2984280e71ef824e40f5761f9e">
+        <source>Select the new date type:</source>
+        <target state="translated">V&#xE1;lassza ki az &#xFA;j d&#xE1;tum t&#xED;pust:</target>
+      </trans-unit>
+      <trans-unit id="36bfaa93cb2ca7a8791fe3dd4fb2370604a6b71a">
+        <source>No entity type specified.</source>
+        <target state="translated">Nincs meghat&#xE1;rozva entit&#xE1;s t&#xED;pus.</target>
+      </trans-unit>
+      <trans-unit id="72d313b243d53986d85e7e01a166a56e9459e136">
+        <source>%1% %2% results for %3%</source>
+        <target state="translated">%1% %2% eredm&#xE9;nyek ehhez: %3%</target>
+      </trans-unit>
+      <trans-unit id="07c0302bc855afec997f2889b2a72e5b425c64ed">
+        <source>Please clear the application cache and rebuild the search index if you are changing the reference code separator setting.</source>
+        <target state="translated">Ha megv&#xE1;ltoztatja a jelzet-elv&#xE1;laszt&#xF3; be&#xE1;ll&#xED;t&#xE1;s&#xE1;t, t&#xF6;r&#xF6;lje az applik&#xE1;ci&#xF3; gyors&#xED;t&#xF3;t&#xE1;r&#xE1;t, &#xE9;s &#xE9;p&#xED;tse &#xFA;jra a keres&#xE9;si indexet.</target>
+      </trans-unit>
+      <trans-unit id="0bf311845ee2a055302a5a1092afba22e08ccf57">
+        <source>Empty: %1%</source>
+        <target state="translated">&#xDC;res: %1%</target>
+      </trans-unit>
+      <trans-unit id="f47662c4b4f347568109abb7156af1e9635bd024">
+        <source>Parallel form(s) of name</source>
+        <target state="translated">P&#xE1;rhuzamos n&#xE9;vform&#xE1;k</target>
+      </trans-unit>
+      <trans-unit id="b8ec205d5f5e5f9ed845ee939b3ee68f75bc08a0">
+        <source>Other form(s) of name</source>
+        <target state="translated">M&#xE1;s n&#xE9;vform&#xE1;k</target>
+      </trans-unit>
+      <trans-unit id="985341facf04a645e773fa882b3cdbf1da451075">
+        <source>Dates of existence</source>
+        <target state="translated">L&#xE9;tez&#xE9;s id&#x151;k&#xF6;re</target>
+      </trans-unit>
+      <trans-unit id="90ccd6497400b5576aeca1bd94af74aae1e0a250">
+        <source>History</source>
+        <target state="translated">T&#xF6;rt&#xE9;nete</target>
+      </trans-unit>
+      <trans-unit id="cd99209678785b0ead9cdd294d4739ed5a7f169c">
+        <source>Legal status</source>
+        <target state="translated">Jogi helyzete</target>
+      </trans-unit>
+      <trans-unit id="2659d16623a972ef5639e32c11749f8cea1f1e53">
+        <source>General context</source>
+        <target state="translated">&#xC1;ltal&#xE1;nos kontextus</target>
+      </trans-unit>
+      <trans-unit id="b1ed85afdf9f6abd49984ba4c106f5063742d096">
+        <source>Occupation access points</source>
+        <target state="translated">Foglalkoz&#xE1;s kapcsol&#xF3;d&#xE1;si pontok</target>
+      </trans-unit>
+      <trans-unit id="81ec5237e04caca5e5ef44eae38f90ba5ae28264">
+        <source>Occupation access point notes</source>
+        <target state="translated">Foglalkoz&#xE1;s kapcsol&#xF3;d&#xE1;si pont jegyzetek</target>
+      </trans-unit>
+      <trans-unit id="5f8a32349b6b13e78f20a6c92111bd667380ecfc">
+        <source>Authority record identifier</source>
+        <target state="translated">Iratk&#xE9;pz&#x151; azonos&#xED;t&#xF3;ja</target>
+      </trans-unit>
+      <trans-unit id="e055961c6756a34479798c483a60800c7e4c96f7">
+        <source>Maintenance notes</source>
+        <target state="translated">Karbantart&#xE1;si figyelmeztet&#xE9;sek</target>
+      </trans-unit>
+      <trans-unit id="9ea77181ac6a721f1181cacbc3707cd24c6a1b38">
+        <source>Empty field</source>
+        <target state="translated">&#xDC;res mez&#x151;</target>
+      </trans-unit>
+      <trans-unit id="f978200b112084eef0c088e1d0075ad2fbca39cf">
+        <source>Alt text</source>
+        <target state="translated">Alternat&#xED;v sz&#xF6;veg</target>
+      </trans-unit>
+      <trans-unit id="1">
+        <source>Please check one or more of the export options.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Export storage report</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Include unlinked containers</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Include containers linked to accessions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Include containers linked to descriptions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Related accessions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>No items in clipboard to send.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Sending...</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Send</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>%1 count</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Find results where:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Relationship</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Related %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Privacy notification settings saved.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Visible elements configuration saved.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Clipboard settings saved.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Inherit reference code (DC XML)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Clipboard settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Clipboard saving</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Clipboard sending</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Enable clipboard send functionality</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>External URL to send clipboard contents to</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Send button text</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Text or HTML to display when sending clipboard contents</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>HTTP method to use when sending clipboard contents</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Make full width treeview collapsible on description pages</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Items per page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Items per page can be a minimum of 10 and a maximum of 1000</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>DACS template - area headings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Acquisition and appraisal area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Related materials area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>DACS template - elements</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Physical access</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Note: Incorrect security settings can result in the AtoM web UI becoming inaccessible.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Related %1% (%2%)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>This term is used in %1% records. The term will be deleted from these records.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Only %1% terms were shown.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Log out</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Profile</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

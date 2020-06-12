@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2016-04-19T21:22:40Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2020-06-12T18:56:58Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Untitled</source>
-        <target/>
+        <target>بدون عنوان</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Administrative / Biographical history</source>
@@ -14,11 +14,11 @@
       </trans-unit>
       <trans-unit id="3">
         <source>Administrative history</source>
-        <target/>
+        <target>التاريخ الإداري</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Biographical history</source>
-        <target/>
+        <target>السيرة الذاتية</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Identifier - This is a mandatory element.</source>
@@ -58,7 +58,7 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Edit %1%</source>
-        <target/>
+        <target>تحرير٪ 1٪</target>
       </trans-unit>
       <trans-unit id="15">
         <source>This is a duplicate of record %1%</source>
@@ -74,11 +74,11 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Identifier</source>
-        <target/>
+        <target>المعرف الفريد</target>
       </trans-unit>
       <trans-unit id="19">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>هذا عنصر إلزامي.</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Name and location of repository</source>
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="23">
         <source>Levels of description</source>
-        <target/>
+        <target>مستويات الوصف الأرشيفية</target>
       </trans-unit>
       <trans-unit id="24">
         <source>In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material, normally consisting of a name segment, a term indicating the nature of the unit being described, and optionally a topical segment. Do not enclose devised titles in square brackets. (DACS 2.3.3)</source>
@@ -102,7 +102,7 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Title</source>
-        <target/>
+        <target>العنوان</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
@@ -138,7 +138,7 @@
       </trans-unit>
       <trans-unit id="34">
         <source>Scope and content</source>
-        <target/>
+        <target>النطاق والمحتوى</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Describe the current arrangement of the material in terms of the various aggregations within it and their relationships. (DACS 3.2.3)</source>
@@ -158,7 +158,7 @@
       </trans-unit>
       <trans-unit id="39">
         <source>Conditions governing access</source>
-        <target/>
+        <target>الشروط التي تحكم الوصول والاتاحة</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Provide information about the physical characteristics or condition of the unit being described that limit access to it or restrict its use. (DACS 4.2.5)</source>
@@ -218,7 +218,7 @@
       </trans-unit>
       <trans-unit id="54">
         <source>Custodial history</source>
-        <target/>
+        <target>تاريخ الوصاية</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Record the successive transfers of ownership, responsibility, or custody or control of the unit being described from the time it left the possession of the creator until its acquisition by the repository, along with the dates thereof, insofar as this information can be ascertained and is significant to the user’s understanding of the authenticity. (DACS 5.1.3)</source>
@@ -230,7 +230,7 @@
       </trans-unit>
       <trans-unit id="57">
         <source>Immediate source of acquisition or transfer</source>
-        <target/>
+        <target>المصدر المباشر للاقتناء أو النقل</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Where the destruction or retention of archival materials has a bearing on the interpretation and use of the unit being described, provide information about the materials destroyed or retained and provide the reason(s) for the appraisal decision(s), where known. (DACS 5.3.4)</source>
@@ -238,7 +238,7 @@
       </trans-unit>
       <trans-unit id="59">
         <source>Appraisal, destruction and scheduling information</source>
-        <target/>
+        <target>تقييم واتلاف وجدولة المعلومات</target>
       </trans-unit>
       <trans-unit id="60">
         <source>If known, indicate whether or not further accruals are expected. When appropriate, indicate frequency and volume. (DACS 5.4.2)</source>
@@ -274,7 +274,7 @@
       </trans-unit>
       <trans-unit id="68">
         <source>Related descriptions</source>
-        <target/>
+        <target>أوصاف ذات الصلة</target>
       </trans-unit>
       <trans-unit id="69">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
@@ -302,19 +302,19 @@
       </trans-unit>
       <trans-unit id="75">
         <source>Rules or conventions</source>
-        <target/>
+        <target>القواعد أو الاتفاقيات</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Access points</source>
-        <target/>
+        <target>نقاط الاتاحة</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Subject access points</source>
-        <target/>
+        <target>نقاط الوصول الموضوعية</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Place access points</source>
-        <target/>
+        <target>مداخل الوصول (أماكن)</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Name access points (subjects)</source>
@@ -326,15 +326,15 @@
       </trans-unit>
       <trans-unit id="81">
         <source>Reference code</source>
-        <target/>
+        <target>الرمز المرجعي</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Level of description</source>
-        <target/>
+        <target>مستوى الوصف</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Date(s)</source>
-        <target/>
+        <target>التاريخ (التواريخ)</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Related function</source>
@@ -362,7 +362,7 @@
       </trans-unit>
       <trans-unit id="90">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>المصدر المباشر للاستحواذ</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Accruals</source>
@@ -374,7 +374,7 @@
       </trans-unit>
       <trans-unit id="93">
         <source>Publication notes</source>
-        <target/>
+        <target>ملاحظات النشر</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Edit notes element</source>
@@ -410,7 +410,7 @@
       </trans-unit>
       <trans-unit id="102">
         <source>Genre access points</source>
-        <target/>
+        <target>نمط نقاط الوصول</target>
       </trans-unit>
     </body>
   </file>

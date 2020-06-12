@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="tr" datatype="plaintext" original="messages" date="2019-01-31T15:03:05Z" product-name="messages">
+  <file source-language="en" target-language="tr" datatype="plaintext" original="messages" date="2020-06-12T18:56:54Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -42,7 +42,7 @@
       </trans-unit>
       <trans-unit id="10">
         <source>Language</source>
-        <target/>
+        <target>Dil</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Internet media type</source>
@@ -122,7 +122,7 @@
       </trans-unit>
       <trans-unit id="30">
         <source>Places</source>
-        <target/>
+        <target>Mekanlar</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>

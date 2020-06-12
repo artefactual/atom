@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2015-10-16T04:43:27Z" product-name="messages">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2020-06-12T18:56:57Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -656,7 +656,7 @@
       </trans-unit>
       <trans-unit id="170">
         <source>Genre access points</source>
-        <target/>
+        <target>Punts d'accés de gènere</target>
       </trans-unit>
       <trans-unit id="171">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>

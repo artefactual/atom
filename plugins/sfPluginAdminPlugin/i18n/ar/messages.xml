@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2015-08-27T12:06:50Z" product-name="messages">
+  <file source-language="en" target-language="ar" datatype="plaintext" original="messages" date="2020-06-12T18:56:58Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,7 +10,7 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Name</source>
-        <target/>
+        <target>الاسم</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Version</source>
@@ -22,10 +22,14 @@
       </trans-unit>
       <trans-unit id="5">
         <source>Save</source>
-        <target/>
+        <target>حفظ</target>
       </trans-unit>
       <trans-unit id="6">
         <source>List themes</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>SWORD plugin setting changed: the AtoM worker must be restarted for this change to take effect.</source>
         <target/>
       </trans-unit>
     </body>

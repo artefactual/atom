@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2018-09-09T08:09:13Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2020-06-12T18:56:52Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="2">
@@ -30,11 +30,11 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Import file initiated. Check %1%job %2%%3% to view the status of the import.</source>
-        <target/>
+        <target>Se ha iniciado la importación del fichero. Comprueba %1%la tarea %2%%3% para revisar el estado de la importación.</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Import options</source>
-        <target/>
+        <target>Opciones de importación</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Select source</source>
