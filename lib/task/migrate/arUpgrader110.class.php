@@ -568,11 +568,13 @@ class arUpgrader110
           mkdir(sfConfig::get('sf_upload_dir').'/r', 0775);
         }
 
-        $criteria = new Criteria;
-        $criteria->add(QubitDigitalObject::INFORMATION_OBJECT_ID, null, Criteria::ISNOTNULL);
-        foreach (QubitDigitalObject::get($criteria) as $item)
+        $sql = "SELECT id, information_object_id
+                FROM digital_object
+                WHERE information_object_id IS NOT NULL";
+        
+        foreach (QubitPdo::fetchAll($sql) as $item)
         {
-          $io = QubitInformationObject::getById($item->informationObjectId);
+          $io = QubitInformationObject::getById($item->information_object_id);
 
           // Build repository dirname
           if (null !== $repository = $io->getRepository(array('inherit' => true)))

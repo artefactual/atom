@@ -36,47 +36,21 @@ class arMigration0098
    */
   public function up($configuration)
   {
-    // Remove existing constraint and index
-    $sql = "ALTER TABLE `event` DROP FOREIGN KEY `event_FK_3`";
-    QubitPdo::modify($sql);
+    $defaultCulture = sfConfig::get('sf_default_culture', 'en');
 
-    $sql = "DROP INDEX `event_FI_3` ON `event`";
-    QubitPdo::modify($sql);
+    // Create root repository:
+    // - Use raw SQL to avoid mismatches with the ORM in later versions.
+    // - Ignore nested set values. At the point we're fixing this issue,
+    //   the nested set will be removed from the actor table in arMigration0181.
+    $sql = "INSERT INTO object (class_name, created_at, updated_at, id, serial_number)
+            VALUES ('QubitRepository', now(), now(), ?, 0);";
+    QubitPdo::modify($sql, array(QubitRepository::ROOT_ID));
 
-    // Attempt to rename old column name to new column name so newer
-    // ORM will work with it
-    try {
-      $sql = "ALTER TABLE `event` CHANGE `information_object_id` `object_id` INT(11) DEFAULT NULL";
-      QubitPdo::modify($sql);
-    }
-    catch (Exception $e)
-    {
-    }
+    $sql = "INSERT INTO actor (id, lft, rgt, source_culture) VALUES (?, 0, 0, ?);";
+    QubitPdo::modify($sql, array(QubitRepository::ROOT_ID, $defaultCulture));
 
-    // Add new index
-    $sql = "CREATE INDEX `event_FI_3` ON `event`(`object_id`)";
-    QubitPdo::modify($sql);
-
-    // Add new constraint
-    $sql = <<<sql
-
-ALTER TABLE `event`
-  ADD CONSTRAINT `event_FK_3`
-  FOREIGN KEY (`object_id`)
-  REFERENCES `object` (`id`)
-  ON DELETE CASCADE;
-
-sql;
-
-    QubitPdo::modify($sql);
-
-    // Create root repository
-    $object = new QubitRepository;
-    $object->id = QubitRepository::ROOT_ID;
-    $object->save();
-
-    // Get maximun rgt value
-    $order = $object->rgt;
+    $sql = "INSERT INTO repository (id, source_culture) VALUES (?, ?);";
+    QubitPdo::modify($sql, array(QubitRepository::ROOT_ID, $defaultCulture));
 
     // Obtain all repositories except the root
     $sql = sprintf("SELECT t1.id
@@ -88,23 +62,19 @@ sql;
 
     $rows = QubitPdo::fetchAll($sql, array('QubitRepository', QubitRepository::ROOT_ID));
 
-    // Add parent to all the existing repositories and update rgt and lft values
+    // Add parent to all existing repositories
     foreach ($rows as $repository)
     {
       $sql = sprintf("UPDATE %s t1
         LEFT JOIN %s t2
         ON t1.id = t2.id
-        SET parent_id = ?, lft = ?, rgt = ?
+        SET parent_id = ?, lft = 0, rgt = 0
         WHERE t1.id = ?
         AND t1.id != ?;", QubitActor::TABLE_NAME, QubitObject::TABLE_NAME);
 
       QubitPdo::modify($sql, array(QubitRepository::ROOT_ID,
-        $order++, $order++, $repository->id, QubitRepository::ROOT_ID));
+        $repository->id, QubitRepository::ROOT_ID));
     }
-
-    // Set the new max rgt value for the root repository
-    $object->rgt = $order;
-    $object->save();
 
     // Add menu nodes for repository permissions
     if (null !== $parentNode = QubitMenu::getByName('groups'))

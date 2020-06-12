@@ -38,14 +38,9 @@ class arMigration0121
     $sql = "DROP INDEX `event_FI_3` ON `event`";
     QubitPdo::modify($sql);
 
-    try {
-      // Rename column
-      $sql = "ALTER TABLE `event` CHANGE `information_object_id` `object_id` INT(11) DEFAULT NULL";
-      QubitPdo::modify($sql);
-    }
-    catch (Exception $e)
-    {
-    }
+    // Rename column
+    $sql = "ALTER TABLE `event` CHANGE `information_object_id` `object_id` INT(11) DEFAULT NULL";
+    QubitPdo::modify($sql);
 
     // Add new index
     $sql = "CREATE INDEX `event_FI_3` ON `event`(`object_id`)";

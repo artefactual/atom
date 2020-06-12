@@ -229,7 +229,7 @@ class arUpgrader120
         {
           foreach ($cols as $col)
           {
-            $sql = sprintf('ALTER TABLE %s MODIFY `%s` VARCHAR(1024);', $tablename, $col);
+            $sql = sprintf('ALTER TABLE `%s` MODIFY `%s` VARCHAR(1024);', $tablename, $col);
             QubitPdo::modify($sql);
           }
         }
@@ -244,7 +244,7 @@ class arUpgrader120
         {
           foreach ($cols as $col)
           {
-            $sql = sprintf('ALTER TABLE %s MODIFY %s VARCHAR(1024) NOT NULL;', $tablename, $col);
+            $sql = sprintf('ALTER TABLE `%s` MODIFY `%s` VARCHAR(1024) NOT NULL;', $tablename, $col);
             QubitPdo::modify($sql);
           }
         }
