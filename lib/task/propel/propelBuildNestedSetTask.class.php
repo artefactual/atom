@@ -69,6 +69,8 @@ EOF;
     {
       $this->logSection('propel', 'Build nested set for '.$table.'...');
 
+      $conn->beginTransaction();
+
       $sql = 'SELECT id, parent_id';
       $sql .= ' FROM '.constant($classname.'::TABLE_NAME');
       $sql .= ' ORDER BY parent_id ASC, lft ASC';
@@ -108,7 +110,6 @@ EOF;
       $rows = self::getNsUpdateRows($tree[0], $classname);
 
       // Update database
-      $conn->beginTransaction();
       try
       {
         // There seems to be some limit on how many rows we can update with one
