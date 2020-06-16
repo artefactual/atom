@@ -40,6 +40,7 @@ class propelBuildNestedSetTask extends sfBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+      new sfCommandOption('exclude-tables', null, sfCommandOption::PARAMETER_OPTIONAL, 'Exclude tables (comma-separated). Options: information_object, term, menu'),
     ));
 
     $this->namespace = 'propel';
@@ -47,7 +48,7 @@ class propelBuildNestedSetTask extends sfBaseTask
     $this->briefDescription = 'Build all nested set values.';
 
     $this->detailedDescription = <<<EOF
-Build all nested set values.
+Build nested set values. Optionally excluding tables (information_object, term, menu).
 EOF;
   }
 
@@ -65,8 +66,22 @@ EOF;
       'menu' => 'QubitMenu'
     );
 
+    $excludeTables = array();
+
+    if (!empty($options['exclude-tables']))
+    {
+      $excludeTables = array_map('trim', explode(',', $options['exclude-tables']));
+    }
+
     foreach ($tables as $table => $classname)
     {
+      if (in_array($table, $excludeTables))
+      {
+        $this->logSection('propel', 'Skip nested set build for '.$table.'.');
+
+        continue;
+      }
+
       $this->logSection('propel', 'Build nested set for '.$table.'...');
 
       $conn->beginTransaction();
