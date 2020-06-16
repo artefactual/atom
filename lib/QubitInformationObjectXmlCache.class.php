@@ -59,25 +59,29 @@ class QubitInformationObjectXmlCache
   }
 
   /**
-   * Export information object to EAD (if top-level) and DC.
+   * Export information object to EAD (if top-level) and/or DC.
    *
    * @param object  information object instance to export
+   * @param string  format of XML ('dc' or 'ead')
    *
    * @return null
    */
-  public function export($resource)
+  public function export($resource, $format = null)
   {
     // Only cache top-level information object's EAD XML
-    if ($resource->parentId == QubitInformationObject::ROOT_ID)
+    if ($resource->parentId == QubitInformationObject::ROOT_ID && $format !== 'dc')
     {
       $this->cacheXmlFormat($resource, 'ead');
     }
 
-    $this->cacheXmlFormat($resource, 'dc');
+    if ($format !== 'ead')
+    {
+      $this->cacheXmlFormat($resource, 'dc');
+    }
   }
 
   /**
-   * Export all information objects to EAD (if top-level) and DC.
+   * Export all information objects to EAD (if top-level) and/or DC.
    *
    * @return null
    */
@@ -85,6 +89,10 @@ class QubitInformationObjectXmlCache
   {
     $skip = isset($options['skip']) ? $options['skip'] : 0;
     $limit = isset($options['limit']) ? $options['limit'] : 0;
+
+    // Use format if specified and valid; otherwise, default to null
+    $valid_formats = array('dc', 'ead');
+    $format = isset($options['format']) && in_array($options['format'], $valid_formats) ? $options['format'] : null;
 
     // Get not-root and published information objects (sorted by ID so optional
     // skip/limit will be consistent)
@@ -117,7 +125,7 @@ class QubitInformationObjectXmlCache
 
         $exporting++;
         $this->logger->info($this->i18n->__('Exporting information object ID %1% (%2% of %3%)', array('%1%' => $io->id, '%2%' => $exporting, '%3%' => count($results))));
-        $this->export($io);
+        $this->export($io, $format);
 
         // Keep caches clear to prevent memory use from ballooning
         Qubit::clearClassCaches();
