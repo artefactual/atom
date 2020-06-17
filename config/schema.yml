@@ -158,8 +158,8 @@ propel:
     description_identifier: varchar(1024)
     source_standard: varchar(1024)
     display_standard_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
-    lft: { type: integer, required: true, nestedSetLeftKey: true }
-    rgt: { type: integer, required: true, nestedSetRightKey: true }
+    lft: { type: integer, nestedSetLeftKey: true }
+    rgt: { type: integer, nestedSetRightKey: true }
     _indexes:
       lft: [lft]
       rgt: [rgt]
@@ -197,8 +197,8 @@ propel:
     parent_id: { type: integer, foreignTable: menu, foreignReference: id, onDelete: cascade }
     name: varchar(255)
     path: varchar(255)
-    lft: { type: integer, required: true, nestedSetLeftKey: true }
-    rgt: { type: integer, required: true, nestedSetRightKey: true }
+    lft: { type: integer, nestedSetLeftKey: true }
+    rgt: { type: integer, nestedSetRightKey: true }
     created_at:
     updated_at:
 
@@ -395,8 +395,8 @@ propel:
     taxonomy_id: { type: integer, required: true, foreignTable: taxonomy, foreignReference: id, onDelete: cascade }
     code: varchar(1024)
     parent_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: cascade }
-    lft: { type: integer, required: true, nestedSetLeftKey: true }
-    rgt: { type: integer, required: true, nestedSetRightKey: true }
+    lft: { type: integer, nestedSetLeftKey: true }
+    rgt: { type: integer, nestedSetRightKey: true }
     _indexes:
       lft: [lft]
 
