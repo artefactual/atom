@@ -977,7 +977,9 @@ EOF;
     ));
 
     $import->searchIndexingDisabled = ($options['index']) ? false : true;
-    $import->disableNestedSetUpdating = ($options['skip-nested-set-build']) ? true : false;
+
+    // Disable nested set update per row
+    $import->disableNestedSetUpdating = true;
 
     $import->setUpdateOptions($options);
 
@@ -1022,6 +1024,12 @@ EOF;
     });
 
     $import->csv($fh, $skipRows);
+
+    // Rebuild entire nested set for IOs
+    if (!$options['skip-nested-set-build'])
+    {
+      $this->updateIosNestedSet();
+    }
   }
 
   /**
@@ -1061,6 +1069,26 @@ EOF;
     }
 
     return $parentId;
+  }
+
+  private function updateIosNestedSet($retryCount = 0)
+  {
+    try
+    {
+      $nestedSetTask = new propelBuildNestedSetTask($this->dispatcher, $this->formatter);
+      $nestedSetTask->setConfiguration($this->configuration);
+      $nestedSetTask->run(array(), array('exclude-tables' => 'term,menu'));
+    }
+    catch (PDOException $e)
+    {
+      // Repeat on transaction deadlock (MySQL error code 1213)
+      if ($e->errorInfo[1] == 1213 && $retryCount < 3)
+      {
+        $this->updateIosNestedSet(++$retryCount);
+      }
+
+      throw $e;
+    }
   }
 }
 
