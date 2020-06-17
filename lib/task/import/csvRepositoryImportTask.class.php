@@ -306,6 +306,12 @@ EOF;
         {
           $self->createKeymapEntry($self->getStatus('sourceName'), $self->rowStatusVars['legacyId']);
         }
+
+        // Re-index to add related resources
+        if (!$self->searchIndexingDisabled)
+        {
+          QubitSearch::getInstance()->update($self->object);
+        }
       }
     ));
 

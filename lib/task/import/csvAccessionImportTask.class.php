@@ -382,6 +382,12 @@ EOF;
         {
           $self->createKeymapEntry($self->getStatus('sourceName'), $self->rowStatusVars['accessionNumber']);
         }
+
+        // Re-index to add related resources
+        if (!$self->searchIndexingDisabled)
+        {
+          QubitSearch::getInstance()->update($self->object);
+        }
       }
     ));
 

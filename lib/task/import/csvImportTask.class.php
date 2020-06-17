@@ -623,6 +623,8 @@ EOF;
         {
           $self->object->parentId = $parentId;
         }
+
+        $self->object->indexOnSave = false;
       },
 
       // Import logic to execute after saving information object
@@ -964,11 +966,11 @@ EOF;
         // recreate them from the CSV file.
         $this->importDigitalObject($self);
 
-        // If importing a translation, re-save entire information object so translation will be indexed
-        if ($self->object instanceof QubitInformationObjectI18n && !$self->searchIndexingDisabled)
+        // Re-index to add translations and related resources
+        if (!$self->searchIndexingDisabled)
         {
-          $io = QubitInformationObject::getByid($self->object->id);
-          $io->save();
+          $node = new arElasticSearchInformationObjectPdo($self->object->id);
+          QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitInformationObject');
         }
 
         // Reduce memory usage

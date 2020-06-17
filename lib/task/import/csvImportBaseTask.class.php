@@ -207,6 +207,7 @@ abstract class csvImportBaseTask extends arBaseTask
   {
     $do = new QubitDigitalObject;
     $do->object = $self->object;
+    $do->indexOnSave = false;
 
     if ($self->status['options']['skip-derivatives'])
     {
@@ -250,6 +251,7 @@ abstract class csvImportBaseTask extends arBaseTask
     $do = new QubitDigitalObject;
     $do->usageId = QubitTerm::MASTER_ID;
     $do->object = $self->object;
+    $do->indexOnSave = false;
 
     // Don't create derivatives (reference, thumb)
     if ($self->status['options']['skip-derivatives'])

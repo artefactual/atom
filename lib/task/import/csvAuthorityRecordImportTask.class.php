@@ -404,6 +404,12 @@ EOF;
 
           // Add digital object
           $this->importDigitalObject($self);
+
+          // Re-index to add related resources
+          if (!$self->searchIndexingDisabled)
+          {
+            QubitSearch::getInstance()->update($self->object);
+          }
         }
       }
     ));

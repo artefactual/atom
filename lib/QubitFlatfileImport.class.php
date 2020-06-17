@@ -1542,7 +1542,7 @@ class QubitFlatfileImport
 
     $note->content = $this->content($text);
     $note->culture = $this->columnValue('culture');
-    $note->indexOnSave = !$this->searchIndexingDisabled;
+    $note->indexOnSave = false;
     $note->save();
 
     return $note;
@@ -1685,7 +1685,7 @@ class QubitFlatfileImport
       return; // Skip creating / updating events if this exact one already exists.
     }
 
-    $event->indexOnSave = !$this->searchIndexingDisabled;
+    $event->indexOnSave = false;
     $event->save();
 
     // Add relation with place
@@ -1698,7 +1698,7 @@ class QubitFlatfileImport
       }
 
       $placeTerm = $this->createOrFetchTerm(QubitTaxonomy::PLACE_ID, $options['place'], $culture);
-      self::createObjectTermRelation($event->id, $placeTerm->id, $this->searchIndexingDisabled);
+      self::createObjectTermRelation($event->id, $placeTerm->id);
     }
   }
 
@@ -2129,7 +2129,7 @@ class QubitFlatfileImport
     $relation->subjectId = $subjectId;
     $relation->objectId  = $objectId;
     $relation->typeId    = $typeId;
-    $relation->indexOnSave = !$this->searchIndexingDisabled;
+    $relation->indexOnSave = false;
     $relation->save();
     return $relation;
   }
@@ -2142,7 +2142,7 @@ class QubitFlatfileImport
    *
    * @return QubitObjectTermRelation  created relation
    */
-  public static function createObjectTermRelation($objectId, $termId, $searchIndexingDisabled = false)
+  public static function createObjectTermRelation($objectId, $termId)
   {
     // Prevent duplicate object-term relations.
     if (self::objectTermRelationExists($objectId, $termId))
@@ -2153,7 +2153,7 @@ class QubitFlatfileImport
     $relation = new QubitObjectTermRelation;
     $relation->termId = $termId;
     $relation->objectId = $objectId;
-    $relation->indexOnSave = !$searchIndexingDisabled;
+    $relation->indexOnSave = false;
     $relation->save();
 
     return $relation;
@@ -2210,7 +2210,7 @@ class QubitFlatfileImport
 
     foreach($termArray as $term)
     {
-      self::createObjectTermRelation($this->object->id, $term->id, $this->searchIndexingDisabled);
+      self::createObjectTermRelation($this->object->id, $term->id);
     }
     return $termArray;
   }
@@ -2359,7 +2359,7 @@ class QubitFlatfileImport
     }
 
     $property->setValue(serialize(array_unique($values)), array('sourceCulture' => true));
-    $property->indexOnSave = !$this->searchIndexingDisabled;
+    $property->indexOnSave = false;
     $property->save();
   }
 
