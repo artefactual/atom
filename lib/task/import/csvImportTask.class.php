@@ -970,6 +970,9 @@ EOF;
           $io = QubitInformationObject::getByid($self->object->id);
           $io->save();
         }
+
+        // Reduce memory usage
+        Qubit::clearClassCaches();
       }
     ));
 
