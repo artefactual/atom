@@ -185,13 +185,13 @@ class arElasticSearchInformationObjectPdo
     {
       $sql = 'WITH RECURSIVE cte AS
       	(
-      	  SELECT io1.id, io1.parent_id, io1.identifier, io1.repository_id, io1.lft
-          FROM information_object io1 WHERE io1.id = ?
+      	  SELECT io1.id, io1.parent_id, io1.identifier, io1.repository_id, 1 as lev
+      	  FROM information_object io1 WHERE io1.id = ?
       	  UNION ALL
-      	  SELECT io2.id, io2.parent_id, io2.identifier, io2.repository_id, io2.lft
-          FROM information_object io2 JOIN cte ON cte.parent_id=io2 .id
+      	  SELECT io2.id, io2.parent_id, io2.identifier, io2.repository_id, cte.lev + 1
+      	  FROM information_object io2 JOIN cte ON cte.parent_id=io2 .id
       	)
-      	SELECT id, identifier, repository_id FROM cte ORDER BY lft';
+      	SELECT id, identifier, repository_id FROM cte ORDER BY lev DESC';
 
       $this->ancestors = QubitPdo::fetchAll(
         $sql,
@@ -810,7 +810,6 @@ class arElasticSearchInformationObjectPdo
     $serialized['referenceCodeWithoutCountryAndRepo'] = $this->getReferenceCode(false);
     $serialized['levelOfDescriptionId'] = $this->level_of_description_id;
     $serialized['publicationStatusId'] = $this->publication_status_id;
-    $serialized['lft'] = $this->lft;
 
     // Alternative identifiers
     $alternativeIdentifiers = $this->getAlternativeIdentifiers();
