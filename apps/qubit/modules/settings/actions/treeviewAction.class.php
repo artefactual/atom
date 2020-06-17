@@ -129,7 +129,12 @@ class SettingsTreeviewAction extends DefaultEditAction
         }
         $this->form->setDefault($name, $default);
 
-        $this->form->setValidator($name, new sfValidatorInteger(array('min' => 10, 'max' => 1000)));
+        $this->form->setValidator($name, new sfValidatorInteger(
+          array(
+            'min' => 10,
+            'max' => sfConfig::get('app_treeview_items_per_page_max', 10000)
+          )
+        ));
         $this->form->setWidget($name, new sfWidgetFormInput);
 
         break;

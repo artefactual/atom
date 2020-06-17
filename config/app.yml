@@ -56,3 +56,6 @@ all:
   # Specify password_hash algorithm options (as JSON)
   # See: https://www.php.net/manual/en/function.password-hash.php
   password_hash_algorithm_options: {"memory_cost": "2048", "time_cost": "4", "threads": "3"}
+
+  # Maximum allowed value for full-width treeview "items per page" setting
+  treeview_items_per_page_max: 10000

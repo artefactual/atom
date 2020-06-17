@@ -1,3 +1,5 @@
+<?php use_helper('Number') ?>
+
 <?php decorate_with('layout_2col.php') ?>
 
 <?php slot('sidebar') ?>
@@ -87,7 +89,16 @@
         <p>
             <?php echo $form->fullItemsPerPage
               ->label(__('Items per page'))
-              ->help(__('Items per page can be a minimum of 10 and a maximum of 1000'))
+              ->help(
+                  __('Items per page can be a minimum of %1% and a maximum of %2%',
+                    array(
+                      '%1%' => format_number(10),
+                      '%2%' => format_number(
+                        sfConfig::get('app_treeview_items_per_page_max', 10000)
+                      )
+                    )
+                  )
+                )
               ->renderRow() ?>
         </p>
 
