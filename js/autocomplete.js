@@ -7,36 +7,163 @@
 
         // Keep a list of new releated resource forms that must be submitted
         // before $form so we can get the URIs after they are created
-        var newRelatedResourceForms = [];
+        var relatedResourceForms = [];
 
-        function done($iframeForm) {
-          var i = newRelatedResourceForms.indexOf($iframeForm);
-
-          // Remove $form from newRelatedResourceForms stack
-          if (i > -1) {
-            newRelatedResourceForms.splice(i, 1);
+        // Add an item to the array, but prevent adding a duplicate item
+        relatedResourceForms.add = function (item) {
+          if (-1 == this.indexOf(item)) {
+            this.push(item);
           }
 
+          return this;
+        }
+
+        // Remove an item from the array, by value
+        relatedResourceForms.remove = function (item) {
+          var i = this.indexOf(item);
+
+          if (i > -1) {
+            this.splice(i, 1);
+          }
+
+          return this;
+        }
+
+        function done($relatedResourceForm) {
+          // Remove $relatedResourceForm from stack
+          relatedResourceForms.remove($relatedResourceForm);
+
           // If stack is empty, submit the main $form
-          if (0 == newRelatedResourceForms.length) {
+          if (0 == relatedResourceForms.length) {
             $form.submit();
           }
         }
 
         // Submit forms to create new related resources (e.g. subjects)
         function submitRelatedResourceForms() {
-          if (0 == newRelatedResourceForms.length) {
-            // Return true to continue with form submit
-            return true;
+          var count = 0;
+
+          for (var i = 0; i < relatedResourceForms.length; i++) {
+            relatedResourceForms[i].submit();
+
+            count++;
           }
 
-          for (var i = 0; i < newRelatedResourceForms.length; i++) {
-            newRelatedResourceForms[i].submit();
+          // If no relatedResourceForms were submitted, continue with main form
+          // submit by returning true
+          if (0 == count) {
+            return true;
           }
 
           // Prevent $form.submit() from continuing - final submit will be
           // triggered by done() function above
           return false;
+        }
+
+        function getRelatedResourceForm(
+          $inputUser,
+          $inputHidden,
+          iframeSrc,
+          rrFormInputId
+        ) {
+          // If relatedResourceForm has already been created for this $inputUser,
+          // return it
+          if ($inputUser.data('relatedResourceForm')) {
+            // Make sure the related form is in the relatedResourceForms list
+            relatedResourceForms.add($inputUser.data('relatedResourceForm'));
+
+            return $inputUser.data('relatedResourceForm');
+          }
+
+          // Otherwise create a new iframe and load the web page (iframeSrc) that
+          // provides the necessary form to create the new related resource
+          return addRelatedResourceIframe(
+            $inputUser,
+            $inputHidden,
+            iframeSrc,
+            rrFormInputId
+          );
+        }
+
+        /**
+         * Create or link to an iframe containing a form which will be submitted
+         * to create a new related resource (e.g. a new term). After submitting
+         * the iframe form, get the related resource URI from the iframe, and
+         * update the $inputHidden input with the URI value.
+         *
+         * @param {*} $inputUser The visible input (main form) which holds the
+         *   user entered label for the new related resource
+         * @param {*} $inputHidden The hidden input (main form) which is updated
+         *   with the related resource URI after the iframe form is submitted
+         *   to create the new related resource
+         * @param {*} iframeSrc The URI of the AtoM page used to create the new
+         *   related resource (e.g. /term/add), the <iframe> @src value
+         * @param {*} rrFormInputId The $inputUser label is copied to this iframe
+         *   input to set the label of the related resource (e.g. term name) on
+         *   sumbit of the iframe form
+         */
+
+        function addRelatedResourceIframe(
+          $inputUser,
+          $inputHidden,
+          iframeSrc,
+          rrFormInputId
+        ) {
+          // Add hidden <iframe/>
+          var $iframe = $('<iframe/>')
+            .width(0)
+            .height(0)
+            .css('border', 0);
+
+          // Wait until iframe contents have loaded so $input and $relatedResourceForm
+          // selectors work
+          $iframe.one('load', function () {
+            // Get iframe > form > input for setting the new resource label
+            var $input = $iframe.contents().find(rrFormInputId);
+
+            // $($input[0].form) is apparently faster than $input.closest("form")
+            var $relatedResourceForm = $($input[0].form);
+
+            // Add one submit handler for each new choice. Use a named function
+            // so it can be unbound if the choice is removed
+            var submitCallback = function () {
+              // After iframe form is submitted, wait for HTTP response to trigger
+              // "load" event
+              $iframe.one('load', function () {
+                // Add the resulting page URI (e.g. "/newSubjectName") of the
+                // response to the $inputHidden element
+                $inputHidden
+                  .val(this.contentWindow.document.location)
+                  .trigger('change');
+
+                // Submit $form when all relatedResourceForms have returned and
+                // $inputHidden has been updated with the new URI
+                done($relatedResourceForm);
+              });
+
+              // Update the iframe input's value with the user entered label
+              $input.val($inputUser.val());
+
+              $relatedResourceForm.submit();
+            }
+
+            // Add $relatedResourceForm to stack of forms to be submitted
+            relatedResourceForms.add($relatedResourceForm);
+
+            // Bind submit handler to fire on first form submit
+            $relatedResourceForm.one('submit', submitCallback);
+
+            // Store a link from this input to the relatedResourceForm
+            $inputUser.data('relatedResourceForm', $relatedResourceForm);
+          });
+
+          // Set iframe source to load page *after* defining onload handler
+          $iframe.attr('src', iframeSrc);
+
+          // Add $iframe to bottom of HTML DOM
+          $iframe.appendTo('body');
+
+          return $relatedResourceForm;
         }
 
         // Submit any related resource forms and wait for response before
@@ -49,61 +176,6 @@
 
         // Use $(document).on('loadFunctions') to add function in new rows created with multiRow.js
         $(document).on('loadFunctions', 'select.form-autocomplete', createYuiDiv);
-
-        function createIFrame($src, $dest, uri, targetInputId) {
-          // Add hidden <iframe/>
-          var $iframe = $('<iframe/>')
-            .width(0)
-            .height(0)
-            .css('border', 0);
-
-          // Wait until iframe contents have loaded so $input and $iframeForm
-          // selectors work
-          $iframe.one('load', function () {
-            // Get iframe > form > input using targetInputId, and parent form
-            var $input = $iframe.contents().find(targetInputId);
-
-            // $($input[0].form) should be faster than $input.closest("form")
-            var $iframeForm = $($input[0].form);
-
-            // Add one submit handler for each new choice. Use a named function
-            // so it can be unbound if the choice is removed
-            var submitCallback = function () {
-              // After iframe form is submitted, wait for HTTP response to trigger
-              // "load" event
-              $iframe.one('load', function () {
-                // Add the resulting page URI (e.g. "/newSubjectName") of the
-                // response to the $dest element
-                $dest.val(this.contentWindow.document.location).trigger('change');
-
-                // Submit $form when all newRelatedResourceForms have returned and
-                // $dest has been updated with the new URI
-                done($iframeForm);
-              });
-
-              // Update the target input's value with the entered text
-              $input.val($src.val());
-
-              $iframeForm.submit();
-            }
-
-            // Bind submit handler to fire once on first form submit
-            $iframeForm.one('submit', submitCallback);
-
-            // Add $iframeForm to stack
-            newRelatedResourceForms.push($iframeForm);
-
-            // Track targetInputId and submitCallback for this iframe
-            $iframe
-              .data('targetInputId', targetInputId)
-              .data('submitCallback', submitCallback)
-          });
-
-          // Set iframe source to load page *after* defining onload handler
-          $iframe.attr('src', uri);
-
-          return $iframe;
-        }
 
         // This function help us to know if a .multiple select has
         // already a given value and highlight it if wished
@@ -202,8 +274,8 @@
                     $(this).remove();
                   });
 
-                  // Cancel preSubmit listener
-                  $form.off($iframe.data('submitCallback'));
+                  // Remove relatedResourceForm from stack
+                  relatedResourceForms.remove($input.data('relatedResourceForm'));
                 }
               })
 
@@ -282,10 +354,10 @@
           // NOTE: $('~ .list', this) stopped working in jQuery 1.4.4
           var value = $(this).siblings('.list').val();
           if (value) {
-            var uri, targetInputId;
+            var uri, rrFormInputId;
 
             // Split into URI and selector like jQuery load()
-            [uri, targetInputId] = value.split(' ', 2);
+            [uri, rrFormInputId] = value.split(' ', 2);
 
             var dataSource = new YAHOO.util.XHRDataSource(uri);
 
@@ -519,9 +591,9 @@
           var value = $add.val();
           if (value) {
             // Split into URI and selector like jQuery load()
-            var uri, targetInputId;
+            var uri, rrFormInputId;
 
-            [uri, targetInputId] = value.split(' ', 2);
+            [uri, rrFormInputId] = value.split(' ', 2);
 
             // Support for data-link-existing="true"
             if ($add.data('link-existing') === true) {
@@ -532,7 +604,7 @@
 
             // The following applies to both single and multiple <select/>
             autoComplete.unmatchedItemSelectEvent.subscribe(function () {
-              var $iframe;
+              var $relatedResourceForm;
 
               // Stop throbbing
               $input.removeClass('throbbing');
@@ -541,7 +613,7 @@
                 if (!$select.attr('multiple')) {
                   // Create iframe which will be submitted to create a new
                   // related resource from the "unmatched" value
-                  $iframe = createIFrame($input, $hidden, uri, targetInputId);
+                  $relatedResourceForm = getRelatedResourceForm($input, $hidden, uri, rrFormInputId);
                 } else {
                   // Cancel default action of saved DOM event so as
                   // not to loose focus when selecting multiple items
@@ -555,23 +627,21 @@
                   // will replace it
                   $input.select();
 
-                  // Create $iframe bound to $clone <input \>
-                  $iframe = createIFrame(
+                  // Get or create form (in an iframe) to create the related
+                  // resource
+                  $relatedResourceForm = getRelatedResourceForm(
                     $li.find('input[type=text]'),
                     $li.find('input[type=hidden]'),
                     uri,
-                    targetInputId
+                    rrFormInputId
                   );
                 }
-
-                // Add $iframe to bottom of HTML DOM
-                $iframe.appendTo('body');
               }
               else {
                 $hidden.val('').trigger('change');
 
-                // If unmatched item is empty, cancel iframe submit listener
-                $form.off($iframe.data('submitCallback'));
+                // If unmatched item is empty, remove form from stack
+                relatedResourceForms.remove($relatedResourceForm);
               }
             });
 
@@ -579,8 +649,8 @@
               // Selecting existing item cancels addition of a new
               // choice
               autoComplete.itemSelectEvent.subscribe(function () {
-                // Cancel iframe submit listener
-                $form.off($iframe.data('submitCallback'));
+                // Remove form from stack
+                relatedResourceForms.remove($relatedResourceForm);
 
                 // Trigger event to load item data if it's needed
                 $input.trigger({
