@@ -64,28 +64,28 @@ class csvActorExport extends QubitFlatfileExport
       // Take note of relationship type
       $relationType = $relation->type;
 
-      /* If the current actor being exported is the subject, rather than object, of a
+      /* If the current actor being exported is the object, rather than subject, of a
          relation then we check for a converse relationship type, if any, to put in
          the "relationType" column.
 
-         For example if the current actor is the subject of a "controls" type relation
-         (where the object "controls" the subject) then the converse relationship type
+         For example if the current actor is the object of a "controls" type relation
+         (where the subject "controls" the object) then the converse relationship type
          would be "is controlled by".
 
          Some relation types like "is the sibling of", however, are reciprical and
          don't have converse types. A lookup of the converse type for this relation type
          will return null.
       */
-      if ($relation->subjectId == $resource->id)
+      if ($relation->objectId == $resource->id)
       {
         $converseRelation = $relationType->getConverseActorRelationTerm();
         $relationType = (empty($converseRelation)) ? $relationType : $converseRelation;
       }
 
       $rows[] = array(
-        'objectAuthorizedFormOfName'  => $resource->authorizedFormOfName,
         'subjectAuthorizedFormOfName' => $relatedEntity->authorizedFormOfName,
         'relationType'                => (string)$relationType, // Return string representation for QubitTerm
+        'objectAuthorizedFormOfName'  => $resource->authorizedFormOfName,
         'description'                 => $relation->description,
         'date'                        => $relation->date,
         'startDate'                   => $relation->startDate,
