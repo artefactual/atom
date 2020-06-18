@@ -238,6 +238,16 @@ EOF;
     // Restore sql_mode
     QubitPdo::modify("SET sql_mode='$sqlMode'");
 
+    // Analyze tables:
+    // - Performs and stores a key distribution analysis (if the table
+    //   has not changed since the last one, its not analyzed again).
+    // - Determines index cardinality, used for join optimizations.
+    // - Removes the table from the definition cache.
+    foreach (QubitPdo::fetchAll("SHOW TABLES;", [], ['fetchMode' => PDO::FETCH_COLUMN]) as $table)
+    {
+      QubitPdo::modify(sprintf('ANALYZE TABLE `%s`;', $table));
+    }
+
     // Delete cache files (for menus, etc.)
     foreach (sfFinder::type('file')->name('*.cache')->in(sfConfig::get('sf_cache_dir')) as $cacheFile)
     {
@@ -248,8 +258,6 @@ EOF;
     $cacheClear = new sfCacheClearTask(sfContext::getInstance()->getEventDispatcher(), new sfAnsiColorFormatter);
     $cacheClear->run();
 
-    $this->logSection('upgrade-sql', sprintf('Successfully upgraded to Release %s v%s', qubitConfiguration::VERSION, $version));
-
     // Store the milestone in settings, we're going to need that in further upgrades!
     // Use case: a user running 1.x for a long period after 2.x release, then upgrades
     $this->updateMilestone();
@@ -257,6 +265,8 @@ EOF;
     // Clear settings cache to reload them in sfConfig on the first request
     // after the upgrade in QubitSettingsFilter.
     QubitCache::getInstance()->removePattern('settings:i18n:*');
+
+    $this->logSection('upgrade-sql', sprintf('Successfully upgraded to Release %s v%s', qubitConfiguration::VERSION, $version));
   }
 
   /**
