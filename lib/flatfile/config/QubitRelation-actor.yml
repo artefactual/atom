@@ -1,7 +1,7 @@
 # Columns that should be included in the actor relation import
 columnNames:
- - objectAuthorizedFormOfName
  - subjectAuthorizedFormOfName
+ - objectAuthorizedFormOfName
  - relationType
  - description
  - date
