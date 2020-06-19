@@ -58,6 +58,8 @@ QubitMenu:
       de: Hinzufügen
       de-AT: Hinzufügen
       de-CH: Hinzufügen
+      de_AT: Hinzufügen
+      de_CH: Hinzufügen
       el: Εισαγωγή
       en: Add
       es: Agregar
@@ -79,6 +81,7 @@ QubitMenu:
       pt-BR: Adicionar
       pt_BR: Adicionar
       ru: Добавить
+      ru_RU: Добавить
       sl: Dodaj
       sr: Додај
       sv: 'Lägg till'
@@ -145,6 +148,7 @@ QubitMenu:
       ja: コレクションをブラウズ
       pt: 'Navegar na colecção'
       pt-BR: 'Navegue nossa coleção'
+      pt_BR: 'Navegue pela nossa coleção'
       sr: 'Прегледај наше збирке'
       sv: 'Sök i vår samling'
   QubitMenu_mainmenu_manage_accessions:
@@ -236,6 +240,7 @@ QubitMenu:
       it: Operazioni
       pt: Tarefas
       pt-BR: Trabalhos
+      pt_BR: Trabalhos
       ru: Задания
       sl: Dela
       sr: Послови
@@ -254,6 +259,8 @@ QubitMenu:
       de: Aufbewahrung
       de-AT: Aufbewahrung
       de-CH: Standort
+      de_AT: Aufbewahrung
+      de_CH: Standort
       el: 'Χώρος Αποθήκευσης'
       en: 'Physical storage'
       es: 'Unidad de almacenaje'
@@ -365,6 +372,8 @@ QubitMenu:
       de: Importieren
       de-AT: Importieren
       de-CH: Importieren
+      de_AT: Importieren
+      de_CH: Importieren
       el: Εισαγωγή
       en: Import
       es: Importar
@@ -386,6 +395,7 @@ QubitMenu:
       pt-BR: Importar
       pt_BR: Importar
       ru: Импорт
+      ru_RU: Импорт
       sl: Uvoz
       sr: Увези
       sv: Importera
@@ -657,6 +667,8 @@ QubitMenu:
       de: XML
       de-AT: XML
       de-CH: XML
+      de_AT: XML
+      de_CH: XML
       el: XML
       en: XML
       es: XML
@@ -693,6 +705,8 @@ QubitMenu:
       de: CSV
       de-AT: CSV
       de-CH: CSV
+      de_AT: CSV
+      de_CH: CSV
       el: CSV
       en: CSV
       es: CSV
@@ -729,6 +743,8 @@ QubitMenu:
       de: SKOS
       de-AT: SKOS
       de-CH: SKOS
+      de_AT: SKOS
+      de_CH: SKOS
       el: SKOS
       en: SKOS
       es: SKOS
@@ -745,6 +761,7 @@ QubitMenu:
       pl: SKOS
       pt: SKOS
       pt-BR: SKOS
+      pt_BR: SKOS
       ro: SKOS
       sl: SKOS
       sr: SKOS
@@ -1385,6 +1402,8 @@ QubitMenu:
       de: 'Allgemeines Suchen/Ersetzen'
       de-AT: 'Allgemeines Suchen/Ersetzen'
       de-CH: 'Allgemeines Suchen/Ersetzen'
+      de_AT: 'Allgemeines Suchen/Ersetzen'
+      de_CH: 'Allgemeines Suchen/Ersetzen'
       el: 'Γενική αναζήτηση/αντικατάσταση'
       en: 'Global search/replace'
       es: 'Buscar/reemplazar global'
@@ -1422,6 +1441,8 @@ QubitMenu:
       de: Startseite
       de-AT: Startseite
       de-CH: Startseite
+      de_AT: Startseite
+      de_CH: Startseite
       el: Αρχική
       en: Home
       es: Inicio
@@ -1494,6 +1515,7 @@ QubitMenu:
       en: 'Privacy Policy'
       fr: 'Politique de confidentialité'
       id: 'Kebijakan Privasi'
+      pt_BR: 'Política de Privacidade'
       sv: Sekretesspolicy
     path: 'staticpage/index?slug=privacy'
   QubitMenu_quicklinks_help:
@@ -1583,6 +1605,8 @@ QubitMenu:
       de: Anmelden
       de-AT: Anmelden
       de-CH: Anmelden
+      de_AT: Anmelden
+      de_CH: Anmelden
       el: Σύνδεση
       en: 'Log in'
       es: 'Iniciar sesión'
@@ -1604,6 +1628,7 @@ QubitMenu:
       pt-BR: Entrar
       pt_BR: Entrar
       ru: Войти
+      ru_RU: Войти
       sl: Prijava
       sr: 'Пријави се'
       sv: 'Logga in'
@@ -1803,6 +1828,8 @@ QubitMenu:
       de: Themen
       de-AT: Themen
       de-CH: Themen
+      de_AT: Themen
+      de_CH: Themen
       el: Θέματα
       en: Subjects
       es: Materias
@@ -1822,6 +1849,7 @@ QubitMenu:
       pt-BR: Assuntos
       pt_BR: Assuntos
       ru: Темы
+      ru_RU: Темы
       sl: Osebe
       sr: Теме
       sv: Ämnen
@@ -1843,6 +1871,8 @@ QubitMenu:
       de: Orte
       de-AT: Orte
       de-CH: Orte
+      de_AT: Orte
+      de_CH: Orte
       el: Τοποθεσίες
       en: Places
       es: Lugares
@@ -1864,6 +1894,7 @@ QubitMenu:
       pt-BR: Locais
       pt_BR: Locais
       ru: Места
+      ru_RU: Места
       sl: Kraji
       sr: Места
       sv: Platser
@@ -1886,6 +1917,8 @@ QubitMenu:
       de: 'Digitales Objekt'
       de-AT: 'Digitales Objekt'
       de-CH: 'Digitale Objekte'
+      de_AT: 'Digitales Objekt'
+      de_CH: 'Digitale Objekte'
       el: 'Ψηφιακά αντικείμενα'
       en: 'Digital objects'
       es: 'Objetos digitales'
@@ -1906,6 +1939,7 @@ QubitMenu:
       pt-BR: 'Objetos digitais'
       pt_BR: 'Objetos digitais'
       ru: 'Цифровые объекты'
+      ru_RU: 'Цифровые объекты'
       sl: 'Digitalni predmeti'
       sr: 'Дигитални објекти'
       sv: 'Digitala objekt'
@@ -1927,6 +1961,8 @@ QubitMenu:
       de: 'Sichtbare Elemente'
       de-AT: 'Sichtbare Elemente'
       de-CH: 'Sichtbare Elemente'
+      de_AT: 'Sichtbare Elemente'
+      de_CH: 'Sichtbare Elemente'
       el: 'Ορατά στοιχεία'
       en: 'Visible elements'
       es: 'Elementos visibles'
@@ -1945,6 +1981,7 @@ QubitMenu:
       pt-BR: 'Elementos visiveis'
       pt_BR: 'Elementos visiveis'
       ru: 'Видимые элементы'
+      ru_RU: 'Видимые элементы'
       sl: 'Vidni elementi'
       sr: 'Видљива поља'
       sv: 'Synliga element'
@@ -1980,6 +2017,7 @@ QubitMenu:
       pl: 'Strony statyczne'
       pt: 'Páginas estáticas'
       pt-BR: 'Páginas estáticas'
+      pt_BR: 'Páginas estáticas'
       sl: 'Statične strani'
       sr: 'Статичнe странe'
       sv: 'Statiska sidor'
@@ -1998,6 +2036,8 @@ QubitMenu:
       de: Zwischenablage
       de-AT: Zwischenablage
       de-CH: Zwischenablage
+      de_AT: Zwischenablage
+      de_CH: Zwischenablage
       en: Clipboard
       es: Portapapeles
       fr: Presse-papier
@@ -2007,6 +2047,7 @@ QubitMenu:
       it: 'Area di lavoro'
       pt: 'Área de transferência'
       pt-BR: 'Área de Transferência'
+      pt_BR: 'Área de Transferência'
       sr: Међумеморија
       sv: Urklipp
       ta: கிளிப்போர்டு
@@ -2026,6 +2067,7 @@ QubitMenu:
       it: 'Annullare tutte le selezioni'
       pt: 'Limpar todas as selecções'
       pt-BR: 'Limpar todas as seleções'
+      pt_BR: 'Limpar todas as seleções'
       sr: 'Обриши све ознаке'
       sv: 'Rensa val'
     path: user/clipboardClear
@@ -2045,6 +2087,7 @@ QubitMenu:
       it: 'Vai all''area di lavoro'
       pt: 'Ir para a área de transferência'
       pt-BR: 'Ir para a área de transferência'
+      pt_BR: 'Ir para a área de transferência'
       sr: 'Иди у међумеморију'
       sv: 'Gå till urklipp'
     path: user/clipboard
@@ -2064,6 +2107,7 @@ QubitMenu:
       it: 'Carica l''area di lavoro'
       pt: 'Carregar Área de Transferência'
       pt-BR: 'Carregar Área de Transferência'
+      pt_BR: 'Carregar Área de Transferência'
       sr: 'Учитај међумеморију'
       sv: 'Ladda urklipp'
       ta: 'நகல்நினைவியை நிரலேற்றுக'
@@ -2077,6 +2121,7 @@ QubitMenu:
       fr: 'Sauvegarder le presse-papier'
       hu: 'Vágólap mentése'
       id: 'Simpan clipboard'
+      pt_BR: 'Salvar área de transferência'
       sv: 'Spara urklipp'
     path: user/clipboardSave
   QubitMenu_browseinstitution_informationobjects:
@@ -2126,6 +2171,8 @@ QubitMenu:
       de: 'Digitales Objekt'
       de-AT: 'Digitales Objekt'
       de-CH: 'Digitale Objekte'
+      de_AT: 'Digitales Objekt'
+      de_CH: 'Digitale Objekte'
       el: 'Ψηφιακά αντικείμενα'
       en: 'Digital objects'
       es: 'Objetos digitales'
@@ -2146,6 +2193,7 @@ QubitMenu:
       pt-BR: 'Objetos digitais'
       pt_BR: 'Objetos digitais'
       ru: 'Цифровые объекты'
+      ru_RU: 'Цифровые объекты'
       sl: 'Digitalni predmeti'
       sr: 'Дигитални објекти'
       sv: 'Digitala objekt'

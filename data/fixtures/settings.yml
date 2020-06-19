@@ -158,6 +158,8 @@ QubitSetting:
       de: Urheber/Bestandsbildner
       de-AT: Urheber/Bestandsbildner
       de-CH: Urheber/Bestandsbildner
+      de_AT: Urheber/Bestandsbildner
+      de_CH: Urheber/Bestandsbildner
       el: Παραγωγός
       en: Creator
       es: Creador
@@ -178,6 +180,7 @@ QubitSetting:
       pt-BR: Produtor
       pt_BR: Produtor
       ru: Создатель
+      ru_RU: Создатель
       sl: Ustvaril
       sr: 'Стваралац архивске грађе'
       sv: Arkivbildare
@@ -312,6 +315,8 @@ QubitSetting:
       de: Gegenstand
       de-AT: Gegenstand
       de-CH: Gegenstand
+      de_AT: Gegenstand
+      de_CH: Gegenstand
       el: Θέμα
       en: Subject
       es: Materia
@@ -332,6 +337,7 @@ QubitSetting:
       pt-BR: Assunto
       pt_BR: Assunto
       ru: Тема
+      ru_RU: Тема
       sl: Tematika
       sr: Тема
       sv: Ämne
@@ -392,6 +398,8 @@ QubitSetting:
       de: Bestände
       de-AT: Bestände
       de-CH: Bestände
+      de_AT: Bestände
+      de_CH: Bestände
       en: Holdings
       es: Fondos
       eu: Inbertsioak
@@ -432,6 +440,8 @@ QubitSetting:
       de: Ort
       de-AT: Ort
       de-CH: Ort
+      de_AT: Ort
+      de_CH: Ort
       el: Τόπος
       en: Place
       es: Lugar
@@ -453,6 +463,7 @@ QubitSetting:
       pt-BR: Local
       pt_BR: Local
       ru: Место
+      ru_RU: Место
       sl: Kraj
       sr: Место
       sv: Plats
@@ -476,6 +487,8 @@ QubitSetting:
       de: Name
       de-AT: Name
       de-CH: Name
+      de_AT: Name
+      de_CH: Name
       el: Όνομα
       en: Name
       es: Nombre
@@ -498,6 +511,7 @@ QubitSetting:
       pt_BR: Nome
       ro: Nume
       ru: Имя
+      ru_RU: Имя
       sl: Ime
       sr: Назив/Име
       sv: Namn
@@ -558,6 +572,8 @@ QubitSetting:
       de: Aufbewahrung
       de-AT: Aufbewahrung
       de-CH: Standort
+      de_AT: Aufbewahrung
+      de_CH: Standort
       el: 'Χώρος Αποθήκευσης'
       en: 'Physical storage'
       es: 'Unidad de almacenaje'
@@ -598,6 +614,8 @@ QubitSetting:
       de: Medienart
       de-AT: Medienart
       de-CH: Medienart
+      de_AT: Medienart
+      de_CH: Medienart
       el: 'Τύπος μέσου'
       en: 'Media type'
       es: 'Tipo de soporte'
@@ -620,6 +638,7 @@ QubitSetting:
       pt_BR: 'Tipo de mídia'
       ro: 'Tipul media'
       ru: 'Тип носителя'
+      ru_RU: 'Тип носителя'
       sl: 'Vrsta medija'
       sr: 'Врста медија'
       sv: Mediatyp
@@ -717,6 +736,7 @@ QubitSetting:
       it: Genere
       pt: Género
       pt-BR: Gênero
+      pt_BR: Gênero
       ru: Жанр
       sl: Zvrst
       sr: жанр
@@ -738,6 +758,8 @@ QubitSetting:
       de: Suche
       de-AT: Suche
       de-CH: Suche
+      de_AT: Suche
+      de_CH: Suche
       el: Αναζήτηση
       en: Search
       es: Búsqueda
@@ -757,8 +779,10 @@ QubitSetting:
       pl: Szukaj
       pt: Pesquisar
       pt-BR: Pesquisar
+      pt_BR: Pesquisar
       ro: Cautati
       ru: Поиск
+      ru_RU: Поиск
       sl: Išči
       sr: Претражи
       sv: Sök
@@ -784,6 +808,7 @@ QubitSetting:
       it: 'Cerca la'
       pt: 'Pesquise na nossa colecção'
       pt-BR: 'Busque nossa coleção'
+      pt_BR: 'Pesquise nossa coleção'
       sr: 'Претражи наше збирке'
       sv: 'Sök i vår samling'
   QubitSetting_fullTreeviewCollapseOpenedButtonText:
@@ -794,6 +819,7 @@ QubitSetting:
     source_culture: en
     value:
       en: 'Hide hierarchy'
+      pt_BR: 'Ocultar hierarquia'
   QubitSetting_fullTreeviewCollapseClosedButtonText:
     name: fullTreeviewCollapseClosedButtonText
     scope: ui_label
@@ -802,6 +828,7 @@ QubitSetting:
     source_culture: en
     value:
       en: 'Show hierarchy'
+      pt_BR: 'Mostrar hierarquia'
   QubitSetting_authority_record_relationships:
     name: authority_record_relationships
     scope: ui_label
@@ -810,6 +837,8 @@ QubitSetting:
     source_culture: en
     value:
       en: 'Authority record relationships'
+      pt: 'Relacionamentos de registro de autoridade'
+      pt_BR: 'Relacionamentos de registro de autoridade'
   QubitSetting_26:
     name: en
     scope: i18n_languages
