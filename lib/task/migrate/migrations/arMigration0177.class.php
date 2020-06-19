@@ -59,6 +59,7 @@ class arMigration0177
     // Rename indexes:
     // - IO `display_standard_id` (unnamed on migration 94).
     // - Job `user_id` and `object_id` (misnamed on migration 111).
+    // - DO `parent_id` (not renamed in arUpgrader110).
     QubitMigrate::updateIndexes(array(
       array(
         'table' => 'information_object',
@@ -75,11 +76,17 @@ class arMigration0177
         'column' => 'object_id',
         'index' => 'job_FI_3',
       ),
+      array(
+        'table' => 'digital_object',
+        'column' => 'parent_id',
+        'index' => 'digital_object_FI_5',
+      ),
     ));
 
     // Fix foreign keys:
     // - Restore ON DELETE CASCADE on DO `object_id` (missing on migration 169).
     // - Rename IO `display_standard_id` constraint (unnamed on migration 94).
+    // - Rename slug `object_id` constraint (unnamed on arUpgrader110).
     QubitMigrate::updateForeignKeys(array(
       array(
         'table' => 'digital_object',
@@ -94,6 +101,13 @@ class arMigration0177
         'refTable' => 'term',
         'constraint' => 'information_object_FK_8',
         'onDelete' => 'ON DELETE SET NULL',
+      ),
+      array(
+        'table' => 'slug',
+        'column' => 'object_id',
+        'refTable' => 'object',
+        'constraint' => 'slug_FK_1',
+        'onDelete' => 'ON DELETE CASCADE',
       ),
     ));
 
