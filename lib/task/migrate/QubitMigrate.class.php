@@ -930,16 +930,20 @@ class QubitMigrate
 
   public static function updateForeignKeys($foreignKeys)
   {
+    $dbname = QubitPdo::fetchColumn('select database();');
+
     foreach ($foreignKeys as $foreignKey)
     {
       // Get actual contraint name
       $sql = 'SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE ';
       $sql .= 'WHERE TABLE_NAME=:table AND COLUMN_NAME=:column ';
-      $sql .= 'AND REFERENCED_TABLE_NAME=:refTable;';
+      $sql .= 'AND REFERENCED_TABLE_NAME=:refTable ';
+      $sql .= 'AND CONSTRAINT_SCHEMA=:dbname';
       $oldConstraintName = QubitPdo::fetchColumn($sql, array(
         ':table' => $foreignKey['table'],
         ':column' => $foreignKey['column'],
         ':refTable' => $foreignKey['refTable'],
+        ':dbname' => $dbname,
       ));
 
       // Stop if the foreign key is missing

@@ -83,86 +83,50 @@ class arMigration0176
     }
 
     // Recreate foreign keys to match a new install
-    $foreignKeys = array(
+    QubitMigrate::updateForeignKeys(array(
       array(
-        'tableName' => 'function_object',
-        'columnName' => 'id',
-        'refTableName' => 'object',
-        'newConstraintName' => 'function_object_FK_1',
+        'table' => 'function_object',
+        'column' => 'id',
+        'refTable' => 'object',
+        'constraint' => 'function_object_FK_1',
         'onDelete' => 'ON DELETE CASCADE',
       ),
       array(
-        'tableName' => 'function_object',
-        'columnName' => 'type_id',
-        'refTableName' => 'term',
-        'newConstraintName' => 'function_object_FK_2',
+        'table' => 'function_object',
+        'column' => 'type_id',
+        'refTable' => 'term',
+        'constraint' => 'function_object_FK_2',
         'onDelete' => '',
       ),
       array(
-        'tableName' => 'function_object',
-        'columnName' => 'parent_id',
-        'refTableName' => 'function_object',
-        'newConstraintName' => 'function_object_FK_3',
+        'table' => 'function_object',
+        'column' => 'parent_id',
+        'refTable' => 'function_object',
+        'constraint' => 'function_object_FK_3',
         'onDelete' => '',
       ),
       array(
-        'tableName' => 'function_object',
-        'columnName' => 'description_status_id',
-        'refTableName' => 'term',
-        'newConstraintName' => 'function_object_FK_4',
+        'table' => 'function_object',
+        'column' => 'description_status_id',
+        'refTable' => 'term',
+        'constraint' => 'function_object_FK_4',
         'onDelete' => '',
       ),
       array(
-        'tableName' => 'function_object',
-        'columnName' => 'description_detail_id',
-        'refTableName' => 'term',
-        'newConstraintName' => 'function_object_FK_5',
+        'table' => 'function_object',
+        'column' => 'description_detail_id',
+        'refTable' => 'term',
+        'constraint' => 'function_object_FK_5',
         'onDelete' => '',
       ),
       array(
-        'tableName' => 'function_object_i18n',
-        'columnName' => 'id',
-        'refTableName' => 'function_object',
-        'newConstraintName' => 'function_object_i18n_FK_1',
+        'table' => 'function_object_i18n',
+        'column' => 'id',
+        'refTable' => 'function_object',
+        'constraint' => 'function_object_i18n_FK_1',
         'onDelete' => 'ON DELETE CASCADE',
       ),
-    );
-
-    foreach ($foreignKeys as $foreignKey)
-    {
-      // Get actual contraint name
-      $sql = 'SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE ';
-      $sql .= 'WHERE TABLE_NAME=:table_name AND COLUMN_NAME=:column_name ';
-      $sql .= 'AND REFERENCED_TABLE_NAME=:ref_table_name;';
-      $oldConstraintName = QubitPdo::fetchColumn($sql, array(
-        ':table_name' => $foreignKey['tableName'],
-        ':column_name' => $foreignKey['columnName'],
-        ':ref_table_name' => $foreignKey['refTableName'],
-      ));
-
-      // Stop if the foreign key is missing
-      if (!$oldConstraintName)
-      {
-        throw new Exception(sprintf(
-          "Could not find foreign key for '%s' column on '%s' table.",
-          $foreignKey['columnName'],
-          $foreignKey['tableName']
-        ));
-      }
-
-      $sql = 'ALTER TABLE %s DROP FOREIGN KEY %s,';
-      $sql .= 'ADD CONSTRAINT %s FOREIGN KEY (%s) ';
-      $sql .= 'REFERENCES %s (id) %s;';
-      QubitPdo::modify(sprintf(
-        $sql,
-        $foreignKey['tableName'],
-        $oldConstraintName,
-        $foreignKey['newConstraintName'],
-        $foreignKey['columnName'],
-        $foreignKey['refTableName'],
-        $foreignKey['onDelete']
-      ));
-    }
+    ));
 
     return true;
   }
