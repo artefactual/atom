@@ -91,7 +91,8 @@ EOF;
       QubitTaxonomy::ACCESSION_PROCESSING_STATUS_ID   => 'processingStatus',
       QubitTaxonomy::ACCESSION_PROCESSING_PRIORITY_ID => 'processingPriority',
       QubitTaxonomy::ACCESSION_ALTERNATIVE_IDENTIFIER_TYPE_ID => 'alternativeIdentifierTypes',
-      QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID          => 'physicalObjectTypes'
+      QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID          => 'physicalObjectTypes',
+      QubitTaxonomy::ACCESSION_EVENT_TYPE_ID          => 'accessionEventTypes'
     ));
 
     // Define import
@@ -115,6 +116,7 @@ EOF;
         'processingStatus'            => $termData['processingStatus'],
         'processingPriority'          => $termData['processingPriority'],
         'alternativeIdentifierTypes'  => $termData['alternativeIdentifierTypes'],
+        'accessionEventTypes'         => $termData['accessionEventTypes'],
         'assignId'                    => $options['assign-id']
       ),
 
@@ -143,6 +145,11 @@ EOF;
         'eventStartDates'      => '|',
         'eventEndDates'        => '|',
         'eventDescriptions'    => '|',
+
+        'accessionEventTypes'  => '|',
+        'accessionEventDates'  => '|',
+        'accessionEventAgents' => '|',
+        'accessionEventNotes'  => '|',
 
         // These columns are for backwards compatibility
         'creators'           => '|',
@@ -308,6 +315,60 @@ EOF;
 
           // Add events
           csvImportBaseTask::importEvents($self);
+
+          // Add accession events
+          $eventTypes = $self->rowStatusVars['accessionEventTypes'];
+          $eventDates = $self->rowStatusVars['accessionEventDates'];
+
+          if (!empty($eventTypes) || !empty($eventDates))
+          {
+            $eventAgents = $self->rowStatusVars['accessionEventAgents'];
+            $eventNotes = $self->rowStatusVars['accessionEventNotes'];
+
+            for ($index = 0; $index < count($eventTypes); $index++)
+            {
+              $eventType = (empty($eventTypes[$index])) ? null : $eventTypes[$index];
+              $eventDate = (empty($eventDates[$index])) ? null : $eventDates[$index];
+
+              if (!empty($eventType) && !empty($eventDate))
+              {
+                // Create new accession event type term, if necessary
+                if (empty($typeId = array_search_case_insensitive($eventType, $self->status['accessionEventTypes'][$self->columnValue('culture')])))
+                {
+                  $term = new QubitTerm;
+                  $term->parentId = QubitTerm::ROOT_ID;
+                  $term->taxonomyId = QubitTaxonomy::ACCESSION_EVENT_TYPE_ID;
+                  $term->setName($eventType, array('culture' => $self->columnValue('culture')));
+                  $term->sourceCulture = $self->columnValue('culture');
+                  $term->save();
+
+                  $self->status['accessionEventTypes'][$self->columnValue('culture')][$term->id] = $eventType;
+
+                  $typeId = $term->id;
+                }
+
+                $eventAgent = (empty($eventAgents[$index])) ? null : $eventAgents[$index];
+                $eventNoteText = (empty($eventNotes[$index])) ? null : $eventNotes[$index];
+
+                $event = new QubitAccessionEvent;
+                $event->accessionId = $self->object->id;
+                $event->typeId = $typeId;
+                $event->date = $eventDate;
+                $event->agent = $eventAgent;
+                $event->save();
+
+                // Add accession event notes
+                if (!empty($eventNoteText))
+                {
+                  $note = new QubitNote;
+                  $note->objectId = $event->id;
+                  $note->typeId = QubitTerm::ACCESSION_EVENT_NOTE_ID;
+                  $note->setContent($eventNoteText, array('culture' => $self->columnValue('culture')));
+                  $note->save();
+                }
+              }
+            }
+          }
 
           if (isset($self->rowStatusVars['donorName'])
             && $self->rowStatusVars['donorName'])
