@@ -26,6 +26,16 @@ class arElasticSearchOtherName extends arElasticSearchModelBase
     $serialized['sourceCulture'] = $object->source_culture;
     $serialized['i18n'] = self::serializeI18ns($object->id, array('QubitOtherName'));
 
+    // Serialize type term
+    if (!empty($object->type_id))
+    {
+      $serialized['type'] = ['i18n' => arElasticSearchModelBase::serializeI18ns(
+        $object->type_id,
+        array('QubitTerm'),
+        array('fields' => array('name'))
+      )];
+    }
+
     return $serialized;
   }
 }

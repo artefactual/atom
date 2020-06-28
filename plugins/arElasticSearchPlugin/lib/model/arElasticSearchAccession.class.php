@@ -92,7 +92,7 @@ class arElasticSearchAccession extends arElasticSearchModelBase
     $serialized['sourceCulture'] = $data['source_culture'];
     $serialized['i18n'] = self::serializeI18ns($id, array('QubitAccession'));
 
-    $sql = "SELECT o.id, o.source_culture FROM ".QubitOtherName::TABLE_NAME." o \r
+    $sql = "SELECT o.id, o.source_culture, o.type_id FROM ".QubitOtherName::TABLE_NAME." o \r
               INNER JOIN ".QubitTerm::TABLE_NAME." t ON o.type_id=t.id \r
               WHERE o.object_id = ? AND t.taxonomy_id= ?";
     $params = array($id, QubitTaxonomy::ACCESSION_ALTERNATIVE_IDENTIFIER_TYPE_ID);

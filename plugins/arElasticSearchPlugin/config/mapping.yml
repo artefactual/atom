@@ -42,6 +42,10 @@ mapping:
     _attributes:
       i18n: true
       nested_only: true
+    _partial_foreign_types:
+      type:
+        _i18nFields: [name]
+        dynamic: strict
     dynamic: strict
 
   note:
