@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 183
+    value: 184
   milestone:
     name: milestone
     editable: 0
@@ -1300,7 +1300,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      en: 'a:2:{s:6:"byName";a:18:{i:0;s:10:"accessions";i:1;s:20:"browseDigitalObjects";i:2;s:17:"browseInstitution";i:3;s:14:"browseSubjects";i:4;s:9:"clipboard";i:5;s:13:"globalReplace";i:6;s:6:"groups";i:7;s:10:"importSkos";i:8;s:4:"jobs";i:9;s:5:"login";i:10;s:6:"logout";i:11;s:9:"myProfile";i:12;s:7:"plugins";i:13;s:7:"privacy";i:14;s:8:"settings";i:15;s:15:"staticPagesMenu";i:16;s:10:"taxonomies";i:17;s:5:"users";}s:4:"byId";a:8:{i:0;i:1;i:1;i:4;i:2;i:7;i:3;i:2;i:4;i:10;i:5;i:3;i:6;i:5;i:7;i:9;}}'
+      en: 'a:2:{s:6:"byName";a:16:{i:0;s:10:"accessions";i:1;s:17:"browseInstitution";i:2;s:9:"clipboard";i:3;s:13:"globalReplace";i:4;s:6:"groups";i:5;s:10:"importSkos";i:6;s:4:"jobs";i:7;s:5:"login";i:8;s:6:"logout";i:9;s:9:"myProfile";i:10;s:7:"plugins";i:11;s:7:"privacy";i:12;s:8:"settings";i:13;s:15:"staticPagesMenu";i:14;s:10:"taxonomies";i:15;s:5:"users";}s:4:"byId";a:8:{i:0;i:1;i:1;i:4;i:2;i:7;i:3;i:2;i:4;i:10;i:5;i:3;i:6;i:5;i:7;i:9;}}'
   Qubit_Settings_visibleElements_DacsPhysicalAccess:
     name: dacs_physical_access
     scope: element_visibility
