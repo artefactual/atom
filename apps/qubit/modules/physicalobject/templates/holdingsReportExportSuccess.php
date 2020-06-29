@@ -41,7 +41,7 @@
     <section class="actions">
       <ul>
         <li><input class="c-btn c-btn-submit" type="submit" id="exportSubmit" value="<?php echo __('Export') ?>"/></li>
-        <li><?php echo link_to(__('Cancel'), !empty($sf_request->getReferer()) ? $sf_request->getReferer() : array('module' => 'user', 'action' => 'clipboard'), array('class' => 'c-btn')) ?></li>
+        <li><?php echo link_to(__('Cancel'), array('module' => 'physicalobject', 'action' => 'browse'), array('class' => 'c-btn')) ?></li>
       </ul>
     </section>
 
