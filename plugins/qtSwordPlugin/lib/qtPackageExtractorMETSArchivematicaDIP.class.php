@@ -21,81 +21,47 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 {
   protected function process()
   {
-    // Get AIP UUID from filename
-    $aipUUID = $this->getUUID($this->filename);
+    $metsPath = $this->getMetsFilepath();
 
-    // Find and save METS file
-    if ($handle = opendir($this->filename))
-    {
-      while (false !== $entry = readdir($handle))
-      {
-        if (0 < preg_match('/^METS\..*\.xml$/', $entry))
-        {
-          $path = $this->filename.DIRECTORY_SEPARATOR.$entry;
+    // Create SimpleXML document from the METS file
+    $this->document = new SimpleXMLElement(@file_get_contents($metsPath));
 
-          sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Opening '.$path);
-
-          $this->document = new SimpleXMLElement(@file_get_contents($path));
-
-          break;
-        }
-      }
-
-      closedir($handle);
-    }
-    else
-    {
-      throw new sfException('METS XML file was not found.');
-    }
-
-    if (!isset($this->document))
-    {
-      throw new sfException('METS document could not be opened.');
-    }
-
-    // Initialice METS parser, used in addDigitalObjects to add
-    // the required data from the METS file to the digital objects
+    // Initialize METS parser to provide convenience methods for accessing the
+    // METS data
     $this->metsParser = new QubitMetsParser($this->document);
 
     // Stop if there isn't a proper structMap
     if (null === $structMap = $this->metsParser->getStructMap())
     {
-      throw new sfException('A proper structMap could not be found in the METS file.');
+      throw new sfException(
+        'A proper structMap could not be found in the METS file.'
+      );
     }
 
     // Load mappings (it will stop the process if there is a wrong LOD)
     $this->mappings = $this->metsParser->getDipUploadMappings($structMap);
 
-    // Create AIP
-    $parts = pathinfo($this->filename);
-    $aipName = substr($parts['basename'], 0, -37);
+    // Save AIP metadata to the database
+    $this->saveAipMetadata();
 
-    $this->aip = new QubitAip;
-    $this->aip->uuid = $aipUUID;
-    $this->aip->filename = $aipName;
-    $this->aip->digitalObjectCount = count($this->metsParser->getFilesFromOriginalFileGrp());
-    $this->aip->partOf = $this->resource->id;
-    $this->aip->sizeOnDisk = $this->metsParser->getAipSizeOnDisk();
-    $this->aip->createdAt = $this->metsParser->getAipCreationDate();
-    $this->aip->indexOnSave = false;
-    $this->aip->save();
-
-    sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - aipUUID: '.$aipUUID);
-
-    $this->publicationStatus = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
+    // Get app default publication status
+    $this->publicationStatus = sfConfig::get(
+      'app_defaultPubStatus',
+      QubitTerm::PUBLICATION_STATUS_DRAFT_ID
+    );
 
     // Determine DIP upload method based on the structMap type
-    switch ((string)$structMap['TYPE'])
+    switch ((string) $structMap['TYPE'])
     {
       case 'logical':
-        // Hieararchical DIP upload method
-        $this->recursivelyAddChildsFromLogicalStructMapDiv($structMap, $this->resource);
+        // Hierarchical DIP upload method
+        $this->recursivelyAddChildrenFromStructMap($structMap, $this->resource);
 
         break;
 
       case 'physical':
         // Non-hierarchical DIP upload method
-        $this->addChildsFromOriginalFileGrp();
+        $this->addChildrenFromOriginalFileGrp();
 
         break;
     }
@@ -107,42 +73,299 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     parent::process();
   }
 
-  protected function addChildsFromOriginalFileGrp()
+  /**
+   * Get the filesystem path of the METS file
+   *
+   * @return string filesystem path and filename of METS file
+   */
+  protected function getMetsFilepath()
   {
-    // Main object
+    if ($handle = opendir($this->filename))
+    {
+      while (false !== $item = readdir($handle))
+      {
+        if (0 < preg_match('/^METS\..*\.xml$/', $item))
+        {
+          $path = $this->filename.DIRECTORY_SEPARATOR.$item;
+
+          break;
+        }
+      }
+
+      closedir($handle);
+    }
+    else
+    {
+      throw new sfException('METS directory could not be opened.');
+    }
+
+    if (!isset($path))
+    {
+      throw new sfException('METS XML file was not found.');
+    }
+
+    return $path;
+  }
+
+  /**
+   * Search the "objects/" directory by an $fileId to get associate file path
+   *
+   * @param string $fileId the file identifier for the desired DIP object
+   *
+   * @return string the absolute filepath of the found DIP object
+   */
+  protected function getAccessCopyPath($fileId)
+  {
+    $uuid = $this->mappings['uuidMapping'][$fileId];
+
+    $glob = implode(DIRECTORY_SEPARATOR,
+      [$this->filename, 'objects', $uuid.'*']
+    );
+
+    $matches = glob($glob, GLOB_NOSORT);
+
+    if (empty($matches))
+    {
+      return;
+    }
+
+    return current($matches);
+  }
+
+  /**
+   * Save the AIP metadata to the database
+   *
+   * @return void
+   */
+  protected function saveAipMetadata()
+  {
+    // Get AIP UUID from filename
+    $aipUUID = $this->getUUID($this->filename);
+
+    // Create AIP
+    $parts = pathinfo($this->filename);
+    $aipName = substr($parts['basename'], 0, -37);
+
+    $this->aip = new QubitAip;
+    $this->aip->uuid = $aipUUID;
+    $this->aip->filename = $aipName;
+    $this->aip->digitalObjectCount = $this->metsParser->getOriginalFileCount();
+    $this->aip->partOf = $this->resource->id;
+    $this->aip->sizeOnDisk = $this->metsParser->getAipSizeOnDisk();
+    $this->aip->createdAt = $this->metsParser->getAipCreationDate();
+    $this->aip->indexOnSave = false;
+    $this->aip->save();
+
+    sfContext::getInstance()->getLogger()->info(
+      'METSArchivematicaDIP - aipUUID: ' . $aipUUID
+    );
+  }
+
+  /**
+   * Add miscellaneous metadata related to a DIP object
+   *
+   * @param QubitInformationObject $io target information object
+   * @param string $fileId METS FILEID
+   *
+   * @return QubitInformationObject with added metadata
+   */
+  protected function addRelatedMetadata($io, $fileId)
+  {
+    $objectUUID = $this->mappings['uuidMapping'][$fileId];
+
+    sfContext::getInstance()->getLogger()->info(
+      'METSArchivematicaDIP - objectUUID: ' . $objectUUID
+    );
+
+    // Add any descriptive metadata recorded in the METS file
+    $this->addDmdSecData($io, $fileId);
+
+    // Store UUIDs
+    $io->addProperty('objectUUID', $objectUUID);
+    $io->addProperty('aipUUID', $this->aip->uuid);
+
+    // Add a relation between this $io and the AIP record
+    $io = $this->addAipRelation($io, $this->aip);
+
+    return $io;
+  }
+
+  /**
+   * Add the dmdSec file metadata to information object
+   *
+   * If the METS file includes a dmdSec, add the Dublin Core metadata to this
+   * informatoin object
+   *
+   * @param QubitInformationObject $io target information object
+   * @param string $fileId target file id
+   *
+   * @return QubitInformationObject with added metadata
+   */
+  protected function addDmdSecData($io, $fileId)
+  {
+    if (
+      (null !== $dmdId = $this->mappings['dmdMapping'][$fileId])
+      && (null !== $dmdSec = $this->metsParser->getDmdSec($dmdId))
+    ) {
+      $io = $this->metsParser->processDmdSec($dmdSec, $io);
+    }
+
+    return $io;
+  }
+
+  /**
+   * Create a QubitDigitalObject and link it to the passed IO
+   *
+   * @param QubitInformationObject $io parent information object
+   * @param string $path digital object path
+   *
+   * @return QubitInformationObject with linked digital object
+   */
+  protected function addDigitalObject($io, $path)
+  {
+    if (!empty($path) && is_readable($path))
+    {
+      $digitalObject = new QubitDigitalObject;
+      $digitalObject->assets[] = new QubitAsset($path);
+      $digitalObject->usageId = QubitTerm::MASTER_ID;
+
+      $io->digitalObjectsRelatedByobjectId[] = $digitalObject;
+    }
+
+    return $io;
+  }
+
+  /**
+   * Create a QubitRelation linking $io to $aip
+   *
+   * @param QubitAip $aip the QubitRelation->subject
+   *
+   * @return QubitInformationObject the QubitRelation->object
+   */
+  protected function addAipRelation($io, $aip)
+  {
+    $relation = new QubitRelation;
+    $relation->subject = $aip;
+    $relation->typeId = QubitTerm::AIP_RELATION_ID;
+
+    $io->relationsRelatedByobjectId[] = $relation;
+
+    return $io;
+  }
+
+  /**
+   * Add METS PREMIS data to the passed information object
+   *
+   * Adds avaialable PREMIS object, FITS, MediaInfo, PREMIS Events, and Agents
+   * data
+   *
+   * @param QubitInformationObject $io the object to which the data is attached
+   * @param string $objectUUID the METS object UUID
+   *
+   * @param QubitInformationObject the passed object with added amdSec data
+   */
+  protected function addPremisData($io, $objectUUID)
+  {
+    // Add required data from METS file to the database
+    try
+    {
+      $this->metsParser->addMetsDataToInformationObject($io, $objectUUID);
+    }
+    catch (sfException $e)
+    {
+      sfContext::getInstance()->getLogger()->err(
+        'METSArchivematicaDIP -             ' . $e->getMessage()
+      );
+    }
+
+    return $io;
+  }
+
+  /**
+   * Add object metadata and files for standard (non-hierarchical) DIP upload
+   *
+   * Create a parent information object, then create a child information object
+   * with attached digital object for each entry in METS fileGrp (USE: Original)
+   */
+  protected function addChildrenFromOriginalFileGrp()
+  {
+    $this->parent = $this->getParentForFileGrp();
+
+    $files = $this->metsParser->getFilesFromOriginalFileGrp();
+    if (false === $files || count($files) === 0)
+    {
+      sfContext::getInstance()->getLogger()->err(
+        'METSArchivematicaDIP - No files found in original fileGrp'
+      );
+
+      return;
+    }
+
+    // Build an array of children's metadata
+    $children = $this->getChildDataFromFileGrp($files);
+
+    // Create children in alphabetical order
+    foreach ($children as $fileId => $data)
+    {
+      $this->createInformationObjectFromFileGrp($fileId, $data);
+    }
+  }
+
+  /**
+   * Get a parent information_object for this DIP
+   *
+   * If the METS file has a dmdSec then a new, intermediate information_object
+   * should be created to hold the DC Simple metadata from the dmdSec, and
+   * attached as a child to the target description ($this->resource)
+   *
+   * If the METS file has NO dmdSec, then the children should be attached to the
+   * target description ($this->resource)
+   *
+   * @return QubitInformationObject the parent object
+   */
+  protected function getParentForFileGrp()
+  {
+    // If there is a descriptive metadata section (dmdSec) then use the dmdSec
+    // Dublin Core metadata to create a new intermediary information object
     if (null !== $dmdSec = $this->metsParser->getMainDmdSec())
     {
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Main dmdSec found!');
+      sfContext::getInstance()->getLogger()->info(
+        'METSArchivematicaDIP - Main dmdSec found!'
+      );
 
       $parent = new QubitInformationObject;
       $parent->setLevelOfDescriptionByName('file');
       $parent->parentId = $this->resource->id;
       $parent = $this->metsParser->processDmdSec($dmdSec, $parent);
 
-      // Create relation with AIP
-      $relation = new QubitRelation;
-      $relation->subjectId = $this->aip->id;
-      $relation->typeId = QubitTerm::AIP_RELATION_ID;
-      $parent->relationsRelatedByobjectId[] = $relation;
+      // Add a relation to the AIP record
+      $parent = $this->addAipRelation($parent, $this->aip);
 
       $parent->save();
     }
     else
     {
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Main dmdSec not found!');
+      // If there is no dmdSec, then use the target description
+      // ($this->resource) as the parent
+      sfContext::getInstance()->getLogger()->info(
+        'METSArchivematicaDIP - Main dmdSec not found!'
+      );
 
       $parent = $this->resource;
     }
 
-    $files = $this->metsParser->getFilesFromOriginalFileGrp();
-    if (false === $files || count($files) === 0)
-    {
-      sfContext::getInstance()->getLogger()->err('METSArchivematicaDIP - No files found in original fileGrp');
-      return;
-    }
+    return $parent;
+  }
 
-    // Create array with children data
+  /**
+   * Build an array of digital object metadata from METS fileGrp file elements
+   *
+   * @return array digital object metadata, sorted alphabetically
+   */
+  protected function getChildDataFromFileGrp($files)
+  {
     $children = array();
+
     foreach ($files as $file)
     {
       if(!isset($file['ID']))
@@ -150,195 +373,155 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         continue;
       }
 
-      $fileId = (string)$file['ID'];
-
-      // Object UUID
-      $objectUUID = $this->mappings['uuidMapping'][$fileId];
+      $fileId = (string) $file['ID'];
 
       // DIP paths
-      if (false === $absolutePathWithinDip = $this->getAccessCopyPath($objectUUID))
+      if (null == $absolutePathWithinDip = $this->getAccessCopyPath($fileId))
       {
-        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             Access copy cannot be found in the DIP');
+        sfContext::getInstance()->getLogger()->info(
+          'METSArchivematicaDIP -             Access copy cannot be found in'
+          . ' the DIP'
+        );
 
-        // Do not create IOs for files without access copy,
-        // if normalization fails, Archivematica copies the original into the DIP
+        // Do not create information_objects for files without an access copy,
+        // if normalization fails, Archivematica copies the original file into
+        // the DIP
         continue;
       }
-      else
-      {
-        $absolutePathWithinDipParts = pathinfo($absolutePathWithinDip);
-        $relativePathWithinDip = 'objects'.DIRECTORY_SEPARATOR.$absolutePathWithinDipParts['basename'];
-      }
 
-      // Determine filename to use as title (uploaded or, from METS, original filename)
-      $filename = substr($absolutePathWithinDipParts['basename'], 37);
-
-      if (null !== $originalFilename = $this->metsParser->getOriginalFilename($fileId))
-      {
-        $filename = $originalFilename;
-      }
-
-      // Optionally strip the filename's extension
-      $stripExtensions = QubitSetting::getByName('stripExtensions');
-
-      if ((null !== $stripExtensions) && $stripExtensions->value)
-      {
-        $fileParts = pathinfo(trim($filename));
-        $filename = $fileParts['filename'];
-      }
-
-      $children[$fileId]['title'] = $filename;
-      $children[$fileId]['objectUUID'] = $objectUUID;
+      $children[$fileId]['title'] = $this->getTitleFromFilename($fileId);
       $children[$fileId]['absolutePathWithinDip'] = $absolutePathWithinDip;
     }
 
     // Sort children by title, use asort to keep index association
-    asort($children, function ($elem1, $elem2) {
-      return strcasecmp($elem1['title'], $elem2['title']);
-    });
-
-    // Create children in order
-    foreach ($children as $fileId => $data)
+    if (!empty($children))
     {
-      // Create child
-      $child = new QubitInformationObject;
-      $child->setPublicationStatus($this->publicationStatus);
-      $child->setLevelOfDescriptionByName('item');
-      $child->parentId = $parent->id;
-      $child->title = $data['title'];
-
-      // Process metatadata from METS file
-      if ((null !== $dmdId = $this->mappings['dmdMapping'][$fileId])
-        && (null !== $dmdSec = $this->metsParser->getDmdSec($dmdId)))
-      {
-        $child = $this->metsParser->processDmdSec($dmdSec, $child);
-      }
-
-      // Storage UUIDs
-      $child->addProperty('objectUUID', $data['objectUUID']);
-      $child->addProperty('aipUUID', $this->aip->uuid);
-
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - objectUUID: '.$data['objectUUID']);
-
-      // Add digital object
-      if (false !== $data['absolutePathWithinDip'] && is_readable($data['absolutePathWithinDip']))
-      {
-        $digitalObject = new QubitDigitalObject;
-        $digitalObject->assets[] = new QubitAsset($data['absolutePathWithinDip']);
-        $digitalObject->usageId = QubitTerm::MASTER_ID;
-        $child->digitalObjectsRelatedByobjectId[] = $digitalObject;
-      }
-
-      // Create relation with AIP
-      $relation = new QubitRelation;
-      $relation->subjectId = $this->aip->id;
-      $relation->typeId = QubitTerm::AIP_RELATION_ID;
-      $child->relationsRelatedByobjectId[] = $relation;
-
-      // Save IO without updating the ES document
-      $child->indexOnSave = false;
-      $child->save();
-
-      // Add required data from METS file to the database
-      $error = $this->metsParser->addMetsDataToInformationObject($child, $data['objectUUID']);
-      if (isset($error))
-      {
-        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             ' . $error);
-      }
-
-      // Save IO updating the ES document
-      $child->indexOnSave = true;
-      $child->save();
+      asort($children, function ($elem1, $elem2) {
+        return strcasecmp($elem1['title'], $elem2['title']);
+      });
     }
+
+    return $children;
   }
 
-  protected function recursivelyAddChildsFromLogicalStructMapDiv($structMapDiv, $parent)
+  /**
+   * Derive information_object title from digital object filename
+   *
+   * Use the PREMIS originalName if it exists - if not, find the filename in the
+   * DIP "objects/" directory with getAccessCopyPath()
+   */
+  protected function getTitleFromFilename($fileId)
   {
-    $this->metsParser->registerNamespaces($structMapDiv, array('m' => 'mets'));
+    $originalFilename = $this->metsParser->getOriginalFilename($fileId);
 
-    foreach ($structMapDiv->xpath('m:div') as $item)
+    if (!empty($originalFilename))
     {
-      $this->metsParser->registerNamespaces($item, array('m' => 'mets'));
+      $title = $originalFilename;
+    }
+    else
+    {
+      // Search the "objects" directory for a file with this objectUUID
+      $absolutePathWithinDipParts = pathinfo($this->getAccessCopyPath($fileId));
 
-      // Directory
-      if (count($fptr = $item->xpath('m:fptr')) == 0)
+      // Remove objectUUID from filename
+      $title = substr($absolutePathWithinDipParts['basename'], 37);
+    }
+
+    // Optionally strip the filename's extension
+    $stripExtensions = QubitSetting::getByName('stripExtensions');
+
+    if (isset($stripExtensions) && $stripExtensions->value)
+    {
+      $fileParts = pathinfo(trim($title));
+      $title = $fileParts['filename'];
+    }
+
+    return $title;
+  }
+
+  /**
+   * Create an access system record for a DIP object (from <fileGrp> metadata)
+   *
+   * Create an information_object DB record for a DIP object, move the DIP
+   * access file to the AtoM uploads/ directory, and link the info object to a
+   * digital_object record
+   *
+   * @return QubitInformationObject a child object
+   */
+  protected function createInformationObjectFromFileGrp($fileId, $data)
+  {
+    // Create child object
+    $io = new QubitInformationObject;
+
+    // Set initial properties
+    $io->setPublicationStatus($this->publicationStatus);
+    $io->setLevelOfDescriptionByName('item');
+    $io->parent = $this->parent;
+    $io->title = $data['title'];
+
+    $io = $this->addRelatedMetadata($io, $fileId);
+    $io = $this->addDigitalObject($io, $data['absolutePathWithinDip']);
+
+    // Save IO without updating the ES document
+    $io->indexOnSave = false;
+    $io->save();
+
+    $io = $this->addPremisData($io, $objectUUID);
+
+    // Save IO updating the ES document
+    $io->indexOnSave = true;
+    $io->save();
+  }
+
+  /**
+   * Add object metadata and files for hierarchical DIP upload
+   *
+   * Read the hierarchical arrangement of the DIP contents from the logical
+   * structMap in the METS file.
+   *
+   * Hierarchical DIP upload creates a complex descriptive arrangement under
+   * the target node ($this->resource) that can include intermediary,
+   * metadata-only nodes (directories) as well as the primary digital object
+   * nodes that describe the digital object, and link to the file on disk.
+   *
+   * @param SimpleXMLElement $element
+   * @param QubitInformationObject $parent
+   */
+  protected function recursivelyAddChildrenFromStructMap($element, $parent)
+  {
+    $this->metsParser->registerNamespaces($element, array('m' => 'mets'));
+
+    foreach ($element->xpath('m:div') as $div)
+    {
+      $this->metsParser->registerNamespaces($div, array('m' => 'mets'));
+
+      // If this element has no child file pointer <fptr> elements, then it is
+      // directory node and we should recursively add it's children
+      if (count($div->xpath('m:fptr')) == 0)
       {
-        // If there isn't a LOD set in TYPE add children to its parent
-        if (!isset($item['TYPE']))
-        {
-          $child = $parent;
-        }
-        // LOD set in div labeled as "objects" and children are added to the parent
-        else if (isset($item['LABEL']) && (string)$item['LABEL'] == 'objects')
-        {
-          $parent->levelOfDescriptionId = $this->mappings['lodMapping'][(string)$item['TYPE']];
-          $parent->save();
+        $io = $this->getDirectoryFromStuctMapDiv($div, $parent);
 
-          $child = $parent;
-        }
-        // Otherwise create info object with LABEL as title
-        // and TYPE as LOD, and add children to it
-        else
-        {
-          $child = $this->createInformationObjectFromStructMapDiv($item, $parent);
-          $child->save();
-        }
-
-        // Add children
-        $this->recursivelyAddChildsFromLogicalStructMapDiv($item, $child);
+        // Pass new QubitInformationObject as parent to recursively add children
+        $this->recursivelyAddChildrenFromStructMap($div, $io);
       }
-      // File (only files under use original and inside the objects folder will be added)
-      else if (isset($fptr[0]['FILEID'])
-        && (null !== $objectUUID = $this->mappings['uuidMapping'][(string)$fptr[0]['FILEID']])
-        && (false !== $absolutePathWithinDip = $this->getAccessCopyPath($objectUUID)))
+      else
       {
-        $child = $this->createInformationObjectFromStructMapDiv($item, $parent);
-
-        // Store UUIDs
-        $child->addProperty('aipUUID', $this->aip->uuid);
-        $child->addProperty('objectUUID', $objectUUID);
-        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - objectUUID: '.$objectUUID);
-
-        // Digital object
-        if (is_readable($absolutePathWithinDip))
-        {
-          $digitalObject = new QubitDigitalObject;
-          $digitalObject->assets[] = new QubitAsset($absolutePathWithinDip);
-          $digitalObject->usageId = QubitTerm::MASTER_ID;
-          $child->digitalObjectsRelatedByobjectId[] = $digitalObject;
-        }
-
-        // Process metatadata from METS file
-        if ((null !== $dmdId = $this->mappings['dmdMapping'][(string)$fptr[0]['FILEID']])
-          && (null !== $dmdSec = $this->metsParser->getDmdSec($dmdId)))
-        {
-          $child = $this->metsParser->processDmdSec($dmdSec, $child);
-        }
-
-        // Create relation with AIP
-        $relation = new QubitRelation;
-        $relation->subjectId = $this->aip->id;
-        $relation->typeId = QubitTerm::AIP_RELATION_ID;
-        $child->relationsRelatedByobjectId[] = $relation;
-
-        // Save IO without updating the ES document
-        $child->indexOnSave = false;
-        $child->save();
-
-        // Add required data from METS file to the database
-        $error = $this->metsParser->addMetsDataToInformationObject($child, $objectUUID);
-        if (isset($error))
-        {
-          sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             ' . $error);
-        }
-
-        // Save IO updating the ES document
-        $child->indexOnSave = true;
-        $child->save();
+        // Otherwise, create an information object representing a DIP object
+        $this->addDipObjectFromStructMap($div, $parent);
       }
     }
   }
 
+  /**
+   * Create a basic QubitInformationObject from <structMap><div> data
+   *
+   * Set parent, title, level of description, and publication status
+   *
+   * @param SimpleXMLElement $div an object representing a <div> element
+   * @param QubitInformationObject $parent the parent of the new info object
+   *
+   * @return QubitInformationObject
+   */
   protected function createInformationObjectFromStructMapDiv($div, $parent)
   {
     $io = new QubitInformationObject;
@@ -347,12 +530,13 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     if (null !== $div['LABEL'])
     {
-      $io->title = (string)$div['LABEL'];
+      $io->title = (string) $div['LABEL'];
     }
 
     if (null !== $div['TYPE'])
     {
-      $io->levelOfDescriptionId = $this->mappings['lodMapping'][(string)$div['TYPE']];
+      $io->levelOfDescriptionId =
+        $this->mappings['lodMapping'][(string) $div['TYPE']];
     }
     else
     {
@@ -362,15 +546,83 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     return $io;
   }
 
-  protected function getAccessCopyPath($uuid)
+  /**
+   * Get or create a "directory" QubitInformationObject
+   *
+   * Directory information objects are purely organizational, have minimal
+   * metadata (a title and level of description), and have no attached digital
+   * object
+   *
+   * @param SimpleXMLElement $element an object representing a <div> element
+   * @param QubitInformationObject $parent the parent for a new directory IO
+   *
+   * @return QubitInformationObject the directory object
+   */
+  protected function getDirectoryFromStuctMapDiv($element, $parent)
   {
-    $glob = $this->filename.DIRECTORY_SEPARATOR.'objects'.DIRECTORY_SEPARATOR.$uuid.'*';
-    $matches = glob($glob, GLOB_NOSORT);
-    if (empty($matches))
+    // Special case where <div @label> is "objects" - don't create a new IO but
+    // set the $parent LOD to <div @type> and attach child <div>s to $parent
+    if (isset($element['LABEL']) && (string) $element['LABEL'] == 'objects')
     {
-      return false;
+      $parent->levelOfDescriptionId =
+        $this->mappings['lodMapping'][(string) $element['TYPE']];
+      $parent->save();
+
+      return $parent;
     }
 
-    return current($matches);
+    // Otherwise create a new intermediary IO with LABEL as title
+    // and TYPE as LOD, and attach any child <div>s to it
+    $io = $this->createInformationObjectFromStructMapDiv($element, $parent);
+    $io->save();
+
+    return $io;
+  }
+
+  /**
+   * Add digital object metadata, file metadata, and file path to access system
+   *
+   * Only files under use original and inside the objects folder will be added
+   *
+   * @param SimpleXMLElement $div an object representing a <div> element
+   * @param QubitInformationObject $parent the parent for a new directory IO
+   *
+   * @return QubitInformationObject an ORM object representing a DIP object
+   */
+  protected function addDipObjectFromStructMap($div, $parent)
+  {
+    $fptr = $div->xpath('m:fptr');
+    $fileId = (string) $fptr[0]['FILEID'];
+
+    if (empty($fileId))
+    {
+      return;
+    }
+
+    // Get objectUUID
+    if (null == $objectUUID = $this->mappings['uuidMapping'][$fileId])
+    {
+      return;
+    }
+
+    // Get absolute path to digital object in DIP
+    if (null == $absolutePathWithinDip = $this->getAccessCopyPath($fileId))
+    {
+      return;
+    }
+
+    $io = $this->createInformationObjectFromStructMapDiv($div, $parent);
+    $io = $this->addRelatedMetadata($io, $fileId);
+    $io = $this->addDigitalObject($io, $absolutePathWithinDip);
+
+    // Save IO without updating the ES document
+    $io->indexOnSave = false;
+    $io->save();
+
+    $io = $this->addPremisData($io, $objectUUID);
+
+    // Save IO updating the ES document
+    $io->indexOnSave = true;
+    $io->save();
   }
 }
