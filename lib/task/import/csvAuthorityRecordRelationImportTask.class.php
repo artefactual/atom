@@ -169,37 +169,41 @@ EOF;
 
   private function importRow($sourceActorId, $targetActorId, $relationTypeId)
   {
-    // Check to see if a relation of the same type already exists
-    if ($relationId = $this->getRelation($sourceActorId, $targetActorId, $relationTypeId))
+    if (!empty($this->import->status['updateMode']))
     {
-      // Ignore this data if not updating
-      if (empty($this->import->status['updateMode']))
-      {
-        return;
-      }
-
-      // Delete existing relationship, then add new, if in "delete and replace" update mode
       if ($this->import->status['updateMode'] == 'delete-and-replace')
       {
-        $relation = QubitRelation::getById($relationId);
-        $relation->delete();
+        // Handle delete-and-replace updating by deleting all existing relations between source
+        // and target then adding new relation
+        $relations = $this->getRelations($targetActorId, $sourceActorId);
+        $relationsAlternate = $this->getRelations($sourceActorId, $targetActorId);
 
-        $this->addRelation($sourceActorId, $targetActorId, $relationTypeId);
+        foreach (array_unique(array_merge($relations, $relationsAlternate)) as $relationId)
+        {
+          $relation = QubitRelation::getById($relationId);
+          $relation->delete();
+        }
       }
-      else
+      else if ($relationId = $this->getRelationByType($sourceActorId, $targetActorId, $relationTypeId))
       {
-        // In "match and update" mode then update the relation
+        // Handle match-and-update when a relation already exists
         $this->updateRelation($relationId, $sourceActorId, $targetActorId, $relationTypeId);
+
+        return;
       }
     }
-    else
+    else if (!empty($this->getRelationByType($sourceActorId, $targetActorId, $relationTypeId)))
     {
-      $this->addRelation($sourceActorId, $targetActorId, $relationTypeId);
+      // If not updating, but relation already exists, then don't create new relation
+
+      return;
     }
+
+    $this->addRelation($sourceActorId, $targetActorId, $relationTypeId);
   }
 
   /**
-   * Use SQL to fetch the ID of a relation if it exists
+   * Use SQL to fetch the ID of a relation, of a certain type, if it exists
    *
    * @param int $sourceActorId  ID of an actor that possibly relates to others
    * @param int $targetActorId  ID of an actor that possibly relates to others
@@ -207,7 +211,7 @@ EOF;
    *
    * @return mixed  integer ID of the relation or boolean false if there's no result
    */
-  private function getRelation($sourceActorId, $targetActorId, $relationTypeId)
+  private function getRelationByType($sourceActorId, $targetActorId, $relationTypeId)
   {
     $sql = "SELECT id FROM relation
       WHERE subject_id = :subject_id
@@ -233,6 +237,27 @@ EOF;
     }
 
     return QubitPdo::fetchColumn($sql, $paramsVariant);
+  }
+
+  /**
+   * Use SQL to fetch relations
+   *
+   * @param int $sourceActorId  ID of an actor that possibly relates to others
+   * @param int $targetActorId  ID of an actor that possibly relates to others
+   *
+   * @return array  array of relation IDs
+   */
+  private function getRelations($sourceActorId, $targetActorId)
+  {
+    $sql = "SELECT id FROM relation
+      WHERE subject_id = :subject_id
+      AND object_id = :object_id";
+
+    $results = QubitPdo::fetchAll($sql,
+      [':subject_id' => $sourceActorId, ':object_id' => $targetActorId],
+      ['fetchMode' => PDO::FETCH_ASSOC]);
+
+    return array_column($results, 'id');
   }
 
   /**
