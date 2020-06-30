@@ -219,9 +219,26 @@ class QubitMetsParser
     }
   }
 
+  /**
+   * The <fileGrp type="original"> provides a comprehensive catalog of all of
+   * the "original" files stored in the AIP, which is useful when submission
+   * documents, normalized files, etc. are not relevant
+   *
+   * @return SimpleXmlElement a SimpleXML collection of fileGrp files
+   */
   public function getFilesFromOriginalFileGrp()
   {
     return $this->document->xpath('//m:mets/m:fileSec/m:fileGrp[@USE="original"]/m:file');
+  }
+
+  /**
+   * Return a simple count of original files in the AIP
+   *
+   * @return int the number of original files in the AIP
+   */
+  public function getOriginalFileCount()
+  {
+    return count($this->getFilesFromOriginalFileGrp());
   }
 
   /*
@@ -430,7 +447,9 @@ class QubitMetsParser
 
     if (!isset($amdSecId))
     {
-      return 'AMD section was not found for object UUID: ' . $objectUuid;
+      throw new sfException(
+        'AMD section was not found for object UUID: ' . $objectUuid
+      );
     }
 
     $this->objectXpath = '//m:amdSec[@ID="'.$amdSecId.'"]/m:techMD/m:mdWrap[@MDTYPE="PREMIS:OBJECT"]/m:xmlData/p:object/';
@@ -1119,5 +1138,20 @@ class QubitMetsParser
         $element->registerXPathNamespace($key, $this->namespaces[$name]);
       }
     }
+  }
+
+  /**
+   * Return a file path and name relative to the AIP root directory
+   *
+   * The file path is parsed from a METS <fileSec><file> element
+   *
+   * @param SimpleXmlElement $file a SimpleXML file object
+   *
+   * @return string the relative file path, including file name
+   */
+  protected function getFileSecFilePath($file)
+  {
+    // e.g. <FLocat xlink:href="objects/pictures/Landing_zone.jpg" ... />
+    return $file->FLocat["xlink:href"];
   }
 }
