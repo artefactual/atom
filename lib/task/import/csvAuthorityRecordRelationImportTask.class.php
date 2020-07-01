@@ -27,6 +27,7 @@
 class csvAuthorityRecordRelationImportTask extends csvImportBaseTask
 {
   private $import;
+  private $newlyAdded = [];
 
   /**
    * @see sfTask
@@ -169,9 +170,13 @@ EOF;
 
   private function importRow($sourceActorId, $targetActorId, $relationTypeId)
   {
-    if (!empty($this->import->status['updateMode']))
+    $updateMode = !empty($this->import->status['updateMode'])
+                    ? $this->import->status['updateMode']
+                    : false;
+
+    if ($updateMode)
     {
-      if ($this->import->status['updateMode'] == 'delete-and-replace')
+      if ($updateMode == 'delete-and-replace')
       {
         // Handle delete-and-replace updating by deleting all existing relations between source
         // and target then adding new relation
@@ -180,8 +185,12 @@ EOF;
 
         foreach (array_unique(array_merge($relations, $relationsAlternate)) as $relationId)
         {
-          $relation = QubitRelation::getById($relationId);
-          $relation->delete();
+          // Don't delete relations that have been added during this import
+          if (!in_array($relationId, $this->newlyAdded))
+          {
+            $relation = QubitRelation::getById($relationId);
+            $relation->delete();
+          }
         }
       }
       else if ($relationId = $this->getRelationByType($sourceActorId, $targetActorId, $relationTypeId))
@@ -195,11 +204,17 @@ EOF;
     else if (!empty($this->getRelationByType($sourceActorId, $targetActorId, $relationTypeId)))
     {
       // If not updating, but relation already exists, then don't create new relation
+      echo $this->import->logError('Skipping row as relationship already exists');
 
       return;
     }
 
-    $this->addRelation($sourceActorId, $targetActorId, $relationTypeId);
+    $relation = $this->addRelation($sourceActorId, $targetActorId, $relationTypeId);
+
+    if ($updateMode == 'delete-and-replace')
+    {
+      $this->newlyAdded[] = $relation->id;
+    }
   }
 
   /**
@@ -274,6 +289,8 @@ EOF;
     $relation->save();
 
     $this->addUpdatedActorIds([$sourceActorId, $targetActorId]);
+
+    return $relation;
   }
 
   /**
