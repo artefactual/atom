@@ -39,7 +39,7 @@ class QubitAip extends BaseAip
   {
     parent::save($connection);
 
-    if ($indexOnSave)
+    if ($this->indexOnSave)
     {
       QubitSearch::getInstance()->update($this);
     }

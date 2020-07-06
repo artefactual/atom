@@ -43,7 +43,7 @@ class qtSwordPluginWorker extends arBaseJob
     $this->info(sprintf('Object slug: %s', $resource->slug));
 
     $extractor = qtPackageExtractorFactory::build($package['format'],
-      $package + array('resource' => $resource, 'job' => $job));
+      $package + array('resource' => $resource, 'job' => $this->job));
 
     $extractor->run();
 
