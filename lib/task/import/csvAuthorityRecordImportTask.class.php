@@ -234,6 +234,13 @@ EOF;
       {
         if ($self->object)
         {
+          // Warn if identifier's already been used
+          if (!empty($identifier = $self->columnValue('descriptionIdentifier'))
+              && QubitValidatorActorDescriptionIdentifier::identifierUsedByAnotherActor($identifier, $self->object))
+          {
+            print $self->logError(sprintf('Authority record identifier "%s" not unique.', $identifier));
+          }
+
           if (
             isset($self->rowStatusVars['typeOfEntity'])
             && $self->rowStatusVars['typeOfEntity']
