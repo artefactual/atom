@@ -180,9 +180,19 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     // Add any descriptive metadata recorded in the METS file
     $this->addDmdSecData($io, $fileId);
 
+    $options = ['scope' => 'Archivematica AIP'];
+
     // Store UUIDs
-    $io->addProperty('objectUUID', $objectUUID);
-    $io->addProperty('aipUUID', $this->aip->uuid);
+    $io->addProperty('objectUUID', $objectUUID, $options);
+    $io->addProperty('aipUUID', $this->aip->uuid, $options);
+
+    // Store relative filepath to AIP object so the file can be requested via
+    // the Storage Service API
+    $io->addProperty(
+      'relativePathWithinAip',
+      $this->metsParser->getOriginalPathInAip($fileId),
+      $options
+    );
 
     // Add a relation between this $io and the AIP record
     $io = $this->addAipRelation($io, $this->aip);

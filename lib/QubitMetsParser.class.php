@@ -228,7 +228,9 @@ class QubitMetsParser
    */
   public function getFilesFromOriginalFileGrp()
   {
-    return $this->document->xpath('//m:mets/m:fileSec/m:fileGrp[@USE="original"]/m:file');
+    return $this->document->xpath(
+      '//m:mets/m:fileSec/m:fileGrp[@USE="original"]/m:file'
+    );
   }
 
   /**
@@ -1149,9 +1151,15 @@ class QubitMetsParser
    *
    * @return string the relative file path, including file name
    */
-  protected function getFileSecFilePath($file)
+  public function getOriginalPathInAip($fileId)
   {
-    // e.g. <FLocat xlink:href="objects/pictures/Landing_zone.jpg" ... />
-    return $file->FLocat["xlink:href"];
+    foreach ($this->getFilesFromOriginalFileGrp() as $file)
+    {
+      if ($file['ID'] == $fileId)
+      {
+        // e.g. <FLocat xlink:href="objects/pictures/Landing_zone.jpg" ... />
+        return (string) $file->FLocat[0]->attributes('http://www.w3.org/1999/xlink');
+      }
+    }
   }
 }
