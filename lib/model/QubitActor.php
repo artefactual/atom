@@ -25,7 +25,11 @@
  */
 class QubitActor extends BaseActor
 {
-  public $disableNestedSetUpdating = false;
+  public
+    // Allow per-object disabling of nested set updating during bulk imports
+    $disableNestedSetUpdating = false,
+    // Flag for updating search index on save
+    $indexOnSave = true;
 
   const
     ROOT_ID = 3;
@@ -132,7 +136,7 @@ class QubitActor extends BaseActor
 
   public function save($connection = null)
   {
-    if ('QubitActor' == $this->className)
+    if ($this->indexOnSave && 'QubitActor' == $this->className)
     {
       // Take note of which actors are related to the actor about to be updated
       $previouslyRelatedActorIds = !empty($this->id)
@@ -200,7 +204,7 @@ class QubitActor extends BaseActor
     // Update asynchronously the saved IOs ids, two jobs may
     // be launched in here as creation events require updating
     // the descendants but other events don't.
-    if (count($creationIoIds) > 0 || count($otherIoIds) > 0)
+    if ($this->indexOnSave && (count($creationIoIds) > 0 || count($otherIoIds) > 0))
     {
       if (count($creationIoIds) > 0)
       {

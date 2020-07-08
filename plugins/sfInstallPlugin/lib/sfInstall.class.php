@@ -447,10 +447,12 @@ class sfInstall
 
     $object = new QubitActor;
     $object->id = QubitActor::ROOT_ID;
+    $object->indexOnSave = false;
     $object->save();
 
     $object = new QubitRepository;
     $object->id = QubitRepository::ROOT_ID;
+    $object->indexOnSave = false;
     $object->save();
 
     $object = new QubitSetting;
