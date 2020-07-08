@@ -205,17 +205,18 @@ class QubitMetsParser
    */
   public function getOriginalFilename($fileId)
   {
-    if ((false !== $file = $this->document->xpath('//m:fileSec/m:fileGrp[@USE="original"]/m:file[@ID="'.$fileId.'"]'))
+    if (
+      (false !== $file = $this->document->xpath(
+        '//m:fileSec/m:fileGrp[@USE="original"]/m:file[@ID="'.$fileId.'"]')
+      )
       && (null !== $admId = $file[0]['ADMID'])
-      && (false !== $xmlData = $this->document->xpath('//m:amdSec[@ID="'.(string)$admId.'"]/m:techMD/m:mdWrap/m:xmlData')))
-    {
-      $xmlData = simplexml_load_string($xmlData[0]->asXML());
-      $this->registerNamespaces($xmlData, array('p' => 'premis'));
+      && (false !== $originalName = $this->document->xpath(
+        '//m:amdSec[@ID="'.(string) $admId.'"]/m:techMD/m:mdWrap/m:xmlData/p:object/p:originalName'
+      ))
+    ) {
+      $parts = explode('/', (string) $originalName[0]);
 
-      if (false !== $originalName = $xmlData->xpath('//p:object//p:originalName'))
-      {
-        return end(explode('/', (string)$originalName[0]));
-      }
+      return end($parts);
     }
   }
 
@@ -228,7 +229,9 @@ class QubitMetsParser
    */
   public function getFilesFromOriginalFileGrp()
   {
-    return $this->document->xpath('//m:mets/m:fileSec/m:fileGrp[@USE="original"]/m:file');
+    return $this->document->xpath(
+      '//m:mets/m:fileSec/m:fileGrp[@USE="original"]/m:file'
+    );
   }
 
   /**
@@ -1141,17 +1144,26 @@ class QubitMetsParser
   }
 
   /**
-   * Return a file path and name relative to the AIP root directory
+   * Return an original file path and name relative to the AIP root directory
    *
-   * The file path is parsed from a METS <fileSec><file> element
+   * The file path is parsed from a METS <fileSec><file><FLocat> element
    *
-   * @param SimpleXmlElement $file a SimpleXML file object
+   * @param string $fileId the <file @ID> attribute value
    *
-   * @return string the relative file path, including file name
+   * @return string|null the file's relative path, or null if not found
    */
-  protected function getFileSecFilePath($file)
+  public function getOriginalPathInAip($fileId)
   {
-    // e.g. <FLocat xlink:href="objects/pictures/Landing_zone.jpg" ... />
-    return $file->FLocat["xlink:href"];
+    foreach ($this->getFilesFromOriginalFileGrp() as $file)
+    {
+      if ($file['ID'] == $fileId)
+      {
+        // Get xlink:href value, e.g.
+        // <mets:FLocat xlink:href="objects/pictures/Landing_zone.jpg" ... />
+        return (string) $file->children('mets', true)->FLocat->attributes(
+          'http://www.w3.org/1999/xlink'
+        );
+      }
+    }
   }
 }

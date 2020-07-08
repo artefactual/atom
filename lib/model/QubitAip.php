@@ -46,4 +46,19 @@ class QubitAip extends BaseAip
 
     return $this;
   }
+
+  /**
+   * Get AIP by UUID
+   *
+   * @param string $uuid AIP UUID
+   *
+   * @return QubitQuery resultset object
+   */
+  public static function getByUuid($uuid)
+  {
+    $c = new Criteria;
+    $c->add(self::UUID, $uuid);
+
+    return self::getOne($c);
+  }
 }

@@ -142,6 +142,14 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     // Get AIP UUID from filename
     $aipUUID = $this->getUUID($this->filename);
 
+    // Don't re-add the AIP if it's already in the database
+    if (null !== $aip = QubitAip::getByUuid($aipUUID))
+    {
+      $this->aip = $aip;
+
+      return;
+    }
+
     // Create AIP
     $parts = pathinfo($this->filename);
     $aipName = substr($parts['basename'], 0, -37);
@@ -180,9 +188,19 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     // Add any descriptive metadata recorded in the METS file
     $this->addDmdSecData($io, $fileId);
 
+    $options = ['scope' => 'Archivematica AIP'];
+
     // Store UUIDs
-    $io->addProperty('objectUUID', $objectUUID);
-    $io->addProperty('aipUUID', $this->aip->uuid);
+    $io->addProperty('objectUUID', $objectUUID, $options);
+    $io->addProperty('aipUUID', $this->aip->uuid, $options);
+
+    // Store relative filepath to AIP object so the file can be requested via
+    // the Storage Service API
+    $io->addProperty(
+      'relativePathWithinAip',
+      $this->metsParser->getOriginalPathInAip($fileId),
+      $options
+    );
 
     // Add a relation between this $io and the AIP record
     $io = $this->addAipRelation($io, $this->aip);
@@ -204,8 +222,9 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
   protected function addDmdSecData($io, $fileId)
   {
     if (
-      (null !== $dmdId = $this->mappings['dmdMapping'][$fileId])
-      && (null !== $dmdSec = $this->metsParser->getDmdSec($dmdId))
+      isset($this->mappings['dmdMapping'][$fileId])
+      && null !== $dmdId = $this->mappings['dmdMapping'][$fileId]
+      && null !== $dmdSec = $this->metsParser->getDmdSec($dmdId)
     ) {
       $io = $this->metsParser->processDmdSec($dmdSec, $io);
     }
@@ -397,7 +416,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     // Sort children by title, use asort to keep index association
     if (!empty($children))
     {
-      asort($children, function ($elem1, $elem2) {
+      uasort($children, function ($elem1, $elem2) {
         return strcasecmp($elem1['title'], $elem2['title']);
       });
     }
