@@ -105,6 +105,7 @@ class arElasticSearchAipPdo
                 do.name,
                 do.byte_size,
                 do.mime_type,
+                do.object_id,
                 obj.updated_at';
     $sql .= ' FROM '.QubitDigitalObject::TABLE_NAME.' do';
     $sql .= ' JOIN '.QubitRelation::TABLE_NAME.' relation
@@ -120,7 +121,9 @@ class arElasticSearchAipPdo
     $digitalObjects = array();
     foreach (self::$statements['do']->fetchAll(PDO::FETCH_OBJ) as $item)
     {
-      if (null !== $premisData = arElasticSearchPluginUtil::getPremisData($item->object_id, self::$conn))
+      if (null !== $premisData = arElasticSearchPluginUtil::getPremisData(
+        $item->object_id, self::$conn
+      ))
       {
         $digitalObjects[] = array('metsData' => $premisData);
       }
