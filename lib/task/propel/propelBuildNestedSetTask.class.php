@@ -90,7 +90,7 @@ EOF;
       $sql .= ' FROM '.constant($classname.'::TABLE_NAME');
       $sql .= ' ORDER BY parent_id ASC, lft ASC';
 
-      $tree = $children = array();
+      $this->rows = $tree = $children = array();
 
       foreach ($conn->query($sql, PDO::FETCH_ASSOC) as $item)
       {
@@ -122,7 +122,7 @@ EOF;
       self::addChildren($tree[0], $children, 1);
 
       // Crawl tree and build sql statement to update nested set columns
-      $rows = self::getNsUpdateRows($tree[0], $classname);
+      self::getNsUpdateRows($tree[0], $classname);
 
       // Update database
       try
