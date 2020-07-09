@@ -5,7 +5,7 @@
     Qubit.multiRow.addNewRow = function (sender)
       {
         var table = $(sender).parents('table:first');
-        var lastRow = table.find('tbody tr:last');
+        var lastRow = table.find('> tbody > tr:last');
         var newRow = lastRow.clone();
 
         // Get the last row number (e.g.: foo[0][bar])
@@ -76,13 +76,20 @@
             $(this).children().hide();
           });
 
+        // Remove any calendar icons from new row then add new one
+        if (undefined !== Drupal.behaviors.date)
+        {
+          newRow.find("button > img[src='/images/calendar.png']").parent().remove();
+          Drupal.behaviors.date.attach(newRow);
+        }
+
         table.children('tbody')
 
           // Append the row to body
           .append(newRow)
 
           // Show effect
-          .find('tr:last div.animateNicely').show('normal')
+          .find('> tr:last div.animateNicely').show('normal')
 
           // Focus first field and trigger event to load functions
           .first().children("select, input, textarea").focus().trigger('loadFunctions');
