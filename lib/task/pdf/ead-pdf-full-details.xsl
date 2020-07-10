@@ -432,10 +432,10 @@
                         <fo:bookmark-title>
                             <xsl:choose>
                                 <xsl:when test="ead:head">
-                                    <xsl:apply-templates select="child::*/ead:head"/>
+                                    <xsl:value-of select="child::*/ead:head[1]"/>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:apply-templates select="child::*/ead:unittitle"/>
+                                    <xsl:value-of select="child::*/ead:unittitle[1]"/>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </fo:bookmark-title>
