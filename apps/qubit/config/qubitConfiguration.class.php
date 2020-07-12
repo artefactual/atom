@@ -30,6 +30,11 @@ class qubitConfiguration extends sfApplicationConfiguration
     return str_ireplace('</head>', javascript_tag('jQuery.extend(Qubit, '.json_encode(array('relativeUrlRoot' => sfContext::getInstance()->request->getRelativeUrlRoot())).');').'</head>', $content);
   }
 
+  public function listenToChangeCultureEvent(sfEvent $event)
+  {
+    setcookie('atom_culture', $event['culture']);
+  }
+
   /**
    * @see sfApplicationConfiguration
    */
@@ -38,6 +43,8 @@ class qubitConfiguration extends sfApplicationConfiguration
     $this->dispatcher->connect('response.filter_content', array($this, 'responseFilterContent'));
 
     $this->dispatcher->connect('access_log.view', array('QubitAccessLogObserver', 'view'));
+
+    $this->dispatcher->connect('user.change_culture', array($this, 'listenToChangeCultureEvent'));
   }
 
   /**

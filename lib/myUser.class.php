@@ -72,6 +72,12 @@ class myUser extends sfBasicSecurityUser implements Zend_Acl_Role_Interface
         $this->signOut();
       }
     }
+
+    // Allow reverse proxies to pass a header to change culture
+    if (!empty($_SERVER['HTTP_X_ATOM_CULTURE']))
+    {
+      $this->setCulture($_SERVER['HTTP_X_ATOM_CULTURE']);
+    }
   }
 
   public function signIn($user)
