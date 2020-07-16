@@ -95,6 +95,14 @@ class SettingsMenuComponent extends sfComponent
       array(
         'label' => $i18n->__('Clipboard'),
         'action' => 'clipboard'
+      ),
+      array(
+        'label' => $i18n->__('Storage service'),
+        'module' => 'arStorageServiceSettings',
+        'action' => 'settings',
+        'hide' => !$this->context->getConfiguration()->isPluginEnabled(
+          'arStorageServicePlugin'
+        )
       )
     );
 
@@ -121,7 +129,7 @@ class SettingsMenuComponent extends sfComponent
 
     // Sort alphabetically
     usort($this->nodes, function($el1, $el2) {
-      return strnatcmp( $el1['label'], $el2['label']);
+      return strnatcmp($el1['label'], $el2['label']);
     });
   }
 }

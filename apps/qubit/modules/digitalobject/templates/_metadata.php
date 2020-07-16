@@ -48,8 +48,24 @@
   <?php endif; ?>
 
   <?php if ($sf_user->isAuthenticated() && $relatedToIo): ?>
-    <?php echo render_show(__('Object UUID'), render_value($resource->object->objectUUID), array('fieldLabel' => 'objectUUID')) ?>
-    <?php echo render_show(__('AIP UUID'), render_value($resource->object->aipUUID), array('fieldLabel' => 'aipUUID')) ?>
+    <?php if ($this->context->getConfiguration()->isPluginEnabled('arStorageServicePlugin')
+      && arStorageServiceUtils::getAipDownloadEnabled()): ?>
+      <?php include_partial(
+        'arStorageService/aipDownload', ['resource' => $resource]
+      ) ?>
+    <?php else: // arStorageService is disabled ?>
+      <?php echo render_show(
+        __('Object UUID'),
+        render_value($resource->object->objectUUID),
+        array('fieldLabel' => 'objectUUID')
+      ) ?>
+      <?php echo render_show(
+        __('AIP UUID'),
+        render_value($resource->object->aipUUID),
+         array('fieldLabel' => 'aipUUID')
+      ) ?>
+    <?php endif; // arStorageService is disabled ?>
+
     <?php echo render_show(__('Format name'), render_value($resource->object->formatName), array('fieldLabel' => 'formatName')) ?>
     <?php echo render_show(__('Format version'), render_value($resource->object->formatVersion), array('fieldLabel' => 'formatVersion')) ?>
     <?php echo render_show(__('Format registry key'), render_value($resource->object->formatRegistryKey), array('fieldLabel' => 'formatRegistryKey')) ?>

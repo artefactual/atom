@@ -74,6 +74,7 @@ class QubitInformationObject extends BaseInformationObject
       case 'formatRegistryName':
       case 'objectUUID':
       case 'aipUUID':
+      case 'relativePathWithinAip':
 
         if (!isset($this->values[$name]))
         {

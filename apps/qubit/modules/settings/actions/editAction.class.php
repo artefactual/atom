@@ -106,7 +106,10 @@ class SettingsEditAction extends DefaultEditAction
           $this->getUser()->setFlash('notice', $this->updateMessage);
         }
 
-        $this->redirect(array('module' => 'settings', 'action' => $this->getContext()->getActionName()));
+        $this->redirect(array(
+          'module' => $this->getContext()->getModuleName(),
+          'action' => $this->getContext()->getActionName()
+        ));
       }
     }
 

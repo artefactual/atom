@@ -37,6 +37,7 @@ form .field > div
 }
 
 form .field > h3
+form .field > label
 {
   /* Reset h3 */
 

@@ -8,7 +8,10 @@
           <tr>
         <?php endif; ?>
           <td>
-            <?php echo link_to($node['label'], array('module' => 'settings', 'action' => $node['action'])) ?>
+            <?php echo link_to($node['label'], array(
+              'module' => $node['module'] ?? 'settings',
+              'action' => $node['action']
+            )) ?>
           </td>
         </tr>
       <?php endforeach; ?>
