@@ -354,7 +354,7 @@ class arElasticSearchActorPdo
     return $serialized;
   }
 
-  protected function serializeObjectDirectRelationTypes($actorId, $relationData)
+  public static function serializeObjectDirectRelationTypes($actorId, $relationData)
   {
     $relationTypeIds = [];
 
