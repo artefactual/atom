@@ -86,7 +86,10 @@ class arUpdateEsActorRelationsJob extends arBaseJob
   public static function updateActorRelationships($actor)
   {
     $relationData = arElasticSearchActorPdo::serializeObjectRelations($actor->id);
-    QubitSearch::getInstance()->partialUpdate($actor, ['actorRelations' => $relationData]);
+    $directRelationTypes = arElasticSearchActorPdo::serializeObjectDirectRelationTypes($actor->id, $relationData);
+
+    QubitSearch::getInstance()->partialUpdate($actor,
+      ['actorRelations' => $relationData, 'actorDirectRelationTypes' => $directRelationTypes]);
   }
 
   public static function previousRelationActorIds($actorId)
