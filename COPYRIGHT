@@ -214,3 +214,9 @@ Parsedown Extra
 Url: https://github.com/erusev/parsedown-extra
 Copyright: Emanuil Rusev, erusev.com
 License: MIT
+
+phpCAS
+---------
+Url: https://github.com/apereo/phpCAS
+Copyright: 2007-2020, Apereo Foundation
+License: Apache 2.0
