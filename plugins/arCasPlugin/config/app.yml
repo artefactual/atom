@@ -1,0 +1,39 @@
+all:
+  cas:
+    # Valid cas_version values: '1.0', '2.0', '3.0', 'S1'
+    # See: https://apereo.github.io/phpCAS/api/CAS_8php_source.html#l00082
+    # CAS version 3.0 is required for parsing CAS attributes into user groups.
+    cas_version: '3.0'
+
+    # Default to live demo server for testing and QA.
+    server_name: 'django-cas-ng-demo-server.herokuapp.com'
+    server_port: 443 
+    server_path: '/cas'
+
+    # CAS server SSL certificate location for server validation.
+    # Accepts a filepath or false (to disable, e.g. for development).
+    # Examples
+    # --------
+    # Relative path to sf_root_dir:    'data/cas/cert/mycert.pem'
+    # Absolute path:                   '/usr/var/certif/xxx.pem'
+    # Disable server validation:       false
+    server_cert: false
+
+    # Settings for parsing CAS attributes into AtoM group membership.
+    # Set set_groups_from_attributes to true to enable.
+    # attribute_key specifies which CAS attribute AtoM will check.
+    set_groups_from_attributes: false
+    attribute_key: 'name-of-attribute-to-check'
+    user_groups:
+        administrator:
+            attribute_value: 'atom-administrators'
+            group_id: 100
+        editor:
+            attribute_value: 'atom-editors'
+            group_id: 101
+        contributor:
+            attribute_value: 'atom-contributors'
+            group_id: 102
+        translator:
+            attribute_value: 'atom-translators'
+            group_id: 103
