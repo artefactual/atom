@@ -27,7 +27,8 @@ class SettingsClipboardAction extends SettingsEditAction
       'clipboard_send_url',
       'clipboard_send_button_text',
       'clipboard_send_message_html',
-      'clipboard_send_http_method'),
+      'clipboard_send_http_method',
+      'clipboard_export_digitalobjects_enabled'),
 
     $I18N = array(
       'clipboard_send_button_text',
@@ -45,7 +46,8 @@ class SettingsClipboardAction extends SettingsEditAction
       'clipboard_send_enabled' => '0',
       'clipboard_send_button_text' => $this->i18n->__('Send'),
       'clipboard_send_message_html' => $this->i18n->__('Sending...'),
-      'clipboard_send_http_method' => 'POST'
+      'clipboard_send_http_method' => 'POST',
+      'clipboard_export_digitalobjects_enabled' => '0',
     );
   }
 
@@ -65,7 +67,8 @@ class SettingsClipboardAction extends SettingsEditAction
 
       case 'clipboard_send_enabled':
       case 'clipboard_send_http_method':
-        if ($name == 'clipboard_send_enabled')
+      case 'clipboard_export_digitalobjects_enabled':
+        if ($name == 'clipboard_send_enabled' || $name == 'clipboard_export_digitalobjects_enabled')
         {
           $options = array($this->i18n->__('No'), $this->i18n->__('Yes'));
         }

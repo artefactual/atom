@@ -55,7 +55,14 @@ class arRepositoryCsvExportJob extends arBaseJob
 
     // Compress CSV export files as a ZIP archive
     $this->info($this->i18n->__('Creating ZIP file %1', array('%1' => $this->getDownloadFilePath())));
-    $success = $this->createZipForDownload($tempPath);
+    $errors = $this->createZipForDownload($tempPath);
+
+    if (!empty($errors))
+    {
+      $this->error($this->i18n->__('Failed to create ZIP file.') . ' : ' . implode(' : ', $errors));
+
+      return false;
+    }
 
     // Mark job as complete and set download path
     $this->info($this->i18n->__('Export and archiving complete.'));

@@ -81,40 +81,9 @@ class DigitalObjectViewAction extends sfAction
       return false;
     }
 
-    // Only if the copyright statement is enabled
-    if ('1' !== sfConfig::get('app_digitalobject_copyright_statement_enabled', false))
+    if ($this->resource->hasConditionalCopyright())
     {
-      return false;
-    }
-
-    // Check if there is any right statement associated with the object where
-    // the basis = copyright and the restriction = conditional (regardless of
-    // the Rights Act). We don't need to show the popup otherwise.
-    $sql = 'SELECT EXISTS(
-      SELECT 1
-        FROM '.QubitObject::TABLE_NAME.' o
-        JOIN '.QubitRelation::TABLE_NAME.' rel ON (rel.subject_id = o.id)
-        JOIN '.QubitGrantedRight::TABLE_NAME.' gr ON (rel.object_id = gr.rights_id)
-        JOIN '.QubitRights::TABLE_NAME.' r ON (gr.rights_id = r.id)
-      WHERE
-        o.id = ? AND
-        rel.type_id = ? AND
-        gr.restriction = ? AND
-        r.basis_id = ?
-      LIMIT 1) AS has';
-    $r = QubitPdo::fetchOne($sql, array(
-      $this->resource->object->id,
-      QubitTerm::RIGHT_ID,
-      QubitGrantedRight::CONDITIONAL_RIGHT,
-      QubitTerm::RIGHT_BASIS_COPYRIGHT_ID));
-
-    if (false === $r || !isset($r->has))
-    {
-      throw new sfException('Unexpected error');
-    }
-    if ('1' !== $r->has)
-    {
-      return false;
+      return true;
     }
 
     return false === $this->isAccessTokenValid();

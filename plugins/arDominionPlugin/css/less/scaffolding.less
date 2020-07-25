@@ -1554,6 +1554,34 @@ body.login #content {
   }
 }
 
+// Export clipboard page
+
+#export-options {
+  .panel {
+    padding: 15px 15px 10px 15px;
+    margin-bottom: 0;
+    .generic-help-box {
+      position: relative;
+      width: auto;
+      float: right;
+      z-index: 1;
+    }
+    label {
+      display: inline-block;
+      margin-left: -6px;
+      padding: 3px 6px;
+      transition: color .25s, background-color .25s, border-color .25s, border-width .25s, padding .25s;
+      border-radius: @baseBorderRadius;
+    }
+    .muted {
+      background-color: @graySilver;
+    }
+    .alert p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
 @media (max-width: 767px) {
   #update-check {
     margin-left: -20px;

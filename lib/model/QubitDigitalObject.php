@@ -3416,4 +3416,61 @@ class QubitDigitalObject extends BaseDigitalObject
 
     return $size > sfConfig::get('app_upload_limit', 0) * pow(1024, 3);
   }
+
+  /**
+   * Check if digital object (master) has an active conditional copyright statement
+   *
+   * @return boolean
+   */
+  public function hasConditionalCopyright()
+  {
+    // Only if this is a master image and copyright statement is enabled
+    if (QubitTerm::MASTER_ID != $this->usageId || !sfConfig::get('app_digitalobject_copyright_statement_enabled', false))
+    {
+      return false;
+    }
+
+    if (isset($this->object))
+    {
+      $object = $this->object;
+    }
+    else if (isset($this->parent))
+    {
+      $object = $this->parent->object;
+    }
+
+    if (!isset($object))
+    {
+      throw new sfException('Couldn\'t find related object for digital object');
+    }
+
+    // Check if there is any rights statement associated with the object where
+    // the basis = copyright and the restriction = conditional (regardless of
+    // the Rights Act).
+    $sql = 'SELECT EXISTS(
+      SELECT 1
+        FROM '.QubitObject::TABLE_NAME.' o
+        JOIN '.QubitRelation::TABLE_NAME.' rel ON (rel.subject_id = o.id)
+        JOIN '.QubitGrantedRight::TABLE_NAME.' gr ON (rel.object_id = gr.rights_id)
+        JOIN '.QubitRights::TABLE_NAME.' r ON (gr.rights_id = r.id)
+      WHERE
+        o.id = ? AND
+        rel.type_id = ? AND
+        gr.restriction = ? AND
+        r.basis_id = ?
+      LIMIT 1) AS has';
+    $r = QubitPdo::fetchOne($sql, array(
+        $object->id,
+        QubitTerm::RIGHT_ID,
+        QubitGrantedRight::CONDITIONAL_RIGHT,
+        QubitTerm::RIGHT_BASIS_COPYRIGHT_ID));
+
+    if (false === $r || !isset($r->has))
+    {
+      // An unexpected problem has stopped the query, return true as default
+      return true;
+    }
+
+    return $r->has;
+  }
 }

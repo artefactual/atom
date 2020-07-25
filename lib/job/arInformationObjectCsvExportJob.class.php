@@ -38,6 +38,8 @@ class arInformationObjectCsvExportJob extends arBaseJob
 
   public function runJob($parameters)
   {
+    $this->params = $parameters;
+
     $tempPath = $this->createJobTempDir();
 
     // Export CSV to temp directory
@@ -49,16 +51,15 @@ class arInformationObjectCsvExportJob extends arBaseJob
     {
       // Compress CSV export files as a ZIP archive
       $this->info($this->i18n->__('Creating ZIP file %1.', array('%1' => $this->getDownloadFilePath())));
-      $success = $this->createZipForDownload($tempPath);
-      $this->job->downloadPath = $this->getDownloadRelativeFilePath();
+      $errors = $this->createZipForDownload($tempPath);
 
-      if ($success !== true)
+      if (!empty($errors))
       {
-        $this->error($this->i18n->__('Failed to create ZIP file.'));
-
+        $this->error($this->i18n->__('Failed to create ZIP file.') . ' : ' . implode(' : ', $errors));
         return false;
       }
 
+      $this->job->downloadPath = $this->getDownloadRelativeFilePath();
       $this->info($this->i18n->__('Export and archiving complete.'));
     }
     else
@@ -142,11 +143,10 @@ class arInformationObjectCsvExportJob extends arBaseJob
       // Exporter will create a new file each 10,000 rows
       $writer = new csvInformationObjectExport($path, self::getCurrentArchivalStandard(), 10000);
 
-      // store export options for use in csvInformationObjectExport
+      // Store export options for use in csvInformationObjectExport
       $writer->setOptions($parameters);
 
-      // Force loading of information object configuration, then modify writer
-      // configuration
+      // Force loading of information object configuration, then modify writer configuration
       $writer->loadResourceSpecificConfiguration('QubitInformationObject');
       array_unshift($writer->columnNames, 'referenceCode');
       array_unshift($writer->standardColumns, 'referenceCode');
@@ -175,7 +175,7 @@ class arInformationObjectCsvExportJob extends arBaseJob
         {
           $writer->exportResource($resource);
 
-          // export descendants if configured
+          // Export descendants if configured
           if (!$parameters['current-level-only'])
           {
             foreach ($resource->getDescendantsForExport($parameters) as $descendant)

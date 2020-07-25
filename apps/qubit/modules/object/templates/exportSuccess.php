@@ -18,62 +18,58 @@
     <?php echo $form->renderHiddenFields() ?>
 
     <section id="content">
+
       <div id="export-options" data-export-toggle="tooltip" data-export-title="<?php echo __('Export') ?>" data-export-alert-message="<?php echo __('Error: You must have at least one %1%Level of description%2% selected or choose %1%Include all descendant levels of description%2% to proceed.', array('%1%' => '<strong>', '%2%' => '</strong>')) ?>">
-      <fieldset class="collapsible">
+      <fieldset>
 
         <legend><?php echo __('Export options') ?></legend>
-        <div class="form-item">
-          <?php echo $form->objectType
-            ->label(__('Type'))
-            ->renderRow() ?>
-        </div>
 
-        <div class="form-item">
+        <div class="fieldset-wrapper">
+          <?php echo $form->type
+            ->renderRow() ?>
           <?php echo $form->format
-            ->label(__('Format'))
             ->renderRow() ?>
-        </div>
-
-        <div class="form-item">
+          <?php if ($showOptions): ?>
           <div class="panel panel-default" id="exportOptions">
             <div class="panel-body">
-              <div class="generic-help-box">
-                <label class="generic-help-type">
-                  <input name="includeDescendants" type="checkbox"/>
-                  <?php echo __('Include descendants') ?>
-                </label>
-                <a href="#" class="generic-help-icon" aria-expanded="false"><i class="fa fa-question-circle pull-right"></i></a>
-              </div>
-
-              <?php if ($sf_user->isAuthenticated()): ?>
-                <label>
-                  <input name="includeDrafts" type="checkbox"/>
-                  <?php echo __('Include draft records') ?>
-                </label>
+              <?php if (!empty($helpMessages)): ?>
+                <div class="generic-help-box">
+                  <a href="#" class="generic-help-icon" aria-expanded="false"><i class="fa fa-question-circle pull-right"></i></a>
+                </div>
               <?php endif; ?>
-              <label>
-                <input name="includeAllLevels" type="checkbox"/>
-                <?php echo __('Include all descendant levels of description') ?>
-              </label>
-              <div class="hidden" id="exportLevels">
-                <?php echo $form->levels
-                  ->renderLabel(__('Select levels of descendant descriptions for inclusion'), array('style' => 'font-weight: bold')) ?>
-                <?php echo $form->levels
-                  ->help(__('If no levels are selected, the export will fail. You can use the control (Mac ⌘) and/or shift keys to multi-select values from the Levels of description menu. It is necessary to include the level(s) above the desired export level, up to and including the level contained in the clipboard. Otherwise, no records will be included in the export.'))
-                  ->renderHelp() ?>
-                <?php echo $form->levels->render() ?>
-              </div>
-            </div>
-
-            <div class="alert alert-info generic-help animateNicely">
-              <p><?php echo __('Choosing "Include descendants" will include all lower-level records beneath those currently on the clipboard in the export.') ?></p>
-              <?php if ($sf_user->isAuthenticated()): ?>
-                <p><?php echo __('Choosing "Include draft records" will include those marked with a Draft publication status in the export. Note: if you do NOT choose this option, any descendants of a draft record will also be excluded, even if they are published.') ?></p>
+              <?php if (isset($form->includeDescendants)): ?>
+                <?php echo $form->includeDescendants->renderRow()?>
+              <?php endif; ?>
+              <?php if (isset($form->includeAllLevels)): ?>
+                <?php echo $form->includeAllLevels->renderRow()?>
+              <?php endif; ?>
+              <?php if (isset($form->levels)): ?>
+                <div id="exportLevels">
+                  <?php echo $form->levels->renderLabel() ?>
+                  <?php echo $form->levels->render() ?>
+                  <div class="alert alert-info">
+                  <?php echo $form->levels->renderHelp() ?>
+                  </div>
+                </div>
+              <?php endif; ?>
+              <?php if (isset($form->includeDigitalObjects)): ?>
+                <?php echo $form->includeDigitalObjects->renderRow()?>
+              <?php endif; ?>
+              <?php if (isset($form->includeDrafts)): ?>
+                <?php echo $form->includeDrafts->renderRow()?>
+              <?php endif; ?>
+              <?php if (!empty($helpMessages)): ?>
+                <div class="alert alert-info generic-help animateNicely">
+                  <?php foreach ($sf_data->getRaw('helpMessages') as $helpMessage): ?>
+                  <p><?php echo $helpMessage ?></p>
+                  <?php endforeach; ?>
+                </div>
               <?php endif; ?>
             </div>
-
           </div>
+          <?php endif; ?>
         </div>
+
       </fieldset>
       </div>
     </section>

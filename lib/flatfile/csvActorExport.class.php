@@ -139,11 +139,16 @@ class csvActorExport extends QubitFlatfileExport
     $this->setPlaceAccessPoints();
     $this->setSubjectAccessPoints();
 
-    // Set digital object public URL
-    $this->setColumn('digitalObjectURI', $this->resource->getDigitalObjectPublicUrl());
-
-    // Grab checksum for this digital object
-    $this->setColumn('digitalObjectChecksum', $this->resource->getDigitalObjectChecksum());
+    if($this->options['includeDigitalObjectMeta'])
+    {
+      $this->setColumn('digitalObjectURI', $this->resource->getDigitalObjectPublicUrl());
+      $this->setColumn('digitalObjectChecksum', $this->resource->getDigitalObjectChecksum());
+    }
+    else
+    {
+      $this->setColumn('digitalObjectURI', '');
+      $this->setColumn('digitalObjectChecksum', '');
+    }
   }
 
   private function setMaintenanceNote()

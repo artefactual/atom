@@ -35,28 +35,28 @@ class arActorXmlExportJob extends arBaseJob
 
   public function runJob($parameters)
   {
+    $this->params = $parameters;
+
     // Create query increasing limit from default
     $this->search = new arElasticSearchPluginQuery(arElasticSearchPluginUtil::SCROLL_SIZE);
-    $this->params = $parameters;
 
     $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
 
     $tempPath = $this->createJobTempDir();
 
-    // Export CSV to temp directory
+    // Export XML to temp directory
     $this->info($this->i18n->__('Starting export to %1.', array('%1' => $tempPath)));
 
     $itemsExported = $this->exportResults($tempPath);
     $this->info($this->i18n->__('Exported %1 actors.', array('%1' => $itemsExported)));
 
-    // Compress CSV export files as a ZIP archive
+    // Compress XML export files as a ZIP archive
     $this->info($this->i18n->__('Creating ZIP file %1.', array('%1' => $this->getDownloadFilePath())));
-    $success = $this->createZipForDownload($tempPath);
+    $errors = $this->createZipForDownload($tempPath);
 
-    if ($success !== true)
+    if (!empty($errors))
     {
-      $this->error($this->i18n->__('Failed to create ZIP file.'));
-
+      $this->error($this->i18n->__('Failed to create ZIP file.') . ' : ' . implode(' : ', $errors));
       return false;
     }
 
@@ -70,9 +70,9 @@ class arActorXmlExportJob extends arBaseJob
   }
 
   /**
-   * Export search results as CSV
+   * Export search results as XML
    *
-   * @param string  Path of file to write CSV data to
+   * @param string  Path of file to write XML data to
    *
    * @return null
    */

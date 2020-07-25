@@ -61,6 +61,16 @@
 
       </fieldset>
 
+      <fieldset class="collapsible">
+
+        <legend><?php echo __('Clipboard export') ?></legend>
+
+        <?php echo $form->clipboard_export_digitalobjects_enabled
+          ->label(__('Enable digital object export'))
+          ->renderRow() ?>
+
+      </fieldset>
+
     </div>
 
     <section class="actions">
