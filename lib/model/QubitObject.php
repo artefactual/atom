@@ -191,7 +191,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
       {
         try
         {
-          if (in_array($this->slug, array('api', 'sword')))
+          if ($this->checkIfSlugIsReserved())
           {
             throw new RuntimeException('Reserved slug');
           }
@@ -238,6 +238,23 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     }
 
     return $this;
+  }
+
+  protected function checkIfSlugIsReserved()
+  {
+    // Check if slug is used by a plugin that may not be enabled yet
+    if (in_array($this->slug, array('api', 'sword')))
+    {
+      return true;
+    }
+
+    // Check if slug is used by any active module
+    $context = sfContext::getInstance();
+
+    $route = $context->getRouting()->findRoute($this->slug);
+    $routeParams = $route['parameters'];
+
+    return $context->getController()->actionExists($routeParams['module'], $routeParams['action']);
   }
 
   public function delete($connection = null)
