@@ -133,6 +133,23 @@ class QubitSlug extends BaseSlug
     }
   }
 
+  public static function checkIfSlugIsReserved($slug)
+  {
+    // Check if slug is used by a plugin that may not be enabled yet
+    if (in_array($slug, array('api', 'sword')))
+    {
+      return true;
+    }
+
+    // Check if slug is used by any active module
+    $context = sfContext::getInstance();
+
+    $route = $context->getRouting()->findRoute($slug);
+    $routeParams = $route['parameters'];
+
+    return $context->getController()->actionExists($routeParams['module'], $routeParams['action']);
+  }
+
   public static function getByObjectId($id, array $options = array())
   {
     $criteria = new Criteria;

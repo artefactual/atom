@@ -191,7 +191,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
       {
         try
         {
-          if (in_array($this->slug, array('api', 'sword')))
+          if (QubitSlug::checkIfSlugIsReserved($this->slug))
           {
             throw new RuntimeException('Reserved slug');
           }
