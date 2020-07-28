@@ -30,7 +30,7 @@ class resetPasswordTask extends sfBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-      new sfCommandOption('activate', null, sfCommandOption::PARAMETER_OPTIONAL, 'Activate', false),
+      new sfCommandOption('activate', null, sfCommandOption::PARAMETER_NONE, 'Activate'),
     ));
 
     $this->namespace = 'tools';
