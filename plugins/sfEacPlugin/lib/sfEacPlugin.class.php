@@ -501,7 +501,19 @@ return;
 
     $this->resource->sourceStandard = 'http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd';
 
-    $this->resource->descriptionIdentifier = $fd->find('eac:control/eac:recordId')->text();
+    $identifier = $fd->find('eac:control/eac:recordId')->text();
+    $this->resource->descriptionIdentifier = $identifier;
+
+    // Abort import if identifier isn't unique
+    if (!empty($identifier) && sfConfig::get('app_prevent_duplicate_actor_identifiers', false)
+        && QubitValidatorActorDescriptionIdentifier::identifierUsedByAnotherActor($identifier, $this->resource))
+    {
+      $error = sfContext::getInstance()->i18n->__(
+                 'Import aborted: %1% identifier "%2%" not unique.',
+                 array('%1%' => sfConfig::get('app_ui_label_actor'), '%2%' => $identifier));
+
+      throw new sfException($error);
+    }
 
     //$fd->find('eac:control/eac:otherRecordId');
 

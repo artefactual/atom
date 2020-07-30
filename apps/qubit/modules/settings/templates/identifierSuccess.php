@@ -64,6 +64,13 @@
           ->label(__('Inherit reference code (DC XML)'))
           ->renderRow() ?>
 
+        <?php echo $form->prevent_duplicate_actor_identifiers
+          ->label(__(
+              '%1% identifiers: prevent entry/import of duplicates',
+              array('%1%' => sfConfig::get('app_ui_label_actor'))
+            ))
+          ->renderRow() ?>
+
       </fieldset>
 
     </div>

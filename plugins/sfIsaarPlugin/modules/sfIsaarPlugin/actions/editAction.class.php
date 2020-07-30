@@ -100,6 +100,22 @@ class sfIsaarPluginEditAction extends ActorEditAction
 
         break;
 
+      case 'descriptionIdentifier':
+
+        if (sfConfig::get('app_prevent_duplicate_actor_identifiers', false))
+        {
+          $this->form->setDefault($name, $this->resource[$name]);
+          $identifierValidator = new QubitValidatorActorDescriptionIdentifier(array('resource' => $this->resource));
+          $this->form->setValidator($name, $identifierValidator);
+          $this->form->setWidget($name, new sfWidgetFormInput);
+        }
+        else
+        {
+          return parent::addField($name);
+        }
+
+        break;
+
       default:
 
         return parent::addField($name);

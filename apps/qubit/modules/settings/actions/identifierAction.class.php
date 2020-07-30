@@ -30,7 +30,9 @@ class SettingsIdentifierAction extends DefaultEditAction
       'identifier_counter',
       'separator_character',
       'inherit_code_informationobject',
-      'inherit_code_dc_xml');
+      'inherit_code_dc_xml',
+      'prevent_duplicate_actor_identifiers'
+    );
 
   protected function earlyExecute()
   {
@@ -62,9 +64,14 @@ class SettingsIdentifierAction extends DefaultEditAction
       case 'identifier_mask_enabled':
       case 'inherit_code_informationobject':
       case 'inherit_code_dc_xml':
+      case 'prevent_duplicate_actor_identifiers':
         // Determine default value
         // (accession mask enabled setting doesn't get created in DB by default)
-        $defaults = array('accession_mask_enabled' => 1, 'inherit_code_dc_xml' => 0);
+        $defaults = array(
+          'accession_mask_enabled' => 1,
+          'inherit_code_dc_xml' => 0,
+          'prevent_duplicate_actor_identifiers' => 0
+        );
 
         $default = (null !== $this->$name = QubitSetting::getByName($name))
           ? $this->$name->getValue(array('sourceCulture' => true))
@@ -93,6 +100,7 @@ class SettingsIdentifierAction extends DefaultEditAction
       case 'separator_character':
       case 'inherit_code_informationobject':
       case 'inherit_code_dc_xml':
+      case 'prevent_duplicate_actor_identifiers':
         if (null === $this->$name)
         {
           $this->$name = new QubitSetting;
