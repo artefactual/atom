@@ -13,7 +13,7 @@
 
 <?php slot('content') ?>
 
-  <?php echo $form->renderFormTag(url_for(array('module' => 'user', 'action' => 'clipboardLoad'))) ?>
+  <?php echo $form->renderFormTag(url_for(array('module' => 'clipboard', 'action' => 'load')), array('id' => 'clipboard-load-form')) ?>
 
     <?php echo $form->renderHiddenFields() ?>
 

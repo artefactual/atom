@@ -22,7 +22,7 @@
         <?php endif; ?>
       </a>
       <div class="bottom">
-        <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => false, 'repositoryOrDigitalObjBrowse' => true)) ?><?php echo render_title($authorizedFormOfName) ?>
+        <?php echo get_component('clipboard', 'button', array('slug' => $doc['slug'], 'wide' => false, 'repositoryOrDigitalObjBrowse' => true, 'type' => 'repository')) ?><?php echo render_title($authorizedFormOfName) ?>
       </div>
     </div>
   <?php endforeach; ?>

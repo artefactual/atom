@@ -209,6 +209,71 @@ class QubitJob extends BaseJob
   }
 
   /**
+   * Generate a unique token property to associate unauthenticated users with jobs.
+   * 
+   * @throws  sfException  If a unique token can't be generated.
+   * @return  QubitProperty  Generated user token property.
+   */
+  public function generateUserTokenProperty()
+  {
+    $token = null;
+    $tries = 0;
+
+    while (!isset($token) && $tries < 3)
+    {
+      $tokenToCheck = bin2hex(openssl_random_pseudo_bytes(16));
+
+      $sql = 'SELECT COUNT(p.id) FROM property p
+              JOIN property_i18n i18n ON p.id = i18n.id
+              WHERE p.name = ? AND i18n.value = ?';
+      $count = QubitPdo::fetchColumn($sql, array('userToken', $tokenToCheck));
+
+      if ($count > 0)
+      {
+        $tries++;
+      }
+      else
+      {
+        $token = $tokenToCheck;
+      }
+    }
+
+    if (!isset($token))
+    {
+      throw new sfException('Could not generate user token for the job.');
+    }
+
+    $property = new QubitProperty;
+    $property->setObjectId($this->id);
+    $property->setName('userToken');
+    $property->setValue($token);
+    $property->save();
+
+    return $property;
+  }
+
+  /**
+   * Get the QubitJob associated with a given user token, if any. 
+   * 
+   * @param  string  $token  The user token.
+   * @return  mixed  QubitJob associated with the token or null.
+   */
+  public static function getByUserTokenProperty($token)
+  {
+    // Use raw SQL to avoid join with the object table
+    $sql = 'SELECT object_id FROM property p
+            JOIN property_i18n i18n ON p.id = i18n.id
+            WHERE p.name = ? AND i18n.value = ?';
+
+    $jobId = QubitPdo::fetchColumn($sql, array('userToken', $token));
+
+    if (false !== $jobId)
+    {
+      return QubitJob::getById($jobId);
+    }
+  }
+
+  /**
    * Add a basic note to this job
    * @param  sfBasicSecurityUser  $user  the currently logged in user.
    */

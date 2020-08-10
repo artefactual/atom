@@ -198,10 +198,10 @@
     showAlert: function()
     {
       // Show alert box in clipboard export page if it is not already added
-      if ($('body').is('.object.export') && $('#wrapper.container > .alert').length == 0)
+      if ($('body').is('.clipboard.export') && $('#wrapper.container > .alert').length == 0)
       {
         $(
-          '<div class="alert">' +
+          '<div class="alert alert-error">' +
           '<button type="button" data-dismiss="alert" class="close">&times;</button>'
         )
         .append(this.$exportDiv.data('export-alert-message'))

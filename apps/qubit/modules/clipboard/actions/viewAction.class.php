@@ -17,13 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Show descriptions added to the user clipboard
- *
- * @package    AccesstoMemory
- * @subpackage user
- */
-class UserClipboardAction extends DefaultBrowseAction
+class ClipboardViewAction extends DefaultBrowseAction
 {
   public function execute($request)
   {
@@ -39,20 +33,18 @@ class UserClipboardAction extends DefaultBrowseAction
       $maxPerPage = $this->limit;
     }
 
-    // Get entity type name
+    // Get entity type and class name
     $this->type = $request->getGetParameter('type', 'informationObject');
-    $allSlugs = $this->context->user->getClipboard()->getAllByClassName();
-
-    // Get entity type class name
     $this->entityType = 'Qubit'.ucfirst($this->type);
 
-    if (!isset($allSlugs[$this->entityType]) || !count($allSlugs[$this->entityType]))
+    $slugs = $request->getPostParameter('slugs', []);
+
+    if (empty($slugs))
     {
       $resultSet = new \Elastica\ResultSet(new Elastica\Response(null), new Elastica\Query, array());
     }
     else
     {
-      $slugs = $allSlugs[$this->entityType];
       $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $slugs));
       $this->setSortOptions();
       $this->setESSort($request);
@@ -78,6 +70,11 @@ class UserClipboardAction extends DefaultBrowseAction
       'actor'             => sfConfig::get('app_ui_label_actor'),
       'repository'        => sfConfig::get('app_ui_label_repository')
     );
+
+    // Remove slugs parameter. In some templates (entity type dropdown
+    // for example) the links are generated with all the request params
+    // (including POST) which appends the slugs from the Ajax request.
+    unset($request['slugs']);
   }
 
   /**

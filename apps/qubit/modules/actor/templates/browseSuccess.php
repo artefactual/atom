@@ -136,7 +136,7 @@
 
       <?php foreach ($pager->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
-        <?php echo include_partial('actor/searchResult', array('doc' => $doc, 'pager' => $pager, 'culture' => $selectedCulture)) ?>
+        <?php echo include_partial('actor/searchResult', array('doc' => $doc, 'pager' => $pager, 'culture' => $selectedCulture, 'clipboardType' => 'actor')) ?>
       <?php endforeach; ?>
 
     </div>

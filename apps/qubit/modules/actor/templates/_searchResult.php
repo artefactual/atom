@@ -26,7 +26,7 @@
 
     <p class="title"><?php echo link_to(render_value_inline(get_search_i18n($doc, 'authorizedFormOfName', array('allowEmpty' => false, 'culture' => $culture))), array('module' => 'actor', 'slug' => $doc['slug'])) ?></p>
 
-    <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => false)) ?>
+    <?php echo get_component('clipboard', 'button', array('slug' => $doc['slug'], 'wide' => false, 'type' => $clipboardType)) ?>
 
     <ul class="result-details">
 

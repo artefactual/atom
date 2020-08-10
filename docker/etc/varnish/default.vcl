@@ -5,6 +5,10 @@ backend default {
 }
 
 sub vcl_recv {
+  # Do not cache clipboard POST request
+  if (req.method == "POST" && req.url ~ "/clipboard/") {
+    return (pass);
+  }
   unset req.http.Cookie;
   return (hash);
 }

@@ -35,7 +35,7 @@
       </a>
 
       <div class="bottom">
-        <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => false, 'repositoryOrDigitalObjBrowse' => true)) ?><?php echo render_title($title) ?>
+        <?php echo get_component('clipboard', 'button', array('slug' => $doc['slug'], 'wide' => false, 'repositoryOrDigitalObjBrowse' => true, 'type' => 'informationObject')) ?><?php echo render_title($title) ?>
       </div>
     </div>
   <?php endforeach; ?>

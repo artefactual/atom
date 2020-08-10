@@ -66,7 +66,7 @@
             <?php echo format_date($result->createdAt, 'f') ?>
           </td>
           <td>
-            <?php echo get_component('object', 'clipboardButton', array('slug' => $io->slug, 'wide' => true)) ?>
+            <?php echo get_component('clipboard', 'button', array('slug' => $io->slug, 'wide' => true, 'type' => 'informationObject')) ?>
           </td>
         </tr>
       <?php endforeach; ?>
@@ -155,9 +155,17 @@
               <?php endif; ?>
             </td>
 
-            <?php if ('QubitInformationObject' == $className || 'QubitActor' == $className || 'QubitRepository' == $className): ?>
+            <?php if ('QubitInformationObject' == $className): ?>
               <td>
-                <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => true)) ?>
+                <?php echo get_component('clipboard', 'button', array('slug' => $doc['slug'], 'wide' => true, 'type' => 'informationObject')) ?>
+              </td>
+            <?php elseif ('QubitActor' == $className): ?>
+              <td>
+                <?php echo get_component('clipboard', 'button', array('slug' => $doc['slug'], 'wide' => true, 'type' => 'actor')) ?>
+              </td>
+            <?php elseif ('QubitRepository' == $className): ?>
+              <td>
+                <?php echo get_component('clipboard', 'button', array('slug' => $doc['slug'], 'wide' => true, 'type' => 'repository')) ?>
               </td>
             <?php endif; ?>
 

@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class UserClipboardLoadAction extends DefaultEditAction
+class ClipboardLoadAction extends DefaultEditAction
 {
   // Arrays not allowed in class constants
   public static
@@ -68,83 +68,77 @@ class UserClipboardLoadAction extends DefaultEditAction
   {
     parent::execute($request);
 
-    if ($request->isMethod('post'))
-    {
-      $this->form->bind($request->getPostParameters());
-
-      if ($this->form->isValid())
-      {
-        $this->processForm();
-
-        // Attempt to add saved clipboard to user's clipboard and notify user of results
-        if (null === $addedCount = $this->addSavedClipboardItems($this->password, $this->mode))
-        {
-          $message = $this->context->i18n->__('Incorrect clipboard ID for saved clipboard.');
-          $this->context->user->setFlash('error', $message);
-        }
-        else
-        {
-          if ($this->mode == 'replace')
-          {
-            $actionDescription = $this->context->i18n->__('added');
-          }
-          else
-          {
-            $actionDescription = $this->context->i18n->__('merged with current clipboard');
-          }
-
-          $message = $this->context->i18n->__(
-            'Clipboard %1% loaded, %2% records %3%.',
-            array('%1%' => $this->password, '%2%' => $addedCount, '%3%' => $actionDescription)
-          );
-          $this->context->user->setFlash('info', $message);
-        }
-
-        $this->redirect(array('module' => 'user', 'action' => 'clipboard'));
-      }
-    }
-  }
-
-  private function addSavedClipboardItems($password, $mode)
-  {
-    // Get saved clipboard corresponding to password
-    $criteria = new Criteria;
-    $criteria->add(QubitClipboardSave::PASSWORD, $password);
-    $save = QubitClipboardSave::getOne($criteria);
-
-    if ($save === null)
+    if (!$request->isMethod('post'))
     {
       return;
     }
 
-    // Clear clipboard if in replace mode
-    if ($mode == 'replace')
+    $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
+
+    $this->form->bind($request->getPostParameters());
+
+    if (!$this->form->isValid())
     {
-      $this->context->user->getClipboard()->clear();
+      $this->response->setStatusCode(400);
+      $message = $this->context->i18n->__('Incorrect clipboard ID and/or action.');
+
+      return $this->renderText(json_encode(array('error' => $message)));
     }
 
-    // Get item details for saved clipboard
+    $this->processForm();
+
+    $criteria = new Criteria;
+    $criteria->add(QubitClipboardSave::PASSWORD, $this->password);
+    $save = QubitClipboardSave::getOne($criteria);
+
+    if (!isset($save))
+    {
+      $this->response->setStatusCode(404);
+      $message = $this->context->i18n->__('Clipboard ID not found.');
+
+      return $this->renderText(json_encode(array('error' => $message)));
+    }
+
     $criteria = new Criteria;
     $criteria->add(QubitClipboardSaveItem::SAVE_ID, $save->id);
     $items = QubitClipboardSaveItem::get($criteria);
 
-    // Create array representing item details for saved clipboard
-    $addItems = array();
-    foreach($items as $item)
-    {
-      if (!isset($addItems[$item->itemClassName]))
-      {
-        $addItems[$item->itemClassName] = array();
-      }
+    $clipboard = array(
+      'informationObject' => array(),
+      'actor' => array(),
+      'repository' => array()
+    );
+    $addedCount = 0;
 
-      // Add slug to clipboard if user can read it
-      if (QubitAcl::check(QubitObject::getBySlug($item->slug), 'read'))
+    foreach ($items as $item)
+    {
+      // Add slug to clipboard if the object exists and the user can read it
+      $object = QubitObject::getBySlug($item->slug);
+
+      if (isset($object) && QubitAcl::check($object, 'read'))
       {
-        array_push($addItems[$item->itemClassName], $item->slug);
+        $type = lcfirst(str_replace('Qubit', '', $item->itemClassName));
+        array_push($clipboard[$type], $item->slug);
+        $addedCount++;
       }
     }
 
-    // Attempt to add items to user's clipboard
-    return $this->context->user->getClipboard()->addItems($addItems);
+    if ($this->mode == 'replace')
+    {
+      $actionDescription = $this->context->i18n->__('added');
+    }
+    else
+    {
+      $actionDescription = $this->context->i18n->__('merged with current clipboard');
+    }
+
+    $message = $this->context->i18n->__(
+      'Clipboard %1% loaded, %2% records %3%.',
+      array('%1%' => $this->password, '%2%' => $addedCount, '%3%' => $actionDescription)
+    );
+
+    $this->response->setStatusCode(200);
+
+    return $this->renderText(json_encode(array('success' => $message, 'clipboard' => $clipboard)));
   }
 }

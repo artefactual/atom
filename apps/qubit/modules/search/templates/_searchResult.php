@@ -29,7 +29,7 @@
 
     <p class="title"><?php echo link_to(render_title(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></p>
 
-    <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => false)) ?>
+    <?php echo get_component('clipboard', 'button', array('slug' => $doc['slug'], 'wide' => false, 'type' => 'informationObject')) ?>
 
     <ul class="result-details">
 

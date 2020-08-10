@@ -19,7 +19,7 @@
 
     <?php echo get_component('default', 'tagManager', array('code' => 'noscript')) ?>
 
-    <?php echo get_component('default', 'alerts') ?>
+    <?php echo get_partial('alerts') ?>
 
     <?php include_slot('pre') ?>
 

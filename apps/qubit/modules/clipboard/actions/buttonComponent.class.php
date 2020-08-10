@@ -17,11 +17,10 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ObjectClipboardButtonComponent extends sfComponent
+class ClipboardButtonComponent extends sfComponent
 {
   public function execute($request)
   {
-    $this->url = url_for(array('module' => 'user', 'action' => 'clipboardToggleSlug'));
     $this->class = 'clipboard';
 
     $i18n = $this->context->i18n;

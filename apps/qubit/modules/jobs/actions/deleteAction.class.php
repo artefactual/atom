@@ -36,21 +36,23 @@ class JobsDeleteAction extends sfAction
       QubitAcl::forwardUnauthorized();
     }
 
-    if (!$this->context->user->isAuthenticated() && $request->getParameter('id'))
-    {
-      // Handle deletion of individual jobs created by an unauthorized user
-      $manager = new QubitUnauthenticatedUserJobManager($this->context->user);
+    $token = $request->getParameter('token');
 
-      if (!$manager->deleteJobByIdIfAssociatedAndComplete($request->getParameter('id')))
+    if (!$this->context->user->isAuthenticated() && $token)
+    {
+      // Handle deletion of unauthenticated user job
+      $job = QubitJob::getByUserTokenProperty($token);
+
+      if (isset($job))
       {
-        QubitAcl::forwardUnauthorized();
+        $this->deleteJobsNotInProgress([$job]);
       }
 
       $this->redirect($request->getReferer());
     }
-    else if ($this->context->user->isAuthenticated() && !$request->getParameter('id'))
+    else if ($this->context->user->isAuthenticated() && !$token)
     {
-      // Handle bulk deletion of jobs associated with an authorized user
+      // Handle bulk deletion of jobs associated with an authenticated user
       $jobs = QubitJob::getJobsByUser($this->context->user);
       $this->deleteJobsNotInProgress($jobs);
 

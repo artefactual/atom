@@ -39,7 +39,7 @@
         <li class="separator"><h4><?php echo __('Clipboard') ?></h4></li>
 
         <li class="clipboard">
-          <?php echo get_component('object', 'clipboardButton', array('slug' => $resource->slug, 'wide' => true)) ?>
+          <?php echo get_component('clipboard', 'button', array('slug' => $resource->slug, 'wide' => true, 'type' => 'actor')) ?>
         </li>
 
         <li class="separator"><h4><?php echo __('Export') ?></h4></li>

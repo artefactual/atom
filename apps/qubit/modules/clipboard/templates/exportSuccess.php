@@ -13,7 +13,7 @@
 
 <?php slot('content') ?>
 
-  <?php echo $form->renderFormTag(url_for(array('module' => 'object', 'action' => 'export'))) ?>
+  <?php echo $form->renderFormTag(url_for(array('module' => 'clipboard', 'action' => 'export')), array('id' => 'clipboard-export-form')) ?>
 
     <?php echo $form->renderHiddenFields() ?>
 
@@ -77,7 +77,7 @@
     <section class="actions">
       <ul>
         <li><input class="c-btn c-btn-submit" type="submit" id="exportSubmit" value="<?php echo __('Export') ?>"/></li>
-        <li><?php echo link_to(__('Cancel'), !empty($sf_request->getReferer()) ? $sf_request->getReferer() : array('module' => 'user', 'action' => 'clipboard'), array('class' => 'c-btn')) ?></li>
+        <li><?php echo link_to(__('Cancel'), !empty($sf_request->getReferer()) ? $sf_request->getReferer() : array('module' => 'clipboard', 'action' => 'view'), array('class' => 'c-btn')) ?></li>
       </ul>
     </section>
 

@@ -74,7 +74,7 @@
       </td>
 
       <td>
-        <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => false, 'repositoryOrDigitalObjBrowse' => true)) ?>
+        <?php echo get_component('clipboard', 'button', array('slug' => $doc['slug'], 'wide' => false, 'repositoryOrDigitalObjBrowse' => true, 'type' => 'repository')) ?>
       </td>
     </tr>
   <?php endforeach; ?>

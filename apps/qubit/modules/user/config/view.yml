@@ -1,7 +1,3 @@
-clipboardSendSuccess:
-  javascripts:
-    clipboardSend:
-
 editSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:

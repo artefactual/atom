@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ObjectExportAction extends DefaultEditAction
+class ClipboardExportAction extends DefaultEditAction
 {
   // Arrays not allowed in class constants
   public static
@@ -69,14 +69,6 @@ class ObjectExportAction extends DefaultEditAction
       default:
         $this->objectType = 'informationObject';
         $className = 'QubitInformationObject';
-    }
-
-    // Stop direct access to export url or empty export attempts
-    // Check that the user has something on the clipboard for the current type - otherwise redirect back to clipboard
-    $items = $this->context->user->getClipboard()->countByType();
-    if(empty($items) || !array_key_exists($className, $items) || 1 > $items[$className])
-    {
-      $this->redirect($this->context->routing->generate(null, array('module' => 'user', 'action' => 'clipboard')) . '?type=' . $this->objectType);
     }
 
     // Get format and validate
@@ -131,20 +123,156 @@ class ObjectExportAction extends DefaultEditAction
 
     $this->response->addJavaScript('exportOptions', 'last');
 
-    $this->title = $this->context->i18n->__('Export');
+    $this->title = $this->context->i18n->__('Clipboard export');
 
-    if ($request->isMethod('post'))
+    if (!$request->isMethod('post'))
     {
-      $this->form->bind($request->getPostParameters());
+      return;
+    }
 
-      if ($this->form->isValid())
+    $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
+
+    $this->form->bind($request->getPostParameters());
+
+    if (!$this->form->isValid())
+    {
+      $this->response->setStatusCode(400);
+      $message = $this->context->i18n->__('Invalid export options.');
+
+      return $this->renderText(json_encode(array('error' => $message)));
+    }
+
+    $slugs = $request->getPostParameter('slugs', []);
+
+    if (empty($slugs))
+    {
+      $this->response->setStatusCode(400);
+      $message = $this->context->i18n->__('The clipboard is empty for this entity type.');
+
+      return $this->renderText(json_encode(array('error' => $message)));
+    }
+
+    $this->processForm();
+
+    // Create array of selections to pass to background job where 
+    // Term ID will be key, and Term description is value
+    $levelsOfDescription = array();
+    foreach ($this->levels as $value)
+    {
+      $levelsOfDescription[$value] = $this->choices[$value];
+    }
+
+    $options = array(
+      'params' => array('fromClipboard' => true, 'slugs' => $slugs),
+      'current-level-only' => !$this->descendantsIncluded,
+      'public' => !$this->draftsIncluded,
+      'objectType' => $this->objectType,
+      'levels' => $levelsOfDescription
+    );
+
+    $options['name'] = $this->context->i18n->__('xml' === $this->formatType ? 'XML export' : 'CSV export' );
+
+    if ($this->includeDigitalObjects)
+    {
+      $options['name'] = $this->context->i18n->__('%1% and %2%', 
+        array(
+          '%1%' => sfConfig::get('app_ui_label_digitalobject'),
+          '%2%' => $options['name']
+        )
+      );
+      $options['includeDigitalObjects'] = true;
+    }
+
+    // When exporting actors, ensure aliases and relations are also exported
+    if ('actor' === $this->objectType && 'csv' === $this->formatType)
+    {
+      $options['aliases'] = true;
+      $options['relations'] = true;
+    }
+
+    try
+    {
+      $jobName = $this->getJobNameString();
+
+      // Preview export before attempting, if job supports this
+      $exportPreviewSupported = method_exists($jobName, 'exportOrCheckForResults');
+
+      if ($exportPreviewSupported && !call_user_func(array($jobName, 'exportOrCheckForResults'), $options))
       {
-        $this->processForm();
-
-        $this->doBackgroundExport($request);
-
-        $this->redirect($this->context->routing->generate(null, array('module' => 'user', 'action' => 'clipboard')) . '?type=' . $this->objectType);
+        throw new sfException($this->context->i18n->__(
+          'No records were exported for your current selection. Please %open_link%refresh the page and choose different export options%close_link%.', 
+          array(
+            '%open_link%' => '<a href="javascript:location.reload();">',
+            '%close_link%' => '</a>',
+          )
+        ));
       }
+      else
+      {
+        $job = QubitJob::runJob($jobName, $options);
+        
+        $responseData = array();
+
+        // Generate, store and return a token to associate unauthenticated users with
+        // their export jobs to be able to download the result later and delete the job.
+        if (!$this->context->user->isAuthenticated())
+        {
+          $property = $job->generateUserTokenProperty();
+          $responseData['token'] = $property->value;
+        }
+
+        $responseData['success'] = '<p><strong>';
+        $responseData['success'] .= $this->context->i18n->__(
+          'Your %entity_type% export package is being built.',
+          array('%entity_type%' => strtolower($this->typeChoices[$this->objectType]))
+        );
+        $responseData['success'] .= '</strong> ';
+        
+        if ($this->context->user->isAuthenticated())
+        {
+          $responseData['success'] .= $this->context->i18n->__(
+            'The %open_link%job management page%close_link% will show progress and a download link when complete.',
+            array(
+              '%open_link%' => sprintf(
+                '<strong><a href="%s">',
+                $this->context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'))
+              ),
+              '%close_link%' => '</a></strong>'
+            )
+          );
+        }
+        else
+        {
+          $responseData['success'] .= $this->context->i18n->__(
+            'Please %open_link%refresh the page%close_link% to see progress and a download link when complete.',
+            array(
+              '%open_link%' => '<strong><a href="javascript:location.reload();">',
+              '%close_link%' => '</a></strong>'
+            )
+          );
+        }
+        
+        $responseData['success'] .= '</p><p>';
+        $responseData['success'] .= $this->context->i18n->__(
+          '%open_strong_tag%Note:%close_strong_tag% AtoM may remove export packages after aperiod of time '. 
+          'to free up storage space. When your export is ready you should download it as soon as possible.', 
+          array(
+            '%open_strong_tag%' => '<strong>',
+            '%close_strong_tag%' => '</strong>'
+          )
+        );
+        $responseData['success'] .= '</p>';
+
+        $this->response->setStatusCode(200);
+
+        return $this->renderText(json_encode($responseData));
+      }
+    }
+    catch (Exception $e)
+    {
+      $this->response->setStatusCode(500);
+
+      return $this->renderText(json_encode(array('error' => $e->getMessage())));
     }
   }
 
@@ -298,103 +426,6 @@ class ObjectExportAction extends DefaultEditAction
 
       default:
         return parent::processField($field);
-    }
-  }
-
-  protected function doBackgroundExport($request)
-  {
-    // Create array of selections to pass to background job where 
-    // Term ID will be key, and Term description is value
-    $levelsOfDescription = array();
-    foreach ($this->levels as $value)
-    {
-      $levelsOfDescription[$value] = $this->choices[$value];
-    }
-
-    $options = array(
-      'params' => array('fromClipboard' => true, 'slugs' => $this->context->user->getClipboard()->getAll()),
-      'current-level-only' => !$this->descendantsIncluded,
-      'public' => !$this->draftsIncluded,
-      'objectType' => $this->objectType,
-      'levels' => $levelsOfDescription
-    );
-
-    $options['name'] = $this->context->i18n->__('xml' === $this->formatType ? 'XML export' : 'CSV export' );
-
-    if($this->includeDigitalObjects)
-    {
-      $options['name'] = $this->context->i18n->__('%1% and %2%', 
-        array(
-          '%1%' => sfConfig::get('app_ui_label_digitalobject'),
-          '%2%' => $options['name']
-        )
-      );
-      $options['includeDigitalObjects'] = true;
-    }
-
-    // When exporting actors, ensure aliases and relations are also exported
-    if ('actor' === $this->objectType && 'csv' === $this->formatType)
-    {
-      $options['aliases'] = true;
-      $options['relations'] = true;
-    }
-
-    try
-    {
-      $jobName = $this->getJobNameString();
-
-      // Preview export before attempting, if job supports this
-      $exportPreviewSupported = method_exists($jobName, 'exportOrCheckForResults');
-
-      if ($exportPreviewSupported && !call_user_func(array($jobName, 'exportOrCheckForResults'), $options))
-      {
-        throw new sfException($this->context->i18n->__(
-          'No records were exported for your current selection. Please %1%refresh the page and choose different export options%2%.', 
-          array(
-            '%1%' => '<a href="javascript:location.reload();">',
-            '%2%' => '</a>',
-          )
-        ));
-      }
-      else
-      {
-        $job = QubitJob::runJob($jobName, $options);
-
-        // If anonymous user, store job ID in session
-        if (!$this->context->user->isAuthenticated())
-        {
-          $manager = new QubitUnauthenticatedUserJobManager($this->context->user);
-          $manager->addJobAssociation($job);
-        }
-
-        $message = array();
-
-        $message[] = $this->context->i18n->__(
-          '%1%Your %2% export package is being built.%3% ' . ($this->context->user->isAuthenticated() ? 'The %4%job management page%5% will show progress and a download link when complete.' : 'Please %4%refresh the page%5% to see progress and a download link when complete.'), 
-          array(
-            '%1%' => '<strong>',
-            '%2%' => strtolower($this->typeChoices[$this->objectType]),
-            '%3%' => '</strong>',
-            '%4%' => ($this->context->user->isAuthenticated() ? sprintf('<a href="%s">', $this->context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'))) : '<a href="javascript:location.reload();">') . '<strong>',
-            '%5%' => '</strong></a>'
-          )
-        );
-
-        $message[] = $this->context->i18n->__(
-          '%1%Note:%2% AtoM may remove export packages after a period of time to free up storage space. When your export is ready you should download it as soon as possible.', 
-          array(
-            '%1%' => '<strong>',
-            '%2%' => '</strong>'
-          )
-        );
-
-      }
-      $this->context->user->setFlash('info', '<p>' . implode('</p><p>', $message) . '</p>');
-    }
-    catch (sfException $e)
-    {
-      $this->context->user->setFlash('error', $e->getMessage());
-      return sfView::SUCCESS;
     }
   }
 

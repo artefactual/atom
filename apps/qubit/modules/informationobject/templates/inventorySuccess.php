@@ -62,7 +62,7 @@
               <?php endif; ?>
             </td>
             <td>
-              <?php echo get_component('object', 'clipboardButton', array('slug' => $doc['slug'], 'wide' => true)) ?>
+              <?php echo get_component('clipboard', 'button', array('slug' => $doc['slug'], 'wide' => true, 'type' => 'informationObject')) ?>
             </td>
           </tr>
         <?php endforeach; ?>

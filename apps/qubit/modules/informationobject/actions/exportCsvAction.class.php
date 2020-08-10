@@ -24,47 +24,40 @@ class InformationObjectExportCsvAction extends sfAction
   {
     if ($this->context->user->isAuthenticated())
     {
-      if ($request->fromClipboard)
+      // To keep the top level descriptions filter an agg in sync
+      // the autocomplete value is converted to the resource id
+      // before the agg filters are added to the query
+      $getParameters = $request->getGetParameters();
+      if (isset($getParameters['collection']) && !ctype_digit($getParameters['collection']))
       {
-        $options = array('params' => array('fromClipboard' => true, 'slugs' => $this->context->user->getClipboard()->getAll()));
+        $params = sfContext::getInstance()->routing->parse(Qubit::pathInfo($getParameters['collection']));
+        $collection = $params['_sf_route']->resource;
+
+        unset($getParameters['collection']);
+
+        if ($collection instanceof QubitInformationObject)
+        {
+          $getParameters['collection'] = $collection->id;
+        }
       }
-      else
+
+      // Add first criterion to the search box if it's over any field
+      if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->sq0) && !isset($request->sf0))
       {
-        // To keep the top level descriptions filter an agg in sync
-        // the autocomplete value is converted to the resource id
-        // before the agg filters are added to the query
-        $getParameters = $request->getGetParameters();
-        if (isset($getParameters['collection']) && !ctype_digit($getParameters['collection']))
-        {
-          $params = sfContext::getInstance()->routing->parse(Qubit::pathInfo($getParameters['collection']));
-          $collection = $params['_sf_route']->resource;
-
-          unset($getParameters['collection']);
-
-          if ($collection instanceof QubitInformationObject)
-          {
-            $getParameters['collection'] = $collection->id;
-          }
-        }
-
-        // Add first criterion to the search box if it's over any field
-        if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->sq0) && !isset($request->sf0))
-        {
-          $getParameters['query'] = $request->sq0;
-        }
-
-        // And search box query as the first criterion
-        if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->query))
-        {
-          $getParameters['sq0'] = $request->query;
-        }
-
-        // Do not add descendants in search results
-        $options = array(
-          'params' => $getParameters,
-          'current-level-only' => true
-        );
+        $getParameters['query'] = $request->sq0;
       }
+
+      // And search box query as the first criterion
+      if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->query))
+      {
+        $getParameters['sq0'] = $request->query;
+      }
+
+      // Do not add descendants in search results
+      $options = array(
+        'params' => $getParameters,
+        'current-level-only' => true
+      );
 
       QubitJob::runJob('arInformationObjectCsvExportJob', $options);
 

@@ -53,7 +53,7 @@
       <?php echo __('Clipboard') ?>
     </li>
   </ul>
-  <?php echo get_component('object', 'clipboardButton', array('slug' => $resource->slug, 'wide' => true)) ?>
+  <?php echo get_component('clipboard', 'button', array('slug' => $resource->slug, 'wide' => true, 'type' => 'repository')) ?>
 
   <?php if (isset($primaryContact)): ?>
     <section id="primary-contact">
