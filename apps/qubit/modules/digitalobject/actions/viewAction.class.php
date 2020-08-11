@@ -75,17 +75,14 @@ class DigitalObjectViewAction extends sfAction
 
   protected function needsPopup($action)
   {
-    // Only if the user is reading the master digital object
-    if ($action !== 'readMaster')
+    // Only if the user is reading the master digital object, and the resource
+    // has a PREMIS conditional copyright restriction
+    if ($action != 'readMaster' || !$this->resource->hasConditionalCopyright())
     {
       return false;
     }
 
-    if ($this->resource->hasConditionalCopyright())
-    {
-      return true;
-    }
-
+    // Show the pop-up if a valid access token was not submitted
     return false === $this->isAccessTokenValid();
   }
 
