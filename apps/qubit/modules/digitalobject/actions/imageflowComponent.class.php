@@ -68,7 +68,7 @@ class DigitalObjectImageflowComponent extends sfComponent
         if (!QubitAcl::check($item->object, 'readThumbnail') ||
             !QubitGrantedRight::checkPremis($item->object->id, 'readThumb'))
         {
-          $thumbnail = QubitDigitalObject::getGenericRepresentation($item->mimeType);
+          $thumbnail = QubitDigitalObject::getGenericRepresentation($item->mimeType, QubitTerm::THUMBNAIL_ID);
           $thumbnail->setParent($item);
         }
         else
