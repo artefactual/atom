@@ -223,8 +223,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
   {
     if (
       isset($this->mappings['dmdMapping'][$fileId])
-      && null !== $dmdId = $this->mappings['dmdMapping'][$fileId]
-      && null !== $dmdSec = $this->metsParser->getDmdSec($dmdId)
+      && (null !== $dmdId = $this->mappings['dmdMapping'][$fileId])
+      && (null !== $dmdSec = $this->metsParser->getDmdSec($dmdId))
     ) {
       $io = $this->metsParser->processDmdSec($dmdSec, $io);
     }
