@@ -25,7 +25,7 @@
  * @subpackage jobs
  */
 
-class arActorXmlExportJob extends arBaseJob
+class arActorXmlExportJob extends arExportJob
 {
   /**
    * @see arBaseJob::$requiredParameters

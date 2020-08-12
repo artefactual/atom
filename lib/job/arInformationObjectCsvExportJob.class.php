@@ -25,7 +25,7 @@
  * @subpackage jobs
  */
 
-class arInformationObjectCsvExportJob extends arBaseJob
+class arInformationObjectCsvExportJob extends arExportJob
 {
   /**
    * @see arBaseJob::$requiredParameters

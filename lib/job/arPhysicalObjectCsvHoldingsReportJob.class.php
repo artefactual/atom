@@ -24,7 +24,7 @@
  * @subpackage jobs
  */
 
-class arPhysicalObjectCsvHoldingsReportJob extends arBaseJob
+class arPhysicalObjectCsvHoldingsReportJob extends arExportJob
 {
   /**
    * @see arBaseJob::$requiredParameters
