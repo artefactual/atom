@@ -387,10 +387,10 @@ class ClipboardExportAction extends DefaultEditAction
         break;
 
       // Enable field includeDrafts if:
-      // options enabled
+      // information object type
       // and, user is authenticated
       case 'includeDrafts':
-        if ($this->showOptions && $this->context->user->isAuthenticated())
+        if ('informationObject' == $this->objectType && $this->context->user->isAuthenticated())
         {
           $this->form->setWidget('includeDrafts', new sfWidgetFormInputCheckbox(array('label' => __('Include draft records'))));
           $this->helpMessages[] = __('Choosing "Include draft records" will include those marked with a Draft publication status in the export. Note: if you do NOT choose this option, any descendants of a draft record will also be excluded, even if they are published.');
