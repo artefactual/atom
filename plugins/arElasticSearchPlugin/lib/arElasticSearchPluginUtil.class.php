@@ -510,15 +510,8 @@ class arElasticSearchPluginUtil
 
     $statement = $conn->prepare($sql);
     $statement->execute(array($ioId));
-    $row = $statement->fetch();
 
-    // Return if no results found
-    if (empty($row))
-    {
-      return;
-    }
-
-    foreach ($row as $field => $value)
+    foreach ($statement->fetch() as $field => $value)
     {
       if (empty($value))
       {
@@ -698,7 +691,7 @@ class arElasticSearchPluginUtil
     {
       foreach ($resultSet as $hit)
       {
-       array_push($hitIds, $hit->getId());
+       array_push($hitIds, $hit->getId()); 
       }
     }
 
