@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine
+FROM php:7.3-fpm-alpine
 
 ENV FOP_HOME=/usr/share/fop-2.1 COMPOSER_ALLOW_SUPERUSER=1
 
@@ -9,10 +9,10 @@ COPY . /atom/src
 RUN set -xe \
 		&& apk add --no-cache --virtual .phpext-builddeps \
 			gettext-dev \
-			libmcrypt-dev \
 			libxslt-dev \
 			zlib-dev \
 			libmemcached-dev \
+			libzip-dev \
 			autoconf \
 			build-base \
 		&& docker-php-ext-install \
@@ -32,9 +32,9 @@ RUN set -xe \
 		&& cd / && rm -rf /pecl-memcache-NON_BLOCKING_IO_php7 \
 		&& apk add --no-cache --virtual .phpext-rundeps \
 			gettext \
-			libmcrypt \
 			libxslt \
 			libmemcached-libs \
+			libzip \
 		&& apk del .phpext-builddeps \
 		&& apk add --no-cache --virtual .atom-deps \
 			openjdk8-jre-base \
