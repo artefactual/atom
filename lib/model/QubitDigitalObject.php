@@ -3474,4 +3474,24 @@ class QubitDigitalObject extends BaseDigitalObject
 
     return $r->has;
   }
+
+  /**
+   * Test if $usageId indicates a local file
+   *
+   * Note: returns false if $usageId is not set
+   *
+   * @return bool true if a local file is indicated
+   */
+  public function isLocalFile()
+  {
+    return isset($this->usageId) && in_array(
+      $this->usageId,
+      [
+        QubitTerm::COMPOUND_ID,
+        QubitTerm::MASTER_ID,
+        QubitTerm::REFERENCE_ID,
+        QubitTerm::THUMBNAIL_ID,
+      ]
+    );
+  }
 }

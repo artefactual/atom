@@ -18,119 +18,70 @@
  */
 
 /**
- * A worker to, given the HTTP GET parameters sent to advanced search,
- * replicate the search and export the resulting descriptions to CSV.
+ * Asynchronous job to export clipboard actor data to XML documents, plus
+ * related digital objects when requested
  *
  * @package    symfony
  * @subpackage jobs
  */
 
-class arActorXmlExportJob extends arExportJob
+class arActorXmlExportJob extends arActorExportJob
 {
-  /**
-   * @see arBaseJob::$requiredParameters
-   */
-  protected $downloadFileExtension = 'zip';
-  protected $search;
-
-  public function runJob($parameters)
-  {
-    $this->params = $parameters;
-
-    // Create query increasing limit from default
-    $this->search = new arElasticSearchPluginQuery(arElasticSearchPluginUtil::SCROLL_SIZE);
-
-    $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
-
-    $tempPath = $this->createJobTempDir();
-
-    // Export XML to temp directory
-    $this->info($this->i18n->__('Starting export to %1.', array('%1' => $tempPath)));
-
-    $itemsExported = $this->exportResults($tempPath);
-    $this->info($this->i18n->__('Exported %1 actors.', array('%1' => $itemsExported)));
-
-    // Compress XML export files as a ZIP archive
-    $this->info($this->i18n->__('Creating ZIP file %1.', array('%1' => $this->getDownloadFilePath())));
-    $errors = $this->createZipForDownload($tempPath);
-
-    if (!empty($errors))
-    {
-      $this->error($this->i18n->__('Failed to create ZIP file.') . ' : ' . implode(' : ', $errors));
-      return false;
-    }
-
-    // Mark job as complete and set download path
-    $this->info($this->i18n->__('Export and archiving complete.'));
-    $this->job->setStatusCompleted();
-    $this->job->downloadPath = $this->getDownloadRelativeFilePath();
-    $this->job->save();
-
-    return true;
-  }
+  const XML_STANDARD = 'eac';
 
   /**
    * Export search results as XML
    *
    * @param string  Path of file to write XML data to
-   *
-   * @return null
    */
-  protected function exportResults($path)
+  protected function doExport($path)
   {
-    $itemsExported = 0;
-
     exportBulkBaseTask::includeXmlExportClassesAndHelpers();
 
-    $search = QubitSearch::getInstance()->index->getType('QubitActor')->createSearch($this->search->getQuery(false, false));
-
-    // Scroll through results then iterate through resulting IDs
-    foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id)
-    {
-      if (null === $resource = QubitActor::getById($id))
-      {
-        continue;
-      }
-
-      $this->exportResource($resource, $path);
-
-      $itemsExported++;
-    }
-
-    return $itemsExported;
+    parent::doExport($path);
   }
 
   /**
-   * Export XML to file
+   * Export actor metadata to an XML file, and export related digital object
+   * when requested
    *
-   * @param object  information object to be export
-   * @param string  xml export path
-   *
-   * @return null
+   * @param QubitActor $resource actor to export
+   * @param string $path of temporary job directory for export
+   * @param array $options optional parameters
    */
-  protected function exportResource($resource, $path)
+  protected function exportResource($resource, $path, $options = [])
   {
     try
     {
       // Print warnings/notices here too, as they are often important.
       $errLevel = error_reporting(E_ALL);
 
-      $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput($resource, 'eac');
+      $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput(
+        $resource, self::XML_STANDARD
+      );
       $xml = Qubit::tidyXml($rawXml);
 
       error_reporting($errLevel);
     }
     catch (Exception $e)
     {
-      throw new sfException($this->i18n->__('Invalid XML generated for object %1%.', array('%1%' => $row['id'])));
+      throw new sfException($this->i18n->__(
+        'Invalid XML generated for object %1%.', array('%1%' => $row['id'])
+      ));
     }
 
-    $filename = exportBulkBaseTask::generateSortableFilename($resource, 'xml', 'eac');
+    $filename = exportBulkBaseTask::generateSortableFilename(
+      $resource, 'xml', self::XML_STANDARD
+    );
     $filePath = sprintf('%s/%s', $path, $filename);
 
     if (false === file_put_contents($filePath, $xml))
     {
-      throw new sfException($this->i18n->__('Cannot write to path: %1%', array('%1%' => $filePath)));
+      throw new sfException($this->i18n->__(
+        'Cannot write to path: %1%', array('%1%' => $filePath)
+      ));
     }
+
+    $this->addDigitalObject($resource, $path);
   }
 }

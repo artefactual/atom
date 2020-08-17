@@ -25,136 +25,52 @@
  * @subpackage jobs
  */
 
-class arInformationObjectXmlExportJob extends arExportJob
+class arInformationObjectXmlExportJob extends arInformationObjectExportJob
 {
-  /**
-   * @see arBaseJob::$requiredParameters
-   */
-  protected $downloadFileExtension = 'zip';
-  protected $search;            // arElasticSearchPluginQuery instance
-  protected $params = array();
+  const XML_STANDARD = 'ead';
 
-  public function runJob($parameters)
-  {
-    $this->params = $parameters;
-
-    $this->params['format'] = 'ead';
-
-    // Create query increasing limit from default
-    $this->search = new arElasticSearchPluginQuery(arElasticSearchPluginUtil::SCROLL_SIZE);
-
-    if ($this->params['params']['fromClipboard'])
-    {
-      $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
-    }
-    else
-    {
-      $this->search->addAggFilters(InformationObjectBrowseAction::$AGGS, $this->params['params']);
-      $this->search->addAdvancedSearchFilters(InformationObjectBrowseAction::$NAMES, $this->params['params'], $this->params['format']);
-    }
-
-    $this->search->query->setSort(array('lft' => 'asc'));
-
-    $tempPath = $this->createJobTempDir();
-
-    // Export CSV to temp directory
-    $this->info($this->i18n->__('Starting export to %1.', array('%1' => $tempPath)));
-
-    $itemsExported = $this->exportResults($tempPath);
-    $this->info($this->i18n->__('Exported %1 descriptions.', array('%1' => $itemsExported)));
-
-    // Compress CSV export files as a ZIP archive
-    $this->info($this->i18n->__('Creating ZIP file %1.', array('%1' => $this->getDownloadFilePath())));
-    $errors = $this->createZipForDownload($tempPath);
-
-    if (!empty($errors))
-    {
-      $this->error($this->i18n->__('Failed to create ZIP file.') . ' : ' . implode(' : ', $errors));
-      return false;
-    }
-
-    // Mark job as complete and set download path
-    $this->info($this->i18n->__('Export and archiving complete.'));
-    $this->job->setStatusCompleted();
-    $this->job->downloadPath = $this->getDownloadRelativeFilePath();
-    $this->job->save();
-
-    return true;
-  }
+  protected $xmlCachingEnabled = false;
 
   /**
-   * Export search results as CSV
+   * Export clipboard item metadata and (optionally) digital objects to $path
    *
-   * @param string  Path of file to write CSV data to
+   * @see arInformationObjectExportJob::doExport()
    *
-   * @return null
+   * @param string $path temporary export job working directory
    */
-  protected function exportResults($path)
+  protected function doExport($path)
   {
-    $itemsExported = 0;
-    $public = isset($this->params['public']) && $this->params['public'];
-    $levels = isset($this->params['levels']) ? $this->params['levels'] : array();
-    $numLevels = count($levels);
-
     exportBulkBaseTask::includeXmlExportClassesAndHelpers();
 
-    $search = QubitSearch::getInstance()->index->getType('QubitInformationObject')->createSearch($this->search->getQuery(false, false));
+    $this->xmlCachingEnabled = sfConfig::get('app_cache_xml_on_save', false);
 
-    $xmlCachingEnabled = sfConfig::get('app_cache_xml_on_save', false);
-
-    // Scroll through results then iterate through resulting IDs
-    foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id)
-    {
-      $resource = QubitInformationObject::getById($id);
-
-      // If ElasticSearch document is stale (corresponding MySQL data deleted), ignore
-      if ($resource !== null)
-      {
-        // Don't export draft descriptions with public option.
-        // Don't export records if level of description is not in list of selected LODs.
-        if (($public && $resource->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID) ||
-          (0 < $numLevels && !array_key_exists($resource->levelOfDescriptionId, $levels)))
-        {
-          continue;
-        }
-
-        $this->exportResource($resource, $path, $xmlCachingEnabled);
-
-        // Log progress every 1000 rows
-        if ($itemsExported && ($itemsExported % 1000 == 0))
-        {
-          $this->info($this->i18n->__('%1 items exported.', array('%1' => $itemsExported)));
-          Qubit::clearClassCaches();
-        }
-
-        $itemsExported++;
-      }
-    }
-
-    return $itemsExported;
+    parent::doExport($path);
   }
 
   /**
-   * Export XML to file
+   * Export resource metadata and (optionally) digital object
    *
-   * @param object   information object to be exported
-   * @param string   xml export path
-   * @param boolean  whether to use XML cache files
-   *
-   * @return null
+   * @param QubitInformationObject $resource object to export
+   * @param string $path temporary export job working directory
    */
-  protected function exportResource($resource, $path, $useCacheFiles)
+  protected function exportResource($resource, $path)
   {
-    $xml = null;
-
-    // If XML file caching is enabled then check to see if the XML has been cached
-    if ($useCacheFiles)
+    // Don't export resource if this level of description is not allowed
+    if (!$this->isAllowedLevelId($resource->levelOfDescriptionId))
     {
-      $cachedXmlFilePath = QubitInformationObjectXmlCache::resourceExportFilePath($resource, $this->params['format']);
+      return;
+    }
 
-      if (file_exists($cachedXmlFilePath))
+    // If XML caching is enabled then check for a cached XML document
+    if ($this->xmlCachingEnabled)
+    {
+      $cachedXmlPath = QubitInformationObjectXmlCache::resourceExportFilePath(
+        $resource, self::XML_STANDARD
+      );
+
+      if (file_exists($cachedXmlPath))
       {
-        $xml = file_get_contents($cachedXmlFilePath);
+        $xml = file_get_contents($cachedXmlPath);
       }
     }
 
@@ -166,23 +82,35 @@ class arInformationObjectXmlExportJob extends arExportJob
         // Print warnings/notices here too, as they are often important.
         $errLevel = error_reporting(E_ALL);
 
-        $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput($resource, $this->params['format'], $this->params);
+        $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput(
+          $resource, self::XML_STANDARD, $this->params
+        );
         $xml = Qubit::tidyXml($rawXml);
 
         error_reporting($errLevel);
       }
       catch (Exception $e)
       {
-        throw new sfException($this->i18n->__('Invalid XML generated for object %1%.', array('%1%' => $row['id'])));
+        throw new sfException($this->i18n->__(
+          'Invalid XML generated for object %1%.', array('%1%' => $row['id'])
+        ));
       }
     }
 
-    $filename = exportBulkBaseTask::generateSortableFilename($resource, 'xml', $this->params['format']);
+    $filename = exportBulkBaseTask::generateSortableFilename(
+      $resource, 'xml', self::XML_STANDARD
+    );
     $filePath = sprintf('%s/%s', $path, $filename);
 
     if (false === file_put_contents($filePath, $xml))
     {
-      throw new sfException($this->i18n->__('Cannot write to path: %1%', array('%1%' => $filePath)));
+      throw new sfException($this->i18n->__(
+        'Cannot write to path: %1%', array('%1%' => $filePath)
+      ));
     }
+
+    $this->addDigitalObject($resource, $path, $errors);
+
+    $this->itemsExported++;
   }
 }

@@ -50,9 +50,9 @@ class ClipboardExportAction extends DefaultEditAction
 
   public function execute($request)
   {
-
     // Get object type and validate
-    // Currently 'switch' to process the inbound parameter, validate and set default - could be if/then if preferred
+    // Currently 'switch' to process the inbound parameter, validate and set
+    // default - could be if/then if preferred
     $this->objectType = trim(strtolower($request->getParameter('type')));
     switch ($this->objectType)
     {
@@ -72,16 +72,28 @@ class ClipboardExportAction extends DefaultEditAction
     }
 
     // Get format and validate
-    // Currently 'switch' to process the inbound parameter, validate and set default - could be if/then if preferred
+    // Currently 'switch' to process the inbound parameter, validate and set
+    // default - could be if/then if preferred
     $this->formatType = trim(strtolower($request->getParameter('format')));
-    if(!('xml' == $this->formatType || 'csv' == $this->formatType) || 'repository' == $this->objectType)
+    if ($this->formatType != 'xml' || $this->objectType == 'repository')
     {
-        $this->formatType = 'csv';
+      $this->formatType = 'csv';
     }
 
-    // Basic permission check to determine whether digital object export should be made available
+    // Basic permission check to determine whether digital object export should
+    // be made available
     $this->digitalObjectsAvailable = false;
-    if (sfConfig::get('app_clipboard_export_digitalobjects_enabled', false) && ('informationObject' == $this->objectType || ('actor' == $this->objectType && $this->context->user->isAuthenticated())))
+
+    if (
+      sfConfig::get('app_clipboard_export_digitalobjects_enabled', false)
+      && (
+        'informationObject' == $this->objectType
+        || (
+          'actor' == $this->objectType
+          && $this->context->user->isAuthenticated()
+        )
+      )
+    )
     {
       $this->digitalObjectsAvailable = true;
     }
@@ -89,35 +101,32 @@ class ClipboardExportAction extends DefaultEditAction
     // Show export options panel if:
     // information object type
     // or, if actor type and digital objects are on the clipboard
-    $this->showOptions = 'informationObject' == $this->objectType || ('actor' == $this->objectType && $this->digitalObjectsAvailable);
+    $this->showOptions = 'informationObject' == $this->objectType
+      || ('actor' == $this->objectType && $this->digitalObjectsAvailable);
 
     // Get field includeDescendants if:
     // options enabled
     // and, information object type
-    $this->descendantsIncluded = $this->showOptions && 'informationObject' == $this->objectType && 'on' == $request->getParameter('includeDescendants');
+    $this->descendantsIncluded = $this->showOptions
+      && 'informationObject' == $this->objectType
+      && 'on' == $request->getParameter('includeDescendants');
 
     // get field includeAllLevels if:
     // descendantsIncluded enabled
-    $this->descendantsAllLevels = $this->descendantsIncluded && 'on' == $request->getParameter('includeAllLevels');
+    $this->descendantsAllLevels = $this->descendantsIncluded
+      && 'on' == $request->getParameter('includeAllLevels');
 
     // Get field includeDigitalObjects if:
-    // digital objects are on the clipboard
-    // and, information object type and descendants are not selected
-    // or, if actor type
-    $this->includeDigitalObjects = false;
-    if ($this->digitalObjectsAvailable)
-    {
-      $this->includeDigitalObjects = 'on' == $request->getParameter('includeDigitalObjects');
-    }
+    // digital object export option is available
+    $this->includeDigitalObjects = $this->digitalObjectsAvailable
+      && 'on' == $request->getParameter('includeDigitalObjects');
 
     // Get field includeDrafts if:
     // options enabled
     // and, user is authenticated
-    $this->draftsIncluded = false;
-    if ($this->showOptions && $this->context->user->isAuthenticated())
-    {
-      $this->draftsIncluded = 'on' == $request->getParameter('includeDrafts');
-    }
+    $this->draftsIncluded = $this->showOptions
+      && $this->context->user->isAuthenticated()
+      && 'on' == $request->getParameter('includeDrafts');
 
     parent::execute($request);
 
@@ -130,7 +139,10 @@ class ClipboardExportAction extends DefaultEditAction
       return;
     }
 
-    $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
+    $this->response->setHttpHeader(
+      'Content-Type',
+      'application/json; charset=utf-8'
+    );
 
     $this->form->bind($request->getPostParameters());
 
@@ -147,14 +159,16 @@ class ClipboardExportAction extends DefaultEditAction
     if (empty($slugs))
     {
       $this->response->setStatusCode(400);
-      $message = $this->context->i18n->__('The clipboard is empty for this entity type.');
+      $message = $this->context->i18n->__(
+        'The clipboard is empty for this entity type.'
+      );
 
       return $this->renderText(json_encode(array('error' => $message)));
     }
 
     $this->processForm();
 
-    // Create array of selections to pass to background job where 
+    // Create array of selections to pass to background job where
     // Term ID will be key, and Term description is value
     $levelsOfDescription = array();
     foreach ($this->levels as $value)
@@ -170,11 +184,12 @@ class ClipboardExportAction extends DefaultEditAction
       'levels' => $levelsOfDescription
     );
 
-    $options['name'] = $this->context->i18n->__('xml' === $this->formatType ? 'XML export' : 'CSV export' );
+    $msg = ('xml' == $this->formatType) ? 'XML export' : 'CSV export';
+    $options['name'] = $this->context->i18n->__($msg);
 
     if ($this->includeDigitalObjects)
     {
-      $options['name'] = $this->context->i18n->__('%1% and %2%', 
+      $options['name'] = $this->context->i18n->__('%1% and %2%',
         array(
           '%1%' => sfConfig::get('app_ui_label_digitalobject'),
           '%2%' => $options['name']
@@ -192,81 +207,7 @@ class ClipboardExportAction extends DefaultEditAction
 
     try
     {
-      $jobName = $this->getJobNameString();
-
-      // Preview export before attempting, if job supports this
-      $exportPreviewSupported = method_exists($jobName, 'exportOrCheckForResults');
-
-      if ($exportPreviewSupported && !call_user_func(array($jobName, 'exportOrCheckForResults'), $options))
-      {
-        throw new sfException($this->context->i18n->__(
-          'No records were exported for your current selection. Please %open_link%refresh the page and choose different export options%close_link%.', 
-          array(
-            '%open_link%' => '<a href="javascript:location.reload();">',
-            '%close_link%' => '</a>',
-          )
-        ));
-      }
-      else
-      {
-        $job = QubitJob::runJob($jobName, $options);
-        
-        $responseData = array();
-
-        // Generate, store and return a token to associate unauthenticated users with
-        // their export jobs to be able to download the result later and delete the job.
-        if (!$this->context->user->isAuthenticated())
-        {
-          $property = $job->generateUserTokenProperty();
-          $responseData['token'] = $property->value;
-        }
-
-        $responseData['success'] = '<p><strong>';
-        $responseData['success'] .= $this->context->i18n->__(
-          'Your %entity_type% export package is being built.',
-          array('%entity_type%' => strtolower($this->typeChoices[$this->objectType]))
-        );
-        $responseData['success'] .= '</strong> ';
-        
-        if ($this->context->user->isAuthenticated())
-        {
-          $responseData['success'] .= $this->context->i18n->__(
-            'The %open_link%job management page%close_link% will show progress and a download link when complete.',
-            array(
-              '%open_link%' => sprintf(
-                '<strong><a href="%s">',
-                $this->context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'))
-              ),
-              '%close_link%' => '</a></strong>'
-            )
-          );
-        }
-        else
-        {
-          $responseData['success'] .= $this->context->i18n->__(
-            'Please %open_link%refresh the page%close_link% to see progress and a download link when complete.',
-            array(
-              '%open_link%' => '<strong><a href="javascript:location.reload();">',
-              '%close_link%' => '</a></strong>'
-            )
-          );
-        }
-        
-        $responseData['success'] .= '</p><p>';
-        $responseData['success'] .= $this->context->i18n->__(
-          '%open_strong_tag%Note:%close_strong_tag% AtoM may remove export packages after aperiod of time '. 
-          'to free up storage space. When your export is ready you should download it as soon as possible.', 
-          array(
-            '%open_strong_tag%' => '<strong>',
-            '%close_strong_tag%' => '</strong>'
-          )
-        );
-        $responseData['success'] .= '</p>';
-
-        $this->response->setStatusCode(200);
-
-        return $this->renderText(json_encode($responseData));
-      }
+      return $this->runExportJob($options);
     }
     catch (Exception $e)
     {
@@ -276,27 +217,127 @@ class ClipboardExportAction extends DefaultEditAction
     }
   }
 
+  protected function runExportJob($options)
+  {
+    $responseData = array();
+
+    $jobName = $this->getJobNameString();
+
+    // Check if query matches any records, before attempting export
+    if (method_exists($jobName, 'findExportRecords'))
+    {
+      $search = $jobName::findExportRecords($options);
+
+      if (0 == $search->count())
+      {
+        throw new sfException($this->context->i18n->__(
+          'No records were exported for your current selection. Please'
+          . ' %open_link%refresh the page and choose different export options'
+          . ' %close_link%.',
+          array(
+            '%open_link%' => '<a href="javascript:location.reload();">',
+            '%close_link%' => '</a>',
+          )
+        ));
+      }
+    }
+
+    $job = QubitJob::runJob($jobName, $options);
+
+    // Generate, store and return a token to associate unauthenticated users
+    // with their export jobs to be able to download the result later and
+    // delete the job.
+    if (!$this->context->user->isAuthenticated())
+    {
+      $property = $job->generateUserTokenProperty();
+      $responseData['token'] = $property->value;
+    }
+
+    $responseData['success'] = '<p><strong>';
+    $responseData['success'] .= $this->context->i18n->__(
+      'Your %entity_type% export package is being built.',
+      ['%entity_type%' => strtolower($this->typeChoices[$this->objectType])]
+    );
+    $responseData['success'] .= '</strong> ';
+
+    if ($this->context->user->isAuthenticated())
+    {
+      $responseData['success'] .= $this->context->i18n->__(
+        'The %open_link%job management page%close_link% will show progress'
+        . ' and a download link when complete.',
+        array(
+          '%open_link%' => sprintf(
+            '<strong><a href="%s">',
+            $this->context->routing->generate(null, array(
+              'module' => 'jobs',
+              'action' => 'browse'
+            ))
+          ),
+          '%close_link%' => '</a></strong>'
+        )
+      );
+    }
+    else
+    {
+      $responseData['success'] .= $this->context->i18n->__(
+        'Please %open_link%refresh the page%close_link% to see progress and'
+        . ' a download link when complete.',
+        array(
+          '%open_link%' => '<strong><a href="javascript:location.reload();">',
+          '%close_link%' => '</a></strong>'
+        )
+      );
+    }
+
+    $responseData['success'] .= '</p><p>';
+    $responseData['success'] .= $this->context->i18n->__(
+      '%open_strong_tag%Note:%close_strong_tag% AtoM may remove export'
+      . ' packages after aperiod of time to free up storage space. When'
+      . ' your export is ready you should download it as soon as possible.',
+      array(
+        '%open_strong_tag%' => '<strong>',
+        '%close_strong_tag%' => '</strong>'
+      )
+    );
+    $responseData['success'] .= '</p>';
+
+    $this->response->setStatusCode(200);
+
+    return $this->renderText(json_encode($responseData));
+  }
+
   protected function addField($name)
   {
     switch ($name)
     {
       case 'type':
-        $this->form->setValidator('type', new sfValidatorString(array('required' => true)));
-        $this->form->setWidget('type', new sfWidgetFormSelect(array('label' => __('Type'), 'choices' => $this->typeChoices)));
+        $this->form->setValidator('type', new sfValidatorString(
+          array('required' => true)
+        ));
+        $this->form->setWidget('type', new sfWidgetFormSelect(
+          array('label' => __('Type'), 'choices' => $this->typeChoices)
+        ));
         $this->form->setDefault('type', $this->objectType);
 
         break;
 
       case 'format':
-        $this->form->setValidator('format', new sfValidatorString(array('required' => true)));
+        $this->form->setValidator('format', new sfValidatorString(
+          array('required' => true)
+        ));
         $choices = array();
         $choices['csv'] = $this->context->i18n->__('CSV');
         if('repository' != $this->objectType)
         {
           $choices['xml'] = $this->context->i18n->__('XML');
         }
-        $this->form->setWidget('format', new sfWidgetFormSelect(array('label' => __('Format'), 'choices' => $choices)));
-        $this->form->setDefault('format', 'actor' != $this->objectType ? 'xml' : 'csv');
+        $this->form->setWidget('format', new sfWidgetFormSelect(
+          array('label' => __('Format'), 'choices' => $choices)
+        ));
+        $this->form->setDefault(
+          'format',
+          'actor' != $this->objectType ? 'xml' : 'csv'
+        );
 
         break;
 
@@ -306,9 +347,18 @@ class ClipboardExportAction extends DefaultEditAction
       case 'includeDescendants':
         if ($this->showOptions && 'informationObject' == $this->objectType)
         {
-          $this->form->setWidget('includeDescendants', new sfWidgetFormInputCheckbox(array('label' => __('Include descendants'))));
+          $this->form->setWidget(
+            'includeDescendants',
+            new sfWidgetFormInputCheckbox(
+              array('label' => __('Include descendants'))
+            )
+          );
           $this->form->setDefault('includeDescendants', false);
-          $this->helpMessages[] = __('Choosing "Include descendants" will include all lower-level records beneath those currently on the clipboard in the export.');
+
+          $this->helpMessages[] = __(
+            'Choosing "Include descendants" will include all lower-level'
+            . ' records beneath those currently on the clipboard in the export.'
+          );
         }
 
         break;
@@ -319,7 +369,12 @@ class ClipboardExportAction extends DefaultEditAction
       case 'includeAllLevels':
         if ($this->showOptions && 'informationObject' == $this->objectType)
         {
-          $this->form->setWidget('includeAllLevels', new sfWidgetFormInputCheckbox(array('label' => __('Include all descendant levels of description'))));
+          $this->form->setWidget(
+            'includeAllLevels',
+            new sfWidgetFormInputCheckbox(array(
+              'label' => __('Include all descendant levels of description')
+            )
+          ));
           $this->form->setDefault('includeAllLevels', true);
         }
 
@@ -348,19 +403,26 @@ class ClipboardExportAction extends DefaultEditAction
         {
           $this->form->setWidget('levels', new sfWidgetFormSelect(
             array(
-              'label' => __('Select levels of descendant descriptions for inclusion'), 
-              'help' => __('If no levels are selected, the export will fail. You can use the control (Mac ⌘) and/or shift keys to multi-select values from the Levels of description menu. ' . 
-                           'It is necessary to include the level(s) above the desired export level, up to and including the level contained in the clipboard. ' . 
-                           'Otherwise, no records will be included in the export.'), 
-              'choices' => $this->levelChoices, 
+              'label' => __(
+                'Select levels of descendant descriptions for inclusion'
+              ),
+              'help' => __(
+                'If no levels are selected, the export will fail. You can use'
+                . ' the control (Mac ⌘) and/or shift keys to multi-select'
+                . ' values from the Levels of description menu. It is necessary'
+                . ' to include the level(s) above the desired export level, up'
+                . ' to and including the level contained in the clipboard.'
+                . ' Otherwise, no records will be included in the export.'
+              ),
+              'choices' => $this->levelChoices,
               'multiple' => true
-            ), 
+            ),
             array(
               'size' => $size
             )
           ));
         }
-        
+
         break;
 
       // Enable field includeDigitalObjects if:
@@ -368,19 +430,26 @@ class ClipboardExportAction extends DefaultEditAction
       case 'includeDigitalObjects':
         if ($this->digitalObjectsAvailable)
         {
-          switch ($this->objectType)
+          if ('informationObject' == $this->objectType)
           {
-            case 'informationObject':
-              $this->helpMessages[] = __('Note: Digital objects with restricted access or copyright will not be exported.') . ' ' . __('It is not possible to select both digital objects and descendants for export at the same time. Digital objects can only be exported for records that are on the clipboard.');
-
-              break;
-
-            case 'actor':
-              $this->helpMessages[] = __('Note: Digital objects with restricted access or copyright will not be exported.');
-
-              break;
+            $this->helpMessages[] = __(
+              'It is not possible to select both digital objects and'
+              . ' descendants for export at the same time. Digital objects can'
+              . ' only be exported for records that are on the clipboard.'
+            );
           }
-          $this->form->setWidget('includeDigitalObjects', new sfWidgetFormInputCheckbox(array('label' => __('Include digital objects'))));
+
+          $this->helpMessages[] = __(
+            'Digital objects with restricted access or copyright will not'
+            . ' be exported.'
+          );
+
+          $this->form->setWidget(
+            'includeDigitalObjects',
+            new sfWidgetFormInputCheckbox(
+              array('label' => __('Include digital objects'))
+            )
+          );
           $this->form->setDefault('includeDigitalObjects', true);
         }
 
@@ -390,10 +459,24 @@ class ClipboardExportAction extends DefaultEditAction
       // information object type
       // and, user is authenticated
       case 'includeDrafts':
-        if ('informationObject' == $this->objectType && $this->context->user->isAuthenticated())
+        if (
+          'informationObject' == $this->objectType
+          && $this->context->user->isAuthenticated()
+        )
         {
-          $this->form->setWidget('includeDrafts', new sfWidgetFormInputCheckbox(array('label' => __('Include draft records'))));
-          $this->helpMessages[] = __('Choosing "Include draft records" will include those marked with a Draft publication status in the export. Note: if you do NOT choose this option, any descendants of a draft record will also be excluded, even if they are published.');
+          $this->form->setWidget(
+            'includeDrafts',
+            new sfWidgetFormInputCheckbox(
+              array('label' => __('Include draft records'))
+            )
+          );
+
+          $this->helpMessages[] = __(
+            'Choosing "Include draft records" will include those marked with a'
+            . ' Draft publication status in the export. Note: if you do NOT'
+            . ' choose this option, any descendants of a draft record will also'
+            . ' be excluded, even if they are published.'
+          );
           $this->form->setDefault('includeDrafts', true);
         }
 
@@ -457,7 +540,9 @@ class ClipboardExportAction extends DefaultEditAction
         return 'arRepositoryCsvExportJob';
 
       default:
-        throw new sfException("Invalid object type specified: {$this->objectType}");
+        throw new sfException(
+          "Invalid object type specified: {$this->objectType}"
+        );
     }
   }
 }

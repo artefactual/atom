@@ -18,97 +18,60 @@
  */
 
 /**
- * Asynchronous job to export actor metadata from clipboard.
+ * Asynchronous job to export clipboard actor data to a CSV document, plus
+ * related digital objects when requested
  *
  * @package    symfony
  * @subpackage jobs
  */
 
-class arActorCsvExportJob extends arExportJob
+class arActorCsvExportJob extends arActorExportJob
 {
   /**
-   * @see arBaseJob::$requiredParameters
+   * Export search results as CSV, and include related digital objects when
+   * requested
+   *
+   * @see arActorExportJob::doExport()
+   *
+   * @param string $path of temporary job directory for export files
    */
-  protected $downloadFileExtension = 'zip';
-  protected $search;
-  protected $params = array();
-
-  public function runJob($parameters)
+  protected function doExport($path)
   {
-    $this->params = $parameters;
+    $this->csvWriter = $this->getCsvWriter($path);
 
-    // Create query increasing limit from default
-    $this->search = new arElasticSearchPluginQuery(arElasticSearchPluginUtil::SCROLL_SIZE);
-    $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
-
-    $tempPath = $this->createJobTempDir();
-
-    // Export CSV to temp directory
-    $this->info($this->i18n->__('Starting export to %1', array('%1' => $tempPath)));
-
-    if (-1 === $itemsExported = $this->exportResults($tempPath))
-    {
-      return false;
-    }
-
-    $this->info($this->i18n->__('Exported %1 actors.', array('%1' => $itemsExported)));
-
-    // Compress CSV export files as a ZIP archive
-    $this->info($this->i18n->__('Creating ZIP file %1', array('%1' => $this->getDownloadFilePath())));
-    $errors = $this->createZipForDownload($tempPath);
-
-    if (!empty($errors))
-    {
-      $this->error($this->i18n->__('Failed to create ZIP file.') . ' : ' . implode(' : ', $errors));
-      return false;
-    }
-
-    // Mark job as complete and set download path
-    $this->info($this->i18n->__('Export and archiving complete.'));
-    $this->job->setStatusCompleted();
-    $this->job->downloadPath = $this->getDownloadRelativeFilePath();
-    $this->job->save();
-
-    return true;
+    parent::doExport($path);
   }
 
   /**
-   * Export search results as CSV
+   * Export actor metadata to an XML file, and export related digital object
+   * when requested
    *
-   * @param string  Path of file to write CSV data to
-   *
-   * @return int  Number of descriptions exported, -1 if and error occurred and to end the job.
+   * @param QubitActor $resource actor to export
+   * @param string $path of temporary job directory for export
+   * @param array $options optional parameters
    */
-  protected function exportResults($path)
+  protected function exportResource($resource, $path, $options = [])
   {
-    $itemsExported = 0;
+    $this->csvWriter->exportResource($resource);
 
-    $search = QubitSearch::getInstance()->index->getType('QubitActor')->createSearch($this->search->getQuery(false, false));
+    $this->addDigitalObject($resource, $path);
 
+    $this->itemsExported++;
+  }
+
+  /**
+   * Configure and return CSV writer
+   *
+   * @param string $path of temporary job directory for export
+   *
+   * @return csvActorExport writer object
+   */
+  protected function getCsvWriter($path)
+  {
     $writer = new csvActorExport($path, null, 10000);
     $writer->setOptions($this->params);
     $writer->loadResourceSpecificConfiguration('QubitActor');
 
-    // Scroll through results then iterate through resulting IDs
-    foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id)
-    {
-      if (null === $resource = QubitActor::getById($id))
-      {
-        $this->error($this->i18n->__('Cannot fetch actor, id: %1', array('%1' => $id)));
-        return -1;
-      }
-
-      $writer->exportResource($resource);
-
-      // Log progress every 1000 rows
-      if ($itemsExported && ($itemsExported % 1000 == 0))
-      {
-        $this->info($this->i18n->__('%1 items exported.', array('%1' => $itemsExported)));
-      }
-
-      $itemsExported++;
-    }
-
-    return $itemsExported;
+    return $writer;
   }
 }

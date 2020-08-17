@@ -30,6 +30,62 @@ class arExportJob extends arBaseJob
   // Child class should set this if creating user downloads
   protected $downloadFileExtension = null;
 
+  protected $filenames = [];
+  protected $itemsExported = 0;
+
+  public function runJob($parameters)
+  {
+    $this->params = $parameters;
+
+    $tempPath = $this->createJobTempDir();
+
+    // Export CSV to temp directory
+    $this->info($this->i18n->__(
+      'Starting export to %1.', array('%1' => $tempPath))
+    );
+
+    $this->doExport($tempPath);
+
+    if (count($this->itemsExported) > 0)
+    {
+      $this->info($this->i18n->__(
+        'Exported %1 records.', array('%1' => $this->itemsExported)
+      ));
+
+      $this->info($this->i18n->__(
+        'Creating ZIP file %1.',
+        array('%1' => $this->getDownloadFilePath())
+      ));
+
+      // Create ZIP file and add metadata file(s) and digital objects
+      $errors = $this->createZipForDownload($tempPath);
+
+      if (!empty($errors))
+      {
+        $this->error(
+          $this->i18n->__('Failed to create ZIP file.') . ' : '
+          . implode(' : ', $errors)
+        );
+
+        return;
+      }
+
+      $this->job->downloadPath = $this->getDownloadRelativeFilePath();
+      $this->info($this->i18n->__('Export and archiving complete.'));
+    }
+    else
+    {
+      $this->info($this->i18n->__('No relevant records were found to export.'));
+    }
+
+    $this->job->setStatusCompleted();
+    $this->job->save();
+
+    // Delete temp directory contents and directory
+    sfToolkit::clearDirectory($tempPath);
+    rmdir($tempPath);
+  }
+
   /**
    * Return the job's download file path (or null if job doesn't create
    * a download).
@@ -128,7 +184,7 @@ class arExportJob extends arBaseJob
    *
    * @return array   Error messages
    */
-  protected function createZipForDownload($path)
+  protected function createZipForDownload($tempDir)
   {
     $errors = array();
 
@@ -140,188 +196,21 @@ class arExportJob extends arBaseJob
     $zip = new ZipArchive();
 
     if (!$zip->open(
-      $this->getDownloadFilePath(), ZipArchive::CREATE | ZipArchive::OVERWRITE)
-    ) {
+      $this->getDownloadFilePath(), ZipArchive::CREATE | ZipArchive::OVERWRITE
+    ))
+    {
       return [$this->i18n->__('Cannot create zip file')];
     }
 
-    // Check if we need to include digital objects
-    if (
-      array_key_exists('includeDigitalObjects', $this->params)
-      && $this->params['includeDigitalObjects']
-    ) {
-      $this->addDigitalObjects($zip, $errors);
-    }
-
-    // Add exported data (files)
-    $this->addExportDataFiles($path, $zip, $errors);
+    // Add exported files
+    $this->addFilesToZip($tempDir, $zip, $errors);
 
     $zip->close();
 
     return $errors;
   }
 
-  protected function addDigitalObjects(&$zip, &$errors)
-  {
-    // Keep track of digital object file names so we can append a bracketed
-    // number if any are duplicated
-    $fileNames = array();
-
-    // Get permitted digital object ids (if any) and iterate
-    foreach($this->getDigitalObjects() as $id)
-    {
-      $do = QubitDigitalObject::getById($id);
-
-      if (null == $do)
-      {
-        continue;
-      }
-
-      $doPath = $do->getAbsolutePath();
-
-      if (!file_exists($doPath))
-      {
-        continue;
-      }
-
-      $fileName = basename($doPath);
-
-      if (!array_key_exists($fileName, $fileNames))
-      {
-        // Filename not used yet - add to tracker
-        $fileNames[$fileName] = 0;
-      }
-      else
-      {
-        // Filename has been used - increment counter and add to filename
-        $doPathInfo = pathinfo($doPath);
-        $fileName = sprintf("%s_%s.%s", [
-          $doPathInfo['filename'],
-          $fileNames[$fileName]++,
-          $doPathInfo['extension']
-        ]);
-      }
-
-      try
-      {
-        $zip->addFile($doPath, $fileName);
-      }
-      catch (Exception $e)
-      {
-        if ($this->user->isAdministrator())
-        {
-          $errors[] = 'Exception: '.$e->getMessage();
-        }
-        else {
-          $errors[] = $this->i18n->__(
-            'Sorry, but there was an error locating a digital object (#%1%). ' .
-            'This has prevented any further digital objects from being ' .
-            'exported. Please contact an administrator.' ,
-            array(
-              '%1%' => $id
-            )
-          );
-        }
-
-        break;
-      }
-    }
-  }
-
-  /**
-   * Return an array of digital object ids if any are attached to clipboard items
-   * and current user has permission to view masters
-   *
-   * @return array
-   */
-  protected function getDigitalObjects()
-  {
-    // Prepare array for digital object ids
-    $digitalObjects = array();
-
-    // Process if export option is set and this is a description or actor export
-    if (
-      sfConfig::get('app_clipboard_export_digitalobjects_enabled', false)
-      && (
-        'informationObject' == $this->params['objectType']
-        || 'actor' == $this->params['objectType']
-      )
-    ) {
-      // Get clipboard objects
-      $criteria = new Criteria;
-
-      // Filter on clipboard slugs
-      $criteria->add(QubitSlug::SLUG, $this->params['params']['slugs'],
-        Criteria::IN);
-
-      switch ($this->params['objectType'])
-      {
-        case 'informationObject':
-          $criteria->addJoin(QubitInformationObject::ID, QubitSlug::OBJECT_ID);
-
-          // Hide drafts if necessary
-          if($this->params['public'])
-          {
-            $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
-          }
-          $items = QubitInformationObject::get($criteria);
-
-          break;
-
-        case 'actor':
-          $criteria->addJoin(QubitActor::ID, QubitSlug::OBJECT_ID);
-          $items = QubitActor::get($criteria);
-
-          break;
-      }
-
-      // Iterate filtered clipboard objects
-      foreach ($items as $item)
-      {
-        $a = $item->digitalObjectsRelatedByobjectId;
-
-        // Look for digital objects attached to each clipboard item
-        if (0 != count($a))
-        {
-          // Get master object
-          $digitalObject = $a[0];
-
-          // If we need to add in check for images only, then use:
-          // $digitalObject->isImage() or
-          // $digitalObject->isWebCompatibleImageFormat()
-          // ----------
-          // Do appropriate ACL check(s). Master copy of text objects are always
-          // allowed for reading. QubitActor does not have a ACL check for
-          // readMaster - so only enable for authenticated users.
-          if (
-            $digitalObject->masterAccessibleViaUrl()
-            && (
-              QubitTerm::TEXT_ID == $digitalObject->mediaTypeId
-              || (
-                'actor' == $this->params['objectType']
-                && $this->user->isAuthenticated()
-                && QubitAcl::check($item, 'read')
-              )
-              || (
-                'informationObject' == $this->params['objectType']
-                && QubitAcl::check($item, 'readMaster')
-                && QubitGrantedRight::checkPremis($item->id, 'readMaster')
-                && !$digitalObject->hasConditionalCopyright()
-              )
-            )
-          )
-          {
-            // Add master image id to array
-            $digitalObjects[] = $digitalObject->id;
-          }
-        }
-      }
-    }
-
-    return $digitalObjects;
-  }
-
-  protected function addExportDataFiles($path, &$zip, &$errors)
+  protected function addFilesToZip($path, &$zip, &$errors)
   {
     foreach (scandir($path) as $file)
     {
@@ -350,5 +239,129 @@ class arExportJob extends arBaseJob
         break;
       }
     }
+  }
+
+  /**
+   * Copy a digital object to the temporary job directory for export
+   *
+   * @param mixed $resource the object to which the digital object is attached
+   * @param string $tempDir the temporary export job directory
+   */
+  protected function addDigitalObject($resource, $tempDir)
+  {
+    // Skip if the includeDigitalObjects option is not set, or it is disabled
+    if (
+      !isset($this->params['includeDigitalObjects'])
+      || !$this->params['includeDigitalObjects']
+    )
+    {
+      return;
+    }
+
+    $digitalObject = $resource->getDigitalObject();
+
+    // Skip this digital object if it doesn't exist in the database or export
+    // is not authorized
+    if (
+      null === $digitalObject
+      || !$this->allowDigitalObjectExport($resource, $digitalObject)
+    )
+    {
+      return false;
+    }
+
+    // Don't try to export an external digital object
+    if (!$digitalObject->isLocalFile())
+    {
+      $this->info($this->i18n->__(
+        'Skipping external digital object "%1%"',
+        ['%1%' => $digitalObject->getPath()]
+      ));
+
+      return false;
+    }
+
+    $filepath = $digitalObject->getAbsolutePath();
+
+    if (!file_exists($filepath))
+    {
+      $this->info($this->i18n->__(
+        'Digital object "%1%" not found',
+        ['%1%' => $filepath]
+      ));
+
+      return false;
+    }
+
+    $filename = $this->getUniqueFilename($filepath);
+    $dest = $tempDir . DIRECTORY_SEPARATOR . $filename;
+
+    if (!copy($filepath, $dest))
+    {
+      $this->info($this->i18n->__(
+        'Failed to copy digital object "%1%" to "%2%"',
+        ['%1%' => $filepath, '%2%' => $dest]
+      ));
+
+      return false;
+    }
+
+    return true;
+  }
+
+  protected function allowDigitalObjectExport($resource, $digitalObject)
+  {
+    // If we need to add in check for images only, then use:
+    // $digitalObject->isImage() or
+    // $digitalObject->isWebCompatibleImageFormat()
+    // ----------
+    // Do appropriate ACL check(s). Master copy of text objects are always
+    // allowed for reading. QubitActor does not have a ACL check for
+    // readMaster - so only enable for authenticated users.
+    if (
+      $digitalObject->masterAccessibleViaUrl()
+      && (
+        QubitTerm::TEXT_ID == $digitalObject->mediaTypeId
+        || (
+          'actor' == $this->params['objectType']
+          && $this->user->isAuthenticated()
+          && QubitAcl::check($resource, 'read')
+        ) || (
+          'informationObject' == $this->params['objectType']
+          && QubitAcl::check($resource, 'readMaster')
+          && QubitGrantedRight::checkPremis($resource->id, 'readMaster')
+          && !$digitalObject->hasConditionalCopyright()
+        )
+      )
+    )
+    {
+      // Export is allowed
+      return true;
+    }
+
+    return false;
+  }
+
+  protected function getUniqueFilename($filepath)
+  {
+    $filename = basename($filepath);
+
+    if (!isset($this->filenames[$filename]))
+    {
+      // Filename not used yet - add to tracker
+      $this->filenames[$filename] = 0;
+
+      return $filename;
+    }
+
+    // Filename has been used - increment counter and append value to filename
+    $pathinfo = pathinfo($filename);
+
+    return sprintf(
+      "%s_%s.%s",
+      $pathinfo['filename'],
+      $this->filenames[$filename]++,
+      $pathinfo['extension']
+    );
   }
 }
