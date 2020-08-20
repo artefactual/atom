@@ -143,7 +143,7 @@ abstract class csvImportBaseTask extends arBaseTask
       && !$self->keepDigitalObjects)
     {
       // Retrieve any digital objects that exist for this information object
-      $do = $self->object->getDigitalObjectRelatedByobjectId();
+      $do = $self->object->getDigitalObject();
 
       if (null !== $do)
       {

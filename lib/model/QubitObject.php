@@ -390,24 +390,14 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
    */
   public function getDigitalObject()
   {
-    $digitalObjects = $this->getDigitalObjectsRelatedByobjectId();
+    $digitalObjects = $this->digitalObjectsRelatedByobjectId;
+
     if (count($digitalObjects) > 0)
     {
       return $digitalObjects[0];
     }
-    else
-    {
-      return null;
-    }
-  }
 
-  public function getDigitalObjectRelatedByobjectId()
-  {
-    $digitalObjects = $this->getDigitalObjectsRelatedByobjectId();
-    if (0 < count($digitalObjects))
-    {
-      return $digitalObjects[0];
-    }
+    return null;
   }
 
   /**
@@ -453,7 +443,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
    */
   public function getDigitalObjectChecksum()
   {
-    if (null !== $do = $this->getDigitalObjectRelatedByobjectId())
+    if (null !== $do = $this->getDigitalObject())
     {
       return $do->getChecksum();
     }

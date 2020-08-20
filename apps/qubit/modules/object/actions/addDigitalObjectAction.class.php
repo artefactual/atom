@@ -89,7 +89,7 @@ class ObjectAddDigitalObjectAction extends sfAction
     }
 
     // Check if already exists a digital object
-    if (null !== $digitalObject = $this->resource->getDigitalObjectRelatedByobjectId())
+    if (null !== $digitalObject = $this->resource->getDigitalObject())
     {
       $this->redirect(array($digitalObject, 'module' => 'digitalobject', 'action' => 'edit'));
     }
