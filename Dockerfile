@@ -1,6 +1,8 @@
 FROM php:7.3-fpm-alpine
 
-ENV FOP_HOME=/usr/share/fop-2.1 COMPOSER_ALLOW_SUPERUSER=1
+ENV FOP_HOME=/usr/share/fop-2.1 \
+    COMPOSER_ALLOW_SUPERUSER=1 \
+    LD_PRELOAD=/usr/lib/preloadable_libiconv.so
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
@@ -45,6 +47,7 @@ RUN set -xe \
 			npm \
 			make \
 			bash \
+			gnu-libiconv \
 		&& npm install -g "less@<2.0.0" \
 		&& curl -Ls https://archive.apache.org/dist/xmlgraphics/fop/binaries/fop-2.1-bin.tar.gz | tar xz -C /usr/share \
 		&& ln -sf /usr/share/fop-2.1/fop /usr/local/bin/fop \
