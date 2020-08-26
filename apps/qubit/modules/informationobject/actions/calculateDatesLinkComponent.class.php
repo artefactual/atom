@@ -23,9 +23,6 @@ class InformationObjectCalculateDatesLinkComponent extends sfComponent
   {
     $i18n = $this->context->i18n;
 
-    // Get events for the information object
-    $this->descendantEventTypes = InformationObjectCalculateDatesAction::getDescendantDateTypes($this->resource);
-
     // Determine when, or if, the date calculation job was last run
     $criteria = new Criteria;
     $criteria->add(QubitJob::NAME, 'arCalculateDescendantDatesJob');

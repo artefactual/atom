@@ -1,4 +1,4 @@
-<?php if (QubitAcl::check($resource, 'update') && count($descendantEventTypes)): ?>
+<?php if (QubitAcl::check($resource, 'update')): ?>
   <li class="separator"><h4><?php echo __('Tasks') ?></h4></li>
 
   <li>
