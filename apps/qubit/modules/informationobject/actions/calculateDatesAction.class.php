@@ -17,12 +17,10 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class InformationObjectCalculateDatesAction extends DefaultEditAction
+class InformationObjectCalculateDatesAction extends sfAction
 {
   // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'eventIdOrTypeId');
+  public static $NAMES = array('eventIdOrTypeId');
 
   protected function addField($name)
   {
@@ -67,17 +65,19 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
     }
   }
 
-  protected function earlyExecute()
+  protected function processForm()
   {
-    $this->i18n = $this->context->i18n;
-    $this->resource = $this->getRoute()->resource;
-    $this->descendantEventTypes = self::getDescendantDateTypes($this->resource);
-    $this->events = $this->getResourceEventsWithDateRangeSet($this->resource, $this->descendantEventTypes);
+    foreach ($this->form as $field)
+    {
+      $this->processField($field);
+    }
   }
 
   public function execute($request)
   {
-    parent::execute($request);
+    $this->form = new sfForm;
+    $this->resource = $this->getRoute()->resource;
+    $this->i18n = $this->context->i18n;
 
     // Redirect if unauthorized
     if (!QubitAcl::check($this->resource, 'update'))
@@ -85,12 +85,30 @@ class InformationObjectCalculateDatesAction extends DefaultEditAction
       QubitAcl::forwardUnauthorized();
     }
 
-    // Set response to 403 forbidden if attempting to calculate dates using
-    // non-existant descendants
+    // Return error page if attempting to calculate dates for a description that
+    // has no descendants
     if ($this->resource->rgt - $this->resource->lft == 1)
     {
-      $this->getResponse()->setStatusCode(403);
-      return sfView::NONE;
+      return sfView::ERROR;
+    }
+
+    // The descendantDateTypes query can be slow for large hierarchies, so delay
+    // calling it until just before we need it
+    $this->descendantEventTypes = self::getDescendantDateTypes($this->resource);
+    $this->events = $this->getResourceEventsWithDateRangeSet(
+      $this->resource,
+      $this->descendantEventTypes
+    );
+
+    if (0 == count($this->descendantEventTypes))
+    {
+      return sfView::ERROR;
+    }
+
+    // Add form fields
+    foreach ($this::$NAMES as $name)
+    {
+      $this->addField($name);
     }
 
     if ($request->isMethod('post'))
