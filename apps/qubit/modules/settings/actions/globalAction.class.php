@@ -83,9 +83,7 @@ class SettingsGlobalAction extends sfAction
     $defaultRepositoryView = QubitSetting::getByName('default_repository_browse_view');
     $defaultArchivalDescriptionView = QubitSetting::getByName('default_archival_description_browse_view');
     $multiRepository = QubitSetting::getByName('multi_repository');
-    $repositoryQuota = QubitSetting::getByName('repository_quota');
     $auditLogEnabled = QubitSetting::getByName('audit_log_enabled');
-    $explodeMultipageFiles = QubitSetting::getByName('explode_multipage_files');
     $showTooltips = QubitSetting::getByName('show_tooltips');
     $defaultPubStatus = QubitSetting::getByName('defaultPubStatus');
     $draftNotificationEnabled = QubitSetting::getByName('draft_notification_enabled');
@@ -108,9 +106,7 @@ class SettingsGlobalAction extends sfAction
       'default_repository_browse_view' => (isset($defaultRepositoryView)) ? $defaultRepositoryView->getValue(array('sourceCulture' => true)) : 'card',
       'default_archival_description_browse_view' => (isset($defaultArchivalDescriptionView)) ? $defaultArchivalDescriptionView->getValue(array('sourceCulture' => true)) : 'table',
       'multi_repository' => (isset($multiRepository)) ? intval($multiRepository->getValue(array('sourceCulture'=>true))) : 1,
-      'repository_quota' => (isset($repositoryQuota)) ? $repositoryQuota->getValue(array('sourceCulture'=>true)) : 0,
       'audit_log_enabled' => (isset($auditLogEnabled)) ? intval($auditLogEnabled->getValue(array('sourceCulture'=>true))) : 0,
-      'explode_multipage_files' => (isset($explodeMultipageFiles)) ? intval($explodeMultipageFiles->getValue(array('sourceCulture'=>true))) : 1,
       'slug_basis_informationobject' => (isset($slugTypeInformationObject)) ? intval($slugTypeInformationObject->getValue(array('sourceCulture'=>true))) : QubitSlug::SLUG_BASIS_TITLE,
       'permissive_slug_creation' => (isset($permissiveSlugCreation)) ? intval($permissiveSlugCreation->getValue(array('sourceCulture'=>true))) : QubitSlug::SLUG_RESTRICTIVE,
       'show_tooltips' => (isset($showTooltips)) ? intval($showTooltips->getValue(array('sourceCulture'=>true))) : 1,
@@ -228,23 +224,6 @@ class SettingsGlobalAction extends sfAction
       $setting->save();
     }
 
-    // Repository upload quota
-    if (null !== $multiRepositoryValue = $thisForm->getValue('repository_quota'))
-    {
-      $setting = QubitSetting::getByName('repository_quota');
-
-      // Add setting if it's not already in the sampleData.yml file for
-      // backwards compatiblity with v1.0.3 sampleData.yml file
-      if (null === $setting)
-      {
-        $setting = QubitSetting::createNewSetting('repository_quota', null, array('deleteable'=>false));
-      }
-
-      // Force sourceCulture update to prevent discrepency in settings between cultures
-      $setting->setValue($multiRepositoryValue, array('sourceCulture'=>true));
-      $setting->save();
-    }
-
     // Audit log enabled
     if (null !== $auditLogEnabled = $thisForm->getValue('audit_log_enabled'))
     {
@@ -256,16 +235,6 @@ class SettingsGlobalAction extends sfAction
 
       // Force sourceCulture update to prevent discrepency in settings between cultures
       $setting->setValue($auditLogEnabled, array('sourceCulture' => true));
-      $setting->save();
-    }
-
-    // Upload multi-page files as multiple descriptions
-    if (null !== $explodeMultipageFiles = $thisForm->getValue('explode_multipage_files'))
-    {
-      $setting = QubitSetting::getByName('explode_multipage_files');
-
-      // Force sourceCulture update to prevent discrepency in settings between cultures
-      $setting->setValue($explodeMultipageFiles, array('sourceCulture' => true));
       $setting->save();
     }
 

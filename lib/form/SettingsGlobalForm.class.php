@@ -46,10 +46,7 @@ class SettingsGlobalForm extends sfForm
       'default_archival_description_browse_view' => new sfWidgetFormSelectRadio(array('choices' => array('card' => $this->i18n->__('card'), 'table' => $this->i18n->__('table'))), array('class' => 'radio')),
       'multi_repository' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'enable_institutional_scoping' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
-      'repository_quota' => new sfWidgetFormInput,
-      'upload_quota' => new arWidgetFormUploadQuota,
       'audit_log_enabled' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
-      'explode_multipage_files' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'show_tooltips' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')),
       'slug_basis_informationobject' => $this->getSlugBasisInformationObjectWidget(),
       'permissive_slug_creation' => new sfWidgetFormSelectRadio(array('choices' => array(QubitSlug::SLUG_PERMISSIVE => 'yes', QubitSlug::SLUG_RESTRICTIVE => 'no')), array('class' => 'radio')),
@@ -73,10 +70,7 @@ class SettingsGlobalForm extends sfForm
       'default_archival_description_browse_view' => $this->i18n->__('Default archival description browse view'),
       'multi_repository' => $this->i18n->__('Multiple repositories'),
       'enable_institutional_scoping' => $this->i18n->__('Enable institutional scoping'),
-      'repository_quota' => $this->i18n->__('Default %1% upload limit (GB)', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))),
-      'upload_quota' => $this->i18n->__('Total space available for uploads'),
       'audit_log_enabled' => $this->i18n->__('Enable description change logging'),
-      'explode_multipage_files' => $this->i18n->__('Upload multi-page files as multiple descriptions'),
       'show_tooltips' => $this->i18n->__('Show tooltips'),
       'defaultPubStatus' => $this->i18n->__('Default publication status'),
       'draft_notification_enabled' => $this->i18n->__('Show available drafts notification upon user login'),
@@ -102,12 +96,10 @@ class SettingsGlobalForm extends sfForm
       'escape_queries' => $this->i18n->__('A list of special chars, separated by coma, to be escaped in string queries'),
       'multi_repository' => $this->i18n->__('When set to &quot;no&quot;, the repository name is excluded from certain displays because it will be too repetitive'),
       'enable_institutional_scoping' => $this->i18n->__('Applies to multi-repository sites only. When set to &quot;yes&quot;, additional search and browse options will be available at the repository level'),
-      'repository_quota' => $this->i18n->__('Default %1% upload limit for a new %2%.  A value of &quot;0&quot; (zero) disables file upload.  A value of &quot;-1&quot; allows unlimited uploads', array('%1%' => strtolower(sfConfig::get('app_ui_label_digitalobject')), '%2%' => strtolower(sfConfig::get('app_ui_label_repository')))),
       'defaultPubStatus' => $this->i18n->__('Default publication status for newly created or imported %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))),
       'slug_basis_informationobject' => $this->i18n->__('Choose whether permalinks for descriptions are generated from reference code or title'),
       'permissive_slug_creation' => $this->i18n->__('Allow any valid URI PATH segment character to appear in a slug, including UTF-8 glyphs. Restricted IRI characters ( /?#{} ) and literal spaces will be replaced with dashes'),
       'audit_log_enabled' => $this->i18n->__('Log creation and change of descriptions'),
-      // 'explode_multipage_files' => $this->i18n->__('')
       // 'show_tooltips' => $this->i18n->__('')
       // 'sword_deposit_dir' => $this->i18n->__('')
     ));
@@ -137,11 +129,7 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['default_archival_description_browse_view'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['slug_basis_informationobject'] = $this->getSlugBasisInformationObjectValidator();
     $this->validatorSchema['permissive_slug_creation'] = new sfValidatorInteger(array('required' => false));
-    $this->validatorSchema['repository_quota'] = new sfValidatorNumber(
-      array('required' => true, 'min' => -1),
-      array('min' => $this->i18n->__('Minimum value is "%min%"')));
     $this->validatorSchema['audit_log_enabled'] = new sfValidatorInteger(array('required' => false));
-    $this->validatorSchema['explode_multipage_files'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['show_tooltips'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['defaultPubStatus'] = new sfValidatorChoice(array('choices' => array(QubitTerm::PUBLICATION_STATUS_DRAFT_ID, QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)));
     $this->validatorSchema['draft_notification_enabled'] = new sfValidatorInteger(array('required' => false));

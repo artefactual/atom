@@ -26,7 +26,7 @@ class arWidgetFormUploadQuota extends sfWidgetFormInput
 
   public function render($name, $value = null, $attributes = array(), $errors = array())
   {
-    $uploadLimit = (int)sfConfig::get('app_upload_limit');
+    $uploadLimit = (int) sfConfig::get('app_upload_limit');
 
     if ($uploadLimit === 0)
     {
