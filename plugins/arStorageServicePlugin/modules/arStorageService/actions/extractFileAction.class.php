@@ -94,7 +94,7 @@ class arStorageServiceExtractFileAction extends sfAction
 
     if (null === $aip = QubitAip::getByUuid($aipUUID))
     {
-      throw new QubitApiBadRequestException('AIP not found: $aipUUID');
+      throw new QubitApiBadRequestException(sprintf('AIP not found: %s', $aipUUID));
     }
 
     $url = sprintf('%s/%s/%s/extract_file/?relative_path_to_file=%s-%s/data/%s',
