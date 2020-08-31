@@ -34,6 +34,7 @@ class SettingsPermissionsAction extends sfAction
     $this->permissionsForm = new SettingsPermissionsForm;
     $this->permissionsAccessStatementsForm = new SettingsPermissionsAccessStatementsForm;
     $this->permissionsCopyrightStatementForm = new SettingsPermissionsCopyrightStatementForm;
+    $this->permissionsPreservationSystemAccessStatementForm = new SettingsPermissionsPreservationSystemAccessStatementForm;
 
     $this->basis = array();
     foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID) as $item)
@@ -42,6 +43,9 @@ class SettingsPermissionsAction extends sfAction
     }
 
     $this->copyrightStatementSetting = QubitSetting::getByName('digitalobject_copyright_statement');
+    $this->preservationSystemAccessStatementSetting = QubitSetting::getByName(
+      'digitalobject_preservation_system_access_statement'
+    );
 
     $this->response->addJavaScript('permissionsSettings');
 
@@ -137,6 +141,43 @@ class SettingsPermissionsAction extends sfAction
           {
             $setting = new QubitSetting;
             $setting->name = 'digitalobject_copyright_statement';
+          }
+          $setting->setValue($statement);
+          $setting->save();
+        }
+      }
+
+      // Preservation system access statement
+      $this->permissionsPreservationSystemAccessStatementForm->bind($request->getPostParameters());
+      if ($this->permissionsPreservationSystemAccessStatementForm->isValid())
+      {
+        $setting = QubitSetting::getByName('digitalobject_preservation_system_access_statement_enabled');
+        if (null === $setting)
+        {
+          $setting = new QubitSetting;
+          $setting->name = 'digitalobject_preservation_system_access_statement_enabled';
+          $setting->sourceCulture = sfConfig::get('sf_default_culture');
+        }
+        $setting->setValue(
+          $this->permissionsPreservationSystemAccessStatementForm->getValue(
+            'preservationSystemAccessStatementEnabled'
+          ),
+          array('sourceCulture' => true)
+        );
+        $setting->save();
+
+        $statement = $this->permissionsPreservationSystemAccessStatementForm->getValue(
+          'preservationSystemAccessStatement'
+        );
+        $statement = QubitHtmlPurifier::getInstance()->purify($statement);
+
+        if (!empty($statement))
+        {
+          $setting = QubitSetting::getByName('digitalobject_preservation_system_access_statement');
+          if (null === $setting)
+          {
+            $setting = new QubitSetting;
+            $setting->name = 'digitalobject_preservation_system_access_statement';
           }
           $setting->setValue($statement);
           $setting->save();

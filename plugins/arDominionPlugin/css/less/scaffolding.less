@@ -1243,6 +1243,95 @@ section .vcard:last-child > .field:last-child > div {
   }
 }
 
+// Digital object metadata
+
+#content {
+
+  fieldset.digital-object-metadata {
+
+    legend {
+      padding-left: 30%;
+      position: relative;
+
+      > a {
+        display: block;
+        position: relative;
+        &:after {
+          content: "»";
+          position: absolute;
+          margin-left: 4px;
+          top: -1px;
+          font-size: @baseFontSize * 1.75;
+          color: @grayLight;
+          transition-property: right;
+          transition-duration: 200ms;
+        }
+      }
+    }
+
+    .fieldset-wrapper {
+      padding: 0;
+    }
+
+    .digital-object-metadata-header {
+      float: left;
+      width: 28%;
+      text-align: right;
+
+      h3 {
+        margin: 0;
+        line-height: 20px;
+        padding: 2px 0;
+        position: relative;
+
+        .fa {
+          position: absolute;
+          top: 24px;
+          right: 0;
+          color: #000;
+          font-size: 1.5em;
+        }
+
+        .fa.inactive {
+          color: #999;
+        }
+      }
+    }
+
+    .digital-object-metadata-body {
+      margin-left: 30%;
+      margin-bottom: 10px;
+      border-left: 1px solid #f2f2f2;
+
+      .field {
+
+        > h3 {
+          float: none;
+          width: auto;
+          padding: 2px 4px;
+          margin: 0;
+          text-align: left;
+          border-right: none;
+          display: inline-block;
+        }
+
+        > div {
+          margin: 0;
+          padding: 2px 4px;
+          display: inline-block;
+
+          p {
+            margin: 0;
+          }
+        }
+
+      }
+
+    }
+
+  }
+}
+
 // Horizontal space that takes the sort dropdown or a search bar in a browser
 
 .header-options {

@@ -202,8 +202,55 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $options
     );
 
+    $this->addPreservationSystemMetadata($io, $fileId, $options);
+
     // Add a relation between this $io and the AIP record
     $io = $this->addAipRelation($io, $this->aip);
+
+    return $io;
+  }
+
+  /**
+   * Add metadata related to the preservation system
+   *
+   * @param QubitInformationObject $io target information object
+   * @param string $fileId METS FILEID
+   * @param array $options list of options to pass to QubitProperty
+   *
+   * @return QubitInformationObject with added metadata
+   */
+  protected function addPreservationSystemMetadata($io, $fileId, $options)
+  {
+    $io->addProperty(
+      'originalFileName',
+      $this->metsParser->getOriginalFilename($fileId),
+      $options
+    );
+    $io->addProperty(
+      'originalFileSize',
+      $this->metsParser->getOriginalFileSize($fileId),
+      $options
+    );
+    $io->addProperty(
+      'originalFileIngestedAt',
+      $this->metsParser->getOriginalFileIngestionTime($fileId),
+      $options
+    );
+    $io->addProperty(
+      'preservationCopyFileName',
+      $this->metsParser->getPreservationCopyFilename($fileId),
+      $options
+    );
+    $io->addProperty(
+      'preservationCopyFileSize',
+      $this->metsParser->getPreservationCopyFileSize($fileId),
+      $options
+    );
+    $io->addProperty(
+      'preservationCopyNormalizedAt',
+      $this->metsParser->getPreservationCopyCreationTime($fileId),
+      $options
+    );
 
     return $io;
   }

@@ -28,34 +28,320 @@ class DigitalObjectMetadataComponent extends sfComponent
 {
   public function execute($request)
   {
-    $id = $this->object->id;
-    $this->denyFileNameByPremis = false;
+    // Check related object type to display IO properties in the template
+    $this->relatedToIo = $this->resource->object instanceOf QubitInformationObject;
+    $this->relatedToActor = $this->resource->object instanceOf QubitActor;
 
-    // Special case: If all digital object representations are
-    // denied by premis, we will hide the filename when displaying
-    // the digital object metadata for security reasons. Only check
-    // rights for info obj linked digital objects.
-    if (!QubitGrantedRight::checkPremis($id, 'readThumb') &&
-        !QubitGrantedRight::checkPremis($id, 'readReference') &&
-        !QubitGrantedRight::checkPremis($id, 'readMaster') &&
-        $this->object instanceOf QubitInformationObject)
+    $this->user = $this->context->getUser();
+    $this->storageServicePluginEnabled = (
+      $this->context->getConfiguration()->isPluginEnabled('arStorageServicePlugin')
+      && arStorageServiceUtils::getAipDownloadEnabled()
+    );
+
+    $this->referenceCopy = $this->resource->getRepresentationByUsage(QubitTerm::REFERENCE_ID);
+    $this->thumbnailCopy = $this->resource->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID);
+
+    // An authenticated user can download the original preservation file only if the Storage Service plugin is enabled
+    $this->canAccessOriginalFile = (
+      $this->user->isAuthenticated()
+      && $this->relatedToIo
+      && $this->storageServicePluginEnabled
+    );
+
+    // The preservation copy cannot be downloaded from AtoM
+    $this->canAccessPreservationCopy = false;
+
+    // AtoM's representations cannot be downloaded by default
+    $this->canAccessMasterFile = false;
+    $this->canAccessReferenceCopy = false;
+    $this->canAccessThumbnailCopy = false;
+
+    // Reasons for denying access to a AtoM's representations based on PREMIS rights
+    $this->masterFileDenyReason = false;
+    $this->referenceCopyDenyReason = false;
+    $this->thumbnailCopyDenyReason = false;
+
+    // Group permissions always control access to AtoM's representations if the digital object is related to an actor
+    if ($this->relatedToActor && QubitAcl::check($this->resource->object, 'read'))
     {
-      $this->denyFileNameByPremis = true;
+      $this->canAccessMasterFile = true;
+      $this->canAccessReferenceCopy = true;
+      $this->canAccessThumbnailCopy = true;
     }
 
+    // If the digital object is related to an information object, access to AtoM's representations is controlled by
+    // PREMIS rights (for authenticated users) or group permissions
+    if ($this->relatedToIo)
+    {
+      if (
+        !$this->user->isAuthenticated()
+        && QubitGrantedRight::hasGrantedRights($this->resource->object->id)
+      ) {
+        $this->canAccessMasterFile = QubitGrantedRight::checkPremis(
+          $this->resource->object->id, 'readMaster', $this->masterFileDenyReason
+        );
+        $this->canAccessReferenceCopy = QubitGrantedRight::checkPremis(
+          $this->resource->object->id, 'readReference', $this->referenceCopyDenyReason
+        );
+        $this->canAccessThumbnailCopy = QubitGrantedRight::checkPremis(
+          $this->resource->object->id, 'readThumbnail', $this->thumbnailCopyDenyReason
+        );
+      }
+      else
+      {
+        $this->canAccessMasterFile = QubitAcl::check($this->resource->object, 'readMaster');
+        $this->canAccessReferenceCopy = QubitAcl::check($this->resource->object, 'readReference');
+        $this->canAccessThumbnailCopy = QubitAcl::check($this->resource->object, 'readThumbnail');
+      }
+    }
+
+    // Statement shown as the Permissions field for preservation copies
+    $this->accessStatement = $this->getPreservationSystemAccessStatement();
+
+    // What metadata sections should be shown
+    $this->showOriginalFileMetadata = $this->setOriginalFileShowProperties();
+    $this->showPreservationCopyMetadata = $this->setPreservationCopyShowProperties();
+    $this->showMasterFileMetadata = $this->setMasterFileShowProperties();
+    $this->showReferenceCopyMetadata = $this->setReferenceCopyShowProperties();
+    $this->showThumbnailCopyMetadata = $this->setThumbnailCopyShowProperties();
+  }
+
+  protected function isPreservationSystemAccessStatementEnabled()
+  {
+    return sfConfig::get('app_digitalobject_preservation_system_access_statement_enabled', false);
+  }
+
+  protected function getPreservationSystemAccessStatement()
+  {
+    if ($this->isPreservationSystemAccessStatementEnabled())
+    {
+      return sfConfig::get('app_digitalobject_preservation_system_access_statement');
+    }
+  }
+
+  protected function isEmpty($value)
+  {
+    return (null === $value || '' === (string)$value);
+  }
+
+  protected function setMasterFileShowProperties()
+  {
     // Provide Google Maps API key to template
     $this->googleMapsApiKey = sfConfig::get('app_google_maps_api_key');
 
     // Provide latitude to template
-    $latitudeProperty = $this->object->digitalObjectsRelatedByobjectId[0]->getPropertyByName('latitude');
+    $latitudeProperty = $this->resource->object->digitalObjectsRelatedByobjectId[0]->getPropertyByName('latitude');
     $this->latitude = $latitudeProperty->value;
 
     // Provide longitude to template
-    $longitudeProperty = $this->object->digitalObjectsRelatedByobjectId[0]->getPropertyByName('longitude');
+    $longitudeProperty = $this->resource->object->digitalObjectsRelatedByobjectId[0]->getPropertyByName('longitude');
     $this->longitude = $longitudeProperty->value;
 
-    // Check related object type to display IO properties in the template
-    $this->relatedToIo = $this->resource->object instanceOf QubitInformationObject;
-    $this->relatedToActor = $this->resource->object instanceOf QubitActor;
+    $this->showMasterFileGoogleMap = (
+      sfConfig::get('app_toggleDigitalObjectMap', false)
+      && is_numeric($this->latitude)
+      && is_numeric($this->longitude)
+      && (bool)$this->googleMapsApiKey
+    );
+
+    $this->showMasterFileGeolocation = (
+      check_field_visibility('app_element_visibility_digital_object_geolocation')
+      && (is_numeric($this->latitude) || is_numeric($this->longitude))
+    );
+
+    $this->showMasterFileURL = (
+      QubitTerm::EXTERNAL_URI_ID == $this->resource->usageId
+      && check_field_visibility('app_element_visibility_digital_object_url')
+      && !$this->isEmpty($this->resource->path)
+    );
+
+    $this->showMasterFileName = (
+      QubitTerm::EXTERNAL_URI_ID != $this->resource->usageId
+      && check_field_visibility('app_element_visibility_digital_object_file_name')
+      && !$this->isEmpty($this->resource->name)
+    );
+
+    $this->showMasterFileMediaType = (
+      check_field_visibility('app_element_visibility_digital_object_media_type')
+      && !$this->isEmpty($this->resource->mediaType)
+    );
+
+    $this->showMasterFileMimeType = (
+      check_field_visibility('app_element_visibility_digital_object_mime_type')
+      && !$this->isEmpty($this->resource->mimeType)
+    );
+
+    $this->showMasterFileSize = (
+      check_field_visibility('app_element_visibility_digital_object_file_size')
+      && !$this->isEmpty($this->resource->byteSize)
+    );
+
+    $this->showMasterFileCreatedAt = (
+      check_field_visibility('app_element_visibility_digital_object_uploaded')
+      && !$this->isEmpty($this->resource->createdAt)
+    );
+
+    $this->showMasterFilePermissions = (
+      check_field_visibility('app_element_visibility_digital_object_permissions')
+      && !$this->isEmpty($this->masterFileDenyReason)
+    );
+
+    return (
+      $this->showMasterFileGoogleMap
+      || $this->showMasterFileGeolocation
+      || $this->showMasterFileURL
+      || $this->showMasterFileName
+      || $this->showMasterFileMediaType
+      || $this->showMasterFileMimeType
+      || $this->showMasterFileSize
+      || $this->showMasterFileCreatedAt
+    );
   }
+
+  protected function setReferenceCopyShowProperties()
+  {
+    $this->showReferenceCopyFileName = (
+      check_field_visibility('app_element_visibility_digital_object_reference_file_name')
+      && !$this->isEmpty($this->referenceCopy->name)
+    );
+    $this->showReferenceCopyMediaType = (
+      check_field_visibility('app_element_visibility_digital_object_reference_media_type')
+      && !$this->isEmpty($this->referenceCopy->mediaType)
+    );
+    $this->showReferenceCopyMimeType = (
+      check_field_visibility('app_element_visibility_digital_object_reference_mime_type')
+      && !$this->isEmpty($this->referenceCopy->mimeType)
+    );
+    $this->showReferenceCopyFileSize = (
+      check_field_visibility('app_element_visibility_digital_object_reference_file_size')
+      && !$this->isEmpty($this->referenceCopy->byteSize)
+    );
+    $this->showReferenceCopyCreatedAt = (
+      check_field_visibility('app_element_visibility_digital_object_reference_uploaded')
+      && !$this->isEmpty($this->referenceCopy->createdAt)
+    );
+    $this->showReferenceCopyPermissions = (
+      check_field_visibility('app_element_visibility_digital_object_reference_permissions')
+      && !$this->isEmpty($this->referenceCopyDenyReason)
+    );
+
+    return (
+      $this->showReferenceCopyFileName
+      || $this->showReferenceCopyMediaType
+      || $this->showReferenceCopyMimeType
+      || $this->showReferenceCopyFileSize
+      || $this->showReferenceCopyCreatedAt
+    );
+  }
+
+  protected function setThumbnailCopyShowProperties()
+  {
+    $this->showThumbnailCopyFileName = (
+      check_field_visibility('app_element_visibility_digital_object_thumbnail_file_name')
+      && !$this->isEmpty($this->thumbnailCopy->name)
+    );
+    $this->showThumbnailCopyMediaType = (
+      check_field_visibility('app_element_visibility_digital_object_thumbnail_media_type')
+      && !$this->isEmpty($this->thumbnailCopy->mediaType)
+    );
+    $this->showThumbnailCopyMimeType = (
+      check_field_visibility('app_element_visibility_digital_object_thumbnail_mime_type')
+      && !$this->isEmpty($this->thumbnailCopy->mimeType)
+    );
+    $this->showThumbnailCopyFileSize = (
+      check_field_visibility('app_element_visibility_digital_object_thumbnail_file_size')
+      && !$this->isEmpty($this->thumbnailCopy->byteSize)
+    );
+    $this->showThumbnailCopyCreatedAt = (
+      check_field_visibility('app_element_visibility_digital_object_thumbnail_uploaded')
+      && !$this->isEmpty($this->thumbnailCopy->createdAt)
+    );
+    $this->showThumbnailPermissions = (
+      check_field_visibility('app_element_visibility_digital_object_reference_permissions')
+      && !$this->isEmpty($this->thumbnailCopyDenyReason)
+    );
+
+    return (
+      $this->showThumbnailCopyFileName
+      || $this->showThumbnailCopyMediaType
+      || $this->showThumbnailCopyMimeType
+      || $this->showThumbnailCopyFileSize
+      || $this->showThumbnailCopyCreatedAt
+    );
+  }
+
+  protected function setOriginalFileShowProperties()
+  {
+    $this->showOriginalFileName = (
+      check_field_visibility('app_element_visibility_digital_object_preservation_system_original_file_name')
+      && !$this->isEmpty($this->resource->object->originalFileName)
+    );
+    $this->showOriginalFormatName = (
+      check_field_visibility('app_element_visibility_digital_object_preservation_system_original_format_name')
+      && !$this->isEmpty($this->resource->object->formatName)
+    );
+    $this->showOriginalFormatVersion = (
+      check_field_visibility('app_element_visibility_digital_object_preservation_system_original_format_version')
+      && !$this->isEmpty($this->resource->object->formatVersion)
+    );
+    $this->showOriginalFormatRegistryKey = (
+      check_field_visibility(
+        'app_element_visibility_digital_object_preservation_system_original_format_registry_key'
+      )
+      && !$this->isEmpty($this->resource->object->formatRegistryKey)
+    );
+    $this->showOriginalFormatRegistryName = (
+      check_field_visibility(
+        'app_element_visibility_digital_object_preservation_system_original_format_registry_name'
+      )
+      && !$this->isEmpty($this->resource->object->formatRegistryName)
+    );
+    $this->showOriginalFileSize = (
+      check_field_visibility('app_element_visibility_digital_object_preservation_system_original_file_size')
+      && !$this->isEmpty($this->resource->object->originalFileSize)
+    );
+    $this->showOriginalFileIngestedAt = (
+      check_field_visibility('app_element_visibility_digital_object_preservation_system_original_ingested')
+      && !$this->isEmpty($this->resource->object->originalFileIngestedAt)
+    );
+    $this->showOriginalFilePermissions = (
+      check_field_visibility('app_element_visibility_digital_object_preservation_system_original_permissions')
+    );
+
+    return (
+      $this->showOriginalFileName
+      || $this->showOriginalFormatName
+      || $this->showOriginalFormatVersion
+      || $this->showOriginalFormatRegistryKey
+      || $this->showOriginalFormatRegistryName
+      || $this->showOriginalFileSize
+      || $this->showOriginalFileIngestedAt
+    );
+  }
+
+  protected function setPreservationCopyShowProperties()
+  {
+    $this->showPreservationCopyFileName = (
+      check_field_visibility('app_element_visibility_digital_object_preservation_system_preservation_file_name')
+      && !$this->isEmpty($this->resource->object->preservationCopyFileName)
+    );
+    $this->showPreservationCopyFileSize = (
+      check_field_visibility('app_element_visibility_digital_object_preservation_system_preservation_file_size')
+      && !$this->isEmpty($this->resource->object->preservationCopyFileSize)
+    );
+    $this->showPreservationCopyNormalizedAt = (
+      check_field_visibility('app_element_visibility_digital_object_preservation_system_preservation_normalized')
+      && !$this->isEmpty($this->resource->object->preservationCopyNormalizedAt)
+    );
+    $this->showPreservationCopyPermissions = (
+      check_field_visibility('app_element_visibility_digital_object_preservation_system_preservation_permissions')
+    );
+
+    return (
+      $this->showPreservationCopyFileName
+      || $this->showPreservationCopyFileSize
+      || $this->showPreservationCopyNormalizedAt
+    );
+  }
+
 }

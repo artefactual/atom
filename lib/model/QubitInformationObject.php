@@ -75,6 +75,12 @@ class QubitInformationObject extends BaseInformationObject
       case 'objectUUID':
       case 'aipUUID':
       case 'relativePathWithinAip':
+      case 'originalFileName':
+      case 'originalFileSize':
+      case 'originalFileIngestedAt':
+      case 'preservationCopyFileName':
+      case 'preservationCopyFileSize':
+      case 'preservationCopyNormalizedAt':
 
         if (!isset($this->values[$name]))
         {

@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 186
+    value: 187
   milestone:
     name: milestone
     editable: 0
@@ -1123,6 +1123,106 @@ QubitSetting:
     value: 1
   Qubit_Settings_visibleElements_digitalObjectUploaded:
     name: digital_object_uploaded
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectPermissions:
+    name: digital_object_permissions
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectReferenceFileName:
+    name: digital_object_reference_file_name
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectReferenceMediaType:
+    name: digital_object_reference_media_type
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectReferenceMimeType:
+    name: digital_object_reference_mime_type
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectReferenceFilesize:
+    name: digital_object_reference_file_size
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectReferenceUploaded:
+    name: digital_object_reference_uploaded
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectReferencePermissions:
+    name: digital_object_reference_permissions
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectThumbnailFileName:
+    name: digital_object_thumbnail_file_name
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectThumbnailMediaType:
+    name: digital_object_thumbnail_media_type
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectThumbnailMimeType:
+    name: digital_object_thumbnail_mime_type
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectThumbnailFilesize:
+    name: digital_object_thumbnail_file_size
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectThumbnailUploaded:
+    name: digital_object_thumbnail_uploaded
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectThumbnailPermissions:
+    name: digital_object_thumbnail_permissions
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectPreservationSystemOriginalFileName:
+    name: digital_object_preservation_system_original_file_name
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectPreservationSystemOriginalFormatName:
+    name: digital_object_preservation_system_original_format_name
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectPreservationSystemOriginalFormatVersion:
+    name: digital_object_preservation_system_original_format_version
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectPreservationSystemOriginalFormatRegistryKey:
+    name: digital_object_preservation_system_original_format_registry_key
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectPreservationSystemOriginalFormatRegistryName:
+    name: digital_object_preservation_system_original_format_registry_name
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectPreservationSystemOriginalFilesize:
+    name: digital_object_preservation_system_original_file_size
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectPreservationSystemOriginalIngested:
+    name: digital_object_preservation_system_original_ingested
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectPreservationSystemOriginalPermission:
+    name: digital_object_preservation_system_original_permissions
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectPreservationSystemPreservationFileName:
+    name: digital_object_preservation_system_preservation_file_name
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectPreservationSystemPreservationFilesize:
+    name: digital_object_preservation_system_preservation_file_size
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectPreservationSystemPreservationNormalized:
+    name: digital_object_preservation_system_preservation_normalized
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectPreservationSystemPreservationPermission:
+    name: digital_object_preservation_system_preservation_permissions
     scope: element_visibility
     value: 1
   Qubit_Settings_visibleElements_physicalStorage:

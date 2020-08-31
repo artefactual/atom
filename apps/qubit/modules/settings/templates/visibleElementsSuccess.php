@@ -193,23 +193,122 @@
 
         <legend><?php echo __('%1% metadata area', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))) ?></legend>
 
-        <?php foreach (array(
-          'digital_object_url' => __('URL'),
-          'digital_object_file_name' => __('File name'),
-          'digital_object_geolocation' => __('Latitude and longitude'),
-          'digital_object_media_type' => __('Media type'),
-          'digital_object_mime_type' => __('MIME type'),
-          'digital_object_file_size' => __('File size'),
-          'digital_object_uploaded' => __('Uploaded')) as $key => $value): ?>
+        <fieldset class="collapsible collapsed">
 
-          <div class="form-item form-item-checkbox">
-            <?php echo $form[$key] ?>
-            <?php echo $form[$key]
-              ->label($value)
-              ->renderLabel() ?>
-          </div>
+          <legend><?php echo __('Original file') ?></legend>
 
-        <?php endforeach; ?>
+          <?php foreach (array(
+            'digital_object_preservation_system_original_file_name' => __('File name'),
+            'digital_object_preservation_system_original_format_name' => __('Format name'),
+            'digital_object_preservation_system_original_format_version' => __('Format version'),
+            'digital_object_preservation_system_original_format_registry_key' => __('Format registry key'),
+            'digital_object_preservation_system_original_format_registry_name' => __('Format registry name'),
+            'digital_object_preservation_system_original_file_size' => __('File size'),
+            'digital_object_preservation_system_original_ingested' => __('Ingested'),
+            'digital_object_preservation_system_original_permissions' => __('Permissions')) as $key => $value): ?>
+
+            <div class="form-item form-item-checkbox">
+              <?php echo $form[$key] ?>
+              <?php echo $form[$key]
+                ->label($value)
+                ->renderLabel() ?>
+            </div>
+
+          <?php endforeach; ?>
+
+        </fieldset>
+
+        <fieldset class="collapsible collapsed">
+
+          <legend><?php echo __('Preservation copy') ?></legend>
+
+          <?php foreach (array(
+            'digital_object_preservation_system_preservation_file_name' => __('File name'),
+            'digital_object_preservation_system_preservation_file_size' => __('File size'),
+            'digital_object_preservation_system_preservation_normalized' => __('Normalized'),
+            'digital_object_preservation_system_preservation_permissions' => __('Permissions')) as $key => $value): ?>
+
+            <div class="form-item form-item-checkbox">
+              <?php echo $form[$key] ?>
+              <?php echo $form[$key]
+                ->label($value)
+                ->renderLabel() ?>
+            </div>
+
+          <?php endforeach; ?>
+
+        </fieldset>
+
+        <fieldset class="collapsible collapsed">
+
+          <legend><?php echo __('Master file') ?></legend>
+
+          <?php foreach (array(
+            'digital_object_url' => __('URL'),
+            'digital_object_file_name' => __('File name'),
+            'digital_object_geolocation' => __('Latitude and longitude'),
+            'digital_object_media_type' => __('Media type'),
+            'digital_object_mime_type' => __('MIME type'),
+            'digital_object_file_size' => __('File size'),
+            'digital_object_uploaded' => __('Uploaded'),
+            'digital_object_permissions' => _('Permissions')) as $key => $value): ?>
+
+            <div class="form-item form-item-checkbox">
+              <?php echo $form[$key] ?>
+              <?php echo $form[$key]
+                ->label($value)
+                ->renderLabel() ?>
+            </div>
+
+          <?php endforeach; ?>
+
+        </fieldset>
+
+        <fieldset class="collapsible collapsed">
+
+          <legend><?php echo __('Reference copy') ?></legend>
+
+          <?php foreach (array(
+            'digital_object_reference_file_name' => __('File name'),
+            'digital_object_reference_media_type' => __('Media type'),
+            'digital_object_reference_mime_type' => __('MIME type'),
+            'digital_object_reference_file_size' => __('File size'),
+            'digital_object_reference_uploaded' => __('Uploaded'),
+            'digital_object_reference_permissions' => _('Permissions')) as $key => $value): ?>
+
+            <div class="form-item form-item-checkbox">
+              <?php echo $form[$key] ?>
+              <?php echo $form[$key]
+                ->label($value)
+                ->renderLabel() ?>
+            </div>
+
+          <?php endforeach; ?>
+
+        </fieldset>
+
+        <fieldset class="collapsible collapsed">
+
+          <legend><?php echo __('Thumbnail copy') ?></legend>
+
+          <?php foreach (array(
+            'digital_object_thumbnail_file_name' => __('File name'),
+            'digital_object_thumbnail_media_type' => __('Media type'),
+            'digital_object_thumbnail_mime_type' => __('MIME type'),
+            'digital_object_thumbnail_file_size' => __('File size'),
+            'digital_object_thumbnail_uploaded' => __('Uploaded'),
+            'digital_object_thumbnail_permissions' => _('Permissions')) as $key => $value): ?>
+
+            <div class="form-item form-item-checkbox">
+              <?php echo $form[$key] ?>
+              <?php echo $form[$key]
+                ->label($value)
+                ->renderLabel() ?>
+            </div>
+
+          <?php endforeach; ?>
+
+        </fieldset>
 
       </fieldset>
 

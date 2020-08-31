@@ -24,6 +24,9 @@ indexSuccess:
   stylesheets:
     /vendor/imageflow/imageflow.packed.css: { position: first }
   javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /vendor/imageflow/imageflow.packed.js:
     blank:
     imageflow:
