@@ -114,11 +114,24 @@ class QubitRepository extends BaseRepository
   {
     parent::save($connection);
 
+    if ($this->indexOnSave)
+    {
+      $this->updateSearchIndex();
+    }
+
+    return $this;
+  }
+
+  public function updateSearchIndex()
+  {
     QubitSearch::getInstance()->update($this);
 
     // Trigger updating of associated information objects, if any
     $operationDescription = sfContext::getInstance()->i18n->__('updated');
-    $this->updateInformationObjects($this->getRelatedInformationObjectIds(), $operationDescription);
+    $this->updateInformationObjects(
+      $this->getRelatedInformationObjectIds(),
+      $operationDescription
+    );
 
     // Remove adv. search repository options from cache
     QubitCache::getInstance()->removePattern('search:list-of-repositories:*');
