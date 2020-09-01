@@ -52,6 +52,9 @@ class RepositoryEditUploadLimitAction extends sfAction
         break;
     }
 
+    // Don't update the repository search index document
+    $this->resource->indexOnSave = false;
+
     $this->resource->save();
   }
 }
