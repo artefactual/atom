@@ -929,28 +929,28 @@ class QubitMetsParser
     $format = array();
 
     $fields = array(
-      'name' => array(
+      'formatName' => array(
         'xpath' => $this->objectXpath.'p:objectCharacteristics/p:format/p:formatDesignation/p:formatName',
         'type' => 'string'),
-      'version' => array(
+      'formatVersion' => array(
         'xpath' => $this->objectXpath.'p:objectCharacteristics/p:format/p:formatDesignation/p:formatVersion',
         'type' => 'string'),
-      'registryName' => array(
+      'formatRegistryName' => array(
         'xpath' => $this->objectXpath.'p:objectCharacteristics/p:format/p:formatRegistry/p:formatRegistryName',
         'type' => 'string'),
-      'registryKey' => array(
+      'formatRegistryKey' => array(
         'xpath' => $this->objectXpath.'p:objectCharacteristics/p:format/p:formatRegistry/p:formatRegistryKey',
         'type' => 'string'));
 
     foreach ($fields as $fieldName => $options)
     {
       // Allow empty values in format data
-      $format[$fieldName] = $value = $this->getFieldValue($this->document, $options['xpath'], $options['type']);
-    }
-
-    if (!empty($format))
-    {
-      QubitProperty::addUnique($this->resource->id, 'format', serialize($format), array('scope' => 'premisData', 'indexOnSave' => false));
+      QubitProperty::addUnique(
+        $this->resource->id,
+        $fieldName,
+        $this->getFieldValue($this->document, $options['xpath'], $options['type']),
+        array('scope' => 'premisData', 'indexOnSave' => false)
+      );
     }
   }
 
