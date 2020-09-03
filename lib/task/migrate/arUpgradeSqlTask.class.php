@@ -209,7 +209,7 @@ EOF;
       // Upgrades post to Release 1.3 (v92) are located under
       // task/migrate/migrations and named using the following format:
       // "arMigration%04d.class.php" (the first one is arMigration0093.class.php)
-      $this->runMigrationsInDirectory(sfConfig::get('sf_lib_dir') . '/task/migrate/migrations',
+      $version = $this->runMigrationsInDirectory($version, sfConfig::get('sf_lib_dir') . '/task/migrate/migrations',
                                       $previousMilestone, $currentMilestone);
     }
 
@@ -332,11 +332,14 @@ EOF;
   /**
    * Run new style migrations in a directory
    *
+   * @param int $version  Version of schema before running migrations in this directory
    * @param string $migrationsDirectory  Directory with migrations in it
    * @param int $previousMilestone  Previous milestone
    * @param int $currentMilestone  Current milestone
+   *
+   * @return int  Version of schema after running migrations in this directory
    */
-  private function runMigrationsInDirectory($migrationsDirectory, $previousMilestone, $currentMilestone)
+  private function runMigrationsInDirectory($version, $migrationsDirectory, $previousMilestone, $currentMilestone)
   {
     foreach (sfFinder::type('file')
       ->maxdepth(0)
@@ -377,6 +380,8 @@ EOF;
         }
       }
     }
+
+    return $version;
   }
 
   /**
