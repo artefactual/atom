@@ -1327,30 +1327,6 @@ class QubitInformationObject extends BaseInformationObject
     return $nameAccessPointString;
   }
 
-
-  /******************
-    Digital Objects
-  ******************/
-
-  /**
-   * Get the total digital object count for this & all descendents to this
-   * information object.
-   *
-   * @return int  The total digital object count.
-   */
-  public function getDescendentDigitalObjectCount()
-  {
-    $sql = '
-      SELECT COUNT(d.id) FROM information_object i
-      INNER JOIN digital_object d ON i.id=d.object_id
-      WHERE i.lft > ? and i.lft < ?
-    ';
-
-    $params = array($this->lft, $this->rgt);
-
-    return QubitPdo::fetchColumn($sql, $params);
-  }
-
   /****************
    Import methods
   *****************/
