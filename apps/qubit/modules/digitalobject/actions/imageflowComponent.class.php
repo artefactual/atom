@@ -44,8 +44,14 @@ class DigitalObjectImageflowComponent extends sfComponent
     // Add thumbs
     $criteria = new Criteria;
     $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::OBJECT_ID);
-    $criteria->add(QubitInformationObject::LFT, $this->resource->lft, Criteria::GREATER_THAN);
-    $criteria->add(QubitInformationObject::RGT, $this->resource->rgt, Criteria::LESS_THAN);
+
+    $criteria->add(
+      QubitInformationObject::LFT, $this->resource->lft, Criteria::GREATER_THAN
+    );
+
+    $criteria->add(
+      QubitInformationObject::RGT, $this->resource->rgt, Criteria::LESS_THAN
+    );
 
     if (isset($this->limit))
     {
@@ -59,7 +65,10 @@ class DigitalObjectImageflowComponent extends sfComponent
     {
       if ($item->usageId == QubitTerm::OFFLINE_ID)
       {
-        $thumbnail = QubitDigitalObject::getGenericRepresentation($item->mimeType, QubitTerm::THUMBNAIL_ID);
+        $thumbnail = QubitDigitalObject::getGenericRepresentation(
+          $item->mimeType, QubitTerm::THUMBNAIL_ID
+        );
+
         $thumbnail->setParent($item);
       }
       else
@@ -68,7 +77,10 @@ class DigitalObjectImageflowComponent extends sfComponent
         if (!QubitAcl::check($item->object, 'readThumbnail') ||
             !QubitGrantedRight::checkPremis($item->object->id, 'readThumb'))
         {
-          $thumbnail = QubitDigitalObject::getGenericRepresentation($item->mimeType, QubitTerm::THUMBNAIL_ID);
+          $thumbnail = QubitDigitalObject::getGenericRepresentation(
+            $item->mimeType, QubitTerm::THUMBNAIL_ID
+          );
+
           $thumbnail->setParent($item);
         }
         else
@@ -77,7 +89,10 @@ class DigitalObjectImageflowComponent extends sfComponent
 
           if (!$thumbnail)
           {
-            $thumbnail = QubitDigitalObject::getGenericRepresentation($item->mimeType, QubitTerm::THUMBNAIL_ID);
+            $thumbnail = QubitDigitalObject::getGenericRepresentation(
+              $item->mimeType, QubitTerm::THUMBNAIL_ID
+            );
+
             $thumbnail->setParent($item);
           }
         }
@@ -87,11 +102,40 @@ class DigitalObjectImageflowComponent extends sfComponent
     }
 
     // Get total number of descendant digital objects
-    $this->total = $this->resource->getDescendentDigitalObjectCount();
+    $this->total = $this->getDescendantDigitalObjectCount();
 
-    if (1 > count($this->thumbnails))
+    if (0 === count($this->thumbnails))
     {
       return sfView::NONE;
     }
+  }
+
+  /**
+   * Query Elasticsearch to get a count of all digital objects that are
+   * descendants of the current resource
+   *
+   * @return int count of descendants with digital objects
+   */
+  protected function getDescendantDigitalObjectCount()
+  {
+    // Set search "size" to zero, because we just need a count of results, not
+    // the found record data
+    $search = new arElasticSearchPluginQuery(0);
+    $search->addAdvancedSearchFilters(
+      InformationObjectBrowseAction::$NAMES,
+      [
+        'ancestor' => $this->resource->id,
+        'topLod' => false,
+        'onlyMedia' => true,
+      ],
+      'isad'
+    );
+
+    $results = QubitSearch::getInstance()
+      ->index
+      ->getType('QubitInformationObject')
+      ->search($search->getQuery(false, true));
+
+    return $results->getTotalHits();
   }
 }
