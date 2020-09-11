@@ -1534,6 +1534,7 @@ QubitTaxonomy:
       en: 'User actions'
       fr: 'Actions des utilisateurs'
       id: 'Tindakan pengguna'
+      pt: 'Ações do utilizador'
       pt_BR: 'Ações do usuário'
       sv: Användaråtgärder
   QubitTaxonomy_accession_alternative_identifier:
@@ -1542,6 +1543,7 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       en: 'Accession alternative identifier type'
+      pt: 'Tipo de identificador alternativo de acesso'
       pt_BR: 'Incorporação do tipo de identificador alternativo'
 QubitTerm:
   QubitTerm_110:
@@ -2597,6 +2599,7 @@ QubitTerm:
     source_culture: en
     name:
       en: 'External file'
+      pt: 'Ficheiro externo'
       pt_BR: 'Arquivo externo'
   QubitTerm_140:
     taxonomy_id: QubitTaxonomy_18
@@ -4191,6 +4194,7 @@ QubitTerm:
       en: Modification
       fr: Modification
       id: Pengubahan
+      pt: Modificação
       pt-BR: Modificação
       pt_BR: Modificação
       sr: Промена
@@ -4202,6 +4206,7 @@ QubitTerm:
     source_culture: en
     name:
       en: 'Accession alternative identifier'
+      pt: 'Identificador alternativo de acesso'
       pt_BR: 'Incorporação de identificador alternativo'
   QubitTerm_actor_relationship_is_the_superior_of:
     taxonomy_id: QubitTaxonomy_actor_relation_type
@@ -11520,6 +11525,7 @@ QubitTerm:
     source_culture: en
     name:
       en: 'Record group'
+      pt: 'Gravar grupo'
       pt_BR: 'Grupo de registro'
 QubitNote:
   QubitNote_1:

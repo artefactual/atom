@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2020-06-19T22:23:52Z" product-name="messages">
+  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2020-09-11T00:30:31Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
@@ -2508,6 +2508,11 @@ B&#x1EA1;n c&#xF3; ch&#x1EAF;c ch&#x1EAF;n b&#x1EA1;n mu&#x1ED1;n thay th&#x1EBF
       </trans-unit>
       <trans-unit id="6a013f3591caa3ee3f7742743ed123abf4cf8af0">
         <source>Items per page</source>
+        <target/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/treeviewSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="4847cc1454ccb160f631e441cd95daf443a173f1">
+        <source>Items per page can be a minimum of %1% and a maximum of %2%</source>
         <target/>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/treeviewSuccess.php</note>
       </trans-unit>
@@ -5431,10 +5436,6 @@ T&#x1EA3;i l&#xEA;n m&#x1EDB;i %1%</target>
         <source>you</source>
         <target>b&#x1EA1;n</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/listSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="1">
-        <source>Items per page can be a minimum of %1% and a maximum of %2%</source>
-        <target/>
       </trans-unit>
     </body>
   </file>

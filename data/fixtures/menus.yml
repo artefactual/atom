@@ -821,6 +821,8 @@ QubitMenu:
       de: Profil
       de-AT: Profil
       de-CH: Profil
+      de_AT: Profil
+      de_CH: Profil
       el: Προφίλ
       en: Profile
       es: Perfil
@@ -841,6 +843,7 @@ QubitMenu:
       pt_BR: Perfil
       ro: Profil
       ru: Профиль
+      ru_RU: Профиль
       sl: profil
       sr: Профил
       sv: Profil
@@ -1024,6 +1027,8 @@ QubitMenu:
       de: Profil
       de-AT: Profil
       de-CH: Profil
+      de_AT: Profil
+      de_CH: Profil
       el: Προφίλ
       en: Profile
       es: Perfil
@@ -1044,6 +1049,7 @@ QubitMenu:
       pt_BR: Perfil
       ro: Profil
       ru: Профиль
+      ru_RU: Профиль
       sl: profil
       sr: Профил
       sv: Profil
@@ -1515,6 +1521,7 @@ QubitMenu:
       en: 'Privacy Policy'
       fr: 'Politique de confidentialité'
       id: 'Kebijakan Privasi'
+      pt: 'Política de privacidade'
       pt_BR: 'Política de Privacidade'
       sv: Sekretesspolicy
     path: 'staticpage/index?slug=privacy'
@@ -1650,6 +1657,8 @@ QubitMenu:
       de: Abmelden
       de-AT: Abmelden
       de-CH: Abmelden
+      de_AT: Abmelden
+      de_CH: Abmelden
       el: Αποσύνδεση
       en: 'Log out'
       es: 'cerrar sesión'
@@ -1670,6 +1679,7 @@ QubitMenu:
       pt_BR: Sair
       ro: Iesiti
       ru: Выйти
+      ru_RU: Выйти
       sl: odjava
       sr: 'Одјави се'
       sv: 'Logga ut'
@@ -2121,6 +2131,7 @@ QubitMenu:
       fr: 'Sauvegarder le presse-papier'
       hu: 'Vágólap mentése'
       id: 'Simpan clipboard'
+      pt: 'Guardar área de transferência'
       pt_BR: 'Salvar área de transferência'
       sv: 'Spara urklipp'
     path: user/clipboardSave

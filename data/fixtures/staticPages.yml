@@ -85,6 +85,7 @@ QubitStaticPage:
       en: 'Privacy Policy'
       fr: 'Politique de confidentialité'
       id: 'Kebijakan Privasi'
+      pt: 'Política de privacidade'
       pt_BR: 'Política de Privacidade'
       sv: Sekretesspolicy
     content:
