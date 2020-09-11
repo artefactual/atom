@@ -123,6 +123,10 @@ class arInformationObjectExportJob extends arExportJob
       return;
     }
 
+    $this->info($this->i18n->__(
+      'Exporting %1 clipboard item(s).', array('%1' => $search->count())
+    ));
+
     // Scroll through results then iterate through resulting IDs
     foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id)
     {
@@ -135,16 +139,6 @@ class arInformationObjectExportJob extends arExportJob
       }
 
       $this->exportResource($resource, $path);
-
-      // Log progress every 1000 rows
-      if ($this->itemsExported % 1000 == 0)
-      {
-        $this->info($this->i18n->__(
-          '%1 items exported.', array('%1' => $this->itemsExported))
-        );
-
-        Qubit::clearClassCaches();
-      }
     }
   }
 

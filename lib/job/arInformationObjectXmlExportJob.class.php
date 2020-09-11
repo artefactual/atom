@@ -112,5 +112,6 @@ class arInformationObjectXmlExportJob extends arInformationObjectExportJob
     $this->addDigitalObject($resource, $path, $errors);
 
     $this->itemsExported++;
+    $this->logExportProgress();
   }
 }

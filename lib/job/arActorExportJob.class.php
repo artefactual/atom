@@ -76,14 +76,7 @@ class arActorExportJob extends arExportJob
       }
 
       $this->exportResource($resource, $path);
-
-      // Log progress every 1000 rows
-      if ($this->itemsExported % 1000 == 0)
-      {
-        $this->info($this->i18n->__(
-          '%1 items exported.', array('%1' => $this->itemsExported)
-        ));
-      }
+      $this->logExportProgress();
     }
   }
 }

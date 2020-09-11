@@ -27,6 +27,9 @@
 
 class arExportJob extends arBaseJob
 {
+  // Log progress every n rows
+  const LOG_INTERVAL = 100;
+
   // Child class should set this if creating user downloads
   protected $downloadFileExtension = null;
 
@@ -363,5 +366,22 @@ class arExportJob extends arBaseJob
       $this->filenames[$filename]++,
       $pathinfo['extension']
     );
+  }
+
+  /**
+   * Log export progress every LOG_INTERVAL rows and clear Qubit class caches
+   *
+   * @return void
+   */
+  protected function logExportProgress()
+  {
+    if ($this->itemsExported % self::LOG_INTERVAL == 0)
+    {
+      $this->info($this->i18n->__(
+        'Exported %1 items...', array('%1' => $this->itemsExported))
+      );
+
+      Qubit::clearClassCaches();
+    }
   }
 }

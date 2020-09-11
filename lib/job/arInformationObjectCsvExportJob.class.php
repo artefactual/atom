@@ -58,21 +58,33 @@ class arInformationObjectCsvExportJob extends arInformationObjectExportJob
       return;
     }
 
-    // Append resource metadata to CSV file
-    $this->csvWriter->exportResource($resource);
-
-    $this->addDigitalObject($resource, $path);
-
-    $this->itemsExported++;
+    $this->exportDataAndDigitalObject($resource, $path);
 
     // Export descendants if option was selected
     if (!$this->params['current-level-only'])
     {
       foreach ($resource->getDescendantsForExport($options) as $item)
       {
-        $this->exportResource($item, $path);
+        $this->exportDataAndDigitalObject($item, $path);
       }
     }
+  }
+
+  /**
+   * Export resource metadata and associated digital object
+   *
+   * @param QubitInformationObject $resource object to export
+   * @param string $path temporary export job working directory
+   */
+  protected function exportDataAndDigitalObject($resource, $path)
+  {
+    // Append resource metadata to CSV file
+    $this->csvWriter->exportResource($resource);
+
+    $this->addDigitalObject($resource, $path);
+
+    $this->itemsExported++;
+    $this->logExportProgress();
   }
 
   protected function getCsvWriter($path)
