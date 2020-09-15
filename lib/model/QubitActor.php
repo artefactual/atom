@@ -814,24 +814,6 @@ class QubitActor extends BaseActor
     $this->digitalObjectsRelatedByobjectId[] = $digitalObject;
   }
 
-  public function allowDigitalObjectReadMaster()
-  {
-    $digitalObject = $this->digitalObjectsRelatedByobjectId[0];
-
-    // Always allow reading "text" type digital objects
-    $isText = in_array($digitalObject->mediaTypeId, array(QubitTerm::TEXT_ID));
-
-    // All authenticated users are authorized to read actor master DOs
-    $hasReadMaster = sfContext::getInstance()->user->isAuthenticated();
-
-    if ($hasReadMaster || $isText)
-    {
-      return true;
-    }
-
-    return false;
-  }
-
   /**
    * Return the absolute link to the digital object master unless the user has
    * no permission (readMaster). Text objects are always allowed for reading.
@@ -851,7 +833,10 @@ class QubitActor extends BaseActor
       return;
     }
 
-    if ($this->allowDigitalObjectReadMaster())
+    $isText = in_array($digitalObject->mediaTypeId, array(QubitTerm::TEXT_ID));
+
+    $hasReadMaster = sfContext::getInstance()->user->isAuthenticated();
+    if ($hasReadMaster || $isText)
     {
       if (QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId)
       {
