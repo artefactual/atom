@@ -115,7 +115,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
       $this->descriptionStatusTerms[$this->resource->descriptionStatusId]
     );
 
-    if($this->options['includeDigitalObjectMeta'])
+    if ($this->options['includeDigitalObjectMeta'])
     {
       // Set digital object public URL and checksum
       $this->setColumn('digitalObjectURI', $this->resource->getDigitalObjectPublicUrl());
