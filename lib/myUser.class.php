@@ -131,6 +131,15 @@ class myUser extends sfBasicSecurityUser implements Zend_Acl_Role_Interface
 
   public function authenticate($username, $password)
   {
+    $authenticated = $this->authenticateWithBasicAuth($username, $password);
+    return $authenticated;
+  }
+
+  // This method is is intended to be overridable in user classes that inherit
+  // from myUser. This enables authorization schemes such as CAS to retain a
+  // basic auth option for DIP Upload that can be voided if necessary.
+  public function authenticateWithBasicAuth($username, $password)
+  {
     $authenticated = false;
     // anonymous is not a real user
     if ($username == 'anonymous')

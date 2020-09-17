@@ -30,7 +30,7 @@ class qtSwordPluginHttpAuthFilter extends sfFilter
         exit;
       }
 
-      $authenticated = sfContext::getInstance()->user->authenticate($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
+      $authenticated = sfContext::getInstance()->user->authenticateWithBasicAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
 
       if (!$authenticated)
       {
