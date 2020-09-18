@@ -98,9 +98,16 @@ class DigitalObjectMetadataComponent extends sfComponent
     // Statement shown as the Permissions field for preservation copies
     $this->accessStatement = $this->getPreservationSystemAccessStatement();
 
-    // What metadata sections should be shown
-    $this->showOriginalFileMetadata = $this->setOriginalFileShowProperties();
-    $this->showPreservationCopyMetadata = $this->setPreservationCopyShowProperties();
+    // Determine which metadata sections should be shown
+    if ($this->relatedToIo)
+    {
+      // Only an information object can have Archivematica "original file" and
+      // "preservation copy" metadata
+      $this->showOriginalFileMetadata = $this->setOriginalFileShowProperties();
+      $this->showPreservationCopyMetadata = $this->setPreservationCopyShowProperties();
+    }
+
+    // Metadata for information objects and actors
     $this->showMasterFileMetadata = $this->setMasterFileShowProperties();
     $this->showReferenceCopyMetadata = $this->setReferenceCopyShowProperties();
     $this->showThumbnailCopyMetadata = $this->setThumbnailCopyShowProperties();
