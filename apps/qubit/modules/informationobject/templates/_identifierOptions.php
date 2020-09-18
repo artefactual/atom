@@ -13,6 +13,6 @@
   <?php endif; ?>
 </div>
 
-<?php if (!empty($mask)): ?>
+<?php if (isset($mask)): ?>
   <input name="usingMask" id="using-identifier-mask" type="hidden" value="<?php echo $mask ?>"/>
 <?php endif; ?>
