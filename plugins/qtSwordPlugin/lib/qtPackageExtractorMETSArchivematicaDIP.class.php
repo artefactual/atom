@@ -211,7 +211,11 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
   }
 
   /**
-   * Add metadata related to the preservation system
+   * Add metadata related to the preservation system.
+   *
+   * These PREMIS event timestamps were retrieved from the METS.xml file as strings in UTC format.
+   * After internal review it was decided to store them in their original UTC format in the AtoM database
+   * and to convert them to the local time set for the AtoM server when displaying these values in AtoM templates.
    *
    * @param QubitInformationObject $io target information object
    * @param string $fileId METS FILEID

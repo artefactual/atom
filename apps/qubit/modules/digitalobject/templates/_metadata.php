@@ -45,7 +45,7 @@
           <?php endif; ?>
 
           <?php if ($showOriginalFileIngestedAt): ?>
-            <?php echo render_show(__('Ingested'), format_date($resource->object->originalFileIngestedAt, 'f'), array('fieldLabel' => 'originalFileIngestedAt')) ?>
+            <?php echo render_show(__('Ingested'), format_date($originalFileIngestedAt, 'f'), array('fieldLabel' => 'originalFileIngestedAt')) ?>
           <?php endif; ?>
 
           <?php if ($showOriginalFilePermissions): ?>
@@ -91,7 +91,7 @@
           <?php endif; ?>
 
           <?php if ($showPreservationCopyNormalizedAt): ?>
-            <?php echo render_show(__('Normalized'), format_date($resource->object->preservationCopyNormalizedAt, 'f'), array('fieldLabel' => 'preservactionCopyNormalizedAt')) ?>
+            <?php echo render_show(__('Normalized'), format_date($preservationCopyNormalizedAt, 'f'), array('fieldLabel' => 'preservactionCopyNormalizedAt')) ?>
           <?php endif; ?>
 
           <?php if ($showPreservationCopyPermissions): ?>

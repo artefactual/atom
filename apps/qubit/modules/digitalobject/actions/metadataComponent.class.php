@@ -128,7 +128,7 @@ class DigitalObjectMetadataComponent extends sfComponent
 
   protected function isEmpty($value)
   {
-    return (null === $value || '' === (string)$value);
+    return (null === $value || '' === (string) $value);
   }
 
   protected function setMasterFileShowProperties()
@@ -307,9 +307,13 @@ class DigitalObjectMetadataComponent extends sfComponent
       check_field_visibility('app_element_visibility_digital_object_preservation_system_original_file_size')
       && !$this->isEmpty($this->resource->object->originalFileSize)
     );
+    // Convert this UTC string property to local time
+    $this->originalFileIngestedAt = $this->localizeUTCDateTime(
+      (string) $this->resource->object->originalFileIngestedAt
+    );
     $this->showOriginalFileIngestedAt = (
       check_field_visibility('app_element_visibility_digital_object_preservation_system_original_ingested')
-      && !$this->isEmpty($this->resource->object->originalFileIngestedAt)
+      && !$this->isEmpty($this->originalFileIngestedAt)
     );
     $this->showOriginalFilePermissions = (
       check_field_visibility('app_element_visibility_digital_object_preservation_system_original_permissions')
@@ -336,9 +340,13 @@ class DigitalObjectMetadataComponent extends sfComponent
       check_field_visibility('app_element_visibility_digital_object_preservation_system_preservation_file_size')
       && !$this->isEmpty($this->resource->object->preservationCopyFileSize)
     );
+    // Convert this UTC string property to local time
+    $this->preservationCopyNormalizedAt = $this->localizeUTCDateTime(
+      (string) $this->resource->object->preservationCopyNormalizedAt
+    );
     $this->showPreservationCopyNormalizedAt = (
       check_field_visibility('app_element_visibility_digital_object_preservation_system_preservation_normalized')
-      && !$this->isEmpty($this->resource->object->preservationCopyNormalizedAt)
+      && !$this->isEmpty($this->preservationCopyNormalizedAt)
     );
     $this->showPreservationCopyPermissions = (
       check_field_visibility('app_element_visibility_digital_object_preservation_system_preservation_permissions')
@@ -349,6 +357,14 @@ class DigitalObjectMetadataComponent extends sfComponent
       || $this->showPreservationCopyFileSize
       || $this->showPreservationCopyNormalizedAt
     );
+  }
+
+  protected function localizeUTCDateTime($dateTime)
+  {
+    if (false !== $timestamp = strtotime($dateTime))
+    {
+      return date('Y-m-d\TH:i:s\Z', $timestamp);
+    }
   }
 
 }
