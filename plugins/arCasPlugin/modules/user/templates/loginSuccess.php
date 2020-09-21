@@ -1,0 +1,30 @@
+<?php decorate_with('layout_1col') ?>
+<?php use_helper('Javascript') ?>
+
+<?php slot('content') ?>
+
+  <div class="row">
+
+    <div class="offset4 span4">
+
+      <div id="content">
+
+        <?php if ('user' != $sf_request->module || 'login' != $sf_request->action): ?>
+          <h1><?php echo __('Please log in to access that page') ?></h1>
+        <?php else: ?>
+          <h1><?php echo __('Log in') ?></h1>
+        <?php endif; ?>
+
+        <?php echo $form->renderFormTag(url_for(array('module' => 'cas', 'action' => 'login'))) ?>
+
+          <button type="submit"><?php echo __('Log in with CAS') ?></button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+<?php end_slot() ?>
