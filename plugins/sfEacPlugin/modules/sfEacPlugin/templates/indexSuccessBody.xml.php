@@ -218,7 +218,7 @@
             <?php echo sfEacPlugin::renderDates($item) ?>
             <?php if (isset($item->description)): ?>
               <descriptiveNote>
-                <?php echo render_value('<p>'.$item->description).'</p>' ?>
+                <?php echo render_value($item->description) ?>
               </descriptiveNote>
             <?php endif; ?>
           </cpfRelation>
@@ -236,7 +236,7 @@
             <?php echo sfEacPlugin::renderDates($item) ?>
             <?php if (isset($item->date)): ?>
               <descriptiveNote>
-                <?php echo '<p>'.render_value($item->date).'</p>' ?>
+                <?php echo render_value($item->date) ?>
               </descriptiveNote>
             <?php endif; ?>
           </resourceRelation>
@@ -248,7 +248,7 @@
             <?php echo sfEacPlugin::renderDates($item) ?>
             <?php if (0 < count($date = $item->getNotesByType(array('noteTypeId' => QubitTerm::RELATION_NOTE_DATE_ID)))): ?>
               <descriptiveNote>
-                <?php echo render_value('<p>'.$date[0]).'</p>' ?>
+                <?php echo render_value($date[0]) ?>
               </descriptiveNote>
             <?php endif; ?>
           </functionRelation>
