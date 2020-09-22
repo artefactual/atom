@@ -66,7 +66,7 @@
               <?php echo render_show(
                 __('AIP UUID'),
                 render_value($resource->object->aipUUID),
-                 array('fieldLabel' => 'aipUUID')
+                array('fieldLabel' => 'aipUUID')
               ) ?>
             <?php endif; // arStorageService is disabled ?>
           <?php endif; ?>
