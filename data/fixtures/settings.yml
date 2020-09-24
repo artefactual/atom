@@ -819,7 +819,6 @@ QubitSetting:
     source_culture: en
     value:
       en: 'Hide hierarchy'
-      pt: 'Ocultar hierarquia'
       pt_BR: 'Ocultar hierarquia'
   QubitSetting_fullTreeviewCollapseClosedButtonText:
     name: fullTreeviewCollapseClosedButtonText
@@ -829,7 +828,6 @@ QubitSetting:
     source_culture: en
     value:
       en: 'Show hierarchy'
-      pt: 'Mostrar hierarquia'
       pt_BR: 'Mostrar hierarquia'
   QubitSetting_authority_record_relationships:
     name: authority_record_relationships
