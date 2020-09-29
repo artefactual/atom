@@ -40,16 +40,6 @@ class DefaultFullTreeViewAction extends sfAction
   protected function getNodeOrChildrenNodes($id, $baseReferenceCode, $children = false, $options = array())
   {
     $i18n = sfContext::getInstance()->i18n;
-    $culture = $this->getUser()->getCulture();
-
-    if (sfConfig::get('app_markdown_enabled', true))
-    {
-      $untitled = '_'.$i18n->__('Untitled').'_';
-    }
-    else
-    {
-      $untitled = '<em>'.$i18n->__('Untitled').'</em>';
-    }
 
     // Remove drafts for unauthenticated users
     $draftsSql = !$this->getUser()->user ? 'AND status.status_id <> ' . QubitTerm::PUBLICATION_STATUS_DRAFT_ID : '' ;
@@ -78,7 +68,7 @@ class DefaultFullTreeViewAction extends sfAction
       io.source_culture,
       io.identifier,
       current_i18n.title AS current_title,
-      IFNULL(source_i18n.title, '$untitled') as text,
+      source_i18n.title as source_title,
       io.parent_id AS parent,
       slug.slug,
       IFNULL(lod.name, '') AS lod,
@@ -99,7 +89,7 @@ class DefaultFullTreeViewAction extends sfAction
       $limitClause;";
 
     $params = array(
-      ':culture' => $culture,
+      ':culture' => $this->getUser()->getCulture(),
       ':pubStatus' => QubitTerm::STATUS_TYPE_PUBLICATION_ID,
       ':id' => $id
     );
@@ -113,101 +103,8 @@ class DefaultFullTreeViewAction extends sfAction
 
     foreach ($results as $result)
     {
-      $result['text'] = render_value_inline($result['text']);
-
-      // Overwrite source culture title if the current culture title is populated
-      if ($this->getUser()->getCulture() != $result['source_culture'] && !empty($result['current_title']))
-      {
-        $result['text'] = render_value_inline($result['current_title']);
-      }
-
-      // Add identifier based on setting
-      if ($this->showIdentifier === 'identifier' && !empty($result['identifier']))
-      {
-        $result['text'] = $result['identifier'] .' - '. $result['text'];
-      }
-
-      // Add reference code based on setting
-      if ($this->showIdentifier === 'referenceCode' && !empty($baseReferenceCode))
-      {
-        if ($result['parent'] == QubitInformationObject::ROOT_ID)
-        {
-          // If this is a top-level node, the passed reference will be "true" so
-          // replace it with the description identifier
-          $result['referenceCode'] = render_value_inline($result['identifier']);
-        }
-        else
-        {
-          // Start with reference code passed to the function
-          $result['referenceCode'] = $baseReferenceCode;
-
-          // Append result identifier to the base reference code if we're not loading the collection root
-          //if ($result['parent'] != QubitInformationObject::ROOT_ID && !empty($result['identifier']))
-
-          // Append result identifier, if it exists, to the reference passed to the function
-          if (!empty($result['identifier']))
-          {
-            $result['referenceCode'] = $result['referenceCode'] . sfConfig::get('app_separator_character', '-') . render_value_inline($result['identifier']);
-          }
-        }
-
-        // Prepend reference code to text
-        $result['text'] = "{$result['referenceCode']} - {$result['text']}";
-      }
-
-      // Add level of description based on setting
-      if (sfConfig::get('app_treeview_show_level_of_description', 'yes') === 'yes' && strlen($result['lod']) > 0)
-      {
-        $lod = render_value_inline($result['lod']);
-        $result['text'] = "[{$lod}] {$result['text']}";
-      }
-
-      // Add dates based on setting
-      if (sfConfig::get('app_treeview_show_dates', 'no') === 'yes')
-      {
-        $sql = "SELECT
-          event.start_date, event.end_date,
-          current_i18n.date AS display_date,
-          source_i18n.date AS source_date
-          FROM
-            event
-            LEFT JOIN event_i18n current_i18n ON event.id = current_i18n.id AND current_i18n.culture = :culture
-            LEFT JOIN event_i18n source_i18n ON event.id = source_i18n.id AND source_i18n.culture = event.source_culture
-          WHERE
-            event.object_id = :id;";
-
-        $params = array(
-          ':culture' => $culture,
-          ':id' => $result['id']
-        );
-
-        $events = QubitPdo::fetchAll($sql, $params, array('fetchMode' => PDO::FETCH_ASSOC));
-
-        // As in the search results from ES, get the first event with any date
-        foreach ($events as $event)
-        {
-          if (empty($event['display_date']))
-          {
-            $event['display_date'] = $event['source_date'];
-          }
-
-          if (empty($event['display_date']) && empty($event['start_date']) && empty($event['end_date']))
-          {
-            continue;
-          }
-
-          $date = render_value_inline(Qubit::renderDateStartEnd($event['display_date'], $event['start_date'], $event['end_date']));
-          $result['text'] = "{$result['text']}, {$date}";
-
-          break;
-        }
-      }
-
-      if ($result['status_id'] == QubitTerm::PUBLICATION_STATUS_DRAFT_ID)
-      {
-        $status = render_value_inline($result['status']);
-        $result['text'] = "({$status}) {$result['text']}";
-      }
+      $result['baseReferenceCode'] = $baseReferenceCode;
+      $result['text'] = $this->getNodeText($result);
 
       // Some special flags on our current selected item
       if ($result['id'] == $this->resource->id)
@@ -235,12 +132,6 @@ class DefaultFullTreeViewAction extends sfAction
         // If loading an ancestor of the resource, fetch children
         if ($result['lft'] <= $this->resource->lft && $result['rgt'] >= $this->resource->rgt)
         {
-          $refCode = '';
-          if (!empty($result['referenceCode']))
-          {
-            $refCode = $result['referenceCode'];
-          }
-
           // If we're not currently fetching children and paging options are set,
           // use paging options when fetching children
           $childOptions = array();
@@ -250,7 +141,13 @@ class DefaultFullTreeViewAction extends sfAction
           }
 
           // Fetch children and note total number of children that exist (useful for paging through children)
-          $childData = $this->getNodeOrChildrenNodes($result['id'], $refCode, $children = true, $childOptions);
+          $childData = $this->getNodeOrChildrenNodes(
+            $result['id'],
+            $this->getReferenceCode($result),
+            $children = true,
+            $childOptions
+          );
+
           $result['children'] = $childData['nodes'];
           $result['total'] = $childData['total'];
         }
@@ -275,5 +172,197 @@ class DefaultFullTreeViewAction extends sfAction
     }
 
     return array('nodes' => $data, 'total' => $totalCount);
+  }
+
+  /**
+   * Get the display text for a treeview record
+   *
+   * In addition to the description title, the dispay text may include
+   * the description identifier, reference code, level of description, event
+   * dates, and a "Draft" indicator
+   *
+   * @param array $record archival description data
+   *
+   * @return string the display text for a treeview record
+   */
+  protected function getNodeText($record)
+  {
+    $text = $this->getTitle($record);
+
+    // Prepend identifier or reference code to text
+    $identifier = $this->getIdentifier($record);
+
+    if (!empty($identifier))
+    {
+      $text = "$identifier - $text";
+    }
+
+    // Prepend level of description based on setting
+    if (
+      'yes' === sfConfig::get('app_treeview_show_level_of_description', 'yes')
+      && !empty($record['lod'])
+    )
+    {
+      $text = sprintf('[%s] %s', render_value_inline($record['lod']), $text);
+    }
+
+    // Append dates based on setting
+    if ('yes' === sfConfig::get('app_treeview_show_dates', 'no'))
+    {
+      $dates = $this->getDates($record);
+
+      if (!empty($dates))
+      {
+        $text .= ", $dates";
+      }
+    }
+
+    // Prepend "(Draft)" to draft records
+    if ($record['status_id'] == QubitTerm::PUBLICATION_STATUS_DRAFT_ID)
+    {
+      $text = sprintf('(%s) %s', render_value_inline($record['status']), $text);
+    }
+
+    return $text;
+  }
+
+  /**
+   * Get the title of a description in the best available culture
+   *
+   * Return description title in the current culture if available, and if not
+   * then fall back to the source culture title.  If the description has *no*
+   * valid title, then return "<em>Untitled</em>"
+   *
+   * @param array $record archival description data
+   *
+   * @return string the best available archival description title
+   */
+  protected function getTitle($record)
+  {
+    // Use the current culture "title" value, if it is set
+    if (!empty($record['current_title']))
+    {
+      return render_value_inline($record['current_title']);
+    }
+
+    // If the current culture title is null, use the source culture title.
+    // render_title() will return "<em>Untitled</em>" if
+    // $record['source_culture'] is null
+    return render_title($record['source_title']);
+  }
+
+  /**
+   * Return an archival description identifier or reference code based on the
+   * application "full width treeview > show identifier" setting
+   *
+   * @param array $record archival description data
+   *
+   * @return string|null the appropriate identifier/reference code, or null
+   */
+  protected function getIdentifier($record)
+  {
+    // If show identifier setting is "no" return null
+    if ('no' === $this->showIdentifier)
+    {
+      return null;
+    }
+
+    // If show identifier setting is "identifier" return the simple identifier
+    if ('identifier' == $this->showIdentifier)
+    {
+      return render_value_inline($record['identifier']);
+    }
+
+    // Otherwise return the reference code
+    return $this->getReferenceCode($record);
+  }
+
+  /**
+   * Construct and return an archival description reference code
+   *
+   * @param array $record archival description data
+   *
+   * @return string|null a reference code, or null
+   */
+  protected function getReferenceCode($record)
+  {
+    // Return null if the show identifier setting is not "referenceCode" or if
+    // this result has no identifier
+    if (
+      'referenceCode' !== $this->showIdentifier
+      || empty($record['identifier']))
+    {
+      return null;
+    }
+
+    // If this is a top-level node return it's identifier
+    if ($record['parent'] == QubitInformationObject::ROOT_ID)
+    {
+      return render_value_inline($record['identifier']);
+    }
+
+    // Append this result's identifier to the base reference code passed from
+    // its parent
+    return $record['baseReferenceCode']
+      . sfConfig::get('app_separator_character', '-')
+      . render_value_inline($record['identifier']);
+  }
+
+  /**
+   * Get event dates related to an archival description
+   *
+   * If $record has multiple related events, the dates returned will be from the
+   * first related event that has date data
+   *
+   * @param array $record archival description data
+   *
+   * @return string a related event's dates, or an empty string
+   */
+  protected function getDates($record)
+  {
+    $dates = '';
+
+    $sql = <<<EOL
+SELECT
+  event.start_date, event.end_date,
+  current_i18n.date AS display_date,
+  source_i18n.date AS source_date
+  FROM
+    event
+    LEFT JOIN event_i18n current_i18n ON event.id = current_i18n.id
+      AND current_i18n.culture = :culture
+    LEFT JOIN event_i18n source_i18n ON event.id = source_i18n.id
+      AND source_i18n.culture = event.source_culture
+  WHERE
+    event.object_id = :id;
+EOL;
+
+    $events = QubitPdo::fetchAll(
+      $sql,
+      [':culture' => $this->getUser()->getCulture(), ':id' => $record['id']],
+      ['fetchMode' => PDO::FETCH_ASSOC]
+    );
+
+    // As in the search results from ES, get the first event with any date
+    foreach ($events as $event)
+    {
+      if (empty($event['display_date']))
+      {
+        $event['display_date'] = $event['source_date'];
+      }
+
+      if (empty($event['display_date']) && empty($event['start_date']) && empty($event['end_date']))
+      {
+        continue;
+      }
+
+      $dates = render_value_inline(Qubit::renderDateStartEnd(
+        $event['display_date'], $event['start_date'], $event['end_date']
+      ));
+
+      break;
+    }
+
+    return $dates;
   }
 }
