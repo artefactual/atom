@@ -99,7 +99,7 @@ EOF;
       {
         foreach ($translations as $key => &$value)
         {
-          if (0 == strlen(trim($value[0])) && isset($currentMessages[$key]))
+          if (isset($currentMessages[$key]))
           {
             $messageSource->update($key, $currentMessages[$key][0], $value[2]);
           }
