@@ -40,7 +40,7 @@ class QubitApiAction extends sfAction
     // Basic authentication
     if (isset($_SERVER['PHP_AUTH_USER']))
     {
-      if ($this->context->user->authenticate($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']))
+      if ($this->context->user->authenticateWithBasicAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']))
       {
         return true;
       }
