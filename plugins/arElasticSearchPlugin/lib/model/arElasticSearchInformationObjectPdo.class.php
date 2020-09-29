@@ -809,6 +809,7 @@ class arElasticSearchInformationObjectPdo
     $serialized['referenceCode'] = $this->getReferenceCode();
     $serialized['referenceCodeWithoutCountryAndRepo'] = $this->getReferenceCode(false);
     $serialized['levelOfDescriptionId'] = $this->level_of_description_id;
+    $serialized['lft'] = $this->lft;
     $serialized['publicationStatusId'] = $this->publication_status_id;
 
     // Alternative identifiers

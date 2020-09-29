@@ -23,9 +23,12 @@
  * @package AccesstoMemory
  * @subpackage model
  * @author Andy Koch <koch.andy@gmail.com>
+ * @author David Juhasz <david@artefactual.com>
  */
 class DefaultFullTreeViewAction extends sfAction
 {
+  protected $ancestorIds = array();
+
   public function execute($request)
   {
     ProjectConfiguration::getActive()->loadHelpers('Qubit');
@@ -33,233 +36,339 @@ class DefaultFullTreeViewAction extends sfAction
     // Get show identifier setting to prepare the reference code if necessary
     $this->showIdentifier = sfConfig::get('app_treeview_show_identifier', 'no');
 
+    // Set current user culture
+    $this->culture = $this->getUser()->getCulture();
+
     // Set response to JSON
     $this->getResponse()->setContentType('application/json');
   }
 
   /**
-   * Get treeview node data for a description or it's children
+   * Get treeview data for the children of the given information object
    *
-   * @param int $id information_object.id value
-   * @param string $baseReferenceCode reference code of parent node
-   * @param bool $children return children of target node when true
-   * @param array $options optional parameters
+   * @param int $informationObjectId information object id
+   * @param array $options optional arguments
    *
-   * @return array full width treeview data
+   * @return array treeview data
    */
-  protected function getNodeOrChildrenNodes(
-    $id,
-    $baseReferenceCode,
-    $children = false,
-    $options = array()
-  )
+  public function getChildren($informationObjectId, $options = array())
   {
-    // Hide drafts from unauthenticated users
-    $draftsSql = $this->getDraftsCriteria();
-
-    // Get current node data (for the collection root on the first load) or
-    // children data
-    $condition = $children ? 'io.parent_id = :id' : 'io.id = :id';
-
-    // Sort column
-    $orderColumn = (isset($options['orderColumn'])) ?
-      $options['orderColumn'] : 'io.lft';
-
-    // Limit results based on paging $options[skip, limit]
-    $limitClause = $this->getLimitClause($children, $options);
-
-    $sql = "SELECT SQL_CALC_FOUND_ROWS
-      io.id, io.lft, io.rgt,
-      io.source_culture,
-      io.identifier,
-      current_i18n.title AS current_title,
-      source_i18n.title as source_title,
-      io.parent_id AS parent,
-      slug.slug,
-      IFNULL(lod.name, '') AS lod,
-      st_i18n.name AS status,
-      status.status_id AS status_id
-      FROM
-        information_object io
-        LEFT JOIN information_object_i18n current_i18n
-          ON io.id = current_i18n.id AND current_i18n.culture = :culture
-        LEFT JOIN information_object_i18n source_i18n
-          ON io.id = source_i18n.id AND source_i18n.culture = io.source_culture
-        LEFT JOIN term_i18n lod
-          ON io.level_of_description_id = lod.id AND lod.culture = :culture
-        LEFT JOIN status
-          ON io.id = status.object_id AND status.type_id = :statusTypeId
-        LEFT JOIN term_i18n st_i18n
-          ON status.status_id = st_i18n.id AND st_i18n.culture = :culture
-        LEFT JOIN slug ON io.id = slug.object_id
-      WHERE
-        $condition
-        $draftsSql
-      ORDER BY $orderColumn
-      $limitClause;";
-
-    $results = QubitPdo::fetchAll(
-      $sql,
-      [
-        ':id' => $id,
-        ':culture' => $this->getUser()->getCulture(),
-        ':statusTypeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID,
-      ],
-      ['fetchMode' => PDO::FETCH_ASSOC]
-    );
-
-    // Get non-limited count of resulting rows
-    $totalCount = QubitPdo::fetchColumn("select found_rows();");
-
-    // Get the treeview data in the structure expected by the display code
-    $data = $this->getTreeviewData($results, $baseReferenceCode, $children, $options);
-
-    // Order data in-memory by "text" attribute of each node, when
-    // $option['memorySort'] is true
-    if (isset($options['memorySort']) && $options['memorySort'])
-    {
-      $this->memorySort($data);
-    }
-
-    return array('nodes' => $data, 'total' => $totalCount);
-  }
-
-  /**
-   * Format found data for full width treeview javascript
-   *
-   * @param array $results data from SQL query
-   *
-   * @return array data for treeview
-   */
-  protected function getTreeviewData($results, $baseReferenceCode, $children, $options)
-  {
-    $data = array();
-
-    foreach ($results as $result)
-    {
-      $result['baseReferenceCode'] = $baseReferenceCode;
-      $result['text'] = $this->getNodeText($result);
-
-      // Some special flags on our current selected item
-      if ($result['id'] == $this->resource->id)
-      {
-        $result['state'] = array('opened' => true, 'selected' => true);
-        $result['li_attr'] = array('selected_on_load' => true);
-      }
-
-      // Set root item's parent to hash symbol for jstree compatibility
-      if ($result['parent'] == QubitInformationObject::ROOT_ID)
-      {
-        $result['icon'] = 'fa fa-archive';
-      }
-
-      // Add node link attributes
-      $result['a_attr']['title'] = strip_tags($result['text']);
-      $result['a_attr']['href'] = $this->generateUrl(
-        'slug',
-        ['slug' => $result['slug']]
-      );
-
-      // If not a leaf node, indicate node has children
-      if ($result['rgt'] - $result['lft'] > 1)
-      {
-        // Set children to default of true for lazy loading
-        $result['children'] = true;
-
-        // If loading an ancestor of the resource, fetch children
-        if (
-          $result['lft'] <= $this->resource->lft
-          && $result['rgt'] >= $this->resource->rgt
-        )
-        {
-          // If we're not currently fetching children and paging options are set,
-          // use paging options when fetching children
-          $childOptions = array();
-          if (!$children && (isset($options['skip']) || isset($options['limit'])))
-          {
-            $childOptions = array(
-              'skip' => $options['skip'], 'limit' => $options['limit']
-            );
-          }
-
-          // Fetch children and note total number of children that exist
-          // (useful for paging through children)
-          $childData = $this->getNodeOrChildrenNodes(
-            $result['id'],
-            $this->getReferenceCode($result),
-            $children = true,
-            $childOptions
-          );
-
-          $result['children'] = $childData['nodes'];
-          $result['total'] = $childData['total'];
-        }
-      }
-
-      // Unset unused array elements
-      $unset = array(
-        'baseReferenceCode',
-        'lft',
-        'rgt',
-        'parent',
-        'lod',
-        'status',
-        'status_id',
-        'slug',
-        'source_culture',
-        'current_title',
-        'identifier'
-      );
-
-      $data[] = array_diff_key($result, array_flip($unset));
-    }
+    // Get child data
+    $results = $this->findChildren($informationObjectId, $options);
+    $data = $this->formatResultsData($results, $options);
 
     return $data;
   }
 
   /**
-   * Get the SQL criteria to exclude draft descriptions for unauthenticated
-   * users
+   * Get treeview data for ancestors and siblings of $this->resource
    *
-   * @return string SQL criteria to remove drafts, or an empty string
+   * @param array $options optional arguments
+   *
+   * @return array treeview data
    */
-  protected function getDraftsCriteria()
+  public function getAncestorsAndSiblings($options = array())
   {
-    return !$this->getUser()->user ?
-      ' AND status.status_id <> ' . QubitTerm::PUBLICATION_STATUS_DRAFT_ID : '';
+    $this->ancestorIds = $this->getAncestorIds($this->resource->id);
+    $this->collectionRootId = $this->getCollectionRootId();
+
+    // Get the collection root data (don't get it's siblings)
+    $result = $this->getElasticSearchResult($this->collectionRootId, $options);
+
+    // Format collection root data for the treeview, and recursively add its
+    // children until we get to the $this->resource and it's siblings
+    $data = $this->formatResultData($result, $options + ['recursive' => true]);
+
+    return ['nodes' => [$data], 'total' => 1];
   }
 
   /**
-   * Get appropriate SQL LIMIT clause for query parameters
+   * Get an array of ids for the ancestors of the given information object
    *
-   * @param bool $children true if getting the children of an information object
+   * @param int $informationObjectId information object id
+   *
+   * @return array ancestor ids
+   */
+  protected function getAncestorIds($informationObjectId)
+  {
+    $result = $this->getElasticSearchResult($informationObjectId);
+
+    if (null === $result)
+    {
+      return null;
+    }
+
+    $data = $result->getData();
+
+    return $data['ancestors'];
+  }
+
+  /**
+   * Get the collection root for this $this->resource
+   *
+   * The collection root is first child of the information object root node
+   * which is either an ancestor of $this->resource, or $this->resource itself
+   * if it's a child of the root node
+   *
+   * @return int|null collection root id; null if no collection root found
+   */
+  protected function getCollectionRootId()
+  {
+    // If $this->ancestorIds is empty, something went wrong
+    if (empty($this->ancestorIds))
+    {
+      return null;
+    }
+
+    // If the parent of $this->resource is the root node, then this resource is
+    // the collection root
+    if ($this->ancestorIds == [QubitInformationObject::ROOT_ID])
+    {
+      return $this->resource->id;
+    }
+
+    // Otherwise the second ancestor is the collection root
+    return $this->ancestorIds[1];
+  }
+
+  /**
+   * Do Elasticsearch query for given $term
+   *
+   * @param \Elastica\Query\Term $term query term
+   * @param array $options optional arguments
+   *
+   * @return \Elastica\ResultSet search result set
+   */
+  protected function doElasticsearchQuery($term, $options = [])
+  {
+    // Initialize Elasticsearch query
+    $query = new arElasticSearchPluginQuery(
+      $this->getPageLimit($options),
+      $this->getPageSkip($options)
+    );
+
+    // Add search term
+    $query->queryBool->addMust($term);
+
+    // Filter drafts
+    if (!$this->getUser()->isAuthenticated())
+    {
+      $query->queryBool->addMust(
+        new \Elastica\Query\Term(
+          ['publicationStatusId' => QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID]
+        )
+      );
+    }
+
+    // Set sort order
+    $this->setSortOrder($query, $options);
+
+    // Get results, with drafts filtered when appropriate
+    return QubitSearch::getInstance()
+      ->index
+      ->getType('QubitInformationObject')
+      ->search($query->getQuery(false, false));
+  }
+
+  /**
+   * Get Elasticsearch data for information object
+   *
+   * @param int $id information_object id
+   * @param array $options optional arguments
+   *
+   * @return \Elastica\Result Elasticsearch search result
+   */
+  protected function getElasticSearchResult($id, $options = [])
+  {
+    // Get resultset, with drafts filtered when appropriate
+    $results = $this->doElasticsearchQuery(
+      new \Elastica\Query\Term(['_id' => $id]),
+      $options
+    );
+
+    // If the information object is a draft, no results are returned
+    if (0 === $results->count())
+    {
+      return null;
+    }
+
+    // There should only be one result in the resultset
+    return $results->current();
+  }
+
+  /**
+   * Find children of information object
+   *
+   * @param QubitInformationObject $informationObject parent object
+   * @param array $options optional arguments
+   *
+   * @return \Elastica\ResultSet search result set
+   */
+  protected function findChildren($id, $options)
+  {
+    $term = new \Elastica\Query\Term(['parentId' => $id]);
+
+    return $this->doElasticsearchQuery($term, $options);
+  }
+
+  /**
+   * Format Elasticsearch results data for treeview javascript
+   *
+   * @param \Elastica\ResultSet $results Elasticsearch results
+   * @param array $options optional arguments
+   *
+   * @return array treeview data
+   */
+  protected function formatResultsData($results, $options)
+  {
+    $data = array();
+
+    foreach ($results as $result)
+    {
+      // Append node to $data array
+      $data[] = $this->formatResultData($result, $options);
+    }
+
+    // If $option['memorySort'] is true, order data in-memory by "text"
+    // attribute of each node
+    if (isset($options['memorySort']) && $options['memorySort'])
+    {
+      $this->memorySort($data);
+    }
+
+    return array('nodes' => $data, 'total' => $results->getTotalHits());
+  }
+
+  /**
+   * Format Elasticsearch result data for use in treeview javasccript
+   *
+   * @param Elastica\Result $result Elasticsearch search result
+   * @param array $options optional arguments
+   *
+   * @return array formatted data for treeview node
+   */
+  protected function formatResultData($result, $options)
+  {
+    // Get Elasticsearch search result data as an array
+    $data = $result->getData();
+
+    $node = array();
+    $node['id'] = $result->getId();
+    $node['text'] = $this->getNodeText($data);
+
+    // Set some special flags on our currently selected node
+    if ($result->getId() == $this->resource->id)
+    {
+      $node['state'] = array('opened' => true, 'selected' => true);
+      $node['li_attr'] = array('selected_on_load' => true);
+    }
+
+    // Set root item's parent to hash symbol for jstree compatibility
+    if ($data['parentId'] == QubitInformationObject::ROOT_ID)
+    {
+      $node['icon'] = 'fa fa-archive';
+    }
+
+    // Add <a> element attributes
+    $node['a_attr']['title'] = strip_tags($node['text']);
+    $node['a_attr']['href'] = $this->generateUrl(
+      'slug',
+      ['slug' => $data['slug']]
+    );
+
+    // If node has children
+    if (!empty($data['children']))
+    {
+      // Set children to default of true for lazy loading
+      $node['children'] = true;
+
+      // If this node is an ancestor of the target node, add child data
+      if (
+        isset($options['recursive']) && $options['recursive']
+        && in_array($node['id'], $this->ancestorIds)
+      )
+      {
+        $childData = $this->getChildren($node['id'], $options);
+        $node['children'] = $childData['nodes'];
+        $node['total'] = $childData['total'];
+      }
+    }
+
+    return $node;
+  }
+
+  /**
+   * Get number of results to show per "page"
+   *
    * @param array $options optional query parameters
    *
-   * @return string a SQL limit clause or an empty string if no limit is needed
+   * @return int maximum number of results to return
    */
-  protected function getLimitClause($children, $options)
+  protected function getPageLimit($options)
   {
-    // If we are not getting children, we are getting a single information
-    // object and there's no need for a limit
-    if (!$children)
+    // Get default limit from config
+    $limit = sfConfig::get('app_treeview_full_items_per_page', 50);
+
+    if (isset($options['limit'])  && intval($options['limit']) > 0)
     {
-      return '';
+      $limit = intval($options['limit']);
+
+      // Don't allow a limit greater than the max value
+      if ($limit > sfConfig::get('app_treeview_items_per_page_max', 10000))
+      {
+        $limit = sfConfig::get('app_treeview_items_per_page_max', 10000);
+      }
     }
 
-    $limitClause = '';
+    return $limit;
+  }
 
-    $skip = (isset($options['skip'])) ? $options['skip'] : null;
-    $limit = (isset($options['limit'])) ? $options['limit'] : null;
+  /**
+   * Get number of results to skip to show current "page" of results
+   *
+   * @param array $options optional query parameters
+   *
+   * @return int number of results to skip (default: 0)
+   */
+  protected function getPageSkip($options)
+  {
+    $skip = 0;
 
-    // If paging options are set, use paging options to assemble LIMIT clause
-    if (ctype_digit($skip) || ctype_digit($limit))
+    if (isset($options['skip']) && intval($options['skip']) > 0)
     {
-      $limitClause = "LIMIT ";
-      $limitClause .= (ctype_digit($skip)) ? $skip : "0";
-      $limitClause .= (ctype_digit($limit)) ? ", ". $limit : "";
+      $skip = intval($options['skip']);
     }
 
-    return $limitClause;
+    return $skip;
+  }
+
+  /**
+   * Set sort order for Elasticsearch query
+   *
+   * @param arElasticSearchPluginQuery $query Elasticsearch query object
+   * @param array $options optional arguments
+   *
+   * @return void
+   */
+  protected function setSortOrder(&$query, $options)
+  {
+    // Default: sort by "lft"
+    $sortField = 'lft';
+
+    // Define allowed sort fields
+    $allowedSorts = [
+      'title' => sprintf('i18n.%s.title.alphasort', $this->culture)
+    ];
+
+    if (
+      isset($options['orderColumn'])
+      && in_array($options['orderColumn'], $allowedSorts)
+    )
+    {
+      $sortField = $options['orderColumn'];
+    }
+
+    $query->query->addSort([$sortField => 'asc']);
   }
 
   /**
@@ -277,39 +386,17 @@ class DefaultFullTreeViewAction extends sfAction
   {
     $text = $this->getTitle($record);
 
-    // Prepend identifier or reference code to text
-    $identifier = $this->getIdentifier($record);
+    // Prepend identifier or reference code to text, based on settings
+    $text = $this->addIdentifier($text, $record);
 
-    if (!empty($identifier))
-    {
-      $text = "$identifier - $text";
-    }
+    // Prepend level of description, based on settings
+    $text = $this->addLevelOfDescription($text, $record);
 
-    // Prepend level of description based on setting
-    if (
-      'yes' === sfConfig::get('app_treeview_show_level_of_description', 'yes')
-      && !empty($record['lod'])
-    )
-    {
-      $text = sprintf('[%s] %s', render_value_inline($record['lod']), $text);
-    }
+    // Append dates, based on settings
+    $text = $this->addDates($text, $record);
 
-    // Append dates based on setting
-    if ('yes' === sfConfig::get('app_treeview_show_dates', 'no'))
-    {
-      $dates = $this->getDates($record);
-
-      if (!empty($dates))
-      {
-        $text .= ", $dates";
-      }
-    }
-
-    // Prepend "(Draft)" to draft records
-    if ($record['status_id'] == QubitTerm::PUBLICATION_STATUS_DRAFT_ID)
-    {
-      $text = sprintf('(%s) %s', render_value_inline($record['status']), $text);
-    }
+    // Prepend "(Draft) " to draft descriptions
+    $text = $this->addDraftText($text, $record);
 
     return $text;
   }
@@ -327,134 +414,135 @@ class DefaultFullTreeViewAction extends sfAction
    */
   protected function getTitle($record)
   {
-    // Use the current culture "title" value, if it is set
-    if (!empty($record['current_title']))
-    {
-      return render_value_inline($record['current_title']);
-    }
-
-    // If the current culture title is null, use the source culture title.
-    // render_title() will return "<em>Untitled</em>" if
-    // $record['source_culture'] is null
-    return render_title($record['source_title']);
+    return get_search_i18n(
+      $record,
+      'title',
+      ['allowEmpty' => false, 'culture' => $this->culture]
+    );
   }
 
   /**
-   * Return an archival description identifier or reference code based on the
-   * application "full width treeview > show identifier" setting
+   * Prepend an identifier or reference code based on the application "full
+   * width treeview > show identifier" setting
    *
-   * @param array $record archival description data
+   * @param array $text input text
+   * @param array $record information object data
    *
-   * @return string|null the appropriate identifier/reference code, or null
+   * @return string the updated text
    */
-  protected function getIdentifier($record)
+  protected function addIdentifier($text, $record)
   {
-    // If show identifier setting is "no" return null
+    $identifer = null;
+
+    // If show identifier setting is "no" return the input text unaltered
     if ('no' === $this->showIdentifier)
     {
-      return null;
+      return $text;
     }
 
-    // If show identifier setting is "identifier" return the simple identifier
-    if ('identifier' == $this->showIdentifier)
+    // If show identifier setting is "identifier", use the local identifier
+    if ('identifier' == $this->showIdentifier && isset($record['identifier']))
     {
-      return render_value_inline($record['identifier']);
+      $identifier = $record['identifier'];
     }
 
-    // Otherwise return the reference code
-    return $this->getReferenceCode($record);
-  }
-
-  /**
-   * Construct and return an archival description reference code
-   *
-   * @param array $record archival description data
-   *
-   * @return string|null a reference code, or null
-   */
-  protected function getReferenceCode($record)
-  {
-    // Return null if the show identifier setting is not "referenceCode" or if
-    // this result has no identifier
+    // If show identifier setting is "reference code", use it
     if (
-      'referenceCode' !== $this->showIdentifier
-      || empty($record['identifier']))
+      'referenceCode' === $this->showIdentifier
+      && isset($record['referenceCode']))
     {
-      return null;
+      $identifier = $record['referenceCode'];
     }
 
-    // If this is a top-level node return it's identifier
-    if ($record['parent'] == QubitInformationObject::ROOT_ID)
+    // If $identifier has a value, prepend it to the input text
+    if (!empty($identifier))
     {
-      return render_value_inline($record['identifier']);
+      return sprintf('%s - %s', $identifier, $text);
     }
 
-    // Append this result's identifier to the base reference code passed from
-    // its parent
-    return $record['baseReferenceCode']
-      . sfConfig::get('app_separator_character', '-')
-      . render_value_inline($record['identifier']);
+    return $text;
   }
 
   /**
-   * Get event dates related to an archival description
+   * Prepend level of description text when appropriate
    *
-   * If $record has multiple related events, the dates returned will be from the
-   * first related event that has date data
+   * @param string $text input text
+   * @param array $record information object data
    *
-   * @param array $record archival description data
-   *
-   * @return string a related event's dates, or an empty string
+   * @return string updated text
    */
-  protected function getDates($record)
+  protected function addLevelOfDescription($text, $record)
+  {
+    if ('yes' === sfConfig::get('app_treeview_show_level_of_description', 'yes')
+      && !empty($record['levelOfDescriptionId'])
+    )
+    {
+      return sprintf(
+        '[%s] %s',
+        render_value_inline(
+          QubitCache::getLabel($record['levelOfDescriptionId'], 'QubitTerm')
+        ),
+        $text
+      );
+    }
+
+    return $text;
+  }
+
+  /**
+   * Append dates when appropriate
+   *
+   * @param string $text input text
+   * @param array $record information object data
+   *
+   * @return string updated text
+   */
+  protected function addDates($text, $record)
   {
     $dates = '';
 
-    $sql = <<<EOL
-SELECT
-  event.start_date, event.end_date,
-  current_i18n.date AS display_date,
-  source_i18n.date AS source_date
-  FROM
-    event
-    LEFT JOIN event_i18n current_i18n ON event.id = current_i18n.id
-      AND current_i18n.culture = :culture
-    LEFT JOIN event_i18n source_i18n ON event.id = source_i18n.id
-      AND source_i18n.culture = event.source_culture
-  WHERE
-    event.object_id = :id;
-EOL;
-
-    $events = QubitPdo::fetchAll(
-      $sql,
-      [':culture' => $this->getUser()->getCulture(), ':id' => $record['id']],
-      ['fetchMode' => PDO::FETCH_ASSOC]
-    );
-
-    // As in the search results from ES, get the first event with any date
-    foreach ($events as $event)
+    // Check that treeview dates setting is "yes"
+    if (
+      'yes' === sfConfig::get('app_treeview_show_dates', 'no')
+      && isset($record['dates'])
+    )
     {
-      if (empty($event['display_date']))
-      {
-        $event['display_date'] = $event['source_date'];
-      }
-
-      if (
-        empty($event['display_date']) && empty($event['start_date'])
-        && empty($event['end_date'])
-      )
-      {
-        continue;
-      }
-
-      $dates = render_value_inline(Qubit::renderDateStartEnd(
-        $event['display_date'], $event['start_date'], $event['end_date']
-      ));
-
-      break;
+      $dates = render_search_result_date($record['dates']);
     }
 
-    return $dates;
+    // Append dates to text
+    if (!empty($dates))
+    {
+      $text .= ", $dates";
+    }
+
+    return $text;
+  }
+
+  /**
+   * Prepend "(Draft)" to draft descriptions
+   *
+   * @param string $text input text
+   * @param array $record information object data
+   *
+   * @return string updated text
+   */
+  protected function addDraftText($text, $record)
+  {
+    if (
+      isset($record['publicationStatusId'])
+      && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $record['publicationStatusId']
+    )
+    {
+      // Prepend "(Draft) " to draft records
+      $text = sprintf(
+        '(%s) %s',
+        QubitCache::getLabel($record['publicationStatusId'], 'QubitTerm'),
+        $text
+      );
+    }
+
+    return $text;
   }
 
   /**

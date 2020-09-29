@@ -30,17 +30,7 @@ class BrowseHierarchyDataAction extends DefaultFullTreeViewAction
   {
     parent::execute($request);
 
-    $this->resource = QubitInformationObject::getById(QubitInformationObject::ROOT_ID);
-
-    $baseReferenceCode = '';
-
-    // Given the current resource is the root information object, if doesn't
-    // have an identifier so just send boolean true to indicate we want
-    // indentifiers to be displayed
-    if ($this->showIdentifier === 'referenceCode')
-    {
-      $baseReferenceCode = true;
-    }
+    $this->resource = QubitInformationObject::getRoot();
 
     // Impose limit to what nodeLimit parameter can be set to
     $maxItemsPerPage = sfConfig::get('app_treeview_items_per_page_max', 10000);
@@ -51,13 +41,14 @@ class BrowseHierarchyDataAction extends DefaultFullTreeViewAction
 
     // Do ordering during query as we need to page through the results
     $options = array(
-      'orderColumn' => 'current_i18n.title',
+      'orderColumn' => 'title',
       'memorySort' => true,
       'skip' => $request->skip,
       'limit' => $request->nodeLimit
     );
 
-    $data = $this->getNodeOrChildrenNodes($this->resource->id, $baseReferenceCode, $children = true, $options);
+    // Load the children of the root node (top-level descriptions)
+    $data = $this->getChildren($this->resource->id, $options);
 
     return $this->renderText(json_encode($data));
   }
