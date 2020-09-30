@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2017-09-04T11:51:17Z" product-name="messages">
+  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2020-09-30T16:57:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -254,7 +254,7 @@
       </trans-unit>
       <trans-unit id="63">
         <source>Publisher's series area</source>
-        <target>Nashr qiluvchining seriya &lpar;ro`yxat&rpar; lari sohasi</target>
+        <target>Nashr qiluvchining seriya ro`yxat lari sohasi</target>
       </trans-unit>
       <trans-unit id="64">
         <source>"At the item level of description, transcribe a title proper of the publisher's series as instructed in 1.1B1." (RAD 1.6B)</source>
@@ -262,7 +262,7 @@
       </trans-unit>
       <trans-unit id="65">
         <source>Title proper of publisher's series</source>
-        <target>Nashr qiluvchining seriya &lpar;ro`yxat&rpar; larining asosiy sarlavhasi</target>
+        <target>Nashr qiluvchining seriya ro`yxat larining asosiy sarlavhasi</target>
       </trans-unit>
       <trans-unit id="66">
         <source>"Transcribe parallel titles of a publisher's series as instructed in 1.1D." (RAD 1.6C1)</source>
@@ -270,7 +270,7 @@
       </trans-unit>
       <trans-unit id="67">
         <source>Parallel title of publisher's series</source>
-        <target>Nashr qiluvchining seriya &lpar;ro`yxat&rpar; larining parallel sarlavhasi</target>
+        <target>Nashr qiluvchining seriya ro`yxat larining parallel sarlavhasi</target>
       </trans-unit>
       <trans-unit id="68">
         <source>"Transcribe other title information of a publisher's series as instructed in 1.1E and only if considered necessary for identifying the publisher's series." (RAD 1.6D1)</source>
@@ -278,7 +278,7 @@
       </trans-unit>
       <trans-unit id="69">
         <source>Other title information of publisher's series</source>
-        <target>Nashr qiluvchining seriya &lpar;ro`yxat&rpar; larining boshqa sarlavha ma'lumotlari</target>
+        <target>Nashr qiluvchining seriya ro`yxat larining boshqa sarlavha ma'lumotlari</target>
       </trans-unit>
       <trans-unit id="70">
         <source>"Transcribe explicit statements of responsibility appearing in conjunction with a formal title proper of a publisher's series as instructed in 1.1F and only if considered necessary for identifying the publisher's series." (RAD 1.6E1)</source>
@@ -286,7 +286,7 @@
       </trans-unit>
       <trans-unit id="71">
         <source>Statement of responsibility relating to publisher's series</source>
-        <target>Nashr qiluvchining seriya &lpar;ro`yxat&rpar; larining javobgarlik ma'lumoti</target>
+        <target>Nashr qiluvchining seriya ro`yxat larining javobgarlik ma'lumoti</target>
       </trans-unit>
       <trans-unit id="72">
         <source>"Give the numbering of the item within a publisher's series in the terms given in the item." (RAD 1.6F1)</source>
@@ -294,7 +294,7 @@
       </trans-unit>
       <trans-unit id="73">
         <source>Numbering within publisher's series</source>
-        <target>Nashr qiluvchining seriya &lpar;ro`yxat&rpar; lari bo`ylab raqamlash</target>
+        <target>Nashr qiluvchining seriya ro`yxat lari bo`ylab raqamlash</target>
       </trans-unit>
       <trans-unit id="74">
         <source>"Make notes on important details of publisher's series that are not included in the Publisher's series area, including variant series titles, incomplete series, and of numbers or letters that imply a series." (RAD 1.8B10)</source>
@@ -302,7 +302,7 @@
       </trans-unit>
       <trans-unit id="75">
         <source>Note on publisher's series</source>
-        <target>Nashr qiluvchining seriya &lpar;ro`yxat&rpar; lariga izoh</target>
+        <target>Nashr qiluvchining seriya ro`yxat lariga izoh</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Archival description area</source>
@@ -538,7 +538,7 @@
       </trans-unit>
       <trans-unit id="134">
         <source>Script</source>
-        <target>Alifbo &lpar;belgilar&rpar;</target>
+        <target>Alifbo belgilar</target>
       </trans-unit>
       <trans-unit id="135">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
@@ -594,7 +594,7 @@
       </trans-unit>
       <trans-unit id="148">
         <source>Parallel titles of publisher's series</source>
-        <target>Nashr qiluvchining seriya &lpar;ro`yxat&rpar; larining parallel sarlavhalari</target>
+        <target>Nashr qiluvchining seriya ro`yxat larining parallel sarlavhalari</target>
       </trans-unit>
       <trans-unit id="149">
         <source>Edit archival description area</source>

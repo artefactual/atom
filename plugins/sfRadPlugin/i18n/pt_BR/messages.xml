@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2015-08-27T12:10:13Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2020-09-30T16:57:09Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -16,15 +16,15 @@
       </trans-unit>
       <trans-unit id="80">
         <source>Subject access points</source>
-        <target>pontos de acesso - assunto</target>
+        <target>Pontos de acesso de assunto</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Place access points</source>
-        <target>Pontos de acesso - lugares</target>
+        <target>Pontos de acesso local</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Institution identifier</source>
-        <target>identificador da instituição</target>
+        <target>Identificador da instituição</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Status</source>
@@ -32,19 +32,19 @@
       </trans-unit>
       <trans-unit id="87">
         <source>Level of detail</source>
-        <target>nível de detalhamento</target>
+        <target>Nível de detalhamento</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Dates of creation, revision and deletion</source>
-        <target>datas das descrições (criação, revisão e remoção)</target>
+        <target>Datas de criação, revisão e eliminação</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Sources</source>
-        <target>fontes</target>
+        <target>Fontes</target>
       </trans-unit>
       <trans-unit id="247">
         <source>Control area</source>
-        <target>área de controle</target>
+        <target>Área de controle</target>
       </trans-unit>
       <trans-unit id="476">
         <source>Administrative history</source>
@@ -124,7 +124,7 @@
       </trans-unit>
       <trans-unit id="794">
         <source>Immediate source of acquisition</source>
-        <target>Fonte imediata de aquisição</target>
+        <target>Procedência</target>
       </trans-unit>
       <trans-unit id="795">
         <source>Availability of other formats</source>
@@ -180,11 +180,11 @@
       </trans-unit>
       <trans-unit id="912">
         <source>Title notes</source>
-        <target>Notas do título</target>
+        <target>Notas de título</target>
       </trans-unit>
       <trans-unit id="913">
         <source>Edition area</source>
-        <target>Zona de edição</target>
+        <target>Área de edição</target>
       </trans-unit>
       <trans-unit id="914">
         <source>Edit edition area</source>
@@ -196,7 +196,7 @@
       </trans-unit>
       <trans-unit id="916">
         <source>Class of material specific details area</source>
-        <target>Zona de detalhe específicos de materiais</target>
+        <target>Área de detalhes específicos de materiais</target>
       </trans-unit>
       <trans-unit id="917">
         <source>Edit class of material specific details area</source>
@@ -204,7 +204,7 @@
       </trans-unit>
       <trans-unit id="918">
         <source>Dates of creation area</source>
-        <target>Zona de datas de criação</target>
+        <target>Área de datas de criação</target>
       </trans-unit>
       <trans-unit id="919">
         <source>Edit dates of creation area</source>
@@ -212,7 +212,7 @@
       </trans-unit>
       <trans-unit id="920">
         <source>Physical description area</source>
-        <target>Zona de descrição física</target>
+        <target>Área de descrição física</target>
       </trans-unit>
       <trans-unit id="921">
         <source>Edit physical description area</source>
@@ -220,7 +220,7 @@
       </trans-unit>
       <trans-unit id="922">
         <source>Publisher's series area</source>
-        <target>Zona dos editores das publicações</target>
+        <target>Área dos editores das publicações</target>
       </trans-unit>
       <trans-unit id="923">
         <source>Edit publisher's series area</source>
@@ -236,7 +236,7 @@
       </trans-unit>
       <trans-unit id="926">
         <source>Archival description area</source>
-        <target>Zona da descrição do arquivo</target>
+        <target>Área de descrição do arquivo</target>
       </trans-unit>
       <trans-unit id="927">
         <source>Edit archival description area</source>
@@ -248,7 +248,7 @@
       </trans-unit>
       <trans-unit id="929">
         <source>Notes area</source>
-        <target>Zona de notas</target>
+        <target>Área de notas</target>
       </trans-unit>
       <trans-unit id="930">
         <source>Edit notes area</source>
@@ -280,7 +280,7 @@
       </trans-unit>
       <trans-unit id="938">
         <source>Standard number area</source>
-        <target>Área de número normalizado</target>
+        <target>Área de número padrão</target>
       </trans-unit>
       <trans-unit id="939">
         <source>Edit standard number area</source>
@@ -292,7 +292,7 @@
       </trans-unit>
       <trans-unit id="941">
         <source>Access points</source>
-        <target>Ponto de acesso</target>
+        <target>Pontos de acesso</target>
       </trans-unit>
       <trans-unit id="942">
         <source>Edit access points</source>
@@ -336,7 +336,7 @@
       </trans-unit>
       <trans-unit id="957">
         <source>Edit %1%</source>
-        <target>editar %1%</target>
+        <target>Editar %1%</target>
       </trans-unit>
       <trans-unit id="958">
         <source>"Give the date(s) of creation of the unit being described either as a single date, or range of dates (for inclusive dates and/or predominant dates). Always give the inclusive dates. When providing predominant dates, specify them as such, preceded by the word predominant..." (RAD 1.4B2) Record probable and uncertain dates in square brackets, using the conventions described in 1.4B5.</source>
@@ -384,7 +384,7 @@
       </trans-unit>
       <trans-unit id="972">
         <source>This is a mandatory element.</source>
-        <target>É um elemento obrigatório.</target>
+        <target>Este é um elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="973">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
@@ -548,7 +548,7 @@
       </trans-unit>
       <trans-unit id="1019">
         <source>Description identifier</source>
-        <target>identificador da descrição</target>
+        <target>Identificador da descrição</target>
       </trans-unit>
       <trans-unit id="1020">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
@@ -577,7 +577,7 @@ elaboração da descrição.</target>
       </trans-unit>
       <trans-unit id="1026">
         <source>Language</source>
-        <target>idioma</target>
+        <target>Idioma</target>
       </trans-unit>
       <trans-unit id="1027">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
@@ -585,7 +585,7 @@ elaboração da descrição.</target>
       </trans-unit>
       <trans-unit id="1028">
         <source>Script</source>
-        <target>Script</target>
+        <target>Sistema de escrita</target>
       </trans-unit>
       <trans-unit id="1029">
         <source>Name access points (subjects)</source>

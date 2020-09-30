@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2015-10-16T04:43:22Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2020-09-30T16:57:37Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -12,39 +12,39 @@
       </trans-unit>
       <trans-unit id="62">
         <source>Repository</source>
-        <target>Entidade custodiadora</target>
+        <target>Entidade detentora</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Subject access points</source>
-        <target>pontos de acesso - assunto</target>
+        <target>Pontos de acesso - Assuntos</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Place access points</source>
-        <target>Pontos de acesso - lugares</target>
+        <target>Pontos de acesso - Locais</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Institution identifier</source>
-        <target>identificador da instituição</target>
+        <target>Identificador da instituição</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Status</source>
-        <target>Status</target>
+        <target>Estatuto</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Level of detail</source>
-        <target>nível de detalhamento</target>
+        <target>Nível de detalhe</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Dates of creation, revision and deletion</source>
-        <target>datas das descrições (criação, revisão e remoção)</target>
+        <target>Datas de criação, revisão ou eliminação</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Sources</source>
-        <target>fontes</target>
+        <target>Fontes</target>
       </trans-unit>
       <trans-unit id="247">
         <source>Control area</source>
-        <target>área de controle</target>
+        <target>Zona do controlo</target>
       </trans-unit>
       <trans-unit id="476">
         <source>Administrative history</source>
@@ -164,11 +164,11 @@
       </trans-unit>
       <trans-unit id="905">
         <source>Scope and content - This is a mandatory element.</source>
-        <target>Âmbito e conteúdo - elemento obrigatório</target>
+        <target>Âmbito e conteúdo - É um elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="909">
         <source>Title and statement of responsibility area</source>
-        <target>Área do título e menção de responsabilidade</target>
+        <target>Zona do título e menção de responsabilidade</target>
       </trans-unit>
       <trans-unit id="910">
         <source>Edit title and statement of responsibility area</source>
@@ -196,7 +196,7 @@
       </trans-unit>
       <trans-unit id="916">
         <source>Class of material specific details area</source>
-        <target>Zona de detalhe específicos de materiais</target>
+        <target>Zona de detalhes específicos de materiais</target>
       </trans-unit>
       <trans-unit id="917">
         <source>Edit class of material specific details area</source>
@@ -248,7 +248,7 @@
       </trans-unit>
       <trans-unit id="929">
         <source>Notes area</source>
-        <target>Zona de notas</target>
+        <target>Zona das notas</target>
       </trans-unit>
       <trans-unit id="930">
         <source>Edit notes area</source>
@@ -280,7 +280,7 @@
       </trans-unit>
       <trans-unit id="938">
         <source>Standard number area</source>
-        <target>Área de número normalizado</target>
+        <target>Zona do número normalizado</target>
       </trans-unit>
       <trans-unit id="939">
         <source>Edit standard number area</source>
@@ -336,7 +336,7 @@
       </trans-unit>
       <trans-unit id="957">
         <source>Edit %1%</source>
-        <target>editar %1%</target>
+        <target>Editar %1%</target>
       </trans-unit>
       <trans-unit id="958">
         <source>"Give the date(s) of creation of the unit being described either as a single date, or range of dates (for inclusive dates and/or predominant dates). Always give the inclusive dates. When providing predominant dates, specify them as such, preceded by the word predominant..." (RAD 1.4B2) Record probable and uncertain dates in square brackets, using the conventions described in 1.4B5.</source>
@@ -384,7 +384,7 @@
       </trans-unit>
       <trans-unit id="972">
         <source>This is a mandatory element.</source>
-        <target>Elemento obrigatório</target>
+        <target>Elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="973">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
@@ -408,7 +408,7 @@
       </trans-unit>
       <trans-unit id="979">
         <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
-        <target>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</target>
+        <target>Selecione um nível de descrição no menu drop-down. Consulte a RAD 1.0A para regras e convenções sobre a seleção de níveis de descrição.</target>
       </trans-unit>
       <trans-unit id="981">
         <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
@@ -416,7 +416,7 @@
       </trans-unit>
       <trans-unit id="982">
         <source>Enter an unambiguous code used to uniquely identify the description.</source>
-        <target>Digitar um código unívoco para identificar a descrição</target>
+        <target>Digitar um código unívoco para identificar a descrição.</target>
       </trans-unit>
       <trans-unit id="984">
         <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
@@ -532,11 +532,11 @@
       </trans-unit>
       <trans-unit id="1015">
         <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
-        <target>Para procurar um termo existente na taxonomia de assuntos digitar os primeiros caracteres do termo. Alternativamente, poderá digitar um novo termo e criar a respectiva ligação</target>
+        <target>Procure um termo existente na taxonomia de Assuntos introduzindo os primeiros caracteres do termo. Alternativamente, poderá digitar um novo termo e criar a respetiva ligação.</target>
       </trans-unit>
       <trans-unit id="1016">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
-        <target>Para procurar um termo existente na taxonomia de Lugares digitar os primeiros caracteres do termo. Alternativamente, poderá digitar um novo termo e criar a respectiva ligação</target>
+        <target>Procure um termo existente na taxonomia de Lugares introduzindo os primeiros caracteres do termo. Alternativamente, poderá digitar um novo termo e criar a respetiva ligação.</target>
       </trans-unit>
       <trans-unit id="1017">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
@@ -548,7 +548,7 @@
       </trans-unit>
       <trans-unit id="1019">
         <source>Description identifier</source>
-        <target>identificador da descrição</target>
+        <target>Identificador da descrição</target>
       </trans-unit>
       <trans-unit id="1020">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
@@ -573,11 +573,11 @@ elaboração da descrição.</target>
       </trans-unit>
       <trans-unit id="1025">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
-        <target>Indicar o idioma(s) utilizado para criar a descrição do material arquívistico</target>
+        <target>Indicar o(s) idioma(s) utilizado(s) para criar a descrição do material arquivístico.</target>
       </trans-unit>
       <trans-unit id="1026">
         <source>Language</source>
-        <target>idioma</target>
+        <target>Idioma</target>
       </trans-unit>
       <trans-unit id="1027">
         <source>Indicate the script(s) used to create the description of the archival material.</source>

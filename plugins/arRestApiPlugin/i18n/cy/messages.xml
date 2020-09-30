@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2018-09-09T08:21:14Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2020-09-30T16:57:20Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Pagination limit reached. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. Please, narrow down your results.</source>
-        <target/>
+        <target>Terfyn tudaleniad wedi'i chyrraedd. Er mwyn osgoi defnyddio llawer iawn o gof, mae AtoM yn cyfyngu tudaleniad i 10,000 o gofnodion. Os gwelwch yn dda, culhewch eich canlyniadau.</target>
       </trans-unit>
     </body>
   </file>

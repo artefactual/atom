@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2017-08-25T18:50:42Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2020-09-30T16:57:06Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -8,19 +8,19 @@
       </trans-unit>
       <trans-unit id="48">
         <source>Level of description</source>
-        <target>Beschreibungsebene</target>
+        <target>Erschließungsstufe</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Repository</source>
-        <target>Aufbewahrungsort</target>
+        <target>Archiv</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Subject access points</source>
-        <target>Zugriffspunkt (Thema)</target>
+        <target>Zugriffspunkte (Thema)</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Place access points</source>
-        <target>Zugriffspunkt (Ort)</target>
+        <target>Zugriffspunkte (Ort)</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Institution identifier</source>
@@ -28,7 +28,7 @@
       </trans-unit>
       <trans-unit id="86">
         <source>Status</source>
-        <target>Erschließungsstatus</target>
+        <target>Status</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Level of detail</source>
@@ -44,7 +44,7 @@
       </trans-unit>
       <trans-unit id="247">
         <source>Control area</source>
-        <target>Kontrolle</target>
+        <target>Bereich "Kontrolle"</target>
       </trans-unit>
       <trans-unit id="475">
         <source>Administrative history</source>
@@ -136,7 +136,7 @@
       </trans-unit>
       <trans-unit id="796">
         <source>Terms governing use, reproduction, and publication</source>
-        <target>Bestimmungen, die die Benutzung, Reproduktion und Veröffentlichung regeln.</target>
+        <target>Bestimmungen, die die Benutzung, Reproduktion und Veröffentlichung regeln</target>
       </trans-unit>
       <trans-unit id="799">
         <source>Rules or conventions</source>
@@ -204,7 +204,7 @@
       </trans-unit>
       <trans-unit id="917">
         <source>Dates of creation area</source>
-        <target>Bereich Entstehungszeitraum</target>
+        <target>Bereich "Entstehungszeitraum"</target>
       </trans-unit>
       <trans-unit id="918">
         <source>Edit dates of creation area</source>
@@ -236,7 +236,7 @@
       </trans-unit>
       <trans-unit id="925">
         <source>Archival description area</source>
-        <target>Bereich archivische Beschreibung</target>
+        <target>Bereich "Archivische Beschreibung"</target>
       </trans-unit>
       <trans-unit id="926">
         <source>Edit archival description area</source>
@@ -248,7 +248,7 @@
       </trans-unit>
       <trans-unit id="928">
         <source>Notes area</source>
-        <target>Bereich 'Anmerkungen'</target>
+        <target>Bereich "Anmerkungen"</target>
       </trans-unit>
       <trans-unit id="929">
         <source>Edit notes area</source>
@@ -280,7 +280,7 @@
       </trans-unit>
       <trans-unit id="937">
         <source>Standard number area</source>
-        <target>Standardnummernbereich</target>
+        <target>Bereich "Standardnummern"</target>
       </trans-unit>
       <trans-unit id="938">
         <source>Edit standard number area</source>
@@ -360,19 +360,19 @@
       </trans-unit>
       <trans-unit id="962">
         <source>Statement of scale (architectural) - This is a mandatory element for architectural drawing.</source>
-        <target>Angaben zum Maßstab (architektonisch) - dies ist ein notwendiges Feld für Architekturzeichnungen</target>
+        <target>Angaben zum Maßstab (architektonisch) - dies ist ein notwendiges Feld für Architekturzeichnungen.</target>
       </trans-unit>
       <trans-unit id="963">
         <source>Statement of coordinates (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target>Angaben zu Koordinaten (kartografisch) - dies ist ein notwendiges Feld für Karten</target>
+        <target>Angaben zu Koordinaten (kartografisch) - dies ist ein notwendiges Feld für Karten.</target>
       </trans-unit>
       <trans-unit id="964">
         <source>Statement of projection (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target>Angaben zur Projektion (kartografisch) - dies ist ein notwendiges Feld für Karten</target>
+        <target>Angaben zur Projektion (kartografisch) - dies ist ein notwendiges Feld für Karten.</target>
       </trans-unit>
       <trans-unit id="965">
         <source>Statement of scale (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target>Angaben zum Maßstab (kartografisch) - dies ist ein notwendiges Feld für Karten</target>
+        <target>Angaben zum Maßstab (kartografisch) - dies ist ein notwendiges Feld für Karten.</target>
       </trans-unit>
       <trans-unit id="966">
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
@@ -416,7 +416,7 @@
       </trans-unit>
       <trans-unit id="981">
         <source>Enter an unambiguous code used to uniquely identify the description.</source>
-        <target>Geben Sie einen eindeutigen Code ein, um die Beschreibung unverwechselbar zu identifizieren</target>
+        <target>Geben Sie einen eindeutigen Code ein, um die Beschreibung unverwechselbar zu identifizieren.</target>
       </trans-unit>
       <trans-unit id="983">
         <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
@@ -548,7 +548,7 @@
       </trans-unit>
       <trans-unit id="1018">
         <source>Description identifier</source>
-        <target>Beschreibungskennzahl</target>
+        <target>Identifikator "Beschreibung"</target>
       </trans-unit>
       <trans-unit id="1019">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
@@ -652,7 +652,7 @@
       </trans-unit>
       <trans-unit id="1052">
         <source>Genre access points</source>
-        <target>Zugriffspunkt (Genre)</target>
+        <target>Zugriffspunkte (Genre)</target>
       </trans-unit>
       <trans-unit id="1053">
         <source>Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.</source>

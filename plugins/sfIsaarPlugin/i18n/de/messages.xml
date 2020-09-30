@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2020-06-12T18:56:52Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2020-09-30T16:57:07Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="24">
         <source>Authorized form of name</source>
-        <target>Autorisierter Name</target>
+        <target>Autorisierte Namensform</target>
       </trans-unit>
       <trans-unit id="25">
         <source>"Record the authorized form of name and any relevant unique identifiers, including the authority record identifier, for the related entity." (ISAAR 5.3.1) Select the name from the drop-down menu; enter the first few letters to narrow the choices.</source>
@@ -102,7 +102,7 @@
       </trans-unit>
       <trans-unit id="26">
         <source>"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.</source>
-        <target>"Zweck: Identifizierung der allgemeinen Kategorie der Beziehung zwischen der beschriebenen Einheit und einer anderen Körperschaft, Person oder Familie." (ISAAR 5.3.2). Wählen Sie eine Kategorie aus dem drop-down Menü: hierarchisch, zeitlich, familiär, assoziativ</target>
+        <target>"Zweck: Identifizierung der allgemeinen Kategorie der Beziehung zwischen der beschriebenen Einheit und einer anderen Körperschaft, Person oder Familie." (ISAAR 5.3.2). Wählen Sie eine Kategorie aus dem drop-down Menü: hierarchisch, zeitlich, familiär, assoziativ.</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Category of relationship</source>
@@ -126,7 +126,7 @@
       </trans-unit>
       <trans-unit id="32">
         <source>Identity area</source>
-        <target>Identifizierungsfeld</target>
+        <target>Bereich "Identifikation"</target>
       </trans-unit>
       <trans-unit id="33">
         <source>"Specify the type of entity that is being described in this authority record." (ISAAR 5.1.1) Select Corporate body, Family or Person from the drop-down menu.</source>
@@ -237,7 +237,7 @@ aufzeigt." (ISAAR 5.2.7)</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Control area</source>
-        <target>Kontrolle</target>
+        <target>Bereich "Kontrolle"</target>
       </trans-unit>
       <trans-unit id="60">
         <source>"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)</source>
@@ -342,7 +342,7 @@ Regel: Die Namen und, soweit dies nützlich ist, die Ausgabe oder die Daten der 
       </trans-unit>
       <trans-unit id="89">
         <source>Status</source>
-        <target>Erschließungsstatus</target>
+        <target>Status</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Level of detail</source>
@@ -366,7 +366,7 @@ Regel: Die Namen und, soweit dies nützlich ist, die Ausgabe oder die Daten der 
       </trans-unit>
       <trans-unit id="95">
         <source>Edit</source>
-        <target>Bearbeiten</target>
+        <target>Bearbeite</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Delete</source>
@@ -402,7 +402,7 @@ Regel: Die Namen und, soweit dies nützlich ist, die Ausgabe oder die Daten der 
       </trans-unit>
       <trans-unit id="105">
         <source>Last updated</source>
-        <target>Letzte Aktualisierung:</target>
+        <target>Letzte Aktualisierung</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Category</source>

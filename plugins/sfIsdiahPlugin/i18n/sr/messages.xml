@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2017-09-04T11:51:15Z" product-name="messages">
+  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2020-09-30T16:57:51Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -62,7 +62,7 @@
       </trans-unit>
       <trans-unit id="15">
         <source>This is a mandatory element.</source>
-        <target>Ово је обавезно поље</target>
+        <target>Ово је обавезно поље.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
@@ -214,7 +214,7 @@
       </trans-unit>
       <trans-unit id="53">
         <source>Institution identifier</source>
-        <target>Сигла</target>
+        <target>Идентификатор установе</target>
       </trans-unit>
       <trans-unit id="54">
         <source>"Record the names, and, where useful, the editions or publication dates of the conventions or rules applied. Specify, separately, which rules have been applied for creating the Authorised form(s) of name. Include reference to any system(s) of dating used to identify dates in this description (e.g. ISO 8601)." (ISDIAH 5.6.3)</source>
@@ -238,7 +238,7 @@
       </trans-unit>
       <trans-unit id="59">
         <source>Dates of creation, revision and deletion</source>
-        <target>Датуми израде, измене или брисања</target>
+        <target>Датуми креирања, измене или брисања</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Last updated</source>
@@ -294,7 +294,7 @@
       </trans-unit>
       <trans-unit id="73">
         <source>Create</source>
-        <target>Створи</target>
+        <target>Креирај</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Primary contact</source>
@@ -342,7 +342,7 @@
       </trans-unit>
       <trans-unit id="85">
         <source>Holdings</source>
-        <target>Збирка</target>
+        <target>Колекције</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Edit access area</source>

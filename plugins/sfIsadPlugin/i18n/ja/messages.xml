@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2019-01-31T15:02:45Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2020-09-30T16:57:50Z" product-name="messages">
     <body>
       <trans-unit id="43">
         <source>Identity area</source>
-        <target>確認のエリア</target>
+        <target>識別情報のエリア</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Reference code</source>
@@ -20,11 +20,11 @@
       </trans-unit>
       <trans-unit id="48">
         <source>Level of description</source>
-        <target>記述のレベル</target>
+        <target>記述レベル</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Context area</source>
-        <target>コンテキストのエリア</target>
+        <target>コンテクストのエリア</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Repository</source>
@@ -52,11 +52,11 @@
       </trans-unit>
       <trans-unit id="94">
         <source>Status</source>
-        <target>ステータス</target>
+        <target>状態</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Level of detail</source>
-        <target>詳細レベル</target>
+        <target>詳細さの水準</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Dates of creation, revision and deletion</source>
@@ -64,7 +64,7 @@
       </trans-unit>
       <trans-unit id="99">
         <source>Sources</source>
-        <target>情報源</target>
+        <target>参考文献</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Date</source>
@@ -108,7 +108,7 @@
       </trans-unit>
       <trans-unit id="756">
         <source>Physical characteristics and technical requirements</source>
-        <target>物理的特徴と技術的必要性</target>
+        <target>物理的特徴と技術的要件</target>
       </trans-unit>
       <trans-unit id="759">
         <source>Existence and location of originals</source>
@@ -124,7 +124,7 @@
       </trans-unit>
       <trans-unit id="828">
         <source>Untitled</source>
-        <target>無題の</target>
+        <target>無題</target>
       </trans-unit>
       <trans-unit id="829">
         <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
@@ -164,7 +164,7 @@
       </trans-unit>
       <trans-unit id="841">
         <source>Extent and medium</source>
-        <target>規模と媒体</target>
+        <target>数量と媒体</target>
       </trans-unit>
       <trans-unit id="842">
         <source>Related function</source>
@@ -172,11 +172,11 @@
       </trans-unit>
       <trans-unit id="843">
         <source>Archival history</source>
-        <target>アーカイブズ履歴</target>
+        <target>アーカイブズ資料の来歴</target>
       </trans-unit>
       <trans-unit id="844">
         <source>Immediate source of acquisition or transfer</source>
-        <target>取得や移転の直接情報源</target>
+        <target>直接の取得先または移管元</target>
       </trans-unit>
       <trans-unit id="845">
         <source>Content and structure area</source>
@@ -244,7 +244,7 @@
       </trans-unit>
       <trans-unit id="861">
         <source>Description control area</source>
-        <target>記述をコントロールするエリア</target>
+        <target>記述コントロールのエリア</target>
       </trans-unit>
       <trans-unit id="862">
         <source>Edit description control area</source>
@@ -264,7 +264,7 @@
       </trans-unit>
       <trans-unit id="866">
         <source>Script(s)</source>
-        <target>スクリプト</target>
+        <target>文字</target>
       </trans-unit>
       <trans-unit id="867">
         <source>Archivist's note</source>
@@ -276,7 +276,7 @@
       </trans-unit>
       <trans-unit id="870">
         <source>This is a mandatory element.</source>
-        <target>必須項目。</target>
+        <target>必須項目</target>
       </trans-unit>
       <trans-unit id="875">
         <source>Name of creator(s)</source>
@@ -297,7 +297,7 @@
       </trans-unit>
       <trans-unit id="896">
         <source>Edit %1%</source>
-        <target>編集する %1%</target>
+        <target> %1%を編集する</target>
       </trans-unit>
       <trans-unit id="897">
         <source>Start</source>
@@ -473,7 +473,7 @@
       </trans-unit>
       <trans-unit id="965">
         <source>Genre access points</source>
-        <target/>
+        <target>ジャンルのアクセスポイント</target>
       </trans-unit>
       <trans-unit id="966">
         <source>Add new</source>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2020-06-12T18:56:58Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2020-09-30T16:57:36Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -50,7 +50,7 @@
       </trans-unit>
       <trans-unit id="12">
         <source>Create</source>
-        <target>Skapa</target>
+        <target>Upprätta</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Are you sure you want to delete %1%?</source>
@@ -58,7 +58,7 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Delete</source>
-        <target>Radera</target>
+        <target>Ta bort</target>
       </trans-unit>
       <trans-unit id="15">
         <source>View donor</source>
@@ -102,7 +102,7 @@
       </trans-unit>
       <trans-unit id="27">
         <source>Identifier</source>
-        <target>Identifierare</target>
+        <target>Signum</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Updated</source>
@@ -158,11 +158,11 @@
       </trans-unit>
       <trans-unit id="41">
         <source>Main</source>
-        <target>Huvudsaklig</target>
+        <target>Huvud</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Physical location</source>
-        <target>Fysisk plats</target>
+        <target>Fysisk placering</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Other details</source>
@@ -306,7 +306,7 @@
       </trans-unit>
       <trans-unit id="78">
         <source>Name of creator</source>
-        <target>Namn - upphov</target>
+        <target>Arkivbildare</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Administrative history</source>
@@ -346,7 +346,7 @@
       </trans-unit>
       <trans-unit id="88">
         <source>Scope and content</source>
-        <target>Omfattning</target>
+        <target>Omfattning och innehåll</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Received extent units</source>
@@ -402,7 +402,7 @@
       </trans-unit>
       <trans-unit id="102">
         <source>Create new rights</source>
-        <target>Skapa nya rättigheter</target>
+        <target>Upprätta nya rättigheter</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Browse accession</source>

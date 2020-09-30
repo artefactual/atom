@@ -86,6 +86,7 @@ QubitSetting:
       eu: 'Artxibo deskribapena'
       fr: 'Description archivistique'
       gl: 'Descrición arquivística'
+      hr: 'Opis arhivskog gradiva'
       hu: Iratleírás
       id: 'Deskripsi Arsip'
       is: 'Lýsandi samantekt'
@@ -125,6 +126,7 @@ QubitSetting:
       eu: 'Autoretza erregistroa'
       fr: 'Notice d''autorité'
       gl: 'Rexistro de autoridade'
+      hr: 'Normirani zapis'
       hu: Iratképző
       id: 'Pencipta Arsip'
       is: Nafnspjald
@@ -208,6 +210,7 @@ QubitSetting:
       fa: منبع
       fr: 'Service d''archives'
       gl: 'Institución arquivística'
+      hr: 'Arhivska ustanova'
       hu: Levéltár
       id: 'Institusi Arsip'
       is: Vörslustofnun
@@ -246,6 +249,7 @@ QubitSetting:
       eu: Funtzioa
       fr: Fonction
       gl: Función
+      hr: Funkcija
       hu: Funkció
       id: Fungsi
       is: Virkni
@@ -283,6 +287,7 @@ QubitSetting:
       eu: Terminoa
       fr: Terme
       gl: Termo
+      hr: Pojam
       hu: Kifejezés
       id: Istilah
       it: Termine
@@ -364,6 +369,7 @@ QubitSetting:
       eu: Fondoak
       fr: Fonds
       gl: Fondos
+      hr: Fondovi
       hu: Fond
       id: Fonds
       is: Safn
@@ -406,7 +412,7 @@ QubitSetting:
       fa: دربرگيرندگي
       fr: Fonds
       gl: Fondos
-      hr: 'Arhivsko gradivo'
+      hr: Građa
       hu: Állomány
       id: Khazanah
       is: Skjalamagn
@@ -538,6 +544,7 @@ QubitSetting:
       eu: 'Objektu digitala'
       fr: 'Document numérique'
       gl: 'Obxecto dixital'
+      hr: 'Digitalni objekt'
       hu: 'Digitális objektum'
       id: 'Objek Digital'
       is: 'Stafræn eining'
@@ -665,6 +672,7 @@ QubitSetting:
       eu: 'Material mota'
       fr: 'Type de document'
       gl: 'Tipo de material'
+      hr: 'Vrsta gradiva'
       hu: 'Anyag típus'
       id: 'Jenis bahan arsip'
       is: Efnisform
@@ -703,10 +711,12 @@ QubitSetting:
       eu: 'Murriztu zure emaitzak:'
       fr: 'Affiner les résultats par :'
       gl: 'Refinar os resultados por:'
+      hr: 'Ograniči rezultate za:'
       hu: 'Találatok szűkítése:'
       id: 'Hasil filter berdasarkan:'
       is: 'Þrengja niðurstöður:'
       it: 'Restringi i risultati per:'
+      ja: 結果の絞り込み
       ko: '귀하의 검색 결과를 다음과 같이 좁히시오.:'
       pt: 'Limite os seus resultados por:'
       pt-BR: 'Limite seus resultados por:'
@@ -731,9 +741,11 @@ QubitSetting:
       es: Tipo
       fr: Genre
       gl: Xénero
+      hr: Žanr
       hu: Műfaj
       id: Genre
       it: Genere
+      ja: ジャンル
       pt: Género
       pt-BR: Gênero
       pt_BR: Gênero
@@ -803,6 +815,7 @@ QubitSetting:
       de-CH: 'Unsere Bestände durchsuchen'
       en: 'Search our collection'
       fr: 'Chercher dans nos collections'
+      hr: 'Traži našu zbirku'
       hu: 'Keresés a gyűjteményünkben'
       id: 'Telusuri khazanah arsip kami'
       it: 'Cerca la'
@@ -818,7 +831,11 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      cy: 'Cuddio''r hierarchaeth'
       en: 'Hide hierarchy'
+      fr: 'Cacher la hiérarchie'
+      hr: 'Sakrij hijerarhiju'
+      pt: 'Ocultar hierarquia'
       pt_BR: 'Ocultar hierarquia'
   QubitSetting_fullTreeviewCollapseClosedButtonText:
     name: fullTreeviewCollapseClosedButtonText
@@ -827,7 +844,10 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      cy: 'Dangos hierarchaeth'
       en: 'Show hierarchy'
+      hr: 'Prikaži hijerarhiju'
+      pt: 'Mostrar hierarquia'
       pt_BR: 'Mostrar hierarquia'
   QubitSetting_authority_record_relationships:
     name: authority_record_relationships
@@ -836,7 +856,10 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      cy: 'Cysylltiadau cofnod awdurdod'
       en: 'Authority record relationships'
+      fr: 'Notice d''autorité - relations'
+      hr: 'Veze normiranog zapisa'
       pt: 'Relacionamentos de registro de autoridade'
       pt_BR: 'Relacionamentos de registro de autoridade'
   QubitSetting_26:

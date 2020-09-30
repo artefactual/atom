@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2020-06-12T18:56:59Z" product-name="messages">
+  <file source-language="en" target-language="uz" datatype="plaintext" original="messages" date="2020-09-30T16:57:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -402,7 +402,7 @@
       </trans-unit>
       <trans-unit id="102">
         <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
-        <target>Ro`yxatga olish rejasi bo`yicha izohlar &lpar;Ro`yxatga olish qaydini to`liq tugatish uchun zarur bo`lgan jarayonlar&rpar;</target>
+        <target>Ro`yxatga olish rejasi bo`yicha izohlar Ro`yxatga olish qaydini to`liq tugatish uchun zarur bo`lgan jarayonlar</target>
       </trans-unit>
       <trans-unit id="103">
         <source>%1% area</source>

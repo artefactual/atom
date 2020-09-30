@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2019-01-31T15:02:41Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2020-09-30T16:57:10Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -8,23 +8,23 @@
       </trans-unit>
       <trans-unit id="111">
         <source>Language</source>
-        <target>idioma</target>
+        <target>Idioma</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Identifier</source>
-        <target>Código de referência</target>
+        <target>Identificador</target>
       </trans-unit>
       <trans-unit id="144">
         <source>Description</source>
-        <target>descrição</target>
+        <target>Descrição</target>
       </trans-unit>
       <trans-unit id="207">
         <source>Type</source>
-        <target>tipo</target>
+        <target>Tipo</target>
       </trans-unit>
       <trans-unit id="336">
         <source>Format</source>
-        <target>formato</target>
+        <target>Formato</target>
       </trans-unit>
       <trans-unit id="605">
         <source>Subject</source>
@@ -76,7 +76,7 @@
       </trans-unit>
       <trans-unit id="910">
         <source>This is a mandatory element.</source>
-        <target>É um elemento obrigatório.</target>
+        <target>Este é um elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="911">
         <source>The name given to this resource.</source>
@@ -152,15 +152,15 @@
       </trans-unit>
       <trans-unit id="939">
         <source>Date</source>
-        <target>data</target>
+        <target>Data</target>
       </trans-unit>
       <trans-unit id="940">
         <source>Start</source>
-        <target>Inicial</target>
+        <target>Iniciar</target>
       </trans-unit>
       <trans-unit id="941">
         <source>End</source>
-        <target>Final</target>
+        <target>Fim</target>
       </trans-unit>
       <trans-unit id="942">
         <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
@@ -172,7 +172,7 @@
       </trans-unit>
       <trans-unit id="944">
         <source>Actor name</source>
-        <target>Nome do ator</target>
+        <target>Nome do autor</target>
       </trans-unit>
       <trans-unit id="945">
         <source>Identify and record the name(s) and type(s) of the unit of description.</source>

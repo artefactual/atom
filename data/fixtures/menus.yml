@@ -28,6 +28,7 @@ QubitMenu:
       eu: Nabigatu
       fr: Parcourir
       gl: Navegar
+      hr: Pregledaj
       hu: Böngészés
       id: Telusur
       is: Vafra
@@ -109,6 +110,7 @@ QubitMenu:
       eu: Kudeatu
       fr: Gérer
       gl: Administrar
+      hr: Upravljaj
       hu: Szerkesztés
       id: Mengelola
       is: Stjórna
@@ -142,6 +144,7 @@ QubitMenu:
       en: 'Browse our collection'
       es: 'Explore nuestra colección'
       fr: 'Parcourir nos collections'
+      hr: 'Pregledaj našu zbirku'
       hu: 'Gyűjteményünk böngészése'
       id: 'Telusuri khazanah arsip kami'
       it: 'Sfoglia la nostra raccolta'
@@ -167,6 +170,7 @@ QubitMenu:
       eu: Atxikimenduak
       fr: Acquisitions
       gl: Ingresos
+      hr: Akcesije
       hu: Gyarapodások
       id: Akuisisi
       is: Afhendingar
@@ -203,6 +207,7 @@ QubitMenu:
       eu: Emaileak
       fr: 'Donateurs/Services versants'
       gl: Donantes
+      hr: Donatori
       hu: Adományozók
       id: Donor
       is: Gefendur
@@ -235,6 +240,7 @@ QubitMenu:
       en: Jobs
       es: Proceso
       fr: Tâches
+      hr: Poslovi
       hu: Feladatok
       id: Tugas
       it: Operazioni
@@ -303,6 +309,7 @@ QubitMenu:
       eu: 'Eskubideen jabeak'
       fr: 'Détenteurs de droits'
       gl: 'Titulares de dereitos'
+      hr: 'Nositelji prava'
       hu: Jogtulajdonosok
       id: 'Pemegang hak'
       is: 'Handhafar leyfis'
@@ -340,6 +347,7 @@ QubitMenu:
       eu: Taxonomiak
       fr: Référentiels
       gl: Taxonomías
+      hr: Taksonomije
       hu: Taxonómiák
       id: Taksonomi
       it: Tassonomie
@@ -381,7 +389,7 @@ QubitMenu:
       fa: 'وارد كردن'
       fr: Importer
       gl: Importar
-      hr: Uvoz
+      hr: Uvezi
       hu: Importálás
       id: Impor
       is: 'Hlaða inn'
@@ -421,6 +429,7 @@ QubitMenu:
       fa: مدير
       fr: Administration
       gl: Administrador
+      hr: Administrator
       hu: Admin
       id: Admin
       is: Stjórnandi
@@ -456,6 +465,7 @@ QubitMenu:
       eu: 'Atxikimendu erregistroak'
       fr: 'Notices d''acquisition'
       gl: 'Rexistros de ingresos'
+      hr: 'Zapisi akcesije'
       hu: 'Gyarapodási rekordok'
       id: 'Arsip akuisisi'
       is: Aðfangaskrá
@@ -493,6 +503,7 @@ QubitMenu:
       eu: 'Artxibo deskribapenak'
       fr: 'Descriptions archivistiques'
       gl: 'Descrición arquivística'
+      hr: 'Opisi arhivskog gradiva'
       hu: Irateírások
       id: 'Deskripsi kearsipan'
       is: 'Lýsandi samantektir'
@@ -528,6 +539,7 @@ QubitMenu:
       eu: 'Autoretza erregistroak'
       fr: 'Notices d''autorité'
       gl: 'Rexistros de autoridade'
+      hr: 'Normirani zapisi'
       hu: Iratképzők
       id: 'Informasi pencipta arsip'
       is: Nafnspjöld
@@ -562,6 +574,7 @@ QubitMenu:
       eu: 'Artxibo erakundeak'
       fr: 'Services d''archives'
       gl: Repositorios
+      hr: 'Arhivske ustanove'
       hu: Levéltárak
       id: Repositori
       is: Vörslustofnanir
@@ -599,6 +612,7 @@ QubitMenu:
       eu: Terminoak
       fr: Termes
       gl: Termos
+      hr: Pojmovi
       hu: Kifejezések/Feltételek
       id: Istilah
       is: Ákvæði
@@ -635,6 +649,7 @@ QubitMenu:
       eu: Funtzioa
       fr: Fonction
       gl: Función
+      hr: Funkcija
       hu: Funkció
       id: Fungsi
       is: Virkni
@@ -788,6 +803,7 @@ QubitMenu:
       fa: كاربران
       fr: Utilisateurs
       gl: Usuarios
+      hr: Korisnici
       hu: Felhasználók
       id: Pengguna
       is: Notendur
@@ -821,12 +837,15 @@ QubitMenu:
       de: Profil
       de-AT: Profil
       de-CH: Profil
+      de_AT: Profil
+      de_CH: Profil
       el: Προφίλ
       en: Profile
       es: Perfil
       eu: Profila
       fr: Profil
       gl: Perfil
+      hr: Profil
       hu: Profil
       id: Profil
       is: Síða
@@ -841,6 +860,7 @@ QubitMenu:
       pt_BR: Perfil
       ro: Profil
       ru: Профиль
+      ru_RU: Профиль
       sl: profil
       sr: Профил
       sv: Profil
@@ -865,6 +885,7 @@ QubitMenu:
       eu: 'Artxibo deskribapenaren baimenak'
       fr: 'Droits sur les descriptions archivistiques'
       gl: 'Permisos de descrición arquivística'
+      hr: 'Dozvole za opis arhivskog gradiva'
       hu: 'Irateírási jogosultságok'
       id: 'Ijin deskripsi kearsipan'
       it: 'Permessi per la descrizione archivistica'
@@ -896,6 +917,7 @@ QubitMenu:
       eu: 'Autoretza erregistroaren baimenak'
       fr: 'Droits sur les notices d''autorité'
       gl: 'Permisos de actor'
+      hr: 'Dozvole normiranog zapisa'
       hu: 'Iratképző leírási jogosultságok'
       id: 'Izin Aktor'
       it: 'Permessi per il record d''autorità'
@@ -927,6 +949,7 @@ QubitMenu:
       eu: 'Erakunde artxibozainaren baimenak'
       fr: 'Droits sur les institutions de conservation'
       gl: 'Permisos de institución arquivística'
+      hr: 'Dozvole arhivske ustanove'
       hu: 'Levéltári intézmény jogosultságok'
       id: 'Ijin lembaga kearsipan'
       is: 'Heimildir vörslustofnunar'
@@ -957,6 +980,7 @@ QubitMenu:
       eu: 'Taxonomiaren baimenak'
       fr: 'Droits sur les référentiels'
       gl: 'Permisos de taxonomías'
+      hr: 'Dozvole taksonomije'
       hu: 'Taxonómiai jogosultságok'
       id: 'Perijinan Taksonomi'
       it: 'Permessi relativi alla tassonomia'
@@ -991,6 +1015,7 @@ QubitMenu:
       eu: Taldeak
       fr: Groupes
       gl: Grupos
+      hr: Grupe
       hu: Csoportok
       id: Kelompok
       is: Hópar
@@ -1024,12 +1049,15 @@ QubitMenu:
       de: Profil
       de-AT: Profil
       de-CH: Profil
+      de_AT: Profil
+      de_CH: Profil
       el: Προφίλ
       en: Profile
       es: Perfil
       eu: Profila
       fr: Profil
       gl: Perfil
+      hr: Profil
       hu: Profil
       id: Profil
       is: Síða
@@ -1044,6 +1072,7 @@ QubitMenu:
       pt_BR: Perfil
       ro: Profil
       ru: Профиль
+      ru_RU: Профиль
       sl: profil
       sr: Профил
       sv: Profil
@@ -1068,6 +1097,7 @@ QubitMenu:
       eu: 'Artxibo deskribapenaren baimenak'
       fr: 'Droits sur les descriptions archivistiques'
       gl: 'Permisos de descrición arquivística'
+      hr: 'Dozvole za opis arhivskog gradiva'
       hu: 'Irateírási jogosultságok'
       id: 'Ijin deskripsi kearsipan'
       it: 'Permessi per la descrizione archivistica'
@@ -1099,6 +1129,7 @@ QubitMenu:
       eu: 'Autoretza erregistroaren baimenak'
       fr: 'Droits sur les notices d''autorité'
       gl: 'Permisos de actor'
+      hr: 'Dozvole normiranog zapisa'
       hu: 'Iratképző leírási jogosultságok'
       id: 'Izin Aktor'
       it: 'Permessi per il record d''autorità'
@@ -1130,6 +1161,7 @@ QubitMenu:
       eu: 'Erakunde artxibozainaren baimenak'
       fr: 'Droits sur les institutions de conservation'
       gl: 'Permisos de institución arquivística'
+      hr: 'Dozvole arhivske ustanove'
       hu: 'Levéltári intézmény jogosultságok'
       id: 'Ijin lembaga kearsipan'
       is: 'Heimildir vörslustofnunar'
@@ -1160,6 +1192,7 @@ QubitMenu:
       eu: 'Taxonomiaren baimenak'
       fr: 'Droits sur les référentiels'
       gl: 'Permisos de taxonomías'
+      hr: 'Dozvole taksonomije'
       hu: 'Taxonómiai jogosultságok'
       id: 'Perijinan Taksonomi'
       it: 'Permessi relativi alla tassonomia'
@@ -1195,6 +1228,7 @@ QubitMenu:
       fa: 'صفحات ايستا'
       fr: 'Pages statiques'
       gl: 'Páxinas estáticas'
+      hr: 'Statička stranica'
       hu: 'Statikus oldalak'
       id: 'Halaman statik'
       it: 'Pagine statiche'
@@ -1230,6 +1264,7 @@ QubitMenu:
       eu: Menuak
       fr: Menus
       gl: Menús
+      hr: Izbornici
       hu: Menük
       id: Menu
       is: Valmyndir
@@ -1264,6 +1299,7 @@ QubitMenu:
       es: Plugins
       eu: Pluginak
       fr: Extensions
+      hr: Dodaci
       hu: Bővítmények
       id: Plugin
       is: Viðbætur
@@ -1299,6 +1335,7 @@ QubitMenu:
       eu: Itxura-azala
       fr: Thèmes
       gl: Temas
+      hr: Teme
       hu: Sminkek
       id: Tema
       is: Þemu
@@ -1336,6 +1373,7 @@ QubitMenu:
       fa: تنظيمات
       fr: Paramétrages
       gl: Configuraciones
+      hr: Postavke
       hu: Beállítások
       id: Pengaturan
       is: Stillingar
@@ -1372,6 +1410,7 @@ QubitMenu:
       eu: 'Eguneraketen deskribapena'
       fr: 'Mises à jour de la description'
       gl: 'Actualizacións da descrición'
+      hr: 'Aktualiziranja opisa'
       hu: 'Leírási frissítések'
       id: 'Update Dekripsi'
       it: 'Aggiornamenti della descrizione'
@@ -1488,6 +1527,7 @@ QubitMenu:
       fa: 'درباره ما'
       fr: 'À propos'
       gl: Acerca
+      hr: Informacije
       hu: Info
       id: 'Tentang Kami'
       is: Um
@@ -1512,9 +1552,13 @@ QubitMenu:
     source_culture: en
     name: privacy
     label:
+      cy: 'Polisi Preifatrwydd'
       en: 'Privacy Policy'
       fr: 'Politique de confidentialité'
+      hr: 'Politika privatnosti'
       id: 'Kebijakan Privasi'
+      ja: プライバシーポリシー
+      pt: 'Política de privacidade'
       pt_BR: 'Política de Privacidade'
       sv: Sekretesspolicy
     path: 'staticpage/index?slug=privacy'
@@ -1535,6 +1579,7 @@ QubitMenu:
       fa: راهنما
       fr: Aide
       gl: Axuda
+      hr: Pomoć
       hu: Súgó
       id: Bantuan
       is: Hjálp
@@ -1571,6 +1616,7 @@ QubitMenu:
       eu: 'Nire profila'
       fr: 'Mon profil'
       gl: 'O meu perfil'
+      hr: 'Moj profil'
       hu: 'Saját profilom'
       id: 'Profil saya'
       is: 'Síðan mín'
@@ -1650,6 +1696,8 @@ QubitMenu:
       de: Abmelden
       de-AT: Abmelden
       de-CH: Abmelden
+      de_AT: Abmelden
+      de_CH: Abmelden
       el: Αποσύνδεση
       en: 'Log out'
       es: 'cerrar sesión'
@@ -1657,6 +1705,7 @@ QubitMenu:
       fa: خروج
       fr: 'Fermeture de session'
       gl: 'Pechar sesión'
+      hr: Odjava
       hu: Kijelentkezés
       id: 'Log out'
       is: Útskráning
@@ -1670,6 +1719,7 @@ QubitMenu:
       pt_BR: Sair
       ro: Iesiti
       ru: Выйти
+      ru_RU: Выйти
       sl: odjava
       sr: 'Одјави се'
       sv: 'Logga ut'
@@ -1694,6 +1744,7 @@ QubitMenu:
       eu: 'Artxibo deskribapenak'
       fr: 'Descriptions archivistiques'
       gl: 'Descrición arquivística'
+      hr: 'Opisi arhivskog gradiva'
       hu: Irateírások
       id: 'Deskripsi kearsipan'
       is: 'Lýsandi samantektir'
@@ -1728,6 +1779,7 @@ QubitMenu:
       eu: 'Autoretza erregistroak'
       fr: 'Notices d''autorité'
       gl: 'Rexistros de autoridade'
+      hr: 'Normirani zapisi'
       hu: Iratképzők
       id: 'Informasi pencipta arsip'
       is: Nafnspjöld
@@ -1761,6 +1813,7 @@ QubitMenu:
       eu: 'Artxibo erakundeak'
       fr: 'Services d''archives'
       gl: Repositorios
+      hr: 'Arhivske ustanove'
       hu: Levéltárak
       id: Repositori
       is: Vörslustofnanir
@@ -1797,6 +1850,7 @@ QubitMenu:
       eu: Funtzioak
       fr: Fonctions
       gl: Funcións
+      hr: Funkcije
       hu: Funkciók
       id: Fungsi
       is: Starfssvið
@@ -2007,6 +2061,7 @@ QubitMenu:
       fa: 'صفحات ايستا'
       fr: 'Pages statiques'
       gl: 'Páxinas estáticas'
+      hr: 'Statička stranica'
       hu: 'Statikus oldalak'
       id: 'Halaman statik'
       it: 'Pagine statiche'
@@ -2045,6 +2100,7 @@ QubitMenu:
       hu: Vágólap
       id: Clipboard
       it: 'Area di lavoro'
+      ja: クリップボード
       pt: 'Área de transferência'
       pt-BR: 'Área de Transferência'
       pt_BR: 'Área de Transferência'
@@ -2062,6 +2118,7 @@ QubitMenu:
       en: 'Clear all selections'
       es: 'Borrar selección'
       fr: 'Effacer toutes les sélections'
+      hr: 'Izbriši sve odabire'
       hu: 'Minden kiválasztás törlése'
       id: 'Kosongkan semua yang dipilih'
       it: 'Annullare tutte le selezioni'
@@ -2082,9 +2139,11 @@ QubitMenu:
       en: 'Go to clipboard'
       es: 'Ir al portapapeles'
       fr: 'Aller au presse-papier'
+      hr: 'Idi na međuspremnik'
       hu: 'Menj a vágólapra'
       id: 'Menuju clipboard'
       it: 'Vai all''area di lavoro'
+      ja: クリップボードに移動
       pt: 'Ir para a área de transferência'
       pt-BR: 'Ir para a área de transferência'
       pt_BR: 'Ir para a área de transferência'
@@ -2105,6 +2164,7 @@ QubitMenu:
       hu: 'Vágólap betöltése'
       id: 'Muat clipboard'
       it: 'Carica l''area di lavoro'
+      ja: クリップボードをロード
       pt: 'Carregar Área de Transferência'
       pt-BR: 'Carregar Área de Transferência'
       pt_BR: 'Carregar Área de Transferência'
@@ -2117,10 +2177,14 @@ QubitMenu:
     source_culture: en
     name: saveClipboard
     label:
+      cy: 'Cadw''r clipfwrdd'
       en: 'Save clipboard'
       fr: 'Sauvegarder le presse-papier'
+      hr: 'Spremi međuspremnik'
       hu: 'Vágólap mentése'
       id: 'Simpan clipboard'
+      ja: クリップボードを保存
+      pt: 'Guardar área de transferência'
       pt_BR: 'Salvar área de transferência'
       sv: 'Spara urklipp'
     path: user/clipboardSave
@@ -2141,6 +2205,7 @@ QubitMenu:
       eu: 'Artxibo deskribapenak'
       fr: 'Descriptions archivistiques'
       gl: 'Descrición arquivística'
+      hr: 'Opisi arhivskog gradiva'
       hu: Irateírások
       id: 'Deskripsi kearsipan'
       is: 'Lýsandi samantektir'

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2018-09-09T08:09:25Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2020-09-30T16:57:39Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -18,7 +18,7 @@
       </trans-unit>
       <trans-unit id="4">
         <source>See ISDIAH 5.2 for contact area information and examples.</source>
-        <target>Voir ISDIAH 5.2 pour la zone des informations de contact et des exemples</target>
+        <target>Voir ISDIAH 5.2 pour la zone des informations de contact et des exemples.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
@@ -66,7 +66,7 @@
       </trans-unit>
       <trans-unit id="16">
         <source>This is a mandatory element</source>
-        <target>Cet élément est obligatoire.</target>
+        <target>Cet élément est obligatoire</target>
       </trans-unit>
       <trans-unit id="17">
         <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
@@ -82,7 +82,7 @@
       </trans-unit>
       <trans-unit id="20">
         <source>Contact area</source>
-        <target>Zone de contact</target>
+        <target>Zone du contact</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Description area</source>
@@ -206,7 +206,7 @@
       </trans-unit>
       <trans-unit id="51">
         <source>Institution identifier</source>
-        <target>Identifiant du service responsable de la description</target>
+        <target>Identifiant du service d'archives</target>
       </trans-unit>
       <trans-unit id="52">
         <source>"Record the names, and, where useful, the editions or publication dates of the conventions or rules applied. Specify, separately, which rules have been applied for creating the Authorised form(s) of name. Include reference to any system(s) of dating used to identify dates in this description (e.g. ISO 8601)." (ISDIAH 5.6.3)</source>
@@ -270,7 +270,7 @@
       </trans-unit>
       <trans-unit id="70">
         <source>Parallel form(s) of name</source>
-        <target>Forme(s) parallèle(s) du nom</target>
+        <target>forme(s) parallèle(s) du nom</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Other form(s) of name</source>
@@ -302,7 +302,7 @@
       </trans-unit>
       <trans-unit id="78">
         <source>Edit access area</source>
-        <target>Modifier la zone de l'accès.</target>
+        <target>Modifier la zone de l'accès</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Opening times</source>
@@ -330,7 +330,7 @@
       </trans-unit>
       <trans-unit id="85">
         <source>Status</source>
-        <target>Niveau d'élaboration</target>
+        <target>Statut</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Level of detail</source>
@@ -346,7 +346,7 @@
       </trans-unit>
       <trans-unit id="89">
         <source>Maintenance notes</source>
-        <target>Notes relatives à la mise à jour de la notice</target>
+        <target>Notes de maintenance</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Edit</source>
@@ -382,11 +382,11 @@
       </trans-unit>
       <trans-unit id="99">
         <source>Access points</source>
-        <target>Points d'accès</target>
+        <target>Mots-clés</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Edit access points</source>
-        <target>Modifier les index.</target>
+        <target>Modifier les index</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Access Points</source>

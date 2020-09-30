@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2013-10-03T11:52:11Z" product-name="messages">
+  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2020-09-30T16:57:23Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -34,7 +34,7 @@
       </trans-unit>
       <trans-unit id="8">
         <source>Identity area</source>
-        <target>Področje o identiteti</target>
+        <target>Področje identitete</target>
       </trans-unit>
       <trans-unit id="9">
         <source>"Specify whether the description is a function or one of its subdivisions." (ISDF 5.1.1) Select the type from the drop-down menu; these values are drawn from the ISDF Function Types taxonomy.</source>
@@ -54,7 +54,7 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Authorized form of name</source>
-        <target>Uradno odobrena oblika imena</target>
+        <target>Standardizirana oblika imena</target>
       </trans-unit>
       <trans-unit id="14">
         <source>"Purpose: To indicate the various forms in which the authorized form(s) of name occurs in other languages or script forms. Rule: Record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions element (5.4.3.) which rules have been applied." (ISDF 5.1.3)</source>
@@ -110,7 +110,7 @@
       </trans-unit>
       <trans-unit id="27">
         <source>Description identifier</source>
-        <target>Identifikator opisa</target>
+        <target>Identifikator popisa</target>
       </trans-unit>
       <trans-unit id="28">
         <source>"Record the full authorised form of name(s) of agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a recognized code for the agency." (ISDF 5.4.2)</source>
@@ -118,7 +118,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>Institution identifier</source>
-        <target>identifikator institucije</target>
+        <target>Identifikator ustanove</target>
       </trans-unit>
       <trans-unit id="30">
         <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival description. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied." (ISDF 5.4.3)</source>
@@ -134,7 +134,7 @@
       </trans-unit>
       <trans-unit id="33">
         <source>Status</source>
-        <target>status</target>
+        <target>Status</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimum records are those that consist only of the three essential elements of an ISDF compliant record (see 4.7), while full records are those that convey information for all relevant ISDF elements of description." (ISDF 5.4.5)</source>
@@ -142,7 +142,7 @@
       </trans-unit>
       <trans-unit id="35">
         <source>Level of detail</source>
-        <target>Nivo podrobnosti</target>
+        <target>Stopnja podrobnosti</target>
       </trans-unit>
       <trans-unit id="36">
         <source>"Record the date the description was created and the dates of any revisions to the description." (ISDF 5.4.6)</source>
@@ -206,7 +206,7 @@
       </trans-unit>
       <trans-unit id="53">
         <source>Dates</source>
-        <target>datum</target>
+        <target>Datumi</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Description</source>
@@ -270,7 +270,7 @@
       </trans-unit>
       <trans-unit id="69">
         <source>Sources</source>
-        <target>viri</target>
+        <target>Viri</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Maintenance notes</source>
@@ -286,7 +286,7 @@
       </trans-unit>
       <trans-unit id="73">
         <source>Add new</source>
-        <target>Dodaj novo</target>
+        <target>Dodajte novo</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Related authority records</source>

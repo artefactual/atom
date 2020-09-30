@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2017-08-25T18:51:24Z" product-name="messages">
+  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2020-09-30T16:57:23Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="3">
@@ -22,7 +22,7 @@
       </trans-unit>
       <trans-unit id="8">
         <source>Add new</source>
-        <target>Dodaj novo</target>
+        <target>Dodajte novo</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Permissions for all %1%</source>
@@ -38,7 +38,7 @@
       </trans-unit>
       <trans-unit id="12">
         <source>Grant</source>
-        <target>Dotacija</target>
+        <target>Odobri</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Deny</source>
@@ -46,7 +46,7 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Inherit</source>
-        <target>Podeduj</target>
+        <target>Prenesi</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Permissions by taxonomy</source>
@@ -90,7 +90,7 @@
       </trans-unit>
       <trans-unit id="27">
         <source>Edit %1% permissions</source>
-        <target>Uredi %1% dovoljenj</target>
+        <target>Uredi %1% dovoljenja</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Permissions by %1%</source>
@@ -102,11 +102,11 @@
       </trans-unit>
       <trans-unit id="30">
         <source>Add permissions by %1%</source>
-        <target>Dodaj dovoljenja za %1%</target>
+        <target>Dodaj dovoljenja %1%</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Add %1%</source>
-        <target>Dodaj %1%</target>
+        <target>Dodajte %1%</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Name</source>

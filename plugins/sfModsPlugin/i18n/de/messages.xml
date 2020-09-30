@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2019-01-31T15:02:30Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2020-09-30T16:57:07Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -12,7 +12,7 @@
       </trans-unit>
       <trans-unit id="120">
         <source>Identifier</source>
-        <target>Signatur</target>
+        <target>Identifikator/Signatur</target>
       </trans-unit>
       <trans-unit id="604">
         <source>Subject</source>

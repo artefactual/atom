@@ -50,6 +50,7 @@ QubitStaticPage:
       fa: 'درباره ما'
       fr: 'À propos'
       gl: Acerca
+      hr: Informacije
       hu: Info
       id: 'Tentang Kami'
       is: Um
@@ -82,9 +83,13 @@ QubitStaticPage:
     slug: privacy
     source_culture: en
     title:
+      cy: 'Polisi Preifatrwydd'
       en: 'Privacy Policy'
       fr: 'Politique de confidentialité'
+      hr: 'Politika privatnosti'
       id: 'Kebijakan Privasi'
+      ja: プライバシーポリシー
+      pt: 'Política de privacidade'
       pt_BR: 'Política de Privacidade'
       sv: Sekretesspolicy
     content:

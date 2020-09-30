@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2017-08-25T18:50:44Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2020-09-30T16:56:58Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Password strength:</source>
-        <target>Fortaleza de la contraseña:</target>
+        <target>Seguridad de la contraseña:</target>
       </trans-unit>
       <trans-unit id="2">
         <source>To make your password stronger:</source>
-        <target>Fortalezca su contraseña</target>
+        <target>Para hacer más segura su contraseña:</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Make it at least six characters</source>
-        <target>Que tenga el menos seis caracteres</target>
+        <target>Debe contener por lo menos seis caracteres</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Add lowercase letters</source>
@@ -22,7 +22,7 @@
       </trans-unit>
       <trans-unit id="5">
         <source>Add uppercase letters</source>
-        <target>Agregar letrsa mayúscolas</target>
+        <target>Agregar letras mayúsculas</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Add numbers</source>
@@ -34,11 +34,11 @@
       </trans-unit>
       <trans-unit id="8">
         <source>Make it different from your username</source>
-        <target>Que sea diferente de su nombre de usuario</target>
+        <target>Debe ser distinta del nombre de usuario</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Yes</source>
-        <target>Si</target>
+        <target>Sí</target>
       </trans-unit>
       <trans-unit id="10">
         <source>No</source>
@@ -46,7 +46,7 @@
       </trans-unit>
       <trans-unit id="11">
         <source>Passwords match:</source>
-        <target>Contraseñas coinciden:</target>
+        <target>Coincidencia de contraseñas:</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Access to this record is restricted because it contains personal or confidential information. Please contact the Reference Archivist for more information on accessing this record.</source>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2015-10-16T04:43:24Z" product-name="messages">
+  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2020-09-30T16:57:48Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -128,8 +128,7 @@ Szabály: Az azonosító leírást létrehozó intézmény által alkalmazott ne
       </trans-unit>
       <trans-unit id="31">
         <source>Parallel form(s) of name</source>
-        <target>Párhuzamosan használt névalakok 
-</target>
+        <target>Párhuzamos névformák</target>
       </trans-unit>
       <trans-unit id="32">
         <source>"Record any other names for the function being described." (ISDF 5.1.4)</source>
@@ -137,7 +136,7 @@ Szabály: Az azonosító leírást létrehozó intézmény által alkalmazott ne
       </trans-unit>
       <trans-unit id="33">
         <source>Other form(s) of name</source>
-        <target>Egyéb névalak(ok)</target>
+        <target>Más névformák</target>
       </trans-unit>
       <trans-unit id="34">
         <source>"Record any term and/or code from a classification scheme of functions. Record the classification scheme used in the element Rules and/or conventions used (5.4.3)." (ISDF 5.1.5)</source>
@@ -289,7 +288,7 @@ Szabály: Az azonosító leírást létrehozó intézmény által alkalmazott ne
       </trans-unit>
       <trans-unit id="71">
         <source>History</source>
-        <target>A levéltár története</target>
+        <target>Története</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Legislation</source>
@@ -329,7 +328,7 @@ Szabály: Az azonosító leírást létrehozó intézmény által alkalmazott ne
       </trans-unit>
       <trans-unit id="81">
         <source>Maintenance notes</source>
-        <target>A leírás karbantartására vonatkozó megjegyzések </target>
+        <target>Karbantartási figyelmeztetések</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Delete</source>

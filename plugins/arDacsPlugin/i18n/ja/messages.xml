@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ja" datatype="plaintext" original="messages" date="2017-09-04T11:51:18Z" product-name="messages">
+  <file source-language="en" target-language="ja" datatype="plaintext" original="messages" date="2020-09-30T16:57:49Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,11 +10,11 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Untitled</source>
-        <target>無題の</target>
+        <target>無題</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
-        <target>編集する %1%</target>
+        <target> %1%を編集する</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Identifier - This is a mandatory element.</source>
@@ -66,7 +66,7 @@
       </trans-unit>
       <trans-unit id="17">
         <source>This is a mandatory element.</source>
-        <target>必須項目。</target>
+        <target>必須項目</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Name and location of repository</source>
@@ -74,7 +74,7 @@
       </trans-unit>
       <trans-unit id="20">
         <source>Levels of description</source>
-        <target>医療のレベル</target>
+        <target>記述レベル</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Title</source>
@@ -142,7 +142,7 @@
       </trans-unit>
       <trans-unit id="40">
         <source>Immediate source of acquisition or transfer</source>
-        <target>取得や移転の直接情報源</target>
+        <target>直接の取得先または移管元</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Appraisal, destruction and scheduling information</source>
@@ -206,7 +206,7 @@
       </trans-unit>
       <trans-unit id="56">
         <source>Level of description</source>
-        <target>記述のレベル</target>
+        <target>記述レベル</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Date(s)</source>
@@ -238,7 +238,7 @@
       </trans-unit>
       <trans-unit id="64">
         <source>Immediate source of acquisition</source>
-        <target>取得や移転の直接情報源</target>
+        <target>直接の取得先</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Accruals</source>
@@ -410,7 +410,7 @@
       </trans-unit>
       <trans-unit id="109">
         <source>Genre access points</source>
-        <target/>
+        <target>ジャンルのアクセスポイント</target>
       </trans-unit>
     </body>
   </file>

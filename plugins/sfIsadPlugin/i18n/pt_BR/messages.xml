@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2019-01-31T15:02:41Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2020-09-30T16:57:10Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -16,7 +16,7 @@
       </trans-unit>
       <trans-unit id="43">
         <source>Note</source>
-        <target>nota</target>
+        <target>Nota</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Level of description</source>
@@ -36,15 +36,15 @@
       </trans-unit>
       <trans-unit id="80">
         <source>Subject access points</source>
-        <target>pontos de acesso - assunto</target>
+        <target>Pontos de acesso de assunto</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Place access points</source>
-        <target>Pontos de acesso - lugares</target>
+        <target>Pontos de acesso local</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Institution identifier</source>
-        <target>identificador da instituição</target>
+        <target>Identificador da instituição</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Status</source>
@@ -52,31 +52,31 @@
       </trans-unit>
       <trans-unit id="87">
         <source>Level of detail</source>
-        <target>nível de detalhamento</target>
+        <target>Nível de detalhamento</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Dates of creation, revision and deletion</source>
-        <target>datas das descrições (criação, revisão e remoção)</target>
+        <target>Datas de criação, revisão e eliminação</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Sources</source>
-        <target>fontes</target>
+        <target>Fontes</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Identifier</source>
-        <target>Código de referência</target>
+        <target>Identificador</target>
       </trans-unit>
       <trans-unit id="207">
         <source>Type</source>
-        <target>tipo</target>
+        <target>Tipo</target>
       </trans-unit>
       <trans-unit id="300">
         <source>Description identifier</source>
-        <target>identificador da descrição</target>
+        <target>Identificador da descrição</target>
       </trans-unit>
       <trans-unit id="333">
         <source>Date</source>
-        <target>data</target>
+        <target>Data</target>
       </trans-unit>
       <trans-unit id="471">
         <source>Date(s)</source>
@@ -160,7 +160,7 @@
       </trans-unit>
       <trans-unit id="906">
         <source>File list</source>
-        <target>Lista de pastas</target>
+        <target>Lista de arquivos</target>
       </trans-unit>
       <trans-unit id="909">
         <source>Extent and medium</source>
@@ -176,11 +176,11 @@
       </trans-unit>
       <trans-unit id="912">
         <source>Immediate source of acquisition or transfer</source>
-        <target>Fonte imediata de aquisição ou transferência</target>
+        <target>Procedência</target>
       </trans-unit>
       <trans-unit id="913">
         <source>Content and structure area</source>
-        <target>Zona do conteúdo e estrutura</target>
+        <target>Área de conteúdo e estrutura</target>
       </trans-unit>
       <trans-unit id="914">
         <source>Edit content and structure area</source>
@@ -196,7 +196,7 @@
       </trans-unit>
       <trans-unit id="917">
         <source>Conditions of access and use area</source>
-        <target>Zona de condições de acesso e utilização </target>
+        <target>Área de condições de acesso e uso</target>
       </trans-unit>
       <trans-unit id="918">
         <source>Edit conditions of access and use area</source>
@@ -216,7 +216,7 @@
       </trans-unit>
       <trans-unit id="922">
         <source>Allied materials area</source>
-        <target>Zona de documentação associada</target>
+        <target>Área de documentação associada</target>
       </trans-unit>
       <trans-unit id="923">
         <source>Edit alied materials area</source>
@@ -228,7 +228,7 @@
       </trans-unit>
       <trans-unit id="925">
         <source>Notes area</source>
-        <target>Zona de notas</target>
+        <target>Área de notas</target>
       </trans-unit>
       <trans-unit id="926">
         <source>Edit notes area</source>
@@ -236,7 +236,7 @@
       </trans-unit>
       <trans-unit id="927">
         <source>Access points</source>
-        <target>Ponto de acesso</target>
+        <target>Pontos de acesso</target>
       </trans-unit>
       <trans-unit id="928">
         <source>Edit access points</source>
@@ -244,7 +244,7 @@
       </trans-unit>
       <trans-unit id="929">
         <source>Description control area</source>
-        <target>Zona do controlo da descrição</target>
+        <target>Área de controle da descrição</target>
       </trans-unit>
       <trans-unit id="930">
         <source>Edit description control area</source>
@@ -264,7 +264,7 @@
       </trans-unit>
       <trans-unit id="934">
         <source>Script(s)</source>
-        <target>Script(s)</target>
+        <target>Sistema(s) de escrita(s)</target>
       </trans-unit>
       <trans-unit id="935">
         <source>Archivist's note</source>
@@ -276,7 +276,7 @@
       </trans-unit>
       <trans-unit id="938">
         <source>This is a mandatory element.</source>
-        <target>É um elemento obrigatório.</target>
+        <target>Este é um elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="943">
         <source>Name of creator(s)</source>
@@ -296,15 +296,15 @@
       </trans-unit>
       <trans-unit id="964">
         <source>Edit %1%</source>
-        <target>editar %1%</target>
+        <target>Editar %1%</target>
       </trans-unit>
       <trans-unit id="965">
         <source>Start</source>
-        <target>Inicial</target>
+        <target>Iniciar</target>
       </trans-unit>
       <trans-unit id="966">
         <source>End</source>
-        <target>Final</target>
+        <target>Fim</target>
       </trans-unit>
       <trans-unit id="973">
         <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
@@ -427,7 +427,16 @@ elaboração da descrição. (ISAD 3.7.2)</target>
       </trans-unit>
       <trans-unit id="1015">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target>"Identificar e registrar a(s) data(s) da unidade de descrição. Identifique o(s) tipo(s) de data(s) registrada(s). Registre uma data única ou datas-limite, como for conveniente." (ISAD 3.1.3). O campo de exibição Data pode ser usado para inserir informação de data em texto livre, incluindo marcas tipográficas para expressar aproximação, incerteza ou qualificação. Use os campos início e fim para fazer com que as datas sejam pesquisáveis. Não use quaisquer qualificadores ou símbolos tipográficos para expressar incerteza. Formatos de data aceitáveis:  AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.</target>
+        <target>&lt;b&gt;ISAD (G) 3.1.3&lt;/b&gt;&lt;br /&gt;
+&lt;strong&gt;Objetivo:&lt;/strong&gt; Identificar e registar a(s) data(s) da unidade de descrição.&lt;br /&gt;
+&lt;strong&gt;Regra:&lt;/strong&gt; Registar, relativamente a cada unidade de descrição, pelo menos um dos seguintes tipos de data, conforme se considerar mais adequado à documentação e ao nível de descrição:
+&lt;ul&gt;
+&lt;li&gt;- Data(s) em que os documentos de arquivo foram acumulados pelo produtor no exercício das suas atividades, ou seja, integrados num sistema de arquivo;&lt;/li&gt;
+&lt;li&gt;- Data(s) em que os documentos foram produzidos. Esta inclui a data de cópias, edições, versões, anexos ou originais de peças produzidas antes da sua acumulação ou integração no sistema de arquivo.&lt;/li&gt;
+&lt;/ul&gt;&lt;br /&gt;
+&lt;strong style="color:#c41f36"&gt;O campo Data pode ser usado para inserir informações de data em texto livre, incluindo marcas tipográficas para expressar aproximação, incerteza ou qualificação.&lt;br /&gt;
+Utilize os campos de Início e Fim para fazer as datas pesquisáveis. Não use os qualificadores ou símbolos tipográficos para expressar incerteza.&lt;br /&gt;
+Formatos aceitáveis ​​de data: AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.&lt;/strong&gt;</target>
       </trans-unit>
       <trans-unit id="1016">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>

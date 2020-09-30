@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2015-10-16T04:43:32Z" product-name="messages">
+  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2020-09-30T16:57:33Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -402,7 +402,7 @@
       </trans-unit>
       <trans-unit id="112">
         <source>Place access points</source>
-        <target>Geografische trefwoord</target>
+        <target>Geografische trefwoorden</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
@@ -594,7 +594,7 @@
       </trans-unit>
       <trans-unit id="164">
         <source>Sources</source>
-        <target>bronnen</target>
+        <target>Bronnen</target>
       </trans-unit>
       <trans-unit id="166">
         <source>Accession area</source>

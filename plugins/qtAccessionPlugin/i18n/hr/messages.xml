@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2020-06-12T18:56:57Z" product-name="messages">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2020-09-30T16:57:29Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,11 +10,11 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Authorized form of name - This is a mandatory element.</source>
-        <target>Službeni oblik imena – Ovo je obavezan element.</target>
+        <target>Autorizirani oblik imena – Ovo je obavezan element.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Add new donor</source>
-        <target/>
+        <target>Dodaj novog donatora</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Edit %1%</source>
@@ -22,23 +22,23 @@
       </trans-unit>
       <trans-unit id="5">
         <source>Edit donor</source>
-        <target/>
+        <target>Uredi donatora</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Identity area</source>
-        <target>Područje identifikacije</target>
+        <target>Područje identiteta</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Authorized form of name</source>
-        <target>Službeni oblik imena</target>
+        <target>Autorizirani oblik imena</target>
       </trans-unit>
       <trans-unit id="8">
         <source>This is a mandatory element.</source>
-        <target>Ovo je obavezni element.</target>
+        <target>Ovo je obavezan element.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Contact area</source>
-        <target>Područje za kontakt</target>
+        <target>Područje kontakta</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Cancel</source>
@@ -62,15 +62,15 @@
       </trans-unit>
       <trans-unit id="15">
         <source>View donor</source>
-        <target/>
+        <target>Prikaz donatora</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Accession area</source>
-        <target/>
+        <target>Područje akcesije</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Related accession(s)</source>
-        <target/>
+        <target>Povezana akcesija</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Edit</source>
@@ -82,11 +82,11 @@
       </trans-unit>
       <trans-unit id="20">
         <source>List donor</source>
-        <target/>
+        <target>Popis donatora</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Search donor</source>
-        <target/>
+        <target>Traži donatora</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Name</source>
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="23">
         <source>Browse donor</source>
-        <target/>
+        <target>Pregledaj donatore</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Search %1%</source>
@@ -110,19 +110,19 @@
       </trans-unit>
       <trans-unit id="29">
         <source>Acquisition date - This is a mandatory element.</source>
-        <target/>
+        <target>Datum akvizicije – Ovo je obavezan element.</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Source of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>Izvor akvizicije – Ovo je obavezan element.</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Location information - This is a mandatory element.</source>
-        <target/>
+        <target>Podaci mjesta – Ovo je obavezan element.</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Accession number</source>
-        <target/>
+        <target>Broj akcesije</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Title</source>
@@ -130,7 +130,7 @@
       </trans-unit>
       <trans-unit id="34">
         <source>Acquisition date</source>
-        <target/>
+        <target>Datum akvizicije</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Relevance</source>
@@ -138,23 +138,23 @@
       </trans-unit>
       <trans-unit id="36">
         <source>Add new accession record</source>
-        <target/>
+        <target>Dodaj novi zapis akcesije</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Related donors</source>
-        <target/>
+        <target>Povezani donatori</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Related donor record</source>
-        <target/>
+        <target>Zapis povezanog donatora</target>
       </trans-unit>
       <trans-unit id="39">
         <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
-        <target/>
+        <target>Ovo je polje pravnog entiteta i pruža kontaktne podatke osoba ili ustanove koji su donirali ili prenijeli gradivo. Moguće je navesti višestruke unose i pruža mogućnost stvaranja više od jednog zapisa kontakata koristeći isti obrazac.</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Primary contact information</source>
-        <target/>
+        <target>Podaci glavnog kontakta</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Main</source>
@@ -162,11 +162,11 @@
       </trans-unit>
       <trans-unit id="42">
         <source>Physical location</source>
-        <target>Fizička lokacija</target>
+        <target>Fizičko mjesto</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Other details</source>
-        <target>Ostale pojedinosti</target>
+        <target>Druge pojedinosti</target>
       </trans-unit>
       <trans-unit id="44">
         <source>URL</source>
@@ -182,11 +182,11 @@
       </trans-unit>
       <trans-unit id="47">
         <source>Edit accession record</source>
-        <target/>
+        <target>Uredi zapis akcesije</target>
       </trans-unit>
       <trans-unit id="48">
         <source>You are creating an accrual to accession %1%</source>
-        <target/>
+        <target>Stvaraš dopunu za akcesiju %1%</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Basic info</source>
@@ -194,83 +194,83 @@
       </trans-unit>
       <trans-unit id="50">
         <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
-        <target/>
+        <target>Broj akcesije trebao bi biti kombinacija vrijednosti zabilježenih u polju i trebao bi biti jedinstveni broj akcesije za repozitorij</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
-        <target/>
+        <target>Datum akcesije predstavlja datum primitka gradiva i dodaje se tijekom postupka donacije.</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
-        <target/>
+        <target>Odredi neposredni izvor akvizicije ili prijenosa, te datum i način akvizicije, AKO podaci NISU povjerljivi.</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Immediate source of acquisition</source>
-        <target>Neposredni izvor prikupljenog gradiva</target>
+        <target>Neposredni izvor akvizicije</target>
       </trans-unit>
       <trans-unit id="54">
         <source>A description of the physical location in the repository where the accession can be found.</source>
-        <target/>
+        <target>Opis fizičkog mjesta u repozitoriju u kojem se može pronaći akcesija.</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Location information</source>
-        <target/>
+        <target>Podaci mjesta</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Donor/Transferring body area</source>
-        <target/>
+        <target>Područje donatora/prenosioca</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Administrative area</source>
-        <target/>
+        <target>Administrativno područje</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Term describing the type of accession transaction and referring to the way in which the accession was acquired.</source>
-        <target/>
+        <target>Pojam koji opisuje vrstu transakcije akcesije i koji se odnosi na način stjecanja akcesije.</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Select the type of resource represented in the accession, either public or private.</source>
-        <target/>
+        <target>Odaberi vrstu resursa predstavljen u akcesiji, javni ili privatni.</target>
       </trans-unit>
       <trans-unit id="60">
         <source>The title of the accession, usually the creator name and term describing the format of the accession materials.</source>
-        <target/>
+        <target>Naslov akcesije, obično ime autora i pojam koji opisuje format gradiva akcesije.</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Creators</source>
-        <target/>
+        <target>Stvaratelji</target>
       </trans-unit>
       <trans-unit id="62">
         <source>The name of the creator of the accession or the name of the department that created the accession.</source>
-        <target/>
+        <target>Ime stvaratelja akcesije ili ime odjela koji je stvorio akcesiju.</target>
       </trans-unit>
       <trans-unit id="63">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target>"Utvrditi i navesti nadnevak(e) nastanka gradiva u jedinici opisa. Ako je potrebno, navesti pojedinačni nadnevak ili raspon godina." (ISAD 3.1.3). Prikaz datuma može biti slobodan tekst, uključujući tipografske oznake. Koristiti polje početnog i završnog datuma kako bi se moglo pretraživati. Ne koristiti bilo kakve tipografske oznake. Podržani formati su GGGGMMDD, GGGG-MM-DD, GGGG-MM, GGGG.</target>
+        <target>„Utvrditi i navesti nadnevak(e) nastanka gradiva u jedinici opisa. Ako je potrebno, navesti pojedinačni nadnevak ili raspon godina.” (ISAD 3.1.3). Prikaz datuma može biti slobodan tekst, uključujući tipografske oznake. Koristiti polje početnog i završnog datuma kako bi se moglo pretraživati. Ne koristiti bilo kakve tipografske oznake. Podržani formati su GGGGMMDD, GGGG-MM-DD, GGGG-MM, GGGG.</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Information on the history of the accession. When the accession is acquired directly from the creator, do not record an archival history but record the information as the Immediate Source of Acquisition.</source>
-        <target/>
+        <target>Podaci o povijesti akcesije. Kad se akcesija stekne izravno od stvaratelja, ne bilježi povijest arhivskog gradiva, već zabilježi podatke kao neposredni izvor akvizicije.</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Archival/Custodial history</source>
-        <target/>
+        <target>Povijest arhivskog gradiva/čuvanja</target>
       </trans-unit>
       <trans-unit id="66">
         <source>A description of the intellectual content and document types represented in the accession.</source>
-        <target/>
+        <target>Opis intelektualnog sadržaja i vrsta dokumenata u akcesiji.</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
-        <target/>
+        <target>Zabilježi obavljena ili planirana vrednovanja, uništavanja i planiranja za opis jedinice, posebno, ako mogu utjecati na interpretaciju gradiva.</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Appraisal, destruction and scheduling</source>
-        <target/>
+        <target>Vrednovanje, uništavanje i planiranje</target>
       </trans-unit>
       <trans-unit id="69">
         <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
-        <target/>
+        <target>Opis fizičkog stanja akcesije i je li potrebna bilo koja vrsta zaštite ili posebno rukovanje.</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Physical condition</source>
@@ -278,19 +278,19 @@
       </trans-unit>
       <trans-unit id="71">
         <source>The number of units as a whole number and the measurement of the received volume of records in the accession.</source>
-        <target/>
+        <target>Broj jedinica kao cijeli broj i mjerenje primljene količine zapisa u akcesiji.</target>
       </trans-unit>
       <trans-unit id="72">
         <source>An indicator of the accessioning process.</source>
-        <target/>
+        <target>Indikator postupka akcesije.</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Indicates the priority the repository assigns to completing the processing of the accession.</source>
-        <target/>
+        <target>Naznačuje prioritet koji repozitorij dodijeljuje dovršavanju obrade akcesije.</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
-        <target/>
+        <target>Napomene o planu obrade, opisujući što treba učiniti, kako bi se akcesija u potpunosti obradila.</target>
       </trans-unit>
       <trans-unit id="75">
         <source>%1% area</source>
@@ -298,11 +298,11 @@
       </trans-unit>
       <trans-unit id="76">
         <source>It has %1% deaccessions that will also be deleted:</source>
-        <target/>
+        <target>Sadrži %1% izlučivanja gradiva koja će se također izbrisati:</target>
       </trans-unit>
       <trans-unit id="77">
         <source>It has %1% accruals. They will not be deleted.</source>
-        <target/>
+        <target>Sadrži %1% dopune(a). One se neće izbrisati.</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Name of creator</source>
@@ -310,39 +310,39 @@
       </trans-unit>
       <trans-unit id="79">
         <source>Administrative history</source>
-        <target>Administrativna kronologija</target>
+        <target>Administrativna povijest</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Biographical history</source>
-        <target>Biografska kronologija</target>
+        <target>Biografska povijest</target>
       </trans-unit>
       <trans-unit id="81">
         <source>View accession record</source>
-        <target/>
+        <target>Prikaz zapisa akcesije</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Edit donor/transferring body area</source>
-        <target/>
+        <target>Uredi područje donatora/prenosioca</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Related donor</source>
-        <target/>
+        <target>Povezani donator</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Edit administrative area</source>
-        <target/>
+        <target>Uredi područje administracije</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Acquisition type</source>
-        <target/>
+        <target>Vrsta akvizicije</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Resource type</source>
-        <target/>
+        <target>Vrsta resursa</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Date(s)</source>
-        <target>Datum(i)</target>
+        <target>Datumi</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Scope and content</source>
@@ -350,51 +350,51 @@
       </trans-unit>
       <trans-unit id="89">
         <source>Received extent units</source>
-        <target/>
+        <target>Primljene jedinice obujma</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Processing status</source>
-        <target/>
+        <target>Stanje obrade</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Processing priority</source>
-        <target/>
+        <target>Prioritet obrade</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Processing notes</source>
-        <target/>
+        <target>Napomene uz obradu</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Accruals</source>
-        <target/>
+        <target>Dopune</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Accrual to</source>
-        <target/>
+        <target>Dopuna u</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Rights area</source>
-        <target/>
+        <target>Područje prava</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Edit rights area</source>
-        <target/>
+        <target>Uredi područje prava</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Deaccession area</source>
-        <target/>
+        <target>Područje izlučenog gradiva</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Deaccession</source>
-        <target/>
+        <target>Izlučeno gradivo</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Add accrual</source>
-        <target/>
+        <target>Dodaj dopunu</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Create %1%</source>
-        <target/>
+        <target>Stvori %1%</target>
       </trans-unit>
       <trans-unit id="101">
         <source>More</source>
@@ -406,47 +406,47 @@
       </trans-unit>
       <trans-unit id="103">
         <source>Browse accession</source>
-        <target/>
+        <target>Pregledaj akcesiju</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Identifier - This is a mandatory element.</source>
-        <target/>
+        <target>Identifilator – Ovo je obavezan element.</target>
       </trans-unit>
       <trans-unit id="105">
         <source>Date of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>Datum akvizicije – Ovo je obavezan element.</target>
       </trans-unit>
       <trans-unit id="106">
         <source>Scope - This is a mandatory element.</source>
-        <target/>
+        <target>Opseg – Ovo je obavezan element.</target>
       </trans-unit>
       <trans-unit id="107">
         <source>Description - This is a mandatory element.</source>
-        <target/>
+        <target>Opis – Ovo je obavezan element.</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Add new deaccession record</source>
-        <target/>
+        <target>Dodaj novi zapis izlučenog gradiva</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Edit deaccession record</source>
-        <target/>
+        <target>Uredi zapis izlučenog gradiva</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Deaccession number</source>
-        <target/>
+        <target>Broj izlučenog gradiva</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
-        <target/>
+        <target>Odredi, izlučuje li se cijela akcesija ili samo jedan njen dio.</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Scope</source>
-        <target/>
+        <target>Opseg</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Date of deaccession</source>
-        <target/>
+        <target>Datum izlučivanja gradiva</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Date</source>
@@ -454,7 +454,7 @@
       </trans-unit>
       <trans-unit id="115">
         <source>Identify what materials are being deaccessioned.</source>
-        <target/>
+        <target>Odredi gradivo koje se izlučuje.</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Description</source>
@@ -462,43 +462,43 @@
       </trans-unit>
       <trans-unit id="117">
         <source>The number of units as a whole number and the measurement of the records to be deaccessioned.</source>
-        <target/>
+        <target>Broj jedinica kao cijeli broj i mjerenje zapisa koji se izlučuju.</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Provide a reason why the records are being deaccessioned.</source>
-        <target/>
+        <target>Navedi razlog za izlučivanje zapisa.</target>
       </trans-unit>
       <trans-unit id="119">
         <source>View deaccession record</source>
-        <target/>
+        <target>Prikaz zapisa izlučenog gradiva</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Extent</source>
-        <target/>
+        <target>Obujam</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Reason</source>
-        <target/>
+        <target>Razlog</target>
       </trans-unit>
       <trans-unit id="122">
         <source>Identifier available.</source>
-        <target/>
+        <target>Identifikator dostupan.</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Identifier unavailable.</source>
-        <target/>
+        <target>Identifikator nedostupan.</target>
       </trans-unit>
       <trans-unit id="124">
         <source>Loading...</source>
-        <target/>
+        <target>Učitavanje …</target>
       </trans-unit>
       <trans-unit id="125">
         <source>Server error while checking identifer availability.</source>
-        <target/>
+        <target>Greška poslužitelja prilikom provjere dostupnosti identifikatora.</target>
       </trans-unit>
       <trans-unit id="126">
         <source>This identifer is already in use.</source>
-        <target/>
+        <target>Ovaj se identifikator već koristi.</target>
       </trans-unit>
       <trans-unit id="127">
         <source>Date modified</source>
@@ -506,7 +506,7 @@
       </trans-unit>
       <trans-unit id="128">
         <source>We've redirected you to the first page of results. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. To view the last records in the current result set, try changing the sort direction.</source>
-        <target>Preusmjerili smo te na prvu stranicu rezultata. Kako bi se izbjegla upotreba ogromne količine memorije, AtoM ograničava obilježavanje stranica na 10 000 zapisa. Za prikaz zadnjih zapisa u trenutačnom skupu rezultata, pokušaj promijeniti smjer razvrstavanja.</target>
+        <target>Preusmjerili smo te na prvu stranicu rezultata. Kako bi se izbjegla upotreba ogromne količine memorije, AtoM ograničava paginaciju na 10 000 zapisa. Za prikaz zadnjih zapisa u trenutačnom skupu rezultata, pokušaj promijeniti smjer razvrstavanja.</target>
       </trans-unit>
       <trans-unit id="129">
         <source>Notes</source>
@@ -526,7 +526,7 @@
       </trans-unit>
       <trans-unit id="133">
         <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
-        <target/>
+        <target>&lt;strong&gt;Vrsta:&lt;/strong&gt;Upiši ime polja alternativnog identifikatora koji ukazuje na njegovu svrhu i upotrebu.&lt;br/&gt;&lt;strong&gt;Identifikator:&lt;/strong&gt;Upiši staru signaturu, alternativni identifikator ili bilo koji drugi alfanumerički niz pridružen zapisu.</target>
       </trans-unit>
     </body>
   </file>

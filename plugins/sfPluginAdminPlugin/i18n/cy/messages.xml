@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2020-06-12T18:07:37Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2020-09-30T16:57:19Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -30,7 +30,7 @@
       </trans-unit>
       <trans-unit id="7">
         <source>SWORD plugin setting changed: the AtoM worker must be restarted for this change to take effect.</source>
-        <target/>
+        <target>Gosodiad ategyn SWORD wedi newid: rhaid ailgychwyn y gweithiwr AtoM er mwyn i'r newid hwn ddod i rym.</target>
       </trans-unit>
     </body>
   </file>

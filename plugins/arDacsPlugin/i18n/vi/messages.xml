@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2016-04-19T21:23:28Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2020-09-30T16:57:25Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -252,7 +252,7 @@ Truy cập vật lý
       </trans-unit>
       <trans-unit id="63">
         <source>Identifier</source>
-        <target>Định danh</target>
+        <target>Đặc điểm nhận dạng</target>
       </trans-unit>
       <trans-unit id="64">
         <source>This is a mandatory element.</source>
