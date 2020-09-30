@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ru" datatype="plaintext" original="messages" date="2020-06-12T18:56:57Z" product-name="messages">
+  <file source-language="en" target-language="ru" datatype="plaintext" original="messages" date="2020-09-29T23:37:14Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -526,6 +526,34 @@
       </trans-unit>
       <trans-unit id="133">
         <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="134">
+        <source>Events(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="135">
+        <source>Agent</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="136">
+        <source>%1%Type:%2% Select the type of the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="137">
+        <source>%1%Date:%2% Enter the date of the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="138">
+        <source>%1%Agent:%2% Enter the agent associated with the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="139">
+        <source>%1%Note:%2% Enter notes associated with the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="140">
+        <source>Event(s)</source>
         <target/>
       </trans-unit>
     </body>

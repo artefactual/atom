@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2017-09-04T11:51:14Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2020-09-29T23:37:19Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="3">
         <source>All %1%</source>
-        <target>Tout %1%</target>
+        <target>Tou(te)s les %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>All privileges</source>
@@ -26,7 +26,7 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Permissions for all %1%</source>
-        <target>Droits pour tous %1%</target>
+        <target>Droits pour tou(te)s les %1%</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Action</source>
@@ -90,11 +90,11 @@
       </trans-unit>
       <trans-unit id="27">
         <source>Edit %1% permissions</source>
-        <target>Modifier %1% les droits</target>
+        <target>Modifier les droits sur %1%</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Permissions by %1%</source>
-        <target>Droits pour %1%</target>
+        <target>Droits par %1%</target>
       </trans-unit>
       <trans-unit id="29">
         <source>%1% name</source>
@@ -138,7 +138,7 @@
       </trans-unit>
       <trans-unit id="44">
         <source>Edit %1% permissions of %2%</source>
-        <target>Modifier %1% les droits de %2%</target>
+        <target>Modifier les droits de %2% sur les %1%</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Group %1%</source>

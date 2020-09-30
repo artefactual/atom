@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2019-01-31T15:02:41Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2020-09-29T23:37:03Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -8,11 +8,11 @@
       </trans-unit>
       <trans-unit id="111">
         <source>Language</source>
-        <target>idioma</target>
+        <target>Idioma</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Identifier</source>
-        <target>Código de referência</target>
+        <target>Identificador</target>
       </trans-unit>
       <trans-unit id="605">
         <source>Subject</source>
@@ -64,7 +64,7 @@
       </trans-unit>
       <trans-unit id="908">
         <source>Edit %1%</source>
-        <target>editar %1%</target>
+        <target>Editar %1%</target>
       </trans-unit>
       <trans-unit id="909">
         <source>Select the type of activity that established the relation between the authority record and the resource.</source>

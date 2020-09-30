@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2020-06-12T18:56:52Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2020-09-29T23:37:02Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -50,11 +50,11 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Identity area</source>
-        <target>Identifizierungsfeld</target>
+        <target>Bereich "Identifikation"</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Authorized form of name</source>
-        <target>Autorisierter Name</target>
+        <target>Autorisierte Namensform</target>
       </trans-unit>
       <trans-unit id="20">
         <source>This is a mandatory element.</source>
@@ -62,7 +62,7 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Contact area</source>
-        <target>Kontaktfeld</target>
+        <target>Bereich "Kontakt"</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Save</source>
@@ -78,7 +78,7 @@
       </trans-unit>
       <trans-unit id="27">
         <source>Edit</source>
-        <target>Bearbeiten</target>
+        <target>Bearbeite</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Delete</source>
@@ -282,7 +282,7 @@
       </trans-unit>
       <trans-unit id="87">
         <source>Identifier</source>
-        <target>Signatur</target>
+        <target>Identifikator/Signatur</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
@@ -310,7 +310,7 @@
       </trans-unit>
       <trans-unit id="94">
         <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
-        <target>Die Akzessionsnummer sollte ein Kombination aus Werten darstellen, die in das Feld eingegeben werden, und sollte eindeutig für das Archiv sein.</target>
+        <target>Die Akzessionsnummer sollte ein Kombination aus Werten darstellen, die in das Feld eingegeben werden, und sollte eindeutig für das Archiv sein</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
@@ -322,7 +322,7 @@
       </trans-unit>
       <trans-unit id="97">
         <source>A description of the physical location in the repository where the accession can be found.</source>
-        <target>Eine Beschreibung des Lagerungsortes der Akzession im Magazin</target>
+        <target>Eine Beschreibung des Lagerungsortes der Akzession im Magazin.</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Term describing the type of accession transaction and referring to the way in which the accession was acquired.</source>
@@ -482,11 +482,11 @@
       </trans-unit>
       <trans-unit id="141">
         <source>Identifier available.</source>
-        <target>Identifikator/Signatur verfügbar</target>
+        <target>Identifikator/Signatur verfügbar.</target>
       </trans-unit>
       <trans-unit id="142">
         <source>Identifier unavailable.</source>
-        <target>Identifikator/Signatur - nicht verfügbar</target>
+        <target>Identifikator/Signatur - nicht verfügbar.</target>
       </trans-unit>
       <trans-unit id="143">
         <source>Loading...</source>
@@ -526,6 +526,34 @@
       </trans-unit>
       <trans-unit id="152">
         <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="153">
+        <source>Events(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="154">
+        <source>Agent</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="155">
+        <source>%1%Type:%2% Select the type of the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="156">
+        <source>%1%Date:%2% Enter the date of the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="157">
+        <source>%1%Agent:%2% Enter the agent associated with the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="158">
+        <source>%1%Note:%2% Enter notes associated with the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="159">
+        <source>Event(s)</source>
         <target/>
       </trans-unit>
     </body>

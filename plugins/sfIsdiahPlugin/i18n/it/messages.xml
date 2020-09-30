@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2017-09-04T11:51:18Z" product-name="messages">
+  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2020-09-29T23:36:55Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -255,7 +255,7 @@
       </trans-unit>
       <trans-unit id="79">
         <source>Cancel</source>
-        <target>Cancella</target>
+        <target>Annulla</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Save</source>
@@ -267,11 +267,11 @@
       </trans-unit>
       <trans-unit id="84">
         <source>Parallel form(s) of name</source>
-        <target>Forme parallele del nome</target>
+        <target>Forma(e) parallele di nome</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Other form(s) of name</source>
-        <target>Altre forme del nome</target>
+        <target>Altra(e) forma(e) di nome</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Type</source>
@@ -279,7 +279,7 @@
       </trans-unit>
       <trans-unit id="88">
         <source>History</source>
-        <target>Storia</target>
+        <target>Cronologia</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Buildings</source>
@@ -323,7 +323,7 @@
       </trans-unit>
       <trans-unit id="99">
         <source>Maintenance notes</source>
-        <target>Note sulla manutenzione</target>
+        <target>Note di manutenzione</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Edit</source>
@@ -331,7 +331,7 @@
       </trans-unit>
       <trans-unit id="101">
         <source>Delete</source>
-        <target>Cancella</target>
+        <target>Elimina</target>
       </trans-unit>
       <trans-unit id="102">
         <source>Add new</source>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2019-01-31T15:02:37Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2020-09-29T23:37:19Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -58,7 +58,7 @@
       </trans-unit>
       <trans-unit id="15">
         <source>Reference code</source>
-        <target>Code de référence</target>
+        <target>Cote</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
@@ -78,7 +78,7 @@
       </trans-unit>
       <trans-unit id="20">
         <source>Title</source>
-        <target>Intitulé</target>
+        <target>Titre</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Record the level of this unit of description. (ISAD 3.1.4)</source>
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Extent and medium</source>
-        <target>Importance matérielle et support</target>
+        <target>Étendue matérielle et support</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Context area</source>
@@ -126,7 +126,7 @@
       </trans-unit>
       <trans-unit id="33">
         <source>Immediate source of acquisition or transfer</source>
-        <target>Modalités d'entrée</target>
+        <target>Source immédiate d'acquisition ou de transfert</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Content and structure area</source>
@@ -222,15 +222,15 @@
       </trans-unit>
       <trans-unit id="63">
         <source>Access points</source>
-        <target>Points d'accès</target>
+        <target>Mots-clés</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Subject access points</source>
-        <target>Points d'accès sujets</target>
+        <target>Mots-clés - Sujets</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Place access points</source>
-        <target>Points d'accès lieux</target>
+        <target>Mots-clés - Lieux</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Name access points (subjects)</source>
@@ -250,7 +250,7 @@
       </trans-unit>
       <trans-unit id="71">
         <source>Institution identifier</source>
-        <target>Identifiant du service responsable de la description</target>
+        <target>Identifiant du service d'archives</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
@@ -262,7 +262,7 @@
       </trans-unit>
       <trans-unit id="74">
         <source>Status</source>
-        <target>Niveau d'élaboration</target>
+        <target>Statut</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
@@ -322,7 +322,7 @@
       </trans-unit>
       <trans-unit id="94">
         <source>Repository</source>
-        <target>Entrepôt</target>
+        <target>Dépôt</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Archival history</source>
@@ -334,7 +334,7 @@
       </trans-unit>
       <trans-unit id="97">
         <source>Scope and content</source>
-        <target>Présentation du contenu</target>
+        <target>Portée et contenu</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Accruals</source>
@@ -374,7 +374,7 @@
       </trans-unit>
       <trans-unit id="107">
         <source>Edit access points</source>
-        <target>Modifier les index.</target>
+        <target>Modifier les index</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Description control area</source>
@@ -422,7 +422,7 @@
       </trans-unit>
       <trans-unit id="121">
         <source>File list</source>
-        <target>Liste de fichiers</target>
+        <target>Liste de dossiers</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
@@ -431,7 +431,7 @@ de description." (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="124">
         <source>Language and script notes</source>
-        <target>Notes sur la langue et l'écriture</target>
+        <target>Notes de langue et graphie</target>
       </trans-unit>
       <trans-unit id="125">
         <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
@@ -447,11 +447,11 @@ de description." (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="132">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
-        <target>Indiquer les références des sources externes utilisées pour la description (comme dans la portée et contenu, l'histoire administrative ou les notes)</target>
+        <target>Indiquer les références des sources externes utilisées pour la description (comme dans la portée et contenu, l'histoire administrative ou les notes).</target>
       </trans-unit>
       <trans-unit id="133">
         <source>Related descriptions</source>
-        <target>Descriptions reliés</target>
+        <target>Descriptions associées</target>
       </trans-unit>
       <trans-unit id="134">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>

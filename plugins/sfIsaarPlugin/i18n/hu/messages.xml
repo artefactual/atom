@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2020-06-12T18:56:59Z" product-name="messages">
+  <file source-language="en" target-language="hu" datatype="plaintext" original="messages" date="2020-09-29T23:37:23Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -62,8 +62,7 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Parallel form(s) of name</source>
-        <target>Párhuzamosan használt névalakok 
-</target>
+        <target>Párhuzamos névformák</target>
       </trans-unit>
       <trans-unit id="17">
         <source>"Record the standardized form of name for the entity being described in accordance with other conventions or rules. Specify the rules and/or if appropriate the name of the agency by which these standardized forms of name have been constructed." (ISAAR 5.1.4)</source>
@@ -79,7 +78,7 @@
       </trans-unit>
       <trans-unit id="20">
         <source>Other form(s) of name</source>
-        <target>Egyéb névalak(ok)</target>
+        <target>Más névformák</target>
       </trans-unit>
       <trans-unit id="21">
         <source>"Record where possible any official number or other identifier (e.g. a company registration number) for the corporate body and reference the jurisdiction and scheme under which it has been allocated." (ISAAR 5.1.6)</source>
@@ -99,8 +98,7 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Dates of existence</source>
-        <target>Létezés időköre 
-</target>
+        <target>Létezés időköre</target>
       </trans-unit>
       <trans-unit id="26">
         <source>"Record in narrative form or as a chronology the main life events, activities, achievements and/or roles of the entity being described. This may include information on gender, nationality, family and religious or political affiliations. Wherever possible, supply dates as an integral component of the narrative description." (ISAAR 5.2.2)</source>
@@ -302,7 +300,7 @@
       </trans-unit>
       <trans-unit id="76">
         <source>History</source>
-        <target>A levéltár története</target>
+        <target>Története</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Places</source>
@@ -310,12 +308,11 @@
       </trans-unit>
       <trans-unit id="78">
         <source>Legal status</source>
-        <target>Jogállás </target>
+        <target>Jogi helyzete</target>
       </trans-unit>
       <trans-unit id="79">
         <source>General context</source>
-        <target>Tágabb összefüggések 
-</target>
+        <target>Általános kontextus</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Edit relationships area</source>
@@ -371,7 +368,7 @@
       </trans-unit>
       <trans-unit id="93">
         <source>Maintenance notes</source>
-        <target>A leírás karbantartására vonatkozó megjegyzések </target>
+        <target>Karbantartási figyelmeztetések</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Delete</source>
@@ -431,7 +428,7 @@
       </trans-unit>
       <trans-unit id="108">
         <source>Authority record identifier</source>
-        <target>Iratképző azonosító</target>
+        <target>Iratképző azonosítója</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Maintaining repository</source>
@@ -459,7 +456,7 @@
       </trans-unit>
       <trans-unit id="115">
         <source>Maintained by</source>
-        <target>Fönntartva általa:</target>
+        <target>Kezelője:</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Subject access points</source>
@@ -480,6 +477,10 @@
       <trans-unit id="120">
         <source>Link %1%</source>
         <target>%1% csatolása</target>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>%1%Authority record identifier%2% - value not unique.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

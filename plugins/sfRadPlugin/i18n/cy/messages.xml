@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2017-08-25T18:50:40Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2020-09-29T23:37:08Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -326,7 +326,7 @@
       </trans-unit>
       <trans-unit id="81">
         <source>Scope and content</source>
-        <target>Cwmpas a chynnwys</target>
+        <target>Natur a chynnwys</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Notes area</source>
@@ -347,7 +347,7 @@
       </trans-unit>
       <trans-unit id="86">
         <source>Immediate source of acquisition</source>
-        <target>Ffynhonnell uniongyrchol y derbyniad</target>
+        <target>Ffynhonnell</target>
       </trans-unit>
       <trans-unit id="87">
         <source>"Make notes on the arrangement of the unit being described which contribute significantly to its understanding but cannot be put in the Scope and content (see 1.7D), e.g., about reorganisation(s) by the creator, arrangement by the archivist, changes in the classification scheme, or reconstitution of original order." (RAD 1.8B13)</source>
@@ -499,7 +499,7 @@
       </trans-unit>
       <trans-unit id="124">
         <source>Rules or conventions</source>
-        <target>Rheolau neu gonfensiynau</target>
+        <target>Rheolau catalogio</target>
       </trans-unit>
       <trans-unit id="125">
         <source>Status</source>
@@ -515,7 +515,7 @@
       </trans-unit>
       <trans-unit id="128">
         <source>Level of detail</source>
-        <target>Lefel o fanylder</target>
+        <target>Lefel manylder disgrifiad</target>
       </trans-unit>
       <trans-unit id="129">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
@@ -523,7 +523,7 @@
       </trans-unit>
       <trans-unit id="130">
         <source>Dates of creation, revision and deletion</source>
-        <target>Dyddiadau creadigaeth, adolygiad a dilead</target>
+        <target>Dyddiadau creu, adolygu a dileu</target>
       </trans-unit>
       <trans-unit id="131">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
@@ -567,7 +567,7 @@
       </trans-unit>
       <trans-unit id="141">
         <source>Repository</source>
-        <target>Cadwrfa</target>
+        <target>Lleoliad</target>
       </trans-unit>
       <trans-unit id="142">
         <source>Edit edition area</source>

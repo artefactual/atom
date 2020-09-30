@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2020-09-29T23:37:16Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>-- Select action --</source>
+        <target>-- Välj aktivitet --</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>(Re)generate API key</source>
+        <target>Skapa API-nyckel</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Delete API key</source>
+        <target>Ta bort API-nyckel</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>User %1%</source>
+        <target>Användare %1%</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Basic info</source>
+        <target>Grundinformation</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Active</source>
+        <target>Aktiv</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Access control</source>
+        <target>Åtkomstkontroll</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>User groups</source>
+        <target>Användargrupper</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Allowed languages for translation</source>
+        <target>Tillåtna språk för översättning</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>REST API access key</source>
+        <target>REST API-åtkomstnyckel</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>OAI-PMH API access key</source>
+        <target>OAI-PMH API access key</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Cancel</source>
+        <target>Avbryt</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Save</source>
+        <target>Spara</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>List users</source>
+        <target>Lista användare</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Search users</source>
+        <target>Sök användare</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Show active only</source>
+        <target>Visa endast aktiva</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Show inactive only</source>
+        <target>Visa endast inaktiva</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>User name</source>
+        <target>Användarnamn</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Email</source>
+        <target>E-post</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>inactive</source>
+        <target>inaktiv</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>you</source>
+        <target>du</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Edit</source>
+        <target>Redigera</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Delete</source>
+        <target>Ta bort</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Return to user list</source>
+        <target>Återgå till användarlistan</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Please log in to access that page</source>
+        <target>Var god och logga in för att få tillgång till sidan</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Log in</source>
+        <target>Logga in</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Log in with CAS</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>This user is inactive</source>
+        <target>Denna användare är inaktiv</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>User details</source>
+        <target>Användardetaljer</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Repository affiliation</source>
+        <target>Arkivinstitutionsanknytning</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>REST API key</source>
+        <target>REST API-nyckel</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Not generated yet.</source>
+        <target>Inte skapad ännu.</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>OAI-PMH API key</source>
+        <target>OAI-PMH API-nyckel</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Editing history</source>
+        <target>Redigeringshistorik</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Loading ...</source>
+        <target>Laddar...</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Title</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Date</source>
+        <target>Datum</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Type</source>
+        <target>Typ</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Previous</source>
+        <target>Föregående</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Next</source>
+        <target>Nästa</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Have an account?</source>
+        <target>Har du ett konto?</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Hi, %1%</source>
+        <target>Hej, %1%</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

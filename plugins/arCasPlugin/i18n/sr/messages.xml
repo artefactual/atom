@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="sr" datatype="plaintext" original="messages" date="2020-09-29T23:37:25Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>-- Select action --</source>
+        <target>-- Изабери радњу --</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>(Re)generate API key</source>
+        <target>(Ре)генериши API кључ</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Delete API key</source>
+        <target>Обриши API кључ</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>User %1%</source>
+        <target>Корисник %1%</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Basic info</source>
+        <target>Основне информације</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Active</source>
+        <target>Активни</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Access control</source>
+        <target>Контрола приступа</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>User groups</source>
+        <target>Корисничке групе</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Allowed languages for translation</source>
+        <target>Дозвољени језици за превод</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>REST API access key</source>
+        <target>REST API кључ за приступ</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>OAI-PMH API access key</source>
+        <target>API приступни кључ за OAI-PMH</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Cancel</source>
+        <target>Поништи</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Save</source>
+        <target>Сачувај</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>List users</source>
+        <target>Листа корисника</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Search users</source>
+        <target>Претражи кориснике</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Show active only</source>
+        <target>Прикажи само активне</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Show inactive only</source>
+        <target>Прикажи само неактивне</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>User name</source>
+        <target>Корисничко име</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Email</source>
+        <target>Ел. пошта</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>inactive</source>
+        <target>неактиван</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>you</source>
+        <target>ти</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Edit</source>
+        <target>Уреди</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Delete</source>
+        <target>Обриши</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Return to user list</source>
+        <target>Повратак на листу корисника</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Please log in to access that page</source>
+        <target>Молимо, пријавите се да би приступили овој страни</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Log in</source>
+        <target>Пријави се</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Log in with CAS</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>This user is inactive</source>
+        <target>Овај корисник је неактиван</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>User details</source>
+        <target>Детаљи о кориснику</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Repository affiliation</source>
+        <target>Повезаност институција</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>REST API key</source>
+        <target>REST API кључ</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Not generated yet.</source>
+        <target>Још није генерисан.</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>OAI-PMH API key</source>
+        <target>API кључ OAI-PMH</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Editing history</source>
+        <target>Хронологија уређивања</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Loading ...</source>
+        <target>Учитавање...</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Title</source>
+        <target>Назив јединице описа</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Date</source>
+        <target>Датум</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Type</source>
+        <target>Врста</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Previous</source>
+        <target>Претходни</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Next</source>
+        <target>Следећи</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Have an account?</source>
+        <target>Имате ли налог?</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Hi, %1%</source>
+        <target>Поздрав, %1%</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pl" datatype="plaintext" original="messages" date="2020-06-12T18:56:53Z" product-name="messages">
+  <file source-language="EN" target-language="pl" datatype="plaintext" original="messages" date="2020-09-29T23:37:00Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -474,6 +474,10 @@
       </trans-unit>
       <trans-unit id="124">
         <source>Link %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="125">
+        <source>%1%Authority record identifier%2% - value not unique.</source>
         <target/>
       </trans-unit>
     </body>

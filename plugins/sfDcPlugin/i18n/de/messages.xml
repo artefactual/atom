@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2019-01-31T15:02:30Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2020-09-29T23:37:02Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -12,7 +12,7 @@
       </trans-unit>
       <trans-unit id="120">
         <source>Identifier</source>
-        <target>Signatur</target>
+        <target>Identifikator/Signatur</target>
       </trans-unit>
       <trans-unit id="144">
         <source>Description</source>
@@ -100,7 +100,7 @@
       </trans-unit>
       <trans-unit id="920">
         <source>Language(s) of this resource.</source>
-        <target> In der Verzeichnungseinheit enthaltene Sprache(n)</target>
+        <target>In der Verzeichnungseinheit enthaltene Sprache(n).</target>
       </trans-unit>
       <trans-unit id="924">
         <source>Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).</source>
@@ -164,7 +164,7 @@
       </trans-unit>
       <trans-unit id="945">
         <source>Date(s)</source>
-        <target>Datum/Daten</target>
+        <target>Datum/Laufzeit</target>
       </trans-unit>
       <trans-unit id="946">
         <source>Date</source>

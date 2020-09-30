@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2013-10-03T11:50:53Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2020-09-29T23:37:24Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,11 +10,11 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Untitled</source>
-        <target>無題の</target>
+        <target>無題</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
-        <target>編集する %1%</target>
+        <target> %1%を編集する</target>
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Type%2% - This is a %3%mandatory%4% element.</source>
@@ -114,7 +114,7 @@
       </trans-unit>
       <trans-unit id="28">
         <source>Identity area</source>
-        <target>確認のエリア</target>
+        <target>識別情報のエリア</target>
       </trans-unit>
       <trans-unit id="29">
         <source>"Specify whether the description is a function or one of its subdivisions." (ISDF 5.1.1) Select the type from the drop-down menu; these values are drawn from the ISDF Function Types taxonomy.</source>
@@ -126,7 +126,7 @@
       </trans-unit>
       <trans-unit id="31">
         <source>This is a mandatory element.</source>
-        <target>必須項目。</target>
+        <target>必須項目</target>
       </trans-unit>
       <trans-unit id="32">
         <source>"Record the authorised name of the function being described. In cases where the name is not enough, add qualifiers to make it unique such as the territorial or administrative scope, or the name of the institution which performs it. This element is to be used in conjunction with the Function description identifier element (5.4.1)." (ISDF 5.1.2)</source>
@@ -154,7 +154,7 @@
       </trans-unit>
       <trans-unit id="38">
         <source>Context area</source>
-        <target>コンテキストのエリア</target>
+        <target>コンテクストのエリア</target>
       </trans-unit>
       <trans-unit id="39">
         <source>"Provide a date or date span which covers the dates when the function was started and when it finished. If a function is ongoing, no end date is needed." (ISDF 5.2.1)</source>
@@ -210,7 +210,7 @@
       </trans-unit>
       <trans-unit id="52">
         <source>Status</source>
-        <target>ステータス</target>
+        <target>状態</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimum records are those that consist only of the three essential elements of an ISDF compliant record (see 4.7), while full records are those that convey information for all relevant ISDF elements of description." (ISDF 5.4.5)</source>
@@ -218,7 +218,7 @@
       </trans-unit>
       <trans-unit id="54">
         <source>Level of detail</source>
-        <target>詳細レベル</target>
+        <target>詳細さの水準</target>
       </trans-unit>
       <trans-unit id="55">
         <source>"Record the date the description was created and the dates of any revisions to the description." (ISDF 5.4.6)</source>
@@ -242,7 +242,7 @@
       </trans-unit>
       <trans-unit id="60">
         <source>Script(s)</source>
-        <target>スクリプト</target>
+        <target>文字</target>
       </trans-unit>
       <trans-unit id="61">
         <source>"Record the sources consulted in establishing the function description." (ISDF 5.4.8)</source>
@@ -318,7 +318,7 @@
       </trans-unit>
       <trans-unit id="81">
         <source>Sources</source>
-        <target>情報源</target>
+        <target>参考文献</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Maintenance notes</source>

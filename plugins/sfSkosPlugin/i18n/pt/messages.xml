@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2017-09-04T11:51:18Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2020-09-29T23:37:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="2">
         <source>Select a file to import</source>
-        <target>selecione um arquivo para importar</target>
+        <target>Selecionar o ficheiro a importar</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Import</source>
-        <target>importar</target>
+        <target>Importar</target>
       </trans-unit>
       <trans-unit id="12">
         <source>SKOS import</source>
@@ -46,7 +46,7 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Taxonomy with ID %1% could not be found</source>
-        <target>Não foi possível encontrar a taxonomia com o ID %1%.</target>
+        <target>Não foi possível encontrar a taxonomia com o ID %1%</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Term with ID %1% could not be found</source>
@@ -78,7 +78,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>The graph contains %1% concepts.</source>
-        <target>O gráfico contém %1% de conceitos</target>
+        <target>O gráfico contém %1% de conceitos.</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Unexpected concept, type received: %1%.</source>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2017-09-04T11:51:13Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2020-09-29T23:36:57Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -14,7 +14,7 @@
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
-        <target>Editar</target>
+        <target>Editar %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>See ISDIAH 5.2 for contact area information and examples.</source>
@@ -54,7 +54,7 @@
       </trans-unit>
       <trans-unit id="13">
         <source>This is a mandatory element.</source>
-        <target>Este es un término obligatorio.</target>
+        <target>Este es un elemento obligatorio.</target>
       </trans-unit>
       <trans-unit id="14">
         <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
@@ -62,7 +62,7 @@
       </trans-unit>
       <trans-unit id="15">
         <source>Authorized form of name</source>
-        <target>Forma(s) autorizada(s) del nombre</target>
+        <target>Forma autorizada del nombre</target>
       </trans-unit>
       <trans-unit id="16">
         <source>This is a mandatory element</source>

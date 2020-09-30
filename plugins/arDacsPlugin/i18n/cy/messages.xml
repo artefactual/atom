@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2017-08-25T18:50:40Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2020-09-29T23:37:08Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -138,7 +138,7 @@
       </trans-unit>
       <trans-unit id="34">
         <source>Scope and content</source>
-        <target>Cwmpas a chynnwys</target>
+        <target>Natur a chynnwys</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Describe the current arrangement of the material in terms of the various aggregations within it and their relationships. (DACS 3.2.3)</source>
@@ -230,7 +230,7 @@
       </trans-unit>
       <trans-unit id="57">
         <source>Immediate source of acquisition or transfer</source>
-        <target>Ffynhonnell uniongyrchol y derbyniad neu trosglwyddiad</target>
+        <target>Ffynhonnell</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Where the destruction or retention of archival materials has a bearing on the interpretation and use of the unit being described, provide information about the materials destroyed or retained and provide the reason(s) for the appraisal decision(s), where known. (DACS 5.3.4)</source>
@@ -250,7 +250,7 @@
       </trans-unit>
       <trans-unit id="62">
         <source>If the materials being described are reproductions and the originals are located elsewhere, give the location of the originals (DACS 6.1.4). Record any identifying numbers that may help in locating the originals in the cited location (DACS 6.1.6).</source>
-        <target>Os yw'r deunyddiau a ddisgrifir yn atgynhyrchiad a bod y gwreiddiol wedi eu lleoli mewn man arall, rhowch y lleoliad y gwreiddiol (DACS 6.1.4). Nodwch unrhyw rhifau dynodi a all fod o gymorth i ddod o hyd i'r gwreiddiol yn y lleoliad a nodir. (RAD 1.8B15a)</target>
+        <target>Os yw'r deunyddiau a ddisgrifir yn atgynhyrchiad a bod y gwreiddiol wedi eu lleoli mewn man arall, rhowch y lleoliad y gwreiddiol (DACS 6.1.4). Nodwch unrhyw rhifau dynodi a all fod o gymorth i ddod o hyd i'r gwreiddiol yn y lleoliad a nodir (DACS 6.1.6).</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Existence and location of originals</source>
@@ -302,7 +302,7 @@
       </trans-unit>
       <trans-unit id="75">
         <source>Rules or conventions</source>
-        <target>Rheolau neu gonfensiynau</target>
+        <target>Rheolau catalogio</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Access points</source>
@@ -362,7 +362,7 @@
       </trans-unit>
       <trans-unit id="90">
         <source>Immediate source of acquisition</source>
-        <target>Ffynhonnell uniongyrchol y derbyniad</target>
+        <target>Ffynhonnell</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Accruals</source>
@@ -374,7 +374,7 @@
       </trans-unit>
       <trans-unit id="93">
         <source>Publication notes</source>
-        <target>Nodiadau cyhoeddiad</target>
+        <target>Cyhoeddiadau perthnasol</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Edit notes element</source>

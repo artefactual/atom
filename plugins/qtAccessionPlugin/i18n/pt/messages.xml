@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2020-06-12T18:56:58Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2020-09-29T23:37:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -14,11 +14,11 @@
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
-        <target>editar %1%</target>
+        <target>Editar %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Authorized form of name - This is a mandatory element.</source>
-        <target>Forma autorizada do nome - elemento obrigatório</target>
+        <target>Forma autorizada do nome - É um elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Browse donor</source>
@@ -26,7 +26,7 @@
       </trans-unit>
       <trans-unit id="10">
         <source>Name</source>
-        <target>nome</target>
+        <target>Nome</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Updated</source>
@@ -42,7 +42,7 @@
       </trans-unit>
       <trans-unit id="15">
         <source>Cancel</source>
-        <target>cancelar</target>
+        <target>Cancelar</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Edit donor</source>
@@ -50,27 +50,27 @@
       </trans-unit>
       <trans-unit id="18">
         <source>Identity area</source>
-        <target>Área de identificação</target>
+        <target>Zona de identificação</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Authorized form of name</source>
-        <target>forma autorizada do nome</target>
+        <target>Forma autorizada do nome</target>
       </trans-unit>
       <trans-unit id="20">
         <source>This is a mandatory element.</source>
-        <target>Elemento obrigatório</target>
+        <target>Elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Contact area</source>
-        <target>área de contato</target>
+        <target>Zona de contacto</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Save</source>
-        <target>salvar</target>
+        <target>Guardar</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Create</source>
-        <target>criar</target>
+        <target>Criar</target>
       </trans-unit>
       <trans-unit id="24">
         <source>View donor</source>
@@ -78,15 +78,15 @@
       </trans-unit>
       <trans-unit id="27">
         <source>Edit</source>
-        <target>editar</target>
+        <target>Editar</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Delete</source>
-        <target>apagar</target>
+        <target>Apagar</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Add new</source>
-        <target>Adicionar</target>
+        <target>Adicionar novo</target>
       </trans-unit>
       <trans-unit id="30">
         <source>List donor</source>
@@ -98,19 +98,19 @@
       </trans-unit>
       <trans-unit id="32">
         <source>Identifier - This is a mandatory element.</source>
-        <target>Identificador - elemento obrigatório</target>
+        <target>Identificador - É um elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Date of acquisition - This is a mandatory element.</source>
-        <target>Data de aquisição - elemento obrigatório</target>
+        <target>Data de aquisição - É um elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Scope - This is a mandatory element.</source>
-        <target>Âmbito - elemento obrigatório</target>
+        <target>Âmbito - É um elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Description - This is a mandatory element.</source>
-        <target>Descrição - elemento obrigatório</target>
+        <target>Descrição - É um elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Edit deaccession record</source>
@@ -126,11 +126,11 @@
       </trans-unit>
       <trans-unit id="39">
         <source>Date</source>
-        <target>data</target>
+        <target>Datas do recurso relacionado</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Description</source>
-        <target>descrição</target>
+        <target>Descrição</target>
       </trans-unit>
       <trans-unit id="41">
         <source>View deaccession record</source>
@@ -154,7 +154,7 @@
       </trans-unit>
       <trans-unit id="46">
         <source>Acquisition date - This is a mandatory element.</source>
-        <target>Data de aquisição - elemento obrigatório</target>
+        <target>Data de aquisição - É um elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Source of acquisition - This is a mandatory element.</source>
@@ -182,11 +182,11 @@
       </trans-unit>
       <trans-unit id="55">
         <source>Region/province</source>
-        <target>estado</target>
+        <target>Região / Província</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Country</source>
-        <target>país</target>
+        <target>País</target>
       </trans-unit>
       <trans-unit id="57">
         <source>It has %1% deaccessions that will also be deleted:</source>
@@ -282,7 +282,7 @@
       </trans-unit>
       <trans-unit id="87">
         <source>Identifier</source>
-        <target>Código de referência</target>
+        <target>Identificador</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
@@ -334,7 +334,7 @@
       </trans-unit>
       <trans-unit id="100">
         <source>The title of the accession, usually the creator name and term describing the format of the accession materials.</source>
-        <target>O título do ingresso, normalmente o produtor e um termo que descreve o formato dos materiais</target>
+        <target>O título do ingresso, normalmente o produtor e um termo que descreve o formato dos materiais.</target>
       </trans-unit>
       <trans-unit id="101">
         <source>The name of the creator of the accession or the name of the department that created the accession.</source>
@@ -370,7 +370,7 @@
       </trans-unit>
       <trans-unit id="110">
         <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
-        <target>Notas acerca do plano de incorporação descrevendo o que deve ser feito</target>
+        <target>Notas acerca do plano de incorporação descrevendo o que precisa ser feito para que a adesão seja totalmente processada.</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Processing status</source>
@@ -454,16 +454,7 @@
       </trans-unit>
       <trans-unit id="134">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target>&lt;b&gt;ISAD (G) 3.1.3&lt;/b&gt;&lt;br /&gt;
-&lt;strong&gt;Objetivo:&lt;/strong&gt; Identificar e registar a(s) data(s) da unidade de descrição.&lt;br /&gt;
-&lt;strong&gt;Regra:&lt;/strong&gt; Registar, relativamente a cada unidade de descrição, pelo menos um dos seguintes tipos de data, conforme se considerar mais adequado à documentação e ao nível de descrição:
-&lt;ul&gt;
-&lt;li&gt;- Data(s) em que os documentos de arquivo foram acumulados pelo produtor no exercício das suas atividades, ou seja, integrados num sistema de arquivo;&lt;/li&gt;
-&lt;li&gt;- Data(s) em que os documentos foram produzidos. Esta inclui a data de cópias, edições, versões, anexos ou originais de peças produzidas antes da sua acumulação ou integração no sistema de arquivo.&lt;/li&gt;
-&lt;/ul&gt;&lt;br /&gt;
-&lt;strong style="color:#c41f36"&gt;O campo Data pode ser usado para inserir informações de data em texto livre, incluindo marcas tipográficas para expressar aproximação, incerteza ou qualificação.&lt;br /&gt;
-Utilize os campos de Início e Fim para fazer as datas pesquisáveis. Não use os qualificadores ou símbolos tipográficos para expressar incerteza.&lt;br /&gt;
-Formatos aceitáveis ​​de data: AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.&lt;/strong&gt;</target>
+        <target>"Identifique e registe a(s) data(s) da unidade de descrição. Identifique o tipo de data fornecida. Registe como uma única data ou um intervalo de datas, conforme apropriado." (ISAD 3.1.3). O campo de exibição Data pode ser usado para inserir informações de data em texto livre, incluindo marcas tipográficas para expressar aproximação, incerteza ou qualificação. Use os campos de início e fim para tornar as datas pesquisáveis. Não use nenhum qualificador ou símbolo tipográfico para expressar incerteza.Formatos de data aceitáveis: AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.</target>
       </trans-unit>
       <trans-unit id="135">
         <source>Name of creator</source>
@@ -535,6 +526,34 @@ Formatos aceitáveis ​​de data: AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.&lt;/str
       </trans-unit>
       <trans-unit id="152">
         <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
+        <target>&lt;strong&gt;Tipo:&lt;/strong&gt; Introduza um nome para o campo identificador alternativo que indique a sua finalidade e uso.&lt;br/&gt;&lt;strong&gt;Identificador:&lt;/strong&gt; Introduza um código de referência herdado, identificador alternativo, ou qualquer outra string alfanumérica associada ao registo.</target>
+      </trans-unit>
+      <trans-unit id="153">
+        <source>Events(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="154">
+        <source>Agent</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="155">
+        <source>%1%Type:%2% Select the type of the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="156">
+        <source>%1%Date:%2% Enter the date of the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="157">
+        <source>%1%Agent:%2% Enter the agent associated with the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="158">
+        <source>%1%Note:%2% Enter notes associated with the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="159">
+        <source>Event(s)</source>
         <target/>
       </trans-unit>
     </body>

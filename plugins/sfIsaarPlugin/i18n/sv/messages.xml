@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2020-06-12T18:56:58Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2020-09-29T23:37:16Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -62,7 +62,7 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Parallel form(s) of name</source>
-        <target>Parallell(a) namnform(er)</target>
+        <target>Parallella namnformer</target>
       </trans-unit>
       <trans-unit id="17">
         <source>"Record the standardized form of name for the entity being described in accordance with other conventions or rules. Specify the rules and/or if appropriate the name of the agency by which these standardized forms of name have been constructed." (ISAAR 5.1.4)</source>
@@ -78,7 +78,7 @@
       </trans-unit>
       <trans-unit id="20">
         <source>Other form(s) of name</source>
-        <target>Andra namnformer</target>
+        <target>Andra typer av namn</target>
       </trans-unit>
       <trans-unit id="21">
         <source>"Record where possible any official number or other identifier (e.g. a company registration number) for the corporate body and reference the jurisdiction and scheme under which it has been allocated." (ISAAR 5.1.6)</source>
@@ -98,7 +98,7 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Dates of existence</source>
-        <target>Datum för verksamhetstid</target>
+        <target>Tid då entitet existerat</target>
       </trans-unit>
       <trans-unit id="26">
         <source>"Record in narrative form or as a chronology the main life events, activities, achievements and/or roles of the entity being described. This may include information on gender, nationality, family and religious or political affiliations. Wherever possible, supply dates as an integral component of the narrative description." (ISAAR 5.2.2)</source>
@@ -183,7 +183,7 @@ Beskriv familjeförhållanden (t.ex. genom släktträd) på ett sätt som visar 
       </trans-unit>
       <trans-unit id="47">
         <source>Dates of creation, revision and deletion</source>
-        <target>Datum för tillkomst, revision och borttagande</target>
+        <target>Datum för skapande, revision och borttagande</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Last updated</source>
@@ -215,7 +215,7 @@ Beskriv familjeförhållanden (t.ex. genom släktträd) på ett sätt som visar 
       </trans-unit>
       <trans-unit id="55">
         <source>Create</source>
-        <target>Skapa</target>
+        <target>Upprätta</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Related corporate bodies, persons or families</source>
@@ -299,7 +299,7 @@ Beskriv familjeförhållanden (t.ex. genom släktträd) på ett sätt som visar 
       </trans-unit>
       <trans-unit id="76">
         <source>History</source>
-        <target>Historia</target>
+        <target>Historik</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Places</source>
@@ -307,11 +307,11 @@ Beskriv familjeförhållanden (t.ex. genom släktträd) på ett sätt som visar 
       </trans-unit>
       <trans-unit id="78">
         <source>Legal status</source>
-        <target>Juridisk status</target>
+        <target>Rättslig status</target>
       </trans-unit>
       <trans-unit id="79">
         <source>General context</source>
-        <target>Allmän kontext</target>
+        <target>Generell kontext</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Edit relationships area</source>
@@ -351,7 +351,7 @@ Beskriv familjeförhållanden (t.ex. genom släktträd) på ett sätt som visar 
       </trans-unit>
       <trans-unit id="89">
         <source>Level of detail</source>
-        <target>Beskrivningsnivå</target>
+        <target>Detaljnivå för beskrivning</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Language(s)</source>
@@ -367,11 +367,11 @@ Beskriv familjeförhållanden (t.ex. genom släktträd) på ett sätt som visar 
       </trans-unit>
       <trans-unit id="93">
         <source>Maintenance notes</source>
-        <target>Förvaltningsanmärkningar</target>
+        <target>Underhållsbeskrivning</target>
       </trans-unit>
       <trans-unit id="94">
         <source>Delete</source>
-        <target>Radera</target>
+        <target>Ta bort</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Add new</source>
@@ -427,7 +427,7 @@ Beskriv familjeförhållanden (t.ex. genom släktträd) på ett sätt som visar 
       </trans-unit>
       <trans-unit id="108">
         <source>Authority record identifier</source>
-        <target>Auktoritetspostsignum</target>
+        <target>Auktoritetspostens identifierare</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Maintaining repository</source>
@@ -476,6 +476,10 @@ Beskriv familjeförhållanden (t.ex. genom släktträd) på ett sätt som visar 
       <trans-unit id="120">
         <source>Link %1%</source>
         <target>Länka %1%</target>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>%1%Authority record identifier%2% - value not unique.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

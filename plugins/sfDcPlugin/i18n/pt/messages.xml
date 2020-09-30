@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2019-01-31T15:02:38Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2020-09-29T23:37:18Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -8,23 +8,23 @@
       </trans-unit>
       <trans-unit id="111">
         <source>Language</source>
-        <target>idioma</target>
+        <target>Idioma</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Identifier</source>
-        <target>Código de referência</target>
+        <target>Identificador</target>
       </trans-unit>
       <trans-unit id="144">
         <source>Description</source>
-        <target>descrição</target>
+        <target>Descrição</target>
       </trans-unit>
       <trans-unit id="207">
         <source>Type</source>
-        <target>tipo</target>
+        <target>Tipo</target>
       </trans-unit>
       <trans-unit id="336">
         <source>Format</source>
-        <target>formato</target>
+        <target>Formato</target>
       </trans-unit>
       <trans-unit id="605">
         <source>Subject</source>
@@ -76,11 +76,11 @@
       </trans-unit>
       <trans-unit id="910">
         <source>This is a mandatory element.</source>
-        <target>Elemento obrigatório</target>
+        <target>Elemento obrigatório.</target>
       </trans-unit>
       <trans-unit id="911">
         <source>The name given to this resource.</source>
-        <target>Nome atribuido ao recurso</target>
+        <target>Nome atribuído a este recurso.</target>
       </trans-unit>
       <trans-unit id="912">
         <source>Names and dates</source>
@@ -104,7 +104,7 @@
       </trans-unit>
       <trans-unit id="925">
         <source>Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).</source>
-        <target>Informação acerca dos direitos existentes sobre o recurso (ex: direitos de autor, condições de acesso, etc.)</target>
+        <target>Informação acerca dos direitos existentes sobre o recurso (ex: direitos de autor, condições de acesso, etc.).</target>
       </trans-unit>
       <trans-unit id="926">
         <source>Add new resource</source>
@@ -136,9 +136,7 @@
       </trans-unit>
       <trans-unit id="934">
         <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource or relevant to its jurisdiction.&lt;/p&gt;&lt;p&gt;Search for an existing term in the Place taxonomy by typing the first few characters of the place name. Alternatively, type a new name to create and link to a new place.&lt;/p&gt;&lt;p&gt;Please note: if you entered a place of creation, publication or contribution that will be output automatically, so don’t repeat that place name here.&lt;/p&gt;</source>
-        <target>O nome de um lugar ou área geográfica que é um assunto do recurso ou é relevante para a sua jurisdição.&lt;br /&gt;
-Procure um termo existente na taxonomia &lt;em&gt;Locais&lt;/em&gt; digitando os primeiros caracteres do nome do local. Como alternativa, insira um novo termo para criar e ligar para um novo local.&lt;br /&gt;&lt;br /&gt;
-&lt;strong style="color:#c41f36"&gt;Atenção: Se introduziu um local de criação, publicação ou contribuição esse será reproduzido automaticamente, então não repetir o nome da cidade aqui.&lt;/strong&gt;</target>
+        <target>&lt;p&gt;O nome de um lugar ou área geográfica que é um assunto do recurso ou é relevante para a sua jurisdição.&lt;/p&gt;&lt;p&gt;Procure um termo existente na taxonomia Locais digitando os primeiros caracteres do nome do local. Como alternativa, insira um novo termo para criar e ligar para um novo local.&lt;/p&gt;&lt;p&gt;Atenção: Se introduziu um local de criação, publicação ou contribuição esse será mostrado automaticamente, então não repita o nome do local aqui.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="935">
         <source>Rights area</source>
@@ -170,7 +168,7 @@ Procure um termo existente na taxonomia &lt;em&gt;Locais&lt;/em&gt; digitando os
       </trans-unit>
       <trans-unit id="947">
         <source>Date</source>
-        <target>data</target>
+        <target>Datas do recurso relacionado</target>
       </trans-unit>
       <trans-unit id="948">
         <source>Start</source>
@@ -182,7 +180,7 @@ Procure um termo existente na taxonomia &lt;em&gt;Locais&lt;/em&gt; digitando os
       </trans-unit>
       <trans-unit id="950">
         <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target>Identificar e registar a(s) data(s) da unidade de descrição. Identificar o tipo de data dada. Registar como uma única data ou um intervalo de datas, conforme apropriado. O campo &lt;strong&gt;Data&lt;/strong&gt; pode ser usado para inserir informações de data em texto livre, incluindo marcas tipográficas para expressar aproximação, incerteza ou qualificação. Utilize os campos de início e fim para fazer as datas pesquisáveis. Não utilize quaisquer qualificadores ou símbolos tipográficos para expressar uma data incerta. Formatos aceitáveis ​​de data: AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.</target>
+        <target>Identificar e registar a(s) data(s) da unidade de descrição. Identificar o tipo de data dada. Registar como uma única data ou um intervalo de datas, conforme apropriado. O campo Data pode ser usado para inserir informações de data em texto livre, incluindo marcas tipográficas para expressar aproximação, incerteza ou qualificação. Utilize os campos de início e fim para fazer as datas pesquisáveis. Não utilize quaisquer qualificadores ou símbolos tipográficos para expressar uma data incerta. Formatos de data aceitáveis: AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.</target>
       </trans-unit>
       <trans-unit id="951">
         <source>Name(s)</source>
@@ -190,7 +188,7 @@ Procure um termo existente na taxonomia &lt;em&gt;Locais&lt;/em&gt; digitando os
       </trans-unit>
       <trans-unit id="952">
         <source>Actor name</source>
-        <target>Nome do ator</target>
+        <target>Nome da entidade produtora</target>
       </trans-unit>
       <trans-unit id="953">
         <source>Identify and record the name(s) and type(s) of the unit of description.</source>

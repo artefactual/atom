@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2019-01-31T15:02:40Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2020-09-29T23:37:09Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -46,7 +46,7 @@
       </trans-unit>
       <trans-unit id="11">
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
-        <target>Term sy'n nodi nodweddion a math cyffredinol o gynnwys yr adnodd. Neilltuwch cymaint o fathau ag sy'n berthnasol. Mae opsiynau'r Math o adnoddau yn gyfyngedig i'r gwerthoedd yn yr elfen lefel uchaf MODS typeOfResource</target>
+        <target>Term sy'n nodi nodweddion a math cyffredinol o gynnwys yr adnodd. Neilltuwch cymaint o fathau ag sy'n berthnasol. Mae opsiynau'r Math o adnoddau yn gyfyngedig i'r gwerthoedd yn yr elfen lefel uchaf MODS typeOfResource.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Type of resource</source>

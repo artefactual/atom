@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2020-09-29T23:37:09Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>-- Select action --</source>
+        <target>-- Dewis gweithred --</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>(Re)generate API key</source>
+        <target>(Ail)cynhyrchu allwedd API</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Delete API key</source>
+        <target>Dileu allwedd API</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>User %1%</source>
+        <target>Defnyddiwr %1%</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Basic info</source>
+        <target>Gwybodaeth sylfaenol</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Active</source>
+        <target>Gweithredol</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Access control</source>
+        <target>Rheolaeth mynediad</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>User groups</source>
+        <target>Grwpiau defnyddiwr</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Allowed languages for translation</source>
+        <target>Ieithoedd a ganiateir ar gyfer cyfieithu</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>REST API access key</source>
+        <target>Allwedd mynediad REST API</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>OAI-PMH API access key</source>
+        <target>Allwedd mynediad OAI-PMH API</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Cancel</source>
+        <target>Diddymu</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Save</source>
+        <target>Cadw</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>List users</source>
+        <target>Rhestri'r defnyddwyr</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Search users</source>
+        <target>Chwilio defnyddwyr</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Show active only</source>
+        <target>Dangos gweithredol yn unig</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Show inactive only</source>
+        <target>Dangos anweithredol yn unig</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>User name</source>
+        <target>Enw defnyddiwr</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Email</source>
+        <target>E-bost</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>inactive</source>
+        <target>anweithredol</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>you</source>
+        <target>chi</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Edit</source>
+        <target>Golygu</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Delete</source>
+        <target>Dileu</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Return to user list</source>
+        <target>Yn ôl i'r rhestr defnyddwyr</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Please log in to access that page</source>
+        <target>Mewngofnodwch i gael mynediad i'r dudalen yna os gwelwch yn dda</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Log in</source>
+        <target>Mewngofnodi</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Log in with CAS</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>This user is inactive</source>
+        <target>Mae'r defnyddiwr yn anweithredol</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>User details</source>
+        <target>Manylion defnyddiwr</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Repository affiliation</source>
+        <target>Tadogaeth lleoliad</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>REST API key</source>
+        <target>allwedd REST API</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Not generated yet.</source>
+        <target>Heb ei gynhyrchu eto.</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>OAI-PMH API key</source>
+        <target>Allwedd OAI-PMH API</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Editing history</source>
+        <target>Hanes golygu</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Loading ...</source>
+        <target>Llwytho...</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Title</source>
+        <target>Teitl</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Date</source>
+        <target>Dyddiad</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Type</source>
+        <target>Math</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Previous</source>
+        <target>Blaenorol</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Next</source>
+        <target>Nesaf</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Have an account?</source>
+        <target>Oes cyfrif gennych?</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Hi, %1%</source>
+        <target>Helo, %1%</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2020-06-12T18:07:48Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2020-09-29T23:37:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -14,7 +14,7 @@
       </trans-unit>
       <trans-unit id="3">
         <source>Name</source>
-        <target>nome</target>
+        <target>Nome</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Version</source>
@@ -26,11 +26,11 @@
       </trans-unit>
       <trans-unit id="7">
         <source>Save</source>
-        <target>salvar</target>
+        <target>Guardar</target>
       </trans-unit>
       <trans-unit id="8">
         <source>SWORD plugin setting changed: the AtoM worker must be restarted for this change to take effect.</source>
-        <target/>
+        <target>A configuração do plug-in SWORD foi alterada: o AtoM worker tem que ser reiniciado para que esta alteração tenha efeito.</target>
       </trans-unit>
     </body>
   </file>

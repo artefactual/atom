@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="it" datatype="plaintext" original="messages" date="2020-09-29T23:36:56Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>-- Select action --</source>
+        <target>-- Seleziona l'azione --</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>(Re)generate API key</source>
+        <target>(Ri)generare la chiave API</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Delete API key</source>
+        <target>Cancella la chiave API</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>User %1%</source>
+        <target>Utente %1%</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Basic info</source>
+        <target>Informazioni di base</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Active</source>
+        <target>Attivo</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Access control</source>
+        <target>Controllo dell'accesso</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>User groups</source>
+        <target>Gruppi</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Allowed languages for translation</source>
+        <target>Lingue consentite per la traduzione</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>REST API access key</source>
+        <target>Chiave di accesso API REST</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>OAI-PMH API access key</source>
+        <target>Chiave di accesso API OAI-PMH</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Cancel</source>
+        <target>Annulla</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Save</source>
+        <target>Salva</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>List users</source>
+        <target>Elenca gli utenti</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Search users</source>
+        <target>Ricerca utenti</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Show active only</source>
+        <target>Mostra solo attivo</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Show inactive only</source>
+        <target>Mostra solo inattivo</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>User name</source>
+        <target>Nome dell'utente</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>inactive</source>
+        <target>non attivo</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>you</source>
+        <target>tu</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Edit</source>
+        <target>Modifica</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Delete</source>
+        <target>Elimina</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Return to user list</source>
+        <target>Tornare alla lista degi utenti</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Please log in to access that page</source>
+        <target>Si prega di effettuare l'accesso per accedere alla pagina</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Log in</source>
+        <target>Accedi</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Log in with CAS</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>This user is inactive</source>
+        <target>Questo utente non è attivo</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>User details</source>
+        <target>Dettagli sull'utente</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Repository affiliation</source>
+        <target>Affiliazione del deposito</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>REST API key</source>
+        <target>Chiave API REST</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Not generated yet.</source>
+        <target>Non ancora creato.</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>OAI-PMH API key</source>
+        <target>Chiave API OAI-PMH</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Editing history</source>
+        <target>Modifica la cronologia</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Loading ...</source>
+        <target>In carica...</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Title</source>
+        <target>Titolo</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Date</source>
+        <target>Data</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Type</source>
+        <target>Tipo</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Previous</source>
+        <target>Precedente</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Next</source>
+        <target>Prossimo</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Have an account?</source>
+        <target>Hai un account?</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Hi, %1%</source>
+        <target>Ciao, %1%</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

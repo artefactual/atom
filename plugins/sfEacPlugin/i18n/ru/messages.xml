@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="ru" datatype="plaintext" original="messages" date="2020-09-29T23:14:10Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Import aborted: %1% identifier "%2%" not unique.</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

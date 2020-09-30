@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2020-06-12T18:56:56Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2020-09-29T23:37:11Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -59,7 +59,7 @@
       </trans-unit>
       <trans-unit id="15">
         <source>Authorized form of name</source>
-        <target>Authorized form of name</target>
+        <target>Hình thức ủy quyền của tên.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>"Record the authorized form of name and any relevant unique identifiers, including the authority record identifier, for the related entity." (ISAAR 5.3.1) Select the name from the drop-down menu; enter the first few letters to narrow the choices.</source>
@@ -479,6 +479,10 @@
       <trans-unit id="120">
         <source>Link %1%</source>
         <target>Liên kết %1%</target>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>%1%Authority record identifier%2% - value not unique.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

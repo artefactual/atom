@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2017-09-04T11:51:17Z" product-name="messages">
+  <file source-language="en" target-language="sv" datatype="plaintext" original="messages" date="2020-09-29T23:37:16Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -30,7 +30,7 @@
       </trans-unit>
       <trans-unit id="7">
         <source>Delete</source>
-        <target>Radera</target>
+        <target>Ta bort</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Add new</source>
@@ -62,11 +62,11 @@
       </trans-unit>
       <trans-unit id="15">
         <source>Action</source>
-        <target>Aktivitet</target>
+        <target>Åtgärd</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Permissions</source>
-        <target>Rättigheter</target>
+        <target>Behörigheter</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Grant</source>
@@ -78,7 +78,7 @@
       </trans-unit>
       <trans-unit id="19">
         <source>Inherit</source>
-        <target>Ärv</target>
+        <target>Ärva</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Edit %1% permissions</source>
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="23">
         <source>Create</source>
-        <target>Skapa</target>
+        <target>Upprätta</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Are you sure you want to delete %1%?</source>

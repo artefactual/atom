@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2020-09-29T23:37:01Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Storage service settings saved.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Disabled</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Enabled</source>
+        <target>Freigegeben</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Storage Service settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Storage Service credentials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Storage Service API endpoint, e.g. "http://localhost:62081/api/v2"</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Storage Service username, e.g. "atom"</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Storage Service API key, e.g.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>AIP download</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Enable AIP download</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Allow authorized users to download a linked AIP or AIP file from</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Save</source>
+        <target>Speichern</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>File UUID</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Download file</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>AIP UUID</source>
+        <target>AIP UUID</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Download AIP</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

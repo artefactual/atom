@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2020-06-12T18:56:55Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2020-09-29T23:37:08Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -62,7 +62,7 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Parallel form(s) of name</source>
-        <target>Ffurf(iau) cyfochrog o enw</target>
+        <target>Ffurf(iau) cyfochrog enw</target>
       </trans-unit>
       <trans-unit id="17">
         <source>"Record the standardized form of name for the entity being described in accordance with other conventions or rules. Specify the rules and/or if appropriate the name of the agency by which these standardized forms of name have been constructed." (ISAAR 5.1.4)</source>
@@ -184,11 +184,11 @@
       </trans-unit>
       <trans-unit id="47">
         <source>Dates of creation, revision and deletion</source>
-        <target>Dyddiadau creadigaeth, adolygiad a dilead</target>
+        <target>Dyddiadau creu, adolygu a dileu</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Last updated</source>
-        <target>Diweddarwyd ddiwethaf</target>
+        <target>Diweddariad diwethaf</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Select the language(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
@@ -352,7 +352,7 @@
       </trans-unit>
       <trans-unit id="89">
         <source>Level of detail</source>
-        <target>Lefel o fanylder</target>
+        <target>Lefel manylder disgrifiad</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Language(s)</source>
@@ -468,7 +468,7 @@
       </trans-unit>
       <trans-unit id="118">
         <source>Slug must be provided</source>
-        <target/>
+        <target>Rhaid darparu slyg</target>
       </trans-unit>
       <trans-unit id="119">
         <source>More</source>
@@ -477,6 +477,10 @@
       <trans-unit id="120">
         <source>Link %1%</source>
         <target>Dolen %1%</target>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>%1%Authority record identifier%2% - value not unique.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

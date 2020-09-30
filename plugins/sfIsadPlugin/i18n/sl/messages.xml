@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2019-01-31T15:02:27Z" product-name="messages">
+  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2020-09-29T23:37:10Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -54,7 +54,7 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Identity area</source>
-        <target>Področje o identiteti</target>
+        <target>Področje identitete</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Reference code</source>
@@ -126,7 +126,7 @@
       </trans-unit>
       <trans-unit id="33">
         <source>Immediate source of acquisition or transfer</source>
-        <target>Takojšnji vir prevzema ali prenosa</target>
+        <target>Neposreden vir, od katerega se gradivo prevzema ali prenaša</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Content and structure area</source>
@@ -242,7 +242,7 @@
       </trans-unit>
       <trans-unit id="69">
         <source>Description identifier</source>
-        <target>Identifikator opisa</target>
+        <target>Identifikator popisa</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
@@ -250,7 +250,7 @@
       </trans-unit>
       <trans-unit id="71">
         <source>Institution identifier</source>
-        <target>identifikator institucije</target>
+        <target>Identifikator ustanove</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
@@ -262,7 +262,7 @@
       </trans-unit>
       <trans-unit id="74">
         <source>Status</source>
-        <target>status</target>
+        <target>Status</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
@@ -274,7 +274,7 @@
       </trans-unit>
       <trans-unit id="77">
         <source>Level of detail</source>
-        <target>Nivo podrobnosti</target>
+        <target>Stopnja podrobnosti</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
@@ -322,11 +322,11 @@
       </trans-unit>
       <trans-unit id="94">
         <source>Repository</source>
-        <target>skladišče</target>
+        <target>Skladišče</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Archival history</source>
-        <target>Zgodovina arhivov</target>
+        <target>Zgodovina arhivskega gradiva</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Edit content and structure area</source>
@@ -394,7 +394,7 @@
       </trans-unit>
       <trans-unit id="112">
         <source>Sources</source>
-        <target>viri</target>
+        <target>Viri</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Archivist's note</source>
@@ -422,7 +422,7 @@
       </trans-unit>
       <trans-unit id="121">
         <source>File list</source>
-        <target>Seznam dokumentov</target>
+        <target>Seznam spisov</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2020-06-12T18:56:55Z" product-name="messages">
+  <file source-language="en" target-language="cy" datatype="plaintext" original="messages" date="2020-09-29T23:37:08Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -206,7 +206,7 @@
       </trans-unit>
       <trans-unit id="53">
         <source>Immediate source of acquisition</source>
-        <target>Ffynhonnell uniongyrchol y derbyniad</target>
+        <target>Ffynhonnell</target>
       </trans-unit>
       <trans-unit id="54">
         <source>A description of the physical location in the repository where the accession can be found.</source>
@@ -346,7 +346,7 @@
       </trans-unit>
       <trans-unit id="88">
         <source>Scope and content</source>
-        <target>Cwmpas a chynnwys</target>
+        <target>Natur a chynnwys</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Received extent units</source>
@@ -466,7 +466,7 @@
       </trans-unit>
       <trans-unit id="118">
         <source>Provide a reason why the records are being deaccessioned.</source>
-        <target>Nodwch reswm pam fod y cofnodion yn cael eu dad-derbyn</target>
+        <target>Nodwch reswm pam fod y cofnodion yn cael eu dad-derbyn.</target>
       </trans-unit>
       <trans-unit id="119">
         <source>View deaccession record</source>
@@ -482,11 +482,11 @@
       </trans-unit>
       <trans-unit id="122">
         <source>Identifier available.</source>
-        <target>Dynodwr ar gael</target>
+        <target>Dynodwr ar gael.</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Identifier unavailable.</source>
-        <target>Dynodwr ddim ar gael</target>
+        <target>Dynodwr ddim ar gael.</target>
       </trans-unit>
       <trans-unit id="124">
         <source>Loading...</source>
@@ -526,6 +526,34 @@
       </trans-unit>
       <trans-unit id="133">
         <source>&lt;strong&gt;Type:&lt;/strong&gt; Enter a name for the alternative identifier field that indicates its purpose and usage.&lt;br/&gt;&lt;strong&gt;Identifier:&lt;/strong&gt; Enter a legacy reference code, alternative identifier, or any other alpha-numeric string associated with the record.</source>
+        <target>&lt;strong&gt;Math:&lt;/strong&gt; Rhowch enw i'r maes dynodwr amgen sy'n dangos ei bwrpas a defnydd.&lt;br/&gt;&lt;strong&gt;Dyndowr:&lt;/strong&gt; Rhowch cyfeirnod etifeddiaeth, dynodwr amgen, neu unrhyw llinyn alffaniwmerig arall sy'n gysylltiedig â'r cofnod.</target>
+      </trans-unit>
+      <trans-unit id="134">
+        <source>Events(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="135">
+        <source>Agent</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="136">
+        <source>%1%Type:%2% Select the type of the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="137">
+        <source>%1%Date:%2% Enter the date of the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="138">
+        <source>%1%Agent:%2% Enter the agent associated with the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="139">
+        <source>%1%Note:%2% Enter notes associated with the event.%3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="140">
+        <source>Event(s)</source>
         <target/>
       </trans-unit>
     </body>

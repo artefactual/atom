@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2020-06-19T22:26:26Z" product-name="messages">
+  <file source-language="en" target-language="" datatype="plaintext" original="messages" date="2020-09-29T23:43:58Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="f191b2120c9efa7b0c1411d6989e325561707ddb">
@@ -237,11 +237,6 @@
       <trans-unit id="5d5bfc4673a25430129b4f55e4549a16cbc21912">
         <source>AIP UUID</source>
         <target>AIP UUID</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_metadata.php</note>
-      </trans-unit>
-      <trans-unit id="2f81a22de0af5e9eab19326e19693f86ce612518">
-        <source>Access</source>
-        <target>Hozz&#xE1;f&#xE9;r&#xE9;s</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_metadata.php</note>
       </trans-unit>
       <trans-unit id="b3e3bbc9103b04d543a6204da8e18664e43f77be">
@@ -626,11 +621,6 @@ pl.: bibliogr&#xE1;fiai id&#xE9;z&#xE9;s.</target>
         <target>A le&#xED;r&#xE1;s k&#xE9;sz&#xED;t&#xE9;se &#xE9;s k&#xE9;sz&#xED;t&#x151;je</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
-      <trans-unit id="c5c2e402c80913c5840061d9314cb274015c1e71">
-        <source>Are you sure you want to clear the %1 clipboard ?</source>
-        <target>Biztos, hogy t&#xF6;r&#xF6;lni akarja a %1 v&#xE1;g&#xF3;lapot?</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/clipboardClearSuccess.php</note>
-      </trans-unit>
       <trans-unit id="3d973d2e6ab5791a4af8f60b4a75b0d86fb46a61">
         <source>Are you sure you want to delete %1% and all its descendants?</source>
         <target>Biztosan t&#xF6;r&#xF6;lni akarja %1%-t &#xE9;s az &#xF6;sszes al&#xE1; tartoz&#xF3; adatot?</target>
@@ -843,11 +833,6 @@ reference/thumbnail representation?</target>
         <target>CSV</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/actions/exportAction.class.php</note>
       </trans-unit>
-      <trans-unit id="23cb1ba2135af54bb7f9dc4ac628c8c16b1274c8">
-        <source>CSV export</source>
-        <target>CSV form&#xE1;j&#xFA; jelent&#xE9;s</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/actions/exportAction.class.php</note>
-      </trans-unit>
       <trans-unit id="37de6dc5ff70e0bef344db7a7465025677c58ef8">
         <source>Cache description XML exports upon creation/modification</source>
         <target>Gyors&#xED;t&#xF3;r&#xE1;razza a le&#xED;r&#xE1;s XML exportokat l&#xE9;trehoz&#xE1;skor/m&#xF3;dos&#xED;t&#xE1;skor</target>
@@ -898,16 +883,6 @@ reference/thumbnail representation?</target>
         <target>V&#xE1;lasszon, hogy a le&#xED;r&#xE1;sok permalinkjei jelzet vagy c&#xED;m alapj&#xE1;n gener&#xE1;l&#xF3;djanak.</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
-      <trans-unit id="bc9b74855acc332d9879627ce1312c1d1ca22958">
-        <source>Choosing "Include descendants" will include all lower-level records beneath those currently on the clipboard in the export.</source>
-        <target>Az "al&#xE1;rendelt egys&#xE9;gekkel egy&#xFC;tt" v&#xE1;laszt&#xE1;sa mag&#xE1;ban foglalja mmindazokat az als&#xF3;bb szint&#x171; lev&#xE9;lt&#xE1;ri egys&#xE9;geket, amelyek az export&#xE1;l&#xE1;sra kiv&#xE1;lasztott, v&#xE1;g&#xF3;lapon szerepl&#x151; alatt vannak.</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/exportSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="172a3b6a149802a62c5013526250c882f1fd74ad">
-        <source>Choosing "Include draft records" will include those marked with a Draft publication status in the export. Note: if you do NOT choose this option, any descendants of a draft record will also be excluded, even if they are published.</source>
-        <target>A "v&#xE1;zlat &#xE1;llapot&#xFA; le&#xED;r&#xE1;sokkal egy&#xFC;tt" opci&#xF3; v&#xE1;laszt&#xE1;sa tartalmazza azokat a lev&#xE9;lt&#xE1;ri le&#xED;r&#xE1;sokat, amelyek k&#xF6;zz&#xE9;t&#xE9;teli &#xE1;llapota az exportn&#xE1;l "v&#xE1;zlatra" van &#xE1;ll&#xED;tva. Megjegyz&#xE9;s: ha NEM v&#xE1;lasztja ezt az opci&#xF3;t, a "v&#xE1;zlat" &#xE1;llapot&#xFA; lev&#xE9;lt&#xE1;ri egys&#xE9;gek al&#xE1;rendelt egys&#xE9;gei is kimaradnak, m&#xE9;g akkor is, ha maguk k&#xF6;zz&#xE9;tettek.</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/exportSuccess.php</note>
-      </trans-unit>
       <trans-unit id="4271627f4f0bef6104a95cca7bb21cda4d74503e">
         <source>City</source>
         <target>V&#xE1;ros</target>
@@ -917,11 +892,6 @@ reference/thumbnail representation?</target>
         <source>Class of material specific details area</source>
         <target>Anyagspecifikus r&#xE9;szletek oszt&#xE1;ly&#xE1;nak adatcsoportja</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="719ea396ad92e01b4757ec2b93bb1e5f270f771d">
-        <source>Clear</source>
-        <target>T&#xF6;rl&#xE9;s</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/clipboardClearSuccess.php</note>
       </trans-unit>
       <trans-unit id="3245fb41d9f78c0a6ebe2dedc45704db711e0956">
         <source>Clear %1 clipboard</source>
@@ -957,11 +927,6 @@ reference/thumbnail representation?</target>
         <source>Clipboard ID</source>
         <target>V&#xE1;g&#xF3;lap ID</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/clipboardLoadSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="5bffb86ad1aec4b385d9ffad5b982fd6c6470aa3">
-        <source>Clipboard ID generation failure. Please try again.</source>
-        <target>V&#xE1;g&#xF3;lap ID l&#xE9;trehoz&#xE1;si hiba. K&#xE9;rem, pr&#xF3;b&#xE1;lja meg &#xFA;jra.</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardSaveAction.class.php</note>
       </trans-unit>
       <trans-unit id="54054d2f15dc66beed2305c2532cc1b4ae8d8acb">
         <source>Clipboard saving</source>
@@ -1261,11 +1226,6 @@ reference/thumbnail representation?</target>
       <trans-unit id="7d3792fdcdf74f52b4f5e58d036fd4fb4f352046">
         <source>Default %1% upload limit (GB)</source>
         <target>Alap&#xE9;rtelmezett %1% fel&#xF6;lt&#xE9;si korl&#xE1;t (GB)</target>
-        <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
-      </trans-unit>
-      <trans-unit id="4bbded30b10f05b74c782c11c781e5d2e392c88b">
-        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads</source>
-        <target>Alap&#xE9;rtelmezett %1% fel&#xF6;lt&#xE9;si korl&#xE1;t egy &#xFA;j %2% sz&#xE1;m&#xE1;ra. A "0" (nulla) &#xE9;rt&#xE9;k megakad&#xE1;lyozza a f&#xE1;jl felt&#xF6;lt&#xE9;s&#xE9;t. A "-1" &#xE9;rt&#xE9;k korl&#xE1;tlan m&#xE9;ret&#x171; felt&#xF6;lt&#xE9;st tesz lehet&#x151;v&#xE9;.</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="f255e4d2285844da586eed823a8fd90d24c49279">
@@ -1688,6 +1648,11 @@ reference/thumbnail representation?</target>
         <target>Bizonyos oldalelemek megjelen&#xED;t&#xE9;s&#xE9;nek enged&#xE9;lyez&#xE9;se vagy letilt&#xE1;sa. Hacsak egy k&#xFC;l&#xF6;n smink nem &#xED;rja f&#xF6;l&#xFC;l, ezek a be&#xE1;ll&#xED;t&#xE1;sok lesznek &#xE9;rv&#xE9;nyesek az eg&#xE9;sz honlapon.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/pageElementsSuccess.php</note>
       </trans-unit>
+      <trans-unit id="df174a3f2faa31814e06540acda7af8825403fac">
+        <source>Enabled</source>
+        <target>Enged&#xE9;lyezve</target>
+        <note>https://github.com/artefactual/atom/blob/master/plugins/sfPluginAdminPlugin/modules/sfPluginAdminPlugin/templates/pluginsSuccess.php</note>
+      </trans-unit>
       <trans-unit id="a2bb9d34b8a1a79665858d354585cf147e0dee4e">
         <source>End</source>
         <target>Befejez&#x151; d&#xE1;tum</target>
@@ -1822,11 +1787,6 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>Export history CSV</source>
         <target>T&#xF6;rt&#xE9;neti CSV export&#xE1;l&#xE1;sa</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/jobs/templates/browseSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="aa6a2e170a2b95cd9b56092753fd17a3ebc39ffb">
-        <source>Export initiated. Progress will be reported, and a download link provided, in a subsequent notification &amp;mdash; &lt;a href="javascript:location.reload();"&gt;refresh the page&lt;/a&gt; for updates.</source>
-        <target>Az export megkezd&#x151;d&#xF6;tt. Egy k&#xF6;vetkez&#x151; &#xFC;zenetben jelentj&#xFC;k az eredm&#xE9;nyt, &#xE9;s rendelkez&#xE9;sre bocs&#xE1;tunk egy linket &amp;mdash; &lt;a href="javascript:location.reload();"&gt; t&#xF6;ltsd le ism&#xE9;t az oldalt &lt;/a&gt; a friss&#xED;t&#xE9;shez.</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/actions/exportAction.class.php</note>
       </trans-unit>
       <trans-unit id="b5fd8d391bf8cd796020b8882794934c1edcad80">
         <source>Export options</source>
@@ -2278,11 +2238,6 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Ha a feladat m&#xE9;g nem fejez&#x151;d&#xF6;tt be, n&#xE9;zze meg a a jelenlegi &#xE1;llapotot a %1% oldalon.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/default/actions/moveAction.class.php</note>
       </trans-unit>
-      <trans-unit id="781c959c92fe9cb5304dcef617e3998def02cc66">
-        <source>If no levels are selected, the export will fail. You can use the control (Mac &#x2318;) and/or shift keys to multi-select values from the Levels of description menu. It is necessary to include the level(s) above the desired export level, up to and including the level contained in the clipboard. Otherwise, no records will be included in the export.</source>
-        <target>Ha nem v&#xE1;lasztott ki egy szintet sem, az export meghi&#xFA;sul.  T&#xF6;bb &#xE9;rt&#xE9;k egyidej&#x171; kiv&#xE1;laszt&#xE1;s&#xE1;ra a 'Le&#xED;r&#xE1;si szintek' men&#xFC;b&#x151;l haszn&#xE1;lja a control (Mac &#x2318;) &#xE9;s/vagy a shift billenty&#x171;ket. A k&#xED;v&#xE1;nt export&#xE1;l&#xE1;si szint f&#xF6;l&#xF6;tti szint kiv&#xE1;laszt&#xE1;sa sz&#xFC;ks&#xE9;ges, bel&#xE9;rtve a v&#xE1;g&#xF3;lapon tal&#xE1;lhat&#xF3; szintet is. K&#xFC;l&#xF6;nben nem lesz egy sor sem az exportban.</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/templates/exportSuccess.php</note>
-      </trans-unit>
       <trans-unit id="f18616d6858c5afed733fffed6e2c7c70c695d02">
         <source>If the finding aid is an uploaded PDF, the transcript will be deleted too.</source>
         <target>Ha a seg&#xE9;dlet egy felt&#xF6;lt&#xF6;tt PDF, az &#xE1;tirat is t&#xF6;r&#xF6;lve lesz.</target>
@@ -2408,11 +2363,6 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target/>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/physicalobject/templates/holdingsReportExportSuccess.php</note>
       </trans-unit>
-      <trans-unit id="3f27c48f72c9ee913e10505d303672a33985c64b">
-        <source>Incorrect clipboard ID for saved clipboard.</source>
-        <target>Szab&#xE1;lytalan v&#xE1;g&#xF3;lap ID az elmentett v&#xE1;g&#xF3;laphoz</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardLoadAction.class.php</note>
-      </trans-unit>
       <trans-unit id="4b631f69842530d659306c8f06dbad594a6b1807">
         <source>Info</source>
         <target>Inform&#xE1;ci&#xF3;</target>
@@ -2515,6 +2465,11 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
       </trans-unit>
       <trans-unit id="6a013f3591caa3ee3f7742743ed123abf4cf8af0">
         <source>Items per page</source>
+        <target/>
+        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/treeviewSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="4847cc1454ccb160f631e441cd95daf443a173f1">
+        <source>Items per page can be a minimum of %1% and a maximum of %2%</source>
         <target/>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/treeviewSuccess.php</note>
       </trans-unit>
@@ -3058,11 +3013,6 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Nem</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/editSuccess.php</note>
       </trans-unit>
-      <trans-unit id="36bfaa93cb2ca7a8791fe3dd4fb2370604a6b71a">
-        <source>No entity type specified.</source>
-        <target>Nincs meghat&#xE1;rozva entit&#xE1;s t&#xED;pus.</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/actions/clipboardClearAction.class.php</note>
-      </trans-unit>
       <trans-unit id="5f837da7d6b9d15a8cf041d7ae07dbad8c93306b">
         <source>No items in clipboard to save.</source>
         <target>Nincs elmenthet&#x151; elem a v&#xE1;g&#xF3;lapon.</target>
@@ -3197,11 +3147,6 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>OAI-PMH API key</source>
         <target>OAI-PMH API k&#xF3;d</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/indexSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="f66cd1bac11145db31d2c8b236d11017b162702c">
-        <source>Object UUID</source>
-        <target>UUID objektum</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_metadata.php</note>
       </trans-unit>
       <trans-unit id="5ea1f83d38b9f6620e056239a8f176c5edbc5021">
         <source>Occupation</source>
@@ -3882,11 +3827,6 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>Reset password</source>
         <target>Jelsz&#xF3; vissza&#xE1;ll&#xED;t&#xE1;sa</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/indexSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="aa2a08d2afa23e5f0a3fbe6e6ed494979fd09160">
-        <source>Restricted</source>
-        <target>Korl&#xE1;tozott</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/templates/_metadata.php</note>
       </trans-unit>
       <trans-unit id="5de586111229c2b8cc98041889974bf6e62d0bc5">
         <source>Restriction</source>
@@ -4668,11 +4608,6 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>Tematikus ter&#xFC;let:</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/repository/templates/_advancedFilters.php</note>
       </trans-unit>
-      <trans-unit id="095bf75a5a1b0776f6d5602ee482c3cd02ad2661">
-        <source>There are %1% items added:</source>
-        <target>%1% egys&#xE9;g lett hozz&#xE1;adva:</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/clipboardClearSuccess.php</note>
-      </trans-unit>
       <trans-unit id="de6f1e890b1069703f0aa9cdd0d3ba3a4591e777">
         <source>There are no jobs to report on.</source>
         <target>Nincs  olyan feladat, amelyr&#x151;l jelent&#xE9;s k&#xE9;sz&#xFC;lhetne.</target>
@@ -4682,11 +4617,6 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <source>There are no relevant reports for this item</source>
         <target>Nincsen ide vonatkoz&#xF3; jelent&#xE9;s</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/reportsSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="fb7109a09de526a8d8de04e0a5d68d913bf3df76">
-        <source>There is one item added:</source>
-        <target>Egy egys&#xE9;g lett hozz&#xE1;adva:</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/clipboardClearSuccess.php</note>
       </trans-unit>
       <trans-unit id="810873bad76dd53ec09f81487ede0e3f47d5d7a5">
         <source>This action cannot be undone!</source>
@@ -5208,11 +5138,6 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <target>XML</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/actions/exportAction.class.php</note>
       </trans-unit>
-      <trans-unit id="3934b03c6a52e3d0175890929a89091415e27f07">
-        <source>XML export</source>
-        <target>XML export</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/object/actions/exportAction.class.php</note>
-      </trans-unit>
       <trans-unit id="5397e0583f14f6c88de06b1ef28f460a1fb5b0ae">
         <source>Yes</source>
         <target>Igen</target>
@@ -5424,7 +5349,207 @@ YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/user/templates/listSuccess.php</note>
       </trans-unit>
       <trans-unit id="1">
-        <source>Items per page can be a minimum of %1% and a maximum of %2%</source>
+        <source>%1%Refresh the page%2% for progress updates.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Clipboard export</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Invalid export options.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>The clipboard is empty for this entity type.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1% and %2%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>No records were exported for your current selection. Please</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Your %entity_type% export package is being built.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>The %open_link%job management page%close_link% will show progress</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Please %open_link%refresh the page%close_link% to see progress and</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>%open_strong_tag%Note:%close_strong_tag% AtoM may remove export</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Choosing "Include descendants" will include all lower-level</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>If no levels are selected, the export will fail. You can use</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>It is not possible to select both digital objects and</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Digital objects with restricted access or copyright will not</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Include digital objects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Choosing "Include draft records" will include those marked with a</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Incorrect clipboard ID and/or action.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Clipboard ID not found.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Clipboard ID generation failure.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>No items found.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Please try again.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Preservation Copies</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Original file</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Ingested</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>File UUID</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Preservation copy</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Normalized</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Access Copies</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Master file</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Reference copy</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Thumbnail copy</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Storage service</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Uploads</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Uploads settings saved.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Disabled</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>%1% identifiers: prevent entry/import of duplicates</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Enable digital object export</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Uploads settings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>%1% upload limits</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>When enabled, an &amp;quot;Upload limit&amp;quot; meter is displayed</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Preservation system access statement</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Enable access statement</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>When enabled the following text will appear in the %1% metadata section to describe how a user may access the original and preservation copy of the file stored in a linked digital preservation system. The text appears in the "Permissions" field. When disabled, the "Permissions" field is not displayed.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Access statement</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>There was an error loading the clipboard content.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Calculate dates - Error</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>No children found</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Cannot calculate accumulated dates because this %1% has no children</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>No lower level dates found</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Cannot calculate accumulated dates because no lower level dates exist</source>
         <target/>
       </trans-unit>
     </body>

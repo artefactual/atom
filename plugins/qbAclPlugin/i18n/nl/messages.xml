@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2017-08-25T18:52:20Z" product-name="messages">
+  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2020-09-29T23:37:16Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="3">
@@ -26,7 +26,7 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Permissions for all %1%</source>
-        <target>Toestemmingen voor alle 1%1</target>
+        <target>Toestemmingen voor alle %1%</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Action</source>
@@ -74,7 +74,7 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Save</source>
-        <target>bewaren</target>
+        <target>Bewaar</target>
       </trans-unit>
       <trans-unit id="22">
         <source>%1%: %2%</source>

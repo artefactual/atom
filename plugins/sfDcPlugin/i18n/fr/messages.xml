@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2019-01-31T15:02:37Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2020-09-29T23:37:19Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -26,7 +26,7 @@
       </trans-unit>
       <trans-unit id="9">
         <source>The unambiguous reference code used to uniquely identify this resource.</source>
-        <target>Code de référence univoque utilisé pour référencer de manière unique la ressource</target>
+        <target>Code de référence univoque utilisé pour référencer de manière unique la ressource.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Identifier</source>
@@ -38,11 +38,11 @@
       </trans-unit>
       <trans-unit id="12">
         <source>The name given to this resource.</source>
-        <target>Nom donné à la ressource</target>
+        <target>Nom donné à la ressource.</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Title</source>
-        <target>Intitulé</target>
+        <target>Titre</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Names and dates</source>
@@ -86,7 +86,7 @@
       </trans-unit>
       <trans-unit id="24">
         <source>Related material(s) from which this resource is derived.</source>
-        <target>Document(s) associé(s) d'où est dérivée la ressource</target>
+        <target>Document(s) associé(s) d'où est dérivée la ressource.</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Source</source>
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="26">
         <source>Language(s) of this resource.</source>
-        <target>Langue(s) de la ressource</target>
+        <target>Langue(s) de la ressource.</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Relation (isLocatedAt)</source>
@@ -158,7 +158,7 @@
       </trans-unit>
       <trans-unit id="46">
         <source>Elements area</source>
-        <target>Zone d'éléments</target>
+        <target>Zone des éléments</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Edit elements area</source>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2020-06-12T18:56:57Z" product-name="messages">
+  <file source-language="en" target-language="hr" datatype="plaintext" original="messages" date="2020-09-29T23:37:13Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="5">
         <source>SKOS import</source>
-        <target/>
+        <target>SKOS uvoz</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Select a file to import</source>
@@ -14,19 +14,19 @@
       </trans-unit>
       <trans-unit id="7">
         <source>Import</source>
-        <target>Uvoz</target>
+        <target>Uvezi</target>
       </trans-unit>
       <trans-unit id="8">
         <source>The current term does not belong to the taxonomy chosen.</source>
-        <target/>
+        <target>Trenutačni pojam ne pripada odabranoj taksonomiji.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>You must select a source to continue.</source>
-        <target/>
+        <target>Da bi nastavio/la, moraš odabrati jedan izvor.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Something wrong happened! Please check out the logs. Error: %1%</source>
-        <target/>
+        <target>Nešto se krivo dogodilo! Provjeri log-zapise. Greška: %1%</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Import file initiated. Check %1%job %2%%3% to view the status of the import.</source>
@@ -34,63 +34,63 @@
       </trans-unit>
       <trans-unit id="12">
         <source>Import options</source>
-        <target>Mogućnosti uvoza</target>
+        <target>Opcije uvoza</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Select source</source>
-        <target/>
+        <target>Odaberi izvor</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Or a remote resource</source>
-        <target/>
+        <target>Ili udaljeni resurs</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Taxonomy with ID %1% could not be found</source>
-        <target/>
+        <target>Taksonomija s ID oznakom %1% nije pronađena</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Term with ID %1% could not be found</source>
-        <target/>
+        <target>Pojam s ID oznakom %1% nije pronađen</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Malformed URI.</source>
-        <target/>
+        <target>Neispravan format URI-a.</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Type of scheme: %1%</source>
-        <target/>
+        <target>Vrsta sheme: %1%</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Taxonomy: %1%</source>
-        <target>Sistematika: %1%</target>
+        <target>Taksonomija: %1%</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Term ID: %1%</source>
-        <target/>
+        <target>ID oznaka pojma: %1%</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Unsupported scheme!</source>
-        <target/>
+        <target>Nepodržana shema!</target>
       </trans-unit>
       <trans-unit id="22">
         <source>The graph is empty.</source>
-        <target/>
+        <target>Dijagram je prazan.</target>
       </trans-unit>
       <trans-unit id="23">
         <source>The graph contains %1% concepts.</source>
-        <target/>
+        <target>Dijagram sadrži %1% koncepta.</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Unexpected concept, type received: %1%.</source>
-        <target/>
+        <target>Neočekivani koncept, primljena vrsta: %1%.</target>
       </trans-unit>
       <trans-unit id="25">
         <source>The following languages are used in the dataset imported but not supported by AtoM: %1%</source>
-        <target/>
+        <target>U skupu podataka koji se uvozi koriste se sljedeći jezici, koje AtoM ne podržava: %1%</target>
       </trans-unit>
       <trans-unit id="26">
         <source>A total of %1% concepts have been processed so far.</source>
-        <target/>
+        <target>Do sada ukupno obrađenih koncepata: %1%.</target>
       </trans-unit>
     </body>
   </file>

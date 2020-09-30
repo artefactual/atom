@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2020-09-29T23:37:15Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>-- Select action --</source>
+        <target>-- Selecciona una acció --</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>(Re)generate API key</source>
+        <target>(Re)genera la clau de l'A.P.I.</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Delete API key</source>
+        <target>Esborra la clau de l'A.P.I.</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>User %1%</source>
+        <target>Usuari %1%</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Basic info</source>
+        <target>Informació bàsica </target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Active</source>
+        <target>Actiu </target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Access control</source>
+        <target>Control d'accés</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>User groups</source>
+        <target>Grups d'usuaris </target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Allowed languages for translation</source>
+        <target>Idiomes permesos per a la traducció</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>REST API access key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>OAI-PMH API access key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Cancel</source>
+        <target>Cancel·la</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Save</source>
+        <target>Desa</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>List users</source>
+        <target>Veure els usuaris</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Search users</source>
+        <target>Cerca usuaris </target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Show active only</source>
+        <target>Mostra només els actius </target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Show inactive only</source>
+        <target>Mostra només els actius </target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>User name</source>
+        <target>Nom d'usuari </target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Email</source>
+        <target>Correu electrònic </target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>inactive</source>
+        <target>inactiu </target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>you</source>
+        <target>Vós</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Edit</source>
+        <target>Edita</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Delete</source>
+        <target>Suprimeix</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Return to user list</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Please log in to access that page</source>
+        <target>Inicieu sessió per accedir a aquesta pàgina</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Log in</source>
+        <target>Inicieu sessió</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Log in with CAS</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>This user is inactive</source>
+        <target>Aquest usuari està inactiu </target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>User details</source>
+        <target>Detalls de l'usuari </target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Repository affiliation</source>
+        <target>Afiliació dels repositoris</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>REST API key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Not generated yet.</source>
+        <target>Encara no s'ha generat.</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>OAI-PMH API key</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Editing history</source>
+        <target>Historial d'edició</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Loading ...</source>
+        <target>Carregant ...</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Title</source>
+        <target>Títol </target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Date</source>
+        <target>Data</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Type</source>
+        <target>Tipus</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Previous</source>
+        <target>Anterior </target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Next</source>
+        <target>Següent </target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Have an account?</source>
+        <target>Esteu registrat? </target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Hi, %1%</source>
+        <target>Hola, %1%</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

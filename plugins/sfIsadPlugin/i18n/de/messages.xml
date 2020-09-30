@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2019-01-31T15:02:30Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2020-09-29T23:37:02Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -8,7 +8,7 @@
       </trans-unit>
       <trans-unit id="40">
         <source>Identity area</source>
-        <target>Identifizierungsfeld</target>
+        <target>Bereich "Identifikation"</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -20,15 +20,15 @@
       </trans-unit>
       <trans-unit id="48">
         <source>Level of description</source>
-        <target>Beschreibungsebene</target>
+        <target>Erschließungsstufe</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Context area</source>
-        <target>Zusammenhang</target>
+        <target>Bereich "Kontext"</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Repository</source>
-        <target>Aufbewahrungsort</target>
+        <target>Archiv</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Conditions governing access</source>
@@ -36,11 +36,11 @@
       </trans-unit>
       <trans-unit id="80">
         <source>Subject access points</source>
-        <target>Zugriffspunkt (Thema)</target>
+        <target>Zugriffspunkte (Thema)</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Place access points</source>
-        <target>Zugriffspunkt (Ort)</target>
+        <target>Zugriffspunkte (Ort)</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Institution identifier</source>
@@ -48,7 +48,7 @@
       </trans-unit>
       <trans-unit id="86">
         <source>Status</source>
-        <target>Erschließungsstatus</target>
+        <target>Status</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Level of detail</source>
@@ -64,7 +64,7 @@
       </trans-unit>
       <trans-unit id="120">
         <source>Identifier</source>
-        <target>Signatur</target>
+        <target>Identifikator/Signatur</target>
       </trans-unit>
       <trans-unit id="207">
         <source>Type</source>
@@ -72,7 +72,7 @@
       </trans-unit>
       <trans-unit id="300">
         <source>Description identifier</source>
-        <target>Beschreibungskennzahl</target>
+        <target>Identifikator "Beschreibung"</target>
       </trans-unit>
       <trans-unit id="333">
         <source>Date</source>
@@ -80,7 +80,7 @@
       </trans-unit>
       <trans-unit id="470">
         <source>Date(s)</source>
-        <target>Datum/Daten</target>
+        <target>Datum/Laufzeit</target>
       </trans-unit>
       <trans-unit id="764">
         <source>Edit identity area</source>
@@ -180,7 +180,7 @@
       </trans-unit>
       <trans-unit id="912">
         <source>Content and structure area</source>
-        <target>Bereich Inhalt und innere Ordnung</target>
+        <target>Bereich "Inhalt und innere Ordnung"</target>
       </trans-unit>
       <trans-unit id="913">
         <source>Edit content and structure area</source>
@@ -196,7 +196,7 @@
       </trans-unit>
       <trans-unit id="916">
         <source>Conditions of access and use area</source>
-        <target>Bereich Zugangs- und Benutzungsbedingungen</target>
+        <target>Bedingungen des Zugriffs- und Benutzungsbereichs</target>
       </trans-unit>
       <trans-unit id="917">
         <source>Edit conditions of access and use area</source>
@@ -228,7 +228,7 @@
       </trans-unit>
       <trans-unit id="924">
         <source>Notes area</source>
-        <target>Bereich 'Anmerkungen'</target>
+        <target>Bereich "Anmerkungen"</target>
       </trans-unit>
       <trans-unit id="925">
         <source>Edit notes area</source>
@@ -244,7 +244,7 @@
       </trans-unit>
       <trans-unit id="928">
         <source>Description control area</source>
-        <target>Bereich Beschreibungskontrolle</target>
+        <target>Bereich "Beschreibungskontrolle"</target>
       </trans-unit>
       <trans-unit id="929">
         <source>Edit description control area</source>
