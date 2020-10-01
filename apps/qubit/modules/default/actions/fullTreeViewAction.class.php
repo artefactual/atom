@@ -57,8 +57,9 @@ class DefaultFullTreeViewAction extends sfAction
     // Hide drafts from unauthenticated users
     $draftsSql = $this->getDraftsCriteria();
 
-    // Get current node data (for the collection root on the first load) or children data
-    $condition = $children ? 'io.parent_id = :id' : 'io.id = :id' ;
+    // Get current node data (for the collection root on the first load) or
+    // children data
+    $condition = $children ? 'io.parent_id = :id' : 'io.id = :id';
 
     // Sort column
     $orderColumn = (isset($options['orderColumn'])) ?
@@ -154,7 +155,10 @@ class DefaultFullTreeViewAction extends sfAction
 
       // Add node link attributes
       $result['a_attr']['title'] = strip_tags($result['text']);
-      $result['a_attr']['href'] = $this->generateUrl('slug', array('slug' => $result['slug']));
+      $result['a_attr']['href'] = $this->generateUrl(
+        'slug',
+        ['slug' => $result['slug']]
+      );
 
       // If not a leaf node, indicate node has children
       if ($result['rgt'] - $result['lft'] > 1)
@@ -163,17 +167,23 @@ class DefaultFullTreeViewAction extends sfAction
         $result['children'] = true;
 
         // If loading an ancestor of the resource, fetch children
-        if ($result['lft'] <= $this->resource->lft && $result['rgt'] >= $this->resource->rgt)
+        if (
+          $result['lft'] <= $this->resource->lft
+          && $result['rgt'] >= $this->resource->rgt
+        )
         {
           // If we're not currently fetching children and paging options are set,
           // use paging options when fetching children
           $childOptions = array();
           if (!$children && (isset($options['skip']) || isset($options['limit'])))
           {
-            $childOptions = array('skip' => $options['skip'], 'limit' => $options['limit']);
+            $childOptions = array(
+              'skip' => $options['skip'], 'limit' => $options['limit']
+            );
           }
 
-          // Fetch children and note total number of children that exist (useful for paging through children)
+          // Fetch children and note total number of children that exist
+          // (useful for paging through children)
           $childData = $this->getNodeOrChildrenNodes(
             $result['id'],
             $this->getReferenceCode($result),
@@ -429,7 +439,10 @@ EOL;
         $event['display_date'] = $event['source_date'];
       }
 
-      if (empty($event['display_date']) && empty($event['start_date']) && empty($event['end_date']))
+      if (
+        empty($event['display_date']) && empty($event['start_date'])
+        && empty($event['end_date'])
+      )
       {
         continue;
       }
