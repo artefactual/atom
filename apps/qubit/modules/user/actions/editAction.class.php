@@ -229,7 +229,15 @@ class UserEditAction extends DefaultEditAction
         break;
 
       case 'active':
-        $this->resource->active = $this->form->getValue('active') ? true : false;
+        if ($this->form->getValue('active')
+          || $this->context->user->user === $this->resource)
+        {
+          $this->resource->active = true;
+        }
+        else
+        {
+          $this->resource->active = false;
+        }
 
         break;
 
