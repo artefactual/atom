@@ -171,7 +171,7 @@
 
         <div class="digital-object-metadata-body">
           <?php if ($showReferenceCopyFileName): ?>
-            <?php if ($canAccessReferenceCopy): ?>
+            <?php if ($canAccessReferenceCopy && $sf_user->isAuthenticated()): ?>
               <?php echo render_show(__('Filename'), link_to(render_value_inline($referenceCopy->name), $referenceCopy->getFullPath(), array('target' => '_blank')), array('fieldLabel' => 'referenceCopyFileName')) ?>
             <?php else: ?>
               <?php echo render_show(__('Filename'), render_value($referenceCopy->name), array('fieldLabel' => 'referenceCopyFileName')) ?>
