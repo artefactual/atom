@@ -2127,7 +2127,7 @@ QubitMenu:
       pt_BR: 'Limpar todas as seleções'
       sr: 'Обриши све ознаке'
       sv: 'Rensa val'
-    path: user/clipboardClear
+    path: '#'
   QubitMenu_clipboardgotomenu:
     parent_id: QubitMenu_clipboardmenu
     source_culture: en
@@ -2149,7 +2149,7 @@ QubitMenu:
       pt_BR: 'Ir para a área de transferência'
       sr: 'Иди у међумеморију'
       sv: 'Gå till urklipp'
-    path: user/clipboard
+    path: clipboard/view
   QubitMenu_clipboardloadmenu:
     parent_id: QubitMenu_clipboardmenu
     source_culture: en
@@ -2171,7 +2171,7 @@ QubitMenu:
       sr: 'Учитај међумеморију'
       sv: 'Ladda urklipp'
       ta: 'நகல்நினைவியை நிரலேற்றுக'
-    path: user/clipboardLoad
+    path: clipboard/load
   QubitMenu_clipboardsavemenu:
     parent_id: QubitMenu_clipboardmenu
     source_culture: en
@@ -2187,7 +2187,7 @@ QubitMenu:
       pt: 'Guardar área de transferência'
       pt_BR: 'Salvar área de transferência'
       sv: 'Spara urklipp'
-    path: user/clipboardSave
+    path: clipboard/save
   QubitMenu_browseinstitution_informationobjects:
     parent_id: QubitMenu_browseinstitution
     source_culture: en
