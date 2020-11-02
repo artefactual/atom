@@ -125,12 +125,12 @@ class InformationObjectEditAction extends DefaultEditAction
       $this->form->setValidator('parent', new sfValidatorString);
       $this->form->setWidget('parent', new sfWidgetFormInputHidden);
 
-      $getParams = $this->request->getGetParameters();
-      if (isset($getParams['parent']))
+      $params = $this->request->getParameters();
+      if (isset($params['parent']))
       {
-        $params = $this->context->routing->parse(Qubit::pathInfo($getParams['parent']));
-        $this->parent = $params['_sf_route']->resource;
-        $this->form->setDefault('parent', $getParams['parent']);
+        $route = $this->context->routing->parse(Qubit::pathInfo($params['parent']));
+        $this->parent = $route['_sf_route']->resource;
+        $this->form->setDefault('parent', $params['parent']);
       }
       else
       {
@@ -139,7 +139,7 @@ class InformationObjectEditAction extends DefaultEditAction
         $this->form->setDefault('parent', $this->context->routing->generate(null, array($this->parent, 'module' => 'informationobject')));
       }
 
-      if (isset($getParams['repository']))
+      if (isset($params['repository']))
       {
         $this->resource->repository = QubitRepository::getById($this->request->repository);
         $this->form->setDefault('repository', $this->context->routing->generate(null, array($this->resource->repository, 'module' => 'repository')));

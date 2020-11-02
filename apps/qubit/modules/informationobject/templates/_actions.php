@@ -10,7 +10,7 @@
       <?php endif; ?>
 
       <?php if (QubitAcl::check($resource, 'create')): ?>
-        <li><?php echo link_to(__('Add new'), array('module' => 'informationobject', 'action' => 'add', 'parent' => url_for(array($resource, 'module' => 'informationobject'))), array('class' => 'c-btn')) ?></li>
+        <li><?php echo link_to(__('Add new'), array('module' => 'informationobject', 'action' => 'add', 'parent' => $resource->slug), array('class' => 'c-btn')) ?></li>
         <li><?php echo link_to(__('Duplicate'), array('module' => 'informationobject', 'action' => 'copy', 'source' => $resource->id), array('class' => 'c-btn')) ?></li>
       <?php endif; ?>
 
