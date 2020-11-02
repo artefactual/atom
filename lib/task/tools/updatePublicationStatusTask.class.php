@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class updatePublicationStatusTask extends sfBaseTask
+class updatePublicationStatusTask extends arBaseTask
 {
   protected function configure()
   {
@@ -46,9 +46,7 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
-    sfContext::createInstance($this->configuration);
-    $databaseManager = new sfDatabaseManager($this->configuration);
-    $conn = $databaseManager->getDatabase('propel')->getConnection();
+    parent::execute($arguments, $options);
 
     $criteria = new Criteria;
     $criteria->add(QubitSlug::SLUG, $arguments['slug']);
