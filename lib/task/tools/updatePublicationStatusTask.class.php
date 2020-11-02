@@ -47,7 +47,6 @@ EOF;
   protected function execute($arguments = array(), $options = array())
   {
     sfContext::createInstance($this->configuration);
-    sfConfig::add(QubitSetting::getSettingsArray());
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
