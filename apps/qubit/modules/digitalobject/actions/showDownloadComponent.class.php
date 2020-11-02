@@ -58,9 +58,13 @@ class DigitalObjectShowDownloadComponent extends sfComponent
     }
 
     // Build a fully qualified URL to this digital object asset
-    if ((QubitTerm::IMAGE_ID != $this->resource->mediaTypeId || QubitTerm::REFERENCE_ID == $this->usageType)
-        && $this->resource->usageId != QubitTerm::OFFLINE_ID
-        && QubitAcl::check($this->resource->object, 'readMaster'))
+    if (
+      (
+        QubitTerm::IMAGE_ID != $this->resource->mediaTypeId
+        || QubitTerm::REFERENCE_ID == $this->usageType
+      )
+      && $this->resource->usageId != QubitTerm::OFFLINE_ID
+      && QubitAcl::check($this->resource->object, 'readMaster'))
     {
       $this->link = $this->resource->getPublicPath();
     }

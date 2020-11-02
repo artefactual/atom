@@ -41,11 +41,11 @@ class DigitalObjectShowComponent extends sfComponent
       $this->usageType = QubitTerm::THUMBNAIL_ID;
     }
 
-    if ((QubitTerm::MASTER_ID == $this->usageType &&
-      !QubitAcl::check($this->resource->object, 'readMaster') &&
-      $this->resource->object instanceOf QubitInformationObject) ||
-      $this->resource->object instanceOf QubitActor &&
-      !QubitAcl::check($this->resource->object, 'read'))
+    // Don't show anything if trying to view a master DO without authorization
+    if (
+      QubitTerm::MASTER_ID == $this->usageType
+      && !QubitAcl::check($this->resource->object, 'readMaster')
+    )
     {
       return sfView::NONE;
     }
@@ -59,6 +59,8 @@ class DigitalObjectShowComponent extends sfComponent
       $this->showComponent = 'showGenericIcon';
     }
 
+    // Check PREMIS granted rights, and show an access warning if they prevent
+    // access
     if ($this->usageType == QubitTerm::REFERENCE_ID)
     {
       $this->accessWarning = $this->getAccessWarning();
@@ -80,24 +82,9 @@ class DigitalObjectShowComponent extends sfComponent
    */
   private function checkShowGenericIcon()
   {
-    $curUser = sfContext::getInstance()->getUser();
-    $curObjectId = $this->resource->object->id;
-
-    if ($this->resource->object instanceOf QubitActor)
-    {
-      return !QubitAcl::check($this->resource->object, 'read');
-    }
-
     switch ($this->usageType)
     {
       case QubitTerm::REFERENCE_ID:
-        // Non-authenticated user: check against PREMIS rules.
-        if (!$curUser->isAuthenticated() && QubitGrantedRight::hasGrantedRights($curObjectId))
-        {
-          return !QubitGrantedRight::checkPremis($curObjectId, 'readReference');
-        }
-
-        // Authenticated, check regular ACL rules...
         return !QubitAcl::check($this->resource->object, 'readReference');
 
       case QubitTerm::THUMBNAIL_ID:
@@ -106,26 +93,25 @@ class DigitalObjectShowComponent extends sfComponent
   }
 
   /**
-   * Get warning messages if access denied via 'deny' or 'conditional' PREMIS rules.
-   * @return  A string of the warning if reference access denied, otherwise bool false
+   * Get warning messages if access denied via 'deny' or 'conditional' PREMIS
+   * rules
+   *
+   * @return string Custom PREMIS "access denied" message, or an empty string
    */
   private function getAccessWarning()
   {
-    $curObjectId = $this->resource->object->id;
     $denyReason = '';
 
     if ($this->resource->object instanceOf QubitActor)
     {
-      return false;
+      return '';
     }
 
-    if (!QubitGrantedRight::checkPremis($curObjectId, 'readReference', $denyReason) ||
-        !QubitAcl::check($this->resource->object, 'readReference'))
-    {
-      return $denyReason;
-    }
+    QubitGrantedRight::checkPremis(
+      $this->resource->object->id, 'readReference', $denyReason
+    );
 
-    return false;
+    return $denyReason;
   }
 
   private function setComponentType()

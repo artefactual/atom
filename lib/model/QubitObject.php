@@ -437,6 +437,50 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
   }
 
   /**
+   * Return the URL for the digital object master linked to this object, if the
+   * current user has "read master" authorization.
+   *
+   * @return string|null The URL of the digital object master, or null
+   */
+  public function getDigitalObjectUrl()
+  {
+    $digitalObject = $this->getDigitalObject();
+
+    // If there are no digital objects linked to this actor, return null
+    if (null === $digitalObject)
+    {
+      return null;
+    }
+
+    // If the linked digital object isn't accessible via URL, return null
+    if (!$digitalObject->masterAccessibleViaUrl())
+    {
+      return null;
+    }
+
+    // If the current user isn't authorized to read the master, return null
+    if (!QubitAcl::check($this, 'readMaster'))
+    {
+      return null;
+    }
+
+    if (QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId)
+    {
+      // Return external digital object URL
+      return $digitalObject->path;
+    }
+    else
+    {
+      $request = sfContext::getInstance()->getRequest();
+
+      // Return the URL for the master digital object on the local filesystem
+      return $request->getUriPrefix()
+        . $request->getRelativeUrlRoot()
+        . $digitalObject->getFullPath();
+    }
+  }
+
+  /**
    * Get the digital object's checksum value
    *
    * @return string  digital object checksum or null
@@ -447,6 +491,23 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     {
       return $do->getChecksum();
     }
+  }
+
+  /**
+   * Check if this object is linked to a text (PDF) digital object
+   *
+   * @return bool true if related digital object has mediaType of "text"
+   */
+  public function hasTextDigitalObject()
+  {
+    $digitalObject = $this->getDigitalObject();
+
+    if (null === $digitalObject)
+    {
+      return false;
+    }
+
+    return $digitalObject->mediaTypeId == QubitTerm::TEXT_ID;
   }
 
   /********************

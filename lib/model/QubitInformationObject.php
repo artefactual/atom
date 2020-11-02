@@ -3055,43 +3055,6 @@ class QubitInformationObject extends BaseInformationObject
     return strip_tags($this->getExtentAndMedium($options));
   }
 
-  /**
-   * Return the absolute link to the digital object master unless the user has
-   * no permission (readMaster). Text objects are always allowed for reading.
-   *
-   * @return string Absolute link to the digital object master
-   */
-  public function getDigitalObjectLink()
-  {
-    if (count($this->digitalObjectsRelatedByobjectId) <= 0)
-    {
-      return;
-    }
-
-    $digitalObject = $this->digitalObjectsRelatedByobjectId[0];
-    if (!$digitalObject->masterAccessibleViaUrl())
-    {
-      return;
-    }
-
-    $isText = in_array($digitalObject->mediaTypeId, array(QubitTerm::TEXT_ID));
-    $hasReadMaster = QubitAcl::check($this, 'readMaster');
-
-    if (QubitGrantedRight::checkPremis($this->id, 'readMaster') && ($hasReadMaster || $isText))
-    {
-      if (QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId)
-      {
-        return $digitalObject->path;
-      }
-      else
-      {
-        $request = sfContext::getInstance()->getRequest();
-        return $request->getUriPrefix().$request->getRelativeUrlRoot().
-          $digitalObject->getFullPath();
-      }
-    }
-  }
-
   /*
    * Generate a slug for this information object. This might be based
    * on title, identifier (reference code), or other properties in the future.

@@ -813,41 +813,4 @@ class QubitActor extends BaseActor
 
     $this->digitalObjectsRelatedByobjectId[] = $digitalObject;
   }
-
-  /**
-   * Return the absolute link to the digital object master unless the user has
-   * no permission (readMaster). Text objects are always allowed for reading.
-   *
-   * @return string Absolute link to the digital object master
-   */
-  public function getDigitalObjectLink()
-  {
-    if (count($this->digitalObjectsRelatedByobjectId) <= 0)
-    {
-      return;
-    }
-
-    $digitalObject = $this->digitalObjectsRelatedByobjectId[0];
-    if (!$digitalObject->masterAccessibleViaUrl())
-    {
-      return;
-    }
-
-    $isText = in_array($digitalObject->mediaTypeId, array(QubitTerm::TEXT_ID));
-
-    $hasReadMaster = sfContext::getInstance()->user->isAuthenticated();
-    if ($hasReadMaster || $isText)
-    {
-      if (QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId)
-      {
-        return $digitalObject->path;
-      }
-      else
-      {
-        $request = sfContext::getInstance()->getRequest();
-        return $request->getUriPrefix().$request->getRelativeUrlRoot().
-          $digitalObject->getFullPath();
-      }
-    }
-  }
 }

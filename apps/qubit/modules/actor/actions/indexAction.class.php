@@ -43,6 +43,6 @@ class ActorIndexAction extends sfAction
 
     $this->functions = QubitFunctionObject::get($criteria);
 
-    $this->digitalObjectLink = $this->resource->getDigitalObjectLink();
+    $this->digitalObjectLink = $this->resource->getDigitalObjectUrl();
   }
 }

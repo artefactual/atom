@@ -55,7 +55,7 @@
             <td>
               <?php if ($doc['hasDigitalObject']): ?>
                 <?php if (null !== $io = QubitInformationObject::getById($hit->getId())): ?>
-                  <?php if (null !== $link = $io->getDigitalObjectLink()): ?>
+                  <?php if (null !== $link = $io->getDigitalObjectUrl()): ?>
                     <?php echo link_to(__('View'), $link) ?>
                   <?php endif; ?>
                 <?php endif; ?>

@@ -74,8 +74,7 @@ class DigitalObjectImageflowComponent extends sfComponent
       else
       {
         // Ensure the user has permissions to see a thumbnail
-        if (!QubitAcl::check($item->object, 'readThumbnail') ||
-            !QubitGrantedRight::checkPremis($item->object->id, 'readThumb'))
+        if (!QubitAcl::check($item->object, 'readThumbnail'))
         {
           $thumbnail = QubitDigitalObject::getGenericRepresentation(
             $item->mimeType, QubitTerm::THUMBNAIL_ID

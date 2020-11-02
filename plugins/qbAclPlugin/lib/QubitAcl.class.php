@@ -38,15 +38,17 @@ class QubitAcl
     'translate' => 'Translate'
   );
 
+  public $acl;
+
   protected static $_instance;
+
+  // Always authorize against parent resource when creating a new resource
+  protected static $_parentAuthActions = ['create'];
 
   protected
     $_roles = array(),
     $_resources = array(),
     $_user;
-
-  public
-    $acl;
 
   public function __construct($user = null)
   {
@@ -115,10 +117,14 @@ class QubitAcl
       $actions = array($actions);
     }
 
-    $user = sfContext::getInstance()->user;
+    // Get the current user from sfContext, if a user is not explicitly set
     if (isset($options['user']))
     {
       $user = $options['user'];
+    }
+    else
+    {
+      $user = sfContext::getInstance()->user;
     }
 
     // Loop through actions and return on first "true" result (OR condition)
@@ -151,14 +157,14 @@ class QubitAcl
     return $hasAccess;
   }
 
-  /*
+  /**
    * Check if the current user has access to this resource, based on
    * class specific rules. This is a helper function to QubitAcl::check().
    *
-   * @param $resource  The current resource we're checking user access against.
-   * @param $user  The current user
-   * @param $action  Which permissions action we're checking
-   * @param $options  Access check options.
+   * @param mixed $resource target of the requested action
+   * @param myUser $user actor requesting to perform the action
+   * @param string $action ACL action being requested (e.g. 'read')
+   * @param array|null $options optional parameters
    */
   private static function checkAccessByClass($resource, $user, $action, $options)
   {
@@ -172,6 +178,7 @@ class QubitAcl
       case 'QubitRightsHolder':
         $hasAccess = $user->isAuthenticated() && ($user->hasGroup(QubitAclGroup::ADMINISTRATOR_ID) ||
                      $user->hasGroup(QubitAclGroup::EDITOR_ID));
+
         break;
 
       // Administrator only
@@ -181,6 +188,22 @@ class QubitAcl
       case 'QubitAclGroup':
       case 'QubitAclUser':
         $hasAccess = $user->hasGroup(QubitAclGroup::ADMINISTRATOR_ID);
+
+        break;
+
+      // Class specific ACL rules
+      case 'QubitActor':
+        $hasAccess = QubitActorAcl::isAllowed(
+          $user, $resource, $action, $options
+        );
+
+        break;
+
+      case 'QubitInformationObject':
+        $hasAccess = QubitInformationObjectAcl::isAllowed(
+          $user, $resource, $action, $options
+        );
+
         break;
 
       // Rely on ACL for authorization
@@ -192,6 +215,16 @@ class QubitAcl
     return $hasAccess;
   }
 
+  /**
+   * Check if user ($role) can perform $action on $resource
+   *
+   * @param myUser $role actor's role to authorize
+   * @param mixed $resource target of the requested action
+   * @param string $action requested for authorization (e.g. 'read')
+   * @param array|null $options optional parameters
+   *
+   * @return bool true if the access request is authorized
+   */
   public static function isAllowed($role, $resource, $action, $options = array())
   {
     if (!isset(class_implements($role)['Zend_Acl_Role_Interface']))
@@ -199,47 +232,11 @@ class QubitAcl
       self::getInstance()->addRole($role);
     }
 
-    // If attempting to read a draft information object, check viewDraft permission
-    if ('read' == $action && $resource instanceOf QubitInformationObject)
-    {
-      if (null === $resource->getPublicationStatus())
-      {
-        throw new sfException('No publication status set for information object id: '.$resource->id);
-      }
-
-      if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $resource->getPublicationStatus()->statusId)
-      {
-        $instance = self::getInstance()->buildAcl($resource, $options);
-
-        return ($instance->acl->isAllowed($role, $resource, 'read') && $instance->acl->isAllowed($role, $resource, 'viewDraft'));
-      }
-    }
-
-    // If resource is a new object (no id yet) figure out if we should test
-    // authorization against parent (e.g. creating a new resource)
+    // If resource is a new object (i.e. has no id yet) try authorizing against
+    // its parent
     if (is_object($resource) && !isset($resource->id))
     {
-      if (!isset($resource->parentId))
-      {
-        return false;
-      }
-
-      if ('create' == $action)
-      {
-        // For create action always check permissions against parent
-        $resource = $resource->parent;
-      }
-      else if ($resource instanceOf QubitInformationObject)
-      {
-        // Special rules for information object
-        $resource = QubitInformationObjectAcl::getParentForIsAllowed($resource, $action);
-      }
-
-      // If we still don't have a valid resource id, then deny access
-      if (!isset($resource) || !isset($resource->id))
-      {
-        return false;
-      }
+      return self::authorizeAgainstParent($role, $resource, $action);
     }
 
     // HACKS for limiting term permissions by taxonomy
@@ -261,6 +258,37 @@ class QubitAcl
     self::getInstance()->buildAcl($resource, $options);
 
     return self::getInstance()->acl->isAllowed($role, $resource, $action);
+  }
+
+  /**
+   * Authorize ACL action against the parent of the target resource
+   *
+   * E.g. when creating a new resource, authorize the "create" action against
+   * the parent of the resource
+   *
+   * @param myUser $role actor's role to authorize
+   * @param mixed $resource target of the requested action
+   * @param string $action requested for authorization (e.g. 'read')
+   * @param array|null $options optional parameters
+   *
+   * @return bool true if the access request is authorized
+   */
+  protected static function authorizeAgainstParent($role, $resource, $action)
+  {
+    // If parent authorization is allowed for this $action type, then get the
+    // parent object
+    if (in_array($action, self::$_parentAuthActions))
+    {
+      $parent = $resource->parent;
+    }
+
+    // If we don't have a valid parent for authorization, deny action
+    if (!isset($parent) || !isset($parent->id))
+    {
+      return false;
+    }
+
+    return self::getInstance()->acl->isAllowed($role, $parent, $action);
   }
 
   protected function addRole($role)

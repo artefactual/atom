@@ -18,7 +18,7 @@
  */
 
 /**
- * Display an 'image' digital asset
+ * Display a generic representation of a digital object
  *
  * @package    AccesstoMemory
  * @subpackage digital object
@@ -27,23 +27,18 @@
 class DigitalObjectShowGenericIconComponent extends sfComponent
 {
   /**
-   * Show a representation of a digital object image.
+   * Show a generic representation of a digital object image
    *
    * @param sfWebRequest $request
-   *
    */
   public function execute($request)
   {
-    $this->representation = QubitDigitalObject::getGenericRepresentation($this->resource->mimeType, $this->resource->usageId);
+    $this->representation = QubitDigitalObject::getGenericRepresentation(
+      $this->resource->mimeType, $this->resource->usageId
+    );
 
-    if ($this->resource->object instanceOf QubitInformationObject)
-    {
-      $this->canReadMaster = QubitAcl::check($this->resource->object, 'readMaster');
-    }
-    else if ($this->resource->object instanceOf QubitActor &&
-      $this->context->user->isAuthenticated())
-    {
-      $this->canReadMaster = QubitAcl::check($this->resource->object, 'read');;
-    }
+    $this->canReadMaster = QubitAcl::check(
+      $this->resource->object, 'readMaster'
+    );
   }
 }

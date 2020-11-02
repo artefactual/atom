@@ -133,7 +133,7 @@
 
           <?php if ($showMasterFileName): ?>
             <?php if ($canAccessMasterFile): ?>
-              <?php echo render_show(__('Filename'), link_to(render_value_inline($resource->name), $resource->object->getDigitalObjectLink(), array('target' => '_blank')), array('fieldLabel' => 'filename')) ?>
+              <?php echo render_show(__('Filename'), link_to(render_value_inline($resource->name), $resource->object->getDigitalObjectUrl(), array('target' => '_blank')), array('fieldLabel' => 'filename')) ?>
             <?php else: ?>
               <?php echo render_show(__('Filename'), render_value($resource->name), array('fieldLabel' => 'filename')) ?>
             <?php endif; ?>
