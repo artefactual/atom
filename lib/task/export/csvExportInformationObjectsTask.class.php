@@ -55,8 +55,10 @@ class csvExportInformationObjectsTask extends exportBulkBaseTask
       array('isad', 'rad')
     );
 
-    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);
-    $sf_context = sfContext::createInstance($configuration);
+    $configuration = ProjectConfiguration::getApplicationConfiguration(
+      'qubit', 'cli', false
+    );
+    $context = sfContext::createInstance($configuration);
 
     // QubitSetting are not available for tasks? See lib/SiteSettingsFilter.class.php
     sfConfig::add(QubitSetting::getSettingsArray());
@@ -75,11 +77,12 @@ class csvExportInformationObjectsTask extends exportBulkBaseTask
       $options['rows-per-file']
     );
 
+    $writer->user = $context->getUser();
     $writer->setOptions($options);
 
     foreach ($rows as $row)
     {
-      $sf_context->getUser()->setCulture($row['culture']);
+      $writer->user->setCulture($row['culture']);
       $resource = QubitInformationObject::getById($row['id']);
 
       // Don't export draft descriptions with public option

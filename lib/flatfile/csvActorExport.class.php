@@ -130,6 +130,9 @@ class csvActorExport extends QubitFlatfileExport
    */
   protected function modifyRowBeforeExport()
   {
+    // Set common column values
+    parent::modifyRowBeforeExport();
+
     $this->setColumn('parallelFormsOfName', $this->getNames(QubitTerm::PARALLEL_FORM_OF_NAME_ID));
     $this->setColumn('standardizedFormsOfName', $this->getNames(QubitTerm::STANDARDIZED_FORM_OF_NAME_ID));
     $this->setColumn('otherFormsOfName', $this->getNames(QubitTerm::OTHER_FORM_OF_NAME_ID));
@@ -138,17 +141,6 @@ class csvActorExport extends QubitFlatfileExport
     $this->setOccupations();
     $this->setPlaceAccessPoints();
     $this->setSubjectAccessPoints();
-
-    if($this->options['includeDigitalObjectMeta'])
-    {
-      $this->setColumn('digitalObjectURI', $this->resource->getDigitalObjectPublicUrl());
-      $this->setColumn('digitalObjectChecksum', $this->resource->getDigitalObjectChecksum());
-    }
-    else
-    {
-      $this->setColumn('digitalObjectURI', '');
-      $this->setColumn('digitalObjectChecksum', '');
-    }
   }
 
   private function setMaintenanceNote()

@@ -69,6 +69,7 @@ class arActorCsvExportJob extends arActorExportJob
   protected function getCsvWriter($path)
   {
     $writer = new csvActorExport($path, null, 10000);
+    $writer->user = $this->user;
     $writer->setOptions($this->params);
     $writer->loadResourceSpecificConfiguration('QubitActor');
 

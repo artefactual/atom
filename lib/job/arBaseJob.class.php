@@ -192,7 +192,7 @@ class arBaseJob extends Net_Gearman_Job_Common
    */
   protected function signIn()
   {
-    // Unauthenticated jobs were introduced in 2.4.x. If getById()is called
+    // Unauthenticated jobs were introduced in 2.4.x. If getById() is called
     // on an unauthenticated job it will return null since it will not have
     // a valid user associated with it. Only run signIn() for valid users.
     if (null !== $user = QubitUser::getById($this->job->userId))

@@ -79,8 +79,7 @@ class QubitAcl
    * Each request is completely unique in PHP however our workers run in a loop
    * where state is held across jobs. This class was built as a singleton so we
    * need this extra method to void the instance when needed when running ACL
-   * checks from a worker process.
-   *
+   * checks from a worker process
    */
   public static function destruct()
   {
@@ -91,7 +90,7 @@ class QubitAcl
    * Test user access to the given resource
    *
    * Note: Current sf_user is assumed, but can be overridden with
-   * $options['userId'].
+   * $options['user']
    *
    * @param mixed   $resource object to which user is requesting access
    * @param integer $actions requested action key

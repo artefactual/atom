@@ -96,6 +96,8 @@ class arInformationObjectCsvExportJob extends arInformationObjectExportJob
       10000
     );
 
+    $writer->user = $this->user;
+
     // Store export options for use in csvInformationObjectExport
     $writer->setOptions($this->params);
 
