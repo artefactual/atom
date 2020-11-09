@@ -68,6 +68,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'informationobjectsRead',
       'params' => array('slug' => self::REGEX_SLUG)));
 
+    $this->addRoute('GET', '/api/informationobjects/:slug/digitalobject', array(
+      'module' => 'api',
+      'action' => 'informationobjectsDownloadDigitalObject',
+      'params' => array('slug' => self::REGEX_SLUG)));
+
     $this->addRoute('GET', '/api/informationobjects/tree/:parent_slug', array(
       'module' => 'api',
       'action' => 'informationobjectsTree',
