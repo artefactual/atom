@@ -222,15 +222,15 @@ class QubitClipboard
    *
    * @return object class name; return null if unable to determine class name
    */
-   private function getClassNameFromSlug($slug)
-   {
-     $query = 'SELECT o.class_name FROM slug s JOIN object o ON s.object_id=o.id WHERE s.slug=' . '"' . $slug . '"';
-     $statement = QubitPdo::prepareAndExecute($query);
-     $result = $statement->fetch(PDO::FETCH_OBJ);
+  private function getClassNameFromSlug($slug)
+  {
+    $sql = 'SELECT o.class_name FROM slug s
+      JOIN object o ON s.object_id=o.id WHERE s.slug=?';
+    $class = QubitPdo::fetchColumn($sql, array($slug));
 
-     if ($result)
-     {
-       return $result->class_name;
-     }
-   }
+    if ($class !== false)
+    {
+      return $class;
+    }
+  }
 }

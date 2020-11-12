@@ -21,8 +21,31 @@ class UserClipboardToggleSlugAction extends sfAction
 {
   public function execute($request)
   {
-    $rootIoSlug = QubitSlug::getByObjectId(QubitInformationObject::ROOT_ID);
-    if (!isset($request->slug) || $request->slug == $rootIoSlug->slug)
+    if (!isset($request->slug))
+    {
+      $this->forward404();
+    }
+
+    // Check slug existence
+    $sql = 'SELECT s.id FROM slug s
+      JOIN object o ON s.object_id = o.id
+      WHERE s.slug = ? AND o.class_name IN (?, ?, ?)
+      AND o.id NOT IN (?, ?, ?)';
+
+    $slugId = QubitPdo::fetchColumn(
+      $sql,
+      array(
+        $request->slug,
+        'QubitInformationObject',
+        'QubitActor',
+        'QubitRepository',
+        QubitInformationObject::ROOT_ID,
+        QubitActor::ROOT_ID,
+        QubitRepository::ROOT_ID
+      )
+    );
+
+    if ($slugId === false)
     {
       $this->forward404();
     }
