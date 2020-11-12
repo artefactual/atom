@@ -104,6 +104,28 @@ class UserClipboardSaveAction extends sfAction
     {
       foreach($slugs as $slug)
       {
+        // Check slug existence
+        $sql = 'SELECT s.id FROM slug s
+          JOIN object o ON s.object_id = o.id
+          WHERE s.slug = ? AND o.class_name = ?
+          AND o.id NOT IN (?, ?, ?)';
+
+        $slugId = QubitPdo::fetchColumn(
+          $sql,
+          array(
+            $slug,
+            $className,
+            QubitInformationObject::ROOT_ID,
+            QubitActor::ROOT_ID,
+            QubitRepository::ROOT_ID
+          )
+        );
+
+        if ($slugId === false)
+        {
+          continue;
+        }
+
         $item = new QubitClipboardSaveItem;
         $item->saveId = $save->id;
         $item->itemClassName = $className;
