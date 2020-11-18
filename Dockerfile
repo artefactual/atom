@@ -6,8 +6,6 @@ ENV FOP_HOME=/usr/share/fop-2.1 \
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-COPY . /atom/src
-
 RUN set -xe \
 		&& apk add --no-cache --virtual .phpext-builddeps \
 			gettext-dev \
@@ -48,12 +46,18 @@ RUN set -xe \
 			make \
 			bash \
 			gnu-libiconv \
+			fcgi \
 		&& npm install -g "less@<2.0.0" \
 		&& curl -Ls https://archive.apache.org/dist/xmlgraphics/fop/binaries/fop-2.1-bin.tar.gz | tar xz -C /usr/share \
-		&& ln -sf /usr/share/fop-2.1/fop /usr/local/bin/fop \
+		&& ln -sf /usr/share/fop-2.1/fop /usr/local/bin/fop
+
+COPY . /atom/src
+
+RUN set -xe \
 		&& make -C /atom/src/plugins/arDominionPlugin \
 		&& make -C /atom/src/plugins/arArchivesCanadaPlugin \
 		&& composer install -d /atom/src
+
 
 WORKDIR /atom/src
 
