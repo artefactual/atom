@@ -192,6 +192,16 @@ class QubitFlatfileExport
       }
       else
       {
+        // If config array being overridden is a sequential array,
+        // replace all elements in the array (e.g. isad 'columnNames').
+        // If config array being overridden is an associative array,
+        // override elements are merged so do not use this logic
+        // (e.g. rad 'map').
+        if ($config[$key] === array_values($config[$key]))
+        {
+          $config[$key] = array();
+        }
+
         $this->overrideConfigData($config[$key], $mixin[$key]);
       }
     }
