@@ -37,7 +37,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
   protected function addCoreArgumentsAndOptions()
   {
     $this->addArguments(array(
-      new sfCommandArgument('path', sfCommandArgument::REQUIRED, 'The destination path for export file(s).')
+      new sfCommandArgument('path', sfCommandArgument::REQUIRED, 'The destination directory for export file(s).')
     ));
 
     $this->addOptions(array(
@@ -64,12 +64,12 @@ abstract class exportBulkBaseTask extends sfBaseTask
   {
     if (!is_dir($path))
     {
-      throw new sfException('You must specify a valid path');
+      throw new sfException('You must specify a valid directory');
     }
 
     if (!is_writable($path))
     {
-      throw new sfException("Can't write to this path");
+      throw new sfException("Can't write to this directory");
     }
   }
 
