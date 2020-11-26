@@ -376,10 +376,10 @@ class arElasticSearchMapping
         $languages = sfConfig::get('app_i18n_languages');
         if (1 > count($languages))
         {
-          throw new sfException('The database settings don\'t content any language.');
+          throw new sfException('The database settings do not contain any languages.');
         }
 
-        // Add source culture propertie
+        // Add source culture property
         $this->setIfNotSet($mapping['properties'], 'sourceCulture', array('type' => 'keyword', 'include_in_all' => false));
 
         $nestedI18nFields = array();
@@ -389,6 +389,16 @@ class arElasticSearchMapping
 
           // Create mapping for i18n field
           $nestedI18nFields[$i18nFieldNameCamelized] = $this->getI18nFieldMapping($i18nFieldNameCamelized);
+        }
+
+        // Add 'untouched' when _rawFields specified in _partial_foreign_types section
+        if (isset($mapping['_rawFields']))
+        {
+          foreach ($mapping['_rawFields'] as $item)
+          {
+            $nestedI18nFields[$item]['fields']['untouched'] = array('type' => 'keyword');
+          }
+          unset($mapping['_rawFields']);
         }
 
         // i18n documents (one per culture)

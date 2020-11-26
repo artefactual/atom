@@ -485,6 +485,7 @@ mapping:
           slug: { type: keyword }
       repository:
         _i18nFields: [authorizedFormOfName]
+        _rawFields: [authorizedFormOfName]
         dynamic: strict
         properties:
           id: { type: integer }
