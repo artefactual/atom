@@ -143,12 +143,12 @@
 
         <?php echo link_to(render_title($relatedEntity), array($relatedEntity, 'module' => ('QubitRepository' == $relatedEntity->className) ? 'repository' : 'actor')) ?><?php if (isset($relatedEntity->datesOfExistence)): ?> <span class="note2">(<?php echo render_value_inline($relatedEntity->getDatesOfExistence(array('cultureFallback' => true))) ?>)</span><?php endif; ?>
 
-        <?php echo render_show(__('Identifier of the related entity'), render_value_inline($relatedEntity->descriptionIdentifier)) ?>
+        <?php echo render_show(__('Identifier of related entity'), render_value_inline($relatedEntity->descriptionIdentifier)) ?>
 
         <?php if ($item->type->parentId == QubitTerm::ROOT_ID): ?>
-          <?php echo render_show(__('Category of the relationship'), render_value_inline($item->type)) ?>
+          <?php echo render_show(__('Category of relationship'), render_value_inline($item->type)) ?>
         <?php else: ?>
-          <?php echo render_show(__('Category of the relationship'), render_value_inline($item->type->parent)) ?>
+          <?php echo render_show(__('Category of relationship'), render_value_inline($item->type->parent)) ?>
 
           <?php if ($resource->id != $item->objectId): ?>
             <?php echo render_show(__('Type of relationship'), link_to(render_title($relatedEntity), array($relatedEntity, 'module' => ('QubitRepository' == $relatedEntity->className) ? 'repository' : 'actor')) .' '. render_value($item->type) .' '. render_value($resource->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?>
@@ -157,7 +157,7 @@
           <?php endif; ?>
         <?php endif; ?>
 
-        <?php echo render_show(__('Dates of the relationship'), render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate))) ?>
+        <?php echo render_show(__('Dates of relationship'), render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate))) ?>
 
         <?php echo render_show(__('Description of relationship'), render_value_inline($item->description)) ?>
 
