@@ -541,8 +541,7 @@ class QubitTerm extends BaseTerm
 
       if (isset($options['returnObjectInstances']) && true == $options['returnObjectInstances'])
       {
-        $node->name = $indentedName;
-        $tree[sfContext::getInstance()->routing->generate(null, array($node, 'module' => 'term'))] = $node;
+        $tree[sfContext::getInstance()->routing->generate(null, array($node, 'module' => 'term'))] = $indentedName;
       }
       else
       {
