@@ -39,6 +39,12 @@ class ApiInformationObjectsDownloadDigitalObjectAction extends QubitApiAction
       throw new QubitApiNotAuthorizedException;
     }
 
+    // Check publication status
+    if (!QubitAcl::check($this->resource, 'viewDraft'))
+    {
+      throw new QubitApiNotAuthorizedException;
+    }
+
     // Check that a master or external digital object exists
     $digitalObjectTypes = array(QubitTerm::MASTER_ID, QubitTerm::EXTERNAL_URI_ID);
     $criteria = new Criteria;
