@@ -354,7 +354,7 @@ abstract class csvImportBaseTask extends arBaseTask
           $type = 'Box';
         }
 
-        $physicalObjectTypeId = array_search_case_insensitive($type, $self->status['physicalObjectTypes'][$self->columnValue('culture')]);
+        $physicalObjectTypeId = self::arraySearchCaseInsensitive($type, $self->status['physicalObjectTypes'][$self->columnValue('culture')]);
 
         // Create new physical object type if not found
         if ($physicalObjectTypeId === false)
@@ -362,7 +362,7 @@ abstract class csvImportBaseTask extends arBaseTask
           print "\nTerm $type not found in physical object type taxonomy, creating it...\n";
 
           $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID, $type, $self->columnValue('culture'));
-          $self->status['physicalObjectTypes'] = refreshTaxonomyTerms(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID);
+          $self->status['physicalObjectTypes'] = self::refreshTaxonomyTerms(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID);
 
           $physicalObjectTypeId = $newTerm->id;
         }
@@ -547,5 +547,57 @@ abstract class csvImportBaseTask extends arBaseTask
         );
       }
     }
+  }
+
+  /**
+   * Search array for a value, ignoring case, and return the first
+   * corresponding key.
+   *
+   * @param string $search  string to search for
+   * @param array $array  array to search through
+   *
+   * @return int|bool  key for found search item or FALSE if not found
+   */
+  static function arraySearchCaseInsensitive($search, $array)
+  {
+    return array_search(strtolower($search), array_map('strtolower', $array));
+  }
+
+  /**
+   * Add alternative identifiers to an information object.
+   *
+   * @param QubitInformationObject $io  information object
+   * @param array $altIds  array of alternative identfier IDs
+   * @param array $altIdLabels  array of alternative identifier labels
+   *
+   * @return void
+   */
+  static function setAlternativeIdentifiers($io, $altIds, $altIdLabels)
+  {
+    if (count($altIdLabels) !== count($altIds))
+    {
+      throw new sfException('Number of alternative ids does not match number of alt id labels');
+    }
+
+    for ($i = 0; $i < count($altIds); $i++)
+    {
+      $io->addProperty($altIdLabels[$i], $altIds[$i], array('scope' => 'alternativeIdentifiers'));
+    }
+  }
+
+  /**
+   * Reload a taxonomy's terms from the database. We'll need to do this
+   * whenever we create new terms on the fly when importing the file,
+   * so subsequent rows can use the newly created terms.
+   *
+   * @param int $taxonomyId  ID of taxonomy
+   *
+   * @return array  array containing taxonomy terms
+   */
+  static function refreshTaxonomyTerms($taxonomyId)
+  {
+    $result = QubitFlatfileImport::loadTermsFromTaxonomies(array($taxonomyId => 'terms'));
+
+    return $result['terms'];
   }
 }

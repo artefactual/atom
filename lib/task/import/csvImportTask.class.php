@@ -505,7 +505,7 @@ EOF;
         {
           $levelOfDetail = trim($self->rowStatusVars['levelOfDetail']);
 
-          $levelOfDetailTermId = array_search_case_insensitive($levelOfDetail, $self->status['levelOfDetailTypes'][$self->columnValue('culture')]);
+          $levelOfDetailTermId = self::arraySearchCaseInsensitive($levelOfDetail, $self->status['levelOfDetailTypes'][$self->columnValue('culture')]);
           if ($levelOfDetailTermId === false)
           {
             print "\nTerm $levelOfDetail not found in description details level taxonomy, creating it...\n";
@@ -517,7 +517,7 @@ EOF;
             );
 
             $levelOfDetailTermId = $newTerm->id;
-            $self->status['levelOfDetailTypes'] = refreshTaxonomyTerms(QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID);
+            $self->status['levelOfDetailTypes'] = self::refreshTaxonomyTerms(QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID);
           }
 
           $self->object->descriptionDetailId = $levelOfDetailTermId;
@@ -527,7 +527,7 @@ EOF;
         if (array_key_exists('alternativeIdentifiers', $self->rowStatusVars) &&
             array_key_exists('alternativeIdentifierLabels', $self->rowStatusVars))
         {
-          setAlternativeIdentifiers(
+          self::setAlternativeIdentifiers(
             $self->object,
             $self->rowStatusVars['alternativeIdentifiers'],
             $self->rowStatusVars['alternativeIdentifierLabels']
@@ -538,7 +538,7 @@ EOF;
         if (isset($self->rowStatusVars['descriptionStatus']) && 0 < strlen($self->rowStatusVars['descriptionStatus']))
         {
           $descStatus = trim($self->rowStatusVars['descriptionStatus']);
-          $statusTermId = array_search_case_insensitive($descStatus, $self->status['descriptionStatusTypes'][$self->columnValue('culture')]);
+          $statusTermId = self::arraySearchCaseInsensitive($descStatus, $self->status['descriptionStatusTypes'][$self->columnValue('culture')]);
 
           if (false !== $statusTermId)
           {
@@ -549,7 +549,7 @@ EOF;
             print "\nTerm $descStatus not found in description status taxonomy, creating it...\n";
 
             $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::DESCRIPTION_STATUS_ID, $descStatus, $self->columnValue('culture'));
-            $self->status['descriptionStatusTypes'] = refreshTaxonomyTerms(QubitTaxonomy::DESCRIPTION_STATUS_ID);
+            $self->status['descriptionStatusTypes'] = self::refreshTaxonomyTerms(QubitTaxonomy::DESCRIPTION_STATUS_ID);
 
             $self->object->descriptionStatusId = $newTerm->id;
           }
@@ -558,7 +558,7 @@ EOF;
         // Set publication status
         if (isset($self->rowStatusVars['publicationStatus']) && 0 < strlen($self->rowStatusVars['publicationStatus']))
         {
-          $pubStatusTermId = array_search_case_insensitive(
+          $pubStatusTermId = self::arraySearchCaseInsensitive(
             $self->rowStatusVars['publicationStatus'],
             $self->status['pubStatusTypes'][trim($self->columnValue('culture'))]
           );
@@ -1006,7 +1006,7 @@ EOF;
         foreach ($data as $value)
         {
           $value = trim($value);
-          $materialTypeId = array_search_case_insensitive($value, $self->status['materialTypes'][$self->columnValue('culture')]);
+          $materialTypeId = self::arraySearchCaseInsensitive($value, $self->status['materialTypes'][$self->columnValue('culture')]);
 
           if ($materialTypeId !== false)
           {
@@ -1017,7 +1017,7 @@ EOF;
             print "\nTerm $value not found in material type taxonomy, creating it...\n";
 
             $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::MATERIAL_TYPE_ID, $value, $self->columnValue('culture'));
-            $self->status['materialTypes'] = refreshTaxonomyTerms(QubitTaxonomy::MATERIAL_TYPE_ID);
+            $self->status['materialTypes'] = self::refreshTaxonomyTerms(QubitTaxonomy::MATERIAL_TYPE_ID);
 
             $self->rowStatusVars['radGeneralMaterialDesignation'][] = $newTerm->id;
           }
@@ -1092,34 +1092,4 @@ EOF;
       throw $e;
     }
   }
-}
-
-function array_search_case_insensitive($search, $array)
-{
-  return array_search(strtolower($search), array_map('strtolower', $array));
-}
-
-function setAlternativeIdentifiers($io, $altIds, $altIdLabels)
-{
-  if (count($altIdLabels) !== count($altIds))
-  {
-    throw new sfException('Number of alternative ids does not match number of alt id labels');
-  }
-
-  for ($i = 0; $i < count($altIds); $i++)
-  {
-    $io->addProperty($altIdLabels[$i], $altIds[$i], array('scope' => 'alternativeIdentifiers'));
-  }
-}
-
-/**
- * Reload a taxonomy's terms from the database. We'll need to do this
- * whenever we create new terms on the fly when importing the file,
- * so subsequent rows can use the newly created terms.
- */
-function refreshTaxonomyTerms($taxonomyId)
-{
-  $result = QubitFlatfileImport::loadTermsFromTaxonomies(array($taxonomyId => 'terms'));
-
-  return $result['terms'];
 }

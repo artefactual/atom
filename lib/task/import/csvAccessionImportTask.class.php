@@ -281,7 +281,7 @@ EOF;
                 if (!empty($typeName = $identifierTypes[$index]))
                 {
                   // Create new accession identifier type term, if necessary
-                  if (empty($typeId = array_search_case_insensitive($typeName, $self->status['alternativeIdentifierTypes'][$self->columnValue('culture')])))
+                  if (empty($typeId = self::arraySearchCaseInsensitive($typeName, $self->status['alternativeIdentifierTypes'][$self->columnValue('culture')])))
                   {
                     $term = new QubitTerm;
                     $term->parentId = QubitTerm::ROOT_ID;
@@ -333,7 +333,7 @@ EOF;
               if (!empty($eventType) && !empty($eventDate))
               {
                 // Create new accession event type term, if necessary
-                if (empty($typeId = array_search_case_insensitive($eventType, $self->status['accessionEventTypes'][$self->columnValue('culture')])))
+                if (empty($typeId = self::arraySearchCaseInsensitive($eventType, $self->status['accessionEventTypes'][$self->columnValue('culture')])))
                 {
                   $term = new QubitTerm;
                   $term->parentId = QubitTerm::ROOT_ID;
@@ -476,13 +476,13 @@ EOF;
       if ($data)
       {
         $data = trim($data);
-        $resourceTypeId = array_search_case_insensitive($data, $self->status['resourceTypes'][$self->columnValue('culture')]);
+        $resourceTypeId = self::arraySearchCaseInsensitive($data, $self->status['resourceTypes'][$self->columnValue('culture')]);
 
         if ($resourceTypeId === false)
         {
           print "\nTerm $data not found in resource type taxonomy, creating it...\n";
           $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::ACCESSION_RESOURCE_TYPE_ID, $data, $self->columnValue('culture'));
-          $self->status['resourceTypes'] = refreshTaxonomyTerms(QubitTaxonomy::ACCESSION_RESOURCE_TYPE_ID);
+          $self->status['resourceTypes'] = self::refreshTaxonomyTerms(QubitTaxonomy::ACCESSION_RESOURCE_TYPE_ID);
         }
 
         $this->setObjectPropertyToTermIdLookedUpFromTermNameArray(
@@ -500,13 +500,13 @@ EOF;
       if ($data)
       {
         $data = trim($data);
-        $acquisitionTypeId = array_search_case_insensitive($data, $self->status['acquisitionTypes'][$self->columnValue('culture')]);
+        $acquisitionTypeId = self::arraySearchCaseInsensitive($data, $self->status['acquisitionTypes'][$self->columnValue('culture')]);
 
         if ($acquisitionTypeId === false)
         {
           print "\nTerm $data not found in acquisition type taxonomy, creating it...\n";
           $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::ACCESSION_ACQUISITION_TYPE_ID, $data, $self->columnValue('culture'));
-          $self->status['acquisitionTypes'] = refreshTaxonomyTerms(QubitTaxonomy::ACCESSION_ACQUISITION_TYPE_ID);
+          $self->status['acquisitionTypes'] = self::refreshTaxonomyTerms(QubitTaxonomy::ACCESSION_ACQUISITION_TYPE_ID);
         }
 
         $this->setObjectPropertyToTermIdLookedUpFromTermNameArray(

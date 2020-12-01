@@ -117,7 +117,7 @@ EOF;
           $self->columnValue('subjectAuthorizedFormOfName'), ['culture' => $self->columnValue('culture')]);
 
         // Determine type ID of relationship type
-        $relationTypeId = array_search_case_insensitive(
+        $relationTypeId = self::arraySearchCaseInsensitive(
           $self->columnValue('relationType'),
           $self->status['actorRelationTypes'][$self->columnValue('culture')]
         );
