@@ -204,7 +204,7 @@
         // Update clipboard buttons
         if (jQuery('#clipboard-menu').data('clipboard') !== undefined)
         {
-          jQuery('#clipboard-menu').data('clipboard').updateAll();
+          jQuery('#clipboard-menu').data('clipboard').updateAllButtons();
         }
 
         // Update the url, TODO save the state
