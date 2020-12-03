@@ -17,37 +17,36 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Display "quicklinks" navigation menu
+/*
+ * Allow deletion of privacy menu item from quick links.
  *
  * @package    AccesstoMemory
- * @subpackage menu
- * @author     David Juhasz <david@artefactual.com>
+ * @subpackage migration
  */
-class menuQuickLinksMenuComponent extends sfComponent
+class arMigration0189
 {
-  public function execute($request)
+  const
+    VERSION = 189, // The new database version
+    MIN_MILESTONE = 2; // The minimum milestone required
+
+  public function up($configuration)
   {
-    // Get menu
-    $quickLinksMenu = QubitMenu::getById(QubitMenu::QUICK_LINKS_ID);
+    // Get menu locking configuration
+    $setting = QubitSetting::getByName('menu_locking_info');
 
-    if (!$quickLinksMenu instanceof QubitMenu)
+    if (!empty($setting))
     {
-      return;
-    }
+      $lockedMenus = unserialize($setting->value);
 
-    // Get menu items that correspond to an external URL or an internal path
-    $this->quickLinks = [];
-
-    foreach ($quickLinksMenu->getChildren() as $child)
-    {
-      $url = $child->getPath(['getUrl' => true, 'resolveAlias' => true]);
-      $urlParsed = parse_url($url);
-
-      if (isset($urlParsed['scheme']) || QubitObject::actionExistsForUrl($url))
-      {
-        $this->quickLinks[] = $child;
+      // Unset privacy menu if it's set
+      if (($key = array_search('privacy', $lockedMenus['byName'])) !== false) {
+        unset($lockedMenus['byName'][$key]);
       }
+
+      $setting->value = serialize($lockedMenus);
+      $setting->save();
     }
+
+    return true;
   }
 }

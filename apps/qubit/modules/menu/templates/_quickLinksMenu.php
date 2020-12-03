@@ -14,7 +14,7 @@
 
     <div class="top-dropdown-body">
       <ul>
-        <?php foreach ($quickLinksMenu->getChildren() as $child): ?>
+        <?php foreach ($quickLinks as $child): ?>
           <?php if ('login' != $child->getName() && 'logout' != $child->getName() && 'myProfile' != $child->getName()): ?>
             <li<?php if ($child->isSelected()): ?> class="active"<?php endif; ?>><?php echo link_to($child->getLabel(array('cultureFallback' => true)), $child->getPath(array('getUrl' => true, 'resolveAlias' => true))) ?></li>
           <?php endif; ?>

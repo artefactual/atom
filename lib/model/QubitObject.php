@@ -248,10 +248,20 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
       return true;
     }
 
-    // Check if slug is used by any active module
-    $context = sfContext::getInstance();
+    return self::actionExistsForUrl($this->slug);
+  }
 
-    $route = $context->getRouting()->findRoute($this->slug);
+  /**
+   * Checks to see if a path links to an action.
+   *
+   * @param string $url  URL or path
+   *
+   * @return boolean  True if path links to an action
+   */
+  public static function actionExistsForUrl($url)
+  {
+    $context = sfContext::getInstance();
+    $route = $context->getRouting()->findRoute($url);
     $routeParams = $route['parameters'];
 
     return $context->getController()->actionExists($routeParams['module'], $routeParams['action']);
