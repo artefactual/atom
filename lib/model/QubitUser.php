@@ -74,10 +74,41 @@ class QubitUser extends BaseUser
 
   public static function generatePasswordHash($password)
   {
-    $hashAlgo = constant(sfConfig::get('app_password_hash_algorithm', 'PASSWORD_ARGON2I'));
-    $hashAlgoOptions = json_decode(sfConfig::get('app_password_hash_algorithm_options', '{}'), true);
+    $hashAlgoConstant = sfConfig::get('app_password_hash_algorithm', 'PASSWORD_ARGON2I');
 
-    return password_hash($password, $hashAlgo, $hashAlgoOptions);
+    // Check to make sure hashing constant specified in settings is defined
+    if (defined($hashAlgoConstant))
+    {
+      // Hashing constant is defined so use it and options specified in settings
+      $hashAlgo = constant($hashAlgoConstant);
+
+      $hashAlgoOptions = json_decode(
+        sfConfig::get('app_password_hash_algorithm_options', '{}'),
+        true
+      );
+    }
+    else
+    {
+      // Hashing constant specified in settings isn't defined: use default
+      // alghorithm (PASSWORD_DEFAULT, usually PASSWORD_BCRYPT) and options
+      $hashAlgo = PASSWORD_DEFAULT;
+      $hashAlgoOptions = [];
+    }
+
+    $passwordHash = password_hash($password, $hashAlgo, $hashAlgoOptions);
+
+    // Make sure hashing completed successfully
+    if (empty($passwordHash))
+    {
+      $errorMessage = sprintf(
+        "Password hashing using the %s algorithm was unsuccessful.",
+        $hashAlgoConstant
+      );
+
+      throw new ErrorException($errorMessage);
+    }
+
+    return $passwordHash;
   }
 
   public function getAclGroups()
