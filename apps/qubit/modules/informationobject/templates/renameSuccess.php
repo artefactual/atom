@@ -32,6 +32,8 @@
       </section>
     </div>
   </div>
+  
+  <?php echo $form->renderGlobalErrors() ?>
 
   <?php echo $form->renderFormTag(url_for(array('module' => 'informationobject', 'action' => 'rename', 'slug' => $resource->slug)), array('id' => 'rename-form')) ?>
 

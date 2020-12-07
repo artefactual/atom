@@ -15,6 +15,8 @@
     <?php echo $form->renderFormTag(url_for(array('module' => 'user', 'action' => 'add')), array('id' => 'editForm')) ?>
   <?php endif; ?>
 
+    <?php echo $form->renderHiddenFields() ?>
+
     <section id="content">
 
       <fieldset class="collapsible" id="basicInfo">

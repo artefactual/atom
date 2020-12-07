@@ -33,19 +33,24 @@ class StaticPageDeleteAction extends sfAction
 
     if ($request->isMethod('delete'))
     {
-      $this->resource->delete();
-
-      // Invalidate static page content cache entry
-      if (null !== $cache = QubitCache::getInstance())
+      $this->form->bind($request->getPostParameters());
+      
+      if ($this->form->isValid())
       {
-        foreach (sfConfig::get('app_i18n_languages') as $culture)
-        {
-          $cacheKey = 'staticpage:'.$this->resource->id.':'.$culture;
-          $cache->remove($cacheKey);
-        }
-      }
+        $this->resource->delete();
 
-      $this->redirect(array('module' => 'staticpage', 'action' => 'list'));
+        // Invalidate static page content cache entry
+        if (null !== $cache = QubitCache::getInstance())
+        {
+          foreach (sfConfig::get('app_i18n_languages') as $culture)
+          {
+            $cacheKey = 'staticpage:'.$this->resource->id.':'.$culture;
+            $cache->remove($cacheKey);
+          }
+        }
+
+        $this->redirect(array('module' => 'staticpage', 'action' => 'list'));
+      }
     }
   }
 }

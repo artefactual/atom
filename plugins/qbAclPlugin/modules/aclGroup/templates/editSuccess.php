@@ -14,6 +14,8 @@
     <?php echo $form->renderFormTag(url_for(array('module' => 'aclGroup', 'action' => 'add')), array('id' => 'editForm')) ?>
   <?php endif; ?>
 
+    <?php echo $form->renderHiddenFields() ?>
+
     <section id="content">
 
       <fieldset class="collapsible">

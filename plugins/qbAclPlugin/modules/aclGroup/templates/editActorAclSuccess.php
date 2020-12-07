@@ -4,7 +4,11 @@
 
 <?php echo get_partial('addActorDialog', array('basicActions' => $basicActions)) ?>
 
+<?php echo $form->renderGlobalErrors() ?>
+
 <form method="post" action="<?php echo url_for(array($resource, 'module' => 'aclGroup', 'action' => 'editActorAcl')) ?>" id="editForm">
+
+  <?php echo $form->renderHiddenFields() ?>
 
   <section id="content">
 

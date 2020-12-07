@@ -14,7 +14,17 @@
 
 <?php slot('content') ?>
 
+  <?php echo $permissionsForm->renderGlobalErrors() ?>
+  <?php echo $permissionsAccessStatementsForm->renderGlobalErrors() ?>
+  <?php echo $permissionsCopyrightStatementForm->renderGlobalErrors() ?>
+  <?php echo $permissionsPreservationSystemAccessStatementForm->renderGlobalErrors() ?>
+
   <form action="<?php echo url_for('settings/permissions') ?>" method="post" autocomplete="off">
+
+    <?php echo $permissionsForm->renderHiddenFields() ?>
+    <?php echo $permissionsAccessStatementsForm->renderHiddenFields() ?>
+    <?php echo $permissionsCopyrightStatementForm->renderHiddenFields() ?>
+    <?php echo $permissionsPreservationSystemAccessStatementForm->renderHiddenFields() ?>
 
     <div id="content">
 

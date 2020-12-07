@@ -21,6 +21,7 @@ class SettingsPermissionsCopyrightStatementForm extends sfForm
 {
   public function configure()
   {
+    $this->widgetSchema->setNameFormat('copyrightStatement[%s]');
     $this->getValidatorSchema()->setOption('allow_extra_fields', true);
 
     $this->setWidget('copyrightStatementEnabled', new sfWidgetFormSelectRadio(array('choices'=> array(1 => 'yes', 0 => 'no')), array('class'=>'radio')));

@@ -20,6 +20,8 @@
 
         <?php echo $form->renderFormTag(url_for(array('module' => 'cas', 'action' => 'login'))) ?>
 
+          <?php echo $form->renderHiddenFields() ?>
+
           <button type="submit"><?php echo __('Log in with CAS') ?></button>
 
         </form>

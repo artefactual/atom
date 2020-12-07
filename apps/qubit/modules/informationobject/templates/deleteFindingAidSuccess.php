@@ -6,8 +6,12 @@
 
 <?php slot('content') ?>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'deleteFindingAid')), array('method' => 'delete')) ?>
 
+    <?php echo $form->renderHiddenFields() ?>
+    
     <div id="content">
 
       <h2><?php echo __('The following file will be deleted from the file system:') ?></h2>

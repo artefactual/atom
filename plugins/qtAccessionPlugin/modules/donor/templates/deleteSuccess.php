@@ -6,8 +6,12 @@
 
 <?php slot('content') ?>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'donor', 'action' => 'delete')), array('method' => 'delete')) ?>
 
+    <?php echo $form->renderHiddenFields() ?>
+    
     <section class="actions">
       <ul>
         <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'donor'), array('class' => 'c-btn')) ?></li>

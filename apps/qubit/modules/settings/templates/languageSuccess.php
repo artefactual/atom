@@ -19,7 +19,11 @@
     <pre>$ php symfony search:populate</pre>
   </div>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <form action="<?php echo url_for('settings/language') ?>" method="post">
+
+    <?php echo $form->renderHiddenFields() ?>
 
     <div id="content">
 

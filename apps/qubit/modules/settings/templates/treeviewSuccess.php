@@ -16,7 +16,11 @@
 
 <?php slot('content') ?>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <?php echo $form->renderFormTag(url_for(array('module' => 'settings', 'action' => 'treeview'))) ?>
+
+    <?php echo $form->renderHiddenFields() ?>
 
     <div id="content">
 

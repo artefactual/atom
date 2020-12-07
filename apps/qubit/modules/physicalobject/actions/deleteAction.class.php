@@ -44,15 +44,18 @@ class PhysicalObjectDeleteAction extends sfAction
     {
       $this->form->bind($request->getPostParameters());
 
-      $this->resource->delete();
-
-      $next = $this->form->getValue('next');
-      if (isset($next))
+      if ($this->form->isValid())
       {
-        $this->redirect($next);
-      }
+        $this->resource->delete();
 
-      $this->redirect('@homepage');
+        $next = $this->form->getValue('next');
+        if (isset($next))
+        {
+          $this->redirect($next);
+        }
+
+        $this->redirect('@homepage');
+      }
     }
   }
 }

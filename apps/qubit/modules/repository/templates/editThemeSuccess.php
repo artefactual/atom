@@ -13,6 +13,8 @@
 
   <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'repository', 'action' => 'editTheme'))) ?>
 
+    <?php echo $form->renderHiddenFields() ?>
+
     <div id="content">
 
       <fieldset class="collapsible" id="styleArea">

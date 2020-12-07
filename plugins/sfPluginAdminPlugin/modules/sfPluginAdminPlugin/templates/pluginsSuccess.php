@@ -4,6 +4,8 @@
 
 <?php echo $form->renderFormTag(url_for(array('module' => 'sfPluginAdminPlugin', 'action' => 'plugins'))) ?>
 
+  <?php echo $form->renderHiddenFields() ?>
+
   <table class="table table-bordered sticky-enabled">
     <thead>
       <tr>

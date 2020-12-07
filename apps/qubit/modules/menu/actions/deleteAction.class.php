@@ -32,19 +32,24 @@ class MenuDeleteAction extends sfAction
 
     if ($request->isMethod('delete'))
     {
-      if (!$this->resource->isProtected())
+      $this->form->bind($request->getPostParameters());
+      
+      if ($this->form->isValid())
       {
-        $this->resource->delete();
-      }
+        if (!$this->resource->isProtected())
+        {
+          $this->resource->delete();
+        }
 
-      // Remove cache
-      if ($this->context->getViewCacheManager() !== null)
-      {
-        $this->context->getViewCacheManager()->remove('@sf_cache_partial?module=menu&action=_browseMenu&sf_cache_key=*');
-        $this->context->getViewCacheManager()->remove('@sf_cache_partial?module=menu&action=_mainMenu&sf_cache_key=*');
-      }
+        // Remove cache
+        if ($this->context->getViewCacheManager() !== null)
+        {
+          $this->context->getViewCacheManager()->remove('@sf_cache_partial?module=menu&action=_browseMenu&sf_cache_key=*');
+          $this->context->getViewCacheManager()->remove('@sf_cache_partial?module=menu&action=_mainMenu&sf_cache_key=*');
+        }
 
-      $this->redirect(array('module' => 'menu', 'action' => 'list'));
+        $this->redirect(array('module' => 'menu', 'action' => 'list'));
+      }
     }
   }
 }

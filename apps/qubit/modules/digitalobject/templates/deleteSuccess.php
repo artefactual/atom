@@ -10,7 +10,11 @@
 
 <?php slot('content') ?>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'digitalobject', 'action' => 'delete')), array('method' => 'delete')) ?>
+
+    <?php echo $form->renderHiddenFields() ?>
 
     <section class="actions">
       <ul>

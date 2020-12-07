@@ -23,6 +23,8 @@
     <?php echo $form->renderFormTag(url_for(array('module' => 'menu', 'action' => 'add'))) ?>
   <?php endif; ?>
 
+    <?php echo $form->renderHiddenFields() ?>
+
     <div id="content">
 
       <fieldset class="collapsible">

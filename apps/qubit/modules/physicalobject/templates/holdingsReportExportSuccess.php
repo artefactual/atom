@@ -6,6 +6,8 @@
 
 <?php slot('content') ?>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <?php echo $form->renderFormTag(url_for(array('module' => 'physicalobject', 'action' => 'holdingsReportExport'))) ?>
 
     <?php echo $form->renderHiddenFields() ?>

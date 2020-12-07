@@ -142,7 +142,8 @@ class SearchDescriptionUpdatesAction extends sfAction
       $this->user = $params['_sf_route']->resource;
     }
 
-    $this->form = new sfForm;
+    // Create form (without CSRF protection)
+    $this->form = new sfForm([], [], false);
     $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
     foreach ($this::$NAMES as $name)

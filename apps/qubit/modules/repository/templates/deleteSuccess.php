@@ -6,7 +6,11 @@
 
       <h1><?php echo __('Are you sure you want to delete %1%?', array('%1%' => render_title($resource))) ?></h1>
 
+      <?php echo $form->renderGlobalErrors() ?>
+
       <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'repository', 'action' => 'delete')), array('method' => 'delete')) ?>
+
+        <?php echo $form->renderHiddenFields() ?>
 
         <section class="actions">
           <ul>

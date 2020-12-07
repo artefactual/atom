@@ -40,19 +40,24 @@ class AccessionDeleteAction extends sfAction
 
     if ($request->isMethod('delete'))
     {
-      foreach ($this->resource->deaccessions as $item)
+      $this->form->bind($request->getPostParameters());
+      
+      if ($this->form->isValid())
       {
-        $item->delete();
+        foreach ($this->resource->deaccessions as $item)
+        {
+          $item->delete();
+        }
+
+        foreach (QubitRelation::getBySubjectOrObjectId($this->resource->id) as $item)
+        {
+          $item->delete();
+        }
+
+        $this->resource->delete();
+
+        $this->redirect(array('module' => 'accession', 'action' => 'browse'));
       }
-
-      foreach (QubitRelation::getBySubjectOrObjectId($this->resource->id) as $item)
-      {
-        $item->delete();
-      }
-
-      $this->resource->delete();
-
-      $this->redirect(array('module' => 'accession', 'action' => 'browse'));
     }
   }
 }

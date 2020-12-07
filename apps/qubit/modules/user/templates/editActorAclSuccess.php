@@ -4,8 +4,12 @@
 
 <?php echo get_partial('aclGroup/addActorDialog', array('basicActions' => $basicActions)) ?>
 
+<?php echo $form->renderGlobalErrors() ?>
+
 <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'user', 'action' => 'editActorAcl')), array('id' => 'editForm')) ?>
 
+  <?php echo $form->renderHiddenFields() ?>
+  
   <section id="content">
 
     <fieldset class="collapsible">

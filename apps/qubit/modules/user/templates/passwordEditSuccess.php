@@ -10,8 +10,12 @@
 
 <?php slot('content') ?>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'user', 'action' => 'passwordEdit')), array('id' => 'editForm')) ?>
 
+    <?php echo $form->renderHiddenFields() ?>
+    
     <?php $settings = json_encode(array(
       'password' => array(
         'strengthTitle' => __('Password strength:'),

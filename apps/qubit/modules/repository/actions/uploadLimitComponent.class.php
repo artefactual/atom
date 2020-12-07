@@ -119,5 +119,11 @@ class RepositoryUploadLimitComponent extends sfComponent
     {
       $this->diskUsage = round($this->diskUsage, 2);
     }
+
+    // Create a new form to (based on the configuration) render the hidden
+    // field needed for CRSF protection. Ideally, the entire form would use
+    // sfForm to render and validate but its submission is made with an Ajax
+    // request validated in the editUploadLimitAction.
+    $this->form = new sfForm;
   }
 }

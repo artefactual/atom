@@ -18,6 +18,8 @@
 
   <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'uploadFindingAid'))) ?>
 
+    <?php echo $form->renderHiddenFields() ?>
+
     <div id="content">
 
       <fieldset class="collapsible">

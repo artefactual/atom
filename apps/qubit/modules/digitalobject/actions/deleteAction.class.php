@@ -55,29 +55,34 @@ class DigitalObjectDeleteAction extends sfAction
 
     if ($request->isMethod('delete'))
     {
-      // Delete the digital object record from the database
-      $this->resource->delete();
-      QubitSearch::getInstance()->update($this->object);
+      $this->form->bind($request->getPostParameters());
+      
+      if ($this->form->isValid())
+      {
+        // Delete the digital object record from the database
+        $this->resource->delete();
+        QubitSearch::getInstance()->update($this->object);
 
-      if ($this->object instanceOf QubitInformationObject)
-      {
-        $this->object->updateXmlExports();
-      }
-
-      // Redirect to edit page for parent Object
-      if (isset($parent))
-      {
-        $this->redirect(array($parent, 'module' => 'digitalobject', 'action' => 'edit'));
-      }
-      else
-      {
         if ($this->object instanceOf QubitInformationObject)
         {
-          $this->redirect(array($this->object, 'module' => 'informationobject'));
+          $this->object->updateXmlExports();
         }
-        else if ($this->object instanceOf QubitActor)
+
+        // Redirect to edit page for parent Object
+        if (isset($parent))
         {
-          $this->redirect(array($this->object, 'module' => 'actor'));
+          $this->redirect(array($parent, 'module' => 'digitalobject', 'action' => 'edit'));
+        }
+        else
+        {
+          if ($this->object instanceOf QubitInformationObject)
+          {
+            $this->redirect(array($this->object, 'module' => 'informationobject'));
+          }
+          else if ($this->object instanceOf QubitActor)
+          {
+            $this->redirect(array($this->object, 'module' => 'actor'));
+          }
         }
       }
     }

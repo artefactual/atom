@@ -21,7 +21,18 @@ class RepositoryEditUploadLimitAction extends sfAction
 {
   public function execute($request)
   {
-    if (!$this->context->user->isAdministrator())
+    // Create a new form for CSRF validation of Ajax request.
+    // The $request->checkCSRFProtection() method complains
+    // about not finding the BaseForm class.
+    $form = new sfForm;
+
+    if ($form->isCSRFProtected())
+    {
+      $fieldName = $form->getCSRFFieldName();
+      $form->bind(array($fieldName => $request->getParameter($fieldName)));
+    }
+
+    if (!$this->context->user->isAdministrator() || !$form->isValid())
     {
       // 403 - Forbidden
       $this->getResponse()->setStatusCode(403);

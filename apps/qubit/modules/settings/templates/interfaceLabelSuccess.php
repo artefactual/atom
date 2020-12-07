@@ -14,7 +14,11 @@
 
 <?php slot('content') ?>
 
+  <?php echo $uiLabelForm->renderGlobalErrors() ?>
+
   <form action="<?php echo url_for('settings/interfaceLabel') ?>" method="post">
+
+    <?php echo $uiLabelForm->renderHiddenFields() ?>
 
     <div id="content">
 

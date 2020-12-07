@@ -7,7 +7,11 @@
 
 <?php echo get_partial('addRepositoryDialog', array('basicActions' => $basicActions)) ?>
 
+<?php echo $form->renderGlobalErrors() ?>
+
 <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'aclGroup', 'action' => 'editRepositoryAcl')), array('id' => 'editForm')) ?>
+
+  <?php echo $form->renderHiddenFields() ?>
 
   <div id="content">
 

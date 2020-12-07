@@ -30,7 +30,7 @@ class QubitWidgetFormSchemaFormatterList extends sfWidgetFormSchemaFormatter
     $rowFormat = "<tr>\n <td><span title=\"%help%\">%label%</td>\n <td>%error%%field%%hidden_fields%</td>\n</tr>\n",
     $helpFormat = '%help%',
     $errorRowFormat = "<tr><td colspan=\"2\">\n%errors%</td></tr>\n",
-    $errorListFormatInARow = " <ul class=\"validation_error\">\n%errors% </ul>\n",
+    $errorListFormatInARow = " <div class=\"messages error\"><ul>\n%errors% </ul></div>\n",
     $errorRowFormatInARow = " <li>%error%</li>\n",
     $namedErrorRowFormatInARow = " <li>%name%: %error%</li>\n",
     $decoratorFormat = "<table>\n %content%</table>";

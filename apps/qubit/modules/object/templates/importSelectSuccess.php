@@ -13,6 +13,8 @@
 
 <?php slot('content') ?>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <?php if (isset($resource)): ?>
     <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'object', 'action' => 'importSelect')), array('enctype' => 'multipart/form-data')) ?>
   <?php else: ?>

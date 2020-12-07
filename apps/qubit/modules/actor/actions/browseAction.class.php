@@ -320,8 +320,9 @@ class ActorBrowseAction extends DefaultBrowseAction
       $this->context->user->removeAttribute('search-realm');
     }
 
-    // Set up form, using the request, and data fetched by filter tags, to provide defaults
-    $this->form = new sfForm;
+    // Set up form (without CSRF protection), using the request,
+    // and data fetched by filter tags, to provide defaults
+    $this->form = new sfForm([], [], false);
     $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
     foreach ($this::$NAMES as $name)
@@ -567,6 +568,12 @@ class ActorBrowseAction extends DefaultBrowseAction
 
     // Prepare filter tags, form, and hidden fields/values
     $this->setFilterTagsAndForm($request);
+
+    $this->form->bind($request->getRequestParameters() + $request->getGetParameters());
+    if (!$this->form->isValid())
+    {
+      return;
+    }
 
     // Perform search and paging
     $resultSet = $this->doSearch($request);

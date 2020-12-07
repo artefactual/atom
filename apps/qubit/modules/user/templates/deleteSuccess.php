@@ -12,7 +12,11 @@
     </h2></div>
   <?php endif; ?>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'user', 'action' => 'delete')), array('method' => 'delete')) ?>
+
+    <?php echo $form->renderHiddenFields() ?>
 
     <section class="actions">
       <ul>

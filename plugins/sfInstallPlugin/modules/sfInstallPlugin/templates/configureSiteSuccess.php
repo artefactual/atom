@@ -3,7 +3,9 @@
 <h2>Site configuration</h2>
 
 <?php slot('before-content') ?>
+  <?php echo $form->renderGlobalErrors() ?>
   <?php echo $form->renderFormTag(url_for(array('module' => 'sfInstallPlugin', 'action' => 'configureSite'))) ?>
+  <?php echo $form->renderHiddenFields() ?>
 <?php end_slot() ?>
 
   <fieldset class="collapsible">

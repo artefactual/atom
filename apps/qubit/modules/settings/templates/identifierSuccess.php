@@ -20,7 +20,11 @@
     <pre>$ php symfony search:populate</pre>
   </div>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <?php echo $form->renderFormTag(url_for(array('module' => 'settings', 'action' => 'identifier'))) ?>
+  
+    <?php echo $form->renderHiddenFields() ?>
 
     <div id="content">
 

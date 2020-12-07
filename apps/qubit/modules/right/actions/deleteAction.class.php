@@ -21,6 +21,7 @@ class RightDeleteAction extends sfAction
 {
   public function execute($request)
   {
+    $this->form = new sfForm;
     $this->right = $this->getRoute()->resource;
     $this->relatedObject = $this->right->relationsRelatedByobjectId[0]->subject;
 
@@ -32,11 +33,14 @@ class RightDeleteAction extends sfAction
 
     if ($request->isMethod('delete'))
     {
-      $this->right->delete();
+      $this->form->bind($request->getPostParameters());
+      
+      if ($this->form->isValid())
+      {
+        $this->right->delete();
 
-      return $this->redirect(array($this->relatedObject));
+        return $this->redirect(array($this->relatedObject));
+      }
     }
-
-    $this->form = new sfForm;
   }
 }

@@ -27,15 +27,20 @@ class FunctionDeleteAction extends sfAction
 
     if ($request->isMethod('delete'))
     {
-      // Delete relationships
-      foreach (QubitRelation::getBySubjectOrObjectId($this->resource->id) as $item)
+      $this->form->bind($request->getPostParameters());
+      
+      if ($this->form->isValid())
       {
-        $item->delete();
+        // Delete relationships
+        foreach (QubitRelation::getBySubjectOrObjectId($this->resource->id) as $item)
+        {
+          $item->delete();
+        }
+
+        $this->resource->delete();
+
+        $this->redirect(array('module' => 'function', 'action' => 'browse'));
       }
-
-      $this->resource->delete();
-
-      $this->redirect(array('module' => 'function', 'action' => 'browse'));
     }
   }
 }

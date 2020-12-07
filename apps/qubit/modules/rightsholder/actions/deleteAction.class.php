@@ -27,14 +27,19 @@ class RightsHolderDeleteAction extends sfAction
 
     if ($request->isMethod('delete'))
     {
-      foreach (QubitRelation::getBySubjectOrObjectId($this->resource->id) as $item)
+      $this->form->bind($request->getPostParameters());
+      
+      if ($this->form->isValid())
       {
-        $item->delete();
+        foreach (QubitRelation::getBySubjectOrObjectId($this->resource->id) as $item)
+        {
+          $item->delete();
+        }
+
+        $this->resource->delete();
+
+        $this->redirect(array('module' => 'rightsholder', 'action' => 'browse'));
       }
-
-      $this->resource->delete();
-
-      $this->redirect(array('module' => 'rightsholder', 'action' => 'browse'));
     }
   }
 }

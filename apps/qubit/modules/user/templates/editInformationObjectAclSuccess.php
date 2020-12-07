@@ -2,8 +2,12 @@
 
 <h1><?php echo __('Edit %1% permissions of %2%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_informationobject')), '%2%' => render_title($resource))) ?></h1>
 
+<?php echo $form->renderGlobalErrors() ?>
+
 <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'user', 'action' => 'editInformationObjectAcl')), array('id' => 'editForm')) ?>
 
+  <?php echo $form->renderHiddenFields() ?>
+  
   <section id="content">
 
     <fieldset class="collapsible" id="allInfoObjectsArea">

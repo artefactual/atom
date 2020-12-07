@@ -73,6 +73,8 @@
 <?php slot('after-content') ?>
   <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'default', 'action' => 'move'))) ?>
 
     <?php echo $form->renderHiddenFields() ?>

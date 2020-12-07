@@ -39,15 +39,20 @@ class InformationObjectDeleteAction extends sfAction
 
     if ($request->isMethod('delete'))
     {
-      $parent = $this->resource->parent;
-      $this->resource->deleteFullHierarchy();
-
-      if (isset($parent->parent))
+      $this->form->bind($request->getPostParameters());
+      
+      if ($this->form->isValid())
       {
-        $this->redirect(array($parent, 'module' => 'informationobject'));
-      }
+        $parent = $this->resource->parent;
+        $this->resource->deleteFullHierarchy();
 
-      $this->redirect(array('module' => 'informationobject', 'action' => 'browse'));
+        if (isset($parent->parent))
+        {
+          $this->redirect(array($parent, 'module' => 'informationobject'));
+        }
+
+        $this->redirect(array('module' => 'informationobject', 'action' => 'browse'));
+      }
     }
 
     // Apparently we can't slice a QubitQuery. `previewSize` is shared with

@@ -28,6 +28,7 @@ class SettingsPermissionsForm extends sfForm
 {
   public function configure()
   {
+    $this->widgetSchema->setNameFormat('permissions[%s]');
     $this->getValidatorSchema()->setOption('allow_extra_fields', true);
 
     //

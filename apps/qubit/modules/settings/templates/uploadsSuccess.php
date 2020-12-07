@@ -14,9 +14,13 @@
 
 <?php slot('content') ?>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <?php echo $form->renderFormTag(url_for(
     ['module' => 'settings', 'action' => 'uploads']
   )) ?>
+
+    <?php echo $form->renderHiddenFields() ?>
 
     <div id="content">
 

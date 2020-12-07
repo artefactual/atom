@@ -14,8 +14,12 @@
 
 <?php slot('content') ?>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <?php echo $form->renderFormTag(url_for(array('module' => 'settings', 'action' => 'inventory'))) ?>
 
+    <?php echo $form->renderHiddenFields() ?>
+    
     <div id="content">
 
       <fieldset class="collapsible">

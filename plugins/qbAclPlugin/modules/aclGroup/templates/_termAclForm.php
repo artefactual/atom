@@ -3,7 +3,11 @@
 <?php $sf_response->addJavaScript('/vendor/yui/container/container-min') ?>
 <?php $sf_response->addJavaScript('aclDialog') ?>
 
+<?php echo $form->renderGlobalErrors() ?>
+
 <?php echo $form->renderFormTag(url_for(array($resource, 'module' => $sf_context->getModuleName(), 'action' => 'editTermAcl')), array('id' => 'editForm')) ?>
+
+  <?php echo $form->renderHiddenFields() ?>
 
   <section id="content">
 

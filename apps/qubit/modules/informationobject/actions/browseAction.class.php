@@ -455,8 +455,8 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     // Create the query and filter it with the selected aggs
     parent::execute($request);
 
-    // Create advanced search form
-    $this->form = new sfForm;
+    // Create advanced search form (without CSRF protection)
+    $this->form = new sfForm([], [], false);
     $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
     foreach ($this::$NAMES as $name)

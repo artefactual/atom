@@ -14,7 +14,11 @@
 
 <?php slot('content') ?>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <form action="<?php echo url_for('settings/dipUpload') ?>" method="post">
+
+    <?php echo $form->renderHiddenFields() ?>
 
     <div id="content">
 

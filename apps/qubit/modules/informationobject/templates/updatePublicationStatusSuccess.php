@@ -14,6 +14,8 @@
 
 <?php slot('content') ?>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'updatePublicationStatus'))) ?>
 
     <?php echo $form->renderHiddenFields() ?>

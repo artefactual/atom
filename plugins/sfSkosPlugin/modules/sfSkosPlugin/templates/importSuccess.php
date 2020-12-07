@@ -29,6 +29,8 @@
     <?php echo $form->renderFormTag(url_for(array($parent, 'module' => 'sfSkosPlugin', 'action' => 'import'))) ?>
   <?php endif; ?>
 
+    <?php echo $form->renderHiddenFields() ?>
+
     <div id="content">
 
       <fieldset class="collapsible">

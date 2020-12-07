@@ -72,116 +72,116 @@ class SettingsPermissionsAction extends sfAction
 
       QubitCache::getInstance()->removePattern('settings:i18n:*');
 
-      // PREMIS access permissions
-      $this->permissionsForm->bind($request->getPostParameters());
-      if ($this->permissionsForm->isValid())
-      {
-        $premisAccessRight = QubitSetting::getByName('premisAccessRight');
-        $premisAccessRight->setValue($this->permissionsForm->getValue('granted_right'), array('sourceCulture' => true));
-        $premisAccessRight->save();
+      $values = $request->getPostParameters();
+      $this->permissionsForm->bind($values['permissions']);
+      $this->permissionsAccessStatementsForm->bind($values['accessStatements']);
+      $this->permissionsCopyrightStatementForm->bind($values['copyrightStatement']);
+      $this->permissionsPreservationSystemAccessStatementForm->bind($values['preservationSystemAccessStatement']);
 
-        $premisAccessRightValues = QubitSetting::getByName('premisAccessRightValues');
-        $premisAccessRightValues->setValue(serialize($this->permissionsForm->getValue('permissions')), array('sourceCulture' => true));
-        $premisAccessRightValues->save();
+      // Validate all forms at once and avoid redirection to show global errors
+      if (
+        !$this->permissionsForm->isValid() ||
+        !$this->permissionsAccessStatementsForm->isValid() ||
+        !$this->permissionsCopyrightStatementForm->isValid() ||
+        !$this->permissionsPreservationSystemAccessStatementForm->isValid()
+      )
+      {
+        return;
       }
 
+      // PREMIS access permissions
+      $premisAccessRight = QubitSetting::getByName('premisAccessRight');
+      $premisAccessRight->setValue($this->permissionsForm->getValue('granted_right'), array('sourceCulture' => true));
+      $premisAccessRight->save();
+
+      $premisAccessRightValues = QubitSetting::getByName('premisAccessRightValues');
+      $premisAccessRightValues->setValue(serialize($this->permissionsForm->getValue('permissions')), array('sourceCulture' => true));
+      $premisAccessRightValues->save();
+
       // PREMIS access statements
-      $values = $request->getPostParameters();
-      $this->permissionsAccessStatementsForm->bind($values['accessStatements']);
-      if ($this->permissionsAccessStatementsForm->isValid())
+      $accessValues = $this->permissionsAccessStatementsForm->getValues();
+
+      foreach ($accessValues as $key => $value)
       {
-        $values = $this->permissionsAccessStatementsForm->getValues();
-
-        foreach ($values as $key => $value)
+        $setting = QubitSetting::getByNameAndScope($key, 'access_statement');
+        if (null === $setting)
         {
-          $setting = QubitSetting::getByNameAndScope($key, 'access_statement');
-          if (null === $setting)
-          {
-            $setting = new QubitSetting;
-            $setting->name = $key;
-            $setting->scope = 'access_statement';
-          }
-          $setting->setValue($value);
-          $setting->save();
+          $setting = new QubitSetting;
+          $setting->name = $key;
+          $setting->scope = 'access_statement';
         }
+        $setting->setValue($value);
+        $setting->save();
+      }
 
-        // Remove unused settings (e.g. a term of the basis taxonomy was
-        // deleted). We use array_key_exists because isset() returns false
-        // if the key is defined but its value is NULL.
-        foreach (QubitSetting::getByScope('access_statement') as $setting)
+      // Remove unused settings (e.g. a term of the basis taxonomy was
+      // deleted). We use array_key_exists because isset() returns false
+      // if the key is defined but its value is NULL.
+      foreach (QubitSetting::getByScope('access_statement') as $setting)
+      {
+        if (!array_key_exists($setting->name, $accessValues))
         {
-          if (!array_key_exists($setting->name, $values))
-          {
-            $setting->delete();
-          }
+          $setting->delete();
         }
       }
 
       // Copyright statement
-      $this->permissionsCopyrightStatementForm->bind($request->getPostParameters());
-      if ($this->permissionsCopyrightStatementForm->isValid())
+      $setting = QubitSetting::getByName('digitalobject_copyright_statement_enabled');
+      if (null === $setting)
       {
-        $setting = QubitSetting::getByName('digitalobject_copyright_statement_enabled');
+        $setting = new QubitSetting;
+        $setting->name = 'digitalobject_copyright_statement_enabled';
+        $setting->sourceCulture = sfConfig::get('sf_default_culture');
+      }
+      $setting->setValue($this->permissionsCopyrightStatementForm->getValue('copyrightStatementEnabled'), array('sourceCulture' => true));
+      $setting->save();
+
+      $statement = $this->permissionsCopyrightStatementForm->getValue('copyrightStatement');
+      $statement = QubitHtmlPurifier::getInstance()->purify($statement);
+
+      if (!empty($statement))
+      {
+        $setting = QubitSetting::getByName('digitalobject_copyright_statement');
         if (null === $setting)
         {
           $setting = new QubitSetting;
-          $setting->name = 'digitalobject_copyright_statement_enabled';
-          $setting->sourceCulture = sfConfig::get('sf_default_culture');
+          $setting->name = 'digitalobject_copyright_statement';
         }
-        $setting->setValue($this->permissionsCopyrightStatementForm->getValue('copyrightStatementEnabled'), array('sourceCulture' => true));
+        $setting->setValue($statement);
         $setting->save();
-
-        $statement = $this->permissionsCopyrightStatementForm->getValue('copyrightStatement');
-        $statement = QubitHtmlPurifier::getInstance()->purify($statement);
-
-        if (!empty($statement))
-        {
-          $setting = QubitSetting::getByName('digitalobject_copyright_statement');
-          if (null === $setting)
-          {
-            $setting = new QubitSetting;
-            $setting->name = 'digitalobject_copyright_statement';
-          }
-          $setting->setValue($statement);
-          $setting->save();
-        }
       }
 
       // Preservation system access statement
-      $this->permissionsPreservationSystemAccessStatementForm->bind($request->getPostParameters());
-      if ($this->permissionsPreservationSystemAccessStatementForm->isValid())
+      $setting = QubitSetting::getByName('digitalobject_preservation_system_access_statement_enabled');
+      if (null === $setting)
       {
-        $setting = QubitSetting::getByName('digitalobject_preservation_system_access_statement_enabled');
+        $setting = new QubitSetting;
+        $setting->name = 'digitalobject_preservation_system_access_statement_enabled';
+        $setting->sourceCulture = sfConfig::get('sf_default_culture');
+      }
+      $setting->setValue(
+        $this->permissionsPreservationSystemAccessStatementForm->getValue(
+          'preservationSystemAccessStatementEnabled'
+        ),
+        array('sourceCulture' => true)
+      );
+      $setting->save();
+
+      $statement = $this->permissionsPreservationSystemAccessStatementForm->getValue(
+        'preservationSystemAccessStatement'
+      );
+      $statement = QubitHtmlPurifier::getInstance()->purify($statement);
+
+      if (!empty($statement))
+      {
+        $setting = QubitSetting::getByName('digitalobject_preservation_system_access_statement');
         if (null === $setting)
         {
           $setting = new QubitSetting;
-          $setting->name = 'digitalobject_preservation_system_access_statement_enabled';
-          $setting->sourceCulture = sfConfig::get('sf_default_culture');
+          $setting->name = 'digitalobject_preservation_system_access_statement';
         }
-        $setting->setValue(
-          $this->permissionsPreservationSystemAccessStatementForm->getValue(
-            'preservationSystemAccessStatementEnabled'
-          ),
-          array('sourceCulture' => true)
-        );
+        $setting->setValue($statement);
         $setting->save();
-
-        $statement = $this->permissionsPreservationSystemAccessStatementForm->getValue(
-          'preservationSystemAccessStatement'
-        );
-        $statement = QubitHtmlPurifier::getInstance()->purify($statement);
-
-        if (!empty($statement))
-        {
-          $setting = QubitSetting::getByName('digitalobject_preservation_system_access_statement');
-          if (null === $setting)
-          {
-            $setting = new QubitSetting;
-            $setting->name = 'digitalobject_preservation_system_access_statement';
-          }
-          $setting->setValue($statement);
-          $setting->save();
-        }
       }
 
       $notice = sfContext::getInstance()->i18n->__('Permissions saved.');

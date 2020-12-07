@@ -6,7 +6,11 @@
 
 <?php slot('content') ?>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'accession', 'action' => 'delete')), array('method' => 'delete')) ?>
+
+    <?php echo $form->renderHiddenFields() ?>
 
     <div id="content">
 

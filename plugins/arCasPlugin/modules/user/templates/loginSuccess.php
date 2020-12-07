@@ -15,7 +15,11 @@
           <h1><?php echo __('Log in') ?></h1>
         <?php endif; ?>
 
+        <?php echo $form->renderGlobalErrors() ?>
+
         <?php echo $form->renderFormTag(url_for(array('module' => 'cas', 'action' => 'login'))) ?>
+
+          <?php echo $form->renderHiddenFields() ?>
 
           <button type="submit"><?php echo __('Log in with CAS') ?></button>
 

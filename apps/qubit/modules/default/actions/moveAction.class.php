@@ -43,18 +43,26 @@ class DefaultMoveAction extends sfAction
       QubitAcl::forwardUnauthorized();
     }
 
-    // "parent" form field
+    // Parent form field
     $this->form->setValidator('parent', new sfValidatorString(array('required' => true)));
     $this->form->setWidget('parent', new sfWidgetFormInputHidden);
 
-    // Root is default parent
-    if ($this->resource instanceof QubitInformationObject)
+    // Get parent from GET parameters
+    if (isset($request->parent))
     {
-      $this->form->bind($request->getGetParameters() + array('parent' => QubitInformationObject::getById(QubitInformationObject::ROOT_ID)->slug, 'module' => 'informationobject'));
+      $this->form->setDefault('parent', $request->parent);
     }
-    else if ($this->resource instanceof QubitTerm)
+    else
     {
-      $this->form->bind($request->getGetParameters() + array('parent' => QubitTerm::getById(QubitTerm::ROOT_ID)->slug, 'module' => 'term'));
+      // Root is default parent
+      if ($this->resource instanceof QubitInformationObject)
+      {
+        $this->form->setDefault('parent', QubitInformationObject::getById(QubitInformationObject::ROOT_ID)->slug);
+      }
+      else if ($this->resource instanceof QubitTerm)
+      {
+        $this->form->setDefault('parent', QubitTerm::getById(QubitTerm::ROOT_ID)->slug);
+      }
     }
 
     if ($request->isMethod('post'))

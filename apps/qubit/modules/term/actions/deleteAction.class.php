@@ -45,14 +45,19 @@ class TermDeleteAction extends sfAction
 
     if ($request->isMethod('delete'))
     {
-      $this->resource->deleteFullHierarchy();
-
-      if (isset($this->resource->taxonomy))
+      $this->form->bind($request->getPostParameters());
+      
+      if ($this->form->isValid())
       {
-        $this->redirect(array($this->resource->taxonomy, 'module' => 'taxonomy'));
-      }
+        $this->resource->deleteFullHierarchy();
 
-      $this->redirect(array('module' => 'taxonomy', 'action' => 'list'));
+        if (isset($this->resource->taxonomy))
+        {
+          $this->redirect(array($this->resource->taxonomy, 'module' => 'taxonomy'));
+        }
+
+        $this->redirect(array('module' => 'taxonomy', 'action' => 'list'));
+      }
     }
 
     // Apparently we can't slice a QubitQuery. `previewSize` is shared with

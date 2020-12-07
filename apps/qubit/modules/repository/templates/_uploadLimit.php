@@ -39,6 +39,8 @@
 
     <form id="uploadLimitForm" method="POST" action="<?php echo url_for(array($resource, 'module' => 'repository', 'action' => 'editUploadLimit')) ?>">
 
+      <?php echo $form->renderHiddenFields() ?>
+      
       <div class="form-item">
 
         <label for="uploadLimit_type"><?php echo __('Set the upload limit for this %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))) ?></label>

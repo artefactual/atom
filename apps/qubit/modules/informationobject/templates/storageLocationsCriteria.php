@@ -12,6 +12,7 @@
 <?php slot('before-content') ?>
   <?php echo $form->renderGlobalErrors() ?>
   <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'storageLocations', 'type' => $type)), array('class' => 'form-inline')) ?>
+  <?php echo $form->renderHiddenFields() ?>
 <?php end_slot() ?>
 
 <fieldset class="single">

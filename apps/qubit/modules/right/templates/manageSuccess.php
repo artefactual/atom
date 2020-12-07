@@ -12,6 +12,9 @@
   <?php echo $form->renderGlobalErrors() ?>
 
   <form method="post">
+
+    <?php echo $form->renderHiddenFields() ?>
+    
     <div id="content">
       <fieldset class="collapsible">
         <legend><?php echo __('Inheritance options') ?></legend>

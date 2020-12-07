@@ -39,9 +39,14 @@ class UserDeleteAction extends sfAction
 
     if ($request->isMethod('delete'))
     {
-      $this->resource->delete();
+      $this->form->bind($request->getPostParameters());
+      
+      if ($this->form->isValid())
+      {
+        $this->resource->delete();
 
-      $this->redirect(array('module' => 'user', 'action' => 'list'));
+        $this->redirect(array('module' => 'user', 'action' => 'list'));
+      }
     }
   }
 }

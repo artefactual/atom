@@ -31,9 +31,20 @@ class SettingsLanguageAction extends sfAction
 {
   public function execute($request)
   {
+    $this->form = new sfForm;
+    $this->form->setValidator('languageCode', new sfValidatorI18nChoiceLanguage);
+    $this->form->setWidget('languageCode', new sfWidgetFormI18nChoiceLanguage(array('add_empty' => true, 'culture' => $this->context->user->getCulture())));
+
     // Handle POST data (form submit)
     if ($request->isMethod('post'))
     {
+      $this->form->bind($request->getPostParameters());
+
+      if (!$this->form->isValid())
+      {
+        return;
+      }
+
       QubitCache::getInstance()->removePattern('settings:i18n:*');
 
       if (null !== $languageCode = $request->languageCode)
@@ -64,10 +75,6 @@ class SettingsLanguageAction extends sfAction
         $this->getUser()->setFlash('notice', $notice);
       }
     }
-
-    $this->form = new sfForm;
-    $this->form->setValidator('languageCode', new sfValidatorI18nChoiceLanguage);
-    $this->form->setWidget('languageCode', new sfWidgetFormI18nChoiceLanguage(array('add_empty' => true, 'culture' => $this->context->user->getCulture())));
 
     $this->i18nLanguages = QubitSetting::getByScope('i18n_languages');
   }

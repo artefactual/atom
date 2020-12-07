@@ -42,17 +42,22 @@ class InformationObjectDeleteFindingAidAction extends sfAction
 
     if ($request->isMethod('delete'))
     {
-      $i18n = $this->context->i18n;
+      $this->form->bind($request->getPostParameters());
+      
+      if ($this->form->isValid())
+      {
+        $i18n = $this->context->i18n;
 
-      $params = array(
-        'objectId'    => $this->resource->id,
-        'description' => $i18n->__('Deleting finding aid for: %1%', array('%1%' => $this->resource->getTitle(array('cultureFallback' => true)))),
-        'delete'      => true
-      );
+        $params = array(
+          'objectId'    => $this->resource->id,
+          'description' => $i18n->__('Deleting finding aid for: %1%', array('%1%' => $this->resource->getTitle(array('cultureFallback' => true)))),
+          'delete'      => true
+        );
 
-      QubitJob::runJob('arFindingAidJob', $params);
+        QubitJob::runJob('arFindingAidJob', $params);
 
-      $this->redirect(array($this->resource, 'module' => 'informationobject'));
+        $this->redirect(array($this->resource, 'module' => 'informationobject'));
+      }
     }
   }
 }

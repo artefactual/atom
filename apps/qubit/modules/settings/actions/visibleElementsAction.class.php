@@ -83,6 +83,13 @@ class SettingsVisibleElementsAction extends sfAction
 
     if ($request->isMethod('post'))
     {
+      $this->form->bind($request->getPostParameters());
+
+      if (!$this->form->isValid())
+      {
+        return;
+      }
+      
       $this->processForm();
 
       QubitCache::getInstance()->removePattern('settings:i18n:*');

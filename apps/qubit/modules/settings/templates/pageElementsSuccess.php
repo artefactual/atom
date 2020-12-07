@@ -14,9 +14,12 @@
 
 <?php slot('content') ?>
 
+  <?php echo $form->renderGlobalErrors() ?>
+
   <form action="<?php echo url_for('settings/pageElements') ?>" method="post">
 
-    <?php echo $form->renderGlobalErrors() ?>
+    <?php echo $form->renderHiddenFields() ?>
+
     <p><?php echo __('Enable or disable the display of certain page elements. Unless they have been overridden by a specific theme, these settings will be used site wide.') ?></p>
 
     <div id="content">
