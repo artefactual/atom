@@ -28,7 +28,7 @@ class DigitalObjectUploadAction extends sfAction
     $uploadFiles = array();
     $warning = null;
 
-    $this->object = QubitObject::getById($request->objectId);
+    $this->object = QubitObject::getBySlug($request->parentSlug);
 
     if (!isset($this->object))
     {
@@ -91,45 +91,10 @@ class DigitalObjectUploadAction extends sfAction
       $tmpFileName = basename($tmpFilePath);
       $tmpFileMimeType = QubitDigitalObject::deriveMimeType($tmpFileName);
 
-      // Thumbnail name and path
-      $thumbName = pathinfo('THUMB'. $tmpFileName, PATHINFO_FILENAME) .".jpg";
-      $thumbPath = dirname($tmpFilePath) ."/". $thumbName;
-
-      if ($canThumbnail = QubitDigitalObject::canThumbnailMimeType($tmpFileMimeType) || QubitDigitalObject::isVideoFile($tmpFilePath))
-      {
-        if (QubitDigitalObject::isImageFile($tmpFilePath) || 'application/pdf' == $tmpFileMimeType)
-        {
-          $resizedObject = QubitDigitalObject::resizeImage($tmpFilePath, 150, 150);
-        }
-        else if (QubitDigitalObject::isVideoFile($tmpFilePath))
-        {
-          $resizedObject = QubitDigitalObject::createThumbnailFromVideo($tmpFilePath, 150, 150);
-        }
-
-        if (0 < strlen($resizedObject))
-        {
-          file_put_contents($thumbPath, $resizedObject);
-          chmod($thumbPath, 0644);
-        }
-
-        // Show a warning message if object couldn't be thumbnailed when it is
-        // supposed to be possible
-        if (!file_exists($thumbPath) && 0 >= filesize($thumbPath))
-        {
-          $warning = $this->context->i18n->__('File %1% could not be thumbnailed', array('%1%' => $file['name']));
-        }
-      }
-      else
-      {
-        $thumbName = '../../images/'.QubitDigitalObject::getGenericIconPath($tmpFileMimeType, QubitTerm::THUMBNAIL_ID);
-      }
-
       $uploadFiles = array(
-        'canThumbnail' => $canThumbnail,
         'name' => $file['name'],
         'md5sum' => md5_file($tmpFilePath),
         'size' => hr_filesize($file['size']),
-        'thumb' => $thumbName,
         'tmpName' => $tmpFileName,
         'warning' => $warning);
 

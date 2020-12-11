@@ -16,7 +16,11 @@ physicalObjects:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
 
 multiFileUploadSuccess:
+  stylesheets:
+    /vendor/uppy/uppy-bundle.css:
   javascripts:
+    /vendor/uppy/uppy-bundle.js:
+    multiFileUpload:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     description:
@@ -25,6 +29,11 @@ multiFileUploadSuccess:
 storageLocationsSuccess:
   stylesheets:
     print-reports: { media: screen, position: last }
+
+multiFileUpdateSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
 
 renameSuccess:
   javascripts:

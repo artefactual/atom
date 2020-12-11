@@ -52,7 +52,7 @@ class DigitalObjectShowVideoComponent extends sfComponent
 
       // If this is a reference movie, get the thumbnail representation for the
       // place holder image
-      $this->showFlashPlayer = true;
+      $this->showMediaPlayer = true;
       if (QubitTerm::REFERENCE_ID == $this->usageType)
       {
         $this->thumbnail = $this->resource->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID);
@@ -66,7 +66,7 @@ class DigitalObjectShowVideoComponent extends sfComponent
     // If representation is not a valid digital object, return a generic icon
     else
     {
-      $this->showFlashPlayer = false;
+      $this->showMediaPlayer = false;
       $this->representation = QubitDigitalObject::getGenericRepresentation($this->resource->mimeType, $this->usageType);
     }
   }

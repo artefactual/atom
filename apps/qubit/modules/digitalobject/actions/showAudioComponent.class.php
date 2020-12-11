@@ -46,7 +46,7 @@ class DigitalObjectShowAudioComponent extends sfComponent
     // Set up display of video in mediaelement
     if ($this->representation)
     {
-      $this->showFlashPlayer = true;
+      $this->showMediaPlayer = true;
 
       $this->response->addJavaScript('/vendor/mediaelement/mediaelement-and-player.min.js', 'last');
       $this->response->addJavaScript('mediaelement', 'last');
@@ -54,7 +54,7 @@ class DigitalObjectShowAudioComponent extends sfComponent
     }
     else
     {
-      $this->showFlashPlayer = false;
+      $this->showMediaPlayer = false;
 
       $this->representation = QubitDigitalObject::getGenericRepresentation($this->resource->mimeType, $this->usageType);
     }
