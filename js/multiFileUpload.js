@@ -1,351 +1,390 @@
-(function ($)
+(function ($) {
+
+  "use strict";
+
+  Qubit.multiFileUpload = Qubit.multiFileUpload || {};
+
+  function MultiFileUpload (element)
   {
-    Qubit.multiFileUpload = Qubit.multiFileUpload || {};
+    this.uppy = new Uppy.Core({ 
+      debug: false,
+      id: 'uppy-atom',
+      autoProceed: false,
+      restrictions: {
+        minNumberOfFiles: 1
+      },
+      onBeforeFileAdded: (currentFile, files) => this.onBeforeFileAddedChecks(currentFile, files),
+    });
 
-    Drupal.behaviors.multiFileUpload = {
-      attach: function (context)
-        {
-          // Enable uploader
-          var uploader = new YAHOO.widget.Uploader('uploaderOverlay');
+    this.nextImageNum = 1;
+    this.uploadItems = [];
+    this.result = "";
 
-          // Put swf object over "Select files" button
-          var uiLayer = YAHOO.util.Dom.getRegion('selectLink');
-          var overlay = $('#uploaderOverlay');
-          overlay.width(uiLayer.right - uiLayer.left);
-          overlay.height(uiLayer.bottom - uiLayer.top);
+    this.$element = $(element);
+    this.$submitButton = this.$element.find('input[type="submit"]');
+    this.$cancelButton = this.$element.find('a[title="Cancel"]');
+    this.$retryButton = $('<a class="c-btn" title="retry"/>')
+      .attr('type','hidden')
+      .text(Qubit.multiFileUpload.i18nRetry)
+      .appendTo('.actions');
 
-          function parseHtmlId(id)
-          {
-            var yuiId = id.match(/([0-9]+)$/).shift();
+    this.init();
+    this.listen();
+  };
 
-            if (null != yuiId && !isNaN(parseInt(yuiId)))
-            {
-              return yuiId;
+
+  MultiFileUpload.prototype = {
+
+    init: function()
+    {
+      this.$retryButton.hide();
+
+      let noteText = Qubit.multiFileUpload.i18nMaxSizeNote
+          .replace('%{maxFileSizeMessage}', Qubit.multiFileUpload.i18nMaxFileSizeMessage + Qubit.multiFileUpload.maxFileSize / 1024 / 1024 + "MB")
+          .replace('%{maxPostSizeMessage}', Qubit.multiFileUpload.i18nMaxPostSizeMessage + Qubit.multiFileUpload.maxPostSize / 1024 / 1024 + "MB");
+
+      this.uppy
+        .use(Uppy.Dashboard, {
+          id: 'dashboard-atom',
+          inline: true,
+          target: '.uppy-dashboard',
+          width: '100%',
+          height: '400px',
+          hideUploadButton: true,
+          replaceTargetContent: true,
+          showProgressDetails: true,
+          hideCancelButton: true,
+          hideAfterFinish: true,
+          hideRetryButton: true,
+          note: noteText,
+          doneButtonHandler: null,
+          browserBackButtonClose: false,
+          fileManagerSelectionType: 'files',
+          proudlyDisplayPoweredByUppy: false,
+          closeModalOnClickOutside: false,
+          hideDoneButton: true,
+          locale: {
+            strings: {
+              done: Qubit.multiFileUpload.i18nSave,
+              // 'Add more' hover text.
+              addMoreFiles: Qubit.multiFileUpload.i18nAddMoreFiles,
+              // 'Add more' button label.
+              addMore: Qubit.multiFileUpload.i18nAddMore,
+              addingMoreFiles: Qubit.multiFileUpload.i18nAddingMoreFiles,
+              xFilesSelected: {
+                0: Qubit.multiFileUpload.i18nFileSelected,
+                1: Qubit.multiFileUpload.i18nFilesSelected
+              },
+              // Upload status strings.
+              uploading: Qubit.multiFileUpload.i18nUploading,
+              complete: Qubit.multiFileUpload.i18nComplete,
+              uploadFailed: Qubit.multiFileUpload.i18nUploadFailed,
+              // Remove file hover text.
+              removeFile: Qubit.multiFileUpload.i18nRemoveFile,
+              // Main 'drop here' message.
+              dropPaste: Qubit.multiFileUpload.i18nDropFile,
+              filesUploadedOfTotal: {
+                0: Qubit.multiFileUpload.i18nFileUploadedOfTotal,
+                1: Qubit.multiFileUpload.i18nFilesUploadedOfTotal
+              },
+              dataUploadedOfTotal: Qubit.multiFileUpload.i18nDataUploadedOfTotal,
+              // When `showProgressDetails` is set, shows an estimation of how long the upload will take to complete.
+              xTimeLeft: Qubit.multiFileUpload.i18nTimeLeft,
+              uploadingXFiles: {
+                0: Qubit.multiFileUpload.i18nUploadingFile,
+                1: Qubit.multiFileUpload.i18nUploadingFiles
+              },
+              // Label cancel button.
+              cancel: Qubit.multiFileUpload.i18nCancel,
+              // Edit file hover text.
+              edit: Qubit.multiFileUpload.i18nEdit,
+              // Save changes button.
+              saveChanges: Qubit.multiFileUpload.i18nSave,
+              // Leave 'Add more' dialog.
+              back: Qubit.multiFileUpload.i18nBack,
+              // Edit Title dialog message.
+              editing: Qubit.multiFileUpload.i18nEditing,
+              failedToUpload: Qubit.multiFileUpload.i18nFailedToUpload,
             }
-          };
-
-          function replacePlaceHolder(templateStr, index)
-          {
-            var fileName = null;
-            index = String(index);
-
-            var matches = templateStr.match(/\%(d+)\%/);
-
-            if (null != matches && 0 < matches[1].length)
-            {
-              while (matches[1].length > index.length)
-              {
-                index = '0' + index;
-              }
-
-              var fileName = templateStr.replace('%' + matches[1] + '%', index);
-            }
-
-            if (null == fileName || templateStr == fileName)
-            {
-              fileName = templateStr + ' ' + index;
-            }
-
-            return fileName;
-          }
-
-          // Update all title values for all uploads
-          // It is not based on internal yui swfuploader fileID
-          function renumerateUploads()
-          {
-            var title = $('input#title').val();
-
-            $('div.multiFileUploadItem:has(input.md5sum)').each(function (i)
-             {
-               // Calculate new value
-               var newValue = replacePlaceHolder(title, i + 1);
-
-               // Replace title value
-               $(this).find('input[type=text]').val(newValue);
-             });
-          }
-
-          function highlightRepeatedFiles()
-          {
-            var uploads = $('div.multiFileUploadItem:has(input.md5sum)');
-            var memMd5 = Array();
-
-            uploads.each(function()
-              {
-                var md5sum = $(this).find('input.md5sum').val();
-
-                if (-1 < $.inArray(md5sum, memMd5))
-                {
-                  var fileName = $('div.multiFileUploadItem:has(input.md5sum[value=' + md5sum + ']):first div.multiFileUploadInfoFilename span.value').text();
-
-                  $(this)
-                    .addClass('multiFileUploadWarning')
-                    .find('div.messages').remove()
-                    .end().prepend('<div class=\"messages status\">' + Qubit.multiFileUpload.i18nDuplicateFile.replace('%1%', '"' + fileName + '"') + '</div>');
-                }
-                else
-                {
-                  $(this)
-                    .removeClass('multiFileUploadWarning')
-                    .find('div.messages').remove();
-
-                  memMd5[memMd5.length] = md5sum;
-                }
-              });
-          }
-
-          $.on('keyup', 'input#title', renumerateUploads);
-
-          $.on('click', 'a.uploadActionRetry, a.uploadActionStart', function()
-            {
-              var fileId = parseHtmlId($(this).closest('.multiFileUploadItem').attr('id'));
-
-              // Upload it
-              uploader.upload('file' + fileId, Qubit.multiFileUpload.uploadResponsePath, 'POST', { objectId: Qubit.multiFileUpload.objectId });
-
-              return false;
-            });
-
-          $.on('click', 'a.uploadActionDelete', function()
-            {
-              var fileId = parseHtmlId($(this).closest('.multiFileUploadItem').attr('id'));
-
-              // Hide block
-              $('div#upload-file' + fileId).slideUp('normal', function()
-                {
-                  // Remove it
-                  $(this).remove();
-
-                  renumerateUploads();
-                  highlightRepeatedFiles();
-                });
-
-              return false;
-            });
-
-          $.on('click', 'a.uploadActionCancel', function()
-            {
-              var fileId = parseHtmlId($(this).closest('.multiFileUploadItem').attr('id'));
-              var uploadLayer = $('div#upload-file' + fileId);
-
-              // Hide block
-              uploadLayer.slideUp('normal', function()
-              {
-                // Remove it
-                $(this).remove();
-
-                // Cancel upload
-                uploader.cancel('file' + fileId);
-
-                // Remove file from the queue
-                uploader.removeFile('file' + fileId);
-              });
-
-              return false;
-            });
-
-          uploader.addListener('contentReady', function ()
-            {
-              // Allows multiple file selection in "Browse" dialog.
-              uploader.setAllowMultipleFiles(true);
-              uploader.setAllowLogging(true);
-            });
-
-          uploader.addListener('fileSelect', function (event)
-            {
-              if ('fileList' in event && event.fileList != null)
-              {
-                // Make space for a thumbnail and progress bar
-                for (var i in event.fileList)
-                {
-                  var file = event.fileList[i];
-
-                  // Create an upload block for each upload
-                  var uploadItem = $('<div id="upload-' + file.id + '" class="multiFileUploadItem"></div>')
-                    // Insert element in uploads layer
-                    .appendTo('#uploads');
-
-                  if (-1 < Qubit.multiFileUpload.maxUploadSize && file.size > Qubit.multiFileUpload.maxUploadSize)
-                  {
-                    uploadItem
-                      // Add warning class
-                      .addClass('multiFileUploadWarning')
-
-                      // Set error message
-                      .html('<p><strong>' + file.name + '</strong><br/>' + Qubit.multiFileUpload.i18nOversizedFile + '</p>');
-
-                    // Remove file from uploader queue
-                    uploader.removeFile(file.id);
-                  }
-                  else
-                  {
-                    // Render thumbnail box and progress bar
-                    $(uploadItem)
-                      .html('<div id="thumbnail-' + file.id + '" class="multiFileUploadThumbItem" style="width: ' + Qubit.multiFileUpload.thumbWidth + 'px">' +
-                              '<div class="uploadStatus"><span>' + Qubit.multiFileUpload.i18nWaiting + '</span></div>' +
-                              '<div class="progressBar" style="width: ' + Qubit.multiFileUpload.thumbWidth + 'px;">' +
-                                '<div style="height: 5px; width:' + Qubit.multiFileUpload.thumbWidth + 'px; background-color: #CCC;"></div>' +
-                              '</div>' +
-                            '</div>' +
-                            '<div class="multiFileUploadInfo">' +
-                              '<div class="multiFileUploadInfoFilename">' +
-                                '<span class="title">' + Qubit.multiFileUpload.i18nFilename + ':</span>' +
-                                '<span class="value">' + file.name + '</span>' +
-                              '</div>' +
-                              '<div class="multiFileUploadInfoFilesize">' +
-                                '<span class="title">' + Qubit.multiFileUpload.i18nFilesize + ':</span>' +
-                                '<span class="value">' + file.size + ' bytes</span>' +
-                              '</div>' +
-                              '<div class="multiFileUploadInfoActions">' +
-                                '<a href="#" class="uploadActionStart">' + Qubit.multiFileUpload.i18nStart + '</a>' +
-                                '<a href="#" class="uploadActionCancel" style="display: none;">' + Qubit.multiFileUpload.i18nCancel + '</a>' +
-                                '<a href="#" class="uploadActionDelete" style="display: none;">' + Qubit.multiFileUpload.i18nDelete + '</a>' +
-                              '</div>' +
-                            '</div>');
-                  }
-                }
-
-                // Preventing simultaneous uploads
-                uploader.setSimUploadLimit(1);
-
-                // Start upload!
-                uploader.uploadAll(Qubit.multiFileUpload.uploadResponsePath, 'POST', { objectId: Qubit.multiFileUpload.objectId });
-              }
-            });
-
-          uploader.addListener('uploadStart', function(event)
-            {
-              var uploadLayer = $('#upload-' + event.id);
-
-              $('div.uploadStatus', uploadLayer)
-                .html('<span>' + Qubit.multiFileUpload.i18nUploading + '</span>');
-
-              // Show cancel button
-              $('a.uploadActionCancel', uploadLayer).show();
-
-              // Hide start button
-              $('a.uploadActionStart', uploadLayer).hide();
-            });
-
-          uploader.addListener('uploadProgress', function (event)
-            {
-              var thumbnailLayer = $('#thumbnail-' + event.id);
-              var statusLayer = $('div.uploadStatus', thumbnailLayer);
-
-              var progress = Math.round(Qubit.multiFileUpload.thumbWidth * (event.bytesLoaded / event.bytesTotal));
-              var progressBar = '<div style="background-color: #fd3; height: 5px; width: ' + progress + 'px"/>';
-
-              // Update progress bar
-              $('div.progressBar', thumbnailLayer).html(progressBar);
-
-              // Update status message
-              if (event.bytesLoaded != event.bytesTotal)
-              {
-                $('span', statusLayer).text(Qubit.multiFileUpload.i18nUploading + ' ' + Math.round(event.bytesLoaded / event.bytesTotal * 100) + '%');
-              }
-              else
-              {
-                $('span', statusLayer).text(Qubit.multiFileUpload.i18nLoadingPreview);
-              }
-            });
-
-          uploader.addListener('uploadComplete', function (event)
-            {
-              var thumbnailLayer = $('#thumbnail-' + event.id);
-              var infoLayer = thumbnailLayer.next();
-
-              var progressBar = '<div style="background-color: #0f0; height: 5px; width: ' + Qubit.multiFileUpload.thumbWidth + 'px"/>';
-
-              // Update progress bar
-              $('div.progressBar', thumbnailLayer).html(progressBar);
-
-              // Remove cancel button
-              $('a.uploadActionCancel', infoLayer).hide();
-
-              // Show delete button
-              $('a.uploadActionDelete', infoLayer).show();
-            });
-
-          uploader.addListener('uploadCompleteData', function (event)
-            {
-              // Parse server response for each upload
-              var upload = JSON.parse(event.data);
-
-              // Remove this file from the upload queue
-              uploader.removeFile(event.id);
-
-              // Layers for current upload
-              var thumbnailLayer = $('#thumbnail-' + event.id);
-
-              if ('error' in upload)
-              {
-                var uploadDiv = $('#upload-' + event.id);
-
-                // Add error message
-                uploadDiv.prepend('<div class="error">' + upload.error + '</div>');
-
-                // Remove thumbnail box
-                thumbnailLayer.remove();
-
-                return;
-              }
-
-              thumbnailLayer
-                // Render img tag
-                .html('<img src="' + Qubit.multiFileUpload.uploadTmpDir + '/' + upload.thumb + '"/>')
-
-                // Give thumbnail div a minimum height to prevent text from wrapping to next line
-                .attr('style', function(i) {
-                  return $(this).attr('style') + '; min-length; 100px;'; });
-
-              // Get the file index from the id passed by YUI
-              var fileId = parseHtmlId(event.id);
-
-              // Render final upload
-              $('<div class="form-item">' +
-                  '<label>' + Qubit.multiFileUpload.i18nInfoObjectTitle + '</label>' +
-                  '<input type="text" name="files[' + fileId + '][infoObjectTitle]" value="" style="width: 250px"/>' +
-                  '<input type="hidden" class="md5sum" value="' + upload.md5sum + '"/>' +
-                  '<input type="hidden" class="filename" value="' + upload.name + '"/>' +
-                  '<input type="hidden" name="files[' + fileId + '][name]" value="' + upload.name + '"/>' +
-                  '<input type="hidden" name="files[' + fileId + '][md5sum]" value="' + upload.md5sum + '"/>' +
-                  '<input type="hidden" name="files[' + fileId + '][tmpName]" value="' + upload.tmpName + '"/>' +
-                  '<input type="hidden" name="files[' + fileId + '][thumb]" value="' + upload.thumb + '"/>' +
-                '</div>')
-                .prependTo(thumbnailLayer.next());
-
-              renumerateUploads();
-              highlightRepeatedFiles();
-            });
-
-          uploader.addListener('uploadError', function(event)
-            {
-              log(event);
-
-              var thumbnailLayer = $('#thumbnail-' + event.id);
-
-              // Add error message to progress bar
-              $('div.uploadStatus', thumbnailLayer)
-                .html('<a href="#" class="uploadActionRetry">' + Qubit.multiFileUpload.i18nUploadError + '</a>')
-
-              // Remove cancel button
-              thumbnailLayer.find('a.uploadActionCancel').remove();
-            });
-
-          uploader.addListener('rollOver', function ()
-            {
-              $('#selectLink').addClass('hover');
-            });
-
-          uploader.addListener('rollOut', function ()
-            {
-              $('#selectLink').removeClass('hover');
-            });
-
-          // uploader.addListener('cancel', function () { });
-          // uploader.addListener('click', function () { });
-          // uploader.addListener('mouseDown', function () { });
-          // uploader.addListener('mouseUp', function () { });
+          },
+          thumbnailWidth: Qubit.multiFileUpload.thumbWidth,
+          trigger: '#pick-files',
+          // Enable editing of field with id 'title' label: 'Title'
+          metaFields: [
+            { id: 'title', name: Qubit.multiFileUpload.i18nInfoObjectTitle },
+          ],
+        })
+        .use(Uppy.XHRUpload, {
+          endpoint: Qubit.multiFileUpload.uploadResponsePath,
+          formData: true,
+          method: 'post',
+          limit: 10,
+          fieldName: 'Filedata',
+          parentSlug: Qubit.multiFileUpload.slug,
+        })
+        .on('upload-success', $.proxy(this.onUploadSuccess, this))
+        .on('complete', $.proxy(this.onComplete, this))
+        .on('file-added', $.proxy(this.onFileAdded, this))
+        .on('cancel-all', $.proxy(this.onCancelAll, this));
+    },
+
+    listen: function ()
+    {
+      // Intercept AtoM's Submit button.
+      this.$submitButton.on('click', $.proxy(this.onSubmitButton, this));
+      this.$retryButton.on('click', $.proxy(this.onRetryButton, this));
+    },
+
+    // Retry is available if some/all DO's do not successfully upload.
+    onRetryButton: function ()
+    {
+      this.uppy.retryAll().then((result) => {
+        if (this.uppy.getState().error === null && result.successful.length > 0 && result.failed.length === 0) {
+          this.$retryButton.hide();
+          this.showAlert(Qubit.multiFileUpload.i18nRetrySuccess, 'alert-info');
         }
+      })
+    },
+
+    // Checks if ANY uploads were successful.
+    checkUploadSuccessful: function ()
+    {
+      const uploaded = (element) => element.progress.uploadComplete === true;
+      var completed = this.uppy.getFiles().some(uploaded);
+
+      return completed;
+    },
+
+    // Import button logic.
+    onSubmitButton: function ()
+    {
+      this.clearAlerts();
+
+      // Ensure they are not on Uppy's 'add more' page. Do not allow uppy.upload() to
+      // be called while 'add more' is open.
+      if ($(".uppy-DashboardContent-back").length) {
+        $(".uppy-DashboardContent-back").click();
+      }
+
+      // Ensure that some files have been added for upload.
+      if (this.uppy.getFiles().length == 0) {
+        this.showAlert(Qubit.multiFileUpload.i18nNoFilesError, 'alert-info');
+
+        return false;
+      }
+
+      if (this.uppy.getState().error) {
+        if (this.checkUploadSuccessful() === true) {
+          this.$submitButton.attr('disabled', 'disabled');
+          this.$cancelButton.removeAttr("href").attr('disabled', 'disabled');
+          this.showAlert(Qubit.multiFileUpload.i18nImporting, 'alert-info');
+          // Post any successful uploads.
+          $('#multiFileUploadForm').submit();
+        }
+        else {
+          // In error state with zero successful uploads. Prevent POST.
+          this.showAlert(Qubit.multiFileUpload.i18nNoSuccessfulFilesError, 'alert-error');
+
+          return false;
+        }
+      }
+      else {
+        // Upload to AtoM - wait on promise until all complete.
+        this.uppy.upload().then((result) => {
+          if (result.failed.length > 0) {
+            (this.checkUploadSuccessful() === true) ?
+              this.showAlert(Qubit.multiFileUpload.i18nSomeFilesFailedError, 'alert-error') :
+              this.showAlert(Qubit.multiFileUpload.i18nNoSuccessfulFilesError, 'alert-error');
+
+            this.$retryButton.show();
+          }
+          else {
+            this.$submitButton.attr('disabled', 'disabled');
+            this.$cancelButton.removeAttr("href").attr('disabled', 'disabled');
+            this.showAlert(Qubit.multiFileUpload.i18nImporting, 'alert-info');
+            // Post to multiFileUpload.
+            $('#multiFileUploadForm').submit();
+          }
+        })
+      }
+
+      return false;
+    },
+
+    // Push a record of successful file upload into array uploadItems. 
+    // These will be added to this array in order of when they completed uploading.
+    // This info is needed to build the hidden form elements once all files 
+    // have completed uploading to AtoM.
+    onUploadSuccess: function (file, response)
+    {
+      this.uploadItems.push({file, response});
+    },
+
+    // onComplete runs when all uploads are complete - even if there were errors.
+    // Adds the form elements in the same order as result.successful so that
+    // they are imported into AtoM: Image 01, Image 02, etc.
+    onComplete: function (result)
+    {
+      // Iterates over successfully uploaded items.
+      var uploadItems = this.uploadItems;
+
+      $.each(result.successful, function(key, file) {
+        // Get the corresponding upload response.
+        var fileResponse = uploadItems.find(x => x.file.id === file.id).response;
+
+        // Add hidden form elements for each successfully uploaded file.
+        $('<div class="multiFileUploadItem" id=' + file.id + '>' +
+          '<div class="multiFileUploadInfo">' +
+            '<div class="form-item">' +
+              '<input type="hidden" class="filename" value="' + fileResponse.body.name + '"/>' +
+              '<input type="hidden" class="md5sum" value="' + fileResponse.body.md5sum + '"/>' +
+              '<input type="hidden" name="files[' + file.id + '][name]" value="' + fileResponse.body.name + '"/>' +
+              '<input type="hidden" name="files[' + file.id + '][md5sum]" value="' + fileResponse.body.md5sum + '"/>' +
+              '<input type="hidden" name="files[' + file.id + '][tmpName]" value="' + fileResponse.body.tmpName + '"/>' +
+              '<input type="hidden" class="title" name="files[' + file.id + '][infoObjectTitle]" value="' + file.meta.title + '"/>' +
+            '</div>' +
+          '</div>' +
+        '</div>')
+        .appendTo("#uploads");
+      });
+    },
+
+    onBeforeFileAddedChecks: function (currentFile, files)
+    {
+      // Ensure currentFile is not larger that AtoM's max file upload size.
+      if (currentFile.data.size > Qubit.multiFileUpload.maxFileSize) {
+        let fileName = currentFile.data.name;
+        let maxSize = Qubit.multiFileUpload.maxFileSize / 1024 / 1024;
+        let fileSize = (currentFile.data.size / 1024 / 1024).toFixed(2);
+        let sizeErrorText = Qubit.multiFileUpload.i18nSizeError
+          .replace('%{fileName}', fileName)
+          .replace('%{fileSize}', fileSize)
+          .replace('%{maxSize}', maxSize);
+
+        // Add console mssg and alert error.
+        this.uppy.log(sizeErrorText);
+        this.showAlert(sizeErrorText, 'alert-info');
+
+        // Press the Uppy back button after the error to return to the Dashboard.
+        if ($(".uppy-DashboardContent-back").length) {
+          $(".uppy-DashboardContent-back").click();
+        }
+
+        return false;
+      }
+
+      // Watch total size of upload and ensure it's not larger than AtoM's POST size config.
+      if ((this.getTotalFileSize(files) + currentFile.data.size) > Qubit.multiFileUpload.maxPostSize) {
+        let maxPostSize = Qubit.multiFileUpload.maxPostSize / 1024 / 1024;
+        let postSizeErrorText = Qubit.multiFileUpload.i18nPostSizeError
+          .replace('%{maxPostSize}', maxPostSize);
+
+        this.clearAlerts();
+
+        // Add console mssg and alert error.
+        this.uppy.log(postSizeErrorText);
+        this.showAlert(postSizeErrorText, 'alert-info');
+
+        // Press the Uppy back button after the error to return to the Dashboard.
+        if ($(".uppy-DashboardContent-back").length) {
+          $(".uppy-DashboardContent-back").click();
+        }
+
+        return false;
+      }
+    },
+
+    getTotalFileSize: function (files)
+    {
+      let totalFileSize = 0;
+
+      if (!files) {
+        files = this.uppy.getFiles();
+      }
+
+      for (var key in files) {
+        totalFileSize = totalFileSize + files[key].size;
+      }
+
+      return totalFileSize;
+    },
+
+    // Set parentSlug and template-based title when files are added to the Dashboard.
+    onFileAdded: function (file) 
+    {
+      this.uppy.setFileMeta(file.id, {
+        parentSlug: Qubit.multiFileUpload.slug,
+        title: this.replacePlaceHolder($('input#title').val(), this.nextImageNum++)
+      });
+    },
+
+    reset: function () 
+    {
+      this.uploadItems = [];
+      this.nextImageNum = 1;
+    },
+
+    // User pressed cancel - reset upload state.
+    onCancelAll: function ()
+    {
+      // Delete all file upload hidden form items.
+      uploads = document.getElementById("uploads");
+        while (uploads.firstChild) {
+          uploads.removeChild(uploads.lastChild);
+        }
+
+      // Reset internal vars.
+      this.reset();
+    },
+
+    // Show an AtoM style alert message.
+    showAlert: function (message, type) {
+      if (!type) {
+        type = 'alert-info';
+      }
+
+      var $alert = $('<div class="alert ' + type + ' animateNicely">');
+      $alert.append('<button type="button" data-dismiss="alert" class="close">&times;</button>');
+      $alert.append(message).prependTo($('#uploaderContainer'));
+  
+      return $alert;
+    },
+
+    clearAlerts: function () {
+      $("div#uploaderContainer > div").remove( ".alert" );
+    },
+
+    // Build title from Title field template.
+    replacePlaceHolder: function (templateStr, index) 
+    {
+      var fileName = null;
+      index = String(index);
+      var matches = templateStr.match(/\%(d+)\%/);
+
+      if (null != matches && 0 < matches[1].length) {
+        while (matches[1].length > index.length) {
+          index = '0' + index;
+        }
+
+        var fileName = templateStr.replace('%' + matches[1] + '%', index);
+      }
+
+      if (null == fileName || templateStr == fileName) {
+        fileName = templateStr + ' ' + index;
+      }
+
+      return fileName;
     }
-  })(jQuery);
+  };
+
+  $(function ()
+  {
+    var $node = $('.multiFileUpload');
+
+    if (0 < $node.length)
+    {
+      new MultiFileUpload($node.get(0));
+    }
+  });
+
+})(window.jQuery);

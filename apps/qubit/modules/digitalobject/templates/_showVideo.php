@@ -10,7 +10,7 @@
 
 <?php elseif ($usageType == QubitTerm::REFERENCE_ID): ?>
 
-  <?php if ($showFlashPlayer): ?>
+  <?php if ($showMediaPlayer): ?>
     <video preload="metadata" class="mediaelement-player" src="<?php echo public_path($representation->getFullPath()) ?>"></video>
   <?php else: ?>
     <div style="text-align: center">

@@ -2331,6 +2331,21 @@ class QubitDigitalObject extends BaseDigitalObject
   }
 
   /**
+   * Test various php settings that affect POST size and report the
+   * most limiting one.
+   *
+   * @return integer max POST file size in bytes
+   */
+  public static function getMaxPostSize()
+  {
+    $settings = array();
+    $settings[] = self::returnBytes(ini_get('post_max_size'));
+    $settings[] = self::returnBytes(ini_get('memory_limit'));
+
+    return QubitDigitalObject::getMin($settings);    
+  }
+
+  /**
    * Test various php settings that affect file upload size and report the
    * most limiting one.
    *
@@ -2343,6 +2358,17 @@ class QubitDigitalObject extends BaseDigitalObject
     $settings[] = self::returnBytes(ini_get('upload_max_filesize'));
     $settings[] = self::returnBytes(ini_get('memory_limit'));
 
+    return QubitDigitalObject::getMin($settings);
+  }
+
+  /**
+   * Given array, detect min value and return it. Return -1 if array is empty.
+   * most limiting one.
+   *
+   * @return integer max upload file size in bytes
+   */
+  public static function getMin($settings)
+  {
     foreach ($settings as $index => $value)
     {
       if ($value == 0)

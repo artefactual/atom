@@ -2,7 +2,7 @@
 
 <?php if (QubitTerm::REFERENCE_ID == $usageType): ?>
 
-  <?php if ($showFlashPlayer): ?>
+  <?php if ($showMediaPlayer): ?>
     <audio class="mediaelement-player" src="<?php echo public_path($representation->getFullPath()) ?>"></audio>
   <?php else: ?>
     <div style="text-align: center">

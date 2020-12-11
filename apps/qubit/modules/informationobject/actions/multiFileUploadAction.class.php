@@ -43,16 +43,11 @@ class InformationObjectMultiFileUploadAction extends sfAction
       QubitAcl::forwardToSecureAction();
     }
 
-    // Add javascript libraries
-    $this->response->addJavaScript('/vendor/yui/logger/logger', 'last');
-    $this->response->addJavaScript('/vendor/yui/uploader/uploader-min', 'last');
-    $this->response->addJavaScript('multiFileUpload', 'last');
-
     // Get max upload size limits
-    $this->maxUploadSize = QubitDigitalObject::getMaxUploadSize();
+    $this->maxFileSize = QubitDigitalObject::getMaxUploadSize();
+    $this->maxPostSize = QubitDigitalObject::getMaxPostSize();
 
     // Paths for uploader javascript
-    $this->uploadSwfPath = "{$this->request->getRelativeUrlRoot()}/vendor/yui/uploader/assets/uploader.swf";
     $this->uploadResponsePath = "{$this->context->routing->generate(null, array('module' => 'digitalobject', 'action' => 'upload'))}?".http_build_query(array(session_name() => session_id()));
     $this->uploadTmpDir = "{$this->request->getRelativeUrlRoot()}/uploads/tmp";
 
@@ -90,6 +85,7 @@ class InformationObjectMultiFileUploadAction extends sfAction
 
     // Upload files
     $i = 0;
+    $informationObjectSlugList = array();
 
     foreach ($this->form->getValue('files') as $file)
     {
@@ -131,19 +127,15 @@ class InformationObjectMultiFileUploadAction extends sfAction
         $digitalObject->save();
       }
 
-      $thumbnailIsGeneric = (bool) strstr($file['thumb'], 'generic-icons');
+      $informationObjectSlugList[] = $informationObject->slug;
 
       // Clean up temp files
       if (file_exists("$tmpPath/$file[tmpName]"))
       {
         unlink("$tmpPath/$file[tmpName]");
       }
-      if (!$thumbnailIsGeneric && file_exists("$tmpPath/$file[thumb]"))
-      {
-        unlink("$tmpPath/$file[thumb]");
-      }
     }
 
-    $this->redirect(array($this->resource, 'module' => 'informationobject'));
+    $this->redirect(array($this->resource, 'module' => 'informationobject', 'action' => 'multiFileUpdate', 'items' => implode(",", $informationObjectSlugList)));
   }
 }
