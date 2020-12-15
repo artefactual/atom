@@ -46,7 +46,7 @@ class InformationObjectFullWidthTreeViewAction extends DefaultFullTreeViewAction
 
     // Impose limit to what nodeLimit parameter can be set to
     $maxItemsPerPage = sfConfig::get('app_treeview_items_per_page_max', 10000);
-    if (!ctype_digit($request->nodeLimit) || $request->nodeLimit > $maxItemsPerPage)
+    if (!intval($request->nodeLimit) || $request->nodeLimit < 1 || $request->nodeLimit > $maxItemsPerPage)
     {
       $request->nodeLimit = $maxItemsPerPage;
     }
