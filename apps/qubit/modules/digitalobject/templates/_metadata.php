@@ -163,7 +163,7 @@
 
       <?php endif; ?>
 
-      <?php if (null !== $referenceCopy && $showReferenceCopyMetadata): ?>
+      <?php if ($showReferenceCopyMetadata): ?>
 
         <div class="digital-object-metadata-header">
           <h3><?php echo __('Reference copy') ?> <i class="fa fa-file<?php if (!$canAccessReferenceCopy): ?> inactive<?php endif; ?>" aria-hidden="true"></i></h3>
@@ -202,7 +202,7 @@
 
       <?php endif; ?>
 
-      <?php if (null !== $thumbnailCopy && $showThumbnailCopyMetadata): ?>
+      <?php if ($showThumbnailCopyMetadata): ?>
 
         <div class="digital-object-metadata-header">
           <h3><?php echo __('Thumbnail copy') ?> <i class="fa fa-file<?php if (!$canAccessThumbnailCopy): ?> inactive<?php endif; ?>" aria-hidden="true"></i></h3>

@@ -38,6 +38,7 @@ class DigitalObjectMetadataComponent extends sfComponent
       && arStorageServiceUtils::getAipDownloadEnabled()
     );
 
+    $this->masterCopy = $this->resource->getRepresentationByUsage(QubitTerm::MASTER_ID);
     $this->referenceCopy = $this->resource->getRepresentationByUsage(QubitTerm::REFERENCE_ID);
     $this->thumbnailCopy = $this->resource->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID);
 
@@ -201,7 +202,7 @@ class DigitalObjectMetadataComponent extends sfComponent
       || $this->showMasterFileMimeType
       || $this->showMasterFileSize
       || $this->showMasterFileCreatedAt
-    );
+    ) && null !== $this->masterCopy;
   }
 
   protected function setReferenceCopyShowProperties()
@@ -237,7 +238,7 @@ class DigitalObjectMetadataComponent extends sfComponent
       || $this->showReferenceCopyMimeType
       || $this->showReferenceCopyFileSize
       || $this->showReferenceCopyCreatedAt
-    );
+    ) && null !== $this->referenceCopy;
   }
 
   protected function setThumbnailCopyShowProperties()
@@ -273,7 +274,7 @@ class DigitalObjectMetadataComponent extends sfComponent
       || $this->showThumbnailCopyMimeType
       || $this->showThumbnailCopyFileSize
       || $this->showThumbnailCopyCreatedAt
-    );
+    ) && null !== $this->thumbnailCopy;
   }
 
   protected function setOriginalFileShowProperties()
