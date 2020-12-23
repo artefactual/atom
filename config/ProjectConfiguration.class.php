@@ -35,7 +35,6 @@ class ProjectConfiguration extends sfProjectConfiguration
       'qbAclPlugin',
       'qtAccessionPlugin',
       'sfDrupalPlugin',
-      'sfFormExtraPlugin',
       'sfHistoryPlugin',
       'arElasticSearchPlugin',
       'sfPropelPlugin',

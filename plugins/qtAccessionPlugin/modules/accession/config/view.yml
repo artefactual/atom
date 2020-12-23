@@ -1,9 +1,9 @@
 editSuccess:
+  stylesheets:
+    /vendor/jquery-ui/jquery-ui.min.css:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
-    /vendor/yui/calendar/calendar-min:
     /vendor/yui/connection/connection-min:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/autocomplete/autocomplete-min:

@@ -1,8 +1,8 @@
-<?php $sf_response->addJavaScript('date') ?>
-<?php $sf_response->addJavaScript('/vendor/yui/datasource/datasource-min') ?>
-<?php $sf_response->addJavaScript('/vendor/yui/container/container-min') ?>
-<?php $sf_response->addJavaScript('dialog') ?>
-<?php $sf_response->addJavaScript('multiDelete') ?>
+<?php $sf_response->addJavaScript('date', 'last') ?>
+<?php $sf_response->addJavaScript('/vendor/yui/datasource/datasource-min', 'last') ?>
+<?php $sf_response->addJavaScript('/vendor/yui/container/container-min', 'last') ?>
+<?php $sf_response->addJavaScript('dialog', 'last') ?>
+<?php $sf_response->addJavaScript('multiDelete', 'last') ?>
 
 <?php use_helper('Javascript') ?>
 

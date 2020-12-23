@@ -1,12 +1,10 @@
 browseSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
     advancedRepositoryFilters.js:
 
 listSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
 
 editThemeSuccess:
@@ -17,10 +15,6 @@ editThemeSuccess:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/textarea:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
-    /vendor/yui/connection/connection-min:
-    /vendor/yui/datasource/datasource-min:
-    /vendor/yui/container/container-min:
     blank:
     description:
 

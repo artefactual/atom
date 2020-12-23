@@ -1,13 +1,10 @@
 importSelectSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/textarea:
-
     /vendor/yui/connection/connection-min:
     /vendor/yui/datasource/datasource-min:
-    /vendor/yui/container/container-min:
     /vendor/yui/autocomplete/autocomplete-min:
     autocomplete:
     blank:
@@ -17,17 +14,12 @@ importSelectSuccess:
 
 addDigitalObjectSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
-    /vendor/yui/connection/connection-min:
-    /vendor/yui/datasource/datasource-min:
-    /vendor/yui/container/container-min:
     blank:
 
 editPhysicalObjectsSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /vendor/yui/connection/connection-min:

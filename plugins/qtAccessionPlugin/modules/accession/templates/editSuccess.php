@@ -46,7 +46,7 @@
         <?php echo $form->date
           ->help(__('Accession date represents the date of receipt of the materials and is added during the donation process.'))
           ->label(__('Acquisition date').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
-          ->renderRow(array('class' => 'date-widget', 'icon' => image_path('calendar.png'))) ?>
+          ->renderRow() ?>
 
         <?php echo render_field($form->sourceOfAcquisition
           ->help(__('Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.'))

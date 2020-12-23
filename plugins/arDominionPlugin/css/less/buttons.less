@@ -272,3 +272,98 @@ a.clipboard-print {
 #fullwidth-treeview-reset-button, #fullwidth-treeview-more-button {
   display: none;
 }
+
+/*
+ * YUI
+ */
+
+.yui-button {
+  display: inline-block;
+  vertical-align: text-bottom;
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: #808080;
+  background: url(../../../../vendor/yui/assets/skins/sam/sprite.png) repeat-x 0 0;
+  margin: auto .25em;
+
+  .first-child {
+    display: block;
+    border-width: 0 1px;
+    border-style: solid;
+    border-color: #808080;
+    margin: 0 -1px;
+  }
+
+  button, a {
+    display: block;
+    border: none;
+    margin: 0;
+    padding: 0 10px;
+    font-size: 93%;
+    line-height: 2;
+    min-height: 2em;
+    color: #000;
+  }
+
+  button {
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.yui-button-focus {
+  border-color: #7D98B8;
+  background-position: 0 -1300px;
+
+  .first-child {
+    border-color: #7D98B8;
+  }
+
+  button, a {
+    color: #000;
+  }
+}
+
+.yui-button-hover {
+  border-color: #7D98B8;
+  background-position: 0 -1300px;
+
+  .first-child {
+    border-color: #7D98B8;
+  }
+
+  button, a {
+    color: #000;
+  }
+}
+
+.yui-button-active {
+  border-color: #7D98B8;
+  background-position: 0 -1700px;
+
+  .first-child {
+    border-color: #7D98B8;
+  }
+
+  button, a {
+    color: #000;
+  }
+}
+
+.yui-button-disabled {
+  border-color: #ccc;
+  background-position: 0 -1500px;
+
+  .first-child {
+    border-color: #ccc;
+  }
+
+  button, a {
+    color: #A6A6A6;
+    cursor: default;
+  }
+}

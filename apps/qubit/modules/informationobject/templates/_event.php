@@ -1,9 +1,9 @@
 <?php
 
-$sf_response->addJavaScript('date');
-$sf_response->addJavaScript('/vendor/yui/datasource/datasource-min');
-$sf_response->addJavaScript('/vendor/yui/container/container-min');
-$sf_response->addJavaScript('dialog');
+$sf_response->addJavaScript('date', 'last');
+$sf_response->addJavaScript('/vendor/yui/datasource/datasource-min', 'last');
+$sf_response->addJavaScript('/vendor/yui/container/container-min', 'last');
+$sf_response->addJavaScript('dialog', 'last');
 
 use_helper('Javascript');
 

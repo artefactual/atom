@@ -1,4 +1,4 @@
-<?php $sf_response->addJavaScript('/vendor/yui/container/container-min') ?>
+<?php $sf_response->addJavaScript('/vendor/yui/container/container-min', 'last') ?>
 
 <!-- form for yui dialog -->
 <div id="myDialog">
@@ -126,4 +126,3 @@ myDialog.showEvent.subscribe(function () {
 
 EOL
 ) ?>
-

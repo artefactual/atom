@@ -1,6 +1,5 @@
 editSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /vendor/yui/connection/connection-min:
@@ -12,7 +11,6 @@ editSuccess:
     edit:
 manageSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     description:

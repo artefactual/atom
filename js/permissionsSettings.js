@@ -34,7 +34,7 @@
       });
     };
 
-    $(document).ready(function() {
+    $(function() {
 
       var $area = $('#premisAccessPermissionsArea');
 

@@ -19,13 +19,8 @@ class sfTranslatePluginConfiguration extends sfPluginConfiguration
       return;
     }
 
-    $context->response->addJavaScript('/vendor/jquery');
-    $context->response->addJavaScript('/plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js');
-    $context->response->addJavaScript('/plugins/sfDrupalPlugin/vendor/drupal/misc/drupal');
-    $context->response->addJavaScript('/plugins/sfDrupalPlugin/vendor/drupal/misc/textarea');
-    $context->response->addJavaScript('/plugins/sfTranslatePlugin/js/l10n_client');
-
-    $context->response->addStylesheet('/plugins/sfTranslatePlugin/css/l10n_client');
+    $context->response->addJavaScript('/plugins/sfTranslatePlugin/js/l10n_client', 'last');
+    $context->response->addStylesheet('/plugins/sfTranslatePlugin/css/l10n_client', 'last');
   }
 
   /**

@@ -94,9 +94,9 @@
               });
           }
 
-          $('input#title').live('keyup', renumerateUploads);
+          $.on('keyup', 'input#title', renumerateUploads);
 
-          $('a.uploadActionRetry, a.uploadActionStart').live('click', function()
+          $.on('click', 'a.uploadActionRetry, a.uploadActionStart', function()
             {
               var fileId = parseHtmlId($(this).closest('.multiFileUploadItem').attr('id'));
 
@@ -106,7 +106,7 @@
               return false;
             });
 
-          $('a.uploadActionDelete').live('click', function()
+          $.on('click', 'a.uploadActionDelete', function()
             {
               var fileId = parseHtmlId($(this).closest('.multiFileUploadItem').attr('id'));
 
@@ -123,7 +123,7 @@
               return false;
             });
 
-          $('a.uploadActionCancel').live('click', function()
+          $.on('click', 'a.uploadActionCancel', function()
             {
               var fileId = parseHtmlId($(this).closest('.multiFileUploadItem').attr('id'));
               var uploadLayer = $('div#upload-file' + fileId);
@@ -269,7 +269,7 @@
           uploader.addListener('uploadCompleteData', function (event)
             {
               // Parse server response for each upload
-              var upload = $.parseJSON(event.data);
+              var upload = JSON.parse(event.data);
 
               // Remove this file from the upload queue
               uploader.removeFile(event.id);

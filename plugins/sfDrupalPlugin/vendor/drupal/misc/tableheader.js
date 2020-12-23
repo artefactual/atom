@@ -9,12 +9,7 @@ Drupal.tableHeaderDoScroll = function () {
 
 Drupal.behaviors.tableHeader = {
   attach: function (context, settings) {
-    // This breaks in anything less than IE 7. Prevent it from running.
-    if ($.browser.msie && parseInt($.browser.version, 10) < 7) {
-      return;
-    }
-
-    $('table.sticky-enabled thead', context).once('tableheader', function () {
+    $('table.sticky-enabled thead', context).each(function () {
       // Clone the table header so it inherits original jQuery properties. Hide
       // the table to avoid a flash of the header clone upon page load.
       var headerClone = $(this).clone(true).hide().insertBefore(this.parentNode).wrap('<table class="sticky-header"></table>').parent().css({
@@ -83,7 +78,7 @@ Drupal.behaviors.tableHeader = {
 
     // Only attach to scrollbars once, even if Drupal.attachBehaviors is called
     //  multiple times.
-    $('body').once(function () {
+    $('body').each(function () {
       $(window).scroll(Drupal.tableHeaderDoScroll);
       $(document.documentElement).scroll(Drupal.tableHeaderDoScroll);
     });

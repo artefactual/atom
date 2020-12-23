@@ -8,7 +8,6 @@
 
     <?php use_helper('Javascript') ?>
 
-    <?php echo javascript_include_tag('/vendor/yui/cookie/cookie-min') ?>
     <?php echo javascript_include_tag('updateCheck') ?>
 
     <?php echo javascript_tag(<<<EOF

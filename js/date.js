@@ -58,16 +58,6 @@
             return [min.join('-'), max.join('-')];
           }
 
-          function isValidDate(date)
-          {
-            if (Object.prototype.toString.call(date) !== "[object Date]")
-            {
-              return false;
-            }
-
-            return !isNaN(date.getTime());
-          }
-
           $('.date', context).each(bindParse);
 
           // Use $(document).on('loadFunctions') to add function in new rows created with multiRow.js
@@ -93,57 +83,36 @@
                 .val());
             }
 
-          $('input.date-widget', context).each(function ()
-            {
-              var self = this;
+          // Initialize datepickers
+          var opts = {
+            changeYear: true,
+            changeMonth: true,
+            yearRange: '-100:+100',
+            dateFormat: 'yy-mm-dd',
+            defaultDate: new Date(),
+            constrainInput: false,
+            beforeShow: function (input, instance) {
+              var top  = $(this).offset().top + $(this).outerHeight();
+              setTimeout(function() {
+                instance.dpDiv.css({
+                  'top' : top,
+                });
+              }, 1);
+            }
+          };
+      
+          // Don't change user input value when enter is pressed with datepicker
+          // It must be added before the datepicker is initialized
+          $('#date').bind('keydown', function (event) {
+            if (event.which == 13) {
+              var e = $.Event('keydown');
+              e.which = 9;
+              e.keyCode = 9;
+              $(this).trigger(e);
+      
+              return false;
+            }
+          }).datepicker(opts);
 
-              $(self)
-
-                // Prepare the input field
-                .css({'float': 'left', 'width': 'auto'})
-
-                // Add calendar button
-                .after('&nbsp;<button><img src="' + self.getAttribute('icon') + '" /></button>').next()
-
-                // Bind next function to click event
-                .click(function(event)
-                {
-                  event.preventDefault();
-
-                  // If already exists, use it instead of a new one
-                  if (self.calendar)
-                  {
-                    self.calendar.show();
-                  }
-                  else
-                  {
-                    // Create container element and add to the DOM
-                    var container = $(document.createElement('div'))
-                      .css({
-                        'position': 'absolute',
-                        'left': parseInt($(self).width() + 60) + 'px',
-                        'z-index': 4})
-                      .insertAfter(self);
-
-                    self.calendar = new YAHOO.widget.Calendar(container.get(0), { close: true });
-
-                    self.calendar.selectEvent.subscribe(function(type, args, obj)
-                      {
-                        pad = function(n) { return n < 10 ? '0' + n : n; };
-                        self.value = args[0][0][0] + "-" + pad(args[0][0][1]) + "-" + pad(args[0][0][2]);
-                        self.calendar.hide();
-                      })
-
-                    self.calendar.render();
-                  }
-
-                  var date = new Date(self.value);
-                  if (isValidDate(date))
-                  {
-                    self.calendar.cfg.setProperty('pagedate', (date.getMonth() + 1) + "/" + date.getFullYear());
-                    self.calendar.render();
-                  }
-                })
-            });
         } };
   })(jQuery);

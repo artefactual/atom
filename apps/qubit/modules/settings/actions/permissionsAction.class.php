@@ -47,7 +47,7 @@ class SettingsPermissionsAction extends sfAction
       'digitalobject_preservation_system_access_statement'
     );
 
-    $this->response->addJavaScript('permissionsSettings');
+    $this->response->addJavaScript('permissionsSettings', 'last');
 
     // Handle POST data (form submit)
     if ($request->isMethod('post'))

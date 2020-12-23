@@ -1,53 +1,24 @@
 browseSuccess:
   stylesheets:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/ui/ui.all.css:
+    /vendor/jquery-ui/jquery-ui.min.css:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/ui/ui.datepicker.js:
     /vendor/yui/connection/connection-min:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/autocomplete/autocomplete-min:
     autocomplete:
-
-editPhysicalObjectsSuccess:
-  javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
-    /vendor/yui/connection/connection-min:
-    /vendor/yui/datasource/datasource-min:
-    /vendor/yui/autocomplete/autocomplete-min:
-    autocomplete:
-    multiDelete:
 
 listSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
 
 physicalObjects:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
-
-addDigitalObjectSuccess:
-  javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
-    /vendor/yui/connection/connection-min:
-    /vendor/yui/datasource/datasource-min:
-    /vendor/yui/container/container-min:
-    blank:
 
 multiFileUploadSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
-    /vendor/yui/connection/connection-min:
-    /vendor/yui/datasource/datasource-min:
-    /vendor/yui/container/container-min:
     description:
     blank:
 
@@ -59,8 +30,6 @@ renameSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
-    /vendor/yui/container/container-min:
-    /vendor/yui/connection/connection-min:
     sidebarPaginatedList:
     description:
     rename:
@@ -69,16 +38,12 @@ updatePublicationStatusSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
-    /vendor/yui/container/container-min:
-    /vendor/yui/connection/connection-min:
     sidebarPaginatedList:
 
 uploadFindingAidSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
-    /vendor/yui/connection/connection-min:
-    /vendor/yui/container/container-min:
     sidebarPaginatedList:
 
 all:

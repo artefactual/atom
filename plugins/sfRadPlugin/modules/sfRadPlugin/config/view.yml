@@ -1,8 +1,5 @@
 editSuccess:
-  stylesheets:
-    /vendor/imageflow/imageflow.packed.css: { position: first }
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/textarea:
@@ -10,22 +7,18 @@ editSuccess:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/container/container-min:
     /vendor/yui/autocomplete/autocomplete-min:
-    /vendor/imageflow/imageflow.packed.js:
     /js/generateIdentifier.js:
     autocomplete:
     blank:
-    imageflow:
     multiDelete:
     multiInstanceInput:
     multiRow:
     select:
-    treeView:
 
 indexSuccess:
   stylesheets:
     /vendor/imageflow/imageflow.packed.css: { position: first }
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /vendor/imageflow/imageflow.packed.js:

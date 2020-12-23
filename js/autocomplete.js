@@ -674,14 +674,6 @@
           // Finally remove <select/> element
           $(this).remove();
         }
-
-        // Fix z-index autocomplete bug in IE6/7
-        // See http://developer.yahoo.com/yui/examples/autocomplete/ac_combobox.html
-        if ($.browser.msie && $.browser.version < 8) {
-          $('.form-item.yui-ac').each(function (index) {
-            this.style.zIndex = 20100 - index;
-          });
-        }
       });
     }
   };

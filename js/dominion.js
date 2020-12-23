@@ -116,7 +116,7 @@
    ****
    ****/
 
-  $(document).ready(function()
+  $(function()
     {
       var $container = $('.masonry');
       $container.imagesLoaded(function() {
@@ -135,7 +135,7 @@
    ****
    ****/
 
-  $(document).ready(function()
+  $(function()
     {
       var $facets = $('#facets');
       var $facet = $facets.find('.facet');
@@ -169,7 +169,7 @@
    ****
    ****/
 
-  $(document).ready(function()
+  $(function()
     {
       var $form = $('.facet-date').find('form');
 
@@ -371,7 +371,7 @@
                 this.hide();
               }
             })
-          .error(function()
+          .fail(function()
             {
               this.$menu.slideUp('fast');
             })
@@ -570,7 +570,7 @@
     });
 
   // Add placeholder as value in search box for browsers without support
-  $(document).ready(function()
+  $(function()
     {
       if (!Modernizr.input.placeholder)
       {

@@ -1,6 +1,4 @@
-<?php $sf_response->addStylesheet('/vendor/yui/container/assets/skins/sam/container', 'first') ?>
-
-<?php $sf_response->addJavaScript('/vendor/yui/container/container-min') ?>
+<?php $sf_response->addJavaScript('/vendor/yui/container/container-min', 'last') ?>
 
 <!-- form for yui dialog -->
 <div id="myDialog">
@@ -129,4 +127,3 @@ myDialog.showEvent.subscribe(function () {
 
 EOL
 ) ?>
-

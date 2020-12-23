@@ -3,7 +3,7 @@
 
 Drupal.behaviors.textarea = {
   attach: function (context, settings) {
-    $('textarea.resizable', context).once('textarea', function () {
+    $('textarea.resizable', context).each(function () {
       // When wrapping the text area, work around an IE margin bug. See:
       // http://jaspan.com/ie-inherited-margin-bug-form-elements-and-haslayout
       var staticOffset = null;

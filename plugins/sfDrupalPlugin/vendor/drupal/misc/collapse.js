@@ -65,10 +65,10 @@ Drupal.behaviors.collapse = {
   attach: function (context, settings) {
     $(location.hash, context).removeClass('collapsed');
 
-    $('fieldset.collapsible > legend', context).once('collapse', function () {
+    $('fieldset.collapsible > legend', context).each(function () {
       var fieldset = $(this.parentNode);
       // Expand if there are errors inside.
-      if ($('input.error, textarea.error, select.error', fieldset).size() > 0) {
+      if ($('input.error, textarea.error, select.error', fieldset).length > 0) {
         fieldset.removeClass('collapsed');
       }
 
