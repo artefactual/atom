@@ -1,4 +1,4 @@
-<?php $sf_response->addJavaScript('date') ?>
+<?php $sf_response->addJavaScript('date', 'last') ?>
 
 <div class="section">
 

@@ -1,6 +1,6 @@
 (function ($)
   {
-    $(document).ready(function() {
+    $(function() {
       // Access to clipboard functionality
       var clipboard = $('#clipboard-menu').data('clipboard');
       if (typeof clipboard === 'undefined')

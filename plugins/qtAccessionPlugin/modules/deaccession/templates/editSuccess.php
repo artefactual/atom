@@ -37,7 +37,7 @@
         <?php echo $form->date
           ->help(__('Date of deaccession'))
           ->label(__('Date').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
-          ->renderRow(array('class' => 'date-widget', 'icon' => image_path('calendar.png'))) ?>
+          ->renderRow() ?>
 
         <?php echo render_field($form->description
           ->help(__('Identify what materials are being deaccessioned.'))

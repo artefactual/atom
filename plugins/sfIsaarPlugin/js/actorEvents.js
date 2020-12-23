@@ -43,7 +43,7 @@
   };
 
   // Set up relation display/paging
-  $(document).ready(function() {
+  $(function() {
     var url = "/sfIsaarPlugin/actorEvents";
 
     // Modifying the location causes issues when using Drupal behaviors

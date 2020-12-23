@@ -4,70 +4,48 @@ clipboardSendSuccess:
 
 editSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/textarea:
     /plugins/sfDrupalPlugin/vendor/drupal/modules/user/user:
-    /vendor/yui/connection/connection-min:
-    /vendor/yui/datasource/datasource-min:
-    /vendor/yui/autocomplete/autocomplete-min:
-    autocomplete:
     select:
 
 editActorAclSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/textarea:
-    /plugins/sfDrupalPlugin/vendor/drupal/modules/user/user:
     /vendor/yui/connection/connection-min:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/autocomplete/autocomplete-min:
     autocomplete:
-    select:
 
 editRepositoryAclSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/textarea:
-    /plugins/sfDrupalPlugin/vendor/drupal/modules/user/user:
     /vendor/yui/connection/connection-min:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/autocomplete/autocomplete-min:
     autocomplete:
-    select:
 
 editInformationObjectAclSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/textarea:
-    /plugins/sfDrupalPlugin/vendor/drupal/modules/user/user:
     /vendor/yui/connection/connection-min:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/autocomplete/autocomplete-min:
-    autocomplete:
     /vendor/yui/container/container-min:
+    autocomplete:
     aclDialog:
-    select:
 
 editTermAclSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/textarea:
-    /plugins/sfDrupalPlugin/vendor/drupal/modules/user/user:
     /vendor/yui/connection/connection-min:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/autocomplete/autocomplete-min:
     autocomplete:
-    select:
 
 indexSuccess:
   javascripts:
@@ -78,36 +56,30 @@ indexSuccess:
 
 indexActorAclSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
     blank:
 
 indexRepositoryAclSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
     blank:
 
 indexTermAclSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
     blank:
 
 indexInformationObjectAclSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
     blank:
 
 listSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
 
 passwordEditSuccess:
   javascripts:
-    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/modules/user/user:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:

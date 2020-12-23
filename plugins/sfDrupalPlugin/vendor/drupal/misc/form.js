@@ -49,7 +49,7 @@ Drupal.behaviors.formUpdated = {
     $(context)
       // Since context could be an input element itself, it's added back to
       // the jQuery object and filtered again.
-      .find(':input').andSelf().filter(':input')
+      .find(':input').addBack().filter(':input')
       // To prevent duplicate events, the handlers are first removed and then
       // (re-)added.
       .unbind(events).bind(events, function () {
@@ -63,7 +63,7 @@ Drupal.behaviors.formUpdated = {
  */
 Drupal.behaviors.filterGuidelines = {
   attach: function (context) {
-    $('.filter-guidelines', context).once('filter-guidelines')
+    $('.filter-guidelines', context)
       .find('label').hide()
       .parents('.filter-wrapper').find('select.filter-list')
       .bind('change', function () {
@@ -80,7 +80,7 @@ Drupal.behaviors.filterGuidelines = {
  */
 Drupal.behaviors.fillUserInfoFromCookie = {
   attach: function (context, settings) {
-    $('form.user-info-from-cookie').once('user-info-from-cookie', function () {
+    $('form.user-info-from-cookie').each(function () {
       var formContext = this;
       $.each(['name', 'mail', 'homepage'], function () {
         var $element = $('[name=' + this + ']', formContext);

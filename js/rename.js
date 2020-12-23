@@ -99,11 +99,11 @@
     });
 
     // Keep track of how many async requests are in progress
-    $renameForm.ajaxStart(function() {
+    $(document).ajaxStart(function() {
       asyncOpCounter++;
     });
 
-    $renameForm.ajaxStop(function() {
+    $(document).ajaxStop(function() {
       asyncOpCounter--;
     });
 

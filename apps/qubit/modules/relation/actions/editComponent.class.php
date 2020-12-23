@@ -58,7 +58,7 @@ class RelationEditComponent extends sfComponent
         break;
 
       case 'resource':
-        $this->form->setValidator('resource', new sfValidatorBlacklist(array(
+        $this->form->setValidator('resource', new QubitValidatorForbiddenValues(array(
           'forbidden_values' => array($this->context->routing->generate(null, $this->resource)))));
         $this->form->setWidget('resource', new sfWidgetFormSelect(array('choices' => array())));
 

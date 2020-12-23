@@ -43,7 +43,7 @@ class SettingsPermissionsAction extends sfAction
 
     $this->copyrightStatementSetting = QubitSetting::getByName('digitalobject_copyright_statement');
 
-    $this->response->addJavaScript('permissionsSettings');
+    $this->response->addJavaScript('permissionsSettings', 'last');
 
     // Handle POST data (form submit)
     if ($request->isMethod('post'))

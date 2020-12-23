@@ -756,7 +756,8 @@
       selector = selector && /#/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') //strip for ie7
     }
 
-    $parent = selector && $(selector)
+    // Removed for jQuery 3.5.1
+    // $parent = selector && $(selector)
 
     if (!$parent || !$parent.length) $parent = $this.parent()
 

@@ -227,17 +227,6 @@
     mouseenter: function (e)
       {
         var $li = 'LI' === e.target.tagName ? $(e.target) : $(e.target).closest('li');
-        var $anchor = $li.children('a');
-
-        // For code simplicity we always show the popup in IE8 and IE10 (see #561 and #4910)
-        if (!($.browser.msie && ($.browser.version == 8.0 || $.browser.version == 10.0)))
-        {
-          // Stop execution if the popover is not worth it
-          if (($li.offset().left + $li.width()) >= ($anchor.offset().left + $anchor.width()))
-          {
-            return;
-          }
-        }
 
         // Pass function so the placement is computed every time
         $li.popover({ html: true, placement: function(popover, element) {
@@ -245,13 +234,6 @@
           }});
 
         $li.popover('show');
-
-        // Hide title if empty
-        var $title = $li.data('popover').$tip.find('h3');
-        if (!$title.text().length)
-        {
-          $title.remove();
-        }
 
         return this;
       },
@@ -472,7 +454,7 @@
               }
               else if (collapse)
               {
-                $element.nextAll().andSelf().remove();
+                $element.nextAll().addBack().remove();
 
                 this.$element.find('.ancestor:last-child').after(data);
               }

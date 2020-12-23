@@ -17,9 +17,7 @@ Drupal.behaviors.l10nEditor = {
       $('#l10n-client').height('2em');
       $('#l10n-client-hide').hide();
       $('#l10n-client-show').show();
-      if(!$.browser.msie) {
-        $('body').css('border-bottom', '0px');
-      }
+      $('body').css('border-bottom', '0px');
     });
 
     $('#l10n-client-show').click(function() {
@@ -27,9 +25,7 @@ Drupal.behaviors.l10nEditor = {
       $('#l10n-client').height('22em');
       $('#l10n-client-hide').show();
       $('#l10n-client-show').hide();
-      if(!$.browser.msie) {
-        $('body').css('border-bottom', '22em solid #fff');
-      }
+      $('body').css('border-bottom', '22em solid #fff');
     });
 
     // Add class to indicate selected string in list widget.

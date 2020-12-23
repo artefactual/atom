@@ -1,4 +1,4 @@
-<?php $sf_response->addJavaScript('multiDelete') ?>
+<?php $sf_response->addJavaScript('multiDelete', 'last') ?>
 
 <table id="relatedEvents" class="table table-bordered">
   <thead>

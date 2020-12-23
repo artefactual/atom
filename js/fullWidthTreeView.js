@@ -245,7 +245,7 @@
         return;
       }
 
-      var moveResponse = $.parseJSON($.ajax({
+      var moveResponse = JSON.parse($.ajax({
         url: data.node.a_attr.href + '/informationobject/fullWidthTreeViewMove',
         type: 'POST',
         async: false,

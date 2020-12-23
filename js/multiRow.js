@@ -103,7 +103,7 @@
           tables
 
             // Add tfoot new row button
-            // TODO: use append + live or delegate, embed addNewRow
+            // TODO: use append + on or delegate, embed addNewRow
             .each(function()
               {
                 $(this).find('.multiRowAddButton').click(function()
@@ -115,7 +115,7 @@
               })
 
             // If user press enter, add new row
-            .find('input, select').live('keydown', function(event)
+            .on('keydown', 'input, select', function(event)
               {
                 if (event.which == 13)
                 {
@@ -130,7 +130,7 @@
                 }
               })
 
-            .end().find('.delete-small').live('click', function(event)
+            .on('click', '.delete-small', function(event)
               {
                 event.preventDefault();
 

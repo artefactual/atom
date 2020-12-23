@@ -17,8 +17,21 @@
               }
             };
 
-          var version = YAHOO.util.Cookie.get('update_checked');
+          var cookies = document.cookie.split(';');
+          var version = null;
 
+          for (var i = 0; i < cookies.length; i++)
+          {
+            var [key, value] = cookies[i].split('=');
+
+            if (key.trim() == 'update_checked')
+            {
+              version = value.trim();
+
+              break;
+            }
+          }
+          
           if (version)
           {
             showNotification(version);
@@ -37,7 +50,7 @@
               {
                 showNotification(data.version);
 
-                YAHOO.util.Cookie.set('update_checked', data.version, { path: Qubit.updateCheck.cookiePath });
+                document.cookie = 'update_checked=' + data.version + ';path=' + Qubit.updateCheck.cookiePath;
               }
           });
         }
