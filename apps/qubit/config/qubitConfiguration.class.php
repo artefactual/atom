@@ -111,4 +111,45 @@ class qubitConfiguration extends sfApplicationConfiguration
 
     $this->setWebDir($path);
   }
+
+  /**
+   * Get a config variable from an application config file (YAML) for a specific
+   * environment (e.g. "prod", "dev", "cli")
+   *
+   * N.B. to get a config variable for the current context/environment, use
+   * sfConfing::get() instead!
+   *
+   * @param string $varname config variable name
+   * @param string $env Environment name (e.g. 'prod', 'cli')
+   * @param string $configFile config file to check (e.g. 'config/settings.yml')
+   *
+   * @return string|null config value or null if variable is not set
+   */
+  public static function getConfigForEnvironment($varname, $env, $configFile)
+  {
+    // Parse the YAML data to an array
+    $config = sfSimpleYamlConfigHandler::getConfiguration(
+      sfContext::getInstance()
+        ->getConfiguration()
+        ->getConfigPaths($configFile)
+    );
+
+    // The settings.yml file requires an intermediate '.settings' key for
+    // some reason :-/
+    if (
+      'config/settings.yml' == $configFile &&
+      isset($config[$env]['.settings'][$varname]))
+    {
+      return $config[$env]['.settings'][$varname];
+    }
+
+    // Get a value from non "settings.yml" config files
+    if (isset($config[$env][$varname]))
+    {
+      return $config[$env][$varname];
+    }
+
+    // Return null if the variable is not set in the specified config file
+    return null;
+  }
 }

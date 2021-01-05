@@ -197,20 +197,57 @@ class sfEadPlugin
       }
     }
 
-    $url = ($this->siteBaseUrl)
-      ? $this->siteBaseUrl . '/index.php/'. $this->resource->slug
-      : url_for(array($this->resource, 'module' => 'informationobject'), $absolute = true);
-
     if (null === $identifier = $this->resource->descriptionIdentifier)
     {
       $identifier = $this->resource->slug;
     }
 
+    $url = $this->getResourceUrl();
     $encodinganalog = $this->getMetadataParameter('eadid');
     $sanitizedIdentifier = esc_specialchars($this->resource->identifier);
     $identifier = esc_specialchars($identifier);
 
     return "<eadid identifier=\"$identifier\"$countryCode$mainAgencyCode url=\"$url\" encodinganalog=\"$encodinganalog\">{$sanitizedIdentifier}</eadid>";
+  }
+
+  /**
+   * Get the URL for the current resource
+   *
+   * @return string URL of the resource
+   */
+  public function getResourceUrl()
+  {
+    // When running from the command line ("cli" or "worker" context) build the
+    // resource URL from the siteBaseUrl setting
+    if (in_array(
+      sfContext::getInstance()->getConfiguration()->getEnvironment(),
+      ['cli', 'worker']
+    ))
+    {
+      // Strip whitespace and "/" from the end of the Site Base URL
+      $url = rtrim($this->siteBaseUrl, " \n\r\t\v\0/");
+
+      // Get the "no_script_name" config for the "prod" environment
+      $noScriptName = qubitConfiguration::getConfigForEnvironment(
+        'no_script_name', 'prod', 'config/settings.yml'
+      );
+
+      // Add 'index.php' to the URL when "no_script_name" is not true in
+      // production
+      if (empty($noScriptName))
+      {
+        $url .= '/index.php';
+      }
+
+      // Append the slug
+      $url .= '/'. $this->resource->slug;
+
+      return $url;
+    }
+
+    // When running in a web context, generate the resource URL using symfony
+    // routing
+    return url_for([$this->resource, 'module' => 'informationobject'], true);
   }
 
   public function renderEadNormalizedDate($date)
