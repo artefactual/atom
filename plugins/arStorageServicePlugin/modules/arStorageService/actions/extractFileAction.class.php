@@ -84,7 +84,7 @@ class arStorageServiceExtractFileAction extends sfAction
 
     if (null === $relativePath = $this->resource->object->relativePathWithinAip)
     {
-      throw new QubitApiBadRequestException('Missing parameter: relativepath');
+      throw new QubitApiBadRequestException('Missing object property: relativePathWithinAip');
     }
 
     if (null === $baseUrl = QubitSetting::getByName('storage_service_api_url'))
@@ -94,21 +94,31 @@ class arStorageServiceExtractFileAction extends sfAction
 
     if (null === $aip = QubitAip::getByUuid($aipUUID))
     {
-      throw new QubitApiBadRequestException(sprintf('AIP not found: %s', $aipUUID));
+      // Check object properties if QubitAip not found. This will occur for 
+      // metadata-only dip upload digital objects.
+      if (null === $aipFileName = $this->resource->object->aipName)
+      {
+        throw new QubitApiBadRequestException('Missing object property: aipName');
+      }
+    }
+    else 
+    {
+      $aipFileName = $aip->filename;
     }
 
     $url = sprintf('%s/%s/%s/extract_file/?relative_path_to_file=%s-%s/data/%s',
       trim($baseUrl, "/"),
       arStorageServiceUtils::STORAGE_SERVICE_PACKAGE_PATH,
       $aipUUID,
-      $aip->filename,
-      $aip->uuid,
+      $aipFileName,
+      $aipUUID,
       $relativePath
     );
 
     // Check return status from Storage Service
     if (200 !== $status = arStorageServiceUtils::getFileFromStorageService($url))
     {
+      sfContext::getInstance()->getLogger()->err(sprintf('Storage Service extract file returned status: %s; %s', $status, $url));
       $ex = arStorageServiceUtils::getStorageServiceException($status);
       throw $ex;
     }

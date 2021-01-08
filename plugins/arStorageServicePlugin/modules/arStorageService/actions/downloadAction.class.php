@@ -96,6 +96,7 @@ class arStorageServiceDownloadAction extends sfAction
     // Check return status from Storage Service
     if (200 !== $status = arStorageServiceUtils::getFileFromStorageService($url))
     {
+      sfContext::getInstance()->getLogger()->err(sprintf('Storage Service download returned status: %s; %s', $status, $url));
       $ex = arStorageServiceUtils::getStorageServiceException($status);
       throw $ex;
     }

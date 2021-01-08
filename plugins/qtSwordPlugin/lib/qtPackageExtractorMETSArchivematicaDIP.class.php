@@ -151,12 +151,9 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     }
 
     // Create AIP
-    $parts = pathinfo($this->filename);
-    $aipName = substr($parts['basename'], 0, -37);
-
     $this->aip = new QubitAip;
     $this->aip->uuid = $aipUUID;
-    $this->aip->filename = $aipName;
+    $this->aip->filename = $this->extractAipNameFromFileName($this->filename);
     $this->aip->digitalObjectCount = $this->metsParser->getOriginalFileCount();
     $this->aip->partOf = $this->resource->id;
     $this->aip->sizeOnDisk = $this->metsParser->getAipSizeOnDisk();
@@ -167,6 +164,18 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     sfContext::getInstance()->getLogger()->info(
       'METSArchivematicaDIP - aipUUID: ' . $aipUUID
     );
+  }
+
+  /**
+   * Parse AIP name to extract filename
+   *
+   * @return string $filename
+   */
+  protected function extractAipNameFromFileName($filename)
+  {
+    $parts = pathinfo($filename);
+
+    return substr($parts['basename'], 0, -37);
   }
 
   /**
@@ -199,6 +208,14 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $io->addProperty(
       'relativePathWithinAip',
       $this->metsParser->getOriginalPathInAip($fileId),
+      $options
+    );
+
+    // Metadata-only DIP Upload stores the AIP name in the 'aipName' property.
+    // Adding here for consistency.
+    $io->addProperty(
+      'aipName',
+      $this->extractAipNameFromFileName($this->filename),
       $options
     );
 

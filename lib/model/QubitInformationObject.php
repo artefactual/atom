@@ -74,6 +74,7 @@ class QubitInformationObject extends BaseInformationObject
       case 'formatRegistryName':
       case 'objectUUID':
       case 'aipUUID':
+      case 'aipName':
       case 'relativePathWithinAip':
       case 'originalFileName':
       case 'originalFileSize':
