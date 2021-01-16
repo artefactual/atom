@@ -132,14 +132,14 @@ class DefaultFullTreeViewAction extends sfAction
   }
 
   /**
-   * Do Elasticsearch query for given $term
+   * Get Elasticsearch query object for the given $term
    *
    * @param \Elastica\Query\Term $term query term
    * @param array $options optional arguments
    *
-   * @return \Elastica\ResultSet search result set
+   * @return \Elastica\Query query object
    */
-  protected function doElasticsearchQuery($term, $options = [])
+  protected function getElasticSearchQuery($term, $options = [])
   {
     // Initialize Elasticsearch query
     $query = new arElasticSearchPluginQuery(
@@ -159,6 +159,21 @@ class DefaultFullTreeViewAction extends sfAction
         )
       );
     }
+
+    return $query;
+  }
+
+  /**
+   * Do Elasticsearch query for given $term
+   *
+   * @param \Elastica\Query\Term $term query term
+   * @param array $options optional arguments
+   *
+   * @return \Elastica\ResultSet search result set
+   */
+  protected function doElasticsearchQuery($term, $options = [])
+  {
+    $query = $this->getElasticSearchQuery($term, $options);
 
     // Set sort order
     $this->setSortOrder($query, $options);
@@ -199,16 +214,38 @@ class DefaultFullTreeViewAction extends sfAction
   /**
    * Find children of information object
    *
-   * @param QubitInformationObject $informationObject parent object
+   * @param int $id information_object.id (pkey)
    * @param array $options optional arguments
    *
    * @return \Elastica\ResultSet search result set
    */
-  protected function findChildren($id, $options)
+  protected function findChildren($id, $options = array())
   {
     $term = new \Elastica\Query\Term(['parentId' => $id]);
 
     return $this->doElasticsearchQuery($term, $options);
+  }
+
+  /**
+   * Return a count of an information object's children
+   *
+   * @param int $id information_object.id (pkey)
+   * @param array $options optional arguments
+   *
+   * @return int number of children
+   */
+  protected function countChildren($id, $options = [])
+  {
+    $term = new \Elastica\Query\Term(['parentId' => $id]);
+    $options['limit'] = 0;
+
+    $query = $this->getElasticSearchQuery($term, $options);
+
+    // Return a count of the results found
+    return QubitSearch::getInstance()
+      ->index
+      ->getType('QubitInformationObject')
+      ->count($query->getQuery(false, false));
   }
 
   /**
@@ -277,7 +314,7 @@ class DefaultFullTreeViewAction extends sfAction
     );
 
     // If node has children
-    if (!empty($data['children']))
+    if ($this->countChildren($node['id']) > 0)
     {
       // Set children to default of true for lazy loading
       $node['children'] = true;
@@ -288,9 +325,10 @@ class DefaultFullTreeViewAction extends sfAction
         && in_array($node['id'], $this->ancestorIds)
       )
       {
-        $childData = $this->getChildren($node['id'], $options);
-        $node['children'] = $childData['nodes'];
-        $node['total'] = $childData['total'];
+        $children = $this->getChildren($node['id'], $options);
+
+        $node['children'] = $children['nodes'];
+        $node['total'] = $children['total'];
       }
     }
 
