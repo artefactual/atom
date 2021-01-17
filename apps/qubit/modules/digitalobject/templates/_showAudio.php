@@ -3,7 +3,7 @@
 <?php if (QubitTerm::REFERENCE_ID == $usageType): ?>
 
   <?php if ($showFlashPlayer): ?>
-    <audio class="mediaelement-player" src="<?php echo public_path($representation->getFullPath()) ?>"></audio>
+    <audio style="max-width:100%;" class="mediaelement-player" src="<?php echo public_path($representation->getFullPath()) ?>"></audio>
   <?php else: ?>
     <div style="text-align: center">
       <?php echo image_tag($representation->getFullPath(), array('style' => 'border: #999 1px solid', 'alt' => '')) ?>
