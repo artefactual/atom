@@ -26,7 +26,7 @@
  */
 class propelBuildNestedSetTask extends sfBaseTask
 {
-  private $rows = array(); // Holds all our SQL update queries
+  private $children, $conn;
 
   /**
    * @see sfTask
@@ -58,7 +58,7 @@ EOF;
   public function execute($arguments = array(), $options = array())
   {
     $databaseManager = new sfDatabaseManager($this->configuration);
-    $conn = $databaseManager->getDatabase('propel')->getConnection();
+    $this->conn = $databaseManager->getDatabase('propel')->getConnection();
 
     $tables = array(
       'information_object' => 'QubitInformationObject',
@@ -84,108 +84,81 @@ EOF;
 
       $this->logSection('propel', 'Build nested set for '.$table.'...');
 
-      $conn->beginTransaction();
+      $this->conn->beginTransaction();
 
       $sql = 'SELECT id, parent_id';
       $sql .= ' FROM '.constant($classname.'::TABLE_NAME');
       $sql .= ' ORDER BY parent_id ASC, lft ASC';
 
-      $this->rows = $tree = $children = array();
+      $this->children = array();
 
-      foreach ($conn->query($sql, PDO::FETCH_ASSOC) as $item)
+      // Build hash of child rows keyed on parent_id
+      foreach ($this->conn->query($sql, PDO::FETCH_ASSOC) as $item)
       {
-        // Add root node to tree
-        if (constant($classname.'::ROOT_ID') == $item['id'])
+        if (isset($this->children[$item['parent_id']]))
         {
-          array_push($tree, array(
-            'id' => $item['id'],
-            'lft' => 1,
-            'rgt' => null,
-            'children' => array())
-          );
+          array_push($this->children[$item['parent_id']], $item['id']);
         }
         else
         {
-          // build hash of child rows keyed on parent_id
-          if (isset($children[$item['parent_id']]))
-          {
-            array_push($children[$item['parent_id']], $item['id']);
-          }
-          else
-          {
-            $children[$item['parent_id']] = array($item['id']);
-          }
+          $this->children[$item['parent_id']] = array($item['id']);
         }
       }
 
-      // Recursively add child nodes
-      self::addChildren($tree[0], $children, 1);
+      $rootNode = array(
+        'id' => $classname::ROOT_ID,
+        'lft' => 1,
+        'rgt' => null
+      );
 
-      // Crawl tree and build sql statement to update nested set columns
-      self::getNsUpdateRows($tree[0], $classname);
-
-      // Update database
       try
       {
-        // There seems to be some limit on how many rows we can update with one
-        // exec() statement, so chunk the update rows
-        $incr = 4000;
-        for ($i=0; $i < count($this->rows); $i+=$incr)
-        {
-          $sql = implode("\n", array_slice($this->rows, $i, $incr));
-          $conn->exec($sql);
-        }
+        self::recursivelyUpdateTree($rootNode, $classname);
       }
       catch (PDOException $e)
       {
-        $conn->rollback();
+        $this->conn->rollback();
         throw new sfException($e);
       }
 
-      $conn->commit();
-    } // endforeach
+      $this->conn->commit();
+    }
 
     $this->logSection('propel', 'Done!');
   }
 
-  protected function addChildren(&$node, $children, $lft)
+  protected function recursivelyUpdateTree($node, $classname)
   {
     $width = 2;
+    $lft = $node['lft'];
 
-    if (isset($children[$node['id']]))
+    if (isset($this->children[$node['id']]))
     {
       $lft++;
-      foreach ($children[$node['id']] as $id)
-      {
-        $child = array('id' => $id, 'lft' => $lft, 'rgt' => null, 'children' => array());
 
-        $w0 = self::addChildren($child, $children, $lft);
+      foreach ($this->children[$node['id']] as $id)
+      {
+        $child = array('id' => $id, 'lft' => $lft, 'rgt' => null);
+
+        // Update children first
+        $w0 = self::recursivelyUpdateTree($child, $classname);
         $lft += $w0;
         $width += $w0;
-
-        array_push($node['children'], $child);
       }
+
+      // Clear already processed children
+      unset($this->children[$node['id']]);
     }
 
     $node['rgt'] = $node['lft'] + $width - 1;
 
+    $sql  = 'UPDATE '.$classname::TABLE_NAME;
+    $sql .= ' SET lft = '.$node['lft'];
+    $sql .= ', rgt = '.$node['rgt'];
+    $sql .= ' WHERE id = '.$node['id'].";";
+
+    $this->conn->exec($sql);
+
     return $width;
-  }
-
-  protected function getNsUpdateRows($node, $classname)
-  {
-    $str  = 'UPDATE '.constant($classname.'::TABLE_NAME');
-    $str .= ' SET lft = '.$node['lft'];
-    $str .= ', rgt = '.$node['rgt'];
-    $str .= ' WHERE id = '.$node['id'].";";
-    $this->rows[$str] = $str;
-
-    if (0 < count($node['children']))
-    {
-      foreach ($node['children'] as $child)
-      {
-        self::getNsUpdateRows($child, $classname);
-      }
-    }
   }
 }
