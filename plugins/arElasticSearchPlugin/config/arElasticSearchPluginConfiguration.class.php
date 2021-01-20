@@ -57,4 +57,17 @@ class arElasticSearchPluginConfiguration extends sfPluginConfiguration
 
     self::$config = arElasticSearchConfigHandler::getConfiguration($configPaths);
   }
+
+  public static function getMaxResultWindow()
+  {
+    $maxResultWindow = 10000;
+    $indexConfig = self::$config['index']['configuration'];
+
+    if (!empty($indexConfig['index.max_result_window']))
+    {
+      $maxResultWindow = (int)$indexConfig['index.max_result_window'];
+    }
+
+    return $maxResultWindow;
+  }
 }

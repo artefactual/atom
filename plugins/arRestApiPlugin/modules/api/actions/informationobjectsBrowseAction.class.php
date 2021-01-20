@@ -43,11 +43,18 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
       $skip = $request->skip;
     }
 
-    // Avoid pagination over 10000 records
-    if ((int)$limit + (int)$skip > 10000)
+    // Avoid pagination over ES' max result window config (default: 10000)
+    $maxResultWindow = arElasticSearchPluginConfiguration::getMaxResultWindow();
+
+    if ((int)$limit + (int)$skip > $maxResultWindow)
     {
       // Return 400 response with error message
-      $message = $this->context->i18n->__("Pagination limit reached. To avoid using vast amounts of memory, AtoM limits pagination to 10,000 records. Please, narrow down your results.");
+      $message = $this->context->i18n->__(
+        "Pagination limit reached. To avoid using vast amounts of memory," .
+        " AtoM limits pagination to %1% records. Please, narrow down your results.",
+        array('%1%' => $maxResultWindow)
+      );
+
       throw new QubitApiBadRequestException($message);
     }
 
