@@ -19,20 +19,22 @@
 
 class QubitCsvTransformFactory
 {
-  public $cliOptions;
-  public $machineName;
-  public $addColumns;
-  public $renameColumns;
-  public $ignoreRows;
-  public $ignoreRowCheckLogic;
-  public $parentKeyLogic;
-  public $rowParentKeyLookupLogic;
-  public $setupLogic;
-  public $transformLogic;
+    public $cliOptions;
+    public $machineName;
+    public $addColumns;
+    public $renameColumns;
+    public $ignoreRows;
+    public $ignoreRowCheckLogic;
+    public $parentKeyLogic;
+    public $rowParentKeyLookupLogic;
+    public $setupLogic;
+    public $transformLogic;
+    public $preserveOrder;
+    public $convertWindowsEncoding;
 
-  public function __construct($options = array())
-  {
-    $allowedProperties = array(
+    public function __construct($options = array())
+    {
+        $allowedProperties = array(
       'cliOptions',
       'machineName',
       'addColumns',
@@ -42,26 +44,27 @@ class QubitCsvTransformFactory
       'parentKeyLogic',
       'rowParentKeyLookupLogic',
       'setupLogic',
-      'transformLogic'
+      'transformLogic',
+      'preserveOrder',
+      'convertWindowsEncoding'
     );
 
-    QubitFlatfileImport::setPropertiesFromArray(
-      $this,
-      $options,
-      $allowedProperties
-    );
+        QubitFlatfileImport::setPropertiesFromArray(
+            $this,
+            $options,
+            $allowedProperties
+        );
 
-    if (!$this->machineName)
-    {
-      throw new sfException('The machineName property is required.');
+        if (!$this->machineName) {
+            throw new sfException('The machineName property is required.');
+        }
     }
-  }
 
-  public function make()
-  {
-    $tempCsvFile = sys_get_temp_dir() .'/'. $this->machineName .'_stage1.csv';
+    public function make()
+    {
+        $tempCsvFile = sys_get_temp_dir() .'/'. $this->machineName .'_stage1.csv';
 
-    return new QubitCsvTransform(array(
+        return new QubitCsvTransform(array(
 
       'options' => $this->cliOptions,
 
@@ -77,44 +80,42 @@ class QubitCsvTransformFactory
         'rowParentKeyLookupLogic' => $this->rowParentKeyLookupLogic
       ),
 
-      'setupLogic' => $this->setupLogic,
+      'preserveOrder' => $this->preserveOrder,
+      'convertWindowsEncoding' => true,
 
+      'setupLogic' => $this->setupLogic,
       'transformLogic' => $this->transformLogic,
 
       'addColumns' => $this->addColumns,
-
       'renameColumns' => $this->renameColumns,
 
-      'saveLogic' => function(&$self)
-      {
-        $self->writeHeadersOnFirstPass();
+      'saveLogic' => function (&$self) {
+          $self->writeHeadersOnFirstPass();
 
-        if (isset($self->status['parentKeyLogic']))
-        {
-          $parentKey = trim($self->status['parentKeyLogic']($self));
-          if ($parentKey)
-          {
-            $self->status['parentKeys'][$parentKey] = $self->columnValue('legacyId');
+          if (isset($self->status['parentKeyLogic'])) {
+              $parentKey = trim($self->status['parentKeyLogic']($self));
+              if ($parentKey) {
+                  $self->status['parentKeys'][$parentKey] = $self->columnValue('legacyId');
+              }
           }
-        }
 
-        if (isset($self->transformLogic))
-        {
-          $self->executeClosurePropertyIfSet('transformLogic');
-        }
+          if (isset($self->transformLogic)) {
+              $self->executeClosurePropertyIfSet('transformLogic');
+          }
 
-        fputcsv($self->status['outFh'], $self->status['row']);
+          fputcsv($self->status['outFh'], $self->status['row']);
       },
 
-      'completeLogic' => function(&$self)
-      {
-        print "Step 1 complete.\n";
+      'completeLogic' => function (&$self) {
+          print "Step 1 complete.\n";
 
-        $fhIn = fopen($self->status['tempFile'], 'r');
+          $fhIn = fopen($self->status['tempFile'], 'r');
 
-        if (!$fhIn) throw new sfException('Error reading '. $self->status['tempFile'] .'.');
+          if (!$fhIn) {
+              throw new sfException('Error reading '. $self->status['tempFile'] .'.');
+          }
 
-        $stage2 = new QubitCsvTransform(array(
+          $stage2 = new QubitCsvTransform(array(
 
           'skipOptionsAndEnvironmentCheck' => true,
 
@@ -131,84 +132,75 @@ class QubitCsvTransformFactory
             'ignoreBadLod'            => $self->status['ignoreBadLod']
           ),
 
+          'preserveOrder' => $self->preserveOrder,
+          'convertWindowsEncoding'  => $self->convertWindowsEncoding,
+
           'errorLog' => $self->errorLog,
 
-          'saveLogic' => function(&$self)
-          {
-            // Ignore row if ignore check is present and returns true
-            $ignore = isset($self->status['ignoreRowCheckLogic']) && $self->status['ignoreRowCheckLogic']($self);
+          'saveLogic' => function (&$self) {
+              // Ignore row if ignore check is present and returns true
+              $ignore = isset($self->status['ignoreRowCheckLogic']) && $self->status['ignoreRowCheckLogic']($self);
 
-            // Ingore row if already ignoring or if present in list of rows to ignore
-            $ignore = ($ignore) ? true : in_array($self->status['rows'], $self->status['ignoreRows']);
+              // Ingore row if already ignoring or if present in list of rows to ignore
+              $ignore = ($ignore) ? true : in_array($self->status['rows'], $self->status['ignoreRows']);
 
-            if ($ignore)
-            {
-              print "Ignoring row ". $self->status['rows'] ."...\n";
-              return;
-            }
-
-            if (isset($self->status['rowParentKeyLookupLogic']))
-            {
-              $keyOfRowParent = trim($self->status['rowParentKeyLookupLogic']($self));
-
-              // if this row has a parent key and a calculated parent key exists, set
-              // the "parentId" column
-              if ($keyOfRowParent && isset($self->status['parentKeys'][$keyOfRowParent]))
-              {
-                $self->columnValue('parentId', $self->status['parentKeys'][$keyOfRowParent]);
+              if ($ignore) {
+                  print "Ignoring row ". $self->status['rows'] ."...\n";
+                  return;
               }
-              else if ($keyOfRowParent)
-              {
-                $self->columnValue('parentId', $keyOfRowParent);
+
+              if (isset($self->status['rowParentKeyLookupLogic'])) {
+                  $keyOfRowParent = trim($self->status['rowParentKeyLookupLogic']($self));
+
+                  // if this row has a parent key and a calculated parent key exists, set
+                  // the "parentId" column
+                  if ($keyOfRowParent && isset($self->status['parentKeys'][$keyOfRowParent])) {
+                      $self->columnValue('parentId', $self->status['parentKeys'][$keyOfRowParent]);
+                  } elseif ($keyOfRowParent) {
+                      $self->columnValue('parentId', $keyOfRowParent);
+                  } else {
+                      // ...otherwise if the parent key didn't exist, note that it's bad
+                      print "Bad parent found: ". $keyOfRowParent ." (row ". ($self->getStatus('rows') + 1) .")\n";
+                      $self->status['badParents']++;
+                  }
               }
-              else
-              {
-                // ...otherwise if the parent key didn't exist, note that it's bad
-                print "Bad parent found: ". $keyOfRowParent ." (row ". ($self->getStatus('rows') + 1) .")\n";
-                $self->status['badParents']++;
-              }
-            }
 
-            $levelOfDescriptionAvailable = is_numeric(array_search('levelOfDescription', $self->columnNames));
+              $levelOfDescriptionAvailable = is_numeric(array_search('levelOfDescription', $self->columnNames));
 
-            if ($levelOfDescriptionAvailable)
-            {
-             // print "Found a level of description...\n";
+              if ($levelOfDescriptionAvailable) {
+                  // Import by row order or using levels of description
+                  if (!empty($self->preserveOrder)) {
+                      $sortorder = $self->getStatus('rows');
+                  } else {
+                      $sortorder = $self->levelOfDescriptionToSortorder($self->columnValue('levelOfDescription'));
+                  }
 
-              $sortorder = $self->levelOfDescriptionToSortorder($self->columnValue('levelOfDescription'));
-
-              if (is_numeric($sortorder))
-              {
-              //  print "Description sort order is ". $sortorder .".\n";
-                $self->addRowToMySQL($sortorder);
-              }
-              else if (isset($self->status['ignoreBadLod']) && $self->status['ignoreBadLod'])
-              {
-                $sortorder = count($self->levelsOfDescription);
-              //  print "Description sort order is ". $sortorder .".\n";
-                $self->addRowToMySQL($sortorder);
+                  if (is_numeric($sortorder)) {
+                      $self->addRowToMySQL($sortorder);
+                  } elseif (isset($self->status['ignoreBadLod']) && $self->status['ignoreBadLod']) {
+                      $sortorder = count($self->levelsOfDescription);
+                      $self->addRowToMySQL($sortorder);
+                  } else {
+                      $self->status['badLevelOfDescription']++;
+                      print "Ignoring data with bad level of description: '". $self->columnValue('levelOfDescription') . "'.\n";
+                  }
               } else {
-                $self->status['badLevelOfDescription']++;
-                print "Ignoring data with bad level of description: '". $self->columnValue('levelOfDescription') . "'.\n";
+                  $self->addRowToMySQL(0);
               }
-            } else {
-              $self->addRowToMySQL(0);
-            }
           },
 
-          'completeLogic' => function(&$self)
-          {
-            $self->writeMySQLRowsToCsvFilePath($self->status['finalOutputFile']);
+          'completeLogic' => function (&$self) {
+              $self->writeMySQLRowsToCsvFilePath($self->status['finalOutputFile']);
 
-            print "Step 2 complete.\n";
-            print "Bad parents found: ". $self->status['badParents'] .".\n";
-            print "Bad level of description found: ". $self->status['badLevelOfDescription'] .".\n";
+              print "Step 2 complete.\n";
+              print "Bad parents found: ". $self->status['badParents'] .".\n";
+              print "Bad level of description found: ". $self->status['badLevelOfDescription'] .".\n";
           }
         ));
 
-        $stage2->initializeMySQLtemp();
-        $stage2->csv($fhIn);
+          $stage2->initializeMySQLtemp();
+          $stage2->csv($fhIn);
       }
     ));
-  }
+    }
 }
