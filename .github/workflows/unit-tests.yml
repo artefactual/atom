@@ -1,0 +1,48 @@
+name: Unit tests
+on:
+  pull_request:
+  push:
+    branches:
+    - qa/**
+    - stable/**
+jobs:
+  unit-tests:
+    runs-on: ubuntu-18.04
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [7.2, 7.3, 7.4]
+    name: PHP ${{ matrix.php }}
+    env:
+      COMPOSE_FILE: ${{ github.workspace }}/docker/docker-compose.dev.yml
+    steps:
+    - name: Setup PHP ${{ matrix.php }}
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+        coverage: none
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.composer/cache/files
+        key: php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+    - name: Install dependencies
+      run: composer update
+    - name: Copy config files
+      run: |
+        cp test/bootstrap/config.php config/config.php
+        cp test/bootstrap/search.yml config/search.yml
+        cp config/propel.ini.tmpl config/propel.ini
+        cp apps/qubit/config/settings.yml.tmpl apps/qubit/config/settings.yml
+    - name: Increase virtual memory max_map_count
+      run: sudo sysctl -w vm.max_map_count=262144
+    - name: Start services
+      run: docker-compose up -d percona elasticsearch
+    - name: Sleep for 15 seconds
+      run: sleep 15
+    - name: Initialize database and search index
+      run: php symfony tools:purge --demo
+    - name: Run tests
+      run: composer test
