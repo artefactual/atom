@@ -38,8 +38,8 @@
         <?php endif; ?><br />
 
         <?php echo $form->reference_image_maxwidth
-          ->label(__('Maximum image width (pixels)'))
-          ->help(__('The maximum width for derived reference images.'))
+          ->label(__('Maximum length on longest edge (pixels)'))
+          ->help(__('The maximum number of pixels on the longest edge for derived reference images.'))
           ->renderRow() ?>
 
       </fieldset>
