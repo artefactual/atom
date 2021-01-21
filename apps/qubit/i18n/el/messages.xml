@@ -2820,7 +2820,7 @@
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/digitalobject/actions/editAction.class.php</note>
       </trans-unit>
       <trans-unit id="9917379c2d4f57eb0424e346a3a86a01f46d0d49">
-        <source>Maximum image width (pixels)</source>
+        <source>Maximum length on longest edge (pixels)</source>
         <target>&#x39C;&#x3AD;&#x3B3;&#x3B9;&#x3C3;&#x3C4;&#x3BF; &#x3C0;&#x3BB;&#x3AC;&#x3C4;&#x3BF;&#x3C2; &#x3B5;&#x3B9;&#x3BA;&#x3CC;&#x3BD;&#x3B1;&#x3C2; (pixels)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/digitalObjectDerivativesSuccess.php</note>
       </trans-unit>
@@ -4532,7 +4532,7 @@
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
       <trans-unit id="1868000288b22c58b9cef7ca738317a8b8025970">
-        <source>The maximum width for derived reference images.</source>
+        <source>The maximum number of pixels on the longest edge for derived reference images.</source>
         <target/>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/digitalObjectDerivativesSuccess.php</note>
       </trans-unit>
