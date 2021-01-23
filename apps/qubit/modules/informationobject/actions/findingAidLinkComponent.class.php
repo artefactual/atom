@@ -26,29 +26,32 @@ class InformationObjectFindingAidLinkComponent extends sfComponent
             $this->resource = $this->resource->getCollectionRoot();
         }
 
-        $this->path = arFindingAidJob::getFindingAidPathForDownload($this->resource->id);
+        $findingAid = new QubitFindingAid($this->resource);
+        $this->path = $findingAid->getPath();
+
         if (!isset($this->path)) {
-            return sfView::NONE;
+            return;
         }
 
-        $parts = explode(DIRECTORY_SEPARATOR, $this->path);
-        $this->filename = array_pop($parts);
+        $this->filename = basename($this->path);
 
-        $i18n = $this->context->i18n;
+        switch ((int) $findingAid->getStatus()) {
+            case QubitFindingAid::GENERATED_STATUS:
+                $this->label = $this->context->i18n->__(
+                    'Generated finding aid'
+                );
 
-        switch ((int) $this->resource->getFindingAidStatus()) {
-            case arFindingAidJob::GENERATED_STATUS:
-                $this->label = $i18n->__('Generated finding aid');
+                break;
 
-            break;
+            case QubitFindingAid::UPLOADED_STATUS:
+                $this->label = $this->context->i18n->__('Uploaded finding aid');
 
-            case arFindingAidJob::UPLOADED_STATUS:
-                $this->label = $i18n->__('Uploaded finding aid');
+                break;
 
-            break;
-            // It should never get here if we don't add more finding aid statuses
             default:
-                $this->label = $i18n->__('Finding aid');
+                // It should never get here if we don't add more finding aid
+                // statuses
+                $this->label = $this->context->i18n->__('Finding aid');
         }
     }
 }

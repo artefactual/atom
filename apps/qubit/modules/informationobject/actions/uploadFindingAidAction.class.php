@@ -33,12 +33,14 @@ class InformationObjectUploadFindingAidAction extends sfAction
             QubitAcl::forwardUnauthorized();
         }
 
+        $findingAid = new QubitFindingAid($this->resource);
+
         // Check if a finding aid file already exists
-        if (null !== arFindingAidJob::getFindingAidPathForDownload($this->resource->id)) {
+        if (!empty($findingAid->getPath())) {
             $this->redirect([$this->resource, 'module' => 'informationobject']);
         }
 
-        $this->format = arFindingAidJob::getFindingAidFormat();
+        $this->format = QubitFindingAidGenerator::getFormatSetting();
         $accept = 'application/'.$this->format;
         $mimeTypes = [$accept];
 
@@ -50,12 +52,22 @@ class InformationObjectUploadFindingAidAction extends sfAction
 
         // Create form for file upload
         $this->form = new sfForm();
-        $this->form->setWidget('file', new sfWidgetFormInputFile([], ['accept' => $accept]));
-        $this->form->setValidator('file', new sfValidatorFile(['required' => true, 'mime_types' => $mimeTypes]));
+        $this->form->setWidget(
+            'file',
+            new sfWidgetFormInputFile([], ['accept' => $accept])
+        );
+        $this->form->setValidator(
+            'file',
+            new sfValidatorFile(
+                ['required' => true, 'mime_types' => $mimeTypes]
+            )
+        );
 
         // Process form
         if ($request->isMethod('post')) {
-            $this->form->bind([], $request->getFiles());
+            $this->form->bind(
+                $request->getPostParameters(), $request->getFiles()
+            );
 
             if (!$this->form->isValid()) {
                 return;
@@ -66,10 +78,14 @@ class InformationObjectUploadFindingAidAction extends sfAction
 
             // Move temporary file before it's deleted at the end of the request
             Qubit::createDownloadsDirIfNeeded();
-            $path = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.arFindingAidJob::getFindingAidPath($this->resource->id);
+            $path = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.
+                QubitFindingAidGenerator::generatePath($this->resource);
 
             if (!move_uploaded_file($file->getTempName(), $path)) {
-                $this->errorMessage = $i18n->__('Uploaded finding aid could not be moved to the downloads directory.');
+                $this->errorMessage = $i18n->__(
+                    'Uploaded finding aid could not be moved to the downloads'.
+                    ' directory.'
+                );
 
                 return;
             }
@@ -77,7 +93,14 @@ class InformationObjectUploadFindingAidAction extends sfAction
             // Obtain FA transcript and properties using the AtoM worker
             $params = [
                 'objectId' => $this->resource->id,
-                'description' => $i18n->__('Uploading finding aid for: %1%', ['%1%' => $this->resource->getTitle(['cultureFallback' => true])]),
+                'description' => $i18n->__(
+                  'Uploading finding aid for: %1%',
+                  [
+                      '%1%' => $this->resource->getTitle(
+                          ['cultureFallback' => true]
+                      ),
+                  ]
+                ),
                 'uploadPath' => $path,
             ];
 

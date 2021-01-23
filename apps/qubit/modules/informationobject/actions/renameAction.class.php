@@ -40,18 +40,28 @@ class InformationObjectRenameAction extends DefaultEditAction
             if ($this->form->isValid()) {
                 $this->updateResource();
 
-                // Let user know description was updated (and if slug had to be adjusted)
+                // Let user know description was updated (and if slug had to be
+                // adjusted)
                 $message = __('Description updated.');
 
                 $postedSlug = $this->form->getValue('slug');
 
-                if ((null !== $postedSlug) && $this->resource->slug != $postedSlug) {
-                    $message .= ' '.__('Slug was adjusted to remove special characters or because it has already been used for another description.');
+                if (
+                    (null !== $postedSlug)
+                    && $this->resource->slug != $postedSlug
+                ) {
+                    $message .= ' '.__(
+                        'Slug was adjusted to remove special characters or'.
+                        ' because it has already been used for another'.
+                        ' description.'
+                    );
                 }
 
                 $this->getUser()->setFlash('notice', $message);
 
-                $this->redirect([$this->resource, 'module' => 'informationobject']);
+                $this->redirect(
+                    [$this->resource, 'module' => 'informationobject']
+                );
             }
         }
     }
@@ -61,7 +71,10 @@ class InformationObjectRenameAction extends DefaultEditAction
         $this->resource = $this->getRoute()->resource;
 
         // Check user authorization
-        if (!QubitAcl::check($this->resource, 'update') && !$this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID)) {
+        if (
+            !QubitAcl::check($this->resource, 'update')
+            && !$this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID)
+        ) {
             QubitAcl::forwardUnauthorized();
         }
     }
@@ -70,7 +83,10 @@ class InformationObjectRenameAction extends DefaultEditAction
     {
         if (in_array($name, InformationObjectRenameAction::$NAMES)) {
             if ('filename' == $name) {
-                $this->form->setDefault($name, $this->resource->digitalObjectsRelatedByobjectId[0]->name);
+                $this->form->setDefault(
+                    $name,
+                    $this->resource->digitalObjectsRelatedByobjectId[0]->name
+                );
             } else {
                 $this->form->setDefault($name, $this->resource[$name]);
             }
@@ -87,34 +103,42 @@ class InformationObjectRenameAction extends DefaultEditAction
         $postedFilename = $this->form->getValue('filename');
 
         // Update title, if title sent
-        if (null !== $postedTitle) {
+        if (!empty($postedTitle)) {
             $this->resource->title = $postedTitle;
         }
 
         // Attempt to update slug if slug sent
-        if (null !== $postedSlug) {
+        if (!empty($postedSlug)) {
             $slug = QubitSlug::getByObjectId($this->resource->id);
-            $findingAidPath = arFindingAidJob::getFindingAidPath($this->resource->id);
 
-            // Attempt to change slug if submitted slug's different than current slug
+            // Get finding aid path before rename
+            $findingAid = new QubitFindingAid($this->resource);
+            $oldFindingAidPath = $findingAid->getPath();
+
+            // Attempt to change slug if submitted slug's different than current
+            // slug
             if ($postedSlug != $slug->slug) {
-                $slug->slug = InformationObjectSlugPreviewAction::determineAvailableSlug($postedSlug, $this->resource->id);
+                $slug->slug = InformationObjectSlugPreviewAction::determineAvailableSlug(
+                    $postedSlug, $this->resource->id
+                );
                 $slug->save();
 
-                // Update finding aid filename
-                $newFindingAidPath = arFindingAidJob::getFindingAidPath($this->resource->id);
-                if (false === rename($findingAidPath, $newFindingAidPath)) {
-                    $message = sprintf('Finding aid document could not be renamed according to new slug (old=%s, new=%s)', $findingAidPath, $newFindingAidPath);
-                    $this->logMessage($message, 'warning');
-                }
+                // Set $resource->slug so the new slug is used to generate the
+                // new Finding Aid filename
+                $this->resource->slug = $slug->slug;
+                $this->renameFindingAid($oldFindingAidPath);
             }
         }
 
         // Update digital object filename, if filename sent
-        if ((null !== $postedFilename) && count($this->resource->digitalObjectsRelatedByobjectId)) {
+        if (
+            (null !== $postedFilename)
+            && 0 !== count($this->resource->digitalObjectsRelatedByobjectId)
+        ) {
             // Parse filename so special characters can be removed
             $fileParts = pathinfo($postedFilename);
-            $filename = QubitSlug::slugify($fileParts['filename']).'.'.QubitSlug::slugify($fileParts['extension']);
+            $filename = QubitSlug::slugify($fileParts['filename']).'.'.
+                QubitSlug::slugify($fileParts['extension']);
 
             $digitalObject = $this->resource->digitalObjectsRelatedByobjectId[0];
 
@@ -130,10 +154,46 @@ class InformationObjectRenameAction extends DefaultEditAction
             $digitalObject->save();
 
             // Regenerate derivatives
-            digitalObjectRegenDerivativesTask::regenerateDerivatives($digitalObject, ['keepTranscript' => true]);
+            digitalObjectRegenDerivativesTask::regenerateDerivatives(
+                $digitalObject, ['keepTranscript' => true]
+            );
         }
 
         $this->resource->save();
         $this->resource->updateXmlExports();
+    }
+
+    /**
+     * Rename the attached finding aid file when the description slug changes.
+     *
+     * @param string $filepath current finding aid file path
+     */
+    private function renameFindingAid(?string $filepath): void
+    {
+        // If this description has no finding aid attached, $filepath will be
+        // null, and there is nothing to do
+        if (empty($filepath)) {
+            return;
+        }
+
+        // Generate a new finding aid path using the new $resource slug
+        $newPath = QubitFindingAidGenerator::generatePath(
+            $this->resource
+        );
+
+        $success = rename($filepath, $newPath);
+
+        if (false === $success) {
+            $message =
+            $this->logMessage(
+                sprintf(
+                    'Finding aid document could not be renamed to match the'.
+                    ' new slug (old=%s, new=%s)',
+                    $filepath,
+                    $newPath
+                ),
+                'warning'
+            );
+        }
     }
 }

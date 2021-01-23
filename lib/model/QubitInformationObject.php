@@ -362,9 +362,11 @@ class QubitInformationObject extends BaseInformationObject
         // Delete any keymap entries
         $this->removeKeymapEntries();
 
-        // Delete finding aid
-        if (null !== $path = arFindingAidJob::getFindingAidPathForDownload($this->id)) {
-            unlink($path);
+        // Delete finding aid document
+        $findingAid = new QubitFindingAid($this);
+
+        if (!empty($findingAid->getPath())) {
+            unlink($findingAid->getPath());
         }
 
         QubitSearch::getInstance()->delete($this);
@@ -728,20 +730,6 @@ class QubitInformationObject extends BaseInformationObject
     public function getCollectionRoot()
     {
         return $this->ancestors->andSelf()->orderBy('lft')->__get(1);
-    }
-
-    public function getFindingAidStatus()
-    {
-        $criteria = new Criteria();
-        $criteria->add(QubitProperty::OBJECT_ID, $this->id);
-        $criteria->add(QubitProperty::NAME, 'findingAidStatus');
-        $property = QubitProperty::getOne($criteria);
-
-        if (!isset($property)) {
-            return;
-        }
-
-        return $property->getValue(['sourceCulture' => true]);
     }
 
     public function setRoot()

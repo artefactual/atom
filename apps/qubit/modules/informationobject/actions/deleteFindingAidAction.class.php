@@ -34,9 +34,10 @@ class InformationObjectDeleteFindingAidAction extends sfAction
         }
 
         $this->form = new sfForm();
-        $this->path = arFindingAidJob::getFindingAidPathForDownload($this->resource->id);
-        $parts = explode(DIRECTORY_SEPARATOR, $this->path);
-        $this->filename = array_pop($parts);
+        $findingAid = new QubitFindingAid($this->resource);
+
+        $this->path = $findingAid->getPath();
+        $this->filename = basename($this->path);
 
         if ($request->isMethod('delete')) {
             $this->form->bind($request->getPostParameters());
@@ -46,13 +47,22 @@ class InformationObjectDeleteFindingAidAction extends sfAction
 
                 $params = [
                     'objectId' => $this->resource->id,
-                    'description' => $i18n->__('Deleting finding aid for: %1%', ['%1%' => $this->resource->getTitle(['cultureFallback' => true])]),
+                    'description' => $i18n->__(
+                        'Deleting finding aid for: %1%',
+                        [
+                            '%1%' => $this->resource->getTitle(
+                                ['cultureFallback' => true]
+                            ),
+                        ]
+                    ),
                     'delete' => true,
                 ];
 
                 QubitJob::runJob('arFindingAidJob', $params);
 
-                $this->redirect([$this->resource, 'module' => 'informationobject']);
+                $this->redirect(
+                    [$this->resource, 'module' => 'informationobject']
+                );
             }
         }
     }

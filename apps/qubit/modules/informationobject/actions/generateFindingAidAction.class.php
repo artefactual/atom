@@ -28,21 +28,23 @@ class InformationObjectGenerateFindingAidAction extends sfAction
             $this->forward404();
         }
 
-        // Check user authorization
-        if (!QubitAcl::check($this->resource, 'update')) {
-            QubitAcl::forwardUnauthorized();
-        }
-
         // Check if a finding aid file already exists
-        if (null !== arFindingAidJob::getFindingAidPathForDownload($this->resource->id)) {
+        $findingAid = new QubitFindingAid($this->resource);
+
+        if (!empty($findingAid->getPath())) {
             $this->redirect([$this->resource, 'module' => 'informationobject']);
         }
 
-        $i18n = $this->context->i18n;
-
         $params = [
             'objectId' => $this->resource->id,
-            'description' => $i18n->__('Generating finding aid for: %1%', ['%1%' => $this->resource->getTitle(['cultureFallback' => true])]),
+            'description' => $this->context->i18n->__(
+                'Generating finding aid for: %1%',
+                [
+                    '%1%' => $this->resource->getTitle(
+                        ['cultureFallback' => true]
+                    ),
+                ]
+            ),
         ];
 
         QubitJob::runJob('arFindingAidJob', $params);

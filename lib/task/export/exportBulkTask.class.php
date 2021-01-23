@@ -36,7 +36,7 @@ class exportBulkTask extends exportBulkBaseTask
      */
     public function execute($arguments = [], $options = [])
     {
-        $options['format'] = $this->normalizeExportFormat(
+        $format = $this->normalizeExportFormat(
             $options['format'],
             ['ead', 'mods']
         );
@@ -45,16 +45,21 @@ class exportBulkTask extends exportBulkBaseTask
             $this->checkPathIsWritable($arguments['path']);
         }
 
-        $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);
+        $configuration = ProjectConfiguration::getApplicationConfiguration(
+            'qubit', 'cli', false
+        );
         $sf_context = sfContext::createInstance($configuration);
 
-        // QubitSetting are not available for tasks? See lib/SiteSettingsFilter.class.php
+        // QubitSetting are not available for tasks? See
+        // lib/SiteSettingsFilter.class.php
         sfConfig::add(QubitSetting::getSettingsArray());
 
         $itemsExported = 0;
 
         $conn = $this->getDatabaseConnection();
-        $rows = $conn->query($this->informationObjectQuerySql($options), PDO::FETCH_ASSOC);
+        $rows = $conn->query(
+            $this->informationObjectQuerySql($options), PDO::FETCH_ASSOC
+        );
 
         $this->includeXmlExportClassesAndHelpers();
 
@@ -63,34 +68,31 @@ class exportBulkTask extends exportBulkBaseTask
 
             // Don't export draft descriptions with public option
             if (
-                isset($options['public']) && $options['public']
-                && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $resource->getPublicationStatus()->statusId
+                isset($options['public'])
+                && $options['public']
+                && QubitTerm::PUBLICATION_STATUS_DRAFT_ID ==
+                    $resource->getPublicationStatus()->statusId
             ) {
                 continue;
             }
 
-            try {
-                // Print warnings/notices here too, as they are often important.
-                $errLevel = error_reporting(E_ALL);
+            $xml = self::generateXml($resoure, $format, $options);
 
-                $rawXml = $this->captureResourceExportTemplateOutput($resource, $options['format'], $options);
-                $xml = Qubit::tidyXml($rawXml);
-
-                error_reporting($errLevel);
-            } catch (Exception $e) {
-                throw new sfException('Invalid XML generated for object '.$row['id'].'.');
-            }
-
-            if (isset($options['single-slug']) && 'ead' == $options['format']) {
+            if (isset($options['single-slug']) && 'ead' == $format) {
                 if (is_dir($arguments['path'])) {
-                    throw new sfException('When using the single-slug option with EAD, path should be a file.');
+                    throw new sfException(
+                      'When using the single-slug option with EAD, path should'.
+                      ' be a file.'
+                    );
                 }
 
-                // If we're just exporting a single hierarchy of descriptions as EAD,
-                // the given path is actually the full path and filename
+                // If we're just exporting a single hierarchy of descriptions as
+                // EAD, the given path is actually the full path and filename
                 $filePath = $arguments['path'];
             } else {
-                $filename = $this->generateSortableFilename($resource, 'xml', $options['format']);
+                $filename = $this->generateSortableFilename(
+                  $resource, 'xml', $format
+                );
                 $filePath = sprintf('%s/%s', $arguments['path'], $filename);
             }
 
@@ -108,6 +110,27 @@ class exportBulkTask extends exportBulkBaseTask
         echo "\nExport complete (".$itemsExported." descriptions exported).\n";
     }
 
+    public static function generateXml($resource, $format, $options = [])
+    {
+        try {
+            // Print warnings/notices here too, as they are often important.
+            $errLevel = error_reporting(E_ALL);
+
+            $rawXml = $this->captureResourceExportTemplateOutput(
+                $resource, $format, $options
+            );
+            $xml = Qubit::tidyXml($rawXml);
+
+            error_reporting($errLevel);
+        } catch (Exception $e) {
+            throw new sfException(
+                sprintf('Invalid XML generated for object %s.', $row['id'])
+            );
+        }
+
+        return $xml;
+    }
+
     /**
      * @see sfTask
      */
@@ -115,7 +138,13 @@ class exportBulkTask extends exportBulkBaseTask
     {
         $this->addCommonArgumentsAndOptions();
         $this->addOptions([
-            new sfCommandOption('format', null, sfCommandOption::PARAMETER_OPTIONAL, 'XML format ("ead" or "mods")', 'ead'),
+            new sfCommandOption(
+                'format',
+                null,
+                sfCommandOption::PARAMETER_OPTIONAL,
+                'XML format ("ead" or "mods")',
+                'ead'
+            ),
         ]);
     }
 }
