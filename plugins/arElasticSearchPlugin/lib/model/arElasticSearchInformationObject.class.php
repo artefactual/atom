@@ -41,63 +41,65 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
   {
     $this->load();
 
-    // Pass root data to top-levels to avoid ancestors query
-    $ancestors = array(array(
-      'id' => QubitInformationObject::ROOT_ID,
-      'identifier' => null,
-      'repository_id' => null
-    ));
-
-    // Recursively descend down hierarchy
-    $this->recursivelyAddInformationObjects(
-      QubitInformationObject::ROOT_ID,
-      $this->count,
-      array('ancestors' => $ancestors)
-    );
+    $this->addInformationObjects();
 
     return $this->errors;
   }
 
-  public function recursivelyAddInformationObjects($parentId, $totalRows, $options = array())
+  public function addInformationObjects($options = array())
   {
-    // Loop through children and add to search index
-    foreach (self::getChildren($parentId) as $item)
+    $skip = isset($options['skip']) ? $options['skip'] : 0;
+    $limit = isset($options['limit']) ? $options['limit'] : $this->count;
+
+    // Loop through hierarchy and add to search index
+    $sql = "SELECT id, parent_id FROM information_object
+              WHERE id != ? ORDER BY parent_id, id";
+
+    $sql .= sprintf(" LIMIT %d, %d", $skip, $limit);
+
+    $rows = QubitPdo::fetchAll(
+      $sql,
+      [QubitInformationObject::ROOT_ID],
+      ['fetchMode' => PDO::FETCH_ASSOC]
+    );
+
+    $lastParentId = null;
+
+    foreach ($rows as $row)
     {
-      $ancestors = $inheritedCreators = array();
-      $repository = null;
       self::$counter++;
 
       try
       {
-        $node = new arElasticSearchInformationObjectPdo($item->id, $options);
+        // Discard cached parent-related data if parent has changed
+        if ($lastParentId != $row['parent_id'])
+        {
+          unset($options['ancestors']);
+          unset($options['repository']);
+          unset($option['inheritedCreators']);
+        }
+
+        $node = new arElasticSearchInformationObjectPdo($row['id'], $options);
         $data = $node->serialize();
 
         QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
 
         $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
 
-        $ancestors = array_merge($node->getAncestors(), array(array(
-          'id' => $node->id,
-          'identifier' => $node->identifier,
-          'repository_id' => $node->repository_id
-        )));
-        $repository = $node->getRepository();
-        $inheritedCreators = array_merge($node->inheritedCreators, $node->creators);
+        // If parent has changed then cache this node's parent-related data
+        if ($lastParentId != $row['parent_id'])
+        {
+          $options['ancestors'] = $node->getAncestors();
+          $options['repository'] = $node->getRepository();
+          $option['inheritedCreators'] = $node->inheritedCreators;          
+        }
+
+        // Take note of the last indexed node's parent ID
+        $lastParentId = $row['parent_id'];
       }
       catch (sfException $e)
       {
         $this->errors[] = $e->getMessage();
-      }
-
-      // Descend hierarchy
-      if (1 < ($item->rgt - $item->lft))
-      {
-        // Pass ancestors, repository and creators down to descendants
-        $this->recursivelyAddInformationObjects($item->id, $totalRows, array(
-          'ancestors'  => $ancestors,
-          'repository' => $repository,
-          'inheritedCreators' => $inheritedCreators
-        ));
       }
     }
   }
@@ -197,5 +199,10 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     );
 
     self::addBoostValuesToFields($fields, $i18nBoostFields, $nonI18nBoostFields);
+  }
+
+  public function getErrors()
+  {
+    return $this->errors;
   }
 }
