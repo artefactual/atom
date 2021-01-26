@@ -45,6 +45,11 @@ abstract class arElasticSearchModelBase
     return $this->count;
   }
 
+  public function setCount($count)
+  {
+    $this->count = $count;
+  }
+
   public function setTimer($timer)
   {
     $this->timer = $timer;

@@ -60,6 +60,8 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
   public function recursivelyAddInformationObjects($parentId, $totalRows, $options = array())
   {
+    $skip = isset($options['skip']) ? $options['skip'] : null;
+
     // Loop through children and add to search index
     foreach (self::getChildren($parentId) as $item)
     {
@@ -69,12 +71,17 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
       try
       {
+        // Index document if within paging limits
         $node = new arElasticSearchInformationObjectPdo($item->id, $options);
-        $data = $node->serialize();
 
-        QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
+        if (!is_numeric($skip) || (self::$counter > $skip && self::$counter <= ($skip + $totalRows)))
+        {
+          $data = $node->serialize();
 
-        $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
+          QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
+
+          $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
+        }
 
         $ancestors = array_merge($node->getAncestors(), array(array(
           'id' => $node->id,
@@ -96,7 +103,8 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
         $this->recursivelyAddInformationObjects($item->id, $totalRows, array(
           'ancestors'  => $ancestors,
           'repository' => $repository,
-          'inheritedCreators' => $inheritedCreators
+          'inheritedCreators' => $inheritedCreators,
+          'skip' => $skip
         ));
       }
     }
@@ -197,5 +205,10 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     );
 
     self::addBoostValuesToFields($fields, $i18nBoostFields, $nonI18nBoostFields);
+  }
+
+  public function getErrors()
+  {
+    return $this->errors;
   }
 }
