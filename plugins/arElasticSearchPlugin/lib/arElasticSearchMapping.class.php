@@ -310,6 +310,13 @@ class arElasticSearchMapping
   {
     // Use table maps to find existing i18n columns
     $className = str_replace('Qubit', '', $class) . 'I18nTableMap';
+
+    // Ignore models without i18n table that will include i18nExtra (donors)
+    if (!class_exists($className))
+    {
+      return;
+    }
+
     $map = new $className;
 
     $fields = array();

@@ -96,10 +96,11 @@ mapping:
 
   donor:
     _attributes:
+      i18n: true
       i18nExtra: [actor]
       nested_only: true
     _foreign_types: { contact_informations: contact_information }
-    dynamic: true
+    dynamic: strict
     properties:
       slug: { type: keyword }
 
