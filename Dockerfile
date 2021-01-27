@@ -62,7 +62,8 @@ WORKDIR /atom/src
 RUN set -xe \
     && make -C plugins/arDominionPlugin \
     && make -C plugins/arArchivesCanadaPlugin \
-    && mv /atom/build/vendor/composer vendor/composer
+    && mv /atom/build/vendor/composer vendor/ \
+    && rm -rf /atom/build
 
 ENTRYPOINT ["docker/entrypoint.sh"]
 
