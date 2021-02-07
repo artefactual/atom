@@ -1,6 +1,6 @@
 <div class="section">
 
-  <h3><?php echo __('Events(s)') ?></h3>
+  <h3><?php echo __('Event(s)') ?></h3>
 
   <table class="table table-bordered multiRow">
     <thead>
