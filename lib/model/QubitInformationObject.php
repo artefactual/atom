@@ -312,6 +312,50 @@ class QubitInformationObject extends BaseInformationObject
       $status->save($connection);
     }
 
+    // Maintain siblings order when the nested set update is disabled.
+    // Add a placeholder lft value incrementing the max lft value from
+    // the resource's siblings. This placeholder will overlap with the
+    // parent's rgt value until the nested set is rebuilt.
+    if ($this->disableNestedSetUpdating && !isset($this->lft))
+    {
+      if (!isset($connection))
+      {
+        $connection = Propel::getConnection();
+      }
+
+      $connection->beginTransaction();
+
+      try
+      {
+        $sql  = 'SELECT MAX('.QubitInformationObject::LFT.')';
+        $sql .= ' FROM '.QubitInformationObject::TABLE_NAME;
+
+        if (isset($this->parentId))
+        {
+          $sql .= ' WHERE '.QubitInformationObject::PARENT_ID;
+          $sql .= ' = '.$this->parentId;
+        }
+
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $maxLft = $statement->fetchColumn();
+  
+        $sql  = 'UPDATE '.QubitInformationObject::TABLE_NAME;
+        $sql .= ' SET '.QubitInformationObject::LFT.' = '.($maxLft + 1);
+        $sql .= ' WHERE '.QubitInformationObject::ID.' = '.$this->id;
+          
+        $connection->exec($sql);
+
+        $connection->commit();
+      }
+      catch (Exception $e)
+      {
+        $connection->rollBack();
+
+        throw $e;
+      }
+    }
+
     if ($this->indexOnSave)
     {
       QubitSearch::getInstance()->update($this, array('updateDescendants' => true));
