@@ -2859,50 +2859,30 @@ class QubitDigitalObject extends BaseDigitalObject
     switch ($usageId)
     {
       case QubitTerm::REFERENCE_ID:
-        $derivativeName = $originalNameNoExtension.'_'.$usageId.'.mp4';
-        $derivativeFullPath = sfConfig::get('sf_web_dir').$this->getPath().$derivativeName;
-        self::convertVideoToMp4($originalFullPath, $derivativeFullPath);
+        // If the original video is an mp4 then there's no need to create a
+        // reference derivative, just link to the original file
+        if ('video/mp4' == $this->mimeType)
+        {
+          $derivativeName = $this->getName();
+          $derivativeFullPath = $originalFullPath;
+        }
+        else
+        {
+          $derivativeName = $originalNameNoExtension.'_'.$usageId.'.mp4';
+          $derivativeFullPath = sfConfig::get('sf_web_dir').$this->getPath().$derivativeName;
+
+          self::convertVideoToMp4($originalFullPath, $derivativeFullPath);
+        }
+
         break;
+
       case QubitTerm::THUMBNAIL_ID:
       default:
         $extension = '.'.self::THUMB_EXTENSION;
         $derivativeName = $originalNameNoExtension.'_'.$usageId.$extension;
         $derivativeFullPath = sfConfig::get('sf_web_dir').$this->getPath().$derivativeName;
         $maxDimensions = self::getImageMaxDimensions($usageId);
-        self::convertVideoToThumbnail($originalFullPath, $derivativeFullPath, $maxDimensions[0], $maxDimensions[1]);
-    }
 
-    if (file_exists($derivativeFullPath) && 0 < ($byteSize = filesize($derivativeFullPath)))
-    {
-      $derivative = new QubitDigitalObject;
-      $derivative->setPath($this->getPath());
-      $derivative->setName($derivativeName);
-      $derivative->parentId = $this->id;
-      $derivative->setByteSize($byteSize);
-      $derivative->usageId = $usageId;
-      $derivative->setMimeAndMediaType();
-      $derivative->createDerivatives = false;
-      $derivative->indexOnSave = false;
-      $derivative->save($connection);
-
-      return $derivative;
-    }
-    $originalFullPath = $this->getAbsolutePath();
-    list($originalNameNoExtension) = explode('.', $this->getName());
-
-    switch ($usageId)
-    {
-      case QubitTerm::REFERENCE_ID:
-        $derivativeName = $originalNameNoExtension.'_'.$usageId.'.mp4';
-        $derivativeFullPath = sfConfig::get('sf_web_dir').$this->getPath().$derivativeName;
-        self::convertVideoToMp4($originalFullPath, $derivativeFullPath);
-        break;
-      case QubitTerm::THUMBNAIL_ID:
-      default:
-        $extension = '.'.self::THUMB_EXTENSION;
-        $derivativeName = $originalNameNoExtension.'_'.$usageId.$extension;
-        $derivativeFullPath = sfConfig::get('sf_web_dir').$this->getPath().$derivativeName;
-        $maxDimensions = self::getImageMaxDimensions($usageId);
         self::convertVideoToThumbnail($originalFullPath, $derivativeFullPath, $maxDimensions[0], $maxDimensions[1]);
     }
 
