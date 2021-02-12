@@ -138,48 +138,6 @@ abstract class arElasticSearchModelBase
     return true;
   }
 
-  /**
-   * Add boost values to various fields.
-   *
-   * @param array &$fields  An array of the fields to be modified with their boost values added.
-   * @param array $i18nfields  Specifies which i18n fields to boost, and which boost value to use.
-   *                           The array is in the form of 'fieldName' => (int)boostNumber
-   *
-   * @param array $nonI18nFields  Same as above, except for non-i18n string fields.
-   */
-  protected static function addBoostValuesToFields(&$fields, $i18nFields, $nonI18nFields)
-  {
-    // Expand all the i18n fields into their various cultures, add boost values
-    $i18nBoostFields = arElasticSearchPluginUtil::getI18nFieldNames(
-      array_keys($i18nFields),
-      null,
-      $i18nFields
-    );
-
-    foreach ($fields as &$field)
-    {
-      foreach ($i18nBoostFields as $i18nBoostField)
-      {
-        // Match boost field against current field, add boost if match found.
-        // i.e.: i18n.en.title will turn into i18n.en.title^10
-        if (0 === strpos($i18nBoostField, $field))
-        {
-          $field = $i18nBoostField;
-        }
-      }
-
-      foreach ($nonI18nFields as $nonI18nBoostField => $boost)
-      {
-        $nonI18nBoostField = $nonI18nBoostField.'^'.$boost;
-
-        if (0 === strpos($nonI18nBoostField, $field))
-        {
-          $field = $nonI18nBoostField;
-        }
-      }
-    }
-  }
-
   public static function getRelatedTerms($objectId, $taxonomyIds)
   {
     // We can't reuse this statement as there is no way to bind
