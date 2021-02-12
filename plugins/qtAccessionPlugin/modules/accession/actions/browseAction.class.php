@@ -100,49 +100,32 @@ class AccessionBrowseAction extends sfAction
     }
     else
     {
-      $queryString = new \Elastica\Query\QueryString(arElasticSearchPluginUtil::escapeTerm($request->subquery));
-      $queryString->setDefaultOperator('AND');
-
-      $boost = array(
+      $fields = array(
+        'identifier' => 10,
         'donors.i18n.%s.authorizedFormOfName' => 10,
         'i18n.%s.title' => 10,
         'i18n.%s.scopeAndContent' => 10,
         'i18n.%s.locationInformation' => 5,
         'i18n.%s.processingNotes' => 5,
         'i18n.%s.sourceOfAcquisition' => 5,
-        'i18n.%s.archivalHistory' => 5);
-
-      $fields = arElasticSearchPluginUtil::getI18nFieldNames(
-        array(
-          'donors.i18n.%s.authorizedFormOfName',
-          'i18n.%s.title',
-          'i18n.%s.scopeAndContent',
-          'i18n.%s.locationInformation',
-          'i18n.%s.processingNotes',
-          'i18n.%s.sourceOfAcquisition',
-          'i18n.%s.archivalHistory',
-          'i18n.%s.appraisal',
-          'i18n.%s.physicalCharacteristics',
-          'i18n.%s.receivedExtentUnits',
-          'alternativeIdentifiers.i18n.%s.name',
-          'creators.i18n.%s.authorizedFormOfName',
-          'alternativeIdentifiers.i18n.%s.note',
-          'alternativeIdentifiers.type.i18n.%s.name',
-          'accessionEvents.i18n.%s.agent',
-          'accessionEvents.type.i18n.%s.name',
-          'accessionEvents.notes.i18n.%s.content'
-        ),
-        null,
-        $boost
+        'i18n.%s.archivalHistory' => 5,
+        'i18n.%s.appraisal' => 1,
+        'i18n.%s.physicalCharacteristics' => 1,
+        'i18n.%s.receivedExtentUnits' => 1,
+        'alternativeIdentifiers.i18n.%s.name' => 1,
+        'creators.i18n.%s.authorizedFormOfName' => 1,
+        'alternativeIdentifiers.i18n.%s.note' => 1,
+        'alternativeIdentifiers.type.i18n.%s.name' => 1,
+        'accessionEvents.i18n.%s.agent' => 1,
+        'accessionEvents.type.i18n.%s.name' => 1,
+        'accessionEvents.notes.i18n.%s.content' => 1,
+        'donors.contactInformations.contactPerson' => 1,
+        'accessionEvents.dateString' => 1
       );
 
-      $fields[] = 'identifier^10';
-      $fields[] = 'donors.contactInformations.contactPerson';
-      $fields[] = 'accessionEvents.dateString';
-
-      $queryString->setFields($fields);
-
-      $this->queryBool->addMust($queryString);
+      $this->queryBool->addMust(
+        arElasticSearchPluginUtil::generateBoolQueryString($request->subquery, $fields)
+      );
 
       $this->sortOptions['relevance'] = $this->context->i18n->__('Relevance');
     }

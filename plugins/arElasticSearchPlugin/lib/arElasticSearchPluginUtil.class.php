@@ -123,9 +123,8 @@ class arElasticSearchPluginUtil
    */
   private static function getHiddenFields()
   {
-    // Create array with relations (hidden field => ES mapping field) for the actual template and cultures
+    // Create array with relations (hidden field => ES mapping field) for the actual template
     $relations = array();
-    $cultures = sfConfig::get('app_i18n_languages');
 
     if (null !== $template = self::getTemplate('informationObject'))
     {
@@ -134,20 +133,20 @@ class arElasticSearchPluginUtil
         case 'isad':
 
           $relations = array(
-            'isad_archival_history' => self::getI18nFieldNames('i18n.%s.archivalHistory', $cultures),
-            'isad_immediate_source' => self::getI18nFieldNames('i18n.%s.acquisition', $cultures),
-            'isad_appraisal_destruction' => self::getI18nFieldNames('i18n.%s.appraisal', $cultures),
+            'isad_archival_history' => 'i18n.%s.archivalHistory',
+            'isad_immediate_source' => 'i18n.%s.acquisition',
+            'isad_appraisal_destruction' => 'i18n.%s.appraisal',
             'isad_notes' => '',
-            'isad_physical_condition' => self::getI18nFieldNames('i18n.%s.physicalCharacteristics', $cultures),
+            'isad_physical_condition' => 'i18n.%s.physicalCharacteristics',
             'isad_control_description_identifier' => '',
-            'isad_control_institution_identifier' => self::getI18nFieldNames('i18n.%s.institutionResponsibleIdentifier', $cultures),
-            'isad_control_rules_conventions' => self::getI18nFieldNames('i18n.%s.rules', $cultures),
+            'isad_control_institution_identifier' => 'i18n.%s.institutionResponsibleIdentifier',
+            'isad_control_rules_conventions' => 'i18n.%s.rules',
             'isad_control_status' => '',
             'isad_control_level_of_detail' => '',
-            'isad_control_dates' => self::getI18nFieldNames('i18n.%s.revisionHistory', $cultures),
+            'isad_control_dates' => 'i18n.%s.revisionHistory',
             'isad_control_languages' => '',
             'isad_control_scripts' => '',
-            'isad_control_sources' => self::getI18nFieldNames('i18n.%s.sources', $cultures),
+            'isad_control_sources' => 'i18n.%s.sources',
             'isad_control_archivists_notes' => '');
 
           break;
@@ -155,20 +154,20 @@ class arElasticSearchPluginUtil
         case 'rad':
 
           $relations = array(
-            'rad_archival_history' => self::getI18nFieldNames('i18n.%s.archivalHistory', $cultures),
-            'rad_physical_condition' => self::getI18nFieldNames('i18n.%s.physicalCharacteristics', $cultures),
-            'rad_immediate_source' => self::getI18nFieldNames('i18n.%s.acquisition', $cultures),
+            'rad_archival_history' => 'i18n.%s.archivalHistory',
+            'rad_physical_condition' => 'i18n.%s.physicalCharacteristics',
+            'rad_immediate_source' => 'i18n.%s.acquisition',
             'rad_general_notes' => '',
             'rad_conservation_notes' => '',
             'rad_control_description_identifier' => '',
-            'rad_control_institution_identifier' => self::getI18nFieldNames('i18n.%s.institutionResponsibleIdentifier', $cultures),
-            'rad_control_rules_conventions' => self::getI18nFieldNames('i18n.%s.rules', $cultures),
+            'rad_control_institution_identifier' => 'i18n.%s.institutionResponsibleIdentifier',
+            'rad_control_rules_conventions' => 'i18n.%s.rules',
             'rad_control_status' => '',
             'rad_control_level_of_detail' => '',
-            'rad_control_dates' => self::getI18nFieldNames('i18n.%s.revisionHistory', $cultures),
+            'rad_control_dates' => 'i18n.%s.revisionHistory',
             'rad_control_language' => '',
             'rad_control_script' => '',
-            'rad_control_sources' => self::getI18nFieldNames('i18n.%s.sources', $cultures));
+            'rad_control_sources' => 'i18n.%s.sources');
 
           break;
 
@@ -184,10 +183,7 @@ class arElasticSearchPluginUtil
       if(!(bool)$setting->getValue(array('sourceCulture' => true)) && isset($relations[$setting->name])
         && $relations[$setting->name] != '')
       {
-        foreach ($relations[$setting->name] as $fieldName)
-        {
-          $hiddenFields[] = $fieldName;
-        }
+        $hiddenFields[] = $relations[$setting->name];
       }
     }
 
@@ -195,12 +191,15 @@ class arElasticSearchPluginUtil
   }
 
   /**
-   * Set fields for a QueryString, removing those hidden for public users and those included in the except array.
+   * Gets all string fields for a given index type, removing those hidden for public users
+   * and those included in the except array. Returns a key/value array with the field names
+   * as key and the boost as value, i18n fields will contain "%s" as culture placeholder, which
+   * will need to be replaced/extended with the required cultures before query.
    *
    * Tried to add the result fields to the cache but APC (our default caching engine) uses separate
    * memory spaces for web/cli and the cached fields can't be removed in arSearchPopulateTask
    */
-  public static function setFields(\Elastica\Query\QueryString $query, $indexType, $except = array())
+  public static function getAllFields($indexType, $except = array())
   {
     // Load ES mappings
     $mappings = arElasticSearchPlugin::loadMappings()->asArray();
@@ -210,7 +209,6 @@ class arElasticSearchPluginUtil
       throw new sfException('Unrecognized index type: ' . $indexType);
     }
 
-    $cultures = sfConfig::get('app_i18n_languages');
     $i18nIncludeInAll = null;
 
     if ($indexType === 'informationObject')
@@ -223,12 +221,9 @@ class arElasticSearchPluginUtil
       $indexType,
       $mappings[$indexType],
       $prefix = '',
-      $cultures,
       false,
       $i18nIncludeInAll
     );
-
-    self::setBoostValues($indexType, $allFields, $cultures);
 
     // Remove fields in except (use array_values() because array_diff() adds keys)
     if (count($except) > 0)
@@ -236,35 +231,57 @@ class arElasticSearchPluginUtil
       $allFields = array_values(array_diff($allFields, $except));
     }
 
-    // Do not check hidden fields for authenticated users, actors or repositories
-    if (sfContext::getInstance()->user->isAuthenticated() || $indexType == 'actor' || $indexType == 'repository')
+    // Check information object hidden fields for unauthenticated users
+    if ($indexType == 'informationObject' && !sfContext::getInstance()->user->isAuthenticated())
     {
-      $query->setFields($allFields);
-
-      return;
+      // Remove hidden fields from ES mapping fields (use array_values() because array_diff() adds keys)
+      $allFields = array_values(array_diff($allFields, self::getHiddenFields()));
     }
 
-    // Remove hidden fields from ES mapping fields (use array_values() because array_diff() adds keys)
-    $filteredFields = array_values(array_diff($allFields, self::getHiddenFields()));
-
-    $query->setFields($filteredFields);
+    return self::setBoostValues($indexType, $allFields);
   }
 
   /**
-   * Delegates out to other functions based on indexType, which will in turn set the boost values for each field.
+   * Based on indexType, set the boost values for each field.
    *
-   * @param string $indexType  which index type we're setting the field boost values for.
-   * @param array &$fields  a reference to the fields we're setting the boost values on.
-   * @param array $cultures  a list of cultures we'll be boosting for in i18n fields
+   * @param string $indexType  Which index type we're setting the field boost values for.
+   * @param array $fields  The fields we're setting the boost values on.
+   * 
+   * @return array  Key/value array with fieldname/boost.
    */
-  private static function setBoostValues($indexType, &$fields, $cultures)
+  private static function setBoostValues($indexType, $fields)
   {
+    $boost = $boostedFields = array();
+
     switch ($indexType)
     {
       case 'informationObject':
-        arElasticSearchInformationObject::setBoostValues($fields, $cultures);
+        $boost = array(
+          'i18n.%s.title' => 10,
+          'creators.i18n.%s.authorizedFormOfName' => 6,
+          'identifier' => 5,
+          'subjects.i18n.%s.name' => 5,
+          'i18n.%s.scopeAndContent' => 5,
+          'names.i18n.%s.authorizedFormOfName' => 3,
+          'places.i18n.%s.name' => 3,
+        );
+
         break;
     }
+
+    foreach ($fields as $field)
+    {
+      if (isset($boost[$field]))
+      {
+        $boostedFields[$field] = $boost[$field];
+      }
+      else
+      {
+        $boostedFields[$field] = 1;
+      }
+    }
+
+    return $boostedFields;
   }
 
   /**
@@ -300,7 +317,6 @@ class arElasticSearchPluginUtil
    *
    * @param array &$fields  A reference to our list of fields we're searching over with our _all query.
    * @param string $prefix  The current prefix for the field name, e.g. "creators." for "creators.name"
-   * @param string $culture  The current culture for the i18n field we're adding.
    * @param string $fieldName  The current field name, e.g. "name" in "creators.name"
    * @param bool $foreignType  Whether or not this field in question is being parsed for a foreign type,
    *                           e.g. inside informationObject.creators
@@ -309,7 +325,7 @@ class arElasticSearchPluginUtil
    *
    *
    */
-  private static function handleI18nStringFields($rootIndexType, &$fields, $prefix, $culture, $fieldName, $foreignType,
+  private static function handleI18nStringFields($rootIndexType, &$fields, $prefix, $fieldName, $foreignType,
                                                  $i18nIncludeInAll)
   {
     // We may add special rules for other index types in the future
@@ -324,8 +340,8 @@ class arElasticSearchPluginUtil
         break;
     }
 
-    // Concatenate object name ($prefix), culture and field name
-    $fields[] = $prefix.'i18n.'.$culture.'.'.$fieldName;
+    // Concatenate object name ($prefix), culture placeholder and field name
+    $fields[] = $prefix.'i18n.%s.'.$fieldName;
   }
 
   /**
@@ -379,13 +395,12 @@ class arElasticSearchPluginUtil
    *
    * @param array $object  An array containing the current object mappings.
    * @param string $prefix  The current prefix for the prop name, e.g. "informationObject." in "informationObject.slug"
-   * @param array $cultures  A list of cultures we'll be adding i18n fields from
    * @param bool $foreignType  Whether or not this field in question is being parsed for a foreign type,
    *                           e.g. inside informationObject.creators
    *
    * @param array $i18nIncludeInAll  A list of i18n fields to be allowed when searching _all
    */
-  protected static function getAllObjectStringFields($rootIndexType, $object, $prefix, $cultures, $foreignType = false,
+  protected static function getAllObjectStringFields($rootIndexType, $object, $prefix, $foreignType = false,
                                                      $i18nIncludeInAll = null)
   {
     $fields = array();
@@ -394,21 +409,25 @@ class arElasticSearchPluginUtil
     {
       foreach ($object['properties'] as $propertyName => $propertyProperties)
       {
-        // Get i18n fields for selected cultures, they're always included in _all
+        // Get i18n fields, they're always included in _all
         if ($propertyName == 'i18n')
         {
-          foreach ($cultures as $culture)
+          // Get the fields from a single culture and format them with
+          // 'i18n.%s.' to set the required cultures at query time.
+          foreach ($propertyProperties['properties'] as $culture => $cultureProperties)
           {
-            if (!isset($propertyProperties['properties'][$culture]['properties']))
+            if ($culture == 'languages')
             {
               continue;
             }
 
-            foreach ($propertyProperties['properties'][$culture]['properties'] as $fieldName => $fieldProperties)
+            foreach ($cultureProperties['properties'] as $fieldName => $fieldProperties)
             {
-              self::handleI18nStringFields($rootIndexType, $fields, $prefix, $culture, $fieldName, $foreignType,
+              self::handleI18nStringFields($rootIndexType, $fields, $prefix, $fieldName, $foreignType,
                                            $i18nIncludeInAll);
             }
+
+            break;
           }
         }
         // Get nested objects fields
@@ -417,8 +436,7 @@ class arElasticSearchPluginUtil
           $nestedFields = self::getAllObjectStringFields(
             $rootIndexType,
             $object['properties'][$propertyName],
-            $prefix.$propertyName.'.',
-            $cultures
+            $prefix.$propertyName.'.'
           );
 
           $fields = array_merge($fields, $nestedFields);
@@ -430,7 +448,6 @@ class arElasticSearchPluginUtil
             $rootIndexType,
             $object['properties'][$propertyName],
             $prefix.$propertyName.'.',
-            $cultures,
             true,
             $i18nIncludeInAll
           );
@@ -453,7 +470,7 @@ class arElasticSearchPluginUtil
   }
 
   /**
-   * Expands i18n field names into various specified cultures, with the option to add boosting.
+   * Expands i18n field names into various specified cultures.
    *
    * @param array $fields  Which fields to expand. For example, 'i18n.%s.title' will expand to 'i18n.en.title',
    *                       'i18n.fr.title', 'i18n.es.title', etc.
@@ -461,9 +478,8 @@ class arElasticSearchPluginUtil
    * @param array $cultures  An array specifying which cultures to expand to. If not specified, we look up which
    *                         cultures are active in AtoM and go off that.
    *
-   * @param array $boost  An array specifying filedName => (int)boostValue to add boost values onto the fields.
    */
-  public static function getI18nFieldNames($fields, $cultures = null, $boost = array())
+  public static function getI18nFieldNames($fields, $cultures = null)
   {
     // Get all available cultures if $cultures isn't set
     if (empty($cultures))
@@ -477,24 +493,74 @@ class arElasticSearchPluginUtil
       $fields = array($fields);
     }
 
-    // Format fields
     $i18nFieldNames = array();
+
+    // Format fields
     foreach ($cultures as $culture)
     {
       foreach ($fields as $field)
       {
-        $formattedField = sprintf($field, $culture);
-
-        if (isset($boost[$field]))
-        {
-          $formattedField .= '^'.$boost[$field];
-        }
-
-        $i18nFieldNames[] = $formattedField;
+        $i18nFieldNames[] = sprintf($field, $culture);
       }
     }
 
     return $i18nFieldNames;
+  }
+
+  /**
+   * Generate a boolean query with a should clause for each field.
+   *
+   * @param string $query  Unescaped search term.
+   * @param string $fields  Key/value array with fieldname/boost.
+   *
+   * @return \Elastica\Query\BoolQuery  The generated boolean query.
+   */
+  public static function generateBoolQueryString($query, $fields)
+  {
+    $cultures = sfConfig::get('app_i18n_languages');
+    $boolQuery = new \Elastica\Query\BoolQuery;
+    $query = self::escapeTerm($query);
+
+    foreach ($fields as $field => $boost)
+    {
+      if (strpos($field, '%s') !== false)
+      {
+        foreach ($cultures as $culture)
+        {
+          $boolQuery->addShould(
+            self::generateQueryString($query, sprintf($field, $culture), $boost)
+          );
+        }
+      }
+      else
+      {
+        $boolQuery->addShould(
+          self::generateQueryString($query, $field, $boost)
+        );
+      }
+    }
+
+    return $boolQuery;
+  }
+
+  /**
+   * Generate a query string query.
+   *
+   * @param string $query  Escaped search term.
+   * @param string $field  Full fieldname (including culture if needed).
+   * @param float $boost  Boost for the query. Default: 1.
+   * @param string $operator  Query operator (AND/OR). Default: AND.
+   *
+   * @return \Elastica\Query\QueryString  The generated query string query.
+   */
+  public static function generateQueryString($query, $field, $boost = 1, $operator = 'AND')
+  {
+    $queryString = new \Elastica\Query\QueryString($query);
+    $queryString->setDefaultOperator($operator);
+    $queryString->setDefaultField($field);
+    $queryString->setBoost($boost);
+
+    return $queryString;
   }
 
   /*

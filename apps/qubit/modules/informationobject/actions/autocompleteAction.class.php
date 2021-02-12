@@ -51,13 +51,12 @@ class InformationObjectAutocompleteAction extends sfAction
     }
     else
     {
-      $queryString = new \Elastica\Query\QueryString(arElasticSearchPluginUtil::escapeTerm($request->query));
-      $queryString->setDefaultOperator('AND');
+      $fields = array('i18n.'.$culture.'.title.autocomplete' => 1);
 
       // Search for referenceCode or identifier, and title
       if (1 == sfConfig::get('app_inherit_code_informationobject', 1))
       {
-        $queryString->setFields(array('i18n.'.$culture.'.title.autocomplete', 'referenceCode.autocomplete'));
+        $fields['referenceCode.autocomplete'] = 1;
 
         // Change sort order
         $this->query->setSort(array(
@@ -67,10 +66,12 @@ class InformationObjectAutocompleteAction extends sfAction
       }
       else
       {
-        $queryString->setFields(array('i18n.'.$culture.'.title.autocomplete', 'identifier'));
+        $fields['identifier'] = 1;
       }
 
-      $this->queryBool->addMust($queryString);
+      $this->queryBool->addMust(
+        arElasticSearchPluginUtil::generateBoolQueryString($request->query, $fields)
+      );
     }
 
     // Filter results by parent

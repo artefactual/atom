@@ -261,35 +261,27 @@ class arElasticSearchPluginQuery
 
   protected function queryField($field, $query, $archivalStandard)
   {
-    $query = arElasticSearchPluginUtil::escapeTerm($query);
-
     switch ($field)
     {
       case 'identifier':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setDefaultField('identifier');
-        $queryField->setDefaultOperator('AND');
-
-        break;
-
       case 'referenceCode':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setDefaultField('referenceCode');
-        $queryField->setDefaultOperator('AND');
+      case 'descriptionIdentifier':
+        $fields = array($field => 1);
 
         break;
 
       case 'title':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.title'));
-        $queryField->setDefaultOperator('AND');
-
-        break;
-
       case 'scopeAndContent':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.scopeAndContent'));
-        $queryField->setDefaultOperator('AND');
+      case 'extentAndMedium':
+      case 'authorizedFormOfName':
+      case 'datesOfExistence':
+      case 'history':
+      case 'legalStatus':
+      case 'generalContext':
+      case 'institutionResponsibleIdentifier':
+      case 'sources':
+      case 'places':
+        $fields = array('i18n.%s.'.$field => 1);
 
         break;
 
@@ -297,204 +289,90 @@ class arElasticSearchPluginQuery
         ProjectConfiguration::getActive()->loadHelpers(array('Asset', 'Qubit'));
 
         // Check archival history visibility
-        if (($archivalStandard == 'rad' && check_field_visibility('app_element_visibility_rad_archival_history'))
-          || ($archivalStandard == 'isad' && check_field_visibility('app_element_visibility_isad_archival_history'))
-          || ($archivalStandard != 'isad' && $archivalStandard != 'rad'))
+        if (($archivalStandard == 'rad' && !check_field_visibility('app_element_visibility_rad_archival_history'))
+          || ($archivalStandard == 'isad' && !check_field_visibility('app_element_visibility_isad_archival_history')))
         {
-          $queryField = new \Elastica\Query\QueryString($query);
-          $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.archivalHistory'));
-          $queryField->setDefaultOperator('AND');
+          return;
         }
 
-        break;
-
-      case 'extentAndMedium':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.extentAndMedium'));
-        $queryField->setDefaultOperator('AND');
+        $fields = array('i18n.%s.archivalHistory' => 1);
 
         break;
 
       case 'genre':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('genres.i18n.%s.name'));
-        $queryField->setDefaultOperator('AND');
+        $fields = array('genres.i18n.%s.name' => 1);
 
         break;
 
       case 'subject':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('subjects.i18n.%s.name'));
-        $queryField->setDefaultOperator('AND');
+        $fields = array('subjects.i18n.%s.name' => 1);
 
         break;
 
       case 'name':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('names.i18n.%s.authorizedFormOfName'));
-        $queryField->setDefaultOperator('AND');
+        $fields = array('names.i18n.%s.authorizedFormOfName' => 1);
 
         break;
 
       case 'creator':
-        $queryField = new \Elastica\Query\BoolQuery;
-
-        $queryCreatorTerm = new \Elastica\Query\QueryString($query);
-        $queryCreatorTerm->setFields(arElasticSearchPluginUtil::getI18nFieldNames('creators.i18n.%s.authorizedFormOfName'));
-        $queryField->addShould($queryCreatorTerm);
-
-        $queryInheritedCreatorTerm = new \Elastica\Query\QueryString($query);
-        $queryInheritedCreatorTerm->setFields(arElasticSearchPluginUtil::getI18nFieldNames('inheritedCreators.i18n.%s.authorizedFormOfName'));
-        $queryField->addShould($queryInheritedCreatorTerm);
+        $fields = array(
+          'creators.i18n.%s.authorizedFormOfName' => 1,
+          'inheritedCreators.i18n.%s.authorizedFormOfName' => 1
+        );
 
         break;
 
       case 'place':
-        $queryField = new \Elastica\Query\BoolQuery;
-
-        $queryPlaceTermName = new \Elastica\Query\QueryString($query);
-        $queryPlaceTermName->setFields(arElasticSearchPluginUtil::getI18nFieldNames('places.i18n.%s.name'));
-        $queryPlaceTermName->setDefaultOperator('AND');
-        $queryField->addShould($queryPlaceTermName);
-
-        $queryPlaceTermUseFor = new \Elastica\Query\QueryString($query);
-        $queryPlaceTermUseFor->setFields(arElasticSearchPluginUtil::getI18nFieldNames('places.useFor.i18n.%s.name'));
-        $queryPlaceTermUseFor->setDefaultOperator('AND');
-        $queryField->addShould($queryPlaceTermUseFor);
+        $fields = array(
+          'places.i18n.%s.name' => 1,
+          'places.useFor.i18n.%s.name' => 1
+        );
 
         break;
 
       case 'findingAidTranscript':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setDefaultField('findingAid.transcript');
-        $queryField->setDefaultOperator('AND');
+        $fields = array('findingAid.transcript' => 1);
 
         break;
 
       case 'digitalObjectTranscript':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setDefaultField('transcript');
-        $queryField->setDefaultOperator('AND');
+        $fields = array('transcript' => 1);
 
         break;
 
       case 'allExceptFindingAidTranscript':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setDefaultOperator('AND');
-        $except = array('findingAid.transcript');
-        arElasticSearchPluginUtil::setFields($queryField, 'informationObject', $except);
-
-        break;
-
-      case 'authorizedFormOfName':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.authorizedFormOfName'));
-        $queryField->setDefaultOperator('AND');
-
-        break;
-
-      case 'datesOfExistence':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.datesOfExistence'));
-        $queryField->setDefaultOperator('AND');
-
-        break;
-
-      case 'history':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.history'));
-        $queryField->setDefaultOperator('AND');
-
-        break;
-
-      case 'legalStatus':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.legalStatus'));
-        $queryField->setDefaultOperator('AND');
-
-        break;
-
-      case 'generalContext':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.generalContext'));
-        $queryField->setDefaultOperator('AND');
-
-        break;
-
-      case 'institutionResponsibleIdentifier':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.institutionResponsibleIdentifier'));
-        $queryField->setDefaultOperator('AND');
-
-        break;
-
-      case 'sources':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.sources'));
-        $queryField->setDefaultOperator('AND');
+        $fields = arElasticSearchPluginUtil::getAllFields(
+          'informationObject', array('findingAid.transcript')
+        );
 
         break;
 
       case 'parallelNames':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('parallelNames.i18n.%s.name'));
-        $queryField->setDefaultOperator('AND');
-
-        break;
-
       case 'otherNames':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('otherNames.i18n.%s.name'));
-        $queryField->setDefaultOperator('AND');
-
-        break;
-
       case 'occupations':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('occupations.i18n.%s.name'));
-        $queryField->setDefaultOperator('AND');
+        $fields = array($field.'.i18n.%s.name' => 1);
 
         break;
 
       case 'occupationNotes':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('occupations.i18n.%s.content'));
-        $queryField->setDefaultOperator('AND');
+        $fields = array('occupations.i18n.%s.content' => 1);
 
         break;
 
       case 'maintenanceNotes':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('maintenanceNotes.i18n.%s.content'));
-        $queryField->setDefaultOperator('AND');
-
-        break;
-
-      case 'places':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.places'));
-        $queryField->setDefaultOperator('AND');
-
-        break;
-
-      case 'descriptionIdentifier':
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setDefaultField('descriptionIdentifier');
-        $queryField->setDefaultOperator('AND');
+        $fields = array('maintenanceNotes.i18n.%s.content' => 1);
 
         break;
 
       case '_all':
       default:
-        $queryField = new \Elastica\Query\QueryString($query);
-        $queryField->setDefaultOperator('AND');
         $documentType = ($archivalStandard == 'isaar') ? 'actor' : 'informationObject';
-        arElasticSearchPluginUtil::setFields($queryField, $documentType);
+        $fields = arElasticSearchPluginUtil::getAllFields($documentType);
 
         break;
     }
 
-    return $queryField;
+    return arElasticSearchPluginUtil::generateBoolQueryString($query, $fields);
   }
 
   protected function addToQueryBool(&$queryBool, $operator, $queryField)

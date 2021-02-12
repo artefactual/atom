@@ -520,22 +520,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
     }
   }
 
-  /**
-   * Function helper to parse query strings
-   */
-  public function parse(string $query)
-  {
-    if (empty($query))
-    {
-      throw new Exception('No search terms specified.');
-    }
-
-    $query = new \Elastica\Query\QueryString(arElasticSearchPluginUtil::escapeTerm($query));
-    $query->setDefaultOperator('AND');
-
-    return $query;
-  }
-
   // ---------------------------------------------------------------------------
 
   public function delete($object)

@@ -28,11 +28,11 @@ class SearchIndexAction extends DefaultBrowseAction
   {
     parent::execute($request);
 
-    $queryText = new \Elastica\Query\QueryString(arElasticSearchPluginUtil::escapeTerm($request->query));
-    $queryText->setDefaultOperator('AND');
-    arElasticSearchPluginUtil::setFields($queryText, 'informationObject');
-
-    $this->search->queryBool->addMust($queryText);
+    $this->search->queryBool->addMust(
+      arElasticSearchPluginUtil::generateBoolQueryString(
+        $request->query, arElasticSearchPluginUtil::getAllFields('informationObject')
+      )
+    );
 
     // Realm filter
     if (isset($request->repos) && ctype_digit($request->repos))

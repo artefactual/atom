@@ -139,13 +139,13 @@ class DefaultMoveAction extends sfAction
 
     if (isset($request->query))
     {
-      $query = new \Elastica\Query\QueryString(arElasticSearchPluginUtil::escapeTerm($request->query));
-      $query->setDefaultOperator('AND');
-      $query->setFields(array(
-        'identifier',
-        'referenceCode',
-        sprintf('i18n.%s.title', sfContext::getInstance()->user->getCulture())));
-      $this->queryBool->addMust($query);
+      $fields = array(
+        'identifier' => 1,
+        'referenceCode' => 1,
+        sprintf('i18n.%s.title', sfContext::getInstance()->user->getCulture()) => 1);
+      $this->queryBool->addMust(
+        arElasticSearchPluginUtil::generateBoolQueryString($request->query, $fields)
+      );
     }
     else
     {

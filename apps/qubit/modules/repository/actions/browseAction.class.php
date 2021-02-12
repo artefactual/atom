@@ -122,11 +122,11 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     }
     else
     {
-      $queryText = new \Elastica\Query\QueryString(arElasticSearchPluginUtil::escapeTerm($request->subquery));
-      $queryText->setDefaultOperator('OR');
-      arElasticSearchPluginUtil::setFields($queryText, 'repository');
-
-      $this->search->queryBool->addMust($queryText);
+      $this->search->queryBool->addMust(
+        arElasticSearchPluginUtil::generateBoolQueryString(
+          $request->subquery, arElasticSearchPluginUtil::getAllFields('repository')
+        )
+      );
     }
 
     $i18n = sprintf('i18n.%s.', $this->selectedCulture);

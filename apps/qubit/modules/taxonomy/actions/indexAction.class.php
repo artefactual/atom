@@ -177,33 +177,30 @@ class TaxonomyIndexAction extends sfAction
 
     if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->subquery))
     {
-      $queryString = new \Elastica\Query\QueryString(arElasticSearchPluginUtil::escapeTerm($request->subquery));
-
       switch ($request->subqueryField)
       {
         case 'preferredLabel':
-          $queryString->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.name'));
+          $fields = array('i18n.%s.name' => 1);
 
           break;
 
         case 'useForLabels':
-          $queryString->setFields(arElasticSearchPluginUtil::getI18nFieldNames('useFor.i18n.%s.name'));
+          $fields = array('useFor.i18n.%s.name' => 1);
 
           break;
 
         case 'allLabels':
         default:
           // Search over preferred label (boosted by five) and "Use for" labels
-          $fields = array('i18n.%s.name', 'useFor.i18n.%s.name');
-          $boost = array('i18n.%s.name' => 5);
-          $queryString->setFields(arElasticSearchPluginUtil::getI18nFieldNames($fields, null, $boost));
-          $queryString->setDefaultOperator('AND');
+          $fields = array('i18n.%s.name' => 5, 'useFor.i18n.%s.name' => 1);
 
           break;
       }
 
       // Filter results by subquery
-      $this->queryBool->addMust($queryString);
+      $this->queryBool->addMust(
+        arElasticSearchPluginUtil::generateBoolQueryString($request->subquery, $fields)
+      );
     }
 
     // Set query
