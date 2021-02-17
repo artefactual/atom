@@ -74,6 +74,7 @@ columnNames:
   - sources
   - publicationStatus
   - digitalObjectURI
+  - digitalObjectPath
   - digitalObjectChecksum
   - generalNote
   - appraisal

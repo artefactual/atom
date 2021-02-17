@@ -21,16 +21,11 @@
  * Check csv data.
  *
  * @author     Mike Cantelon <mike@artefactual.com>
+ * @author     Steve Breker <sbreker@artefactual.com>
  */
-class csvCheckImportTask extends csvImportBaseTask
+class csvCheckImportTask extends arBaseTask
 {
-    protected $namespace = 'csv';
-    protected $name = 'check-import';
-    protected $briefDescription = 'Check CSV data, providing diagnostic info';
-
-    protected $detailedDescription = <<<'EOF'
-Check CSV data, providing information about it
-EOF;
+    protected $verbose = false;
 
     /**
      * @see sfTask
@@ -40,153 +35,139 @@ EOF;
      */
     public function execute($arguments = [], $options = [])
     {
-        $this->validateOptions($options);
+        parent::execute($arguments, $options);
 
-        $skipRows = ($options['skip-rows']) ? $options['skip-rows'] : 0;
+        $validatorOptions = $this->setOptions($options);
 
-        $filenames = explode(',', $arguments['filename']);
+        if (!empty($options['verbose'])) {
+            $this->verbose = true;
+        }
 
-        $nonEmptyColumns = [];
-        $sampleColumnValues = [];
-        $multiValueColumns = [];
-        $rowCount = 0;
+        $filenames = $this->setCsvValidatorFilenames($arguments['filename']);
+
+        $validator = new CsvImportValidator(
+            $this->context, $this->getDbConnection(), $validatorOptions
+        );
+
+        $validator->setShowDisplayProgress(true);
+        $validator->setFilenames($filenames);
+        $results = $validator->validate();
+
+        $output = CsvValidatorResultCollection::renderResultsAsText($results, $this->verbose);
+        echo $output;
+
+        unset($validator);
+    }
+
+    protected function configure()
+    {
+        $this->addArguments([
+            new sfCommandArgument('filename', sfCommandArgument::REQUIRED,
+              'The input file name (csv format).'),
+        ]);
+
+        $this->addOptions([
+            new sfCommandOption(
+                'application',
+                null,
+                sfCommandOption::PARAMETER_OPTIONAL,
+                'The application name',
+                'qubit'
+            ),
+            new sfCommandOption(
+                'env',
+                null,
+                sfCommandOption::PARAMETER_REQUIRED,
+                'The environment',
+                'cli'
+            ),
+            new sfCommandOption(
+                'connection',
+                null,
+                sfCommandOption::PARAMETER_REQUIRED,
+                'The connection name',
+                'propel'
+            ),
+            new sfCommandOption(
+                'verbose',
+                'i',
+                sfCommandOption::PARAMETER_NONE,
+                'Provide detailed information regarding each test.'
+            ),
+            new sfCommandOption(
+                'source',
+                null,
+                sfCommandOption::PARAMETER_REQUIRED,
+                'Source name for validating parentId matching against previous imports. If not set, parentId validation against AtoM\'s database will be skipped.'
+            ),
+            new sfCommandOption(
+                'class-name',
+                null,
+                sfCommandOption::PARAMETER_REQUIRED,
+                'Qubit object type contained in CSV.',
+                'QubitInformationObject'
+            ),
+            new sfCommandOption(
+                'specific-tests',
+                null,
+                sfCommandOption::PARAMETER_REQUIRED,
+                'Specific test classes to run.'
+            ),
+            new sfCommandOption(
+                'path-to-digital-objects',
+                null,
+                sfCommandOption::PARAMETER_REQUIRED,
+                'Path to root of digital object folder that will match digitalObjectPath in CSV.'
+            ),
+        ]);
+
+        $this->namespace = 'csv';
+        $this->name = 'check-import';
+        $this->briefDescription = 'Check CSV data, providing diagnostic info.';
+        $this->detailedDescription = <<<'EOF'
+    Check CSV data, providing information about it.
+EOF;
+    }
+
+    protected function getDbConnection()
+    {
+        $databaseManager = new sfDatabaseManager($this->configuration);
+
+        return $databaseManager->getDatabase('propel')->getConnection();
+    }
+
+    protected function setCsvValidatorFilenames($filenameString)
+    {
+        // Could be a comma separated list of filenames or just one.
+        $filenames = explode(',', $filenameString);
 
         foreach ($filenames as $filename) {
-            if (false === $fh = fopen($filename, 'rb')) {
-                throw new sfException('You must specify a valid filename');
-            }
-
-            // Get import definition
-            $import = new QubitFlatfileImport([
-                // Pass context
-                'context' => sfContext::createInstance($this->configuration),
-
-                'status' => [
-                    'nonEmptyColumns' => $nonEmptyColumns,
-                    'sampleColumnValues' => $sampleColumnValues,
-                    'multiValueColumns' => [],
-                    'sampleOnlyMultivalueColumns' => false,
-                    'numberOfSampleValues' => 1,
-                ],
-
-                'saveLogic' => function (&$self) {
-                    foreach ($self->status['row'] as $key => $value) {
-                        $value = $self->status['row'][$key];
-                        $column = $self->columnNames[$key];
-
-                        $self->status['sampleColumnValues'][$column] = (isset($self->status['sampleColumnValues'][$column]))
-                            ? $self->status['sampleColumnValues'][$column]
-                            : [];
-
-                        // Check if column isn't empty
-                        if (trim($value)) {
-                            $self->status['nonEmptyColumns'][$column] = true;
-
-                            if (
-                                $self->status['numberOfSampleValues'] > 0
-                                && (count($self->status['sampleColumnValues'][$column]) < $self->status['numberOfSampleValues'])
-                                && (
-                                    !$self->status['sampleOnlyMultivalueColumns']
-                                    || substr_count($value, '|')
-                                )
-                            ) {
-                                array_push($self->status['sampleColumnValues'][$column], trim($value));
-                            }
-                        }
-
-                        // Check for | character
-                        if (substr_count($value, '|')) {
-                            $self->status['multiValueColumns'][$column] = (isset($self->status['multiValueColumns'][$column]))
-                                ? $self->status['multiValueColumns'][$column] + 1
-                                : 1;
-                        }
-                    }
-                },
-            ]);
-
-            $import->csv($fh, $skipRows);
-
-            $nonEmptyColumns = array_merge(
-                $nonEmptyColumns,
-                $import->status['nonEmptyColumns']
-            );
-
-            // Add values of both arrays together
-            $a = $multiValueColumns;
-            $b = $import->status['multiValueColumns'];
-            $c = [];
-
-            // Add values of both arrays if possible
-            foreach ($a as $key => $value) {
-                if (isset($b[$key])) {
-                    $c[$key] = $a[$key] + $b[$key];
-                } else {
-                    $c[$key] = $a[$key];
-                }
-            }
-
-            // Add values that only occur in array B
-            foreach ($b as $key => $value) {
-                if (!isset($a[$key])) {
-                    $c[$key] = $value;
-                }
-            }
-
-            $multiValueColumns = $c;
-
-            $sampleColumnValues = $import->status['sampleColumnValues'];
-
-            $rowCount = $rowCount + $import->status['rows'];
+            CsvImportValidator::validateFileName($filename);
         }
 
-        echo "\nAnalysis complete.";
+        return $filenames;
+    }
 
-        echo "\n\n".$rowCount.' rows, '.count($import->columnNames).' columns.';
+    protected function setOptions($options = [])
+    {
+        $opts = [];
 
-        if (count($import->columnNames != count($nonEmptyColumns))) {
-            echo "\n\nEmpty columns:\n";
-            echo "--------------\n\n";
+        $keymap = [
+            'source' => 'source',
+            'class-name' => 'className',
+            'escape' => 'escape',
+            'specific-tests' => 'specificTests',
+            'path-to-digital-objects' => 'pathToDigitalObjects',
+        ];
 
-            $emptyCount = 0;
-            foreach ($import->columnNames as $column) {
-                if (!isset($nonEmptyColumns[$column])) {
-                    echo $column.' ';
-                    ++$emptyCount;
-                }
+        foreach ($keymap as $oldkey => $newkey) {
+            if (empty($options[$oldkey])) {
+                continue;
             }
-            echo ($emptyCount) ? '' : '[None]';
+
+            $opts[$newkey] = $options[$oldkey];
         }
 
-        if (count($multiValueColumns)) {
-            echo "\n\nMulti-value columns (contain \"|\" character):\n";
-            echo "-------------------\n\n";
-
-            $displayCount = 1;
-            foreach ($multiValueColumns as $column => $count) {
-                echo $column.'('.$count.')';
-                echo ($displayCount < count($multiValueColumns)) ? ', ' : '';
-                ++$displayCount;
-            }
-        }
-
-        if ($import->status['numberOfSampleValues'] > 0) {
-            echo "\n\nSample Values:\n";
-            echo "--------------\n\n";
-            foreach ($sampleColumnValues as $column => $values) {
-                echo '  '.$column.':';
-                if (count($values)) {
-                    $shownCount = 0;
-                    foreach ($values as $value) {
-                        echo ($shownCount) ? '    ' : ' ';
-                        echo $value."\n";
-                        ++$shownCount;
-                    }
-                } else {
-                    echo "    [empty]\n";
-                }
-            }
-        }
-
-        echo "\n";
+        return $opts;
     }
 }
