@@ -32,7 +32,7 @@ class SettingsLanguageAction extends sfAction
   public function execute($request)
   {
     $this->form = new sfForm;
-    $this->form->setValidator('languageCode', new sfValidatorI18nChoiceLanguage);
+    $this->form->setValidator('languageCode', new sfValidatorI18nChoiceLanguage(array('required' => true)));
     $this->form->setWidget('languageCode', new sfWidgetFormI18nChoiceLanguage(array('add_empty' => true, 'culture' => $this->context->user->getCulture())));
 
     // Handle POST data (form submit)
@@ -40,35 +40,29 @@ class SettingsLanguageAction extends sfAction
     {
       $this->form->bind($request->getPostParameters());
 
-      if (!$this->form->isValid())
-      {
-        return;
-      }
-
-      QubitCache::getInstance()->removePattern('settings:i18n:*');
-
-      if (null !== $languageCode = $request->languageCode)
+      if ($this->form->isValid())
       {
         try
         {
           ProjectConfiguration::getActive()->loadHelpers('I18N');
 
-          format_language($languageCode, $languageCode);
+          format_language($request->languageCode, $request->languageCode);
         }
         catch (Exception $e)
         {
           $this->redirect(array('module' => 'settings', 'action' => 'language'));
         }
 
+        QubitCache::getInstance()->removePattern('settings:i18n:*');
+
         $setting = new QubitSetting;
-        $setting->name = $languageCode;
+        $setting->name = $request->languageCode;
         $setting->scope = 'i18n_languages';
-        $setting->value = $languageCode;
+        $setting->value = $request->languageCode;
         $setting->deleteable = true;
         $setting->editable = true;
         $setting->getCurrentSettingI18n()->setCulture('en');
         $setting->sourceCulture = 'en';
-
         $setting->save();
 
         $notice = sfContext::getInstance()->i18n->__('Language saved.');
