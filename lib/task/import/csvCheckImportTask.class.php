@@ -215,40 +215,47 @@ EOF;
       }
     }
 
-    // Check that parent IDs actually exist if legacy and parent IDs were found
-    if (count($legacyIds) && count($parentIds))
+    // Check that parent IDs actually exist if parent IDs were found
+    if (count($parentIds))
     {
-      $missingParentIds = array();
-
-      foreach ($parentIds as $parentId => $occurrences)
-      {
-        // If a legacy ID doesn't exist for a parent ID, then add to missing count
-        if (empty($legacyIds[$parentId]))
-        {
-          $missingParentIds[$parentId] = $occurrences;
-        }
-      }
-
       print "\n\nMissing parent IDs:\n";
       print "-------------------\n\n";
 
-      print sprintf("Total unique parent IDs: %d\n\n", count($parentIds));
-
-      print sprintf("Number of unique missing parent IDs: %d\n", count($missingParentIds));
-
-      // Display details about each missing parent and total number of rows affected
-      if (count($missingParentIds))
+      if (!count($legacyIds))
       {
-        $orphans = 0;
+        print "No legacyId values were found.\n";
+      }
+      else
+      {
+        $missingParentIds = array();
 
-        foreach ($missingParentIds as $parentId => $numberOfChildren)
+        foreach ($parentIds as $parentId => $occurrences)
         {
-          print sprintf("* %d (%d children)\n", $parentId, $numberOfChildren);
-
-          $orphans += $numberOfChildren;
+          // If a legacy ID doesn't exist for a parent ID, then add to missing count
+          if (empty($legacyIds[$parentId]))
+          {
+            $missingParentIds[$parentId] = $occurrences;
+          }
         }
 
-        print sprintf("\nTotal number of rows with missing parents: %d\n", $orphans);
+        print sprintf("Total unique parent IDs: %d\n\n", count($parentIds));
+
+        print sprintf("Number of unique missing parent IDs: %d\n", count($missingParentIds));
+
+        // Display details about each missing parent and total number of rows affected
+        if (count($missingParentIds))
+        {
+          $orphans = 0;
+
+          foreach ($missingParentIds as $parentId => $numberOfChildren)
+          {
+            print sprintf("* parentId: %d (%d children)\n", $parentId, $numberOfChildren);
+
+            $orphans += $numberOfChildren;
+          }
+
+          print sprintf("\nTotal number of rows with missing parents: %d\n", $orphans);
+        }
       }
     }
 
