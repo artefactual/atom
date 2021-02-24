@@ -76,7 +76,7 @@ EOF;
           'legacyIds'                   => $legacyIds,
           'parentIds'                   => $parentIds,
           'duplicateLegacyIds'          => $duplicateLegacyIds,
-          'prematureParentIds'         => $prematureParentIds,
+          'prematureParentIds'          => $prematureParentIds,
         ),
 
         'saveLogic' => function(&$self)
@@ -162,7 +162,7 @@ EOF;
 
       $legacyIds = $import->status['legacyIds'];
       $parentIds = $import->status['parentIds'];
-      $duplicateLegacyIds  = $import->status['duplicateLegacyIds'];
+      $duplicateLegacyIds = $import->status['duplicateLegacyIds'];
       $prematureParentIds = $import->status['prematureParentIds'];
 
       $nonEmptyColumns = array_merge(
