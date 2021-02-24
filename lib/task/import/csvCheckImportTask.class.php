@@ -259,7 +259,7 @@ EOF;
 
       if (!count($legacyIds))
       {
-        print "No legacyId values were found: all parent IDs may be invalid.\n";
+        print "No legacyId values were found in CSV data: all parent IDs may be invalid.\n";
       }
       else
       {
