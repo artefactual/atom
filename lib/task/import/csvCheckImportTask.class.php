@@ -131,14 +131,15 @@ EOF;
             }
             else
             {
-              // Note that the legacy ID is a duplicate
+              // Note that the legacy ID is used more than once
               $self->status['duplicateLegacyIds'][$self->columnValue('legacyId')] = true;
             }
           }
 
-          // Count parent ID uses
+          // Count uses of parent IDs and note premature use of an ID
           if ($self->columnExists('parentId') && !empty($self->columnValue('parentId')))
           {
+            // Count parent ID uses
             $parentId = $self->columnValue('parentId');
 
             if (empty($self->status['parentIds'][$parentId]))
