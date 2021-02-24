@@ -131,7 +131,7 @@ EOF;
             }
             else
             {
-              // Note that the legacy ID is used more than once
+              // Note that the legacy ID has been used more than once
               $self->status['duplicateLegacyIds'][$self->columnValue('legacyId')] = true;
             }
           }
