@@ -50,6 +50,8 @@ EOF;
     $multiValueColumns  = array();
     $legacyIds          = array();
     $parentIds          = array();
+    $duplicateLegacyIds = array();
+    $prematureParentIds = array();
     $rowCount           = 0;
 
     foreach($filenames as $filename)
@@ -73,6 +75,8 @@ EOF;
           'numberOfSampleValues'        => 1,
           'legacyIds'                   => $legacyIds,
           'parentIds'                   => $parentIds,
+          'duplicateLegacyIds'          => $duplicateLegacyIds,
+          'prematureParentIds'         => $prematureParentIds,
         ),
 
         'saveLogic' => function(&$self)
@@ -120,7 +124,16 @@ EOF;
           // Store legacy IDs
           if ($self->columnExists('legacyId') && !empty($self->columnValue('legacyId')))
           {
-            $self->status['legacyIds'][$self->columnValue('legacyId')] = true;
+            if (empty($self->status['legacyIds'][$self->columnValue('legacyId')]))
+            {
+              // Take note of legacy ID if it's the first time it has been used
+              $self->status['legacyIds'][$self->columnValue('legacyId')] = true;
+            }
+            else
+            {
+              // Note that the legacy ID is a duplicate
+              $self->status['duplicateLegacyIds'][$self->columnValue('legacyId')] = true;
+            }
           }
 
           // Count parent ID uses
@@ -134,6 +147,12 @@ EOF;
             }
 
             $self->status['parentIds'][$parentId]++;
+
+            // If parent row refers to a legacy ID prematurely, take note
+            if (empty($self->status['legacyIds'][$parentId]))
+            {
+              $self->status['prematureParentIds'][$parentId] = true;
+            }
           }
         }
       ));
@@ -142,6 +161,8 @@ EOF;
 
       $legacyIds = $import->status['legacyIds'];
       $parentIds = $import->status['parentIds'];
+      $duplicateLegacyIds  = $import->status['duplicateLegacyIds'];
+      $prematureParentIds = $import->status['prematureParentIds'];
 
       $nonEmptyColumns = array_merge(
         $nonEmptyColumns,
@@ -198,7 +219,7 @@ EOF;
           $emptyCount++;
         }
       }
-      print ($emptyCount) ? '' : "[None]";
+      print ($emptyCount) ? '' : "[None]\n";
     }
 
     if (count($multiValueColumns))
@@ -215,15 +236,29 @@ EOF;
       }
     }
 
-    // Check that parent IDs actually exist if parent IDs were found
+    // Report duplicate usage of legacy IDs
+    if (count($duplicateLegacyIds))
+    {
+      print "\n\nDuplicate legacy IDs\n";
+      print "-------------------\n\n";
+
+      print "These legacy IDs have been used more than once:\n";
+
+      foreach (array_keys($duplicateLegacyIds) as $legacyId)
+      {
+        print sprintf("* legacyId %d\n", $legacyId);
+      }
+    }
+
+    // Check that parents actually exist in data if parent IDs were found
     if (count($parentIds))
     {
-      print "\n\nMissing parent IDs:\n";
-      print "-------------------\n\n";
+      print "\n\nMissing or out of sequence parent IDs:\n";
+      print "--------------------------------------\n\n";
 
       if (!count($legacyIds))
       {
-        print "No legacyId values were found.\n";
+        print "No legacyId values were found: all parent IDs may be invalid.\n";
       }
       else
       {
@@ -240,24 +275,59 @@ EOF;
 
         print sprintf("Total unique parent IDs: %d\n\n", count($parentIds));
 
-        print sprintf("Number of unique missing parent IDs: %d\n", count($missingParentIds));
+        print sprintf("Number of unique parent IDs containing a missing legacy ID: %d\n", count($missingParentIds));
 
         // Display details about each missing parent and total number of rows affected
         if (count($missingParentIds))
         {
+          print "\nParents containing missing legacy IDs:\n";
+
           $orphans = 0;
 
           foreach ($missingParentIds as $parentId => $numberOfChildren)
           {
-            print sprintf("* parentId: %d (%d children)\n", $parentId, $numberOfChildren);
+            print sprintf("* parentId: %d (%d rows)\n", $parentId, $numberOfChildren);
 
             $orphans += $numberOfChildren;
           }
 
-          print sprintf("\nTotal number of rows with missing parents: %d\n", $orphans);
+          print sprintf("\nTotal number of rows with parent IDs containing a missing legacy ID: %d\n", $orphans);
+        }
+
+        if (count($prematureParentIds))
+        {
+          print "\nParent IDs referencing legacy ID values too early in the data:\n";
+
+          foreach (array_keys($prematureParentIds) as $parentId)
+          {
+            // If parent is missing entirely it will be reported separately as missing
+            if (empty($missingParentIds[$parentId]))
+            {
+              print sprintf("* parentId: %d\n", $parentId);
+            }
+          }
         }
       }
     }
+
+    /*
+    if (count($prematureParentIds))
+    {
+      print "\n\nParent IDs referenced prematurely:\n";
+      print "----------------------------------\n\n";
+
+      print "These parent IDs referenced legacy ID values that don't exist in data.\n\n";
+
+      foreach (array_keys($prematureParentIds) as $parentId)
+      {
+        // If parent is missing entirely it will be reported separately as missing
+        if (empty($missingParentIds[$parentId]))
+        {
+          print sprintf("* parentId: %d\n", $parentId);
+        }
+      }
+    }
+    */
 
     if ($import->status['numberOfSampleValues'] > 0)
     {
