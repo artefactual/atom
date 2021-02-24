@@ -311,25 +311,6 @@ EOF;
       }
     }
 
-    /*
-    if (count($prematureParentIds))
-    {
-      print "\n\nParent IDs referenced prematurely:\n";
-      print "----------------------------------\n\n";
-
-      print "These parent IDs referenced legacy ID values that don't exist in data.\n\n";
-
-      foreach (array_keys($prematureParentIds) as $parentId)
-      {
-        // If parent is missing entirely it will be reported separately as missing
-        if (empty($missingParentIds[$parentId]))
-        {
-          print sprintf("* parentId: %d\n", $parentId);
-        }
-      }
-    }
-    */
-
     if ($import->status['numberOfSampleValues'] > 0)
     {
       print "\n\nSample Values:\n";
