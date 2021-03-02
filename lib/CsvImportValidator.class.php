@@ -32,7 +32,7 @@ class CsvImportValidator
   protected $dbcon;
   protected $filename;
   protected $csvTests = null;
-  protected $columnNames;
+  protected $header;
   protected $rows = array();
   protected $showDisplayProgress = false;
 
@@ -76,6 +76,7 @@ class CsvImportValidator
     $this->setCsvTests(
       [
         'fileEncoding'        => CsvFileEncodingTest::class,
+        'columnCountTest'     => CsvColumnCountTest::class,
         'sampleColumnValues'  => CsvSampleColumnsTest::class,
       ]
     );
@@ -107,9 +108,9 @@ class CsvImportValidator
   {
     $this->handleByteOrderMark($fh);
 
-    $this->columnNames = fgetcsv($fh, 60000);
+    $this->header = fgetcsv($fh, 60000);
 
-    if ($this->columnNames === false)
+    if ($this->header === false)
     {
       throw new sfException('Could not read initial row. File could be empty.');
     }
@@ -117,6 +118,21 @@ class CsvImportValidator
     while ($item = fgetcsv($fh, 60000))
     {
       $this->rows[] = $item;
+    }
+  }
+
+  protected function getLongestRow() : int
+  {
+    $rowsMaxCount = count(max($this->rows));
+    $headerCount = count($this->header);
+
+    if ($rowsMaxCount > $headerCount)
+    {
+      return $rowsMaxCount;
+    }
+    else
+    {
+      return count($this->header);
     }
   }
 
@@ -132,6 +148,7 @@ class CsvImportValidator
     foreach ($this->csvTests as $test)
     {
       $test->setFilename($this->filename);
+      $test->setColumnCount($this->getLongestRow());
     }
 
     foreach ($this->rows as $row)
@@ -143,7 +160,7 @@ class CsvImportValidator
       
       foreach ($this->csvTests as $test)
       {
-        $test->testRow(array_combine($this->columnNames, $row));
+        $test->testRow($this->header, $row);
       }
     }
 
@@ -178,8 +195,7 @@ class CsvImportValidator
     {
       $results[$test->getFileName()][] = $test->getTestResult();
     }
-    
-    //var_dump($results);
+
     return $results;
   }
 

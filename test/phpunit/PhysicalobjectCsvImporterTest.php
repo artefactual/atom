@@ -16,7 +16,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
    * Fixtures
    **************************************************************************/
 
-  public function setUp() : void
+  public function setUp(): void
   {
     $this->context = sfContext::getInstance();
     $this->vdbcon = $this->createMock(DebugPDO::class);

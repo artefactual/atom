@@ -36,6 +36,8 @@ abstract class CsvBaseTest
   const TEST_RESULTS = 'results';
   const TEST_DETAIL = 'details';
 
+  const HEADER_PLACEHOLDER = 'EXTRA_COLUMN';
+
   protected $testData = [
     self::TEST_TITLE => '',
     self::TEST_STATUS => self::RESULT_INFO,
@@ -44,15 +46,25 @@ abstract class CsvBaseTest
   ];
 
   protected $filename = '';
+  protected $columnCount = 0;
 
   public function __construct()
   {
 
   }
   
-  public function testRow(array $row)
+  public function testRow(array $header, array $row)
   {
-    
+    // Enforce header has $columnCount elements. Add elements if necessary.
+    for ($i = count($header); $i < $this->columnCount; $i++) {
+      $header[] = sprintf("%s-%d", self::HEADER_PLACEHOLDER, $i);
+    }
+    // Enforce row has $columnCount elements.
+    for ($i = count($row); $i < $this->columnCount; $i++) {
+      $row[] = '';
+    }
+    // return array_combined row
+    return array_combine($header, $row);
   }
 
   protected function addTestResult(string $datatype, string $value)
@@ -92,9 +104,19 @@ abstract class CsvBaseTest
     $this->testData[self::TEST_TITLE] = $title;
   }
 
-  public function getTitle()
+  public function getTitle(): string
   {
     return $this->testData[self::TEST_TITLE];
+  }
+
+  public function setColumnCount(int $count)
+  {
+    $this->columnCount = $count;
+  }
+
+  public function getColumnCount(): int
+  {
+    return $this->columnCount;
   }
 
   public function getTestResult()

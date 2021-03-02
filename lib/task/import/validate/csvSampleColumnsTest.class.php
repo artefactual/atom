@@ -39,8 +39,10 @@ class CsvSampleColumnsTest extends CsvBaseTest
     $this->setTitle(self::TITLE);
   }
 
-  public function testRow(array $row)
+  public function testRow(array $header, array $row)
   {
+    $row = parent::testRow($header, $row);
+
     foreach ($row as $columnName => $value)
     {
       // Create sample values array.

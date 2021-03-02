@@ -14,6 +14,9 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $this->csvHeader = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
 
+    $this->csvHeaderShort = 'legacyId,parentId,identifier,title,levelOfDescription,repository,culture';
+    $this->csvHeaderLong = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture,extraHeading';
+
     $this->csvHeaderWithUtf8Bom = CsvImportValidator::UTF8_BOM . $this->csvHeader;
     $this->csvHeaderWithUtf16LEBom = CsvImportValidator::UTF16_LITTLE_ENDIAN_BOM . $this->csvHeader;
     $this->csvHeaderWithUtf16BEBom = CsvImportValidator::UTF16_BIG_ENDIAN_BOM . $this->csvHeader;
@@ -24,6 +27,34 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
       // Note: leading and trailing whitespace in first row is intentional
       '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","",""',
       '"","","","Chemise","","","","fr"',
+      '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", ""',
+      '"", "DJ003", "ID4", "Title Four", "","", "", "en"',
+    );
+
+    $this->csvDataShortRow = array(
+      '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","",""',
+      '"","","","Chemise ","","","fr"',  // Short row: 7 cols
+      '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", ""',
+      '"", "DJ003", "ID4", "Title Four", "","", "", "en"',
+    );
+
+    $this->csvDataShortRows = array(
+      '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","",""',
+      '"","","","Chemise ","","","fr"',  // Short row: 7 cols
+      '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", ""',
+      '"", "DJ003", "ID4", "Title Four", "", "en"',  // Short row: 6 cols
+    );
+
+    $this->csvDataLongRow = array(
+      '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","",""',
+      '"","","","Chemise ","","", "","fr", ""',  // Long row: 9 cols
+      '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", ""',
+      '"", "DJ003", "ID4", "Title Four", "","", "", "en"',
+    );
+
+    $this->csvDataLongRows = array(
+      '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","","","","",', // Long row: 12 cols
+      '"","","","Chemise ","","", "","fr", ""',  // Long row: 9 cols
       '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", ""',
       '"", "DJ003", "ID4", "Title Four", "","", "", "en"',
     );
@@ -40,6 +71,12 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
       'unix_csv_with_utf16BE_bom.csv' => $this->csvHeaderWithUtf16BEBom . "\n" . implode("\n", $this->csvData),
       'unix_csv_with_utf32LE_bom.csv' => $this->csvHeaderWithUtf32LEBom . "\n" . implode("\n", $this->csvData),
       'unix_csv_with_utf32BE_bom.csv' => $this->csvHeaderWithUtf32BEBom . "\n" . implode("\n", $this->csvData),
+      'unix_csv_with_short_header.csv' => $this->csvHeaderShort . "\n" . implode("\n", $this->csvData),
+      'unix_csv_with_long_header.csv' => $this->csvHeaderLong . "\n" . implode("\n", $this->csvData),
+      'unix_csv_with_short_row.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataShortRow),
+      'unix_csv_with_long_row.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataLongRow),
+      'unix_csv_with_short_rows.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataShortRows),
+      'unix_csv_with_long_rows.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataLongRows),
       'root.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvData),
     ];
 
@@ -59,7 +96,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   }
 
   /**************************************************************************
-   * Tests
+   * Basic tests
    **************************************************************************/
 
   public function testConstructorWithNoContextPassed()
@@ -496,4 +533,262 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $this->assertSame($expectedOutput, $results);
   }
+
+  /**************************************************************************
+   * Test csvColumnCountTest.class.php
+   * 
+   * Test that all rows including header have the same number of
+   * columns/elements.
+   * 
+   **************************************************************************/
+  public function testColumnsEqualLength()
+  {
+    $filename = $this->vfs->url() . '/unix_csv_without_utf8_bom.csv';
+
+    $csvValidator = new CsvImportValidator($this->context, null, null);
+    $csvValidator->setCsvTests(
+      [
+        'columnCountTest'     => CsvColumnCountTest::class,
+      ]
+    );
+    $csvValidator->setFilename($filename);
+    $csvValidator->setVerbose(true);
+    $csvValidator->validate();
+
+    $results = $csvValidator->getResults();
+
+    $expectedOutput = [
+      $filename =>
+      [
+        [
+          CsvBaseTest::TEST_TITLE => CsvColumnCountTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvColumnCountTest::RESULT_INFO,
+          CsvBaseTest::TEST_RESULTS => [
+            'Number of columns in CSV: 8',
+          ],
+          CsvBaseTest::TEST_DETAIL => array(),
+        ]
+      ]
+    ];
+
+    $this->assertSame($expectedOutput, $results);
+  }
+
+  public function testHeaderTooShort()
+  {
+    $filename = $this->vfs->url() . '/unix_csv_with_short_header.csv';
+
+    $csvValidator = new CsvImportValidator($this->context, null, null);
+    $csvValidator->setCsvTests(
+      [
+        'columnCountTest'     => CsvColumnCountTest::class,
+      ]
+    );
+    $csvValidator->setFilename($filename);
+    $csvValidator->setVerbose(true);
+    $csvValidator->validate();
+
+    $results = $csvValidator->getResults();
+
+    $expectedOutput = [
+      $filename =>
+      [
+        [
+          CsvBaseTest::TEST_TITLE => CsvColumnCountTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvColumnCountTest::RESULT_ERROR,
+          CsvBaseTest::TEST_RESULTS => [
+            'Number of rows with 7 columns: 1',
+            'Number of rows with 8 columns: 4',
+          ],
+          CsvBaseTest::TEST_DETAIL => array(),
+        ]
+      ]
+    ];
+
+    $this->assertSame($expectedOutput, $results);
+  }
+
+  public function testHeaderTooLong()
+  {
+    $filename = $this->vfs->url() . '/unix_csv_with_long_header.csv';
+
+    $csvValidator = new CsvImportValidator($this->context, null, null);
+    $csvValidator->setCsvTests(
+      [
+        'columnCountTest'     => CsvColumnCountTest::class,
+      ]
+    );
+    $csvValidator->setFilename($filename);
+    $csvValidator->setVerbose(true);
+    $csvValidator->validate();
+
+    $results = $csvValidator->getResults();
+
+    $expectedOutput = [
+      $filename =>
+      [
+        [
+          CsvBaseTest::TEST_TITLE => CsvColumnCountTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvColumnCountTest::RESULT_ERROR,
+          CsvBaseTest::TEST_RESULTS => [
+            'Number of rows with 9 columns: 1',
+            'Number of rows with 8 columns: 4',
+          ],
+          CsvBaseTest::TEST_DETAIL => array(),
+        ]
+      ]
+    ];
+
+    $this->assertSame($expectedOutput, $results);
+  }
+
+  public function testRowTooShort()
+  {
+    $filename = $this->vfs->url() . '/unix_csv_with_short_row.csv';
+
+    $csvValidator = new CsvImportValidator($this->context, null, null);
+    $csvValidator->setCsvTests(
+      [
+        'columnCountTest'     => CsvColumnCountTest::class,
+      ]
+    );
+    $csvValidator->setFilename($filename);
+    $csvValidator->setVerbose(true);
+    $csvValidator->validate();
+
+    $results = $csvValidator->getResults();
+
+    $expectedOutput = [
+      $filename =>
+      [
+        [
+          CsvBaseTest::TEST_TITLE => CsvColumnCountTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvColumnCountTest::RESULT_ERROR,
+          CsvBaseTest::TEST_RESULTS => [
+            'Number of rows with 8 columns: 4',
+            'Number of rows with 7 columns: 1',
+          ],
+          CsvBaseTest::TEST_DETAIL => array(),
+        ]
+      ]
+    ];
+
+    $this->assertSame($expectedOutput, $results);
+  }
+
+  public function testRowTooLong()
+  {
+    $filename = $this->vfs->url() . '/unix_csv_with_long_row.csv';
+
+    $csvValidator = new CsvImportValidator($this->context, null, null);
+    $csvValidator->setCsvTests(
+      [
+        'columnCountTest'     => CsvColumnCountTest::class,
+      ]
+    );
+    $csvValidator->setFilename($filename);
+    $csvValidator->setVerbose(true);
+    $csvValidator->validate();
+
+    $results = $csvValidator->getResults();
+
+    $expectedOutput = [
+      $filename =>
+      [
+        [
+          CsvBaseTest::TEST_TITLE => CsvColumnCountTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvColumnCountTest::RESULT_ERROR,
+          CsvBaseTest::TEST_RESULTS => [
+            'Number of rows with 8 columns: 4',
+            'Number of rows with 9 columns: 1',
+          ],
+          CsvBaseTest::TEST_DETAIL => array(),
+        ]
+      ]
+    ];
+
+    $this->assertSame($expectedOutput, $results);
+  }
+
+  public function testRowsTooShort()
+  {
+    $filename = $this->vfs->url() . '/unix_csv_with_short_rows.csv';
+
+    $csvValidator = new CsvImportValidator($this->context, null, null);
+    $csvValidator->setCsvTests(
+      [
+        'columnCountTest'     => CsvColumnCountTest::class,
+      ]
+    );
+    $csvValidator->setFilename($filename);
+    $csvValidator->setVerbose(true);
+    $csvValidator->validate();
+
+    $results = $csvValidator->getResults();
+
+    $expectedOutput = [
+      $filename =>
+      [
+        [
+          CsvBaseTest::TEST_TITLE => CsvColumnCountTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvColumnCountTest::RESULT_ERROR,
+          CsvBaseTest::TEST_RESULTS => [
+            'Number of rows with 8 columns: 3',
+            'Number of rows with 7 columns: 1',
+            'Number of rows with 6 columns: 1',
+          ],
+          CsvBaseTest::TEST_DETAIL => array(),
+        ]
+      ]
+    ];
+
+    $this->assertSame($expectedOutput, $results);
+  }
+
+  public function testRowsTooLong()
+  {
+    $filename = $this->vfs->url() . '/unix_csv_with_long_rows.csv';
+
+    $csvValidator = new CsvImportValidator($this->context, null, null);
+    $csvValidator->setCsvTests(
+      [
+        'columnCountTest'     => CsvColumnCountTest::class,
+      ]
+    );
+    $csvValidator->setFilename($filename);
+    $csvValidator->setVerbose(true);
+    $csvValidator->validate();
+
+    $results = $csvValidator->getResults();
+
+    $expectedOutput = [
+      $filename =>
+      [
+        [
+          CsvBaseTest::TEST_TITLE => CsvColumnCountTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvColumnCountTest::RESULT_ERROR,
+          CsvBaseTest::TEST_RESULTS => [
+            'Number of rows with 8 columns: 3',
+            'Number of rows with 11 columns: 1',
+            'Number of rows with 9 columns: 1',
+          ],
+          CsvBaseTest::TEST_DETAIL => array(),
+        ]
+      ]
+    ];
+
+    $this->assertSame($expectedOutput, $results);
+  }
+/*
+  public function testBlankRowsExist()
+  {
+
+  }
+
+  public function testMultiFile()
+  {
+
+  }
+*/
 }
+
