@@ -54,6 +54,9 @@ columnNames:
   - radNotePhysicalDescription
   - radNotePublishersSeries
   - radNoteRights
+  - radNoteSignaturesInscriptions
+  - radNoteCast
+  - radNoteCredits
   - radStandardNumber
   - subjectAccessPoints
   - placeAccessPoints
