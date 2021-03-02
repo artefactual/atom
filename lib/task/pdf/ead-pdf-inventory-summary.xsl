@@ -1486,9 +1486,9 @@
                     <fo:table-cell number-columns-spanned="3">
                         <fo:block margin-top="6pt">
                             <xsl:apply-templates select="ead:did" mode="itemDsc"/>
-                            <xsl:apply-templates select="ead:scopecontent"/>
-                            <xsl:apply-templates select="ead:accessrestrict"/>
-                            <xsl:apply-templates select="ead:userestrict"/>
+                            <xsl:apply-templates select="ead:scopecontent" mode="itemDsc"/>
+                            <xsl:apply-templates select="ead:accessrestrict" mode="itemDsc"/>
+                            <xsl:apply-templates select="ead:userestrict" mode="itemDsc"/>
                         </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
