@@ -49,39 +49,44 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     ));
 
     // Recursively descend down hierarchy
-    $this->recursivelyAddInformationObjects(
-      QubitInformationObject::ROOT_ID,
-      $this->count,
-      array('ancestors' => $ancestors)
-    );
+    $this->addInformationObjects(['ancestors' => $ancestors]);
 
     return $this->errors;
   }
 
-  public function recursivelyAddInformationObjects($parentId, $totalRows, $options = array())
+  public function addInformationObjects($options = array())
   {
-    $skip = isset($options['skip']) ? $options['skip'] : null;
+    $skip = isset($options['skip']) ? $options['skip'] : 0;
+    $limit = isset($options['limit']) ? $options['limit'] : $this->count;
 
     // Loop through children and add to search index
-    foreach (self::getChildren($parentId) as $item)
+    $sql = "SELECT id FROM information_object";
+    $sql .= " WHERE id <> ? ";
+    $sql .= " ORDER BY parent_id, id ";
+    $sql .= sprintf(" LIMIT %d, %d", $skip, $limit);
+
+    $rows = QubitPdo::fetchAll(
+      $sql,
+      [QubitInformationObject::ROOT_ID],
+      ['fetchMode' => PDO::FETCH_ASSOC]
+    );
+
+    foreach ($rows as $row)
     {
       $ancestors = $inheritedCreators = array();
       $repository = null;
       self::$counter++;
 
+print 'ID:'. $row['id'] ."\n";
       try
       {
         // Index document if within paging limits
-        $node = new arElasticSearchInformationObjectPdo($item->id, $options);
+        $node = new arElasticSearchInformationObjectPdo($row['id'], $options);
+        $data = $node->serialize();
 
-        if (!is_numeric($skip) || (self::$counter > $skip && self::$counter <= ($skip + $totalRows)))
-        {
-          $data = $node->serialize();
+        QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
 
-          QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
-
-          $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
-        }
+        $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
 
         $ancestors = array_merge($node->getAncestors(), array(array(
           'id' => $node->id,
@@ -94,18 +99,6 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
       catch (sfException $e)
       {
         $this->errors[] = $e->getMessage();
-      }
-
-      // Descend hierarchy
-      if (1 < ($item->rgt - $item->lft))
-      {
-        // Pass ancestors, repository and creators down to descendants
-        $this->recursivelyAddInformationObjects($item->id, $totalRows, array(
-          'ancestors'  => $ancestors,
-          'repository' => $repository,
-          'inheritedCreators' => $inheritedCreators,
-          'skip' => $skip
-        ));
       }
     }
   }
