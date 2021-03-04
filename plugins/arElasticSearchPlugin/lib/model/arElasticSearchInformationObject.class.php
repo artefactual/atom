@@ -60,9 +60,9 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     $limit = isset($options['limit']) ? $options['limit'] : $this->count;
 
     // Loop through children and add to search index
-    $sql = "SELECT id FROM information_object";
+    $sql = "SELECT id, parent_id FROM information_object";
     $sql .= " WHERE id <> ? ";
-    $sql .= " ORDER BY parent_id, id ";
+    $sql .= " ORDER BY lft, parent_id, id ";
     $sql .= sprintf(" LIMIT %d, %d", $skip, $limit);
 
     $rows = QubitPdo::fetchAll(
@@ -80,7 +80,15 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 print 'ID:'. $row['id'] ."\n";
       try
       {
-        // Index document if within paging limits
+        if ($row['parent_id'] == 1)
+        {
+          $options['ancestors'] = array(array(
+            'id' => QubitInformationObject::ROOT_ID,
+            'identifier' => null,
+            'repository_id' => null
+          ));
+        }
+
         $node = new arElasticSearchInformationObjectPdo($row['id'], $options);
         $data = $node->serialize();
 
@@ -88,13 +96,17 @@ print 'ID:'. $row['id'] ."\n";
 
         $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
 
-        $ancestors = array_merge($node->getAncestors(), array(array(
+        $options['ancestors'] = array_merge($node->getAncestors(), array(array(
           'id' => $node->id,
           'identifier' => $node->identifier,
           'repository_id' => $node->repository_id
         )));
-        $repository = $node->getRepository();
-        $inheritedCreators = array_merge($node->inheritedCreators, $node->creators);
+        $options['repository'] = $node->getRepository();
+        $option['inheritedCreators'] = array_merge($node->inheritedCreators, $node->creators);
+
+#$options['ancestors'] = $ancestors;
+#$options['inheritedCreators'] = $inheritedCreators;
+#$options['repository'] = $repository;
       }
       catch (sfException $e)
       {
