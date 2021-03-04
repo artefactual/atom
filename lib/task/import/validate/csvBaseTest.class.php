@@ -47,6 +47,7 @@ abstract class CsvBaseTest
 
   protected $filename = '';
   protected $columnCount = 0;
+  protected $rowNumber = 1;
 
   public function __construct()
   {
@@ -55,16 +56,7 @@ abstract class CsvBaseTest
   
   public function testRow(array $header, array $row)
   {
-    // Enforce header has $columnCount elements. Add elements if necessary.
-    for ($i = count($header); $i < $this->columnCount; $i++) {
-      $header[] = sprintf("%s-%d", self::HEADER_PLACEHOLDER, $i);
-    }
-    // Enforce row has $columnCount elements.
-    for ($i = count($row); $i < $this->columnCount; $i++) {
-      $row[] = '';
-    }
-    // return array_combined row
-    return array_combine($header, $row);
+    $this->rowNumber++;
   }
 
   protected function addTestResult(string $datatype, string $value)
@@ -87,6 +79,21 @@ abstract class CsvBaseTest
       default: 
         throw new sfException('Unknown test result datatype in csvBaseTest.');
     } 
+  }
+
+  protected function combineRow(array $header, array $row)
+  {
+    // Enforce header has $columnCount elements. Add elements if necessary.
+    for ($i = count($header); $i < $this->columnCount; $i++) {
+      $header[] = sprintf("%s-%d", self::HEADER_PLACEHOLDER, $i);
+    }
+    // Enforce row has $columnCount elements.
+    for ($i = count($row); $i < $this->columnCount; $i++) {
+      $row[] = '';
+    }
+
+    // return array_combined row
+    return array_combine($header, $row);
   }
 
   public function setFilename(string $filename)

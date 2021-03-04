@@ -77,6 +77,7 @@ class CsvImportValidator
       [
         'fileEncoding'        => CsvFileEncodingTest::class,
         'columnCountTest'     => CsvColumnCountTest::class,
+        'emptyRowTest'        => CsvEmptyRowTest::class,
         'sampleColumnValues'  => CsvSampleColumnsTest::class,
       ]
     );

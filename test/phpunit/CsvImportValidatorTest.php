@@ -16,6 +16,8 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $this->csvHeaderShort = 'legacyId,parentId,identifier,title,levelOfDescription,repository,culture';
     $this->csvHeaderLong = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture,extraHeading';
+    $this->csvHeaderBlank = '';
+    $this->csvHeaderBlankWithCommas = ',,,';
 
     $this->csvHeaderWithUtf8Bom = CsvImportValidator::UTF8_BOM . $this->csvHeader;
     $this->csvHeaderWithUtf16LEBom = CsvImportValidator::UTF16_LITTLE_ENDIAN_BOM . $this->csvHeader;
@@ -43,6 +45,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
       '"","","","Chemise ","","","fr"',  // Short row: 7 cols
       '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", ""',
       '"", "DJ003", "ID4", "Title Four", "", "en"',  // Short row: 6 cols
+      '', // Short row: zero cols
     );
 
     $this->csvDataLongRow = array(
@@ -56,6 +59,24 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
       '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","","","","",', // Long row: 12 cols
       '"","","","Chemise ","","", "","fr", ""',  // Long row: 9 cols
       '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", ""',
+      '"", "DJ003", "ID4", "Title Four", "","", "", "en"',
+    );
+
+    $this->csvDataEmptyRows = array(
+      // Note: leading and trailing whitespace in first row is intentional
+      '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","",""',
+      '',
+      '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", ""',
+      '"", "DJ003", "ID4", "Title Four", "","", "", "en"',
+      ' ',
+    );
+
+    $this->csvDataEmptyRowsWithCommas = array(
+      // Note: leading and trailing whitespace in first row is intentional
+      '"B10101 "," DJ001","ID1 ","Some Photographs","","Extent and medium 1","",""',
+      ',,,',
+      '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", ""',
+      '   , , ',
       '"", "DJ003", "ID4", "Title Four", "","", "", "en"',
     );
 
@@ -77,6 +98,10 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
       'unix_csv_with_long_row.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataLongRow),
       'unix_csv_with_short_rows.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataShortRows),
       'unix_csv_with_long_rows.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataLongRows),
+      'unix_csv_with_empty_rows.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataEmptyRows),
+      'unix_csv_with_empty_rows_with_commas.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataEmptyRowsWithCommas),
+      'unix_csv_with_empty_rows_header.csv' => $this->csvHeaderBlank . "\n" . implode("\n", $this->csvDataEmptyRows),
+      'unix_csv_with_empty_rows_header_with_commas.csv' => $this->csvHeaderBlankWithCommas . "\n" . implode("\n", $this->csvDataEmptyRowsWithCommas),
       'root.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvData),
     ];
 
@@ -779,12 +804,190 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $this->assertSame($expectedOutput, $results);
   }
-/*
-  public function testBlankRowsExist()
-  {
 
+  /**************************************************************************
+   * Test csvEmptyRowTest.class.php
+   *
+   * Test if the header or any rows are empty.
+   *
+   **************************************************************************/
+  public function testNoEmptyRows()
+  {
+    $filename = $this->vfs->url() . '/unix_csv_without_utf8_bom.csv';
+
+    $csvValidator = new CsvImportValidator($this->context, null, null);
+    $csvValidator->setCsvTests(
+      [
+        'emptyRowTest'        => CsvEmptyRowTest::class,
+      ]
+    );
+    $csvValidator->setFilename($filename);
+    $csvValidator->setVerbose(true);
+    $csvValidator->validate();
+
+    $results = $csvValidator->getResults();
+
+    $expectedOutput = [
+      $filename =>
+      [
+        [
+          CsvBaseTest::TEST_TITLE => CsvEmptyRowTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvEmptyRowTest::RESULT_INFO,
+          CsvBaseTest::TEST_RESULTS => [
+            'CSV does not have any blank rows.',
+          ],
+          CsvBaseTest::TEST_DETAIL => array(),
+        ]
+      ]
+    ];
+
+    $this->assertSame($expectedOutput, $results);
   }
 
+  public function testEmptyRows()
+  {
+    $filename = $this->vfs->url() . '/unix_csv_with_empty_rows.csv';
+
+    $csvValidator = new CsvImportValidator($this->context, null, null);
+    $csvValidator->setCsvTests(
+      [
+        'emptyRowTest'        => CsvEmptyRowTest::class,
+      ]
+    );
+    $csvValidator->setFilename($filename);
+    $csvValidator->setVerbose(true);
+    $csvValidator->validate();
+
+    $results = $csvValidator->getResults();
+
+    $expectedOutput = [
+      $filename =>
+      [
+        [
+          CsvBaseTest::TEST_TITLE => CsvEmptyRowTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvEmptyRowTest::RESULT_ERROR,
+          CsvBaseTest::TEST_RESULTS => [
+            'CSV blank row count: 2',
+          ],
+          CsvBaseTest::TEST_DETAIL => [
+            'Blank row numbers: 3, 6'
+          ],
+        ]
+      ]
+    ];
+
+    $this->assertSame($expectedOutput, $results);
+  }
+
+  public function testEmptyRowsWithCommas()
+  {
+    $filename = $this->vfs->url() . '/unix_csv_with_empty_rows_with_commas.csv';
+
+    $csvValidator = new CsvImportValidator($this->context, null, null);
+    $csvValidator->setCsvTests(
+      [
+        'emptyRowTest'        => CsvEmptyRowTest::class,
+      ]
+    );
+    $csvValidator->setFilename($filename);
+    $csvValidator->setVerbose(true);
+    $csvValidator->validate();
+
+    $results = $csvValidator->getResults();
+
+    $expectedOutput = [
+      $filename =>
+      [
+        [
+          CsvBaseTest::TEST_TITLE => CsvEmptyRowTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvEmptyRowTest::RESULT_ERROR,
+          CsvBaseTest::TEST_RESULTS => [
+            'CSV blank row count: 2',
+          ],
+          CsvBaseTest::TEST_DETAIL => [
+            'Blank row numbers: 3, 5'
+          ],
+        ]
+      ]
+    ];
+
+    $this->assertSame($expectedOutput, $results);
+  }
+
+  public function testEmptyHeader()
+  {
+    $filename = $this->vfs->url() . '/unix_csv_with_empty_rows_header.csv';
+
+    $csvValidator = new CsvImportValidator($this->context, null, null);
+    $csvValidator->setCsvTests(
+      [
+        'emptyRowTest'        => CsvEmptyRowTest::class,
+      ]
+    );
+    $csvValidator->setFilename($filename);
+    $csvValidator->setVerbose(true);
+    $csvValidator->validate();
+
+    $results = $csvValidator->getResults();
+
+    $expectedOutput = [
+      $filename =>
+      [
+        [
+          CsvBaseTest::TEST_TITLE => CsvEmptyRowTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvEmptyRowTest::RESULT_ERROR,
+          CsvBaseTest::TEST_RESULTS => [
+            'CSV Header is blank.',
+            'CSV blank row count: 2',
+          ],
+          CsvBaseTest::TEST_DETAIL => [
+            'Blank row numbers: 3, 6'
+          ],
+        ]
+      ]
+    ];
+
+    $this->assertSame($expectedOutput, $results);
+  }
+
+  public function testEmptyHeaderWithCommas()
+  {
+    $filename = $this->vfs->url() . '/unix_csv_with_empty_rows_header_with_commas.csv';
+
+    $csvValidator = new CsvImportValidator($this->context, null, null);
+    $csvValidator->setCsvTests(
+      [
+        'emptyRowTest'        => CsvEmptyRowTest::class,
+      ]
+    );
+    $csvValidator->setFilename($filename);
+    $csvValidator->setVerbose(true);
+    $csvValidator->validate();
+
+    $results = $csvValidator->getResults();
+
+    $expectedOutput = [
+      $filename =>
+      [
+        [
+          CsvBaseTest::TEST_TITLE => CsvEmptyRowTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvEmptyRowTest::RESULT_ERROR,
+          CsvBaseTest::TEST_RESULTS => [
+            'CSV Header is blank.',
+            'CSV blank row count: 2',
+          ],
+          CsvBaseTest::TEST_DETAIL => [
+            'Blank row numbers: 3, 5'
+          ],
+        ]
+      ]
+    ];
+
+    $this->assertSame($expectedOutput, $results);
+  }
+
+
+/*
   public function testMultiFile()
   {
 

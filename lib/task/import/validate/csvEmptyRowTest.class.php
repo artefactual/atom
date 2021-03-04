@@ -18,19 +18,21 @@
  */
 
 /**
- * CSV column count test. Test all rows in CSV have the same number of columns.
+ * CSV empty row test. Test for rows which are:
+ *  -  completely empty
+ *  -  have CSV fields but all are entirely empty
  * 
  * @package    symfony
  * @subpackage task
  * @author     Steve Breker <sbreker@artefactual.com>
  */
 
-class CsvColumnCountTest extends CsvBaseTest
+class CsvEmptyRowTest extends CsvBaseTest
 {
-  protected $headerCount = null;
-  protected $rowCountSummary = [];
+  protected $headerIsBlank = null;
+  protected $blankRowSummary = [];
 
-  const TITLE = 'CSV Column Check';
+  const TITLE = 'CSV Empty Row Check';
 
   public function __construct()
   {
@@ -43,47 +45,39 @@ class CsvColumnCountTest extends CsvBaseTest
   {
     parent::testRow($header, $row);
 
-    if (!isset($this->headerCount))
+    // Test if header is blank
+    if (!isset($this->headerIsBlank))
     {
-      $this->headerCount = count($header);
-
-      $this->updateRowCountSummary($this->headerCount);
+      $this->headerIsBlank = strlen(trim(implode($header))) == 0;
     }
     
-    $this->updateRowCountSummary(count($row));
+    // Test if row is blank. Record line numbers of blank rows.
+    if (strlen(trim(implode($row))) == 0)
+    {
+      $this->blankRowSummary[] = $this->rowNumber;
+    }
   }
 
   public function getTestResult()
   {
-    // When rows are all same length then rowCountSummary will have 1 row.
-    if (1 == count($this->rowCountSummary))
-    {
-      $this->addTestResult(self::TEST_STATUS, self::RESULT_INFO);
-
-      $this->addTestResult(self::TEST_RESULTS, sprintf("Number of columns in CSV: %s", $this->headerCount));
-    }
-    else
+    if ($this->headerIsBlank)
     {
       $this->addTestResult(self::TEST_STATUS, self::RESULT_ERROR);
-
-      foreach ($this->rowCountSummary as $columnCount => $numOccurrences)
-      {
-        $this->addTestResult(self::TEST_RESULTS, sprintf("Number of rows with %s columns: %s", $columnCount, $numOccurrences));
-      }
+      $this->addTestResult(self::TEST_RESULTS, sprintf("CSV Header is blank."));
     }
-    
-    return parent::getTestResult();
-  }
 
-  protected function updateRowCountSummary(int $numColumns)
-  {
-    if (array_key_exists($numColumns, $this->rowCountSummary))
+    if (0 < count($this->blankRowSummary))
     {
-      $this->rowCountSummary[$numColumns]++;
+      $this->addTestResult(self::TEST_STATUS, self::RESULT_ERROR);
+      $this->addTestResult(self::TEST_RESULTS, sprintf("CSV blank row count: %s", count($this->blankRowSummary)));
+      $this->addTestResult(self::TEST_DETAIL, sprintf("Blank row numbers: %s", implode(', ', $this->blankRowSummary)));
     }
     else
     {
-      $this->rowCountSummary[$numColumns] = 1;
+      $this->addTestResult(self::TEST_STATUS, self::RESULT_INFO);
+      $this->addTestResult(self::TEST_RESULTS, sprintf("CSV does not have any blank rows."));
     }
+
+    return parent::getTestResult();
   }
 }

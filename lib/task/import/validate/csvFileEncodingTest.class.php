@@ -41,7 +41,8 @@ class CsvFileEncodingTest extends CsvBaseTest
 
   public function testRow(array $header, array $row)
   {
-    $row = parent::testRow($header, $row);
+    parent::testRow($header, $row);
+    $row = $this->combineRow($header, $row);
 
     if (null === $this->utf8BomPresent)
     {
