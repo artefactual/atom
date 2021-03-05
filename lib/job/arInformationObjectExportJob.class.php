@@ -100,7 +100,7 @@ class arInformationObjectExportJob extends arExportJob
    */
   static public function getCurrentArchivalStandard()
   {
-    if ('rad' === QubitSetting::getByNameAndScope('informationobject', 'default_template'))
+    if ('rad' == QubitSetting::getByNameAndScope('informationobject', 'default_template'))
     {
       return 'rad';
     }
