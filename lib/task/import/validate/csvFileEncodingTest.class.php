@@ -37,6 +37,15 @@ class CsvFileEncodingTest extends CsvBaseTest
     parent::__construct();
 
     $this->setTitle(self::TITLE);
+    $this->reset();
+  }
+
+  public function reset()
+  {
+    $this->utf8BomPresent = null;
+    $this->utf8Compatible = true;
+
+    parent::reset();
   }
 
   public function testRow(array $header, array $row)

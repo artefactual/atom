@@ -179,21 +179,22 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testUtf8ValidatorUnixWithBOM()
   {
     $filename = $this->vfs->url() . '/unix_csv_with_utf8_bom.csv';
+    $testName = 'CsvFileEncodingTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'fileEncoding'        => CsvFileEncodingTest::class,
+        $testName        => CsvFileEncodingTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->validate();
 
     $results = $csvValidator->getResults();
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvFileEncodingTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvFileEncodingTest::RESULT_INFO,
@@ -212,21 +213,22 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testUtf8ValidatorUnix()
   {
     $filename = $this->vfs->url() . '/unix_csv_without_utf8_bom.csv';
+    $testName = 'CsvFileEncodingTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'fileEncoding'        => CsvFileEncodingTest::class,
+        $testName        => CsvFileEncodingTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->validate();
 
     $results = $csvValidator->getResults();
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvFileEncodingTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvFileEncodingTest::RESULT_INFO,
@@ -244,21 +246,22 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testUtf8ValidatorWindowsWithBOM()
   {
     $filename = $this->vfs->url() . '/windows_csv_with_utf8_bom.csv';
+    $testName = 'CsvFileEncodingTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'fileEncoding'        => CsvFileEncodingTest::class,
+        $testName        => CsvFileEncodingTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->validate();
 
     $results = $csvValidator->getResults();
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvFileEncodingTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvFileEncodingTest::RESULT_INFO,
@@ -277,21 +280,22 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testUtf8ValidatorWindows()
   {
     $filename = $this->vfs->url() . '/windows_csv_without_utf8_bom.csv';
+    $testName = 'CsvFileEncodingTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'fileEncoding'        => CsvFileEncodingTest::class,
+        $testName        => CsvFileEncodingTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->validate();
 
     $results = $csvValidator->getResults();
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvFileEncodingTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvFileEncodingTest::RESULT_INFO,
@@ -309,14 +313,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testUtf8IncompatibleUnix()
   {
     $filename = $this->vfs->url() . '/unix_csv-windows_1252.csv';
+    $testName = 'CsvFileEncodingTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'fileEncoding'        => CsvFileEncodingTest::class,
+        $testName        => CsvFileEncodingTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -327,7 +332,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
     ];
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvFileEncodingTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvFileEncodingTest::RESULT_ERROR,
@@ -345,14 +350,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testUtf8IncompatibleWindows()
   {
     $filename = $this->vfs->url() . '/windows_csv-windows_1252.csv';
+    $testName = 'CsvFileEncodingTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'fileEncoding'        => CsvFileEncodingTest::class,
+        $testName        => CsvFileEncodingTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -363,7 +369,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
     ];
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvFileEncodingTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvFileEncodingTest::RESULT_ERROR,
@@ -382,14 +388,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testDetectUtf16LEBomUnix()
   {
     $filename = $this->vfs->url() . '/unix_csv_with_utf16LE_bom.csv';
+    $testName = 'CsvFileEncodingTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'fileEncoding'        => CsvFileEncodingTest::class,
+        $testName        => CsvFileEncodingTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -397,7 +404,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvFileEncodingTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvFileEncodingTest::RESULT_ERROR,
@@ -416,14 +423,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testDetectUtf16BEBomUnix()
   {
     $filename = $this->vfs->url() . '/unix_csv_with_utf16BE_bom.csv';
+    $testName = 'CsvFileEncodingTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'fileEncoding'        => CsvFileEncodingTest::class,
+        $testName        => CsvFileEncodingTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -431,7 +439,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvFileEncodingTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvFileEncodingTest::RESULT_ERROR,
@@ -450,14 +458,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testDetectUtf32LEBomUnix()
   {
     $filename = $this->vfs->url() . '/unix_csv_with_utf32LE_bom.csv';
+    $testName = 'CsvFileEncodingTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'fileEncoding'        => CsvFileEncodingTest::class,
+        $testName        => CsvFileEncodingTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -465,7 +474,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvFileEncodingTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvFileEncodingTest::RESULT_ERROR,
@@ -484,14 +493,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testDetectUtf32BEBomUnix()
   {
     $filename = $this->vfs->url() . '/unix_csv_with_utf32BE_bom.csv';
+    $testName = 'CsvFileEncodingTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'fileEncoding'        => CsvFileEncodingTest::class,
+        $testName        => CsvFileEncodingTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -499,7 +509,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvFileEncodingTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvFileEncodingTest::RESULT_ERROR,
@@ -524,14 +534,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testSampleValues()
   {
     $filename = $this->vfs->url() . '/unix_csv_without_utf8_bom.csv';
+    $testName = 'CsvSampleColumnsTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'sampleColumnValues'        => CsvSampleColumnsTest::class,
+        $testName        => CsvSampleColumnsTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -539,7 +550,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvSampleColumnsTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvSampleColumnsTest::RESULT_INFO,
@@ -569,14 +580,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testColumnsEqualLength()
   {
     $filename = $this->vfs->url() . '/unix_csv_without_utf8_bom.csv';
+    $testName = 'CsvColumnCountTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'columnCountTest'     => CsvColumnCountTest::class,
+        $testName     => CsvColumnCountTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -584,7 +596,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvColumnCountTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvColumnCountTest::RESULT_INFO,
@@ -602,14 +614,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testHeaderTooShort()
   {
     $filename = $this->vfs->url() . '/unix_csv_with_short_header.csv';
+    $testName = 'CsvColumnCountTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'columnCountTest'     => CsvColumnCountTest::class,
+        $testName     => CsvColumnCountTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -617,7 +630,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvColumnCountTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvColumnCountTest::RESULT_ERROR,
@@ -636,14 +649,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testHeaderTooLong()
   {
     $filename = $this->vfs->url() . '/unix_csv_with_long_header.csv';
+    $testName = 'CsvColumnCountTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'columnCountTest'     => CsvColumnCountTest::class,
+        $testName     => CsvColumnCountTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -651,7 +665,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvColumnCountTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvColumnCountTest::RESULT_ERROR,
@@ -670,14 +684,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testRowTooShort()
   {
     $filename = $this->vfs->url() . '/unix_csv_with_short_row.csv';
+    $testName = 'CsvColumnCountTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'columnCountTest'     => CsvColumnCountTest::class,
+        $testName     => CsvColumnCountTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -685,7 +700,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvColumnCountTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvColumnCountTest::RESULT_ERROR,
@@ -704,14 +719,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testRowTooLong()
   {
     $filename = $this->vfs->url() . '/unix_csv_with_long_row.csv';
+    $testName = 'CsvColumnCountTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'columnCountTest'     => CsvColumnCountTest::class,
+        $testName     => CsvColumnCountTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -719,7 +735,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvColumnCountTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvColumnCountTest::RESULT_ERROR,
@@ -738,14 +754,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testRowsTooShort()
   {
     $filename = $this->vfs->url() . '/unix_csv_with_short_rows.csv';
+    $testName = 'CsvColumnCountTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'columnCountTest'     => CsvColumnCountTest::class,
+        $testName     => CsvColumnCountTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -753,7 +770,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvColumnCountTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvColumnCountTest::RESULT_ERROR,
@@ -773,14 +790,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testRowsTooLong()
   {
     $filename = $this->vfs->url() . '/unix_csv_with_long_rows.csv';
+    $testName = 'CsvColumnCountTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'columnCountTest'     => CsvColumnCountTest::class,
+        $testName     => CsvColumnCountTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -788,7 +806,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvColumnCountTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvColumnCountTest::RESULT_ERROR,
@@ -814,14 +832,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testNoEmptyRows()
   {
     $filename = $this->vfs->url() . '/unix_csv_without_utf8_bom.csv';
+    $testName = 'CsvEmptyRowTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'emptyRowTest'        => CsvEmptyRowTest::class,
+        $testName        => CsvEmptyRowTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -829,7 +848,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvEmptyRowTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvEmptyRowTest::RESULT_INFO,
@@ -847,14 +866,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testEmptyRows()
   {
     $filename = $this->vfs->url() . '/unix_csv_with_empty_rows.csv';
+    $testName = 'CsvEmptyRowTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'emptyRowTest'        => CsvEmptyRowTest::class,
+        $testName        => CsvEmptyRowTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -862,7 +882,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvEmptyRowTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvEmptyRowTest::RESULT_ERROR,
@@ -882,14 +902,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testEmptyRowsWithCommas()
   {
     $filename = $this->vfs->url() . '/unix_csv_with_empty_rows_with_commas.csv';
+    $testName = 'CsvEmptyRowTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'emptyRowTest'        => CsvEmptyRowTest::class,
+        $testName        => CsvEmptyRowTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -897,7 +918,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvEmptyRowTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvEmptyRowTest::RESULT_ERROR,
@@ -917,14 +938,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testEmptyHeader()
   {
     $filename = $this->vfs->url() . '/unix_csv_with_empty_rows_header.csv';
+    $testName = 'CsvEmptyRowTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'emptyRowTest'        => CsvEmptyRowTest::class,
+        $testName        => CsvEmptyRowTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -932,7 +954,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvEmptyRowTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvEmptyRowTest::RESULT_ERROR,
@@ -953,14 +975,15 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
   public function testEmptyHeaderWithCommas()
   {
     $filename = $this->vfs->url() . '/unix_csv_with_empty_rows_header_with_commas.csv';
+    $testName = 'CsvEmptyRowTest';
 
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $csvValidator->setCsvTests(
       [
-        'emptyRowTest'        => CsvEmptyRowTest::class,
+        $testName        => CsvEmptyRowTest::class,
       ]
     );
-    $csvValidator->setFilename($filename);
+    $csvValidator->setFilenames(explode(",", $filename));
     $csvValidator->setVerbose(true);
     $csvValidator->validate();
 
@@ -968,7 +991,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $expectedOutput = [
       $filename =>
-      [
+      [ $testName =>
         [
           CsvBaseTest::TEST_TITLE => CsvEmptyRowTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvEmptyRowTest::RESULT_ERROR,

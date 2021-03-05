@@ -38,16 +38,12 @@ abstract class CsvBaseTest
 
   const HEADER_PLACEHOLDER = 'EXTRA_COLUMN';
 
-  protected $testData = [
-    self::TEST_TITLE => '',
-    self::TEST_STATUS => self::RESULT_INFO,
-    self::TEST_RESULTS => array(),
-    self::TEST_DETAIL => array(),
-  ];
+  protected $testData = array();
 
   protected $filename = '';
   protected $columnCount = 0;
   protected $rowNumber = 1;
+  protected $title = '';
 
   public function __construct()
   {
@@ -57,6 +53,16 @@ abstract class CsvBaseTest
   public function testRow(array $header, array $row)
   {
     $this->rowNumber++;
+  }
+
+  public function reset()
+  {
+    $this->testData = [
+      self::TEST_TITLE => $this->title,
+      self::TEST_STATUS => self::RESULT_INFO,
+      self::TEST_RESULTS => array(),
+      self::TEST_DETAIL => array(),
+    ];
   }
 
   protected function addTestResult(string $datatype, string $value)
@@ -108,12 +114,17 @@ abstract class CsvBaseTest
 
   public function setTitle(string $title)
   {
-    $this->testData[self::TEST_TITLE] = $title;
+    $this->title = $title;
+
+    if (isset($this->testData[self::TEST_TITLE]))
+    {
+      $this->testData[self::TEST_TITLE] = $title;
+    }
   }
 
   public function getTitle(): string
   {
-    return $this->testData[self::TEST_TITLE];
+    return $this->title;
   }
 
   public function setColumnCount(int $count)

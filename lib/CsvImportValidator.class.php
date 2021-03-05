@@ -30,11 +30,12 @@ class CsvImportValidator
 {
   protected $context;
   protected $dbcon;
-  protected $filename;
+  protected $filenames = array();
   protected $csvTests = null;
   protected $header;
   protected $rows = array();
   protected $showDisplayProgress = false;
+  protected $results = array();
 
   const UTF8_BOM = "\xEF\xBB\xBF";
   const UTF16_LITTLE_ENDIAN_BOM = "\xFF\xFE";
@@ -75,10 +76,10 @@ class CsvImportValidator
 
     $this->setCsvTests(
       [
-        'fileEncoding'        => CsvFileEncodingTest::class,
-        'columnCountTest'     => CsvColumnCountTest::class,
-        'emptyRowTest'        => CsvEmptyRowTest::class,
-        'sampleColumnValues'  => CsvSampleColumnsTest::class,
+        'CsvFileEncodingTest'     => CsvFileEncodingTest::class,
+        'CsvColumnCountTest'      => CsvColumnCountTest::class,
+        'CsvEmptyRowTest'         => CsvEmptyRowTest::class,
+        'CsvSampleColumnsTest'    => CsvSampleColumnsTest::class,
       ]
     );
   }
@@ -108,7 +109,6 @@ class CsvImportValidator
   public function loadCsvData($fh)
   {
     $this->handleByteOrderMark($fh);
-
     $this->header = fgetcsv($fh, 60000);
 
     if ($this->header === false)
@@ -116,6 +116,7 @@ class CsvImportValidator
       throw new sfException('Could not read initial row. File could be empty.');
     }
 
+    $this->rows = [];
     while ($item = fgetcsv($fh, 60000))
     {
       $this->rows[] = $item;
@@ -139,29 +140,41 @@ class CsvImportValidator
 
   public function validate()
   {
-    if (false === $fh = fopen($this->filename, 'rb'))
+    foreach ($this->filenames as $filename)
     {
-      throw new sfException('You must specify a valid filename');
-    }
-
-    $this->loadCsvData($fh);
-
-    foreach ($this->csvTests as $test)
-    {
-      $test->setFilename($this->filename);
-      $test->setColumnCount($this->getLongestRow());
-    }
-
-    foreach ($this->rows as $row)
-    {
-      if ($this->showDisplayProgress)
+      if (false === $fh = fopen($filename, 'rb'))
       {
-        print $this->renderProgressDescription();
+        throw new sfException('You must specify a valid filename');
       }
-      
+
+      $this->loadCsvData($fh);
+
+      // Set specifics for this csv file
       foreach ($this->csvTests as $test)
       {
-        $test->testRow($this->header, $row);
+        $test->setFilename($filename);
+        $test->setColumnCount($this->getLongestRow());
+      }
+
+      // Iterate csv rows, calling each test/row.
+      foreach ($this->rows as $row)
+      {
+        if ($this->showDisplayProgress)
+        {
+          print $this->renderProgressDescription();
+        }
+        
+        foreach ($this->csvTests as $test)
+        {
+          $test->testRow($this->header, $row);
+        }
+      }
+
+      // foreach tests
+      foreach ($this->csvTests as $testkey => $test)
+      {
+        $this->results[$filename][$testkey] = $test->getTestResult();
+        $test->reset();
       }
     }
 
@@ -169,6 +182,8 @@ class CsvImportValidator
     {
       print $this->renderProgressDescription(true);
     }
+
+    return $this->results;
   }
 
   public function setShowDisplayProgress(bool $value)
@@ -186,18 +201,9 @@ class CsvImportValidator
     $this->context = $context;
   }  
 
-  // Collect all the results from all CSV Validations.
-  // Return array of results sorted by filename.
   public function getResults()
   {
-    $results = array();
-
-    foreach ($this->getCsvTests() as $test)
-    {
-      $results[$test->getFileName()][] = $test->getTestResult();
-    }
-
-    return $results;
+    return $this->results;
   }
 
   public function setCsvTests(array $classes)
@@ -206,7 +212,7 @@ class CsvImportValidator
 
     foreach($classes as $key => $class)
     {
-      $this->csvTests[] = new $class();  
+      $this->csvTests[$key] = new $class();
     }
   }
 
@@ -291,11 +297,14 @@ class CsvImportValidator
     return $this->dbcon;
   }
 
-  public function setFilename(string $filenameString)
+  public function setFilenames(array $filenames)
   {
-    self::validateFileName($filenameString);
+    foreach ($filenames as $filename)
+    {
+      self::validateFileName($filename);
+    }
 
-    $this->filename = $filenameString;
+    $this->filenames = $filenames;
   }
 
   public function getRowCount()

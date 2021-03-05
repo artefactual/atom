@@ -39,6 +39,15 @@ class CsvEmptyRowTest extends CsvBaseTest
     parent::__construct();
 
     $this->setTitle(self::TITLE);
+    $this->reset();
+  }
+
+  public function reset()
+  {
+    $this->headerIsBlank = null;
+    $this->blankRowSummary = [];
+
+    parent::reset();
   }
 
   public function testRow(array $header, array $row)

@@ -76,19 +76,15 @@ EOF;
 
     $filenames = $this->setCsvValidatorFilenames($arguments['filename']);
 
-    foreach ($filenames as $filename)
-    {
-      $validator = new CsvImportValidator(
-        $this->context, $this->getDbConnection(), $validatorOptions);
+    $validator = new CsvImportValidator(
+      $this->context, $this->getDbConnection(), $validatorOptions);
 
-      $validator->setShowDisplayProgress(true);
-      $validator->setFilename($filename);
-      $validator->validate();
-      $results = $validator->getResults();
-      $this->printResults($results);
+    $validator->setShowDisplayProgress(true);
+    $validator->setFilenames($filenames);
+    $results = $validator->validate();
+    $this->printResults($results);
 
-      unset($validator);
-    }
+    unset($validator);
   }
 
   protected function getDbConnection()

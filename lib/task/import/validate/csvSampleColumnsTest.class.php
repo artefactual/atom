@@ -37,6 +37,14 @@ class CsvSampleColumnsTest extends CsvBaseTest
     parent::__construct();
 
     $this->setTitle(self::TITLE);
+    $this->reset();
+  }
+
+  public function reset()
+  {
+    $this->values = [];
+    
+    parent::reset();
   }
 
   public function testRow(array $header, array $row)

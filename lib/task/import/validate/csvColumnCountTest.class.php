@@ -37,6 +37,15 @@ class CsvColumnCountTest extends CsvBaseTest
     parent::__construct();
 
     $this->setTitle(self::TITLE);
+    $this->reset();
+  }
+
+  public function reset()
+  {
+    $this->headerCount = null;
+    $this->rowCountSummary = [];
+    
+    parent::reset();
   }
 
   public function testRow(array $header, array $row)
