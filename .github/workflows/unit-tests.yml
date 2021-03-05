@@ -21,6 +21,7 @@ jobs:
       with:
         php-version: ${{ matrix.php }}
         coverage: none
+        extensions: apcu
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Cache dependencies
