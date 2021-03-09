@@ -121,6 +121,20 @@ class CsvImportValidator
     {
       $this->rows[] = $item;
     }
+
+    // Remove trailing blank lines. Iterate over array from bottom up, 
+    // removing empty rows.
+    for ($i = count($this->rows) - 1; $i >= 0; $i--)
+    {
+      if (!(1 == count($this->rows[$i]) && empty(trim(implode('', $this->rows[$i])))))
+      {
+        return;
+      }
+      else
+      {
+        unset($this->rows[$i]);
+      }
+    }
   }
 
   protected function getLongestRow() : int
@@ -170,7 +184,8 @@ class CsvImportValidator
         }
       }
 
-      // foreach tests
+      // Gather results for this CSV file. 
+      // Call reset() on each test.
       foreach ($this->csvTests as $testkey => $test)
       {
         $this->results[$filename][$testkey] = $test->getTestResult();
@@ -204,6 +219,17 @@ class CsvImportValidator
   public function getResults()
   {
     return $this->results;
+  }
+
+  public function getResultsByFilenameTestname(string $filename, string $testname)
+  {
+    if (isset($filename) && isset($testname))
+    {
+      if (isset($this->results[$filename][$testname]))
+      {
+        return $this->results[$filename][$testname];
+      }
+    }
   }
 
   public function setCsvTests(array $classes)

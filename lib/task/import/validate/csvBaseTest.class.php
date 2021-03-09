@@ -27,6 +27,7 @@
 
 abstract class CsvBaseTest
 {
+  // Integer type to allow comparison of severity values.
   const RESULT_INFO = 0;
   const RESULT_WARN = 1;
   const RESULT_ERROR = 2;
