@@ -69,7 +69,6 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     {
       self::$counter++;
 
-print "ID:". $row['id'] ."\n";
       try
       {
         // Discard cached parent-related data if parent has changed
