@@ -80,6 +80,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
       try
       {
+        // Discard cached parent-related data if parent has changed
         if ($lastParentId != $row['parent_id'])
         {
           unset($options['ancestors']);
@@ -94,7 +95,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
         $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
 
-        // If under a different parent then cache related data
+        // If parent has changed then cache this node's parent-related data
         if ($lastParentId != $row['parent_id'])
         {
           $options['ancestors'] = $node->getAncestors();
@@ -102,6 +103,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
           $option['inheritedCreators'] = $node->inheritedCreators;          
         }
 
+        // Take note of the last indexed node's parent ID
         $lastParentId = $row['parent_id'];
       }
       catch (sfException $e)
