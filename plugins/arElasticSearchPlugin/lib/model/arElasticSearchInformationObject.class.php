@@ -78,7 +78,6 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     {
       self::$counter++;
 
-print 'ID:'. $row['id'] ."\n";
       try
       {
         if ($lastParentId != $row['parent_id'])
