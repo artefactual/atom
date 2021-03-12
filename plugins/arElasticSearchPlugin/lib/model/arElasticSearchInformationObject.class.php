@@ -52,13 +52,8 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     $limit = isset($options['limit']) ? $options['limit'] : $this->count;
 
     // Loop through hierarchy and add to search index
-    $sql = "WITH RECURSIVE cte (id, parent_id) AS (
-              SELECT id, parent_id FROM information_object WHERE parent_id = ?
-              UNION ALL
-              SELECT i.id, i.parent_id FROM information_object i
-              INNER JOIN cte ON i.parent_id = cte.id
-            )
-            SELECT * FROM cte";
+    $sql = "SELECT id, parent_id FROM information_object
+              WHERE id != ? ORDER BY parent_id, id";
 
     $sql .= sprintf(" LIMIT %d, %d", $skip, $limit);
 
@@ -74,6 +69,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     {
       self::$counter++;
 
+print "ID:". $row['id'] ."\n";
       try
       {
         // Discard cached parent-related data if parent has changed
