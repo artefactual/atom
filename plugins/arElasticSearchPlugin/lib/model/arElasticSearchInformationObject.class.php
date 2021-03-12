@@ -53,14 +53,10 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
     // Loop through hierarchy and add to search index
     $sql = "WITH RECURSIVE cte (id, parent_id) AS (
-              SELECT id, parent_id
-              FROM information_object
-              WHERE parent_id = ?
+              SELECT id, parent_id FROM information_object WHERE parent_id = ?
               UNION ALL
-              SELECT i.id, i.parent_id
-              FROM information_object i
-              INNER JOIN cte
-              ON i.parent_id = cte.id
+              SELECT i.id, i.parent_id FROM information_object i
+              INNER JOIN cte ON i.parent_id = cte.id
             )
             SELECT * FROM cte";
 
