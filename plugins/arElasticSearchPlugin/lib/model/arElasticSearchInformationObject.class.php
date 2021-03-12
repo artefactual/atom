@@ -41,15 +41,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
   {
     $this->load();
 
-    // Pass root data to top-levels to avoid ancestors query
-    $ancestors = array(array(
-      'id' => QubitInformationObject::ROOT_ID,
-      'identifier' => null,
-      'repository_id' => null
-    ));
-
-    // Recursively descend down hierarchy
-    $this->addInformationObjects(['ancestors' => $ancestors]);
+    $this->addInformationObjects();
 
     return $this->errors;
   }
@@ -59,10 +51,19 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     $skip = isset($options['skip']) ? $options['skip'] : 0;
     $limit = isset($options['limit']) ? $options['limit'] : $this->count;
 
-    // Loop through children and add to search index
-    $sql = "SELECT id, parent_id FROM information_object";
-    $sql .= " WHERE id <> ? ";
-    $sql .= " ORDER BY lft, parent_id, id ";
+    // Loop through hierarchy and add to search index
+    $sql = "WITH RECURSIVE cte (id, parent_id) AS (
+              SELECT id, parent_id
+              FROM information_object
+              WHERE parent_id = ?
+              UNION ALL
+              SELECT i.id, i.parent_id
+              FROM information_object i
+              INNER JOIN cte
+              ON i.parent_id = cte.id
+            )
+            SELECT * FROM cte";
+
     $sql .= sprintf(" LIMIT %d, %d", $skip, $limit);
 
     $rows = QubitPdo::fetchAll(
@@ -71,22 +72,20 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
       ['fetchMode' => PDO::FETCH_ASSOC]
     );
 
+    $lastParentId = null;
+
     foreach ($rows as $row)
     {
-      $ancestors = $inheritedCreators = array();
-      $repository = null;
       self::$counter++;
 
 print 'ID:'. $row['id'] ."\n";
       try
       {
-        if ($row['parent_id'] == 1)
+        if ($lastParentId != $row['parent_id'])
         {
-          $options['ancestors'] = array(array(
-            'id' => QubitInformationObject::ROOT_ID,
-            'identifier' => null,
-            'repository_id' => null
-          ));
+          unset($options['ancestors']);
+          unset($options['repository']);
+          unset($option['inheritedCreators']);
         }
 
         $node = new arElasticSearchInformationObjectPdo($row['id'], $options);
@@ -96,17 +95,15 @@ print 'ID:'. $row['id'] ."\n";
 
         $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
 
-        $options['ancestors'] = array_merge($node->getAncestors(), array(array(
-          'id' => $node->id,
-          'identifier' => $node->identifier,
-          'repository_id' => $node->repository_id
-        )));
-        $options['repository'] = $node->getRepository();
-        $option['inheritedCreators'] = array_merge($node->inheritedCreators, $node->creators);
+        // If under a different parent then cache related data
+        if ($lastParentId != $row['parent_id'])
+        {
+          $options['ancestors'] = $node->getAncestors();
+          $options['repository'] = $node->getRepository();
+          $option['inheritedCreators'] = $node->inheritedCreators;          
+        }
 
-#$options['ancestors'] = $ancestors;
-#$options['inheritedCreators'] = $inheritedCreators;
-#$options['repository'] = $repository;
+        $lastParentId = $row['parent_id'];
       }
       catch (sfException $e)
       {
