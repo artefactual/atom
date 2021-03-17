@@ -21,7 +21,7 @@ class qubitConfiguration extends sfApplicationConfiguration
 {
   const
     // Required format: x.y.z
-    VERSION = '2.6.2';
+    VERSION = '2.6.3';
 
   public function responseFilterContent(sfEvent $event, $content)
   {
