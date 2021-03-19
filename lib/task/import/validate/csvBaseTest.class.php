@@ -45,6 +45,8 @@ abstract class CsvBaseTest
   protected $columnCount = 0;
   protected $rowNumber = 1;
   protected $title = '';
+  protected $options = [];
+  protected $ormClasses = [];
 
   public function __construct()
   {
@@ -99,8 +101,18 @@ abstract class CsvBaseTest
       $row[] = '';
     }
 
-    // return array_combined row
-    return array_combine($header, $row);
+    // return array_combined row, trim each element.
+    return array_map('trim', array_combine($header, $row));
+  }
+
+  public function setOrmClasses(array $classes)
+  {
+    $this->ormClasses = $classes;
+  }
+
+  public function setOptions(array $options)
+  {
+    $this->options = $options;
   }
 
   public function setFilename(string $filename)
@@ -140,6 +152,8 @@ abstract class CsvBaseTest
 
   public function getTestResult()
   {
+    $this->addTestResult(self::TEST_STATUS, self::RESULT_INFO);
+    
     return $this->testData;
   }
 }

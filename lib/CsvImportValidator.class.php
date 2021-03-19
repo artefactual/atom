@@ -30,12 +30,13 @@ class CsvImportValidator
 {
   protected $context;
   protected $dbcon;
-  protected $filenames = array();
+  protected $filenames = [];
   protected $csvTests = null;
   protected $header;
-  protected $rows = array();
+  protected $rows = [];
   protected $showDisplayProgress = false;
-  protected $results = array();
+  protected $results = [];
+  protected $ormClasses = [];
 
   const UTF8_BOM = "\xEF\xBB\xBF";
   const UTF16_LITTLE_ENDIAN_BOM = "\xFF\xFE";
@@ -53,11 +54,12 @@ class CsvImportValidator
 
   // Default options
   protected $validatorOptions = [
-    'importType' => 'QubitInformationObject',
+    'className'  => 'QubitInformationObject',
     'verbose'    => false,
+    'source'     => '',
   ];
 
-  protected $defaultCsvTypeMap = [
+  protected $defaultCsvClassNameList = [
     'QubitInformationObject',
   ];
 
@@ -80,6 +82,13 @@ class CsvImportValidator
         'CsvColumnCountTest'      => CsvColumnCountTest::class,
         'CsvEmptyRowTest'         => CsvEmptyRowTest::class,
         'CsvSampleColumnsTest'    => CsvSampleColumnsTest::class,
+        'CsvParentIdTest'         => CsvParentIdTest::class,
+      ]
+    );
+
+    $this->setOrmClasses(
+      [
+        'QubitFlatfileImport'    => QubitFlatfileImport::class,
       ]
     );
   }
@@ -166,6 +175,8 @@ class CsvImportValidator
       // Set specifics for this csv file
       foreach ($this->csvTests as $test)
       {
+        $test->setOptions($this->getOptions());
+        $test->setOrmClasses($this->ormClasses);
         $test->setFilename($filename);
         $test->setColumnCount($this->getLongestRow());
       }
@@ -232,6 +243,11 @@ class CsvImportValidator
     }
   }
 
+  public function setOrmClasses(array $classes)
+  {
+    $this->ormClasses = $classes;
+  }
+
   public function setCsvTests(array $classes)
   {
     unset($this->csvTests);
@@ -260,11 +276,35 @@ class CsvImportValidator
     }
   }
 
-  public function setImportType(string $value)
+  public function setOption(string $name, $value)
   {
-    if (in_array($value, $this->defaultCsvTypeMap))
+    switch ($name)
     {
-      $this->validatorOptions['importType'] = $value;
+      case 'className':
+        $this->setClassName($value);
+
+        break;
+
+      case 'verbose':
+        $this->setVerbose($value);
+
+        break;
+
+      case 'source':
+        $this->setSource($value);
+
+        break;
+
+      default:
+        throw new UnexpectedValueException(sprintf('Invalid option "%s".', $name));
+    }
+  }
+
+  public function setClassName(string $value)
+  {
+    if (in_array($value, $this->defaultCsvClassNameList))
+    {
+      $this->validatorOptions['className'] = $value;
     }
     else
     {
@@ -277,23 +317,9 @@ class CsvImportValidator
     $this->validatorOptions['verbose'] = $value;
   }
 
-  public function setOption(string $name, $value)
+  public function setSource(string $value)
   {
-    switch ($name)
-    {
-      case 'importType':
-        $this->setImportType($value);
-
-        break;
-
-      case 'verbose':
-        $this->setVerbose($value);
-
-        break;
-
-      default:
-        throw new UnexpectedValueException(sprintf('Invalid option "%s".', $name));
-    }
+    $this->validatorOptions['source'] = $value;
   }
 
   public function getOption(String $name)

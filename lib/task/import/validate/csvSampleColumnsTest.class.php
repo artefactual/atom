@@ -18,7 +18,7 @@
  */
 
 /**
- * CSV Sample Values test. Outputs column names and a sample value from first
+ * CSV Sample Values test. Output column names and a sample value from first
  * populated row found. Only populated columns are included.
  * 
  * @package    symfony

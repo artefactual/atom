@@ -16,6 +16,11 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
 
     $this->csvHeaderShort = 'legacyId,parentId,identifier,title,levelOfDescription,repository,culture';
     $this->csvHeaderLong = 'legacyId,parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture,extraHeading';
+
+    $this->csvHeaderMissingParentId = 'legacyId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
+    $this->csvHeaderMissingLegacyId = 'parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
+    $this->csvHeaderMissingParentIdLegacyId = 'identifier,title,levelOfDescription,extentAndMedium,repository,culture';
+
     $this->csvHeaderBlank = '';
     $this->csvHeaderBlankWithCommas = ',,,';
 
@@ -31,6 +36,54 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
       '"","","","Chemise","","","","fr"',
       '"D20202", "DJ002", "", "Voûte, étagère 0074", "", "", "", ""',
       '"", "DJ003", "ID4", "Title Four", "","", "", "en"',
+    );
+
+    $this->csvDataMissingParentId = array(
+      // Note: leading and trailing whitespace in first row is intentional
+      '"B10101 ","ID1 ","Some Photographs","","Extent and medium 1","",""',
+      '"","","Chemise","","","","fr"',
+      '"D20202", "", "Voûte, étagère 0074", "", "", "", ""',
+      '"", "ID4", "Title Four", "","", "", "en"',
+    );
+
+    $this->csvDataMissingLegacyId = array(
+      // Note: leading and trailing whitespace in first row is intentional
+      '" DJ001","ID1 ","Some Photographs","","Extent and medium 1","",""',
+      '"","","Chemise","","","","fr"',
+      '"DJ002", "", "Voûte, étagère 0074", "", "", "", ""',
+      '"DJ003", "ID4", "Title Four", "","", "", "en"',
+    );
+
+    $this->csvDataMissingParentIdLegacyId = array(
+      // Note: leading and trailing whitespace in first row is intentional
+      '"ID1 ","Some Photographs","","Extent and medium 1","",""',
+      '"","Chemise","","","","fr"',
+      '"", "Voûte, étagère 0074", "", "", "", ""',
+      '"ID4", "Title Four", "","", "", "en"',
+    );
+
+    $this->csvDataParentIdColumnEmpty = array(
+      // Note: leading and trailing whitespace in first row is intentional
+      '"B10101 "," ","ID1 ","Some Photographs","","Extent and medium 1","",""',
+      '"","","","Chemise","","","","fr"',
+      '"D20202", "", "", "Voûte, étagère 0074", "", "", "", ""',
+      '"X7", "", "ID4", "Title Four", "","", "", "en"',
+    );
+
+    $this->csvDataParentIdMatches = array(
+      // Note: leading and trailing whitespace in first row is intentional
+      '"B10101 "," ","ID1 ","Some Photographs","","Extent and medium 1","",""',
+      '"","","","Chemise","","","","fr"',
+      '"D20202", "B10101 ", "", "Voûte, étagère 0074", "", "", "", ""',
+      '"X7", "", "ID4", "Title Four", "","", "", "en"',
+    );
+
+    $this->csvDataParentIdMatchesInKeymap = array(
+      // Note: leading and trailing whitespace in first row is intentional
+      '"B10101 "," ","ID1 ","Some Photographs","","Extent and medium 1","",""',
+      '"","","","Chemise","","","","fr"',
+      '"D20202", "A10101 ", "", "Voûte, étagère 0074", "", "", "", ""',
+      '"X7", "", "ID4", "Title Four", "","", "", "en"',
     );
 
     $this->csvDataShortRow = array(
@@ -104,6 +157,12 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
       'unix_csv_with_empty_rows_with_commas.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataEmptyRowsWithCommas),
       'unix_csv_with_empty_rows_header.csv' => $this->csvHeaderBlank . "\n" . implode("\n", $this->csvDataEmptyRows),
       'unix_csv_with_empty_rows_header_with_commas.csv' => $this->csvHeaderBlankWithCommas . "\n" . implode("\n", $this->csvDataEmptyRowsWithCommas),
+      'unix_csv_missing_parent_id.csv' => $this->csvHeaderMissingParentId . "\n" . implode("\n", $this->csvDataMissingParentId),
+      'unix_csv_missing_legacy_id.csv' => $this->csvHeaderMissingLegacyId . "\n" . implode("\n", $this->csvDataMissingLegacyId),
+      'unix_csv_missing_parent_id_legacy_id.csv' => $this->csvHeaderMissingParentIdLegacyId . "\n" . implode("\n", $this->csvDataMissingParentIdLegacyId),
+      'unix_csv_parent_id_column_empty.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataParentIdColumnEmpty),
+      'unix_csv_parent_id_matches.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataParentIdMatches),
+      'unix_csv_parent_id_matches_in_keymap.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataParentIdMatchesInKeymap),
       'root.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvData),
     ];
 
@@ -112,6 +171,10 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
     $file = $this->vfs->getChild('root/root.csv');
     $file->chmod('0400');
     $file->chown(vfsStream::OWNER_ROOT);
+
+    $this->ormClasses = [
+      'QubitFlatfileImport'   => \AccessToMemory\test\mock\QubitFlatfileImport::class,
+    ];
   }
 
   /**************************************************************************
@@ -147,18 +210,18 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
     $csvValidator = new CsvImportValidator($this->context, null, $options);
   }
 
-  public function testSetValidImportTypeOption()
+  public function testSetValidClassNameOption()
   {
     $csvValidator = new CsvImportValidator($this->context, null, null);
-    $csvValidator->setOption('importType', 'QubitInformationObject');
-    $this->assertSame('QubitInformationObject', $csvValidator->getOption('importType'));
+    $csvValidator->setOption('className', 'QubitInformationObject');
+    $this->assertSame('QubitInformationObject', $csvValidator->getOption('className'));
   }
 
-  public function testSetInvalidImportTypeOption()
+  public function testSetInvalidClassNameOption()
   {
     $this->expectException(UnexpectedValueException::class);
     $csvValidator = new CsvImportValidator($this->context, null, null);
-    $csvValidator->setOption('importType', 'QubitAccession');
+    $csvValidator->setOption('className', 'QubitAccession');
   }
 
   public function testSetValidVerboseTypeOption()
@@ -168,11 +231,19 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
     $this->assertSame(true, $csvValidator->getOption('verbose'));
   }
 
+  public function testSetSourceOption()
+  {
+    $csvValidator = new CsvImportValidator($this->context, null, null);
+    $csvValidator->setOption('source', 'testfilename.csv');
+    $this->assertSame('testfilename.csv', $csvValidator->getOption('source'));
+  }
+
   public function testDefaultOptions()
   {
     $csvValidator = new CsvImportValidator($this->context, null, null);
     $this->assertSame(false, $csvValidator->getOption('verbose'));
-    $this->assertSame('QubitInformationObject', $csvValidator->getOption('importType'));
+    $this->assertSame('QubitInformationObject', $csvValidator->getOption('className'));
+    $this->assertSame('', $csvValidator->getOption('source'));
   }
 
   /**************************************************************************
@@ -183,6 +254,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
     $csvValidator->setCsvTests($tests);
     $csvValidator->setFilenames(explode(",", $filenames));
     $csvValidator->setVerbose($verbose);
+    $csvValidator->setOrmClasses($this->ormClasses);
 
     return $csvValidator->validate();
   }
@@ -192,11 +264,12 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
    * 
    * Generic test - options and expected results from csvValidatorTestProvider()
    */
-  public function testCsvValidator($options) //, $expectedResult)
+  public function testCsvValidator($options)
   {
     $filename = $this->vfs->url() . $options['filename'];
+    $validatorOptions = isset($options['validatorOptions']) ? $options['validatorOptions'] : null;
 
-    $csvValidator = new CsvImportValidator($this->context, null, null);
+    $csvValidator = new CsvImportValidator($this->context, null, $validatorOptions);
     $this->runValidator($csvValidator, $filename, $options['csvValidatorClasses']);
     $result = $csvValidator->getResultsByFilenameTestname($filename, $options['testname']);
     
@@ -366,7 +439,6 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
        * CSV Sample Values test. Outputs column names and a sample value from first
        * populated row found. Only populated columns are included.
        **************************************************************************/
-
       [
         "CsvSampleColumnsTest-testSampleValues" => [
           "csvValidatorClasses" => [ 'CsvSampleColumnsTest' => CsvSampleColumnsTest::class ],
@@ -375,9 +447,9 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
           CsvBaseTest::TEST_TITLE => CsvSampleColumnsTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvSampleColumnsTest::RESULT_INFO,
           CsvBaseTest::TEST_RESULTS => [
-            'legacyId:  B10101 ',
-            'parentId:   DJ001',
-            'identifier:  ID1 ',
+            'legacyId:  B10101',
+            'parentId:  DJ001',
+            'identifier:  ID1',
             'title:  Some Photographs',
             'extentAndMedium:  Extent and medium 1',
             'culture:  fr',
@@ -393,7 +465,6 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
        * columns/elements.
        * 
        **************************************************************************/
-
       [
         "CsvColumnCountTest-testColumnsEqualLength" => [
           "csvValidatorClasses" => [ 'CsvColumnCountTest' => CsvColumnCountTest::class ],
@@ -506,7 +577,6 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
        * Test if the header or any rows are empty.
        *
        **************************************************************************/
-
       [
         "CsvEmptyRowTest-testNoEmptyRows" => [
           "csvValidatorClasses" => [ 'CsvEmptyRowTest' => CsvEmptyRowTest::class ],
@@ -587,7 +657,155 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
         ],
       ],
 
-      // testMultiFile
+      /**************************************************************************
+       * Test csvParentIdTest.class.php
+       *
+       * Test if the header or any rows are empty.
+       * 
+       * parentId col missing *
+       * legacyId col missing *
+       * parentId not populated *
+       * parentId populated - matches legacyId in file - source populated *
+       * parentId populated - matches legacyId in file - source field not populated *
+       * parentId populated - matches in keymap table - source populated
+       * parentId populated - matches in keymap table - source field not populated
+       * parentId populated - no match *
+       **************************************************************************/
+      [
+        "CsvParentIdTest-ParentIdColumnMissing" => [
+          "csvValidatorClasses" => [ 'CsvParentIdTest' => CsvParentIdTest::class ],
+          "filename" => '/unix_csv_missing_parent_id.csv',
+          "testname" => 'CsvParentIdTest',
+          CsvBaseTest::TEST_TITLE => CsvParentIdTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvParentIdTest::RESULT_WARN,
+          CsvBaseTest::TEST_RESULTS => [
+            "'parentId' column not found. CSV contents will be imported as top level records.",
+          ],
+          CsvBaseTest::TEST_DETAIL => [
+          ],
+        ],
+      ],
+
+      [
+        "CsvParentIdTest-LegacyIdColumnMissing" => [
+          "csvValidatorClasses" => [ 'CsvParentIdTest' => CsvParentIdTest::class ],
+          "filename" => '/unix_csv_missing_legacy_id.csv',
+          "testname" => 'CsvParentIdTest',
+          CsvBaseTest::TEST_TITLE => CsvParentIdTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvParentIdTest::RESULT_ERROR,
+          CsvBaseTest::TEST_RESULTS => [
+            'Rows with parentId populated: 3.',
+            '\'legacyId\' column not found. Unable to match parentId to CSV rows.',
+            'Not checking AtoM\'s keymap table for previously imported parent records because \'source\' option not specified.',
+            'Unable to find parents for 3 rows. These rows will be imported as top level records.',
+          ],
+          CsvBaseTest::TEST_DETAIL => [
+            'DJ001,ID1,Some Photographs,,Extent and medium 1,,',
+            'DJ002,,Voûte, étagère 0074,,,,',
+            'DJ003,ID4,Title Four,,,,en',
+          ],
+        ],
+      ],
+      
+      [
+        "CsvParentIdTest-ParentIdColumnEmpty" => [
+          "csvValidatorClasses" => [ 'CsvParentIdTest' => CsvParentIdTest::class ],
+          "filename" => '/unix_csv_parent_id_column_empty.csv',
+          "testname" => 'CsvParentIdTest',
+          CsvBaseTest::TEST_TITLE => CsvParentIdTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvParentIdTest::RESULT_INFO,
+          CsvBaseTest::TEST_RESULTS => [
+            'Rows with parentId populated: 0.',
+          ],
+          CsvBaseTest::TEST_DETAIL => [
+          ],
+        ],
+      ],
+
+      [
+        "CsvParentIdTest-ParentIdNoMatches" => [
+          "csvValidatorClasses" => [ 'CsvParentIdTest' => CsvParentIdTest::class ],
+          "filename" => '/unix_csv_without_utf8_bom.csv',
+          "testname" => 'CsvParentIdTest',
+          CsvBaseTest::TEST_TITLE => CsvParentIdTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvParentIdTest::RESULT_ERROR,
+          CsvBaseTest::TEST_RESULTS => [
+            'Rows with parentId populated: 3.',
+            'Not checking AtoM\'s keymap table for previously imported parent records because \'source\' option not specified.',
+            'Unable to find parents for 3 rows. These rows will be imported as top level records.',
+          ],
+          CsvBaseTest::TEST_DETAIL => [
+            'B10101,DJ001,ID1,Some Photographs,,Extent and medium 1,,',
+            'D20202,DJ002,,Voûte, étagère 0074,,,,',
+            ',DJ003,ID4,Title Four,,,,en',
+          ],
+        ],
+      ],
+
+      [
+        "CsvParentIdTest-ParentIdMatchesInFile" => [
+          "csvValidatorClasses" => [ 'CsvParentIdTest' => CsvParentIdTest::class ],
+          "filename" => '/unix_csv_parent_id_matches.csv',
+          "testname" => 'CsvParentIdTest',
+          CsvBaseTest::TEST_TITLE => CsvParentIdTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvParentIdTest::RESULT_INFO,
+          CsvBaseTest::TEST_RESULTS => [
+            'Rows with parentId populated: 1.',
+          ],
+          CsvBaseTest::TEST_DETAIL => [
+          ],
+        ],
+      ],
+
+      [
+        "CsvParentIdTest-ParentIdMatchesInFileWithSourceOption" => [
+          "csvValidatorClasses" => [ 'CsvParentIdTest' => CsvParentIdTest::class ],
+          "filename" => '/unix_csv_parent_id_matches.csv',
+          "testname" => 'CsvParentIdTest',
+          "validatorOptions" => [ 'source' => 'testsourcefile.csv' ],
+          CsvBaseTest::TEST_TITLE => CsvParentIdTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvParentIdTest::RESULT_INFO,
+          CsvBaseTest::TEST_RESULTS => [
+            'Rows with parentId populated: 1.',
+          ],
+          CsvBaseTest::TEST_DETAIL => [
+          ],
+        ],
+      ],
+
+      [
+        "CsvParentIdTest-ParentIdMatchesInKeymap" => [
+          "csvValidatorClasses" => [ 'CsvParentIdTest' => CsvParentIdTest::class ],
+          "filename" => '/unix_csv_parent_id_matches_in_keymap.csv',
+          "testname" => 'CsvParentIdTest',
+          CsvBaseTest::TEST_TITLE => CsvParentIdTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvParentIdTest::RESULT_ERROR,
+          CsvBaseTest::TEST_RESULTS => [
+            'Rows with parentId populated: 1.',
+            'Not checking AtoM\'s keymap table for previously imported parent records because \'source\' option not specified.',
+            'Unable to find parents for 1 rows. These rows will be imported as top level records.',
+          ],
+          CsvBaseTest::TEST_DETAIL => [
+            'D20202,A10101,,Voûte, étagère 0074,,,,',
+          ],
+        ],
+      ],
+
+      [
+        "CsvParentIdTest-ParentIdMatchesInKeymapWithSourceOption" => [
+          "csvValidatorClasses" => [ 'CsvParentIdTest' => CsvParentIdTest::class ],
+          "filename" => '/unix_csv_parent_id_matches_in_keymap.csv',
+          "testname" => 'CsvParentIdTest',
+          "validatorOptions" => [ 'source' => 'testsourcefile.csv' ],
+          CsvBaseTest::TEST_TITLE => CsvParentIdTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvParentIdTest::RESULT_INFO,
+          CsvBaseTest::TEST_RESULTS => [
+            'Rows with parentId populated: 1.',
+          ],
+          CsvBaseTest::TEST_DETAIL => [
+          ],
+        ],
+      ],
 
     ];
 

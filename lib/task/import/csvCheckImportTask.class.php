@@ -50,6 +50,15 @@ class csvCheckImportTask extends arBaseTask
         sfCommandOption::PARAMETER_NONE,
         'Provide detailed information regarding each test'
       ),
+      new sfCommandOption('source', null,
+        sfCommandOption::PARAMETER_REQUIRED,
+        'Source name for validating parentId matching against previous imports. If not set, parentId validation against AtoM\'s database will be skipped.'
+      ),
+      new sfCommandOption('class-name', null,
+        sfCommandOption::PARAMETER_REQUIRED,
+        'Qubit object type contained in CSV.',
+        'QubitInformationObject'
+      ),
     ));
 
     $this->namespace = 'csv';
@@ -117,6 +126,8 @@ EOF;
     //$validatorOptions = [];
     $keymap = [
       'verbose'           => 'verbose',
+      'source'            => 'source',
+      'class-name'        => 'className',
     ];
 
     foreach ($keymap as $oldkey => $newkey)
@@ -135,6 +146,8 @@ EOF;
   protected function validateOptions($options = [])
   {
     // Throw exception here if set option is invalid.
+    
+    // TODO: Add validation of class-name
   }
 
   protected function printResults(array $results)
@@ -155,11 +168,11 @@ EOF;
           printf("%s\n", $line);
         }
 
-        if ($this->verbose && 0 < count($testResult['affectedRows']))
+        if ($this->verbose && 0 < count($testResult['details']))
         {
           printf("\nDetails:\n");
 
-          foreach($testResult['affectedRows'] as $line)
+          foreach($testResult['details'] as $line)
           {
             printf("%s\n", $line);
           }
