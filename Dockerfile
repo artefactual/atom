@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-alpine
+FROM php:7.4-fpm-alpine
 
 ENV FOP_HOME=/usr/share/fop-2.1 \
     COMPOSER_ALLOW_SUPERUSER=1 \
@@ -11,6 +11,7 @@ RUN set -xe \
       zlib-dev \
       libmemcached-dev \
       libzip-dev \
+      oniguruma-dev \
       autoconf \
       build-base \
     && docker-php-ext-install \
@@ -49,7 +50,7 @@ RUN set -xe \
     && curl -Ls https://archive.apache.org/dist/xmlgraphics/fop/binaries/fop-2.1-bin.tar.gz | tar xz -C /usr/share \
     && ln -sf /usr/share/fop-2.1/fop /usr/local/bin/fop
 
-COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY composer.* /atom/build/
 
