@@ -76,7 +76,7 @@ if (!file_exists(_ATOM_DIR.'/apps/qubit/config/settings.yml'))
 #
 
 @unlink(_ATOM_DIR.'/config/propel.ini');
-touch(_ATOM_DIR.'/config/propel.ini');
+copy(_ATOM_DIR.'/config/propel.ini.tmpl', _ATOM_DIR.'/config/propel.ini');
 
 
 #
