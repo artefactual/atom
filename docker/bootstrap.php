@@ -296,9 +296,38 @@ pm.max_children = 5
 pm.start_servers = 2
 pm.min_spare_servers = 1
 pm.max_spare_servers = 3
-env[ATOM_DEBUG_IP] = ${CONFIG['atom.debug_ip']}
 
 EOT;
+
+// Get debug IPs:
+// - Always add the env. var. if it's defined.
+// - In dev. mode, find and append the container gateway
+//   if it's not the same, to allow access from the host.
+$debugIps = [];
+
+if ($CONFIG['atom.debug_ip'])
+{
+  $debugIps[] = $CONFIG['atom.debug_ip'];
+}
+
+if ($CONFIG['atom.development_mode'])
+{
+  $ret = exec('ip -4 route show default | cut -d" " -f3');
+
+  if ($ret && $ret != $CONFIG['atom.debug_ip'])
+  {
+    $debugIps[] = $ret;
+  }
+}
+
+if ($debugIps)
+{
+  $debugIps = implode(',', $debugIps);
+  $fpm_ini .= <<<EOT
+env[ATOM_DEBUG_IP] = ${debugIps}
+
+EOT;
+}
 
 @unlink(_ETC_DIR.'/php-fpm.d/atom.conf');
 file_put_contents(_ETC_DIR.'/php-fpm.d/atom.conf', $fpm_ini);
