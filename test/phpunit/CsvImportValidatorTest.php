@@ -21,6 +21,9 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
     $this->csvHeaderMissingLegacyId = 'parentId,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
     $this->csvHeaderMissingParentIdLegacyId = 'identifier,title,levelOfDescription,extentAndMedium,repository,culture';
 
+    $this->csvHeaderWithQubitParentSlug = 'legacyId,qubitParentSlug,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
+    $this->csvHeaderWithParentIdQubitParentSlug = 'legacyId,parentId,qubitParentSlug,identifier,title,levelOfDescription,extentAndMedium,repository,culture';
+
     $this->csvHeaderBlank = '';
     $this->csvHeaderBlankWithCommas = ',,,';
 
@@ -84,6 +87,30 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
       '"","","","Chemise","","","","fr"',
       '"D20202", "A10101 ", "", "Voûte, étagère 0074", "", "", "", ""',
       '"X7", "", "ID4", "Title Four", "","", "", "en"',
+    );
+
+    $this->csvDataQubitParentSlugEmpty = array(
+      // Note: leading and trailing whitespace in first row is intentional
+      '"B10101 "," ","ID1 ","Some Photographs","","Extent and medium 1","",""',
+      '"C10101","","","Chemise","","","","fr"',
+      '"D20202", "", "", "Voûte, étagère 0074", "", "", "", ""',
+      '"X7", "", "ID4", "Title Four", "","", "", "en"',
+    );
+
+    $this->csvDataQubitParentSlug = array(
+      // Note: leading and trailing whitespace in first row is intentional
+      '"B10101 "," ","ID1 ","Some Photographs","","Extent and medium 1","",""',
+      '"C10101","","","Chemise","","","","fr"',
+      '"D20202", "parent-slug", "", "Voûte, étagère 0074", "", "", "", ""',
+      '"X7", "", "ID4", "Title Four", "","", "", "en"',
+    );
+
+    $this->csvDataParentIdAndQubitParentSlug = array(
+      // Note: leading and trailing whitespace in first row is intentional
+      '"B10101 ", "", " ","ID1 ","Some Photographs","","Extent and medium 1","",""',
+      '"C10101","B10101","","","Chemise","","","","fr"',
+      '"D20202", "C10101", "parent-slug", "", "Voûte, étagère 0074", "", "", "", ""',
+      '"X7","", "parent-slug-again", "ID4", "Title Four", "","", "", "en"',
     );
 
     $this->csvDataShortRow = array(
@@ -163,6 +190,9 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
       'unix_csv_parent_id_column_empty.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataParentIdColumnEmpty),
       'unix_csv_parent_id_matches.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataParentIdMatches),
       'unix_csv_parent_id_matches_in_keymap.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvDataParentIdMatchesInKeymap),
+      'unix_csv_qubit_parent_slug_empty.csv' => $this->csvHeaderWithQubitParentSlug . "\n" . implode("\n", $this->csvDataQubitParentSlugEmpty),
+      'unix_csv_qubit_parent_slug.csv' => $this->csvHeaderWithQubitParentSlug . "\n" . implode("\n", $this->csvDataQubitParentSlug),
+      'unix_csv_parent_id_and_qubit_parent_slug.csv' => $this->csvHeaderWithParentIdQubitParentSlug . "\n" . implode("\n", $this->csvDataParentIdAndQubitParentSlug),
       'root.csv' => $this->csvHeader . "\n" . implode("\n", $this->csvData),
     ];
 
@@ -660,16 +690,22 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
       /**************************************************************************
        * Test csvParentIdTest.class.php
        *
-       * Test if the header or any rows are empty.
+       * Test parent matching.
        * 
        * parentId col missing *
        * legacyId col missing *
        * parentId not populated *
        * parentId populated - matches legacyId in file - source populated *
        * parentId populated - matches legacyId in file - source field not populated *
-       * parentId populated - matches in keymap table - source populated
-       * parentId populated - matches in keymap table - source field not populated
+       * parentId populated - matches in keymap table - source populated *
+       * parentId populated - matches in keymap table - source field not populated *
        * parentId populated - no match *
+       * qubitParentSlug not populated
+       * qubitParentSlug populated - no match
+       * qubitParentSlug populated - matches db
+       * parentId and qubitParentSlug not populated
+       * parentId and qubitParentSlug both populated and matching
+       * parentId and qubitParentSlug both populated no match
        **************************************************************************/
       [
         "CsvParentIdTest-ParentIdColumnMissing" => [
@@ -679,7 +715,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
           CsvBaseTest::TEST_TITLE => CsvParentIdTest::TITLE,
           CsvBaseTest::TEST_STATUS => CsvParentIdTest::RESULT_WARN,
           CsvBaseTest::TEST_RESULTS => [
-            "'parentId' column not found. CSV contents will be imported as top level records.",
+            "'parentId' and 'qubitParentSlugColumnPresent' columns not present. CSV contents will be imported as top level records.",
           ],
           CsvBaseTest::TEST_DETAIL => [
           ],
@@ -696,7 +732,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
           CsvBaseTest::TEST_RESULTS => [
             'Rows with parentId populated: 3.',
             '\'legacyId\' column not found. Unable to match parentId to CSV rows.',
-            'Not checking AtoM\'s keymap table for previously imported parent records because \'source\' option not specified.',
+            "'source' option not specified. Unable to check parentId values against AtoM's database.",
             'Unable to find parents for 3 rows. These rows will be imported as top level records.',
           ],
           CsvBaseTest::TEST_DETAIL => [
@@ -731,7 +767,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
           CsvBaseTest::TEST_STATUS => CsvParentIdTest::RESULT_ERROR,
           CsvBaseTest::TEST_RESULTS => [
             'Rows with parentId populated: 3.',
-            'Not checking AtoM\'s keymap table for previously imported parent records because \'source\' option not specified.',
+            "'source' option not specified. Unable to check parentId values against AtoM's database.",
             'Unable to find parents for 3 rows. These rows will be imported as top level records.',
           ],
           CsvBaseTest::TEST_DETAIL => [
@@ -782,7 +818,7 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
           CsvBaseTest::TEST_STATUS => CsvParentIdTest::RESULT_ERROR,
           CsvBaseTest::TEST_RESULTS => [
             'Rows with parentId populated: 1.',
-            'Not checking AtoM\'s keymap table for previously imported parent records because \'source\' option not specified.',
+            "'source' option not specified. Unable to check parentId values against AtoM's database.",
             'Unable to find parents for 1 rows. These rows will be imported as top level records.',
           ],
           CsvBaseTest::TEST_DETAIL => [
@@ -803,6 +839,39 @@ class CsvImportValidatorTest extends \PHPUnit\Framework\TestCase
             'Rows with parentId populated: 1.',
           ],
           CsvBaseTest::TEST_DETAIL => [
+          ],
+        ],
+      ],
+
+
+      [
+        "CsvParentIdTest-QubitParentSlugEmpty" => [
+          "csvValidatorClasses" => [ 'CsvParentIdTest' => CsvParentIdTest::class ],
+          "filename" => '/unix_csv_qubit_parent_slug_empty.csv',
+          "testname" => 'CsvParentIdTest',
+          CsvBaseTest::TEST_TITLE => CsvParentIdTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvParentIdTest::RESULT_INFO,
+          CsvBaseTest::TEST_RESULTS => [
+            'Rows with qubitParentSlug populated: 0.',
+          ],
+          CsvBaseTest::TEST_DETAIL => [
+          ],
+        ],
+      ],
+
+      [
+        "CsvParentIdTest-QubitParentSlug" => [
+          "csvValidatorClasses" => [ 'CsvParentIdTest' => CsvParentIdTest::class ],
+          "filename" => '/unix_csv_qubit_parent_slug.csv',
+          "testname" => 'CsvParentIdTest',
+          CsvBaseTest::TEST_TITLE => CsvParentIdTest::TITLE,
+          CsvBaseTest::TEST_STATUS => CsvParentIdTest::RESULT_ERROR,
+          CsvBaseTest::TEST_RESULTS => [
+            'Rows with qubitParentSlug populated: 1.',
+            'Unable to find parents for 1 rows. These rows will be imported as top level records.',
+          ],
+          CsvBaseTest::TEST_DETAIL => [
+            'D20202,parent-slug,,Voûte, étagère 0074,,,,'
           ],
         ],
       ],
