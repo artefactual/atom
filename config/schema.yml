@@ -98,6 +98,7 @@ propel:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     object_id: { type: integer, foreignTable: object, foreignReference: id, onDelete: cascade }
     usage_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    language: varchar(50)
     mime_type: varchar(255)
     media_type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     name: { type: varchar(1024), required: true }

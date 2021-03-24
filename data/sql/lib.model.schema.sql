@@ -316,6 +316,7 @@ CREATE TABLE `digital_object`
 	`id` INTEGER  NOT NULL,
 	`object_id` INTEGER,
 	`usage_id` INTEGER,
+	`language` VARCHAR(50),
 	`mime_type` VARCHAR(255),
 	`media_type_id` INTEGER,
 	`name` VARCHAR(1024)  NOT NULL,

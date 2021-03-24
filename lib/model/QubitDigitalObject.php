@@ -912,6 +912,7 @@ class QubitDigitalObject extends BaseDigitalObject
       'vss' => 'application/vnd.visio',
       'vst' => 'application/vnd.visio',
       'vsw' => 'application/vnd.visio',
+      'vtt' => 'text/vtt',
       'vtu' => 'model/vnd.vtu',
       'vxml' => 'application/voicexml+xml',
       'w3d' => 'application/x-director',
@@ -1768,7 +1769,14 @@ class QubitDigitalObject extends BaseDigitalObject
     $criteria->add(QubitDigitalObject::PARENT_ID, $this->id);
     $criteria->add(QubitDigitalObject::USAGE_ID, $usageId);
 
-    $result = QubitDigitalObject::getOne($criteria);
+    if ($usageId == QubitTerm::SUBTITLES_ID)
+    {
+      $result = QubitDigitalObject::get($criteria);
+    }
+    else
+    {
+      $result = QubitDigitalObject::getOne($criteria);
+    }
 
     return $result;
   }
@@ -2595,7 +2603,7 @@ class QubitDigitalObject extends BaseDigitalObject
   }
 
   /**
-   * Resize an image using the sfThubmnail Plugin.
+   * Resize an image using the sfThumbnail Plugin.
    *
    * @param string $originalImageName
    * @param integer $width
@@ -2772,7 +2780,7 @@ class QubitDigitalObject extends BaseDigitalObject
 
   /*
    * -----------------------------------------------------------------------
-   * VIDEO
+   * Audio
    * -----------------------------------------------------------------------
    */
   public function createAudioDerivative($usageId, $connection = null)

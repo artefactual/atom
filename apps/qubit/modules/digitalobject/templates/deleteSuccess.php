@@ -2,7 +2,11 @@
 
 <?php slot('title') ?>
   <?php if (isset($resource->parent)): ?>
-    <h1><?php echo __('Are you sure you want to delete this reference/thumbnail representation?') ?></h1>
+    <?php if ($resource->usageId == QubitTerm::CHAPTERS_ID || $resource->usageId == QubitTerm::SUBTITLES_ID): ?>
+      <h1><?php echo __('Are you sure you want to delete these captions/subtitles/chapters?') ?></h1>
+    <?php else: ?>
+      <h1><?php echo __('Are you sure you want to delete this reference/thumbnail representation?') ?></h1>
+    <?php endif; ?>
   <?php else: ?>
     <h1><?php echo __('Are you sure you want to delete the %1% linked to %2%?', array('%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject')), '%2%' => render_title($object))) ?></h1>
   <?php endif; ?>

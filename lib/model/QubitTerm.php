@@ -184,7 +184,11 @@ class QubitTerm extends BaseTerm
     ACCESSION_EVENT_PHYSICAL_TRANSFER_ID = 193,
 
     // Accession event note
-    ACCESSION_EVENT_NOTE_ID = 194;
+    ACCESSION_EVENT_NOTE_ID = 194,
+
+    // Digital object usage taxonomy (addition)
+    CHAPTERS_ID = 195,
+    SUBTITLES_ID = 196;
 
   public static function isProtected($id)
   {
@@ -200,6 +204,7 @@ class QubitTerm extends BaseTerm
       QubitTerm::ARTEFACT_MATERIAL_ID,
       QubitTerm::ASSOCIATIVE_RELATION_ID,
       QubitTerm::AUDIO_ID,
+      QubitTerm::CHAPTERS_ID,
       QubitTerm::COLLECTION_ID,
       QubitTerm::COMPOUND_ID,
       QubitTerm::CONTAINER_ID,
@@ -245,6 +250,7 @@ class QubitTerm extends BaseTerm
       QubitTerm::SOURCE_NOTE_ID,
       QubitTerm::STANDARDIZED_FORM_OF_NAME_ID,
       QubitTerm::STATUS_TYPE_PUBLICATION_ID,
+      QubitTerm::SUBTITLES_ID,
       QubitTerm::TEMPORAL_RELATION_ID,
       QubitTerm::TERM_RELATION_ASSOCIATIVE_ID,
       QubitTerm::TEXT_ID,

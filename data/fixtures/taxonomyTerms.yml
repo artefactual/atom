@@ -2678,6 +2678,22 @@ QubitTerm:
       hr: 'Vanjska datoteka'
       pt: 'Ficheiro externo'
       pt_BR: 'Arquivo externo'
+  QubitTerm_chapters_id:
+    taxonomy_id: QubitTaxonomy_17
+    parent_id: QubitTerm_110
+    id: 195
+    source_culture: en
+    name:
+      en: 'Chapters'
+      fr: 'Chapitres'
+  QubitTerm_subtitles_id:
+    taxonomy_id: QubitTaxonomy_17
+    parent_id: QubitTerm_110
+    id: 196
+    source_culture: en
+    name:
+      en: 'Captions/Subtitles'
+      fr: 'Légendes/Sous-titres'
   QubitTerm_140:
     taxonomy_id: QubitTaxonomy_18
     parent_id: QubitTerm_110

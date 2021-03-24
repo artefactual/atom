@@ -61,7 +61,10 @@ class DigitalObjectShowVideoComponent extends sfComponent
       list($this->width, $this->height) = QubitDigitalObject::getImageMaxDimensions($this->usageType);
 
       // For javascript_tag()
-      $this->representationFullPath = public_path($this->representation->getFullPath());
+      if (QubitTerm::CHAPTERS_ID != $this->usageType && QubitTerm::SUBTITLES_ID != $this->usageType)
+      {
+        $this->representationFullPath = public_path($this->representation->getFullPath());
+      }
     }
     // If representation is not a valid digital object, return a generic icon
     else

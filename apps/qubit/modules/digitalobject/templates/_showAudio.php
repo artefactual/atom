@@ -1,9 +1,17 @@
 <?php use_helper('Text') ?>
 
-<?php if (QubitTerm::REFERENCE_ID == $usageType): ?>
+<?php if ($usageType == QubitTerm::CHAPTERS_ID): ?>
 
   <?php if ($showMediaPlayer): ?>
-    <audio class="mediaelement-player" src="<?php echo public_path($representation->getFullPath()) ?>"></audio>
+    <track kind="chapters" src="<?php echo public_path($representation->getFullPath()) ?>" srclang="">
+  <?php endif; ?>
+
+<?php elseif (QubitTerm::REFERENCE_ID == $usageType): ?>
+
+  <?php if ($showMediaPlayer): ?>
+    <audio class="mediaelement-player" src="<?php echo public_path($representation->getFullPath()) ?>">
+      <?php echo get_component('digitalobject', 'show', array('resource' => $resource, 'usageType' => QubitTerm::CHAPTERS_ID)) ?>
+    </audio>
   <?php else: ?>
     <div style="text-align: center">
       <?php echo image_tag($representation->getFullPath(), array('style' => 'border: #999 1px solid', 'alt' => '')) ?>

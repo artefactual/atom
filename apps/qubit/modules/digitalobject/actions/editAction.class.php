@@ -94,19 +94,19 @@ class DigitalObjectEditAction extends sfAction
     {
       if (null === $representation)
       {
-        $repName = "repFile_$usageId";
-        $derName = "generateDerivative_$usageId";
+        $repName = "repFile_{$usageId}";
+        $derName = "generateDerivative_{$usageId}";
 
         $this->form->setValidator($repName, new sfValidatorFile);
         $this->form->setWidget($repName, new sfWidgetFormInputFile);
 
         if (-1 < $maxUploadSize)
         {
-          $this->form->getWidgetSchema()->$repName->setHelp($this->context->i18n->__('Max. size ~%1%', array('%1%' => hr_filesize($maxUploadSize))));
+          $this->form->getWidgetSchema()->{$repName}->setHelp($this->context->i18n->__('Max. size ~%1%', array('%1%' => hr_filesize($maxUploadSize))));
         }
         else
         {
-          $this->form->getWidgetSchema()->$repName->setHelp('');
+          $this->form->getWidgetSchema()->{$repName}->setHelp('');
         }
 
         // Add "auto-generate" checkbox
@@ -114,6 +114,58 @@ class DigitalObjectEditAction extends sfAction
         $this->form->setWidget($derName, new sfWidgetFormInputCheckbox(array(), array('value' => 1)));
       }
     }
+
+    // If video track doesn't exist, include upload widget
+    // But always include subtitle upload widget
+    foreach ($this->videoTracks as $usageId => $videoTrack)
+    {
+      if ($usageId != QubitTerm::SUBTITLES_ID)
+      {
+        if (null === $videoTrack)
+        {
+          $trackName = "trackFile_{$usageId}";
+  
+          $this->form->setValidator($trackName, new sfValidatorAnd(array(
+            new QubitValidatorMimeType(array('mime_types' => array('text/vtt','application/x-subrip'))),
+            new sfValidatorFile()
+          )));
+          $this->form->setWidget($trackName, new sfWidgetFormInputFile);
+    
+          if (-1 < $maxUploadSize)
+          {
+            $this->form->getWidgetSchema()->{$trackName}->setHelp($this->context->i18n->__('Max. size ~%1%', array('%1%' => hr_filesize($maxUploadSize))));
+          }
+          else
+          {
+            $this->form->getWidgetSchema()->{$trackName}->setHelp('');
+          }
+        }
+      }
+      else
+      {
+        $trackName = "trackFile_$usageId";
+        $langName = "lang_$usageId";
+
+        $this->form->setValidator($trackName, new sfValidatorAnd([
+          new QubitValidatorMimeType(['mime_types' => ['text/vtt','application/x-subrip']]),
+          new sfValidatorFile()
+        ]));
+        $this->form->setWidget($trackName, new sfWidgetFormInputFile);
+
+        $this->form->setValidator($langName, new sfValidatorI18nChoiceLanguage);
+        $this->form->setWidget($langName, new sfWidgetFormI18nChoiceLanguage);
+
+        if (-1 < $maxUploadSize)
+        {
+          $this->form->getWidgetSchema()->$trackName->setHelp($this->context->i18n->__('Max. size ~%1%', array('%1%' => hr_filesize($maxUploadSize))));
+        }
+        else
+        {
+          $this->form->getWidgetSchema()->$trackName->setHelp('');
+        }
+      }
+    }
+  
 
     // Add latitude and longitude fields
     foreach (array('latitude', 'longitude') as $geoPropertyField)
@@ -162,6 +214,11 @@ class DigitalObjectEditAction extends sfAction
       QubitTerm::REFERENCE_ID => $this->resource->getChildByUsageId(QubitTerm::REFERENCE_ID),
       QubitTerm::THUMBNAIL_ID => $this->resource->getChildByUsageId(QubitTerm::THUMBNAIL_ID));
 
+    // Get video track files
+    $this->videoTracks = array(
+      QubitTerm::CHAPTERS_ID => $this->resource->getChildByUsageId(QubitTerm::CHAPTERS_ID),
+      QubitTerm::SUBTITLES_ID => $this->resource->getChildByUsageId(QubitTerm::SUBTITLES_ID));
+
     $this->addFormFields();
 
     // Process forms
@@ -203,9 +260,9 @@ class DigitalObjectEditAction extends sfAction
     $uploadedFiles = array();
     foreach ($this->representations as $usageId => $representation)
     {
-      if (null !== $uf = $this->form->getValue("repFile_$usageId"))
+      if (null !== $uploadedFile = $this->form->getValue("repFile_$usageId"))
       {
-        $uploadedFiles[$usageId] = $uf;
+        $uploadedFiles[$usageId] = $uploadedFile;
       }
     }
 
@@ -239,6 +296,30 @@ class DigitalObjectEditAction extends sfAction
       $representation->createDerivatives = false;
 
       $representation->save();
+    }
+
+    // Upload new video track files
+    foreach ($this->videoTracks as $usageId => $videoTrack)
+    {
+      if (null !== $uploadedTrack = $this->form->getValue("trackFile_$usageId"))
+      {
+        $lang = $this->form->getValue("lang_$usageId");
+        $uploadedTracks[$usageId] = ["track" => $uploadedTrack, "language" => $lang];
+      }
+    }
+
+    foreach ($uploadedTracks as $usageId => $uploadTrack)
+    {
+      $content = file_get_contents($uploadTrack["track"]->getTempName());
+
+      $track = new QubitDigitalObject;
+      $track->usageId = $usageId;
+      $track->assets[] = new QubitAsset($uploadTrack["track"]->getOriginalName(), $content);
+      $track->parentId = $this->resource->id;
+      $track->createDerivatives = false;
+      $track->language = $uploadTrack["language"];
+
+      $track->save();
     }
 
     // Generate new reference

@@ -111,6 +111,8 @@ class DigitalObjectViewAction extends sfAction
         break;
 
       case QubitTerm::REFERENCE_ID:
+      case QubitTerm::CHAPTERS_ID:
+      case QubitTerm::SUBTITLES_ID:
         $action = 'readReference';
         $obj = $this->resource->parent->object;
         break;

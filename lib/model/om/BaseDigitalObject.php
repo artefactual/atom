@@ -10,6 +10,7 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
     ID = 'digital_object.ID',
     OBJECT_ID = 'digital_object.OBJECT_ID',
     USAGE_ID = 'digital_object.USAGE_ID',
+    LANGUAGE = 'digital_object.LANGUAGE',
     MIME_TYPE = 'digital_object.MIME_TYPE',
     MEDIA_TYPE_ID = 'digital_object.MEDIA_TYPE_ID',
     NAME = 'digital_object.NAME',
@@ -29,6 +30,7 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
     $criteria->addSelectColumn(QubitDigitalObject::ID);
     $criteria->addSelectColumn(QubitDigitalObject::OBJECT_ID);
     $criteria->addSelectColumn(QubitDigitalObject::USAGE_ID);
+    $criteria->addSelectColumn(QubitDigitalObject::LANGUAGE);
     $criteria->addSelectColumn(QubitDigitalObject::MIME_TYPE);
     $criteria->addSelectColumn(QubitDigitalObject::MEDIA_TYPE_ID);
     $criteria->addSelectColumn(QubitDigitalObject::NAME);

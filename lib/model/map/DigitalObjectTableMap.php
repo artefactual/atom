@@ -39,6 +39,7 @@ class DigitalObjectTableMap extends TableMap {
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'object', 'ID', true, null, null);
 		$this->addForeignKey('OBJECT_ID', 'objectId', 'INTEGER', 'object', 'ID', false, null, null);
 		$this->addForeignKey('USAGE_ID', 'usageId', 'INTEGER', 'term', 'ID', false, null, null);
+		$this->addColumn('LANGUAGE', 'language', 'VARCHAR', false, 50, null);
 		$this->addColumn('MIME_TYPE', 'mimeType', 'VARCHAR', false, 255, null);
 		$this->addForeignKey('MEDIA_TYPE_ID', 'mediaTypeId', 'INTEGER', 'term', 'ID', false, null, null);
 		$this->addColumn('NAME', 'name', 'VARCHAR', true, 1024, null);

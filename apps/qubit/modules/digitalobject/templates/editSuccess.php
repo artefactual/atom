@@ -80,6 +80,36 @@
 
       <?php endforeach; ?>
 
+      <?php if ($resource->mediaTypeId == QubitTerm::VIDEO_ID || $resource->mediaTypeId == QubitTerm::AUDIO_ID): ?>
+        
+        <?php foreach ($videoTracks as $usageId => $videoTrack): ?>
+
+          <?php if ($resource->mediaTypeId == QubitTerm::VIDEO_ID && $usageId == QubitTerm::SUBTITLES_ID): ?>
+            
+            <?php echo include_partial('editSubtitles', array('resource' => $resource, 'subtitles' => $videoTrack, 'form' => $form, 'usageId' => $usageId)) ?>
+
+          <?php elseif ($usageId != QubitTerm::SUBTITLES_ID): ?>                 
+          
+            <fieldset class="collapsible">
+
+              <legend><?php echo __('%1%', array('%1%' => QubitTerm::getById($usageId))) ?></legend>
+
+              <?php if (isset($videoTrack)): ?>
+              
+                <?php echo get_component('digitalobject', 'editRepresentation', array('resource' => $resource, 'representation' => $videoTrack)) ?>
+
+              <?php else: ?>
+
+                <?php echo $form["trackFile_$usageId"]
+                  ->label(__('Select a file to upload (.vtt|.srt)'))
+                  ->renderRow() ?>
+            
+              <?php endif; ?>
+            </fieldset> 
+          <?php endif; ?>
+        <?php endforeach; ?>
+      <?php endif; ?>
+
     </section>
 
     <section class="actions">
