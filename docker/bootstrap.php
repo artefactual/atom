@@ -331,3 +331,10 @@ EOT;
 
 @unlink(_ETC_DIR.'/php-fpm.d/atom.conf');
 file_put_contents(_ETC_DIR.'/php-fpm.d/atom.conf', $fpm_ini);
+
+
+#
+# sf symlink
+#
+
+@symlink(_ATOM_DIR.'/vendor/symfony/data/web/sf', _ATOM_DIR.'/sf');
