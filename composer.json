@@ -9,7 +9,7 @@
     },
     "require-dev": {
         "mikey179/vfsstream": "^1.6",
-        "phpunit/phpunit": "^8",
+        "phpunit/phpunit": "^9.5",
         "phing/phing": "2.*"
     },
     "require": {

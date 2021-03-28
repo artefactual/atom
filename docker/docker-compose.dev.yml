@@ -1,5 +1,5 @@
 ---
-version: "2"
+version: "2.1"
 
 volumes:
   elasticsearch_data:
@@ -11,6 +11,8 @@ services:
   atom:
     build: ..
     env_file: etc/environment
+    environment:
+      - ATOM_COVERAGE=${ATOM_COVERAGE:-false}
     volumes:
       - composer_deps:/atom/src/vendor/composer
       - ..:/atom/src:rw
@@ -19,6 +21,8 @@ services:
     build: ..
     command: worker
     env_file: etc/environment
+    environment:
+      - ATOM_COVERAGE=${ATOM_COVERAGE:-false}
     depends_on:
       - gearmand
       - percona

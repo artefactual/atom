@@ -28,5 +28,6 @@
 # Composer installed vendor files
 /vendor/composer/
 
-# PHPUnit cache
+# PHPUnit cache and coverage
 /.phpunit.result.cache
+.coverage

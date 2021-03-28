@@ -4,14 +4,14 @@
       <directory>test/phpunit</directory>
     </testsuite>
   </testsuites>
-  <filter>
-    <whitelist processUncoveredFilesFromWhitelist="true">
-      <directory suffix=".php">lib</directory>
-      <exclude>
-        <directory suffix=".php">lib/propel</directory>
-        <file>lib/QubitTestFunctional.class.php</file>
-        <file>lib/task/import/example/transformation/example.transform.php</file>
-      </exclude>
-    </whitelist>
-  </filter>
+  <coverage cacheDirectory=".coverage/cache">
+    <include>
+      <directory suffix=".php">.</directory>
+    </include>
+    <exclude>
+      <directory suffix=".php">cache</directory>
+      <directory suffix=".php">test</directory>
+      <directory suffix=".php">vendor</directory>
+    </exclude>
+  </coverage>
 </phpunit>

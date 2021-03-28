@@ -45,6 +45,7 @@ function get_host_and_port($value, $default_port)
 
 $CONFIG = array(
   'atom.development_mode'   => filter_var(getenv_default('ATOM_DEVELOPMENT_MODE', false), FILTER_VALIDATE_BOOLEAN),
+  'atom.coverage'           => filter_var(getenv_default('ATOM_COVERAGE', false), FILTER_VALIDATE_BOOLEAN),
   'atom.elasticsearch_host' => getenv_or_fail('ATOM_ELASTICSEARCH_HOST'),
   'atom.memcached_host'     => getenv_or_fail('ATOM_MEMCACHED_HOST'),
   'atom.gearmand_host'      => getenv_or_fail('ATOM_GEARMAND_HOST'),
@@ -257,6 +258,7 @@ session.use_only_cookies = off
 opcache.fast_shutdown = on
 opcache.max_accelerated_files = 10000
 opcache.validate_timestamps = off
+pcov.enabled = 0
 
 EOT;
 
@@ -270,6 +272,15 @@ opcache.validate_timestamps = on
 
 EOT;
 }
+
+if ($CONFIG['atom.coverage'])
+{
+  $php_ini .= <<<EOT
+pcov.enabled = 1
+
+EOT;
+}
+
 
 @unlink(_ETC_DIR.'/php/php.ini');
 file_put_contents(_ETC_DIR.'/php/php.ini', $php_ini);

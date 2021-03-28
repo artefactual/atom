@@ -1,3 +1,4 @@
+.coverage
 .git
 .gitignore
 vendor/composer
