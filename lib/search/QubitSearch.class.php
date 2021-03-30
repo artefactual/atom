@@ -18,44 +18,39 @@
  */
 
 /**
- * Singleton factory class for QubitSearchEngine and subclasses
- *
- * @package AccesstoMemory
- * @subpackage search
+ * Singleton factory class for QubitSearchEngine and subclasses.
  */
 class QubitSearch
 {
-  protected static $instance = null;
+    protected static $instance = null;
 
-  // protected function __construct() { }
-  // protected function __clone() { }
+    // protected function __construct() { }
+    // protected function __clone() { }
 
-  public static function getInstance(array $options = array())
-  {
-    if (!isset(self::$instance))
+    public static function getInstance(array $options = [])
     {
-      // Using arElasticSearchPlugin but other classes could be
-      // implemented, for example: arSphinxSearchPlugin
-      self::$instance = new arElasticSearchPlugin($options);
+        if (!isset(self::$instance)) {
+            // Using arElasticSearchPlugin but other classes could be
+            // implemented, for example: arSphinxSearchPlugin
+            self::$instance = new arElasticSearchPlugin($options);
+        }
+
+        return self::$instance;
     }
 
-    return self::$instance;
-  }
-
-  public static function disable()
-  {
-    if (!isset(self::$instance))
+    public static function disable()
     {
-      self::$instance = self::getInstance(array('initialize' => false));
+        if (!isset(self::$instance)) {
+            self::$instance = self::getInstance(['initialize' => false]);
+        }
+
+        self::$instance->disable();
     }
 
-    self::$instance->disable();
-  }
+    public static function enable()
+    {
+        self::$instance = self::getInstance();
 
-  public static function enable()
-  {
-    self::$instance = self::getInstance();
-
-    self::$instance->enable();
-  }
+        self::$instance->enable();
+    }
 }

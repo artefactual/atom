@@ -19,52 +19,50 @@
 
 class InformationObjectSlugPreviewAction extends sfAction
 {
-  // Slugify text, if it's not already slugified, and indicate if it has been
-  // padded (if slug already used by another resource)
-  public function execute($request)
-  {
-    $this->resource = $this->getRoute()->resource;
-
-    // Return 401 if unauthorized
-    if (!sfContext::getInstance()->user->isAuthenticated()
-      || !QubitAcl::check($this->resource, 'read'))
+    // Slugify text, if it's not already slugified, and indicate if it has been
+    // padded (if slug already used by another resource)
+    public function execute($request)
     {
-      $this->response->setStatusCode(401);
-      return sfView::NONE;
+        $this->resource = $this->getRoute()->resource;
+
+        // Return 401 if unauthorized
+        if (!sfContext::getInstance()->user->isAuthenticated()
+      || !QubitAcl::check($this->resource, 'read')) {
+            $this->response->setStatusCode(401);
+
+            return sfView::NONE;
+        }
+
+        // Return JSON containing first available slug
+        $availableSlug = $this->determineAvailableSlug($this->request->getParameter('text'), $this->resource->id);
+
+        $response = [
+            'slug' => $availableSlug,
+            'padded' => $availableSlug != QubitSlug::slugify($this->request->getParameter('text')),
+        ];
+
+        $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
+
+        return $this->renderText(json_encode($response));
     }
 
-    // Return JSON containing first available slug
-    $availableSlug = $this->determineAvailableSlug($this->request->getParameter('text'), $this->resource->id);
-
-    $response = array(
-      'slug'   => $availableSlug,
-      'padded' => $availableSlug != QubitSlug::slugify($this->request->getParameter('text'))
-    );
-
-    $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
-
-    return $this->renderText(json_encode($response));
-  }
-
-  public static function determineAvailableSlug($text, $resourceId)
-  {
-    $originalText = $text;
-
-    do
+    public static function determineAvailableSlug($text, $resourceId)
     {
-      $slugText = QubitSlug::slugify($text);
+        $originalText = $text;
 
-      $criteria = new Criteria;
-      $criteria->add(QubitSlug::SLUG, $slugText);
+        do {
+            $slugText = QubitSlug::slugify($text);
 
-      // Padded text if slugified text slug is used by another resource
-      $counter++;
-      $text = $originalText .'-' . $counter;
+            $criteria = new Criteria();
+            $criteria->add(QubitSlug::SLUG, $slugText);
 
-      $slug = QubitSlug::getOne($criteria);
+            // Padded text if slugified text slug is used by another resource
+            ++$counter;
+            $text = $originalText.'-'.$counter;
+
+            $slug = QubitSlug::getOne($criteria);
+        } while ((null != $slug) && ($slug->objectId != $resourceId));
+
+        return $slugText;
     }
-    while (($slug != null) && ($slug->objectId != $resourceId));
-
-    return $slugText;
-  }
 }

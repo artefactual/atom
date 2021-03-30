@@ -25,19 +25,17 @@
  */
 class arMigration0118
 {
-  const
-    VERSION = 118, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 118;
+    public const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    $useJobScheduler = QubitSetting::getByName('use_job_scheduler');
-
-    if (isset($useJobScheduler))
+    public function up($configuration)
     {
-      $useJobScheduler->delete();
-    }
+        $useJobScheduler = QubitSetting::getByName('use_job_scheduler');
 
-    return true;
-  }
+        if (isset($useJobScheduler)) {
+            $useJobScheduler->delete();
+        }
+
+        return true;
+    }
 }

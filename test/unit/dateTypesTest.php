@@ -19,16 +19,16 @@
 
 require_once dirname(__FILE__).'/../bootstrap/unit.php';
 
-$t = new lime_test(8, new lime_output_color);
+$t = new lime_test(8, new lime_output_color());
 
 $t->diag('Initializing configuration.');
 $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', true);
 sfContext::createInstance($configuration);
 
-$informationObject = new QubitInformationObject;
+$informationObject = new QubitInformationObject();
 $informationObject->title = 'test title';
 
-$event = new QubitEvent;
+$event = new QubitEvent();
 $event->startDate = '2001-02-03';
 $event->endDate = '2004-05-06';
 $event->typeId = QubitTerm::CREATION_ID;

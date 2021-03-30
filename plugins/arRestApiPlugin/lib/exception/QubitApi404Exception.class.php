@@ -19,7 +19,7 @@
 
 class QubitApi404Exception extends QubitApiException
 {
-  protected $message = 'Endpoint not found';
-  protected $id = 'not-found';
-  protected $statusCode = 404;
+    protected $message = 'Endpoint not found';
+    protected $id = 'not-found';
+    protected $statusCode = 404;
 }

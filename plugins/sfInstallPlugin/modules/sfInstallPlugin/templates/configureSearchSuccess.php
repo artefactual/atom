@@ -1,24 +1,24 @@
 <h2>Search configuration</h2>
 
-<?php if (count($errors) > 0): ?>
+<?php if (count($errors) > 0) { ?>
 
   <h3>The following errors must be resolved before you can continue the installation process:</h3>
 
   <div class="messages error">
     <ul>
-      <?php foreach ($errors as $item): ?>
-        <li><?php echo $item ?></li>
-      <?php endforeach; ?>
+      <?php foreach ($errors as $item) { ?>
+        <li><?php echo $item; ?></li>
+      <?php } ?>
     </ul>
   </div>
 
-<?php endif; ?>
+<?php } ?>
 
-<?php slot('before-content') ?>
-  <?php echo $form->renderGlobalErrors() ?>
-  <?php echo $form->renderFormTag(url_for(array('module' => 'sfInstallPlugin', 'action' => 'configureSearch'))) ?>
-  <?php echo $form->renderHiddenFields() ?>
-<?php end_slot() ?>
+<?php slot('before-content'); ?>
+  <?php echo $form->renderGlobalErrors(); ?>
+  <?php echo $form->renderFormTag(url_for(['module' => 'sfInstallPlugin', 'action' => 'configureSearch'])); ?>
+  <?php echo $form->renderHiddenFields(); ?>
+<?php end_slot(); ?>
 
   <fieldset class="collapsible">
 
@@ -31,25 +31,25 @@
     </div>
 
     <?php echo $form
-      ->searchHost
-      ->renderRow() ?>
+        ->searchHost
+        ->renderRow(); ?>
 
     <?php echo $form
-      ->searchPort
-      ->renderRow() ?>
+        ->searchPort
+        ->renderRow(); ?>
 
     <?php echo $form
-      ->searchIndex
-      ->help('The name of the <em>ElasticSearch</em> index your data will be stored in.')
-      ->renderRow() ?>
+        ->searchIndex
+        ->help('The name of the <em>ElasticSearch</em> index your data will be stored in.')
+        ->renderRow(); ?>
 
   </fieldset>
 
-<?php slot('after-content') ?>
+<?php slot('after-content'); ?>
   <section class="actions">
     <ul>
       <li><input class="c-btn c-btn-submit" type="submit" value="Save and continue"/></li>
     </ul>
   </section>
   </form>
-<?php end_slot() ?>
+<?php end_slot(); ?>

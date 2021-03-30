@@ -19,29 +19,25 @@
 
 class QubitMeta extends sfFilter
 {
-  public function execute($filterChain)
-  {
-    $context = $this->getContext();
-
-    $context->response->addMeta('title', sfConfig::get('app_siteTitle'));
-    $context->response->addMeta('description', sfConfig::get('app_siteDescription'));
-
-    try
+    public function execute($filterChain)
     {
-      $filterChain->execute();
-    }
-    catch (Exception $e)
-    {
-      $interfaces = class_implements($e, true);
-      if (in_array('Elastica\Exception\ExceptionInterface', $interfaces))
-      {
-        $context->getRequest()->setParameter('exception', $e);
-        $context->getController()->forward('search', 'error');
+        $context = $this->getContext();
 
-        throw new sfStopException;
-      }
+        $context->response->addMeta('title', sfConfig::get('app_siteTitle'));
+        $context->response->addMeta('description', sfConfig::get('app_siteDescription'));
 
-      throw $e;
+        try {
+            $filterChain->execute();
+        } catch (Exception $e) {
+            $interfaces = class_implements($e, true);
+            if (in_array('Elastica\Exception\ExceptionInterface', $interfaces)) {
+                $context->getRequest()->setParameter('exception', $e);
+                $context->getController()->forward('search', 'error');
+
+                throw new sfStopException();
+            }
+
+            throw $e;
+        }
     }
-  }
 }

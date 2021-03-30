@@ -19,14 +19,13 @@
 
 class arStorageServicePluginConfiguration extends sfPluginConfiguration
 {
-  public static
-    $summary = 'Archivematica Storage Service integration plugin',
-    $version = '1.0.0';
+    public static $summary = 'Archivematica Storage Service integration plugin';
+    public static $version = '1.0.0';
 
-  public function initialize()
-  {
-    $enabledModules = sfConfig::get('sf_enabled_modules');
-    array_push($enabledModules, 'arStorageServiceSettings', 'arStorageService');
-    sfConfig::set('sf_enabled_modules', $enabledModules);
-  }
+    public function initialize()
+    {
+        $enabledModules = sfConfig::get('sf_enabled_modules');
+        array_push($enabledModules, 'arStorageServiceSettings', 'arStorageService');
+        sfConfig::set('sf_enabled_modules', $enabledModules);
+    }
 }

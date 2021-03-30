@@ -19,12 +19,12 @@
 
 class MenuChangeLanguageMenuComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    // While we could access sfConfig directly in the template now,
-    // we were collecting the enabled languages in here and we'll
-    // keep this assignment to avoid changes in existing themes
-    // that overwrite the related partial.
-    $this->langCodes = sfConfig::get('app_i18n_languages');
-  }
+    public function execute($request)
+    {
+        // While we could access sfConfig directly in the template now,
+        // we were collecting the enabled languages in here and we'll
+        // keep this assignment to avoid changes in existing themes
+        // that overwrite the related partial.
+        $this->langCodes = sfConfig::get('app_i18n_languages');
+    }
 }

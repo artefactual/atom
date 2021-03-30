@@ -19,76 +19,72 @@
 
 class AccessionAddInformationObjectAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->form = new sfForm;
-
-    $this->resource = $this->getRoute()->resource;
-
-    if (!QubitAcl::check(QubitInformationObject::getRoot(), 'update'))
+    public function execute($request)
     {
-      QubitAcl::forwardUnauthorized();
+        $this->form = new sfForm();
+
+        $this->resource = $this->getRoute()->resource;
+
+        if (!QubitAcl::check(QubitInformationObject::getRoot(), 'update')) {
+            QubitAcl::forwardUnauthorized();
+        }
+
+        // Create new information object
+        $informationObject = new QubitInformationObject();
+        $informationObject->setRoot();
+
+        // Populate fields
+        $informationObject->title = $this->resource->title;
+        $informationObject->physicalCharacteristics = $this->resource->physicalCharacteristics;
+        $informationObject->scopeAndContent = $this->resource->scopeAndContent;
+        $informationObject->archivalHistory = $this->resource->archivalHistory;
+        $informationObject->appraisal = $this->resource->appraisal;
+
+        // Copy (not link) rights
+        foreach (QubitRelation::getRelationsBySubjectId($this->resource->id, ['typeId' => QubitTerm::RIGHT_ID]) as $item) {
+            $sourceRights = $item->object;
+
+            $newRights = $sourceRights->copy();
+
+            $relation = new QubitRelation();
+            $relation->object = $newRights;
+            $relation->typeId = QubitTerm::RIGHT_ID;
+
+            $informationObject->relationsRelatedBysubjectId[] = $relation;
+        }
+
+        // Populate creators (from QubitRelation to QubitEvent)
+        foreach (QubitRelation::getRelationsByObjectId($this->resource->id, ['typeId' => QubitTerm::CREATION_ID]) as $item) {
+            $event = new QubitEvent();
+            $event->actor = $item->subject;
+            $event->typeId = QubitTerm::CREATION_ID;
+
+            $informationObject->eventsRelatedByobjectId[] = $event;
+        }
+
+        // Populate dates
+        foreach ($this->resource->getDates() as $accessionEvent) {
+            $event = new QubitEvent();
+            $event->date = $accessionEvent->date;
+            $event->startDate = $accessionEvent->startDate;
+            $event->endDate = $accessionEvent->endDate;
+            $event->typeId = $accessionEvent->typeId;
+
+            $informationObject->eventsRelatedByobjectId[] = $event;
+        }
+
+        // Relationship between the information object and accession record
+        $relation = new QubitRelation();
+        $relation->object = $this->resource;
+        $relation->typeId = QubitTerm::ACCESSION_ID;
+
+        $informationObject->relationsRelatedBysubjectId[] = $relation;
+
+        // Set publication status
+        $informationObject->setPublicationStatus(sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID));
+
+        $informationObject->save();
+
+        $this->redirect([$informationObject, 'module' => 'informationobject']);
     }
-
-    // Create new information object
-    $informationObject = new QubitInformationObject;
-    $informationObject->setRoot();
-
-    // Populate fields
-    $informationObject->title = $this->resource->title;
-    $informationObject->physicalCharacteristics = $this->resource->physicalCharacteristics;
-    $informationObject->scopeAndContent = $this->resource->scopeAndContent;
-    $informationObject->archivalHistory = $this->resource->archivalHistory;
-    $informationObject->appraisal = $this->resource->appraisal;
-
-    // Copy (not link) rights
-    foreach (QubitRelation::getRelationsBySubjectId($this->resource->id, array('typeId' => QubitTerm::RIGHT_ID)) as $item)
-    {
-      $sourceRights = $item->object;
-
-      $newRights = $sourceRights->copy();
-
-      $relation = new QubitRelation;
-      $relation->object = $newRights;
-      $relation->typeId = QubitTerm::RIGHT_ID;
-
-      $informationObject->relationsRelatedBysubjectId[] = $relation;
-    }
-
-    // Populate creators (from QubitRelation to QubitEvent)
-    foreach (QubitRelation::getRelationsByObjectId($this->resource->id, array('typeId' => QubitTerm::CREATION_ID)) as $item)
-    {
-      $event = new QubitEvent;
-      $event->actor = $item->subject;
-      $event->typeId = QubitTerm::CREATION_ID;
-
-      $informationObject->eventsRelatedByobjectId[] = $event;
-    }
-
-    // Populate dates
-    foreach ($this->resource->getDates() as $accessionEvent)
-    {
-      $event = new QubitEvent;
-      $event->date = $accessionEvent->date;
-      $event->startDate = $accessionEvent->startDate;
-      $event->endDate = $accessionEvent->endDate;
-      $event->typeId = $accessionEvent->typeId;
-
-      $informationObject->eventsRelatedByobjectId[] = $event;
-    }
-
-    // Relationship between the information object and accession record
-    $relation = new QubitRelation;
-    $relation->object = $this->resource;
-    $relation->typeId = QubitTerm::ACCESSION_ID;
-
-    $informationObject->relationsRelatedBysubjectId[] = $relation;
-
-    // Set publication status
-    $informationObject->setPublicationStatus(sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID));
-
-    $informationObject->save();
-
-    $this->redirect(array($informationObject, 'module' => 'informationobject'));
-  }
 }

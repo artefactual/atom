@@ -19,7 +19,58 @@
 
 class sfInstallPluginTaskComponent extends sfAction
 {
-  public function execute($request)
-  {
-  }
+    public function execute($request)
+    {
+        $this->checkSystemStatus;
+        $this->configureDatabaseStatus;
+        $this->configureSearchStatus;
+        $this->loadDataStatus;
+        $this->configureSiteStatus;
+
+        switch ($request->action) {
+            case 'checkSystem':
+                $this->checkSystemStatus = 'active';
+
+                break;
+
+            case 'configureDatabase':
+                $this->checkSystemStatus = 'done';
+                $this->configureDatabaseStatus = 'active';
+
+                break;
+
+            case 'configureSearch':
+                $this->checkSystemStatus = 'done';
+                $this->configureDatabaseStatus = 'done';
+                $this->configureSearchStatus = 'active';
+
+                break;
+
+            case 'loadData':
+                $this->checkSystemStatus = 'done';
+                $this->configureDatabaseStatus = 'done';
+                $this->configureSearchStatus = 'done';
+                $this->loadDataStatus = 'active';
+
+                break;
+
+            case 'configureSite':
+                $this->checkSystemStatus = 'done';
+                $this->configureDatabaseStatus = 'done';
+                $this->configureSearchStatus = 'done';
+                $this->loadDataStatus = 'done';
+                $this->configureSiteStatus = 'active';
+
+                break;
+
+            case 'finishInstall':
+                $this->checkSystemStatus = 'done';
+                $this->configureDatabaseStatus = 'done';
+                $this->configureSearchStatus = 'done';
+                $this->loadDataStatus = 'done';
+                $this->configureSiteStatus = 'done';
+
+                break;
+        }
+    }
 }

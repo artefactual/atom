@@ -19,47 +19,44 @@
 
 /**
  * Cycle through all information objects and export their EAD and DC XML
- * representations as files
- *
- * @package     AccesstoMemory
- * @subpackage  cache
+ * representations as files.
  */
 class arCacheDescriptionXmlTask extends arBaseTask
 {
-  protected function configure()
-  {
-    $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-      new sfCommandOption('skip', null, sfCommandOption::PARAMETER_OPTIONAL, 'Number of information objects to skip', 0),
-      new sfCommandOption('limit', null, sfCommandOption::PARAMETER_OPTIONAL, 'Number of information objects to export', null),
-      new sfCommandOption('format', null, sfCommandOption::PARAMETER_OPTIONAL, 'Format to export ("ead" or "dc")', null)
-    ));
+    public function execute($arguments = [], $options = [])
+    {
+        parent::execute($arguments, $options);
+        $this->exportAll($options);
+    }
 
-    $this->namespace = 'cache';
-    $this->name = 'xml-representations';
+    protected function configure()
+    {
+        $this->addOptions([
+            new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
+            new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+            new sfCommandOption('skip', null, sfCommandOption::PARAMETER_OPTIONAL, 'Number of information objects to skip', 0),
+            new sfCommandOption('limit', null, sfCommandOption::PARAMETER_OPTIONAL, 'Number of information objects to export', null),
+            new sfCommandOption('format', null, sfCommandOption::PARAMETER_OPTIONAL, 'Format to export ("ead" or "dc")', null),
+        ]);
 
-    $this->briefDescription = 'Render all descriptions as XML and cache the results as files';
-    $this->detailedDescription = <<<EOF
+        $this->namespace = 'cache';
+        $this->name = 'xml-representations';
+
+        $this->briefDescription = 'Render all descriptions as XML and cache the results as files';
+        $this->detailedDescription = <<<'EOF'
 Render all descriptions as XML and cache the results as files
 EOF;
-  }
+    }
 
-  public function execute($arguments = array(), $options = array())
-  {
-    parent::execute($arguments, $options);
-    $this->exportAll($options);
-  }
+    private function exportAll($options)
+    {
+        $logger = new sfCommandLogger(new sfEventDispatcher());
+        $logger->log('Caching XML representations of information objects...');
 
-  private function exportAll($options)
-  {
-    $logger = new sfCommandLogger(new sfEventDispatcher);
-    $logger->log('Caching XML representations of information objects...');
+        $cache = new QubitInformationObjectXmlCache(['logger' => $logger]);
+        $cache->exportAll(['skip' => $options['skip'], 'limit' => $options['limit'], 'format' => $options['format']]);
 
-    $cache = new QubitInformationObjectXmlCache(array('logger' => $logger));
-    $cache->exportAll(array('skip' => $options['skip'], 'limit' => $options['limit'], 'format' => $options['format']));
-
-    $logger->log('Done.');
-  }
+        $logger->log('Done.');
+    }
 }

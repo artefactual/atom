@@ -20,142 +20,133 @@
 /**
  * A worker to, given the HTTP GET parameters sent to advanced search,
  * replicate the search and export the resulting descriptions to CSV.
- *
- * @package    symfony
- * @subpackage jobs
  */
-
 class arInformationObjectExportJob extends arExportJob
 {
-  /**
-   * @see arBaseJob::$requiredParameters
-   */
-  protected $extraRequiredParameters = array('params');  // Search params
-  protected $downloadFileExtension = 'zip';
-  protected $search;            // arElasticSearchPluginQuery instance
-  protected $params = array();
+    /**
+     * @see arBaseJob::$requiredParameters
+     */
+    protected $extraRequiredParameters = ['params'];  // Search params
+    protected $downloadFileExtension = 'zip';
+    protected $search;            // arElasticSearchPluginQuery instance
+    protected $params = [];
 
-  /**
-   * Find records for export based on export parameters
-   *
-   * @param array $parameters  Export parameters
-   *
-   * @return arElasticSearchPluginQuery  AtoM Elasticsearch query
-   */
-  static public function findExportRecords($parameters)
-  {
-    // Create ES query
-    $query = new arElasticSearchPluginQuery(
-      arElasticSearchPluginUtil::SCROLL_SIZE
-    );
-
-    if ($parameters['params']['fromClipboard'])
+    /**
+     * Find records for export based on export parameters.
+     *
+     * @param array $parameters Export parameters
+     *
+     * @return arElasticSearchPluginQuery AtoM Elasticsearch query
+     */
+    public static function findExportRecords($parameters)
     {
-      self::addClipboardCriteria($query, $parameters);
-    }
-    else
-    {
-      $query->addAggFilters(
-        InformationObjectBrowseAction::$AGGS,
-        $parameters['params']
-      );
+        // Create ES query
+        $query = new arElasticSearchPluginQuery(
+            arElasticSearchPluginUtil::SCROLL_SIZE
+        );
 
-      $query->addAdvancedSearchFilters(
-        InformationObjectBrowseAction::$NAMES,
-        $parameters['params'],
-        self::getCurrentArchivalStandard()
-      );
-    }
+        if ($parameters['params']['fromClipboard']) {
+            self::addClipboardCriteria($query, $parameters);
+        } else {
+            $query->addAggFilters(
+                InformationObjectBrowseAction::$AGGS,
+                $parameters['params']
+            );
 
-    $query->query->setSort(array('lft' => 'asc'));
+            $query->addAdvancedSearchFilters(
+                InformationObjectBrowseAction::$NAMES,
+                $parameters['params'],
+                self::getCurrentArchivalStandard()
+            );
+        }
 
-    return QubitSearch::getInstance()
-      ->index
-      ->getType('QubitInformationObject')
-      ->createSearch($query->getQuery(false, false));
-  }
+        $query->query->setSort(['lft' => 'asc']);
 
-  /**
-   * Add clipboard search criteria to ES query
-   */
-  static protected function addClipboardCriteria(&$search, $parameters)
-  {
-    $search->queryBool->addMust(
-      new \Elastica\Query\Terms('slug', $parameters['params']['slugs'])
-    );
-
-    // If "public" option is set, filter out draft records
-    if (isset($parameters['public']) && $parameters['public'])
-    {
-      $search->queryBool->addMust(new \Elastica\Query\Term(
-        ['publicationStatusId' => QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID]
-      ));
-    }
-  }
-
-  /**
-   * Get the current archival standard
-   *
-   * @return arElasticSearchPluginQuery  AtoM Elasticsearch query
-   */
-  static public function getCurrentArchivalStandard()
-  {
-    if ('rad' == QubitSetting::getByNameAndScope('informationobject', 'default_template'))
-    {
-      return 'rad';
+        return QubitSearch::getInstance()
+            ->index
+            ->getType('QubitInformationObject')
+            ->createSearch($query->getQuery(false, false))
+        ;
     }
 
-    // If not using RAD, default to ISAD CSV export format
-    return 'isad';
-  }
-
-  /**
-   * Export clipboard item metadata and digital objects
-   *
-   * @param string $path temporary export job working directory
-   */
-  protected function doExport($path)
-  {
-    $search = self::findExportRecords($this->params);
-
-    if (0 == $search->count())
+    /**
+     * Get the current archival standard.
+     *
+     * @return arElasticSearchPluginQuery AtoM Elasticsearch query
+     */
+    public static function getCurrentArchivalStandard()
     {
-      return;
+        if ('rad' == QubitSetting::getByNameAndScope('informationobject', 'default_template')) {
+            return 'rad';
+        }
+
+        // If not using RAD, default to ISAD CSV export format
+        return 'isad';
     }
 
-    $this->info($this->i18n->__(
-      'Exporting %1 clipboard item(s).', array('%1' => $search->count())
-    ));
-
-    // Scroll through results then iterate through resulting IDs
-    foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id)
+    /**
+     * Add clipboard search criteria to ES query.
+     *
+     * @param mixed $search
+     * @param mixed $parameters
+     */
+    protected static function addClipboardCriteria(&$search, $parameters)
     {
-      $resource = QubitInformationObject::getById($id);
+        $search->queryBool->addMust(
+            new \Elastica\Query\Terms('slug', $parameters['params']['slugs'])
+        );
 
-      // Skip if ElasticSearch document is stale (no corresponding MySQL data)
-      if (null == $resource)
-      {
-        continue;
-      }
-
-      $this->exportResource($resource, $path);
+        // If "public" option is set, filter out draft records
+        if (isset($parameters['public']) && $parameters['public']) {
+            $search->queryBool->addMust(new \Elastica\Query\Term(
+                ['publicationStatusId' => QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID]
+            ));
+        }
     }
-  }
 
-  /**
-   * Test if passed level of description id is allowed for export
-   *
-   * @param int $levelId level of description id to test
-   *
-   * @return bool true if all levels are allowed, or level is in selected levels
-   */
-  protected function isAllowedLevelId($levelId)
-  {
-    // If params['levels'] is empty all levels are allowed, otherwise check
-    // that passed $levelId is in the list of selected levels
-    return (
-      empty($this->params['levels'])
-      || array_key_exists($levelId, $this->params['levels'])
-    );
-  }
+    /**
+     * Export clipboard item metadata and digital objects.
+     *
+     * @param string $path temporary export job working directory
+     */
+    protected function doExport($path)
+    {
+        $search = self::findExportRecords($this->params);
+
+        if (0 == $search->count()) {
+            return;
+        }
+
+        $this->info($this->i18n->__(
+            'Exporting %1 clipboard item(s).',
+            ['%1' => $search->count()]
+        ));
+
+        // Scroll through results then iterate through resulting IDs
+        foreach (arElasticSearchPluginUtil::getScrolledSearchResultIdentifiers($search) as $id) {
+            $resource = QubitInformationObject::getById($id);
+
+            // Skip if ElasticSearch document is stale (no corresponding MySQL data)
+            if (null == $resource) {
+                continue;
+            }
+
+            $this->exportResource($resource, $path);
+        }
+    }
+
+    /**
+     * Test if passed level of description id is allowed for export.
+     *
+     * @param int $levelId level of description id to test
+     *
+     * @return bool true if all levels are allowed, or level is in selected levels
+     */
+    protected function isAllowedLevelId($levelId)
+    {
+        // If params['levels'] is empty all levels are allowed, otherwise check
+        // that passed $levelId is in the list of selected levels
+        return empty($this->params['levels'])
+            || array_key_exists($levelId, $this->params['levels']);
+    }
 }

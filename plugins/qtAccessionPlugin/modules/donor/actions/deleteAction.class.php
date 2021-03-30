@@ -19,33 +19,29 @@
 
 class DonorDeleteAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->form = new sfForm;
-
-    $this->resource = $this->getRoute()->resource;
-
-    // Check user authorization
-    if (!QubitAcl::check($this->resource, 'delete'))
+    public function execute($request)
     {
-      QubitAcl::forwardUnauthorized();
-    }
+        $this->form = new sfForm();
 
-    if ($request->isMethod('delete'))
-    {
-      $this->form->bind($request->getPostParameters());
-      
-      if ($this->form->isValid())
-      {
-        foreach (QubitRelation::getBySubjectOrObjectId($this->resource->id) as $item)
-        {
-          $item->delete();
+        $this->resource = $this->getRoute()->resource;
+
+        // Check user authorization
+        if (!QubitAcl::check($this->resource, 'delete')) {
+            QubitAcl::forwardUnauthorized();
         }
 
-        $this->resource->delete();
+        if ($request->isMethod('delete')) {
+            $this->form->bind($request->getPostParameters());
 
-        $this->redirect(array('module' => 'donor', 'action' => 'browse'));
-      }
+            if ($this->form->isValid()) {
+                foreach (QubitRelation::getBySubjectOrObjectId($this->resource->id) as $item) {
+                    $item->delete();
+                }
+
+                $this->resource->delete();
+
+                $this->redirect(['module' => 'donor', 'action' => 'browse']);
+            }
+        }
     }
-  }
 }

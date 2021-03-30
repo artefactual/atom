@@ -19,19 +19,19 @@
 
 class sfIsdfPluginRelatedResourceComponent extends RelationEditComponent
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'resource',
-      'description',
-      'startDate',
-      'endDate',
-      'date');
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'resource',
+        'description',
+        'startDate',
+        'endDate',
+        'date',
+    ];
 
-  public function execute($request)
-  {
-    parent::execute($request);
+    public function execute($request)
+    {
+        parent::execute($request);
 
-    $this->form->getWidgetSchema()->setNameFormat('relatedResource[%s]');
-  }
+        $this->form->getWidgetSchema()->setNameFormat('relatedResource[%s]');
+    }
 }

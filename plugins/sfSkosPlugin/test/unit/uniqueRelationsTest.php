@@ -19,109 +19,97 @@
 
 require_once dirname(__FILE__).'/../../../../test/bootstrap/unit.php';
 
-$t = new lime_test(6, new lime_output_color);
+$t = new lime_test(6, new lime_output_color());
 
 $t->diag('Initializing configuration.');
 $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', true);
 
+$tests = [
+    [
+        'relations' => [
+            [1, 2],
+            [1, 3],
+            [1, 4],
+            [2, 3],
+            [4, 1],
+        ],
+        'expected' => [
+            [1, 2],
+            [1, 3],
+            [1, 4],
+            [2, 3],
+        ],
+    ],
 
-$tests = array(
+    [
+        'relations' => [
+            [10, 20],
+            [3, 3],
+            [3, 3],
+        ],
+        'expected' => [
+            [10, 20],
+            [3, 3],
+        ],
+    ],
+];
 
-  array(
-    'relations' => array(
-      array(1, 2),
-      array(1, 3),
-      array(1, 4),
-      array(2, 3),
-      array(4, 1)
-    ),
-    'expected' => array(
-      array(1, 2),
-      array(1, 3),
-      array(1, 4),
-      array(2, 3)
-    )
-  ),
+foreach ($tests as $item) {
+    // Build
+    $uniquer = new sfSkosUniqueRelations();
+    foreach ($item['relations'] as $rel) {
+        $uniquer->insert($rel[0], $rel[1]);
+    }
 
-  array(
-    'relations' => array(
-      array(10, 20),
-      array(3, 3),
-      array(3, 3)
-    ),
-    'expected' => array(
-      array(10, 20),
-      array(3, 3)
-    )
-  )
+    // Test that the duplicates are not included (is() uses the === operator, sort is also checked!)
+    $result = $uniquer->getAll();
+    $t->is($result, $item['expected']);
 
-);
+    // Test that the object is countable
+    $t->is(count($uniquer), count($item['expected']));
 
-foreach ($tests as $item)
-{
-  // Build
-  $uniquer = new sfSkosUniqueRelations;
-  foreach ($item['relations'] as $rel)
-  {
-    $uniquer->insert($rel[0], $rel[1]);
-  }
+    // Test that the object is iterable
+    $index = 0;
+    foreach ($uniquer as $unique) {
+        ++$index;
+    }
+    $t->is($index, count($item['expected']));
 
-  // Test that the duplicates are not included (is() uses the === operator, sort is also checked!)
-  $result = $uniquer->getAll();
-  $t->is($result, $item['expected']);
-
-  // Test that the object is countable
-  $t->is(count($uniquer), count($item['expected']));
-
-  // Test that the object is iterable
-  $index = 0;
-  foreach ($uniquer as $unique)
-  {
-    $index += 1;
-  }
-  $t->is($index, count($item['expected']));
-
-  unset($uniquer);
+    unset($uniquer);
 }
 
-
-
 // Test if sfSkosUniqueRelations is working with the UNESCO Thesaurus
-die(0);  // DISABLED! You can download the data from: http://vocabularies.unesco.org/exports/thesaurus/latest/unesco-thesaurus.rdf
+exit(0);  // DISABLED! You can download the data from: http://vocabularies.unesco.org/exports/thesaurus/latest/unesco-thesaurus.rdf
 $unescoThesaurus = realpath(dirname(__FILE__)).'/data/unesco-thesaurus.rdf';
-$graph = new EasyRdf_Graph;
+$graph = new EasyRdf_Graph();
 $graph->parseFile($unescoThesaurus);
 
 // Populate relationships
-$relations = new sfSkosUniqueRelations;
+$relations = new sfSkosUniqueRelations();
 $prefix = 'http://vocabularies.unesco.org/thesaurus/concept';
 $prefixLen = strlen($prefix);
-foreach ($graph->allOfType('skos:Concept') as $x)
-{
-  foreach ($x->allResources('skos:related') as $y)
-  {
-    $idX = substr($x->getUri(), $prefixLen);
-    $idY = substr($y->getUri(), $prefixLen);
+foreach ($graph->allOfType('skos:Concept') as $x) {
+    foreach ($x->allResources('skos:related') as $y) {
+        $idX = substr($x->getUri(), $prefixLen);
+        $idY = substr($y->getUri(), $prefixLen);
 
-    $relations->insert((int)$idX, (int)$idY);
-  }
+        $relations->insert((int) $idX, (int) $idY);
+    }
 }
 
 $results = $relations->getAll();
 
-$tests = array(
-  9345 => array(7050, 10321, 81, 8646, 9403, 13294, 9842, 83, 2073),
-  2340 => array(2327, 2328),
-  249  => array(1927, 219, 619, 8188, 11757, 12189),
-  1518 => array(1480, 3602, 11264, 1516, 17061)
-);
+$tests = [
+    9345 => [7050, 10321, 81, 8646, 9403, 13294, 9842, 83, 2073],
+    2340 => [2327, 2328],
+    249 => [1927, 219, 619, 8188, 11757, 12189],
+    1518 => [1480, 3602, 11264, 1516, 17061],
+];
 
-foreach ($tests as $s => $p)
-{
-  foreach ($p as $pX)
-  {
-    $rel = array($s, $pX);
-    $matched = $relations->exists($rel[0], $rel[1]);
-    $t->is($matched, true, sprintf('Relation %s => %s should be found', $rel[0], $rel[1]));
-  }
+foreach ($tests as $s => $p) {
+    foreach ($p as $pX) {
+        $rel = [$s, $pX];
+        $matched = $relations->exists($rel[0], $rel[1]);
+        $t->is($matched, true, sprintf('Relation %s => %s should be found', $rel[0], $rel[1]));
+    }
 }

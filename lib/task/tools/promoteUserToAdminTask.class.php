@@ -18,68 +18,66 @@
  */
 
 /**
- * Promote user to admin
- *
- * @package    symfony
- * @subpackage task
+ * Promote user to admin.
  */
 class promoteUserToAdminTask extends sfBaseTask
 {
-  /**
-   * @see sfTask
-   */
-  protected function configure()
-  {
-    $this->addArguments(array(
-      new sfCommandArgument('username', sfCommandArgument::REQUIRED, 'The username')
-    ));
+    /**
+     * @see sfTask
+     *
+     * @param mixed $arguments
+     * @param mixed $options
+     */
+    public function execute($arguments = [], $options = [])
+    {
+        sfContext::createInstance($this->configuration);
+        $databaseManager = new sfDatabaseManager($this->configuration);
+        $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-    ));
+        $criteria = new Criteria();
+        $criteria->add(QubitUser::USERNAME, $arguments['username']);
+        if (null === $user = QubitUser::getOne($criteria)) {
+            throw new Exception('Unknown user.');
+        }
 
-    $this->namespace = 'tools';
-    $this->name = 'promote-user-to-admin';
-    $this->briefDescription = 'Promote user to admin.';
+        // Make sure that the user is active
+        $user->active = true;
 
-    $this->detailedDescription = <<<EOF
+        // Check if the user is already an administrator
+        if ($user->hasGroup(QubitAclGroup::ADMINISTRATOR_ID)) {
+            throw new Exception('The given user is already an administrator.');
+        }
+
+        // Give user admin capability
+        $group = new QubitAclUserGroup();
+        $group->userId = $user->id;
+        $group->groupId = QubitAclGroup::ADMINISTRATOR_ID;
+        $group->save();
+
+        $this->logSection('info', 'The user '.$user->username.' is now an administrator.');
+    }
+
+    /**
+     * @see sfTask
+     */
+    protected function configure()
+    {
+        $this->addArguments([
+            new sfCommandArgument('username', sfCommandArgument::REQUIRED, 'The username'),
+        ]);
+
+        $this->addOptions([
+            new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+            new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+        ]);
+
+        $this->namespace = 'tools';
+        $this->name = 'promote-user-to-admin';
+        $this->briefDescription = 'Promote user to admin.';
+
+        $this->detailedDescription = <<<'EOF'
 Prompote existing user to admin.
 EOF;
-  }
-
-  /**
-   * @see sfTask
-   */
-  public function execute($arguments = array(), $options = array())
-  {
-    sfContext::createInstance($this->configuration);
-    $databaseManager = new sfDatabaseManager($this->configuration);
-    $conn = $databaseManager->getDatabase('propel')->getConnection();
-
-    $criteria = new Criteria;
-    $criteria->add(QubitUser::USERNAME, $arguments['username']);
-    if (null === $user = QubitUser::getOne($criteria))
-    {
-      throw new Exception('Unknown user.');
     }
-
-    // Make sure that the user is active
-    $user->active = true;
-
-    // Check if the user is already an administrator
-    if ($user->hasGroup(QubitAclGroup::ADMINISTRATOR_ID))
-    {
-      throw new Exception('The given user is already an administrator.');
-    }
-
-    // Give user admin capability
-    $group = new QubitAclUserGroup();
-    $group->userId = $user->id;
-    $group->groupId = QubitAclGroup::ADMINISTRATOR_ID;
-    $group->save();
-
-    $this->logSection('info', 'The user '.$user->username.' is now an administrator.');
-  }
 }

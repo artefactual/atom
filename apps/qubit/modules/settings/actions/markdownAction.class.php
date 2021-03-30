@@ -19,70 +19,64 @@
 
 class SettingsMarkdownAction extends DefaultEditAction
 {
-  // Arrays not allowed in class constants
-  public static $NAMES = array('enabled');
+    // Arrays not allowed in class constants
+    public static $NAMES = ['enabled'];
 
-  protected function earlyExecute()
-  {
-    $this->i18n = sfContext::getInstance()->i18n;
-  }
-
-  protected function addField($name)
-  {
-    switch ($name)
+    public function execute($request)
     {
-      case 'enabled':
-        $default = 1;
-        if (null !== $this->settingEnabled = QubitSetting::getByName('markdown_enabled'))
-        {
-          $default = $this->settingEnabled->getValue(array('sourceCulture' => true));
+        parent::execute($request);
+
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
+
+            if ($this->form->isValid()) {
+                $this->processForm();
+
+                QubitCache::getInstance()->removePattern('settings:i18n:*');
+
+                $this->getUser()->setFlash('notice', $this->i18n->__('Markdown settings saved.'));
+
+                $this->redirect(['module' => 'settings', 'action' => 'markdown']);
+            }
         }
-
-        $this->form->setDefault($name, $default);
-        $this->form->setValidator($name, new sfValidatorInteger(array('required' => false)));
-        $this->form->setWidget($name, new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')));
-
-        break;
     }
-  }
 
-  protected function processField($field)
-  {
-    switch ($field->getName())
+    protected function earlyExecute()
     {
-      case 'enabled':
-        if (null === $this->settingEnabled)
-        {
-          $this->settingEnabled = new QubitSetting;
-          $this->settingEnabled->name = 'markdown_enabled';
-          $this->settingEnabled->sourceCulture = 'en';
+        $this->i18n = sfContext::getInstance()->i18n;
+    }
+
+    protected function addField($name)
+    {
+        switch ($name) {
+            case 'enabled':
+                $default = 1;
+                if (null !== $this->settingEnabled = QubitSetting::getByName('markdown_enabled')) {
+                    $default = $this->settingEnabled->getValue(['sourceCulture' => true]);
+                }
+
+                $this->form->setDefault($name, $default);
+                $this->form->setValidator($name, new sfValidatorInteger(['required' => false]));
+                $this->form->setWidget($name, new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']));
+
+                break;
         }
-
-        $this->settingEnabled->setValue($field->getValue(), array('culture' => 'en'));
-        $this->settingEnabled->save();
-
-        break;
     }
-  }
 
-  public function execute($request)
-  {
-    parent::execute($request);
-
-    if ($request->isMethod('post'))
+    protected function processField($field)
     {
-      $this->form->bind($request->getPostParameters());
+        switch ($field->getName()) {
+            case 'enabled':
+                if (null === $this->settingEnabled) {
+                    $this->settingEnabled = new QubitSetting();
+                    $this->settingEnabled->name = 'markdown_enabled';
+                    $this->settingEnabled->sourceCulture = 'en';
+                }
 
-      if ($this->form->isValid())
-      {
-        $this->processForm();
+                $this->settingEnabled->setValue($field->getValue(), ['culture' => 'en']);
+                $this->settingEnabled->save();
 
-        QubitCache::getInstance()->removePattern('settings:i18n:*');
-
-        $this->getUser()->setFlash('notice', $this->i18n->__('Markdown settings saved.'));
-
-        $this->redirect(array('module' => 'settings', 'action' => 'markdown'));
-      }
+                break;
+        }
     }
-  }
 }

@@ -19,39 +19,38 @@
 
 class QubitValidatorActorDescriptionIdentifier extends sfValidatorBase
 {
-  protected function configure($options = array(), $messages = array())
-  {
-    parent::configure($options, $messages);
-
-    $this->addRequiredOption('resource');
-  }
-
-  protected function doClean($value)
-  {
-    // Fail validation if identifier has been used by another actor
-    if (self::identifierUsedByAnotherActor($value, $this->getOption('resource')))
+    public static function identifierUsedByAnotherActor($identifier, $byResource)
     {
-      $message = sfContext::getInstance()->i18n->__(
-                   '%1%Authority record identifier%2% - value not unique.',
-                   array('%1%' => '<a href="http://ica-atom.org/doc/RS-2#5.4.1">', '%2%' => '</a>'));
+        $criteria = new Criteria();
+        $criteria->add(QubitActor::DESCRIPTION_IDENTIFIER, $identifier);
 
-      throw new sfValidatorError($this, $message, array('value' => $value));
+        // If actor isn't new, exclude it in check to see if the identifier's already been used
+        if (null !== $byResource && isset($byResource->id)) {
+            $criteria->add(QubitActor::ID, $byResource->id, Criteria::NOT_EQUAL);
+        }
+
+        return count(QubitActor::get($criteria)) > 0;
     }
 
-    return $value;
-  }
-
-  public static function identifierUsedByAnotherActor($identifier, $byResource)
-  {
-    $criteria = new Criteria;
-    $criteria->add(QubitActor::DESCRIPTION_IDENTIFIER, $identifier);
-
-    // If actor isn't new, exclude it in check to see if the identifier's already been used
-    if ($byResource !== null && isset($byResource->id))
+    protected function configure($options = [], $messages = [])
     {
-      $criteria->add(QubitActor::ID, $byResource->id, Criteria::NOT_EQUAL);
+        parent::configure($options, $messages);
+
+        $this->addRequiredOption('resource');
     }
 
-    return count(QubitActor::get($criteria)) > 0;
-  }
+    protected function doClean($value)
+    {
+        // Fail validation if identifier has been used by another actor
+        if (self::identifierUsedByAnotherActor($value, $this->getOption('resource'))) {
+            $message = sfContext::getInstance()->i18n->__(
+                '%1%Authority record identifier%2% - value not unique.',
+                ['%1%' => '<a href="http://ica-atom.org/doc/RS-2#5.4.1">', '%2%' => '</a>']
+            );
+
+            throw new sfValidatorError($this, $message, ['value' => $value]);
+        }
+
+        return $value;
+    }
 }

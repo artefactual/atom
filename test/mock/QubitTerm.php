@@ -21,8 +21,8 @@ namespace AccessToMemory\test\mock;
 
 class QubitTerm
 {
-  public static function getName($options)
-  {
-    return "Term";
-  }
+    public static function getName($options)
+    {
+        return 'Term';
+    }
 }

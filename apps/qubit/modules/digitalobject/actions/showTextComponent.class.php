@@ -18,35 +18,30 @@
  */
 
 /**
- * Digital Object display component
+ * Digital Object display component.
  *
- * @package    AccesstoMemory
- * @subpackage digitalObject
  * @author     David Juhasz <david@artefactual.com>
  */
 class DigitalObjectShowTextComponent extends sfComponent
 {
-  /**
-   * Show a representation of a digital object image.
-   *
-   * @param sfWebRequest $request
-   *
-   */
-  public function execute($request)
-  {
-    // Get representation by usage type
-    $this->representation = $this->resource->getRepresentationByUsage($this->usageType);
-
-    // If we can't find a representation for this object, try their parent
-    if (!$this->representation && ($parent = $this->resource->parent))
+    /**
+     * Show a representation of a digital object image.
+     *
+     * @param sfWebRequest $request
+     */
+    public function execute($request)
     {
-      $this->representation = $parent->getRepresentationByUsage($this->usageType);
-    }
+        // Get representation by usage type
+        $this->representation = $this->resource->getRepresentationByUsage($this->usageType);
 
-    // If representation is not a valid digital object, return a generic icon
-    if (!$this->representation)
-    {
-       $this->representation = QubitDigitalObject::getGenericRepresentation($this->resource->mimeType, $this->usageType);
+        // If we can't find a representation for this object, try their parent
+        if (!$this->representation && ($parent = $this->resource->parent)) {
+            $this->representation = $parent->getRepresentationByUsage($this->usageType);
+        }
+
+        // If representation is not a valid digital object, return a generic icon
+        if (!$this->representation) {
+            $this->representation = QubitDigitalObject::getGenericRepresentation($this->resource->mimeType, $this->usageType);
+        }
     }
-  }
 }

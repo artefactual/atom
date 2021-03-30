@@ -19,137 +19,115 @@
 
 class UserEditInformationObjectAclAction extends DefaultEditAction
 {
-  public static
-    $NAMES = array();
+    public static $NAMES = [];
 
-  protected function earlyExecute()
-  {
-    $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
-
-    if (isset($this->getRoute()->resource))
+    public function execute($request)
     {
-      $this->resource = $this->getRoute()->resource;
-    }
-    else
-    {
-      $this->forward404();
-    }
+        parent::execute($request);
 
-    // Build separate list of permissions by repository and by object
-    $this->repositories = array();
-    $this->informationObjects = array();
-    $this->root = array();
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
 
-    if (isset($this->resource->id))
-    {
-      // Get info object permissions for this group
-      $criteria = new Criteria;
-      $criteria->addJoin(QubitAclPermission::OBJECT_ID, QubitObject::ID, Criteria::LEFT_JOIN);
-      $criteria->add(QubitAclPermission::USER_ID, $this->resource->id);
-      $c1 = $criteria->getNewCriterion(QubitAclPermission::OBJECT_ID, null, Criteria::ISNULL);
-      $c2 = $criteria->getNewCriterion(QubitObject::CLASS_NAME, 'QubitInformationObject');
-      $c1->addOr($c2);
-      $criteria->add($c1);
+            if ($this->form->isValid()) {
+                $this->processForm();
 
-      $criteria->addAscendingOrderByColumn(QubitAclPermission::CONSTANTS);
-      $criteria->addAscendingOrderByColumn(QubitAclPermission::OBJECT_ID);
+                $this->resource->save();
 
-      if (0 < count($permissions = QubitAclPermission::get($criteria)))
-      {
-        foreach ($permissions as $item)
-        {
-          if (null != ($repository = $item->getConstants(array('name' => 'repository'))))
-          {
-            $this->repositories[$repository][$item->action] = $item;
-          }
-          else if (null != $item->objectId && QubitInformationObject::ROOT_ID != $item->objectId)
-          {
-            $this->informationObjects[$item->objectId][$item->action] = $item;
-          }
-          else
-          {
-            $this->root[$item->action] = $item;
-          }
+                $this->redirect([$this->resource, 'module' => 'user', 'action' => 'indexInformationObjectAcl']);
+            }
         }
-      }
     }
 
-    // List of actions without translate
-    $this->basicActions = QubitInformationObjectAcl::$ACTIONS;
-    unset($this->basicActions['translate']);
-  }
-
-  protected function processForm()
-  {
-    foreach ($this->request->acl as $key => $value)
+    protected function earlyExecute()
     {
-      // If key has an underscore, then we are creating a new permission
-      if (1 == preg_match('/([\w]+)_(.*)/', $key, $matches))
-      {
-        list ($action, $uri) = array_slice($matches, 1, 2);
-        $params = $this->context->routing->parse(Qubit::pathInfo($uri));
-        $resource = $params['_sf_route']->resource;
+        $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
-        if (QubitAcl::INHERIT != $value && isset(QubitInformationObjectAcl::$ACTIONS[$action]))
-        {
-          $aclPermission = new QubitAclPermission;
-          $aclPermission->action = $action;
-          $aclPermission->grantDeny = (QubitAcl::GRANT == $value) ? 1 : 0;
-
-          switch ($resource->className)
-          {
-            case 'QubitInformationObject':
-              $aclPermission->objectId = $resource->id;
-
-              break;
-
-            case 'QubitRepository':
-              $aclPermission->objectId = QubitInformationObject::ROOT_ID;
-              $aclPermission->setRepository($resource);
-
-              break;
-
-            default:
-              continue;
-          }
-
-          $this->resource->aclPermissions[] = $aclPermission;
+        if (isset($this->getRoute()->resource)) {
+            $this->resource = $this->getRoute()->resource;
+        } else {
+            $this->forward404();
         }
-      }
 
-      // Otherwise, update an existing permission
-      else if (null !== $aclPermission = QubitAclPermission::getById($key))
-      {
-        if ($value == QubitAcl::INHERIT)
-        {
-          $aclPermission->delete();
-        }
-        else
-        {
-          $aclPermission->grantDeny = (QubitAcl::GRANT == $value) ? 1 : 0;
+        // Build separate list of permissions by repository and by object
+        $this->repositories = [];
+        $this->informationObjects = [];
+        $this->root = [];
 
-          $this->resource->aclPermissions[] = $aclPermission;
+        if (isset($this->resource->id)) {
+            // Get info object permissions for this group
+            $criteria = new Criteria();
+            $criteria->addJoin(QubitAclPermission::OBJECT_ID, QubitObject::ID, Criteria::LEFT_JOIN);
+            $criteria->add(QubitAclPermission::USER_ID, $this->resource->id);
+            $c1 = $criteria->getNewCriterion(QubitAclPermission::OBJECT_ID, null, Criteria::ISNULL);
+            $c2 = $criteria->getNewCriterion(QubitObject::CLASS_NAME, 'QubitInformationObject');
+            $c1->addOr($c2);
+            $criteria->add($c1);
+
+            $criteria->addAscendingOrderByColumn(QubitAclPermission::CONSTANTS);
+            $criteria->addAscendingOrderByColumn(QubitAclPermission::OBJECT_ID);
+
+            if (0 < count($permissions = QubitAclPermission::get($criteria))) {
+                foreach ($permissions as $item) {
+                    if (null != ($repository = $item->getConstants(['name' => 'repository']))) {
+                        $this->repositories[$repository][$item->action] = $item;
+                    } elseif (null != $item->objectId && QubitInformationObject::ROOT_ID != $item->objectId) {
+                        $this->informationObjects[$item->objectId][$item->action] = $item;
+                    } else {
+                        $this->root[$item->action] = $item;
+                    }
+                }
+            }
         }
-      }
+
+        // List of actions without translate
+        $this->basicActions = QubitInformationObjectAcl::$ACTIONS;
+        unset($this->basicActions['translate']);
     }
-  }
 
-  public function execute($request)
-  {
-    parent::execute($request);
-
-    if ($request->isMethod('post'))
+    protected function processForm()
     {
-      $this->form->bind($request->getPostParameters());
+        foreach ($this->request->acl as $key => $value) {
+            // If key has an underscore, then we are creating a new permission
+            if (1 == preg_match('/([\w]+)_(.*)/', $key, $matches)) {
+                list($action, $uri) = array_slice($matches, 1, 2);
+                $params = $this->context->routing->parse(Qubit::pathInfo($uri));
+                $resource = $params['_sf_route']->resource;
 
-      if ($this->form->isValid())
-      {
-        $this->processForm();
+                if (QubitAcl::INHERIT != $value && isset(QubitInformationObjectAcl::$ACTIONS[$action])) {
+                    $aclPermission = new QubitAclPermission();
+                    $aclPermission->action = $action;
+                    $aclPermission->grantDeny = (QubitAcl::GRANT == $value) ? 1 : 0;
 
-        $this->resource->save();
+                    switch ($resource->className) {
+                        case 'QubitInformationObject':
+                            $aclPermission->objectId = $resource->id;
 
-        $this->redirect(array($this->resource, 'module' => 'user', 'action' => 'indexInformationObjectAcl'));
-      }
+                            break;
+
+                        case 'QubitRepository':
+                            $aclPermission->objectId = QubitInformationObject::ROOT_ID;
+                            $aclPermission->setRepository($resource);
+
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    $this->resource->aclPermissions[] = $aclPermission;
+                }
+            }
+
+            // Otherwise, update an existing permission
+            elseif (null !== $aclPermission = QubitAclPermission::getById($key)) {
+                if (QubitAcl::INHERIT == $value) {
+                    $aclPermission->delete();
+                } else {
+                    $aclPermission->grantDeny = (QubitAcl::GRANT == $value) ? 1 : 0;
+
+                    $this->resource->aclPermissions[] = $aclPermission;
+                }
+            }
+        }
     }
-  }
 }

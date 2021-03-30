@@ -25,19 +25,20 @@
  */
 class arMigration0096
 {
-  const
-    VERSION = 96, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 96;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    // Add table keymap
-    $sql = <<<sql
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
+    {
+        // Add table keymap
+        $sql = <<<'sql'
 
 CREATE TABLE `access_log`
 (
@@ -54,8 +55,8 @@ CREATE TABLE `access_log`
 )Engine=InnoDB;
 
 sql;
-    QubitPdo::modify($sql);
+        QubitPdo::modify($sql);
 
-    return true;
-  }
+        return true;
+    }
 }

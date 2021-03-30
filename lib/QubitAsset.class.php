@@ -18,124 +18,113 @@
  */
 
 /**
- * Simple representation of an asset
+ * Simple representation of an asset.
  *
- * @package    AccesstoMemory
- * @subpackage libraries
  * @author     David Juhasz <david@artefactual.com>
  */
 class QubitAsset
 {
-  protected
-    $name,
-    $contents,
-    $checksum,
-    $checksumAlgorithm,
-    $path;
+    protected $name;
+    protected $contents;
+    protected $checksum;
+    protected $checksumAlgorithm;
+    protected $path;
 
-  public function __construct()
-  {
-    $args = func_get_args();
-
-    // File path passed
-    if (1 == func_num_args())
+    public function __construct()
     {
-      $path_parts = pathinfo($args[0]);
+        $args = func_get_args();
 
-      $this->name = $path_parts['basename'];
-      $this->path = $args[0];
-    }
-    // File name and contents passed
-    else if (2 == func_num_args())
-    {
-      $this->name = $args[0];
-      $this->contents = $args[1];
-    }
+        // File path passed
+        if (1 == func_num_args()) {
+            $path_parts = pathinfo($args[0]);
 
-    $this->generateChecksum('sha256');
-  }
+            $this->name = $path_parts['basename'];
+            $this->path = $args[0];
+        }
+        // File name and contents passed
+        elseif (2 == func_num_args()) {
+            $this->name = $args[0];
+            $this->contents = $args[1];
+        }
 
-  public function setName($value)
-  {
-    $this->name = $value;
-
-    return $this;
-  }
-
-  public function getName()
-  {
-    return $this->name;
-  }
-
-  public function getPath()
-  {
-    return $this->path;
-  }
-
-  public function setContents($value)
-  {
-    $this->contents = $value;
-
-    return $this;
-  }
-
-  public function getContents()
-  {
-    return $this->contents;
-  }
-
-  public function setChecksum($value, $options)
-  {
-    if (isset($options['algorithm']))
-    {
-      $this->setChecksumAlgorithm($options['algorithm']);
+        $this->generateChecksum('sha256');
     }
 
-    if (0 < strlen($value) && !isset($this->checksumAlgorithm))
+    public function setName($value)
     {
-      throw new Exception('You cannot set a checksum without specifiying an algorithm.');
+        $this->name = $value;
+
+        return $this;
     }
 
-    $this->checksum = $value;
-
-    return $this;
-  }
-
-  public function setChecksumAlgorithm($value)
-  {
-    $this->checksumAlgorithm = $value;
-
-    return $this;
-  }
-
-  public function getChecksum()
-  {
-    return $this->checksum;
-  }
-
-  public function getChecksumAlgorithm()
-  {
-    return $this->checksumAlgorithm;
-  }
-
-  public function generateChecksum($algorithm)
-  {
-    if (!in_array($algorithm, hash_algos()))
+    public function getName()
     {
-      throw new Exception('Invalid checksum algorithm');
+        return $this->name;
     }
 
-    $this->checksumAlgorithm = $algorithm;
-
-    if (isset($this->contents))
+    public function getPath()
     {
-      $this->checksum = hash($algorithm, $this->contents);
-    }
-    else if (isset($this->path))
-    {
-      $this->checksum = hash_file($algorithm, $this->path);
+        return $this->path;
     }
 
-    return $this->checksum;
-  }
+    public function setContents($value)
+    {
+        $this->contents = $value;
+
+        return $this;
+    }
+
+    public function getContents()
+    {
+        return $this->contents;
+    }
+
+    public function setChecksum($value, $options)
+    {
+        if (isset($options['algorithm'])) {
+            $this->setChecksumAlgorithm($options['algorithm']);
+        }
+
+        if (0 < strlen($value) && !isset($this->checksumAlgorithm)) {
+            throw new Exception('You cannot set a checksum without specifiying an algorithm.');
+        }
+
+        $this->checksum = $value;
+
+        return $this;
+    }
+
+    public function setChecksumAlgorithm($value)
+    {
+        $this->checksumAlgorithm = $value;
+
+        return $this;
+    }
+
+    public function getChecksum()
+    {
+        return $this->checksum;
+    }
+
+    public function getChecksumAlgorithm()
+    {
+        return $this->checksumAlgorithm;
+    }
+
+    public function generateChecksum($algorithm)
+    {
+        if (!in_array($algorithm, hash_algos())) {
+            throw new Exception('Invalid checksum algorithm');
+        }
+
+        $this->checksumAlgorithm = $algorithm;
+
+        if (isset($this->contents)) {
+            $this->checksum = hash($algorithm, $this->contents);
+        } elseif (isset($this->path)) {
+            $this->checksum = hash_file($algorithm, $this->path);
+        }
+
+        return $this->checksum;
+    }
 }

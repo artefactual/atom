@@ -19,17 +19,16 @@
 
 class sfIsdfPluginConfiguration extends sfPluginConfiguration
 {
-  public static
-    $summary = 'Metadata standard plugin.  Enables data-entry and display using International Standard for Describing Functions (ISDF).',
-    $version = '1.0.0';
+    public static $summary = 'Metadata standard plugin.  Enables data-entry and display using International Standard for Describing Functions (ISDF).';
+    public static $version = '1.0.0';
 
-  /**
-   * @see sfPluginConfiguration
-   */
-  public function initialize()
-  {
-    $enabledModules = sfConfig::get('sf_enabled_modules');
-    $enabledModules[] = 'sfIsdfPlugin';
-    sfConfig::set('sf_enabled_modules', $enabledModules);
-  }
+    /**
+     * @see sfPluginConfiguration
+     */
+    public function initialize()
+    {
+        $enabledModules = sfConfig::get('sf_enabled_modules');
+        $enabledModules[] = 'sfIsdfPlugin';
+        sfConfig::set('sf_enabled_modules', $enabledModules);
+    }
 }

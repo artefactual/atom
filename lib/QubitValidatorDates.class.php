@@ -19,55 +19,67 @@
 
 class QubitValidatorDates extends sfValidatorBase
 {
-  protected function doClean($value)
-  {
-    foreach ($value->eventsRelatedByobjectId as $item)
+    protected function doClean($value)
     {
-      $valid = true;
+        foreach ($value->eventsRelatedByobjectId as $item) {
+            $valid = true;
 
-      // Only validate this event if it has start or end date
-      if (isset($item->startDate) || isset($item->endDate))
-      {
-        // Find first ancestor with an event, with a start or end date, of same
-        // type as event we're validating
-        foreach ($value->ancestors->orderBy('rgt') as $ancestor)
-        {
-          foreach ($ancestor->getDates(array('type_id' => $item->type->id)) as $event)
-          {
-            // Found at least one such event, if event we're validating isn't
-            // valid according to at least one of this ancestor's events, then
-            // it's invalid
-            $valid = false;
+            // Only validate this event if it has start or end date
+            if (isset($item->startDate) || isset($item->endDate)) {
+                // Find first ancestor with an event, with a start or end date, of same
+                // type as event we're validating
+                foreach ($value->ancestors->orderBy('rgt') as $ancestor) {
+                    foreach ($ancestor->getDates(['type_id' => $item->type->id]) as $event) {
+                        // Found at least one such event, if event we're validating isn't
+                        // valid according to at least one of this ancestor's events, then
+                        // it's invalid
+                        $valid = false;
 
-            // Valid according to this event?  Start date is greater than or
-            // equal and end date is less than or equal, or start or end dates
-            // are missing
-            if ((!isset($item->startDate)
-                  || ((!isset($event->startDate)
-                      || new DateTime($item->startDate) >= new DateTime($event->startDate))
-                    && (!isset($event->endDate)
-                      || new DateTime($item->startDate) <= new DateTime($event->endDate))))
-                && (!isset($item->endDate)
-                  || ((!isset($event->startDate)
-                      || new DateTime($item->endDate) >= new DateTime($event->startDate))
-                    && (!isset($event->endDate)
-                      || new DateTime($item->endDate) <= new DateTime($event->endDate)))))
-            {
-              // Valid!  Check next event
-              continue 3;
+                        // Valid according to this event?  Start date is greater than or
+                        // equal and end date is less than or equal, or start or end dates
+                        // are missing
+                        if (
+                            (
+                                !isset($item->startDate)
+                                || (
+                                    (
+                                        !isset($event->startDate)
+                                        || new DateTime($item->startDate) >= new DateTime($event->startDate)
+                                    )
+                                    && (
+                                        !isset($event->endDate)
+                                        || new DateTime($item->startDate) <= new DateTime($event->endDate)
+                                    )
+                                )
+                            )
+                            && (
+                                !isset($item->endDate)
+                                || (
+                                    (
+                                        !isset($event->startDate)
+                                        || new DateTime($item->endDate) >= new DateTime($event->startDate)
+                                    )
+                                    && (
+                                        !isset($event->endDate)
+                                        || new DateTime($item->endDate) <= new DateTime($event->endDate)
+                                    )
+                                )
+                            )
+                        ) {
+                            // Valid!  Check next event
+                            continue 3;
+                        }
+                    }
+
+                    // If event isn't in at least one of the ranges for this ancestor,
+                    // then throw validation error
+                    if (!$valid) {
+                        throw new sfValidatorError($this, 'invalid', ['ancestor' => sfContext::getInstance()->routing->generate(null, [$ancestor, 'module' => 'informationobject'])]);
+                    }
+                }
             }
-          }
-
-          // If event isn't in at least one of the ranges for this ancestor,
-          // then throw validation error
-          if (!$valid)
-          {
-            throw new sfValidatorError($this, 'invalid', array('ancestor' => sfContext::getInstance()->routing->generate(null, array($ancestor, 'module' => 'informationobject'))));
-          }
         }
-      }
-    }
 
-    return $value;
-  }
+        return $value;
+    }
 }

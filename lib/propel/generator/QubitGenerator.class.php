@@ -19,29 +19,27 @@
 
 class QubitGenerator extends sfPropelAdminGenerator
 {
-  protected function setScaffoldingClassName($className)
-  {
-    $this->singularName = strtolower(substr($className, 0, 1)).substr($className, 1);
-    $this->pluralName = $this->singularName.'s';
-    $this->className = $className;
-    $this->peerClassName = $className.'Peer';
-  }
-
-  public function getColumnEditTag($column, $params = array())
-  {
-    if ($column->isComponent())
+    public function getColumnEditTag($column, $params = [])
     {
-      $moduleName = $this->getModuleName();
-      $componentName = $column->getName();
-      if (false !== $pos = strpos($componentName, '/'))
-      {
-        $moduleName = substr($componentName, 0, $pos);
-        $componentName = substr($componentName, $pos + 1);
-      }
+        if ($column->isComponent()) {
+            $moduleName = $this->getModuleName();
+            $componentName = $column->getName();
+            if (false !== $pos = strpos($componentName, '/')) {
+                $moduleName = substr($componentName, 0, $pos);
+                $componentName = substr($componentName, $pos + 1);
+            }
 
-      return "get_component('$moduleName', '$componentName', array('type' => 'edit', '{$this->getSingularName()}' => \${$this->getSingularName()}))";
+            return "get_component('{$moduleName}', '{$componentName}', array('type' => 'edit', '{$this->getSingularName()}' => \${$this->getSingularName()}))";
+        }
+
+        return parent::getColumnEditTag($column, $params);
     }
 
-    return parent::getColumnEditTag($column, $params);
-  }
+    protected function setScaffoldingClassName($className)
+    {
+        $this->singularName = strtolower(substr($className, 0, 1)).substr($className, 1);
+        $this->pluralName = $this->singularName.'s';
+        $this->className = $className;
+        $this->peerClassName = $className.'Peer';
+    }
 }

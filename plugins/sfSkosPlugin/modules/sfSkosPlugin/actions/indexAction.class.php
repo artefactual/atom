@@ -20,36 +20,29 @@
 /**
  * SKOS representation of taxonomic data.
  *
- * @package    AccesstoMemory
- * @subpackage sfSkosPlugin
  * @author     David Juhasz <david@artefactual.com>
  */
-
 class sfSkosPluginIndexAction extends sfAction
 {
-  public function execute($request)
-  {
-    $resource = $this->getRoute()->resource;
-
-    if (!isset($resource))
+    public function execute($request)
     {
-      $this->forward404();
-    }
+        $resource = $this->getRoute()->resource;
 
-    if ('QubitTerm' == $resource->className)
-    {
-      $this->selectedTerm = QubitTerm::getById($resource->id);
-      $this->terms = $this->selectedTerm->descendants->andSelf()->orderBy('lft');
-      $this->taxonomy = $this->selectedTerm->taxonomy;
-      $this->topLevelTerms = array($this->selectedTerm);
-    }
-    else
-    {
-      $this->terms = QubitTaxonomy::getTaxonomyTerms($resource->id);
-      $this->taxonomy = QubitTaxonomy::getById($resource->id);
-      $this->topLevelTerms = QubitTaxonomy::getTaxonomyTerms($resource->id, array('level' => 'top'));
-    }
+        if (!isset($resource)) {
+            $this->forward404();
+        }
 
-    $request->setRequestFormat('xml');
-  }
+        if ('QubitTerm' == $resource->className) {
+            $this->selectedTerm = QubitTerm::getById($resource->id);
+            $this->terms = $this->selectedTerm->descendants->andSelf()->orderBy('lft');
+            $this->taxonomy = $this->selectedTerm->taxonomy;
+            $this->topLevelTerms = [$this->selectedTerm];
+        } else {
+            $this->terms = QubitTaxonomy::getTaxonomyTerms($resource->id);
+            $this->taxonomy = QubitTaxonomy::getById($resource->id);
+            $this->topLevelTerms = QubitTaxonomy::getTaxonomyTerms($resource->id, ['level' => 'top']);
+        }
+
+        $request->setRequestFormat('xml');
+    }
 }

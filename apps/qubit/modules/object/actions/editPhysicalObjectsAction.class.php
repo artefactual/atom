@@ -20,132 +20,118 @@
 /**
  * Physical Object edit component.
  *
- * @package    AccesstoMemory
- * @subpackage digitalObject
  * @author     david juhasz <david@artefactual.com>
  */
 class ObjectEditPhysicalObjectsAction extends DefaultEditAction
 {
-  public static
-    $NAMES = array(
-      'containers',
-      'location',
-      'name',
-      'type'),
+    public static $NAMES = [
+        'containers',
+        'location',
+        'name',
+        'type',
+    ];
+    public static $MODEL_MODULE = [
+        'QubitInformationObject' => 'informationobject',
+        'QubitAccession' => 'accession',
+    ];
 
-    $MODEL_MODULE = array(
-      'QubitInformationObject' => 'informationobject',
-      'QubitAccession' => 'accession'
-    );
-
-  protected function earlyExecute()
-  {
-    $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
-
-    $this->resource = $this->getRoute()->resource;
-
-    // Check that resource is an allowed type
-    if (empty($this->moduleForAllowedResource()))
+    public function execute($request)
     {
-      $this->forward404();
+        parent::execute($request);
+
+        $this->relations = QubitRelation::getRelationsByObjectId($this->resource->id, ['typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID]);
+
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
+            if ($this->form->isValid()) {
+                $this->processForm();
+
+                $this->resource->save();
+
+                $this->redirect([$this->resource, 'module' => $this->moduleForAllowedResource()]);
+            }
+        }
     }
 
-    // Check that this isn't the root
-    if (property_exists($this->resource, 'parent') && !isset($this->resource->parent))
+    protected function earlyExecute()
     {
-      $this->forward404();
+        $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
+
+        $this->resource = $this->getRoute()->resource;
+
+        // Check that resource is an allowed type
+        if (empty($this->moduleForAllowedResource())) {
+            $this->forward404();
+        }
+
+        // Check that this isn't the root
+        if (property_exists($this->resource, 'parent') && !isset($this->resource->parent)) {
+            $this->forward404();
+        }
+
+        // Check user authorization
+        if (!QubitAcl::check($this->resource, 'update') && !$this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID)) {
+            QubitAcl::forwardUnauthorized();
+        }
     }
 
-    // Check user authorization
-    if (!QubitAcl::check($this->resource, 'update') && !$this->getUser()->hasGroup(QubitAclGroup::EDITOR_ID))
+    protected function addField($name)
     {
-      QubitAcl::forwardUnauthorized();
-    }
-  }
+        switch ($name) {
+            case 'containers':
+                $this->form->setValidator('containers', new sfValidatorPass());
+                $this->form->setWidget('containers', new sfWidgetFormSelect(['choices' => [], 'multiple' => true]));
 
-  protected function addField($name)
-  {
-    switch ($name)
-    {
-      case 'containers':
-        $this->form->setValidator('containers', new sfValidatorPass);
-        $this->form->setWidget('containers', new sfWidgetFormSelect(array('choices' => array(), 'multiple' => true)));
+                break;
 
-        break;
+            case 'location':
+            case 'name':
+                $this->form->setValidator($name, new sfValidatorString());
+                $this->form->setWidget($name, new sfWidgetFormInput());
 
-      case 'location':
-      case 'name':
-        $this->form->setValidator($name, new sfValidatorString);
-        $this->form->setWidget($name, new sfWidgetFormInput);
+                break;
 
-        break;
+            case 'type':
+                $this->form->setValidator('type', new sfValidatorString());
+                $this->form->setWidget('type', new sfWidgetFormSelect(['choices' => QubitTerm::getIndentedChildTree(QubitTerm::CONTAINER_ID, '&nbsp;', ['returnObjectInstances' => true])]));
 
-      case 'type':
-        $this->form->setValidator('type', new sfValidatorString);
-        $this->form->setWidget('type', new sfWidgetFormSelect(array('choices' => QubitTerm::getIndentedChildTree(QubitTerm::CONTAINER_ID, '&nbsp;', array('returnObjectInstances' => true)))));
+                break;
 
-        break;
-
-      default:
-
-        return parent::addField($name);
-    }
-  }
-
-  protected function processForm()
-  {
-    foreach ($this->form->getValue('containers') as $item)
-    {
-      $params = $this->context->routing->parse(Qubit::pathInfo($item));
-      $this->resource->addPhysicalObject($params['_sf_route']->resource);
+            default:
+                return parent::addField($name);
+        }
     }
 
-    if (null !== $this->form->getValue('name') || null !== $this->form->getValue('location'))
+    protected function processForm()
     {
-      $physicalObject = new QubitPhysicalObject;
-      $physicalObject->name = $this->form->getValue('name');
-      $physicalObject->location = $this->form->getValue('location');
+        foreach ($this->form->getValue('containers') as $item) {
+            $params = $this->context->routing->parse(Qubit::pathInfo($item));
+            $this->resource->addPhysicalObject($params['_sf_route']->resource);
+        }
 
-      $params = $this->context->routing->parse(Qubit::pathInfo($this->form->getValue('type')));
-      $physicalObject->type = $params['_sf_route']->resource;
+        if (null !== $this->form->getValue('name') || null !== $this->form->getValue('location')) {
+            $physicalObject = new QubitPhysicalObject();
+            $physicalObject->name = $this->form->getValue('name');
+            $physicalObject->location = $this->form->getValue('location');
 
-      $physicalObject->save();
+            $params = $this->context->routing->parse(Qubit::pathInfo($this->form->getValue('type')));
+            $physicalObject->type = $params['_sf_route']->resource;
 
-      $this->resource->addPhysicalObject($physicalObject);
+            $physicalObject->save();
+
+            $this->resource->addPhysicalObject($physicalObject);
+        }
+
+        if (isset($this->request->delete_relations)) {
+            foreach ($this->request->delete_relations as $item) {
+                $params = $this->context->routing->parse(Qubit::pathInfo($item));
+                $params['_sf_route']->resource->delete();
+            }
+        }
     }
 
-    if (isset($this->request->delete_relations))
+    private function moduleForAllowedResource()
     {
-      foreach ($this->request->delete_relations as $item)
-      {
-        $params = $this->context->routing->parse(Qubit::pathInfo($item));
-        $params['_sf_route']->resource->delete();
-      }
+        return @self::$MODEL_MODULE[get_class($this->resource)];
     }
-  }
-
-  private function moduleForAllowedResource()
-  {
-    return @self::$MODEL_MODULE[get_class($this->resource)];
-  }
-
-  public function execute($request)
-  {
-    parent::execute($request);
-
-    $this->relations = QubitRelation::getRelationsByObjectId($this->resource->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID));
-
-    if ($request->isMethod('post'))
-    {
-      $this->form->bind($request->getPostParameters());
-      if ($this->form->isValid())
-      {
-        $this->processForm();
-
-        $this->resource->save();
-
-        $this->redirect(array($this->resource, 'module' => $this->moduleForAllowedResource()));
-      }
-    }
-  }
 }

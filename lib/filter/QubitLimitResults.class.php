@@ -19,18 +19,17 @@
 
 class QubitLimitResults extends sfFilter
 {
-  public function execute($filterChain)
-  {
-    $request = $this->getContext()->getRequest();
-    $hitsPerPage = sfConfig::get('app_hits_per_page');
-
-     // Set request limit to app_hits_per_page if bigger
-    if (isset($request->limit) && (true !== ctype_digit($request->limit) || $request->limit > $hitsPerPage))
+    public function execute($filterChain)
     {
-      $request->limit = $hitsPerPage;
-    }
+        $request = $this->getContext()->getRequest();
+        $hitsPerPage = sfConfig::get('app_hits_per_page');
 
-    // Execute next filter
-    $filterChain->execute();
-  }
+        // Set request limit to app_hits_per_page if bigger
+        if (isset($request->limit) && (true !== ctype_digit($request->limit) || $request->limit > $hitsPerPage)) {
+            $request->limit = $hitsPerPage;
+        }
+
+        // Execute next filter
+        $filterChain->execute();
+    }
 }

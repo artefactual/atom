@@ -19,17 +19,17 @@
 
 class sfInstallPluginLoadDataAction extends sfAction
 {
-  public function execute($request)
-  {
-    // Reload ES configuration after processing the configureSearch
-    // form. In this context, the configuration is obtained from the
-    // cache, which gets the default configuration if it's not reloaded.
-    $configuration = $this->context->getConfiguration();
-    arElasticSearchPluginConfiguration::reloadConfig($configuration);
+    public function execute($request)
+    {
+        // Reload ES configuration after processing the configureSearch
+        // form. In this context, the configuration is obtained from the
+        // cache, which gets the default configuration if it's not reloaded.
+        $configuration = $this->context->getConfiguration();
+        arElasticSearchPluginConfiguration::reloadConfig($configuration);
 
-    sfInstall::loadData();
-    sfInstall::populateSearchIndex();
+        sfInstall::loadData();
+        sfInstall::populateSearchIndex();
 
-    $this->redirect(array('module' => 'sfInstallPlugin', 'action' => 'configureSite'));
-  }
+        $this->redirect(['module' => 'sfInstallPlugin', 'action' => 'configureSite']);
+    }
 }

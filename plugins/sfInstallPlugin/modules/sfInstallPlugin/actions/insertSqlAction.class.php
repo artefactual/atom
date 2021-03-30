@@ -19,10 +19,10 @@
 
 class sfInstallPluginInsertSqlAction extends sfAction
 {
-  public function execute($request)
-  {
-    sfInstall::insertSql();
+    public function execute($request)
+    {
+        sfInstall::insertSql();
 
-    $this->redirect(array('module' => 'sfInstallPlugin', 'action' => 'configureSearch'));
-  }
+        $this->redirect(['module' => 'sfInstallPlugin', 'action' => 'configureSearch']);
+    }
 }

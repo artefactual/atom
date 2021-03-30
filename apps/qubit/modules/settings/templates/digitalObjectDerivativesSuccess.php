@@ -1,59 +1,59 @@
-<?php decorate_with('layout_2col.php') ?>
+<?php decorate_with('layout_2col.php'); ?>
 
-<?php slot('sidebar') ?>
+<?php slot('sidebar'); ?>
 
-  <?php echo get_component('settings', 'menu') ?>
+  <?php echo get_component('settings', 'menu'); ?>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>
 
-<?php slot('title') ?>
+<?php slot('title'); ?>
 
-  <h1><?php echo __('%1% derivatives', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))) ?></h1>
+  <h1><?php echo __('%1% derivatives', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]); ?></h1>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>
 
-<?php slot('content') ?>
+<?php slot('content'); ?>
 
-  <?php echo $form->renderGlobalErrors() ?>
+  <?php echo $form->renderGlobalErrors(); ?>
 
-  <?php echo $form->renderFormTag(url_for(array('module' => 'settings', 'action' => 'digitalObjectDerivatives'))) ?>
+  <?php echo $form->renderFormTag(url_for(['module' => 'settings', 'action' => 'digitalObjectDerivatives'])); ?>
 
-    <?php echo $form->renderHiddenFields() ?>
+    <?php echo $form->renderHiddenFields(); ?>
 
     <div id="content">
 
       <fieldset class="collapsible">
 
-        <legend><?php echo __('%1% derivatives settings', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))) ?></legend>
+        <legend><?php echo __('%1% derivatives settings', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]); ?></legend>
 
-        <?php if ($pdfinfoAvailable): ?>
+        <?php if ($pdfinfoAvailable) { ?>
           <?php echo $form->digital_object_derivatives_pdf_page_number
             ->label(__('PDF page number for image derivative'))
             ->help(__('If the page number does not exist, the derivative will be generated from the previous closest one.'))
-            ->renderRow() ?>
-        <?php else: ?>
+            ->renderRow(); ?>
+        <?php } else { ?>
           <div class="messages error">
-            <?php echo __('The pdfinfo tool is required to use this functionality. Please contact your system administrator.') ?>
+            <?php echo __('The pdfinfo tool is required to use this functionality. Please contact your system administrator.'); ?>
           </div>
-        <?php endif; ?><br />
+        <?php } ?><br />
 
         <?php echo $form->reference_image_maxwidth
-          ->label(__('Maximum length on longest edge (pixels)'))
-          ->help(__('The maximum number of pixels on the longest edge for derived reference images.'))
-          ->renderRow() ?>
+            ->label(__('Maximum length on longest edge (pixels)'))
+            ->help(__('The maximum number of pixels on the longest edge for derived reference images.'))
+            ->renderRow(); ?>
 
       </fieldset>
 
     </div>
 
-    <?php if ($pdfinfoAvailable): ?>
+    <?php if ($pdfinfoAvailable) { ?>
       <section class="actions">
         <ul>
-          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
+          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
         </ul>
       </section>
-    <?php endif; ?>
+    <?php } ?>
 
   </form>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>

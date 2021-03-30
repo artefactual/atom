@@ -18,33 +18,30 @@
  */
 
 /**
- * Render resource in EAD XML format
+ * Render resource in EAD XML format.
  *
- * @package    AccesstoMemory
- * @subpackage sfEadPlugin
  * @author     Peter Van Garderen <peter@artefactual.com>
  */
-
 class sfEadPluginIndexAction extends InformationObjectIndexAction
 {
-  public function execute($request)
-  {
-    sfConfig::set('sf_escaping_strategy', false);
+    public function execute($request)
+    {
+        sfConfig::set('sf_escaping_strategy', false);
 
-    // run the core informationObject show action commands
-    parent::execute($request);
+        // run the core informationObject show action commands
+        parent::execute($request);
 
-    $this->ead = new sfEadPlugin($this->resource);
+        $this->ead = new sfEadPlugin($this->resource);
 
-    // Determine language(s) used in the export
-    $this->exportLanguage = sfContext::getInstance()->user->getCulture();
-    $this->sourceLanguage = $this->resource->getSourceCulture();
+        // Determine language(s) used in the export
+        $this->exportLanguage = sfContext::getInstance()->user->getCulture();
+        $this->sourceLanguage = $this->resource->getSourceCulture();
 
-    // Instantiate Object to use in Converting ISO 639-1 language codes to 639-2
-    $this->iso639convertor = new fbISO639_Map;
+        // Instantiate Object to use in Converting ISO 639-1 language codes to 639-2
+        $this->iso639convertor = new fbISO639_Map();
 
-    // Set array with valid EAD level values (see ead.dtd line 2220)
-    $this->eadLevels = array('class', 'collection', 'file', 'fonds', 'item', 'otherlevel', 'recordgrp', 'series', 'subfonds', 'subgrp', 'subseries');
-    $this->options = array('current-level-only' => false);
-  }
+        // Set array with valid EAD level values (see ead.dtd line 2220)
+        $this->eadLevels = ['class', 'collection', 'file', 'fonds', 'item', 'otherlevel', 'recordgrp', 'series', 'subfonds', 'subgrp', 'subseries'];
+        $this->options = ['current-level-only' => false];
+    }
 }

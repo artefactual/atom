@@ -19,9 +19,9 @@
 
 class SitemapInformationObjectSet extends AbstractSitemapObjectSet
 {
-  public function init()
-  {
-    $query = <<<EOF
+    public function init()
+    {
+        $query = <<<'EOF'
 SELECT IO.level_of_description_id, IO.parent_id, S.slug, O.created_at, O.updated_at
 FROM information_object IO
 LEFT JOIN object O ON (IO.id = O.id)
@@ -30,64 +30,57 @@ LEFT JOIN status SS ON (IO.id = SS.object_id)
 WHERE SS.status_id = ? AND IO.id != ?
 EOF;
 
-    $this->rec = $this->conn->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-    $this->rec->setFetchMode(PDO::FETCH_INTO, new SitemapInformationObjectUrl($this->config));
-    $this->rec->execute(array(
-      QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID,
-      QubitInformationObject::ROOT_ID));
-  }
+        $this->rec = $this->conn->prepare($query, [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
+        $this->rec->setFetchMode(PDO::FETCH_INTO, new SitemapInformationObjectUrl($this->config));
+        $this->rec->execute([
+            QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID,
+            QubitInformationObject::ROOT_ID,
+        ]);
+    }
 }
 
 class SitemapInformationObjectUrl extends AbstractSitemapUrl
 {
-  /**
-   * A map of (int)levelOfDescriptionId => (string)priority
-   */
-  public static $priorities = array();
+    /**
+     * A map of (int)levelOfDescriptionId => (string)priority.
+     */
+    public static $priorities = [];
 
-  public function __construct(&$config)
-  {
-    parent::__construct();
-
-    if (!isset($config['information_object_priorities']))
+    public function __construct(&$config)
     {
-      return;
+        parent::__construct();
+
+        if (!isset($config['information_object_priorities'])) {
+            return;
+        }
+
+        foreach ($config['information_object_priorities'] as $item) {
+            $level = @$item[0]['level'];
+            $priority = @$item[1]['priority'];
+
+            if (is_null($level) || is_null($priority)) {
+                continue;
+            }
+
+            $criteria = new Criteria();
+            $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID);
+            $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+            $criteria->add(QubitTermI18n::NAME, $level);
+            if (null !== $term = QubitTerm::getOne($criteria)) {
+                self::$priorities[(int) $term->id] = $priority;
+            }
+        }
     }
 
-    foreach ($config['information_object_priorities'] as $item)
+    protected function getPriority()
     {
-      $level = @$item[0]['level'];
-      $priority = @$item[1]['priority'];
+        if (isset(self::$priorities[$this->level_of_description_id])) {
+            return self::$priorities[$this->level_of_description_id];
+        }
 
-      if (is_null($level) || is_null($priority))
-      {
-        continue;
-      }
-
-      $criteria = new Criteria;
-      $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID);
-      $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-      $criteria->add(QubitTermI18n::NAME, $level);
-      if (null !== $term = QubitTerm::getOne($criteria))
-      {
-        self::$priorities[(int)$term->id] = $priority;
-      }
+        // We don't recognize the level of description but we know that it's a collection root
+        if (!empty($this->parent_id) && QubitInformationObject::ROOT_ID == $this->parent_id) {
+            return '0.9';
+        }
     }
-  }
-
-  protected function getPriority()
-  {
-    if (isset(self::$priorities[$this->level_of_description_id]))
-    {
-      return self::$priorities[$this->level_of_description_id];
-    }
-
-    // We don't recognize the level of description but we know that it's a collection root
-    if (!empty($this->parent_id) && $this->parent_id == QubitInformationObject::ROOT_ID)
-    {
-      return "0.9";
-    }
-
-    return;
-  }
 }

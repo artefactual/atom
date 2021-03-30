@@ -25,44 +25,40 @@
  */
 class arMigration0137
 {
-  const
-    VERSION = 137, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 137;
+    public const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    if (null === QubitMenu::getByName('clipboard'))
+    public function up($configuration)
     {
-      $clipboardMenu = new QubitMenu;
-      $clipboardMenu->parentId = QubitMenu::ROOT_ID;
-      $clipboardMenu->name = 'clipboard';
-      $clipboardMenu->label = 'Clipboard';
-      $clipboardMenu->culture = 'en';
-      $clipboardMenu->save();
+        if (null === QubitMenu::getByName('clipboard')) {
+            $clipboardMenu = new QubitMenu();
+            $clipboardMenu->parentId = QubitMenu::ROOT_ID;
+            $clipboardMenu->name = 'clipboard';
+            $clipboardMenu->label = 'Clipboard';
+            $clipboardMenu->culture = 'en';
+            $clipboardMenu->save();
 
-      if (null === QubitMenu::getByName('clearClipboard'))
-      {
-        $menu = new QubitMenu;
-        $menu->parentId = $clipboardMenu->id;
-        $menu->name = 'clearClipboard';
-        $menu->path = 'user/clipboardClear';
-        $menu->sourceCulture = 'en';
-        $menu->label = 'Clear selections';
-        $menu->save();
-      }
+            if (null === QubitMenu::getByName('clearClipboard')) {
+                $menu = new QubitMenu();
+                $menu->parentId = $clipboardMenu->id;
+                $menu->name = 'clearClipboard';
+                $menu->path = 'user/clipboardClear';
+                $menu->sourceCulture = 'en';
+                $menu->label = 'Clear selections';
+                $menu->save();
+            }
 
-      if (null === QubitMenu::getByName('goToClipboard'))
-      {
-        $menu = new QubitMenu;
-        $menu->parentId = $clipboardMenu->id;
-        $menu->name = 'goToClipboard';
-        $menu->path = 'user/clipboard';
-        $menu->sourceCulture = 'en';
-        $menu->label = 'Go to clipboard';
-        $menu->save();
-      }
+            if (null === QubitMenu::getByName('goToClipboard')) {
+                $menu = new QubitMenu();
+                $menu->parentId = $clipboardMenu->id;
+                $menu->name = 'goToClipboard';
+                $menu->path = 'user/clipboard';
+                $menu->sourceCulture = 'en';
+                $menu->label = 'Go to clipboard';
+                $menu->save();
+            }
+        }
+
+        return true;
     }
-
-    return true;
-  }
 }

@@ -19,63 +19,55 @@
 
 class InformationObjectExportCsvAction extends sfAction
 {
-  // Export CSV representation of descriptions occurring in search/browse results
-  public function execute($request)
-  {
-    if ($this->context->user->isAuthenticated())
+    // Export CSV representation of descriptions occurring in search/browse results
+    public function execute($request)
     {
-      // To keep the top level descriptions filter an agg in sync
-      // the autocomplete value is converted to the resource id
-      // before the agg filters are added to the query
-      $getParameters = $request->getGetParameters();
-      if (isset($getParameters['collection']) && !ctype_digit($getParameters['collection']))
-      {
-        $params = sfContext::getInstance()->routing->parse(Qubit::pathInfo($getParameters['collection']));
-        $collection = $params['_sf_route']->resource;
+        if ($this->context->user->isAuthenticated()) {
+            // To keep the top level descriptions filter an agg in sync
+            // the autocomplete value is converted to the resource id
+            // before the agg filters are added to the query
+            $getParameters = $request->getGetParameters();
+            if (isset($getParameters['collection']) && !ctype_digit($getParameters['collection'])) {
+                $params = sfContext::getInstance()->routing->parse(Qubit::pathInfo($getParameters['collection']));
+                $collection = $params['_sf_route']->resource;
 
-        unset($getParameters['collection']);
+                unset($getParameters['collection']);
 
-        if ($collection instanceof QubitInformationObject)
-        {
-          $getParameters['collection'] = $collection->id;
+                if ($collection instanceof QubitInformationObject) {
+                    $getParameters['collection'] = $collection->id;
+                }
+            }
+
+            // Add first criterion to the search box if it's over any field
+            if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->sq0) && !isset($request->sf0)) {
+                $getParameters['query'] = $request->sq0;
+            }
+
+            // And search box query as the first criterion
+            if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->query)) {
+                $getParameters['sq0'] = $request->query;
+            }
+
+            // Do not add descendants in search results
+            $options = [
+                'params' => $getParameters,
+                'current-level-only' => true,
+            ];
+
+            QubitJob::runJob('arInformationObjectCsvExportJob', $options);
+
+            // Let user know export has started
+            sfContext::getInstance()->getConfiguration()->loadHelpers(['Url']);
+            $jobManageUrl = url_for(['module' => 'jobs', 'action' => 'browse']);
+            $message = '<strong>Export of descriptions initiated.</strong> Check <a href="'.$jobManageUrl.'">job management</a> page to download the results when it has completed.';
+            $this->getUser()->setFlash('notice', $message);
         }
-      }
 
-      // Add first criterion to the search box if it's over any field
-      if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->sq0) && !isset($request->sf0))
-      {
-        $getParameters['query'] = $request->sq0;
-      }
-
-      // And search box query as the first criterion
-      if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->query))
-      {
-        $getParameters['sq0'] = $request->query;
-      }
-
-      // Do not add descendants in search results
-      $options = array(
-        'params' => $getParameters,
-        'current-level-only' => true
-      );
-
-      QubitJob::runJob('arInformationObjectCsvExportJob', $options);
-
-      // Let user know export has started
-      sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
-      $jobManageUrl = url_for(array('module' => 'jobs', 'action' => 'browse'));
-      $message = '<strong>Export of descriptions initiated.</strong> Check <a href="'. $jobManageUrl . '">job management</a> page to download the results when it has completed.';
-      $this->getUser()->setFlash('notice', $message);
+        // If referer URL is valid, redirect to it... otherwise, redirect to the information objects browse page)
+        if (true === filter_var($request->getHttpHeader('referer'), FILTER_VALIDATE_URL)) {
+            $this->redirect($request->getHttpHeader('referer'));
+        } else {
+            $this->redirect($this->context->routing->generate(null, [null, 'module' => 'informationobject', 'action' => 'browse']));
+        }
     }
-
-    // If referer URL is valid, redirect to it... otherwise, redirect to the information objects browse page)
-    if (filter_var($request->getHttpHeader('referer'), FILTER_VALIDATE_URL) === true)
-    {
-      $this->redirect($request->getHttpHeader('referer'));
-    }
-    else
-    {
-      $this->redirect($this->context->routing->generate(null, array(null, 'module' => 'informationobject', 'action' => 'browse')));
-    }
-  }
 }

@@ -18,24 +18,21 @@
  */
 
 /**
- * Display "aclMenu" navigation menu
+ * Display "aclMenu" navigation menu.
  *
- * @package    AccesstoMemory
- * @subpackage user
  * @author     David Juhasz <david@artefactual.com>
  */
 class userAclMenuComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    // Get menu
-    $criteria = new Criteria;
-    $criteria->add(QubitMenu::NAME, 'users');
-
-    $this->userAclMenu = null;
-    if (null !== $menu = QubitMenu::getOne($criteria))
+    public function execute($request)
     {
-      $this->userAclMenu = $menu;
+        // Get menu
+        $criteria = new Criteria();
+        $criteria->add(QubitMenu::NAME, 'users');
+
+        $this->userAclMenu = null;
+        if (null !== $menu = QubitMenu::getOne($criteria)) {
+            $this->userAclMenu = $menu;
+        }
     }
-  }
 }

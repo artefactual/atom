@@ -25,25 +25,26 @@
  */
 class arMigration0120
 {
-  const
-    VERSION = 120, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 120;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    $setting = new QubitSetting;
-    $setting->setName('oai_admin_emails');
-    $setting->setScope('oai');
-    $setting->setSourceCulture('en');
-    $setting->setEditable(1);
-    $setting->setDeleteable(0);
-    $setting->save();
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
+    {
+        $setting = new QubitSetting();
+        $setting->setName('oai_admin_emails');
+        $setting->setScope('oai');
+        $setting->setSourceCulture('en');
+        $setting->setEditable(1);
+        $setting->setDeleteable(0);
+        $setting->save();
 
-    return true;
-  }
+        return true;
+    }
 }

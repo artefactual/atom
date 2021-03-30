@@ -19,52 +19,48 @@
 
 class arElasticSearchTerm extends arElasticSearchModelBase
 {
-  public function load()
-  {
-    $sql  = 'SELECT term.id';
-    $sql .= ' FROM '.QubitTerm::TABLE_NAME.' term';
-    $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON term.id = object.id';
-    $sql .= ' WHERE term.id != ? AND object.class_name = ?';
-    $sql .= ' ORDER BY term.lft';
-
-    $terms = QubitPdo::fetchAll($sql, array(QubitTerm::ROOT_ID, 'QubitTerm'));
-
-    $this->count = count($terms);
-
-    return $terms;
-  }
-
-  public function populate()
-  {
-    $errors = array();
-
-    // Loop through results, and add to search index
-    foreach ($this->load() as $key => $item)
+    public function load()
     {
-      try
-      {
-        $node = new arElasticSearchTermPdo($item->id);
-        $data = $node->serialize();
+        $sql = 'SELECT term.id';
+        $sql .= ' FROM '.QubitTerm::TABLE_NAME.' term';
+        $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON term.id = object.id';
+        $sql .= ' WHERE term.id != ? AND object.class_name = ?';
+        $sql .= ' ORDER BY term.lft';
 
-        QubitSearch::getInstance()->addDocument($data, 'QubitTerm');
+        $terms = QubitPdo::fetchAll($sql, [QubitTerm::ROOT_ID, 'QubitTerm']);
 
-        $this->logEntry($data['i18n'][$data['sourceCulture']]['name'], $key + 1);
-      }
-      catch (sfException $e)
-      {
-        $errors[] = $e->getMessage();
-      }
+        $this->count = count($terms);
+
+        return $terms;
     }
 
-    return $errors;
-  }
+    public function populate()
+    {
+        $errors = [];
 
-  public static function update($object)
-  {
-    $node = new arElasticSearchTermPdo($object->id);
+        // Loop through results, and add to search index
+        foreach ($this->load() as $key => $item) {
+            try {
+                $node = new arElasticSearchTermPdo($item->id);
+                $data = $node->serialize();
 
-    QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitTerm');
+                QubitSearch::getInstance()->addDocument($data, 'QubitTerm');
 
-    return true;
-  }
+                $this->logEntry($data['i18n'][$data['sourceCulture']]['name'], $key + 1);
+            } catch (sfException $e) {
+                $errors[] = $e->getMessage();
+            }
+        }
+
+        return $errors;
+    }
+
+    public static function update($object)
+    {
+        $node = new arElasticSearchTermPdo($object->id);
+
+        QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitTerm');
+
+        return true;
+    }
 }

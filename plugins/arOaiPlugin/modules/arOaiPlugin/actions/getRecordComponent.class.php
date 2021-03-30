@@ -20,30 +20,24 @@
 /**
  * Get current state data for information object edit form.
  *
- * @package    AccesstoMemory
- * @subpackage oai
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
-
 class arOaiPluginGetRecordComponent extends arOaiPluginComponent
 {
-  public function execute($request)
-  {
-    $oaiLocalIdentifierId = QubitOai::getOaiIdNumber($request->identifier);
-    $this->record = QubitInformationObject::getRecordByOaiID($oaiLocalIdentifierId);
+    public function execute($request)
+    {
+        $oaiLocalIdentifierId = QubitOai::getOaiIdNumber($request->identifier);
+        $this->record = QubitInformationObject::getRecordByOaiID($oaiLocalIdentifierId);
 
-    // If metadata requested is EAD and file doesn't exist, redirect to error response as EAD can take a long time to dynamically generate
-    if ($request->metadataPrefix == 'oai_ead' && !arOaiPluginComponent::cachedMetadataExists($this->record, $request->metadataPrefix))
-    {
-      $this->errorCode = 'cannotDisseminateFormat';
-      $this->errorMsg = 'The metadata format identified by the value given for the metadataPrefix argument is not supported by the item or by the repository.';
+        // If metadata requested is EAD and file doesn't exist, redirect to error response as EAD can take a long time to dynamically generate
+        if ('oai_ead' == $request->metadataPrefix && !arOaiPluginComponent::cachedMetadataExists($this->record, $request->metadataPrefix)) {
+            $this->errorCode = 'cannotDisseminateFormat';
+            $this->errorMsg = 'The metadata format identified by the value given for the metadataPrefix argument is not supported by the item or by the repository.';
+        } else {
+            $this->metadataPrefix = $request->metadataPrefix;
+            $request->setAttribute('record', $this->record);
+            $this->setRequestAttributes($request);
+        }
     }
-    else
-    {
-      $this->metadataPrefix = $request->metadataPrefix;
-      $request->setAttribute('record', $this->record);
-      $this->setRequestAttributes($request);
-    }
-  }
 }

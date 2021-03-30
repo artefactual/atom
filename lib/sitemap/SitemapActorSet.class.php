@@ -19,9 +19,9 @@
 
 class SitemapActorSet extends AbstractSitemapObjectSet
 {
-  public function init()
-  {
-    $query = <<<EOF
+    public function init()
+    {
+        $query = <<<'EOF'
 SELECT A.parent_id, S.slug, O.created_at, O.updated_at
 FROM actor A
 LEFT JOIN object O ON (A.id = O.id)
@@ -29,17 +29,16 @@ LEFT JOIN slug S ON (A.id = S.object_id)
 WHERE A.id != ? AND O.class_name = 'QubitActor'
 EOF;
 
-    $this->rec = $this->conn->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-    $this->rec->setFetchMode(PDO::FETCH_INTO, new SitemapActorUrl($this->config));
-    $this->rec->execute(array(
-      QubitActor::ROOT_ID));
-  }
+        $this->rec = $this->conn->prepare($query, [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
+        $this->rec->setFetchMode(PDO::FETCH_INTO, new SitemapActorUrl($this->config));
+        $this->rec->execute([QubitActor::ROOT_ID]);
+    }
 }
 
 class SitemapActorUrl extends AbstractSitemapUrl
 {
-  protected function getPriority()
-  {
-    return "0.5";
-  }
+    protected function getPriority()
+    {
+        return '0.5';
+    }
 }

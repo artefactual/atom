@@ -18,170 +18,157 @@
  */
 
 /**
- * Normalize taxonomy
+ * Normalize taxonomy.
  *
- * @package    symfony
- * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
 class taxonomyNormalizeTask extends arBaseTask
 {
-  protected function configure()
-  {
-    $this->addArguments(array(
-      new sfCommandArgument('taxonomy-name', sfCommandArgument::REQUIRED, 'The name of the taxonomy to normalize')
-    ));
+    protected function configure()
+    {
+        $this->addArguments([
+            new sfCommandArgument('taxonomy-name', sfCommandArgument::REQUIRED, 'The name of the taxonomy to normalize'),
+        ]);
 
-    $this->addOptions(array(
-      new sfCommandOption(
-        'application',
-        null,
-        sfCommandOption::PARAMETER_REQUIRED,
-        'The application name', 'qubit'
-      ),
-      new sfCommandOption(
-        'env',
-        null,
-        sfCommandOption::PARAMETER_REQUIRED,
-        'The environment',
-        'cli'
-      ),
-      new sfCommandOption(
-        'culture',
-        null,
-        sfCommandOption::PARAMETER_OPTIONAL,
-        'The name of the culture to normalize (defaults to "en")',
-        'en'
-      )
-    ));
+        $this->addOptions([
+            new sfCommandOption(
+                'application',
+                null,
+                sfCommandOption::PARAMETER_REQUIRED,
+                'The application name',
+                'qubit'
+            ),
+            new sfCommandOption(
+                'env',
+                null,
+                sfCommandOption::PARAMETER_REQUIRED,
+                'The environment',
+                'cli'
+            ),
+            new sfCommandOption(
+                'culture',
+                null,
+                sfCommandOption::PARAMETER_OPTIONAL,
+                'The name of the culture to normalize (defaults to "en")',
+                'en'
+            ),
+        ]);
 
-    $this->namespace        = 'taxonomy';
-    $this->name             = 'normalize';
-    $this->briefDescription = 'Normalize taxonomy terms';
-    $this->detailedDescription = <<<EOF
+        $this->namespace = 'taxonomy';
+        $this->name = 'normalize';
+        $this->briefDescription = 'Normalize taxonomy terms';
+        $this->detailedDescription = <<<'EOF'
 Normalize taxonomy terms
 EOF;
-  }
-
-  protected function execute($arguments = array(), $options = array())
-  {
-    parent::execute($arguments, $options);
-
-    // Look up taxonomy ID using name
-    $this->taxonomyId = $this->getTaxonomyIdByName($arguments['taxonomy-name'], $options['culture']);
-    if (!$this->taxonomyId)
-    {
-      throw new sfException("A taxonomy named '". $arguments['taxonomy-name'] ."' not found for culture '". $options['culture'] ."'.");
     }
 
-    $this->log("Normalizing for '". $options['culture'] ."' culture...");
-
-    // Determine taxonomy term usage then normalize
-    $names = array();
-    $affectedObjects = array();
-    $this->populateTaxonomyNameUsage($names, $options['culture']);
-    $this->normalizeTaxonomy($names, $affectedObjects);
-    $this->reindexAffectedObjects($affectedObjects);
-
-    $this->log("Affected objects have been reindexed.");
-  }
-
-  protected function getTaxonomyIdByName($name, $culture)
-  {
-    $sql = "SELECT id FROM taxonomy_i18n \r
-      WHERE culture=? \r
-      AND name=?";
-
-    $statement = QubitFlatfileImport::sqlQuery($sql, array($culture, $name));
-
-    if ($object = $statement->fetch(PDO::FETCH_OBJ))
+    protected function execute($arguments = [], $options = [])
     {
-      return $object->id;
+        parent::execute($arguments, $options);
+
+        // Look up taxonomy ID using name
+        $this->taxonomyId = $this->getTaxonomyIdByName($arguments['taxonomy-name'], $options['culture']);
+        if (!$this->taxonomyId) {
+            throw new sfException("A taxonomy named '".$arguments['taxonomy-name']."' not found for culture '".$options['culture']."'.");
+        }
+
+        $this->log("Normalizing for '".$options['culture']."' culture...");
+
+        // Determine taxonomy term usage then normalize
+        $names = [];
+        $affectedObjects = [];
+        $this->populateTaxonomyNameUsage($names, $options['culture']);
+        $this->normalizeTaxonomy($names, $affectedObjects);
+        $this->reindexAffectedObjects($affectedObjects);
+
+        $this->log('Affected objects have been reindexed.');
     }
-    else
+
+    protected function getTaxonomyIdByName($name, $culture)
     {
-      return false;
+        $sql = "SELECT id FROM taxonomy_i18n \r
+            WHERE culture=? \r
+            AND name=?";
+
+        $statement = QubitFlatfileImport::sqlQuery($sql, [$culture, $name]);
+
+        if ($object = $statement->fetch(PDO::FETCH_OBJ)) {
+            return $object->id;
+        }
+
+        return false;
     }
-  }
 
-  protected function populateTaxonomyNameUsage(&$names, $culture)
-  {
-    $sql = "SELECT t.id, i.name FROM term t
-      INNER JOIN term_i18n i ON t.id=i.id
-      WHERE t.taxonomy_id=:id AND i.culture=:culture
-      ORDER BY t.id";
-
-    $params = array(':id' => $this->taxonomyId, ':culture' => $culture);
-
-    $terms = QubitPdo::fetchAll($sql, $params, array('fetchMode' => PDO::FETCH_OBJ));
-
-    foreach ($terms as $term)
+    protected function populateTaxonomyNameUsage(&$names, $culture)
     {
-      if (!isset($names[$term->name]))
-      {
-        $names[$term->name] = array();
-      }
+        $sql = 'SELECT t.id, i.name FROM term t
+            INNER JOIN term_i18n i ON t.id=i.id
+            WHERE t.taxonomy_id=:id AND i.culture=:culture
+            ORDER BY t.id';
 
-      array_push($names[$term->name], $term->id);
+        $params = [':id' => $this->taxonomyId, ':culture' => $culture];
+
+        $terms = QubitPdo::fetchAll($sql, $params, ['fetchMode' => PDO::FETCH_OBJ]);
+
+        foreach ($terms as $term) {
+            if (!isset($names[$term->name])) {
+                $names[$term->name] = [];
+            }
+
+            array_push($names[$term->name], $term->id);
+        }
     }
-  }
 
-  protected function normalizeTaxonomy($names, &$affectedObjects)
-  {
-    foreach ($names as $name => $usage)
+    protected function normalizeTaxonomy($names, &$affectedObjects)
     {
-      if (count($usage) > 1)
-      {
-        $this->normalizeTaxonomyTerm($name, $usage, $affectedObjects);
-      }
+        foreach ($names as $name => $usage) {
+            if (count($usage) > 1) {
+                $this->normalizeTaxonomyTerm($name, $usage, $affectedObjects);
+            }
+        }
     }
-  }
 
-  protected function normalizeTaxonomyTerm($name, $usage, &$affectedObjects)
-  {
-    $selected_id = array_shift($usage);
-
-    $this->log("Normalizing terms with name '". $name ."'...");
-
-    // Cycle through usage and change to point to selected term
-    foreach ($usage as $id)
+    protected function normalizeTaxonomyTerm($name, $usage, &$affectedObjects)
     {
-      $sql = "select object_id from object_term_relation where term_id=?";
-      $statement = QubitFlatfileImport::sqlQuery($sql, array($id));
-      while ($object = $statement->fetch(PDO::FETCH_OBJ))
-      {
-        $affectedObjects[] = $object->object_id;
-      }
+        $selected_id = array_shift($usage);
 
-      $this->log("Changing object term relations from term ". $id ." to ". $selected_id .".");
+        $this->log("Normalizing terms with name '".$name."'...");
 
-      $sql = "UPDATE object_term_relation SET term_id=:newId WHERE term_id=:oldId";
-      $params = array(':newId' => $selected_id, ':oldId' => $id);
-      QubitPdo::modify($sql, $params);
+        // Cycle through usage and change to point to selected term
+        foreach ($usage as $id) {
+            $sql = 'select object_id from object_term_relation where term_id=?';
+            $statement = QubitFlatfileImport::sqlQuery($sql, [$id]);
+            while ($object = $statement->fetch(PDO::FETCH_OBJ)) {
+                $affectedObjects[] = $object->object_id;
+            }
 
-      if ($this->taxonomyId == QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID)
-      {
-        $this->log("Changing level of descriptions from term ". $id ." to ". $selected_id .".");
+            $this->log('Changing object term relations from term '.$id.' to '.$selected_id.'.');
 
-        $sql = "UPDATE information_object SET level_of_description_id=:newId WHERE level_of_description_id=:oldId";
-        QubitPdo::modify($sql, $params);
-      }
+            $sql = 'UPDATE object_term_relation SET term_id=:newId WHERE term_id=:oldId';
+            $params = [':newId' => $selected_id, ':oldId' => $id];
+            QubitPdo::modify($sql, $params);
 
-      $this->log("Deleting term ID ". $id .".");
+            if (QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID == $this->taxonomyId) {
+                $this->log('Changing level of descriptions from term '.$id.' to '.$selected_id.'.');
 
-      // Delete taxonomy term
-      $term = QubitTerm::getById($id);
-      $term->delete();
+                $sql = 'UPDATE information_object SET level_of_description_id=:newId WHERE level_of_description_id=:oldId';
+                QubitPdo::modify($sql, $params);
+            }
+
+            $this->log('Deleting term ID '.$id.'.');
+
+            // Delete taxonomy term
+            $term = QubitTerm::getById($id);
+            $term->delete();
+        }
     }
-  }
 
-  protected function reindexAffectedObjects($affectedObjects)
-  {
-    $search = QubitSearch::getInstance();
-    foreach ($affectedObjects as $id) 
+    protected function reindexAffectedObjects($affectedObjects)
     {
-      $o = QubitInformationObject::getById($id);
-      $search->update($o);
+        $search = QubitSearch::getInstance();
+        foreach ($affectedObjects as $id) {
+            $o = QubitInformationObject::getById($id);
+            $search->update($o);
+        }
     }
-  }
 }

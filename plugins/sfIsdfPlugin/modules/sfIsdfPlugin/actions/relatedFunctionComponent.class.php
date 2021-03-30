@@ -19,83 +19,70 @@
 
 class sfIsdfPluginRelatedFunctionComponent extends RelationEditComponent
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'resource',
-      'type',
-      'description',
-      'startDate',
-      'endDate',
-      'date');
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'resource',
+        'type',
+        'description',
+        'startDate',
+        'endDate',
+        'date',
+    ];
 
-  protected function addField($name)
-  {
-    switch ($name)
+    public function execute($request)
     {
-      case 'type':
-        $this->form->setValidator('type', new sfValidatorString);
+        parent::execute($request);
 
-        $choices = array();
-        $choices[null] = null;
-        foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::ISDF_RELATION_TYPE_ID) as $item)
-        {
-          $choices[$this->context->routing->generate(null, array($item, 'module' => 'term'))] = $item;
-        }
-
-        $this->form->setWidget('type', new sfWidgetFormSelect(array('choices' => $choices)));
-
-        break;
-
-      default:
-
-        return parent::addField($name);
+        $this->form->getWidgetSchema()->setNameFormat('relatedFunction[%s]');
     }
-  }
 
-  protected function processField($field)
-  {
-    switch ($field->getName())
+    protected function addField($name)
     {
-      case 'resource':
+        switch ($name) {
+            case 'type':
+                $this->form->setValidator('type', new sfValidatorString());
 
-        // Update the object of the relation, unless the current resource is
-        // the object
-        if ($this->resource->id != $this->relation->objectId)
-        {
-          unset($this->relation->object);
+                $choices = [];
+                $choices[null] = null;
+                foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::ISDF_RELATION_TYPE_ID) as $item) {
+                    $choices[$this->context->routing->generate(null, [$item, 'module' => 'term'])] = $item;
+                }
+
+                $this->form->setWidget('type', new sfWidgetFormSelect(['choices' => $choices]));
+
+                break;
+
+            default:
+                return parent::addField($name);
         }
-        else
-        {
-          unset($this->relation->subject);
-        }
-
-        $value = $this->form->getValue('resource');
-        if (isset($value))
-        {
-          $params = $this->context->routing->parse(Qubit::pathInfo($value));
-          if ($this->resource->id != $this->relation->objectId)
-          {
-            $this->relation->object = $params['_sf_route']->resource;
-          }
-          else
-          {
-            $this->relation->subject = $params['_sf_route']->resource;
-          }
-        }
-
-        break;
-
-      default:
-
-        return parent::processField($field);
     }
-  }
 
-  public function execute($request)
-  {
-    parent::execute($request);
+    protected function processField($field)
+    {
+        switch ($field->getName()) {
+            case 'resource':
+                // Update the object of the relation, unless the current resource is
+                // the object
+                if ($this->resource->id != $this->relation->objectId) {
+                    unset($this->relation->object);
+                } else {
+                    unset($this->relation->subject);
+                }
 
-    $this->form->getWidgetSchema()->setNameFormat('relatedFunction[%s]');
-  }
+                $value = $this->form->getValue('resource');
+                if (isset($value)) {
+                    $params = $this->context->routing->parse(Qubit::pathInfo($value));
+                    if ($this->resource->id != $this->relation->objectId) {
+                        $this->relation->object = $params['_sf_route']->resource;
+                    } else {
+                        $this->relation->subject = $params['_sf_route']->resource;
+                    }
+                }
+
+                break;
+
+            default:
+                return parent::processField($field);
+        }
+    }
 }

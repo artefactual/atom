@@ -1,10 +1,10 @@
-<?php if ($pager->getNbResults()): ?>
-  <?php foreach ($pager->getResults() as $hit): ?>
-    <?php echo get_partial('search/searchResult', array('hit' => $hit, 'culture' => $selectedCulture)) ?>
-  <?php endforeach; ?>
-<?php else: ?>
+<?php if ($pager->getNbResults()) { ?>
+  <?php foreach ($pager->getResults() as $hit) { ?>
+    <?php echo get_partial('search/searchResult', ['hit' => $hit, 'culture' => $selectedCulture]); ?>
+  <?php } ?>
+<?php } else { ?>
   <section id="no-search-results">
     <i class="fa fa-search"></i>
-    <p class="no-results-found"><?php echo __('No results found.') ?></p>
+    <p class="no-results-found"><?php echo __('No results found.'); ?></p>
   </section>
-<?php endif; ?>
+<?php } ?>

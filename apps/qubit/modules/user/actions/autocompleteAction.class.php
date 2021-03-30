@@ -20,40 +20,33 @@
 /**
  * Return list of users for autocomplete (XHR) response.
  *
- * @package    AccesstoMemory
- * @subpackage user
  * @author     Mike Cantelon <mike@artefactual.com>
  */
 class UserAutocompleteAction extends sfAction
 {
-  public function execute($request)
-  {
-    if (!isset($request->limit))
+    public function execute($request)
     {
-      $request->limit = sfConfig::get('app_hits_per_page', 10);
+        if (!isset($request->limit)) {
+            $request->limit = sfConfig::get('app_hits_per_page', 10);
+        }
+
+        $criteria = new Criteria();
+
+        if (isset($request->query)) {
+            if (sfConfig::get('app_markdown_enabled', true)) {
+                $criteria->add(QubitUser::USERNAME, "%{$request->query}%", Criteria::LIKE);
+            } else {
+                $criteria->add(QubitUser::USERNAME, "{$request->query}%", Criteria::LIKE);
+            }
+        }
+
+        // Page results
+        $this->pager = new QubitPager('QubitUser');
+        $this->pager->setCriteria($criteria);
+        $this->pager->setMaxPerPage($request->limit);
+        $this->pager->setPage(1);
+
+        $this->users = $this->pager->getResults();
+        $this->setTemplate('list');
     }
-
-    $criteria = new Criteria;
-
-    if (isset($request->query))
-    {
-      if (sfConfig::get('app_markdown_enabled', true))
-      {
-        $criteria->add(QubitUser::USERNAME, "%$request->query%", Criteria::LIKE);
-      }
-      else
-      {
-        $criteria->add(QubitUser::USERNAME, "$request->query%", Criteria::LIKE);
-      }
-    }
-
-    // Page results
-    $this->pager = new QubitPager('QubitUser');
-    $this->pager->setCriteria($criteria);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage(1);
-
-    $this->users = $this->pager->getResults();
-    $this->setTemplate('list');
-  }
 }

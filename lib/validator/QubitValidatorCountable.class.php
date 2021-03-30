@@ -19,19 +19,23 @@
 
 class QubitValidatorCountable extends sfValidatorBase
 {
-  /**
-   * @see sfValidatorBase
-   */
-  protected function doClean($value)
-  {
-    return $value;
-  }
+    /**
+     * @see sfValidatorBase
+     *
+     * @param mixed $value
+     */
+    protected function doClean($value)
+    {
+        return $value;
+    }
 
-  /**
-   * @see sfValidatorBase
-   */
-  protected function isEmpty($value)
-  {
-    return 1 > count($value);
-  }
+    /**
+     * @see sfValidatorBase
+     *
+     * @param mixed $value
+     */
+    protected function isEmpty($value)
+    {
+        return 1 > count($value);
+    }
 }

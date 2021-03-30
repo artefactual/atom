@@ -19,218 +19,215 @@
 
 class SettingsTreeviewAction extends DefaultEditAction
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'type',
-      'showBrowseHierarchyPage',
-      'allowFullWidthTreeviewCollapse',
-      'ioSort',
-      'showIdentifier',
-      'showLevelOfDescription',
-      'showDates',
-      'fullItemsPerPage');
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'type',
+        'showBrowseHierarchyPage',
+        'allowFullWidthTreeviewCollapse',
+        'ioSort',
+        'showIdentifier',
+        'showLevelOfDescription',
+        'showDates',
+        'fullItemsPerPage',
+    ];
 
-  protected function earlyExecute()
-  {
-    $this->i18n = sfContext::getInstance()->i18n;
-  }
-
-  protected function addField($name)
-  {
-    switch ($name)
+    public function execute($request)
     {
-      case 'type':
-        $this->typeSetting = QubitSetting::getByName('treeview_type');
-        $default = 'sidebar';
-        $options = array(
-          'sidebar' => $this->i18n->__('Sidebar'),
-          'fullWidth' => $this->i18n->__('Full width'));
+        parent::execute($request);
 
-        $this->addSettingRadioButtonsField($this->typeSetting, $name, $default, $options);
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
 
-        break;
+            if ($this->form->isValid()) {
+                $this->processForm();
 
-      case 'showBrowseHierarchyPage':
-        $this->showBrowseHierarchyPageSetting = QubitSetting::getByName('treeview_show_browse_hierarchy_page');
-        $default = 'no';
-        $options = array(
-          'no' => $this->i18n->__('No'),
-          'yes' => $this->i18n->__('Yes'));
+                QubitCache::getInstance()->removePattern('settings:i18n:*');
 
-        $this->addSettingRadioButtonsField($this->showBrowseHierarchyPageSetting, $name, $default, $options);
+                $this->getUser()->setFlash('notice', $this->i18n->__('Treeview settings saved.'));
 
-        break;
-
-      case 'allowFullWidthTreeviewCollapse':
-        $this->allowFullWidthTreeviewCollapse = QubitSetting::getByName('treeview_allow_full_width_collapse');
-        $default = 'no';
-        $options = array(
-          'no' => $this->i18n->__('No'),
-          'yes' => $this->i18n->__('Yes'));
-
-        $this->addSettingRadioButtonsField($this->allowFullWidthTreeviewCollapse, $name, $default, $options);
-
-        break;
-
-      case 'ioSort':
-        $this->ioSortSetting = QubitSetting::getByName('sort_treeview_informationobject');
-        $default = 'none';
-        $options = array(
-          'none' => $this->i18n->__('Manual'),
-          'title' => $this->i18n->__('Title'),
-          'identifierTitle' => $this->i18n->__('Identifier - Title'));
-
-        $this->addSettingRadioButtonsField($this->ioSortSetting, $name, $default, $options);
-
-        break;
-
-      case 'showIdentifier':
-        $this->showIdentifierSetting = QubitSetting::getByName('treeview_show_identifier');
-        $default = 'no';
-        $options = array(
-          'no' => $this->i18n->__('No'),
-          'identifier' => $this->i18n->__('Identifier'),
-          'referenceCode' => $this->i18n->__('Inherit reference code'));
-
-        $this->addSettingRadioButtonsField($this->showIdentifierSetting, $name, $default, $options);
-
-        break;
-
-      case 'showLevelOfDescription':
-        $this->showLevelOfDescriptionSetting = QubitSetting::getByName('treeview_show_level_of_description');
-        $default = 'yes';
-        $options = array(
-          'no' => $this->i18n->__('No'),
-          'yes' => $this->i18n->__('Yes'));
-
-        $this->addSettingRadioButtonsField($this->showLevelOfDescriptionSetting, $name, $default, $options);
-
-        break;
-
-      case 'showDates':
-        $this->showDatesSetting = QubitSetting::getByName('treeview_show_dates');
-        $default = 'no';
-        $options = array(
-          'no' => $this->i18n->__('No'),
-          'yes' => $this->i18n->__('Yes'));
-
-        $this->addSettingRadioButtonsField($this->showDatesSetting, $name, $default, $options);
-
-        break;
-
-      case 'fullItemsPerPage':
-        $this->fullItemsPerPageSetting = QubitSetting::getByName('treeview_full_items_per_page');
-
-        $default = 50;
-        if (isset($this->fullItemsPerPageSetting))
-        {
-          $default = $this->fullItemsPerPageSetting->getValue(array('sourceCulture' => true));
+                $this->redirect(['module' => 'settings', 'action' => 'treeview']);
+            }
         }
-        $this->form->setDefault($name, $default);
-
-        $this->form->setValidator($name, new sfValidatorInteger(
-          array(
-            'min' => 10,
-            'max' => sfConfig::get('app_treeview_items_per_page_max', 10000)
-          )
-        ));
-        $this->form->setWidget($name, new sfWidgetFormInput);
-
-        break;
     }
-  }
 
-  private function addSettingRadioButtonsField($setting, $fieldName, $default, $options)
-  {
-    if (isset($setting))
+    protected function earlyExecute()
     {
-      $default = $setting->getValue(array('sourceCulture' => true));
+        $this->i18n = sfContext::getInstance()->i18n;
     }
 
-    $this->form->setDefault($fieldName, $default);
-    $this->form->setValidator($fieldName, new sfValidatorString(array('required' => false)));
-    $this->form->setWidget($fieldName, new sfWidgetFormSelectRadio(array('choices' => $options), array('class' => 'radio')));
-  }
-
-
-  protected function processField($field)
-  {
-    switch ($field->getName())
+    protected function addField($name)
     {
-      case 'type':
-        $this->createOrUpdateSetting($this->typeSetting, 'treeview_type', $field->getValue());
+        switch ($name) {
+            case 'type':
+                $this->typeSetting = QubitSetting::getByName('treeview_type');
+                $default = 'sidebar';
+                $options = [
+                    'sidebar' => $this->i18n->__('Sidebar'),
+                    'fullWidth' => $this->i18n->__('Full width'),
+                ];
 
-        break;
+                $this->addSettingRadioButtonsField($this->typeSetting, $name, $default, $options);
 
-      case 'showBrowseHierarchyPage':
-        $this->createOrUpdateSetting($this->showBrowseHierarchyPageSetting, 'treeview_show_browse_hierarchy_page', $field->getValue());
+                break;
 
-        break;
+            case 'showBrowseHierarchyPage':
+                $this->showBrowseHierarchyPageSetting = QubitSetting::getByName('treeview_show_browse_hierarchy_page');
+                $default = 'no';
+                $options = [
+                    'no' => $this->i18n->__('No'),
+                    'yes' => $this->i18n->__('Yes'),
+                ];
 
-      case 'allowFullWidthTreeviewCollapse':
-        $this->createOrUpdateSetting($this->allowFullWidthTreeviewCollapse, 'treeview_allow_full_width_collapse', $field->getValue());
+                $this->addSettingRadioButtonsField($this->showBrowseHierarchyPageSetting, $name, $default, $options);
 
-        break;
+                break;
 
-      case 'ioSort':
-        $this->createOrUpdateSetting($this->ioSortSetting, 'sort_treeview_informationobject', $field->getValue());
+            case 'allowFullWidthTreeviewCollapse':
+                $this->allowFullWidthTreeviewCollapse = QubitSetting::getByName('treeview_allow_full_width_collapse');
+                $default = 'no';
+                $options = [
+                    'no' => $this->i18n->__('No'),
+                    'yes' => $this->i18n->__('Yes'),
+                ];
 
-        break;
+                $this->addSettingRadioButtonsField($this->allowFullWidthTreeviewCollapse, $name, $default, $options);
 
-      case 'showIdentifier':
-        $this->createOrUpdateSetting($this->showIdentifierSetting, 'treeview_show_identifier', $field->getValue());
+                break;
 
-        break;
+            case 'ioSort':
+                $this->ioSortSetting = QubitSetting::getByName('sort_treeview_informationobject');
+                $default = 'none';
+                $options = [
+                    'none' => $this->i18n->__('Manual'),
+                    'title' => $this->i18n->__('Title'),
+                    'identifierTitle' => $this->i18n->__('Identifier - Title'),
+                ];
 
-      case 'showLevelOfDescription':
-        $this->createOrUpdateSetting($this->showLevelOfDescriptionSetting, 'treeview_show_level_of_description', $field->getValue());
+                $this->addSettingRadioButtonsField($this->ioSortSetting, $name, $default, $options);
 
-        break;
+                break;
 
-      case 'showDates':
-        $this->createOrUpdateSetting($this->showDatesSetting, 'treeview_show_dates', $field->getValue());
+            case 'showIdentifier':
+                $this->showIdentifierSetting = QubitSetting::getByName('treeview_show_identifier');
+                $default = 'no';
+                $options = [
+                    'no' => $this->i18n->__('No'),
+                    'identifier' => $this->i18n->__('Identifier'),
+                    'referenceCode' => $this->i18n->__('Inherit reference code'),
+                ];
 
-        break;
+                $this->addSettingRadioButtonsField($this->showIdentifierSetting, $name, $default, $options);
 
-      case 'fullItemsPerPage':
-        $this->createOrUpdateSetting($this->fullItemsPerPageSetting, 'treeview_full_items_per_page', $field->getValue());
+                break;
 
-        break;
+            case 'showLevelOfDescription':
+                $this->showLevelOfDescriptionSetting = QubitSetting::getByName('treeview_show_level_of_description');
+                $default = 'yes';
+                $options = [
+                    'no' => $this->i18n->__('No'),
+                    'yes' => $this->i18n->__('Yes'),
+                ];
+
+                $this->addSettingRadioButtonsField($this->showLevelOfDescriptionSetting, $name, $default, $options);
+
+                break;
+
+            case 'showDates':
+                $this->showDatesSetting = QubitSetting::getByName('treeview_show_dates');
+                $default = 'no';
+                $options = [
+                    'no' => $this->i18n->__('No'),
+                    'yes' => $this->i18n->__('Yes'),
+                ];
+
+                $this->addSettingRadioButtonsField($this->showDatesSetting, $name, $default, $options);
+
+                break;
+
+            case 'fullItemsPerPage':
+                $this->fullItemsPerPageSetting = QubitSetting::getByName('treeview_full_items_per_page');
+
+                $default = 50;
+                if (isset($this->fullItemsPerPageSetting)) {
+                    $default = $this->fullItemsPerPageSetting->getValue(['sourceCulture' => true]);
+                }
+                $this->form->setDefault($name, $default);
+
+                $this->form->setValidator($name, new sfValidatorInteger([
+                    'min' => 10,
+                    'max' => sfConfig::get('app_treeview_items_per_page_max', 10000),
+                ]));
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+        }
     }
-  }
 
-  private function createOrUpdateSetting($setting, $name, $value)
-  {
-    if (!isset($setting))
+    protected function processField($field)
     {
-      $setting = new QubitSetting;
-      $setting->name = $name;
-      $setting->sourceCulture = 'en';
+        switch ($field->getName()) {
+            case 'type':
+                $this->createOrUpdateSetting($this->typeSetting, 'treeview_type', $field->getValue());
+
+                break;
+
+            case 'showBrowseHierarchyPage':
+                $this->createOrUpdateSetting($this->showBrowseHierarchyPageSetting, 'treeview_show_browse_hierarchy_page', $field->getValue());
+
+                break;
+
+            case 'allowFullWidthTreeviewCollapse':
+                $this->createOrUpdateSetting($this->allowFullWidthTreeviewCollapse, 'treeview_allow_full_width_collapse', $field->getValue());
+
+                break;
+
+            case 'ioSort':
+                $this->createOrUpdateSetting($this->ioSortSetting, 'sort_treeview_informationobject', $field->getValue());
+
+                break;
+
+            case 'showIdentifier':
+                $this->createOrUpdateSetting($this->showIdentifierSetting, 'treeview_show_identifier', $field->getValue());
+
+                break;
+
+            case 'showLevelOfDescription':
+                $this->createOrUpdateSetting($this->showLevelOfDescriptionSetting, 'treeview_show_level_of_description', $field->getValue());
+
+                break;
+
+            case 'showDates':
+                $this->createOrUpdateSetting($this->showDatesSetting, 'treeview_show_dates', $field->getValue());
+
+                break;
+
+            case 'fullItemsPerPage':
+                $this->createOrUpdateSetting($this->fullItemsPerPageSetting, 'treeview_full_items_per_page', $field->getValue());
+
+                break;
+        }
     }
 
-    $setting->setValue($value, array('culture' => 'en'));
-    $setting->save();
-  }
-
-  public function execute($request)
-  {
-    parent::execute($request);
-
-    if ($request->isMethod('post'))
+    private function addSettingRadioButtonsField($setting, $fieldName, $default, $options)
     {
-      $this->form->bind($request->getPostParameters());
+        if (isset($setting)) {
+            $default = $setting->getValue(['sourceCulture' => true]);
+        }
 
-      if ($this->form->isValid())
-      {
-        $this->processForm();
-
-        QubitCache::getInstance()->removePattern('settings:i18n:*');
-
-        $this->getUser()->setFlash('notice', $this->i18n->__('Treeview settings saved.'));
-
-        $this->redirect(array('module' => 'settings', 'action' => 'treeview'));
-      }
+        $this->form->setDefault($fieldName, $default);
+        $this->form->setValidator($fieldName, new sfValidatorString(['required' => false]));
+        $this->form->setWidget($fieldName, new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']));
     }
-  }
+
+    private function createOrUpdateSetting($setting, $name, $value)
+    {
+        if (!isset($setting)) {
+            $setting = new QubitSetting();
+            $setting->name = $name;
+            $setting->sourceCulture = 'en';
+        }
+
+        $setting->setValue($value, ['culture' => 'en']);
+        $setting->save();
+    }
 }

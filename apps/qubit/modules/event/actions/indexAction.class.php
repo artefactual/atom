@@ -19,53 +19,46 @@
 
 class EventIndexAction extends sfAction
 {
-  public function execute($request)
-  {
-    if (!$this->getUser()->isAuthenticated())
+    public function execute($request)
     {
-      QubitAcl::forwardUnauthorized();
+        if (!$this->getUser()->isAuthenticated()) {
+            QubitAcl::forwardUnauthorized();
+        }
+
+        $this->resource = $this->getRoute()->resource;
+
+        $value = [];
+
+        if (isset($this->resource->actor)) {
+            $value['actor'] = $this->context->routing->generate(null, [$this->resource->actor, 'module' => 'actor']);
+            $value['actorDisplay'] = $this->resource->actor->getAuthorizedFormOfName(['cultureFallback' => true]);
+        }
+
+        if (isset($this->resource->date)) {
+            $value['date'] = $this->resource->date;
+        }
+
+        $value['endDate'] = Qubit::renderDate($this->resource->endDate);
+        $value['startDate'] = Qubit::renderDate($this->resource->startDate);
+
+        if (isset($this->resource->description)) {
+            $value['description'] = $this->resource->description;
+        }
+
+        if (isset($this->resource->object)) {
+            $value['informationObject'] = $this->context->routing->generate(null, [$this->resource->object, 'module' => 'informationobject']);
+        }
+
+        $place = $this->resource->getPlace();
+        if (isset($place)) {
+            $value['place'] = $this->context->routing->generate(null, [$place, 'module' => 'term']);
+            $value['placeDisplay'] = $place->getName(['cultureFallback' => true]);
+        }
+
+        if (isset($this->resource->type)) {
+            $value['type'] = $this->context->routing->generate(null, [$this->resource->type, 'module' => 'term']);
+        }
+
+        return $this->renderText(json_encode($value));
     }
-
-    $this->resource = $this->getRoute()->resource;
-
-    $value = array();
-
-    if (isset($this->resource->actor))
-    {
-      $value['actor'] = $this->context->routing->generate(null, array($this->resource->actor, 'module' => 'actor'));
-      $value['actorDisplay'] = $this->resource->actor->getAuthorizedFormOfName(array('cultureFallback' => true));
-    }
-
-    if (isset($this->resource->date))
-    {
-      $value['date'] = $this->resource->date;
-    }
-
-    $value['endDate'] = Qubit::renderDate($this->resource->endDate);
-    $value['startDate'] = Qubit::renderDate($this->resource->startDate);
-
-    if (isset($this->resource->description))
-    {
-      $value['description'] = $this->resource->description;
-    }
-
-    if (isset($this->resource->object))
-    {
-      $value['informationObject'] = $this->context->routing->generate(null, array($this->resource->object, 'module' => 'informationobject'));
-    }
-
-    $place = $this->resource->getPlace();
-    if (isset($place))
-    {
-      $value['place'] = $this->context->routing->generate(null, array($place, 'module' => 'term'));
-      $value['placeDisplay'] = $place->getName(array('cultureFallback' => true));
-    }
-
-    if (isset($this->resource->type))
-    {
-      $value['type'] = $this->context->routing->generate(null, array($this->resource->type, 'module' => 'term'));
-    }
-
-    return $this->renderText(json_encode($value));
-  }
 }

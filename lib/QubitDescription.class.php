@@ -19,15 +19,12 @@
 
 class QubitDescription
 {
-  public static function addAssets(sfWebResponse $response)
-  {
-    if (sfConfig::get('app_show_tooltips'))
+    public static function addAssets(sfWebResponse $response)
     {
-      $response->addJavaScript('description', 'last');
+        if (sfConfig::get('app_show_tooltips')) {
+            $response->addJavaScript('description', 'last');
+        } else {
+            $response->addStylesheet('hide_tooltips', 'last');
+        }
     }
-    else
-    {
-      $response->addStylesheet('hide_tooltips', 'last');
-    }
-  }
 }

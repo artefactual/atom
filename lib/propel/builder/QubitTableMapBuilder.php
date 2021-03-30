@@ -21,8 +21,8 @@ require_once 'propel/engine/builder/om/php5/PHP5TableMapBuilder.php';
 
 class QubitTableMapBuilder extends PHP5TableMapBuilder
 {
-  public function getUnprefixedClassName()
-  {
-    return ucfirst($this->getTable()->getPhpName()).'TableMap';
-  }
+    public function getUnprefixedClassName()
+    {
+        return ucfirst($this->getTable()->getPhpName()).'TableMap';
+    }
 }

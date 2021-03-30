@@ -18,75 +18,65 @@
  */
 
 /**
- * Check for updates component
+ * Check for updates component.
  *
- * @package AccesstoMemory
- * @subpackage default
  * @author Jesús García Crespo <correo@sevein.com>
  */
 class DefaultUpdateCheckComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    if (!$this->context->user->isAdministrator() || !sfConfig::get('app_check_for_updates'))
+    public function execute($request)
     {
-      return sfView::NONE;
-    }
-
-    // updateCheck service URL
-    $this->updateCheckUrl = 'https://www.accesstomemory.org/check/v2/';
-
-    // Application version
-    $this->currentVersion = qubitConfiguration::VERSION;
-
-    // We are using cookies so we need to identify the application path
-    $this->cookiePath = sfContext::getInstance()->request->getRelativeUrlRoot();
-    if (1 > strlen($this->cookiePath))
-    {
-      $this->cookiePath = '/';
-    }
-
-    // Build array with user data that will be sent to the service
-    $this->updateCheckData = array();
-
-    // Absolute URL
-    $this->updateCheckData['address'] = $request->getUriPrefix() . $request->getScriptName() . $request->getPathInfo();
-
-    // Version (including db version)
-    $this->updateCheckData['version'] = qubitConfiguration::VERSION.' - '.sfConfig::get('app_version');
-
-    // Distribution (legacy: icaatom, dcb, qubit or just atom)
-    $this->updateCheckData['distribution'] = 'atom';
-
-    // Site description
-    $this->updateCheckData['site_description'] = sfConfig::get('app_siteDescription');
-
-    // Site title
-    $this->updateCheckData['site_title'] = sfConfig::get('app_siteTitle');
-
-    // If the client does not support JavaScript we try to access to the service
-    // using sfWebBrowser, a wrapper for php_curl/fopen/sockets (in that order)
-    if (!$request->getCookie('has_js'))
-    {
-      if (null === ($this->lastVersion = $this->context->user->getAttribute('last_version')))
-      {
-        try
-        {
-          $browser = new sfWebBrowser;
-          $this->lastVersion = $browser->post($this->updateCheckUrl, $this->updateCheckData)->getResponseText();
-        }
-        catch (Exception $e)
-        {
-          $this->lastVersion = 0;
+        if (!$this->context->user->isAdministrator() || !sfConfig::get('app_check_for_updates')) {
+            return sfView::NONE;
         }
 
-        $this->context->user->setAttribute('last_version', $this->lastVersion);
-      }
+        // updateCheck service URL
+        $this->updateCheckUrl = 'https://www.accesstomemory.org/check/v2/';
 
-      if (0 == $this->lastVersion || 1 > version_compare($this->lastVersion, qubitConfiguration::VERSION))
-      {
-        return sfView::NONE;
-      }
+        // Application version
+        $this->currentVersion = qubitConfiguration::VERSION;
+
+        // We are using cookies so we need to identify the application path
+        $this->cookiePath = sfContext::getInstance()->request->getRelativeUrlRoot();
+        if (1 > strlen($this->cookiePath)) {
+            $this->cookiePath = '/';
+        }
+
+        // Build array with user data that will be sent to the service
+        $this->updateCheckData = [];
+
+        // Absolute URL
+        $this->updateCheckData['address'] = $request->getUriPrefix().$request->getScriptName().$request->getPathInfo();
+
+        // Version (including db version)
+        $this->updateCheckData['version'] = qubitConfiguration::VERSION.' - '.sfConfig::get('app_version');
+
+        // Distribution (legacy: icaatom, dcb, qubit or just atom)
+        $this->updateCheckData['distribution'] = 'atom';
+
+        // Site description
+        $this->updateCheckData['site_description'] = sfConfig::get('app_siteDescription');
+
+        // Site title
+        $this->updateCheckData['site_title'] = sfConfig::get('app_siteTitle');
+
+        // If the client does not support JavaScript we try to access to the service
+        // using sfWebBrowser, a wrapper for php_curl/fopen/sockets (in that order)
+        if (!$request->getCookie('has_js')) {
+            if (null === ($this->lastVersion = $this->context->user->getAttribute('last_version'))) {
+                try {
+                    $browser = new sfWebBrowser();
+                    $this->lastVersion = $browser->post($this->updateCheckUrl, $this->updateCheckData)->getResponseText();
+                } catch (Exception $e) {
+                    $this->lastVersion = 0;
+                }
+
+                $this->context->user->setAttribute('last_version', $this->lastVersion);
+            }
+
+            if (0 == $this->lastVersion || 1 > version_compare($this->lastVersion, qubitConfiguration::VERSION)) {
+                return sfView::NONE;
+            }
+        }
     }
-  }
 }

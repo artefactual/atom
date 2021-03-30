@@ -18,24 +18,19 @@
  */
 
 /**
- * Context menu for taxonomies
+ * Context menu for taxonomies.
  *
- * @package AccesstoMemory
- * @subpackage term
  * @author Peter Van Garderen <peter@artefactual.com>
  * @author David Juhasz <david@artefactual.com>
  */
 class TaxonomyContextMenuComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    if (isset($request->getAttribute('sf_route')->resource))
+    public function execute($request)
     {
-      $this->resource = $request->getAttribute('sf_route')->resource;
+        if (isset($request->getAttribute('sf_route')->resource)) {
+            $this->resource = $request->getAttribute('sf_route')->resource;
+        } else {
+            return sfView::NONE;
+        }
     }
-    else
-    {
-      return sfView::NONE;
-    }
-  }
 }

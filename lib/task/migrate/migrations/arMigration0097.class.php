@@ -25,24 +25,25 @@
  */
 class arMigration0097
 {
-  const
-    VERSION = 97, // The new database version
-    MIN_MILESTONE = 1; // The minimum milestone required
+    public const VERSION = 97;
+    public const MIN_MILESTONE = 1;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    $term = new QubitTerm;
-    $term->parentId = QubitTerm::ROOT_ID;
-    $term->taxonomyId = QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID;
-    $term->name = 'Part';
-    $term->culture = 'en';
-    $term->save();
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
+    {
+        $term = new QubitTerm();
+        $term->parentId = QubitTerm::ROOT_ID;
+        $term->taxonomyId = QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID;
+        $term->name = 'Part';
+        $term->culture = 'en';
+        $term->save();
 
-    return true;
-  }
+        return true;
+    }
 }

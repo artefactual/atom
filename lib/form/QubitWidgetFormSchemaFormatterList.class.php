@@ -20,20 +20,15 @@
 /**
  * Form decorator for <table class="list"> css definition.
  *
- * @package    AccesstoMemory
- * @subpackage forms
  * @author     David Juhasz <david@artefactual.com>
  */
 class QubitWidgetFormSchemaFormatterList extends sfWidgetFormSchemaFormatter
 {
-  protected
-    $rowFormat = "<tr>\n <td><span title=\"%help%\">%label%</td>\n <td>%error%%field%%hidden_fields%</td>\n</tr>\n",
-    $helpFormat = '%help%',
-    $errorRowFormat = "<tr><td colspan=\"2\">\n%errors%</td></tr>\n",
-    $errorListFormatInARow = " <div class=\"messages error\"><ul>\n%errors% </ul></div>\n",
-    $errorRowFormatInARow = " <li>%error%</li>\n",
-    $namedErrorRowFormatInARow = " <li>%name%: %error%</li>\n",
-    $decoratorFormat = "<table>\n %content%</table>";
+    protected $rowFormat = "<tr>\n <td><span title=\"%help%\">%label%</td>\n <td>%error%%field%%hidden_fields%</td>\n</tr>\n";
+    protected $helpFormat = '%help%';
+    protected $errorRowFormat = "<tr><td colspan=\"2\">\n%errors%</td></tr>\n";
+    protected $errorListFormatInARow = " <div class=\"messages error\"><ul>\n%errors% </ul></div>\n";
+    protected $errorRowFormatInARow = " <li>%error%</li>\n";
+    protected $namedErrorRowFormatInARow = " <li>%name%: %error%</li>\n";
+    protected $decoratorFormat = "<table>\n %content%</table>";
 }
-
-?>

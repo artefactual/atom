@@ -1,6 +1,6 @@
 <div style="text-align: center;">
 
-  <?php echo image_tag('lock48', array('alt' => __('Read only'))) ?>
+  <?php echo image_tag('lock48', ['alt' => __('Read only')]); ?>
 
   <h2 style="font-size: 20px;"><?php echo __('The system is currently in read-only mode. Please try again later.'); ?></h2>
 
@@ -8,6 +8,6 @@
 
   <br/>
 
-  <?php echo link_to(__('Go to homepage'), '@homepage') ?>
+  <?php echo link_to(__('Go to homepage'), '@homepage'); ?>
 
 </div>

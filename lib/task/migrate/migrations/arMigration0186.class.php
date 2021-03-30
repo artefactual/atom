@@ -25,36 +25,35 @@
  */
 class arMigration0186
 {
-  const
-    VERSION = 186, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 186;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    $menuPaths = array(
-      'user/clipboardClear' => '#',
-      'user/clipboardLoad' => 'clipboard/load',
-      'user/clipboardSave' => 'clipboard/save',
-      'user/clipboard' => 'clipboard/view',
-    );
-
-    foreach ($menuPaths as $oldPath => $newPath)
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      $criteria = new Criteria;
-      $criteria->add(QubitMenu::PATH, "$oldPath%", Criteria::LIKE);
+        $menuPaths = [
+            'user/clipboardClear' => '#',
+            'user/clipboardLoad' => 'clipboard/load',
+            'user/clipboardSave' => 'clipboard/save',
+            'user/clipboard' => 'clipboard/view',
+        ];
 
-      foreach (QubitMenu::get($criteria) as $menu)
-      {
-        $menu->path = str_replace($oldPath, $newPath, $menu->path);
-        $menu->save();
-      }
+        foreach ($menuPaths as $oldPath => $newPath) {
+            $criteria = new Criteria();
+            $criteria->add(QubitMenu::PATH, "{$oldPath}%", Criteria::LIKE);
+
+            foreach (QubitMenu::get($criteria) as $menu) {
+                $menu->path = str_replace($oldPath, $newPath, $menu->path);
+                $menu->save();
+            }
+        }
+
+        return true;
     }
-  
-    return true;
-  }
 }

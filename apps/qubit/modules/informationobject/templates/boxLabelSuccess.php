@@ -15,54 +15,54 @@
 </head>
 
 <body>
-  <h1 class="do-print"><?php echo $this->i18n->__('Box labels') ?></h1>
+  <h1 class="do-print"><?php echo $this->i18n->__('Box labels'); ?></h1>
 
   <h1 class="label">
-    <?php echo $resource->getTitle(array('cultureFallback' => true)) ?>
+    <?php echo $resource->getTitle(['cultureFallback' => true]); ?>
   </h1>
 
   <table class="sticky-enabled">
     <thead>
       <tr>
         <th>
-          <?php echo $this->i18n->__('#') ?>
+          <?php echo $this->i18n->__('#'); ?>
         </th><th>
-          <?php echo $this->i18n->__('Reference code') ?>
+          <?php echo $this->i18n->__('Reference code'); ?>
         </th><th>
-          <?php echo $this->i18n->__('Physical object name') ?>
+          <?php echo $this->i18n->__('Physical object name'); ?>
         </th><th>
-          <?php echo $this->i18n->__('Title') ?>
+          <?php echo $this->i18n->__('Title'); ?>
         </th><th>
-          <?php echo $this->i18n->__('Creation date(s)') ?>
+          <?php echo $this->i18n->__('Creation date(s)'); ?>
         </th>
       </tr>
     </thead><tbody>
-      <?php $row = 1; foreach ($results as $item): ?>
+      <?php $row = 1; foreach ($results as $item) { ?>
         <tr>
           <td>
-            <?php echo $row++ ?>
+            <?php echo $row++; ?>
           </td><td>
-            <?php echo render_value_inline($item['referenceCode']) ?>
+            <?php echo render_value_inline($item['referenceCode']); ?>
           </td><td>
-            <?php echo render_value_inline($item['physicalObjectName']) ?>
+            <?php echo render_value_inline($item['physicalObjectName']); ?>
           </td><td>
-            <?php echo render_value_inline($item['title']) ?>
+            <?php echo render_value_inline($item['title']); ?>
           </td><td>
-            <?php if ($item['creationDates']): ?>
+            <?php if ($item['creationDates']) { ?>
               <ul>
-                <?php foreach (explode('|', $item['creationDates']) as $creationDate): ?>
-                  <li><?php echo render_value_inline($creationDate) ?></li>
-                <?php endforeach; ?>
+                <?php foreach (explode('|', $item['creationDates']) as $creationDate) { ?>
+                  <li><?php echo render_value_inline($creationDate); ?></li>
+                <?php } ?>
               </ul>
-            <?php endif; ?>
+            <?php } ?>
           </td>
         </tr>
-      <?php endforeach; ?>
+      <?php } ?>
     </tbody>
   </table>
 
   <div id="result-count">
-    <?php echo $this->i18n->__('Showing %1% results', array('%1%' => count($results))) ?>
+    <?php echo $this->i18n->__('Showing %1% results', ['%1%' => count($results)]); ?>
   </div>
 </body>
 </html>

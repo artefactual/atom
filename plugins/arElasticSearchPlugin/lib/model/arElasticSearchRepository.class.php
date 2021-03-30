@@ -19,135 +19,124 @@
 
 class arElasticSearchRepository extends arElasticSearchModelBase
 {
-  public function load()
-  {
-    $criteria = new Criteria;
-    $criteria->add(QubitRepository::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
-    $repositories = QubitRepository::get($criteria);
-
-    $this->count = count($repositories);
-
-    return $repositories;
-  }
-
-  public function populate()
-  {
-    $errors = array();
-
-    $repositories = $this->load();
-
-    foreach ($repositories as $key => $repository)
+    public function load()
     {
-      try
-      {
-        $data = self::serialize($repository);
+        $criteria = new Criteria();
+        $criteria->add(QubitRepository::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
+        $repositories = QubitRepository::get($criteria);
 
-        $this->search->addDocument($data, 'QubitRepository');
+        $this->count = count($repositories);
 
-        $this->logEntry($repository->__toString(), $key + 1);
-      }
-      catch (sfException $e)
-      {
-        $errors[] = $e->getMessage();
-      }
+        return $repositories;
     }
 
-    return $errors;
-  }
-
-  public static function serialize($object)
-  {
-    $serialized = array();
-
-    $serialized['id'] = $object->id;
-    $serialized['slug'] = $object->slug;
-    $serialized['identifier'] = $object->identifier;
-
-    // Related terms
-    $relatedTerms = arElasticSearchModelBase::getRelatedTerms(
-      $object->id,
-      array(
-        QubitTaxonomy::REPOSITORY_TYPE_ID,
-        QubitTaxonomy::THEMATIC_AREA_ID,
-        QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID
-      )
-    );
-
-    if (isset($relatedTerms[QubitTaxonomy::REPOSITORY_TYPE_ID]))
+    public function populate()
     {
-      $serialized['types'] = $relatedTerms[QubitTaxonomy::REPOSITORY_TYPE_ID];
+        $errors = [];
+
+        $repositories = $this->load();
+
+        foreach ($repositories as $key => $repository) {
+            try {
+                $data = self::serialize($repository);
+
+                $this->search->addDocument($data, 'QubitRepository');
+
+                $this->logEntry($repository->__toString(), $key + 1);
+            } catch (sfException $e) {
+                $errors[] = $e->getMessage();
+            }
+        }
+
+        return $errors;
     }
 
-    if (isset($relatedTerms[QubitTaxonomy::THEMATIC_AREA_ID]))
+    public static function serialize($object)
     {
-      $serialized['thematicAreas'] = $relatedTerms[QubitTaxonomy::THEMATIC_AREA_ID];
+        $serialized = [];
+
+        $serialized['id'] = $object->id;
+        $serialized['slug'] = $object->slug;
+        $serialized['identifier'] = $object->identifier;
+
+        // Related terms
+        $relatedTerms = arElasticSearchModelBase::getRelatedTerms(
+            $object->id,
+            [
+                QubitTaxonomy::REPOSITORY_TYPE_ID,
+                QubitTaxonomy::THEMATIC_AREA_ID,
+                QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID,
+            ]
+        );
+
+        if (isset($relatedTerms[QubitTaxonomy::REPOSITORY_TYPE_ID])) {
+            $serialized['types'] = $relatedTerms[QubitTaxonomy::REPOSITORY_TYPE_ID];
+        }
+
+        if (isset($relatedTerms[QubitTaxonomy::THEMATIC_AREA_ID])) {
+            $serialized['thematicAreas'] = $relatedTerms[QubitTaxonomy::THEMATIC_AREA_ID];
+        }
+
+        if (isset($relatedTerms[QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID])) {
+            $serialized['geographicSubregions'] = $relatedTerms[QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID];
+        }
+
+        foreach ($object->contactInformations as $contactInformation) {
+            $serialized['contactInformations'][] = arElasticSearchContactInformation::serialize($contactInformation);
+        }
+
+        $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
+        foreach (QubitPdo::fetchAll($sql, [$object->id, QubitTerm::OTHER_FORM_OF_NAME_ID]) as $item) {
+            $serialized['otherNames'][] = arElasticSearchOtherName::serialize($item);
+        }
+
+        $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
+        foreach (QubitPdo::fetchAll($sql, [$object->id, QubitTerm::PARALLEL_FORM_OF_NAME_ID]) as $item) {
+            $serialized['parallelNames'][] = arElasticSearchOtherName::serialize($item);
+        }
+
+        if ($object->existsLogo()) {
+            $serialized['logoPath'] = $object->getLogoPath();
+        }
+
+        $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->createdAt);
+        $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updatedAt);
+
+        $serialized['sourceCulture'] = $object->sourceCulture;
+        $serialized['i18n'] = self::serializeI18ns($object->id, ['QubitActor', 'QubitRepository']);
+        self::addExtraSortInfo($serialized['i18n'], $object);
+
+        return $serialized;
     }
 
-    if (isset($relatedTerms[QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID]))
+    public static function update($object)
     {
-      $serialized['geographicSubregions'] = $relatedTerms[QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID];
+        $data = self::serialize($object);
+
+        QubitSearch::getInstance()->addDocument($data, 'QubitRepository');
+
+        return true;
     }
 
-    foreach ($object->contactInformations as $contactInformation)
+    /**
+     * We store extra I18n fields (city, region) for table sorting purposes in the repository browse page.
+     *
+     * These values will be the city & region of the primary contact if valid, otherwise the first contact
+     * that has a valid city / region will be used.
+     *
+     * @param mixed $i18n
+     * @param mixed $object
+     */
+    private static function addExtraSortInfo(&$i18n, $object)
     {
-      $serialized['contactInformations'][] = arElasticSearchContactInformation::serialize($contactInformation);
+        foreach (sfConfig::get('app_i18n_languages') as $lang) {
+            if ($object->getCity(['culture' => $lang])) {
+                $i18n[$lang]['city'] = $object->getCity(['culture' => $lang]);
+            }
+
+            if ($object->getRegion(['culture' => $lang])) {
+                $i18n[$lang]['region'] = $object->getRegion(['culture' => $lang]);
+            }
+        }
     }
-
-    $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
-    foreach (QubitPdo::fetchAll($sql, array($object->id, QubitTerm::OTHER_FORM_OF_NAME_ID)) as $item)
-    {
-      $serialized['otherNames'][] = arElasticSearchOtherName::serialize($item);
-    }
-
-    $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
-    foreach (QubitPdo::fetchAll($sql, array($object->id, QubitTerm::PARALLEL_FORM_OF_NAME_ID)) as $item)
-    {
-      $serialized['parallelNames'][] = arElasticSearchOtherName::serialize($item);
-    }
-
-    if ($object->existsLogo())
-    {
-      $serialized['logoPath'] = $object->getLogoPath();
-    }
-
-    $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->createdAt);
-    $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updatedAt);
-
-    $serialized['sourceCulture'] = $object->sourceCulture;
-    $serialized['i18n'] = self::serializeI18ns($object->id, array('QubitActor', 'QubitRepository'));
-    self::addExtraSortInfo($serialized['i18n'], $object);
-
-    return $serialized;
-  }
-
-  /**
-   * We store extra I18n fields (city, region) for table sorting purposes in the repository browse page.
-   *
-   * These values will be the city & region of the primary contact if valid, otherwise the first contact
-   * that has a valid city / region will be used.
-   */
-  private static function addExtraSortInfo(&$i18n, $object)
-  {
-    foreach (sfConfig::get('app_i18n_languages') as $lang)
-    {
-      if ($object->getCity(array('culture' => $lang)))
-      {
-        $i18n[$lang]['city'] = $object->getCity(array('culture' => $lang));
-      }
-
-      if ($object->getRegion(array('culture' => $lang)))
-      {
-        $i18n[$lang]['region'] = $object->getRegion(array('culture' => $lang));
-      }
-    }
-  }
-
-  public static function update($object)
-  {
-    $data = self::serialize($object);
-
-    QubitSearch::getInstance()->addDocument($data, 'QubitRepository');
-
-    return true;
-  }
 }

@@ -19,49 +19,47 @@
 
 class QubitI18N
 {
-  /**
-   * Similar to sfI18N::__($string) but returning a dictionary with all the
-   * translations available indexed by their language codes. Untranslated
-   * messages are omitted.
-   *
-   * This function is probably very slow to be used in the
-   * request/response cycle but it is probably okay to use it during the
-   * execution of a CLI task or during the installation.
-   */
-  public static function getTranslations($string)
-  {
-    $translations = array();
-
-    // Index the array with all the language codes available in the application
-    foreach (new DirectoryIterator(sfConfig::get('sf_app_i18n_dir')) as $fileInfo)
+    /**
+     * Similar to sfI18N::__($string) but returning a dictionary with all the
+     * translations available indexed by their language codes. Untranslated
+     * messages are omitted.
+     *
+     * This function is probably very slow to be used in the
+     * request/response cycle but it is probably okay to use it during the
+     * execution of a CLI task or during the installation.
+     *
+     * @param mixed $string
+     */
+    public static function getTranslations($string)
     {
-      if ($fileInfo->isDot())
-      {
-        continue;
-      }
+        $translations = [];
 
-      $translations[$fileInfo->getBasename()] = "";
+        // Index the array with all the language codes available in the application
+        foreach (new DirectoryIterator(sfConfig::get('sf_app_i18n_dir')) as $fileInfo) {
+            if ($fileInfo->isDot()) {
+                continue;
+            }
+
+            $translations[$fileInfo->getBasename()] = '';
+        }
+
+        $configuration = sfContext::getInstance()->getConfiguration();
+        $cache = new sfNoCache();
+        foreach ($translations as $langCode => &$value) {
+            $i18n = new sfI18N($configuration, $cache, ['culture' => $langCode]);
+
+            // Mark untranslated messages
+            $i18n->getMessageFormat()->setUntranslatedPS(['[T]', '[/T]']);
+
+            // Update the value of this language in the dictionary
+            $value = $i18n->__($string);
+
+            // But discard the message if it's untranslated
+            if (empty($value) || 0 === strpos($value, '[T]', 0)) {
+                unset($translations[$langCode]);
+            }
+        }
+
+        return $translations;
     }
-
-    $configuration = sfContext::getInstance()->getConfiguration();
-    $cache = new sfNoCache();
-    foreach ($translations as $langCode => &$value)
-    {
-      $i18n = new sfI18N($configuration, $cache, array('culture' => $langCode));
-
-      // Mark untranslated messages
-      $i18n->getMessageFormat()->setUntranslatedPS(array('[T]','[/T]'));
-
-      // Update the value of this language in the dictionary
-      $value = $i18n->__($string);
-
-      // But discard the message if it's untranslated
-      if (empty($value) || 0 === strpos($value, '[T]', 0))
-      {
-        unset($translations[$langCode]);
-      }
-    }
-
-    return $translations;
-  }
 }

@@ -19,32 +19,29 @@
 
 class arElasticSearchEvent extends arElasticSearchModelBase
 {
-  public static function serialize($event)
-  {
-    $serialized = array();
-
-    if (isset($event->start_date))
+    public static function serialize($event)
     {
-      $serialized['startDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrDay($event->start_date);
-      $serialized['startDateString'] = Qubit::renderDate($event->start_date);
+        $serialized = [];
+
+        if (isset($event->start_date)) {
+            $serialized['startDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrDay($event->start_date);
+            $serialized['startDateString'] = Qubit::renderDate($event->start_date);
+        }
+
+        if (isset($event->end_date)) {
+            $serialized['endDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrDay($event->end_date, true);
+            $serialized['endDateString'] = Qubit::renderDate($event->end_date);
+        }
+
+        if (isset($event->actor_id)) {
+            $serialized['actorId'] = $event->actor_id;
+        }
+
+        $serialized['typeId'] = $event->type_id;
+        $serialized['sourceCulture'] = $event->source_culture;
+
+        $serialized['i18n'] = self::serializeI18ns($event->id, ['QubitEvent']);
+
+        return $serialized;
     }
-
-    if (isset($event->end_date))
-    {
-     $serialized['endDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrDay($event->end_date, true);
-     $serialized['endDateString'] = Qubit::renderDate($event->end_date);
-    }
-
-    if (isset($event->actor_id))
-    {
-      $serialized['actorId'] = $event->actor_id;
-    }
-
-    $serialized['typeId'] = $event->type_id;
-    $serialized['sourceCulture'] = $event->source_culture;
-
-    $serialized['i18n'] = self::serializeI18ns($event->id, array('QubitEvent'));
-
-    return $serialized;
-  }
 }

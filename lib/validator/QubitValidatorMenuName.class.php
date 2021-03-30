@@ -19,38 +19,36 @@
 
 class QubitValidatorMenuName extends sfValidatorBase
 {
-  protected function configure($options = array(), $messages = array())
-  {
-    parent::configure($options, $messages);
-
-    $this->addRequiredOption('resource');
-  }
-
-  protected function doClean($value)
-  {
-    // Before allowing use of proposed identifier, make sure it's available for use
-    if (self::nameCanBeUsed($value, $this->getOption('resource')))
+    public static function nameCanBeUsed($name, $menu = null)
     {
-      return $value;
+        // Only do this check for new menu items or menu items that can be renamed
+        if ($menu->isProtected()) {
+            return true;
+        }
+
+        $criteria = new Criteria();
+        $criteria->add(QubitMenu::NAME, $name);
+
+        // Name is valid if it isn't yet used or if it's used by the menu item being edited
+        $nameIsValid = (null === $foundMenu = QubitMenu::getOne($criteria)) || ($menu->id == $foundMenu->id);
+
+        return $nameIsValid;
     }
 
-    throw new sfValidatorError($this, sfContext::getInstance()->i18n->__('This name is already in use.'), array('value' => $value));
-  }
-
-  public static function nameCanBeUsed($name, $menu = null)
-  {
-    // Only do this check for new menu items or menu items that can be renamed
-    if ($menu->isProtected())
+    protected function configure($options = [], $messages = [])
     {
-      return true;
+        parent::configure($options, $messages);
+
+        $this->addRequiredOption('resource');
     }
 
-    $criteria = new Criteria;
-    $criteria->add(QubitMenu::NAME, $name);
+    protected function doClean($value)
+    {
+        // Before allowing use of proposed identifier, make sure it's available for use
+        if (self::nameCanBeUsed($value, $this->getOption('resource'))) {
+            return $value;
+        }
 
-    // Name is valid if it isn't yet used or if it's used by the menu item being edited
-    $nameIsValid = (null === $foundMenu = QubitMenu::getOne($criteria)) || ($menu->id == $foundMenu->id);
-
-    return $nameIsValid;
-  }
+        throw new sfValidatorError($this, sfContext::getInstance()->i18n->__('This name is already in use.'), ['value' => $value]);
+    }
 }

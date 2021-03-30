@@ -18,139 +18,122 @@
  */
 
 /**
- * Information Object - editMods
+ * Information Object - editMods.
  *
- * @package    AccesstoMemory
- * @subpackage informationObject - initialize an editMods template for updating an information object
  * @author     Peter Van Garderen <peter@artefactual.com>
  */
-
 class sfModsPluginEditAction extends InformationObjectEditAction
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'accessConditions',
-      'identifier',
-      'language',
-      'subjectAccessPoints',
-      'placeAccessPoints',
-      'nameAccessPoints',
-      'title',
-      'type',
-      'repository',
-      'scopeAndContent',
-      'displayStandard',
-      'displayStandardUpdateDescendants');
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'accessConditions',
+        'identifier',
+        'language',
+        'subjectAccessPoints',
+        'placeAccessPoints',
+        'nameAccessPoints',
+        'title',
+        'type',
+        'repository',
+        'scopeAndContent',
+        'displayStandard',
+        'displayStandardUpdateDescendants',
+    ];
 
-  protected function earlyExecute()
-  {
-    parent::earlyExecute();
-
-    $this->mods = new sfModsPlugin($this->resource);
-
-    $title = $this->context->i18n->__('Add new resource');
-    if (isset($this->getRoute()->resource))
+    protected function earlyExecute()
     {
-      if (1 > strlen($title = $this->resource))
-      {
-        $title = $this->context->i18n->__('Untitled');
-      }
+        parent::earlyExecute();
 
-      $title = $this->context->i18n->__('Edit %1%', array('%1%' => $title));
+        $this->mods = new sfModsPlugin($this->resource);
+
+        $title = $this->context->i18n->__('Add new resource');
+        if (isset($this->getRoute()->resource)) {
+            if (1 > strlen($title = $this->resource)) {
+                $title = $this->context->i18n->__('Untitled');
+            }
+
+            $title = $this->context->i18n->__('Edit %1%', ['%1%' => $title]);
+        }
+
+        $this->response->setTitle("{$title} - {$this->response->getTitle()}");
+
+        $this->eventComponent = new InformationObjectEventComponent($this->context, 'informationobject', 'event');
+        $this->eventComponent->resource = $this->resource;
+        $this->eventComponent->execute($this->request);
+
+        $this->eventComponent->form->getWidgetSchema()->type->setHelp($this->context->i18n->__('Select the type of activity that established the relation between the authority record and the resource.'));
     }
 
-    $this->response->setTitle("$title - {$this->response->getTitle()}");
-
-    $this->eventComponent = new InformationObjectEventComponent($this->context, 'informationobject', 'event');
-    $this->eventComponent->resource = $this->resource;
-    $this->eventComponent->execute($this->request);
-
-    $this->eventComponent->form->getWidgetSchema()->type->setHelp($this->context->i18n->__('Select the type of activity that established the relation between the authority record and the resource.'));
-  }
-
-  protected function addField($name)
-  {
-    switch ($name)
+    protected function addField($name)
     {
-      case 'type':
-        $criteria = new Criteria;
-        $this->resource->addObjectTermRelationsRelatedByObjectIdCriteria($criteria);
-        QubitObjectTermRelation::addJoinTermCriteria($criteria);
-        $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::MODS_RESOURCE_TYPE_ID);
+        switch ($name) {
+            case 'type':
+                $criteria = new Criteria();
+                $this->resource->addObjectTermRelationsRelatedByObjectIdCriteria($criteria);
+                QubitObjectTermRelation::addJoinTermCriteria($criteria);
+                $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::MODS_RESOURCE_TYPE_ID);
 
-        $value = array();
-        foreach ($this->relations = QubitObjectTermRelation::get($criteria) as $item)
-        {
-          $value[] = $this->context->routing->generate(null, array($item->term, 'module' => 'term'));
+                $value = [];
+                foreach ($this->relations = QubitObjectTermRelation::get($criteria) as $item) {
+                    $value[] = $this->context->routing->generate(null, [$item->term, 'module' => 'term']);
+                }
+
+                $this->form->setDefault('type', $value);
+                $this->form->setValidator('type', new sfValidatorPass());
+
+                $choices = [];
+                foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::MODS_RESOURCE_TYPE_ID) as $item) {
+                    $choices[$this->context->routing->generate(null, [$item, 'module' => 'term'])] = $item;
+                }
+
+                $this->form->setWidget('type', new sfWidgetFormSelect(['choices' => $choices, 'multiple' => true]));
+
+                break;
+
+            default:
+                return parent::addField($name);
         }
-
-        $this->form->setDefault('type', $value);
-        $this->form->setValidator('type', new sfValidatorPass);
-
-        $choices = array();
-        foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::MODS_RESOURCE_TYPE_ID) as $item)
-        {
-          $choices[$this->context->routing->generate(null, array($item, 'module' => 'term'))] = $item;
-        }
-
-        $this->form->setWidget('type', new sfWidgetFormSelect(array('choices' => $choices, 'multiple' => true)));
-
-        break;
-
-      default:
-
-        return parent::addField($name);
     }
-  }
 
-  protected function processField($field)
-  {
-    switch ($field->getName())
+    protected function processField($field)
     {
-      case 'type':
-        $value = $filtered = array();
-        foreach ($this->form->getValue('type') as $item)
-        {
-          $params = $this->context->routing->parse(Qubit::pathInfo($item));
-          $resource = $params['_sf_route']->resource;
-          $value[$resource->id] = $filtered[$resource->id] = $resource;
+        switch ($field->getName()) {
+            case 'type':
+                $value = $filtered = [];
+                foreach ($this->form->getValue('type') as $item) {
+                    $params = $this->context->routing->parse(Qubit::pathInfo($item));
+                    $resource = $params['_sf_route']->resource;
+                    $value[$resource->id] = $filtered[$resource->id] = $resource;
+                }
+
+                foreach ($this->relations as $item) {
+                    if (isset($value[$item->term->id])) {
+                        unset($filtered[$item->term->id]);
+                    } else {
+                        $item->delete();
+                    }
+                }
+
+                foreach ($filtered as $item) {
+                    $relation = new QubitObjectTermRelation();
+                    $relation->term = $item;
+
+                    $this->resource->objectTermRelationsRelatedByobjectId[] = $relation;
+                }
+
+                break;
+
+            default:
+                return parent::processField($field);
         }
-
-        foreach ($this->relations as $item)
-        {
-          if (isset($value[$item->term->id]))
-          {
-            unset($filtered[$item->term->id]);
-          }
-          else
-          {
-            $item->delete();
-          }
-        }
-
-        foreach ($filtered as $item)
-        {
-          $relation = new QubitObjectTermRelation;
-          $relation->term = $item;
-
-          $this->resource->objectTermRelationsRelatedByobjectId[] = $relation;
-        }
-
-        break;
-
-      default:
-
-        return parent::processField($field);
     }
-  }
 
-  protected function processForm()
-  {
-    $this->resource->sourceStandard = 'MODS version 3.3';
+    protected function processForm()
+    {
+        $this->resource->sourceStandard = 'MODS version 3.3';
 
-    $this->eventComponent->processForm();
+        $this->eventComponent->processForm();
 
-    return parent::processForm();
-  }
+        return parent::processForm();
+    }
 }

@@ -19,30 +19,27 @@
 
 class SettingsPermissionsCopyrightStatementForm extends sfForm
 {
-  public function configure()
-  {
-    $this->widgetSchema->setNameFormat('copyrightStatement[%s]');
-    $this->getValidatorSchema()->setOption('allow_extra_fields', true);
-
-    $this->setWidget('copyrightStatementEnabled', new sfWidgetFormSelectRadio(array('choices'=> array(1 => 'yes', 0 => 'no')), array('class'=>'radio')));
-    $this->setValidator('copyrightStatementEnabled', new sfValidatorInteger(array('required' => false)));
-
-    $default = false;
-    if (null !== $setting = QubitSetting::getByName('digitalobject_copyright_statement_enabled'))
+    public function configure()
     {
-      $value = $setting->getValue(array('sourceCulture' => true));
-      if (!empty($value))
-      {
-        $default = $value;  
-      }
-    }
-    $this->setDefault('copyrightStatementEnabled', $default); 
+        $this->widgetSchema->setNameFormat('copyrightStatement[%s]');
+        $this->getValidatorSchema()->setOption('allow_extra_fields', true);
 
-    $this->setWidget('copyrightStatement', new sfWidgetFormTextArea(array(), array('rows' => 4)));
-    $this->setValidator('copyrightStatement', new sfValidatorString);
-    if (null !== $setting = QubitSetting::getByName('digitalobject_copyright_statement'))
-    {
-      $this->setDefault('copyrightStatement', $setting->getValue());
+        $this->setWidget('copyrightStatementEnabled', new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']));
+        $this->setValidator('copyrightStatementEnabled', new sfValidatorInteger(['required' => false]));
+
+        $default = false;
+        if (null !== $setting = QubitSetting::getByName('digitalobject_copyright_statement_enabled')) {
+            $value = $setting->getValue(['sourceCulture' => true]);
+            if (!empty($value)) {
+                $default = $value;
+            }
+        }
+        $this->setDefault('copyrightStatementEnabled', $default);
+
+        $this->setWidget('copyrightStatement', new sfWidgetFormTextArea([], ['rows' => 4]));
+        $this->setValidator('copyrightStatement', new sfValidatorString());
+        if (null !== $setting = QubitSetting::getByName('digitalobject_copyright_statement')) {
+            $this->setDefault('copyrightStatement', $setting->getValue());
+        }
     }
-  }
 }

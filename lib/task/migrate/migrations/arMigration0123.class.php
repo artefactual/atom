@@ -25,34 +25,36 @@
  */
 class arMigration0123
 {
-  const
-    VERSION = 123, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 123;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    // Find RAD General note term (it doesn't have a fixed id)
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-    $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::RAD_NOTE_ID);
-    $criteria->add(QubitTermI18n::CULTURE, 'en');
-    $criteria->add(QubitTermI18n::NAME, 'General note');
-
-    if (null !== $term = QubitTerm::getOne($criteria))
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      // Get all RAD General notes
-      QubitPdo::prepareAndExecute('UPDATE note SET type_id=? WHERE type_id=?',
-                                  array(QubitTerm::GENERAL_NOTE_ID, $term->id));
+        // Find RAD General note term (it doesn't have a fixed id)
+        $criteria = new Criteria();
+        $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+        $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::RAD_NOTE_ID);
+        $criteria->add(QubitTermI18n::CULTURE, 'en');
+        $criteria->add(QubitTermI18n::NAME, 'General note');
 
-      // Remove RAD General note term
-      $term->delete();
+        if (null !== $term = QubitTerm::getOne($criteria)) {
+            // Get all RAD General notes
+            QubitPdo::prepareAndExecute(
+                'UPDATE note SET type_id=? WHERE type_id=?',
+                [QubitTerm::GENERAL_NOTE_ID, $term->id]
+            );
+
+            // Remove RAD General note term
+            $term->delete();
+        }
+
+        return true;
     }
-
-    return true;
-  }
 }

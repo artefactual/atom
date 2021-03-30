@@ -19,44 +19,42 @@
 
 class SettingsDigitalObjectDerivativesAction extends SettingsEditAction
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'digital_object_derivatives_pdf_page_number',
-      'reference_image_maxwidth');
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'digital_object_derivatives_pdf_page_number',
+        'reference_image_maxwidth',
+    ];
 
-  protected static $refImageMaxWidthMin = 100;
-  protected static $refImageMaxWidthMax = 2000;
+    protected static $refImageMaxWidthMin = 100;
+    protected static $refImageMaxWidthMax = 2000;
 
-  public function earlyExecute()
-  {
-    parent::earlyExecute();
-
-    $this->updateMessage = $this->i18n->__('Digital object derivative settings saved.');
-
-    // Relay info to template
-    $this->pdfinfoAvailable = sfImageMagickAdapter::pdfinfoToolAvailable();
-  }
-
-  protected function addField($name)
-  {
-    switch ($name)
+    public function earlyExecute()
     {
-      case 'digital_object_derivatives_pdf_page_number':
-        $this->form->setValidator($name, new sfValidatorInteger(array('min' => 1)));
-        $this->form->setWidget($name, new sfWidgetFormInput);
+        parent::earlyExecute();
 
-        break;
+        $this->updateMessage = $this->i18n->__('Digital object derivative settings saved.');
 
-      case 'reference_image_maxwidth':
-
-        $this->form->setValidator($name, new sfValidatorInteger(
-          array('min' => self::$refImageMaxWidthMin, 'max' => self::$refImageMaxWidthMax),
-          array('min' => $this->i18n->__('This value must be at least %min% pixels'), 'max' => $this->i18n->__('This value can not be greater than %max% pixels'))
-        ));
-        $this->form->setWidget($name, new sfWidgetFormInput);
-
-        break;
+        // Relay info to template
+        $this->pdfinfoAvailable = sfImageMagickAdapter::pdfinfoToolAvailable();
     }
-  }
+
+    protected function addField($name)
+    {
+        switch ($name) {
+            case 'digital_object_derivatives_pdf_page_number':
+                $this->form->setValidator($name, new sfValidatorInteger(['min' => 1]));
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+
+            case 'reference_image_maxwidth':
+                $this->form->setValidator($name, new sfValidatorInteger(
+                    ['min' => self::$refImageMaxWidthMin, 'max' => self::$refImageMaxWidthMax],
+                    ['min' => $this->i18n->__('This value must be at least %min% pixels'), 'max' => $this->i18n->__('This value can not be greater than %max% pixels')]
+                ));
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+        }
+    }
 }

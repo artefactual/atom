@@ -18,539 +18,507 @@
  */
 
 /**
- * @package    AccesstoMemory
- * @subpackage repository
  * @author     Peter Van Garderen <peter@artefactual.com>
  */
 class QubitRepository extends BaseRepository
 {
-  const
-    ROOT_ID = 6;
+    public const ROOT_ID = 6;
 
-  public function __get($name)
-  {
-    $args = func_get_args();
-
-    $options = array();
-    if (1 < count($args))
+    public function __get($name)
     {
-      $options = $args[1];
-    }
+        $args = func_get_args();
 
-    switch ($name)
-    {
-      case 'backgroundColor':
-      case 'htmlSnippet':
-
-        if (!isset($this->values[$name]))
-        {
-          $criteria = new Criteria;
-          $this->addPropertysCriteria($criteria);
-          $criteria->add(QubitProperty::NAME, $name);
-
-          if (1 == count($query = QubitProperty::get($criteria)))
-          {
-            $this->values[$name] = $query[0];
-          }
+        $options = [];
+        if (1 < count($args)) {
+            $options = $args[1];
         }
 
-        if (isset($this->values[$name]))
-        {
-          return $this->values[$name];
+        switch ($name) {
+            case 'backgroundColor':
+            case 'htmlSnippet':
+                if (!isset($this->values[$name])) {
+                    $criteria = new Criteria();
+                    $this->addPropertysCriteria($criteria);
+                    $criteria->add(QubitProperty::NAME, $name);
+
+                    if (1 == count($query = QubitProperty::get($criteria))) {
+                        $this->values[$name] = $query[0];
+                    }
+                }
+
+                if (isset($this->values[$name])) {
+                    return $this->values[$name];
+                }
+
+                break;
+
+            default:
+                return call_user_func_array([$this, 'BaseRepository::__get'], $args);
+        }
+    }
+
+    public function __set($name, $value)
+    {
+        $args = func_get_args();
+
+        $options = [];
+        if (2 < count($args)) {
+            $options = $args[2];
         }
 
-        break;
+        switch ($name) {
+            case 'backgroundColor':
+            case 'htmlSnippet':
+                if (!isset($this->values[$name])) {
+                    $criteria = new Criteria();
+                    $this->addPropertysCriteria($criteria);
+                    $criteria->add(QubitProperty::NAME, $name);
 
-      default:
+                    if (1 == count($query = QubitProperty::get($criteria))) {
+                        $this->values[$name] = $query[0];
+                    } else {
+                        $this->values[$name] = new QubitProperty();
+                        $this->values[$name]->name = $name;
+                        $this->propertys[] = $this->values[$name];
+                    }
+                }
 
-        return call_user_func_array(array($this, 'BaseRepository::__get'), $args);
-    }
-  }
+                $this->values[$name]->__set('value', $value, $options);
 
-  public function __set($name, $value)
-  {
-    $args = func_get_args();
+                return $this;
 
-    $options = array();
-    if (2 < count($args))
-    {
-      $options = $args[2];
-    }
-
-    switch ($name)
-    {
-      case 'backgroundColor':
-      case 'htmlSnippet':
-
-        if (!isset($this->values[$name]))
-        {
-          $criteria = new Criteria;
-          $this->addPropertysCriteria($criteria);
-          $criteria->add(QubitProperty::NAME, $name);
-
-          if (1 == count($query = QubitProperty::get($criteria)))
-          {
-            $this->values[$name] = $query[0];
-          }
-          else
-          {
-            $this->values[$name] = new QubitProperty;
-            $this->values[$name]->name = $name;
-            $this->propertys[] = $this->values[$name];
-          }
+            default:
+                return call_user_func_array([$this, 'BaseRepository::__set'], $args);
         }
+    }
 
-        $this->values[$name]->__set('value', $value, $options);
+    public function save($connection = null)
+    {
+        parent::save($connection);
+
+        if ($this->indexOnSave) {
+            $this->updateSearchIndex();
+        }
 
         return $this;
-
-      default:
-
-        return call_user_func_array(array($this, 'BaseRepository::__set'), $args);
-    }
-  }
-
-  public function save($connection = null)
-  {
-    parent::save($connection);
-
-    if ($this->indexOnSave)
-    {
-      $this->updateSearchIndex();
     }
 
-    return $this;
-  }
-
-  public function updateSearchIndex()
-  {
-    QubitSearch::getInstance()->update($this);
-
-    // Trigger updating of associated information objects, if any
-    $operationDescription = sfContext::getInstance()->i18n->__('updated');
-    $this->updateInformationObjects(
-      $this->getRelatedInformationObjectIds(),
-      $operationDescription
-    );
-
-    // Remove adv. search repository options from cache
-    QubitCache::getInstance()->removePattern('search:list-of-repositories:*');
-
-    return $this;
-  }
-
-  public function getRelatedInformationObjectIds()
-  {
-    $sql = "SELECT id FROM ". QubitInformationObject::TABLE_NAME ." WHERE repository_id=:repository_id";
-
-    $params = array(':repository_id' => $this->id);
-
-    return QubitPdo::fetchAll($sql, $params, array('fetchMode' => PDO::FETCH_COLUMN));
-  }
-
-  public function updateInformationObjects($ioIds, $operationDescription)
-  {
-    if (empty($ioIds))
+    public function updateSearchIndex()
     {
-      return;
+        QubitSearch::getInstance()->update($this);
+
+        // Trigger updating of associated information objects, if any
+        $operationDescription = sfContext::getInstance()->i18n->__('updated');
+        $this->updateInformationObjects(
+            $this->getRelatedInformationObjectIds(),
+            $operationDescription
+        );
+
+        // Remove adv. search repository options from cache
+        QubitCache::getInstance()->removePattern('search:list-of-repositories:*');
+
+        return $this;
     }
 
-    // Handle web request asynchronously
-    $context = sfContext::getInstance();
-
-    if (!in_array($context->getConfiguration()->getEnvironment(), array('cli', 'worker')))
+    public function getRelatedInformationObjectIds()
     {
-      // Let user know related descriptions update has started
-      $jobsUrl = $context->routing->generate(null, array('module' => 'jobs', 'action' => 'browse'));
-      $messageParams = array('%1' => $operationDescription, '%2' => $jobsUrl);
-      $message = $context->i18n->__('Your repository has been %1. Its related descriptions are being updated asynchronously – check the <a href="%2">job scheduler page</a> for status and details.', $messageParams);
-      $context->user->setFlash('notice', $message);
+        $sql = 'SELECT id FROM '.QubitInformationObject::TABLE_NAME.' WHERE repository_id=:repository_id';
 
-      // Update asynchronously the saved IOs ids
-      $jobOptions = array(
-        'ioIds' => $ioIds,
-        'updateIos' => true,
-        'updateDescendants' => true
-      );
-      QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
+        $params = [':repository_id' => $this->id];
 
-      return;
+        return QubitPdo::fetchAll($sql, $params, ['fetchMode' => PDO::FETCH_COLUMN]);
     }
 
-    // Handle CLI and worker requests synchronously
-    foreach ($ioIds as $id)
+    public function updateInformationObjects($ioIds, $operationDescription)
     {
-      $io = QubitInformationObject::getById($id);
-      QubitSearch::getInstance()->update($io, array('updateDescendants' => true));
+        if (empty($ioIds)) {
+            return;
+        }
 
-      // Keep caches clear to prevent memory use from ballooning
-      Qubit::clearClassCaches();
+        // Handle web request asynchronously
+        $context = sfContext::getInstance();
+
+        if (!in_array($context->getConfiguration()->getEnvironment(), ['cli', 'worker'])) {
+            // Let user know related descriptions update has started
+            $jobsUrl = $context->routing->generate(null, ['module' => 'jobs', 'action' => 'browse']);
+            $messageParams = ['%1' => $operationDescription, '%2' => $jobsUrl];
+            $message = $context->i18n->__('Your repository has been %1. Its related descriptions are being updated asynchronously – check the <a href="%2">job scheduler page</a> for status and details.', $messageParams);
+            $context->user->setFlash('notice', $message);
+
+            // Update asynchronously the saved IOs ids
+            $jobOptions = [
+                'ioIds' => $ioIds,
+                'updateIos' => true,
+                'updateDescendants' => true,
+            ];
+            QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
+
+            return;
+        }
+
+        // Handle CLI and worker requests synchronously
+        foreach ($ioIds as $id) {
+            $io = QubitInformationObject::getById($id);
+            QubitSearch::getInstance()->update($io, ['updateDescendants' => true]);
+
+            // Keep caches clear to prevent memory use from ballooning
+            Qubit::clearClassCaches();
+        }
     }
-  }
 
-  /**
-   * Add repository specific logic to the insert action
-   *
-   * @param mixed $connection The database connection object
-   * @return QubitRepository self-reference
-   */
-  protected function insert($connection = null)
-  {
-    // When creating a new repository, set the upload_limit to the default
-    // value (app_repository_quota)
-    if (null == $this->__get('uploadLimit'))
+    /**
+     * Additional actions to take on delete.
+     *
+     * @param null|mixed $connection
+     */
+    public function delete($connection = null)
     {
-      $this->__set('uploadLimit', sfConfig::get('app_repository_quota'));
-    }
+        // Remove adv. search repository options from cache
+        QubitCache::getInstance()->removePattern('search:list-of-repositories:*');
 
-    parent::insert($connection);
+        // Get IDs of any associated information objects
+        $ioIds = $this->getRelatedInformationObjectIds();
 
-    return $this;
-  }
-
-  /**
-   * Additional actions to take on delete
-   *
-   */
-  public function delete($connection = null)
-  {
-    // Remove adv. search repository options from cache
-    QubitCache::getInstance()->removePattern('search:list-of-repositories:*');
-
-    // Get IDs of any associated information objects
-    $ioIds = $this->getRelatedInformationObjectIds();
-
-    if (!empty($ioIds))
-    {
-      // Remove associations between this repository and information objects
-      $sql = "UPDATE " . QubitInformationObject::TABLE_NAME . " \r
+        if (!empty($ioIds)) {
+            // Remove associations between this repository and information objects
+            $sql = 'UPDATE '.QubitInformationObject::TABLE_NAME." \r
               SET repository_id=NULL \r
               WHERE repository_id=:repository_id";
 
-      QubitPdo::modify($sql, array(':repository_id' => $this->id));
+            QubitPdo::modify($sql, [':repository_id' => $this->id]);
 
-      // Trigger updating of the information objects
-      $operationDescription = sfContext::getInstance()->i18n->__('deleted');
-      $this->updateInformationObjects($ioIds, $operationDescription);
+            // Trigger updating of the information objects
+            $operationDescription = sfContext::getInstance()->i18n->__('deleted');
+            $this->updateInformationObjects($ioIds, $operationDescription);
+        }
+
+        // Events, relations and the Elasticsearch document are deleted in QubitActor
+        parent::delete($connection);
     }
 
-    // Events, relations and the Elasticsearch document are deleted in QubitActor
-    parent::delete($connection);
-  }
-
-  /**
-   * Create new related QubitNote
-   *
-   * @param integer $userId     QubitUser id
-   * @param string  $note       Note text
-   * @param integer $noteTypeId Type of note (QubitTerm pk)
-   */
-  public function setRepositoryNote($userId, $note, $noteTypeId)
-  {
-    $newNote = new QubitNote;
-    $newNote->setObjectId($this->id);
-    $newNote->setScope('QubitRepository');
-    $newNote->setUserId($userId);
-    $newNote->setContent($note);
-    $newNote->setTypeId($noteTypeId);
-    $newNote->save();
-  }
-
-  /**
-   * Get related notes
-   *
-   * @return QubitQuery list of QubitNote objects
-   */
-  public function getRepositoryNotes()
-  {
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitNote::TYPE_ID, QubitTerm::ID);
-    $criteria->add(QubitNote::OBJECT_ID, $this->id);
-    $criteria->add(QubitNote::SCOPE, 'QubitRepository');
-
-    return QubitNote::get($criteria);
-  }
-
-  /**
-   * Get country of primary contact for repository (If one exists)
-   *
-   * @return string primary contact's country
-   */
-  public function getCountry()
-  {
-    if ($this->getCountryCode())
+    /**
+     * Create new related QubitNote.
+     *
+     * @param int    $userId     QubitUser id
+     * @param string $note       Note text
+     * @param int    $noteTypeId Type of note (QubitTerm pk)
+     */
+    public function setRepositoryNote($userId, $note, $noteTypeId)
     {
-      return format_country($this->getCountryCode());
+        $newNote = new QubitNote();
+        $newNote->setObjectId($this->id);
+        $newNote->setScope('QubitRepository');
+        $newNote->setUserId($userId);
+        $newNote->setContent($note);
+        $newNote->setTypeId($noteTypeId);
+        $newNote->save();
     }
-  }
 
-  /**
-   * Get a value from this repository's contact information.
-   * This method will first check to see if there is a primary
-   * contact and return the field from there if it is set.
-   *
-   * If there is no primary contact or the primary contact does not
-   * have the specified field set, iterate over all contacts and return
-   * the first one that has the field set.
-   *
-   * @param  $getFunction  The get function for the field we want to return.
-   *                       e.g. getFromPrimaryOrFirstValidContact('getCity')
-   *
-   * @return  mixed  Returns the field if found, null otherwise
-   */
-  private function getFromPrimaryOrFirstValidContact($getFunction, $options)
-  {
-    $primaryContact = $this->getPrimaryContact();
-
-    if ($primaryContact && $primaryContact->$getFunction($options))
+    /**
+     * Get related notes.
+     *
+     * @return QubitQuery list of QubitNote objects
+     */
+    public function getRepositoryNotes()
     {
-      return $primaryContact->$getFunction($options);
+        $criteria = new Criteria();
+        $criteria->addJoin(QubitNote::TYPE_ID, QubitTerm::ID);
+        $criteria->add(QubitNote::OBJECT_ID, $this->id);
+        $criteria->add(QubitNote::SCOPE, 'QubitRepository');
+
+        return QubitNote::get($criteria);
     }
 
-    foreach ($this->getContactInformation() as $contact)
+    /**
+     * Get country of primary contact for repository (If one exists).
+     *
+     * @return string primary contact's country
+     */
+    public function getCountry()
     {
-      if ($contact->$getFunction($options))
-      {
-        return $contact->$getFunction($options);
-      }
+        if ($this->getCountryCode()) {
+            return format_country($this->getCountryCode());
+        }
     }
-  }
 
-  public function getCountryCode($options = array())
-  {
-    return $this->getFromPrimaryOrFirstValidContact('getCountryCode', $options);
-  }
-
-  public function getRegion($options = array())
-  {
-    return $this->getFromPrimaryOrFirstValidContact('getRegion', $options);
-  }
-
-  public function getCity($options = array())
-  {
-    return $this->getFromPrimaryOrFirstValidContact('getCity', $options);
-  }
-
-  /**
-   * Only find repository objects, not other actor types
-   *
-   * @param Criteria $criteria current search criteria
-   * @return Criteria modified search critieria
-   */
-  public static function addGetOnlyRepositoryCriteria($criteria)
-  {
-    $criteria->addJoin(QubitRepository::ID, QubitObject::ID);
-    $criteria->add(QubitObject::CLASS_NAME, 'QubitRepository');
-
-    return $criteria;
-  }
-
-  public static function addCountryCodeCriteria($criteria, $countryCode)
-  {
-    if ($countryCode !== null)
+    public function getCountryCode($options = [])
     {
-      $criteria->addJoin(QubitRepository::ID, QubitContactInformation::ACTOR_ID);
-      $criteria->add(QubitContactInformation::PRIMARY_CONTACT, true);
-      $criteria->add(QubitContactInformation::COUNTRY_CODE, $countryCode);
+        return $this->getFromPrimaryOrFirstValidContact('getCountryCode', $options);
     }
 
-    return $criteria;
-  }
-
-  /**
-   * Return an options_for_select array
-   *
-   * @param mixed $default current selected value for select list
-   * @param array $options optional parameters
-   * @return array options_for_select compatible array
-   */
-  public static function getOptionsForSelectList($default, $options = array())
-  {
-    $repositories = self::getAll($options);
-
-    foreach ($repositories as $repository)
+    public function getRegion($options = [])
     {
-      // Don't display repositories with no name
-      if ($name = $repository->getAuthorizedFormOfName($options))
-      {
-        $selectOptions[$repository->id] = $name;
-      }
+        return $this->getFromPrimaryOrFirstValidContact('getRegion', $options);
     }
 
-    return options_for_select($selectOptions, $default, $options);
-  }
-
-  /**
-   * Get disk space used by digital objects in this repository
-   *
-   * @return integer disk usage in bytes
-   */
-  public function getDiskUsage($options = array())
-  {
-    $repoDir = sfConfig::get('app_upload_dir').'/r/'.$this->slug;
-
-    if (!file_exists($repoDir))
+    public function getCity($options = [])
     {
-      return 0;
+        return $this->getFromPrimaryOrFirstValidContact('getCity', $options);
     }
 
-    $size = Qubit::getDirectorySize($repoDir, $options);
-    if ($size < 0)
+    /**
+     * Only find repository objects, not other actor types.
+     *
+     * @param Criteria $criteria current search criteria
+     *
+     * @return Criteria modified search critieria
+     */
+    public static function addGetOnlyRepositoryCriteria($criteria)
     {
-      $size = 0;
+        $criteria->addJoin(QubitRepository::ID, QubitObject::ID);
+        $criteria->add(QubitObject::CLASS_NAME, 'QubitRepository');
+
+        return $criteria;
     }
 
-    return $size;
-  }
-
-
-  /**************
-  Import methods
-  ***************/
-
-  public function setTypeByName($name)
-  {
-    // See if type term already exists
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-    $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::REPOSITORY_TYPE_ID);
-    $criteria->add(QubitTermI18n::NAME, $name);
-
-    if (null === $term = QubitTerm::getOne($criteria))
+    public static function addCountryCodeCriteria($criteria, $countryCode)
     {
-      $term = new QubitTerm;
-      $term->setTaxonomyId(QubitTaxonomy::REPOSITORY_TYPE_ID);
-      $term->setName($name);
-      $term->setRoot();
-      $term->save();
+        if (null !== $countryCode) {
+            $criteria->addJoin(QubitRepository::ID, QubitContactInformation::ACTOR_ID);
+            $criteria->add(QubitContactInformation::PRIMARY_CONTACT, true);
+            $criteria->add(QubitContactInformation::COUNTRY_CODE, $countryCode);
+        }
+
+        return $criteria;
     }
 
-    foreach (self::getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $item)
+    /**
+     * Return an options_for_select array.
+     *
+     * @param mixed $default current selected value for select list
+     * @param array $options optional parameters
+     *
+     * @return array options_for_select compatible array
+     */
+    public static function getOptionsForSelectList($default, $options = [])
     {
-      // Faster than $item->term == $term
-      if ($item->termId == $term->id)
-      {
-        return;
-      }
+        $repositories = self::getAll($options);
+
+        foreach ($repositories as $repository) {
+            // Don't display repositories with no name
+            if ($name = $repository->getAuthorizedFormOfName($options)) {
+                $selectOptions[$repository->id] = $name;
+            }
+        }
+
+        return options_for_select($selectOptions, $default, $options);
     }
 
-    $relation = new QubitObjectTermRelation;
-    $relation->term = $term;
-
-    $this->objectTermRelationsRelatedByobjectId[] = $relation;
-  }
-
-  public function setThematicAreaByName($name)
-  {
-    // see if type term already exists
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-    $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::THEMATIC_AREA_ID);
-    $criteria->add(QubitTermI18n::NAME, $name);
-
-    if (null === $term = QubitTerm::getOne($criteria))
+    /**
+     * Get disk space used by digital objects in this repository.
+     *
+     * @param mixed $options
+     *
+     * @return int disk usage in bytes
+     */
+    public function getDiskUsage($options = [])
     {
-      $term = new QubitTerm;
-      $term->setTaxonomyId(QubitTaxonomy::THEMATIC_AREA_ID);
-      $term->setName($name);
-      $term->setRoot();
-      $term->save();
+        $repoDir = sfConfig::get('app_upload_dir').'/r/'.$this->slug;
+
+        if (!file_exists($repoDir)) {
+            return 0;
+        }
+
+        $size = Qubit::getDirectorySize($repoDir, $options);
+        if ($size < 0) {
+            $size = 0;
+        }
+
+        return $size;
     }
 
-    foreach (self::getTermRelations(QubitTaxonomy::THEMATIC_AREA_ID) as $item)
+    // Import methods
+
+    public function setTypeByName($name)
     {
-      // Faster than $item->term == $term
-      if ($item->termId == $term->id)
-      {
-        return;
-      }
+        // See if type term already exists
+        $criteria = new Criteria();
+        $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+        $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::REPOSITORY_TYPE_ID);
+        $criteria->add(QubitTermI18n::NAME, $name);
+
+        if (null === $term = QubitTerm::getOne($criteria)) {
+            $term = new QubitTerm();
+            $term->setTaxonomyId(QubitTaxonomy::REPOSITORY_TYPE_ID);
+            $term->setName($name);
+            $term->setRoot();
+            $term->save();
+        }
+
+        foreach (self::getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $item) {
+            // Faster than $item->term == $term
+            if ($item->termId == $term->id) {
+                return;
+            }
+        }
+
+        $relation = new QubitObjectTermRelation();
+        $relation->term = $term;
+
+        $this->objectTermRelationsRelatedByobjectId[] = $relation;
     }
 
-    $relation = new QubitObjectTermRelation;
-    $relation->term = $term;
-
-    $this->objectTermRelationsRelatedByobjectId[] = $relation;
-  }
-
-  public function setGeographicSubregionByName($name)
-  {
-    // see if type term already exists
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-    $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID);
-    $criteria->add(QubitTermI18n::NAME, $name);
-
-    if (null === $term = QubitTerm::getOne($criteria))
+    public function setThematicAreaByName($name)
     {
-      $term = new QubitTerm;
-      $term->setTaxonomyId(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID);
-      $term->setName($name);
-      $term->setRoot();
-      $term->save();
+        // see if type term already exists
+        $criteria = new Criteria();
+        $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+        $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::THEMATIC_AREA_ID);
+        $criteria->add(QubitTermI18n::NAME, $name);
+
+        if (null === $term = QubitTerm::getOne($criteria)) {
+            $term = new QubitTerm();
+            $term->setTaxonomyId(QubitTaxonomy::THEMATIC_AREA_ID);
+            $term->setName($name);
+            $term->setRoot();
+            $term->save();
+        }
+
+        foreach (self::getTermRelations(QubitTaxonomy::THEMATIC_AREA_ID) as $item) {
+            // Faster than $item->term == $term
+            if ($item->termId == $term->id) {
+                return;
+            }
+        }
+
+        $relation = new QubitObjectTermRelation();
+        $relation->term = $term;
+
+        $this->objectTermRelationsRelatedByobjectId[] = $relation;
     }
 
-    foreach (self::getTermRelations(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID) as $item)
+    public function setGeographicSubregionByName($name)
     {
-      // Faster than $item->term == $term
-      if ($item->termId == $term->id)
-      {
-        return;
-      }
+        // see if type term already exists
+        $criteria = new Criteria();
+        $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+        $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID);
+        $criteria->add(QubitTermI18n::NAME, $name);
+
+        if (null === $term = QubitTerm::getOne($criteria)) {
+            $term = new QubitTerm();
+            $term->setTaxonomyId(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID);
+            $term->setName($name);
+            $term->setRoot();
+            $term->save();
+        }
+
+        foreach (self::getTermRelations(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID) as $item) {
+            // Faster than $item->term == $term
+            if ($item->termId == $term->id) {
+                return;
+            }
+        }
+
+        $relation = new QubitObjectTermRelation();
+        $relation->term = $term;
+
+        $this->objectTermRelationsRelatedByobjectId[] = $relation;
     }
 
-    $relation = new QubitObjectTermRelation;
-    $relation->term = $term;
+    /**
+     * Get the current repository uploads directory.
+     *
+     * @param mixed $absolute
+     *
+     * @return string
+     */
+    public function getUploadsPath($absolute = false)
+    {
+        return ($absolute ? sfConfig::get('sf_upload_dir') : '/uploads').'/r/'.$this->slug;
+    }
 
-    $this->objectTermRelationsRelatedByobjectId[] = $relation;
-  }
+    /**
+     * Get logo image path within the repository uploads directory.
+     *
+     * @param mixed $absolute
+     *
+     * @return string
+     */
+    public function getLogoPath($absolute = false)
+    {
+        return $this->getUploadsPath($absolute).'/conf/logo.png';
+    }
 
-  /**
-   * Get the current repository uploads directory
-   *
-   * @return string
-   */
-  public function getUploadsPath($absolute = false)
-  {
-    return ($absolute ? sfConfig::get('sf_upload_dir') : '/uploads').'/r/'.$this->slug;
-  }
+    /**
+     * Get banner image path within the repository uploads directory.
+     *
+     * @param mixed $absolute
+     *
+     * @return string
+     */
+    public function getBannerPath($absolute = false)
+    {
+        return $this->getUploadsPath($absolute).'/conf/banner.png';
+    }
 
-  /**
-   * Get logo image path within the repository uploads directory
-   *
-   * @return string
-   */
-  public function getLogoPath($absolute = false)
-  {
-    return $this->getUploadsPath($absolute).'/conf/logo.png';
-  }
+    /**
+     * Check if the logo asset exists.
+     *
+     * @return bool
+     */
+    public function existsLogo()
+    {
+        return is_file($this->getLogoPath(true));
+    }
 
-  /**
-   * Get banner image path within the repository uploads directory
-   *
-   * @return string
-   */
-  public function getBannerPath($absolute = false)
-  {
-    return $this->getUploadsPath($absolute).'/conf/banner.png';
-  }
+    /**
+     * Check if the banner asset exists.
+     *
+     * @return bool
+     */
+    public function existsBanner()
+    {
+        return is_file($this->getBannerPath(true));
+    }
 
-  /**
-   * Check if the logo asset exists
-   *
-   * @return boolean
-   */
-  public function existsLogo()
-  {
-    return is_file($this->getLogoPath(true));
-  }
+    /**
+     * Add repository specific logic to the insert action.
+     *
+     * @param mixed $connection The database connection object
+     *
+     * @return QubitRepository self-reference
+     */
+    protected function insert($connection = null)
+    {
+        // When creating a new repository, set the upload_limit to the default
+        // value (app_repository_quota)
+        if (null == $this->__get('uploadLimit')) {
+            $this->__set('uploadLimit', sfConfig::get('app_repository_quota'));
+        }
 
-  /**
-   * Check if the banner asset exists
-   *
-   * @return boolean
-   */
-  public function existsBanner()
-  {
-    return is_file($this->getBannerPath(true));
-  }
+        parent::insert($connection);
+
+        return $this;
+    }
+
+    /**
+     * Get a value from this repository's contact information.
+     * This method will first check to see if there is a primary
+     * contact and return the field from there if it is set.
+     *
+     * If there is no primary contact or the primary contact does not
+     * have the specified field set, iterate over all contacts and return
+     * the first one that has the field set.
+     *
+     * @param  $getFunction  The get function for the field we want to return.
+     *                       e.g. getFromPrimaryOrFirstValidContact('getCity')
+     * @param mixed $options
+     *
+     * @return mixed Returns the field if found, null otherwise
+     */
+    private function getFromPrimaryOrFirstValidContact($getFunction, $options)
+    {
+        $primaryContact = $this->getPrimaryContact();
+
+        if ($primaryContact && $primaryContact->{$getFunction}($options)) {
+            return $primaryContact->{$getFunction}($options);
+        }
+
+        foreach ($this->getContactInformation() as $contact) {
+            if ($contact->{$getFunction}($options)) {
+                return $contact->{$getFunction}($options);
+            }
+        }
+    }
 }

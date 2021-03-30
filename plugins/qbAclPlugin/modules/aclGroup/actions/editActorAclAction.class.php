@@ -19,45 +19,41 @@
 
 class AclGroupEditActorAclAction extends AclGroupEditDefaultAclAction
 {
-  public static $NAMES = array(
-    'actor'
-  );
+    public static $NAMES = [
+        'actor',
+    ];
 
-  public function execute($request)
-  {
-    parent::execute($request);
-
-    // Always include root actor permissions
-    $this->actors = array(QubitActor::ROOT_ID => null);
-
-    // Get actor permissions for this resource
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitAclPermission::OBJECT_ID, QubitObject::ID, Criteria::LEFT_JOIN);
-    $criteria->add(QubitAclPermission::GROUP_ID, $this->resource->id);
-    $c1 = $criteria->getNewCriterion(QubitObject::CLASS_NAME, 'QubitActor');
-    $criteria->add($c1);
-
-    if (null !== $permissions = QubitAclPermission::get($criteria))
+    public function execute($request)
     {
-      foreach ($permissions as $p)
-      {
-        $this->actors[$p->objectId][$p->action] = $p;
-      }
+        parent::execute($request);
+
+        // Always include root actor permissions
+        $this->actors = [QubitActor::ROOT_ID => null];
+
+        // Get actor permissions for this resource
+        $criteria = new Criteria();
+        $criteria->addJoin(QubitAclPermission::OBJECT_ID, QubitObject::ID, Criteria::LEFT_JOIN);
+        $criteria->add(QubitAclPermission::GROUP_ID, $this->resource->id);
+        $c1 = $criteria->getNewCriterion(QubitObject::CLASS_NAME, 'QubitActor');
+        $criteria->add($c1);
+
+        if (null !== $permissions = QubitAclPermission::get($criteria)) {
+            foreach ($permissions as $p) {
+                $this->actors[$p->objectId][$p->action] = $p;
+            }
+        }
+
+        // List of actions without translate
+        $this->basicActions = QubitAcl::$ACTIONS;
+        unset($this->basicActions['translate']);
+
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
+
+            if ($this->form->isValid()) {
+                $this->processForm();
+                $this->redirect([$this->resource, 'module' => 'aclGroup', 'action' => 'indexActorAcl']);
+            }
+        }
     }
-
-    // List of actions without translate
-    $this->basicActions = QubitAcl::$ACTIONS;
-    unset($this->basicActions['translate']);
-
-    if ($request->isMethod('post'))
-    {
-      $this->form->bind($request->getPostParameters());
-
-      if ($this->form->isValid())
-      {
-        $this->processForm();
-        $this->redirect(array($this->resource, 'module' => 'aclGroup', 'action' => 'indexActorAcl'));
-      }
-    }
-  }
 }

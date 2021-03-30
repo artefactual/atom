@@ -18,37 +18,31 @@
  */
 
 /**
- * Designed to be extended by arElasticSearchPlugin
- *
- * @package AccesstoMemory
- * @subpackage search
+ * Designed to be extended by arElasticSearchPlugin.
  */
 abstract class QubitSearchEngine
 {
-  /**
-   * Constructor
-   */
-  public function __construct()
-  {
-    $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
-
-    if (sfContext::getInstance()->getController()->inCLI())
+    /**
+     * Constructor.
+     */
+    public function __construct()
     {
-      $this->event = 'command.log';
-    }
-    else
-    {
-      $this->event = 'search.log';
-    }
-  }
+        $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
 
-  /**
-   * Log a message
-   *
-   * @param string $message Log message
-   */
-  public function log($message)
-  {
-    $this->dispatcher->notify(new sfEvent($this, $this->event, array($message)));
-  }
+        if (sfContext::getInstance()->getController()->inCLI()) {
+            $this->event = 'command.log';
+        } else {
+            $this->event = 'search.log';
+        }
+    }
+
+    /**
+     * Log a message.
+     *
+     * @param string $message Log message
+     */
+    public function log($message)
+    {
+        $this->dispatcher->notify(new sfEvent($this, $this->event, [$message]));
+    }
 }

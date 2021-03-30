@@ -565,14 +565,21 @@ class Zend_Acl
      * @uses   Zend_Acl::get()
      * @return Zend_Acl Provides a fluent interface
      */
-    public function setRule($operation, $type, $roles = null, $resources = null, $privileges = null,
-                            Zend_Acl_Assert_Interface $assert = null)
-    {
+    public function setRule(
+        $operation,
+        $type,
+        $roles = null,
+        $resources = null,
+        $privileges = null,
+        Zend_Acl_Assert_Interface $assert = null
+    ) {
         // ensure that the rule type is valid; normalize input to uppercase
         $type = strtoupper($type);
         if (self::TYPE_ALLOW !== $type && self::TYPE_DENY !== $type) {
-            throw new Zend_Acl_Exception("Unsupported rule type; must be either '" . self::TYPE_ALLOW . "' or '"
-                                       . self::TYPE_DENY . "'");
+            throw new Zend_Acl_Exception(
+                "Unsupported rule type; must be either '"
+                .self::TYPE_ALLOW."' or '".self::TYPE_DENY."'"
+            );
         }
 
         // ensure that all specified Roles exist; normalize input to array of Role objects or null
@@ -617,7 +624,6 @@ class Zend_Acl
         }
 
         switch ($operation) {
-
             // add to the rules
             case self::OP_ADD:
                 foreach ($resources as $resource) {
@@ -637,8 +643,8 @@ class Zend_Acl
                         }
                     }
                 }
-                break;
 
+                break;
             // remove from the rules
             case self::OP_REMOVE:
                 foreach ($resources as $resource) {
@@ -677,11 +683,14 @@ class Zend_Acl
                         }
                     }
                 }
+
                 break;
 
             default:
-                throw new Zend_Acl_Exception("Unsupported operation; must be either '" . self::OP_ADD . "' or '"
-                                           . self::OP_REMOVE . "'");
+                throw new Zend_Acl_Exception(
+                    "Unsupported operation; must be either '"
+                    .self::OP_ADD."' or '". self::OP_REMOVE . "'"
+                );
         }
 
         return $this;
@@ -1120,4 +1129,3 @@ class Zend_Acl
     }
 
 }
-

@@ -19,75 +19,66 @@
 
 class sfDcPluginDcDatesComponent extends InformationObjectEventComponent
 {
-  public static
-    $NAMES = array(
-      'date',
-      'endDate',
-      'startDate');
+    public static $NAMES = [
+        'date',
+        'endDate',
+        'startDate',
+    ];
 
-  public function processForm()
-  {
-    $params = array();
-    if (isset($this->request->editDates))
+    public function processForm()
     {
-      $params = $this->request->editDates;
+        $params = [];
+        if (isset($this->request->editDates)) {
+            $params = $this->request->editDates;
+        }
+
+        $dontDeleteIds = [];
+        foreach ($params as $item) {
+            // Continue only if user typed something
+            if (
+                1 > strlen($item['date'])
+                && 1 > strlen($item['endDate'])
+                && 1 > strlen($item['startDate'])
+            ) {
+                continue;
+            }
+
+            $this->form->bind($item);
+            if ($this->form->isValid()) {
+                $this->event = null;
+                if (isset($item['id'])) {
+                    // Do not add exiting events to the eventsRelatedByobjectId
+                    // array, as they could be deleted before saving the resource
+                    $this->event = QubitEvent::getById($item['id']);
+                }
+                if (is_null($this->event)) {
+                    $this->resource->eventsRelatedByobjectId[] = $this->event = new QubitEvent();
+                }
+
+                $this->event->typeId = QubitTerm::CREATION_ID;
+
+                $dontDeleteIds[] = $this->event->id;
+
+                foreach ($this->form as $field) {
+                    if (isset($item[$field->getName()])) {
+                        $this->processField($field);
+                    }
+                }
+
+                // Save existing events as they are not attached
+                // to the eventsRelatedByobjectId array
+                if (isset($this->event->id)) {
+                    $this->event->indexOnSave = false;
+                    $this->event->save();
+                }
+            }
+        }
+
+        foreach ($this->resource->getDates() as $item) {
+            if (false === array_search($item->id, $dontDeleteIds)) {
+                $item->indexOnSave = false;
+                $item->delete();
+            }
+        }
     }
-
-    $dontDeleteIds = array();
-    foreach ($params as $item)
-    {
-      // Continue only if user typed something
-      if (1 > strlen($item['date'])
-        && 1 > strlen($item['endDate'])
-          && 1 > strlen($item['startDate']))
-      {
-        continue;
-      }
-
-      $this->form->bind($item);
-      if ($this->form->isValid())
-      {
-        $this->event = null;
-        if (isset($item['id']))
-        {
-          // Do not add exiting events to the eventsRelatedByobjectId
-          // array, as they could be deleted before saving the resource
-          $this->event = QubitEvent::getById($item['id']);
-        }
-        if (is_null($this->event))
-        {
-          $this->resource->eventsRelatedByobjectId[] = $this->event = new QubitEvent;
-        }
-
-        $this->event->typeId = QubitTerm::CREATION_ID;
-
-        $dontDeleteIds[] = $this->event->id;
-
-        foreach ($this->form as $field)
-        {
-          if (isset($item[$field->getName()]))
-          {
-            $this->processField($field);
-          }
-        }
-
-        // Save existing events as they are not attached
-        // to the eventsRelatedByobjectId array
-        if (isset($this->event->id))
-        {
-          $this->event->indexOnSave = false;
-          $this->event->save();
-        }
-      }
-    }
-
-    foreach ($this->resource->getDates() as $item)
-    {
-      if (false === array_search($item->id, $dontDeleteIds))
-      {
-        $item->indexOnSave = false;
-        $item->delete();
-      }
-    }
-  }
 }

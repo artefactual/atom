@@ -10,42 +10,41 @@
 
 class sfTranslateMessageFormat extends sfMessageFormat
 {
-  /**
-   * @see MessageFormat::formatString()
-   */
-  protected function formatString($string, $args = array(), $catalogue = null)
-  {
-    if (empty($catalogue))
+    /**
+     * @see MessageFormat::formatString()
+     *
+     * @param mixed      $string
+     * @param mixed      $args
+     * @param null|mixed $catalogue
+     */
+    protected function formatString($string, $args = [], $catalogue = null)
     {
-      $catalogue = empty($this->catalogue) ? 'messages' : $this->catalogue;
-    }
-
-    $this->loadCatalogue($catalogue);
-
-    $messages = sfContext::getInstance()->request->getAttribute('messages', array());
-    foreach ($this->messages[$catalogue] as $variant)
-    {
-      if (isset($variant[$string]))
-      {
-        $target = $variant[$string];
-
-        if (is_array($target))
-        {
-          $target = array_shift($target);
+        if (empty($catalogue)) {
+            $catalogue = empty($this->catalogue) ? 'messages' : $this->catalogue;
         }
 
-        $messages[$string] = $target;
-        sfContext::getInstance()->request->setAttribute('messages', $messages);
+        $this->loadCatalogue($catalogue);
 
-        if (empty($target))
-        {
-          break;
+        $messages = sfContext::getInstance()->request->getAttribute('messages', []);
+        foreach ($this->messages[$catalogue] as $variant) {
+            if (isset($variant[$string])) {
+                $target = $variant[$string];
+
+                if (is_array($target)) {
+                    $target = array_shift($target);
+                }
+
+                $messages[$string] = $target;
+                sfContext::getInstance()->request->setAttribute('messages', $messages);
+
+                if (empty($target)) {
+                    break;
+                }
+
+                return $this->replaceArgs($target, $args);
+            }
         }
 
-        return $this->replaceArgs($target, $args);
-      }
+        return $this->postscript[0].$this->replaceArgs($string, $args).$this->postscript[1];
     }
-
-    return $this->postscript[0].$this->replaceArgs($string, $args).$this->postscript[1];
-  }
 }

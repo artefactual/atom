@@ -21,53 +21,49 @@ namespace AccessToMemory\test\mock;
 
 class QubitInformationObject
 {
-  public $id;
+    public $id;
 
-  protected static $slugToIdMap = [
-    'test-fonds-1'     => 111111,
-    'test-collection'  => 222222,
-    'Mixed-Case-Fonds' => 333333,
-  ];
+    protected static $slugToIdMap = [
+        'test-fonds-1' => 111111,
+        'test-collection' => 222222,
+        'Mixed-Case-Fonds' => 333333,
+    ];
 
-  public static function getById($id)
-  {
-    $obj = new self();
-    $obj->id = $id;
-
-    return $obj;
-  }
-
-  public static function getBySlug($slug)
-  {
-
-    if (array_key_exists($slug, self::$slugToIdMap))
+    public static function getById($id)
     {
-      $obj = new self();
-      $obj->id = self::$slugToIdMap[$slug];
+        $obj = new self();
+        $obj->id = $id;
 
-      return $obj;
+        return $obj;
     }
-  }
 
-  public static function getTitle($options)
-  {
-    return "Information Object";
-  }
+    public static function getBySlug($slug)
+    {
+        if (array_key_exists($slug, self::$slugToIdMap)) {
+            $obj = new self();
+            $obj->id = self::$slugToIdMap[$slug];
 
-  public static function getIdentifier()
-  {
-    return "IDENTIFIER";
-  }
+            return $obj;
+        }
+    }
 
-  public static function getLevelOfDescription()
-  {
-    $term = new QubitTerm();
+    public static function getTitle($options)
+    {
+        return 'Information Object';
+    }
 
-    return $term;
-  }
+    public static function getIdentifier()
+    {
+        return 'IDENTIFIER';
+    }
 
-  public static function getSlug()
-  {
-    return "information-object";
-  }
+    public static function getLevelOfDescription()
+    {
+        return new QubitTerm();
+    }
+
+    public static function getSlug()
+    {
+        return 'information-object';
+    }
 }

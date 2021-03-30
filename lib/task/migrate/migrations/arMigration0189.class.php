@@ -25,28 +25,26 @@
  */
 class arMigration0189
 {
-  const
-    VERSION = 189, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 189;
+    public const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    // Get menu locking configuration
-    $setting = QubitSetting::getByName('menu_locking_info');
-
-    if (!empty($setting))
+    public function up($configuration)
     {
-      $lockedMenus = unserialize($setting->value);
+        // Get menu locking configuration
+        $setting = QubitSetting::getByName('menu_locking_info');
 
-      // Unset privacy menu if it's set
-      if (($key = array_search('privacy', $lockedMenus['byName'])) !== false) {
-        unset($lockedMenus['byName'][$key]);
-      }
+        if (!empty($setting)) {
+            $lockedMenus = unserialize($setting->value);
 
-      $setting->value = serialize($lockedMenus);
-      $setting->save();
+            // Unset privacy menu if it's set
+            if (($key = array_search('privacy', $lockedMenus['byName'])) !== false) {
+                unset($lockedMenus['byName'][$key]);
+            }
+
+            $setting->value = serialize($lockedMenus);
+            $setting->save();
+        }
+
+        return true;
     }
-
-    return true;
-  }
 }

@@ -19,42 +19,39 @@
 
 class sfInstallPluginConfigureSearchAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->search = array();
-
-    $this->form = new sfForm;
-
-    // Do *NOT* load defaults from existing search configuration because
-    // anyone can access install actions if the database can't be accessed.
-    // Never expose the search configuration, even to administrators
-
-    $this->form->setDefault('searchHost', 'localhost');
-    $this->form->setValidator('searchHost', new sfValidatorString);
-    $this->form->setWidget('searchHost', new sfWidgetFormInput);
-
-    $this->form->setDefault('searchPort', '9200');
-    $this->form->setValidator('searchPort', new sfValidatorString);
-    $this->form->setWidget('searchPort', new sfWidgetFormInput);
-
-    $this->form->setDefault('searchIndex', 'atom');
-    $this->form->setValidator('searchIndex', new sfValidatorString(array('required' => true)));
-    $this->form->setWidget('searchIndex', new sfWidgetFormInput);
-
-    if ($request->isMethod('post'))
+    public function execute($request)
     {
-      $this->form->bind($request->getPostParameters());
+        $this->search = [];
 
-      if ($this->form->isValid())
-      {
-        $this->errors = sfInstall::configureSearch($this->form->getValues());
-        if (count($this->errors) < 1)
-        {
-          $symlinks = sfInstall::addSymlinks();
+        $this->form = new sfForm();
 
-          $this->redirect(array('module' => 'sfInstallPlugin', 'action' => 'loadData'));
+        // Do *NOT* load defaults from existing search configuration because
+        // anyone can access install actions if the database can't be accessed.
+        // Never expose the search configuration, even to administrators
+
+        $this->form->setDefault('searchHost', 'localhost');
+        $this->form->setValidator('searchHost', new sfValidatorString());
+        $this->form->setWidget('searchHost', new sfWidgetFormInput());
+
+        $this->form->setDefault('searchPort', '9200');
+        $this->form->setValidator('searchPort', new sfValidatorString());
+        $this->form->setWidget('searchPort', new sfWidgetFormInput());
+
+        $this->form->setDefault('searchIndex', 'atom');
+        $this->form->setValidator('searchIndex', new sfValidatorString(['required' => true]));
+        $this->form->setWidget('searchIndex', new sfWidgetFormInput());
+
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
+
+            if ($this->form->isValid()) {
+                $this->errors = sfInstall::configureSearch($this->form->getValues());
+                if (count($this->errors) < 1) {
+                    $symlinks = sfInstall::addSymlinks();
+
+                    $this->redirect(['module' => 'sfInstallPlugin', 'action' => 'loadData']);
+                }
+            }
         }
-      }
     }
-  }
 }

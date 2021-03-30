@@ -19,165 +19,147 @@
 
 class InformationObjectFindingAidComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    // Get finding aid data from top-level
-    if ($this->resource->parentId != QubitInformationObject::ROOT_ID)
+    public function execute($request)
     {
-      $this->resource = $this->resource->getCollectionRoot();
-    }
-
-    $this->showDownload = $this->showStatus = $this->showUpload = $this->showGenerate = $this->showDelete = false;
-
-    $this->path = arFindingAidJob::getFindingAidPathForDownload($this->resource->id);
-
-    // Public users can only see the download link if the file exists
-    if (!$this->getUser()->isAuthenticated())
-    {
-      if (isset($this->path))
-      {
-        $this->showDownload = true;
-
-        return;
-      }
-      else
-      {
-        return sfView::NONE;
-      }
-    }
-
-    $lastJobStatus = arFindingAidJob::getStatus($this->resource->id);
-
-    // For auth. users, if no job has been executed,
-    // show allowed actions or nothing
-    if (!isset($lastJobStatus))
-    {
-      // Edge case where the job status is missing but the file exists,
-      if (isset($this->path))
-      {
-        $this->showDownload = true;
-
-        // Check ACL to show delete option
-        if (QubitAcl::check($this->resource, 'update'))
-        {
-          $this->showDelete = true;
+        // Get finding aid data from top-level
+        if (QubitInformationObject::ROOT_ID != $this->resource->parentId) {
+            $this->resource = $this->resource->getCollectionRoot();
         }
 
-        return;
-      }
+        $this->showDownload = $this->showStatus = $this->showUpload = $this->showGenerate = $this->showDelete = false;
 
-      if (!$this->showActions())
-      {
-        return sfView::NONE;
-      }
+        $this->path = arFindingAidJob::getFindingAidPathForDownload($this->resource->id);
 
-      return;
-    }
+        // Public users can only see the download link if the file exists
+        if (!$this->getUser()->isAuthenticated()) {
+            if (isset($this->path)) {
+                $this->showDownload = true;
 
-    $i18n = $this->context->i18n;
+                return;
+            }
 
-    // If there is a job in progress, show only status
-    if ($lastJobStatus == QubitTerm::JOB_STATUS_IN_PROGRESS_ID)
-    {
-      $this->showStatus = true;
-      $this->status = $i18n->__('In progress');
-
-      return;
-    }
-
-    // If the last job failed, show error status and allowed actions
-    if ($lastJobStatus == QubitTerm::JOB_STATUS_ERROR_ID)
-    {
-      $this->showStatus = true;
-      $this->showActions();
-      $this->status = $i18n->__('Error');
-
-      return;
-    }
-
-    // If the last job completed, get finding aid status property
-    if ($lastJobStatus == QubitTerm::JOB_STATUS_COMPLETED_ID)
-    {
-      $findingAidStatus = $this->resource->getFindingAidStatus();
-
-      // If the property is missing, the finding aid was deleted,
-      // show allowed actions or nothing
-      if (!isset($findingAidStatus))
-      {
-        if (!$this->showActions())
-        {
-          return sfView::NONE;
+            return sfView::NONE;
         }
 
-        return;
-      }
+        $lastJobStatus = arFindingAidJob::getStatus($this->resource->id);
 
-      // If the property is set but the file is missing,
-      // show status and allowed actions
-      if (!isset($this->path))
-      {
+        // For auth. users, if no job has been executed,
+        // show allowed actions or nothing
+        if (!isset($lastJobStatus)) {
+            // Edge case where the job status is missing but the file exists,
+            if (isset($this->path)) {
+                $this->showDownload = true;
+
+                // Check ACL to show delete option
+                if (QubitAcl::check($this->resource, 'update')) {
+                    $this->showDelete = true;
+                }
+
+                return;
+            }
+
+            if (!$this->showActions()) {
+                return sfView::NONE;
+            }
+
+            return;
+        }
+
+        $i18n = $this->context->i18n;
+
+        // If there is a job in progress, show only status
+        if (QubitTerm::JOB_STATUS_IN_PROGRESS_ID == $lastJobStatus) {
+            $this->showStatus = true;
+            $this->status = $i18n->__('In progress');
+
+            return;
+        }
+
+        // If the last job failed, show error status and allowed actions
+        if (QubitTerm::JOB_STATUS_ERROR_ID == $lastJobStatus) {
+            $this->showStatus = true;
+            $this->showActions();
+            $this->status = $i18n->__('Error');
+
+            return;
+        }
+
+        // If the last job completed, get finding aid status property
+        if (QubitTerm::JOB_STATUS_COMPLETED_ID == $lastJobStatus) {
+            $findingAidStatus = $this->resource->getFindingAidStatus();
+
+            // If the property is missing, the finding aid was deleted,
+            // show allowed actions or nothing
+            if (!isset($findingAidStatus)) {
+                if (!$this->showActions()) {
+                    return sfView::NONE;
+                }
+
+                return;
+            }
+
+            // If the property is set but the file is missing,
+            // show status and allowed actions
+            if (!isset($this->path)) {
+                $this->showStatus = true;
+                $this->showActions();
+                $this->status = $i18n->__('File missing');
+
+                return;
+            }
+
+            // Show status and download link
+            $this->showStatus = $this->showDownload = true;
+
+            switch ((int) $findingAidStatus) {
+                case arFindingAidJob::GENERATED_STATUS:
+                    $this->status = $i18n->__('Generated');
+
+                    break;
+
+                case arFindingAidJob::UPLOADED_STATUS:
+                    $this->status = $i18n->__('Uploaded');
+
+                    break;
+                // It should never get here if we don't add more finding aid statuses
+                default:
+                    $this->status = $i18n->__('Unknown');
+            }
+
+            // Check ACL to show delete option
+            if (QubitAcl::check($this->resource, 'update')) {
+                $this->showDelete = true;
+            }
+
+            return;
+        }
+
+        // It should never get here if we don't add more job statuses
         $this->showStatus = true;
         $this->showActions();
-        $this->status = $i18n->__('File missing');
-
-        return;
-      }
-
-      // Show status and download link
-      $this->showStatus = $this->showDownload = true;
-
-      switch ((integer)$findingAidStatus)
-      {
-        case arFindingAidJob::GENERATED_STATUS:
-          $this->status = $i18n->__('Generated');
-
-          break;
-
-        case arFindingAidJob::UPLOADED_STATUS:
-          $this->status = $i18n->__('Uploaded');
-
-          break;
-
-        // It should never get here if we don't add more finding aid statuses
-        default:
-          $this->status = $i18n->__('Unknown');
-      }
-
-      // Check ACL to show delete option
-      if (QubitAcl::check($this->resource, 'update'))
-      {
-        $this->showDelete = true;
-      }
-
-      return;
+        $this->status = $i18n->__('Unknown');
     }
 
-    // It should never get here if we don't add more job statuses
-    $this->showStatus = true;
-    $this->showActions();
-    $this->status = $i18n->__('Unknown');
-  }
-
-  public function showActions()
-  {
-    // Actions only allowed for users with permissions
-    if (!QubitAcl::check($this->resource, 'update'))
+    public function showActions()
     {
-      return false;
+        // Actions only allowed for users with permissions
+        if (!QubitAcl::check($this->resource, 'update')) {
+            return false;
+        }
+
+        // Upload is allowed for drafts
+        $this->showUpload = true;
+
+        // Generate is allowed for published descriptions and for drafts
+        // if the public finding aid setting is set to false
+        $setting = QubitSetting::getByName('publicFindingAid');
+        if (
+            QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID == $this->resource->getPublicationStatus()->statusId
+            || (isset($setting) && !$setting->getValue(['sourceCulture' => true]))
+        ) {
+            $this->showGenerate = true;
+        }
+
+        return true;
     }
-
-    // Upload is allowed for drafts
-    $this->showUpload = true;
-
-    // Generate is allowed for published descriptions and for drafts
-    // if the public finding aid setting is set to false
-    $setting = QubitSetting::getByName('publicFindingAid');
-    if ($this->resource->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID
-      || (isset($setting) && !$setting->getValue(array('sourceCulture' => true))))
-    {
-      $this->showGenerate = true;
-    }
-
-    return true;
-  }
 }

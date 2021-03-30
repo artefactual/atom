@@ -21,92 +21,86 @@
  * A worker to, given the HTTP GET parameters sent to advanced search,
  * replicate the search and export the resulting descriptions to CSV.
  *
- * @package    symfony
- * @subpackage jobs
  * @see arInformationObjectExportJob
  */
-
 class arInformationObjectCsvExportJob extends arInformationObjectExportJob
 {
-  protected $csvWriter;
+    protected $csvWriter;
 
-  /**
-   * Export clipboard item metadata to a CSV file, and related digital objects
-   *
-   * @see arInformationObjectExportJob::doExport()
-   *
-   * @param string $path  Path of file to write CSV data to
-   */
-  protected function doExport($path)
-  {
-    $this->csvWriter = $this->getCsvWriter($path);
-
-    parent::doExport($path);
-  }
-
-  /**
-   * Export resource metadata and digital object (if requested)
-   *
-   * @param QubitInformationObject $resource object to export
-   * @param string $path temporary export job working directory
-   */
-  protected function exportResource($resource, $path)
-  {
-    // Don't export resource if this level of description is not allowed
-    if (!$this->isAllowedLevelId($resource->levelOfDescriptionId))
+    /**
+     * Export clipboard item metadata to a CSV file, and related digital objects.
+     *
+     * @see arInformationObjectExportJob::doExport()
+     *
+     * @param string $path Path of file to write CSV data to
+     */
+    protected function doExport($path)
     {
-      return;
+        $this->csvWriter = $this->getCsvWriter($path);
+
+        parent::doExport($path);
     }
 
-    $this->exportDataAndDigitalObject($resource, $path);
-
-    // Export descendants if option was selected
-    if (!$this->params['current-level-only'])
+    /**
+     * Export resource metadata and digital object (if requested).
+     *
+     * @param QubitInformationObject $resource object to export
+     * @param string                 $path     temporary export job working directory
+     */
+    protected function exportResource($resource, $path)
     {
-      foreach ($resource->getDescendantsForExport($options) as $item)
-      {
-        $this->exportDataAndDigitalObject($item, $path);
-      }
+        // Don't export resource if this level of description is not allowed
+        if (!$this->isAllowedLevelId($resource->levelOfDescriptionId)) {
+            return;
+        }
+
+        $this->exportDataAndDigitalObject($resource, $path);
+
+        // Export descendants if option was selected
+        if (!$this->params['current-level-only']) {
+            foreach ($resource->getDescendantsForExport($options) as $item) {
+                $this->exportDataAndDigitalObject($item, $path);
+            }
+        }
     }
-  }
 
-  /**
-   * Export resource metadata and associated digital object
-   *
-   * @param QubitInformationObject $resource object to export
-   * @param string $path temporary export job working directory
-   */
-  protected function exportDataAndDigitalObject($resource, $path)
-  {
-    // Append resource metadata to CSV file
-    $this->csvWriter->exportResource($resource);
+    /**
+     * Export resource metadata and associated digital object.
+     *
+     * @param QubitInformationObject $resource object to export
+     * @param string                 $path     temporary export job working directory
+     */
+    protected function exportDataAndDigitalObject($resource, $path)
+    {
+        // Append resource metadata to CSV file
+        $this->csvWriter->exportResource($resource);
 
-    $this->addDigitalObject($resource, $path);
+        $this->addDigitalObject($resource, $path);
 
-    $this->itemsExported++;
-    $this->logExportProgress();
-  }
+        ++$this->itemsExported;
+        $this->logExportProgress();
+    }
 
-  protected function getCsvWriter($path)
-  {
-    // Exporter will create a new file each 10,000 rows
-    $writer = new csvInformationObjectExport(
-      $path,
-      self::getCurrentArchivalStandard(),
-      10000
-    );
+    protected function getCsvWriter($path)
+    {
+        // Exporter will create a new file each 10,000 rows
+        $writer = new csvInformationObjectExport(
+            $path,
+            self::getCurrentArchivalStandard(),
+            10000
+        );
 
-    $writer->user = $this->user;
+        $writer->user = $this->user;
 
-    // Store export options for use in csvInformationObjectExport
-    $writer->setOptions($this->params);
+        // Store export options for use in csvInformationObjectExport
+        $writer->setOptions($this->params);
 
-    // Force loading of information object configuration, then modify writer
-    // configuration
-    $writer->loadResourceSpecificConfiguration('QubitInformationObject');
-    array_unshift($writer->columnNames, 'referenceCode');
-    array_unshift($writer->standardColumns, 'referenceCode');
+        // Force loading of information object configuration, then modify writer
+        // configuration
+        $writer->loadResourceSpecificConfiguration('QubitInformationObject');
+        array_unshift($writer->columnNames, 'referenceCode');
+        array_unshift($writer->standardColumns, 'referenceCode');
 
-    return $writer;
-  }
+        return $writer;
+    }
 }

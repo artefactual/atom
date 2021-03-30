@@ -1,73 +1,73 @@
-<?php use_helper('Javascript') ?>
-<?php decorate_with('layout_1col.php') ?>
+<?php use_helper('Javascript'); ?>
+<?php decorate_with('layout_1col.php'); ?>
 
-<?php slot('title') ?>
+<?php slot('title'); ?>
   <h1 class="multiline">
-    <?php echo __('Import multiple digital objects') ?>
-    <span class="sub"><?php echo render_title(new sfIsadPlugin($resource)) ?> </span>
+    <?php echo __('Import multiple digital objects'); ?>
+    <span class="sub"><?php echo render_title(new sfIsadPlugin($resource)); ?> </span>
   </h1>
-<?php end_slot() ?>
+<?php end_slot(); ?>
 
-<?php slot('content') ?>
+<?php slot('content'); ?>
 
   <noscript>
     <div class="messages warning">
-      <?php echo __('Your browser does not support JavaScript. See %1%minimum requirements%2%.', array('%1%' => '<a href="https://www.accesstomemory.org/wiki/index.php?title=Minimum_requirements">', '%2%' => '</a>')) ?>
+      <?php echo __('Your browser does not support JavaScript. See %1%minimum requirements%2%.', ['%1%' => '<a href="https://www.accesstomemory.org/wiki/index.php?title=Minimum_requirements">', '%2%' => '</a>']); ?>
     </div>
 
     <section class="actions">
       <ul>
-        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
+        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'c-btn']); ?></li>
       </ul>
     </section>
   </noscript>
 
-  <?php if (QubitDigitalObject::reachedAppUploadLimit()): ?>
+  <?php if (QubitDigitalObject::reachedAppUploadLimit()) { ?>
 
     <div id="upload_limit_reached">
       <div class="messages warning">
-        <?php echo __('The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your system administrator to increase the available disk space.',  array('%1%' => sfConfig::get('app_upload_limit'))) ?>
+        <?php echo __('The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your system administrator to increase the available disk space.', ['%1%' => sfConfig::get('app_upload_limit')]); ?>
       </div>
 
       <section class="actions">
         <ul>
-          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject')) ?></li>
+          <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject']); ?></li>
         </ul>
       </section>
     </div>
 
-  <?php else: ?>
+  <?php } else { ?>
 
-    <?php echo $form->renderGlobalErrors() ?>
+    <?php echo $form->renderGlobalErrors(); ?>
 
-    <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'multiFileUpload')), array('id' => 'multiFileUploadForm', 'style' => 'inline')) ?>
+    <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'informationobject', 'action' => 'multiFileUpload']), ['id' => 'multiFileUploadForm', 'style' => 'inline']); ?>
 
-      <?php echo $form->renderHiddenFields() ?>
+      <?php echo $form->renderHiddenFields(); ?>
 
       <section id="content">
 
         <fieldset class="collapsible">
 
-          <legend><?php echo __('Import multiple digital objects') ?></legend>
+          <legend><?php echo __('Import multiple digital objects'); ?></legend>
 
           <div class="alert alert-info">
-            <p><?php echo __('Add your digital objects by dragging and dropping local files into the pane below, or by clicking the browse link to open your local file explorer.') ?></p>
-            <p><?php echo __('The Title and Level of description values entered on this page will be applied to each child description created for the associated digital objects - \'%dd%\' represents an incrementing 2-value number, so by default descriptions created via this uploader will be named image 01, image 02, etc.') ?></p>
-            <p><?php echo __('You will also be able to review and individually modify each description title on the next page after clicking "Upload."') ?></p>
+            <p><?php echo __('Add your digital objects by dragging and dropping local files into the pane below, or by clicking the browse link to open your local file explorer.'); ?></p>
+            <p><?php echo __('The Title and Level of description values entered on this page will be applied to each child description created for the associated digital objects - \'%dd%\' represents an incrementing 2-value number, so by default descriptions created via this uploader will be named image 01, image 02, etc.'); ?></p>
+            <p><?php echo __('You will also be able to review and individually modify each description title on the next page after clicking "Upload."'); ?></p>
           </div>
 
           <?php echo $form->title
-            ->help(__('The "<strong>%dd%</strong>" placeholder will be replaced with a incremental number (e.g. \'image <strong>01</strong>\', \'image <strong>02</strong>\')'))
-            ->label(__('Title'))
-            ->renderRow() ?>
+              ->help(__('The "<strong>%dd%</strong>" placeholder will be replaced with a incremental number (e.g. \'image <strong>01</strong>\', \'image <strong>02</strong>\')'))
+              ->label(__('Title'))
+              ->renderRow(); ?>
 
           <?php echo $form->levelOfDescription
-            ->label(__('Level of description'))
-            ->renderRow() ?>
+              ->label(__('Level of description'))
+              ->renderRow(); ?>
 
           <div class="multiFileUpload">
 
-            <h3><?php echo __('Digital objects') ?></h3>
+            <h3><?php echo __('Digital objects'); ?></h3>
 
             <div id="uploads"></div>
 
@@ -83,24 +83,24 @@
 
       <section class="actions">
         <ul>
-          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
-          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Upload') ?>"/></li>
+          <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'c-btn']); ?></li>
+          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Upload'); ?>"/></li>
         </ul>
       </section>
 
     </form>
 
-  <?php endif; ?>
+  <?php } ?>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>
 
-<?php slot('after-content') ?>
+<?php slot('after-content'); ?>
 
 <?php echo javascript_tag(<<<content
-Qubit.multiFileUpload.maxFileSize = '$maxFileSize';
-Qubit.multiFileUpload.maxPostSize = '$maxPostSize';
-Qubit.multiFileUpload.uploadResponsePath = '$uploadResponsePath';
-Qubit.multiFileUpload.slug = '$resource->slug';
+Qubit.multiFileUpload.maxFileSize = '{$maxFileSize}';
+Qubit.multiFileUpload.maxPostSize = '{$maxPostSize}';
+Qubit.multiFileUpload.uploadResponsePath = '{$uploadResponsePath}';
+Qubit.multiFileUpload.slug = '{$resource->slug}';
 Qubit.multiFileUpload.thumbWidth = 150;
 
 Qubit.multiFileUpload.i18nMaxFileSizeMessage = '{$sf_context->i18n->__('Maximum file size: ')}';
@@ -138,5 +138,5 @@ Qubit.multiFileUpload.i18nNoFilesError = '{$sf_context->i18n->__('Please add a f
 Qubit.multiFileUpload.i18nNoSuccessfulFilesError = '{$sf_context->i18n->__('Files not uploaded successfully. Please retry.')}';
 Qubit.multiFileUpload.i18nPostSizeError = '{$sf_context->i18n->__('Upload limit of %{maxPostSize} MB reached. Unable to add additional files.')}';
 content
-) ?>
-<?php end_slot() ?>
+); ?>
+<?php end_slot(); ?>

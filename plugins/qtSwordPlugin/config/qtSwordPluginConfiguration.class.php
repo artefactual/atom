@@ -19,22 +19,22 @@
 
 class qtSwordPluginConfiguration extends sfPluginConfiguration
 {
-  public static
-    $summary = 'SWORD plugin.',
-    $version = '1.0.0',
-
+    public static $summary = 'SWORD plugin.';
+    public static $version = '1.0.0';
     // See http://www.swordapp.org/docs/sword-type-1.0.html
-    $packaging = array(
-      // '1.0' => 'http://www.loc.gov/METS/'), // METS
-      '1.0' => 'http://purl.org/net/sword-types/METSArchivematicaDIP'), // METS
+    public static $packaging = [
+        // '1.0' => 'http://www.loc.gov/METS/'), // METS
+        '1.0' => 'http://purl.org/net/sword-types/METSArchivematicaDIP',
+    ];
 
-    $mediaRanges = array(
-      'application/zip');
+    public static $mediaRanges = [
+        'application/zip',
+    ];
 
-  public function initialize()
-  {
-    $enabledModules = sfConfig::get('sf_enabled_modules');
-    $enabledModules[] = 'qtSwordPlugin';
-    sfConfig::set('sf_enabled_modules', $enabledModules);
-  }
+    public function initialize()
+    {
+        $enabledModules = sfConfig::get('sf_enabled_modules');
+        $enabledModules[] = 'qtSwordPlugin';
+        sfConfig::set('sf_enabled_modules', $enabledModules);
+    }
 }

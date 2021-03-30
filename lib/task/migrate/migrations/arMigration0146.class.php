@@ -25,26 +25,26 @@
  */
 class arMigration0146
 {
-  const
-    VERSION = 146, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 146;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    if (null === QubitSetting::getByName('digital_object_geolocation'))
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      $setting = new QubitSetting;
-      $setting->setName('digital_object_geolocation');
-      $setting->setScope('element_visibility');
-      $setting->setValue('1');
-      $setting->save();
-    }
+        if (null === QubitSetting::getByName('digital_object_geolocation')) {
+            $setting = new QubitSetting();
+            $setting->setName('digital_object_geolocation');
+            $setting->setScope('element_visibility');
+            $setting->setValue('1');
+            $setting->save();
+        }
 
-    return true;
-  }
+        return true;
+    }
 }

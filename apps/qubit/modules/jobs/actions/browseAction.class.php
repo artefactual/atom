@@ -18,62 +18,54 @@
  */
 
 /**
- * @package    AccesstoMemory
- * @subpackage jobs
  * @author     Mike G <mikeg@artefactual.com>
  */
 class JobsBrowseAction extends DefaultBrowseAction
 {
-  public function execute($request)
-  {
-    parent::execute($request);
-
-    $this->user = $this->context->user;
-
-    $this->autoRefresh = false;
-    if (isset($request->autoRefresh))
+    public function execute($request)
     {
-      $this->autoRefresh = $request->autoRefresh;
+        parent::execute($request);
+
+        $this->user = $this->context->user;
+
+        $this->autoRefresh = false;
+        if (isset($request->autoRefresh)) {
+            $this->autoRefresh = $request->autoRefresh;
+        }
+
+        $this->refreshInterval = 10000;
+        $this->filter = $request->filter;
+
+        if (!$this->user || !$this->user->isAuthenticated()) {
+            QubitAcl::forwardUnauthorized();
+        }
+
+        if (!isset($request->limit)) {
+            $request->limit = sfConfig::get('app_hits_per_page');
+        }
+
+        if (!isset($this->filter)) {
+            $this->filter = 'all';
+        }
+
+        $criteria = new Criteria();
+
+        // Filter out the history of other users' jobs if not an administrator.
+        if (!$this->user->isAdministrator()) {
+            $criteria->add(QubitJob::USER_ID, $this->user->getUserID());
+        }
+
+        if ('active' === $this->filter) {
+            $criteria->add(QubitJob::STATUS_ID, QubitTerm::JOB_STATUS_IN_PROGRESS_ID);
+        }
+
+        $criteria->addJoin(QubitJob::ID, QubitObject::ID);
+        $criteria->addDescendingOrderByColumn('created_at');
+
+        // Page results
+        $this->pager = new QubitPager('QubitJob');
+        $this->pager->setCriteria($criteria);
+        $this->pager->setMaxPerPage($request->limit);
+        $this->pager->setPage($request->page);
     }
-
-    $this->refreshInterval = 10000;
-    $this->filter = $request->filter;
-
-    if (!$this->user || !$this->user->isAuthenticated())
-    {
-      QubitAcl::forwardUnauthorized();
-    }
-
-    if (!isset($request->limit))
-    {
-      $request->limit = sfConfig::get('app_hits_per_page');
-    }
-
-    if (!isset($this->filter))
-    {
-      $this->filter = 'all';
-    }
-
-    $criteria = new Criteria;
-
-    // Filter out the history of other users' jobs if not an administrator.
-    if (!$this->user->isAdministrator())
-    {
-      $criteria->add(QubitJob::USER_ID, $this->user->getUserID());
-    }
-
-    if ($this->filter === 'active')
-    {
-      $criteria->add(QubitJob::STATUS_ID, QubitTerm::JOB_STATUS_IN_PROGRESS_ID);
-    }
-
-    $criteria->addJoin(QubitJob::ID, QubitObject::ID);
-    $criteria->addDescendingOrderByColumn('created_at');
-
-    // Page results
-    $this->pager = new QubitPager('QubitJob');
-    $this->pager->setCriteria($criteria);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
-  }
 }

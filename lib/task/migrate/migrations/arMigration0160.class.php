@@ -25,41 +25,40 @@
  */
 class arMigration0160
 {
-  const
-    VERSION = 160, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 160;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    // Update path of places menu item
-    $criteria = new Criteria;
-    $criteria->add(QubitMenu::NAME, 'browsePlaces');
-
-    $menu = QubitMenu::getOne($criteria);
-
-    if ($menu !== null)
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      $menu->path = 'taxonomy/index?id=42';
-      $menu->save();
+        // Update path of places menu item
+        $criteria = new Criteria();
+        $criteria->add(QubitMenu::NAME, 'browsePlaces');
+
+        $menu = QubitMenu::getOne($criteria);
+
+        if (null !== $menu) {
+            $menu->path = 'taxonomy/index?id=42';
+            $menu->save();
+        }
+
+        // Update path of subjects menu item
+        $criteria = new Criteria();
+        $criteria->add(QubitMenu::NAME, 'browseSubjects');
+
+        $menu = QubitMenu::getOne($criteria);
+
+        if (null !== $menu) {
+            $menu->path = 'taxonomy/index?id=35';
+            $menu->save();
+        }
+
+        return true;
     }
-
-    // Update path of subjects menu item
-    $criteria = new Criteria;
-    $criteria->add(QubitMenu::NAME, 'browseSubjects');
-
-    $menu = QubitMenu::getOne($criteria);
-
-    if ($menu !== null)
-    {
-      $menu->path = 'taxonomy/index?id=35';
-      $menu->save();
-    }
-
-    return true;
-  }
 }

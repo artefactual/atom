@@ -25,72 +25,67 @@
  */
 class arMigration0136
 {
-  const
-    VERSION = 136, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 136;
+    public const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    // Obtain the different translations of the previous settings
-    $accessDisallowWarningI18nValues = $this->getSettingI18nValues('access_disallow_warning', 'ui_label');
-    $accessConditionalWarningI18nValues = $this->getSettingI18nValues('access_conditional_warning', 'ui_label');
-
-    // Populate new settings, there are going to be two statements per each basis
-    // available in the RIGHTS_BASIS_ID taxonomy. By default, we populate alz
-    // the statements like the used to be before, making sure that all the
-    // translations are also migrated.
-    foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID) as $item)
+    public function up($configuration)
     {
-      $setting = new QubitSetting;
-      $setting->name = "{$item->slug}_disallow";
-      $setting->scope = 'access_statement';
-      foreach ($accessDisallowWarningI18nValues as $langCode => $value)
-      {
-        $setting->setValue($value, array('culture' => $langCode));
-      }
-      $setting->save();
+        // Obtain the different translations of the previous settings
+        $accessDisallowWarningI18nValues = $this->getSettingI18nValues('access_disallow_warning', 'ui_label');
+        $accessConditionalWarningI18nValues = $this->getSettingI18nValues('access_conditional_warning', 'ui_label');
 
-      $setting = new QubitSetting;
-      $setting->name = "{$item->slug}_conditional";
-      $setting->scope = 'access_statement';
-      foreach ($accessConditionalWarningI18nValues as $langCode => $value)
-      {
-        $setting->setValue($value, array('culture' => $langCode));
-      }
-      $setting->save();
+        // Populate new settings, there are going to be two statements per each basis
+        // available in the RIGHTS_BASIS_ID taxonomy. By default, we populate alz
+        // the statements like the used to be before, making sure that all the
+        // translations are also migrated.
+        foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID) as $item) {
+            $setting = new QubitSetting();
+            $setting->name = "{$item->slug}_disallow";
+            $setting->scope = 'access_statement';
+            foreach ($accessDisallowWarningI18nValues as $langCode => $value) {
+                $setting->setValue($value, ['culture' => $langCode]);
+            }
+            $setting->save();
+
+            $setting = new QubitSetting();
+            $setting->name = "{$item->slug}_conditional";
+            $setting->scope = 'access_statement';
+            foreach ($accessConditionalWarningI18nValues as $langCode => $value) {
+                $setting->setValue($value, ['culture' => $langCode]);
+            }
+            $setting->save();
+        }
+
+        // Delete UI labels access_disallow_warning and access_conditional_warning
+        foreach (['access_disallow_warning', 'access_conditional_warning'] as $item) {
+            $setting = QubitSetting::getByNameAndScope($item, 'ui_label');
+            if (null !== $setting) {
+                $setting->delete();
+            }
+        }
+
+        return true;
     }
 
-    // Delete UI labels access_disallow_warning and access_conditional_warning
-    foreach (array('access_disallow_warning', 'access_conditional_warning') as $item)
+    /**
+     * Build a dictionary with all the different translations for a given setting.
+     * The translations are indexed in the dictionary with their language codes.
+     *
+     * @param mixed $name
+     * @param mixed $scope
+     */
+    protected function getSettingI18nValues($name, $scope)
     {
-      $setting = QubitSetting::getByNameAndScope($item, 'ui_label');
-      if (null !== $setting)
-      {
-        $setting->delete();
-      }
+        $values = [];
+        $sql = 'SELECT `setting_i18n`.`value`, `setting_i18n`.`culture` FROM `setting` LEFT JOIN `setting_i18n` ON (`setting`.`id` = `setting_i18n`.`id`) WHERE `setting`.`name` = ? AND `setting`.`scope` = ?;';
+        foreach (QubitPdo::fetchAll($sql, [$name, $scope]) as $item) {
+            if (empty($item->value)) {
+                continue;
+            }
+
+            $values[$item->culture] = $item->value;
+        }
+
+        return $values;
     }
-
-    return true;
-  }
-
-  /**
-   * Build a dictionary with all the different translations for a given setting.
-   * The translations are indexed in the dictionary with their language codes.
-   */
-  protected function getSettingI18nValues($name, $scope)
-  {
-    $values = array();
-    $sql = "SELECT `setting_i18n`.`value`, `setting_i18n`.`culture` FROM `setting` LEFT JOIN `setting_i18n` ON (`setting`.`id` = `setting_i18n`.`id`) WHERE `setting`.`name` = ? AND `setting`.`scope` = ?;";
-    foreach (QubitPdo::fetchAll($sql, array($name, $scope)) as $item)
-    {
-      if (empty($item->value))
-      {
-        continue;
-      }
-
-      $values[$item->culture] = $item->value;
-    }
-
-    return $values;
-  }
 }

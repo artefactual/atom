@@ -19,7 +19,7 @@
 
 class QubitApiNotAuthorizedException extends QubitApiException
 {
-  protected $message = 'Not authorized';
-  protected $id = 'not-authorized';
-  protected $statusCode = 401;
+    protected $message = 'Not authorized';
+    protected $id = 'not-authorized';
+    protected $statusCode = 401;
 }

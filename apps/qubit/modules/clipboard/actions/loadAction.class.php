@@ -19,126 +19,116 @@
 
 class ClipboardLoadAction extends DefaultEditAction
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'password',
-      'mode');
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'password',
+        'mode',
+    ];
 
-  protected function addField($name)
-  {
-    switch ($name)
+    public function execute($request)
     {
-      case 'password':
-        $this->form->setValidator('password', new sfValidatorString(array('required' => true)));
-        $this->form->setWidget('password', new sfWidgetFormInput);
+        parent::execute($request);
 
-        break;
+        if (!$request->isMethod('post')) {
+            return;
+        }
 
-      case 'mode':
-        $this->form->setDefault('mode', 'merge');
-        $this->form->setValidator('mode', new sfValidatorString);
-        $choices = array(
-          'merge' => $this->context->i18n->__('Merge saved clipboard with existing clipboard results'),
-          'replace' => $this->context->i18n->__('Replace existing clipboard results with saved clipboard')
+        $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
+
+        $this->form->bind($request->getPostParameters());
+
+        if (!$this->form->isValid()) {
+            $this->response->setStatusCode(400);
+            $message = $this->context->i18n->__('Incorrect clipboard ID and/or action.');
+
+            return $this->renderText(json_encode(['error' => $message]));
+        }
+
+        $this->processForm();
+
+        $criteria = new Criteria();
+        $criteria->add(QubitClipboardSave::PASSWORD, $this->password);
+        $save = QubitClipboardSave::getOne($criteria);
+
+        if (!isset($save)) {
+            $this->response->setStatusCode(404);
+            $message = $this->context->i18n->__('Clipboard ID not found.');
+
+            return $this->renderText(json_encode(['error' => $message]));
+        }
+
+        $criteria = new Criteria();
+        $criteria->add(QubitClipboardSaveItem::SAVE_ID, $save->id);
+        $items = QubitClipboardSaveItem::get($criteria);
+
+        $clipboard = [
+            'informationObject' => [],
+            'actor' => [],
+            'repository' => [],
+        ];
+        $addedCount = 0;
+
+        foreach ($items as $item) {
+            // Add slug to clipboard if the object exists and the user can read it
+            $object = QubitObject::getBySlug($item->slug);
+
+            if (isset($object) && QubitAcl::check($object, 'read')) {
+                $type = lcfirst(str_replace('Qubit', '', $item->itemClassName));
+                array_push($clipboard[$type], $item->slug);
+                ++$addedCount;
+            }
+        }
+
+        if ('replace' == $this->mode) {
+            $actionDescription = $this->context->i18n->__('added');
+        } else {
+            $actionDescription = $this->context->i18n->__('merged with current clipboard');
+        }
+
+        $message = $this->context->i18n->__(
+            'Clipboard %1% loaded, %2% records %3%.',
+            ['%1%' => $this->password, '%2%' => $addedCount, '%3%' => $actionDescription]
         );
-        $this->form->setWidget('mode', new sfWidgetFormSelect(array('choices' => $choices)));
 
-        break;
+        $this->response->setStatusCode(200);
+
+        return $this->renderText(json_encode(['success' => $message, 'clipboard' => $clipboard]));
     }
-  }
 
-  protected function processField($field)
-  {
-    switch ($field->getName())
+    protected function addField($name)
     {
-      case 'password':
-        $this->password = $this->form->getValue($field->getName());
+        switch ($name) {
+            case 'password':
+                $this->form->setValidator('password', new sfValidatorString(['required' => true]));
+                $this->form->setWidget('password', new sfWidgetFormInput());
 
-        break;
+                break;
 
-      case 'mode':
-        $this->mode = $this->form->getValue($field->getName());
+            case 'mode':
+                $this->form->setDefault('mode', 'merge');
+                $this->form->setValidator('mode', new sfValidatorString());
+                $choices = [
+                    'merge' => $this->context->i18n->__('Merge saved clipboard with existing clipboard results'),
+                    'replace' => $this->context->i18n->__('Replace existing clipboard results with saved clipboard'),
+                ];
+                $this->form->setWidget('mode', new sfWidgetFormSelect(['choices' => $choices]));
 
-        break;
+                break;
+        }
     }
-  }
 
-  public function execute($request)
-  {
-    parent::execute($request);
-
-    if (!$request->isMethod('post'))
+    protected function processField($field)
     {
-      return;
+        switch ($field->getName()) {
+            case 'password':
+                $this->password = $this->form->getValue($field->getName());
+
+                break;
+
+            case 'mode':
+                $this->mode = $this->form->getValue($field->getName());
+
+                break;
+        }
     }
-
-    $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
-
-    $this->form->bind($request->getPostParameters());
-
-    if (!$this->form->isValid())
-    {
-      $this->response->setStatusCode(400);
-      $message = $this->context->i18n->__('Incorrect clipboard ID and/or action.');
-
-      return $this->renderText(json_encode(array('error' => $message)));
-    }
-
-    $this->processForm();
-
-    $criteria = new Criteria;
-    $criteria->add(QubitClipboardSave::PASSWORD, $this->password);
-    $save = QubitClipboardSave::getOne($criteria);
-
-    if (!isset($save))
-    {
-      $this->response->setStatusCode(404);
-      $message = $this->context->i18n->__('Clipboard ID not found.');
-
-      return $this->renderText(json_encode(array('error' => $message)));
-    }
-
-    $criteria = new Criteria;
-    $criteria->add(QubitClipboardSaveItem::SAVE_ID, $save->id);
-    $items = QubitClipboardSaveItem::get($criteria);
-
-    $clipboard = array(
-      'informationObject' => array(),
-      'actor' => array(),
-      'repository' => array()
-    );
-    $addedCount = 0;
-
-    foreach ($items as $item)
-    {
-      // Add slug to clipboard if the object exists and the user can read it
-      $object = QubitObject::getBySlug($item->slug);
-
-      if (isset($object) && QubitAcl::check($object, 'read'))
-      {
-        $type = lcfirst(str_replace('Qubit', '', $item->itemClassName));
-        array_push($clipboard[$type], $item->slug);
-        $addedCount++;
-      }
-    }
-
-    if ($this->mode == 'replace')
-    {
-      $actionDescription = $this->context->i18n->__('added');
-    }
-    else
-    {
-      $actionDescription = $this->context->i18n->__('merged with current clipboard');
-    }
-
-    $message = $this->context->i18n->__(
-      'Clipboard %1% loaded, %2% records %3%.',
-      array('%1%' => $this->password, '%2%' => $addedCount, '%3%' => $actionDescription)
-    );
-
-    $this->response->setStatusCode(200);
-
-    return $this->renderText(json_encode(array('success' => $message, 'clipboard' => $clipboard)));
-  }
 }

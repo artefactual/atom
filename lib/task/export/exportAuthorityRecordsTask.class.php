@@ -18,67 +18,67 @@
  */
 
 /**
- * Export authority records to a CSV file
+ * Export authority records to a CSV file.
  *
- * @package    symfony
- * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
 class exportAuthorityRecordsTask extends exportBulkBaseTask
 {
-    protected $namespace        = 'csv';
-    protected $name             = 'authority-export';
+    protected $namespace = 'csv';
+    protected $name = 'authority-export';
     protected $briefDescription = 'Export authority record data as CSV file(s)';
 
-    protected $detailedDescription = <<<EOF
+    protected $detailedDescription = <<<'EOF'
 Export authority record data as CSV file(s).
 EOF;
 
-  /**
-   * @see sfBaseTask
-   */
-  protected function configure()
-  {
-    $this->addCoreArgumentsAndOptions();
-  }
-
-  /**
-   * @see sfTask
-   */
-  public function execute($arguments = array(), $options = array())
-  {
-    $this->checkPathIsWritable($arguments['path']);
-
-    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);
-    $this->context = sfContext::createInstance($configuration);
-
-    // Prepare CSV exporter
-    $writer = new csvActorExport($arguments['path']);
-    $writer->setOptions(array('relations' => true));
-
-    // Export actors and, optionally, related data
-    $itemsExported = 0;
-
-    foreach ($this->getActors() as $row)
+    /**
+     * @see sfTask
+     *
+     * @param mixed $arguments
+     * @param mixed $options
+     */
+    public function execute($arguments = [], $options = [])
     {
-      $actor = QubitActor::getById($row['id']);
-      $this->context->getUser()->setCulture($row['culture']);
+        $this->checkPathIsWritable($arguments['path']);
 
-      $writer->exportResource($actor);
+        $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);
+        $this->context = sfContext::createInstance($configuration);
 
-      $this->indicateProgress($options['items-until-update']);
-      $itemsExported++;
+        // Prepare CSV exporter
+        $writer = new csvActorExport($arguments['path']);
+        $writer->setOptions(['relations' => true]);
+
+        // Export actors and, optionally, related data
+        $itemsExported = 0;
+
+        foreach ($this->getActors() as $row) {
+            $actor = QubitActor::getById($row['id']);
+            $this->context->getUser()->setCulture($row['culture']);
+
+            $writer->exportResource($actor);
+
+            $this->indicateProgress($options['items-until-update']);
+            ++$itemsExported;
+        }
+
+        $this->log('');
+        $this->logSection('csv', "Export complete ({$itemsExported} authority records exported).");
     }
 
-    $this->log('');
-    $this->logSection('csv', "Export complete ($itemsExported authority records exported).");
-  }
+    /**
+     * @see sfBaseTask
+     */
+    protected function configure()
+    {
+        $this->addCoreArgumentsAndOptions();
+    }
 
-  private function getActors()
-  {
-    $sql = "SELECT ai.id, ai.culture FROM actor_i18n ai INNER JOIN object o ON ai.id=o.id
+    private function getActors()
+    {
+        $sql = "SELECT ai.id, ai.culture FROM actor_i18n ai INNER JOIN object o ON ai.id=o.id
             WHERE o.class_name='QubitActor' AND ai.id <> ?";
 
-    return QubitPdo::fetchAll($sql, array(QubitActor::ROOT_ID), array('fetchMode' => PDO::FETCH_ASSOC));
-  }
+        return QubitPdo::fetchAll($sql, [QubitActor::ROOT_ID], ['fetchMode' => PDO::FETCH_ASSOC]);
+    }
 }

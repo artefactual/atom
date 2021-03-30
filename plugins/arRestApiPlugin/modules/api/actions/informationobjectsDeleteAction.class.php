@@ -19,31 +19,29 @@
 
 class ApiInformationObjectsDeleteAction extends QubitApiAction
 {
-  protected function delete($request)
-  {
-    // Get slug so we can determine information object's ID
-    $criteria = new Criteria;
-    $criteria->add(QubitSlug::SLUG, $request->slug);
-
-    $slug = QubitSlug::getOne($criteria);
-
-    if (null !== $slug)
+    protected function delete($request)
     {
-      if (QubitInformationObject::ROOT_ID === (int)$slug->objectId)
-      {
-        throw new QubitApiForbiddenException;
-      }
+        // Get slug so we can determine information object's ID
+        $criteria = new Criteria();
+        $criteria->add(QubitSlug::SLUG, $request->slug);
 
-      $criteria = new Criteria;
-      $criteria->add(QubitInformationObject::ID, $slug->objectId);
+        $slug = QubitSlug::getOne($criteria);
 
-      if (null !== ($io = QubitInformationObject::getOne($criteria)))
-      {
-        $io->delete();
-        return sfView::NONE;
-      }
+        if (null !== $slug) {
+            if (QubitInformationObject::ROOT_ID === (int) $slug->objectId) {
+                throw new QubitApiForbiddenException();
+            }
+
+            $criteria = new Criteria();
+            $criteria->add(QubitInformationObject::ID, $slug->objectId);
+
+            if (null !== ($io = QubitInformationObject::getOne($criteria))) {
+                $io->delete();
+
+                return sfView::NONE;
+            }
+        }
+
+        throw new QubitApi404Exception('Information object not found');
     }
-
-    throw new QubitApi404Exception('Information object not found');
-  }
 }

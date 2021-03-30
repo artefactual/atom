@@ -18,39 +18,36 @@
  */
 
 /**
- * Generate  listSets response of the OAI-PMH protocol for the Access to Memory (AtoM)
+ * Generate  listSets response of the OAI-PMH protocol for the Access to Memory (AtoM).
  *
- * @package    AccesstoMemory
- * @subpackage oai
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
 class arOaiPluginlistSetsComponent extends arOaiPluginComponent
 {
-  /**
-   * Executes action
-   *
-   * @param sfRequest $request A request object
-   */
-  public function execute($request)
-  {
-    $this->setUpdateParametersFromRequest($request);
-    $this->getPagedOaiSets($request);
-    $this->setRequestAttributes($request);
-  }
-
-  private function getPagedOaiSets($request)
-  {
-    $options = array('filterDrafts' => true);
-    if (isset($this->cursor))
+    /**
+     * Executes action.
+     *
+     * @param sfRequest $request A request object
+     */
+    public function execute($request)
     {
-      $options['offset'] = $this->cursor;
+        $this->setUpdateParametersFromRequest($request);
+        $this->getPagedOaiSets($request);
+        $this->setRequestAttributes($request);
     }
-    $options['limit'] = QubitSetting::getByName('resumption_token_limit')->__toString();
 
-    $results = QubitOai::getOaiSets($options);
-    $this->oaiSets = $results['data'];
-    $this->remaining = $results['remaining'];
-    $resumptionCursor = $this->cursor + $options['limit'];
-    $this->resumptionToken  = base64_encode(json_encode(array('cursor' => $resumptionCursor)));
-  }
+    private function getPagedOaiSets($request)
+    {
+        $options = ['filterDrafts' => true];
+        if (isset($this->cursor)) {
+            $options['offset'] = $this->cursor;
+        }
+        $options['limit'] = QubitSetting::getByName('resumption_token_limit')->__toString();
+
+        $results = QubitOai::getOaiSets($options);
+        $this->oaiSets = $results['data'];
+        $this->remaining = $results['remaining'];
+        $resumptionCursor = $this->cursor + $options['limit'];
+        $this->resumptionToken = base64_encode(json_encode(['cursor' => $resumptionCursor]));
+    }
 }

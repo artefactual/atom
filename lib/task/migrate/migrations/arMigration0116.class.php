@@ -25,39 +25,36 @@
  */
 class arMigration0116
 {
-  const
-    VERSION = 116, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 116;
+    public const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    $termNames = array(
-      'sound recording - musical' => 'sound recording-musical',
-      'sound recording - nonmusical' => 'sound recording-nonmusical'
-    );
-
-    foreach ($termNames as $oldName => $newName)
+    public function up($configuration)
     {
-      $criteria = new Criteria;
-      $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-      $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::MODS_RESOURCE_TYPE_ID);
-      $criteria->add(QubitTermI18n::CULTURE, 'en');
-      $criteria->add(QubitTermI18n::NAME, $oldName);
+        $termNames = [
+            'sound recording - musical' => 'sound recording-musical',
+            'sound recording - nonmusical' => 'sound recording-nonmusical',
+        ];
 
-      if (null !== $term = QubitTerm::getOne($criteria))
-      {
-        $term->setName($newName, array('culture' => 'en'));
-        $term->save();
-      }
+        foreach ($termNames as $oldName => $newName) {
+            $criteria = new Criteria();
+            $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+            $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::MODS_RESOURCE_TYPE_ID);
+            $criteria->add(QubitTermI18n::CULTURE, 'en');
+            $criteria->add(QubitTermI18n::NAME, $oldName);
+
+            if (null !== $term = QubitTerm::getOne($criteria)) {
+                $term->setName($newName, ['culture' => 'en']);
+                $term->save();
+            }
+        }
+
+        $setting = new QubitSetting();
+        $setting->setName('publicFindingAid');
+        $setting->setValue(1);
+        $setting->setEditable(1);
+        $setting->setDeleteable(0);
+        $setting->save();
+
+        return true;
     }
-
-    $setting = new QubitSetting;
-    $setting->setName('publicFindingAid');
-    $setting->setValue(1);
-    $setting->setEditable(1);
-    $setting->setDeleteable(0);
-    $setting->save();
-
-    return true;
-  }
 }

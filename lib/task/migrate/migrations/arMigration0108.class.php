@@ -25,19 +25,20 @@
  */
 class arMigration0108
 {
-  const
-    VERSION = 108, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 108;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    // Create AIP table
-    $sql = <<<sql
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
+    {
+        // Create AIP table
+        $sql = <<<'sql'
 
 CREATE TABLE `aip`
 (
@@ -68,44 +69,47 @@ CREATE TABLE `aip`
 
 sql;
 
-    QubitPdo::modify($sql);
+        QubitPdo::modify($sql);
 
-    // Create new term for the AIP relation type
-    QubitMigrate::bumpTerm(QubitTerm::AIP_RELATION_ID, $configuration);
-    $term = new QubitTerm;
-    $term->id = QubitTerm::AIP_RELATION_ID;
-    $term->parentId = QubitTerm::ROOT_ID;
-    $term->taxonomyId = QubitTaxonomy::RELATION_TYPE_ID;
-    $term->name = 'AIP relation';
-    $term->culture = 'en';
-    $term->save();
+        // Create new term for the AIP relation type
+        QubitMigrate::bumpTerm(QubitTerm::AIP_RELATION_ID, $configuration);
+        $term = new QubitTerm();
+        $term->id = QubitTerm::AIP_RELATION_ID;
+        $term->parentId = QubitTerm::ROOT_ID;
+        $term->taxonomyId = QubitTaxonomy::RELATION_TYPE_ID;
+        $term->name = 'AIP relation';
+        $term->culture = 'en';
+        $term->save();
 
-    // Add "AIP types" taxonomy
-    QubitMigrate::bumpTaxonomy(QubitTaxonomy::AIP_TYPE_ID, $configuration);
-    $taxonomy = new QubitTaxonomy;
-    $taxonomy->id = QubitTaxonomy::AIP_TYPE_ID;
-    $taxonomy->parentId = QubitTaxonomy::ROOT_ID;
-    $taxonomy->name = 'AIP types';
-    $taxonomy->culture = 'en';
-    $taxonomy->save();
+        // Add "AIP types" taxonomy
+        QubitMigrate::bumpTaxonomy(QubitTaxonomy::AIP_TYPE_ID, $configuration);
+        $taxonomy = new QubitTaxonomy();
+        $taxonomy->id = QubitTaxonomy::AIP_TYPE_ID;
+        $taxonomy->parentId = QubitTaxonomy::ROOT_ID;
+        $taxonomy->name = 'AIP types';
+        $taxonomy->culture = 'en';
+        $taxonomy->save();
 
-    // Add "AIP types" terms
-    foreach (array(
-      QubitTerm::ARTWORK_COMPONENT_ID => 'Artwork component',
-      QubitTerm::ARTWORK_MATERIAL_ID => 'Artwork material',
-      QubitTerm::SUPPORTING_DOCUMENTATION_ID => 'Supporting documentation',
-      QubitTerm::SUPPORTING_TECHNOLOGY_ID => 'Supporting technology') as $id => $value)
-    {
-      QubitMigrate::bumpTerm($id, $configuration);
-      $term = new QubitTerm;
-      $term->id = $id;
-      $term->parentId = QubitTerm::ROOT_ID;
-      $term->taxonomyId = QubitTaxonomy::AIP_TYPE_ID;
-      $term->name = $value;
-      $term->culture = 'en';
-      $term->save();
+        // Add "AIP types" terms
+        foreach (
+            [
+                QubitTerm::ARTWORK_COMPONENT_ID => 'Artwork component',
+                QubitTerm::ARTWORK_MATERIAL_ID => 'Artwork material',
+                QubitTerm::SUPPORTING_DOCUMENTATION_ID => 'Supporting documentation',
+                QubitTerm::SUPPORTING_TECHNOLOGY_ID => 'Supporting technology',
+            ]
+            as $id => $value
+        ) {
+            QubitMigrate::bumpTerm($id, $configuration);
+            $term = new QubitTerm();
+            $term->id = $id;
+            $term->parentId = QubitTerm::ROOT_ID;
+            $term->taxonomyId = QubitTaxonomy::AIP_TYPE_ID;
+            $term->name = $value;
+            $term->culture = 'en';
+            $term->save();
+        }
+
+        return true;
     }
-
-    return true;
-  }
 }

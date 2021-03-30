@@ -18,63 +18,59 @@
  */
 
 /**
- * Security
+ * Security.
  *
- * @package    AccesstoMemory
- * @subpackage settings
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     Jack Bates <jack@nottheoilrig.com>
  * @author     David Juhasz <david@artefactual.com>
  */
-
 class SettingsSecurityAction extends SettingsEditAction
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'limit_admin_ip',
-      'require_ssl_admin',
-      'require_strong_passwords');
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'limit_admin_ip',
+        'require_ssl_admin',
+        'require_strong_passwords',
+    ];
 
-  public function earlyExecute()
-  {
-    parent::earlyExecute();
-
-    $this->updateMessage = $this->i18n->__('Security settings saved.');
-
-    // Set form decorator
-    $decorator = new QubitWidgetFormSchemaFormatterList($this->form->getWidgetSchema());
-    $this->form->getWidgetSchema()->addFormFormatter('list', $decorator);
-    $this->form->getWidgetSchema()->setFormFormatterName('list');
-  }
-
-  protected function addField($name)
-  {
-    switch ($name)
+    public function earlyExecute()
     {
-      case 'limit_admin_ip':
-        $this->form->setWidget($name, new sfWidgetFormInput);
-        $this->form->setValidator($name, new sfValidatorString(array('required' => false)));
-        $labelText = $this->i18n->__('Limit administrator functionality to one or more IP addresses, separated by semicolons.');
-        $this->form->getWidgetSchema()->$name->setLabel($labelText);
+        parent::earlyExecute();
 
-        break;
+        $this->updateMessage = $this->i18n->__('Security settings saved.');
 
-      case 'require_ssl_admin':
-        $this->form->setWidget($name, new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')));
-        $this->form->setValidator($name, new sfValidatorInteger(array('required' => false)));
-        $labelText = $this->i18n->__('Require SSL for all administrator functionality');
-        $this->form->getWidgetSchema()->$name->setLabel($labelText);
-
-        break;
-
-      case 'require_strong_passwords':
-        $this->form->setWidget($name, new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio')));
-        $this->form->setValidator($name, new sfValidatorInteger(array('required' => false)));
-        $labelText = $this->i18n->__('Require strong passwords');
-        $this->form->getWidgetSchema()->$name->setLabel($labelText);
-
-        break;
+        // Set form decorator
+        $decorator = new QubitWidgetFormSchemaFormatterList($this->form->getWidgetSchema());
+        $this->form->getWidgetSchema()->addFormFormatter('list', $decorator);
+        $this->form->getWidgetSchema()->setFormFormatterName('list');
     }
-  }
+
+    protected function addField($name)
+    {
+        switch ($name) {
+            case 'limit_admin_ip':
+                $this->form->setWidget($name, new sfWidgetFormInput());
+                $this->form->setValidator($name, new sfValidatorString(['required' => false]));
+                $labelText = $this->i18n->__('Limit administrator functionality to one or more IP addresses, separated by semicolons.');
+                $this->form->getWidgetSchema()->{$name}->setLabel($labelText);
+
+                break;
+
+            case 'require_ssl_admin':
+                $this->form->setWidget($name, new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']));
+                $this->form->setValidator($name, new sfValidatorInteger(['required' => false]));
+                $labelText = $this->i18n->__('Require SSL for all administrator functionality');
+                $this->form->getWidgetSchema()->{$name}->setLabel($labelText);
+
+                break;
+
+            case 'require_strong_passwords':
+                $this->form->setWidget($name, new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']));
+                $this->form->setValidator($name, new sfValidatorInteger(['required' => false]));
+                $labelText = $this->i18n->__('Require strong passwords');
+                $this->form->getWidgetSchema()->{$name}->setLabel($labelText);
+
+                break;
+        }
+    }
 }

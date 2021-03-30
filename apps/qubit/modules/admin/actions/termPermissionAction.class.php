@@ -19,12 +19,11 @@
 
 class AdminTermPermissionAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->use = null;
-    if (isset($request->use))
+    public function execute($request)
     {
-      $this->use = $request->use;
+        $this->use = null;
+        if (isset($request->use)) {
+            $this->use = $request->use;
+        }
     }
-  }
 }

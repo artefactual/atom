@@ -25,25 +25,26 @@
  */
 class arMigration0130
 {
-  const
-    VERSION = 130, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 130;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    if (false === QubitPdo::fetchOne("SHOW COLUMNS IN ". QubitJob::TABLE_NAME." LIKE ?", array('download_path')))
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      // Add extra column, job.download_path, if it doesn't already exist
-      QubitMigrate::addColumn(
-        QubitJob::TABLE_NAME,
-        'download_path TEXT');
-    }
+        if (false === QubitPdo::fetchOne('SHOW COLUMNS IN '.QubitJob::TABLE_NAME.' LIKE ?', ['download_path'])) {
+            // Add extra column, job.download_path, if it doesn't already exist
+            QubitMigrate::addColumn(
+                QubitJob::TABLE_NAME,
+                'download_path TEXT'
+            );
+        }
 
-    return true;
-  }
+        return true;
+    }
 }

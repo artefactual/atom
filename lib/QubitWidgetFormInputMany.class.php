@@ -22,73 +22,67 @@
  * Because HTML doesn't support multi-value inputs natively, we are faking it
  * with a list of related inputs.
  *
- * @package    AccesstoMemory
- * @subpackage widget
  * @author     David Juhasz <david@artefactual.com>
  */
 class QubitWidgetFormInputMany extends sfWidgetFormInput
 {
-  /**
-   * @param array $options     An array of options
-   * @param array $attributes  An array of default HTML attributes
-   *
-   * @see sfWidgetFormSelect
-   */
-  protected function configure($options = array(), $attributes = array())
-  {
-    parent::configure($options, $attributes);
-    $this->addRequiredOption('defaults');
-    $this->addOption('fieldname', 'name');
-  }
-
-  /**
-   * @param  string $name        The element name
-   * @param  string $value       The value displayed in this widget
-   * @param  array  $attributes  An array of HTML attributes to be merged with the default HTML attributes
-   * @param  array  $errors      An array of errors for the field
-   *
-   * @return string An HTML tag string
-   *
-   * @see sfWidgetForm
-   */
-  public function render($name, $value = null, $attributes = array(), $errors = array())
-  {
-    $inputStr = '';
-
-    $fieldname = $this->getOption('fieldname');
-    $defaults = $this->getOption('defaults');
-    if ($defaults instanceof sfCallable)
+    /**
+     * @param string $name       The element name
+     * @param string $value      The value displayed in this widget
+     * @param array  $attributes An array of HTML attributes to be merged with the default HTML attributes
+     * @param array  $errors     An array of errors for the field
+     *
+     * @return string An HTML tag string
+     *
+     * @see sfWidgetForm
+     */
+    public function render($name, $value = null, $attributes = [], $errors = [])
     {
-      $defaults = $defaults->call();
-    }
+        $inputStr = '';
 
-    // http://trac.symfony-project.org/ticket/7208
-    $null = $this->renderTag('input', array('name' => $name, 'type' => 'hidden'));
+        $fieldname = $this->getOption('fieldname');
+        $defaults = $this->getOption('defaults');
+        if ($defaults instanceof sfCallable) {
+            $defaults = $defaults->call();
+        }
 
-    if (is_array($defaults) && 0 < count($defaults))
-    {
-      $inputStr .= '<ul class="multiInput" id="'.$name."\">\n";
-      foreach ($defaults as $key => $default)
-      {
-        $inputStr .= "\t<li>";
-        if (sfContext::getInstance()->user->getCulture() != $default->sourceCulture && 0 < strlen($source = $default->__get($fieldname, array('sourceCulture' => true))))
-        {
-          $inputStr .= <<<EOF
+        // http://trac.symfony-project.org/ticket/7208
+        $null = $this->renderTag('input', ['name' => $name, 'type' => 'hidden']);
+
+        if (is_array($defaults) && 0 < count($defaults)) {
+            $inputStr .= '<ul class="multiInput" id="'.$name."\">\n";
+            foreach ($defaults as $key => $default) {
+                $inputStr .= "\t<li>";
+                if (sfContext::getInstance()->user->getCulture() != $default->sourceCulture && 0 < strlen($source = $default->__get($fieldname, ['sourceCulture' => true]))) {
+                    $inputStr .= <<<EOF
       <div class="default-translation">
-        $source
+        {$source}
       </div>
 EOF;
+                }
+                $inputStr .= $this->renderTag('input', array_merge(['type' => $this->getOption('type'), 'name' => $name.'['.$key.']', 'value' => $default->__get($fieldname)], $attributes))."</li>\n";
+            }
+            $inputStr .= "</ul>\n";
         }
-        $inputStr .= $this->renderTag('input', array_merge(array('type' => $this->getOption('type'), 'name' => $name.'['.$key.']', 'value' => $default->__get($fieldname)), $attributes))."</li>\n";
-      }
-      $inputStr .= "</ul>\n";
+
+        $attributes['class'] = (isset($attributes['class'])) ? $attributes['class'] + ' multiInput' : 'multiInput';
+
+        // Add a new value
+        $new = $this->renderTag('input', array_merge(['name' => $name.'[new]', 'type' => $this->getOption('type')], $attributes));
+
+        return $null.$inputStr.$new;
     }
 
-    $attributes['class'] = (isset($attributes['class'])) ? $attributes['class'] + ' multiInput' : 'multiInput';
-
-    // Add a new value
-    $new = $this->renderTag('input', array_merge(array('name' => $name.'[new]', 'type' => $this->getOption('type')), $attributes));
-
-    return $null.$inputStr.$new;
-  }
+    /**
+     * @param array $options    An array of options
+     * @param array $attributes An array of default HTML attributes
+     *
+     * @see sfWidgetFormSelect
+     */
+    protected function configure($options = [], $attributes = [])
+    {
+        parent::configure($options, $attributes);
+        $this->addRequiredOption('defaults');
+        $this->addOption('fieldname', 'name');
+    }
 }

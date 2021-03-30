@@ -19,25 +19,24 @@
 
 class aclGroupListAction extends sfAction
 {
-  public function execute($request)
-  {
-    if (!isset($request->limit))
+    public function execute($request)
     {
-      $request->limit = sfConfig::get('app_hits_per_page');
+        if (!isset($request->limit)) {
+            $request->limit = sfConfig::get('app_hits_per_page');
+        }
+
+        $criteria = new Criteria();
+        $criteria->add(QubitAclGroup::ID, QubitAclGroup::ROOT_ID, Criteria::NOT_EQUAL);
+        $criteria->addAscendingOrderByColumn('name');
+
+        $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitAclGroup');
+
+        // Page results
+        $this->pager = new QubitPager('QubitAclGroup');
+        $this->pager->setCriteria($criteria);
+        $this->pager->setMaxPerPage($request->limit);
+        $this->pager->setPage($request->page);
+
+        $this->groups = $this->pager->getResults();
     }
-
-    $criteria = new Criteria;
-    $criteria->add(QubitAclGroup::ID, QubitAclGroup::ROOT_ID, Criteria::NOT_EQUAL);
-    $criteria->addAscendingOrderByColumn('name');
-
-    $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitAclGroup');
-
-    // Page results
-    $this->pager = new QubitPager('QubitAclGroup');
-    $this->pager->setCriteria($criteria);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
-
-    $this->groups = $this->pager->getResults();
-  }
 }

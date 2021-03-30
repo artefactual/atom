@@ -19,30 +19,27 @@
 
 class DeaccessionDeleteAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->form = new sfForm;
-
-    $this->resource = $this->getRoute()->resource;
-
-    // Check user authorization
-    if (!QubitAcl::check($this->resource, 'delete'))
+    public function execute($request)
     {
-      QubitAcl::forwardUnauthorized();
+        $this->form = new sfForm();
+
+        $this->resource = $this->getRoute()->resource;
+
+        // Check user authorization
+        if (!QubitAcl::check($this->resource, 'delete')) {
+            QubitAcl::forwardUnauthorized();
+        }
+
+        if ($request->isMethod('delete')) {
+            $this->form->bind($request->getPostParameters());
+
+            if ($this->form->isValid()) {
+                $accession = $this->resource->accession;
+
+                $this->resource->delete();
+
+                $this->redirect([$accession, 'module' => 'accession']);
+            }
+        }
     }
-
-    if ($request->isMethod('delete'))
-    {
-      $this->form->bind($request->getPostParameters());
-      
-      if ($this->form->isValid())
-      {
-        $accession = $this->resource->accession;
-
-        $this->resource->delete();
-
-        $this->redirect(array($accession, 'module' => 'accession'));
-      }
-    }
-  }
 }

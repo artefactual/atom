@@ -19,54 +19,54 @@
 
 /**
  * Restore i18n strings lost when XLIFF files were broken into plugin-specific
- * directories
+ * directories.
  *
- * @package    AccesstoMemory
- * @subpackage task
  * @author     David Juhasz <david@artefactual.com>
  */
 class i18nConsolidateTask extends sfBaseTask
 {
-  /**
-   * @see sfTask
-   */
-  protected function configure()
-  {
-    $this->addArguments(array(
-      new sfCommandArgument('culture', sfCommandArgument::REQUIRED, 'Message culture'),
-      new sfCommandArgument('target', sfCommandArgument::REQUIRED, 'Target directory')
-    ));
+    /**
+     * @see sfTask
+     *
+     * @param mixed $arguments
+     * @param mixed $options
+     */
+    public function execute($arguments = [], $options = [])
+    {
+        if (!file_exists($arguments['target'])) {
+            throw new sfException('Target directory "'.$arguments['target'].'" doesn\t exist');
+        }
 
-    $this->addOptions(array(
-      // http://trac.symfony-project.org/ticket/8352
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', true),
-    ));
+        $this->logSection('i18n', sprintf('Consolidating "%s" i18n messages', $arguments['culture']));
 
-    $this->namespace = 'i18n';
-    $this->name = 'consolidate';
-    $this->briefDescription = 'Combine all application messages into a single output (XLIFF)';
+        $i18n = new sfI18N($this->configuration, new sfNoCache(), ['source' => 'XLIFF', 'debug' => false]);
+        $extract = new QubitI18nConsolidatedExtract($i18n, $arguments['culture'], ['target' => $arguments['target']]);
+        $extract->extract();
+        $extract->save();
+    }
 
-    $this->detailedDescription = <<<EOF
+    /**
+     * @see sfTask
+     */
+    protected function configure()
+    {
+        $this->addArguments([
+            new sfCommandArgument('culture', sfCommandArgument::REQUIRED, 'Message culture'),
+            new sfCommandArgument('target', sfCommandArgument::REQUIRED, 'Target directory'),
+        ]);
+
+        $this->addOptions([
+            // http://trac.symfony-project.org/ticket/8352
+            new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', true),
+        ]);
+
+        $this->namespace = 'i18n';
+        $this->name = 'consolidate';
+        $this->briefDescription = 'Combine all application messages into a single output (XLIFF)';
+
+        $this->detailedDescription = <<<'EOF'
 Combine all application messages into a single output (XLIFF) file for ease of
 use by translators.
 EOF;
-  }
-
-  /**
-   * @see sfTask
-   */
-  public function execute($arguments = array(), $options = array())
-  {
-    if (!file_exists($arguments['target']))
-    {
-      throw new sfException('Target directory "'.$arguments['target'].'" doesn\t exist');
     }
-
-    $this->logSection('i18n', sprintf('Consolidating "%s" i18n messages', $arguments['culture']));
-
-    $i18n = new sfI18N($this->configuration, new sfNoCache(), array('source' => 'XLIFF', 'debug' => false));
-    $extract = new QubitI18nConsolidatedExtract($i18n, $arguments['culture'], array('target' => $arguments['target']));
-    $extract->extract();
-    $extract->save();
-  }
 }

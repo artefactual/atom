@@ -2,10 +2,10 @@
 
 <div class="text-section">
   <p>
-    Congratulations, <?php echo $sf_response->getTitle() ?> has been successfully installed.
+    Congratulations, <?php echo $sf_response->getTitle(); ?> has been successfully installed.
   </p>
   <p>
-    You may now visit <?php echo link_to('your new site', $sf_request->getRelativeUrlRoot().'/index.php') ?>.
+    You may now visit <?php echo link_to('your new site', $sf_request->getRelativeUrlRoot().'/index.php'); ?>.
   </p>
 
   <div class="messages error">

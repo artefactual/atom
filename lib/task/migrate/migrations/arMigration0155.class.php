@@ -25,34 +25,35 @@
  */
 class arMigration0155
 {
-  const
-    VERSION = 155, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 155;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    QubitMigrate::bumpTaxonomy(QubitTaxonomy::ACTOR_OCCUPATION_ID, $configuration);
-    $taxonomy = new QubitTaxonomy;
-    $taxonomy->id = QubitTaxonomy::ACTOR_OCCUPATION_ID;
-    $taxonomy->parentId = QubitTaxonomy::ROOT_ID;
-    $taxonomy->sourceCulture = 'en';
-    $taxonomy->setName('Actor occupations', array('culture' => 'en'));
-    $taxonomy->save();
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
+    {
+        QubitMigrate::bumpTaxonomy(QubitTaxonomy::ACTOR_OCCUPATION_ID, $configuration);
+        $taxonomy = new QubitTaxonomy();
+        $taxonomy->id = QubitTaxonomy::ACTOR_OCCUPATION_ID;
+        $taxonomy->parentId = QubitTaxonomy::ROOT_ID;
+        $taxonomy->sourceCulture = 'en';
+        $taxonomy->setName('Actor occupations', ['culture' => 'en']);
+        $taxonomy->save();
 
-    QubitMigrate::bumpTerm(QubitTerm::ACTOR_OCCUPATION_NOTE_ID, $configuration);
-    $term = new QubitTerm;
-    $term->id = QubitTerm::ACTOR_OCCUPATION_NOTE_ID;
-    $term->parentId = QubitTerm::ROOT_ID;
-    $term->taxonomyId = QubitTaxonomy::NOTE_TYPE_ID;
-    $term->sourceCulture = 'en';
-    $term->setName('Actor occupation note', array('culture' => 'en'));
-    $term->save();
+        QubitMigrate::bumpTerm(QubitTerm::ACTOR_OCCUPATION_NOTE_ID, $configuration);
+        $term = new QubitTerm();
+        $term->id = QubitTerm::ACTOR_OCCUPATION_NOTE_ID;
+        $term->parentId = QubitTerm::ROOT_ID;
+        $term->taxonomyId = QubitTaxonomy::NOTE_TYPE_ID;
+        $term->sourceCulture = 'en';
+        $term->setName('Actor occupation note', ['culture' => 'en']);
+        $term->save();
 
-    return true;
-  }
+        return true;
+    }
 }

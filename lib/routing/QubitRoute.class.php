@@ -19,178 +19,171 @@
 
 class QubitRoute extends sfRoute
 {
-  protected function filterParams($params)
-  {
-    // Fill in missing parameters with attributes of $params[0]
-    if (!is_array($params))
+    /**
+     * Used to correctly represent the characters * ; : @ = , in the slug part
+     * of a URI - this is the path segment.
+     * These chars are allowed in slugs when 'permissive slugs' setting is on.
+     * If 'permissive slugs' is OFF, use urlencode as normal.  This should ONLY
+     * affect the slug portion of an AtoM URI.
+     *
+     * @param mixed $string
+     */
+    public static function urlencode3986($string)
     {
-      $params = array($params);
-    }
+        if (QubitSlug::SLUG_PERMISSIVE == sfConfig::get('app_permissive_slug_creation', QubitSlug::SLUG_RESTRICTIVE)) {
+            $entities = ['%2A', '%3A', '%40', '%3D', '%2C'];
+            $replacements = ['*', ':', '@', '=', ','];
 
-    if (isset($params[0]))
-    {
-      if ($params[0] instanceof sfOutputEscaper)
-      {
-        $params[0] = sfOutputEscaper::unescape($params[0]);
-      }
-
-      foreach (array_diff_key($this->params + $this->variables, $params) as $key => $ignore)
-      {
-        try
-        {
-          $params[$key] = $params[0][$key];
+            return str_replace($entities, $replacements, urlencode($string));
         }
-        catch (sfException $e)
-        {
+
+        return urlencode($string);
+    }
+
+    /**
+     * @see sfRoute
+     *
+     * @param mixed $params
+     * @param mixed $context
+     */
+    public function matchesParameters($params, $context = [])
+    {
+        return parent::matchesParameters($this->filterParams($params), $context);
+    }
+
+    /**
+     * @see sfRoute
+     *
+     * Overridden from sfRoute to call customized generateWithTokens() below.
+     * (AtoM ticket 11761).
+     *
+     * @param mixed $params
+     * @param mixed $context
+     * @param mixed $absolute
+     */
+    public function generate($params, $context = [], $absolute = false)
+    {
+        $params = $this->filterParams($params);
+
+        if (!$this->compiled) {
+            $this->compile();
         }
-      }
 
-      unset($params[0]);
+        $url = $this->pattern;
+
+        $defaults = $this->mergeArrays($this->getDefaultParameters(), $this->defaults);
+        $tparams = $this->mergeArrays($defaults, $params);
+
+        // All params must be given.
+        if ($diff = array_diff_key($this->variables, $tparams)) {
+            throw new InvalidArgumentException(sprintf('The "%s" route has some missing mandatory parameters (%s).', $this->pattern, implode(', ', $diff)));
+        }
+
+        if ($this->options['generate_shortest_url'] || $this->customToken) {
+            $url = $this->generateWithTokens($tparams);
+        } else {
+            $variables = $this->variables;
+            uasort($variables, ['sfRoute', 'generateCompareVarsByStrlen']);
+            foreach ($variables as $variable => $value) {
+                $url = str_replace($value, urlencode($tparams[$variable]), $url);
+            }
+
+            if (!in_array($this->suffix, $this->options['segment_separators'])) {
+                $url .= $this->suffix;
+            }
+        }
+
+        $url = $this->generateStarParameter($url, $defaults, $params);
+
+        if ($this->options['extra_parameters_as_query_string'] && !$this->hasStarParameter()) {
+            if ($extra = array_diff_assoc(array_diff_key($params, $this->variables), $this->defaults)) {
+                $url .= '?'.http_build_query($extra);
+            }
+        }
+
+        return $url;
     }
 
-    return $params;
-  }
-
-  /**
-  * Used to correctly represent the characters * ; : @ = , in the slug part
-  * of a URI - this is the path segment.
-  * These chars are allowed in slugs when 'permissive slugs' setting is on.
-  * If 'permissive slugs' is OFF, use urlencode as normal.  This should ONLY
-  * affect the slug portion of an AtoM URI.
-  */
-  public static function urlencode3986($string)
-  {
-    if (QubitSlug::SLUG_PERMISSIVE == sfConfig::get('app_permissive_slug_creation', QubitSlug::SLUG_RESTRICTIVE))
+    protected function filterParams($params)
     {
-      $entities = array('%2A', '%3A', '%40', '%3D', '%2C');
-      $replacements = array('*', ':', '@', '=', ',');
-      return str_replace($entities, $replacements, urlencode($string));
+        // Fill in missing parameters with attributes of $params[0]
+        if (!is_array($params)) {
+            $params = [$params];
+        }
+
+        if (isset($params[0])) {
+            if ($params[0] instanceof sfOutputEscaper) {
+                $params[0] = sfOutputEscaper::unescape($params[0]);
+            }
+
+            foreach (array_diff_key($this->params + $this->variables, $params) as $key => $ignore) {
+                try {
+                    $params[$key] = $params[0][$key];
+                } catch (sfException $e) {
+                }
+            }
+
+            unset($params[0]);
+        }
+
+        return $params;
     }
 
-    return urlencode($string);
-  }
-
-  /**
-   * @see sfRoute
-   */
-  public function matchesParameters($params, $context = array())
-  {
-    return parent::matchesParameters($this->filterParams($params), $context);
-  }
-
-  /**
-   * @see sfRoute
-   *
-   * Overridden from sfRoute to call customized generateWithTokens() below.
-   * (AtoM ticket 11761).
-   *
-   */
-  public function generate($params, $context = array(), $absolute = false)
-  {
-    $params = $this->filterParams($params);
-
-    if (!$this->compiled)
+    /**
+     * Generates a URL for the given parameters by using the route tokens.
+     *
+     * Overridden from sfRoute to allow customization to call urlencode3986()
+     * (AtoM ticket 11761).
+     *
+     * @param array $parameters An array of parameters
+     */
+    protected function generateWithTokens($parameters)
     {
-      $this->compile();
+        $url = [];
+        $optional = $this->options['generate_shortest_url'];
+        $first = true;
+        $tokens = array_reverse($this->tokens);
+        foreach ($tokens as $token) {
+            switch ($token[0]) {
+                case 'variable':
+                    if (!$optional || !isset($this->defaults[$token[3]]) || $parameters[$token[3]] != $this->defaults[$token[3]]) {
+                        $url[] = QubitRoute::urlencode3986($parameters[$token[3]]);
+                        $optional = false;
+                    }
+
+                    break;
+
+                case 'text':
+                    $url[] = $token[2];
+                    $optional = false;
+
+                    break;
+
+                case 'separator':
+                    if (false === $optional || $first) {
+                        $url[] = $token[2];
+                    }
+
+                    break;
+
+                default:
+                    // Handle custom tokens.
+                    if ($segment = call_user_func_array([$this, 'generateFor'.ucfirst(array_shift($token))], array_merge([$optional, $parameters], $token))) {
+                        $url[] = $segment;
+                        $optional = false;
+                    }
+
+                    break;
+            }
+
+            $first = false;
+        }
+
+        $url = implode('', array_reverse($url));
+        if (!$url) {
+            $url = '/';
+        }
+
+        return $url;
     }
-
-    $url = $this->pattern;
-
-    $defaults = $this->mergeArrays($this->getDefaultParameters(), $this->defaults);
-    $tparams = $this->mergeArrays($defaults, $params);
-
-    // All params must be given.
-    if ($diff = array_diff_key($this->variables, $tparams))
-    {
-      throw new InvalidArgumentException(sprintf('The "%s" route has some missing mandatory parameters (%s).', $this->pattern, implode(', ', $diff)));
-    }
-
-    if ($this->options['generate_shortest_url'] || $this->customToken)
-    {
-      $url = $this->generateWithTokens($tparams);
-    }
-    else
-    {
-      $variables = $this->variables;
-      uasort($variables, array('sfRoute', 'generateCompareVarsByStrlen'));
-      foreach ($variables as $variable => $value)
-      {
-        $url = str_replace($value, urlencode($tparams[$variable]), $url);
-      }
-
-      if(!in_array($this->suffix, $this->options['segment_separators']))
-      {
-        $url .= $this->suffix;
-      }
-    }
-
-    $url = $this->generateStarParameter($url, $defaults, $params);
-
-    if ($this->options['extra_parameters_as_query_string'] && !$this->hasStarParameter())
-    {
-      if ($extra = array_diff_assoc(array_diff_key($params, $this->variables), $this->defaults))
-      {
-        $url .= '?'.http_build_query($extra);
-      }
-    }
-
-    return $url;
-  }
-
-  /**
-   * Generates a URL for the given parameters by using the route tokens.
-   *
-   * Overridden from sfRoute to allow customization to call urlencode3986()
-   * (AtoM ticket 11761).
-   *
-   * @param array $parameters An array of parameters
-   */
-  protected function generateWithTokens($parameters)
-  {
-    $url = array();
-    $optional = $this->options['generate_shortest_url'];
-    $first = true;
-    $tokens = array_reverse($this->tokens);
-    foreach ($tokens as $token)
-    {
-      switch ($token[0])
-      {
-        case 'variable':
-          if (!$optional || !isset($this->defaults[$token[3]]) || $parameters[$token[3]] != $this->defaults[$token[3]])
-          {
-            $url[] = QubitRoute::urlencode3986($parameters[$token[3]]);
-            $optional = false;
-          }
-          break;
-        case 'text':
-          $url[] = $token[2];
-          $optional = false;
-          break;
-        case 'separator':
-          if (false === $optional || $first)
-          {
-            $url[] = $token[2];
-          }
-          break;
-        default:
-          // Handle custom tokens.
-          if ($segment = call_user_func_array(array($this, 'generateFor'.ucfirst(array_shift($token))), array_merge(array($optional, $parameters), $token)))
-          {
-            $url[] = $segment;
-            $optional = false;
-          }
-          break;
-      }
-
-      $first = false;
-    }
-
-    $url = implode('', array_reverse($url));
-    if (!$url)
-    {
-      $url = '/';
-    }
-
-    return $url;
-  }
 }

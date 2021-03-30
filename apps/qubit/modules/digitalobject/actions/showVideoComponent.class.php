@@ -18,59 +18,51 @@
  */
 
 /**
- * Digital Object video display component
+ * Digital Object video display component.
  *
- * @package    AccesstoMemory
- * @subpackage digitalObject
  * @author     David Juhasz <david@artefactual.com>
  */
 class DigitalObjectShowVideoComponent extends sfComponent
 {
-  /**
-   * Show a representation of a digital object image.
-   *
-   * @param sfWebRequest $request
-   *
-   */
-  public function execute($request)
-  {
-    // Get representation by usage type
-    $this->representation = $this->resource->getRepresentationByUsage($this->usageType);
-
-    // If we can't find a representation for this object, try their parent
-    if (!$this->representation && ($parent = $this->resource->parent))
+    /**
+     * Show a representation of a digital object image.
+     *
+     * @param sfWebRequest $request
+     */
+    public function execute($request)
     {
-      $this->representation = $parent->getRepresentationByUsage($this->usageType);
+        // Get representation by usage type
+        $this->representation = $this->resource->getRepresentationByUsage($this->usageType);
+
+        // If we can't find a representation for this object, try their parent
+        if (!$this->representation && ($parent = $this->resource->parent)) {
+            $this->representation = $parent->getRepresentationByUsage($this->usageType);
+        }
+
+        // Set up display of video in mediaelement
+        if ($this->representation) {
+            $this->response->addJavaScript('/vendor/mediaelement/mediaelement-and-player.min.js', 'last');
+            $this->response->addJavaScript('mediaelement', 'last');
+            $this->response->addStyleSheet('/vendor/mediaelement/mediaelementplayer.min.css');
+
+            // If this is a reference movie, get the thumbnail representation for the
+            // place holder image
+            $this->showMediaPlayer = true;
+            if (QubitTerm::REFERENCE_ID == $this->usageType) {
+                $this->thumbnail = $this->resource->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID);
+            }
+
+            list($this->width, $this->height) = QubitDigitalObject::getImageMaxDimensions($this->usageType);
+
+            // For javascript_tag()
+            if (QubitTerm::CHAPTERS_ID != $this->usageType && QubitTerm::SUBTITLES_ID != $this->usageType) {
+                $this->representationFullPath = public_path($this->representation->getFullPath());
+            }
+        }
+        // If representation is not a valid digital object, return a generic icon
+        else {
+            $this->showMediaPlayer = false;
+            $this->representation = QubitDigitalObject::getGenericRepresentation($this->resource->mimeType, $this->usageType);
+        }
     }
-
-    // Set up display of video in mediaelement
-    if ($this->representation)
-    {
-      $this->response->addJavaScript('/vendor/mediaelement/mediaelement-and-player.min.js', 'last');
-      $this->response->addJavaScript('mediaelement', 'last');
-      $this->response->addStyleSheet('/vendor/mediaelement/mediaelementplayer.min.css');
-
-      // If this is a reference movie, get the thumbnail representation for the
-      // place holder image
-      $this->showMediaPlayer = true;
-      if (QubitTerm::REFERENCE_ID == $this->usageType)
-      {
-        $this->thumbnail = $this->resource->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID);
-      }
-
-      list($this->width, $this->height) = QubitDigitalObject::getImageMaxDimensions($this->usageType);
-
-      // For javascript_tag()
-      if (QubitTerm::CHAPTERS_ID != $this->usageType && QubitTerm::SUBTITLES_ID != $this->usageType)
-      {
-        $this->representationFullPath = public_path($this->representation->getFullPath());
-      }
-    }
-    // If representation is not a valid digital object, return a generic icon
-    else
-    {
-      $this->showMediaPlayer = false;
-      $this->representation = QubitDigitalObject::getGenericRepresentation($this->resource->mimeType, $this->usageType);
-    }
-  }
 }

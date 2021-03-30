@@ -19,69 +19,59 @@
 
 class AclGroupIndexTermAclAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->group = QubitAclGroup::getById($this->request->id);
-    $this->forward404Unless($this->group);
-
-    $this->groups = array();
-    foreach ($this->group->getAncestorsAndSelfForAcl() as $group)
+    public function execute($request)
     {
-      if (QubitAclGroup::ROOT_ID < $group->id)
-      {
-        $this->groups[] = $group->id;
-      }
-    }
+        $this->group = QubitAclGroup::getById($this->request->id);
+        $this->forward404Unless($this->group);
 
-    // Table width
-    $this->tableCols = count($this->groups) + 3;
-
-    // Get access control permissions
-    $criteria = new Criteria;
-    if (1 == count($this->groups))
-    {
-      $criteria->add(QubitAclPermission::GROUP_ID, $this->groups[0]);
-    }
-    else
-    {
-      $criteria->add(QubitAclPermission::GROUP_ID, $this->groups, Criteria::IN);
-    }
-
-    // Add term criteria
-    $criteria->addJoin(QubitAclPermission::OBJECT_ID, QubitObject::ID, Criteria::LEFT_JOIN);
-    $c1 = $criteria->getNewCriterion(QubitObject::CLASS_NAME, 'QubitTerm');
-    $c2 = $criteria->getNewCriterion(QubitAclPermission::OBJECT_ID, null, Criteria::ISNULL);
-    $c3 = $criteria->getNewCriterion(QubitAclPermission::ACTION, 'createTerm');
-    $c1->addOr($c2);
-    $c1->addOr($c3);
-    $criteria->add($c1);
-
-    // Sort
-    $criteria->addAscendingOrderByColumn(QubitAclPermission::CONSTANTS);
-    $criteria->addAscendingOrderByColumn(QubitAclPermission::OBJECT_ID);
-    $criteria->addAscendingOrderByColumn(QubitAclPermission::GROUP_ID);
-
-    // Build ACL
-    $this->acl = array();
-    if (0 < count($permissions = QubitAclPermission::get($criteria)))
-    {
-      foreach ($permissions as $permission)
-      {
-        if ('createTerm' != $permission->action)
-        {
-          $taxonomy = $permission->getConstants(array('name' => 'taxonomy'));
-          $action = $permission->action;
-        }
-        else
-        {
-          // In this context permissions for all objects (null) and root object
-          // are equivalent
-          $taxonomy = (QubitTaxonomy::ROOT_ID != $permission->objectId) ? $permission->objectId : null;
-          $action = 'create';
+        $this->groups = [];
+        foreach ($this->group->getAncestorsAndSelfForAcl() as $group) {
+            if (QubitAclGroup::ROOT_ID < $group->id) {
+                $this->groups[] = $group->id;
+            }
         }
 
-        $this->acl[$taxonomy][$action][$permission->groupId] = $permission;
-      }
+        // Table width
+        $this->tableCols = count($this->groups) + 3;
+
+        // Get access control permissions
+        $criteria = new Criteria();
+        if (1 == count($this->groups)) {
+            $criteria->add(QubitAclPermission::GROUP_ID, $this->groups[0]);
+        } else {
+            $criteria->add(QubitAclPermission::GROUP_ID, $this->groups, Criteria::IN);
+        }
+
+        // Add term criteria
+        $criteria->addJoin(QubitAclPermission::OBJECT_ID, QubitObject::ID, Criteria::LEFT_JOIN);
+        $c1 = $criteria->getNewCriterion(QubitObject::CLASS_NAME, 'QubitTerm');
+        $c2 = $criteria->getNewCriterion(QubitAclPermission::OBJECT_ID, null, Criteria::ISNULL);
+        $c3 = $criteria->getNewCriterion(QubitAclPermission::ACTION, 'createTerm');
+        $c1->addOr($c2);
+        $c1->addOr($c3);
+        $criteria->add($c1);
+
+        // Sort
+        $criteria->addAscendingOrderByColumn(QubitAclPermission::CONSTANTS);
+        $criteria->addAscendingOrderByColumn(QubitAclPermission::OBJECT_ID);
+        $criteria->addAscendingOrderByColumn(QubitAclPermission::GROUP_ID);
+
+        // Build ACL
+        $this->acl = [];
+        if (0 < count($permissions = QubitAclPermission::get($criteria))) {
+            foreach ($permissions as $permission) {
+                if ('createTerm' != $permission->action) {
+                    $taxonomy = $permission->getConstants(['name' => 'taxonomy']);
+                    $action = $permission->action;
+                } else {
+                    // In this context permissions for all objects (null) and root object
+                    // are equivalent
+                    $taxonomy = (QubitTaxonomy::ROOT_ID != $permission->objectId) ? $permission->objectId : null;
+                    $action = 'create';
+                }
+
+                $this->acl[$taxonomy][$action][$permission->groupId] = $permission;
+            }
+        }
     }
-  }
 }

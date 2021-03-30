@@ -21,13 +21,13 @@ namespace AccessToMemory\test\mock;
 
 class QubitKeymap
 {
-  public $sourceName;
-  public $sourceId;
-  public $targetId;
-  public $targetName;
+    public $sourceName;
+    public $sourceId;
+    public $targetId;
+    public $targetName;
 
-  public function save($dbcon = null)
-  {
-    return \QubitQuery::create();
-  }
+    public function save($dbcon = null)
+    {
+        return \QubitQuery::create();
+    }
 }

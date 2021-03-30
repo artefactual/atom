@@ -18,131 +18,119 @@
  */
 
 /**
- * Actor - editIsaar
+ * Actor - editIsaar.
  *
- * @package    AccesstoMemory
- * @subpackage Actor - initialize an editISAAR template for updating an actor
  * @author     Peter Van Garderen <peter@artefactual.com>
  */
 class sfIsaarPluginEditAction extends ActorEditAction
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'authorizedFormOfName',
-      'corporateBodyIdentifiers',
-      'datesOfExistence',
-      'descriptionDetail',
-      'descriptionIdentifier',
-      'descriptionStatus',
-      'entityType',
-      'functions',
-      'generalContext',
-      'history',
-      'institutionResponsibleIdentifier',
-      'internalStructures',
-      'language',
-      'legalStatus',
-      'maintainingRepository',
-      'maintenanceNotes',
-      'mandates',
-      'otherName',
-      'parallelName',
-      'places',
-      'placeAccessPoints',
-      'revisionHistory',
-      'rules',
-      'script',
-      'sources',
-      'standardizedName',
-      'subjectAccessPoints');
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'authorizedFormOfName',
+        'corporateBodyIdentifiers',
+        'datesOfExistence',
+        'descriptionDetail',
+        'descriptionIdentifier',
+        'descriptionStatus',
+        'entityType',
+        'functions',
+        'generalContext',
+        'history',
+        'institutionResponsibleIdentifier',
+        'internalStructures',
+        'language',
+        'legalStatus',
+        'maintainingRepository',
+        'maintenanceNotes',
+        'mandates',
+        'otherName',
+        'parallelName',
+        'places',
+        'placeAccessPoints',
+        'revisionHistory',
+        'rules',
+        'script',
+        'sources',
+        'standardizedName',
+        'subjectAccessPoints',
+    ];
 
-  protected function earlyExecute()
-  {
-    parent::earlyExecute();
-
-    $this->isaar = new sfIsaarPlugin($this->resource);
-
-    $title = $this->context->i18n->__('Add new authority record');
-    if (isset($this->getRoute()->resource))
+    protected function earlyExecute()
     {
-      if (1 > strlen($title = $this->resource))
-      {
-        $title = $this->context->i18n->__('Untitled');
-      }
+        parent::earlyExecute();
 
-      $title = $this->context->i18n->__('Edit %1%', array('%1%' => $title));
-    }
+        $this->isaar = new sfIsaarPlugin($this->resource);
 
-    $this->response->setTitle("$title - {$this->response->getTitle()}");
+        $title = $this->context->i18n->__('Add new authority record');
+        if (isset($this->getRoute()->resource)) {
+            if (1 > strlen($title = $this->resource)) {
+                $title = $this->context->i18n->__('Untitled');
+            }
 
-    $this->eventComponent = new sfIsaarPluginEventComponent($this->context, 'sfIsaarPlugin', 'event');
-    $this->eventComponent->resource = $this->resource;
-    $this->eventComponent->execute($this->request);
-
-    $this->relatedAuthorityRecordComponent = new sfIsaarPluginRelatedAuthorityRecordComponent($this->context, 'sfIsaarPlugin', 'relatedAuthorityRecord');
-    $this->relatedAuthorityRecordComponent->resource = $this->resource;
-    $this->relatedAuthorityRecordComponent->execute($this->request);
-
-    $this->occupationsComponent = new ActorOccupationsComponent($this->context, 'actor', 'occupations');
-    $this->occupationsComponent->resource = $this->resource;
-    $this->occupationsComponent->execute($this->request);
-  }
-
-  protected function addField($name)
-  {
-    switch ($name)
-    {
-      case 'maintenanceNotes':
-        $this->form->setDefault('maintenanceNotes', $this->isaar->maintenanceNotes);
-        $this->form->setValidator('maintenanceNotes', new sfValidatorString);
-        $this->form->setWidget('maintenanceNotes', new sfWidgetFormTextarea);
-
-        break;
-
-      case 'descriptionIdentifier':
-
-        if (sfConfig::get('app_prevent_duplicate_actor_identifiers', false))
-        {
-          $this->form->setDefault($name, $this->resource[$name]);
-          $identifierValidator = new QubitValidatorActorDescriptionIdentifier(array('resource' => $this->resource));
-          $this->form->setValidator($name, $identifierValidator);
-          $this->form->setWidget($name, new sfWidgetFormInput);
-        }
-        else
-        {
-          return parent::addField($name);
+            $title = $this->context->i18n->__('Edit %1%', ['%1%' => $title]);
         }
 
-        break;
+        $this->response->setTitle("{$title} - {$this->response->getTitle()}");
 
-      default:
+        $this->eventComponent = new sfIsaarPluginEventComponent($this->context, 'sfIsaarPlugin', 'event');
+        $this->eventComponent->resource = $this->resource;
+        $this->eventComponent->execute($this->request);
 
-        return parent::addField($name);
+        $this->relatedAuthorityRecordComponent = new sfIsaarPluginRelatedAuthorityRecordComponent($this->context, 'sfIsaarPlugin', 'relatedAuthorityRecord');
+        $this->relatedAuthorityRecordComponent->resource = $this->resource;
+        $this->relatedAuthorityRecordComponent->execute($this->request);
+
+        $this->occupationsComponent = new ActorOccupationsComponent($this->context, 'actor', 'occupations');
+        $this->occupationsComponent->resource = $this->resource;
+        $this->occupationsComponent->execute($this->request);
     }
-  }
 
-  protected function processField($field)
-  {
-    switch ($field->getName())
+    protected function addField($name)
     {
-      case 'maintenanceNotes':
-        $this->isaar->maintenanceNotes = $this->form->getValue('maintenanceNotes');
+        switch ($name) {
+            case 'maintenanceNotes':
+                $this->form->setDefault('maintenanceNotes', $this->isaar->maintenanceNotes);
+                $this->form->setValidator('maintenanceNotes', new sfValidatorString());
+                $this->form->setWidget('maintenanceNotes', new sfWidgetFormTextarea());
 
-        break;
+                break;
 
-      default:
+            case 'descriptionIdentifier':
+                if (sfConfig::get('app_prevent_duplicate_actor_identifiers', false)) {
+                    $this->form->setDefault($name, $this->resource[$name]);
+                    $identifierValidator = new QubitValidatorActorDescriptionIdentifier(['resource' => $this->resource]);
+                    $this->form->setValidator($name, $identifierValidator);
+                    $this->form->setWidget($name, new sfWidgetFormInput());
+                } else {
+                    return parent::addField($name);
+                }
 
-        return parent::processField($field);
+                break;
+
+            default:
+                return parent::addField($name);
+        }
     }
-  }
 
-  protected function processForm()
-  {
-    $this->eventComponent->processForm();
-    $this->relatedAuthorityRecordComponent->processForm();
-    $this->occupationsComponent->processForm();
+    protected function processField($field)
+    {
+        switch ($field->getName()) {
+            case 'maintenanceNotes':
+                $this->isaar->maintenanceNotes = $this->form->getValue('maintenanceNotes');
 
-    return parent::processForm();
-  }
+                break;
+
+            default:
+                return parent::processField($field);
+        }
+    }
+
+    protected function processForm()
+    {
+        $this->eventComponent->processForm();
+        $this->relatedAuthorityRecordComponent->processForm();
+        $this->occupationsComponent->processForm();
+
+        return parent::processForm();
+    }
 }

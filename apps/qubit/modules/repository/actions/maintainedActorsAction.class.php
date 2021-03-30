@@ -19,72 +19,69 @@
 
 class RepositoryMaintainedActorsAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
-
-    if ((empty($request->repositoryId) || !ctype_digit($request->repositoryId))
-      || (empty($request->page) || !ctype_digit($request->page)))
+    public function execute($request)
     {
-      $this->forward404();
+        $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
+
+        if (
+            (empty($request->repositoryId) || !ctype_digit($request->repositoryId))
+            || (empty($request->page) || !ctype_digit($request->page))
+        ) {
+            $this->forward404();
+        }
+
+        $limit = sfConfig::get('app_hits_per_page', 10);
+        $culture = $this->context->user->getCulture();
+
+        // Avoid pagination over ES' max result window config (default: 10000)
+        $maxResultWindow = arElasticSearchPluginConfiguration::getMaxResultWindow();
+
+        if ((int) $limit * (int) $request->page > $maxResultWindow) {
+            // Return nothing to not break the list
+            return;
+        }
+
+        $resultSet = self::getActors($request->repositoryId, $request->page, $limit);
+
+        $pager = new QubitSearchPager($resultSet);
+        $pager->setMaxPerPage($limit);
+        $pager->setPage($request->page);
+        $pager->init();
+
+        sfContext::getInstance()->getConfiguration()->loadHelpers(['Qubit', 'Url']);
+
+        $results = [];
+        foreach ($pager->getResults() as $item) {
+            $doc = $item->getData();
+            $results[] = [
+                'url' => url_for(['module' => 'actor', 'slug' => $doc['slug']]),
+                'title' => render_value_inline(get_search_i18n($doc, 'authorizedFormOfName', ['allowEmpty' => false, 'culture' => $culture, 'cultureFallback' => true])),
+            ];
+        }
+
+        $data = [
+            'results' => $results,
+            'start' => $pager->getFirstIndice(),
+            'end' => $pager->getLastIndice(),
+            'currentPage' => $pager->getPage(),
+            'lastPage' => $pager->getLastPage(),
+        ];
+
+        return $this->renderText(json_encode($data));
     }
 
-    $limit = sfConfig::get('app_hits_per_page', 10);
-    $culture = $this->context->user->getCulture();
-
-    // Avoid pagination over ES' max result window config (default: 10000)
-    $maxResultWindow = arElasticSearchPluginConfiguration::getMaxResultWindow();
-    
-    if ((int)$limit * (int)$request->page > $maxResultWindow)
+    public static function getActors($repositoryId, $page, $limit)
     {
-      // Return nothing to not break the list
-      return;
+        $query = new \Elastica\Query();
+        $queryTerm = new \Elastica\Query\Term(['maintainingRepositoryId' => $repositoryId]);
+        $query->setQuery($queryTerm);
+
+        $query->setSize($limit);
+        $query->setFrom($limit * ($page - 1));
+
+        $field = sprintf('i18n.%s.authorizedFormOfName.alphasort', sfContext::getInstance()->user->getCulture());
+        $query->setSort([$field => 'asc']);
+
+        return QubitSearch::getInstance()->index->getType('QubitActor')->search($query);
     }
-
-    $resultSet = self::getActors($request->repositoryId, $request->page, $limit);
-
-    $pager = new QubitSearchPager($resultSet);
-    $pager->setMaxPerPage($limit);
-    $pager->setPage($request->page);
-    $pager->init();
-
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Qubit', 'Url'));
-
-    $results = array();
-    foreach ($pager->getResults() as $item)
-    {
-      $doc = $item->getData();
-      $results[] = array(
-        'url' => url_for(array('module' => 'actor', 'slug' => $doc['slug'])),
-        'title' => render_value_inline(get_search_i18n($doc, 'authorizedFormOfName', array('allowEmpty' => false, 'culture' => $culture, 'cultureFallback' => true)))
-      );
-    }
-
-    $data = array(
-      'results'     => $results,
-      'start'       => $pager->getFirstIndice(),
-      'end'         => $pager->getLastIndice(),
-      'currentPage' => $pager->getPage(),
-      'lastPage'    => $pager->getLastPage()
-    );
-
-    return $this->renderText(json_encode($data));
-  }
-
-  public static function getActors($repositoryId, $page, $limit)
-  {
-    $query = new \Elastica\Query;
-    $queryTerm = new \Elastica\Query\Term(array('maintainingRepositoryId' => $repositoryId));
-    $query->setQuery($queryTerm);
-
-    $query->setSize($limit);
-    $query->setFrom($limit * ($page - 1));
-
-    $field = sprintf('i18n.%s.authorizedFormOfName.alphasort', sfContext::getInstance()->user->getCulture());
-    $query->setSort(array($field => 'asc'));
-
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($query);
-
-    return $resultSet;
-  }
 }

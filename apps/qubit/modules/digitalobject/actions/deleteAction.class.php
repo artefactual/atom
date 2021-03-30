@@ -18,73 +18,57 @@
  */
 
 /**
- * Digital Object deletion
+ * Digital Object deletion.
  *
- * @package    AccesstoMemory
- * @subpackage digitalObject
  * @author     David Juhasz <david@artefactual.com>
  */
 class DigitalObjectDeleteAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->form = new sfForm();
-
-    $this->resource = $this->getRoute()->resource;
-
-    // Get related object by first grabbing top-level digital object
-    $parent = $this->resource->parent;
-    if (isset($parent))
+    public function execute($request)
     {
-      $this->object = $parent->object;
-    }
-    else
-    {
-      $this->object = $this->resource->object;
-      if (!isset($this->object))
-      {
-        $this->forward404();
-      }
-    }
+        $this->form = new sfForm();
 
-    // Check user authorization
-    if (!QubitAcl::check($this->object, 'delete'))
-    {
-      QubitAcl::forwardUnauthorized();
-    }
+        $this->resource = $this->getRoute()->resource;
 
-    if ($request->isMethod('delete'))
-    {
-      $this->form->bind($request->getPostParameters());
-      
-      if ($this->form->isValid())
-      {
-        // Delete the digital object record from the database
-        $this->resource->delete();
-        QubitSearch::getInstance()->update($this->object);
-
-        if ($this->object instanceOf QubitInformationObject)
-        {
-          $this->object->updateXmlExports();
+        // Get related object by first grabbing top-level digital object
+        $parent = $this->resource->parent;
+        if (isset($parent)) {
+            $this->object = $parent->object;
+        } else {
+            $this->object = $this->resource->object;
+            if (!isset($this->object)) {
+                $this->forward404();
+            }
         }
 
-        // Redirect to edit page for parent Object
-        if (isset($parent))
-        {
-          $this->redirect(array($parent, 'module' => 'digitalobject', 'action' => 'edit'));
+        // Check user authorization
+        if (!QubitAcl::check($this->object, 'delete')) {
+            QubitAcl::forwardUnauthorized();
         }
-        else
-        {
-          if ($this->object instanceOf QubitInformationObject)
-          {
-            $this->redirect(array($this->object, 'module' => 'informationobject'));
-          }
-          else if ($this->object instanceOf QubitActor)
-          {
-            $this->redirect(array($this->object, 'module' => 'actor'));
-          }
+
+        if ($request->isMethod('delete')) {
+            $this->form->bind($request->getPostParameters());
+
+            if ($this->form->isValid()) {
+                // Delete the digital object record from the database
+                $this->resource->delete();
+                QubitSearch::getInstance()->update($this->object);
+
+                if ($this->object instanceof QubitInformationObject) {
+                    $this->object->updateXmlExports();
+                }
+
+                // Redirect to edit page for parent Object
+                if (isset($parent)) {
+                    $this->redirect([$parent, 'module' => 'digitalobject', 'action' => 'edit']);
+                } else {
+                    if ($this->object instanceof QubitInformationObject) {
+                        $this->redirect([$this->object, 'module' => 'informationobject']);
+                    } elseif ($this->object instanceof QubitActor) {
+                        $this->redirect([$this->object, 'module' => 'actor']);
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }

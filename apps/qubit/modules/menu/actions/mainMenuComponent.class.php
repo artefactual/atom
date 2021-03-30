@@ -21,46 +21,42 @@
  * Build main user navigation menu as simple xhtml lists, relying on css styling to
  * format the display of the menus.
  *
- * @package    AccesstoMemory
- * @subpackage menu
  * @author     David Juhasz <david@artefactual.com>
  */
 class MenuMainMenuComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    if (!$this->context->user->isAuthenticated())
+    public function execute($request)
     {
-      return sfView::NONE;
+        if (!$this->context->user->isAuthenticated()) {
+            return sfView::NONE;
+        }
+
+        // Only include menu for adding content if user is in an appropriate group
+        // or has create permission for a relevant content type
+        $this->addMenu = false;
+
+        // Specify what groups can add content
+        $groupsAllowedToAddContent = [
+            QubitAclGroup::CONTRIBUTOR_ID,
+            QubitAclGroup::EDITOR_ID,
+            QubitAclGroup::ADMINISTRATOR_ID,
+        ];
+
+        // Add, if applicable, menu for adding content
+        if ($this->context->user->hasGroup($groupsAllowedToAddContent) || $this->userCanCreate()) {
+            $this->addMenu = QubitMenu::getById(QubitMenu::ADD_EDIT_ID);
+        }
+
+        $this->manageMenu = QubitMenu::getById(QubitMenu::MANAGE_ID);
+        $this->importMenu = QubitMenu::getById(QubitMenu::IMPORT_ID);
+        $this->adminMenu = QubitMenu::getById(QubitMenu::ADMIN_ID);
     }
 
-    // Only include menu for adding content if user is in an appropriate group
-    // or has create permission for a relevant content type
-    $this->addMenu = false;
-
-    // Specify what groups can add content
-    $groupsAllowedToAddContent = array(
-      QubitAclGroup::CONTRIBUTOR_ID,
-      QubitAclGroup::EDITOR_ID,
-      QubitAclGroup::ADMINISTRATOR_ID
-    );
-
-    // Add, if applicable, menu for adding content
-    if ($this->context->user->hasGroup($groupsAllowedToAddContent) || $this->userCanCreate())
+    private function userCanCreate()
     {
-      $this->addMenu = QubitMenu::getById(QubitMenu::ADD_EDIT_ID);
+        return QubitAcl::check(QubitInformationObject::getById(QubitInformationObject::ROOT_ID), 'create')
+            || QubitAcl::check(QubitActor::getById(QubitActor::ROOT_ID), 'create')
+            || QubitAcl::check(QubitRepository::getById(QubitRepository::ROOT_ID), 'create')
+            || QubitAcl::check(QubitTerm::getById(QubitTerm::ROOT_ID), 'create');
     }
-
-    $this->manageMenu = QubitMenu::getById(QubitMenu::MANAGE_ID);
-    $this->importMenu = QubitMenu::getById(QubitMenu::IMPORT_ID);
-    $this->adminMenu = QubitMenu::getById(QubitMenu::ADMIN_ID);
-  }
-
-  private function userCanCreate()
-  {
-    return QubitAcl::check(QubitInformationObject::getById(QubitInformationObject::ROOT_ID), 'create')
-           || QubitAcl::check(QubitActor::getById(QubitActor::ROOT_ID), 'create')
-           || QubitAcl::check(QubitRepository::getById(QubitRepository::ROOT_ID), 'create')
-           || QubitAcl::check(QubitTerm::getById(QubitTerm::ROOT_ID), 'create');
-  }
 }

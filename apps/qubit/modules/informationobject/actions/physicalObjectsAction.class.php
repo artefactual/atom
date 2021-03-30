@@ -19,37 +19,34 @@
 
 class InformationObjectPhysicalObjectsAction extends sfAction
 {
-  public function execute($request)
-  {
-    if (!isset($request->limit))
+    public function execute($request)
     {
-      $request->limit = sfConfig::get('app_hits_per_page');
+        if (!isset($request->limit)) {
+            $request->limit = sfConfig::get('app_hits_per_page');
+        }
+
+        $this->resource = $this->getRoute()->resource;
+
+        // Check that this isn't the root
+        if (!isset($this->resource->parent)) {
+            $this->forward404();
+        }
+
+        // Check user authorization
+        if (!QubitAcl::check($this->resource, 'update')) {
+            QubitAcl::forwardUnauthorized();
+        }
+
+        $criteria = new Criteria();
+        $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
+        $criteria->add(QubitRelation::TYPE_ID, QubitTerm::HAS_PHYSICAL_OBJECT_ID);
+        $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitPhysicalObject::ID);
+
+        $this->pager = new QubitPager('QubitPhysicalObject');
+        $this->pager->setCriteria($criteria);
+        $this->pager->setMaxPerPage($request->limit);
+        $this->pager->setPage($request->page);
+
+        $this->physicalObjects = $this->pager->getResults();
     }
-
-    $this->resource = $this->getRoute()->resource;
-
-    // Check that this isn't the root
-    if (!isset($this->resource->parent))
-    {
-      $this->forward404();
-    }
-
-    // Check user authorization
-    if (!QubitAcl::check($this->resource, 'update'))
-    {
-      QubitAcl::forwardUnauthorized();
-    }
-
-    $criteria = new Criteria;
-    $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
-    $criteria->add(QubitRelation::TYPE_ID, QubitTerm::HAS_PHYSICAL_OBJECT_ID);
-    $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitPhysicalObject::ID);
-
-    $this->pager = new QubitPager('QubitPhysicalObject');
-    $this->pager->setCriteria($criteria);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
-
-    $this->physicalObjects = $this->pager->getResults();
-  }
 }

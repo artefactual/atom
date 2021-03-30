@@ -1,43 +1,43 @@
-<?php echo '<?xml version="1.0" encoding="'.sfConfig::get('sf_charset', 'UTF-8')."\" ?>\n" ?>
+<?php echo '<?xml version="1.0" encoding="'.sfConfig::get('sf_charset', 'UTF-8')."\" ?>\n"; ?>
 <eac-cpf xmlns="urn:isbn:1-931666-33-4" xmlns:xlink="http://www.w3.org/1999/xlink">
 
   <control>
-    <?php if (!empty($resource->descriptionIdentifier)): ?>
-      <recordId><?php echo esc_specialchars($resource->descriptionIdentifier) ?></recordId>
-    <?php endif; ?>
+    <?php if (!empty($resource->descriptionIdentifier)) { ?>
+      <recordId><?php echo esc_specialchars($resource->descriptionIdentifier); ?></recordId>
+    <?php } ?>
 
-    <?php if (!empty($eac->maintenanceStatus)): ?>
-      <maintenanceStatus><?php echo $eac->maintenanceStatus ?></maintenanceStatus>
-    <?php endif; ?>
+    <?php if (!empty($eac->maintenanceStatus)) { ?>
+      <maintenanceStatus><?php echo $eac->maintenanceStatus; ?></maintenanceStatus>
+    <?php } ?>
 
-    <?php if (!empty($eac->publicationStatus)): ?>
-      <publicationStatus><?php echo $eac->publicationStatus ?></publicationStatus>
-    <?php endif; ?>
+    <?php if (!empty($eac->publicationStatus)) { ?>
+      <publicationStatus><?php echo $eac->publicationStatus; ?></publicationStatus>
+    <?php } ?>
 
-    <?php if (!empty($resource->institutionResponsibleIdentifier)): ?>
+    <?php if (!empty($resource->institutionResponsibleIdentifier)) { ?>
       <maintenanceAgency>
-        <agencyName><?php echo esc_specialchars($resource->institutionResponsibleIdentifier) ?></agencyName>
+        <agencyName><?php echo esc_specialchars($resource->institutionResponsibleIdentifier); ?></agencyName>
       </maintenanceAgency>
-    <?php endif; ?>
+    <?php } ?>
 
-    <?php if ($resource->language || $resource->script): ?>
+    <?php if ($resource->language || $resource->script) { ?>
       <languageDeclaration>
-        <?php foreach ($resource->language as $code): ?>
-          <language languageCode="<?php echo sfEacPlugin::to6392($code) ?>"><?php echo format_language($code) ?></language>
-        <?php endforeach; ?>
+        <?php foreach ($resource->language as $code) { ?>
+          <language languageCode="<?php echo sfEacPlugin::to6392($code); ?>"><?php echo format_language($code); ?></language>
+        <?php } ?>
 
-        <?php foreach ($resource->script as $code): ?>
-          <script scriptCode="<?php echo $code ?>"><?php echo format_script($code) ?></script>
-        <?php endforeach; ?>
+        <?php foreach ($resource->script as $code) { ?>
+          <script scriptCode="<?php echo $code; ?>"><?php echo format_script($code); ?></script>
+        <?php } ?>
       </languageDeclaration>
-    <?php endif; ?>
+    <?php } ?>
 
     <conventionDeclaration>
       <abbreviation>conventionDeclaration</abbreviation>
 
-      <?php if (!empty($resource->rules)): ?>
-        <citation><?php echo esc_specialchars($resource->rules) ?></citation>
-      <?php endif; ?>
+      <?php if (!empty($resource->rules)) { ?>
+        <citation><?php echo esc_specialchars($resource->rules); ?></citation>
+      <?php } ?>
     </conventionDeclaration>
 
     <localTypeDeclaration>
@@ -45,215 +45,213 @@
       <citation>http://ica-atom.org/doc/RS-2#5.4</citation>
     </localTypeDeclaration>
 
-    <?php if(!empty($resource->descriptionDetail)): ?>
+    <?php if (!empty($resource->descriptionDetail)) { ?>
       <localControl localType="detailLevel">
-        <term><?php echo esc_specialchars($resource->descriptionDetail) ?></term>
+        <term><?php echo esc_specialchars($resource->descriptionDetail); ?></term>
       </localControl>
-    <?php endif; ?>
+    <?php } ?>
 
-    <?php if (count($subjects = $resource->getSubjectAccessPoints()) > 0): ?>
-      <?php foreach ($subjects as $item): ?>
+    <?php if (count($subjects = $resource->getSubjectAccessPoints()) > 0) { ?>
+      <?php foreach ($subjects as $item) { ?>
         <localControl localType="subjectAccessPoint">
-          <term vocalularySource="<?php echo url_for(array($item->term, 'module' => 'term'), true) ?>"><?php echo esc_specialchars($item->term->getName(array('cultureFallback' => true))) ?></term>
+          <term vocalularySource="<?php echo url_for([$item->term, 'module' => 'term'], true); ?>"><?php echo esc_specialchars($item->term->getName(['cultureFallback' => true])); ?></term>
         </localControl>
-      <?php endforeach; ?>
-    <?php endif; ?>
+      <?php } ?>
+    <?php } ?>
 
-    <?php if (!empty($eac->maintenanceHistory)): ?>
-      <maintenanceHistory><?php echo $eac->maintenanceHistory ?></maintenanceHistory>
-    <?php endif; ?>
+    <?php if (!empty($eac->maintenanceHistory)) { ?>
+      <maintenanceHistory><?php echo $eac->maintenanceHistory; ?></maintenanceHistory>
+    <?php } ?>
 
-    <?php if (!empty($resource->sources)): ?>
+    <?php if (!empty($resource->sources)) { ?>
       <sources>
         <source>
-          <sourceEntry><?php echo esc_specialchars($resource->sources) ?></sourceEntry>
+          <sourceEntry><?php echo esc_specialchars($resource->sources); ?></sourceEntry>
         </source>
       </sources>
-    <?php endif; ?>
+    <?php } ?>
   </control>
 
   <cpfDescription>
     <identity>
-      <?php if (!empty($resource->corporateBodyIdentifiers)): ?>
-        <entityId><?php echo esc_specialchars($resource->corporateBodyIdentifiers) ?></entityId>
-      <?php endif; ?>
+      <?php if (!empty($resource->corporateBodyIdentifiers)) { ?>
+        <entityId><?php echo esc_specialchars($resource->corporateBodyIdentifiers); ?></entityId>
+      <?php } ?>
 
-      <?php if ($eac->entityType): ?>
-        <entityType><?php echo $eac->entityType ?></entityType>
-      <?php endif; ?>
+      <?php if ($eac->entityType) { ?>
+        <entityType><?php echo $eac->entityType; ?></entityType>
+      <?php } ?>
 
       <nameEntry>
-        <?php if (!empty($resource->authorizedFormOfName)): ?>
-          <part><?php echo esc_specialchars($resource->authorizedFormOfName) ?></part>
-        <?php endif; ?>
+        <?php if (!empty($resource->authorizedFormOfName)) { ?>
+          <part><?php echo esc_specialchars($resource->authorizedFormOfName); ?></part>
+        <?php } ?>
 
         <authorizedForm>conventionDeclaration</authorizedForm>
       </nameEntry>
 
-      <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::STANDARDIZED_FORM_OF_NAME_ID)) as $item): ?>
+      <?php foreach ($resource->getOtherNames(['typeId' => QubitTerm::STANDARDIZED_FORM_OF_NAME_ID]) as $item) { ?>
         <nameEntry localType="standardized">
 
-          <part><?php echo esc_specialchars($item->name) ?></part>
+          <part><?php echo esc_specialchars($item->name); ?></part>
 
           <alternativeForm>conventionDeclaration</alternativeForm>
 
         </nameEntry>
-      <?php endforeach; ?>
+      <?php } ?>
 
-      <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::OTHER_FORM_OF_NAME_ID)) as $item): ?>
+      <?php foreach ($resource->getOtherNames(['typeId' => QubitTerm::OTHER_FORM_OF_NAME_ID]) as $item) { ?>
         <nameEntry>
 
-          <part><?php echo esc_specialchars($item->name) ?></part>
+          <part><?php echo esc_specialchars($item->name); ?></part>
 
           <alternativeForm>conventionDeclaration</alternativeForm>
 
         </nameEntry>
-      <?php endforeach; ?>
+      <?php } ?>
 
-      <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID)) as $item): ?>
+      <?php foreach ($resource->getOtherNames(['typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID]) as $item) { ?>
         <nameEntryParallel>
-          <?php foreach ($item->otherNameI18ns as $otherName): ?>
-            <?php if (sfContext::getInstance()->getUser()->getCulture() == $otherName->culture): ?>
-              <nameEntry xml:lang="<?php echo sfEacPlugin::to6392($otherName->culture) ?>" scriptCode="Latn">
-                <part><?php echo esc_specialchars($item->name) ?></part>
+          <?php foreach ($item->otherNameI18ns as $otherName) { ?>
+            <?php if (sfContext::getInstance()->getUser()->getCulture() == $otherName->culture) { ?>
+              <nameEntry xml:lang="<?php echo sfEacPlugin::to6392($otherName->culture); ?>" scriptCode="Latn">
+                <part><?php echo esc_specialchars($item->name); ?></part>
 
                 <preferredForm>conventionDeclaration</preferredForm>
               </nameEntry>
-            <?php else: ?>
-              <nameEntry xml:lang="<?php echo sfEacPlugin::to6392($otherName->culture) ?>" scriptCode="Latn">
-                <part><?php echo esc_specialchars($otherName->name) ?></part>
+            <?php } else { ?>
+              <nameEntry xml:lang="<?php echo sfEacPlugin::to6392($otherName->culture); ?>" scriptCode="Latn">
+                <part><?php echo esc_specialchars($otherName->name); ?></part>
               </nameEntry>
-            <?php endif; ?>
-          <?php endforeach; ?>
+            <?php } ?>
+          <?php } ?>
 
           <authorizedForm>conventionDeclaration</authorizedForm>
 
         </nameEntryParallel>
-      <?php endforeach; ?>
+      <?php } ?>
 
     </identity>
 
-    <?php if ($eac->hasDescriptionElements($resource)): ?>
+    <?php if ($eac->hasDescriptionElements($resource)) { ?>
       <description>
-        <?php if ($eac->existDates): ?>
-          <existDates><?php echo $eac->existDates ?></existDates>
-        <?php endif; ?>
+        <?php if ($eac->existDates) { ?>
+          <existDates><?php echo $eac->existDates; ?></existDates>
+        <?php } ?>
 
-        <?php if (!empty($resource->places)): ?>
+        <?php if (!empty($resource->places)) { ?>
           <place localType="isaar-5.2.3">
-            <placeEntry><?php echo esc_specialchars($resource->places) ?></placeEntry>
+            <placeEntry><?php echo esc_specialchars($resource->places); ?></placeEntry>
           </place>
-        <?php endif; ?>
+        <?php } ?>
 
-        <?php if (!empty($resource->legalStatus)): ?>
+        <?php if (!empty($resource->legalStatus)) { ?>
           <legalStatus>
-            <term><?php echo esc_specialchars($resource->legalStatus) ?></term>
+            <term><?php echo esc_specialchars($resource->legalStatus); ?></term>
           </legalStatus>
-        <?php endif; ?>
+        <?php } ?>
 
-        <?php if (!empty($resource->functions)): ?>
+        <?php if (!empty($resource->functions)) { ?>
           <function>
-            <term><?php echo esc_specialchars($resource->functions) ?></term>
+            <term><?php echo esc_specialchars($resource->functions); ?></term>
           </function>
 
           <occupation>
-            <descriptiveNote><?php echo esc_specialchars($resource->functions) ?></descriptiveNote>
+            <descriptiveNote><?php echo esc_specialchars($resource->functions); ?></descriptiveNote>
           </occupation>
-        <?php endif; ?>
+        <?php } ?>
 
-        <?php if (!empty($resource->mandates)): ?>
+        <?php if (!empty($resource->mandates)) { ?>
           <mandate>
-            <term><?php echo esc_specialchars($resource->mandates) ?></term>
+            <term><?php echo esc_specialchars($resource->mandates); ?></term>
           </mandate>
-        <?php endif; ?>
+        <?php } ?>
 
-        <?php // The following $eac->* properties are magic and will always be set: ?>
+        <?php if ($eac->structureOrGenealogy) { ?>
+          <structureOrGenealogy><?php echo $eac->structureOrGenealogy; ?></structureOrGenealogy>
+        <?php } ?>
 
-        <?php if ($eac->structureOrGenealogy): ?>
-          <structureOrGenealogy><?php echo $eac->structureOrGenealogy ?></structureOrGenealogy>
-        <?php endif; ?>
+        <?php if ($eac->generalContext) { ?>
+          <generalContext><?php echo $eac->generalContext; ?></generalContext>
+        <?php } ?>
 
-        <?php if ($eac->generalContext): ?>
-          <generalContext><?php echo $eac->generalContext ?></generalContext>
-        <?php endif; ?>
+        <?php if ($eac->biogHist) { ?>
+          <biogHist id="<?php echo 'md5-'.md5(url_for([$resource, 'module' => 'actor'], true)); ?>"><?php echo $eac->biogHist; ?></biogHist>
+        <?php } ?>
 
-        <?php if ($eac->biogHist): ?>
-          <biogHist id="<?php echo 'md5-' . md5(url_for(array($resource, 'module' => 'actor'), true)) ?>"><?php echo $eac->biogHist ?></biogHist>
-        <?php endif; ?>
-
-        <?php if (count($occupations = $resource->getOccupations()) > 0): ?>
+        <?php if (count($occupations = $resource->getOccupations()) > 0) { ?>
           <occupations>
-            <?php foreach ($occupations as $item): ?>
+            <?php foreach ($occupations as $item) { ?>
               <occupation>
-                <term><?php echo esc_specialchars($item->term->getName(array('cultureFallback' => true))) ?></term>
-                <?php $note = $item->getNotesByType(array('noteTypeId' => QubitTerm::ACTOR_OCCUPATION_NOTE_ID))->offsetGet(0) ?>
-                <?php if (isset($note)): ?>
+                <term><?php echo esc_specialchars($item->term->getName(['cultureFallback' => true])); ?></term>
+                <?php $note = $item->getNotesByType(['noteTypeId' => QubitTerm::ACTOR_OCCUPATION_NOTE_ID])->offsetGet(0); ?>
+                <?php if (isset($note)) { ?>
                   <descriptiveNote>
-                    <?php echo render_value($note->getContent(array('cultureFallback' => true))) ?>
+                    <?php echo render_value($note->getContent(['cultureFallback' => true])); ?>
                   </descriptiveNote>
-                <?php endif; ?>
+                <?php } ?>
               </occupation>
-            <?php endforeach; ?>
+            <?php } ?>
           </occupations>
-        <?php endif; ?>
+        <?php } ?>
 
-        <?php if (count($places = $resource->getPlaceAccessPoints()) > 0): ?>
-          <?php foreach ($places as $item): ?>
+        <?php if (count($places = $resource->getPlaceAccessPoints()) > 0) { ?>
+          <?php foreach ($places as $item) { ?>
             <place localType="placeAccessPoint">
-              <placeEntry vocabularySource="<?php echo url_for(array($item->term, 'module' => 'term'), true) ?>"><?php echo esc_specialchars($item->term->getName(array('cultureFallback' => true))) ?></placeEntry>
+              <placeEntry vocabularySource="<?php echo url_for([$item->term, 'module' => 'term'], true); ?>"><?php echo esc_specialchars($item->term->getName(['cultureFallback' => true])); ?></placeEntry>
             </place>
-          <?php endforeach; ?>
-        <?php endif; ?>
+          <?php } ?>
+        <?php } ?>
 
       </description>
-    <?php endif; ?>
+    <?php } ?>
 
-    <?php if (count($resource->getActorRelations()) || count($eac->subjectOf) || count($eac->resourceRelation) ||
-              count($eac->functionRelation)): ?>
+    <?php if (count($resource->getActorRelations()) || count($eac->subjectOf) || count($eac->resourceRelation)
+              || count($eac->functionRelation)) { ?>
 
       <relations>
-        <?php foreach ($resource->getActorRelations() as $item): ?>
-          <cpfRelation cpfRelationType="<?php echo sfEacPlugin::toCpfRelationType($item->type->id) ?>" xlink:href="<?php echo url_for(array($item->getOpposedObject($resource), 'module' => 'actor'), true) ?>" xlink:type="simple">
-            <relationEntry><?php echo esc_specialchars(render_title($item->getOpposedObject($resource))) ?></relationEntry>
-            <?php echo sfEacPlugin::renderDates($item) ?>
-            <?php if (isset($item->description)): ?>
+        <?php foreach ($resource->getActorRelations() as $item) { ?>
+          <cpfRelation cpfRelationType="<?php echo sfEacPlugin::toCpfRelationType($item->type->id); ?>" xlink:href="<?php echo url_for([$item->getOpposedObject($resource), 'module' => 'actor'], true); ?>" xlink:type="simple">
+            <relationEntry><?php echo esc_specialchars(render_title($item->getOpposedObject($resource))); ?></relationEntry>
+            <?php echo sfEacPlugin::renderDates($item); ?>
+            <?php if (isset($item->description)) { ?>
               <descriptiveNote>
-                <?php echo render_value($item->description) ?>
+                <?php echo render_value($item->description); ?>
               </descriptiveNote>
-            <?php endif; ?>
+            <?php } ?>
           </cpfRelation>
-        <?php endforeach; ?>
+        <?php } ?>
 
-        <?php foreach ($eac->subjectOf as $item): ?>
-          <resourceRelation resourceRelationType="subjectOf" xlink:href="<?php echo url_for(array($item->subject, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
-            <relationEntry><?php echo esc_specialchars(render_title($item->subject)) ?></relationEntry>
+        <?php foreach ($eac->subjectOf as $item) { ?>
+          <resourceRelation resourceRelationType="subjectOf" xlink:href="<?php echo url_for([$item->subject, 'module' => 'informationobject'], true); ?>" xlink:type="simple">
+            <relationEntry><?php echo esc_specialchars(render_title($item->subject)); ?></relationEntry>
           </resourceRelation>
-        <?php endforeach; ?>
+        <?php } ?>
 
-        <?php foreach ($eac->resourceRelation as $item): ?>
-          <resourceRelation <?php echo sfEacPlugin::toResourceRelationTypeAndXlinkRole($item->type) ?> xlink:href="<?php echo url_for(array($item->object, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
-            <relationEntry><?php echo esc_specialchars(render_title($item->object)) ?></relationEntry>
-            <?php echo sfEacPlugin::renderDates($item) ?>
-            <?php if (isset($item->date)): ?>
+        <?php foreach ($eac->resourceRelation as $item) { ?>
+          <resourceRelation <?php echo sfEacPlugin::toResourceRelationTypeAndXlinkRole($item->type); ?> xlink:href="<?php echo url_for([$item->object, 'module' => 'informationobject'], true); ?>" xlink:type="simple">
+            <relationEntry><?php echo esc_specialchars(render_title($item->object)); ?></relationEntry>
+            <?php echo sfEacPlugin::renderDates($item); ?>
+            <?php if (isset($item->date)) { ?>
               <descriptiveNote>
-                <?php echo render_value($item->date) ?>
+                <?php echo render_value($item->date); ?>
               </descriptiveNote>
-            <?php endif; ?>
+            <?php } ?>
           </resourceRelation>
-        <?php endforeach; ?>
+        <?php } ?>
 
-        <?php foreach ($eac->functionRelation as $item): ?>
-          <functionRelation xlink:href="<?php echo url_for(array($item, 'module' => 'function'), true) ?>" xlink:type="simple">
-            <relationEntry><?php echo esc_specialchars(render_title($item->subject)) ?></relationEntry>
-            <?php echo sfEacPlugin::renderDates($item) ?>
-            <?php if (0 < count($date = $item->getNotesByType(array('noteTypeId' => QubitTerm::RELATION_NOTE_DATE_ID)))): ?>
+        <?php foreach ($eac->functionRelation as $item) { ?>
+          <functionRelation xlink:href="<?php echo url_for([$item, 'module' => 'function'], true); ?>" xlink:type="simple">
+            <relationEntry><?php echo esc_specialchars(render_title($item->subject)); ?></relationEntry>
+            <?php echo sfEacPlugin::renderDates($item); ?>
+            <?php if (0 < count($date = $item->getNotesByType(['noteTypeId' => QubitTerm::RELATION_NOTE_DATE_ID]))) { ?>
               <descriptiveNote>
-                <?php echo render_value($date[0]) ?>
+                <?php echo render_value($date[0]); ?>
               </descriptiveNote>
-            <?php endif; ?>
+            <?php } ?>
           </functionRelation>
-        <?php endforeach; ?>
+        <?php } ?>
       </relations>
-    <?php endif; ?>
+    <?php } ?>
   </cpfDescription>
 </eac-cpf>

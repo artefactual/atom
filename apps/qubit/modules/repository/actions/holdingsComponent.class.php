@@ -19,15 +19,15 @@
 
 class RepositoryHoldingsComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    $page = 1;
-    $limit = sfConfig::get('app_hits_per_page', 10);
-    $resultSet = RepositoryHoldingsAction::getHoldings($this->resource->id, $page, $limit);
+    public function execute($request)
+    {
+        $page = 1;
+        $limit = sfConfig::get('app_hits_per_page', 10);
+        $resultSet = RepositoryHoldingsAction::getHoldings($this->resource->id, $page, $limit);
 
-    $this->pager = new QubitSearchPager($resultSet);
-    $this->pager->setPage($page);
-    $this->pager->setMaxPerPage($limit);
-    $this->pager->init();
-  }
+        $this->pager = new QubitSearchPager($resultSet);
+        $this->pager->setPage($page);
+        $this->pager->setMaxPerPage($limit);
+        $this->pager->init();
+    }
 }

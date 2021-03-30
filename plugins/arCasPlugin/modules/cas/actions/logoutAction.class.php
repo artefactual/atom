@@ -19,11 +19,11 @@
 
 class CasLogoutAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->getUser()->logout();
+    public function execute($request)
+    {
+        $this->getUser()->logout();
 
-    // This shouldn't be reached, as logout redirects to the CAS server.
-    throw new Exception("CAS logout failed");
-  }
+        // This shouldn't be reached, as logout redirects to the CAS server.
+        throw new Exception('CAS logout failed');
+    }
 }

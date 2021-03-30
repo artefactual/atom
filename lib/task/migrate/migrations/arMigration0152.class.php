@@ -25,29 +25,30 @@
  */
 class arMigration0152
 {
-  const
-    VERSION = 152, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 152;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    // Change job column so NULL is allowed
-    $sql = "ALTER TABLE `job` MODIFY `status_id` INT(11)";
-    QubitPdo::modify($sql);
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
+    {
+        // Change job column so NULL is allowed
+        $sql = 'ALTER TABLE `job` MODIFY `status_id` INT(11)';
+        QubitPdo::modify($sql);
 
-    // Add constraint so status_id must be associated with a term ID
-    $sql = "ALTER TABLE `job` ADD CONSTRAINT `job_FK_4` FOREIGN KEY (`status_id`) REFERENCES `term` (`id`) ON DELETE SET NULL;";
-    QubitPdo::modify($sql);
+        // Add constraint so status_id must be associated with a term ID
+        $sql = 'ALTER TABLE `job` ADD CONSTRAINT `job_FK_4` FOREIGN KEY (`status_id`) REFERENCES `term` (`id`) ON DELETE SET NULL;';
+        QubitPdo::modify($sql);
 
-    // Add index to status_id
-    $sql = "CREATE INDEX `job_FI_4` ON `job` (`status_id`)";
-    QubitPdo::modify($sql);
+        // Add index to status_id
+        $sql = 'CREATE INDEX `job_FI_4` ON `job` (`status_id`)';
+        QubitPdo::modify($sql);
 
-    return true;
-  }
+        return true;
+    }
 }

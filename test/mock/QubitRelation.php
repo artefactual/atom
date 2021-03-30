@@ -21,12 +21,12 @@ namespace AccessToMemory\test\mock;
 
 class QubitRelation
 {
-  public $objectId;
-  public $subjectId;
-  public $typeId;
+    public $objectId;
+    public $subjectId;
+    public $typeId;
 
-  public function save($dbcon = null)
-  {
-    return \QubitQuery::create();
-  }
+    public function save($dbcon = null)
+    {
+        return \QubitQuery::create();
+    }
 }

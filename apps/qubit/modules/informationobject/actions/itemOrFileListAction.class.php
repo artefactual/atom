@@ -18,131 +18,125 @@
  */
 
 /**
- * Item list report
+ * Item list report.
  *
- * @package    AccesstoMemory
- * @subpackage informationobject
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     David Juhasz <david@artefactual.com>
  */
 class InformationObjectItemOrFileListAction extends sfAction
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'sortBy',
-      'includeThumbnails',
-      'format'
-    );
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'sortBy',
+        'includeThumbnails',
+        'format',
+    ];
 
-  public function execute($request)
-  {
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
-    $this->resource = $this->getRoute()->resource;
-    $this->type = isset($request->type) ? ucfirst($request->type) : $this->context->i18n->__('Item');
-
-    if (!isset($this->resource))
+    public function execute($request)
     {
-      $this->forward404();
-    }
+        sfContext::getInstance()->getConfiguration()->loadHelpers(['Url']);
+        $this->resource = $this->getRoute()->resource;
+        $this->type = isset($request->type) ? ucfirst($request->type) : $this->context->i18n->__('Item');
 
-    $this->form = new sfForm;
-
-    foreach ($this::$NAMES as $name)
-    {
-      $this->addField($name);
-    }
-
-    if ($request->isMethod('post'))
-    {
-      $this->form->bind($request->getPostParameters());
-
-      if ($this->form->isValid())
-      {
-        $this->initiateReportGeneration();
-        $this->redirect(array($this->resource, 'module' => 'informationobject'));
-      }
-    }
-
-    return 'Criteria';
-  }
-
-  private function initiateReportGeneration()
-  {
-    $reportType = (false === strpos(strtolower($this->type), 'item')) ? 'fileList' : 'itemList';
-
-    if (is_array($this->form->includeThumbnails->getValue()) &&
-        '1' === array_pop($this->form->includeThumbnails->getValue()))
-    {
-      $includeThumbnails = true;
-    }
-    else
-    {
-      $includeThumbnails = false;
-    }
-
-    $params = array(
-        'objectId' => $this->resource->id,
-        'reportType' => $reportType,
-        'reportTypeLabel' => $this->type,
-        'sortBy' => $this->form->sortBy->getValue(),
-        'reportFormat' => $this->form->format->getValue(),
-        'includeThumbnails' => $includeThumbnails
-    );
-
-    QubitJob::runJob('arGenerateReportJob', $params);
-
-    $reportsUrl = url_for(array($this->resource, 'module' => 'informationobject', 'action' => 'reports'));
-    $message = $this->context->i18n->__('Report generation has started, please check the <a href="%1">reports</a> page again soon.',
-                                        array('%1' => $reportsUrl));
-
-    $this->getUser()->setFlash('notice', $message);
-  }
-
-  protected function addField($name)
-  {
-    switch ($name)
-    {
-      case 'sortBy':
-        $choices = array(
-          'referenceCode' => $this->context->i18n->__('Reference code'),
-          'title' => $this->context->i18n->__('Title'),
-          'startDate' => $this->context->i18n->__('Date (based on start date)')
-        );
-
-        if ($this->getUser()->isAuthenticated())
-        {
-          $choices['locations'] = $this->context->i18n->__('Retrieval information');
+        if (!isset($this->resource)) {
+            $this->forward404();
         }
 
-        $this->form->setDefault($name, 'referenceCode');
-        $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
-        $this->form->setWidget($name, new sfWidgetFormChoice(array(
-          'expanded' => true,
-          'choices' => $choices)));
+        $this->form = new sfForm();
 
-        break;
+        foreach ($this::$NAMES as $name) {
+            $this->addField($name);
+        }
 
-      case 'includeThumbnails':
-        $choices = array(
-          '1' => $this->context->i18n->__('Yes'));
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
 
-        $this->form->setValidator($name, new sfValidatorChoice(array(
-          'choices' => array_keys($choices),
-          'multiple' => true)));
+            if ($this->form->isValid()) {
+                $this->initiateReportGeneration();
+                $this->redirect([$this->resource, 'module' => 'informationobject']);
+            }
+        }
 
-        $this->form->setWidget($name, new sfWidgetFormChoice(array(
-          'expanded' => true,
-          'multiple' => true,
-          'choices' => $choices)));
-
-        break;
-
-      case 'format':
-        $choices = array('html' => 'HTML', 'csv' => 'CSV');
-        $this->form->setDefault($name, 'html');
-        $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
-        $this->form->setWidget($name, new sfWidgetFormChoice(array('expanded' => true, 'choices' => $choices)));
+        return 'Criteria';
     }
-  }
+
+    protected function addField($name)
+    {
+        switch ($name) {
+            case 'sortBy':
+                $choices = [
+                    'referenceCode' => $this->context->i18n->__('Reference code'),
+                    'title' => $this->context->i18n->__('Title'),
+                    'startDate' => $this->context->i18n->__('Date (based on start date)'),
+                ];
+
+                if ($this->getUser()->isAuthenticated()) {
+                    $choices['locations'] = $this->context->i18n->__('Retrieval information');
+                }
+
+                $this->form->setDefault($name, 'referenceCode');
+                $this->form->setValidator($name, new sfValidatorChoice(['choices' => array_keys($choices)]));
+                $this->form->setWidget($name, new sfWidgetFormChoice([
+                    'expanded' => true,
+                    'choices' => $choices,
+                ]));
+
+                break;
+
+            case 'includeThumbnails':
+                $choices = ['1' => $this->context->i18n->__('Yes')];
+
+                $this->form->setValidator($name, new sfValidatorChoice([
+                    'choices' => array_keys($choices),
+                    'multiple' => true,
+                ]));
+
+                $this->form->setWidget($name, new sfWidgetFormChoice([
+                    'expanded' => true,
+                    'multiple' => true,
+                    'choices' => $choices,
+                ]));
+
+                break;
+
+            case 'format':
+                $choices = ['html' => 'HTML', 'csv' => 'CSV'];
+                $this->form->setDefault($name, 'html');
+                $this->form->setValidator($name, new sfValidatorChoice(['choices' => array_keys($choices)]));
+                $this->form->setWidget($name, new sfWidgetFormChoice(['expanded' => true, 'choices' => $choices]));
+        }
+    }
+
+    private function initiateReportGeneration()
+    {
+        $reportType = (false === strpos(strtolower($this->type), 'item')) ? 'fileList' : 'itemList';
+
+        if (
+            is_array($this->form->includeThumbnails->getValue())
+            && '1' === array_pop($this->form->includeThumbnails->getValue())
+        ) {
+            $includeThumbnails = true;
+        } else {
+            $includeThumbnails = false;
+        }
+
+        $params = [
+            'objectId' => $this->resource->id,
+            'reportType' => $reportType,
+            'reportTypeLabel' => $this->type,
+            'sortBy' => $this->form->sortBy->getValue(),
+            'reportFormat' => $this->form->format->getValue(),
+            'includeThumbnails' => $includeThumbnails,
+        ];
+
+        QubitJob::runJob('arGenerateReportJob', $params);
+
+        $reportsUrl = url_for([$this->resource, 'module' => 'informationobject', 'action' => 'reports']);
+        $message = $this->context->i18n->__(
+            'Report generation has started, please check the <a href="%1">reports</a> page again soon.',
+            ['%1' => $reportsUrl]
+        );
+
+        $this->getUser()->setFlash('notice', $message);
+    }
 }

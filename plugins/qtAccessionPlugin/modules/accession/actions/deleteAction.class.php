@@ -19,45 +19,40 @@
 
 class AccessionDeleteAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->form = new sfForm;
-
-    $this->resource = $this->getRoute()->resource;
-
-    // Check user authorization
-    if (!QubitAcl::check($this->resource, 'delete'))
+    public function execute($request)
     {
-      QubitAcl::forwardUnauthorized();
-    }
+        $this->form = new sfForm();
 
-    // Accruals
-    $criteria = new Criteria;
-    $criteria->add(QubitRelation::TYPE_ID, QubitTerm::ACCRUAL_ID);
-    $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
-    $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitAccession::ID);
-    $this->accruals = QubitAccession::get($criteria);
+        $this->resource = $this->getRoute()->resource;
 
-    if ($request->isMethod('delete'))
-    {
-      $this->form->bind($request->getPostParameters());
-      
-      if ($this->form->isValid())
-      {
-        foreach ($this->resource->deaccessions as $item)
-        {
-          $item->delete();
+        // Check user authorization
+        if (!QubitAcl::check($this->resource, 'delete')) {
+            QubitAcl::forwardUnauthorized();
         }
 
-        foreach (QubitRelation::getBySubjectOrObjectId($this->resource->id) as $item)
-        {
-          $item->delete();
+        // Accruals
+        $criteria = new Criteria();
+        $criteria->add(QubitRelation::TYPE_ID, QubitTerm::ACCRUAL_ID);
+        $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
+        $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitAccession::ID);
+        $this->accruals = QubitAccession::get($criteria);
+
+        if ($request->isMethod('delete')) {
+            $this->form->bind($request->getPostParameters());
+
+            if ($this->form->isValid()) {
+                foreach ($this->resource->deaccessions as $item) {
+                    $item->delete();
+                }
+
+                foreach (QubitRelation::getBySubjectOrObjectId($this->resource->id) as $item) {
+                    $item->delete();
+                }
+
+                $this->resource->delete();
+
+                $this->redirect(['module' => 'accession', 'action' => 'browse']);
+            }
         }
-
-        $this->resource->delete();
-
-        $this->redirect(array('module' => 'accession', 'action' => 'browse'));
-      }
     }
-  }
 }

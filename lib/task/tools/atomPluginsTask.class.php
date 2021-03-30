@@ -18,98 +18,87 @@
  */
 
 /**
- * Purge Qubit data
- *
- * @package    symfony
- * @subpackage task
+ * Purge Qubit data.
  */
 class atomPluginsTask extends sfBaseTask
 {
-  protected function configure()
-  {
-    $this->addArguments(array(
-      new sfCommandArgument('action', sfCommandArgument::REQUIRED, 'The action (add, delete or list).'),
-      new sfCommandArgument('plugin', sfCommandArgument::OPTIONAL, 'The plugin name.')
-    ));
+    public function execute($arguments = [], $options = [])
+    {
+        $databaseManager = new sfDatabaseManager($this->configuration);
+        $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-      new sfCommandOption('action', null, sfCommandOption::PARAMETER_REQUIRED, 'Desired action')
-    ));
+        // Retrieve QubitSetting object
+        $criteria = new Criteria();
+        $criteria->add(QubitSetting::NAME, 'plugins');
+        if (null === $setting = QubitSetting::getOne($criteria)) {
+            throw new sfException('Database entry could not be found.');
+        }
 
-    $this->namespace = 'tools';
-    $this->name = 'atom-plugins';
-    $this->briefDescription = 'Manage AtoM plugins.';
+        // Array of plugins
+        $plugins = array_values(unserialize($setting->getValue(['sourceCulture' => true])));
 
-    $this->detailedDescription = <<<EOF
+        if (in_array($arguments['action'], ['add', 'delete']) && !isset($arguments['plugin'])) {
+            throw new sfException('Missing plugin name.');
+        }
+
+        switch ($arguments['action']) {
+            case 'add':
+                $plugins[] = $arguments['plugin'];
+
+                // Save changes
+                $setting->setValue(serialize(array_unique($plugins)), ['sourceCulture' => true]);
+                $setting->save();
+
+                break;
+
+            case 'delete':
+                if (false !== $key = array_search($arguments['plugin'], $plugins)) {
+                    unset($plugins[$key]);
+                } else {
+                    throw new sfException('Plugin could not be found.');
+                }
+
+                // Save changes
+                $setting->setValue(serialize(array_unique($plugins)), ['sourceCulture' => true]);
+                $setting->save();
+
+                break;
+
+            case 'list':
+                foreach ($plugins as $plugin) {
+                    echo $plugin."\n";
+                }
+
+                break;
+
+            default:
+                throw new sfException('Missing action');
+        }
+    }
+
+    protected function configure()
+    {
+        $this->addArguments([
+            new sfCommandArgument('action', sfCommandArgument::REQUIRED, 'The action (add, delete or list).'),
+            new sfCommandArgument('plugin', sfCommandArgument::OPTIONAL, 'The plugin name.'),
+        ]);
+
+        $this->addOptions([
+            new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+            new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+            new sfCommandOption('action', null, sfCommandOption::PARAMETER_REQUIRED, 'Desired action'),
+        ]);
+
+        $this->namespace = 'tools';
+        $this->name = 'atom-plugins';
+        $this->briefDescription = 'Manage AtoM plugins.';
+
+        $this->detailedDescription = <<<'EOF'
 Manage AtoM plugins stored in the database. Examples:
  - symfony atom-plugins add arFoobarPlugin
  - symfony atom-plugins delete arFoobarPlugin
  - symfony atom-plugins list
 EOF;
-  }
-
-  public function execute($arguments = array(), $options = array())
-  {
-    $databaseManager = new sfDatabaseManager($this->configuration);
-    $conn = $databaseManager->getDatabase('propel')->getConnection();
-
-    // Retrieve QubitSetting object
-    $criteria = new Criteria;
-    $criteria->add(QubitSetting::NAME, 'plugins');
-    if (null === $setting = QubitSetting::getOne($criteria))
-    {
-      throw new sfException('Database entry could not be found.');
     }
-
-    // Array of plugins
-    $plugins = array_values(unserialize($setting->getValue(array('sourceCulture' => true))));
-
-    if (in_array($arguments['action'], array('add', 'delete')) && !isset($arguments['plugin']))
-    {
-      throw new sfException('Missing plugin name.');
-    }
-
-    switch ($arguments['action'])
-    {
-      case 'add':
-        $plugins[] = $arguments['plugin'];
-
-        // Save changes
-        $setting->setValue(serialize(array_unique($plugins)), array('sourceCulture' => true));
-        $setting->save();
-
-        break;
-
-      case 'delete':
-        if (false !== $key = array_search($arguments['plugin'], $plugins))
-        {
-          unset($plugins[$key]);
-        }
-        else
-        {
-          throw new sfException('Plugin could not be found.');
-        }
-
-        // Save changes
-        $setting->setValue(serialize(array_unique($plugins)), array('sourceCulture' => true));
-        $setting->save();
-
-        break;
-
-      case 'list':
-        foreach ($plugins as $plugin)
-        {
-          echo $plugin."\n";
-        }
-
-        break;
-
-      default:
-        throw new sfException('Missing action');
-
-    }
-  }
 }

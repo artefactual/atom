@@ -1,18 +1,18 @@
 <div class="section">
-  <?php if (empty($hideAltIdButton)): // Some templates don't have alternative identifiers ?>
+  <?php if (empty($hideAltIdButton)) { ?>
     <a href="#" class="identifier-action" id="alternative-identifiers">
-      <?php echo __('Add alternative identifier(s)') ?>
+      <?php echo __('Add alternative identifier(s)'); ?>
     </a>
-  <?php endif; ?>
+  <?php } ?>
 
-  <?php if (empty($hideGenerateButton)): // Some AtoM data types don't support ID generation ?>
+  <?php if (empty($hideGenerateButton)) { ?>
     <a href="#" class="identifier-action" id="generate-identifier"
-      data-generate-identifier-url="<?php echo url_for(array('module' => 'informationobject', 'action' => 'generateIdentifier')) ?>">
-      <?php echo __('Generate identifier') ?>
+      data-generate-identifier-url="<?php echo url_for(['module' => 'informationobject', 'action' => 'generateIdentifier']); ?>">
+      <?php echo __('Generate identifier'); ?>
     </a>
-  <?php endif; ?>
+  <?php } ?>
 </div>
 
-<?php if (isset($mask)): ?>
-  <input name="usingMask" id="using-identifier-mask" type="hidden" value="<?php echo $mask ?>"/>
-<?php endif; ?>
+<?php if (isset($mask)) { ?>
+  <input name="usingMask" id="using-identifier-mask" type="hidden" value="<?php echo $mask; ?>"/>
+<?php } ?>

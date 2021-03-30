@@ -21,8 +21,8 @@ require_once 'propel/engine/builder/om/php5/PHP5ExtensionObjectBuilder.php';
 
 class QubitExtensionObjectBuilder extends PHP5ExtensionObjectBuilder
 {
-  public function getClassName()
-  {
-    return 'Qubit'.ucfirst($this->getTable()->getPhpName());
-  }
+    public function getClassName()
+    {
+        return 'Qubit'.ucfirst($this->getTable()->getPhpName());
+    }
 }

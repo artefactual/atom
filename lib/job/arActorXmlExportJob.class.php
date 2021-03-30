@@ -19,71 +19,69 @@
 
 /**
  * Asynchronous job to export clipboard actor data to XML documents, plus
- * related digital objects when requested
- *
- * @package    symfony
- * @subpackage jobs
+ * related digital objects when requested.
  */
-
 class arActorXmlExportJob extends arActorExportJob
 {
-  const XML_STANDARD = 'eac';
+    public const XML_STANDARD = 'eac';
 
-  /**
-   * Export search results as XML
-   *
-   * @param string  Path of file to write XML data to
-   */
-  protected function doExport($path)
-  {
-    exportBulkBaseTask::includeXmlExportClassesAndHelpers();
-
-    parent::doExport($path);
-  }
-
-  /**
-   * Export actor metadata to an XML file, and export related digital object
-   * when requested
-   *
-   * @param QubitActor $resource actor to export
-   * @param string $path of temporary job directory for export
-   * @param array $options optional parameters
-   */
-  protected function exportResource($resource, $path, $options = [])
-  {
-    try
+    /**
+     * Export search results as XML.
+     *
+     * @param string  Path of file to write XML data to
+     * @param mixed $path
+     */
+    protected function doExport($path)
     {
-      // Print warnings/notices here too, as they are often important.
-      $errLevel = error_reporting(E_ALL);
+        exportBulkBaseTask::includeXmlExportClassesAndHelpers();
 
-      $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput(
-        $resource, self::XML_STANDARD
-      );
-      $xml = Qubit::tidyXml($rawXml);
-
-      error_reporting($errLevel);
-    }
-    catch (Exception $e)
-    {
-      throw new sfException($this->i18n->__(
-        'Invalid XML generated for object %1%.', array('%1%' => $row['id'])
-      ));
+        parent::doExport($path);
     }
 
-    $filename = exportBulkBaseTask::generateSortableFilename(
-      $resource, 'xml', self::XML_STANDARD
-    );
-    $filePath = sprintf('%s/%s', $path, $filename);
-
-    if (false === file_put_contents($filePath, $xml))
+    /**
+     * Export actor metadata to an XML file, and export related digital object
+     * when requested.
+     *
+     * @param QubitActor $resource actor to export
+     * @param string     $path     of temporary job directory for export
+     * @param array      $options  optional parameters
+     */
+    protected function exportResource($resource, $path, $options = [])
     {
-      throw new sfException($this->i18n->__(
-        'Cannot write to path: %1%', array('%1%' => $filePath)
-      ));
+        try {
+            // Print warnings/notices here too, as they are often important.
+            $errLevel = error_reporting(E_ALL);
+
+            $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput(
+                $resource,
+                self::XML_STANDARD
+            );
+            $xml = Qubit::tidyXml($rawXml);
+
+            error_reporting($errLevel);
+        } catch (Exception $e) {
+            throw new sfException($this->i18n->__(
+                'Invalid XML generated for object %1%.',
+                ['%1%' => $row['id']]
+            ));
+        }
+
+        $filename = exportBulkBaseTask::generateSortableFilename(
+            $resource,
+            'xml',
+            self::XML_STANDARD
+        );
+        $filePath = sprintf('%s/%s', $path, $filename);
+
+        if (false === file_put_contents($filePath, $xml)) {
+            throw new sfException($this->i18n->__(
+                'Cannot write to path: %1%',
+                ['%1%' => $filePath]
+            ));
+        }
+
+        $this->addDigitalObject($resource, $path);
+
+        ++$this->itemsExported;
     }
-
-    $this->addDigitalObject($resource, $path);
-
-    $this->itemsExported++;
-  }
 }

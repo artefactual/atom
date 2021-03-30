@@ -19,29 +19,26 @@
 
 class AclGroupIndexAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->group = QubitAclGroup::getById($request->id);
-    if (!isset($this->group))
+    public function execute($request)
     {
-      $this->forward404();
-    }
+        $this->group = QubitAclGroup::getById($request->id);
+        if (!isset($this->group)) {
+            $this->forward404();
+        }
 
-    $criteria = new Criteria;
-    $criteria->add(QubitAclPermission::GROUP_ID, $this->group->id);
-    $criteria->add(QubitAclPermission::ACTION, 'translate');
-    $criteria->add(QubitAclPermission::GRANT_DENY, 1);
+        $criteria = new Criteria();
+        $criteria->add(QubitAclPermission::GROUP_ID, $this->group->id);
+        $criteria->add(QubitAclPermission::ACTION, 'translate');
+        $criteria->add(QubitAclPermission::GRANT_DENY, 1);
 
-    $this->translate = 'No';
-    if (null !== QubitAclPermission::getOne($criteria))
-    {
-      $this->translate = 'Yes';
-    }
+        $this->translate = 'No';
+        if (null !== QubitAclPermission::getOne($criteria)) {
+            $this->translate = 'Yes';
+        }
 
-    // Require administrator credentials
-    if (!QubitAcl::check($this->group, 'read'))
-    {
-      $this->redirect('admin/secure');
+        // Require administrator credentials
+        if (!QubitAcl::check($this->group, 'read')) {
+            $this->redirect('admin/secure');
+        }
     }
-  }
 }

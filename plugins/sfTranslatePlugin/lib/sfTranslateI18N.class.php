@@ -10,21 +10,19 @@
 
 class sfTranslateI18N extends sfI18N
 {
-  /**
-   * @see I18N::getMessageFormat()
-   */
-  public function getMessageFormat()
-  {
-    if (!isset($this->messageFormat))
+    /**
+     * @see I18N::getMessageFormat()
+     */
+    public function getMessageFormat()
     {
-      $this->messageFormat = new sfTranslateMessageFormat($this->getMessageSource(), sfConfig::get('sf_charset'));
+        if (!isset($this->messageFormat)) {
+            $this->messageFormat = new sfTranslateMessageFormat($this->getMessageSource(), sfConfig::get('sf_charset'));
 
-      if (sfConfig::get('sf_debug') && sfConfig::get('sf_i18n_debug'))
-      {
-        $this->messageFormat->setUntranslatedPS(array(sfConfig::get('sf_i18n_untranslated_prefix'), sfConfig::get('sf_i18n_unstranslated_suffix')));
-      }
+            if (sfConfig::get('sf_debug') && sfConfig::get('sf_i18n_debug')) {
+                $this->messageFormat->setUntranslatedPS([sfConfig::get('sf_i18n_untranslated_prefix'), sfConfig::get('sf_i18n_unstranslated_suffix')]);
+            }
+        }
+
+        return $this->messageFormat;
     }
-
-    return $this->messageFormat;
-  }
 }

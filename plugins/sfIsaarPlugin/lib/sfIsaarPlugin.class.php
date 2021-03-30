@@ -1,100 +1,86 @@
 <?php
 
-/*
- */
-
 class sfIsaarPlugin implements ArrayAccess
 {
-  protected
-    $resource,
-    $maintenanceNote;
+    protected $resource;
+    protected $maintenanceNote;
 
-  public function __construct(QubitActor $resource)
-  {
-    $this->resource = $resource;
-  }
-
-  public function offsetExists($offset)
-  {
-    $args = func_get_args();
-
-    return call_user_func_array(array($this, '__isset'), $args);
-  }
-
-  public function __get($name)
-  {
-    $args = func_get_args();
-
-    $options = array();
-    if (1 < count($args))
+    public function __construct(QubitActor $resource)
     {
-      $options = $args[1];
+        $this->resource = $resource;
     }
 
-    switch ($name)
+    public function __get($name)
     {
-      case '_maintenanceNote':
+        $args = func_get_args();
 
-        if (!isset($this->maintenanceNote))
-        {
-          $criteria = new Criteria;
-          $criteria->add(QubitNote::OBJECT_ID, $this->resource->id);
-          $criteria->add(QubitNote::TYPE_ID, QubitTerm::MAINTENANCE_NOTE_ID);
-
-          if (1 == count($query = QubitNote::get($criteria)))
-          {
-            $this->maintenanceNote = $query[0];
-          }
-          else
-          {
-            $this->maintenanceNote = new QubitNote;
-            $this->maintenanceNote->typeId = QubitTerm::MAINTENANCE_NOTE_ID;
-
-            $this->resource->notes[] = $this->maintenanceNote;
-          }
+        $options = [];
+        if (1 < count($args)) {
+            $options = $args[1];
         }
 
-        return $this->maintenanceNote;
+        switch ($name) {
+            case '_maintenanceNote':
+                if (!isset($this->maintenanceNote)) {
+                    $criteria = new Criteria();
+                    $criteria->add(QubitNote::OBJECT_ID, $this->resource->id);
+                    $criteria->add(QubitNote::TYPE_ID, QubitTerm::MAINTENANCE_NOTE_ID);
 
-      case 'maintenanceNotes':
+                    if (1 == count($query = QubitNote::get($criteria))) {
+                        $this->maintenanceNote = $query[0];
+                    } else {
+                        $this->maintenanceNote = new QubitNote();
+                        $this->maintenanceNote->typeId = QubitTerm::MAINTENANCE_NOTE_ID;
 
-        return $this->_maintenanceNote->__get('content', $options);
+                        $this->resource->notes[] = $this->maintenanceNote;
+                    }
+                }
 
-      case 'sourceCulture':
+                return $this->maintenanceNote;
 
-        return $this->resource->sourceCulture;
+            case 'maintenanceNotes':
+                return $this->_maintenanceNote->__get('content', $options);
+
+            case 'sourceCulture':
+                return $this->resource->sourceCulture;
+        }
     }
-  }
 
-  public function offsetGet($offset)
-  {
-    $args = func_get_args();
-
-    return call_user_func_array(array($this, '__get'), $args);
-  }
-
-  public function __set($name, $value)
-  {
-    switch ($name)
+    public function __set($name, $value)
     {
-      case 'maintenanceNotes':
-        $this->_maintenanceNote->content = $value;
+        switch ($name) {
+            case 'maintenanceNotes':
+                $this->_maintenanceNote->content = $value;
 
-        return $this;
+                return $this;
+        }
     }
-  }
 
-  public function offsetSet($offset, $value)
-  {
-    $args = func_get_args();
+    public function offsetExists($offset)
+    {
+        $args = func_get_args();
 
-    return call_user_func_array(array($this, '__set'), $args);
-  }
+        return call_user_func_array([$this, '__isset'], $args);
+    }
 
-  public function offsetUnset($offset)
-  {
-    $args = func_get_args();
+    public function offsetGet($offset)
+    {
+        $args = func_get_args();
 
-    return call_user_func_array(array($this, '__unset'), $args);
-  }
+        return call_user_func_array([$this, '__get'], $args);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $args = func_get_args();
+
+        return call_user_func_array([$this, '__set'], $args);
+    }
+
+    public function offsetUnset($offset)
+    {
+        $args = func_get_args();
+
+        return call_user_func_array([$this, '__unset'], $args);
+    }
 }

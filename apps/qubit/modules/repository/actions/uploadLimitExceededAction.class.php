@@ -18,21 +18,18 @@
  */
 
 /**
- * Display warning when repository upload limit is exceeded
+ * Display warning when repository upload limit is exceeded.
  *
- * @package    AccesstoMemory
- * @subpackage repository
  * @author     david juhasz <david@artefactual.com>
  */
 class RepositoryUploadLimitExceededAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->resource = null;
-
-    if (isset($this->getRoute()->resource))
+    public function execute($request)
     {
-      $this->resource = $this->getRoute()->resource;
+        $this->resource = null;
+
+        if (isset($this->getRoute()->resource)) {
+            $this->resource = $this->getRoute()->resource;
+        }
     }
-  }
 }

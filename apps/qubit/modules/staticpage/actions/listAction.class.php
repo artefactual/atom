@@ -19,19 +19,18 @@
 
 class StaticPageListAction extends sfAction
 {
-  public function execute($request)
-  {
-    if (!isset($request->limit))
+    public function execute($request)
     {
-      $request->limit = sfConfig::get('app_hits_per_page');
+        if (!isset($request->limit)) {
+            $request->limit = sfConfig::get('app_hits_per_page');
+        }
+
+        $criteria = new Criteria();
+
+        // Page results
+        $this->pager = new QubitPager('QubitStaticPage');
+        $this->pager->setCriteria($criteria);
+        $this->pager->setMaxPerPage($request->limit);
+        $this->pager->setPage($request->page);
     }
-
-    $criteria = new Criteria;
-
-    // Page results
-    $this->pager = new QubitPager('QubitStaticPage');
-    $this->pager->setCriteria($criteria);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
-  }
 }

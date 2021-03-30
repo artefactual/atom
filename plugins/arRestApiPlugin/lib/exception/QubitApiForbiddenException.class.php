@@ -19,7 +19,7 @@
 
 class QubitApiForbiddenException extends QubitApiException
 {
-  protected $message = 'Forbidden';
-  protected $id = 'forbidden';
-  protected $statusCode = 403;
+    protected $message = 'Forbidden';
+    protected $id = 'forbidden';
+    protected $statusCode = 403;
 }

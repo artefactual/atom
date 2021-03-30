@@ -18,215 +18,195 @@
  */
 
 /**
- * Information Object - editIsad
+ * Information Object - editIsad.
  *
- * @package    AccesstoMemory
- * @subpackage informationObject - initialize an editIsad template for updating an information object
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     Jesús García Crespo <correo@sevein.com>
  */
 class sfIsadPluginEditAction extends InformationObjectEditAction
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'accessConditions',
-      'accruals',
-      'acquisition',
-      'appraisal',
-      'archivalHistory',
-      'arrangement',
-      'creators',
-      'descriptionDetail',
-      'descriptionIdentifier',
-      'extentAndMedium',
-      'findingAids',
-      'identifier',
-      'institutionResponsibleIdentifier',
-      'language',
-      'languageNotes',
-      'languageOfDescription',
-      'levelOfDescription',
-      'locationOfCopies',
-      'locationOfOriginals',
-      'nameAccessPoints',
-      'genreAccessPoints',
-      'physicalCharacteristics',
-      'placeAccessPoints',
-      'relatedUnitsOfDescription',
-      'relatedMaterialDescriptions',
-      'repository',
-      'reproductionConditions',
-      'revisionHistory',
-      'rules',
-      'scopeAndContent',
-      'scriptOfDescription',
-      'script',
-      'sources',
-      'subjectAccessPoints',
-      'descriptionStatus',
-      'displayStandard',
-      'displayStandardUpdateDescendants',
-      'title');
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'accessConditions',
+        'accruals',
+        'acquisition',
+        'appraisal',
+        'archivalHistory',
+        'arrangement',
+        'creators',
+        'descriptionDetail',
+        'descriptionIdentifier',
+        'extentAndMedium',
+        'findingAids',
+        'identifier',
+        'institutionResponsibleIdentifier',
+        'language',
+        'languageNotes',
+        'languageOfDescription',
+        'levelOfDescription',
+        'locationOfCopies',
+        'locationOfOriginals',
+        'nameAccessPoints',
+        'genreAccessPoints',
+        'physicalCharacteristics',
+        'placeAccessPoints',
+        'relatedUnitsOfDescription',
+        'relatedMaterialDescriptions',
+        'repository',
+        'reproductionConditions',
+        'revisionHistory',
+        'rules',
+        'scopeAndContent',
+        'scriptOfDescription',
+        'script',
+        'sources',
+        'subjectAccessPoints',
+        'descriptionStatus',
+        'displayStandard',
+        'displayStandardUpdateDescendants',
+        'title',
+    ];
 
-  protected function earlyExecute()
-  {
-    parent::earlyExecute();
-
-    $this->isad = new sfIsadPlugin($this->resource);
-
-    $title = $this->context->i18n->__('Add new archival description');
-    if (isset($this->getRoute()->resource))
+    protected function earlyExecute()
     {
-      if (1 > strlen($title = $this->resource->__toString()))
-      {
-        $title = $this->context->i18n->__('Untitled');
-      }
+        parent::earlyExecute();
 
-      $title = $this->context->i18n->__('Edit %1%', array('%1%' => $title));
-    }
+        $this->isad = new sfIsadPlugin($this->resource);
 
-    $this->response->setTitle("$title - {$this->response->getTitle()}");
-
-    $this->alternativeIdentifiersComponent = new InformationObjectAlternativeIdentifiersComponent($this->context, 'informationobject', 'alternativeIdentifiers');
-    $this->alternativeIdentifiersComponent->resource = $this->resource;
-    $this->alternativeIdentifiersComponent->execute($this->request);
-
-    $this->eventComponent = new sfIsadPluginEventComponent($this->context, 'sfIsadPlugin', 'event');
-    $this->eventComponent->resource = $this->resource;
-    $this->eventComponent->execute($this->request);
-
-    $this->publicationNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
-    $this->publicationNotesComponent->resource = $this->resource;
-    $this->publicationNotesComponent->execute($this->request, $options = array('type' => 'isadPublicationNotes'));
-
-    $this->notesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
-    $this->notesComponent->resource = $this->resource;
-    $this->notesComponent->execute($this->request, $options = array('type' => 'isadNotes'));
-
-    $this->archivistsNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
-    $this->archivistsNotesComponent->resource = $this->resource;
-    $this->archivistsNotesComponent->execute($this->request, $options = array('type' => 'isadArchivistsNotes'));
-  }
-
-  protected function addField($name)
-  {
-    switch ($name)
-    {
-      case 'creators':
-        $criteria = new Criteria;
-        $criteria->add(QubitEvent::OBJECT_ID, $this->resource->id);
-        $criteria->add(QubitEvent::ACTOR_ID, null, Criteria::ISNOTNULL);
-        $criteria->add(QubitEvent::TYPE_ID, QubitTerm::CREATION_ID);
-
-        $value = $choices = array();
-        foreach ($this->events = QubitEvent::get($criteria) as $item)
-        {
-          $choices[$value[] = $this->context->routing->generate(null, array($item->actor, 'module' => 'actor'))] = $item->actor;
-        }
-
-        $this->form->setDefault('creators', $value);
-        $this->form->setValidator('creators', new sfValidatorPass);
-        $this->form->setWidget('creators', new sfWidgetFormSelect(array('choices' => $choices, 'multiple' => true)));
-
-        break;
-
-      case 'appraisal':
-        $this->form->setDefault('appraisal', $this->resource['appraisal']);
-        $this->form->setValidator('appraisal', new sfValidatorString);
-        $this->form->setWidget('appraisal', new sfWidgetFormTextarea);
-
-        break;
-
-      case 'languageNotes':
-
-        $this->form->setDefault('languageNotes', $this->isad['languageNotes']);
-        $this->form->setValidator('languageNotes', new sfValidatorString);
-        $this->form->setWidget('languageNotes', new sfWidgetFormTextarea);
-
-        break;
-
-      default:
-
-        return parent::addField($name);
-    }
-  }
-
-  protected function processField($field)
-  {
-    switch ($field->getName())
-    {
-      case 'creators':
-        $value = $filtered = array();
-        foreach ($this->form->getValue('creators') as $item)
-        {
-          $params = $this->context->routing->parse(Qubit::pathInfo($item));
-          $resource = $params['_sf_route']->resource;
-          $value[$resource->id] = $filtered[$resource->id] = $resource;
-        }
-
-        foreach ($this->events as $item)
-        {
-          if (isset($value[$item->actor->id]))
-          {
-            unset($filtered[$item->actor->id]);
-          }
-          else if (!isset($this->request->sourceId))
-          {
-            // Will be indexed when description is saved
-            $item->indexOnSave = false;
-
-            // Only delete event if it has no associated date and start/end date
-            if (null === $item->date && null === $item->startDate && null === $item->endDate)
-            {
-              $item->delete();
+        $title = $this->context->i18n->__('Add new archival description');
+        if (isset($this->getRoute()->resource)) {
+            if (1 > strlen($title = $this->resource->__toString())) {
+                $title = $this->context->i18n->__('Untitled');
             }
-            else
-            {
-              // Handle specially as data wasn't created using ISAD template
-              $item->actor = null;
-              $item->save();
-            }
-          }
+
+            $title = $this->context->i18n->__('Edit %1%', ['%1%' => $title]);
         }
 
-        foreach ($filtered as $item)
-        {
-          $event = new QubitEvent;
-          $event->actor = $item;
-          $event->typeId = QubitTerm::CREATION_ID;
+        $this->response->setTitle("{$title} - {$this->response->getTitle()}");
 
-          $this->resource->eventsRelatedByobjectId[] = $event;
-        }
+        $this->alternativeIdentifiersComponent = new InformationObjectAlternativeIdentifiersComponent($this->context, 'informationobject', 'alternativeIdentifiers');
+        $this->alternativeIdentifiersComponent->resource = $this->resource;
+        $this->alternativeIdentifiersComponent->execute($this->request);
 
-        break;
+        $this->eventComponent = new sfIsadPluginEventComponent($this->context, 'sfIsadPlugin', 'event');
+        $this->eventComponent->resource = $this->resource;
+        $this->eventComponent->execute($this->request);
 
-      case 'languageNotes':
+        $this->publicationNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+        $this->publicationNotesComponent->resource = $this->resource;
+        $this->publicationNotesComponent->execute($this->request, $options = ['type' => 'isadPublicationNotes']);
 
-        $this->isad['languageNotes'] = $this->form->getValue('languageNotes');
+        $this->notesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+        $this->notesComponent->resource = $this->resource;
+        $this->notesComponent->execute($this->request, $options = ['type' => 'isadNotes']);
 
-        break;
-
-      default:
-
-        return parent::processField($field);
+        $this->archivistsNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+        $this->archivistsNotesComponent->resource = $this->resource;
+        $this->archivistsNotesComponent->execute($this->request, $options = ['type' => 'isadArchivistsNotes']);
     }
-  }
 
-  protected function processForm()
-  {
-    $this->resource->sourceStandard = 'ISAD(G) 2nd edition';
+    protected function addField($name)
+    {
+        switch ($name) {
+            case 'creators':
+                $criteria = new Criteria();
+                $criteria->add(QubitEvent::OBJECT_ID, $this->resource->id);
+                $criteria->add(QubitEvent::ACTOR_ID, null, Criteria::ISNOTNULL);
+                $criteria->add(QubitEvent::TYPE_ID, QubitTerm::CREATION_ID);
 
-    $this->alternativeIdentifiersComponent->processForm();
+                $value = $choices = [];
+                foreach ($this->events = QubitEvent::get($criteria) as $item) {
+                    $choices[$value[] = $this->context->routing->generate(null, [$item->actor, 'module' => 'actor'])] = $item->actor;
+                }
 
-    $this->eventComponent->processForm();
+                $this->form->setDefault('creators', $value);
+                $this->form->setValidator('creators', new sfValidatorPass());
+                $this->form->setWidget('creators', new sfWidgetFormSelect(['choices' => $choices, 'multiple' => true]));
 
-    $this->publicationNotesComponent->processForm();
+                break;
 
-    $this->notesComponent->processForm();
+            case 'appraisal':
+                $this->form->setDefault('appraisal', $this->resource['appraisal']);
+                $this->form->setValidator('appraisal', new sfValidatorString());
+                $this->form->setWidget('appraisal', new sfWidgetFormTextarea());
 
-    $this->archivistsNotesComponent->processForm();
+                break;
 
-    return parent::processForm();
-  }
+            case 'languageNotes':
+                $this->form->setDefault('languageNotes', $this->isad['languageNotes']);
+                $this->form->setValidator('languageNotes', new sfValidatorString());
+                $this->form->setWidget('languageNotes', new sfWidgetFormTextarea());
+
+                break;
+
+            default:
+                return parent::addField($name);
+        }
+    }
+
+    protected function processField($field)
+    {
+        switch ($field->getName()) {
+            case 'creators':
+                $value = $filtered = [];
+                foreach ($this->form->getValue('creators') as $item) {
+                    $params = $this->context->routing->parse(Qubit::pathInfo($item));
+                    $resource = $params['_sf_route']->resource;
+                    $value[$resource->id] = $filtered[$resource->id] = $resource;
+                }
+
+                foreach ($this->events as $item) {
+                    if (isset($value[$item->actor->id])) {
+                        unset($filtered[$item->actor->id]);
+                    } elseif (!isset($this->request->sourceId)) {
+                        // Will be indexed when description is saved
+                        $item->indexOnSave = false;
+
+                        // Only delete event if it has no associated date and start/end date
+                        if (null === $item->date && null === $item->startDate && null === $item->endDate) {
+                            $item->delete();
+                        } else {
+                            // Handle specially as data wasn't created using ISAD template
+                            $item->actor = null;
+                            $item->save();
+                        }
+                    }
+                }
+
+                foreach ($filtered as $item) {
+                    $event = new QubitEvent();
+                    $event->actor = $item;
+                    $event->typeId = QubitTerm::CREATION_ID;
+
+                    $this->resource->eventsRelatedByobjectId[] = $event;
+                }
+
+                break;
+
+            case 'languageNotes':
+                $this->isad['languageNotes'] = $this->form->getValue('languageNotes');
+
+                break;
+
+            default:
+                return parent::processField($field);
+        }
+    }
+
+    protected function processForm()
+    {
+        $this->resource->sourceStandard = 'ISAD(G) 2nd edition';
+
+        $this->alternativeIdentifiersComponent->processForm();
+
+        $this->eventComponent->processForm();
+
+        $this->publicationNotesComponent->processForm();
+
+        $this->notesComponent->processForm();
+
+        $this->archivistsNotesComponent->processForm();
+
+        return parent::processForm();
+    }
 }

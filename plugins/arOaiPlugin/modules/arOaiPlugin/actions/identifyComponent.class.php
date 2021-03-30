@@ -18,35 +18,34 @@
  */
 
 /**
- * Generate  identify response of the OAI-PMH protocol for the Access to Memory (AtoM)
+ * Generate  identify response of the OAI-PMH protocol for the Access to Memory (AtoM).
  *
- * @package    AccesstoMemory
- * @subpackage oai
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
 class arOaiPluginIdentifyComponent extends arOaiPluginComponent
 {
-  public function execute($request)
-  {
-    $this->title = sfconfig::get('app_siteTitle');
-    $this->description = sfconfig::get('app_siteDescription');
-    $this->protocolVersion = '2.0';
-
-    list ($this->earliestDatestamp) = Propel::getConnection()->query('SELECT MIN('.QubitObject::UPDATED_AT.') FROM '.QubitObject::TABLE_NAME)->fetch();
-    $this->earliestDatestamp = date_format(date_create($this->earliestDatestamp), 'Y-m-d\TH:i:s\Z');
-
-    $this->baseUrl = QubitSetting::getByName('siteBaseUrl')->getValue(array('sourceCulture' => true));
-    $this->granularity = 'YYYY-MM-DDThh:mm:ssZ';
-    $this->deletedRecord = 'no';
-    $this->compression = 'gzip';
-
-    $this->setRequestAttributes($request);
-
-    $this->adminEmails = array();
-    if ((null !== $adminEmailsSetting = QubitSetting::getByName('oai_admin_emails'))
-        && $adminEmailsValue = $adminEmailsSetting->getValue(array('sourceCulture' => true)))
+    public function execute($request)
     {
-      $this->adminEmails = explode(',', $adminEmailsValue);
+        $this->title = sfconfig::get('app_siteTitle');
+        $this->description = sfconfig::get('app_siteDescription');
+        $this->protocolVersion = '2.0';
+
+        list($this->earliestDatestamp) = Propel::getConnection()->query('SELECT MIN('.QubitObject::UPDATED_AT.') FROM '.QubitObject::TABLE_NAME)->fetch();
+        $this->earliestDatestamp = date_format(date_create($this->earliestDatestamp), 'Y-m-d\TH:i:s\Z');
+
+        $this->baseUrl = QubitSetting::getByName('siteBaseUrl')->getValue(['sourceCulture' => true]);
+        $this->granularity = 'YYYY-MM-DDThh:mm:ssZ';
+        $this->deletedRecord = 'no';
+        $this->compression = 'gzip';
+
+        $this->setRequestAttributes($request);
+
+        $this->adminEmails = [];
+        if (
+            (null !== $adminEmailsSetting = QubitSetting::getByName('oai_admin_emails'))
+            && $adminEmailsValue = $adminEmailsSetting->getValue(['sourceCulture' => true])
+        ) {
+            $this->adminEmails = explode(',', $adminEmailsValue);
+        }
     }
-  }
 }

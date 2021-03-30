@@ -25,18 +25,19 @@
  */
 class arMigration0143
 {
-  const
-    VERSION = 143, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 143;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    $sql = <<<sql
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
+    {
+        $sql = <<<'sql'
 CREATE TABLE IF NOT EXISTS `premis_object`
 (
   `id` INTEGER  NOT NULL,
@@ -59,8 +60,8 @@ CREATE TABLE IF NOT EXISTS `premis_object`
 )Engine=InnoDB;
 sql;
 
-    QubitPdo::modify($sql);
+        QubitPdo::modify($sql);
 
-    return true;
-  }
+        return true;
+    }
 }

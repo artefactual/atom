@@ -1,32 +1,32 @@
-<?php decorate_with('layout_2col.php') ?>
+<?php decorate_with('layout_2col.php'); ?>
 
-<?php slot('sidebar') ?>
+<?php slot('sidebar'); ?>
 
-  <?php echo get_component('settings', 'menu') ?>
+  <?php echo get_component('settings', 'menu'); ?>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>
 
-<?php slot('title') ?>
+<?php slot('title'); ?>
 
-  <h1><?php echo __('Finding Aid settings') ?></h1>
+  <h1><?php echo __('Finding Aid settings'); ?></h1>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>
 
-<?php slot('content') ?>
+<?php slot('content'); ?>
 
-  <form action="<?php echo url_for('settings/findingAid') ?>" method="post">
+  <form action="<?php echo url_for('settings/findingAid'); ?>" method="post">
 
     <div id="content">
 
       <table class="table sticky-enabled">
         <thead>
           <tr>
-            <th><?php echo __('Name')?></th>
-            <th><?php echo __('Value')?></th>
+            <th><?php echo __('Name'); ?></th>
+            <th><?php echo __('Value'); ?></th>
           </tr>
         </thead>
         <tbody>
-          <?php echo $findingAidForm ?>
+          <?php echo $findingAidForm; ?>
         </tbody>
       </table>
 
@@ -34,10 +34,10 @@
 
     <section class="actions">
       <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
+        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
       </ul>
     </section>
 
   </form>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>

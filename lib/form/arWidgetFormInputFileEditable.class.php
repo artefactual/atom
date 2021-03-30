@@ -19,54 +19,47 @@
 
 class arWidgetFormInputFileEditable extends sfWidgetFormInputFile
 {
-  protected function configure($options = array(), $attributes = array())
-  {
-    parent::configure($options, $attributes);
-
-    $this->setOption('type', 'file');
-    $this->setOption('needs_multipart', true);
-
-    $this->addRequiredOption('file_src');
-    $this->addOption('is_image', false);
-    $this->addOption('edit_mode', true);
-    $this->addOption('with_delete', true);
-    $this->addOption('delete_label', 'Remove the current file');
-  }
-
-  public function render($name, $value = null, $attributes = array(), $errors = array())
-  {
-    $input = parent::render($name, $value, $attributes, $errors);
-
-    if (!$this->getOption('edit_mode'))
+    public function render($name, $value = null, $attributes = [], $errors = [])
     {
-      return $input;
+        $input = parent::render($name, $value, $attributes, $errors);
+
+        if (!$this->getOption('edit_mode')) {
+            return $input;
+        }
+
+        if ($this->getOption('with_delete')) {
+            $deleteName = ']' == substr($name, -1) ? substr($name, 0, -1).'_delete]' : $name.'_delete';
+
+            $delete = $this->renderTag('input', array_merge(['type' => 'checkbox', 'name' => $deleteName], $attributes));
+            $deleteLabel = $this->translate($this->getOption('delete_label'));
+            $deleteLabel = $this->renderContentTag('i', $deleteLabel);
+
+            return $this->getFileAsTag($attributes).$delete.$deleteLabel.'<br \>'.$input;
+        }
+
+        return $this->getFileAsTag($attributes).$input;
     }
 
-    if ($this->getOption('with_delete'))
+    protected function configure($options = [], $attributes = [])
     {
-      $deleteName = ']' == substr($name, -1) ? substr($name, 0, -1).'_delete]' : $name.'_delete';
+        parent::configure($options, $attributes);
 
-      $delete = $this->renderTag('input', array_merge(array('type' => 'checkbox', 'name' => $deleteName), $attributes));
-      $deleteLabel = $this->translate($this->getOption('delete_label'));
-      $deleteLabel = $this->renderContentTag('i', $deleteLabel);
+        $this->setOption('type', 'file');
+        $this->setOption('needs_multipart', true);
 
-      return $this->getFileAsTag($attributes).$delete.$deleteLabel.'<br \>'.$input;
+        $this->addRequiredOption('file_src');
+        $this->addOption('is_image', false);
+        $this->addOption('edit_mode', true);
+        $this->addOption('with_delete', true);
+        $this->addOption('delete_label', 'Remove the current file');
     }
-    else
-    {
-      return $this->getFileAsTag($attributes).$input;
-    }
-  }
 
-  protected function getFileAsTag($attributes)
-  {
-    if ($this->getOption('is_image'))
+    protected function getFileAsTag($attributes)
     {
-      return false !== $this->getOption('file_src') ? $this->renderTag('img', array_merge(array('src' => $this->getOption('file_src')), $attributes)) : '';
+        if ($this->getOption('is_image')) {
+            return false !== $this->getOption('file_src') ? $this->renderTag('img', array_merge(['src' => $this->getOption('file_src')], $attributes)) : '';
+        }
+
+        return $this->getOption('file_src');
     }
-    else
-    {
-      return $this->getOption('file_src');
-    }
-  }
 }

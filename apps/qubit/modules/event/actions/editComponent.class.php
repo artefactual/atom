@@ -19,200 +19,171 @@
 
 class EventEditComponent extends sfComponent
 {
-  protected function addField($name)
-  {
-    switch ($name)
+    public function processForm()
     {
-      case 'date':
-        $this->form->setValidator('date', new sfValidatorString);
-        $this->form->setWidget('date', new sfWidgetFormInput);
-
-        $this->form->getWidgetSchema()->date->setHelp($this->context->i18n->__('Enter free-text information, including qualifiers or typographical symbols to express uncertainty, to change the way the date displays. If this field is not used, the default will be the start and end years only.'));
-
-        break;
-
-      case 'endDate':
-        $this->form->setValidator('endDate', new sfValidatorString);
-        $this->form->setWidget('endDate', new sfWidgetFormInput);
-
-        $this->form->getWidgetSchema()->endDate->setHelp($this->context->i18n->__('Enter the end year. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.'));
-        $this->form->getWidgetSchema()->endDate->setLabel($this->context->i18n->__('End'));
-
-        break;
-
-      case 'startDate':
-        $this->form->setValidator('startDate', new sfValidatorString);
-        $this->form->setWidget('startDate', new sfWidgetFormInput);
-
-        $this->form->getWidgetSchema()->startDate->setHelp($this->context->i18n->__('Enter the start year. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.'));
-        $this->form->getWidgetSchema()->startDate->setLabel($this->context->i18n->__('Start'));
-
-        break;
-
-      case 'type':
-
-        // Event types, Dublin Core is restricted
-        $eventTypes = QubitTaxonomy::getTermsById(QubitTaxonomy::EVENT_TYPE_ID);
-        if ('sfDcPlugin' == $this->request->module)
-        {
-          $eventTypes = sfDcPlugin::eventTypes();
+        $params = [$this->request->editEvent];
+        if (isset($this->request->editEvents)) {
+            // If dialog JavaScript did it's work, then use array of parameters
+            $params = $this->request->editEvents;
         }
 
-        $choices = array();
-        foreach ($eventTypes as $item)
-        {
-          // Default event type is creation
-          if (QubitTerm::CREATION_ID == $item->id)
-          {
-            $this->form->setDefault('type', $this->context->routing->generate(null, array($item, 'module' => 'term')));
-          }
-
-          $choices[$this->context->routing->generate(null, array($item, 'module' => 'term'))] = $item->__toString();
+        // Events should index the related resource only when
+        // they are managed from the actors form.
+        $indexOnSave = false;
+        if ($this->resource instanceof QubitActor) {
+            $indexOnSave = true;
         }
 
-        $this->form->setValidator('type', new sfValidatorString);
-        $this->form->setWidget('type', new sfWidgetFormSelect(array('choices' => $choices)));
+        foreach ($params as $item) {
+            // Continue only if user typed something
+            foreach ($item as $value) {
+                if (0 < strlen($value)) {
+                    break;
+                }
+            }
 
-        break;
-    }
-  }
+            if (1 > strlen($value)) {
+                continue;
+            }
 
-  protected function processField($field)
-  {
-    switch ($field->getName())
-    {
-      case 'type':
-      case 'resourceType':
-        unset($this->event[$field->getName()]);
+            $this->form->bind($item);
+            if ($this->form->isValid()) {
+                if (isset($item['id'])) {
+                    $params = $this->context->routing->parse(Qubit::pathInfo($item['id']));
 
-        $value = $this->form->getValue($field->getName());
-        if (isset($value))
-        {
-          $params = $this->context->routing->parse(Qubit::pathInfo($value));
-          $this->event[$field->getName()] = $params['_sf_route']->resource;
+                    // Do not add exiting events to the eventsRelatedByobjectId or events
+                    // array, as they could be deleted before saving the resource
+                    $this->event = $params['_sf_route']->resource;
+                } elseif ($this->resource instanceof QubitActor) {
+                    $this->resource->events[] = $this->event = new QubitEvent();
+                } else {
+                    $this->resource->eventsRelatedByobjectId[] = $this->event = new QubitEvent();
+                }
+
+                foreach ($this->form as $field) {
+                    if (isset($item[$field->getName()])) {
+                        $this->processField($field);
+                    }
+                }
+
+                // Save existing events as they are not attached
+                // to the eventsRelatedByobjectId or events array
+                if (isset($this->event->id)) {
+                    $this->event->indexOnSave = $indexOnSave;
+                    $this->event->save();
+                }
+            }
         }
 
-        break;
-
-      case 'startDate':
-      case 'endDate':
-        $value = $this->form->getValue($field->getName());
-        if (isset($value) && preg_match('/^\d{8}\z/', trim($value), $matches))
-        {
-          $value = substr($matches[0], 0, 4).'-'.substr($matches[0], 4, 2).'-'.substr($matches[0], 6, 2);
-        }
-        elseif (isset($value) && preg_match('/^\d{6}\z/', trim($value), $matches))
-        {
-          $value = substr($matches[0], 0, 4).'-'.substr($matches[0], 4, 2);
+        // Stop here if duplicating
+        if (isset($this->request->sourceId)) {
+            return;
         }
 
-        $this->event[$field->getName()] = $value;
-
-        break;
-
-      default:
-        $this->event[$field->getName()] = $this->form->getValue($field->getName());
-    }
-  }
-
-  public function processForm()
-  {
-    $params = array($this->request->editEvent);
-    if (isset($this->request->editEvents))
-    {
-      // If dialog JavaScript did it's work, then use array of parameters
-      $params = $this->request->editEvents;
+        if (isset($this->request->deleteEvents)) {
+            foreach ($this->request->deleteEvents as $item) {
+                $params = $this->context->routing->parse(Qubit::pathInfo($item));
+                $event = $params['_sf_route']->resource;
+                $event->indexOnSave = $indexOnSave;
+                $event->delete();
+            }
+        }
     }
 
-    // Events should index the related resource only when
-    // they are managed from the actors form.
-    $indexOnSave = false;
-    if ($this->resource instanceof QubitActor)
+    public function execute($request)
     {
-      $indexOnSave = true;
+        $this->form = new sfForm();
+        $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
+        $this->form->getWidgetSchema()->setNameFormat('editEvent[%s]');
+
+        foreach ($this::$NAMES as $name) {
+            $this->addField($name);
+        }
     }
 
-    foreach ($params as $item)
+    protected function addField($name)
     {
-      // Continue only if user typed something
-      foreach ($item as $value)
-      {
-        if (0 < strlen($value))
-        {
-          break;
-        }
-      }
+        switch ($name) {
+            case 'date':
+                $this->form->setValidator('date', new sfValidatorString());
+                $this->form->setWidget('date', new sfWidgetFormInput());
 
-      if (1 > strlen($value))
-      {
-        continue;
-      }
+                $this->form->getWidgetSchema()->date->setHelp($this->context->i18n->__('Enter free-text information, including qualifiers or typographical symbols to express uncertainty, to change the way the date displays. If this field is not used, the default will be the start and end years only.'));
 
-      $this->form->bind($item);
-      if ($this->form->isValid())
-      {
-        if (isset($item['id']))
-        {
-          $params = $this->context->routing->parse(Qubit::pathInfo($item['id']));
+                break;
 
-          // Do not add exiting events to the eventsRelatedByobjectId or events
-          // array, as they could be deleted before saving the resource
-          $this->event = $params['_sf_route']->resource;
-        }
-        elseif ($this->resource instanceof QubitActor)
-        {
-          $this->resource->events[] = $this->event = new QubitEvent;
-        }
-        else
-        {
-          $this->resource->eventsRelatedByobjectId[] = $this->event = new QubitEvent;
-        }
+            case 'endDate':
+                $this->form->setValidator('endDate', new sfValidatorString());
+                $this->form->setWidget('endDate', new sfWidgetFormInput());
 
-        foreach ($this->form as $field)
-        {
-          if (isset($item[$field->getName()]))
-          {
-            $this->processField($field);
-          }
-        }
+                $this->form->getWidgetSchema()->endDate->setHelp($this->context->i18n->__('Enter the end year. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.'));
+                $this->form->getWidgetSchema()->endDate->setLabel($this->context->i18n->__('End'));
 
-        // Save existing events as they are not attached
-        // to the eventsRelatedByobjectId or events array
-        if (isset($this->event->id))
-        {
-          $this->event->indexOnSave = $indexOnSave;
-          $this->event->save();
+                break;
+
+            case 'startDate':
+                $this->form->setValidator('startDate', new sfValidatorString());
+                $this->form->setWidget('startDate', new sfWidgetFormInput());
+
+                $this->form->getWidgetSchema()->startDate->setHelp($this->context->i18n->__('Enter the start year. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.'));
+                $this->form->getWidgetSchema()->startDate->setLabel($this->context->i18n->__('Start'));
+
+                break;
+
+            case 'type':
+                // Event types, Dublin Core is restricted
+                $eventTypes = QubitTaxonomy::getTermsById(QubitTaxonomy::EVENT_TYPE_ID);
+                if ('sfDcPlugin' == $this->request->module) {
+                    $eventTypes = sfDcPlugin::eventTypes();
+                }
+
+                $choices = [];
+                foreach ($eventTypes as $item) {
+                    // Default event type is creation
+                    if (QubitTerm::CREATION_ID == $item->id) {
+                        $this->form->setDefault('type', $this->context->routing->generate(null, [$item, 'module' => 'term']));
+                    }
+
+                    $choices[$this->context->routing->generate(null, [$item, 'module' => 'term'])] = $item->__toString();
+                }
+
+                $this->form->setValidator('type', new sfValidatorString());
+                $this->form->setWidget('type', new sfWidgetFormSelect(['choices' => $choices]));
+
+                break;
         }
-      }
     }
 
-    // Stop here if duplicating
-    if (isset($this->request->sourceId))
+    protected function processField($field)
     {
-      return;
-    }
+        switch ($field->getName()) {
+            case 'type':
+            case 'resourceType':
+                unset($this->event[$field->getName()]);
 
-    if (isset($this->request->deleteEvents))
-    {
-      foreach ($this->request->deleteEvents as $item)
-      {
-        $params = $this->context->routing->parse(Qubit::pathInfo($item));
-        $event = $params['_sf_route']->resource;
-        $event->indexOnSave = $indexOnSave;
-        $event->delete();
-      }
-    }
-  }
+                $value = $this->form->getValue($field->getName());
+                if (isset($value)) {
+                    $params = $this->context->routing->parse(Qubit::pathInfo($value));
+                    $this->event[$field->getName()] = $params['_sf_route']->resource;
+                }
 
-  public function execute($request)
-  {
-    $this->form = new sfForm;
-    $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
-    $this->form->getWidgetSchema()->setNameFormat('editEvent[%s]');
+                break;
 
-    foreach ($this::$NAMES as $name)
-    {
-      $this->addField($name);
+            case 'startDate':
+            case 'endDate':
+                $value = $this->form->getValue($field->getName());
+                if (isset($value) && preg_match('/^\d{8}\z/', trim($value), $matches)) {
+                    $value = substr($matches[0], 0, 4).'-'.substr($matches[0], 4, 2).'-'.substr($matches[0], 6, 2);
+                } elseif (isset($value) && preg_match('/^\d{6}\z/', trim($value), $matches)) {
+                    $value = substr($matches[0], 0, 4).'-'.substr($matches[0], 4, 2);
+                }
+
+                $this->event[$field->getName()] = $value;
+
+                break;
+
+            default:
+                $this->event[$field->getName()] = $this->form->getValue($field->getName());
+        }
     }
-  }
 }

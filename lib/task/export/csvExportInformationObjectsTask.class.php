@@ -18,87 +18,90 @@
  */
 
 /**
- * Bulk export data to XML
+ * Bulk export data to XML.
  *
- * @package    symfony
- * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
 class csvExportInformationObjectsTask extends exportBulkBaseTask
 {
-  protected $namespace        = 'csv';
-  protected $name             = 'export';
-  protected $briefDescription = 'Export descriptions as CSV file(s)';
+    protected $namespace = 'csv';
+    protected $name = 'export';
+    protected $briefDescription = 'Export descriptions as CSV file(s)';
 
-  /**
-   * @see sfTask
-   */
-  protected function configure()
-  {
-    $this->addCommonArgumentsAndOptions();
-    $this->addOptions(array(
-      new sfCommandOption('standard', null, sfCommandOption::PARAMETER_OPTIONAL, 'Description format ("isad" or "rad")', 'isad')
-    ));
-    $this->addOptions(array(
-      new sfCommandOption('rows-per-file', null, sfCommandOption::PARAMETER_OPTIONAL, 'Rows per file (disregarded if writing to a file, not a directory)', false)
-    ));
-  }
-
-  /**
-   * @see sfTask
-   */
-  public function execute($arguments = array(), $options = array())
-  {
-    // Make sure standard is lower case
-    $options['standard'] = $this->normalizeExportFormat(
-      $options['standard'],
-      array('isad', 'rad')
-    );
-
-    $configuration = ProjectConfiguration::getApplicationConfiguration(
-      'qubit', 'cli', false
-    );
-    $context = sfContext::createInstance($configuration);
-
-    // QubitSetting are not available for tasks? See lib/SiteSettingsFilter.class.php
-    sfConfig::add(QubitSetting::getSettingsArray());
-
-    $itemsExported = 0;
-
-    $conn = $this->getDatabaseConnection();
-    $rows = $conn->query($this->informationObjectQuerySql($options), PDO::FETCH_ASSOC);
-
-    print 'Exporting as '. strtoupper($options['standard']) .".\n";
-
-    // Instantiate CSV writer
-    $writer = new csvInformationObjectExport(
-      $arguments['path'],
-      $options['standard'],
-      $options['rows-per-file']
-    );
-
-    $writer->user = $context->getUser();
-    $writer->setOptions($options);
-
-    foreach ($rows as $row)
+    /**
+     * @see sfTask
+     *
+     * @param mixed $arguments
+     * @param mixed $options
+     */
+    public function execute($arguments = [], $options = [])
     {
-      $writer->user->setCulture($row['culture']);
-      $resource = QubitInformationObject::getById($row['id']);
+        // Make sure standard is lower case
+        $options['standard'] = $this->normalizeExportFormat(
+            $options['standard'],
+            ['isad', 'rad']
+        );
 
-      // Don't export draft descriptions with public option
-      if (isset($options['public']) && $options['public']
-        && $resource->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID)
-      {
-        continue;
-      }
+        $configuration = ProjectConfiguration::getApplicationConfiguration(
+            'qubit',
+            'cli',
+            false
+        );
+        $context = sfContext::createInstance($configuration);
 
-      $writer->exportResource($resource);
+        // QubitSetting are not available for tasks? See lib/SiteSettingsFilter.class.php
+        sfConfig::add(QubitSetting::getSettingsArray());
 
-      $this->indicateProgress($options['items-until-update']);
+        $itemsExported = 0;
 
-      $itemsExported++;
+        $conn = $this->getDatabaseConnection();
+        $rows = $conn->query($this->informationObjectQuerySql($options), PDO::FETCH_ASSOC);
+
+        echo 'Exporting as '.strtoupper($options['standard']).".\n";
+
+        // Instantiate CSV writer
+        $writer = new csvInformationObjectExport(
+            $arguments['path'],
+            $options['standard'],
+            $options['rows-per-file']
+        );
+
+        $writer->user = $context->getUser();
+        $writer->setOptions($options);
+
+        foreach ($rows as $row) {
+            $writer->user->setCulture($row['culture']);
+            $resource = QubitInformationObject::getById($row['id']);
+
+            // Don't export draft descriptions with public option
+            if (
+                isset($options['public']) && $options['public']
+                && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $resource->getPublicationStatus()->statusId
+            ) {
+                continue;
+            }
+
+            $writer->exportResource($resource);
+
+            $this->indicateProgress($options['items-until-update']);
+
+            ++$itemsExported;
+        }
+
+        echo "\nExport complete (".$itemsExported." descriptions exported).\n";
     }
 
-    print "\nExport complete (". $itemsExported ." descriptions exported).\n";
-  }
+    /**
+     * @see sfTask
+     */
+    protected function configure()
+    {
+        $this->addCommonArgumentsAndOptions();
+        $this->addOptions([
+            new sfCommandOption('standard', null, sfCommandOption::PARAMETER_OPTIONAL, 'Description format ("isad" or "rad")', 'isad'),
+        ]);
+        $this->addOptions([
+            new sfCommandOption('rows-per-file', null, sfCommandOption::PARAMETER_OPTIONAL, 'Rows per file (disregarded if writing to a file, not a directory)', false),
+        ]);
+    }
 }

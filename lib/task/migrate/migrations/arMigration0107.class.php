@@ -25,49 +25,50 @@
  */
 class arMigration0107
 {
-  const
-    VERSION = 107, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 107;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    $elements = array(
-      'rad_title_responsibility_area',
-      'rad_edition_area',
-      'rad_material_specific_details_area',
-      'rad_dates_of_creation_area',
-      'rad_physical_description_area',
-      'rad_publishers_series_area',
-      'rad_archival_description_area',
-      'rad_notes_area',
-      'rad_standard_number_area',
-      'rad_access_points_area',
-      'rad_description_control_area',
-      'isad_identity_area',
-      'isad_context_area',
-      'isad_content_and_structure_area',
-      'isad_conditions_of_access_use_area',
-      'isad_allied_materials_area',
-      'isad_notes_area',
-      'isad_access_points_area',
-      'isad_description_control_area');
-
-    // Add visibility settings
-    foreach ($elements as $item)
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      $setting = new QubitSetting;
-      $setting->name  = $item;
-      $setting->scope = 'element_visibility';
-      $setting->value = 1;
-      $setting->culture = 'en';
-      $setting->save();
-    }
+        $elements = [
+            'rad_title_responsibility_area',
+            'rad_edition_area',
+            'rad_material_specific_details_area',
+            'rad_dates_of_creation_area',
+            'rad_physical_description_area',
+            'rad_publishers_series_area',
+            'rad_archival_description_area',
+            'rad_notes_area',
+            'rad_standard_number_area',
+            'rad_access_points_area',
+            'rad_description_control_area',
+            'isad_identity_area',
+            'isad_context_area',
+            'isad_content_and_structure_area',
+            'isad_conditions_of_access_use_area',
+            'isad_allied_materials_area',
+            'isad_notes_area',
+            'isad_access_points_area',
+            'isad_description_control_area',
+        ];
 
-    return true;
-  }
+        // Add visibility settings
+        foreach ($elements as $item) {
+            $setting = new QubitSetting();
+            $setting->name = $item;
+            $setting->scope = 'element_visibility';
+            $setting->value = 1;
+            $setting->culture = 'en';
+            $setting->save();
+        }
+
+        return true;
+    }
 }

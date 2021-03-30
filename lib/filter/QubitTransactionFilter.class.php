@@ -19,103 +19,86 @@
 
 class QubitTransactionFilter extends sfFilter
 {
-  protected static
-    $retry = 0,
-    $retryLimit = 3;
+    protected static $retry = 0;
+    protected static $retryLimit = 3;
 
-  protected function retry()
-  {
-    // If we've hit the retry limit, abort and return false
-    if (self::$retry++ > self::$retryLimit)
+    public function execute($filterChain)
     {
-      return false;
-    }
-
-    // Log a warning
-    if (sfConfig::get('sf_logging_enabled'))
-    {
-      $this->context->getLogger()->warning(
-        sprintf('Encountered a SQL transaction deadlock, retry %d of %d',
-          self::$retry, self::$retryLimit
-        )
-      );
-    }
-
-    // Get the current action instance
-    $actionInstance = $this->context
-      ->getController()
-      ->getActionStack()
-      ->getLastEntry()
-      ->getActionInstance();
-
-    // Create a new filter chain and reload config
-    $filterChain = new sfFilterChain();
-    $filterChain->loadConfiguration($actionInstance);
-
-    // Execute whole filter chain again
-    $filterChain->execute();
-
-    return true;
-  }
-
-  public function execute($filterChain)
-  {
-    try
-    {
-      $conn = Propel::getConnection();
-      $conn->beginTransaction();
-    }
-    catch (PropelException $e)
-    {
-    }
-
-    try
-    {
-      $filterChain->execute();
-
-      if (isset($conn))
-      {
-        $conn->commit();
-      }
-    }
-    catch (PDOException $e)
-    {
-      // Rollback the transaction
-      $conn->rollBack();
-
-      // If there was a transaction deadlock error (MySQL error code 1213)
-      if (isset($conn) && $e->errorInfo[1] == 1213)
-      {
-        // Retry the current action (returns false when out of retries)
-        if (!$this->retry())
-        {
-          // If we've hit the retry limit, re-throw the exception
-          throw $e;
+        try {
+            $conn = Propel::getConnection();
+            $conn->beginTransaction();
+        } catch (PropelException $e) {
         }
-      }
-      else
-      {
-        // Re-throw any other PDOExceptions
-        throw $e;
-      }
-    }
-    catch (Exception $e)
-    {
-      if (isset($conn))
-      {
-        // Whitelist of exceptions which commit instead of rollback the
-        // transaction
-        if ($e instanceof sfStopException)
-        {
-          $conn->commit();
-        }
-        else
-        {
-          $conn->rollBack();
-        }
-      }
 
-      throw $e;
+        try {
+            $filterChain->execute();
+
+            if (isset($conn)) {
+                $conn->commit();
+            }
+        } catch (PDOException $e) {
+            // Rollback the transaction
+            $conn->rollBack();
+
+            // If there was a transaction deadlock error (MySQL error code 1213)
+            if (isset($conn) && 1213 == $e->errorInfo[1]) {
+                // Retry the current action (returns false when out of retries)
+                if (!$this->retry()) {
+                    // If we've hit the retry limit, re-throw the exception
+                    throw $e;
+                }
+            } else {
+                // Re-throw any other PDOExceptions
+                throw $e;
+            }
+        } catch (Exception $e) {
+            if (isset($conn)) {
+                // Whitelist of exceptions which commit instead of rollback the
+                // transaction
+                if ($e instanceof sfStopException) {
+                    $conn->commit();
+                } else {
+                    $conn->rollBack();
+                }
+            }
+
+            throw $e;
+        }
     }
-  }
+
+    protected function retry()
+    {
+        // If we've hit the retry limit, abort and return false
+        if (self::$retry++ > self::$retryLimit) {
+            return false;
+        }
+
+        // Log a warning
+        if (sfConfig::get('sf_logging_enabled')) {
+            $this->context->getLogger()->warning(
+                sprintf(
+                    'Encountered a SQL transaction deadlock, retry %d of %d',
+                    self::$retry,
+                    self::$retryLimit
+                )
+            );
+        }
+
+        // Get the current action instance
+        $actionInstance = $this->context
+            ->getController()
+            ->getActionStack()
+            ->getLastEntry()
+            ->getActionInstance()
+        ;
+
+        // Create a new filter chain and reload config
+        $filterChain = new sfFilterChain();
+        $filterChain->loadConfiguration($actionInstance);
+
+        // Execute whole filter chain again
+        $filterChain->execute();
+
+        return true;
+    }
 }

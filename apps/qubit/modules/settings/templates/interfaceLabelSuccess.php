@@ -1,49 +1,49 @@
-<?php decorate_with('layout_2col.php') ?>
+<?php decorate_with('layout_2col.php'); ?>
 
-<?php slot('sidebar') ?>
+<?php slot('sidebar'); ?>
 
-  <?php echo get_component('settings', 'menu') ?>
+  <?php echo get_component('settings', 'menu'); ?>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>
 
-<?php slot('title') ?>
+<?php slot('title'); ?>
 
-  <h1><?php echo __('User interface label') ?></h1>
+  <h1><?php echo __('User interface label'); ?></h1>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>
 
-<?php slot('content') ?>
+<?php slot('content'); ?>
 
-  <?php echo $uiLabelForm->renderGlobalErrors() ?>
+  <?php echo $uiLabelForm->renderGlobalErrors(); ?>
 
-  <form action="<?php echo url_for('settings/interfaceLabel') ?>" method="post">
+  <form action="<?php echo url_for('settings/interfaceLabel'); ?>" method="post">
 
-    <?php echo $uiLabelForm->renderHiddenFields() ?>
+    <?php echo $uiLabelForm->renderHiddenFields(); ?>
 
     <div id="content">
 
       <table class="table sticky-enabled">
         <thead>
           <tr>
-            <th><?php echo __('Name')?></th>
-            <th><?php echo __('Value')?></th>
+            <th><?php echo __('Name'); ?></th>
+            <th><?php echo __('Value'); ?></th>
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($uiLabelForm->getSettings() as $setting): ?>
+          <?php foreach ($uiLabelForm->getSettings() as $setting) { ?>
             <tr>
               <td>
-                <?php if ($sf_user->getCulture() != $setting->getSourceCulture() && !strlen($setting->getValue())): ?>
-                  <div class="default-translation"><?php echo $setting->getName() ?></div>
-                <?php else: ?>
-                  <?php echo $setting->getName() ?>
-                <?php endif; ?>
+                <?php if ($sf_user->getCulture() != $setting->getSourceCulture() && !strlen($setting->getValue())) { ?>
+                  <div class="default-translation"><?php echo $setting->getName(); ?></div>
+                <?php } else { ?>
+                  <?php echo $setting->getName(); ?>
+                <?php } ?>
               </td>
               <td>
-                <?php echo $uiLabelForm[$setting->getName()] ?>
+                <?php echo $uiLabelForm[$setting->getName()]; ?>
               </td>
             </tr>
-          <?php endforeach; ?>
+          <?php } ?>
         </tbody>
       </table>
 
@@ -51,10 +51,10 @@
 
     <section class="actions">
       <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
+        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
       </ul>
     </section>
 
   </form>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>

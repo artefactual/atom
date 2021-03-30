@@ -19,71 +19,66 @@
 
 abstract class AbstractSitemapUrl
 {
-  public function __construct()
-  {
-    $this->writer = new XMLWriter;
-    $this->writer->openMemory();
-
-    $this->dateFormatter = new sfDateFormat('en');
-  }
-
-  protected function getLoc()
-  {
-    return '/'.$this->slug;
-  }
-
-  protected function getPriority()
-  {
-    return;
-  }
-
-  protected function getLastmod()
-  {
-    if (empty($this->updated_at))
+    public function __construct()
     {
-      return;
+        $this->writer = new XMLWriter();
+        $this->writer->openMemory();
+
+        $this->dateFormatter = new sfDateFormat('en');
     }
 
-    return date('Y-m-d', strtotime($this->updated_at));
-  }
-
-  protected function getChangefreq()
-  {
-    return 'monthly';
-  }
-
-  public function getUrl($baseUrl, $indent = true)
-  {
-    $this->writer->setIndent($indent);
-    $this->writer->startElement('url');
-
-    $this->writer->startElement('loc');
-    $this->writer->text($baseUrl.$this->getLoc());
-    $this->writer->endElement();
-
-    if (null !== $lastmod = $this->getLastmod())
+    public function getUrl($baseUrl, $indent = true)
     {
-      $this->writer->startElement('lastmod');
-      $this->writer->text($lastmod);
-      $this->writer->endElement();
+        $this->writer->setIndent($indent);
+        $this->writer->startElement('url');
+
+        $this->writer->startElement('loc');
+        $this->writer->text($baseUrl.$this->getLoc());
+        $this->writer->endElement();
+
+        if (null !== $lastmod = $this->getLastmod()) {
+            $this->writer->startElement('lastmod');
+            $this->writer->text($lastmod);
+            $this->writer->endElement();
+        }
+
+        if (null !== $changefreq = $this->getChangefreq()) {
+            $this->writer->startElement('changefreq');
+            $this->writer->text($changefreq);
+            $this->writer->endElement();
+        }
+
+        if (null !== $priority = $this->getPriority()) {
+            $this->writer->startElement('priority');
+            $this->writer->text($priority);
+            $this->writer->endElement();
+        }
+
+        $this->writer->endElement();
+
+        return $this->writer->outputMemory();
     }
 
-    if (null !== $changefreq = $this->getChangefreq())
+    protected function getLoc()
     {
-      $this->writer->startElement('changefreq');
-      $this->writer->text($changefreq);
-      $this->writer->endElement();
+        return '/'.$this->slug;
     }
 
-    if (null !== $priority = $this->getPriority())
+    protected function getPriority()
     {
-      $this->writer->startElement('priority');
-      $this->writer->text($priority);
-      $this->writer->endElement();
     }
 
-    $this->writer->endElement();
+    protected function getLastmod()
+    {
+        if (empty($this->updated_at)) {
+            return;
+        }
 
-    return $this->writer->outputMemory();
-  }
+        return date('Y-m-d', strtotime($this->updated_at));
+    }
+
+    protected function getChangefreq()
+    {
+        return 'monthly';
+    }
 }

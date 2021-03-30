@@ -25,30 +25,28 @@
  */
 class arMigration0148
 {
-  const
-    VERSION = 148, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 148;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    if (null === QubitMenu::getByName('importSkos'))
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      $node = new QubitMenu;
-      $node->parentId = QubitMenu::IMPORT_ID;
-      $node->name = 'importSkos';
-      $node->label = 'SKOS';
-      $node->sourceCulture = 'en';
-      $node->path = 'sfSkosPlugin/import';
-      $node->save();
+        if (null === QubitMenu::getByName('importSkos')) {
+            $node = new QubitMenu();
+            $node->parentId = QubitMenu::IMPORT_ID;
+            $node->name = 'importSkos';
+            $node->label = 'SKOS';
+            $node->sourceCulture = 'en';
+            $node->path = 'sfSkosPlugin/import';
+            $node->save();
+        }
+
+        return true;
     }
-
-    return true;
-  }
 }
-
-

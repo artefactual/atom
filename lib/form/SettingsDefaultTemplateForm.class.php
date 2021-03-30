@@ -18,84 +18,77 @@
  */
 
 /**
- * Settings module - "Default template" form definition
+ * Settings module - "Default template" form definition.
  *
- * @package    AccesstoMemory
- * @subpackage settings
  * @author     David Juhasz <david@artefactual.com>
  */
 class SettingsDefaultTemplateForm extends sfForm
 {
-  public function configure()
-  {
-    $i18n = sfContext::getInstance()->i18n;
-
-    // Available templates
-    $configuration = ProjectConfiguration::getActive();
-
-    $informationObjectTemplates = array();
-
-    if ($configuration->isPluginEnabled('sfIsadPlugin'))
+    public function configure()
     {
-      $informationObjectTemplates['isad'] = $i18n->__('ISAD(G), 2nd ed. International Council on Archives');
+        $i18n = sfContext::getInstance()->i18n;
+
+        // Available templates
+        $configuration = ProjectConfiguration::getActive();
+
+        $informationObjectTemplates = [];
+
+        if ($configuration->isPluginEnabled('sfIsadPlugin')) {
+            $informationObjectTemplates['isad'] = $i18n->__('ISAD(G), 2nd ed. International Council on Archives');
+        }
+        if ($configuration->isPluginEnabled('sfDcPlugin')) {
+            $informationObjectTemplates['dc'] = $i18n->__('Dublin Core, Version 1.1. Dublin Core Metadata Initiative');
+        }
+        if ($configuration->isPluginEnabled('sfModsPlugin')) {
+            $informationObjectTemplates['mods'] = $i18n->__('MODS, Version 3.3. U.S. Library of Congress');
+        }
+        if ($configuration->isPluginEnabled('sfRadPlugin')) {
+            $informationObjectTemplates['rad'] = $i18n->__('RAD, July 2008 version. Canadian Council of Archives');
+        }
+        if ($configuration->isPluginEnabled('arDacsPlugin')) {
+            $informationObjectTemplates['dacs'] = $i18n->__('DACS, 2nd ed. Society of American Archivists');
+        }
+
+        $actorTemplates = [
+            'isaar' => $i18n->__('ISAAR(CPF), 2nd ed. International Council on Archives'),
+        ];
+
+        $repositoryTemplates = [
+            'isdiah' => $i18n->__('ISDIAH, 1st ed. International Council on Archives'),
+        ];
+
+        // Build widgets
+        $this->setWidgets([
+            'informationobject' => new sfWidgetFormSelect(['choices' => $informationObjectTemplates]),
+            'actor' => new sfWidgetFormSelect(['choices' => $actorTemplates]),
+            'repository' => new sfWidgetFormSelect(['choices' => $repositoryTemplates]),
+        ]);
+
+        // Add labels
+        $this->widgetSchema->setLabels([
+            'informationobject' => sfConfig::get('app_ui_label_informationobject'),
+            'actor' => sfConfig::get('app_ui_label_actor'),
+            'repository' => sfConfig::get('app_ui_label_repository'),
+        ]);
+
+        // Add helper text
+        // NOTE: This is implemented in the template because it was too much
+        // trouble to integrate the helper text without rendering the whole form
+        // row due to the lack of a renderHelp() method in sfFormField.class.php
+        //
+        // $this->widgetSchema->setHelps();
+
+        // Validators
+        $this->validatorSchema['informationobject'] = new sfValidatorString();
+        $this->validatorSchema['actor'] = new sfValidatorString();
+        $this->validatorSchema['repository'] = new sfValidatorString();
+
+        // Set decorator
+        $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
+        $this->widgetSchema->addFormFormatter('list', $decorator);
+        $this->widgetSchema->setFormFormatterName('list');
+
+        // Set wrapper text for global form settings
+        $this->widgetSchema->setNameFormat('default_template[%s]');
     }
-    if ($configuration->isPluginEnabled('sfDcPlugin'))
-    {
-      $informationObjectTemplates['dc'] = $i18n->__('Dublin Core, Version 1.1. Dublin Core Metadata Initiative');
-    }
-    if ($configuration->isPluginEnabled('sfModsPlugin'))
-    {
-      $informationObjectTemplates['mods'] = $i18n->__('MODS, Version 3.3. U.S. Library of Congress');
-    }
-    if ($configuration->isPluginEnabled('sfRadPlugin'))
-    {
-      $informationObjectTemplates['rad'] = $i18n->__('RAD, July 2008 version. Canadian Council of Archives');
-    }
-    if ($configuration->isPluginEnabled('arDacsPlugin'))
-    {
-      $informationObjectTemplates['dacs'] = $i18n->__('DACS, 2nd ed. Society of American Archivists');
-    }
-
-    $actorTemplates = array(
-      'isaar' => $i18n->__('ISAAR(CPF), 2nd ed. International Council on Archives')
-    );
-
-    $repositoryTemplates = array(
-      'isdiah' => $i18n->__('ISDIAH, 1st ed. International Council on Archives')
-    );
-
-    // Build widgets
-    $this->setWidgets(array(
-      'informationobject' => new sfWidgetFormSelect(array('choices'=>$informationObjectTemplates)),
-      'actor' => new sfWidgetFormSelect(array('choices'=>$actorTemplates)),
-      'repository' => new sfWidgetFormSelect(array('choices'=>$repositoryTemplates)),
-    ));
-
-    // Add labels
-    $this->widgetSchema->setLabels(array(
-      'informationobject' => sfConfig::get('app_ui_label_informationobject'),
-      'actor' => sfConfig::get('app_ui_label_actor'),
-      'repository' => sfConfig::get('app_ui_label_repository')
-    ));
-
-    // Add helper text
-    // NOTE: This is implemented in the template because it was too much
-    // trouble to integrate the helper text without rendering the whole form
-    // row due to the lack of a renderHelp() method in sfFormField.class.php
-    //
-    // $this->widgetSchema->setHelps();
-
-    // Validators
-    $this->validatorSchema['informationobject'] = new sfValidatorString;
-    $this->validatorSchema['actor'] = new sfValidatorString;
-    $this->validatorSchema['repository'] = new sfValidatorString;
-
-    // Set decorator
-    $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
-    $this->widgetSchema->addFormFormatter('list', $decorator);
-    $this->widgetSchema->setFormFormatterName('list');
-
-    // Set wrapper text for global form settings
-    $this->widgetSchema->setNameFormat('default_template[%s]');
-  }
 }

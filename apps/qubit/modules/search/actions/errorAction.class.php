@@ -19,34 +19,30 @@
 
 class SearchErrorAction extends sfAction
 {
-  public function execute($request)
-  {
-    $context = sfContext::getInstance();
-    $exception = $request->getParameter('exception');
-    $exceptionName = get_class($exception);
-
-    // Make sure that $this->reason does not disclose internal details as it
-    // is going to be shown to public users.
-
-    if ($exception instanceof Elastica\Exception\ResponseException)
+    public function execute($request)
     {
-      $this->error = $exception->getResponse()->getError();
-    }
-    else
-    {
-      $this->error = $exception->getMessage();
-    }
+        $context = sfContext::getInstance();
+        $exception = $request->getParameter('exception');
+        $exceptionName = get_class($exception);
 
-    // $this->reason is going to be logged and shown in the template
-    $this->reason = $context->i18n->__('Elasticsearch error: %1%', array('%1%' => $exceptionName));
+        // Make sure that $this->reason does not disclose internal details as it
+        // is going to be shown to public users.
 
-    $message = sprintf("%s - %s", $this->reason, $this->error);
-    $this->logMessage($message, 'err');
+        if ($exception instanceof Elastica\Exception\ResponseException) {
+            $this->error = $exception->getResponse()->getError();
+        } else {
+            $this->error = $exception->getMessage();
+        }
 
-    // $this->error is going to be shown in the template only in debug mode
-    if (!$context->getConfiguration()->isDebug())
-    {
-      unset($this->error);
+        // $this->reason is going to be logged and shown in the template
+        $this->reason = $context->i18n->__('Elasticsearch error: %1%', ['%1%' => $exceptionName]);
+
+        $message = sprintf('%s - %s', $this->reason, $this->error);
+        $this->logMessage($message, 'err');
+
+        // $this->error is going to be shown in the template only in debug mode
+        if (!$context->getConfiguration()->isDebug()) {
+            unset($this->error);
+        }
     }
-  }
 }

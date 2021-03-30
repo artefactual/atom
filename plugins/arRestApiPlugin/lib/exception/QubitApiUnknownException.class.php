@@ -19,7 +19,7 @@
 
 class QubitApiUnknownException extends QubitApiException
 {
-  protected $message = 'Internal error';
-  protected $id = 'internal-error';
-  protected $statusCode = 500;
+    protected $message = 'Internal error';
+    protected $id = 'internal-error';
+    protected $statusCode = 500;
 }

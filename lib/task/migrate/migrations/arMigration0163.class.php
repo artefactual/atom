@@ -25,15 +25,14 @@
  */
 class arMigration0163
 {
-  const
-    VERSION = 163, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 163;
+    public const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    $task = new i18nCustomLinkToMarkdownTask(new sfEventDispatcher, new sfFormatter);
-    $task->execute();
+    public function up($configuration)
+    {
+        $task = new i18nCustomLinkToMarkdownTask(new sfEventDispatcher(), new sfFormatter());
+        $task->execute();
 
-    return true;
-  }
+        return true;
+    }
 }

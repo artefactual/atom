@@ -18,55 +18,50 @@
  */
 
 /**
- * Digital Object display component
+ * Digital Object display component.
  *
- * @package    AccesstoMemory
- * @subpackage digitalObject
  * @author     David Juhasz <david@artefactual.com>
  */
 class DigitalObjectShowDownloadComponent extends sfComponent
 {
-  /**
-   * Show a representation of a digital object image.
-   *
-   * @param sfWebRequest $request
-   *
-   */
-  public function execute($request)
-  {
-    switch($this->usageType)
+    /**
+     * Show a representation of a digital object image.
+     *
+     * @param sfWebRequest $request
+     */
+    public function execute($request)
     {
-      case QubitTerm::REFERENCE_ID:
-        $this->representation = $this->resource->getRepresentationByUsage(QubitTerm::REFERENCE_ID);
+        switch ($this->usageType) {
+            case QubitTerm::REFERENCE_ID:
+                $this->representation = $this->resource->getRepresentationByUsage(QubitTerm::REFERENCE_ID);
 
-        break;
+                break;
 
-      case QubitTerm::THUMBNAIL_ID:
-        $this->representation = $this->resource->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID);
+            case QubitTerm::THUMBNAIL_ID:
+                $this->representation = $this->resource->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID);
 
-        break;
+                break;
 
-      case QubitTerm::MASTER_ID:
-      default:
-        $this->representation = QubitDigitalObject::getGenericRepresentation($this->resource->mimeType, $this->usageType);
+            case QubitTerm::MASTER_ID:
+            default:
+                $this->representation = QubitDigitalObject::getGenericRepresentation($this->resource->mimeType, $this->usageType);
+        }
+
+        // If no representation found, then default to generic rep
+        if (!$this->representation) {
+            $this->representation = QubitDigitalObject::getGenericRepresentation($this->resource->mimeType, $this->usageType);
+        }
+
+        // Build a fully qualified URL to this digital object asset
+        if (
+            (
+                QubitTerm::IMAGE_ID != $this->resource->mediaTypeId
+                || QubitTerm::REFERENCE_ID == $this->usageType
+            )
+            && QubitTerm::OFFLINE_ID != $this->resource->usageId
+            && QubitAcl::check($this->resource->object, 'readMaster')
+        ) {
+            $this->link = $this->resource->getPublicPath();
+        }
     }
-
-    // If no representation found, then default to generic rep
-    if (!$this->representation)
-    {
-      $this->representation = QubitDigitalObject::getGenericRepresentation($this->resource->mimeType, $this->usageType);
-    }
-
-    // Build a fully qualified URL to this digital object asset
-    if (
-      (
-        QubitTerm::IMAGE_ID != $this->resource->mediaTypeId
-        || QubitTerm::REFERENCE_ID == $this->usageType
-      )
-      && $this->resource->usageId != QubitTerm::OFFLINE_ID
-      && QubitAcl::check($this->resource->object, 'readMaster'))
-    {
-      $this->link = $this->resource->getPublicPath();
-    }
-  }
 }

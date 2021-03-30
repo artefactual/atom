@@ -19,33 +19,27 @@
 
 class SearchInlineSearchComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    if (!isset($this->route))
+    public function execute($request)
     {
-      $params = array('module' => $request->module, 'action' => $request->action);
+        if (!isset($this->route)) {
+            $params = ['module' => $request->module, 'action' => $request->action];
 
-      if (isset($request->view))
-      {
-        $params['view'] = $request->view;
-      }
+            if (isset($request->view)) {
+                $params['view'] = $request->view;
+            }
 
-      $this->route = $this->context->routing->generate(null, $params);
+            $this->route = $this->context->routing->generate(null, $params);
+        }
+
+        if (isset($request->subquery)) {
+            $params = $request->getGetParameters();
+            unset($params['subquery']);
+
+            if (isset($this->route)) {
+                $this->cleanRoute = $this->route;
+            } else {
+                $this->cleanRoute = $this->context->routing->generate(null, ['module' => $request->module, 'action' => $request->action] + $params);
+            }
+        }
     }
-
-    if (isset($request->subquery))
-    {
-      $params = $request->getGetParameters();
-      unset($params['subquery']);
-
-      if (isset($this->route))
-      {
-        $this->cleanRoute = $this->route;
-      }
-      else
-      {
-        $this->cleanRoute = $this->context->routing->generate(null, array('module' => $request->module, 'action' => $request->action) + $params);
-      }
-    }
-  }
 }

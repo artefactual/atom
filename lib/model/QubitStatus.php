@@ -19,45 +19,40 @@
 
 class QubitStatus extends BaseStatus
 {
-  // Flag for updating search index on save or delete
-  public
-    $indexOnSave = true;
+    // Flag for updating search index on save or delete
+    public $indexOnSave = true;
 
-  public function __toString()
-  {
-    return $this->status->__toString();
-  }
-
-  public function save($connection = null)
-  {
-    // TODO: $cleanObject = $this->object->clean;
-    $cleanObjectId = $this->__get('objectId', array('clean' => true));
-
-    parent::save($connection);
-
-    if ($this->indexOnSave)
+    public function __toString()
     {
-      if ($this->objectId != $cleanObjectId && null !== QubitInformationObject::getById($cleanObjectId))
-      {
-        QubitSearch::getInstance()->update(QubitInformationObject::getById($cleanObjectId));
-      }
-
-      if ($this->object instanceof QubitInformationObject)
-      {
-        QubitSearch::getInstance()->update($this->object);
-      }
+        return $this->status->__toString();
     }
 
-    return $this;
-  }
-
-  public function delete($connection = null)
-  {
-    parent::delete($connection);
-
-    if ($this->getObject() instanceof QubitInformationObject)
+    public function save($connection = null)
     {
-      QubitSearch::getInstance()->update($this->getObject());
+        // TODO: $cleanObject = $this->object->clean;
+        $cleanObjectId = $this->__get('objectId', ['clean' => true]);
+
+        parent::save($connection);
+
+        if ($this->indexOnSave) {
+            if ($this->objectId != $cleanObjectId && null !== QubitInformationObject::getById($cleanObjectId)) {
+                QubitSearch::getInstance()->update(QubitInformationObject::getById($cleanObjectId));
+            }
+
+            if ($this->object instanceof QubitInformationObject) {
+                QubitSearch::getInstance()->update($this->object);
+            }
+        }
+
+        return $this;
     }
-  }
+
+    public function delete($connection = null)
+    {
+        parent::delete($connection);
+
+        if ($this->getObject() instanceof QubitInformationObject) {
+            QubitSearch::getInstance()->update($this->getObject());
+        }
+    }
 }

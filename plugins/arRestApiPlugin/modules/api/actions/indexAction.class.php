@@ -19,10 +19,10 @@
 
 class ApiIndexAction extends QubitApiAction
 {
-  public function get($request)
-  {
-    $config = sfContext::getInstance()->getConfiguration();
+    public function get($request)
+    {
+        $config = sfContext::getInstance()->getConfiguration();
 
-    return array('version' => $config::VERSION);
-  }
+        return ['version' => $config::VERSION];
+    }
 }

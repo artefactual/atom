@@ -25,50 +25,51 @@
  */
 class arMigration0110
 {
-  const
-    VERSION = 110, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 110;
+    public const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    // Add the "DACS Note" taxonomy
-    QubitMigrate::bumpTaxonomy(QubitTaxonomy::DACS_NOTE_ID, $configuration);
-    $taxonomy = new QubitTaxonomy;
-    $taxonomy->id = QubitTaxonomy::DACS_NOTE_ID;
-    $taxonomy->parentId = QubitTaxonomy::ROOT_ID;
-    $taxonomy->name = 'DACS Note';
-    $taxonomy->note = 'Note types that occur specifically within the Society of American Archivists "Describing Archives: a Content Standard" (DACS).';
-    $taxonomy->culture = 'en';
-    $taxonomy->save();
-
-    // Add the "DACS Note" terms
-    foreach (array(
-      array('en' => 'Conservation'),
-      array('en' => 'Citation'),
-      array('en' => 'Alphanumeric designations'),
-      array('en' => 'Variant title information'),
-      array('en' => 'Processing information')) as $termNames)
+    public function up($configuration)
     {
-      $term = new QubitTerm;
-      $term->parentId = QubitTerm::ROOT_ID;
-      $term->taxonomyId = QubitTaxonomy::DACS_NOTE_ID;
-      $term->sourceCulture = 'en';
-      foreach ($termNames as $key => $value)
-      {
-        $term->setName($value, array('culture' => $key));
-      }
+        // Add the "DACS Note" taxonomy
+        QubitMigrate::bumpTaxonomy(QubitTaxonomy::DACS_NOTE_ID, $configuration);
+        $taxonomy = new QubitTaxonomy();
+        $taxonomy->id = QubitTaxonomy::DACS_NOTE_ID;
+        $taxonomy->parentId = QubitTaxonomy::ROOT_ID;
+        $taxonomy->name = 'DACS Note';
+        $taxonomy->note = 'Note types that occur specifically within the Society of American Archivists "Describing Archives: a Content Standard" (DACS).';
+        $taxonomy->culture = 'en';
+        $taxonomy->save();
 
-      $term->save();
+        // Add the "DACS Note" terms
+        foreach (
+            [
+                ['en' => 'Conservation'],
+                ['en' => 'Citation'],
+                ['en' => 'Alphanumeric designations'],
+                ['en' => 'Variant title information'],
+                ['en' => 'Processing information'],
+            ]
+            as $termNames
+        ) {
+            $term = new QubitTerm();
+            $term->parentId = QubitTerm::ROOT_ID;
+            $term->taxonomyId = QubitTaxonomy::DACS_NOTE_ID;
+            $term->sourceCulture = 'en';
+            foreach ($termNames as $key => $value) {
+                $term->setName($value, ['culture' => $key]);
+            }
+
+            $term->save();
+        }
+
+        // Add "Record-keeping activity" event type
+        $term = new QubitTerm();
+        $term->parentId = QubitTerm::ROOT_ID;
+        $term->taxonomyId = QubitTaxonomy::EVENT_TYPE_ID;
+        $term->sourceCulture = 'en';
+        $term->setName('Record-keeping activity', ['culture' => 'en']);
+        $term->save();
+
+        return true;
     }
-
-    // Add "Record-keeping activity" event type
-    $term = new QubitTerm;
-    $term->parentId = QubitTerm::ROOT_ID;
-    $term->taxonomyId = QubitTaxonomy::EVENT_TYPE_ID;
-    $term->sourceCulture = 'en';
-    $term->setName('Record-keeping activity', array('culture' => 'en'));
-    $term->save();
-
-    return true;
-  }
 }

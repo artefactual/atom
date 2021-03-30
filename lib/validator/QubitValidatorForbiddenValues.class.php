@@ -19,30 +19,31 @@
 
 class QubitValidatorForbiddenValues extends sfValidatorBase
 {
-  /**
-   * @param array $options   An array of options
-   * @param array $messages  An array of error messages
-   *
-   * @see sfValidatorBase
-   */
-  protected function configure($options = array(), $messages = array())
-  {
-    $this->addRequiredOption('forbidden_values');
-    $this->addMessage('forbidden', sfContext::getInstance()->i18n->__('Value %value% is forbidden'));
-  }
-
-  /**
-   * @see sfValidatorBase
-   */
-  protected function doClean($value)
-  {
-    $forbiddenValues = $this->getOption('forbidden_values');
-
-    if (in_array($value, $forbiddenValues))
+    /**
+     * @param array $options  An array of options
+     * @param array $messages An array of error messages
+     *
+     * @see sfValidatorBase
+     */
+    protected function configure($options = [], $messages = [])
     {
-      throw new sfValidatorError($this, 'forbidden', array('value' => $value));
+        $this->addRequiredOption('forbidden_values');
+        $this->addMessage('forbidden', sfContext::getInstance()->i18n->__('Value %value% is forbidden'));
     }
 
-    return $value;
-  }
+    /**
+     * @see sfValidatorBase
+     *
+     * @param mixed $value
+     */
+    protected function doClean($value)
+    {
+        $forbiddenValues = $this->getOption('forbidden_values');
+
+        if (in_array($value, $forbiddenValues)) {
+            throw new sfValidatorError($this, 'forbidden', ['value' => $value]);
+        }
+
+        return $value;
+    }
 }

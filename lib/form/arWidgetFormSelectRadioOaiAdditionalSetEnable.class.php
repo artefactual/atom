@@ -19,22 +19,20 @@
 
 class arWidgetFormSelectRadioOaiAdditionalSetEnable extends sfWidgetFormSelectRadio
 {
-  public function formatter($widget, $inputs)
-  {
-    $output = parent::formatter($widget, $inputs);
-
-    $oaiAdditionalSetsEnabled = QubitSetting::getByName('oai_additional_sets_enabled');
-
-    // If OAI additional sets are enabled, display a list of links to them
-    if (isset($oaiAdditionalSetsEnabled) && intval($oaiAdditionalSetsEnabled->getValue(array('sourceCulture'=>true))))
+    public function formatter($widget, $inputs)
     {
-      foreach(QubitOai::getAdditionalOaiSets() as $set)
-      {
-        $setUrl = url_for('oai') .'?verb=ListRecords&metadataPrefix=oai_dc&set='. $set->setSpec();
-        $output .= $this->renderContentTag('div', $this->renderContentTag('a', $set->getName(), array('href' => $setUrl)));
-      }
-    }
+        $output = parent::formatter($widget, $inputs);
 
-    return $output;
-  }
+        $oaiAdditionalSetsEnabled = QubitSetting::getByName('oai_additional_sets_enabled');
+
+        // If OAI additional sets are enabled, display a list of links to them
+        if (isset($oaiAdditionalSetsEnabled) && intval($oaiAdditionalSetsEnabled->getValue(['sourceCulture' => true]))) {
+            foreach (QubitOai::getAdditionalOaiSets() as $set) {
+                $setUrl = url_for('oai').'?verb=ListRecords&metadataPrefix=oai_dc&set='.$set->setSpec();
+                $output .= $this->renderContentTag('div', $this->renderContentTag('a', $set->getName(), ['href' => $setUrl]));
+            }
+        }
+
+        return $output;
+    }
 }

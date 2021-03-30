@@ -19,47 +19,43 @@
 
 class StaticPageIndexAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->resource = $this->getRoute()->resource;
-
-    if (1 > strlen($title = $this->resource->__toString()))
+    public function execute($request)
     {
-      $title = $this->context->i18n->__('Untitled');
+        $this->resource = $this->getRoute()->resource;
+
+        if (1 > strlen($title = $this->resource->__toString())) {
+            $title = $this->context->i18n->__('Untitled');
+        }
+
+        $this->response->setTitle("{$title} - {$this->response->getTitle()}");
+
+        $this->content = $this->getPurifiedStaticPageContent();
+
+        if (sfConfig::get('app_enable_institutional_scoping') && 'home' == $this->resource->slug) {
+            // Remove the search-realm attribute
+            $this->context->user->removeAttribute('search-realm');
+        }
     }
 
-    $this->response->setTitle("$title - {$this->response->getTitle()}");
-
-    $this->content = $this->getPurifiedStaticPageContent();
-
-    if (sfConfig::get('app_enable_institutional_scoping') && $this->resource->slug == 'home')
+    protected function getPurifiedStaticPageContent()
     {
-      // Remove the search-realm attribute
-      $this->context->user->removeAttribute('search-realm');
+        $culture = sfContext::getInstance()->getUser()->getCulture();
+        $cacheKey = 'staticpage:'.$this->resource->id.':'.$culture;
+        $cache = QubitCache::getInstance();
+
+        if (null === $cache) {
+            return;
+        }
+
+        if ($cache->has($cacheKey)) {
+            return $cache->get($cacheKey);
+        }
+
+        $content = $this->resource->getContent(['cultureFallback' => true]);
+        $content = QubitHtmlPurifier::getInstance()->purify($content);
+
+        $cache->set($cacheKey, $content);
+
+        return $content;
     }
-  }
-
-  protected function getPurifiedStaticPageContent()
-  {
-    $culture = sfContext::getInstance()->getUser()->getCulture();
-    $cacheKey = 'staticpage:'.$this->resource->id.':'.$culture;
-    $cache = QubitCache::getInstance();
-
-    if (null === $cache)
-    {
-      return;
-    }
-
-    if ($cache->has($cacheKey))
-    {
-      return $cache->get($cacheKey);
-    }
-
-    $content = $this->resource->getContent(array('cultureFallback' => true));
-    $content = QubitHtmlPurifier::getInstance()->purify($content);
-
-    $cache->set($cacheKey, $content);
-
-    return $content;
-  }
 }

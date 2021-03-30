@@ -18,20 +18,18 @@
  */
 
 /**
- * Check for updates component
- *
- * @package AccesstoMemory
- * @subpackage default
+ * Check for updates component.
  */
 class DefaultPopularComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    $this->popularThisWeek = QubitAccessLog::getPopularThisWeek(array('limit' => isset($this->limit) ? $this->limit : 10));
-
-    if (0 == count($this->popularThisWeek))
+    public function execute($request)
     {
-      return sfView::NONE;
+        $this->popularThisWeek = QubitAccessLog::getPopularThisWeek(
+            ['limit' => isset($this->limit) ? $this->limit : 10]
+        );
+
+        if (0 == count($this->popularThisWeek)) {
+            return sfView::NONE;
+        }
     }
-  }
 }

@@ -18,26 +18,23 @@
  */
 
 /**
- * Generate  listIdentifiers response of the OAI-PMH protocol for the Access to Memory (AtoM)
+ * Generate  listIdentifiers response of the OAI-PMH protocol for the Access to Memory (AtoM).
  *
- * @package    AccesstoMemory
- * @subpackage oai
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
 class arOaiPluginListIdentifiersComponent extends arOaiPluginComponent
 {
-  public function execute($request)
-  {
-    $this->setUpdateParametersFromRequest($request);
-
-    // Restrict to top-level descriptions for EAD given children get nested
-    if ($request->metadataPrefix == 'oai_ead')
+    public function execute($request)
     {
-      $options['topLevel'] = true;
+        $this->setUpdateParametersFromRequest($request);
+
+        // Restrict to top-level descriptions for EAD given children get nested
+        if ('oai_ead' == $request->metadataPrefix) {
+            $options['topLevel'] = true;
+        }
+
+        $this->getUpdates($options);
+
+        $this->setRequestAttributes($request);
     }
-
-    $this->getUpdates($options);
-
-    $this->setRequestAttributes($request);
-  }
 }

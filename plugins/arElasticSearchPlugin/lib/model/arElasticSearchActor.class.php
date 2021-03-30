@@ -19,51 +19,47 @@
 
 class arElasticSearchActor extends arElasticSearchModelBase
 {
-  public function load()
-  {
-    $sql  = 'SELECT actor.id';
-    $sql .= ' FROM '.QubitActor::TABLE_NAME.' actor';
-    $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON actor.id = object.id';
-    $sql .= ' WHERE actor.id != ? AND object.class_name = ?';
-
-    $actors = QubitPdo::fetchAll($sql, array(QubitActor::ROOT_ID, 'QubitActor'));
-
-    $this->count = count($actors);
-
-    return $actors;
-  }
-
-  public function populate()
-  {
-    $errors = array();
-
-    // Loop through results, and add to search index
-    foreach ($this->load() as $key => $item)
+    public function load()
     {
-      try
-      {
-        $node = new arElasticSearchActorPdo($item->id);
-        $data = $node->serialize();
+        $sql = 'SELECT actor.id';
+        $sql .= ' FROM '.QubitActor::TABLE_NAME.' actor';
+        $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON actor.id = object.id';
+        $sql .= ' WHERE actor.id != ? AND object.class_name = ?';
 
-        QubitSearch::getInstance()->addDocument($data, 'QubitActor');
+        $actors = QubitPdo::fetchAll($sql, [QubitActor::ROOT_ID, 'QubitActor']);
 
-        $this->logEntry($data['i18n'][$data['sourceCulture']]['authorizedFormOfName'], $key + 1);
-      }
-      catch (sfException $e)
-      {
-        $errors[] = $e->getMessage();
-      }
+        $this->count = count($actors);
+
+        return $actors;
     }
 
-    return $errors;
-  }
+    public function populate()
+    {
+        $errors = [];
 
-  public static function update($object)
-  {
-    $node = new arElasticSearchActorPdo($object->id);
+        // Loop through results, and add to search index
+        foreach ($this->load() as $key => $item) {
+            try {
+                $node = new arElasticSearchActorPdo($item->id);
+                $data = $node->serialize();
 
-    QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitActor');
+                QubitSearch::getInstance()->addDocument($data, 'QubitActor');
 
-    return true;
-  }
+                $this->logEntry($data['i18n'][$data['sourceCulture']]['authorizedFormOfName'], $key + 1);
+            } catch (sfException $e) {
+                $errors[] = $e->getMessage();
+            }
+        }
+
+        return $errors;
+    }
+
+    public static function update($object)
+    {
+        $node = new arElasticSearchActorPdo($object->id);
+
+        QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitActor');
+
+        return true;
+    }
 }

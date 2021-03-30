@@ -20,59 +20,50 @@
 /**
  * Controller for editing func information.
  *
- * @package    AccesstoMemory
- * @subpackage function
  * @author     David Juhasz <david@artefactual.com>
  */
 class FunctionEditAction extends DefaultEditAction
 {
-  protected function earlyExecute()
-  {
-    $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
-
-    $this->resource = new QubitFunctionObject;
-    if (isset($this->getRoute()->resource))
+    public function execute($request)
     {
-      $this->resource = $this->getRoute()->resource;
+        parent::execute($request);
 
-      // Check user authorization
-      if (!QubitAcl::check($this->resource, 'update') && !QubitAcl::check($this->resource, 'translate'))
-      {
-        QubitAcl::forwardUnauthorized();
-      }
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
+            if ($this->form->isValid()) {
+                $this->processForm();
 
-      // Add optimistic lock
-      $this->form->setDefault('serialNumber', $this->resource->serialNumber);
-      $this->form->setValidator('serialNumber', new sfValidatorInteger);
-      $this->form->setWidget('serialNumber', new sfWidgetFormInputHidden);
-    }
-    else
-    {
-      // Check authorization
-      if (!QubitAcl::check($this->parent, 'create'))
-      {
-        QubitAcl::forwardUnauthorized();
-      }
-    }
-  }
+                $this->resource->save();
 
-  public function execute($request)
-  {
-    parent::execute($request);
+                $this->redirect([$this->resource, 'module' => 'function']);
+            }
+        }
 
-    if ($request->isMethod('post'))
-    {
-      $this->form->bind($request->getPostParameters());
-      if ($this->form->isValid())
-      {
-        $this->processForm();
-
-        $this->resource->save();
-
-        $this->redirect(array($this->resource, 'module' => 'function'));
-      }
+        QubitDescription::addAssets($this->response);
     }
 
-    QubitDescription::addAssets($this->response);
-  }
+    protected function earlyExecute()
+    {
+        $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
+
+        $this->resource = new QubitFunctionObject();
+        if (isset($this->getRoute()->resource)) {
+            $this->resource = $this->getRoute()->resource;
+
+            // Check user authorization
+            if (!QubitAcl::check($this->resource, 'update') && !QubitAcl::check($this->resource, 'translate')) {
+                QubitAcl::forwardUnauthorized();
+            }
+
+            // Add optimistic lock
+            $this->form->setDefault('serialNumber', $this->resource->serialNumber);
+            $this->form->setValidator('serialNumber', new sfValidatorInteger());
+            $this->form->setWidget('serialNumber', new sfWidgetFormInputHidden());
+        } else {
+            // Check authorization
+            if (!QubitAcl::check($this->parent, 'create')) {
+                QubitAcl::forwardUnauthorized();
+            }
+        }
+    }
 }

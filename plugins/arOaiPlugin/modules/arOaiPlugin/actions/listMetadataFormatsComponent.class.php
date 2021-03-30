@@ -18,16 +18,14 @@
  */
 
 /**
- * Generate  listMetadataFormats response of the OAI-PMH protocol for the Access to Memory (AtoM)
+ * Generate  listMetadataFormats response of the OAI-PMH protocol for the Access to Memory (AtoM).
  *
- * @package    AccesstoMemory
- * @subpackage oai
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
 class arOaiPluginListMetadataFormatsComponent extends arOaiPluginComponent
 {
-  public function execute($request)
-  {
-    $this->setRequestAttributes($request);
-  }
+    public function execute($request)
+    {
+        $this->setRequestAttributes($request);
+    }
 }

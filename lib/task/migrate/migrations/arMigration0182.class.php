@@ -25,132 +25,133 @@
  */
 class arMigration0182
 {
-  const
-    VERSION = 182, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 182;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    QubitMigrate::updateForeignKeys(array(
-      array(
-        'table' => 'actor',
-        'column' => 'parent_id',
-        'refTable' => 'actor',
-        'constraint' => 'actor_FK_5',
-        'onDelete' => 'ON DELETE CASCADE',
-      ),
-      array(
-        'table' => 'digital_object',
-        'column' => 'parent_id',
-        'refTable' => 'digital_object',
-        'constraint' => 'digital_object_FK_5',
-        'onDelete' => 'ON DELETE CASCADE',
-      ),
-      array(
-        'table' => 'event',
-        'column' => 'actor_id',
-        'refTable' => 'actor',
-        'constraint' => 'event_FK_4',
-        'onDelete' => 'ON DELETE SET NULL',
-      ),
-      array(
-        'table' => 'function_object',
-        'column' => 'type_id',
-        'refTable' => 'term',
-        'constraint' => 'function_object_FK_2',
-        'onDelete' => 'ON DELETE SET NULL',
-      ),
-      array(
-        'table' => 'function_object',
-        'column' => 'description_status_id',
-        'refTable' => 'term',
-        'constraint' => 'function_object_FK_3',
-        'onDelete' => 'ON DELETE SET NULL',
-      ),
-      array(
-        'table' => 'function_object',
-        'column' => 'description_detail_id',
-        'refTable' => 'term',
-        'constraint' => 'function_object_FK_4',
-        'onDelete' => 'ON DELETE SET NULL',
-      ),
-      array(
-        'table' => 'information_object',
-        'column' => 'collection_type_id',
-        'refTable' => 'term',
-        'constraint' => 'information_object_FK_3',
-        'onDelete' => 'ON DELETE SET NULL',
-      ),
-      array(
-        'table' => 'information_object',
-        'column' => 'repository_id',
-        'refTable' => 'repository',
-        'constraint' => 'information_object_FK_4',
-        'onDelete' => 'ON DELETE SET NULL',
-      ),
-      array(
-        'table' => 'information_object',
-        'column' => 'parent_id',
-        'refTable' => 'information_object',
-        'constraint' => 'information_object_FK_5',
-        'onDelete' => 'ON DELETE CASCADE',
-      ),
-      array(
-        'table' => 'note',
-        'column' => 'user_id',
-        'refTable' => 'user',
-        'constraint' => 'note_FK_3',
-        'onDelete' => 'ON DELETE SET NULL',
-      ),
-      array(
-        'table' => 'premis_object',
-        'column' => 'information_object_id',
-        'refTable' => 'information_object',
-        'constraint' => 'premis_object_FK_2',
-        'onDelete' => 'ON DELETE CASCADE',
-      ),
-      array(
-        'table' => 'relation',
-        'column' => 'subject_id',
-        'refTable' => 'object',
-        'constraint' => 'relation_FK_2',
-        'onDelete' => 'ON DELETE CASCADE',
-      ),
-      array(
-        'table' => 'relation',
-        'column' => 'object_id',
-        'refTable' => 'object',
-        'constraint' => 'relation_FK_3',
-        'onDelete' => 'ON DELETE CASCADE',
-      ),
-      array(
-        'table' => 'relation',
-        'column' => 'type_id',
-        'refTable' => 'term',
-        'constraint' => 'relation_FK_4',
-        'onDelete' => 'ON DELETE CASCADE',
-      ),
-      array(
-        'table' => 'taxonomy',
-        'column' => 'parent_id',
-        'refTable' => 'taxonomy',
-        'constraint' => 'taxonomy_FK_2',
-        'onDelete' => 'ON DELETE CASCADE',
-      ),
-      array(
-        'table' => 'term',
-        'column' => 'parent_id',
-        'refTable' => 'term',
-        'constraint' => 'term_FK_3',
-        'onDelete' => 'ON DELETE CASCADE',
-      ),
-    ));
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
+    {
+        QubitMigrate::updateForeignKeys([
+            [
+                'table' => 'actor',
+                'column' => 'parent_id',
+                'refTable' => 'actor',
+                'constraint' => 'actor_FK_5',
+                'onDelete' => 'ON DELETE CASCADE',
+            ],
+            [
+                'table' => 'digital_object',
+                'column' => 'parent_id',
+                'refTable' => 'digital_object',
+                'constraint' => 'digital_object_FK_5',
+                'onDelete' => 'ON DELETE CASCADE',
+            ],
+            [
+                'table' => 'event',
+                'column' => 'actor_id',
+                'refTable' => 'actor',
+                'constraint' => 'event_FK_4',
+                'onDelete' => 'ON DELETE SET NULL',
+            ],
+            [
+                'table' => 'function_object',
+                'column' => 'type_id',
+                'refTable' => 'term',
+                'constraint' => 'function_object_FK_2',
+                'onDelete' => 'ON DELETE SET NULL',
+            ],
+            [
+                'table' => 'function_object',
+                'column' => 'description_status_id',
+                'refTable' => 'term',
+                'constraint' => 'function_object_FK_3',
+                'onDelete' => 'ON DELETE SET NULL',
+            ],
+            [
+                'table' => 'function_object',
+                'column' => 'description_detail_id',
+                'refTable' => 'term',
+                'constraint' => 'function_object_FK_4',
+                'onDelete' => 'ON DELETE SET NULL',
+            ],
+            [
+                'table' => 'information_object',
+                'column' => 'collection_type_id',
+                'refTable' => 'term',
+                'constraint' => 'information_object_FK_3',
+                'onDelete' => 'ON DELETE SET NULL',
+            ],
+            [
+                'table' => 'information_object',
+                'column' => 'repository_id',
+                'refTable' => 'repository',
+                'constraint' => 'information_object_FK_4',
+                'onDelete' => 'ON DELETE SET NULL',
+            ],
+            [
+                'table' => 'information_object',
+                'column' => 'parent_id',
+                'refTable' => 'information_object',
+                'constraint' => 'information_object_FK_5',
+                'onDelete' => 'ON DELETE CASCADE',
+            ],
+            [
+                'table' => 'note',
+                'column' => 'user_id',
+                'refTable' => 'user',
+                'constraint' => 'note_FK_3',
+                'onDelete' => 'ON DELETE SET NULL',
+            ],
+            [
+                'table' => 'premis_object',
+                'column' => 'information_object_id',
+                'refTable' => 'information_object',
+                'constraint' => 'premis_object_FK_2',
+                'onDelete' => 'ON DELETE CASCADE',
+            ],
+            [
+                'table' => 'relation',
+                'column' => 'subject_id',
+                'refTable' => 'object',
+                'constraint' => 'relation_FK_2',
+                'onDelete' => 'ON DELETE CASCADE',
+            ],
+            [
+                'table' => 'relation',
+                'column' => 'object_id',
+                'refTable' => 'object',
+                'constraint' => 'relation_FK_3',
+                'onDelete' => 'ON DELETE CASCADE',
+            ],
+            [
+                'table' => 'relation',
+                'column' => 'type_id',
+                'refTable' => 'term',
+                'constraint' => 'relation_FK_4',
+                'onDelete' => 'ON DELETE CASCADE',
+            ],
+            [
+                'table' => 'taxonomy',
+                'column' => 'parent_id',
+                'refTable' => 'taxonomy',
+                'constraint' => 'taxonomy_FK_2',
+                'onDelete' => 'ON DELETE CASCADE',
+            ],
+            [
+                'table' => 'term',
+                'column' => 'parent_id',
+                'refTable' => 'term',
+                'constraint' => 'term_FK_3',
+                'onDelete' => 'ON DELETE CASCADE',
+            ],
+        ]);
 
-    return true;
-  }
+        return true;
+    }
 }

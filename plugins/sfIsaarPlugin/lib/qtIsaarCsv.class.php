@@ -18,116 +18,108 @@
  */
 
 /**
- * Map between ISAAR CSV format and Qubit data model
+ * Map between ISAAR CSV format and Qubit data model.
  *
- * @package    AccesstoMemory
- * @subpackage sfIsaarPlugin
  * @author     David Juhasz <david@artefactual.com>
  */
 class qtIsaarCsv extends sfIsaarPlugin
 {
-  protected
-    $resource,
-    $isaar,
-    $sourceId;
+    public static $keymapSource;
+    public static $keymapTarget = 'actor';
+    public static $entityTypeLookup;
+    public static $NAMES = [
+        'authorizedFormOfName',
+        'datesOfExistence',
+        'descriptionIdentifier',
+        'entityType',
+        'functions',
+        'generalContext',
+        'history',
+        'identifier',
+        'institutionIdentifier',
+        'internalStructures',
+        'languages',
+        'legalStatus',
+        'maintenanceNotes',
+        'mandates',
+        //'otherNames',
+        //'parallelNames',
+        'places',
+        'rules',
+        'scripts',
+        'sources',
+        //'standardizedNames'
+        'uniqueId',
+    ];
+    protected $resource;
+    protected $isaar;
+    protected $sourceId;
 
-  public static
-    $keymapSource,
-    $keymapTarget = 'actor',
-    $entityTypeLookup,
-
-    $NAMES = array(
-      'authorizedFormOfName',
-      'datesOfExistence',
-      'descriptionIdentifier',
-      'entityType',
-      'functions',
-      'generalContext',
-      'history',
-      'identifier',
-      'institutionIdentifier',
-      'internalStructures',
-      'languages',
-      'legalStatus',
-      'maintenanceNotes',
-      'mandates',
-      //'otherNames',
-      //'parallelNames',
-      'places',
-      'rules',
-      'scripts',
-      'sources',
-      //'standardizedNames'
-      'uniqueId'
-    );
-
-  public function __construct($resource)
-  {
-    $this->resource = $resource;
-    $this->isaar = new sfIsaarPlugin($this->resource);
-  }
-
-  public function __get($name)
-  {
-    if (in_array($name, self::$NAMES))
+    public function __construct($resource)
     {
-      switch ($name)
-      {
-        case 'maintenanceNotes':
-          return $this->isaar->maintenanceNotes = $value;
-
-        case 'uniqueId':
-          return $this->sourceId;
-
-        default:
-          return $this->resource->__get($name);
-      }
-    }
-  }
-
-  public function __set($name, $value)
-  {
-    if (in_array($name, self::$NAMES))
-    {
-      switch ($name)
-      {
-        case 'entityType':
-          $value = strtolower($value);
-          if (isset(self::$entityTypeLookup[$value]))
-          {
-            $this->resource->entityTypeId = self::$entityTypeLookup[$value];
-          }
-          break;
-
-        case 'maintenanceNotes':
-          $this->isaar->maintenanceNotes = $value;
-          break;
-
-        case 'uniqueId':
-          $this->sourceId = $value;
-          break;
-
-        default:
-          $this->resource->__set($name, $value);
-      }
+        $this->resource = $resource;
+        $this->isaar = new sfIsaarPlugin($this->resource);
     }
 
-    return $this;
-  }
+    public function __get($name)
+    {
+        if (in_array($name, self::$NAMES)) {
+            switch ($name) {
+                case 'maintenanceNotes':
+                    return $this->isaar->maintenanceNotes = $value;
 
-  public function save($connection = null)
-  {
-    $this->resource->save($connection);
+                case 'uniqueId':
+                    return $this->sourceId;
 
-    // Add to keymap table
-    $keymap = new QubitKeymap;
-    $keymap->sourceName = self::$keymapSource;
-    $keymap->sourceId = $this->sourceId;
-    $keymap->targetName = self::$keymapTarget;
-    $keymap->targetId = $this->resource->id;
+                default:
+                    return $this->resource->__get($name);
+            }
+        }
+    }
 
-    $keymap->save($connection);
+    public function __set($name, $value)
+    {
+        if (in_array($name, self::$NAMES)) {
+            switch ($name) {
+                case 'entityType':
+                    $value = strtolower($value);
+                    if (isset(self::$entityTypeLookup[$value])) {
+                        $this->resource->entityTypeId = self::$entityTypeLookup[$value];
+                    }
 
-    return $this;
-  }
+                    break;
+
+                case 'maintenanceNotes':
+                    $this->isaar->maintenanceNotes = $value;
+
+                    break;
+
+                case 'uniqueId':
+                    $this->sourceId = $value;
+
+                    break;
+
+                default:
+                    $this->resource->__set($name, $value);
+            }
+        }
+
+        return $this;
+    }
+
+    public function save($connection = null)
+    {
+        $this->resource->save($connection);
+
+        // Add to keymap table
+        $keymap = new QubitKeymap();
+        $keymap->sourceName = self::$keymapSource;
+        $keymap->sourceId = $this->sourceId;
+        $keymap->targetName = self::$keymapTarget;
+        $keymap->targetId = $this->resource->id;
+
+        $keymap->save($connection);
+
+        return $this;
+    }
 }

@@ -19,30 +19,27 @@
 
 class SettingsPermissionsPreservationSystemAccessStatementForm extends sfForm
 {
-  public function configure()
-  {
-    $this->widgetSchema->setNameFormat('preservationSystemAccessStatement[%s]');
-    $this->getValidatorSchema()->setOption('allow_extra_fields', true);
-
-    $this->setWidget('preservationSystemAccessStatementEnabled', new sfWidgetFormSelectRadio(array('choices'=> array(1 => 'yes', 0 => 'no')), array('class'=>'radio')));
-    $this->setValidator('preservationSystemAccessStatementEnabled', new sfValidatorInteger(array('required' => false)));
-
-    $default = false;
-    if (null !== $setting = QubitSetting::getByName('digitalobject_preservation_system_access_statement_enabled'))
+    public function configure()
     {
-      $value = $setting->getValue(array('sourceCulture' => true));
-      if (!empty($value))
-      {
-        $default = $value;
-      }
-    }
-    $this->setDefault('preservationSystemAccessStatementEnabled', $default);
+        $this->widgetSchema->setNameFormat('preservationSystemAccessStatement[%s]');
+        $this->getValidatorSchema()->setOption('allow_extra_fields', true);
 
-    $this->setWidget('preservationSystemAccessStatement', new sfWidgetFormTextArea(array(), array('rows' => 4)));
-    $this->setValidator('preservationSystemAccessStatement', new sfValidatorString);
-    if (null !== $setting = QubitSetting::getByName('digitalobject_preservation_system_access_statement'))
-    {
-      $this->setDefault('preservationSystemAccessStatement', $setting->getValue());
+        $this->setWidget('preservationSystemAccessStatementEnabled', new sfWidgetFormSelectRadio(['choices' => [1 => 'yes', 0 => 'no']], ['class' => 'radio']));
+        $this->setValidator('preservationSystemAccessStatementEnabled', new sfValidatorInteger(['required' => false]));
+
+        $default = false;
+        if (null !== $setting = QubitSetting::getByName('digitalobject_preservation_system_access_statement_enabled')) {
+            $value = $setting->getValue(['sourceCulture' => true]);
+            if (!empty($value)) {
+                $default = $value;
+            }
+        }
+        $this->setDefault('preservationSystemAccessStatementEnabled', $default);
+
+        $this->setWidget('preservationSystemAccessStatement', new sfWidgetFormTextArea([], ['rows' => 4]));
+        $this->setValidator('preservationSystemAccessStatement', new sfValidatorString());
+        if (null !== $setting = QubitSetting::getByName('digitalobject_preservation_system_access_statement')) {
+            $this->setDefault('preservationSystemAccessStatement', $setting->getValue());
+        }
     }
-  }
 }

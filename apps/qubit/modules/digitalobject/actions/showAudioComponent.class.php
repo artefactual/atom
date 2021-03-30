@@ -18,45 +18,38 @@
  */
 
 /**
- * Digital Object audio display component
+ * Digital Object audio display component.
  *
- * @package    AccesstoMemory
- * @subpackage resource
  * @author     Jesús García Crespo <correo@sevein.com>
  */
 class DigitalObjectShowAudioComponent extends sfComponent
 {
-  /**
-   * Show a representation of a digital object image.
-   *
-   * @param sfWebRequest $request
-   *
-   */
-  public function execute($request)
-  {
-    // Get representation by usage type
-    $this->representation = $this->resource->getRepresentationByUsage($this->usageType);
-
-    // If we can't find a representation for this object, try their parent
-    if (!$this->representation && ($parent = $this->resource->parent))
+    /**
+     * Show a representation of a digital object image.
+     *
+     * @param sfWebRequest $request
+     */
+    public function execute($request)
     {
-      $this->representation = $parent->getRepresentationByUsage($this->usageType);
-    }
+        // Get representation by usage type
+        $this->representation = $this->resource->getRepresentationByUsage($this->usageType);
 
-    // Set up display of video in mediaelement
-    if ($this->representation)
-    {
-      $this->showMediaPlayer = true;
+        // If we can't find a representation for this object, try their parent
+        if (!$this->representation && ($parent = $this->resource->parent)) {
+            $this->representation = $parent->getRepresentationByUsage($this->usageType);
+        }
 
-      $this->response->addJavaScript('/vendor/mediaelement/mediaelement-and-player.min.js', 'last');
-      $this->response->addJavaScript('mediaelement', 'last');
-      $this->response->addStyleSheet('/vendor/mediaelement/mediaelementplayer.min.css');
-    }
-    else
-    {
-      $this->showMediaPlayer = false;
+        // Set up display of video in mediaelement
+        if ($this->representation) {
+            $this->showMediaPlayer = true;
 
-      $this->representation = QubitDigitalObject::getGenericRepresentation($this->resource->mimeType, $this->usageType);
+            $this->response->addJavaScript('/vendor/mediaelement/mediaelement-and-player.min.js', 'last');
+            $this->response->addJavaScript('mediaelement', 'last');
+            $this->response->addStyleSheet('/vendor/mediaelement/mediaelementplayer.min.css');
+        } else {
+            $this->showMediaPlayer = false;
+
+            $this->representation = QubitDigitalObject::getGenericRepresentation($this->resource->mimeType, $this->usageType);
+        }
     }
-  }
 }

@@ -1,35 +1,38 @@
-<?php if (!isset($aggs[$name]) || (!isset($filters[$name]) && (count($aggs[$name]) < 2 || ($name == 'languages' && count($aggs[$name]) < 3)))) return ?>
-<?php $openned = (isset($sf_request->$name) || (isset($open) && $open && 0 < count($aggs[$name]))) ?>
+<?php if (!isset($aggs[$name]) || (!isset($filters[$name]) && (count($aggs[$name]) < 2 || ('languages' == $name && count($aggs[$name]) < 3)))) { ?>
+  <?php return; ?>
+<?php } ?>
 
-<section class="facet <?php if ($openned) echo 'open' ?>">
+<?php $openned = (isset($sf_request->{$name}) || (isset($open) && $open && 0 < count($aggs[$name]))); ?>
+
+<section class="facet <?php echo $openned ? 'open' : ''; ?>">
   <div class="facet-header">
-    <h3><a href="#" aria-expanded="<?php echo $openned ?>"><?php echo $label ?></a></h3>
+    <h3><a href="#" aria-expanded="<?php echo $openned; ?>"><?php echo $label; ?></a></h3>
   </div>
 
-  <div class="facet-body" id="<?php echo $id ?>">
+  <div class="facet-body" id="<?php echo $id; ?>">
     <ul>
 
-      <?php $filters = sfOutputEscaper::unescape($filters) ?>
+      <?php $filters = sfOutputEscaper::unescape($filters); ?>
 
-      <?php if ($name !== 'languages'): ?>
-        <li <?php if (!isset($filters[$name])) echo 'class="active"' ?>>
+      <?php if ('languages' !== $name) { ?>
+        <li <?php echo !isset($filters[$name]) ? 'class="active"' : ''; ?>>
           <?php echo link_to(__('All'),
-            array($name => null,'page' => null) +
-            $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('title' => __('All'))) ?>
+            [$name => null, 'page' => null] +
+            $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), ['title' => __('All')]); ?>
         </li>
-      <?php endif; ?>
+      <?php } ?>
 
-      <?php foreach ($aggs[$name] as $bucket): ?>
-        <?php $active = ((isset($filters[$name]) && $filters[$name] == $bucket['key']) ||
-          (!isset($filters[$name]) && $bucket['key'] == 'unique_language')) ?>
+      <?php foreach ($aggs[$name] as $bucket) { ?>
+        <?php $active = ((isset($filters[$name]) && $filters[$name] == $bucket['key'])
+          || (!isset($filters[$name]) && 'unique_language' == $bucket['key'])); ?>
 
-        <li <?php if ($active) echo 'class="active"' ?>>
-          <?php echo link_to(__(strip_markdown($bucket['display'])) . '<span>, ' . $bucket['doc_count'] . ' ' . __('results') . '</span>',
-            array('page' => null, $name => $bucket['key'] == 'unique_language' ? null : $bucket['key']) +
-            $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('title' => __(strip_markdown($bucket['display'])))) ?>
-          <span class="facet-count" aria-hidden="true"><?php echo $bucket['doc_count'] ?></span>
+        <li <?php echo $active ? 'class="active"' : ''; ?>>
+          <?php echo link_to(__(strip_markdown($bucket['display'])).'<span>, '.$bucket['doc_count'].' '.__('results').'</span>',
+            ['page' => null, $name => 'unique_language' == $bucket['key'] ? null : $bucket['key']] +
+            $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), ['title' => __(strip_markdown($bucket['display']))]); ?>
+          <span class="facet-count" aria-hidden="true"><?php echo $bucket['doc_count']; ?></span>
         </li>
-      <?php endforeach; ?>
+      <?php } ?>
 
     </ul>
   </div>

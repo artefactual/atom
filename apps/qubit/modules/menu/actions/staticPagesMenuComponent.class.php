@@ -19,12 +19,11 @@
 
 class menuStaticPagesMenuComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    $this->menu = QubitMenu::getByName('staticPagesMenu');
-    if (null === $this->menu || !$this->menu->hasChildren())
+    public function execute($request)
     {
-      return sfView::NONE;
+        $this->menu = QubitMenu::getByName('staticPagesMenu');
+        if (null === $this->menu || !$this->menu->hasChildren()) {
+            return sfView::NONE;
+        }
     }
-  }
 }

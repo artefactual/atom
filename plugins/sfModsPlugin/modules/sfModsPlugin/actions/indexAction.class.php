@@ -18,31 +18,26 @@
  */
 
 /**
- * Information Object - showMods
+ * Information Object - showMods.
  *
- * @package    AccesstoMemory
- * @subpackage informationObject - initialize a showMods template for displaying an information object
  * @author     Peter Van Garderen <peter@artefactual.com>
  */
-
 class sfModsPluginIndexAction extends InformationObjectIndexAction
 {
-  public function execute($request)
-  {
-    if ('xml' === $request->getRequestFormat())
+    public function execute($request)
     {
-      sfConfig::set('sf_escaping_strategy', false);
+        if ('xml' === $request->getRequestFormat()) {
+            sfConfig::set('sf_escaping_strategy', false);
+        }
+
+        parent::execute($request);
+
+        $this->mods = new sfModsPlugin($this->resource);
+
+        if (1 > strlen($title = $this->resource->__toString())) {
+            $title = $this->context->i18n->__('Untitled');
+        }
+
+        $this->response->setTitle("{$title} - {$this->response->getTitle()}");
     }
-
-    parent::execute($request);
-
-    $this->mods = new sfModsPlugin($this->resource);
-
-    if (1 > strlen($title = $this->resource->__toString()))
-    {
-      $title = $this->context->i18n->__('Untitled');
-    }
-
-    $this->response->setTitle("$title - {$this->response->getTitle()}");
-  }
 }

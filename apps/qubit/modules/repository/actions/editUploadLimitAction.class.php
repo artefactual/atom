@@ -19,53 +19,52 @@
 
 class RepositoryEditUploadLimitAction extends sfAction
 {
-  public function execute($request)
-  {
-    // Create a new form for CSRF validation of Ajax request.
-    // The $request->checkCSRFProtection() method complains
-    // about not finding the BaseForm class.
-    $form = new sfForm;
-
-    if ($form->isCSRFProtected())
+    public function execute($request)
     {
-      $fieldName = $form->getCSRFFieldName();
-      $form->bind(array($fieldName => $request->getParameter($fieldName)));
+        // Create a new form for CSRF validation of Ajax request.
+        // The $request->checkCSRFProtection() method complains
+        // about not finding the BaseForm class.
+        $form = new sfForm();
+
+        if ($form->isCSRFProtected()) {
+            $fieldName = $form->getCSRFFieldName();
+            $form->bind([$fieldName => $request->getParameter($fieldName)]);
+        }
+
+        if (!$this->context->user->isAdministrator() || !$form->isValid()) {
+            // 403 - Forbidden
+            $this->getResponse()->setStatusCode(403);
+
+            return sfView::HEADER_ONLY;
+        }
+
+        $this->resource = $request->getAttribute('sf_route')->resource;
+        if (!isset($this->resource)) {
+            $this->forward404();
+        }
+
+        $uploadLimit = $request->getParameter('uploadLimit');
+
+        switch ($uploadLimit['type']) {
+            case 'disabled':
+                $this->resource->uploadLimit = 0;
+
+                break;
+
+            case 'unlimited':
+                $this->resource->uploadLimit = -1;
+
+                break;
+
+            case 'limited':
+                $this->resource->uploadLimit = $uploadLimit['value'];
+
+                break;
+        }
+
+        // Don't update the repository search index document
+        $this->resource->indexOnSave = false;
+
+        $this->resource->save();
     }
-
-    if (!$this->context->user->isAdministrator() || !$form->isValid())
-    {
-      // 403 - Forbidden
-      $this->getResponse()->setStatusCode(403);
-
-      return sfView::HEADER_ONLY;
-    }
-
-    $this->resource = $request->getAttribute('sf_route')->resource;
-    if (!isset($this->resource))
-    {
-      $this->forward404();
-    }
-
-    $uploadLimit = $request->getParameter('uploadLimit');
-
-    switch ($uploadLimit['type'])
-    {
-      case 'disabled':
-        $this->resource->uploadLimit = 0;
-        break;
-
-      case 'unlimited':
-        $this->resource->uploadLimit = -1;
-        break;
-
-      case 'limited':
-        $this->resource->uploadLimit = $uploadLimit['value'];
-        break;
-    }
-
-    // Don't update the repository search index document
-    $this->resource->indexOnSave = false;
-
-    $this->resource->save();
-  }
 }

@@ -18,86 +18,79 @@
  */
 
 /**
- * Delete AtoM user
+ * Delete AtoM user.
  *
- * @package    symfony
- * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
 class deleteUserTask extends arBaseTask
 {
-  protected function configure()
-  {
-    $this->addArguments(array(
-      new sfCommandArgument('username', sfCommandArgument::REQUIRED, 'The username to delete.')
-    ));
+    public function execute($arguments = [], $options = [])
+    {
+        parent::execute($arguments, $options);
 
-    $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-      new sfCommandOption('force', 'f', sfCommandOption::PARAMETER_NONE, 'Delete without confirmation', null),
-      new sfCommandOption('update-notes', 'n', sfCommandOption::PARAMETER_NONE, 'Dissassociate any notes the user has created', null)
-    ));
+        // Abort if deletion isn't forced or confirmed
+        if (!$options['force'] && !$this->getConfirmation($arguments['username'])) {
+            $this->logSection('delete-user', 'Aborted.');
 
-    $this->namespace = 'tools';
-    $this->name = 'delete-user';
-    $this->briefDescription = 'Delete a user.';
+            return;
+        }
 
-    $this->detailedDescription = <<<EOF
+        // Attempt to find user, exiting if the user doesn't exist
+        $criteria = new Criteria();
+        $criteria->add(QubitUser::USERNAME, $arguments['username']);
+        if (null === $user = QubitUser::getOne($criteria)) {
+            throw new Exception('Unknown user.');
+        }
+
+        // If user is an administrator, abort if the user is the only administrator
+        if ($user->hasGroup(QubitAclGroup::ADMINISTRATOR_ID)) {
+            $criteria = new Criteria();
+            $criteria->add(QubitAclUserGroup::GROUP_ID, QubitAclGroup::ADMINISTRATOR_ID);
+            $adminCount = count(QubitAclUserGroup::get($criteria));
+
+            if (1 == $adminCount) {
+                throw new Exception('This is the only administrator: deletion aborted.');
+            }
+        }
+
+        // If notes are associated with user, abort unless "--update-notes" flag is set
+        if (count($user->getNotes()) && !$options['update-notes']) {
+            throw new Exception('Deleting user would disassociate notes created by the user: deletion aborted (use --update-notes flag to force).');
+        }
+
+        $user->delete();
+        $this->logSection('delete-user', 'Deleted user "'.$arguments['username'].'".');
+    }
+
+    protected function configure()
+    {
+        $this->addArguments([
+            new sfCommandArgument('username', sfCommandArgument::REQUIRED, 'The username to delete.'),
+        ]);
+
+        $this->addOptions([
+            new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+            new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+            new sfCommandOption('force', 'f', sfCommandOption::PARAMETER_NONE, 'Delete without confirmation', null),
+            new sfCommandOption('update-notes', 'n', sfCommandOption::PARAMETER_NONE, 'Dissassociate any notes the user has created', null),
+        ]);
+
+        $this->namespace = 'tools';
+        $this->name = 'delete-user';
+        $this->briefDescription = 'Delete a user.';
+
+        $this->detailedDescription = <<<'EOF'
 Delete a user.
 EOF;
-  }
-
-  public function execute($arguments = array(), $options = array())
-  {
-    parent::execute($arguments, $options);
-
-    // Abort if deletion isn't forced or confirmed
-    if (!$options['force'] && !$this->getConfirmation($arguments['username']))
-    {
-      $this->logSection('delete-user', 'Aborted.');
-      return;
     }
 
-    // Attempt to find user, exiting if the user doesn't exist
-    $criteria = new Criteria;
-    $criteria->add(QubitUser::USERNAME, $arguments['username']);
-    if (null === $user = QubitUser::getOne($criteria))
+    private function getConfirmation($username)
     {
-      throw new Exception('Unknown user.');
+        return $this->askConfirmation(
+            'WARNING: You are about to delete the user "'.$username.'". Are you sure?',
+            'QUESTION_LARGE',
+            false
+        );
     }
-
-    
-    // If user is an administrator, abort if the user is the only administrator
-    if ($user->hasGroup(QubitAclGroup::ADMINISTRATOR_ID))
-    {
-      $criteria = new Criteria;
-      $criteria->add(QubitAclUserGroup::GROUP_ID, QubitAclGroup::ADMINISTRATOR_ID);
-      $adminCount = count(QubitAclUserGroup::get($criteria));
-
-      if ($adminCount == 1)
-      {
-        throw new Exception('This is the only administrator: deletion aborted.');
-      }
-    }
-
-    // If notes are associated with user, abort unless "--update-notes" flag is set
-    if (count($user->getNotes()) && !$options['update-notes'])
-    {
-      throw new Exception('Deleting user would disassociate notes created by the user: deletion aborted (use --update-notes flag to force).');
-    }
-
-    $user->delete();
-    $this->logSection('delete-user', 'Deleted user "'. $arguments['username'] .'".');
-  }
-
-  private function getConfirmation($username)
-  {
-    return $this->askConfirmation(
-      'WARNING: You are about to delete the user "'. $username .'". Are you sure?',
-      'QUESTION_LARGE',
-      false
-    );
-  }
 }

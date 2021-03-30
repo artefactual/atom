@@ -25,21 +25,20 @@
  */
 class arMigration0145
 {
-  const
-    VERSION = 145, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 145;
+    public const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    QubitMigrate::bumpTerm(QubitTerm::MAINTAINING_REPOSITORY_RELATION_ID, $configuration);
-    $term = new QubitTerm;
-    $term->id = QubitTerm::MAINTAINING_REPOSITORY_RELATION_ID;
-    $term->parentId = QubitTerm::ROOT_ID;
-    $term->taxonomyId = QubitTaxonomy::RELATION_TYPE_ID;
-    $term->sourceCulture = 'en';
-    $term->setName('Maintaining repository', array('culture' => 'en'));
-    $term->save();
+    public function up($configuration)
+    {
+        QubitMigrate::bumpTerm(QubitTerm::MAINTAINING_REPOSITORY_RELATION_ID, $configuration);
+        $term = new QubitTerm();
+        $term->id = QubitTerm::MAINTAINING_REPOSITORY_RELATION_ID;
+        $term->parentId = QubitTerm::ROOT_ID;
+        $term->taxonomyId = QubitTaxonomy::RELATION_TYPE_ID;
+        $term->sourceCulture = 'en';
+        $term->setName('Maintaining repository', ['culture' => 'en']);
+        $term->save();
 
-    return true;
-  }
+        return true;
+    }
 }

@@ -19,38 +19,33 @@
 
 class DonorListAction extends sfAction
 {
-  public function execute($request)
-  {
-    if (!$this->context->user->hasCredential(array('contributor', 'editor', 'administrator'), false))
+    public function execute($request)
     {
-      QubitAcl::forwardUnauthorized();
+        if (!$this->context->user->hasCredential(['contributor', 'editor', 'administrator'], false)) {
+            QubitAcl::forwardUnauthorized();
+        }
+
+        if (!isset($request->limit)) {
+            $request->limit = sfConfig::get('app_hits_per_page');
+        }
+
+        $criteria = new Criteria();
+        $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
+
+        if (isset($request->subquery)) {
+            $criteria->addJoin(QubitDonor::ID, QubitActorI18n::ID);
+            $criteria->add(QubitActorI18n::CULTURE, $this->context->user->getCulture());
+            $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, "%{$request->subquery}%", Criteria::LIKE);
+        } else {
+            $this->redirect(['module' => 'donor', 'action' => 'browse']);
+        }
+
+        // Page results
+        $this->pager = new QubitPager('QubitDonor');
+        $this->pager->setCriteria($criteria);
+        $this->pager->setMaxPerPage($request->limit);
+        $this->pager->setPage($request->page);
+
+        $this->donors = $this->pager->getResults();
     }
-
-    if (!isset($request->limit))
-    {
-      $request->limit = sfConfig::get('app_hits_per_page');
-    }
-
-    $criteria = new Criteria;
-    $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
-
-    if (isset($request->subquery))
-    {
-      $criteria->addJoin(QubitDonor::ID, QubitActorI18n::ID);
-      $criteria->add(QubitActorI18n::CULTURE, $this->context->user->getCulture());
-      $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, "%$request->subquery%", Criteria::LIKE);
-    }
-    else
-    {
-      $this->redirect(array('module' => 'donor', 'action' => 'browse'));
-    }
-
-    // Page results
-    $this->pager = new QubitPager('QubitDonor');
-    $this->pager->setCriteria($criteria);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
-
-    $this->donors = $this->pager->getResults();
-  }
 }

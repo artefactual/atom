@@ -19,49 +19,45 @@
 
 class arElasticSearchAip extends arElasticSearchModelBase
 {
-  public function load()
-  {
-    $sql  = 'SELECT id';
-    $sql .= ' FROM '.QubitAip::TABLE_NAME;
-
-    $aips = QubitPdo::fetchAll($sql, array('QubitAip'));
-
-    $this->count = count($aips);
-
-    return $aips;
-  }
-
-  public function populate()
-  {
-    $errors = array();
-
-    // Loop through results, and add to search index
-    foreach ($this->load() as $key => $item)
+    public function load()
     {
-      try
-      {
-        $node = new arElasticSearchAipPdo($item->id);
-        $data = $node->serialize();
+        $sql = 'SELECT id';
+        $sql .= ' FROM '.QubitAip::TABLE_NAME;
 
-        QubitSearch::getInstance()->addDocument($data, 'QubitAip');
+        $aips = QubitPdo::fetchAll($sql, ['QubitAip']);
 
-        $this->logEntry($data['filename'], $key + 1);
-      }
-      catch (sfException $e)
-      {
-        $errors[] = $e->getMessage();
-      }
+        $this->count = count($aips);
+
+        return $aips;
     }
 
-    return $errors;
-  }
+    public function populate()
+    {
+        $errors = [];
 
-  public static function update($object)
-  {
-    $node = new arElasticSearchAipPdo($object->id);
+        // Loop through results, and add to search index
+        foreach ($this->load() as $key => $item) {
+            try {
+                $node = new arElasticSearchAipPdo($item->id);
+                $data = $node->serialize();
 
-    QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitAip');
+                QubitSearch::getInstance()->addDocument($data, 'QubitAip');
 
-    return true;
-  }
+                $this->logEntry($data['filename'], $key + 1);
+            } catch (sfException $e) {
+                $errors[] = $e->getMessage();
+            }
+        }
+
+        return $errors;
+    }
+
+    public static function update($object)
+    {
+        $node = new arElasticSearchAipPdo($object->id);
+
+        QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitAip');
+
+        return true;
+    }
 }

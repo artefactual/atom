@@ -19,147 +19,136 @@
 
 class QubitRights extends BaseRights
 {
-  public function __toString()
-  {
-    $string = array();
-
-    if (isset($this->basis))
+    public function __toString()
     {
-      $string[] = $this->basis;
+        $string = [];
+
+        if (isset($this->basis)) {
+            $string[] = $this->basis;
+        }
+
+        if (isset($this->act)) {
+            $string[] = $this->act;
+        }
+
+        $string = implode(' - ', $string);
+
+        if (null !== $date = Qubit::renderDateStartEnd(null, $this->startDate, $this->endDate)) {
+            $string .= ' ('.$date.')';
+        }
+
+        return $string;
     }
 
-    if (isset($this->act))
+    public function delete($connection = null)
     {
-      $string[] = $this->act;
+        // Make sure that the associated QubitRelation object is removed before
+        foreach (QubitRelation::getRelationsByObjectId($this->id, ['typeId' => QubitTerm::RIGHT_ID]) as $item) {
+            $item->indexObjectOnDelete = false;
+            $item->delete();
+        }
+
+        // remove any related granted rights
+        foreach ($this->grantedRights as $gr) {
+            $gr->delete();
+        }
+
+        parent::delete($connection);
     }
 
-    $string = implode(' - ', $string);
-
-    if (null !== $date = Qubit::renderDateStartEnd(null, $this->startDate, $this->endDate))
+    public function grantedRightsFindById($id)
     {
-      $string .= ' ('.$date.')';
+        foreach ($this->grantedRights as $gr) {
+            if ($gr->id === $id) {
+                return $gr;
+            }
+        }
+
+        return false;
     }
 
-    return $string;
-  }
-
-  protected function insert($connection = null)
-  {
-    $this->slug = QubitSlug::slugify($this->slug);
-
-    return parent::insert($connection);
-  }
-
-  public function delete($connection = null)
-  {
-    // Make sure that the associated QubitRelation object is removed before
-    foreach (QubitRelation::getRelationsByObjectId($this->id, array('typeId' => QubitTerm::RIGHT_ID)) as $item)
+    public function save($connection = null)
     {
-      $item->indexObjectOnDelete = false;
-      $item->delete();
+        parent::save($connection);
+
+        // Save updated grantedRights
+        foreach ($this->grantedRights as $grantedRight) {
+            if (!$grantedRight->isDeleted()) {
+                $grantedRight->indexOnSave = false;
+                $grantedRight->rights = $this;
+                $grantedRight->save();
+            }
+        }
     }
 
-    // remove any related granted rights
-    foreach ($this->grantedRights as $gr) {
-      $gr->delete();
-    }
-
-    parent::delete($connection);
-  }
-
-  public function grantedRightsFindById($id)
-  {
-    foreach($this->grantedRights as $gr)
+    public function copy()
     {
-      if($gr->id === $id)
-      {
-        return $gr;
-      }
+        $newRights = new QubitRights();
+        $newRights->startDate = $this->startDate;
+        $newRights->endDate = $this->endDate;
+        $newRights->basis = $this->basis;
+        $newRights->rightsHolder = $this->rightsHolder;
+        $newRights->copyrightStatus = $this->copyrightStatus;
+        $newRights->copyrightStatusDate = $this->copyrightStatusDate;
+        $newRights->copyrightJurisdiction = $this->copyrightJurisdiction;
+        $newRights->statuteDeterminationDate = $this->statuteDeterminationDate;
+        $newRights->statuteCitation = $this->statuteCitation;
+        $newRights->sourceCulture = $this->sourceCulture;
+
+        // Current culture row
+        $newRights->rightsNote = $this->rightsNote;
+        $newRights->copyrightNote = $this->copyrightNote;
+        $newRights->identifierValue = $this->identifierValue;
+        $newRights->identifierType = $this->identifierType;
+        $newRights->identifierRole = $this->identifierRole;
+        $newRights->licenseTerms = $this->licenseTerms;
+        $newRights->licenseNote = $this->licenseNote;
+        $newRights->statuteJurisdiction = $this->statuteJurisdiction;
+        $newRights->statuteNote = $this->statuteNote;
+
+        // Other culture rows
+        foreach ($this->rightsI18ns as $sourceRightsI18n) {
+            if (sfContext::getInstance()->user->getCulture() == $sourceRightsI18n->culture) {
+                continue;
+            }
+
+            $rightsI18n = new QubitRightsI18n();
+            $rightsI18n->rightsNote = $sourceRightsI18n->rightsNote;
+            $rightsI18n->copyrightNote = $sourceRightsI18n->copyrightNote;
+            $rightsI18n->identifierValue = $sourceRightsI18n->identifierValue;
+            $rightsI18n->identifierType = $sourceRightsI18n->identifierType;
+            $rightsI18n->identifierRole = $sourceRightsI18n->identifierRole;
+            $rightsI18n->licenseTerms = $sourceRightsI18n->licenseTerms;
+            $rightsI18n->licenseNote = $sourceRightsI18n->licenseNote;
+            $rightsI18n->statuteJurisdiction = $sourceRightsI18n->statuteJurisdiction;
+            $rightsI18n->statuteNote = $sourceRightsI18n->statuteNote;
+            $rightsI18n->culture = $sourceRightsI18n->culture;
+
+            $newRights->rightsI18ns[] = $rightsI18n;
+        }
+
+        // Copy granted rights
+        foreach ($this->grantedRights as $sourceGrantedRight) {
+            $newGrantedRight = new QubitGrantedRight();
+            $newGrantedRight->act = $sourceGrantedRight->act;
+            $newGrantedRight->restriction = $sourceGrantedRight->restriction;
+            $newGrantedRight->startDate = $sourceGrantedRight->startDate;
+            $newGrantedRight->endDate = $sourceGrantedRight->endDate;
+            $newGrantedRight->notes = $sourceGrantedRight->notes;
+            $newGrantedRight->serialNumber = $sourceGrantedRight->serialNumber;
+
+            $newRights->grantedRights[] = $newGrantedRight;
+        }
+
+        $newRights->save();
+
+        return $newRights;
     }
 
-    return false;
-  }
-
-  public function save($connection = null)
-  {
-    parent::save($connection);
-
-    // Save updated grantedRights
-    foreach ($this->grantedRights as $grantedRight)
+    protected function insert($connection = null)
     {
-      if (!$grantedRight->isDeleted())
-      {
-        $grantedRight->indexOnSave = false;
-        $grantedRight->rights = $this;
-        $grantedRight->save();
-      }
+        $this->slug = QubitSlug::slugify($this->slug);
+
+        return parent::insert($connection);
     }
-  }
-
-  public function copy()
-  {
-    $newRights = new QubitRights;
-    $newRights->startDate = $this->startDate;
-    $newRights->endDate = $this->endDate;
-    $newRights->basis = $this->basis;
-    $newRights->rightsHolder = $this->rightsHolder;
-    $newRights->copyrightStatus = $this->copyrightStatus;
-    $newRights->copyrightStatusDate = $this->copyrightStatusDate;
-    $newRights->copyrightJurisdiction = $this->copyrightJurisdiction;
-    $newRights->statuteDeterminationDate = $this->statuteDeterminationDate;
-    $newRights->statuteCitation = $this->statuteCitation;
-    $newRights->sourceCulture = $this->sourceCulture;
-
-    // Current culture row
-    $newRights->rightsNote = $this->rightsNote;
-    $newRights->copyrightNote = $this->copyrightNote;
-    $newRights->identifierValue = $this->identifierValue;
-    $newRights->identifierType = $this->identifierType;
-    $newRights->identifierRole = $this->identifierRole;
-    $newRights->licenseTerms = $this->licenseTerms;
-    $newRights->licenseNote = $this->licenseNote;
-    $newRights->statuteJurisdiction = $this->statuteJurisdiction;
-    $newRights->statuteNote = $this->statuteNote;
-
-    // Other culture rows
-    foreach ($this->rightsI18ns as $sourceRightsI18n)
-    {
-      if (sfContext::getInstance()->user->getCulture() == $sourceRightsI18n->culture)
-      {
-        continue;
-      }
-
-      $rightsI18n = new QubitRightsI18n;
-      $rightsI18n->rightsNote = $sourceRightsI18n->rightsNote;
-      $rightsI18n->copyrightNote = $sourceRightsI18n->copyrightNote;
-      $rightsI18n->identifierValue = $sourceRightsI18n->identifierValue;
-      $rightsI18n->identifierType = $sourceRightsI18n->identifierType;
-      $rightsI18n->identifierRole = $sourceRightsI18n->identifierRole;
-      $rightsI18n->licenseTerms = $sourceRightsI18n->licenseTerms;
-      $rightsI18n->licenseNote = $sourceRightsI18n->licenseNote;
-      $rightsI18n->statuteJurisdiction = $sourceRightsI18n->statuteJurisdiction;
-      $rightsI18n->statuteNote = $sourceRightsI18n->statuteNote;
-      $rightsI18n->culture = $sourceRightsI18n->culture;
-
-      $newRights->rightsI18ns[] = $rightsI18n;
-    }
-
-    // Copy granted rights
-    foreach ($this->grantedRights as $sourceGrantedRight)
-    {
-      $newGrantedRight = new QubitGrantedRight;
-      $newGrantedRight->act = $sourceGrantedRight->act;
-      $newGrantedRight->restriction = $sourceGrantedRight->restriction;
-      $newGrantedRight->startDate = $sourceGrantedRight->startDate;
-      $newGrantedRight->endDate = $sourceGrantedRight->endDate;
-      $newGrantedRight->notes = $sourceGrantedRight->notes;
-      $newGrantedRight->serialNumber= $sourceGrantedRight->serialNumber;
-
-      $newRights->grantedRights[] = $newGrantedRight;
-    }
-
-    $newRights->save();
-
-    return $newRights;
-  }
 }

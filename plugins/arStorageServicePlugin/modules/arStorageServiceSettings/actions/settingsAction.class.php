@@ -19,53 +19,52 @@
 
 class arStorageServiceSettingsSettingsAction extends SettingsEditAction
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'storage_service_api_url',
-      'storage_service_username',
-      'storage_service_api_key',
-      'download_aip_enabled',
-    );
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'storage_service_api_url',
+        'storage_service_username',
+        'storage_service_api_key',
+        'download_aip_enabled',
+    ];
 
-  public function earlyExecute()
-  {
-    parent::earlyExecute();
-
-    $this->updateMessage = $this->i18n->__('Storage service settings saved.');
-
-    $this->settingDefaults = array(
-      'download_aip_enabled' => '0',
-    );
-  }
-
-  protected function addField($name)
-  {
-    // Set form field format
-    switch ($name)
+    public function earlyExecute()
     {
-      case 'storage_service_api_url':
-      case 'storage_service_username':
-      case 'storage_service_api_key':
-        $this->form->setValidator($name, new sfValidatorString());
-        $this->form->setWidget($name, new sfWidgetFormInput);
+        parent::earlyExecute();
 
-        break;
+        $this->updateMessage = $this->i18n->__('Storage service settings saved.');
 
-      case 'download_aip_enabled':
-        $options = array(
-          '0' => $this->i18n->__('Disabled'),
-          '1' => $this->i18n->__('Enabled')
-        );
-
-        $this->form->setValidator($name, new sfValidatorString(
-          array('required' => false)
-        ));
-        $this->form->setWidget($name, new sfWidgetFormSelectRadio(
-          array('choices' => $options), array('class' => 'radio')
-        ));
-
-        break;
+        $this->settingDefaults = [
+            'download_aip_enabled' => '0',
+        ];
     }
-  }
+
+    protected function addField($name)
+    {
+        // Set form field format
+        switch ($name) {
+            case 'storage_service_api_url':
+            case 'storage_service_username':
+            case 'storage_service_api_key':
+                $this->form->setValidator($name, new sfValidatorString());
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+
+            case 'download_aip_enabled':
+                $options = [
+                    '0' => $this->i18n->__('Disabled'),
+                    '1' => $this->i18n->__('Enabled'),
+                ];
+
+                $this->form->setValidator($name, new sfValidatorString(
+                    ['required' => false]
+                ));
+                $this->form->setWidget($name, new sfWidgetFormSelectRadio(
+                    ['choices' => $options],
+                    ['class' => 'radio']
+                ));
+
+                break;
+        }
+    }
 }

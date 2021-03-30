@@ -25,41 +25,40 @@
  */
 class arMigration0190
 {
-  const
-    VERSION = 190, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    const VERSION = 190;
+    const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    // Add extra column, language
-    QubitMigrate::addColumn(
-      QubitDigitalObject::TABLE_NAME,
-      'language VARCHAR(50)',
-      ['after' => 'usage_id']
-    );
-  
-    // Add chapters term
-    QubitMigrate::bumpTerm(QubitTerm::CHAPTERS_ID, $configuration);
-    $term = new QubitTerm;
-    $term->id = QubitTerm::CHAPTERS_ID;
-    $term->parentId = QubitTerm::ROOT_ID;
-    $term->taxonomyId = QubitTaxonomy::DIGITAL_OBJECT_USAGE_ID;
-    $term->sourceCulture = 'en';
-    $term->setName('Chapters', ['culture' => 'en']);
-    $term->setName('Chapitres', ['culture' => 'fr']);
-    $term->save();
+    public function up($configuration)
+    {
+        // Add extra column, language
+        QubitMigrate::addColumn(
+            QubitDigitalObject::TABLE_NAME,
+            'language VARCHAR(50)',
+            ['after' => 'usage_id']
+        );
 
-    // Add subtitles term
-    QubitMigrate::bumpTerm(QubitTerm::SUBTITLES_ID, $configuration);
-    $term = new QubitTerm;
-    $term->id = QubitTerm::SUBTITLES_ID;
-    $term->parentId = QubitTerm::ROOT_ID;
-    $term->taxonomyId = QubitTaxonomy::DIGITAL_OBJECT_USAGE_ID;
-    $term->sourceCulture = 'en';
-    $term->setName('Captions/Subtitles', ['culture' => 'en']);
-    $term->setName('Légendes/Sous-titres', ['culture' => 'fr']);
-    $term->save();
+        // Add chapters term
+        QubitMigrate::bumpTerm(QubitTerm::CHAPTERS_ID, $configuration);
+        $term = new QubitTerm();
+        $term->id = QubitTerm::CHAPTERS_ID;
+        $term->parentId = QubitTerm::ROOT_ID;
+        $term->taxonomyId = QubitTaxonomy::DIGITAL_OBJECT_USAGE_ID;
+        $term->sourceCulture = 'en';
+        $term->setName('Chapters', ['culture' => 'en']);
+        $term->setName('Chapitres', ['culture' => 'fr']);
+        $term->save();
 
-    return true;
-  }
+        // Add subtitles term
+        QubitMigrate::bumpTerm(QubitTerm::SUBTITLES_ID, $configuration);
+        $term = new QubitTerm();
+        $term->id = QubitTerm::SUBTITLES_ID;
+        $term->parentId = QubitTerm::ROOT_ID;
+        $term->taxonomyId = QubitTaxonomy::DIGITAL_OBJECT_USAGE_ID;
+        $term->sourceCulture = 'en';
+        $term->setName('Captions/Subtitles', ['culture' => 'en']);
+        $term->setName('Légendes/Sous-titres', ['culture' => 'fr']);
+        $term->save();
+
+        return true;
+    }
 }

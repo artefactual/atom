@@ -19,29 +19,28 @@
 
 class arElasticSearchDonor extends arElasticSearchModelBase
 {
-  public static function serialize($object)
-  {
-    $serialized = array();
-
-    $serialized['id'] = $object->id;
-    $serialized['slug'] = $object->slug;
-
-    foreach ($object->contactInformations as $contactInformation)
+    public static function serialize($object)
     {
-      $serialized['contactInformations'][] = arElasticSearchContactInformation::serialize($contactInformation);
+        $serialized = [];
+
+        $serialized['id'] = $object->id;
+        $serialized['slug'] = $object->slug;
+
+        foreach ($object->contactInformations as $contactInformation) {
+            $serialized['contactInformations'][] = arElasticSearchContactInformation::serialize($contactInformation);
+        }
+
+        $serialized['i18n'] = self::serializeI18ns($object->id, ['QubitActor']);
+
+        return $serialized;
     }
 
-    $serialized['i18n'] = self::serializeI18ns($object->id, array('QubitActor'));
+    public static function update($object)
+    {
+        $data = self::serialize($object);
 
-    return $serialized;
-  }
+        QubitSearch::getInstance()->addDocument($data, 'QubitDonor');
 
-  public static function update($object)
-  {
-    $data = self::serialize($object);
-
-    QubitSearch::getInstance()->addDocument($data, 'QubitDonor');
-
-    return true;
-  }
+        return true;
+    }
 }

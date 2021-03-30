@@ -19,94 +19,81 @@
 
 class arDacsPlugin extends sfIsadPlugin
 {
-  // sfIsadPlugin is not using properties
-  protected
-    $property;
+    // sfIsadPlugin is not using properties
+    protected $property;
 
-  public function __get($name)
-  {
-    $args = func_get_args();
-
-    $options = array();
-    if (1 < count($args))
+    public function __get($name)
     {
-      $options = $args[1];
+        $args = func_get_args();
+
+        $options = [];
+        if (1 < count($args)) {
+            $options = $args[1];
+        }
+
+        switch ($name) {
+            case 'technicalAccess':
+                return $this->property('technicalAccess')->__get('value', $options);
+
+                break;
+
+            default:
+                return parent::__get($name);
+        }
     }
 
-    switch ($name)
+    public function __set($name, $value)
     {
-      case 'technicalAccess':
+        switch ($name) {
+            case 'technicalAccess':
+                $this->property('technicalAccess')->value = $value;
 
-        return $this->property('technicalAccess')->__get('value', $options);
+                return $this;
 
-        break;
+            default:
+                parent::__set($name, $value);
 
-      default:
-
-        return parent::__get($name);
-    }
-  }
-
-  public function __set($name, $value)
-  {
-    switch ($name)
-    {
-      case 'technicalAccess':
-
-        $this->property('technicalAccess')->value = $value;
-
-        return $this;
-
-      default:
-
-        parent::__set($name, $value);
-
-        return $this;
-    }
-  }
-
-  protected function property($name)
-  {
-    if (!isset($this->property[$name]))
-    {
-      $criteria = new Criteria;
-      $this->resource->addPropertysCriteria($criteria);
-      $criteria->add(QubitProperty::NAME, $name);
-
-      if (1 == count($query = QubitProperty::get($criteria)))
-      {
-        $this->property[$name] = $query[0];
-      }
-      else
-      {
-        $this->property[$name] = new QubitProperty;
-        $this->property[$name]->name = $name;
-
-        $this->resource->propertys[] = $this->property[$name];
-      }
+                return $this;
+        }
     }
 
-    return $this->property[$name];
-  }
-
-  public static function eventTypes()
-  {
-    $types = array(
-      QubitTerm::getById(QubitTerm::CREATION_ID),
-      QubitTerm::getById(QubitTerm::PUBLICATION_ID));
-
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-    $criteria->add(QubitTermI18n::NAME, array('Broadcasting', 'Record-keeping activity'), Criteria::IN);
-    $criteria->add(QubitTermI18n::CULTURE, 'en');
-    if (null !== $terms = QubitTerm::get($criteria))
+    public static function eventTypes()
     {
-      foreach ($terms as $item)
-      {
-        $types[] = $item;
-      }
+        $types = [
+            QubitTerm::getById(QubitTerm::CREATION_ID),
+            QubitTerm::getById(QubitTerm::PUBLICATION_ID),
+        ];
+
+        $criteria = new Criteria();
+        $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+        $criteria->add(QubitTermI18n::NAME, ['Broadcasting', 'Record-keeping activity'], Criteria::IN);
+        $criteria->add(QubitTermI18n::CULTURE, 'en');
+        if (null !== $terms = QubitTerm::get($criteria)) {
+            foreach ($terms as $item) {
+                $types[] = $item;
+            }
+        }
+
+        return $types;
     }
 
-    return $types;
-  }
+    protected function property($name)
+    {
+        if (!isset($this->property[$name])) {
+            $criteria = new Criteria();
+            $this->resource->addPropertysCriteria($criteria);
+            $criteria->add(QubitProperty::NAME, $name);
+
+            if (1 == count($query = QubitProperty::get($criteria))) {
+                $this->property[$name] = $query[0];
+            } else {
+                $this->property[$name] = new QubitProperty();
+                $this->property[$name]->name = $name;
+
+                $this->resource->propertys[] = $this->property[$name];
+            }
+        }
+
+        return $this->property[$name];
+    }
 }

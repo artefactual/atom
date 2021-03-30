@@ -19,17 +19,16 @@
 
 class arOaiPluginConfiguration extends sfPluginConfiguration
 {
-  public static
-    $summary = 'OAI plugin.',
-    $version = '1.0.0';
+    public static $summary = 'OAI plugin.';
+    public static $version = '1.0.0';
 
-  public function initialize()
-  {
-    $enabledModules = sfConfig::get('sf_enabled_modules');
-    $enabledModules[] = 'arOaiPlugin';
-    sfConfig::set('sf_enabled_modules', $enabledModules);
+    public function initialize()
+    {
+        $enabledModules = sfConfig::get('sf_enabled_modules');
+        $enabledModules[] = 'arOaiPlugin';
+        sfConfig::set('sf_enabled_modules', $enabledModules);
 
-    /* Custom OAI set definitions */
-    QubitOai::addOaiSet(new QubitOaiTopLevelSet());
-  }
+        // Custom OAI set definitions
+        QubitOai::addOaiSet(new QubitOaiTopLevelSet());
+    }
 }

@@ -1,0 +1,23 @@
+name: Syntax checks
+on:
+  pull_request:
+  push:
+    branches:
+    - qa/**
+    - stable/**
+jobs:
+  php-cs-fixer:
+    runs-on: ubuntu-20.04
+    name: PHP CS Fixer
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.composer/cache/files
+        key: syntax-checks-${{ hashFiles('composer.lock') }}
+    - name: Install dependencies
+      run: composer install
+    - name: Run php-cs-fixer
+      run: composer php-cs-fixer -- fix --dry-run --diff

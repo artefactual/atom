@@ -19,73 +19,66 @@
 
 class deleteDraftsTask extends sfBaseTask
 {
-  protected function configure()
-  {
-    $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-      new sfCommandOption('no-confirmation', 'B', sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation'),
-    ));
+    protected function configure()
+    {
+        $this->addOptions([
+            new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+            new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+            new sfCommandOption('no-confirmation', 'B', sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation'),
+        ]);
 
-    $this->namespace = 'tools';
-    $this->name = 'delete-drafts';
-    $this->briefDescription = 'Delete all information objects with publication status: DRAFT';
-    $this->detailedDescription = <<<EOF
+        $this->namespace = 'tools';
+        $this->name = 'delete-drafts';
+        $this->briefDescription = 'Delete all information objects with publication status: DRAFT';
+        $this->detailedDescription = <<<'EOF'
 Delete all information objects with publication status: DRAFT
 EOF;
-  }
-
-  protected function execute($arguments = array(), $options = array())
-  {
-    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
-    $sf_context = sfContext::createInstance($configuration);
-
-    $databaseManager = new sfDatabaseManager($this->configuration);
-    $conn = $databaseManager->getDatabase('propel')->getConnection();
-
-    $sqlQuery =  "SELECT s.object_id FROM information_object i JOIN status s ON i.id = s.object_id " .
-                 "WHERE s.type_id = " . QubitTerm::STATUS_TYPE_PUBLICATION_ID . 
-                 " AND s.status_id = " . QubitTerm::PUBLICATION_STATUS_DRAFT_ID .
-                 " AND i.id <> 1"; // Don't delete root node!
-
-    $this->logSection("delete-drafts", "Deleting all information objects marked as draft...");
-
-    // Confirmation
-    $question = 'Are you SURE you want to do this (y/N)?';
-    if (!$options['no-confirmation'] && !$this->askConfirmation(array($question), 'QUESTION_LARGE', false))
-    {
-      return 1;
     }
 
-    $n = 0;
-    foreach($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row)
+    protected function execute($arguments = [], $options = [])
     {
-      $id = $row['object_id'];
-      $resource = QubitInformationObject::getById($id);
+        $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
+        $sf_context = sfContext::createInstance($configuration);
 
-      if (!$resource)
-        continue;
+        $databaseManager = new sfDatabaseManager($this->configuration);
+        $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-      foreach ($resource->descendants->andSelf()->orderBy('rgt') as $item)
-      {
-        try
-        {
-          $item->delete();
-        }
-        catch (Exception $e)
-        {
-          $this->log("Warning: got error while deleting: " . $e->getMessage());
+        $sqlQuery = 'SELECT s.object_id FROM information_object i JOIN status s ON i.id = s.object_id '
+            .'WHERE s.type_id = '.QubitTerm::STATUS_TYPE_PUBLICATION_ID
+            .' AND s.status_id = '.QubitTerm::PUBLICATION_STATUS_DRAFT_ID
+            .' AND i.id <> 1'; // Don't delete root node!
+
+        $this->logSection('delete-drafts', 'Deleting all information objects marked as draft...');
+
+        // Confirmation
+        $question = 'Are you SURE you want to do this (y/N)?';
+        if (!$options['no-confirmation'] && !$this->askConfirmation([$question], 'QUESTION_LARGE', false)) {
+            return 1;
         }
 
-        if (++$n % 10 == 0)
-        {
-          print '.';
-          fflush(STDOUT);
+        $n = 0;
+        foreach ($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row) {
+            $id = $row['object_id'];
+            $resource = QubitInformationObject::getById($id);
+
+            if (!$resource) {
+                continue;
+            }
+            foreach ($resource->descendants->andSelf()->orderBy('rgt') as $item) {
+                try {
+                    $item->delete();
+                } catch (Exception $e) {
+                    $this->log('Warning: got error while deleting: '.$e->getMessage());
+                }
+
+                if (0 == ++$n % 10) {
+                    echo '.';
+                    fflush(STDOUT);
+                }
+            }
         }
-      }
+
+        $this->logSection('delete-drafts', "Finished! {$n} items deleted.");
     }
-
-    $this->logSection("delete-drafts", "Finished! {$n} items deleted.");
-  }
 }

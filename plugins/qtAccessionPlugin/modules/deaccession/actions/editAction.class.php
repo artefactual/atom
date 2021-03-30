@@ -19,156 +19,142 @@
 
 class DeaccessionEditAction extends DefaultEditAction
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'date',
-      'description',
-      'extent',
-      'identifier',
-      'reason',
-      'scope');
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'date',
+        'description',
+        'extent',
+        'identifier',
+        'reason',
+        'scope',
+    ];
 
-  public function earlyExecute()
-  {
-    $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
-
-    $this->resource = new QubitDeaccession;
-
-    if (isset($this->getRoute()->resource))
+    public function earlyExecute()
     {
-      $this->resource = $this->getRoute()->resource;
+        $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
-      // Check user authorization
-      if (!QubitAcl::check($this->resource, 'update'))
-      {
-        QubitAcl::forwardUnauthorized();
-      }
-    }
-    else
-    {
-      $this->form->setDefault('accessionId', $this->request->accession);
-      $this->form->setValidator('accessionId', new sfValidatorInteger);
-      $this->form->setWidget('accessionId', new sfWidgetFormInputHidden);
+        $this->resource = new QubitDeaccession();
 
-      $this->resource->accessionId = $this->request->accession;
+        if (isset($this->getRoute()->resource)) {
+            $this->resource = $this->getRoute()->resource;
 
-      // Check user authorization
-      if (!QubitAcl::check($this->resource, 'create'))
-      {
-        QubitAcl::forwardUnauthorized();
-      }
-    }
+            // Check user authorization
+            if (!QubitAcl::check($this->resource, 'update')) {
+                QubitAcl::forwardUnauthorized();
+            }
+        } else {
+            $this->form->setDefault('accessionId', $this->request->accession);
+            $this->form->setValidator('accessionId', new sfValidatorInteger());
+            $this->form->setWidget('accessionId', new sfWidgetFormInputHidden());
 
-    $title = $this->context->i18n->__('Add new deaccession record');
-    if (isset($this->getRoute()->resource))
-    {
-      if (1 > strlen($title = $this->resource->__toString()))
-      {
-        $title = $this->context->i18n->__('Untitled');
-      }
+            $this->resource->accessionId = $this->request->accession;
 
-      $title = $this->context->i18n->__('Edit %1%', array('%1%' => $title));
-    }
-
-    $this->response->setTitle("$title - {$this->response->getTitle()}");
-  }
-
-  protected function addField($name)
-  {
-    switch ($name)
-    {
-      case 'scope':
-        $this->form->setDefault('scope', $this->context->routing->generate(null, array($this->resource->scope, 'module' => 'term')));
-        $this->form->setValidator('scope', new sfValidatorString);
-
-        $choices = array();
-        $choices[null] = null;
-        foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::DEACCESSION_SCOPE_ID) as $item)
-        {
-          $choices[$this->context->routing->generate(null, array($item, 'module' => 'term'))] = $item;
+            // Check user authorization
+            if (!QubitAcl::check($this->resource, 'create')) {
+                QubitAcl::forwardUnauthorized();
+            }
         }
 
-        $this->form->setWidget('scope', new sfWidgetFormSelect(array('choices' => $choices)));
+        $title = $this->context->i18n->__('Add new deaccession record');
+        if (isset($this->getRoute()->resource)) {
+            if (1 > strlen($title = $this->resource->__toString())) {
+                $title = $this->context->i18n->__('Untitled');
+            }
 
-        break;
-
-      case 'description':
-      case 'extent':
-      case 'reason':
-        $this->form->setDefault($name, $this->resource[$name]);
-        $this->form->setValidator($name, new sfValidatorString);
-        $this->form->setWidget($name, new sfWidgetFormTextarea);
-
-        break;
-
-      case 'date':
-        $this->form->setDefault('date', Qubit::renderDate($this->resource['date']));
-
-        if (!isset($this->resource->id))
-        {
-          $dt = new DateTime;
-          $this->form->setDefault('date', $dt->format('Y-m-d'));
+            $title = $this->context->i18n->__('Edit %1%', ['%1%' => $title]);
         }
 
-        $this->form->setWidget('date', new sfWidgetFormInput);
-        $this->form->setValidator('date', new sfValidatorDate(array(
-          'date_format' => '/^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})$/',
-          'date_format_error' => 'YYYY-MM-DD')));
-
-        break;
-
-      case 'identifier':
-        $this->form->setDefault($name, $this->resource[$name]);
-        $this->form->setValidator($name, new sfValidatorString);
-        $this->form->setWidget($name, new sfWidgetFormInput);
-
-        break;
-
-      default:
-
-        return parent::addField($name);
+        $this->response->setTitle("{$title} - {$this->response->getTitle()}");
     }
-  }
 
-  protected function processField($field)
-  {
-    switch ($field->getName())
+    public function execute($request)
     {
-      case 'scope':
-        unset($this->resource->scope);
+        parent::execute($request);
 
-        $value = $this->form->getValue('scope');
-        if (isset($value))
-        {
-          $params = $this->context->routing->parse(Qubit::pathInfo($value));
-          $this->resource->scope = $params['_sf_route']->resource;
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
+            if ($this->form->isValid()) {
+                $this->processForm();
+
+                $this->resource->save();
+
+                $this->redirect([$this->resource->accession, 'module' => 'accession']);
+            }
         }
 
-        break;
-
-      default:
-        return parent::processField($field);
+        QubitDescription::addAssets($this->response);
     }
-  }
 
-  public function execute($request)
-  {
-    parent::execute($request);
-
-    if ($request->isMethod('post'))
+    protected function addField($name)
     {
-      $this->form->bind($request->getPostParameters());
-      if ($this->form->isValid())
-      {
-        $this->processForm();
+        switch ($name) {
+            case 'scope':
+                $this->form->setDefault('scope', $this->context->routing->generate(null, [$this->resource->scope, 'module' => 'term']));
+                $this->form->setValidator('scope', new sfValidatorString());
 
-        $this->resource->save();
+                $choices = [];
+                $choices[null] = null;
+                foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::DEACCESSION_SCOPE_ID) as $item) {
+                    $choices[$this->context->routing->generate(null, [$item, 'module' => 'term'])] = $item;
+                }
 
-        $this->redirect(array($this->resource->accession, 'module' => 'accession'));
-      }
+                $this->form->setWidget('scope', new sfWidgetFormSelect(['choices' => $choices]));
+
+                break;
+
+            case 'description':
+            case 'extent':
+            case 'reason':
+                $this->form->setDefault($name, $this->resource[$name]);
+                $this->form->setValidator($name, new sfValidatorString());
+                $this->form->setWidget($name, new sfWidgetFormTextarea());
+
+                break;
+
+            case 'date':
+                $this->form->setDefault('date', Qubit::renderDate($this->resource['date']));
+
+                if (!isset($this->resource->id)) {
+                    $dt = new DateTime();
+                    $this->form->setDefault('date', $dt->format('Y-m-d'));
+                }
+
+                $this->form->setWidget('date', new sfWidgetFormInput());
+                $this->form->setValidator('date', new sfValidatorDate([
+                    'date_format' => '/^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})$/',
+                    'date_format_error' => 'YYYY-MM-DD',
+                ]));
+
+                break;
+
+            case 'identifier':
+                $this->form->setDefault($name, $this->resource[$name]);
+                $this->form->setValidator($name, new sfValidatorString());
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+
+            default:
+                return parent::addField($name);
+        }
     }
 
-    QubitDescription::addAssets($this->response);
-  }
+    protected function processField($field)
+    {
+        switch ($field->getName()) {
+            case 'scope':
+                unset($this->resource->scope);
+
+                $value = $this->form->getValue('scope');
+                if (isset($value)) {
+                    $params = $this->context->routing->parse(Qubit::pathInfo($value));
+                    $this->resource->scope = $params['_sf_route']->resource;
+                }
+
+                break;
+
+            default:
+                return parent::processField($field);
+        }
+    }
 }

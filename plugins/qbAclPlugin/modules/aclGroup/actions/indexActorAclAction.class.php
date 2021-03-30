@@ -19,54 +19,49 @@
 
 class AclGroupIndexActorAclAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->group = QubitAclGroup::getById($request->id);
-    $this->forward404Unless($this->group);
-
-    // Check authorization
-    if (!QubitAcl::check($this->group, 'read'))
+    public function execute($request)
     {
-      $this->redirect('admin/secure');
+        $this->group = QubitAclGroup::getById($request->id);
+        $this->forward404Unless($this->group);
+
+        // Check authorization
+        if (!QubitAcl::check($this->group, 'read')) {
+            $this->redirect('admin/secure');
+        }
+
+        // Add roles
+        $this->roles = [];
+        foreach ($this->group->getAncestorsAndSelfForAcl() as $group) {
+            // Omit ROOT group
+            if (1 < $group->id) {
+                $this->roles[] = $group->id;
+            }
+        }
+
+        // Table width
+        $this->tableCols = count($this->roles) + 3;
+
+        // Get permissions for this group and parents
+        $criteria = new Criteria();
+        $criteria->add(QubitAclPermission::GROUP_ID, $this->roles, Criteria::IN);
+
+        // Add actor criteria
+        $criteria->addJoin(QubitAclPermission::OBJECT_ID, QubitObject::ID, Criteria::LEFT_JOIN);
+        $c1 = $criteria->getNewCriterion(QubitObject::CLASS_NAME, 'QubitActor');
+        $c2 = $criteria->getNewCriterion(QubitAclPermission::OBJECT_ID, null, Criteria::ISNULL);
+        $c1->addOr($c2);
+        $criteria->add($c1);
+
+        // Build ACL
+        $this->acl = [];
+        if (0 < count($permissions = QubitAclPermission::get($criteria))) {
+            foreach ($permissions as $permission) {
+                // In this context permissions for all objects (null) and root actor
+                // object are equivalent
+                $objectId = (QubitActor::ROOT_ID != $permission->objectId) ? $permission->objectId : null;
+
+                $this->acl[$objectId][$permission->action][$permission->groupId] = $permission;
+            }
+        }
     }
-
-    // Add roles
-    $this->roles = array();
-    foreach ($this->group->getAncestorsAndSelfForAcl() as $group)
-    {
-      // Omit ROOT group
-      if (1 < $group->id)
-      {
-        $this->roles[] = $group->id;
-      }
-    }
-
-    // Table width
-    $this->tableCols = count($this->roles) + 3;
-
-    // Get permissions for this group and parents
-    $criteria = new Criteria;
-    $criteria->add(QubitAclPermission::GROUP_ID, $this->roles, Criteria::IN);
-
-    // Add actor criteria
-    $criteria->addJoin(QubitAclPermission::OBJECT_ID, QubitObject::ID, Criteria::LEFT_JOIN);
-    $c1 = $criteria->getNewCriterion(QubitObject::CLASS_NAME, 'QubitActor');
-    $c2 = $criteria->getNewCriterion(QubitAclPermission::OBJECT_ID, null, Criteria::ISNULL);
-    $c1->addOr($c2);
-    $criteria->add($c1);
-
-    // Build ACL
-    $this->acl = array();
-    if (0 < count($permissions = QubitAclPermission::get($criteria)))
-    {
-      foreach ($permissions as $permission)
-      {
-        // In this context permissions for all objects (null) and root actor
-        // object are equivalent
-        $objectId = (QubitActor::ROOT_ID != $permission->objectId) ? $permission->objectId : null;
-
-        $this->acl[$objectId][$permission->action][$permission->groupId] = $permission;
-      }
-    }
-  }
 }

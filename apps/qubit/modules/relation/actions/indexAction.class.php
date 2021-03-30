@@ -18,68 +18,59 @@
  */
 
 /**
- * Get JSON representation of relation
+ * Get JSON representation of relation.
  *
- * @package AccesstoMemory
- * @subpackage relation
  * @author     David Juhasz <david@artefactual.com>
  */
 class RelationIndexAction extends sfAction
 {
-  public function execute($request)
-  {
-    // Check user authorization
-    if (!$this->getUser()->isAuthenticated())
+    public function execute($request)
     {
-      QubitAcl::forwardUnauthorized();
-    }
-
-    $this->resource = $this->getRoute()->resource;
-
-    $value = array();
-
-    $value['date'] = $this->resource->date;
-    $value['endDate'] = Qubit::renderDate($this->resource->endDate);
-    $value['startDate'] = Qubit::renderDate($this->resource->startDate);
-    $value['description'] = $this->resource->description;
-
-    if (isset($this->resource->object))
-    {
-      $value['object'] = $this->context->routing->generate(null, array($this->resource->object));
-      $value['objectDisplay'] = strval($this->resource->object);
-    }
-
-    if (isset($this->resource->subject))
-    {
-      $value['subject'] = $this->context->routing->generate(null, array($this->resource->subject));
-      $value['subjectDisplay'] = strval($this->resource->subject);
-    }
-
-    if (isset($this->resource->type))
-    {
-      if ($this->resource->type->taxonomyId == QubitTaxonomy::ACTOR_RELATION_TYPE_ID &&
-        $this->resource->type->parentId != QubitTerm::ROOT_ID)
-      {
-        $value['type'] = $this->context->routing->generate(null, array($this->resource->type->parent, 'module' => 'term'));
-        $value['subType'] = $this->context->routing->generate(null, array($this->resource->type, 'module' => 'term'));
-
-        $value['converseSubType'] = '';
-        if (0 < count($converseTerms = QubitRelation::getBySubjectOrObjectId($this->resource->type->id, array('typeId' => QubitTerm::CONVERSE_TERM_ID))))
-        {
-          $value['converseSubType'] = $this->context->routing->generate(null, array($converseTerms[0]->getOpposedObject($this->resource->type), 'module' => 'term'));
+        // Check user authorization
+        if (!$this->getUser()->isAuthenticated()) {
+            QubitAcl::forwardUnauthorized();
         }
-      }
-      else
-      {
-        $value['type'] = $this->context->routing->generate(null, array($this->resource->type, 'module' => 'term'));
-      }
-    }
 
-    if (method_exists($this, 'extraQueries'))
-    {
-      $value = $this->extraQueries($value);
-    }
+        $this->resource = $this->getRoute()->resource;
 
-    return $this->renderText(json_encode($value));
-  }
+        $value = [];
+
+        $value['date'] = $this->resource->date;
+        $value['endDate'] = Qubit::renderDate($this->resource->endDate);
+        $value['startDate'] = Qubit::renderDate($this->resource->startDate);
+        $value['description'] = $this->resource->description;
+
+        if (isset($this->resource->object)) {
+            $value['object'] = $this->context->routing->generate(null, [$this->resource->object]);
+            $value['objectDisplay'] = strval($this->resource->object);
+        }
+
+        if (isset($this->resource->subject)) {
+            $value['subject'] = $this->context->routing->generate(null, [$this->resource->subject]);
+            $value['subjectDisplay'] = strval($this->resource->subject);
+        }
+
+        if (isset($this->resource->type)) {
+            if (
+                QubitTaxonomy::ACTOR_RELATION_TYPE_ID == $this->resource->type->taxonomyId
+                && QubitTerm::ROOT_ID != $this->resource->type->parentId
+            ) {
+                $value['type'] = $this->context->routing->generate(null, [$this->resource->type->parent, 'module' => 'term']);
+                $value['subType'] = $this->context->routing->generate(null, [$this->resource->type, 'module' => 'term']);
+
+                $value['converseSubType'] = '';
+                if (0 < count($converseTerms = QubitRelation::getBySubjectOrObjectId($this->resource->type->id, ['typeId' => QubitTerm::CONVERSE_TERM_ID]))) {
+                    $value['converseSubType'] = $this->context->routing->generate(null, [$converseTerms[0]->getOpposedObject($this->resource->type), 'module' => 'term']);
+                }
+            } else {
+                $value['type'] = $this->context->routing->generate(null, [$this->resource->type, 'module' => 'term']);
+            }
+        }
+
+        if (method_exists($this, 'extraQueries')) {
+            $value = $this->extraQueries($value);
+        }
+
+        return $this->renderText(json_encode($value));
+    }
 }

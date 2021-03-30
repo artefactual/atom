@@ -19,51 +19,45 @@
 
 class TermDeleteAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->form = new sfForm;
-
-    $this->resource = $this->getRoute()->resource;
-
-    // Check that this isn't the root
-    if (!isset($this->resource->parent))
+    public function execute($request)
     {
-      $this->forward404();
-    }
+        $this->form = new sfForm();
 
-    // Don't delete protected terms
-    if (QubitTerm::isProtected($this->resource->id))
-    {
-      $this->forward('admin', 'termPermission');
-    }
+        $this->resource = $this->getRoute()->resource;
 
-    // Check user authorization
-    if (!QubitAcl::check($this->resource, 'delete'))
-    {
-      QubitAcl::forwardUnauthorized();
-    }
-
-    if ($request->isMethod('delete'))
-    {
-      $this->form->bind($request->getPostParameters());
-      
-      if ($this->form->isValid())
-      {
-        $this->resource->deleteFullHierarchy();
-
-        if (isset($this->resource->taxonomy))
-        {
-          $this->redirect(array($this->resource->taxonomy, 'module' => 'taxonomy'));
+        // Check that this isn't the root
+        if (!isset($this->resource->parent)) {
+            $this->forward404();
         }
 
-        $this->redirect(array('module' => 'taxonomy', 'action' => 'list'));
-      }
-    }
+        // Don't delete protected terms
+        if (QubitTerm::isProtected($this->resource->id)) {
+            $this->forward('admin', 'termPermission');
+        }
 
-    // Apparently we can't slice a QubitQuery. `previewSize` is shared with
-    // the template so we can break the loop when desired.
-    $this->count = ($this->resource->rgt - $this->resource->lft - 1) / 2;
-    $this->previewSize = (int)sfConfig::get('app_hits_per_page', 10);
-    $this->previewIsLimited = $this->count > $this->previewSize;
-  }
+        // Check user authorization
+        if (!QubitAcl::check($this->resource, 'delete')) {
+            QubitAcl::forwardUnauthorized();
+        }
+
+        if ($request->isMethod('delete')) {
+            $this->form->bind($request->getPostParameters());
+
+            if ($this->form->isValid()) {
+                $this->resource->deleteFullHierarchy();
+
+                if (isset($this->resource->taxonomy)) {
+                    $this->redirect([$this->resource->taxonomy, 'module' => 'taxonomy']);
+                }
+
+                $this->redirect(['module' => 'taxonomy', 'action' => 'list']);
+            }
+        }
+
+        // Apparently we can't slice a QubitQuery. `previewSize` is shared with
+        // the template so we can break the loop when desired.
+        $this->count = ($this->resource->rgt - $this->resource->lft - 1) / 2;
+        $this->previewSize = (int) sfConfig::get('app_hits_per_page', 10);
+        $this->previewIsLimited = $this->count > $this->previewSize;
+    }
 }

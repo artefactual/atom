@@ -19,86 +19,86 @@
 
 class arStorageServiceUtils
 {
-  const STORAGE_SERVICE_PACKAGE_PATH = 'file';
+    public const STORAGE_SERVICE_PACKAGE_PATH = 'file';
 
-  /**
-   * Use phpcurl to request a URL and pass the header and stream back to
-   * the browser.
-   *
-   */
-  public static function getFileFromStorageService($url)
-  {
-    $ch = curl_init();
-
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 500);
-    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function($ch, $data) {
-        echo $data;
-
-        return strlen($data);
-    });
-
-    curl_setopt($ch, CURLOPT_HEADERFUNCTION, function($ch, $header) {
-        header($header);
-
-        return strlen($header);
-    });
-
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // Storage service redirects
-    curl_setopt($ch, CURLOPT_FAILONERROR, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-      sprintf(
-        'Authorization: ApiKey %s:%s',
-        (string) QubitSetting::getByName('storage_service_username'),
-        (string) QubitSetting::getByName('storage_service_api_key')
-      ),
-      'User-Agent: DRMC',
-    ));
-
-    curl_exec($ch);
-    $status = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
-
-    curl_close($ch);
-
-    return $status;
-  }
-
-  /**
-   * Return true if plugin is enabled and feature is activated.
-   *
-   */
-  public static function getAipDownloadEnabled()
-  {
-    $configuration = ProjectConfiguration::getActive();
-
-    if ($configuration->isPluginEnabled('arStorageServicePlugin')
-      && null !== $setting = QubitSetting::getByName('download_aip_enabled'))
+    /**
+     * Use phpcurl to request a URL and pass the header and stream back to
+     * the browser.
+     *
+     * @param mixed $url
+     */
+    public static function getFileFromStorageService($url)
     {
-      return boolval($setting->getValue(array('sourceCulture' => true)));
-    }
-  }
+        $ch = curl_init();
 
-  public static function getStorageServiceException($status)
-  {
-    switch ($status)
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 500);
+        curl_setopt($ch, CURLOPT_WRITEFUNCTION, function ($ch, $data) {
+            echo $data;
+
+            return strlen($data);
+        });
+
+        curl_setopt($ch, CURLOPT_HEADERFUNCTION, function ($ch, $header) {
+            header($header);
+
+            return strlen($header);
+        });
+
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // Storage service redirects
+        curl_setopt($ch, CURLOPT_FAILONERROR, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            sprintf(
+                'Authorization: ApiKey %s:%s',
+                (string) QubitSetting::getByName('storage_service_username'),
+                (string) QubitSetting::getByName('storage_service_api_key')
+            ),
+            'User-Agent: DRMC',
+        ]);
+
+        curl_exec($ch);
+        $status = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+
+        curl_close($ch);
+
+        return $status;
+    }
+
+    /**
+     * Return true if plugin is enabled and feature is activated.
+     */
+    public static function getAipDownloadEnabled()
     {
-      case '400':
-        return new QubitApiBadRequestException("Storage service bad request");
+        $configuration = ProjectConfiguration::getActive();
 
-      case '404':
-        return new QubitApi404Exception("Storage service resource not found");
-
-      case '401':
-        return new QubitApiNotAuthorizedException("Storage service resource not authorized");
-
-      case '403':
-        return new QubitApiForbiddenException("Storage service resource forbidden");
-
-      default:
-        return new Exception(sprintf('Storage service error %s', (string)$status));
+        if (
+            $configuration->isPluginEnabled('arStorageServicePlugin')
+            && null !== $setting = QubitSetting::getByName('download_aip_enabled')
+        ) {
+            return boolval($setting->getValue(['sourceCulture' => true]));
+        }
     }
-  }
+
+    public static function getStorageServiceException($status)
+    {
+        switch ($status) {
+            case '400':
+                return new QubitApiBadRequestException('Storage service bad request');
+
+            case '404':
+                return new QubitApi404Exception('Storage service resource not found');
+
+            case '401':
+                return new QubitApiNotAuthorizedException('Storage service resource not authorized');
+
+            case '403':
+                return new QubitApiForbiddenException('Storage service resource forbidden');
+
+            default:
+                return new Exception(sprintf('Storage service error %s', (string) $status));
+        }
+    }
 }

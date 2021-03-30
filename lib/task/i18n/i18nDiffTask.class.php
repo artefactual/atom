@@ -23,35 +23,129 @@
  * Output formats currrently include csv and tab to allow easy import into a
  * spreadsheet application.
  *
- * @package    AccesstoMemory
- * @subpackage task
  * @author     David Juhasz <david@artefactual.com>
  */
 class i18nDiffTask extends sfBaseTask
 {
-  const FORMAT_CSV = 'csv';
-  const FORMAT_TAB = 'tab';
+    public const FORMAT_CSV = 'csv';
+    public const FORMAT_TAB = 'tab';
 
-  /**
-   * @see sfTask
-   */
-  protected function configure()
-  {
-    $this->addArguments(array(
-      new sfCommandArgument('application', sfCommandArgument::REQUIRED, 'The application name'),
-      new sfCommandArgument('culture', sfCommandArgument::REQUIRED, 'The target culture'),
-    ));
+    /**
+     * @see sfTask
+     * @see sfI18nExtract
+     *
+     * @param mixed $arguments
+     * @param mixed $options
+     */
+    public function execute($arguments = [], $options = [])
+    {
+        $output = '';
 
-    $this->addOptions(array(
-      new sfCommandOption('file', 'f', sfCommandOption::PARAMETER_OPTIONAL, 'Specify a destination filename for writing output', 'stdout'),
-      new sfCommandOption('format', 'o', sfCommandOption::PARAMETER_OPTIONAL, 'Specify an output format (currently only supports csv & tab-delimited)', self::FORMAT_CSV)
-    ));
+        if ('stdout' != strtolower($options['file'])) {
+            $this->logSection('i18n', sprintf('Diff i18n strings for the "%s" application', $arguments['application']));
+        }
 
-    $this->namespace = 'i18n';
-    $this->name = 'diff';
-    $this->briefDescription = 'Compares existing XLIFF strings to new i18n strings extracted from PHP files as per the i18n:extract task.';
+        // get i18n configuration from factories.yml
+        $config = sfFactoryConfigHandler::getConfiguration($this->configuration->getConfigPaths('config/factories.yml'));
 
-    $this->detailedDescription = <<<EOF
+        $class = $config['i18n']['class'];
+        $params = $config['i18n']['param'];
+        unset($params['cache']);
+
+        $this->i18n = new $class($this->configuration, new sfNoCache(), $params);
+        $extract = new sfI18nApplicationExtract($this->i18n, $arguments['culture']);
+        $extract->extract();
+
+        if ('stdout' != strtolower($options['file'])) {
+            $this->logSection('i18n', sprintf('found "%d" new i18n strings', count($extract->getNewMessages())));
+            $this->logSection('i18n', sprintf('found "%d" old i18n strings', count($extract->getOldMessages())));
+        }
+
+        // Column headers
+        $rows[0] = ['Action', 'Source', 'Target'];
+
+        // Old messages
+        foreach ($this->getOldTranslations($extract) as $source => $target) {
+            $rows[] = ['Removed', $source, $target];
+        }
+
+        // New messages
+        foreach ($extract->getNewMessages() as $message) {
+            $rows[] = ['Added', $message];
+        }
+
+        // Choose output format
+        switch (strtolower($options['format'])) {
+            case 'csv':
+                foreach ($rows as $row) {
+                    $output .= '"'.implode('","', array_map('addslashes', $row))."\"\n";
+                }
+
+                break;
+
+            case 'tab':
+                foreach ($rows as $row) {
+                    $output .= implode("\t", $row)."\n";
+                }
+
+                break;
+        }
+
+        // Output file
+        if ('stdout' != strtolower($options['file'])) {
+            echo "\n".$options['file'];
+            // Remove '=' if using -f="file.csv" notation
+            $filename = ('=' == substr($options['file'], 0, 1)) ? substr($options['file'], 1) : $options['file'];
+            file_put_contents($filename, $output);
+        } else {
+            echo $output;
+        }
+    }
+
+    /**
+     * Loads old translations currently saved in the message sources.
+     *
+     * @param sfI18nApplicationExtract $extract
+     *
+     * @return array of source and target translations
+     */
+    public function getOldTranslations($extract)
+    {
+        $oldMessages = array_diff($extract->getCurrentMessages(), $extract->getAllSeenMessages());
+
+        foreach ($this->i18n->getMessageSource()->read() as $catalogue => $translations) {
+            foreach ($translations as $key => $value) {
+                $allTranslations[$key] = $value[0];
+            }
+        }
+
+        foreach ($oldMessages as $message) {
+            $oldTranslations[$message] = $allTranslations[$message];
+        }
+
+        return $oldTranslations;
+    }
+
+    /**
+     * @see sfTask
+     */
+    protected function configure()
+    {
+        $this->addArguments([
+            new sfCommandArgument('application', sfCommandArgument::REQUIRED, 'The application name'),
+            new sfCommandArgument('culture', sfCommandArgument::REQUIRED, 'The target culture'),
+        ]);
+
+        $this->addOptions([
+            new sfCommandOption('file', 'f', sfCommandOption::PARAMETER_OPTIONAL, 'Specify a destination filename for writing output', 'stdout'),
+            new sfCommandOption('format', 'o', sfCommandOption::PARAMETER_OPTIONAL, 'Specify an output format (currently only supports csv & tab-delimited)', self::FORMAT_CSV),
+        ]);
+
+        $this->namespace = 'i18n';
+        $this->name = 'diff';
+        $this->briefDescription = 'Compares existing XLIFF strings to new i18n strings extracted from PHP files as per the i18n:extract task.';
+
+        $this->detailedDescription = <<<'EOF'
 The [i18n:diff|INFO] task compares existing XLIFF strings to new i18n strings
 extracted from PHP files for the given application and target culture:
 
@@ -71,107 +165,5 @@ alternate file format use the [--format|COMMENT] or [-t|COMMENT] options:
 
 Possible [--format|COMMENT] values are "csv" and "tab".
 EOF;
-  }
-
-  /**
-   * @see sfTask
-   * @see sfI18nExtract
-   */
-  public function execute($arguments = array(), $options = array())
-  {
-    $output = "";
-
-    if (strtolower($options['file']) != 'stdout')
-    {
-      $this->logSection('i18n', sprintf('Diff i18n strings for the "%s" application', $arguments['application']));
     }
-
-    // get i18n configuration from factories.yml
-    $config = sfFactoryConfigHandler::getConfiguration($this->configuration->getConfigPaths('config/factories.yml'));
-
-    $class = $config['i18n']['class'];
-    $params = $config['i18n']['param'];
-    unset($params['cache']);
-
-    $this->i18n = new $class($this->configuration, new sfNoCache(), $params);
-    $extract = new sfI18nApplicationExtract($this->i18n, $arguments['culture']);
-    $extract->extract();
-
-    if (strtolower($options['file']) != 'stdout')
-    {
-      $this->logSection('i18n', sprintf('found "%d" new i18n strings', count($extract->getNewMessages())));
-      $this->logSection('i18n', sprintf('found "%d" old i18n strings', count($extract->getOldMessages())));
-    }
-
-    // Column headers
-    $rows[0] = array('Action', 'Source', 'Target');
-
-    // Old messages
-    foreach ($this->getOldTranslations($extract) as $source=>$target)
-    {
-      $rows[] = array('Removed', $source, $target);
-    }
-
-    // New messages
-    foreach ($extract->getNewMessages() as $message)
-    {
-      $rows[] = array('Added', $message);
-    }
-
-    // Choose output format
-    switch (strtolower($options['format']))
-    {
-      case 'csv':
-        foreach ($rows as $row)
-        {
-          $output .= '"'.implode('","', array_map('addslashes', $row))."\"\n";
-        }
-        break;
-      case 'tab':
-        foreach ($rows as $row)
-        {
-          $output .= implode("\t", $row)."\n";
-        }
-        break;
-    }
-
-    // Output file
-    if (strtolower($options['file']) != 'stdout')
-    {
-      echo "\n".$options['file'];
-      // Remove '=' if using -f="file.csv" notation
-      $filename = (substr($options['file'], 0, 1) == '=') ? substr($options['file'], 1) : $options['file'];
-      file_put_contents($filename, $output);
-    }
-    else
-    {
-      echo $output;
-    }
-  }
-
-  /**
-   * Loads old translations currently saved in the message sources.
-   *
-   * @param sfI18nApplicationExtract $extract
-   * @return array of source and target translations
-   */
-  public function getOldTranslations($extract)
-  {
-    $oldMessages = array_diff($extract->getCurrentMessages(), $extract->getAllSeenMessages());
-
-    foreach ($this->i18n->getMessageSource()->read() as $catalogue => $translations)
-    {
-      foreach ($translations as $key => $value)
-      {
-        $allTranslations[$key] = $value[0];
-      }
-    }
-
-    foreach ($oldMessages as $message)
-    {
-      $oldTranslations[$message] = $allTranslations[$message];
-    }
-
-    return $oldTranslations;
-  }
 }

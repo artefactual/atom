@@ -18,166 +18,147 @@
  */
 
 /**
- * Edit menu
+ * Edit menu.
  *
- * @package    AccesstoMemory
- * @subpackage menu
  * @author     David Juhasz <david@artefactual.com>
  */
 class MenuEditAction extends sfAction
 {
-  public static
-    $NAMES = array(
-      'name',
-      'label',
-      'parentId',
-      'path',
-      'description');
+    public static $NAMES = [
+        'name',
+        'label',
+        'parentId',
+        'path',
+        'description',
+    ];
 
-  protected function addField($name)
-  {
-    switch ($name)
+    public function processForm()
     {
-      case 'name':
-        // Don't allow locked menus to be renamed
-        if ($this->menu->isProtected())
-        {
-          break;
+        foreach ($this->form as $field) {
+            if (isset($this->request[$field->getName()])) {
+                $this->processField($field);
+            }
         }
 
-        $this->form->setDefault($name, $this->menu[$name]);
-        $this->form->setValidator($name, new QubitValidatorMenuName(array('required' => true, 'resource' => $this->menu)));
-        $this->form->setWidget($name, new sfWidgetFormInput);
+        return $this;
+    }
 
-        break;
+    public function execute($request)
+    {
+        $this->form = new sfForm();
+        $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
-      case 'path':
-        $this->form->setDefault($name, $this->menu[$name]);
-        $pathRequired = ($this->menu->parentId == QubitMenu::ROOT_ID) ? false : true;
-        $this->form->setValidator($name, new sfValidatorString(array('required' => $pathRequired)));
-        $this->form->setWidget($name, new sfWidgetFormInput);
+        $this->menu = new QubitMenu();
 
-        break;
+        if (isset($request->id)) {
+            $this->menu = QubitMenu::getById($request->id);
 
-      case 'label':
-        $this->form->setDefault($name, $this->menu[$name]);
-        $this->form->setValidator($name, new sfValidatorString());
-        $this->form->setWidget($name, new sfWidgetFormInput);
-
-        break;
-
-      case 'parentId':
-
-        // Get menuTree array with menu depths
-        $menuTree = QubitMenu::getTreeById(QubitMenu::ROOT_ID);
-
-        // Build an array of choices for "parentId" select box (with blank line)
-        $choices = array(1 => '[ '.$this->context->i18n->__('Top').' ]');
-        foreach ($menuTree as $menu)
-        {
-          $choices[$menu['id']] = str_repeat('-', $menu['depth']).' '.$menu['name'];
+            if (!isset($this->menu)) {
+                $this->forward404();
+            }
         }
 
-        if (null !== $this->menu->parentId)
-        {
-          $this->form->setDefault('parentId', $this->menu->parentId);
+        foreach ($this::$NAMES as $name) {
+            $this->addField($name);
         }
 
-        $this->form->setValidator('parentId', new sfValidatorString(array('required' => true)));
-        $this->form->setWidget('parentId', new sfWidgetFormSelect(array('choices' => $choices)));
+        // Handle POST data (form submit)
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
 
-        break;
+            if ($this->form->isValid()) {
+                $this->processForm();
 
-      case 'description':
-        $this->form->setDefault($name, $this->menu[$name]);
-        $this->form->setValidator($name, new sfValidatorString);
-        $this->form->setWidget($name, new sfWidgetFormTextarea);
+                $this->menu->save();
 
-        break;
-    }
-  }
+                // Remove cache
+                if (null !== $this->context->getViewCacheManager()) {
+                    $this->context->getViewCacheManager()->remove('@sf_cache_partial?module=menu&action=_browseMenu&sf_cache_key=*');
+                    $this->context->getViewCacheManager()->remove('@sf_cache_partial?module=menu&action=_mainMenu&sf_cache_key=*');
+                }
 
-  protected function processField($field)
-  {
-    switch ($name = $field->getName())
-    {
-      case 'parentId':
-
-        if (null == $this->menu['parentId'] = $this->form->getValue('parentId'))
-        {
-          $this->menu['parentId'] = QubitMenu::ROOT_ID;
+                $this->redirect(['module' => 'menu', 'action' => 'list']);
+            }
         }
 
-        break;
+        QubitDescription::addAssets($this->response);
+    }
 
-      default:
-        // Don't allow locked menus to be renamed
-        if ($name == 'name' && $this->menu->isProtected())
-        {
-          break;
+    protected function addField($name)
+    {
+        switch ($name) {
+            case 'name':
+                // Don't allow locked menus to be renamed
+                if ($this->menu->isProtected()) {
+                    break;
+                }
+
+                $this->form->setDefault($name, $this->menu[$name]);
+                $this->form->setValidator($name, new QubitValidatorMenuName(['required' => true, 'resource' => $this->menu]));
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+
+            case 'path':
+                $this->form->setDefault($name, $this->menu[$name]);
+                $pathRequired = (QubitMenu::ROOT_ID == $this->menu->parentId) ? false : true;
+                $this->form->setValidator($name, new sfValidatorString(['required' => $pathRequired]));
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+
+            case 'label':
+                $this->form->setDefault($name, $this->menu[$name]);
+                $this->form->setValidator($name, new sfValidatorString());
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+
+            case 'parentId':
+                // Get menuTree array with menu depths
+                $menuTree = QubitMenu::getTreeById(QubitMenu::ROOT_ID);
+
+                // Build an array of choices for "parentId" select box (with blank line)
+                $choices = [1 => '[ '.$this->context->i18n->__('Top').' ]'];
+                foreach ($menuTree as $menu) {
+                    $choices[$menu['id']] = str_repeat('-', $menu['depth']).' '.$menu['name'];
+                }
+
+                if (null !== $this->menu->parentId) {
+                    $this->form->setDefault('parentId', $this->menu->parentId);
+                }
+
+                $this->form->setValidator('parentId', new sfValidatorString(['required' => true]));
+                $this->form->setWidget('parentId', new sfWidgetFormSelect(['choices' => $choices]));
+
+                break;
+
+            case 'description':
+                $this->form->setDefault($name, $this->menu[$name]);
+                $this->form->setValidator($name, new sfValidatorString());
+                $this->form->setWidget($name, new sfWidgetFormTextarea());
+
+                break;
         }
-
-        $this->menu[$field->getName()] = $this->form->getValue($field->getName());
-    }
-  }
-
-  public function processForm()
-  {
-    foreach ($this->form as $field)
-    {
-      if (isset($this->request[$field->getName()]))
-      {
-        $this->processField($field);
-      }
     }
 
-    return $this;
-  }
-
-  public function execute($request)
-  {
-    $this->form = new sfForm;
-    $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
-
-    $this->menu = new QubitMenu;
-
-    if (isset($request->id))
+    protected function processField($field)
     {
-      $this->menu = QubitMenu::getById($request->id);
+        switch ($name = $field->getName()) {
+            case 'parentId':
+                if (null == $this->menu['parentId'] = $this->form->getValue('parentId')) {
+                    $this->menu['parentId'] = QubitMenu::ROOT_ID;
+                }
 
-      if (!isset($this->menu))
-      {
-        $this->forward404();
-      }
-    }
+                break;
 
-    foreach ($this::$NAMES as $name)
-    {
-      $this->addField($name);
-    }
+            default:
+                // Don't allow locked menus to be renamed
+                if ('name' == $name && $this->menu->isProtected()) {
+                    break;
+                }
 
-    // Handle POST data (form submit)
-    if ($request->isMethod('post'))
-    {
-      $this->form->bind($request->getPostParameters());
-
-      if ($this->form->isValid())
-      {
-        $this->processForm();
-
-        $this->menu->save();
-
-        // Remove cache
-        if ($this->context->getViewCacheManager() !== null)
-        {
-          $this->context->getViewCacheManager()->remove('@sf_cache_partial?module=menu&action=_browseMenu&sf_cache_key=*');
-          $this->context->getViewCacheManager()->remove('@sf_cache_partial?module=menu&action=_mainMenu&sf_cache_key=*');
+                $this->menu[$field->getName()] = $this->form->getValue($field->getName());
         }
-
-        $this->redirect(array('module' => 'menu', 'action' => 'list'));
-      }
     }
-
-    QubitDescription::addAssets($this->response);
-  }
 }

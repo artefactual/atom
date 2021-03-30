@@ -19,27 +19,25 @@
 
 class QubitOtherName extends BaseOtherName
 {
-  public function __toString()
-  {
-    if (!$this->getName())
+    public function __toString()
     {
-      return (string) $this->getName(array('sourceCulture' => true));
+        if (!$this->getName()) {
+            return (string) $this->getName(['sourceCulture' => true]);
+        }
+
+        return (string) $this->getName();
     }
 
-    return (string) $this->getName();
-  }
-
-  /**
-   * Static method to delete an actor name with given $id
-   *
-   * @param integer $id primary key of property
-   * @param Connection $connection database connection object
-   */
-  public static function deleteById($id, $connection = null)
-  {
-    if (null !== $actorName = parent::getById($id))
+    /**
+     * Static method to delete an actor name with given $id.
+     *
+     * @param int        $id         primary key of property
+     * @param Connection $connection database connection object
+     */
+    public static function deleteById($id, $connection = null)
     {
-      $actorName->delete($connection);
+        if (null !== $actorName = parent::getById($id)) {
+            $actorName->delete($connection);
+        }
     }
-  }
 }

@@ -19,256 +19,236 @@
 
 class TaxonomyIndexAction extends sfAction
 {
-  public function execute($request)
-  {
-    if (sfConfig::get('app_enable_institutional_scoping'))
+    public function execute($request)
     {
-      // Remove search-realm
-      $this->context->user->removeAttribute('search-realm');
-    }
+        if (sfConfig::get('app_enable_institutional_scoping')) {
+            // Remove search-realm
+            $this->context->user->removeAttribute('search-realm');
+        }
 
-    // HACK Use id deliberately, vs. slug, because "Subjects" and "Places"
-    // menus still use id
-    if (isset($request->id))
-    {
-      $this->resource = QubitTaxonomy::getById($request->id);
-    }
-    else
-    {
-      $this->resource = $this->getRoute()->resource;
-    }
+        // HACK Use id deliberately, vs. slug, because "Subjects" and "Places"
+        // menus still use id
+        if (isset($request->id)) {
+            $this->resource = QubitTaxonomy::getById($request->id);
+        } else {
+            $this->resource = $this->getRoute()->resource;
+        }
 
-    // Explicitly add resource to sf_route to make it available to components
-    $request->getAttribute('sf_route')->resource = $this->resource;
+        // Explicitly add resource to sf_route to make it available to components
+        $request->getAttribute('sf_route')->resource = $this->resource;
 
-    // Disallow access to locked taxonomies
-    if (in_array($this->resource->id, QubitTaxonomy::$lockedTaxonomies))
-    {
-      $this->getResponse()->setStatusCode(403);
-      return sfView::NONE;
-    }
+        // Disallow access to locked taxonomies
+        if (in_array($this->resource->id, QubitTaxonomy::$lockedTaxonomies)) {
+            $this->getResponse()->setStatusCode(403);
 
-    if (!$this->resource instanceof QubitTaxonomy)
-    {
-      $this->redirect(array('module' => 'taxonomy', 'action' => 'list'));
-    }
+            return sfView::NONE;
+        }
 
-    // Check that this isn't the root
-    if (!isset($this->resource->parent))
-    {
-      $this->forward404();
-    }
+        if (!$this->resource instanceof QubitTaxonomy) {
+            $this->redirect(['module' => 'taxonomy', 'action' => 'list']);
+        }
 
-    // Restrict access (except to places and subject taxonomies)
-    $unrestrictedTaxonomies = array(QubitTaxonomy::GENRE_ID, QubitTaxonomy::PLACE_ID, QubitTaxonomy::SUBJECT_ID);
-    $allowedGroups = array(QubitAclGroup::EDITOR_ID, QubitAclGroup::ADMINISTRATOR_ID);
+        // Check that this isn't the root
+        if (!isset($this->resource->parent)) {
+            $this->forward404();
+        }
 
-    if (!in_array($this->resource->id,  $unrestrictedTaxonomies)
-       && !$this->context->user->hasGroup($allowedGroups))
-    {
-      $this->getResponse()->setStatusCode(403);
-      return sfView::HEADER_ONLY;
-    }
+        // Restrict access (except to places and subject taxonomies)
+        $unrestrictedTaxonomies = [QubitTaxonomy::GENRE_ID, QubitTaxonomy::PLACE_ID, QubitTaxonomy::SUBJECT_ID];
+        $allowedGroups = [QubitAclGroup::EDITOR_ID, QubitAclGroup::ADMINISTRATOR_ID];
 
-    if (!isset($request->limit))
-    {
-      $request->limit = sfConfig::get('app_hits_per_page');
-    }
+        if (
+            !in_array($this->resource->id, $unrestrictedTaxonomies)
+            && !$this->context->user->hasGroup($allowedGroups)
+        ) {
+            $this->getResponse()->setStatusCode(403);
 
-    if (!isset($request->page))
-    {
-      $request->page = 1;
-    }
+            return sfView::HEADER_ONLY;
+        }
 
-    // Avoid pagination over ES' max result window config (default: 10000)
-    $maxResultWindow = arElasticSearchPluginConfiguration::getMaxResultWindow();
+        if (!isset($request->limit)) {
+            $request->limit = sfConfig::get('app_hits_per_page');
+        }
 
-    if ((int)$request->limit * (int)$request->page > $maxResultWindow)
-    {
-      // Don't show alert or redirect in XHR requests made
-      // from the list tab in the terms index page. It requires
-      // to go one by one to the page over 10,000 records.
-      // Returning nothing doesn't break the list but it doesn't
-      // show any notice.
-      if ($request->isXmlHttpRequest())
-      {
-        return;
-      }
+        if (!isset($request->page)) {
+            $request->page = 1;
+        }
 
-      // Show alert
-      $message = $this->context->i18n->__(
-        "We've redirected you to the first page of results." .
-        " To avoid using vast amounts of memory, AtoM limits pagination to %1% records." .
-        " To view the last records in the current result set, try changing the sort direction.",
-        array('%1%' => $maxResultWindow)
-      );
-      $this->getUser()->setFlash('notice', $message);
+        // Avoid pagination over ES' max result window config (default: 10000)
+        $maxResultWindow = arElasticSearchPluginConfiguration::getMaxResultWindow();
 
-      // Redirect to first page
-      $params = $request->getParameterHolder()->getAll();
-      unset($params['page']);
-      $this->redirect($params);
-    }
+        if ((int) $request->limit * (int) $request->page > $maxResultWindow) {
+            // Don't show alert or redirect in XHR requests made
+            // from the list tab in the terms index page. It requires
+            // to go one by one to the page over 10,000 records.
+            // Returning nothing doesn't break the list but it doesn't
+            // show any notice.
+            if ($request->isXmlHttpRequest()) {
+                return;
+            }
 
-    if ($this->getUser()->isAuthenticated())
-    {
-      $this->sortSetting = sfConfig::get('app_sort_browser_user');
-    }
-    else
-    {
-      $this->sortSetting = sfConfig::get('app_sort_browser_anonymous');
-    }
+            // Show alert
+            $message = $this->context->i18n->__(
+                "We've redirected you to the first page of results."
+                .' To avoid using vast amounts of memory, AtoM limits pagination to %1% records.'
+                .' To view the last records in the current result set, try changing the sort direction.',
+                ['%1%' => $maxResultWindow]
+            );
+            $this->getUser()->setFlash('notice', $message);
 
-    if (!isset($request->sort))
-    {
-      $request->sort = $this->sortSetting;
-    }
+            // Redirect to first page
+            $params = $request->getParameterHolder()->getAll();
+            unset($params['page']);
+            $this->redirect($params);
+        }
 
-    // Default sort direction
-    $sortDir = 'asc';
-    if (in_array($request->sort, array('lastUpdated', 'relevance')))
-    {
-      $sortDir = 'desc';
-    }
+        if ($this->getUser()->isAuthenticated()) {
+            $this->sortSetting = sfConfig::get('app_sort_browser_user');
+        } else {
+            $this->sortSetting = sfConfig::get('app_sort_browser_anonymous');
+        }
 
-    // Set default sort direction in request if not present or not valid
-    if (!isset($request->sortDir) || !in_array($request->sortDir, array('asc', 'desc')))
-    {
-      $request->sortDir = $sortDir;
-    }
+        if (!isset($request->sort)) {
+            $request->sort = $this->sortSetting;
+        }
 
-    $this->addIoCountColumn = false;
-    $this->addActorCountColumn = false;
+        // Default sort direction
+        $sortDir = 'asc';
+        if (in_array($request->sort, ['lastUpdated', 'relevance'])) {
+            $sortDir = 'desc';
+        }
 
-    switch ($this->resource->id)
-    {
-      case QubitTaxonomy::PLACE_ID:
-        $this->icon = 'places';
-        $this->addIoCountColumn = true;
-        $this->addActorCountColumn = true;
+        // Set default sort direction in request if not present or not valid
+        if (!isset($request->sortDir) || !in_array($request->sortDir, ['asc', 'desc'])) {
+            $request->sortDir = $sortDir;
+        }
 
-        break;
+        $this->addIoCountColumn = false;
+        $this->addActorCountColumn = false;
 
-      case QubitTaxonomy::SUBJECT_ID:
-        $this->icon = 'subjects';
-        $this->addIoCountColumn = true;
-        $this->addActorCountColumn = true;
+        switch ($this->resource->id) {
+            case QubitTaxonomy::PLACE_ID:
+                $this->icon = 'places';
+                $this->addIoCountColumn = true;
+                $this->addActorCountColumn = true;
 
-        break;
+                break;
 
-      case QubitTaxonomy::GENRE_ID:
-        $this->addIoCountColumn = true;
-        $this->addActorCountColumn = true;
+            case QubitTaxonomy::SUBJECT_ID:
+                $this->icon = 'subjects';
+                $this->addIoCountColumn = true;
+                $this->addActorCountColumn = true;
 
-        break;
-    }
+                break;
 
-    $culture = $this->context->user->getCulture();
+            case QubitTaxonomy::GENRE_ID:
+                $this->addIoCountColumn = true;
+                $this->addActorCountColumn = true;
 
-    $this->query = new \Elastica\Query();
-    $this->query->setSize($request->limit);
-    $this->query->setFrom(($request->page - 1) * $request->limit);
+                break;
+        }
 
-    $this->queryBool = new \Elastica\Query\BoolQuery;
+        $culture = $this->context->user->getCulture();
 
-    $query = new \Elastica\Query\Term;
-    $query->setTerm('taxonomyId', $this->resource->id);
-    $this->queryBool->addMust($query);
+        $this->query = new \Elastica\Query();
+        $this->query->setSize($request->limit);
+        $this->query->setFrom(($request->page - 1) * $request->limit);
 
-    if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->subquery))
-    {
-      switch ($request->subqueryField)
-      {
-        case 'preferredLabel':
-          $fields = array('i18n.%s.name' => 1);
+        $this->queryBool = new \Elastica\Query\BoolQuery();
 
-          break;
+        $query = new \Elastica\Query\Term();
+        $query->setTerm('taxonomyId', $this->resource->id);
+        $this->queryBool->addMust($query);
 
-        case 'useForLabels':
-          $fields = array('useFor.i18n.%s.name' => 1);
+        if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->subquery)) {
+            switch ($request->subqueryField) {
+                case 'preferredLabel':
+                    $fields = ['i18n.%s.name' => 1];
 
-          break;
+                    break;
 
-        case 'allLabels':
-        default:
-          // Search over preferred label (boosted by five) and "Use for" labels
-          $fields = array('i18n.%s.name' => 5, 'useFor.i18n.%s.name' => 1);
+                case 'useForLabels':
+                    $fields = ['useFor.i18n.%s.name' => 1];
 
-          break;
-      }
+                    break;
 
-      // Filter results by subquery
-      $this->queryBool->addMust(
-        arElasticSearchPluginUtil::generateBoolQueryString($request->subquery, $fields)
-      );
-    }
+                case 'allLabels':
+                default:
+                    // Search over preferred label (boosted by five) and "Use for" labels
+                    $fields = ['i18n.%s.name' => 5, 'useFor.i18n.%s.name' => 1];
 
-    // Set query
-    $this->query->setQuery($this->queryBool);
+                    break;
+            }
 
-    // Set order
-    switch ($request->sort)
-    {
-      // I don't think that this is going to scale, but let's leave it for now
-      case 'alphabetic':
-        $field = sprintf('i18n.%s.name.alphasort', $culture);
-        $this->query->setSort(array($field => $request->sortDir));
+            // Filter results by subquery
+            $this->queryBool->addMust(
+                arElasticSearchPluginUtil::generateBoolQueryString($request->subquery, $fields)
+            );
+        }
 
-        break;
+        // Set query
+        $this->query->setQuery($this->queryBool);
 
-      case 'lastUpdated':
-      default:
-        $this->query->setSort(array('updatedAt' => $request->sortDir));
-    }
+        // Set order
+        switch ($request->sort) {
+            // I don't think that this is going to scale, but let's leave it for now
+            case 'alphabetic':
+                $field = sprintf('i18n.%s.name.alphasort', $culture);
+                $this->query->setSort([$field => $request->sortDir]);
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitTerm')->search($this->query);
+                break;
 
-    // Return special response in JSON for XHR requests
-    if ($request->isXmlHttpRequest())
-    {
-      $total = $resultSet->getTotalHits();
-      if (1 > $total)
-      {
-        $this->forward404();
+            case 'lastUpdated':
+            default:
+                $this->query->setSort(['updatedAt' => $request->sortDir]);
+        }
 
-        return;
-      }
+        $resultSet = QubitSearch::getInstance()->index->getType('QubitTerm')->search($this->query);
 
-      sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url', 'Qubit'));
+        // Return special response in JSON for XHR requests
+        if ($request->isXmlHttpRequest()) {
+            $total = $resultSet->getTotalHits();
+            if (1 > $total) {
+                $this->forward404();
 
-      $response = array('results' => array());
-      foreach ($resultSet->getResults() as $item)
-      {
-        $data = $item->getData();
+                return;
+            }
 
-        $result = array(
-          'url' => url_for(array('module' => 'term', 'slug' => $data['slug'])),
-          'title' => render_title(get_search_i18n($data, 'name')),
-          'identifier' => '',
-          'level' => '');
+            sfContext::getInstance()->getConfiguration()->loadHelpers(['Url', 'Qubit']);
 
-        $response['results'][] = $result;
-      }
+            $response = ['results' => []];
+            foreach ($resultSet->getResults() as $item) {
+                $data = $item->getData();
 
-      $url = url_for(array($this->resource, 'module' => 'taxonomy', 'subquery' => $request->subquery));
-      $link = $this->context->i18n->__('Browse all terms');
-      $response['more'] = <<<EOF
+                $result = [
+                    'url' => url_for(['module' => 'term', 'slug' => $data['slug']]),
+                    'title' => render_title(get_search_i18n($data, 'name')),
+                    'identifier' => '',
+                    'level' => '',
+                ];
+
+                $response['results'][] = $result;
+            }
+
+            $url = url_for([$this->resource, 'module' => 'taxonomy', 'subquery' => $request->subquery]);
+            $link = $this->context->i18n->__('Browse all terms');
+            $response['more'] = <<<EOF
 <div class="more">
-  <a href="$url">
+  <a href="{$url}">
     <i class="fa fa-search"></i>
-    $link
+    {$link}
   </a>
 </div>
 EOF;
 
-      $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
+            $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
 
-      return $this->renderText(json_encode($response));
+            return $this->renderText(json_encode($response));
+        }
+
+        $this->pager = new QubitSearchPager($resultSet);
+        $this->pager->setPage($request->page ? $request->page : 1);
+        $this->pager->setMaxPerPage($request->limit);
+        $this->pager->init();
     }
-
-    $this->pager = new QubitSearchPager($resultSet);
-    $this->pager->setPage($request->page ? $request->page : 1);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->init();
-  }
 }

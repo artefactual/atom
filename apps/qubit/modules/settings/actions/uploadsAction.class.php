@@ -19,81 +19,82 @@
 
 class SettingsUploadsAction extends SettingsEditAction
 {
-  // Arrays not allowed in class constants
-  public static $NAMES = [
-    'enable_repository_quotas',
-    'explode_multipage_files',
-    'repository_quota',
-    'upload_quota',
-  ];
-
-  public function earlyExecute()
-  {
-    parent::earlyExecute();
-
-    $this->updateMessage = $this->i18n->__('Uploads settings saved.');
-
-    $this->settingDefaults = [
-      'enable_repository_quotas' => 1,
-      'explode_multipage_files' => 0,
-      'repository_quota' => 0,
-      'upload_quota' => -1,
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'enable_repository_quotas',
+        'explode_multipage_files',
+        'repository_quota',
+        'upload_quota',
     ];
 
-    // Set form decorator
-    $this->form->getWidgetSchema()->addFormFormatter(
-      'list',
-      new QubitWidgetFormSchemaFormatterList($this->form->getWidgetSchema())
-    );
-    $this->form->getWidgetSchema()->setFormFormatterName('list');
-  }
-
-  protected function addField($name)
-  {
-    // Set form field format
-    switch ($name)
+    public function earlyExecute()
     {
-      case 'enable_repository_quotas':
-        $this->form->setValidator($name, new sfValidatorBoolean(
-          ['required' => true]
-        ));
-        $this->form->setWidget($name, new sfWidgetFormSelectRadio(
-          ['choices' => [
-            0 => $this->i18n->__('Disabled'), 1 => $this->i18n->__('Enabled')
-          ]],
-          ['class' => 'radio']
-        ));
+        parent::earlyExecute();
 
-        break;
+        $this->updateMessage = $this->i18n->__('Uploads settings saved.');
 
-      case 'explode_multipage_files':
-        $this->form->setValidator($name, new sfValidatorBoolean(
-          ['required' => true]
-        ));
-        $this->form->setWidget($name, new sfWidgetFormSelectRadio(
-          ['choices' => [
-            0 => $this->i18n->__('No'), 1 => $this->i18n->__('Yes')
-          ]],
-          ['class' => 'radio']
-        ));
+        $this->settingDefaults = [
+            'enable_repository_quotas' => 1,
+            'explode_multipage_files' => 0,
+            'repository_quota' => 0,
+            'upload_quota' => -1,
+        ];
 
-        break;
-
-      case 'repository_quota':
-        $this->form->setValidator($name, new sfValidatorNumber(
-          ['required' => true, 'min' => -1],
-          ['min' => $this->i18n->__('Minimum value is "%min%"')]
-        ));
-        $this->form->setWidget($name, new sfWidgetFormInput);
-
-        break;
-
-      case 'upload_quota':
-        // No validator, because the global quota is set via config file
-        // and can't be changed in the UI
-        $this->form->setWidget($name, new arWidgetFormUploadQuota);
-
-        break;
+        // Set form decorator
+        $this->form->getWidgetSchema()->addFormFormatter(
+            'list',
+            new QubitWidgetFormSchemaFormatterList($this->form->getWidgetSchema())
+        );
+        $this->form->getWidgetSchema()->setFormFormatterName('list');
     }
-  }
+
+    protected function addField($name)
+    {
+        // Set form field format
+        switch ($name) {
+            case 'enable_repository_quotas':
+                $this->form->setValidator($name, new sfValidatorBoolean(
+                    ['required' => true]
+                ));
+                $this->form->setWidget($name, new sfWidgetFormSelectRadio(
+                    ['choices' => [
+                        0 => $this->i18n->__('Disabled'),
+                        1 => $this->i18n->__('Enabled'),
+                    ]],
+                    ['class' => 'radio']
+                ));
+
+                break;
+
+            case 'explode_multipage_files':
+                $this->form->setValidator($name, new sfValidatorBoolean(
+                    ['required' => true]
+                ));
+                $this->form->setWidget($name, new sfWidgetFormSelectRadio(
+                    ['choices' => [
+                        0 => $this->i18n->__('No'),
+                        1 => $this->i18n->__('Yes'),
+                    ]],
+                    ['class' => 'radio']
+                ));
+
+                break;
+
+            case 'repository_quota':
+                $this->form->setValidator($name, new sfValidatorNumber(
+                    ['required' => true, 'min' => -1],
+                    ['min' => $this->i18n->__('Minimum value is "%min%"')]
+                ));
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+
+            case 'upload_quota':
+                // No validator, because the global quota is set via config file
+                // and can't be changed in the UI
+                $this->form->setWidget($name, new arWidgetFormUploadQuota());
+
+                break;
+        }
+    }
 }

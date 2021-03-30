@@ -25,18 +25,19 @@
  */
 class arMigration0113
 {
-  const
-    VERSION = 113, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 113;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    $sql = <<<sql
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
+    {
+        $sql = <<<'sql'
 
 CREATE TABLE IF NOT EXISTS `granted_right`
 (
@@ -76,78 +77,67 @@ DROP INDEX rights_FI_3 ON rights;
 ALTER TABLE rights DROP act_id;
 sql;
 
-    /**
-     * The last three statements (regarding to .act_id) failed.
-     * Fixed in arMigration0134.
-     */
+        /*
+         * The last three statements (regarding to .act_id) failed.
+         * Fixed in arMigration0134.
+         */
+        QubitPdo::modify($sql);
 
-    QubitPdo::modify($sql);
+        // Create default PREMIS settings
+        $premisAccessRight = QubitSetting::getByName('premisAccessRight');
+        $premisAccessRightValues = QubitSetting::getByName('premisAccessRightValues');
 
-    // Create default PREMIS settings
-    $premisAccessRight = QubitSetting::getByName('premisAccessRight');
-    $premisAccessRightValues = QubitSetting::getByName('premisAccessRightValues');
+        if (null === $premisAccessRight) {
+            $s = new QubitSetting();
+            $s->setName('premisAccessRight');
+            $s->setValue('disseminate');
+            $s->save();
+        }
 
-    if ($premisAccessRight === null)
-    {
-      $s = new QubitSetting;
-      $s->setName('premisAccessRight');
-      $s->setValue('disseminate');
-      $s->save();
+        if (null === $premisAccessRightValues) {
+            $s = new QubitSetting();
+            $s->setName('premisAccessRightValues');
+            $s->setValue('a:9:{s:12:"allow_master";s:1:"1";s:15:"allow_reference";s:1:"1";s:11:"allow_thumb";s:1:"1";s:18:"conditional_master";s:1:"0";s:21:"conditional_reference";s:1:"1";s:17:"conditional_thumb";s:1:"1";s:15:"disallow_master";s:1:"0";s:18:"disallow_reference";s:1:"0";s:14:"disallow_thumb";s:1:"0";}');
+            $s->save();
+        }
+
+        // Create reference image warning messages
+        $disallowWarning = QubitSetting::getByName('access_disallow_warning');
+        $conditionalWarning = QubitSetting::getByName('access_conditional_warning');
+
+        if (null === $disallowWarning) {
+            $s = new QubitSetting();
+            $s->setScope('ui_label');
+            $s->setName('access_disallow_warning');
+            $s->setValue('Access to this record is restricted because it contains personal or confidential information. Please contact the Reference Archivist for more information on accessing this record.');
+            $s->save();
+        }
+
+        if (null === $conditionalWarning) {
+            $s = new QubitSetting();
+            $s->setScope('ui_label');
+            $s->setName('access_conditional_warning');
+            $s->setValue('This record has not yet been reviewed for personal or confidential information. Please contact the Reference Archivist to request access and initiate an access review.');
+            $s->save();
+        }
+
+        // Create thumbnail permissions if they don't exist
+        $sqlCount = 'SELECT count(1) FROM acl_permission
+            WHERE group_id = ? AND action = "readThumbnail"';
+
+        $sqlInsert = 'INSERT INTO acl_permission (group_id, object_id, action, grant_deny, created_at, updated_at)
+            VALUES (?, ?, "readThumbnail", 1, NOW(), NOW())';
+
+        $permissionCount = QubitPdo::fetchColumn($sqlCount, [QubitAclGroup::ANONYMOUS_ID]);
+        if (0 == $permissionCount) {
+            QubitPdo::prepareAndExecute($sqlInsert, [QubitAclGroup::ANONYMOUS_ID, QubitInformationObject::ROOT_ID]);
+        }
+
+        $permissionCount = QubitPdo::fetchColumn($sqlCount, [QubitAclGroup::AUTHENTICATED_ID]);
+        if (0 == $permissionCount) {
+            QubitPdo::prepareAndExecute($sqlInsert, [QubitAclGroup::AUTHENTICATED_ID, QubitInformationObject::ROOT_ID]);
+        }
+
+        return true;
     }
-
-    if ($premisAccessRightValues === null)
-    {
-      $s = new QubitSetting;
-      $s->setName('premisAccessRightValues');
-      $s->setValue('a:9:{s:12:"allow_master";s:1:"1";s:15:"allow_reference";s:1:"1";s:11:"allow_thumb";s:1:"1";s:18:"conditional_master";s:1:"0";s:21:"conditional_reference";s:1:"1";s:17:"conditional_thumb";s:1:"1";s:15:"disallow_master";s:1:"0";s:18:"disallow_reference";s:1:"0";s:14:"disallow_thumb";s:1:"0";}');
-      $s->save();
-    }
-
-    // Create reference image warning messages
-    $disallowWarning = QubitSetting::getByName('access_disallow_warning');
-    $conditionalWarning = QubitSetting::getByName('access_conditional_warning');
-
-    if ($disallowWarning === null)
-    {
-      $s = new QubitSetting;
-      $s->setScope('ui_label');
-      $s->setName('access_disallow_warning');
-      $s->setValue('Access to this record is restricted because it contains personal or confidential information. Please contact the Reference Archivist for more information on accessing this record.');
-      $s->save();
-    }
-
-    if ($conditionalWarning === null)
-    {
-      $s = new QubitSetting;
-      $s->setScope('ui_label');
-      $s->setName('access_conditional_warning');
-      $s->setValue('This record has not yet been reviewed for personal or confidential information. Please contact the Reference Archivist to request access and initiate an access review.');
-      $s->save();
-    }
-
-    // Create thumbnail permissions if they don't exist
-    $sqlCount = '
-      SELECT count(1) FROM acl_permission
-      WHERE group_id = ? AND action = "readThumbnail"
-    ';
-
-    $sqlInsert = '
-      INSERT INTO acl_permission (group_id, object_id, action, grant_deny, created_at, updated_at)
-      VALUES (?, ?, "readThumbnail", 1, NOW(), NOW())
-    ';
-
-    $permissionCount = QubitPdo::fetchColumn($sqlCount, array(QubitAclGroup::ANONYMOUS_ID));
-    if ($permissionCount == 0)
-    {
-      QubitPdo::prepareAndExecute($sqlInsert, array(QubitAclGroup::ANONYMOUS_ID, QubitInformationObject::ROOT_ID));
-    }
-
-    $permissionCount = QubitPdo::fetchColumn($sqlCount, array(QubitAclGroup::AUTHENTICATED_ID));
-    if ($permissionCount == 0)
-    {
-      QubitPdo::prepareAndExecute($sqlInsert, array(QubitAclGroup::AUTHENTICATED_ID, QubitInformationObject::ROOT_ID));
-    }
-
-    return true;
-  }
 }

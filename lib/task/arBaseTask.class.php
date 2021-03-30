@@ -19,25 +19,28 @@
 
 abstract class arBaseTask extends sfBaseTask
 {
-  const MAX_LINE_SIZE = 2048;
+    public const MAX_LINE_SIZE = 2048;
 
-  /**
-   * @see sfCommandApplicationTask
-   */
-  public function __construct(sfEventDispatcher $dispatcher, sfFormatter $formatter)
-  {
-    parent::__construct($dispatcher, $formatter);
+    /**
+     * @see sfCommandApplicationTask
+     */
+    public function __construct(sfEventDispatcher $dispatcher, sfFormatter $formatter)
+    {
+        parent::__construct($dispatcher, $formatter);
 
-    $formatter->setMaxLineSize(self::MAX_LINE_SIZE);
-  }
+        $formatter->setMaxLineSize(self::MAX_LINE_SIZE);
+    }
 
-  /**
-   * @see sfTask
-   */
-  protected function execute($arguments = array(), $options = array())
-  {
-    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);
-    $this->context = sfContext::createInstance($configuration);
-    sfConfig::add(QubitSetting::getSettingsArray());
-  }
+    /**
+     * @see sfTask
+     *
+     * @param mixed $arguments
+     * @param mixed $options
+     */
+    protected function execute($arguments = [], $options = [])
+    {
+        $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);
+        $this->context = sfContext::createInstance($configuration);
+        sfConfig::add(QubitSetting::getSettingsArray());
+    }
 }

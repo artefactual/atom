@@ -18,123 +18,117 @@
  */
 
 /**
- * Digital Object coverflow component
+ * Digital Object coverflow component.
  *
- * @package    AccesstoMemory
- * @subpackage digitalobject
  * @author     david juhasz <david@artefactual.com>
  */
 class DigitalObjectImageflowComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    if (!sfConfig::get('app_toggleIoSlider'))
+    public function execute($request)
     {
-      return sfView::NONE;
-    }
+        if (!sfConfig::get('app_toggleIoSlider')) {
+            return sfView::NONE;
+        }
 
-    $this->thumbnails = array();
+        $this->thumbnails = [];
 
-    // Set limit (null for no limit)
-    if (!isset($request->showFullImageflow) || 'true' != $request->showFullImageflow)
-    {
-      $this->limit = sfConfig::get('app_hits_per_page', 10);
-    }
+        // Set limit (null for no limit)
+        if (!isset($request->showFullImageflow) || 'true' != $request->showFullImageflow) {
+            $this->limit = sfConfig::get('app_hits_per_page', 10);
+        }
 
-    // Add thumbs
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::OBJECT_ID);
+        // Add thumbs
+        $criteria = new Criteria();
+        $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::OBJECT_ID);
 
-    $criteria->add(
-      QubitInformationObject::LFT, $this->resource->lft, Criteria::GREATER_THAN
-    );
-
-    $criteria->add(
-      QubitInformationObject::RGT, $this->resource->rgt, Criteria::LESS_THAN
-    );
-
-    if (isset($this->limit))
-    {
-      $criteria->setLimit($this->limit);
-    }
-
-    // Hide drafts
-    $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
-
-    foreach (QubitDigitalObject::get($criteria) as $item)
-    {
-      if ($item->usageId == QubitTerm::OFFLINE_ID)
-      {
-        $thumbnail = QubitDigitalObject::getGenericRepresentation(
-          $item->mimeType, QubitTerm::THUMBNAIL_ID
+        $criteria->add(
+            QubitInformationObject::LFT,
+            $this->resource->lft,
+            Criteria::GREATER_THAN
         );
 
-        $thumbnail->setParent($item);
-      }
-      else
-      {
-        // Ensure the user has permissions to see a thumbnail
-        if (!QubitAcl::check($item->object, 'readThumbnail'))
-        {
-          $thumbnail = QubitDigitalObject::getGenericRepresentation(
-            $item->mimeType, QubitTerm::THUMBNAIL_ID
-          );
+        $criteria->add(
+            QubitInformationObject::RGT,
+            $this->resource->rgt,
+            Criteria::LESS_THAN
+        );
 
-          $thumbnail->setParent($item);
+        if (isset($this->limit)) {
+            $criteria->setLimit($this->limit);
         }
-        else
-        {
-          $thumbnail = $item->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID);
 
-          if (!$thumbnail)
-          {
-            $thumbnail = QubitDigitalObject::getGenericRepresentation(
-              $item->mimeType, QubitTerm::THUMBNAIL_ID
-            );
+        // Hide drafts
+        $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
 
-            $thumbnail->setParent($item);
-          }
+        foreach (QubitDigitalObject::get($criteria) as $item) {
+            if (QubitTerm::OFFLINE_ID == $item->usageId) {
+                $thumbnail = QubitDigitalObject::getGenericRepresentation(
+                    $item->mimeType,
+                    QubitTerm::THUMBNAIL_ID
+                );
+
+                $thumbnail->setParent($item);
+            } else {
+                // Ensure the user has permissions to see a thumbnail
+                if (!QubitAcl::check($item->object, 'readThumbnail')) {
+                    $thumbnail = QubitDigitalObject::getGenericRepresentation(
+                        $item->mimeType,
+                        QubitTerm::THUMBNAIL_ID
+                    );
+
+                    $thumbnail->setParent($item);
+                } else {
+                    $thumbnail = $item->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID);
+
+                    if (!$thumbnail) {
+                        $thumbnail = QubitDigitalObject::getGenericRepresentation(
+                            $item->mimeType,
+                            QubitTerm::THUMBNAIL_ID
+                        );
+
+                        $thumbnail->setParent($item);
+                    }
+                }
+            }
+
+            $this->thumbnails[] = $thumbnail;
         }
-      }
 
-      $this->thumbnails[] = $thumbnail;
+        // Get total number of descendant digital objects
+        $this->total = $this->getDescendantDigitalObjectCount();
+
+        if (0 === count($this->thumbnails)) {
+            return sfView::NONE;
+        }
     }
 
-    // Get total number of descendant digital objects
-    $this->total = $this->getDescendantDigitalObjectCount();
-
-    if (0 === count($this->thumbnails))
+    /**
+     * Query Elasticsearch to get a count of all digital objects that are
+     * descendants of the current resource.
+     *
+     * @return int count of descendants with digital objects
+     */
+    protected function getDescendantDigitalObjectCount()
     {
-      return sfView::NONE;
+        // Set search "size" to zero, because we just need a count of results, not
+        // the found record data
+        $search = new arElasticSearchPluginQuery(0);
+        $search->addAdvancedSearchFilters(
+            InformationObjectBrowseAction::$NAMES,
+            [
+                'ancestor' => $this->resource->id,
+                'topLod' => false,
+                'onlyMedia' => true,
+            ],
+            'isad'
+        );
+
+        $results = QubitSearch::getInstance()
+            ->index
+            ->getType('QubitInformationObject')
+            ->search($search->getQuery(false, true))
+        ;
+
+        return $results->getTotalHits();
     }
-  }
-
-  /**
-   * Query Elasticsearch to get a count of all digital objects that are
-   * descendants of the current resource
-   *
-   * @return int count of descendants with digital objects
-   */
-  protected function getDescendantDigitalObjectCount()
-  {
-    // Set search "size" to zero, because we just need a count of results, not
-    // the found record data
-    $search = new arElasticSearchPluginQuery(0);
-    $search->addAdvancedSearchFilters(
-      InformationObjectBrowseAction::$NAMES,
-      [
-        'ancestor' => $this->resource->id,
-        'topLod' => false,
-        'onlyMedia' => true,
-      ],
-      'isad'
-    );
-
-    $results = QubitSearch::getInstance()
-      ->index
-      ->getType('QubitInformationObject')
-      ->search($search->getQuery(false, true));
-
-    return $results->getTotalHits();
-  }
 }

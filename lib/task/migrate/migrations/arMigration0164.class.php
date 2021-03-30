@@ -25,26 +25,26 @@
  */
 class arMigration0164
 {
-  const
-    VERSION = 164, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 164;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    if (null === QubitSetting::getByName('global_login_button'))
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      $setting = new QubitSetting;
-      $setting->setName('global_login_button');
-      $setting->setScope('element_visibility');
-      $setting->setValue('1');
-      $setting->save();
-    }
+        if (null === QubitSetting::getByName('global_login_button')) {
+            $setting = new QubitSetting();
+            $setting->setName('global_login_button');
+            $setting->setScope('element_visibility');
+            $setting->setValue('1');
+            $setting->save();
+        }
 
-    return true;
-  }
+        return true;
+    }
 }

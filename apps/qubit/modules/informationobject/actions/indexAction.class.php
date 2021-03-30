@@ -18,118 +18,114 @@
  */
 
 /**
- * Display an information object
+ * Display an information object.
  *
- * @package    AccesstoMemory
- * @subpackage information object
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     Jack Bates <jack@nottheoilrig.com>
  * @author     David Juhasz <david@artefactual.com>
  */
 class InformationObjectIndexAction extends sfAction
 {
-  protected function addField($validatorSchema, $name)
-  {
-    switch ($name)
+    public function execute($request)
     {
-      case 'levelOfDescription':
-        $forbiddenValues = array();
-        foreach ($this->resource->ancestors->orderBy('rgt') as $item)
-        {
-          if (isset($item->levelOfDescription))
-          {
-            switch ($item->levelOfDescription->getName(array('sourceCulture' => true)))
-            {
-              case 'Item':
-                $forbiddenValues[] = 'Item';
+        $this->resource = $this->getRoute()->resource;
 
-              case 'File':
-                $forbiddenValues[] = 'File';
-
-              case 'Sub-subseries':
-                $forbiddenValues[] = 'Sub-subseries';
-
-              case 'Subseries':
-                $forbiddenValues[] = 'Subseries';
-
-              case 'Series':
-                $forbiddenValues[] = 'Series';
-
-              case 'Sub-subfonds':
-                $forbiddenValues[] = 'Sub-subfonds';
-
-              case 'Subfonds':
-                $forbiddenValues[] = 'Subfonds';
-
-              case 'Fonds':
-
-                // Collection may not be a descendant of fonds
-                $forbiddenValues[] = 'Fonds';
-                $forbiddenValues[] = 'Collection';
-
-                break;
-
-              case 'Collection':
-
-                // Neither fonds nor subfonds may be descendants of collection
-                $forbiddenValues[] = 'Subfonds';
-                $forbiddenValues[] = 'Fonds';
-                $forbiddenValues[] = 'Collection';
-
-                break;
-            }
-
-            break;
-          }
+        // Check that this isn't the root
+        if (!isset($this->resource->parent)) {
+            $this->forward404();
         }
 
-        $validatorSchema->levelOfDescription = new QubitValidatorForbiddenValues(array(
-          'forbidden_values' => $forbiddenValues,
-          'required' => true));
+        // Check user authorization
+        if (!QubitAcl::check($this->resource, 'read')) {
+            QubitAcl::forwardToSecureAction();
+        }
 
-        break;
+        $this->dispatcher->notify(new sfEvent($this, 'access_log.view', ['object' => $this->resource]));
+
+        if ('fullWidth' == sfConfig::get('app_treeview_type__source', 'sidebar')) {
+            $this->getResponse()->addStylesheet('fullWidthTreeView', 'last');
+            $this->getResponse()->addStylesheet('/vendor/jstree/themes/default/style.min.css', 'last');
+            $this->getResponse()->addJavascript('treeviewTypes', 'last');
+            $this->getResponse()->addJavascript('pager', 'last');
+            $this->getResponse()->addJavascript('treeViewPager', 'last');
+            $this->getResponse()->addJavascript('fullWidthTreeView', 'last');
+            $this->getResponse()->addJavascript('/vendor/jstree/jstree.min.js', 'last');
+            $this->getResponse()->addJavaScript('/vendor/mediaelement/mediaelement-and-player.min.js', 'last');
+            $this->getResponse()->addJavaScript('mediaelement', 'last');
+            $this->getResponse()->addStyleSheet('/vendor/mediaelement/mediaelementplayer.min.css');
+        }
+
+        $scopeAndContent = $this->resource->getScopeAndContent(['cultureFallback' => true]);
+        if (!empty($scopeAndContent)) {
+            $this->getContext()->getConfiguration()->loadHelpers(['Text', 'Qubit']);
+            $this->response->addMeta('description', truncate_text(strip_markdown($scopeAndContent), 150));
+        }
+
+        $this->digitalObjectLink = $this->resource->getDigitalObjectUrl();
     }
-  }
 
-  public function execute($request)
-  {
-    $this->resource = $this->getRoute()->resource;
-
-    // Check that this isn't the root
-    if (!isset($this->resource->parent))
+    protected function addField($validatorSchema, $name)
     {
-      $this->forward404();
+        switch ($name) {
+            case 'levelOfDescription':
+                $forbiddenValues = [];
+                foreach ($this->resource->ancestors->orderBy('rgt') as $item) {
+                    if (isset($item->levelOfDescription)) {
+                        switch ($item->levelOfDescription->getName(['sourceCulture' => true])) {
+                            case 'Item':
+                                $forbiddenValues[] = 'Item';
+
+                                // no break
+                            case 'File':
+                                $forbiddenValues[] = 'File';
+
+                                // no break
+                            case 'Sub-subseries':
+                                $forbiddenValues[] = 'Sub-subseries';
+
+                                // no break
+                            case 'Subseries':
+                                $forbiddenValues[] = 'Subseries';
+
+                                // no break
+                            case 'Series':
+                                $forbiddenValues[] = 'Series';
+
+                                // no break
+                            case 'Sub-subfonds':
+                                $forbiddenValues[] = 'Sub-subfonds';
+
+                                // no break
+                            case 'Subfonds':
+                                $forbiddenValues[] = 'Subfonds';
+
+                                // no break
+                            case 'Fonds':
+                                // Collection may not be a descendant of fonds
+                                $forbiddenValues[] = 'Fonds';
+                                $forbiddenValues[] = 'Collection';
+
+                                break;
+
+                            case 'Collection':
+                                // Neither fonds nor subfonds may be descendants of collection
+                                $forbiddenValues[] = 'Subfonds';
+                                $forbiddenValues[] = 'Fonds';
+                                $forbiddenValues[] = 'Collection';
+
+                                break;
+                        }
+
+                        break;
+                    }
+                }
+
+                $validatorSchema->levelOfDescription = new QubitValidatorForbiddenValues([
+                    'forbidden_values' => $forbiddenValues,
+                    'required' => true,
+                ]);
+
+                break;
+        }
     }
-
-    // Check user authorization
-    if (!QubitAcl::check($this->resource, 'read'))
-    {
-      QubitAcl::forwardToSecureAction();
-    }
-
-    $this->dispatcher->notify(new sfEvent($this, 'access_log.view', array('object' => $this->resource)));
-
-    if (sfConfig::get('app_treeview_type__source', 'sidebar') == 'fullWidth')
-    {
-      $this->getResponse()->addStylesheet('fullWidthTreeView', 'last');
-      $this->getResponse()->addStylesheet('/vendor/jstree/themes/default/style.min.css', 'last');
-      $this->getResponse()->addJavascript('treeviewTypes', 'last');
-      $this->getResponse()->addJavascript('pager', 'last');
-      $this->getResponse()->addJavascript('treeViewPager', 'last');
-      $this->getResponse()->addJavascript('fullWidthTreeView', 'last');
-      $this->getResponse()->addJavascript('/vendor/jstree/jstree.min.js', 'last');
-      $this->getResponse()->addJavaScript('/vendor/mediaelement/mediaelement-and-player.min.js', 'last');
-      $this->getResponse()->addJavaScript('mediaelement', 'last');
-      $this->getResponse()->addStyleSheet('/vendor/mediaelement/mediaelementplayer.min.css');
-    }
-
-    $scopeAndContent = $this->resource->getScopeAndContent(array('cultureFallback' => true));
-    if (!empty($scopeAndContent))
-    {
-      $this->getContext()->getConfiguration()->loadHelpers(array('Text', 'Qubit'));
-      $this->response->addMeta('description', truncate_text(strip_markdown($scopeAndContent), 150));
-    }
-
-    $this->digitalObjectLink = $this->resource->getDigitalObjectUrl();
-  }
 }

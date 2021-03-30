@@ -18,87 +18,84 @@
  */
 
 /**
- * Minor adaption of Vic Cherubini's light PDO wrapper
+ * Minor adaption of Vic Cherubini's light PDO wrapper.
  *
  * <http://leftnode.com/entry/the-last-php-pdo-library-you-will-ever-need>
  *
- * @package    AccesstoMemory
  * @author     Vic Cheubini
  * @author     David Juhasz <david@artefactual.com>
  */
 class QubitPdo
 {
-  protected static $conn;
+    protected static $conn;
 
-  public static function fetchAll($query, $parameters = array(), $options = array())
-  {
-    $readStmt = self::prepareAndExecute($query, $parameters);
-
-    $fetchMode = isset($options['fetchMode']) ? $options['fetchMode'] : PDO::FETCH_CLASS;
-    $fetchedRows = $readStmt->fetchAll($fetchMode);
-
-    $readStmt->closeCursor();
-    unset($readStmt);
-
-    return $fetchedRows;
-  }
-
-  public static function fetchOne($query, $parameters = array())
-  {
-    $readStmt = self::prepareAndExecute($query, $parameters);
-
-    $fetchedRow = $readStmt->fetchObject();
-    if (!is_object($fetchedRow))
+    public static function fetchAll($query, $parameters = [], $options = [])
     {
-      $fetchedRow = false;
+        $readStmt = self::prepareAndExecute($query, $parameters);
+
+        $fetchMode = isset($options['fetchMode']) ? $options['fetchMode'] : PDO::FETCH_CLASS;
+        $fetchedRows = $readStmt->fetchAll($fetchMode);
+
+        $readStmt->closeCursor();
+        unset($readStmt);
+
+        return $fetchedRows;
     }
 
-    $readStmt->closeCursor();
-    unset($readStmt);
-
-    return $fetchedRow;
-  }
-
-  public static function fetchColumn($query, $parameters = array(), $column = 0)
-  {
-    $column = abs((int)$column);
-
-    $readStmt = self::prepareAndExecute($query, $parameters);
-    $fetchedColumn = $readStmt->fetchColumn($column);
-
-    $readStmt->closeCursor();
-    unset($readStmt);
-
-    return $fetchedColumn;
-  }
-
-  public static function modify($query, $parameters = array())
-  {
-    $modifyStmt = self::prepareAndExecute($query, $parameters);
-
-    return $modifyStmt->rowCount();
-  }
-
-  public static function prepare($query)
-  {
-    if (!isset(self::$conn))
+    public static function fetchOne($query, $parameters = [])
     {
-      self::$conn = Propel::getConnection();
+        $readStmt = self::prepareAndExecute($query, $parameters);
+
+        $fetchedRow = $readStmt->fetchObject();
+        if (!is_object($fetchedRow)) {
+            $fetchedRow = false;
+        }
+
+        $readStmt->closeCursor();
+        unset($readStmt);
+
+        return $fetchedRow;
     }
 
-    return self::$conn->prepare($query);
-  }
+    public static function fetchColumn($query, $parameters = [], $column = 0)
+    {
+        $column = abs((int) $column);
 
-  public static function prepareAndExecute($query, $parameters = array())
-  {
-    $prepStmt = self::prepare($query);
-    $prepStmt->execute($parameters);
+        $readStmt = self::prepareAndExecute($query, $parameters);
+        $fetchedColumn = $readStmt->fetchColumn($column);
 
-    return $prepStmt;
-  }
+        $readStmt->closeCursor();
+        unset($readStmt);
 
-  public static function lastInsertId()
-  {
-    return self::$conn->lastInsertId();
-  }
+        return $fetchedColumn;
+    }
+
+    public static function modify($query, $parameters = [])
+    {
+        $modifyStmt = self::prepareAndExecute($query, $parameters);
+
+        return $modifyStmt->rowCount();
+    }
+
+    public static function prepare($query)
+    {
+        if (!isset(self::$conn)) {
+            self::$conn = Propel::getConnection();
+        }
+
+        return self::$conn->prepare($query);
+    }
+
+    public static function prepareAndExecute($query, $parameters = [])
+    {
+        $prepStmt = self::prepare($query);
+        $prepStmt->execute($parameters);
+
+        return $prepStmt;
+    }
+
+    public static function lastInsertId()
+    {
+        return self::$conn->lastInsertId();
+    }
 }

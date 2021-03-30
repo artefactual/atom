@@ -19,77 +19,73 @@
 
 class QubitPdoPager extends sfPager
 {
-  protected
-    $nbResults = null,
-    $rows = array(),
-    $sql = null,
-    $countSql = null;
+    protected $nbResults;
+    protected $rows = [];
+    protected $sql;
+    protected $countSql;
 
-  /**
-   * @param string $sql        Main SQL query
-   * @param array $sqlParams   Params for main SQL query
-   * @param string $countSql   SQL query to count results (should SELECT only one column)
-   * @param array $sqlParams   Params for SQL query to count results
-   *
-   * @return void
-   */
-  public function __construct($sql, $sqlParams, $countSql, $countSqlParams)
-  {
-    $this->sql = $sql;
-    $this->sqlParams = $sqlParams;
-    $this->countSql = $countSql;
-    $this->countSqlParams = $countSqlParams;
-  }
-
-  /**
-   * Add limiting to main SQL query
-   *
-   * @return string
-   */
-  public function limitMainSql()
-  {
-    $page = ($this->page < 1) ? 1 : $this->page;
-    $offset = ($page - 1) * $this->getMaxPerPage();
-    return sprintf('%s LIMIT %s, %s', $this->sql, $offset, $this->getMaxPerPage());
-  }
-
-  /**
-   * @see sfPager
-   */
-  public function init()
-  {
-    if (0 == $this->getPage() || 0 == $this->getMaxPerPage())
+    /**
+     * @param string $sql            Main SQL query
+     * @param array  $sqlParams      Params for main SQL query
+     * @param string $countSql       SQL query to count results (should SELECT only one column)
+     * @param array  $sqlParams      Params for SQL query to count results
+     * @param mixed  $countSqlParams
+     */
+    public function __construct($sql, $sqlParams, $countSql, $countSqlParams)
     {
-      $this->setLastPage(0);
+        $this->sql = $sql;
+        $this->sqlParams = $sqlParams;
+        $this->countSql = $countSql;
+        $this->countSqlParams = $countSqlParams;
     }
-    else
+
+    /**
+     * Add limiting to main SQL query.
+     *
+     * @return string
+     */
+    public function limitMainSql()
     {
-      $this->setLastPage(ceil($this->getNbResults() / $this->getMaxPerPage()));
+        $page = ($this->page < 1) ? 1 : $this->page;
+        $offset = ($page - 1) * $this->getMaxPerPage();
+
+        return sprintf('%s LIMIT %s, %s', $this->sql, $offset, $this->getMaxPerPage());
     }
-  }
 
-  /**
-   * @see sfPager
-   */
-  public function getResults()
-  {
-    $this->setNbResults(QubitPdo::fetchColumn($this->countSql, $this->countSqlParams));
-    $this->rows = QubitPdo::fetchAll($this->limitMainSql(), $this->sqlParams);    
+    /**
+     * @see sfPager
+     */
+    public function init()
+    {
+        if (0 == $this->getPage() || 0 == $this->getMaxPerPage()) {
+            $this->setLastPage(0);
+        } else {
+            $this->setLastPage(ceil($this->getNbResults() / $this->getMaxPerPage()));
+        }
+    }
 
-    $this->init();
+    /**
+     * @see sfPager
+     */
+    public function getResults()
+    {
+        $this->setNbResults(QubitPdo::fetchColumn($this->countSql, $this->countSqlParams));
+        $this->rows = QubitPdo::fetchAll($this->limitMainSql(), $this->sqlParams);
 
-    return $this->rows;
-  }
+        $this->init();
 
-  /**
-   * Returns true if the current query has any results
-   *
-   * @return boolean
-   */
-  public function hasResults()
-  {
-    $this->init();
+        return $this->rows;
+    }
 
-    return 0 < $this->getNbResults();
-  }
+    /**
+     * Returns true if the current query has any results.
+     *
+     * @return bool
+     */
+    public function hasResults()
+    {
+        $this->init();
+
+        return 0 < $this->getNbResults();
+    }
 }

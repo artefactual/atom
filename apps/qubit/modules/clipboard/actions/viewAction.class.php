@@ -19,143 +19,132 @@
 
 class ClipboardViewAction extends DefaultBrowseAction
 {
-  public function execute($request)
-  {
-    parent::execute($request);
-
-    if ('print' == $request->getGetParameter('media'))
+    public function execute($request)
     {
-      $this->getResponse()->addStylesheet('print-preview', 'last');
+        parent::execute($request);
 
-      // Negate paging when printing
-      $maxPerPage = arElasticSearchPluginConfiguration::getMaxResultWindow();
-    }
-    else
-    {
-      $maxPerPage = $this->limit;
-    }
+        if ('print' == $request->getGetParameter('media')) {
+            $this->getResponse()->addStylesheet('print-preview', 'last');
 
-    // Get entity type and class name
-    $this->type = $request->getGetParameter('type', 'informationObject');
-    $this->entityType = 'Qubit'.ucfirst($this->type);
+            // Negate paging when printing
+            $maxPerPage = arElasticSearchPluginConfiguration::getMaxResultWindow();
+        } else {
+            $maxPerPage = $this->limit;
+        }
 
-    $slugs = $request->getPostParameter('slugs', []);
+        // Get entity type and class name
+        $this->type = $request->getGetParameter('type', 'informationObject');
+        $this->entityType = 'Qubit'.ucfirst($this->type);
 
-    if (empty($slugs))
-    {
-      $resultSet = new \Elastica\ResultSet(new Elastica\Response(null), new Elastica\Query, array());
-    }
-    else
-    {
-      $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $slugs));
-      $this->setSortOptions();
-      $this->setESSort($request);
+        $slugs = $request->getPostParameter('slugs', []);
 
-      if ('QubitInformationObject' == $this->entityType)
-      {
-        QubitAclSearch::filterDrafts($this->search->queryBool);
-      }
+        if (empty($slugs)) {
+            $resultSet = new \Elastica\ResultSet(new Elastica\Response(null), new Elastica\Query(), []);
+        } else {
+            $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $slugs));
+            $this->setSortOptions();
+            $this->setESSort($request);
 
-      $this->search->query->setQuery($this->search->queryBool);
+            if ('QubitInformationObject' == $this->entityType) {
+                QubitAclSearch::filterDrafts($this->search->queryBool);
+            }
 
-      $resultSet = QubitSearch::getInstance()->index->getType($this->entityType)->search($this->search->query);
-    }
+            $this->search->query->setQuery($this->search->queryBool);
 
-    // Page results
-    $this->pager = new QubitSearchPager($resultSet);
-    $this->pager->setPage($request->page ? $request->page : 1);
-    $this->pager->setMaxPerPage($maxPerPage);
-    $this->pager->init();
+            $resultSet = QubitSearch::getInstance()->index->getType($this->entityType)->search($this->search->query);
+        }
 
-    $this->uiLabels = array(
-      'informationObject' => sfConfig::get('app_ui_label_informationobject'),
-      'actor'             => sfConfig::get('app_ui_label_actor'),
-      'repository'        => sfConfig::get('app_ui_label_repository')
-    );
+        // Page results
+        $this->pager = new QubitSearchPager($resultSet);
+        $this->pager->setPage($request->page ? $request->page : 1);
+        $this->pager->setMaxPerPage($maxPerPage);
+        $this->pager->init();
 
-    // Remove slugs parameter. In some templates (entity type dropdown
-    // for example) the links are generated with all the request params
-    // (including POST) which appends the slugs from the Ajax request.
-    unset($request['slugs']);
-  }
+        $this->uiLabels = [
+            'informationObject' => sfConfig::get('app_ui_label_informationobject'),
+            'actor' => sfConfig::get('app_ui_label_actor'),
+            'repository' => sfConfig::get('app_ui_label_repository'),
+        ];
 
-  /**
-   * Set available sorting options based on entity type.
-   */
-  private function setSortOptions()
-  {
-    $this->sortOptions = array(
-      'lastUpdated' => $this->context->i18n->__('Date modified'),
-      'alphabetic'  => $this->context->i18n->__('Name'),
-    );
-
-    // IOs and Repos have identifier sort option in common
-    if (in_array($this->entityType, array('QubitInformationObject', 'QubitRepository')))
-    {
-      $this->sortOptions['identifier'] = $this->context->i18n->__('Identifier');
+        // Remove slugs parameter. In some templates (entity type dropdown
+        // for example) the links are generated with all the request params
+        // (including POST) which appends the slugs from the Ajax request.
+        unset($request['slugs']);
     }
 
-    // IO specific sort options
-    if ('QubitInformationObject' === $this->entityType)
+    /**
+     * Set available sorting options based on entity type.
+     */
+    private function setSortOptions()
     {
-      $this->sortOptions['alphabetic'] = $this->context->i18n->__('Title');
-      $this->sortOptions['referenceCode'] = $this->context->i18n->__('Reference code');
-      $this->sortOptions['startDate'] = $this->context->i18n->__('Start date');
-      $this->sortOptions['endDate'] = $this->context->i18n->__('End date');
+        $this->sortOptions = [
+            'lastUpdated' => $this->context->i18n->__('Date modified'),
+            'alphabetic' => $this->context->i18n->__('Name'),
+        ];
+
+        // IOs and Repos have identifier sort option in common
+        if (in_array($this->entityType, ['QubitInformationObject', 'QubitRepository'])) {
+            $this->sortOptions['identifier'] = $this->context->i18n->__('Identifier');
+        }
+
+        // IO specific sort options
+        if ('QubitInformationObject' === $this->entityType) {
+            $this->sortOptions['alphabetic'] = $this->context->i18n->__('Title');
+            $this->sortOptions['referenceCode'] = $this->context->i18n->__('Reference code');
+            $this->sortOptions['startDate'] = $this->context->i18n->__('Start date');
+            $this->sortOptions['endDate'] = $this->context->i18n->__('End date');
+        }
     }
-  }
 
-  /**
-   * Set which field to sort by for current ES query.
-   *
-   * @param sfRequest $request  Current request object.
-   */
-  private function setESSort($request)
-  {
-    // Prevent selecting an inappropriate sort field when switching entity types.
-    // e.g.: if we are sorting by start date for archival descriptions, but switch to auth recs we
-    // will default to sort by relevance since authority records don't have start dates to sort over.
-    $request->sort = isset($this->sortOptions[$request->sort]) ? $request->sort : 'relevance';
-
-    switch ($request->sort)
+    /**
+     * Set which field to sort by for current ES query.
+     *
+     * @param sfRequest $request current request object
+     */
+    private function setESSort($request)
     {
-      // Sort by highest ES score
-      case 'relevance':
-        $this->search->query->addSort(array('_score' => $request->sortDir));
+        // Prevent selecting an inappropriate sort field when switching entity types.
+        // e.g.: if we are sorting by start date for archival descriptions, but switch to auth recs we
+        // will default to sort by relevance since authority records don't have start dates to sort over.
+        $request->sort = isset($this->sortOptions[$request->sort]) ? $request->sort : 'relevance';
 
-        break;
+        switch ($request->sort) {
+            // Sort by highest ES score
+            case 'relevance':
+                $this->search->query->addSort(['_score' => $request->sortDir]);
 
-      case 'identifier':
-        $this->search->query->addSort(array('identifier.untouched' => $request->sortDir));
+                break;
 
-        break;
+            case 'identifier':
+                $this->search->query->addSort(['identifier.untouched' => $request->sortDir]);
 
-      case 'referenceCode':
-        $this->search->query->addSort(array('referenceCode.untouched' => $request->sortDir));
+                break;
 
-        break;
+            case 'referenceCode':
+                $this->search->query->addSort(['referenceCode.untouched' => $request->sortDir]);
 
-      // Sort by title if information object, go with authorized form of name if repository / actor
-      case 'alphabetic':
-        $fieldName = 'QubitInformationObject' === $this->entityType ? 'title' : 'authorizedFormOfName';
-        $field = sprintf('i18n.%s.%s.untouched', $this->selectedCulture, $fieldName);
-        $this->search->query->addSort(array($field => $request->sortDir));
+                break;
+            // Sort by title if information object, go with authorized form of name if repository / actor
+            case 'alphabetic':
+                $fieldName = 'QubitInformationObject' === $this->entityType ? 'title' : 'authorizedFormOfName';
+                $field = sprintf('i18n.%s.%s.untouched', $this->selectedCulture, $fieldName);
+                $this->search->query->addSort([$field => $request->sortDir]);
 
-        break;
+                break;
 
-      case 'startDate':
-        $this->search->query->setSort(array('startDateSort' => $request->sortDir));
+            case 'startDate':
+                $this->search->query->setSort(['startDateSort' => $request->sortDir]);
 
-        break;
+                break;
 
-      case 'endDate':
-        $this->search->query->setSort(array('endDateSort' => $request->sortDir));
+            case 'endDate':
+                $this->search->query->setSort(['endDateSort' => $request->sortDir]);
 
-        break;
+                break;
 
-      case 'lastUpdated':
-      default:
-        $this->search->query->setSort(array('updatedAt' => $request->sortDir));
+            case 'lastUpdated':
+            default:
+                $this->search->query->setSort(['updatedAt' => $request->sortDir]);
+        }
     }
-  }
 }

@@ -19,38 +19,32 @@
 
 class SearchBoxComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    // if the institutional scoping setting is on, search is always global.
-    if (sfConfig::get('app_enable_institutional_scoping'))
+    public function execute($request)
     {
-      $this->repository = null;
-      $this->altRepository = null;
-      return;
-    }
+        // if the institutional scoping setting is on, search is always global.
+        if (sfConfig::get('app_enable_institutional_scoping')) {
+            $this->repository = null;
+            $this->altRepository = null;
 
-    // Check if the user is browsing a repo
-    $route = $request->getAttribute('sf_route');
-    if (isset($route->resource))
-    {
-      if ($route->resource instanceof QubitRepository)
-      {
-        $this->repository = $route->resource;
-      }
-      elseif ($route->resource instanceof QubitInformationObject)
-      {
-        $this->repository = $route->resource->getRepository(array('inherit' => true));
-      }
-    }
+            return;
+        }
 
-    if (null !== $realmId = $this->context->user->getAttribute('search-realm'))
-    {
-      if (isset($this->repository) && $realmId == $this->repository->id)
-      {
-        return;
-      }
+        // Check if the user is browsing a repo
+        $route = $request->getAttribute('sf_route');
+        if (isset($route->resource)) {
+            if ($route->resource instanceof QubitRepository) {
+                $this->repository = $route->resource;
+            } elseif ($route->resource instanceof QubitInformationObject) {
+                $this->repository = $route->resource->getRepository(['inherit' => true]);
+            }
+        }
 
-      $this->altRepository = QubitRepository::getById($realmId);
+        if (null !== $realmId = $this->context->user->getAttribute('search-realm')) {
+            if (isset($this->repository) && $realmId == $this->repository->id) {
+                return;
+            }
+
+            $this->altRepository = QubitRepository::getById($realmId);
+        }
     }
-  }
 }

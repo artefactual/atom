@@ -19,24 +19,20 @@
 
 class qtPackageExtractorFactory
 {
-  public static function build($format, array $options = array())
-  {
-    preg_match_all('/^.*\/(.*)\/*$/', $format, $matches);
-
-    if (isset($matches[1]))
+    public static function build($format, array $options = [])
     {
-      $className = 'qtPackageExtractor'.$matches[1][0];
+        preg_match_all('/^.*\/(.*)\/*$/', $format, $matches);
 
-      if (!class_exists($className))
-      {
-        throw new Exception('Package format not supported.');
-      }
-    }
-    else
-    {
-      throw new Exception('Package format not recognized.');
-    }
+        if (isset($matches[1])) {
+            $className = 'qtPackageExtractor'.$matches[1][0];
 
-    return new $className($options + array('format' => $format));
-  }
+            if (!class_exists($className)) {
+                throw new Exception('Package format not supported.');
+            }
+        } else {
+            throw new Exception('Package format not recognized.');
+        }
+
+        return new $className($options + ['format' => $format]);
+    }
 }

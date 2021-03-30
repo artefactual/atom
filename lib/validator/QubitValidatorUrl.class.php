@@ -17,33 +17,33 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
- /**
-  * Validate URLs, but also allow for intranet URLs such as 'http://localhost'.
-  */
-
+/**
+ * Validate URLs, but also allow for intranet URLs such as 'http://localhost'.
+ */
 class QubitValidatorUrl extends sfValidatorBase
 {
-  /**
-   * @param array $options   An array of options
-   * @param array $messages  An array of error messages
-   *
-   * @see sfValidatorBase
-   */
-  protected function configure($options = array(), $messages = array())
-  {
-    $this->setMessage('invalid', '"%value%" is not a URL.');
-  }
-
-  /**
-   * @see sfValidatorBase
-   */
-  protected function doClean($value)
-  {
-    if (!filter_var($value, FILTER_VALIDATE_URL))
+    /**
+     * @param array $options  An array of options
+     * @param array $messages An array of error messages
+     *
+     * @see sfValidatorBase
+     */
+    protected function configure($options = [], $messages = [])
     {
-      throw new sfValidatorError($this, 'invalid', array('value' => $value));
+        $this->setMessage('invalid', '"%value%" is not a URL.');
     }
 
-    return $value;
-  }
+    /**
+     * @see sfValidatorBase
+     *
+     * @param mixed $value
+     */
+    protected function doClean($value)
+    {
+        if (!filter_var($value, FILTER_VALIDATE_URL)) {
+            throw new sfValidatorError($this, 'invalid', ['value' => $value]);
+        }
+
+        return $value;
+    }
 }

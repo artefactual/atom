@@ -19,34 +19,30 @@
 
 class UserDeleteAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->form = new sfForm;
-
-    $this->resource = $this->getRoute()->resource;
-
-    if (!isset($this->resource))
+    public function execute($request)
     {
-      $this->forward404();
-    }
+        $this->form = new sfForm();
 
-    // Check for existing notes since we don't allow user deletion if they've
-    // authored archivist notes in the past.
-    if ($this->context->user->user === $this->resource || 0 < count($this->resource->notes))
-    {
-      QubitAcl::forwardUnauthorized();
-    }
+        $this->resource = $this->getRoute()->resource;
 
-    if ($request->isMethod('delete'))
-    {
-      $this->form->bind($request->getPostParameters());
-      
-      if ($this->form->isValid())
-      {
-        $this->resource->delete();
+        if (!isset($this->resource)) {
+            $this->forward404();
+        }
 
-        $this->redirect(array('module' => 'user', 'action' => 'list'));
-      }
+        // Check for existing notes since we don't allow user deletion if they've
+        // authored archivist notes in the past.
+        if ($this->context->user->user === $this->resource || 0 < count($this->resource->notes)) {
+            QubitAcl::forwardUnauthorized();
+        }
+
+        if ($request->isMethod('delete')) {
+            $this->form->bind($request->getPostParameters());
+
+            if ($this->form->isValid()) {
+                $this->resource->delete();
+
+                $this->redirect(['module' => 'user', 'action' => 'list']);
+            }
+        }
     }
-  }
 }

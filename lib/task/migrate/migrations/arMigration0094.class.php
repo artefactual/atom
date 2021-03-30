@@ -26,55 +26,61 @@
  */
 class arMigration0094
 {
-  const
-    VERSION = 94, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 94;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    // Add extra column, information_object.display_standard_id
-    QubitMigrate::addColumn(
-      QubitInformationObject::TABLE_NAME,
-      'display_standard_id INT NULL',
-      array(
-        'after' => 'source_standard',
-        'idx' => true,
-        'fk' => array(
-          'referenceTable' => 'term',
-          'referenceColumn' => 'id',
-          'onDelete' => 'SET NULL',
-          'onUpdate' => 'RESTRICT')));
-
-
-    // Add the "Information object templates" taxonomy
-    QubitMigrate::bumpTaxonomy(QubitTaxonomy::INFORMATION_OBJECT_TEMPLATE_ID, $configuration);
-    $taxonomy = new QubitTaxonomy;
-    $taxonomy->id = QubitTaxonomy::INFORMATION_OBJECT_TEMPLATE_ID;
-    $taxonomy->name = 'Information object templates';
-    $taxonomy->culture = 'en';
-    $taxonomy->save();
-
-    // Add also the available templates
-    foreach (array(
-      'isad'  => 'ISAD(G), 2nd ed. International Council on Archives',
-      'dc'    => 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative',
-      'mods'  => 'MODS, Version 3.3. U.S. Library of Congress',
-      'rad'   => 'RAD, July 2008 version. Canadian Council of Archives') as $key => $value)
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      $term = new QubitTerm;
-      $term->parentId = QubitTerm::ROOT_ID;
-      $term->taxonomyId = QubitTaxonomy::INFORMATION_OBJECT_TEMPLATE_ID;
-      $term->code = $key;
-      $term->name = $value;
-      $term->culture = 'en';
-      $term->save();
-    }
+        // Add extra column, information_object.display_standard_id
+        QubitMigrate::addColumn(
+            QubitInformationObject::TABLE_NAME,
+            'display_standard_id INT NULL',
+            [
+                'after' => 'source_standard',
+                'idx' => true,
+                'fk' => [
+                    'referenceTable' => 'term',
+                    'referenceColumn' => 'id',
+                    'onDelete' => 'SET NULL',
+                    'onUpdate' => 'RESTRICT',
+                ],
+            ]
+        );
 
-    return true;
-  }
+        // Add the "Information object templates" taxonomy
+        QubitMigrate::bumpTaxonomy(QubitTaxonomy::INFORMATION_OBJECT_TEMPLATE_ID, $configuration);
+        $taxonomy = new QubitTaxonomy();
+        $taxonomy->id = QubitTaxonomy::INFORMATION_OBJECT_TEMPLATE_ID;
+        $taxonomy->name = 'Information object templates';
+        $taxonomy->culture = 'en';
+        $taxonomy->save();
+
+        // Add also the available templates
+        foreach (
+            [
+                'isad' => 'ISAD(G), 2nd ed. International Council on Archives',
+                'dc' => 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative',
+                'mods' => 'MODS, Version 3.3. U.S. Library of Congress',
+                'rad' => 'RAD, July 2008 version. Canadian Council of Archives',
+            ]
+            as $key => $value
+        ) {
+            $term = new QubitTerm();
+            $term->parentId = QubitTerm::ROOT_ID;
+            $term->taxonomyId = QubitTaxonomy::INFORMATION_OBJECT_TEMPLATE_ID;
+            $term->code = $key;
+            $term->name = $value;
+            $term->culture = 'en';
+            $term->save();
+        }
+
+        return true;
+    }
 }

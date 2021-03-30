@@ -25,26 +25,27 @@
  */
 class arMigration0103
 {
-  const
-    VERSION = 103, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 103;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    QubitMigrate::bumpTerm(QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID, $configuration);
-    $term = new QubitTerm;
-    $term->id = QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID;
-    $term->parentId = QubitTerm::ROOT_ID;
-    $term->taxonomyId = QubitTaxonomy::RELATION_TYPE_ID;
-    $term->sourceCulture = 'en';
-    $term->setName('Related material descriptions', array('culture' => 'en'));
-    $term->save();
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
+    {
+        QubitMigrate::bumpTerm(QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID, $configuration);
+        $term = new QubitTerm();
+        $term->id = QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID;
+        $term->parentId = QubitTerm::ROOT_ID;
+        $term->taxonomyId = QubitTaxonomy::RELATION_TYPE_ID;
+        $term->sourceCulture = 'en';
+        $term->setName('Related material descriptions', ['culture' => 'en']);
+        $term->save();
 
-    return true;
-  }
+        return true;
+    }
 }

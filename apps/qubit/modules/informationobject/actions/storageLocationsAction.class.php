@@ -19,61 +19,59 @@
 
 class InformationObjectStorageLocationsAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->resource = $this->getRoute()->resource;
-    $this->type = $this->context->i18n->__('Physical storage locations');
-
-    if (!isset($this->resource))
+    public function execute($request)
     {
-      $this->forward404();
+        $this->resource = $this->getRoute()->resource;
+        $this->type = $this->context->i18n->__('Physical storage locations');
+
+        if (!isset($this->resource)) {
+            $this->forward404();
+        }
+
+        if (!$this->getUser()->isAuthenticated()) {
+            QubitAcl::forwardUnauthorized();
+        }
+
+        $this->form = new sfForm();
+
+        $choices = ['html' => 'HTML', 'csv' => 'CSV'];
+        $name = 'format';
+
+        $this->form->setDefault($name, 'html');
+        $this->form->setValidator($name, new sfValidatorChoice(['choices' => array_keys($choices)]));
+        $this->form->setWidget($name, new sfWidgetFormChoice(['expanded' => true, 'choices' => $choices]));
+
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
+
+            if ($this->form->isValid()) {
+                $this->initiateReportGeneration();
+                $this->redirect([$this->resource, 'module' => 'informationobject']);
+            }
+        }
+
+        return 'Criteria';
     }
 
-    if (!$this->getUser()->isAuthenticated())
+    private function initiateReportGeneration()
     {
-      QubitAcl::forwardUnauthorized();
+        sfContext::getInstance()->getConfiguration()->loadHelpers(['Url']);
+
+        $params = [
+            'objectId' => $this->resource->id,
+            'reportType' => 'storageLocations',
+            'reportTypeLabel' => $this->context->i18n->__('Physical storage locations'),
+            'reportFormat' => $this->form->format->getValue(),
+        ];
+
+        QubitJob::runJob('arGenerateReportJob', $params);
+
+        $reportsUrl = url_for([$this->resource, 'module' => 'informationobject', 'action' => 'reports']);
+        $message = $this->context->i18n->__(
+            'Report generation has started, please check the <a href="%1">reports</a> page again soon.',
+            ['%1' => $reportsUrl]
+        );
+
+        $this->getUser()->setFlash('notice', $message);
     }
-
-    $this->form = new sfForm;
-
-    $choices = array('html' => 'HTML', 'csv' => 'CSV');
-    $name = 'format';
-
-    $this->form->setDefault($name, 'html');
-    $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
-    $this->form->setWidget($name, new sfWidgetFormChoice(array('expanded' => true, 'choices' => $choices)));
-
-    if ($request->isMethod('post'))
-    {
-      $this->form->bind($request->getPostParameters());
-
-      if ($this->form->isValid())
-      {
-        $this->initiateReportGeneration();
-        $this->redirect(array($this->resource, 'module' => 'informationobject'));
-      }
-    }
-
-    return 'Criteria';
-  }
-
-  private function initiateReportGeneration()
-  {
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url'));
-
-    $params = array(
-        'objectId' => $this->resource->id,
-        'reportType' => 'storageLocations',
-        'reportTypeLabel' => $this->context->i18n->__('Physical storage locations'),
-        'reportFormat' => $this->form->format->getValue(),
-    );
-
-    QubitJob::runJob('arGenerateReportJob', $params);
-
-    $reportsUrl = url_for(array($this->resource, 'module' => 'informationobject', 'action' => 'reports'));
-    $message = $this->context->i18n->__('Report generation has started, please check the <a href="%1">reports</a> page again soon.',
-                                        array('%1' => $reportsUrl));
-
-    $this->getUser()->setFlash('notice', $message);
-  }
 }

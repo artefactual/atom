@@ -25,22 +25,20 @@
  */
 class arMigration0126
 {
-  const
-    VERSION = 126, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 126;
+    public const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    $name = 'digital_object_derivatives_pdf_page_number';
-    if (null === QubitSetting::getByName($name))
+    public function up($configuration)
     {
-      $setting = new QubitSetting;
-      $setting->name = $name;
-      $setting->value = 1;
-      $setting->culture = 'en';
-      $setting->save();
-    }
+        $name = 'digital_object_derivatives_pdf_page_number';
+        if (null === QubitSetting::getByName($name)) {
+            $setting = new QubitSetting();
+            $setting->name = $name;
+            $setting->value = 1;
+            $setting->culture = 'en';
+            $setting->save();
+        }
 
-    return true;
-  }
+        return true;
+    }
 }

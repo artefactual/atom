@@ -25,31 +25,32 @@
  */
 class arMigration0104
 {
-  const
-    VERSION = 104, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 104;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    $setting = new QubitSetting;
-    $setting->name  = 'isad_archival_history';
-    $setting->scope = 'element_visibility';
-    $setting->value = 1;
-    $setting->culture = 'en';
-    $setting->save();
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
+    {
+        $setting = new QubitSetting();
+        $setting->name = 'isad_archival_history';
+        $setting->scope = 'element_visibility';
+        $setting->value = 1;
+        $setting->culture = 'en';
+        $setting->save();
 
-    $setting = new QubitSetting;
-    $setting->name  = 'rad_archival_history';
-    $setting->scope = 'element_visibility';
-    $setting->value = 1;
-    $setting->culture = 'en';
-    $setting->save();
+        $setting = new QubitSetting();
+        $setting->name = 'rad_archival_history';
+        $setting->scope = 'element_visibility';
+        $setting->value = 1;
+        $setting->culture = 'en';
+        $setting->save();
 
-    return true;
-  }
+        return true;
+    }
 }

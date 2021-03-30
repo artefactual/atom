@@ -19,85 +19,77 @@
 
 class SettingsLdapAction extends DefaultEditAction
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'ldapHost',
-      'ldapPort',
-      'ldapBaseDn',
-      'ldapBindAttribute');
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'ldapHost',
+        'ldapPort',
+        'ldapBaseDn',
+        'ldapBindAttribute',
+    ];
 
-  protected function addField($name)
-  {
-    switch ($name)
+    public function execute($request)
     {
-      case 'ldapHost':
-      case 'ldapPort':
-      case 'ldapBaseDn':
-      case 'ldapBindAttribute':
-        // Determine and set field default value
-        if (null !== $this->{$name} = QubitSetting::getByName($name))
-        {
-          $default = $this->{$name}->getValue(array('sourceCulture' => true));
+        parent::execute($request);
+
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
+
+            if ($this->form->isValid()) {
+                $this->processForm();
+
+                QubitCache::getInstance()->removePattern('settings:i18n:*');
+
+                $this->redirect(['module' => 'settings', 'action' => 'ldap']);
+            }
         }
-        else
-        {
-          $defaults = array(
-            'ldapPort' => '389',
-            'ldapBindAttribute' => 'uid'
-          );
-
-          $default = (isset($defaults[$name])) ? $defaults[$name] : '';
-        }
-
-        $this->form->setDefault($name, $default);
-
-        // Set validator and widget
-        $validator = ($name == 'ldapPort') ? new sfValidatorInteger(array('min' => 1, 'max' => 65535)) : new sfValidatorPass;
-        $this->form->setValidator($name, $validator);
-        $this->form->setWidget($name, new sfWidgetFormInput);
-
-        break;
     }
-  }
 
-  protected function processField($field)
-  {
-    switch ($name = $field->getName())
+    protected function addField($name)
     {
-      case 'ldapHost':
-      case 'ldapPort':
-      case 'ldapBaseDn':
-      case 'ldapBindAttribute':
-        if (null === $this->{$name})
-        {
-          $this->{$name} = new QubitSetting;
-          $this->{$name}->name = $name;
-          $this->{$name}->scope = 'ldap';
+        switch ($name) {
+            case 'ldapHost':
+            case 'ldapPort':
+            case 'ldapBaseDn':
+            case 'ldapBindAttribute':
+                // Determine and set field default value
+                if (null !== $this->{$name} = QubitSetting::getByName($name)) {
+                    $default = $this->{$name}->getValue(['sourceCulture' => true]);
+                } else {
+                    $defaults = [
+                        'ldapPort' => '389',
+                        'ldapBindAttribute' => 'uid',
+                    ];
+
+                    $default = (isset($defaults[$name])) ? $defaults[$name] : '';
+                }
+
+                $this->form->setDefault($name, $default);
+
+                // Set validator and widget
+                $validator = ('ldapPort' == $name) ? new sfValidatorInteger(['min' => 1, 'max' => 65535]) : new sfValidatorPass();
+                $this->form->setValidator($name, $validator);
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
         }
-        $this->{$name}->setValue($field->getValue(), array('sourceCulture' => true));
-        $this->{$name}->save();
-
-        break;
     }
-  }
 
-  public function execute($request)
-  {
-    parent::execute($request);
-
-    if ($request->isMethod('post'))
+    protected function processField($field)
     {
-      $this->form->bind($request->getPostParameters());
+        switch ($name = $field->getName()) {
+            case 'ldapHost':
+            case 'ldapPort':
+            case 'ldapBaseDn':
+            case 'ldapBindAttribute':
+                if (null === $this->{$name}) {
+                    $this->{$name} = new QubitSetting();
+                    $this->{$name}->name = $name;
+                    $this->{$name}->scope = 'ldap';
+                }
+                $this->{$name}->setValue($field->getValue(), ['sourceCulture' => true]);
+                $this->{$name}->save();
 
-      if ($this->form->isValid())
-      {
-        $this->processForm();
-
-        QubitCache::getInstance()->removePattern('settings:i18n:*');
-
-        $this->redirect(array('module' => 'settings', 'action' => 'ldap'));
-      }
+                break;
+        }
     }
-  }
 }

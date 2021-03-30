@@ -19,37 +19,32 @@
 
 class MenuDeleteAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->form = new sfForm;
-
-    $this->resource = QubitMenu::getById($request->id);
-
-    if (!isset($this->resource))
+    public function execute($request)
     {
-      $this->forward404();
-    }
+        $this->form = new sfForm();
 
-    if ($request->isMethod('delete'))
-    {
-      $this->form->bind($request->getPostParameters());
-      
-      if ($this->form->isValid())
-      {
-        if (!$this->resource->isProtected())
-        {
-          $this->resource->delete();
+        $this->resource = QubitMenu::getById($request->id);
+
+        if (!isset($this->resource)) {
+            $this->forward404();
         }
 
-        // Remove cache
-        if ($this->context->getViewCacheManager() !== null)
-        {
-          $this->context->getViewCacheManager()->remove('@sf_cache_partial?module=menu&action=_browseMenu&sf_cache_key=*');
-          $this->context->getViewCacheManager()->remove('@sf_cache_partial?module=menu&action=_mainMenu&sf_cache_key=*');
-        }
+        if ($request->isMethod('delete')) {
+            $this->form->bind($request->getPostParameters());
 
-        $this->redirect(array('module' => 'menu', 'action' => 'list'));
-      }
+            if ($this->form->isValid()) {
+                if (!$this->resource->isProtected()) {
+                    $this->resource->delete();
+                }
+
+                // Remove cache
+                if (null !== $this->context->getViewCacheManager()) {
+                    $this->context->getViewCacheManager()->remove('@sf_cache_partial?module=menu&action=_browseMenu&sf_cache_key=*');
+                    $this->context->getViewCacheManager()->remove('@sf_cache_partial?module=menu&action=_mainMenu&sf_cache_key=*');
+                }
+
+                $this->redirect(['module' => 'menu', 'action' => 'list']);
+            }
+        }
     }
-  }
 }

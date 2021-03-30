@@ -21,31 +21,30 @@ require_once 'Zend/Acl.php';
 
 class StubAcl extends Zend_Acl
 {
-  public function allow($roles = null, $resource = null, $privileges = null, Zend_Acl_Assert_Interface $assert = null)
-  {
-    return $this;
-  }
+    public function allow($roles = null, $resource = null, $privileges = null, Zend_Acl_Assert_Interface $assert = null)
+    {
+        return $this;
+    }
 
-  public function isAllowed($role = null, $resource = null, $privilege = null)
-  {
-    return true;
-  }
+    public function isAllowed($role = null, $resource = null, $privilege = null)
+    {
+        return true;
+    }
 }
 
 class QubitTestFunctional extends sfTestFunctional
 {
-  public function disableSecurity()
-  {
-    QubitAcl::getInstance()->acl = new StubAcl;
+    public function disableSecurity()
+    {
+        QubitAcl::getInstance()->acl = new StubAcl();
 
-    // PHP 5.3 only, but this will soon be a minimum requirement?
-    $this->browser->addListener('controller.change_action', function (sfEvent $event)
-      {
-        $controller = $event->getSubject();
+        // PHP 5.3 only, but this will soon be a minimum requirement?
+        $this->browser->addListener('controller.change_action', function (sfEvent $event) {
+            $controller = $event->getSubject();
 
-        // Total HACK, disable sfBasicSecurityFilter
-        sfConfig::set('sf_secure_module', $event->module);
-        sfConfig::set('sf_secure_action', $event->action);
-      });
-  }
+            // Total HACK, disable sfBasicSecurityFilter
+            sfConfig::set('sf_secure_module', $event->module);
+            sfConfig::set('sf_secure_action', $event->action);
+        });
+    }
 }

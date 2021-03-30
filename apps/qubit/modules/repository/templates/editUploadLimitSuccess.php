@@ -1,1 +1,3 @@
-<?php include_component('repository', 'uploadLimit', array('resource' => $resource, 'noedit' => true)) ?>
+<?php
+
+include_component('repository', 'uploadLimit', ['resource' => $resource, 'noedit' => true]);

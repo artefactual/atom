@@ -19,37 +19,33 @@
 
 class arDominionPluginConfiguration extends sfPluginConfiguration
 {
-  public static
-    $summary = 'Theme plugin made from scratch with some JavaScript magic. Cross-browser compatibility tested. Based in Twitter Bootstrap 2.0, 940px two-column layout, slightly responsive.',
-    $version = '0.0.1';
+    public static $summary = 'Theme plugin made from scratch with some JavaScript magic. Cross-browser compatibility tested. Based in Twitter Bootstrap 2.0, 940px two-column layout, slightly responsive.';
+    public static $version = '0.0.1';
 
-  public function contextLoadFactories(sfEvent $event)
-  {
-    $context = $event->getSubject();
-
-    // Runtime less interpreter will be loaded if debug mode is enabled
-    // Remember to avoid localStorage caching when dev machine is not localhost
-    if ($context->getConfiguration()->isDebug())
+    public function contextLoadFactories(sfEvent $event)
     {
-      $context->response->addJavaScript('/vendor/less.js', 'last');
-      $context->response->addStylesheet('/plugins/arDominionPlugin/css/main.less', 'last', array('rel' => 'stylesheet/less', 'type' => 'text/css', 'media' => 'all'));
+        $context = $event->getSubject();
+
+        // Runtime less interpreter will be loaded if debug mode is enabled
+        // Remember to avoid localStorage caching when dev machine is not localhost
+        if ($context->getConfiguration()->isDebug()) {
+            $context->response->addJavaScript('/vendor/less.js', 'last');
+            $context->response->addStylesheet('/plugins/arDominionPlugin/css/main.less', 'last', ['rel' => 'stylesheet/less', 'type' => 'text/css', 'media' => 'all']);
+        } else {
+            $context->response->addStylesheet('/plugins/arDominionPlugin/css/main.css', 'last', ['media' => 'all']);
+        }
     }
-    else
+
+    public function initialize()
     {
-      $context->response->addStylesheet('/plugins/arDominionPlugin/css/main.css', 'last', array('media' => 'all'));
+        $this->dispatcher->connect('context.load_factories', [$this, 'contextLoadFactories']);
+
+        $decoratorDirs = sfConfig::get('sf_decorator_dirs');
+        $decoratorDirs[] = $this->rootDir.'/templates';
+        sfConfig::set('sf_decorator_dirs', $decoratorDirs);
+
+        $moduleDirs = sfConfig::get('sf_module_dirs');
+        $moduleDirs[$this->rootDir.'/modules'] = false;
+        sfConfig::set('sf_module_dirs', $moduleDirs);
     }
-  }
-
-  public function initialize()
-  {
-    $this->dispatcher->connect('context.load_factories', array($this, 'contextLoadFactories'));
-
-    $decoratorDirs = sfConfig::get('sf_decorator_dirs');
-    $decoratorDirs[] = $this->rootDir.'/templates';
-    sfConfig::set('sf_decorator_dirs', $decoratorDirs);
-
-    $moduleDirs = sfConfig::get('sf_module_dirs');
-    $moduleDirs[$this->rootDir.'/modules'] = false;
-    sfConfig::set('sf_module_dirs', $moduleDirs);
-  }
 }

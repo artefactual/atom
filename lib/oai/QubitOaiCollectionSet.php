@@ -18,38 +18,41 @@
  */
 
 /**
- * An OAI set for a single collection
+ * An OAI set for a single collection.
  *
- * @package    AccesstoMemory
- * @subpackage oai
  * @author     Mark Triggs <mark@teaspoon-consulting.com>
  */
-
 class QubitOaiCollectionSet implements QubitOaiSet
 {
-  private $collection;
+    private $collection;
 
-  public function __construct($collection) {
-    $this->collection = $collection;
-  }
+    public function __construct($collection)
+    {
+        $this->collection = $collection;
+    }
 
-  public function contains($record) {
-    $lft = $record->getLft();
-    return ($this->collection['lft'] <= $lft AND $this->collection['rgt'] > $lft);
-  }
+    public function contains($record)
+    {
+        $lft = $record->getLft();
 
-  public function setSpec() {
-    return $this->collection->getOaiIdentifier();
-  }
+        return $this->collection['lft'] <= $lft and $this->collection['rgt'] > $lft;
+    }
 
-  public function getName() {
-    return new sfIsadPlugin($this->collection);
-  }
+    public function setSpec()
+    {
+        return $this->collection->getOaiIdentifier();
+    }
 
-  public function apply($criteria) {
-    $criteria->add(QubitInformationObject::PARENT_ID, null, Criteria::ISNOTNULL);
+    public function getName()
+    {
+        return new sfIsadPlugin($this->collection);
+    }
 
-    $criteria->add(QubitInformationObject::LFT, $this->collection['lft'], Criteria::GREATER_EQUAL);
-    $criteria->add(QubitInformationObject::RGT, $this->collection['rgt'], Criteria::LESS_EQUAL);
-  }
+    public function apply($criteria)
+    {
+        $criteria->add(QubitInformationObject::PARENT_ID, null, Criteria::ISNOTNULL);
+
+        $criteria->add(QubitInformationObject::LFT, $this->collection['lft'], Criteria::GREATER_EQUAL);
+        $criteria->add(QubitInformationObject::RGT, $this->collection['rgt'], Criteria::LESS_EQUAL);
+    }
 }

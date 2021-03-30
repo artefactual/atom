@@ -18,70 +18,58 @@
  */
 
 /**
- * @package    AccesstoMemory
- * @subpackage jobs
  * @author     Mike G <mikeg@artefactual.com>
  */
 class JobsDeleteAction extends sfAction
 {
-  /**
-   * Display a paginated hitlist of information objects (top-level only)
-   *
-   * @param sfRequest $request
-   */
-  public function execute($request)
-  {
-    if (!$this->context->user)
+    /**
+     * Display a paginated hitlist of information objects (top-level only).
+     *
+     * @param sfRequest $request
+     */
+    public function execute($request)
     {
-      QubitAcl::forwardUnauthorized();
+        if (!$this->context->user) {
+            QubitAcl::forwardUnauthorized();
+        }
+
+        $token = $request->getParameter('token');
+
+        if (!$this->context->user->isAuthenticated() && $token) {
+            // Handle deletion of unauthenticated user job
+            $job = QubitJob::getByUserTokenProperty($token);
+
+            if (isset($job)) {
+                $this->deleteJobsNotInProgress([$job]);
+            }
+
+            $this->redirect($request->getReferer());
+        } elseif ($this->context->user->isAuthenticated() && !$token) {
+            // Handle bulk deletion of jobs associated with an authenticated user
+            $jobs = QubitJob::getJobsByUser($this->context->user);
+            $this->deleteJobsNotInProgress($jobs);
+
+            // Handle bulk deletion of CLI-created job, if user is an administrator
+            if ($this->context->user->isAdministrator()) {
+                $criteria = new Criteria();
+                $criteria->add(QubitJob::USER_ID, null, Criteria::ISNULL);
+
+                $jobs = QubitJob::get($criteria);
+                $this->deleteJobsNotInProgress($jobs);
+            }
+
+            $this->redirect(['module' => 'jobs', 'action' => 'browse']);
+        } else {
+            QubitAcl::forwardUnauthorized();
+        }
     }
 
-    $token = $request->getParameter('token');
-
-    if (!$this->context->user->isAuthenticated() && $token)
+    private function deleteJobsNotInProgress($jobs)
     {
-      // Handle deletion of unauthenticated user job
-      $job = QubitJob::getByUserTokenProperty($token);
-
-      if (isset($job))
-      {
-        $this->deleteJobsNotInProgress([$job]);
-      }
-
-      $this->redirect($request->getReferer());
+        foreach ($jobs as $job) {
+            if (QubitTerm::JOB_STATUS_IN_PROGRESS_ID != $job->statusId) {
+                $job->delete();
+            }
+        }
     }
-    else if ($this->context->user->isAuthenticated() && !$token)
-    {
-      // Handle bulk deletion of jobs associated with an authenticated user
-      $jobs = QubitJob::getJobsByUser($this->context->user);
-      $this->deleteJobsNotInProgress($jobs);
-
-      // Handle bulk deletion of CLI-created job, if user is an administrator 
-      if ($this->context->user->isAdministrator())
-      {
-        $criteria = new Criteria;
-        $criteria->add(QubitJob::USER_ID, null, Criteria::ISNULL);
-
-        $jobs = QubitJob::get($criteria);
-        $this->deleteJobsNotInProgress($jobs);
-      }
-
-      $this->redirect(array('module' => 'jobs', 'action' => 'browse'));
-    }
-    else
-    {
-      QubitAcl::forwardUnauthorized();
-    }
-  }
-
-  private function deleteJobsNotInProgress($jobs)
-  {
-    foreach ($jobs as $job)
-    {
-      if ($job->statusId != QubitTerm::JOB_STATUS_IN_PROGRESS_ID)
-      {
-        $job->delete();
-      }
-    }
-  }
 }

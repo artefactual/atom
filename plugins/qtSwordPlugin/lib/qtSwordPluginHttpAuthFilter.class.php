@@ -19,33 +19,30 @@
 
 class qtSwordPluginHttpAuthFilter extends sfFilter
 {
-  public function execute($filterChain)
-  {
-    if ($this->isFirstCall())
+    public function execute($filterChain)
     {
-      if (!isset($_SERVER['PHP_AUTH_USER']))
-      {
-        $this->sendHeaders();
+        if ($this->isFirstCall()) {
+            if (!isset($_SERVER['PHP_AUTH_USER'])) {
+                $this->sendHeaders();
 
-        exit;
-      }
+                exit;
+            }
 
-      $authenticated = sfContext::getInstance()->user->authenticateWithBasicAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
+            $authenticated = sfContext::getInstance()->user->authenticateWithBasicAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
 
-      if (!$authenticated)
-      {
-        $this->sendHeaders();
+            if (!$authenticated) {
+                $this->sendHeaders();
 
-        return;
-      }
+                return;
+            }
+        }
+
+        $filterChain->execute();
     }
 
-    $filterChain->execute();
-  }
-
-  private function sendHeaders()
-  {
-    header('WWW-Authenticate: Basic realm="Secure area"');
-    header('HTTP/1.0 401 Unauthorized');
-  }
+    private function sendHeaders()
+    {
+        header('WWW-Authenticate: Basic realm="Secure area"');
+        header('HTTP/1.0 401 Unauthorized');
+    }
 }

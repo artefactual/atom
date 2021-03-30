@@ -18,132 +18,125 @@
  */
 
 /**
- * Digital Object view action
+ * Digital Object view action.
  *
- * @package    AccesstoMemory
- * @subpackage digital object
  * @author     Andy Koch <koch.andy@gmail.com>
  */
 class DigitalObjectViewAction extends sfAction
 {
-  public function execute($request)
-  {
-    $pathinfo = pathinfo($request->getPathInfo());
-    $pathinfo['dirname'] = str_replace("/{$request->module}/{$request->action}", '', $pathinfo['dirname']).'/';
-
-    $this->resource = QubitDigitalObject::getByPathFile($pathinfo['dirname'], $pathinfo['basename']);
-
-    // We are going to need this later
-    $this->digitalObjectId = $this->resource->id;
-
-    // Resource Found?
-    if (null === $this->resource)
+    public function execute($request)
     {
-      $this->forward404();
+        $pathinfo = pathinfo($request->getPathInfo());
+        $pathinfo['dirname'] = str_replace("/{$request->module}/{$request->action}", '', $pathinfo['dirname']).'/';
+
+        $this->resource = QubitDigitalObject::getByPathFile($pathinfo['dirname'], $pathinfo['basename']);
+
+        // We are going to need this later
+        $this->digitalObjectId = $this->resource->id;
+
+        // Resource Found?
+        if (null === $this->resource) {
+            $this->forward404();
+        }
+
+        list($obj, $action) = $this->getObjAndAction();
+
+        // If access is denied, forward user to a 404 "Not found" page
+        if (!QubitAcl::check($obj, $action)) {
+            $this->forward404();
+        }
+
+        if ($this->needsPopup($action)) {
+            $this->resource = $this->resource->object;
+
+            $this->accessToken = bin2hex(random_bytes(32)); // URL friendly
+            $this->context->user->setAttribute("token-{$this->digitalObjectId}", $this->accessToken, 'symfony/user/sfUser/copyrightStatementTmpAccess');
+
+            $this->response->addMeta('robots', 'noindex,nofollow');
+            $this->setTemplate('viewCopyrightStatement');
+
+            $this->copyrightStatement = sfConfig::get('app_digitalobject_copyright_statement');
+
+            return sfView::SUCCESS;
+        }
+
+        $this->setResponseHeaders();
+
+        return sfView::HEADER_ONLY;
     }
 
-    list($obj, $action) = $this->getObjAndAction();
-
-    // If access is denied, forward user to a 404 "Not found" page
-    if (!QubitAcl::check($obj, $action))
+    protected function needsPopup($action)
     {
-      $this->forward404();
+        // Only if the user is reading the master digital object, and the resource
+        // has a PREMIS conditional copyright restriction
+        if ('readMaster' != $action || !$this->resource->hasConditionalCopyright()) {
+            return false;
+        }
+
+        // Show the pop-up if a valid access token was not submitted
+        return false === $this->isAccessTokenValid();
     }
 
-    if ($this->needsPopup($action))
+    protected function setResponseHeaders()
     {
-      $this->resource = $this->resource->object;
+        $this->response->setContentType($this->resource->mimeType);
 
-      $this->accessToken = bin2hex(random_bytes(32)); # URL friendly
-      $this->context->user->setAttribute("token-$this->digitalObjectId", $this->accessToken, 'symfony/user/sfUser/copyrightStatementTmpAccess');
-
-      $this->response->addMeta('robots', 'noindex,nofollow');
-      $this->setTemplate('viewCopyrightStatement');
-
-      $this->copyrightStatement = sfConfig::get('app_digitalobject_copyright_statement');
-
-      return sfView::SUCCESS;
+        // Using X-Accel-Redirect (Nginx) unless ATOM_XSENDFILE is set
+        if (false === filter_var($_SERVER['ATOM_XSENDFILE'], FILTER_VALIDATE_BOOLEAN)) {
+            $urlPath = preg_replace('\/?[^\/]+\.php$', '', $_SERVER['SCRIPT_NAME']);
+            $this->response->setHttpHeader('X-Accel-Redirect', $urlPath.'/private'.$this->resource->getFullPath());
+        } else {
+            $this->response->setHttpHeader('X-Sendfile', sprintf(
+                '%s/%s',
+                sfConfig::get('sf_root_dir'),
+                $this->resource->getFullPath()
+            ));
+        }
     }
 
-    $this->setResponseHeaders();
-
-    return sfView::HEADER_ONLY;
-  }
-
-  protected function needsPopup($action)
-  {
-    // Only if the user is reading the master digital object, and the resource
-    // has a PREMIS conditional copyright restriction
-    if ($action != 'readMaster' || !$this->resource->hasConditionalCopyright())
+    private function getObjAndAction()
     {
-      return false;
+        switch ($this->resource->usageId) {
+            case QubitTerm::MASTER_ID:
+                $action = 'readMaster';
+                $obj = $this->resource->object;
+
+                break;
+
+            case QubitTerm::REFERENCE_ID:
+            case QubitTerm::CHAPTERS_ID:
+            case QubitTerm::SUBTITLES_ID:
+                $action = 'readReference';
+                $obj = $this->resource->parent->object;
+
+                break;
+
+            case QubitTerm::THUMBNAIL_ID:
+                $action = 'readThumbnail';
+                $obj = $this->resource->parent->object;
+
+                break;
+
+            default:
+                throw new sfException("Invalid usageId given in digitalobject/view: {$this->resource->usageId}");
+        }
+
+        return [$obj, $action];
     }
 
-    // Show the pop-up if a valid access token was not submitted
-    return false === $this->isAccessTokenValid();
-  }
-
-  protected function setResponseHeaders()
-  {
-    $this->response->setContentType($this->resource->mimeType);
-
-    // Using X-Accel-Redirect (Nginx) unless ATOM_XSENDFILE is set
-    if (false === filter_var($_SERVER['ATOM_XSENDFILE'], FILTER_VALIDATE_BOOLEAN))
+    private function isAccessTokenValid()
     {
-      $urlPath = preg_replace('\/?[^\/]+\.php$', '', $_SERVER['SCRIPT_NAME']);
-      $this->response->setHttpHeader('X-Accel-Redirect', $urlPath . '/private' . $this->resource->getFullPath());
+        $providedToken = $this->request->token;
+        $internalToken = $this->context->user->getAttribute("token-{$this->digitalObjectId}", null, 'symfony/user/sfUser/copyrightStatementTmpAccess');
+
+        if (empty($providedToken) || empty($internalToken)) {
+            return false;
+        }
+
+        if ($providedToken !== $internalToken) {
+            return false;
+        }
+
+        return true;
     }
-    else
-    {
-      $this->response->setHttpHeader('X-Sendfile', sprintf('%s/%s',
-        sfConfig::get('sf_root_dir'),
-        $this->resource->getFullPath()));
-    }
-  }
-
-  private function getObjAndAction()
-  {
-    switch ($this->resource->usageId)
-    {
-      case QubitTerm::MASTER_ID:
-        $action = 'readMaster';
-        $obj = $this->resource->object;
-        break;
-
-      case QubitTerm::REFERENCE_ID:
-      case QubitTerm::CHAPTERS_ID:
-      case QubitTerm::SUBTITLES_ID:
-        $action = 'readReference';
-        $obj = $this->resource->parent->object;
-        break;
-
-      case QubitTerm::THUMBNAIL_ID:
-        $action = 'readThumbnail';
-        $obj = $this->resource->parent->object;
-        break;
-
-      default:
-        throw new sfException("Invalid usageId given in digitalobject/view: {$this->resource->usageId}");
-    }
-
-    return array($obj, $action);
-  }
-
-  private function isAccessTokenValid()
-  {
-    $providedToken = $this->request->token;
-    $internalToken = $this->context->user->getAttribute("token-$this->digitalObjectId", null, 'symfony/user/sfUser/copyrightStatementTmpAccess');
-
-    if (empty($providedToken) || empty($internalToken))
-    {
-      return false;
-    }
-
-    if ($providedToken !== $internalToken)
-    {
-      return false;
-    }
-
-    return true;
-  }
 }

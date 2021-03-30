@@ -25,23 +25,23 @@
  */
 class arMigration0150
 {
-  const
-    VERSION = 150, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 150;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    if (null !== $menuItem = QubitMenu::getByName('clearClipboard'))
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      $menuItem->setLabel('Clear all selections', array('culture' => 'en'));
-      $menuItem->save();
-    }
+        if (null !== $menuItem = QubitMenu::getByName('clearClipboard')) {
+            $menuItem->setLabel('Clear all selections', ['culture' => 'en']);
+            $menuItem->save();
+        }
 
-    return true;
-  }
+        return true;
+    }
 }

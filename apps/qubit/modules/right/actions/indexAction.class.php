@@ -19,105 +19,81 @@
 
 class RightIndexAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->resource = $this->getRoute()->resource;
-
-    $value = array();
-
-    if (isset($this->resource->act))
+    public function execute($request)
     {
-      $value['act'] = $this->context->routing->generate(null, array($this->resource->act, 'module' => 'term'));
+        $this->resource = $this->getRoute()->resource;
+
+        $value = [];
+
+        if (isset($this->resource->act)) {
+            $value['act'] = $this->context->routing->generate(null, [$this->resource->act, 'module' => 'term']);
+        }
+
+        $value['restriction'] = $this->resource->restriction;
+
+        $value['startDate'] = Qubit::renderDate($this->resource->startDate);
+
+        $value['endDate'] = Qubit::renderDate($this->resource->endDate);
+
+        if (isset($this->resource->rightsHolder)) {
+            $value['rightsHolder'] = $this->context->routing->generate(null, [$this->resource->rightsHolder, 'module' => 'rightsholder']);
+        }
+
+        if (isset($this->resource->rightsNote)) {
+            $value['rightsNote'] = $this->resource->rightsNote;
+        }
+
+        if (isset($this->resource->basis)) {
+            $value['basis'] = $this->context->routing->generate(null, [$this->resource->basis, 'module' => 'term']);
+        }
+
+        // Basis: copyright.
+        if (isset($this->resource->copyrightStatus)) {
+            $value['copyrightStatus'] = $this->context->routing->generate(null, [$this->resource->copyrightStatus, 'module' => 'term']);
+        }
+
+        if (isset($this->resource->copyrightStatusDate)) {
+            $value['copyrightStatusDate'] = $this->resource->copyrightStatusDate;
+        }
+
+        if (isset($this->resource->copyrightJurisdiction)) {
+            $value['copyrightJurisdiction'] = $this->resource->copyrightJurisdiction;
+        }
+
+        if (isset($this->resource->copyrightNote)) {
+            $value['copyrightNote'] = $this->resource->copyrightNote;
+        }
+
+        // Basis: license.
+        if (isset($this->resource->licenseIdentifier)) {
+            $value['licenseIdentifier'] = $this->resource->licenseIdentifier;
+        }
+
+        if (isset($this->resource->licenseTerms)) {
+            $value['licenseTerms'] = $this->resource->licenseTerms;
+        }
+
+        if (isset($this->resource->licenseNote)) {
+            $value['licenseNote'] = $this->resource->licenseNote;
+        }
+
+        // Basis: statute.
+        if (isset($this->resource->statuteJurisdiction)) {
+            $value['statuteJurisdiction'] = $this->resource->statuteJurisdiction;
+        }
+
+        if (isset($this->resource->statuteCitation)) {
+            $value['statuteCitation'] = $this->resource->statuteCitation;
+        }
+
+        if (isset($this->resource->statuteDeterminationDate)) {
+            $value['statuteDeterminationDate'] = $this->resource->statuteDeterminationDate;
+        }
+
+        if (isset($this->resource->statuteNote)) {
+            $value['statuteNote'] = $this->resource->statuteNote;
+        }
+
+        return $this->renderText(json_encode($value));
     }
-
-    $value['restriction'] = $this->resource->restriction;
-
-    $value['startDate'] = Qubit::renderDate($this->resource->startDate);
-
-    $value['endDate'] = Qubit::renderDate($this->resource->endDate);
-
-    if (isset($this->resource->rightsHolder))
-    {
-      $value['rightsHolder'] = $this->context->routing->generate(null, array($this->resource->rightsHolder, 'module' => 'rightsholder'));
-    }
-
-    if (isset($this->resource->rightsNote))
-    {
-      $value['rightsNote'] = $this->resource->rightsNote;
-    }
-
-    if (isset($this->resource->basis))
-    {
-      $value['basis'] = $this->context->routing->generate(null, array($this->resource->basis, 'module' => 'term'));
-    }
-
-    /**
-     * Basis: copyright
-     */
-
-    if (isset($this->resource->copyrightStatus))
-    {
-      $value['copyrightStatus'] = $this->context->routing->generate(null, array($this->resource->copyrightStatus, 'module' => 'term'));
-    }
-
-    if (isset($this->resource->copyrightStatusDate))
-    {
-      $value['copyrightStatusDate'] = $this->resource->copyrightStatusDate;
-    }
-
-    if (isset($this->resource->copyrightJurisdiction))
-    {
-      $value['copyrightJurisdiction'] = $this->resource->copyrightJurisdiction;
-    }
-
-    if (isset($this->resource->copyrightNote))
-    {
-      $value['copyrightNote'] = $this->resource->copyrightNote;
-    }
-
-    /**
-     * Basis: license
-     */
-
-    if (isset($this->resource->licenseIdentifier))
-    {
-      $value['licenseIdentifier'] = $this->resource->licenseIdentifier;
-    }
-
-    if (isset($this->resource->licenseTerms))
-    {
-      $value['licenseTerms'] = $this->resource->licenseTerms;
-    }
-
-    if (isset($this->resource->licenseNote))
-    {
-      $value['licenseNote'] = $this->resource->licenseNote;
-    }
-
-    /**
-     * Basis: statute
-     */
-
-    if (isset($this->resource->statuteJurisdiction))
-    {
-      $value['statuteJurisdiction'] = $this->resource->statuteJurisdiction;
-    }
-
-    if (isset($this->resource->statuteCitation))
-    {
-      $value['statuteCitation'] = $this->resource->statuteCitation;
-    }
-
-    if (isset($this->resource->statuteDeterminationDate))
-    {
-      $value['statuteDeterminationDate'] = $this->resource->statuteDeterminationDate;
-    }
-
-    if (isset($this->resource->statuteNote))
-    {
-      $value['statuteNote'] = $this->resource->statuteNote;
-    }
-
-    return $this->renderText(json_encode($value));
-  }
 }

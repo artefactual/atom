@@ -19,14 +19,12 @@
 
 class InformationObjectCreatorDetailComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    foreach ($this->resource->ancestors->andSelf()->orderBy('rgt') as $this->ancestor)
+    public function execute($request)
     {
-      if (0 < count($this->ancestor->getCreators()))
-      {
-        break;
-      }
+        foreach ($this->resource->ancestors->andSelf()->orderBy('rgt') as $this->ancestor) {
+            if (0 < count($this->ancestor->getCreators())) {
+                break;
+            }
+        }
     }
-  }
 }

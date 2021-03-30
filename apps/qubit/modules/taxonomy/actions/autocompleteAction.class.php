@@ -19,44 +19,37 @@
 
 class TaxonomyAutocompleteAction extends sfAction
 {
-  public function execute($request)
-  {
-    $criteria = new Criteria;
-    $criteria = QubitTaxonomy::addEditableTaxonomyCriteria($criteria);
-    $criteria->addJoin(QubitTaxonomy::ID, QubitTaxonomyI18n::ID);
-    $criteria->add(QubitTaxonomyI18n::CULTURE, $this->context->user->getCulture());
-
-    // Narrow results by query
-    if (0 < strlen($request->query))
+    public function execute($request)
     {
-      if (sfConfig::get('app_markdown_enabled', true))
-      {
-        $criteria->add(QubitTaxonomyI18n::NAME, "%$request->query%", Criteria::LIKE);
-      }
-      else
-      {
-        $criteria->add(QubitTaxonomyI18n::NAME, "$request->query%", Criteria::LIKE);
-      }
+        $criteria = new Criteria();
+        $criteria = QubitTaxonomy::addEditableTaxonomyCriteria($criteria);
+        $criteria->addJoin(QubitTaxonomy::ID, QubitTaxonomyI18n::ID);
+        $criteria->add(QubitTaxonomyI18n::CULTURE, $this->context->user->getCulture());
+
+        // Narrow results by query
+        if (0 < strlen($request->query)) {
+            if (sfConfig::get('app_markdown_enabled', true)) {
+                $criteria->add(QubitTaxonomyI18n::NAME, "%{$request->query}%", Criteria::LIKE);
+            } else {
+                $criteria->add(QubitTaxonomyI18n::NAME, "{$request->query}%", Criteria::LIKE);
+            }
+        }
+
+        // Limit results by ACL
+        $criterion = QubitAcl::getFilterCriterion($criteria, QubitTaxonomy::getById(QubitTaxonomy::ROOT_ID), 'createTerm');
+        if (isset($criterion) && true !== $criterion) {
+            $criteria->addAnd($criterion);
+        } elseif (false === $criterion) {
+            // If access denied to all taxonomies, then return nothing
+            return sfView::NONE;
+        }
+
+        // Sort by name
+        $criteria->addAscendingOrderByColumn(QubitTaxonomyI18n::NAME);
+
+        // Show first 10 results
+        $criteria->setLimit(10);
+
+        $this->taxonomies = QubitTaxonomy::get($criteria);
     }
-
-    // Limit results by ACL
-    $criterion = QubitAcl::getFilterCriterion($criteria, QubitTaxonomy::getById(QubitTaxonomy::ROOT_ID), 'createTerm');
-    if (isset($criterion) && true !== $criterion)
-    {
-      $criteria->addAnd($criterion);
-    }
-    else if (false === $criterion)
-    {
-      // If access denied to all taxonomies, then return nothing
-      return sfView::NONE;
-    }
-
-    // Sort by name
-    $criteria->addAscendingOrderByColumn(QubitTaxonomyI18n::NAME);
-
-    // Show first 10 results
-    $criteria->setLimit(10);
-
-    $this->taxonomies = QubitTaxonomy::get($criteria);
-  }
 }

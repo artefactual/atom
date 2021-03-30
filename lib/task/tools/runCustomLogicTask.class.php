@@ -18,63 +18,62 @@
  */
 
 /**
- * Run ad-hoc PHP logic contained in a file
+ * Run ad-hoc PHP logic contained in a file.
  *
- * @package    symfony
- * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
 class runCustomLogicTask extends arBaseTask
 {
-    protected $namespace        = 'tools';
-    protected $name             = 'run';
+    protected $namespace = 'tools';
+    protected $name = 'run';
     protected $briefDescription = 'Run ad-hoc logic contained in a PHP file';
 
-    protected $detailedDescription = <<<EOF
+    protected $detailedDescription = <<<'EOF'
 Run ad-hoc logic contained in a PHP file
 EOF;
 
-  /**
-   * @see sfBaseTask
-   */
-  protected function configure()
-  {
-    $logFileDefault = sfConfig::get('sf_log_dir') . '/tools_run.log';
-
-    $this->addOptions(array(
-      new sfCommandOption('log', null, sfCommandOption::PARAMETER_NONE, 'Log execution of PHP file'),
-      new sfCommandOption('log_file', null, sfCommandOption::PARAMETER_OPTIONAL, 'File to log to', $logFileDefault),
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-    ));
-
-    $this->addArguments(array(
-      new sfCommandArgument('filename', sfCommandArgument::REQUIRED,'The custom logic file (containing PHP logic).')
-    ));
-
-    // TODO: add capability to define ad-hoc arguments
-  }
-
-  /**
-   * @see sfTask
-   */
-  public function execute($arguments = array(), $options = array())
-  {
-    parent::execute($arguments, $options);
-
-    if (false === $fh = fopen($arguments['filename'], 'rb'))
+    /**
+     * @see sfTask
+     *
+     * @param mixed $arguments
+     * @param mixed $options
+     */
+    public function execute($arguments = [], $options = [])
     {
-      throw new sfException('You must specify a valid filename');
+        parent::execute($arguments, $options);
+
+        if (false === $fh = fopen($arguments['filename'], 'rb')) {
+            throw new sfException('You must specify a valid filename');
+        }
+
+        include $arguments['filename'];
+
+        // Optionally log script execution
+        if ($options['log']) {
+            $custom_logger = new sfFileLogger(new sfEventDispatcher(), ['file' => $options['log_file']]);
+            $custom_logger->info($arguments['filename']);
+        }
     }
 
-    include($arguments['filename']);
-
-    // Optionally log script execution
-    if ($options['log'])
+    /**
+     * @see sfBaseTask
+     */
+    protected function configure()
     {
-      $custom_logger = new sfFileLogger(new sfEventDispatcher(), array('file' => $options['log_file']));
-      $custom_logger->info($arguments['filename']);
+        $logFileDefault = sfConfig::get('sf_log_dir').'/tools_run.log';
+
+        $this->addOptions([
+            new sfCommandOption('log', null, sfCommandOption::PARAMETER_NONE, 'Log execution of PHP file'),
+            new sfCommandOption('log_file', null, sfCommandOption::PARAMETER_OPTIONAL, 'File to log to', $logFileDefault),
+            new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+            new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+        ]);
+
+        $this->addArguments([
+            new sfCommandArgument('filename', sfCommandArgument::REQUIRED, 'The custom logic file (containing PHP logic).'),
+        ]);
+
+        // TODO: add capability to define ad-hoc arguments
     }
-  }
 }

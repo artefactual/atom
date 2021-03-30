@@ -19,23 +19,32 @@
 
 require_once dirname(__FILE__).'/../bootstrap/unit.php';
 
-$t = new lime_test(3, new lime_output_color);
+$t = new lime_test(3, new lime_output_color());
 
 $t->diag('Initializing configuration.');
 $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', true);
 sfContext::createInstance($configuration);
 
-$informationObject = new QubitInformationObject;
-$t->isa_ok($informationObject->__toString(), 'string',
-  '"->__toString()" returns a string');
+$informationObject = new QubitInformationObject();
+$t->isa_ok(
+    $informationObject->__toString(),
+    'string',
+    '"->__toString()" returns a string'
+);
 
 $informationObject->title = 'test title';
-$t->is($informationObject->__toString(), 'test title',
-  '"->__toString()" returns the title');
+$t->is(
+    $informationObject->__toString(),
+    'test title',
+    '"->__toString()" returns the title'
+);
 
-$informationObject->language = array('en', 'fr');
-$t->is($informationObject->language, array('en', 'fr'),
-  '"->language" can be set and got');
+$informationObject->language = ['en', 'fr'];
+$t->is(
+    $informationObject->language,
+    ['en', 'fr'],
+    '"->language" can be set and got'
+);
 
 $informationObject->save();
 

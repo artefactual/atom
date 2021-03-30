@@ -25,85 +25,86 @@
  */
 class arMigration0181
 {
-  const
-    VERSION = 181, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 181;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    // Drop parent_id, lft and rgt columns
-    QubitMigrate::dropColumn(QubitFunctionObject::TABLE_NAME, 'parent_id');
-    QubitMigrate::dropColumn(QubitFunctionObject::TABLE_NAME, 'lft');
-    QubitMigrate::dropColumn(QubitFunctionObject::TABLE_NAME, 'rgt');
-    QubitMigrate::dropColumn(QubitPhysicalObject::TABLE_NAME, 'parent_id');
-    QubitMigrate::dropColumn(QubitPhysicalObject::TABLE_NAME, 'lft');
-    QubitMigrate::dropColumn(QubitPhysicalObject::TABLE_NAME, 'rgt');
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
+    {
+        // Drop parent_id, lft and rgt columns
+        QubitMigrate::dropColumn(QubitFunctionObject::TABLE_NAME, 'parent_id');
+        QubitMigrate::dropColumn(QubitFunctionObject::TABLE_NAME, 'lft');
+        QubitMigrate::dropColumn(QubitFunctionObject::TABLE_NAME, 'rgt');
+        QubitMigrate::dropColumn(QubitPhysicalObject::TABLE_NAME, 'parent_id');
+        QubitMigrate::dropColumn(QubitPhysicalObject::TABLE_NAME, 'lft');
+        QubitMigrate::dropColumn(QubitPhysicalObject::TABLE_NAME, 'rgt');
 
-    // Drop lft and rgt columns
-    QubitMigrate::dropColumn(QubitActor::TABLE_NAME, 'lft');
-    QubitMigrate::dropColumn(QubitActor::TABLE_NAME, 'rgt');
-    QubitMigrate::dropColumn(QubitTaxonomy::TABLE_NAME, 'lft');
-    QubitMigrate::dropColumn(QubitTaxonomy::TABLE_NAME, 'rgt');
-    QubitMigrate::dropColumn(QubitAclGroup::TABLE_NAME, 'lft');
-    QubitMigrate::dropColumn(QubitAclGroup::TABLE_NAME, 'rgt');
+        // Drop lft and rgt columns
+        QubitMigrate::dropColumn(QubitActor::TABLE_NAME, 'lft');
+        QubitMigrate::dropColumn(QubitActor::TABLE_NAME, 'rgt');
+        QubitMigrate::dropColumn(QubitTaxonomy::TABLE_NAME, 'lft');
+        QubitMigrate::dropColumn(QubitTaxonomy::TABLE_NAME, 'rgt');
+        QubitMigrate::dropColumn(QubitAclGroup::TABLE_NAME, 'lft');
+        QubitMigrate::dropColumn(QubitAclGroup::TABLE_NAME, 'rgt');
 
-    // Fix function_object table indexes and foreign keys.
-    // Needed after removing the parent_id column to keep them
-    // in sync. with the ones from a new install.
-    QubitMigrate::updateIndexes(array(
-      array(
-        'table' => 'function_object',
-        'column' => 'type_id',
-        'index' => 'function_object_FI_2',
-      ),
-      array(
-        'table' => 'function_object',
-        'column' => 'description_status_id',
-        'index' => 'function_object_FI_3',
-      ),
-      array(
-        'table' => 'function_object',
-        'column' => 'description_detail_id',
-        'index' => 'function_object_FI_4',
-      ),
-    ));
+        // Fix function_object table indexes and foreign keys.
+        // Needed after removing the parent_id column to keep them
+        // in sync. with the ones from a new install.
+        QubitMigrate::updateIndexes([
+            [
+                'table' => 'function_object',
+                'column' => 'type_id',
+                'index' => 'function_object_FI_2',
+            ],
+            [
+                'table' => 'function_object',
+                'column' => 'description_status_id',
+                'index' => 'function_object_FI_3',
+            ],
+            [
+                'table' => 'function_object',
+                'column' => 'description_detail_id',
+                'index' => 'function_object_FI_4',
+            ],
+        ]);
 
-    QubitMigrate::updateForeignKeys(array(
-      array(
-        'table' => 'function_object',
-        'column' => 'id',
-        'refTable' => 'object',
-        'constraint' => 'function_object_FK_1',
-        'onDelete' => 'ON DELETE CASCADE',
-      ),
-      array(
-        'table' => 'function_object',
-        'column' => 'type_id',
-        'refTable' => 'term',
-        'constraint' => 'function_object_FK_2',
-        'onDelete' => '',
-      ),
-      array(
-        'table' => 'function_object',
-        'column' => 'description_status_id',
-        'refTable' => 'term',
-        'constraint' => 'function_object_FK_3',
-        'onDelete' => '',
-      ),
-      array(
-        'table' => 'function_object',
-        'column' => 'description_detail_id',
-        'refTable' => 'term',
-        'constraint' => 'function_object_FK_4',
-        'onDelete' => '',
-      ),
-    ));
+        QubitMigrate::updateForeignKeys([
+            [
+                'table' => 'function_object',
+                'column' => 'id',
+                'refTable' => 'object',
+                'constraint' => 'function_object_FK_1',
+                'onDelete' => 'ON DELETE CASCADE',
+            ],
+            [
+                'table' => 'function_object',
+                'column' => 'type_id',
+                'refTable' => 'term',
+                'constraint' => 'function_object_FK_2',
+                'onDelete' => '',
+            ],
+            [
+                'table' => 'function_object',
+                'column' => 'description_status_id',
+                'refTable' => 'term',
+                'constraint' => 'function_object_FK_3',
+                'onDelete' => '',
+            ],
+            [
+                'table' => 'function_object',
+                'column' => 'description_detail_id',
+                'refTable' => 'term',
+                'constraint' => 'function_object_FK_4',
+                'onDelete' => '',
+            ],
+        ]);
 
-    return true;
-  }
+        return true;
+    }
 }

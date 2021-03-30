@@ -18,21 +18,19 @@
  */
 
 /**
- * Generate the OAI-PMH response
+ * Generate the OAI-PMH response.
  *
- * @package    AccesstoMemory
- * @subpackage oai
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
 class arOaiPluginErrorAction extends sfAction
 {
-  /**
-   * Executes action
-   *
-   * @param sfRequest $request A request object
-   */
-  public function execute($request)
-  {
-    sfConfig::set('sf_escaping_strategy', false);
-  }
+    /**
+     * Executes action.
+     *
+     * @param sfRequest $request A request object
+     */
+    public function execute($request)
+    {
+        sfConfig::set('sf_escaping_strategy', false);
+    }
 }

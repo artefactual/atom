@@ -19,52 +19,50 @@
 
 class DonorPrimaryContactAction extends sfAction
 {
-  public function execute($request)
-  {
-    $resource = $this->getRoute()->resource;
-
-    // Check user authorization
-    if (!QubitAcl::check($resource, 'read'))
+    public function execute($request)
     {
-      QubitAcl::forwardToSecureAction();
+        $resource = $this->getRoute()->resource;
+
+        // Check user authorization
+        if (!QubitAcl::check($resource, 'read')) {
+            QubitAcl::forwardToSecureAction();
+        }
+
+        // Return 404 if the primary contact doesn't exist
+        if (null === $primaryContactInformation = $resource->getPrimaryContact()) {
+            $this->forward404();
+        }
+
+        $data = [];
+
+        foreach (
+            [
+                'city',
+                'contactPerson',
+                'countryCode',
+                'email',
+                'postalCode',
+                'region',
+                'streetAddress',
+                'telephone',
+                'contactType',
+                'website',
+                'fax',
+                'latitude',
+                'longitude',
+                'note',
+            ]
+            as $field
+        ) {
+            if (isset($primaryContactInformation->{$field})) {
+                $data[$field] = $primaryContactInformation->{$field};
+            } else {
+                $data[$field] = '';
+            }
+        }
+
+        $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
+
+        return $this->renderText(json_encode($data));
     }
-
-    // Return 404 if the primary contact doesn't exist
-    if (null === $primaryContactInformation = $resource->getPrimaryContact())
-    {
-      $this->forward404();
-    }
-
-    $data = array();
-
-    foreach (array(
-      'city',
-      'contactPerson',
-      'countryCode',
-      'email',
-      'postalCode',
-      'region',
-      'streetAddress',
-      'telephone',
-      'contactType',
-      'website',
-      'fax',
-      'latitude',
-      'longitude',
-      'note') as $field)
-    {
-      if (isset($primaryContactInformation->$field))
-      {
-        $data[$field] = $primaryContactInformation->$field;
-      }
-      else
-      {
-        $data[$field] = '';
-      }
-    }
-
-    $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
-
-    return $this->renderText(json_encode($data));
-  }
 }

@@ -18,61 +18,67 @@
  */
 
 /**
- * Export repository information to a CSV
+ * Export repository information to a CSV.
  *
- * @package    symfony
- * @subpackage task
  * @author     Mike Gale <mikeg@artefactual.com>
  */
 class exportRepositoriesTask extends arBaseTask
 {
-    protected $namespace        = 'csv';
-    protected $name             = 'repository-export';
+    protected $namespace = 'csv';
+    protected $name = 'repository-export';
     protected $briefDescription = 'Export repository information to a CSV';
 
-    protected $detailedDescription = <<<EOF
+    protected $detailedDescription = <<<'EOF'
 Export repository information to a CSV.
 EOF;
 
-  /**
-   * @see sfBaseTask
-   */
-  protected function configure()
-  {
-    $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-    ));
-
-    $this->addArguments(array(
-      new sfCommandArgument('filename', sfCommandArgument::REQUIRED, 'Filename for the CSV')
-    ));
-  }
-
-  /**
-   * @see sfTask
-   */
-  public function execute($arguments = array(), $options = array())
-  {
-    parent::execute($arguments, $options);
-
-    $writer = new csvRepositoryExport($arguments['filename']);
-
-    foreach ($this->getRepositories() as $r)
+    /**
+     * @see sfTask
+     *
+     * @param mixed $arguments
+     * @param mixed $options
+     */
+    public function execute($arguments = [], $options = [])
     {
-      $this->context->getUser()->setCulture($r->culture);
-      $repository = QubitRepository::getById($r->id);
+        parent::execute($arguments, $options);
 
-      $writer->exportResource($repository);
-      $this->logSection('csv', 'exported '.$repository->getAuthorizedFormOfName(array('cultureFallback' => true)).
-                        " (culture: {$r->culture})");
+        $writer = new csvRepositoryExport($arguments['filename']);
+
+        foreach ($this->getRepositories() as $r) {
+            $this->context->getUser()->setCulture($r->culture);
+            $repository = QubitRepository::getById($r->id);
+
+            $writer->exportResource($repository);
+            $this->logSection(
+                'csv',
+                'exported '
+                .$repository->getAuthorizedFormOfName(['cultureFallback' => true])
+                ." (culture: {$r->culture})"
+            );
+        }
     }
-  }
 
-  private function getRepositories()
-  {
-    return QubitPdo::fetchAll('SELECT id, culture FROM repository_i18n WHERE id <> ?',
-                              array(QubitRepository::ROOT_ID));
-  }
+    /**
+     * @see sfBaseTask
+     */
+    protected function configure()
+    {
+        $this->addOptions([
+            new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+            new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+        ]);
+
+        $this->addArguments([
+            new sfCommandArgument('filename', sfCommandArgument::REQUIRED, 'Filename for the CSV'),
+        ]);
+    }
+
+    private function getRepositories()
+    {
+        return QubitPdo::fetchAll(
+            'SELECT id, culture FROM repository_i18n WHERE id <> ?',
+            [QubitRepository::ROOT_ID]
+        );
+    }
 }

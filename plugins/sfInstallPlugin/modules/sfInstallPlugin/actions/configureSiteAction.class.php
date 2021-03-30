@@ -19,71 +19,69 @@
 
 class sfInstallPluginConfigureSiteAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->form = new sfForm;
-
-    $this->form->setValidator('confirmPassword', new sfValidatorString(array('required' => true)));
-    $this->form->setWidget('confirmPassword', new sfWidgetFormInputPassword);
-
-    $this->form->setValidator('email', new sfValidatorEmail(array('required' => true)));
-    $this->form->setWidget('email', new sfWidgetFormInput);
-
-    $this->form->setValidator('password', new sfValidatorString(array('required' => true)));
-    $this->form->setWidget('password', new sfWidgetFormInputPassword);
-
-    $this->form->setValidator('siteDescription', new sfValidatorString);
-    $this->form->setWidget('siteDescription', new sfWidgetFormInput);
-
-    $this->form->setValidator('siteTitle', new sfValidatorString(array('required' => true)));
-    $this->form->setWidget('siteTitle', new sfWidgetFormInput);
-
-    $this->form->setValidator('siteBaseUrl', new QubitValidatorUrl(array('required' => true)));
-    $this->form->setWidget('siteBaseUrl', new sfWidgetFormInput);
-    $this->form->setDefault('siteBaseUrl', 'http://'. $_SERVER['HTTP_HOST']);
-
-    $this->form->setValidator('username', new sfValidatorString(array('required' => true)));
-    $this->form->setWidget('username', new sfWidgetFormInput);
-
-    $this->form->getValidatorSchema()->setPostValidator(new sfValidatorSchemaCompare('password', '==', 'confirmPassword'));
-
-    if ($request->isMethod('post'))
+    public function execute($request)
     {
-      $this->form->bind($request->getPostParameters());
+        $this->form = new sfForm();
 
-      if ($this->form->isValid())
-      {
-        $setting = new QubitSetting;
-        $setting->name = 'siteTitle';
-        $setting->value = $this->form->getValue('siteTitle');
-        $setting->save();
+        $this->form->setValidator('confirmPassword', new sfValidatorString(['required' => true]));
+        $this->form->setWidget('confirmPassword', new sfWidgetFormInputPassword());
 
-        $setting = new QubitSetting;
-        $setting->name = 'siteBaseUrl';
-        $setting->value = $this->form->getValue('siteBaseUrl');
-        $setting->save();
+        $this->form->setValidator('email', new sfValidatorEmail(['required' => true]));
+        $this->form->setWidget('email', new sfWidgetFormInput());
 
-        $setting = new QubitSetting;
-        $setting->name = 'siteDescription';
-        $setting->value = $this->form->getValue('siteDescription');
-        $setting->save();
+        $this->form->setValidator('password', new sfValidatorString(['required' => true]));
+        $this->form->setWidget('password', new sfWidgetFormInputPassword());
 
-        $user = new QubitUser;
-        $user->username = $this->form->getValue('username');
-        $user->email = $this->form->getValue('email');
-        $user->setPassword($this->form->getValue('password'));
-        $user->save();
+        $this->form->setValidator('siteDescription', new sfValidatorString());
+        $this->form->setWidget('siteDescription', new sfWidgetFormInput());
 
-        $aclUserGroup = new QubitAclUserGroup;
-        $aclUserGroup->userId = $user->id;
-        $aclUserGroup->groupId = QubitAclGroup::ADMINISTRATOR_ID;
-        $aclUserGroup->save();
+        $this->form->setValidator('siteTitle', new sfValidatorString(['required' => true]));
+        $this->form->setWidget('siteTitle', new sfWidgetFormInput());
 
-        $this->context->user->signOut();
-        $this->context->user->authenticate($this->form->getValue('email'), $this->form->getValue('password'));
+        $this->form->setValidator('siteBaseUrl', new QubitValidatorUrl(['required' => true]));
+        $this->form->setWidget('siteBaseUrl', new sfWidgetFormInput());
+        $this->form->setDefault('siteBaseUrl', 'http://'.$_SERVER['HTTP_HOST']);
 
-        $this->redirect(array('module' => 'sfInstallPlugin', 'action' => 'clearCache'));
-      }
+        $this->form->setValidator('username', new sfValidatorString(['required' => true]));
+        $this->form->setWidget('username', new sfWidgetFormInput());
+
+        $this->form->getValidatorSchema()->setPostValidator(new sfValidatorSchemaCompare('password', '==', 'confirmPassword'));
+
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
+
+            if ($this->form->isValid()) {
+                $setting = new QubitSetting();
+                $setting->name = 'siteTitle';
+                $setting->value = $this->form->getValue('siteTitle');
+                $setting->save();
+
+                $setting = new QubitSetting();
+                $setting->name = 'siteBaseUrl';
+                $setting->value = $this->form->getValue('siteBaseUrl');
+                $setting->save();
+
+                $setting = new QubitSetting();
+                $setting->name = 'siteDescription';
+                $setting->value = $this->form->getValue('siteDescription');
+                $setting->save();
+
+                $user = new QubitUser();
+                $user->username = $this->form->getValue('username');
+                $user->email = $this->form->getValue('email');
+                $user->setPassword($this->form->getValue('password'));
+                $user->save();
+
+                $aclUserGroup = new QubitAclUserGroup();
+                $aclUserGroup->userId = $user->id;
+                $aclUserGroup->groupId = QubitAclGroup::ADMINISTRATOR_ID;
+                $aclUserGroup->save();
+
+                $this->context->user->signOut();
+                $this->context->user->authenticate($this->form->getValue('email'), $this->form->getValue('password'));
+
+                $this->redirect(['module' => 'sfInstallPlugin', 'action' => 'clearCache']);
+            }
+        }
     }
-  }
 }

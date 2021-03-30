@@ -18,54 +18,48 @@
  */
 
 /**
- * @package    AccesstoMemory
- * @subpackage repository
  * @author     Peter Van Garderen <peter@artefactual.com>
  */
 class InformationObjectListAction extends sfAction
 {
-  /**
-   * Display a paginated hitlist of information objects (top-level only)
-   *
-   * @param sfRequest $request
-   */
-  public function execute($request)
-  {
-    if (!isset($request->limit))
+    /**
+     * Display a paginated hitlist of information objects (top-level only).
+     *
+     * @param sfRequest $request
+     */
+    public function execute($request)
     {
-      $request->limit = sfConfig::get('app_hits_per_page');
+        if (!isset($request->limit)) {
+            $request->limit = sfConfig::get('app_hits_per_page');
+        }
+
+        $this->resource = QubitInformationObject::getById(QubitInformationObject::ROOT_ID);
+        if (isset($this->getRoute()->resource)) {
+            $this->resource = $this->getRoute()->resource;
+        }
+
+        $query = QubitSearch::getInstance()->addTerm($this->resource->id, 'parentId');
+
+        if (isset($request->query)) {
+            $query = $request->query;
+        }
+
+        $query = QubitAclSearch::filterByRepository($query, 'read');
+        $query = QubitAclSearch::filterDrafts($query);
+
+        $this->pager = new QubitArrayPager();
+        $this->pager->hits = QubitSearch::getInstance()->getEngine()->getIndex()->find($query);
+        $this->pager->setMaxPerPage($request->limit);
+        $this->pager->setPage($request->page);
+
+        $ids = [];
+        foreach ($this->pager->getResults() as $hit) {
+            $ids[] = $hit->getDocument()->id;
+        }
+
+        $criteria = new Criteria();
+        $criteria->add(QubitInformationObject::ID, $ids, Criteria::IN);
+
+        $this->informationObjects = QubitInformationObject::get($criteria);
     }
-
-    $this->resource = QubitInformationObject::getById(QubitInformationObject::ROOT_ID);
-    if (isset($this->getRoute()->resource))
-    {
-      $this->resource = $this->getRoute()->resource;
-    }
-
-    $query = QubitSearch::getInstance()->addTerm($this->resource->id, 'parentId');
-
-    if (isset($request->query))
-    {
-      $query = $request->query;
-    }
-
-    $query = QubitAclSearch::filterByRepository($query, 'read');
-    $query = QubitAclSearch::filterDrafts($query);
-
-    $this->pager = new QubitArrayPager;
-    $this->pager->hits = QubitSearch::getInstance()->getEngine()->getIndex()->find($query);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
-
-    $ids = array();
-    foreach ($this->pager->getResults() as $hit)
-    {
-      $ids[] = $hit->getDocument()->id;
-    }
-
-    $criteria = new Criteria;
-    $criteria->add(QubitInformationObject::ID, $ids, Criteria::IN);
-
-    $this->informationObjects = QubitInformationObject::get($criteria);
-  }
 }

@@ -25,31 +25,28 @@
  */
 class arMigration0135
 {
-  const
-    VERSION = 135, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 135;
+    public const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    // Extract existing value of premisAccessRightValues
-    $setting = QubitSetting::getByName('premisAccessRightValues');
-    if (null === $setting)
+    public function up($configuration)
     {
-      throw new sfException('Setting premisAccessRightValues cannot be found');
+        // Extract existing value of premisAccessRightValues
+        $setting = QubitSetting::getByName('premisAccessRightValues');
+        if (null === $setting) {
+            throw new sfException('Setting premisAccessRightValues cannot be found');
+        }
+
+        // Convert premisAccessRightValues into a multidimensional array where each basis
+        // has its own permissions (allow_master, allow_reference, allow_thumb, etc...)
+        $premisAccessRightValues = [];
+        foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID) as $item) {
+            $premisAccessRightValues[$item->slug] = unserialize($setting->value);
+        }
+
+        // Serialize and save
+        $setting->setValue(serialize($premisAccessRightValues), ['sourceCulture' => true]);
+        $setting->save();
+
+        return true;
     }
-
-    // Convert premisAccessRightValues into a multidimensional array where each basis
-    // has its own permissions (allow_master, allow_reference, allow_thumb, etc...)
-    $premisAccessRightValues = array();
-    foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID) as $item)
-    {
-      $premisAccessRightValues[$item->slug] = unserialize($setting->value);
-    }
-
-    // Serialize and save
-    $setting->setValue(serialize($premisAccessRightValues), array('sourceCulture' => true));
-    $setting->save();
-
-    return true;
-  }
 }

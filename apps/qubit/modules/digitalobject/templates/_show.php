@@ -1,20 +1,20 @@
-<?php if ($usageType == QubitTerm::CHAPTERS_ID || $usageType == QubitTerm::SUBTITLES_ID): ?>
-  <?php if (!empty($accessWarning)): ?>
+<?php if (QubitTerm::CHAPTERS_ID == $usageType || QubitTerm::SUBTITLES_ID == $usageType) { ?>
+  <?php if (!empty($accessWarning)) { ?>
       <div class="access-warning">
-        <?php echo $accessWarning ?>
+        <?php echo $accessWarning; ?>
       </div>
-    <?php else: ?>
-      <?php echo get_component('digitalobject', $showComponent, array('iconOnly' => $iconOnly, 'link' => $link, 'resource' => $resource, 'usageType' => $usageType)) ?>
-  <?php endif; ?>
+    <?php } else { ?>
+      <?php echo get_component('digitalobject', $showComponent, ['iconOnly' => $iconOnly, 'link' => $link, 'resource' => $resource, 'usageType' => $usageType]); ?>
+  <?php } ?>
     
-<?php else: ?>
+<?php } else { ?>
   <div class="digital-object-reference">
-    <?php if (!empty($accessWarning)): ?>
+    <?php if (!empty($accessWarning)) { ?>
       <div class="access-warning">
-        <?php echo $accessWarning ?>
+        <?php echo $accessWarning; ?>
       </div>
-    <?php else: ?>
-      <?php echo get_component('digitalobject', $showComponent, array('iconOnly' => $iconOnly, 'link' => $link, 'resource' => $resource, 'usageType' => $usageType)) ?>
-    <?php endif; ?>
+    <?php } else { ?>
+      <?php echo get_component('digitalobject', $showComponent, ['iconOnly' => $iconOnly, 'link' => $link, 'resource' => $resource, 'usageType' => $usageType]); ?>
+    <?php } ?>
   </div>
-<?php endif; ?>
+<?php } ?>

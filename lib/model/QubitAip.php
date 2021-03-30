@@ -18,47 +18,43 @@
  */
 
 /**
- * Represent the time, place and/or agent of events in an artifact's history
- *
- * @package    AccesstoMemory
- * @subpackage model
+ * Represent the time, place and/or agent of events in an artifact's history.
  */
 class QubitAip extends BaseAip
 {
-  // Flag for updating search index on save
-  public
-    $indexOnSave = true;
+    // Flag for updating search index on save
+    public $indexOnSave = true;
 
-  /**
-   * Additional save functionality (e.g. update search index)
-   *
-   * @param mixed $connection a database connection object
-   * @return QubitAip self-reference
-   */
-  public function save($connection = null)
-  {
-    parent::save($connection);
-
-    if ($this->indexOnSave)
+    /**
+     * Additional save functionality (e.g. update search index).
+     *
+     * @param mixed $connection a database connection object
+     *
+     * @return QubitAip self-reference
+     */
+    public function save($connection = null)
     {
-      QubitSearch::getInstance()->update($this);
+        parent::save($connection);
+
+        if ($this->indexOnSave) {
+            QubitSearch::getInstance()->update($this);
+        }
+
+        return $this;
     }
 
-    return $this;
-  }
+    /**
+     * Get AIP by UUID.
+     *
+     * @param string $uuid AIP UUID
+     *
+     * @return QubitQuery resultset object
+     */
+    public static function getByUuid($uuid)
+    {
+        $c = new Criteria();
+        $c->add(self::UUID, $uuid);
 
-  /**
-   * Get AIP by UUID
-   *
-   * @param string $uuid AIP UUID
-   *
-   * @return QubitQuery resultset object
-   */
-  public static function getByUuid($uuid)
-  {
-    $c = new Criteria;
-    $c->add(self::UUID, $uuid);
-
-    return self::getOne($c);
-  }
+        return self::getOne($c);
+    }
 }

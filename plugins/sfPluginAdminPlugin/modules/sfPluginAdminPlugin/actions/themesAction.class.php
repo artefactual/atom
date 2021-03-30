@@ -19,106 +19,96 @@
 
 class sfPluginAdminPluginThemesAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->form = new sfForm;
-
-    if (!$this->context->user->isAdministrator())
+    public function execute($request)
     {
-      QubitAcl::forwardUnauthorized();
-    }
+        $this->form = new sfForm();
 
-    $criteria = new Criteria;
-    $criteria->add(QubitSetting::NAME, 'plugins');
-    if (1 == count($query = QubitSetting::get($criteria)))
-    {
-      $setting = $query[0];
-
-      $this->form->setDefault('enabled', unserialize($setting->getValue(array('sourceCulture' => true))));
-    }
-
-    $configuration = ProjectConfiguration::getActive();
-    $pluginPaths = $configuration->getAllPluginPaths();
-    foreach (sfPluginAdminPluginConfiguration::$pluginNames as $name)
-    {
-      unset($pluginPaths[$name]);
-    }
-
-    $this->plugins = array();
-    foreach ($pluginPaths as $name => $path)
-    {
-      $className = $name.'Configuration';
-      if (sfConfig::get('sf_plugins_dir') == substr($path, 0, strlen(sfConfig::get('sf_plugins_dir'))) && is_readable($classPath = $path.'/config/'.$className.'.class.php'))
-      {
-        $this->installPluginAssets($name, $path);
-
-        require_once $classPath;
-
-        $class = new $className($configuration);
-
-        // Build a list of themes
-        if (isset($class::$summary) && 1 === preg_match('/theme/i', $class::$summary))
-        {
-          $this->plugins[$name] = $class;
-        }
-      }
-    }
-
-    if ($request->isMethod('post'))
-    {
-      $this->form->setValidators(array(
-        'enabled' => new sfValidatorChoice(array('choices' => array_keys($this->plugins), 'empty_value' => array(), 'multiple' => true))));
-
-      $this->form->bind($request->getPostParameters());
-
-      if ($this->form->isValid())
-      {
-        if (1 != count($query))
-        {
-          $setting = new QubitSetting;
-          $setting->name = 'plugins';
+        if (!$this->context->user->isAdministrator()) {
+            QubitAcl::forwardUnauthorized();
         }
 
-        $settings = unserialize($setting->getValue(array('sourceCulture' => true)));
+        $criteria = new Criteria();
+        $criteria->add(QubitSetting::NAME, 'plugins');
+        if (1 == count($query = QubitSetting::get($criteria))) {
+            $setting = $query[0];
 
-        foreach (array_keys($this->plugins) as $item)
-        {
-          if (in_array($item, (array)$this->form->getValue('enabled')))
-          {
-            $settings[] = $item;
-          }
-          else
-          {
-            if (false !== $key = array_search($item, $settings))
-            {
-              unset($settings[$key]);
+            $this->form->setDefault('enabled', unserialize($setting->getValue(['sourceCulture' => true])));
+        }
+
+        $configuration = ProjectConfiguration::getActive();
+        $pluginPaths = $configuration->getAllPluginPaths();
+        foreach (sfPluginAdminPluginConfiguration::$pluginNames as $name) {
+            unset($pluginPaths[$name]);
+        }
+
+        $this->plugins = [];
+        foreach ($pluginPaths as $name => $path) {
+            $className = $name.'Configuration';
+            if (sfConfig::get('sf_plugins_dir') == substr($path, 0, strlen(sfConfig::get('sf_plugins_dir'))) && is_readable($classPath = $path.'/config/'.$className.'.class.php')) {
+                $this->installPluginAssets($name, $path);
+
+                require_once $classPath;
+
+                $class = new $className($configuration);
+
+                // Build a list of themes
+                if (isset($class::$summary) && 1 === preg_match('/theme/i', $class::$summary)) {
+                    $this->plugins[$name] = $class;
+                }
             }
-          }
         }
 
-        $setting->setValue(serialize(array_unique($settings)), array('sourceCulture' => true));
-        $setting->save();
+        if ($request->isMethod('post')) {
+            $this->form->setValidators([
+                'enabled' => new sfValidatorChoice([
+                    'choices' => array_keys($this->plugins),
+                    'empty_value' => [],
+                    'multiple' => true,
+                ]),
+            ]);
 
-        QubitCache::getInstance()->removePattern('settings:i18n:*');
+            $this->form->bind($request->getPostParameters());
 
-        // Clear cache
-        $cacheClear = new sfCacheClearTask(sfContext::getInstance()->getEventDispatcher(), new sfFormatter());
-        $cacheClear->run();
+            if ($this->form->isValid()) {
+                if (1 != count($query)) {
+                    $setting = new QubitSetting();
+                    $setting->name = 'plugins';
+                }
 
-        $this->redirect(array('module' => 'sfPluginAdminPlugin', 'action' => 'themes'));
-      }
+                $settings = unserialize($setting->getValue(['sourceCulture' => true]));
+
+                foreach (array_keys($this->plugins) as $item) {
+                    if (in_array($item, (array) $this->form->getValue('enabled'))) {
+                        $settings[] = $item;
+                    } else {
+                        if (false !== $key = array_search($item, $settings)) {
+                            unset($settings[$key]);
+                        }
+                    }
+                }
+
+                $setting->setValue(serialize(array_unique($settings)), ['sourceCulture' => true]);
+                $setting->save();
+
+                QubitCache::getInstance()->removePattern('settings:i18n:*');
+
+                // Clear cache
+                $cacheClear = new sfCacheClearTask(sfContext::getInstance()->getEventDispatcher(), new sfFormatter());
+                $cacheClear->run();
+
+                $this->redirect(['module' => 'sfPluginAdminPlugin', 'action' => 'themes']);
+            }
+        }
     }
-  }
 
-  // Copied from sfPluginPublishAssetsTask
-  protected function installPluginAssets($name, $path)
-  {
-    $webDir = $path.'/web';
-
-    if (is_dir($webDir))
+    // Copied from sfPluginPublishAssetsTask
+    protected function installPluginAssets($name, $path)
     {
-      $filesystem = new sfFilesystem;
-      $filesystem->relativeSymlink($webDir, sfConfig::get('sf_web_dir').'/'.$name, true);
+        $webDir = $path.'/web';
+
+        if (is_dir($webDir)) {
+            $filesystem = new sfFilesystem();
+            $filesystem->relativeSymlink($webDir, sfConfig::get('sf_web_dir').'/'.$name, true);
+        }
     }
-  }
 }

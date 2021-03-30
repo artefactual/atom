@@ -1,78 +1,78 @@
-<?php decorate_with('layout_2col') ?>
+<?php decorate_with('layout_2col'); ?>
 
-<?php slot('sidebar') ?>
-  <?php include_component('informationobject', 'contextMenu') ?>
-<?php end_slot() ?>
+<?php slot('sidebar'); ?>
+  <?php include_component('informationobject', 'contextMenu'); ?>
+<?php end_slot(); ?>
 
-<?php slot('title') ?>
+<?php slot('title'); ?>
 
-  <h1><?php echo __('Calculate dates') ?></h1>
+  <h1><?php echo __('Calculate dates'); ?></h1>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>
 
-<?php slot('content') ?>
+<?php slot('content'); ?>
 
-  <?php echo $form->renderGlobalErrors() ?>
+  <?php echo $form->renderGlobalErrors(); ?>
 
-  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'calculateDates'))) ?>
+  <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'informationobject', 'action' => 'calculateDates'])); ?>
 
-    <?php echo $form->renderHiddenFields() ?>
+    <?php echo $form->renderHiddenFields(); ?>
     
     <div id="content">
 
       <fieldset class="collapsible">
 
-        <?php if (count($events)): ?>
-          <legend class="collapse-processed"><?php echo __('Update an existing date range') ?></legend>
+        <?php if (count($events)) { ?>
+          <legend class="collapse-processed"><?php echo __('Update an existing date range'); ?></legend>
 
           <div class="fieldset-wrapper">
 
-            <p><?php echo __('Select a date range to overwrite:') ?></p>
+            <p><?php echo __('Select a date range to overwrite:'); ?></p>
 
-            <?php foreach ($events as $eventId => $eventName): ?>
-              <p><input type="radio" name="eventIdOrTypeId" value="<?php echo $eventId ?>"><?php echo $eventName ?></p>
-            <?php endforeach; ?>
+            <?php foreach ($events as $eventId => $eventName) { ?>
+              <p><input type="radio" name="eventIdOrTypeId" value="<?php echo $eventId; ?>"><?php echo $eventName; ?></p>
+            <?php } ?>
 
             <div class="alert alert-notice">
-              <?php echo __('Updating an existing date range will permanently overwrite the current dates.') ?>
+              <?php echo __('Updating an existing date range will permanently overwrite the current dates.'); ?>
             </div>
 
           </div>
-        <?php endif; ?>
+        <?php } ?>
 
-        <?php if (count($descendantEventTypes)): ?>
-          <legend class="collapse-processed"><?php echo __('or, create a new date range') ?></legend>
+        <?php if (count($descendantEventTypes)) { ?>
+          <legend class="collapse-processed"><?php echo __('or, create a new date range'); ?></legend>
 
           <div class="fieldset-wrapper">
 
-            <p><?php echo __('Select the new date type:') ?></p>
+            <p><?php echo __('Select the new date type:'); ?></p>
 
-            <?php foreach ($descendantEventTypes as $eventTypeId => $eventTypeName): ?>
-              <p><input type="radio" name="eventIdOrTypeId" value="<?php echo $eventTypeId ?>"><?php echo $eventTypeName ?></p>
-            <?php endforeach; ?>
+            <?php foreach ($descendantEventTypes as $eventTypeId => $eventTypeName) { ?>
+              <p><input type="radio" name="eventIdOrTypeId" value="<?php echo $eventTypeId; ?>"><?php echo $eventTypeName; ?></p>
+            <?php } ?>
 
           </div>
-        <?php endif; ?>
+        <?php } ?>
 
       </fieldset>
 
     </div>
           <div class="alert alert-info">
-            <?php echo __('Note: While the date range update is running, the selected description should not be edited.') ?>
+            <?php echo __('Note: While the date range update is running, the selected description should not be edited.'); ?>
             <?php echo __('You can check %1% page to determine the current status of the update job.',
-              array('%1%' => link_to(__('Manage jobs'), array('module' => 'jobs', 'action' => 'browse')))) ?>
+              ['%1%' => link_to(__('Manage jobs'), ['module' => 'jobs', 'action' => 'browse'])]); ?>
           </div>
 
 
     <section class="actions">
       <ul>
-        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
+        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'c-btn']); ?></li>
       </ul>
       <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Continue') ?>"/></li>
+        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Continue'); ?>"/></li>
       </ul>
     </section>
 
   </form>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>

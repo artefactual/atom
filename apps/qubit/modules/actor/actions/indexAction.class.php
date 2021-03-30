@@ -19,30 +19,28 @@
 
 class ActorIndexAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->resource = $this->getRoute()->resource;
-
-    // Check that this isn't the root
-    if (!isset($this->resource->parent))
+    public function execute($request)
     {
-      $this->forward404();
+        $this->resource = $this->getRoute()->resource;
+
+        // Check that this isn't the root
+        if (!isset($this->resource->parent)) {
+            $this->forward404();
+        }
+
+        // Check user authorization
+        if (!QubitAcl::check($this->resource, 'read')) {
+            QubitAcl::forwardUnauthorized();
+        }
+
+        $this->dispatcher->notify(new sfEvent($this, 'access_log.view', ['object' => $this->resource]));
+
+        $criteria = new Criteria();
+        $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
+        $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitFunctionObject::ID);
+
+        $this->functions = QubitFunctionObject::get($criteria);
+
+        $this->digitalObjectLink = $this->resource->getDigitalObjectUrl();
     }
-
-    // Check user authorization
-    if (!QubitAcl::check($this->resource, 'read'))
-    {
-      QubitAcl::forwardUnauthorized();
-    }
-
-    $this->dispatcher->notify(new sfEvent($this, 'access_log.view', array('object' => $this->resource)));
-
-    $criteria = new Criteria;
-    $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
-    $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitFunctionObject::ID);
-
-    $this->functions = QubitFunctionObject::get($criteria);
-
-    $this->digitalObjectLink = $this->resource->getDigitalObjectUrl();
-  }
 }

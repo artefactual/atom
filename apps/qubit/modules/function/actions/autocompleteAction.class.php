@@ -20,49 +20,41 @@
 /**
  * Return list of functions for autocomplete (XHR) response.
  *
- * @package    AccesstoMemory
- * @subpackage function
  * @author     David Juhasz <david@artefactual.com>
  */
 class FunctionAutocompleteAction extends sfAction
 {
-  public function execute($request)
-  {
-    if (!isset($request->limit))
+    public function execute($request)
     {
-      $request->limit = sfConfig::get('app_hits_per_page');
+        if (!isset($request->limit)) {
+            $request->limit = sfConfig::get('app_hits_per_page');
+        }
+
+        $criteria = new Criteria();
+        $criteria->addJoin(QubitFunctionObject::ID, QubitFunctionObjectI18n::ID);
+        $criteria->add(QubitFunctionObjectI18n::CULTURE, $this->context->user->getCulture());
+
+        if (isset($request->query)) {
+            if (sfConfig::get('app_markdown_enabled', true)) {
+                $criteria->add(QubitFunctionObjectI18n::AUTHORIZED_FORM_OF_NAME, "%{$request->query}%", Criteria::LIKE);
+            } else {
+                $criteria->add(QubitFunctionObjectI18n::AUTHORIZED_FORM_OF_NAME, "{$request->query}%", Criteria::LIKE);
+            }
+        }
+
+        // Exclude the calling function from the list
+        $params = $this->context->routing->parse(Qubit::pathInfo($request->getReferer()));
+        $resource = $params['_sf_route']->resource;
+        if (isset($resource->id)) {
+            $criteria->add(QubitFunctionObject::ID, $resource->id, Criteria::NOT_EQUAL);
+        }
+
+        // Page results
+        $this->pager = new QubitPager('QubitFunctionObject');
+        $this->pager->setCriteria($criteria);
+        $this->pager->setMaxPerPage($request->limit);
+        $this->pager->setPage(1);
+
+        $this->setTemplate('list');
     }
-
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitFunctionObject::ID, QubitFunctionObjectI18n::ID);
-    $criteria->add(QubitFunctionObjectI18n::CULTURE, $this->context->user->getCulture());
-
-    if (isset($request->query))
-    {
-      if (sfConfig::get('app_markdown_enabled', true))
-      {
-        $criteria->add(QubitFunctionObjectI18n::AUTHORIZED_FORM_OF_NAME, "%$request->query%", Criteria::LIKE);
-      }
-      else
-      {
-        $criteria->add(QubitFunctionObjectI18n::AUTHORIZED_FORM_OF_NAME, "$request->query%", Criteria::LIKE);
-      }
-    }
-
-    // Exclude the calling function from the list
-    $params = $this->context->routing->parse(Qubit::pathInfo($request->getReferer()));
-    $resource = $params['_sf_route']->resource;
-    if (isset($resource->id))
-    {
-      $criteria->add(QubitFunctionObject::ID, $resource->id, Criteria::NOT_EQUAL);
-    }
-
-    // Page results
-    $this->pager = new QubitPager('QubitFunctionObject');
-    $this->pager->setCriteria($criteria);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage(1);
-
-    $this->setTemplate('list');
-  }
 }

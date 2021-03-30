@@ -18,426 +18,394 @@
  */
 
 /**
- * @package    AccesstoMemory
  * @author     Mike G <mikeg@artefactual.com>
  */
-
 class arFindingAidJob extends arBaseJob
 {
-  const GENERATED_STATUS = 1,
-        UPLOADED_STATUS  = 2;
+    public const GENERATED_STATUS = 1;
+    public const UPLOADED_STATUS = 2;
 
-  /**
-   * @see arBaseJob::$requiredParameters
-   */
-  protected $extraRequiredParameters = array('objectId');
+    /**
+     * @see arBaseJob::$requiredParameters
+     */
+    protected $extraRequiredParameters = ['objectId'];
 
-  private $resource = null;
+    private $resource;
 
-  public function runJob($parameters)
-  {
-    $this->resource = QubitInformationObject::getById($parameters['objectId']);
-
-    // Check that object exists and that it is not the root
-    if (!isset($this->resource) || !isset($this->resource->parent))
+    public function runJob($parameters)
     {
-      $this->error($this->i18n->__('Error: Could not find an information object with id: %1', array('%1' => $parameters['objectId'])));
+        $this->resource = QubitInformationObject::getById($parameters['objectId']);
 
-      return false;
+        // Check that object exists and that it is not the root
+        if (!isset($this->resource) || !isset($this->resource->parent)) {
+            $this->error($this->i18n->__('Error: Could not find an information object with id: %1', ['%1' => $parameters['objectId']]));
+
+            return false;
+        }
+
+        Qubit::createDownloadsDirIfNeeded();
+
+        if (isset($parameters['delete']) && $parameters['delete']) {
+            $result = $this->delete();
+        } elseif (isset($parameters['uploadPath'])) {
+            $result = $this->upload($parameters['uploadPath']);
+        } else {
+            $result = $this->generate();
+        }
+
+        if (!$result) {
+            return false;
+        }
+
+        $this->job->setStatusCompleted();
+        $this->job->save();
+
+        return true;
     }
 
-    Qubit::createDownloadsDirIfNeeded();
+    public static function getStatus($id)
+    {
+        $sql = 'SELECT j.status_id as statusId FROM
+            job j JOIN object o ON j.id = o.id
+            WHERE j.name = ? AND j.object_id = ?
+            ORDER BY o.created_at DESC';
 
-    if (isset($parameters['delete']) && $parameters['delete'])
-    {
-      $result = $this->delete();
-    }
-    else if (isset($parameters['uploadPath']))
-    {
-      $result = $this->upload($parameters['uploadPath']);
-    }
-    else
-    {
-      $result = $this->generate();
+        $ret = QubitPdo::fetchOne($sql, [get_class(), $id]);
+
+        return $ret ? (int) $ret->statusId : null;
     }
 
-    if (!$result)
+    public static function getPossibleFilenames($id)
     {
-      return false;
+        $filenames = [
+            $id.'.pdf',
+            $id.'.rtf',
+        ];
+
+        if (null !== $slug = QubitSlug::getByObjectId($id)) {
+            $filenames[] = $slug->slug.'.pdf';
+            $filenames[] = $slug->slug.'.rtf';
+        }
+
+        return $filenames;
     }
 
-    $this->job->setStatusCompleted();
-    $this->job->save();
-
-    return true;
-  }
-
-  private function generate()
-  {
-    $this->info($this->i18n->__('Generating finding aid (%1)...', array('%1' => $this->resource->slug)));
-
-    $appRoot = rtrim(sfConfig::get('sf_root_dir'), '/');
-
-    $eadFileHandle = tmpfile();
-    $foFileHandle = tmpfile();
-
-    if (!$eadFileHandle || !$foFileHandle)
+    public static function getFindingAidPathForDownload($id)
     {
-      $this->error($this->i18n->__('Failed to create temporary file.'));
+        foreach (self::getPossibleFilenames($id) as $filename) {
+            $path = 'downloads'.DIRECTORY_SEPARATOR.$filename;
 
-      return false;
+            if (file_exists(sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.$path)) {
+                return $path;
+            }
+        }
+
+        return null;
     }
 
-    $eadFilePath = $this->getTmpFilePath($eadFileHandle);
-    $foFilePath = $this->getTmpFilePath($foFileHandle);
-
-    unlink($eadFilePath);
-
-    $public = '';
-    if ((null !== $setting = QubitSetting::getByName('publicFindingAid'))
-      && $setting->getValue(array('sourceCulture' => true)))
+    public static function getFindingAidPath($id)
     {
-      $public = '--public';
+        if (null !== $slug = QubitSlug::getByObjectId($id)) {
+            $filename = $slug->slug;
+        }
+
+        if (!isset($filename)) {
+            $filename = $id;
+        }
+
+        return 'downloads'.DIRECTORY_SEPARATOR.$filename.'.'.self::getFindingAidFormat();
     }
 
-    // Call generate EAD task
-    $slug = $this->resource->slug;
-    $output = array();
-    exec(PHP_BINARY ." $appRoot/symfony export:bulk --single-slug=\"$slug\" $public $eadFilePath 2>&1", $output, $exitCode);
-
-    if ($exitCode > 0)
+    public static function getFindingAidFormat()
     {
-      $this->error($this->i18n->__('Exporting EAD has failed.'));
-      $this->logCmdOutput($output, 'ERROR(EAD-EXPORT)');
+        if (null !== $setting = QubitSetting::getByName('findingAidFormat')) {
+            $format = $setting->getValue(['sourceCulture' => true]);
+        }
 
-      return false;
+        return isset($format) ? $format : 'pdf';
     }
 
-    // Use XSL file selected in Finding Aid model setting
-    $findingAidModel = 'inventory-summary';
-    if (null !== $setting = QubitSetting::getByName('findingAidModel'))
+    private function generate()
     {
-      $findingAidModel = $setting->getValue(array('sourceCulture' => true));
+        $this->info($this->i18n->__('Generating finding aid (%1)...', ['%1' => $this->resource->slug]));
+
+        $appRoot = rtrim(sfConfig::get('sf_root_dir'), '/');
+
+        $eadFileHandle = tmpfile();
+        $foFileHandle = tmpfile();
+
+        if (!$eadFileHandle || !$foFileHandle) {
+            $this->error($this->i18n->__('Failed to create temporary file.'));
+
+            return false;
+        }
+
+        $eadFilePath = $this->getTmpFilePath($eadFileHandle);
+        $foFilePath = $this->getTmpFilePath($foFileHandle);
+
+        unlink($eadFilePath);
+
+        $public = '';
+        if (
+            (null !== $setting = QubitSetting::getByName('publicFindingAid'))
+            && $setting->getValue(['sourceCulture' => true])
+        ) {
+            $public = '--public';
+        }
+
+        // Call generate EAD task
+        $slug = $this->resource->slug;
+        $output = [];
+        exec(PHP_BINARY." {$appRoot}/symfony export:bulk --single-slug=\"{$slug}\" {$public} {$eadFilePath} 2>&1", $output, $exitCode);
+
+        if ($exitCode > 0) {
+            $this->error($this->i18n->__('Exporting EAD has failed.'));
+            $this->logCmdOutput($output, 'ERROR(EAD-EXPORT)');
+
+            return false;
+        }
+
+        // Use XSL file selected in Finding Aid model setting
+        $findingAidModel = 'inventory-summary';
+        if (null !== $setting = QubitSetting::getByName('findingAidModel')) {
+            $findingAidModel = $setting->getValue(['sourceCulture' => true]);
+        }
+
+        $eadXslFilePath = $appRoot.'/lib/task/pdf/ead-pdf-'.$findingAidModel.'.xsl';
+        $saxonPath = $appRoot.'/lib/task/pdf/saxon9he.jar';
+
+        // Crank the XML through XSL stylesheet and fix header / fonds URL
+        $eadFileString = file_get_contents($eadFilePath);
+        $eadFileString = $this->fixHeader($eadFileString, sfConfig::get('app_site_base_url', null));
+        file_put_contents($eadFilePath, $eadFileString);
+
+        // Transform EAD file with Saxon
+        $pdfPath = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.self::getFindingAidPath($this->resource->id);
+        $cmd = sprintf("java -jar '%s' -s:'%s' -xsl:'%s' -o:'%s' 2>&1", $saxonPath, $eadFilePath, $eadXslFilePath, $foFilePath);
+        $this->info(sprintf('Running: %s', $cmd));
+        $output = [];
+        exec($cmd, $output, $exitCode);
+
+        if ($exitCode > 0) {
+            $this->error($this->i18n->__('Transforming the EAD with Saxon has failed.'));
+            $this->logCmdOutput($output, 'ERROR(SAXON)');
+
+            return false;
+        }
+
+        // Use FOP generated in previous step to generate PDF
+        $cmd = sprintf("fop -r -q -fo '%s' -%s '%s' 2>&1", $foFilePath, self::getFindingAidFormat(), $pdfPath);
+        $this->info(sprintf('Running: %s', $cmd));
+        $output = [];
+        exec($cmd, $output, $exitCode);
+
+        if (0 != $exitCode) {
+            $this->error($this->i18n->__('Converting the EAD FO to PDF has failed.'));
+            $this->logCmdOutput($output, 'ERROR(FOP)');
+
+            return false;
+        }
+
+        // Update or create 'findingAidStatus' property
+        $criteria = new Criteria();
+        $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
+        $criteria->add(QubitProperty::NAME, 'findingAidStatus');
+
+        if (null === $property = QubitProperty::getOne($criteria)) {
+            $property = new QubitProperty();
+            $property->objectId = $this->resource->id;
+            $property->name = 'findingAidStatus';
+        }
+
+        $property->setValue(self::GENERATED_STATUS, ['sourceCulture' => true]);
+        $property->indexOnSave = false;
+        $property->save();
+
+        // Update ES document with finding aid status
+        $partialData = [
+            'findingAid' => [
+                'status' => self::GENERATED_STATUS,
+            ],
+        ];
+
+        QubitSearch::getInstance()->partialUpdate($this->resource, $partialData);
+
+        $this->info($this->i18n->__('Finding aid generated successfully: %1', ['%1' => $pdfPath]));
+
+        fclose($eadFileHandle); // Will delete the tmp file
+        fclose($foFileHandle);
+
+        return true;
     }
 
-    $eadXslFilePath = $appRoot . '/lib/task/pdf/ead-pdf-' . $findingAidModel . '.xsl';
-    $saxonPath = $appRoot . '/lib/task/pdf/saxon9he.jar';
-
-    // Crank the XML through XSL stylesheet and fix header / fonds URL
-    $eadFileString = file_get_contents($eadFilePath);
-    $eadFileString = $this->fixHeader($eadFileString, sfConfig::get('app_site_base_url', null));
-    file_put_contents($eadFilePath, $eadFileString);
-
-    // Transform EAD file with Saxon
-    $pdfPath = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR . self::getFindingAidPath($this->resource->id);
-    $cmd = sprintf("java -jar '%s' -s:'%s' -xsl:'%s' -o:'%s' 2>&1", $saxonPath, $eadFilePath, $eadXslFilePath, $foFilePath);
-    $this->info(sprintf('Running: %s', $cmd));
-    $output = array();
-    exec($cmd, $output, $exitCode);
-
-    if ($exitCode > 0)
+    private function upload($path)
     {
-      $this->error($this->i18n->__('Transforming the EAD with Saxon has failed.'));
-      $this->logCmdOutput($output, 'ERROR(SAXON)');
+        $this->info($this->i18n->__('Uploading finding aid (%1)...', ['%1' => $this->resource->slug]));
 
-      return false;
+        // Update or create 'findingAidStatus' property
+        $criteria = new Criteria();
+        $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
+        $criteria->add(QubitProperty::NAME, 'findingAidStatus');
+
+        if (null === $property = QubitProperty::getOne($criteria)) {
+            $property = new QubitProperty();
+            $property->objectId = $this->resource->id;
+            $property->name = 'findingAidStatus';
+        }
+
+        $property->setValue(self::UPLOADED_STATUS, ['sourceCulture' => true]);
+        $property->indexOnSave = false;
+        $property->save();
+
+        $partialData = [
+            'findingAid' => [
+                'transcript' => null,
+                'status' => self::UPLOADED_STATUS,
+            ],
+        ];
+
+        $this->info($this->i18n->__('Finding aid uploaded successfully: %1', ['%1' => $path]));
+
+        // Extract finding aid transcript
+        $mimeType = 'application/'.self::getFindingAidFormat();
+
+        if (!QubitDigitalObject::canExtractText($mimeType)) {
+            $message = $this->i18n->__('Could not obtain finding aid text.');
+            $this->job->addNoteText($message);
+            $this->info($message);
+        } else {
+            $this->info($this->i18n->__('Obtaining finding aid text...'));
+
+            $command = sprintf('pdftotext %s - 2> /dev/null', $path);
+            exec($command, $output, $status);
+
+            if (0 != $status) {
+                $message = $this->i18n->__('Obtaining the text has failed.');
+                $this->job->addNoteText($message);
+                $this->info($message);
+                $this->logCmdOutput($output, 'WARNING(PDFTOTEXT)');
+            } elseif (0 < count($output)) {
+                $text = implode(PHP_EOL, $output);
+
+                // Truncate PDF text to <64KB to fit in `property.value` column
+                $text = mb_strcut($text, 0, 65535);
+
+                // Update or create 'findingAidTranscript' property
+                $criteria = new Criteria();
+                $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
+                $criteria->add(QubitProperty::NAME, 'findingAidTranscript');
+                $criteria->add(QubitProperty::SCOPE, 'Text extracted from finding aid PDF file text layer using pdftotext');
+
+                if (null === $property = QubitProperty::getOne($criteria)) {
+                    $property = new QubitProperty();
+                    $property->objectId = $this->resource->id;
+                    $property->name = 'findingAidTranscript';
+                    $property->scope = 'Text extracted from finding aid PDF file text layer using pdftotext';
+                }
+
+                $property->setValue($text, ['sourceCulture' => true]);
+                $property->indexOnSave = false;
+                $property->save();
+
+                // Update partial data with transcript
+                $partialData['findingAid']['transcript'] = $text;
+            }
+        }
+
+        // Update ES document with finding aid status and transcript
+        QubitSearch::getInstance()->partialUpdate($this->resource, $partialData);
+
+        return true;
     }
 
-    // Use FOP generated in previous step to generate PDF
-    $cmd = sprintf("fop -r -q -fo '%s' -%s '%s' 2>&1", $foFilePath, self::getFindingAidFormat(), $pdfPath);
-    $this->info(sprintf('Running: %s', $cmd));
-    $output = array();
-    exec($cmd, $output, $exitCode);
-
-    if ($exitCode != 0)
+    private function delete()
     {
-      $this->error($this->i18n->__('Converting the EAD FO to PDF has failed.'));
-      $this->logCmdOutput($output, 'ERROR(FOP)');
+        $this->info($this->i18n->__('Deleting finding aid (%1)...', ['%1' => $this->resource->slug]));
 
-      return false;
-    }
+        foreach (self::getPossibleFilenames($this->resource->id) as $filename) {
+            $path = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.'downloads'.DIRECTORY_SEPARATOR.$filename;
 
-    // Update or create 'findingAidStatus' property
-    $criteria = new Criteria;
-    $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
-    $criteria->add(QubitProperty::NAME, 'findingAidStatus');
+            if (file_exists($path)) {
+                unlink($path);
+            }
+        }
 
-    if (null === $property = QubitProperty::getOne($criteria))
-    {
-      $property = new QubitProperty;
-      $property->objectId = $this->resource->id;
-      $property->name = 'findingAidStatus';
-    }
-
-    $property->setValue(self::GENERATED_STATUS, array('sourceCulture' => true));
-    $property->indexOnSave = false;
-    $property->save();
-
-    // Update ES document with finding aid status
-    $partialData = array(
-      'findingAid' => array(
-        'status' => self::GENERATED_STATUS
-    ));
-
-    QubitSearch::getInstance()->partialUpdate($this->resource, $partialData);
-
-    $this->info($this->i18n->__('Finding aid generated successfully: %1', array('%1' => $pdfPath)));
-
-    fclose($eadFileHandle); // Will delete the tmp file
-    fclose($foFileHandle);
-
-    return true;
-  }
-
-  private function upload($path)
-  {
-    $this->info($this->i18n->__('Uploading finding aid (%1)...', array('%1' => $this->resource->slug)));
-
-    // Update or create 'findingAidStatus' property
-    $criteria = new Criteria;
-    $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
-    $criteria->add(QubitProperty::NAME, 'findingAidStatus');
-
-    if (null === $property = QubitProperty::getOne($criteria))
-    {
-      $property = new QubitProperty;
-      $property->objectId = $this->resource->id;
-      $property->name = 'findingAidStatus';
-    }
-
-    $property->setValue(self::UPLOADED_STATUS, array('sourceCulture' => true));
-    $property->indexOnSave = false;
-    $property->save();
-
-    $partialData = array(
-      'findingAid' => array(
-        'transcript' => null,
-        'status' => self::UPLOADED_STATUS
-    ));
-
-    $this->info($this->i18n->__('Finding aid uploaded successfully: %1', array('%1' => $path)));
-
-    // Extract finding aid transcript
-    $mimeType = 'application/' . self::getFindingAidFormat();
-
-    if (!QubitDigitalObject::canExtractText($mimeType))
-    {
-      $message = $this->i18n->__('Could not obtain finding aid text.');
-      $this->job->addNoteText($message);
-      $this->info($message);
-    }
-    else
-    {
-      $this->info($this->i18n->__('Obtaining finding aid text...'));
-
-      $command = sprintf('pdftotext %s - 2> /dev/null', $path);
-      exec($command, $output, $status);
-
-      if ($status != 0)
-      {
-        $message = $this->i18n->__('Obtaining the text has failed.');
-        $this->job->addNoteText($message);
-        $this->info($message);
-        $this->logCmdOutput($output, 'WARNING(PDFTOTEXT)');
-      }
-      else if (0 < count($output))
-      {
-        $text = implode(PHP_EOL, $output);
-
-        // Truncate PDF text to <64KB to fit in `property.value` column
-        $text = mb_strcut($text, 0, 65535);
-
-        // Update or create 'findingAidTranscript' property
-        $criteria = new Criteria;
+        // Delete 'findingAidTranscript' property if it exists
+        $criteria = new Criteria();
         $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
         $criteria->add(QubitProperty::NAME, 'findingAidTranscript');
         $criteria->add(QubitProperty::SCOPE, 'Text extracted from finding aid PDF file text layer using pdftotext');
 
-        if (null === $property = QubitProperty::getOne($criteria))
-        {
-          $property = new QubitProperty;
-          $property->objectId = $this->resource->id;
-          $property->name = 'findingAidTranscript';
-          $property->scope = 'Text extracted from finding aid PDF file text layer using pdftotext';
+        if (null !== $property = QubitProperty::getOne($criteria)) {
+            $this->info($this->i18n->__('Deleting finding aid transcript...'));
+
+            $property->indexOnDelete = false;
+            $property->delete();
         }
 
-        $property->setValue($text, array('sourceCulture' => true));
-        $property->indexOnSave = false;
-        $property->save();
+        // Delete 'findingAidStatus' property if it exists
+        $criteria = new Criteria();
+        $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
+        $criteria->add(QubitProperty::NAME, 'findingAidStatus');
 
-        // Update partial data with transcript
-        $partialData['findingAid']['transcript'] = $text;
-      }
+        if (null !== $property = QubitProperty::getOne($criteria)) {
+            $property->indexOnDelete = false;
+            $property->delete();
+        }
+
+        // Update ES document removing finding aid status and transcript
+        $partialData = [
+            'findingAid' => [
+                'transcript' => null,
+                'status' => null,
+            ],
+        ];
+
+        QubitSearch::getInstance()->partialUpdate($this->resource, $partialData);
+
+        $this->info($this->i18n->__('Finding aid deleted successfully.'));
+
+        return true;
     }
 
-    // Update ES document with finding aid status and transcript
-    QubitSearch::getInstance()->partialUpdate($this->resource, $partialData);
-
-    return true;
-  }
-
-  private function delete()
-  {
-    $this->info($this->i18n->__('Deleting finding aid (%1)...', array('%1' => $this->resource->slug)));
-
-    foreach (self::getPossibleFilenames($this->resource->id) as $filename)
+    private function logCmdOutput(array $output, $prefix = null)
     {
-      $path = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR . 'downloads' . DIRECTORY_SEPARATOR . $filename;
+        if (empty($prefix)) {
+            $prefix = 'ERROR: ';
+        } else {
+            $prefix = $prefix.': ';
+        }
 
-      if (file_exists($path))
-      {
-        unlink($path);
-      }
+        foreach ($output as $line) {
+            $this->error($prefix.$line);
+        }
     }
 
-    // Delete 'findingAidTranscript' property if it exists
-    $criteria = new Criteria;
-    $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
-    $criteria->add(QubitProperty::NAME, 'findingAidTranscript');
-    $criteria->add(QubitProperty::SCOPE, 'Text extracted from finding aid PDF file text layer using pdftotext');
-
-    if (null !== $property = QubitProperty::getOne($criteria))
+    private function fixHeader($xmlString, $url = null)
     {
-      $this->info($this->i18n->__('Deleting finding aid transcript...'));
+        // Apache FOP requires certain namespaces to be included in the XML in order to process it.
+        $xmlString = preg_replace(
+            '(<ead .*?>|<ead>)', '<ead xmlns:ns2="http://www.w3.org/1999/xlink" '
+            .'xmlns="urn:isbn:1-931666-22-9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">',
+            $xmlString,
+            1
+        );
 
-      $property->indexOnDelete = false;
-      $property->delete();
+        // TODO: Use new base url functionality in AtoM instead of doing this kludge
+        if (null !== $url) {
+            // Since we call the EAD generation from inside Symfony and not as part as a web request,
+            // the url was returning symfony://weirdurlhere. We can get around this by passing the referring url into
+            // the job as an option when the user clicks 'generate' and replace the url in the EAD manually.
+            $xmlString = preg_replace('/<eadid(.*?)url=\".*?\"(.*?)>/', '<eadid$1url="'.$url.'"$2>', $xmlString, 1);
+        }
+
+        return $xmlString;
     }
 
-    // Delete 'findingAidStatus' property if it exists
-    $criteria = new Criteria;
-    $criteria->add(QubitProperty::OBJECT_ID, $this->resource->id);
-    $criteria->add(QubitProperty::NAME, 'findingAidStatus');
-
-    if (null !== $property = QubitProperty::getOne($criteria))
+    private function getTmpFilePath($handle)
     {
-      $property->indexOnDelete = false;
-      $property->delete();
+        $meta_data = stream_get_meta_data($handle);
+
+        return $meta_data['uri'];
     }
-
-    // Update ES document removing finding aid status and transcript
-    $partialData = array(
-      'findingAid' => array(
-        'transcript' => null,
-        'status' => null
-    ));
-
-    QubitSearch::getInstance()->partialUpdate($this->resource, $partialData);
-
-    $this->info($this->i18n->__('Finding aid deleted successfully.'));
-
-    return true;
-  }
-
-  private function logCmdOutput(array $output, $prefix = null)
-  {
-    if (empty($prefix))
-    {
-      $prefix = 'ERROR: ';
-    }
-    else
-    {
-      $prefix = $prefix.': ';
-    }
-
-    foreach ($output as $line)
-    {
-      $this->error($prefix.$line);
-    }
-  }
-
-  private function fixHeader($xmlString, $url = null)
-  {
-    // Apache FOP requires certain namespaces to be included in the XML in order to process it.
-    $xmlString = preg_replace('(<ead .*?>|<ead>)', '<ead xmlns:ns2="http://www.w3.org/1999/xlink" ' .
-        'xmlns="urn:isbn:1-931666-22-9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">', $xmlString, 1);
-
-    // TODO: Use new base url functionality in AtoM instead of doing this kludge
-    if ($url !== null)
-    {
-      // Since we call the EAD generation from inside Symfony and not as part as a web request,
-      // the url was returning symfony://weirdurlhere. We can get around this by passing the referring url into
-      // the job as an option when the user clicks 'generate' and replace the url in the EAD manually.
-      $xmlString = preg_replace('/<eadid(.*?)url=\".*?\"(.*?)>/', '<eadid$1url="' . $url . '"$2>', $xmlString, 1);
-    }
-
-    return $xmlString;
-  }
-
-  private function getTmpFilePath($handle)
-  {
-    $meta_data = stream_get_meta_data($handle);
-
-    return $meta_data['uri'];
-  }
-
-  public static function getStatus($id)
-  {
-    $sql = '
-      SELECT j.status_id as statusId FROM
-      job j JOIN object o ON j.id = o.id
-      WHERE j.name = ? AND j.object_id = ?
-      ORDER BY o.created_at DESC
-    ';
-
-    $ret = QubitPdo::fetchOne($sql, array(get_class(), $id));
-
-    return $ret ? (int)$ret->statusId : null;
-  }
-
-  public static function getPossibleFilenames($id)
-  {
-    $filenames = array(
-      $id . '.pdf',
-      $id . '.rtf'
-    );
-
-    if (null !== $slug = QubitSlug::getByObjectId($id))
-    {
-      $filenames[] = $slug->slug . '.pdf';
-      $filenames[] = $slug->slug . '.rtf';
-    }
-
-    return $filenames;
-  }
-
-  public static function getFindingAidPathForDownload($id)
-  {
-    foreach (self::getPossibleFilenames($id) as $filename)
-    {
-      $path = 'downloads' . DIRECTORY_SEPARATOR . $filename;
-
-      if (file_exists(sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR . $path))
-      {
-        return $path;
-      }
-    }
-
-    return null;
-  }
-
-  public static function getFindingAidPath($id)
-  {
-    if (null !== $slug = QubitSlug::getByObjectId($id))
-    {
-      $filename = $slug->slug;
-    }
-
-    if (!isset($filename))
-    {
-      $filename = $id;
-    }
-
-    return 'downloads' . DIRECTORY_SEPARATOR . $filename . '.' . self::getFindingAidFormat();
-  }
-
-  public static function getFindingAidFormat()
-  {
-    if (null !== $setting = QubitSetting::getByName('findingAidFormat'))
-    {
-      $format = $setting->getValue(array('sourceCulture' => true));
-    }
-
-    return isset($format) ? $format : 'pdf';
-  }
 }

@@ -25,102 +25,104 @@
  */
 class arMigration0106
 {
-  const
-    VERSION = 106, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 106;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up ($configuration)
-  {
-    // Remove the converse_term_id column
-    QubitMigrate::dropColumn(QubitTerm::TABLE_NAME, 'converse_term_id');
-
-    // Create new term for the converse relations type
-    QubitMigrate::bumpTerm(QubitTerm::CONVERSE_TERM_ID, $configuration);
-    $term = new QubitTerm;
-    $term->id = QubitTerm::CONVERSE_TERM_ID;
-    $term->parentId = QubitTerm::ROOT_ID;
-    $term->taxonomyId = QubitTaxonomy::TERM_RELATION_TYPE_ID;
-    $term->name = 'Converse term';
-    $term->culture = 'en';
-    $term->save();
-
-    // Add converse term relations
-    foreach (array(
-      QubitTerm::HIERARCHICAL_RELATION_ID => array(
-        'is the superior of' => 'is the subordinate of',
-        'controls' => 'is controlled by',
-        'is the owner of' => 'is owned by'),
-      QubitTerm::TEMPORAL_RELATION_ID => array(
-        'is the predecessor of' => 'is the successor of'),
-      QubitTerm::FAMILY_RELATION_ID => array(
-        'is the parent of' => 'is the child of',
-        'is the sibling of' => 'itself',
-        'is the spouse of' => 'itself',
-        'is the cousin of' => 'itself',
-        'is the grandparent of' => 'is the grandchild of'),
-      QubitTerm::ASSOCIATIVE_RELATION_ID => array(
-        'is the provider of' => 'is the client of',
-        'is the business partner of' => 'itself',
-        'is the associate of' => 'itself',
-        'is the friend of' => 'itself')) as $parentId => $terms)
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      foreach ($terms as $termName => $converseTermName)
-      {
-        // Obtain/create object term
-        $criteria = new Criteria;
-        $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-        $criteria->add(QubitTermI18n::NAME, $termName);
+        // Remove the converse_term_id column
+        QubitMigrate::dropColumn(QubitTerm::TABLE_NAME, 'converse_term_id');
 
-        if (null === $objectTerm = QubitTerm::getOne($criteria))
-        {
-          $objectTerm = new QubitTerm;
-          $objectTerm->name = $termName;
-          $objectTerm->culture = 'en';
+        // Create new term for the converse relations type
+        QubitMigrate::bumpTerm(QubitTerm::CONVERSE_TERM_ID, $configuration);
+        $term = new QubitTerm();
+        $term->id = QubitTerm::CONVERSE_TERM_ID;
+        $term->parentId = QubitTerm::ROOT_ID;
+        $term->taxonomyId = QubitTaxonomy::TERM_RELATION_TYPE_ID;
+        $term->name = 'Converse term';
+        $term->culture = 'en';
+        $term->save();
+
+        // Add converse term relations
+        foreach (
+            [
+                QubitTerm::HIERARCHICAL_RELATION_ID => [
+                    'is the superior of' => 'is the subordinate of',
+                    'controls' => 'is controlled by',
+                    'is the owner of' => 'is owned by',
+                ],
+                QubitTerm::TEMPORAL_RELATION_ID => [
+                    'is the predecessor of' => 'is the successor of',
+                ],
+                QubitTerm::FAMILY_RELATION_ID => [
+                    'is the parent of' => 'is the child of',
+                    'is the sibling of' => 'itself',
+                    'is the spouse of' => 'itself',
+                    'is the cousin of' => 'itself',
+                    'is the grandparent of' => 'is the grandchild of',
+                ],
+                QubitTerm::ASSOCIATIVE_RELATION_ID => [
+                    'is the provider of' => 'is the client of',
+                    'is the business partner of' => 'itself',
+                    'is the associate of' => 'itself',
+                    'is the friend of' => 'itself',
+                ],
+            ]
+            as $parentId => $terms
+        ) {
+            foreach ($terms as $termName => $converseTermName) {
+                // Obtain/create object term
+                $criteria = new Criteria();
+                $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+                $criteria->add(QubitTermI18n::NAME, $termName);
+
+                if (null === $objectTerm = QubitTerm::getOne($criteria)) {
+                    $objectTerm = new QubitTerm();
+                    $objectTerm->name = $termName;
+                    $objectTerm->culture = 'en';
+                }
+
+                // Make sure that the term is on the right taxonomy and parent
+                $objectTerm->parentId = $parentId;
+                $objectTerm->taxonomyId = QubitTaxonomy::ACTOR_RELATION_TYPE_ID;
+                $objectTerm->save();
+
+                if ('itself' == $converseTermName) {
+                    $subjectTerm = $objectTerm;
+                } else {
+                    // Obtain/create subject term
+                    $criteria = new Criteria();
+                    $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+                    $criteria->add(QubitTermI18n::NAME, $converseTermName);
+
+                    if (null === $subjectTerm = QubitTerm::getOne($criteria)) {
+                        $subjectTerm = new QubitTerm();
+                        $subjectTerm->name = $converseTermName;
+                        $subjectTerm->culture = 'en';
+                    }
+
+                    // Make sure that the term is on the right taxonomy and parent
+                    $subjectTerm->parentId = $parentId;
+                    $subjectTerm->taxonomyId = QubitTaxonomy::ACTOR_RELATION_TYPE_ID;
+                    $subjectTerm->save();
+                }
+
+                // Create relation
+                $relation = new QubitRelation();
+                $relation->object = $objectTerm;
+                $relation->subject = $subjectTerm;
+                $relation->typeId = QubitTerm::CONVERSE_TERM_ID;
+                $relation->save();
+            }
         }
 
-        // Make sure that the term is on the right taxonomy and parent
-        $objectTerm->parentId = $parentId;
-        $objectTerm->taxonomyId = QubitTaxonomy::ACTOR_RELATION_TYPE_ID;
-        $objectTerm->save();
-
-        if ($converseTermName == 'itself')
-        {
-          $subjectTerm = $objectTerm;
-        }
-        else
-        {
-          // Obtain/create subject term
-          $criteria = new Criteria;
-          $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-          $criteria->add(QubitTermI18n::NAME, $converseTermName);
-
-          if (null === $subjectTerm = QubitTerm::getOne($criteria))
-          {
-            $subjectTerm = new QubitTerm;
-            $subjectTerm->name = $converseTermName;
-            $subjectTerm->culture = 'en';
-          }
-
-          // Make sure that the term is on the right taxonomy and parent
-          $subjectTerm->parentId = $parentId;
-          $subjectTerm->taxonomyId = QubitTaxonomy::ACTOR_RELATION_TYPE_ID;
-          $subjectTerm->save();
-        }
-
-        // Create relation
-        $relation = new QubitRelation;
-        $relation->object = $objectTerm;
-        $relation->subject = $subjectTerm;
-        $relation->typeId = QubitTerm::CONVERSE_TERM_ID;
-        $relation->save();
-      }
+        return true;
     }
-
-    return true;
-  }
 }

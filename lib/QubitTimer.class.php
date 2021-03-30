@@ -19,76 +19,70 @@
 
 class QubitTimer
 {
-  public
-    $fh = null,
-    $start = null,
-    $end = null,
-    $total = 0;
+    public $fh;
+    public $start;
+    public $end;
+    public $total = 0;
 
-  public function __construct($logFile = null)
-  {
-    $this->start();
-
-    if (null != $logFile)
+    public function __construct($logFile = null)
     {
-      $this->fh = fopen($logFile, 'w');
-    }
-  }
+        $this->start();
 
-  public function start()
-  {
-    $this->start = microtime(true);
-    $this->end = null;
-
-    return $this;
-  }
-
-  public function stop()
-  {
-    $this->end = microtime(true);
-
-    return $this;
-  }
-
-  public function elapsed($rnd = 2)
-  {
-    if (empty($this->end))
-    {
-      $this->add(true);
+        if (null != $logFile) {
+            $this->fh = fopen($logFile, 'w');
+        }
     }
 
-    return round($this->total, $rnd);
-  }
-
-  public function add($continue = false)
-  {
-    $this->stop();
-
-    $this->total += $this->end - $this->start;
-
-    if ($continue)
+    public function __destruct()
     {
-      $this->start();
+        if (isset($this->fh)) {
+            fclose($this->fh);
+        }
     }
 
-    return $this;
-  }
-
-  public function log($string)
-  {
-    if (!isset($this->fh))
+    public function start()
     {
-      return;
+        $this->start = microtime(true);
+        $this->end = null;
+
+        return $this;
     }
 
-    fwrite($this->fh, $string.' ('.$this->elapsed()."s)\n");
-  }
-
-  public function __destruct()
-  {
-    if (isset($this->fh))
+    public function stop()
     {
-      fclose($this->fh);
+        $this->end = microtime(true);
+
+        return $this;
     }
-  }
+
+    public function elapsed($rnd = 2)
+    {
+        if (empty($this->end)) {
+            $this->add(true);
+        }
+
+        return round($this->total, $rnd);
+    }
+
+    public function add($continue = false)
+    {
+        $this->stop();
+
+        $this->total += $this->end - $this->start;
+
+        if ($continue) {
+            $this->start();
+        }
+
+        return $this;
+    }
+
+    public function log($string)
+    {
+        if (!isset($this->fh)) {
+            return;
+        }
+
+        fwrite($this->fh, $string.' ('.$this->elapsed()."s)\n");
+    }
 }

@@ -19,56 +19,52 @@
 
 class QubitStaticPage extends BaseStaticPage
 {
-  public function __toString()
-  {
-    return (string) $this->title;
-  }
-
-  protected function insert($connection = null)
-  {
-    if (!isset($this->slug))
+    public function __toString()
     {
-      $this->slug = QubitSlug::slugify($this->__get('title', array('sourceCulture' => true)));
+        return (string) $this->title;
     }
 
-    return parent::insert($connection);
-  }
-
-  protected function update($connection = null)
-  {
-    if (!isset($connection))
+    public function isProtected()
     {
-      $connection = Propel::getConnection();
+        return 'home' == $this->slug;
     }
 
-    $statement = $connection->prepare('
-      UPDATE '.QubitSlug::TABLE_NAME.'
-      SET '.QubitSlug::SLUG.' = ?
-      WHERE '.QubitSlug::OBJECT_ID.' = ?');
-
-    if (1 > strlen($this->slug))
+    protected function insert($connection = null)
     {
-      $statement->execute(array(QubitSlug::random(), $this->id));
+        if (!isset($this->slug)) {
+            $this->slug = QubitSlug::slugify($this->__get('title', ['sourceCulture' => true]));
+        }
 
-      return;
+        return parent::insert($connection);
     }
 
-    try
+    protected function update($connection = null)
     {
-      $statement->execute(array($this->slug, $this->id));
+        if (!isset($connection)) {
+            $connection = Propel::getConnection();
+        }
+
+        $statement = $connection->prepare(
+            'UPDATE '.QubitSlug::TABLE_NAME
+            .' SET '.QubitSlug::SLUG.' = ?'
+            .' WHERE '.QubitSlug::OBJECT_ID.' = ?'
+        );
+
+        if (1 > strlen($this->slug)) {
+            $statement->execute([QubitSlug::random(), $this->id]);
+
+            return;
+        }
+
+        try {
+            $statement->execute([$this->slug, $this->id]);
+        }
+
+        // Collision? Try random, digit and letter slug
+        catch (PDOException $e) {
+            $statement->execute([QubitSlug::random(), $this->id]);
+        }
+
+        return parent::update($connection);
     }
-
-    // Collision? Try random, digit and letter slug
-    catch (PDOException $e)
-    {
-      $statement->execute(array(QubitSlug::random(), $this->id));
-    }
-
-    return parent::update($connection);
-  }
-
-  public function isProtected()
-  {
-    return $this->slug == 'home';
-  }
 }

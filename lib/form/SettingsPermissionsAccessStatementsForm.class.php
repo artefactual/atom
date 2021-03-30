@@ -19,35 +19,32 @@
 
 class SettingsPermissionsAccessStatementsForm extends sfForm
 {
-  public function configure()
-  {
-    $this->widgetSchema->setNameFormat('accessStatements[%s]');
-
-    $this->settings = array();
-
-    foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID) as $item)
+    public function configure()
     {
-      foreach (array("{$item->slug}_disallow", "{$item->slug}_conditional") as $name)
-      {
-        $this->setWidget($name, new sfWidgetFormTextarea);
-        $this->setValidator($name, new sfValidatorString);
+        $this->widgetSchema->setNameFormat('accessStatements[%s]');
 
-        $setting = $this->settings[$name] = $this->getSetting($name);
-        if (null !== $setting)
-        {
-          $this->setDefault($name, $setting->getValue());
+        $this->settings = [];
+
+        foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID) as $item) {
+            foreach (["{$item->slug}_disallow", "{$item->slug}_conditional"] as $name) {
+                $this->setWidget($name, new sfWidgetFormTextarea());
+                $this->setValidator($name, new sfValidatorString());
+
+                $setting = $this->settings[$name] = $this->getSetting($name);
+                if (null !== $setting) {
+                    $this->setDefault($name, $setting->getValue());
+                }
+            }
         }
-      }
     }
-  }
 
-  protected function getSetting($name)
-  {
-    return QubitSetting::getByNameAndScope($name, 'access_statement');
-  }
+    public function getSettings()
+    {
+        return $this->settings;
+    }
 
-  public function getSettings()
-  {
-    return $this->settings;
-  }
+    protected function getSetting($name)
+    {
+        return QubitSetting::getByNameAndScope($name, 'access_statement');
+    }
 }

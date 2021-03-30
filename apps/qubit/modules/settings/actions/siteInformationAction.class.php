@@ -18,66 +18,63 @@
  */
 
 /**
- * Site information
+ * Site information.
  *
- * @package    AccesstoMemory
- * @subpackage settings
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     Jack Bates <jack@nottheoilrig.com>
  * @author     David Juhasz <david@artefactual.com>
  */
-
 class SettingsSiteInformationAction extends SettingsEditAction
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'siteTitle',
-      'siteDescription',
-      'siteBaseUrl'),
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'siteTitle',
+        'siteDescription',
+        'siteBaseUrl',
+    ];
+    public static $I18N = [
+        'siteTitle',
+        'siteDescription',
+        'siteBaseUrl',
+    ];
 
-    $I18N = array(
-      'siteTitle',
-      'siteDescription',
-      'siteBaseUrl');
-
-  public function earlyExecute()
-  {
-    parent::earlyExecute();
-
-    $this->updateMessage = $this->i18n->__('Site information saved.');
-
-    // Set form decorator
-    $decorator = new QubitWidgetFormSchemaFormatterList($this->form->getWidgetSchema());
-    $this->form->getWidgetSchema()->addFormFormatter('list', $decorator);
-    $this->form->getWidgetSchema()->setFormFormatterName('list');
-  }
-
-  protected function addField($name)
-  {
-    switch ($name)
+    public function earlyExecute()
     {
-      case 'siteTitle':
-        $this->form->setWidget($name, new sfWidgetFormInput);
-        $this->form->setValidator($name, new sfValidatorString(array('required' => false)));
-        $this->form->getWidgetSchema()->$name->setLabel($this->i18n->__('Site title'));
+        parent::earlyExecute();
 
-        break;
+        $this->updateMessage = $this->i18n->__('Site information saved.');
 
-      case 'siteDescription':
-        $this->form->setWidget($name, new sfWidgetFormInput);
-        $this->form->setValidator($name, new sfValidatorString(array('required' => false)));
-        $this->form->getWidgetSchema()->$name->setLabel($this->i18n->__('Site description'));
-
-        break;
-
-      case 'siteBaseUrl':
-        $this->form->setWidget($name, new sfWidgetFormInput);
-        $this->form->setValidator($name, new sfValidatorString(array('required' => false)));
-        $this->form->getWidgetSchema()->$name->setLabel(
-          $this->i18n->__('Site base URL (used in MODS and EAD exports)'));
-
-        break;
+        // Set form decorator
+        $decorator = new QubitWidgetFormSchemaFormatterList($this->form->getWidgetSchema());
+        $this->form->getWidgetSchema()->addFormFormatter('list', $decorator);
+        $this->form->getWidgetSchema()->setFormFormatterName('list');
     }
-  }
+
+    protected function addField($name)
+    {
+        switch ($name) {
+            case 'siteTitle':
+                $this->form->setWidget($name, new sfWidgetFormInput());
+                $this->form->setValidator($name, new sfValidatorString(['required' => false]));
+                $this->form->getWidgetSchema()->{$name}->setLabel($this->i18n->__('Site title'));
+
+                break;
+
+            case 'siteDescription':
+                $this->form->setWidget($name, new sfWidgetFormInput());
+                $this->form->setValidator($name, new sfValidatorString(['required' => false]));
+                $this->form->getWidgetSchema()->{$name}->setLabel($this->i18n->__('Site description'));
+
+                break;
+
+            case 'siteBaseUrl':
+                $this->form->setWidget($name, new sfWidgetFormInput());
+                $this->form->setValidator($name, new sfValidatorString(['required' => false]));
+                $this->form->getWidgetSchema()->{$name}->setLabel(
+                    $this->i18n->__('Site base URL (used in MODS and EAD exports)')
+                );
+
+                break;
+        }
+    }
 }

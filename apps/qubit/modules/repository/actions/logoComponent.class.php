@@ -18,30 +18,22 @@
  */
 
 /**
- * Context menu for the repository logo
- *
- * @package AccesstoMemory
- * @subpackage repository
+ * Context menu for the repository logo.
  */
 class RepositoryLogoComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    if (isset($request->getAttribute('sf_route')->resource))
+    public function execute($request)
     {
-      $this->resource = $request->getAttribute('sf_route')->resource;
-    }
-    else
-    {
-      return sfView::NONE;
-    }
+        if (isset($request->getAttribute('sf_route')->resource)) {
+            $this->resource = $request->getAttribute('sf_route')->resource;
+        } else {
+            return sfView::NONE;
+        }
 
-    if ($this->resource instanceof QubitInformationObject)
-    {
-      if (null === $this->resource = $this->resource->getRepository(array('inherit' => true)))
-      {
-        return sfView::NONE;
-      }
+        if ($this->resource instanceof QubitInformationObject) {
+            if (null === $this->resource = $this->resource->getRepository(['inherit' => true])) {
+                return sfView::NONE;
+            }
+        }
     }
-  }
 }

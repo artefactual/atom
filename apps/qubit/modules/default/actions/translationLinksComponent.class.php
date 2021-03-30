@@ -19,114 +19,110 @@
 
 class DefaultTranslationLinksComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    $currentCulture = $this->getUser()->getCulture();
-
-    switch (get_class($this->resource))
+    public function execute($request)
     {
-      case 'QubitInformationObject':
-        $this->module = 'informationobject';
-        $i18ns = $this->resource->informationObjectI18ns;
-        $propertyName = 'title';
-        $sourceCultureProperty = $this->resource->getTitle(array('sourceCulture' => true));
+        $currentCulture = $this->getUser()->getCulture();
 
-        break;
+        switch (get_class($this->resource)) {
+            case 'QubitInformationObject':
+                $this->module = 'informationobject';
+                $i18ns = $this->resource->informationObjectI18ns;
+                $propertyName = 'title';
+                $sourceCultureProperty = $this->resource->getTitle(['sourceCulture' => true]);
 
-      case 'QubitActor':
-        $this->module = 'actor';
-        $i18ns = $this->resource->actorI18ns;
-        $propertyName = 'authorizedFormOfName';
-        $sourceCultureProperty = $this->resource->getAuthorizedFormOfName(array('sourceCulture' => true));
+                break;
 
-        break;
+            case 'QubitActor':
+                $this->module = 'actor';
+                $i18ns = $this->resource->actorI18ns;
+                $propertyName = 'authorizedFormOfName';
+                $sourceCultureProperty = $this->resource->getAuthorizedFormOfName(['sourceCulture' => true]);
 
-      case 'QubitRepository':
-        $this->module = 'repository';
-        $i18ns = $this->resource->actorI18ns;
-        $propertyName = 'authorizedFormOfName';
-        $sourceCultureProperty = $this->resource->getAuthorizedFormOfName(array('sourceCulture' => true));
+                break;
 
-        break;
+            case 'QubitRepository':
+                $this->module = 'repository';
+                $i18ns = $this->resource->actorI18ns;
+                $propertyName = 'authorizedFormOfName';
+                $sourceCultureProperty = $this->resource->getAuthorizedFormOfName(['sourceCulture' => true]);
 
-      case 'QubitAccession':
-        $this->module = 'accession';
-        $i18ns = $this->resource->accessionI18ns;
-        $sourceCultureProperty = $this->resource->identifier;
+                break;
 
-        break;
+            case 'QubitAccession':
+                $this->module = 'accession';
+                $i18ns = $this->resource->accessionI18ns;
+                $sourceCultureProperty = $this->resource->identifier;
 
-      case 'QubitDeaccession':
-        $this->module = 'deaccession';
-        $i18ns = $this->resource->deaccessionI18ns;
-        $sourceCultureProperty = $this->resource->identifier;
+                break;
 
-        break;
+            case 'QubitDeaccession':
+                $this->module = 'deaccession';
+                $i18ns = $this->resource->deaccessionI18ns;
+                $sourceCultureProperty = $this->resource->identifier;
 
-      case 'QubitDonor':
-        $this->module = 'donor';
-        $i18ns = $this->resource->actorI18ns;
-        $propertyName = 'authorizedFormOfName';
-        $sourceCultureProperty = $this->resource->getAuthorizedFormOfName(array('sourceCulture' => true));
+                break;
 
-        break;
+            case 'QubitDonor':
+                $this->module = 'donor';
+                $i18ns = $this->resource->actorI18ns;
+                $propertyName = 'authorizedFormOfName';
+                $sourceCultureProperty = $this->resource->getAuthorizedFormOfName(['sourceCulture' => true]);
 
-      case 'QubitFunctionObject':
-        $this->module = 'function';
-        $i18ns = $this->resource->functionObjectI18ns;
-        $propertyName = 'authorizedFormOfName';
-        $sourceCultureProperty = $this->resource->getAuthorizedFormOfName(array('sourceCulture' => true));
+                break;
 
-        break;
+            case 'QubitFunctionObject':
+                $this->module = 'function';
+                $i18ns = $this->resource->functionObjectI18ns;
+                $propertyName = 'authorizedFormOfName';
+                $sourceCultureProperty = $this->resource->getAuthorizedFormOfName(['sourceCulture' => true]);
 
-      case 'QubitPhysicalObject':
-        $this->module = 'physicalobject';
-        $i18ns = $this->resource->physicalObjectI18ns;
-        $propertyName = 'name';
-        $sourceCultureProperty = $this->resource->getName(array('sourceCulture' => true));
+                break;
 
-        break;
+            case 'QubitPhysicalObject':
+                $this->module = 'physicalobject';
+                $i18ns = $this->resource->physicalObjectI18ns;
+                $propertyName = 'name';
+                $sourceCultureProperty = $this->resource->getName(['sourceCulture' => true]);
 
-      case 'QubitRightsHolder':
-        $this->module = 'rightsholder';
-        $i18ns = $this->resource->actorI18ns;
-        $propertyName = 'authorizedFormOfName';
-        $sourceCultureProperty = $this->resource->getAuthorizedFormOfName(array('sourceCulture' => true));
+                break;
 
-        break;
+            case 'QubitRightsHolder':
+                $this->module = 'rightsholder';
+                $i18ns = $this->resource->actorI18ns;
+                $propertyName = 'authorizedFormOfName';
+                $sourceCultureProperty = $this->resource->getAuthorizedFormOfName(['sourceCulture' => true]);
 
-      case 'QubitTerm':
-        $this->module = 'term';
-        $i18ns = $this->resource->termI18ns;
-        $propertyName = 'name';
-        $sourceCultureProperty = $this->resource->getName(array('sourceCulture' => true));
+                break;
 
-        break;
+            case 'QubitTerm':
+                $this->module = 'term';
+                $i18ns = $this->resource->termI18ns;
+                $propertyName = 'name';
+                $sourceCultureProperty = $this->resource->getName(['sourceCulture' => true]);
+
+                break;
+        }
+
+        // Return nothing if the resource only has the current culture
+        if (1 == count($i18ns) && $i18ns[0]->culture == $currentCulture) {
+            return sfView::NONE;
+        }
+
+        // Get other cultures available
+        $this->translations = [];
+        foreach ($i18ns as $i18n) {
+            if ($i18n->culture == $currentCulture) {
+                continue;
+            }
+
+            $name = isset($propertyName) && isset($i18n->{$propertyName}) ? $i18n->{$propertyName} : $sourceCultureProperty;
+            $langCode = $i18n->culture;
+            $langName = format_language($langCode);
+
+            $this->translations[$langCode] = [
+                'name' => $name,
+                'language' => ucfirst($langName),
+            ];
+        }
     }
-
-    // Return nothing if the resource only has the current culture
-    if (count($i18ns) == 1 && $i18ns[0]->culture == $currentCulture)
-    {
-      return sfView::NONE;
-    }
-
-    // Get other cultures available
-    $this->translations = array();
-    foreach ($i18ns as $i18n)
-    {
-      if ($i18n->culture == $currentCulture)
-      {
-        continue;
-      }
-
-      $name = isset($propertyName) && isset($i18n->$propertyName) ? $i18n->$propertyName : $sourceCultureProperty;
-      $langCode = $i18n->culture;
-      $langName = format_language($langCode);
-
-      $this->translations[$langCode] = array(
-        'name' => $name,
-        'language' => ucfirst($langName)
-      );
-    }
-  }
 }

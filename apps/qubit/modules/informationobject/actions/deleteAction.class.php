@@ -19,46 +19,41 @@
 
 class InformationObjectDeleteAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->form = new sfForm;
-
-    $this->resource = $this->getRoute()->resource;
-
-    // Check that this isn't the root
-    if (!isset($this->resource->parent))
+    public function execute($request)
     {
-      $this->forward404();
-    }
+        $this->form = new sfForm();
 
-    // Check user authorization
-    if (!QubitAcl::check($this->resource, 'delete'))
-    {
-      QubitAcl::forwardUnauthorized();
-    }
+        $this->resource = $this->getRoute()->resource;
 
-    if ($request->isMethod('delete'))
-    {
-      $this->form->bind($request->getPostParameters());
-      
-      if ($this->form->isValid())
-      {
-        $parent = $this->resource->parent;
-        $this->resource->deleteFullHierarchy();
-
-        if (isset($parent->parent))
-        {
-          $this->redirect(array($parent, 'module' => 'informationobject'));
+        // Check that this isn't the root
+        if (!isset($this->resource->parent)) {
+            $this->forward404();
         }
 
-        $this->redirect(array('module' => 'informationobject', 'action' => 'browse'));
-      }
-    }
+        // Check user authorization
+        if (!QubitAcl::check($this->resource, 'delete')) {
+            QubitAcl::forwardUnauthorized();
+        }
 
-    // Apparently we can't slice a QubitQuery. `previewSize` is shared with
-    // the template so we can break the loop when desired.
-    $this->count = ($this->resource->rgt - $this->resource->lft - 1) / 2;
-    $this->previewSize = (int)sfConfig::get('app_hits_per_page', 10);
-    $this->previewIsLimited = $this->count > $this->previewSize;
-  }
+        if ($request->isMethod('delete')) {
+            $this->form->bind($request->getPostParameters());
+
+            if ($this->form->isValid()) {
+                $parent = $this->resource->parent;
+                $this->resource->deleteFullHierarchy();
+
+                if (isset($parent->parent)) {
+                    $this->redirect([$parent, 'module' => 'informationobject']);
+                }
+
+                $this->redirect(['module' => 'informationobject', 'action' => 'browse']);
+            }
+        }
+
+        // Apparently we can't slice a QubitQuery. `previewSize` is shared with
+        // the template so we can break the loop when desired.
+        $this->count = ($this->resource->rgt - $this->resource->lft - 1) / 2;
+        $this->previewSize = (int) sfConfig::get('app_hits_per_page', 10);
+        $this->previewIsLimited = $this->count > $this->previewSize;
+    }
 }

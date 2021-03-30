@@ -28,48 +28,46 @@
  */
 class arMigration0172
 {
-  const
-    VERSION = 172, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 172;
+    public const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    $i18nTables = array(
-      'accession_i18n',
-      'acl_group_i18n',
-      'actor_i18n',
-      'contact_information_i18n',
-      'deaccession_i18n',
-      'event_i18n',
-      'function_i18n',
-      'information_object_i18n',
-      'menu_i18n',
-      'note_i18n',
-      'other_name_i18n',
-      'physical_object_i18n',
-      'property_i18n',
-      'relation_i18n',
-      'repository_i18n',
-      'rights_i18n',
-      'setting_i18n',
-      'static_page_i18n',
-      'taxonomy_i18n',
-      'term_i18n'
-    );
-
-    // Increase size of culture-related columns
-    foreach($i18nTables as $table)
+    public function up($configuration)
     {
-      // Increase size of i18n table's culture column
-      $sql = "ALTER TABLE `%s` CHANGE `culture` `culture` VARCHAR(16)";
-      QubitPdo::modify(sprintf($sql, $table));
+        $i18nTables = [
+            'accession_i18n',
+            'acl_group_i18n',
+            'actor_i18n',
+            'contact_information_i18n',
+            'deaccession_i18n',
+            'event_i18n',
+            'function_i18n',
+            'information_object_i18n',
+            'menu_i18n',
+            'note_i18n',
+            'other_name_i18n',
+            'physical_object_i18n',
+            'property_i18n',
+            'relation_i18n',
+            'repository_i18n',
+            'rights_i18n',
+            'setting_i18n',
+            'static_page_i18n',
+            'taxonomy_i18n',
+            'term_i18n',
+        ];
 
-      // Increase size of base table's source_culture column
-      $baseTable = str_replace('_i18n', '', $table);
-      $sql = "ALTER TABLE `%s` CHANGE `source_culture` `source_culture` VARCHAR(16)";
-      QubitPdo::modify(sprintf($sql, $baseTable));
+        // Increase size of culture-related columns
+        foreach ($i18nTables as $table) {
+            // Increase size of i18n table's culture column
+            $sql = 'ALTER TABLE `%s` CHANGE `culture` `culture` VARCHAR(16)';
+            QubitPdo::modify(sprintf($sql, $table));
+
+            // Increase size of base table's source_culture column
+            $baseTable = str_replace('_i18n', '', $table);
+            $sql = 'ALTER TABLE `%s` CHANGE `source_culture` `source_culture` VARCHAR(16)';
+            QubitPdo::modify(sprintf($sql, $baseTable));
+        }
+
+        return true;
     }
-
-    return true;
-  }
 }

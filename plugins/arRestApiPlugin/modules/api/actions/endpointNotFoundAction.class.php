@@ -19,8 +19,8 @@
 
 class ApiEndpointNotFoundAction extends sfAction
 {
-  public function execute($request)
-  {
-    throw new QubitApi404Exception;
-  }
+    public function execute($request)
+    {
+        throw new QubitApi404Exception();
+    }
 }

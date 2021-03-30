@@ -20,25 +20,21 @@
 /**
  * Context Menu component for physical objects.
  *
- * @package AccesstoMemory
- * @subpackage physicalobject
  * @author david juhasz <david@artefactual.com>
  */
 class PhysicalObjectContextMenuComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    $this->resource = $request->getAttribute('sf_route')->resource;
-
-    $this->physicalObjects = array();
-    foreach ($this->resource->getPhysicalObjects() as $item)
+    public function execute($request)
     {
-      $this->physicalObjects[$item->id] = $item;
-    }
+        $this->resource = $request->getAttribute('sf_route')->resource;
 
-    if (1 > count($this->physicalObjects))
-    {
-      return sfView::NONE;
+        $this->physicalObjects = [];
+        foreach ($this->resource->getPhysicalObjects() as $item) {
+            $this->physicalObjects[$item->id] = $item;
+        }
+
+        if (1 > count($this->physicalObjects)) {
+            return sfView::NONE;
+        }
     }
-  }
 }

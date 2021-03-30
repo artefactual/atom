@@ -24,8 +24,8 @@
  */
 class QubitAclUserGroup extends BaseAclUserGroup
 {
-  public function isDeleted()
-  {
-    return $this->deleted;
-  }
+    public function isDeleted()
+    {
+        return $this->deleted;
+    }
 }

@@ -25,58 +25,60 @@ require_once dirname(__FILE__).'/../bootstrap/unit.php';
 // path info prefix into ::pathInfo() some other way?
 class sfWebRequestStub
 {
-  public function getPathInfoPrefix()
-  {
-    return $this->pathInfoPrefix;
-  }
+    public function getPathInfoPrefix()
+    {
+        return $this->pathInfoPrefix;
+    }
 }
 
 $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', true);
-sfContext::createInstance($configuration)->request = new sfWebRequestStub;
+sfContext::createInstance($configuration)->request = new sfWebRequestStub();
 
-$t = new lime_test(19, new lime_output_color);
+$t = new lime_test(19, new lime_output_color());
 
 sfContext::getInstance()->request->pathInfoPrefix = '/aaa/bbb';
 
-$t->is(Qubit::pathInfo('/aaa/bbb/ccc/ddd'), '/ccc/ddd',
-  '"::pathInfo()" with prefix');
+$t->is(
+    Qubit::pathInfo('/aaa/bbb/ccc/ddd'),
+    '/ccc/ddd',
+    '"::pathInfo()" with prefix'
+);
 
 sfContext::getInstance()->request->pathInfoPrefix = null;
 
-$t->is(Qubit::pathInfo('/aaa/bbb/ccc/ddd'), '/aaa/bbb/ccc/ddd',
-  '"::pathInfo()" without prefix');
-
-
-/*
- * Qubit::renderDate
- */
-
-$tests = array(
-  # GIVEN - EXPECTED
-  array('1992-00-00', '1992'),
-  array('1992-12-00', '1992-12'),
-  array('1992-08-00', '1992-08'),
-  array('1992-8-00', '1992-8'),
-  array('1992-8-0', '1992-8'),
-
-  array('1992-01-02', '1992-01-02'),
-  array('1992-01-01', '1992-01-01'),
-  array('1992-6-9', '1992-6-9'),
-  array('1992-06-9', '1992-06-9'),
-  array('1992-6-09', '1992-6-09'),
-  array('1992-08-12', '1992-08-12'),
-  array('1992-6-16', '1992-6-16'),
-  array('1992-06-16', '1992-06-16'),
-
-  array('1992-12-12', '1992-12-12'),
-  array('1992-12-6', '1992-12-6'),
-  array('1992-12-06', '1992-12-06'),
-  array('1992-12-16', '1992-12-16'),
+$t->is(
+    Qubit::pathInfo('/aaa/bbb/ccc/ddd'),
+    '/aaa/bbb/ccc/ddd',
+    '"::pathInfo()" without prefix'
 );
 
-foreach ($tests as $item)
-{
-  list($given, $expected) = $item;
+// Qubit::renderDate
 
-  $t->is(Qubit::renderDate($given), $expected, "renderDate() renders date $given as $expected");
+$tests = [
+    // GIVEN - EXPECTED
+    ['1992-00-00', '1992'],
+    ['1992-12-00', '1992-12'],
+    ['1992-08-00', '1992-08'],
+    ['1992-8-00', '1992-8'],
+    ['1992-8-0', '1992-8'],
+
+    ['1992-01-02', '1992-01-02'],
+    ['1992-01-01', '1992-01-01'],
+    ['1992-6-9', '1992-6-9'],
+    ['1992-06-9', '1992-06-9'],
+    ['1992-6-09', '1992-6-09'],
+    ['1992-08-12', '1992-08-12'],
+    ['1992-6-16', '1992-6-16'],
+    ['1992-06-16', '1992-06-16'],
+
+    ['1992-12-12', '1992-12-12'],
+    ['1992-12-6', '1992-12-6'],
+    ['1992-12-06', '1992-12-06'],
+    ['1992-12-16', '1992-12-16'],
+];
+
+foreach ($tests as $item) {
+    list($given, $expected) = $item;
+
+    $t->is(Qubit::renderDate($given), $expected, "renderDate() renders date {$given} as {$expected}");
 }

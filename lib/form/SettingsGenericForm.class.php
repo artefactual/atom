@@ -18,61 +18,59 @@
  */
 
 /**
- * Settings module - generic form definition
+ * Settings module - generic form definition.
  *
- * @package    AccesstoMemory
- * @subpackage settings
  * @author     David Juhasz <david@artefactual.com>
  */
 class SettingsGenericForm extends sfForm
 {
-  public function configure()
-  {
-    // Build widgets and validators
-    foreach($this->getSettings() as $setting) {
-      $widgets[$setting->getName()] = new sfWidgetFormInput;
-      $validators[$setting->getName()] = new sfValidatorString(array('required'=>$this->areFieldsRequired()));
+    public function configure()
+    {
+        // Build widgets and validators
+        foreach ($this->getSettings() as $setting) {
+            $widgets[$setting->getName()] = new sfWidgetFormInput();
+            $validators[$setting->getName()] = new sfValidatorString(['required' => $this->areFieldsRequired()]);
+        }
+
+        // Set them
+        $this->setWidgets($widgets);
+        $this->setValidators($validators);
+
+        // Set decorator
+        $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
+        $this->widgetSchema->addFormFormatter('list', $decorator);
+        $this->widgetSchema->setFormFormatterName('list');
+
+        // Set wrapper text for global form settings
+        $this->widgetSchema->setNameFormat($this->getOption('scope').'[%s]');
     }
 
-    // Set them
-    $this->setWidgets($widgets);
-    $this->setValidators($validators);
+    public function setScope($scope)
+    {
+        $this->setOption('scope', $scope);
 
-    // Set decorator
-    $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
-    $this->widgetSchema->addFormFormatter('list', $decorator);
-    $this->widgetSchema->setFormFormatterName('list');
+        return $this;
+    }
 
-    // Set wrapper text for global form settings
-    $this->widgetSchema->setNameFormat($this->getOption('scope').'[%s]');
-  }
+    public function getScope()
+    {
+        return $this->getOption('scope');
+    }
 
-  public function setScope($scope)
-  {
-    $this->setOption('scope', $scope);
+    public function setSettings(array $settings)
+    {
+        $this->setOption('settings', $settings);
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getScope()
-  {
-    return $this->getOption('scope');
-  }
+    public function getSettings()
+    {
+        return $this->getOption('settings');
+    }
 
-  public function setSettings(array $settings)
-  {
-    $this->setOption('settings', $settings);
-
-    return $this;
-  }
-
-  public function getSettings()
-  {
-    return $this->getOption('settings');
-  }
-
-  public function areFieldsRequired()
-  {
-    return !(isset($this->options['fieldsRequired']) && $this->options['fieldsRequired'] === false);
-  }
+    public function areFieldsRequired()
+    {
+        return !(isset($this->options['fieldsRequired']) && false === $this->options['fieldsRequired']);
+    }
 }

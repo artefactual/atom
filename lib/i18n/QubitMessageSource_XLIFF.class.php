@@ -25,82 +25,77 @@
  */
 class QubitMessageSource_XLIFF extends sfMessageSource_XLIFF
 {
-  /**
-   * Override its parent method in order to: (1) avoid appending units if the
-   * target document exists, (2) guarantee the singularity of the id property
-   * in the trans-unit elements based in the checksum of its source element.
-   * This is needed so Transifex won't overwrite existing source strings when
-   * using autonumeric ids and they clash.
-   *
-   * @see sfMessageSource_XLIFF
-   */
-  public function save($catalogue = 'messages')
-  {
-    $messages = $this->untranslated;
-    if (count($messages) <= 0)
+    /**
+     * Override its parent method in order to: (1) avoid appending units if the
+     * target document exists, (2) guarantee the singularity of the id property
+     * in the trans-unit elements based in the checksum of its source element.
+     * This is needed so Transifex won't overwrite existing source strings when
+     * using autonumeric ids and they clash.
+     *
+     * @see sfMessageSource_XLIFF
+     *
+     * @param mixed $catalogue
+     */
+    public function save($catalogue = 'messages')
     {
-      return false;
+        $messages = $this->untranslated;
+        if (count($messages) <= 0) {
+            return false;
+        }
+
+        $variants = $this->getVariants($catalogue);
+        if ($variants) {
+            list($variant, $filename) = $variants;
+        } else {
+            list($variant, $filename) = $this->createMessageTemplate($catalogue);
+        }
+
+        if (false == is_writable($filename)) {
+            throw new sfException(sprintf('Unable to save to file %s, file must be writable.', $filename));
+        }
+
+        // Create new DOM
+        $dom = $this->createDOMDocument();
+        $this->createMessageTemplate($catalogue);
+        $dom->load($filename);
+
+        // Locate body tag
+        $xpath = new DomXPath($dom);
+        $body = $xpath->query('//body')->item(0);
+
+        // For each message add it to the XML file using DOM
+        foreach ($messages as $message) {
+            $unit = $dom->createElement('trans-unit');
+
+            // Set the ID using the SHA1 checksum of its source
+            $unit->setAttribute('id', sha1($message));
+
+            // Set source
+            $source = $dom->createElement('source');
+            $source->appendChild($dom->createTextNode($message));
+            $unit->appendChild($source);
+
+            // Set target
+            $target = $dom->createElement('target');
+            $target->appendChild($dom->createTextNode(''));
+            $unit->appendChild($target);
+
+            // Append to <body/>
+            $body->appendChild($unit);
+        }
+
+        // Update date
+        $fileNode = $xpath->query('//file')->item(0);
+        $fileNode->setAttribute('date', @date('Y-m-d\TH:i:s\Z'));
+
+        $dom = $this->createDOMDocument($dom->saveXML());
+
+        // save it and clear the cache for this variant
+        $dom->save($filename);
+        if ($this->cache) {
+            $this->cache->remove($variant.':'.$this->culture);
+        }
+
+        return true;
     }
-
-    $variants = $this->getVariants($catalogue);
-    if ($variants)
-    {
-      list($variant, $filename) = $variants;
-    }
-    else
-    {
-      list($variant, $filename) = $this->createMessageTemplate($catalogue);
-    }
-
-    if (is_writable($filename) == false)
-    {
-      throw new sfException(sprintf("Unable to save to file %s, file must be writable.", $filename));
-    }
-
-    // Create new DOM
-    $dom = $this->createDOMDocument();
-    $this->createMessageTemplate($catalogue);
-    $dom->load($filename);
-
-    // Locate body tag
-    $xpath = new DomXPath($dom);
-    $body = $xpath->query('//body')->item(0);
-
-    // For each message add it to the XML file using DOM
-    foreach ($messages as $message)
-    {
-      $unit = $dom->createElement('trans-unit');
-
-      // Set the ID using the SHA1 checksum of its source
-      $unit->setAttribute('id', sha1($message));
-
-      // Set source
-      $source = $dom->createElement('source');
-      $source->appendChild($dom->createTextNode($message));
-      $unit->appendChild($source);
-
-      // Set target
-      $target = $dom->createElement('target');
-      $target->appendChild($dom->createTextNode(''));
-      $unit->appendChild($target);
-
-      // Append to <body/>
-      $body->appendChild($unit);
-    }
-
-    // Update date
-    $fileNode = $xpath->query('//file')->item(0);
-    $fileNode->setAttribute('date', @date('Y-m-d\TH:i:s\Z'));
-
-    $dom = $this->createDOMDocument($dom->saveXML());
-
-    // save it and clear the cache for this variant
-    $dom->save($filename);
-    if ($this->cache)
-    {
-      $this->cache->remove($variant.':'.$this->culture);
-    }
-
-    return true;
-  }
 }

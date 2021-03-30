@@ -20,53 +20,51 @@
 /**
  * Extend BaseAclGroup functionality.
  *
- * @package    AccesstoMemory
- * @subpackage acl
  * @author     David Juhasz <david@artefactual.com>
  */
 class QubitAclGroup extends BaseAclGroup implements Zend_Acl_Role_Interface
 {
-  const ROOT_ID          = 1;
-  const ANONYMOUS_ID     = 98;
-  const AUTHENTICATED_ID = 99;
-  const ADMINISTRATOR_ID = 100;
-  const ADMIN_ID         = 100;
-  const EDITOR_ID        = 101;
-  const CONTRIBUTOR_ID   = 102;
-  const TRANSLATOR_ID    = 103;
+    public const ROOT_ID = 1;
+    public const ANONYMOUS_ID = 98;
+    public const AUTHENTICATED_ID = 99;
+    public const ADMINISTRATOR_ID = 100;
+    public const ADMIN_ID = 100;
+    public const EDITOR_ID = 101;
+    public const CONTRIBUTOR_ID = 102;
+    public const TRANSLATOR_ID = 103;
 
-  public function __toString()
-  {
-    return (string) $this->getName(array('cultureFallback' => true));
-  }
-
-  /**
-   * Required for Zend_Acl_Role_Interface
-   */
-  public function getRoleId()
-  {
-    return $this->id;
-  }
-
-  public function save($connection = null)
-  {
-    parent::save($connection);
-
-    foreach ($this->aclPermissions as $aclPermission)
+    public function __toString()
     {
-      $aclPermission->group = $this;
-      $aclPermission->save($connection);
+        return (string) $this->getName(['cultureFallback' => true]);
     }
 
-    return $this;
-  }
+    /**
+     * Required for Zend_Acl_Role_Interface.
+     */
+    public function getRoleId()
+    {
+        return $this->id;
+    }
 
-  public function isProtected()
-  {
-    return in_array($this->id, array(
-      self::ROOT_ID,
-      self::ANONYMOUS_ID,
-      self::AUTHENTICATED_ID,
-      self::ADMINISTRATOR_ID));
-  }
+    public function save($connection = null)
+    {
+        parent::save($connection);
+
+        foreach ($this->aclPermissions as $aclPermission) {
+            $aclPermission->group = $this;
+            $aclPermission->save($connection);
+        }
+
+        return $this;
+    }
+
+    public function isProtected()
+    {
+        return in_array($this->id, [
+            self::ROOT_ID,
+            self::ANONYMOUS_ID,
+            self::AUTHENTICATED_ID,
+            self::ADMINISTRATOR_ID,
+        ]);
+    }
 }

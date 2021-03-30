@@ -19,33 +19,28 @@
 
 class UserIndexAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->resource = $this->getRoute()->resource;
-
-    if (!isset($this->resource))
+    public function execute($request)
     {
-      $this->forward404();
-    }
+        $this->resource = $this->getRoute()->resource;
 
-    foreach (array('restApiKey', 'oaiApiKey') as $key)
-    {
-      // Get API key value, if any
-      $apiKeyProperty = QubitProperty::getOneByObjectIdAndName($this->resource->id, sfInflector::camelize($key));
+        if (!isset($this->resource)) {
+            $this->forward404();
+        }
 
-      if (null != $apiKeyProperty)
-      {
-        $this->$key = $apiKeyProperty->value;
-      }
-    }
+        foreach (['restApiKey', 'oaiApiKey'] as $key) {
+            // Get API key value, if any
+            $apiKeyProperty = QubitProperty::getOneByObjectIdAndName($this->resource->id, sfInflector::camelize($key));
 
-    // Except for administrators, only allow users to see their own profile
-    if (!$this->context->user->isAdministrator())
-    {
-      if ($this->resource->id != $this->context->user->getAttribute('user_id'))
-      {
-        $this->redirect('admin/secure');
-      }
+            if (null != $apiKeyProperty) {
+                $this->{$key} = $apiKeyProperty->value;
+            }
+        }
+
+        // Except for administrators, only allow users to see their own profile
+        if (!$this->context->user->isAdministrator()) {
+            if ($this->resource->id != $this->context->user->getAttribute('user_id')) {
+                $this->redirect('admin/secure');
+            }
+        }
     }
-  }
 }

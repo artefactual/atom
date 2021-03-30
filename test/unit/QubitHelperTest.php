@@ -19,35 +19,36 @@
 
 require_once dirname(__FILE__).'/../bootstrap/unit.php';
 
-require_once(dirname(__FILE__).'/../../lib/helper/QubitHelper.php');
+require_once dirname(__FILE__).'/../../lib/helper/QubitHelper.php';
 
-$t = new lime_test(19, new lime_output_color);
+$t = new lime_test(19, new lime_output_color());
 
-/**
- * qubit_auto_link_text()
- */
-
+// qubit_auto_link_text().
 $t->diag('qubit_auto_link_text()');
 
 $t->is(
-  qubit_auto_link_text('Visit our "website":http://www.accesstomemory.org.'),
-  'Visit our <a href="http://www.accesstomemory.org">website</a>.',
-  'qubit_auto_link_text() converts Redmine links');
+    qubit_auto_link_text('Visit our "website":http://www.accesstomemory.org.'),
+    'Visit our <a href="http://www.accesstomemory.org">website</a>.',
+    'qubit_auto_link_text() converts Redmine links'
+);
 
 $t->is(
-  qubit_auto_link_text('Email me "here":mailto:bob@bob.com'),
-  'Email me <a href="mailto:bob@bob.com">here</a>',
-  'qubit_auto_link_text() converts Redmine mailto links');
+    qubit_auto_link_text('Email me "here":mailto:bob@bob.com'),
+    'Email me <a href="mailto:bob@bob.com">here</a>',
+    'qubit_auto_link_text() converts Redmine mailto links'
+);
 
 $t->is(
-  qubit_auto_link_text('Foobar1 http://www.foobar1.com Foobar2 ftp://ftp.foobar2.com and special link "here":http://here.com.'),
-  'Foobar1 <a href="http://www.foobar1.com">http://www.foobar1.com</a> Foobar2 <a href="ftp://ftp.foobar2.com">ftp://ftp.foobar2.com</a> and special link <a href="http://here.com">here</a>.',
-  'qubit_auto_link_text() converts Redmine and URLs when they both appear in the same string');
+    qubit_auto_link_text('Foobar1 http://www.foobar1.com Foobar2 ftp://ftp.foobar2.com and special link "here":http://here.com.'),
+    'Foobar1 <a href="http://www.foobar1.com">http://www.foobar1.com</a> Foobar2 <a href="ftp://ftp.foobar2.com">ftp://ftp.foobar2.com</a> and special link <a href="http://here.com">here</a>.',
+    'qubit_auto_link_text() converts Redmine and URLs when they both appear in the same string'
+);
 
 $t->is(
-  qubit_auto_link_text('&quot;Foobar&quot;:http://foobar.com/12345.'),
-  '<a href="http://foobar.com/12345">Foobar</a>.',
-  'qubit_auto_link_text() converts Redmine link with HTML entities (&quot;)');
+    qubit_auto_link_text('&quot;Foobar&quot;:http://foobar.com/12345.'),
+    '<a href="http://foobar.com/12345">Foobar</a>.',
+    'qubit_auto_link_text() converts Redmine link with HTML entities (&quot;)'
+);
 
 $email_raw = 'fabien.potencier@symfony-project.com';
 $email_result = '<a href="mailto:'.$email_raw.'">'.$email_raw.'</a>';
@@ -67,7 +68,7 @@ $t->is(qubit_auto_link_text('Go to '.$link2_raw, 'email_addresses'), 'Go to '.$l
 $t->is(qubit_auto_link_text('<p>Link '.$link2_raw.'</p>'), '<p>Link '.$link2_result.'</p>', 'qubit_auto_link_text() converts URLs to links');
 $t->is(qubit_auto_link_text('<p>'.$link2_raw.' Link</p>'), '<p>'.$link2_result.' Link</p>', 'qubit_auto_link_text() converts URLs to links');
 $t->is(qubit_auto_link_text('<p>http://www.google.com/?q=symfony Link</p>'), '<p><a href="http://www.google.com/?q=symfony">http://www.google.com/?q=symfony</a> Link</p>', 'qubit_auto_link_text() converts URLs to links');
-$t->is(qubit_auto_link_text('<p>http://twitter.com/#!/fabpot</p>'),'<p><a href="http://twitter.com/#!/fabpot">http://twitter.com/#!/fabpot</a></p>',"qubit_auto_link_text() converts URLs with complex fragments to links");
-$t->is(qubit_auto_link_text('<p>http://twitter.com/#!/fabpot is Fabien Potencier on Twitter</p>'),'<p><a href="http://twitter.com/#!/fabpot">http://twitter.com/#!/fabpot</a> is Fabien Potencier on Twitter</p>', "qubit_auto_link_text() converts URLs with complex fragments and trailing text to links");
-$t->is(qubit_auto_link_text('hello '.$email_result, 'email_addresses'), 'hello '.$email_result, "qubit_auto_link_text() does not double-link emails");
-$t->is(qubit_auto_link_text('<p>Link '.$link_result.'</p>'), '<p>Link '.$link_result.'</p>', "qubit_auto_link_text() does not double-link emails");
+$t->is(qubit_auto_link_text('<p>http://twitter.com/#!/fabpot</p>'), '<p><a href="http://twitter.com/#!/fabpot">http://twitter.com/#!/fabpot</a></p>', 'qubit_auto_link_text() converts URLs with complex fragments to links');
+$t->is(qubit_auto_link_text('<p>http://twitter.com/#!/fabpot is Fabien Potencier on Twitter</p>'), '<p><a href="http://twitter.com/#!/fabpot">http://twitter.com/#!/fabpot</a> is Fabien Potencier on Twitter</p>', 'qubit_auto_link_text() converts URLs with complex fragments and trailing text to links');
+$t->is(qubit_auto_link_text('hello '.$email_result, 'email_addresses'), 'hello '.$email_result, 'qubit_auto_link_text() does not double-link emails');
+$t->is(qubit_auto_link_text('<p>Link '.$link_result.'</p>'), '<p>Link '.$link_result.'</p>', 'qubit_auto_link_text() does not double-link emails');

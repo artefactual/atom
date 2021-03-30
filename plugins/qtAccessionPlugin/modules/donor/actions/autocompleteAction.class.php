@@ -19,44 +19,38 @@
 
 class DonorAutocompleteAction extends sfAction
 {
-  public function execute($request)
-  {
-    // Check user authorization
-    if (!$this->getUser()->isAuthenticated())
+    public function execute($request)
     {
-      QubitAcl::forwardUnauthorized();
+        // Check user authorization
+        if (!$this->getUser()->isAuthenticated()) {
+            QubitAcl::forwardUnauthorized();
+        }
+
+        if (!isset($request->limit)) {
+            $request->limit = sfConfig::get('app_hits_per_page');
+        }
+
+        $criteria = new Criteria();
+        $criteria->addJoin(QubitActor::ID, QubitActorI18n::ID);
+        $criteria->add(QubitActorI18n::CULTURE, $this->context->user->getCulture());
+        $criteria->addJoin(QubitActor::ID, QubitObject::ID);
+        $criteria->add(QubitObject::CLASS_NAME, 'QubitDonor', Criteria::EQUAL);
+
+        if (isset($request->query)) {
+            if (sfConfig::get('app_markdown_enabled', true)) {
+                $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, "%{$request->query}%", Criteria::LIKE);
+            } else {
+                $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, "{$request->query}%", Criteria::LIKE);
+            }
+        }
+
+        $this->pager = new QubitPager('QubitDonor');
+        $this->pager->setCriteria($criteria);
+        $this->pager->setMaxPerPage($request->limit);
+        $this->pager->setPage($request->page);
+
+        $this->donors = $this->pager->getResults();
+
+        $this->setTemplate('list');
     }
-
-    if (!isset($request->limit))
-    {
-      $request->limit = sfConfig::get('app_hits_per_page');
-    }
-
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitActor::ID, QubitActorI18n::ID);
-    $criteria->add(QubitActorI18n::CULTURE, $this->context->user->getCulture());
-    $criteria->addJoin(QubitActor::ID, QubitObject::ID);
-    $criteria->add(QubitObject::CLASS_NAME, 'QubitDonor', Criteria::EQUAL);
-
-    if (isset($request->query))
-    {
-      if (sfConfig::get('app_markdown_enabled', true))
-      {
-        $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, "%$request->query%", Criteria::LIKE);
-      }
-      else
-      {
-        $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, "$request->query%", Criteria::LIKE);
-      }
-    }
-
-    $this->pager = new QubitPager('QubitDonor');
-    $this->pager->setCriteria($criteria);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
-
-    $this->donors = $this->pager->getResults();
-
-    $this->setTemplate('list');
-  }
 }

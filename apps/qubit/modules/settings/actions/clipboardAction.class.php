@@ -19,68 +19,63 @@
 
 class SettingsClipboardAction extends SettingsEditAction
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'clipboard_save_max_age',
-      'clipboard_send_enabled',
-      'clipboard_send_url',
-      'clipboard_send_button_text',
-      'clipboard_send_message_html',
-      'clipboard_send_http_method',
-      'clipboard_export_digitalobjects_enabled'),
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'clipboard_save_max_age',
+        'clipboard_send_enabled',
+        'clipboard_send_url',
+        'clipboard_send_button_text',
+        'clipboard_send_message_html',
+        'clipboard_send_http_method',
+        'clipboard_export_digitalobjects_enabled',
+    ];
+    public static $I18N = [
+        'clipboard_send_button_text',
+        'clipboard_send_message_html',
+    ];
 
-    $I18N = array(
-      'clipboard_send_button_text',
-      'clipboard_send_message_html'
-    );
-
-  public function earlyExecute()
-  {
-    parent::earlyExecute();
-
-    $this->updateMessage = $this->i18n->__('Clipboard settings saved.');
-
-    $this->settingDefaults = array(
-      'clipboard_save_max_age' => '0',
-      'clipboard_send_enabled' => '0',
-      'clipboard_send_button_text' => $this->i18n->__('Send'),
-      'clipboard_send_message_html' => $this->i18n->__('Sending...'),
-      'clipboard_send_http_method' => 'POST',
-      'clipboard_export_digitalobjects_enabled' => '0',
-    );
-  }
-
-  protected function addField($name)
-  {
-    // Set form field format
-    switch ($name)
+    public function earlyExecute()
     {
-      case 'clipboard_save_max_age':
-      case 'clipboard_send_url':
-      case 'clipboard_send_button_text':
-      case 'clipboard_send_message_html':
-        $this->form->setValidator($name, new sfValidatorString());
-        $this->form->setWidget($name, new sfWidgetFormInput);
+        parent::earlyExecute();
 
-        break;
+        $this->updateMessage = $this->i18n->__('Clipboard settings saved.');
 
-      case 'clipboard_send_enabled':
-      case 'clipboard_send_http_method':
-      case 'clipboard_export_digitalobjects_enabled':
-        if ($name == 'clipboard_send_enabled' || $name == 'clipboard_export_digitalobjects_enabled')
-        {
-          $options = array($this->i18n->__('No'), $this->i18n->__('Yes'));
-        }
-        else
-        {
-          $options = array('POST' => 'POST', 'GET' => 'GET');
-        }
-
-        $this->form->setValidator($name, new sfValidatorString(array('required' => false)));
-        $this->form->setWidget($name, new sfWidgetFormSelectRadio(array('choices' => $options), array('class' => 'radio')));
-
-        break;
+        $this->settingDefaults = [
+            'clipboard_save_max_age' => '0',
+            'clipboard_send_enabled' => '0',
+            'clipboard_send_button_text' => $this->i18n->__('Send'),
+            'clipboard_send_message_html' => $this->i18n->__('Sending...'),
+            'clipboard_send_http_method' => 'POST',
+            'clipboard_export_digitalobjects_enabled' => '0',
+        ];
     }
-  }
+
+    protected function addField($name)
+    {
+        // Set form field format
+        switch ($name) {
+            case 'clipboard_save_max_age':
+            case 'clipboard_send_url':
+            case 'clipboard_send_button_text':
+            case 'clipboard_send_message_html':
+                $this->form->setValidator($name, new sfValidatorString());
+                $this->form->setWidget($name, new sfWidgetFormInput());
+
+                break;
+
+            case 'clipboard_send_enabled':
+            case 'clipboard_send_http_method':
+            case 'clipboard_export_digitalobjects_enabled':
+                if ('clipboard_send_enabled' == $name || 'clipboard_export_digitalobjects_enabled' == $name) {
+                    $options = [$this->i18n->__('No'), $this->i18n->__('Yes')];
+                } else {
+                    $options = ['POST' => 'POST', 'GET' => 'GET'];
+                }
+
+                $this->form->setValidator($name, new sfValidatorString(['required' => false]));
+                $this->form->setWidget($name, new sfWidgetFormSelectRadio(['choices' => $options], ['class' => 'radio']));
+
+                break;
+        }
+    }
 }

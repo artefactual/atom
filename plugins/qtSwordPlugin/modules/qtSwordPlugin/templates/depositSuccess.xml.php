@@ -1,32 +1,32 @@
-<?php use_helper('Date') ?>
-<?php echo '<?xml version="1.0" encoding="'.sfConfig::get('sf_charset', 'UTF-8').'" ?>' ?>
+<?php use_helper('Date'); ?>
+<?php echo '<?xml version="1.0" encoding="'.sfConfig::get('sf_charset', 'UTF-8').'" ?>'; ?>
 <entry xmlns="http://www.w3.org/2005/Atom"
        xmlns:sword="http://purl.org/net/sword/">
 
-  <title><?php echo strip_tags(render_title($informationObject)) ?></title>
+  <title><?php echo strip_tags(render_title($informationObject)); ?></title>
 
   <?php
     // For unknown reasons the type of the createdAt property is not always a DateTime but a string
     // This is a workaround to retrieve the same result if the property returns a string
-    $creationDate = $informationObject->createdAt instanceof DateTime ? $informationObject->createdAt->format('c') : format_date($informationObject->createdAt, 's')
+    $creationDate = $informationObject->createdAt instanceof DateTime ? $informationObject->createdAt->format('c') : format_date($informationObject->createdAt, 's');
   ?>
 
-  <id><?php echo $informationObject->id.' / ' . $creationDate ?></id>
+  <id><?php echo $informationObject->id.' / '.$creationDate; ?></id>
 
-  <updated><?php echo $creationDate ?></updated>
+  <updated><?php echo $creationDate; ?></updated>
   <author>
-    <name><?php echo $user->user ?></name>
+    <name><?php echo $user->user; ?></name>
   </author>
 
-  <generator uri="<?php echo url_for('@homepage', true) ?>" version="<?php echo qubitConfiguration::VERSION ?>">Qubit <?php echo qubitConfiguration::VERSION ?></generator>
+  <generator uri="<?php echo url_for('@homepage', true); ?>" version="<?php echo qubitConfiguration::VERSION; ?>">Qubit <?php echo qubitConfiguration::VERSION; ?></generator>
 
-  <content type="text/html" src="<?php echo url_for(array($informationObject, 'module' => 'informationobject'), true) ?>" />
+  <content type="text/html" src="<?php echo url_for([$informationObject, 'module' => 'informationobject'], true); ?>" />
 
   <sword:noOp>false</sword:noOp>
 
-  <sword:packaging><?php echo $package['format'] ?></sword:packaging>
+  <sword:packaging><?php echo $package['format']; ?></sword:packaging>
 
-  <sword:userAgent><?php echo $_SERVER['HTTP_USER_AGENT'] ?></sword:userAgent>
+  <sword:userAgent><?php echo $_SERVER['HTTP_USER_AGENT']; ?></sword:userAgent>
 
   <?php
     /*

@@ -19,49 +19,44 @@
 
 class QubitValidatorPassword extends sfValidatorString
 {
-  protected function configure($options = array(), $messages = array())
-  {
-    parent::configure($options, $messages);
-
-    $this->setOption('min_length', 8);
-  }
-
-  protected function doClean($value)
-  {
-    $value = parent::doClean($value);
-
-    $score = 0;
-
-    // Check 1: contains upper case letters
-    if (preg_match('/[A-Z]/', $value))
+    protected function configure($options = [], $messages = [])
     {
-      $score++;
+        parent::configure($options, $messages);
+
+        $this->setOption('min_length', 8);
     }
 
-    // Check 2: contains lower case letters
-    if (preg_match('/[a-z]/', $value))
+    protected function doClean($value)
     {
-      $score++;
-    }
+        $value = parent::doClean($value);
 
-    // Check 3: contains numbers
-    if (preg_match('/[0-9]/', $value))
-    {
-      $score++;
-    }
+        $score = 0;
 
-    // Check 4: contains everything but 1), 2) and 3) (special characters)
-    if (preg_match('/[^A-Za-z0-9]/', $value))
-    {
-      $score++;
-    }
+        // Check 1: contains upper case letters
+        if (preg_match('/[A-Z]/', $value)) {
+            ++$score;
+        }
 
-    // If less than three checks were passed
-    if ($score < 3)
-    {
-      throw new sfValidatorError($this, 'invalid', array('value' => null));
-    }
+        // Check 2: contains lower case letters
+        if (preg_match('/[a-z]/', $value)) {
+            ++$score;
+        }
 
-    return $value;
-  }
+        // Check 3: contains numbers
+        if (preg_match('/[0-9]/', $value)) {
+            ++$score;
+        }
+
+        // Check 4: contains everything but 1), 2) and 3) (special characters)
+        if (preg_match('/[^A-Za-z0-9]/', $value)) {
+            ++$score;
+        }
+
+        // If less than three checks were passed
+        if ($score < 3) {
+            throw new sfValidatorError($this, 'invalid', ['value' => null]);
+        }
+
+        return $value;
+    }
 }

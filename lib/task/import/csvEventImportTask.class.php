@@ -18,232 +18,217 @@
  */
 
 /**
- * Import csv event record data
+ * Import csv event record data.
  *
- * @package    symfony
- * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
 class csvEventRecordImportTask extends csvImportBaseTask
 {
-  protected $namespace        = 'csv';
-  protected $name             = 'event-import';
-  protected $briefDescription = 'Import csv event record data';
-  protected $detailedDescription = <<<EOF
+    protected $namespace = 'csv';
+    protected $name = 'event-import';
+    protected $briefDescription = 'Import csv event record data';
+    protected $detailedDescription = <<<'EOF'
 Import CSV event record data
 EOF;
 
-  /**
-   * @see csvImportBaseTask
-   */
-  protected function configure()
-  {
-    parent::configure();
-
-    $this->addOptions(array(
-      new sfCommandOption('event-types', null, sfCommandOption::PARAMETER_OPTIONAL, 'Event type terms to create, if they do not yet exist, before import.'),
-      new sfCommandOption('source-name', null, sfCommandOption::PARAMETER_OPTIONAL, 'Source name to use when inserting keymap entries.')
-    ));
-  }
-
-  /**
-   * @see sfTask
-   */
-  public function execute($arguments = array(), $options = array())
-  {
-    $this->validateOptions($options);
-
-    $skipRows = ($options['skip-rows']) ? $options['skip-rows'] : 0;
-
-    $sourceName = ($options['source-name'])
-      ? $options['source-name']
-      : false;
-
-    if (false === $fh = fopen($arguments['filename'], 'rb'))
+    /**
+     * @see sfTask
+     *
+     * @param mixed $arguments
+     * @param mixed $options
+     */
+    public function execute($arguments = [], $options = [])
     {
-      throw new sfException('You must specify a valid filename');
-    }
+        $this->validateOptions($options);
 
-    $databaseManager = new sfDatabaseManager($this->configuration);
-    $conn = $databaseManager->getDatabase('propel')->getConnection();
+        $skipRows = ($options['skip-rows']) ? $options['skip-rows'] : 0;
 
-    // Load taxonomies into variables to avoid use of magic numbers
-    $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
-      QubitTaxonomy::EVENT_TYPE_ID => 'eventTypes'
-    ));
-
-    $subjectTable       = 'actor_i18n';
-    $subjectKeyColumn   = 'authorized_form_of_name';
-    $subjectValueColumn = 'eventActorName';
-    $subjectIdColumn    = 'id';
-
-    $objectTable        = 'keymap';
-    $objectKeyColumn    = 'source_id';
-    $objectValueColumn  = 'legacyId';
-    $objectIdColumn     = 'target_id';
-
-    $relationTypeColumn = 'eventType';
-
-    $import = new QubitFlatfileImport(array(
-      // Pass context
-      'context' => sfContext::createInstance($this->configuration),
-
-      'status' => array(
-        'sourceName'         => $sourceName,
-        'eventTypes'         => $termData['eventTypes'],
-        'subjectTable'       => $subjectTable,
-        'subjectKeyColumn'   => $subjectKeyColumn,
-        'subjectValueColumn' => $subjectValueColumn,
-        'subjectIdColumn'    => $subjectIdColumn,
-        'objectTable'        => $objectTable,
-        'objectKeyColumn'    => $objectKeyColumn,
-        'objectValueColumn'  => $objectValueColumn,
-        'objectIdColumn'     => $objectIdColumn,
-        'relationTypeColumn' => $relationTypeColumn,
-        'dataCached'         => false,
-        'subjectKeys'        => array(),
-        'objectKeys'         => array(),
-        'goodSubjects'       => 0,
-        'badSubjects'        => 0,
-        'goodObjects'        => 0,
-        'badObjects'         => 0
-      ),
-
-      'errorLog' => $options['error-log'],
-
-      'saveLogic' => function(&$self)
-      {
-        if (!$self->status['dataCached'])
-        {
-          // Cache key -> id associations
-          $self->status['subjectKeys'] = getNameIdArrayFromTable(
-            $self,
-            $self->status['subjectTable'],
-            $self->status['subjectKeyColumn'],
-            $self->status['subjectIdColumn']
-          );
-
-          $whereClause = ($self->status['sourceName'] && $self->status['objectTable'] == 'keymap')
-            ? 'source_name = "'. $self->status['sourceName'] .'"'
+        $sourceName = ($options['source-name'])
+            ? $options['source-name']
             : false;
 
-          $self->status['objectKeys'] = getNameIdArrayFromTable(
-            $self,
-            $self->status['objectTable'],
-            $self->status['objectKeyColumn'],
-            $self->status['objectIdColumn'],
-            $whereClause
-          );
-
-          $self->status['dataCached'] = true;
+        if (false === $fh = fopen($arguments['filename'], 'rb')) {
+            throw new sfException('You must specify a valid filename');
         }
 
-        // Attempt to use pre-cached actor ID
-        $subjectKey = trim($self->columnValue($self->status['subjectValueColumn']));
-        $subjectId = false;
-        if ($subjectKey)
-        {
-          if (isset($self->status['subjectKeys'][$subjectKey]))
-          {
-            $subjectId = $self->status['subjectKeys'][$subjectKey];
-          }
-        }
+        $databaseManager = new sfDatabaseManager($this->configuration);
+        $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-        // If actor ID not found, create
-        if (!$subjectId)
-        {
-          // create actor
-          $actor = $self->createOrFetchActor($subjectKey);
-          $subjectId = $actor->id;
-        }
+        // Load taxonomies into variables to avoid use of magic numbers
+        $termData = QubitFlatfileImport::loadTermsFromTaxonomies([
+            QubitTaxonomy::EVENT_TYPE_ID => 'eventTypes',
+        ]);
 
-        if ($subjectId)
-        {
-          $self->status['goodSubjects']++;
+        $subjectTable = 'actor_i18n';
+        $subjectKeyColumn = 'authorized_form_of_name';
+        $subjectValueColumn = 'eventActorName';
+        $subjectIdColumn = 'id';
 
-          $objectKey = trim($self->columnValue($self->status['objectValueColumn']));
-          $objectId = false;
-          if ($objectKey)
-          {
-            if (isset($self->status['objectKeys'][$objectKey]))
-            {
-              $objectId = $self->status['objectKeys'][$objectKey];
-            }
-          }
+        $objectTable = 'keymap';
+        $objectKeyColumn = 'source_id';
+        $objectValueColumn = 'legacyId';
+        $objectIdColumn = 'target_id';
 
-          if ($objectId)
-          {
-            $self->status['goodObjects']++;
+        $relationTypeColumn = 'eventType';
 
-            $type = $self->columnValue($self->status['relationTypeColumn']);
-            print 'Relate '. $subjectId .' to '. $objectId .' as '. $type .".\n";
+        $import = new QubitFlatfileImport([
+            // Pass context
+            'context' => sfContext::createInstance($this->configuration),
 
-            $typeId = array_search($type, $self->status['eventTypes'][$self->columnValue('culture')]);
+            'status' => [
+                'sourceName' => $sourceName,
+                'eventTypes' => $termData['eventTypes'],
+                'subjectTable' => $subjectTable,
+                'subjectKeyColumn' => $subjectKeyColumn,
+                'subjectValueColumn' => $subjectValueColumn,
+                'subjectIdColumn' => $subjectIdColumn,
+                'objectTable' => $objectTable,
+                'objectKeyColumn' => $objectKeyColumn,
+                'objectValueColumn' => $objectValueColumn,
+                'objectIdColumn' => $objectIdColumn,
+                'relationTypeColumn' => $relationTypeColumn,
+                'dataCached' => false,
+                'subjectKeys' => [],
+                'objectKeys' => [],
+                'goodSubjects' => 0,
+                'badSubjects' => 0,
+                'goodObjects' => 0,
+                'badObjects' => 0,
+            ],
 
-            if (!$typeId)
-            {
-              print "Term does not exist... adding.\n";
-              $term = QubitFlatfileImport::createTerm(
-                QubitTaxonomy::EVENT_TYPE_ID,
-                $type,
-                $self->columnValue('culture')
-              );
-              $typeId = $term->id;
-              $self->status['eventTypes'][$typeId] = $type;
-            }
+            'errorLog' => $options['error-log'],
 
-            $event = new QubitEvent;
-            $event->objectId = $objectId;
-            $event->typeId              = $typeId;
-            $event->actorId             = $subjectId;
-            $event->save();
-          }
-          else
-          {
-            $self->status['badObjects']++;
-            print 'ERROR: object '. $objectKey ." not found.\n";
-          }
-        }
-        else
-        {
-          $self->status['badSubjects']++;
-          print 'ERROR: subject '. $subjectKey ." not found.\n";
-        }
-      },
+            'saveLogic' => function (&$self) {
+                if (!$self->status['dataCached']) {
+                    // Cache key -> id associations
+                    $self->status['subjectKeys'] = getNameIdArrayFromTable(
+                        $self,
+                        $self->status['subjectTable'],
+                        $self->status['subjectKeyColumn'],
+                        $self->status['subjectIdColumn']
+                    );
 
-      'completeLogic' => function(&$self)
-      {
-        print "Import complete.\n";
-        print "Good subjects: ". $self->status['goodSubjects'] ."\n";
-        print "Bad subjects:  ". $self->status['badSubjects'] ."\n";
-        print "Good objects:  ". $self->status['goodObjects'] ."\n";
-        print "Bad objects:   ". $self->status['badObjects'] ."\n";
-      }
-    ));
+                    $whereClause = ($self->status['sourceName'] && 'keymap' == $self->status['objectTable'])
+                        ? 'source_name = "'.$self->status['sourceName'].'"'
+                        : false;
 
-    $import->csv($fh, $skipRows);
-  }
+                    $self->status['objectKeys'] = getNameIdArrayFromTable(
+                        $self,
+                        $self->status['objectTable'],
+                        $self->status['objectKeyColumn'],
+                        $self->status['objectIdColumn'],
+                        $whereClause
+                    );
+
+                    $self->status['dataCached'] = true;
+                }
+
+                // Attempt to use pre-cached actor ID
+                $subjectKey = trim($self->columnValue($self->status['subjectValueColumn']));
+                $subjectId = false;
+                if ($subjectKey) {
+                    if (isset($self->status['subjectKeys'][$subjectKey])) {
+                        $subjectId = $self->status['subjectKeys'][$subjectKey];
+                    }
+                }
+
+                // If actor ID not found, create
+                if (!$subjectId) {
+                    // create actor
+                    $actor = $self->createOrFetchActor($subjectKey);
+                    $subjectId = $actor->id;
+                }
+
+                if ($subjectId) {
+                    ++$self->status['goodSubjects'];
+
+                    $objectKey = trim($self->columnValue($self->status['objectValueColumn']));
+                    $objectId = false;
+                    if ($objectKey) {
+                        if (isset($self->status['objectKeys'][$objectKey])) {
+                            $objectId = $self->status['objectKeys'][$objectKey];
+                        }
+                    }
+
+                    if ($objectId) {
+                        ++$self->status['goodObjects'];
+
+                        $type = $self->columnValue($self->status['relationTypeColumn']);
+                        echo 'Relate '.$subjectId.' to '.$objectId.' as '.$type.".\n";
+
+                        $typeId = array_search($type, $self->status['eventTypes'][$self->columnValue('culture')]);
+
+                        if (!$typeId) {
+                            echo "Term does not exist... adding.\n";
+                            $term = QubitFlatfileImport::createTerm(
+                                QubitTaxonomy::EVENT_TYPE_ID,
+                                $type,
+                                $self->columnValue('culture')
+                            );
+                            $typeId = $term->id;
+                            $self->status['eventTypes'][$typeId] = $type;
+                        }
+
+                        $event = new QubitEvent();
+                        $event->objectId = $objectId;
+                        $event->typeId = $typeId;
+                        $event->actorId = $subjectId;
+                        $event->save();
+                    } else {
+                        ++$self->status['badObjects'];
+                        echo 'ERROR: object '.$objectKey." not found.\n";
+                    }
+                } else {
+                    ++$self->status['badSubjects'];
+                    echo 'ERROR: subject '.$subjectKey." not found.\n";
+                }
+            },
+
+            'completeLogic' => function (&$self) {
+                echo "Import complete.\n";
+                echo 'Good subjects: '.$self->status['goodSubjects']."\n";
+                echo 'Bad subjects:  '.$self->status['badSubjects']."\n";
+                echo 'Good objects:  '.$self->status['goodObjects']."\n";
+                echo 'Bad objects:   '.$self->status['badObjects']."\n";
+            },
+        ]);
+
+        $import->csv($fh, $skipRows);
+    }
+
+    /**
+     * @see csvImportBaseTask
+     */
+    protected function configure()
+    {
+        parent::configure();
+
+        $this->addOptions([
+            new sfCommandOption('event-types', null, sfCommandOption::PARAMETER_OPTIONAL, 'Event type terms to create, if they do not yet exist, before import.'),
+            new sfCommandOption('source-name', null, sfCommandOption::PARAMETER_OPTIONAL, 'Source name to use when inserting keymap entries.'),
+        ]);
+    }
 }
 
 function getNameIdArrayFromTable(&$self, $tableName, $keyColumn, $idColumn, $whereClause = false)
 {
-  $names = array();
+    $names = [];
 
-  $query = "SELECT ". $keyColumn .", ". $idColumn ." FROM ". $tableName;
+    $query = 'SELECT '.$keyColumn.', '.$idColumn.' FROM '.$tableName;
 
-  $query .= ($whereClause) ? ' WHERE '. $whereClause : '';
+    $query .= ($whereClause) ? ' WHERE '.$whereClause : '';
 
-  $statement = $self->sqlQuery($query);
+    $statement = $self->sqlQuery($query);
 
-  if (!$statement)
-  {
-    print 'DB error'; exit();
-  }
+    if (!$statement) {
+        echo 'DB error';
 
-  while($subject = $statement->fetch(PDO::FETCH_OBJ))
-  {
-    $names[$subject->$keyColumn] = $subject->$idColumn;
-  }
+        exit();
+    }
 
-  return $names;
+    while ($subject = $statement->fetch(PDO::FETCH_OBJ)) {
+        $names[$subject->{$keyColumn}] = $subject->{$idColumn};
+    }
+
+    return $names;
 }

@@ -19,23 +19,22 @@
 
 class PhysicalObjectBoxListAction extends sfAction
 {
-  public function execute($request)
-  {
-    if (!isset($request->limit))
+    public function execute($request)
     {
-      $request->limit = sfConfig::get('app_hits_per_page');
+        if (!isset($request->limit)) {
+            $request->limit = sfConfig::get('app_hits_per_page');
+        }
+
+        $this->resource = $this->getRoute()->resource;
+
+        $criteria = new Criteria();
+        $criteria->add(QubitRelation::SUBJECT_ID, $this->resource->id);
+        $criteria->add(QubitRelation::TYPE_ID, QubitTerm::HAS_PHYSICAL_OBJECT_ID);
+        $criteria->addJoin(QubitRelation::OBJECT_ID, QubitInformationObject::ID);
+
+        $this->informationObjects = QubitInformationObject::get($criteria);
+
+        $c2 = clone $criteria;
+        $this->foundcount = BasePeer::doCount($c2)->fetchColumn(0);
     }
-
-    $this->resource = $this->getRoute()->resource;
-
-    $criteria = new Criteria;
-    $criteria->add(QubitRelation::SUBJECT_ID, $this->resource->id);
-    $criteria->add(QubitRelation::TYPE_ID, QubitTerm::HAS_PHYSICAL_OBJECT_ID);
-    $criteria->addJoin(QubitRelation::OBJECT_ID, QubitInformationObject::ID);
-
-    $this->informationObjects = QubitInformationObject::get($criteria);
-
-    $c2 = clone $criteria;
-    $this->foundcount = BasePeer::doCount($c2)->fetchColumn(0);
-  }
 }

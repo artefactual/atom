@@ -19,132 +19,132 @@
 
 class TermRelatedAuthoritiesAction extends TermIndexAction
 {
-  const INDEX_TYPE = 'QubitActor';
+    public const INDEX_TYPE = 'QubitActor';
 
-  // Arrays not allowed in class constants
-  public static
-    $FILTERTAGS = array(),
+    // Arrays not allowed in class constants
+    public static $FILTERTAGS = [];
+    public static $AGGS = [
+        'languages' => [
+            'type' => 'term',
+            'field' => 'i18n.languages',
+            'size' => 10,
+        ],
+        'occupations' => [
+            'type' => 'term',
+            'field' => 'occupations.id',
+            'size' => 10,
+        ],
+        'places' => [
+            'type' => 'term',
+            'field' => 'places.id',
+            'size' => 10,
+        ],
+        'subjects' => [
+            'type' => 'term',
+            'field' => 'subjects.id',
+            'size' => 10,
+        ],
+        'direct' => [
+            'type' => 'filter',
+            'field' => '',
+            'populate' => false,
+        ],
+    ];
 
-    $AGGS = array(
-      'languages' =>
-        array('type'  => 'term',
-              'field' => 'i18n.languages',
-              'size'  => 10),
-      'occupations' =>
-        array('type'  => 'term',
-              'field' => 'occupations.id',
-              'size'  => 10),
-      'places' =>
-        array('type'  => 'term',
-              'field' => 'places.id',
-              'size'  => 10),
-      'subjects' =>
-        array('type'  => 'term',
-              'field' => 'subjects.id',
-              'size'  => 10),
-      'direct' =>
-        array('type' => 'filter',
-              'field'  => '',
-              'populate' => false));
-
-  protected function populateAgg($name, $buckets)
-  {
-    switch ($name)
+    public function execute($request)
     {
-      case 'occupations':
-      case 'places':
-      case 'subjects':
-        $ids = array_column($buckets, 'key');
-        $criteria = new Criteria;
-        $criteria->add(QubitTerm::ID, $ids, Criteria::IN);
+        $this->setAndCheckResource();
 
-        foreach (QubitTerm::get($criteria) as $item)
-        {
-          $buckets[array_search($item->id, $ids)]['display'] = $item->getName(array('cultureFallback' => true));
+        $directField = TermNavigateRelatedComponent::$TAXONOMY_ES_DIRECT_FIELDS[$this->resource->taxonomyId];
+        $this::$AGGS['direct']['field'] = [$directField => $this->resource->id];
+
+        DefaultBrowseAction::execute($request);
+
+        // Disallow access to locked taxonomies
+        if (in_array($this->resource->taxonomyId, QubitTaxonomy::$lockedTaxonomies)) {
+            $this->getResponse()->setStatusCode(403);
+
+            return sfView::NONE;
         }
 
-        break;
+        $this->setCulture($request);
 
-      default:
-        return parent::populateAgg($name, $buckets);
+        // Prepare filter tags, form, and hidden fields/values
+        $this->populateFilterTags($request);
+
+        // Take note of number of related information objects
+        $resultSet = TermNavigateRelatedComponent::getEsDocsRelatedToTerm('QubitInformationObject', $this->resource);
+        $this->relatedIoCount = $resultSet->count();
+
+        // Perform search and paging
+        $resultSet = $this->doSearch($request);
+        $this->relatedActorCount = $resultSet->count();
+
+        $this->pager = new QubitSearchPager($resultSet);
+        $this->pager->setPage($request->page ? $request->page : 1);
+        $this->pager->setMaxPerPage($this->limit);
+        $this->pager->init();
+
+        $this->populateAggs($resultSet);
+
+        // Load list terms
+        $this->loadListTerms($request);
     }
 
-    return $buckets;
-  }
-
-  protected function setSort($request)
-  {
-    switch ($request->sort)
+    protected function populateAgg($name, $buckets)
     {
-      case 'alphabetic':
-        $field = sprintf('i18n.%s.authorizedFormOfName.alphasort', $this->selectedCulture);
-        $this->search->query->setSort(array($field => $request->sortDir));
+        switch ($name) {
+            case 'occupations':
+            case 'places':
+            case 'subjects':
+                $ids = array_column($buckets, 'key');
+                $criteria = new Criteria();
+                $criteria->add(QubitTerm::ID, $ids, Criteria::IN);
 
-        break;
+                foreach (QubitTerm::get($criteria) as $item) {
+                    $buckets[array_search($item->id, $ids)]['display'] = $item->getName(['cultureFallback' => true]);
+                }
 
-      case 'identifier':
-        $this->search->query->setSort(array('descriptionIdentifier.untouched' => $request->sortDir));
+                break;
 
-        break;
+            default:
+                return parent::populateAgg($name, $buckets);
+        }
 
-      case 'lastUpdated':
-      default:
-        $this->search->query->setSort(array('updatedAt' => $request->sortDir));
+        return $buckets;
     }
-  }
 
-  protected function doSearch($request)
-  {
-    $this->setSort($request);
-
-    $options = array('search' => $this->search);
-
-    // Allow for only searching for actors directly related to term
-    if(!empty($request->onlyDirect))
+    protected function setSort($request)
     {
-      $options['direct'] = true;
+        switch ($request->sort) {
+            case 'alphabetic':
+                $field = sprintf('i18n.%s.authorizedFormOfName.alphasort', $this->selectedCulture);
+                $this->search->query->setSort([$field => $request->sortDir]);
+
+                break;
+
+            case 'identifier':
+                $this->search->query->setSort(['descriptionIdentifier.untouched' => $request->sortDir]);
+
+                break;
+
+            case 'lastUpdated':
+            default:
+                $this->search->query->setSort(['updatedAt' => $request->sortDir]);
+        }
     }
 
-    return TermNavigateRelatedComponent::getEsDocsRelatedToTerm('QubitActor', $this->resource, $options);
-  }
-
-  public function execute($request)
-  {
-    $this->setAndCheckResource();
-
-    $directField = TermNavigateRelatedComponent::$TAXONOMY_ES_DIRECT_FIELDS[$this->resource->taxonomyId];
-    $this::$AGGS['direct']['field'] = array($directField => $this->resource->id);
-
-    DefaultBrowseAction::execute($request);
-
-    // Disallow access to locked taxonomies
-    if (in_array($this->resource->taxonomyId, QubitTaxonomy::$lockedTaxonomies))
+    protected function doSearch($request)
     {
-      $this->getResponse()->setStatusCode(403);
-      return sfView::NONE;
+        $this->setSort($request);
+
+        $options = ['search' => $this->search];
+
+        // Allow for only searching for actors directly related to term
+        if (!empty($request->onlyDirect)) {
+            $options['direct'] = true;
+        }
+
+        return TermNavigateRelatedComponent::getEsDocsRelatedToTerm('QubitActor', $this->resource, $options);
     }
-
-    $this->setCulture($request);
-
-    // Prepare filter tags, form, and hidden fields/values
-    $this->populateFilterTags($request);
-
-    // Take note of number of related information objects
-    $resultSet = TermNavigateRelatedComponent::getEsDocsRelatedToTerm('QubitInformationObject', $this->resource);
-    $this->relatedIoCount = $resultSet->count();
-
-    // Perform search and paging
-    $resultSet = $this->doSearch($request);
-    $this->relatedActorCount = $resultSet->count();
-
-    $this->pager = new QubitSearchPager($resultSet);
-    $this->pager->setPage($request->page ? $request->page : 1);
-    $this->pager->setMaxPerPage($this->limit);
-    $this->pager->init();
-
-    $this->populateAggs($resultSet);
-
-    // Load list terms
-    $this->loadListTerms($request);
-  }
 }

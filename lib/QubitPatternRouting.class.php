@@ -19,27 +19,23 @@
 
 /**
  * QubitPatternRouting add Qubit specific functionality to the sfPatternRouting
- * class
+ * class.
  *
- * @package    AccesstoMemory
- * @subpackage routing
  * @author     David Juhasz <david@artefactual.com>
  */
 class QubitPatternRouting extends sfPatternRouting
 {
-
-  /**
-   * @see sfPatternRouting
-   */
-  public function parse($url)
-  {
-    try
+    /**
+     * @see sfPatternRouting
+     *
+     * @param mixed $url
+     */
+    public function parse($url)
     {
-      return parent::parse($url);
+        try {
+            return parent::parse($url);
+        } catch (sfError404Exception $e) {
+            return false;
+        }
     }
-    catch (sfError404Exception $e)
-    {
-      return false;
-    }
-  }
 }

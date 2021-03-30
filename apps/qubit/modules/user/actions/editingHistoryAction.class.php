@@ -19,74 +19,70 @@
 
 class UserEditingHistoryAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->resource = $this->getRoute()->resource;
-    $this->abortInvalidRequests();
-
-    // Criteria to fetch user actions
-    $criteria = new Criteria;
-    $criteria->add(QubitAuditLog::USER_ID, $this->resource->id);
-    $criteria->addDescendingOrderByColumn('created_at');
-
-    // Page results
-    $limit = sfConfig::get('app_hits_per_page');
-    $page = (isset($request->page) && ctype_digit($request->page)) ? $request->page : 1;
-
-    $pager = new QubitPager('QubitAuditLog');
-    $pager->setCriteria($criteria);
-    $pager->setPage($page);
-    $pager->setMaxPerPage($limit);
-
-    // Return results and paging data
-    $data = array(
-      'results' => $this->summarizeCurrentPage($pager),
-      'items' => $pager->getNbResults(),
-      'pages' => $pager->getLastPage()
-    );
-
-    return $this->renderText(json_encode($data));
-  }
-
-  private function abortInvalidRequests()
-  {
-    if (!isset($this->resource))
+    public function execute($request)
     {
-      $this->forward404();
+        $this->resource = $this->getRoute()->resource;
+        $this->abortInvalidRequests();
+
+        // Criteria to fetch user actions
+        $criteria = new Criteria();
+        $criteria->add(QubitAuditLog::USER_ID, $this->resource->id);
+        $criteria->addDescendingOrderByColumn('created_at');
+
+        // Page results
+        $limit = sfConfig::get('app_hits_per_page');
+        $page = (isset($request->page) && ctype_digit($request->page)) ? $request->page : 1;
+
+        $pager = new QubitPager('QubitAuditLog');
+        $pager->setCriteria($criteria);
+        $pager->setPage($page);
+        $pager->setMaxPerPage($limit);
+
+        // Return results and paging data
+        $data = [
+            'results' => $this->summarizeCurrentPage($pager),
+            'items' => $pager->getNbResults(),
+            'pages' => $pager->getLastPage(),
+        ];
+
+        return $this->renderText(json_encode($data));
     }
 
-    // Except for administrators, only allow users to see their own profile
-    if (!$this->context->user->isAdministrator())
+    private function abortInvalidRequests()
     {
-      if ($this->resource->id != $this->context->user->getAttribute('user_id'))
-      {
-        $this->redirect('admin/secure');
-      }
-    }
-  }
+        if (!isset($this->resource)) {
+            $this->forward404();
+        }
 
-  private function summarizeCurrentPage($pager)
-  {
-    $culture = $this->context->user->getCulture();
-    $dateFormatter = new sfDateFormat($culture);
-
-    // Summarize page results
-    $results = array();
-
-    foreach ($pager->getResults() as $modification)
-    {
-      $io = QubitInformationObject::getById($modification->objectId);
-
-      $result = array(
-        'createdAt' => $dateFormatter->format($modification->createdAt, 'f'),
-        'title' => $io->getTitle(array('cultureFallback' => true)),
-        'slug' => $io->slug,
-        'actionType' => QubitTerm::getById($modification->actionTypeId)->name
-      );
-
-      array_push($results, $result);    
+        // Except for administrators, only allow users to see their own profile
+        if (!$this->context->user->isAdministrator()) {
+            if ($this->resource->id != $this->context->user->getAttribute('user_id')) {
+                $this->redirect('admin/secure');
+            }
+        }
     }
 
-    return $results;
-  }
+    private function summarizeCurrentPage($pager)
+    {
+        $culture = $this->context->user->getCulture();
+        $dateFormatter = new sfDateFormat($culture);
+
+        // Summarize page results
+        $results = [];
+
+        foreach ($pager->getResults() as $modification) {
+            $io = QubitInformationObject::getById($modification->objectId);
+
+            $result = [
+                'createdAt' => $dateFormatter->format($modification->createdAt, 'f'),
+                'title' => $io->getTitle(['cultureFallback' => true]),
+                'slug' => $io->slug,
+                'actionType' => QubitTerm::getById($modification->actionTypeId)->name,
+            ];
+
+            array_push($results, $result);
+        }
+
+        return $results;
+    }
 }

@@ -10,7 +10,8 @@
     "require-dev": {
         "mikey179/vfsstream": "^1.6",
         "phpunit/phpunit": "^9.5",
-        "phing/phing": "2.*"
+        "phing/phing": "2.*",
+        "friendsofphp/php-cs-fixer": "^2.18"
     },
     "require": {
         "league/csv": "^9.4",
@@ -22,6 +23,7 @@
         }
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "phpunit",
+        "php-cs-fixer": "php-cs-fixer"
     }
 }

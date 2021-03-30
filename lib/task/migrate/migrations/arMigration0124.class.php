@@ -25,26 +25,26 @@
  */
 class arMigration0124
 {
-  const
-    VERSION = 124, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 124;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    if (QubitSetting::getByName('default_repository_browse_view') === null)
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      $setting = new QubitSetting;
-      $setting->setName('default_repository_browse_view');
-      $setting->setSourceCulture('en');
-      $setting->setValue('card');
-      $setting->save();
-    }
+        if (null === QubitSetting::getByName('default_repository_browse_view')) {
+            $setting = new QubitSetting();
+            $setting->setName('default_repository_browse_view');
+            $setting->setSourceCulture('en');
+            $setting->setValue('card');
+            $setting->save();
+        }
 
-    return true;
-  }
+        return true;
+    }
 }

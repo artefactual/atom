@@ -19,35 +19,37 @@
 
 class QubitSslRequirementFilter extends sfFilter
 {
-  public function execute($filterChain)
-  {
-    $context = $this->getContext();
-    $request = $context->getRequest();
-
-    # Pass if:
-    # - Debug mode is enabled
-    # - Client is already using HTTPS
-    # - Setting require_ssl_admin is not enabled
-    if ($context->getConfiguration()->isDebug() ||
-        $request->isSecure() ||
-        !sfConfig::get('app_require_ssl_admin'))
+    public function execute($filterChain)
     {
-      $filterChain->execute();
+        $context = $this->getContext();
+        $request = $context->getRequest();
 
-      return;
-    }
+        // Pass if:
+        // - Debug mode is enabled
+        // - Client is already using HTTPS
+        // - Setting require_ssl_admin is not enabled
+        if (
+            $context->getConfiguration()->isDebug()
+            || $request->isSecure()
+            || !sfConfig::get('app_require_ssl_admin')
+        ) {
+            $filterChain->execute();
 
-    if ($context->user->isAuthenticated() ||
-        ('user' == $request->getParameter('module') &&
-          'login' == $request->getParameter('action')))
-    {
-      $secure_url = str_replace('http', 'https', $request->getUri());
+            return;
+        }
 
-      return $context->getController()->redirect($secure_url);
+        if (
+            $context->user->isAuthenticated()
+            || (
+                'user' == $request->getParameter('module')
+                && 'login' == $request->getParameter('action')
+            )
+        ) {
+            $secure_url = str_replace('http', 'https', $request->getUri());
+
+            return $context->getController()->redirect($secure_url);
+        }
+
+        $filterChain->execute();
     }
-    else
-    {
-      $filterChain->execute();
-    }
-  }
 }

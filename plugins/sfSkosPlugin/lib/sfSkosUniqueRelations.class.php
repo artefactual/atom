@@ -23,91 +23,93 @@
  */
 class sfSkosUniqueRelations implements Iterator, Countable
 {
-  private
-    $relations = array(),
-    $visited = array();
+    private $relations = [];
+    private $visited = [];
 
-  public function __construct() {
-    $this->position = 0;
-  }
-
-  protected function visited($sum)
-  {
-    return false !== array_key_exists($sum, $this->visited);
-  }
-
-  /**
-   * Use cantor pairing function: https://en.wikipedia.org/wiki/Pairing_function.
-   * The vector is sorted before so the same sum is obtained regardless the order.
-   */
-  protected function hash($x, $y)
-  {
-    $vec = array($x, $y);
-    sort($vec);
-    list($x, $y) = $vec;
-    
-    return (($x + $y) * ($x + $y + 1)) / 2 + $y;
-  }
-
-  public function insert($x, $y)
-  {
-    $sum = $this->hash($x, $y);
-    if ($this->visited($sum))
+    public function __construct()
     {
-      return false;
+        $this->position = 0;
     }
 
-    // Mark pair as visited
-    $this->visited[$sum] = true;
+    public function insert($x, $y)
+    {
+        $sum = $this->hash($x, $y);
+        if ($this->visited($sum)) {
+            return false;
+        }
 
-    $this->relations[] = array($x, $y);
+        // Mark pair as visited
+        $this->visited[$sum] = true;
 
-    return true;
-  }
+        $this->relations[] = [$x, $y];
 
-  public function getAll()
-  {
-    return $this->relations;
-  }
+        return true;
+    }
 
-  public function exists($x, $y)
-  {
-    $sum = $this->hash($x, $y);
+    public function getAll()
+    {
+        return $this->relations;
+    }
 
-    return $this->visited($sum);
-  }
+    public function exists($x, $y)
+    {
+        $sum = $this->hash($x, $y);
 
-  // Iterable
+        return $this->visited($sum);
+    }
 
-  public function rewind()
-  {
-    $this->position = 0;
-  }
+    // Iterable
 
-  public function current()
-  {
-    return $this->relations[$this->position];
-  }
+    public function rewind()
+    {
+        $this->position = 0;
+    }
 
-  public function key()
-  {
-    return $this->position;
-  }
+    public function current()
+    {
+        return $this->relations[$this->position];
+    }
 
-  public function next()
-  {
-    ++$this->position;
-  }
+    public function key()
+    {
+        return $this->position;
+    }
 
-  public function valid()
-  {
-    return isset($this->relations[$this->position]);
-  }
+    public function next()
+    {
+        ++$this->position;
+    }
 
-  // Countable
+    public function valid()
+    {
+        return isset($this->relations[$this->position]);
+    }
 
-  public function count()
-  {
-    return count($this->relations);
-  }
+    // Countable
+
+    public function count()
+    {
+        return count($this->relations);
+    }
+
+    protected function visited($sum)
+    {
+        return false !== array_key_exists($sum, $this->visited);
+    }
+
+    /**
+     * Use cantor pairing function: https://en.wikipedia.org/wiki/Pairing_function.
+     * The vector is sorted before so the same sum is obtained regardless the order.
+     *
+     * @param mixed $x
+     * @param mixed $y
+     */
+    protected function hash($x, $y)
+    {
+        $vec = [$x, $y];
+        sort($vec);
+        list($x, $y) = $vec;
+
+        return (($x + $y) * ($x + $y + 1)) / 2 + $y;
+    }
 }

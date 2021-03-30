@@ -2,57 +2,57 @@
 
 include dirname(__FILE__).'/../../bootstrap/functional.php';
 
-$browser = new sfTestFunctional(new sfBrowser);
+$browser = new sfTestFunctional(new sfBrowser());
 
-$informationObject = new QubitInformationObject;
+$informationObject = new QubitInformationObject();
 
 $informationObject->title = 'testtitle';
 $informationObject->save();
 
 $browser
-  ->get(';search?query=testtitle')
-
-  ->with('response')->begin()
+    ->get(';search?query=testtitle')
+    ->with('response')->begin()
     ->checkElement('body', '/testtitle/')
-  ->end();
+    ->end()
+;
 
 $informationObject->title = 'TesTTItLe';
 $informationObject->save();
 
 $browser
-  ->get(';search?query=TEsTtiTLE')
-
-  ->with('response')->begin()
+    ->get(';search?query=TEsTtiTLE')
+    ->with('response')->begin()
     ->checkElement('body', '/TesTTItLe/')
-  ->end();
+    ->end()
+;
 
 // Issue 849
 $informationObject->title = 'testtitlé';
 $informationObject->save();
 
 $browser
-  ->get(';search?query=testtitle')
-
-  ->with('response')->begin()
+    ->get(';search?query=testtitle')
+    ->with('response')->begin()
     ->checkElement('body', '/testtitlé/')
-  ->end();
+    ->end()
+;
 
 // Issue 848
 $informationObject->title = 'tEStTitLÉ';
 $informationObject->save();
 
 $browser
-  ->get(';search?query=teSTtiTle')
-
-  ->with('response')->begin()
+    ->get(';search?query=teSTtiTle')
+    ->with('response')->begin()
     ->checkElement('body', '/tEStTitLÉ/')
-  ->end();
+    ->end()
+;
 
 $informationObject->delete();
 
 $browser
-  ->get(';search?query=testtitle')
-
-  ->with('response')->begin()
+    ->get(';search?query=testtitle')
+    ->with('response')->begin()
     ->checkElement('body', '!/testtitle/')
-  ->end();
+    ->end()
+;

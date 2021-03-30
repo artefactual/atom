@@ -18,257 +18,229 @@
  */
 
 /**
- * A base for a Gearman job in AtoM
+ * A base for a Gearman job in AtoM.
  *
- * @package    AccesstoMemory
- * @subpackage jobs
  * @author     Mike G <mikeg@artefactual.com>
  */
-
 class arBaseJob extends Net_Gearman_Job_Common
 {
-  /*
-   * Required parameters:
-   *
-   * Declares parameters that are mandatory for the jobs execution. They can be
-   * extended on each job subclasse using the $extraRequiredParameters property.
-   * If any of the required paramareters is missing the job will fail.
-   */
-  private $requiredParameters = array('id', 'name');
+    /*
+     * Parallel execution and retry time:
+     *
+     * In instances where two or more workers are setup, multiple jobs could run in parallel.
+     * We want to avoid that in jobs that make sensitive changes to the nested set, like the
+     * arObjectMoveJob and the import jobs. The Gearman job server doesn't include a built in
+     * system to postpone/schedule jobs so, if multiple jobs from the $avoidParallelExecutionJobs
+     * variable bellow are executed at the same time, the late ones will wait, retrying after
+     * the amount of seconds indicated in $waitForRetryTime, until the previous ones are finished
+     * or the maximun amount of tries ($maxTries) is reached. Due to the limitations of the Gearman
+     * job server, the waiting jobs will block the workers executing them until they are ended.
+     */
+    protected $avoidParallelExecutionJobs = ['arObjectMoveJob', 'arFileImportJob'];
+    protected $waitForRetryTime = 10;
+    protected $maxRetries = 10;
+    protected $dispatcher;
+    /*
+     * Required parameters:
+     *
+     * Declares parameters that are mandatory for the jobs execution. They can be
+     * extended on each job subclasse using the $extraRequiredParameters property.
+     * If any of the required paramareters is missing the job will fail.
+     */
+    private $requiredParameters = ['id', 'name'];
 
-  /*
-   * Parallel execution and retry time:
-   *
-   * In instances where two or more workers are setup, multiple jobs could run in parallel.
-   * We want to avoid that in jobs that make sensitive changes to the nested set, like the
-   * arObjectMoveJob and the import jobs. The Gearman job server doesn't include a built in
-   * system to postpone/schedule jobs so, if multiple jobs from the $avoidParallelExecutionJobs
-   * variable bellow are executed at the same time, the late ones will wait, retrying after
-   * the amount of seconds indicated in $waitForRetryTime, until the previous ones are finished
-   * or the maximun amount of tries ($maxTries) is reached. Due to the limitations of the Gearman
-   * job server, the waiting jobs will block the workers executing them until they are ended.
-   */
-  protected $avoidParallelExecutionJobs = array('arObjectMoveJob', 'arFileImportJob');
-  protected $waitForRetryTime = 10;
-  protected $maxRetries = 10;
-  protected $dispatcher = null;
-
-  public function run($parameters)
-  {
-    $context = sfContext::getInstance();
-    $this->i18n = $context->i18n;
-    $this->user = $context->user;
-    $this->dispatcher = $context->getEventDispatcher();
-    sfConfig::add(QubitSetting::getSettingsArray());
-
-    $this->checkRequiredParameters($parameters);
-
-    // Instantiate QubitJob
-    if (null === $this->job = QubitJob::getById($parameters['id']))
+    public function run($parameters)
     {
-      throw new Net_Gearman_Job_Exception('Called a Gearman worker with an invalid QubitJob id.');
-    }
+        $context = sfContext::getInstance();
+        $this->i18n = $context->i18n;
+        $this->user = $context->user;
+        $this->dispatcher = $context->getEventDispatcher();
+        sfConfig::add(QubitSetting::getSettingsArray());
 
-    $this->logger = new arJobLogger($this->dispatcher, array('level' => sfLogger::INFO, 'job' => $this->job));
+        $this->checkRequiredParameters($parameters);
 
-    // Catch all possible exceptions in job execution and throw
-    // Net_Gearman_Job_Exception to avoid breaking the worker
-    try
-    {
-      $this->info($this->i18n->__('Job started.'));
-
-      // If this is a sensitive job
-      if (in_array(get_class($this), $this->avoidParallelExecutionJobs))
-      {
-        // Wait until other sensitive jobs are finished by order
-        $retries = 0;
-        while (!$this->canBeFullyExecuted())
-        {
-          // Fail the job if we have reached the max. amount of retries
-          if ($retries++ == $this->maxRetries)
-          {
-            $this->error($this->i18n->__('Maximum retries reached (%1). Please, try to launch the job again when other sensitive jobs are finished or contact an administrator', array('%1' => $this->maxRetries)));
-
-            return false;
-          }
-
-          // Log retry info
-          $this->info($this->i18n->__('Another sensitive job is being executed, will retry in %1 seconds', array('%1' => $this->waitForRetryTime)));
-
-          sleep($this->waitForRetryTime);
+        // Instantiate QubitJob
+        if (null === $this->job = QubitJob::getById($parameters['id'])) {
+            throw new Net_Gearman_Job_Exception('Called a Gearman worker with an invalid QubitJob id.');
         }
-      }
 
-      Qubit::clearClassCaches();
+        $this->logger = new arJobLogger($this->dispatcher, ['level' => sfLogger::INFO, 'job' => $this->job]);
 
-      // Attempt signIn based on job's user. Before calling signIn(), $this->
-      // user->isAuthenticated() will always evaluate to false - user object is
-      // assigned in signIn().
-      $this->signIn();
+        // Catch all possible exceptions in job execution and throw
+        // Net_Gearman_Job_Exception to avoid breaking the worker
+        try {
+            $this->info($this->i18n->__('Job started.'));
 
-      // Run un-authenticated job cleanup if this is an unauthenticated job.
-      if (!$this->user->isAuthenticated())
-      {
-        $this->deleteOldUnauthenticatedJobs();
-      }
+            // If this is a sensitive job
+            if (in_array(get_class($this), $this->avoidParallelExecutionJobs)) {
+                // Wait until other sensitive jobs are finished by order
+                $retries = 0;
+                while (!$this->canBeFullyExecuted()) {
+                    // Fail the job if we have reached the max. amount of retries
+                    if ($retries++ == $this->maxRetries) {
+                        $this->error($this->i18n->__('Maximum retries reached (%1). Please, try to launch the job again when other sensitive jobs are finished or contact an administrator', ['%1' => $this->maxRetries]));
 
-      $this->runJob($parameters);
+                        return false;
+                    }
 
-      QubitSearch::getInstance()->flushBatch();
+                    // Log retry info
+                    $this->info($this->i18n->__('Another sensitive job is being executed, will retry in %1 seconds', ['%1' => $this->waitForRetryTime]));
 
-      $this->signOut();
+                    sleep($this->waitForRetryTime);
+                }
+            }
 
-      $this->info($this->i18n->__('Job finished.'));
+            Qubit::clearClassCaches();
+
+            // Attempt signIn based on job's user. Before calling signIn(), $this->
+            // user->isAuthenticated() will always evaluate to false - user object is
+            // assigned in signIn().
+            $this->signIn();
+
+            // Run un-authenticated job cleanup if this is an unauthenticated job.
+            if (!$this->user->isAuthenticated()) {
+                $this->deleteOldUnauthenticatedJobs();
+            }
+
+            $this->runJob($parameters);
+
+            QubitSearch::getInstance()->flushBatch();
+
+            $this->signOut();
+
+            $this->info($this->i18n->__('Job finished.'));
+        } catch (Exception $e) {
+            // TODO: Create undoJob() functions in subclasses for cleanups
+
+            // Mark QubitJob as failed
+            $this->error('Exception: '.$e->getMessage());
+        }
     }
-    catch (Exception $e)
+
+    /**
+     * Check if all required parameters are present in $parameters,
+     * if one is missing throw an exception.
+     *
+     * @param $parameters the parameters passed to this job
+     */
+    protected function checkRequiredParameters($parameters)
     {
-      // TODO: Create undoJob() functions in subclasses for cleanups
+        if (isset($this->extraRequiredParameters)) {
+            $this->requiredParameters = array_merge($this->requiredParameters, $this->extraRequiredParameters);
+        }
 
-      // Mark QubitJob as failed
-      $this->error('Exception: '.$e->getMessage());
+        foreach ($this->requiredParameters as $paramName) {
+            if (!isset($parameters[$paramName])) {
+                throw new Net_Gearman_Job_Exception("Required parameter not found for job: {$paramName}");
+            }
+        }
     }
-  }
 
-  /**
-   * Check if all required parameters are present in $parameters,
-   * if one is missing throw an exception.
-   *
-   * @param   $parameters  the parameters passed to this job
-   */
-  protected function checkRequiredParameters($parameters)
-  {
-    if (isset($this->extraRequiredParameters))
+    /**
+     * A wrapper to log error messages and set the QubitJob status to error.
+     * This will also attach the error message as a note in the QubitJob.
+     *
+     * @param string $message the error message
+     */
+    protected function error($message)
     {
-      $this->requiredParameters = array_merge($this->requiredParameters, $this->extraRequiredParameters);
+        if (!isset($this->job) || !isset($this->job->name)) {
+            throw new Net_Gearman_Job_Exception('Called arBaseJob::error() before QubitJob fetched.');
+        }
+
+        $this->logger->info($message);
+        $this->job->setStatusError($message);
+        $this->job->save();
     }
 
-    foreach ($this->requiredParameters as $paramName)
+    /**
+     * A wrapper to log info messages.
+     *
+     * @param string $message the error message
+     */
+    protected function info($message)
     {
-      if (!isset($parameters[$paramName]))
-      {
-        throw new Net_Gearman_Job_Exception("Required parameter not found for job: $paramName");
-      }
-    }
-  }
+        if (!isset($this->job->name)) {
+            throw new Net_Gearman_Job_Exception('Called arBaseJob::info() before QubitJob fetched.');
+        }
 
-  /**
-   * A wrapper to log error messages and set the QubitJob status to error.
-   * This will also attach the error message as a note in the QubitJob.
-   *
-   * @param string  $message  the error message
-   */
-  protected function error($message)
-  {
-    if (!isset($this->job) || !isset($this->job->name))
+        $this->logger->info($message);
+    }
+
+    /**
+     * Set job owner in user Context. ACL checks require this to be set.
+     * Job owner's user is grabbed from the QubitJob instance.
+     */
+    protected function signIn()
     {
-      throw new Net_Gearman_Job_Exception('Called arBaseJob::error() before QubitJob fetched.');
+        // Unauthenticated jobs were introduced in 2.4.x. If getById() is called
+        // on an unauthenticated job it will return null since it will not have
+        // a valid user associated with it. Only run signIn() for valid users.
+        if (null !== $user = QubitUser::getById($this->job->userId)) {
+            $this->user->signIn($user);
+        }
     }
 
-    $this->logger->info($message);
-    $this->job->setStatusError($message);
-    $this->job->save();
-  }
-
-  /**
-   * A wrapper to log info messages.
-   *
-   * @param string  $message  the error message
-   */
-  protected function info($message)
-  {
-    if (!isset($this->job->name))
+    /**
+     * Clean up job owner & user Context.
+     */
+    protected function signOut()
     {
-      throw new Net_Gearman_Job_Exception('Called arBaseJob::info() before QubitJob fetched.');
+        // Need to delete the ACL instance because we are in a gearman worker loop.
+        // Calling destruct() forces a new QubitAcl instance for each job.
+        QubitAcl::destruct();
+        if (null !== $user = QubitUser::getById($this->job->userId)) {
+            $this->user->signOut();
+        }
     }
 
-    $this->logger->info($message);
-  }
-
-  /**
-   * Set job owner in user Context. ACL checks require this to be set.
-   * Job owner's user is grabbed from the QubitJob instance.
-   *
-   * @return null
-   */
-  protected function signIn()
-  {
-    // Unauthenticated jobs were introduced in 2.4.x. If getById() is called
-    // on an unauthenticated job it will return null since it will not have
-    // a valid user associated with it. Only run signIn() for valid users.
-    if (null !== $user = QubitUser::getById($this->job->userId))
+    /**
+     * Delete old unauthenticated jobs.
+     */
+    protected function deleteOldUnauthenticatedJobs()
     {
-      $this->user->signIn($user);
-    }
-  }
+        $now = new DateTime('now');
+        $oldDate = date_sub($now, date_interval_create_from_date_string('2 days'));
 
-  /**
-   * Clean up job owner & user Context.
-   *
-   * @return null
-   */
-  protected function signOut()
-  {
-    // Need to delete the ACL instance because we are in a gearman worker loop.
-    // Calling destruct() forces a new QubitAcl instance for each job.
-    QubitAcl::destruct();
-    if (null !== $user = QubitUser::getById($this->job->userId))
+        $criteria = new Criteria();
+        $criteria->add(QubitJob::CREATED_AT, $oldDate, Criteria::LESS_THAN);
+        $criteria->add(QubitJob::USER_ID, null, Criteria::ISNULL);
+
+        foreach (QubitJob::get($criteria) as $job) {
+            if (isset($job->downloadPath)) {
+                unlink($job->downloadPath);
+            }
+            $job->delete();
+        }
+    }
+
+    /**
+     * Check if another sensitive job is running.
+     *
+     * @return bool true if this is the oldest being executed
+     *              false if there is an older one in execution
+     */
+    protected function canBeFullyExecuted()
     {
-      $this->user->signOut();
+        // Add job names directly to the query to avoid params escaping
+        $jobNames = "('".implode("','", $this->avoidParallelExecutionJobs)."')";
+
+        // Select sensitive jobs running ordering by created_at
+        $sql = "SELECT job.id FROM job
+            LEFT JOIN object ON object.id = job.id
+            WHERE job.status_id = :statusId
+            AND job.name IN {$jobNames}
+            ORDER BY object.created_at;";
+
+        $params = [':statusId' => QubitTerm::JOB_STATUS_IN_PROGRESS_ID];
+        $runningJobs = QubitPdo::fetchAll($sql, $params, ['fetchMode' => PDO::FETCH_ASSOC]);
+
+        // Edge case where the QubitJobs are cleared while this one is waiting
+        if (0 == count($runningJobs)) {
+            throw new Net_Gearman_Job_Exception('There is not a running QubitJob in the database associated this job.');
+        }
+
+        // If this job is the first one, it can be fully executed
+        return $this->job->id === $runningJobs[0]['id'];
     }
-  }
-
-  /**
-   * Delete old unauthenticated jobs.
-   *
-   * @return null
-   */
-  protected function deleteOldUnauthenticatedJobs()
-  {
-    $now = new DateTime('now');
-    $oldDate = date_sub($now, date_interval_create_from_date_string('2 days'));
-
-    $criteria = new Criteria;
-    $criteria->add(QubitJob::CREATED_AT, $oldDate, Criteria::LESS_THAN);
-    $criteria->add(QubitJob::USER_ID, null, Criteria::ISNULL);
-
-    foreach (QubitJob::get($criteria) as $job)
-    {
-      if (isset($job->downloadPath))
-      {
-        unlink($job->downloadPath);
-      }
-      $job->delete();
-    }
-  }
-
-  /**
-   * Check if another sensitive job is running.
-   *
-   * @return boolean true if this is the oldest being executed
-   *                 false if there is an older one in execution
-   */
-  protected function canBeFullyExecuted()
-  {
-    // Add job names directly to the query to avoid params escaping
-    $jobNames = "('" . implode("','", $this->avoidParallelExecutionJobs) . "')";
-
-    // Select sensitive jobs running ordering by created_at
-    $sql = "SELECT job.id FROM job
-     LEFT JOIN object ON object.id = job.id
-     WHERE job.status_id = :statusId
-     AND job.name IN $jobNames
-     ORDER BY object.created_at;";
-
-    $params = array(':statusId' => QubitTerm::JOB_STATUS_IN_PROGRESS_ID);
-    $runningJobs = QubitPdo::fetchAll($sql, $params, array('fetchMode' => PDO::FETCH_ASSOC));
-
-    // Edge case where the QubitJobs are cleared while this one is waiting
-    if (count($runningJobs) == 0)
-    {
-      throw new Net_Gearman_Job_Exception('There is not a running QubitJob in the database associated this job.');
-    }
-
-    // If this job is the first one, it can be fully executed
-    return $this->job->id === $runningJobs[0]['id'];
-  }
 }

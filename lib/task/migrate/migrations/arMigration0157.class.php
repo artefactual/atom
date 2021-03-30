@@ -25,19 +25,20 @@
  */
 class arMigration0157
 {
-  const
-    VERSION = 157, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 157;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    // Add table clipboard_save
-    $sql = <<<sql
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
+    {
+        // Add table clipboard_save
+        $sql = <<<'sql'
 
 CREATE TABLE `clipboard_save` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -50,10 +51,10 @@ CREATE TABLE `clipboard_save` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 sql;
-    QubitPdo::modify($sql);
+        QubitPdo::modify($sql);
 
-    // Add table clipboard_save_item
-    $sql = <<<sql
+        // Add table clipboard_save_item
+        $sql = <<<'sql'
 
 CREATE TABLE `clipboard_save_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -66,31 +67,29 @@ CREATE TABLE `clipboard_save_item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 sql;
-    QubitPdo::modify($sql);
+        QubitPdo::modify($sql);
 
-    // Add menu items
-    if (null !== $parentMenu = QubitMenu::getByName('clipboard'))
-    {
-      $menu = new QubitMenu;
-      $menu->parentId = $parentMenu->id;
-      $menu->sourceCulture = 'en';
-      $menu->name = 'loadClipboard';
-      $menu->label = 'Load clipboard';
-      $menu->path = 'user/clipboardLoad';
-      $menu->save();
+        // Add menu items
+        if (null !== $parentMenu = QubitMenu::getByName('clipboard')) {
+            $menu = new QubitMenu();
+            $menu->parentId = $parentMenu->id;
+            $menu->sourceCulture = 'en';
+            $menu->name = 'loadClipboard';
+            $menu->label = 'Load clipboard';
+            $menu->path = 'user/clipboardLoad';
+            $menu->save();
+        }
+
+        if (null !== $parentMenu = QubitMenu::getByName('clipboard')) {
+            $menu = new QubitMenu();
+            $menu->parentId = $parentMenu->id;
+            $menu->sourceCulture = 'en';
+            $menu->name = 'saveClipboard';
+            $menu->label = 'Save clipboard';
+            $menu->path = 'user/clipboardSave';
+            $menu->save();
+        }
+
+        return true;
     }
-
-    if (null !== $parentMenu = QubitMenu::getByName('clipboard'))
-    {
-      $menu = new QubitMenu;
-      $menu->parentId = $parentMenu->id;
-      $menu->sourceCulture = 'en';
-      $menu->name = 'saveClipboard';
-      $menu->label = 'Save clipboard';
-      $menu->path = 'user/clipboardSave';
-      $menu->save();
-    }
-
-    return true;
-  }
 }

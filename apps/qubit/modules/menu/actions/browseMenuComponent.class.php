@@ -21,20 +21,17 @@
  * Build browse menu as simple xhtml lists, relying on css styling to
  * format the display of the menus.
  *
- * @package    AccesstoMemory
- * @subpackage menu
  * @author     Peter Van Garderen <peter@artefactual.com>
  */
 class MenuBrowseMenuComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    // Get menu objects
-    $this->browseMenu = QubitMenu::getById(QubitMenu::BROWSE_ID);
-
-    if (!$this->browseMenu instanceof QubitMenu)
+    public function execute($request)
     {
-      return sfView::NONE;
+        // Get menu objects
+        $this->browseMenu = QubitMenu::getById(QubitMenu::BROWSE_ID);
+
+        if (!$this->browseMenu instanceof QubitMenu) {
+            return sfView::NONE;
+        }
     }
-  }
 }

@@ -19,13 +19,12 @@
 
 class RightRelatedRightsComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    if ($this->resource instanceof QubitAccession)
+    public function execute($request)
     {
-      $this->ancestor = $this->resource;
-    }
+        if ($this->resource instanceof QubitAccession) {
+            $this->ancestor = $this->resource;
+        }
 
-    $this->className = get_class($this->resource);
-  }
+        $this->className = get_class($this->resource);
+    }
 }

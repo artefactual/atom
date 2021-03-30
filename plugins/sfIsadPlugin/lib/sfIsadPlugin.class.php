@@ -20,127 +20,115 @@
 /**
  * This class is used to provide methods that supplement the core Qubit
  * information object with behaviour or presentation features that are specific
- * to the ICA's International Standard Archival Description (ISAD)
+ * to the ICA's International Standard Archival Description (ISAD).
  *
- * @package    AccesstoMemory
  * @author     Peter Van Garderen <peter@artefactual.com>
  */
-
 class sfIsadPlugin implements ArrayAccess
 {
-  protected
-    $resource;
+    protected $resource;
 
-  public function __construct($resource)
-  {
-    $this->resource = $resource;
-  }
-
-  public function __toString()
-  {
-    $string = '';
-
-    // Add title if set
-    if (0 < strlen($title = $this->resource->__toString()))
+    public function __construct($resource)
     {
-      $string .= $title;
+        $this->resource = $resource;
     }
 
-    // Add publication status
-    $publicationStatus = $this->resource->getPublicationStatus();
-    if (isset($publicationStatus) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $publicationStatus->statusId)
+    public function __toString()
     {
-      $string .= (!empty($string)) ? ' ' : '';
-      $string .= "({$publicationStatus->status->__toString()})";
-    }
+        $string = '';
 
-    return $string;
-  }
-
-  public function __get($name)
-  {
-    switch ($name)
-    {
-      case 'languageNotes':
-
-        return $this->resource->getNotesByType(array('noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID))->offsetGet(0);
-
-      case 'referenceCode':
-
-        return $this->resource->referenceCode;
-
-      case 'sourceCulture':
-
-        return $this->resource->sourceCulture;
-    }
-  }
-
-  public function __set($name, $value)
-  {
-    switch ($name)
-    {
-      case 'languageNotes':
-
-        $note = $this->resource->getNotesByType(array('noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID))->offsetGet(0);
-        $missingNote = count($note) === 0;
-
-        if (0 == strlen($value))
-        {
-          // Delete note if it's available
-          if (!$missingNote)
-          {
-            $note->delete();
-          }
-
-          break;
+        // Add title if set
+        if (0 < strlen($title = $this->resource->__toString())) {
+            $string .= $title;
         }
 
-        if ($missingNote)
-        {
-          $note = new QubitNote;
-          $note->typeId = QubitTerm::LANGUAGE_NOTE_ID;
-          $note->userId = sfContext::getInstance()->user->getAttribute('user_id');
-
-          $this->resource->notes[] = $note;
+        // Add publication status
+        $publicationStatus = $this->resource->getPublicationStatus();
+        if (isset($publicationStatus) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $publicationStatus->statusId) {
+            $string .= (!empty($string)) ? ' ' : '';
+            $string .= "({$publicationStatus->status->__toString()})";
         }
 
-        $note->content = $value;
-
-        return $this;
+        return $string;
     }
-  }
 
-  public function offsetExists($offset)
-  {
-    $args = func_get_args();
+    public function __get($name)
+    {
+        switch ($name) {
+            case 'languageNotes':
+                return $this->resource->getNotesByType(['noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID])->offsetGet(0);
 
-    return call_user_func_array(array($this, '__isset'), $args);
-  }
+            case 'referenceCode':
+                return $this->resource->referenceCode;
 
-  public function offsetGet($offset)
-  {
-    $args = func_get_args();
+            case 'sourceCulture':
+                return $this->resource->sourceCulture;
+        }
+    }
 
-    return call_user_func_array(array($this, '__get'), $args);
-  }
+    public function __set($name, $value)
+    {
+        switch ($name) {
+            case 'languageNotes':
+                $note = $this->resource->getNotesByType(['noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID])->offsetGet(0);
+                $missingNote = 0 === count($note);
 
-  public function offsetSet($offset, $value)
-  {
-    $args = func_get_args();
+                if (0 == strlen($value)) {
+                    // Delete note if it's available
+                    if (!$missingNote) {
+                        $note->delete();
+                    }
 
-    return call_user_func_array(array($this, '__set'), $args);
-  }
+                    break;
+                }
 
-  public function offsetUnset($offset)
-  {
-    $args = func_get_args();
+                if ($missingNote) {
+                    $note = new QubitNote();
+                    $note->typeId = QubitTerm::LANGUAGE_NOTE_ID;
+                    $note->userId = sfContext::getInstance()->user->getAttribute('user_id');
 
-    return call_user_func_array(array($this, '__unset'), $args);
-  }
+                    $this->resource->notes[] = $note;
+                }
 
-  public static function eventTypes()
-  {
-    return array(QubitTerm::getById(QubitTerm::CREATION_ID),
-      QubitTerm::getById(QubitTerm::ACCUMULATION_ID));
-  }
+                $note->content = $value;
+
+                return $this;
+        }
+    }
+
+    public function offsetExists($offset)
+    {
+        $args = func_get_args();
+
+        return call_user_func_array([$this, '__isset'], $args);
+    }
+
+    public function offsetGet($offset)
+    {
+        $args = func_get_args();
+
+        return call_user_func_array([$this, '__get'], $args);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $args = func_get_args();
+
+        return call_user_func_array([$this, '__set'], $args);
+    }
+
+    public function offsetUnset($offset)
+    {
+        $args = func_get_args();
+
+        return call_user_func_array([$this, '__unset'], $args);
+    }
+
+    public static function eventTypes()
+    {
+        return [
+            QubitTerm::getById(QubitTerm::CREATION_ID),
+            QubitTerm::getById(QubitTerm::ACCUMULATION_ID),
+        ];
+    }
 }

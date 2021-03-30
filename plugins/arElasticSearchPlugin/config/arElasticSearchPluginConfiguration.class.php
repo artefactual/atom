@@ -19,55 +19,47 @@
 
 class arElasticSearchPluginConfiguration extends sfPluginConfiguration
 {
-  public static
-    $summary = 'Search index plugin. Uses an ElasticSearch instance to provide advanced search features such as aggregations, fuzzy search, etc.',
-    $version = '1.0.0',
+    public static $summary = 'Search index plugin. Uses an ElasticSearch instance to provide advanced search features such as aggregations, fuzzy search, etc.';
+    public static $version = '1.0.0';
+    public static $configPath = 'config/search.yml';
+    public static $config = null;
+    public static $mappingPath = 'config/mapping.yml';
+    public static $mapping = null;
 
-    $configPath = 'config/search.yml',
-    $config = null,
-
-    $mappingPath = 'config/mapping.yml',
-    $mapping = null;
-
-  public function initialize()
-  {
-    if (!extension_loaded('curl'))
+    public function initialize()
     {
-      throw new sfInitializationException('arElasticSearchPlugin needs cURL PHP extension');
+        if (!extension_loaded('curl')) {
+            throw new sfInitializationException('arElasticSearchPlugin needs cURL PHP extension');
+        }
+
+        if ($this->configuration instanceof sfApplicationConfiguration) {
+            // Use config cache in application context
+            $configCache = $this->configuration->getConfigCache();
+            $configCache->registerConfigHandler(self::$configPath, 'arElasticSearchConfigHandler');
+
+            self::$config = include $configCache->checkConfig(self::$configPath);
+        } else {
+            // Live parsing (task context)
+            self::reloadConfig($this->configuration);
+        }
     }
 
-    if ($this->configuration instanceof sfApplicationConfiguration)
+    public static function reloadConfig($configuration)
     {
-      // Use config cache in application context
-      $configCache = $this->configuration->getConfigCache();
-      $configCache->registerConfigHandler(self::$configPath, 'arElasticSearchConfigHandler');
+        $configPaths = $configuration->getConfigPaths(self::$configPath);
 
-      self::$config = include $configCache->checkConfig(self::$configPath);
-    }
-    else
-    {
-      // Live parsing (task context)
-      self::reloadConfig($this->configuration);
-    }
-  }
-
-  public static function reloadConfig($configuration)
-  {
-    $configPaths = $configuration->getConfigPaths(self::$configPath);
-
-    self::$config = arElasticSearchConfigHandler::getConfiguration($configPaths);
-  }
-
-  public static function getMaxResultWindow()
-  {
-    $maxResultWindow = 10000;
-    $indexConfig = self::$config['index']['configuration'];
-
-    if (!empty($indexConfig['index.max_result_window']))
-    {
-      $maxResultWindow = (int)$indexConfig['index.max_result_window'];
+        self::$config = arElasticSearchConfigHandler::getConfiguration($configPaths);
     }
 
-    return $maxResultWindow;
-  }
+    public static function getMaxResultWindow()
+    {
+        $maxResultWindow = 10000;
+        $indexConfig = self::$config['index']['configuration'];
+
+        if (!empty($indexConfig['index.max_result_window'])) {
+            $maxResultWindow = (int) $indexConfig['index.max_result_window'];
+        }
+
+        return $maxResultWindow;
+    }
 }

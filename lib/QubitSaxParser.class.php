@@ -19,7 +19,7 @@
 
 /**
  * Simplified SAX parser base class
- * --------------------------------
+ * --------------------------------.
  *
  * This class can be used as a parent class for classes that need to access
  * XML data.
@@ -50,464 +50,427 @@
  *   path()                        Returns path to current element
  *   pathIncludes(<path fragment>) Check if current path contains subpath
  *
- * @package AccesstoMemory
- * @subpackage model
  * @author Mike Cantelon <mike@artefactual.com>
  */
 class QubitSaxParser
 {
-  protected $sax = null;
-  protected $error = null;
+    protected $sax;
+    protected $error;
 
-  // Ancestor tag data stack
-  protected $ancestors = array();
+    // Ancestor tag data stack
+    protected $ancestors = [];
 
-  // Nesting level bookkeeping
-  protected $level             = 0;
-  protected $lastTagStartLevel = 1;
-  protected $lastTagEndLevel   = 1;
+    // Nesting level bookkeeping
+    protected $level = 0;
+    protected $lastTagStartLevel = 1;
+    protected $lastTagEndLevel = 1;
 
-  // Get set to properties of current tag being processed
-  protected $tag;
-  protected $data;
-  protected $attrStack = array();
+    // Get set to properties of current tag being processed
+    protected $tag;
+    protected $data;
+    protected $attrStack = [];
 
-  // Keep note of which handlers have been triggered
-  protected $triggeredHandlers = array();
+    // Keep note of which handlers have been triggered
+    protected $triggeredHandlers = [];
 
-  public function __construct($encoding = 'UTF-8')
-  {
-    $this->sax = xml_parser_create($encoding);
-
-    // No auto case conversion and don't skip whitespace
-    xml_parser_set_option($this->sax, XML_OPTION_CASE_FOLDING, false);
-    xml_parser_set_option($this->sax, XML_OPTION_SKIP_WHITE, false);
-
-    // Set up SAX handlers
-    xml_set_object($this->sax, $this);
-    xml_set_element_handler($this->sax, 'startTagInternalHandler', 'endTagInternalHandler');
-    xml_set_character_data_handler($this->sax, 'tagDataInternalHandler');
-  }
-
-  /**
-   * Handle start tags
-   *
-   * The start tag handler:
-   *
-   * 1) Stores ancestor data if descending in tag hierarchy
-   * 2) Stores current tag data
-   * 3) Calls a method with suffix "TagInit" if it exists...
-   *    otherwise, it calls a method called "startTagHandler"
-   *
-   * @param object $sax  SAX parser
-   * @param string $tag  tag name of element currently being processed
-   * @param array $array  array of attribute data
-   *
-   * @return void
-   */
-  protected function startTagInternalHandler($sax, $tag, $attr)
-  {
-    $this->level++;
-    $this->storeAncestorIfNesting();
-    $this->lastTagStartLevel = $this->level;
-
-    // Store current tag data
-    $this->tag = $tag;
-    unset($this->data);
-
-    array_push($this->attrStack, $attr);
-
-    // Methods that end with "StartTag" are handlers for specific tags...
-    // Call tag handler, if it exists, or generic tag handler
-    $this->callOptionalTagHandlers($tag, 'TagInit', 'startTagHandler');
-  }
-
-  /**
-   * Attempt to call tag handler by suffix, or default, if they exist
-   *
-   * Take note of which handlers have been called
-   *
-   * @param string $tag  tag name of element currently being processed
-   * @param string $handlerMethodSuffix  handler naming scheme suffix
-   * @param string $defaultHandlerMethod  name of generic handler
-   *
-   * @return void
-   */
-  protected function callOptionalTagHandlers($tag, $handlerMethodSuffix, $defaultHandlerMethod)
-  {
-    $executeMethod = null;
-
-    // Determine if a method should be called
-    $tagMethod = $tag . $handlerMethodSuffix;
-
-    if (method_exists($this, $tagMethod))
+    public function __construct($encoding = 'UTF-8')
     {
-      $executeMethod = $tagMethod;
+        $this->sax = xml_parser_create($encoding);
+
+        // No auto case conversion and don't skip whitespace
+        xml_parser_set_option($this->sax, XML_OPTION_CASE_FOLDING, false);
+        xml_parser_set_option($this->sax, XML_OPTION_SKIP_WHITE, false);
+
+        // Set up SAX handlers
+        xml_set_object($this->sax, $this);
+        xml_set_element_handler($this->sax, 'startTagInternalHandler', 'endTagInternalHandler');
+        xml_set_character_data_handler($this->sax, 'tagDataInternalHandler');
     }
-    else if (method_exists($this, $defaultHandlerMethod))
+
+    /**
+     * Parse contents of file.
+     *
+     * The parser can optionally not be freed after a parse, if one wants to
+     * inspect error state externally.
+     *
+     * @param string $file           file path of XML to parse
+     * @param bool   $freeAfterParse whether to free parser after parse
+     */
+    public function parse($file, $freeAfterParse = true)
     {
-      $executeMethod = $tag . $handlerMethodSuffix;
+        $fp = fopen($file, 'r');
+
+        if (!$fp) {
+            $this->error = [
+                'string' => 'Unable to open file',
+            ];
+
+            return false;
+        }
+
+        $success = true;
+
+        // Parse in chunks to preserve memory
+        while ($data = fread($fp, 4096)) {
+            if (!xml_parse($this->sax, $data, feof($fp))) {
+                $success = false;
+
+                break;
+            }
+        }
+        fclose($fp);
+
+        if (!$success) {
+            $errorCode = xml_get_error_code($this->sax);
+
+            $this->error = [
+                'code' => $errorCode,
+                'string' => xml_error_string($errorCode),
+                'line' => xml_get_current_line_number($this->sax),
+                'column' => xml_get_current_column_number($this->sax),
+                'byte' => xml_get_current_byte_index($this->sax),
+            ];
+
+            $this->error['summary'] = sprintf(
+                'Parsing error %d: "%s" at line %d, column %d (byte %d)',
+                $this->error['code'],
+                $this->error['string'],
+                $this->error['line'],
+                $this->error['column'],
+                $this->error['byte']
+            );
+        }
+
+        if ($freeAfterParse) {
+            xml_parser_free($this->sax);
+        }
+
+        return $success;
     }
 
-    // call method and log that is has been called
-    if (isset($executeMethod))
+    /**
+     * Get parser.
+     *
+     * Can be used to inspect error state externally
+     *
+     * @return resource SAX parser
+     */
+    public function getParser()
     {
-      $this->logTriggeredHandler($executeMethod);
-      call_user_func(array($this, $executeMethod));
+        return $this->sax;
     }
-  }
 
-  /**
-   * Note that a handler method has been triggered
-   *
-   * @param string $method  name of handler method
-   *
-   * @return void
-   */
-  protected function logTriggeredHandler($method)
-  {
-    if (!in_array($method, $this->triggeredHandlers))
+    /**
+     * Get parsing error description.
+     *
+     * @return string Description of parsing error
+     */
+    public function getErrorData()
     {
-      $this->triggeredHandlers[] = $method;
+        return $this->error;
     }
-  }
 
-  /**
-   * If descending the hierarchy, store ancestor data
-   *
-   * @return void
-   */
-  protected function storeAncestorIfNesting()
-  {
-    // If we're one level deeper than last start tag, store ancestor
-    if ($this->level > $this->lastTagStartLevel)
+    /**
+     * Handle start tags.
+     *
+     * The start tag handler:
+     *
+     * 1) Stores ancestor data if descending in tag hierarchy
+     * 2) Stores current tag data
+     * 3) Calls a method with suffix "TagInit" if it exists...
+     *    otherwise, it calls a method called "startTagHandler"
+     *
+     * @param object $sax   SAX parser
+     * @param string $tag   tag name of element currently being processed
+     * @param array  $array array of attribute data
+     * @param mixed  $attr
+     */
+    protected function startTagInternalHandler($sax, $tag, $attr)
     {
-      $ancestorData = array(
-        'tag'  => $this->tag,
-        'attr' => $this->currentAttr(),
-        'data' => $this->data
-      );
+        ++$this->level;
+        $this->storeAncestorIfNesting();
+        $this->lastTagStartLevel = $this->level;
 
-      array_push($this->ancestors, $ancestorData);
+        // Store current tag data
+        $this->tag = $tag;
+        unset($this->data);
+
+        array_push($this->attrStack, $attr);
+
+        // Methods that end with "StartTag" are handlers for specific tags...
+        // Call tag handler, if it exists, or generic tag handler
+        $this->callOptionalTagHandlers($tag, 'TagInit', 'startTagHandler');
     }
-  }
 
-  /**
-   * Handle tag CDATA
-   *
-   * Note that this gets executed even for whitespace between tags.
-   *
-   * @param object $sax  SAX parser
-   * @param string $data  CDATA text
-   *
-   * @return void
-   */
-  protected function tagDataInternalHandler($sax, $data)
-  {
-    if (isset($this->data))
+    /**
+     * Attempt to call tag handler by suffix, or default, if they exist.
+     *
+     * Take note of which handlers have been called
+     *
+     * @param string $tag                  tag name of element currently being processed
+     * @param string $handlerMethodSuffix  handler naming scheme suffix
+     * @param string $defaultHandlerMethod name of generic handler
+     */
+    protected function callOptionalTagHandlers($tag, $handlerMethodSuffix, $defaultHandlerMethod)
     {
-      $this->data .= $data;
-    }
-    else {
-      $this->data = $data;
-    }
-  }
+        $executeMethod = null;
 
-  /**
-   * Handle end tags
-   *
-   * The end tag handler:
-   *
-   * 1) Discards ancestor data if ascending in tag hierarchy
-   * 2) Calls a method with suffix "Tag" if it exists...
-   *    otherwise, it calls a method called "endTagHandler"
-   * 3) Discards current tag data
-   *
-   * @param object $sax  SAX parser
-   * @param string $tag  tag name of element currently being processed
-   *
-   * @return void
-   */
-  protected function endTagInternalHandler($sax, $tag)
-  {
-    $this->level--;
+        // Determine if a method should be called
+        $tagMethod = $tag.$handlerMethodSuffix;
 
-    // If we're one level less deep than last end tag, dump ancestor
-    if ($this->level < $this->lastTagEndLevel)
+        if (method_exists($this, $tagMethod)) {
+            $executeMethod = $tagMethod;
+        } elseif (method_exists($this, $defaultHandlerMethod)) {
+            $executeMethod = $tag.$handlerMethodSuffix;
+        }
+
+        // call method and log that is has been called
+        if (isset($executeMethod)) {
+            $this->logTriggeredHandler($executeMethod);
+            call_user_func([$this, $executeMethod]);
+        }
+    }
+
+    /**
+     * Note that a handler method has been triggered.
+     *
+     * @param string $method name of handler method
+     */
+    protected function logTriggeredHandler($method)
     {
-      array_pop($this->ancestors);
+        if (!in_array($method, $this->triggeredHandlers)) {
+            $this->triggeredHandlers[] = $method;
+        }
     }
-    $this->lastTagEndLevel = $this->level;
 
-    // Methods that end with "EndTag" are handlers for specific tags...
-    // Call tag handler, if it exists, or generic tag handler
-    $this->callOptionalTagHandlers($tag, 'Tag', 'endTagHandler');
-
-    // Discard this tag's attribute data
-    array_pop($this->attrStack);
-  }
-
-  /**
-   * Parse contents of file
-   *
-   * The parser can optionally not be freed after a parse, if one wants to
-   * inspect error state externally.
-   *
-   * @param string $file  file path of XML to parse
-   * @param boolean $freeAfterParse  whether to free parser after parse
-   *
-   * @return void
-   */
-  public function parse($file, $freeAfterParse = true)
-  {
-    $fp = fopen($file, 'r');
-
-    if (!$fp)
+    /**
+     * If descending the hierarchy, store ancestor data.
+     */
+    protected function storeAncestorIfNesting()
     {
-      $this->error = array(
-        'string' => 'Unable to open file'
-      );
+        // If we're one level deeper than last start tag, store ancestor
+        if ($this->level > $this->lastTagStartLevel) {
+            $ancestorData = [
+                'tag' => $this->tag,
+                'attr' => $this->currentAttr(),
+                'data' => $this->data,
+            ];
 
-      return false;
+            array_push($this->ancestors, $ancestorData);
+        }
     }
 
-    $success = true;
-
-    // Parse in chunks to preserve memory
-    while ($data = fread($fp, 4096))
+    /**
+     * Handle tag CDATA.
+     *
+     * Note that this gets executed even for whitespace between tags.
+     *
+     * @param object $sax  SAX parser
+     * @param string $data CDATA text
+     */
+    protected function tagDataInternalHandler($sax, $data)
     {
-      if (!xml_parse($this->sax, $data, feof($fp)))
-      {
-        $success = false;
-        break;
-      }
+        if (isset($this->data)) {
+            $this->data .= $data;
+        } else {
+            $this->data = $data;
+        }
     }
-    fclose($fp);
 
-    if (!$success)
+    /**
+     * Handle end tags.
+     *
+     * The end tag handler:
+     *
+     * 1) Discards ancestor data if ascending in tag hierarchy
+     * 2) Calls a method with suffix "Tag" if it exists...
+     *    otherwise, it calls a method called "endTagHandler"
+     * 3) Discards current tag data
+     *
+     * @param object $sax SAX parser
+     * @param string $tag tag name of element currently being processed
+     */
+    protected function endTagInternalHandler($sax, $tag)
     {
-      $errorCode = xml_get_error_code($this->sax);
+        --$this->level;
 
-      $this->error = array(
-        'code'   => $errorCode,
-        'string' => xml_error_string($errorCode),
-        'line'   => xml_get_current_line_number($this->sax),
-        'column' => xml_get_current_column_number($this->sax),
-        'byte'   => xml_get_current_byte_index($this->sax)
-      );
+        // If we're one level less deep than last end tag, dump ancestor
+        if ($this->level < $this->lastTagEndLevel) {
+            array_pop($this->ancestors);
+        }
+        $this->lastTagEndLevel = $this->level;
 
-      $this->error['summary'] = sprintf(
-        'Parsing error %d: "%s" at line %d, column %d (byte %d)',
-        $this->error['code'],
-        $this->error['string'],
-        $this->error['line'],
-        $this->error['column'],
-        $this->error['byte']
-      );
+        // Methods that end with "EndTag" are handlers for specific tags...
+        // Call tag handler, if it exists, or generic tag handler
+        $this->callOptionalTagHandlers($tag, 'Tag', 'endTagHandler');
+
+        // Discard this tag's attribute data
+        array_pop($this->attrStack);
     }
 
-    if ($freeAfterParse)
+    /*
+     *
+     *  Helper functions for interpreting parsed data
+     *  ---------------------------------------------
+     */
+
+    /**
+     * Get name of current tag being processed.
+     *
+     * @return string name of current tag being processed
+     */
+    protected function tag()
     {
-      xml_parser_free($this->sax);
+        return $this->tag;
     }
 
-    return $success;
-  }
-
-  /**
-   * Get parser
-   *
-   * Can be used to inspect error state externally
-   *
-   * @return resource  SAX parser
-   */
-  public function getParser()
-  {
-    return $this->sax;
-  }
-
-  /**
-   * Get parsing error description
-   *
-   * @return string  Description of parsing error
-   */
-  public function getErrorData()
-  {
-    return $this->error;
-  }
-
-
-  /*
-   *
-   *  Helper functions for interpreting parsed data
-   *  ---------------------------------------------
-   */
-
-
-  /**
-   * Get name of current tag being processed
-   *
-   * @return string  name of current tag being processed
-   */
-  protected function tag()
-  {
-    return $this->tag;
-  }
-
-  /**
-   * Get CDATA of current tag being processed
-   *
-   * @return string  CDATA content
-   */
-  protected function data()
-  {
-    return $this->data;
-  }
-
-  /**
-   * Get attribute of current tag being processed
-   *
-   * @param string $attrName  attribute name
-   *
-   * @return string  attribute value
-   */
-  protected function attr($attrName)
-  {
-    $current = end($this->attrStack);
-    return $current[$attrName];
-  }
-
-  /**
-   * Get all attribute data for current tag being processed
-   *
-   * @return array  array where key is attribute name
-   */
-  protected function currentAttr()
-  {
-    return end($this->attrStack);
-  }
-
-  /**
-   * Return immediate ancestor
-   *
-   * @return array  parent tag data
-   */
-  protected function parent()
-  {
-    return end(array_values($this->ancestors));
-  }
-
-  /**
-   * Return path in XML hierarchy
-   *
-   * @return string  string representation of path
-   */
-  protected function path()
-  {
-    $path = array();
-
-    foreach ($this->ancestors as $ancestor)
+    /**
+     * Get CDATA of current tag being processed.
+     *
+     * @return string CDATA content
+     */
+    protected function data()
     {
-      array_push($path, $ancestor['tag']);
+        return $this->data;
     }
 
-    return implode('/', $path);
-  }
-
-  /**
-   * Check if the current path in the XML hierarchy contains a subpath
-   *
-   * @param string $subPath  XML path or path fragment
-   *
-   * @return boolean  true if subpath exists in current path
-   */
-  protected function pathIncludes($subPath)
-  {
-    return strpos($this->path(), $subPath) !== false;
-  }
-
-
-  /*
-   *
-   *  Diagnostic functions for troubleshooting parsers
-   *  ------------------------------------------------
-   */
-
-
-  /**
-   * Return array of handlers defined
-   *
-   * @return array  array of handlers
-   */
-  protected function handlers()
-  {
-    $handlers = array();
-
-    foreach (get_class_methods(get_class($this)) as $method)
+    /**
+     * Get attribute of current tag being processed.
+     *
+     * @param string $attrName attribute name
+     *
+     * @return string attribute value
+     */
+    protected function attr($attrName)
     {
-      if ($this->methodIsHandler($method))
-      {
-        $handlers[] = $method;
-      }
+        $current = end($this->attrStack);
+
+        return $current[$attrName];
     }
 
-    sort($handlers);
-
-    return $handlers;
-  }
-
-  /**
-   * Return array of handlers that weren't triggered during parsing
-   *
-   * This can be used to make sure the documents you're parsing aren't missing
-   * any elements.
-   *
-   * @return array  array of handlers
-   */
-  protected function untriggeredHandlers()
-  {
-    return array_diff($this->handlers(), $this->triggeredHandlers);
-  }
-
-  /**
-   * Return array of methods defined in child class that are not handlers
-   *
-   * This can be used to make sure you haven't misnamed any handlers (if
-   * a handler is returned by this function then it is likely misnamed).
-   *
-   * @return array  array of handlers
-   */
-  protected function nonHandlers()
-  {
-    $allMethods = get_class_methods(get_class($this));
-    $parentClassMethods = get_class_methods(get_parent_class($this));
-
-    return array_diff($allMethods, $parentClassMethods, $this->handlers());
-  }
-
-  /**
-   * Check if a method is a handler
-   *
-   * @param string $method  name of method
-   *
-   * @return boolean  true if method is a handler
-   */
-  protected function methodIsHandler($method)
-  {
-    if ($method == 'startTagHandler' || $method == 'endTagHandler')
+    /**
+     * Get all attribute data for current tag being processed.
+     *
+     * @return array array where key is attribute name
+     */
+    protected function currentAttr()
     {
-      return true;
+        return end($this->attrStack);
     }
 
-    if (substr($method, -strlen('TagInit')) === 'TagInit')
+    /**
+     * Return immediate ancestor.
+     *
+     * @return array parent tag data
+     */
+    protected function parent()
     {
-      return true;
-    }
-    else if (substr($method, -strlen('Tag')) === 'Tag')
-    {
-      return true;
+        return end(array_values($this->ancestors));
     }
 
-    return false;
-  }
+    /**
+     * Return path in XML hierarchy.
+     *
+     * @return string string representation of path
+     */
+    protected function path()
+    {
+        $path = [];
+
+        foreach ($this->ancestors as $ancestor) {
+            array_push($path, $ancestor['tag']);
+        }
+
+        return implode('/', $path);
+    }
+
+    /**
+     * Check if the current path in the XML hierarchy contains a subpath.
+     *
+     * @param string $subPath XML path or path fragment
+     *
+     * @return bool true if subpath exists in current path
+     */
+    protected function pathIncludes($subPath)
+    {
+        return false !== strpos($this->path(), $subPath);
+    }
+
+    /*
+     *
+     *  Diagnostic functions for troubleshooting parsers
+     *  ------------------------------------------------
+     */
+
+    /**
+     * Return array of handlers defined.
+     *
+     * @return array array of handlers
+     */
+    protected function handlers()
+    {
+        $handlers = [];
+
+        foreach (get_class_methods(get_class($this)) as $method) {
+            if ($this->methodIsHandler($method)) {
+                $handlers[] = $method;
+            }
+        }
+
+        sort($handlers);
+
+        return $handlers;
+    }
+
+    /**
+     * Return array of handlers that weren't triggered during parsing.
+     *
+     * This can be used to make sure the documents you're parsing aren't missing
+     * any elements.
+     *
+     * @return array array of handlers
+     */
+    protected function untriggeredHandlers()
+    {
+        return array_diff($this->handlers(), $this->triggeredHandlers);
+    }
+
+    /**
+     * Return array of methods defined in child class that are not handlers.
+     *
+     * This can be used to make sure you haven't misnamed any handlers (if
+     * a handler is returned by this function then it is likely misnamed).
+     *
+     * @return array array of handlers
+     */
+    protected function nonHandlers()
+    {
+        $allMethods = get_class_methods(get_class($this));
+        $parentClassMethods = get_class_methods(get_parent_class($this));
+
+        return array_diff($allMethods, $parentClassMethods, $this->handlers());
+    }
+
+    /**
+     * Check if a method is a handler.
+     *
+     * @param string $method name of method
+     *
+     * @return bool true if method is a handler
+     */
+    protected function methodIsHandler($method)
+    {
+        if ('startTagHandler' == $method || 'endTagHandler' == $method) {
+            return true;
+        }
+
+        if ('TagInit' === substr($method, -strlen('TagInit'))) {
+            return true;
+        }
+        if ('Tag' === substr($method, -strlen('Tag'))) {
+            return true;
+        }
+
+        return false;
+    }
 }

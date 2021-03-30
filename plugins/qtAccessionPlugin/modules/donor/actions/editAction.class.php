@@ -19,94 +19,83 @@
 
 class DonorEditAction extends DefaultEditAction
 {
-  // Arrays not allowed in class constants
-  public static
-    $NAMES = array(
-      'authorizedFormOfName');
+    // Arrays not allowed in class constants
+    public static $NAMES = [
+        'authorizedFormOfName',
+    ];
 
-  protected function earlyExecute()
-  {
-    $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
-
-    $this->resource = new QubitDonor;
-
-    if (isset($this->getRoute()->resource))
+    public function execute($request)
     {
-      $this->resource = $this->getRoute()->resource;
+        parent::execute($request);
 
-      // Check user authorization
-      if (!QubitAcl::check($this->resource, 'update'))
-      {
-        QubitAcl::forwardUnauthorized();
-      }
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
 
-      // Add optimistic lock
-      $this->form->setDefault('serialNumber', $this->resource->serialNumber);
-      $this->form->setValidator('serialNumber', new sfValidatorInteger);
-      $this->form->setWidget('serialNumber', new sfWidgetFormInputHidden);
-    }
-    else
-    {
-      // Check user authorization
-      if (!QubitAcl::check($this->resource, 'create'))
-      {
-        QubitAcl::forwardUnauthorized();
-      }
+            if ($this->form->isValid()) {
+                $this->contactInformationEditComponent->processForm();
+
+                $this->processForm();
+
+                $this->resource->save();
+
+                $this->redirect([$this->resource, 'module' => 'donor']);
+            }
+        }
     }
 
-    $title = $this->context->i18n->__('Add new donor');
-    if (isset($this->getRoute()->resource))
+    protected function earlyExecute()
     {
-      if (1 > strlen($title = $this->resource->__toString()))
-      {
-        $title = $this->context->i18n->__('Untitled');
-      }
+        $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
-      $title = $this->context->i18n->__('Edit %1%', array('%1%' => $title));
+        $this->resource = new QubitDonor();
+
+        if (isset($this->getRoute()->resource)) {
+            $this->resource = $this->getRoute()->resource;
+
+            // Check user authorization
+            if (!QubitAcl::check($this->resource, 'update')) {
+                QubitAcl::forwardUnauthorized();
+            }
+
+            // Add optimistic lock
+            $this->form->setDefault('serialNumber', $this->resource->serialNumber);
+            $this->form->setValidator('serialNumber', new sfValidatorInteger());
+            $this->form->setWidget('serialNumber', new sfWidgetFormInputHidden());
+        } else {
+            // Check user authorization
+            if (!QubitAcl::check($this->resource, 'create')) {
+                QubitAcl::forwardUnauthorized();
+            }
+        }
+
+        $title = $this->context->i18n->__('Add new donor');
+        if (isset($this->getRoute()->resource)) {
+            if (1 > strlen($title = $this->resource->__toString())) {
+                $title = $this->context->i18n->__('Untitled');
+            }
+
+            $title = $this->context->i18n->__('Edit %1%', ['%1%' => $title]);
+        }
+
+        $this->response->setTitle("{$title} - {$this->response->getTitle()}");
+
+        $this->contactInformationEditComponent = new ContactInformationEditComponent($this->context, 'contactinformation', 'editContactInformation');
+        $this->contactInformationEditComponent->resource = $this->resource;
+        $this->contactInformationEditComponent->execute($this->request);
     }
 
-    $this->response->setTitle("$title - {$this->response->getTitle()}");
-
-    $this->contactInformationEditComponent = new ContactInformationEditComponent($this->context, 'contactinformation', 'editContactInformation');
-    $this->contactInformationEditComponent->resource = $this->resource;
-    $this->contactInformationEditComponent->execute($this->request);
-  }
-
-  protected function addField($name)
-  {
-    switch ($name)
+    protected function addField($name)
     {
-      case 'authorizedFormOfName':
-        $this->form->setDefault('authorizedFormOfName', $this->resource->authorizedFormOfName);
-        $this->form->setValidator('authorizedFormOfName', new sfValidatorString);
-        $this->form->setWidget('authorizedFormOfName', new sfWidgetFormInput);
+        switch ($name) {
+            case 'authorizedFormOfName':
+                $this->form->setDefault('authorizedFormOfName', $this->resource->authorizedFormOfName);
+                $this->form->setValidator('authorizedFormOfName', new sfValidatorString());
+                $this->form->setWidget('authorizedFormOfName', new sfWidgetFormInput());
 
-        break;
+                break;
 
-      default:
-
-        return parent::addField($name);
+            default:
+                return parent::addField($name);
+        }
     }
-  }
-
-  public function execute($request)
-  {
-    parent::execute($request);
-
-    if ($request->isMethod('post'))
-    {
-      $this->form->bind($request->getPostParameters());
-
-      if ($this->form->isValid())
-      {
-        $this->contactInformationEditComponent->processForm();
-
-        $this->processForm();
-
-        $this->resource->save();
-
-        $this->redirect(array($this->resource, 'module' => 'donor'));
-      }
-    }
-  }
 }

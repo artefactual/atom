@@ -17,38 +17,33 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
- /**
- * Generate  listRecordsAction response of the OAI-PMH protocol for the Access to Memory (AtoM)
+/**
+ * Generate  listRecordsAction response of the OAI-PMH protocol for the Access to Memory (AtoM).
  *
- * @package    AccesstoMemory
- * @subpackage oai
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
 class arOaiPluginListRecordsComponent extends arOaiPluginComponent
 {
-  public function execute($request)
-  {
-    $this->requestname = $request;
-
-    $this->setUpdateParametersFromRequest($request);
-
-    $options = ($request->metadataPrefix == 'oai_ead') ? array('topLevel' => true, 'limit' => 1) : array();
-    $this->getUpdates($options);
-
-    // If metadata requested is EAD and results were found, determine if any are missing corresponding cache files
-    $this->identifiersWithMissingCacheFiles = array();
-    if ($request->metadataPrefix == 'oai_ead' && count($this->publishedRecords))
+    public function execute($request)
     {
-      foreach ($this->publishedRecords as $resource)
-      {
-        if (!arOaiPluginComponent::cachedMetadataExists($resource, 'oai_ead'))
-        {
-          array_push($this->identifiersWithMissingCacheFiles, $resource->getOaiIdentifier());
-        }
-      }
-    }
+        $this->requestname = $request;
 
-    $this->metadataPrefix = $request->metadataPrefix;
-    $this->setRequestAttributes($request);
-  }
+        $this->setUpdateParametersFromRequest($request);
+
+        $options = ('oai_ead' == $request->metadataPrefix) ? ['topLevel' => true, 'limit' => 1] : [];
+        $this->getUpdates($options);
+
+        // If metadata requested is EAD and results were found, determine if any are missing corresponding cache files
+        $this->identifiersWithMissingCacheFiles = [];
+        if ('oai_ead' == $request->metadataPrefix && count($this->publishedRecords)) {
+            foreach ($this->publishedRecords as $resource) {
+                if (!arOaiPluginComponent::cachedMetadataExists($resource, 'oai_ead')) {
+                    array_push($this->identifiersWithMissingCacheFiles, $resource->getOaiIdentifier());
+                }
+            }
+        }
+
+        $this->metadataPrefix = $request->metadataPrefix;
+        $this->setRequestAttributes($request);
+    }
 }

@@ -19,37 +19,34 @@
 
 class InformationObjectGenerateFindingAidAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->resource = $this->getRoute()->resource;
-
-    // Check that object exists and that it is not the root
-    if (!isset($this->resource) || !isset($this->resource->parent))
+    public function execute($request)
     {
-      $this->forward404();
+        $this->resource = $this->getRoute()->resource;
+
+        // Check that object exists and that it is not the root
+        if (!isset($this->resource) || !isset($this->resource->parent)) {
+            $this->forward404();
+        }
+
+        // Check user authorization
+        if (!QubitAcl::check($this->resource, 'update')) {
+            QubitAcl::forwardUnauthorized();
+        }
+
+        // Check if a finding aid file already exists
+        if (null !== arFindingAidJob::getFindingAidPathForDownload($this->resource->id)) {
+            $this->redirect([$this->resource, 'module' => 'informationobject']);
+        }
+
+        $i18n = $this->context->i18n;
+
+        $params = [
+            'objectId' => $this->resource->id,
+            'description' => $i18n->__('Generating finding aid for: %1%', ['%1%' => $this->resource->getTitle(['cultureFallback' => true])]),
+        ];
+
+        QubitJob::runJob('arFindingAidJob', $params);
+
+        $this->redirect([$this->resource, 'module' => 'informationobject']);
     }
-
-    // Check user authorization
-    if (!QubitAcl::check($this->resource, 'update'))
-    {
-      QubitAcl::forwardUnauthorized();
-    }
-
-    // Check if a finding aid file already exists
-    if (null !== arFindingAidJob::getFindingAidPathForDownload($this->resource->id))
-    {
-      $this->redirect(array($this->resource, 'module' => 'informationobject'));
-    }
-
-    $i18n = $this->context->i18n;
-
-    $params = array(
-      'objectId' => $this->resource->id,
-      'description' => $i18n->__('Generating finding aid for: %1%', array('%1%' => $this->resource->getTitle(array('cultureFallback' => true)))),
-    );
-
-    QubitJob::runJob('arFindingAidJob', $params);
-
-    $this->redirect(array($this->resource, 'module' => 'informationobject'));
-  }
 }

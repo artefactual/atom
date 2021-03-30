@@ -18,125 +18,115 @@
  */
 
 /**
- * Manage terms in search index
- *
- * @package    AccesstoMemory
- * @subpackage arElasticSearchPlugin
+ * Manage terms in search index.
  */
 class arElasticSearchTermPdo
 {
-  public
-    $i18ns;
+    public $i18ns;
 
-  protected
-    $data = array();
+    protected $data = [];
 
-  protected static
-    $conn,
-    $lookups,
-    $statements;
+    protected static $conn;
+    protected static $lookups;
+    protected static $statements;
 
-  /**
-   * METHODS
-   */
-  public function __construct($id, $options = array())
-  {
-    if (isset($options['conn']))
+    /**
+     * METHODS.
+     *
+     * @param mixed $id
+     * @param mixed $options
+     */
+    public function __construct($id, $options = [])
     {
-      self::$conn = $options['conn'];
+        if (isset($options['conn'])) {
+            self::$conn = $options['conn'];
+        }
+
+        if (!isset(self::$conn)) {
+            self::$conn = Propel::getConnection();
+        }
+
+        $this->loadData($id, $options);
     }
 
-    if (!isset(self::$conn))
+    public function __isset($name)
     {
-      self::$conn = Propel::getConnection();
+        return isset($this->data[$name]);
     }
 
-    $this->loadData($id, $options);
-  }
-
-  public function __isset($name)
-  {
-    return isset($this->data[$name]);
-  }
-
-  public function __get($name)
-  {
-    if (isset($this->data[$name]))
+    public function __get($name)
     {
-      return $this->data[$name];
+        if (isset($this->data[$name])) {
+            return $this->data[$name];
+        }
     }
-  }
 
-  public function __set($name, $value)
-  {
-    $this->data[$name] = $value;
-  }
-
-  protected function loadData($id)
-  {
-    if (!isset(self::$statements['term']))
+    public function __set($name, $value)
     {
-      $sql = 'SELECT
+        $this->data[$name] = $value;
+    }
+
+    public function serialize()
+    {
+        $serialized = [];
+
+        $serialized['id'] = $this->id;
+        $serialized['slug'] = $this->slug;
+
+        $serialized['taxonomyId'] = $this->taxonomy_id;
+
+        $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
+        foreach (QubitPdo::fetchAll($sql, [$this->id, QubitTerm::ALTERNATIVE_LABEL_ID]) as $item) {
+            $serialized['useFor'][] = arElasticSearchOtherName::serialize($item);
+        }
+
+        $sql = 'SELECT id, source_culture FROM '.QubitNote::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
+        foreach (QubitPdo::fetchAll($sql, [$this->id, QubitTerm::SCOPE_NOTE_ID]) as $item) {
+            $serialized['scopeNotes'][] = arElasticSearchNote::serialize($item);
+        }
+
+        $serialized['isProtected'] = QubitTerm::isProtected($this->id);
+        $serialized['numberOfDescendants'] = ($this->rgt - $this->lft - 1) / 2;
+
+        $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);
+        $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($this->updated_at);
+
+        $serialized['sourceCulture'] = $this->source_culture;
+        $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($this->id, ['QubitTerm']);
+
+        return $serialized;
+    }
+
+    protected function loadData($id)
+    {
+        if (!isset(self::$statements['term'])) {
+            $sql = 'SELECT
                 term.*,
                 slug.slug,
                 object.created_at,
                 object.updated_at
-              FROM '.QubitTerm::TABLE_NAME.' term
-              JOIN '.QubitSlug::TABLE_NAME.' slug
+                FROM '.QubitTerm::TABLE_NAME.' term
+                JOIN '.QubitSlug::TABLE_NAME.' slug
                 ON term.id = slug.object_id
-              JOIN '.QubitObject::TABLE_NAME.' object
+                JOIN '.QubitObject::TABLE_NAME.' object
                 ON term.id = object.id
-              WHERE term.id = :id';
+                WHERE term.id = :id';
 
-      self::$statements['term'] = self::$conn->prepare($sql);
+            self::$statements['term'] = self::$conn->prepare($sql);
+        }
+
+        // Do select
+        self::$statements['term']->execute([':id' => $id]);
+
+        // Get first result
+        $this->data = self::$statements['term']->fetch(PDO::FETCH_ASSOC);
+
+        if (false === $this->data) {
+            throw new sfException("Couldn't find term (id: {$id})");
+        }
+
+        self::$statements['term']->closeCursor();
+
+        return $this;
     }
-
-    // Do select
-    self::$statements['term']->execute(array(':id' => $id));
-
-    // Get first result
-    $this->data = self::$statements['term']->fetch(PDO::FETCH_ASSOC);
-
-    if (false === $this->data)
-    {
-      throw new sfException("Couldn't find term (id: $id)");
-    }
-
-    self::$statements['term']->closeCursor();
-
-    return $this;
-  }
-
-  public function serialize()
-  {
-    $serialized = array();
-
-    $serialized['id'] = $this->id;
-    $serialized['slug'] = $this->slug;
-
-    $serialized['taxonomyId'] = $this->taxonomy_id;
-
-    $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
-    foreach (QubitPdo::fetchAll($sql, array($this->id, QubitTerm::ALTERNATIVE_LABEL_ID)) as $item)
-    {
-      $serialized['useFor'][] = arElasticSearchOtherName::serialize($item);
-    }
-
-    $sql = 'SELECT id, source_culture FROM '.QubitNote::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
-    foreach (QubitPdo::fetchAll($sql, array($this->id, QubitTerm::SCOPE_NOTE_ID)) as $item)
-    {
-      $serialized['scopeNotes'][] = arElasticSearchNote::serialize($item);
-    }
-
-    $serialized['isProtected'] = QubitTerm::isProtected($this->id);
-    $serialized['numberOfDescendants'] = ($this->rgt - $this->lft - 1) / 2;
-
-    $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);
-    $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($this->updated_at);
-
-    $serialized['sourceCulture'] = $this->source_culture;
-    $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($this->id, array('QubitTerm'));
-
-    return $serialized;
-  }
 }

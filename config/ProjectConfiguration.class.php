@@ -21,64 +21,66 @@ require_once dirname(__FILE__).'/../vendor/symfony/lib/autoload/sfCoreAutoload.c
 sfCoreAutoload::register();
 
 require_once __DIR__.'/../vendor/symfony2/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+
 require_once __DIR__.'/../lib/QubitApcUniversalClassLoader.php';
 
 use Symfony\Component\ClassLoader\UniversalClassLoader;
 
 class ProjectConfiguration extends sfProjectConfiguration
 {
-  public function setup()
-  {
-    $this->namespacesClassLoader();
-
-    $plugins = array(
-      'qbAclPlugin',
-      'qtAccessionPlugin',
-      'sfDrupalPlugin',
-      'sfHistoryPlugin',
-      'arElasticSearchPlugin',
-      'sfPropelPlugin',
-      'sfThumbnailPlugin',
-      'sfTranslatePlugin',
-      'sfWebBrowserPlugin',
-
-      // sfInstallPlugin and sfPluginAdminPlugin depend on sfPropelPlugin, so
-      // must be enabled last
-      'sfInstallPlugin',
-      'sfPluginAdminPlugin');
-
-    $this->enablePlugins($plugins);
-
-    $this->dispatcher->connect('debug.web.load_panels',
-      array('arWebDebugPanel', 'listenToLoadDebugWebPanelEvent'));
-  }
-
-  protected function namespacesClassLoader()
-  {
-    $rootDir = sfConfig::get('sf_root_dir');
-
-    // Use APC when available to cache the location of namespaced classes
-    if (extension_loaded('apcu')|| extension_loaded('apc'))
+    public function setup()
     {
-      // Use unique prefix to avoid cache clashing
-      $prefix = sprintf('atom:%s:', md5($rootDir));
-      $loader = new QubitApcUniversalClassLoader($prefix);
-    }
-    else
-    {
-      $loader = new UniversalClassLoader();
+        $this->namespacesClassLoader();
+
+        $plugins = [
+            'qbAclPlugin',
+            'qtAccessionPlugin',
+            'sfDrupalPlugin',
+            'sfHistoryPlugin',
+            'arElasticSearchPlugin',
+            'sfPropelPlugin',
+            'sfThumbnailPlugin',
+            'sfTranslatePlugin',
+            'sfWebBrowserPlugin',
+
+            // sfInstallPlugin and sfPluginAdminPlugin depend on sfPropelPlugin, so
+            // must be enabled last
+            'sfInstallPlugin',
+            'sfPluginAdminPlugin',
+        ];
+
+        $this->enablePlugins($plugins);
+
+        $this->dispatcher->connect(
+            'debug.web.load_panels',
+            ['arWebDebugPanel', 'listenToLoadDebugWebPanelEvent']
+        );
     }
 
-    $loader->registerNamespaces(array(
-      'Elastica' => $rootDir.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'elastica',
-      'Elasticsearch' => $rootDir.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'elastica',
-      'Psr' => $rootDir.DIRECTORY_SEPARATOR.'vendor'));
+    public function isPluginEnabled($pluginName)
+    {
+        return false !== array_search($pluginName, $this->plugins);
+    }
 
-    $loader->register();
-  }
+    protected function namespacesClassLoader()
+    {
+        $rootDir = sfConfig::get('sf_root_dir');
 
-  public function isPluginEnabled($pluginName)
-  {
-    return false !== array_search($pluginName, $this->plugins);
-  }
+        // Use APC when available to cache the location of namespaced classes
+        if (extension_loaded('apcu') || extension_loaded('apc')) {
+            // Use unique prefix to avoid cache clashing
+            $prefix = sprintf('atom:%s:', md5($rootDir));
+            $loader = new QubitApcUniversalClassLoader($prefix);
+        } else {
+            $loader = new UniversalClassLoader();
+        }
+
+        $loader->registerNamespaces([
+            'Elastica' => $rootDir.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'elastica',
+            'Elasticsearch' => $rootDir.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'elastica',
+            'Psr' => $rootDir.DIRECTORY_SEPARATOR.'vendor',
+        ]);
+
+        $loader->register();
+    }
 }

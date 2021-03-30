@@ -20,13 +20,11 @@
 /**
  * digitalObject actions.
  *
- * @package    AccesstoMemory
- * @subpackage digitalObject
  * @author     david juhasz <david@artefactual.com>
  */
 class DigitalObjectEditRepresentationComponent extends sfComponent
 {
-  public function execute($request)
-  {
-  }
+    public function execute($request)
+    {
+    }
 }

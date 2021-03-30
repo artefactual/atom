@@ -19,31 +19,28 @@
 
 class InformationObjectDescriptionHeaderComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    $this->levelOfDescriptionAndIdentifier = $this->assemblelevelOfDescriptionAndIdentifierText();
-  }
-
-  private function assemblelevelOfDescriptionAndIdentifierText()
-  {
-    $string = '';
-
-    // Add level of description, if set and not hidden
-    if (!$this->hideLevelOfDescription)
+    public function execute($request)
     {
-      if (isset($this->resource->levelOfDescription))
-      {
-        $string .= $this->resource->levelOfDescription->__toString();
-      }
+        $this->levelOfDescriptionAndIdentifier = $this->assemblelevelOfDescriptionAndIdentifierText();
     }
 
-    // Add identifier, if set
-    if (isset($this->resource->identifier))
+    private function assemblelevelOfDescriptionAndIdentifierText()
     {
-      $string .= (!empty($string)) ? ' ' : '';
-      $string .= $this->resource->identifier;
-    }
+        $string = '';
 
-    return $string;
-  }
+        // Add level of description, if set and not hidden
+        if (!$this->hideLevelOfDescription) {
+            if (isset($this->resource->levelOfDescription)) {
+                $string .= $this->resource->levelOfDescription->__toString();
+            }
+        }
+
+        // Add identifier, if set
+        if (isset($this->resource->identifier)) {
+            $string .= (!empty($string)) ? ' ' : '';
+            $string .= $this->resource->identifier;
+        }
+
+        return $string;
+    }
 }

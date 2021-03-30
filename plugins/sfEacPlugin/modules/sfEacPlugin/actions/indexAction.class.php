@@ -18,33 +18,31 @@
  */
 
 /**
- * EAC representation of an Actor
+ * EAC representation of an Actor.
  *
- * @package    AccesstoMemory
- * @subpackage sfEacPlugin
  * @author     Jack Bates <jack@nottheoilrig.com>
  */
-
 class sfEacPluginIndexAction extends ActorIndexAction
 {
-  public function responseFilterContent(sfEvent $event, $content)
-  {
-    require_once sfConfig::get('sf_root_dir').'/vendor/FluentDOM/FluentDOM.php';
+    public function responseFilterContent(sfEvent $event, $content)
+    {
+        require_once sfConfig::get('sf_root_dir').'/vendor/FluentDOM/FluentDOM.php';
 
-    return FluentDOM($content)
-      ->namespaces(array('eac' => 'urn:isbn:1-931666-33-4'))
-      ->find('//eac:languageDeclaration[not(*)]')
-      ->remove();
-  }
+        return FluentDOM($content)
+            ->namespaces(['eac' => 'urn:isbn:1-931666-33-4'])
+            ->find('//eac:languageDeclaration[not(*)]')
+            ->remove()
+        ;
+    }
 
-  public function execute($request)
-  {
-    sfConfig::set('sf_escaping_strategy', false);
+    public function execute($request)
+    {
+        sfConfig::set('sf_escaping_strategy', false);
 
-    parent::execute($request);
+        parent::execute($request);
 
-    $this->eac = new sfEacPlugin($this->resource);
+        $this->eac = new sfEacPlugin($this->resource);
 
-    $this->dispatcher->connect('response.filter_content', array($this, 'responseFilterContent'));
-  }
+        $this->dispatcher->connect('response.filter_content', [$this, 'responseFilterContent']);
+    }
 }

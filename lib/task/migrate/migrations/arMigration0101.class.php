@@ -25,27 +25,28 @@
  */
 class arMigration0101
 {
-  const
-    VERSION = 101, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 101;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    $sql = <<<sql
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
+    {
+        $sql = <<<'sql'
 
 ALTER TABLE `access_log`
 DROP FOREIGN KEY `access_log_FK_1`;
 
 sql;
 
-    QubitPdo::modify($sql);
+        QubitPdo::modify($sql);
 
-        $sql = <<<sql
+        $sql = <<<'sql'
 
 ALTER TABLE `access_log`
 ADD CONSTRAINT `access_log_FK_1`
@@ -56,8 +57,8 @@ ON UPDATE RESTRICT;
 
 sql;
 
-    QubitPdo::modify($sql);
+        QubitPdo::modify($sql);
 
-    return true;
-  }
+        return true;
+    }
 }

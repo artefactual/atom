@@ -25,22 +25,21 @@
  */
 class arMigration0142
 {
-  const
-    VERSION = 142, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 142;
+    public const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    // Create new term for protected controlled vocabulary (digital object usages)
-    QubitMigrate::bumpTerm(QubitTerm::OFFLINE_ID, $configuration);
-    $term = new QubitTerm;
-    $term->id = QubitTerm::OFFLINE_ID;
-    $term->parentId = QubitTerm::ROOT_ID;
-    $term->taxonomyId = QubitTaxonomy::DIGITAL_OBJECT_USAGE_ID;
-    $term->name = 'Offline';
-    $term->culture = 'en';
-    $term->save();
+    public function up($configuration)
+    {
+        // Create new term for protected controlled vocabulary (digital object usages)
+        QubitMigrate::bumpTerm(QubitTerm::OFFLINE_ID, $configuration);
+        $term = new QubitTerm();
+        $term->id = QubitTerm::OFFLINE_ID;
+        $term->parentId = QubitTerm::ROOT_ID;
+        $term->taxonomyId = QubitTaxonomy::DIGITAL_OBJECT_USAGE_ID;
+        $term->name = 'Offline';
+        $term->culture = 'en';
+        $term->save();
 
-    return true;
-  }
+        return true;
+    }
 }

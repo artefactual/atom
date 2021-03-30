@@ -1,7 +1,7 @@
-<?php decorate_with('layout_1col') ?>
-<?php use_helper('Javascript') ?>
+<?php decorate_with('layout_1col'); ?>
+<?php use_helper('Javascript'); ?>
 
-<?php slot('content') ?>
+<?php slot('content'); ?>
 
   <div class="row">
 
@@ -9,19 +9,19 @@
 
       <div id="content">
 
-        <?php if ('user' != $sf_request->module || 'login' != $sf_request->action): ?>
-          <h1><?php echo __('Please log in to access that page') ?></h1>
-        <?php else: ?>
-          <h1><?php echo __('Log in') ?></h1>
-        <?php endif; ?>
+        <?php if ('user' != $sf_request->module || 'login' != $sf_request->action) { ?>
+          <h1><?php echo __('Please log in to access that page'); ?></h1>
+        <?php } else { ?>
+          <h1><?php echo __('Log in'); ?></h1>
+        <?php } ?>
 
-        <?php echo $form->renderGlobalErrors() ?>
+        <?php echo $form->renderGlobalErrors(); ?>
 
-        <?php echo $form->renderFormTag(url_for(array('module' => 'cas', 'action' => 'login'))) ?>
+        <?php echo $form->renderFormTag(url_for(['module' => 'cas', 'action' => 'login'])); ?>
 
-          <?php echo $form->renderHiddenFields() ?>
+          <?php echo $form->renderHiddenFields(); ?>
 
-          <button type="submit"><?php echo __('Log in with CAS') ?></button>
+          <button type="submit"><?php echo __('Log in with CAS'); ?></button>
 
         </form>
 
@@ -31,4 +31,4 @@
 
   </div>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>

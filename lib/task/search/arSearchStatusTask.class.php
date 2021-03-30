@@ -19,80 +19,77 @@
 
 /**
  * Display search index status.
- *
- * @package    AccesstoMemory
- * @subpackage task
  */
 class arSearchStatusTask extends arBaseTask
 {
-  protected function configure()
-  {
-    $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-    ));
+    public function execute($arguments = [], $options = [])
+    {
+        parent::execute($arguments, $options);
 
-    $this->namespace = 'search';
-    $this->name = 'status';
+        // Displaying Elasticsearch server configuration
+        $config = arElasticSearchPluginConfiguration::$config;
 
-    $this->briefDescription = 'Display search index status';
-    $this->detailedDescription = <<<EOF
+        $this->log('Elasticsearch server information:');
+        $this->log(sprintf(' - Version: %s', QubitSearch::getInstance()->client->getVersion()));
+        $this->log(sprintf(' - Host: %s', $config['server']['host']));
+        $this->log(sprintf(' - Port: %s', $config['server']['port']));
+        $this->log(sprintf(' - Index name: %s', $config['index']['name']));
+        $this->log(null);
+
+        // Display how many objects are indexed versus how many are available
+        $this->log('Document indexing status:');
+
+        foreach ($this->availableDocumentTypes() as $docType) {
+            $docTypeDescription = sfInflector::humanize(sfInflector::underscore($docType));
+
+            $docTypeIndexedCount = $this->objectsIndexed($docType);
+            $docTypeAvailableCount = $this->objectsAvailableToIndex($docType);
+
+            $this->log(sprintf(' - %s: %d/%d', $docTypeDescription, $docTypeIndexedCount, $docTypeAvailableCount));
+        }
+    }
+
+    protected function configure()
+    {
+        $this->addOptions([
+            new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
+            new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+        ]);
+
+        $this->namespace = 'search';
+        $this->name = 'status';
+
+        $this->briefDescription = 'Display search index status';
+        $this->detailedDescription = <<<'EOF'
 The [search:status|INFO] task displays the status of search indexing for each document type.
 EOF;
-  }
-
-  public function execute($arguments = array(), $options = array())
-  {
-    parent::execute($arguments, $options);
-
-    // Displaying Elasticsearch server configuration
-    $config = arElasticSearchPluginConfiguration::$config;
-
-    $this->log("Elasticsearch server information:");
-    $this->log(sprintf(" - Version: %s", QubitSearch::getInstance()->client->getVersion()));
-    $this->log(sprintf(" - Host: %s", $config['server']['host']));
-    $this->log(sprintf(" - Port: %s", $config['server']['port']));
-    $this->log(sprintf(" - Index name: %s", $config['index']['name']));
-    $this->log(null);
-
-    // Display how many objects are indexed versus how many are available
-    $this->log("Document indexing status:");
-
-    foreach ($this->availableDocumentTypes() as $docType)
-    {
-      $docTypeDescription = sfInflector::humanize(sfInflector::underscore($docType));
-
-      $docTypeIndexedCount = $this->objectsIndexed($docType);
-      $docTypeAvailableCount = $this->objectsAvailableToIndex($docType);
-
-      $this->log(sprintf(' - %s: %d/%d', $docTypeDescription, $docTypeIndexedCount, $docTypeAvailableCount));
     }
-  }
 
-  private function availableDocumentTypes()
-  {
-    $types = array_keys(QubitSearch::getInstance()->loadMappings()->asArray());
-    sort($types);
-    return $types;
-  }
+    private function availableDocumentTypes()
+    {
+        $types = array_keys(QubitSearch::getInstance()->loadMappings()->asArray());
+        sort($types);
 
-  private function objectsIndexed($docType)
-  {
-    // Determine model class name from document type name
-    $docTypeModelClass = 'Qubit'. ucfirst($docType);
+        return $types;
+    }
 
-    return QubitSearch::getInstance()->index->getType($docTypeModelClass)->count();
-  }
+    private function objectsIndexed($docType)
+    {
+        // Determine model class name from document type name
+        $docTypeModelClass = 'Qubit'.ucfirst($docType);
 
-  private function objectsAvailableToIndex($docType)
-  {
-    // Determine search model class name from document type name
-    $docTypeSearchModelClass = 'arElasticSearch'. ucwords($docType);
+        return QubitSearch::getInstance()->index->getType($docTypeModelClass)->count();
+    }
 
-    // Create search model instance for document type and load available data
-    $docTypeInstance = new $docTypeSearchModelClass();
-    $docTypeInstance->load();
+    private function objectsAvailableToIndex($docType)
+    {
+        // Determine search model class name from document type name
+        $docTypeSearchModelClass = 'arElasticSearch'.ucwords($docType);
 
-    return $docTypeInstance->getCount();
-  }
+        // Create search model instance for document type and load available data
+        $docTypeInstance = new $docTypeSearchModelClass();
+        $docTypeInstance->load();
+
+        return $docTypeInstance->getCount();
+    }
 }

@@ -19,17 +19,16 @@
 
 class sfEacPluginConfiguration extends sfPluginConfiguration
 {
-  public static
-    $summary = 'Metadata standard plugin. Enables XML import and export using Encoded Archival Context (EAC).',
-    $version = '1.0.0';
+    public static $summary = 'Metadata standard plugin. Enables XML import and export using Encoded Archival Context (EAC).';
+    public static $version = '1.0.0';
 
-  /**
-   * @see sfPluginConfiguration
-   */
-  public function initialize()
-  {
-    $enabledModules = sfConfig::get('sf_enabled_modules');
-    $enabledModules[] = 'sfEacPlugin';
-    sfConfig::set('sf_enabled_modules', $enabledModules);
-  }
+    /**
+     * @see sfPluginConfiguration
+     */
+    public function initialize()
+    {
+        $enabledModules = sfConfig::get('sf_enabled_modules');
+        $enabledModules[] = 'sfEacPlugin';
+        sfConfig::set('sf_enabled_modules', $enabledModules);
+    }
 }

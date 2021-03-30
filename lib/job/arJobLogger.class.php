@@ -19,40 +19,40 @@
 
 class arJobLogger extends sfLogger
 {
-  public function initialize(sfEventDispatcher $dispatcher, $options = array())
-  {
-    $this->dispatcher = $dispatcher;
-    $this->options = $options;
-
-    if (isset($this->options['level']))
+    public function initialize(sfEventDispatcher $dispatcher, $options = [])
     {
-      $this->setLogLevel($this->options['level']);
+        $this->dispatcher = $dispatcher;
+        $this->options = $options;
+
+        if (isset($this->options['level'])) {
+            $this->setLogLevel($this->options['level']);
+        }
+
+        if (!isset($this->options['job'])) {
+            throw new sfException('Missing job parameter');
+        }
+
+        $this->job = $this->options['job'];
     }
 
-    if (!isset($this->options['job']))
+    protected function doLog($message, $priority)
     {
-      throw new sfException('Missing job parameter');
+        $fMessage = sprintf(
+            '[%s] [%s] Job %d "%s": %s',
+            $this->getPriorityName($priority),
+            date('Y-m-d H:i:s'),
+            $this->job->id,
+            $this->job->name,
+            $message
+        );
+
+        // TEXT type cannot have a default (i.e. ''), so use CONCAT_WS because it can work with null values
+        // and coerce them into a string with an empty string separater. Truncate the result of the concat
+        // so it fits in column limit.
+        $sql = 'UPDATE job SET output = SUBSTR(CONCAT_WS("", output, ?, "\n"), 1, 65534) WHERE id = ?';
+        QubitPdo::prepareAndExecute($sql, [$fMessage, $this->job->id]);
+
+        // Forward to `gearman.worker.log` observers, jobWorkerTask will log to console via sfTask.
+        $this->dispatcher->notify(new sfEvent($this, 'gearman.worker.log', ['message' => $message]));
     }
-
-    $this->job = $this->options['job'];
-  }
-
-  protected function doLog($message, $priority)
-  {
-    $fMessage = sprintf('[%s] [%s] Job %d "%s": %s',
-      $this->getPriorityName($priority),
-      date('Y-m-d H:i:s'),
-      $this->job->id,
-      $this->job->name,
-      $message);
-
-    // TEXT type cannot have a default (i.e. ''), so use CONCAT_WS because it can work with null values
-    // and coerce them into a string with an empty string separater. Truncate the result of the concat
-    // so it fits in column limit.
-    $sql = 'UPDATE job SET output = SUBSTR(CONCAT_WS("", output, ?, "\n"), 1, 65534) WHERE id = ?';
-    QubitPdo::prepareAndExecute($sql, array($fMessage, $this->job->id));
-
-    // Forward to `gearman.worker.log` observers, jobWorkerTask will log to console via sfTask.
-    $this->dispatcher->notify(new sfEvent($this, 'gearman.worker.log', array('message' => $message)));
-  }
 }

@@ -19,7 +19,7 @@
 
 class QubitApiBadRequestException extends QubitApiException
 {
-  protected $message = 'Bad request';
-  protected $id = 'bad-request';
-  protected $statusCode = 400;
+    protected $message = 'Bad request';
+    protected $id = 'bad-request';
+    protected $statusCode = 400;
 }

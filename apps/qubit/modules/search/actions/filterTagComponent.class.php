@@ -19,77 +19,64 @@
 
 class SearchFilterTagComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    $this->getParams = $request->getGetParameters();
-
-    // If filter param isn't set in the request, or filter is model-based yet no object
-    // has been stored, display nothing
-    if (!$this->checkIfParamsSet() || (!empty($this->options['model']) && empty($this->options['object'])))
+    public function execute($request)
     {
-      return sfView::NONE;
+        $this->getParams = $request->getGetParameters();
+
+        // If filter param isn't set in the request, or filter is model-based yet no object
+        // has been stored, display nothing
+        if (!$this->checkIfParamsSet() || (!empty($this->options['model']) && empty($this->options['object']))) {
+            return sfView::NONE;
+        }
+
+        // If filter has neither a label nor an object, display nothing
+        if (empty($this->options['label']) && empty($this->options['object'])) {
+            return sfView::NONE;
+        }
+
+        // Remove selected parameter from the current GET parameters
+        $this->unsetParams();
+
+        // Expose label and/or object values to filter template
+        $this->label = !empty($this->options['label']) ? $this->options['label'] : null;
+        $this->object = !empty($this->options['object']) ? $this->options['object'] : null;
+
+        // Default module and action to the current module/action
+        $this->module = !empty($this->options['module']) ? $this->options['module'] : $this->context->getModuleName();
+        $this->action = !empty($this->options['action']) ? $this->options['action'] : $this->context->getActionName();
     }
 
-    // If filter has neither a label nor an object, display nothing
-    if (empty($this->options['label']) && empty($this->options['object']))
+    private function checkIfParamsSet()
     {
-      return sfView::NONE;
+        if (!empty($this->options['params'])) {
+            // Count how many params are set
+            $setCount = 0;
+            foreach ($this->options['params'] as $param) {
+                $setCount += !empty($this->getParams[$param]);
+            }
+
+            // Check using params specified in filter tag configuration
+            if (empty($this->options['operator']) || 'and' == strtolower($this->options['operator'])) {
+                // All specified params must be set for filter tag to show
+                return count($this->options['params']) == $setCount;
+            }
+
+            // Any specified param can be set for filter tag to show
+            return $setCount > 0;
+        }
+
+        // Check using param based on filter tag name
+        return isset($this->getParams[$this->name]);
     }
 
-    // Remove selected parameter from the current GET parameters
-    $this->unsetParams();
-
-    // Expose label and/or object values to filter template
-    $this->label = !empty($this->options['label']) ? $this->options['label'] : null;
-    $this->object = !empty($this->options['object']) ? $this->options['object'] : null;
-
-    // Default module and action to the current module/action
-    $this->module = !empty($this->options['module']) ? $this->options['module'] : $this->context->getModuleName();
-    $this->action = !empty($this->options['action']) ? $this->options['action'] : $this->context->getActionName();
-  }
-
-  private function checkIfParamsSet()
-  {
-    if (!empty($this->options['params']))
+    private function unsetParams()
     {
-      // Count how many params are set
-      $setCount = 0;
-      foreach($this->options['params'] as $param)
-      {
-        $setCount += !empty($this->getParams[$param]);
-      }
-
-      // Check using params specified in filter tag configuration
-      if (empty($this->options['operator']) || strtolower($this->options['operator']) == 'and')
-      {
-        // All specified params must be set for filter tag to show
-        return count($this->options['params']) == $setCount;
-      }
-      else
-      {
-        // Any specified param can be set for filter tag to show
-        return $setCount > 0;
-      }
+        if (!empty($this->options['params'])) {
+            foreach ($this->options['params'] as $param) {
+                unset($this->getParams[$param]);
+            }
+        } else {
+            unset($this->getParams[$this->name]);
+        }
     }
-    else
-    {
-      // Check using param based on filter tag name
-      return isset($this->getParams[$this->name]);
-    }
-  }
-
-  private function unsetParams()
-  {
-    if (!empty($this->options['params']))
-    {
-      foreach($this->options['params'] as $param)
-      {
-        unset($this->getParams[$param]);
-      }
-    }
-    else
-    {
-      unset($this->getParams[$this->name]);
-    }
-  }
 }

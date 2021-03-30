@@ -19,28 +19,25 @@
 
 class FunctionDeleteAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->form = new sfForm;
-
-    $this->resource = $this->getRoute()->resource;
-
-    if ($request->isMethod('delete'))
+    public function execute($request)
     {
-      $this->form->bind($request->getPostParameters());
-      
-      if ($this->form->isValid())
-      {
-        // Delete relationships
-        foreach (QubitRelation::getBySubjectOrObjectId($this->resource->id) as $item)
-        {
-          $item->delete();
+        $this->form = new sfForm();
+
+        $this->resource = $this->getRoute()->resource;
+
+        if ($request->isMethod('delete')) {
+            $this->form->bind($request->getPostParameters());
+
+            if ($this->form->isValid()) {
+                // Delete relationships
+                foreach (QubitRelation::getBySubjectOrObjectId($this->resource->id) as $item) {
+                    $item->delete();
+                }
+
+                $this->resource->delete();
+
+                $this->redirect(['module' => 'function', 'action' => 'browse']);
+            }
         }
-
-        $this->resource->delete();
-
-        $this->redirect(array('module' => 'function', 'action' => 'browse'));
-      }
     }
-  }
 }

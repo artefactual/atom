@@ -20,22 +20,24 @@
 /**
  * Extend BaseSetting functionality.
  *
- * @package    AccesstoMemory
- * @subpackage model
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
 class QubitOaiRepository extends BaseOaiRepository
 {
-  /**
-   * Get repository by URI
-   * @param string $url the url of the repository to find
-   * @return QubitQuery collection of OAI-PMH Repositories
-   */
-  public static function getByURI($URI)
-  {
-    $criteria = new Criteria;
-    $criteria->add(QubitOaiRepository::URI, $URI, Criteria::LIKE);
-    $criteria->addAscendingOrderByColumn(QubitOaiRepository::NAME);
-    return self::get($criteria);
-  }
+    /**
+     * Get repository by URI.
+     *
+     * @param string $url the url of the repository to find
+     * @param mixed  $URI
+     *
+     * @return QubitQuery collection of OAI-PMH Repositories
+     */
+    public static function getByURI($URI)
+    {
+        $criteria = new Criteria();
+        $criteria->add(QubitOaiRepository::URI, $URI, Criteria::LIKE);
+        $criteria->addAscendingOrderByColumn(QubitOaiRepository::NAME);
+
+        return self::get($criteria);
+    }
 }

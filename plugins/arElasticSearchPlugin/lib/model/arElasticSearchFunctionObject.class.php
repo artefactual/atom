@@ -19,51 +19,47 @@
 
 class arElasticSearchFunctionObject extends arElasticSearchModelBase
 {
-  public function load()
-  {
-    $sql  = 'SELECT func.id';
-    $sql .= ' FROM '.QubitFunctionObject::TABLE_NAME.' func';
-    $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON func.id = object.id';
-    $sql .= ' WHERE object.class_name = ?';
-
-    $actors = QubitPdo::fetchAll($sql, array('QubitFunctionObject'));
-
-    $this->count = count($actors);
-
-    return $actors;
-  }
-
-  public function populate()
-  {
-    $errors = array();
-
-    // Loop through results, and add to search index
-    foreach ($this->load() as $key => $item)
+    public function load()
     {
-      try
-      {
-        $node = new arElasticSearchFunctionObjectPdo($item->id);
-        $data = $node->serialize();
+        $sql = 'SELECT func.id';
+        $sql .= ' FROM '.QubitFunctionObject::TABLE_NAME.' func';
+        $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON func.id = object.id';
+        $sql .= ' WHERE object.class_name = ?';
 
-        QubitSearch::getInstance()->addDocument($data, 'QubitFunctionObject');
+        $actors = QubitPdo::fetchAll($sql, ['QubitFunctionObject']);
 
-        $this->logEntry($data['i18n'][$data['sourceCulture']]['authorizedFormOfName'], $key + 1);
-      }
-      catch (sfException $e)
-      {
-        $errors[] = $e->getMessage();
-      }
+        $this->count = count($actors);
+
+        return $actors;
     }
 
-    return $errors;
-  }
+    public function populate()
+    {
+        $errors = [];
 
-  public static function update($object)
-  {
-    $node = new arElasticSearchFunctionObjectPdo($object->id);
+        // Loop through results, and add to search index
+        foreach ($this->load() as $key => $item) {
+            try {
+                $node = new arElasticSearchFunctionObjectPdo($item->id);
+                $data = $node->serialize();
 
-    QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitFunctionObject');
+                QubitSearch::getInstance()->addDocument($data, 'QubitFunctionObject');
 
-    return true;
-  }
+                $this->logEntry($data['i18n'][$data['sourceCulture']]['authorizedFormOfName'], $key + 1);
+            } catch (sfException $e) {
+                $errors[] = $e->getMessage();
+            }
+        }
+
+        return $errors;
+    }
+
+    public static function update($object)
+    {
+        $node = new arElasticSearchFunctionObjectPdo($object->id);
+
+        QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitFunctionObject');
+
+        return true;
+    }
 }

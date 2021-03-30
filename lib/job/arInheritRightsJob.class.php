@@ -21,80 +21,70 @@
  * A job to make an archival description's children inherit its
  * granted rights. Afterward, the job will initiate another job to
  * calculate new ACL rules based on the granted rights.
- *
- * @package    symfony
- * @subpackage jobs
  */
-
 class arInheritRightsJob extends arBaseJob
 {
-  /**
-   * @see arBaseJob::$requiredParameters
-   */
-  protected $extraRequiredParameters = array(
-    'overwrite_or_combine', // Values: overwrite, combine
-    'all_or_digital_only',  // Values: all, digital_only
-    'objectId'
-  );
+    /**
+     * @see arBaseJob::$requiredParameters
+     */
+    protected $extraRequiredParameters = [
+        'overwrite_or_combine', // Values: overwrite, combine
+        'all_or_digital_only',  // Values: all, digital_only
+        'objectId',
+    ];
 
-  public function runJob($parameters)
-  {
-    $io = QubitInformationObject::getById($parameters['objectId']);
-
-    // Check that object exists and that it is not the root
-    if (!isset($io) || !isset($io->parent))
+    public function runJob($parameters)
     {
-      $this->error($this->i18n->__('Could not find an information object with id: %1', array('%1' => $parameters['objectId'])));
+        $io = QubitInformationObject::getById($parameters['objectId']);
 
-      return false;
-    }
+        // Check that object exists and that it is not the root
+        if (!isset($io) || !isset($io->parent)) {
+            $this->error($this->i18n->__('Could not find an information object with id: %1', ['%1' => $parameters['objectId']]));
 
-    // Info object IDs to recalculate rights based on PREMIS
-    $idsToUpdate = array();
-
-    foreach ($io->descendants as $descendant)
-    {
-      // If digital only and descendant isn't a digital object, skip
-      if ('digital_only' === $parameters['all_or_digital_only'] && null === $descendant->getDigitalObject())
-      {
-        $this->info($this->i18n->__('Skipping descendant %1', array('%1' => $descendant->getId())));
-
-        continue;
-      }
-
-      $idsToUpdate[] = $descendant->id;
-
-      // Delete existing rights if overwriting rights
-      if ('overwrite' === $parameters['overwrite_or_combine'])
-      {
-        // The object property of the relation($item) is the right
-        foreach ($descendant->getRights() as $item)
-        {
-          $item->object->delete();
+            return false;
         }
-      }
 
-      // Lastly, copy all rights from $io to $descendants
-      foreach ($io->getRights() as $parentRelation)
-      {
-        $rights = $parentRelation->object;
+        // Info object IDs to recalculate rights based on PREMIS
+        $idsToUpdate = [];
 
-        // Duplicate the right
-        $newRights = $rights->copy();
+        foreach ($io->descendants as $descendant) {
+            // If digital only and descendant isn't a digital object, skip
+            if ('digital_only' === $parameters['all_or_digital_only'] && null === $descendant->getDigitalObject()) {
+                $this->info($this->i18n->__('Skipping descendant %1', ['%1' => $descendant->getId()]));
 
-        // Create a relation record associating the new right to the descendant
-        $newRelation = new QubitRelation;
-        $newRelation->objectId  = $newRights->getId();
-        $newRelation->typeId    = QubitTerm::RIGHT_ID;
-        $newRelation->subjectId = $descendant->getId();
+                continue;
+            }
 
-        $newRelation->save();
-      }
+            $idsToUpdate[] = $descendant->id;
+
+            // Delete existing rights if overwriting rights
+            if ('overwrite' === $parameters['overwrite_or_combine']) {
+                // The object property of the relation($item) is the right
+                foreach ($descendant->getRights() as $item) {
+                    $item->object->delete();
+                }
+            }
+
+            // Lastly, copy all rights from $io to $descendants
+            foreach ($io->getRights() as $parentRelation) {
+                $rights = $parentRelation->object;
+
+                // Duplicate the right
+                $newRights = $rights->copy();
+
+                // Create a relation record associating the new right to the descendant
+                $newRelation = new QubitRelation();
+                $newRelation->objectId = $newRights->getId();
+                $newRelation->typeId = QubitTerm::RIGHT_ID;
+                $newRelation->subjectId = $descendant->getId();
+
+                $newRelation->save();
+            }
+        }
+
+        $this->job->setStatusCompleted();
+        $this->job->save();
+
+        return true;
     }
-
-    $this->job->setStatusCompleted();
-    $this->job->save();
-
-    return true;
-  }
 }

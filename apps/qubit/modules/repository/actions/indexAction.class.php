@@ -19,31 +19,28 @@
 
 class RepositoryIndexAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->resource = $this->getRoute()->resource;
-
-    // Check that this isn't the root
-    if (!isset($this->resource->parent))
+    public function execute($request)
     {
-      $this->forward404();
+        $this->resource = $this->getRoute()->resource;
+
+        // Check that this isn't the root
+        if (!isset($this->resource->parent)) {
+            $this->forward404();
+        }
+
+        // Check user authorization
+        if (!QubitAcl::check($this->resource, 'read')) {
+            QubitAcl::forwardUnauthorized();
+        }
+
+        $this->dispatcher->notify(new sfEvent($this, 'access_log.view', ['object' => $this->resource]));
+
+        // Per-institution stylesheet
+        if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$this->resource->slug.'/conf/style.css')) {
+            $this->response->addStyleSheet('/uploads/r/'.$this->resource->slug.'/conf/style.css', 'last', ['media' => 'all']);
+        }
+
+        // Primary contact
+        $this->primaryContact = $this->resource->getPrimaryContact();
     }
-
-    // Check user authorization
-    if (!QubitAcl::check($this->resource, 'read'))
-    {
-      QubitAcl::forwardUnauthorized();
-    }
-
-    $this->dispatcher->notify(new sfEvent($this, 'access_log.view', array('object' => $this->resource)));
-
-    // Per-institution stylesheet
-    if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$this->resource->slug.'/conf/style.css'))
-    {
-      $this->response->addStyleSheet('/uploads/r/'.$this->resource->slug.'/conf/style.css', 'last', array('media' => 'all'));
-    }
-
-    // Primary contact
-    $this->primaryContact = $this->resource->getPrimaryContact();
-  }
 }

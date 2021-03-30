@@ -25,7 +25,6 @@ use Symfony\Component\ClassLoader\UniversalClassLoader;
  * Based on ApcUniversalClassLoader.
  *
  * @author Mike Cantelon <mike@artefactual.com>
- *
  */
 class QubitApcUniversalClassLoader extends UniversalClassLoader
 {
@@ -52,13 +51,13 @@ class QubitApcUniversalClassLoader extends UniversalClassLoader
      *
      * @param string $class A class name to resolve to file
      *
-     * @return string|null The path, if found
+     * @return null|string The path, if found
      */
     public function findFile($class)
     {
         $functionPrefix = (extension_loaded('apcu')) ? 'apcu' : 'apc';
-        $fetchFunction = $functionPrefix .'_fetch';
-        $storeFunction = $functionPrefix .'_store';
+        $fetchFunction = $functionPrefix.'_fetch';
+        $storeFunction = $functionPrefix.'_store';
 
         if (false === $file = $fetchFunction($this->prefix.$class)) {
             $storeFunction($this->prefix.$class, $file = parent::findFile($class));

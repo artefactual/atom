@@ -18,85 +18,77 @@
  */
 
 /**
- * List of qubit settings
+ * List of qubit settings.
  *
- * @package    AccesstoMemory
- * @subpackage settings
  * @author     Wu liu <wu.liu@usask.ca>
  */
-
 class SettingsVisibleElementsAction extends sfAction
 {
-  protected function addField(QubitSetting $setting)
-  {
-    $name = $setting->name;
-
-    $this->form->setDefault($name, (bool) $setting->getValue(array('sourceCulture' => true)));
-    $this->form->setValidator($name, new sfValidatorBoolean);
-    $this->form->setWidget($name, new sfWidgetFormInputCheckbox);
-  }
-
-  protected function processForm()
-  {
-    foreach ($this->form as $field)
+    public function execute($request)
     {
-      // We do not check if the field is isset() in the request object
-      // because checkboxes won't be sent by the browser when they
-      // are not selected
-      $this->processField($field);
-    }
-  }
+        $this->form = new sfForm();
 
-  // It would be nice to hack this method to query the db just once
-  // But this action is only executed but admins once in a while, not
-  // a big deal
-  protected function processField($field)
-  {
-    $name = $field->getName();
+        foreach (QubitSetting::getByScope('element_visibility') as $item) {
+            $this->addField($item);
+        }
 
-    // Search by name and scope (='element_visibility')
-    // Create if it does not exist
-    if (null === $setting = QubitSetting::getByNameAndScope($name, 'element_visibility'))
-    {
-      $setting = new QubitSetting;
-      $setting->name  = $name;
-      $setting->scope = 'element_visibility';
-      $setting->culture = 'en';
+        if ($request->isMethod('post')) {
+            $this->form->bind($request->getPostParameters());
+
+            if (!$this->form->isValid()) {
+                return;
+            }
+
+            $this->processForm();
+
+            QubitCache::getInstance()->removePattern('settings:i18n:*');
+
+            $this->getUser()->setFlash('notice', sfContext::getInstance()->i18n->__('Visible elements configuration saved.'));
+
+            $this->redirect('settings/visibleElements');
+        }
     }
 
-    // It may be better to use $this->form->getValue($name)
-    $value = isset($this->request[$name]) ? 1 : 0;
-
-    $setting->setValue($value, array('sourceCulture' => true));
-
-    $setting->save();
-  }
-
-  public function execute($request)
-  {
-    $this->form = new sfForm;
-
-    foreach (QubitSetting::getByScope('element_visibility') as $item)
+    protected function addField(QubitSetting $setting)
     {
-      $this->addField($item);
+        $name = $setting->name;
+
+        $this->form->setDefault($name, (bool) $setting->getValue(['sourceCulture' => true]));
+        $this->form->setValidator($name, new sfValidatorBoolean());
+        $this->form->setWidget($name, new sfWidgetFormInputCheckbox());
     }
 
-    if ($request->isMethod('post'))
+    protected function processForm()
     {
-      $this->form->bind($request->getPostParameters());
-
-      if (!$this->form->isValid())
-      {
-        return;
-      }
-      
-      $this->processForm();
-
-      QubitCache::getInstance()->removePattern('settings:i18n:*');
-
-      $this->getUser()->setFlash('notice', sfContext::getInstance()->i18n->__('Visible elements configuration saved.'));
-
-      $this->redirect('settings/visibleElements');
+        foreach ($this->form as $field) {
+            // We do not check if the field is isset() in the request object
+            // because checkboxes won't be sent by the browser when they
+            // are not selected
+            $this->processField($field);
+        }
     }
-  }
+
+    // It would be nice to hack this method to query the db just once
+    // But this action is only executed but admins once in a while, not
+    // a big deal
+    protected function processField($field)
+    {
+        $name = $field->getName();
+
+        // Search by name and scope (='element_visibility')
+        // Create if it does not exist
+        if (null === $setting = QubitSetting::getByNameAndScope($name, 'element_visibility')) {
+            $setting = new QubitSetting();
+            $setting->name = $name;
+            $setting->scope = 'element_visibility';
+            $setting->culture = 'en';
+        }
+
+        // It may be better to use $this->form->getValue($name)
+        $value = isset($this->request[$name]) ? 1 : 0;
+
+        $setting->setValue($value, ['sourceCulture' => true]);
+
+        $setting->save();
+    }
 }

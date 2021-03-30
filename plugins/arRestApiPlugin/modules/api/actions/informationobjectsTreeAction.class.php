@@ -19,67 +19,63 @@
 
 class ApiInformationObjectsTreeAction extends QubitApiAction
 {
-  protected function get($request)
-  {
-    // Get parent slug so we can determine its ID
-    $criteria = new Criteria;
-    $criteria->add(QubitSlug::SLUG, $request->parent_slug);
-
-    $slug = QubitSlug::getOne($criteria);
-
-    $io = QubitInformationObject::getById($slug->objectId);
-
-    $result = $this->informationObjectToArray($io);
-
-    $children = $this->getChildren($io->id);
-
-    if (count($children))
+    public function getChildren($parentId)
     {
-      $result['children'] = $children;
+        $results = [];
+
+        $criteria = new Criteria();
+        $criteria->add(QubitInformationObject::PARENT_ID, $parentId);
+
+        $inforationObjects = QubitInformationObject::get($criteria);
+
+        foreach ($inforationObjects as $io) {
+            $item = $this->informationObjectToArray($io);
+
+            $children = $this->getChildren($io->id);
+
+            if (count($children)) {
+                $item['children'] = $children;
+            }
+
+            array_push($results, $item);
+        }
+
+        return $results;
     }
 
-    return $result;
-  }
-
-  function getChildren($parentId)
-  {
-    $results = array();
-
-    $criteria = new Criteria;
-    $criteria->add(QubitInformationObject::PARENT_ID, $parentId);
-
-    $inforationObjects = QubitInformationObject::get($criteria);
-
-    foreach($inforationObjects as $io)
+    protected function get($request)
     {
-      $item = $this->informationObjectToArray($io);
+        // Get parent slug so we can determine its ID
+        $criteria = new Criteria();
+        $criteria->add(QubitSlug::SLUG, $request->parent_slug);
 
-      $children = $this->getChildren($io->id);
+        $slug = QubitSlug::getOne($criteria);
 
-      if (count($children))
-      {
-        $item['children'] = $children;
-      }
+        $io = QubitInformationObject::getById($slug->objectId);
 
-      array_push($results, $item);
+        $result = $this->informationObjectToArray($io);
+
+        $children = $this->getChildren($io->id);
+
+        if (count($children)) {
+            $result['children'] = $children;
+        }
+
+        return $result;
     }
 
-    return $results;
-  }
-
-  private function informationObjectToArray($io)
-  {
-    $ioData = array(
-      'title' => $io->title,
-      'identifier' => $io->identifier,
-      'slug' => $io->slug
-    );
-
-    if (null !== $io->getLevelOfDescription())
+    private function informationObjectToArray($io)
     {
-      $ioData['level'] = $io->getLevelOfDescription()->getName(array('culture' => 'en'));
-    }
+        $ioData = [
+            'title' => $io->title,
+            'identifier' => $io->identifier,
+            'slug' => $io->slug,
+        ];
 
-    return $ioData;
-  }
+        if (null !== $io->getLevelOfDescription()) {
+            $ioData['level'] = $io->getLevelOfDescription()->getName(['culture' => 'en']);
+        }
+
+        return $ioData;
+    }
 }

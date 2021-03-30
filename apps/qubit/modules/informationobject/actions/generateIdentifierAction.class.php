@@ -19,11 +19,11 @@
 
 class InformationObjectGenerateIdentifierAction extends sfAction
 {
-  public function execute($request)
-  {
-    $identifier = QubitInformationObject::generateIdentiferFromMask();
-    $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
+    public function execute($request)
+    {
+        $identifier = QubitInformationObject::generateIdentiferFromMask();
+        $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
 
-    return $this->renderText(json_encode(array('identifier' => $identifier)));
-  }
+        return $this->renderText(json_encode(['identifier' => $identifier]));
+    }
 }

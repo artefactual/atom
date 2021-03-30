@@ -19,45 +19,41 @@
 
 class sfIsadPluginFileListAction extends sfAction
 {
-  public function execute($request)
-  {
-    if (!isset($request->limit))
+    public function execute($request)
     {
-      $request->limit = sfConfig::get('app_hits_per_page');
+        if (!isset($request->limit)) {
+            $request->limit = sfConfig::get('app_hits_per_page');
+        }
+
+        $this->resource = $this->getRoute()->resource;
+
+        // Check that this isn't the root
+        if (!isset($this->resource->parent)) {
+            $this->forward404();
+        }
+
+        $query = QubitSearch::getInstance()->addTerm($this->resource->id, 'parentId');
+
+        if (isset($request->query)) {
+            $query = $request->query;
+        }
+
+        $query = QubitAclSearch::filterByRepository($query, 'read');
+        $query = QubitAclSearch::filterDrafts($query);
+
+        $this->pager = new QubitArrayPager();
+        $this->pager->hits = QubitSearch::getInstance()->getEngine()->getIndex()->find($query);
+        $this->pager->setMaxPerPage($request->limit);
+        $this->pager->setPage($request->page);
+
+        $ids = [];
+        foreach ($this->pager->getResults() as $hit) {
+            $ids[] = $hit->getDocument()->id;
+        }
+
+        $criteria = new Criteria();
+        $criteria->add(QubitInformationObject::ID, $ids, Criteria::IN);
+
+        $this->informationObjects = QubitInformationObject::get($criteria);
     }
-
-    $this->resource = $this->getRoute()->resource;
-
-    // Check that this isn't the root
-    if (!isset($this->resource->parent))
-    {
-      $this->forward404();
-    }
-
-    $query = QubitSearch::getInstance()->addTerm($this->resource->id, 'parentId');
-
-    if (isset($request->query))
-    {
-      $query = $request->query;
-    }
-
-    $query = QubitAclSearch::filterByRepository($query, 'read');
-    $query = QubitAclSearch::filterDrafts($query);
-
-    $this->pager = new QubitArrayPager;
-    $this->pager->hits = QubitSearch::getInstance()->getEngine()->getIndex()->find($query);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
-
-    $ids = array();
-    foreach ($this->pager->getResults() as $hit)
-    {
-      $ids[] = $hit->getDocument()->id;
-    }
-
-    $criteria = new Criteria;
-    $criteria->add(QubitInformationObject::ID, $ids, Criteria::IN);
-
-    $this->informationObjects = QubitInformationObject::get($criteria);
-  }
 }

@@ -19,29 +19,28 @@
 
 class TaxonomyListAction extends sfAction
 {
-  public function execute($request)
-  {
-    if (!isset($request->limit))
+    public function execute($request)
     {
-      $request->limit = sfConfig::get('app_hits_per_page');
+        if (!isset($request->limit)) {
+            $request->limit = sfConfig::get('app_hits_per_page');
+        }
+
+        $criteria = new Criteria();
+
+        // Show only editable taxonomies
+        $criteria = QubitTaxonomy::addEditableTaxonomyCriteria($criteria);
+
+        // Do source culture fallback
+        $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTaxonomy');
+
+        $criteria->addAscendingOrderByColumn('name');
+
+        // Page results
+        $this->pager = new QubitPager('QubitTaxonomy');
+        $this->pager->setCriteria($criteria);
+        $this->pager->setMaxPerPage($request->limit);
+        $this->pager->setPage($request->page);
+
+        $this->taxonomies = $this->pager->getResults();
     }
-
-    $criteria = new Criteria;
-
-    // Show only editable taxonomies
-    $criteria = QubitTaxonomy::addEditableTaxonomyCriteria($criteria);
-
-    // Do source culture fallback
-    $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTaxonomy');
-
-    $criteria->addAscendingOrderByColumn('name');
-
-    // Page results
-    $this->pager = new QubitPager('QubitTaxonomy');
-    $this->pager->setCriteria($criteria);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
-
-    $this->taxonomies = $this->pager->getResults();
-  }
 }

@@ -19,17 +19,16 @@
 
 class sfModsPluginConfiguration extends sfPluginConfiguration
 {
-  public static
-    $summary = 'Metadata standard plugin.  Enables data-entry, display, and XML export using Metadata Object Description Schema (MODS).',
-    $version = '1.0.0';
+    public static $summary = 'Metadata standard plugin.  Enables data-entry, display, and XML export using Metadata Object Description Schema (MODS).';
+    public static $version = '1.0.0';
 
-  /**
-   * @see sfPluginConfiguration
-   */
-  public function initialize()
-  {
-    $enabledModules = sfConfig::get('sf_enabled_modules');
-    $enabledModules[] = 'sfModsPlugin';
-    sfConfig::set('sf_enabled_modules', $enabledModules);
-  }
+    /**
+     * @see sfPluginConfiguration
+     */
+    public function initialize()
+    {
+        $enabledModules = sfConfig::get('sf_enabled_modules');
+        $enabledModules[] = 'sfModsPlugin';
+        sfConfig::set('sf_enabled_modules', $enabledModules);
+    }
 }

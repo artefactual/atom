@@ -18,24 +18,23 @@
  */
 
 /**
- * Display privacy message component
+ * Display privacy message component.
  *
- * @package AccesstoMemory
- * @subpackage default
  * @author Steven Breker <sbreker@artefactual.com>
  */
 class DefaultPrivacyMessageComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    // Do not display the banner if it has previously been dismissed or is deactivated.
-    if ((null !== $this->context->user->getAttribute('privacy_message_dismissed')) ||
-      !sfConfig::get('app_privacy_notification_enabled', false))
+    public function execute($request)
     {
-      return sfView::NONE;
-    }
+        // Do not display the banner if it has previously been dismissed or is deactivated.
+        if (
+            null !== $this->context->user->getAttribute('privacy_message_dismissed')
+            || !sfConfig::get('app_privacy_notification_enabled', false)
+        ) {
+            return sfView::NONE;
+        }
 
-    // Set the notification message content for the privacy banner.
-    $this->notificationMessage = QubitSetting::getByName('privacy_notification');
-  }
+        // Set the notification message content for the privacy banner.
+        $this->notificationMessage = QubitSetting::getByName('privacy_notification');
+    }
 }

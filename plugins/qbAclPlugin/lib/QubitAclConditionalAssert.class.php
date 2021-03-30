@@ -18,71 +18,58 @@
  */
 
 /**
- * ACL conditional assert
+ * ACL conditional assert.
  *
- * @package    AccesstoMemory
- * @subpackage qbAclPlugin
  * @author     David Juhasz <david@artefactual.com>
  */
-
 class QubitAclConditionalAssert implements Zend_Acl_Assert_Interface
 {
-  public function __construct($permission)
-  {
-    $this->permission = $permission;
-  }
-
-  public function assert(Zend_Acl $acl,
-                         Zend_Acl_Role_Interface $role = null,
-                         Zend_Acl_Resource_Interface $resource = null,
-                         $privilege = null
-                         )
-  {
-    // Translate permissions are global to all objects
-    if ('translate' == $privilege)
+    public function __construct($permission)
     {
-      // If source language is the current language, then we aren't translating
-      if (method_exists($resource, 'getSourceCulture') && $resource->sourceCulture == sfContext::getInstance()->user->getCulture())
-      {
-        return false;
-      }
-
-      // Test that user can translate into current language
-      if (!$this->permission->evaluateConditional(array('language' => sfContext::getInstance()->user->getCulture())))
-      {
-        return false;
-      }
+        $this->permission = $permission;
     }
 
-    // No update if source language != current language (requires translate)
-    else if ('update' == $privilege && $resource->sourceCulture != sfContext::getInstance()->user->getCulture())
-    {
-      return false;
-    }
+    public function assert(
+        Zend_Acl $acl,
+        Zend_Acl_Role_Interface $role = null,
+        Zend_Acl_Resource_Interface $resource = null,
+        $privilege = null
+    ) {
+        // Translate permissions are global to all objects
+        if ('translate' == $privilege) {
+            // If source language is the current language, then we aren't translating
+            if (method_exists($resource, 'getSourceCulture') && $resource->sourceCulture == sfContext::getInstance()->user->getCulture()) {
+                return false;
+            }
 
-    if ($resource instanceof QubitInformationObject)
-    {
-      $repositorySlug = null;
-      if (null !== $repository = $resource->getRepository(array('inherit' => true)))
-      {
-        $repositorySlug = $repository->slug;
-      }
+            // Test that user can translate into current language
+            if (!$this->permission->evaluateConditional(['language' => sfContext::getInstance()->user->getCulture()])) {
+                return false;
+            }
+        }
 
-      // Test repository conditional
-      if (!$this->permission->evaluateConditional(array('repository' => $repositorySlug)))
-      {
-        return false;
-      }
-    }
-    else if ($resource instanceof QubitTerm)
-    {
-      // Test taxonomy conditional
-      if (!$this->permission->evaluateConditional(array('taxonomy' => $resource->taxonomy->slug)))
-      {
-        return false;
-      }
-    }
+        // No update if source language != current language (requires translate)
+        elseif ('update' == $privilege && $resource->sourceCulture != sfContext::getInstance()->user->getCulture()) {
+            return false;
+        }
 
-    return true;
-  }
+        if ($resource instanceof QubitInformationObject) {
+            $repositorySlug = null;
+            if (null !== $repository = $resource->getRepository(['inherit' => true])) {
+                $repositorySlug = $repository->slug;
+            }
+
+            // Test repository conditional
+            if (!$this->permission->evaluateConditional(['repository' => $repositorySlug])) {
+                return false;
+            }
+        } elseif ($resource instanceof QubitTerm) {
+            // Test taxonomy conditional
+            if (!$this->permission->evaluateConditional(['taxonomy' => $resource->taxonomy->slug])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

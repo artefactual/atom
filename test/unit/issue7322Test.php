@@ -19,7 +19,7 @@
 
 require_once dirname(__FILE__).'/../bootstrap/unit.php';
 
-$t = new lime_test(2, new lime_output_color);
+$t = new lime_test(2, new lime_output_color());
 
 $t->diag('Initializing configuration.');
 $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', true);
@@ -33,10 +33,10 @@ $title2 = uniqid('Description ');
 $actor1 = uniqid('Actor ');
 
 // Create information object
-$io = new QubitInformationObject;
+$io = new QubitInformationObject();
 $io->parentId = QubitInformationObject::ROOT_ID;
 $io->title = $title1;
-# $io->setActorByName($actor1, array('event_type_id' => QubitTerm::PUBLICATION_ID));
+// $io->setActorByName($actor1, array('event_type_id' => QubitTerm::PUBLICATION_ID));
 $io->save();
 $id = $io->id;
 $t->diag('The id is '.$id.'');

@@ -2,28 +2,28 @@
 
 include dirname(__FILE__).'/../../bootstrap/functional.php';
 
-$browser = new sfTestFunctional(new sfBrowser);
+$browser = new sfTestFunctional(new sfBrowser());
 
 $email = rand().'@example.com';
 $password = rand();
 
-$user = new QubitUser;
+$user = new QubitUser();
 $user->email = $email;
 $user->setPassword($password);
 $user->save();
 
-$relation = new QubitUserRoleRelation;
+$relation = new QubitUserRoleRelation();
 $relation->userId = $user->id;
 $relation->roleId = QubitRole::ADMINISTRATOR_ID;
 $relation->save();
 
-$browser->post(';user/login', array('login' => array('email' => $email, 'password' => $password)));
+$browser->post(';user/login', ['login' => ['email' => $email, 'password' => $password]]);
 
 $scopeAndContent = rand();
 $identifier = rand();
 $title = rand();
 
-$informationObject = new QubitInformationObject;
+$informationObject = new QubitInformationObject();
 $informationObject->parentId = QubitInformationObject::ROOT_ID;
 $informationObject->scopeAndContent = $scopeAndContent;
 $informationObject->identifier = $identifier;
@@ -35,7 +35,7 @@ $browser->get('/'.$informationObject->id.';dc?sf_format=xml');
 $user->delete();
 $informationObject->delete();
 
-$doc = new DOMDocument;
+$doc = new DOMDocument();
 $doc->loadXML($browser->getResponse()->getContent());
 
 $xpath = new DOMXPath($doc);

@@ -18,39 +18,33 @@
  */
 
 /**
- * @package    AccesstoMemory
- * @subpackage repository
  * @author     Peter Van Garderen <peter@artefactual.com>
  */
 class PhysicalObjectAutocompleteAction extends sfAction
 {
-  public function execute($request)
-  {
-    if (!isset($request->limit))
+    public function execute($request)
     {
-      $request->limit = sfConfig::get('app_hits_per_page');
+        if (!isset($request->limit)) {
+            $request->limit = sfConfig::get('app_hits_per_page');
+        }
+
+        $criteria = new Criteria();
+        $criteria->addJoin(QubitPhysicalObject::ID, QubitPhysicalObjectI18n::ID);
+        $criteria->add(QubitPhysicalObjectI18n::CULTURE, $this->context->user->getCulture());
+
+        if (sfConfig::get('app_markdown_enabled', true)) {
+            $criteria->add(QubitPhysicalObjectI18n::NAME, "%{$request->query}%", Criteria::LIKE);
+        } else {
+            $criteria->add(QubitPhysicalObjectI18n::NAME, "{$request->query}%", Criteria::LIKE);
+        }
+
+        $criteria->addAscendingOrderByColumn(QubitPhysicalObjectI18n::NAME);
+
+        $this->pager = new QubitPager('QubitPhysicalObject');
+        $this->pager->setCriteria($criteria);
+        $this->pager->setMaxPerPage($request->limit);
+        $this->pager->setPage(1);
+
+        $this->physicalObjects = $this->pager->getResults();
     }
-
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitPhysicalObject::ID, QubitPhysicalObjectI18n::ID);
-    $criteria->add(QubitPhysicalObjectI18n::CULTURE, $this->context->user->getCulture());
-
-    if (sfConfig::get('app_markdown_enabled', true))
-    {
-      $criteria->add(QubitPhysicalObjectI18n::NAME, "%$request->query%", Criteria::LIKE);
-    }
-    else
-    {
-      $criteria->add(QubitPhysicalObjectI18n::NAME, "$request->query%", Criteria::LIKE);
-    }
-
-    $criteria->addAscendingOrderByColumn(QubitPhysicalObjectI18n::NAME);
-
-    $this->pager = new QubitPager('QubitPhysicalObject');
-    $this->pager->setCriteria($criteria);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage(1);
-
-    $this->physicalObjects = $this->pager->getResults();
-  }
 }

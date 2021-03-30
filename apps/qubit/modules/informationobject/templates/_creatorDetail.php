@@ -1,40 +1,40 @@
-<?php $actorsShown = array(); ?>
-<?php foreach ($ancestor->getCreators() as $item): ?>
-  <?php if (!isset($actorsShown[$item->id])): ?>
+<?php $actorsShown = []; ?>
+<?php foreach ($ancestor->getCreators() as $item) { ?>
+  <?php if (!isset($actorsShown[$item->id])) { ?>
     <div class="field">
-      <h3><?php echo __('Name of creator') ?></h3>
+      <h3><?php echo __('Name of creator'); ?></h3>
       <div>
 
         <div class="creator">
-          <?php if (0 < count($resource->getCreators())): ?>
-            <?php echo link_to(render_title($item), array($item)) ?>
-          <?php else: ?>
-            <?php echo link_to(render_title($item), array($item), array('title' => __('Inherited from %1%', array('%1%' => $ancestor)))) ?>
-          <?php endif; ?>
+          <?php if (0 < count($resource->getCreators())) { ?>
+            <?php echo link_to(render_title($item), [$item]); ?>
+          <?php } else { ?>
+            <?php echo link_to(render_title($item), [$item], ['title' => __('Inherited from %1%', ['%1%' => $ancestor])]); ?>
+          <?php } ?>
         </div>
 
-        <?php if (isset($item->datesOfExistence)): ?>
+        <?php if (isset($item->datesOfExistence)) { ?>
           <div class="datesOfExistence">
-            (<?php echo render_value_inline($item->getDatesOfExistence(array('cultureFallback' => true))) ?>)
+            (<?php echo render_value_inline($item->getDatesOfExistence(['cultureFallback' => true])); ?>)
           </div>
-        <?php endif; ?>
+        <?php } ?>
 
-        <?php if (0 < count($resource->getCreators())): ?>
+        <?php if (0 < count($resource->getCreators())) { ?>
           <div class="field">
-            <?php if (QubitTerm::CORPORATE_BODY_ID == $item->entityTypeId): ?>
+            <?php if (QubitTerm::CORPORATE_BODY_ID == $item->entityTypeId) { ?>
               <?php $history_kind = __('Administrative history'); ?>
-            <?php else: ?>
+            <?php } else { ?>
               <?php $history_kind = __('Biographical history'); ?>
-            <?php endif; ?>
+            <?php } ?>
             <h3><?php echo $history_kind; ?></h3>
             <div class="history">
-              <?php echo render_value($item->getHistory(array('cultureFallback' => true))) ?>
+              <?php echo render_value($item->getHistory(['cultureFallback' => true])); ?>
             </div>
           </div>
-        <?php endif; ?>
+        <?php } ?>
 
       </div>
     </div>
     <?php $actorsShown[$item->id] = true; ?>
-  <?php endif; ?>
-<?php endforeach; ?>
+  <?php } ?>
+<?php } ?>

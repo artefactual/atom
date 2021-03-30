@@ -21,44 +21,43 @@ namespace AccessToMemory\test\mock;
 
 class QubitAccession
 {
-  public $id;
+    public $id;
 
-  protected static $slugToIdMap = [
-    'accession-1' => 444,
-    'accession-2' => 555,
-  ];
+    protected static $slugToIdMap = [
+        'accession-1' => 444,
+        'accession-2' => 555,
+    ];
 
-  public static function getById($id)
-  {
-    $obj = new self();
-    $obj->id = $id;
-
-    return $obj;
-  }
-
-  public static function getBySlug($slug)
-  {
-    if (array_key_exists($slug, self::$slugToIdMap))
+    public static function getById($id)
     {
-      $obj = new self();
-      $obj->id = self::$slugToIdMap[$slug];
+        $obj = new self();
+        $obj->id = $id;
 
-      return $obj;
+        return $obj;
     }
-  }
 
-  public static function getTitle($options)
-  {
-    return "Accession";
-  }
+    public static function getBySlug($slug)
+    {
+        if (array_key_exists($slug, self::$slugToIdMap)) {
+            $obj = new self();
+            $obj->id = self::$slugToIdMap[$slug];
 
-  public static function getIdentifier()
-  {
-    return "IDENTIFIER";
-  }
+            return $obj;
+        }
+    }
 
-  public function getSlug()
-  {
-    return "accession";
-  }
+    public static function getTitle($options)
+    {
+        return 'Accession';
+    }
+
+    public static function getIdentifier()
+    {
+        return 'IDENTIFIER';
+    }
+
+    public function getSlug()
+    {
+        return 'accession';
+    }
 }

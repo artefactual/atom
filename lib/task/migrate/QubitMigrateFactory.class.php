@@ -18,36 +18,28 @@
  */
 
 /**
- * Factory for running Qubit data migrations
+ * Factory for running Qubit data migrations.
  *
- * @package    AccesstoMemory
- * @subpackage migration
  * @author     David Juhasz <david@artefactual.com>
  */
 class QubitMigrateFactory
 {
-  public function getMigrator($data, $version)
-  {
-    if (preg_match('/^\d+$/', $version))
+    public function getMigrator($data, $version)
     {
-       if (QubitMigrate108::FINAL_VERSION > intval($version))
-       {
-         return new QubitMigrate108($data, $version);
-       }
-       else if (QubitMigrate109::FINAL_VERSION > intval($version))
-       {
-         return new QubitMigrate109($data, $version);
-       }
-       else if (QubitMigrate110::FINAL_VERSION > intval($version))
-       {
-         return new QubitMigrate110($data, $version);
-       }
-    }
-    else
-    {
-      $migrateClass = 'QubitMigrate'.str_replace('.', '', $version);
+        if (preg_match('/^\d+$/', $version)) {
+            if (QubitMigrate108::FINAL_VERSION > intval($version)) {
+                return new QubitMigrate108($data, $version);
+            }
+            if (QubitMigrate109::FINAL_VERSION > intval($version)) {
+                return new QubitMigrate109($data, $version);
+            }
+            if (QubitMigrate110::FINAL_VERSION > intval($version)) {
+                return new QubitMigrate110($data, $version);
+            }
+        } else {
+            $migrateClass = 'QubitMigrate'.str_replace('.', '', $version);
 
-      return new $migrateClass($data, $version);
+            return new $migrateClass($data, $version);
+        }
     }
-  }
 }

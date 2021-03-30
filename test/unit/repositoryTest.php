@@ -19,12 +19,18 @@
 
 require_once dirname(__FILE__).'/../bootstrap/unit.php';
 
-$t = new lime_test(2, new lime_output_color);
+$t = new lime_test(2, new lime_output_color());
 
-$repository = new QubitRepository;
-$t->isa_ok($repository->__toString(), 'string',
-  '"->__toString()" returns a string');
+$repository = new QubitRepository();
+$t->isa_ok(
+    $repository->__toString(),
+    'string',
+    '"->__toString()" returns a string'
+);
 
 $repository->authorizedFormOfName = 'test name';
-$t->is($repository->__toString(), 'test name',
-  '"->__toString()" returns the authorized form of name');
+$t->is(
+    $repository->__toString(),
+    'test name',
+    '"->__toString()" returns the authorized form of name'
+);

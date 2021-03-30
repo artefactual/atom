@@ -19,25 +19,25 @@
 
 class SitemapStaticPageSet extends AbstractSitemapObjectSet
 {
-  public function init()
-  {
-    $query = <<<EOF
+    public function init()
+    {
+        $query = <<<'EOF'
 SELECT S.slug, O.created_at, O.updated_at
 FROM static_page ST
 LEFT JOIN object O ON (ST.id = O.id)
 LEFT JOIN slug S ON (ST.id = S.object_id)
 EOF;
 
-    $this->rec = $this->conn->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-    $this->rec->setFetchMode(PDO::FETCH_INTO, new SitemapStaticPageUrl);
-    $this->rec->execute();
-  }
+        $this->rec = $this->conn->prepare($query, [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
+        $this->rec->setFetchMode(PDO::FETCH_INTO, new SitemapStaticPageUrl());
+        $this->rec->execute();
+    }
 }
 
 class SitemapStaticPageUrl extends AbstractSitemapUrl
 {
-  public function getPriority()
-  {
-    return '1.0';
-  }
+    public function getPriority()
+    {
+        return '1.0';
+    }
 }

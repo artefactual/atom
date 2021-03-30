@@ -1,62 +1,62 @@
 <!-- upload limit display with usage bar -->
 <section id="uploadLimitDisplay" class="sidebar-widget">
 
-  <h3><?php echo __('Upload limit') ?></h3>
+  <h3><?php echo __('Upload limit'); ?></h3>
 
   <div>
 
-    <?php if ('sfIsdiahPlugin' != $sf_context->getModuleName()): ?>
-      <?php echo __('for %repo%', array('%repo%' => link_to($resource->__toString(), array($resource, 'module' => 'repository')))) ?>
-    <?php endif; ?>
+    <?php if ('sfIsdiahPlugin' != $sf_context->getModuleName()) { ?>
+      <?php echo __('for %repo%', ['%repo%' => link_to($resource->__toString(), [$resource, 'module' => 'repository'])]); ?>
+    <?php } ?>
 
-    <?php if ('limited' == $quotaType): ?>
+    <?php if ('limited' == $quotaType) { ?>
       <div class="usageBar">
-        <div style="width: <?php echo $usageBarPixels ?>px; background-color: <?php echo $usageBarColor ?>;"></div>
+        <div style="width: <?php echo $usageBarPixels; ?>px; background-color: <?php echo $usageBarColor; ?>;"></div>
       </div>
-      <?php echo __('%du% of %limit% <abbr title="1 GB = 1 000 000 000 bytes">GB</abbr> (%percent%%)', array('%du%' => $sf_data->getRaw('diskUsage'), '%limit%' => $sf_data->getRaw('uploadLimit'), '%percent%' => $sf_data->getRaw('diskUsagePercent'))) ?>
-    <?php elseif ('disabled' == $quotaType): ?>
-      <?php echo __('Upload is disabled') ?>
-    <?php elseif ('unlimited' == $quotaType): ?>
-      <?php echo __('%du% <abbr title="1 GB = 1 000 000 000 bytes">GB</abbr> of <em>Unlimited</em>&nbsp;', array('%du%' => $sf_data->getRaw('diskUsage'))) ?>
-    <?php endif; ?>
+      <?php echo __('%du% of %limit% <abbr title="1 GB = 1 000 000 000 bytes">GB</abbr> (%percent%%)', ['%du%' => $sf_data->getRaw('diskUsage'), '%limit%' => $sf_data->getRaw('uploadLimit'), '%percent%' => $sf_data->getRaw('diskUsagePercent')]); ?>
+    <?php } elseif ('disabled' == $quotaType) { ?>
+      <?php echo __('Upload is disabled'); ?>
+    <?php } elseif ('unlimited' == $quotaType) { ?>
+      <?php echo __('%du% <abbr title="1 GB = 1 000 000 000 bytes">GB</abbr> of <em>Unlimited</em>&nbsp;', ['%du%' => $sf_data->getRaw('diskUsage')]); ?>
+    <?php } ?>
 
-    <?php if ($sf_user->isAdministrator()): ?>
-      (<a href="#" id="editUlLink"><?php echo __('Edit') ?></a>)
-    <?php endif; ?>
+    <?php if ($sf_user->isAdministrator()) { ?>
+      (<a href="#" id="editUlLink"><?php echo __('Edit'); ?></a>)
+    <?php } ?>
 
   </div>
 
 </section>
 
-<?php if ($sf_user->isAdministrator() && !$noedit): ?>
+<?php if ($sf_user->isAdministrator() && !$noedit) { ?>
 
 <!-- Edit upload limit -->
 <!-- Note: YUI dialog hides this entire div -->
 <div class="section" id="editUploadLimit">
-  <div class="hd"><?php echo __('Edit upload limit') ?></div>
+  <div class="hd"><?php echo __('Edit upload limit'); ?></div>
 
   <div class="bd form-item-uploadLimit">
 
-    <form id="uploadLimitForm" method="POST" action="<?php echo url_for(array($resource, 'module' => 'repository', 'action' => 'editUploadLimit')) ?>">
+    <form id="uploadLimitForm" method="POST" action="<?php echo url_for([$resource, 'module' => 'repository', 'action' => 'editUploadLimit']); ?>">
 
-      <?php echo $form->renderHiddenFields() ?>
+      <?php echo $form->renderHiddenFields(); ?>
       
       <div class="form-item">
 
-        <label for="uploadLimit_type"><?php echo __('Set the upload limit for this %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))) ?></label>
+        <label for="uploadLimit_type"><?php echo __('Set the upload limit for this %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_repository'))]); ?></label>
 
         <ul class="radio_list">
           <li class="radio">
-            <input id="uploadLimit_type_disabled" type="radio" name="uploadLimit[type]" value="disabled"<?php echo ('disabled' == $quotaType) ? ' checked' : '' ?> />
-            <label class="radio" for="uploadLimit_type_disabled"><?php echo __('Disable uploads') ?></label>
+            <input id="uploadLimit_type_disabled" type="radio" name="uploadLimit[type]" value="disabled"<?php echo ('disabled' == $quotaType) ? ' checked' : ''; ?> />
+            <label class="radio" for="uploadLimit_type_disabled"><?php echo __('Disable uploads'); ?></label>
           </li>
           <li class="radio">
-            <input id="uploadLimit_type_limited" type="radio" name="uploadLimit[type]" value="limited"<?php echo ('limited' == $quotaType) ? ' checked' : '' ?> />
-            <label for="uploadLimit_type_limited"><?php echo __('Limit uploads to %1% GB', array('%1%' => '<input id="uploadLimit_value" type="text" name="uploadLimit[value]" value="'.(($resource->uploadLimit > 0) ? $resource->uploadLimit : '').'" style="width: 6em" />')) ?></label>
+            <input id="uploadLimit_type_limited" type="radio" name="uploadLimit[type]" value="limited"<?php echo ('limited' == $quotaType) ? ' checked' : ''; ?> />
+            <label for="uploadLimit_type_limited"><?php echo __('Limit uploads to %1% GB', ['%1%' => '<input id="uploadLimit_value" type="text" name="uploadLimit[value]" value="'.(($resource->uploadLimit > 0) ? $resource->uploadLimit : '').'" style="width: 6em" />']); ?></label>
           </li>
           <li class="radio">
-            <input id="uploadLimit_type_unlimited" type="radio" name="uploadLimit[type]" value="unlimited"<?php echo ('unlimited' == $quotaType) ? ' checked' : '' ?> />
-            <label for="uploadLimit_type_unlimited"><?php echo __('Allow unlimited uploads', array('%1%' => sfConfig::get('app_ui_label_repository'))) ?></label>
+            <input id="uploadLimit_type_unlimited" type="radio" name="uploadLimit[type]" value="unlimited"<?php echo ('unlimited' == $quotaType) ? ' checked' : ''; ?> />
+            <label for="uploadLimit_type_unlimited"><?php echo __('Allow unlimited uploads', ['%1%' => sfConfig::get('app_ui_label_repository')]); ?></label>
           </li>
         </ul>
 
@@ -74,9 +74,9 @@ Drupal.behaviors.uploadLimitDialog = {
     {
       (function ($)
         {
-          var messageSuccess = '<?php echo __('Update successful') ?>';
-          var submitButtonText = '<?php echo __('Save') ?>';
-          var cancelButtonText = '<?php echo __('Cancel') ?>';
+          var messageSuccess = '<?php echo __('Update successful'); ?>';
+          var submitButtonText = '<?php echo __('Save'); ?>';
+          var cancelButtonText = '<?php echo __('Cancel'); ?>';
 
           // Define various event handlers for Dialog
           var handleSubmit = function() {
@@ -154,4 +154,4 @@ Drupal.behaviors.uploadLimitDialog = {
 
 //]]>
 </script>
-<?php endif; // Edit dialog for admins only ?>
+<?php } ?>

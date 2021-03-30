@@ -19,8 +19,8 @@
 
 class TaxonomyBrowseAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->redirect(array('module' => 'taxonomy', 'action' => 'list'));
-  }
+    public function execute($request)
+    {
+        $this->redirect(['module' => 'taxonomy', 'action' => 'list']);
+    }
 }

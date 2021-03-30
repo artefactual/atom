@@ -19,17 +19,16 @@
 
 class RepositoryContextMenuComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    $this->resource = $request->getAttribute('sf_route')->resource;
-
-    if (null === $this->resource)
+    public function execute($request)
     {
-      return sfView::NONE;
-    }
+        $this->resource = $request->getAttribute('sf_route')->resource;
 
-    // Get resource class here because in the template get_class($resource)
-    // returns the symfony decorator class
-    $this->class = get_class($this->resource);
-  }
+        if (null === $this->resource) {
+            return sfView::NONE;
+        }
+
+        // Get resource class here because in the template get_class($resource)
+        // returns the symfony decorator class
+        $this->class = get_class($this->resource);
+    }
 }

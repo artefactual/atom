@@ -19,17 +19,16 @@
 
 class sfIsadPluginConfiguration extends sfPluginConfiguration
 {
-  public static
-    $summary = 'Metadata standard plugin.  Enables data-entry and display using International Standard Archival Description (ISAD).',
-    $version = '1.0.0';
+    public static $summary = 'Metadata standard plugin.  Enables data-entry and display using International Standard Archival Description (ISAD).';
+    public static $version = '1.0.0';
 
-  /**
-   * @see sfPluginConfiguration
-   */
-  public function initialize()
-  {
-    $enabledModules = sfConfig::get('sf_enabled_modules');
-    $enabledModules[] = 'sfIsadPlugin';
-    sfConfig::set('sf_enabled_modules', $enabledModules);
-  }
+    /**
+     * @see sfPluginConfiguration
+     */
+    public function initialize()
+    {
+        $enabledModules = sfConfig::get('sf_enabled_modules');
+        $enabledModules[] = 'sfIsadPlugin';
+        sfConfig::set('sf_enabled_modules', $enabledModules);
+    }
 }

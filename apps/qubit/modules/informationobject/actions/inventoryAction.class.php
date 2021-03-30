@@ -19,171 +19,163 @@
 
 class InformationObjectInventoryAction extends DefaultBrowseAction
 {
-  private static $levels;
+    private static $levels;
 
-  public function execute($request)
-  {
-    $this->resource = $this->getRoute()->resource;
-
-    // Check that this isn't the root
-    if (!isset($this->resource->parent))
+    public function execute($request)
     {
-      $this->forward404();
+        $this->resource = $this->getRoute()->resource;
+
+        // Check that this isn't the root
+        if (!isset($this->resource->parent)) {
+            $this->forward404();
+        }
+
+        // Set title header
+        sfContext::getInstance()->getConfiguration()->loadHelpers(['Qubit']);
+        $title = strip_markdown($this->resource);
+        $this->response->setTitle("{$title} - Inventory list - {$this->response->getTitle()}");
+
+        $limit = sfConfig::get('app_hits_per_page');
+        if (isset($request->limit) && ctype_digit($request->limit)) {
+            $limit = $request->limit;
+        }
+
+        $page = 1;
+        if (isset($request->page) && ctype_digit($request->page)) {
+            $page = $request->page;
+        }
+
+        // Avoid pagination over ES' max result window config (default: 10000)
+        $maxResultWindow = arElasticSearchPluginConfiguration::getMaxResultWindow();
+
+        if ((int) $limit * $page > $maxResultWindow) {
+            // Show alert
+            $message = $this->context->i18n->__(
+                "We've redirected you to the first page of results."
+                .' To avoid using vast amounts of memory, AtoM limits pagination to %1% records.'
+                .' To view the last records in the current result set, try changing the sort direction.',
+                ['%1%' => $maxResultWindow]
+            );
+            $this->getUser()->setFlash('notice', $message);
+
+            // Redirect to first page
+            $params = $request->getParameterHolder()->getAll();
+            unset($params['page']);
+            $this->redirect($params);
+        }
+
+        $resultSet = self::getResults($this->resource, $limit, $page, $request->sort);
+
+        // Page results
+        $this->pager = new QubitSearchPager($resultSet);
+        $this->pager->setPage($page);
+        $this->pager->setMaxPerPage($limit);
+        $this->pager->init();
     }
 
-    // Set title header
-    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Qubit'));
-    $title = strip_markdown($this->resource);
-    $this->response->setTitle("$title - Inventory list - {$this->response->getTitle()}");
-
-    $limit = sfConfig::get('app_hits_per_page');
-    if (isset($request->limit) && ctype_digit($request->limit))
+    public static function showInventory($resource)
     {
-      $limit = $request->limit;
+        if (empty(self::getLevels())) {
+            return false;
+        }
+
+        $resultSet = self::getResults($resource);
+
+        return $resultSet->getTotalHits() > 0;
     }
 
-    $page = 1;
-    if (isset($request->page) && ctype_digit($request->page))
+    private static function getLevels()
     {
-      $page = $request->page;
+        if (null !== self::$levels) {
+            return self::$levels;
+        }
+
+        $setting = QubitSetting::getByName('inventory_levels');
+        if (null === $setting || false === $value = unserialize($setting->getValue())) {
+            return;
+        }
+
+        if (!is_array($value) || 0 === count($value)) {
+            return;
+        }
+
+        self::$levels = $value;
+
+        return $value;
     }
 
-    // Avoid pagination over ES' max result window config (default: 10000)
-    $maxResultWindow = arElasticSearchPluginConfiguration::getMaxResultWindow();
-
-    if ((int)$limit * $page > $maxResultWindow)
+    private static function getResults($resource, $limit = 10, $page = 1, $sort = null)
     {
-      // Show alert
-      $message = $this->context->i18n->__(
-        "We've redirected you to the first page of results." .
-        " To avoid using vast amounts of memory, AtoM limits pagination to %1% records." .
-        " To view the last records in the current result set, try changing the sort direction.",
-        array('%1%' => $maxResultWindow)
-      );
-      $this->getUser()->setFlash('notice', $message);
+        $query = new \Elastica\Query();
+        $query->setSize($limit);
+        if (!empty($page)) {
+            $query->setFrom(($page - 1) * $limit);
+        }
 
-      // Redirect to first page
-      $params = $request->getParameterHolder()->getAll();
-      unset($params['page']);
-      $this->redirect($params);
+        $queryBool = new \Elastica\Query\BoolQuery();
+
+        $q1 = new \Elastica\Query\Term();
+        $q1->setTerm('ancestors', $resource->id);
+        $queryBool->addMust($q1);
+        $q2 = new \Elastica\Query\Terms();
+        $q2->setTerms('levelOfDescriptionId', self::getLevels());
+        $queryBool->addMust($q2);
+
+        $i18n = sprintf('i18n.%s.', sfContext::getInstance()->getUser()->getCulture());
+
+        switch ($sort) {
+            case 'identifierDown':
+                $query->setSort(['identifier.untouched' => 'desc']);
+
+                break;
+
+            case 'titleUp':
+                $query->setSort([$i18n.'title.alphasort' => 'asc']);
+
+                break;
+
+            case 'titleDown':
+                $query->setSort([$i18n.'title.alphasort' => 'desc']);
+
+                break;
+
+            case 'levelUp':
+                $query->setSort(['levelOfDescriptionId' => 'asc']);
+
+                break;
+
+            case 'levelDown':
+                $query->setSort(['levelOfDescriptionId' => 'desc']);
+
+                break;
+
+            case 'dateUp':
+                $query->setSort([
+                    'startDateSort' => 'asc',
+                    'endDateSort' => 'asc',
+                ]);
+
+                break;
+
+            case 'dateDown':
+                $query->setSort([
+                    'startDateSort' => 'desc',
+                    'endDateSort' => 'desc',
+                ]);
+
+                break;
+            // Avoid sorting when we are just counting records
+            case null:
+                break;
+
+            case 'identifierUp':
+            default:
+                $query->setSort(['identifier.untouched' => 'asc']);
+        }
+
+        QubitAclSearch::filterDrafts($queryBool);
+        $query->setQuery($queryBool);
+
+        return QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
     }
-
-    $resultSet = self::getResults($this->resource, $limit, $page, $request->sort);
-
-    // Page results
-    $this->pager = new QubitSearchPager($resultSet);
-    $this->pager->setPage($page);
-    $this->pager->setMaxPerPage($limit);
-    $this->pager->init();
-  }
-
-  private static function getLevels()
-  {
-    if (self::$levels !== null)
-    {
-      return self::$levels;
-    }
-
-    $setting = QubitSetting::getByName('inventory_levels');
-    if (null === $setting || false === $value = unserialize($setting->getValue()))
-    {
-      return;
-    }
-
-    if (!is_array($value) || 0 === count($value))
-    {
-      return;
-    }
-
-    self::$levels = $value;
-
-    return $value;
-  }
-
-  private static function getResults($resource, $limit = 10, $page = 1, $sort = null)
-  {
-    $query = new \Elastica\Query;
-    $query->setSize($limit);
-    if (!empty($page))
-    {
-      $query->setFrom(($page - 1) * $limit);
-    }
-
-    $queryBool = new \Elastica\Query\BoolQuery;
-
-    $q1 = new \Elastica\Query\Term;
-    $q1->setTerm('ancestors', $resource->id);
-    $queryBool->addMust($q1);
-    $q2 = new \Elastica\Query\Terms;
-    $q2->setTerms('levelOfDescriptionId', self::getLevels());
-    $queryBool->addMust($q2);
-
-    $i18n = sprintf('i18n.%s.', sfContext::getInstance()->getUser()->getCulture());
-    switch ($sort)
-    {
-      case 'identifierDown':
-        $query->setSort(array('identifier.untouched' => 'desc'));
-
-        break;
-
-      case 'titleUp':
-        $query->setSort(array($i18n.'title.alphasort' => 'asc'));
-
-        break;
-
-      case 'titleDown':
-        $query->setSort(array($i18n.'title.alphasort' => 'desc'));
-
-        break;
-
-      case 'levelUp':
-        $query->setSort(array('levelOfDescriptionId' => 'asc'));
-
-        break;
-
-      case 'levelDown':
-        $query->setSort(array('levelOfDescriptionId' => 'desc'));
-
-        break;
-
-      case 'dateUp':
-        $query->setSort(array(
-          'startDateSort' => 'asc',
-          'endDateSort' => 'asc'));
-
-        break;
-
-      case 'dateDown':
-        $query->setSort(array(
-          'startDateSort' => 'desc',
-          'endDateSort' => 'desc'));
-
-        break;
-
-      // Avoid sorting when we are just counting records
-      case null:
-        break;
-
-      case 'identifierUp':
-      default:
-        $query->setSort(array('identifier.untouched' => 'asc'));
-    }
-
-    QubitAclSearch::filterDrafts($queryBool);
-    $query->setQuery($queryBool);
-
-    return QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
-  }
-
-  public static function showInventory($resource)
-  {
-    if (empty(self::getLevels()))
-    {
-      return false;
-    }
-
-    $resultSet = self::getResults($resource);
-
-    return $resultSet->getTotalHits() > 0;
-  }
 }

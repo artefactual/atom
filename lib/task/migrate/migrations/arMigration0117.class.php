@@ -25,91 +25,92 @@
  */
 class arMigration0117
 {
-  const
-    VERSION = 117, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 117;
+    public const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    // Add genre search label setting
-    $setting = new QubitSetting;
-    $setting->name  = 'genre';
-    $setting->scope = 'ui_label';
-    $setting->editable = 1;
-    $setting->deleteable = 0;
-    $setting->source_culture = 'en';
-    $setting->setValue('Genre', array('culture' => 'en'));
-    $setting->save();
-
-    // Add the genre taxonomy
-    QubitMigrate::bumpTaxonomy(QubitTaxonomy::GENRE_ID, $configuration);
-    $taxonomy = new QubitTaxonomy;
-    $taxonomy->id = QubitTaxonomy::GENRE_ID;
-    $taxonomy->parentId = QubitTaxonomy::ROOT_ID;
-    $taxonomy->name = 'Genre';
-    $taxonomy->note = 'Genre terms drawn from appropriate vocabularies; used as an optional access point in the RAD template. Default terms are from "Basic Genre Terms for Cultural Heritage Materials" (Library of Congress).';
-    $taxonomy->culture = 'en';
-    $taxonomy->save();
-
-    // Add genre terms
-    foreach (array(
-      array('en' => 'Advertisements'),
-      array('en' => 'Albums'),
-      array('en' => 'Architecture'),
-      array('en' => 'Blank forms'),
-      array('en' => 'Books'),
-      array('en' => 'Broadsides'),
-      array('en' => 'Cartoons (Commentary)'),
-      array('en' => 'Catalogs'),
-      array('en' => 'Cityscapes'),
-      array('en' => 'Clippings'),
-      array('en' => 'Correspondence'),
-      array('en' => 'Diaries'),
-      array('en' => 'Drawings'),
-      array('en' => 'Ephemera'),
-      array('en' => 'Essays'),
-      array('en' => 'Ethnography'),
-      array('en' => 'Fieldnotes'),
-      array('en' => 'Illustrations'),
-      array('en' => 'Interviews'),
-      array('en' => 'Landscapes'),
-      array('en' => 'Leaflets'),
-      array('en' => 'Manuscripts'),
-      array('en' => 'Maps'),
-      array('en' => 'Miscellaneous Documents'),
-      array('en' => 'Motion Pictures'),
-      array('en' => 'Music'),
-      array('en' => 'Narratives'),
-      array('en' => 'Paintings'),
-      array('en' => 'Pamphlets'),
-      array('en' => 'Periodicals'),
-      array('en' => 'Petitions'),
-      array('en' => 'Photographs'),
-      array('en' => 'Physical Objects'),
-      array('en' => 'Poetry'),
-      array('en' => 'Portraits'),
-      array('en' => 'Postcards'),
-      array('en' => 'Posters'),
-      array('en' => 'Prints'),
-      array('en' => 'Programs'),
-      array('en' => 'Recording logs'),
-      array('en' => 'Scores'),
-      array('en' => 'Sheet Music'),
-      array('en' => 'Timetables'),
-      array('en' => 'Transcriptions')) as $termNames)
+    public function up($configuration)
     {
-      $term = new QubitTerm;
-      $term->parentId = QubitTerm::ROOT_ID;
-      $term->taxonomyId = QubitTaxonomy::GENRE_ID;
-      $term->sourceCulture = 'en';
-      foreach ($termNames as $key => $value)
-      {
-        $term->setName($value, array('culture' => $key));
-      }
+        // Add genre search label setting
+        $setting = new QubitSetting();
+        $setting->name = 'genre';
+        $setting->scope = 'ui_label';
+        $setting->editable = 1;
+        $setting->deleteable = 0;
+        $setting->source_culture = 'en';
+        $setting->setValue('Genre', ['culture' => 'en']);
+        $setting->save();
 
-      $term->save();
+        // Add the genre taxonomy
+        QubitMigrate::bumpTaxonomy(QubitTaxonomy::GENRE_ID, $configuration);
+        $taxonomy = new QubitTaxonomy();
+        $taxonomy->id = QubitTaxonomy::GENRE_ID;
+        $taxonomy->parentId = QubitTaxonomy::ROOT_ID;
+        $taxonomy->name = 'Genre';
+        $taxonomy->note = 'Genre terms drawn from appropriate vocabularies; used as an optional access point in the RAD template. Default terms are from "Basic Genre Terms for Cultural Heritage Materials" (Library of Congress).';
+        $taxonomy->culture = 'en';
+        $taxonomy->save();
+
+        // Add genre terms
+        foreach (
+            [
+                ['en' => 'Advertisements'],
+                ['en' => 'Albums'],
+                ['en' => 'Architecture'],
+                ['en' => 'Blank forms'],
+                ['en' => 'Books'],
+                ['en' => 'Broadsides'],
+                ['en' => 'Cartoons (Commentary)'],
+                ['en' => 'Catalogs'],
+                ['en' => 'Cityscapes'],
+                ['en' => 'Clippings'],
+                ['en' => 'Correspondence'],
+                ['en' => 'Diaries'],
+                ['en' => 'Drawings'],
+                ['en' => 'Ephemera'],
+                ['en' => 'Essays'],
+                ['en' => 'Ethnography'],
+                ['en' => 'Fieldnotes'],
+                ['en' => 'Illustrations'],
+                ['en' => 'Interviews'],
+                ['en' => 'Landscapes'],
+                ['en' => 'Leaflets'],
+                ['en' => 'Manuscripts'],
+                ['en' => 'Maps'],
+                ['en' => 'Miscellaneous Documents'],
+                ['en' => 'Motion Pictures'],
+                ['en' => 'Music'],
+                ['en' => 'Narratives'],
+                ['en' => 'Paintings'],
+                ['en' => 'Pamphlets'],
+                ['en' => 'Periodicals'],
+                ['en' => 'Petitions'],
+                ['en' => 'Photographs'],
+                ['en' => 'Physical Objects'],
+                ['en' => 'Poetry'],
+                ['en' => 'Portraits'],
+                ['en' => 'Postcards'],
+                ['en' => 'Posters'],
+                ['en' => 'Prints'],
+                ['en' => 'Programs'],
+                ['en' => 'Recording logs'],
+                ['en' => 'Scores'],
+                ['en' => 'Sheet Music'],
+                ['en' => 'Timetables'],
+                ['en' => 'Transcriptions'],
+            ]
+            as $termNames
+        ) {
+            $term = new QubitTerm();
+            $term->parentId = QubitTerm::ROOT_ID;
+            $term->taxonomyId = QubitTaxonomy::GENRE_ID;
+            $term->sourceCulture = 'en';
+            foreach ($termNames as $key => $value) {
+                $term->setName($value, ['culture' => $key]);
+            }
+
+            $term->save();
+        }
+
+        return true;
     }
-
-    return true;
-  }
 }

@@ -19,33 +19,29 @@
 
 class ClipboardButtonComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    $this->class = 'clipboard';
-
-    $i18n = $this->context->i18n;
-
-    if ($this->wide)
+    public function execute($request)
     {
-      $this->class .= '-wide';
-      $this->tooltip = false;
-      $title = $i18n->__('Add');
-      $altTitle = $i18n->__('Remove');
-    }
-    else
-    {
-      $this->tooltip = true;
-      $title = $i18n->__('Add to clipboard');
-      $altTitle = $i18n->__('Remove from clipboard');
-    }
+        $this->class = 'clipboard';
 
-    $this->title = $title;
-    $this->altTitle = $altTitle;
+        $i18n = $this->context->i18n;
 
-    // Mix in repository page specific styles
-    if (!empty($this->repositoryOrDigitalObjBrowse))
-    {
-      $this->class .= ' repository-or-digital-obj-browse';
+        if ($this->wide) {
+            $this->class .= '-wide';
+            $this->tooltip = false;
+            $title = $i18n->__('Add');
+            $altTitle = $i18n->__('Remove');
+        } else {
+            $this->tooltip = true;
+            $title = $i18n->__('Add to clipboard');
+            $altTitle = $i18n->__('Remove from clipboard');
+        }
+
+        $this->title = $title;
+        $this->altTitle = $altTitle;
+
+        // Mix in repository page specific styles
+        if (!empty($this->repositoryOrDigitalObjBrowse)) {
+            $this->class .= ' repository-or-digital-obj-browse';
+        }
     }
-  }
 }

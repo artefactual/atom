@@ -19,17 +19,16 @@
 
 class sfEadPluginConfiguration extends sfPluginConfiguration
 {
-  public static
-    $summary = 'Metadata standard plugin.  Enables XML import and export using Encoded Archival Description (EAD).',
-    $version = '1.0.0';
+    public static $summary = 'Metadata standard plugin.  Enables XML import and export using Encoded Archival Description (EAD).';
+    public static $version = '1.0.0';
 
-  /**
-   * @see sfPluginConfiguration
-   */
-  public function initialize()
-  {
-    $enabledModules = sfConfig::get('sf_enabled_modules');
-    $enabledModules[] = 'sfEadPlugin';
-    sfConfig::set('sf_enabled_modules', $enabledModules);
-  }
+    /**
+     * @see sfPluginConfiguration
+     */
+    public function initialize()
+    {
+        $enabledModules = sfConfig::get('sf_enabled_modules');
+        $enabledModules[] = 'sfEadPlugin';
+        sfConfig::set('sf_enabled_modules', $enabledModules);
+    }
 }

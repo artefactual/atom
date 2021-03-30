@@ -18,88 +18,92 @@
  */
 
 /**
- * Default template
+ * Default template.
  *
- * @package    AccesstoMemory
- * @subpackage settings
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     Jack Bates <jack@nottheoilrig.com>
  * @author     David Juhasz <david@artefactual.com>
  */
-
 class SettingsTemplateAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->defaultTemplateForm = new SettingsDefaultTemplateForm;
-
-    // Handle POST data (form submit)
-    if ($request->isMethod('post'))
+    public function execute($request)
     {
-      QubitCache::getInstance()->removePattern('settings:i18n:*');
+        $this->defaultTemplateForm = new SettingsDefaultTemplateForm();
 
-      // Handle default template form submission
-      if (null !== $request->default_template)
-      {
-        $this->defaultTemplateForm->bind($request->default_template);
-        if ($this->defaultTemplateForm->isValid())
-        {
-          // Do update and redirect to avoid repeat submit wackiness
-          $this->updateDefaultTemplateSettings($this->defaultTemplateForm);
+        // Handle POST data (form submit)
+        if ($request->isMethod('post')) {
+            QubitCache::getInstance()->removePattern('settings:i18n:*');
 
-          $notice = sfContext::getInstance()->i18n->__('Default templates saved.');
-          $this->getUser()->setFlash('notice', $notice);
+            // Handle default template form submission
+            if (null !== $request->default_template) {
+                $this->defaultTemplateForm->bind($request->default_template);
+                if ($this->defaultTemplateForm->isValid()) {
+                    // Do update and redirect to avoid repeat submit wackiness
+                    $this->updateDefaultTemplateSettings($this->defaultTemplateForm);
 
-          $this->redirect('settings/template');
+                    $notice = sfContext::getInstance()->i18n->__('Default templates saved.');
+                    $this->getUser()->setFlash('notice', $notice);
+
+                    $this->redirect('settings/template');
+                }
+            }
         }
-      }
+
+        $this->populateDefaultTemplateForm($this->defaultTemplateForm);
     }
 
-    $this->populateDefaultTemplateForm($this->defaultTemplateForm);
-  }
-
-  /**
-   * Populate the default template settings from the database (non-localized)
-   */
-  protected function populateDefaultTemplateForm($form)
-  {
-    $infoObjectTemplate = QubitSetting::getByNameAndScope('informationobject', 'default_template');
-    $actorTemplate = QubitSetting::getByNameAndScope('actor', 'default_template');
-    $repositoryTemplate = QubitSetting::getByNameAndScope('repository', 'default_template');
-
-    // Set defaults for global form
-    $this->defaultTemplateForm->setDefaults(array(
-      'informationobject' => (isset($infoObjectTemplate)) ? $infoObjectTemplate->getValue(array('sourceCulture'=>true)) : null,
-      'actor' => (isset($actorTemplate)) ? $actorTemplate->getValue(array('sourceCulture'=>true)) : null,
-      'repository' => (isset($repositoryTemplate)) ? $repositoryTemplate->getValue(array('sourceCulture'=>true)) : null,
-    ));
-  }
-
-  /**
-   * Update default template db values with form values (non-localized)
-   *
-   * @return $this;
-   */
-  protected function updateDefaultTemplateSettings($form)
-  {
-    if (null !== $newValue = $form->getValue('informationobject'))
+    /**
+     * Populate the default template settings from the database (non-localized).
+     *
+     * @param mixed $form
+     */
+    protected function populateDefaultTemplateForm($form)
     {
-      $setting = QubitSetting::findAndSave('informationobject', $newValue, array(
-        'scope'=>'default_template', 'createNew'=>true, 'sourceCulture'=>true));
+        $infoObjectTemplate = QubitSetting::getByNameAndScope('informationobject', 'default_template');
+        $actorTemplate = QubitSetting::getByNameAndScope('actor', 'default_template');
+        $repositoryTemplate = QubitSetting::getByNameAndScope('repository', 'default_template');
+
+        // Set defaults for global form
+        $this->defaultTemplateForm->setDefaults([
+            'informationobject' => (isset($infoObjectTemplate)) ? $infoObjectTemplate->getValue(['sourceCulture' => true]) : null,
+            'actor' => (isset($actorTemplate)) ? $actorTemplate->getValue(['sourceCulture' => true]) : null,
+            'repository' => (isset($repositoryTemplate)) ? $repositoryTemplate->getValue(['sourceCulture' => true]) : null,
+        ]);
     }
 
-    if (null !== $newValue = $form->getValue('actor'))
+    /**
+     * Update default template db values with form values (non-localized).
+     *
+     * @param mixed $form
+     *
+     * @return $this;
+     */
+    protected function updateDefaultTemplateSettings($form)
     {
-      $setting = QubitSetting::findAndSave('actor', $newValue, array(
-        'scope'=>'default_template', 'createNew'=>true, 'sourceCulture'=>true));
-    }
+        if (null !== $newValue = $form->getValue('informationobject')) {
+            $setting = QubitSetting::findAndSave(
+                'informationobject',
+                $newValue,
+                ['scope' => 'default_template', 'createNew' => true, 'sourceCulture' => true]
+            );
+        }
 
-    if (null !== $newValue = $form->getValue('repository'))
-    {
-      $setting = QubitSetting::findAndSave('repository', $newValue, array(
-        'scope'=>'default_template', 'createNew'=>true, 'sourceCulture'=>true));
-    }
+        if (null !== $newValue = $form->getValue('actor')) {
+            $setting = QubitSetting::findAndSave(
+                'actor',
+                $newValue,
+                ['scope' => 'default_template', 'createNew' => true, 'sourceCulture' => true]
+            );
+        }
 
-    return $this;
-  }
+        if (null !== $newValue = $form->getValue('repository')) {
+            $setting = QubitSetting::findAndSave(
+                'repository',
+                $newValue,
+                ['scope' => 'default_template', 'createNew' => true, 'sourceCulture' => true]
+            );
+        }
+
+        return $this;
+    }
 }

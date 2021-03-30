@@ -1,40 +1,40 @@
-<?php use_helper('Text') ?>
+<?php use_helper('Text'); ?>
 
-<?php if (QubitTerm::MASTER_ID == $usageType || QubitTerm::REFERENCE_ID == $usageType): ?>
+<?php if (QubitTerm::MASTER_ID == $usageType || QubitTerm::REFERENCE_ID == $usageType) { ?>
 
-  <?php if (isset($link)): ?>
-    <?php echo link_to(image_tag($representation->getFullPath(), array('alt' => __($resource->getDigitalObjectAltText() ?: 'Open original %1%', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))), $link, array('target' => '_blank')) ?>
-  <?php else: ?>
-    <?php echo image_tag($representation->getFullPath(), array('alt' => __($resource->getDigitalObjectAltText() ?: 'Original %1% not accessible', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))) ?>
-  <?php endif; ?>
+  <?php if (isset($link)) { ?>
+    <?php echo link_to(image_tag($representation->getFullPath(), ['alt' => __($resource->getDigitalObjectAltText() ?: 'Open original %1%', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])]), $link, ['target' => '_blank']); ?>
+  <?php } else { ?>
+    <?php echo image_tag($representation->getFullPath(), ['alt' => __($resource->getDigitalObjectAltText() ?: 'Original %1% not accessible', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])]); ?>
+  <?php } ?>
 
-<?php elseif (QubitTerm::THUMBNAIL_ID == $usageType): ?>
+<?php } elseif (QubitTerm::THUMBNAIL_ID == $usageType) { ?>
 
-  <?php if ($iconOnly): ?>
-    <?php if (isset($link)): ?>
-      <?php echo link_to(image_tag($representation->getFullPath(), array('alt' => __($resource->getDigitalObjectAltText() ?: 'Open original %1%', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))), $link) ?>
-    <?php else: ?>
-      <?php echo image_tag($representation->getFullPath(), array('alt' => __($resource->getDigitalObjectAltText() ?: 'Original %1% not accessible', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))) ?>
-    <?php endif; ?>
+  <?php if ($iconOnly) { ?>
+    <?php if (isset($link)) { ?>
+      <?php echo link_to(image_tag($representation->getFullPath(), ['alt' => __($resource->getDigitalObjectAltText() ?: 'Open original %1%', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])]), $link); ?>
+    <?php } else { ?>
+      <?php echo image_tag($representation->getFullPath(), ['alt' => __($resource->getDigitalObjectAltText() ?: 'Original %1% not accessible', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])]); ?>
+    <?php } ?>
 
-  <?php else: ?>
+  <?php } else { ?>
 
     <div class="digitalObject">
 
       <div class="digitalObjectRep">
-        <?php if (isset($link)): ?>
-          <?php echo link_to(image_tag($representation->getFullPath(), array('alt' => __($resource->getDigitalObjectAltText() ?: 'Open original %1%', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))), $link) ?>
-        <?php else: ?>
-          <?php echo image_tag($representation->getFullPath(), array('alt' => __($resource->getDigitalObjectAltText() ?: 'Original %1% not accessible', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))))) ?>
-        <?php endif; ?>
+        <?php if (isset($link)) { ?>
+          <?php echo link_to(image_tag($representation->getFullPath(), ['alt' => __($resource->getDigitalObjectAltText() ?: 'Open original %1%', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])]), $link); ?>
+        <?php } else { ?>
+          <?php echo image_tag($representation->getFullPath(), ['alt' => __($resource->getDigitalObjectAltText() ?: 'Original %1% not accessible', ['%1%' => sfConfig::get('app_ui_label_digitalobject')])]); ?>
+        <?php } ?>
       </div>
 
       <div class="digitalObjectDesc">
-        <?php echo wrap_text($resource->name, 18) ?>
+        <?php echo wrap_text($resource->name, 18); ?>
       </div>
 
     </div>
 
-  <?php endif; ?>
+  <?php } ?>
 
-<?php endif; ?>
+<?php } ?>

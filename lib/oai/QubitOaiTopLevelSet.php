@@ -18,30 +18,31 @@
  */
 
 /**
- * An OAI set for all top-level (collection) records
+ * An OAI set for all top-level (collection) records.
  *
- * @package    AccesstoMemory
- * @subpackage oai
  * @author     Mark Triggs <mark@teaspoon-consulting.com>
  */
-
 class QubitOaiTopLevelSet implements QubitOaiSet
 {
-  public function contains($record) {
-    /* Allow the collection set to take responsibility for records to preserve
-     * the current behaviour. */
-    return false;
-  }
+    public function contains($record)
+    {
+        /* Allow the collection set to take responsibility for records to preserve
+         * the current behaviour. */
+        return false;
+    }
 
-  public function setSpec() {
-    return "oai:virtual:top-level-records";
-  }
+    public function setSpec()
+    {
+        return 'oai:virtual:top-level-records';
+    }
 
-  public function getName() {
-    return "Top-level collection record set";
-  }
+    public function getName()
+    {
+        return 'Top-level collection record set';
+    }
 
-  public function apply($criteria) {
-    $criteria->add(QubitInformationObject::PARENT_ID, QubitInformationObject::ROOT_ID);
-  }
+    public function apply($criteria)
+    {
+        $criteria->add(QubitInformationObject::PARENT_ID, QubitInformationObject::ROOT_ID);
+    }
 }

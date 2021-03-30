@@ -25,72 +25,68 @@
  */
 class arMigration0149
 {
-  const
-    VERSION = 149, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 149;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    if (null === QubitSetting::getByName('enable_institutional_scoping'))
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      $setting = new QubitSetting;
-      $setting->name = 'enable_institutional_scoping';
-      $setting->value = 0;
-      $setting->editable = 1;
-      $setting->culture = 'en';
-      $setting->save();
+        if (null === QubitSetting::getByName('enable_institutional_scoping')) {
+            $setting = new QubitSetting();
+            $setting->name = 'enable_institutional_scoping';
+            $setting->value = 0;
+            $setting->editable = 1;
+            $setting->culture = 'en';
+            $setting->save();
+        }
+
+        if (null === QubitSetting::getByName('globalSearch')) {
+            $setting = new QubitSetting();
+            $setting->name = 'globalSearch';
+            $setting->scope = 'ui_label';
+            $setting->editable = 1;
+            $setting->deleteable = 0;
+            $setting->source_culture = 'en';
+            $setting->setValue('Search', ['culture' => 'en']);
+            $setting->save();
+        }
+
+        if (null === QubitSetting::getByName('institutionSearchHoldings')) {
+            $setting = new QubitSetting();
+            $setting->name = 'institutionSearchHoldings';
+            $setting->scope = 'ui_label';
+            $setting->editable = 1;
+            $setting->deleteable = 0;
+            $setting->source_culture = 'en';
+            $setting->setValue('Search our collection', ['culture' => 'en']);
+            $setting->save();
+        }
+
+        if (null === QubitMenu::getByName('browseInstitution')) {
+            $browseInstMenu = new QubitMenu();
+            $browseInstMenu->parentId = QubitMenu::ROOT_ID;
+            $browseInstMenu->name = 'browseInstitution';
+            $browseInstMenu->label = 'Browse our collection';
+            $browseInstMenu->culture = 'en';
+            $browseInstMenu->save();
+
+            if (null === QubitMenu::getByName('browseInformationObjectsInstitution')) {
+                $menu = new QubitMenu();
+                $menu->parentId = $browseInstMenu->id;
+                $menu->name = 'browseInformationObjectsInstitution';
+                $menu->path = 'informationobject/browse?repos=%currentRealm%';
+                $menu->sourceCulture = 'en';
+                $menu->label = 'Archival descriptions';
+                $menu->save();
+            }
+        }
+
+        return true;
     }
-
-    if (null === QubitSetting::getByName('globalSearch'))
-    {
-      $setting = new QubitSetting;
-      $setting->name  = 'globalSearch';
-      $setting->scope = 'ui_label';
-      $setting->editable = 1;
-      $setting->deleteable = 0;
-      $setting->source_culture = 'en';
-      $setting->setValue('Search', array('culture' => 'en'));
-      $setting->save();
-    }
-
-    if (null === QubitSetting::getByName('institutionSearchHoldings'))
-    {
-      $setting = new QubitSetting;
-      $setting->name  = 'institutionSearchHoldings';
-      $setting->scope = 'ui_label';
-      $setting->editable = 1;
-      $setting->deleteable = 0;
-      $setting->source_culture = 'en';
-      $setting->setValue('Search our collection', array('culture' => 'en'));
-      $setting->save();
-    }
-
-    if (null === QubitMenu::getByName('browseInstitution'))
-    {
-      $browseInstMenu = new QubitMenu;
-      $browseInstMenu->parentId = QubitMenu::ROOT_ID;
-      $browseInstMenu->name = 'browseInstitution';
-      $browseInstMenu->label = 'Browse our collection';
-      $browseInstMenu->culture = 'en';
-      $browseInstMenu->save();
-
-      if (null === QubitMenu::getByName('browseInformationObjectsInstitution'))
-      {
-        $menu = new QubitMenu;
-        $menu->parentId = $browseInstMenu->id;
-        $menu->name = 'browseInformationObjectsInstitution';
-        $menu->path = 'informationobject/browse?repos=%currentRealm%';
-        $menu->sourceCulture = 'en';
-        $menu->label = 'Archival descriptions';
-        $menu->save();
-      }
-    }
-
-    return true;
-  }
 }

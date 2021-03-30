@@ -19,35 +19,33 @@
 
 class QubitValidatorAccessionIdentifier extends sfValidatorBase
 {
-  protected function configure($options = array(), $messages = array())
-  {
-    parent::configure($options, $messages);
-
-    $this->addRequiredOption('resource');
-  }
-
-  protected function doClean($value)
-  {
-    // Before allowing use of proposed identifier, make sure it's available for use
-    if (self::identifierCanBeUsed($value, $this->getOption('resource')))
+    public static function identifierCanBeUsed($identifier, $byResource = null)
     {
-      return $value;
+        $criteria = new Criteria();
+        $criteria->add(QubitAccession::IDENTIFIER, $identifier);
+
+        // If accession isn't new, make sure no accession other than it is using proposed identifier
+        if (null !== $byResource && isset($byResource->id)) {
+            $criteria->add(QubitAccession::ID, $byResource->id, Criteria::NOT_EQUAL);
+        }
+
+        return 0 == count(QubitAccession::get($criteria));
     }
 
-    throw new sfValidatorError($this, sfContext::getInstance()->i18n->__('This identifer is already in use.'), array('value' => $value));
-  }
-
-  public static function identifierCanBeUsed($identifier, $byResource = null)
-  {
-    $criteria = new Criteria;
-    $criteria->add(QubitAccession::IDENTIFIER, $identifier);
-
-    // If accession isn't new, make sure no accession other than it is using proposed identifier
-    if ($byResource !== null && isset($byResource->id))
+    protected function configure($options = [], $messages = [])
     {
-      $criteria->add(QubitAccession::ID, $byResource->id, Criteria::NOT_EQUAL);
+        parent::configure($options, $messages);
+
+        $this->addRequiredOption('resource');
     }
 
-    return (0 == count(QubitAccession::get($criteria)));
-  }
+    protected function doClean($value)
+    {
+        // Before allowing use of proposed identifier, make sure it's available for use
+        if (self::identifierCanBeUsed($value, $this->getOption('resource'))) {
+            return $value;
+        }
+
+        throw new sfValidatorError($this, sfContext::getInstance()->i18n->__('This identifer is already in use.'), ['value' => $value]);
+    }
 }

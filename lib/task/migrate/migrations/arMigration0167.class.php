@@ -25,20 +25,19 @@
  */
 class arMigration0167
 {
-  const
-    VERSION = 167, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 167;
+    public const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    // Change digital object table's byte_size column to BIGINT
-    $sql = "ALTER TABLE `digital_object` CHANGE `byte_size` `byte_size` BIGINT";
-    QubitPdo::modify($sql);
+    public function up($configuration)
+    {
+        // Change digital object table's byte_size column to BIGINT
+        $sql = 'ALTER TABLE `digital_object` CHANGE `byte_size` `byte_size` BIGINT';
+        QubitPdo::modify($sql);
 
-    // Change premis_object table's size column to BIGINT
-    $sql = "ALTER TABLE `premis_object` CHANGE `size` `size` BIGINT";
-    QubitPdo::modify($sql);
+        // Change premis_object table's size column to BIGINT
+        $sql = 'ALTER TABLE `premis_object` CHANGE `size` `size` BIGINT';
+        QubitPdo::modify($sql);
 
-    return true;
-  }
+        return true;
+    }
 }

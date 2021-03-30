@@ -19,38 +19,33 @@
 
 class StaticPageDeleteAction extends sfAction
 {
-  public function execute($request)
-  {
-    $this->form = new sfForm;
-
-    $this->resource = $this->getRoute()->resource;
-
-    // Check user authorization
-    if ($this->resource->isProtected())
+    public function execute($request)
     {
-      QubitAcl::forwardUnauthorized();
-    }
+        $this->form = new sfForm();
 
-    if ($request->isMethod('delete'))
-    {
-      $this->form->bind($request->getPostParameters());
-      
-      if ($this->form->isValid())
-      {
-        $this->resource->delete();
+        $this->resource = $this->getRoute()->resource;
 
-        // Invalidate static page content cache entry
-        if (null !== $cache = QubitCache::getInstance())
-        {
-          foreach (sfConfig::get('app_i18n_languages') as $culture)
-          {
-            $cacheKey = 'staticpage:'.$this->resource->id.':'.$culture;
-            $cache->remove($cacheKey);
-          }
+        // Check user authorization
+        if ($this->resource->isProtected()) {
+            QubitAcl::forwardUnauthorized();
         }
 
-        $this->redirect(array('module' => 'staticpage', 'action' => 'list'));
-      }
+        if ($request->isMethod('delete')) {
+            $this->form->bind($request->getPostParameters());
+
+            if ($this->form->isValid()) {
+                $this->resource->delete();
+
+                // Invalidate static page content cache entry
+                if (null !== $cache = QubitCache::getInstance()) {
+                    foreach (sfConfig::get('app_i18n_languages') as $culture) {
+                        $cacheKey = 'staticpage:'.$this->resource->id.':'.$culture;
+                        $cache->remove($cacheKey);
+                    }
+                }
+
+                $this->redirect(['module' => 'staticpage', 'action' => 'list']);
+            }
+        }
     }
-  }
 }

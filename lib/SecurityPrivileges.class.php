@@ -19,23 +19,22 @@
 
 class SecurityPrivileges
 {
-  public static function editCredentials($user, $object)
-  {
-    switch (strtolower($object))
+    public static function editCredentials($user, $object)
     {
-      case 'informationobject':
-        return $user->hasCredential(array('administrator', 'editor', 'contributor', 'translator'), false);
+        switch (strtolower($object)) {
+            case 'informationobject':
+                return $user->hasCredential(['administrator', 'editor', 'contributor', 'translator'], false);
 
-      case 'actor':
-        return $user->hasCredential(array('administrator', 'editor', 'contributor', 'translator'), false);
+            case 'actor':
+                return $user->hasCredential(['administrator', 'editor', 'contributor', 'translator'], false);
 
-      case 'repository':
-        return $user->hasCredential(array('administrator', 'editor', 'contributor', 'translator'), false);
+            case 'repository':
+                return $user->hasCredential(['administrator', 'editor', 'contributor', 'translator'], false);
 
-      case 'term':
-        return $user->hasCredential(array('administrator', 'editor', 'translator'), false);
+            case 'term':
+                return $user->hasCredential(['administrator', 'editor', 'translator'], false);
+        }
+
+        return false;
     }
-
-    return false;
-  }
 }

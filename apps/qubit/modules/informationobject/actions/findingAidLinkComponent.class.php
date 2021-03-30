@@ -19,40 +19,36 @@
 
 class InformationObjectFindingAidLinkComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    // Get finding aid path and status from top-level
-    if ($this->resource->parentId != QubitInformationObject::ROOT_ID)
+    public function execute($request)
     {
-      $this->resource = $this->resource->getCollectionRoot();
+        // Get finding aid path and status from top-level
+        if (QubitInformationObject::ROOT_ID != $this->resource->parentId) {
+            $this->resource = $this->resource->getCollectionRoot();
+        }
+
+        $this->path = arFindingAidJob::getFindingAidPathForDownload($this->resource->id);
+        if (!isset($this->path)) {
+            return sfView::NONE;
+        }
+
+        $parts = explode(DIRECTORY_SEPARATOR, $this->path);
+        $this->filename = array_pop($parts);
+
+        $i18n = $this->context->i18n;
+
+        switch ((int) $this->resource->getFindingAidStatus()) {
+            case arFindingAidJob::GENERATED_STATUS:
+                $this->label = $i18n->__('Generated finding aid');
+
+            break;
+
+            case arFindingAidJob::UPLOADED_STATUS:
+                $this->label = $i18n->__('Uploaded finding aid');
+
+            break;
+            // It should never get here if we don't add more finding aid statuses
+            default:
+                $this->label = $i18n->__('Finding aid');
+        }
     }
-
-    $this->path = arFindingAidJob::getFindingAidPathForDownload($this->resource->id);
-    if (!isset($this->path))
-    {
-      return sfView::NONE;
-    }
-
-    $parts = explode(DIRECTORY_SEPARATOR, $this->path);
-    $this->filename = array_pop($parts);
-    
-    $i18n = $this->context->i18n;
-
-    switch ((integer)$this->resource->getFindingAidStatus())
-    {
-      case arFindingAidJob::GENERATED_STATUS:
-        $this->label = $i18n->__('Generated finding aid');
-
-        break;
-
-      case arFindingAidJob::UPLOADED_STATUS:
-        $this->label = $i18n->__('Uploaded finding aid');
-
-        break;
-
-      // It should never get here if we don't add more finding aid statuses
-      default:
-        $this->label = $i18n->__('Finding aid');
-    }
-  }
 }

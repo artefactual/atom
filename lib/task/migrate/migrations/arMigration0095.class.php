@@ -25,43 +25,42 @@
  */
 class arMigration0095
 {
-  const
-    VERSION = 95, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 95;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    // Disable this upgrade step since we can now automatically
-    // remove missing plugins and set new themes, see #4557
-    return true;
-
-    // Retrieve QubitSetting object
-    $criteria = new Criteria;
-    $criteria->add(QubitSetting::NAME, 'plugins');
-    if (null === $setting = QubitSetting::getOne($criteria))
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      return false;
+        // Disable this upgrade step since we can now automatically
+        // remove missing plugins and set new themes, see #4557
+        return true;
+        // Retrieve QubitSetting object
+        $criteria = new Criteria();
+        $criteria->add(QubitSetting::NAME, 'plugins');
+        if (null === $setting = QubitSetting::getOne($criteria)) {
+            return false;
+        }
+
+        // Unserialize
+        $plugins = array_values(unserialize($setting->getValue(['sourceCulture' => true])));
+
+        // Define list of plugins that will be disabled
+        $disable = ['qtTrilliumPlugin', 'sfAlouettePlugin', 'sfCaribouPlugin', 'sfColumbiaPlugin'];
+
+        // Remove them
+        $plugins = array_diff($plugins, $disable);
+
+        // Add arDominionPlugin
+        $plugins[] = 'arDominionPlugin';
+
+        // Save
+        $setting->setValue(serialize(array_unique($plugins)), ['sourceCulture' => true]);
+        $setting->save();
     }
-
-    // Unserialize
-    $plugins = array_values(unserialize($setting->getValue(array('sourceCulture' => true))));
-
-    // Define list of plugins that will be disabled
-    $disable = array('qtTrilliumPlugin', 'sfAlouettePlugin', 'sfCaribouPlugin', 'sfColumbiaPlugin');
-
-    // Remove them
-    $plugins = array_diff($plugins, $disable);
-
-    // Add arDominionPlugin
-    $plugins[] = 'arDominionPlugin';
-
-    // Save
-    $setting->setValue(serialize(array_unique($plugins)), array('sourceCulture' => true));
-    $setting->save();
-  }
 }

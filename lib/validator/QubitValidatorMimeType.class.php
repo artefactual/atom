@@ -19,43 +19,44 @@
 
 class QubitValidatorMimeType extends sfValidatorBase
 {
-  /**
-   * @param array $options   An array of options
-   * @param array $messages  An array of error messages
-   *
-   * @see sfValidatorBase
-   */
-  protected function configure($options = array(), $messages = array())
-  {
-    $this->addRequiredOption('mime_types');
-    $this->addMessage('mime_types', 'Invalid file type (%value%: %mime_type%)');
-  }
-  
-  /**
-   * @see sfValidatorBase
-   */
-
-  protected function doClean($value)
-  {        
-    $mimeType = QubitDigitalObject::deriveMimeType($value['name']);
-    $mimeTypes = $this->getOption('mime_types');
-    
-    if (!in_array($mimeType, $mimeTypes))
+    /**
+     * @param array $options  An array of options
+     * @param array $messages An array of error messages
+     *
+     * @see sfValidatorBase
+     */
+    protected function configure($options = [], $messages = [])
     {
-      throw new sfValidatorError($this, 'mime_types', ['value' => $value['name'], 'mime_type' => $mimeType]);
+        $this->addRequiredOption('mime_types');
+        $this->addMessage('mime_types', 'Invalid file type (%value%: %mime_type%)');
     }
-    
-    return $value;
-  }
-  
-  /**
-   * @see sfValidatorBase
-   */
-  protected function isEmpty($value)
-  {
-    // Empty if the value is not an array
-    // or if the value comes from PHP with an error of UPLOAD_ERR_NO_FILE.
-    return
-      !is_array($value) || (is_array($value) && isset($value['error']) && UPLOAD_ERR_NO_FILE === $value['error']);
-  }
+
+    /**
+     * @see sfValidatorBase
+     *
+     * @param mixed $value
+     */
+    protected function doClean($value)
+    {
+        $mimeType = QubitDigitalObject::deriveMimeType($value['name']);
+        $mimeTypes = $this->getOption('mime_types');
+
+        if (!in_array($mimeType, $mimeTypes)) {
+            throw new sfValidatorError($this, 'mime_types', ['value' => $value['name'], 'mime_type' => $mimeType]);
+        }
+
+        return $value;
+    }
+
+    /**
+     * @see sfValidatorBase
+     *
+     * @param mixed $value
+     */
+    protected function isEmpty($value)
+    {
+        // Empty if the value is not an array
+        // or if the value comes from PHP with an error of UPLOAD_ERR_NO_FILE.
+        return !is_array($value) || (is_array($value) && isset($value['error']) && UPLOAD_ERR_NO_FILE === $value['error']);
+    }
 }

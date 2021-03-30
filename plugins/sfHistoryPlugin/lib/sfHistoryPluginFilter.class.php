@@ -10,16 +10,18 @@
 
 class sfHistoryPluginFilter extends sfFilter
 {
-  /**
-   * @see Filter::execute()
-   */
-  public function execute($filterChain)
-  {
-    $filterChain->execute();
+    /**
+     * @see Filter::execute()
+     *
+     * @param mixed $filterChain
+     */
+    public function execute($filterChain)
+    {
+        $filterChain->execute();
 
-    $user = $this->context->user;
-    $user->setAttribute('moduleName', $this->context->getModuleName(), 'sfHistoryPlugin');
-    $user->setAttribute('actionName', $this->context->getActionName(), 'sfHistoryPlugin');
-    $user->setAttribute('currentInternalUri', $this->context->getRouting()->getCurrentInternalUri(), 'sfHistoryPlugin');
-  }
+        $user = $this->context->user;
+        $user->setAttribute('moduleName', $this->context->getModuleName(), 'sfHistoryPlugin');
+        $user->setAttribute('actionName', $this->context->getActionName(), 'sfHistoryPlugin');
+        $user->setAttribute('currentInternalUri', $this->context->getRouting()->getCurrentInternalUri(), 'sfHistoryPlugin');
+    }
 }

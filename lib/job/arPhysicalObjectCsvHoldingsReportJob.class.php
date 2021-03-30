@@ -19,72 +19,66 @@
 
 /**
  * A job to export a physical object holdings report as CSV data.
- *
- * @package    symfony
- * @subpackage jobs
  */
-
 class arPhysicalObjectCsvHoldingsReportJob extends arExportJob
 {
-  /**
-   * @see arBaseJob::$requiredParameters
-   */
-  protected $downloadFileExtension = 'zip';
+    /**
+     * @see arBaseJob::$requiredParameters
+     */
+    protected $downloadFileExtension = 'zip';
 
-  public function runJob($parameters)
-  {
-    // Indicate beginning of export and describe parameters provided
-    $this->info($this->i18n->__('Starting physical storage holdings report CSV export.'));
-
-    if (!empty($parameters['suppressEmpty']))
+    public function runJob($parameters)
     {
-      $this->info($this->i18n->__('Omitting physical storage without holdings.'));
+        // Indicate beginning of export and describe parameters provided
+        $this->info($this->i18n->__('Starting physical storage holdings report CSV export.'));
+
+        if (!empty($parameters['suppressEmpty'])) {
+            $this->info($this->i18n->__('Omitting physical storage without holdings.'));
+        }
+
+        if (!empty($parameters['holdingType'])) {
+            $this->info($this->i18n->__(
+                'Including physical storage containing holding type: %1.',
+                ['%1' => $parameters['holdingType']]
+            ));
+        }
+
+        // Attempt export
+        $tempPath = $this->createJobTempDir();
+        $exportFile = $tempPath.DIRECTORY_SEPARATOR.'holdings.csv';
+
+        $report = new QubitPhysicalObjectCsvHoldingsReport($this->getReportOptions($parameters));
+        $report->write($exportFile);
+
+        // Compress CSV export files as a ZIP archive
+        $this->info($this->i18n->__('Creating ZIP file %1.', ['%1' => $this->getDownloadFilePath()]));
+        $errors = $this->createZipForDownload($tempPath);
+
+        if (!empty($errors)) {
+            $this->error($this->i18n->__('Failed to create ZIP file.').' : '.implode(' : ', $errors));
+
+            return false;
+        }
+
+        // Mark job as complete
+        $this->info($this->i18n->__('Export complete.'));
+        $this->job->setStatusCompleted();
+        $this->job->downloadPath = $this->getDownloadRelativeFilePath();
+        $this->job->save();
+
+        return true;
     }
 
-    if (!empty($parameters['holdingType']))
+    private function getReportOptions($parameters)
     {
-      $this->info($this->i18n->__(
-        'Including physical storage containing holding type: %1.',
-        ['%1' => $parameters['holdingType']]));
+        $options = [];
+
+        $options['suppressEmpty'] = (!empty($parameters['suppressEmpty'])) ? $parameters['suppressEmpty'] : null;
+
+        if (!empty($parameters['holdingType'])) {
+            $options['holdingType'] = $parameters['holdingType'];
+        }
+
+        return $options;
     }
-
-    // Attempt export
-    $tempPath = $this->createJobTempDir();
-    $exportFile = $tempPath . DIRECTORY_SEPARATOR . 'holdings.csv';
-
-    $report = new QubitPhysicalObjectCsvHoldingsReport($this->getReportOptions($parameters));
-    $report->write($exportFile);
-
-    // Compress CSV export files as a ZIP archive
-    $this->info($this->i18n->__('Creating ZIP file %1.', ['%1' => $this->getDownloadFilePath()]));
-    $errors = $this->createZipForDownload($tempPath);
-
-    if (!empty($errors))
-    {
-      $this->error($this->i18n->__('Failed to create ZIP file.') . ' : ' . implode(' : ', $errors));
-      return false;
-    }
-
-    // Mark job as complete
-    $this->info($this->i18n->__('Export complete.'));
-    $this->job->setStatusCompleted();
-    $this->job->downloadPath = $this->getDownloadRelativeFilePath();
-    $this->job->save();
-
-    return true;
-  }
-
-  private function getReportOptions($parameters)
-  {
-    $options = [];
-
-    $options['suppressEmpty'] = (!empty($parameters['suppressEmpty'])) ? $parameters['suppressEmpty'] : null;
-
-    if (!empty($parameters['holdingType']))
-    {
-      $options['holdingType'] = $parameters['holdingType'];
-    }
-
-    return $options;
-  }
 }

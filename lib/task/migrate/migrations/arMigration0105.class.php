@@ -25,80 +25,87 @@
  */
 class arMigration0105
 {
-  const
-    VERSION = 105, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 105;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    // Add extra column, term.converse_term_id
-    QubitMigrate::addColumn(
-      QubitTerm::TABLE_NAME,
-      'converse_term_id INT NULL',
-      array(
-        'after' => 'code',
-        'idx' => true,
-        'fk' => array(
-          'referenceTable' => 'term',
-          'referenceColumn' => 'id',
-          'onDelete' => 'SET NULL',
-          'onUpdate' => 'RESTRICT')));
-
-    // Add new actor relation type terms
-    foreach (array(
-      QubitTerm::HIERARCHICAL_RELATION_ID => array(
-        'is the superior of' => 'is the subordinate of',
-        'controls' => 'is controlled by',
-        'is the owner of' => 'is owned by'),
-      QubitTerm::TEMPORAL_RELATION_ID => array(
-        'is the predecessor of' => 'is the successor of'),
-      QubitTerm::FAMILY_RELATION_ID => array(
-        'is the parent of' => 'is the child of',
-        'is the sibling of' => 'itself',
-        'is the spouse of' => 'itself',
-        'is the cousin of' => 'itself',
-        'is the grandparent of' => 'is the grandchild of'),
-      QubitTerm::ASSOCIATIVE_RELATION_ID => array(
-        'is the provider of' => 'is the client of',
-        'is the business partner of' => 'itself',
-        'is the associate of' => 'itself',
-        'is the friend of' => 'itself')) as $parentId => $terms)
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      foreach ($terms as $termName => $converseTermName)
-      {
-        $term = new QubitTerm;
-        $term->parentId = $parentId;
-        $term->taxonomyId = QubitTaxonomy::ACTOR_RELATION_TYPE_ID;
-        $term->name = $termName;
-        $term->culture = 'en';
-        $term->save();
+        // Add extra column, term.converse_term_id
+        QubitMigrate::addColumn(
+            QubitTerm::TABLE_NAME,
+            'converse_term_id INT NULL',
+            [
+                'after' => 'code',
+                'idx' => true,
+                'fk' => [
+                    'referenceTable' => 'term',
+                    'referenceColumn' => 'id',
+                    'onDelete' => 'SET NULL',
+                    'onUpdate' => 'RESTRICT',
+                ],
+            ]
+        );
 
-        if ($converseTermName == 'itself')
-        {
-          $term->converseTermId = $term->id;
+        // Add new actor relation type terms
+        foreach (
+            [
+                QubitTerm::HIERARCHICAL_RELATION_ID => [
+                    'is the superior of' => 'is the subordinate of',
+                    'controls' => 'is controlled by',
+                    'is the owner of' => 'is owned by',
+                ],
+                QubitTerm::TEMPORAL_RELATION_ID => [
+                    'is the predecessor of' => 'is the successor of',
+                ],
+                QubitTerm::FAMILY_RELATION_ID => [
+                    'is the parent of' => 'is the child of',
+                    'is the sibling of' => 'itself',
+                    'is the spouse of' => 'itself',
+                    'is the cousin of' => 'itself',
+                    'is the grandparent of' => 'is the grandchild of',
+                ],
+                QubitTerm::ASSOCIATIVE_RELATION_ID => [
+                    'is the provider of' => 'is the client of',
+                    'is the business partner of' => 'itself',
+                    'is the associate of' => 'itself',
+                    'is the friend of' => 'itself',
+                ],
+            ]
+            as $parentId => $terms
+        ) {
+            foreach ($terms as $termName => $converseTermName) {
+                $term = new QubitTerm();
+                $term->parentId = $parentId;
+                $term->taxonomyId = QubitTaxonomy::ACTOR_RELATION_TYPE_ID;
+                $term->name = $termName;
+                $term->culture = 'en';
+                $term->save();
+
+                if ('itself' == $converseTermName) {
+                    $term->converseTermId = $term->id;
+                } else {
+                    $converseTerm = new QubitTerm();
+                    $converseTerm->parentId = $parentId;
+                    $converseTerm->taxonomyId = QubitTaxonomy::ACTOR_RELATION_TYPE_ID;
+                    $converseTerm->name = $converseTermName;
+                    $converseTerm->culture = 'en';
+                    $converseTerm->converseTermId = $term->id;
+                    $converseTerm->save();
+
+                    $term->converseTermId = $converseTerm->id;
+                }
+
+                $term->save();
+            }
         }
-        else
-        {
-          $converseTerm = new QubitTerm;
-          $converseTerm->parentId = $parentId;
-          $converseTerm->taxonomyId = QubitTaxonomy::ACTOR_RELATION_TYPE_ID;
-          $converseTerm->name = $converseTermName;
-          $converseTerm->culture = 'en';
-          $converseTerm->converseTermId = $term->id;
-          $converseTerm->save();
 
-          $term->converseTermId = $converseTerm->id;
-        }
-
-        $term->save();
-      }
+        return true;
     }
-
-    return true;
-  }
 }

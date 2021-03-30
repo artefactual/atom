@@ -1,422 +1,422 @@
-<?php decorate_with('layout_3col') ?>
+<?php decorate_with('layout_3col'); ?>
 
-<?php slot('sidebar') ?>
-  <?php include_component('informationobject', 'contextMenu') ?>
-<?php end_slot() ?>
+<?php slot('sidebar'); ?>
+  <?php include_component('informationobject', 'contextMenu'); ?>
+<?php end_slot(); ?>
 
-<?php slot('title') ?>
+<?php slot('title'); ?>
 
-  <?php echo get_component('informationobject', 'descriptionHeader', array('resource' => $resource, 'title' => (string)$rad)) ?>
+  <?php echo get_component('informationobject', 'descriptionHeader', ['resource' => $resource, 'title' => (string) $rad]); ?>
 
-  <?php if (isset($errorSchema)): ?>
+  <?php if (isset($errorSchema)) { ?>
     <div class="messages error">
       <ul>
-        <?php foreach ($errorSchema as $error): ?>
-          <?php $error = sfOutputEscaper::unescape($error) ?>
-          <li><?php echo $error->getMessage() ?></li>
-        <?php endforeach; ?>
+        <?php foreach ($errorSchema as $error) { ?>
+          <?php $error = sfOutputEscaper::unescape($error); ?>
+          <li><?php echo $error->getMessage(); ?></li>
+        <?php } ?>
       </ul>
     </div>
-  <?php endif; ?>
+  <?php } ?>
 
-  <?php if (QubitInformationObject::ROOT_ID != $resource->parentId): ?>
-    <?php echo include_partial('default/breadcrumb', array('resource' => $resource, 'objects' => $resource->getAncestors()->andSelf()->orderBy('lft'))) ?>
-  <?php endif; ?>
+  <?php if (QubitInformationObject::ROOT_ID != $resource->parentId) { ?>
+    <?php echo include_partial('default/breadcrumb', ['resource' => $resource, 'objects' => $resource->getAncestors()->andSelf()->orderBy('lft')]); ?>
+  <?php } ?>
 
-  <?php echo get_component('default', 'translationLinks', array('resource' => $resource)) ?>
+  <?php echo get_component('default', 'translationLinks', ['resource' => $resource]); ?>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>
 
-<?php slot('context-menu') ?>
+<?php slot('context-menu'); ?>
 
-  <?php echo get_partial('informationobject/actionIcons', array('resource' => $resource)) ?>
+  <?php echo get_partial('informationobject/actionIcons', ['resource' => $resource]); ?>
 
-  <?php echo get_partial('object/subjectAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+  <?php echo get_partial('object/subjectAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
 
-  <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+  <?php echo get_partial('informationobject/nameAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
 
-  <?php echo get_partial('object/placeAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+  <?php echo get_partial('object/placeAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
 
-  <?php echo get_partial('informationobject/genreAccessPoints', array('resource' => $resource, 'sidebar' => true)) ?>
+  <?php echo get_partial('informationobject/genreAccessPoints', ['resource' => $resource, 'sidebar' => true]); ?>
 
-  <?php if (check_field_visibility('app_element_visibility_physical_storage')): ?>
-    <?php echo get_component('physicalobject', 'contextMenu', array('resource' => $resource)) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_physical_storage')) { ?>
+    <?php echo get_component('physicalobject', 'contextMenu', ['resource' => $resource]); ?>
+  <?php } ?>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>
 
-<?php slot('before-content') ?>
+<?php slot('before-content'); ?>
 
-  <?php echo get_component('digitalobject', 'imageflow', array('resource' => $resource)) ?>
+  <?php echo get_component('digitalobject', 'imageflow', ['resource' => $resource]); ?>
 
-<?php end_slot() ?>
+<?php end_slot(); ?>
 
-<?php if (0 < count($resource->digitalObjectsRelatedByobjectId)): ?>
-  <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjectsRelatedByobjectId[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
-<?php endif; ?>
+<?php if (0 < count($resource->digitalObjectsRelatedByobjectId)) { ?>
+  <?php echo get_component('digitalobject', 'show', ['link' => $digitalObjectLink, 'resource' => $resource->digitalObjectsRelatedByobjectId[0], 'usageType' => QubitTerm::REFERENCE_ID]); ?>
+<?php } ?>
 
 <section id="titleAndStatementOfResponsibilityArea">
 
-  <?php if (check_field_visibility('app_element_visibility_rad_title_responsibility_area')): ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Title and statement of responsibility area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'titleAndStatementOfResponsibilityArea', 'title' => __('Edit title and statement of responsibility area'))) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_title_responsibility_area')) { ?>
+    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Title and statement of responsibility area').'</h2>', [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'titleAndStatementOfResponsibilityArea', 'title' => __('Edit title and statement of responsibility area')]); ?>
+  <?php } ?>
 
-  <?php echo render_show(__('Title proper'), render_value($resource->getTitle(array('cultureFallback' => true))), array('fieldLabel' => 'title')) ?>
+  <?php echo render_show(__('Title proper'), render_value($resource->getTitle(['cultureFallback' => true])), ['fieldLabel' => 'title']); ?>
 
   <div class="field">
-    <h3><?php echo __('General material designation') ?></h3>
+    <h3><?php echo __('General material designation'); ?></h3>
     <div class="generalMaterialDesignation">
       <ul>
-        <?php foreach ($resource->getMaterialTypes() as $materialType): ?>
-          <li><?php echo render_value_inline($materialType->term) ?></li>
-        <?php endforeach; ?>
+        <?php foreach ($resource->getMaterialTypes() as $materialType) { ?>
+          <li><?php echo render_value_inline($materialType->term); ?></li>
+        <?php } ?>
       </ul>
     </div>
   </div>
 
 
-  <?php echo render_show(__('Parallel title'), render_value($resource->getAlternateTitle(array('cultureFallback' => true))), array('fieldLabel' => 'parallelTitle')) ?>
+  <?php echo render_show(__('Parallel title'), render_value($resource->getAlternateTitle(['cultureFallback' => true])), ['fieldLabel' => 'parallelTitle']); ?>
 
-  <?php echo render_show(__('Other title information'), render_value($rad->__get('otherTitleInformation', array('cultureFallback' => true))), array('fieldLabel' => 'otherTitleInformation')) ?>
+  <?php echo render_show(__('Other title information'), render_value($rad->__get('otherTitleInformation', ['cultureFallback' => true])), ['fieldLabel' => 'otherTitleInformation']); ?>
 
-  <?php echo render_show(__('Title statements of responsibility'), render_value($rad->__get('titleStatementOfResponsibility', array('cultureFallback' => true))), array('fieldLabel' => 'titleStatementsOfResponsibility')) ?>
+  <?php echo render_show(__('Title statements of responsibility'), render_value($rad->__get('titleStatementOfResponsibility', ['cultureFallback' => true])), ['fieldLabel' => 'titleStatementsOfResponsibility']); ?>
 
   <div class="field">
-    <h3><?php echo __('Title notes') ?></h3>
+    <h3><?php echo __('Title notes'); ?></h3>
     <div class="titleNotes">
       <ul>
-        <?php foreach ($resource->getNotesByTaxonomy(array('taxonomyId' => QubitTaxonomy::RAD_TITLE_NOTE_ID)) as $item): ?>
-          <li><?php echo render_value_inline($item->type) ?>: <?php echo render_value_inline($item->getContent(array('cultureFallback' => true))) ?></li>
-        <?php endforeach; ?>
+        <?php foreach ($resource->getNotesByTaxonomy(['taxonomyId' => QubitTaxonomy::RAD_TITLE_NOTE_ID]) as $item) { ?>
+          <li><?php echo render_value_inline($item->type); ?>: <?php echo render_value_inline($item->getContent(['cultureFallback' => true])); ?></li>
+        <?php } ?>
       </ul>
     </div>
   </div>
 
-  <?php echo render_show(__('Level of description'), render_value($resource->levelOfDescription), array('fieldLabel' => 'levelOfDescription')) ?>
+  <?php echo render_show(__('Level of description'), render_value($resource->levelOfDescription), ['fieldLabel' => 'levelOfDescription']); ?>
 
   <div class="repository">
-    <?php echo render_show_repository(__('Repository'), $resource) ?>
+    <?php echo render_show_repository(__('Repository'), $resource); ?>
   </div>
 
-  <?php echo render_show(__('Reference code'), $rad->__get('referenceCode', array('cultureFallback' => true)), array('fieldLabel' => 'referenceCode')) ?>
+  <?php echo render_show(__('Reference code'), $rad->__get('referenceCode', ['cultureFallback' => true]), ['fieldLabel' => 'referenceCode']); ?>
 
 </section> <!-- /section#titleAndStatementOfResponsibilityArea -->
 
 <section id="editionArea">
 
-  <?php if (check_field_visibility('app_element_visibility_rad_edition_area')): ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Edition area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'editionArea', 'title' => __('Edit edition area'))) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_edition_area')) { ?>
+    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Edition area').'</h2>', [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'editionArea', 'title' => __('Edit edition area')]); ?>
+  <?php } ?>
 
-  <?php echo render_show(__('Edition statement'), render_value($resource->getEdition(array('cultureFallback' => true))), array('fieldLabel' => 'editionStatement')) ?>
+  <?php echo render_show(__('Edition statement'), render_value($resource->getEdition(['cultureFallback' => true])), ['fieldLabel' => 'editionStatement']); ?>
 
-  <?php echo render_show(__('Edition statement of responsibility'), render_value($rad->__get('editionStatementOfResponsibility', array('cultureFallback' => true))), array('fieldLabel' => 'editionStatementOfResponsibility')) ?>
+  <?php echo render_show(__('Edition statement of responsibility'), render_value($rad->__get('editionStatementOfResponsibility', ['cultureFallback' => true])), ['fieldLabel' => 'editionStatementOfResponsibility']); ?>
 
 </section> <!-- /section#editionArea -->
 
 <section class="section" id="classOfMaterialSpecificDetailsArea">
 
-  <?php if (check_field_visibility('app_element_visibility_rad_material_specific_details_area')): ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Class of material specific details area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'classOfMaterialSpecificDetailsArea', 'title' => __('Edit class of material specific details area'))) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_material_specific_details_area')) { ?>
+    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Class of material specific details area').'</h2>', [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'classOfMaterialSpecificDetailsArea', 'title' => __('Edit class of material specific details area')]); ?>
+  <?php } ?>
 
 
-  <?php echo render_show(__('Statement of scale (cartographic)'), render_value($rad->__get('statementOfScaleCartographic', array('cultureFallback' => true))), array('fieldLabel' => 'statementOfScale')) ?>
+  <?php echo render_show(__('Statement of scale (cartographic)'), render_value($rad->__get('statementOfScaleCartographic', ['cultureFallback' => true])), ['fieldLabel' => 'statementOfScale']); ?>
 
-  <?php echo render_show(__('Statement of projection (cartographic)'), render_value($rad->__get('statementOfProjection', array('cultureFallback' => true))), array('fieldLabel' => 'statementOfProjection')) ?>
+  <?php echo render_show(__('Statement of projection (cartographic)'), render_value($rad->__get('statementOfProjection', ['cultureFallback' => true])), ['fieldLabel' => 'statementOfProjection']); ?>
 
-  <?php echo render_show(__('Statement of coordinates (cartographic)'), render_value($rad->__get('statementOfCoordinates', array('cultureFallback' => true))), array('fieldLabel' => 'statementOfCoordinates')) ?>
+  <?php echo render_show(__('Statement of coordinates (cartographic)'), render_value($rad->__get('statementOfCoordinates', ['cultureFallback' => true])), ['fieldLabel' => 'statementOfCoordinates']); ?>
 
-  <?php echo render_show(__('Statement of scale (architectural)'), render_value($rad->__get('statementOfScaleArchitectural', array('cultureFallback' => true))), array('fieldLabel' => 'statementOfScale')) ?>
+  <?php echo render_show(__('Statement of scale (architectural)'), render_value($rad->__get('statementOfScaleArchitectural', ['cultureFallback' => true])), ['fieldLabel' => 'statementOfScale']); ?>
 
-  <?php echo render_show(__('Issuing jurisdiction and denomination (philatelic)'), render_value($rad->__get('issuingJurisdictionAndDenomination', array('cultureFallback' => true))), array('fieldLabel' => 'issuingJurisdictionAndDenomination')) ?>
+  <?php echo render_show(__('Issuing jurisdiction and denomination (philatelic)'), render_value($rad->__get('issuingJurisdictionAndDenomination', ['cultureFallback' => true])), ['fieldLabel' => 'issuingJurisdictionAndDenomination']); ?>
 </section> <!-- /section#classOfMaterialSpecificDetailsArea -->
 
 <section class="section" id="datesOfCreationArea">
 
-  <?php if (check_field_visibility('app_element_visibility_rad_dates_of_creation_area')): ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Dates of creation area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'datesOfCreationArea', 'title' => __('Edit dates of creation area'))) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_dates_of_creation_area')) { ?>
+    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Dates of creation area').'</h2>', [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'datesOfCreationArea', 'title' => __('Edit dates of creation area')]); ?>
+  <?php } ?>
 
   <div class="datesOfCreation">
-    <?php echo get_partial('informationobject/dates', array('resource' => $resource)) ?>
+    <?php echo get_partial('informationobject/dates', ['resource' => $resource]); ?>
   </div>
 
 </section> <!-- /section#datesOfCreationArea -->
 
 <section id="physicalDescriptionArea">
 
-  <?php if (check_field_visibility('app_element_visibility_rad_physical_description_area')): ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Physical description area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'physicalDescriptionArea', 'title' => __('Edit physical description area'))) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_physical_description_area')) { ?>
+    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Physical description area').'</h2>', [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'physicalDescriptionArea', 'title' => __('Edit physical description area')]); ?>
+  <?php } ?>
 
-  <?php echo render_show(__('Physical description'), render_value($resource->getCleanExtentAndMedium(array('cultureFallback' => true))), array('fieldLabel' => 'physicalDescription')) ?>
+  <?php echo render_show(__('Physical description'), render_value($resource->getCleanExtentAndMedium(['cultureFallback' => true])), ['fieldLabel' => 'physicalDescription']); ?>
 
 </section> <!-- /section#physicalDescriptionArea -->
 
 <section id="publishersSeriesArea">
 
-  <?php if (check_field_visibility('app_element_visibility_rad_publishers_series_area')): ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Publisher\'s series area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'publishersSeriesArea', 'title' => __('Edit publisher\'s series area'))) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_publishers_series_area')) { ?>
+    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Publisher\'s series area').'</h2>', [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'publishersSeriesArea', 'title' => __('Edit publisher\'s series area')]); ?>
+  <?php } ?>
 
-  <?php echo render_show(__('Title proper of publisher\'s series'), render_value($rad->__get('titleProperOfPublishersSeries', array('cultureFallback' => true))), array('fieldLabel' => 'titleProperOfPublishersSeries')) ?>
+  <?php echo render_show(__('Title proper of publisher\'s series'), render_value($rad->__get('titleProperOfPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'titleProperOfPublishersSeries']); ?>
 
-  <?php echo render_show(__('Parallel titles of publisher\'s series'), render_value($rad->__get('parallelTitleOfPublishersSeries', array('cultureFallback' => true))), array('fieldLabel' => 'parallelTitleOfPublishersSeries')) ?>
+  <?php echo render_show(__('Parallel titles of publisher\'s series'), render_value($rad->__get('parallelTitleOfPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'parallelTitleOfPublishersSeries']); ?>
 
-  <?php echo render_show(__('Other title information of publisher\'s series'), render_value($rad->__get('otherTitleInformationOfPublishersSeries', array('cultureFallback' => true))), array('fieldLabel' => 'otherTitleInformationOfPublishersSeries')) ?>
+  <?php echo render_show(__('Other title information of publisher\'s series'), render_value($rad->__get('otherTitleInformationOfPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'otherTitleInformationOfPublishersSeries']); ?>
 
-  <?php echo render_show(__('Statement of responsibility relating to publisher\'s series'), render_value($rad->__get('statementOfResponsibilityRelatingToPublishersSeries', array('cultureFallback' => true))), array('fieldLabel' => 'statementOfResponsibilityRelatingToPublishersSeries')) ?>
+  <?php echo render_show(__('Statement of responsibility relating to publisher\'s series'), render_value($rad->__get('statementOfResponsibilityRelatingToPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'statementOfResponsibilityRelatingToPublishersSeries']); ?>
 
-  <?php echo render_show(__('Numbering within publisher\'s series'), render_value($rad->__get('numberingWithinPublishersSeries', array('cultureFallback' => true))), array('fieldLabel' => 'numberingWithinPublishersSeries')) ?>
+  <?php echo render_show(__('Numbering within publisher\'s series'), render_value($rad->__get('numberingWithinPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'numberingWithinPublishersSeries']); ?>
 
-  <?php echo render_show(__('Note on publisher\'s series'), render_value($rad->__get('noteOnPublishersSeries', array('cultureFallback' => true))), array('fieldLabel' => 'noteOnPublishersSeries')) ?>
+  <?php echo render_show(__('Note on publisher\'s series'), render_value($rad->__get('noteOnPublishersSeries', ['cultureFallback' => true])), ['fieldLabel' => 'noteOnPublishersSeries']); ?>
 
 </section> <!-- /section#publishersSeriesArea -->
 
 <section id="archivalDescriptionArea">
 
-  <?php if (check_field_visibility('app_element_visibility_rad_archival_description_area')): ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Archival description area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'archivalDescriptionArea', 'title' => __('Edit archival description area'))) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_archival_description_area')) { ?>
+    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Archival description area').'</h2>', [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'archivalDescriptionArea', 'title' => __('Edit archival description area')]); ?>
+  <?php } ?>
 
-  <?php echo get_component('informationobject', 'creatorDetail', array(
-    'resource' => $resource,
-    'creatorHistoryLabels' => $creatorHistoryLabels)) ?>
+  <?php echo get_component('informationobject', 'creatorDetail', [
+      'resource' => $resource,
+      'creatorHistoryLabels' => $creatorHistoryLabels, ]); ?>
 
-  <?php if (check_field_visibility('app_element_visibility_rad_archival_history')): ?>
-    <?php echo render_show(__('Custodial history'), render_value($resource->getArchivalHistory(array('cultureFallback' => true))), array('fieldLabel' => 'custodialHistory')) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_archival_history')) { ?>
+    <?php echo render_show(__('Custodial history'), render_value($resource->getArchivalHistory(['cultureFallback' => true])), ['fieldLabel' => 'custodialHistory']); ?>
+  <?php } ?>
 
-  <?php echo render_show(__('Scope and content'), render_value($resource->getScopeAndContent(array('cultureFallback' => true))), array('fieldLabel' => 'scopeAndContent')) ?>
+  <?php echo render_show(__('Scope and content'), render_value($resource->getScopeAndContent(['cultureFallback' => true])), ['fieldLabel' => 'scopeAndContent']); ?>
 
 </section> <!-- /section#archivalDescriptionArea -->
 
 <section class="section" id="notesArea">
 
-  <?php if (check_field_visibility('app_element_visibility_rad_notes_area')): ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Notes area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'notesArea', 'title' => __('Edit notes area'))) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_notes_area')) { ?>
+    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Notes area').'</h2>', [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'notesArea', 'title' => __('Edit notes area')]); ?>
+  <?php } ?>
 
-  <?php if (check_field_visibility('app_element_visibility_rad_physical_condition')): ?>
-    <?php echo render_show(__('Physical condition'), render_value($resource->getPhysicalCharacteristics(array('cultureFallback' => true))), array('fieldLabel' => 'physicalCondition')) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_physical_condition')) { ?>
+    <?php echo render_show(__('Physical condition'), render_value($resource->getPhysicalCharacteristics(['cultureFallback' => true])), ['fieldLabel' => 'physicalCondition']); ?>
+  <?php } ?>
 
-  <?php if (check_field_visibility('app_element_visibility_rad_immediate_source')): ?>
-    <?php echo render_show(__('Immediate source of acquisition'), render_value($resource->getAcquisition(array('cultureFallback' => true))), array('fieldLabel' => 'immediateSourceOfAcquisition')) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_immediate_source')) { ?>
+    <?php echo render_show(__('Immediate source of acquisition'), render_value($resource->getAcquisition(['cultureFallback' => true])), ['fieldLabel' => 'immediateSourceOfAcquisition']); ?>
+  <?php } ?>
 
-  <?php echo render_show(__('Arrangement'), render_value($resource->getArrangement(array('cultureFallback' => true))), array('fieldLabel' => 'arrangement')) ?>
+  <?php echo render_show(__('Arrangement'), render_value($resource->getArrangement(['cultureFallback' => true])), ['fieldLabel' => 'arrangement']); ?>
 
   <div class="field">
-    <h3><?php echo __('Language of material') ?></h3>
+    <h3><?php echo __('Language of material'); ?></h3>
     <div class="languageOfMaterial">
       <ul>
-        <?php foreach ($resource->language as $code): ?>
-          <li><?php echo format_language($code) ?></li>
-        <?php endforeach; ?>
+        <?php foreach ($resource->language as $code) { ?>
+          <li><?php echo format_language($code); ?></li>
+        <?php } ?>
       </ul>
     </div>
   </div>
 
   <div class="field">
-    <h3><?php echo __('Script of material') ?></h3>
+    <h3><?php echo __('Script of material'); ?></h3>
     <div class="scriptOfMaterial">
       <ul>
-        <?php foreach ($resource->script as $code): ?>
-          <li><?php echo format_script($code) ?></li>
-        <?php endforeach; ?>
+        <?php foreach ($resource->script as $code) { ?>
+          <li><?php echo format_script($code); ?></li>
+        <?php } ?>
       </ul>
     </div>
   </div>
 
-  <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID)) as $item): ?>
-    <?php echo render_show(__('Language and script note'), render_value($item->getContent(array('cultureFallback' => true))), array('fieldLabel' => 'languageAndScriptNote')) ?>
-  <?php endforeach; ?>
+  <?php foreach ($resource->getNotesByType(['noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID]) as $item) { ?>
+    <?php echo render_show(__('Language and script note'), render_value($item->getContent(['cultureFallback' => true])), ['fieldLabel' => 'languageAndScriptNote']); ?>
+  <?php } ?>
 
-  <?php echo render_show(__('Location of originals'), render_value($resource->getLocationOfOriginals(array('cultureFallback' => true))), array('fieldLabel' => 'locationOfOriginals')) ?>
+  <?php echo render_show(__('Location of originals'), render_value($resource->getLocationOfOriginals(['cultureFallback' => true])), ['fieldLabel' => 'locationOfOriginals']); ?>
 
-  <?php echo render_show(__('Availability of other formats'), render_value($resource->getLocationOfCopies(array('cultureFallback' => true))), array('fieldLabel' => 'availabilityOfOtherFormats')) ?>
+  <?php echo render_show(__('Availability of other formats'), render_value($resource->getLocationOfCopies(['cultureFallback' => true])), ['fieldLabel' => 'availabilityOfOtherFormats']); ?>
 
-  <?php echo render_show(__('Restrictions on access'), render_value($resource->getAccessConditions(array('cultureFallback' => true))), array('fieldLabel' => 'restrictionsOnAccess')) ?>
+  <?php echo render_show(__('Restrictions on access'), render_value($resource->getAccessConditions(['cultureFallback' => true])), ['fieldLabel' => 'restrictionsOnAccess']); ?>
 
-  <?php echo render_show(__('Terms governing use, reproduction, and publication'), render_value($resource->getReproductionConditions(array('cultureFallback' => true))), array('fieldLabel' => 'termsGoverningUseReproductionAndPublication')) ?>
+  <?php echo render_show(__('Terms governing use, reproduction, and publication'), render_value($resource->getReproductionConditions(['cultureFallback' => true])), ['fieldLabel' => 'termsGoverningUseReproductionAndPublication']); ?>
 
-  <?php echo render_show(__('Finding aids'), render_value($resource->getFindingAids(array('cultureFallback' => true))), array('fieldLabel' => 'findingAids')) ?>
+  <?php echo render_show(__('Finding aids'), render_value($resource->getFindingAids(['cultureFallback' => true])), ['fieldLabel' => 'findingAids']); ?>
 
-  <?php echo get_component('informationobject', 'findingAidLink', array('resource' => $resource)) ?>
+  <?php echo get_component('informationobject', 'findingAidLink', ['resource' => $resource]); ?>
 
-  <?php echo render_show(__('Associated materials'), render_value($resource->getRelatedUnitsOfDescription(array('cultureFallback' => true))), array('fieldLabel' => 'associatedMaterials')) ?>
+  <?php echo render_show(__('Associated materials'), render_value($resource->getRelatedUnitsOfDescription(['cultureFallback' => true])), ['fieldLabel' => 'associatedMaterials']); ?>
 
   <div class="relatedMaterialDescriptions">
-    <?php echo get_partial('informationobject/relatedMaterialDescriptions', array('resource' => $resource, 'template' => 'rad')) ?>
+    <?php echo get_partial('informationobject/relatedMaterialDescriptions', ['resource' => $resource, 'template' => 'rad']); ?>
   </div>
 
-  <?php echo render_show(__('Accruals'), render_value($resource->getAccruals(array('cultureFallback' => true))), array('fieldLabel' => 'accruals')) ?>
+  <?php echo render_show(__('Accruals'), render_value($resource->getAccruals(['cultureFallback' => true])), ['fieldLabel' => 'accruals']); ?>
 
-  <?php if (check_field_visibility('app_element_visibility_rad_general_notes')): ?>
-    <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)) as $item): ?>
-      <?php echo render_show(__('General note'), render_value($item->getContent(array('cultureFallback' => true))), array('fieldLabel' => 'generalNote')) ?>
-    <?php endforeach; ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_general_notes')) { ?>
+    <?php foreach ($resource->getNotesByType(['noteTypeId' => QubitTerm::GENERAL_NOTE_ID]) as $item) { ?>
+      <?php echo render_show(__('General note'), render_value($item->getContent(['cultureFallback' => true])), ['fieldLabel' => 'generalNote']); ?>
+    <?php } ?>
+  <?php } ?>
 
-  <?php foreach ($resource->getNotesByTaxonomy(array('taxonomyId' => QubitTaxonomy::RAD_NOTE_ID)) as $item): ?>
+  <?php foreach ($resource->getNotesByTaxonomy(['taxonomyId' => QubitTaxonomy::RAD_NOTE_ID]) as $item) { ?>
 
-    <?php $type = $item->getType(array('sourceCulture' => true)) ?>
+    <?php $type = $item->getType(['sourceCulture' => true]); ?>
 
-    <?php if ('Conservation' == $type && !check_field_visibility('app_element_visibility_rad_conservation_notes')): ?>
+    <?php if ('Conservation' == $type && !check_field_visibility('app_element_visibility_rad_conservation_notes')) { ?>
       <?php continue; ?>
-    <?php endif; ?>
+    <?php } ?>
 
-    <?php if ('Rights' == $type && !check_field_visibility('app_element_visibility_rad_rights_notes')): ?>
+    <?php if ('Rights' == $type && !check_field_visibility('app_element_visibility_rad_rights_notes')) { ?>
       <?php continue; ?>
-    <?php endif; ?>
+    <?php } ?>
 
     <div class="field">
-      <h3><?php echo __(render_value_inline($item->type)) ?></h3>
+      <h3><?php echo __(render_value_inline($item->type)); ?></h3>
       <div class="radNote">
-        <?php echo render_value($item->getContent(array('cultureFallback' => true))) ?>
+        <?php echo render_value($item->getContent(['cultureFallback' => true])); ?>
       </div>
     </div>
 
-  <?php endforeach; ?>
+  <?php } ?>
 
   <div class="alternativeIdentifiers">
-    <?php echo get_partial('informationobject/alternativeIdentifiersIndex', array('resource' => $resource)) ?>
+    <?php echo get_partial('informationobject/alternativeIdentifiersIndex', ['resource' => $resource]); ?>
   </div>
 
 </section> <!-- /section#notesArea -->
 
 <section id="standardNumberArea">
 
-  <?php if (check_field_visibility('app_element_visibility_rad_standard_number_area')): ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Standard number area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'standardNumberArea', 'title' => __('Edit standard number area'))) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_standard_number_area')) { ?>
+    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Standard number area').'</h2>', [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'standardNumberArea', 'title' => __('Edit standard number area')]); ?>
+  <?php } ?>
 
-  <?php echo render_show(__('Standard number'), render_value($rad->__get('standardNumber', array('cultureFallback' => true))), array('fieldLabel' => 'standardNumber')) ?>
+  <?php echo render_show(__('Standard number'), render_value($rad->__get('standardNumber', ['cultureFallback' => true])), ['fieldLabel' => 'standardNumber']); ?>
 
 </section> <!-- /section#standardNumberArea -->
 
 <section id="accessPointsArea">
 
-  <?php if (check_field_visibility('app_element_visibility_rad_access_points_area')): ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Access points').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'accessPointsArea', 'title' => __('Edit access points'))) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_access_points_area')) { ?>
+    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Access points').'</h2>', [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'accessPointsArea', 'title' => __('Edit access points')]); ?>
+  <?php } ?>
 
   <div class="subjectAccessPoints">
-    <?php echo get_partial('object/subjectAccessPoints', array('resource' => $resource)) ?>
+    <?php echo get_partial('object/subjectAccessPoints', ['resource' => $resource]); ?>
   </div>
 
   <div class="placeAccessPoints">
-    <?php echo get_partial('object/placeAccessPoints', array('resource' => $resource)) ?>
+    <?php echo get_partial('object/placeAccessPoints', ['resource' => $resource]); ?>
   </div>
 
   <div class="nameAccessPoints">
-    <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource)) ?>
+    <?php echo get_partial('informationobject/nameAccessPoints', ['resource' => $resource]); ?>
   </div>
 
   <div class="genreAccessPoints">
-    <?php echo get_partial('informationobject/genreAccessPoints', array('resource' => $resource)) ?>
+    <?php echo get_partial('informationobject/genreAccessPoints', ['resource' => $resource]); ?>
   </div>
 
 </section> <!-- /section#accessPointsArea -->
 
 <section class="section" id="descriptionControlArea">
 
-  <?php if (check_field_visibility('app_element_visibility_rad_description_control_area')): ?>
-    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Control area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'descriptionControlArea', 'title' => __('Edit control area'))) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_description_control_area')) { ?>
+    <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Control area').'</h2>', [$resource, 'module' => 'informationobject', 'action' => 'edit'], ['anchor' => 'descriptionControlArea', 'title' => __('Edit control area')]); ?>
+  <?php } ?>
 
-  <?php if (check_field_visibility('app_element_visibility_rad_control_description_identifier')): ?>
-    <?php echo render_show(__('Description record identifier'), $resource->descriptionIdentifier, array('fieldLabel' => 'descriptionRecordIdentifier')) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_control_description_identifier')) { ?>
+    <?php echo render_show(__('Description record identifier'), $resource->descriptionIdentifier, ['fieldLabel' => 'descriptionRecordIdentifier']); ?>
+  <?php } ?>
 
-  <?php if (check_field_visibility('app_element_visibility_rad_control_institution_identifier')): ?>
-    <?php echo render_show(__('Institution identifier'), $resource->getInstitutionResponsibleIdentifier(array('cultureFallback' => true)), array('fieldLabel' => 'institutionIdentifier')) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_control_institution_identifier')) { ?>
+    <?php echo render_show(__('Institution identifier'), $resource->getInstitutionResponsibleIdentifier(['cultureFallback' => true]), ['fieldLabel' => 'institutionIdentifier']); ?>
+  <?php } ?>
 
-  <?php if (check_field_visibility('app_element_visibility_rad_control_rules_conventions')): ?>
-    <?php echo render_show(__('Rules or conventions'), render_value($resource->getRules(array('cultureFallback' => true))), array('fieldLabel' => 'rulesOrConventions')) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_control_rules_conventions')) { ?>
+    <?php echo render_show(__('Rules or conventions'), render_value($resource->getRules(['cultureFallback' => true])), ['fieldLabel' => 'rulesOrConventions']); ?>
+  <?php } ?>
 
-  <?php if (check_field_visibility('app_element_visibility_rad_control_status')): ?>
-    <?php echo render_show(__('Status'), render_value($resource->descriptionStatus), array('fieldLabel' => 'status')) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_control_status')) { ?>
+    <?php echo render_show(__('Status'), render_value($resource->descriptionStatus), ['fieldLabel' => 'status']); ?>
+  <?php } ?>
 
-  <?php if (check_field_visibility('app_element_visibility_rad_control_level_of_detail')): ?>
-    <?php echo render_show(__('Level of detail'), render_value($resource->descriptionDetail), array('fieldLabel' => 'levelOfDetail')) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_control_level_of_detail')) { ?>
+    <?php echo render_show(__('Level of detail'), render_value($resource->descriptionDetail), ['fieldLabel' => 'levelOfDetail']); ?>
+  <?php } ?>
 
-  <?php if (check_field_visibility('app_element_visibility_rad_control_dates')): ?>
-    <?php echo render_show(__('Dates of creation, revision and deletion'), render_value($resource->getRevisionHistory(array('cultureFallback' => true))), array('fieldLabel' => 'datesOfCreationRevisionAndDeletion')) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_control_dates')) { ?>
+    <?php echo render_show(__('Dates of creation, revision and deletion'), render_value($resource->getRevisionHistory(['cultureFallback' => true])), ['fieldLabel' => 'datesOfCreationRevisionAndDeletion']); ?>
+  <?php } ?>
 
-  <?php if (check_field_visibility('app_element_visibility_rad_control_language')): ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_control_language')) { ?>
     <div class="field">
-      <h3><?php echo __('Language of description') ?></h3>
+      <h3><?php echo __('Language of description'); ?></h3>
       <div class="languageOfDescription">
         <ul>
-          <?php foreach ($resource->languageOfDescription as $code): ?>
-            <li><?php echo format_language($code) ?></li>
-          <?php endforeach; ?>
+          <?php foreach ($resource->languageOfDescription as $code) { ?>
+            <li><?php echo format_language($code); ?></li>
+          <?php } ?>
         </ul>
       </div>
     </div>
-  <?php endif; ?>
+  <?php } ?>
 
-  <?php if (check_field_visibility('app_element_visibility_rad_control_script')): ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_control_script')) { ?>
     <div class="field">
-      <h3><?php echo __('Script of description') ?></h3>
+      <h3><?php echo __('Script of description'); ?></h3>
       <div class="scriptOfDescription">
         <ul>
-          <?php foreach ($resource->scriptOfDescription as $code): ?>
-            <li><?php echo format_script($code) ?></li>
-          <?php endforeach; ?>
+          <?php foreach ($resource->scriptOfDescription as $code) { ?>
+            <li><?php echo format_script($code); ?></li>
+          <?php } ?>
         </ul>
       </div>
     </div>
-  <?php endif; ?>
+  <?php } ?>
 
-  <?php if (check_field_visibility('app_element_visibility_rad_control_sources')): ?>
-    <?php echo render_show(__('Sources'), render_value($resource->getSources(array('cultureFallback' => true))), array('fieldLabel' => 'sources')) ?>
-  <?php endif; ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_control_sources')) { ?>
+    <?php echo render_show(__('Sources'), render_value($resource->getSources(['cultureFallback' => true])), ['fieldLabel' => 'sources']); ?>
+  <?php } ?>
 
 </section> <!-- /section#descriptionControlArea -->
 
-<?php if ($sf_user->isAuthenticated()): ?>
+<?php if ($sf_user->isAuthenticated()) { ?>
 
   <section id="rightsArea">
 
-    <h2><?php echo __('Rights area') ?> </h2>
+    <h2><?php echo __('Rights area'); ?> </h2>
 
     <div class="relatedRights">
-      <?php echo get_component('right', 'relatedRights', array('resource' => $resource)) ?>
+      <?php echo get_component('right', 'relatedRights', ['resource' => $resource]); ?>
     </div>
 
   </section> <!-- /section#rightsArea -->
 
-<?php endif; ?>
+<?php } ?>
 
-<?php if (0 < count($resource->digitalObjectsRelatedByobjectId)): ?>
+<?php if (0 < count($resource->digitalObjectsRelatedByobjectId)) { ?>
   <div class="digitalObjectMetadata">
-    <?php echo get_component('digitalobject', 'metadata', array('resource' => $resource->digitalObjectsRelatedByobjectId[0], 'object' => $resource)) ?>
+    <?php echo get_component('digitalobject', 'metadata', ['resource' => $resource->digitalObjectsRelatedByobjectId[0], 'object' => $resource]); ?>
   </div>
   <div class="digitalObjectRights">
-    <?php echo get_partial('digitalobject/rights', array('resource' => $resource->digitalObjectsRelatedByobjectId[0])) ?>
+    <?php echo get_partial('digitalobject/rights', ['resource' => $resource->digitalObjectsRelatedByobjectId[0]]); ?>
   </div>
-<?php endif; ?>
+<?php } ?>
 
 <section id="accessionArea">
 
-  <h2><?php echo __('Accession area') ?></h2>
+  <h2><?php echo __('Accession area'); ?></h2>
 
   <div class="accessions">
-    <?php echo get_component('informationobject', 'accessions', array('resource' => $resource)) ?>
+    <?php echo get_component('informationobject', 'accessions', ['resource' => $resource]); ?>
   </div>
 </section> <!-- /section#accessionArea -->
 
-<?php slot('after-content') ?>
-  <?php echo get_partial('informationobject/actions', array('resource' => $resource)) ?>
-<?php end_slot() ?>
+<?php slot('after-content'); ?>
+  <?php echo get_partial('informationobject/actions', ['resource' => $resource]); ?>
+<?php end_slot(); ?>
 
-<?php echo get_component('object', 'gaInstitutionsDimension', array('resource' => $resource)) ?>
+<?php echo get_component('object', 'gaInstitutionsDimension', ['resource' => $resource]); ?>

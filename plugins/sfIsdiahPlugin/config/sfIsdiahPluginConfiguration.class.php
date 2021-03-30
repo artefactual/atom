@@ -19,17 +19,16 @@
 
 class sfIsdiahPluginConfiguration extends sfPluginConfiguration
 {
-  public static
-    $summary = 'Metadata standard plugin.  Enables data-entry and display using International Standard for Describing Institutions with Archival Holdings (ISDIAH).',
-    $version = '1.0.0';
+    public static $summary = 'Metadata standard plugin.  Enables data-entry and display using International Standard for Describing Institutions with Archival Holdings (ISDIAH).';
+    public static $version = '1.0.0';
 
-  /**
-   * @see sfPluginConfiguration
-   */
-  public function initialize()
-  {
-    $enabledModules = sfConfig::get('sf_enabled_modules');
-    $enabledModules[] = 'sfIsdiahPlugin';
-    sfConfig::set('sf_enabled_modules', $enabledModules);
-  }
+    /**
+     * @see sfPluginConfiguration
+     */
+    public function initialize()
+    {
+        $enabledModules = sfConfig::get('sf_enabled_modules');
+        $enabledModules[] = 'sfIsdiahPlugin';
+        sfConfig::set('sf_enabled_modules', $enabledModules);
+    }
 }

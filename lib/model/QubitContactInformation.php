@@ -19,44 +19,40 @@
 
 class QubitContactInformation extends BaseContactInformation
 {
-  public function __toString()
-  {
-    return (string) $this->getContactType();
-  }
-
-  public function makePrimaryContact()
-  {
-    $criteria = new Criteria;
-    $criteria->add(QubitContactInformation::ACTOR_ID, $this->actorId);
-    $contacts = self::get($criteria);
-
-    foreach ($contacts as $item)
+    public function __toString()
     {
-      if ($item->id == $this->id)
-      {
-        $item->primaryContact = true;
-      }
-      else
-      {
-        $item->primaryContact = false;
-      }
-
-      $item->save();
+        return (string) $this->getContactType();
     }
-  }
 
-  public function getContactInformationString()
-  {
-    // TODO: This should be converted into a partial!
-    sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
-    $cf = array('cultureFallback' => true);
+    public function makePrimaryContact()
+    {
+        $criteria = new Criteria();
+        $criteria->add(QubitContactInformation::ACTOR_ID, $this->actorId);
+        $contacts = self::get($criteria);
 
-    $string = ($this->getStreetAddress($cf)) ? esc_specialchars($this->getStreetAddress($cf))."\n" : '';
-    $string .= ($this->getCity($cf)) ? esc_specialchars($this->getCity($cf)) : '';
-    $string .= ($this->getRegion($cf)) ? ', '.esc_specialchars($this->getRegion($cf)) : '';
-    $string .= ($this->getCountryCode($cf)) ? "\n".esc_specialchars($this->getCountryCode($cf)) : '';
-    $string .= ($this->getPostalCode($cf)) ? '   '.esc_specialchars($this->getPostalCode($cf)): '';
+        foreach ($contacts as $item) {
+            if ($item->id == $this->id) {
+                $item->primaryContact = true;
+            } else {
+                $item->primaryContact = false;
+            }
 
-    return $string;
-  }
+            $item->save();
+        }
+    }
+
+    public function getContactInformationString()
+    {
+        // TODO: This should be converted into a partial!
+        sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
+        $cf = ['cultureFallback' => true];
+
+        $string = ($this->getStreetAddress($cf)) ? esc_specialchars($this->getStreetAddress($cf))."\n" : '';
+        $string .= ($this->getCity($cf)) ? esc_specialchars($this->getCity($cf)) : '';
+        $string .= ($this->getRegion($cf)) ? ', '.esc_specialchars($this->getRegion($cf)) : '';
+        $string .= ($this->getCountryCode($cf)) ? "\n".esc_specialchars($this->getCountryCode($cf)) : '';
+        $string .= ($this->getPostalCode($cf)) ? '   '.esc_specialchars($this->getPostalCode($cf)) : '';
+
+        return $string;
+    }
 }

@@ -19,230 +19,205 @@
 
 class QubitTaxonomy extends BaseTaxonomy
 {
-  public $disableNestedSetUpdating = false;
-
-  const
-    ROOT_ID = 30,
-    DESCRIPTION_DETAIL_LEVEL_ID = 31,
-    ACTOR_ENTITY_TYPE_ID = 32,
-    DESCRIPTION_STATUS_ID = 33,
-    LEVEL_OF_DESCRIPTION_ID = 34,
-    SUBJECT_ID = 35,
-    ACTOR_NAME_TYPE_ID = 36,
-    NOTE_TYPE_ID = 37,
-    REPOSITORY_TYPE_ID = 38,
-    EVENT_TYPE_ID = 40,
-    QUBIT_SETTING_LABEL_ID = 41,
-    PLACE_ID = 42,
-    FUNCTION_ID = 43,
-    HISTORICAL_EVENT_ID = 44,
-    COLLECTION_TYPE_ID = 45,
-    MEDIA_TYPE_ID = 46,
-    DIGITAL_OBJECT_USAGE_ID = 47,
-    PHYSICAL_OBJECT_TYPE_ID = 48,
-    RELATION_TYPE_ID = 49,
-    MATERIAL_TYPE_ID = 50,
-
+    public const ROOT_ID = 30;
+    public const DESCRIPTION_DETAIL_LEVEL_ID = 31;
+    public const ACTOR_ENTITY_TYPE_ID = 32;
+    public const DESCRIPTION_STATUS_ID = 33;
+    public const LEVEL_OF_DESCRIPTION_ID = 34;
+    public const SUBJECT_ID = 35;
+    public const ACTOR_NAME_TYPE_ID = 36;
+    public const NOTE_TYPE_ID = 37;
+    public const REPOSITORY_TYPE_ID = 38;
+    public const EVENT_TYPE_ID = 40;
+    public const QUBIT_SETTING_LABEL_ID = 41;
+    public const PLACE_ID = 42;
+    public const FUNCTION_ID = 43;
+    public const HISTORICAL_EVENT_ID = 44;
+    public const COLLECTION_TYPE_ID = 45;
+    public const MEDIA_TYPE_ID = 46;
+    public const DIGITAL_OBJECT_USAGE_ID = 47;
+    public const PHYSICAL_OBJECT_TYPE_ID = 48;
+    public const RELATION_TYPE_ID = 49;
+    public const MATERIAL_TYPE_ID = 50;
     // Rules for Archival Description (RAD) taxonomies
-    RAD_NOTE_ID = 51,
-    RAD_TITLE_NOTE_ID = 52,
-
-    MODS_RESOURCE_TYPE_ID = 53,
-    DC_TYPE_ID = 54,
-    ACTOR_RELATION_TYPE_ID = 55,
-    RELATION_NOTE_TYPE_ID = 56,
-    TERM_RELATION_TYPE_ID = 57,
-    STATUS_TYPE_ID = 59,
-    PUBLICATION_STATUS_ID = 60,
-    ISDF_RELATION_TYPE_ID = 61,
-
+    public const RAD_NOTE_ID = 51;
+    public const RAD_TITLE_NOTE_ID = 52;
+    public const MODS_RESOURCE_TYPE_ID = 53;
+    public const DC_TYPE_ID = 54;
+    public const ACTOR_RELATION_TYPE_ID = 55;
+    public const RELATION_NOTE_TYPE_ID = 56;
+    public const TERM_RELATION_TYPE_ID = 57;
+    public const STATUS_TYPE_ID = 59;
+    public const PUBLICATION_STATUS_ID = 60;
+    public const ISDF_RELATION_TYPE_ID = 61;
     // Accession taxonomies
-    ACCESSION_RESOURCE_TYPE_ID = 62,
-    ACCESSION_ACQUISITION_TYPE_ID = 63,
-    ACCESSION_PROCESSING_PRIORITY_ID = 64,
-    ACCESSION_PROCESSING_STATUS_ID = 65,
-    DEACCESSION_SCOPE_ID = 66,
-
+    public const ACCESSION_RESOURCE_TYPE_ID = 62;
+    public const ACCESSION_ACQUISITION_TYPE_ID = 63;
+    public const ACCESSION_PROCESSING_PRIORITY_ID = 64;
+    public const ACCESSION_PROCESSING_STATUS_ID = 65;
+    public const DEACCESSION_SCOPE_ID = 66;
     // Right taxonomies
-    RIGHT_ACT_ID = 67,
-    RIGHT_BASIS_ID = 68,
-    COPYRIGHT_STATUS_ID = 69,
-
+    public const RIGHT_ACT_ID = 67;
+    public const RIGHT_BASIS_ID = 68;
+    public const COPYRIGHT_STATUS_ID = 69;
     // Metadata templates
-    INFORMATION_OBJECT_TEMPLATE_ID = 70,
-
-    // Metadata templates
-    AIP_TYPE_ID = 71,
-
-    THEMATIC_AREA_ID = 72,
-    GEOGRAPHIC_SUBREGION_ID = 73,
-
+    public const INFORMATION_OBJECT_TEMPLATE_ID = 70;
+    public const AIP_TYPE_ID = 71;
+    public const THEMATIC_AREA_ID = 72;
+    public const GEOGRAPHIC_SUBREGION_ID = 73;
     // DACS notes
-    DACS_NOTE_ID = 74,
-
+    public const DACS_NOTE_ID = 74;
     // PREMIS Rights Statues
-    RIGHTS_STATUTES_ID = 75,
-
+    public const RIGHTS_STATUTES_ID = 75;
     // Genre taxonomy
-    GENRE_ID = 78,
+    public const GENRE_ID = 78;
+    public const JOB_STATUS_ID = 79;
+    public const ACTOR_OCCUPATION_ID = 80;
+    public const USER_ACTION_ID = 81;
+    public const ACCESSION_ALTERNATIVE_IDENTIFIER_TYPE_ID = 82;
+    public const ACCESSION_EVENT_TYPE_ID = 83;
 
-    JOB_STATUS_ID = 79,
+    public $disableNestedSetUpdating = false;
 
-    ACTOR_OCCUPATION_ID = 80,
+    public static $lockedTaxonomies = [
+        self::QUBIT_SETTING_LABEL_ID,
+        self::COLLECTION_TYPE_ID,
+        self::DIGITAL_OBJECT_USAGE_ID,
+        self::MEDIA_TYPE_ID,
+        self::RELATION_TYPE_ID,
+        self::RELATION_NOTE_TYPE_ID,
+        self::TERM_RELATION_TYPE_ID,
+        self::ROOT_ID,
+        self::STATUS_TYPE_ID,
+        self::PUBLICATION_STATUS_ID,
+        self::ACTOR_NAME_TYPE_ID,
+        self::INFORMATION_OBJECT_TEMPLATE_ID,
+        self::JOB_STATUS_ID,
+    ];
 
-    USER_ACTION_ID = 81,
-
-    ACCESSION_ALTERNATIVE_IDENTIFIER_TYPE_ID = 82,
-
-    ACCESSION_EVENT_TYPE_ID = 83;
-
-  public static
-    $lockedTaxonomies = array(
-      self::QUBIT_SETTING_LABEL_ID,
-      self::COLLECTION_TYPE_ID,
-      self::DIGITAL_OBJECT_USAGE_ID,
-      self::MEDIA_TYPE_ID,
-      self::RELATION_TYPE_ID,
-      self::RELATION_NOTE_TYPE_ID,
-      self::TERM_RELATION_TYPE_ID,
-      self::ROOT_ID,
-      self::STATUS_TYPE_ID,
-      self::PUBLICATION_STATUS_ID,
-      self::ACTOR_NAME_TYPE_ID,
-      self::INFORMATION_OBJECT_TEMPLATE_ID,
-      self::JOB_STATUS_ID);
-
-  public function __construct($id = null)
-  {
-    parent::__construct();
-
-    if (!empty($id))
+    public function __construct($id = null)
     {
-      $this->id = $id;
-    }
-  }
+        parent::__construct();
 
-  public function __toString()
-  {
-    if (!$this->getName())
-    {
-      return (string) $this->getName(array('sourceCulture' => true));
+        if (!empty($id)) {
+            $this->id = $id;
+        }
     }
 
-    return (string) $this->getName();
-  }
-
-  protected function insert($connection = null)
-  {
-    if (!isset($this->slug))
+    public function __toString()
     {
-      $this->slug = QubitSlug::slugify($this->__get('name', array('sourceCulture' => true)));
+        if (!$this->getName()) {
+            return (string) $this->getName(['sourceCulture' => true]);
+        }
+
+        return (string) $this->getName();
     }
 
-    return parent::insert($connection);
-  }
-
-  public static function getRoot()
-  {
-    return parent::getById(self::ROOT_ID);
-  }
-
-  public static function addEditableTaxonomyCriteria($criteria)
-  {
-    $criteria->add(QubitTaxonomy::ID, self::$lockedTaxonomies, Criteria::NOT_IN);
-
-    return $criteria;
-  }
-
-  public static function getEditableTaxonomies()
-  {
-    $criteria = new Criteria;
-    $criteria = self::addEditableTaxonomyCriteria($criteria);
-
-    // Add criteria to sort by name with culture fallback
-    $criteria->addAscendingOrderByColumn('name');
-    $options = array('returnClass'=>'QubitTaxonomy');
-    $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTaxonomy', $options);
-
-    return QubitTaxonomy::get($criteria);
-  }
-
-  public static function getTaxonomyTerms($taxonomyId, $options = array())
-  {
-    $criteria = new Criteria;
-    $criteria->add(QubitTerm::TAXONOMY_ID, $taxonomyId);
-
-    // Only include top-level terms if option is set
-    if (isset($options['level']) && $options['level'] == 'top')
+    public static function getRoot()
     {
-      $criteria->add(QubitTerm::PARENT_ID, QubitTerm::ROOT_ID);
+        return parent::getById(self::ROOT_ID);
     }
 
-    // Sort alphabetically
-    $criteria->addAscendingOrderByColumn('name');
-
-    // Do source culture fallback
-    $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTerm');
-
-    return QubitTerm::get($criteria);
-  }
-
-  /**
-   * Get an associative array of terms
-   */
-  public function getTermsAsArray($connection = null)
-  {
-    if (empty($this->id))
+    public static function addEditableTaxonomyCriteria($criteria)
     {
-      throw new sfException('Invalid taxonomy id');
+        $criteria->add(QubitTaxonomy::ID, self::$lockedTaxonomies, Criteria::NOT_IN);
+
+        return $criteria;
     }
 
-    if (!isset($connection))
+    public static function getEditableTaxonomies()
     {
-      $connection = Propel::getConnection();
+        $criteria = new Criteria();
+        $criteria = self::addEditableTaxonomyCriteria($criteria);
+
+        // Add criteria to sort by name with culture fallback
+        $criteria->addAscendingOrderByColumn('name');
+        $options = ['returnClass' => 'QubitTaxonomy'];
+        $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTaxonomy', $options);
+
+        return QubitTaxonomy::get($criteria);
     }
 
-    $sql = <<<SQL
-      SELECT
-        term.id AS `id`,
-        term.taxonomy_id AS `taxonomy_id`,
-        term.code AS `code`,
-        term.parent_id AS `parent_id`,
-        term.lft AS `lft`,
-        term.rgt AS `rgt`,
-        term.source_culture AS `source_culture`,
-        term_i18n.name AS `name`,
-        term_i18n.culture as `culture`
-      FROM term INNER JOIN term_i18n ON term.id = term_i18n.id
-      WHERE term.taxonomy_id = ?
-      ORDER BY term_i18n.culture ASC, term_i18n.name ASC;
-SQL;
-
-    $statement = $connection->prepare($sql);
-    $statement->execute([$this->id]);
-
-    return  $statement->fetchAll(PDO::FETCH_ASSOC);
-  }
-
-  public function getTermNameToIdLookupTable($connection = null)
-  {
-    $terms = $this->getTermsAsArray($connection);
-
-    if (!is_array($terms) || count($terms) == 0)
+    public static function getTaxonomyTerms($taxonomyId, $options = [])
     {
-      return;
+        $criteria = new Criteria();
+        $criteria->add(QubitTerm::TAXONOMY_ID, $taxonomyId);
+
+        // Only include top-level terms if option is set
+        if (isset($options['level']) && 'top' == $options['level']) {
+            $criteria->add(QubitTerm::PARENT_ID, QubitTerm::ROOT_ID);
+        }
+
+        // Sort alphabetically
+        $criteria->addAscendingOrderByColumn('name');
+
+        // Do source culture fallback
+        $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTerm');
+
+        return QubitTerm::get($criteria);
     }
 
-    foreach ($terms as $term)
+    /**
+     * Get an associative array of terms.
+     *
+     * @param null|mixed $connection
+     */
+    public function getTermsAsArray($connection = null)
     {
-      // Trim and lowercase values for lookup
-      $term = array_map(function ($str) {
-        return trim(strtolower($str));
-      }, $term);
+        if (empty($this->id)) {
+            throw new sfException('Invalid taxonomy id');
+        }
 
-      $idLookupTable[$term['culture']][$term['name']] = $term['id'];
+        if (!isset($connection)) {
+            $connection = Propel::getConnection();
+        }
+
+        $sql = 'SELECT
+                term.id AS `id`,
+                term.taxonomy_id AS `taxonomy_id`,
+                term.code AS `code`,
+                term.parent_id AS `parent_id`,
+                term.lft AS `lft`,
+                term.rgt AS `rgt`,
+                term.source_culture AS `source_culture`,
+                term_i18n.name AS `name`,
+                term_i18n.culture as `culture`
+            FROM term INNER JOIN term_i18n ON term.id = term_i18n.id
+            WHERE term.taxonomy_id = ?
+            ORDER BY term_i18n.culture ASC, term_i18n.name ASC;';
+
+        $statement = $connection->prepare($sql);
+        $statement->execute([$this->id]);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    return $idLookupTable;
-  }
+    public function getTermNameToIdLookupTable($connection = null)
+    {
+        $terms = $this->getTermsAsArray($connection);
+
+        if (!is_array($terms) || 0 == count($terms)) {
+            return;
+        }
+
+        foreach ($terms as $term) {
+            // Trim and lowercase values for lookup
+            $term = array_map(function ($str) {
+                return trim(strtolower($str));
+            }, $term);
+
+            $idLookupTable[$term['culture']][$term['name']] = $term['id'];
+        }
+
+        return $idLookupTable;
+    }
+
+    protected function insert($connection = null)
+    {
+        if (!isset($this->slug)) {
+            $this->slug = QubitSlug::slugify($this->__get('name', ['sourceCulture' => true]));
+        }
+
+        return parent::insert($connection);
+    }
 }

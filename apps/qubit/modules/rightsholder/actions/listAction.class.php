@@ -19,33 +19,29 @@
 
 class RightsHolderListAction extends sfAction
 {
-  public function execute($request)
-  {
-    if (!isset($request->limit))
+    public function execute($request)
     {
-      $request->limit = sfConfig::get('app_hits_per_page');
+        if (!isset($request->limit)) {
+            $request->limit = sfConfig::get('app_hits_per_page');
+        }
+
+        $criteria = new Criteria();
+        $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
+
+        if (isset($request->subquery)) {
+            $criteria->addJoin(QubitRightsHolder::ID, QubitActorI18n::ID);
+            $criteria->add(QubitActorI18n::CULTURE, $this->context->user->getCulture());
+            $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, "%{$request->subquery}%", Criteria::LIKE);
+        } else {
+            $this->redirect(['module' => 'rightsholder', 'action' => 'browse']);
+        }
+
+        // Page results
+        $this->pager = new QubitPager('QubitRightsHolder');
+        $this->pager->setCriteria($criteria);
+        $this->pager->setMaxPerPage($request->limit);
+        $this->pager->setPage($request->page);
+
+        $this->rightsHolders = $this->pager->getResults();
     }
-
-    $criteria = new Criteria;
-    $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
-
-    if (isset($request->subquery))
-    {
-      $criteria->addJoin(QubitRightsHolder::ID, QubitActorI18n::ID);
-      $criteria->add(QubitActorI18n::CULTURE, $this->context->user->getCulture());
-      $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, "%$request->subquery%", Criteria::LIKE);
-    }
-    else
-    {
-      $this->redirect(array('module' => 'rightsholder', 'action' => 'browse'));
-    }
-
-    // Page results
-    $this->pager = new QubitPager('QubitRightsHolder');
-    $this->pager->setCriteria($criteria);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
-
-    $this->rightsHolders = $this->pager->getResults();
-  }
 }

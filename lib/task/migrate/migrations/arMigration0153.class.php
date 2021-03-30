@@ -25,38 +25,36 @@
  */
 class arMigration0153
 {
-  const
-    VERSION = 153, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 153;
+    public const MIN_MILESTONE = 2;
 
-  public function up($configuration)
-  {
-    QubitMigrate::bumpTaxonomy(QubitTaxonomy::JOB_STATUS_ID, $configuration);
-    $taxonomy = new QubitTaxonomy;
-    $taxonomy->id = QubitTaxonomy::JOB_STATUS_ID;
-    $taxonomy->parentId = QubitTaxonomy::ROOT_ID;
-    $taxonomy->sourceCulture = 'en';
-    $taxonomy->setName('Job status', array('culture' => 'en'));
-    $taxonomy->save();
-
-    $terms = array(
-      QubitTerm::JOB_STATUS_IN_PROGRESS_ID => 'In progress',
-      QubitTerm::JOB_STATUS_COMPLETED_ID => 'Completed',
-      QubitTerm::JOB_STATUS_ERROR_ID => 'Error'
-    );
-
-    foreach ($terms as $id => $name)
+    public function up($configuration)
     {
-      QubitMigrate::bumpTerm($id, $configuration);
-      $term = new QubitTerm;
-      $term->id = $id;
-      $term->parentId = QubitTerm::ROOT_ID;
-      $term->taxonomyId = QubitTaxonomy::JOB_STATUS_ID;
-      $term->sourceCulture = 'en';
-      $term->setName($name, array('culture' => 'en'));
-      $term->save();
-    }
+        QubitMigrate::bumpTaxonomy(QubitTaxonomy::JOB_STATUS_ID, $configuration);
+        $taxonomy = new QubitTaxonomy();
+        $taxonomy->id = QubitTaxonomy::JOB_STATUS_ID;
+        $taxonomy->parentId = QubitTaxonomy::ROOT_ID;
+        $taxonomy->sourceCulture = 'en';
+        $taxonomy->setName('Job status', ['culture' => 'en']);
+        $taxonomy->save();
 
-    return true;
-  }
+        $terms = [
+            QubitTerm::JOB_STATUS_IN_PROGRESS_ID => 'In progress',
+            QubitTerm::JOB_STATUS_COMPLETED_ID => 'Completed',
+            QubitTerm::JOB_STATUS_ERROR_ID => 'Error',
+        ];
+
+        foreach ($terms as $id => $name) {
+            QubitMigrate::bumpTerm($id, $configuration);
+            $term = new QubitTerm();
+            $term->id = $id;
+            $term->parentId = QubitTerm::ROOT_ID;
+            $term->taxonomyId = QubitTaxonomy::JOB_STATUS_ID;
+            $term->sourceCulture = 'en';
+            $term->setName($name, ['culture' => 'en']);
+            $term->save();
+        }
+
+        return true;
+    }
 }

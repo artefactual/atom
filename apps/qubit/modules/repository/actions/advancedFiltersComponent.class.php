@@ -19,31 +19,29 @@
 
 class RepositoryAdvancedFiltersComponent extends sfComponent
 {
-  public function execute($request)
-  {
-    // Store current params to add them as hidden inputs
-    // in the form, to keep GET and POST params in sync
-    $this->hiddenFields = array();
-    foreach ($request->getGetParameters() as $key => $value)
+    public function execute($request)
     {
-      // Keep control of what is added to avoid
-      // Cross-Site Scripting vulnerability. Only allow:
-      // - Aggregations
-      // - Sort and view options
-      // - subquery param
-      // But ignore aggs already included in the form:
-      // - thematicAreas, types and regions
-      $allowed = array_merge(
-        array_keys(RepositoryBrowseAction::$AGGS),
-        array('view', 'sort', 'subquery')
-      );
-      $ignored = array('thematicAreas', 'types', 'regions');
-      if (!in_array($key, $allowed) || in_array($key, $ignored))
-      {
-        continue;
-      }
+        // Store current params to add them as hidden inputs
+        // in the form, to keep GET and POST params in sync
+        $this->hiddenFields = [];
+        foreach ($request->getGetParameters() as $key => $value) {
+            // Keep control of what is added to avoid
+            // Cross-Site Scripting vulnerability. Only allow:
+            // - Aggregations
+            // - Sort and view options
+            // - subquery param
+            // But ignore aggs already included in the form:
+            // - thematicAreas, types and regions
+            $allowed = array_merge(
+                array_keys(RepositoryBrowseAction::$AGGS),
+                ['view', 'sort', 'subquery']
+            );
+            $ignored = ['thematicAreas', 'types', 'regions'];
+            if (!in_array($key, $allowed) || in_array($key, $ignored)) {
+                continue;
+            }
 
-      $this->hiddenFields[$key] = $value;
+            $this->hiddenFields[$key] = $value;
+        }
     }
-  }
 }

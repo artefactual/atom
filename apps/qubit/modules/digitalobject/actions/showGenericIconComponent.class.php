@@ -18,27 +18,27 @@
  */
 
 /**
- * Display a generic representation of a digital object
+ * Display a generic representation of a digital object.
  *
- * @package    AccesstoMemory
- * @subpackage digital object
  * @author     David Juhasz <david@artefactual.com>
  */
 class DigitalObjectShowGenericIconComponent extends sfComponent
 {
-  /**
-   * Show a generic representation of a digital object image
-   *
-   * @param sfWebRequest $request
-   */
-  public function execute($request)
-  {
-    $this->representation = QubitDigitalObject::getGenericRepresentation(
-      $this->resource->mimeType, $this->resource->usageId
-    );
+    /**
+     * Show a generic representation of a digital object image.
+     *
+     * @param sfWebRequest $request
+     */
+    public function execute($request)
+    {
+        $this->representation = QubitDigitalObject::getGenericRepresentation(
+            $this->resource->mimeType,
+            $this->resource->usageId
+        );
 
-    $this->canReadMaster = QubitAcl::check(
-      $this->resource->object, 'readMaster'
-    );
-  }
+        $this->canReadMaster = QubitAcl::check(
+            $this->resource->object,
+            'readMaster'
+        );
+    }
 }

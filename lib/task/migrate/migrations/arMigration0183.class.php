@@ -25,28 +25,28 @@
  */
 class arMigration0183
 {
-  const
-    VERSION = 183, // The new database version
-    MIN_MILESTONE = 2; // The minimum milestone required
+    public const VERSION = 183;
+    public const MIN_MILESTONE = 2;
 
-  /**
-   * Upgrade
-   *
-   * @return bool True if the upgrade succeeded, False otherwise
-   */
-  public function up($configuration)
-  {
-    $alterTables = array(
-      'ALTER TABLE `information_object` MODIFY `lft` INTEGER, MODIFY `rgt` INTEGER;',
-      'ALTER TABLE `menu` MODIFY `lft` INTEGER, MODIFY `rgt` INTEGER;',
-      'ALTER TABLE `term` MODIFY `lft` INTEGER, MODIFY `rgt` INTEGER;',
-    );
-
-    foreach ($alterTables as $sql)
+    /**
+     * Upgrade.
+     *
+     * @param mixed $configuration
+     *
+     * @return bool True if the upgrade succeeded, False otherwise
+     */
+    public function up($configuration)
     {
-      QubitPdo::modify($sql);
-    }
+        $alterTables = [
+            'ALTER TABLE `information_object` MODIFY `lft` INTEGER, MODIFY `rgt` INTEGER;',
+            'ALTER TABLE `menu` MODIFY `lft` INTEGER, MODIFY `rgt` INTEGER;',
+            'ALTER TABLE `term` MODIFY `lft` INTEGER, MODIFY `rgt` INTEGER;',
+        ];
 
-    return true;
-  }
+        foreach ($alterTables as $sql) {
+            QubitPdo::modify($sql);
+        }
+
+        return true;
+    }
 }

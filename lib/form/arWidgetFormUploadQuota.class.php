@@ -19,32 +19,35 @@
 
 class arWidgetFormUploadQuota extends sfWidgetFormInput
 {
-  protected function configure($options = array(), $attributes = array())
-  {
-    parent::configure($options, $attributes);
-  }
-
-  public function render($name, $value = null, $attributes = array(), $errors = array())
-  {
-    $uploadLimit = (int) sfConfig::get('app_upload_limit');
-
-    if ($uploadLimit === 0)
+    public function render($name, $value = null, $attributes = [], $errors = [])
     {
-      return '<label>' . __('%1% upload is disabled', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))) . '</label>';
-    }
-    else if ($uploadLimit === -1)
-    {
-      return '<label>'.__('Unlimited').'</label>';
+        $uploadLimit = (int) sfConfig::get('app_upload_limit');
+
+        if (0 === $uploadLimit) {
+            return '<label>'.__('%1% upload is disabled', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]).'</label>';
+        }
+        if (-1 === $uploadLimit) {
+            return '<label>'.__('Unlimited').'</label>';
+        }
+
+        $size = Qubit::getDirectorySize(sfConfig::get('sf_upload_dir'));
+        if ($size < 0) {
+            return '<label>'.__('The uploads directory has not been created yet.').'</label>';
+        }
+
+        return '<label>'
+            .__(
+                '%1% used of %2%',
+                [
+                    '%1%' => hr_filesize($size),
+                    '%2%' => $uploadLimit.' GB',
+                ]
+            )
+            .'</label>';
     }
 
-    $size = Qubit::getDirectorySize(sfConfig::get('sf_upload_dir'));
-    if ($size < 0)
+    protected function configure($options = [], $attributes = [])
     {
-      return '<label>'.__('The uploads directory has not been created yet.').'</label>';
+        parent::configure($options, $attributes);
     }
-
-    return '<label>' . __('%1% used of %2%', array(
-      '%1%' => hr_filesize($size),
-      '%2%' => $uploadLimit.' GB')).'</label>';
-  }
 }

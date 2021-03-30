@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 class QubitSettingI18n extends BaseSettingI18n
 {
 }

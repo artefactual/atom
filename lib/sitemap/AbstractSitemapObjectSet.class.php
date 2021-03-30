@@ -23,80 +23,78 @@
  */
 abstract class AbstractSitemapObjectSet implements Countable, Iterator
 {
-  /**
-   * Database recordset
-   */
-  protected $rec;
+    /**
+     * Propel PDO object.
+     */
+    public $conn;
 
-  /**
-   * Number of current record
-   */
-  private $cursor = -1;
+    /**
+     * Sitemap configuration (sitemap.yml).
+     */
+    public $config;
+    /**
+     * Database recordset.
+     */
+    protected $rec;
 
-  /**
-   * Current object in the collection
-   */
-  private $item = null;
+    /**
+     * Number of current record.
+     */
+    private $cursor = -1;
 
-  /**
-   * Propel PDO object
-   */
-  public $conn;
+    /**
+     * Current object in the collection.
+     */
+    private $item;
 
-  /**
-   * Sitemap configuration (sitemap.yml)
-   */
-  public $config;
-
-  /**
-   * Force extending class to define init() to prepare the PDO statement
-   */
-  abstract public function init();
-
-  public function __construct()
-  {
-    $this->conn = Propel::getConnection();
-  }
-
-  public function setConfig(&$config)
-  {
-    $this->config = $config;
-  }
-
-  public function count()
-  {
-    return $this->rec->rowCount();
-  }
-
-  public function rewind()
-  {
-    if ($this->cursor >= 0)
+    public function __construct()
     {
-      $conn = Propel::getConnection();
-      $this->init($conn);
+        $this->conn = Propel::getConnection();
     }
 
-    $this->next();
-  }
+    /**
+     * Force extending class to define init() to prepare the PDO statement.
+     */
+    abstract public function init();
 
-  public function next()
-  {
-    $this->cursor++;
-    $this->item = $this->rec->fetch(PDO::FETCH_ORI_NEXT);
-  }
+    public function setConfig(&$config)
+    {
+        $this->config = $config;
+    }
 
-  public function current()
-  {
-    return $this->item;
-  }
+    public function count()
+    {
+        return $this->rec->rowCount();
+    }
 
-  public function key()
-  {
-    return $this->cursor;
-  }
+    public function rewind()
+    {
+        if ($this->cursor >= 0) {
+            $conn = Propel::getConnection();
+            $this->init($conn);
+        }
 
-  public function valid()
-  {
-    return $this->cursor < $this->count();
-  }
+        $this->next();
+    }
+
+    public function next()
+    {
+        ++$this->cursor;
+        $this->item = $this->rec->fetch(PDO::FETCH_ORI_NEXT);
+    }
+
+    public function current()
+    {
+        return $this->item;
+    }
+
+    public function key()
+    {
+        return $this->cursor;
+    }
+
+    public function valid()
+    {
+        return $this->cursor < $this->count();
+    }
 }

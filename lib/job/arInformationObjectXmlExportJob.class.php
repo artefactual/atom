@@ -20,98 +20,93 @@
 /**
  * A worker to, given the HTTP GET parameters sent to advanced search,
  * replicate the search and export the resulting descriptions to CSV.
- *
- * @package    symfony
- * @subpackage jobs
  */
-
 class arInformationObjectXmlExportJob extends arInformationObjectExportJob
 {
-  const XML_STANDARD = 'ead';
+    public const XML_STANDARD = 'ead';
 
-  protected $xmlCachingEnabled = false;
+    protected $xmlCachingEnabled = false;
 
-  /**
-   * Export clipboard item metadata and (optionally) digital objects to $path
-   *
-   * @see arInformationObjectExportJob::doExport()
-   *
-   * @param string $path temporary export job working directory
-   */
-  protected function doExport($path)
-  {
-    exportBulkBaseTask::includeXmlExportClassesAndHelpers();
-
-    $this->xmlCachingEnabled = sfConfig::get('app_cache_xml_on_save', false);
-
-    parent::doExport($path);
-  }
-
-  /**
-   * Export resource metadata and (optionally) digital object
-   *
-   * @param QubitInformationObject $resource object to export
-   * @param string $path temporary export job working directory
-   */
-  protected function exportResource($resource, $path)
-  {
-    // Don't export resource if this level of description is not allowed
-    if (!$this->isAllowedLevelId($resource->levelOfDescriptionId))
+    /**
+     * Export clipboard item metadata and (optionally) digital objects to $path.
+     *
+     * @see arInformationObjectExportJob::doExport()
+     *
+     * @param string $path temporary export job working directory
+     */
+    protected function doExport($path)
     {
-      return;
+        exportBulkBaseTask::includeXmlExportClassesAndHelpers();
+
+        $this->xmlCachingEnabled = sfConfig::get('app_cache_xml_on_save', false);
+
+        parent::doExport($path);
     }
 
-    // If XML caching is enabled then check for a cached XML document
-    if ($this->xmlCachingEnabled)
+    /**
+     * Export resource metadata and (optionally) digital object.
+     *
+     * @param QubitInformationObject $resource object to export
+     * @param string                 $path     temporary export job working directory
+     */
+    protected function exportResource($resource, $path)
     {
-      $cachedXmlPath = QubitInformationObjectXmlCache::resourceExportFilePath(
-        $resource, self::XML_STANDARD
-      );
+        // Don't export resource if this level of description is not allowed
+        if (!$this->isAllowedLevelId($resource->levelOfDescriptionId)) {
+            return;
+        }
 
-      if (file_exists($cachedXmlPath))
-      {
-        $xml = file_get_contents($cachedXmlPath);
-      }
-    }
+        // If XML caching is enabled then check for a cached XML document
+        if ($this->xmlCachingEnabled) {
+            $cachedXmlPath = QubitInformationObjectXmlCache::resourceExportFilePath(
+                $resource,
+                self::XML_STANDARD
+            );
 
-    // If no cached XML has been fetched then generate XML on the fly
-    if (empty($xml))
-    {
-      try
-      {
-        // Print warnings/notices here too, as they are often important.
-        $errLevel = error_reporting(E_ALL);
+            if (file_exists($cachedXmlPath)) {
+                $xml = file_get_contents($cachedXmlPath);
+            }
+        }
 
-        $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput(
-          $resource, self::XML_STANDARD, $this->params
+        // If no cached XML has been fetched then generate XML on the fly
+        if (empty($xml)) {
+            try {
+                // Print warnings/notices here too, as they are often important.
+                $errLevel = error_reporting(E_ALL);
+
+                $rawXml = exportBulkBaseTask::captureResourceExportTemplateOutput(
+                    $resource,
+                    self::XML_STANDARD,
+                    $this->params
+                );
+                $xml = Qubit::tidyXml($rawXml);
+
+                error_reporting($errLevel);
+            } catch (Exception $e) {
+                throw new sfException($this->i18n->__(
+                    'Invalid XML generated for object %1%.',
+                    ['%1%' => $row['id']]
+                ));
+            }
+        }
+
+        $filename = exportBulkBaseTask::generateSortableFilename(
+            $resource,
+            'xml',
+            self::XML_STANDARD
         );
-        $xml = Qubit::tidyXml($rawXml);
+        $filePath = sprintf('%s/%s', $path, $filename);
 
-        error_reporting($errLevel);
-      }
-      catch (Exception $e)
-      {
-        throw new sfException($this->i18n->__(
-          'Invalid XML generated for object %1%.', array('%1%' => $row['id'])
-        ));
-      }
+        if (false === file_put_contents($filePath, $xml)) {
+            throw new sfException($this->i18n->__(
+                'Cannot write to path: %1%',
+                ['%1%' => $filePath]
+            ));
+        }
+
+        $this->addDigitalObject($resource, $path, $errors);
+
+        ++$this->itemsExported;
+        $this->logExportProgress();
     }
-
-    $filename = exportBulkBaseTask::generateSortableFilename(
-      $resource, 'xml', self::XML_STANDARD
-    );
-    $filePath = sprintf('%s/%s', $path, $filename);
-
-    if (false === file_put_contents($filePath, $xml))
-    {
-      throw new sfException($this->i18n->__(
-        'Cannot write to path: %1%', array('%1%' => $filePath)
-      ));
-    }
-
-    $this->addDigitalObject($resource, $path, $errors);
-
-    $this->itemsExported++;
-    $this->logExportProgress();
-  }
 }

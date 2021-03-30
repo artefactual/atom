@@ -20,29 +20,22 @@
 /**
  * A bare bones worker to test Gearman / AtoM jobs
  * If optional parameter 'error' is set, print an error.
- *
- * @package    symfony
- * @subpackage jobs
  */
-
 class arTestJob extends arBaseJob
 {
-  public function runJob($parameters)
-  {
-    $this->info($this->i18n->__('Got a test job! Id: %1', array('%1' => $this->job->id)));
-
-    if (isset($parameters['error']))
+    public function runJob($parameters)
     {
-      $this->job->setStatusError($this->i18n->__('The test worker broke!'));
-    }
-    else
-    {
-      $this->job->setStatusCompleted();
-    }
+        $this->info($this->i18n->__('Got a test job! Id: %1', ['%1' => $this->job->id]));
 
-    // Don't forget to set the job status & save at the end!
-    $this->job->save();
+        if (isset($parameters['error'])) {
+            $this->job->setStatusError($this->i18n->__('The test worker broke!'));
+        } else {
+            $this->job->setStatusCompleted();
+        }
 
-    return true;
-  }
+        // Don't forget to set the job status & save at the end!
+        $this->job->save();
+
+        return true;
+    }
 }

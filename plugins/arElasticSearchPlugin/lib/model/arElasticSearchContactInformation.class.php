@@ -19,25 +19,27 @@
 
 class arElasticSearchContactInformation extends arElasticSearchModelBase
 {
-  public static function serialize($object)
-  {
-    $serialized = array();
-
-    $serialized['contactPerson'] = $object->contactPerson;
-    $serialized['streetAddress'] = $object->streetAddress;
-    $serialized['postalCode'] = $object->postalCode;
-    $serialized['countryCode'] = $object->countryCode;
-
-    // geo point type
-    if (!empty($object->latitude) && !empty($object->longitude))
+    public static function serialize($object)
     {
-      $serialized['location']['lat'] = $object->latitude;
-      $serialized['location']['lon'] = $object->longitude;
+        $serialized = [];
+
+        $serialized['contactPerson'] = $object->contactPerson;
+        $serialized['streetAddress'] = $object->streetAddress;
+        $serialized['postalCode'] = $object->postalCode;
+        $serialized['countryCode'] = $object->countryCode;
+
+        // geo point type
+        if (!empty($object->latitude) && !empty($object->longitude)) {
+            $serialized['location']['lat'] = $object->latitude;
+            $serialized['location']['lon'] = $object->longitude;
+        }
+
+        $serialized['sourceCulture'] = $object->sourceCulture;
+        $serialized['i18n'] = self::serializeI18ns(
+            $object->id,
+            ['QubitContactInformation', 'QubitActor']
+        );
+
+        return $serialized;
     }
-
-    $serialized['sourceCulture'] = $object->sourceCulture;
-    $serialized['i18n'] = self::serializeI18ns($object->id, array('QubitContactInformation', 'QubitActor'));
-
-    return $serialized;
-  }
 }

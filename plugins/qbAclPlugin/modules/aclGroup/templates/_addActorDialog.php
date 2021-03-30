@@ -1,14 +1,14 @@
-<?php $sf_response->addJavaScript('/vendor/yui/container/container-min', 'last') ?>
+<?php $sf_response->addJavaScript('/vendor/yui/container/container-min', 'last'); ?>
 
 <!-- form for yui dialog -->
 <div id="myDialog">
-  <div class="hd"><?php echo __('Add %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_actor')))) ?></div>
+  <div class="hd"><?php echo __('Add %1%', ['%1%' => lcfirst(sfConfig::get('app_ui_label_actor'))]); ?></div>
   <div class="bd">
     <form name="actorAcl" method="post">
       <div class="form-item">
-        <label for="addActor"><?php echo __('%1% name', array('%1%' => sfConfig::get('app_ui_label_actor'))) ?></label>
+        <label for="addActor"><?php echo __('%1% name', ['%1%' => sfConfig::get('app_ui_label_actor')]); ?></label>
         <select name="addActor" id="addActor" class="form-autocomplete"></select>
-        <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'autocomplete', 'showOnlyActors' => 'true')) ?>"/>
+        <input class="list" type="hidden" value="<?php echo url_for(['module' => 'actor', 'action' => 'autocomplete', 'showOnlyActors' => 'true']); ?>"/>
       </div>
     </form>
   </div>
@@ -23,26 +23,25 @@ $tableTemplate = <<<EOL
 <caption/>
 <thead>
 <tr>
-<th scope="col">$actionLabel</th>
-<th scope="col">$permissionsLabel</th>
+<th scope="col">{$actionLabel}</th>
+<th scope="col">{$permissionsLabel}</th>
 </tr>
 </thead>
 <tbody>
 EOL;
 
-foreach ($basicActions as $key => $item)
-{
-  $tableTemplate .= '<tr>';
-  $tableTemplate .= '<td>'.__($item).'</th>';
-  $tableTemplate .= '<td><ul class="radio inline">';
-  $tableTemplate .= '<li><input type="radio" name="acl['.$key.'_{objectId}]" value="'.QubitAcl::GRANT.'"/>'.__('Grant').'</li>';
-  $tableTemplate .= '<li><input type="radio" name="acl['.$key.'_{objectId}]" value="'.QubitAcl::DENY.'"/>'.__('Deny').'</li>';
-  $tableTemplate .= '<li><input type="radio" name="acl['.$key.'_{objectId}]" value="'.QubitAcl::INHERIT.'" checked/>'.__('Inherit').'</li>';
-  $tableTemplate .= '</ul></td>';
-  $tableTemplate .= "</tr>\n";
+foreach ($basicActions as $key => $item) {
+    $tableTemplate .= '<tr>';
+    $tableTemplate .= '<td>'.__($item).'</th>';
+    $tableTemplate .= '<td><ul class="radio inline">';
+    $tableTemplate .= '<li><input type="radio" name="acl['.$key.'_{objectId}]" value="'.QubitAcl::GRANT.'"/>'.__('Grant').'</li>';
+    $tableTemplate .= '<li><input type="radio" name="acl['.$key.'_{objectId}]" value="'.QubitAcl::DENY.'"/>'.__('Deny').'</li>';
+    $tableTemplate .= '<li><input type="radio" name="acl['.$key.'_{objectId}]" value="'.QubitAcl::INHERIT.'" checked/>'.__('Inherit').'</li>';
+    $tableTemplate .= '</ul></td>';
+    $tableTemplate .= "</tr>\n";
 }
 
-$tableTemplate .= <<<EOL
+$tableTemplate .= <<<'EOL'
 </tbody>
 </table>
 </div>
@@ -75,7 +74,7 @@ var handleSubmit = function() {
   }
   else if ('null' != actorInput.val())
   {
-    var newTable = '$tableTemplate';
+    var newTable = '{$tableTemplate}';
 
     // Search and replace '{objectId}'
     while (0 <= newTable.indexOf('{objectId}'))
@@ -125,4 +124,4 @@ myDialog.showEvent.subscribe(function () {
 }, this, true);
 
 EOL
-) ?>
+); ?>
