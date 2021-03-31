@@ -275,6 +275,9 @@ EOT;
 if ($CONFIG['atom.coverage']) {
     $php_ini .= <<<'EOT'
 pcov.enabled = 1
+pcov.directory = /atom/src
+pcov.exclude = "~(\.coverage|cache|docker|test|vendor)~"
+auto_prepend_file = /atom/src/test/e2e/coverage_collect.php
 
 EOT;
 }

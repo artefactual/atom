@@ -9,7 +9,9 @@
       <directory suffix=".php">.</directory>
     </include>
     <exclude>
+      <directory suffix=".php">.coverage</directory>
       <directory suffix=".php">cache</directory>
+      <directory suffix=".php">docker</directory>
       <directory suffix=".php">test</directory>
       <directory suffix=".php">vendor</directory>
     </exclude>
