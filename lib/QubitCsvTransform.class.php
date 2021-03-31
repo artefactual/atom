@@ -22,6 +22,8 @@ class QubitCsvTransform extends QubitFlatfileImport
     public $setupLogic;
     public $transformLogic;
     public $rowsPerFile = 1000;
+    public $preserveOrder = false;
+    public $convertWindowsEncoding = false;
 
     private $link;
 
@@ -111,15 +113,24 @@ class QubitCsvTransform extends QubitFlatfileImport
 
     public function addRowToMySQL($sortorder)
     {
+        $row = $this->status['row'];
+
+        // Normalize each row column's values
+        if ($this->convertWindowsEncoding) {
+            foreach ($row as $index => $value) {
+                $row[$index] = mb_convert_encoding($value, 'UTF-8', 'Windows-1252');
+            }
+        }
+
         $sql = "INSERT INTO import_descriptions
             (sortorder, data)
             VALUES ('".mysqli_real_escape_string($this->link, $sortorder)."',
-            '".mysqli_real_escape_string($this->link, serialize($this->status['row']))."')";
+            '".mysqli_real_escape_string($this->link, serialize($row))."')";
 
         $result = mysqli_query($this->link, $sql);
 
         if (!$result) {
-            throw new sfException('Failed to create MySQL DB row.');
+            throw new sfException('Failed to create MySQL DB row:'.mysqli_error($this->link));
         }
     }
 

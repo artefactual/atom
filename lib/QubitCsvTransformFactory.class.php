@@ -29,6 +29,8 @@ class QubitCsvTransformFactory
     public $rowParentKeyLookupLogic;
     public $setupLogic;
     public $transformLogic;
+    public $preserveOrder;
+    public $convertWindowsEncoding;
 
     public function __construct($options = [])
     {
@@ -43,6 +45,8 @@ class QubitCsvTransformFactory
             'rowParentKeyLookupLogic',
             'setupLogic',
             'transformLogic',
+            'preserveOrder',
+            'convertWindowsEncoding',
         ];
 
         QubitFlatfileImport::setPropertiesFromArray(
@@ -75,8 +79,10 @@ class QubitCsvTransformFactory
                 'rowParentKeyLookupLogic' => $this->rowParentKeyLookupLogic,
             ],
 
-            'setupLogic' => $this->setupLogic,
+            'preserveOrder' => $this->preserveOrder,
+            'convertWindowsEncoding' => true,
 
+            'setupLogic' => $this->setupLogic,
             'transformLogic' => $this->transformLogic,
 
             'addColumns' => $this->addColumns,
@@ -125,6 +131,9 @@ class QubitCsvTransformFactory
                         'ignoreBadLod' => $self->status['ignoreBadLod'],
                     ],
 
+                    'preserveOrder' => $self->preserveOrder,
+                    'convertWindowsEncoding' => $self->convertWindowsEncoding,
+
                     'errorLog' => $self->errorLog,
 
                     'saveLogic' => function (&$self) {
@@ -159,9 +168,11 @@ class QubitCsvTransformFactory
                         $levelOfDescriptionAvailable = is_numeric(array_search('levelOfDescription', $self->columnNames));
 
                         if ($levelOfDescriptionAvailable) {
-                            // print "Found a level of description...\n";
-
-                            $sortorder = $self->levelOfDescriptionToSortorder($self->columnValue('levelOfDescription'));
+                            if (!empty($self->preserveOrder)) {
+                                $sortorder = $self->getStatus('rows');
+                            } else {
+                                $sortorder = $self->levelOfDescriptionToSortorder($self->columnValue('levelOfDescription'));
+                            }
 
                             if (is_numeric($sortorder)) {
                                 //  print "Description sort order is ". $sortorder .".\n";
