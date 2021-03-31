@@ -20,4 +20,4 @@ jobs:
     - name: Install dependencies
       run: composer install
     - name: Run php-cs-fixer
-      run: composer php-cs-fixer -- fix --dry-run --diff
+      run: composer php-cs-fixer -- fix --dry-run --diff-format=udiff
