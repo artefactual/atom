@@ -159,7 +159,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
             $sql .= ' WHERE io.parent_id = ?';
             $sql .= ' ORDER BY io.lft';
 
-            self::$statements['children'] = self::$conn->prepare($sql);
+            self::$statements['getChildren'] = self::$conn->prepare($sql);
         }
 
         self::$statements['getChildren']->execute([$parentId]);
@@ -193,36 +193,52 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
         }
 
         // Create table if it doesn't exist
-        $sql = 'CREATE TABLE IF NOT EXISTS indexing_sequence (id int, parent_id int)';
+        if (!isset($this->statements['loadTreeCreateTable']))
+        {
+          $sql = 'CREATE TABLE IF NOT EXISTS indexing_sequence (id int, parent_id int)';
 
-        $statement = self::$conn->prepare($sql);
-        $statement->execute();
+          $this->statements['loadTreeCreateTable'] = self::$conn->prepare($sql);
+        }
+
+        $this->statements['loadTreeCreateTable']->execute();
 
         // Delete existing sequence
-        $sql = 'DELETE FROM indexing_sequence';
+        if (!isset($this->statements['loadTreeDeleteIndexingSequence']))
+        {
+          $sql = 'DELETE FROM indexing_sequence';
 
-        $statement = self::$conn->prepare($sql);
-        $statement->execute();
+          $this->statements['loadTreeDeleteIndexingSequence'] = self::$conn->prepare($sql);
+        }
+
+        $this->statements['loadTreeDeleteIndexingSequence']->execute();
 
         // Loop through hierarchy and add to search index
-        $sql = 'INSERT INTO indexing_sequence
-            WITH RECURSIVE cte (id, parent_id) AS (
-              SELECT id, parent_id FROM information_object WHERE parent_id = 1
-              UNION ALL
-              SELECT i.id, i.parent_id FROM information_object i
-              INNER JOIN cte ON i.parent_id = cte.id
-            )
-            SELECT * FROM cte';
+        if (!isset($this->statements['loadTreeInsertIntoIndexingSequence']))
+        {
+            $sql = 'INSERT INTO indexing_sequence
+                WITH RECURSIVE cte (id, parent_id) AS (
+                  SELECT id, parent_id FROM information_object WHERE parent_id = 1
+                  UNION ALL
+                  SELECT i.id, i.parent_id FROM information_object i
+                  INNER JOIN cte ON i.parent_id = cte.id
+                )
+                SELECT * FROM cte';
 
-        $statement = self::$conn->prepare($sql);
-        $statement->execute([$parentId]);
+            $this->statements['loadTreeInsertIntoIndexingSequence'] = self::$conn->prepare($sql);
+        }
 
-        // Cache parents
-        $sql = 'SELECT DISTINCT parent_id FROM indexing_sequence';
+        $this->statements['loadTreeInsertIntoIndexingSequence']->execute([$parentId]);
 
-        $statement = self::$conn->prepare($sql);
-        $statement->execute();
-        $parents = $statement->fetchAll(PDO::FETCH_ASSOC);
+        // Cache parents into memory
+        if (!isset($this->statements['loadTreeGetParents']))
+        {
+            $sql = 'SELECT DISTINCT parent_id FROM indexing_sequence';
+
+            $this->statements['loadTreeGetParents'] = self::$conn->prepare($sql);
+        }
+
+        $this->statements['loadTreeGetParents']->execute();
+        $parents = $this->statements['loadTreeGetParents']->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($parents as $row) {
             $this->parents[] = $row['parent_id'];
