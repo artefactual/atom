@@ -62,7 +62,9 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     public function recursivelyAddInformationObjects($parentId, $totalRows, $options = [])
     {
         // Loop through children and add to search index
+#         while ($this->statements['loadTreeGetParents']->fetchOne(PDO::FETCH_ASSOC))
         foreach (self::getCachedChildren($parentId) as $item) {
+
             $id = $item->id;
 
             $ancestors = $inheritedCreators = [];
@@ -89,7 +91,8 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
             }
 
             // Descend hierarchy
-            if (array_search($id, $this->parents)) {
+#            if (array_search($id, $this->parents)) {
+            if ($item->child_id) {
                 // Pass ancestors, repository and creators down to descendants
                 $this->recursivelyAddInformationObjects($id, $totalRows, [
                     'ancestors' => $ancestors,
@@ -174,7 +177,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
         }
 
         if (!isset(self::$statements['getCachedChildren'])) {
-            $sql = 'SELECT id';
+            $sql = 'SELECT id, child_id';
             $sql .= ' FROM indexing_sequence';
             $sql .= ' WHERE parent_id = ?';
 
@@ -192,6 +195,41 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
             self::$conn = Propel::getConnection();
         }
 
+        // Create table if it doesn't exist
+        $sql = 'CREATE TABLE IF NOT EXISTS indexing_sequence (id int, parent_id int, child_id int, level int) ENGINE = MEMORY';
+
+        $statement = self::$conn->prepare($sql);
+        $statement->execute();
+
+        // Delete existing sequence
+        $sql = 'DELETE FROM indexing_sequence';
+
+        $statement = self::$conn->prepare($sql);
+        $statement->execute();
+
+        if (!isset($this->statements['loadTree']))
+        {
+            $sql = "INSERT INTO indexing_sequence WITH RECURSIVE
+                        nodes (id, parent_id, child_id, level) AS (
+                            SELECT i.id, i.parent_id, children.id, 1 AS level
+                            FROM information_object i
+                            LEFT JOIN information_object children ON children.parent_id = i.id
+                            WHERE i.parent_id = 1
+                            UNION ALL
+                            SELECT i.id, i.parent_id, children.id AS child_id, level + 1 AS level
+                            FROM information_object i
+                            LEFT JOIN information_object children ON children.parent_id = i.id
+                            INNER JOIN nodes ON i.parent_id = nodes.id
+                        )
+                    SELECT * FROM nodes";
+
+            $this->statements['loadTree'] = self::$conn->prepare($sql);
+        }
+
+        $this->statements['loadTree']->execute();
+
+
+/*
         // Create table if it doesn't exist
         if (!isset($this->statements['loadTreeCreateTable']))
         {
@@ -212,7 +250,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
         $this->statements['loadTreeDeleteIndexingSequence']->execute();
 
-        // Loop through hierarchy and add to search index
+        // Loop through hierarchy and add to index sequence table
         if (!isset($this->statements['loadTreeInsertIntoIndexingSequence']))
         {
             $sql = 'INSERT INTO indexing_sequence
@@ -243,5 +281,6 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
         foreach ($parents as $row) {
             $this->parents[] = $row['parent_id'];
         }
+*/
     }
 }
