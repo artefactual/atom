@@ -20,9 +20,10 @@
 class arElasticSearchInformationObject extends arElasticSearchModelBase
 {
     protected static $conn;
-    protected static $statement;
+    protected static $statements = [];
     protected static $counter = 0;
 
+    protected $parents = [];
     protected $errors = [];
 
     public function load()
@@ -47,6 +48,8 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
         ]];
 
         // Recursively descend down hierarchy
+        $this->loadTree(QubitInformationObject::ROOT_ID);
+
         $this->recursivelyAddInformationObjects(
             QubitInformationObject::ROOT_ID,
             $this->count,
@@ -59,13 +62,15 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     public function recursivelyAddInformationObjects($parentId, $totalRows, $options = [])
     {
         // Loop through children and add to search index
-        foreach (self::getChildren($parentId) as $item) {
+        foreach (self::getCachedChildren($parentId) as $item) {
+            $id = $item->id;
+
             $ancestors = $inheritedCreators = [];
             $repository = null;
             ++self::$counter;
 
             try {
-                $node = new arElasticSearchInformationObjectPdo($item->id, $options);
+                $node = new arElasticSearchInformationObjectPdo($id, $options);
                 $data = $node->serialize();
 
                 QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
@@ -84,9 +89,9 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
             }
 
             // Descend hierarchy
-            if (1 < ($item->rgt - $item->lft)) {
+            if (array_search($id, $this->parents)) {
                 // Pass ancestors, repository and creators down to descendants
-                $this->recursivelyAddInformationObjects($item->id, $totalRows, [
+                $this->recursivelyAddInformationObjects($id, $totalRows, [
                     'ancestors' => $ancestors,
                     'repository' => $repository,
                     'inheritedCreators' => $inheritedCreators,
@@ -145,17 +150,82 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
             self::$conn = Propel::getConnection();
         }
 
-        if (!isset(self::$statement)) {
-            $sql = 'SELECT io.id, io.lft, io.rgt';
+        if (!isset(self::$statements['getChildren'])) {
+            $sql = 'SELECT
+                  io.id,
+                  io.lft,
+                  io.rgt';
             $sql .= ' FROM '.QubitInformationObject::TABLE_NAME.' io';
             $sql .= ' WHERE io.parent_id = ?';
             $sql .= ' ORDER BY io.lft';
 
-            self::$statement = self::$conn->prepare($sql);
+            self::$statements['children'] = self::$conn->prepare($sql);
         }
 
-        self::$statement->execute([$parentId]);
+        self::$statements['getChildren']->execute([$parentId]);
 
-        return self::$statement->fetchAll(PDO::FETCH_OBJ);
+        return self::$statements['getChildren']->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public static function getCachedChildren($parentId)
+    {
+        if (!isset(self::$conn)) {
+            self::$conn = Propel::getConnection();
+        }
+
+        if (!isset(self::$statements['getCachedChildren'])) {
+            $sql = 'SELECT id';
+            $sql .= ' FROM indexing_sequence';
+            $sql .= ' WHERE parent_id = ?';
+
+            $statements['getCachedChildren'] = self::$conn->prepare($sql);
+        }
+
+        $statements['getCachedChildren']->execute([$parentId]);
+
+        return $statements['getCachedChildren']->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function loadTree($parentId)
+    {
+        if (!isset(self::$conn)) {
+            self::$conn = Propel::getConnection();
+        }
+
+        // Create table if it doesn't exist
+        $sql = 'CREATE TABLE IF NOT EXISTS indexing_sequence (id int, parent_id int)';
+
+        $statement = self::$conn->prepare($sql);
+        $statement->execute();
+
+        // Delete existing sequence
+        $sql = 'DELETE FROM indexing_sequence';
+
+        $statement = self::$conn->prepare($sql);
+        $statement->execute();
+
+        // Loop through hierarchy and add to search index
+        $sql = 'INSERT INTO indexing_sequence
+            WITH RECURSIVE cte (id, parent_id) AS (
+              SELECT id, parent_id FROM information_object WHERE parent_id = 1
+              UNION ALL
+              SELECT i.id, i.parent_id FROM information_object i
+              INNER JOIN cte ON i.parent_id = cte.id
+            )
+            SELECT * FROM cte';
+
+        $statement = self::$conn->prepare($sql);
+        $statement->execute([$parentId]);
+
+        // Cache parents
+        $sql = 'SELECT DISTINCT parent_id FROM indexing_sequence';
+
+        $statement = self::$conn->prepare($sql);
+        $statement->execute();
+        $parents = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($parents as $row) {
+            $this->parents[] = $row['parent_id'];
+        }
     }
 }
