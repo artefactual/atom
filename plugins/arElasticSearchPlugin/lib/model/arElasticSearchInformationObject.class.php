@@ -20,9 +20,10 @@
 class arElasticSearchInformationObject extends arElasticSearchModelBase
 {
     protected static $conn;
-    protected static $statement;
+    protected static $statements;
     protected static $counter = 0;
 
+    protected $parents = [];
     protected $errors = [];
 
     public function load()
@@ -39,30 +40,31 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     {
         $this->load();
 
-        // Pass root data to top-levels to avoid ancestors query
-        $ancestors = [[
-            'id' => QubitInformationObject::ROOT_ID,
-            'identifier' => null,
-            'repository_id' => null,
-        ]];
-
         // Recursively descend down hierarchy
-        $this->recursivelyAddInformationObjects(
+        $this->addInformationObjects(
             QubitInformationObject::ROOT_ID,
-            $this->count,
-            ['ancestors' => $ancestors]
+            $this->count
         );
 
         return $this->errors;
     }
 
-    public function recursivelyAddInformationObjects($parentId, $totalRows, $options = [])
+    public function addInformationObjects($parentId, $totalRows, $options = [])
     {
-        // Loop through children and add to search index
-        foreach (self::getChildren($parentId) as $item) {
-            $ancestors = $inheritedCreators = [];
-            $repository = null;
+        $max = isset($options['limit']) ? $options['limit'] : null;
+
+        // Loop through descendants and add to search index
+        foreach (self::getChildren($parentId, $options) as $item) {
             ++self::$counter;
+
+            $parentId = $item->parent_id;
+
+            $options = [];
+
+            if (isset($this->parents[($item->parent_id)])) {
+                $options['ancestors'] = $this->parents[($item->parent_id)]['ancestors'];
+                $options['inheritedCreators'] = $this->parents[($item->parent_id)]['inheritedCreators'];
+            }
 
             try {
                 $node = new arElasticSearchInformationObjectPdo($item->id, $options);
@@ -70,27 +72,16 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
                 QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
 
-                $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
+                $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter, $max);
 
-                $ancestors = array_merge($node->getAncestors(), [[
-                    'id' => $node->id,
-                    'identifier' => $node->identifier,
-                    'repository_id' => $node->repository_id,
-                ]]);
-                $repository = $node->getRepository();
-                $inheritedCreators = array_merge($node->inheritedCreators, $node->creators);
+                if (!isset($this->parents[($item->parent_id)])) {
+                    $this->parents[($item->parent_id)] = [
+                      'ancestors' => $node->getAncestors(),
+                      'inheritedCreators' => $node->inheritedCreators
+                    ];
+                }
             } catch (sfException $e) {
                 $this->errors[] = $e->getMessage();
-            }
-
-            // Descend hierarchy
-            if (1 < ($item->rgt - $item->lft)) {
-                // Pass ancestors, repository and creators down to descendants
-                $this->recursivelyAddInformationObjects($item->id, $totalRows, [
-                    'ancestors' => $ancestors,
-                    'repository' => $repository,
-                    'inheritedCreators' => $inheritedCreators,
-                ]);
             }
         }
     }
@@ -139,23 +130,42 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
         $context->user->setFlash('notice', $message);
     }
 
-    public static function getChildren($parentId)
+    public static function getChildren($parentId, $options = [])
     {
+        // Assemble LIMIT clause
+        $skip = (!empty($options['skip'])) ? $options['skip'] : 0;
+        $limit = (!empty($options['limit'])) ? $options['limit'] : 0;
+
+        $limitClause = '';
+
+        if ($limit) {
+            $limitClause .= sprintf('LIMIT %d ', $limit);
+        }
+
+        if ($skip) {
+            $limitClause .= sprintf('OFFSET %d ', $skip);
+        }
+
+        // Recursively fetch children
         if (!isset(self::$conn)) {
             self::$conn = Propel::getConnection();
         }
 
-        if (!isset(self::$statement)) {
-            $sql = 'SELECT io.id, io.lft, io.rgt';
-            $sql .= ' FROM '.QubitInformationObject::TABLE_NAME.' io';
-            $sql .= ' WHERE io.parent_id = ?';
-            $sql .= ' ORDER BY io.lft';
+        if (!isset(self::$statements['getChildren'])) {
+            $sql = 'WITH RECURSIVE cte (id, parent_id) AS (
+                        SELECT id, parent_id FROM information_object WHERE parent_id = ?
+                        UNION ALL
+                        SELECT i.id, i.parent_id FROM information_object i
+                        INNER JOIN cte ON i.parent_id = cte.id
+                        '.$limitClause.'
+                    )
+                SELECT * FROM cte';
 
-            self::$statement = self::$conn->prepare($sql);
+            self::$statements['getChildren'] = self::$conn->prepare($sql);
         }
 
-        self::$statement->execute([$parentId]);
+        self::$statements['getChildren']->execute([$parentId]);
 
-        return self::$statement->fetchAll(PDO::FETCH_OBJ);
+        return self::$statements['getChildren']->fetchAll(PDO::FETCH_OBJ);
     }
 }
