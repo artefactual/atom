@@ -14,10 +14,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Increase virtual memory max_map_count
-      run: sudo sysctl -w vm.max_map_count=262144
-    - name: Start services
-      run: docker-compose up -d percona elasticsearch
+    - name: Start containerized services
+      run: |
+        sudo sysctl -w vm.max_map_count=262144
+        docker-compose up -d percona elasticsearch
     - name: Setup PHP 7.4
       uses: shivammathur/setup-php@v2
       with:
@@ -37,7 +37,7 @@ jobs:
         cp test/bootstrap/search.yml config/search.yml
         cp config/propel.ini.tmpl config/propel.ini
         cp apps/qubit/config/settings.yml.tmpl apps/qubit/config/settings.yml
-    - name: Sleep for 10 seconds
+    - name: Wait for containerized services
       run: sleep 10
     - name: Initialize database and search index
       run: php symfony tools:purge --demo

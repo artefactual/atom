@@ -1,4 +1,6 @@
 .coverage
 .git
 .gitignore
+cache
+node_modules
 vendor/composer

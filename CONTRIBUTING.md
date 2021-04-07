@@ -66,6 +66,7 @@ review guidelines.
 * Find out more about our Code Review process here: [Code review](https://wiki.accesstomemory.org/Development/Code_review)
 * Learn about our Coding standards here: [Coding standard](https://wiki.accesstomemory.org/Development/Coding_standard)
 * Find information about our Code repository here: [Code repository](https://wiki.accesstomemory.org/Resources/Code_repository)
+* Read about our Testing strategies here: [Testing](https://wiki.accesstomemory.org/Development/Testing)
 
 We ask that all code contributors complete and return a signed Contributor’s
 Agreement before we will review and merge your contribution. This is to

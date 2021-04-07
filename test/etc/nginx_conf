@@ -1,0 +1,58 @@
+upstream atom {
+  server unix:/run/php7.4-fpm.atom.sock;
+}
+
+server {
+  listen 80;
+  root /home/runner/work/atom/atom;
+  server_name _;
+  client_max_body_size 72M;
+
+  location / {
+    try_files $uri /index.php?$args;
+  }
+
+  location ~ /\. {
+    deny all;
+    return 404;
+  }
+
+  location ~* (\.yml|\.ini|\.tmpl)$ {
+    deny all;
+    return 404;
+  }
+
+  location ~* /(?:uploads|files)/.*\.php$ {
+    deny all;
+    return 404;
+  }
+
+  location ~* /uploads/r/(.*)/conf/ {
+
+  }
+
+  location ~* ^/uploads/r/(.*)$ {
+    include /etc/nginx/fastcgi_params;
+    set $index /index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$index;
+    fastcgi_param SCRIPT_NAME $index;
+    fastcgi_pass atom;
+  }
+
+  location ~ ^/private/(.*)$ {
+    internal;
+    alias /usr/share/nginx/atom/$1;
+  }
+
+  location ~ ^/(index|qubit_dev)\.php(/|$) {
+    include /etc/nginx/fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_split_path_info ^(.+\.php)(/.*)$;
+    fastcgi_pass atom;
+  }
+
+  location ~* \.php$ {
+    deny all;
+    return 404;
+  }
+}

@@ -1,0 +1,18 @@
+[Unit]
+Description=AtoM worker
+After=network.target
+StartLimitIntervalSec=24h
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/home/runner/work/atom/atom
+ExecStart=/usr/bin/php7.4 -d memory_limit=-1 -d error_reporting="E_ALL" symfony jobs:worker
+KillSignal=SIGTERM
+Restart=on-failure
+RestartSec=30

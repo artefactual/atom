@@ -1,0 +1,46 @@
+[atom]
+
+user = www-data
+group = www-data
+
+listen = /run/php7.4-fpm.atom.sock
+listen.owner = www-data
+listen.group = www-data
+listen.mode = 0600
+
+pm = dynamic
+pm.max_children = 30
+pm.start_servers = 10
+pm.min_spare_servers = 10
+pm.max_spare_servers = 10
+pm.max_requests = 200
+
+chdir = /
+
+php_admin_value[expose_php] = off
+php_admin_value[allow_url_fopen] = on
+php_admin_value[memory_limit] = 512M
+php_admin_value[max_execution_time] = 120
+php_admin_value[post_max_size] = 72M
+php_admin_value[upload_max_filesize] = 64M
+php_admin_value[max_file_uploads] = 10
+php_admin_value[cgi.fix_pathinfo] = 0
+php_admin_value[display_errors] = off
+php_admin_value[display_startup_errors] = off
+php_admin_value[html_errors] = off
+php_admin_value[session.use_only_cookies] = 0
+
+php_admin_value[apc.enabled] = 1
+php_admin_value[apc.shm_size] = 64M
+php_admin_value[apc.num_files_hint] = 5000
+php_admin_value[apc.stat] = 0
+
+php_admin_value[opcache.enable] = 1
+php_admin_value[opcache.memory_consumption] = 192
+php_admin_value[opcache.interned_strings_buffer] = 16
+php_admin_value[opcache.max_accelerated_files] = 4000
+php_admin_value[opcache.validate_timestamps] = 0
+php_admin_value[opcache.fast_shutdown] = 1
+
+env[ATOM_DEBUG_IP] = "10.10.10.10,127.0.0.1"
+env[ATOM_READ_ONLY] = "off"

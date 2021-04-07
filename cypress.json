@@ -1,0 +1,7 @@
+{
+  "baseUrl": "http://localhost:63001",
+  "env": {
+    "adminEmail": "demo@example.com",
+    "adminPassword": "demo"
+  }
+}

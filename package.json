@@ -1,0 +1,10 @@
+{
+  "name": "atom",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "cypress": "^7.0.0",
+    "cypress-file-upload": "^5.0.3",
+    "cypress-wait-until": "^1.7.1"
+  }
+}

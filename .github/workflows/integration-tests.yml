@@ -1,0 +1,83 @@
+name: Integration tests
+on:
+  pull_request:
+  push:
+    branches:
+    - qa/**
+    - stable/**
+jobs:
+  integration-tests:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [Chrome, Electron, Firefox]
+    name: ${{ matrix.browser }}
+    env:
+      COMPOSE_FILE: ${{ github.workspace }}/docker/docker-compose.dev.yml
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+    - name: Start containerized services
+      run: |
+        sudo sysctl -w vm.max_map_count=262144
+        docker-compose up -d percona elasticsearch gearmand
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.4
+        coverage: none
+        extensions: apcu, opcache
+    - name: Setup PHP-FPM
+      run: |
+        sudo apt install php7.4-fpm
+        sudo service php7.4-fpm start
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.composer/cache/files
+        key: 20.04-7.4-composer-${{ hashFiles('composer.lock') }}
+    - name: Install dependencies
+      run: composer install
+    - name: Copy config files
+      run: |
+        cp test/bootstrap/config.php config/config.php
+        cp test/bootstrap/search.yml config/search.yml
+        cp test/bootstrap/gearman.yml apps/qubit/config/gearman.yml
+        cp config/propel.ini.tmpl config/propel.ini
+        cp apps/qubit/config/settings.yml.tmpl apps/qubit/config/settings.yml
+    - name: Compile arDominionPlugin theme CSS
+      run: |
+        sudo npm install -g "less@<2.0.0"
+        sudo make -C plugins/arDominionPlugin
+    - name: Change filesystem permissions
+      run: sudo chown -R www-data:www-data ${{ github.workspace }}
+    - name: Wait for containerized services
+      run: sleep 5
+    - name: Initialize database and search index
+      run: sudo -u www-data php symfony tools:purge --demo
+    - name: Start application services
+      run: |
+        sudo cp test/etc/fpm_conf /etc/php/7.4/fpm/pool.d/atom.conf
+        sudo rm /etc/php/7.4/fpm/pool.d/www.conf
+        sudo systemctl restart php7.4-fpm
+        sudo php-fpm7.4 --test
+        sudo cp test/etc/worker_conf /usr/lib/systemd/system/atom-worker.service
+        sudo systemctl daemon-reload
+        sudo systemctl start atom-worker
+    - name: Install and configure Nginx
+      run: |
+        sudo apt install nginx
+        sudo cp test/etc/nginx_conf /etc/nginx/sites-available/atom
+        sudo ln -s /etc/nginx/sites-available/atom /etc/nginx/sites-enabled
+        sudo rm -f /etc/nginx/sites-enabled/default
+        sudo nginx -t
+        sudo systemctl restart nginx
+    - name: Run tests
+      env:
+        BROWSER: ${{ matrix.browser }}
+      run: |
+        docker run -v $PWD:/src -w /src --shm-size=500m --network=host \
+          -e CYPRESS_VIDEO=false -e CYPRESS_BASE_URL=http://localhost \
+          cypress/browsers bash -c \
+          "npm install --only=dev && npx cypress run -b ${BROWSER,}"

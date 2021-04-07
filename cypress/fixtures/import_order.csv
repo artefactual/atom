@@ -1,0 +1,35 @@
+legacyId,parentId,identifier,title,levelOfDescription
+1,,F1,CSV import order fonds,Fonds
+2,1,SA,Series A,Series
+3,2,I01,SA Item 1,Item
+4,2,I02,SA Item 2,Item
+5,2,I03,SA Item 3,Item
+6,2,I04,SA Item 4,Item
+7,2,I05,SA Item 5,Item
+8,2,I06,SA Item 6,Item
+9,2,I07,SA Item 7,Item
+10,2,I08,SA Item 8,Item
+11,2,I09,SA Item 9,Item
+12,2,I10,SA Item 10,Item
+13,2,I11,SA Item 11,Item
+14,2,I12,SA Item 12,Item
+15,2,I13,SA Item 13,Item
+16,2,I14,SA Item 14,Item
+17,2,I15,SA Item 15,Item
+18,1,SB,Series B,Series
+19,18,I01,SB Item 1,Item
+20,18,I02,SB Item 2,Item
+21,18,I03,SB Item 3,Item
+22,18,I04,SB Item 4,Item
+23,18,I05,SB Item 5,Item
+24,18,I06,SB Item 6,Item
+25,18,I07,SB Item 7,Item
+26,18,I08,SB Item 8,Item
+27,18,I09,SB Item 9,Item
+28,18,I10,SB Item 10,Item
+29,1,SC,Series C,Series
+30,29,I01,SC Item 1,Item
+31,29,I02,SC Item 2,Item
+32,29,I03,SC Item 3,Item
+33,29,I04,SC Item 4,Item
+34,29,I05,SC Item 5,Item
