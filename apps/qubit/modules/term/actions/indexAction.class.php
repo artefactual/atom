@@ -116,7 +116,7 @@ class TermIndexAction extends DefaultBrowseAction
                     return;
                 }
 
-                sfContext::getInstance()->getConfiguration()->loadHelpers('Url', 'Qubit');
+                sfContext::getInstance()->getConfiguration()->loadHelpers(['Url', 'Qubit']);
 
                 $response = ['results' => []];
                 foreach ($this->listResultSet->getResults() as $item) {
