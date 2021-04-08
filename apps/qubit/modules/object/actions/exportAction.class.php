@@ -88,7 +88,7 @@ class ObjectExportAction extends DefaultEditAction
         break;
 
       case 'objectType':
-        if (isset($this->objectType))
+        if (isset($this->objectType) && in_array($this->objectType, ['informationObject', 'actor', 'repository']))
         {
           $choices = array(
             $this->objectType => sfConfig::get('app_ui_label_'.strtolower($this->objectType))
@@ -103,7 +103,7 @@ class ObjectExportAction extends DefaultEditAction
           );
         }
 
-        $this->form->setValidator('objectType', new sfValidatorString(array('required' => true)));
+        $this->form->setValidator('objectType', new sfValidatorChoice(array('choices' => array_keys($choices), 'required' => true)));
         $this->form->setWidget('objectType', new sfWidgetFormSelect(array('choices' => $choices)));
 
         break;
@@ -251,7 +251,7 @@ class ObjectExportAction extends DefaultEditAction
         return 'arRepositoryCsvExportJob';
 
       default:
-        throw new sfException("Invalid object type specified: {$this->objectType}");
+        throw new sfException("Invalid object type specified.");
     }
   }
 }
