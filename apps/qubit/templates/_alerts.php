@@ -2,7 +2,7 @@
   <?php if ($sf_user->hasFlash($alertType)) { ?>
     <div class="alert alert-<?php echo $alertType; ?>">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <?php echo $sf_user->getFlash($alertType, ESC_RAW); ?>
+      <?php echo render_value_html($sf_user->getFlash($alertType)); ?>
     </div>
   <?php } ?>
 <?php } ?>
