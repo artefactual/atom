@@ -134,7 +134,7 @@
     </repository>
   <?php } ?>
 
-  <?php if (0 < count(${$resourceVar}->language) || 0 < count(${$resourceVar}->script) || 0 < count(${$resourceVar}->getNotesByType(['noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID])->offsetGet(0))) { ?>
+  <?php if (0 < count(${$resourceVar}->language) || 0 < count(${$resourceVar}->script) || 0 < count(${$resourceVar}->getNotesByType(['noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID]))) { ?>
     <langmaterial encodinganalog="<?php echo $ead->getMetadataParameter('langmaterial'); ?>">
     <?php foreach (${$resourceVar}->language as $languageCode) { ?>
       <language langcode="<?php echo strtolower($iso639convertor->getID2($languageCode)); ?>"><?php echo format_language($languageCode); ?></language>
