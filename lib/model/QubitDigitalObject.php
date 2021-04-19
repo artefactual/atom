@@ -2251,7 +2251,7 @@ class QubitDigitalObject extends BaseDigitalObject
         }
 
         $extension = '.'.self::THUMB_EXTENSION;
-        list($originalNameNoExtension) = explode('.', $this->getName());
+        $originalNameNoExtension = pathinfo($this->getName(), PATHINFO_FILENAME);
         $derivativeName = $originalNameNoExtension.'_'.$usageId.$extension;
 
         // Resize
@@ -2530,7 +2530,7 @@ class QubitDigitalObject extends BaseDigitalObject
         if ($this->derivativesGeneratedFromExternalMaster($this->usageId)) {
             $originalFullPath = $this->getLocalPath();
 
-            list($originalNameNoExtension) = explode('.', $this->getName());
+            $originalNameNoExtension = pathinfo($this->getName(), PATHINFO_FILENAME);
             $derivativeName = $originalNameNoExtension.'_'.$usageId.'.mp3';
 
             $pathParts = pathinfo($this->getLocalPath());
@@ -2551,7 +2551,7 @@ class QubitDigitalObject extends BaseDigitalObject
         } else {
             $originalFullPath = $this->getAbsolutePath();
 
-            list($originalNameNoExtension) = explode('.', $this->getName());
+            $originalNameNoExtension = pathinfo($this->getName(), PATHINFO_FILENAME);
             $derivativeName = $originalNameNoExtension.'_'.$usageId.'.mp3';
 
             $derivativeFullPath = sfConfig::get('sf_web_dir').$this->getPath().$derivativeName;
@@ -2617,13 +2617,24 @@ class QubitDigitalObject extends BaseDigitalObject
     public function createVideoDerivative($usageId, $connection = null)
     {
         // Build new filename and path
-        $originalFullPath = $this->getAbsolutePath();
-        list($originalNameNoExtension) = explode('.', $this->getName());
+        if ($this->derivativesGeneratedFromExternalMaster($this->usageId)) {
+            $originalFullPath = $this->getLocalPath();
+        } else {
+            $originalFullPath = $this->getAbsolutePath();
+        }
+
+        $pathParts = pathinfo($originalFullPath);
+
+        $originalNameNoExtension = pathinfo($this->getName(), PATHINFO_FILENAME);
 
         switch ($usageId) {
             case QubitTerm::REFERENCE_ID:
                 $derivativeName = $originalNameNoExtension.'_'.$usageId.'.mp4';
-                $derivativeFullPath = sfConfig::get('sf_web_dir').$this->getPath().$derivativeName;
+                if ($this->derivativesGeneratedFromExternalMaster($this->usageId)) {
+                    $derivativeFullPath = $pathParts['dirname'].'/'.$derivativeName;
+                } else {
+                    $derivativeFullPath = sfConfig::get('sf_web_dir').$this->getPath().$derivativeName;
+                }
                 self::convertVideoToMp4($originalFullPath, $derivativeFullPath);
 
                 break;
@@ -2632,55 +2643,24 @@ class QubitDigitalObject extends BaseDigitalObject
             default:
                 $extension = '.'.self::THUMB_EXTENSION;
                 $derivativeName = $originalNameNoExtension.'_'.$usageId.$extension;
-                $derivativeFullPath = sfConfig::get('sf_web_dir').$this->getPath().$derivativeName;
+                if ($this->derivativesGeneratedFromExternalMaster($this->usageId)) {
+                    $derivativeFullPath = $pathParts['dirname'].'/'.$derivativeName;
+                } else {
+                    $derivativeFullPath = sfConfig::get('sf_web_dir').$this->getPath().$derivativeName;
+                }
                 $maxDimensions = self::getImageMaxDimensions($usageId);
                 self::convertVideoToThumbnail($originalFullPath, $derivativeFullPath, $maxDimensions[0], $maxDimensions[1]);
         }
 
         if (file_exists($derivativeFullPath) && 0 < ($byteSize = filesize($derivativeFullPath))) {
             $derivative = new QubitDigitalObject();
-            $derivative->setPath($this->getPath());
-            $derivative->setName($derivativeName);
             $derivative->parentId = $this->id;
-            $derivative->setByteSize($byteSize);
             $derivative->usageId = $usageId;
-            $derivative->setMimeAndMediaType();
             $derivative->createDerivatives = false;
             $derivative->indexOnSave = false;
-            $derivative->save($connection);
-
-            return $derivative;
-        }
-        $originalFullPath = $this->getAbsolutePath();
-        list($originalNameNoExtension) = explode('.', $this->getName());
-
-        switch ($usageId) {
-            case QubitTerm::REFERENCE_ID:
-                $derivativeName = $originalNameNoExtension.'_'.$usageId.'.mp4';
-                $derivativeFullPath = sfConfig::get('sf_web_dir').$this->getPath().$derivativeName;
-                self::convertVideoToMp4($originalFullPath, $derivativeFullPath);
-
-                break;
-
-            case QubitTerm::THUMBNAIL_ID:
-            default:
-                $extension = '.'.self::THUMB_EXTENSION;
-                $derivativeName = $originalNameNoExtension.'_'.$usageId.$extension;
-                $derivativeFullPath = sfConfig::get('sf_web_dir').$this->getPath().$derivativeName;
-                $maxDimensions = self::getImageMaxDimensions($usageId);
-                self::convertVideoToThumbnail($originalFullPath, $derivativeFullPath, $maxDimensions[0], $maxDimensions[1]);
-        }
-
-        if (file_exists($derivativeFullPath) && 0 < ($byteSize = filesize($derivativeFullPath))) {
-            $derivative = new QubitDigitalObject();
-            $derivative->setPath($this->getPath());
             $derivative->setName($derivativeName);
-            $derivative->parentId = $this->id;
-            $derivative->setByteSize($byteSize);
-            $derivative->usageId = $usageId;
             $derivative->setMimeAndMediaType();
-            $derivative->createDerivatives = false;
-            $derivative->indexOnSave = false;
+            $derivative->assets[] = new QubitAsset($derivativeName, file_get_contents($derivativeFullPath));
             $derivative->save($connection);
 
             return $derivative;
@@ -2760,7 +2740,7 @@ class QubitDigitalObject extends BaseDigitalObject
         }
 
         // Do conversion to jpeg
-        $command = "ffmpeg -ss {$thumbnailPosition} -i {$originalPath} -vframes 1 -vf \"scale='min({$width},iw):-1'\" {$newPath}";
+        $command = "ffmpeg -y -ss {$thumbnailPosition} -i {$originalPath} -vframes 1 -vf \"scale='min({$width},iw):-1'\" {$newPath}";
         exec($command.' 2>&1', $output, $status);
 
         chmod($newPath, 0644);
