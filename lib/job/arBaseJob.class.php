@@ -109,11 +109,13 @@ class arBaseJob extends Net_Gearman_Job_Common
             $this->signOut();
 
             $this->info($this->i18n->__('Job finished.'));
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             // TODO: Create undoJob() functions in subclasses for cleanups
 
             // Mark QubitJob as failed
             $this->error('Exception: '.$e->getMessage());
+            $this->error('File: '.$e->getFile());
+            $this->error('Line: '.$e->getLine());
         }
     }
 
