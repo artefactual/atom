@@ -26,6 +26,7 @@
 class DefaultFullTreeViewAction extends sfAction
 {
     protected $ancestorIds = [];
+    protected $lodNames = [];
 
     public function execute($request)
     {
@@ -291,9 +292,18 @@ class DefaultFullTreeViewAction extends sfAction
             $node['li_attr'] = ['selected_on_load' => true];
         }
 
-        // Set root item's parent to hash symbol for jstree compatibility
-        if (QubitInformationObject::ROOT_ID == $data['parentId']) {
-            $node['icon'] = 'fa fa-archive';
+        if (!empty($data['levelOfDescriptionId'])) {
+            $lod = $data['levelOfDescriptionId'];
+
+            // Cache English LOD names
+            if (empty($this->lodNames[$lod]) && null !== $lodTerm = QubitTerm::getById($lod)) {
+                $this->lodNames[$lod] = $lodTerm->getName(['sourceCulture' => true]);
+            }
+
+            // Set type as LOD so specific icons can be used
+            if (!empty($this->lodNames[$lod])) {
+                $node['type'] = $this->lodNames[$lod];
+            }
         }
 
         // Add <a> element attributes
