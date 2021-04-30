@@ -3,20 +3,20 @@
     <!--
         *******************************************************************
         *                                                                 *
-        * VERSION:          1.0                                           *
+        * VERSION:      1.0                                               *
         *                                                                 *
-        * AUTHOR:           Winona Salesky                                *
-        *                   wsalesky@gmail.com                            *
+        * AUTHOR:       Winona Salesky                                    *
+        *               wsalesky@gmail.com                                *
         *                                                                 *
-        * MODIFIED BY:      mikeg@artefactual.com                         *
+        * MODIFIED BY:  mikeg@artefactual.com                             *
         *                                                                 *
-        * DATE:             2013-08-21                                    *
+        * DATE:         2013-08-21                                        *
         *                                                                 *
         *******************************************************************
     -->
     <xsl:output method="xml" encoding="utf-8" indent="yes"/>
     <!-- Calls a stylesheet with local functions and lookup lists for languages and subject authorities -->
-    <xsl:include href="helper-functions.xsl"/>
+    <xsl:include href="{{ app_root }}/lib/task/pdf/helper-functions.xsl"/>
     <xsl:strip-space elements="*"/>
     <!-- The following attribute sets are reusabe styles used throughout the stylesheet. -->
     <!-- Headings -->
@@ -251,28 +251,16 @@
     <!-- Cover page templates -->
     <!-- Builds title -->
     <xsl:template match="ead:titlestmt" mode="pageHeader">
-        <!-- Uses filing type title if present -->
-        <xsl:choose>
-            <xsl:when test="ead:titleproper[@type='filing']">
-                <xsl:apply-templates select="ead:titleproper[@type='filing']"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="ead:titleproper[1]"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="ead:titleproper[1]"/>
     </xsl:template>
     <xsl:template match="ead:titlestmt" mode="coverPage">
         <!-- Calls template with links to archive icon -->
         <fo:block border-bottom="1pt solid #666" margin-top="0in" id="cover-page">
             <fo:block xsl:use-attribute-sets="h1" linefeed-treatment="preserve">
-                <xsl:choose>
-                    <xsl:when test="ead:titleproper[@type='filing']">
-                        Finding Aid - <xsl:apply-templates select="ead:titleproper[@type='filing']"/>
-                    </xsl:when>
-                    <xsl:otherwise><fo:external-graphic src="images/pdf-logo.png" height="4cm" width="3.5cm" content-width="scale-to-fit" content-height="scale-to-fit"/><xsl:text> </xsl:text><xsl:apply-templates select="(//ead:repository/ead:corpname)[1]"/><fo:block/>
-                        Finding Aid - <xsl:apply-templates select="ead:titleproper[1]"/> (<xsl:value-of select="//ead:eadid"/>)
-                    </xsl:otherwise>
-                </xsl:choose>
+                <fo:external-graphic src="{{ app_root }}/images/pdf-logo.png" height="4cm" width="3.5cm" content-width="scale-to-fit" content-height="scale-to-fit"/>
+                <xsl:text> </xsl:text>
+                <xsl:apply-templates select="(//ead:repository/ead:corpname)[1]"/>
+                Finding Aid - <xsl:apply-templates select="ead:titleproper[1]"/> (<xsl:value-of select="//ead:eadid"/>)
             </fo:block>
             <xsl:if test="ead:subtitle">
                 <fo:block font-size="16" font-weight="bold">
@@ -286,8 +274,6 @@
         <fo:block margin-top="8pt">
             <xsl:apply-templates select="/ead:ead/ead:eadheader/ead:filedesc/ead:editionstmt"/>
         </fo:block>
-        <!-- Logo in middle of cover page: -->
-        <!-- Atom: <xsl:call-template name="icon"/>-->
     </xsl:template>
     <xsl:template match="ead:publicationstmt" mode="coverPage">
         <fo:block margin="0 0.3in">
@@ -552,8 +538,8 @@
                                             </xsl:if>
                                             <xsl:apply-templates select="(child::*/ead:unittitle[not(ead:bibseries)])[1]"/>
                                             <xsl:if test="(child::*/ead:unitdate)[1]">
-                                             (<xsl:apply-templates select="(child::*/ead:unitdate)[1]" mode="did"/>)
-                                        </xsl:if>
+                                                (<xsl:apply-templates select="(child::*/ead:unitdate)[1]" mode="did"/>)
+                                            </xsl:if>
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </fo:basic-link>
@@ -1312,8 +1298,9 @@
         </fo:block>
     </xsl:template>
     <!--
-        Calls the clevel template passes the calculates the level of current component in xml tree and passes it to clevel template via the level parameter
-        Adds a row to with a link to top if level series
+        Calls the clevel template passes the calculates the level of current
+        component in xml tree and passes it to clevel template via the level
+        parameter. Adds a row to with a link to top if level series
     -->
     <xsl:template match="ead:c | ead:c01 | ead:c02 | ead:c03 | ead:c04 | ead:c05 | ead:c06 | ead:c07 | ead:c08 | ead:c09 | ead:c10 | ead:c11 | ead:c12">
         <xsl:variable name="findClevel" select="count(ancestor::*[not(ead:dsc or ead:archdesc or ead:ead)])"/>

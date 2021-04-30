@@ -31,6 +31,7 @@ class arFindingAidJob extends arBaseJob
     protected $extraRequiredParameters = ['objectId'];
 
     private $resource;
+    private $appRoot;
 
     public function runJob($parameters)
     {
@@ -129,7 +130,7 @@ class arFindingAidJob extends arBaseJob
     {
         $this->info($this->i18n->__('Generating finding aid (%1)...', ['%1' => $this->resource->slug]));
 
-        $appRoot = rtrim(sfConfig::get('sf_root_dir'), '/');
+        $this->appRoot = rtrim(sfConfig::get('sf_root_dir'), '/');
 
         $eadFileHandle = tmpfile();
         $foFileHandle = tmpfile();
@@ -156,7 +157,7 @@ class arFindingAidJob extends arBaseJob
         // Call generate EAD task
         $slug = $this->resource->slug;
         $output = [];
-        exec(PHP_BINARY." {$appRoot}/symfony export:bulk --single-slug=\"{$slug}\" {$public} {$eadFilePath} 2>&1", $output, $exitCode);
+        exec(PHP_BINARY." {$this->appRoot}/symfony export:bulk --single-slug=\"{$slug}\" {$public} {$eadFilePath} 2>&1", $output, $exitCode);
 
         if ($exitCode > 0) {
             $this->error($this->i18n->__('Exporting EAD has failed.'));
@@ -171,17 +172,24 @@ class arFindingAidJob extends arBaseJob
             $findingAidModel = $setting->getValue(['sourceCulture' => true]);
         }
 
-        $eadXslFilePath = $appRoot.'/lib/task/pdf/ead-pdf-'.$findingAidModel.'.xsl';
-        $saxonPath = $appRoot.'/lib/task/pdf/saxon9he.jar';
+        $eadXslFilePath = $this->appRoot.'/lib/task/pdf/ead-pdf-'.$findingAidModel.'.xsl';
+        $saxonPath = $this->appRoot.'/lib/task/pdf/saxon9he.jar';
 
         // Crank the XML through XSL stylesheet and fix header / fonds URL
         $eadFileString = file_get_contents($eadFilePath);
         $eadFileString = $this->fixHeader($eadFileString, sfConfig::get('app_site_base_url', null));
         file_put_contents($eadFilePath, $eadFileString);
 
+        // Replace {{ app_root }} placeholder var with the $this->appRoot value, and
+        // return the temp XSL file path for Saxon processing
+        $xslTmpPath = $this->renderXsl(
+            $eadXslFilePath,
+            ['app_root' => $this->appRoot]
+        );
+
         // Transform EAD file with Saxon
         $pdfPath = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.self::getFindingAidPath($this->resource->id);
-        $cmd = sprintf("java -jar '%s' -s:'%s' -xsl:'%s' -o:'%s' 2>&1", $saxonPath, $eadFilePath, $eadXslFilePath, $foFilePath);
+        $cmd = sprintf("java -jar '%s' -s:'%s' -xsl:'%s' -o:'%s' 2>&1", $saxonPath, $eadFilePath, $xslTmpPath, $foFilePath);
         $this->info(sprintf('Running: %s', $cmd));
         $output = [];
         exec($cmd, $output, $exitCode);
@@ -236,6 +244,23 @@ class arFindingAidJob extends arBaseJob
         fclose($foFileHandle);
 
         return true;
+    }
+
+    private function renderXsl($filename, $vars)
+    {
+        // Get XSL file contents
+        $content = file_get_contents($filename);
+
+        // Replace placeholder vars (e.g. "{{ app_root }}")
+        foreach ($vars as $key => $val) {
+            $content = str_replace("{{ {$key} }}", $val, $content);
+        }
+
+        // Write contents to temp file for processing with Saxon
+        $tmpFilePath = tempnam(sys_get_temp_dir(), 'ATM');
+        file_put_contents($tmpFilePath, $content);
+
+        return $tmpFilePath;
     }
 
     private function upload($path)

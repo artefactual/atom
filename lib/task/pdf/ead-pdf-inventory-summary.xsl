@@ -3,20 +3,20 @@
     <!--
         *******************************************************************
         *                                                                 *
-        * VERSION:          1.0                                           *
+        * VERSION:      1.0                                               *
         *                                                                 *
-        * AUTHOR:           Winona Salesky                                *
-        *                   wsalesky@gmail.com                            *
+        * AUTHOR:       Winona Salesky                                    *
+        *               wsalesky@gmail.com                                *
         *                                                                 *
-        * MODIFIED BY:      mikeg@artefactual.com                         *
+        * MODIFIED BY:  mikeg@artefactual.com                             *
         *                                                                 *
-        * DATE:             2013-08-21                                    *
+        * DATE:         2013-08-21                                        *
         *                                                                 *
         *******************************************************************
     -->
     <xsl:output method="xml" encoding="utf-8" indent="yes"/>
     <!-- Calls a stylesheet with local functions and lookup lists for languages and subject authorities -->
-    <xsl:include href="helper-functions.xsl"/>
+    <xsl:include href="{{ app_root }}/lib/task/pdf/helper-functions.xsl"/>
     <xsl:strip-space elements="*"/>
     <!-- The following attribute sets are reusabe styles used throughout the stylesheet. -->
     <!-- Headings -->
@@ -248,34 +248,24 @@
     <!-- Cover page templates -->
     <!-- Builds title -->
     <xsl:template match="ead:titlestmt" mode="pageHeader">
-        <!-- Uses filing type title if present -->
-        <xsl:choose>
-            <xsl:when test="ead:titleproper[@type='filing']">
-                <xsl:apply-templates select="ead:titleproper[@type='filing']"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="ead:titleproper[1]"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="ead:titleproper[1]"/>
     </xsl:template>
     <xsl:template match="ead:titlestmt" mode="coverPage">
         <!-- Calls template with links to archive icon -->
         <fo:block border-bottom="1pt solid #666" margin-top="0in" id="cover-page">
             <fo:block xsl:use-attribute-sets="h1" linefeed-treatment="preserve">
-                <xsl:choose>
-                    <xsl:when test="ead:titleproper[@type='filing']">
-                        Finding Aid - <xsl:apply-templates select="ead:titleproper[@type='filing']"/>
-                    </xsl:when>
-                    <xsl:otherwise><fo:external-graphic src="images/pdf-logo.png" height="4cm" width="3.5cm" content-width="scale-to-fit" content-height="scale-to-fit"/><xsl:text> </xsl:text><xsl:apply-templates select="(//ead:repository/ead:corpname)[1]"/><fo:block/>
-                        Finding Aid - <xsl:apply-templates select="ead:titleproper[1]"/> (<xsl:value-of select="//ead:eadid"/>)
-                    </xsl:otherwise>
-                </xsl:choose>
+                <fo:external-graphic src="{{ app_root }}/images/pdf-logo.png" height="4cm" width="3.5cm" content-width="scale-to-fit" content-height="scale-to-fit"/>
+                <xsl:text> </xsl:text>
+                <xsl:apply-templates select="(//ead:repository/ead:corpname)[1]"/>
+                Finding Aid -
+                <xsl:apply-templates select="ead:titleproper[1]"/>
+                (<xsl:value-of select="//ead:eadid"/>)
+                <xsl:if test="ead:subtitle">
+                    <fo:block font-size="16" font-weight="bold">
+                        <xsl:apply-templates select="ead:subtitle"/>
+                    </fo:block>
+                </xsl:if>
             </fo:block>
-            <xsl:if test="ead:subtitle">
-                <fo:block font-size="16" font-weight="bold">
-                    <xsl:apply-templates select="ead:subtitle"/>
-                </fo:block>
-            </xsl:if>
         </fo:block>
         <fo:block margin-top="8pt">
             <xsl:apply-templates select="/ead:ead/ead:eadheader/ead:profiledesc"/>
@@ -283,8 +273,6 @@
         <fo:block margin-top="8pt">
             <xsl:apply-templates select="/ead:ead/ead:eadheader/ead:filedesc/ead:editionstmt"/>
         </fo:block>
-        <!-- Logo in middle of cover page: -->
-        <!-- Atom: <xsl:call-template name="icon"/>-->
     </xsl:template>
     <xsl:template match="ead:publicationstmt" mode="coverPage">
         <fo:block margin="0 0.3in">
@@ -557,7 +545,8 @@
                                         <xsl:apply-templates select="child::*/ead:head"/>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:if test="child::*/ead:unitid"><xsl:value-of select="child::*/ead:unitid"/>,
+                                        <xsl:if test="child::*/ead:unitid">
+                                            <xsl:value-of select="child::*/ead:unitid"/>,
                                         </xsl:if>
                                         <xsl:choose>
                                             <xsl:when test="child::*/ead:unitdate"><xsl:apply-templates select="child::*/ead:unittitle"/>,
@@ -583,7 +572,8 @@
                                             <xsl:apply-templates select="child::*/ead:head"/>
                                         </xsl:when>
                                         <xsl:otherwise>
-                                            <xsl:if test="child::*/ead:unitid"><xsl:value-of select="child::*/ead:unitid"/>,
+                                            <xsl:if test="child::*/ead:unitid">
+                                                <xsl:value-of select="child::*/ead:unitid"/>,
                                             </xsl:if>
                                             <xsl:apply-templates select="child::*/ead:unittitle"/>
                                         </xsl:otherwise>
@@ -674,11 +664,11 @@
         <fo:table-row>
             <fo:table-cell padding-bottom="8pt" padding-right="16pt" text-align="right" font-weight="bold">
                 <fo:block><xsl:choose><!-- Test for label attribute used by origination element --><xsl:when test="@label"><xsl:value-of select="concat(upper-case(substring(@label,1,1)),substring(@label,2))"/><xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if><xsl:if test="self::ead:origination"><xsl:choose><xsl:when test="ead:persname[@role != ''] and contains(ead:persname/@role,' (')">
-                                    - <xsl:value-of select="substring-before(ead:persname/@role,' (')"/>
-                                </xsl:when><xsl:when test="ead:persname[@role != '']">
-                                    - <xsl:value-of select="ead:persname/@role"/>
-                                </xsl:when><xsl:otherwise/></xsl:choose></xsl:if></xsl:when><xsl:otherwise><xsl:value-of select="local:tagName(.)"/><!-- Test for type attribute used by unitdate --><xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if></xsl:otherwise></xsl:choose>:
-                </fo:block>
+                    - <xsl:value-of select="substring-before(ead:persname/@role,' (')"/>
+                  </xsl:when><xsl:when test="ead:persname[@role != '']">
+                    - <xsl:value-of select="ead:persname/@role"/>
+                  </xsl:when><xsl:otherwise/></xsl:choose></xsl:if></xsl:when><xsl:otherwise><xsl:value-of select="local:tagName(.)"/><!-- Test for type attribute used by unitdate --><xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if></xsl:otherwise></xsl:choose>:
+        </fo:block>
             </fo:table-cell>
             <fo:table-cell padding-bottom="2pt">
                 <fo:block>
@@ -705,7 +695,8 @@
         <xsl:param name="label"/>
         <fo:table-row>
             <fo:table-cell padding-bottom="8pt" padding-right="16pt" text-align="right" font-weight="bold">
-                <fo:block><xsl:value-of select="$label"/>:
+                <fo:block>
+                    <xsl:value-of select="$label"/>:
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell padding-bottom="2pt">
@@ -749,8 +740,10 @@
                             </fo:list-item-label>
                             <fo:list-item-body start-indent="body-start()">
                                 <fo:block>
-                                    <!-- We have other <odd> elements used elsewhere, such as title notes.
-                                     only print the <odd> elements we've *handled* here in this section. -->
+                                    <!-- We have other <odd> elements used
+                                    elsewhere, such as title notes. Only print
+                                    the <odd> elements we've *handled* here in
+                                    this section. -->
                                     <fo:inline text-decoration="underline" font-weight="bold">
                                         <xsl:value-of select="$otherNoteHeading"/>
                                     </fo:inline>
@@ -784,8 +777,9 @@
                 </xsl:variable>
                 <xsl:if test="string-length($otherNoteHeading) &gt; 0">
                     <fo:block font-size="12" padding="2" margin="2">
-                        <!-- We have other <odd> elements used elsewhere, such as title notes.
-                             only print the <odd> elements we've *handled* here in this section. -->
+                        <!-- We have other <odd> elements used elsewhere, such
+                        as title notes. only print the <odd> elements we've
+                        *handled* here in this section. -->
                         <fo:inline text-decoration="underline" margin="2">
                             <xsl:value-of select="$otherNoteHeading"/>
                         </fo:inline>
@@ -881,7 +875,7 @@
                     <xsl:if test="name()='genreform'"> (documentary form)</xsl:if>
                     <xsl:if test="name()='subject'"> (subject)</xsl:if>
                     <xsl:if test="name()='geogname'"> (place)</xsl:if>
-                    <xsl:if test="name()='name' | name()='persname'">
+                    <xsl:if test="name()='name' or name()='persname'">
                         <xsl:if test="current()[@role='Creator']"> (creator)</xsl:if>
                         <xsl:if test="current()[@role='subject']"> (subject)</xsl:if>
                     </xsl:if>
@@ -1105,11 +1099,9 @@
     </xsl:template>
     <xsl:template match="ead:note">
         <xsl:choose>
-            <xsl:when test="parent::ead:notestmt">
-                <xsl:apply-templates/>
-            </xsl:when>
-            <!-- Atom: Do not write "Note:" header when it's a note inside creation event: -->
-            <xsl:when test="parent::ead:event">
+            <!-- AtoM: Do not write "Note:" header when it's a note inside a
+            notestmt or event  -->
+            <xsl:when test="parent::ead:notestmt | parent::ead:event">
                 <xsl:apply-templates/>
             </xsl:when>
             <xsl:otherwise>
@@ -1121,9 +1113,7 @@
                         <xsl:apply-templates/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <fo:block xsl:use-attribute-sets="h4ID">
-                            Note
-                        </fo:block>
+                        <fo:block xsl:use-attribute-sets="h4ID">Note</fo:block>
                         <xsl:apply-templates/>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -1268,12 +1258,16 @@
         </fo:inline>
     </xsl:template>
     <xsl:template match="*[@render = 'bolddoublequote'] | *[@altrender = 'bolddoublequote']">
-        <fo:inline font-weight="bold"><xsl:if test="preceding-sibling::*">
-             </xsl:if>"<xsl:apply-templates/>"</fo:inline>
+        <fo:inline font-weight="bold">
+            <xsl:if test="preceding-sibling::*">  </xsl:if>
+            "<xsl:apply-templates/>"
+        </fo:inline>
     </xsl:template>
     <xsl:template match="*[@render = 'boldsinglequote'] | *[@altrender = 'boldsinglequote']">
-        <fo:inline font-weight="bold"><xsl:if test="preceding-sibling::*">
-             </xsl:if>'<xsl:apply-templates/>'</fo:inline>
+        <fo:inline font-weight="bold">
+            <xsl:if test="preceding-sibling::*">  </xsl:if>
+            '<xsl:apply-templates/>'
+        </fo:inline>
     </xsl:template>
     <xsl:template match="*[@render = 'bolditalic'] | *[@altrender = 'bolditalic']">
         <fo:inline font-weight="bold" font-style="italic">
@@ -1354,7 +1348,7 @@
                     <fo:table-column column-number="3" column-width="1.3in"/>
                     <fo:table-column column-number="4" column-width="2.1in"/>
                     <fo:table-body start-indent="0in">
-                        <xsl:if test="child::*[@level][1][@level='item' | @level='file' | @level='otherlevel']">
+                        <xsl:if test="child::*[@level][1][@level='item' or @level='file' or @level='otherlevel']">
                             <xsl:call-template name="tableHeaders"/>
                         </xsl:if>
                         <xsl:apply-templates select="*[not(self::ead:head)]"/>
@@ -1364,8 +1358,9 @@
         </xsl:if>
     </xsl:template>
     <!--
-        Calls the clevel template passes the calculates the level of current component in xml tree and passes it to clevel template via the level parameter
-        Adds a row to with a link to top if level series
+        Calls the clevel template passes the calculates the level of current
+        component in xml tree and passes it to clevel template via the level
+        parameter. Adds a row to with a link to top if level series
     -->
     <xsl:template match="ead:c | ead:c01 | ead:c02 | ead:c03 | ead:c04 | ead:c05 | ead:c06 | ead:c07 | ead:c08 | ead:c09 | ead:c10 | ead:c11 | ead:c12">
         <xsl:variable name="findClevel" select="count(ancestor::*[not(ead:dsc | ead:archdesc | ead:ead)])"/>
@@ -1380,7 +1375,7 @@
             </fo:table-row>
         </xsl:if>
     </xsl:template>
-    <!--This is a named template that processes all the components -->
+    <!-- This is a named template that processes all the components -->
     <xsl:template name="clevel">
         <!-- Establishes which level is being processed in order to provided indented displays. -->
         <xsl:param name="level"/>
@@ -1404,7 +1399,7 @@
         </xsl:variable>
         <xsl:choose>
             <!--Formats Series and Groups -->
-            <xsl:when test="@level='subcollection' | @level='subgrp' | @level='series' | @level='subseries' | @level='collection'| @level='fonds' | @level='recordgrp' | @level='subfonds' | @level='class' | (@level='otherlevel' and not(parent::ead:c[@level='series']))">
+            <xsl:when test="@level='subcollection' or @level='subgrp' or @level='series' or @level='subseries' or @level='collection'or @level='fonds' or @level='recordgrp' or @level='subfonds' or @level='class' or (@level='otherlevel' and not(parent::ead:c[@level='series']))">
                 <fo:table-row background-color="#ffffff" border-top="1pt solid #000" text-align="left">
                     <fo:table-cell margin-left="{$clevelMargin}" padding-top="4pt" number-columns-spanned="4">
                         <xsl:apply-templates select="ead:did" mode="dscSeriesTitle"/>
@@ -1413,7 +1408,7 @@
                     </fo:table-cell>
                 </fo:table-row>
                 <!-- Adds column headings if series/subseries is followed by an item -->
-                <xsl:if test="child::*[@level][1][@level='item' | @level='file' | @level='otherlevel']">
+                <xsl:if test="child::*[@level][1][@level='item' or @level='file' or @level='otherlevel']">
                     <fo:table-row border-top="1px solid #000" border-bottom="1pt solid #000" margin-top="3pt">
                         <fo:table-cell margin-left="{$clevelMargin}" padding-top="4pt" number-columns-spanned="4">
                             <fo:block text-align="center" xsl:use-attribute-sets="h4">
@@ -1507,8 +1502,6 @@
                 </xsl:choose>
             </xsl:if>
             <xsl:apply-templates select="ead:unittitle"/>
-            <!--<xsl:if test="(string-length(ead:unittitle[1]) &gt; 1) and (string-length(ead:unitdate[1]) &gt; 1)"></xsl:if>
-            <xsl:apply-templates select="ead:unitdate" mode="did"/>-->
         </fo:block>
     </xsl:template>
     <!-- Series child elements -->
@@ -1544,7 +1537,19 @@
     </xsl:template>
     <!-- Single row unittitles and all other clevel elements -->
     <xsl:template match="ead:did" mode="dsc">
-        <fo:block margin-bottom="0"><xsl:if test="parent::ead:c[@level]"><xsl:choose><xsl:when test="parent::ead:c/@otherlevel"><xsl:call-template name="ucfirst"><xsl:with-param name="value" select="parent::ead:c/@otherlevel"/></xsl:call-template></xsl:when><xsl:otherwise><xsl:call-template name="ucfirst"><xsl:with-param name="value" select="parent::ead:c/@level"/></xsl:call-template></xsl:otherwise></xsl:choose></xsl:if>
+        <fo:block margin-bottom="0">
+            <xsl:if test="parent::ead:c[@level]">
+                <xsl:choose>
+                    <xsl:when test="parent::ead:c/@otherlevel">
+                        <xsl:call-template name="ucfirst">
+                        <xsl:with-param name="value" select="parent::ead:c/@otherlevel"/></xsl:call-template>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:call-template name="ucfirst">
+                        <xsl:with-param name="value" select="parent::ead:c/@level"/></xsl:call-template>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
             - <xsl:apply-templates select="ead:unittitle"/>
         </fo:block>
     </xsl:template>
@@ -1566,20 +1571,50 @@
     </xsl:template>
     <!-- Special formatting for series elements in the collection inventory list -->
     <xsl:template match="ead:repository | ead:origination | ead:unitdate | ead:unitid | ead:scopecontent | ead:physdesc | ead:physloc | ead:materialspec | ead:container | ead:abstract | ead:note | ead:phystech | ead:acqinfo | ead:arrangement | ead:originalsloc | ead:altformavail | ead:accessrestrict | ead:userestrict | ead:otherfindaid | ead:relatedmaterial | ead:accruals | ead:odd" mode="dsc">
-        <fo:block xsl:use-attribute-sets="smpDsc"><fo:inline text-decoration="underline"><xsl:choose><!-- Test for label attribute used by origination element --><xsl:when test="@label"><xsl:value-of select="concat(upper-case(substring(@label,1,1)),substring(@label,2))"/><xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if><xsl:if test="self::ead:origination"><xsl:choose><xsl:when test="ead:persname[@role != ''] and contains(ead:persname/@role,' (')">
-                                - <xsl:value-of select="substring-before(ead:persname/@role,' (')"/>
-                            </xsl:when><xsl:when test="ead:persname[@role != '']">
-                                - <xsl:value-of select="ead:persname/@role"/>
-                            </xsl:when><xsl:otherwise/></xsl:choose></xsl:if></xsl:when><xsl:otherwise><xsl:value-of select="local:tagName(.)"/><xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if></xsl:otherwise></xsl:choose></fo:inline>: <xsl:apply-templates/><xsl:if test="@datechar"> (<xsl:value-of select="@datechar"/>)</xsl:if><xsl:if test="name()='unitdate'"> (date of creation)</xsl:if></fo:block>
+        <fo:block xsl:use-attribute-sets="smpDsc">
+            <fo:inline text-decoration="underline">
+                <xsl:choose>
+                    <!-- Test for label attribute used by origination element -->
+                    <xsl:when test="@label">
+                        <xsl:value-of select="concat(upper-case(substring(@label,1,1)),substring(@label,2))"/>
+                        <xsl:if test="@type">
+                            [<xsl:value-of select="@type"/>]
+                        </xsl:if>
+                        <xsl:if test="self::ead:origination">
+                            <xsl:choose>
+                                <xsl:when test="ead:persname[@role != ''] and contains(ead:persname/@role,' (')">
+                                    - <xsl:value-of select="substring-before(ead:persname/@role,' (')"/>
+                                </xsl:when>
+                                <xsl:when test="ead:persname[@role != '']">
+                                    - <xsl:value-of select="ead:persname/@role"/>
+                                </xsl:when>
+                            </xsl:choose>
+                        </xsl:if>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="local:tagName(.)"/>
+                        <xsl:if test="@type">
+                            [<xsl:value-of select="@type"/>]
+                        </xsl:if>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </fo:inline>: <xsl:apply-templates/>
+            <xsl:if test="@datechar">
+                (<xsl:value-of select="@datechar"/>)
+            </xsl:if>
+            <xsl:if test="name()='unitdate'">
+                (date of creation)
+            </xsl:if>
+        </fo:block>
     </xsl:template>
     <!-- Special formatting for file/item table elements -->
     <xsl:template match="ead:origination | ead:scopecontent | ead:materialspec | ead:physloc | ead:note | ead:accessrestrict | ead:userestrict" mode="itemDsc">
         <fo:block><fo:inline font-style="italic"><xsl:choose><!-- Test for label attribute used by origination element --><xsl:when test="@label"><xsl:value-of select="concat(upper-case(substring(@label,1,1)),substring(@label,2))"/><xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if><xsl:if test="self::ead:origination"><xsl:choose><xsl:when test="ead:persname[@role != ''] and contains(ead:persname/@role,' (')">
-                                    - <xsl:value-of select="substring-before(ead:persname/@role,' (')"/>
-                                </xsl:when><xsl:when test="ead:persname[@role != '']">
-                                    - <xsl:value-of select="ead:persname/@role"/>
-                                </xsl:when><xsl:otherwise/></xsl:choose></xsl:if></xsl:when><xsl:otherwise><xsl:value-of select="local:tagName(.)"/><xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if></xsl:otherwise></xsl:choose></fo:inline>:
-            <fo:block margin="4pt 0 4pt 6pt"><xsl:value-of select="."/><xsl:if test="@datechar"> (<xsl:value-of select="@datechar"/>)</xsl:if><xsl:if test="name()='unitdate'"> (date of creation)</xsl:if></fo:block></fo:block>
+                  - <xsl:value-of select="substring-before(ead:persname/@role,' (')"/>
+                </xsl:when><xsl:when test="ead:persname[@role != '']">
+                  - <xsl:value-of select="ead:persname/@role"/>
+                </xsl:when><xsl:otherwise/></xsl:choose></xsl:if></xsl:when><xsl:otherwise><xsl:value-of select="local:tagName(.)"/><xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if></xsl:otherwise></xsl:choose></fo:inline>:
+      <fo:block margin="4pt 0 4pt 6pt"><xsl:value-of select="."/><xsl:if test="@datechar"> (<xsl:value-of select="@datechar"/>)</xsl:if><xsl:if test="name()='unitdate'"> (date of creation)</xsl:if></fo:block></fo:block>
     </xsl:template>
     <!--
     <xsl:template match="ead:relatedmaterial | ead:separatedmaterial | ead:accessrestrict | ead:userestrict |
@@ -1588,7 +1623,7 @@
         <xsl:if test="child::*">
             <fo:block xsl:use-attribute-sets="smpDsc">
                 <fo:inline text-decoration="underline"><xsl:value-of select="local:tagName(.)"/>:</fo:inline>
-            <xsl:apply-templates select="child::*[not(ead:head)]"/>
+                <xsl:apply-templates select="child::*[not(ead:head)]"/>
             </fo:block>
         </xsl:if>
     </xsl:template>
@@ -1619,8 +1654,22 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <fo:block xsl:use-attribute-sets="smpDsc"><fo:inline text-decoration="underline"><xsl:choose><!-- Test for label attribute used by origination element --><xsl:when test="@label"><xsl:value-of select="concat(upper-case(substring(@label,1,1)),substring(@label,2))"/></xsl:when><xsl:otherwise><xsl:value-of select="local:tagName(.)"/></xsl:otherwise></xsl:choose></fo:inline>:
-            <fo:basic-link external-destination="url('{@*:href}')" xsl:use-attribute-sets="ref"><xsl:value-of select="$title"/></fo:basic-link></fo:block>
+        <fo:block xsl:use-attribute-sets="smpDsc">
+            <fo:inline text-decoration="underline">
+                <xsl:choose>
+                    <!-- Test for label attribute used by origination element -->
+                    <xsl:when test="@label">
+                        <xsl:value-of select="concat(upper-case(substring(@label,1,1)),substring(@label,2))"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="local:tagName(.)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </fo:inline>:
+            <fo:basic-link external-destination="url('{@*:href}')" xsl:use-attribute-sets="ref">
+                <xsl:value-of select="$title"/>
+            </fo:basic-link>
+        </fo:block>
     </xsl:template>
     <!-- Everything else in the dsc -->
     <xsl:template mode="dsc" match="*">
