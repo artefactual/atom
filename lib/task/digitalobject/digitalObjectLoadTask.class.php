@@ -22,7 +22,7 @@
  *
  * @author     David Juhasz <david@artefactual.com>
  */
-class digitalObjectLoadTask extends sfBaseTask
+class digitalObjectLoadTask extends arBaseTask
 {
     protected static $count = 0;
 
@@ -39,7 +39,8 @@ class digitalObjectLoadTask extends sfBaseTask
      */
     public function execute($arguments = [], $options = [])
     {
-        sfContext::createInstance($this->configuration);
+        parent::execute($arguments, $options);
+
         $databaseManager = new sfDatabaseManager($this->configuration);
         $options['conn'] = $databaseManager->getDatabase('propel')->getConnection();
 
