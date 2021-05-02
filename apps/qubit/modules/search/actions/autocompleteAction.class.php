@@ -27,9 +27,9 @@ class SearchAutocompleteAction extends sfAction
         // Store user query string, erase wildcards
         $this->queryString = strtr($request->query, ['*' => '', '?' => '']);
 
-        // If the query is empty, don't query
+        // If the query is empty, don't query and return blank response
         if (1 === preg_match('/^[\s\t\r\n]*$/', $this->queryString)) {
-            $this->forward404();
+            return sfView::NONE;
         }
 
         // Should I be doing this in ES with search_analyzer?
@@ -120,9 +120,9 @@ class SearchAutocompleteAction extends sfAction
         $this->places = $resultSets[3];
         $this->subjects = $resultSets[4];
 
-        // Return a 404 response if there are no results
+        // Return a blank response if there are no results
         if (0 == $this->descriptions->getTotalHits() + $this->repositories->getTotalHits() + $this->actors->getTotalHits() + $this->places->getTotalHits() + $this->subjects->getTotalHits()) {
-            $this->forward404();
+            return sfView::NONE;
         }
 
         // Fix route params for "all matching ..." links, IO browse uses
