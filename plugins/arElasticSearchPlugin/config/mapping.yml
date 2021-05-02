@@ -494,6 +494,7 @@ mapping:
         - physicalDescriptionNotes.content
         - continuationOfTitleNotes.content
         - archivistsNotes.content
+        - publicationNotes.content
     _partial_foreign_types:
       part_of:
         _i18nFields: [title]
@@ -537,6 +538,7 @@ mapping:
       physical_description_notes: note
       continuation_of_title_notes: note
       archivists_notes: note
+      publication_notes: note
     dynamic: strict
     properties:
       slug: { type: keyword }
