@@ -57,9 +57,8 @@ class SettingsPermissionsAction extends sfAction
                 $this->resource = new QubitInformationObject();
 
                 $this->permissionsCopyrightStatementForm->bind($request->getPostParameters());
-                $statement = $this->permissionsCopyrightStatementForm->getValue('copyrightStatement');
-                $statement = QubitHtmlPurifier::getInstance()->purify($statement);
-                $this->copyrightStatement = $this->permissionsCopyrightStatementForm->getValue('copyrightStatement');
+                $statementData = $this->permissionsCopyrightStatementForm['copyrightStatement']->getValue();
+                $this->copyrightStatement = QubitHtmlPurifier::getInstance()->purify($statementData['copyrightStatement']);
 
                 return sfView::SUCCESS;
             }
