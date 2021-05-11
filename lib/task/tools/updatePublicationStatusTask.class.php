@@ -22,7 +22,7 @@ class updatePublicationStatusTask extends arBaseTask
     protected function configure()
     {
         $this->addArguments([
-            new sfCommandArgument('publicationStatus', sfCommandArgument::REQUIRED, 'Desired publication status'),
+            new sfCommandArgument('publicationStatus', sfCommandArgument::REQUIRED, 'Desired publication status [draft|published]'),
             new sfCommandArgument('slug', sfCommandArgument::REQUIRED, 'Resource slug'),
         ]);
 
@@ -38,9 +38,12 @@ class updatePublicationStatusTask extends arBaseTask
 
         $this->namespace = 'tools';
         $this->name = 'update-publication-status';
-        $this->briefDescription = 'Updates the publication status of a description';
+        $this->briefDescription = 'Updates the publication status of description(s)';
         $this->detailedDescription = <<<'EOF'
-FIXME
+This task can be used to update the description status of either an individual
+description or, if the --repo option is used, all of the descriptions in a
+repository. Descendents of updated descriptions will also be updated unless the
+--ignore-descendants option is used.
 EOF;
     }
 
