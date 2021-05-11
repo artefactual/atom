@@ -46,7 +46,7 @@ class CsvValidatorResultTest extends \PHPUnit\Framework\TestCase
         $csvValidator->setClassname('Classname');
         $this->assertSame('Classname', $csvValidator->getClassname());
 
-        $csvValidator = new CsvValidatorResult('Title', 'Filename', 'Classname');
+        $csvValidator = new CsvValidatorResult('Title', 'Filename', 'DisplayFilename', 'Classname');
         $this->assertSame('Classname', $csvValidator->getClassname());
     }
 

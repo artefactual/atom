@@ -139,10 +139,11 @@ EOF;
     protected function setCsvValidatorFilenames($filenameString)
     {
         // Could be a comma separated list of filenames or just one.
-        $filenames = explode(',', $filenameString);
-
-        foreach ($filenames as $filename) {
+        foreach (explode(',', $filenameString) as $filename) {
             CsvImportValidator::validateFileName($filename);
+            // The validator expects an associative array of files
+            // where displayname => filename
+            $filenames[$filename] = $filename;
         }
 
         return $filenames;

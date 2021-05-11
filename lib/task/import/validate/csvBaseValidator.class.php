@@ -35,6 +35,7 @@ abstract class CsvBaseValidator
     const LIMIT_TO = [];
 
     protected $filename = '';
+    protected $displayFilename = '';
     protected $columnCount = 0;
     protected $rowNumber = 1;
     protected $title = '';
@@ -48,7 +49,7 @@ abstract class CsvBaseValidator
             $this->setOptions($options);
         }
 
-        $this->testData = new CsvValidatorResult($this->title, $this->filename, $this->getClassName());
+        $this->testData = new CsvValidatorResult($this->title, $this->filename, $this->displayFilename, $this->getClassName());
     }
 
     public function testRow(array $header, array $row)
@@ -59,7 +60,8 @@ abstract class CsvBaseValidator
     public function reset()
     {
         $this->filename = '';
-        $this->testData = new CsvValidatorResult($this->title, $this->filename, $this->getClassName());
+        $this->displayFilename = '';
+        $this->testData = new CsvValidatorResult($this->title, $this->filename, $this->displayFilename, $this->getClassName());
     }
 
     public function setOrmClasses(array $classes)
@@ -78,9 +80,20 @@ abstract class CsvBaseValidator
         $this->testData->setFilename($filename);
     }
 
+    public function setDisplayFilename(string $displayFilename)
+    {
+        $this->displayFilename = $displayFilename;
+        $this->testData->setDisplayFilename($displayFilename);
+    }
+
     public function getFilename()
     {
         return $this->filename;
+    }
+
+    public function getDisplayFilename()
+    {
+        return $this->displayFilename;
     }
 
     public function setTitle(string $title)

@@ -38,6 +38,7 @@ class CsvImportValidator
         'QubitAccession',
         'QubitRepository',
         'QubitEvent',
+        'QubitRelation-actor',
     ];
 
     public static $bomTypeMap = [
@@ -138,7 +139,7 @@ class CsvImportValidator
             $this->validatorCollection = CsvValidatorCollection::getValidatorCollection($this->getClassName(), $this->getOptions());
         }
 
-        foreach ($this->filenames as $filename) {
+        foreach ($this->filenames as $displayFilename => $filename) {
             if (false === $fh = fopen($filename, 'rb')) {
                 throw new sfException('You must specify a valid filename');
             }
@@ -147,7 +148,7 @@ class CsvImportValidator
 
             // Set specifics for this csv file
             $this->validatorCollection->setOrmClasses($this->ormClasses);
-            $this->validatorCollection->setFilename($filename);
+            $this->validatorCollection->setFilename($filename, $displayFilename);
             $this->validatorCollection->setColumnCount($this->getLongestRow());
 
             // Iterate csv rows, calling each test/row.
@@ -159,8 +160,7 @@ class CsvImportValidator
                 $this->validatorCollection->testRow($this->header, $row);
             }
 
-            // Gather results for this CSV file.
-            $this->resultCollection = $this->validatorCollection->getResultCollection($this->header, $row);
+            $this->resultCollection = $this->validatorCollection->getResultCollection($this->resultCollection);
 
             // Reset test if more than one input CSV passed.
             if ((1 < count($this->filenames)) ? true : false) {
@@ -336,7 +336,7 @@ class CsvImportValidator
 
     public function setFilenames(array $filenames)
     {
-        foreach ($filenames as $filename) {
+        foreach ($filenames as $displayName => $filename) {
             self::validateFileName($filename);
         }
 

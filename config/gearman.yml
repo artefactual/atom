@@ -37,3 +37,5 @@ all:
       - arUpdateEsIoDocumentsJob
     holdings_report:
       - arPhysicalObjectCsvHoldingsReportJob
+    csv_validation:
+      - arValidateCsvJob

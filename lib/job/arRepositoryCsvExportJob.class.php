@@ -26,6 +26,7 @@ class arRepositoryCsvExportJob extends arExportJob
      * @see arBaseJob::$requiredParameters
      */
     protected $downloadFileExtension = 'zip';
+    protected $zipFileDownload;
     protected $search;
     protected $params = [];
 
@@ -37,7 +38,8 @@ class arRepositoryCsvExportJob extends arExportJob
         $this->search = new arElasticSearchPluginQuery(arElasticSearchPluginUtil::SCROLL_SIZE);
         $this->search->queryBool->addMust(new \Elastica\Query\Terms('slug', $this->params['params']['slugs']));
 
-        $tempPath = $this->createJobTempDir();
+        $this->zipFileDownload = new arZipFileDownload($this->job->id, $this->downloadFileExtension);
+        $tempPath = $this->zipFileDownload->createJobTempDir();
 
         // Export CSV to temp directory
         $this->info($this->i18n->__('Starting export to %1', ['%1' => $tempPath]));
@@ -49,8 +51,8 @@ class arRepositoryCsvExportJob extends arExportJob
         $this->info($this->i18n->__('Exported %1 repositories.', ['%1' => $itemsExported]));
 
         // Compress CSV export files as a ZIP archive
-        $this->info($this->i18n->__('Creating ZIP file %1', ['%1' => $this->getDownloadFilePath()]));
-        $errors = $this->createZipForDownload($tempPath);
+        $this->info($this->i18n->__('Creating ZIP file %1', ['%1' => $this->zipFileDownload->getDownloadFilePath()]));
+        $errors = $this->zipFileDownload->createZipForDownload($tempPath, $this->user->isAdministrator());
 
         if (!empty($errors)) {
             $this->error($this->i18n->__('Failed to create ZIP file.').' : '.implode(' : ', $errors));
@@ -61,7 +63,7 @@ class arRepositoryCsvExportJob extends arExportJob
         // Mark job as complete and set download path
         $this->info($this->i18n->__('Export and archiving complete.'));
         $this->job->setStatusCompleted();
-        $this->job->downloadPath = $this->getDownloadRelativeFilePath();
+        $this->job->downloadPath = $this->zipFileDownload->getDownloadRelativeFilePath();
         $this->job->save();
 
         return true;

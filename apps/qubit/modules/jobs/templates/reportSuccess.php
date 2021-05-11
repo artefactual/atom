@@ -73,7 +73,7 @@
   <div>
     <?php $output = trim($job->output); ?>
     <?php if (0 < strlen($output)) { ?>
-      <pre id="job-log-output"><?php echo render_value($output); ?></pre>
+      <pre id="job-log-output"><?php echo $output; ?></pre>
     <?php } else { ?>
       <p id="job-log-output-empty"><?php echo __('Empty'); ?></p>
     <?php } ?>

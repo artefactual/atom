@@ -36,11 +36,13 @@ class CsvValidatorResult
 
     protected $testData = [];
     protected $filename;
+    protected $displayFilename;
     protected $classname;
 
-    public function __construct(string $title = '', string $filename = '', string $classname = '')
+    public function __construct(string $title = '', string $filename = '', string $displayFilename = '', string $classname = '')
     {
         $this->filename = $filename;
+        $this->displayFilename = $displayFilename;
         $this->classname = $classname;
 
         $this->testData = [
@@ -118,6 +120,16 @@ class CsvValidatorResult
     public function setFilename(string $filename)
     {
         $this->filename = $filename;
+    }
+
+    public function setDisplayFilename(string $displayFilename)
+    {
+        $this->displayFilename = $displayFilename;
+    }
+
+    public function getDisplayFilename(): string
+    {
+        return $this->displayFilename;
     }
 
     public function getClassname(): string

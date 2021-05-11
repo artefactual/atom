@@ -61,10 +61,18 @@ class CsvValidatorCollection
         }
     }
 
-    public function setFilename(string $filename)
+    public function reset()
+    {
+        foreach ($this->validators as $validator) {
+            $validator->reset();
+        }
+    }
+
+    public function setFilename(string $filename, string $displayFilename)
     {
         foreach ($this->validators as $validator) {
             $validator->setFilename($filename);
+            $validator->setDisplayFilename($displayFilename);
         }
     }
 
@@ -82,9 +90,11 @@ class CsvValidatorCollection
         }
     }
 
-    public function getResultCollection(): CsvValidatorResultCollection
+    public function getResultCollection(?CsvValidatorResultCollection $resultCollection = null): CsvValidatorResultCollection
     {
-        $resultCollection = new CsvValidatorResultCollection();
+        if (!isset($resultCollection)) {
+            $resultCollection = new CsvValidatorResultCollection();
+        }
 
         foreach ($this->validators as $validator) {
             $resultCollection->appendResult($validator->getTestResult());

@@ -22,9 +22,40 @@
  *
  * @author     Steve Breker <sbreker@artefactual.com>
  */
-class CsvValidatorResultCollection
+class CsvValidatorResultCollection implements Iterator
 {
     protected $results = [];
+    private $index = 0;
+
+    public function __construct()
+    {
+        $this->index = 0;
+    }
+
+    public function rewind()
+    {
+        $this->index = 0;
+    }
+
+    public function current()
+    {
+        return $this->results[$this->index];
+    }
+
+    public function key()
+    {
+        return $this->index;
+    }
+
+    public function valid()
+    {
+        return isset($this->results[$this->index]);
+    }
+
+    public function next()
+    {
+        ++$this->index;
+    }
 
     public function appendResult(CsvValidatorResult $result)
     {
@@ -33,20 +64,20 @@ class CsvValidatorResultCollection
         $this->sortByFilenameStatusDescending();
     }
 
-    public function toArray(bool $verbose = false)
+    public function toArray()
     {
         $resultArray = [];
 
         foreach ($this->results as $testResult) {
-            $resultArray[$testResult->getFilename()][$testResult->getClassname()] = $testResult->toArray();
+            $resultArray[$testResult->getDisplayFilename()][$testResult->getClassname()] = $testResult->toArray();
         }
 
         return $resultArray;
     }
 
-    public function toJson(bool $verbose = false)
+    public function toJson()
     {
-        return json_encode($this->toArray($verbose));
+        return json_encode($this->toArray());
     }
 
     public function getByFilenameTestname(string $filename, string $testname)
@@ -58,12 +89,12 @@ class CsvValidatorResultCollection
         }
     }
 
-    public function getErrorCount()
+    public function getErrorCount(?string $filename = null)
     {
         $errorCount = 0;
 
-        foreach ($this->results as $testResult) {
-            if (CsvValidatorResult::RESULT_ERROR === $testResult->getStatus()) {
+        foreach ($this->results as $result) {
+            if ($this->testFilename($filename, $result->getFilename()) && CsvValidatorResult::RESULT_ERROR === $result->getStatus()) {
                 ++$errorCount;
             }
         }
@@ -71,12 +102,12 @@ class CsvValidatorResultCollection
         return $errorCount;
     }
 
-    public function getWarnCount()
+    public function getWarnCount(?string $filename = null)
     {
         $warnCount = 0;
 
-        foreach ($this->results as $testResult) {
-            if (CsvValidatorResult::RESULT_WARN === $testResult->getStatus()) {
+        foreach ($this->results as $result) {
+            if ($this->testFilename($filename, $result->getFilename()) && CsvValidatorResult::RESULT_WARN === $result->getStatus()) {
                 ++$warnCount;
             }
         }
@@ -87,58 +118,83 @@ class CsvValidatorResultCollection
     public function sortByFilenameStatusDescending()
     {
         uasort($this->results, ['CsvValidatorResultCollection', 'compare']);
+        // Reindex sorted array since uasort does not alter index values.
+        // Without this, foreach() will not use sorted order - it will use index order.
+        $this->results = array_values($this->results);
     }
 
     public static function renderResultsAsText(CsvValidatorResultCollection $results, bool $verbose = false): string
     {
         $outputString = '';
-        $errorCount = $results->getErrorCount();
-        $warnCount = $results->getWarnCount();
 
-        if (!empty($errorCount)) {
-            $outputString .= sprintf("\n** Issues have been detected with this CSV that will prevent it from being imported correctly.\n\n");
-        } elseif (!empty($warnCount)) {
-            $outputString .= sprintf("\n** Warnings should be reviewed before proceeding with importing this CSV.\n\n");
-        } else {
-            $outputString .= sprintf("\nNo issues detected.\n\n");
-        }
+        $outputString .= "CSV Results:\n";
 
-        $outputString .= sprintf("Errors: %s\n", $errorCount);
-        $outputString .= sprintf("Warnings: %s\n", $warnCount);
-
-        $resultArray = $results->toArray();
-
-        foreach ($resultArray as $filename => $fileGroup) {
-            $fileStr = sprintf("\nFilename: %s", $filename);
-            $outputString .= sprintf("%s\n", $fileStr);
-            $outputString .= sprintf("%s\n", str_repeat('=', strlen($fileStr)));
-
-            foreach ($fileGroup as $testResult) {
-                if (CsvValidatorResult::RESULT_INFO === $testResult['status'] && !$verbose) {
-                    continue;
+        foreach ($results as $result) {
+            if ($filename !== $result->getFilename()) {
+                if (!empty($filename)) {
+                    $outputString .= "\n";
                 }
-                $outputString .= CsvValidatorResultCollection::renderResultArrayAsText($testResult, $verbose);
+                $filename = $result->getFilename();
+                $displayFilename = $result->getDisplayFilename();
+
+                $fileStr = sprintf('Filename: %s', $displayFilename);
+                $outputString .= sprintf("%s\n", str_repeat('-', strlen($fileStr)));
+                $outputString .= sprintf("%s\n", $fileStr);
+                $outputString .= sprintf("%s\n", str_repeat('-', strlen($fileStr)));
+
+                $errorCount = $results->getErrorCount($filename);
+                $warnCount = $results->getWarnCount($filename);
+
+                $outputString .= sprintf("Errors: %s\n", $errorCount);
+                $outputString .= sprintf("Warnings: %s\n", $warnCount);
+
+                if (!empty($errorCount)) {
+                    $outputString .= sprintf("\n** Issues have been detected with this CSV that will prevent it from being imported correctly.\n");
+                } elseif (!empty($warnCount)) {
+                    $outputString .= sprintf("\n** Warnings should be reviewed before proceeding with importing this CSV.\n");
+                } else {
+                    $outputString .= sprintf("\nNo issues detected.\n");
+                }
             }
+
+            if (CsvValidatorResult::RESULT_INFO === $result->getStatus() && !$verbose) {
+                continue;
+            }
+
+            $outputString .= CsvValidatorResultCollection::renderResultAsText($result, $verbose);
         }
+        $outputString .= "\n";
 
         return $outputString;
     }
 
-    protected static function renderResultArrayAsText(array $result, bool $verbose = false): string
+    protected function testFilename(?string $filename, string $resultFilename): bool
+    {
+        if (null === $filename) {
+            return true;
+        }
+
+        return $filename === $resultFilename;
+    }
+
+    protected static function renderResultAsText(CsvValidatorResult $result, bool $verbose = false): string
     {
         $outputString = '';
 
-        $outputString .= sprintf("\n%s - %s\n", $result['title'], CsvValidatorResult::formatStatus($result['status']));
-        $outputString .= sprintf("%s\n", str_repeat('-', strlen($result['title'])));
+        $outputString .= sprintf("\n%s - %s\n", $result->getTitle(), CsvValidatorResult::formatStatus($result->getStatus()));
+        $outputString .= sprintf("%s\n", str_repeat('-', strlen($result->getTitle())));
 
-        foreach ($result['results'] as $line) {
+        $results = $result->getResults();
+        $details = $result->getDetails();
+
+        foreach ($results as $line) {
             $outputString .= sprintf("%s\n", $line);
         }
 
-        if ($verbose && 0 < count($result['details'])) {
+        if ($verbose && 0 < count($details)) {
             $outputString .= sprintf("\nDetails:\n");
 
-            foreach ($result['details'] as $line) {
+            foreach ($details as $line) {
                 $outputString .= sprintf("%s\n", $line);
             }
         }
@@ -148,7 +204,7 @@ class CsvValidatorResultCollection
 
     protected function compare(CsvValidatorResult $a, CsvValidatorResult $b)
     {
-        if ($a->getFilename() === $b->getFilename()) {
+        if ($a->getDisplayFilename() === $b->getDisplayFilename()) {
             if ($a->getStatus() === $b->getStatus()) {
                 return 0;
             }
@@ -156,6 +212,6 @@ class CsvValidatorResultCollection
             return ($a->getStatus() > $b->getStatus()) ? -1 : 1;
         }
 
-        return ($a->getFilename() < $b->getFilename()) ? -1 : 1;
+        return ($a->getDisplayFilename() < $b->getDisplayFilename()) ? -1 : 1;
     }
 }

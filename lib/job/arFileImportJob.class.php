@@ -22,6 +22,11 @@
  */
 class arFileImportJob extends arBaseJob
 {
+    protected $verboseReportContents;
+    protected $downloadFileExtension = 'zip';
+    protected $warnCount;
+    protected $errorCount;
+
     /**
      * @see arBaseJob::$requiredParameters
      *
@@ -43,6 +48,28 @@ class arFileImportJob extends arBaseJob
         try {
             switch ($parameters['importType']) {
                 case 'csv':
+                    $csvValidatorAction = sfConfig::get('app_csv_validator_default_import_behaviour', SettingsCsvValidatorAction::VALIDATOR_OFF);
+
+                    if (SettingsCsvValidatorAction::VALIDATOR_OFF < $csvValidatorAction) {
+                        $this->info($this->i18n->__('Validating file: %1.', ['%1' => $parameters['file']['name']]));
+                        $validationResultString = $this->runCsvValidator($this->context, $parameters);
+                        $this->info($validationResultString);
+
+                        $this->createZipFileDownload($this->verboseReportContents);
+
+                        if ($this->errorCount > 0 && SettingsCsvValidatorAction::VALIDATOR_PERMISSIVE <= $csvValidatorAction) {
+                            $this->error($this->i18n->__('Unable to import selected file: validation errors found: %1%.', ['%1%' => $this->errorCount]));
+
+                            return false;
+                        }
+                        // Warnings should not prevent import in permissive mode.
+                        if ($this->warnCount > 0 && SettingsCsvValidatorAction::VALIDATOR_STRICT == $csvValidatorAction) {
+                            $this->error($this->i18n->__('Unable to import selected file: validation warnings found: %1%.', ['%1%' => $this->warnCount]));
+
+                            return false;
+                        }
+                    }
+
                     $importer = new QubitCsvImport();
 
                     $this->setCsvImportParams($importer, $parameters);
@@ -101,6 +128,55 @@ class arFileImportJob extends arBaseJob
         $this->job->save();
 
         return true;
+    }
+
+    protected function createZipFileDownload()
+    {
+        // Attempt export of verbose report.
+        $zipFileDownload = new arZipFileDownload($this->job->id, $this->downloadFileExtension);
+        $tempPath = $zipFileDownload->createJobTempDir();
+
+        // Write verbose report contents to tempPath.
+        $exportFile = $tempPath.DIRECTORY_SEPARATOR.'validation_results.txt';
+        file_put_contents($exportFile, $this->verboseReportContents);
+
+        // Compress CSV export files as a ZIP archive.
+        $this->info($this->i18n->__(
+            'Creating ZIP file %1.',
+            ['%1' => $zipFileDownload->getDownloadFilePath()]
+        ));
+
+        // Create ZIP file.
+        $errors = $zipFileDownload->createZipForDownload($tempPath, $this->user->isAdministrator());
+
+        if (!empty($errors)) {
+            $this->error(
+                $this->i18n->__('Failed to create ZIP file.')
+                .' : '.implode(' : ', $errors)
+            );
+
+            return;
+        }
+
+        $this->job->downloadPath = $zipFileDownload->getDownloadRelativeFilePath();
+    }
+
+    protected function runCsvValidator($context, array $options = [])
+    {
+        $file = $options['file'];
+        $validatorOptions = arValidateCsvJob::mapImportTypeToClassName(arValidateCsvJob::setOptions($options));
+
+        $validator = new CsvImportValidator($context, null, $validatorOptions);
+        $validator->setFilenames([$file['name'] => $file['tmp_name']]);
+        $results = $validator->validate();
+
+        $this->warnCount = $results->getWarnCount();
+        $this->errorCount = $results->getErrorCount();
+
+        $this->verboseReportContents = CsvValidatorResultCollection::renderResultsAsText($results, true);
+
+        // Return short report.
+        return CsvValidatorResultCollection::renderResultsAsText($results, false);
     }
 
     /**

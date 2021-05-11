@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 191
+    value: 192
   milestone:
     name: milestone
     editable: 0
@@ -1496,3 +1496,6 @@ QubitSetting:
     source_culture: en
     value:
       en: 1
+  Qubit_Settings_csvValidatorDefaultImportBehaviour:
+    name: csv_validator_default_import_behaviour
+    value: 0

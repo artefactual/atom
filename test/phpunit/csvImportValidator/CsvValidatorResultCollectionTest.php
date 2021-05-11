@@ -16,13 +16,13 @@ class CsvValidatorResultCollectionTest extends \PHPUnit\Framework\TestCase
 
     public function testToArray()
     {
-        $result = new CsvValidatorResult('Title', 'Filename', 'Classname', true);
+        $result = new CsvValidatorResult('Title', 'Filename', 'DisplayFilename', 'Classname');
         $resultCollection = new CsvValidatorResultCollection();
         $resultCollection->appendResult($result);
 
         $this->assertSame(
             [
-                'Filename' => [
+                'DisplayFilename' => [
                     'Classname' => [
                         'title' => 'Title',
                         'status' => 0,
@@ -37,41 +37,41 @@ class CsvValidatorResultCollectionTest extends \PHPUnit\Framework\TestCase
 
     public function testToJson()
     {
-        $result = new CsvValidatorResult('Title', 'Filename', 'Classname', true);
+        $result = new CsvValidatorResult('Title', 'Filename', 'DisplayFilename', 'Classname');
         $resultCollection = new CsvValidatorResultCollection();
         $resultCollection->appendResult($result);
 
         $this->assertSame(
-            '{"Filename":{"Classname":{"title":"Title","status":0,"results":[],"details":[]}}}',
+            '{"DisplayFilename":{"Classname":{"title":"Title","status":0,"results":[],"details":[]}}}',
             $resultCollection->toJson()
         );
     }
 
     public function testGetErrorCount()
     {
-        $result = new CsvValidatorResult('Title', 'Filename', 'Classname', true);
+        $result = new CsvValidatorResult('Title', 'Filename', 'DisplayFilename', 'Classname');
         $result->setStatusError();
         $resultCollection = new CsvValidatorResultCollection();
         $resultCollection->appendResult($result);
 
-        $this->assertSame(1, $resultCollection->getErrorCount());
-        $this->assertSame(0, $resultCollection->getWarnCount());
+        $this->assertSame(1, $resultCollection->getErrorCount('Filename'));
+        $this->assertSame(0, $resultCollection->getWarnCount('Filename'));
     }
 
     public function testGetWarnCount()
     {
-        $result = new CsvValidatorResult('Title', 'Filename', 'Classname', true);
+        $result = new CsvValidatorResult('Title', 'Filename', 'DisplayFilename', 'Classname');
         $result->setStatusWarn();
         $resultCollection = new CsvValidatorResultCollection();
         $resultCollection->appendResult($result);
 
-        $this->assertSame(1, $resultCollection->getWarnCount());
-        $this->assertSame(0, $resultCollection->getErrorCount());
+        $this->assertSame(1, $resultCollection->getWarnCount('Filename'));
+        $this->assertSame(0, $resultCollection->getErrorCount('Filename'));
     }
 
     public function testRenderResultsAsText()
     {
-        $result = new CsvValidatorResult('Title', 'Filename', 'Classname', true);
+        $result = new CsvValidatorResult('Title', 'Filename', 'DisplayFilename', 'Classname');
         $result->setStatusWarn();
         $resultCollection = new CsvValidatorResultCollection();
         $resultCollection->appendResult($result);

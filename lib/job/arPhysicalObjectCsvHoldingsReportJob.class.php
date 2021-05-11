@@ -26,6 +26,7 @@ class arPhysicalObjectCsvHoldingsReportJob extends arExportJob
      * @see arBaseJob::$requiredParameters
      */
     protected $downloadFileExtension = 'zip';
+    protected $zipFileDownload;
 
     public function runJob($parameters)
     {
@@ -44,15 +45,17 @@ class arPhysicalObjectCsvHoldingsReportJob extends arExportJob
         }
 
         // Attempt export
-        $tempPath = $this->createJobTempDir();
+        $this->zipFileDownload = new arZipFileDownload($this->job->id, $this->downloadFileExtension);
+        $tempPath = $this->zipFileDownload->createJobTempDir();
+
         $exportFile = $tempPath.DIRECTORY_SEPARATOR.'holdings.csv';
 
         $report = new QubitPhysicalObjectCsvHoldingsReport($this->getReportOptions($parameters));
         $report->write($exportFile);
 
         // Compress CSV export files as a ZIP archive
-        $this->info($this->i18n->__('Creating ZIP file %1.', ['%1' => $this->getDownloadFilePath()]));
-        $errors = $this->createZipForDownload($tempPath);
+        $this->info($this->i18n->__('Creating ZIP file %1.', ['%1' => $this->zipFileDownload->getDownloadFilePath()]));
+        $errors = $this->zipFileDownload->createZipForDownload($tempPath, $this->user->isAdministrator());
 
         if (!empty($errors)) {
             $this->error($this->i18n->__('Failed to create ZIP file.').' : '.implode(' : ', $errors));
@@ -63,7 +66,7 @@ class arPhysicalObjectCsvHoldingsReportJob extends arExportJob
         // Mark job as complete
         $this->info($this->i18n->__('Export complete.'));
         $this->job->setStatusCompleted();
-        $this->job->downloadPath = $this->getDownloadRelativeFilePath();
+        $this->job->downloadPath = $this->zipFileDownload->getDownloadRelativeFilePath();
         $this->job->save();
 
         return true;

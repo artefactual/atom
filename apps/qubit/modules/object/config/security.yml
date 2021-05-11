@@ -4,5 +4,8 @@ import:
 importSelect:
   credentials: administrator
 
+validateCsv:
+  credentials: administrator
+
 all:
   is_secure: true

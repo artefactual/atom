@@ -28,6 +28,10 @@ class SettingsMenuComponent extends sfComponent
                 'action' => 'clipboard',
             ],
             [
+                'label' => $i18n->__('CSV Validator'),
+                'action' => 'csvValidator',
+            ],
+            [
                 'label' => $i18n->__('Default page elements'),
                 'action' => 'pageElements',
             ],
