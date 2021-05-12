@@ -69,7 +69,7 @@ class QubitJob extends BaseJob
     public function setStatusError($errorNote = null)
     {
         if (null !== $errorNote) {
-            $this->addNoteText($errorNote);
+            $this->addNoteText($errorNote, QubitTerm::JOB_ERROR_NOTE_ID);
         }
 
         $this->statusId = QubitTerm::JOB_STATUS_ERROR_ID;
@@ -169,11 +169,13 @@ class QubitJob extends BaseJob
      * Add a basic note to this job. This function creates/saves a new note.
      *
      * @param string $contents The text for the note
+     * @param mixed  $noteType The type of the note (or null)
      */
-    public function addNoteText($contents)
+    public function addNoteText($contents, $noteType = null)
     {
         $note = new QubitNote();
         $note->content = $contents;
+        $note->typeId = $noteType;
 
         if (!isset($this->id)) {
             throw new sfException('Tried to add a note to a job that is not saved yet');

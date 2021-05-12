@@ -62,6 +62,13 @@
 </section>
 
 <section id="log-area">
+  <?php if (!empty($errorOutput)) { ?>
+    <h2><?php echo __('Error(s)'); ?></h2>
+    <div>
+      <pre id="job-log-error-output"><?php echo render_value($errorOutput); ?></pre>
+    </div>
+  <?php } ?>
+
   <h2><?php echo __('Log'); ?></h2>
   <div>
     <?php $output = trim($job->output); ?>

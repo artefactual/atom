@@ -2694,6 +2694,13 @@ QubitTerm:
     name:
       en: 'Captions/Subtitles'
       fr: 'Légendes/Sous-titres'
+  QubitTerm_error_note:
+    taxonomy_id: QubitTaxonomy_7
+    parent_id: QubitTerm_110
+    id: 197
+    source_culture: en
+    name:
+      en: 'Job error note'
   QubitTerm_140:
     taxonomy_id: QubitTaxonomy_18
     parent_id: QubitTerm_110

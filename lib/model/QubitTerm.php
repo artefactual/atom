@@ -147,6 +147,8 @@ class QubitTerm extends BaseTerm
     // Digital object usage taxonomy (addition)
     public const CHAPTERS_ID = 195;
     public const SUBTITLES_ID = 196;
+    // Job error note
+    public const JOB_ERROR_NOTE_ID = 197;
 
     public $disableNestedSetUpdating = false;
 

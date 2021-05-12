@@ -33,6 +33,18 @@ class JobsReportAction extends DefaultBrowseAction
 
         $this->job = QubitJob::getById($request->id);
 
+        // Fetch error notes
+        $criteria = new Criteria();
+        $criteria->add(QubitNote::OBJECT_ID, $request->id);
+        $criteria->add(QubitNote::TYPE_ID, QubitTerm::JOB_ERROR_NOTE_ID);
+
+        $this->errorOutput = '';
+        foreach (QubitNote::get($criteria) as $note) {
+            // Job complete time indicates error time because jobs are stopped after error
+            $this->errorOutput .= sprintf("%s %s\n", $this->job->completedAt, $note->getContent());
+        }
+        $this->errorOutput = trim($this->errorOutput);
+
         if (!$this->job) {
             $this->forward404();
         }

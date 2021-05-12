@@ -44,7 +44,7 @@
   margin-top: 20px;
 }
 
-#job-log-output {
+#job-log-output, #job-log-error-output {
   margin: 5px 5px 5px 5px;
   padding: 5px;
   color: @white;
@@ -52,6 +52,10 @@
   border-radius: 4px;
   max-height: 400px;
   overflow-y: auto;
+}
+
+#job-log-error-output {
+  background-color: #880015;
 }
 
 #job-log-output-empty {
