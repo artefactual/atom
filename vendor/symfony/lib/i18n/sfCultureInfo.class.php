@@ -281,6 +281,11 @@ class sfCultureInfo
    */
   protected function loadCultureData($culture)
   {
+    # CUSTOMIZATION
+    if ($culture == 'zz') {
+      $culture = 'en';
+    }
+
     $file_parts = explode('_', $culture);
     $current_part = $file_parts[0];
 
@@ -373,6 +378,9 @@ class sfCultureInfo
         }
       }
     }
+
+    # CUSTOMIZATION
+    $result['zz'] = 'Other';
 
     return $result;
   }
@@ -704,6 +712,11 @@ class sfCultureInfo
    */
   public function getLanguage($code)
   {
+    # CUSTOMIZATION
+    if ($code == 'zz') {
+      return "Other";
+    }
+
     $languages = $this->findInfo('Languages', true);
 
     if (!isset($languages[$code]))
