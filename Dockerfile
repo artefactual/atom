@@ -20,6 +20,7 @@ RUN set -xe \
       mbstring \
       mysqli \
       opcache \
+      pcntl \
       pdo_mysql \
       sockets \
       xsl \

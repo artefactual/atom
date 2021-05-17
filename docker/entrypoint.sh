@@ -6,13 +6,10 @@ set -o nounset
 # set -o xtrace
 
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-__file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
-__atom_root="/atom/src"
-
 
 # Clean-ups
 rm -rf /usr/local/etc/php-fpm.d/*
-rm -rf ${__atom_root}/cache/*
+rm -rf ${__dir}/../cache/*
 
 # Populate configuration files
 php ${__dir}/bootstrap.php $@
@@ -21,7 +18,6 @@ if [ $status -ne 0 ]; then
     echo "bootstrap.php failed!"
     exit $status
 fi
-
 
 case $1 in
     '')
@@ -39,17 +35,10 @@ case $1 in
         # Give some extra time to MySQL and Gearman to start
         # and add some interval in between restarts.
         sleep 10
-        php ${__dir}/../symfony jobs:worker
-        exit 0
+        exec php ${__dir}/../symfony jobs:worker
         ;;
     'fpm')
-        trap 'kill -INT $PID' TERM INT
-        php-fpm --allow-to-run-as-root &
-        PID=$!
-        wait $PID
-        trap - TERM INT
-        wait $PID
-        exit $?
+        exec php-fpm --allow-to-run-as-root
         ;;
 esac
 

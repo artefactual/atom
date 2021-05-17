@@ -108,6 +108,8 @@ EOF;
         $this->log('Running worker...');
         $this->log('PID '.getmypid());
 
+        $this->activateTerminationHandlers();
+
         $counter = 0;
 
         // The worker loop!
@@ -126,5 +128,35 @@ EOF;
                 }
             }
         );
+    }
+
+    protected function activateTerminationHandlers()
+    {
+        pcntl_async_signals(true);
+
+        // Define signal handler function within the object scope to allow it
+        // to access the object's methods, etc.
+        $signalHandler = function ($signal) {
+            $messages = [
+                SIGINT => 'Job worker termination requested by user.',
+                SIGHUP => 'Job worker hang up requested.',
+                SIGTERM => 'Job worker termination requested.',
+                SIGQUIT => 'Job worker quit requested.',
+            ];
+
+            $this->log($messages[$signal]);
+
+            exit();
+        };
+
+        pcntl_signal(SIGINT, $signalHandler);
+        pcntl_signal(SIGHUP, $signalHandler);
+        pcntl_signal(SIGTERM, $signalHandler);
+        pcntl_signal(SIGQUIT, $signalHandler);
+
+        // Define shutdown function
+        register_shutdown_function(function () {
+            $this->log('Job worker stopped.');
+        });
     }
 }
