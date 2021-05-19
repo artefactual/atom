@@ -250,7 +250,7 @@
           .on('blur', $.proxy(this.blur, this))
           .on('keydown', $.proxy(this.keydown, this));
 
-        this.$menu.on('click', 'li', $.proxy(this.click, this));
+        this.$form.on('click', '.search-popover li', $.proxy(this.click, this));
 
         this.$menu.on('mouseenter', 'li', $.proxy(this.mouseenter, this));
         this.$menu.on('mouseleave', 'li', $.proxy(this.mouseleave, this));
