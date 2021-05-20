@@ -33,14 +33,14 @@ class updatePublicationStatusTask extends arBaseTask
             new sfCommandOption('force', 'f', sfCommandOption::PARAMETER_NONE, 'Force update of descendants', null),
             new sfCommandOption('ignore-descendants', 'i', sfCommandOption::PARAMETER_NONE, 'Don\'t update descendants', null),
             new sfCommandOption('no-confirm', 'y', sfCommandOption::PARAMETER_NONE, 'No confirmation message', null),
-            new sfCommandOption('repo', 'r', sfCommandOption::PARAMETER_NONE, 'Update all description in given repository', null),
+            new sfCommandOption('repo', 'r', sfCommandOption::PARAMETER_NONE, 'Update all descriptions in given repository', null),
         ]);
 
         $this->namespace = 'tools';
         $this->name = 'update-publication-status';
         $this->briefDescription = 'Updates the publication status of description(s)';
         $this->detailedDescription = <<<'EOF'
-This task can be used to update the description status of either an individual
+This task can be used to update the publication status of either an individual
 description or, if the --repo option is used, all of the descriptions in a
 repository. Descendents of updated descriptions will also be updated unless the
 --ignore-descendants option is used.
