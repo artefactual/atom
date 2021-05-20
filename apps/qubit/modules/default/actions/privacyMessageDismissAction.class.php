@@ -22,5 +22,7 @@ class DefaultPrivacyMessageDismissAction extends sfAction
     public function execute($request)
     {
         $this->context->user->setAttribute('privacy_message_dismissed', true);
+
+        return sfView::NONE;
     }
 }
