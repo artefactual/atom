@@ -31,7 +31,7 @@ class qubitConfiguration extends sfApplicationConfiguration
 
     public function listenToChangeCultureEvent(sfEvent $event)
     {
-        setcookie('atom_culture', $event['culture']);
+        setcookie('atom_culture', $event['culture'], ['path' => '/']);
     }
 
     /**
