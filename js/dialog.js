@@ -108,8 +108,6 @@
         // Submit dialog data
         var handleYuiSubmit = function ()
           {
-            this.hide(); // Hide dialog
-
             var data = this.getData();
 
             // The validator must return false to cancel the operation
@@ -119,11 +117,18 @@
               return false;
             };
 
+            this.hide(); // Hide dialog
+
             thisDialog.submit(data); // Save dialog data
           }
 
         var handleYuiCancel = function ()
           {
+            // Optionally execute logic upon canceling dialog
+            if ('undefined' !== typeof thisDialog.options.afterCancelLogic) {
+              thisDialog.options.afterCancelLogic.call(this);
+            }
+
             this.cancel(); // Cancel YUI submit
             thisDialog.clear(); // Clear dialog fields
           }
@@ -345,6 +350,7 @@
             {
               if (null == thisData[fieldname])
               {
+                thisData[fieldname] = '';
                 continue;
               }
 
@@ -382,7 +388,17 @@
                   dataSource.responseType = YAHOO.util.DataSourceBase.TYPE_TEXT;
                   dataSource.parseTextData = function (request, response)
                     {
-                      return { 'results' : [ $(response).find('.label, #main-column h1').text().trim() ] };
+                      var $response = $(response);
+
+                      // For pages decorated with 'layout_2col' or 'layout_3col'
+                      var $result = $response.find('#main-column h1');
+
+                      // Fallback for pages decorated with 'layout_1col'
+                      if (0 == $result.length) {
+                        $result = $response.find("#resource-name");
+                      }
+
+                      return {'results': [$result.first().text().trim()]};
                     };
 
                   // Set visible input field of yui-autocomplete

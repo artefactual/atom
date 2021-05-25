@@ -1,13 +1,10 @@
 <?php decorate_with('layout_1col'); ?>
 
 <?php slot('title'); ?>
-  <h1 class="multiline">
-    <?php echo __('View ISDF function'); ?>
-    <span class="sub"><?php echo render_title($resource); ?></span>
-  </h1>
-<?php end_slot(); ?>
 
-<?php slot('before-content'); ?>
+  <h1 id="resource-name">
+    <?php echo render_title($resource); ?>
+  </h1>
 
   <?php if (isset($errorSchema)) { ?>
     <div class="messages error">
@@ -19,6 +16,17 @@
       </ul>
     </div>
   <?php } ?>
+
+  <section class="breadcrumb">
+    <ul>
+      <li><?php echo link_to(esc_specialchars(sfConfig::get('app_ui_label_function')), ['module' => 'function', 'action' => 'browse']); ?></li>
+      <li><span><?php echo render_title($resource); ?></span></li>
+    </ul>
+  </section>
+
+<?php end_slot(); ?>
+
+<?php slot('before-content'); ?>
 
   <?php echo get_component('default', 'translationLinks', ['resource' => $resource]); ?>
 

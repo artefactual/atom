@@ -53,7 +53,7 @@
             <?php echo render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)); ?>
           </td><td>
             <?php echo render_value_inline($item->description); ?>
-          </td><td style="text-align: center">
+          </td><td style="text-align: right">
             <input class="multiDelete" name="deleteRelations[]" type="checkbox" value="<?php echo url_for([$item, 'module' => 'relation']); ?>"/>
           </td>
         </tr>
@@ -107,11 +107,34 @@ Drupal.behaviors.relatedAuthorityRecord = {
           return this.renderField(fname);
         }
 
+        // Add validator to ensure a related record is selected
+        var validator = function(data) {
+            var relation = data["relatedAuthorityRecord[resource]"];
+            var category = data["relatedAuthorityRecord[type]"];
+
+            if (!relation.length || !category[0].length) {
+              // Display error message
+              jQuery('#actorRelationError').css('display', 'block');
+
+              return false;
+            } else {
+              // Hide error message until required again
+              jQuery('#actorRelationError').css('display', 'none');
+            }
+        }
+
+        // Hide error on cancel
+        var afterCancelLogic = function () {
+            jQuery('#actorRelationError').css('display', 'none');
+        }
+
       // Define dialog
       var dialog = new QubitDialog('actorRelation', {
         'displayTable': 'relatedEntities',
         'handleFieldRender': handleFieldRender,
         'newRowTemplate': {$rowTemplate},
+        'validator': validator,
+        'afterCancelLogic': afterCancelLogic,
         'relationTableMap': function (response)
           {
             response.resource = response.object;
@@ -145,6 +168,12 @@ content
     <h3><?php echo __('Related corporate body, person or family'); ?></h3>
 
     <div>
+
+      <div class="messages error" id="actorRelationError" style="display: none">
+        <ul>
+          <li><?php echo __('Please complete all required fields.'); ?></li>
+        </ul>
+      </div>
 
       <div class="form-item">
         <?php echo $form->resource

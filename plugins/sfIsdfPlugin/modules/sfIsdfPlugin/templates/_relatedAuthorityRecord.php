@@ -31,7 +31,7 @@
             <?php echo render_value_inline($item->description); ?>
           </td><td>
             <?php echo render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)); ?>
-          </td><td style="text-align: center">
+          </td><td style="text-align: right">
             <input class="multiDelete" name="deleteRelations[]" type="checkbox" value="<?php echo url_for([$item, 'module' => 'relation']); ?>"/>
           </td>
         </tr>
@@ -64,11 +64,33 @@ echo javascript_tag(<<<content
 Drupal.behaviors.relatedAuthorityRecord = {
   attach: function (context)
     {
+      // Add validator to ensure a related record is selected
+      var validator = function(data) {
+          var relation = data["relatedAuthorityRecord[resource]"];
+
+          if (!relation.length) {
+            // Display error message
+            jQuery('#relatedEntityError').css('display', 'block');
+            
+            return false;
+          } else {
+            // Hide error message until required again
+            jQuery('#relatedEntityError').css('display', 'none');
+          }
+      }
+
+      // Hide error on cancel
+      var afterCancelLogic = function () {
+          jQuery('#relatedEntityError').css('display', 'none');
+      }
+
       // Define dialog
       var dialog = new QubitDialog('relatedEntity', {
         'displayTable': 'relatedEntityDisplay',
         'handleFieldRender': handleFieldRender,
         'newRowTemplate': {$rowTemplate},
+        'validator': validator,
+        'afterCancelLogic': afterCancelLogic,
         'relationTableMap': function (response)
           {
             response.resource = response.object;
@@ -95,6 +117,12 @@ content
     <h3><?php echo __('Related authority record'); ?></h3>
 
     <div>
+
+      <div class="messages error" id="relatedEntityError" style="display: none">
+        <ul>
+          <li><?php echo __('Please complete all required fields.'); ?></li>
+        </ul>
+      </div>
 
       <div class="form-item">
         <?php echo $form->resource

@@ -55,6 +55,12 @@
   <!-- NOTE dialog.js wraps this *entire* table in a YUI dialog -->
   <div class="date section" id="resourceRelation">
 
+    <div class="messages error" id="resourceRelationError" style="display: none">
+      <ul>
+        <li><?php echo __('Please complete all required fields.'); ?></li>
+      </ul>
+    </div>
+
     <div class="form-item">
       <?php echo $form->informationObject
           ->label(__('Title of related resource'))

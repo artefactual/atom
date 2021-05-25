@@ -72,7 +72,7 @@ class sfIsdfPluginRelatedFunctionComponent extends RelationEditComponent
                 $value = $this->form->getValue('resource');
                 if (isset($value)) {
                     $params = $this->context->routing->parse(Qubit::pathInfo($value));
-                    if ($this->resource->id != $this->relation->objectId) {
+                    if (!isset($this->resource->id) || $this->resource->id != $this->relation->objectId) {
                         $this->relation->object = $params['_sf_route']->resource;
                     } else {
                         $this->relation->subject = $params['_sf_route']->resource;

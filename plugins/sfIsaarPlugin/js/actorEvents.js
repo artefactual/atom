@@ -27,17 +27,30 @@
       // Add validator to make sure that an information object is selected
       var validator = function(data) {
         var informationObject = data["editEvent[informationObject]"];
+
         if (!informationObject.length) {
+          // Display error message
+          jQuery('#resourceRelationError').css('display', 'block');
+
           return false;
+        } else {
+          // Hide error message until required again
+          jQuery('#resourceRelationError').css('display', 'none');
         }
-      };
+      }
+
+      // Hide error on cancel
+      var afterCancelLogic = function () {
+          jQuery('#resourceRelationError').css('display', 'none');
+      }
 
       // Define dialog
       dialog = new QubitDialog("resourceRelation", {
         displayTable: "relatedEvents",
         handleFieldRender: handleFieldRender,
         newRowTemplate: $("#dialogNewRowTemplate").html(),
-        validator: validator
+        validator: validator,
+        afterCancelLogic: afterCancelLogic
       });
     }
   };

@@ -5,7 +5,7 @@
         // Share <form/> with nested scopes
         var $form = $(this);
 
-        // Keep a list of new releated resource forms that must be submitted
+        // Keep a list of new related resource forms that must be submitted
         // before $form so we can get the URIs after they are created
         var relatedResourceForms = [];
 
@@ -613,7 +613,11 @@
                 if (!$select.attr('multiple')) {
                   // Create iframe which will be submitted to create a new
                   // related resource from the "unmatched" value
-                  $relatedResourceForm = getRelatedResourceForm($input, $hidden, uri, rrFormInputId);
+
+                  // Exclude new additions to be handled by dialog.js
+                  if ($input.parents('div.yui-dialog').length == 0) {
+                    $relatedResourceForm = getRelatedResourceForm($input, $hidden, uri, rrFormInputId);
+                  }
                 } else {
                   // Cancel default action of saved DOM event so as
                   // not to loose focus when selecting multiple items

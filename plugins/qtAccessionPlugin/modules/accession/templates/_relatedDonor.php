@@ -48,13 +48,35 @@ value
 );
 
 echo javascript_tag(<<<content
-Drupal.behaviors.relatedAuthorityRecord = {
+Drupal.behaviors.relatedDonor = {
   attach: function (context)
     {
+      // Add validator to ensure a related donor is selected/created
+      var validator = function() {
+          var relation = jQuery('#relatedDonor_resource').val();
+
+          if (!relation.length) {
+            // Display error message
+            jQuery('#relatedDonorError').css('display', 'block');
+
+            return false;
+          } else {
+            // Hide error message until required again
+            jQuery('#relatedDonorError').css('display', 'none');
+          }
+      }
+
+      // Hide error on cancel
+      var afterCancelLogic = function () {
+          jQuery('#relatedDonorError').css('display', 'none');
+      }
+
       // Define dialog
       var dialog = new QubitDialog('relatedDonor', {
         'displayTable': 'relatedDonorDisplay',
         'newRowTemplate': {$rowTemplate},
+        'validator': validator,
+        'afterCancelLogic': afterCancelLogic,
         'relationTableMap': function (response)
           {
             response.resource = response.object;
@@ -110,6 +132,12 @@ content
     <h3><?php echo __('Related donor record'); ?></h3>
 
     <div>
+
+      <div class="messages error" id="relatedDonorError" style="display: none">
+        <ul>
+          <li><?php echo __('Please complete all required fields.'); ?></li>
+        </ul>
+      </div>
 
       <?php echo $form->renderHiddenFields(); ?>
 

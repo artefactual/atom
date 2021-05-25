@@ -39,7 +39,7 @@
             <?php echo render_value_inline($item->description); ?>
           </td><td>
             <?php echo render_value_inline(Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)); ?>
-          </td><td style="text-align: center">
+          </td><td style="text-align: right">
             <input class="multiDelete" name="deleteRelations[]" type="checkbox" value="<?php echo url_for([$item, 'module' => 'relation']); ?>"/>
           </td>
         </tr>
@@ -91,11 +91,33 @@ var handleFieldRender = function (fname)
 Drupal.behaviors.relatedFunction = {
   attach: function (context)
     {
+      // Add validator to ensure a related function is selected
+      var validator = function(data) {
+          var relation = data["relatedFunction[resource]"];
+
+          if (!relation.length) {
+            // Display error message
+            jQuery('#relatedFunctionError').css('display', 'block');
+
+            return false;
+          } else {
+            // Hide error message until required again
+            jQuery('#relatedFunctionError').css('display', 'none');
+          }
+      }
+
+      // Hide error on cancel
+      var afterCancelLogic = function () {
+          jQuery('#relatedFunctionError').css('display', 'none');
+      }
+
       // Define dialog
       var dialog = new QubitDialog('functionRelation', {
         'displayTable': 'relatedFunctions',
         'newRowTemplate': {$rowTemplate},
         'handleFieldRender': handleFieldRender,
+        'validator': validator,
+        'afterCancelLogic': afterCancelLogic,
         'relationTableMap': function (response)
           {
             response.resource = response.object;
@@ -126,6 +148,12 @@ content
     <h3><?php echo __('Related function'); ?></h3>
 
     <div>
+
+      <div class="messages error" id="relatedFunctionError" style="display: none">
+        <ul>
+          <li><?php echo __('Please complete all required fields.'); ?></li>
+        </ul>
+      </div>
 
       <div class="form-item">
         <?php echo $form->resource
