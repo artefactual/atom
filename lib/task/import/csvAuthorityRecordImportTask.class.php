@@ -342,6 +342,8 @@ EOF;
                     if (!$self->searchIndexingDisabled) {
                         QubitSearch::getInstance()->update($self->object);
                     }
+
+                    Qubit::clearClassCaches();
                 }
             },
         ]);
