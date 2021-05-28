@@ -89,7 +89,7 @@ class digitalObjectRegenDerivativesTask extends arBaseTask
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-            new sfCommandOption('slug', 'l', sfCommandOption::PARAMETER_OPTIONAL, 'Information object slug', null),
+            new sfCommandOption('slug', 'l', sfCommandOption::PARAMETER_OPTIONAL, 'Information object or actor slug', null),
             new sfCommandOption('type', 'd', sfCommandOption::PARAMETER_OPTIONAL, 'Derivative type ("reference" or "thumbnail")', null),
             new sfCommandOption('media-type', null, sfCommandOption::PARAMETER_OPTIONAL, 'Limit regenerating derivatives to a specific media type (e.g. "audio" or "image" or "text" or "video). "Other" is not supported', null),
             new sfCommandOption('index', 'i', sfCommandOption::PARAMETER_NONE, 'Update search index (defaults to false)', null),
@@ -154,13 +154,15 @@ EOF;
 
         // Get all master digital objects
         $query = 'SELECT do.id
-            FROM digital_object do JOIN information_object io ON do.object_id = io.id';
+            FROM digital_object do JOIN object o ON do.object_id = o.id
+            LEFT JOIN information_object io ON o.id=io.id';
         $whereClauses = [];
 
-        // Limit to a branch
+        // Limit to a resource (and descendents if an information object)
         if ($options['slug']) {
-            $q2 = 'SELECT io.id, io.lft, io.rgt
-                FROM information_object io JOIN slug ON io.id = slug.object_id
+            // Attempt to fetch object data using slug
+            $q2 = 'SELECT o.id, o.class_name
+                FROM object o JOIN slug ON o.id = slug.object_id
                 WHERE slug.slug = ?';
 
             $row = QubitPdo::fetchOne($q2, [$options['slug']]);
@@ -169,7 +171,22 @@ EOF;
                 throw new sfException('Invalid slug');
             }
 
-            array_push($whereClauses, sprintf('io.lft >= %d AND io.lft <= %d', $row->lft, $row->rgt));
+            // Add to query WHERE clause depending on resource type
+            switch ($row->class_name) {
+                case 'QubitInformationObject':
+                    $io = QubitInformationObject::getById($row->id);
+                    array_push($whereClauses, sprintf('io.lft >= %d AND io.lft <= %d', $io->lft, $io->rgt));
+
+                    break;
+
+                case 'QubitActor':
+                    array_push($whereClauses, sprintf('o.id = %d', $row->id));
+
+                    break;
+
+                default:
+                    throw new sfException('Invalid slug');
+            }
         }
 
         // Only regenerate derivatives for remote digital objects
@@ -202,7 +219,8 @@ EOF;
             $changed = $options['media-type'] ? $options['media-type'] : 'ALL';
 
             if ($options['slug']) {
-                $confirm[] = 'Continuing will regenerate the derivatives for '.$changed.' descendants of';
+                $confirm[] = 'Continuing will regenerate the derivatives for '.$changed.' digital objects (and';
+                $confirm[] = 'descendants of, if an information object)';
                 $confirm[] = '"'.$options['slug'].'"';
             } else {
                 $confirm[] = 'Continuing will regenerate the derivatives for '.$changed.' digital objects';
