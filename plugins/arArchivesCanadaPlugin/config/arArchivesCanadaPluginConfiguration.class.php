@@ -47,5 +47,11 @@ class arArchivesCanadaPluginConfiguration extends sfPluginConfiguration
         $moduleDirs = sfConfig::get('sf_module_dirs');
         $moduleDirs[$this->rootDir.'/modules'] = false;
         sfConfig::set('sf_module_dirs', $moduleDirs);
+
+        // Move this plugin to the top to allow overwriting
+        // controllers and views from other plugin modules.
+        $plugins = $this->configuration->getPlugins();
+        unset($plugins[array_search($this->name, $plugins)]);
+        $this->configuration->setPlugins(array_values([$this->name] + $plugins));
     }
 }
