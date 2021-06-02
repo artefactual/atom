@@ -68,6 +68,9 @@ class UserLoginAction extends sfAction
                         $this->getUser()->setFlash('notice', $this->getDraftNotificationText($draftCount));
                     }
 
+                    // Can be read by reverse proxies to allow users to bypass caching
+                    setcookie('atom_authenticated', '1', ['path' => '/']);
+
                     if (null !== $next = $this->form->getValue('next')) {
                         $this->redirect($next);
                     }

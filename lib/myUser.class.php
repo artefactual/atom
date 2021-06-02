@@ -48,7 +48,7 @@ class myUser extends sfBasicSecurityUser implements Zend_Acl_Role_Interface
             return;
         }
 
-        if ($this->isAuthenticated()) {
+        if ($isAuthenticated = $this->isAuthenticated()) {
             try {
                 $this->user = QubitUser::getById($this->getUserID());
             } catch (Exception $e) {
@@ -61,6 +61,12 @@ class myUser extends sfBasicSecurityUser implements Zend_Acl_Role_Interface
             if (null === $this->user || !$this->user->active) {
                 $this->signOut();
             }
+        }
+
+        // Allow reverse proxies to know, via the "atom_authenticated" cookie, if a user
+        // is authenticated and should be able to bypass the cache
+        if (!isset($_COOKIE['atom_authenticated']) || $_COOKIE['atom_authenticated'] != $isAuthenticated) {
+            setcookie('atom_authenticated', $isAuthenticated, ['path' => '/']);
         }
 
         // Allow reverse proxies to pass a header to change culture
