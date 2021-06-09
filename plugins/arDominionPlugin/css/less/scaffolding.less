@@ -1704,11 +1704,13 @@ body.login #content {
   margin-bottom: 0px;
   margin-top: 0px;
   text-align: center;
-  padding: 8px 35px 18px 14px;
+  padding: 8px 35px 8px 14px;
 
   #privacy-message-content {
     margin-left: 45px;
     margin-right: 65px;
+    // match vert padding to privacy-message-button margin + padding
+    padding: 6px 0px;
     color: @blueDark;
     a:not(.btn) {
       color: @gray;
