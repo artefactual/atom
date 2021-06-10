@@ -92,9 +92,14 @@ class RightManageAction extends sfAction
             'default' => 'overwrite',
         ]));
 
-        $this->form->setValidators([
-            'all_or_digital_only' => new sfValidatorChoice(['choices' => ['all', 'digital_only'], 'required' => true]),
-            'overwrite_or_combine' => new sfValidatorChoice(['choices' => ['overwrite', 'combine'], 'required' => true]),
-        ]);
+        $this->form->setValidator('all_or_digital_only', new sfValidatorChoice([
+            'choices' => ['all', 'digital_only'],
+            'required' => true,
+        ]));
+
+        $this->form->setValidator('overwrite_or_combine', new sfValidatorChoice([
+            'choices' => ['overwrite', 'combine'],
+            'required' => true,
+        ]));
     }
 }
