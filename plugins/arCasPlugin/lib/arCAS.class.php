@@ -58,6 +58,12 @@ class arCAS
         // interaction of phpCAS with Symfony's session management.
         phpCAS::setNoClearTicketsFromUrl();
 
+        // Override default service URL if required
+        $serviceUrl = sfConfig::get('app_cas_service_url', '');
+        if (!empty($serviceUrl)) {
+            phpCAS::setFixedServiceURL($serviceUrl);
+        }
+
         // Validate the server SSL certificate according to configuration.
         $certPath = sfConfig::get('app_cas_server_cert', false);
         if (0 === !strpos($certPath, '/')) {
