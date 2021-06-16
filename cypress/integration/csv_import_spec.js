@@ -21,6 +21,7 @@ describe('CSV import', () => {
     cy.contains('CSV import order fonds').click()
     cy.waitUntil(() => Cypress.$('li.jstree-node').length === 4)
     cy.get('li.jstree-closed > i').click({multiple: true})
+    cy.waitUntil(() => Cypress.$('li.jstree-node').length === 34)
 
     const orderedTitles = [
       'CSV import order fonds',
@@ -59,9 +60,7 @@ describe('CSV import', () => {
       'SC Item 5',
     ]
 
-    cy.get('li.jstree-node')
-    .should('have.length', 34)
-    .each(($li, index) =>
+    cy.get('li.jstree-node').each(($li, index) =>
       cy.wrap($li).contains(orderedTitles[index])
     )
   })

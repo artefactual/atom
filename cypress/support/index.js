@@ -18,12 +18,3 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
-
-afterEach('Fix Firefox cookie issue', () => {
-  // https://github.com/cypress-io/cypress/issues/6375
-  if (Cypress.isBrowser('firefox')) {
-    cy.getCookies({log: false}).then(cookies => cookies.forEach(
-      cookie => cy.clearCookie(cookie.name, {log: false})
-    ));
-  }
-})

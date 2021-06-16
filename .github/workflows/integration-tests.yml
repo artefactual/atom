@@ -32,28 +32,34 @@ jobs:
       run: |
         sudo apt install php7.4-fpm
         sudo service php7.4-fpm start
-    - name: Cache dependencies
+    - name: Cache Composer dependencies
       uses: actions/cache@v2
       with:
         path: ~/.composer/cache/files
         key: 20.04-7.4-composer-${{ hashFiles('composer.lock') }}
-    - name: Install dependencies
+    - name: Install Composer dependencies
       run: composer install
+    - name: Cache NPM dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.npm
+          ~/.cache/Cypress
+        key: npm-${{ hashFiles('package-lock.json') }}
+    - name: Install NPM dependencies
+      run: npm ci
     - name: Modify Gearman config
       run: |
         echo -e "all:\n  servers:\n    default: 127.0.0.1:63005" \
           > apps/qubit/config/gearman.yml
-    - name: Compile arDominionPlugin theme CSS
+    - name: Compile themes CSS
       run: |
-        sudo npm install -g "less@<2.0.0"
-        sudo make -C plugins/arDominionPlugin
-    - name: Change filesystem permissions
-      run: sudo chown -R www-data:www-data ${{ github.workspace }}
-    - name: Wait for containerized services
-      run: sleep 5
+        sudo npm install -g "less@<4.0.0"
+        make -C plugins/arDominionPlugin
+        make -C plugins/arArchivesCanadaPlugin
     - name: Run the installer
       run: |
-        sudo -u www-data php symfony tools:install \
+        php symfony tools:install \
           --database-host=127.0.0.1 \
           --database-port=63003 \
           --database-name=atom \
@@ -64,6 +70,8 @@ jobs:
           --search-index=atom \
           --demo \
           --no-confirmation
+    - name: Change filesystem permissions
+      run: sudo chown -R www-data:www-data ${{ github.workspace }}
     - name: Start application services
       run: |
         sudo cp test/etc/fpm_conf /etc/php/7.4/fpm/pool.d/atom.conf
@@ -84,8 +92,6 @@ jobs:
     - name: Run tests
       env:
         BROWSER: ${{ matrix.browser }}
-      run: |
-        docker run -v $PWD:/src -w /src --shm-size=500m --network=host \
-          -e CYPRESS_VIDEO=false -e CYPRESS_BASE_URL=http://localhost \
-          cypress/browsers bash -c \
-          "npm install --only=dev && npx cypress run -b ${BROWSER,}"
+        CYPRESS_VIDEO: false
+        CYPRESS_BASE_URL: http://localhost
+      run: npx cypress run -b ${BROWSER,}
