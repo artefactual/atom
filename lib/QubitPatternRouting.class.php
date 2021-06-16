@@ -36,6 +36,12 @@ class QubitPatternRouting extends sfPatternRouting
             return parent::parse($url);
         } catch (sfError404Exception $e) {
             return false;
+        } catch (PropelException $e) {
+            if (sfConfig::get('app_avoid_routing_propel_exceptions', false)) {
+                return false;
+            }
+
+            throw $e;
         }
     }
 }

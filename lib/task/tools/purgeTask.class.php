@@ -22,7 +22,7 @@
  *
  * @author     Mike Cantelon <mike@artefactual.com>
  */
-class purgeTask extends sfBaseTask
+class purgeTask extends installTask
 {
     /**
      * @see sfTask
@@ -43,18 +43,15 @@ class purgeTask extends sfBaseTask
             }
         }
 
-        $insertSql = new sfPropelInsertSqlTask($this->dispatcher, $this->formatter);
-        $insertSql->setCommandApplication($this->commandApplication);
-        $insertSql->setConfiguration($this->configuration);
-
         if ($options['demo']) {
-            $this->setDemoOptions($options);
+            $options['no-confirmation'] = true;
+            $options['title'] = 'Demo site';
+            $options['description'] = 'Demo site';
+            $options['email'] = 'demo@example.com';
+            $options['username'] = 'demo';
+            $options['password'] = 'demo';
+            $options['url'] = 'http://127.0.0.1';
         }
-
-        $insertSqlArguments = [];
-        $insertSqlOptions = ['no-confirmation' => $options['no-confirmation']];
-
-        $insertSql->run($insertSqlArguments, $insertSqlOptions);
 
         if ($options['use-gitconfig']) {
             // attempt to provide default user admin name and email
@@ -69,58 +66,47 @@ class purgeTask extends sfBaseTask
             }
         }
 
-        $configuration = ProjectConfiguration::getApplicationConfiguration(
-            $options['application'],
-            $options['env'],
-            false
-        );
-        sfContext::createInstance($configuration);
-
-        QubitSearch::disable();
-
-        sfInstall::modifySql();
-
-        sfInstall::loadData();
-
-        QubitSearch::enable();
-
-        // Populate config with settings
-        sfConfig::add(QubitSetting::getSettingsArray());
-
-        // Recreate search index
-        QubitSearch::getInstance()->populate();
-        $this->logSection('purge', 'The search index has been recreated.');
-
-        // set, or prompt for, site title configuration information
         $siteTitle = (isset($options['title'])) ? $options['title'] : '';
         if (!$siteTitle) {
             $siteTitle = readline('Site title [Qubit]: ');
             $siteTitle = (!empty($siteTitle)) ? $siteTitle : 'Qubit';
         }
 
-        // set, or prompt for, site description information
         $siteDescription = (isset($options['description'])) ? $options['description'] : '';
         if (!$siteDescription) {
             $siteDescription = readline('Site description [Test site]: ');
             $siteDescription = (!empty($siteDescription)) ? $siteDescription : 'Test site';
         }
 
-        // set, or prompt for, site base URL
         $siteBaseUrl = (isset($options['url'])) ? $options['url'] : '';
         if (!$siteBaseUrl) {
             $siteBaseUrl = readline('Site base URL [http://127.0.0.1]: ');
             $siteBaseUrl = (!empty($siteBaseUrl)) ? $siteBaseUrl : 'http://127.0.0.1';
         }
 
-        $this->validateUrl($siteBaseUrl);
+        $validator = new sfValidatorUrl(['protocols' => ['http', 'https']]);
+        $validator->clean($siteBaseUrl);
 
-        $this->createSetting('siteTitle', $siteTitle);
-        $this->createSetting('siteDescription', $siteDescription);
-        $this->createSetting('siteBaseUrl', $siteBaseUrl);
+        $this->configuration = ProjectConfiguration::getApplicationConfiguration(
+            'qubit',
+            'cli',
+            false
+        );
+        sfContext::createInstance($this->configuration);
+
+        $this->initializeDbAndEs($options);
+
+        $this->logSection($this->name, 'Adding site configuration');
+
+        arInstall::createSetting('siteTitle', $siteTitle);
+        arInstall::createSetting('siteDescription', $siteDescription);
+        arInstall::createSetting('siteBaseUrl', $siteBaseUrl);
+
+        $this->logSection($this->name, 'Creating admin user');
 
         addSuperuserTask::addSuperUser($options['username'], $options);
 
-        $this->logSection('propel', 'Purge complete!');
+        $this->logSection($this->name, 'Purge completed');
     }
 
     /**
@@ -153,61 +139,5 @@ class purgeTask extends sfBaseTask
         $this->detailedDescription = <<<'EOF'
 Purge all data.
 EOF;
-    }
-
-    /*
-     * Helper to create a system setting
-     *
-     * @param string $name  Name of setting
-     * @param string $value  Value of setting
-     */
-    protected function createSetting($name, $value)
-    {
-        $setting = new QubitSetting();
-        $setting->name = $name;
-        $setting->value = $value;
-        $setting->save();
-    }
-
-    /**
-     * Set the site to have default demo site values,
-     * i.e. admin user is demo@example.com / demo.
-     *
-     * @param mixed $options
-     */
-    private function setDemoOptions(&$options)
-    {
-        $options['no-confirmation'] = true;
-        $options['title'] = 'Demo site';
-        $options['description'] = 'Demo site';
-        $options['email'] = 'demo@example.com';
-        $options['username'] = 'demo';
-        $options['password'] = 'demo';
-        $options['url'] = 'http://127.0.0.1';
-    }
-
-    /*
-     * This method throws an exception if the user specified a malformed URL as the base URL.
-     * @param string $url  The specified base URL
-     */
-    private function validateUrl($url)
-    {
-        $invalidUrl = new sfException("Invalid base URL given: {$url}");
-
-        // parse_url may return false for badly malformed URLs, but it shouldn't be used solely
-        // to validate them. We're mainly using it here to determine if http:// or https:// is
-        // part of the URL.
-        if (false === $urlParts = parse_url($url)) {
-            throw $invalidUrl;
-        }
-
-        // FILTER_VALIDATE_URL always returns false if no scheme is specified, default to http://
-        if (!isset($urlParts['scheme'])) {
-            $url = 'http://'.$url;
-        }
-
-        if (false === filter_var($url, FILTER_VALIDATE_URL)) {
-            throw $invalidUrl;
-        }
     }
 }

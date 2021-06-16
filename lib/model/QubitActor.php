@@ -162,48 +162,62 @@ class QubitActor extends BaseActor
             $event->save();
         }
 
-        // Update asynchronously the saved IOs ids, two jobs may
-        // be launched in here as creation events require updating
-        // the descendants but other events don't.
-        if ($this->indexOnSave && (count($creationIoIds) > 0 || count($otherIoIds) > 0)) {
-            if (count($creationIoIds) > 0) {
-                $jobOptions = [
-                    'ioIds' => $creationIoIds,
-                    'updateIos' => true,
-                    'updateDescendants' => true,
-                ];
-                QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
-            }
-
-            if (count($otherIoIds) > 0) {
-                $jobOptions = [
-                    'ioIds' => $otherIoIds,
-                    'updateIos' => true,
-                    'updateDescendants' => false,
-                ];
-                QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
-            }
-
-            // Let user know related descriptions update has started
-            $jobsUrl = $context->routing->generate(null, ['module' => 'jobs', 'action' => 'browse']);
-            $message = $context->i18n->__('Your actor has been updated. Its related descriptions are being updated asynchronously – check the <a href="%1">job scheduler page</a> for status and details.', ['%1' => $jobsUrl]);
-            $context->user->setFlash('notice', $message);
-        }
-
         // Save related contact information objects
         foreach ($this->contactInformations as $item) {
             $item->actor = $this;
             $item->save();
         }
 
-        // Repositories are updated in the save function for QubitRepository class
-        // in order to get the i18n values updated in the search index
-        if ('QubitActor' == $this->className) {
-            QubitSearch::getInstance()->update($this);
+        if ($this->indexOnSave) {
+            // Update asynchronously the saved IOs ids, two jobs may
+            // be launched in here as creation events require updating
+            // the descendants but other events don't.
+            if (count($creationIoIds) > 0 || count($otherIoIds) > 0) {
+                if (count($creationIoIds) > 0) {
+                    $jobOptions = [
+                        'ioIds' => $creationIoIds,
+                        'updateIos' => true,
+                        'updateDescendants' => true,
+                    ];
+                    QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
+                }
 
-            // Update, in Elasticsearch, the actors previously or currently related to the actor
-            $actorsToUpdate = array_unique(array_merge($previouslyRelatedActorIds, arUpdateEsActorRelationsJob::relationActorIds($this->id)));
-            $this->updateRelations($actorsToUpdate);
+                if (count($otherIoIds) > 0) {
+                    $jobOptions = [
+                        'ioIds' => $otherIoIds,
+                        'updateIos' => true,
+                        'updateDescendants' => false,
+                    ];
+                    QubitJob::runJob('arUpdateEsIoDocumentsJob', $jobOptions);
+                }
+
+                // Let user know related descriptions update has started
+                $jobsUrl = $context->routing->generate(
+                    null,
+                    ['module' => 'jobs', 'action' => 'browse']
+                );
+                $message = $context->i18n->__(
+                    'Your actor has been updated. Its related descriptions '
+                    .'are being updated asynchronously – check the '
+                    .'<a href="%1">job scheduler page</a> for status and details.',
+                    ['%1' => $jobsUrl]
+                );
+                $context->user->setFlash('notice', $message);
+            }
+
+            // Repositories are updated in the save function for QubitRepository
+            // class in order to get the i18n values updated in the search index.
+            if ('QubitActor' == $this->className) {
+                QubitSearch::getInstance()->update($this);
+
+                // Update, in Elasticsearch, the actors previously or currently
+                // related to the actor.
+                $actorsToUpdate = array_unique(array_merge(
+                    $previouslyRelatedActorIds,
+                    arUpdateEsActorRelationsJob::relationActorIds($this->id)
+                ));
+                $this->updateRelations($actorsToUpdate);
+            }
         }
 
         return $this;

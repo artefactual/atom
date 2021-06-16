@@ -731,6 +731,20 @@ class Propel
 	}
 
 	/**
+	 * CUSTOMIZATION: Sets the name of the default database.
+	 *
+	 * Needed in the install process to change the default database name after
+	 * the configuration is loaded. This name is set to the DEFAULT_NAME value
+	 * earlier in the install process and can't be changed to match the config.
+	 *
+	 * @param     string $name Name of the default DB
+	 */
+	public static function setDefaultDB($name)
+	{
+		self::$defaultDBName = $name;
+	}
+
+	/**
 	 * Closes any associated resource handles.
 	 *
 	 * This method frees any database connection handles that have been

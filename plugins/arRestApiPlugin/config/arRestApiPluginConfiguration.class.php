@@ -113,7 +113,7 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
      */
     public function initialize()
     {
-        // Enable sfInstallPlugin module
+        // Enable arRestApiPlugin module
         $enabledModules = sfConfig::get('sf_enabled_modules');
         $enabledModules[] = 'api';
         sfConfig::set('sf_enabled_modules', $enabledModules);

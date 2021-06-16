@@ -30,7 +30,7 @@ class arCasPluginConfiguration extends sfPluginConfiguration
      */
     public function initialize()
     {
-        // Enable sfInstallPlugin module
+        // Enable arCasPlugin module
         $enabledModules = sfConfig::get('sf_enabled_modules');
         $enabledModules[] = 'arCasPlugin';
         sfConfig::set('sf_enabled_modules', $enabledModules);

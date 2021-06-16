@@ -31,15 +31,20 @@ jobs:
         key: 20.04-7.4-composer-${{ hashFiles('composer.lock') }}
     - name: Install dependencies
       run: composer install
-    - name: Copy config files
-      run: |
-        cp test/bootstrap/config.php config/config.php
-        cp test/bootstrap/search.yml config/search.yml
-        cp config/propel.ini.tmpl config/propel.ini
-        cp apps/qubit/config/settings.yml.tmpl apps/qubit/config/settings.yml
     - name: Wait for containerized services
       run: sleep 10
-    - name: Initialize database and search index
-      run: php symfony tools:purge --demo
+    - name: Run the installer
+      run: |
+        php symfony tools:install \
+          --database-host=127.0.0.1 \
+          --database-port=63003 \
+          --database-name=atom \
+          --database-user=atom \
+          --database-password=atom_12345 \
+          --search-host=127.0.0.1 \
+          --search-port=63002 \
+          --search-index=atom \
+          --demo \
+          --no-confirmation
     - name: Run tests
       run: composer test

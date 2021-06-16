@@ -25,19 +25,19 @@ RUN set -xe \
       sockets \
       xsl \
       zip \
-    && pecl install pcov \
-    && docker-php-ext-enable pcov \
+    && pecl install apcu pcov \
     && curl -Ls https://github.com/websupport-sk/pecl-memcache/archive/NON_BLOCKING_IO_php7.tar.gz | tar xz -C / \
     && cd /pecl-memcache-NON_BLOCKING_IO_php7 \
     && phpize && ./configure && make && make install \
-    && docker-php-ext-enable memcache \
     && cd / && rm -rf /pecl-memcache-NON_BLOCKING_IO_php7 \
+    && docker-php-ext-enable apcu memcache pcov \
     && apk add --no-cache --virtual .phpext-rundeps \
       gettext \
       libxslt \
       libmemcached-libs \
       libzip \
     && apk del .phpext-builddeps \
+    && pecl clear-cache \
     && apk add --no-cache --virtual .atom-deps \
       openjdk8-jre-base \
       ffmpeg \

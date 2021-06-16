@@ -39,13 +39,10 @@ jobs:
         key: 20.04-7.4-composer-${{ hashFiles('composer.lock') }}
     - name: Install dependencies
       run: composer install
-    - name: Copy config files
+    - name: Modify Gearman config
       run: |
-        cp test/bootstrap/config.php config/config.php
-        cp test/bootstrap/search.yml config/search.yml
-        cp test/bootstrap/gearman.yml apps/qubit/config/gearman.yml
-        cp config/propel.ini.tmpl config/propel.ini
-        cp apps/qubit/config/settings.yml.tmpl apps/qubit/config/settings.yml
+        echo -e "all:\n  servers:\n    default: 127.0.0.1:63005" \
+          > apps/qubit/config/gearman.yml
     - name: Compile arDominionPlugin theme CSS
       run: |
         sudo npm install -g "less@<2.0.0"
@@ -54,8 +51,19 @@ jobs:
       run: sudo chown -R www-data:www-data ${{ github.workspace }}
     - name: Wait for containerized services
       run: sleep 5
-    - name: Initialize database and search index
-      run: sudo -u www-data php symfony tools:purge --demo
+    - name: Run the installer
+      run: |
+        sudo -u www-data php symfony tools:install \
+          --database-host=127.0.0.1 \
+          --database-port=63003 \
+          --database-name=atom \
+          --database-user=atom \
+          --database-password=atom_12345 \
+          --search-host=127.0.0.1 \
+          --search-port=63002 \
+          --search-index=atom \
+          --demo \
+          --no-confirmation
     - name: Start application services
       run: |
         sudo cp test/etc/fpm_conf /etc/php/7.4/fpm/pool.d/atom.conf

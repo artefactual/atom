@@ -92,17 +92,6 @@ $t->is($routing->getCurrentRouteName(), 'homepage', 'Url "/" is matched with rou
 $t->is($info['module'], 'staticpage', '... with module="staticpage"');
 $t->is($info['action'], 'home', '... and action="home"');
 
-if ($configuration->isPluginEnabled('sfInstallPlugin')) {
-    $t->diag('Test sfInstallPlugin');
-
-    $uri = $routing->generate(null, ['module' => 'sfInstallPlugin']);
-    $t->is($uri, '/sfInstallPlugin');
-    $info = $routing->parse('/sfInstallPlugin');
-    $t->is($routing->getCurrentRouteName(), 'default_index');
-    $t->is($info['module'], 'sfInstallPlugin');
-    $t->is($info['action'], 'index');
-}
-
 /*
 $t->diag('Test oai_harvester_harvest_all_sets');
 $uri = $routing->generate(null, array('module' => 'qtOaiPlugin', 'action' => 'harvesterHarvest', 'id' => '12345', 'type' => 'type'));
