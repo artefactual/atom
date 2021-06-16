@@ -5,6 +5,7 @@ volumes:
   elasticsearch_data:
   percona_data:
   composer_deps:
+  npm_deps:
 
 services:
 
@@ -15,6 +16,7 @@ services:
       - ATOM_COVERAGE=${ATOM_COVERAGE:-false}
     volumes:
       - composer_deps:/atom/src/vendor/composer
+      - npm_deps:/atom/src/node_modules
       - ..:/atom/src:rw
 
   atom_worker:
@@ -29,6 +31,7 @@ services:
     restart: on-failure:5
     volumes:
       - composer_deps:/atom/src/vendor/composer
+      - npm_deps:/atom/src/node_modules
       - ..:/atom/src:rw
 
   nginx:

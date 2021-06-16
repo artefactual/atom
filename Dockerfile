@@ -49,7 +49,7 @@ RUN set -xe \
       bash \
       gnu-libiconv \
       fcgi \
-    && npm install -g "less@<2.0.0" \
+    && npm install -g npm \
     && curl -Ls https://archive.apache.org/dist/xmlgraphics/fop/binaries/fop-2.1-bin.tar.gz | tar xz -C /usr/share \
     && ln -sf /usr/share/fop-2.1/fop /usr/local/bin/fop
 
@@ -59,14 +59,18 @@ COPY composer.* /atom/build/
 
 RUN set -xe && composer install -d /atom/build
 
+COPY package* /atom/build/
+
+RUN set -xe && npm install --prefix /atom/build
+
 COPY . /atom/src
 
 WORKDIR /atom/src
 
 RUN set -xe \
-    && make -C plugins/arDominionPlugin \
-    && make -C plugins/arArchivesCanadaPlugin \
     && mv /atom/build/vendor/composer vendor/ \
+    && mv /atom/build/node_modules . \
+    && php symfony tools:build-css \
     && rm -rf /atom/build
 
 ENTRYPOINT ["docker/entrypoint.sh"]

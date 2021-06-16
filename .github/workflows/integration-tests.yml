@@ -46,10 +46,10 @@ jobs:
         cp test/bootstrap/gearman.yml apps/qubit/config/gearman.yml
         cp config/propel.ini.tmpl config/propel.ini
         cp apps/qubit/config/settings.yml.tmpl apps/qubit/config/settings.yml
-    - name: Compile arDominionPlugin theme CSS
+    - name: Compile themes CSS
       run: |
-        sudo npm install -g "less@<2.0.0"
-        sudo make -C plugins/arDominionPlugin
+        npm ci
+        php symfony tools:build-css
     - name: Change filesystem permissions
       run: sudo chown -R www-data:www-data ${{ github.workspace }}
     - name: Wait for containerized services
@@ -76,8 +76,6 @@ jobs:
     - name: Run tests
       env:
         BROWSER: ${{ matrix.browser }}
-      run: |
-        docker run -v $PWD:/src -w /src --shm-size=500m --network=host \
-          -e CYPRESS_VIDEO=false -e CYPRESS_BASE_URL=http://localhost \
-          cypress/browsers bash -c \
-          "npm install --only=dev && npx cypress run -b ${BROWSER,}"
+        CYPRESS_VIDEO: false
+        CYPRESS_BASE_URL: http://localhost
+      run: npx cypress run -b ${BROWSER,}
