@@ -2,6 +2,10 @@
   "name": "atom",
   "version": "0.0.0",
   "private": true,
+  "dependencies": {
+    "bootstrap": "^5.0.1",
+    "jquery": "^3.6.0"
+  },
   "devDependencies": {
     "cypress": "^7.0.0",
     "cypress-file-upload": "^5.0.3",
