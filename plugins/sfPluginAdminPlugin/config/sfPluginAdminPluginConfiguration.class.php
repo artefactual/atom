@@ -64,7 +64,34 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
                     }
                 }
 
-                $this->configuration->enablePlugins($pluginNames);
+                // Check request to see if a theme is requested,
+                // validate it exists and it's actually a theme.
+                if (
+                    isset($_REQUEST['theme'])
+                    && !in_array($_REQUEST['theme'], $pluginNames)
+                    && isset($pluginPaths[$_REQUEST['theme']])
+                ) {
+                    $themeConfigClass = $_REQUEST['theme'].'Configuration';
+                    $themeConfigPath = $pluginPaths[$_REQUEST['theme']]
+                        .'/config/'.$themeConfigClass.'.class.php';
+
+                    if (is_readable($themeConfigPath)) {
+                        require_once $themeConfigPath;
+
+                        if (
+                            isset($themeConfigClass::$summary)
+                            && 1 === preg_match(
+                                '/theme/i',
+                                $themeConfigClass::$summary
+                            )
+                        ) {
+                            // Add requested theme plugin to the list
+                            // and store its value for later.
+                            $pluginNames[] = $_REQUEST['theme'];
+                            $requestedTheme = $_REQUEST['theme'];
+                        }
+                    }
+                }
 
                 foreach ($pluginNames as $name) {
                     if (!isset($pluginPaths[$name])) {
@@ -77,6 +104,21 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
                         $configuration = new sfPluginConfigurationGeneric($this->configuration, $pluginPaths[$name], $name);
                     } else {
                         require_once $path;
+
+                        // Do not enable other themes if there
+                        // is a theme plugin requested.
+                        if (
+                            isset($requestedTheme)
+                            && $requestedTheme != $name
+                            && isset($className::$summary)
+                            && 1 === preg_match(
+                                '/theme/i',
+                                $className::$summary
+                            )
+                        ) {
+                            continue;
+                        }
+
                         $configuration = new $className($this->configuration, $pluginPaths[$name], $name);
                     }
 
@@ -84,6 +126,7 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
                     $configuration->initializeAutoload();
                     $configuration->initialize();
 
+                    $this->configuration->enablePlugins([$name]);
                     $this->configuration->pluginConfigurations[$name] = $configuration;
                 }
 
