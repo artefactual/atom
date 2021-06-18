@@ -6,7 +6,7 @@
           $('.mediaelement-player', context).each(function ()
             {
               $(this).mediaelementplayer({
-                pluginPath: Qubit.relativeUrlRoot + '/vendor/mediaelement/',
+                pluginPath: '/vendor/mediaelement/',
                 renderers: ['html5', 'flash_video'],
                 alwaysShowControls: true,
                 stretching: 'responsive'
