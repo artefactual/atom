@@ -59,7 +59,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
                 "\n",
                 $this->csvData + $this->csvData
             ),
-            'root.csv' => $this->csvData[0],
+            'unreadable.csv' => $this->csvData[0],
             'error.log' => '',
         ];
 
@@ -67,9 +67,9 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
         $this->vfs = vfsStream::setup('root', null, $directory);
 
         // Make 'root.csv' owned and readable only by root user
-        $file = $this->vfs->getChild('root/root.csv');
+        $file = $this->vfs->getChild('root/unreadable.csv');
         $file->chmod('0400');
-        $file->chown(vfsStream::OWNER_ROOT);
+        $file->chown(vfsStream::OWNER_USER_1);
     }
 
     public function getCsvRowAsAssocArray($row = 0)
@@ -259,7 +259,7 @@ class PhysicalObjectCsvImporterTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(sfException::class);
         $importer = new PhysicalObjectCsvImporter($this->context, $this->vdbcon);
-        $importer->setFilename($this->vfs->url().'/root.csv');
+        $importer->setFilename($this->vfs->url().'/unreadable.csv');
     }
 
     public function testSetFilenameSuccess()
