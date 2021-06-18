@@ -5,6 +5,12 @@
   "devDependencies": {
     "cypress": "^7.0.0",
     "cypress-file-upload": "^5.0.3",
-    "cypress-wait-until": "^1.7.1"
+    "cypress-wait-until": "^1.7.1",
+    "less": "^3.13.1",
+    "less-plugin-clean-css": "^1.5.1"
+  },
+  "scripts": {
+    "build-dominion-css": "lessc --rewrite-urls=all --clean-css plugins/arDominionPlugin/css/main.less plugins/arDominionPlugin/css/min.css",
+    "build-all-css": "php symfony tools:build-css"
   }
 }
