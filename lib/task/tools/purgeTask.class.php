@@ -87,6 +87,7 @@ class purgeTask extends installTask
         $validator = new sfValidatorUrl(['protocols' => ['http', 'https']]);
         $validator->clean($siteBaseUrl);
 
+        sfConfig::set('app_avoid_routing_propel_exceptions', true);
         $this->configuration = ProjectConfiguration::getApplicationConfiguration(
             'qubit',
             'cli',
