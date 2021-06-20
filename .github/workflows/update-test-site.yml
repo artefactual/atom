@@ -1,0 +1,58 @@
+name: Update test site
+on:
+  pull_request:
+    branches:
+    - qa/**
+jobs:
+  update-test-site:
+    runs-on: ubuntu-20.04
+    if: ${{ startsWith(github.head_ref, 'dev-test/') }}
+    steps:
+    - name: Wait for other checks
+      uses: lewagon/wait-on-check-action@v0.2
+      with:
+        ref: ${{ github.head_ref }}
+        wait-interval: 10
+        running-workflow-name: update-test-site
+    - name: Configure SSH
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$KEY" > ~/.ssh/do.key
+        chmod 600 ~/.ssh/do.key
+        cat >>~/.ssh/config <<END
+        Host do
+          HostName ${GITHUB_HEAD_REF##*/}.atom.artefactual.net
+          User root
+          IdentityFile ~/.ssh/do.key
+          StrictHostKeyChecking no
+        END
+      env:
+        KEY: ${{ secrets.DO_SSH_KEY }}
+    - name: Stop services
+      run: ssh do 'systemctl stop nginx php7.4-fpm atom-worker'
+    - name: Fetch latest changes
+      run: |
+        ssh do 'cd /usr/share/nginx/atom && git fetch \
+          && sudo -u www-data git reset --hard \
+          origin/${{ github.head_ref }}'
+    - name: Update dependencies
+      run: |
+        ssh do 'cd /usr/share/nginx/atom \
+          && sudo -u www-data npm install \
+          && sudo -u www-data composer install --no-dev'
+    - name: Clear Symfony cache
+      run: |
+        ssh do 'cd /usr/share/nginx/atom \
+          && sudo -u www-data php symfony cc'
+    - name: Purge database
+      run: |
+        ssh do 'cd /usr/share/nginx/atom \
+          && sudo -u www-data php symfony tools:purge --demo'
+    - name: Update themes CSS
+      run: |
+        ssh do 'cd /usr/share/nginx/atom \
+          && sudo -u www-data php symfony tools:build-css'
+    - name: Start services
+      run: |
+        ssh do 'systemctl reset-failed atom-worker \
+          && systemctl start atom-worker php7.4-fpm nginx'
