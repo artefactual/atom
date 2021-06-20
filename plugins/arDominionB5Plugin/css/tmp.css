@@ -1,0 +1,11 @@
+#update-check {
+  background-color: #f80;
+}
+
+#update-check a,
+#update-check a:active,
+#update-check a:focus,
+#update-check a:hover {
+  color: #fff;
+  text-decoration: none;
+}
