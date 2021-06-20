@@ -6,7 +6,9 @@
     <?php include_title(); ?>
     <?php echo get_component('default', 'tagManager', ['code' => 'script']); ?>
     <link rel="shortcut icon" href="<?php echo public_path('favicon.ico'); ?>"/>
+    <!-- TODO: Organize, customize and build CSS from Bootstrap and custom SASS -->
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/plugins/arDominionB5Plugin/css/tmp.css">
     <!-- TODO: Move jQuery after footer when all JS is also there -->
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   </head>
