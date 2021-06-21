@@ -1,3 +1,8 @@
+#privacy-message {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
 .site-warning {
   background-color: #f80;
 }
@@ -11,7 +16,6 @@
   text-decoration: underline;
 }
 
-#privacy-message {
-  margin-bottom: 0;
-  border-radius: 0;
+.navbar .dropdown-menu {
+  min-width: 15rem;
 }
