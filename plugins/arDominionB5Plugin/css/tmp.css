@@ -1,13 +1,14 @@
-#update-check {
+.site-warning {
   background-color: #f80;
 }
 
-#update-check a,
-#update-check a:active,
-#update-check a:focus,
-#update-check a:hover {
+.site-warning a {
   color: #fff;
   text-decoration: none;
+}
+
+.site-warning a:hover {
+  text-decoration: underline;
 }
 
 #privacy-message {
