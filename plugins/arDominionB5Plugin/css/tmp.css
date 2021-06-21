@@ -9,3 +9,8 @@
   color: #fff;
   text-decoration: none;
 }
+
+#privacy-message {
+  margin-bottom: 0;
+  border-radius: 0;
+}
