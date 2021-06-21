@@ -1,4 +1,4 @@
-<div id="update-check" class="text-center p-1">
+<div class="site-warning text-center p-1">
   <?php echo __(
       'A %1%release %2% upgrade is available.',
       [
