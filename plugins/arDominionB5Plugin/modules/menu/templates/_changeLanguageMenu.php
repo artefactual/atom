@@ -1,6 +1,7 @@
 <li class="nav-item dropdown">
   <a class="nav-link dropdown-toggle" href="#" id="language-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <?php echo __('Language'); ?>
+    <i class="fas fa-2x fa-globe-europe" aria-hidden="true"></i>
+    <span class="sr-only"><?php echo __('Language'); ?></span>  
   </a>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="language-menu">
     <li>
