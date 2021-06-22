@@ -3,7 +3,7 @@
 <html>
   <head>
     <title>Error</title>
-    <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>/plugins/arDominionPlugin/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo $path; ?>/plugins/arDominionPlugin/css/min.css"/>
   </head>
   <body class="yui-skin-sam admin error">
 
