@@ -1,6 +1,7 @@
 <li class="nav-item dropdown">
   <a class="nav-link dropdown-toggle" href="#" id="<?php echo $menu->getName(); ?>-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <?php echo $menu->getLabel(['cultureFallback' => true]); ?>
+    <i class="fas fa-2x fa-paperclip" aria-hidden="true"></i>
+    <span class="sr-only"><?php echo $menu->getLabel(['cultureFallback' => true]); ?></span>
   </a>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="<?php echo $menu->getName(); ?>-menu">
     <li>
