@@ -50,6 +50,13 @@ class MenuMainMenuComponent extends sfComponent
         $this->manageMenu = QubitMenu::getById(QubitMenu::MANAGE_ID);
         $this->importMenu = QubitMenu::getById(QubitMenu::IMPORT_ID);
         $this->adminMenu = QubitMenu::getById(QubitMenu::ADMIN_ID);
+
+        $this->icons = [
+            'add' => 'plus-circle',
+            'manage' => 'pen-square',
+            'import' => 'download',
+            'admin' => 'cogs',
+        ];
     }
 
     private function userCanCreate()
