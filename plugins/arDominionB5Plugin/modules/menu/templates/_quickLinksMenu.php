@@ -1,6 +1,7 @@
 <li class="nav-item dropdown">
   <a class="nav-link dropdown-toggle" href="#" id="quick-links-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <?php echo __('Quick links'); ?>
+    <i class="fas fa-2x fa-info-circle" aria-hidden="true"></i>
+    <span class="sr-only"><?php echo __('Quick links'); ?></span>   
   </a>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quick-links-menu">
     <li>
