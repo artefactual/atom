@@ -1,15 +1,15 @@
-<li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="language-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+<li class="nav-item dropdown d-flex flex-column">
+  <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="language-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <i class="fas fa-2x fa-globe-europe" aria-hidden="true"></i>
-    <span class="sr-only"><?php echo __('Language'); ?></span>  
+    <span class="d-lg-none ms-2" aria-hidden="true"><?php echo __('Language'); ?></span>
+    <span class="visually-hidden"><?php echo __('Language'); ?></span>  
   </a>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="language-menu">
     <li>
-      <h5 class="dropdown-item-text">
+      <h6 class="dropdown-header">
         <?php echo __('Language'); ?>
-      </h5>
+      </h6>
     </li>
-    <li><hr class="dropdown-divider"></li>
     <?php foreach ($langCodes as $value) { ?>
       <li>
         <?php echo link_to(
