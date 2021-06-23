@@ -1,15 +1,15 @@
-<li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="quick-links-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+<li class="nav-item dropdown d-flex flex-column">
+  <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="quick-links-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <i class="fas fa-2x fa-info-circle" aria-hidden="true"></i>
-    <span class="sr-only"><?php echo __('Quick links'); ?></span>   
+    <span class="d-lg-none ms-2" aria-hidden="true"><?php echo __('Quick links'); ?></span> 
+    <span class="visually-hidden"><?php echo __('Quick links'); ?></span>
   </a>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quick-links-menu">
     <li>
-      <h5 class="dropdown-item-text">
+      <h6 class="dropdown-header">
         <?php echo __('Quick links'); ?>
-      </h5>
+      </h6>
     </li>
-    <li><hr class="dropdown-divider"></li>
     <?php foreach ($quickLinks as $child) { ?>
       <?php if ('login' != $child->getName() && 'logout' != $child->getName() && 'myProfile' != $child->getName()) { ?>
         <li>
