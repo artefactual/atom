@@ -7,6 +7,7 @@
     <?php echo get_component('default', 'tagManager', ['code' => 'script']); ?>
     <link rel="shortcut icon" href="<?php echo public_path('favicon.ico'); ?>"/>
     <link rel="stylesheet" href="/plugins/arDominionB5Plugin/build/css/min.css">
+    <link rel="stylesheet" href="/vendor/uppy/uppy-bundle.css">
     <!-- TODO: Move jQuery after footer when all JS is also there -->
     <script src="/node_modules/jquery/dist/jquery.min.js"></script>
   </head>
