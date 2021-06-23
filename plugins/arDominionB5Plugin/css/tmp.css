@@ -16,8 +16,10 @@
   text-decoration: underline;
 }
 
-.navbar a.dropdown-toggle::after {
-  content: none;
+@media (min-width: 992px) {
+  .navbar a.dropdown-toggle::after {
+    content: none;
+  }
 }
 
 .navbar .dropdown-menu {
