@@ -55,7 +55,7 @@ class MenuMainMenuComponent extends sfComponent
             'add' => 'plus-circle',
             'manage' => 'pen-square',
             'import' => 'download',
-            'admin' => 'cogs',
+            'admin' => 'cog',
         ];
     }
 
