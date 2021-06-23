@@ -25,7 +25,7 @@
     </button>
     <div class="collapse navbar-collapse flex-wrap justify-content-end" id="navbar-content">
       <div class="d-flex flex-wrap flex-lg-nowrap me-auto mt-2 mt-lg-0">
-        <?php echo get_component('menu', 'browseMenu'); ?>
+        <?php echo get_component('menu', 'browseMenu', ['sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID()]); ?>
         <form class="d-flex mb-2 mb-lg-0">
           <div class="input-group flex-nowrap">
             <input class="form-control form-control-sm" type="search" placeholder="<?php echo __('Search'); ?>" aria-label="<?php echo __('Search'); ?>">
@@ -38,7 +38,7 @@
       </div>
       <div class="d-flex flex-nowrap flex-column flex-lg-row align-items-strech align-items-lg-center">
         <ul class="navbar-nav ms-lg-2">
-          <?php echo get_component('menu', 'mainMenu'); ?>
+          <?php echo get_component('menu', 'mainMenu', ['sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID()]); ?>
           <?php echo get_component('menu', 'clipboardMenu'); ?>
           <?php if (sfConfig::get('app_toggleLanguageMenu')) { ?>
             <?php echo get_component('menu', 'changeLanguageMenu'); ?>
