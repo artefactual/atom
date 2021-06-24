@@ -24,9 +24,9 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse flex-wrap justify-content-end" id="navbar-content">
-      <div class="d-flex flex-wrap flex-lg-nowrap me-auto mb-lg-1">
+      <div class="d-flex flex-wrap flex-lg-nowrap me-auto">
         <?php echo get_component('menu', 'browseMenu', ['sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID()]); ?>
-        <form class="d-flex mb-2 mb-lg-0 mt-2">
+        <form class="d-flex my-2">
           <div class="input-group flex-nowrap">
             <input class="form-control form-control-sm" type="search" placeholder="<?php echo __('Search'); ?>" aria-label="<?php echo __('Search'); ?>">
             <button class="btn btn-sm btn-secondary" type="submit">
