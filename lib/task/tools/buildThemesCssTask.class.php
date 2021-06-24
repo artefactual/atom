@@ -38,6 +38,7 @@ class buildThemesCssTask extends sfBaseTask
         );
 
         foreach ($configuration->getAllPluginPaths() as $name => $path) {
+            // Compile less plugins
             $cssPath = $path.DIRECTORY_SEPARATOR.'css';
             $lessPath = $cssPath.DIRECTORY_SEPARATOR.'main.less';
             if (file_exists($lessPath)) {
@@ -47,6 +48,33 @@ class buildThemesCssTask extends sfBaseTask
                     'npx lessc --rewrite-urls=all --clean-css %s %s',
                     $lessPath,
                     $cssPath.DIRECTORY_SEPARATOR.'min.css'
+                );
+                exec($cmd, $output, $exitCode);
+
+                if (0 != $exitCode) {
+                    echo "Building {$name} CSS file failed.\n";
+                }
+            }
+
+            // Compile sass plugins
+            $scssPath = $path
+                .DIRECTORY_SEPARATOR
+                .'scss'
+                .DIRECTORY_SEPARATOR
+                .'main.scss';
+            if (file_exists($scssPath)) {
+                echo "Building {$name} CSS file.\n";
+
+                $cmd = sprintf(
+                    'npx sass --style=compressed %s %s',
+                    $scssPath,
+                    $path
+                        .DIRECTORY_SEPARATOR
+                        .'build'
+                        .DIRECTORY_SEPARATOR
+                        .'css'
+                        .DIRECTORY_SEPARATOR
+                        .'min.css'
                 );
                 exec($cmd, $output, $exitCode);
 
