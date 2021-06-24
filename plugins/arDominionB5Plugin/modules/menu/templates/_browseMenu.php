@@ -1,4 +1,4 @@
-<div class="dropdown me-2 mb-2 mb-lg-0 mt-2">
+<div class="dropdown my-2 me-2">
   <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="browse-menu" data-bs-toggle="dropdown" aria-expanded="false">
     <?php echo $browseMenu->getLabel(['cultureFallback' => true]); ?>
   </button>
