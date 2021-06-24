@@ -1,0 +1,15 @@
+#navbar-content button:hover,
+#navbar-content button:focus {
+  background-color: $primary;
+  border-color: $primary;
+  box-shadow: $btn-focus-box-shadow;
+}
+
+#navbar-content .nav-link {
+  color: $white;
+
+  &:hover,
+  &:focus {
+    color: $primary;
+  }
+}
