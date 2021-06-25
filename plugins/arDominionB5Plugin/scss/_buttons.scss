@@ -1,15 +1,10 @@
-#navbar-content button:hover,
-#navbar-content button:focus {
-  background-color: $primary;
-  border-color: $primary;
-  box-shadow: $btn-focus-box-shadow;
-}
-
-#navbar-content .nav-link {
-  color: $white;
+.atom-btn-secondary {
+  @include button-variant($secondary, $secondary);
 
   &:hover,
   &:focus {
-    color: $primary;
+    background-color: $primary;
+    border-color: $primary;
+    box-shadow: $btn-focus-box-shadow !important;
   }
 }
