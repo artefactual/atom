@@ -1,6 +1,6 @@
 <?php if ($showLogin) { ?>
   <div class="dropdown my-2 me-1">
-    <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="user-menu" data-bs-toggle="dropdown" aria-expanded="false">
+    <button class="btn btn-sm atom-btn-secondary dropdown-toggle" type="button" id="user-menu" data-bs-toggle="dropdown" aria-expanded="false">
       <?php echo $menuLabels['login']; ?>
     </button>
     <div class="dropdown-menu dropdown-menu-lg-end mt-2" aria-labelledby="user-menu">
@@ -13,7 +13,7 @@
         <?php echo $form->renderHiddenFields(); ?>
         <?php echo $form->email->renderRow(['class' => 'form-control form-control-sm mb-3']); ?>
         <?php echo $form->password->renderRow(['class' => 'form-control form-control-sm mb-3', 'autocomplete' => 'off']); ?>
-        <button class="btn btn-sm btn-secondary" type="submit">
+        <button class="btn btn-sm atom-btn-secondary" type="submit">
           <?php echo $menuLabels['login']; ?>
         </button>
       </form>
@@ -21,7 +21,7 @@
   </div>
 <?php } elseif ($sf_user->isAuthenticated()) { ?>
   <div class="dropdown my-2 me-1">
-    <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="user-menu" data-bs-toggle="dropdown" aria-expanded="false">
+    <button class="btn btn-sm atom-btn-secondary dropdown-toggle" type="button" id="user-menu" data-bs-toggle="dropdown" aria-expanded="false">
       <?php echo $sf_user->user->username; ?>
     </button>
     <ul class="dropdown-menu dropdown-menu-lg-end mt-2" aria-labelledby="user-menu">
