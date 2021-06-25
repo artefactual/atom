@@ -21,8 +21,10 @@
 
       <fieldset class="collapsible">
 
+        <legend class="sr-only"><?php echo __('Load options'); ?></legend>
+
         <div class="fieldset-wrapper">
-          <?php echo $form->password->label(__('Clipboard ID'))->renderRow(); ?>
+          <?php echo $form->clipboardPassword->label(__('Clipboard ID'))->renderRow(); ?>
         </div>
 
         <div class="fieldset-wrapper">

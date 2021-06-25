@@ -42,6 +42,7 @@
       </th>
 
       <th style="width 3%">
+        <span class="sr-only"><?php echo __('Clipboard'); ?></span>
       </th>
     </tr>
   </thead>

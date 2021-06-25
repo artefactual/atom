@@ -34,7 +34,7 @@
             <div class="panel-body">
               <?php if (!empty($helpMessages)) { ?>
                 <div class="generic-help-box">
-                  <a href="#" class="generic-help-icon" aria-expanded="false"><i class="fa fa-question-circle pull-right"></i></a>
+                  <a href="#" class="generic-help-icon" aria-expanded="false" aria-label="<?php echo __('Help'); ?>"><i class="fa fa-question-circle pull-right"></i></a>
                 </div>
               <?php } ?>
               <?php if (isset($form->includeDescendants)) { ?>

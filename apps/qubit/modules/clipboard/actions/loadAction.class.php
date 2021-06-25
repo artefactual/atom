@@ -21,7 +21,7 @@ class ClipboardLoadAction extends DefaultEditAction
 {
     // Arrays not allowed in class constants
     public static $NAMES = [
-        'password',
+        'clipboardPassword',
         'mode',
     ];
 
@@ -98,9 +98,9 @@ class ClipboardLoadAction extends DefaultEditAction
     protected function addField($name)
     {
         switch ($name) {
-            case 'password':
-                $this->form->setValidator('password', new sfValidatorString(['required' => true]));
-                $this->form->setWidget('password', new sfWidgetFormInput());
+            case 'clipboardPassword':
+                $this->form->setValidator('clipboardPassword', new sfValidatorString(['required' => true]));
+                $this->form->setWidget('clipboardPassword', new sfWidgetFormInput());
 
                 break;
 
@@ -120,7 +120,7 @@ class ClipboardLoadAction extends DefaultEditAction
     protected function processField($field)
     {
         switch ($field->getName()) {
-            case 'password':
+            case 'clipboardPassword':
                 $this->password = $this->form->getValue($field->getName());
 
                 break;
