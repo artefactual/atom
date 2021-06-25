@@ -29,7 +29,7 @@
         <form class="d-flex my-2">
           <div class="input-group flex-nowrap">
             <input class="form-control form-control-sm" type="search" placeholder="<?php echo __('Search'); ?>" aria-label="<?php echo __('Search'); ?>">
-            <button class="btn btn-sm btn-secondary" type="submit">
+            <button class="btn btn-sm atom-btn-secondary" type="submit">
               <i class="fas fa-search" aria-hidden="true"></i>
               <span class="visually-hidden"><?php echo __('Search'); ?></span>
             </button>
