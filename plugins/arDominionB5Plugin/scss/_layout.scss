@@ -1,7 +1,3 @@
-.navbar .dropdown-menu {
-  min-width: 15rem;
-}
-
 @include media-breakpoint-up(lg) {
   .navbar a.dropdown-toggle::after {
     content: none;
