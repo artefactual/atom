@@ -5,5 +5,6 @@
     <script src="/vendor/uppy/uppy-bundle.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/privacyMessage.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/multiFileUpload.js"></script>
+    <script src="/plugins/arDominionB5Plugin/js/tooltip.js"></script>
   </body>
 </html>
