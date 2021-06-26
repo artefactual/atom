@@ -1,6 +1,6 @@
 <li class="nav-item dropdown d-flex flex-column">
-  <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="language-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <i class="fas fa-2x fa-globe-europe" aria-hidden="true"></i>
+  <a class="nav-link dropdown-toggle d-flex align-items-center p-0" href="#" id="language-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fas fa-2x fa-globe-europe px-0 px-lg-2 py-2" aria-hidden="true" data-tooltip="<?php echo __('Language'); ?>"></i>
     <span class="d-lg-none ms-2" aria-hidden="true"><?php echo __('Language'); ?></span>
     <span class="visually-hidden"><?php echo __('Language'); ?></span>  
   </a>
