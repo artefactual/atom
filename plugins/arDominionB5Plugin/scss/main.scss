@@ -29,6 +29,10 @@
 @import "../../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
 @import "../../../node_modules/@fortawesome/fontawesome-free/scss/solid";
 
+// Other components (CSS files)
+@import "../../../node_modules/mediaelement/build/mediaelementplayer";
+@import "../../../vendor/uppy/uppy-bundle";
+
 // Custom
 @import "layout";
 @import "buttons";
