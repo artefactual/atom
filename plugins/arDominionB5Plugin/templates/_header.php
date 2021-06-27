@@ -20,21 +20,13 @@
         <?php } ?>
       </a>
     <?php } ?>
-    <button class="navbar-toggler my-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="<?php echo __('Toggle navigation'); ?>">
+    <button class="navbar-toggler my-2 me-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="<?php echo __('Toggle navigation'); ?>">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse flex-wrap justify-content-end" id="navbar-content">
-      <div class="d-flex flex-wrap flex-lg-nowrap me-auto">
+    <div class="collapse navbar-collapse flex-wrap justify-content-end me-1" id="navbar-content">
+      <div class="d-flex flex-wrap flex-lg-nowrap flex-grow-1">
         <?php echo get_component('menu', 'browseMenu', ['sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID()]); ?>
-        <form class="d-flex my-2">
-          <div class="input-group flex-nowrap">
-            <input class="form-control form-control-sm" type="search" placeholder="<?php echo __('Search'); ?>" aria-label="<?php echo __('Search'); ?>">
-            <button class="btn btn-sm atom-btn-secondary" type="submit">
-              <i class="fas fa-search" aria-hidden="true"></i>
-              <span class="visually-hidden"><?php echo __('Search'); ?></span>
-            </button>
-          </div>
-        </form>
+        <?php echo get_component('search', 'box'); ?>
       </div>
       <div class="d-flex flex-nowrap flex-column flex-lg-row align-items-strech align-items-lg-center">
         <ul class="navbar-nav mx-lg-2">
