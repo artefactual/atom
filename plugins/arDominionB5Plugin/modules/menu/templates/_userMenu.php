@@ -1,5 +1,5 @@
 <?php if ($showLogin) { ?>
-  <div class="dropdown my-2 me-1">
+  <div class="dropdown my-2">
     <button class="btn btn-sm atom-btn-secondary dropdown-toggle" type="button" id="user-menu" data-bs-toggle="dropdown" aria-expanded="false">
       <?php echo $menuLabels['login']; ?>
     </button>
@@ -20,7 +20,7 @@
     </div>
   </div>
 <?php } elseif ($sf_user->isAuthenticated()) { ?>
-  <div class="dropdown my-2 me-1">
+  <div class="dropdown my-2">
     <button class="btn btn-sm atom-btn-secondary dropdown-toggle" type="button" id="user-menu" data-bs-toggle="dropdown" aria-expanded="false">
       <?php echo $sf_user->user->username; ?>
     </button>
