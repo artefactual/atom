@@ -11,7 +11,7 @@ $finder = PhpCsFixer\Finder::create()
 ;
 
 // Indentation inside switch blocks and some multiline
-// elements (control statements, assignments, strings) 
+// elements (control statements, assignments, strings)
 // is not considered. See:
 // https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/776
 // https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/4502
@@ -19,7 +19,8 @@ $finder = PhpCsFixer\Finder::create()
 // PhpCsFixer's method_argument_space default value,
 // which includes ensure_fully_multiline, causes
 // inconsistencies in templates.
-return PhpCsFixer\Config::create()
+$config = new PhpCsFixer\Config();
+return $config
     ->setRules([
         '@PhpCsFixer' => true,
         'method_argument_space' => true,
