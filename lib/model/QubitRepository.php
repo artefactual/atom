@@ -459,7 +459,25 @@ class QubitRepository extends BaseRepository
      */
     public function existsLogo()
     {
-        return is_file($this->getLogoPath(true));
+        ProjectConfiguration::getActive()->loadHelpers('Url');
+
+        // return is_file($this->getLogoPath(true));
+        $url = public_path($this->getLogoPath(), true);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        //curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+        // don't download content
+        //curl_setopt($ch, CURLOPT_NOBODY, true);
+        //curl_setopt($ch, CURLOPT_FAILONERROR, true);
+        //curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $result = curl_exec($ch);
+        var_dump($url, curl_getinfo($ch));
+        curl_close($ch);
+
+        return false !== $result;
     }
 
     /**
