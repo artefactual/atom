@@ -3,23 +3,33 @@
   'use strict';
 
   $(() => {
-    var $input =  $('#search-box-input');
+    var $input = $('#search-box-input');
     var $results = $('#search-box-results');
     var dropdown = new bootstrap.Dropdown($input);
 
     // Set up Bootstrap autocomplete:
     // - Force version 4 to avoid failing check in version 5.
-    // - Reduce default throttling and ignore responses that
-    //   come after the input is lower than 3 chars.
     // - Mixed with default Bootstrap 5 dropdown to improve
     //   behavior, accessibility and style.
+    // - Use custom Ajax request to add repos checkbox param.
+    // - Ignore responses when the input is lower than 3 chars.
     // - Avoid no results and results dropdown, and use custom
     //   search results dropdown body.
     $input.autoComplete({
       bootstrapVersion: '4',
-      resolverSettings: {queryKey: 'query', requestThrottling: 250},
       noResultsText: '',
       events: {
+        search: (query, callback, $element) => {
+          var data = {'query': query};
+          var $repos = $('#search-box input[name="repos"]:checked');
+          if ($repos.length && $repos.val()) {
+            data.repos = $repos.val();
+          }
+          $.ajax(
+            $element.data('url'),
+            {data: data}
+          ).done(res => callback(res));
+        },
         searchPost: (response, $element) => {
           if (response.length && $element.val().length >= 3) {
             $results.html(response);
