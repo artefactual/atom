@@ -133,7 +133,7 @@ class CsvParentValidator extends CsvBaseValidator
     {
         if (!$this->parentIdColumnPresent && !$this->qubitParentSlugColumnPresent) {
             $this->testData->setStatusWarn();
-            $this->testData->addResult(sprintf("'parentId' and 'qubitParentSlugColumnPresent' columns not present. CSV contents will be imported as top level records."));
+            $this->testData->addResult(sprintf("'parentId' and 'qubitParentSlug' columns not present. CSV contents will be imported as top level records."));
         } else {
             if ($this->parentIdColumnPresent) {
                 $this->testData->addResult(sprintf('Rows with parentId populated: %s', $this->rowsWithParentId));
@@ -153,7 +153,7 @@ class CsvParentValidator extends CsvBaseValidator
             // If parentId is present, then it would be an error if legacyId was not present.
             if (!$this->legacyIdColumnPresent && 0 < $this->rowsWithParentId) {
                 $this->testData->setStatusError();
-                $this->testData->addResult(sprintf("'legacyId' column not found. Unable to match parentId to CSV rows."));
+                $this->testData->addResult(sprintf("'legacyId' column not found. Unable to verify parentId values."));
             }
 
             // If unable to find a parentId in the DB, and source was not specified, display a message as this is a possible cause.
@@ -162,14 +162,21 @@ class CsvParentValidator extends CsvBaseValidator
                 && $this->parentIdColumnPresent
                 && $this->orphanRowsFound
             ) {
-                $this->testData->setStatusWarn();
-                $this->testData->addResult(sprintf("'source' option not specified. Unable to check parentId values against AtoM's database."));
+                $this->testData->addResult(sprintf('Verifying parentId values against legacyId values in this file.'));
+            }
+
+            if (
+                !empty($this->options['source'])
+                && $this->parentIdColumnPresent
+                && $this->orphanRowsFound
+            ) {
+                $this->testData->addResult(sprintf('Verifying parentId values against legacyId values in this file, and AtoM database.'));
             }
         }
 
         if ($this->orphanRowsFound) {
             $this->testData->setStatusError();
-            $this->testData->addResult(sprintf('Number of rows for which parents could not be found (will import as top level records): %s', $this->unmatchedCount));
+            $this->testData->addResult(sprintf('Number of parentID values found for which there is no matching legacyID (will import as top level records): %s', $this->unmatchedCount));
         }
 
         return parent::getTestResult();

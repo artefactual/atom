@@ -164,7 +164,7 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_TITLE => CsvParentValidator::TITLE,
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_WARN,
                     CsvValidatorResult::TEST_RESULTS => [
-                        "'parentId' and 'qubitParentSlugColumnPresent' columns not present. CSV contents will be imported as top level records.",
+                        "'parentId' and 'qubitParentSlug' columns not present. CSV contents will be imported as top level records.",
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                     ],
@@ -180,9 +180,9 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
                     CsvValidatorResult::TEST_RESULTS => [
                         'Rows with parentId populated: 3',
-                        '\'legacyId\' column not found. Unable to match parentId to CSV rows.',
-                        "'source' option not specified. Unable to check parentId values against AtoM's database.",
-                        'Number of rows for which parents could not be found (will import as top level records): 3',
+                        '\'legacyId\' column not found. Unable to verify parentId values.',
+                        'Verifying parentId values against legacyId values in this file.',
+                        'Number of parentID values found for which there is no matching legacyID (will import as top level records): 3',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                         'DJ001,ID1,Some Photographs,,Extent and medium 1,,',
@@ -216,8 +216,8 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
                     CsvValidatorResult::TEST_RESULTS => [
                         'Rows with parentId populated: 3',
-                        "'source' option not specified. Unable to check parentId values against AtoM's database.",
-                        'Number of rows for which parents could not be found (will import as top level records): 3',
+                        'Verifying parentId values against legacyId values in this file.',
+                        'Number of parentID values found for which there is no matching legacyID (will import as top level records): 3',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                         'B10101,DJ001,ID1,Some Photographs,,Extent and medium 1,,',
@@ -269,8 +269,8 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
                     CsvValidatorResult::TEST_RESULTS => [
                         'Rows with parentId populated: 1',
-                        "'source' option not specified. Unable to check parentId values against AtoM's database.",
-                        'Number of rows for which parents could not be found (will import as top level records): 1',
+                        'Verifying parentId values against legacyId values in this file.',
+                        'Number of parentID values found for which there is no matching legacyID (will import as top level records): 1',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                         'D20202,A10101,,Voûte, étagère 0074,,,,',
@@ -305,7 +305,7 @@ class CsvParentTest extends \PHPUnit\Framework\TestCase
                     CsvValidatorResult::TEST_STATUS => CsvValidatorResult::RESULT_ERROR,
                     CsvValidatorResult::TEST_RESULTS => [
                         'Rows with qubitParentSlug populated: 2',
-                        'Number of rows for which parents could not be found (will import as top level records): 1',
+                        'Number of parentID values found for which there is no matching legacyID (will import as top level records): 1',
                     ],
                     CsvValidatorResult::TEST_DETAILS => [
                         'X7,missing-slug,TY99,Some stuff,,,,en',

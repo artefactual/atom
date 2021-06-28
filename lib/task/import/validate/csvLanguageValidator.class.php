@@ -77,7 +77,7 @@ class CsvLanguageValidator extends CsvBaseValidator
             }
 
             // Keep a list of invalid language values.
-            if (!in_array($row['language'], $this->invalidLanguages)) {
+            if (!in_array(trim($value), $this->invalidLanguages)) {
                 $this->invalidLanguages[] = trim($value);
             }
         }
@@ -96,9 +96,6 @@ class CsvLanguageValidator extends CsvBaseValidator
         if (0 < $this->rowsWithInvalidLanguage) {
             $this->testData->setStatusError();
             $this->testData->addResult(sprintf('Rows with invalid language values: %s', $this->rowsWithInvalidLanguage));
-        }
-
-        if (0 < $this->rowsWithInvalidLanguage) {
             $this->testData->addResult(sprintf('Invalid language values: %s', implode(', ', $this->invalidLanguages)));
         }
 
