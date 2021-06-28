@@ -44,10 +44,14 @@ jobs:
       run: |
         ssh do 'cd /usr/share/nginx/atom \
           && sudo -u www-data php symfony cc'
-    - name: Purge database
+    - name: Upgrade database
       run: |
         ssh do 'cd /usr/share/nginx/atom \
-          && sudo -u www-data php symfony tools:purge --demo'
+          && sudo -u www-data php symfony tools:upgrade-sql --no-confirmation'
+    - name: Populate search index
+      run: |
+        ssh do 'cd /usr/share/nginx/atom \
+          && sudo -u www-data php symfony search:populate'
     - name: Update themes CSS
       run: |
         ssh do 'cd /usr/share/nginx/atom \
