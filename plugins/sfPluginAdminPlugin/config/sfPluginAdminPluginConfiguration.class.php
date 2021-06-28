@@ -64,15 +64,32 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
                     }
                 }
 
-                // Check request to see if a theme is requested,
-                // validate it exists and it's actually a theme.
+                // Check cookie and request to see if a different theme is
+                // requested, validate it exists and it's actually a theme.
+                // Give priority to request parameter and update cookie.
+                $requestedTheme = null;
+                $fromRequest = false;
+
+                if (
+                    isset($_COOKIE['atom_theme'])
+                    && !in_array($_COOKIE['atom_theme'], $pluginNames)
+                    && isset($pluginPaths[$_COOKIE['atom_theme']])
+                ) {
+                    $requestedTheme = $_COOKIE['atom_theme'];
+                }
+
                 if (
                     isset($_REQUEST['theme'])
                     && !in_array($_REQUEST['theme'], $pluginNames)
                     && isset($pluginPaths[$_REQUEST['theme']])
                 ) {
-                    $themeConfigClass = $_REQUEST['theme'].'Configuration';
-                    $themeConfigPath = $pluginPaths[$_REQUEST['theme']]
+                    $requestedTheme = $_REQUEST['theme'];
+                    $fromRequest = true;
+                }
+
+                if (isset($requestedTheme)) {
+                    $themeConfigClass = $requestedTheme.'Configuration';
+                    $themeConfigPath = $pluginPaths[$requestedTheme]
                         .'/config/'.$themeConfigClass.'.class.php';
 
                     if (is_readable($themeConfigPath)) {
@@ -85,10 +102,12 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
                                 $themeConfigClass::$summary
                             )
                         ) {
-                            // Add requested theme plugin to the list
-                            // and store its value for later.
-                            $pluginNames[] = $_REQUEST['theme'];
-                            $requestedTheme = $_REQUEST['theme'];
+                            $pluginNames[] = $requestedTheme;
+
+                            if ($fromRequest) {
+                                // Set it as a cookie for following requests
+                                setcookie('atom_theme', $requestedTheme, ['path' => '/']);
+                            }
                         }
                     }
                 }
