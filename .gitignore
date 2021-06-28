@@ -31,7 +31,7 @@ node_modules
 
 # PHPUnit and php-cs-fixer caches and coverage
 /.phpunit.result.cache
-/.php_cs.cache
+/.php-cs-fixer.cache
 .coverage
 
 # Cypress
