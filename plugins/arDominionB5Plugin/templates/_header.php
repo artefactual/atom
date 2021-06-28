@@ -20,8 +20,9 @@
         <?php } ?>
       </a>
     <?php } ?>
-    <button class="navbar-toggler my-2 me-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="<?php echo __('Toggle navigation'); ?>">
+    <button class="navbar-toggler atom-btn-secondary my-2 me-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false">
       <span class="navbar-toggler-icon"></span>
+      <span class="visually-hidden"><?php echo __('Toggle navigation'); ?></span>
     </button>
     <div class="collapse navbar-collapse flex-wrap justify-content-end me-1" id="navbar-content">
       <div class="d-flex flex-wrap flex-lg-nowrap flex-grow-1">
