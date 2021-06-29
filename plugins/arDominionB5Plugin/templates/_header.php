@@ -3,8 +3,8 @@
 <?php echo get_component('default', 'updateCheck'); ?>
 
 <?php if ($sf_user->isAdministrator() && '' === (string) QubitSetting::getByName('siteBaseUrl')) { ?>
-  <div class="bg-primary text-center p-1">
-    <?php echo link_to(__('Please configure your site base URL'), 'settings/siteInformation', ['class' => 'text-white']); ?>
+  <div class="alert alert-primary rounded-0 text-center mb-0" role="alert">
+    <?php echo link_to(__('Please configure your site base URL'), 'settings/siteInformation', ['class' => 'alert-link']); ?>
   </div>
 <?php } ?>
 

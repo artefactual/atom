@@ -182,7 +182,7 @@
         }
         else {
           // In error state with zero successful uploads. Prevent POST.
-          this.showAlert(this.$element.data('multifileupload-i18nnosuccessfulfileserror'), 'alert-error');
+          this.showAlert(this.$element.data('multifileupload-i18nnosuccessfulfileserror'), 'alert-danger');
 
           return false;
         }
@@ -192,8 +192,8 @@
         this.uppy.upload().then((result) => {
           if (result.failed.length > 0) {
             (this.checkUploadSuccessful() === true) ?
-              this.showAlert(this.$element.data('multifileupload-i18nsomefilesfailederror'), 'alert-error') :
-              this.showAlert(this.$element.data('multifileupload-i18nnosuccessfulfileserror'), 'alert-error');
+              this.showAlert(this.$element.data('multifileupload-i18nsomefilesfailederror'), 'alert-danger') :
+              this.showAlert(this.$element.data('multifileupload-i18nnosuccessfulfileserror'), 'alert-danger');
 
             this.$retryButton.show();
           }
@@ -342,9 +342,14 @@
         type = 'alert-info';
       }
 
-      var $alert = $('<div class="alert ' + type + ' animateNicely">');
-      $alert.append('<button type="button" data-dismiss="alert" class="close">&times;</button>');
-      $alert.append(message).prependTo($('#uploaderContainer'));
+      var $alert = $('<div class="alert ' + type + ' alert-dismissible fade show" role="alert">')
+      .append(message)
+      .append(
+        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="'
+        + this.$element.data('multifileupload-i18n-alert-close')
+        + '"></button>'
+      )
+      .prependTo($('#uploaderContainer'));
   
       return $alert;
     },
