@@ -1,0 +1,18 @@
+// Rules that may be removed after:
+// - Finishing the upgrade.
+// - Removing the Bootstrap 2 themes.
+// - Fixing known issues.
+#privacy-message a {
+  color: #04414d;
+  font-weight: 700;
+}
+
+.alert > p:last-of-type,
+.alert > pre:last-of-type {
+  margin-bottom: 0;
+
+  & + p,
+  & + pre {
+    margin-top: 1rem;
+  }
+}
