@@ -104,7 +104,8 @@
             data-multiFileUpload-i18nSizeError="<?php echo __('Skipping file %{fileName} because file size %{fileSize} is larger than file size limit of %{maxSize} MB'); ?>"
             data-multiFileUpload-i18nNoFilesError="<?php echo __('Please add a file to begin uploading.'); ?>"
             data-multiFileUpload-i18nNoSuccessfulFilesError="<?php echo __('Files not uploaded successfully. Please retry.'); ?>"
-            data-multiFileUpload-i18nPostSizeError="<?php echo __('Upload limit of %{maxPostSize} MB reached. Unable to add additional files.'); ?>">
+            data-multiFileUpload-i18nPostSizeError="<?php echo __('Upload limit of %{maxPostSize} MB reached. Unable to add additional files.'); ?>"
+            data-multiFileUpload-i18n-alert-close="<?php echo __('Close'); ?>">
 
             <h3><?php echo __('Digital objects'); ?></h3>
 
