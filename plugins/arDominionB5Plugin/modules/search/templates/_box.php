@@ -16,10 +16,7 @@
       <span class="visually-hidden"><?php echo __('Search options'); ?></span>
     </button>
     <div class="dropdown-menu" aria-labelledby="search-box-options">
-      <?php if (
-          sfConfig::get('app_multi_repository')
-          && !sfConfig::get('app_enable_institutional_scoping')
-      ) { ?>
+      <?php if (sfConfig::get('app_multi_repository')) { ?>
         <div class="mx-3 my-2">
           <div class="form-check pb-2">
             <input
