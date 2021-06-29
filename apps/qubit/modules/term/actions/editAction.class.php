@@ -474,7 +474,7 @@ class TermEditAction extends DefaultEditAction
 
         // Let user know related descriptions update has started
         $jobsUrl = $this->context->routing->generate(null, ['module' => 'jobs', 'action' => 'browse']);
-        $message = $this->context->i18n->__('Your term has been updated. Its related descriptions are being updated asynchronously – check the <a href="%1">job scheduler page</a> for status and details.', ['%1' => $jobsUrl]);
+        $message = $this->context->i18n->__('Your term has been updated. Its related descriptions are being updated asynchronously – check the <a class="alert-link" href="%1">job scheduler page</a> for status and details.', ['%1' => $jobsUrl]);
         $this->context->user->setFlash('notice', $message);
     }
 }
