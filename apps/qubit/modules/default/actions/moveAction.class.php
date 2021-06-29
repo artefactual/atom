@@ -73,7 +73,7 @@ class DefaultMoveAction extends sfAction
                 sfContext::getInstance()->getConfiguration()->loadHelpers(['Url']);
 
                 $jobManageUrl = url_for(['module' => 'jobs', 'action' => 'browse']);
-                $jobManageLink = '<a href="'.$jobManageUrl.'">'.$this->context->i18n->__('job management').'</a>';
+                $jobManageLink = '<a class="alert-link" href="'.$jobManageUrl.'">'.$this->context->i18n->__('job management').'</a>';
 
                 $message = '<strong>'.$this->context->i18n->__('Move initiated.').'</strong> ';
                 $message .= $this->context->i18n->__("If job hasn't already completed, check %1% page to determine present status.", ['%1%' => $jobManageLink]);

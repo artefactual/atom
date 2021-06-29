@@ -135,7 +135,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
         // Let user know descendants update has started
         $jobsUrl = $context->routing->generate(null, ['module' => 'jobs', 'action' => 'browse']);
-        $message = $context->i18n->__('Your description has been updated. Its descendants are being updated asynchronously – check the <a href="%1">job scheduler page</a> for status and details.', ['%1' => $jobsUrl]);
+        $message = $context->i18n->__('Your description has been updated. Its descendants are being updated asynchronously – check the <a class="alert-link" href="%1">job scheduler page</a> for status and details.', ['%1' => $jobsUrl]);
         $context->user->setFlash('notice', $message);
     }
 
