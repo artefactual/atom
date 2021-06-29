@@ -201,7 +201,8 @@ class QubitActor extends BaseActor
                 $message = $context->i18n->__(
                     'Your actor has been updated. Its related descriptions '
                     .'are being updated asynchronously – check the '
-                    .'<a href="%1">job scheduler page</a> for status and details.',
+                    .'<a class="alert-link" href="%1">job scheduler page</a>'
+                    .' for status and details.',
                     ['%1' => $jobsUrl]
                 );
                 $context->user->setFlash('notice', $message);

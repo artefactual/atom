@@ -92,7 +92,7 @@ class ObjectValidateCsvAction extends DefaultEditAction
             $job = QubitJob::runJob('arValidateCsvJob', $options);
 
             $this->getUser()->setFlash('notice', $this->context->i18n->__('CSV validation initiated. Check %1%job %2%%3% to view the results of the validation.', [
-                '%1%' => sprintf('<a href="%s">', $this->context->routing->generate(null, ['module' => 'jobs', 'action' => 'report', 'id' => $job->id])),
+                '%1%' => sprintf('<a class="alert-link" href="%s">', $this->context->routing->generate(null, ['module' => 'jobs', 'action' => 'report', 'id' => $job->id])),
                 '%2%' => $job->id,
                 '%3%' => '</a>',
             ]), ['persist' => false]);
