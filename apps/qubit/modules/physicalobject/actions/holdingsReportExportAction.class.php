@@ -65,7 +65,7 @@ class PhysicalObjectHoldingsReportExportAction extends sfAction
         $messageParams = [
             '%1%' => '<strong>',
             '%2%' => '</strong>',
-            '%3%' => sprintf('<a href="%s">', $jobAdminUrl),
+            '%3%' => sprintf('<a class="alert-link" href="%s">', $jobAdminUrl),
             '%4%' => '</a>',
         ];
 
