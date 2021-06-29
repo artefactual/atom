@@ -223,7 +223,7 @@ class ClipboardExportAction extends DefaultEditAction
                     .' %open_link%refresh the page and choose different export options'
                     .' %close_link%.',
                     [
-                        '%open_link%' => '<a href="javascript:location.reload();">',
+                        '%open_link%' => '<a class="alert-link" href="javascript:location.reload();">',
                         '%close_link%' => '</a>',
                     ]
                 ));
@@ -253,7 +253,7 @@ class ClipboardExportAction extends DefaultEditAction
                 .' and a download link when complete.',
                 [
                     '%open_link%' => sprintf(
-                        '<strong><a href="%s">',
+                        '<strong><a class="alert-link" href="%s">',
                         $this->context->routing->generate(null, [
                             'module' => 'jobs',
                             'action' => 'browse',
@@ -267,7 +267,7 @@ class ClipboardExportAction extends DefaultEditAction
                 'Please %open_link%refresh the page%close_link% to see progress and'
                 .' a download link when complete.',
                 [
-                    '%open_link%' => '<strong><a href="javascript:location.reload();">',
+                    '%open_link%' => '<strong><a class="alert-link" href="javascript:location.reload();">',
                     '%close_link%' => '</a></strong>',
                 ]
             );
