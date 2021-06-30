@@ -11,6 +11,7 @@
 @import "../../../node_modules/bootstrap/scss/root";
 @import "../../../node_modules/bootstrap/scss/reboot";
 @import "../../../node_modules/bootstrap/scss/type";
+@import "../../../node_modules/bootstrap/scss/images";
 @import "../../../node_modules/bootstrap/scss/containers";
 @import "../../../node_modules/bootstrap/scss/grid";
 @import "../../../node_modules/bootstrap/scss/tables";
@@ -30,6 +31,10 @@
 // Font Awesome
 @import "../../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
 @import "../../../node_modules/@fortawesome/fontawesome-free/scss/solid";
+
+// Accessible Slick carousel
+@import "../../../node_modules/@accessible360/accessible-slick/slick/slick";
+@import "../../../node_modules/@accessible360/accessible-slick/slick/slick-theme";
 
 // Other components (CSS files)
 @import "../../../vendor/uppy/uppy-bundle";
