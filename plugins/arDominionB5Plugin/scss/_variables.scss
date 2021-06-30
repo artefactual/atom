@@ -24,3 +24,9 @@ $h4-font-size: 1.45rem !default;
 $accordion-bg: #fff !default;
 $accordion-button-active-color: #000 !default;
 $table-bg: #fff !default;
+
+// Accessible-Slick carousel
+$slick-font-path: "../../../../node_modules/@accessible360/accessible-slick/slick/fonts/";
+$slick-dot-color: white;
+$slick-dot-color-active: $primary;
+$slick-dot-size: 14px;
