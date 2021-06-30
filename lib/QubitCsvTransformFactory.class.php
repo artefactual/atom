@@ -80,7 +80,7 @@ class QubitCsvTransformFactory
             ],
 
             'preserveOrder' => $this->preserveOrder,
-            'convertWindowsEncoding' => true,
+            'convertWindowsEncoding' => $this->convertWindowsEncoding,
 
             'setupLogic' => $this->setupLogic,
             'transformLogic' => $this->transformLogic,
