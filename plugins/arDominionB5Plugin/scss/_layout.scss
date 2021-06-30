@@ -47,3 +47,23 @@
   margin-top: $spacer;
   padding: $spacer;
 }
+
+#atom-digital-object-carousel {
+  .slick-track {
+    display: flex;
+    align-items: center;
+
+    img {
+      max-width: 400px;
+      max-height: 300px;
+    }
+  }
+
+  .slick-arrow.slick-prev {
+    left: -30px;
+  }
+
+  .slick-arrow.slick-next {
+    right: -30px;
+  }
+}
