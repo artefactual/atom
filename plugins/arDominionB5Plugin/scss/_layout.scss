@@ -1,4 +1,19 @@
 @include media-breakpoint-up(lg) {
+  #navbar-content.wrapped {
+    > .flex-grow-1 {
+      flex-grow: 0 !important;
+    }
+
+    #search-box {
+      width: 400px;
+    }
+  }
+
+  #search-box {
+    max-width: 500px;
+    min-width: 300px;
+  }
+
   .navbar a.dropdown-toggle::after {
     content: none;
   }
