@@ -15,7 +15,7 @@
       <i class="fas fa-cog" aria-hidden="true"></i>
       <span class="visually-hidden"><?php echo __('Search options'); ?></span>
     </button>
-    <div class="dropdown-menu" aria-labelledby="search-box-options">
+    <div class="dropdown-menu mt-2" aria-labelledby="search-box-options">
       <?php if (sfConfig::get('app_multi_repository')) { ?>
         <div class="mx-3 my-2">
           <div class="form-check pb-2">
