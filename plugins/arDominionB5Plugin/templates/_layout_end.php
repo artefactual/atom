@@ -8,5 +8,6 @@
     <script src="/plugins/arDominionB5Plugin/js/multiFileUpload.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/tooltip.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/searchBox.js"></script>
+    <script src="/plugins/arDominionB5Plugin/js/navbarWrap.js"></script>
   </body>
 </html>
