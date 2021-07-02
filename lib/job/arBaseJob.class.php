@@ -150,7 +150,7 @@ class arBaseJob extends Net_Gearman_Job_Common
             throw new Net_Gearman_Job_Exception('Called arBaseJob::error() before QubitJob fetched.');
         }
 
-        $this->logger->info($message);
+        $this->logger->err($message);
         $this->job->setStatusError($message);
         $this->job->save();
     }
