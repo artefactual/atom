@@ -155,8 +155,9 @@ abstract class exportBulkBaseTask extends sfBaseTask
         }
 
         // Assemble full query
-        $query = 'SELECT * FROM information_object i
+        $query = 'SELECT i.*, i18n.* FROM information_object i
             INNER JOIN information_object_i18n i18n ON i.id=i18n.id
+            LEFT JOIN digital_object do ON i.id=do.object_id
             WHERE '.$whereClause;
 
         // Order by place in hierarchy so parents are exported before children
