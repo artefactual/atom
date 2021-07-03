@@ -35,7 +35,9 @@ class arDominionB5PluginConfiguration extends sfPluginConfiguration
         // Move this plugin to the top to allow overwriting
         // controllers and views from other plugin modules.
         $plugins = $this->configuration->getPlugins();
-        unset($plugins[array_search($this->name, $plugins)]);
-        $this->configuration->setPlugins(array_values([$this->name] + $plugins));
+        if (false !== $key = array_search($this->name, $plugins)) {
+            unset($plugins[$key]);
+        }
+        $this->configuration->setPlugins(array_merge([$this->name], $plugins));
     }
 }
