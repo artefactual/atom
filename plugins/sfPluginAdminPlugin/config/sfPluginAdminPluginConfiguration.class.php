@@ -70,19 +70,17 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
                 $requestedTheme = null;
                 $fromRequest = false;
 
-                if (
-                    isset($_COOKIE['atom_theme'])
-                    && !in_array($_COOKIE['atom_theme'], $pluginNames)
-                    && isset($pluginPaths[$_COOKIE['atom_theme']])
-                ) {
+                if (isset(
+                    $_COOKIE['atom_theme'],
+                    $pluginPaths[$_COOKIE['atom_theme']]
+                )) {
                     $requestedTheme = $_COOKIE['atom_theme'];
                 }
 
-                if (
-                    isset($_REQUEST['theme'])
-                    && !in_array($_REQUEST['theme'], $pluginNames)
-                    && isset($pluginPaths[$_REQUEST['theme']])
-                ) {
+                if (isset(
+                    $_REQUEST['theme'],
+                    $pluginPaths[$_REQUEST['theme']]
+                )) {
                     $requestedTheme = $_REQUEST['theme'];
                     $fromRequest = true;
                 }
