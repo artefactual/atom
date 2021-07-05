@@ -39,14 +39,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="informationobject-rename">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="rename-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#rename-collapse" aria-expanded="true" aria-controls="rename-collapse">
             <?php echo __('Rename'); ?>
           </button>
         </h2>
-        <div id="rename-collapse" class="accordion-collapse collapse show" aria-labelledby="rename-heading" data-bs-parent="#informationobject-rename">
+        <div id="rename-collapse" class="accordion-collapse collapse show" aria-labelledby="rename-heading">
           <div class="accordion-body">
             <p><?php echo __('Use this interface to update the description title, slug (permalink), and/or %1% filename.', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]); ?></p>
 

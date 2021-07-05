@@ -6,14 +6,14 @@
 
   <?php echo $form->renderHiddenFields(); ?>
 
-  <div class="accordion" id="user-actor-acl">
+  <div class="accordion">
     <div class="accordion-item">
       <h2 class="accordion-header" id="permissions-heading">
         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#permissions-collapse" aria-expanded="true" aria-controls="permissions-collapse">
           <?php echo __('Permissions for all %1%', ['%1%' => lcfirst(sfConfig::get('app_ui_label_actor'))]); ?>
         </button>
       </h2>
-      <div id="permissions-collapse" class="accordion-collapse collapse show" aria-labelledby="permissions-heading" data-bs-parent="#user-actor-acl">
+      <div id="permissions-collapse" class="accordion-collapse collapse show" aria-labelledby="permissions-heading">
         <div class="accordion-body">
           <?php foreach ($actors as $key => $item) { ?>
             <div class="form-item">
