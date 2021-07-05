@@ -4,14 +4,14 @@
 
   <?php echo $form->renderHiddenFields(); ?>
 
-  <div class="accordion" id="term-acl">
+  <div class="accordion">
     <div class="accordion-item">
       <h2 class="accordion-header" id="all-heading">
         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#all-collapse" aria-expanded="true" aria-controls="all-collapse">
           <?php echo __('Permissions for all %1%', ['%1%' => lcfirst(sfConfig::get('app_ui_label_term'))]); ?>
         </button>
       </h2>
-      <div id="all-collapse" class="accordion-collapse collapse show" aria-labelledby="all-heading" data-bs-parent="#term-acl">
+      <div id="all-collapse" class="accordion-collapse collapse show" aria-labelledby="all-heading">
         <div class="accordion-body">
           <div class="form-item">
 
@@ -55,7 +55,7 @@
           <?php echo __('Permissions by taxonomy'); ?>
         </button>
       </h2>
-      <div id="taxonomy-collapse" class="accordion-collapse collapse" aria-labelledby="taxonomy-heading" data-bs-parent="#term-acl">
+      <div id="taxonomy-collapse" class="accordion-collapse collapse" aria-labelledby="taxonomy-heading">
         <div class="accordion-body">
           <?php if (0 < count($taxonomyPermissions)) { ?>
 

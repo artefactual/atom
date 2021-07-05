@@ -42,14 +42,14 @@
       </div>
     <?php } ?>
 
-    <div class="accordion" id="edit-physical-objects">
+    <div class="accordion">
       <div class="accordion-item<?php echo count($relations) ? ' rounded-0' : ''; ?>">
         <h2 class="accordion-header" id="add-heading">
           <button class="accordion-button<?php echo count($relations) ? ' rounded-0' : ''; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#add-collapse" aria-expanded="true" aria-controls="add-collapse">
             <?php echo __('Add container links (duplicate links will be ignored)'); ?>
           </button>
         </h2>
-        <div id="add-collapse" class="accordion-collapse collapse show" aria-labelledby="add-heading" data-bs-parent="#edit-physical-objects">
+        <div id="add-collapse" class="accordion-collapse collapse show" aria-labelledby="add-heading">
           <div class="accordion-body">
             <div class="form-item">
               <?php echo $form->containers->renderLabel(); ?>
@@ -66,7 +66,7 @@
             <?php echo __('Or, create a new container'); ?>
           </button>
         </h2>
-        <div id="create-collapse" class="accordion-collapse collapse" aria-labelledby="create-heading" data-bs-parent="#edit-physical-objects">
+        <div id="create-collapse" class="accordion-collapse collapse" aria-labelledby="create-heading">
           <div class="accordion-body">
             <div class="form-item">
               <?php echo $form->name->renderRow(); ?>

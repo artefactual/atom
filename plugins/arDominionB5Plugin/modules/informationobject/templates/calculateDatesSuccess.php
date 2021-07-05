@@ -18,7 +18,7 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="calculate-dates">
+    <div class="accordion">
       <?php if (count($events)) { ?>
         <div class="accordion-item">
           <h2 class="accordion-header" id="existing-heading">
@@ -26,7 +26,7 @@
               <?php echo __('Update an existing date range'); ?>
             </button>
           </h2>
-          <div id="existing-collapse" class="accordion-collapse collapse show" aria-labelledby="existing-heading" data-bs-parent="#calculate-dates">
+          <div id="existing-collapse" class="accordion-collapse collapse show" aria-labelledby="existing-heading">
             <div class="accordion-body">
               <p><?php echo __('Select a date range to overwrite:'); ?></p>
 
@@ -48,7 +48,7 @@
               <?php echo __('Create a new date range'); ?>
             </button>
           </h2>
-          <div id="create-collapse" class="accordion-collapse collapse<?php echo count($events) ? '' : ' show'; ?>" aria-labelledby="create-heading" data-bs-parent="#calculate-dates">
+          <div id="create-collapse" class="accordion-collapse collapse<?php echo count($events) ? '' : ' show'; ?>" aria-labelledby="create-heading">
             <div class="accordion-body">
               <p><?php echo __('Select the new date type:'); ?></p>
 

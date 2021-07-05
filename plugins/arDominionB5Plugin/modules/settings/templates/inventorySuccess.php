@@ -20,14 +20,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="settings-inventory">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="inventory-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#inventory-collapse" aria-expanded="true" aria-controls="inventory-collapse">
             <?php echo __('Inventory settings'); ?>
           </button>
         </h2>
-        <div id="inventory-collapse" class="accordion-collapse collapse show" aria-labelledby="inventory-heading" data-bs-parent="#settings-inventory">
+        <div id="inventory-collapse" class="accordion-collapse collapse show" aria-labelledby="inventory-heading">
           <div class="accordion-body">
             <?php if (!empty($unknownValueDetected)) { ?>
               <div class="messages error">

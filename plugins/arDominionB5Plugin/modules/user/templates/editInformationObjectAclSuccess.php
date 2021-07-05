@@ -6,14 +6,14 @@
 
   <?php echo $form->renderHiddenFields(); ?>
 
-  <div class="accordion" id="user-io-acl">
+  <div class="accordion">
     <div class="accordion-item">
       <h2 class="accordion-header" id="all-heading">
         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#all-collapse" aria-expanded="true" aria-controls="all-collapse">
           <?php echo __('Permissions for all %1%', ['%1%' => lcfirst(sfConfig::get('app_ui_label_informationobject'))]); ?>
         </button>
       </h2>
-      <div id="all-collapse" class="accordion-collapse collapse show" aria-labelledby="all-heading" data-bs-parent="#user-io-acl">
+      <div id="all-collapse" class="accordion-collapse collapse show" aria-labelledby="all-heading">
         <div class="accordion-body">
           <div class="form-item">
             <?php echo get_component('aclGroup', 'aclTable', ['object' => QubitInformationObject::getRoot(), 'permissions' => $root, 'actions' => $basicActions]); ?>
@@ -27,7 +27,7 @@
           <?php echo __('Permissions by %1%', ['%1%' => lcfirst(sfConfig::get('app_ui_label_informationobject'))]); ?>
         </button>
       </h2>
-      <div id="io-collapse" class="accordion-collapse collapse" aria-labelledby="io-heading" data-bs-parent="#user-io-acl">
+      <div id="io-collapse" class="accordion-collapse collapse" aria-labelledby="io-heading">
         <div class="accordion-body">
           <?php if (0 < count($informationObjects)) { ?>
             <?php foreach ($informationObjects as $informationObjectId => $permissions) { ?>
@@ -58,7 +58,7 @@
           <?php echo __('Permissions by %1%', ['%1%' => lcfirst(sfConfig::get('app_ui_label_repository'))]); ?>
         </button>
       </h2>
-      <div id="repo-collapse" class="accordion-collapse collapse" aria-labelledby="repo-heading" data-bs-parent="#user-io-acl">
+      <div id="repo-collapse" class="accordion-collapse collapse" aria-labelledby="repo-heading">
         <div class="accordion-body">
           <?php if (0 < count($repositories)) { ?>
             <?php foreach ($repositories as $repository => $permissions) { ?>

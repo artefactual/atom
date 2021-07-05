@@ -44,14 +44,14 @@
 
       <?php echo $form->renderHiddenFields(); ?>
 
-      <div class="accordion" id="multi-file-upload">
+      <div class="accordion">
         <div class="accordion-item">
           <h2 class="accordion-header" id="upload-heading">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#upload-collapse" aria-expanded="true" aria-controls="upload-collapse">
               <?php echo __('Import multiple digital objects'); ?>
             </button>
           </h2>
-          <div id="upload-collapse" class="accordion-collapse collapse show" aria-labelledby="upload-heading" data-bs-parent="#multi-file-upload">
+          <div id="upload-collapse" class="accordion-collapse collapse show" aria-labelledby="upload-heading">
             <div class="accordion-body">
               <div class="alert alert-info" role="alert">
                 <p><?php echo __('Add your digital objects by dragging and dropping local files into the pane below, or by clicking the browse link to open your local file explorer.'); ?></p>

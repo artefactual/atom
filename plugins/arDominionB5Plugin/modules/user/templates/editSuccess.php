@@ -16,14 +16,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="user-edit">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="basic-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#basic-collapse" aria-expanded="true" aria-controls="basic-collapse">
             <?php echo __('Basic info'); ?>
           </button>
         </h2>
-        <div id="basic-collapse" class="accordion-collapse collapse show" aria-labelledby="basic-heading" data-bs-parent="#user-edit">
+        <div id="basic-collapse" class="accordion-collapse collapse show" aria-labelledby="basic-heading">
           <div class="accordion-body">
             <?php echo $form->username->renderRow(); ?>
 
@@ -83,7 +83,7 @@
             <?php echo __('Access control'); ?>
           </button>
         </h2>
-        <div id="access-collapse" class="accordion-collapse collapse" aria-labelledby="access-heading" data-bs-parent="#user-edit">
+        <div id="access-collapse" class="accordion-collapse collapse" aria-labelledby="access-heading">
           <div class="accordion-body">
             <?php echo $form->groups
                 ->label(__('User groups'))

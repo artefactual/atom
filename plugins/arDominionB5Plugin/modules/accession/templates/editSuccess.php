@@ -25,14 +25,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="accession-edit">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="basic-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#basic-collapse" aria-expanded="true" aria-controls="basic-collapse">
             <?php echo __('Basic info'); ?>
           </button>
         </h2>
-        <div id="basic-collapse" class="accordion-collapse collapse show" aria-labelledby="basic-heading" data-bs-parent="#accession-edit">
+        <div id="basic-collapse" class="accordion-collapse collapse show" aria-labelledby="basic-heading">
           <div class="accordion-body">
             <?php echo $form->identifier
                 ->help(__('Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository'))
@@ -65,7 +65,7 @@
             <?php echo __('Donor/Transferring body area'); ?>
           </button>
         </h2>
-        <div id="donor-collapse" class="accordion-collapse collapse" aria-labelledby="donor-heading" data-bs-parent="#accession-edit">
+        <div id="donor-collapse" class="accordion-collapse collapse" aria-labelledby="donor-heading">
           <div class="accordion-body">
             <?php echo get_partial('relatedDonor', $sf_data->getRaw('relatedDonorComponent')->getVarHolder()->getAll()); ?>
           </div>
@@ -77,7 +77,7 @@
             <?php echo __('Administrative area'); ?>
           </button>
         </h2>
-        <div id="admin-collapse" class="accordion-collapse collapse" aria-labelledby="admin-heading" data-bs-parent="#accession-edit">
+        <div id="admin-collapse" class="accordion-collapse collapse" aria-labelledby="admin-heading">
           <div class="accordion-body">
             <?php echo $form->acquisitionType
                 ->help(__('Term describing the type of accession transaction and referring to the way in which the accession was acquired.'))
@@ -146,7 +146,7 @@
             <?php echo __('%1% area', ['%1%' => sfConfig::get('app_ui_label_informationobject')]); ?>
           </button>
         </h2>
-        <div id="io-collapse" class="accordion-collapse collapse" aria-labelledby="io-heading" data-bs-parent="#accession-edit">
+        <div id="io-collapse" class="accordion-collapse collapse" aria-labelledby="io-heading">
           <div class="accordion-body">
             <div class="form-item">
               <?php echo $form->informationObjects

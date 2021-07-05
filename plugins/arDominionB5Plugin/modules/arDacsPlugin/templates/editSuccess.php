@@ -31,14 +31,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="dacs-edit">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="identity-heading">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#identity-collapse" aria-expanded="false" aria-controls="identity-collapse">
             <?php echo __('Identity elements'); ?>
           </button>
         </h2>
-        <div id="identity-collapse" class="accordion-collapse collapse" aria-labelledby="identity-heading" data-bs-parent="#dacs-edit">
+        <div id="identity-collapse" class="accordion-collapse collapse" aria-labelledby="identity-heading">
           <div class="accordion-body">
             <?php echo $form->identifier
                 ->help(__('At the highest level of a multilevel description or in a single level description, provide a unique identifier for the materials being described in accordance with the institution’s administrative control system. Optionally, devise unique identifiers at lower levels of a multilevel description. (DACS 2.1.3) The country and repository code will be automatically added from the linked repository record to form a full reference code.'))
@@ -95,7 +95,7 @@
             <?php echo __('Content and structure elements'); ?>
           </button>
         </h2>
-        <div id="content-collapse" class="accordion-collapse collapse" aria-labelledby="content-heading" data-bs-parent="#dacs-edit">
+        <div id="content-collapse" class="accordion-collapse collapse" aria-labelledby="content-heading">
           <div class="accordion-body">
             <?php echo render_field($form->scopeAndContent
                 ->help(__('Record information about the nature of the materials and activities reflected in the unit being described to enable users to judge its potential relevance, including information about functions, activities, transations, and processes; documentary form(s) or intellectual characteristics; content dates; geographic areas and places; subject matter; completeness of the materials; or any other information that assists the user in evaluating the relevance of the materials. (DACS 3.1)'))
@@ -113,7 +113,7 @@
             <?php echo __('Conditions of access and use elements'); ?>
           </button>
         </h2>
-        <div id="conditions-collapse" class="accordion-collapse collapse" aria-labelledby="conditions-heading" data-bs-parent="#dacs-edit">
+        <div id="conditions-collapse" class="accordion-collapse collapse" aria-labelledby="conditions-heading">
           <div class="accordion-body">
             <?php echo render_field($form->accessConditions
                 ->help(__('Give information about any restrictions on access to the unit being described (or parts thereof) as a result of the nature of the information therein or statutory/contractual requirements. As appropriate, specify the details of the restriction. If there are no restrictions, state that fact. (DACS 4.1.5)'))
@@ -156,7 +156,7 @@
             <?php echo __('Acquisition and appraisal elements'); ?>
           </button>
         </h2>
-        <div id="acquisition-collapse" class="accordion-collapse collapse" aria-labelledby="acquisition-heading" data-bs-parent="#dacs-edit">
+        <div id="acquisition-collapse" class="accordion-collapse collapse" aria-labelledby="acquisition-heading">
           <div class="accordion-body">
             <?php echo render_field($form->archivalHistory
                 ->label(__('Custodial history'))
@@ -181,7 +181,7 @@
             <?php echo __('Related materials elements'); ?>
           </button>
         </h2>
-        <div id="related-collapse" class="accordion-collapse collapse" aria-labelledby="related-heading" data-bs-parent="#dacs-edit">
+        <div id="related-collapse" class="accordion-collapse collapse" aria-labelledby="related-heading">
           <div class="accordion-body">
             <?php echo render_field($form->locationOfOriginals
                 ->help(__('If the materials being described are reproductions and the originals are located elsewhere, give the location of the originals (DACS 6.1.4). Record any identifying numbers that may help in locating the originals in the cited location (DACS 6.1.6).'))
@@ -219,7 +219,7 @@
             <?php echo __('Notes element'); ?>
           </button>
         </h2>
-        <div id="notes-collapse" class="accordion-collapse collapse" aria-labelledby="notes-heading" data-bs-parent="#dacs-edit">
+        <div id="notes-collapse" class="accordion-collapse collapse" aria-labelledby="notes-heading">
           <div class="accordion-body">
             <?php echo get_partial('informationobject/notes', $sf_data->getRaw('notesComponent')->getVarHolder()->getAll()); ?>
             <?php echo get_partial('informationobject/notes', $sf_data->getRaw('specializedNotesComponent')->getVarHolder()->getAll()); ?>
@@ -232,7 +232,7 @@
             <?php echo __('Description control element'); ?>
           </button>
         </h2>
-        <div id="description-collapse" class="accordion-collapse collapse" aria-labelledby="description-heading" data-bs-parent="#dacs-edit">
+        <div id="description-collapse" class="accordion-collapse collapse" aria-labelledby="description-heading">
           <div class="accordion-body">
             <?php echo render_field($form->sources
                 ->help(__('Record relevant information about sources consulted in establishing or revising the description. (DACS 8.1.3)'))
@@ -254,7 +254,7 @@
             <?php echo __('Access points'); ?>
           </button>
         </h2>
-        <div id="access-collapse" class="accordion-collapse collapse" aria-labelledby="access-heading" data-bs-parent="#dacs-edit">
+        <div id="access-collapse" class="accordion-collapse collapse" aria-labelledby="access-heading">
           <div class="accordion-body">
             <div class="form-item">
               <?php echo $form->subjectAccessPoints
@@ -302,7 +302,7 @@
           </div>
         </div>
       </div>
-      <?php echo get_partial('informationobject/adminInfo', ['form' => $form, 'resource' => $resource, 'accordionId' => 'dacs-edit']); ?>
+      <?php echo get_partial('informationobject/adminInfo', ['form' => $form, 'resource' => $resource]); ?>
     </div>
 
     <?php echo get_partial('informationobject/editActions', ['resource' => (null !== $parent ? $parent : $resource)]); ?>
