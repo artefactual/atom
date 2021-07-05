@@ -9,7 +9,7 @@
       <?php echo link_to_if(SecurityPrivileges::editCredentials($sf_user, 'actor'), '<h2>'.__('%1% metadata', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]).'</h2>', [$resource, 'module' => 'digitalobject', 'action' => 'edit'], ['title' => __('Edit %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))])]); ?>
     <?php } ?>
 
-    <div class="accordion" id="digital-object-metadata">
+    <div class="accordion">
 
       <?php if ($showOriginalFileMetadata || $showPreservationCopyMetadata) { ?>
 
@@ -19,7 +19,7 @@
               <?php echo __('Preservation Copies'); ?>
             </button>
           </h3>
-          <div id="preservation-collapse" class="accordion-collapse collapse show" aria-labelledby="preservation-heading" data-bs-parent="#digital-object-metadata">
+          <div id="preservation-collapse" class="accordion-collapse collapse show" aria-labelledby="preservation-heading">
             <div class="accordion-body">
               <?php if ($showOriginalFileMetadata) { ?>
 
@@ -121,7 +121,7 @@
               <?php echo __('Access Copies'); ?>
             </button>
           </h3>
-          <div id="access-collapse" class="accordion-collapse collapse<?php echo ($showOriginalFileMetadata || $showPreservationCopyMetadata) ? '' : ' show'; ?>" aria-labelledby="access-heading" data-bs-parent="#digital-object-metadata">
+          <div id="access-collapse" class="accordion-collapse collapse<?php echo ($showOriginalFileMetadata || $showPreservationCopyMetadata) ? '' : ' show'; ?>" aria-labelledby="access-heading">
             <div class="accordion-body">
               <?php if ($showMasterFileMetadata) { ?>
 

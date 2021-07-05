@@ -24,14 +24,14 @@
       <?php echo get_component('digitalobject', 'show', ['resource' => $resource, 'usageType' => QubitTerm::REFERENCE_ID]); ?>
     </section>
 
-    <div class="accordion" id="digitalobject-edit">
+    <div class="accordion">
       <div class="accordion-item rounded-0">
         <h2 class="accordion-header" id="master-heading">
           <button class="accordion-button rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#master-collapse" aria-expanded="true" aria-controls="master-collapse">
             <?php echo __('Master'); ?>
           </button>
         </h2>
-        <div id="master-collapse" class="accordion-collapse collapse show" aria-labelledby="master-heading" data-bs-parent="#digitalobject-edit">
+        <div id="master-collapse" class="accordion-collapse collapse show" aria-labelledby="master-heading">
           <div class="accordion-body">
             <?php echo render_show(__('Filename'), render_value($resource->name)); ?>
 
@@ -60,7 +60,7 @@
               <?php echo __('%1% representation', ['%1%' => QubitTerm::getById($usageId)]); ?>
             </button>
           </h2>
-          <div id="collapse-<?php echo $usageId; ?>" class="accordion-collapse collapse" aria-labelledby="heading-<?php echo $usageId; ?>" data-bs-parent="#digitalobject-edit">
+          <div id="collapse-<?php echo $usageId; ?>" class="accordion-collapse collapse" aria-labelledby="heading-<?php echo $usageId; ?>">
             <div class="accordion-body">
               <?php if (isset($representation)) { ?>
 
@@ -99,7 +99,7 @@
                   <?php echo __('%1%', ['%1%' => QubitTerm::getById($usageId)]); ?>
                 </button>
               </h2>
-              <div id="collapse-<?php echo $usageId; ?>" class="accordion-collapse collapse" aria-labelledby="heading-<?php echo $usageId; ?>" data-bs-parent="#digitalobject-edit">
+              <div id="collapse-<?php echo $usageId; ?>" class="accordion-collapse collapse" aria-labelledby="heading-<?php echo $usageId; ?>">
                 <div class="accordion-body">
                   <?php if (isset($videoTrack)) { ?>
                     

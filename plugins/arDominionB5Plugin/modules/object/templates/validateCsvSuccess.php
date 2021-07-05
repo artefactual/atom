@@ -12,14 +12,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="validate-csv">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="options-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#options-collapse" aria-expanded="true" aria-controls="options-collapse">
             <?php echo __('CSV Validation options'); ?>
           </button>
         </h2>
-        <div id="options-collapse" class="accordion-collapse collapse show" aria-labelledby="options-heading" data-bs-parent="#validate-csv">
+        <div id="options-collapse" class="accordion-collapse collapse show" aria-labelledby="options-heading">
           <div class="accordion-body">
             <div class="form-item">
               <label><?php echo __('Type'); ?></label>
@@ -41,7 +41,7 @@
             <?php echo __('Select file'); ?>
           </button>
         </h2>
-        <div id="select-collapse" class="accordion-collapse collapse" aria-labelledby="select-heading" data-bs-parent="#validate-csv">
+        <div id="select-collapse" class="accordion-collapse collapse" aria-labelledby="select-heading">
           <div class="accordion-body">
             <div class="form-item">
               <label><?php echo __('Select a CSV file to validate'); ?></label>

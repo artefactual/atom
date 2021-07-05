@@ -4,7 +4,7 @@
       <?php echo __('Administration area'); ?>
     </button>
   </h2>
-  <div id="admin-collapse" class="accordion-collapse collapse" aria-labelledby="admin-heading" data-bs-parent="#<?php echo $accordionId; ?>">
+  <div id="admin-collapse" class="accordion-collapse collapse" aria-labelledby="admin-heading">
     <div class="accordion-body">
       <div class="row">
 

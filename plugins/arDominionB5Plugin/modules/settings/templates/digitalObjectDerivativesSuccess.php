@@ -20,14 +20,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="settings-do-derivatives">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="derivatives-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#derivatives-collapse" aria-expanded="true" aria-controls="derivatives-collapse">
             <?php echo __('%1% derivatives settings', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]); ?>
           </button>
         </h2>
-        <div id="derivatives-collapse" class="accordion-collapse collapse show" aria-labelledby="derivatives-heading" data-bs-parent="#settings-do-derivatives">
+        <div id="derivatives-collapse" class="accordion-collapse collapse show" aria-labelledby="derivatives-heading">
           <div class="accordion-body">
             <?php if ($pdfinfoAvailable) { ?>
               <?php echo $form->digital_object_derivatives_pdf_page_number

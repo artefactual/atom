@@ -12,14 +12,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="export-options" data-export-toggle="tooltip" data-export-title="<?php echo __('Export'); ?>">
+    <div class="accordion" data-export-toggle="tooltip" data-export-title="<?php echo __('Export'); ?>">
       <div class="accordion-item">
         <h2 class="accordion-header" id="export-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#export-collapse" aria-expanded="true" aria-controls="export-collapse">
             <?php echo __('Export options'); ?>
           </button>
         </h2>
-        <div id="export-collapse" class="accordion-collapse collapse show" aria-labelledby="export-heading" data-bs-parent="#export-options">
+        <div id="export-collapse" class="accordion-collapse collapse show" aria-labelledby="export-heading">
           <div class="accordion-body">
             <div class="form-item">
               <div class="panel panel-default" id="exportOptions">
