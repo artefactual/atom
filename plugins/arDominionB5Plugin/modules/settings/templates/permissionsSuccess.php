@@ -26,14 +26,14 @@
     <?php echo $permissionsCopyrightStatementForm->renderHiddenFields(); ?>
     <?php echo $permissionsPreservationSystemAccessStatementForm->renderHiddenFields(); ?>
 
-    <div class="accordion" id="settings-permissions">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="permissions-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#permissions-collapse" aria-expanded="true" aria-controls="permissions-collapse">
             <?php echo __('PREMIS access permissions'); ?>
           </button>
         </h2>
-        <div id="permissions-collapse" class="accordion-collapse collapse show" aria-labelledby="permissions-heading" data-bs-parent="#settings-permissions">
+        <div id="permissions-collapse" class="accordion-collapse collapse show" aria-labelledby="permissions-heading">
           <div class="accordion-body">
             <?php echo $permissionsForm['granted_right']
                 ->label(__('PREMIS act'))
@@ -133,7 +133,7 @@
             <?php echo __('PREMIS access statements'); ?>
           </button>
         </h2>
-        <div id="statements-collapse" class="accordion-collapse collapse" aria-labelledby="statements-heading" data-bs-parent="#settings-permissions">
+        <div id="statements-collapse" class="accordion-collapse collapse" aria-labelledby="statements-heading">
           <div class="accordion-body">
             <div class="tabbable tabs-left">
               <ul class="nav nav-tabs">
@@ -165,7 +165,7 @@
             <?php echo __('Copyright statement'); ?>
           </button>
         </h2>
-        <div id="copyright-collapse" class="accordion-collapse collapse" aria-labelledby="copyright-heading" data-bs-parent="#settings-permissions">
+        <div id="copyright-collapse" class="accordion-collapse collapse" aria-labelledby="copyright-heading">
           <div class="accordion-body">
             <?php echo $permissionsCopyrightStatementForm->copyrightStatementEnabled
                 ->label(__('Enable copyright statement'))
@@ -189,7 +189,7 @@
             <?php echo __('Preservation system access statement'); ?>
           </button>
         </h2>
-        <div id="preservation-collapse" class="accordion-collapse collapse" aria-labelledby="preservation-heading" data-bs-parent="#settings-permissions">
+        <div id="preservation-collapse" class="accordion-collapse collapse" aria-labelledby="preservation-heading">
           <div class="accordion-body">
             <?php echo $permissionsPreservationSystemAccessStatementForm->preservationSystemAccessStatementEnabled
                 ->label(__('Enable access statement'))
