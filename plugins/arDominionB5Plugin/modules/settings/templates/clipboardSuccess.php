@@ -20,14 +20,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="settings-clipboard">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="saving-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#saving-collapse" aria-expanded="true" aria-controls="saving-collapse">
             <?php echo __('Clipboard saving'); ?>
           </button>
         </h2>
-        <div id="saving-collapse" class="accordion-collapse collapse show" aria-labelledby="saving-heading" data-bs-parent="#settings-clipboard">
+        <div id="saving-collapse" class="accordion-collapse collapse show" aria-labelledby="saving-heading">
           <div class="accordion-body">
             <?php echo $form->clipboard_save_max_age
                 ->label(__('Saved clipboard maximum age (in days)'))
@@ -42,7 +42,7 @@
             <?php echo __('Clipboard sending'); ?>
           </button>
         </h2>
-        <div id="sending-collapse" class="accordion-collapse collapse" aria-labelledby="sending-heading" data-bs-parent="#settings-clipboard">
+        <div id="sending-collapse" class="accordion-collapse collapse" aria-labelledby="sending-heading">
           <div class="accordion-body">
             <?php echo $form->clipboard_send_enabled
                 ->label(__('Enable clipboard send functionality'))
@@ -78,7 +78,7 @@
             <?php echo __('Clipboard export'); ?>
           </button>
         </h2>
-        <div id="export-collapse" class="accordion-collapse collapse" aria-labelledby="export-heading" data-bs-parent="#settings-clipboard">
+        <div id="export-collapse" class="accordion-collapse collapse" aria-labelledby="export-heading">
           <div class="accordion-body">
             <?php echo $form->clipboard_export_digitalobjects_enabled
                 ->label(__('Enable digital object export'))

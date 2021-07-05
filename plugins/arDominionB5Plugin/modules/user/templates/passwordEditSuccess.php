@@ -30,14 +30,14 @@
             'confirmTitle' => __('Passwords match:'),
             'username' => '', ], ]); ?>
 
-    <div class="accordion" id="user-password">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="password-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#password-collapse" aria-expanded="true" aria-controls="password-collapse">
             <?php echo __('Edit your password'); ?>
           </button>
         </h2>
-        <div id="password-collapse" class="accordion-collapse collapse show" aria-labelledby="password-heading" data-bs-parent="#user-password">
+        <div id="password-collapse" class="accordion-collapse collapse show" aria-labelledby="password-heading">
           <div class="accordion-body">
             <?php echo $form->password->renderError(); ?>
 

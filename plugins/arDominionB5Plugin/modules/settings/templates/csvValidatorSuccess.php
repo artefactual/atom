@@ -20,14 +20,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="settings-csv-validator">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="validator-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#validator-collapse" aria-expanded="true" aria-controls="validator-collapse">
             <?php echo __('CSV Validator settings'); ?>
           </button>
         </h2>
-        <div id="validator-collapse" class="accordion-collapse collapse show" aria-labelledby="validator-heading" data-bs-parent="#settings-csv-validator">
+        <div id="validator-collapse" class="accordion-collapse collapse show" aria-labelledby="validator-heading">
           <div class="accordion-body">
             <?php echo $form->csv_validator_default_import_behaviour
                 ->label(__('CSV Validator default behaviour when CSV Import is run'))
