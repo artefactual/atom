@@ -19,29 +19,8 @@
 
 namespace AccessToMemory\test\mock;
 
-class QubitFlatfileImport
+class QubitRepository
 {
-    public static function fetchKeymapEntryBySourceAndTargetName($sourceId, $sourceName, $targetName)
-    {
-        if (!empty($sourceId) && !empty($sourceName) && !empty($targetName)) {
-            return 1;
-        }
-
-        return false;
-    }
-
-    public static function createOrFetchRepository($name, $fetchOnly = false)
-    {
-        if ('Existing Repository' === $name) {
-            return QubitFlatfileImport::createRepository($name);
-        }
-    }
-
-    public static function createRepository($name)
-    {
-        $repo = new QubitRepository();
-        $repo->authorizedFormOfName = $name;
-
-        return $repo;
-    }
+    public $id;
+    public $authorizedFormOfName;
 }

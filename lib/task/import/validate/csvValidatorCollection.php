@@ -41,6 +41,7 @@ class CsvValidatorCollection
         'CsvDigitalObjectPathValidator' => CsvDigitalObjectPathValidator::class,
         'CsvDigitalObjectUriValidator' => CsvDigitalObjectUriValidator::class,
         'CsvScriptValidator' => CsvScriptValidator::class,
+        'CsvRepoValidator' => CsvRepoValidator::class,
     ];
 
     protected $validators = [];

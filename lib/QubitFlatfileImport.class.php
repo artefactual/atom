@@ -867,11 +867,12 @@ class QubitFlatfileImport
     /**
      * Create a Qubit repository or, if one already exists, fetch it.
      *
-     * @param string $name name of repository
+     * @param string $name      name of repository
+     * @param mixed  $fetchOnly prevent create
      *
      * @return QubitRepository created or fetched repository
      */
-    public static function createOrFetchRepository($name)
+    public static function createOrFetchRepository($name, $fetchOnly = false)
     {
         $query = "SELECT r.id FROM actor_i18n a \r
             INNER JOIN repository r ON a.id=r.id \r
@@ -884,7 +885,9 @@ class QubitFlatfileImport
             return QubitRepository::getById($result->id);
         }
 
-        return QubitFlatfileImport::createRepository($name);
+        if (!$fetchOnly) {
+            return QubitFlatfileImport::createRepository($name);
+        }
     }
 
     /**
