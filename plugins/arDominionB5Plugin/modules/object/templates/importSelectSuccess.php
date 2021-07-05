@@ -23,14 +23,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="object-import">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="import-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#import-collapse" aria-expanded="true" aria-controls="import-collapse">
             <?php echo __('Import options'); ?>
           </button>
         </h2>
-        <div id="import-collapse" class="accordion-collapse collapse show" aria-labelledby="import-heading" data-bs-parent="#object-import">
+        <div id="import-collapse" class="accordion-collapse collapse show" aria-labelledby="import-heading">
           <div class="accordion-body">
             <input type="hidden" name="importType" value="<?php echo esc_entities($type); ?>"/>
 
@@ -155,7 +155,7 @@
             <?php echo __('Select file'); ?>
           </button>
         </h2>
-        <div id="file-collapse" class="accordion-collapse collapse" aria-labelledby="file-heading" data-bs-parent="#object-import">
+        <div id="file-collapse" class="accordion-collapse collapse" aria-labelledby="file-heading">
           <div class="accordion-body">
             <div class="form-item">
               <label><?php echo __('Select a file to import'); ?></label>

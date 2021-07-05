@@ -19,14 +19,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="isdf-edit">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="identity-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#identity-collapse" aria-expanded="true" aria-controls="identity-collapse">
             <?php echo __('Identity area'); ?>
           </button>
         </h2>
-        <div id="identity-collapse" class="accordion-collapse collapse show" aria-labelledby="identity-heading" data-bs-parent="#isdf-edit">
+        <div id="identity-collapse" class="accordion-collapse collapse show" aria-labelledby="identity-heading">
           <div class="accordion-body">
             <?php echo $form->type
                 ->help(__('"Specify whether the description is a function or one of its subdivisions." (ISDF 5.1.1) Select the type from the drop-down menu; these values are drawn from the ISDF Function Types taxonomy.'))
@@ -58,7 +58,7 @@
             <?php echo __('Context area'); ?>
           </button>
         </h2>
-        <div id="context-collapse" class="accordion-collapse collapse" aria-labelledby="context-heading" data-bs-parent="#isdf-edit">
+        <div id="context-collapse" class="accordion-collapse collapse" aria-labelledby="context-heading">
           <div class="accordion-body">
             <?php echo render_field($form->dates
                 ->help(__('"Provide a date or date span which covers the dates when the function was started and when it finished. If a function is ongoing, no end date is needed." (ISDF 5.2.1)')), $resource); ?>
@@ -80,7 +80,7 @@
             <?php echo __('Relationships area'); ?>
           </button>
         </h2>
-        <div id="relationships-collapse" class="accordion-collapse collapse" aria-labelledby="relationships-heading" data-bs-parent="#isdf-edit">
+        <div id="relationships-collapse" class="accordion-collapse collapse" aria-labelledby="relationships-heading">
           <div class="accordion-body">
             <?php echo get_partial('relatedFunction', $sf_data->getRaw('relatedFunctionComponent')->getVarHolder()->getAll()); ?>
             <?php echo get_partial('relatedAuthorityRecord', $sf_data->getRaw('relatedAuthorityRecordComponent')->getVarHolder()->getAll()); ?>
@@ -94,7 +94,7 @@
             <?php echo __('Control area'); ?>
           </button>
         </h2>
-        <div id="control-collapse" class="accordion-collapse collapse" aria-labelledby="control-heading" data-bs-parent="#isdf-edit">
+        <div id="control-collapse" class="accordion-collapse collapse" aria-labelledby="control-heading">
           <div class="accordion-body">
             <?php echo render_field($form->descriptionIdentifier
                 ->help(__('"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISDF 5.4.1)'))

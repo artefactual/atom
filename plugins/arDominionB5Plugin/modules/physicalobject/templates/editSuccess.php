@@ -19,14 +19,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="edit-physical-object">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="edit-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#edit-collapse" aria-expanded="true" aria-controls="edit-collapse">
             <?php echo __('Edit %1%', ['%1%' => sfConfig::get('app_ui_label_physicalobject')]); ?>
           </button>
         </h2>
-        <div id="edit-collapse" class="accordion-collapse collapse show" aria-labelledby="edit-heading" data-bs-parent="#edit-physical-object">
+        <div id="edit-collapse" class="accordion-collapse collapse show" aria-labelledby="edit-heading">
           <div class="accordion-body">
             <?php echo render_field($form->name, $resource); ?>
             <?php echo render_field($form->location, $resource); ?>

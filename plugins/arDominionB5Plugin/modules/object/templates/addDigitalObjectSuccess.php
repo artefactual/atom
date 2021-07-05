@@ -29,14 +29,14 @@
 
       <?php echo $form->renderHiddenFields(); ?>
 
-      <div class="accordion" id="object-add-do">
+      <div class="accordion">
         <div class="accordion-item">
           <h2 class="accordion-header" id="upload-heading">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#upload-collapse" aria-expanded="true" aria-controls="upload-collapse">
               <?php echo __('Upload a %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]); ?>
             </button>
           </h2>
-          <div id="upload-collapse" class="accordion-collapse collapse show" aria-labelledby="upload-heading" data-bs-parent="#object-add-do">
+          <div id="upload-collapse" class="accordion-collapse collapse show" aria-labelledby="upload-heading">
             <div class="accordion-body">
               <?php if (null == $repository || -1 == $repository->uploadLimit || floatval($repository->getDiskUsage() / pow(10, 9)) < floatval($repository->uploadLimit)) { ?>
 
@@ -69,7 +69,7 @@
               <?php echo __('Link to an external %1%', ['%1%' => mb_strtolower(sfConfig::get('app_ui_label_digitalobject'))]); ?>
             </button>
           </h2>
-          <div id="external-collapse" class="accordion-collapse collapse" aria-labelledby="external-heading" data-bs-parent="#object-add-do">
+          <div id="external-collapse" class="accordion-collapse collapse" aria-labelledby="external-heading">
             <div class="accordion-body">
               <?php echo $form->url->renderRow(); ?>
             </div>

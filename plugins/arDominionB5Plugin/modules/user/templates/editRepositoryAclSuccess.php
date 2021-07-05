@@ -9,14 +9,14 @@
 
   <?php echo $form->renderHiddenFields(); ?>
 
-  <div class="accordion" id="user-repo-acl">
+  <div class="accordion">
     <div class="accordion-item">
       <h2 class="accordion-header" id="permissions-heading">
         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#permissions-collapse" aria-expanded="true" aria-controls="permissions-collapse">
           <?php echo __('Edit permissions'); ?>
         </button>
       </h2>
-      <div id="permissions-collapse" class="accordion-collapse collapse show" aria-labelledby="permissions-heading" data-bs-parent="#user-repo-acl">
+      <div id="permissions-collapse" class="accordion-collapse collapse show" aria-labelledby="permissions-heading">
         <div class="accordion-body">
           <?php foreach ($repositories as $key => $item) { ?>
             <div class="form-item">

@@ -4,7 +4,7 @@
       <?php echo __('%1%', ['%1%' => QubitTerm::getById($usageId)]); ?>
     </button>
   </h2>
-  <div id="collapse-<?php echo $usageId; ?>" class="accordion-collapse collapse" aria-labelledby="heading-<?php echo $usageId; ?>" data-bs-parent="#digitalobject-edit">
+  <div id="collapse-<?php echo $usageId; ?>" class="accordion-collapse collapse" aria-labelledby="heading-<?php echo $usageId; ?>">
     <div class="accordion-body">
       <?php foreach ($subtitles as $subtitle) { ?>
         <table class="table table-bordered">

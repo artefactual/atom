@@ -26,14 +26,14 @@
   
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="settings-identifier">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="identifier-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#identifier-collapse" aria-expanded="true" aria-controls="identifier-collapse">
             <?php echo __('Identifier settings'); ?>
           </button>
         </h2>
-        <div id="identifier-collapse" class="accordion-collapse collapse show" aria-labelledby="identifier-heading" data-bs-parent="#settings-identifier">
+        <div id="identifier-collapse" class="accordion-collapse collapse show" aria-labelledby="identifier-heading">
           <div class="accordion-body">
             <?php echo $form->accession_mask_enabled
                 ->label(__('Accession mask enabled'))

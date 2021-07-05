@@ -19,14 +19,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="donor-edit">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="identity-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#identity-collapse" aria-expanded="true" aria-controls="identity-collapse">
             <?php echo __('Identity area'); ?>
           </button>
         </h2>
-        <div id="identity-collapse" class="accordion-collapse collapse show" aria-labelledby="identity-heading" data-bs-parent="#donor-edit">
+        <div id="identity-collapse" class="accordion-collapse collapse show" aria-labelledby="identity-heading">
           <div class="accordion-body">
             <?php echo render_field($form->authorizedFormOfName
                 ->label(__('Authorized form of name').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource); ?>
@@ -39,7 +39,7 @@
             <?php echo __('Contact area'); ?>
           </button>
         </h2>
-        <div id="contact-collapse" class="accordion-collapse collapse" aria-labelledby="contact-heading" data-bs-parent="#donor-edit">
+        <div id="contact-collapse" class="accordion-collapse collapse" aria-labelledby="contact-heading">
           <div class="accordion-body">
             <?php echo get_partial('contactinformation/edit', $sf_data->getRaw('contactInformationEditComponent')->getVarHolder()->getAll()); ?>
           </div>

@@ -15,14 +15,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="manage-right">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="inheritance-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#inheritance-collapse" aria-expanded="true" aria-controls="inheritance-collapse">
             <?php echo __('Inheritance options'); ?>
           </button>
         </h2>
-        <div id="inheritance-collapse" class="accordion-collapse collapse show" aria-labelledby="inheritance-heading" data-bs-parent="#manage-right">
+        <div id="inheritance-collapse" class="accordion-collapse collapse show" aria-labelledby="inheritance-heading">
           <div class="accordion-body">
             <div class="well">
               <?php echo $form->all_or_digital_only

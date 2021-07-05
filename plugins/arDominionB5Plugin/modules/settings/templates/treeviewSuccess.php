@@ -22,14 +22,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="settings-treeview">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="general-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#general-collapse" aria-expanded="true" aria-controls="general-collapse">
             <?php echo __('General'); ?>
           </button>
         </h2>
-        <div id="general-collapse" class="accordion-collapse collapse show" aria-labelledby="general-heading" data-bs-parent="#settings-treeview">
+        <div id="general-collapse" class="accordion-collapse collapse show" aria-labelledby="general-heading">
           <div class="accordion-body">
             <div class="row">
 
@@ -62,7 +62,7 @@
             <?php echo __('Sidebar'); ?>
           </button>
         </h2>
-        <div id="sidebar-collapse" class="accordion-collapse collapse" aria-labelledby="sidebar-heading" data-bs-parent="#settings-treeview">
+        <div id="sidebar-collapse" class="accordion-collapse collapse" aria-labelledby="sidebar-heading">
           <div class="accordion-body">
             <?php echo $form->ioSort
                 ->label(__('Sort (information object)'))
@@ -77,7 +77,7 @@
             <?php echo __('Full width'); ?>
           </button>
         </h2>
-        <div id="full-collapse" class="accordion-collapse collapse" aria-labelledby="full-heading" data-bs-parent="#settings-treeview">
+        <div id="full-collapse" class="accordion-collapse collapse" aria-labelledby="full-heading">
           <div class="accordion-body">
             <div class="row">
 

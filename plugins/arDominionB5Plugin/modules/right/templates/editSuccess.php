@@ -15,14 +15,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="right-edit">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="basis-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#basis-collapse" aria-expanded="true" aria-controls="basis-collapse">
             <?php echo __('Rights basis'); ?>
           </button>
         </h2>
-        <div id="basis-collapse" class="accordion-collapse collapse show" aria-labelledby="basis-heading" data-bs-parent="#right-edit">
+        <div id="basis-collapse" class="accordion-collapse collapse show" aria-labelledby="basis-heading">
           <div class="accordion-body">
             <?php echo $form->basis
                 ->help(__('Basis for the permissions granted or for the restriction of rights'))
@@ -121,7 +121,7 @@
             <?php echo __('Act / Granted rights'); ?>
           </button>
         </h2>
-        <div id="act-granted-collapse" class="accordion-collapse collapse" aria-labelledby="act-granted-heading" data-bs-parent="#right-edit">
+        <div id="act-granted-collapse" class="accordion-collapse collapse" aria-labelledby="act-granted-heading">
           <div class="accordion-body">
             <?php foreach ($form['grantedRights'] as $i => $gr) { ?>
               <?php $collapsed = ($i + 1 < sizeof($form['grantedRights']) ? ' collapsed' : ''); ?>

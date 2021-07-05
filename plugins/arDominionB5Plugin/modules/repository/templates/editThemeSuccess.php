@@ -15,14 +15,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="edit-theme">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="style-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#style-collapse" aria-expanded="true" aria-controls="style-collapse">
             <?php echo __('Style'); ?>
           </button>
         </h2>
-        <div id="style-collapse" class="accordion-collapse collapse show" aria-labelledby="style-heading" data-bs-parent="#edit-theme">
+        <div id="style-collapse" class="accordion-collapse collapse show" aria-labelledby="style-heading">
           <div class="accordion-body">
             <?php echo $form->backgroundColor
                 ->label(__('Background color'))
@@ -54,7 +54,7 @@
             <?php echo __('Page content'); ?>
           </button>
         </h2>
-        <div id="content-collapse" class="accordion-collapse collapse" aria-labelledby="content-heading" data-bs-parent="#edit-theme">
+        <div id="content-collapse" class="accordion-collapse collapse" aria-labelledby="content-heading">
           <div class="accordion-body">
             <?php echo render_field($form->htmlSnippet
                 ->label(__('Description'))
