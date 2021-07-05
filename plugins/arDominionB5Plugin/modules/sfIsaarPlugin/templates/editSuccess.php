@@ -20,14 +20,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="isaar-edit">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="identity-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#identity-collapse" aria-expanded="true" aria-controls="identity-collapse">
             <?php echo __('Identity area'); ?>
           </button>
         </h2>
-        <div id="identity-collapse" class="accordion-collapse collapse show" aria-labelledby="identity-heading" data-bs-parent="#isaar-edit">
+        <div id="identity-collapse" class="accordion-collapse collapse show" aria-labelledby="identity-heading">
           <div class="accordion-body">
             <?php echo $form->entityType
                 ->help(__('"Specify the type of entity that is being described in this authority record." (ISAAR 5.1.1) Select Corporate body, Family or Person from the drop-down menu.'))
@@ -65,7 +65,7 @@
             <?php echo __('Description area'); ?>
           </button>
         </h2>
-        <div id="description-collapse" class="accordion-collapse collapse" aria-labelledby="description-heading" data-bs-parent="#isaar-edit">
+        <div id="description-collapse" class="accordion-collapse collapse" aria-labelledby="description-heading">
           <div class="accordion-body">
             <?php echo render_field($form->datesOfExistence
                 ->help(__('"Record the dates of existence of the entity being described. For corporate bodies include the date of establishment/foundation/enabling legislation and dissolution. For persons include the dates or approximate dates of birth and death or, when these dates are not known, floruit dates. Where parallel systems of dating are used, equivalences may be recorded according to relevant conventions or rules. Specify in the Rules and/or conventions element (5.4.3) the system(s) of dating used, e.g. ISO 8601." (ISAAR 5.2.1)'))
@@ -103,7 +103,7 @@
             <?php echo __('Relationships area'); ?>
           </button>
         </h2>
-        <div id="relationships-collapse" class="accordion-collapse collapse" aria-labelledby="relationships-heading" data-bs-parent="#isaar-edit">
+        <div id="relationships-collapse" class="accordion-collapse collapse" aria-labelledby="relationships-heading">
           <div class="accordion-body">
             <?php echo get_partial('relatedAuthorityRecord', $sf_data->getRaw('relatedAuthorityRecordComponent')->getVarHolder()->getAll()); ?>
             <?php echo get_partial('event', $sf_data->getRaw('eventComponent')->getVarHolder()->getAll()); ?>
@@ -116,7 +116,7 @@
             <?php echo __('Access points'); ?>
           </button>
         </h2>
-        <div id="access-collapse" class="accordion-collapse collapse" aria-labelledby="access-heading" data-bs-parent="#isaar-edit">
+        <div id="access-collapse" class="accordion-collapse collapse" aria-labelledby="access-heading">
           <div class="accordion-body">
             <div class="form-item">
               <?php echo $form->subjectAccessPoints
@@ -150,7 +150,7 @@
             <?php echo __('Control area'); ?>
           </button>
         </h2>
-        <div id="control-collapse" class="accordion-collapse collapse" aria-labelledby="control-heading" data-bs-parent="#isaar-edit">
+        <div id="control-collapse" class="accordion-collapse collapse" aria-labelledby="control-heading">
           <div class="accordion-body">
             <?php echo render_field($form->descriptionIdentifier
                 ->help(__('"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)'))
