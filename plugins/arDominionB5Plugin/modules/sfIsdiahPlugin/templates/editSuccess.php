@@ -20,14 +20,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="isdiah-edit">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="identity-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#identity-collapse" aria-expanded="true" aria-controls="identity-collapse">
             <?php echo __('Identity area'); ?>
           </button>
         </h2>
-        <div id="identity-collapse" class="accordion-collapse collapse show" aria-labelledby="identity-heading" data-bs-parent="#isdiah-edit">
+        <div id="identity-collapse" class="accordion-collapse collapse show" aria-labelledby="identity-heading">
           <div class="accordion-body">
             <?php echo $form->identifier
                 ->help(__('"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)'))
@@ -67,7 +67,7 @@
             <?php echo __('Contact area'); ?>
           </button>
         </h2>
-        <div id="contact-collapse" class="accordion-collapse collapse" aria-labelledby="contact-heading" data-bs-parent="#isdiah-edit">
+        <div id="contact-collapse" class="accordion-collapse collapse" aria-labelledby="contact-heading">
           <div class="accordion-body">
             <?php echo get_partial('contactinformation/edit', $sf_data->getRaw('contactInformationEditComponent')->getVarHolder()->getAll()); ?>
           </div>
@@ -79,7 +79,7 @@
             <?php echo __('Description area'); ?>
           </button>
         </h2>
-        <div id="description-collapse" class="accordion-collapse collapse" aria-labelledby="description-heading" data-bs-parent="#isdiah-edit">
+        <div id="description-collapse" class="accordion-collapse collapse" aria-labelledby="description-heading">
           <div class="accordion-body">
             <?php echo render_field($form->history
                 ->help(__('"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)')), $resource, ['class' => 'resizable']); ?>
@@ -119,7 +119,7 @@
             <?php echo __('Access area'); ?>
           </button>
         </h2>
-        <div id="access-collapse" class="accordion-collapse collapse" aria-labelledby="access-heading" data-bs-parent="#isdiah-edit">
+        <div id="access-collapse" class="accordion-collapse collapse" aria-labelledby="access-heading">
           <div class="accordion-body">
             <?php echo render_field($form->openingTimes
                 ->help(__('"Record the opening hours of the institution and annual, seasonal and public holidays, and any other planned closures. Record times associated with the availability and/or delivery of services (for example, exhibition spaces, reference services, etc.)." (ISDIAH 5.4.1)')), $resource, ['class' => 'resizable']); ?>
@@ -140,7 +140,7 @@
             <?php echo __('Services area'); ?>
           </button>
         </h2>
-        <div id="services-collapse" class="accordion-collapse collapse" aria-labelledby="services-heading" data-bs-parent="#isdiah-edit">
+        <div id="services-collapse" class="accordion-collapse collapse" aria-labelledby="services-heading">
           <div class="accordion-body">
             <?php echo render_field($form->researchServices
                 ->help(__('"Record information about the onsite services provided by the institution such as languages spoken by staff, research and consultation rooms, enquiry services, internal libraries, map, microfiches, audio-visual, computer rooms, etc. Record as well any relevant information about research services, such as research undertaken by the institution, and the fee charge if applicable." (ISDIAH 5.5.1)')), $resource, ['class' => 'resizable']); ?>
@@ -160,7 +160,7 @@
             <?php echo __('Control area'); ?>
           </button>
         </h2>
-        <div id="control-collapse" class="accordion-collapse collapse" aria-labelledby="control-heading" data-bs-parent="#isdiah-edit">
+        <div id="control-collapse" class="accordion-collapse collapse" aria-labelledby="control-heading">
           <div class="accordion-body">
             <?php echo render_field($form->descIdentifier
                 ->help(__('"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISIAH 5.6.1)'))
@@ -220,7 +220,7 @@
             <?php echo __('Access points'); ?>
           </button>
         </h2>
-        <div id="points-collapse" class="accordion-collapse collapse" aria-labelledby="points-heading" data-bs-parent="#isdiah-edit">
+        <div id="points-collapse" class="accordion-collapse collapse" aria-labelledby="points-heading">
           <div class="accordion-body">
             <div class="form-item">
               <?php echo $form->thematicArea

@@ -12,14 +12,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="settings-visible-elements">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="global-heading">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#global-collapse" aria-expanded="false" aria-controls="global-collapse">
             <?php echo __('Global'); ?>
           </button>
         </h2>
-        <div id="global-collapse" class="accordion-collapse collapse" aria-labelledby="global-heading" data-bs-parent="#settings-visible-elements">
+        <div id="global-collapse" class="accordion-collapse collapse" aria-labelledby="global-heading">
           <div class="accordion-body">
             <?php foreach ([
                 'global_login_button' => __('Login button'), ] as $key => $value) { ?>
@@ -41,7 +41,7 @@
             <?php echo __('ISAD template - area headings'); ?>
           </button>
         </h2>
-        <div id="isad-headings-collapse" class="accordion-collapse collapse" aria-labelledby="isad-headings-heading" data-bs-parent="#settings-visible-elements">
+        <div id="isad-headings-collapse" class="accordion-collapse collapse" aria-labelledby="isad-headings-heading">
           <div class="accordion-body">
             <?php foreach ([
                 'isad_identity_area' => __('Identity area'),
@@ -70,7 +70,7 @@
             <?php echo __('ISAD template - elements'); ?>
           </button>
         </h2>
-        <div id="isad-elements-collapse" class="accordion-collapse collapse" aria-labelledby="isad-elements-heading" data-bs-parent="#settings-visible-elements">
+        <div id="isad-elements-collapse" class="accordion-collapse collapse" aria-labelledby="isad-elements-heading">
           <div class="accordion-body">
             <?php foreach ([
                 'isad_archival_history' => __('Archival history'),
@@ -106,7 +106,7 @@
             <?php echo __('RAD template - area headings'); ?>
           </button>
         </h2>
-        <div id="rad-headings-collapse" class="accordion-collapse collapse" aria-labelledby="rad-headings-heading" data-bs-parent="#settings-visible-elements">
+        <div id="rad-headings-collapse" class="accordion-collapse collapse" aria-labelledby="rad-headings-heading">
           <div class="accordion-body">
             <?php foreach ([
                 'rad_title_responsibility_area' => __('Title and statement of responsibility area'),
@@ -138,7 +138,7 @@
             <?php echo __('RAD template - elements'); ?>
           </button>
         </h2>
-        <div id="rad-elements-collapse" class="accordion-collapse collapse" aria-labelledby="rad-elements-heading" data-bs-parent="#settings-visible-elements">
+        <div id="rad-elements-collapse" class="accordion-collapse collapse" aria-labelledby="rad-elements-heading">
           <div class="accordion-body">
             <?php foreach ([
                 'rad_archival_history' => __('Custodial history'),
@@ -174,7 +174,7 @@
             <?php echo __('DACS template - area headings'); ?>
           </button>
         </h2>
-        <div id="dacs-headings-collapse" class="accordion-collapse collapse" aria-labelledby="dacs-headings-heading" data-bs-parent="#settings-visible-elements">
+        <div id="dacs-headings-collapse" class="accordion-collapse collapse" aria-labelledby="dacs-headings-heading">
           <div class="accordion-body">
             <?php foreach ([
                 'dacs_identity_area' => __('Identity area'),
@@ -203,7 +203,7 @@
             <?php echo __('DACS template - elements'); ?>
           </button>
         </h2>
-        <div id="dacs-elements-collapse" class="accordion-collapse collapse" aria-labelledby="dacs-elements-heading" data-bs-parent="#settings-visible-elements">
+        <div id="dacs-elements-collapse" class="accordion-collapse collapse" aria-labelledby="dacs-elements-heading">
           <div class="accordion-body">
             <?php foreach ([
                 'dacs_physical_access' => __('Physical access'), ] as $key => $value) { ?>
@@ -225,7 +225,7 @@
             <?php echo __('%1% metadata - original file', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]); ?>
           </button>
         </h2>
-        <div id="original-collapse" class="accordion-collapse collapse" aria-labelledby="original-heading" data-bs-parent="#settings-visible-elements">
+        <div id="original-collapse" class="accordion-collapse collapse" aria-labelledby="original-heading">
           <div class="accordion-body">
             <?php foreach ([
                 'digital_object_preservation_system_original_file_name' => __('File name'),
@@ -254,7 +254,7 @@
             <?php echo __('%1% metadata - preservation copy', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]); ?>
           </button>
         </h2>
-        <div id="preservation-collapse" class="accordion-collapse collapse" aria-labelledby="preservation-heading" data-bs-parent="#settings-visible-elements">
+        <div id="preservation-collapse" class="accordion-collapse collapse" aria-labelledby="preservation-heading">
           <div class="accordion-body">
             <?php foreach ([
                 'digital_object_preservation_system_preservation_file_name' => __('File name'),
@@ -279,7 +279,7 @@
             <?php echo __('%1% metadata - master file', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]); ?>
           </button>
         </h2>
-        <div id="master-collapse" class="accordion-collapse collapse" aria-labelledby="master-heading" data-bs-parent="#settings-visible-elements">
+        <div id="master-collapse" class="accordion-collapse collapse" aria-labelledby="master-heading">
           <div class="accordion-body">
             <?php foreach ([
                 'digital_object_url' => __('URL'),
@@ -308,7 +308,7 @@
             <?php echo __('%1% metadata - reference copy', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]); ?>
           </button>
         </h2>
-        <div id="reference-collapse" class="accordion-collapse collapse" aria-labelledby="reference-heading" data-bs-parent="#settings-visible-elements">
+        <div id="reference-collapse" class="accordion-collapse collapse" aria-labelledby="reference-heading">
           <div class="accordion-body">
             <?php foreach ([
                 'digital_object_reference_file_name' => __('File name'),
@@ -335,7 +335,7 @@
             <?php echo __('%1% metadata - thumbnail copy', ['%1%' => sfConfig::get('app_ui_label_digitalobject')]); ?>
           </button>
         </h2>
-        <div id="thumbnail-collapse" class="accordion-collapse collapse" aria-labelledby="thumbnail-heading" data-bs-parent="#settings-visible-elements">
+        <div id="thumbnail-collapse" class="accordion-collapse collapse" aria-labelledby="thumbnail-heading">
           <div class="accordion-body">
             <?php foreach ([
                 'digital_object_thumbnail_file_name' => __('File name'),
@@ -362,7 +362,7 @@
             <?php echo __('Physical storage'); ?>
           </button>
         </h2>
-        <div id="storage-collapse" class="accordion-collapse collapse" aria-labelledby="storage-heading" data-bs-parent="#settings-visible-elements">
+        <div id="storage-collapse" class="accordion-collapse collapse" aria-labelledby="storage-heading">
           <div class="accordion-body">
             <div class="form-item form-item-checkbox">
               <?php echo $form['physical_storage']; ?>
