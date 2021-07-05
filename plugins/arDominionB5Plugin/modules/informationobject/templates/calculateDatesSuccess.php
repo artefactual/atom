@@ -17,53 +17,55 @@
   <?php echo $form->renderFormTag(url_for([$resource, 'module' => 'informationobject', 'action' => 'calculateDates'])); ?>
 
     <?php echo $form->renderHiddenFields(); ?>
-    
-    <div id="content">
 
-      <fieldset class="collapsible">
+    <div class="accordion" id="calculate-dates">
+      <?php if (count($events)) { ?>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="existing-heading">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#existing-collapse" aria-expanded="true" aria-controls="existing-collapse">
+              <?php echo __('Update an existing date range'); ?>
+            </button>
+          </h2>
+          <div id="existing-collapse" class="accordion-collapse collapse show" aria-labelledby="existing-heading" data-bs-parent="#calculate-dates">
+            <div class="accordion-body">
+              <p><?php echo __('Select a date range to overwrite:'); ?></p>
 
-        <?php if (count($events)) { ?>
-          <legend class="collapse-processed"><?php echo __('Update an existing date range'); ?></legend>
+              <?php foreach ($events as $eventId => $eventName) { ?>
+                <p><input type="radio" name="eventIdOrTypeId" value="<?php echo $eventId; ?>"><?php echo $eventName; ?></p>
+              <?php } ?>
 
-          <div class="fieldset-wrapper">
-
-            <p><?php echo __('Select a date range to overwrite:'); ?></p>
-
-            <?php foreach ($events as $eventId => $eventName) { ?>
-              <p><input type="radio" name="eventIdOrTypeId" value="<?php echo $eventId; ?>"><?php echo $eventName; ?></p>
-            <?php } ?>
-
-            <div class="alert alert-warning">
-              <?php echo __('Updating an existing date range will permanently overwrite the current dates.'); ?>
+              <div class="alert alert-warning mb-0" role="alert">
+                <?php echo __('Updating an existing date range will permanently overwrite the current dates.'); ?>
+              </div>
             </div>
-
           </div>
-        <?php } ?>
+        </div>
+      <?php } ?>
+      <?php if (count($descendantEventTypes)) { ?>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="create-heading">
+            <button class="accordion-button<?php echo count($events) ? ' collapsed' : ''; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#create-collapse" aria-expanded="<?php echo count($events) ? 'false' : 'true'; ?>" aria-controls="create-collapse">
+              <?php echo __('Create a new date range'); ?>
+            </button>
+          </h2>
+          <div id="create-collapse" class="accordion-collapse collapse<?php echo count($events) ? '' : ' show'; ?>" aria-labelledby="create-heading" data-bs-parent="#calculate-dates">
+            <div class="accordion-body">
+              <p><?php echo __('Select the new date type:'); ?></p>
 
-        <?php if (count($descendantEventTypes)) { ?>
-          <legend class="collapse-processed"><?php echo __('or, create a new date range'); ?></legend>
-
-          <div class="fieldset-wrapper">
-
-            <p><?php echo __('Select the new date type:'); ?></p>
-
-            <?php foreach ($descendantEventTypes as $eventTypeId => $eventTypeName) { ?>
-              <p><input type="radio" name="eventIdOrTypeId" value="<?php echo $eventTypeId; ?>"><?php echo $eventTypeName; ?></p>
-            <?php } ?>
-
+              <?php foreach ($descendantEventTypes as $eventTypeId => $eventTypeName) { ?>
+                <p><input type="radio" name="eventIdOrTypeId" value="<?php echo $eventTypeId; ?>"><?php echo $eventTypeName; ?></p>
+              <?php } ?>
+            </div>
           </div>
-        <?php } ?>
-
-      </fieldset>
-
+        </div>
+      <?php } ?>
     </div>
     
-    <div class="alert alert-info">
+    <div class="alert alert-info mt-3" role="alert">
       <?php echo __('Note: While the date range update is running, the selected description should not be edited.'); ?>
       <?php echo __('You can check %1% page to determine the current status of the update job.',
         ['%1%' => link_to(__('Manage jobs'), ['module' => 'jobs', 'action' => 'browse'], ['class' => 'alert-link'])]); ?>
     </div>
-
 
     <section class="actions">
       <ul>
