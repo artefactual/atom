@@ -20,14 +20,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="informationobject-pub-status">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="pub-status-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#pub-status-collapse" aria-expanded="true" aria-controls="pub-status-collapse">
             <?php echo __('Update publication status'); ?>
           </button>
         </h2>
-        <div id="pub-status-collapse" class="accordion-collapse collapse show" aria-labelledby="pub-status-heading" data-bs-parent="#informationobject-pub-status">
+        <div id="pub-status-collapse" class="accordion-collapse collapse show" aria-labelledby="pub-status-heading">
           <div class="accordion-body">
             <?php echo $form->publicationStatus->label(__('Publication status'))->renderRow(); ?>
 

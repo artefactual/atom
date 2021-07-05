@@ -22,14 +22,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="ss-settings">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="credentials-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#credentials-collapse" aria-expanded="true" aria-controls="credentials-collapse">
             <?php echo __('Storage Service credentials'); ?>
           </button>
         </h2>
-        <div id="credentials-collapse" class="accordion-collapse collapse show" aria-labelledby="credentials-heading" data-bs-parent="#ss-settings">
+        <div id="credentials-collapse" class="accordion-collapse collapse show" aria-labelledby="credentials-heading">
           <div class="accordion-body">
             <?php echo $form->storage_service_api_url
                 ->label(__(
@@ -56,7 +56,7 @@
             <?php echo __('Storage Service credentials'); ?>
           </button>
         </h2>
-        <div id="aip-collapse" class="accordion-collapse collapse" aria-labelledby="aip-heading" data-bs-parent="#ss-settings">
+        <div id="aip-collapse" class="accordion-collapse collapse" aria-labelledby="aip-heading">
           <div class="accordion-body">
             <?php echo $form->download_aip_enabled
                 ->label(__('Enable AIP download'))

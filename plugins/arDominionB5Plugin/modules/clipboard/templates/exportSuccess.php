@@ -18,14 +18,14 @@
     <?php echo $form->renderHiddenFields(); ?>
 
     <div id="export-options" data-export-toggle="tooltip" data-export-title="<?php echo __('Export'); ?>" data-export-alert-close="<?php echo __('Close'); ?>" data-export-alert-message="<?php echo __('Error: You must have at least one %1%Level of description%2% selected or choose %1%Include all descendant levels of description%2% to proceed.', ['%1%' => '<strong>', '%2%' => '</strong>']); ?>">
-      <div class="accordion" id="clipboard-export">
+      <div class="accordion">
         <div class="accordion-item">
           <h2 class="accordion-header" id="export-heading">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#export-collapse" aria-expanded="true" aria-controls="export-collapse">
               <?php echo __('Export options'); ?>
             </button>
           </h2>
-          <div id="export-collapse" class="accordion-collapse collapse show" aria-labelledby="export-heading" data-bs-parent="#clipboard-export">
+          <div id="export-collapse" class="accordion-collapse collapse show" aria-labelledby="export-heading">
             <div class="accordion-body">
               <?php echo $form->type->renderRow(); ?>
               <?php echo $form->format->renderRow(); ?>
