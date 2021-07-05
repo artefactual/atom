@@ -20,14 +20,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="settings-ldap">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="ldap-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ldap-collapse" aria-expanded="true" aria-controls="ldap-collapse">
             <?php echo __('LDAP authentication settings'); ?>
           </button>
         </h2>
-        <div id="ldap-collapse" class="accordion-collapse collapse show" aria-labelledby="ldap-heading" data-bs-parent="#settings-ldap">
+        <div id="ldap-collapse" class="accordion-collapse collapse show" aria-labelledby="ldap-heading">
           <div class="accordion-body">
             <?php echo $form->ldapHost
                 ->label(__('Host'))
