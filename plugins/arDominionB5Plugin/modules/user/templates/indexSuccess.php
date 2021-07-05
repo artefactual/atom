@@ -89,7 +89,7 @@
 
     <?php if (sfConfig::get('app_audit_log_enabled', false)) { ?>
       <div id="editing-history-wrapper">
-        <div class="accordion" id="user-editing-history">
+        <div class="accordion">
           <div class="accordion-item">
             <h2 class="accordion-header" id="history-heading">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#history-collapse" aria-expanded="false" aria-controls="history-collapse">
@@ -97,7 +97,7 @@
                 <?php echo image_tag('/vendor/jstree/themes/default/throbber.gif', ['id' => 'editingHistoryActivityIndicator', 'class' => 'hidden', 'alt' => __('Loading ...')]); ?>
               </button>
             </h2>
-            <div id="history-collapse" class="accordion-collapse collapse" aria-labelledby="history-heading" data-bs-parent="#user-editing-history">
+            <div id="history-collapse" class="accordion-collapse collapse" aria-labelledby="history-heading">
               <div class="accordion-body">
                 <table class="table table-bordered table-striped sticky-enabled">
                   <thead>

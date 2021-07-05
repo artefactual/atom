@@ -25,14 +25,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="menu-edit">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="edit-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#edit-collapse" aria-expanded="true" aria-controls="edit-collapse">
             <?php echo __('Main area'); ?>
           </button>
         </h2>
-        <div id="edit-collapse" class="accordion-collapse collapse show" aria-labelledby="edit-heading" data-bs-parent="#menu-edit">
+        <div id="edit-collapse" class="accordion-collapse collapse show" aria-labelledby="edit-heading">
           <div class="accordion-body">
             <?php if (!$menu->isProtected()) { ?>
               <div class="form-item">

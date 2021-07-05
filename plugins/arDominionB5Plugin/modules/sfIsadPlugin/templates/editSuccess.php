@@ -30,14 +30,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="isad-edit">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="identity-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#identity-collapse" aria-expanded="true" aria-controls="identity-collapse">
             <?php echo __('Identity area'); ?>
           </button>
         </h2>
-        <div id="identity-collapse" class="accordion-collapse collapse show" aria-labelledby="identity-heading" data-bs-parent="#isad-edit">
+        <div id="identity-collapse" class="accordion-collapse collapse show" aria-labelledby="identity-heading">
           <div class="accordion-body">
             <?php echo render_show(__('Reference code'), render_value($isad->referenceCode)); ?>
 
@@ -74,7 +74,7 @@
             <?php echo __('Context area'); ?>
           </button>
         </h2>
-        <div id="context-collapse" class="accordion-collapse collapse" aria-labelledby="context-heading" data-bs-parent="#isad-edit">
+        <div id="context-collapse" class="accordion-collapse collapse" aria-labelledby="context-heading">
           <div class="accordion-body">
             <div class="form-item">
               <?php echo $form->creators
@@ -113,7 +113,7 @@
             <?php echo __('Content and structure area'); ?>
           </button>
         </h2>
-        <div id="content-collapse" class="accordion-collapse collapse" aria-labelledby="content-heading" data-bs-parent="#isad-edit">
+        <div id="content-collapse" class="accordion-collapse collapse" aria-labelledby="content-heading">
           <div class="accordion-body">
             <?php echo render_field($form->scopeAndContent
                 ->help(__('Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (ISAD 3.3.1)')), $resource, ['class' => 'resizable']); ?>
@@ -137,7 +137,7 @@
             <?php echo __('Conditions of access and use area'); ?>
           </button>
         </h2>
-        <div id="conditions-collapse" class="accordion-collapse collapse" aria-labelledby="conditions-heading" data-bs-parent="#isad-edit">
+        <div id="conditions-collapse" class="accordion-collapse collapse" aria-labelledby="conditions-heading">
           <div class="accordion-body">
             <?php echo render_field($form->accessConditions
                 ->help(__('Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)'))
@@ -176,7 +176,7 @@
             <?php echo __('Allied materials area'); ?>
           </button>
         </h2>
-        <div id="allied-collapse" class="accordion-collapse collapse" aria-labelledby="allied-heading" data-bs-parent="#isad-edit">
+        <div id="allied-collapse" class="accordion-collapse collapse" aria-labelledby="allied-heading">
           <div class="accordion-body">
             <?php echo render_field($form->locationOfOriginals
                 ->help(__('If the original of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. If the originals no longer exist, or their location is unknown, give that information. (ISAD 3.5.1)'))
@@ -214,7 +214,7 @@
             <?php echo __('Notes area'); ?>
           </button>
         </h2>
-        <div id="notes-collapse" class="accordion-collapse collapse" aria-labelledby="notes-heading" data-bs-parent="#isad-edit">
+        <div id="notes-collapse" class="accordion-collapse collapse" aria-labelledby="notes-heading">
           <div class="accordion-body">
             <?php echo get_partial('informationobject/notes', $sf_data->getRaw('notesComponent')->getVarHolder()->getAll()); ?>
           </div>
@@ -226,7 +226,7 @@
             <?php echo __('Access points'); ?>
           </button>
         </h2>
-        <div id="access-collapse" class="accordion-collapse collapse" aria-labelledby="access-heading" data-bs-parent="#isad-edit">
+        <div id="access-collapse" class="accordion-collapse collapse" aria-labelledby="access-heading">
           <div class="accordion-body">
             <div class="form-item">
               <?php echo $form->subjectAccessPoints
@@ -280,7 +280,7 @@
             <?php echo __('Description control area'); ?>
           </button>
         </h2>
-        <div id="description-collapse" class="accordion-collapse collapse" aria-labelledby="description-heading" data-bs-parent="#isad-edit">
+        <div id="description-collapse" class="accordion-collapse collapse" aria-labelledby="description-heading">
           <div class="accordion-body">
             <?php echo $form->descriptionIdentifier
                 ->help(__('Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.'))
@@ -325,7 +325,7 @@
           </div>
         </div>
       </div>
-      <?php echo get_partial('informationobject/adminInfo', ['form' => $form, 'resource' => $resource, 'accordionId' => 'isad-edit']); ?>
+      <?php echo get_partial('informationobject/adminInfo', ['form' => $form, 'resource' => $resource]); ?>
     </div>
   
     <?php echo get_partial('informationobject/editActions', ['resource' => (null !== $parent ? $parent : $resource)]); ?>

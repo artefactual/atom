@@ -31,14 +31,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="skos-import">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="import-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#import-collapse" aria-expanded="true" aria-controls="import-collapse">
             <?php echo __('Import options'); ?>
           </button>
         </h2>
-        <div id="import-collapse" class="accordion-collapse collapse show" aria-labelledby="import-heading" data-bs-parent="#skos-import">
+        <div id="import-collapse" class="accordion-collapse collapse show" aria-labelledby="import-heading">
           <div class="accordion-body">
             <?php if (isset($resource)) { ?>
               <div class="form-item">
@@ -62,7 +62,7 @@
             <?php echo __('Select source'); ?>
           </button>
         </h2>
-        <div id="select-collapse" class="accordion-collapse collapse" aria-labelledby="select-heading" data-bs-parent="#skos-import">
+        <div id="select-collapse" class="accordion-collapse collapse" aria-labelledby="select-heading">
           <div class="accordion-body">
             <?php echo $form->file
                 ->label(__('Select a file to import'))

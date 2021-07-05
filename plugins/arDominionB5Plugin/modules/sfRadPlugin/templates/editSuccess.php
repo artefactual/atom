@@ -31,14 +31,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="rad-edit">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="title-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#title-collapse" aria-expanded="true" aria-controls="title-collapse">
             <?php echo __('Title and statement of responsibility area'); ?>
           </button>
         </h2>
-        <div id="title-collapse" class="accordion-collapse collapse show" aria-labelledby="title-heading" data-bs-parent="#rad-edit">
+        <div id="title-collapse" class="accordion-collapse collapse show" aria-labelledby="title-heading">
           <div class="accordion-body">
             <?php echo render_field($form->title
                 ->help(__('Enter the title proper, either transcribed or supplied. (RAD 1.1B)'))
@@ -97,7 +97,7 @@
             <?php echo __('Edition area'); ?>
           </button>
         </h2>
-        <div id="edition-collapse" class="accordion-collapse collapse" aria-labelledby="edition-heading" data-bs-parent="#rad-edit">
+        <div id="edition-collapse" class="accordion-collapse collapse" aria-labelledby="edition-heading">
           <div class="accordion-body">
             <?php echo render_field($form->edition
                 ->help(__('"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)'))
@@ -115,7 +115,7 @@
             <?php echo __('Class of material specific details area'); ?>
           </button>
         </h2>
-        <div id="class-collapse" class="accordion-collapse collapse" aria-labelledby="class-heading" data-bs-parent="#rad-edit">
+        <div id="class-collapse" class="accordion-collapse collapse" aria-labelledby="class-heading">
           <div class="accordion-body">
             <?php echo render_field($form->statementOfScaleCartographic
                 ->help(__('"Give the scale of the unit being described...as a representative fraction (RF) expressed as a ratio (1: ). Precede the ratio by Scale. Give the scale even if it is already recorded as part of the title proper or other title information." (RAD 5.3B1)'))
@@ -145,7 +145,7 @@
             <?php echo __('Dates of creation area'); ?>
           </button>
         </h2>
-        <div id="dates-collapse" class="accordion-collapse collapse" aria-labelledby="dates-heading" data-bs-parent="#rad-edit">
+        <div id="dates-collapse" class="accordion-collapse collapse" aria-labelledby="dates-heading">
           <div class="accordion-body">
             <?php echo get_partial('informationobject/relatedEvents', ['resource' => $resource]); ?>
 
@@ -162,7 +162,7 @@
             <?php echo __('Physical description area'); ?>
           </button>
         </h2>
-        <div id="physical-collapse" class="accordion-collapse collapse" aria-labelledby="physical-heading" data-bs-parent="#rad-edit">
+        <div id="physical-collapse" class="accordion-collapse collapse" aria-labelledby="physical-heading">
           <div class="accordion-body">
             <?php echo render_field($form->extentAndMedium
                 ->help(__('"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).'))
@@ -176,7 +176,7 @@
             <?php echo __('Publisher\'s series area'); ?>
           </button>
         </h2>
-        <div id="publisher-collapse" class="accordion-collapse collapse" aria-labelledby="publisher-heading" data-bs-parent="#rad-edit">
+        <div id="publisher-collapse" class="accordion-collapse collapse" aria-labelledby="publisher-heading">
           <div class="accordion-body">
             <?php echo render_field($form->titleProperOfPublishersSeries
                 ->help(__('"At the item level of description, transcribe a title proper of the publisher\'s series as instructed in 1.1B1." (RAD 1.6B)'))
@@ -210,7 +210,7 @@
             <?php echo __('Archival description area'); ?>
           </button>
         </h2>
-        <div id="archival-collapse" class="accordion-collapse collapse" aria-labelledby="archival-heading" data-bs-parent="#rad-edit">
+        <div id="archival-collapse" class="accordion-collapse collapse" aria-labelledby="archival-heading">
           <div class="accordion-body">
             <?php foreach ($resource->getCreators() as $item) { ?>
               <div class="field">
@@ -247,7 +247,7 @@
             <?php echo __('Notes area'); ?>
           </button>
         </h2>
-        <div id="notes-collapse" class="accordion-collapse collapse" aria-labelledby="notes-heading" data-bs-parent="#rad-edit">
+        <div id="notes-collapse" class="accordion-collapse collapse" aria-labelledby="notes-heading">
           <div class="accordion-body">
             <?php echo render_field($form->physicalCharacteristics
                 ->help(__('"Make notes on the physical condition of the unit being described if that condition materially affects the clarity or legibility of the records." (RAD 1.8B9a)'))
@@ -325,7 +325,7 @@
             <?php echo __('Standard number area'); ?>
           </button>
         </h2>
-        <div id="standard-collapse" class="accordion-collapse collapse" aria-labelledby="standard-heading" data-bs-parent="#rad-edit">
+        <div id="standard-collapse" class="accordion-collapse collapse" aria-labelledby="standard-heading">
           <div class="accordion-body">
             <?php echo render_field($form->standardNumber
                 ->help(__('"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)')), $rad); ?>
@@ -338,7 +338,7 @@
             <?php echo __('Access points'); ?>
           </button>
         </h2>
-        <div id="access-collapse" class="accordion-collapse collapse" aria-labelledby="access-heading" data-bs-parent="#rad-edit">
+        <div id="access-collapse" class="accordion-collapse collapse" aria-labelledby="access-heading">
           <div class="accordion-body">
             <div class="form-item">
               <?php echo $form->subjectAccessPoints
@@ -404,7 +404,7 @@
             <?php echo __('Control area'); ?>
           </button>
         </h2>
-        <div id="control-collapse" class="accordion-collapse collapse" aria-labelledby="control-heading" data-bs-parent="#rad-edit">
+        <div id="control-collapse" class="accordion-collapse collapse" aria-labelledby="control-heading">
           <div class="accordion-body">
             <?php echo $form->descriptionIdentifier
                 ->help(__('Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.'))
@@ -449,7 +449,7 @@
           </div>
         </div>
       </div>
-      <?php echo get_partial('informationobject/adminInfo', ['form' => $form, 'resource' => $resource, 'accordionId' => 'rad-edit']); ?>
+      <?php echo get_partial('informationobject/adminInfo', ['form' => $form, 'resource' => $resource]); ?>
     </div>
 
     <?php echo get_partial('informationobject/editActions', ['resource' => (null !== $parent ? $parent : $resource)]); ?>

@@ -20,14 +20,14 @@
 
     <?php echo $form->renderHiddenFields(); ?>
 
-    <div class="accordion" id="clipboard-load">
+    <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header" id="load-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#load-collapse" aria-expanded="true" aria-controls="load-collapse">
             <?php echo __('Upload finding aid'); ?>
           </button>
         </h2>
-        <div id="load-collapse" class="accordion-collapse collapse show" aria-labelledby="load-heading" data-bs-parent="#clipboard-load">
+        <div id="load-collapse" class="accordion-collapse collapse show" aria-labelledby="load-heading">
           <div class="accordion-body">
             <?php if (isset($errorMessage)) { ?>
               <div class="messages error">
