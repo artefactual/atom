@@ -111,12 +111,12 @@
 
 </div>
 
-<div id="treeview-search" <?php echo ('sidebar' != $treeviewType) ? 'class="force-show"' : ''; ?>>
+<div id="treeview-search" role="search" aria-label="<?php echo __('Hierarchy'); ?>" <?php echo ('sidebar' != $treeviewType) ? 'class="force-show"' : ''; ?>>
 
   <form method="get" action="<?php echo url_for(['module' => 'search', 'action' => 'index', 'collection' => $resource->getCollectionRoot()->id]); ?>" data-not-found="<?php echo __('No results found.'); ?>">
     <div class="search-box">
-      <input type="text" name="query" placeholder="<?php echo __('Search'); ?>" />
-      <button type="submit"><i class="fa fa-search"></i></button>
+      <input type="text" name="query" aria-label="<?php echo __('Search hierarchy'); ?>" placeholder="<?php echo __('Search hierarchy'); ?>" />
+      <button type="submit" aria-label="<?php echo __('Search'); ?>"><i aria-hidden="true" class="fa fa-search"></i></button>
     </div>
   </form>
 

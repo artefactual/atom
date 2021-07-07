@@ -1,4 +1,4 @@
-<div class="inline-search">
+<div class="inline-search" role="search" aria-label="<?php echo $landmarkLabel; ?>">
 
   <form method="get" action="<?php echo $route; ?>">
 
@@ -33,17 +33,17 @@
       <?php } ?>
 
       <?php if (isset($sf_request->subquery)) { ?>
-        <input type="text" name="subquery" value="<?php echo $sf_request->subquery; ?>" />
-        <a class="btn" href="<?php echo $cleanRoute; ?>">
-          <i class="fa fa-times"></i>
+        <input type="text" name="subquery" aria-label="<?php echo $label; ?>" value="<?php echo $sf_request->subquery; ?>" placeholder="<?php echo $label; ?>" />
+        <a class="btn" href="<?php echo $cleanRoute; ?>" aria-label="<?php echo __('Reset search'); ?>">
+          <i aria-hidden="true" class="fa fa-undo"></i>
         </a>
       <?php } else { ?>
-        <input type="text" name="subquery" placeholder="<?php echo $label; ?>" />
+        <input type="text" name="subquery" aria-label="<?php echo $label; ?>" placeholder="<?php echo $label; ?>" />
       <?php } ?>
 
       <div class="btn-group">
-        <button class="btn" type="submit">
-          <i class="fa fa-search"></i>
+        <button class="btn" type="submit" aria-label="<?php echo __('Search'); ?>">
+          <i aria-hidden="true" class="fa fa-search"></i>
         </button>
       </div>
 

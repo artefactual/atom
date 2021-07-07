@@ -10,7 +10,8 @@
     <div class="row">
       <div class="span6">
         <?php echo get_component('search', 'inlineSearch', [
-            'label' => __('Search physical objects'), ]); ?>
+            'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_physicalobject'))]),
+            'landmarkLabel' => __(sfConfig::get('app_ui_label_physicalobject')), ]); ?>
       </div>
     </div>
   </section>

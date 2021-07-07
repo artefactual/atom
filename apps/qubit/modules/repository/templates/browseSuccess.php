@@ -78,7 +78,8 @@
     <div class="row">
       <div class="span4">
         <?php echo get_component('search', 'inlineSearch', [
-            'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_repository'))]), ]); ?>
+            'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_repository'))]),
+            'landmarkLabel' => __(sfConfig::get('app_ui_label_repository')), ]); ?>
       </div>
 
       <?php echo get_partial('default/viewPicker', ['view' => $view, 'cardView' => $cardView,
@@ -95,7 +96,7 @@
     </div>
   </section>
 
-  <section class="advanced-search-section">
+  <section class="advanced-search-section" role="search" aria-label="<?php echo __('Advanced %1%', ['%1%' => sfConfig::get('app_ui_label_repository')]); ?>">
     <a href="#" id="toggle-advanced-filters" class="advanced-search-toggle"><?php echo __('Advanced search options'); ?></a>
     <div id="advanced-repository-filters" class="advanced-search">
       <?php echo get_component('repository', 'advancedFilters', [

@@ -2,7 +2,7 @@
 <?php use_helper('Date'); ?>
 
 <?php slot('title'); ?>
-  <h1><?php echo __('Browse donor'); ?></h1>
+  <h1><?php echo __('Browse donors'); ?></h1>
 <?php end_slot(); ?>
 
 <?php slot('before-content'); ?>
@@ -11,7 +11,8 @@
     <div class="row">
       <div class="span6">
         <?php echo get_component('search', 'inlineSearch', [
-            'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_donor'))]), ]); ?>
+            'label' => __('Search donors'),
+            'landmarkLabel' => __('Donor'), ]); ?>
       </div>
 
       <div class="pickers">

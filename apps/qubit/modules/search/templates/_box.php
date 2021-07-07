@@ -8,12 +8,12 @@
     <input type="hidden" name="sort" value="relevance"/>
 
     <?php if (isset($repository) && !sfConfig::get('app_enable_institutional_scoping')) { ?>
-      <input type="text" name="query"<?php echo isset($sf_request->query) ? ' class="focused"' : ''; ?> value="<?php echo $sf_request->query; ?>" placeholder="<?php echo __('Search %1%', ['%1%' => strip_markdown($repository)]); ?>"/>
+      <input type="text" name="query"<?php echo isset($sf_request->query) ? ' class="focused"' : ''; ?> aria-label="<?php echo __('Search %1%', ['%1%' => strip_markdown($repository)]); ?>" value="<?php echo $sf_request->query; ?>" placeholder="<?php echo __('Search %1%', ['%1%' => strip_markdown($repository)]); ?>"/>
     <?php } else { ?>
-      <input type="text" name="query"<?php echo isset($sf_request->query) ? ' class="focused"' : ''; ?> value="<?php echo !$sf_user->getAttribute('search-realm') || !sfConfig::get('app_enable_institutional_scoping') ? $sf_request->query : ''; ?>" placeholder="<?php echo __('%1%', ['%1%' => sfConfig::get('app_ui_label_globalSearch')]); ?>"/>
+      <input type="text" name="query"<?php echo isset($sf_request->query) ? ' class="focused"' : ''; ?> aria-label="<?php echo __('%1%', ['%1%' => sfConfig::get('app_ui_label_globalSearch')]); ?>" value="<?php echo !$sf_user->getAttribute('search-realm') || !sfConfig::get('app_enable_institutional_scoping') ? $sf_request->query : ''; ?>" placeholder="<?php echo __('%1%', ['%1%' => sfConfig::get('app_ui_label_globalSearch')]); ?>"/>
     <?php } ?>
 
-    <button><span><?php echo __('Search'); ?></span></button>
+    <button aria-label="<?php echo __('Search'); ?>"></button>
 
     <div id="search-realm" class="search-popover">
 

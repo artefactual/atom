@@ -8,21 +8,8 @@
 
     <div class="row-fluid">
       <div class="span4">
-        <?php echo __('Thematic area:'); ?>
-      </div>
-
-      <div class="span4">
-        <?php echo __('Archive type:'); ?>
-      </div>
-
-      <div class="span4">
-        <?php echo __('Regions:'); ?>
-      </div>
-    </div>
-
-    <div class="row-fluid">
-      <div class="span4">
-        <select name="thematicAreas">
+        <label for="thematicAreas"><?php echo __('Thematic area:'); ?></label>
+        <select name="thematicAreas" id="thematicAreas">
           <option selected="selected"></option>
           <?php foreach ($thematicAreas as $r) { ?>
             <option value="<?php echo $r->getId(); ?>">
@@ -33,7 +20,8 @@
       </div>
 
       <div class="span4">
-        <select name="types">
+        <label for="types"><?php echo __('Archive type:'); ?></label>
+        <select name="types" id="types">
           <option selected="selected"></option>
           <?php foreach ($repositoryTypes as $r) { ?>
             <option value="<?php echo $r->getId(); ?>">
@@ -44,7 +32,8 @@
       </div>
 
       <div class="span4">
-        <select name="regions">
+        <label for="regions"><?php echo __('Region:'); ?></label>
+        <select name="regions" id="regions">
           <option selected="selected"></option>
           <?php $regions = []; ?>
           <?php foreach ($repositories as $r) { ?>

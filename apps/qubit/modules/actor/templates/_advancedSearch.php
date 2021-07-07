@@ -1,4 +1,4 @@
-<section class="advanced-search-section">
+<section class="advanced-search-section" role="search" aria-label="<?php echo __('Advanced %1%', ['%1%' => sfConfig::get('app_ui_label_actor')]); ?>">
 
   <a href="#" class="advanced-search-toggle <?php echo $show ? 'open' : ''; ?>" aria-expanded="<?php echo $show ? 'true' : 'false'; ?>"><?php echo __('Advanced search options'); ?></a>
 
@@ -26,7 +26,7 @@
                 <option value="not"<?php echo 'not' == $item['operator'] ? ' selected="selected"' : ''; ?>><?php echo __('not'); ?></option>
               </select>
 
-              <input class="query" type="text" placeholder="<?php echo __('Search'); ?>" name="sq<?php echo $key; ?>" value="<?php echo $item['query']; ?>"/>
+              <input class="query" type="text" aria-label="<?php echo __('Search'); ?>" placeholder="<?php echo __('Search'); ?>" name="sq<?php echo $key; ?>" value="<?php echo $item['query']; ?>"/>
 
               <span><?php echo __('in'); ?></span>
 
@@ -37,7 +37,7 @@
                 <?php } ?>
               </select>
 
-              <a href="#" class="delete-criterion"><i class="fa fa-times"></i></a>
+              <a href="#" class="delete-criterion" aria-label="<?php echo __('Delete criterion'); ?>"><i aria-hidden="true" class="fa fa-times"></i></a>
 
             </div>
 
@@ -55,7 +55,7 @@
             <option value="not"><?php echo __('not'); ?></option>
           </select>
 
-          <input class="query" type="text" placeholder="<?php echo __('Search'); ?>" name="sq<?php echo $count; ?>"/>
+          <input class="query" type="text" aria-label="<?php echo __('Search'); ?>" placeholder="<?php echo __('Search'); ?>" name="sq<?php echo $count; ?>"/>
 
           <span><?php echo __('in'); ?></span>
 
@@ -66,7 +66,7 @@
             <?php } ?>
           </select>
 
-          <a href="#" class="delete-criterion"><i class="fa fa-times"></i></a>
+          <a href="#" class="delete-criterion" aria-label="<?php echo __('Delete criterion'); ?>"><i aria-hidden="true" class="fa fa-times"></i></a>
 
         </div>
 

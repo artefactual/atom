@@ -2,7 +2,7 @@
 <?php use_helper('Date'); ?>
 
 <?php slot('title'); ?>
-  <h1><?php echo __('Browse accession'); ?></h1>
+  <h1><?php echo __('Browse accessions'); ?></h1>
 <?php end_slot(); ?>
 
 <?php slot('before-content'); ?>
@@ -11,7 +11,8 @@
     <div class="row">
       <div class="span6">
         <?php echo get_component('search', 'inlineSearch', [
-            'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_accession'))]), ]); ?>
+            'label' => __('Search accessions'),
+            'landmarkLabel' => __('Accession'), ]); ?>
       </div>
 
       <div class="pickers">

@@ -163,13 +163,13 @@
 
     </div>
 
-    <div id="treeview-search">
+    <div id="treeview-search" role="search" aria-label="<?php echo strip_markdown($resource->taxonomy); ?>">
 
       <form method="get" action="<?php echo url_for([$resource->taxonomy, 'module' => 'taxonomy']); ?>" data-not-found="<?php echo __('No results found.'); ?>">
         <div class="search-box">
-          <input type="text" name="query" placeholder="<?php echo __('Search %1%', ['%1%' => strip_markdown($resource->taxonomy)]); ?>" />
-          <button type="submit"><i class="fa fa-search"></i></button>
-          <button id="treeview-search-settings" href="#"><i class="fa fa-cog"></i></button>
+          <input type="text" name="query" aria-label="<?php echo __('Search %1%', ['%1%' => strip_markdown($resource->taxonomy)]); ?>" placeholder="<?php echo __('Search %1%', ['%1%' => strtolower(strip_markdown($resource->taxonomy))]); ?>" />
+          <button type="submit" aria-label="<?php echo __('Search'); ?>"><i aria-hidden="true" class="fa fa-search"></i></button>
+          <button id="treeview-search-settings" aria-label="<?php echo __('Settings'); ?>" href="#"><i aria-hidden="true" class="fa fa-cog"></i></button>
         </div>
 
         <div class="animateNicely" id="field-options" style="display: none;">

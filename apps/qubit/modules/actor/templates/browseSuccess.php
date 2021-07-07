@@ -102,7 +102,8 @@
     <div class="row">
       <div class="span5">
         <?php echo get_component('search', 'inlineSearch', [
-            'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_actor'))]), ]); ?>
+            'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_actor'))]),
+            'landmarkLabel' => __(sfConfig::get('app_ui_label_actor')), ]); ?>
       </div>
     </div>
 

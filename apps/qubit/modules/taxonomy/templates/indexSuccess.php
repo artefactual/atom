@@ -26,7 +26,8 @@
     <div class="row">
       <div class="span5">
         <?php echo get_component('search', 'inlineSearch', [
-            'label' => __('Search %1%', ['%1%' => render_title($resource)]),
+            'label' => __('Search %1%', ['%1%' => strtolower(render_title($resource))]),
+            'landmarkLabel' => __(render_title($resource)),
             'route' => url_for(['module' => 'taxonomy', 'action' => 'index', 'slug' => $resource->slug]),
             'fields' => [
                 'allLabels' => __('All labels'),

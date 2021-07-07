@@ -132,7 +132,7 @@
         <?php echo __('Only top-level descriptions'); ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters(); ?>
         <?php $params['topLod'] = 0; ?>
-        <a href="<?php echo url_for(['module' => 'informationobject', 'action' => 'browse'] + $params); ?>" class="remove-filter"><i class="fa fa-times"></i></a>
+        <a href="<?php echo url_for(['module' => 'informationobject', 'action' => 'browse'] + $params); ?>" class="remove-filter" aria-label="<?php echo __('Remove filter'); ?>"><i aria-hidden="true" class="fa fa-times"></i></a>
       </span>
     <?php } ?>
 

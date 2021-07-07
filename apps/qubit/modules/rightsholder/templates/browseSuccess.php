@@ -4,7 +4,7 @@
 <?php slot('title'); ?>
   <div class="multiline-header">
     <h1 aria-describedby="results-label"><?php echo __('Showing %1% results', ['%1%' => $pager->getNbResults()]); ?></h1>
-    <span class="sub" id="results-label"><?php echo __('Rights holder'); ?></span>
+    <span class="sub" id="results-label"><?php echo __('Rights holders'); ?></span>
   </div>
 <?php end_slot(); ?>
 
@@ -14,7 +14,8 @@
     <div class="row">
       <div class="span6">
         <?php echo get_component('search', 'inlineSearch', [
-            'label' => __('Search rights holder'), ]); ?>
+            'label' => __('Search rights holders'),
+            'landmarkLabel' => __('Rights holder'), ]); ?>
       </div>
 
       <div class="pickers">

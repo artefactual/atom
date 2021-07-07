@@ -7,20 +7,20 @@
 <?php slot('before-content'); ?>
 
   <div class="row">
-    <div class="inline-search span6">
+    <div class="inline-search span6" role="search" aria-label="<?php echo __(sfConfig::get('app_ui_label_informationobject')); ?>">
       <form action="<?php echo url_for([$resource, 'module' => 'default', 'action' => 'move']); ?>">
         <div class="input-append">
           <?php if (isset($sf_request->query)) { ?>
-            <input type="text" name="query" value="<?php echo $sf_request->query; ?>" />
-            <a class="btn" href="<?php echo url_for([$resource, 'module' => 'default', 'action' => 'move']); ?>">
-              <i class="fa fa-times"></i>
+            <input type="text" aria-label="<?php echo __('Search title or identifier'); ?>" name="query" value="<?php echo $sf_request->query; ?>" placeholder="<?php echo __('Search title or identifier'); ?>" />
+            <a class="btn" href="<?php echo url_for([$resource, 'module' => 'default', 'action' => 'move']); ?>" aria-label=<?php echo __('Reset search'); ?>>
+              <i aria-hidden="true" class="fa fa-undo"></i>
             </a>
           <?php } else { ?>
-            <input type="text" name="query" placeholder="<?php echo __('Search title or identifier'); ?>" />
+            <input type="text" name="query" aria-label="<?php echo __('Search title or identifier'); ?>" placeholder="<?php echo __('Search title or identifier'); ?>" />
           <?php } ?>
           <div class="btn-group">
-            <button class="btn" type="submit">
-              <i class="fa fa-search"></i>
+            <button class="btn" type="submit" aria-label=<?php echo __('Search'); ?>>
+              <i aria-hidden="true" class="fa fa-search"></i>
             </button>
           </div>
         </div>
