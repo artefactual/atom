@@ -10,6 +10,13 @@
     <?php echo __('Printed: %d%', ['%d%' => date('Y-m-d')]); ?>
   </div>
 
+  <div id="js-i18n">
+    <div id="read-more-less-links"
+      data-read-more-text="<?php echo __('Read more'); ?>" 
+      data-read-less-text="<?php echo __('Read less'); ?>">
+    </div>
+  </div>
+
 </footer>
 
 <?php $gaKey = sfConfig::get('app_google_analytics_api_key', ''); ?>
