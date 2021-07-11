@@ -120,15 +120,13 @@
       <?php } ?>
     </div>
 
-    <section class="actions">
-      <ul>
-        <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
-          <li><?php echo link_to(__('Delete'), [$resource, 'module' => 'digitalobject', 'action' => 'delete'], ['class' => 'c-btn c-btn-delete']); ?></li>
-        <?php } ?>
-        <li><?php echo link_to(__('Cancel'), [$object, 'module' => $sf_request->module], ['class' => 'c-btn']); ?></li>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-      </ul>
-    </section>
+    <ul class="actions nav gap-2">
+      <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
+        <li><?php echo link_to(__('Delete'), [$resource, 'module' => 'digitalobject', 'action' => 'delete'], ['class' => 'btn atom-btn-outline-danger', 'role' => 'button']); ?></li>
+      <?php } ?>
+      <li><?php echo link_to(__('Cancel'), [$object, 'module' => $sf_request->module], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>"></li>
+    </ul>
 
   </form>
 
