@@ -163,17 +163,15 @@
       </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <?php if (isset($resource->id)) { ?>
-          <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'accession'], ['class' => 'c-btn']); ?></li>
-          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-        <?php } else { ?>
-          <li><?php echo link_to(__('Cancel'), ['module' => 'accession', 'action' => 'browse'], ['class' => 'c-btn']); ?></li>
-          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create'); ?>"/></li>
-        <?php } ?>
-      </ul>
-    </section>
+    <ul class="actions nav gap-2">
+      <?php if (isset($resource->id)) { ?>
+        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'accession'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+        <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>"></li>
+      <?php } else { ?>
+        <li><?php echo link_to(__('Cancel'), ['module' => 'accession', 'action' => 'browse'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+        <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Create'); ?>"></li>
+      <?php } ?>
+    </ul>
 
   </form>
 <?php end_slot(); ?>
