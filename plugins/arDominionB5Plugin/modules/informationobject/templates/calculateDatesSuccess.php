@@ -67,14 +67,10 @@
         ['%1%' => link_to(__('Manage jobs'), ['module' => 'jobs', 'action' => 'browse'], ['class' => 'alert-link'])]); ?>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'c-btn']); ?></li>
-      </ul>
-      <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Continue'); ?>"/></li>
-      </ul>
-    </section>
+    <ul class="actions nav gap-2">
+      <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Continue'); ?>"></li>
+    </ul>
 
   </form>
 

@@ -16,9 +16,7 @@
     </div>
 
     <section class="actions">
-      <ul>
-        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => $sf_request->module], ['class' => 'c-btn']); ?></li>
-      </ul>
+      <?php echo link_to(__('Cancel'), [$resource, 'module' => $sf_request->module], ['class' => 'btn atom-btn-outline-light']); ?>
     </section>
 
   <?php } else { ?>
@@ -77,12 +75,10 @@
         </div>
       </div>
 
-      <section class="actions">
-        <ul>
-          <li><?php echo link_to(__('Cancel'), [$resource, 'module' => $sf_request->module], ['class' => 'c-btn']); ?></li>
-          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create'); ?>"/></li>
-        </ul>
-      </section>
+      <ul class="actions nav gap-2">
+        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => $sf_request->module], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+        <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Create'); ?>"></li>
+      </ul>
 
     </form>
 

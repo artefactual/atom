@@ -26,9 +26,7 @@
 
     <div class="modal-footer">
       <section class="actions">
-        <ul>
-          <li><a href="#" id="renameModalCancel" class="c-btn c-btn-submit" data-dismiss="modal"><?php echo __('Close'); ?></a></li>
-        </ul>
+        <button id="renameModalCancel" class="btn atom-btn-outline-light" data-dismiss="modal"><?php echo __('Close'); ?></button>
       </section>
     </div>
   </div>
@@ -85,12 +83,10 @@
       </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><input class="c-btn c-btn-submit" id="rename-form-submit" type="submit" value="<?php echo __('Update'); ?>"/></li>
-        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'c-btn']); ?></li>
-      </ul>
-    </section>
+    <ul class="actions nav gap-2">
+      <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <li><input class="btn atom-btn-outline-success" id="rename-form-submit" type="submit" value="<?php echo __('Update'); ?>"></li>
+    </ul>
 
   </form>
 

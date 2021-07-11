@@ -34,9 +34,7 @@
     </div>
 
     <section class="actions">
-      <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Load'); ?>"/></li>
-      </ul>
+      <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Load'); ?>">
     </section>
 
   </form>
