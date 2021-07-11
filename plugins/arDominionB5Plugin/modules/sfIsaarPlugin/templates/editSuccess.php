@@ -217,22 +217,20 @@
       </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <?php if (0 < strlen($next = $form->next->getValue())) { ?>
-          <li><?php echo link_to(__('Cancel'), $next, ['title' => __('Cancel'), 'class' => 'c-btn']); ?>
-        <?php } elseif (isset($sf_request->id)) { ?>
-          <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'actor'], ['title' => __('Cancel'), 'class' => 'c-btn']); ?></li>
-        <?php } else { ?>
-          <li><?php echo link_to(__('Cancel'), ['module' => 'actor', 'action' => 'browse'], ['title' => __('Cancel'), 'class' => 'c-btn']); ?></li>
-        <?php } ?>
-        <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
-          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-        <?php } else { ?>
-          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create'); ?>"/></li>
-        <?php } ?>
-      </ul>
-    </section>
+    <ul class="actions nav gap-2">
+      <?php if (0 < strlen($next = $form->next->getValue())) { ?>
+        <li><?php echo link_to(__('Cancel'), $next, ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?>
+      <?php } elseif (isset($sf_request->id)) { ?>
+        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'actor'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <?php } else { ?>
+        <li><?php echo link_to(__('Cancel'), ['module' => 'actor', 'action' => 'browse'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <?php } ?>
+      <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
+        <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>"></li>
+      <?php } else { ?>
+        <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Create'); ?>"></li>
+      <?php } ?>
+    </ul>
 
   </form>
 

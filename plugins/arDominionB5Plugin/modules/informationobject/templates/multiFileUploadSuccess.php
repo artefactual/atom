@@ -16,9 +16,7 @@
     </div>
 
     <section class="actions">
-      <ul>
-        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'c-btn']); ?></li>
-      </ul>
+      <?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'btn atom-btn-outline-light']); ?>
     </section>
   </noscript>
 
@@ -30,9 +28,7 @@
       </div>
 
       <section class="actions">
-        <ul>
-          <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject']); ?></li>
-        </ul>
+        <?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'btn atom-btn-outline-light']); ?>
       </section>
     </div>
 
@@ -116,7 +112,7 @@
 
                 <div id="uiElements" style="display: inline;">
                   <div id="uploaderContainer">
-                      <div class="uppy-dashboard"></div>
+                    <div class="uppy-dashboard"></div>
                   </div>
                 </div>
               </div>
@@ -125,12 +121,10 @@
         </div>
       </div>
 
-      <section class="actions">
-        <ul>
-          <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'c-btn']); ?></li>
-          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Upload'); ?>"/></li>
-        </ul>
-      </section>
+      <ul class="actions nav gap-2">
+        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+        <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Upload'); ?>"></li>
+      </ul>
 
     </form>
 

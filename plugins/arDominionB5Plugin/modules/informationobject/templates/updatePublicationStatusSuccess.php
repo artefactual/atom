@@ -39,12 +39,10 @@
       </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Update'); ?>"/></li>
-        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'c-btn']); ?></li>
-      </ul>
-    </section>
+    <ul class="actions nav gap-2">
+      <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'informationobject'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Update'); ?>"></li>
+    </ul>
 
   </form>
 

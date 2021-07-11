@@ -8,3 +8,12 @@
     box-shadow: $btn-focus-box-shadow !important;
   }
 }
+
+@each $color, $value in $theme-colors {
+  .atom-btn-outline-#{$color} {
+    @include button-outline-variant($value);
+
+    color: $white;
+    border-color: $white;
+  }
+}

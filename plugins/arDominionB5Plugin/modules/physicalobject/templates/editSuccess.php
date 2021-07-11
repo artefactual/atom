@@ -36,18 +36,16 @@
       </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <?php if (null !== $next = $form->getValue('next')) { ?>
-          <li><?php echo link_to(__('Cancel'), $next, ['class' => 'c-btn']); ?></li>
-        <?php } elseif (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
-          <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'physicalobject'], ['class' => 'c-btn']); ?></li>
-        <?php } else { ?>
-          <li><?php echo link_to(__('Cancel'), ['module' => 'physicalobject', 'action' => 'browse'], ['class' => 'c-btn']); ?></li>
-        <?php } ?>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-      </ul>
-    </section>
+    <ul class="actions nav gap-2">
+      <?php if (null !== $next = $form->getValue('next')) { ?>
+        <li><?php echo link_to(__('Cancel'), $next, ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <?php } elseif (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
+        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'physicalobject'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <?php } else { ?>
+        <li><?php echo link_to(__('Cancel'), ['module' => 'physicalobject', 'action' => 'browse'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <?php } ?>
+      <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>"></li>
+    </ul>
 
   </form>
 

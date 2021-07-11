@@ -107,23 +107,21 @@
       </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
-          <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'term'], ['class' => 'c-btn']); ?></li>
-          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
+    <ul class="actions nav gap-2">
+      <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
+        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'term'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+        <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>"></li>
+      <?php } else { ?>
+        <?php if (isset($resource->taxonomy)) { ?>
+          <li><?php echo link_to(__('Cancel'), [$resource->taxonomy, 'module' => 'taxonomy'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+        <?php } elseif (isset($sf_request->taxonomy)) { ?>
+          <li><?php echo link_to(__('Cancel'), !empty($parent) ? $parent : $sf_request->taxonomy, ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
         <?php } else { ?>
-          <?php if (isset($resource->taxonomy)) { ?>
-            <li><?php echo link_to(__('Cancel'), [$resource->taxonomy, 'module' => 'taxonomy'], ['class' => 'c-btn']); ?></li>
-          <?php } elseif (isset($sf_request->taxonomy)) { ?>
-            <li><?php echo link_to(__('Cancel'), !empty($parent) ? $parent : $sf_request->taxonomy, ['class' => 'c-btn']); ?></li>
-          <?php } else { ?>
-            <li><?php echo link_to(__('Cancel'), ['module' => 'taxonomy', 'action' => 'list'], ['class' => 'c-btn']); ?></li>
-          <?php } ?>
-          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create'); ?>"/></li>
+          <li><?php echo link_to(__('Cancel'), ['module' => 'taxonomy', 'action' => 'list'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
         <?php } ?>
-      </ul>
-    </section>
+        <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Create'); ?>"></li>
+      <?php } ?>
+    </ul>
 
   </form>
 
