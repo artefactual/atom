@@ -376,10 +376,7 @@
     </div>
 
     <section class="actions">
-      <ul>
-        <li><?php echo link_to(__('Cancel'), '@homepage', ['class' => 'c-btn']); ?></li>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-      </ul>
+      <input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>">
     </section>
 
   </form>

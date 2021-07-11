@@ -42,17 +42,15 @@
       </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
-          <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'staticpage'], ['title' => __('Cancel'), 'class' => 'c-btn']); ?></li>
-          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-        <?php } else { ?>
-          <li><?php echo link_to(__('Cancel'), ['module' => 'staticpage', 'action' => 'list'], ['title' => __('Cancel'), 'class' => 'c-btn']); ?></li>
-          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create'); ?>"/></li>
-        <?php } ?>
-      </ul>
-    </section>
+    <ul class="actions nav gap-2">
+      <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
+        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'staticpage'], ['role' => 'button', 'class' => 'btn atom-btn-outline-light']); ?></li>
+        <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>"></li>
+      <?php } else { ?>
+        <li><?php echo link_to(__('Cancel'), ['module' => 'staticpage', 'action' => 'list'], ['role' => 'button', 'class' => 'btn atom-btn-outline-light']); ?></li>
+        <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Create'); ?>"></li>
+      <?php } ?>
+    </ul>
 
   </form>
 

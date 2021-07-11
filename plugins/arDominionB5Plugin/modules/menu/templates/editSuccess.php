@@ -64,15 +64,13 @@
       </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <li><?php echo link_to(__('Cancel'), ['module' => 'menu', 'action' => 'list'], ['class' => 'c-btn']); ?></li>
-        <?php if (!$menu->isProtected() && isset($menu->id)) { ?>
-          <li><?php echo link_to(__('Delete'), [$menu, 'module' => 'menu', 'action' => 'delete'], ['class' => 'c-btn c-btn-delete']); ?></li>
-        <?php } ?>
-        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-      </ul>
-    </section>
+    <ul class="actions nav gap-2">
+      <li><?php echo link_to(__('Cancel'), ['module' => 'menu', 'action' => 'list'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+      <?php if (!$menu->isProtected() && isset($menu->id)) { ?>
+        <li><?php echo link_to(__('Delete'), [$menu, 'module' => 'menu', 'action' => 'delete'], ['class' => 'btn atom-btn-outline-danger', 'role' => 'button']); ?></li>
+      <?php } ?>
+      <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>"></li>
+    </ul>
 
   </form>
 

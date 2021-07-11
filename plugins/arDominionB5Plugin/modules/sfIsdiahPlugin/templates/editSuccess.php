@@ -254,17 +254,15 @@
       </div>
     </div>
 
-    <section class="actions">
-      <ul>
-        <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
-          <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'repository'], ['class' => 'c-btn', 'title' => __('Cancel')]); ?></li>
-          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-        <?php } else { ?>
-          <li><?php echo link_to(__('Cancel'), ['module' => 'repository', 'action' => 'browse'], ['class' => 'c-btn', 'title' => __('Cancel')]); ?></li>
-          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create'); ?>"/></li>
-        <?php } ?>
-      </ul>
-    </section>
+    <ul class="actions nav gap-2">
+      <?php if (isset($sf_request->getAttribute('sf_route')->resource)) { ?>
+        <li><?php echo link_to(__('Cancel'), [$resource, 'module' => 'repository'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+        <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>"></li>
+      <?php } else { ?>
+        <li><?php echo link_to(__('Cancel'), ['module' => 'repository', 'action' => 'browse'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+        <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Create'); ?>"></li>
+      <?php } ?>
+    </ul>
 
   </form>
 
