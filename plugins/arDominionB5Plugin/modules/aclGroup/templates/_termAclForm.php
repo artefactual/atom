@@ -114,11 +114,9 @@
     </div>
   </div>
 
-  <section class="actions">
-    <ul>
-      <li><?php echo link_to(__('Cancel'), [$resource, 'module' => $sf_context->getModuleName(), 'action' => 'indexTermAcl'], ['class' => 'c-btn']); ?></li>
-      <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save'); ?>"/></li>
-    </ul>
-  </section>
+  <ul class="actions nav gap-2">
+    <li><?php echo link_to(__('Cancel'), [$resource, 'module' => $sf_context->getModuleName(), 'action' => 'indexTermAcl'], ['class' => 'btn atom-btn-outline-light', 'role' => 'button']); ?></li>
+    <li><input class="btn atom-btn-outline-success" type="submit" value="<?php echo __('Save'); ?>"></li>
+  </ul>
 
 </form>
