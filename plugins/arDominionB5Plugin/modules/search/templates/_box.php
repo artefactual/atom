@@ -3,6 +3,7 @@
   class="d-flex flex-grow-1 my-2"
   role="search"
   action="<?php echo url_for(['module' => 'informationobject', 'action' => 'browse']); ?>">
+  <h2 class="visually-hidden"><?php echo __('Search'); ?></h2>
   <input type="hidden" name="topLod" value="0">
   <input type="hidden" name="sort" value="relevance">
   <div class="input-group flex-nowrap">
