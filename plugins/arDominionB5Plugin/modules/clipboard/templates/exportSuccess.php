@@ -27,8 +27,8 @@
           </h2>
           <div id="export-collapse" class="accordion-collapse collapse show" aria-labelledby="export-heading">
             <div class="accordion-body">
-              <?php echo $form->type->renderRow(); ?>
-              <?php echo $form->format->renderRow(); ?>
+              <?php echo render_field($form->type); ?>
+              <?php echo render_field($form->format); ?>
               <?php if ($showOptions) { ?>
                 <div class="panel panel-default" id="exportOptions">
                   <div class="panel-body">
@@ -38,25 +38,19 @@
                       </div>
                     <?php } ?>
                     <?php if (isset($form->includeDescendants)) { ?>
-                      <?php echo $form->includeDescendants->renderRow(); ?>
+                      <?php echo render_field($form->includeDescendants); ?>
                     <?php } ?>
                     <?php if (isset($form->includeAllLevels)) { ?>
-                      <?php echo $form->includeAllLevels->renderRow(); ?>
+                      <?php echo render_field($form->includeAllLevels); ?>
                     <?php } ?>
                     <?php if (isset($form->levels)) { ?>
-                      <div id="exportLevels">
-                        <?php echo $form->levels->renderLabel(); ?>
-                        <?php echo $form->levels->render(); ?>
-                        <div class="alert alert-info">
-                          <?php echo $form->levels->renderHelp(); ?>
-                        </div>
-                      </div>
+                      <?php echo render_field($form->levels); ?>
                     <?php } ?>
                     <?php if (isset($form->includeDigitalObjects)) { ?>
-                      <?php echo $form->includeDigitalObjects->renderRow(); ?>
+                      <?php echo render_field($form->includeDigitalObjects); ?>
                     <?php } ?>
                     <?php if (isset($form->includeDrafts)) { ?>
-                      <?php echo $form->includeDrafts->renderRow(); ?>
+                      <?php echo render_field($form->includeDrafts); ?>
                     <?php } ?>
                     <?php if (!empty($helpMessages)) { ?>
                       <div class="alert alert-info generic-help animateNicely">

@@ -68,7 +68,12 @@ class sfForm implements ArrayAccess, Iterator, Countable
 
 $name = rand();
 
-$formatter = new sfDrupalWidgetFormSchemaFormatter($this->widgetSchema);
+if (sfConfig::get('app_b5_theme', false)) {
+    $formatter = new arB5WidgetFormSchemaFormatter($this->widgetSchema);
+} else {
+    $formatter = new sfDrupalWidgetFormSchemaFormatter($this->widgetSchema);
+}
+
 $formatter->form = $this;
 
 $this->widgetSchema->addFormFormatter($name, $formatter);

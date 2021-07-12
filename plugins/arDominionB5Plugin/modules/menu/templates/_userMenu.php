@@ -11,8 +11,8 @@
       </div>
       <?php echo $form->renderFormTag(url_for(['module' => 'user', 'action' => 'login']), ['class' => 'mx-3 my-2']); ?>
         <?php echo $form->renderHiddenFields(); ?>
-        <?php echo $form->email->renderRow(['class' => 'form-control form-control-sm mb-3']); ?>
-        <?php echo $form->password->renderRow(['class' => 'form-control form-control-sm mb-3', 'autocomplete' => 'off']); ?>
+        <?php echo render_field($form->email, null, ['class' => 'form-control-sm']); ?>
+        <?php echo render_field($form->password, null, ['class' => 'form-control-sm', 'autocomplete' => 'off']); ?>
         <button class="btn btn-sm atom-btn-secondary" type="submit">
           <?php echo $menuLabels['login']; ?>
         </button>
