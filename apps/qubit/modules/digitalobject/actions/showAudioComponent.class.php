@@ -43,9 +43,11 @@ class DigitalObjectShowAudioComponent extends sfComponent
         if ($this->representation) {
             $this->showMediaPlayer = true;
 
-            $this->response->addJavaScript('/vendor/mediaelement/mediaelement-and-player.min.js', 'last');
-            $this->response->addJavaScript('mediaelement', 'last');
-            $this->response->addStyleSheet('/vendor/mediaelement/mediaelementplayer.min.css');
+            if (!sfConfig::get('app_b5_theme', false)) {
+                $this->response->addJavaScript('/vendor/mediaelement/mediaelement-and-player.min.js', 'last');
+                $this->response->addJavaScript('mediaelement', 'last');
+                $this->response->addStyleSheet('/vendor/mediaelement/mediaelementplayer.min.css');
+            }
         } else {
             $this->showMediaPlayer = false;
 
