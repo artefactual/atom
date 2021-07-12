@@ -23,9 +23,9 @@
 
           <?php echo $form->renderHiddenFields(); ?>
 
-          <?php echo $form->email->renderRow(['autofocus' => 'autofocus', 'class' => 'input-block-level']); ?>
+          <?php echo render_field($form->email, null, ['autofocus' => 'autofocus']); ?>
 
-          <?php echo $form->password->renderRow(['class' => 'input-block-level', 'autocomplete' => 'off']); ?>
+          <?php echo render_field($form->password, null, ['autocomplete' => 'off']); ?>
 
           <button type="submit" class="btn atom-btn-secondary"><?php echo __('Log in'); ?></button>
 

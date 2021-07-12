@@ -39,5 +39,9 @@ class arDominionB5PluginConfiguration extends sfPluginConfiguration
             unset($plugins[$key]);
         }
         $this->configuration->setPlugins(array_merge([$this->name], $plugins));
+
+        // Indicate this is a Bootstrap 5 theme in sfConfig,
+        // used to render with different classes, etc.
+        sfConfig::set('app_b5_theme', true);
     }
 }

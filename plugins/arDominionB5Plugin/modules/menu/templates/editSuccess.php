@@ -36,27 +36,24 @@
           <div class="accordion-body">
             <?php if (!$menu->isProtected()) { ?>
               <div class="form-item">
-                <?php echo $form->name
+                <?php echo render_field($form->name
                     ->help(__('Provide an internal menu name.  This is not visible to users.'))
-                    ->label(__('Name'))
-                    ->renderRow(); ?>
+                    ->label(__('Name')), null); ?>
               </div>
             <?php } ?>
 
-            <?php echo render_field($form['label']
+            <?php echo render_field($form->label
                 ->help(__('Provide a menu label for users.  For menu items that are not visible (i.e. are organizational only) this should be left blank.'))
                 ->label(__('Label')), $menu); ?>
 
-            <?php echo $form->parentId
-                ->label('Parent')
-                ->renderRow(); ?>
+            <?php echo render_field($form->parentId
+                ->label(__('Parent')), null); ?>
 
-            <?php echo $form['path']
+            <?php echo render_field($form->path
                 ->help(__('Provide a link to an external website or an internal, symfony path (module/action).'))
-                ->label(__('Path'))
-                ->renderRow(); ?>
+                ->label(__('Path')), null); ?>
 
-            <?php echo render_field($form['description']
+            <?php echo render_field($form->description
                 ->help(__('Provide a brief description of the menu and it\'s purpose.'))
                 ->label(__('Description')), $menu); ?>
           </div>
