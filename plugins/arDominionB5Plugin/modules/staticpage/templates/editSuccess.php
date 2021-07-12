@@ -31,12 +31,12 @@
             <?php echo render_field($form->title, $resource); ?>
 
             <?php if ($resource->isProtected()) { ?>
-              <?php echo $form->slug->renderRow(['class' => 'readOnly', 'disabled' => 'disabled']); ?>
+              <?php echo render_field($form->slug, null, ['disabled' => 'disabled']); ?>
             <?php } else { ?>
-              <?php echo $form->slug->renderRow(); ?>
+              <?php echo render_field($form->slug); ?>
             <?php } ?>
 
-            <?php echo render_field($form->content, $resource, ['class' => 'resizable']); ?>
+            <?php echo render_field($form->content, $resource); ?>
           </div>
         </div>
       </div>

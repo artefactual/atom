@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @include media-breakpoint-up(lg) {
   #navbar-content.wrapped {
     > .flex-grow-1 {
@@ -28,6 +30,15 @@
   border: $border-width solid $border-color;
   border-radius: $border-radius;
   padding: $spacer;
+}
+
+.default-translation {
+  padding: math.div($spacer, 2);
+  margin-bottom: math.div($spacer, 2);
+  margin-top: 0;
+  background: #ffffe0;
+  border: $border-width dashed gold;
+  border-radius: $border-radius;
 }
 
 .actions {

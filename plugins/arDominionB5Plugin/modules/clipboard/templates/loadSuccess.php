@@ -26,8 +26,8 @@
         </h2>
         <div id="load-collapse" class="accordion-collapse collapse show" aria-labelledby="load-heading">
           <div class="accordion-body">
-            <?php echo $form->clipboardPassword->label(__('Clipboard ID'))->renderRow(); ?>
-            <?php echo $form->mode->label(__('Action'))->renderRow(); ?>
+            <?php echo render_field($form->clipboardPassword->label(__('Clipboard ID'))); ?>
+            <?php echo render_field($form->mode->label(__('Action'))); ?>
           </div>
         </div>
       </div>
