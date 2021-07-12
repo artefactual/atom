@@ -30,7 +30,7 @@ function format_script($script_iso, $culture = null)
     return isset($scripts[$script_iso]) ? $scripts[$script_iso] : '';
 }
 
-function render_field($field, $resource, array $options = [])
+function render_field($field, $resource = null, array $options = [])
 {
     $options += ['name' => $field->getName()];
 
@@ -68,6 +68,10 @@ div;
 
     unset($options['name']);
 
+    if (sfConfig::get('app_b5_theme', false)) {
+        return render_b5_field($field, $div, $options);
+    }
+
     if (isset($options['onlyInput']) && $options['onlyInput']) {
         $field = $div.$field->render($options);
     } else {
@@ -76,6 +80,74 @@ div;
     }
 
     return $field;
+}
+
+function render_b5_field($field, $translation = null, $options = [])
+{
+    $isFormCheck = false;
+    $inputClass = 'form-control';
+    $labelClass = 'form-label';
+
+    // TODO: this should be the field id
+    $name = $field->getName();
+
+    if (in_array($field->type, ['checkbox', 'radio'])) {
+        $isFormCheck = true;
+        $inputClass = 'form-check-input';
+        $labelClass = 'form-check-label';
+    }
+
+    if (empty($options['class'])) {
+        $options['class'] = $inputClass;
+    } else {
+        $options['class'] .= ' '.$inputClass;
+    }
+
+    if ($field->hasError()) {
+        $options['class'] .= ' is-invalid';
+        if (isset($options['aria-describedby'])) {
+            $options['aria-describedby'] .= ' '.$name.'-errors';
+        } else {
+            $options['aria-describedby'] = $name.'-errors';
+        }
+    }
+
+    if (isset($translation)) {
+        if (isset($options['aria-describedby'])) {
+            $options['aria-describedby'] .= ' '.$name.'-translation';
+        } else {
+            $options['aria-describedby'] = $name.'-translation';
+        }
+    }
+
+    // We need to render the label first to set the input name in
+    // arB5WidgetFormSchemaFormatter as it's used for the help id.
+    $label = $field->renderLabel(null, ['class' => $labelClass]);
+    $help = $field->renderHelp();
+    if (!empty($help)) {
+        if (isset($options['aria-describedby'])) {
+            $options['aria-describedby'] .= ' '.$name.'-help';
+        } else {
+            $options['aria-describedby'] = $name.'-help';
+        }
+    }
+
+    if ($isFormCheck) {
+        return '<div class="form-check mb-3">'
+            .$field->render($options)
+            .$label
+            .$field->renderError()
+            .$help
+            .'</div>';
+    }
+
+    return '<div class="mb-3">'
+        .$label
+        .$translation
+        .$field->render($options)
+        .$field->renderError()
+        .$help
+        .'</div>';
 }
 
 function render_show($label, $value, $options = [])
