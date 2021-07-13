@@ -4,7 +4,7 @@
 
   function MultiFileUpload (element)
   {
-    this.$element = $(element).find('div.multiFileUpload');
+    this.$element = $(element);
 
     this.uppy = new Uppy.Core({ 
       debug: false,
@@ -20,11 +20,11 @@
     this.uploadItems = [];
     this.result = "";
 
-    this.$submitButton = $(element).find('input[type="submit"]');
-    this.$cancelButton = $(element).find('a[title="Cancel"]');
+    this.$submitButton = this.$element.find('input[type="submit"]');
+    this.$cancelButton = this.$element.find('a[title="Cancel"]');
     this.$retryButton = $('<a class="c-btn" title="retry"/>')
       .attr('type','hidden')
-      .text(this.$element.data('multifileupload-i18nretry'))
+      .text(this.$element.data('multifileupload-i18n-retry'))
       .appendTo('.actions');
 
     this.init();
@@ -38,9 +38,9 @@
     {
       this.$retryButton.hide();
 
-      let noteText = this.$element.data('multifileupload-i18nmaxsizenote')
-          .replace('%{maxFileSizeMessage}', this.$element.data('multifileupload-i18nmaxfilesizemessage') + this.$element.data('multifileupload-maxfilesize') / 1024 / 1024 + "MB")
-          .replace('%{maxPostSizeMessage}', this.$element.data('multifileupload-i18nmaxpostsizemessage') + this.$element.data('multifileupload-maxpostsize') / 1024 / 1024 + "MB");
+      let noteText = this.$element.data('multifileupload-i18n-max-size-note')
+          .replace('%{maxFileSizeMessage}', this.$element.data('multifileupload-i18n-max-file-size-message') + this.$element.data('multifileupload-max-file-size') / 1024 / 1024 + "MB")
+          .replace('%{maxPostSizeMessage}', this.$element.data('multifileupload-i18n-max-post-size-message') + this.$element.data('multifileupload-max-post-size') / 1024 / 1024 + "MB");
 
       this.uppy
         .use(Uppy.Dashboard, {
@@ -64,57 +64,57 @@
           hideDoneButton: true,
           locale: {
             strings: {
-              done: this.$element.data('multifileupload-i18nsave'),
+              done: this.$element.data('multifileupload-i18n-save'),
               // 'Add more' hover text.
-              addMoreFiles: this.$element.data('multifileupload-i18naddmorefiles'),
+              addMoreFiles: this.$element.data('multifileupload-i18n-add-more-files'),
               // 'Add more' button label.
-              addMore: this.$element.data('multifileupload-i18naddmore'),
-              addingMoreFiles: this.$element.data('multifileupload-i18naddingmorefiles'),
+              addMore: this.$element.data('multifileupload-i18n-add-more'),
+              addingMoreFiles: this.$element.data('multifileupload-i18n-adding-more-files'),
               xFilesSelected: {
-                0: this.$element.data('multifileupload-i18nfileselected'),
-                1: this.$element.data('multifileupload-i18nfilesselected')
+                0: this.$element.data('multifileupload-i18n-file-selected'),
+                1: this.$element.data('multifileupload-i18n-files-selected')
               },
               // Upload status strings.
-              uploading: this.$element.data('multifileupload-i18nuploading'),
-              complete: this.$element.data('multifileupload-i18ncomplete'),
-              uploadFailed: this.$element.data('multifileupload-i18nuploadfailed'),
+              uploading: this.$element.data('multifileupload-i18n-uploading'),
+              complete: this.$element.data('multifileupload-i18n-complete'),
+              uploadFailed: this.$element.data('multifileupload-i18n-upload-failed'),
               // Remove file hover text.
-              removeFile: this.$element.data('multifileupload-i18nremovefile'),
+              removeFile: this.$element.data('multifileupload-i18n-remove-file'),
               // Main 'drop here' message.
-              dropPaste: this.$element.data('multifileupload-i18ndropfile'),
+              dropPaste: this.$element.data('multifileupload-i18n-drop-file'),
               filesUploadedOfTotal: {
-                0: this.$element.data('multifileupload-i18nfileuploadedoftotal'),
-                1: this.$element.data('multifileupload-i18nfilesuploadedoftotal')
+                0: this.$element.data('multifileupload-i18n-file-uploaded-of-total'),
+                1: this.$element.data('multifileupload-i18n-files-uploaded-of-total')
               },
-              dataUploadedOfTotal: this.$element.data('multifileupload-i18ndatauploadedoftotal'),
+              dataUploadedOfTotal: this.$element.data('multifileupload-i18n-data-uploaded-of-total'),
               // When `showProgressDetails` is set, shows an estimation of how long the upload will take to complete.
-              xTimeLeft: this.$element.data('multifileupload-i18ntimeleft'),
+              xTimeLeft: this.$element.data('multifileupload-i18n-time-left'),
               uploadingXFiles: {
-                0: this.$element.data('multifileupload-i18nuploadingfile'),
-                1: this.$element.data('multifileupload-i18nuploadingfiles')
+                0: this.$element.data('multifileupload-i18n-uploading-file'),
+                1: this.$element.data('multifileupload-i18n-uploading-files')
               },
               // Label cancel button.
-              cancel: this.$element.data('multifileupload-i18ncancel'),
+              cancel: this.$element.data('multifileupload-i18n-cancel'),
               // Edit file hover text.
-              edit: this.$element.data('multifileupload-i18nedit'),
+              edit: this.$element.data('multifileupload-i18n-edit'),
               // Save changes button.
-              saveChanges: this.$element.data('multifileupload-i18nsave'),
+              saveChanges: this.$element.data('multifileupload-i18n-save'),
               // Leave 'Add more' dialog.
-              back: this.$element.data('multifileupload-i18nback'),
+              back: this.$element.data('multifileupload-i18n-back'),
               // Edit Title dialog message.
-              editing: this.$element.data('multifileupload-i18nediting'),
-              failedToUpload: this.$element.data('multifileupload-i18nfailedtoupload'),
+              editing: this.$element.data('multifileupload-i18n-editing'),
+              failedToUpload: this.$element.data('multifileupload-i18n-failed-to-upload'),
             }
           },
-          thumbnailWidth: this.$element.data('multifileupload-thumbwidth'),
+          thumbnailWidth: this.$element.data('multifileupload-thumb-width'),
           trigger: '#pick-files',
           // Enable editing of field with id 'title' label: 'Title'
           metaFields: [
-            { id: 'title', name: this.$element.data('multifileupload-i18ninfoobjecttitle') },
+            { id: 'title', name: this.$element.data('multifileupload-i18n-info-object-title') },
           ],
         })
         .use(Uppy.XHRUpload, {
-          endpoint: this.$element.data('multifileupload-uploadresponsepath'),
+          endpoint: this.$element.data('multifileupload-upload-response-path'),
           formData: true,
           method: 'post',
           limit: 10,
@@ -140,7 +140,7 @@
       this.uppy.retryAll().then((result) => {
         if (this.uppy.getState().error === null && result.successful.length > 0 && result.failed.length === 0) {
           this.$retryButton.hide();
-          this.showAlert(this.$element.data('multifileupload-i18nretrysuccess'), 'alert-info');
+          this.showAlert(this.$element.data('multifileupload-i18n-retry-success'), 'alert-info');
         }
       })
     },
@@ -167,7 +167,7 @@
 
       // Ensure that some files have been added for upload.
       if (this.uppy.getFiles().length == 0) {
-        this.showAlert(this.$element.data('multifileupload-i18nnofileserror'), 'alert-info');
+        this.showAlert(this.$element.data('multifileupload-i18n-no-files-error'), 'alert-info');
 
         return false;
       }
@@ -176,13 +176,13 @@
         if (this.checkUploadSuccessful() === true) {
           this.$submitButton.attr('disabled', 'disabled');
           this.$cancelButton.removeAttr("href").attr('disabled', 'disabled');
-          this.showAlert(this.$element.data('multifileupload-i18nimporting'), 'alert-info');
+          this.showAlert(this.$element.data('multifileupload-i18n-importing'), 'alert-info');
           // Post any successful uploads.
           $('#multiFileUploadForm').submit();
         }
         else {
           // In error state with zero successful uploads. Prevent POST.
-          this.showAlert(this.$element.data('multifileupload-i18nnosuccessfulfileserror'), 'alert-danger');
+          this.showAlert(this.$element.data('multifileupload-i18n-no-successful-files-error'), 'alert-danger');
 
           return false;
         }
@@ -192,15 +192,15 @@
         this.uppy.upload().then((result) => {
           if (result.failed.length > 0) {
             (this.checkUploadSuccessful() === true) ?
-              this.showAlert(this.$element.data('multifileupload-i18nsomefilesfailederror'), 'alert-danger') :
-              this.showAlert(this.$element.data('multifileupload-i18nnosuccessfulfileserror'), 'alert-danger');
+              this.showAlert(this.$element.data('multifileupload-i18n-some-files-failed-error'), 'alert-danger') :
+              this.showAlert(this.$element.data('multifileupload-i18n-no-successful-files-error'), 'alert-danger');
 
             this.$retryButton.show();
           }
           else {
             this.$submitButton.attr('disabled', 'disabled');
             this.$cancelButton.removeAttr("href").attr('disabled', 'disabled');
-            this.showAlert(this.$element.data('multifileupload-i18nimporting'), 'alert-info');
+            this.showAlert(this.$element.data('multifileupload-i18n-importing'), 'alert-info');
             // Post to multiFileUpload.
             $('#multiFileUploadForm').submit();
           }
@@ -251,11 +251,11 @@
     onBeforeFileAddedChecks: function (currentFile, files)
     {
       // Ensure currentFile is not larger that AtoM's max file upload size.
-      if (currentFile.data.size > this.$element.data('multifileupload-maxfilesize')) {
+      if (currentFile.data.size > this.$element.data('multifileupload-max-file-size')) {
         let fileName = currentFile.data.name;
-        let maxSize = this.$element.data('multifileupload-maxfilesize') / 1024 / 1024;
+        let maxSize = this.$element.data('multifileupload-max-file-size') / 1024 / 1024;
         let fileSize = (currentFile.data.size / 1024 / 1024).toFixed(2);
-        let sizeErrorText = this.$element.data('multifileupload-i18nsizeerror')
+        let sizeErrorText = this.$element.data('multifileupload-i18n-size-error')
           .replace('%{fileName}', fileName)
           .replace('%{fileSize}', fileSize)
           .replace('%{maxSize}', maxSize);
@@ -273,9 +273,9 @@
       }
 
       // Watch total size of upload and ensure it's not larger than AtoM's POST size config.
-      if ((this.getTotalFileSize(files) + currentFile.data.size) > this.$element.data('multifileupload-maxpostsize')) {
-        let maxPostSize = this.$element.data('multifileupload-maxpostsize') / 1024 / 1024;
-        let postSizeErrorText = this.$element.data('multifileupload-i18npostsizeerror')
+      if ((this.getTotalFileSize(files) + currentFile.data.size) > this.$element.data('multifileupload-max-post-size')) {
+        let maxPostSize = this.$element.data('multifileupload-max-post-size') / 1024 / 1024;
+        let postSizeErrorText = this.$element.data('multifileupload-i18n-post-size-error')
           .replace('%{maxPostSize}', maxPostSize);
 
         this.clearAlerts();
@@ -383,7 +383,7 @@
 
   $(function()
   {
-    var $node = $('.multiFileUpload');
+    var $node = $('.multifileupload-form');
 
     if ($node.length)
     {
