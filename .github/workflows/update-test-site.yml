@@ -38,7 +38,7 @@ jobs:
     - name: Update dependencies
       run: |
         ssh do 'cd /usr/share/nginx/atom \
-          && sudo -u www-data npm install \
+          && sudo -u www-data CYPRESS_INSTALL_BINARY=0 npm install \
           && sudo -u www-data composer install --no-dev'
     - name: Clear Symfony cache
       run: |
