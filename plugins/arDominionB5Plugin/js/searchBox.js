@@ -1,11 +1,11 @@
-(function($) {
+($ => {
 
   'use strict';
 
   $(() => {
     var $input = $('#search-box-input');
     var $results = $('#search-box-results');
-    var dropdown = new bootstrap.Dropdown($input);
+    var dropdown = bootstrap.Dropdown.getOrCreateInstance($input);
 
     // Set up Bootstrap autocomplete:
     // - Force version 4 to avoid failing check in version 5.
