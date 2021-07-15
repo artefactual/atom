@@ -11,5 +11,6 @@
     <script src="/plugins/arDominionB5Plugin/js/searchBox.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/navbarWrap.js"></script>
     <script src="/plugins/arDominionB5Plugin/js/imageflow.js"></script>
+    <script src="/plugins/arDominionB5Plugin/js/aggregations.js"></script>
   </body>
 </html>
