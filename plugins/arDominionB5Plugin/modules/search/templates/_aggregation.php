@@ -19,7 +19,7 @@
         <?php echo link_to(
             __('All'),
             [$name => null, 'page' => null] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
-            ['class' => 'list-group-item list-group-item-action d-flex justify-content-between align-items-center'.(!isset($filters[$name]) ? ' active' : '')]
+            ['class' => 'list-group-item list-group-item-action d-flex justify-content-between align-items-center'.(!isset($filters[$name]) ? ' active text-decoration-underline' : '')]
         ); ?>
       <?php } ?>
     
@@ -36,7 +36,7 @@
             .$bucket['doc_count']
             .'</span>',
             ['page' => null, $name => 'unique_language' == $bucket['key'] ? null : $bucket['key']] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
-            ['class' => 'list-group-item list-group-item-action d-flex justify-content-between align-items-center'.($active ? ' active' : '')]
+            ['class' => 'list-group-item list-group-item-action d-flex justify-content-between align-items-center'.($active ? ' active text-decoration-underline' : '')]
         ); ?>
       <?php } ?>
     </div>
