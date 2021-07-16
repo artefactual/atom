@@ -2,9 +2,11 @@
 <?php use_helper('Date'); ?>
 
 <?php slot('title'); ?>
-  <div class="multiline-header">
-    <h1 aria-describedby="results-label"><?php echo __('Showing %1% results', ['%1%' => $pager->getNbResults()]); ?></h1>
-    <span class="sub" id="results-label"><?php echo __('Rights holders'); ?></span>
+  <div class="multiline-header d-flex flex-column mb-3">
+    <h1 class="mb-0" aria-describedby="results-label">
+      <?php echo __('Showing %1% results', ['%1%' => $pager->getNbResults()]); ?>
+    </h1>
+    <span class="small" id="results-label"><?php echo __('Rights holders'); ?></span>
   </div>
 <?php end_slot(); ?>
 

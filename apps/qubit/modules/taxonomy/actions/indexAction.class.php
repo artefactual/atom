@@ -132,12 +132,20 @@ class TaxonomyIndexAction extends sfAction
                 $this->addIoCountColumn = true;
                 $this->addActorCountColumn = true;
 
+                if (sfConfig::get('app_b5_theme', false)) {
+                    $this->icon = 'map-marker-alt';
+                }
+
                 break;
 
             case QubitTaxonomy::SUBJECT_ID:
                 $this->icon = 'subjects';
                 $this->addIoCountColumn = true;
                 $this->addActorCountColumn = true;
+
+                if (sfConfig::get('app_b5_theme', false)) {
+                    $this->icon = 'tag';
+                }
 
                 break;
 
