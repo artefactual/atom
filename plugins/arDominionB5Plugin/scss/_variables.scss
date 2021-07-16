@@ -51,7 +51,8 @@ $table-bg: $white !default;
 $fa-font-path: "../../../../node_modules/@fortawesome/fontawesome-free/webfonts" !default;
 
 // Accessible-Slick carousel
-$slick-font-path: "../../../../node_modules/@accessible360/accessible-slick/slick/fonts/";
-$slick-dot-color: $white;
-$slick-dot-color-active: $primary;
-$slick-dot-size: 14px;
+$slick-font-path: "../../../../node_modules/@accessible360/accessible-slick/slick/fonts/" !default;
+$slick-loader-path: "../../../../node_modules/@accessible360/accessible-slick/slick/" !default;
+$slick-dot-color: $white !default;
+$slick-dot-color-active: $primary !default;
+$slick-dot-size: 1rem !default;
