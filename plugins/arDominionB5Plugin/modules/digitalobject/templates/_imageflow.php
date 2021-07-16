@@ -1,4 +1,4 @@
-<button class="btn atom-btn-secondary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-carousel" aria-expanded="true" aria-controls="collapse-carousel">
+<button class="btn atom-btn-white mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-carousel" aria-expanded="true" aria-controls="collapse-carousel">
   <?php echo __('Image carousel'); ?>
 </button>
 
