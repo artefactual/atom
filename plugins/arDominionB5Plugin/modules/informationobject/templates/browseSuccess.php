@@ -9,16 +9,18 @@
 <?php slot('title'); ?>
   <?php echo get_partial('default/printPreviewBar'); ?>
 
-  <div class="multiline-header">
-    <?php echo image_tag('/images/icons-large/icon-archival.png', ['alt' => '']); ?>
-    <h1 aria-describedby="results-label">
-      <?php if (isset($pager) && $pager->getNbResults()) { ?>
-        <?php echo __('Showing %1% results', ['%1%' => $pager->getNbResults()]); ?>
-      <?php } else { ?>
-        <?php echo __('No results found'); ?>
-      <?php } ?>
-    </h1>
-    <span class="sub" id="results-label"><?php echo sfConfig::get('app_ui_label_informationobject'); ?></span>
+  <div class="multiline-header d-flex align-items-center mb-3">
+    <i class="fas fa-3x fa-file-alt me-3" aria-hidden="true"></i>
+    <div class="d-flex flex-column">
+      <h1 class="mb-0" aria-describedby="results-label">
+        <?php if (isset($pager) && $pager->getNbResults()) { ?>
+          <?php echo __('Showing %1% results', ['%1%' => $pager->getNbResults()]); ?>
+        <?php } else { ?>
+          <?php echo __('No results found'); ?>
+        <?php } ?>
+      </h1>
+      <span class="small" id="results-label"><?php echo sfConfig::get('app_ui_label_informationobject'); ?></span>
+    </div>
   </div>
 <?php end_slot(); ?>
 
