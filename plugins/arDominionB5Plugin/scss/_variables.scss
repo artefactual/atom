@@ -1,32 +1,57 @@
-// Font Awesome
-$fa-font-path: "../../../../node_modules/@fortawesome/fontawesome-free/webfonts" !default;
+// Custom
+$atom-gray-box-shadow: 0 0 0 .25rem #ced4da !default;
 
 // Bootstrap
+$white: #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
 $orange: #f60 !default;
 $blue: #0a58ca !default;
 $primary: $orange !default;
-$secondary: #404040 !default;
-$navbar-dark-color: #fff !default;
+$secondary: $gray-700 !default;
+$body-bg: $gray-100 !default;
+$navbar-dark-color: $white !default;
 $navbar-dark-hover-color: $primary !default;
 $navbar-dark-toggler-border-color: $secondary !default;
-$body-bg: #fafafa !default;
 $link-color: $blue !default;
 $link-decoration: none !default;
 $link-hover-decoration: underline !default;
+$btn-white-space: nowrap !default;
 $dropdown-min-width: 15rem !default;
-$tooltip-bg: #212529 !default;
+$tooltip-bg: $gray-900 !default;
 $tooltip-opacity: 1 !default;
-$headings-font-weight: 400;
+$headings-font-weight: 400 !default;
 $h1-font-size: 2.2rem !default;
 $h2-font-size: 1.9rem !default;
 $h3-font-size: 1.65rem !default;
 $h4-font-size: 1.45rem !default;
-$accordion-bg: #fff !default;
-$accordion-button-active-color: #000 !default;
-$table-bg: #fff !default;
+$list-group-active-color: $gray-900 !default;
+$list-group-active-bg: $gray-300 !default;
+$pagination-active-color: $gray-900 !default;
+$pagination-active-bg: $gray-300 !default;
+$dropdown-link-active-color: $gray-900 !default;
+$dropdown-link-active-bg: $gray-300 !default;
+$nav-pills-link-active-color: $gray-900 !default;
+$nav-pills-link-active-bg: $gray-200 !default;
+$accordion-button-active-color: $gray-900 !default;
+$accordion-button-active-bg: $gray-200 !default;
+$accordion-button-focus-box-shadow: $atom-gray-box-shadow !default;
+$accordion-bg: $white !default;
+$table-bg: $white !default;
+
+// Font Awesome
+$fa-font-path: "../../../../node_modules/@fortawesome/fontawesome-free/webfonts" !default;
 
 // Accessible-Slick carousel
 $slick-font-path: "../../../../node_modules/@accessible360/accessible-slick/slick/fonts/";
-$slick-dot-color: white;
+$slick-dot-color: $white;
 $slick-dot-color-active: $primary;
 $slick-dot-size: 14px;
