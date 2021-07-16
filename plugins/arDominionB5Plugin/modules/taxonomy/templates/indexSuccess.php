@@ -11,12 +11,16 @@
 <?php end_slot(); ?>
 
 <?php slot('title'); ?>
-  <div class="multiline-header">
+  <div class="multiline-header d-flex align-items-center mb-3">
     <?php if (isset($icon)) { ?>
-      <?php echo image_tag('/images/icons-large/icon-'.$icon.'.png', ['alt' => '']); ?>
+      <i class="fas fa-3x fa-<?php echo $icon; ?> me-3" aria-hidden="true"></i>
     <?php } ?>
-    <h1 aria-describedby="results-label"><?php echo __('Showing %1% results', ['%1%' => $pager->getNbResults()]); ?></h1>
-    <span class="sub" id="results-label"><?php echo render_title($resource); ?></span>
+    <div class="d-flex flex-column">
+      <h1 class="mb-0" aria-describedby="results-label">
+        <?php echo __('Showing %1% results', ['%1%' => $pager->getNbResults()]); ?>
+      </h1>
+      <span class="small" id="results-label"><?php echo render_title($resource); ?></span>
+    </div>
   </div>
 <?php end_slot(); ?>
 
