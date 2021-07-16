@@ -1,10 +1,17 @@
 <?php decorate_with('layout_1col.php'); ?>
 
 <?php slot('title'); ?>
-  <div class="multiline-header">
-    <?php echo link_to(image_tag('printer-icon.png', ['alt' => __('Print')]), [$resource, 'module' => 'physicalobject', 'action' => 'boxList'], ['id' => 'print-button', 'title' => __('Print')]); ?>
-    <h1><?php echo render_title($resource); ?></h1>
-    <span class="sub"><?php echo __('View %1%', ['%1%' => sfConfig::get('app_ui_label_physicalobject')]); ?></span>
+  <div class="multiline-header d-flex align-items-center mb-3">
+    <a href="<?php echo url_for([$resource, 'module' => 'physicalobject', 'action' => 'boxList']); ?>" class="text-reset">
+      <i class="fas fa-3x fa-print me-3" aria-hidden="true"></i>
+      <span class="visually-hidden"><?php echo __('Print'); ?></span>
+    </a>
+    <div class="d-flex flex-column">
+      <h1 class="mb-0" aria-describedby="results-label">
+        <?php echo render_title($resource); ?>
+      </h1>
+      <span class="small" id="results-label"><?php echo __('View %1%', ['%1%' => sfConfig::get('app_ui_label_physicalobject')]); ?></span>
+    </div>
   </div>
 <?php end_slot(); ?>
 
