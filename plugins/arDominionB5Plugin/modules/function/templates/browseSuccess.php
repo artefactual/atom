@@ -2,10 +2,14 @@
 <?php use_helper('Date'); ?>
 
 <?php slot('title'); ?>
-  <div class="multiline-header">
-    <?php echo image_tag('/images/icons-large/icon-functions.png', ['alt' => '']); ?>
-    <h1 aria-describedby="results-label"><?php echo __('Showing %1% results', ['%1%' => $pager->getNbResults()]); ?></h1>
-    <span class="sub" id="results-label"><?php echo sfConfig::get('app_ui_label_function'); ?></span>
+  <div class="multiline-header d-flex align-items-center mb-3">
+    <i class="fas fa-3x fa-tools me-3" aria-hidden="true"></i>
+    <div class="d-flex flex-column">
+      <h1 class="mb-0" aria-describedby="results-label">
+        <?php echo __('Showing %1% results', ['%1%' => $pager->getNbResults()]); ?>
+      </h1>
+      <span class="small" id="results-label"><?php echo sfConfig::get('app_ui_label_function'); ?></span>
+    </div>
   </div>
 <?php end_slot(); ?>
 
