@@ -24,71 +24,65 @@
 
   <?php slot('sidebar'); ?>
 
-    <section id="facets">
+    <h2 class="d-grid">
+      <button class="btn btn-lg atom-btn-white text-wrap mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-aggregations" aria-expanded="true" aria-controls="collapse-aggregations">
+        <?php echo sfConfig::get('app_ui_label_facetstitle'); ?>
+      </button>
+    </h2>
 
-      <div class="visible-phone facets-header">
-        <a class="x-btn btn-wide">
-          <i class="fa fa-filter"></i>
-          <?php echo __('Filters'); ?>
-        </a>
-      </div>
+    <div class="collapse show" id="collapse-aggregations">
 
-      <div class="content">
+      <?php echo get_partial('search/aggregation', [
+          'id' => '#facet-languages',
+          'label' => __('Language'),
+          'name' => 'languages',
+          'aggs' => $aggs,
+          'filters' => $search->filters, ]); ?>
 
-        <h2><?php echo sfConfig::get('app_ui_label_facetstitle'); ?></h2>
+      <?php echo get_partial('search/aggregation', [
+          'id' => '#facet-entitytype',
+          'label' => __('Entity type'),
+          'name' => 'entityType',
+          'aggs' => $aggs,
+          'filters' => $search->filters, ]); ?>
 
-        <?php echo get_partial('search/aggregation', [
-            'id' => '#facet-languages',
-            'label' => __('Language'),
-            'name' => 'languages',
-            'aggs' => $aggs,
-            'filters' => $search->filters, ]); ?>
+      <?php echo get_partial('search/aggregation', [
+          'id' => '#facet-maintainingrepository',
+          'label' => __('Maintained by'),
+          'name' => 'repository',
+          'aggs' => $aggs,
+          'filters' => $search->filters, ]); ?>
 
-        <?php echo get_partial('search/aggregation', [
-            'id' => '#facet-entitytype',
-            'label' => __('Entity type'),
-            'name' => 'entityType',
-            'aggs' => $aggs,
-            'filters' => $search->filters, ]); ?>
+      <?php echo get_partial('search/aggregation', [
+          'id' => '#facet-occupation',
+          'label' => __('Occupation'),
+          'name' => 'occupation',
+          'aggs' => $aggs,
+          'filters' => $search->filters, ]); ?>
 
-        <?php echo get_partial('search/aggregation', [
-            'id' => '#facet-maintainingrepository',
-            'label' => __('Maintained by'),
-            'name' => 'repository',
-            'aggs' => $aggs,
-            'filters' => $search->filters, ]); ?>
+      <?php echo get_partial('search/aggregation', [
+          'id' => '#facet-places',
+          'label' => sfConfig::get('app_ui_label_place'),
+          'name' => 'place',
+          'aggs' => $aggs,
+          'filters' => $search->filters, ]); ?>
 
-        <?php echo get_partial('search/aggregation', [
-            'id' => '#facet-occupation',
-            'label' => __('Occupation'),
-            'name' => 'occupation',
-            'aggs' => $aggs,
-            'filters' => $search->filters, ]); ?>
+      <?php echo get_partial('search/aggregation', [
+          'id' => '#facet-subjects',
+          'label' => sfConfig::get('app_ui_label_subject'),
+          'name' => 'subject',
+          'aggs' => $aggs,
+          'filters' => $search->filters, ]); ?>
 
-        <?php echo get_partial('search/aggregation', [
-            'id' => '#facet-places',
-            'label' => sfConfig::get('app_ui_label_place'),
-            'name' => 'place',
-            'aggs' => $aggs,
-            'filters' => $search->filters, ]); ?>
+      <?php echo get_partial('search/aggregation', [
+          'id' => '#facet-mediaTypes',
+          'label' => sfConfig::get('app_ui_label_mediatype'),
+          'name' => 'mediatypes',
+          'aggs' => $aggs,
+          'filters' => $search->filters, ]); ?>
 
-        <?php echo get_partial('search/aggregation', [
-            'id' => '#facet-subjects',
-            'label' => sfConfig::get('app_ui_label_subject'),
-            'name' => 'subject',
-            'aggs' => $aggs,
-            'filters' => $search->filters, ]); ?>
+    </div>
 
-        <?php echo get_partial('search/aggregation', [
-            'id' => '#facet-mediaTypes',
-            'label' => sfConfig::get('app_ui_label_mediatype'),
-            'name' => 'mediatypes',
-            'aggs' => $aggs,
-            'filters' => $search->filters, ]); ?>
-
-      </div>
-
-    </section>
   <?php end_slot(); ?>
 
 <?php } ?>
