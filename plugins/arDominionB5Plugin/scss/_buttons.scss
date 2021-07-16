@@ -5,7 +5,17 @@
   &:focus {
     background-color: $primary;
     border-color: $primary;
-    box-shadow: $btn-focus-box-shadow !important;
+    box-shadow: $btn-focus-box-shadow;
+  }
+}
+
+.atom-btn-white {
+  @include button-variant($white, $border-color);
+
+  &:hover,
+  &:focus {
+    background-color: $gray-200;
+    box-shadow: $atom-gray-box-shadow;
   }
 }
 
