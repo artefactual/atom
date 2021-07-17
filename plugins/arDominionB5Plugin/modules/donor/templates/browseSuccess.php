@@ -6,26 +6,20 @@
 <?php end_slot(); ?>
 
 <?php slot('before-content'); ?>
+  <div class="d-flex flex-wrap gap-2 mb-3">
+    <?php echo get_component('search', 'inlineSearch', [
+        'label' => __('Search donors'),
+        'landmarkLabel' => __('Donor'),
+    ]); ?>
 
-  <section class="header-options">
-    <div class="row">
-      <div class="span6">
-        <?php echo get_component('search', 'inlineSearch', [
-            'label' => __('Search donors'),
-            'landmarkLabel' => __('Donor'), ]); ?>
-      </div>
-
-      <div class="pickers">
-        <?php echo get_partial('default/sortPickers',
-          [
-              'options' => [
-                  'alphabetic' => __('Name'),
-                  'lastUpdated' => __('Date modified'),
-                  'identifier' => __('Identifier'), ], ]); ?>
-      </div>
+    <div class="d-flex gap-2 ms-auto">
+      <?php echo get_partial('default/sortPickers', ['options' => [
+          'alphabetic' => __('Name'),
+          'lastUpdated' => __('Date modified'),
+          'identifier' => __('Identifier'),
+      ]]); ?>
     </div>
-  </section>
-
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
