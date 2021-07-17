@@ -97,35 +97,30 @@
 
   <?php echo get_component('search', 'inlineSearch', [
       'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_actor'))]),
-      'landmarkLabel' => __(sfConfig::get('app_ui_label_actor')), ]); ?>
+      'landmarkLabel' => __(sfConfig::get('app_ui_label_actor')),
+  ]); ?>
 
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
 
-  <?php echo get_partial('actor/advancedSearch',
-    [
-        'criteria' => $search->criteria,
-        'form' => $form,
-        'fieldOptions' => $fieldOptions,
-        'hiddenFields' => $hiddenFields,
-        'show' => $showAdvanced,
-    ]
-  ); ?>
+  <?php echo get_partial('actor/advancedSearch', [
+      'criteria' => $search->criteria,
+      'form' => $form,
+      'fieldOptions' => $fieldOptions,
+      'hiddenFields' => $hiddenFields,
+      'show' => $showAdvanced,
+  ]); ?>
 
   <?php if (isset($pager) && $pager->getNbResults()) { ?>
-    <section class="browse-options">
 
-      <div class="pickers">
-        <?php echo get_partial('default/sortPickers',
-          [
-              'options' => [
-                  'lastUpdated' => __('Date modified'),
-                  'alphabetic' => __('Name'),
-                  'identifier' => __('Identifier'), ], ]); ?>
-      </div>
-
-    </section>
+    <div class="d-flex gap-2 justify-content-end mb-3">
+      <?php echo get_partial('default/sortPickers', ['options' => [
+          'lastUpdated' => __('Date modified'),
+          'alphabetic' => __('Name'),
+          'identifier' => __('Identifier'),
+      ]]); ?>
+    </div>
 
     <div id="content" class="browse-content">
 

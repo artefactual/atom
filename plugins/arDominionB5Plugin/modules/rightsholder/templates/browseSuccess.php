@@ -11,26 +11,21 @@
 <?php end_slot(); ?>
 
 <?php slot('before-content'); ?>
+  <div class="d-flex flex-wrap gap-2 mb-3">
 
-  <section class="header-options">
-    <div class="row">
-      <div class="span6">
-        <?php echo get_component('search', 'inlineSearch', [
-            'label' => __('Search rights holders'),
-            'landmarkLabel' => __('Rights holder'), ]); ?>
-      </div>
+    <?php echo get_component('search', 'inlineSearch', [
+        'label' => __('Search rights holders'),
+        'landmarkLabel' => __('Rights holder'),
+    ]); ?>
 
-      <div class="pickers">
-        <?php echo get_partial('default/sortPickers',
-          [
-              'options' => [
-                  'lastUpdated' => __('Date modified'),
-                  'alphabetic' => __('Name'),
-                  'identifier' => __('Identifier'), ], ]); ?>
-      </div>
+    <div class="d-flex gap-2 ms-auto">
+      <?php echo get_partial('default/sortPickers', ['options' => [
+          'lastUpdated' => __('Date modified'),
+          'alphabetic' => __('Name'),
+          'identifier' => __('Identifier'),
+      ]]); ?>
     </div>
-  </section>
-
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
