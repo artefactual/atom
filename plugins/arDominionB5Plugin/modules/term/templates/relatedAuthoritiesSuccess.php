@@ -67,8 +67,8 @@
             [$resource, 'module' => 'term']
             + $params
         ); ?>"
-        class="btn btn-sm atom-btn-white"
-        aria-label="<?php echo __('Remove filter'); ?>">
+        class="btn btn-sm atom-btn-white">
+        <span class="visually-hidden"><?php echo __('Remove filter:'); ?></span>
         <?php echo __('Only results directly related'); ?>
         <i aria-hidden="true" class="fas fa-times ms-2 text-primary"></i>
       </a>
