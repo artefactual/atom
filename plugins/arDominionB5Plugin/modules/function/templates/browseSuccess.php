@@ -14,26 +14,20 @@
 <?php end_slot(); ?>
 
 <?php slot('before-content'); ?>
+  <div class="d-flex flex-wrap gap-2 mb-3">
+    <?php echo get_component('search', 'inlineSearch', [
+        'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_function'))]),
+        'landmarkLabel' => __(sfConfig::get('app_ui_label_function')),
+    ]); ?>
 
-  <section class="header-options">
-    <div class="row">
-      <div class="span6">
-        <?php echo get_component('search', 'inlineSearch', [
-            'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_function'))]),
-            'landmarkLabel' => __(sfConfig::get('app_ui_label_function')), ]); ?>
-      </div>
-
-      <div class="pickers">
-        <?php echo get_partial('default/sortPickers',
-          [
-              'options' => [
-                  'lastUpdated' => __('Date modified'),
-                  'alphabetic' => __('Name'),
-                  'identifier' => __('Identifier'), ], ]); ?>
-      </div>
+    <div class="d-flex gap-2 ms-auto">
+      <?php echo get_partial('default/sortPickers', ['options' => [
+          'lastUpdated' => __('Date modified'),
+          'alphabetic' => __('Name'),
+          'identifier' => __('Identifier'),
+      ]]); ?>
     </div>
-  </section>
-
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
