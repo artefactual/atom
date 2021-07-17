@@ -90,16 +90,16 @@
 <?php } ?>
 
 <?php slot('before-content'); ?>
-
   <div class="d-flex flex-wrap gap-2 mb-3">
     <?php echo get_partial('search/filterTags', ['filterTags' => $filterTags]); ?>
   </div>
 
-  <?php echo get_component('search', 'inlineSearch', [
-      'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_actor'))]),
-      'landmarkLabel' => __(sfConfig::get('app_ui_label_actor')),
-  ]); ?>
-
+  <div class="d-inline-block mb-3">
+    <?php echo get_component('search', 'inlineSearch', [
+        'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_actor'))]),
+        'landmarkLabel' => __(sfConfig::get('app_ui_label_actor')),
+    ]); ?>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>

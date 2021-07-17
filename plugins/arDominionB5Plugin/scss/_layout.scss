@@ -19,6 +19,10 @@
   .navbar a.dropdown-toggle::after {
     content: none;
   }
+
+  #inline-search {
+    min-width: 400px;
+  }
 }
 
 .dropdown-header {
