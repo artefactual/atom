@@ -51,14 +51,20 @@
   <?php echo get_partial('term/actions', ['resource' => $resource]); ?>
 
   <?php if ($addBrowseElements) { ?>
-    <h1><?php echo __('%1% %2% results for %3%', ['%1%' => $pager->getNbResults(), '%2%' => sfConfig::get('app_ui_label_informationobject'), '%3%' => render_title($resource)]); ?></h1>
+    <h1 class="mt-3">
+      <?php echo __('%1% %2% results for %3%', [
+          '%1%' => $pager->getNbResults(),
+          '%2%' => sfConfig::get('app_ui_label_informationobject'),
+          '%3%' => render_title($resource), ]);
+      ?>
+    </h1>
 
-    <?php if (isset($sf_request->onlyDirect)) { ?>
-      <div class="d-flex flex-wrap gap-2 mb-3">
+    <div class="d-flex flex-wrap gap-2 mb-3">
+      <?php if (isset($sf_request->onlyDirect)) { ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters(); ?>
         <?php unset($params['onlyDirect']); ?>
         <?php unset($params['page']); ?>
-        <a 
+        <a
           href="<?php echo url_for(
               [$resource, 'module' => 'term']
               + $params
@@ -66,20 +72,21 @@
           class="btn btn-sm atom-btn-white"
           aria-label="<?php echo __('Remove filter'); ?>">
           <?php echo __('Only results directly related'); ?>
-          <i aria-hidden="true" class="fas fa-times ms-2"></i>
+          <i aria-hidden="true" class="fas fa-times ms-2 text-primary"></i>
         </a>
+      <?php } ?>
+
+
+      <div class="d-flex gap-2 ms-auto">
+        <?php echo get_partial('default/sortPickers', ['options' => [
+            'lastUpdated' => __('Date modified'),
+            'alphabetic' => __('Title'),
+            'referenceCode' => __('Reference code'),
+            'date' => __('Start date'),
+        ]]); ?>
       </div>
-    <?php } ?>
-
-
-    <div class="pickers">
-      <?php echo get_partial('default/sortPickers', [
-          'options' => [
-              'lastUpdated' => __('Date modified'),
-              'alphabetic' => __('Title'),
-              'referenceCode' => __('Reference code'),
-              'date' => __('Start date'), ], ]); ?>
     </div>
+
 
     <div id="content">
 
