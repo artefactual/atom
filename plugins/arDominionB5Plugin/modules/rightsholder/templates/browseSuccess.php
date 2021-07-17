@@ -12,7 +12,6 @@
 
 <?php slot('before-content'); ?>
   <div class="d-flex flex-wrap gap-2 mb-3">
-
     <?php echo get_component('search', 'inlineSearch', [
         'label' => __('Search rights holders'),
         'landmarkLabel' => __('Rights holder'),

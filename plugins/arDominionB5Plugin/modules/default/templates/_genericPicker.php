@@ -1,13 +1,11 @@
 <?php
-
-$options = $sf_data->getRaw('options');
-$param = $sf_data->getRaw('param');
-if (isset($sf_request->{$param}, $options[$sf_request->{$param}])) {
-    $active = $sf_request->{$param};
-} else {
-    $active = array_key_first($options);
-}
-
+    $options = $sf_data->getRaw('options');
+    $param = $sf_data->getRaw('param');
+    if (isset($sf_request->{$param}, $options[$sf_request->{$param}])) {
+        $active = $sf_request->{$param};
+    } else {
+        $active = array_key_first($options);
+    }
 ?>
 
 <div class="dropdown d-inline-block">
