@@ -70,46 +70,45 @@
 <?php end_slot(); ?>
 
 <?php slot('before-content'); ?>
+  <?php echo get_component('search', 'inlineSearch', [
+      'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_repository'))]),
+      'landmarkLabel' => __(sfConfig::get('app_ui_label_repository')),
+  ]); ?>
 
-  <section class="browse-options">
-    <div class="row">
-      <div class="span4">
-        <?php echo get_component('search', 'inlineSearch', [
-            'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_repository'))]),
-            'landmarkLabel' => __(sfConfig::get('app_ui_label_repository')), ]); ?>
-      </div>
-
-      <div class="accordion mb-3" role="search">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="heading-adv-search">
-            <button class="accordion-button<?php echo $show ? '' : ' collapsed'; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-adv-search" aria-expanded="<?php echo $show ? 'true' : 'false'; ?>" aria-controls="collapse-adv-search">
-              <?php echo __('Advanced search options'); ?>
-            </button>
-          </h2>
-          <div id="collapse-adv-search" class="accordion-collapse collapse<?php echo $show ? ' show' : ''; ?>" aria-labelledby="heading-adv-search">
-            <div class="accordion-body">
-              <?php echo get_component('repository', 'advancedFilters', [
-                  'thematicAreas' => $thematicAreas,
-                  'repositories' => $repositories,
-                  'repositoryTypes' => $repositoryTypes, ] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()); ?>
-          </div>
+  <div class="accordion mb-3" role="search">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading-adv-search">
+        <button class="accordion-button<?php echo $show ? '' : ' collapsed'; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-adv-search" aria-expanded="<?php echo $show ? 'true' : 'false'; ?>" aria-controls="collapse-adv-search">
+          <?php echo __('Advanced search options'); ?>
+        </button>
+      </h2>
+      <div id="collapse-adv-search" class="accordion-collapse collapse<?php echo $show ? ' show' : ''; ?>" aria-labelledby="heading-adv-search">
+        <div class="accordion-body">
+          <?php echo get_component('repository', 'advancedFilters', [
+              'thematicAreas' => $thematicAreas,
+              'repositories' => $repositories,
+              'repositoryTypes' => $repositoryTypes, ] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()); ?>
         </div>
       </div>
-
-      <?php echo get_partial('default/viewPicker', ['view' => $view, 'cardView' => $cardView,
-          'tableView' => $tableView, 'module' => 'repository', ]); ?>
-
-      <div class="pickers">
-        <?php echo get_partial('default/sortPickers',
-          [
-              'options' => [
-                  'lastUpdated' => __('Date modified'),
-                  'alphabetic' => __('Name'),
-                  'identifier' => __('Identifier'), ], ]); ?>
-      </div>
     </div>
-  </section>
+  </div>
 
+  <div class="d-flex flex-wrap gap-2 mb-3">
+    <?php echo get_partial('default/viewPicker', [
+        'view' => $view,
+        'cardView' => $cardView,
+        'tableView' => $tableView,
+        'module' => 'repository',
+    ]); ?>
+
+    <div class="d-flex gap-2 ms-auto">
+      <?php echo get_partial('default/sortPickers', ['options' => [
+          'lastUpdated' => __('Date modified'),
+          'alphabetic' => __('Name'),
+          'identifier' => __('Identifier'),
+      ]]); ?>
+    </div>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>
