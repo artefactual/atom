@@ -1,15 +1,12 @@
 <h1><?php echo __('List users'); ?></h1>
 
-<section class="header-options">
-  <div class="row">
-    <div class="span6">
-      <?php echo get_component('search', 'inlineSearch', [
-          'label' => __('Search users'),
-          'landmarkLabel' => __('User'),
-          'route' => url_for(['module' => 'user', 'action' => 'list']), ]); ?>
-    </div>
-  </div>
-</section>
+<div class="d-inline-block mb-3">
+  <?php echo get_component('search', 'inlineSearch', [
+      'label' => __('Search users'),
+      'landmarkLabel' => __('User'),
+      'route' => url_for(['module' => 'user', 'action' => 'list']),
+  ]); ?>
+</div>
 
 <ul class="nav nav-pills">
   <li<?php if ('onlyInactive' != $sf_request->filter) { ?> class="active"<?php } ?>><?php echo link_to(__('Show active only'), ['filter' => 'onlyActive'] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()); ?></li>

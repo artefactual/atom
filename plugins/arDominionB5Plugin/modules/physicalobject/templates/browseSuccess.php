@@ -6,15 +6,12 @@
 <?php end_slot(); ?>
 
 <?php slot('before-content'); ?>
-  <section class="header-options">
-    <div class="row">
-      <div class="span6">
-        <?php echo get_component('search', 'inlineSearch', [
-            'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_physicalobject'))]),
-            'landmarkLabel' => __(sfConfig::get('app_ui_label_physicalobject')), ]); ?>
-      </div>
-    </div>
-  </section>
+  <div class="d-inline-block mb-3">
+    <?php echo get_component('search', 'inlineSearch', [
+        'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_physicalobject'))]),
+        'landmarkLabel' => __(sfConfig::get('app_ui_label_physicalobject')),
+    ]); ?>
+  </div>
 <?php end_slot(); ?>
 
 <?php slot('content'); ?>

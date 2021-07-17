@@ -70,10 +70,12 @@
 <?php end_slot(); ?>
 
 <?php slot('before-content'); ?>
-  <?php echo get_component('search', 'inlineSearch', [
-      'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_repository'))]),
-      'landmarkLabel' => __(sfConfig::get('app_ui_label_repository')),
-  ]); ?>
+  <div class="d-inline-block mb-3">
+    <?php echo get_component('search', 'inlineSearch', [
+        'label' => __('Search %1%', ['%1%' => strtolower(sfConfig::get('app_ui_label_repository'))]),
+        'landmarkLabel' => __(sfConfig::get('app_ui_label_repository')),
+    ]); ?>
+  </div>
 
   <div class="accordion mb-3" role="search">
     <div class="accordion-item">
