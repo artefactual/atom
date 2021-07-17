@@ -26,7 +26,6 @@
 
 <?php slot('before-content'); ?>
   <div class="d-flex flex-wrap gap-2 mb-3">
-
     <?php echo get_component('search', 'inlineSearch', [
         'label' => __('Search %1%', ['%1%' => strtolower(render_title($resource))]),
         'landmarkLabel' => __(render_title($resource)),
