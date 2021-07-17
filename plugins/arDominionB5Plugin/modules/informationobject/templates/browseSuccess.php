@@ -119,9 +119,7 @@
 <?php } ?>
 
 <?php slot('before-content'); ?>
-
   <div class="d-flex flex-wrap gap-2 mb-3">
-
     <?php if ($topLod) { ?>
       <?php $params = $sf_data->getRaw('sf_request')->getGetParameters(); ?>
       <?php $params['topLod'] = 0; ?>
@@ -134,12 +132,11 @@
         class="btn btn-sm atom-btn-white"
         aria-label="<?php echo __('Remove filter'); ?>">
         <?php echo __('Only top-level descriptions'); ?>
-        <i aria-hidden="true" class="fas fa-times ms-2"></i>
+        <i aria-hidden="true" class="fas fa-times ms-2 text-primary"></i>
       </a>
     <?php } ?>
 
     <?php echo get_partial('search/filterTags', ['filterTags' => $filterTags]); ?>
-
   </div>
 
 <?php end_slot(); ?>
@@ -157,29 +154,34 @@
 
   <?php if (isset($pager) && $pager->getNbResults()) { ?>
 
-    <section class="browse-options">
+    <div class="d-flex flex-wrap gap-2 mb-3">
       <?php echo get_partial('default/printPreviewButton'); ?>
 
       <?php if ('yes' === sfConfig::get('app_treeview_show_browse_hierarchy_page', 'no')) { ?>
-        <a href="<?php echo url_for(['module' => 'browse', 'action' => 'hierarchy']); ?>">
-          <i class="fa fa-sitemap"></i>
-          Hierarchy
+        <a
+          class="btn btn-sm atom-btn-white"
+          href="<?php echo url_for(['module' => 'browse', 'action' => 'hierarchy']); ?>">
+          <i class="fas fa-sitemap me-1 text-primary" aria-hidden="true"></i>
+          <?php echo __('Hierarchy'); ?>
         </a>
       <?php } ?>
 
       <?php if ($sf_user->isAuthenticated()) { ?>
-        <a href="<?php echo url_for(array_merge($sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), ['module' => 'informationobject', 'action' => 'exportCsv'])); ?>">
-          <i class="fa fa-upload"></i>
+        <a
+          class="btn btn-sm atom-btn-white"
+          href="<?php echo url_for(array_merge(
+              $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
+              ['module' => 'informationobject', 'action' => 'exportCsv']
+          )); ?>">
+          <i class="fas fa-upload me-1 text-primary" aria-hidden="true"></i>
           <?php echo __('Export CSV'); ?>
         </a>
       <?php } ?>
 
-      <span>
-        <?php echo get_partial('default/viewPicker', ['view' => $view, 'cardView' => $cardView,
-            'tableView' => $tableView, 'module' => 'informationobject', ]); ?>
-      </span>
+      <?php echo get_partial('default/viewPicker', ['view' => $view, 'cardView' => $cardView,
+          'tableView' => $tableView, 'module' => 'informationobject', ]); ?>
 
-      <div class="pickers">
+      <div class="d-flex gap-2 ms-auto">
         <?php echo get_partial('default/sortPickers', [
             'options' => [
                 'lastUpdated' => __('Date modified'),
@@ -190,7 +192,7 @@
                 'startDate' => __('Start date'),
                 'endDate' => __('End date'), ], ]); ?>
       </div>
-    </section>
+    </div>
 
     <div id="content" class="browse-content">
       <?php if (!isset($sf_request->onlyMedia) && isset($aggs['digitalobjects']) && 0 < $aggs['digitalobjects']['doc_count']) { ?>

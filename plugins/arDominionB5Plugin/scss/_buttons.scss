@@ -5,6 +5,10 @@
   &:focus {
     background-color: $primary;
     border-color: $primary;
+  }
+
+  &:focus,
+  &:focus:active {
     box-shadow: $btn-focus-box-shadow;
   }
 }
@@ -15,7 +19,16 @@
   &:hover,
   &:focus {
     background-color: $gray-200;
+  }
+
+  &:focus,
+  &:focus:active {
     box-shadow: $atom-gray-box-shadow;
+  }
+
+  &.active {
+    background-color: $gray-300;
+    border-color: $gray-400;
   }
 }
 

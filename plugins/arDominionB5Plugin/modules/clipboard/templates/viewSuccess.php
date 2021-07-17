@@ -30,20 +30,21 @@
   <?php end_slot(); ?>
 
   <?php slot('before-content'); ?>
-    <section class="browse-options">
-      <?php echo get_partial('default/printPreviewButton', ['class' => 'clipboard-print']); ?>
+    <div class="d-flex flex-wrap gap-2 mb-3">
+      <?php echo get_partial('default/printPreviewButton'); ?>
 
-      <div class="pickers">
+      <div class="d-flex gap-2 ms-auto">
         <?php echo get_partial('default/genericPicker', [
             'options' => $uiLabels,
             'label' => __('Entity type'),
-            'param' => 'type', ]); ?>
+            'param' => 'type',
+        ]); ?>
 
         <?php if ($pager->getNbResults()) { ?>
           <?php echo get_partial('default/sortPickers', ['options' => $sortOptions]); ?>
         <?php } ?>
       </div>
-    </section>
+    </div>
   <?php end_slot(); ?>
 
   <?php slot('content'); ?>
