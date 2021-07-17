@@ -129,8 +129,8 @@
             ['module' => 'informationobject', 'action' => 'browse']
             + $params
         ); ?>"
-        class="btn btn-sm atom-btn-white"
-        aria-label="<?php echo __('Remove filter'); ?>">
+        class="btn btn-sm atom-btn-white">
+        <span class="visually-hidden"><?php echo __('Remove filter:'); ?></span>
         <?php echo __('Only top-level descriptions'); ?>
         <i aria-hidden="true" class="fas fa-times ms-2 text-primary"></i>
       </a>
