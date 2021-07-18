@@ -119,7 +119,7 @@
 <?php } ?>
 
 <?php slot('before-content'); ?>
-  <div class="d-flex flex-wrap gap-2 mb-3">
+  <div class="d-flex flex-wrap gap-2">
     <?php if ($topLod) { ?>
       <?php $params = $sf_data->getRaw('sf_request')->getGetParameters(); ?>
       <?php $params['topLod'] = 0; ?>
@@ -129,10 +129,14 @@
             ['module' => 'informationobject', 'action' => 'browse']
             + $params
         ); ?>"
-        class="btn btn-sm atom-btn-white">
-        <span class="visually-hidden"><?php echo __('Remove filter:'); ?></span>
-        <?php echo __('Only top-level descriptions'); ?>
-        <i aria-hidden="true" class="fas fa-times ms-2 text-primary"></i>
+        class="btn btn-sm atom-btn-white align-self-start mw-100 filter-tag d-flex">
+        <span class="visually-hidden">
+          <?php echo __('Remove filter:'); ?>
+        </span>
+        <span class="text-truncate d-inline-block">
+          <?php echo __('Only top-level descriptions'); ?>
+        </span>
+        <i aria-hidden="true" class="fas fa-times ms-2 text-primary align-self-center"></i>
       </a>
     <?php } ?>
 
