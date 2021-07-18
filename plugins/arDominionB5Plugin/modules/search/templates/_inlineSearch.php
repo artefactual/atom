@@ -28,6 +28,7 @@
         class="btn btn-sm atom-btn-white dropdown-toggle"
         type="button"
         data-bs-toggle="dropdown"
+        data-bs-auto-close="outside"
         aria-expanded="false">
         <i class="fas fa-cog" aria-hidden="true"></i>
         <span class="visually-hidden"><?php echo __('Search options'); ?></span>
