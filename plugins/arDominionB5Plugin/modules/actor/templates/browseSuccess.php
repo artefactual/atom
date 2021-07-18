@@ -90,7 +90,7 @@
 <?php } ?>
 
 <?php slot('before-content'); ?>
-  <div class="d-flex flex-wrap gap-2 mb-3">
+  <div class="d-flex flex-wrap gap-2">
     <?php echo get_partial('search/filterTags', ['filterTags' => $filterTags]); ?>
   </div>
 
