@@ -1,6 +1,6 @@
 <?php if ($showLogin) { ?>
   <div class="dropdown my-2">
-    <button class="btn btn-sm atom-btn-secondary dropdown-toggle" type="button" id="user-menu" data-bs-toggle="dropdown" aria-expanded="false">
+    <button class="btn btn-sm atom-btn-secondary dropdown-toggle" type="button" id="user-menu" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
       <?php echo $menuLabels['login']; ?>
     </button>
     <div class="dropdown-menu dropdown-menu-lg-end mt-2" aria-labelledby="user-menu">
