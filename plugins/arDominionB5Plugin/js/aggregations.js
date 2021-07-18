@@ -4,7 +4,7 @@
 
   $(() => {
     var $aggs = $('#collapse-aggregations');
-    if ($aggs.length > 0) {
+    if ($aggs.length) {
       // Use a div with Bootstrap classes to check the current
       // breakpoint based on its visibility, expand the main
       // aggregations section on medium screens and open the
