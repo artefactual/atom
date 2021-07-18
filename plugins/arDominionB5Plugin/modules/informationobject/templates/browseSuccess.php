@@ -29,12 +29,12 @@
   <?php slot('sidebar'); ?>
 
     <h2 class="d-grid">
-      <button class="btn btn-lg atom-btn-white text-wrap" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-aggregations" aria-expanded="true" aria-controls="collapse-aggregations">
+      <button class="btn btn-lg atom-btn-white collapsed text-wrap" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-aggregations" aria-expanded="false" aria-controls="collapse-aggregations">
         <?php echo sfConfig::get('app_ui_label_facetstitle'); ?>
       </button>
     </h2>
 
-    <div class="collapse show" id="collapse-aggregations">
+    <div class="collapse" id="collapse-aggregations">
 
       <?php if ($sf_user->getAttribute('search-realm') && sfConfig::get('app_enable_institutional_scoping')) { ?>
         <?php include_component('repository', 'holdingsInstitution', ['resource' => QubitRepository::getById($sf_user->getAttribute('search-realm'))]); ?>
