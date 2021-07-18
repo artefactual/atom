@@ -59,7 +59,7 @@
       ?>
     </h1>
 
-    <div class="d-flex flex-wrap gap-2 mb-3">
+    <div class="d-flex flex-wrap gap-2">
       <?php if (isset($sf_request->onlyDirect)) { ?>
         <?php $params = $sf_data->getRaw('sf_request')->getGetParameters(); ?>
         <?php unset($params['onlyDirect']); ?>
@@ -69,10 +69,14 @@
               [$resource, 'module' => 'term']
               + $params
           ); ?>"
-          class="btn btn-sm atom-btn-white">
-          <span class="visually-hidden"><?php echo __('Remove filter:'); ?></span>
-          <?php echo __('Only results directly related'); ?>
-          <i aria-hidden="true" class="fas fa-times ms-2 text-primary"></i>
+          class="btn btn-sm atom-btn-white align-self-start mw-100 filter-tag d-flex">
+          <span class="visually-hidden">
+            <?php echo __('Remove filter:'); ?>
+          </span>
+          <span class="text-truncate d-inline-block">
+            <?php echo __('Only results directly related'); ?>
+          </span>
+          <i aria-hidden="true" class="fas fa-times ms-2 text-primary align-self-center"></i>
         </a>
       <?php } ?>
 
