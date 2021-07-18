@@ -29,6 +29,10 @@
   font-size: 1.25rem;
 }
 
+.filter-tag:last-child {
+  margin-bottom: $spacer;
+}
+
 #content {
   background-color: $white;
   border: $border-width solid $border-color;
