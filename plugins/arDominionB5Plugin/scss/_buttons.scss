@@ -55,5 +55,16 @@
 
     color: $white;
     border-color: $white;
+
+    &:hover,
+    &:focus {
+      color: color-contrast($value);
+      background-color: $value;
+      border-color: $value;
+    }
+
+    &:disabled {
+      color: $white;
+    }
   }
 }
