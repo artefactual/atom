@@ -89,16 +89,19 @@
 
     <?php if (sfConfig::get('app_audit_log_enabled', false)) { ?>
       <div id="editing-history-wrapper">
-        <div class="accordion">
+        <div class="accordion hidden" id="editingHistory">
           <div class="accordion-item">
             <h2 class="accordion-header" id="history-heading">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#history-collapse" aria-expanded="false" aria-controls="history-collapse">
                 <?php echo __('Editing history'); ?>
-                <?php echo image_tag('/vendor/jstree/themes/default/throbber.gif', ['id' => 'editingHistoryActivityIndicator', 'class' => 'hidden', 'alt' => __('Loading ...')]); ?>
+                <span id="editingHistoryActivityIndicator">
+                  <i class="fas fa-spinner fa-spin ms-2" aria-hidden="true"></i>
+                  <span class="visually-hidden"><?php echo __('Loading ...'); ?></span>
+                </span>
               </button>
             </h2>
             <div id="history-collapse" class="accordion-collapse collapse" aria-labelledby="history-heading">
-              <div class="accordion-body">
+              <div class="accordion-body table-responsive">
                 <table class="table table-bordered table-striped sticky-enabled">
                   <thead>
                     <tr>
@@ -117,9 +120,9 @@
                   </tbody>
                 </table>
 
-                <div class="text-right">
-                  <input class="btn" type="button" id='previousButton' value='<?php echo __('Previous'); ?>'>
-                  <input class="btn" type="button" id='nextButton' value='<?php echo __('Next'); ?>'>
+                <div class="text-end">
+                  <input class="btn atom-btn-white" type="button" id='previousButton' value='<?php echo __('Previous'); ?>'>
+                  <input class="btn atom-btn-white" type="button" id='nextButton' value='<?php echo __('Next'); ?>'>
                 </div>
               </div>
             </div>
