@@ -10,5 +10,5 @@
   <span class="text-truncate d-inline-block">
     <?php echo $label ?: render_title($object); ?>
   </span>
-  <i aria-hidden="true" class="fas fa-times ms-2 text-primary align-self-center"></i>
+  <i aria-hidden="true" class="fas fa-times ms-2 align-self-center"></i>
 </a>

@@ -6,7 +6,7 @@
         ['module' => $module, 'action' => 'browse', 'view' => $cardView]
         + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()
     ); ?>">
-    <i class="fas fa-th-large me-1 text-primary" aria-hidden="true"></i>
+    <i class="fas fa-th-large me-1" aria-hidden="true"></i>
     <?php echo __('Card view'); ?>
   </a>
   <a
@@ -16,7 +16,7 @@
         ['module' => $module, 'action' => 'browse', 'view' => $tableView]
         + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()
     ); ?>">
-    <i class="fas fa-list me-1 text-primary" aria-hidden="true"></i>
+    <i class="fas fa-list me-1" aria-hidden="true"></i>
     <?php echo __('Table view'); ?>
   </a>
 </div>
