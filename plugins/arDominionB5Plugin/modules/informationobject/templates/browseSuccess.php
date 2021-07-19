@@ -136,7 +136,7 @@
         <span class="text-truncate d-inline-block">
           <?php echo __('Only top-level descriptions'); ?>
         </span>
-        <i aria-hidden="true" class="fas fa-times ms-2 text-primary align-self-center"></i>
+        <i aria-hidden="true" class="fas fa-times ms-2 align-self-center"></i>
       </a>
     <?php } ?>
 
@@ -165,7 +165,7 @@
         <a
           class="btn btn-sm atom-btn-white"
           href="<?php echo url_for(['module' => 'browse', 'action' => 'hierarchy']); ?>">
-          <i class="fas fa-sitemap me-1 text-primary" aria-hidden="true"></i>
+          <i class="fas fa-sitemap me-1" aria-hidden="true"></i>
           <?php echo __('Hierarchy'); ?>
         </a>
       <?php } ?>
@@ -177,7 +177,7 @@
               $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
               ['module' => 'informationobject', 'action' => 'exportCsv']
           )); ?>">
-          <i class="fas fa-upload me-1 text-primary" aria-hidden="true"></i>
+          <i class="fas fa-upload me-1" aria-hidden="true"></i>
           <?php echo __('Export CSV'); ?>
         </a>
       <?php } ?>
@@ -198,19 +198,25 @@
       </div>
     </div>
 
-    <div id="content" class="browse-content">
+    <div id="content" class="p-0">
       <?php if (!isset($sf_request->onlyMedia) && isset($aggs['digitalobjects']) && 0 < $aggs['digitalobjects']['doc_count']) { ?>
-        <div class="search-result media-summary">
-          <p>
-            <?php echo __('%1% results with digital objects', [
-                '%1%' => $aggs['digitalobjects']['doc_count'], ]); ?>
-            <?php $params = $sf_data->getRaw('sf_request')->getGetParameters(); ?>
-            <?php unset($params['page']); ?>
-            <a href="<?php echo url_for(['module' => 'informationobject', 'action' => 'browse'] + $params + ['onlyMedia' => true]); ?>">
-              <i class="fa fa-search"></i>
-              <?php echo __('Show results with digital objects'); ?>
-            </a>
-          </p>
+        <div class="d-grid d-sm-flex gap-2 align-items-center p-3 border-bottom">
+          <?php echo __(
+              '%1% results with digital objects',
+              ['%1%' => $aggs['digitalobjects']['doc_count']]
+          ); ?>
+          <?php $params = $sf_data->getRaw('sf_request')->getGetParameters(); ?>
+          <?php unset($params['page']); ?>
+          <a
+            class="btn btn-sm atom-btn-white ms-auto text-wrap"
+            href="<?php echo url_for(
+                ['module' => 'informationobject', 'action' => 'browse']
+                + $params
+                + ['onlyMedia' => true]
+            ); ?>">
+            <i class="fas fa-search me-1" aria-hidden="true"></i>
+            <?php echo __('Show results with digital objects'); ?>
+          </a>
         </div>
       <?php } ?>
 
