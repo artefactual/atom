@@ -185,16 +185,16 @@
       <?php echo get_partial('default/viewPicker', ['view' => $view, 'cardView' => $cardView,
           'tableView' => $tableView, 'module' => 'informationobject', ]); ?>
 
-      <div class="d-flex gap-2 ms-auto">
-        <?php echo get_partial('default/sortPickers', [
-            'options' => [
-                'lastUpdated' => __('Date modified'),
-                'alphabetic' => __('Title'),
-                'relevance' => __('Relevance'),
-                'identifier' => __('Identifier'),
-                'referenceCode' => __('Reference code'),
-                'startDate' => __('Start date'),
-                'endDate' => __('End date'), ], ]); ?>
+      <div class="d-flex flex-wrap gap-2 ms-auto">
+        <?php echo get_partial('default/sortPickers', ['options' => [
+            'lastUpdated' => __('Date modified'),
+            'alphabetic' => __('Title'),
+            'relevance' => __('Relevance'),
+            'identifier' => __('Identifier'),
+            'referenceCode' => __('Reference code'),
+            'startDate' => __('Start date'),
+            'endDate' => __('End date'),
+        ]]); ?>
       </div>
     </div>
 

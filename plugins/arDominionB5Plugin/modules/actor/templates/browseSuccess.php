@@ -114,7 +114,7 @@
 
   <?php if (isset($pager) && $pager->getNbResults()) { ?>
 
-    <div class="d-flex gap-2 justify-content-end mb-3">
+    <div class="d-flex flex-wrap gap-2 justify-content-end mb-3">
       <?php echo get_partial('default/sortPickers', ['options' => [
           'lastUpdated' => __('Date modified'),
           'alphabetic' => __('Name'),

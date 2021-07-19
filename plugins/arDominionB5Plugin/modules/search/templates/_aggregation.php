@@ -32,11 +32,11 @@
             .'<span class="visually-hidden">, '
             .$bucket['doc_count'].' '.__('results')
             .'</span>'
-            .'<span aria-hidden="true" class="ms-3">'
+            .'<span aria-hidden="true" class="ms-3 text-nowrap">'
             .$bucket['doc_count']
             .'</span>',
             ['page' => null, $name => 'unique_language' == $bucket['key'] ? null : $bucket['key']] + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
-            ['class' => 'list-group-item list-group-item-action d-flex justify-content-between align-items-center'.($active ? ' active text-decoration-underline' : '')]
+            ['class' => 'list-group-item list-group-item-action d-flex justify-content-between align-items-center text-break'.($active ? ' active text-decoration-underline' : '')]
         ); ?>
       <?php } ?>
     </div>
