@@ -4,6 +4,6 @@
       $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
       ['media' => 'print']
   )); ?>">
-  <i class="fas fa-print me-1 text-primary" aria-hidden="true"></i>
+  <i class="fas fa-print me-1" aria-hidden="true"></i>
   <?php echo __('Print preview'); ?>
 </a>
