@@ -136,7 +136,7 @@
           'scopeAndContent',
           ['culture' => $culture]
       )) { ?>
-        <span class="text-block">
+        <span class="text-block d-none">
           <?php echo render_value($scopeAndContent); ?>
         </span>
       <?php } ?>
