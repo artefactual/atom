@@ -40,8 +40,14 @@
   padding: $spacer;
 }
 
-.search-result:last-child {
-  border-bottom: 0 !important;
+.search-result {
+  &:last-child {
+    border-bottom: 0 !important;
+  }
+
+  .text-block :last-child {
+    margin-bottom: 0;
+  }
 }
 
 .default-translation {
