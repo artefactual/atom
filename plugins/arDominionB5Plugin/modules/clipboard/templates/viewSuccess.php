@@ -33,7 +33,7 @@
     <div class="d-flex flex-wrap gap-2 mb-3">
       <?php echo get_partial('default/printPreviewButton'); ?>
 
-      <div class="d-flex gap-2 ms-auto">
+      <div class="d-flex flex-wrap gap-2 ms-auto">
         <?php echo get_partial('default/genericPicker', [
             'options' => $uiLabels,
             'label' => __('Entity type'),

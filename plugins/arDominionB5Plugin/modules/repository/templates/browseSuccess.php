@@ -103,7 +103,7 @@
         'module' => 'repository',
     ]); ?>
 
-    <div class="d-flex gap-2 ms-auto">
+    <div class="d-flex flex-wrap gap-2 ms-auto">
       <?php echo get_partial('default/sortPickers', ['options' => [
           'lastUpdated' => __('Date modified'),
           'alphabetic' => __('Name'),
