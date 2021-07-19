@@ -436,7 +436,9 @@ abstract class sfAction extends sfComponent
 
     if (null !== $module)
     {
-      $name = sfConfig::get('sf_app_dir').'/modules/'.$module.'/templates/'.$name;
+      $templateFile = $name.sfView::SUCCESS.'.php';
+      $dir = $this->context->getConfiguration()->getTemplateDir($module, $templateFile);
+      $name = $dir.'/'.$name;
     }
 
     sfConfig::set('symfony.view.'.$this->getModuleName().'_'.$this->getActionName().'_template', $name);
