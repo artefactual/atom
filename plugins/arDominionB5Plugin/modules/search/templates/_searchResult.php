@@ -136,7 +136,9 @@
           'scopeAndContent',
           ['culture' => $culture]
       )) { ?>
-        <span><?php echo render_value_inline($scopeAndContent); ?></span>
+        <span class="text-block">
+          <?php echo render_value($scopeAndContent); ?>
+        </span>
       <?php } ?>
 
       <?php if (
