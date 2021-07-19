@@ -40,6 +40,10 @@
   padding: $spacer;
 }
 
+.search-result:last-child {
+  border-bottom: 0 !important;
+}
+
 .default-translation {
   padding: math.div($spacer, 2);
   margin-bottom: math.div($spacer, 2);
