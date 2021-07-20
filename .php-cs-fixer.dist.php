@@ -19,11 +19,10 @@ $finder = PhpCsFixer\Finder::create()
 // PhpCsFixer's method_argument_space default value,
 // which includes ensure_fully_multiline, causes
 // inconsistencies in templates.
-$config = new PhpCsFixer\Config();
-return $config
+return (new PhpCsFixer\Config())
     ->setRules([
         '@PhpCsFixer' => true,
-        'method_argument_space' => true,
+        'method_argument_space' => ['on_multiline' => 'ignore'],
     ])
     ->setFinder($finder)
 ;
