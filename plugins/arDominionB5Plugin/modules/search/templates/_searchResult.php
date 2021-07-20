@@ -78,7 +78,7 @@
               && !empty($doc['levelOfDescriptionId'])
           ) { ?>
             <?php if ($showDash) { ?>
-              <span class="text-muted mx-2"> - </span>
+              <span class="text-muted mx-2"> · </span>
             <?php } ?>
             <span class="text-muted">
               <?php echo render_value_inline(
@@ -92,7 +92,7 @@
             <?php $date = render_search_result_date($doc['dates']); ?>
             <?php if (!empty($date)) { ?>
               <?php if ($showDash) { ?>
-                <span class="text-muted mx-2"> - </span>
+                <span class="text-muted mx-2"> · </span>
               <?php } ?>
               <span class="text-muted">
                 <?php echo render_value_inline($date); ?>
@@ -106,7 +106,7 @@
               && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $doc['publicationStatusId']
           ) { ?>
             <?php if ($showDash) { ?>
-              <span class="text-muted mx-2"> - </span>
+              <span class="text-muted mx-2"> · </span>
             <?php } ?>
             <span class="text-muted">
               <?php echo render_value_inline(
